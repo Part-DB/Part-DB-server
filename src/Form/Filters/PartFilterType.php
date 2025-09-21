@@ -22,9 +22,12 @@ declare(strict_types=1);
  */
 namespace App\Form\Filters;
 
+use App\DataTables\Filters\Constraints\Part\BulkImportPartStatusConstraint;
 use App\DataTables\Filters\Constraints\Part\ParameterConstraint;
 use App\DataTables\Filters\PartFilter;
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\InfoProviderSystem\BulkImportJobStatus;
+use App\Entity\InfoProviderSystem\BulkImportPartStatus;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -33,8 +36,12 @@ use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\ProjectSystem\Project;
 use App\Form\Filters\Constraints\BooleanConstraintType;
+use App\Form\Filters\Constraints\BulkImportJobExistsConstraintType;
+use App\Form\Filters\Constraints\BulkImportJobStatusConstraintType;
+use App\Form\Filters\Constraints\BulkImportPartStatusConstraintType;
 use App\Form\Filters\Constraints\ChoiceConstraintType;
 use App\Form\Filters\Constraints\DateTimeConstraintType;
+use App\Form\Filters\Constraints\EnumConstraintType;
 use App\Form\Filters\Constraints\NumberConstraintType;
 use App\Form\Filters\Constraints\ParameterConstraintType;
 use App\Form\Filters\Constraints\StructuralEntityConstraintType;
@@ -49,6 +56,8 @@ use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use function Symfony\Component\Translation\t;
 
 class PartFilterType extends AbstractType
 {
@@ -296,6 +305,31 @@ class PartFilterType extends AbstractType
                 ])
             ;
 
+        }
+
+        /**************************************************************************
+         * Bulk Import Job tab
+         **************************************************************************/
+        if ($this->security->isGranted('@info_providers.create_parts')) {
+            $builder
+                ->add('inBulkImportJob', BooleanConstraintType::class, [
+                    'label' => 'part.filter.in_bulk_import_job',
+                ])
+                ->add('bulkImportJobStatus', EnumConstraintType::class, [
+                    'enum_class' => BulkImportJobStatus::class,
+                    'label' => 'part.filter.bulk_import_job_status',
+                    'choice_label' => function (BulkImportJobStatus $value) {
+                        return t('bulk_import.status.' . $value->value);
+                    },
+                ])
+                ->add('bulkImportPartStatus', EnumConstraintType::class, [
+                    'enum_class' => BulkImportPartStatus::class,
+                    'label' => 'part.filter.bulk_import_part_status',
+                    'choice_label' => function (BulkImportPartStatus $value) {
+                        return t('bulk_import.part_status.' . $value->value);
+                    },
+                ])
+            ;
         }
 
 

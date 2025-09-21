@@ -30,7 +30,7 @@
         <input type="hidden" name="ids" {{ stimulus_target('elements/datatables/parts', 'selectIDs') }} value="">
 
         <div class="d-none mb-2 bg-body-tertiary shadow-sm border border-secondary rounded mx-2 p-2" {{ stimulus_target('elements/datatables/parts', 'selectPanel') }}>
-            {# <span id="select_count"></span> #}
+            <small class="text-muted">{% trans %}part_list.action.scrollable_hint{% endtrans %}</small>
 
             <div class="input-group">
                 <button class="btn btn-outline-secondary" type="button" {{ stimulus_action('elements/datatables/parts', 'invertSelection')}}
@@ -72,6 +72,10 @@
                         <option {% if not is_granted('@parts.read') %}disabled{% endif %} value="export_csv" data-url="{{  path('select_export_level')}}" data-turbo="false">{% trans %}part_list.action.export_csv{% endtrans %}</option>
                         <option {% if not is_granted('@parts.read') %}disabled{% endif %} value="export_yaml" data-url="{{  path('select_export_level')}}" data-turbo="false">{% trans %}part_list.action.export_yaml{% endtrans %}</option>
                         <option {% if not is_granted('@parts.read') %}disabled{% endif %} value="export_xml" data-url="{{  path('select_export_level')}}" data-turbo="false">{% trans %}part_list.action.export_xml{% endtrans %}</option>
+                        <option {% if not is_granted('@parts.read') %}disabled{% endif %} value="export_xlsx" data-url="{{  path('select_export_level')}}" data-turbo="false">{% trans %}part_list.action.export_xlsx{% endtrans %}</option>
+                    </optgroup>
+                    <optgroup label="{% trans %}part_list.action.action.info_provider{% endtrans %}">
+                        <option {% if not is_granted('@info_providers.create_parts') %}disabled{% endif %} value="bulk_info_provider_import" data-url="{{  path('bulk_info_provider_step1')}}" data-turbo="false">{% trans %}part_list.action.bulk_info_provider_import{% endtrans %}</option>
                     </optgroup>
                 </select>
 

@@ -1,0 +1,304 @@
+{% extends "main_card.html.twig" %}
+
+{% import "info_providers/providers.macro.html.twig" as providers_macro %}
+{% import "helper.twig" as helper %}
+
+{% block title %}
+    {% trans %}info_providers.bulk_import.step1.title{% endtrans %}
+{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-cloud-arrow-down"></i> {% trans %}info_providers.bulk_import.step1.title{% endtrans %}
+    <span class="badge bg-secondary">{{ parts|length }} {% trans %}info_providers.bulk_import.parts_selected{% endtrans %}</span>
+{% endblock %}
+
+{% block card_content %}
+
+<div>
+
+    <!-- Show existing jobs -->
+    {% if existing_jobs is not empty %}
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="mb-0">{% trans %}info_providers.bulk_import.existing_jobs{% endtrans %}</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>{% trans %}info_providers.bulk_import.job_name{% endtrans %}</th>
+                                <th>{% trans %}info_providers.bulk_import.parts_count{% endtrans %}</th>
+                                <th>{% trans %}info_providers.bulk_import.results_count{% endtrans %}</th>
+                                <th>{% trans %}info_providers.bulk_import.progress{% endtrans %}</th>
+                                <th>{% trans %}info_providers.bulk_import.status{% endtrans %}</th>
+                                <th>{% trans %}info_providers.bulk_import.created_at{% endtrans %}</th>
+                                <th>{% trans %}info_providers.bulk_import.action.label{% endtrans %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for job in existing_jobs %}
+                                <tr>
+                                    <td>{{ job.displayNameKey|trans(job.displayNameParams) }} - {{ job.formattedTimestamp }}</td>
+                                    <td>{{ job.partCount }}</td>
+                                    <td>{{ job.resultCount }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="progress me-2" style="width: 60px; height: 8px;">
+                                                <div class="progress-bar {% if job.isCompleted %}bg-success{% else %}bg-info{% endif %}" 
+                                                     role="progressbar" 
+                                                     style="width: {{ job.progressPercentage }}%" 
+                                                     aria-valuenow="{{ job.progressPercentage }}" 
+                                                     aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                            <small class="text-muted">{{ job.progressPercentage }}%</small>
+                                        </div>
+                                        <small class="text-muted">{{ job.completedPartsCount }}/{{ job.partCount }}</small>
+                                    </td>
+                                    <td>
+                                        {% if job.isPending %}
+                                            <span class="badge bg-warning">{% trans %}info_providers.bulk_import.status.pending{% endtrans %}</span>
+                                        {% elseif job.isInProgress %}
+                                            <span class="badge bg-info">{% trans %}info_providers.bulk_import.status.in_progress{% endtrans %}</span>
+                                        {% elseif job.isCompleted %}
+                                            <span class="badge bg-success">{% trans %}info_providers.bulk_import.status.completed{% endtrans %}</span>
+                                        {% elseif job.isFailed %}
+                                            <span class="badge bg-danger">{% trans %}info_providers.bulk_import.status.failed{% endtrans %}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ job.createdAt|date('Y-m-d H:i') }}</td>
+                                    <td>
+                                        {% if job.isInProgress or job.isCompleted %}
+                                            <a href="{{ path('bulk_info_provider_step2', {'jobId': job.id}) }}" class="btn btn-primary btn-sm">
+                                                <i class="fas fa-eye"></i> {% trans %}info_providers.bulk_import.view_results{% endtrans %}
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="alert alert-info" role="alert">
+        <i class="fas fa-info-circle"></i>
+        {% trans %}info_providers.bulk_import.step1.global_mapping_description{% endtrans %}
+    </div>
+    
+    <div class="alert alert-success" role="alert">
+        <i class="fas fa-lightbulb"></i>
+        <strong>{% trans %}info_providers.bulk_import.priority_system.title{% endtrans %}:</strong> {% trans %}info_providers.bulk_import.priority_system.description{% endtrans %}
+        <br><small class="text-muted">
+            {% trans %}info_providers.bulk_import.priority_system.example{% endtrans %}
+        </small>
+    </div>
+    
+    <div class="alert alert-warning" role="alert">
+        <i class="fas fa-exclamation-triangle"></i>
+        {% trans %}info_providers.bulk_import.step1.spn_recommendation{% endtrans %}
+    </div>
+
+    <!-- Show selected parts -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5 class="mb-0">{% trans %}info_providers.bulk_import.selected_parts{% endtrans %}</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                {% for part in parts %}
+                    {% set hasNoIdentifiers = part.manufacturerProductNumber is empty and part.orderdetails is empty %}
+                    <div class="col-md-6 col-lg-4 mb-2">
+                        <div class="d-flex align-items-center {% if hasNoIdentifiers %}text-danger{% endif %}">
+                            <i class="fas fa-microchip {% if hasNoIdentifiers %}text-danger{% else %}text-primary{% endif %} me-2"></i>
+                            <div>
+                                <a href="{{ path('app_part_show', {'id': part.id}) }}" class="text-decoration-none {% if hasNoIdentifiers %}text-danger{% endif %}">
+                                    <strong>{{ part.name }}</strong>
+                                    {% if part.manufacturerProductNumber %}
+                                        <br><small class="{% if hasNoIdentifiers %}text-danger{% else %}text-muted{% endif %}">MPN: {{ part.manufacturerProductNumber }}</small>
+                                    {% endif %}
+                                    {% if part.orderdetails is not empty %}
+                                        <br><small class="{% if hasNoIdentifiers %}text-danger{% else %}text-muted{% endif %}">
+                                            SPNs: {{ part.orderdetails|map(od => od.supplierPartNr)|join(', ') }}
+                                        </small>
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {{ form_start(form) }}
+
+    <div class="card" 
+         data-controller="field-mapping"
+         data-field-mapping-mapping-index-value="{{ form.field_mappings|length }}"
+         data-field-mapping-max-mappings-value="{{ fieldChoices|length }}"
+         data-field-mapping-prototype-value="{{ form_widget(form.field_mappings.vars.prototype)|e('html_attr') }}"
+         data-field-mapping-max-mappings-reached-message-value="{{ 'info_providers.bulk_import.max_mappings_reached'|trans|e('js') }}">
+        <div class="card-header">
+            <h5 class="mb-0">{% trans %}info_providers.bulk_import.field_mappings{% endtrans %}</h5>
+            <small class="text-muted">{% trans %}info_providers.bulk_import.field_mappings_help{% endtrans %}</small>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{% trans %}info_providers.bulk_search.search_field{% endtrans %}</th>
+                            <th>{% trans %}info_providers.bulk_search.providers{% endtrans %}</th>
+                            <th width="80">{% trans %}info_providers.bulk_search.priority{% endtrans %}</th>
+                            <th width="100">{% trans %}info_providers.bulk_import.actions.label{% endtrans %}</th>
+                        </tr>
+                    </thead>
+                    <tbody id="field-mappings-tbody" data-field-mapping-target="tbody">
+                        {% for mapping in form.field_mappings %}
+                            <tr class="mapping-row">
+                                <td>{{ form_widget(mapping.field) }}{{ form_errors(mapping.field) }}</td>
+                                <td>{{ form_widget(mapping.providers) }}{{ form_errors(mapping.providers) }}</td>
+                                <td>{{ form_widget(mapping.priority) }}{{ form_errors(mapping.priority) }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm" data-action="click->field-mapping#removeMapping">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+            </table>
+            <button type="button" class="btn btn-success btn-sm" id="addMappingBtn"
+                    data-field-mapping-target="addButton"
+                    data-action="click->field-mapping#addMapping">
+                <i class="fas fa-plus"></i> {% trans %}info_providers.bulk_import.add_mapping{% endtrans %}
+            </button>
+        </div>
+    </div>
+
+    <div class="mb-2 d-flex flex-column align-items-start gap-2">
+        <div class="mb-2">
+            <a href="{{ path('info_providers_list') }}">{% trans %}info_providers.search.info_providers_list{% endtrans %}</a>
+            |
+            <a href="{{ path('bulk_info_provider_manage') }}">{% trans %}info_providers.bulk_import.manage_jobs{% endtrans %}</a>
+        </div>
+        
+        <div class="form-check mb-2">
+            {{ form_widget(form.prefetch_details, {'attr': {'class': 'form-check-input'}}) }}
+            {{ form_label(form.prefetch_details, null, {'label_attr': {'class': 'form-check-label'}}) }}
+            {{ form_help(form.prefetch_details) }}
+        </div>
+        
+        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary', 'data-field-mapping-target': 'submitButton'}}) }}
+    </div>
+
+    {{ form_end(form) }}
+
+    {% if search_results is not null %}
+        <hr>
+        <h4>{% trans %}info_providers.bulk_import.search_results.title{% endtrans %}</h4>
+
+        {% for part_result in search_results %}
+            {% set part = part_result.part %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        {{ part.name }}
+                        {% if part_result.errors is not empty %}
+                            <span class="badge bg-warning">{{ part_result.errors|length }} {% trans %}info_providers.bulk_import.errors{% endtrans %}</span>
+                        {% endif %}
+                        <span class="badge bg-success">{{ part_result.search_results|length }} {% trans %}info_providers.bulk_import.results_found{% endtrans %}</span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if part_result.errors is not empty %}
+                        {% for error in part_result.errors %}
+                            <div class="alert alert-warning" role="alert">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    {% if part_result.search_results|length > 0 %}
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>{% trans %}name.label{% endtrans %}</th>
+                                        <th>{% trans %}description.label{% endtrans %}</th>
+                                        <th>{% trans %}manufacturer.label{% endtrans %}</th>
+                                        <th>{% trans %}info_providers.table.provider.label{% endtrans %}</th>
+                                        <th>{% trans %}info_providers.bulk_import.source_field{% endtrans %}</th>
+                                        <th>{% trans %}info_providers.bulk_import.action.label{% endtrans %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for result in part_result.search_results %}
+                                        {% set dto = result.dto %}
+                                        {% set localPart = result.localPart %}
+                                        <tr {% if localPart is not null %}class="table-warning"{% endif %}>
+                                            <td>
+                                                <img src="{{ dto.preview_image_url }}" data-thumbnail="{{ dto.preview_image_url }}"
+                                                     class="hoverpic" style="max-width: 30px;" {{ stimulus_controller('elements/hoverpic') }}>
+                                            </td>
+                                            <td>
+                                                {% if dto.provider_url is not null %}
+                                                    <a href="{{ dto.provider_url }}" target="_blank" rel="noopener">{{ dto.name }}</a>
+                                                {% else %}
+                                                    {{ dto.name }}
+                                                {% endif %}
+                                                {% if dto.mpn is not null %}
+                                                    <br><small class="text-muted">{{ dto.mpn }}</small>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ dto.description }}</td>
+                                            <td>{{ dto.manufacturer ?? '' }}</td>
+                                            <td>
+                                                {{ info_provider_label(dto.provider_key)|default(dto.provider_key) }}
+                                                <br><small class="text-muted">{{ dto.provider_id }}</small>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-info">{{ result.source_field ?? 'unknown' }}</span>
+                                                {% if result.source_keyword %}
+                                                    <br><small class="text-muted">{{ result.source_keyword }}</small>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <div class="btn-group-vertical btn-group-sm" role="group">
+                                                    {% set updateHref = path('info_providers_update_part',
+                                                        {'id': part.id, 'providerKey': dto.provider_key, 'providerId': dto.provider_id}) %}
+                                                    <a class="btn btn-primary" href="{{ updateHref }}" target="_blank">
+                                                        <i class="fas fa-edit"></i> {% trans %}info_providers.bulk_import.update_part{% endtrans %}
+                                                    </a>
+                                                    
+                                                    {% if localPart is not null %}
+                                                        <a class="btn btn-info btn-sm" href="{{ path('app_part_show', {'id': localPart.id}) }}" target="_blank">
+                                                            <i class="fas fa-eye"></i> {% trans %}info_providers.bulk_import.view_existing{% endtrans %}
+                                                        </a>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info" role="alert">
+                            {% trans %}info_providers.search.no_results{% endtrans %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+</div>
+
+{% endblock %}
+

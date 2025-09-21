@@ -45,6 +45,7 @@
         "omines/datatables-bundle": "^0.10.0",
         "paragonie/sodium_compat": "^1.21",
         "part-db/label-fonts": "^1.0",
+        "phpoffice/phpspreadsheet": "^5.0.0",
         "rhukster/dom-sanitizer": "^1.0",
         "runtime/frankenphp-symfony": "^0.2.0",
         "s9e/text-formatter": "^2.1",
@@ -157,7 +158,7 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "phpstan": "vendor/bin/phpstan analyse src --level 5 --memory-limit 1G"
+        "phpstan": "php -d memory_limit=1G vendor/bin/phpstan analyse src --level 5"
     },
     "conflict": {
         "symfony/symfony": "*"

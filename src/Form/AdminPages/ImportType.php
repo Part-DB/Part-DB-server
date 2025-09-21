@@ -59,6 +59,8 @@ class ImportType extends AbstractType
                     'XML' => 'xml',
                     'CSV' => 'csv',
                     'YAML' => 'yaml',
+                    'XLSX' => 'xlsx',
+                    'XLS' => 'xls',
                 ],
                 'label' => 'export.format',
                 'disabled' => $disabled,

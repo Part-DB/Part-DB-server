@@ -33,7 +33,7 @@ use App\Settings\InfoProviderSystem\LCSCSettings;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class LCSCProvider implements InfoProviderInterface
+class LCSCProvider implements BatchInfoProviderInterface
 {
 
     private const ENDPOINT_URL = 'https://wmsc.lcsc.com/ftps/wm';
@@ -69,9 +69,10 @@ class LCSCProvider implements InfoProviderInterface
 
     /**
      * @param  string  $id
+     * @param  bool  $lightweight If true, skip expensive operations like datasheet resolution
      * @return PartDetailDTO
      */
-    private function queryDetail(string $id): PartDetailDTO
+    private function queryDetail(string $id, bool $lightweight = false): PartDetailDTO
     {
         $response = $this->lcscClient->request('GET', self::ENDPOINT_URL . "/product/detail", [
             'headers' => [
@@ -89,7 +90,7 @@ class LCSCProvider implements InfoProviderInterface
             throw new \RuntimeException('Could not find product code: ' . $id);
         }
 
-        return $this->getPartDetail($product);
+        return $this->getPartDetail($product, $lightweight);
     }
 
     /**
@@ -99,30 +100,42 @@ class LCSCProvider implements InfoProviderInterface
     private function getRealDatasheetUrl(?string $url): string
     {
         if ($url !== null && trim($url) !== '' && preg_match("/^https:\/\/(datasheet\.lcsc\.com|www\.lcsc\.com\/datasheet)\/.*(C\d+)\.pdf$/", $url, $matches) > 0) {
-          if (preg_match("/^https:\/\/datasheet\.lcsc\.com\/lcsc\/(.*\.pdf)$/", $url, $rewriteMatches) > 0) {
-            $url = 'https://www.lcsc.com/datasheet/lcsc_datasheet_' . $rewriteMatches[1];
-          }
-          $response = $this->lcscClient->request('GET', $url, [
-              'headers' => [
-                  'Referer' => 'https://www.lcsc.com/product-detail/_' . $matches[2] . '.html'
-              ],
-          ]);
-          if (preg_match('/(previewPdfUrl): ?("[^"]+wmsc\.lcsc\.com[^"]+\.pdf")/', $response->getContent(), $matches) > 0) {
-            //HACKY: The URL string contains escaped characters like \u002F, etc. To decode it, the JSON decoding is reused
-            //See https://github.com/Part-DB/Part-DB-server/pull/582#issuecomment-2033125934
-            $jsonObj = json_decode('{"' . $matches[1] . '": ' . $matches[2] . '}');
-            $url = $jsonObj->previewPdfUrl;
-          }
+            if (preg_match("/^https:\/\/datasheet\.lcsc\.com\/lcsc\/(.*\.pdf)$/", $url, $rewriteMatches) > 0) {
+                $url = 'https://www.lcsc.com/datasheet/lcsc_datasheet_' . $rewriteMatches[1];
+            }
+            $response = $this->lcscClient->request('GET', $url, [
+                'headers' => [
+                    'Referer' => 'https://www.lcsc.com/product-detail/_' . $matches[2] . '.html'
+                ],
+            ]);
+            if (preg_match('/(previewPdfUrl): ?("[^"]+wmsc\.lcsc\.com[^"]+\.pdf")/', $response->getContent(), $matches) > 0) {
+                //HACKY: The URL string contains escaped characters like \u002F, etc. To decode it, the JSON decoding is reused
+                //See https://github.com/Part-DB/Part-DB-server/pull/582#issuecomment-2033125934
+                $jsonObj = json_decode('{"' . $matches[1] . '": ' . $matches[2] . '}');
+                $url = $jsonObj->previewPdfUrl;
+            }
         }
         return $url;
     }
 
     /**
      * @param  string  $term
+     * @param  bool  $lightweight If true, skip expensive operations like datasheet resolution
      * @return PartDetailDTO[]
      */
-    private function queryByTerm(string $term): array
+    private function queryByTerm(string $term, bool $lightweight = false): array
     {
+        // Optimize: If term looks like an LCSC part number (starts with C followed by digits),
+        // use direct detail query instead of slower search
+        if (preg_match('/^C\d+$/i', trim($term))) {
+            try {
+                return [$this->queryDetail(trim($term), $lightweight)];
+            } catch (\Exception $e) {
+                // If direct lookup fails, fall back to search
+                // This handles cases where the C-code might not exist
+            }
+        }
+
         $response = $this->lcscClient->request('POST', self::ENDPOINT_URL . "/search/v2/global", [
             'headers' => [
                 'Cookie' => new Cookie('currencyCode', $this->settings->currency)
@@ -145,11 +158,11 @@ class LCSCProvider implements InfoProviderInterface
         // detailed product listing. It does so utilizing a product tip field.
         // If product tip exists and there are no products in the product list try a detail query
         if (count($products) === 0 && $tipProductCode !== null) {
-            $result[] = $this->queryDetail($tipProductCode);
+            $result[] = $this->queryDetail($tipProductCode, $lightweight);
         }
 
         foreach ($products as $product) {
-            $result[] = $this->getPartDetail($product);
+            $result[] = $this->getPartDetail($product, $lightweight);
         }
 
         return $result;
@@ -178,7 +191,7 @@ class LCSCProvider implements InfoProviderInterface
      * @param  array  $product
      * @return PartDetailDTO
      */
-    private function getPartDetail(array $product): PartDetailDTO
+    private function getPartDetail(array $product, bool $lightweight = false): PartDetailDTO
     {
         // Get product images in advance
         $product_images = $this->getProductImages($product['productImages'] ?? null);
@@ -214,10 +227,10 @@ class LCSCProvider implements InfoProviderInterface
             manufacturing_status: null,
             provider_url: $this->getProductShortURL($product['productCode']),
             footprint: $this->sanitizeField($footprint),
-            datasheets: $this->getProductDatasheets($product['pdfUrl'] ?? null),
-            images: $product_images,
-            parameters: $this->attributesToParameters($product['paramVOList'] ?? []),
-            vendor_infos: $this->pricesToVendorInfo($product['productCode'], $this->getProductShortURL($product['productCode']), $product['productPriceList'] ?? []),
+            datasheets: $lightweight ? [] : $this->getProductDatasheets($product['pdfUrl'] ?? null),
+            images: $product_images, // Always include images - users need to see them
+            parameters: $lightweight ? [] : $this->attributesToParameters($product['paramVOList'] ?? []),
+            vendor_infos: $lightweight ? [] : $this->pricesToVendorInfo($product['productCode'], $this->getProductShortURL($product['productCode']), $product['productPriceList'] ?? []),
             mass: $product['weight'] ?? null,
         );
     }
@@ -286,7 +299,7 @@ class LCSCProvider implements InfoProviderInterface
      */
     private function getProductShortURL(string $product_code): string
     {
-        return 'https://www.lcsc.com/product-detail/' . $product_code .'.html';
+        return 'https://www.lcsc.com/product-detail/' . $product_code . '.html';
     }
 
     /**
@@ -327,7 +340,7 @@ class LCSCProvider implements InfoProviderInterface
 
             //Skip this attribute if it's empty
             if (in_array(trim((string) $attribute['paramValueEn']), ['', '-'], true)) {
-              continue;
+                continue;
             }
 
             $result[] = ParameterDTO::parseValueIncludingUnit(name: $attribute['paramNameEn'], value: $attribute['paramValueEn'], group: null);
@@ -338,12 +351,86 @@ class LCSCProvider implements InfoProviderInterface
 
     public function searchByKeyword(string $keyword): array
     {
-        return $this->queryByTerm($keyword);
+        return $this->queryByTerm($keyword, true); // Use lightweight mode for search
+    }
+
+    /**
+     * Batch search multiple keywords asynchronously (like JavaScript Promise.all)
+     * @param array $keywords Array of keywords to search
+     * @return array Results indexed by keyword
+     */
+    public function searchByKeywordsBatch(array $keywords): array
+    {
+        if (empty($keywords)) {
+            return [];
+        }
+
+        $responses = [];
+        $results = [];
+
+        // Start all requests immediately (like JavaScript promises without await)
+        foreach ($keywords as $keyword) {
+            if (preg_match('/^C\d+$/i', trim($keyword))) {
+                // Direct detail API call for C-codes
+                $responses[$keyword] = $this->lcscClient->request('GET', self::ENDPOINT_URL . "/product/detail", [
+                    'headers' => [
+                        'Cookie' => new Cookie('currencyCode', $this->settings->currency)
+                    ],
+                    'query' => [
+                        'productCode' => trim($keyword),
+                    ],
+                ]);
+            } else {
+                // Search API call for other terms
+                $responses[$keyword] = $this->lcscClient->request('GET', self::ENDPOINT_URL . "/search/global", [
+                    'headers' => [
+                        'Cookie' => new Cookie('currencyCode', $this->settings->currency)
+                    ],
+                    'query' => [
+                        'keyword' => $keyword,
+                    ],
+                ]);
+            }
+        }
+
+        // Now collect all results (like .then() in JavaScript)
+        foreach ($responses as $keyword => $response) {
+            try {
+                $arr = $response->toArray(); // This waits for the response
+                $results[$keyword] = $this->processSearchResponse($arr, $keyword);
+            } catch (\Exception $e) {
+                $results[$keyword] = []; // Empty results on error
+            }
+        }
+
+        return $results;
+    }
+
+    private function processSearchResponse(array $arr, string $keyword): array
+    {
+        $result = [];
+
+        // Check if this looks like a detail response (direct C-code lookup)
+        if (isset($arr['result']['productCode'])) {
+            $product = $arr['result'];
+            $result[] = $this->getPartDetail($product, true); // lightweight mode
+        } else {
+            // This is a search response
+            $products = $arr['result']['productSearchResultVO']['productList'] ?? [];
+            $tipProductCode = $arr['result']['tipProductDetailUrlVO']['productCode'] ?? null;
+
+            // If no products but has tip, we'd need another API call - skip for batch mode
+            foreach ($products as $product) {
+                $result[] = $this->getPartDetail($product, true); // lightweight mode
+            }
+        }
+
+        return $result;
     }
 
     public function getDetails(string $id): PartDetailDTO
     {
-        $tmp = $this->queryByTerm($id);
+        $tmp = $this->queryByTerm($id, false);
         if (count($tmp) === 0) {
             throw new \RuntimeException('No part found with ID ' . $id);
         }

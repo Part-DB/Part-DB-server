@@ -30,13 +30,11 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Repository\PartRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Contracts\Translation\TranslatableInterface;
 
 use function Symfony\Component\Translation\t;
 
@@ -100,7 +98,7 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
 
         //When action starts with "export_" we have to redirect to the export controller
         $matches = [];
-        if (preg_match('/^export_(json|yaml|xml|csv)$/', $action, $matches)) {
+        if (preg_match('/^export_(json|yaml|xml|csv|xlsx)$/', $action, $matches)) {
             $ids = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
             $level = match ($target_id) {
                 2 => 'extended',
@@ -113,6 +111,16 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
                 $this->urlGenerator->generate('parts_export', [
                     'format' => $matches[1],
                     'level' => $level,
+                    'ids' => $ids,
+                    '_redirect' => $redirect_url
+                ])
+            );
+        }
+
+        if ($action === 'bulk_info_provider_import') {
+            $ids = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
+            return new RedirectResponse(
+                $this->urlGenerator->generate('bulk_info_provider_step1', [
                     'ids' => $ids,
                     '_redirect' => $redirect_url
                 ])

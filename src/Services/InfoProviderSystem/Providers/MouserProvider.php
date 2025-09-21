@@ -132,6 +132,15 @@ class MouserProvider implements InfoProviderInterface
             ],
         ]);
 
+        // Check for API errors before processing response
+        if ($response->getStatusCode() !== 200) {
+            throw new \RuntimeException(sprintf(
+                'Mouser API returned HTTP %d: %s',
+                $response->getStatusCode(),
+                $response->getContent(false)
+            ));
+        }
+
         return $this->responseToDTOArray($response);
     }
 
@@ -169,6 +178,16 @@ class MouserProvider implements InfoProviderInterface
                 ]
             ],
         ]);
+
+        // Check for API errors before processing response
+        if ($response->getStatusCode() !== 200) {
+            throw new \RuntimeException(sprintf(
+                'Mouser API returned HTTP %d: %s',
+                $response->getStatusCode(),
+                $response->getContent(false)
+            ));
+        }
+
         $tmp = $this->responseToDTOArray($response);
 
         //Ensure that we have exactly one result

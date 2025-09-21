@@ -28,17 +28,17 @@ namespace App\Services\InfoProviderSystem\DTOs;
  * This could be a voltage, a current, a temperature or similar.
  * @see \App\Tests\Services\InfoProviderSystem\DTOs\ParameterDTOTest
  */
-class ParameterDTO
+readonly class ParameterDTO
 {
     public function __construct(
-        public readonly string $name,
-        public readonly ?string $value_text = null,
-        public readonly ?float $value_typ = null,
-        public readonly ?float $value_min = null,
-        public readonly ?float $value_max = null,
-        public readonly ?string $unit = null,
-        public readonly ?string $symbol = null,
-        public readonly ?string $group = null,
+        public string $name,
+        public ?string $value_text = null,
+        public ?float $value_typ = null,
+        public ?float $value_min = null,
+        public ?float $value_max = null,
+        public ?string $unit = null,
+        public ?string $symbol = null,
+        public ?string $group = null,
     ) {
 
     }

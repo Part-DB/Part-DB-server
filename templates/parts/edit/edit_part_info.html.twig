@@ -4,6 +4,32 @@
     {% trans with {'%name%': part.name|escape } %}part.edit.title{% endtrans %}
 {% endblock %}
 
+{% block before_card %}
+    {% if bulk_job and jobId %}
+        <div class="alert alert-info mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <a href="{{ path('bulk_info_provider_step2', {jobId: bulk_job.id}) }}" class="btn btn-outline-primary btn-sm me-2">
+                        <i class="fas fa-arrow-left fa-fw" aria-hidden="true"></i>
+                        {% trans %}info_providers.bulk_import.back{% endtrans %}
+                    </a>
+                    <form method="post" action="{{ path('part_bulk_import_complete', {id: part.id, jobId: bulk_job.id}) }}" style="display: inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('bulk_complete_' ~ part.id) }}">
+                        <button type="submit" class="btn btn-primary btn-sm me-3">
+                            <i class="fas fa-check fa-fw" aria-hidden="true"></i>
+                            {% trans %}info_providers.bulk_import.complete{% endtrans %}
+                        </button>
+                    </form>
+                    <div>
+                        <i class="fas fa-cloud-download fa-fw" aria-hidden="true"></i>
+                        {% trans %}info_providers.bulk_import.editing_part{% endtrans %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
 {% block card_title %}
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     {% trans with {'%name%': part.name|escape } %}part.edit.card_title{% endtrans %}

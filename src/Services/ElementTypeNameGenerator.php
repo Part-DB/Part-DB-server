@@ -22,13 +22,13 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\NamedElementInterface;
-use App\Entity\Parts\PartAssociation;
-use App\Entity\ProjectSystem\Project;
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJobPart;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\Category;
@@ -36,12 +36,14 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartAssociation;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
@@ -79,6 +81,8 @@ class ElementTypeNameGenerator
             AbstractParameter::class => $this->translator->trans('parameter.label'),
             LabelProfile::class => $this->translator->trans('label_profile.label'),
             PartAssociation::class => $this->translator->trans('part_association.label'),
+            BulkInfoProviderImportJob::class => $this->translator->trans('bulk_info_provider_import_job.label'),
+            BulkInfoProviderImportJobPart::class => $this->translator->trans('bulk_info_provider_import_job_part.label'),
         ];
     }
 
@@ -130,10 +134,10 @@ class ElementTypeNameGenerator
     {
         $type = $this->getLocalizedTypeLabel($entity);
         if ($use_html) {
-            return '<i>'.$type.':</i> '.htmlspecialchars($entity->getName());
+            return '<i>' . $type . ':</i> ' . htmlspecialchars($entity->getName());
         }
 
-        return $type.': '.$entity->getName();
+        return $type . ': ' . $entity->getName();
     }
 
 

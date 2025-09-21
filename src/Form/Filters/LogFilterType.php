@@ -100,7 +100,7 @@ class LogFilterType extends AbstractType
         ]);
 
         $builder->add('user', UserEntityConstraintType::class, [
-           'label'  => 'log.user',
+            'label' => 'log.user',
         ]);
 
         $builder->add('targetType', EnumConstraintType::class, [
@@ -128,11 +128,13 @@ class LogFilterType extends AbstractType
                 LogTargetType::PARAMETER => 'parameter.label',
                 LogTargetType::LABEL_PROFILE => 'label_profile.label',
                 LogTargetType::PART_ASSOCIATION => 'part_association.label',
+                LogTargetType::BULK_INFO_PROVIDER_IMPORT_JOB => 'bulk_info_provider_import_job.label',
+                LogTargetType::BULK_INFO_PROVIDER_IMPORT_JOB_PART => 'bulk_info_provider_import_job_part.label',
             },
         ]);
 
         $builder->add('targetId', NumberConstraintType::class, [
-           'label' => 'log.target_id',
+            'label' => 'log.target_id',
             'min' => 1,
             'step' => 1,
         ]);

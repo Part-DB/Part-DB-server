@@ -142,6 +142,9 @@ You can select between the following export formats:
   efficiently.
 * **YAML** (Yet Another Markup Language): Very similar to JSON
 * **XML** (Extensible Markup Language): Good support with nested data structures. Similar use cases as JSON and YAML.
+* **Excel**: Similar to CSV, but in a native Excel format. Can be opened in Excel and LibreOffice Calc. Does not support nested
+  data structures or sub-data (like parameters, attachments, etc.), very well (many columns are generated, as every
+  possible sub-data is exported as a separate column).
 
 Also, you can select between the following export levels:
 

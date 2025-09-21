@@ -28,12 +28,12 @@ namespace App\Services\InfoProviderSystem\DTOs;
  * This could be a datasheet, a 3D model, a picture or similar.
  * @see \App\Tests\Services\InfoProviderSystem\DTOs\FileDTOTest
  */
-class FileDTO
+readonly class FileDTO
 {
     /**
      * @var string The URL where to get this file
      */
-    public readonly string $url;
+    public string $url;
 
     /**
      * @param  string  $url The URL where to get this file
@@ -41,7 +41,7 @@ class FileDTO
      */
     public function __construct(
         string $url,
-        public readonly ?string $name = null,
+        public ?string $name = null,
     ) {
         //Find all occurrences of non URL safe characters and replace them with their URL encoded version.
         //We only want to replace characters which can not have a valid meaning in a URL (what would break the URL).

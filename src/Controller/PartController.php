@@ -64,14 +64,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use function Symfony\Component\Translation\t;
 
 #[Route(path: '/part')]
-class PartController extends AbstractController
+final class PartController extends AbstractController
 {
-    public function __construct(protected PricedetailHelper $pricedetailHelper,
-        protected PartPreviewGenerator $partPreviewGenerator,
+    public function __construct(
+        private readonly PricedetailHelper $pricedetailHelper,
+        private readonly PartPreviewGenerator $partPreviewGenerator,
         private readonly TranslatorInterface $translator,
-        private readonly AttachmentSubmitHandler $attachmentSubmitHandler, private readonly EntityManagerInterface $em,
-        protected EventCommentHelper $commentHelper, private readonly PartInfoSettings $partInfoSettings)
-    {
+        private readonly AttachmentSubmitHandler $attachmentSubmitHandler,
+        private readonly EntityManagerInterface $em,
+        private readonly EventCommentHelper $commentHelper
+    ) {
     }
 
     /**
@@ -80,9 +82,16 @@ class PartController extends AbstractController
      */
     #[Route(path: '/{id}/info/{timestamp}', name: 'part_info')]
     #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
-    public function show(Part $part, Request $request, TimeTravel $timeTravel, HistoryHelper $historyHelper,
-        DataTableFactory $dataTable, ParameterExtractor $parameterExtractor, PartLotWithdrawAddHelper $withdrawAddHelper, ?string $timestamp = null): Response
-    {
+    public function show(
+        Part $part,
+        Request $request,
+        TimeTravel $timeTravel,
+        HistoryHelper $historyHelper,
+        DataTableFactory $dataTable,
+        ParameterExtractor $parameterExtractor,
+        PartLotWithdrawAddHelper $withdrawAddHelper,
+        ?string $timestamp = null
+    ): Response {
         $this->denyAccessUnlessGranted('read', $part);
 
         $timeTravel_timestamp = null;
@@ -132,7 +141,43 @@ class PartController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $part);
 
-        return $this->renderPartForm('edit', $request, $part);
+        // Check if this is part of a bulk import job
+        $jobId = $request->query->get('jobId');
+        $bulkJob = null;
+        if ($jobId) {
+            $bulkJob = $this->em->getRepository(\App\Entity\InfoProviderSystem\BulkInfoProviderImportJob::class)->find($jobId);
+            // Verify user owns this job
+            if ($bulkJob && $bulkJob->getCreatedBy() !== $this->getUser()) {
+                $bulkJob = null;
+            }
+        }
+
+        return $this->renderPartForm('edit', $request, $part, [], [
+            'bulk_job' => $bulkJob
+        ]);
+    }
+
+    #[Route(path: '/{id}/bulk-import-complete/{jobId}', name: 'part_bulk_import_complete', methods: ['POST'])]
+    public function markBulkImportComplete(Part $part, int $jobId, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $part);
+
+        if (!$this->isCsrfTokenValid('bulk_complete_' . $part->getId(), $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token');
+        }
+
+        $bulkJob = $this->em->getRepository(\App\Entity\InfoProviderSystem\BulkInfoProviderImportJob::class)->find($jobId);
+        if (!$bulkJob || $bulkJob->getCreatedBy() !== $this->getUser()) {
+            throw $this->createNotFoundException('Bulk import job not found');
+        }
+
+        $bulkJob->markPartAsCompleted($part->getId());
+        $this->em->persist($bulkJob);
+        $this->em->flush();
+
+        $this->addFlash('success', 'Part marked as completed in bulk import');
+
+        return $this->redirectToRoute('bulk_info_provider_step2', ['jobId' => $jobId]);
     }
 
     #[Route(path: '/{id}/delete', name: 'part_delete', methods: ['DELETE'])]
@@ -140,7 +185,7 @@ class PartController extends AbstractController
     {
         $this->denyAccessUnlessGranted('delete', $part);
 
-        if ($this->isCsrfTokenValid('delete'.$part->getID(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $part->getID(), $request->request->get('_token'))) {
 
             $this->commentHelper->setMessage($request->request->get('log_comment', null));
 
@@ -159,11 +204,15 @@ class PartController extends AbstractController
     #[Route(path: '/new', name: 'part_new')]
     #[Route(path: '/{id}/clone', name: 'part_clone')]
     #[Route(path: '/new_build_part/{project_id}', name: 'part_new_build_part')]
-    public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-        AttachmentSubmitHandler $attachmentSubmitHandler, ProjectBuildPartHelper $projectBuildPartHelper,
+    public function new(
+        Request $request,
+        EntityManagerInterface $em,
+        TranslatorInterface $translator,
+        AttachmentSubmitHandler $attachmentSubmitHandler,
+        ProjectBuildPartHelper $projectBuildPartHelper,
         #[MapEntity(mapping: ['id' => 'id'])] ?Part $part = null,
-        #[MapEntity(mapping: ['project_id' => 'id'])] ?Project $project = null): Response
-    {
+        #[MapEntity(mapping: ['project_id' => 'id'])] ?Project $project = null
+    ): Response {
 
         if ($part instanceof Part) {
             //Clone part
@@ -258,9 +307,14 @@ class PartController extends AbstractController
     }
 
     #[Route(path: '/{id}/from_info_provider/{providerKey}/{providerId}/update', name: 'info_providers_update_part', requirements: ['providerId' => '.+'])]
-    public function updateFromInfoProvider(Part $part, Request $request, string $providerKey, string $providerId,
-        PartInfoRetriever $infoRetriever, PartMerger $partMerger): Response
-    {
+    public function updateFromInfoProvider(
+        Part $part,
+        Request $request,
+        string $providerKey,
+        string $providerId,
+        PartInfoRetriever $infoRetriever,
+        PartMerger $partMerger
+    ): Response {
         $this->denyAccessUnlessGranted('edit', $part);
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
@@ -274,10 +328,22 @@ class PartController extends AbstractController
 
         $this->addFlash('notice', t('part.merge.flash.please_review'));
 
+        // Check if this is part of a bulk import job
+        $jobId = $request->query->get('jobId');
+        $bulkJob = null;
+        if ($jobId) {
+            $bulkJob = $this->em->getRepository(\App\Entity\InfoProviderSystem\BulkInfoProviderImportJob::class)->find($jobId);
+            // Verify user owns this job
+            if ($bulkJob && $bulkJob->getCreatedBy() !== $this->getUser()) {
+                $bulkJob = null;
+            }
+        }
+
         return $this->renderPartForm('update_from_ip', $request, $part, [
             'info_provider_dto' => $dto,
         ], [
-            'tname_before' => $old_name
+            'tname_before' => $old_name,
+            'bulk_job' => $bulkJob
         ]);
     }
 
@@ -312,7 +378,7 @@ class PartController extends AbstractController
                 } catch (AttachmentDownloadException $attachmentDownloadException) {
                     $this->addFlash(
                         'error',
-                        $this->translator->trans('attachment.download_failed').' '.$attachmentDownloadException->getMessage()
+                        $this->translator->trans('attachment.download_failed') . ' ' . $attachmentDownloadException->getMessage()
                     );
                 }
             }
@@ -353,6 +419,12 @@ class PartController extends AbstractController
                 return $this->redirectToRoute('part_new');
             }
 
+            // Check if we're in bulk import mode and preserve jobId
+            $jobId = $request->query->get('jobId');
+            if ($jobId && isset($merge_infos['bulk_job'])) {
+                return $this->redirectToRoute('part_edit', ['id' => $new_part->getID(), 'jobId' => $jobId]);
+            }
+
             return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
         }
 
@@ -371,13 +443,17 @@ class PartController extends AbstractController
             $template = 'parts/edit/update_from_ip.html.twig';
         }
 
-        return $this->render($template,
+        return $this->render(
+            $template,
             [
                 'part' => $new_part,
                 'form' => $form,
                 'merge_old_name' => $merge_infos['tname_before'] ?? null,
-                'merge_other' => $merge_infos['other_part'] ?? null
-            ]);
+                'merge_other' => $merge_infos['other_part'] ?? null,
+                'bulk_job' => $merge_infos['bulk_job'] ?? null,
+                'jobId' => $request->query->get('jobId')
+            ]
+        );
     }
 
 
@@ -387,17 +463,17 @@ class PartController extends AbstractController
         if ($this->isCsrfTokenValid('part_withraw' . $part->getID(), $request->request->get('_csfr'))) {
             //Retrieve partlot from the request
             $partLot = $em->find(PartLot::class, $request->request->get('lot_id'));
-            if(!$partLot instanceof PartLot) {
+            if (!$partLot instanceof PartLot) {
                 throw new \RuntimeException('Part lot not found!');
             }
             //Ensure that the partlot belongs to the part
-            if($partLot->getPart() !== $part) {
+            if ($partLot->getPart() !== $part) {
                 throw new \RuntimeException("The origin partlot does not belong to the part!");
             }
 
             //Try to determine the target lot (used for move actions), if the parameter is existing
             $targetId = $request->request->get('target_id', null);
-            $targetLot =  $targetId ? $em->find(PartLot::class, $targetId) : null;
+            $targetLot = $targetId ? $em->find(PartLot::class, $targetId) : null;
             if ($targetLot && $targetLot->getPart() !== $part) {
                 throw new \RuntimeException("The target partlot does not belong to the part!");
             }
@@ -411,12 +487,12 @@ class PartController extends AbstractController
             $timestamp = null;
             $timestamp_str = $request->request->getString('timestamp', '');
             //Try to parse the timestamp
-            if($timestamp_str !== '') {
+            if ($timestamp_str !== '') {
                 $timestamp = new DateTime($timestamp_str);
             }
 
             //Ensure that the timestamp is not in the future
-            if($timestamp !== null && $timestamp > new DateTime("+20min")) {
+            if ($timestamp !== null && $timestamp > new DateTime("+20min")) {
                 throw new \LogicException("The timestamp must not be in the future!");
             }
 
@@ -460,7 +536,7 @@ class PartController extends AbstractController
 
         err:
         //If a redirect was passed, then redirect there
-        if($request->request->get('_redirect')) {
+        if ($request->request->get('_redirect')) {
             return $this->redirect($request->request->get('_redirect'));
         }
         //Otherwise just redirect to the part page

@@ -27,15 +27,15 @@ namespace App\Services\InfoProviderSystem\DTOs;
  * This DTO represents a purchase information for a part (supplier name, order number and prices).
  * @see \App\Tests\Services\InfoProviderSystem\DTOs\PurchaseInfoDTOTest
  */
-class PurchaseInfoDTO
+readonly class PurchaseInfoDTO
 {
     public function __construct(
-        public readonly string $distributor_name,
-        public readonly string $order_number,
+        public string $distributor_name,
+        public string $order_number,
         /** @var PriceDTO[] */
-        public readonly array $prices,
+        public array $prices,
         /** @var string|null An url to the product page of the vendor */
-        public readonly ?string $product_url = null,
+        public ?string $product_url = null,
     )
     {
         //Ensure that the prices are PriceDTO instances
