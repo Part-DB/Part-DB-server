@@ -17,34 +17,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Main CSS files
-//import '../css/app.css';
+//Optimized ZXing WASM configuration - loaded on demand to improve app startup
+import {
+    setZXingModuleOverrides,
+} from "barcode-detector/ponyfill";
+import wasmFile from "../../node_modules/zxing-wasm/dist/reader/zxing_reader.wasm";
 
-import '../css/app/layout.css';
-import '../css/app/helpers.css';
-import '../css/app/tables.css';
-import '../css/app/bs-overrides.css';
-import '../css/app/treeview.css';
-import '../css/app/images.css';
-
-// start the Stimulus application
-import '../bootstrap';
-
-// Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-const $ = require('jquery');
-
-//Only include javascript
-import '@fortawesome/fontawesome-free/css/all.css'
-
-require('bootstrap');
-
-import "./error_handler";
-import "./tab_remember";
-import "./register_events";
-import "./tristate_checkboxes";
-
-//Define jquery globally
-window.$ = window.jQuery = require("jquery");
-
-//ZXing WASM configuration now loaded only when barcode scanner is used
-// This improves app startup time significantly
+export function configureZXing() {
+    setZXingModuleOverrides({
+        locateFile: (path, prefix) => {
+            if (path.endsWith(".wasm")) {
+                return wasmFile;
+            }
+            return prefix + path;
+        },
+    });
+}

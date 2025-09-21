@@ -175,7 +175,7 @@ if (Encore.isProduction()) {
         test: /\.(js|css|html|svg)$/,
         compressionOptions: {
             // zlib’s `level` option matches Brotli’s `BROTLI_PARAM_QUALITY` option.
-            level: 11,
+            level: 6,
         },
         //threshold: 10240,
         minRatio: 0.8,
@@ -190,9 +190,9 @@ if (Encore.isProduction()) {
         }))
 }
 
-if (Encore.isDev()) {
+if (Encore.isDev() && !process.env.CI) {
     //Only uncomment if needed, as this cause problems with Github actions (job does not finish)
-    Encore.addPlugin(new BundleAnalyzerPlugin());
+    //Encore.addPlugin(new BundleAnalyzerPlugin());
 }
 
 
