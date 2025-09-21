@@ -34,9 +34,13 @@ export default class extends Controller {
         console.log('Init Scanner');
 
         // Configure ZXing WASM when scanner is actually used (optimization)
+        // This reduces initial app bundle size and improves startup performance
         import('../../js/zxing_config').then(({ configureZXing }) => {
+            console.log('ZXing WASM configuration loaded on-demand');
             configureZXing();
-        }).catch(console.error);
+        }).catch((error) => {
+            console.warn('Failed to load ZXing configuration:', error);
+        });
 
         //This function ensures, that the qrbox is 70% of the total viewport
         let qrboxFunction = function(viewfinderWidth, viewfinderHeight) {
