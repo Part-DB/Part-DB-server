@@ -206,6 +206,53 @@ class BulkSearchResponseDTOTest extends KernelTestCase
 
         $deserialized = BulkSearchResponseDTO::fromSerializableRepresentation($input, $this->entityManager);
         $this->assertEquals($this->dummy, $deserialized);
+    }
 
+    public function testMerge(): void
+    {
+        $merged = BulkSearchResponseDTO::merge($this->dummy, $this->dummyEmpty);
+        $this->assertCount(1, $merged->partResults);
+
+        $merged = BulkSearchResponseDTO::merge($this->dummyEmpty, $this->dummyEmpty);
+        $this->assertCount(0, $merged->partResults);
+
+        $merged = BulkSearchResponseDTO::merge($this->dummy, $this->dummy, $this->dummy);
+        $this->assertCount(3, $merged->partResults);
+    }
+
+    public function testReplaceResultsForPart(): void
+    {
+        $newPartResults = new BulkSearchPartResultsDTO(
+            part: $this->entityManager->find(Part::class, 1),
+            searchResults: [
+                new BulkSearchPartResultDTO(
+                    searchResult: new SearchResultDTO(provider_key: "new", provider_id: "new", name: "New Part", description: "A new part"),
+                    sourceField: "mpn", sourceKeyword: "new", priority: 1
+                )
+            ],
+            errors: ['New Error']
+        );
+
+        $replaced = $this->dummy->replaceResultsForPart($newPartResults);
+        $this->assertCount(1, $replaced->partResults);
+        $this->assertSame($newPartResults, $replaced->partResults[0]);
+    }
+
+    public function testReplaceResultsForPartNotExisting(): void
+    {
+        $newPartResults = new BulkSearchPartResultsDTO(
+            part: $this->entityManager->find(Part::class, 1),
+            searchResults: [
+                new BulkSearchPartResultDTO(
+                    searchResult: new SearchResultDTO(provider_key: "new", provider_id: "new", name: "New Part", description: "A new part"),
+                    sourceField: "mpn", sourceKeyword: "new", priority: 1
+                )
+            ],
+            errors: ['New Error']
+        );
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        $replaced = $this->dummyEmpty->replaceResultsForPart($newPartResults);
     }
 }

@@ -41,19 +41,25 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess, \IteratorAggregate
 
     /**
      * Replaces the search results for a specific part, and returns a new instance.
-     * @param  Part|int  $part
+     * The part to replaced, is identified by the part property of the new_results parameter.
+     * The original instance remains unchanged.
      * @param  BulkSearchPartResultsDTO  $new_results
      * @return BulkSearchResponseDTO
      */
-    public function replaceResultsForPart(Part|int $part, BulkSearchPartResultsDTO $new_results): self
+    public function replaceResultsForPart(BulkSearchPartResultsDTO $new_results): self
     {
         $array = $this->partResults;
+        $replaced = false;
         foreach ($array as $index => $partResult) {
-            if (($part instanceof Part && $partResult->part->getId() === $part->getId()) ||
-                ($partResult->part->getId() === $part)) {
+            if ($partResult->part === $new_results->part) {
                 $array[$index] = $new_results;
+                $replaced = true;
                 break;
             }
+        }
+
+        if (!$replaced) {
+            throw new \InvalidArgumentException("Part not found in existing results.");
         }
 
         return new self($array);

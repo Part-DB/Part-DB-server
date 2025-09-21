@@ -101,7 +101,7 @@ class BulkInfoProviderImportController extends AbstractController
         return $job;
     }
 
-    private function updatePartSearchResults(BulkInfoProviderImportJob $job, int $partId, ?BulkSearchPartResultsDTO $newResults): void
+    private function updatePartSearchResults(BulkInfoProviderImportJob $job, ?BulkSearchPartResultsDTO $newResults): void
     {
         if ($newResults === null) {
             return;
@@ -111,7 +111,7 @@ class BulkInfoProviderImportController extends AbstractController
         $allResults = $job->getSearchResults($this->entityManager);
 
         // Find and update the results for this specific part
-        $allResults = $allResults->replaceResultsForPart($partId, $newResults);
+        $allResults = $allResults->replaceResultsForPart($newResults);
 
         // Save updated results back to job
         $job->setSearchResults($allResults);
@@ -482,7 +482,7 @@ class BulkInfoProviderImportController extends AbstractController
             }
 
             // Update the job's search results for this specific part efficiently
-            $this->updatePartSearchResults($job, $partId, $searchResultsDto[0] ?? null);
+            $this->updatePartSearchResults($job, $searchResultsDto[0] ?? null);
 
             // Prefetch details if requested
             if ($prefetchDetails && $searchResultsDto !== null) {
