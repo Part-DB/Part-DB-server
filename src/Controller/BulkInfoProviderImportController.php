@@ -553,7 +553,7 @@ class BulkInfoProviderImportController extends AbstractController
 
                 // Properly manage entity manager memory without losing state
                 $jobId = $job->getId();
-                $this->entityManager->clear();
+                //$this->entityManager->clear(); //TODO: This seems to cause problems with the user relation, when trying to flush later
                 $job = $this->entityManager->find(BulkInfoProviderImportJob::class, $jobId);
             }
 
