@@ -30,8 +30,6 @@
         <input type="hidden" name="ids" {{ stimulus_target('elements/datatables/parts', 'selectIDs') }} value="">
 
         <div class="d-none mb-2 bg-body-tertiary shadow-sm border border-secondary rounded mx-2 p-2" {{ stimulus_target('elements/datatables/parts', 'selectPanel') }}>
-            <small class="text-muted">{% trans %}part_list.action.scrollable_hint{% endtrans %}</small>
-
             <div class="input-group">
                 <button class="btn btn-outline-secondary" type="button" {{ stimulus_action('elements/datatables/parts', 'invertSelection')}}
                         title="{% trans %}part_list.action.invert_selection{% endtrans %}" ><i class="fa-solid fa-arrow-right-arrow-left"></i></button>
@@ -41,7 +39,7 @@
 
                 <select class="form-select" name="action" data-controller="elements--select" {{ stimulus_action('elements/datatables/parts', 'updateTargetPicker', 'change') }}
                         title="{% trans %}part_list.action.action.title{% endtrans %}" required>
-                    <optgroup label="{% trans %}part_list.action.action.group.favorite{% endtrans %}">
+                    <optgroup label="{% trans %}part_list.action.action.group.favorite{% endtrans %} ({% trans %}part_list.action.scrollable_hint{% endtrans %})">
                         <option {% if not is_granted('@parts.change_favorite')  %}disabled{% endif %} value="favorite">{% trans %}part_list.action.action.favorite{% endtrans %}</option>
                         <option {% if not is_granted('@parts.change_favorite') %}disabled{% endif %} value="unfavorite">{% trans %}part_list.action.action.unfavorite{% endtrans %}</option>
                     </optgroup>
