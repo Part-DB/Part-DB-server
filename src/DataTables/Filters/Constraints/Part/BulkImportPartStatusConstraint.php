@@ -23,58 +23,15 @@ declare(strict_types=1);
 
 namespace App\DataTables\Filters\Constraints\Part;
 
-use App\DataTables\Filters\Constraints\AbstractConstraint;
-use App\Entity\BulkInfoProviderImportJobPart;
+use App\DataTables\Filters\Constraints\ChoiceConstraint;
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJobPart;
 use Doctrine\ORM\QueryBuilder;
 
-class BulkImportPartStatusConstraint extends AbstractConstraint
+class BulkImportPartStatusConstraint extends ChoiceConstraint
 {
-    /** @var array The status values to filter by */
-    protected array $values = [];
-
-    /** @var string|null The operator to use ('any_of', 'none_of', 'all_of') */
-    protected ?string $operator = null;
-
     public function __construct()
     {
         parent::__construct('bulk_import_part_status');
-    }
-
-    /**
-     * Gets the status values to filter by.
-     */
-    public function getValues(): array
-    {
-        return $this->values;
-    }
-
-    /**
-     * Sets the status values to filter by.
-     */
-    public function setValues(array $values): void
-    {
-        $this->values = $values;
-    }
-
-    /**
-     * Gets the operator to use.
-     */
-    public function getOperator(): ?string
-    {
-        return $this->operator;
-    }
-
-    /**
-     * Sets the operator to use.
-     */
-    public function setOperator(?string $operator): void
-    {
-        $this->operator = $operator;
-    }
-
-    public function isEnabled(): bool
-    {
-        return !empty($this->values) && $this->operator !== null;
     }
 
     public function apply(QueryBuilder $queryBuilder): void
@@ -94,11 +51,11 @@ class BulkImportPartStatusConstraint extends AbstractConstraint
         if ($this->operator === 'ANY') {
             $existsSubquery->andWhere('bip_part_status.status IN (:part_status_values)');
             $queryBuilder->andWhere('EXISTS (' . $existsSubquery->getDQL() . ')');
-            $queryBuilder->setParameter('part_status_values', $this->values);
+            $queryBuilder->setParameter('part_status_values', $this->value);
         } elseif ($this->operator === 'NONE') {
             $existsSubquery->andWhere('bip_part_status.status IN (:part_status_values)');
             $queryBuilder->andWhere('NOT EXISTS (' . $existsSubquery->getDQL() . ')');
-            $queryBuilder->setParameter('part_status_values', $this->values);
+            $queryBuilder->setParameter('part_status_values', $this->value);
         }
     }
 }

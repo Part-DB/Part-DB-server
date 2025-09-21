@@ -23,8 +23,7 @@ declare(strict_types=1);
 namespace App\Tests\DataTables\Filters\Constraints\Part;
 
 use App\DataTables\Filters\Constraints\Part\BulkImportJobStatusConstraint;
-use App\Entity\BulkInfoProviderImportJobPart;
-use App\Entity\Parts\Part;
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJobPart;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\TestCase;
@@ -40,7 +39,7 @@ class BulkImportJobStatusConstraintTest extends TestCase
         $this->constraint = new BulkImportJobStatusConstraint();
         $this->entityManager = $this->createMock(EntityManagerInterface::class);
         $this->queryBuilder = $this->createMock(QueryBuilder::class);
-        
+
         $this->queryBuilder->method('getEntityManager')
             ->willReturn($this->entityManager);
     }
@@ -56,7 +55,7 @@ class BulkImportJobStatusConstraintTest extends TestCase
     {
         $values = ['pending', 'in_progress'];
         $this->constraint->setValues($values);
-        
+
         $this->assertEquals($values, $this->constraint->getValues());
     }
 
@@ -64,21 +63,21 @@ class BulkImportJobStatusConstraintTest extends TestCase
     {
         $operator = 'ANY';
         $this->constraint->setOperator($operator);
-        
+
         $this->assertEquals($operator, $this->constraint->getOperator());
     }
 
     public function testIsEnabledWithEmptyValues(): void
     {
         $this->constraint->setOperator('ANY');
-        
+
         $this->assertFalse($this->constraint->isEnabled());
     }
 
     public function testIsEnabledWithNullOperator(): void
     {
         $this->constraint->setValues(['pending']);
-        
+
         $this->assertFalse($this->constraint->isEnabled());
     }
 
@@ -86,27 +85,27 @@ class BulkImportJobStatusConstraintTest extends TestCase
     {
         $this->constraint->setValues(['pending']);
         $this->constraint->setOperator('ANY');
-        
+
         $this->assertTrue($this->constraint->isEnabled());
     }
 
     public function testApplyWithEmptyValues(): void
     {
         $this->constraint->setOperator('ANY');
-        
+
         $this->queryBuilder->expects($this->never())
             ->method('andWhere');
-            
+
         $this->constraint->apply($this->queryBuilder);
     }
 
     public function testApplyWithNullOperator(): void
     {
         $this->constraint->setValues(['pending']);
-        
+
         $this->queryBuilder->expects($this->never())
             ->method('andWhere');
-            
+
         $this->constraint->apply($this->queryBuilder);
     }
 
@@ -114,7 +113,7 @@ class BulkImportJobStatusConstraintTest extends TestCase
     {
         $this->constraint->setValues(['pending', 'in_progress']);
         $this->constraint->setOperator('ANY');
-        
+
         $subQueryBuilder = $this->createMock(QueryBuilder::class);
         $subQueryBuilder->method('select')->willReturnSelf();
         $subQueryBuilder->method('from')->willReturnSelf();
@@ -122,18 +121,18 @@ class BulkImportJobStatusConstraintTest extends TestCase
         $subQueryBuilder->method('where')->willReturnSelf();
         $subQueryBuilder->method('andWhere')->willReturnSelf();
         $subQueryBuilder->method('getDQL')->willReturn('EXISTS_SUBQUERY_DQL');
-        
+
         $this->entityManager->method('createQueryBuilder')
             ->willReturn($subQueryBuilder);
-            
+
         $this->queryBuilder->expects($this->once())
             ->method('andWhere')
             ->with('EXISTS (EXISTS_SUBQUERY_DQL)');
-            
+
         $this->queryBuilder->expects($this->once())
             ->method('setParameter')
             ->with('job_status_values', ['pending', 'in_progress']);
-        
+
         $this->constraint->apply($this->queryBuilder);
     }
 
@@ -141,7 +140,7 @@ class BulkImportJobStatusConstraintTest extends TestCase
     {
         $this->constraint->setValues(['completed']);
         $this->constraint->setOperator('NONE');
-        
+
         $subQueryBuilder = $this->createMock(QueryBuilder::class);
         $subQueryBuilder->method('select')->willReturnSelf();
         $subQueryBuilder->method('from')->willReturnSelf();
@@ -149,18 +148,18 @@ class BulkImportJobStatusConstraintTest extends TestCase
         $subQueryBuilder->method('where')->willReturnSelf();
         $subQueryBuilder->method('andWhere')->willReturnSelf();
         $subQueryBuilder->method('getDQL')->willReturn('EXISTS_SUBQUERY_DQL');
-        
+
         $this->entityManager->method('createQueryBuilder')
             ->willReturn($subQueryBuilder);
-            
+
         $this->queryBuilder->expects($this->once())
             ->method('andWhere')
             ->with('NOT EXISTS (EXISTS_SUBQUERY_DQL)');
-            
+
         $this->queryBuilder->expects($this->once())
             ->method('setParameter')
             ->with('job_status_values', ['completed']);
-        
+
         $this->constraint->apply($this->queryBuilder);
     }
 
@@ -168,21 +167,21 @@ class BulkImportJobStatusConstraintTest extends TestCase
     {
         $this->constraint->setValues(['pending']);
         $this->constraint->setOperator('UNKNOWN');
-        
+
         $subQueryBuilder = $this->createMock(QueryBuilder::class);
         $subQueryBuilder->method('select')->willReturnSelf();
         $subQueryBuilder->method('from')->willReturnSelf();
         $subQueryBuilder->method('join')->willReturnSelf();
         $subQueryBuilder->method('where')->willReturnSelf();
         $subQueryBuilder->method('getDQL')->willReturn('EXISTS_SUBQUERY_DQL');
-        
+
         $this->entityManager->method('createQueryBuilder')
             ->willReturn($subQueryBuilder);
-            
+
         // Should not call andWhere for unsupported operator
         $this->queryBuilder->expects($this->never())
             ->method('andWhere');
-        
+
         $this->constraint->apply($this->queryBuilder);
     }
 
@@ -190,42 +189,42 @@ class BulkImportJobStatusConstraintTest extends TestCase
     {
         $this->constraint->setValues(['pending']);
         $this->constraint->setOperator('ANY');
-        
+
         $subQueryBuilder = $this->createMock(QueryBuilder::class);
-        
+
         $subQueryBuilder->expects($this->once())
             ->method('select')
             ->with('1')
             ->willReturnSelf();
-            
+
         $subQueryBuilder->expects($this->once())
             ->method('from')
             ->with(BulkInfoProviderImportJobPart::class, 'bip_status')
             ->willReturnSelf();
-            
+
         $subQueryBuilder->expects($this->once())
             ->method('join')
             ->with('bip_status.job', 'job_status')
             ->willReturnSelf();
-            
+
         $subQueryBuilder->expects($this->once())
             ->method('where')
             ->with('bip_status.part = part.id')
             ->willReturnSelf();
-            
+
         $subQueryBuilder->expects($this->once())
             ->method('andWhere')
             ->with('job_status.status IN (:job_status_values)')
             ->willReturnSelf();
-            
+
         $subQueryBuilder->method('getDQL')->willReturn('EXISTS_SUBQUERY_DQL');
-        
+
         $this->entityManager->method('createQueryBuilder')
             ->willReturn($subQueryBuilder);
-            
+
         $this->queryBuilder->method('andWhere');
         $this->queryBuilder->method('setParameter');
-        
+
         $this->constraint->apply($this->queryBuilder);
     }
 
@@ -235,16 +234,16 @@ class BulkImportJobStatusConstraintTest extends TestCase
         $this->constraint->setValues(['pending']);
         $this->constraint->setOperator('ANY');
         $this->assertTrue($this->constraint->isEnabled());
-        
+
         $this->constraint->setValues([]);
         $this->assertFalse($this->constraint->isEnabled());
-        
+
         $this->constraint->setValues(['completed']);
         $this->assertTrue($this->constraint->isEnabled());
-        
+
         $this->constraint->setOperator(null);
         $this->assertFalse($this->constraint->isEnabled());
-        
+
         $this->constraint->setOperator('NONE');
         $this->assertTrue($this->constraint->isEnabled());
     }

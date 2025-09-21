@@ -20,18 +20,18 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\InfoProviderSystem;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parts\Part;
 use App\Entity\UserSystem\User;
-use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'bulk_info_provider_import_jobs')]

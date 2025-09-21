@@ -25,12 +25,12 @@ namespace App\Tests\Services;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
-use App\Entity\BulkInfoProviderImportJob;
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Exceptions\EntityNotSupportedException;
-use App\Services\Formatters\AmountFormatter;
 use App\Services\ElementTypeNameGenerator;
+use App\Services\Formatters\AmountFormatter;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ElementTypeNameGeneratorTest extends WebTestCase

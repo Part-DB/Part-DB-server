@@ -23,39 +23,16 @@ declare(strict_types=1);
 
 namespace App\DataTables\Filters\Constraints\Part;
 
-use App\DataTables\Filters\Constraints\AbstractConstraint;
-use App\Entity\BulkInfoProviderImportJobPart;
+use App\DataTables\Filters\Constraints\BooleanConstraint;
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJobPart;
 use Doctrine\ORM\QueryBuilder;
 
-class BulkImportJobExistsConstraint extends AbstractConstraint
+class BulkImportJobExistsConstraint extends BooleanConstraint
 {
-    /** @var bool|null The value of our constraint */
-    protected ?bool $value = null;
 
     public function __construct()
     {
         parent::__construct('bulk_import_job_exists');
-    }
-
-    /**
-     * Gets the value of this constraint. Null means "don't filter", true means "filter for parts in bulk import jobs", false means "filter for parts not in bulk import jobs".
-     */
-    public function getValue(): ?bool
-    {
-        return $this->value;
-    }
-
-    /**
-     * Sets the value of this constraint. Null means "don't filter", true means "filter for parts in bulk import jobs", false means "filter for parts not in bulk import jobs".
-     */
-    public function setValue(?bool $value): void
-    {
-        $this->value = $value;
-    }
-
-    public function isEnabled(): bool
-    {
-        return $this->value !== null;
     }
 
     public function apply(QueryBuilder $queryBuilder): void

@@ -22,9 +22,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Entity;
 
-use App\Entity\BulkInfoProviderImportJob;
-use App\Entity\BulkInfoProviderImportJobPart;
-use App\Entity\BulkImportPartStatus;
+use App\Entity\InfoProviderSystem\BulkImportPartStatus;
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJobPart;
 use App\Entity\Parts\Part;
 use PHPUnit\Framework\TestCase;
 
@@ -38,7 +38,7 @@ class BulkInfoProviderImportJobPartTest extends TestCase
     {
         $this->job = $this->createMock(BulkInfoProviderImportJob::class);
         $this->part = $this->createMock(Part::class);
-        
+
         $this->jobPart = new BulkInfoProviderImportJobPart($this->job, $this->part);
     }
 
@@ -54,9 +54,9 @@ class BulkInfoProviderImportJobPartTest extends TestCase
     public function testGetAndSetJob(): void
     {
         $newJob = $this->createMock(BulkInfoProviderImportJob::class);
-        
+
         $result = $this->jobPart->setJob($newJob);
-        
+
         $this->assertSame($this->jobPart, $result);
         $this->assertSame($newJob, $this->jobPart->getJob());
     }
@@ -64,9 +64,9 @@ class BulkInfoProviderImportJobPartTest extends TestCase
     public function testGetAndSetPart(): void
     {
         $newPart = $this->createMock(Part::class);
-        
+
         $result = $this->jobPart->setPart($newPart);
-        
+
         $this->assertSame($this->jobPart, $result);
         $this->assertSame($newPart, $this->jobPart->getPart());
     }
@@ -74,7 +74,7 @@ class BulkInfoProviderImportJobPartTest extends TestCase
     public function testGetAndSetStatus(): void
     {
         $result = $this->jobPart->setStatus(BulkImportPartStatus::COMPLETED);
-        
+
         $this->assertSame($this->jobPart, $result);
         $this->assertEquals(BulkImportPartStatus::COMPLETED, $this->jobPart->getStatus());
     }
@@ -82,9 +82,9 @@ class BulkInfoProviderImportJobPartTest extends TestCase
     public function testGetAndSetReason(): void
     {
         $reason = 'Test reason';
-        
+
         $result = $this->jobPart->setReason($reason);
-        
+
         $this->assertSame($this->jobPart, $result);
         $this->assertEquals($reason, $this->jobPart->getReason());
     }
@@ -92,9 +92,9 @@ class BulkInfoProviderImportJobPartTest extends TestCase
     public function testGetAndSetCompletedAt(): void
     {
         $completedAt = new \DateTimeImmutable();
-        
+
         $result = $this->jobPart->setCompletedAt($completedAt);
-        
+
         $this->assertSame($this->jobPart, $result);
         $this->assertSame($completedAt, $this->jobPart->getCompletedAt());
     }
@@ -102,11 +102,11 @@ class BulkInfoProviderImportJobPartTest extends TestCase
     public function testMarkAsCompleted(): void
     {
         $beforeTime = new \DateTimeImmutable();
-        
+
         $result = $this->jobPart->markAsCompleted();
-        
+
         $afterTime = new \DateTimeImmutable();
-        
+
         $this->assertSame($this->jobPart, $result);
         $this->assertEquals(BulkImportPartStatus::COMPLETED, $this->jobPart->getStatus());
         $this->assertInstanceOf(\DateTimeImmutable::class, $this->jobPart->getCompletedAt());
@@ -118,11 +118,11 @@ class BulkInfoProviderImportJobPartTest extends TestCase
     {
         $reason = 'Skipped for testing';
         $beforeTime = new \DateTimeImmutable();
-        
+
         $result = $this->jobPart->markAsSkipped($reason);
-        
+
         $afterTime = new \DateTimeImmutable();
-        
+
         $this->assertSame($this->jobPart, $result);
         $this->assertEquals(BulkImportPartStatus::SKIPPED, $this->jobPart->getStatus());
         $this->assertEquals($reason, $this->jobPart->getReason());
@@ -134,7 +134,7 @@ class BulkInfoProviderImportJobPartTest extends TestCase
     public function testMarkAsSkippedWithoutReason(): void
     {
         $result = $this->jobPart->markAsSkipped();
-        
+
         $this->assertSame($this->jobPart, $result);
         $this->assertEquals(BulkImportPartStatus::SKIPPED, $this->jobPart->getStatus());
         $this->assertEquals('', $this->jobPart->getReason());
@@ -145,11 +145,11 @@ class BulkInfoProviderImportJobPartTest extends TestCase
     {
         $reason = 'Failed for testing';
         $beforeTime = new \DateTimeImmutable();
-        
+
         $result = $this->jobPart->markAsFailed($reason);
-        
+
         $afterTime = new \DateTimeImmutable();
-        
+
         $this->assertSame($this->jobPart, $result);
         $this->assertEquals(BulkImportPartStatus::FAILED, $this->jobPart->getStatus());
         $this->assertEquals($reason, $this->jobPart->getReason());
@@ -161,7 +161,7 @@ class BulkInfoProviderImportJobPartTest extends TestCase
     public function testMarkAsFailedWithoutReason(): void
     {
         $result = $this->jobPart->markAsFailed();
-        
+
         $this->assertSame($this->jobPart, $result);
         $this->assertEquals(BulkImportPartStatus::FAILED, $this->jobPart->getStatus());
         $this->assertEquals('', $this->jobPart->getReason());
@@ -172,9 +172,9 @@ class BulkInfoProviderImportJobPartTest extends TestCase
     {
         // First mark as completed to have something to reset
         $this->jobPart->markAsCompleted();
-        
+
         $result = $this->jobPart->markAsPending();
-        
+
         $this->assertSame($this->jobPart, $result);
         $this->assertEquals(BulkImportPartStatus::PENDING, $this->jobPart->getStatus());
         $this->assertNull($this->jobPart->getReason());
@@ -184,13 +184,13 @@ class BulkInfoProviderImportJobPartTest extends TestCase
     public function testIsPending(): void
     {
         $this->assertTrue($this->jobPart->isPending());
-        
+
         $this->jobPart->setStatus(BulkImportPartStatus::COMPLETED);
         $this->assertFalse($this->jobPart->isPending());
-        
+
         $this->jobPart->setStatus(BulkImportPartStatus::SKIPPED);
         $this->assertFalse($this->jobPart->isPending());
-        
+
         $this->jobPart->setStatus(BulkImportPartStatus::FAILED);
         $this->assertFalse($this->jobPart->isPending());
     }
@@ -198,13 +198,13 @@ class BulkInfoProviderImportJobPartTest extends TestCase
     public function testIsCompleted(): void
     {
         $this->assertFalse($this->jobPart->isCompleted());
-        
+
         $this->jobPart->setStatus(BulkImportPartStatus::COMPLETED);
         $this->assertTrue($this->jobPart->isCompleted());
-        
+
         $this->jobPart->setStatus(BulkImportPartStatus::SKIPPED);
         $this->assertFalse($this->jobPart->isCompleted());
-        
+
         $this->jobPart->setStatus(BulkImportPartStatus::FAILED);
         $this->assertFalse($this->jobPart->isCompleted());
     }
@@ -212,13 +212,13 @@ class BulkInfoProviderImportJobPartTest extends TestCase
     public function testIsSkipped(): void
     {
         $this->assertFalse($this->jobPart->isSkipped());
-        
+
         $this->jobPart->setStatus(BulkImportPartStatus::SKIPPED);
         $this->assertTrue($this->jobPart->isSkipped());
-        
+
         $this->jobPart->setStatus(BulkImportPartStatus::COMPLETED);
         $this->assertFalse($this->jobPart->isSkipped());
-        
+
         $this->jobPart->setStatus(BulkImportPartStatus::FAILED);
         $this->assertFalse($this->jobPart->isSkipped());
     }
@@ -226,13 +226,13 @@ class BulkInfoProviderImportJobPartTest extends TestCase
     public function testIsFailed(): void
     {
         $this->assertFalse($this->jobPart->isFailed());
-        
+
         $this->jobPart->setStatus(BulkImportPartStatus::FAILED);
         $this->assertTrue($this->jobPart->isFailed());
-        
+
         $this->jobPart->setStatus(BulkImportPartStatus::COMPLETED);
         $this->assertFalse($this->jobPart->isFailed());
-        
+
         $this->jobPart->setStatus(BulkImportPartStatus::SKIPPED);
         $this->assertFalse($this->jobPart->isFailed());
     }
@@ -251,23 +251,23 @@ class BulkInfoProviderImportJobPartTest extends TestCase
         $this->assertTrue($this->jobPart->isPending());
         $this->jobPart->markAsCompleted();
         $this->assertTrue($this->jobPart->isCompleted());
-        
+
         // Test completed -> pending
         $this->jobPart->markAsPending();
         $this->assertTrue($this->jobPart->isPending());
-        
+
         // Test pending -> skipped
         $this->jobPart->markAsSkipped('Test reason');
         $this->assertTrue($this->jobPart->isSkipped());
-        
+
         // Test skipped -> pending
         $this->jobPart->markAsPending();
         $this->assertTrue($this->jobPart->isPending());
-        
+
         // Test pending -> failed
         $this->jobPart->markAsFailed('Test error');
         $this->assertTrue($this->jobPart->isFailed());
-        
+
         // Test failed -> pending
         $this->jobPart->markAsPending();
         $this->assertTrue($this->jobPart->isPending());
@@ -278,22 +278,22 @@ class BulkInfoProviderImportJobPartTest extends TestCase
         // Initially no reason or completion time
         $this->assertNull($this->jobPart->getReason());
         $this->assertNull($this->jobPart->getCompletedAt());
-        
+
         // After marking as skipped, should have reason and completion time
         $this->jobPart->markAsSkipped('Skipped reason');
         $this->assertEquals('Skipped reason', $this->jobPart->getReason());
         $this->assertInstanceOf(\DateTimeImmutable::class, $this->jobPart->getCompletedAt());
-        
+
         // After marking as pending, reason and completion time should be cleared
         $this->jobPart->markAsPending();
         $this->assertNull($this->jobPart->getReason());
         $this->assertNull($this->jobPart->getCompletedAt());
-        
+
         // After marking as failed, should have reason and completion time
         $this->jobPart->markAsFailed('Failed reason');
         $this->assertEquals('Failed reason', $this->jobPart->getReason());
         $this->assertInstanceOf(\DateTimeImmutable::class, $this->jobPart->getCompletedAt());
-        
+
         // After marking as completed, should have completion time (reason may remain from previous state)
         $this->jobPart->markAsCompleted();
         $this->assertInstanceOf(\DateTimeImmutable::class, $this->jobPart->getCompletedAt());

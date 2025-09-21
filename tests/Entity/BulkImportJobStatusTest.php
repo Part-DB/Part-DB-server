@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Entity;
 
-use App\Entity\BulkImportJobStatus;
+use App\Entity\InfoProviderSystem\BulkImportJobStatus;
 use PHPUnit\Framework\TestCase;
 
 class BulkImportJobStatusTest extends TestCase
@@ -39,7 +39,7 @@ class BulkImportJobStatusTest extends TestCase
     public function testEnumCases(): void
     {
         $cases = BulkImportJobStatus::cases();
-        
+
         $this->assertCount(5, $cases);
         $this->assertContains(BulkImportJobStatus::PENDING, $cases);
         $this->assertContains(BulkImportJobStatus::IN_PROGRESS, $cases);

@@ -22,16 +22,15 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use App\Entity\Parts\Part;
-use App\Entity\Parts\PartLot;
+use App\Entity\InfoProviderSystem\BulkImportJobStatus;
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\Part;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\UserSystem\User;
-use App\Entity\BulkInfoProviderImportJob;
-use App\Entity\BulkImportJobStatus;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;

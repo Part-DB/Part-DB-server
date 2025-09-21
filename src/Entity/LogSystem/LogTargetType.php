@@ -24,8 +24,8 @@ namespace App\Entity\LogSystem;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\BulkInfoProviderImportJob;
-use App\Entity\BulkInfoProviderImportJobPart;
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJobPart;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\Category;

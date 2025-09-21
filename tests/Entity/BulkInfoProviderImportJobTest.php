@@ -22,14 +22,13 @@ declare(strict_types=1);
 
 namespace App\Tests\Entity;
 
-use App\Entity\BulkInfoProviderImportJob;
-use App\Entity\BulkImportJobStatus;
+use App\Entity\InfoProviderSystem\BulkImportJobStatus;
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
 use App\Entity\UserSystem\User;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
-use Doctrine\ORM\Mapping\FieldMapping;
 use PHPUnit\Framework\TestCase;
 
 class BulkInfoProviderImportJobTest extends TestCase

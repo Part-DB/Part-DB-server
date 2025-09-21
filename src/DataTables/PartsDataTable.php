@@ -43,7 +43,6 @@ use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\ProjectSystem\Project;
-use App\Entity\BulkInfoProviderImportJobPart;
 use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
 use App\Settings\BehaviorSettings\TableSettings;

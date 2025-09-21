@@ -22,10 +22,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use App\Controller\BulkInfoProviderImportController;
+use App\Entity\InfoProviderSystem\BulkImportJobStatus;
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
 use App\Entity\Parts\Part;
-use App\Entity\BulkInfoProviderImportJob;
-use App\Entity\BulkImportJobStatus;
 use App\Entity\UserSystem\User;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO;

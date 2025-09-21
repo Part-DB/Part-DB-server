@@ -20,13 +20,13 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\InfoProviderSystem;
 
-enum BulkImportJobStatus: string
+
+enum BulkImportPartStatus: string
 {
     case PENDING = 'pending';
-    case IN_PROGRESS = 'in_progress';
     case COMPLETED = 'completed';
-    case STOPPED = 'stopped';
+    case SKIPPED = 'skipped';
     case FAILED = 'failed';
 }

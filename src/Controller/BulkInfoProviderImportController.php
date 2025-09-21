@@ -22,25 +22,25 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\BulkInfoProviderImportJob;
-use App\Entity\BulkInfoProviderImportJobPart;
-use App\Entity\BulkImportJobStatus;
+use App\Entity\InfoProviderSystem\BulkImportJobStatus;
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJobPart;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
+use App\Entity\UserSystem\User;
 use App\Form\InfoProviderSystem\GlobalFieldMappingType;
 use App\Services\InfoProviderSystem\BulkInfoProviderService;
-use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Entity\UserSystem\User;
 
 #[Route('/tools/bulk_info_provider_import')]
 class BulkInfoProviderImportController extends AbstractController
