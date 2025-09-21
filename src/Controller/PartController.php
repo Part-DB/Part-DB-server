@@ -72,7 +72,8 @@ final class PartController extends AbstractController
         private readonly TranslatorInterface $translator,
         private readonly AttachmentSubmitHandler $attachmentSubmitHandler,
         private readonly EntityManagerInterface $em,
-        private readonly EventCommentHelper $commentHelper
+        private readonly EventCommentHelper $commentHelper,
+        private readonly PartInfoSettings $partInfoSettings,
     ) {
     }
 

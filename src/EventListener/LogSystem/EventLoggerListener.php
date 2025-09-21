@@ -170,6 +170,7 @@ class EventLoggerListener
     public function hasFieldRestrictions(AbstractDBElement $element): bool
     {
         foreach (array_keys(static::FIELD_BLACKLIST) as $class) {
+            /** @var string $class */
             if ($element instanceof $class) {
                 return true;
             }
@@ -184,6 +185,7 @@ class EventLoggerListener
     public function shouldFieldBeSaved(AbstractDBElement $element, string $field_name): bool
     {
         foreach (static::FIELD_BLACKLIST as $class => $blacklist) {
+            /** @var string $class */
             if ($element instanceof $class && in_array($field_name, $blacklist, true)) {
                 return false;
             }
@@ -215,6 +217,7 @@ class EventLoggerListener
             $mappings = $metadata->getAssociationMappings();
             //Check if class is whitelisted for CollectionElementDeleted entry
             foreach (static::TRIGGER_ASSOCIATION_LOG_WHITELIST as $class => $whitelist) {
+                /** @var string $class */
                 if ($entity instanceof $class) {
                     //Check names
                     foreach ($mappings as $field => $mapping) {
