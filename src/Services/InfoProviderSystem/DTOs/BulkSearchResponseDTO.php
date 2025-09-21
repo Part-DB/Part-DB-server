@@ -24,12 +24,13 @@ namespace App\Services\InfoProviderSystem\DTOs;
 
 use App\Entity\Parts\Part;
 use Doctrine\ORM\EntityManagerInterface;
+use Traversable;
 
 /**
  * Represents the complete response from a bulk info provider search operation.
  * It contains a list of PartSearchResultDTOs, one for each part searched.
  */
-readonly class BulkSearchResponseDTO implements \ArrayAccess
+readonly class BulkSearchResponseDTO implements \ArrayAccess, \IteratorAggregate
 {
     /**
      * @param BulkSearchPartResultsDTO[] $partResults Array of search results for each part
@@ -215,5 +216,10 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess
     public function offsetUnset(mixed $offset): void
     {
         throw new \LogicException('BulkSearchResponseDTO is immutable.');
+    }
+
+    public function getIterator(): Traversable
+    {
+        return new \ArrayIterator($this->partResults);
     }
 }

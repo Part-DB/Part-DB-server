@@ -26,8 +26,8 @@
         <div>
             <h5 class="mb-1">{{ job.displayNameKey|trans(job.displayNameParams) }} - {{ job.formattedTimestamp }}</h5>
             <small class="text-muted">
-                {{ job.partCount }} {% trans %}info_providers.bulk_import.parts{% endtrans %} • 
-                {{ job.resultCount }} {% trans %}info_providers.bulk_import.results{% endtrans %} • 
+                {{ job.partCount }} {% trans %}info_providers.bulk_import.parts{% endtrans %} •
+                {{ job.resultCount }} {% trans %}info_providers.bulk_import.results{% endtrans %} •
                 {% trans %}info_providers.bulk_import.created_at{% endtrans %}: {{ job.createdAt|date('Y-m-d H:i') }}
             </small>
         </div>
@@ -52,14 +52,14 @@
                 <span data-bulk-import-target="progressText">{{ job.completedPartsCount }} / {{ job.partCount }} completed</span>
             </div>
             <div class="progress" style="height: 8px;">
-                <div data-bulk-import-target="progressBar" class="progress-bar" role="progressbar" 
-                     style="width: {{ job.progressPercentage }}%" 
+                <div data-bulk-import-target="progressBar" class="progress-bar" role="progressbar"
+                     style="width: {{ job.progressPercentage }}%"
                      aria-valuenow="{{ job.progressPercentage }}" aria-valuemin="0" aria-valuemax="100">
                 </div>
             </div>
             <div class="d-flex justify-content-between mt-2">
                 <small class="text-muted">
-                    <span id="completed-count">{{ job.completedPartsCount }}</span> {% trans %}info_providers.bulk_import.completed{% endtrans %} • 
+                    <span id="completed-count">{{ job.completedPartsCount }}</span> {% trans %}info_providers.bulk_import.completed{% endtrans %} •
                     <span id="skipped-count">{{ job.skippedPartsCount }}</span> {% trans %}info_providers.bulk_import.skipped{% endtrans %}
                 </small>
                 <small class="text-muted"><span id="progress-percentage">{{ job.progressPercentage }}%</span></small>
@@ -89,7 +89,7 @@
                     <small class="text-muted">{% trans %}info_providers.bulk_import.research.description{% endtrans %}</small>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-outline-primary btn-sm me-2" 
+                    <button type="button" class="btn btn-outline-primary btn-sm me-2"
                             data-action="click->bulk-import#researchAllParts"
                             id="research-all-btn">
                         <span class="spinner-border spinner-border-sm me-1" style="display: none;" id="research-all-spinner"></span>
@@ -101,11 +101,13 @@
     </div>
 
     {% for part_result in search_results %}
+        {# @var part_result \App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO  #}
+
         {% set part = part_result.part %}
         {% set isCompleted = job.isPartCompleted(part.id) %}
         {% set isSkipped = job.isPartSkipped(part.id) %}
-        <div class="card mb-3 {% if isCompleted %}border-success{% elseif isSkipped %}border-warning{% endif %}" 
-             data-part-id="{{ part.id }}" 
+        <div class="card mb-3 {% if isCompleted %}border-success{% elseif isSkipped %}border-warning{% endif %}"
+             data-part-id="{{ part.id }}"
              {% if isCompleted %}style="background-color: rgba(25, 135, 84, 0.1);"{% endif %}>
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
@@ -125,12 +127,12 @@
                         {% if part_result.errors is not empty %}
                             <span class="badge bg-danger">{% trans with {'%count%': part_result.errors|length} %}info_providers.bulk_import.errors{% endtrans %}</span>
                         {% endif %}
-                        <span class="badge bg-info">{% trans with {'%count%': part_result.search_results|length} %}info_providers.bulk_import.results_found{% endtrans %}</span>
+                        <span class="badge bg-info">{% trans with {'%count%': part_result.searchResults|length} %}info_providers.bulk_import.results_found{% endtrans %}</span>
                     </h5>
                 </div>
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-outline-info btn-sm" 
-                            data-action="click->bulk-import#researchPart" 
+                    <button type="button" class="btn btn-outline-info btn-sm"
+                            data-action="click->bulk-import#researchPart"
                             data-part-id="{{ part.id }}"
                             title="{% trans %}info_providers.bulk_import.research.part_tooltip{% endtrans %}">
                         <span class="spinner-border spinner-border-sm me-1" style="display: none;" data-research-spinner="{{ part.id }}"></span>
@@ -163,8 +165,8 @@
                         </div>
                     {% endfor %}
                 {% endif %}
-                
-                {% if part_result.search_results|length > 0 %}
+
+                {% if part_result.searchResults|length > 0 %}
                     <div class="table-responsive">
                         <table class="table table-sm">
                             <thead>
@@ -179,13 +181,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for result in part_result.search_results %}
-                                    {% set dto = result.dto %}
+                                {% for result in part_result.searchResults %}
+                                    {# @var result \App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultDTO #}
+                                    {% set dto = result.searchResult %}
                                     {% set localPart = result.localPart %}
                                     <tr>
                                         <td>
                                             <img src="{{ dto.preview_image_url }}" data-thumbnail="{{ dto.preview_image_url }}"
-                                                 class="hoverpic" style="max-width: 30px;" {{ stimulus_controller('elements/hoverpic') }}>
+                                                 class="hoverpic" style="max-width: 35px;" {{ stimulus_controller('elements/hoverpic') }}>
                                         </td>
                                         <td>
                                             {% if dto.provider_url is not null %}
@@ -204,9 +207,9 @@
                                             <br><small class="text-muted">{{ dto.provider_id }}</small>
                                         </td>
                                         <td>
-                                            <span class="badge bg-info">{{ result.source_field ?? 'unknown' }}</span>
-                                            {% if result.source_keyword %}
-                                                <br><small class="text-muted">{{ result.source_keyword }}</small>
+                                            <span class="badge bg-info">{{ result.sourceField ?? 'unknown' }}</span>
+                                            {% if result.sourceKeyword %}
+                                                <br><small class="text-muted">{{ result.sourceKeyword }}</small>
                             {% endif %}
                                         </td>
                                         <td>
