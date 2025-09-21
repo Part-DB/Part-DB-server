@@ -47,6 +47,109 @@ table .input-group-btn:last-child>.btn, table .input-group-btn:last-child>.btn-g
     }
 }
 
+/* Mobile table improvements */
+@media (max-width: 768px) {
+    /* Better table wrapper for horizontal scrolling */
+    .table-responsive {
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1rem;
+    }
+    
+    /* Improve table appearance on mobile */
+    .table {
+        font-size: 0.9rem;
+        margin-bottom: 0;
+    }
+    
+    .table th {
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 12px 8px;
+        background-color: var(--bs-gray-100);
+        border-bottom: 2px solid var(--bs-gray-300);
+        white-space: nowrap;
+    }
+    
+    .table td {
+        padding: 10px 8px;
+        vertical-align: middle;
+    }
+    
+    /* Improve button groups in tables */
+    .table .btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2px;
+    }
+    
+    .table .btn-group .btn {
+        flex: 0 0 auto;
+        min-width: 36px;
+        min-height: 36px;
+        padding: 6px 8px;
+        font-size: 0.8rem;
+    }
+    
+    /* DataTables mobile improvements */
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+        margin-bottom: 0.75rem;
+    }
+    
+    .dataTables_wrapper .dataTables_filter input {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 0.5rem;
+        min-height: 44px;
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    .dataTables_wrapper .dataTables_length select {
+        min-height: 44px;
+        padding: 8px 12px;
+    }
+    
+    /* DataTables pagination improvements */
+    .dataTables_wrapper .dataTables_paginate {
+        text-align: center !important;
+        margin-top: 1rem;
+    }
+    
+    .dataTables_wrapper .dataTables_paginate .pagination {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .dataTables_wrapper .dataTables_paginate .page-link {
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 2px;
+    }
+    
+    /* DataTables info text */
+    .dataTables_wrapper .dataTables_info {
+        text-align: center;
+        padding: 1rem 0;
+        font-size: 0.9rem;
+    }
+    
+    /* Hide some table columns on very small screens */
+    @media (max-width: 480px) {
+        .table .mobile-hidden {
+            display: none;
+        }
+        
+        /* Stack table controls vertically on very small screens */
+        .dataTables_wrapper .row > div {
+            margin-bottom: 0.5rem;
+        }
+    }
+}
+
 /**
  * Enforce white links on selected rows in datatables
  */

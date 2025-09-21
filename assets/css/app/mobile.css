@@ -1,0 +1,292 @@
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ *  Copyright (C) 2019 - 2025 Jan Böhmer (https://github.com/jbtronics)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/************************************
+* Mobile-specific improvements
+*************************************/
+
+/* Mobile-first touch targets and spacing improvements */
+@media (max-width: 768px) {
+    
+    /************************************
+    * Touch targets (minimum 44px)
+    *************************************/
+    .btn {
+        min-height: 44px;
+        padding: 10px 16px;
+    }
+    
+    .btn-sm {
+        min-height: 40px;
+        padding: 8px 12px;
+    }
+    
+    .form-control {
+        min-height: 44px;
+        padding: 10px 12px;
+    }
+    
+    .form-select {
+        min-height: 44px;
+        padding: 10px 12px;
+    }
+    
+    .form-check-input {
+        width: 20px;
+        height: 20px;
+    }
+    
+    /************************************
+    * Form improvements
+    *************************************/
+    .form-group,
+    .mb-3 {
+        margin-bottom: 1.5rem;
+    }
+    
+    label {
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    
+    /************************************
+    * CKEditor mobile improvements
+    *************************************/
+    
+    /* Improve CKEditor toolbar layout and button sizes */
+    .ck.ck-toolbar {
+        flex-wrap: wrap !important;
+        padding: 8px !important;
+        border-radius: 8px !important;
+    }
+    
+    .ck.ck-toolbar .ck-toolbar__items {
+        flex-wrap: wrap !important;
+        gap: 4px !important;
+    }
+    
+    .ck.ck-button {
+        min-width: 40px !important;
+        min-height: 40px !important;
+        margin: 2px !important;
+        border-radius: 6px !important;
+    }
+    
+    .ck.ck-dropdown__button {
+        min-width: 40px !important;
+        min-height: 40px !important;
+    }
+    
+    /* Hide less important CKEditor buttons on mobile to reduce clutter */
+    .ck.ck-button[data-cke-tooltip-text*="Strikethrough"],
+    .ck.ck-button[data-cke-tooltip-text*="Subscript"], 
+    .ck.ck-button[data-cke-tooltip-text*="Superscript"],
+    .ck.ck-button[data-cke-tooltip-text*="Remove Format"],
+    .ck.ck-button[data-cke-tooltip-text*="Font Background Color"],
+    .ck.ck-button[data-cke-tooltip-text*="Font Color"],
+    .ck.ck-button[data-cke-tooltip-text*="Special characters"],
+    .ck.ck-button[data-cke-tooltip-text*="Find and replace"],
+    .ck.ck-button[data-cke-tooltip-text*="Highlight"] {
+        display: none !important;
+    }
+    
+    /* Alternative approach using class names if tooltip text doesn't work */
+    .ck.ck-button.ck-button_with-text .ck-button__label {
+        font-size: 12px !important;
+    }
+    
+    .ck.ck-editor__editable {
+        min-height: 120px !important;
+        padding: 12px !important;
+    }
+    
+    /* Improve dropdown panels */
+    .ck.ck-dropdown__panel {
+        max-height: 200px !important;
+        overflow-y: auto !important;
+    }
+    
+    /************************************
+    * Table improvements
+    *************************************/
+    .table-responsive {
+        border: none;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Better table styling for mobile */
+    .table {
+        font-size: 14px;
+    }
+    
+    .table td,
+    .table th {
+        padding: 8px 4px;
+        vertical-align: middle;
+    }
+    
+    /* Make action buttons in tables more mobile-friendly */
+    .table .btn-group .btn {
+        min-height: 36px;
+        padding: 6px 10px;
+        margin: 1px;
+    }
+    
+    /************************************
+    * Navigation improvements
+    *************************************/
+    .navbar-nav .nav-link {
+        padding: 12px 16px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .dropdown-menu .dropdown-item {
+        padding: 12px 16px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+    
+    /************************************
+    * Sidebar improvements
+    *************************************/
+    #sidebar-container {
+        /* Ensure sidebar has smooth transitions on mobile */
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    /* Improve treeview touch targets */
+    .node-sidebar-panel-1Tree,
+    .node-sidebar-panel-2Tree,
+    .node-sidebar-panel-3Tree {
+        min-height: 44px;
+        padding: 10px 12px;
+    }
+    
+    .node-sidebar-panel-1Tree .fa,
+    .node-sidebar-panel-2Tree .fa,
+    .node-sidebar-panel-3Tree .fa {
+        margin-right: 8px;
+    }
+    
+    /************************************
+    * Card and content spacing
+    *************************************/
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .card-header {
+        padding: 0.75rem 1rem;
+    }
+    
+    /************************************
+    * Modal improvements
+    *************************************/
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+    
+    .modal-content {
+        border-radius: 8px;
+    }
+    
+    /************************************
+    * Search improvements
+    *************************************/
+    .aa-Form {
+        margin-bottom: 8px;
+    }
+    
+    .aa-InputWrapper {
+        position: relative;
+    }
+    
+    .aa-Input {
+        min-height: 44px !important;
+        padding: 10px 44px 10px 12px !important;
+        font-size: 16px !important; /* Prevent zoom on iOS */
+    }
+    
+    .aa-SubmitButton {
+        min-width: 44px !important;
+        min-height: 44px !important;
+    }
+    
+    /************************************
+    * Toast improvements
+    *************************************/
+    .toast-container {
+        right: 10px;
+        left: 10px;
+        top: 80px; /* Below fixed navbar */
+        max-width: none;
+    }
+    
+    .toast {
+        margin-bottom: 8px;
+    }
+    
+    /************************************
+    * Utility classes for mobile
+    *************************************/
+    .mobile-hidden {
+        display: none;
+    }
+    
+    .mobile-full-width {
+        width: 100% !important;
+    }
+    
+    .mobile-center {
+        text-align: center !important;
+    }
+    
+    .mobile-scroll-horizontal {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Tablet adjustments (768px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .ck-toolbar {
+        flex-wrap: nowrap !important;
+    }
+    
+    /* Show some CKEditor buttons on tablets that are hidden on phones */
+    .ck-button[data-cke-tooltip-text*="Strikethrough"],
+    .ck-button[data-cke-tooltip-text*="Remove Format"] {
+        display: inline-block !important;
+    }
+}
+
+/* Large mobile devices (landscape phones) */
+@media (min-width: 576px) and (max-width: 767px) {
+    .ck-button[data-cke-tooltip-text*="Font Color"],
+    .ck-button[data-cke-tooltip-text*="Special characters"] {
+        display: inline-block !important;
+    }
+}
