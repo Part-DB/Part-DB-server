@@ -59,8 +59,8 @@ class SearchResultDTO
         public readonly ?string $provider_url = null,
         /** @var string|null A footprint representation of the providers page */
         public readonly ?string $footprint = null,
-    ) {
-
+    )
+    {
         if ($preview_image_url !== null) {
             //Utilize the escaping mechanism of FileDTO to ensure that the preview image URL is correctly encoded
             //See issue #521: https://github.com/Part-DB/Part-DB-server/issues/521
@@ -70,5 +70,48 @@ class SearchResultDTO
             $this->preview_image_file = null;
             $this->preview_image_url = null;
         }
+    }
+
+    /**
+     * This method creates a normalized array representation of the DTO.
+     * @return array
+     */
+    public function toNormalizedSearchResultArray(): array
+    {
+        return [
+            'provider_key' => $this->provider_key,
+            'provider_id' => $this->provider_id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'category' => $this->category,
+            'manufacturer' => $this->manufacturer,
+            'mpn' => $this->mpn,
+            'preview_image_url' => $this->preview_image_url,
+            'manufacturing_status' => $this->manufacturing_status?->value,
+            'provider_url' => $this->provider_url,
+            'footprint' => $this->footprint,
+        ];
+    }
+
+    /**
+     * Creates a SearchResultDTO from a normalized array representation.
+     * @param  array  $data
+     * @return self
+     */
+    public static function fromNormalizedSearchResultArray(array $data): self
+    {
+        return new self(
+            provider_key: $data['provider_key'],
+            provider_id: $data['provider_id'],
+            name: $data['name'],
+            description: $data['description'],
+            category: $data['category'] ?? null,
+            manufacturer: $data['manufacturer'] ?? null,
+            mpn: $data['mpn'] ?? null,
+            preview_image_url: $data['preview_image_url'] ?? null,
+            manufacturing_status: isset($data['manufacturing_status']) ? ManufacturingStatus::tryFrom($data['manufacturing_status']) : null,
+            provider_url: $data['provider_url'] ?? null,
+            footprint: $data['footprint'] ?? null,
+        );
     }
 }

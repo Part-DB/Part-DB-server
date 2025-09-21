@@ -25,6 +25,7 @@ namespace App\Entity;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parts\Part;
 use App\Entity\UserSystem\User;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -44,6 +45,11 @@ class BulkInfoProviderImportJob extends AbstractDBElement
 
     #[ORM\Column(type: Types::JSON)]
     private array $searchResults = [];
+
+    /**
+     * @var BulkSearchResponseDTO|null The deserialized search results DTO, cached for performance
+     */
+    private ?BulkSearchResponseDTO $searchResultsDTO = null;
 
     #[ORM\Column(type: Types::STRING, length: 20, enumType: BulkImportJobStatus::class)]
     private BulkImportJobStatus $status = BulkImportJobStatus::PENDING;
@@ -155,15 +161,31 @@ class BulkInfoProviderImportJob extends AbstractDBElement
         return $this;
     }
 
-    public function getSearchResults(): array
+    public function getSearchResultsRaw(): array
     {
         return $this->searchResults;
     }
 
-    public function setSearchResults(array $searchResults): self
+    public function setSearchResultsRaw(array $searchResults): self
     {
         $this->searchResults = $searchResults;
         return $this;
+    }
+
+    public function setSearchResults(BulkSearchResponseDTO $searchResponse): self
+    {
+        $this->searchResultsDTO = $searchResponse;
+        $this->searchResults = $searchResponse->toSerializableRepresentation();
+        return $this;
+    }
+
+    public function getSearchResults(EntityManagerInterface $entityManager): BulkSearchResponseDTO
+    {
+        if ($this->searchResultsDTO === null) {
+            // Lazy load the DTO from the raw JSON data
+            $this->searchResultsDTO = BulkSearchResponseDTO::fromSerializableRepresentation($this->searchResults, $entityManager);
+        }
+        return $this->searchResultsDTO;
     }
 
     public function getStatus(): BulkImportJobStatus
@@ -395,108 +417,5 @@ class BulkInfoProviderImportJob extends AbstractDBElement
 
         $completed = $this->getCompletedPartsCount() + $this->getSkippedPartsCount();
         return $completed >= $total;
-    }
-
-    /**
-     * @param  array  $searchResults
-     * @return array{part_id: int, search_results: array{dto: array{provider_key: string, provider_id: string, name: string, description: string, manufacturer: string, mpn: string, provider_url: string, preview_image_url: string, _source_field: string|null, _source_keyword: string|null}, localPart: int|null}[], errors: string[]}[]
-     */
-    public function serializeSearchResults(array $searchResults): array
-    {
-        $serialized = [];
-
-        foreach ($searchResults as $partResult) {
-            $partData = [
-                'part_id' => $partResult['part']->getId(),
-                'search_results' => [],
-                'errors' => $partResult['errors'] ?? []
-            ];
-
-            foreach ($partResult['search_results'] as $result) {
-                $dto = $result['dto'];
-                $partData['search_results'][] = [
-                    'dto' => [
-                        'provider_key' => $dto->provider_key,
-                        'provider_id' => $dto->provider_id,
-                        'name' => $dto->name,
-                        'description' => $dto->description,
-                        'manufacturer' => $dto->manufacturer,
-                        'mpn' => $dto->mpn,
-                        'provider_url' => $dto->provider_url,
-                        'preview_image_url' => $dto->preview_image_url,
-                        '_source_field' => $result['source_field'] ?? null,
-                        '_source_keyword' => $result['source_keyword'] ?? null,
-                    ],
-                    'localPart' => $result['localPart'] ? $result['localPart']->getId() : null
-                ];
-            }
-
-            $serialized[] = $partData;
-        }
-
-        return $serialized;
-    }
-
-    /**
-     * @param  EntityManagerInterface|null  $entityManager
-     * @return array{part: Part, search_results: array{dto: SearchResultDTO, localPart: Part|null, source_field: string|null, source_keyword: string|null}[], errors: string[]}[]
-     */
-    public function deserializeSearchResults(?EntityManagerInterface $entityManager = null): array
-    {
-        if (empty($this->searchResults)) {
-            return [];
-        }
-
-        $parts = $this->jobParts->map(fn($jobPart) => $jobPart->getPart())->toArray();
-        $partsById = [];
-        foreach ($parts as $part) {
-            $partsById[$part->getId()] = $part;
-        }
-
-        $searchResults = [];
-
-        foreach ($this->searchResults as $partData) {
-            $part = $partsById[$partData['part_id']] ?? null;
-            if (!$part) {
-                continue;
-            }
-
-            $partResult = [
-                'part' => $part,
-                'search_results' => [],
-                'errors' => $partData['errors'] ?? []
-            ];
-
-            foreach ($partData['search_results'] as $resultData) {
-                $dtoData = $resultData['dto'];
-
-                $dto = new SearchResultDTO(
-                    provider_key: $dtoData['provider_key'],
-                    provider_id: $dtoData['provider_id'],
-                    name: $dtoData['name'],
-                    description: $dtoData['description'],
-                    manufacturer: $dtoData['manufacturer'],
-                    mpn: $dtoData['mpn'],
-                    provider_url: $dtoData['provider_url'],
-                    preview_image_url: $dtoData['preview_image_url']
-                );
-
-                $localPart = null;
-                if ($resultData['localPart'] && $entityManager) {
-                    $localPart = $entityManager->getRepository(Part::class)->find($resultData['localPart']);
-                }
-
-                $partResult['search_results'][] = [
-                    'dto' => $dto,
-                    'localPart' => $localPart,
-                    'source_field' => $dtoData['_source_field'] ?? null,
-                    'source_keyword' => $dtoData['_source_keyword'] ?? null
-                ];
-            }
-
-            $searchResults[] = $partResult;
-        }
-
-        return $searchResults;
     }
 }

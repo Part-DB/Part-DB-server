@@ -28,11 +28,11 @@ use App\Entity\Parts\Part;
  * Represents the search results for a single part from bulk info provider search.
  * This DTO provides type safety and clear structure for part search results.
  */
-readonly class PartSearchResultDTO
+readonly class PartSearchResultsDTO
 {
     /**
      * @param Part $part The part that was searched for
-     * @param SearchResultWithMetadataDTO[] $searchResults Array of search results found for this part
+     * @param BulkSearchResultDTO[] $searchResults Array of search results found for this part
      * @param string[] $errors Array of error messages encountered during search
      */
     public function __construct(
@@ -40,42 +40,6 @@ readonly class PartSearchResultDTO
         public array $searchResults = [],
         public array $errors = []
     ) {}
-
-    /**
-     * Create from legacy array format for backwards compatibility.
-     * @param array{part: Part, search_results: array, errors: string[]} $data
-     */
-    public static function fromArray(array $data): self
-    {
-        $searchResults = [];
-        foreach ($data['search_results'] as $result) {
-            $searchResults[] = SearchResultWithMetadataDTO::fromArray($result);
-        }
-
-        return new self(
-            part: $data['part'],
-            searchResults: $searchResults,
-            errors: $data['errors'] ?? []
-        );
-    }
-
-    /**
-     * Convert to legacy array format for backwards compatibility.
-     * @return array{part: Part, search_results: array, errors: string[]}
-     */
-    public function toArray(): array
-    {
-        $searchResults = [];
-        foreach ($this->searchResults as $result) {
-            $searchResults[] = $result->toArray();
-        }
-
-        return [
-            'part' => $this->part,
-            'search_results' => $searchResults,
-            'errors' => $this->errors,
-        ];
-    }
 
     /**
      * Check if this part has any search results.
@@ -101,14 +65,19 @@ readonly class PartSearchResultDTO
         return count($this->searchResults);
     }
 
+    public function getErrorCount(): int
+    {
+        return count($this->errors);
+    }
+
     /**
      * Get search results sorted by priority (ascending).
-     * @return SearchResultWithMetadataDTO[]
+     * @return BulkSearchResultDTO[]
      */
     public function getResultsSortedByPriority(): array
     {
         $results = $this->searchResults;
-        usort($results, fn($a, $b) => $a->getPriority() <=> $b->getPriority());
+        usort($results, static fn(BulkSearchResultDTO $a, BulkSearchResultDTO $b) => $a->priority <=> $b->priority);
         return $results;
     }
 }

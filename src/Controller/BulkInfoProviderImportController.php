@@ -29,7 +29,9 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
 use App\Form\InfoProviderSystem\GlobalFieldMappingType;
 use App\Services\InfoProviderSystem\BulkInfoProviderService;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use App\Services\InfoProviderSystem\DTOs\FieldMappingDTO;
+use App\Services\InfoProviderSystem\DTOs\PartSearchResultsDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -99,25 +101,20 @@ class BulkInfoProviderImportController extends AbstractController
         return $job;
     }
 
-    private function updatePartSearchResults(BulkInfoProviderImportJob $job, int $partId, ?array $newResults): void
+    private function updatePartSearchResults(BulkInfoProviderImportJob $job, int $partId, ?PartSearchResultsDTO $newResults): void
     {
         if ($newResults === null) {
             return;
         }
 
         // Only deserialize and update if we have new results
-        $allResults = $job->deserializeSearchResults($this->entityManager);
+        $allResults = $job->getSearchResults($this->entityManager);
 
         // Find and update the results for this specific part
-        foreach ($allResults as $index => $partResult) {
-            if ($partResult['part']->getId() === $partId) {
-                $allResults[$index] = $newResults;
-                break;
-            }
-        }
+        $allResults = $allResults->replaceResultsForPart($partId, $newResults);
 
         // Save updated results back to job
-        $job->setSearchResults($job->serializeSearchResults($allResults));
+        $job->setSearchResults($allResults);
     }
 
     #[Route('/step1', name: 'bulk_info_provider_step1')]
@@ -219,17 +216,14 @@ class BulkInfoProviderImportController extends AbstractController
                 $fieldMappingDtos = $this->convertFieldMappingsToDto($fieldMappings);
                 $searchResultsDto = $this->bulkService->performBulkSearch($parts, $fieldMappingDtos, $prefetchDetails);
 
-                // Convert DTO back to array format for legacy compatibility
-                $searchResults = $searchResultsDto->toArray();
-
                 // Save search results to job
-                $job->setSearchResults($job->serializeSearchResults($searchResults));
+                $job->setSearchResults($searchResultsDto);
                 $job->markAsInProgress();
                 $this->entityManager->flush();
 
                 // Prefetch details if requested
                 if ($prefetchDetails) {
-                    $this->bulkService->prefetchDetailsForResults($searchResults);
+                    $this->bulkService->prefetchDetailsForResults($searchResultsDto);
                 }
 
                 return $this->redirectToRoute('bulk_info_provider_step2', ['jobId' => $job->getId()]);
@@ -369,7 +363,7 @@ class BulkInfoProviderImportController extends AbstractController
 
         // Get the parts and deserialize search results
         $parts = $job->getJobParts()->map(fn($jobPart) => $jobPart->getPart())->toArray();
-        $searchResults = $job->deserializeSearchResults($this->entityManager);
+        $searchResults = $job->getSearchResults($this->entityManager);
 
         return $this->render('info_providers/bulk_import/step2.html.twig', [
             'job' => $job,
@@ -481,34 +475,33 @@ class BulkInfoProviderImportController extends AbstractController
 
             try {
                 $searchResultsDto = $this->bulkService->performBulkSearch([$part], $fieldMappingDtos, $prefetchDetails);
-                $searchResults = $searchResultsDto->toArray();
             } catch (\Exception $searchException) {
                 // Handle "no search results found" as a normal case, not an error
                 if (str_contains($searchException->getMessage(), 'No search results found')) {
-                    $searchResults = [];
+                    $searchResultsDto = null;
                 } else {
                     throw $searchException;
                 }
             }
 
             // Update the job's search results for this specific part efficiently
-            $this->updatePartSearchResults($job, $partId, $searchResults[0] ?? null);
+            $this->updatePartSearchResults($job, $partId, $searchResultsDto[0] ?? null);
 
             // Prefetch details if requested
-            if ($prefetchDetails && !empty($searchResults)) {
-                $this->bulkService->prefetchDetailsForResults($searchResults);
+            if ($prefetchDetails && $searchResultsDto !== null) {
+                $this->bulkService->prefetchDetailsForResults($searchResultsDto);
             }
 
             $this->entityManager->flush();
 
             // Return the new results for this part
-            $newResults = $searchResults[0] ?? null;
+            $newResults = $searchResultsDto[0] ?? null;
 
             return $this->json([
                 'success' => true,
                 'part_id' => $partId,
-                'results_count' => $newResults ? count($newResults['search_results']) : 0,
-                'errors_count' => $newResults ? count($newResults['errors']) : 0,
+                'results_count' => $newResults ? $newResults->getResultCount() : 0,
+                'errors_count' => $newResults ? $newResults->getErrorCount() : 0,
                 'message' => 'Part research completed successfully'
             ]);
 
@@ -555,13 +548,12 @@ class BulkInfoProviderImportController extends AbstractController
             $prefetchDetails = $job->isPrefetchDetails();
 
             // Process in batches to reduce memory usage for large operations
-            $allResults = [];
+            $allResults = new BulkSearchResponseDTO(partResults: []);
             $batches = array_chunk($parts, $this->bulkImportBatchSize);
 
             foreach ($batches as $batch) {
                 $batchResultsDto = $this->bulkService->performBulkSearch($batch, $fieldMappingDtos, $prefetchDetails);
-                $batchResults = $batchResultsDto->toArray();
-                $allResults = array_merge($allResults, $batchResults);
+                $allResults =  BulkSearchResponseDTO::merge($allResults, $batchResultsDto);
 
                 // Properly manage entity manager memory without losing state
                 $jobId = $job->getId();
@@ -570,7 +562,7 @@ class BulkInfoProviderImportController extends AbstractController
             }
 
             // Update the job's search results
-            $job->setSearchResults($job->serializeSearchResults($allResults));
+            $job->setSearchResults($allResults);
 
             // Prefetch details if requested
             if ($prefetchDetails) {

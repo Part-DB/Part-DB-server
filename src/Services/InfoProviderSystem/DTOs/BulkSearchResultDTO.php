@@ -22,18 +22,16 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\DTOs;
 
-use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 
 /**
- * Represents a search result from bulk search with additional context information.
- * Uses composition instead of inheritance for better maintainability.
+ * Represents a search result from bulk search with additional context information, like how the part was found.
  */
 readonly class BulkSearchResultDTO
 {
     public function __construct(
         /** The base search result DTO containing provider data */
-        public SearchResultDTO $baseDto,
+        public SearchResultDTO $searchResult,
         /** The field that was used to find this result */
         public ?string $sourceField = null,
         /** The actual keyword that was searched for */
@@ -43,97 +41,4 @@ readonly class BulkSearchResultDTO
         /** Priority for this search result */
         public int $priority = 1
     ) {}
-
-    // Delegation methods for SearchResultDTO properties
-    public function getProviderKey(): string
-    {
-        return $this->baseDto->provider_key;
-    }
-
-    public function getProviderId(): string
-    {
-        return $this->baseDto->provider_id;
-    }
-
-    public function getName(): string
-    {
-        return $this->baseDto->name;
-    }
-
-    public function getDescription(): string
-    {
-        return $this->baseDto->description;
-    }
-
-    public function getCategory(): ?string
-    {
-        return $this->baseDto->category;
-    }
-
-    public function getManufacturer(): ?string
-    {
-        return $this->baseDto->manufacturer;
-    }
-
-    public function getMpn(): ?string
-    {
-        return $this->baseDto->mpn;
-    }
-
-    public function getPreviewImageUrl(): ?string
-    {
-        return $this->baseDto->preview_image_url;
-    }
-
-    public function getPreviewImageFile(): ?FileDTO
-    {
-        return $this->baseDto->preview_image_file;
-    }
-
-    public function getManufacturingStatus(): ?ManufacturingStatus
-    {
-        return $this->baseDto->manufacturing_status;
-    }
-
-    public function getProviderUrl(): ?string
-    {
-        return $this->baseDto->provider_url;
-    }
-
-    public function getFootprint(): ?string
-    {
-        return $this->baseDto->footprint;
-    }
-
-    // Backwards compatibility properties for legacy code
-    public function __get(string $name): mixed
-    {
-        return match ($name) {
-            'provider_key' => $this->baseDto->provider_key,
-            'provider_id' => $this->baseDto->provider_id,
-            'name' => $this->baseDto->name,
-            'description' => $this->baseDto->description,
-            'category' => $this->baseDto->category,
-            'manufacturer' => $this->baseDto->manufacturer,
-            'mpn' => $this->baseDto->mpn,
-            'preview_image_url' => $this->baseDto->preview_image_url,
-            'preview_image_file' => $this->baseDto->preview_image_file,
-            'manufacturing_status' => $this->baseDto->manufacturing_status,
-            'provider_url' => $this->baseDto->provider_url,
-            'footprint' => $this->baseDto->footprint,
-            default => throw new \InvalidArgumentException("Property '{$name}' does not exist")
-        };
-    }
-
-    /**
-     * Magic isset method for backwards compatibility.
-     */
-    public function __isset(string $name): bool
-    {
-        return in_array($name, [
-            'provider_key', 'provider_id', 'name', 'description', 'category',
-            'manufacturer', 'mpn', 'preview_image_url', 'preview_image_file',
-            'manufacturing_status', 'provider_url', 'footprint'
-        ], true);
-    }
 }

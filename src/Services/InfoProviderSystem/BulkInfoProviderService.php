@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem;
 
-use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResultDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use App\Services\InfoProviderSystem\DTOs\FieldMappingDTO;
-use App\Services\InfoProviderSystem\DTOs\PartSearchResultDTO;
-use App\Services\InfoProviderSystem\DTOs\SearchResultWithMetadataDTO;
+use App\Services\InfoProviderSystem\DTOs\PartSearchResultsDTO;
 use App\Services\InfoProviderSystem\Providers\BatchInfoProviderInterface;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -94,7 +92,7 @@ final class BulkInfoProviderService
                 $searchResults = $this->formatSearchResults($allResults);
             }
 
-            $partResults[] = new PartSearchResultDTO(
+            $partResults[] = new PartSearchResultsDTO(
                 part: $part,
                 searchResults: $searchResults,
                 errors: []
@@ -148,7 +146,7 @@ final class BulkInfoProviderService
                         if ($keyword && isset($providerResults[$keyword])) {
                             foreach ($providerResults[$keyword] as $dto) {
                                 $batchResults[$part->getId()][] = new BulkSearchResultDTO(
-                                    baseDto: $dto,
+                                    searchResult: $dto,
                                     sourceField: $mapping->field,
                                     sourceKeyword: $keyword,
                                     localPart: $this->existingPartFinder->findFirstExisting($dto),
@@ -207,7 +205,7 @@ final class BulkInfoProviderService
 
                     foreach ($dtos as $dto) {
                         $regularResults[$part->getId()][] = new BulkSearchResultDTO(
-                            baseDto: $dto,
+                            searchResult: $dto,
                             sourceField: $mapping->field,
                             sourceKeyword: $keyword,
                             localPart: $this->existingPartFinder->findFirstExisting($dto),
@@ -329,7 +327,7 @@ final class BulkInfoProviderService
      * Format and deduplicate search results.
      *
      * @param BulkSearchResultDTO[] $bulkResults Array of bulk search results
-     * @return SearchResultWithMetadataDTO[] Array of formatted search results with metadata
+     * @return BulkSearchResultDTO[] Array of formatted search results with metadata
      */
     private function formatSearchResults(array $bulkResults): array
     {
@@ -340,15 +338,10 @@ final class BulkInfoProviderService
         $seenKeys = [];
 
         foreach ($bulkResults as $result) {
-            $key = "{$result->getProviderKey()}|{$result->getProviderId()}";
+            $key = "{$result->searchResult->provider_key}|{$result->searchResult->provider_id}";
             if (!in_array($key, $seenKeys, true)) {
                 $seenKeys[] = $key;
-                $uniqueResults[] = new SearchResultWithMetadataDTO(
-                    searchResult: $result,
-                    localPart: $result->localPart,
-                    sourceField: $result->sourceField,
-                    sourceKeyword: $result->sourceKeyword
-                );
+                $uniqueResults[] = $result;
             }
         }
 
@@ -358,46 +351,26 @@ final class BulkInfoProviderService
     /**
      * Prefetch detailed information for search results.
      *
-     * @param BulkSearchResponseDTO|array $searchResults Search results (supports both new DTO and legacy array format)
+     * @param BulkSearchResponseDTO $searchResults Search results (supports both new DTO and legacy array format)
      */
-    public function prefetchDetailsForResults($searchResults): void
+    public function prefetchDetailsForResults(BulkSearchResponseDTO $searchResults): void
     {
         $prefetchCount = 0;
 
         // Handle both new DTO format and legacy array format for backwards compatibility
-        if ($searchResults instanceof BulkSearchResponseDTO) {
-            foreach ($searchResults->partResults as $partResult) {
-                foreach ($partResult->searchResults as $result) {
-                    $dto = $result->searchResult;
+        foreach ($searchResults->partResults as $partResult) {
+            foreach ($partResult->searchResults as $result) {
+                $dto = $result->searchResult;
 
-                    try {
-                        $this->infoRetriever->getDetails($dto->getProviderKey(), $dto->getProviderId());
-                        $prefetchCount++;
-                    } catch (\Exception $e) {
-                        $this->logger->warning('Failed to prefetch details for provider part', [
-                            'provider_key' => $dto->getProviderKey(),
-                            'provider_id' => $dto->getProviderId(),
-                            'error' => $e->getMessage()
-                        ]);
-                    }
-                }
-            }
-        } else {
-            // Legacy array format support
-            foreach ($searchResults as $partResult) {
-                foreach ($partResult['search_results'] as $result) {
-                    $dto = $result['dto'];
-
-                    try {
-                        $this->infoRetriever->getDetails($dto->getProviderKey(), $dto->getProviderId());
-                        $prefetchCount++;
-                    } catch (\Exception $e) {
-                        $this->logger->warning('Failed to prefetch details for provider part', [
-                            'provider_key' => $dto->getProviderKey(),
-                            'provider_id' => $dto->getProviderId(),
-                            'error' => $e->getMessage()
-                        ]);
-                    }
+                try {
+                    $this->infoRetriever->getDetails($dto->provider_key, $dto->provider_id);
+                    $prefetchCount++;
+                } catch (\Exception $e) {
+                    $this->logger->warning('Failed to prefetch details for provider part', [
+                        'provider_key' => $dto->provider_key,
+                        'provider_id' => $dto->provider_id,
+                        'error' => $e->getMessage()
+                    ]);
                 }
             }
         }

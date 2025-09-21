@@ -22,43 +22,40 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\DTOs;
 
+use App\Entity\Parts\Part;
+use Doctrine\ORM\EntityManagerInterface;
+
 /**
  * Represents the complete response from a bulk info provider search operation.
- * This DTO provides type safety and clear structure instead of complex arrays.
+ * It contains a list of PartSearchResultDTOs, one for each part searched.
  */
-readonly class BulkSearchResponseDTO
+readonly class BulkSearchResponseDTO implements \ArrayAccess
 {
     /**
-     * @param PartSearchResultDTO[] $partResults Array of search results for each part
+     * @param PartSearchResultsDTO[] $partResults Array of search results for each part
      */
     public function __construct(
         public array $partResults
     ) {}
 
     /**
-     * Create from legacy array format for backwards compatibility.
-     * @param array $data Array of part result arrays in legacy format
+     * Replaces the search results for a specific part, and returns a new instance.
+     * @param  Part|int  $part
+     * @param  PartSearchResultsDTO  $new_results
+     * @return BulkSearchResponseDTO
      */
-    public static function fromArray(array $data): self
+    public function replaceResultsForPart(Part|int $part, PartSearchResultsDTO $new_results): self
     {
-        $partResults = [];
-        foreach ($data as $partData) {
-            $partResults[] = PartSearchResultDTO::fromArray($partData);
+        $array = $this->partResults;
+        foreach ($array as $index => $partResult) {
+            if (($part instanceof Part && $partResult->part->getId() === $part->getId()) ||
+                ($partResult->part->getId() === $part)) {
+                $array[$index] = $new_results;
+                break;
+            }
         }
 
-        return new self($partResults);
-    }
-
-    /**
-     * Convert to legacy array format for backwards compatibility.
-     */
-    public function toArray(): array
-    {
-        $result = [];
-        foreach ($this->partResults as $partResult) {
-            $result[] = $partResult->toArray();
-        }
-        return $result;
+        return new self($array);
     }
 
     /**
@@ -88,7 +85,7 @@ readonly class BulkSearchResponseDTO
 
     /**
      * Get all parts that have search results.
-     * @return PartSearchResultDTO[]
+     * @return PartSearchResultsDTO[]
      */
     public function getPartsWithResults(): array
     {
@@ -97,7 +94,7 @@ readonly class BulkSearchResponseDTO
 
     /**
      * Get all parts that have errors.
-     * @return PartSearchResultDTO[]
+     * @return PartSearchResultsDTO[]
      */
     public function getPartsWithErrors(): array
     {
@@ -118,5 +115,105 @@ readonly class BulkSearchResponseDTO
     public function getSuccessfulPartCount(): int
     {
         return count($this->getPartsWithResults());
+    }
+
+    /**
+     * Merge multiple BulkSearchResponseDTO instances into one.
+     * @param  BulkSearchResponseDTO  ...$responses
+     * @return BulkSearchResponseDTO
+     */
+    public static function merge(BulkSearchResponseDTO ...$responses): BulkSearchResponseDTO
+    {
+        $mergedResults = [];
+        foreach ($responses as $response) {
+            foreach ($response->partResults as $partResult) {
+                $mergedResults[] = $partResult;
+            }
+        }
+        return new BulkSearchResponseDTO($mergedResults);
+    }
+
+    /**
+     * Convert this DTO to a serializable representation suitable for storage in the database
+     * @return array
+     */
+    public function toSerializableRepresentation(): array
+    {
+        $serialized = [];
+
+        foreach ($this->partResults as $partResult) {
+            $partData = [
+                'part_id' => $partResult->part->getId(),
+                'search_results' => [],
+                'errors' => $partResult->errors ?? []
+            ];
+
+            foreach ($partResult->searchResults as $result) {
+                $partData['search_results'][] = [
+                    'dto' => $result->searchResult->toNormalizedSearchResultArray(),
+                    'source_field' => $result->sourceField ?? null,
+                    'source_keyword' => $result->sourceKeyword ?? null,
+                    'localPart' => $result->localPart?->getId(),
+                    'priority' => $result->priority
+                ];
+            }
+
+            $serialized[] = $partData;
+        }
+
+        return $serialized;
+    }
+
+    /**
+     * Creates a BulkSearchResponseDTO from a serializable representation.
+     * @param  array  $data
+     * @param  EntityManagerInterface  $entityManager
+     * @return BulkSearchResponseDTO
+     * @throws \Doctrine\ORM\Exception\ORMException
+     */
+    public static function fromSerializableRepresentation(array $data, EntityManagerInterface $entityManager): BulkSearchResponseDTO
+    {
+        $partResults = [];
+        foreach ($data as $partData) {
+            $partResults[] = new PartSearchResultsDTO(
+                part: $entityManager->getReference(Part::class, $partData['part_id']),
+                searchResults: array_map(fn($result) => new BulkSearchResultDTO(
+                    searchResult: SearchResultDTO::fromNormalizedSearchResultArray($result['dto']),
+                    sourceField: $result['source_field'] ?? null,
+                    sourceKeyword: $result['source_keyword'] ?? null,
+                    localPart: isset($result['localPart']) ? $entityManager->getReference(Part::class, $result['localPart']) : null,
+                    priority: $result['priority'] ?? null
+                ), $partData['search_results'] ?? []),
+                errors: $partData['errors'] ?? []
+            );
+        }
+
+        return new BulkSearchResponseDTO($partResults);
+    }
+
+    public function offsetExists(mixed $offset): bool
+    {
+        if (!is_int($offset)) {
+            throw new \InvalidArgumentException("Offset must be an integer.");
+        }
+        return isset($this->partResults[$offset]);
+    }
+
+    public function offsetGet(mixed $offset): ?PartSearchResultsDTO
+    {
+        if (!is_int($offset)) {
+            throw new \InvalidArgumentException("Offset must be an integer.");
+        }
+        return $this->partResults[$offset] ?? null;
+    }
+
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        throw new \LogicException("BulkSearchResponseDTO is immutable.");
+    }
+
+    public function offsetUnset(mixed $offset): void
+    {
+        throw new \LogicException('BulkSearchResponseDTO is immutable.');
     }
 }
