@@ -479,7 +479,7 @@ class LCSCProviderTest extends TestCase
                 'productIntroEn' => 'Test description',
                 'brandNameEn' => 'Test Manufacturer',
                 'parentCatalogName' => 'Electronic Components',
-                'catalogName' => 'Resistors/SMT',
+                'catalogName' => 'Resistors (SMT)',
                 'encapStandard' => '0603',
                 'productImageUrl' => null,
                 'productImages' => [],
@@ -493,7 +493,7 @@ class LCSCProviderTest extends TestCase
         $this->httpClient->setResponseFactory([$mockResponse]);
 
         $result = $this->provider->getDetails('C123456');
-        $this->assertEquals('Electronic Components -> Resistors -> SMT', $result->category);
+        $this->assertEquals('Electronic Components -> Resistors (SMT)', $result->category);
     }
 
     public function testEmptyFootprintHandling(): void
