@@ -42,7 +42,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\UserSystem\User;
 
-#[Route('/tools/bulk-info-provider-import')]
+#[Route('/tools/bulk_info_provider_import')]
 class BulkInfoProviderImportController extends AbstractController
 {
     public function __construct(

@@ -13910,7 +13910,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="Jxg8Jia" name="bulk_info_provider_import_job.label">
       <segment>
         <source>bulk_info_provider_import_job.label</source>
-        <target>Bulk Info Provider Import</target>
+        <target>Bulk info provider import</target>
       </segment>
     </unit>
     <unit id="SV1_VvJ" name="bulk_info_provider_import_job_part.label">
