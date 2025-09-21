@@ -382,11 +382,11 @@ class LCSCProvider implements BatchInfoProviderInterface
                 ]);
             } else {
                 // Search API call for other terms
-                $responses[$keyword] = $this->lcscClient->request('GET', self::ENDPOINT_URL . "/search/global", [
+                $responses[$keyword] = $this->lcscClient->request('POST', self::ENDPOINT_URL . "/search/v2/global", [
                     'headers' => [
                         'Cookie' => new Cookie('currencyCode', $this->settings->currency)
                     ],
-                    'query' => [
+                    'json' => [
                         'keyword' => $keyword,
                     ],
                 ]);
