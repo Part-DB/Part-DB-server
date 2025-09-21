@@ -10,22 +10,22 @@
 
 {% block card_content %}
 
-<div data-controller="bulk-job-manage"
-     data-bulk-job-manage-delete-url-value="{{ path('bulk_info_provider_delete', {'jobId': '__JOB_ID__'}) }}"
-     data-bulk-job-manage-stop-url-value="{{ path('bulk_info_provider_stop', {'jobId': '__JOB_ID__'}) }}"
-     data-bulk-job-manage-delete-confirm-message-value="{% trans %}info_providers.bulk_import.confirm_delete_job{% endtrans %}"
-     data-bulk-job-manage-stop-confirm-message-value="{% trans %}info_providers.bulk_import.confirm_stop_job{% endtrans %}">
+    <div data-controller="bulk-job-manage"
+         data-bulk-job-manage-delete-url-value="{{ path('bulk_info_provider_delete', {'jobId': '__JOB_ID__'}) }}"
+         data-bulk-job-manage-stop-url-value="{{ path('bulk_info_provider_stop', {'jobId': '__JOB_ID__'}) }}"
+         data-bulk-job-manage-delete-confirm-message-value="{% trans %}info_providers.bulk_import.confirm_delete_job{% endtrans %}"
+         data-bulk-job-manage-stop-confirm-message-value="{% trans %}info_providers.bulk_import.confirm_stop_job{% endtrans %}">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <p class="text-muted mb-0">
-            {% trans %}info_providers.bulk_import.manage_jobs_description{% endtrans %}
-        </p>
-    </div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <p class="text-muted mb-0">
+                {% trans %}info_providers.bulk_import.manage_jobs_description{% endtrans %}
+            </p>
+        </div>
 
-    {% if jobs is not empty %}
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
+        {% if jobs is not empty %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
                     <tr>
                         <th>{% trans %}info_providers.bulk_import.job_name{% endtrans %}</th>
                         <th>{% trans %}info_providers.bulk_import.parts_count{% endtrans %}</th>
@@ -37,8 +37,8 @@
                         <th>{% trans %}info_providers.bulk_import.completed_at{% endtrans %}</th>
                         <th>{% trans %}info_providers.bulk_import.action.label{% endtrans %}</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     {% for job in jobs %}
                         <tr>
                             <td>
@@ -52,10 +52,10 @@
                             <td>
                                 <div class="d-flex align-items-center">
                                     <div class="progress me-2" style="width: 80px; height: 12px;">
-                                        <div class="progress-bar {% if job.isCompleted %}bg-success{% elseif job.isFailed %}bg-danger{% else %}bg-info{% endif %}" 
-                                             role="progressbar" 
-                                             style="width: {{ job.progressPercentage }}%" 
-                                             aria-valuenow="{{ job.progressPercentage }}" 
+                                        <div class="progress-bar {% if job.isCompleted %}bg-success{% elseif job.isFailed %}bg-danger{% else %}bg-info{% endif %}"
+                                             role="progressbar"
+                                             style="width: {{ job.progressPercentage }}%"
+                                             aria-valuenow="{{ job.progressPercentage }}"
                                              aria-valuemin="0" aria-valuemax="100">
                                         </div>
                                     </div>
@@ -78,11 +78,11 @@
                                     <span class="badge bg-danger">{% trans %}info_providers.bulk_import.status.failed{% endtrans %}</span>
                                 {% endif %}
                             </td>
-                            <td>{{ job.createdBy.username }}</td>
-                            <td>{{ job.createdAt|date('Y-m-d H:i') }}</td>
+                            <td>{{ job.createdBy.fullName(true) }}</td>
+                            <td>{{ job.createdAt|format_datetime('short') }}</td>
                             <td>
                                 {% if job.completedAt %}
-                                    {{ job.completedAt|date('Y-m-d H:i') }}
+                                    {{ job.completedAt|format_datetime('short') }}
                                 {% else %}
                                     <span class="text-muted">-</span>
                                 {% endif %}
@@ -108,19 +108,17 @@
                             </td>
                         </tr>
                     {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    {% else %}
-        <div class="alert alert-info" role="alert">
-            <i class="fas fa-info-circle"></i>
-            {% trans %}info_providers.bulk_import.no_jobs_found{% endtrans %}
-            <a href="{{ path('bulk_info_provider_step1') }}" class="alert-link">
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                <i class="fas fa-info-circle"></i>
+                {% trans %}info_providers.bulk_import.no_jobs_found{% endtrans %}<br>
                 {% trans %}info_providers.bulk_import.create_first_job{% endtrans %}
-            </a>
-        </div>
-    {% endif %}
+            </div>
+        {% endif %}
 
-</div>
+    </div>
 
 {% endblock %}
