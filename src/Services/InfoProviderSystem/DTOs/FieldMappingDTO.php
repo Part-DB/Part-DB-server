@@ -47,7 +47,7 @@ readonly class FieldMappingDTO
      * Create a FieldMappingDTO from legacy array format.
      * @param array{field: string, providers: string[], priority?: int} $data
      */
-    public static function fromArray(array $data): self
+    public static function fromSerializableArray(array $data): self
     {
         return new self(
             field: $data['field'],
@@ -60,7 +60,7 @@ readonly class FieldMappingDTO
      * Convert this DTO to the legacy array format for backwards compatibility.
      * @return array{field: string, providers: string[], priority: int}
      */
-    public function toArray(): array
+    public function toSerializableArray(): array
     {
         return [
             'field' => $this->field,

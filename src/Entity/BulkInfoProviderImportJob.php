@@ -26,7 +26,7 @@ use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parts\Part;
 use App\Entity\UserSystem\User;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
-use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use App\Services\InfoProviderSystem\DTOs\FieldMappingDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -42,6 +42,11 @@ class BulkInfoProviderImportJob extends AbstractDBElement
 
     #[ORM\Column(type: Types::JSON)]
     private array $fieldMappings = [];
+
+    /**
+     * @var FieldMappingDTO[] The deserialized field mappings DTOs, cached for performance
+     */
+    private ?array $fieldMappingsDTO = null;
 
     #[ORM\Column(type: Types::JSON)]
     private array $searchResults = [];
@@ -150,14 +155,39 @@ class BulkInfoProviderImportJob extends AbstractDBElement
         return $this;
     }
 
+    /**
+     * @return FieldMappingDTO[] The deserialized field mappings
+     */
     public function getFieldMappings(): array
     {
-        return $this->fieldMappings;
+        if ($this->fieldMappingsDTO === null) {
+            // Lazy load the DTOs from the raw JSON data
+            $this->fieldMappingsDTO = array_map(
+                static fn($data) => FieldMappingDTO::fromSerializableArray($data),
+                $this->fieldMappings
+            );
+        }
+
+        return $this->fieldMappingsDTO;
     }
 
+    /**
+     * @param  FieldMappingDTO[]  $fieldMappings
+     * @return $this
+     */
     public function setFieldMappings(array $fieldMappings): self
     {
-        $this->fieldMappings = $fieldMappings;
+        //Ensure that we are dealing with the objects here
+        if (count($fieldMappings) > 0 && !$fieldMappings[0] instanceof FieldMappingDTO) {
+            throw new \InvalidArgumentException('Expected an array of FieldMappingDTO objects');
+        }
+
+        $this->fieldMappingsDTO = $fieldMappings;
+
+        $this->fieldMappings = array_map(
+            static fn(FieldMappingDTO $dto) => $dto->toSerializableArray(),
+            $fieldMappings
+        );
         return $this;
     }
 
@@ -258,13 +288,6 @@ class BulkInfoProviderImportJob extends AbstractDBElement
             $progress[$jobPart->getPart()->getId()] = $progressData;
         }
         return $progress;
-    }
-
-    public function setProgress(array $progress): self
-    {
-        // This method is kept for backward compatibility
-        // The progress is now managed through the jobParts relationship
-        return $this;
     }
 
     public function markAsCompleted(): self

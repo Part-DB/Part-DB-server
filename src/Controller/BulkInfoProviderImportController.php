@@ -66,7 +66,7 @@ class BulkInfoProviderImportController extends AbstractController
     {
         $dtos = [];
         foreach ($fieldMappings as $mapping) {
-            $dtos[] = FieldMappingDTO::fromArray($mapping);
+            $dtos[] = new FieldMappingDTO(field: $mapping['field'], providers: $mapping['providers'], priority: $mapping['priority'] ?? 1);
         }
         return $dtos;
     }
@@ -183,7 +183,7 @@ class BulkInfoProviderImportController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
-            $fieldMappings = $formData['field_mappings'];
+            $fieldMappingDtos = $this->convertFieldMappingsToDto($formData['field_mappings']);
             $prefetchDetails = $formData['prefetch_details'] ?? false;
 
             $user = $this->getUser();
@@ -200,7 +200,7 @@ class BulkInfoProviderImportController extends AbstractController
 
             // Create and save the job
             $job = new BulkInfoProviderImportJob();
-            $job->setFieldMappings($fieldMappings);
+            $job->setFieldMappings($fieldMappingDtos);
             $job->setPrefetchDetails($prefetchDetails);
             $job->setCreatedBy($user);
 
@@ -213,7 +213,6 @@ class BulkInfoProviderImportController extends AbstractController
             $this->entityManager->flush();
 
             try {
-                $fieldMappingDtos = $this->convertFieldMappingsToDto($fieldMappings);
                 $searchResultsDto = $this->bulkService->performBulkSearch($parts, $fieldMappingDtos, $prefetchDetails);
 
                 // Save search results to job
