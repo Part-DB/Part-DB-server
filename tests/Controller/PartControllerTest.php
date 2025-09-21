@@ -32,6 +32,7 @@ use App\Entity\Parts\Supplier;
 use App\Entity\UserSystem\User;
 use App\Entity\BulkInfoProviderImportJob;
 use App\Entity\BulkImportJobStatus;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -119,7 +120,7 @@ class PartControllerTest extends WebTestCase
         $job->setCreatedBy($user);
         $job->setPartIds([$part->getId()]);
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
-        $job->setSearchResults([]);
+        $job->setSearchResults(new BulkSearchResponseDTO([]));
 
         $entityManager->persist($job);
         $entityManager->flush();

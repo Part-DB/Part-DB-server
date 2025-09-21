@@ -20,7 +20,6 @@
 
 namespace App\Tests\Services\InfoProviderSystem\DTOs;
 
-use App\Doctrine\Types\BulkSearchResponseDTOType;
 use App\Entity\Parts\Part;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultDTO;
@@ -86,10 +85,127 @@ class BulkSearchResponseDTOTest extends KernelTestCase
 
     public function testToSerializableRepresentation(): void
     {
+        $serialized = $this->dummy->toSerializableRepresentation();
 
+        $expected = array (
+            0 =>
+                array (
+                    'part_id' => 1,
+                    'search_results' =>
+                        array (
+                            0 =>
+                                array (
+                                    'dto' =>
+                                        array (
+                                            'provider_key' => 'dummy',
+                                            'provider_id' => '1234',
+                                            'name' => 'Test Part',
+                                            'description' => 'A part for testing',
+                                            'category' => NULL,
+                                            'manufacturer' => NULL,
+                                            'mpn' => NULL,
+                                            'preview_image_url' => NULL,
+                                            'manufacturing_status' => NULL,
+                                            'provider_url' => NULL,
+                                            'footprint' => NULL,
+                                        ),
+                                    'source_field' => 'mpn',
+                                    'source_keyword' => '1234',
+                                    'localPart' => NULL,
+                                    'priority' => 1,
+                                ),
+                            1 =>
+                                array (
+                                    'dto' =>
+                                        array (
+                                            'provider_key' => 'test',
+                                            'provider_id' => 'test',
+                                            'name' => 'Test Part2',
+                                            'description' => 'A part for testing',
+                                            'category' => NULL,
+                                            'manufacturer' => NULL,
+                                            'mpn' => NULL,
+                                            'preview_image_url' => NULL,
+                                            'manufacturing_status' => NULL,
+                                            'provider_url' => NULL,
+                                            'footprint' => NULL,
+                                        ),
+                                    'source_field' => 'name',
+                                    'source_keyword' => '1234',
+                                    'localPart' => 2,
+                                    'priority' => 2,
+                                ),
+                        ),
+                    'errors' =>
+                        array (
+                            0 => 'Error 1',
+                        ),
+                ),
+        );
+
+        $this->assertEquals($expected, $serialized);
     }
 
     public function testFromSerializableRepresentation(): void
     {
+        $input = array (
+            0 =>
+                array (
+                    'part_id' => 1,
+                    'search_results' =>
+                        array (
+                            0 =>
+                                array (
+                                    'dto' =>
+                                        array (
+                                            'provider_key' => 'dummy',
+                                            'provider_id' => '1234',
+                                            'name' => 'Test Part',
+                                            'description' => 'A part for testing',
+                                            'category' => NULL,
+                                            'manufacturer' => NULL,
+                                            'mpn' => NULL,
+                                            'preview_image_url' => NULL,
+                                            'manufacturing_status' => NULL,
+                                            'provider_url' => NULL,
+                                            'footprint' => NULL,
+                                        ),
+                                    'source_field' => 'mpn',
+                                    'source_keyword' => '1234',
+                                    'localPart' => NULL,
+                                    'priority' => 1,
+                                ),
+                            1 =>
+                                array (
+                                    'dto' =>
+                                        array (
+                                            'provider_key' => 'test',
+                                            'provider_id' => 'test',
+                                            'name' => 'Test Part2',
+                                            'description' => 'A part for testing',
+                                            'category' => NULL,
+                                            'manufacturer' => NULL,
+                                            'mpn' => NULL,
+                                            'preview_image_url' => NULL,
+                                            'manufacturing_status' => NULL,
+                                            'provider_url' => NULL,
+                                            'footprint' => NULL,
+                                        ),
+                                    'source_field' => 'name',
+                                    'source_keyword' => '1234',
+                                    'localPart' => 2,
+                                    'priority' => 2,
+                                ),
+                        ),
+                    'errors' =>
+                        array (
+                            0 => 'Error 1',
+                        ),
+                ),
+        );
+
+        $deserialized = BulkSearchResponseDTO::fromSerializableRepresentation($input, $this->entityManager);
+        $this->assertEquals($this->dummy, $deserialized);
+
     }
 }

@@ -27,6 +27,10 @@ use App\Entity\Parts\Part;
 use App\Entity\BulkInfoProviderImportJob;
 use App\Entity\BulkImportJobStatus;
 use App\Entity\UserSystem\User;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultDTO;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
+use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -43,7 +47,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
 
         $client->request('GET', '/tools/bulk-info-provider-import/step1');
 
-        $this->assertResponseRedirects();
+        self::assertResponseRedirects();
     }
 
     public function testStep1WithInvalidIds(): void
@@ -53,7 +57,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
 
         $client->request('GET', '/tools/bulk-info-provider-import/step1?ids=999999,888888');
 
-        $this->assertResponseRedirects();
+        self::assertResponseRedirects();
     }
 
     public function testManagePage(): void
@@ -68,7 +72,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $client->followRedirect();
         }
 
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        self::assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
     public function testAccessControlForStep1(): void
@@ -76,7 +80,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('GET', '/tools/bulk-info-provider-import/step1?ids=1');
-        $this->assertResponseRedirects();
+        self::assertResponseRedirects();
 
         $this->loginAsUser($client, 'noread');
         $client->request('GET', '/tools/bulk-info-provider-import/step1?ids=1');
@@ -98,7 +102,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $client = static::createClient();
 
         $client->request('GET', '/tools/bulk-info-provider-import/manage');
-        $this->assertResponseRedirects();
+        self::assertResponseRedirects();
 
         $this->loginAsUser($client, 'noread');
         $client->request('GET', '/tools/bulk-info-provider-import/manage');
@@ -120,7 +124,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
 
-        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $entityManager = static::getContainer()->get('doctrine')->getManager();
 
         // Use an existing part from test fixtures (ID 1 should exist)
         $partRepository = $entityManager->getRepository(Part::class);
@@ -143,29 +147,19 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $job->setCreatedBy($user);
         $job->addPart($part);
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
-        $job->setSearchResults([
-            [
-                'part_id' => $part->getId(),
-                'search_results' => [
-                    [
-                        'dto' => [
-                            'provider_key' => 'test_provider',
-                            'provider_id' => 'TEST123',
-                            'name' => 'Test Component',
-                            'description' => 'Test component description',
-                            'manufacturer' => 'Test Manufacturer',
-                            'mpn' => 'TEST-MPN-123',
-                            'provider_url' => 'https://example.com/test',
-                            'preview_image_url' => null,
-                            '_source_field' => 'test_field',
-                            '_source_keyword' => 'test_keyword'
-                        ],
-                        'localPart' => null
-                    ]
-                ],
-                'errors' => []
-            ]
+
+        $searchResults = new BulkSearchResponseDTO(partResults: [
+            new BulkSearchPartResultsDTO(part: $part,
+                searchResults: [new BulkSearchPartResultDTO(
+                    searchResult: new SearchResultDTO(provider_key: 'test_provider', provider_id: 'TEST123', name: 'Test Component', description: 'Test component description', manufacturer: 'Test Manufacturer', mpn: 'TEST-MPN-123', provider_url: 'https://example.com/test', preview_image_url: null,),
+                    sourceField: 'test_field',
+                    sourceKeyword: 'test_keyword',
+                    localPart: null,
+                )]
+            )
         ]);
+
+        $job->setSearchResults($searchResults);
 
         $entityManager->persist($job);
         $entityManager->flush();
@@ -178,7 +172,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $client->followRedirect();
         }
 
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        self::assertResponseStatusCodeSame(Response::HTTP_OK);
 
         // Verify the template rendered the source_field and source_keyword correctly
         $content = $client->getResponse()->getContent();
@@ -223,7 +217,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
 
-        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $entityManager = self::getContainer()->get('doctrine')->getManager();
         $userRepository = $entityManager->getRepository(User::class);
         $user = $userRepository->findOneBy(['name' => 'admin']);
 
@@ -244,7 +238,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $job->setCreatedBy($user);
         $job->addPart($part);
         $job->setStatus(BulkImportJobStatus::COMPLETED);
-        $job->setSearchResults([]);
+        $job->setSearchResults(new BulkSearchResponseDTO([]));
 
         $entityManager->persist($job);
         $entityManager->flush();
@@ -273,7 +267,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
 
-        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $entityManager = self::getContainer()->get('doctrine')->getManager();
         $userRepository = $entityManager->getRepository(User::class);
         $user = $userRepository->findOneBy(['name' => 'admin']);
 
@@ -291,7 +285,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $job->addPart($part);
         }
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
-        $job->setSearchResults([]);
+        $job->setSearchResults(new BulkSearchResponseDTO([]));
 
         $entityManager->persist($job);
         $entityManager->flush();
@@ -312,7 +306,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
 
-        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $entityManager = self::getContainer()->get('doctrine')->getManager();
         $userRepository = $entityManager->getRepository(User::class);
         $user = $userRepository->findOneBy(['name' => 'admin']);
 
@@ -330,7 +324,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $job->addPart($part);
         }
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
-        $job->setSearchResults([]);
+        $job->setSearchResults(new BulkSearchResponseDTO([]));
 
         $entityManager->persist($job);
         $entityManager->flush();
@@ -380,7 +374,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $job->addPart($part);
         }
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
-        $job->setSearchResults([]);
+        $job->setSearchResults(new BulkSearchResponseDTO([]));
 
         $entityManager->persist($job);
         $entityManager->flush();
@@ -420,7 +414,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $job->addPart($part);
         }
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
-        $job->setSearchResults([]);
+        $job->setSearchResults(new BulkSearchResponseDTO([]));
 
         $entityManager->persist($job);
         $entityManager->flush();
@@ -461,7 +455,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $job->addPart($part);
         }
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
-        $job->setSearchResults([]);
+        $job->setSearchResults(new BulkSearchResponseDTO([]));
 
         $entityManager->persist($job);
         $entityManager->flush();
@@ -511,7 +505,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $job->addPart($part);
         }
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
-        $job->setSearchResults([]);
+        $job->setSearchResults(new BulkSearchResponseDTO([]));
 
         $entityManager->persist($job);
         $entityManager->flush();
@@ -551,7 +545,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $job->addPart($part);
         }
         $job->setStatus(BulkImportJobStatus::COMPLETED);
-        $job->setSearchResults([]);
+        $job->setSearchResults(new BulkSearchResponseDTO([]));
 
         $entityManager->persist($job);
         $entityManager->flush();
@@ -672,59 +666,6 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         }
     }
 
-    public function testBulkInfoProviderImportJobSerialization(): void
-    {
-        $client = static::createClient();
-        $this->loginAsUser($client, 'admin');
-
-        $entityManager = $client->getContainer()->get('doctrine')->getManager();
-        $partRepository = $entityManager->getRepository(Part::class);
-        $part = $partRepository->find(1);
-
-        if (!$part) {
-            $this->markTestSkipped('Test part with ID 1 not found in fixtures');
-        }
-
-        // Test the entity's serialization methods directly
-        $job = new BulkInfoProviderImportJob();
-        $job->addPart($part);
-
-        $searchResults = [
-            [
-                'part' => $part,
-                'search_results' => [
-                    [
-                        'dto' => new \App\Services\InfoProviderSystem\DTOs\SearchResultDTO(
-                            provider_key: 'test',
-                            provider_id: 'TEST123',
-                            name: 'Test Component',
-                            description: 'Test description',
-                            manufacturer: 'Test Manufacturer',
-                            mpn: 'TEST-MPN',
-                            provider_url: 'https://example.com',
-                            preview_image_url: null
-                        ),
-                        'localPart' => null,
-                        'source_field' => 'mpn',
-                        'source_keyword' => 'TEST123'
-                    ]
-                ],
-                'errors' => []
-            ]
-        ];
-
-        // Test serialization
-        $serialized = $job->serializeSearchResults($searchResults);
-        $this->assertIsArray($serialized);
-        $this->assertArrayHasKey(0, $serialized);
-        $this->assertArrayHasKey('part_id', $serialized[0]);
-
-        // Test deserialization
-        $deserialized = $job->deserializeSearchResults($entityManager);
-        $this->assertIsArray($deserialized);
-        $this->assertCount(0, $deserialized); // Empty because job has no search results set
-    }
-
     public function testManagePageWithJobCleanup(): void
     {
         $client = static::createClient();
@@ -749,7 +690,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $job->setCreatedBy($user);
         $job->addPart($part);
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
-        $job->setSearchResults([]);
+        $job->setSearchResults(new BulkSearchResponseDTO([]));
 
         $entityManager->persist($job);
         $entityManager->flush();
@@ -760,7 +701,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $client->followRedirect();
         }
 
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        self::assertResponseStatusCodeSame(Response::HTTP_OK);
 
         // Find job from database to avoid detached entity errors
         $jobId = $job->getId();
@@ -850,13 +791,9 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $bulkService = $client->getContainer()->get(\App\Services\InfoProviderSystem\BulkInfoProviderService::class);
 
         // Create empty search results to test prefetch method
-        $searchResults = [
-            [
-                'part' => $part,
-                'search_results' => [],
-                'errors' => []
-            ]
-        ];
+        $searchResults = new BulkSearchResponseDTO([
+            new BulkSearchPartResultsDTO(part: $part, searchResults: [], errors: [])
+        ]);
 
         // The prefetch method should not throw any errors
         $bulkService->prefetchDetailsForResults($searchResults);
@@ -887,7 +824,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $job->addPart($part);
         }
         $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
-        $job->setSearchResults([]);
+        $job->setSearchResults(new BulkSearchResponseDTO([]));
 
         $entityManager->persist($job);
         $entityManager->flush();
@@ -937,7 +874,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $job->addPart($part);
         }
         $job->setStatus(BulkImportJobStatus::COMPLETED);
-        $job->setSearchResults([]);
+        $job->setSearchResults(new BulkSearchResponseDTO([]));
 
         $entityManager->persist($job);
         $entityManager->flush();

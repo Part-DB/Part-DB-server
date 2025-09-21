@@ -218,6 +218,11 @@ class BulkInfoProviderImportJob extends AbstractDBElement
         return $this->searchResultsDTO;
     }
 
+    public function hasSearchResults(): bool
+    {
+        return !empty($this->searchResults);
+    }
+
     public function getStatus(): BulkImportJobStatus
     {
         return $this->status;

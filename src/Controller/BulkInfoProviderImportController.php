@@ -467,10 +467,8 @@ class BulkInfoProviderImportController extends AbstractController
 
         try {
             // Use the job's field mappings to perform the search
-            $fieldMappings = $job->getFieldMappings();
+            $fieldMappingDtos = $job->getFieldMappings();
             $prefetchDetails = $job->isPrefetchDetails();
-
-            $fieldMappingDtos = $this->convertFieldMappingsToDto($fieldMappings);
 
             try {
                 $searchResultsDto = $this->bulkService->performBulkSearch([$part], $fieldMappingDtos, $prefetchDetails);
@@ -542,8 +540,7 @@ class BulkInfoProviderImportController extends AbstractController
         }
 
         try {
-            $fieldMappings = $job->getFieldMappings();
-            $fieldMappingDtos = $this->convertFieldMappingsToDto($fieldMappings);
+            $fieldMappingDtos = $job->getFieldMappings();
             $prefetchDetails = $job->isPrefetchDetails();
 
             // Process in batches to reduce memory usage for large operations

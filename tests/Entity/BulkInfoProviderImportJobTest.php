@@ -25,6 +25,11 @@ namespace App\Tests\Entity;
 use App\Entity\BulkInfoProviderImportJob;
 use App\Entity\BulkImportJobStatus;
 use App\Entity\UserSystem\User;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultDTO;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
+use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use Doctrine\ORM\Mapping\FieldMapping;
 use PHPUnit\Framework\TestCase;
 
 class BulkInfoProviderImportJobTest extends TestCase
@@ -57,7 +62,7 @@ class BulkInfoProviderImportJobTest extends TestCase
         $this->assertEquals(BulkImportJobStatus::PENDING, $job->getStatus());
         $this->assertEmpty($job->getPartIds());
         $this->assertEmpty($job->getFieldMappings());
-        $this->assertEmpty($job->getSearchResults());
+        $this->assertEmpty($job->getSearchResultsRaw());
         $this->assertEmpty($job->getProgress());
         $this->assertNull($job->getCompletedAt());
         $this->assertFalse($job->isPrefetchDetails());
@@ -75,16 +80,9 @@ class BulkInfoProviderImportJobTest extends TestCase
         }
         $this->assertEquals([1, 2, 3], $this->job->getPartIds());
 
-        $fieldMappings = ['field1' => 'provider1', 'field2' => 'provider2'];
+        $fieldMappings = [new BulkSearchFieldMappingDTO(field: 'field1', providers: ['provider1', 'provider2'])];
         $this->job->setFieldMappings($fieldMappings);
         $this->assertEquals($fieldMappings, $this->job->getFieldMappings());
-
-        $searchResults = [
-            1 => ['search_results' => [['name' => 'Part 1']]],
-            2 => ['search_results' => [['name' => 'Part 2'], ['name' => 'Part 2 Alt']]]
-        ];
-        $this->job->setSearchResults($searchResults);
-        $this->assertEquals($searchResults, $this->job->getSearchResults());
 
         $this->job->setPrefetchDetails(true);
         $this->assertTrue($this->job->isPrefetchDetails());
@@ -162,11 +160,22 @@ class BulkInfoProviderImportJobTest extends TestCase
     {
         $this->assertEquals(0, $this->job->getResultCount());
 
-        $searchResults = [
-            1 => ['search_results' => [['name' => 'Part 1']]],
-            2 => ['search_results' => [['name' => 'Part 2'], ['name' => 'Part 2 Alt']]],
-            3 => ['search_results' => []]
-        ];
+        $searchResults = new BulkSearchResponseDTO([
+            new \App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO(
+                part: $this->createMockPart(1),
+                searchResults: [new BulkSearchPartResultDTO(searchResult: new SearchResultDTO(provider_key: 'dummy', provider_id: '1234', name: 'Part 1', description: 'A part'))]
+            ),
+            new \App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO(
+                part: $this->createMockPart(2),
+                searchResults: [new BulkSearchPartResultDTO(searchResult: new SearchResultDTO(provider_key: 'dummy', provider_id: '1234', name: 'Part 2', description: 'A part')),
+                new BulkSearchPartResultDTO(searchResult: new SearchResultDTO(provider_key: 'dummy', provider_id: '5678', name: 'Part 2 Alt', description: 'Another part'))]
+            ),
+            new \App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO(
+                part: $this->createMockPart(3),
+                searchResults: []
+            )
+        ]);
+
         $this->job->setSearchResults($searchResults);
         $this->assertEquals(3, $this->job->getResultCount());
     }
