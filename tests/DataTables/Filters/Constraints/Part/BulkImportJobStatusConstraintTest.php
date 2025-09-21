@@ -46,17 +46,17 @@ class BulkImportJobStatusConstraintTest extends TestCase
 
     public function testConstructor(): void
     {
-        $this->assertEquals([], $this->constraint->getValues());
-        $this->assertNull($this->constraint->getOperator());
+        $this->assertEquals([], $this->constraint->getValue());
+        $this->assertEmpty($this->constraint->getOperator());
         $this->assertFalse($this->constraint->isEnabled());
     }
 
     public function testGetAndSetValues(): void
     {
         $values = ['pending', 'in_progress'];
-        $this->constraint->setValues($values);
+        $this->constraint->setValue($values);
 
-        $this->assertEquals($values, $this->constraint->getValues());
+        $this->assertEquals($values, $this->constraint->getValue());
     }
 
     public function testGetAndSetOperator(): void
@@ -76,14 +76,14 @@ class BulkImportJobStatusConstraintTest extends TestCase
 
     public function testIsEnabledWithNullOperator(): void
     {
-        $this->constraint->setValues(['pending']);
+        $this->constraint->setValue(['pending']);
 
         $this->assertFalse($this->constraint->isEnabled());
     }
 
     public function testIsEnabledWithValuesAndOperator(): void
     {
-        $this->constraint->setValues(['pending']);
+        $this->constraint->setValue(['pending']);
         $this->constraint->setOperator('ANY');
 
         $this->assertTrue($this->constraint->isEnabled());
@@ -101,7 +101,7 @@ class BulkImportJobStatusConstraintTest extends TestCase
 
     public function testApplyWithNullOperator(): void
     {
-        $this->constraint->setValues(['pending']);
+        $this->constraint->setValue(['pending']);
 
         $this->queryBuilder->expects($this->never())
             ->method('andWhere');
@@ -111,7 +111,7 @@ class BulkImportJobStatusConstraintTest extends TestCase
 
     public function testApplyWithAnyOperator(): void
     {
-        $this->constraint->setValues(['pending', 'in_progress']);
+        $this->constraint->setValue(['pending', 'in_progress']);
         $this->constraint->setOperator('ANY');
 
         $subQueryBuilder = $this->createMock(QueryBuilder::class);
@@ -138,7 +138,7 @@ class BulkImportJobStatusConstraintTest extends TestCase
 
     public function testApplyWithNoneOperator(): void
     {
-        $this->constraint->setValues(['completed']);
+        $this->constraint->setValue(['completed']);
         $this->constraint->setOperator('NONE');
 
         $subQueryBuilder = $this->createMock(QueryBuilder::class);
@@ -165,7 +165,7 @@ class BulkImportJobStatusConstraintTest extends TestCase
 
     public function testApplyWithUnsupportedOperator(): void
     {
-        $this->constraint->setValues(['pending']);
+        $this->constraint->setValue(['pending']);
         $this->constraint->setOperator('UNKNOWN');
 
         $subQueryBuilder = $this->createMock(QueryBuilder::class);
@@ -187,7 +187,7 @@ class BulkImportJobStatusConstraintTest extends TestCase
 
     public function testSubqueryStructure(): void
     {
-        $this->constraint->setValues(['pending']);
+        $this->constraint->setValue(['pending']);
         $this->constraint->setOperator('ANY');
 
         $subQueryBuilder = $this->createMock(QueryBuilder::class);
@@ -231,17 +231,17 @@ class BulkImportJobStatusConstraintTest extends TestCase
     public function testValuesAndOperatorMutation(): void
     {
         // Test that values and operator can be changed after creation
-        $this->constraint->setValues(['pending']);
+        $this->constraint->setValue(['pending']);
         $this->constraint->setOperator('ANY');
         $this->assertTrue($this->constraint->isEnabled());
 
-        $this->constraint->setValues([]);
+        $this->constraint->setValue([]);
         $this->assertFalse($this->constraint->isEnabled());
 
-        $this->constraint->setValues(['completed']);
+        $this->constraint->setValue(['completed']);
         $this->assertTrue($this->constraint->isEnabled());
 
-        $this->constraint->setOperator(null);
+        $this->constraint->setOperator('');
         $this->assertFalse($this->constraint->isEnabled());
 
         $this->constraint->setOperator('NONE');

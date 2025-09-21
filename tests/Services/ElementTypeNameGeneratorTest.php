@@ -51,14 +51,14 @@ class ElementTypeNameGeneratorTest extends WebTestCase
         //We only test in english
         $this->assertSame('Part', $this->service->getLocalizedTypeLabel(new Part()));
         $this->assertSame('Category', $this->service->getLocalizedTypeLabel(new Category()));
-        $this->assertSame('Bulk Info Provider Import', $this->service->getLocalizedTypeLabel(new BulkInfoProviderImportJob()));
+        $this->assertSame('Bulk info provider import', $this->service->getLocalizedTypeLabel(new BulkInfoProviderImportJob()));
 
         //Test inheritance
         $this->assertSame('Attachment', $this->service->getLocalizedTypeLabel(new PartAttachment()));
 
         //Test for class name
         $this->assertSame('Part', $this->service->getLocalizedTypeLabel(Part::class));
-        $this->assertSame('Bulk Info Provider Import', $this->service->getLocalizedTypeLabel(BulkInfoProviderImportJob::class));
+        $this->assertSame('Bulk info provider import', $this->service->getLocalizedTypeLabel(BulkInfoProviderImportJob::class));
 
         //Test exception for unknpwn type
         $this->expectException(EntityNotSupportedException::class);

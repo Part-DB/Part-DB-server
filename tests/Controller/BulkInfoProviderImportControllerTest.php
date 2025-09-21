@@ -44,7 +44,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
 
-        $client->request('GET', '/tools/bulk-info-provider-import/step1');
+        $client->request('GET', '/tools/bulk_info_provider_import/step1');
 
         self::assertResponseRedirects();
     }
@@ -54,7 +54,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
 
-        $client->request('GET', '/tools/bulk-info-provider-import/step1?ids=999999,888888');
+        $client->request('GET', '/tools/bulk_info_provider_import/step1?ids=999999,888888');
 
         self::assertResponseRedirects();
     }
@@ -64,7 +64,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
 
-        $client->request('GET', '/tools/bulk-info-provider-import/manage');
+        $client->request('GET', '/tools/bulk_info_provider_import/manage');
 
         // Follow any redirects (like locale redirects)
         if ($client->getResponse()->isRedirect()) {
@@ -78,11 +78,11 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/tools/bulk-info-provider-import/step1?ids=1');
+        $client->request('GET', '/tools/bulk_info_provider_import/step1?ids=1');
         self::assertResponseRedirects();
 
         $this->loginAsUser($client, 'noread');
-        $client->request('GET', '/tools/bulk-info-provider-import/step1?ids=1');
+        $client->request('GET', '/tools/bulk_info_provider_import/step1?ids=1');
 
         // Follow redirects if any, then check for 403 or final response
         if ($client->getResponse()->isRedirect()) {
@@ -100,11 +100,11 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/tools/bulk-info-provider-import/manage');
+        $client->request('GET', '/tools/bulk_info_provider_import/manage');
         self::assertResponseRedirects();
 
         $this->loginAsUser($client, 'noread');
-        $client->request('GET', '/tools/bulk-info-provider-import/manage');
+        $client->request('GET', '/tools/bulk_info_provider_import/manage');
 
         // Follow redirects if any, then check for 403 or final response
         if ($client->getResponse()->isRedirect()) {
@@ -164,7 +164,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $entityManager->flush();
 
         // Test that step2 renders correctly with the search results
-        $client->request('GET', '/tools/bulk-info-provider-import/step2/' . $job->getId());
+        $client->request('GET', '/tools/bulk_info_provider_import/step2/' . $job->getId());
 
         // Follow any redirects (like locale redirects)
         if ($client->getResponse()->isRedirect()) {
@@ -201,7 +201,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $this->markTestSkipped('Test part with ID 1 not found in fixtures');
         }
 
-        $client->request('GET', '/tools/bulk-info-provider-import/step1?ids=' . $part->getId());
+        $client->request('GET', '/tools/bulk_info_provider_import/step1?ids=' . $part->getId());
 
         if ($client->getResponse()->isRedirect()) {
             $client->followRedirect();
@@ -242,7 +242,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $entityManager->persist($job);
         $entityManager->flush();
 
-        $client->request('DELETE', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/delete');
+        $client->request('DELETE', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/delete');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $response = json_decode($client->getResponse()->getContent(), true);
@@ -254,7 +254,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
 
-        $client->request('DELETE', '/en/tools/bulk-info-provider-import/job/999999/delete');
+        $client->request('DELETE', '/en/tools/bulk_info_provider_import/job/999999/delete');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
         $response = json_decode($client->getResponse()->getContent(), true);
@@ -289,7 +289,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $entityManager->persist($job);
         $entityManager->flush();
 
-        $client->request('DELETE', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/delete');
+        $client->request('DELETE', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/delete');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
         $response = json_decode($client->getResponse()->getContent(), true);
@@ -328,7 +328,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $entityManager->persist($job);
         $entityManager->flush();
 
-        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/stop');
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/stop');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $response = json_decode($client->getResponse()->getContent(), true);
@@ -344,7 +344,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
 
-        $client->request('POST', '/en/tools/bulk-info-provider-import/job/999999/stop');
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/999999/stop');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
         $response = json_decode($client->getResponse()->getContent(), true);
@@ -378,7 +378,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $entityManager->persist($job);
         $entityManager->flush();
 
-        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/part/1/mark-completed');
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/part/1/mark-completed');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $response = json_decode($client->getResponse()->getContent(), true);
@@ -418,7 +418,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $entityManager->persist($job);
         $entityManager->flush();
 
-        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/part/1/mark-skipped', [
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/part/1/mark-skipped', [
             'reason' => 'Test skip reason'
         ]);
 
@@ -459,7 +459,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $entityManager->persist($job);
         $entityManager->flush();
 
-        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/part/1/mark-pending');
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/part/1/mark-pending');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $response = json_decode($client->getResponse()->getContent(), true);
@@ -475,7 +475,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
 
-        $client->request('GET', '/tools/bulk-info-provider-import/step2/999999');
+        $client->request('GET', '/tools/bulk_info_provider_import/step2/999999');
 
         $this->assertResponseRedirects();
     }
@@ -511,7 +511,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
 
         // Try to access as readonly user
         $this->loginAsUser($client, 'noread');
-        $client->request('GET', '/tools/bulk-info-provider-import/step2/' . $job->getId());
+        $client->request('GET', '/tools/bulk_info_provider_import/step2/' . $job->getId());
 
         $this->assertResponseRedirects();
 
@@ -550,7 +550,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $entityManager->flush();
 
         // Try to delete as admin (should fail due to ownership)
-        $client->request('DELETE', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/delete');
+        $client->request('DELETE', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/delete');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
 
@@ -601,7 +601,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $this->markTestSkipped('Test part with ID 1 not found in fixtures');
         }
 
-        $client->request('GET', '/tools/bulk-info-provider-import/step1?ids=' . $part->getId());
+        $client->request('GET', '/tools/bulk_info_provider_import/step1?ids=' . $part->getId());
 
         if ($client->getResponse()->isRedirect()) {
             $client->followRedirect();
@@ -624,7 +624,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
             $this->markTestSkipped('Test part with ID 1 not found in fixtures');
         }
 
-        $client->request('GET', '/tools/bulk-info-provider-import/step1?ids=' . $part->getId());
+        $client->request('GET', '/tools/bulk_info_provider_import/step1?ids=' . $part->getId());
 
         if ($client->getResponse()->isRedirect()) {
             $client->followRedirect();
@@ -694,7 +694,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $entityManager->persist($job);
         $entityManager->flush();
 
-        $client->request('GET', '/tools/bulk-info-provider-import/manage');
+        $client->request('GET', '/tools/bulk_info_provider_import/manage');
 
         if ($client->getResponse()->isRedirect()) {
             $client->followRedirect();
@@ -828,18 +828,18 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $entityManager->persist($job);
         $entityManager->flush();
 
-        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/stop');
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/stop');
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
 
-        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/part/1/mark-completed');
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/part/1/mark-completed');
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
 
-        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/part/1/mark-skipped', [
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/part/1/mark-skipped', [
             'reason' => 'Test reason'
         ]);
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
 
-        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/part/1/mark-pending');
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/part/1/mark-pending');
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
 
         // Find job from database to avoid detached entity errors
@@ -878,7 +878,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         $entityManager->persist($job);
         $entityManager->flush();
 
-        $client->request('POST', '/en/tools/bulk-info-provider-import/job/' . $job->getId() . '/stop');
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/stop');
         $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
         $response = json_decode($client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('error', $response);
