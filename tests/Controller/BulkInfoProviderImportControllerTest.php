@@ -761,12 +761,12 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
 
         // Create field mappings with multiple keywords
         $fieldMappings = [
-            new \App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO('name', ['lcsc'], 1)
+            new \App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO('empty', ['test'], 1)
         ];
 
         // The service should be able to process the request and throw an exception when no results are found
         try {
-            $bulkService->performBulkSearch([$part], $fieldMappings, false);
+            $response = $bulkService->performBulkSearch([$part], $fieldMappings, false);
             $this->fail('Expected RuntimeException to be thrown when no search results are found');
         } catch (\RuntimeException $e) {
             $this->assertStringContainsString('No search results found', $e->getMessage());
