@@ -24,9 +24,8 @@ namespace App\Services\InfoProviderSystem\DTOs;
 
 /**
  * Represents a mapping between a part field and the info providers that should search in that field.
- * This DTO provides type safety and better structure than raw arrays for field mapping configuration.
  */
-readonly class FieldMappingDTO
+readonly class BulkSearchFieldMappingDTO
 {
     /**
      * @param string $field The field to search in (e.g., 'mpn', 'name', or supplier-specific fields like 'digikey_spn')

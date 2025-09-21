@@ -30,8 +30,8 @@ use App\Entity\Parts\Supplier;
 use App\Form\InfoProviderSystem\GlobalFieldMappingType;
 use App\Services\InfoProviderSystem\BulkInfoProviderService;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
-use App\Services\InfoProviderSystem\DTOs\FieldMappingDTO;
-use App\Services\InfoProviderSystem\DTOs\PartSearchResultsDTO;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -60,13 +60,13 @@ class BulkInfoProviderImportController extends AbstractController
      * Convert field mappings from array format to FieldMappingDTO[].
      *
      * @param array $fieldMappings Array of field mapping arrays
-     * @return FieldMappingDTO[] Array of FieldMappingDTO objects
+     * @return BulkSearchFieldMappingDTO[] Array of FieldMappingDTO objects
      */
     private function convertFieldMappingsToDto(array $fieldMappings): array
     {
         $dtos = [];
         foreach ($fieldMappings as $mapping) {
-            $dtos[] = new FieldMappingDTO(field: $mapping['field'], providers: $mapping['providers'], priority: $mapping['priority'] ?? 1);
+            $dtos[] = new BulkSearchFieldMappingDTO(field: $mapping['field'], providers: $mapping['providers'], priority: $mapping['priority'] ?? 1);
         }
         return $dtos;
     }
@@ -101,7 +101,7 @@ class BulkInfoProviderImportController extends AbstractController
         return $job;
     }
 
-    private function updatePartSearchResults(BulkInfoProviderImportJob $job, int $partId, ?PartSearchResultsDTO $newResults): void
+    private function updatePartSearchResults(BulkInfoProviderImportJob $job, int $partId, ?BulkSearchPartResultsDTO $newResults): void
     {
         if ($newResults === null) {
             return;

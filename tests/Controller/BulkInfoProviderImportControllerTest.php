@@ -659,8 +659,8 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
 
         // Create field mappings to verify the service works
         $fieldMappings = [
-            new \App\Services\InfoProviderSystem\DTOs\FieldMappingDTO('name', ['test'], 1),
-            new \App\Services\InfoProviderSystem\DTOs\FieldMappingDTO('mpn', ['test'], 2)
+            new \App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO('name', ['test'], 1),
+            new \App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO('mpn', ['test'], 2)
         ];
 
         // The service may return an empty result or throw when no results are found
@@ -790,8 +790,8 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
 
         // Create field mappings with supplier SPN field mapping
         $fieldMappings = [
-            new \App\Services\InfoProviderSystem\DTOs\FieldMappingDTO('invalid_field', ['test'], 1),
-            new \App\Services\InfoProviderSystem\DTOs\FieldMappingDTO('test_supplier_spn', ['test'], 2)
+            new \App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO('invalid_field', ['test'], 1),
+            new \App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO('test_supplier_spn', ['test'], 2)
         ];
 
         // The service should be able to process the request and throw an exception when no results are found
@@ -821,7 +821,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
 
         // Create field mappings with multiple keywords
         $fieldMappings = [
-            new \App\Services\InfoProviderSystem\DTOs\FieldMappingDTO('name', ['lcsc'], 1)
+            new \App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO('name', ['lcsc'], 1)
         ];
 
         // The service should be able to process the request and throw an exception when no results are found

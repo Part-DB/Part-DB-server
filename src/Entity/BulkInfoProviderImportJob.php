@@ -26,7 +26,7 @@ use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parts\Part;
 use App\Entity\UserSystem\User;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
-use App\Services\InfoProviderSystem\DTOs\FieldMappingDTO;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -44,7 +44,7 @@ class BulkInfoProviderImportJob extends AbstractDBElement
     private array $fieldMappings = [];
 
     /**
-     * @var FieldMappingDTO[] The deserialized field mappings DTOs, cached for performance
+     * @var BulkSearchFieldMappingDTO[] The deserialized field mappings DTOs, cached for performance
      */
     private ?array $fieldMappingsDTO = null;
 
@@ -156,14 +156,14 @@ class BulkInfoProviderImportJob extends AbstractDBElement
     }
 
     /**
-     * @return FieldMappingDTO[] The deserialized field mappings
+     * @return BulkSearchFieldMappingDTO[] The deserialized field mappings
      */
     public function getFieldMappings(): array
     {
         if ($this->fieldMappingsDTO === null) {
             // Lazy load the DTOs from the raw JSON data
             $this->fieldMappingsDTO = array_map(
-                static fn($data) => FieldMappingDTO::fromSerializableArray($data),
+                static fn($data) => BulkSearchFieldMappingDTO::fromSerializableArray($data),
                 $this->fieldMappings
             );
         }
@@ -172,20 +172,20 @@ class BulkInfoProviderImportJob extends AbstractDBElement
     }
 
     /**
-     * @param  FieldMappingDTO[]  $fieldMappings
+     * @param  BulkSearchFieldMappingDTO[]  $fieldMappings
      * @return $this
      */
     public function setFieldMappings(array $fieldMappings): self
     {
         //Ensure that we are dealing with the objects here
-        if (count($fieldMappings) > 0 && !$fieldMappings[0] instanceof FieldMappingDTO) {
+        if (count($fieldMappings) > 0 && !$fieldMappings[0] instanceof BulkSearchFieldMappingDTO) {
             throw new \InvalidArgumentException('Expected an array of FieldMappingDTO objects');
         }
 
         $this->fieldMappingsDTO = $fieldMappings;
 
         $this->fieldMappings = array_map(
-            static fn(FieldMappingDTO $dto) => $dto->toSerializableArray(),
+            static fn(BulkSearchFieldMappingDTO $dto) => $dto->toSerializableArray(),
             $fieldMappings
         );
         return $this;

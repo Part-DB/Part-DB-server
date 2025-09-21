@@ -23,8 +23,8 @@ namespace App\Tests\Services\InfoProviderSystem\DTOs;
 use App\Doctrine\Types\BulkSearchResponseDTOType;
 use App\Entity\Parts\Part;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
-use App\Services\InfoProviderSystem\DTOs\BulkSearchResultDTO;
-use App\Services\InfoProviderSystem\DTOs\PartSearchResultsDTO;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultDTO;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
@@ -45,14 +45,14 @@ class BulkSearchResponseDTOTest extends KernelTestCase
 
         $this->dummyEmpty = new BulkSearchResponseDTO(partResults: []);
         $this->dummy = new BulkSearchResponseDTO(partResults: [
-            new PartSearchResultsDTO(
+            new BulkSearchPartResultsDTO(
                 part: $this->entityManager->find(Part::class, 1),
                 searchResults: [
-                    new BulkSearchResultDTO(
+                    new BulkSearchPartResultDTO(
                         searchResult: new SearchResultDTO(provider_key: "dummy", provider_id: "1234", name: "Test Part", description: "A part for testing"),
                         sourceField: "mpn", sourceKeyword: "1234", priority: 1
                     ),
-                    new BulkSearchResultDTO(
+                    new BulkSearchPartResultDTO(
                         searchResult: new SearchResultDTO(provider_key: "test", provider_id: "test", name: "Test Part2", description: "A part for testing"),
                         sourceField: "name", sourceKeyword: "1234",
                         localPart: $this->entityManager->find(Part::class, 2), priority: 2,

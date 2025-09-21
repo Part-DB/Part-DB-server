@@ -26,13 +26,13 @@ use App\Entity\Parts\Part;
 
 /**
  * Represents the search results for a single part from bulk info provider search.
- * This DTO provides type safety and clear structure for part search results.
+ * It contains multiple search results, that match the part.
  */
-readonly class PartSearchResultsDTO
+readonly class BulkSearchPartResultsDTO
 {
     /**
      * @param Part $part The part that was searched for
-     * @param BulkSearchResultDTO[] $searchResults Array of search results found for this part
+     * @param BulkSearchPartResultDTO[] $searchResults Array of search results found for this part
      * @param string[] $errors Array of error messages encountered during search
      */
     public function __construct(
@@ -72,12 +72,12 @@ readonly class PartSearchResultsDTO
 
     /**
      * Get search results sorted by priority (ascending).
-     * @return BulkSearchResultDTO[]
+     * @return BulkSearchPartResultDTO[]
      */
     public function getResultsSortedByPriority(): array
     {
         $results = $this->searchResults;
-        usort($results, static fn(BulkSearchResultDTO $a, BulkSearchResultDTO $b) => $a->priority <=> $b->priority);
+        usort($results, static fn(BulkSearchPartResultDTO $a, BulkSearchPartResultDTO $b) => $a->priority <=> $b->priority);
         return $results;
     }
 }

@@ -6,10 +6,10 @@ namespace App\Services\InfoProviderSystem;
 
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
-use App\Services\InfoProviderSystem\DTOs\BulkSearchResultDTO;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
-use App\Services\InfoProviderSystem\DTOs\FieldMappingDTO;
-use App\Services\InfoProviderSystem\DTOs\PartSearchResultsDTO;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO;
 use App\Services\InfoProviderSystem\Providers\BatchInfoProviderInterface;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -33,7 +33,7 @@ final class BulkInfoProviderService
      * Perform bulk search across multiple parts and providers.
      *
      * @param Part[] $parts Array of parts to search for
-     * @param FieldMappingDTO[] $fieldMappings Array of field mappings defining search strategy
+     * @param BulkSearchFieldMappingDTO[] $fieldMappings Array of field mappings defining search strategy
      * @param bool $prefetchDetails Whether to prefetch detailed information for results
      * @return BulkSearchResponseDTO Structured response containing all search results
      * @throws \InvalidArgumentException If no valid parts provided
@@ -92,7 +92,7 @@ final class BulkInfoProviderService
                 $searchResults = $this->formatSearchResults($allResults);
             }
 
-            $partResults[] = new PartSearchResultsDTO(
+            $partResults[] = new BulkSearchPartResultsDTO(
                 part: $part,
                 searchResults: $searchResults,
                 errors: []
@@ -117,9 +117,9 @@ final class BulkInfoProviderService
      * Process parts using batch-capable info providers.
      *
      * @param Part[] $parts Array of parts to search for
-     * @param FieldMappingDTO[] $fieldMappings Array of field mapping configurations
+     * @param BulkSearchFieldMappingDTO[] $fieldMappings Array of field mapping configurations
      * @param array<string, BatchInfoProviderInterface> $batchProviders Batch providers indexed by key
-     * @return array<int, BulkSearchResultDTO[]> Results indexed by part ID
+     * @return array<int, BulkSearchPartResultDTO[]> Results indexed by part ID
      */
     private function processBatchProviders(array $parts, array $fieldMappings, array $batchProviders): array
     {
@@ -145,7 +145,7 @@ final class BulkInfoProviderService
                         $keyword = $this->getKeywordFromField($part, $mapping->field);
                         if ($keyword && isset($providerResults[$keyword])) {
                             foreach ($providerResults[$keyword] as $dto) {
-                                $batchResults[$part->getId()][] = new BulkSearchResultDTO(
+                                $batchResults[$part->getId()][] = new BulkSearchPartResultDTO(
                                     searchResult: $dto,
                                     sourceField: $mapping->field,
                                     sourceKeyword: $keyword,
@@ -171,10 +171,10 @@ final class BulkInfoProviderService
      * Process parts using regular (non-batch) info providers.
      *
      * @param Part[] $parts Array of parts to search for
-     * @param FieldMappingDTO[] $fieldMappings Array of field mapping configurations
+     * @param BulkSearchFieldMappingDTO[] $fieldMappings Array of field mapping configurations
      * @param array<string, InfoProviderInterface> $regularProviders Regular providers indexed by key
-     * @param array<int, BulkSearchResultDTO[]> $excludeResults Results to exclude (from batch processing)
-     * @return array<int, BulkSearchResultDTO[]> Results indexed by part ID
+     * @param array<int, BulkSearchPartResultDTO[]> $excludeResults Results to exclude (from batch processing)
+     * @return array<int, BulkSearchPartResultDTO[]> Results indexed by part ID
      */
     private function processRegularProviders(array $parts, array $fieldMappings, array $regularProviders, array $excludeResults): array
     {
@@ -204,7 +204,7 @@ final class BulkInfoProviderService
                     $dtos = $this->infoRetriever->searchByKeyword($keyword, $providers);
 
                     foreach ($dtos as $dto) {
-                        $regularResults[$part->getId()][] = new BulkSearchResultDTO(
+                        $regularResults[$part->getId()][] = new BulkSearchPartResultDTO(
                             searchResult: $dto,
                             sourceField: $mapping->field,
                             sourceKeyword: $keyword,
@@ -229,7 +229,7 @@ final class BulkInfoProviderService
      * Collect unique keywords for a specific provider from all parts and field mappings.
      *
      * @param Part[] $parts Array of parts to collect keywords from
-     * @param FieldMappingDTO[] $fieldMappings Array of field mapping configurations
+     * @param BulkSearchFieldMappingDTO[] $fieldMappings Array of field mapping configurations
      * @param string $providerKey The provider key to collect keywords for
      * @return string[] Array of unique keywords
      */
@@ -326,8 +326,8 @@ final class BulkInfoProviderService
     /**
      * Format and deduplicate search results.
      *
-     * @param BulkSearchResultDTO[] $bulkResults Array of bulk search results
-     * @return BulkSearchResultDTO[] Array of formatted search results with metadata
+     * @param BulkSearchPartResultDTO[] $bulkResults Array of bulk search results
+     * @return BulkSearchPartResultDTO[] Array of formatted search results with metadata
      */
     private function formatSearchResults(array $bulkResults): array
     {

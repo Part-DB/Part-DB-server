@@ -32,7 +32,7 @@ use Doctrine\ORM\EntityManagerInterface;
 readonly class BulkSearchResponseDTO implements \ArrayAccess
 {
     /**
-     * @param PartSearchResultsDTO[] $partResults Array of search results for each part
+     * @param BulkSearchPartResultsDTO[] $partResults Array of search results for each part
      */
     public function __construct(
         public array $partResults
@@ -41,10 +41,10 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess
     /**
      * Replaces the search results for a specific part, and returns a new instance.
      * @param  Part|int  $part
-     * @param  PartSearchResultsDTO  $new_results
+     * @param  BulkSearchPartResultsDTO  $new_results
      * @return BulkSearchResponseDTO
      */
-    public function replaceResultsForPart(Part|int $part, PartSearchResultsDTO $new_results): self
+    public function replaceResultsForPart(Part|int $part, BulkSearchPartResultsDTO $new_results): self
     {
         $array = $this->partResults;
         foreach ($array as $index => $partResult) {
@@ -85,7 +85,7 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess
 
     /**
      * Get all parts that have search results.
-     * @return PartSearchResultsDTO[]
+     * @return BulkSearchPartResultsDTO[]
      */
     public function getPartsWithResults(): array
     {
@@ -94,7 +94,7 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess
 
     /**
      * Get all parts that have errors.
-     * @return PartSearchResultsDTO[]
+     * @return BulkSearchPartResultsDTO[]
      */
     public function getPartsWithErrors(): array
     {
@@ -175,9 +175,9 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess
     {
         $partResults = [];
         foreach ($data as $partData) {
-            $partResults[] = new PartSearchResultsDTO(
+            $partResults[] = new BulkSearchPartResultsDTO(
                 part: $entityManager->getReference(Part::class, $partData['part_id']),
-                searchResults: array_map(fn($result) => new BulkSearchResultDTO(
+                searchResults: array_map(fn($result) => new BulkSearchPartResultDTO(
                     searchResult: SearchResultDTO::fromNormalizedSearchResultArray($result['dto']),
                     sourceField: $result['source_field'] ?? null,
                     sourceKeyword: $result['source_keyword'] ?? null,
@@ -199,7 +199,7 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess
         return isset($this->partResults[$offset]);
     }
 
-    public function offsetGet(mixed $offset): ?PartSearchResultsDTO
+    public function offsetGet(mixed $offset): ?BulkSearchPartResultsDTO
     {
         if (!is_int($offset)) {
             throw new \InvalidArgumentException("Offset must be an integer.");

@@ -25,9 +25,9 @@ namespace App\Services\InfoProviderSystem\DTOs;
 use App\Entity\Parts\Part;
 
 /**
- * Represents a search result from bulk search with additional context information, like how the part was found.
+ * Represents a single search result from bulk search with additional context information, like how the part was found.
  */
-readonly class BulkSearchResultDTO
+readonly class BulkSearchPartResultDTO
 {
     public function __construct(
         /** The base search result DTO containing provider data */
