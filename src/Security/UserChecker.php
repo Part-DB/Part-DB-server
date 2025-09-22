@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Entity\UserSystem\User;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
@@ -51,7 +52,7 @@ final class UserChecker implements UserCheckerInterface
      *
      * @throws AccountStatusException
      */
-    public function checkPostAuth(UserInterface $user): void
+    public function checkPostAuth(UserInterface $user, ?TokenInterface $token = null): void
     {
         if (!$user instanceof User) {
             return;

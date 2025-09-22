@@ -38,7 +38,7 @@ class EnforceEventCommentTypesType extends AbstractType
         return EnumType::class;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'multiple' => true,
