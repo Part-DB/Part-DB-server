@@ -13842,12 +13842,6 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Mark Pending</target>
       </segment>
     </unit>
-    <unit id="p.igAUH" name="info_providers.bulk_import.skip_reason">
-      <segment state="translated">
-        <source>info_providers.bulk_import.skip_reason</source>
-        <target>Skip reason</target>
-      </segment>
-    </unit>
     <unit id="6bTLFzZ" name="info_providers.bulk_import.editing_part">
       <segment state="translated">
         <source>info_providers.bulk_import.editing_part</source>
