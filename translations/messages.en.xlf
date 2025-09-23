@@ -9339,12 +9339,6 @@ Element 1 -&gt; Element 1.2</target>
         <target>Part Status in Job</target>
       </segment>
     </unit>
-    <unit id="LS0ckg6" name="filter.bulk_import_job.status.any">
-      <segment state="translated">
-        <source>filter.bulk_import_job.status.any</source>
-        <target>Any Status</target>
-      </segment>
-    </unit>
     <unit id="2Euegw5" name="filter.bulk_import_job.status.pending">
       <segment state="translated">
         <source>filter.bulk_import_job.status.pending</source>
@@ -9373,12 +9367,6 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>filter.bulk_import_job.status.failed</source>
         <target>Failed</target>
-      </segment>
-    </unit>
-    <unit id="T1zyhcD" name="filter.bulk_import_job.part_status.any">
-      <segment state="translated">
-        <source>filter.bulk_import_job.part_status.any</source>
-        <target>Any Part Status</target>
       </segment>
     </unit>
     <unit id="q35A9Tf" name="filter.bulk_import_job.part_status.pending">
@@ -13638,12 +13626,6 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Source Field</target>
       </segment>
     </unit>
-    <unit id="eL7WKtX" name="info_providers.bulk_import.create_part">
-      <segment state="translated">
-        <source>info_providers.bulk_import.create_part</source>
-        <target>Create Part</target>
-      </segment>
-    </unit>
     <unit id="VdUOMZf" name="info_providers.bulk_import.view_existing">
       <segment state="translated">
         <source>info_providers.bulk_import.view_existing</source>
@@ -13708,18 +13690,6 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>part_list.action.bulk_info_provider_import</source>
         <target>Bulk Info Provider Import</target>
-      </segment>
-    </unit>
-    <unit id="HtoFAm0" name="info_providers.bulk_import.clear_selections">
-      <segment state="translated">
-        <source>info_providers.bulk_import.clear_selections</source>
-        <target>Clear All Selections</target>
-      </segment>
-    </unit>
-    <unit id="CHfk1d." name="info_providers.bulk_import.clear_row">
-      <segment state="translated">
-        <source>info_providers.bulk_import.clear_row</source>
-        <target>Clear this row's selections</target>
       </segment>
     </unit>
     <unit id="yzpXFkB" name="info_providers.bulk_import.step1.spn_recommendation">
@@ -13824,124 +13794,16 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Source Field</target>
       </segment>
     </unit>
-    <unit id="9iBuLfS" name="info_providers.bulk_import.table.action">
-      <segment state="translated">
-        <source>info_providers.bulk_import.table.action</source>
-        <target>Action</target>
-      </segment>
-    </unit>
-    <unit id="qgyoLWA" name="info_providers.bulk_import.action.select">
-      <segment state="translated">
-        <source>info_providers.bulk_import.action.select</source>
-        <target>Select</target>
-      </segment>
-    </unit>
-    <unit id="aSo.jkT" name="info_providers.bulk_import.action.deselect">
-      <segment state="translated">
-        <source>info_providers.bulk_import.action.deselect</source>
-        <target>Deselect</target>
-      </segment>
-    </unit>
-    <unit id="ViKzR5M" name="info_providers.bulk_import.action.view_details">
-      <segment state="translated">
-        <source>info_providers.bulk_import.action.view_details</source>
-        <target>View Details</target>
-      </segment>
-    </unit>
-    <unit id="8qnf_gP" name="info_providers.bulk_import.no_results">
-      <segment state="translated">
-        <source>info_providers.bulk_import.no_results</source>
-        <target>No results found</target>
-      </segment>
-    </unit>
-    <unit id="KDNhQMH" name="info_providers.bulk_import.processing">
-      <segment state="translated">
-        <source>info_providers.bulk_import.processing</source>
-        <target>Processing...</target>
-      </segment>
-    </unit>
-    <unit id="eGaXfru" name="info_providers.bulk_import.error">
-      <segment state="translated">
-        <source>info_providers.bulk_import.error</source>
-        <target>Error occurred during import</target>
-      </segment>
-    </unit>
-    <unit id="HiczSH4" name="info_providers.bulk_import.success">
-      <segment state="translated">
-        <source>info_providers.bulk_import.success</source>
-        <target>Import completed successfully</target>
-      </segment>
-    </unit>
-    <unit id="yt3kZvQ" name="info_providers.bulk_import.partial_success">
-      <segment state="translated">
-        <source>info_providers.bulk_import.partial_success</source>
-        <target>Import completed with some errors</target>
-      </segment>
-    </unit>
-    <unit id="LrlWQ0." name="info_providers.bulk_import.retry">
-      <segment state="translated">
-        <source>info_providers.bulk_import.retry</source>
-        <target>Retry</target>
-      </segment>
-    </unit>
-    <unit id="mjzOCYY" name="info_providers.bulk_import.cancel">
-      <segment state="translated">
-        <source>info_providers.bulk_import.cancel</source>
-        <target>Cancel</target>
-      </segment>
-    </unit>
-    <unit id="QphMXMq" name="info_providers.bulk_import.confirm">
-      <segment state="translated">
-        <source>info_providers.bulk_import.confirm</source>
-        <target>Confirm Import</target>
-      </segment>
-    </unit>
     <unit id="CoSmRQc" name="info_providers.bulk_import.back">
       <segment state="translated">
         <source>info_providers.bulk_import.back</source>
         <target>Back</target>
       </segment>
     </unit>
-    <unit id="Flgdv5w" name="info_providers.bulk_import.next">
-      <segment state="translated">
-        <source>info_providers.bulk_import.next</source>
-        <target>Next</target>
-      </segment>
-    </unit>
-    <unit id="N8uN_eL" name="info_providers.bulk_import.finish">
-      <segment state="translated">
-        <source>info_providers.bulk_import.finish</source>
-        <target>Finish</target>
-      </segment>
-    </unit>
     <unit id="Hn7AtYS" name="info_providers.bulk_import.progress">
       <segment state="translated">
         <source>info_providers.bulk_import.progress</source>
         <target>Progress:</target>
-      </segment>
-    </unit>
-    <unit id="FfSQT4T" name="info_providers.bulk_import.time_remaining">
-      <segment state="translated">
-        <source>info_providers.bulk_import.time_remaining</source>
-        <target>Estimated time remaining: %time%</target>
-      </segment>
-    </unit>
-    <unit id="g1pqdBr" name="info_providers.bulk_import.details_modal.title">
-      <segment state="translated">
-        <source>info_providers.bulk_import.details_modal.title</source>
-        <target>Part Details</target>
-      </segment>
-    </unit>
-    <unit id="_P5nIFz" name="info_providers.bulk_import.details_modal.close">
-      <segment state="translated">
-        <source>info_providers.bulk_import.details_modal.close</source>
-        <target>Close</target>
-      </segment>
-    </unit>
-    <unit id="GGMVm_." name="info_providers.bulk_import.details_modal.select_this_part">
-      <segment state="translated">
-        <source>info_providers.bulk_import.details_modal.select_this_part</source>
-        <target>Select This Part</target>
       </segment>
     </unit>
     <unit id="w9LaKAB" name="info_providers.bulk_import.status.pending">
@@ -14148,24 +14010,6 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>%completed% / %total% completed</target>
       </segment>
     </unit>
-    <unit id="Y53fY_F" name="info_providers.bulk_import.error.deleting_job">
-      <segment state="translated">
-        <source>info_providers.bulk_import.error.deleting_job</source>
-        <target>Error deleting job</target>
-      </segment>
-    </unit>
-    <unit id="i.EWgLw" name="info_providers.bulk_import.error.unknown">
-      <segment state="translated">
-        <source>info_providers.bulk_import.error.unknown</source>
-        <target>Unknown error</target>
-      </segment>
-    </unit>
-    <unit id="XrRgd0t" name="info_providers.bulk_import.error.deleting_job_with_details">
-      <segment state="translated">
-        <source>info_providers.bulk_import.error.deleting_job_with_details</source>
-        <target>Error deleting job: %error%</target>
-      </segment>
-    </unit>
     <unit id="9yPFVrM" name="info_providers.bulk_import.status.stopped">
       <segment state="translated">
         <source>info_providers.bulk_import.status.stopped</source>
@@ -14188,18 +14032,6 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>part.filter.in_bulk_import_job</source>
         <target>In Bulk Import Job</target>
-      </segment>
-    </unit>
-    <unit id="Q9UiUw." name="part.filter.in_bulk_import_job.yes">
-      <segment state="translated">
-        <source>part.filter.in_bulk_import_job.yes</source>
-        <target>Yes</target>
-      </segment>
-    </unit>
-    <unit id="6m0ooZf" name="part.filter.in_bulk_import_job.no">
-      <segment state="translated">
-        <source>part.filter.in_bulk_import_job.no</source>
-        <target>No</target>
       </segment>
     </unit>
     <unit id="rOeRN8O" name="part.filter.bulk_import_job_status">
@@ -14274,12 +14106,6 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Failed</target>
       </segment>
     </unit>
-    <unit id="Unr5IS7" name="filter.operator">
-      <segment state="translated">
-        <source>filter.operator</source>
-        <target>Operator</target>
-      </segment>
-    </unit>
     <unit id="Jxg8Jia" name="bulk_info_provider_import_job.label">
       <segment state="translated">
         <source>bulk_info_provider_import_job.label</source>
@@ -14326,12 +14152,6 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>info_providers.bulk_import.search.submit</source>
         <target>Search Providers</target>
-      </segment>
-    </unit>
-    <unit id="pPndxuf" name="info_providers.bulk_import.searching">
-      <segment state="translated">
-        <source>info_providers.bulk_import.searching</source>
-        <target>Searching</target>
       </segment>
     </unit>
     <unit id="NSXIcCk" name="info_providers.bulk_import.research.title">
