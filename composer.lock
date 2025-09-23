@@ -4022,16 +4022,16 @@
         },
         {
             "name": "dompdf/dompdf",
-            "version": "v3.1.1",
+            "version": "v3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "794ec856134a73d2a69a474c5d4faa47e1e645b1"
+                "reference": "b3493e35d31a5e76ec24c3b64a29b0034b2f32a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/794ec856134a73d2a69a474c5d4faa47e1e645b1",
-                "reference": "794ec856134a73d2a69a474c5d4faa47e1e645b1",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/b3493e35d31a5e76ec24c3b64a29b0034b2f32a6",
+                "reference": "b3493e35d31a5e76ec24c3b64a29b0034b2f32a6",
                 "shasum": ""
             },
             "require": {
@@ -4080,9 +4080,9 @@
             "homepage": "https://github.com/dompdf/dompdf",
             "support": {
                 "issues": "https://github.com/dompdf/dompdf/issues",
-                "source": "https://github.com/dompdf/dompdf/tree/v3.1.1"
+                "source": "https://github.com/dompdf/dompdf/tree/v3.1.2"
             },
-            "time": "2025-09-20T17:30:31+00:00"
+            "time": "2025-09-23T03:06:41+00:00"
         },
         {
             "name": "dompdf/php-font-lib",
@@ -4945,16 +4945,16 @@
         },
         {
             "name": "jbtronics/dompdf-font-loader-bundle",
-            "version": "v1.1.4",
+            "version": "v1.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/dompdf-font-loader-bundle.git",
-                "reference": "1b41014a2dd9e82ba6a62e61deeebe3cdc1eaf1f"
+                "reference": "83a0e50ecceefea0a63915dae758e00788fd067e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/dompdf-font-loader-bundle/zipball/1b41014a2dd9e82ba6a62e61deeebe3cdc1eaf1f",
-                "reference": "1b41014a2dd9e82ba6a62e61deeebe3cdc1eaf1f",
+                "url": "https://api.github.com/repos/jbtronics/dompdf-font-loader-bundle/zipball/83a0e50ecceefea0a63915dae758e00788fd067e",
+                "reference": "83a0e50ecceefea0a63915dae758e00788fd067e",
                 "shasum": ""
             },
             "require": {
@@ -4994,22 +4994,22 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/dompdf-font-loader-bundle/issues",
-                "source": "https://github.com/jbtronics/dompdf-font-loader-bundle/tree/v1.1.4"
+                "source": "https://github.com/jbtronics/dompdf-font-loader-bundle/tree/v1.1.5"
             },
-            "time": "2025-07-07T20:39:34+00:00"
+            "time": "2025-07-25T20:29:05+00:00"
         },
         {
             "name": "jbtronics/settings-bundle",
-            "version": "v3.1.0",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/settings-bundle.git",
-                "reference": "7f19bac5a66533c6974948a484871087301b2a2e"
+                "reference": "1067dd3d816cd0a6be7ac3d3989587ea05040bd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/settings-bundle/zipball/7f19bac5a66533c6974948a484871087301b2a2e",
-                "reference": "7f19bac5a66533c6974948a484871087301b2a2e",
+                "url": "https://api.github.com/repos/jbtronics/settings-bundle/zipball/1067dd3d816cd0a6be7ac3d3989587ea05040bd4",
+                "reference": "1067dd3d816cd0a6be7ac3d3989587ea05040bd4",
                 "shasum": ""
             },
             "require": {
@@ -5070,7 +5070,7 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/settings-bundle/issues",
-                "source": "https://github.com/jbtronics/settings-bundle/tree/v3.1.0"
+                "source": "https://github.com/jbtronics/settings-bundle/tree/v3.1.1"
             },
             "funding": [
                 {
@@ -5082,7 +5082,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-09-19T06:54:58+00:00"
+            "time": "2025-09-22T22:00:15+00:00"
         },
         {
             "name": "jfcherng/php-color-output",
@@ -7588,24 +7588,26 @@
         },
         {
             "name": "paragonie/constant_time_encoding",
-            "version": "v3.0.0",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/constant_time_encoding.git",
-                "reference": "df1e7fde177501eee2037dd159cf04f5f301a512"
+                "reference": "5e9b582660b997de205a84c02a3aac7c060900c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/df1e7fde177501eee2037dd159cf04f5f301a512",
-                "reference": "df1e7fde177501eee2037dd159cf04f5f301a512",
+                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/5e9b582660b997de205a84c02a3aac7c060900c9",
+                "reference": "5e9b582660b997de205a84c02a3aac7c060900c9",
                 "shasum": ""
             },
             "require": {
                 "php": "^8"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9",
-                "vimeo/psalm": "^4|^5"
+                "infection/infection": "^0",
+                "nikic/php-fuzzer": "^0",
+                "phpunit/phpunit": "^9|^10|^11",
+                "vimeo/psalm": "^4|^5|^6"
             },
             "type": "library",
             "autoload": {
@@ -7651,7 +7653,7 @@
                 "issues": "https://github.com/paragonie/constant_time_encoding/issues",
                 "source": "https://github.com/paragonie/constant_time_encoding"
             },
-            "time": "2024-05-08T12:36:18+00:00"
+            "time": "2025-09-22T21:00:33+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -18870,16 +18872,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "11.5.39",
+            "version": "11.5.40",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "ad5597f79d8489d2870073ac0bc0dd0ad1fa9931"
+                "reference": "4102b2f9250d6dd57d1a1c8c4132b1c744b14b1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ad5597f79d8489d2870073ac0bc0dd0ad1fa9931",
-                "reference": "ad5597f79d8489d2870073ac0bc0dd0ad1fa9931",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/4102b2f9250d6dd57d1a1c8c4132b1c744b14b1c",
+                "reference": "4102b2f9250d6dd57d1a1c8c4132b1c744b14b1c",
                 "shasum": ""
             },
             "require": {
@@ -18903,7 +18905,7 @@
                 "sebastian/comparator": "^6.3.2",
                 "sebastian/diff": "^6.0.2",
                 "sebastian/environment": "^7.2.1",
-                "sebastian/exporter": "^6.3.0",
+                "sebastian/exporter": "^6.3.1",
                 "sebastian/global-state": "^7.0.2",
                 "sebastian/object-enumerator": "^6.0.1",
                 "sebastian/type": "^5.1.3",
@@ -18951,7 +18953,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.39"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.40"
             },
             "funding": [
                 {
@@ -18975,7 +18977,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-09-14T06:20:41+00:00"
+            "time": "2025-09-23T06:23:40+00:00"
         },
         {
             "name": "rector/rector",

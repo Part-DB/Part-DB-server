@@ -81,7 +81,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
     /**
      * @var string The website of the company
      */
-    #[Assert\Url]
+    #[Assert\Url(requireTld: false)]
     #[Groups(['full', 'company:read', 'company:write', 'import', 'extended'])]
     #[ORM\Column(type: Types::STRING)]
     #[Assert\Length(max: 255)]

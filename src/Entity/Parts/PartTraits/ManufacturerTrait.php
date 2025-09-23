@@ -49,7 +49,7 @@ trait ManufacturerTrait
     /**
      * @var string The url to the part on the manufacturer's homepage
      */
-    #[Assert\Url]
+    #[Assert\Url(requireTld: false)]
     #[Groups(['full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::TEXT)]
     protected string $manufacturer_product_url = '';
