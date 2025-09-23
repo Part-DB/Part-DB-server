@@ -90,9 +90,37 @@ class ToolsTreeBuilder
         });
     }
 
+    protected function getFilterNode(): array
+    {
+        $nodes = [];
+
+        if ($this->security->isGranted('@parts.read')) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('filter.less_than_desired'),
+                $this->urlGenerator->generate('parts_filter_less_than_desired')
+            ))->setIcon("fa-treeview fa-fw fa-solid fa-circle-exclamation");
+        }
+
+        if ($this->security->isGranted('@parts.read')) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('filter.custom'),
+                $this->urlGenerator->generate('parts_filter_custom')
+            ))->setIcon("fa-treeview fa-fw fa-solid fa-code");
+        }
+        return $nodes;
+    }
+
     protected function getToolsNode(): array
     {
         $nodes = [];
+
+        if ($this->security->isGranted('@parts.read')) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('filter.title'),
+                null,
+                $this->getFilterNode()
+            ))->setIcon("fa-fw fa-treeview fa-solid fa-filter");
+        }
 
         if ($this->security->isGranted('@labels.create_labels')) {
             $nodes[] = (new TreeViewNode(
