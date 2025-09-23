@@ -8924,6 +8924,12 @@ Element 1 -&gt; Element 1.2</target>
         <target>Bauteil ändern</target>
       </segment>
     </unit>
+    <unit id="keLmdcq" name="part_list.action.scrollable_hint">
+      <segment state="translated">
+        <source>part_list.action.scrollable_hint</source>
+        <target>Scrollen Sie, um alle Aktionen anzuzeigen</target>
+      </segment>
+    </unit>
     <unit id="w3XOUoO" name="part_list.action.action.title">
       <segment state="translated">
         <source>part_list.action.action.title</source>
@@ -9312,6 +9318,72 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>part.filter.attachmentName</source>
         <target>Name des Anhangs</target>
+      </segment>
+    </unit>
+    <unit id="_5zM4Zv" name="filter.bulk_import_job.label">
+      <segment state="translated">
+        <source>filter.bulk_import_job.label</source>
+        <target>Massenimport-Auftrag</target>
+      </segment>
+    </unit>
+    <unit id="rXReB8s" name="filter.bulk_import_job.job_status">
+      <segment state="translated">
+        <source>filter.bulk_import_job.job_status</source>
+        <target>Auftragsstatus</target>
+      </segment>
+    </unit>
+    <unit id="VSY.FIr" name="filter.bulk_import_job.part_status_in_job">
+      <segment state="translated">
+        <source>filter.bulk_import_job.part_status_in_job</source>
+        <target>Bauteile-Status in Auftrag</target>
+      </segment>
+    </unit>
+    <unit id="2Euegw5" name="filter.bulk_import_job.status.pending">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.pending</source>
+        <target>Ausstehend</target>
+      </segment>
+    </unit>
+    <unit id="JT3CbaE" name="filter.bulk_import_job.status.in_progress">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.in_progress</source>
+        <target>In Bearbeitung</target>
+      </segment>
+    </unit>
+    <unit id="J9uBFFo" name="filter.bulk_import_job.status.completed">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.completed</source>
+        <target>Abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="lv4PVt2" name="filter.bulk_import_job.status.stopped">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.stopped</source>
+        <target>Angehalten</target>
+      </segment>
+    </unit>
+    <unit id="0qKD5hC" name="filter.bulk_import_job.status.failed">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.failed</source>
+        <target>Fehlgeschlagen</target>
+      </segment>
+    </unit>
+    <unit id="q35A9Tf" name="filter.bulk_import_job.part_status.pending">
+      <segment state="translated">
+        <source>filter.bulk_import_job.part_status.pending</source>
+        <target>Ausstehend</target>
+      </segment>
+    </unit>
+    <unit id=".Bxg5IL" name="filter.bulk_import_job.part_status.completed">
+      <segment state="translated">
+        <source>filter.bulk_import_job.part_status.completed</source>
+        <target>Abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="kRFtBzL" name="filter.bulk_import_job.part_status.skipped">
+      <segment state="translated">
+        <source>filter.bulk_import_job.part_status.skipped</source>
+        <target>Übersprungen</target>
       </segment>
     </unit>
     <unit id="YcIyWEZ" name="filter.choice_constraint.operator.ANY">
@@ -10884,6 +10956,12 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>part_list.action.export_xml</source>
         <target>Export als XML</target>
+      </segment>
+    </unit>
+    <unit id="X.gTRGX" name="part_list.action.export_xlsx">
+      <segment state="translated">
+        <source>part_list.action.export_xlsx</source>
+        <target>Export als Excel</target>
       </segment>
     </unit>
     <unit id="w0AgPEI" name="parts.import.title">
@@ -13479,6 +13557,636 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>settings.behavior.table.preview_image_min_width</source>
         <target>Min. Vorschaubild-Breite (px)</target>
+      </segment>
+    </unit>
+    <unit id="vkjf5qA" name="info_providers.bulk_import.step1.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step1.title</source>
+        <target>Massenimport von Datenquellen – Schritt 1</target>
+      </segment>
+    </unit>
+    <unit id="dqV7NUB" name="info_providers.bulk_import.parts_selected">
+      <segment state="translated">
+        <source>info_providers.bulk_import.parts_selected</source>
+        <target>Bauteile ausgewählt</target>
+      </segment>
+    </unit>
+    <unit id="o474JoG" name="info_providers.bulk_import.step1.global_mapping_description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step1.global_mapping_description</source>
+        <target>Konfigurieren Sie Feldzuordnungen, die auf alle ausgewählten Teile angewendet werden sollen. Beispiel: „MPN → LCSC + Mouser” bedeutet, dass die Anbieter LCSC und Mouser anhand des MPN-Feldes jedes Teils durchsucht werden.</target>
+      </segment>
+    </unit>
+    <unit id="d9OFVmQ" name="info_providers.bulk_import.selected_parts">
+      <segment state="translated">
+        <source>info_providers.bulk_import.selected_parts</source>
+        <target>Ausgewählte Bauteile</target>
+      </segment>
+    </unit>
+    <unit id="0IM.WJg" name="info_providers.bulk_import.field_mappings">
+      <segment state="translated">
+        <source>info_providers.bulk_import.field_mappings</source>
+        <target>Feldzuordnungen</target>
+      </segment>
+    </unit>
+    <unit id="cZb6a7b" name="info_providers.bulk_import.field_mappings_help">
+      <segment state="translated">
+        <source>info_providers.bulk_import.field_mappings_help</source>
+        <target>Legen Sie fest, welche Bauteilefelder mit welchen Informationsanbietern durchsucht werden sollen. Mehrere Zuordnungen werden kombiniert.</target>
+      </segment>
+    </unit>
+    <unit id="hImbHbq" name="info_providers.bulk_import.add_mapping">
+      <segment state="translated">
+        <source>info_providers.bulk_import.add_mapping</source>
+        <target>Zuordnung hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="u4_QWOb" name="info_providers.bulk_import.search_results.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.search_results.title</source>
+        <target>Suchergebnisse</target>
+      </segment>
+    </unit>
+    <unit id="aXSJ0L3" name="info_providers.bulk_import.errors">
+      <segment state="translated">
+        <source>info_providers.bulk_import.errors</source>
+        <target>Fehler</target>
+      </segment>
+    </unit>
+    <unit id="TPEhXlb" name="info_providers.bulk_import.results_found">
+      <segment state="translated">
+        <source>info_providers.bulk_import.results_found</source>
+        <target>%count% Ergebnisse gefunden</target>
+      </segment>
+    </unit>
+    <unit id="8coVh8q" name="info_providers.bulk_import.source_field">
+      <segment state="translated">
+        <source>info_providers.bulk_import.source_field</source>
+        <target>Bauteilefeld</target>
+      </segment>
+    </unit>
+    <unit id="VdUOMZf" name="info_providers.bulk_import.view_existing">
+      <segment state="translated">
+        <source>info_providers.bulk_import.view_existing</source>
+        <target>Existierendes ansehen</target>
+      </segment>
+    </unit>
+    <unit id="LPN5MOO" name="info_providers.bulk_search.search_field">
+      <segment state="translated">
+        <source>info_providers.bulk_search.search_field</source>
+        <target>Suchfeld</target>
+      </segment>
+    </unit>
+    <unit id="DTm1q3f" name="info_providers.bulk_search.providers">
+      <segment state="translated">
+        <source>info_providers.bulk_search.providers</source>
+        <target>Datenquellen</target>
+      </segment>
+    </unit>
+    <unit id="5zem1xb" name="info_providers.bulk_import.actions.label">
+      <segment state="translated">
+        <source>info_providers.bulk_import.actions.label</source>
+        <target>Aktionen</target>
+      </segment>
+    </unit>
+    <unit id="rA4WDLA" name="info_providers.bulk_search.providers.help">
+      <segment state="translated">
+        <source>info_providers.bulk_search.providers.help</source>
+        <target>Wählen Sie aus, welche Datenquellen durchsucht werden sollen, wenn Bauteile dieses Feld haben. </target>
+      </segment>
+    </unit>
+    <unit id="OS0qJRC" name="info_providers.bulk_search.submit">
+      <segment state="translated">
+        <source>info_providers.bulk_search.submit</source>
+        <target>Alle Bauteile suchen</target>
+      </segment>
+    </unit>
+    <unit id="ItmvNLj" name="info_providers.bulk_search.field.select">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.select</source>
+        <target>Wählen Sie ein Feld zum Suchen aus</target>
+      </segment>
+    </unit>
+    <unit id="AKm8Kw9" name="info_providers.bulk_search.field.mpn">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.mpn</source>
+        <target>Herstellernummer (MPN)</target>
+      </segment>
+    </unit>
+    <unit id="Wne2ljh" name="info_providers.bulk_search.field.name">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.name</source>
+        <target>Bauteile Name</target>
+      </segment>
+    </unit>
+    <unit id="iOh1gJZ" name="part_list.action.action.info_provider">
+      <segment state="translated">
+        <source>part_list.action.action.info_provider</source>
+        <target>Datenquellen</target>
+      </segment>
+    </unit>
+    <unit id="xukxTs_" name="part_list.action.bulk_info_provider_import">
+      <segment state="translated">
+        <source>part_list.action.bulk_info_provider_import</source>
+        <target>Massenimport von Datenquellen</target>
+      </segment>
+    </unit>
+    <unit id="yzpXFkB" name="info_providers.bulk_import.step1.spn_recommendation">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step1.spn_recommendation</source>
+        <target>Lieferantenteilenummer (SPN) wird für bessere Ergebnisse empfohlen. Fügen Sie für jeden Lieferanten eine Zuordnung hinzu, damit dessen SPNs verwendet werden können.</target>
+      </segment>
+    </unit>
+    <unit id="QDr.VVc" name="info_providers.bulk_import.update_part">
+      <segment state="translated">
+        <source>info_providers.bulk_import.update_part</source>
+        <target>Bauteil aktualisieren</target>
+      </segment>
+    </unit>
+    <unit id="e_DDQ2u" name="info_providers.bulk_import.prefetch_details">
+      <segment state="translated">
+        <source>info_providers.bulk_import.prefetch_details</source>
+        <target>Vorabruf der Bauteiledetails</target>
+      </segment>
+    </unit>
+    <unit id="v4T9Uwz" name="info_providers.bulk_import.prefetch_details_help">
+      <segment state="translated">
+        <source>info_providers.bulk_import.prefetch_details_help</source>
+        <target>Details für alle Ergebnisse vorab abrufen. Dies dauert zwar länger, beschleunigt jedoch den Arbeitsablauf für die Aktualisierung von Bauteilen.</target>
+      </segment>
+    </unit>
+    <unit id="mRdK1ts" name="info_providers.bulk_import.step2.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.title</source>
+        <target>Massenimport von Informationsquellen</target>
+      </segment>
+    </unit>
+    <unit id="Y.b5mGJ" name="info_providers.bulk_import.step2.card_title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.card_title</source>
+        <target>Massenimport für %count% Bauteile – %date%</target>
+      </segment>
+    </unit>
+    <unit id="fyatGYL" name="info_providers.bulk_import.parts">
+      <segment state="translated">
+        <source>info_providers.bulk_import.parts</source>
+        <target>Bauteile</target>
+      </segment>
+    </unit>
+    <unit id="hlBJ6Qh" name="info_providers.bulk_import.results">
+      <segment state="translated">
+        <source>info_providers.bulk_import.results</source>
+        <target>Ergebnisse</target>
+      </segment>
+    </unit>
+    <unit id="V8eTEPM" name="info_providers.bulk_import.created_at">
+      <segment state="translated">
+        <source>info_providers.bulk_import.created_at</source>
+        <target>Erstellt am</target>
+      </segment>
+    </unit>
+    <unit id="CiqevAs" name="info_providers.bulk_import.status.in_progress">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.in_progress</source>
+        <target>In Bearbeitung</target>
+      </segment>
+    </unit>
+    <unit id="YeLN8i_" name="info_providers.bulk_import.status.completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.completed</source>
+        <target>Abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="TIzGVyk" name="info_providers.bulk_import.status.failed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.failed</source>
+        <target>Fehlgeschlagen</target>
+      </segment>
+    </unit>
+    <unit id="RxaZ6kn" name="info_providers.bulk_import.table.name">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="36MkrQF" name="info_providers.bulk_import.table.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.description</source>
+        <target>Beschreibung</target>
+      </segment>
+    </unit>
+    <unit id="Y_yl259" name="info_providers.bulk_import.table.manufacturer">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.manufacturer</source>
+        <target>Hersteller</target>
+      </segment>
+    </unit>
+    <unit id="FgXYE1H" name="info_providers.bulk_import.table.provider">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.provider</source>
+        <target>Quelle</target>
+      </segment>
+    </unit>
+    <unit id="_gf1tWi" name="info_providers.bulk_import.table.source_field">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.source_field</source>
+        <target>Bauteilefeld</target>
+      </segment>
+    </unit>
+    <unit id="CoSmRQc" name="info_providers.bulk_import.back">
+      <segment state="translated">
+        <source>info_providers.bulk_import.back</source>
+        <target>Zurück</target>
+      </segment>
+    </unit>
+    <unit id="Hn7AtYS" name="info_providers.bulk_import.progress">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress</source>
+        <target>Fortschritt:</target>
+      </segment>
+    </unit>
+    <unit id="w9LaKAB" name="info_providers.bulk_import.status.pending">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.pending</source>
+        <target>Ausstehend</target>
+      </segment>
+    </unit>
+    <unit id="KcADJb." name="info_providers.bulk_import.completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.completed</source>
+        <target>abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="hptkZvI" name="info_providers.bulk_import.skipped">
+      <segment state="translated">
+        <source>info_providers.bulk_import.skipped</source>
+        <target>übersprungen</target>
+      </segment>
+    </unit>
+    <unit id="vylzyYJ" name="info_providers.bulk_import.mark_completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mark_completed</source>
+        <target>Als abgeschlossen markieren</target>
+      </segment>
+    </unit>
+    <unit id="ePdcL7W" name="info_providers.bulk_import.mark_skipped">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mark_skipped</source>
+        <target>Als übersprungen markieren</target>
+      </segment>
+    </unit>
+    <unit id="3HeDhTB" name="info_providers.bulk_import.mark_pending">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mark_pending</source>
+        <target>Als ausstehend markieren</target>
+      </segment>
+    </unit>
+    <unit id="p.igAUH" name="info_providers.bulk_import.skip_reason">
+      <segment state="translated">
+        <source>info_providers.bulk_import.skip_reason</source>
+        <target>Grund des Überspringens</target>
+      </segment>
+    </unit>
+    <unit id="6bTLFzZ" name="info_providers.bulk_import.editing_part">
+      <segment state="translated">
+        <source>info_providers.bulk_import.editing_part</source>
+        <target>Bearbeite Bauteil als Teil des Massenimports</target>
+      </segment>
+    </unit>
+    <unit id="ItOX1kK" name="info_providers.bulk_import.complete">
+      <segment state="translated">
+        <source>info_providers.bulk_import.complete</source>
+        <target>Abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="bHLXJ8Z" name="info_providers.bulk_import.existing_jobs">
+      <segment state="translated">
+        <source>info_providers.bulk_import.existing_jobs</source>
+        <target>Existierende Aufträge</target>
+      </segment>
+    </unit>
+    <unit id="jg2YuGQ" name="info_providers.bulk_import.job_name">
+      <segment state="translated">
+        <source>info_providers.bulk_import.job_name</source>
+        <target>Auftragsname</target>
+      </segment>
+    </unit>
+    <unit id="jUc1.Um" name="info_providers.bulk_import.parts_count">
+      <segment state="translated">
+        <source>info_providers.bulk_import.parts_count</source>
+        <target>Bauteileanzahl</target>
+      </segment>
+    </unit>
+    <unit id="aY1IgEO" name="info_providers.bulk_import.results_count">
+      <segment state="translated">
+        <source>info_providers.bulk_import.results_count</source>
+        <target>Ergebnisanzahl</target>
+      </segment>
+    </unit>
+    <unit id="1GAZk4m" name="info_providers.bulk_import.progress_label">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress_label</source>
+        <target>Fortschritt: %count%/%total%</target>
+      </segment>
+    </unit>
+    <unit id="k78UdMX" name="info_providers.bulk_import.manage_jobs">
+      <segment state="translated">
+        <source>info_providers.bulk_import.manage_jobs</source>
+        <target>Massenimportaufträge verwalten</target>
+      </segment>
+    </unit>
+    <unit id="mJ73hdI" name="info_providers.bulk_import.view_results">
+      <segment state="translated">
+        <source>info_providers.bulk_import.view_results</source>
+        <target>Ergebnisse anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="d5ZxGBG" name="info_providers.bulk_import.status">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="Z.AgcWf" name="info_providers.bulk_import.manage_jobs_description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.manage_jobs_description</source>
+        <target>Alle Ihre Massenimportaufträge anzeigen und verwalten. Um einen neuen Auftrag zu erstellen, wählen Sie Bauteile aus und klicken Sie auf „Massenimport von Informationsanbietern”.</target>
+      </segment>
+    </unit>
+    <unit id="0lCZLRC" name="info_providers.bulk_import.no_jobs_found">
+      <segment state="translated">
+        <source>info_providers.bulk_import.no_jobs_found</source>
+        <target>Es wurden keine Massenimportaufträge gefunden.</target>
+      </segment>
+    </unit>
+    <unit id="LheSXys" name="info_providers.bulk_import.create_first_job">
+      <segment state="translated">
+        <source>info_providers.bulk_import.create_first_job</source>
+        <target>Erstellen Sie Ihren ersten Massenimportauftrag, indem Sie mehrere Bauteile in einer Bauteiletabelle auswählen und die Option „Massenimport aus Informationsanbieter“ auswählen.</target>
+      </segment>
+    </unit>
+    <unit id="Lm_DPbH" name="info_providers.bulk_import.confirm_delete_job">
+      <segment state="translated">
+        <source>info_providers.bulk_import.confirm_delete_job</source>
+        <target>Möchten Sie diesen Auftrag wirklich löschen?</target>
+      </segment>
+    </unit>
+    <unit id="kZd.W42" name="info_providers.bulk_import.job_name_template">
+      <segment state="translated">
+        <source>info_providers.bulk_import.job_name_template</source>
+        <target>Massenimport für %count% Teile</target>
+      </segment>
+    </unit>
+    <unit id="W6GycWK" name="info_providers.bulk_import.step2.instructions.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.title</source>
+        <target>So verwenden Sie den Massenimport</target>
+      </segment>
+    </unit>
+    <unit id="QTkki_T" name="info_providers.bulk_import.step2.instructions.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.description</source>
+        <target>Befolgen Sie diese Schritte, um Ihre Teile effizient zu aktualisieren:</target>
+      </segment>
+    </unit>
+    <unit id="OI1oD42" name="info_providers.bulk_import.step2.instructions.step1">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.step1</source>
+        <target>Klicken Sie auf „Teil aktualisieren“, um ein Teil aus den Informationsquellen zu aktualisieren.</target>
+      </segment>
+    </unit>
+    <unit id="U.QKhv." name="info_providers.bulk_import.step2.instructions.step2">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.step2</source>
+        <target>Überprüfen und ändern Sie die Teileinformationen nach Bedarf. Hinweis: Sie müssen zweimal auf „Speichern“ klicken, um die Änderungen zu speichern.</target>
+      </segment>
+    </unit>
+    <unit id="WlnTz0N" name="info_providers.bulk_import.step2.instructions.step3">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.step3</source>
+        <target>Klicken Sie auf „Abgeschlossen“, um den Teil als erledigt zu markieren und zu dieser Übersicht zurückzukehren.</target>
+      </segment>
+    </unit>
+    <unit id="IyXU.4X" name="info_providers.bulk_import.created_by">
+      <segment state="translated">
+        <source>info_providers.bulk_import.created_by</source>
+        <target>Erstellt von</target>
+      </segment>
+    </unit>
+    <unit id="egSjRGI" name="info_providers.bulk_import.completed_at">
+      <segment state="translated">
+        <source>info_providers.bulk_import.completed_at</source>
+        <target>Abgeschlossen am</target>
+      </segment>
+    </unit>
+    <unit id="9L.HbvX" name="info_providers.bulk_import.action.label">
+      <segment state="translated">
+        <source>info_providers.bulk_import.action.label</source>
+        <target>Aktion</target>
+      </segment>
+    </unit>
+    <unit id="vcNdo9m" name="info_providers.bulk_import.action.delete">
+      <segment state="translated">
+        <source>info_providers.bulk_import.action.delete</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="bE3MUIU" name="info_providers.bulk_import.status.active">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.active</source>
+        <target>Aktiv</target>
+      </segment>
+    </unit>
+    <unit id="R3FVzb3" name="info_providers.bulk_import.progress.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress.title</source>
+        <target>Fortschritt</target>
+      </segment>
+    </unit>
+    <unit id="pKciwfa" name="info_providers.bulk_import.progress.completed_text">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress.completed_text</source>
+        <target>%completed%/%total% abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="9yPFVrM" name="info_providers.bulk_import.status.stopped">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.stopped</source>
+        <target>Angehalten</target>
+      </segment>
+    </unit>
+    <unit id="we_yrOV" name="info_providers.bulk_import.action.stop">
+      <segment state="translated">
+        <source>info_providers.bulk_import.action.stop</source>
+        <target>Stop</target>
+      </segment>
+    </unit>
+    <unit id="SNkUbfh" name="info_providers.bulk_import.confirm_stop_job">
+      <segment state="translated">
+        <source>info_providers.bulk_import.confirm_stop_job</source>
+        <target>Sind sie sicher, dass sie diesen Auftrag anhalten wollen?</target>
+      </segment>
+    </unit>
+    <unit id="dlO_h_K" name="part.filter.in_bulk_import_job">
+      <segment state="translated">
+        <source>part.filter.in_bulk_import_job</source>
+        <target>Im Massenimport-Auftrag</target>
+      </segment>
+    </unit>
+    <unit id="rOeRN8O" name="part.filter.bulk_import_job_status">
+      <segment state="translated">
+        <source>part.filter.bulk_import_job_status</source>
+        <target>Status des Massenimportauftrags</target>
+      </segment>
+    </unit>
+    <unit id="940sEqZ" name="part.filter.bulk_import_part_status">
+      <segment state="translated">
+        <source>part.filter.bulk_import_part_status</source>
+        <target>Status des Bauteils im Massenimport</target>
+      </segment>
+    </unit>
+    <unit id="rv.QfEA" name="part.edit.tab.bulk_import">
+      <segment state="translated">
+        <source>part.edit.tab.bulk_import</source>
+        <target>Massenimportauftrag</target>
+      </segment>
+    </unit>
+    <unit id="BUAqJHD" name="bulk_import.status.pending">
+      <segment state="translated">
+        <source>bulk_import.status.pending</source>
+        <target>Ausstehend</target>
+      </segment>
+    </unit>
+    <unit id="GkVa8H3" name="bulk_import.status.in_progress">
+      <segment state="translated">
+        <source>bulk_import.status.in_progress</source>
+        <target>In Bearbeitung</target>
+      </segment>
+    </unit>
+    <unit id="da3QKdj" name="bulk_import.status.completed">
+      <segment state="translated">
+        <source>bulk_import.status.completed</source>
+        <target>Abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="YM7qaAP" name="bulk_import.status.stopped">
+      <segment state="translated">
+        <source>bulk_import.status.stopped</source>
+        <target>Angehalten</target>
+      </segment>
+    </unit>
+    <unit id="5SSBsBs" name="bulk_import.status.failed">
+      <segment state="translated">
+        <source>bulk_import.status.failed</source>
+        <target>Fehlgeschlagen</target>
+      </segment>
+    </unit>
+    <unit id="JprgheW" name="bulk_import.part_status.pending">
+      <segment state="translated">
+        <source>bulk_import.part_status.pending</source>
+        <target>Ausstehend</target>
+      </segment>
+    </unit>
+    <unit id="iDoZxrE" name="bulk_import.part_status.completed">
+      <segment state="translated">
+        <source>bulk_import.part_status.completed</source>
+        <target>Abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="KInkh07" name="bulk_import.part_status.skipped">
+      <segment state="translated">
+        <source>bulk_import.part_status.skipped</source>
+        <target>Übersprungen</target>
+      </segment>
+    </unit>
+    <unit id="tmVFe1V" name="bulk_import.part_status.failed">
+      <segment state="translated">
+        <source>bulk_import.part_status.failed</source>
+        <target>Fehlgeschlagen</target>
+      </segment>
+    </unit>
+    <unit id="Jxg8Jia" name="bulk_info_provider_import_job.label">
+      <segment state="translated">
+        <source>bulk_info_provider_import_job.label</source>
+        <target>Massenimport von Informationquellen</target>
+      </segment>
+    </unit>
+    <unit id="SV1_VvJ" name="bulk_info_provider_import_job_part.label">
+      <segment state="translated">
+        <source>bulk_info_provider_import_job_part.label</source>
+        <target>Massenimportauftrag Bauteil</target>
+      </segment>
+    </unit>
+    <unit id="XQV7AkF" name="info_providers.bulk_search.priority">
+      <segment state="translated">
+        <source>info_providers.bulk_search.priority</source>
+        <target>Priorität</target>
+      </segment>
+    </unit>
+    <unit id="XR9mZP_" name="info_providers.bulk_search.priority.help">
+      <segment state="translated">
+        <source>info_providers.bulk_search.priority.help</source>
+        <target>Niedrigere Zahlen = höhere Priorität. Gleiche Priorität = Ergebnisse kombinieren. Unterschiedliche Prioritäten = zuerst die höchste versuchen, bei fehlenden Ergebnissen auf die niedrigere zurückgreifen.</target>
+      </segment>
+    </unit>
+    <unit id="Iz3Ow0_" name="info_providers.bulk_import.priority_system.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.priority_system.title</source>
+        <target>Prioritätssystem</target>
+      </segment>
+    </unit>
+    <unit id="CPwXFjE" name="info_providers.bulk_import.priority_system.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.priority_system.description</source>
+        <target>Lower numbers = higher priority. Same priority = combine results. Different priorities = try highest first, fallback if no results.</target>
+      </segment>
+    </unit>
+    <unit id="v.rTI5s" name="info_providers.bulk_import.priority_system.example">
+      <segment state="translated">
+        <source>info_providers.bulk_import.priority_system.example</source>
+        <target>Beispiel: Priorität 1: „LCSC SPN → LCSC“, Priorität 2: „MPN → LCSC + Mouser“, Priorität 3: „Name → Alle Anbieter“</target>
+      </segment>
+    </unit>
+    <unit id="yMhBL_K" name="info_providers.bulk_import.search.submit">
+      <segment state="translated">
+        <source>info_providers.bulk_import.search.submit</source>
+        <target>Datenquellen</target>
+      </segment>
+    </unit>
+    <unit id="NSXIcCk" name="info_providers.bulk_import.research.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.title</source>
+        <target>Bauteile erneut suchen</target>
+      </segment>
+    </unit>
+    <unit id="i53VvpV" name="info_providers.bulk_import.research.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.description</source>
+        <target>Erneute Suche nach Teilen unter Verwendung aktualisierter Informationen (z. B. neue MPNs). Verwendet dieselben Feldzuordnungen wie die ursprüngliche Suche.</target>
+      </segment>
+    </unit>
+    <unit id="S2HVT9P" name="info_providers.bulk_import.research.all_pending">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.all_pending</source>
+        <target>Alle ausstehenden Teile erneut suchen</target>
+      </segment>
+    </unit>
+    <unit id="ri9TEXX" name="info_providers.bulk_import.research.part">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.part</source>
+        <target>Erneut suchen</target>
+      </segment>
+    </unit>
+    <unit id="izeEDar" name="info_providers.bulk_import.research.part_tooltip">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.part_tooltip</source>
+        <target>Dieses Bauteil mit aktualisierten Informationen erneut suchen</target>
+      </segment>
+    </unit>
+    <unit id="jPCU0MO" name="info_providers.bulk_import.max_mappings_reached">
+      <segment state="translated">
+        <source>info_providers.bulk_import.max_mappings_reached</source>
+        <target>Maximale Anzahl von Zuordnungen erreicht</target>
       </segment>
     </unit>
   </file>
