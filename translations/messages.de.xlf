@@ -13652,7 +13652,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="rA4WDLA" name="info_providers.bulk_search.providers.help">
       <segment state="translated">
         <source>info_providers.bulk_search.providers.help</source>
-        <target>Wählen Sie aus, welche Datenquellen durchsucht werden sollen, wenn Bauteile dieses Feld haben. </target>
+        <target>Wählen Sie aus, welche Datenquellen durchsucht werden sollen, wenn Bauteile dieses Feld haben.</target>
       </segment>
     </unit>
     <unit id="OS0qJRC" name="info_providers.bulk_search.submit">
@@ -13886,7 +13886,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="1GAZk4m" name="info_providers.bulk_import.progress_label">
       <segment state="translated">
         <source>info_providers.bulk_import.progress_label</source>
-        <target>Fortschritt: %count%/%total%</target>
+        <target>Fortschritt: %current%/%total%</target>
       </segment>
     </unit>
     <unit id="k78UdMX" name="info_providers.bulk_import.manage_jobs">
