@@ -34,8 +34,8 @@ use Psr\Log\LoggerInterface;
 abstract class AbstractMultiPlatformMigration extends AbstractMigration
 {
     final public const ADMIN_PW_LENGTH = 10;
-    protected string $admin_pw = '';
-    protected string $admin_api_token = '';
+    protected ?string $admin_pw = null;
+    protected ?string $admin_api_token = null;
 
     /** @noinspection SenselessProxyMethodInspection
      * This method is required to redefine the logger type hint to protected
@@ -97,7 +97,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
      */
     public function getInitalAdminPW(): string
     {
-        if ($this->admin_pw === '') {
+        if ($this->admin_pw === null) {
             if (!empty($_ENV['INITIAL_ADMIN_PW'])) {
                 $this->admin_pw = $_ENV['INITIAL_ADMIN_PW'];
             } else {
@@ -115,9 +115,14 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
      */
     public function getInitialAdminApiToken(): string
     {
-        if ($this->admin_api_token === '') {
-            $apiKey = getenv('INITIAL_ADMIN_API_KEY');
+        if ($this->admin_api_token === null) {
+            $apiKey = $_ENV('INITIAL_ADMIN_API_KEY');
             if (!empty($apiKey)) {
+                //Ensure the length of the API key is correct
+                if (strlen($apiKey) < 64) {
+                    $this->abortIf(true, 'The provided INITIAL_ADMIN_API_KEY is too short! It must be at least 64 characters long! You can generate a valid key with "openssl rand -hex 32"');
+                }
+
                 // Use the provided API key directly (should be generated with openssl rand -hex 32)
                 $this->admin_api_token = $apiKey;
             }
