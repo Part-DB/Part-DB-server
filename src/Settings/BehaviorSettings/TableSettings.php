@@ -68,7 +68,7 @@ class TableSettings
     #[Assert\All([new Assert\Type(PartTableColumns::class)])]
     public array $partsDefaultColumns = [PartTableColumns::NAME, PartTableColumns::DESCRIPTION,
         PartTableColumns::CATEGORY, PartTableColumns::FOOTPRINT, PartTableColumns::MANUFACTURER,
-        PartTableColumns::LOCATION, PartTableColumns::AMOUNT];
+        PartTableColumns::LOCATION, PartTableColumns::AMOUNT, PartTableColumns::CUSTOM_PART_STATE];
 
     #[SettingsParameter(label: new TM("settings.behavior.table.preview_image_min_width"),
         formOptions: ['attr' => ['min' => 1, 'max' => 100]],
