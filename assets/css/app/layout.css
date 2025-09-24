@@ -64,13 +64,17 @@ body {
         overflow-y: auto;
         /*noinspection W3CssValidation*/
         -webkit-overflow-scrolling: touch;
-        max-height: 100%;
-        opacity: 0.97;
-        padding: 7px 15px 50px;
-        margin-top: -10px;
+        max-height: calc(100vh - 56px); /* Better height calculation */
+        background-color: rgba(248, 248, 248, 0.98); /* Semi-transparent background */
+        backdrop-filter: blur(10px); /* Modern blur effect */
+        padding: 15px 15px 50px;
+        margin-top: 0;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
         /* Fill window */
-        height: 100%;
+        height: calc(100vh - 56px);
 
         /** Hide scrollbar in Firefox and Edge **/
         -ms-overflow-style: none;
@@ -78,17 +82,44 @@ body {
         overflow: -moz-scrollbars-none;
         /* Use standard version for hiding the scrollbar */
         scrollbar-width: none;
+        
+        /* Add smooth animation */
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     }
 
     #sidebar-container {
         margin-top: 0;
-        padding-top: 5px;
-        background-color: #F8F8F8;
+        padding-top: 0;
+        background: transparent; /* Let the sidebar handle its own background */
+    }
+
+    /* Improve sidebar collapse animation */
+    #sidebar-container.collapse:not(.show) {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+
+    #sidebar-container.collapse.show {
+        transform: translateY(0);
+        opacity: 1;
     }
 
     /* Hide devices menu */
     #treeBox-devices {
         display: none;
+    }
+    
+    /* Add a subtle overlay when sidebar is open */
+    body.sidebar-open::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.1);
+        z-index: 999;
+        pointer-events: none;
     }
 }
 
