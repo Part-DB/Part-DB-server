@@ -206,7 +206,7 @@ final class PartController extends AbstractController
 
     #[Route(path: '/new', name: 'part_new')]
     #[Route(path: '/{id}/clone', name: 'part_clone')]
-    #[Route(path: '/new_build_part_project/{project_id}', name: 'part_new_build_part')]
+    #[Route(path: '/new_build_part_project/{project_id}', name: 'part_new_build_part_project')]
     #[Route(path: '/new_build_part_assembly/{assembly_id}', name: 'part_new_build_part_assembly')]
     public function new(
         Request $request,

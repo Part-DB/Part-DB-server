@@ -36,6 +36,7 @@ use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\ProjectSystem\Project;
+use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Helpers\Assemblies\AssemblyPartAggregator;
 use App\Helpers\FilenameSanatizer;
 use App\Serializer\APIPlatform\SkippableItemNormalizer;
@@ -399,7 +400,7 @@ class EntityExporter
                     'BomPartDescription' => '-',
                     'BomMountNames' => '-',
                 ],
-                'processBomEntries' => fn($entity, $depth) => array_map(fn(AssemblyBOMEntry $bomEntry) => [
+                'processBomEntries' => fn($entity, $depth) => array_map(fn(ProjectBOMEntry $bomEntry) => [
                     'Id' => $entity->getId(),
                     'ParentId' => '',
                     'Type' => 'project_bom_entry',
