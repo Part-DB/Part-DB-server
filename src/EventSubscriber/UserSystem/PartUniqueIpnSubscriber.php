@@ -3,6 +3,7 @@
 namespace App\EventSubscriber\UserSystem;
 
 use App\Entity\Parts\Part;
+use App\Settings\MiscSettings\IpnSuggestSettings;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
@@ -12,7 +13,7 @@ class PartUniqueIpnSubscriber implements EventSubscriber
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private readonly bool $enforceUniqueIpn = false
+        private IpnSuggestSettings $ipnSuggestSettings
     ) {
     }
 
@@ -53,7 +54,7 @@ class PartUniqueIpnSubscriber implements EventSubscriber
             ->findOneBy(['ipn' => $part->getIpn()]);
 
         if ($existingPart && $existingPart->getId() !== $part->getId()) {
-            if ($this->enforceUniqueIpn) {
+            if ($this->ipnSuggestSettings->enableUniqueCheck) {
                 return;
             }
 

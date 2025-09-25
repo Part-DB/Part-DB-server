@@ -13133,6 +13133,30 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Wenn Sie Wechselkurse zwischen Nicht-Euro-Währungen benötigen, können Sie hier einen API-Schlüssel von fixer.io eingeben.</target>
       </segment>
     </unit>
+    <unit id="jd7tEu3" name="settings.misc.ipn_suggest">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest</source>
+        <target>Bauteil IPN-Vorschlagsliste</target>
+      </segment>
+    </unit>
+    <unit id="kdi8mT4" name="settings.misc.ipn_suggest.enableUniqueCheck">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.enableUniqueCheck</source>
+        <target>Check auf Eindeutigkeit der IPN aktiv. Deselektieren Sie, wenn Sie bei erneuter Eingabe einer vorhandenen IPN eine inkrementelle Zahl an die Benutzereingabe beim Speichern erhalten möchten.</target>
+      </segment>
+    </unit>
+    <unit id="rociEg6" name="settings.misc.ipn_suggest.suggestPartDigits">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.suggestPartDigits</source>
+        <target>Stellen für numerisches Inkrement</target>
+      </segment>
+    </unit>
+    <unit id="judfiK3" name="settings.misc.ipn_suggest.suggestPartDigits.help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.suggestPartDigits.help</source>
+        <target>Die Anzahl der Ziffern, die für die inkrementale Nummerierung von Teilen im IPN-Vorschlagssystem verwendet werden.</target>
+      </segment>
+    </unit>
     <unit id="Ffr5xYM" name="settings.behavior.part_info">
       <segment state="translated">
         <source>settings.behavior.part_info</source>

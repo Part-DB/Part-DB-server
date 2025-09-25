@@ -13053,6 +13053,30 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
         <target>Pokud potřebujete směnné kurzy mezi měnami mimo eurozónu, můžete zde zadat API klíč z fixer.io.</target>
       </segment>
     </unit>
+    <unit id="jd7tEu3" name="settings.misc.ipn_suggest">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest</source>
+        <target>Seznam návrhů IPN součástek</target>
+      </segment>
+    </unit>
+    <unit id="kdi8mT4" name="settings.misc.ipn_suggest.enableUniqueCheck">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.enableUniqueCheck</source>
+        <target>Kontrola jedinečnosti IPN aktivní. Odznačte, pokud chcete při opětovném zadání existujícího IPN při ukládání přidat k uživatelskému vstupu inkrementální číslo.</target>
+      </segment>
+    </unit>
+    <unit id="rociEg6" name="settings.misc.ipn_suggest.suggestPartDigits">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.suggestPartDigits</source>
+        <target>Počet čísel pro inkrement</target>
+      </segment>
+    </unit>
+    <unit id="judfiK3" name="settings.misc.ipn_suggest.suggestPartDigits.help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.suggestPartDigits.help</source>
+        <target>Počet číslic použitých pro inkrementální číslování součástí v návrhovém systému IPN (Interní číslo součástky).</target>
+      </segment>
+    </unit>
     <unit id="Ffr5xYM" name="settings.behavior.part_info">
       <segment state="translated">
         <source>settings.behavior.part_info</source>

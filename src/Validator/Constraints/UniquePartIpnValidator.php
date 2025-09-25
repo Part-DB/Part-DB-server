@@ -3,6 +3,7 @@
 namespace App\Validator\Constraints;
 
 use App\Entity\Parts\Part;
+use App\Settings\MiscSettings\IpnSuggestSettings;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,12 +11,12 @@ use Doctrine\ORM\EntityManagerInterface;
 class UniquePartIpnValidator extends ConstraintValidator
 {
     private EntityManagerInterface $entityManager;
-    private bool $enforceUniqueIpn;
+    private IpnSuggestSettings $ipnSuggestSettings;
 
-    public function __construct(EntityManagerInterface $entityManager, bool $enforceUniqueIpn)
+    public function __construct(EntityManagerInterface $entityManager, IpnSuggestSettings $ipnSuggestSettings)
     {
         $this->entityManager = $entityManager;
-        $this->enforceUniqueIpn = $enforceUniqueIpn;
+        $this->ipnSuggestSettings = $ipnSuggestSettings;
     }
 
     public function validate($value, Constraint $constraint)
@@ -24,7 +25,7 @@ class UniquePartIpnValidator extends ConstraintValidator
             return;
         }
 
-        if (!$this->enforceUniqueIpn) {
+        if (!$this->ipnSuggestSettings->enableUniqueCheck) {
             return;
         }
 
@@ -40,11 +41,9 @@ class UniquePartIpnValidator extends ConstraintValidator
 
         foreach ($existingParts as $existingPart) {
             if ($currentPart->getId() !== $existingPart->getId()) {
-                if ($this->enforceUniqueIpn) {
-                    $this->context->buildViolation($constraint->message)
-                        ->setParameter('{{ value }}', $value)
-                        ->addViolation();
-                }
+                $this->context->buildViolation($constraint->message)
+                    ->setParameter('{{ value }}', $value)
+                    ->addViolation();
             }
         }
     }

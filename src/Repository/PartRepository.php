@@ -118,13 +118,13 @@ class PartRepository extends NamedDBElementRepository
      *
      * @param Part $part The part for which autocomplete suggestions are generated.
      * @param string $description Base64-encoded description to assist in generating suggestions.
-     * @param int $autocompletePartDigits The number of digits used in autocomplete increments.
+     * @param int $suggestPartDigits The number of digits used in autocomplete increments.
      *
      * @return array An associative array containing the following keys:
      *               - 'commonPrefixes': List of common prefixes found for the part.
      *               - 'prefixesPartIncrement': Increments for the generated prefixes, including hierarchical prefixes.
      */
-    public function autoCompleteIpn(Part $part, string $description, int $autocompletePartDigits): array
+    public function autoCompleteIpn(Part $part, string $description, int $suggestPartDigits): array
     {
         $category = $part->getCategory();
         $ipnSuggestions = ['commonPrefixes' => [], 'prefixesPartIncrement' => []];
@@ -140,7 +140,7 @@ class PartRepository extends NamedDBElementRepository
             $directIpnPrefixEmpty = $category->getPartIpnPrefix() === '';
             $currentPath = $currentPath === '' ? 'n.a.' : $currentPath;
 
-            $increment = $this->generateNextPossiblePartIncrement($currentPath, $part, $autocompletePartDigits);
+            $increment = $this->generateNextPossiblePartIncrement($currentPath, $part, $suggestPartDigits);
 
             $ipnSuggestions['commonPrefixes'][] = [
                 'title' => $currentPath . '-',
@@ -181,7 +181,7 @@ class PartRepository extends NamedDBElementRepository
                     'description' => $this->translator->trans('part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment')
                 ];
 
-                $increment = $this->generateNextPossiblePartIncrement($currentPath, $part, $autocompletePartDigits);
+                $increment = $this->generateNextPossiblePartIncrement($currentPath, $part, $suggestPartDigits);
 
                 $ipnSuggestions['prefixesPartIncrement'][] = [
                     'title' => $currentPath . '-' . $increment,
@@ -249,18 +249,18 @@ class PartRepository extends NamedDBElementRepository
      *
      * @param string $currentPath The base path or prefix for the part's identifier.
      * @param Part $currentPart The part entity for which the increment is being generated.
-     * @param int $autocompletePartDigits The number of digits reserved for the increment.
+     * @param int $suggestPartDigits The number of digits reserved for the increment.
      *
      * @return string|null The next possible increment as a zero-padded string, or null if it cannot be generated.
      *
      * @throws NonUniqueResultException If the query returns non-unique results.
      * @throws NoResultException If the query fails to return a result.
      */
-    private function generateNextPossiblePartIncrement(string $currentPath, Part $currentPart, int $autocompletePartDigits): ?string
+    private function generateNextPossiblePartIncrement(string $currentPath, Part $currentPart, int $suggestPartDigits): ?string
     {
         $qb = $this->createQueryBuilder('part');
 
-        $expectedLength = strlen($currentPath) + 1 + $autocompletePartDigits; // Path + '-' + $autocompletePartDigits digits
+        $expectedLength = strlen($currentPath) + 1 + $suggestPartDigits; // Path + '-' + $suggestPartDigits digits
 
         // Fetch all parts in the given category, sorted by their ID in ascending order
         $qb->select('part')
@@ -281,14 +281,14 @@ class PartRepository extends NamedDBElementRepository
 
             if ($part->getId() === $currentPart->getId()) {
                 // Extract and return the current part's increment directly
-                $incrementPart = substr($part->getIpn(), -$autocompletePartDigits);
+                $incrementPart = substr($part->getIpn(), -$suggestPartDigits);
                 if (is_numeric($incrementPart)) {
-                    return str_pad((string) $incrementPart, $autocompletePartDigits, '0', STR_PAD_LEFT);
+                    return str_pad((string) $incrementPart, $suggestPartDigits, '0', STR_PAD_LEFT);
                 }
             }
 
             // Extract last $autocompletePartDigits digits for possible available part increment
-            $incrementPart = substr($part->getIpn(), -$autocompletePartDigits);
+            $incrementPart = substr($part->getIpn(), -$suggestPartDigits);
             if (is_numeric($incrementPart)) {
                 $usedIncrements[] = (int) $incrementPart;
             }
@@ -302,7 +302,7 @@ class PartRepository extends NamedDBElementRepository
             $nextIncrement++;
         }
 
-        return str_pad((string) $nextIncrement, $autocompletePartDigits, '0', STR_PAD_LEFT);
+        return str_pad((string) $nextIncrement, $suggestPartDigits, '0', STR_PAD_LEFT);
     }
 
     /**

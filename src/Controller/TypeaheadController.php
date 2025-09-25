@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Parameters\AbstractParameter;
+use App\Settings\MiscSettings\IpnSuggestSettings;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Category;
@@ -63,7 +64,7 @@ class TypeaheadController extends AbstractController
     public function __construct(
         protected AttachmentURLGenerator $urlGenerator,
         protected Packages $assets,
-        protected int $autocompletePartDigits
+        protected IpnSuggestSettings $ipnSuggestSettings,
     ) {
     }
 
@@ -207,7 +208,7 @@ class TypeaheadController extends AbstractController
         $clonedPart->setCategory($category);
 
         $partRepository = $entityManager->getRepository(Part::class);
-        $ipnSuggestions = $partRepository->autoCompleteIpn($clonedPart, $description, $this->autocompletePartDigits);
+        $ipnSuggestions = $partRepository->autoCompleteIpn($clonedPart, $description, $this->ipnSuggestSettings->suggestPartDigits);
 
         return new JsonResponse($ipnSuggestions);
     }

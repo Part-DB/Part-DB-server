@@ -47,6 +47,7 @@ use App\Services\Parts\PartLotWithdrawAddHelper;
 use App\Services\Parts\PricedetailHelper;
 use App\Services\ProjectSystem\ProjectBuildPartHelper;
 use App\Settings\BehaviorSettings\PartInfoSettings;
+use App\Settings\MiscSettings\IpnSuggestSettings;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -74,7 +75,7 @@ final class PartController extends AbstractController
         private readonly EntityManagerInterface $em,
         private readonly EventCommentHelper $commentHelper,
         private readonly PartInfoSettings $partInfoSettings,
-        private readonly int $autocompletePartDigits,
+        private readonly IpnSuggestSettings $ipnSuggestSettings,
     ) {
     }
 
@@ -451,7 +452,7 @@ final class PartController extends AbstractController
             $template,
             [
                 'part' => $new_part,
-                'ipnSuggestions' => $partRepository->autoCompleteIpn($data, base64_encode($data->getDescription()), $this->autocompletePartDigits),
+                'ipnSuggestions' => $partRepository->autoCompleteIpn($data, base64_encode($data->getDescription()), $this->ipnSuggestSettings->suggestPartDigits),
                 'form' => $form,
                 'merge_old_name' => $merge_infos['tname_before'] ?? null,
                 'merge_other' => $merge_infos['other_part'] ?? null,
