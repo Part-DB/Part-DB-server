@@ -23,12 +23,11 @@ declare(strict_types=1);
 namespace App\Tests\Controller\AdminPages;
 
 use App\Entity\Parts\PartCustomState;
+use PHPUnit\Framework\Attributes\Group;
 
-/**
- * @group slow
- * @group DB
- */
-class PartCustomStateControllerTest extends AbstractAdminControllerTest
+#[Group('slow')]
+#[Group('DB')]
+class PartCustomStateControllerTest extends AbstractAdminController
 {
     protected static string $base_path = '/en/part_custom_state';
     protected static string $entity_class = PartCustomState::class;
