@@ -1,0 +1,14 @@
+{% extends "admin/base_admin.html.twig" %}
+
+{% block card_title %}
+    <i class="fas fa-balance-scale fa-tools"></i> {% trans %}part_custom_state.caption{% endtrans %}
+{% endblock %}
+
+{% block edit_title %}
+    {% trans %}part_custom_state.edit{% endtrans %}: {{ entity.name }}
+{% endblock %}
+
+{% block new_title %}
+    {% trans %}part_custom_state.new{% endtrans %}
+{% endblock %}
+
