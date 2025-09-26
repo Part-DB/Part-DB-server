@@ -107,7 +107,7 @@ class PartCustomState extends AbstractPartsContainingDBElement
     /** @var Collection<int, PartCustomStateAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: PartCustomStateAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'element', targetEntity: PartCustomStateParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['part_custom_state:read', 'part_custom_state:write'])]
     protected Collection $parameters;
