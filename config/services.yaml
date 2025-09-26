@@ -231,6 +231,18 @@ services:
         tags:
             - { name: 'doctrine.fixtures.purger_factory', alias: 'reset_autoincrement_purger' }
 
+    App\Repository\PartRepository:
+        arguments:
+            $translator: '@translator'
+        tags: ['doctrine.repository_service']
+
+    App\EventSubscriber\UserSystem\PartUniqueIpnSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    App\Validator\Constraints\UniquePartIpnValidator:
+        tags: [ 'validator.constraint_validator' ]
+
     # We are needing this service inside a migration, where only the container is injected. So we need to define it as public, to access it from the container.
     App\Services\UserSystem\PermissionPresetsHelper:
         public: true
