@@ -128,7 +128,7 @@ class PartRepository extends NamedDBElementRepository
     {
         $category = $part->getCategory();
         $ipnSuggestions = ['commonPrefixes' => [], 'prefixesPartIncrement' => []];
-        $description = base64_decode($description);
+        $description = base64_decode($description, true);
 
         if (strlen($description) > 150) {
             $description = substr($description, 0, 150);
@@ -251,12 +251,12 @@ class PartRepository extends NamedDBElementRepository
      * @param Part $currentPart The part entity for which the increment is being generated.
      * @param int $suggestPartDigits The number of digits reserved for the increment.
      *
-     * @return string|null The next possible increment as a zero-padded string, or null if it cannot be generated.
+     * @return string The next possible increment as a zero-padded string.
      *
      * @throws NonUniqueResultException If the query returns non-unique results.
      * @throws NoResultException If the query fails to return a result.
      */
-    private function generateNextPossiblePartIncrement(string $currentPath, Part $currentPart, int $suggestPartDigits): ?string
+    private function generateNextPossiblePartIncrement(string $currentPath, Part $currentPart, int $suggestPartDigits): string
     {
         $qb = $this->createQueryBuilder('part');
 
@@ -298,7 +298,7 @@ class PartRepository extends NamedDBElementRepository
         // Generate the next free $autocompletePartDigits-digit increment
         $nextIncrement = 1; // Start at the beginning
 
-        while (in_array($nextIncrement, $usedIncrements)) {
+        while (in_array($nextIncrement, $usedIncrements, true)) {
             $nextIncrement++;
         }
 

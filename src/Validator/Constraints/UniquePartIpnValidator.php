@@ -29,6 +29,11 @@ class UniquePartIpnValidator extends ConstraintValidator
             return;
         }
 
+        // Stelle sicher, dass es unser eigenes Constraint ist (wichtig für PHPStan)
+        if (!$constraint instanceof UniquePartIpnConstraint) {
+            return;
+        }
+
         /** @var Part $currentPart */
         $currentPart = $this->context->getObject();
 

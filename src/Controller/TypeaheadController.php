@@ -202,6 +202,7 @@ class TypeaheadController extends AbstractController
 
         /** @var Part $part */
         $part = $partId !== null ? $entityManager->getRepository(Part::class)->find($partId) : new Part();
+        /** @var Category|null $category */
         $category = $entityManager->getRepository(Category::class)->find($categoryId);
 
         $clonedPart = clone $part;
