@@ -13522,11 +13522,5 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
         <target>Beskrivelse</target>
       </segment>
     </unit>
-    <unit id="a7uOieC" name="datasource.synonym">
-      <segment state="translated">
-        <source>datasource.synonym</source>
-        <target>%name% (Dit synonym: %synonym%)</target>
-      </segment>
-    </unit>
   </file>
 </xliff>

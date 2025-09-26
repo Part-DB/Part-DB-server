@@ -192,25 +192,6 @@ services:
             $tmpDirectory: '%kernel.project_dir%/var/dompdf/tmp/'
 
     ####################################################################################################################
-    # Trees
-    ####################################################################################################################
-    App\Services\Trees\TreeViewGenerator:
-        arguments:
-            $dataSourceSynonyms: '%partdb.data_sources.synonyms%'
-    App\Services\Trees\ToolsTreeBuilder:
-        arguments:
-            $dataSourceSynonyms: '%partdb.data_sources.synonyms%'
-
-    ####################################################################################################################
-    # Twig Extensions
-    ####################################################################################################################
-
-    App\Twig\DataSourceNameExtension:
-        arguments:
-            $dataSourceSynonyms: '%partdb.data_sources.synonyms%'
-        tags: [ 'twig.extension' ]
-
-    ####################################################################################################################
     # Part info provider system
     ####################################################################################################################
     App\Services\InfoProviderSystem\ProviderRegistry:

@@ -1,16 +1,14 @@
 {% macro sidebar_dropdown() %}
-    {% set currentLocale = app.request.locale %}
-
     {# Format is [mode, route, label, show_condition] #}
     {% set data_sources = [
-        ['categories', path('tree_category_root'), 'category.labelp', is_granted('@categories.read') and is_granted('@parts.read'), 'category'],
-        ['locations', path('tree_location_root'), 'storelocation.labelp', is_granted('@storelocations.read') and is_granted('@parts.read'), 'storagelocation'],
-        ['footprints', path('tree_footprint_root'), 'footprint.labelp', is_granted('@footprints.read') and is_granted('@parts.read'), 'footprint'],
-        ['manufacturers', path('tree_manufacturer_root'), 'manufacturer.labelp', is_granted('@manufacturers.read') and is_granted('@parts.read'), 'manufacturer'],
-        ['suppliers', path('tree_supplier_root'), 'supplier.labelp', is_granted('@suppliers.read') and is_granted('@parts.read'), 'supplier'],
-        ['projects', path('tree_device_root'), 'project.labelp', is_granted('@projects.read'), 'project'],
-        ['assembly', path('tree_assembly_root'), 'assembly.labelp', is_granted('@assemblies.read'), 'assembly'],
-        ['tools', path('tree_tools'), 'tools.label', true, 'tool'],
+        ['categories', path('tree_category_root'), 'category.labelp', is_granted('@categories.read') and is_granted('@parts.read')],
+        ['locations', path('tree_location_root'), 'storelocation.labelp', is_granted('@storelocations.read') and is_granted('@parts.read')],
+        ['footprints', path('tree_footprint_root'), 'footprint.labelp', is_granted('@footprints.read') and is_granted('@parts.read')],
+        ['manufacturers', path('tree_manufacturer_root'), 'manufacturer.labelp', is_granted('@manufacturers.read') and is_granted('@parts.read')],
+        ['suppliers', path('tree_supplier_root'), 'supplier.labelp', is_granted('@suppliers.read') and is_granted('@parts.read')],
+        ['projects', path('tree_device_root'), 'project.labelp', is_granted('@projects.read')],
+        ['assembly', path('tree_assembly_root'), 'assembly.labelp', is_granted('@assemblies.read')],
+        ['tools', path('tree_tools'), 'tools.label', true],
     ] %}
 
     <li class="dropdown-header">{% trans %}actions{% endtrans %}</li>
@@ -21,9 +19,9 @@
 
     {% for source in data_sources %}
         {% if source[3] %} {# show_condition #}
-            <li><button class="tree-btns dropdown-item" data-mode="{{ source[0] }}" data-url="{{ source[1] }}" data-text="{{ get_data_source_name(source[4], source[2]) }}"
+            <li><button class="tree-btns dropdown-item" data-mode="{{ source[0] }}" data-url="{{ source[1] }}" data-text="{{ source[2] | trans }}"
                         {{ stimulus_action('elements/sidebar_tree', 'changeDataSource')  }}
-                >{{ get_data_source_name(source[4], source[2]) }}</button></li>
+                >{{ source[2] | trans }}</button></li>
         {% endif %}
     {% endfor %}
 {% endmacro %}

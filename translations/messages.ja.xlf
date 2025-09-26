@@ -9817,11 +9817,5 @@ Exampletown</target>
         <target>説明</target>
       </segment>
     </unit>
-    <unit id="a7uOieC" name="datasource.synonym">
-      <segment state="translated">
-        <source>datasource.synonym</source>
-        <target>%name% (あなたの同義語: %synonym%)</target>
-      </segment>
-    </unit>
   </file>
 </xliff>

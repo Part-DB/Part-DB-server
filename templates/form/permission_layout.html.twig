@@ -6,36 +6,12 @@
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input tristate permission-checkbox permission_multicheckbox" id="mulit_check_{{ form.vars.label }}">
                     <label class="form-check-label" for="mulit_check_{{ form.vars.label }}">
-                        {% set dataSource = '' %}
-                        {% if (form.vars.label == 'perm.part.categories') %}
-                            {% set dataSource = 'category' %}
-                        {% elseif (form.vars.label == 'perm.storelocations') %}
-                            {% set dataSource = 'storagelocation' %}
-                        {% elseif (form.vars.label == 'perm.part.footprints') %}
-                            {% set dataSource = 'footprint' %}
-                        {% elseif (form.vars.label == 'perm.part.manufacturers') %}
-                            {% set dataSource = 'manufacturer' %}
-                        {% elseif (form.vars.label == 'perm.part.supplier') %}
-                            {% set dataSource = 'supplier' %}
-                        {% elseif (form.vars.label == 'perm.projects') %}
-                            {% set dataSource = 'project' %}
-                        {% elseif (form.vars.label == 'perm.assemblies') %}
-                            {% set dataSource = 'assembly' %}
-                        {% endif %}
-
-                        {% set dataSourceName = get_data_source_name(dataSource, form.vars.label) %}
-                        {% set translatedSource = form.vars.label|trans %}
-                        {% if dataSourceName != translatedSource %}
-                            {{ translatedSource }}
-                            <i class="fas fa-fw fa-info" title="{{ 'datasource.synonym'|trans({'%name%': '', '%synonym%': dataSourceName })|raw }}"></i>
-                        {% else %}
-                            {{ translatedSource }}
-                        {% endif %}
+                        <b>{{ form.vars.label | trans }}</b>
                     </label>
                 </div>
 
             {% else %}
-                <b>def{{ form.vars.label | trans }}</b>
+                <b>{{ form.vars.label | trans }}</b>
             {% endif %}
 
 
