@@ -238,7 +238,7 @@ services:
 
     App\EventSubscriber\UserSystem\PartUniqueIpnSubscriber:
         tags:
-            - { name: doctrine.event_subscriber }
+            - { name: doctrine.event_listener, event: onFlush, connection: default }
 
     App\Validator\Constraints\UniquePartIpnValidator:
         tags: [ 'validator.constraint_validator' ]

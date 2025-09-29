@@ -13140,16 +13140,22 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Part IPN Suggest</target>
       </segment>
     </unit>
-    <unit id="kdi8mT4" name="settings.misc.ipn_suggest.enableUniqueCheck">
+    <unit id="kdi8mT4" name="settings.misc.ipn_suggest.autoAppendSuffix">
       <segment state="translated">
-        <source>settings.misc.ipn_suggest.enableUniqueCheck</source>
-        <target>IPN uniqueness check active. Deselect if you want an incremental number to be added to the user input when entering an existing IPN again upon saving.</target>
+        <source>settings.misc.ipn_suggest.autoAppendSuffix</source>
+        <target>Do you want an incremental number to be added to the user input when entering an existing IPN again upon saving?</target>
       </segment>
     </unit>
     <unit id="rociEg6" name="settings.misc.ipn_suggest.suggestPartDigits">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.suggestPartDigits</source>
         <target>Increment Digits</target>
+      </segment>
+    </unit>
+    <unit id="jdz6B4c" name="settings.misc.ipn_suggest.useDuplicateDescription">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.useDuplicateDescription</source>
+        <target>When enabled, the part’s description is used to find existing parts with the same description and to determine the next available IPN by incrementing their numeric suffix for the suggestion list.</target>
       </segment>
     </unit>
     <unit id="judfiK3" name="settings.misc.ipn_suggest.suggestPartDigits.help">

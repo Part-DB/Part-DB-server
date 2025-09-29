@@ -39,10 +39,10 @@ class IpnSuggestSettings
     use SettingsTrait;
 
     #[SettingsParameter(
-        label: new TM("settings.misc.ipn_suggest.enableUniqueCheck"),
-        envVar: "bool:IPN_ENABLE_UNIQUE_CHECK", envVarMode: EnvVarMode::OVERWRITE,
+        label: new TM("settings.misc.ipn_suggest.autoAppendSuffix"),
+        envVar: "bool:IPN_AUTO_APPEND_SUFFIX", envVarMode: EnvVarMode::OVERWRITE,
     )]
-    public bool $enableUniqueCheck = true;
+    public bool $autoAppendSuffix = true;
 
     #[SettingsParameter(label: new TM("settings.misc.ipn_suggest.suggestPartDigits"),
         description: new TM("settings.misc.ipn_suggest.suggestPartDigits.help"),
@@ -51,4 +51,10 @@ class IpnSuggestSettings
     )]
     #[Assert\Range(min: 1, max: 6)]
     public int $suggestPartDigits = 4;
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.ipn_suggest.useDuplicateDescription"),
+        envVar: "bool:IPN_USE_DUPLICATE_DESCRIPTION", envVarMode: EnvVarMode::OVERWRITE,
+    )]
+    public bool $useDuplicateDescription = false;
 }

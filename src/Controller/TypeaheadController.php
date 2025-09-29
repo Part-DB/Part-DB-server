@@ -198,7 +198,7 @@ class TypeaheadController extends AbstractController
             $partId = null;
         }
         $categoryId = $request->query->getInt('categoryId');
-        $description = $request->query->getString('description');
+        $description = base64_decode($request->query->getString('description'), true);
 
         /** @var Part $part */
         $part = $partId !== null ? $entityManager->getRepository(Part::class)->find($partId) : new Part();

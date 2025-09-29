@@ -116,12 +116,14 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
   value should be handled as confidential data and not shared publicly.
 * `SHOW_PART_IMAGE_OVERLAY`: Set to 0 to disable the part image overlay, which appears if you hover over an image in the
   part image gallery
-* `IPN_ENABLE_UNIQUE_CHECK`: Set this value to false, if you want to allow users to enter a already available IPN for a part entry.
-  In this case a unique increment is appended to the user input.
+* `IPN_AUTO_APPEND_SUFFIX`: When enabled, an incremental suffix will be added to the user input when entering an existing 
+* IPN again upon saving.
 * `IPN_SUGGEST_PART_DIGITS`: Defines the fixed number of digits used as the increment at the end of an IPN (Internal Part Number). 
   IPN prefixes, maintained within part categories and their hierarchy, form the foundation for suggesting complete IPNs. 
   These suggestions become accessible during IPN input of a part. The constant specifies the digits used to calculate and assign 
   unique increments for parts within a category hierarchy, ensuring consistency and uniqueness in IPN generation.
+* `IPN_USE_DUPLICATE_DESCRIPTION`: When enabled, the part’s description is used to find existing parts with the same 
+  description and to determine the next available IPN by incrementing their numeric suffix for the suggestion list.
 
 ### E-Mail settings (all env only)
 

@@ -41,6 +41,7 @@ use App\Form\Type\StructuralEntityType;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use App\Services\LogSystem\EventCommentType;
+use App\Settings\MiscSettings\IpnSuggestSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -56,8 +57,12 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PartBaseType extends AbstractType
 {
-    public function __construct(protected Security $security, protected UrlGeneratorInterface $urlGenerator, protected EventCommentNeededHelper $event_comment_needed_helper)
-    {
+    public function __construct(
+        protected Security $security,
+        protected UrlGeneratorInterface $urlGenerator,
+        protected EventCommentNeededHelper $event_comment_needed_helper,
+        protected IpnSuggestSettings $ipnSuggestSettings,
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -68,6 +73,16 @@ class PartBaseType extends AbstractType
 
         /** @var PartDetailDTO|null $dto */
         $dto = $options['info_provider_dto'];
+
+        $descriptionAttr = [
+            'placeholder' => 'part.edit.description.placeholder',
+            'rows' => 2,
+        ];
+
+        if ($this->ipnSuggestSettings->useDuplicateDescription) {
+            // Only add attribute when duplicate description feature is enabled
+            $descriptionAttr['data-ipn-suggestion'] = 'descriptionField';
+        }
 
         //Common section
         $builder
@@ -83,11 +98,7 @@ class PartBaseType extends AbstractType
                 'empty_data' => '',
                 'label' => 'part.edit.description',
                 'mode' => 'markdown-single_line',
-                'attr' => [
-                    'placeholder' => 'part.edit.description.placeholder',
-                    'rows' => 2,
-                    'data-ipn-suggestion' => 'descriptionField',
-                ],
+                'attr' => $descriptionAttr,
             ])
             ->add('minAmount', SIUnitType::class, [
                 'attr' => [

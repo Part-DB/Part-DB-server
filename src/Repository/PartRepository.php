@@ -25,6 +25,7 @@ namespace App\Repository;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
+use App\Settings\MiscSettings\IpnSuggestSettings;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
@@ -37,14 +38,17 @@ use Doctrine\ORM\EntityManagerInterface;
 class PartRepository extends NamedDBElementRepository
 {
     private TranslatorInterface $translator;
+    private IpnSuggestSettings $ipnSuggestSettings;
 
     public function __construct(
         EntityManagerInterface $em,
-        TranslatorInterface $translator
+        TranslatorInterface    $translator,
+        IpnSuggestSettings     $ipnSuggestSettings,
     ) {
         parent::__construct($em, $em->getClassMetadata(Part::class));
 
         $this->translator = $translator;
+        $this->ipnSuggestSettings = $ipnSuggestSettings;
     }
 
     /**
@@ -98,8 +102,7 @@ class PartRepository extends NamedDBElementRepository
             ->where('ILIKE(part.name, :query) = TRUE')
             ->orWhere('ILIKE(part.description, :query) = TRUE')
             ->orWhere('ILIKE(category.name, :query) = TRUE')
-            ->orWhere('ILIKE(footprint.name, :query) = TRUE')
-            ;
+            ->orWhere('ILIKE(footprint.name, :query) = TRUE');
 
         $qb->setParameter('query', '%'.$query.'%');
 
@@ -117,7 +120,7 @@ class PartRepository extends NamedDBElementRepository
      * the part's current category and its hierarchy. If the part is unsaved, a default "n.a." prefix is returned.
      *
      * @param Part $part The part for which autocomplete suggestions are generated.
-     * @param string $description Base64-encoded description to assist in generating suggestions.
+     * @param string $description description to assist in generating suggestions.
      * @param int $suggestPartDigits The number of digits used in autocomplete increments.
      *
      * @return array An associative array containing the following keys:
@@ -128,24 +131,13 @@ class PartRepository extends NamedDBElementRepository
     {
         $category = $part->getCategory();
         $ipnSuggestions = ['commonPrefixes' => [], 'prefixesPartIncrement' => []];
-        $description = base64_decode($description, true);
 
         if (strlen($description) > 150) {
             $description = substr($description, 0, 150);
         }
 
-        // Validate the category and ensure it's an instance of Category
-        if ($category instanceof Category) {
-            $currentPath = $category->getPartIpnPrefix();
-            $directIpnPrefixEmpty = $category->getPartIpnPrefix() === '';
-            $currentPath = $currentPath === '' ? 'n.a.' : $currentPath;
-
-            $increment = $this->generateNextPossiblePartIncrement($currentPath, $part, $suggestPartDigits);
-
-            $ipnSuggestions['commonPrefixes'][] = [
-                'title' => $currentPath . '-',
-                'description' => $directIpnPrefixEmpty ? $this->translator->trans('part.edit.tab.advanced.ipn.prefix_empty.direct_category', ['%name%' => $category->getName()]) : $this->translator->trans('part.edit.tab.advanced.ipn.prefix.direct_category')
-            ];
+        if ($description !== '' && $this->ipnSuggestSettings->useDuplicateDescription) {
+            // Check if the description is already used in another part,
 
             $suggestionByDescription = $this->getIpnSuggestByDescription($description);
 
@@ -162,6 +154,20 @@ class PartRepository extends NamedDBElementRepository
                     'description' =>  $this->translator->trans('part.edit.tab.advanced.ipn.prefix.description.increment')
                 ];
             }
+        }
+
+        // Validate the category and ensure it's an instance of Category
+        if ($category instanceof Category) {
+            $currentPath = $category->getPartIpnPrefix();
+            $directIpnPrefixEmpty = $category->getPartIpnPrefix() === '';
+            $currentPath = $currentPath === '' ? 'n.a.' : $currentPath;
+
+            $increment = $this->generateNextPossiblePartIncrement($currentPath, $part, $suggestPartDigits);
+
+            $ipnSuggestions['commonPrefixes'][] = [
+                'title' => $currentPath . '-',
+                'description' => $directIpnPrefixEmpty ? $this->translator->trans('part.edit.tab.advanced.ipn.prefix_empty.direct_category', ['%name%' => $category->getName()]) : $this->translator->trans('part.edit.tab.advanced.ipn.prefix.direct_category')
+            ];
 
             $ipnSuggestions['prefixesPartIncrement'][] = [
                 'title' => $currentPath . '-' . $increment,
@@ -331,7 +337,7 @@ class PartRepository extends NamedDBElementRepository
 
         // Find the basic format (the IPN without suffix) from the first IPN
         $baseIpn = $givenIpns[0] ?? '';
-        $baseIpn = preg_replace('/_\d+$/', '', $baseIpn); // Entferne vorhandene "_<Zahl>"
+        $baseIpn = preg_replace('/_\d+$/', '', $baseIpn); // Remove existing "_ <number>"
 
         if ($baseIpn === '') {
             return null;

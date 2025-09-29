@@ -63,7 +63,7 @@ trait AdvancedPropertyTrait
      */
     #[Assert\Length(max: 100)]
     #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
-    #[ORM\Column(type: Types::STRING, length: 100, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 100, unique: true, nullable: true)]
     #[Length(max: 100)]
     #[UniquePartIpnConstraint]
     protected ?string $ipn = null;

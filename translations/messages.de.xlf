@@ -13139,16 +13139,22 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Bauteil IPN-Vorschlagsliste</target>
       </segment>
     </unit>
-    <unit id="kdi8mT4" name="settings.misc.ipn_suggest.enableUniqueCheck">
+    <unit id="kdi8mT4" name="settings.misc.ipn_suggest.autoAppendSuffix">
       <segment state="translated">
-        <source>settings.misc.ipn_suggest.enableUniqueCheck</source>
-        <target>Check auf Eindeutigkeit der IPN aktiv. Deselektieren Sie, wenn Sie bei erneuter Eingabe einer vorhandenen IPN eine inkrementelle Zahl an die Benutzereingabe beim Speichern erhalten möchten.</target>
+        <source>settings.misc.ipn_suggest.autoAppendSuffix</source>
+        <target>Wenn diese Option aktiviert ist, wird der Eingabe ein inkrementelles Suffix hinzugefügt, wenn eine vorhandene IPN beim Speichern erneut eingegeben wird.</target>
       </segment>
     </unit>
     <unit id="rociEg6" name="settings.misc.ipn_suggest.suggestPartDigits">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.suggestPartDigits</source>
         <target>Stellen für numerisches Inkrement</target>
+      </segment>
+    </unit>
+    <unit id="jdz6B4c" name="settings.misc.ipn_suggest.useDuplicateDescription">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.useDuplicateDescription</source>
+        <target>Wenn aktiviert, wird die Bauteil-Beschreibung verwendet, um vorhandene Teile mit derselben Beschreibung zu finden und die nächste verfügbare IPN für die Vorschlagsliste zu ermitteln, indem der numerische Suffix entsprechend erhöht wird.</target>
       </segment>
     </unit>
     <unit id="judfiK3" name="settings.misc.ipn_suggest.suggestPartDigits.help">

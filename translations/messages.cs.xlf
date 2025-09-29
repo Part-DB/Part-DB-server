@@ -13059,16 +13059,22 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
         <target>Seznam návrhů IPN součástek</target>
       </segment>
     </unit>
-    <unit id="kdi8mT4" name="settings.misc.ipn_suggest.enableUniqueCheck">
+    <unit id="kdi8mT4" name="settings.misc.ipn_suggest.autoAppendSuffix">
       <segment state="translated">
-        <source>settings.misc.ipn_suggest.enableUniqueCheck</source>
-        <target>Kontrola jedinečnosti IPN aktivní. Odznačte, pokud chcete při opětovném zadání existujícího IPN při ukládání přidat k uživatelskému vstupu inkrementální číslo.</target>
+        <source>settings.misc.ipn_suggest.autoAppendSuffix</source>
+        <target>Pokud je tato možnost povolena, bude při opětovném zadání existujícího IPN při ukládání k vstupu přidána přírůstková přípona.</target>
       </segment>
     </unit>
     <unit id="rociEg6" name="settings.misc.ipn_suggest.suggestPartDigits">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.suggestPartDigits</source>
         <target>Počet čísel pro inkrement</target>
+      </segment>
+    </unit>
+    <unit id="jdz6B4c" name="settings.misc.ipn_suggest.useDuplicateDescription">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.useDuplicateDescription</source>
+        <target>Je-li povoleno, použije se popis součástky k nalezení existujících součástek se stejným popisem a k určení další volné IPN navýšením její číselné přípony pro seznam návrhů.</target>
       </segment>
     </unit>
     <unit id="judfiK3" name="settings.misc.ipn_suggest.suggestPartDigits.help">

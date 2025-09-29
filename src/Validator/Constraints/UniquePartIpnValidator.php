@@ -25,7 +25,7 @@ class UniquePartIpnValidator extends ConstraintValidator
             return;
         }
 
-        if (!$this->ipnSuggestSettings->enableUniqueCheck) {
+        if ($this->ipnSuggestSettings->autoAppendSuffix) {
             return;
         }
 
