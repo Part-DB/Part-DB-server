@@ -913,9 +913,9 @@ class BOMImporter
         //Check whether there is a name
         if (!empty($name)) {
             if ($importObject instanceof Project) {
-                $bomEntry = $this->projectBOMEntryRepository->findOneBy(['name' => $name]);
+                $bomEntry = $this->projectBomEntryRepository->findOneBy(['name' => $name]);
             } else {
-                $bomEntry = $this->assemblyBOMEntryRepository->findOneBy(['name' => $name]);
+                $bomEntry = $this->assemblyBomEntryRepository->findOneBy(['name' => $name]);
             }
         }
 
