@@ -13483,6 +13483,18 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Mount names</target>
       </segment>
     </unit>
+    <unit id="kd8Db5T" name="assembly.bom.designator">
+      <segment>
+        <source>assembly.bom.designator</source>
+        <target>Free identifiers (designator)</target>
+      </segment>
+    </unit>
+    <unit id="jd7dh6G" name="assembly.bom.designator.help">
+      <segment>
+        <source>assembly.bom.designator.help</source>
+        <target>Free identifiers (designator)</target>
+      </segment>
+    </unit>
     <unit id="rswC4eS" name="assembly.bom.instockAmount">
       <segment state="translated">
         <source>assembly.bom.instockAmount</source>
@@ -13633,6 +13645,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Name</target>
       </segment>
     </unit>
+    <unit id="jd7dh6G" name="assembly.bom.name.help">
+      <segment>
+        <source>assembly.bom.name.help</source>
+        <target>Human-readable title of the BOM entry</target>
+      </segment>
+    </unit>
     <unit id="nUEs.ld" name="assembly.bom.comment">
       <segment>
         <source>assembly.bom.comment</source>
@@ -13667,6 +13685,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment>
         <source>assembly.bom.partOrAssembly</source>
         <target>Part or assembly</target>
+      </segment>
+    </unit>
+    <unit id="jd7fn8K" name="assembly.bom.identifiers">
+      <segment>
+        <source>assembly.bom.identifiers</source>
+        <target>Identifiers</target>
       </segment>
     </unit>
     <unit id="jHKh8Zp" name="assembly.bom.add_entry">
@@ -15550,6 +15574,60 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>assembly.bom.table.description</source>
         <target>Description</target>
+      </segment>
+    </unit>
+    <unit id="jd7fhvc" name="assembly.bom.table.category">
+      <segment state="translated">
+        <source>assembly.bom.table.category</source>
+        <target>Category</target>
+      </segment>
+    </unit>
+    <unit id="ab12cd" name="assembly.bom.table.manufacturer">
+      <segment state="translated">
+        <source>assembly.bom.table.manufacturer</source>
+        <target>Manufacturer</target>
+      </segment>
+    </unit>
+    <unit id="7dk4gTa" name="assembly.bom.table.designator">
+      <segment state="translated">
+        <source>assembly.bom.table.designator</source>
+        <target>Free identifiers (designator)</target>
+      </segment>
+    </unit>
+    <unit id="ef34gh" name="assembly.bom.table.mountnames">
+      <segment state="translated">
+        <source>assembly.bom.table.mountnames</source>
+        <target>Mount names</target>
+      </segment>
+    </unit>
+    <unit id="ij56kl" name="assembly.bom.table.storage_location">
+      <segment state="translated">
+        <source>assembly.bom.table.storage_location</source>
+        <target>Storage location</target>
+      </segment>
+    </unit>
+    <unit id="mn78op" name="assembly.bom.table.amount">
+      <segment state="translated">
+        <source>assembly.bom.table.amount</source>
+        <target>Amount</target>
+      </segment>
+    </unit>
+    <unit id="uv12wx" name="assembly.bom.table.addedDate">
+      <segment state="translated">
+        <source>assembly.bom.table.addedDate</source>
+        <target>Created at</target>
+      </segment>
+    </unit>
+    <unit id="yz34aa" name="assembly.bom.table.lastModified">
+      <segment state="translated">
+        <source>assembly.bom.table.lastModified</source>
+        <target>Last modified</target>
+      </segment>
+    </unit>
+    <unit id="bb56cc" name="assembly.bom.table.edit">
+      <segment state="translated">
+        <source>assembly.bom.table.edit</source>
+        <target>Edit</target>
       </segment>
     </unit>
   </file>

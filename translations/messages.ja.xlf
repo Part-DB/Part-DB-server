@@ -9032,6 +9032,18 @@ Exampletown</target>
         <target>取り付け名</target>
       </segment>
     </unit>
+    <unit id="kd8Db5T" name="assembly.bom.designator">
+      <segment>
+        <source>assembly.bom.designator</source>
+        <target>参照記号</target>
+      </segment>
+    </unit>
+    <unit id="jd7dh6G" name="assembly.bom.designator.help">
+      <segment>
+        <source>assembly.bom.designator.help</source>
+        <target>自由な参照記号（デジグネータ）</target>
+      </segment>
+    </unit>
     <unit id="rswC4eS" name="assembly.bom.instockAmount">
       <segment state="translated">
         <source>assembly.bom.instockAmount</source>
@@ -9182,6 +9194,12 @@ Exampletown</target>
         <target>名前</target>
       </segment>
     </unit>
+    <unit id="jd7dh6G" name="assembly.bom.name.help">
+      <segment>
+        <source>assembly.bom.name.help</source>
+        <target>BOM エントリの人間が読めるタイトル</target>
+      </segment>
+    </unit>
     <unit id="nUEs.ld" name="assembly.bom.comment">
       <segment>
         <source>assembly.bom.comment</source>
@@ -9204,6 +9222,24 @@ Exampletown</target>
       <segment>
         <source>assembly.build.required_qty</source>
         <target>必要な数量</target>
+      </segment>
+    </unit>
+    <unit id="UJpD7n6" name="assembly.import_bom">
+      <segment>
+        <source>assembly.import_bom</source>
+        <target>アセンブリの部品表をインポート</target>
+      </segment>
+    </unit>
+    <unit id="WTasGao" name="assembly.bom.partOrAssembly">
+      <segment>
+        <source>assembly.bom.partOrAssembly</source>
+        <target>部品またはアセンブリ</target>
+      </segment>
+    </unit>
+    <unit id="jd7fn8K" name="assembly.bom.identifiers">
+      <segment>
+        <source>assembly.bom.identifiers</source>
+        <target>識別子</target>
       </segment>
     </unit>
     <unit id="yes_button" name="assembly.build.yes_button">
@@ -9815,6 +9851,60 @@ Exampletown</target>
       <segment state="translated">
         <source>assembly.bom.table.description</source>
         <target>説明</target>
+      </segment>
+    </unit>
+    <unit id="jd7fhvc" name="assembly.bom.table.category">
+      <segment state="translated">
+        <source>assembly.bom.table.category</source>
+        <target>カテゴリ</target>
+      </segment>
+    </unit>
+    <unit id="ab12cd" name="assembly.bom.table.manufacturer">
+      <segment state="translated">
+        <source>assembly.bom.table.manufacturer</source>
+        <target>メーカー</target>
+      </segment>
+    </unit>
+    <unit id="7dk4gTa" name="assembly.bom.table.designator">
+      <segment state="translated">
+        <source>assembly.bom.table.designator</source>
+        <target>参照記号</target>
+      </segment>
+    </unit>
+    <unit id="ef34gh" name="assembly.bom.table.mountnames">
+      <segment state="translated">
+        <source>assembly.bom.table.mountnames</source>
+        <target>実装名</target>
+      </segment>
+    </unit>
+    <unit id="ij56kl" name="assembly.bom.table.storage_location">
+      <segment state="translated">
+        <source>assembly.bom.table.storage_location</source>
+        <target>保管場所</target>
+      </segment>
+    </unit>
+    <unit id="mn78op" name="assembly.bom.table.amount">
+      <segment state="translated">
+        <source>assembly.bom.table.amount</source>
+        <target>数量</target>
+      </segment>
+    </unit>
+    <unit id="uv12wx" name="assembly.bom.table.addedDate">
+      <segment state="translated">
+        <source>assembly.bom.table.addedDate</source>
+        <target>作成日</target>
+      </segment>
+    </unit>
+    <unit id="yz34aa" name="assembly.bom.table.lastModified">
+      <segment state="translated">
+        <source>assembly.bom.table.lastModified</source>
+        <target>最終更新</target>
+      </segment>
+    </unit>
+    <unit id="bb56cc" name="assembly.bom.table.edit">
+      <segment state="translated">
+        <source>assembly.bom.table.edit</source>
+        <target>編集</target>
       </segment>
     </unit>
   </file>

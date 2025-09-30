@@ -162,6 +162,12 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
                     return $html;
                 },
             ])
+            ->add('designator', TextColumn::class, [
+                'label' => 'assembly.bom.designator',
+                'render' => function ($value, AssemblyBOMEntry $context) {
+                    return htmlspecialchars($context->getDesignator());
+                },
+            ])
             ->add('instockAmount', TextColumn::class, [
                 'label' => 'assembly.bom.instockAmount',
                 'visible' => false,

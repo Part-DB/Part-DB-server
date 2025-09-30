@@ -7,7 +7,7 @@
                 <th></th> {#  expand button #}
                 <th>{% trans %}assembly.bom.quantity{% endtrans %}</th>
                 <th>{% trans %}assembly.bom.partOrAssembly{% endtrans %}</th>
-                <th>{% trans %}assembly.bom.name{% endtrans %}</th>
+                <th>{% trans %}assembly.bom.identifiers{% endtrans %}</th>
                 <th></th> {# Remove button #}
             </tr>
             </thead>
@@ -41,16 +41,19 @@
             {{ form_widget(form.quantity) }}
             {{ form_errors(form.quantity) }}
         </td>
-        <td style="min-width: 300px;">
+        <td style="min-width: 450px;">
             {{ form_row(form.part) }}
             {{ form_errors(form.part) }}
             <div class="text-center mb-2" style="line-height: 1">∨</div>
             {{ form_widget(form.referencedAssembly) }}
             {{ form_errors(form.referencedAssembly) }}
         </td>
-        <td>
-            {{ form_widget(form.name) }}
+        <td style="min-width: 450px;">
+            {{ form_row(form.name) }}
             {{ form_errors(form.name) }}
+            <div class="text-center mb-2" style="line-height: 1"></div>
+            {{ form_row(form.designator) }}
+            {{ form_errors(form.designator) }}
         </td>
         <td>
             <button type="button" class="btn btn-danger lot_btn_delete position-relative" {{ collection.delete_btn() }}>

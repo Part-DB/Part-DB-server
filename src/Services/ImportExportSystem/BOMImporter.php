@@ -866,7 +866,11 @@ class BOMImporter
         }
 
         if (isset($entry['designator'])) {
-            $bomEntry->setMountnames(trim($entry['designator']) === '' ? '' : trim($entry['designator']));
+            if ($bomEntry instanceof ProjectBOMEntry) {
+                $bomEntry->setMountnames(trim($entry['designator']) === '' ? '' : trim($entry['designator']));
+            } elseif ($bomEntry instanceof AssemblyBOMEntry) {
+                $bomEntry->setDesignator(trim($entry['designator']) === '' ? '' : trim($entry['designator']));
+            }
         }
 
         $bomEntry->setPart($part);
