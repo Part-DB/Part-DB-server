@@ -19,9 +19,6 @@ final class Version20250325073036 extends AbstractMultiPlatformMigration
         $this->addSql(<<<'SQL'
             ALTER TABLE categories ADD COLUMN part_ipn_prefix VARCHAR(255) NOT NULL DEFAULT ''
         SQL);
-        $this->addSql(<<<'SQL'
-            DROP INDEX UNIQ_6940A7FE3D721C14 ON parts
-        SQL);
     }
 
     public function mySQLDown(Schema $schema): void
@@ -29,16 +26,13 @@ final class Version20250325073036 extends AbstractMultiPlatformMigration
         $this->addSql(<<<'SQL'
             ALTER TABLE categories DROP part_ipn_prefix
         SQL);
-        $this->addSql(<<<'SQL'
-            CREATE UNIQUE INDEX UNIQ_6940A7FE3D721C14 ON parts (ipn)
-        SQL);
     }
 
     public function sqLiteUp(Schema $schema): void
     {
         $this->addSql(<<<'SQL'
-            CREATE TEMPORARY TABLE __temp__categories AS 
-                SELECT 
+            CREATE TEMPORARY TABLE __temp__categories AS
+                SELECT
                     id,
                     parent_id,
                     id_preview_attachment,
@@ -123,7 +117,7 @@ final class Version20250325073036 extends AbstractMultiPlatformMigration
                 eda_info_exclude_from_board,
                 eda_info_exclude_from_sim,
                 eda_info_kicad_symbol
-            ) SELECT 
+            ) SELECT
                 id,
                 parent_id,
                 id_preview_attachment,
@@ -164,17 +158,13 @@ final class Version20250325073036 extends AbstractMultiPlatformMigration
         $this->addSql(<<<'SQL'
             CREATE INDEX category_idx_parent_name ON categories (parent_id, name)
         SQL);
-
-        $this->addSql(<<<'SQL'
-            DROP INDEX UNIQ_6940A7FE3D721C14
-        SQL);
     }
 
     public function sqLiteDown(Schema $schema): void
     {
         $this->addSql(<<<'SQL'
-            CREATE TEMPORARY TABLE __temp__categories AS 
-                SELECT 
+            CREATE TEMPORARY TABLE __temp__categories AS
+                SELECT
                     id,
                     parent_id,
                     id_preview_attachment,
@@ -258,7 +248,7 @@ final class Version20250325073036 extends AbstractMultiPlatformMigration
                 eda_info_exclude_from_board,
                 eda_info_exclude_from_sim,
                 eda_info_kicad_symbol
-            ) SELECT 
+            ) SELECT
                 id,
                 parent_id,
                 id_preview_attachment,
@@ -299,10 +289,6 @@ final class Version20250325073036 extends AbstractMultiPlatformMigration
         $this->addSql(<<<'SQL'
             CREATE INDEX category_idx_parent_name ON categories (parent_id, name)
         SQL);
-
-        $this->addSql(<<<'SQL'
-            CREATE UNIQUE INDEX UNIQ_6940A7FE3D721C14 ON "parts" (ipn)
-        SQL);
     }
 
     public function postgreSQLUp(Schema $schema): void
@@ -310,18 +296,12 @@ final class Version20250325073036 extends AbstractMultiPlatformMigration
         $this->addSql(<<<'SQL'
             ALTER TABLE categories ADD part_ipn_prefix VARCHAR(255) DEFAULT '' NOT NULL
         SQL);
-        $this->addSql(<<<'SQL'
-            DROP INDEX uniq_6940a7fe3d721c14
-        SQL);
     }
 
     public function postgreSQLDown(Schema $schema): void
     {
         $this->addSql(<<<'SQL'
             ALTER TABLE "categories" DROP part_ipn_prefix
-        SQL);
-        $this->addSql(<<<'SQL'
-            CREATE UNIQUE INDEX uniq_6940a7fe3d721c14 ON "parts" (ipn)
         SQL);
     }
 }

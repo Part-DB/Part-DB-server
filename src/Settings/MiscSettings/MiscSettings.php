@@ -37,4 +37,7 @@ class MiscSettings
 
     #[EmbeddedSettings]
     public ?AssemblySettings $assembly = null;
+
+    #[EmbeddedSettings]
+    public ?IpnSuggestSettings $ipnSuggestSettings = null;
 }

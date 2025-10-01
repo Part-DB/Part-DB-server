@@ -14411,6 +14411,36 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Verwenden Sie einen %%ipn%%-Platzhalter im Namen einer Baugruppe. Der Platzhalter wird beim Speichern durch die eingegebene IPN ersetzt.</target>
       </segment>
     </unit>
+    <unit id="jd7tEu3" name="settings.misc.ipn_suggest">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest</source>
+        <target>Bauteil IPN-Vorschlagsliste</target>
+      </segment>
+    </unit>
+    <unit id="kdi8mT4" name="settings.misc.ipn_suggest.autoAppendSuffix">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.autoAppendSuffix</source>
+        <target>Wenn diese Option aktiviert ist, wird der Eingabe ein inkrementelles Suffix hinzugefügt, wenn eine vorhandene IPN beim Speichern erneut eingegeben wird.</target>
+      </segment>
+    </unit>
+    <unit id="rociEg6" name="settings.misc.ipn_suggest.suggestPartDigits">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.suggestPartDigits</source>
+        <target>Stellen für numerisches Inkrement</target>
+      </segment>
+    </unit>
+    <unit id="jdz6B4c" name="settings.misc.ipn_suggest.useDuplicateDescription">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.useDuplicateDescription</source>
+        <target>Wenn aktiviert, wird die Bauteil-Beschreibung verwendet, um vorhandene Teile mit derselben Beschreibung zu finden und die nächste verfügbare IPN für die Vorschlagsliste zu ermitteln, indem der numerische Suffix entsprechend erhöht wird.</target>
+      </segment>
+    </unit>
+    <unit id="judfiK3" name="settings.misc.ipn_suggest.suggestPartDigits.help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.suggestPartDigits.help</source>
+        <target>Die Anzahl der Ziffern, die für die inkrementale Nummerierung von Teilen im IPN-Vorschlagssystem verwendet werden.</target>
+      </segment>
+    </unit>
     <unit id="Ffr5xYM" name="settings.behavior.part_info">
       <segment state="translated">
         <source>settings.behavior.part_info</source>

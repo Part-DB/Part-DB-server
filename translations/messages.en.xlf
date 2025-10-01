@@ -5803,12 +5803,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Measuring unit</target>
       </segment>
     </unit>
-    <unit id="G1hmQdb" name="part.edit.partCustomState">
-      <segment state="translated">
-        <source>part.edit.partCustomState</source>
-        <target>Custom part state</target>
-      </segment>
-    </unit>
     <unit id="oY_9HE9" name="part.edit.comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:212</note>
@@ -14410,6 +14404,36 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>settings.misc.assembly.useIpnPlaceholderInName</source>
         <target>Use an %%ipn%% placeholder in the name of an assembly. Placeholder is replaced with the ipn input while saving.</target>
+      </segment>
+    </unit>
+    <unit id="jd7tEu3" name="settings.misc.ipn_suggest">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest</source>
+        <target>Part IPN Suggest</target>
+      </segment>
+    </unit>
+    <unit id="kdi8mT4" name="settings.misc.ipn_suggest.autoAppendSuffix">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.autoAppendSuffix</source>
+        <target>Do you want an incremental number to be added to the user input when entering an existing IPN again upon saving?</target>
+      </segment>
+    </unit>
+    <unit id="rociEg6" name="settings.misc.ipn_suggest.suggestPartDigits">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.suggestPartDigits</source>
+        <target>Increment Digits</target>
+      </segment>
+    </unit>
+    <unit id="jdz6B4c" name="settings.misc.ipn_suggest.useDuplicateDescription">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.useDuplicateDescription</source>
+        <target>When enabled, the part’s description is used to find existing parts with the same description and to determine the next available IPN by incrementing their numeric suffix for the suggestion list.</target>
+      </segment>
+    </unit>
+    <unit id="judfiK3" name="settings.misc.ipn_suggest.suggestPartDigits.help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.suggestPartDigits.help</source>
+        <target>The number of digits used for the incremental numbering of parts in the IPN (Internal Part Number) suggestion system.</target>
       </segment>
     </unit>
     <unit id="Ffr5xYM" name="settings.behavior.part_info">

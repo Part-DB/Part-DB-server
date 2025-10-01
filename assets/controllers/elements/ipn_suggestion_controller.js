@@ -184,7 +184,7 @@ export default class extends Controller {
         if (categoryField) {
             categoryField.addEventListener("change", () => {
                 const categoryId = Number(categoryField.value);
-                const description = String(descriptionField.value);
+                const description = String(descriptionField?.value ?? '');
 
                 // Check whether the category has changed compared to the previous ID
                 if (categoryId !== this.previousCategoryId) {
@@ -203,7 +203,7 @@ export default class extends Controller {
         if (descriptionField) {
             descriptionField.addEventListener("input", () => {
                 const categoryId = Number(categoryField.value);
-                const description = String(descriptionField.value);
+                const description = String(descriptionField?.value ?? '');
 
                 // Check whether the description has changed compared to the previous one
                 if (description !== this.previousDescription) {
@@ -219,7 +219,7 @@ export default class extends Controller {
         const partId = this.partIdValue;
         const truncatedDescription = description.length > 150 ? description.substring(0, 150) : description;
         const encodedDescription = this.base64EncodeUtf8(truncatedDescription);
-        const url = `${baseUrl}?partId=${partId}&categoryId=${categoryId}&description=${encodedDescription}`;
+        const url = `${baseUrl}?partId=${partId}&categoryId=${categoryId}` + (description !== '' ? `&description=${encodedDescription}` : '');
 
         fetch(url, {
             method: "GET",
