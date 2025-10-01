@@ -1601,12 +1601,6 @@
         <target>Προσαρμοσμένη κατάσταση εξαρτήματος</target>
       </segment>
     </unit>
-    <unit id="G1hmQdb" name="part.table.partCustomState">
-      <segment state="translated">
-        <source>part.table.partCustomState</source>
-        <target>Προσαρμοσμένη κατάσταση μέρους</target>
-      </segment>
-    </unit>
     <unit id="FV7YOW6" name="part.table.name.value.for_part">
       <segment state="translated">
         <source>part.table.name.value.for_part</source>

@@ -46,6 +46,7 @@ enum PartTableColumns : string implements TranslatableInterface
     case FAVORITE = "favorite";
     case MANUFACTURING_STATUS = "manufacturing_status";
     case MPN = "manufacturer_product_number";
+    case CUSTOM_PART_STATE = 'partCustomState';
     case MASS = "mass";
     case TAGS = "tags";
     case ATTACHMENTS = "attachments";

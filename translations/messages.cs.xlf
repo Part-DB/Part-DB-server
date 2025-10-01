@@ -10374,7 +10374,7 @@ Element 3</target>
         <target>Cílový inventář</target>
       </segment>
     </unit>
-    <unit id="pyv0k6b" name="project.builds.number_of_builds">
+    <unit id="5DTAvWG" name="project.builds.number_of_builds">
       <segment state="translated">
         <source>project.builds.number_of_builds</source>
         <target>Množství sestavy</target>
