@@ -243,7 +243,6 @@ abstract class BaseAdminController extends AbstractController
             'timeTravel' => $timeTravel_timestamp,
             'repo' => $repo,
             'partsContainingElement' => $repo instanceof PartsContainingRepositoryInterface,
-            'showParameters' => !($this instanceof PartCustomStateController),
         ]);
     }
 
@@ -403,7 +402,6 @@ abstract class BaseAdminController extends AbstractController
             'import_form' => $import_form,
             'mass_creation_form' => $mass_creation_form,
             'route_base' => $this->route_base,
-            'showParameters' => !($this instanceof PartCustomStateController),
         ]);
     }
 

@@ -383,8 +383,8 @@ class EntityExporter
                     'Id', 'ParentId', 'Type', 'ProjectNameHierarchical', 'ProjectName', 'ProjectFullName',
 
                     //BOM relevant attributes
-                    'Quantity', 'PartId', 'PartName', 'Ipn', 'Manufacturer', 'Mpn', 'Name', 'Designator',
-                    'Description', 'MountNames'
+                    'Quantity', 'PartId', 'PartName', 'Ipn', 'Manufacturer', 'Mpn', 'Name', 'Mountnames',
+                    'Description',
                 ],
                 'processEntity' => fn($entity, $depth) => [
                     'Id' => $entity->getId(),
@@ -402,9 +402,8 @@ class EntityExporter
                     'Manufacturer' => '-',
                     'Mpn' => '-',
                     'Name' => '-',
-                    'Designator' => '-',
+                    'Mountnames' => '-',
                     'Description' => '-',
-                    'MountNames' => '-',
                 ],
                 'processBomEntries' => fn($entity, $depth) => array_map(fn(ProjectBOMEntry $bomEntry) => [
                     'Id' => $entity->getId(),
@@ -422,9 +421,8 @@ class EntityExporter
                     'Manufacturer' => $bomEntry->getPart()?->getManufacturer()?->getName() ?? '',
                     'Mpn' => $bomEntry->getPart()?->getManufacturerProductNumber() ?? '',
                     'Name' => $bomEntry->getPart()?->getName() ?? '',
-                    'Designator' => $bomEntry->getMountnames() ?? '',
+                    'Mountnames' => $bomEntry->getMountnames(),
                     'Description' => $bomEntry->getPart()?->getDescription() ?? '',
-                    'MountNames' => $bomEntry->getMountNames(),
                 ], $entity->getBomEntries()->toArray()),
             ],
             Assembly::class => [
@@ -434,8 +432,8 @@ class EntityExporter
 
                     //BOM relevant attributes
                     'Quantity', 'PartId', 'PartName', 'Ipn', 'Manufacturer', 'Mpn', 'Name', 'Designator',
-                    'Description', 'MountNames', 'ReferencedAssemblyId', 'ReferencedAssemblyIpn',
-                    'ReferencedAssemblyFullName'
+                    'Mountnames', 'Description', 'ReferencedAssemblyId', 'ReferencedAssemblyIpn',
+                    'ReferencedAssemblyFullName',
                 ],
                 'processEntity' => fn($entity, $depth) => [
                     'Id' => $entity->getId(),
@@ -455,8 +453,8 @@ class EntityExporter
                     'Mpn' => '-',
                     'Name' => '-',
                     'Designator' => '-',
+                    'Mountnames' => '-',
                     'Description' => '-',
-                    'MountNames' => '-',
                     'ReferencedAssemblyId' => '-',
                     'ReferencedAssemblyIpn' => '-',
                     'ReferencedAssemblyFullName' => '-',
@@ -593,7 +591,7 @@ class EntityExporter
                 'Mpn' => $bomEntry->getPart()?->getManufacturerProductNumber() ?? '-',
                 'Name' => $bomEntry->getName() ?? '-',
                 'Designator' => $bomEntry->getDesignator(),
-                'MountNames' => $bomEntry->getMountNames(),
+                'Mountnames' => $bomEntry->getMountnames(),
                 'Description' => $bomEntry->getPart()?->getDescription() ?? '-',
                 'ReferencedAssemblyId' => $bomEntry->getReferencedAssembly()?->getId() ?? '-',
                 'ReferencedAssemblyIpn' => $bomEntry->getReferencedAssembly()?->getIpn() ?? '-',
@@ -628,8 +626,8 @@ class EntityExporter
                         'Mpn' => $partData['part']?->getManufacturerProductNumber(),
                         'Name' => $partData['name'] ?? '',
                         'Designator' => $partData['designator'],
+                        'Mountnames' => '-',
                         'Description' => $partData['part']?->getDescription(),
-                        'MountNames' => '-',
                         'ReferencedAssemblyId' => '-',
                         'ReferencedAssemblyIpn' => '-',
                         'ReferencedAssemblyFullName' => '-',

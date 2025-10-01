@@ -70,6 +70,16 @@
                 {% trans %}assembly.info.info.label{% endtrans %}
             </button>
         </li>
+        {% if assembly.children is not empty %}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="subassemblies-tab" data-bs-toggle="tab" data-bs-target="#subassemblies-tab-pane"
+                        type="button" role="tab" aria-controls="subassemblies-tab-pane" aria-selected="false">
+                    <i class="fa-solid fa-folder-tree fa-fw"></i>
+                    {% trans %}assembly.info.sub_assemblies.label{% endtrans %}
+                    <span class="badge bg-secondary">{{ assembly.children | length }}</span>
+                </button>
+            </li>
+        {% endif %}
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="part-tab" data-bs-toggle="tab" data-bs-target="#part-tab-pane"
                     type="button" role="tab" aria-controls="part-tab-pane" aria-selected="false">
@@ -99,11 +109,15 @@
             </li>
         {% endif %}
     </ul>
-
     <div class="tab-content">
         <div class="tab-pane fade show active" id="info-tab-pane" role="tabpanel" aria-labelledby="info-tab" tabindex="0">
             {% include "assemblies/info/_info.html.twig" %}
         </div>
+        {% if assembly.children is not empty %}
+            <div class="tab-pane fade" id="subassemblies-tab-pane" role="tabpanel" aria-labelledby="bom-tab" tabindex="0">
+                {% include "assemblies/info/_subassemblies.html.twig" %}
+            </div>
+        {% endif %}
         <div class="tab-pane fade" id="part-tab-pane" role="tabpanel" aria-labelledby="part-tab" tabindex="0">
             {% include "assemblies/info/_part.html.twig" %}
         </div>
