@@ -11253,7 +11253,7 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="iTVcfIk" name="project.bom_import.clear_existing_bom">
-      <segment state="ftranslated">
+      <segment state="translated">
         <source>project.bom_import.clear_existing_bom</source>
         <target>导入前删除现有BOM条目</target>
       </segment>
