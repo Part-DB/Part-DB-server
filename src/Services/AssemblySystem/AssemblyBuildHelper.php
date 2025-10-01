@@ -103,7 +103,6 @@ class AssemblyBuildHelper
     }
 
     /**
-     * Returns the assembly BOM entries for which parts are missing in the stock for the given number of builds
      * Returns the referenced assembly BOM entries for which parts are missing in the stock for the given number of builds
      * @param  Assembly $assembly The assembly for which the BOM entries should be checked
      * @param  int  $number_of_builds How often should the assembly be build?

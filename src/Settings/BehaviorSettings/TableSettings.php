@@ -97,8 +97,8 @@ class TableSettings
     #[Assert\Unique()]
     #[Assert\All([new Assert\Type(AssemblyBomTableColumns::class)])]
 
-    public array $assembliesBomDefaultColumns = [AssemblyBomTableColumns::QUANTITY, AssemblyTableColumns::ID, AssemblyTableColumns::IPN,
-        AssemblyTableColumns::NAME, AssemblyTableColumns::DESCRIPTION];
+    public array $assembliesBomDefaultColumns = [AssemblyBomTableColumns::QUANTITY, AssemblyBomTableColumns::ID,
+        AssemblyBomTableColumns::IPN, AssemblyBomTableColumns::NAME, AssemblyBomTableColumns::DESCRIPTION];
 
     #[SettingsParameter(label: new TM("settings.behavior.table.preview_image_min_width"),
         formOptions: ['attr' => ['min' => 1, 'max' => 100]],

@@ -162,6 +162,12 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
                     return $html;
                 },
             ])
+            ->add('designator', TextColumn::class, [
+                'label' => 'assembly.bom.designator',
+                'render' => function ($value, AssemblyBOMEntry $context) {
+                    return htmlspecialchars($context->getDesignator());
+                },
+            ])
             ->add('instockAmount', TextColumn::class, [
                 'label' => 'assembly.bom.instockAmount',
                 'visible' => false,
@@ -195,7 +201,7 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
         $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->tableSettings->assembliesBomDefaultColumns,
             "TABLE_ASSEMBLIES_BOM_DEFAULT_COLUMNS");
 
-        $dataTable->addOrderBy('name', DataTable::SORT_ASCENDING);
+        $dataTable->addOrderBy('name');
 
         $dataTable->createAdapter(ORMAdapter::class, [
             'entity' => Attachment::class,

@@ -12879,30 +12879,6 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         <target>Ver versión externa</target>
       </segment>
     </unit>
-    <unit id="X9HUFrv" name="part.table.actions.error">
-      <segment state="translated">
-        <source>part.table.actions.error</source>
-        <target>Han ocurrido %count% errores mientras se ejecutaba la acción:</target>
-      </segment>
-    </unit>
-    <unit id=".ppbsNn" name="part.table.actions.error_detail">
-      <segment state="translated">
-        <source>part.table.actions.error_detail</source>
-        <target>%part_name% (ID: %part_id%): %message%</target>
-      </segment>
-    </unit>
-    <unit id="4wpp6h." name="part_list.action.action.change_location">
-      <segment state="translated">
-        <source>part_list.action.action.change_location</source>
-        <target>Cambiar de ubicación (solo para componentes con un único lote)</target>
-      </segment>
-    </unit>
-    <unit id="9_9I.m4" name="parts.table.action_handler.error.part_lots_multiple">
-      <segment state="translated">
-        <source>parts.table.action_handler.error.part_lots_multiple</source>
-        <target>Este componente contiene más de un stock. Cambie la ubicación manualmente para seleccionar el stock deseado.</target>
-      </segment>
-    </unit>
     <unit id="G2sXzh7" name="assembly.label">
       <segment>
         <source>assembly.label</source>
@@ -13027,6 +13003,18 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
       <segment>
         <source>assembly.bom.mountnames</source>
         <target>Nombres de montaje</target>
+      </segment>
+    </unit>
+    <unit id="kd8Db5T" name="assembly.bom.designator">
+      <segment>
+        <source>assembly.bom.designator</source>
+        <target>Designador de referencia</target>
+      </segment>
+    </unit>
+    <unit id="jd7dh6G" name="assembly.bom.designator.help">
+      <segment>
+        <source>assembly.bom.designator.help</source>
+        <target>Identificadores de referencia libres (designator)</target>
       </segment>
     </unit>
     <unit id="rswC4eS" name="assembly.bom.instockAmount">
@@ -13179,6 +13167,12 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         <target>Nombre</target>
       </segment>
     </unit>
+    <unit id="jd7dh6G" name="assembly.bom.name.help">
+      <segment>
+        <source>assembly.bom.name.help</source>
+        <target>Título legible por humanos de la entrada de la lista de materiales</target>
+      </segment>
+    </unit>
     <unit id="nUEs.ld" name="assembly.bom.comment">
       <segment>
         <source>assembly.bom.comment</source>
@@ -13213,6 +13207,12 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
       <segment>
         <source>assembly.bom.partOrAssembly</source>
         <target>Parte o conjunto</target>
+      </segment>
+    </unit>
+    <unit id="jd7fn8K" name="assembly.bom.identifiers">
+      <segment>
+        <source>assembly.bom.identifiers</source>
+        <target>Identificadores</target>
       </segment>
     </unit>
     <unit id="jHKh8Zp" name="assembly.bom.add_entry">
@@ -13664,136 +13664,28 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
             </target>
         </segment>
     </unit>
-    <unit id="uT5zcT1" name="assembly_list.all.title">
+    <unit id="X9HUFrv" name="part.table.actions.error">
       <segment state="translated">
-        <source>assembly_list.all.title</source>
-        <target>Todas las ensamblajes</target>
+        <source>part.table.actions.error</source>
+        <target>Han ocurrido %count% errores mientras se ejecutaba la acción:</target>
       </segment>
     </unit>
-    <unit id="8Ijh3db" name="assembly.edit.tab.common">
+    <unit id=".ppbsNn" name="part.table.actions.error_detail">
       <segment state="translated">
-        <source>assembly.edit.tab.common</source>
-        <target>General</target>
+        <source>part.table.actions.error_detail</source>
+        <target>%part_name% (ID: %part_id%): %message%</target>
       </segment>
     </unit>
-    <unit id="jTnEypG" name="assembly.edit.tab.advanced">
+    <unit id="4wpp6h." name="part_list.action.action.change_location">
       <segment state="translated">
-        <source>assembly.edit.tab.advanced</source>
-        <target>Opciones avanzadas</target>
+        <source>part_list.action.action.change_location</source>
+        <target>Cambiar de ubicación (solo para componentes con un único lote)</target>
       </segment>
     </unit>
-    <unit id="7uhe3gC" name="assembly.edit.tab.attachments">
+    <unit id="9_9I.m4" name="parts.table.action_handler.error.part_lots_multiple">
       <segment state="translated">
-        <source>assembly.edit.tab.attachments</source>
-        <target>Archivos adjuntos</target>
-      </segment>
-    </unit>
-    <unit id="jEr4cP1" name="assembly.filter.dbId">
-      <segment state="translated">
-        <source>assembly.filter.dbId</source>
-        <target>ID de la base de datos</target>
-      </segment>
-    </unit>
-    <unit id="leRwbN3" name="assembly.filter.ipn">
-      <segment state="translated">
-        <source>assembly.filter.ipn</source>
-        <target>Número interno de pieza (IPN)</target>
-      </segment>
-    </unit>
-    <unit id="jR5Cxy1" name="assembly.filter.name">
-      <segment state="translated">
-        <source>assembly.filter.name</source>
-        <target>Nombre</target>
-      </segment>
-    </unit>
-    <unit id="LiW5CM3" name="assembly.filter.description">
-      <segment state="translated">
-        <source>assembly.filter.description</source>
-        <target>Descripción</target>
-      </segment>
-    </unit>
-    <unit id="kix5dMf" name="assembly.filter.comment">
-      <segment state="translated">
-        <source>assembly.filter.comment</source>
-        <target>Comentarios</target>
-      </segment>
-    </unit>
-    <unit id="ux2Ws9p" name="assembly.filter.attachments_count">
-      <segment state="translated">
-        <source>assembly.filter.attachments_count</source>
-        <target>Cantidad de adjuntos</target>
-      </segment>
-    </unit>
-    <unit id="su8izLb" name="assembly.filter.attachmentName">
-      <segment state="translated">
-        <source>assembly.filter.attachmentName</source>
-        <target>Nombre del adjunto</target>
-      </segment>
-    </unit>
-    <unit id="5cDe9Ta" name="assemblies.create.btn">
-      <segment state="translated">
-        <source>assemblies.create.btn</source>
-        <target>Crear una nueva ensamblaje</target>
-      </segment>
-    </unit>
-    <unit id="acEe1Tb" name="assembly.table.id">
-      <segment state="translated">
-        <source>assembly.table.id</source>
-        <target>ID</target>
-      </segment>
-    </unit>
-    <unit id="7Ui1WzP" name="assembly.table.name">
-      <segment state="translated">
-        <source>assembly.table.name</source>
-        <target>Nombre</target>
-      </segment>
-    </unit>
-    <unit id="ieVaFEu" name="assembly.table.ipn">
-      <segment state="translated">
-        <source>assembly.table.ipn</source>
-        <target>IPN</target>
-      </segment>
-    </unit>
-    <unit id="7un9oeW" name="assembly.table.description">
-      <segment state="translated">
-        <source>assembly.table.description</source>
-        <target>Descripción</target>
-      </segment>
-    </unit>
-    <unit id="igaT4kQ" name="assembly.table.addedDate">
-      <segment state="translated">
-        <source>assembly.table.addedDate</source>
-        <target>Añadido</target>
-      </segment>
-    </unit>
-    <unit id="au8IEcW" name="assembly.table.lastModified">
-      <segment state="translated">
-        <source>assembly.table.lastModified</source>
-        <target>Última modificación</target>
-      </segment>
-    </unit>
-    <unit id="9dERbn1" name="assembly.table.edit">
-      <segment state="translated">
-        <source>assembly.table.edit</source>
-        <target>Editar</target>
-      </segment>
-    </unit>
-    <unit id="5gTze41" name="assembly.table.edit.title">
-      <segment state="translated">
-        <source>assembly.table.edit.title</source>
-        <target>Editar ensamblaje</target>
-      </segment>
-    </unit>
-    <unit id="juTbw2C" name="assembly.table.invalid_regex">
-      <segment state="translated">
-        <source>assembly.table.invalid_regex</source>
-        <target>Expresión regular no válida (regex)</target>
-      </segment>
-    </unit>
-    <unit id="a7uOieC" name="datasource.synonym">
-      <segment state="translated">
-        <source>datasource.synonym</source>
-        <target>%name% (Tu sinónimo: %synonym%)</target>
+        <source>parts.table.action_handler.error.part_lots_multiple</source>
+        <target>Este componente contiene más de un stock. Cambie la ubicación manualmente para seleccionar el stock deseado.</target>
       </segment>
     </unit>
     <unit id="uT5zcT1" name="assembly_list.all.title">
@@ -13958,10 +13850,58 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         <target>Descripción</target>
       </segment>
     </unit>
-    <unit id="a7uOieC" name="datasource.synonym">
+    <unit id="jd7fhvc" name="assembly.bom.table.category">
       <segment state="translated">
-        <source>datasource.synonym</source>
-        <target>%name% (Tu sinónimo: %synonym%)</target>
+        <source>assembly.bom.table.category</source>
+        <target>Categoría</target>
+      </segment>
+    </unit>
+    <unit id="ab12cd" name="assembly.bom.table.manufacturer">
+      <segment state="translated">
+        <source>assembly.bom.table.manufacturer</source>
+        <target>Fabricante</target>
+      </segment>
+    </unit>
+    <unit id="7dk4gTa" name="assembly.bom.table.designator">
+      <segment state="translated">
+        <source>assembly.bom.table.designator</source>
+        <target>Designador de referencia</target>
+      </segment>
+    </unit>
+    <unit id="ef34gh" name="assembly.bom.table.mountnames">
+      <segment state="translated">
+        <source>assembly.bom.table.mountnames</source>
+        <target>Nombres de montaje</target>
+      </segment>
+    </unit>
+    <unit id="ij56kl" name="assembly.bom.table.storage_location">
+      <segment state="translated">
+        <source>assembly.bom.table.storage_location</source>
+        <target>Ubicación de almacenamiento</target>
+      </segment>
+    </unit>
+    <unit id="mn78op" name="assembly.bom.table.amount">
+      <segment state="translated">
+        <source>assembly.bom.table.amount</source>
+        <target>Cantidad</target>
+      </segment>
+    </unit>
+    <unit id="uv12wx" name="assembly.bom.table.addedDate">
+      <segment state="translated">
+        <source>assembly.bom.table.addedDate</source>
+        <target>Creado el</target>
+      </segment>
+    </unit>
+    <unit id="yz34aa" name="assembly.bom.table.lastModified">
+      <segment state="translated">
+        <source>assembly.bom.table.lastModified</source>
+        <target>Última modificación</target>
+      </segment>
+    </unit>
+    <unit id="bb56cc" name="assembly.bom.table.edit">
+      <segment state="translated">
+        <source>assembly.bom.table.edit</source>
+        <target>Editar</target>
       </segment>
     </unit>
   </file>

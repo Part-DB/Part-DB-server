@@ -28,12 +28,20 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 enum AssemblyBomTableColumns : string implements TranslatableInterface
 {
-
     case NAME = "name";
     case ID = "id";
     case QUANTITY = "quantity";
     case IPN = "ipn";
     case DESCRIPTION = "description";
+    case CATEGORY = "category";
+    case MANUFACTURER = "manufacturer";
+    case DESIGNATOR = "designator";
+    case MOUNTNAMES = "mountnames";
+    case STORAGE_LOCATION = "storage_location";
+    case AMOUNT = "amount";
+    case ADDED_DATE = "addedDate";
+    case LAST_MODIFIED = "lastModified";
+    case EDIT = "edit";
 
     public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {

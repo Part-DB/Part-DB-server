@@ -194,14 +194,14 @@ class ProjectController extends AbstractController
 
                 // For PCB imports, proceed directly
                 $importerResult = $BOMImporter->importFileIntoProject($form->get('file')->getData(), $project, [
-                    'type' => $form->get('type')->getData(),
+                    'type' => $import_type,
                 ]);
 
                 // Validate the project entries
                 $errors = $validator->validateProperty($project, 'bom_entries');
 
-                //If no validation errors occured, save the changes and redirect to edit page
-                if (count ($errors) === 0 && $importerResult->getViolations()->count() === 0) {
+                //If no validation errors occurred, save the changes and redirect to edit page
+                if (count($errors) === 0 && $importerResult->getViolations()->count() === 0) {
                     $entries = $importerResult->getBomEntries();
 
                     $this->addFlash('success', t('project.bom_import.flash.success', ['%count%' => count($entries)]));

@@ -36,8 +36,6 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Contracts\TimeStampableInterface;
-use App\Entity\ProjectSystem\Project;
-use App\Entity\AssemblySystem\Assembly;
 use App\Repository\DBElementRepository;
 use App\Validator\Constraints\AssemblySystem\AssemblyCycle;
 use App\Validator\Constraints\AssemblySystem\AssemblyInvalidBomEntry;
@@ -86,7 +84,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
     normalizationContext: ['groups' => ['bom_entry:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
-#[ApiFilter(LikeFilter::class, properties: ["name", "comment", 'mountnames'])]
+#[ApiFilter(LikeFilter::class, properties: ["name", 'mountnames', 'designator', "comment"])]
 #[ApiFilter(RangeFilter::class, properties: ['quantity'])]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified', 'quantity'])]
 class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInterface, TimeStampableInterface
@@ -104,6 +102,13 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
     #[ORM\Column(name: 'mountnames', type: Types::TEXT)]
     #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full'])]
     protected string $mountnames = '';
+
+    /**
+     * @var string Reference mark on the circuit diagram/PCB
+     */
+    #[ORM\Column(name: 'designator', type: Types::TEXT)]
+    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full'])]
+    protected string $designator = '';
 
     /**
      * @var string|null An optional name describing this BOM entry (useful for non-part entries)
@@ -190,6 +195,16 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
     {
         $this->mountnames = $mountnames;
         return $this;
+    }
+
+    public function getDesignator(): string
+    {
+        return $this->designator;
+    }
+
+    public function setDesignator(string $designator): void
+    {
+        $this->designator = $designator;
     }
 
     /**

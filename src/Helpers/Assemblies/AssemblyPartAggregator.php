@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Helpers\Assemblies;
 
 use App\Entity\AssemblySystem\Assembly;
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Parts\Part;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -61,6 +62,7 @@ class AssemblyPartAggregator
      */
     private function processAssembly(Assembly $assembly, float $multiplier, array &$aggregatedParts): void
     {
+        /** @var AssemblyBOMEntry $bomEntry */
         foreach ($assembly->getBomEntries() as $bomEntry) {
             // If the BOM entry refers to a part, add its quantity
             if ($bomEntry->getPart() instanceof Part) {
@@ -70,6 +72,8 @@ class AssemblyPartAggregator
                     $aggregatedParts[$part->getId()] = [
                         'part' => $part,
                         'assembly' => $assembly,
+                        'name' => $bomEntry->getName(),
+                        'designator' => $bomEntry->getDesignator(),
                         'quantity' => $bomEntry->getQuantity(),
                         'multiplier' => $multiplier,
                     ];
@@ -81,6 +85,8 @@ class AssemblyPartAggregator
                 $aggregatedParts[] = [
                     'part' => null,
                     'assembly' => $assembly,
+                    'name' => $bomEntry->getName(),
+                    'designator' => $bomEntry->getDesignator(),
                     'quantity' => $bomEntry->getQuantity(),
                     'multiplier' => $multiplier,
                 ];

@@ -12984,6 +12984,18 @@
         <target>Названия монтажей</target>
       </segment>
     </unit>
+    <unit id="kd8Db5T" name="assembly.bom.designator">
+      <segment>
+        <source>assembly.bom.designator</source>
+        <target>Позиционное обозначение</target>
+      </segment>
+    </unit>
+    <unit id="jd7dh6G" name="assembly.bom.designator.help">
+      <segment>
+        <source>assembly.bom.designator.help</source>
+        <target>Свободные позиционные обозначения (designator)</target>
+      </segment>
+    </unit>
     <unit id="rswC4eS" name="assembly.bom.instockAmount">
       <segment state="translated">
         <source>assembly.bom.instockAmount</source>
@@ -13134,6 +13146,12 @@
         <target>Название</target>
       </segment>
     </unit>
+    <unit id="jd7dh6G" name="assembly.bom.name.help">
+      <segment>
+        <source>assembly.bom.name.help</source>
+        <target>Человекочитаемый заголовок записи BOM</target>
+      </segment>
+    </unit>
     <unit id="nUEs.ld" name="assembly.bom.comment">
       <segment>
         <source>assembly.bom.comment</source>
@@ -13168,6 +13186,12 @@
       <segment>
         <source>assembly.bom.partOrAssembly</source>
         <target>Часть или сборка</target>
+      </segment>
+    </unit>
+    <unit id="jd7fn8K" name="assembly.bom.identifiers">
+      <segment>
+        <source>assembly.bom.identifiers</source>
+        <target>Идентификаторы</target>
       </segment>
     </unit>
     <unit id="jHKh8Zp" name="assembly.bom.add_entry">
@@ -13781,136 +13805,58 @@
         <target>Описание</target>
       </segment>
     </unit>
-    <unit id="a7uOieC" name="datasource.synonym">
+    <unit id="jd7fhvc" name="assembly.bom.table.category">
       <segment state="translated">
-        <source>datasource.synonym</source>
-        <target>%name% (Ваш синоним: %synonym%)</target>
+        <source>assembly.bom.table.category</source>
+        <target>Категория</target>
       </segment>
     </unit>
-    <unit id="uT5zcT1" name="assembly_list.all.title">
+    <unit id="ab12cd" name="assembly.bom.table.manufacturer">
       <segment state="translated">
-        <source>assembly_list.all.title</source>
-        <target>Все сборки</target>
+        <source>assembly.bom.table.manufacturer</source>
+        <target>Производитель</target>
       </segment>
     </unit>
-    <unit id="8Ijh3db" name="assembly.edit.tab.common">
+    <unit id="7dk4gTa" name="assembly.bom.table.designator">
       <segment state="translated">
-        <source>assembly.edit.tab.common</source>
-        <target>Общие</target>
+        <source>assembly.bom.table.designator</source>
+        <target>Позиционное обозначение</target>
       </segment>
     </unit>
-    <unit id="jTnEypG" name="assembly.edit.tab.advanced">
+    <unit id="ef34gh" name="assembly.bom.table.mountnames">
       <segment state="translated">
-        <source>assembly.edit.tab.advanced</source>
-        <target>Дополнительные параметры</target>
+        <source>assembly.bom.table.mountnames</source>
+        <target>Названия монтажа</target>
       </segment>
     </unit>
-    <unit id="7uhe3gC" name="assembly.edit.tab.attachments">
+    <unit id="ij56kl" name="assembly.bom.table.storage_location">
       <segment state="translated">
-        <source>assembly.edit.tab.attachments</source>
-        <target>Вложения</target>
+        <source>assembly.bom.table.storage_location</source>
+        <target>Место хранения</target>
       </segment>
     </unit>
-    <unit id="jEr4cP1" name="assembly.filter.dbId">
+    <unit id="mn78op" name="assembly.bom.table.amount">
       <segment state="translated">
-        <source>assembly.filter.dbId</source>
-        <target>ID базы данных</target>
+        <source>assembly.bom.table.amount</source>
+        <target>Количество</target>
       </segment>
     </unit>
-    <unit id="leRwbN3" name="assembly.filter.ipn">
+    <unit id="uv12wx" name="assembly.bom.table.addedDate">
       <segment state="translated">
-        <source>assembly.filter.ipn</source>
-        <target>Внутренний номер детали (IPN)</target>
+        <source>assembly.bom.table.addedDate</source>
+        <target>Дата создания</target>
       </segment>
     </unit>
-    <unit id="jR5Cxy1" name="assembly.filter.name">
+    <unit id="yz34aa" name="assembly.bom.table.lastModified">
       <segment state="translated">
-        <source>assembly.filter.name</source>
-        <target>Название</target>
-      </segment>
-    </unit>
-    <unit id="LiW5CM3" name="assembly.filter.description">
-      <segment state="translated">
-        <source>assembly.filter.description</source>
-        <target>Описание</target>
-      </segment>
-    </unit>
-    <unit id="kix5dMf" name="assembly.filter.comment">
-      <segment state="translated">
-        <source>assembly.filter.comment</source>
-        <target>Комментарии</target>
-      </segment>
-    </unit>
-    <unit id="ux2Ws9p" name="assembly.filter.attachments_count">
-      <segment state="translated">
-        <source>assembly.filter.attachments_count</source>
-        <target>Количество вложений</target>
-      </segment>
-    </unit>
-    <unit id="su8izLb" name="assembly.filter.attachmentName">
-      <segment state="translated">
-        <source>assembly.filter.attachmentName</source>
-        <target>Имя вложения</target>
-      </segment>
-    </unit>
-    <unit id="5cDe9Ta" name="assemblies.create.btn">
-      <segment state="translated">
-        <source>assemblies.create.btn</source>
-        <target>Создать новую сборку</target>
-      </segment>
-    </unit>
-    <unit id="acEe1Tb" name="assembly.table.id">
-      <segment state="translated">
-        <source>assembly.table.id</source>
-        <target>ID</target>
-      </segment>
-    </unit>
-    <unit id="7Ui1WzP" name="assembly.table.name">
-      <segment state="translated">
-        <source>assembly.table.name</source>
-        <target>Название</target>
-      </segment>
-    </unit>
-    <unit id="ieVaFEu" name="assembly.table.ipn">
-      <segment state="translated">
-        <source>assembly.table.ipn</source>
-        <target>IPN</target>
-      </segment>
-    </unit>
-    <unit id="7un9oeW" name="assembly.table.description">
-      <segment state="translated">
-        <source>assembly.table.description</source>
-        <target>Описание</target>
-      </segment>
-    </unit>
-    <unit id="igaT4kQ" name="assembly.table.addedDate">
-      <segment state="translated">
-        <source>assembly.table.addedDate</source>
-        <target>Добавлено</target>
-      </segment>
-    </unit>
-    <unit id="au8IEcW" name="assembly.table.lastModified">
-      <segment state="translated">
-        <source>assembly.table.lastModified</source>
+        <source>assembly.bom.table.lastModified</source>
         <target>Последнее изменение</target>
       </segment>
     </unit>
-    <unit id="9dERbn1" name="assembly.table.edit">
+    <unit id="bb56cc" name="assembly.bom.table.edit">
       <segment state="translated">
-        <source>assembly.table.edit</source>
+        <source>assembly.bom.table.edit</source>
         <target>Редактировать</target>
-      </segment>
-    </unit>
-    <unit id="5gTze41" name="assembly.table.edit.title">
-      <segment state="translated">
-        <source>assembly.table.edit.title</source>
-        <target>Редактировать сборку</target>
-      </segment>
-    </unit>
-    <unit id="juTbw2C" name="assembly.table.invalid_regex">
-      <segment state="translated">
-        <source>assembly.table.invalid_regex</source>
-        <target>Неверное регулярное выражение (regex)</target>
       </segment>
     </unit>
   </file>
