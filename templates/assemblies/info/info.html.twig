@@ -70,6 +70,16 @@
                 {% trans %}assembly.info.info.label{% endtrans %}
             </button>
         </li>
+        {% if assembly.children is not empty %}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="subassemblies-tab" data-bs-toggle="tab" data-bs-target="#subassemblies-tab-pane"
+                        type="button" role="tab" aria-controls="subassemblies-tab-pane" aria-selected="false">
+                    <i class="fa-solid fa-folder-tree fa-fw"></i>
+                    {% trans %}assembly.info.sub_assemblies.label{% endtrans %}
+                    <span class="badge bg-secondary">{{ assembly.children | length }}</span>
+                </button>
+            </li>
+        {% endif %}
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="part-tab" data-bs-toggle="tab" data-bs-target="#part-tab-pane"
                     type="button" role="tab" aria-controls="part-tab-pane" aria-selected="false">
@@ -88,17 +98,37 @@
                 </a>
             </li>
         {% endif %}
+        {% if assembly.parameters is not empty %}
+            <li class="nav-item">
+                <a class="nav-link" id="parameters-tab" data-bs-toggle="tab"
+                   data-bs-target="#parameters-tab-pane" role="tab">
+                    <i class="fas fa-atlas fa-fw"></i>
+                    {% trans %}entity.info.parameters.tab{% endtrans %}
+                    <span class="badge bg-secondary">{{ assembly.parameters | length }}</span>
+                </a>
+            </li>
+        {% endif %}
     </ul>
-
     <div class="tab-content">
         <div class="tab-pane fade show active" id="info-tab-pane" role="tabpanel" aria-labelledby="info-tab" tabindex="0">
             {% include "assemblies/info/_info.html.twig" %}
         </div>
+        {% if assembly.children is not empty %}
+            <div class="tab-pane fade" id="subassemblies-tab-pane" role="tabpanel" aria-labelledby="bom-tab" tabindex="0">
+                {% include "assemblies/info/_subassemblies.html.twig" %}
+            </div>
+        {% endif %}
         <div class="tab-pane fade" id="part-tab-pane" role="tabpanel" aria-labelledby="part-tab" tabindex="0">
             {% include "assemblies/info/_part.html.twig" %}
         </div>
         <div class="tab-pane fade" id="attachments-tab-pane" role="tabpanel" aria-labelledby="attachments-tab" tabindex="0">
             {% include "assemblies/info/_attachments_info.html.twig" with {"assembly": assembly} %}
+        </div>
+        <div class="tab-pane fade" id="parameters-tab-pane" role="tabpanel" aria-labelledby="parameters-tab">
+            {% for name, parameters in assembly.groupedParameters %}
+                {% if name is not empty %}<h5 class="mt-1">{{ name }}</h5>{% endif %}
+                {{ helper.parameters_table(assembly.parameters) }}
+            {% endfor %}
         </div>
     </div>
 

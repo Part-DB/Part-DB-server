@@ -857,7 +857,7 @@ class BOMImporter
         if (isset($entry['name'])) {
             $givenName = trim($entry['name']) === '' ? null : trim ($entry['name']);
 
-            if ($givenName !== null && $bomEntry->getPart() !== null && $bomEntry->getPart()->getName() !== $givenName) {
+            if ($givenName !== null && $part !== null && $part->getName() !== $givenName) {
                 //Apply different names for parts list entry
                 $bomEntry->setName(trim($entry['name']) === '' ? null : trim ($entry['name']));
             }
