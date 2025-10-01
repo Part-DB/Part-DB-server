@@ -22,8 +22,6 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Entity\AssemblySystem\Assembly;
-use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentType;

@@ -170,13 +170,6 @@ services:
     ####################################################################################################################
     # Table settings
     ####################################################################################################################
-    App\DataTables\AssemblyDataTable:
-        arguments:
-            $visible_columns: '%partdb.table.assemblies.default_columns%'
-    App\DataTables\AssemblyBomEntriesDataTable:
-        arguments:
-            $visible_columns: '%partdb.table.assemblies_bom.default_columns%'
-
     App\DataTables\Helpers\ColumnSortHelper:
         shared: false   # Service has a state so not share it between different tables
 
@@ -196,25 +189,6 @@ services:
         arguments:
             $fontDirectory: '%kernel.project_dir%/var/dompdf/fonts/'
             $tmpDirectory: '%kernel.project_dir%/var/dompdf/tmp/'
-
-    ####################################################################################################################
-    # Trees
-    ####################################################################################################################
-    App\Services\Trees\TreeViewGenerator:
-        arguments:
-            $dataSourceSynonyms: '%partdb.data_sources.synonyms%'
-    App\Services\Trees\ToolsTreeBuilder:
-        arguments:
-            $dataSourceSynonyms: '%partdb.data_sources.synonyms%'
-
-    ####################################################################################################################
-    # Twig Extensions
-    ####################################################################################################################
-
-    App\Twig\DataSourceNameExtension:
-        arguments:
-            $dataSourceSynonyms: '%partdb.data_sources.synonyms%'
-        tags: [ 'twig.extension' ]
 
     ####################################################################################################################
     # Part info provider system

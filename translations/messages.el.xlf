@@ -2542,12 +2542,6 @@
         <target>Μη έγκυρη κανονική έκφραση (regex)</target>
       </segment>
     </unit>
-    <unit id="a7uOieC" name="datasource.synonym">
-      <segment state="translated">
-        <source>datasource.synonym</source>
-        <target>%name% (Το συνώνυμό σας: %synonym%)</target>
-      </segment>
-    </unit>
     <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
       <segment state="translated">
         <source>category.edit.part_ipn_prefix</source>
@@ -3655,12 +3649,6 @@
       <segment state="translated">
         <source>assembly.bom.table.edit</source>
         <target>Επεξεργασία</target>
-      </segment>
-    </unit>
-    <unit id="a7uOieC" name="datasource.synonym">
-      <segment state="translated">
-        <source>datasource.synonym</source>
-        <target>%name% (Το συνώνυμό σας: %synonym%)</target>
       </segment>
     </unit>
   </file>

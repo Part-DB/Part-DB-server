@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\DataTables\LogDataTable;
-use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
