@@ -51,15 +51,17 @@ class AssemblyBOMEntryType extends AbstractType
             ->add('designator', TextType::class, [
                 'label' => 'assembly.bom.designator',
                 'help' => 'assembly.bom.designator.help',
-                'required' => false
+                'empty_data' => '',
+                'required' => false,
             ])
             ->add('mountnames', TextType::class, [
                 'required' => false,
                 'label' => 'assembly.bom.mountnames',
+                'empty_data' => '',
                 'attr' => [
                     'class' => 'tagsinput',
                     'data-controller' => 'elements--tagsinput',
-                ]
+                ],
             ])
             ->add('comment', RichTextEditorType::class, [
                 'required' => false,

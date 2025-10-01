@@ -202,9 +202,10 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
         return $this->designator;
     }
 
-    public function setDesignator(string $designator): void
+    public function setDesignator(string $designator): AssemblyBOMEntry
     {
         $this->designator = $designator;
+        return $this;
     }
 
     /**
