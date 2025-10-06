@@ -31,7 +31,7 @@ class LessThanDesiredConstraint extends BooleanConstraint
     public function __construct(?string $property = null, ?string $identifier = null, ?bool $default_value = null)
     {
         parent::__construct($property ?? '(
-                    SELECT COALESCE(SUM(ld_partLot.amount), 0.0)
+                    SELECT COALESCE(SUM(ld_partLot.amount) + part.orderamount, 0.0)
                     FROM '.PartLot::class.' ld_partLot
                     WHERE ld_partLot.part = part.id
                     AND ld_partLot.instock_unknown = false
@@ -48,9 +48,9 @@ class LessThanDesiredConstraint extends BooleanConstraint
 
         //If value is true, we want to filter for parts with stock < desired stock
         if ($this->value) {
-            $queryBuilder->andHaving($this->property . ' + part.orderamount < part.minamount');
+            $queryBuilder->andHaving($this->property . ' < part.minamount');
         } else {
-            $queryBuilder->andHaving($this->property . ' + part.orderamount >= part.minamount');
+            $queryBuilder->andHaving($this->property . ' >= part.minamount');
         }
     }
 }
