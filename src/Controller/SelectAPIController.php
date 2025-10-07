@@ -32,8 +32,8 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\ProjectSystem\Project;
 use App\Form\Type\Helper\StructuralEntityChoiceHelper;
+use App\Services\Tools\TagFinder;
 use App\Services\Trees\NodesListBuilder;
-use App\ApiPlatform\Filter\TagFilter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,20 +49,6 @@ class SelectAPIController extends AbstractController
     public function __construct(private readonly NodesListBuilder $nodesListBuilder, private readonly TranslatorInterface $translator, private readonly StructuralEntityChoiceHelper $choiceHelper)
     {
     }
-
-    #[Route(path: '/tag', name: 'select_tag')]
-    public function tag(): Response
-    {
-        $tags = [
-                    'text' => 'test',
-                    'value' => 'test',
-                ];
-        $this->addEmptyNode($tags);
-        // pseudocode:
-        // for each part in selection
-        //   use TagFilter to find tags
-        // dedupe
-        return $this->json($tags);
 
     #[Route(path: '/category', name: 'select_category')]
     public function category(): Response
@@ -149,6 +135,27 @@ class SelectAPIController extends AbstractController
         $this->addEmptyNode($nodes, 'part_list.action.generate_label.empty');
 
         return $this->json($nodes);
+    }
+    
+    #[Route(path: '/tag', name: 'select_tag')]
+    public function getResponseForTags(EntityManagerInterface $entityManager): Response
+    {
+        $tf = new TagFinder($entityManager, ['min_keyword_length' => 2, 'query_limit' => 250]);
+        $list = $tf->listTags('__'); // return every tag with at least two characters!
+
+        $entries = [];
+
+        foreach($list as $d)
+        {
+
+            //if ($entries[$d] === null)
+                $entries[$d['tags']] = $d['tags'];
+        }
+
+        return $this->json(array_map(static fn($key, $value) => [
+            'text' => $value,
+            'value' => $key,
+        ], array_keys($entries), $entries));
     }
 
     protected function getResponseForClass(string $class, bool $include_empty = false): Response
