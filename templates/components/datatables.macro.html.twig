@@ -47,6 +47,10 @@
                         <option {% if not is_granted('@parts.edit')  %}disabled{% endif %} value="set_needs_review">{% trans %}part_list.action.action.set_needs_review{% endtrans %}</option>
                         <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="unset_needs_review">{% trans %}part_list.action.action.unset_needs_review{% endtrans %}</option>
                     </optgroup>
+                    <optgroup label="{% trans %}part_list.action.action.group.tags{% endtrans %}">
+                        <option {% if not is_granted('@parts.edit')  %}disabled{% endif %} value="add_tag" data-url="{{ path('select_tag') }}">{% trans %}part_list.action.action.add_tag{% endtrans %}</option>
+                        <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="remove_tag" data-url="{{ path('select_tag') }}">{% trans %}part_list.action.action.remove_tag{% endtrans %}</option>
+                    </optgroup>
                     <optgroup label="{% trans %}part_list.action.action.group.change_field{% endtrans %}">
                         <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="change_category" data-url="{{ path('select_category') }}">{% trans %}part_list.action.action.change_category{% endtrans %}</option>
                         <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="change_footprint" data-url="{{ path('select_footprint') }}">{% trans %}part_list.action.action.change_footprint{% endtrans %}</option>
@@ -80,6 +84,9 @@
                 <select class="form-select d-none" data-controller="elements--structural-entity-select" name="target" {{ stimulus_target('elements/datatables/parts', 'selectTargetPicker') }}>
                     {# This is left empty, as this will be filled by Javascript #}
                 </select>
+                <input class="tagsinput d-none" data-controller="elements--tagsinput" name="target" {{ stimulus_target('elements/datatables/parts', 'selectTargetPickerTags') }}>
+                    {# This is left empty, as this will be filled by Javascript #}
+                </input>
 
                 <button type="submit" class="btn btn-primary">{% trans %}part_list.action.submit{% endtrans %}</button>
             </div>

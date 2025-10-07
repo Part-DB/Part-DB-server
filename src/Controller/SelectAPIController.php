@@ -32,6 +32,7 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\ProjectSystem\Project;
 use App\Form\Type\Helper\StructuralEntityChoiceHelper;
+use App\Services\Tools\TagFinder;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -134,6 +135,27 @@ class SelectAPIController extends AbstractController
         $this->addEmptyNode($nodes, 'part_list.action.generate_label.empty');
 
         return $this->json($nodes);
+    }
+    
+    #[Route(path: '/tag', name: 'select_tag')]
+    public function getResponseForTags(EntityManagerInterface $entityManager): Response
+    {
+        $tf = new TagFinder($entityManager);
+        $list = $tf->listTags('__', ['min_keyword_length' => 2, 'query_limit' => 250]); // return every tag with at least two characters!
+
+        $entries = [];
+
+        foreach($list as $d)
+        {
+
+            //if ($entries[$d] === null)
+                $entries[$d['tags']] = $d['tags'];
+        }
+
+        return $this->json(array_map(static fn($key, $value) => [
+            'text' => $value,
+            'value' => $key,
+        ], array_keys($entries), $entries));
     }
 
     protected function getResponseForClass(string $class, bool $include_empty = false): Response

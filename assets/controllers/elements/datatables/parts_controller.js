@@ -27,7 +27,7 @@ import * as bootbox from "bootbox";
  */
 export default class extends DatatablesController {
 
-    static targets = ['dt', 'selectPanel', 'selectIDs', 'selectCount', 'selectTargetPicker'];
+    static targets = ['dt', 'selectPanel', 'selectIDs', 'selectCount', 'selectTargetPicker', 'selectTargetPickerTags'];
 
     _confirmed = false;
 
@@ -60,6 +60,7 @@ export default class extends DatatablesController {
         ).join(",");
 
         this.selectIDsTarget.value = selected_ids_string;
+        //updateTargetPicker(e, items); // to enable automatic update of tags that belong to the currently selected parts
     }
 
     updateOptions(select_element, json)
@@ -69,7 +70,19 @@ export default class extends DatatablesController {
         //$(select_element).selectpicker('destroy');
 
         //Retrieve the select controller instance
-        const select_controller = this.application.getControllerForElementAndIdentifier(select_element, 'elements--structural-entity-select');
+        var select_controller;
+        if (false && select_element.classList.contains('tagsinput'))
+        {
+            select_controller = this.application.getControllerForElementAndIdentifier(select_element, 'elements--tagsinput');
+            const selectPanel = this.selectPanelTarget;
+            selectPanel.querySelector('.tagsinput').classList.remove('d-none');
+        }
+        else
+        {
+            select_controller = this.application.getControllerForElementAndIdentifier(select_element, 'elements--structural-entity-select');
+            select_element.nextElementSibling.classList.remove('d-none');
+        }
+
         /** @var {TomSelect} tom_select */
         const tom_select = select_controller.getTomSelect();
 
@@ -83,20 +96,24 @@ export default class extends DatatablesController {
             tom_select.setValue(json[0].value);
         }
 
-        select_element.nextElementSibling.classList.remove('d-none');
 
         //$(select_element).selectpicker('show');
-
+        
     }
 
-    updateTargetPicker(event) {
+    updateTargetPicker(event, items) {
         const element = event.target;
 
         //Extract the url from the selected option
         const selected_option = element.options[element.options.selectedIndex];
         const url = selected_option.dataset.url;
 
-        const select_target = this.selectTargetPickerTarget;
+        var select_target;
+        if (url && url.endsWith('tag')){
+            select_target = this.selectTargetPickerTagsTarget;
+        }
+        else 
+            select_target = this.selectTargetPickerTarget;
 
         if (url) {
             fetch(url)
@@ -106,8 +123,9 @@ export default class extends DatatablesController {
                     });
                 });
         } else {
-            //Hide the select element (the tomselect button is the sibling of the select element)
+            //Hide the select elements (the tomselect button is the sibling of the select element)
             select_target.nextElementSibling.classList.add('d-none');
+            this.selectPanelTarget.querySelector('.tagsinput').classList.add('d-none');
         }
 
         //If the selected option has a data-turbo attribute, set it to the form

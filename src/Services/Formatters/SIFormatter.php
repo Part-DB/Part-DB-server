@@ -38,7 +38,7 @@ class SIFormatter
      */
     public function getMagnitude(float $value): int
     {
-        return (int) floor(log10(abs($value)));
+        return intval(floor(log10(abs($value))));
     }
 
     /**

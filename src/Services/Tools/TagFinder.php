@@ -49,8 +49,27 @@ class TagFinder
     public function searchTags(string $keyword, array $options = []): array
     {
         $results = [];
-        $keyword_regex = '/^'.preg_quote($keyword, '/').'/';
 
+        $resolver = new OptionsResolver();
+        $this->configureOptions($resolver);
+        $options = $resolver->resolve($options);
+        
+        $keyword_regex = '/^'.preg_quote($keyword, '/').'/';
+        $possible_tags = $this->listTags($keyword, $options);
+
+        //Iterate over each possible tags (which are comma separated) and extract tags which match our keyword
+        foreach ($possible_tags as $tags) {
+            $tags = explode(',', (string) $tags['tags']);
+            $results = array_merge($results, preg_grep($keyword_regex, $tags));
+        }
+
+        $results = array_unique($results);
+        //Limit the returned tag count to specified value.
+        return array_slice($results, 0, $options['return_limit']);
+    }
+
+    public function listTags(string $keyword, array $options = []): array
+    {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
 
@@ -71,18 +90,9 @@ class TagFinder
             //->orderBy('RAND()')
             ->setParameter(1, '%'.$keyword.'%');
 
-        $possible_tags = $qb->getQuery()->getArrayResult();
-
-        //Iterate over each possible tags (which are comma separated) and extract tags which match our keyword
-        foreach ($possible_tags as $tags) {
-            $tags = explode(',', (string) $tags['tags']);
-            $results = array_merge($results, preg_grep($keyword_regex, $tags));
-        }
-
-        $results = array_unique($results);
-        //Limit the returned tag count to specified value.
-        return array_slice($results, 0, $options['return_limit']);
+        return $qb->getQuery()->getArrayResult();
     }
+
 
     protected function configureOptions(OptionsResolver $resolver): void
     {
