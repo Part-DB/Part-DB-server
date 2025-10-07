@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['8.2', '8.3', '8.4' ]
+        php-versions: ['8.2', '8.3', '8.4', '8.5' ]
         db-type: [ 'mysql', 'sqlite', 'postgres' ]
 
     env:
@@ -104,7 +104,7 @@ jobs:
         run: composer install --prefer-dist --no-progress
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '20'
 

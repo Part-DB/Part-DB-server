@@ -154,12 +154,17 @@ class PartListsController extends AbstractController
             $filter_changer($filter);
         }
 
-        $filterForm = $this->createForm(PartFilterType::class, $filter, ['method' => 'GET']);
-        if($form_changer !== null) {
-            $form_changer($filterForm);
-        }
+        //If we are in a post request for the tables, we only have to apply the filter form if the submit query param was set
+        //This saves us some time from creating this complicated term on simple list pages, where no special filter is applied
+        $filterForm = null;
+        if ($request->getMethod() !== 'POST' || $request->query->has('part_filter')) {
+            $filterForm = $this->createForm(PartFilterType::class, $filter, ['method' => 'GET']);
+            if ($form_changer !== null) {
+                $form_changer($filterForm);
+            }
 
-        $filterForm->handleRequest($formRequest);
+            $filterForm->handleRequest($formRequest);
+        }
 
         $table = $this->dataTableFactory->createFromType(PartsDataTable::class, array_merge(
             ['filter' => $filter], $additional_table_vars),
@@ -186,7 +191,7 @@ class PartListsController extends AbstractController
 
         return $this->render($template, array_merge([
             'datatable' => $table,
-            'filterForm' => $filterForm->createView(),
+            'filterForm' => $filterForm?->createView(),
         ], $additonal_template_vars));
     }
 

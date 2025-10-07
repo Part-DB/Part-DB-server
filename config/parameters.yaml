@@ -104,3 +104,9 @@ parameters:
   env(SAML_ROLE_MAPPING): '{}'
 
   env(DATABASE_EMULATE_NATURAL_SORT): 0
+
+  ######################################################################################################################
+  # Bulk Info Provider Import Configuration
+  ######################################################################################################################
+  partdb.bulk_import.batch_size: 20                      # Number of parts to process in each batch during bulk operations
+  partdb.bulk_import.max_parts_per_operation: 1000       # Maximum number of parts allowed per bulk import operation
