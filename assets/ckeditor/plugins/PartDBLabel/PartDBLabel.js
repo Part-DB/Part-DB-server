@@ -22,7 +22,7 @@ import PartDBLabelEditing from "./PartDBLabelEditing";
 
 import "./PartDBLabel.css";
 
-import Plugin from "@ckeditor/ckeditor5-core/src/plugin";
+import {Plugin} from "ckeditor5";
 
 export default class PartDBLabel extends Plugin {
     static get requires() {

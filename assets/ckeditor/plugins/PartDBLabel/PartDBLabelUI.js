@@ -17,14 +17,14 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import {Plugin} from 'ckeditor5';
 
 require('./lang/de.js');
 
-import { addListToDropdown, createDropdown } from '@ckeditor/ckeditor5-ui/src/dropdown/utils';
+import { addListToDropdown, createDropdown } from 'ckeditor5';
 
-import Collection from '@ckeditor/ckeditor5-utils/src/collection';
-import Model from '@ckeditor/ckeditor5-ui/src/model';
+import {Collection} from 'ckeditor5';
+import {Model} from 'ckeditor5';
 
 export default class PartDBLabelUI extends Plugin {
     init() {

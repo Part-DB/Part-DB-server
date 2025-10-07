@@ -16,6 +16,7 @@ export default class extends Controller {
             searchField: ["name", "description", "category", "footprint"],
             valueField: "id",
             labelField: "name",
+            dropdownParent: 'body',
             preload: "focus",
             render: {
                 item: (data, escape) => {

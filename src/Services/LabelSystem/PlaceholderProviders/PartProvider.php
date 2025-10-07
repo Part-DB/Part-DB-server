@@ -46,7 +46,9 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
 use App\Services\Formatters\SIFormatter;
-use Parsedown;
+use League\CommonMark\Environment\Environment;
+use League\CommonMark\Extension\InlinesOnly\InlinesOnlyExtension;
+use League\CommonMark\MarkdownConverter;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -54,8 +56,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class PartProvider implements PlaceholderProviderInterface
 {
+    private readonly MarkdownConverter $inlineConverter;
+
     public function __construct(private readonly SIFormatter $siFormatter, private readonly TranslatorInterface $translator)
     {
+        $environment = new Environment();
+        $environment->addExtension(new InlinesOnlyExtension());
+        $this->inlineConverter = new MarkdownConverter($environment);
     }
 
     public function replace(string $placeholder, object $part, array $options = []): ?string
@@ -112,22 +119,20 @@ final class PartProvider implements PlaceholderProviderInterface
             return $this->translator->trans($part->getManufacturingStatus()->toTranslationKey());
         }
 
-        $parsedown = new Parsedown();
-
         if ('[[DESCRIPTION]]' === $placeholder) {
-            return $parsedown->line($part->getDescription());
+            return trim($this->inlineConverter->convert($part->getDescription())->getContent());
         }
 
         if ('[[DESCRIPTION_T]]' === $placeholder) {
-            return strip_tags((string) $parsedown->line($part->getDescription()));
+            return trim(strip_tags($this->inlineConverter->convert($part->getDescription())->getContent()));
         }
 
         if ('[[COMMENT]]' === $placeholder) {
-            return $parsedown->line($part->getComment());
+            return trim($this->inlineConverter->convert($part->getComment())->getContent());
         }
 
         if ('[[COMMENT_T]]' === $placeholder) {
-            return strip_tags((string) $parsedown->line($part->getComment()));
+            return trim(strip_tags($this->inlineConverter->convert($part->getComment())->getContent()));
         }
 
         return null;

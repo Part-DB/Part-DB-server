@@ -54,6 +54,7 @@ export default class extends Controller {
             maxItems: 1,
             delimiter: "$$VERY_LONG_DELIMITER_THAT_SHOULD_NEVER_APPEAR$$",
             splitOn: null,
+            dropdownParent: 'body',
 
             searchField: [
                 {field: "text", weight : 2},

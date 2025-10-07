@@ -31,6 +31,7 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use App\Settings\InfoProviderSystem\PollinSettings;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -39,8 +40,7 @@ class PollinProvider implements InfoProviderInterface
 {
 
     public function __construct(private readonly HttpClientInterface $client,
-        #[Autowire(env: 'bool:PROVIDER_POLLIN_ENABLED')]
-        private readonly bool $enabled = true,
+        private readonly PollinSettings $settings,
     )
     {
     }
@@ -51,7 +51,8 @@ class PollinProvider implements InfoProviderInterface
             'name' => 'Pollin',
             'description' => 'Webscraping from pollin.de to get part information',
             'url' => 'https://www.pollin.de/',
-            'disabled_help' => 'Set PROVIDER_POLLIN_ENABLED env to 1'
+            'disabled_help' => 'Enable the provider in provider settings',
+            'settings_class' => PollinSettings::class,
         ];
     }
 
@@ -62,7 +63,7 @@ class PollinProvider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return $this->enabled;
+        return $this->settings->enabled;
     }
 
     public function searchByKeyword(string $keyword): array
@@ -157,7 +158,8 @@ class PollinProvider implements InfoProviderInterface
             category: $this->parseCategory($dom),
             manufacturer: $dom->filter('meta[property="product:brand"]')->count() > 0 ? $dom->filter('meta[property="product:brand"]')->attr('content') : null,
             preview_image_url: $dom->filter('meta[property="og:image"]')->attr('content'),
-            manufacturing_status: $this->mapAvailability($dom->filter('link[itemprop="availability"]')->attr('href')),
+            //TODO: Find another way to determine the manufacturing status, as  the itemprop="availability" is often is not existing anymore in the page
+            //manufacturing_status: $this->mapAvailability($dom->filter('link[itemprop="availability"]')->attr('href')),
             provider_url: $productPageUrl,
             notes: $this->parseNotes($dom),
             datasheets: $this->parseDatasheets($dom),

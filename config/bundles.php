@@ -30,6 +30,7 @@ return [
     Jbtronics\DompdfFontLoaderBundle\DompdfFontLoaderBundle::class => ['all' => true],
     KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle::class => ['all' => true],
     Nelmio\CorsBundle\NelmioCorsBundle::class => ['all' => true],
-    ApiPlatform\Symfony\Bundle\ApiPlatformBundle::class => ['all' => true],
+    Jbtronics\SettingsBundle\JbtronicsSettingsBundle::class => ['all' => true],
     Jbtronics\TranslationEditorBundle\JbtronicsTranslationEditorBundle::class => ['dev' => true],
+    ApiPlatform\Symfony\Bundle\ApiPlatformBundle::class => ['all' => true],
 ];

@@ -347,7 +347,13 @@
         <target>Aufgrund technischer Beschränkungen ist es nicht möglich, ein Datum nach dem 19.01.2038 auf 32-Bit Systemen auszuwählen!</target>
       </segment>
     </unit>
-    <unit id="ZFxQ0BZ" name="validator.invalid_range">
+    <unit id="89nojXY" name="validator.fileSize.invalidFormat">
+      <segment state="translated">
+        <source>validator.fileSize.invalidFormat</source>
+        <target>Ungültige Angabe für die Dateigröße. Verwenden Sie eine ganze Zahl mit K, M, G als Suffix für Kilo, Mega oder Gigabytes.</target>
+      </segment>
+    </unit>
+    <unit id="iXcU7ce" name="validator.invalid_range">
       <segment state="translated">
         <source>validator.invalid_range</source>
         <target>Der gegebene Bereich ist nicht gültig!</target>
@@ -356,7 +362,7 @@
     <unit id="m4gp2P_" name="validator.google_code.wrong_code">
       <segment state="translated">
         <source>validator.google_code.wrong_code</source>
-        <target>Ungültiger Code. Überprüfen Sie, dass die Authenticator App korrekt eingerichtet ist und dass der Server und das Gerät beide die korrekte Uhrzeit eingestellt haben.</target>
+        <target>Ungültiger Code. Überprüfen Sie, ob die Authenticator App korrekt eingerichtet ist und ob der Server und das Gerät beide die korrekte Uhrzeit eingestellt haben.</target>
       </segment>
     </unit>
   </file>

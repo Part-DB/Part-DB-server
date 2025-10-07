@@ -46,6 +46,7 @@ use App\Services\UserSystem\VoterHelper;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\Part;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
@@ -61,7 +62,7 @@ final class PartAssociationVoter extends Voter
 
     protected const ALLOWED_PERMS = ['read', 'edit', 'create', 'delete', 'show_history', 'revert_element'];
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         if (!is_string($subject) && !$subject instanceof PartAssociation) {
             throw new \RuntimeException('Invalid subject type!');
@@ -77,7 +78,7 @@ final class PartAssociationVoter extends Voter
 
         //If we have no part associated use the generic part permission
         if (is_string($subject) ||  !$subject->getOwner() instanceof Part) {
-            return $this->helper->isGranted($token, 'parts', $operation);
+            return $this->helper->isGranted($token, 'parts', $operation, $vote);
         }
 
         //Otherwise vote on the part

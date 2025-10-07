@@ -20,6 +20,8 @@
 import {Controller} from "@hotwired/stimulus";
 import TomSelect from "tom-select";
 
+// TODO: Merge with select_controller.js
+
 export default class extends Controller {
     _tomSelect;
 
@@ -27,6 +29,7 @@ export default class extends Controller {
         this._tomSelect = new TomSelect(this.element, {
             maxItems: 1000,
             allowEmptyOption: true,
+            dropdownParent: 'body',
             plugins: ['remove_button'],
         });
     }

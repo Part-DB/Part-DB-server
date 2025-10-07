@@ -1,5 +1,9 @@
 {% extends 'bootstrap_5_horizontal_layout.html.twig' %}
 
+{%- block toggle_password_widget -%}
+    <div class="{{ toggle_container_classes|join(' ') }}">{{ block('password_widget') }}</div>
+{%- endblock toggle_password_widget -%}
+
 {# Make form rows smaller #}
 {% block form_row -%}
     {%- set row_attr = row_attr|merge({"class": "mb-2"})  -%}

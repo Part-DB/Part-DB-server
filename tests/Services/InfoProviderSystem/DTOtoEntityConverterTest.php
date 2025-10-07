@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Tests\Services\InfoProviderSystem;
 
+use App\Entity\PriceInformations\Currency;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
@@ -83,6 +84,7 @@ class DTOtoEntityConverterTest extends WebTestCase
 
         //For non-base currencies, a new currency entity is created
         $currency = $entity->getCurrency();
+        $this->assertInstanceOf(Currency::class, $currency);
         $this->assertEquals($dto->currency_iso_code, $currency->getIsoCode());
     }
 

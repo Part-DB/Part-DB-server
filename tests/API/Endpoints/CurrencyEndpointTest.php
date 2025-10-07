@@ -36,7 +36,7 @@ class CurrencyEndpointTest extends CrudEndpointTestCase
     {
         $this->_testGetCollection();
         self::assertJsonContains([
-            'hydra:totalItems' => 0,
+            'hydra:totalItems' => 4, //The 4 currencies from our fixtures
         ]);
     }
 
@@ -45,7 +45,7 @@ class CurrencyEndpointTest extends CrudEndpointTestCase
     {
         $this->_testPostItem([
             'name' => 'Test API',
-            'iso_code' => 'USD',
+            'iso_code' => 'CAD',
         ]);
     }
 

@@ -44,6 +44,7 @@ namespace App\Security\Voter;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Services\UserSystem\VoterHelper;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
@@ -58,14 +59,15 @@ final class LabelProfileVoter extends Voter
         'delete' => 'delete_profiles',
         'show_history' => 'show_history',
         'revert_element' => 'revert_element',
+        'import' => 'import',
     ];
 
     public function __construct(private readonly VoterHelper $helper)
     {}
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
-        return $this->helper->isGranted($token, 'labels', self::MAPPING[$attribute]);
+        return $this->helper->isGranted($token, 'labels', self::MAPPING[$attribute], $vote);
     }
 
     protected function supports($attribute, $subject): bool
