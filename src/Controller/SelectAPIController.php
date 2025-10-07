@@ -140,8 +140,8 @@ class SelectAPIController extends AbstractController
     #[Route(path: '/tag', name: 'select_tag')]
     public function getResponseForTags(EntityManagerInterface $entityManager): Response
     {
-        $tf = new TagFinder($entityManager, ['min_keyword_length' => 2, 'query_limit' => 250]);
-        $list = $tf->listTags('__'); // return every tag with at least two characters!
+        $tf = new TagFinder($entityManager);
+        $list = $tf->listTags('__', ['min_keyword_length' => 2, 'query_limit' => 250]); // return every tag with at least two characters!
 
         $entries = [];
 

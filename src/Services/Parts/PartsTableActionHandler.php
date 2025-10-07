@@ -94,7 +94,7 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
             }
 
             return new RedirectResponse(
-                $this->urlGenerator->generate($target_id !== 0 && $target_id !== null ? 'label_dialog_profile' : 'label_dialog', [
+                $this->urlGenerator->generate($target_id !== null && intval($target_id) !== 0 ? 'label_dialog_profile' : 'label_dialog', [
                     'profile' => $target_id,
                     'target_id' => $targets,
                     'generate' => '1',
@@ -107,7 +107,7 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
         $matches = [];
         if (preg_match('/^export_(json|yaml|xml|csv)$/', $action, $matches)) {
             $ids = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
-            $level = match ($target_id) {
+            $level = match (intval($target_id)) {
                 2 => 'extended',
                 3 => 'full',
                 default => 'simple',
