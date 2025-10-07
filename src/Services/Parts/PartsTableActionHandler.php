@@ -70,8 +70,8 @@ final class PartsTableActionHandler
     public function handleAction(string $action, array $selected_parts, ?string $target_id, ?string $redirect_url = null, array &$errors = []): ?RedirectResponse
     {
         // validate target_id
-        if (!str_contains($action, 'tag') && $target_id !== null && !is_numeric($target_id))
-                throw new InvalidArgumentException('$target_id must be an integer for action'. $action.'!');
+        if (!str_contains($action, 'tag') && $target_id !== null && !is_numeric($target_id)) {
+                throw new InvalidArgumentException('$target_id must be an integer for action '. $action.'!');
         }
 
         if ($action === 'add_to_project') {
@@ -136,17 +136,24 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
 
             switch ($action) {
                 case "add_tag":
-                    $this->denyAccessUnlessGranted('edit', $part);
-                    $tags = $part->getTags();
-                    // simple append
-                    $part->setTags($tags.','.$target_id);
+                    if ($target_id !== null)
+                    {
+                        $this->denyAccessUnlessGranted('edit', $part);
+                        $tags = $part->getTags();
+                        // simply append the tag but and avoid duplicates
+                        if (!str_contains($tags, $target_id))
+                            $part->setTags($tags.','.$target_id);
+                    }
                     break;
                 case "remove_tag":
-                    $this->denyAccessUnlessGranted('edit', $part);
-                    // remove any matching tag at start or end
-                    $tags = preg_replace('/(^'.$target_id.',|,'.$target_id.'$)/', '', $part->getTags());
-                    // remove any matching tags in the middle, retaining one comma, and commit
-                    $part->setTags(str_replace(','.$target_id.',', ',' $tags);
+                    if ($target_id !== null)
+                    {
+                        $this->denyAccessUnlessGranted('edit', $part);
+                        // remove any matching tag at start or end
+                        $tags = preg_replace('/(^'.$target_id.',|,'.$target_id.'$)/', '', $part->getTags());
+                        // remove any matching tags in the middle, retaining one comma, and commit
+                        $part->setTags(str_replace(','.$target_id.',', ',', $tags));
+                    }
                     break;
                 case 'favorite':
                     $this->denyAccessUnlessGranted('change_favorite', $part);
