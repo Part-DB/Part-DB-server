@@ -88,6 +88,8 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
+use App\Settings\InfoProviderSystem\OEMSecretsSettings;
+use App\Settings\InfoProviderSystem\OEMSecretsSortMode;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Psr\Cache\CacheItemPoolInterface;
 
@@ -99,12 +101,7 @@ class OEMSecretsProvider implements InfoProviderInterface
 
     public function __construct(
         private readonly HttpClientInterface $oemsecretsClient,
-        private readonly string $api_key,
-        private readonly string $country_code,
-        private readonly string $currency,
-        private readonly string $zero_price,
-        private readonly string $set_param,
-        private readonly string $sort_criteria,
+        private readonly OEMSecretsSettings $settings,
         private readonly CacheItemPoolInterface $partInfoCache
     )
     {
@@ -249,7 +246,8 @@ class OEMSecretsProvider implements InfoProviderInterface
             'name' => 'OEMSecrets',
             'description' => 'This provider uses the OEMSecrets API to search for parts.',
             'url' => 'https://www.oemsecrets.com/',
-            'disabled_help' => 'Configure the API key in the PROVIDER_OEMSECRETS_KEY environment variable to enable.'
+            'disabled_help' => 'Configure the API key in the provider settings to enable.',
+            'settings_class' => OEMSecretsSettings::class
         ];
     }
     /**
@@ -268,7 +266,7 @@ class OEMSecretsProvider implements InfoProviderInterface
      */
     public function isActive(): bool
     {
-        return $this->api_key !== '';
+        return $this->settings->apiKey !== null && $this->settings->apiKey !== '';
     }
 
 
@@ -288,18 +286,18 @@ class OEMSecretsProvider implements InfoProviderInterface
     public function searchByKeyword(string $keyword): array
     {
         /*
-        oemsecrets Part Search API  3.0.1 
+        oemsecrets Part Search API  3.0.1
 
         "https://oemsecretsapi.com/partsearch?
         searchTerm=BC547
         &apiKey=icawpb0bspoo2c6s64uv4vpdfp2vgr7e27bxw0yct2bzh87mpl027x353uelpq2x
         &currency=EUR
-        &countryCode=IT" 
-        
+        &countryCode=IT"
+
         partsearch description:
-        Use the Part Search API to find distributor data for a full or partial manufacturer 
+        Use the Part Search API to find distributor data for a full or partial manufacturer
         part number including part details, pricing, compliance and inventory.
-        
+
         Required Parameter  	Format	        Description
         searchTerm	            string	        Part number you are searching for
         apiKey	                string	        Your unique API key provided to you by OEMsecrets
@@ -307,14 +305,14 @@ class OEMSecretsProvider implements InfoProviderInterface
         Additional Parameter	Format	        Description
         countryCode	            string	        The country you want to output for
         currency	            string / array	The currency you want the prices to be displayed as
-        
+
         To display the output for GB and to view prices in USD, add [ countryCode=GB ] and [ currency=USD ]
         as seen below:
         oemsecretsapi.com/partsearch?apiKey=abcexampleapikey123&searchTerm=bd04&countryCode=GB&currency=USD
-        
+
         To view prices in both USD and GBP add [ currency[]=USD&currency[]=GBP ]
         oemsecretsapi.com/partsearch?searchTerm=bd04&apiKey=abcexampleapikey123&currency[]=USD&currency[]=GBP
-        
+
         */
 
 
@@ -324,9 +322,9 @@ class OEMSecretsProvider implements InfoProviderInterface
         $response = $this->oemsecretsClient->request('GET', self::ENDPOINT_URL, [
             'query' => [
                 'searchTerm' => $keyword,
-                'apiKey' => $this->api_key,
-                'currency' => $this->currency,
-                'countryCode' => $this->country_code,
+                'apiKey' => $this->settings->apiKey,
+                'currency' => $this->settings->currency,
+                'countryCode' => $this->settings->country,
             ],
         ]);
 
@@ -533,7 +531,7 @@ class OEMSecretsProvider implements InfoProviderInterface
 
         // Extract prices
         $priceDTOs = $this->getPrices($product);
-        if (empty($priceDTOs) && (int)$this->zero_price === 0) {
+        if (empty($priceDTOs) && !$this->settings->keepZeroPrices) {
             return null; // Skip products without valid prices
         }
 
@@ -557,7 +555,7 @@ class OEMSecretsProvider implements InfoProviderInterface
         }
 
         $imagesResults[$provider_id] = $this->getImages($product, $imagesResults[$provider_id] ?? []);
-        if ($this->set_param == 1) {
+        if ($this->settings->parseParams) {
             $parametersResults[$provider_id] = $this->getParameters($product, $parametersResults[$provider_id] ?? []);
         } else {
             $parametersResults[$provider_id] = [];
@@ -582,7 +580,7 @@ class OEMSecretsProvider implements InfoProviderInterface
                 $regionB = $this->countryCodeToRegionMap[$countryCodeB] ?? '';
 
                 // If the map is empty or doesn't contain the key for $this->country_code, assign a placeholder region.
-                $regionForEnvCountry = $this->countryCodeToRegionMap[$this->country_code] ?? '';
+                $regionForEnvCountry = $this->countryCodeToRegionMap[$this->settings->country] ?? '';
 
                 // Convert to string before comparison to avoid mixed types
                 $countryCodeA = (string) $countryCodeA;
@@ -599,9 +597,9 @@ class OEMSecretsProvider implements InfoProviderInterface
                 }
 
                 // Step 1: country_code from the environment
-                if ($countryCodeA === $this->country_code && $countryCodeB !== $this->country_code) {
+                if ($countryCodeA === $this->settings->country && $countryCodeB !== $this->settings->country) {
                     return -1;
-                } elseif ($countryCodeA !== $this->country_code && $countryCodeB === $this->country_code) {
+                } elseif ($countryCodeA !== $this->settings->country && $countryCodeB === $this->settings->country) {
                     return 1;
                 }
 
@@ -681,8 +679,8 @@ class OEMSecretsProvider implements InfoProviderInterface
 
         if (is_array($prices)) {
             // Step 1: Check if prices exist in the preferred currency
-            if (isset($prices[$this->currency]) && is_array($prices[$this->currency])) {
-                $priceDetails = $prices[$this->currency];
+            if (isset($prices[$this->settings->currency]) && is_array($prices[$this->settings->currency])) {
+                $priceDetails = $prices[$this->$this->settings->currency];
                 foreach ($priceDetails as $priceDetail) {
                     if (
                         is_array($priceDetail) &&
@@ -694,7 +692,7 @@ class OEMSecretsProvider implements InfoProviderInterface
                         $priceDTOs[] = new PriceDTO(
                             minimum_discount_amount: (float)$priceDetail['unit_break'],
                             price: (string)$priceDetail['unit_price'],
-                            currency_iso_code: $this->currency,
+                            currency_iso_code: $this->settings->currency,
                             includes_tax: false,
                             price_related_quantity: 1.0
                         );
@@ -1293,7 +1291,7 @@ class OEMSecretsProvider implements InfoProviderInterface
     private function sortResultsData(array &$resultsData, string $searchKeyword): void
     {
         // If the SORT_CRITERIA is not 'C' or 'M', do not sort
-        if ($this->sort_criteria !== 'C' && $this->sort_criteria !== 'M') {
+        if ($this->settings->sortMode !== OEMSecretsSortMode::COMPLETENESS && $this->settings->sortMode !== OEMSecretsSortMode::MANUFACTURER) {
             return;
         }
         usort($resultsData, function ($a, $b) use ($searchKeyword) {
@@ -1332,9 +1330,9 @@ class OEMSecretsProvider implements InfoProviderInterface
             }
 
             // Final sorting: by completeness or manufacturer, if necessary
-            if ($this->sort_criteria === 'C') {
+            if ($this->settings->sortMode === OEMSecretsSortMode::COMPLETENESS) {
                 return $this->compareByCompleteness($a, $b);
-            } elseif ($this->sort_criteria === 'M') {
+            } elseif ($this->settings->sortMode === OEMSecretsSortMode::MANUFACTURER) {
                 return strcasecmp($a->manufacturer, $b->manufacturer);
             }
 

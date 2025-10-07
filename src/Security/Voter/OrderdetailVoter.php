@@ -46,6 +46,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Orderdetail;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
@@ -59,7 +60,7 @@ final class OrderdetailVoter extends Voter
 
     protected const ALLOWED_PERMS = ['read', 'edit', 'create', 'delete', 'show_history', 'revert_element'];
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         if (! is_a($subject, Orderdetail::class, true)) {
             throw new \RuntimeException('This voter can only handle Orderdetail objects!');
@@ -75,7 +76,7 @@ final class OrderdetailVoter extends Voter
 
         //If we have no part associated use the generic part permission
         if (is_string($subject) || !$subject->getPart() instanceof Part) {
-            return $this->helper->isGranted($token, 'parts', $operation);
+            return $this->helper->isGranted($token, 'parts', $operation, $vote);
         }
 
         //Otherwise vote on the part

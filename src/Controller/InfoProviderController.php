@@ -29,10 +29,15 @@ use App\Form\InfoProviderSystem\PartSearchType;
 use App\Services\InfoProviderSystem\ExistingPartFinder;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
+use App\Settings\AppSettings;
+use App\Settings\InfoProviderSystem\InfoProviderGeneralSettings;
 use Doctrine\ORM\EntityManagerInterface;
+use Jbtronics\SettingsBundle\Form\SettingsFormFactoryInterface;
+use Jbtronics\SettingsBundle\Manager\SettingsManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,7 +51,9 @@ class InfoProviderController extends  AbstractController
 
     public function __construct(private readonly ProviderRegistry $providerRegistry,
         private readonly PartInfoRetriever $infoRetriever,
-        private readonly ExistingPartFinder $existingPartFinder
+        private readonly ExistingPartFinder $existingPartFinder,
+        private readonly SettingsManagerInterface $settingsManager,
+        private readonly SettingsFormFactoryInterface $settingsFormFactory
     )
     {
 
@@ -63,9 +70,51 @@ class InfoProviderController extends  AbstractController
         ]);
     }
 
+    #[Route('/provider/{provider}/settings', name: 'info_providers_provider_settings')]
+    public function providerSettings(string $provider, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('@config.change_system_settings');
+        $this->denyAccessUnlessGranted('@info_providers.create_parts');
+
+        $providerInstance = $this->providerRegistry->getProviderByKey($provider);
+        $settingsClass = $providerInstance->getProviderInfo()['settings_class'] ?? throw new \LogicException('Provider ' . $provider . ' does not have a settings class defined');
+
+        //Create a clone of the settings object
+        $settings = $this->settingsManager->createTemporaryCopy($settingsClass);
+
+        //Create a form builder for the settings object
+        $builder = $this->settingsFormFactory->createSettingsFormBuilder($settings);
+
+        //Add a submit button to the form
+        $builder->add('submit', SubmitType::class, ['label' => 'save']);
+
+        //Create the form
+        $form = $builder->getForm();
+        $form->handleRequest($request);
+
+        //If the form was submitted and is valid, save the settings
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->settingsManager->mergeTemporaryCopy($settings);
+            $this->settingsManager->save($settings);
+
+            $this->addFlash('success', t('settings.flash.saved'));
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', t('settings.flash.invalid'));
+        }
+
+        //Render the form
+        return $this->render('info_providers/settings/provider_settings.html.twig', [
+            'form' => $form,
+            'info_provider_key' => $provider,
+            'info_provider_info' => $providerInstance->getProviderInfo(),
+        ]);
+    }
+
     #[Route('/search', name: 'info_providers_search')]
     #[Route('/update/{target}', name: 'info_providers_update_part_search')]
-    public function search(Request $request, #[MapEntity(id: 'target')] ?Part $update_target, LoggerInterface $exceptionLogger): Response
+    public function search(Request $request, #[MapEntity(id: 'target')] ?Part $update_target, LoggerInterface $exceptionLogger, InfoProviderGeneralSettings $infoProviderSettings): Response
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
@@ -94,6 +143,23 @@ class InfoProviderController extends  AbstractController
                     //If the provider is not found, just ignore it
                 }
             }
+        }
+
+        //If the providers form is still empty, use our default value from the settings
+        if (count($form->get('providers')->getData() ?? []) === 0) {
+            $default_providers = $infoProviderSettings->defaultSearchProviders;
+            $provider_objects = [];
+            foreach ($default_providers as $provider_key) {
+                try {
+                    $tmp = $this->providerRegistry->getProviderByKey($provider_key);
+                    if ($tmp->isActive()) {
+                        $provider_objects[] = $tmp;
+                    }
+                } catch (\InvalidArgumentException $e) {
+                    //If the provider is not found, just ignore it
+                }
+            }
+            $form->get('providers')->setData($provider_objects);
         }
 
         if ($form->isSubmitted() && $form->isValid()) {

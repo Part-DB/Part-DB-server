@@ -36,6 +36,7 @@ use App\Exceptions\InvalidRegexException;
 use App\Form\Filters\PartFilterType;
 use App\Services\Parts\PartsTableActionHandler;
 use App\Services\Trees\NodesListBuilder;
+use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -51,7 +52,12 @@ use function Symfony\Component\Translation\t;
 
 class PartListsController extends AbstractController
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly NodesListBuilder $nodesListBuilder, private readonly DataTableFactory $dataTableFactory, private readonly TranslatorInterface $translator)
+    public function __construct(private readonly EntityManagerInterface $entityManager,
+        private readonly NodesListBuilder $nodesListBuilder,
+        private readonly DataTableFactory $dataTableFactory,
+        private readonly TranslatorInterface $translator,
+        private readonly TableSettings $tableSettings
+    )
     {
     }
 
@@ -148,18 +154,21 @@ class PartListsController extends AbstractController
             $filter_changer($filter);
         }
 
-        $filterForm = $this->createForm(PartFilterType::class, $filter, ['method' => 'GET']);
-        if($form_changer !== null) {
-            $form_changer($filterForm);
+        //If we are in a post request for the tables, we only have to apply the filter form if the submit query param was set
+        //This saves us some time from creating this complicated term on simple list pages, where no special filter is applied
+        $filterForm = null;
+        if ($request->getMethod() !== 'POST' || $request->query->has('part_filter')) {
+            $filterForm = $this->createForm(PartFilterType::class, $filter, ['method' => 'GET']);
+            if ($form_changer !== null) {
+                $form_changer($filterForm);
+            }
+
+            $filterForm->handleRequest($formRequest);
         }
 
-        $filterForm->handleRequest($formRequest);
-
-        $table = $this->dataTableFactory->createFromType(
-            PartsDataTable::class,
-            array_merge(['filter' => $filter], $additional_table_vars),
-            ['lengthMenu' => PartsDataTable::LENGTH_MENU]
-        )
+        $table = $this->dataTableFactory->createFromType(PartsDataTable::class, array_merge(
+            ['filter' => $filter], $additional_table_vars),
+            ['pageLength' => $this->tableSettings->fullDefaultPageSize, 'lengthMenu' => PartsDataTable::LENGTH_MENU])
             ->handleRequest($request);
 
         if ($table->isCallback()) {
@@ -182,7 +191,7 @@ class PartListsController extends AbstractController
 
         return $this->render($template, array_merge([
             'datatable' => $table,
-            'filterForm' => $filterForm->createView(),
+            'filterForm' => $filterForm?->createView(),
         ], $additonal_template_vars));
     }
 

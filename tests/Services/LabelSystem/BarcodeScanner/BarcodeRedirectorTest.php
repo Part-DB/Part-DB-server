@@ -41,6 +41,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem\BarcodeScanner;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeRedirector;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeSourceType;
@@ -66,10 +68,8 @@ final class BarcodeRedirectorTest extends KernelTestCase
         yield [new LocalBarcodeScanResult(LabelSupportedElement::STORELOCATION, 1, BarcodeSourceType::INTERNAL), '/en/store_location/1/parts'];
     }
 
-    /**
-     * @dataProvider urlDataProvider
-     * @group DB
-     */
+    #[DataProvider('urlDataProvider')]
+    #[Group('DB')]
     public function testGetRedirectURL(LocalBarcodeScanResult $scanResult, string $url): void
     {
         $this->assertSame($url, $this->service->getRedirectURL($scanResult));

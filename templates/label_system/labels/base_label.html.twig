@@ -1,9 +1,11 @@
+{% import "vars.macro.twig" as vars %}
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>{{ meta_title }}</title>
-    <meta name="author" content="{{ partdb_title }}">
+    <meta name="author" content="{{ vars.partdb_title() }}">
     <meta name="description" content="Label for {{ meta_title }}">
     <meta name="keywords" content="Part-DB, Label, Barcode">
     <style>

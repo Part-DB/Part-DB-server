@@ -88,7 +88,7 @@ class TagsConstraint extends AbstractConstraint
         //Escape any %, _ or \ in the tag
         $tag = addcslashes($tag, '%_\\');
 
-        $tag_identifier_prefix = uniqid($this->identifier . '_', false);
+        $tag_identifier_prefix = $this->generateParameterIdentifier('tag');
 
         $expr = $queryBuilder->expr();
 

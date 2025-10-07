@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\Attachments;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\Attachments\AttachmentURLGenerator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -38,7 +39,7 @@ class AttachmentURLGeneratorTest extends WebTestCase
         self::$service = self::getContainer()->get(AttachmentURLGenerator::class);
     }
 
-    public function dataProvider(): \Iterator
+    public static function dataProvider(): \Iterator
     {
         yield ['/public/test.jpg', 'test.jpg'];
         yield ['/public/folder/test.jpg', 'folder/test.jpg'];
@@ -48,11 +49,11 @@ class AttachmentURLGeneratorTest extends WebTestCase
     }
 
     /**
-     * @dataProvider dataProvider
      *
      * @param $input
      * @param $expected
      */
+    #[DataProvider('dataProvider')]
     public function testTestabsolutePathToAssetPath($input, $expected): void
     {
         $this->assertSame($expected, static::$service->absolutePathToAssetPath($input, static::PUBLIC_DIR));

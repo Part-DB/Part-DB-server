@@ -138,6 +138,11 @@ class ToolsTreeBuilder
                 $this->translator->trans('info_providers.search.title'),
                 $this->urlGenerator->generate('info_providers_search')
             ))->setIcon('fa-treeview fa-fw fa-solid fa-cloud-arrow-down');
+            
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('info_providers.bulk_import.manage_jobs'),
+                $this->urlGenerator->generate('bulk_info_provider_manage')
+            ))->setIcon('fa-treeview fa-fw fa-solid fa-tasks');
         }
 
         return $nodes;
@@ -287,6 +292,13 @@ class ToolsTreeBuilder
                 $this->translator->trans('tools.server_infos.title'),
                 $this->urlGenerator->generate('tools_server_infos')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-database');
+        }
+
+        if ($this->security->isGranted('@config.change_system_settings')) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('tree.tools.system.settings'),
+                $this->urlGenerator->generate('system_settings')
+            ))->setIcon('fa fa-fw fa-gears fa-solid');
         }
 
         return $nodes;

@@ -47,6 +47,7 @@ use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Pricedetail;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
@@ -60,7 +61,7 @@ final class PricedetailVoter extends Voter
 
     protected const ALLOWED_PERMS = ['read', 'edit', 'create', 'delete', 'show_history', 'revert_element'];
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         $operation = match ($attribute) {
             'read' => 'read',
@@ -72,7 +73,7 @@ final class PricedetailVoter extends Voter
 
         //If we have no part associated use the generic part permission
         if (is_string($subject) || !$subject->getOrderdetail() instanceof Orderdetail || !$subject->getOrderdetail()->getPart() instanceof Part) {
-            return $this->helper->isGranted($token, 'parts', $operation);
+            return $this->helper->isGranted($token, 'parts', $operation, $vote);
         }
 
         //Otherwise vote on the part

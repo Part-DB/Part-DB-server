@@ -46,6 +46,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
@@ -59,18 +60,22 @@ final class PartLotVoter extends Voter
 
     protected const ALLOWED_PERMS = ['read', 'edit', 'create', 'delete', 'show_history', 'revert_element', 'withdraw', 'add', 'move'];
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         $user = $this->helper->resolveUser($token);
 
         if (in_array($attribute, ['withdraw', 'add', 'move'], true))
         {
-            $base_permission = $this->helper->isGranted($token, 'parts_stock', $attribute);
+            $base_permission = $this->helper->isGranted($token, 'parts_stock', $attribute, $vote);
 
             $lot_permission = true;
             //If the lot has an owner, we need to check if the user is the owner of the lot to be allowed to withdraw it.
             if ($subject instanceof PartLot && $subject->getOwner()) {
                 $lot_permission = $subject->getOwner() === $user || $subject->getOwner()->getID() === $user->getID();
+            }
+
+            if (!$lot_permission) {
+                $vote->addReason('User is not the owner of the lot.');
             }
 
             return $base_permission && $lot_permission;
@@ -86,7 +91,7 @@ final class PartLotVoter extends Voter
 
         //If we have no part associated use the generic part permission
         if (is_string($subject) || !$subject->getPart() instanceof Part) {
-            return $this->helper->isGranted($token, 'parts', $operation);
+            return $this->helper->isGranted($token, 'parts', $operation, $vote);
         }
 
         //Otherwise vote on the part

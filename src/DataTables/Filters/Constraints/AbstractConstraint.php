@@ -28,10 +28,7 @@ abstract class AbstractConstraint implements FilterInterface
 {
     use FilterTrait;
 
-    /**
-     * @var string
-     */
-    protected string $identifier;
+    protected ?string $identifier;
 
 
     /**

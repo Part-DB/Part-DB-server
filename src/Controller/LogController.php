@@ -38,6 +38,7 @@ use App\Services\LogSystem\LogEntryExtraFormatter;
 use App\Services\LogSystem\LogLevelHelper;
 use App\Services\LogSystem\LogTargetHelper;
 use App\Services\LogSystem\TimeTravel;
+use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -58,7 +59,7 @@ class LogController extends AbstractController
     }
 
     #[Route(path: '/', name: 'log_view')]
-    public function showLogs(Request $request, DataTableFactory $dataTable): Response
+    public function showLogs(Request $request, DataTableFactory $dataTable, TableSettings $tableSettings): Response
     {
         $this->denyAccessUnlessGranted('@system.show_logs');
 
@@ -72,7 +73,7 @@ class LogController extends AbstractController
 
         $table = $dataTable->createFromType(LogDataTable::class, [
             'filter' => $filter,
-        ])
+        ], ['pageLength' => $tableSettings->fullDefaultPageSize])
             ->handleRequest($request);
 
         if ($table->isCallback()) {

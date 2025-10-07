@@ -51,8 +51,7 @@ class PartsTableActionHandlerTest extends WebTestCase
         
         foreach ($formats as $format) {
             $action = "export_{$format}";
-            $result = $this->service->handleAction($action, $selected_parts, '1', '/test');
-            
+            $result = $this->service->handleAction($action, $selected_parts, '1', '/test');   
             $this->assertInstanceOf(RedirectResponse::class, $result);
             $this->assertStringContainsString('parts/export', $result->getTargetUrl());
             $this->assertStringContainsString("format={$format}", $result->getTargetUrl());
