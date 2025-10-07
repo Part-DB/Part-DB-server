@@ -49,6 +49,11 @@ class TagFinder
     public function searchTags(string $keyword, array $options = []): array
     {
         $results = [];
+
+        $resolver = new OptionsResolver();
+        $this->configureOptions($resolver);
+        $options = $resolver->resolve($options);
+        
         $keyword_regex = '/^'.preg_quote($keyword, '/').'/';
         $possible_tags = $this->listTags($keyword, $options);
 
