@@ -13623,7 +13623,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="jd7dh6G" name="assembly.bom.designator.help">
       <segment>
         <source>assembly.bom.designator.help</source>
-        <target>Freie Bezeichnungskennungen (Designator)</target>
+        <target>Freie Bezeichnungskennung(en)</target>
       </segment>
     </unit>
     <unit id="rswC4eS" name="assembly.bom.instockAmount">

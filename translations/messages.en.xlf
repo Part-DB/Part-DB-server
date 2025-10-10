@@ -13618,13 +13618,13 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="kd8Db5T" name="assembly.bom.designator">
       <segment>
         <source>assembly.bom.designator</source>
-        <target>Free identifiers (designator)</target>
+        <target>Designator</target>
       </segment>
     </unit>
     <unit id="jd7dh6G" name="assembly.bom.designator.help">
       <segment>
         <source>assembly.bom.designator.help</source>
-        <target>Free identifiers (designator)</target>
+        <target>Free identifier(s)</target>
       </segment>
     </unit>
     <unit id="rswC4eS" name="assembly.bom.instockAmount">

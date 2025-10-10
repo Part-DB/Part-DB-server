@@ -67,18 +67,6 @@
     <tr class="p-0">
         <td colspan="5" class="accordion-body collapse" id="{{ target_id }}">
             <div class="">
-                {{ form_row(form.mountnames) }}
-                <div class="row mb-2">
-                    <label class="col-form-label col-sm-3">{% trans %}assembly.bom.price{% endtrans %}</label>
-                    <div class="col-sm-9">
-                        <div class="input-group">
-                            {{ form_widget(form.price) }}
-                            {{ form_widget(form.priceCurrency) }}
-                        </div>
-                        {{ form_errors(form.price) }}
-                        {{ form_errors(form.priceCurrency) }}
-                    </div>
-                </div>
                 {{ form_row(form.comment) }}
             </div>
         </td>
