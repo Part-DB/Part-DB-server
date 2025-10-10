@@ -432,7 +432,7 @@ class EntityExporter
 
                     //BOM relevant attributes
                     'Quantity', 'PartId', 'PartName', 'Ipn', 'Manufacturer', 'Mpn', 'Name', 'Designator',
-                    'Mountnames', 'Description', 'ReferencedAssemblyId', 'ReferencedAssemblyIpn',
+                    'Description', 'ReferencedAssemblyId', 'ReferencedAssemblyIpn',
                     'ReferencedAssemblyFullName',
                 ],
                 'processEntity' => fn($entity, $depth) => [
@@ -453,7 +453,6 @@ class EntityExporter
                     'Mpn' => '-',
                     'Name' => '-',
                     'Designator' => '-',
-                    'Mountnames' => '-',
                     'Description' => '-',
                     'ReferencedAssemblyId' => '-',
                     'ReferencedAssemblyIpn' => '-',
@@ -591,7 +590,6 @@ class EntityExporter
                 'Mpn' => $bomEntry->getPart()?->getManufacturerProductNumber() ?? '-',
                 'Name' => $bomEntry->getName() ?? '-',
                 'Designator' => $bomEntry->getDesignator(),
-                'Mountnames' => $bomEntry->getMountnames(),
                 'Description' => $bomEntry->getPart()?->getDescription() ?? '-',
                 'ReferencedAssemblyId' => $bomEntry->getReferencedAssembly()?->getId() ?? '-',
                 'ReferencedAssemblyIpn' => $bomEntry->getReferencedAssembly()?->getIpn() ?? '-',
