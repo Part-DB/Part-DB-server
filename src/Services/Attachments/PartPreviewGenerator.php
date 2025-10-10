@@ -104,13 +104,6 @@ class PartPreviewGenerator
             }
         }
 
-        if ($part->getPartCustomState() instanceof PartCustomState) {
-            $attachment = $part->getPartCustomState()->getMasterPictureAttachment();
-            if ($this->isAttachmentValidPicture($attachment)) {
-                $list[] = $attachment;
-            }
-        }
-
         if ($part->getManufacturer() instanceof Manufacturer) {
             $attachment = $part->getManufacturer()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
