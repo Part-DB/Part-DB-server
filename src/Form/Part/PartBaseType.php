@@ -84,6 +84,28 @@ class PartBaseType extends AbstractType
             $descriptionAttr['data-ipn-suggestion'] = 'descriptionField';
         }
 
+        $ipnAttr =  [
+            'class' => 'ipn-suggestion-field',
+            'data-elements--ipn-suggestion-target' => 'input',
+            'autocomplete' => 'off',
+        ];
+
+        if ($this->ipnSuggestSettings->regex !== null && $this->ipnSuggestSettings->regex !== '') {
+            $ipnAttr['pattern'] = $this->ipnSuggestSettings->regex;
+            $ipnAttr['placeholder'] = $this->ipnSuggestSettings->regex;
+        }
+
+        $ipnOptions = [
+            'required' => false,
+            'empty_data' => null,
+            'label' => 'part.edit.ipn',
+            'attr' => $ipnAttr,
+        ];
+
+        if (isset($ipnAttr['pattern']) && $this->ipnSuggestSettings->regexHelp !== null && $this->ipnSuggestSettings->regexHelp !== '') {
+            $ipnOptions['help'] = $this->ipnSuggestSettings->regexHelp;
+        }
+
         //Common section
         $builder
             ->add('name', TextType::class, [
@@ -186,16 +208,7 @@ class PartBaseType extends AbstractType
                 'disable_not_selectable' => true,
                 'label' => 'part.edit.partUnit',
             ])
-            ->add('ipn', TextType::class, [
-                'required' => false,
-                'empty_data' => null,
-                'label' => 'part.edit.ipn',
-                'attr' => [
-                    'class' => 'ipn-suggestion-field',
-                    'data-elements--ipn-suggestion-target' => 'input',
-                    'autocomplete' => 'off',
-                ]
-            ]);
+            ->add('ipn', TextType::class, $ipnOptions);
 
         //Comment section
         $builder->add('comment', RichTextEditorType::class, [

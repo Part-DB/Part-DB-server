@@ -13059,6 +13059,24 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
         <target>Seznam návrhů IPN součástek</target>
       </segment>
     </unit>
+    <unit id="adi7Zv4" name="settings.misc.ipn_suggest.regex">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex</source>
+        <target>Regex</target>
+      </segment>
+    </unit>
+    <unit id="kidR4vm" name="settings.misc.ipn_suggest.regex_help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex_help</source>
+        <target>Nápověda text</target>
+      </segment>
+    </unit>
+    <unit id="jch7Bn5" name="settings.misc.ipn_suggest.regex_help_description">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex_help_description</source>
+        <target>Definujte svůj vlastní text nápovědy pro specifikaci formátu Regex.</target>
+      </segment>
+    </unit>
     <unit id="kdi8mT4" name="settings.misc.ipn_suggest.autoAppendSuffix">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.autoAppendSuffix</source>

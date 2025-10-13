@@ -26,6 +26,7 @@ namespace App\Settings\MiscSettings;
 
 use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
+use Jbtronics\SettingsBundle\ParameterTypes\StringType;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
@@ -37,6 +38,23 @@ use Symfony\Component\Validator\Constraints as Assert;
 class IpnSuggestSettings
 {
     use SettingsTrait;
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.ipn_suggest.regex"),
+        options: ['type' => StringType::class],
+        formOptions: ['attr' => ['placeholder' => '^[A-Za-z0-9]{3,4}(?:-[A-Za-z0-9]{3,4})*-\d{4}$']],
+        envVar: "IPN_SUGGEST_REGEX", envVarMode: EnvVarMode::OVERWRITE,
+    )]
+    public ?string $regex = null;
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.ipn_suggest.regex_help"),
+        description: new TM("settings.misc.ipn_suggest.regex_help_description"),
+        options: ['type' => StringType::class],
+        formOptions: ['attr' => ['placeholder' => 'Format: 3–4 alphanumeric segments (any number) separated by "-", followed by "-" and 4 digits, e.g., PCOM-RES-0001']],
+        envVar: "IPN_SUGGEST_REGEX_HELP", envVarMode: EnvVarMode::OVERWRITE,
+    )]
+    public ?string $regexHelp = null;
 
     #[SettingsParameter(
         label: new TM("settings.misc.ipn_suggest.autoAppendSuffix"),

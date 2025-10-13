@@ -285,7 +285,7 @@ class PartRepository extends NamedDBElementRepository
                 continue;
             }
 
-            if ($part->getId() === $currentPart->getId()) {
+            if ($part->getId() === $currentPart->getId() && $currentPart->getID() !== null) {
                 // Extract and return the current part's increment directly
                 $incrementPart = substr($part->getIpn(), -$suggestPartDigits);
                 if (is_numeric($incrementPart)) {
