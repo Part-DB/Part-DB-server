@@ -14417,6 +14417,24 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Bauteil IPN-Vorschlagsliste</target>
       </segment>
     </unit>
+    <unit id="adi7Zv4" name="settings.misc.ipn_suggest.regex">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex</source>
+        <target>Regex</target>
+      </segment>
+    </unit>
+    <unit id="kidR4vm" name="settings.misc.ipn_suggest.regex_help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex_help</source>
+        <target>Hilfetext</target>
+      </segment>
+    </unit>
+    <unit id="jch7Bn5" name="settings.misc.ipn_suggest.regex_help_description">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex_help_description</source>
+        <target>Definieren Sie Ihren eigenen Nuter-Hilfetext zur Regex Formatvorgabe.</target>
+      </segment>
+    </unit>
     <unit id="kdi8mT4" name="settings.misc.ipn_suggest.autoAppendSuffix">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.autoAppendSuffix</source>

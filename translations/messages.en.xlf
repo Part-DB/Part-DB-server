@@ -14418,6 +14418,24 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Part IPN Suggest</target>
       </segment>
     </unit>
+    <unit id="adi7Zv4" name="settings.misc.ipn_suggest.regex">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex</source>
+        <target>Regex</target>
+      </segment>
+    </unit>
+    <unit id="kidR4vm" name="settings.misc.ipn_suggest.regex_help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex_help</source>
+        <target>Help text</target>
+      </segment>
+    </unit>
+    <unit id="jch7Bn5" name="settings.misc.ipn_suggest.regex_help_description">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex_help_description</source>
+        <target>Define your own user help text for the Regex format specification.</target>
+      </segment>
+    </unit>
     <unit id="kdi8mT4" name="settings.misc.ipn_suggest.autoAppendSuffix">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.autoAppendSuffix</source>
