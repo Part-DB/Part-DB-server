@@ -78,6 +78,15 @@ export default class extends Controller {
                         editor_div.classList.add(...new_classes.split(","));
                     }
 
+                    // Automatic synchronization of source input
+                    editor.model.document.on("change:data", () => {
+                        editor.updateSourceElement();
+
+                        // Dispatch the input event for further treatment
+                        const event = new Event("input");
+                        this.element.dispatchEvent(event);
+                    });
+
                     //This return is important! Otherwise we get mysterious errors in the console
                     //See: https://github.com/ckeditor/ckeditor5/issues/5897#issuecomment-628471302
                     return editor;
