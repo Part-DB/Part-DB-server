@@ -132,6 +132,7 @@ class PermissionPresetsHelper
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'attachment_types', PermissionData::ALLOW, ['import']);
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'currencies', PermissionData::ALLOW, ['import']);
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'measurement_units', PermissionData::ALLOW, ['import']);
+        $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'part_custom_states', PermissionData::ALLOW, ['import']);
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'suppliers', PermissionData::ALLOW, ['import']);
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'projects', PermissionData::ALLOW, ['import']);
 
