@@ -624,7 +624,6 @@ class EntityExporter
                         'Mpn' => $partData['part']?->getManufacturerProductNumber(),
                         'Name' => $partData['name'] ?? '',
                         'Designator' => $partData['designator'],
-                        'Mountnames' => '-',
                         'Description' => $partData['part']?->getDescription(),
                         'ReferencedAssemblyId' => '-',
                         'ReferencedAssemblyIpn' => '-',
