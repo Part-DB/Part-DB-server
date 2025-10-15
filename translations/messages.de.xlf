@@ -13284,6 +13284,72 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
 &lt;b&gt;Bitte beachten Sie, dass die Währungen bei einer Änderung dieses Wertes nicht umgerechnet werden. Wenn Sie also die Basiswährung ändern, nachdem Sie bereits Preisinformationen hinzugefügt haben, führt dies zu falschen Preisen!&lt;/b&gt;</target>
       </segment>
     </unit>
+    <unit id="ferwk9E" name="settings.system.localization.preferred_languages">
+      <segment state="translated">
+        <source>settings.system.localization.preferred_languages</source>
+        <target>Bevorzugte Sprachen</target>
+      </segment>
+    </unit>
+    <unit id="idme4VU" name="settings.system.localization.preferred_languages.help">
+      <segment state="translated">
+        <source>settings.system.localization.preferred_languages.help</source>
+        <target>Die Sprachen, die im Dropdown-Menü der Nutzer angezeigt werden</target>
+      </segment>
+    </unit>
+    <unit id="o6zcqUt" name="settings.system.data_source_synonyms">
+      <segment state="translated">
+        <source>settings.system.data_source_synonyms</source>
+        <target>Datenquellen-Synonyme</target>
+      </segment>
+    </unit>
+    <unit id="kue6Tga" name="settings.system.data_source_synonyms.configuration">
+      <segment state="translated">
+        <source>settings.system.data_source_synonyms.configuration</source>
+        <target>Quelle</target>
+      </segment>
+    </unit>
+    <unit id="lEcz6N1" name="settings.system.data_source_synonyms.configuration.help">
+      <segment state="translated">
+        <source>settings.system.data_source_synonyms.configuration.help</source>
+        <target>Definieren Sie Ihre eigenen Synonyme für die angegebenen Datenquellen. Erwartet wird ein JSON-Format mit Ihren bevorzugten Sprache-ISO-Codes. Beispiel: %format%.</target>
+      </segment>
+    </unit>
+    <unit id="kd8nBt4" name="settings.behavior.data_source_synonyms.category">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.category</source>
+        <target>Kategorie</target>
+      </segment>
+    </unit>
+    <unit id="id3hnbC" name="settings.behavior.data_source_synonyms.storagelocation">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.storagelocation</source>
+        <target>Lagerort</target>
+      </segment>
+    </unit>
+    <unit id="kdz5RcV" name="settings.behavior.data_source_synonyms.footprint">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.footprint</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="uBeDc7l" name="settings.behavior.data_source_synonyms.manufacturer">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.manufacturer</source>
+        <target>Hersteller</target>
+      </segment>
+    </unit>
+    <unit id="OewynB4" name="settings.behavior.data_source_synonyms.supplier">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.supplier</source>
+        <target>Lieferant</target>
+      </segment>
+    </unit>
+    <unit id="n7ze4lk" name="settings.behavior.data_source_synonyms.project">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.project</source>
+        <target>Projekt</target>
+      </segment>
+    </unit>
     <unit id="cvpTUeY" name="settings.system.privacy">
       <segment state="translated">
         <source>settings.system.privacy</source>
@@ -15807,6 +15873,12 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>assembly.bom.table.edit</source>
         <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (Ihr Synonym: %synonym%)</target>
       </segment>
     </unit>
   </file>

@@ -26,6 +26,8 @@ namespace App\Settings\SystemSettings;
 use App\Form\Type\LocaleSelectType;
 use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
+use Jbtronics\SettingsBundle\ParameterTypes\ArrayType;
+use Jbtronics\SettingsBundle\ParameterTypes\EnumType;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
@@ -60,4 +62,19 @@ class LocalizationSettings
         envVar: "string:BASE_CURRENCY", envVarMode: EnvVarMode::OVERWRITE
     )]
     public string $baseCurrency = 'EUR';
+
+    /** @var PreferredLocales[] */
+    #[SettingsParameter(ArrayType::class,
+        label: new TM("settings.system.localization.preferred_languages"),
+        description: new TM("settings.system.localization.preferred_languages.help"),
+        options: ['type' => EnumType::class, 'options' => ['class' => PreferredLocales::class]],
+        formType: \Symfony\Component\Form\Extension\Core\Type\EnumType::class,
+        formOptions: ['class' => PreferredLocales::class, 'multiple' => true, 'ordered' => true]
+    )]
+    #[Assert\NotBlank()]
+    #[Assert\Unique()]
+    #[Assert\All([new Assert\Type(PreferredLocales::class)])]
+    public array $preferredLanguages = [PreferredLocales::EN, PreferredLocales::DE,
+        PreferredLocales::IT, PreferredLocales::FR, PreferredLocales::RU, PreferredLocales::JA,
+        PreferredLocales::CS, PreferredLocales::DA, PreferredLocales::ZH, PreferredLocales::PL];
 }

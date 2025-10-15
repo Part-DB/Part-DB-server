@@ -13186,6 +13186,72 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
 &lt;b&gt;Upozorňujeme, že při změně této hodnoty nedochází k převodu měn. Změna výchozí měny po přidání informací o cenách tedy povede k nesprávným cenám!&lt;/b&gt;</target>
       </segment>
     </unit>
+    <unit id="ferwk9E" name="settings.system.localization.preferred_languages">
+      <segment state="translated">
+        <source>settings.system.localization.preferred_languages</source>
+        <target>Preferované jazyky</target>
+      </segment>
+    </unit>
+    <unit id="idme4VU" name="settings.system.localization.preferred_languages.help">
+      <segment state="translated">
+        <source>settings.system.localization.preferred_languages.help</source>
+        <target>Jazyky, které se zobrazují v uživatelské rozbalovací nabídce</target>
+      </segment>
+    </unit>
+    <unit id="o6zcqUt" name="settings.system.data_source_synonyms">
+      <segment state="translated">
+        <source>settings.system.data_source_synonyms</source>
+        <target>Synonyma zdrojů dat</target>
+      </segment>
+    </unit>
+    <unit id="kue6Tga" name="settings.system.data_source_synonyms.configuration">
+      <segment state="translated">
+        <source>settings.system.data_source_synonyms.configuration</source>
+        <target>Zdroj</target>
+      </segment>
+    </unit>
+    <unit id="lEcz6N1" name="settings.system.data_source_synonyms.configuration.help">
+      <segment state="translated">
+        <source>settings.system.data_source_synonyms.configuration.help</source>
+        <target>Definujte vlastní synonyma pro dané zdroje dat. Očekává se formát JSON s vašimi preferovanými jazykovými ISO kódy. Příklad: %format%.</target>
+      </segment>
+    </unit>
+    <unit id="kd8nBt4" name="settings.behavior.data_source_synonyms.category">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.category</source>
+        <target>Kategorie</target>
+      </segment>
+    </unit>
+    <unit id="id3hnbC" name="settings.behavior.data_source_synonyms.storagelocation">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.storagelocation</source>
+        <target>Skladové umístění</target>
+      </segment>
+    </unit>
+    <unit id="kdz5RcV" name="settings.behavior.data_source_synonyms.footprint">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.footprint</source>
+        <target>Pouzdro</target>
+      </segment>
+    </unit>
+    <unit id="uBeDc7l" name="settings.behavior.data_source_synonyms.manufacturer">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.manufacturer</source>
+        <target>Výrobce</target>
+      </segment>
+    </unit>
+    <unit id="OewynB4" name="settings.behavior.data_source_synonyms.supplier">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.supplier</source>
+        <target>Dodavatel</target>
+      </segment>
+    </unit>
+    <unit id="n7ze4lk" name="settings.behavior.data_source_synonyms.project">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.project</source>
+        <target>Projekt</target>
+      </segment>
+    </unit>
     <unit id="cvpTUeY" name="settings.system.privacy">
       <segment state="translated">
         <source>settings.system.privacy</source>
@@ -15133,6 +15199,12 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
       <segment state="translated">
         <source>assembly.bom.table.edit</source>
         <target>Upravit</target>
+      </segment>
+    </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (Váš synonymum: %synonym%)</target>
       </segment>
     </unit>
   </file>

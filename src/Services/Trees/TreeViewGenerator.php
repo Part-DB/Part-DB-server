@@ -39,6 +39,7 @@ use App\Repository\StructuralDBElementRepository;
 use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Cache\UserCacheKeyGenerator;
 use App\Services\EntityURLGenerator;
+use App\Settings\BehaviorSettings\DataSourceSynonymsSettings;
 use App\Settings\BehaviorSettings\SidebarSettings;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
@@ -68,6 +69,7 @@ class TreeViewGenerator
         protected TranslatorInterface $translator,
         private readonly UrlGeneratorInterface $router,
         private readonly SidebarSettings $sidebarSettings,
+        protected DataSourceSynonymsSettings $dataSourceSynonymsSettings,
     ) {
         $this->rootNodeEnabled = $this->sidebarSettings->rootNodeEnabled;
         $this->rootNodeExpandedByDefault = $this->sidebarSettings->rootNodeExpanded;
@@ -226,14 +228,15 @@ class TreeViewGenerator
 
     protected function entityClassToRootNodeString(string $class): string
     {
+        $locale = $this->translator->getLocale();
+
         return match ($class) {
-            Category::class => $this->translator->trans('category.labelp'),
-            StorageLocation::class => $this->translator->trans('storelocation.labelp'),
-            Footprint::class => $this->translator->trans('footprint.labelp'),
-            Manufacturer::class => $this->translator->trans('manufacturer.labelp'),
-            Supplier::class => $this->translator->trans('supplier.labelp'),
-            Project::class => $this->translator->trans('project.labelp'),
-            Assembly::class => $this->translator->trans('assembly.labelp'),
+            Category::class => $this->getTranslatedOrSynonym('category', $locale),
+            StorageLocation::class => $this->getTranslatedOrSynonym('storelocation', $locale),
+            Footprint::class => $this->getTranslatedOrSynonym('footprint', $locale),
+            Manufacturer::class => $this->getTranslatedOrSynonym('manufacturer', $locale),
+            Supplier::class => $this->getTranslatedOrSynonym('supplier', $locale),
+            Project::class => $this->getTranslatedOrSynonym('project', $locale),
             default => $this->translator->trans('tree.root_node.text'),
         };
     }
@@ -289,5 +292,25 @@ class TreeViewGenerator
             $item->tag(['groups', 'tree_treeview', $this->keyGenerator->generateKey(), $secure_class_name]);
             return $repo->getGenericNodeTree($parent); //@phpstan-ignore-line
         });
+    }
+
+    protected function getTranslatedOrSynonym(string $key, string $locale): string
+    {
+        $currentTranslation = $this->translator->trans($key . '.labelp');
+
+        $synonyms = $this->dataSourceSynonymsSettings->getSynonymsAsArray();
+
+        // Call alternatives from DataSourcesynonyms (if available)
+        if (!empty($synonyms[$key][$locale])) {
+            $alternativeTranslation = $synonyms[$key][$locale];
+
+            // Use alternative translation when it deviates from the standard translation
+            if ($alternativeTranslation !== $currentTranslation) {
+                return $alternativeTranslation;
+            }
+        }
+
+        // Otherwise return the standard translation
+        return $currentTranslation;
     }
 }

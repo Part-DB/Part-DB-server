@@ -3645,5 +3645,11 @@
         <target>Επεξεργασία</target>
       </segment>
     </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (Το συνώνυμό σας: %synonym%)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

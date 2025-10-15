@@ -10314,5 +10314,11 @@ exemple de ville</target>
         <target>État personnalisé de la pièce</target>
       </segment>
     </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (Votre synonyme : %synonym%)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
