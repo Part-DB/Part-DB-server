@@ -12370,5 +12370,11 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>Questo componente contiene più di uno stock. Cambia manualmente la posizione per selezionare quale stock scegliere.</target>
       </segment>
     </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (Il tuo sinonimo: %synonym%)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

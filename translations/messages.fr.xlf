@@ -6947,7 +6947,7 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       </notes>
       <segment state="translated">
         <source>company.edit.address.placeholder</source>
-        <target>Ex. 99 exemple de rue 
+        <target>Ex. 99 exemple de rue
 exemple de ville</target>
       </segment>
     </unit>
@@ -9095,6 +9095,12 @@ exemple de ville</target>
       <segment state="translated">
         <source>homepage.forum.text</source>
         <target>Si vous avez des questions à propos de Part-DB , rendez vous sur &lt;a href="%href%" class="link-external" target="_blank"&gt;Github&lt;/a&gt;</target>
+      </segment>
+    </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (Votre synonyme : %synonym%)</target>
       </segment>
     </unit>
   </file>

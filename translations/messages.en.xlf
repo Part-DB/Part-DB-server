@@ -12750,6 +12750,72 @@ Please note, that you can not impersonate a disabled user. If you try you will g
 &lt;b&gt;Please note that the currencies are not converted, when changing this value. So changing the default currency after you already added price information, will result in wrong prices!&lt;/b&gt;</target>
       </segment>
     </unit>
+    <unit id="ferwk9E" name="settings.system.localization.preferred_languages">
+      <segment state="translated">
+        <source>settings.system.localization.preferred_languages</source>
+        <target>Preferred languages</target>
+      </segment>
+    </unit>
+    <unit id="idme4VU" name="settings.system.localization.preferred_languages.help">
+      <segment state="translated">
+        <source>settings.system.localization.preferred_languages.help</source>
+        <target>The languages that are shown in user drop down menu</target>
+      </segment>
+    </unit>
+    <unit id="o6zcqUt" name="settings.system.data_source_synonyms">
+      <segment state="translated">
+        <source>settings.system.data_source_synonyms</source>
+        <target>Data source synonyms</target>
+      </segment>
+    </unit>
+    <unit id="kue6Tga" name="settings.system.data_source_synonyms.configuration">
+      <segment state="translated">
+        <source>settings.system.data_source_synonyms.configuration</source>
+        <target>Source</target>
+      </segment>
+    </unit>
+    <unit id="lEcz6N1" name="settings.system.data_source_synonyms.configuration.help">
+      <segment state="translated">
+        <source>settings.system.data_source_synonyms.configuration.help</source>
+        <target>Define your own synonyms for the given data sources. Expected in JSON-format with your preferred language iso-codes. Example: %format%.</target>
+      </segment>
+    </unit>
+    <unit id="kd8nBt4" name="settings.behavior.data_source_synonyms.category">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.category</source>
+        <target>Category</target>
+      </segment>
+    </unit>
+    <unit id="id3hnbC" name="settings.behavior.data_source_synonyms.storagelocation">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.storagelocation</source>
+        <target>Storage location</target>
+      </segment>
+    </unit>
+    <unit id="kdz5RcV" name="settings.behavior.data_source_synonyms.footprint">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.footprint</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="uBeDc7l" name="settings.behavior.data_source_synonyms.manufacturer">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.manufacturer</source>
+        <target>Manufacturer</target>
+      </segment>
+    </unit>
+    <unit id="OewynB4" name="settings.behavior.data_source_synonyms.supplier">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.supplier</source>
+        <target>Supplier</target>
+      </segment>
+    </unit>
+    <unit id="n7ze4lk" name="settings.behavior.data_source_synonyms.project">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.project</source>
+        <target>Project</target>
+      </segment>
+    </unit>
     <unit id="cvpTUeY" name="settings.system.privacy">
       <segment state="translated">
         <source>settings.system.privacy</source>
@@ -14188,6 +14254,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>info_providers.bulk_import.max_mappings_reached</source>
         <target>Maximum number of mappings reached</target>
+      </segment>
+    </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (Your synonym: %synonym%)</target>
       </segment>
     </unit>
   </file>
