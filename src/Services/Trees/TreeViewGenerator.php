@@ -237,6 +237,7 @@ class TreeViewGenerator
             Manufacturer::class => $this->getTranslatedOrSynonym('manufacturer', $locale),
             Supplier::class => $this->getTranslatedOrSynonym('supplier', $locale),
             Project::class => $this->getTranslatedOrSynonym('project', $locale),
+            Assembly::class => $this->getTranslatedOrSynonym('assembly', $locale),
             default => $this->translator->trans('tree.root_node.text'),
         };
     }

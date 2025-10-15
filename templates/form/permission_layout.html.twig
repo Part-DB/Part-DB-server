@@ -19,6 +19,8 @@
                             {% set dataSource = 'supplier' %}
                         {% elseif (form.vars.label == 'perm.projects') %}
                             {% set dataSource = 'project' %}
+                        {% elseif (form.vars.label == 'perm.assemblies') %}
+                            {% set dataSource = 'assembly' %}
                         {% endif %}
 
                         {% set dataSourceName = get_data_source_name(dataSource, form.vars.label) %}
