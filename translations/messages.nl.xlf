@@ -856,5 +856,11 @@
         <target>Maak eerst een component en wijs het toe aan een categorie: met de bestaande categorieën en hun eigen IPN-prefixen kan de IPN voor het component automatisch worden voorgesteld</target>
       </segment>
     </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (Uw synoniem: %synonym%)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

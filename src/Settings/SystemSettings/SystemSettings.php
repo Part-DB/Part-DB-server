@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Settings\SystemSettings;
 
 use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
+use App\Settings\BehaviorSettings\DataSourceSynonymsSettings;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
@@ -32,6 +33,9 @@ class SystemSettings
 {
     #[EmbeddedSettings()]
     public ?LocalizationSettings $localization = null;
+
+    #[EmbeddedSettings]
+    public ?DataSourceSynonymsSettings $dataSourceSynonyms = null;
 
     #[EmbeddedSettings()]
     public ?CustomizationSettings $customization = null;

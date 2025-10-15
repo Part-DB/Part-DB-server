@@ -61,7 +61,7 @@ class ToolsController extends AbstractController
             'default_timezone' => $settings->system->localization->timezone,
             'default_currency' => $settings->system->localization->baseCurrency,
             'default_theme' => $settings->system->customization->theme,
-            'enabled_locales' => $this->getParameter('partdb.locale_menu'),
+            'enabled_locales' => array_column($settings->system->localization->preferredLanguages, 'value'),
             'demo_mode' => $this->getParameter('partdb.demo_mode'),
             'use_gravatar' => $settings->system->privacy->useGravatar,
             'gdpr_compliance' => $this->getParameter('partdb.gdpr_compliance'),

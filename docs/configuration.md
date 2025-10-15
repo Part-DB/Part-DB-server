@@ -272,8 +272,6 @@ command `bin/console cache:clear`.
 
 The following options are available:
 
-* `partdb.locale_menu`: The codes of the languages, which should be shown in the language chooser menu (the one with the
-  user icon in the navbar). The first language in the list will be the default language.
 * `partdb.gdpr_compliance`: When set to true (default value), IP addresses which are saved in the database will be
   anonymized, by removing the last byte of the IP. This is required by the GDPR (General Data Protection Regulation) in
   the EU.

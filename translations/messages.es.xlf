@@ -12500,5 +12500,11 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         <target>Este componente contiene más de un stock. Cambie la ubicación manualmente para seleccionar el stock deseado.</target>
       </segment>
     </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (Tu sinónimo: %synonym%)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

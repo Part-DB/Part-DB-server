@@ -1,7 +1,9 @@
 {% extends "admin/base_admin.html.twig" %}
 
 {% block card_title %}
-    <i class="fas fa-microchip fa-fw"></i> {% trans %}footprint.labelp{% endtrans %}
+    {% set dataSourceName = get_data_source_name('footprint', 'footprint.labelp') %}
+    {% set translatedSource = 'footprint.labelp'|trans %}
+    <i class="fas fa-microchip fa-fw"></i> {% if dataSourceName != translatedSource %}{{ 'datasource.synonym'|trans({'%name%': translatedSource, '%synonym%': dataSourceName}) }}{% else %}{{ translatedSource }}{% endif %}
 {% endblock %}
 
 {% block master_picture_block %}

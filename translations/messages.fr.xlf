@@ -9229,5 +9229,11 @@ exemple de ville</target>
         <target>Un préfixe suggéré lors de la saisie de l'IPN d'une pièce.</target>
       </segment>
     </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (Votre synonyme : %synonym%)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
