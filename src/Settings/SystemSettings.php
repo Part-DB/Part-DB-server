@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Settings;
 
+use App\Settings\BehaviorSettings\DataSourceSynonymsSettings;
 use App\Settings\SystemSettings\AttachmentsSettings;
 use App\Settings\SystemSettings\CustomizationSettings;
 use App\Settings\SystemSettings\HistorySettings;
@@ -36,6 +37,9 @@ class SystemSettings
 {
     #[EmbeddedSettings()]
     public ?LocalizationSettings $localization = null;
+
+    #[EmbeddedSettings]
+    public ?DataSourceSynonymsSettings $dataSourceSynonyms = null;
 
     #[EmbeddedSettings()]
     public ?CustomizationSettings $customization = null;
