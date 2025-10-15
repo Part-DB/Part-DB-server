@@ -34,6 +34,7 @@ class DataSourceSynonymsSettings
                 'manufacturer' => new TM("settings.behavior.data_source_synonyms.manufacturer"),
                 'supplier' => new TM("settings.behavior.data_source_synonyms.supplier"),
                 'project' => new TM("settings.behavior.data_source_synonyms.project"),
+                'assembly' => new TM("settings.behavior.data_source_synonyms.assembly"),
             ],
             'default_values' => [
                 'category' => '{"en":"Categories", "de":"Kategorien"}',
@@ -42,6 +43,7 @@ class DataSourceSynonymsSettings
                 'manufacturer' => '{"en":"Manufacturers", "de":"Hersteller"}',
                 'supplier' => '{"en":"Suppliers", "de":"Lieferanten"}',
                 'project' => '{"en":"Projects", "de":"Projekte"}',
+                'assembly' => '{"en":"Assemblies", "de":"Baugruppen"}',
             ],
         ],
     )]
@@ -53,6 +55,7 @@ class DataSourceSynonymsSettings
         'manufacturer' => '{"en":"Manufacturers", "de":"Hersteller"}',
         'supplier' => '{"en":"Suppliers", "de":"Lieferanten"}',
         'project' => '{"en":"Projects", "de":"Projekte"}',
+        'assembly' => '{"en":"Assemblies", "de":"Baugruppen"}'
     ];
 
     /**

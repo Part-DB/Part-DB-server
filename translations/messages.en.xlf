@@ -13351,6 +13351,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Project</target>
       </segment>
     </unit>
+    <unit id="8kdTv4V" name="settings.behavior.data_source_synonyms.assembly">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.assembly</source>
+        <target>Assembly</target>
+      </segment>
+    </unit>
     <unit id="cvpTUeY" name="settings.system.privacy">
       <segment state="translated">
         <source>settings.system.privacy</source>

@@ -13350,6 +13350,12 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Projekt</target>
       </segment>
     </unit>
+    <unit id="8kdTv4V" name="settings.behavior.data_source_synonyms.assembly">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.assembly</source>
+        <target>Baugruppe</target>
+      </segment>
+    </unit>
     <unit id="cvpTUeY" name="settings.system.privacy">
       <segment state="translated">
         <source>settings.system.privacy</source>
