@@ -95,7 +95,7 @@ class DataSourceJsonType extends AbstractType
      * @param string $json
      * @return bool
      */
-    private static function isValidJson(string $json): bool
+    public static function isValidJson(string $json): bool
     {
         json_decode($json);
         return json_last_error() === JSON_ERROR_NONE;
