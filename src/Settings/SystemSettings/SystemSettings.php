@@ -21,17 +21,13 @@
 declare(strict_types=1);
 
 
-namespace App\Settings;
+namespace App\Settings\SystemSettings;
 
-use App\Settings\SystemSettings\AttachmentsSettings;
-use App\Settings\SystemSettings\CustomizationSettings;
-use App\Settings\SystemSettings\HistorySettings;
-use App\Settings\SystemSettings\LocalizationSettings;
-use App\Settings\SystemSettings\PrivacySettings;
 use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
 use Jbtronics\SettingsBundle\Settings\Settings;
+use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings]
+#[Settings(label: new TM("settings.system"))]
 class SystemSettings
 {
     #[EmbeddedSettings()]
