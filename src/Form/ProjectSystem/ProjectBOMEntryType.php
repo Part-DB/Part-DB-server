@@ -22,8 +22,6 @@ class ProjectBOMEntryType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-
-
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (PreSetDataEvent $event) {
             $form = $event->getForm();
             /** @var ProjectBOMEntry $data */
@@ -36,11 +34,10 @@ class ProjectBOMEntryType extends AbstractType
         });
 
         $builder
-
             ->add('part', PartSelectType::class, [
+                'label' => 'project.bom.part',
                 'required' => false,
             ])
-
             ->add('name', TextType::class, [
                 'label' => 'project.bom.name',
                 'required' => false,
@@ -77,10 +74,7 @@ class ProjectBOMEntryType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'short' => true,
-            ])
-
-        ;
-
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

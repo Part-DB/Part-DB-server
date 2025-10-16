@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\Attachments;
 
+use App\Entity\Attachments\AssemblyAttachment;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentType;
@@ -30,6 +31,7 @@ use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Attachments\CurrencyAttachment;
 use App\Entity\Attachments\LabelAttachment;
+use App\Entity\Attachments\PartCustomStateAttachment;
 use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Attachments\GroupAttachment;
@@ -80,10 +82,12 @@ class AttachmentSubmitHandler
         //The mapping used to determine which folder will be used for an attachment type
         $this->folder_mapping = [
             PartAttachment::class => 'part',
+            PartCustomStateAttachment::class => 'part_custom_state',
             AttachmentTypeAttachment::class => 'attachment_type',
             CategoryAttachment::class => 'category',
             CurrencyAttachment::class => 'currency',
             ProjectAttachment::class => 'project',
+            AssemblyAttachment::class => 'assembly',
             FootprintAttachment::class => 'footprint',
             GroupAttachment::class => 'group',
             ManufacturerAttachment::class => 'manufacturer',

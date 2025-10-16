@@ -24,6 +24,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -50,7 +51,7 @@ class DataStructureFixtures extends Fixture implements DependentFixtureInterface
     {
         //Reset autoincrement
         $types = [AttachmentType::class, Project::class, Category::class, Footprint::class, Manufacturer::class,
-            MeasurementUnit::class, StorageLocation::class, Supplier::class,];
+            MeasurementUnit::class, StorageLocation::class, Supplier::class, PartCustomState::class];
 
         foreach ($types as $type) {
             $this->createNodesForClass($type, $manager);

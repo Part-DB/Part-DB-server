@@ -1,6 +1,6 @@
-<form class="form-horizontal" method="post" action="{{ path }}" data-turbo="false" data-turbo-frame="_top">
+<form class="form-horizontal" method="post" action="{{ path }}" data-turbo="false" data-turbo-frame="_top" {{ stimulus_controller('elements/toggle_visibility', {classes: ['format', 'level', 'include_children']}) }}>
 
-    <div class="row">
+    <div class="row format">
         <label class="col-form-label col-md-3">{% trans %}export.format{% endtrans %}</label>
         <div class="col-md-9">
             <select class="form-select" name="format">
@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="row mt-2">
+    <div class="row mt-2 level">
         <label class="col-form-label col-md-3">{% trans %}export.level{% endtrans %}</label>
         <div class="col-md-9">
             <select class="form-select" name="level">
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="row mt-2">
+    <div class="row mt-2 include_children">
         <div class="offset-md-3 col-sm">
             <div class="form-check">
                 <input class="form-check-input form-check-input" name="include_children" id="include_children" type="checkbox" checked>
@@ -33,6 +33,29 @@
             </div>
         </div>
     </div>
+
+    {% if path is defined and 'assembly' in path %}
+        <div class="row mt-2">
+            <label class="col-form-label col-md-3" for="readableSelect" >{% trans %}export.readable.label{% endtrans %}</label>
+            <div class="col-md-9">
+                <select id="display" name="readableSelect" class="form-select" data-action="change->action-handler#handleAction">
+                    <option value="" selected></option>
+                    <option value="readable">{% trans %}export.readable{% endtrans %}</option>
+                    <option value="readable_bom">{% trans %}export.readable_bom{% endtrans %}</option>
+                </select>
+            </div>
+        </div>
+    {% else %}
+        <div class="row mt-2 align-items-center">
+            <label class="col-form-label col-md-3" for="readableSelect">{% trans %}export.readable.label{% endtrans %}</label>
+            <div class="col-md-9 d-flex align-items-center">
+                <input class="form-check-input me-2" name="readableSelect" value="readable" id="display" type="checkbox" data-action="change->action-handler#handleAction">
+                <label class="form-check-label" for="display">
+                    {% trans %}export.readable{% endtrans %}
+                </label>
+            </div>
+        </div>
+    {% endif %}
 
     <div class="row mt-2">
         <div class="offset-sm-3 col-sm">

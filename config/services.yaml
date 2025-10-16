@@ -164,10 +164,12 @@ services:
         arguments:
             $saml_enabled: '%partdb.saml.enabled%'
 
+    App\Validator\Constraints\AssemblySystem\AssemblyCycleValidator:
+        tags: [ 'validator.constraint_validator' ]
+
     ####################################################################################################################
     # Table settings
     ####################################################################################################################
-
     App\DataTables\Helpers\ColumnSortHelper:
         shared: false   # Service has a state so not share it between different tables
 
@@ -187,6 +189,13 @@ services:
         arguments:
             $fontDirectory: '%kernel.project_dir%/var/dompdf/fonts/'
             $tmpDirectory: '%kernel.project_dir%/var/dompdf/tmp/'
+
+    ####################################################################################################################
+    # Twig Extensions
+    ####################################################################################################################
+
+    App\Twig\DataSourceNameExtension:
+        tags: [ 'twig.extension' ]
 
     ####################################################################################################################
     # Part info provider system
@@ -230,6 +239,18 @@ services:
     App\Doctrine\Purger\ResetAutoIncrementPurgerFactory:
         tags:
             - { name: 'doctrine.fixtures.purger_factory', alias: 'reset_autoincrement_purger' }
+
+    App\Repository\PartRepository:
+        arguments:
+            $translator: '@translator'
+        tags: ['doctrine.repository_service']
+
+    App\EventSubscriber\UserSystem\PartUniqueIpnSubscriber:
+        tags:
+            - { name: doctrine.event_listener, event: onFlush, connection: default }
+
+    App\Validator\Constraints\UniquePartIpnValidator:
+        tags: [ 'validator.constraint_validator' ]
 
     # We are needing this service inside a migration, where only the container is injected. So we need to define it as public, to access it from the container.
     App\Services\UserSystem\PermissionPresetsHelper:

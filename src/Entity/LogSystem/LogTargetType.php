@@ -34,6 +34,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartAssociation;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
@@ -42,6 +43,8 @@ use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use App\Entity\AssemblySystem\Assembly;
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 
@@ -71,6 +74,9 @@ enum LogTargetType: int
     case PART_ASSOCIATION = 20;
     case BULK_INFO_PROVIDER_IMPORT_JOB = 21;
     case BULK_INFO_PROVIDER_IMPORT_JOB_PART = 22;
+    case ASSEMBLY = 23;
+    case ASSEMBLY_BOM_ENTRY = 24;
+    case PART_CUSTOM_STATE = 25;
 
     /**
      * Returns the class name of the target type or null if the target type is NONE.
@@ -86,6 +92,8 @@ enum LogTargetType: int
             self::CATEGORY => Category::class,
             self::PROJECT => Project::class,
             self::BOM_ENTRY => ProjectBOMEntry::class,
+            self::ASSEMBLY => Assembly::class,
+            self::ASSEMBLY_BOM_ENTRY => AssemblyBOMEntry::class,
             self::FOOTPRINT => Footprint::class,
             self::GROUP => Group::class,
             self::MANUFACTURER => Manufacturer::class,
@@ -102,6 +110,7 @@ enum LogTargetType: int
             self::PART_ASSOCIATION => PartAssociation::class,
             self::BULK_INFO_PROVIDER_IMPORT_JOB => BulkInfoProviderImportJob::class,
             self::BULK_INFO_PROVIDER_IMPORT_JOB_PART => BulkInfoProviderImportJobPart::class,
+            self::PART_CUSTOM_STATE => PartCustomState::class
         };
     }
 

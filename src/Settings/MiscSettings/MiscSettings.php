@@ -34,4 +34,10 @@ class MiscSettings
 
     #[EmbeddedSettings]
     public ?ExchangeRateSettings $exchangeRate = null;
+
+    #[EmbeddedSettings]
+    public ?AssemblySettings $assembly = null;
+
+    #[EmbeddedSettings]
+    public ?IpnSuggestSettings $ipnSuggestSettings = null;
 }

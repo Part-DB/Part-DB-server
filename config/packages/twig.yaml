@@ -7,7 +7,7 @@ twig:
 
     globals:
         allow_email_pw_reset: '%partdb.users.email_pw_reset%'
-        locale_menu: '%partdb.locale_menu%'
+        location_settings: '@App\Settings\SystemSettings\LocalizationSettings'
         attachment_manager: '@App\Services\Attachments\AttachmentManager'
         label_profile_dropdown_helper: '@App\Services\LabelSystem\LabelProfileDropdownHelper'
         error_page_admin_email: '%partdb.error_pages.admin_email%'

@@ -233,6 +233,10 @@ class KiCadHelper
             }
             $result["fields"]["Part-DB Unit"] = $this->createField($unit);
         }
+        if ($part->getPartCustomState() !== null) {
+            $customState = $part->getPartCustomState()->getName();
+            $result["fields"]["Part-DB Custom state"] = $this->createField($customState);
+        }
         if ($part->getMass()) {
             $result["fields"]["Mass"] = $this->createField($part->getMass() . ' g');
         }

@@ -54,6 +54,7 @@ use App\Entity\Parts\PartTraits\InstockTrait;
 use App\Entity\Parts\PartTraits\ManufacturerTrait;
 use App\Entity\Parts\PartTraits\OrderTrait;
 use App\Entity\Parts\PartTraits\ProjectTrait;
+use App\Entity\Parts\PartTraits\AssemblyTrait;
 use App\EntityListeners\TreeCacheInvalidationListener;
 use App\Repository\PartRepository;
 use App\Validator\Constraints\UniqueObjectCollection;
@@ -61,7 +62,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -75,7 +75,6 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @extends AttachmentContainingDBElement<PartAttachment>
  * @template-use ParametersTrait<PartParameter>
  */
-#[UniqueEntity(fields: ['ipn'], message: 'part.ipn.must_be_unique')]
 #[ORM\Entity(repositoryClass: PartRepository::class)]
 #[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
 #[ORM\Table('`parts`')]
@@ -107,7 +106,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
     denormalizationContext: ['groups' => ['part:write', 'api:basic:write', 'eda_info:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiFilter(PropertyFilter::class)]
-#[ApiFilter(EntityFilter::class, properties: ["category", "footprint", "manufacturer", "partUnit"])]
+#[ApiFilter(EntityFilter::class, properties: ["category", "footprint", "manufacturer", "partUnit", "partCustomState"])]
 #[ApiFilter(PartStoragelocationFilter::class, properties: ["storage_location"])]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment", "description", "ipn", "manufacturer_product_number"])]
 #[ApiFilter(TagFilter::class, properties: ["tags"])]
@@ -125,6 +124,7 @@ class Part extends AttachmentContainingDBElement
     use OrderTrait;
     use ParametersTrait;
     use ProjectTrait;
+    use AssemblyTrait;
     use AssociationTrait;
     use EDATrait;
 
@@ -186,6 +186,7 @@ class Part extends AttachmentContainingDBElement
         $this->orderdetails = new ArrayCollection();
         $this->parameters = new ArrayCollection();
         $this->project_bom_entries = new ArrayCollection();
+        $this->assembly_bom_entries = new ArrayCollection();
 
         $this->associated_parts_as_owner = new ArrayCollection();
         $this->associated_parts_as_other = new ArrayCollection();

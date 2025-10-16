@@ -22,11 +22,13 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parameters\PartParameter;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
@@ -98,6 +100,7 @@ class EntityURLGenerator
             AttachmentType::class => 'attachment_type_edit',
             Category::class => 'category_edit',
             Project::class => 'project_edit',
+            Assembly::class => 'assembly_edit',
             Supplier::class => 'supplier_edit',
             Manufacturer::class => 'manufacturer_edit',
             StorageLocation::class => 'store_location_edit',
@@ -107,6 +110,7 @@ class EntityURLGenerator
             MeasurementUnit::class => 'measurement_unit_edit',
             Group::class => 'group_edit',
             LabelProfile::class => 'label_profile_edit',
+            PartCustomState::class => 'part_custom_state_edit',
         ];
 
         try {
@@ -204,6 +208,7 @@ class EntityURLGenerator
             AttachmentType::class => 'attachment_type_edit',
             Category::class => 'category_edit',
             Project::class => 'project_info',
+            Assembly::class => 'assembly_info',
             Supplier::class => 'supplier_edit',
             Manufacturer::class => 'manufacturer_edit',
             StorageLocation::class => 'store_location_edit',
@@ -213,6 +218,7 @@ class EntityURLGenerator
             MeasurementUnit::class => 'measurement_unit_edit',
             Group::class => 'group_edit',
             LabelProfile::class => 'label_profile_edit',
+            PartCustomState::class => 'part_custom_state_edit',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -234,6 +240,7 @@ class EntityURLGenerator
             AttachmentType::class => 'attachment_type_edit',
             Category::class => 'category_edit',
             Project::class => 'project_edit',
+            Assembly::class => 'assembly_edit',
             Supplier::class => 'supplier_edit',
             Manufacturer::class => 'manufacturer_edit',
             StorageLocation::class => 'store_location_edit',
@@ -243,6 +250,7 @@ class EntityURLGenerator
             MeasurementUnit::class => 'measurement_unit_edit',
             Group::class => 'group_edit',
             LabelProfile::class => 'label_profile_edit',
+            PartCustomState::class => 'part_custom_state_edit',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -265,6 +273,7 @@ class EntityURLGenerator
             AttachmentType::class => 'attachment_type_new',
             Category::class => 'category_new',
             Project::class => 'project_new',
+            Assembly::class => 'assembly_new',
             Supplier::class => 'supplier_new',
             Manufacturer::class => 'manufacturer_new',
             StorageLocation::class => 'store_location_new',
@@ -274,6 +283,7 @@ class EntityURLGenerator
             MeasurementUnit::class => 'measurement_unit_new',
             Group::class => 'group_new',
             LabelProfile::class => 'label_profile_new',
+            PartCustomState::class => 'part_custom_state_new',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity));
@@ -296,6 +306,7 @@ class EntityURLGenerator
             AttachmentType::class => 'attachment_type_clone',
             Category::class => 'category_clone',
             Project::class => 'device_clone',
+            Assembly::class => 'assembly_clone',
             Supplier::class => 'supplier_clone',
             Manufacturer::class => 'manufacturer_clone',
             StorageLocation::class => 'store_location_clone',
@@ -305,6 +316,7 @@ class EntityURLGenerator
             MeasurementUnit::class => 'measurement_unit_clone',
             Group::class => 'group_clone',
             LabelProfile::class => 'label_profile_clone',
+            PartCustomState::class => 'part_custom_state_clone',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -323,6 +335,7 @@ class EntityURLGenerator
     {
         $map = [
             Project::class => 'project_info',
+            Assembly::class => 'assembly_info',
 
             Category::class => 'part_list_category',
             Footprint::class => 'part_list_footprint',
@@ -341,6 +354,7 @@ class EntityURLGenerator
             AttachmentType::class => 'attachment_type_delete',
             Category::class => 'category_delete',
             Project::class => 'project_delete',
+            Assembly::class => 'assembly_delete',
             Supplier::class => 'supplier_delete',
             Manufacturer::class => 'manufacturer_delete',
             StorageLocation::class => 'store_location_delete',
@@ -350,6 +364,7 @@ class EntityURLGenerator
             MeasurementUnit::class => 'measurement_unit_delete',
             Group::class => 'group_delete',
             LabelProfile::class => 'label_profile_delete',
+            PartCustomState::class => 'part_custom_state_delete',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);

@@ -50,7 +50,7 @@ class PartSelectType extends AbstractType implements DataMapperInterface
             $options = $form->get('autocomplete')->getConfig()->getOptions();
 
 
-            if (!isset($data['autocomplete']) || '' === $data['autocomplete']) {
+            if (!isset($data['autocomplete']) || '' === $data['autocomplete'] || empty($data['autocomplete'])) {
                 $options['choices'] = [];
             } else {
                 //Extract the ID from the submitted data
@@ -84,7 +84,6 @@ class PartSelectType extends AbstractType implements DataMapperInterface
                 'data-autocomplete' => $this->urlGenerator->generate('typeahead_parts', ['query' => '__QUERY__']),
                 //Disable browser autocomplete
                 'autocomplete' => 'off',
-
             ],
         ]);
 
@@ -103,7 +102,7 @@ class PartSelectType extends AbstractType implements DataMapperInterface
                 }
 
                 return $part instanceof Part ? [
-                    'data-description' => mb_strimwidth($part->getDescription(), 0, 127, '...'),
+                    'data-description' => $part->getDescription() ? mb_strimwidth($part->getDescription(), 0, 127, '...') : '',
                     'data-category' => $part->getCategory() instanceof Category ? $part->getCategory()->getName() : '',
                     'data-footprint' => $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getName() : '',
                     'data-image' => $preview_url,

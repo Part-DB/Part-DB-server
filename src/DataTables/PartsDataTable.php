@@ -39,6 +39,7 @@ use App\DataTables\Filters\PartSearchFilter;
 use App\DataTables\Helpers\ColumnSortHelper;
 use App\DataTables\Helpers\PartDataTableHelper;
 use App\Doctrine\Helpers\FieldHelper;
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
@@ -174,6 +175,19 @@ final class PartsDataTable implements DataTableTypeInterface
                     return $tmp;
                 }
             ])
+            ->add('partCustomState', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.partCustomState'),
+                'orderField' => 'NATSORT(_partCustomState.name)',
+                'render' => function($value, Part $context): string {
+                    $partCustomState = $context->getPartCustomState();
+
+                    if ($partCustomState === null) {
+                        return '';
+                    }
+
+                    return htmlspecialchars($partCustomState->getName());
+                }
+            ])
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),
             ])
@@ -233,6 +247,34 @@ final class PartsDataTable implements DataTableTypeInterface
 
                     if (count($projects) > $max) {
                         $tmp .= ", + " . (count($projects) - $max);
+                    }
+
+                    return $tmp;
+                }
+            ]);
+        }
+
+        //Add a assembly column to list where the part is used, when the user has the permission to see the assemblies
+        if ($this->security->isGranted('read', Assembly::class)) {
+            $this->csh->add('assemblies', TextColumn::class, [
+                'label' => $this->translator->trans('assembly.labelp'),
+                'render' => function ($value, Part $context): string {
+                    //Only show the first 5 assembly names
+                    $assemblies = $context->getAssemblies();
+                    $tmp = "";
+
+                    $max = 5;
+
+                    for ($i = 0; $i < min($max, count($assemblies)); $i++) {
+                        $url = $this->urlGenerator->infoURL($assemblies[$i]);
+                        $tmp .= sprintf('<a href="%s">%s</a>', $url, htmlspecialchars($assemblies[$i]->getName()));
+                        if ($i < count($assemblies) - 1) {
+                            $tmp .= ", ";
+                        }
+                    }
+
+                    if (count($assemblies) > $max) {
+                        $tmp .= ", + ".(count($assemblies) - $max);
                     }
 
                     return $tmp;
@@ -309,6 +351,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addSelect('footprint')
             ->addSelect('manufacturer')
             ->addSelect('partUnit')
+            ->addSelect('partCustomState')
             ->addSelect('master_picture_attachment')
             ->addSelect('footprint_attachment')
             ->addSelect('partLots')
@@ -327,6 +370,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('orderdetails.supplier', 'suppliers')
             ->leftJoin('part.attachments', 'attachments')
             ->leftJoin('part.partUnit', 'partUnit')
+            ->leftJoin('part.partCustomState', 'partCustomState')
             ->leftJoin('part.parameters', 'parameters')
             ->where('part.id IN (:ids)')
             ->setParameter('ids', $ids)
@@ -344,6 +388,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addGroupBy('suppliers')
             ->addGroupBy('attachments')
             ->addGroupBy('partUnit')
+            ->addGroupBy('partCustomState')
             ->addGroupBy('parameters');
 
         //Get the results in the same order as the IDs were passed
@@ -414,6 +459,10 @@ final class PartsDataTable implements DataTableTypeInterface
         if (str_contains($dql, '_partUnit')) {
             $builder->leftJoin('part.partUnit', '_partUnit');
             $builder->addGroupBy('_partUnit');
+        }
+        if (str_contains($dql, '_partCustomState')) {
+            $builder->leftJoin('part.partCustomState', '_partCustomState');
+            $builder->addGroupBy('_partCustomState');
         }
         if (str_contains($dql, '_parameters')) {
             $builder->leftJoin('part.parameters', '_parameters');

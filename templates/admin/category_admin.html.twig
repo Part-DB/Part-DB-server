@@ -1,7 +1,9 @@
 {% extends "admin/base_admin.html.twig" %}
 
 {% block card_title %}
-    <i class="fas fa-tags fa-fw"></i> {% trans %}category.labelp{% endtrans %}
+    {% set dataSourceName = get_data_source_name('category', 'category.labelp') %}
+    {% set translatedSource = 'category.labelp'|trans %}
+    <i class="fas fa-tags fa-fw"></i> {% if dataSourceName != translatedSource %}{{ 'datasource.synonym'|trans({'%name%': translatedSource, '%synonym%': dataSourceName}) }}{% else %}{{ translatedSource }}{% endif %}
 {% endblock %}
 
 {% block additional_pills %}
@@ -31,6 +33,7 @@
         <hr>
         {{ form_row(form.partname_regex) }}
         {{ form_row(form.partname_hint) }}
+        {{ form_row(form.part_ipn_prefix) }}
         <hr>
         {{ form_row(form.default_description) }}
         {{ form_row(form.default_comment) }}

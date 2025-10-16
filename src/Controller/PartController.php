@@ -33,6 +33,7 @@ use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\ProjectSystem\Project;
+use App\Entity\AssemblySystem\Assembly;
 use App\Exceptions\AttachmentDownloadException;
 use App\Form\Part\PartBaseType;
 use App\Services\Attachments\AttachmentSubmitHandler;
@@ -47,6 +48,7 @@ use App\Services\Parts\PartLotWithdrawAddHelper;
 use App\Services\Parts\PricedetailHelper;
 use App\Services\ProjectSystem\ProjectBuildPartHelper;
 use App\Settings\BehaviorSettings\PartInfoSettings;
+use App\Settings\MiscSettings\IpnSuggestSettings;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -74,6 +76,7 @@ final class PartController extends AbstractController
         private readonly EntityManagerInterface $em,
         private readonly EventCommentHelper $commentHelper,
         private readonly PartInfoSettings $partInfoSettings,
+        private readonly IpnSuggestSettings $ipnSuggestSettings,
     ) {
     }
 
@@ -204,7 +207,7 @@ final class PartController extends AbstractController
 
     #[Route(path: '/new', name: 'part_new')]
     #[Route(path: '/{id}/clone', name: 'part_clone')]
-    #[Route(path: '/new_build_part/{project_id}', name: 'part_new_build_part')]
+    #[Route(path: '/new_build_part_project/{project_id}', name: 'part_new_build_part_project')]
     public function new(
         Request $request,
         EntityManagerInterface $em,
@@ -444,10 +447,13 @@ final class PartController extends AbstractController
             $template = 'parts/edit/update_from_ip.html.twig';
         }
 
+        $partRepository = $this->em->getRepository(Part::class);
+
         return $this->render(
             $template,
             [
                 'part' => $new_part,
+                'ipnSuggestions' => $partRepository->autoCompleteIpn($data, $data->getDescription(), $this->ipnSuggestSettings->suggestPartDigits),
                 'form' => $form,
                 'merge_old_name' => $merge_infos['tname_before'] ?? null,
                 'merge_other' => $merge_infos['other_part'] ?? null,
@@ -456,7 +462,6 @@ final class PartController extends AbstractController
             ]
         );
     }
-
 
     #[Route(path: '/{id}/add_withdraw', name: 'part_add_withdraw', methods: ['POST'])]
     public function withdrawAddHandler(Part $part, Request $request, EntityManagerInterface $em, PartLotWithdrawAddHelper $withdrawAddHelper): Response

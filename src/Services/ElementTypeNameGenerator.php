@@ -37,6 +37,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartAssociation;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
@@ -45,6 +46,8 @@ use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use App\Entity\AssemblySystem\Assembly;
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
@@ -66,6 +69,8 @@ class ElementTypeNameGenerator
             AttachmentType::class => $this->translator->trans('attachment_type.label'),
             Project::class => $this->translator->trans('project.label'),
             ProjectBOMEntry::class => $this->translator->trans('project_bom_entry.label'),
+            Assembly::class => $this->translator->trans('assembly.label'),
+            AssemblyBOMEntry::class => $this->translator->trans('assembly_bom_entry.label'),
             Footprint::class => $this->translator->trans('footprint.label'),
             Manufacturer::class => $this->translator->trans('manufacturer.label'),
             MeasurementUnit::class => $this->translator->trans('measurement_unit.label'),
@@ -83,6 +88,7 @@ class ElementTypeNameGenerator
             PartAssociation::class => $this->translator->trans('part_association.label'),
             BulkInfoProviderImportJob::class => $this->translator->trans('bulk_info_provider_import_job.label'),
             BulkInfoProviderImportJobPart::class => $this->translator->trans('bulk_info_provider_import_job_part.label'),
+            PartCustomState::class => $this->translator->trans('part_custom_state.label'),
         ];
     }
 
@@ -182,6 +188,8 @@ class ElementTypeNameGenerator
                 $on = $entity->getOrderdetail()->getPart();
             } elseif ($entity instanceof ProjectBOMEntry && $entity->getProject() instanceof Project) {
                 $on = $entity->getProject();
+            } elseif ($entity instanceof AssemblyBOMEntry && $entity->getAssembly() instanceof Assembly) {
+                $on = $entity->getAssembly();
             }
 
             if (isset($on) && $on instanceof NamedElementInterface) {

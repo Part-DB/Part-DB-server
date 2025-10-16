@@ -82,36 +82,35 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
         //The form is initially empty, we have to define the fields after we know the data
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (PreSetDataEvent $event) {
             $form = $event->getForm();
-            /** @var ProjectBuildRequest $build_request */
-            $build_request = $event->getData();
+            /** @var ProjectBuildRequest $projectBuildRequest */
+            $projectBuildRequest = $event->getData();
 
             $form->add('addBuildsToBuildsPart', CheckboxType::class, [
                 'label' => 'project.build.add_builds_to_builds_part',
                 'required' => false,
-                'disabled' => !$build_request->getProject()->getBuildPart() instanceof Part,
+                'disabled' => !$projectBuildRequest->getProject()->getBuildPart() instanceof Part,
             ]);
 
-            if ($build_request->getProject()->getBuildPart() instanceof Part) {
+            if ($projectBuildRequest->getProject()->getBuildPart() instanceof Part) {
                 $form->add('buildsPartLot', PartLotSelectType::class, [
                     'label' => 'project.build.builds_part_lot',
                     'required' => false,
-                    'part' => $build_request->getProject()->getBuildPart(),
+                    'part' => $projectBuildRequest->getProject()->getBuildPart(),
                     'placeholder' => 'project.build.buildsPartLot.new_lot'
                 ]);
             }
 
-            foreach ($build_request->getPartBomEntries() as $bomEntry) {
+            foreach ($projectBuildRequest->getPartBomEntries() as $bomEntry) {
                 //Every part lot has a field to specify the number of parts to take from this lot
-                foreach ($build_request->getPartLotsForBOMEntry($bomEntry) as $lot) {
+                foreach ($projectBuildRequest->getPartLotsForBOMEntry($bomEntry) as $lot) {
                     $form->add('lot_' . $lot->getID(), SIUnitType::class, [
                         'label' => false,
                         'measurement_unit' => $bomEntry->getPart()->getPartUnit(),
-                        'max' => min($build_request->getNeededAmountForBOMEntry($bomEntry), $lot->getAmount()),
+                        'max' => min($projectBuildRequest->getNeededAmountForBOMEntry($bomEntry), $lot->getAmount()),
                         'disabled' => !$this->security->isGranted('withdraw', $lot),
                     ]);
                 }
             }
-
         });
     }
 

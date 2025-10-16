@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\Trees;
 
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
@@ -29,6 +30,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
@@ -37,6 +39,7 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Helpers\Trees\TreeViewNode;
 use App\Services\Cache\UserCacheKeyGenerator;
+use App\Settings\BehaviorSettings\DataSourceSynonymsSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -49,8 +52,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class ToolsTreeBuilder
 {
-    public function __construct(protected TranslatorInterface $translator, protected UrlGeneratorInterface $urlGenerator, protected TagAwareCacheInterface $cache, protected UserCacheKeyGenerator $keyGenerator, protected Security $security)
-    {
+    public function __construct(
+        protected TranslatorInterface $translator,
+        protected UrlGeneratorInterface $urlGenerator,
+        protected TagAwareCacheInterface $cache,
+        protected UserCacheKeyGenerator $keyGenerator,
+        protected Security $security,
+        protected DataSourceSynonymsSettings $dataSourceSynonymsSettings,
+    ) {
     }
 
     /**
@@ -138,7 +147,7 @@ class ToolsTreeBuilder
                 $this->translator->trans('info_providers.search.title'),
                 $this->urlGenerator->generate('info_providers_search')
             ))->setIcon('fa-treeview fa-fw fa-solid fa-cloud-arrow-down');
-            
+
             $nodes[] = (new TreeViewNode(
                 $this->translator->trans('info_providers.bulk_import.manage_jobs'),
                 $this->urlGenerator->generate('bulk_info_provider_manage')
@@ -165,37 +174,43 @@ class ToolsTreeBuilder
         }
         if ($this->security->isGranted('read', new Category())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.categories'),
+                $this->getTranslatedDataSourceOrSynonym('category', 'tree.tools.edit.categories', $this->translator->getLocale()),
                 $this->urlGenerator->generate('category_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-tags');
         }
         if ($this->security->isGranted('read', new Project())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.projects'),
+                $this->getTranslatedDataSourceOrSynonym('project', 'tree.tools.edit.projects', $this->translator->getLocale()),
                 $this->urlGenerator->generate('project_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-archive');
         }
+        if ($this->security->isGranted('read', new Assembly())) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.assemblies'),
+                $this->urlGenerator->generate('assembly_new')
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-list');
+        }
         if ($this->security->isGranted('read', new Supplier())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.suppliers'),
+                $this->getTranslatedDataSourceOrSynonym('supplier', 'tree.tools.edit.suppliers', $this->translator->getLocale()),
                 $this->urlGenerator->generate('supplier_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-truck');
         }
         if ($this->security->isGranted('read', new Manufacturer())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.manufacturer'),
+                $this->getTranslatedDataSourceOrSynonym('manufacturer', 'tree.tools.edit.manufacturer', $this->translator->getLocale()),
                 $this->urlGenerator->generate('manufacturer_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-industry');
         }
         if ($this->security->isGranted('read', new StorageLocation())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.storelocation'),
+                $this->getTranslatedDataSourceOrSynonym('storagelocation', 'tree.tools.edit.storelocation', $this->translator->getLocale()),
                 $this->urlGenerator->generate('store_location_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-cube');
         }
         if ($this->security->isGranted('read', new Footprint())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.footprint'),
+                $this->getTranslatedDataSourceOrSynonym('footprint', 'tree.tools.edit.footprint', $this->translator->getLocale()),
                 $this->urlGenerator->generate('footprint_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-microchip');
         }
@@ -216,6 +231,12 @@ class ToolsTreeBuilder
                 $this->translator->trans('tree.tools.edit.label_profile'),
                 $this->urlGenerator->generate('label_profile_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-qrcode');
+        }
+        if ($this->security->isGranted('read', new PartCustomState())) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.part_custom_state'),
+                $this->urlGenerator->generate('part_custom_state_new')
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-tools');
         }
         if ($this->security->isGranted('create', new Part())) {
             $nodes[] = (new TreeViewNode(
@@ -302,5 +323,25 @@ class ToolsTreeBuilder
         }
 
         return $nodes;
+    }
+
+    protected function getTranslatedDataSourceOrSynonym(string $dataSource, string $translationKey, string $locale): string
+    {
+        $currentTranslation = $this->translator->trans($translationKey);
+
+        $synonyms = $this->dataSourceSynonymsSettings->getSynonymsAsArray();
+
+        // Call alternatives from DataSourcesynonyms (if available)
+        if (!empty($synonyms[$dataSource][$locale])) {
+            $alternativeTranslation = $synonyms[$dataSource][$locale];
+
+            // Use alternative translation when it deviates from the standard translation
+            if ($alternativeTranslation !== $currentTranslation) {
+                return $alternativeTranslation;
+            }
+        }
+
+        // Otherwise return the standard translation
+        return $currentTranslation;
     }
 }

@@ -22,8 +22,10 @@ declare(strict_types=1);
  */
 namespace App\Twig;
 
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
@@ -108,6 +110,7 @@ final class EntityExtension extends AbstractExtension
             Manufacturer::class => 'manufacturer',
             Category::class => 'category',
             Project::class => 'device',
+            Assembly::class => 'assembly',
             Attachment::class => 'attachment',
             Supplier::class => 'supplier',
             User::class => 'user',
@@ -115,6 +118,7 @@ final class EntityExtension extends AbstractExtension
             Currency::class => 'currency',
             MeasurementUnit::class => 'measurement_unit',
             LabelProfile::class => 'label_profile',
+            PartCustomState::class => 'part_custom_state',
         ];
 
         foreach ($map as $class => $type) {

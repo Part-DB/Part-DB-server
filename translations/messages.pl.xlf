@@ -351,6 +351,24 @@
         <target>Eksportuj wszystkie elementy</target>
       </segment>
     </unit>
+    <unit id="Ujhd6e3" name="export.readable.label">
+      <segment state="translated">
+        <source>export.readable.label</source>
+        <target>Eksport czytelny</target>
+      </segment>
+    </unit>
+    <unit id="a5h8ltP" name="export.readable">
+      <segment state="translated">
+        <source>export.readable</source>
+        <target>CSV</target>
+      </segment>
+    </unit>
+    <unit id="keJnq8f" name="export.readable_bom">
+      <segment state="translated">
+        <source>export.readable_bom</source>
+        <target>PDF</target>
+      </segment>
+    </unit>
     <unit id="M.rXmnA" name="mass_creation.help">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:185</note>
@@ -546,6 +564,12 @@
       <segment state="translated">
         <source>measurement_unit.caption</source>
         <target>Jednostka miary</target>
+      </segment>
+    </unit>
+    <unit id="3bcKBzY" name="part_custom_state.caption">
+      <segment state="translated">
+        <source>part_custom_state.caption</source>
+        <target>Stan niestandardowy komponentu</target>
       </segment>
     </unit>
     <unit id="crdkzlg" name="storelocation.labelp">
@@ -1845,6 +1869,66 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
       <segment state="translated">
         <source>part.edit.tab.advanced</source>
         <target>Zaawansowane</target>
+      </segment>
+    </unit>
+    <unit id="a1k7Blf" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
+        <target>Sugestie bez zwiększenia części</target>
+      </segment>
+    </unit>
+    <unit id="2achA.b" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
+        <target>Propozycje z numerycznymi przyrostami części</target>
+      </segment>
+    </unit>
+    <unit id="a7jKe3c" name="part.edit.tab.advanced.ipn.prefix.description.current-increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.current-increment</source>
+        <target>Aktualna specyfikacja IPN dla części</target>
+      </segment>
+    </unit>
+    <unit id="kEco9iX" name="part.edit.tab.advanced.ipn.prefix.description.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.increment</source>
+        <target>Następna możliwa specyfikacja IPN na podstawie identycznego opisu części</target>
+      </segment>
+    </unit>
+    <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
+        <target>Prefiks IPN kategorii bezpośredniej jest pusty, podaj go w kategorii "%name%".</target>
+      </segment>
+    </unit>
+    <unit id="ec2DiJd" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
+        <target>Prefiks IPN kategorii bezpośredniej</target>
+      </segment>
+    </unit>
+    <unit id="2e.kJb4" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
+        <target>Prefiks IPN bezpośredniej kategorii i specyficzny dla części przyrost</target>
+      </segment>
+    </unit>
+    <unit id="ba1GCoq" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
+        <target>Prefiksy IPN z hierarchiczną kolejnością kategorii prefiksów nadrzędnych</target>
+      </segment>
+    </unit>
+    <unit id="d1uVFa3" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
+        <target>Prefiksy IPN z hierarchiczną kolejnością kategorii prefiksów nadrzędnych i specyficznym przyrostem dla części</target>
+      </segment>
+    </unit>
+    <unit id="a4rPagW" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
+        <target>Najpierw utwórz komponent i przypisz go do kategorii: dzięki istniejącym kategoriom i ich własnym prefiksom IPN identyfikator IPN dla komponentu może być proponowany automatycznie</target>
       </segment>
     </unit>
     <unit id="c3S4jwK" name="part.edit.tab.part_lots">
@@ -4745,6 +4829,24 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
         <target>Nazwa</target>
       </segment>
     </unit>
+    <unit id="FV7YOW6" name="part.table.name.value.for_part">
+    	<segment state="translated">
+    		<source>part.table.name.value.for_part</source>
+    		<target>%value%（部品）</target>
+    	</segment>
+    </unit>
+    <unit id="o4zUJc5" name="part.table.name.value.for_assembly">
+      <segment state="translated">
+        <source>part.table.name.value.for_assembly</source>
+        <target>%value% (Złożenie)</target>
+      </segment>
+    </unit>
+    <unit id="GW8ZOX7" name="part.table.name.value.for_project">
+      <segment state="translated">
+        <source>part.table.name.value.for_project</source>
+        <target>%value% (Projekt)</target>
+      </segment>
+    </unit>
     <unit id="rW_SFJE" name="part.table.id">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:178</note>
@@ -4833,6 +4935,12 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
       <segment state="translated">
         <source>part.table.partUnit</source>
         <target>Jednostka pomiarowa</target>
+      </segment>
+    </unit>
+    <unit id="G1hmQdb" name="part.table.partCustomState">
+      <segment state="translated">
+        <source>part.table.partCustomState</source>
+        <target>Niestandardowy stan części</target>
       </segment>
     </unit>
     <unit id="R5pc2FR" name="part.table.addedDate">
@@ -5699,6 +5807,12 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
         <target>Jednostka pomiarowa</target>
       </segment>
     </unit>
+    <unit id="G1hmQdb" name="part.edit.partCustomState">
+      <segment state="translated">
+        <source>part.edit.partCustomState</source>
+        <target>Własny stan części</target>
+      </segment>
+    </unit>
     <unit id="oY_9HE9" name="part.edit.comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:212</note>
@@ -5986,6 +6100,12 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
         <target>Jednostka pomiarowa</target>
       </segment>
     </unit>
+    <unit id="a1mPcMw" name="part_custom_state.label">
+      <segment state="translated">
+        <source>part_custom_state.label</source>
+        <target>Własny stan części</target>
+      </segment>
+    </unit>
     <unit id="__SP1Zy" name="currency.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:90</note>
@@ -6227,6 +6347,12 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
       <segment state="translated">
         <source>tree.tools.edit.measurement_unit</source>
         <target>Jednostka miary</target>
+      </segment>
+    </unit>
+    <unit id="5adacKb" name="tree.tools.edit.part_custom_state">
+      <segment state="translated">
+        <source>tree.tools.edit.part_custom_state</source>
+        <target>Niestandardowy stan części</target>
       </segment>
     </unit>
     <unit id=".Ux4R3T" name="tree.tools.edit.label_profile">
@@ -6961,6 +7087,12 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
       <segment state="translated">
         <source>category.edit.partname_regex</source>
         <target>Filtr nazwy</target>
+      </segment>
+    </unit>
+    <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix</source>
+        <target>Prefiks IPN części</target>
       </segment>
     </unit>
     <unit id="yY_ld.7" name="category.edit.default_description">
@@ -8499,6 +8631,12 @@ Element 3</target>
         <target>Jednostka miary</target>
       </segment>
     </unit>
+    <unit id="1b5ja1c" name="perm.part_custom_states">
+      <segment state="translated">
+        <source>perm.part_custom_states</source>
+        <target>Stan niestandardowy komponentu</target>
+      </segment>
+    </unit>
     <unit id="coNue69" name="user.settings.pw_old.label">
       <notes>
         <note priority="1">obsolete</note>
@@ -9887,6 +10025,48 @@ Element 3</target>
         <target>Zarchiwizowany</target>
       </segment>
     </unit>
+    <unit id="hIIFtI1" name="assembly.edit.status">
+      <segment state="translated">
+        <source>assembly.edit.status</source>
+        <target>Status montażu</target>
+      </segment>
+    </unit>
+    <unit id="9uJEwv1" name="assembly.edit.ipn">
+      <segment state="translated">
+        <source>assembly.edit.ipn</source>
+        <target>Internal Part Number (IPN)</target>
+      </segment>
+    </unit>
+    <unit id="zRd.psv" name="assembly.status.draft">
+      <segment state="translated">
+        <source>assembly.status.draft</source>
+        <target>Wersja robocza</target>
+      </segment>
+    </unit>
+    <unit id="_U8bb1t" name="assembly.status.planning">
+      <segment state="translated">
+        <source>assembly.status.planning</source>
+        <target>W planowaniu</target>
+      </segment>
+    </unit>
+    <unit id="GgUh7RT" name="assembly.status.in_production">
+      <segment state="translated">
+        <source>assembly.status.in_production</source>
+        <target>W produkcji</target>
+      </segment>
+    </unit>
+    <unit id="IluD8iU" name="assembly.status.finished">
+      <segment state="translated">
+        <source>assembly.status.finished</source>
+        <target>Zakończony</target>
+      </segment>
+    </unit>
+    <unit id="Mybkd1s" name="assembly.status.archived">
+      <segment state="translated">
+        <source>assembly.status.archived</source>
+        <target>Zarchiwizowany</target>
+      </segment>
+    </unit>
     <unit id="9GtmqC1" name="part.new_build_part.error.build_part_already_exists">
       <segment state="translated">
         <source>part.new_build_part.error.build_part_already_exists</source>
@@ -10277,10 +10457,22 @@ Element 3</target>
         <target>np. "/Kondensator \d+ nF/i"</target>
       </segment>
     </unit>
+    <unit id="OXeGz1A" name="category.edit.part_ipn_prefix.placeholder">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.placeholder</source>
+        <target>np. "B12A"</target>
+      </segment>
+    </unit>
     <unit id="DL.TreI" name="category.edit.partname_regex.help">
       <segment state="translated">
         <source>category.edit.partname_regex.help</source>
         <target>Wyrażenie regularne zgodne z PCRE, do którego musi pasować nazwa komponentu.</target>
+      </segment>
+    </unit>
+    <unit id="a1bUsfJ" name="category.edit.part_ipn_prefix.help">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.help</source>
+        <target>Een voorgesteld voorvoegsel bij het invoeren van de IPN van een onderdeel.</target>
       </segment>
     </unit>
     <unit id="GzqIwHH" name="entity.select.add_hint">
@@ -10829,6 +11021,12 @@ Element 3</target>
         <target>Jednostka pomiarowa</target>
       </segment>
     </unit>
+    <unit id="2COnw1k" name="log.element_edited.changed_fields.partCustomState">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.partCustomState</source>
+        <target>Niestandardowy stan części</target>
+      </segment>
+    </unit>
     <unit id="c9XMmAp" name="log.element_edited.changed_fields.expiration_date">
       <segment state="translated">
         <source>log.element_edited.changed_fields.expiration_date</source>
@@ -11033,6 +11231,18 @@ Element 3</target>
         <target>Typ</target>
       </segment>
     </unit>
+    <unit id="hRLz1qd" name="project.bom_import.type.json">
+      <segment state="translated">
+        <source>assembly.bom_import.type.json</source>
+        <target>JSON</target>
+      </segment>
+    </unit>
+    <unit id="k9JWt2P" name="project.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV</target>
+      </segment>
+    </unit>
     <unit id="tNnYa0u" name="project.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>project.bom_import.type.kicad_pcbnew</source>
@@ -11044,6 +11254,319 @@ Element 3</target>
         <source>project.bom_import.clear_existing_bom</source>
         <target>Wyczyść istniejące wpisy BOM przed importem</target>
       </segment>
+    </unit>
+    <unit id="h8zHL1o" name="project.import_bom.template.header.json">
+      <segment>
+        <source>project.import_bom.template.header.json</source>
+        <target>Szablon importu JSON</target>
+      </segment>
+    </unit>
+    <unit id="i9yIJ4B" name="project.import_bom.template.header.csv">
+      <segment>
+        <source>project.import_bom.template.header.csv</source>
+        <target>Szablon importu CSV</target>
+      </segment>
+    </unit>
+    <unit id="9PmGE2C" name="project.import_bom.template.header.kicad_pcbnew">
+      <segment>
+        <source>project.import_bom.template.header.kicad_pcbnew</source>
+        <target>Szablon importu CSV (KiCAD Pcbnew BOM)</target>
+      </segment>
+    </unit>
+    <unit id="vG3DXq1" name="project.bom_import.template.entry.name">
+      <segment>
+        <source>project.bom_import.template.entry.name</source>
+        <target>Nazwa komponentu w projekcie</target>
+      </segment>
+    </unit>
+    <unit id="rQ4BUt5" name="project.bom_import.template.entry.part.mpnr">
+      <segment>
+        <source>project.bom_import.template.entry.part.mpnr</source>
+        <target>Unikalny numer produktu producenta</target>
+      </segment>
+    </unit>
+    <unit id="zHbY5V3" name="project.bom_import.template.entry.part.ipn">
+      <segment>
+        <source>project.bom_import.template.entry.part.ipn</source>
+        <target>Unikalny IPN komponentu</target>
+      </segment>
+    </unit>
+    <unit id="UhW5M9o" name="project.bom_import.template.entry.part.name">
+      <segment>
+        <source>project.bom_import.template.entry.part.name</source>
+        <target>Unikalna nazwa komponentu</target>
+      </segment>
+    </unit>
+    <unit id="9U5b1Rc" name="project.bom_import.template.entry.part.manufacturer.name">
+      <segment>
+        <source>project.bom_import.template.entry.part.manufacturer.name</source>
+        <target>Unikalna nazwa producenta</target>
+      </segment>
+    </unit>
+    <unit id="4fU9rO2" name="project.bom_import.template.json.table">
+      <segment>
+        <source>project.bom_import.template.json.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Pole</th>
+                <th>Warunek</th>
+                <th>Typ Danych</th>
+                <th>Opis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Wymagane</td>
+                <td>Dziesiętny (Float)</td>
+                <td>Musi być podane i zawierać wartość dziesiętną (Float) większą niż 0.0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Opcjonalne</td>
+                <td>Ciąg (String)</td>
+                <td>Jeśli jest obecny, musi być niepustym ciągiem znaków. Nazwa elementu w wykazie materiałów.</td>
+              </tr>
+              <tr>
+                <td>part</td>
+                <td>Opcjonalne</td>
+                <td>Obiekt/Tablica</td>
+                <td>
+                  Jeśli komponent musi być przypisany, musi być obiektem/tablą i co najmniej jedno z następujących pól musi zostać wypełnione:
+                  <ul>
+                    <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
+                    <li>part.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part.id</td>
+                <td>Opcjonalne</td>
+                <td>Całkowity (Integer)</td>
+                <td>Całkowity (Integer) &gt; 0. Odpowiada wewnętrznemu numerycznemu identyfikatorowi komponentu w bazie danych części (Part-DB).</td>
+              </tr>
+              <tr>
+                <td>part.mpnr</td>
+                <td>Opcjonalne</td>
+                <td>Ciag (String)</td>
+                <td>Niepusty ciąg, jeśli part.id, part.ipn ani part.name nie zostały podane.</td>
+              </tr>
+              <tr>
+                <td>part.ipn</td>
+                <td>Opcjonalne</td>
+                <td>Ciag (String)</td>
+                <td>Niepusty ciąg, jeśli part.id, part.mpnr ani part.name nie zostały podane.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Opcjonalne</td>
+                <td>Ciag (String)</td>
+                <td>Niepusty ciąg, jeśli part.id, part.mpnr ani part.ipn nie zostały podane.</td>
+              </tr>
+              <tr>
+                <td>part.manufacturer</td>
+                <td>Opcjonalne</td>
+                <td>Obiekt/Tablica</td>
+                <td>
+                  Jeśli producent komponentu musi zostać dostosowany lub komponent musi zostać jednoznacznie zidentyfikowany na podstawie part.mpnr, musi być obiektem/tablą, a co najmniej jedno z następujących pól musi zostać wypełnione:
+                  <ul>
+                    <li>manufacturer.id</li>
+                    <li>manufacturer.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>manufacturer.id</td>
+                <td>Opcjonalne</td>
+                <td>Całkowity (Integer)</td>
+                <td>Całkowity (Integer) &gt; 0. Odpowiada wewnętrznemu numerycznemu identyfikatorowi producenta.</td>
+              </tr>
+              <tr>
+                <td>manufacturer.name</td>
+                <td>Opcjonalne</td>
+                <td>Ciag (String)</td>
+                <td>Niepusty ciąg, jeśli manufacturer.id nie został podany.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="aK4i2aT" name="project.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>project.bom_import.template.csv.exptected_columns</source>
+        <target>Możliwe kolumny:</target>
+      </segment>
+    </unit>
+    <unit id="Red8MLw" name="project.bom_import.template.csv.table">
+      <segment>
+        <source>project.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Kolumna</th>
+                <th>Warunek</th>
+                <th>Typ danych</th>
+                <th>Opis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Wymagana</td>
+                <td>Liczba zmiennoprzecinkowa (Float)</td>
+                <td>Liczba identycznych komponentów potrzebnych do utworzenia instancji.<br>Traktowane jako liczba wpisów komponentu.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Optional</td>
+                <td>String</td>
+                <td>Jeśli dostępny, musi być niepustym ciągiem znaków. Nazwa elementu w wykazie materiałów.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolumny zaczynające się od part_</strong></td>
+                <td>
+                  Jeśli ma zostać przypisany komponent, co najmniej jedna z poniższych kolumn musi zostać podana i uzupełniona:
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Opcjonalna</td>
+                <td>Liczba całkowita (Integer)</td>
+                <td>Liczba całkowita > 0. Odpowiada wewnętrznemu ID numerycznemu komponentu w Part-DB.</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Opcjonalna</td>
+                <td>Cišg znaków (String)</td>
+                <td>Musi być podana, jeśli kolumny part_id, part_ipn ani part_name nie są podane.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Opcjonalna</td>
+                <td>Cišg znaków (String)</td>
+                <td>Musi być podana, jeśli kolumny part_id, part_mpnr ani part_name nie są podane.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Opcjonalna</td>
+                <td>Cišg znaków (String)</td>
+                <td>Musi być podana, jeśli kolumny part_id, part_mpnr ani part_ipn nie są podane.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolumny zaczynające się od part_manufacturer_</strong></td>
+                <td>
+                  Jeśli producent komponentu ma zostać zmieniony lub komponent ma zostać jednoznacznie zidentyfikowany na podstawie wartości part_mpnr, co najmniej jedna z poniższych kolumn musi zostać podana i uzupełniona:
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Opcjonalna</td>
+                <td>Liczba całkowita (Integer)</td>
+                <td>Liczba całkowita > 0. Odpowiada wewnętrznemu numerycznemu ID producenta.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Opcjonalna</td>
+                <td>Cišg znaków (String)</td>
+                <td>Musi być podana, jeśli kolumna part_manufacturer_id nie jest uzupełniona.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="o0u7vGe" name="project.bom_import.template.kicad_pcbnew.exptected_columns">
+      <segment>
+        <source>project.bom_import.template.kicad_pcbnew.exptected_columns</source>
+        <target>Oczekiwane kolumny:</target>
+      </segment>
+    </unit>
+    <unit id="bKWoLeT" name="project.bom_import.template.kicad_pcbnew.exptected_columns.note">
+      <segment>
+        <source>project.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
+        <target>
+            <![CDATA[
+            <p><strong>Uwaga:</strong> Nie następuje przypisanie do konkretnych komponentów z zarządzania kategoriami.</p>
+            ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="aki9R3e" name="project.bom_import.template.kicad_pcbnew.table">
+        <segment>
+            <source>project.bom_import.template.kicad_pcbnew.table</source>
+            <target>
+                <![CDATA[
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Pole</th>
+                            <th>Warunek</th>
+                            <th>Typ danych</th>
+                            <th>Opis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Id</td>
+                            <td>Opcjonalne</td>
+                            <td>Liczba całkowita (Integer)</td>
+                            <td>Dowolna wartość. Unikalny numer identyfikacyjny dla każdego komponentu.</td>
+                        </tr>
+                        <tr>
+                            <td>Designator</td>
+                            <td>Opcjonalne</td>
+                            <td>String</td>
+                            <td>Dowolna wartość. Unikalny identyfikator referencyjny komponentu na płytce PCB, np. „R1” dla rezystora 1.<br>Zostaje przeniesiony do nazwy montażowej wpisu komponentu.</td>
+                        </tr>
+                        <tr>
+                            <td>Package</td>
+                            <td>Opcjonalne</td>
+                            <td>String</td>
+                            <td>Dowolna wartość. Obudowa lub typ komponentu, np. „0805” dla rezystorów SMD.<br>Nie zostaje przeniesiony do wpisu komponentu.</td>
+                        </tr>
+                        <tr>
+                            <td>Quantity</td>
+                            <td>Pole obowiązkowe</td>
+                            <td>Liczba całkowita (Integer)</td>
+                            <td>Liczba identycznych komponentów potrzebnych do stworzenia instancji zestawu.<br>Zostaje przeniesiona jako ilość wpisu komponentu.</td>
+                        </tr>
+                        <tr>
+                            <td>Designation</td>
+                            <td>Pole obowiązkowe</td>
+                            <td>String</td>
+                            <td>Opis lub funkcja komponentu, np. wartość rezystora „10kΩ” lub wartość kondensatora „100nF”.<br>Zostaje przeniesiony do nazwy wpisu komponentu.</td>
+                        </tr>
+                        <tr>
+                            <td>Supplier and ref</td>
+                            <td>Opcjonalne</td>
+                            <td>String</td>
+                            <td>Dowolna wartość. Może zawierać np. wartość specyficzną dla dystrybutora.<br>Zostaje przeniesiona jako notatka do wpisu komponentu.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                ]]>
+            </target>
+        </segment>
     </unit>
     <unit id="MDJdKXv" name="project.bom_import.clear_existing_bom.help">
       <segment state="translated">
@@ -11085,6 +11608,18 @@ Element 3</target>
       <segment state="translated">
         <source>measurement_unit.edit</source>
         <target>Edytuj jednostkę miary</target>
+      </segment>
+    </unit>
+    <unit id="ba52d.g" name="part_custom_state.new">
+      <segment state="translated">
+        <source>part_custom_state.new</source>
+        <target>Nowy niestandardowy stan części</target>
+      </segment>
+    </unit>
+    <unit id="c1.gb2d" name="part_custom_state.edit">
+      <segment state="translated">
+        <source>part_custom_state.edit</source>
+        <target>Edytuj niestandardowy stan części</target>
       </segment>
     </unit>
     <unit id="uW2WHHC" name="user.aboutMe.label">
@@ -12221,6 +12756,893 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
       <segment state="translated">
         <source>tfa.check.code.confirmation</source>
         <target>Wygenerowany kod</target>
+      </segment>
+    </unit>
+    <unit id="G2sXzh7" name="assembly.label">
+      <segment>
+        <source>assembly.label</source>
+        <target>Zespół</target>
+      </segment>
+    </unit>
+    <unit id="dL51AVa" name="assembly.caption">
+      <segment>
+        <source>assembly.caption</source>
+        <target>Zespół</target>
+      </segment>
+    </unit>
+    <unit id="G_rlE3w" name="perm.assemblies">
+      <segment>
+        <source>perm.assemblies</source>
+        <target>Zespoły</target>
+      </segment>
+    </unit>
+    <unit id="dipIGt4" name="assembly_bom_entry.label">
+      <segment>
+        <source>assembly_bom_entry.label</source>
+        <target>Komponenty</target>
+      </segment>
+    </unit>
+    <unit id="TvHlYfl" name="assembly.labelp">
+      <segment>
+        <source>assembly.labelp</source>
+        <target>Zespoły</target>
+      </segment>
+    </unit>
+    <unit id="Tab5Ou1" name="assembly.referencedAssembly.labelp">
+      <segment>
+        <source>assembly.referencedAssembly.labelp</source>
+        <target>Odwołane zestawy</target>
+      </segment>
+    </unit>
+    <unit id="gyRGdfv" name="assembly.edit">
+      <segment>
+        <source>assembly.edit</source>
+        <target>Edytuj zespół</target>
+      </segment>
+    </unit>
+    <unit id="4Tdtoj_" name="assembly.new">
+      <segment>
+        <source>assembly.new</source>
+        <target>Nowy zespół</target>
+      </segment>
+    </unit>
+    <unit id="_wZ_JZY" name="assembly.edit.bom.import_bom">
+      <segment>
+        <source>assembly.edit.bom.import_bom</source>
+        <target>Importuj komponenty</target>
+      </segment>
+    </unit>
+    <unit id="vsmgKMw" name="log.database_updated.failed">
+      <segment>
+        <source>log.database_updated.failed</source>
+        <target>__log.database_updated.failed</target>
+      </segment>
+    </unit>
+    <unit id="GcQrTTE" name="log.database_updated.old_version">
+      <segment>
+        <source>log.database_updated.old_version</source>
+        <target>__log.database_updated.old_version</target>
+      </segment>
+    </unit>
+    <unit id="JJF47vK" name="log.database_updated.new_version">
+      <segment>
+        <source>log.database_updated.new_version</source>
+        <target>__log.database_updated.new_version</target>
+      </segment>
+    </unit>
+    <unit id="iVHS_sh" name="tree.tools.edit.assemblies">
+      <segment>
+        <source>tree.tools.edit.assemblies</source>
+        <target>Zespoły</target>
+      </segment>
+    </unit>
+    <unit id="naAMjcH" name="assembly.bom_import.flash.success">
+      <segment>
+        <source>assembly.bom_import.flash.success</source>
+        <target>Pomyślnie zaimportowano %count% komponent(ów) do zespołu.</target>
+      </segment>
+    </unit>
+    <unit id="ScQhV.o" name="assembly.bom_import.flash.invalid_entries">
+      <segment>
+        <source>assembly.bom_import.flash.invalid_entries</source>
+        <target>Błąd walidacji! Sprawdź zaimportowany plik!</target>
+      </segment>
+    </unit>
+    <unit id="luj_uCZ" name="assembly.bom_import.flash.invalid_file">
+      <segment>
+        <source>assembly.bom_import.flash.invalid_file</source>
+        <target>Nie udało się zaimportować pliku. Sprawdź, czy wybrano poprawny typ pliku. Komunikat błędu: %message%</target>
+      </segment>
+    </unit>
+    <unit id="u7SYWcB" name="assembly.bom.quantity">
+      <segment>
+        <source>assembly.bom.quantity</source>
+        <target>Ilość</target>
+      </segment>
+    </unit>
+    <unit id="D7dPvPL" name="assembly.bom.mountnames">
+      <segment>
+        <source>assembly.bom.mountnames</source>
+        <target>Nazwy montażu</target>
+      </segment>
+    </unit>
+    <unit id="kd8Db5T" name="assembly.bom.designator">
+      <segment>
+        <source>assembly.bom.designator</source>
+        <target>Oznaczenie referencyjne</target>
+      </segment>
+    </unit>
+    <unit id="jd7dh6G" name="assembly.bom.designator.help">
+      <segment>
+        <source>assembly.bom.designator.help</source>
+        <target>Dowolne oznaczenia referencyjne (designator)</target>
+      </segment>
+    </unit>
+    <unit id="rswC4eS" name="assembly.bom.instockAmount">
+      <segment state="translated">
+        <source>assembly.bom.instockAmount</source>
+        <target>Ilość na magazynie</target>
+      </segment>
+    </unit>
+    <unit id="oNutri3" name="assembly.info.title">
+      <segment>
+        <source>assembly.info.title</source>
+        <target>Informacje o zespole</target>
+      </segment>
+    </unit>
+    <unit id="aO1rzVQ" name="assembly.info.info.label">
+      <segment>
+        <source>assembly.info.info.label</source>
+        <target>Informacje</target>
+      </segment>
+    </unit>
+    <unit id="9dOByT_" name="assembly.info.sub_assemblies.label">
+      <segment>
+        <source>assembly.info.sub_assemblies.label</source>
+        <target>Podzespoły</target>
+      </segment>
+    </unit>
+    <unit id="Hmf0EwN" name="assembly.info.builds.label">
+      <segment>
+        <source>assembly.info.builds.label</source>
+        <target>Budowa</target>
+      </segment>
+    </unit>
+    <unit id="z3F4Rcu" name="assembly.info.bom_add_parts">
+      <segment>
+        <source>assembly.info.bom_add_parts</source>
+        <target>Dodaj części</target>
+      </segment>
+    </unit>
+    <unit id="dGFHutJ" name="assembly.info.bom_entries_count">
+      <segment>
+        <source>assembly.info.bom_entries_count</source>
+        <target>Elementy</target>
+      </segment>
+    </unit>
+    <unit id="xJ7oBM4" name="assembly.info.sub_assemblies_count">
+      <segment>
+        <source>assembly.info.sub_assemblies_count</source>
+        <target>Podzespoły</target>
+      </segment>
+    </unit>
+    <unit id="hO7vWmc" name="assembly.bom.delete.confirm">
+      <segment state="translated">
+        <source>assembly.bom.delete.confirm</source>
+        <target>Czy na pewno chcesz usunąć ten element?</target>
+      </segment>
+    </unit>
+    <unit id="tgs_7u9" name="assembly.add_parts_to_assembly">
+      <segment>
+        <source>assembly.add_parts_to_assembly</source>
+        <target>Dodaj części do zespołu</target>
+      </segment>
+    </unit>
+    <unit id="u7iO1dE" name="part.info.add_part_to_assembly">
+      <segment state="translated">
+        <source>part.info.add_part_to_assembly</source>
+        <target>Dodaj tę część do zespołu</target>
+      </segment>
+    </unit>
+    <unit id="1zsGacg3" name="assembly.bom.project">
+      <segment>
+        <source>assembly.bom.project</source>
+        <target>Projekt</target>
+      </segment>
+    </unit>
+    <unit id="od1xTi3" name="assembly.bom.referencedAssembly">
+      <segment>
+        <source>assembly.bom.referencedAssembly</source>
+        <target>Złożenie</target>
+      </segment>
+    </unit>
+    <unit id="PPsM0Dg" name="assembly.bom.name">
+      <segment>
+        <source>assembly.bom.name</source>
+        <target>Nazwa</target>
+      </segment>
+    </unit>
+    <unit id="jd7dh6G" name="assembly.bom.name.help">
+      <segment>
+        <source>assembly.bom.name.help</source>
+        <target>Czytelny dla człowieka tytuł pozycji listy materiałowej</target>
+      </segment>
+    </unit>
+    <unit id="nUEs.ld" name="assembly.bom.comment">
+      <segment>
+        <source>assembly.bom.comment</source>
+        <target>Uwagi</target>
+      </segment>
+    </unit>
+    <unit id="UJpD7n6" name="assembly.import_bom">
+      <segment>
+        <source>assembly.import_bom</source>
+        <target>Importuj części dla zespołu</target>
+      </segment>
+    </unit>
+    <unit id="WTasGao" name="assembly.bom.partOrAssembly">
+      <segment>
+        <source>assembly.bom.partOrAssembly</source>
+        <target>Część lub zespół</target>
+      </segment>
+    </unit>
+    <unit id="jd7fn8K" name="assembly.bom.identifiers">
+      <segment>
+        <source>assembly.bom.identifiers</source>
+        <target>Identyfikatory</target>
+      </segment>
+    </unit>
+    <unit id="jHKh8Zp" name="assembly.bom.add_entry">
+      <segment>
+        <source>assembly.bom.add_entry</source>
+        <target>Dodaj pozycję</target>
+      </segment>
+    </unit>
+    <unit id="RsZ77df" name="assembly.bom.price">
+      <segment>
+        <source>assembly.bom.price</source>
+        <target>Cena</target>
+      </segment>
+    </unit>
+    <unit id="nl.jtSx" name="assembly.bom_import.type">
+      <segment state="translated">
+        <source>assembly.bom_import.type</source>
+        <target>Typ</target>
+      </segment>
+    </unit>
+    <unit id="LtbSLHx" name="assembly.bom_import.type.json">
+      <segment state="translated">
+        <source>assembly.bom_import.type.json</source>
+        <target>JSON dla zespołu</target>
+      </segment>
+    </unit>
+    <unit id="6clEV3p" name="assembly.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV dla zestawienia</target>
+      </segment>
+    </unit>
+    <unit id="clXFAdN" name="assembly.bom_import.type.kicad_pcbnew">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_pcbnew</source>
+        <target>CSV (KiCAD Pcbnew)</target>
+      </segment>
+    </unit>
+    <unit id="oiuejI1" name="assembly.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_schematic</source>
+        <target>KiCAD Schematyczny edytor BOM (plik CSV)</target>
+      </segment>
+    </unit>
+    <unit id="0IekETE" name="assembly.bom_import.clear_existing_bom">
+      <segment state="translated">
+        <source>assembly.bom_import.clear_existing_bom</source>
+        <target>Usuń istniejące dane przed importem</target>
+      </segment>
+    </unit>
+    <unit id="S4QY6pA" name="assembly.bom_import.clear_existing_bom.help">
+      <segment state="translated">
+        <source>assembly.bom_import.clear_existing_bom.help</source>
+        <target>Jeśli wybrano, wszystkie istniejące wpisy części zostaną usunięte i zastąpione danymi z importu.</target>
+      </segment>
+    </unit>
+    <unit id="RVNWPsh" name="assembly.import_bom.template.header.json">
+      <segment>
+        <source>assembly.import_bom.template.header.json</source>
+        <target>Szablon importu JSON dla zespołu</target>
+      </segment>
+    </unit>
+    <unit id="GtUk9b" name="assembly.import_bom.template.header.csv">
+      <segment>
+        <source>assembly.import_bom.template.header.csv</source>
+        <target>Szablon importu CSV dla zespołu</target>
+      </segment>
+    </unit>
+    <unit id="eU4FfCr" name="assembly.import_bom.template.header.kicad_pcbnew">
+      <segment>
+        <source>assembly.import_bom.template.header.kicad_pcbnew</source>
+        <target>Szablon importu CSV (KiCAD Pcbnew BOM) dla zespołu</target>
+      </segment>
+    </unit>
+    <unit id="aLomVVS" name="assembly.bom_import.template.entry.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.name</source>
+        <target>Nazwa części w zespole</target>
+      </segment>
+    </unit>
+    <unit id="o4ZcLfV" name="assembly.bom_import.template.entry.part.mpnr">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.mpnr</source>
+        <target>Unikalny numer katalogowy producenta</target>
+      </segment>
+    </unit>
+    <unit id="n3YbKeU" name="assembly.bom_import.template.entry.part.ipn">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.ipn</source>
+        <target>Unikalny IPN części</target>
+      </segment>
+    </unit>
+    <unit id="l2SYJP5" name="assembly.bom_import.template.entry.part.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.name</source>
+        <target>Unikalna nazwa części</target>
+      </segment>
+    </unit>
+    <unit id="VgXQ1xW" name="assembly.bom_import.template.entry.part.manufacturer.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.manufacturer.name</source>
+        <target>Unikalna nazwa producenta</target>
+      </segment>
+    </unit>
+    <unit id="MpB.o_L" name="assembly.bom_import.template.entry.part.category.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.category.name</source>
+        <target>Unikalna nazwa kategorii</target>
+      </segment>
+    </unit>
+    <unit id="NIcfgj84" name="assembly.bom_import.template.json.table">
+      <segment>
+        <source>assembly.bom_import.template.json.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Pole</th>
+                <th>Warunek</th>
+                <th>Typ danych</th>
+                <th>Opis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Pole obowiązkowe</td>
+                <td>Liczba zmiennoprzecinkowa (Float)</td>
+                <td>Musi być wypełnione i zawierać liczbę zmiennoprzecinkową (Float) większą niż 0,0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Jeśli określono, musi to być niepusty tekst. Nazwa elementu w ramach montażu.</td>
+              </tr>
+              <tr>
+                <td>part</td>
+                <td>Opcjonalne</td>
+                <td>Obiekt/Tablica</td>
+                <td>
+                  Jeśli konieczne jest przypisanie części, musi to być Obiekt/Tablica, a przynajmniej jedno z poniższych pól powinno być wypełnione:
+                  <ul>
+                    <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
+                    <li>part.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part.id</td>
+                <td>Opcjonalne</td>
+                <td>Liczba całkowita</td>
+                <td>Liczba całkowita > 0. Odpowiada wewnętrznemu numerycznemu ID części w bazie danych.</td>
+              </tr>
+              <tr>
+                <td>part.mpnr</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Niepusty tekst, jeśli pola part.id, part.ipn lub part.name nie są wypełnione.</td>
+              </tr>
+              <tr>
+                <td>part.ipn</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Niepusty tekst, jeśli pola part.id, part.mpnr lub part.name nie są wypełnione.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Niepusty tekst, jeśli pola part.id, part.mpnr lub part.ipn nie są wypełnione.</td>
+              </tr>
+              <tr>
+                <td>part.description</td>
+                <td>Opcjonalne</td>
+                <td>Tekst lub null</td>
+                <td>Jeśli określono, musi to być niepusty tekst lub null. Ta wartość nadpisze istniejącą wartość w części.</td>
+              </tr>
+              <tr>
+                <td>part.manufacturer</td>
+                <td>Opcjonalne</td>
+                <td>Obiekt/Tablica</td>
+                <td>
+                  Jeśli producent części ma zostać zmieniony lub wyszukany unikalnie za pomocą wartości part.mpnr, musi to być Obiekt/Tablica i przynajmniej jedno z poniższych pól powinno być wypełnione:
+                  <ul>
+                    <li>manufacturer.id</li>
+                    <li>manufacturer.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>manufacturer.id</td>
+                <td>Opcjonalne</td>
+                <td>Liczba całkowita</td>
+                <td>Liczba całkowita > 0. Odpowiada wewnętrznemu numerycznemu ID producenta.</td>
+              </tr>
+              <tr>
+                <td>manufacturer.name</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Niepusty tekst, jeśli pole manufacturer.id nie jest wypełnione.</td>
+              </tr>
+              <tr>
+                <td>part.category</td>
+                <td>Opcjonalne</td>
+                <td>Obiekt/Tablica</td>
+                <td>
+                  Jeśli konieczna jest zmiana kategorii części, musi to być Obiekt/Tablica i przynajmniej jedno z poniższych pól powinno być wypełnione:
+                  <ul>
+                    <li>category.id</li>
+                    <li>category.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>category.id</td>
+                <td>Opcjonalne</td>
+                <td>Liczba całkowita</td>
+                <td>Liczba całkowita > 0. Odpowiada wewnętrznemu numerycznemu ID kategorii części.</td>
+              </tr>
+              <tr>
+                <td>category.name</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Niepusty tekst, jeśli pole category.id nie jest wypełnione.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="aK4i2aT" name="assembly.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.csv.exptected_columns</source>
+        <target>Możliwe kolumny:</target>
+      </segment>
+    </unit>
+    <unit id="a8UhiwR" name="assembly.bom_import.template.csv.table">
+      <segment>
+        <source>assembly.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Kolumna</th>
+                <th>Warunek</th>
+                <th>Typ danych</th>
+                <th>Opis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Pole obowiązkowe</td>
+                <td>Liczba zmiennoprzecinkowa (Float)</td>
+                <td>Musi być wypełnione i zawierać liczbę zmiennoprzecinkową (Float) większą niż 0,0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Nazwa elementu w ramach montażu.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolumny zaczynające się od part_</strong></td>
+                <td>
+                  Jeśli konieczne jest przypisanie części, przynajmniej jedna z poniższych kolumn powinna być wypełniona:
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Opcjonalne</td>
+                <td>Liczba całkowita</td>
+                <td>Liczba całkowita > 0. Odpowiada wewnętrznemu numerycznemu ID części w bazie danych.</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Musi być wypełnione, gdy kolumny part_id, part_ipn lub part_name nie są wypełnione.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Musi być wypełnione, gdy kolumny part_id, part_mpnr lub part_name nie są wypełnione.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Musi być wypełnione, gdy kolumny part_id, part_mpnr lub part_ipn nie są wypełnione.</td>
+              </tr>
+              <tr>
+                <td>part_description</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Zostanie przeniesione i zastąpi istniejącą wartość opisu, jeśli określono niepusty tekst.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolumny zaczynające się od part_manufacturer_</strong></td>
+                <td>
+                  Jeśli producent części musi zostać zmieniony lub wyszukany unikalnie za pomocą part_mpnr, przynajmniej jedna z poniższych kolumn powinna być wypełniona:
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Opcjonalne</td>
+                <td>Liczba całkowita</td>
+                <td>Liczba całkowita > 0. Odpowiada wewnętrznemu numerycznemu ID producenta.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Musi być wypełnione, jeśli part_manufacturer_id nie jest określony.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolumny zaczynające się od part_category_</strong></td>
+                <td>
+                  Jeśli konieczna jest zmiana kategorii części, przynajmniej jedna z poniższych kolumn powinna być wypełniona:
+                  <ul>
+                    <li>part_category_id</li>
+                    <li>part_category_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_category_id</td>
+                <td>Opcjonalne</td>
+                <td>Liczba całkowita</td>
+                <td>Liczba całkowita > 0. Odpowiada wewnętrznemu numerycznemu ID kategorii części.</td>
+              </tr>
+              <tr>
+                <td>part_category_name</td>
+                <td>Opcjonalne</td>
+                <td>Tekst</td>
+                <td>Musi być wypełnione, jeśli part_category_id nie jest określone.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="cU1bfDa" name="assembly.bom_import.template.kicad_pcbnew.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns</source>
+        <target>Oczekiwane kolumny:</target>
+      </segment>
+    </unit>
+    <unit id="gvaB1sb" name="assembly.bom_import.template.kicad_pcbnew.exptected_columns.note">
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
+        <target>
+          <![CDATA[
+            <p><strong>Uwaga:</strong> Nie wykonano mapowania z określonymi komponentami z zarządzania kategoriami.</p>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.table</source>
+        <target>
+          <![CDATA[
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Pole</th>
+                        <th>Warunek</th>
+                        <th>Typ Danych</th>
+                        <th>Opis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Id</td>
+                        <td>Opcjonalne</td>
+                        <td>Liczba całkowita</td>
+                        <td>Pole dowolne. Unikalny numer identyfikacyjny dla każdego komponentu.</td>
+                    </tr>
+                    <tr>
+                        <td>Designator</td>
+                        <td>Opcjonalne</td>
+                        <td>Tekst</td>
+                        <td>Pole dowolne. Jednoznaczny znacznik referencyjny komponentu na PCB, np. "R1" dla rezystora 1.<br>Używane jako nazwa pozycji w pozycji komponentu w montażu.</td>
+                    </tr>
+                    <tr>
+                        <td>Package</td>
+                        <td>Opcjonalne</td>
+                        <td>Tekst</td>
+                        <td>Pole dowolne. Obudowa lub forma komponentu, np. "0805" dla rezystorów SMD.<br>Niewykorzystywane w pozycji komponentu w montażu.</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>Wymagane</td>
+                        <td>Liczba całkowita</td>
+                        <td>Liczba identycznych komponentów potrzebna do utworzenia jednej instancji montażu.<br>Używane jako ilość w pozycji komponentu w montażu.</td>
+                    </tr>
+                    <tr>
+                        <td>Designation</td>
+                        <td>Wymagane</td>
+                        <td>Tekst</td>
+                        <td>Opis lub funkcja komponentu, np. wartość rezystora "10kΩ" lub wartość kondensatora "100nF".<br>Używane jako nazwa w pozycji komponentu w montażu.</td>
+                    </tr>
+                    <tr>
+                        <td>Supplier and ref</td>
+                        <td>Opcjonalne</td>
+                        <td>Tekst</td>
+                        <td>Pole dowolne. Może zawierać np. specyficzne informacje o dostawcy.<br>Używane jako notatka w pozycji komponentu w montażu.</td>
+                    </tr>
+                </tbody>
+            </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="uT5zcT1" name="assembly_list.all.title">
+      <segment state="translated">
+        <source>assembly_list.all.title</source>
+        <target>Wszystkie zespoły</target>
+      </segment>
+    </unit>
+    <unit id="8Ijh3db" name="assembly.edit.tab.common">
+      <segment state="translated">
+        <source>assembly.edit.tab.common</source>
+        <target>Ogólne</target>
+      </segment>
+    </unit>
+    <unit id="jTnEypG" name="assembly.edit.tab.advanced">
+      <segment state="translated">
+        <source>assembly.edit.tab.advanced</source>
+        <target>Zaawansowane</target>
+      </segment>
+    </unit>
+    <unit id="7uhe3gC" name="assembly.edit.tab.attachments">
+      <segment state="translated">
+        <source>assembly.edit.tab.attachments</source>
+        <target>Załączniki</target>
+      </segment>
+    </unit>
+    <unit id="jEr4cP1" name="assembly.filter.dbId">
+      <segment state="translated">
+        <source>assembly.filter.dbId</source>
+        <target>ID bazy danych</target>
+      </segment>
+    </unit>
+    <unit id="leRwbN3" name="assembly.filter.ipn">
+      <segment state="translated">
+        <source>assembly.filter.ipn</source>
+        <target>Wewnętrzny numer części (IPN)</target>
+      </segment>
+    </unit>
+    <unit id="jR5Cxy1" name="assembly.filter.name">
+      <segment state="translated">
+        <source>assembly.filter.name</source>
+        <target>Nazwa</target>
+      </segment>
+    </unit>
+    <unit id="LiW5CM3" name="assembly.filter.description">
+      <segment state="translated">
+        <source>assembly.filter.description</source>
+        <target>Opis</target>
+      </segment>
+    </unit>
+    <unit id="kix5dMf" name="assembly.filter.comment">
+      <segment state="translated">
+        <source>assembly.filter.comment</source>
+        <target>Komentarze</target>
+      </segment>
+    </unit>
+    <unit id="ux2Ws9p" name="assembly.filter.attachments_count">
+      <segment state="translated">
+        <source>assembly.filter.attachments_count</source>
+        <target>Liczba załączników</target>
+      </segment>
+    </unit>
+    <unit id="su8izLb" name="assembly.filter.attachmentName">
+      <segment state="translated">
+        <source>assembly.filter.attachmentName</source>
+        <target>Nazwa załącznika</target>
+      </segment>
+    </unit>
+    <unit id="5cDe9Ta" name="assemblies.create.btn">
+      <segment state="translated">
+        <source>assemblies.create.btn</source>
+        <target>Utwórz nowy zespół</target>
+      </segment>
+    </unit>
+    <unit id="acEe1Tb" name="assembly.table.id">
+      <segment state="translated">
+        <source>assembly.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="7Ui1WzP" name="assembly.table.name">
+      <segment state="translated">
+        <source>assembly.table.name</source>
+        <target>Nazwa</target>
+      </segment>
+    </unit>
+    <unit id="ieVaFEu" name="assembly.table.ipn">
+      <segment state="translated">
+        <source>assembly.table.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="7un9oeW" name="assembly.table.description">
+      <segment state="translated">
+        <source>assembly.table.description</source>
+        <target>Opis</target>
+      </segment>
+    </unit>
+    <unit id="ahzol5T" name="assembly.table.referencedAssemblies">
+      <segment state="translated">
+        <source>assembly.table.referencedAssemblies</source>
+        <target>Zestawy referencyjne</target>
+      </segment>
+    </unit>
+    <unit id="igaT4kQ" name="assembly.table.addedDate">
+      <segment state="translated">
+        <source>assembly.table.addedDate</source>
+        <target>Dodano</target>
+      </segment>
+    </unit>
+    <unit id="au8IEcW" name="assembly.table.lastModified">
+      <segment state="translated">
+        <source>assembly.table.lastModified</source>
+        <target>Ostatnia modyfikacja</target>
+      </segment>
+    </unit>
+    <unit id="9dERbn1" name="assembly.table.edit">
+      <segment state="translated">
+        <source>assembly.table.edit</source>
+        <target>Edytuj</target>
+      </segment>
+    </unit>
+    <unit id="5gTze41" name="assembly.table.edit.title">
+      <segment state="translated">
+        <source>assembly.table.edit.title</source>
+        <target>Edytuj zespół</target>
+      </segment>
+    </unit>
+    <unit id="juTbw2C" name="assembly.table.invalid_regex">
+      <segment state="translated">
+        <source>assembly.table.invalid_regex</source>
+        <target>Nieprawidłowe wyrażenie regularne (regex)</target>
+      </segment>
+    </unit>
+    <unit id="8uh6vTx" name="assembly.bom.table.id">
+      <segment state="translated">
+        <source>assembly.bom.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="ijncxl3" name="assembly.bom.table.name">
+      <segment state="translated">
+        <source>assembly.bom.table.name</source>
+        <target>Nazwa</target>
+      </segment>
+    </unit>
+    <unit id="Pe5Bkw1" name="assembly.bom.table.quantity">
+      <segment state="translated">
+        <source>assembly.bom.table.quantity</source>
+        <target>Ilość</target>
+      </segment>
+    </unit>
+    <unit id="7hdpoc2" name="assembly.bom.table.ipn">
+      <segment state="translated">
+        <source>assembly.bom.table.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="1nbwdk5" name="assembly.bom.table.description">
+      <segment state="translated">
+        <source>assembly.bom.table.description</source>
+        <target>Opis</target>
+      </segment>
+    </unit>
+    <unit id="jd7fhvc" name="assembly.bom.table.category">
+      <segment state="translated">
+        <source>assembly.bom.table.category</source>
+        <target>Kategoria</target>
+      </segment>
+    </unit>
+    <unit id="ab12cd" name="assembly.bom.table.manufacturer">
+      <segment state="translated">
+        <source>assembly.bom.table.manufacturer</source>
+        <target>Producent</target>
+      </segment>
+    </unit>
+    <unit id="7dk4gTa" name="assembly.bom.table.designator">
+      <segment state="translated">
+        <source>assembly.bom.table.designator</source>
+        <target>Oznaczenie referencyjne</target>
+      </segment>
+    </unit>
+    <unit id="ef34gh" name="assembly.bom.table.mountnames">
+      <segment state="translated">
+        <source>assembly.bom.table.mountnames</source>
+        <target>Nazwy montażowe</target>
+      </segment>
+    </unit>
+    <unit id="ij56kl" name="assembly.bom.table.storage_location">
+      <segment state="translated">
+        <source>assembly.bom.table.storage_location</source>
+        <target>Miejsce przechowywania</target>
+      </segment>
+    </unit>
+    <unit id="mn78op" name="assembly.bom.table.amount">
+      <segment state="translated">
+        <source>assembly.bom.table.amount</source>
+        <target>Ilość</target>
+      </segment>
+    </unit>
+    <unit id="uv12wx" name="assembly.bom.table.addedDate">
+      <segment state="translated">
+        <source>assembly.bom.table.addedDate</source>
+        <target>Data utworzenia</target>
+      </segment>
+    </unit>
+    <unit id="yz34aa" name="assembly.bom.table.lastModified">
+      <segment state="translated">
+        <source>assembly.bom.table.lastModified</source>
+        <target>Ostatnia modyfikacja</target>
+      </segment>
+    </unit>
+    <unit id="bb56cc" name="assembly.bom.table.edit">
+      <segment state="translated">
+        <source>assembly.bom.table.edit</source>
+        <target>Edytuj</target>
+      </segment>
+    </unit>
+    <unit id="a7uOieC" name="datasource.synonym">
+      <segment state="translated">
+        <source>datasource.synonym</source>
+        <target>%name% (Twój synonim: %synonym%)</target>
       </segment>
     </unit>
   </file>

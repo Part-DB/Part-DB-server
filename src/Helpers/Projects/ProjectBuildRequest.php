@@ -301,6 +301,4 @@ final class ProjectBuildRequest
         $this->dont_check_quantity = $dont_check_quantity;
         return $this;
     }
-
-
 }

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\Trees;
 
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -38,6 +39,7 @@ use App\Repository\StructuralDBElementRepository;
 use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Cache\UserCacheKeyGenerator;
 use App\Services\EntityURLGenerator;
+use App\Settings\BehaviorSettings\DataSourceSynonymsSettings;
 use App\Settings\BehaviorSettings\SidebarSettings;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
@@ -67,6 +69,7 @@ class TreeViewGenerator
         protected TranslatorInterface $translator,
         private readonly UrlGeneratorInterface $router,
         private readonly SidebarSettings $sidebarSettings,
+        protected DataSourceSynonymsSettings $dataSourceSynonymsSettings,
     ) {
         $this->rootNodeEnabled = $this->sidebarSettings->rootNodeEnabled;
         $this->rootNodeExpandedByDefault = $this->sidebarSettings->rootNodeExpanded;
@@ -154,6 +157,10 @@ class TreeViewGenerator
             $href_type = 'list_parts';
         }
 
+        if ($mode === 'assemblies') {
+            $href_type = 'list_parts';
+        }
+
         $generic = $this->getGenericTree($class, $parent);
         $treeIterator = new TreeViewNodeIterator($generic);
         $recursiveIterator = new RecursiveIteratorIterator($treeIterator, RecursiveIteratorIterator::SELF_FIRST);
@@ -180,6 +187,15 @@ class TreeViewGenerator
 
         if (($mode === 'list_parts_root' || $mode === 'devices') && $this->rootNodeEnabled) {
             $root_node = new TreeViewNode($this->entityClassToRootNodeString($class), $this->entityClassToRootNodeHref($class), $generic);
+            $root_node->setExpanded($this->rootNodeExpandedByDefault);
+            $root_node->setIcon($this->entityClassToRootNodeIcon($class));
+
+            $generic = [$root_node];
+        } elseif ($mode === 'assemblies' && $this->rootNodeEnabled) {
+            //We show the root node as a link to the list of all assemblies
+            $show_all_parts_url = $this->router->generate('assemblies_list');
+
+            $root_node = new TreeViewNode($this->entityClassToRootNodeString($class), $show_all_parts_url, $generic);
             $root_node->setExpanded($this->rootNodeExpandedByDefault);
             $root_node->setIcon($this->entityClassToRootNodeIcon($class));
 
@@ -212,13 +228,16 @@ class TreeViewGenerator
 
     protected function entityClassToRootNodeString(string $class): string
     {
+        $locale = $this->translator->getLocale();
+
         return match ($class) {
-            Category::class => $this->translator->trans('category.labelp'),
-            StorageLocation::class => $this->translator->trans('storelocation.labelp'),
-            Footprint::class => $this->translator->trans('footprint.labelp'),
-            Manufacturer::class => $this->translator->trans('manufacturer.labelp'),
-            Supplier::class => $this->translator->trans('supplier.labelp'),
-            Project::class => $this->translator->trans('project.labelp'),
+            Category::class => $this->getTranslatedOrSynonym('category', $locale),
+            StorageLocation::class => $this->getTranslatedOrSynonym('storelocation', $locale),
+            Footprint::class => $this->getTranslatedOrSynonym('footprint', $locale),
+            Manufacturer::class => $this->getTranslatedOrSynonym('manufacturer', $locale),
+            Supplier::class => $this->getTranslatedOrSynonym('supplier', $locale),
+            Project::class => $this->getTranslatedOrSynonym('project', $locale),
+            Assembly::class => $this->getTranslatedOrSynonym('assembly', $locale),
             default => $this->translator->trans('tree.root_node.text'),
         };
     }
@@ -233,6 +252,7 @@ class TreeViewGenerator
             Manufacturer::class => $icon.'fa-industry',
             Supplier::class => $icon.'fa-truck',
             Project::class => $icon.'fa-archive',
+            Assembly::class => $icon.'fa-list',
             default => null,
         };
     }
@@ -273,5 +293,25 @@ class TreeViewGenerator
             $item->tag(['groups', 'tree_treeview', $this->keyGenerator->generateKey(), $secure_class_name]);
             return $repo->getGenericNodeTree($parent); //@phpstan-ignore-line
         });
+    }
+
+    protected function getTranslatedOrSynonym(string $key, string $locale): string
+    {
+        $currentTranslation = $this->translator->trans($key . '.labelp');
+
+        $synonyms = $this->dataSourceSynonymsSettings->getSynonymsAsArray();
+
+        // Call alternatives from DataSourcesynonyms (if available)
+        if (!empty($synonyms[$key][$locale])) {
+            $alternativeTranslation = $synonyms[$key][$locale];
+
+            // Use alternative translation when it deviates from the standard translation
+            if ($alternativeTranslation !== $currentTranslation) {
+                return $alternativeTranslation;
+            }
+        }
+
+        // Otherwise return the standard translation
+        return $currentTranslation;
     }
 }

@@ -41,10 +41,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProjectBomEntriesDataTable implements DataTableTypeInterface
 {
-    public function __construct(protected TranslatorInterface $translator, protected PartDataTableHelper $partDataTableHelper, protected EntityURLGenerator $entityURLGenerator, protected AmountFormatter $amountFormatter)
-    {
+    public function __construct(
+        protected TranslatorInterface     $translator,
+        protected PartDataTableHelper     $partDataTableHelper,
+        protected EntityURLGenerator      $entityURLGenerator,
+        protected AmountFormatter         $amountFormatter
+    ) {
     }
-
 
     public function configure(DataTable $dataTable, array $options): void
     {
@@ -105,6 +108,8 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                     if($context->getPart() instanceof Part) {
                         return $context->getPart()->getIpn();
                     }
+
+                    return '';
                 }
             ])
             ->add('description', MarkdownColumn::class, [

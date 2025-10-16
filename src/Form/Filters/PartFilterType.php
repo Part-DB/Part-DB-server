@@ -32,6 +32,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\ProjectSystem\Project;
@@ -137,6 +138,11 @@ class PartFilterType extends AbstractType
         $builder->add('measurementUnit', StructuralEntityConstraintType::class, [
             'label' => 'part.edit.partUnit',
             'entity_class' => MeasurementUnit::class
+        ]);
+
+        $builder->add('partCustomState', StructuralEntityConstraintType::class, [
+            'label' => 'part.edit.partCustomState',
+            'entity_class' => PartCustomState::class
         ]);
 
         $builder->add('lastModified', DateTimeConstraintType::class, [
