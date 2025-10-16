@@ -12927,24 +12927,6 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         <target>Nuevo ensamblaje</target>
       </segment>
     </unit>
-    <unit id="M51YUE." name="assembly.edit.associated_build_part">
-      <segment>
-        <source>assembly.edit.associated_build_part</source>
-        <target>Componente asociado</target>
-      </segment>
-    </unit>
-    <unit id="nH9R9f." name="assembly.edit.associated_build_part.add">
-      <segment>
-        <source>assembly.edit.associated_build_part.add</source>
-        <target>Añadir componente</target>
-      </segment>
-    </unit>
-    <unit id="oVfOk.i" name="assembly.edit.associated_build.hint">
-      <segment>
-        <source>assembly.edit.associated_build.hint</source>
-        <target>Este componente representa las instancias fabricadas del ensamblaje. Indique si se necesitan instancias fabricadas. De lo contrario, las cantidades del componente solo se utilizarán cuando se construya el proyecto correspondiente.</target>
-      </segment>
-    </unit>
     <unit id="_wZ_JZY" name="assembly.edit.bom.import_bom">
       <segment>
         <source>assembly.edit.bom.import_bom</source>
@@ -13053,60 +13035,6 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         <target>Añadir piezas</target>
       </segment>
     </unit>
-    <unit id="ZbDTUTS" name="assembly.builds.check_assembly_status">
-      <segment>
-        <source>assembly.builds.check_assembly_status</source>
-        <target><![CDATA[El estado actual del ensamblaje es <b>"%assembly_status%"</b>. ¡Por favor, verifica si realmente deseas construir el ensamblaje con este estado!]]></target>
-      </segment>
-    </unit>
-    <unit id="xq1Soad" name="assembly.builds.build_not_possible">
-      <segment>
-        <source>assembly.builds.build_not_possible</source>
-        <target>Construcción no posible: No hay suficientes componentes disponibles</target>
-      </segment>
-    </unit>
-    <unit id="njRyDHQ" name="assembly.builds.following_bom_entries_miss_instock">
-      <segment>
-        <source>assembly.builds.following_bom_entries_miss_instock</source>
-        <target>No hay suficientes piezas en stock para construir este proyecto %number_of_builds% veces. Faltan las siguientes piezas:</target>
-      </segment>
-    </unit>
-    <unit id="sp7Z0MS" name="assembly.builds.build_possible">
-      <segment>
-        <source>assembly.builds.build_possible</source>
-        <target>Construcción posible</target>
-      </segment>
-    </unit>
-    <unit id="1uZzdEl" name="assembly.builds.number_of_builds_possible">
-      <segment>
-        <source>assembly.builds.number_of_builds_possible</source>
-        <target><![CDATA[Disponen de suficientes piezas en stock para construir <b>%max_builds%</b> unidades de este ensamblaje.]]></target>
-      </segment>
-    </unit>
-    <unit id="pW6QLXf" name="assembly.builds.number_of_builds">
-      <segment>
-        <source>assembly.builds.number_of_builds</source>
-        <target>Número de construcciones</target>
-      </segment>
-    </unit>
-    <unit id="mtJqT_a" name="assembly.build.btn_build">
-      <segment>
-        <source>assembly.build.btn_build</source>
-        <target>Construir</target>
-      </segment>
-    </unit>
-    <unit id="1bCA1zb" name="assembly.build.form.referencedAssembly">
-      <segment>
-        <source>assembly.build.form.referencedAssembly</source>
-        <target>Ensamblaje "%name%"</target>
-      </segment>
-    </unit>
-    <unit id="LFSVVcP" name="assembly.builds.no_stocked_builds">
-      <segment>
-        <source>assembly.builds.no_stocked_builds</source>
-        <target>Unidades construidas almacenadas</target>
-      </segment>
-    </unit>
     <unit id="dGFHutJ" name="assembly.info.bom_entries_count">
       <segment>
         <source>assembly.info.bom_entries_count</source>
@@ -13117,18 +13045,6 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
       <segment>
         <source>assembly.info.sub_assemblies_count</source>
         <target>Subconjuntos</target>
-      </segment>
-    </unit>
-    <unit id="HZYhTlb" name="assembly.builds.stocked">
-      <segment>
-        <source>assembly.builds.stocked</source>
-        <target>en stock</target>
-      </segment>
-    </unit>
-    <unit id="9EG0PLW" name="assembly.builds.needed">
-      <segment>
-        <source>assembly.builds.needed</source>
-        <target>necesario</target>
       </segment>
     </unit>
     <unit id="hO7vWmc" name="assembly.bom.delete.confirm">
@@ -13179,24 +13095,6 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
         <target>Comentarios</target>
       </segment>
     </unit>
-    <unit id="87YpQ_u" name="assembly.builds.following_bom_entries_miss_instock_n">
-      <segment>
-        <source>assembly.builds.following_bom_entries_miss_instock_n</source>
-        <target>No hay suficientes piezas en stock para construir este ensamblaje %number_of_builds% veces. Faltan las siguientes piezas:</target>
-      </segment>
-    </unit>
-    <unit id="JlQhDdS" name="assembly.build.help">
-      <segment>
-        <source>assembly.build.help</source>
-        <target>Seleccione de qué almacenes se tomarán las piezas necesarias para la construcción (y en qué cantidad). Marque la casilla de cada entrada una vez que haya quitado las piezas, o use la casilla superior para marcarlas todas a la vez.</target>
-      </segment>
-    </unit>
-    <unit id="iP5_QVj" name="assembly.build.required_qty">
-      <segment>
-        <source>assembly.build.required_qty</source>
-        <target>Cantidad requerida</target>
-      </segment>
-    </unit>
     <unit id="UJpD7n6" name="assembly.import_bom">
       <segment>
         <source>assembly.import_bom</source>
@@ -13225,24 +13123,6 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
       <segment>
         <source>assembly.bom.price</source>
         <target>Precio</target>
-      </segment>
-    </unit>
-    <unit id="63adIrC" name="assembly.build.dont_check_quantity">
-      <segment state="translated">
-        <source>assembly.build.dont_check_quantity</source>
-        <target>No verificar cantidades</target>
-      </segment>
-    </unit>
-    <unit id="O0DP6tK" name="assembly.build.dont_check_quantity.help">
-      <segment state="translated">
-        <source>assembly.build.dont_check_quantity.help</source>
-        <target>Si se selecciona esta opción, las cantidades seleccionadas se quitarán del inventario independientemente de si hay más o menos de lo necesario para construir el ensamblaje.</target>
-      </segment>
-    </unit>
-    <unit id="9bc0nzK" name="assembly.build.add_builds_to_builds_part">
-      <segment state="translated">
-        <source>assembly.build.add_builds_to_builds_part</source>
-        <target>Añadir unidades construidas a la parte del ensamblaje</target>
       </segment>
     </unit>
     <unit id="nl.jtSx" name="assembly.bom_import.type">

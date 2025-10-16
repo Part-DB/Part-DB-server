@@ -30,6 +30,7 @@ class UniqueReferencedAssemblyValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         $assemblies = [];
+
         foreach ($value as $entry) {
             $referencedAssemblyId = $entry->getReferencedAssembly()?->getId();
             if ($referencedAssemblyId === null) {
@@ -37,6 +38,7 @@ class UniqueReferencedAssemblyValidator extends ConstraintValidator
             }
 
             if (isset($assemblies[$referencedAssemblyId])) {
+                /** @var UniqueReferencedAssembly $constraint */
                 $this->context->buildViolation($constraint->message)
                     ->atPath('referencedAssembly')
                     ->addViolation();

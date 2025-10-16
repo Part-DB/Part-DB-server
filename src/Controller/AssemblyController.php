@@ -31,11 +31,8 @@ use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Parts\Part;
 use App\Exceptions\InvalidRegexException;
 use App\Form\AssemblySystem\AssemblyAddPartsType;
-use App\Form\AssemblySystem\AssemblyBuildType;
 use App\Form\Filters\AssemblyFilterType;
-use App\Helpers\Assemblies\AssemblyBuildRequest;
 use App\Services\ImportExportSystem\BOMImporter;
-use App\Services\AssemblySystem\AssemblyBuildHelper;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Exception\DriverException;
@@ -132,7 +129,7 @@ class AssemblyController extends AbstractController
     }
 
     #[Route(path: '/{id}/info', name: 'assembly_info', requirements: ['id' => '\d+'])]
-    public function info(Assembly $assembly, Request $request, AssemblyBuildHelper $buildHelper): Response
+    public function info(Assembly $assembly, Request $request): Response
     {
         $this->denyAccessUnlessGranted('read', $assembly);
 
@@ -144,53 +141,8 @@ class AssemblyController extends AbstractController
         }
 
         return $this->render('assemblies/info/info.html.twig', [
-            'buildHelper' => $buildHelper,
             'datatable' => $table,
             'assembly' => $assembly,
-        ]);
-    }
-
-    #[Route(path: '/{id}/build', name: 'assembly_build', requirements: ['id' => '\d+'])]
-    public function build(Assembly $assembly, Request $request, AssemblyBuildHelper $buildHelper, EntityManagerInterface $entityManager): Response
-    {
-        $this->denyAccessUnlessGranted('read', $assembly);
-
-        //If no number of builds is given (or it is invalid), just assume 1
-        $number_of_builds = $request->query->getInt('n', 1);
-        if ($number_of_builds < 1) {
-            $number_of_builds = 1;
-        }
-
-        $assemblyBuildRequest = new AssemblyBuildRequest($assembly, $number_of_builds);
-        $form = $this->createForm(AssemblyBuildType::class, $assemblyBuildRequest);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
-                //Ensure that the user can withdraw stock from all parts
-                $this->denyAccessUnlessGranted('@parts_stock.withdraw');
-
-                //We have to do a flush already here, so that the newly created partLot gets an ID and can be logged to DB later.
-                $entityManager->flush();
-                $buildHelper->doBuild($assemblyBuildRequest);
-                $entityManager->flush();
-                $this->addFlash('success', 'assembly.build.flash.success');
-
-                return $this->redirect(
-                    $request->get('_redirect',
-                        $this->generateUrl('assembly_info', ['id' => $assembly->getID()]
-                        )));
-            }
-
-            $this->addFlash('error', 'assembly.build.flash.invalid_input');
-        }
-
-        return $this->render('assemblies/build/build.html.twig', [
-            'buildHelper' => $buildHelper,
-            'assembly' => $assembly,
-            'build_request' => $assemblyBuildRequest,
-            'number_of_builds' => $number_of_builds,
-            'form' => $form,
         ]);
     }
 

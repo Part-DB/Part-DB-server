@@ -52,7 +52,7 @@ class BaseEntityAdminForm extends AbstractType
     public function __construct(
         protected Security $security,
         protected EventCommentNeededHelper $eventCommentNeededHelper,
-        protected AssemblySettings $assemblySettings,
+        protected ?AssemblySettings $assemblySettings = null,
     ) {
     }
 
@@ -74,7 +74,7 @@ class BaseEntityAdminForm extends AbstractType
             ->add('name', TextType::class, [
                 'empty_data' => '',
                 'label' => 'name.label',
-                'data' => $is_new && $entity instanceof Assembly && $this->assemblySettings->useIpnPlaceholderInName ? '%%ipn%%' : $entity->getName(),
+                'data' => $is_new && $entity instanceof Assembly && $this->assemblySettings !== null && $this->assemblySettings->useIpnPlaceholderInName ? '%%ipn%%' : $entity->getName(),
                 'attr' => [
                     'placeholder' => 'part.name.placeholder',
                 ],

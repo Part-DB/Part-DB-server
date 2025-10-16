@@ -56,6 +56,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use InvalidArgumentException;
 
 /**
  * In this controller the endpoints for the typeaheads are collected.
@@ -115,19 +116,22 @@ class TypeaheadController extends AbstractController
             'group' => GroupParameter::class,
             'measurement_unit' => MeasurementUnitParameter::class,
             'currency' => Currency::class,
-            default => throw new \InvalidArgumentException('Invalid parameter type: '.$type),
+            default => throw new InvalidArgumentException('Invalid parameter type: '.$type),
         };
     }
 
     #[Route(path: '/parts/search/{query}', name: 'typeahead_parts')]
-    public function parts(EntityManagerInterface $entityManager, PartPreviewGenerator $previewGenerator,
-    AttachmentURLGenerator $attachmentURLGenerator, string $query = ""): JsonResponse
-    {
+    public function parts(
+        EntityManagerInterface $entityManager,
+        PartPreviewGenerator $previewGenerator,
+        AttachmentURLGenerator $attachmentURLGenerator,
+        string $query = ""
+    ): JsonResponse {
         $this->denyAccessUnlessGranted('@parts.read');
 
-        $repo = $entityManager->getRepository(Part::class);
+        $partRepository = $entityManager->getRepository(Part::class);
 
-        $parts = $repo->autocompleteSearch($query, 100);
+        $parts = $partRepository->autocompleteSearch($query, 100);
 
         $data = [];
         foreach ($parts as $part) {
@@ -147,7 +151,7 @@ class TypeaheadController extends AbstractController
                 'footprint' => $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getName() : '',
                 'description' => mb_strimwidth($part->getDescription(), 0, 127, '...'),
                 'image' => $preview_url,
-                ];
+            ];
         }
 
         return new JsonResponse($data);

@@ -114,6 +114,8 @@ class LogFilterType extends AbstractType
                 LogTargetType::CATEGORY => 'category.label',
                 LogTargetType::PROJECT => 'project.label',
                 LogTargetType::BOM_ENTRY => 'project_bom_entry.label',
+                LogTargetType::ASSEMBLY => 'assembly.label',
+                LogTargetType::ASSEMBLY_BOM_ENTRY => 'assembly_bom_entry.label',
                 LogTargetType::FOOTPRINT => 'footprint.label',
                 LogTargetType::GROUP => 'group.label',
                 LogTargetType::MANUFACTURER => 'manufacturer.label',

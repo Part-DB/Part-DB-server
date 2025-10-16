@@ -513,8 +513,10 @@ class BOMImporter
 
                 //Convert column name into hierarchy
                 $path = explode('_', $column);
+                /** @var array<string, mixed> $temp */
                 $temp = &$entry;
 
+                /** @var lowercase-string $step */
                 foreach ($path as $step) {
                     if (!isset($temp[$step])) {
                         $temp[$step] = [];
@@ -526,7 +528,7 @@ class BOMImporter
                 //If there is no value, skip
                 if (isset($values[$index]) && $values[$index] !== '') {
                     //Check whether the value is numerical
-                    if (is_numeric($values[$index]) && !in_array($column, ['name','description','manufacturer','designator'])) {
+                    if (is_numeric($values[$index]) && !in_array($column, ['name','description','manufacturer','designator'], true)) {
                         //Convert to integer or float
                         $temp = (str_contains($values[$index], '.'))
                             ? floatval($values[$index])
@@ -577,7 +579,7 @@ class BOMImporter
                     $bomEntry->setMountnames(trim($entry['designator']) === '' ? '' : trim($entry['designator']));
                 }
 
-                $bomEntry->setQuantity((float) $entry['quantity'] ?? 0);
+                $bomEntry->setQuantity((float) $entry['quantity']);
 
                 $result->addBomEntry($bomEntry);
             }
@@ -706,7 +708,7 @@ class BOMImporter
                 $result->addViolation($this->buildJsonViolation(
                     'validator.bom_importer.json_csv.parameter.array',
                     'entry[$key].part.manufacturer',
-                    $entry['part']['manufacturer']) ?? null
+                    $entry['part']['manufacturer'])
                 );
             }
 
@@ -728,8 +730,8 @@ class BOMImporter
         if (($manufacturerIdValid || $manufacturerNameValid) && $manufacturer === null) {
             $value = sprintf(
                 'manufacturer.id: %s, manufacturer.name: %s',
-                isset($entry['part']['manufacturer']['id']) && $entry['part']['manufacturer']['id'] !== null ? '<strong>' . $entry['part']['manufacturer']['id'] . '</strong>' : '-',
-                isset($entry['part']['manufacturer']['name']) && $entry['part']['manufacturer']['name'] !== null ? '<strong>' . $entry['part']['manufacturer']['name'] . '</strong>' : '-'
+                isset($entry['part']['manufacturer']['id']) && $entry['part']['manufacturer']['id'] != null ? '<strong>' . $entry['part']['manufacturer']['id'] . '</strong>' : '-',
+                isset($entry['part']['manufacturer']['name']) && $entry['part']['manufacturer']['name'] != null ? '<strong>' . $entry['part']['manufacturer']['name'] . '</strong>' : '-'
             );
 
             $result->addViolation($this->buildJsonViolation(
@@ -760,7 +762,7 @@ class BOMImporter
                 $result->addViolation($this->buildJsonViolation(
                     'validator.bom_importer.json_csv.parameter.array',
                     'entry[$key].part.category',
-                    $entry['part']['category']) ?? null
+                    $entry['part']['category'])
                 );
             }
 
@@ -782,8 +784,8 @@ class BOMImporter
         if (($categoryIdValid || $categoryNameValid)) {
             $value = sprintf(
                 'category.id: %s, category.name: %s',
-                isset($entry['part']['category']['id']) && $entry['part']['category']['id'] !== null ? '<strong>' . $entry['part']['category']['id'] . '</strong>' : '-',
-                isset($entry['part']['category']['name']) && $entry['part']['category']['name'] !== null ? '<strong>' . $entry['part']['category']['name'] . '</strong>' : '-'
+                isset($entry['part']['category']['id']) && $entry['part']['category']['id'] != null ? '<strong>' . $entry['part']['category']['id'] . '</strong>' : '-',
+                isset($entry['part']['category']['name']) && $entry['part']['category']['name'] != null ? '<strong>' . $entry['part']['category']['name'] . '</strong>' : '-'
             );
 
             $result->addViolation($this->buildJsonViolation(
@@ -816,11 +818,13 @@ class BOMImporter
             $part->setDescription($partDescription);
         }
 
+        /** @var Manufacturer|null $manufacturer */
         if ($manufacturer !== null && $manufacturer->getID() !== $part->getManufacturer()->getID()) {
             //When updating the associated parts, take over to a assembly of the manufacturer of the part.
             $part->setManufacturer($manufacturer);
         }
 
+        /** @var Category|null $category */
         if ($category !== null && $category->getID() !== $part->getCategory()->getID()) {
             //When updating the associated parts to a assembly, take over the category of the part.
             $part->setCategory($category);

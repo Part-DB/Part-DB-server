@@ -37,7 +37,7 @@ class AssemblyAdminForm extends BaseEntityAdminForm
     public function __construct(
         protected Security $security,
         protected EventCommentNeededHelper $eventCommentNeededHelper,
-        protected AssemblySettings $assemblySettings,
+        protected ?AssemblySettings $assemblySettings = null,
     ) {
         parent::__construct($security, $eventCommentNeededHelper, $assemblySettings);
     }

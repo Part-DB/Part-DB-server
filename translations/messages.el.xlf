@@ -1703,24 +1703,6 @@
         <target>Νέο σύνολο</target>
       </segment>
     </unit>
-    <unit id="M51YUE." name="assembly.edit.associated_build_part">
-      <segment>
-        <source>assembly.edit.associated_build_part</source>
-        <target>Σχετικό μέρος</target>
-      </segment>
-    </unit>
-    <unit id="nH9R9f." name="assembly.edit.associated_build_part.add">
-      <segment>
-        <source>assembly.edit.associated_build_part.add</source>
-        <target>Προσθήκη μέρους</target>
-      </segment>
-    </unit>
-    <unit id="oVfOk.i" name="assembly.edit.associated_build.hint">
-      <segment>
-        <source>assembly.edit.associated_build.hint</source>
-        <target>Αυτό το μέρος αντιπροσωπεύει τις κατασκευασμένες εκδόσεις του συνόλου. Καταχωρίστε το εάν απαιτούνται κατασκευασμένες εκδόσεις. Εάν όχι, οι ποσότητες θα χρησιμοποιηθούν μόνο κατά την κατασκευή του εκάστοτε έργου.</target>
-      </segment>
-    </unit>
     <unit id="_wZ_JZY" name="assembly.edit.bom.import_bom">
       <segment>
         <source>assembly.edit.bom.import_bom</source>
@@ -1817,60 +1799,6 @@
         <target>Προσθήκη εξαρτημάτων</target>
       </segment>
     </unit>
-    <unit id="ZbDTUTS" name="assembly.builds.check_assembly_status">
-      <segment>
-        <source>assembly.builds.check_assembly_status</source>
-        <target><![CDATA[Η τρέχουσα κατάσταση συναρμολόγησης είναι <b>«%assembly_status%»</b>. Ελέγξτε εάν θέλετε πραγματικά να κατασκευάσετε τη συναρμολόγηση με αυτήν την κατάσταση!]]></target>
-      </segment>
-    </unit>
-    <unit id="xq1Soad" name="assembly.builds.build_not_possible">
-      <segment>
-        <source>assembly.builds.build_not_possible</source>
-        <target>Η κατασκευή δεν είναι δυνατή: Δεν υπάρχουν αρκετά διαθέσιμα εξαρτήματα</target>
-      </segment>
-    </unit>
-    <unit id="njRyDHQ" name="assembly.builds.following_bom_entries_miss_instock">
-      <segment>
-        <source>assembly.builds.following_bom_entries_miss_instock</source>
-        <target>Δεν υπάρχουν αρκετά εξαρτήματα σε απόθεμα για να κατασκευαστεί αυτό το έργο %number_of_builds% φορές. Λείπουν τα ακόλουθα εξαρτήματα:</target>
-      </segment>
-    </unit>
-    <unit id="sp7Z0MS" name="assembly.builds.build_possible">
-      <segment>
-        <source>assembly.builds.build_possible</source>
-        <target>Κατασκευή δυνατή</target>
-      </segment>
-    </unit>
-    <unit id="1uZzdEl" name="assembly.builds.number_of_builds_possible">
-      <segment>
-        <source>assembly.builds.number_of_builds_possible</source>
-        <target><![CDATA[Διαθέτετε αρκετά εξαρτήματα σε απόθεμα για να κατασκευάσετε <b>%max_builds%</b> μονάδες αυτής της συναρμολόγησης.]]></target>
-      </segment>
-    </unit>
-    <unit id="pW6QLXf" name="assembly.builds.number_of_builds">
-      <segment>
-        <source>assembly.builds.number_of_builds</source>
-        <target>Αριθμός κατασκευών</target>
-      </segment>
-    </unit>
-    <unit id="mtJqT_a" name="assembly.build.btn_build">
-      <segment>
-        <source>assembly.build.btn_build</source>
-        <target>Κατασκευή</target>
-      </segment>
-    </unit>
-    <unit id="1bCA1zb" name="assembly.build.form.referencedAssembly">
-      <segment>
-        <source>assembly.build.form.referencedAssembly</source>
-        <target>Συναρμολόγηση "%name%"</target>
-      </segment>
-    </unit>
-    <unit id="LFSVVcP" name="assembly.builds.no_stocked_builds">
-      <segment>
-        <source>assembly.builds.no_stocked_builds</source>
-        <target>Αποθηκευμένα κατασκευασμένα κομμάτια</target>
-      </segment>
-    </unit>
     <unit id="dGFHutJ" name="assembly.info.bom_entries_count">
       <segment>
         <source>assembly.info.bom_entries_count</source>
@@ -1881,18 +1809,6 @@
       <segment>
         <source>assembly.info.sub_assemblies_count</source>
         <target>Υποομάδες</target>
-      </segment>
-    </unit>
-    <unit id="HZYhTlb" name="assembly.builds.stocked">
-      <segment>
-        <source>assembly.builds.stocked</source>
-        <target>σε απόθεμα</target>
-      </segment>
-    </unit>
-    <unit id="9EG0PLW" name="assembly.builds.needed">
-      <segment>
-        <source>assembly.builds.needed</source>
-        <target>απαιτούμενο</target>
       </segment>
     </unit>
     <unit id="hO7vWmc" name="assembly.bom.delete.confirm">
@@ -1937,24 +1853,6 @@
         <target>Σχόλια</target>
       </segment>
     </unit>
-    <unit id="87YpQ_u" name="assembly.builds.following_bom_entries_miss_instock_n">
-      <segment>
-        <source>assembly.builds.following_bom_entries_miss_instock_n</source>
-        <target>Δεν υπάρχουν αρκετά εξαρτήματα σε απόθεμα για να κατασκευαστεί αυτή η συναρμολόγηση %number_of_builds% φορές. Λείπουν τα ακόλουθα εξαρτήματα:</target>
-      </segment>
-    </unit>
-    <unit id="JlQhDdS" name="assembly.build.help">
-      <segment>
-        <source>assembly.build.help</source>
-        <target>Επιλέξτε από ποια αποθέματα θα αφαιρεθούν τα αναγκαία για την κατασκευή εξαρτήματα (και σε ποια ποσότητα). Σημειώστε το πλαίσιο επιλογής για κάθε εξάρτημα όταν αφαιρέσετε τα εξαρτήματα ή χρησιμοποιήστε το ανώτερο πλαίσιο επιλογής για να τα ελέγξετε όλα ταυτόχρονα.</target>
-      </segment>
-    </unit>
-    <unit id="iP5_QVj" name="assembly.build.required_qty">
-      <segment>
-        <source>assembly.build.required_qty</source>
-        <target>Απαιτούμενη ποσότητα</target>
-      </segment>
-    </unit>
     <unit id="UJpD7n6" name="assembly.import_bom">
       <segment>
         <source>assembly.import_bom</source>
@@ -1977,24 +1875,6 @@
       <segment>
         <source>assembly.bom.price</source>
         <target>Τιμή</target>
-      </segment>
-    </unit>
-    <unit id="63adIrC" name="assembly.build.dont_check_quantity">
-      <segment state="translated">
-        <source>assembly.build.dont_check_quantity</source>
-        <target>Μην ελέγχετε την ποσότητα</target>
-      </segment>
-    </unit>
-    <unit id="O0DP6tK" name="assembly.build.dont_check_quantity.help">
-      <segment state="translated">
-        <source>assembly.build.dont_check_quantity.help</source>
-        <target>Εάν επιλεγεί αυτή η επιλογή, οι επιλεγμένες ποσότητες θα αφαιρεθούν από το απόθεμα ανεξάρτητα από το αν είναι περισσότερο ή λιγότερο από το απαιτούμενο για την κατασκευή της συναρμολόγησης.</target>
-      </segment>
-    </unit>
-    <unit id="9bc0nzK" name="assembly.build.add_builds_to_builds_part">
-      <segment state="translated">
-        <source>assembly.build.add_builds_to_builds_part</source>
-        <target>Προσθήκη κατασκευασμένων κομματιών στο τμήμα συναρμολόγησης</target>
       </segment>
     </unit>
     <unit id="nl.jtSx" name="assembly.bom_import.type">

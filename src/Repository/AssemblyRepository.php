@@ -45,7 +45,7 @@ use App\Entity\AssemblySystem\Assembly;
 
 /**
  * @template TEntityClass of Assembly
- * @extends DBElementRepository<TEntityClass>
+ * @extends StructuralDBElementRepository<TEntityClass>
  */
 class AssemblyRepository extends StructuralDBElementRepository
 {

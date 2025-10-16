@@ -414,7 +414,7 @@ class EntityExporter
                     'ProjectFullName' => $this->getFullName($entity),
 
                     //BOM relevant attributes
-                    'Quantity' => $bomEntry->getQuantity() ?? '',
+                    'Quantity' => $bomEntry->getQuantity(),
                     'PartId' => $bomEntry->getPart()?->getId() ?? '',
                     'PartName' => $bomEntry->getPart()?->getName() ?? '',
                     'Ipn' => $bomEntry->getPart()?->getIpn() ?? '',
@@ -582,7 +582,7 @@ class EntityExporter
                 'AssemblyFullName' => $this->getFullName($assembly),
 
                 //BOM relevant attributes
-                'Quantity' => $bomEntry->getQuantity() ?? '',
+                'Quantity' => $bomEntry->getQuantity(),
                 'PartId' => $bomEntry->getPart()?->getId() ?? '-',
                 'PartName' => $bomEntry->getPart()?->getName() ?? '-',
                 'Ipn' => $bomEntry->getPart()?->getIpn() ?? '-',

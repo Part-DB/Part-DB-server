@@ -13608,24 +13608,6 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Neue Baugruppe</target>
       </segment>
     </unit>
-    <unit id="M51YUE." name="assembly.edit.associated_build_part">
-      <segment>
-        <source>assembly.edit.associated_build_part</source>
-        <target>Verknüpftes Bauteil</target>
-      </segment>
-    </unit>
-    <unit id="nH9R9f." name="assembly.edit.associated_build_part.add">
-      <segment>
-        <source>assembly.edit.associated_build_part.add</source>
-        <target>Bauteil hinzufügen</target>
-      </segment>
-    </unit>
-    <unit id="oVfOk.i" name="assembly.edit.associated_build.hint">
-      <segment>
-        <source>assembly.edit.associated_build.hint</source>
-        <target>Dieses Bauteil repräsentiert die gebauten Instanzen der Baugruppe. Anzugeben, sofern gebaute Instanzen benötigt werden. Wenn nein, werden die Stückzahlen bzgl. der Baugruppe erst beim Build des jeweiligen Projektes herangezogen.</target>
-      </segment>
-    </unit>
     <unit id="_wZ_JZY" name="assembly.edit.bom.import_bom">
       <segment>
         <source>assembly.edit.bom.import_bom</source>
@@ -13734,60 +13716,6 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Bauteile hinzufügen</target>
       </segment>
     </unit>
-    <unit id="ZbDTUTS" name="assembly.builds.check_assembly_status">
-      <segment>
-        <source>assembly.builds.check_assembly_status</source>
-        <target><![CDATA[Der aktuelle Baugruppen-Status ist <b>"%assembly_status%"</b>. Sie sollten überprüfen, ob sie die Baugruppe mit diesem Status wirklich bauen wollen!]]></target>
-      </segment>
-    </unit>
-    <unit id="xq1Soad" name="assembly.builds.build_not_possible">
-      <segment>
-        <source>assembly.builds.build_not_possible</source>
-        <target>Bau nicht möglich: Nicht genügend Bauteile vorhanden</target>
-      </segment>
-    </unit>
-    <unit id="njRyDHQ" name="assembly.builds.following_bom_entries_miss_instock">
-      <segment>
-        <source>assembly.builds.following_bom_entries_miss_instock</source>
-        <target>Es sind nicht genügend Bauteile auf Lager, um dieses Projekt %number_of_builds% mal zu bauen. Von folgenden Bauteilen ist nicht genügend auf Lager.</target>
-      </segment>
-    </unit>
-    <unit id="sp7Z0MS" name="assembly.builds.build_possible">
-      <segment>
-        <source>assembly.builds.build_possible</source>
-        <target>Bau möglich</target>
-      </segment>
-    </unit>
-    <unit id="1uZzdEl" name="assembly.builds.number_of_builds_possible">
-      <segment>
-        <source>assembly.builds.number_of_builds_possible</source>
-        <target><![CDATA[Sie haben genug Bauteile auf Lager, um <b>%max_builds%</b> Exemplare dieser Baugruppe zu bauen.]]></target>
-      </segment>
-    </unit>
-    <unit id="pW6QLXf" name="assembly.builds.number_of_builds">
-      <segment>
-        <source>assembly.builds.number_of_builds</source>
-        <target>Zu bauende Anzahl</target>
-      </segment>
-    </unit>
-    <unit id="mtJqT_a" name="assembly.build.btn_build">
-      <segment>
-        <source>assembly.build.btn_build</source>
-        <target>Bauen</target>
-      </segment>
-    </unit>
-    <unit id="1bCA1zb" name="assembly.build.form.referencedAssembly">
-      <segment>
-        <source>asssembly.build.form.referencedAssembly</source>
-        <target>Baugruppe "%name%"</target>
-      </segment>
-    </unit>
-    <unit id="LFSVVcP" name="assembly.builds.no_stocked_builds">
-      <segment>
-        <source>assembly.builds.no_stocked_builds</source>
-        <target>Anzahl gelagerter gebauter Instanzen</target>
-      </segment>
-    </unit>
     <unit id="dGFHutJ" name="assembly.info.bom_entries_count">
       <segment>
         <source>assembly.info.bom_entries_count</source>
@@ -13798,18 +13726,6 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment>
         <source>assembly.info.sub_assemblies_count</source>
         <target>Untergruppen</target>
-      </segment>
-    </unit>
-    <unit id="HZYhTlb" name="assembly.builds.stocked">
-      <segment>
-        <source>assembly.builds.stocked</source>
-        <target>vorhanden</target>
-      </segment>
-    </unit>
-    <unit id="9EG0PLW" name="assembly.builds.needed">
-      <segment>
-        <source>assembly.builds.needed</source>
-        <target>benötigt</target>
       </segment>
     </unit>
     <unit id="hO7vWmc" name="assembly.bom.delete.confirm">
@@ -13860,24 +13776,6 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Notizen</target>
       </segment>
     </unit>
-    <unit id="87YpQ_u" name="assembly.builds.following_bom_entries_miss_instock_n">
-      <segment>
-        <source>assembly.builds.following_bom_entries_miss_instock_n</source>
-        <target>Es sind nicht genügend Bauteile auf Lager, um diese Baugruppe %number_of_builds% mal zu bauen. Von folgenden Bauteilen ist nicht genügend auf Lager:</target>
-      </segment>
-    </unit>
-    <unit id="JlQhDdS" name="assembly.build.help">
-      <segment>
-        <source>assembly.build.help</source>
-        <target>Wählen Sie aus, aus welchen Beständen die zum Bau notwendigen Bauteile genommen werden sollen (und in welcher Anzahl). Setzen Sie den Haken für jeden Part Eintrag, wenn sie die Bauteile entnommen haben, oder nutzen Sie die oberste Checkbox, um alle Haken auf einmal zu setzen.</target>
-      </segment>
-    </unit>
-    <unit id="iP5_QVj" name="assembly.build.required_qty">
-      <segment>
-        <source>assembly.build.required_qty</source>
-        <target>Benötigte Anzahl</target>
-      </segment>
-    </unit>
     <unit id="UJpD7n6" name="assembly.import_bom">
       <segment>
         <source>assembly.import_bom</source>
@@ -13906,24 +13804,6 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment>
         <source>assembly.bom.price</source>
         <target>Preis</target>
-      </segment>
-    </unit>
-    <unit id="63adIrC" name="assembly.build.dont_check_quantity">
-      <segment state="translated">
-        <source>assembly.build.dont_check_quantity</source>
-        <target>Mengen nicht überprüfen</target>
-      </segment>
-    </unit>
-    <unit id="O0DP6tK" name="assembly.build.dont_check_quantity.help">
-      <segment state="translated">
-        <source>assembly.build.dont_check_quantity.help</source>
-        <target>Wenn diese Option gewählt wird, werden die gewählten Mengen aus dem Lager entfernt, egal ob mehr oder weniger Bauteile sind, als für den Bau der Baugruppe eigentlich benötigt werden.</target>
-      </segment>
-    </unit>
-    <unit id="9bc0nzK" name="assembly.build.add_builds_to_builds_part">
-      <segment state="translated">
-        <source>assembly.build.add_builds_to_builds_part</source>
-        <target>Gebaute Instanzen zum Bauteil der Baugruppe hinzufügen</target>
       </segment>
     </unit>
     <unit id="nl.jtSx" name="assembly.bom_import.type">
