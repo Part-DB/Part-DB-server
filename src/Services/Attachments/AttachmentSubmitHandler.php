@@ -57,6 +57,9 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  */
 class AttachmentSubmitHandler
 {
+    /**
+     * @var array<string, string> The mapping used to determine which folder will be used for an attachment type
+     */
     protected array $folder_mapping;
 
     private ?int $max_upload_size_bytes = null;
@@ -160,6 +163,7 @@ class AttachmentSubmitHandler
         } else {
             //If not, check for instance of:
             foreach ($this->folder_mapping as $class => $folder) {
+                /** @var string $class */
                 if ($attachment instanceof $class) {
                     $prefix = $folder;
                     break;

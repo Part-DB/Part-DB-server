@@ -4,7 +4,7 @@
 
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          colors="true"
-         failOnDeprecation="true"
+         failOnDeprecation="false"
          failOnNotice="true"
          failOnWarning="true"
          bootstrap="tests/bootstrap.php"

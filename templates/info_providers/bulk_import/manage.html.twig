@@ -1,0 +1,124 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}
+    {% trans %}info_providers.bulk_import.manage_jobs{% endtrans %}
+{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-tasks"></i> {% trans %}info_providers.bulk_import.manage_jobs{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+
+    <div data-controller="bulk-job-manage"
+         data-bulk-job-manage-delete-url-value="{{ path('bulk_info_provider_delete', {'jobId': '__JOB_ID__'}) }}"
+         data-bulk-job-manage-stop-url-value="{{ path('bulk_info_provider_stop', {'jobId': '__JOB_ID__'}) }}"
+         data-bulk-job-manage-delete-confirm-message-value="{% trans %}info_providers.bulk_import.confirm_delete_job{% endtrans %}"
+         data-bulk-job-manage-stop-confirm-message-value="{% trans %}info_providers.bulk_import.confirm_stop_job{% endtrans %}">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <p class="text-muted mb-0">
+                {% trans %}info_providers.bulk_import.manage_jobs_description{% endtrans %}
+            </p>
+        </div>
+
+        {% if jobs is not empty %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>{% trans %}info_providers.bulk_import.job_name{% endtrans %}</th>
+                        <th>{% trans %}info_providers.bulk_import.parts_count{% endtrans %}</th>
+                        <th>{% trans %}info_providers.bulk_import.results_count{% endtrans %}</th>
+                        <th>{% trans %}info_providers.bulk_import.progress{% endtrans %}</th>
+                        <th>{% trans %}info_providers.bulk_import.status{% endtrans %}</th>
+                        <th>{% trans %}info_providers.bulk_import.created_by{% endtrans %}</th>
+                        <th>{% trans %}info_providers.bulk_import.created_at{% endtrans %}</th>
+                        <th>{% trans %}info_providers.bulk_import.completed_at{% endtrans %}</th>
+                        <th>{% trans %}info_providers.bulk_import.action.label{% endtrans %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for job in jobs %}
+                        <tr>
+                            <td>
+                                <strong>{{ job.displayNameKey|trans(job.displayNameParams) }} - {{ job.formattedTimestamp }}</strong>
+                                {% if job.isInProgress %}
+                                    <span class="badge bg-info ms-2">Active</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ job.partCount }}</td>
+                            <td>{{ job.resultCount }}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="progress me-2" style="width: 80px; height: 12px;">
+                                        <div class="progress-bar {% if job.isCompleted %}bg-success{% elseif job.isFailed %}bg-danger{% else %}bg-info{% endif %}"
+                                             role="progressbar"
+                                             style="width: {{ job.progressPercentage }}%"
+                                             aria-valuenow="{{ job.progressPercentage }}"
+                                             aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">{{ job.progressPercentage }}%</small>
+                                </div>
+                                <small class="text-muted">
+                                    {% trans with {'%current%': job.completedPartsCount + job.skippedPartsCount, '%total%': job.partCount} %}info_providers.bulk_import.progress_label{% endtrans %}
+                                </small>
+                            </td>
+                            <td>
+                                {% if job.isPending %}
+                                    <span class="badge bg-warning">{% trans %}info_providers.bulk_import.status.pending{% endtrans %}</span>
+                                {% elseif job.isInProgress %}
+                                    <span class="badge bg-info">{% trans %}info_providers.bulk_import.status.in_progress{% endtrans %}</span>
+                                {% elseif job.isCompleted %}
+                                    <span class="badge bg-success">{% trans %}info_providers.bulk_import.status.completed{% endtrans %}</span>
+                                {% elseif job.isStopped %}
+                                    <span class="badge bg-secondary">{% trans %}info_providers.bulk_import.status.stopped{% endtrans %}</span>
+                                {% elseif job.isFailed %}
+                                    <span class="badge bg-danger">{% trans %}info_providers.bulk_import.status.failed{% endtrans %}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ job.createdBy.fullName(true) }}</td>
+                            <td>{{ job.createdAt|format_datetime('short') }}</td>
+                            <td>
+                                {% if job.completedAt %}
+                                    {{ job.completedAt|format_datetime('short') }}
+                                {% else %}
+                                    <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    {% if job.isInProgress or job.isCompleted or job.isStopped %}
+                                        <a href="{{ path('bulk_info_provider_step2', {'jobId': job.id}) }}" class="btn btn-primary">
+                                            <i class="fas fa-eye"></i> {% trans %}info_providers.bulk_import.view_results{% endtrans %}
+                                        </a>
+                                    {% endif %}
+                                    {% if job.canBeStopped %}
+                                        <button type="button" class="btn btn-warning" data-action="click->bulk-job-manage#stopJob" data-job-id="{{ job.id }}">
+                                            <i class="fas fa-stop"></i> {% trans %}info_providers.bulk_import.action.stop{% endtrans %}
+                                        </button>
+                                    {% endif %}
+                                    {% if job.isCompleted or job.isFailed or job.isStopped %}
+                                        <button type="button" class="btn btn-danger" data-action="click->bulk-job-manage#deleteJob" data-job-id="{{ job.id }}">
+                                            <i class="fas fa-trash"></i> {% trans %}info_providers.bulk_import.action.delete{% endtrans %}
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                <i class="fas fa-info-circle"></i>
+                {% trans %}info_providers.bulk_import.no_jobs_found{% endtrans %}<br>
+                {% trans %}info_providers.bulk_import.create_first_job{% endtrans %}
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endblock %}

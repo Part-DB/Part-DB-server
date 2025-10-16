@@ -38,6 +38,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Serializer\SerializerInterface;
 use function Symfony\Component\String\u;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 /**
  * Use this class to export an entity to multiple file formats.
@@ -52,7 +55,7 @@ class EntityExporter
     protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('format', 'csv');
-        $resolver->setAllowedValues('format', ['csv', 'json', 'xml', 'yaml']);
+        $resolver->setAllowedValues('format', ['csv', 'json', 'xml', 'yaml', 'xlsx', 'xls']);
 
         $resolver->setDefault('csv_delimiter', ';');
         $resolver->setAllowedTypes('csv_delimiter', 'string');
@@ -88,28 +91,35 @@ class EntityExporter
 
         $options = $resolver->resolve($options);
 
+        //Handle Excel formats by converting from CSV
+        if (in_array($options['format'], ['xlsx', 'xls'], true)) {
+            return $this->exportToExcel($entities, $options);
+        }
+
         //If include children is set, then we need to add the include_children group
         $groups = [$options['level']];
         if ($options['include_children']) {
             $groups[] = 'include_children';
         }
 
-        return $this->serializer->serialize($entities, $options['format'],
+        return $this->serializer->serialize(
+            $entities,
+            $options['format'],
             [
                 'groups' => $groups,
                 'as_collection' => true,
                 'csv_delimiter' => $options['csv_delimiter'],
                 'xml_root_node_name' => 'PartDBExport',
                 'partdb_export' => true,
-                //Skip the item normalizer, so that we dont get IRIs in the output
+                    //Skip the item normalizer, so that we dont get IRIs in the output
                 SkippableItemNormalizer::DISABLE_ITEM_NORMALIZER => true,
-                //Handle circular references
+                    //Handle circular references
                 AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => $this->handleCircularReference(...),
             ]
         );
     }
 
-    private function handleCircularReference(object $object, string $format, array $context): string
+    private function handleCircularReference(object $object): string
     {
         if ($object instanceof AbstractStructuralDBElement) {
             return $object->getFullPath("->");
@@ -119,7 +129,75 @@ class EntityExporter
             return $object->__toString();
         }
 
-        throw new CircularReferenceException('Circular reference detected for object of type '.get_class($object));
+        throw new CircularReferenceException('Circular reference detected for object of type ' . get_class($object));
+    }
+
+    /**
+     * Exports entities to Excel format (xlsx or xls).
+     *
+     * @param AbstractNamedDBElement[] $entities The entities to export
+     * @param array                    $options  The export options
+     *
+     * @return string The Excel file content as binary string
+     */
+    protected function exportToExcel(array $entities, array $options): string
+    {
+        //First get CSV data using existing serializer
+        $groups = [$options['level']];
+        if ($options['include_children']) {
+            $groups[] = 'include_children';
+        }
+
+        $csvData = $this->serializer->serialize(
+            $entities,
+            'csv',
+            [
+                'groups' => $groups,
+                'as_collection' => true,
+                'csv_delimiter' => $options['csv_delimiter'],
+                'partdb_export' => true,
+                SkippableItemNormalizer::DISABLE_ITEM_NORMALIZER => true,
+                AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => $this->handleCircularReference(...),
+            ]
+        );
+
+        //Convert CSV to Excel
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $rows = explode("\n", $csvData);
+        $rowIndex = 1;
+
+        foreach ($rows as $row) {
+            if (trim($row) === '') {
+                continue;
+            }
+
+            $columns = str_getcsv($row, $options['csv_delimiter'], '"', '\\');
+            $colIndex = 1;
+
+            foreach ($columns as $column) {
+                $cellCoordinate = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex) . $rowIndex;
+                $worksheet->setCellValue($cellCoordinate, $column);
+                $colIndex++;
+            }
+            $rowIndex++;
+        }
+
+        //Save to memory stream
+        $writer = $options['format'] === 'xlsx' ? new Xlsx($spreadsheet) : new Xls($spreadsheet);
+
+        $memFile = fopen("php://temp", 'r+b');
+        $writer->save($memFile);
+        rewind($memFile);
+        $content = stream_get_contents($memFile);
+        fclose($memFile);
+
+        if ($content === false) {
+            throw new \RuntimeException('Failed to read Excel content from memory stream.');
+        }
+
+        return $content;
     }
 
     /**
@@ -156,19 +234,15 @@ class EntityExporter
 
         //Determine the content type for the response
 
-        //Plain text should work for all types
-        $content_type = 'text/plain';
-
         //Try to use better content types based on the format
         $format = $options['format'];
-        switch ($format) {
-            case 'xml':
-                $content_type = 'application/xml';
-                break;
-            case 'json':
-                $content_type = 'application/json';
-                break;
-        }
+        $content_type = match ($format) {
+            'xml' => 'application/xml',
+            'json' => 'application/json',
+            'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'xls' => 'application/vnd.ms-excel',
+            default => 'text/plain',
+        };
         $response->headers->set('Content-Type', $content_type);
 
         //If view option is not specified, then download the file.
@@ -186,7 +260,7 @@ class EntityExporter
 
             $level = $options['level'];
 
-            $filename = 'export_'.$entity_name.'_'.$level.'.'.$format;
+            $filename = "export_{$entity_name}_{$level}.{$format}";
 
             //Sanitize the filename
             $filename = FilenameSanatizer::sanitizeFilename($filename);
