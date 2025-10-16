@@ -326,22 +326,6 @@ class AssemblyBOMEntry extends AbstractDBElement implements UniqueValidatableInt
         if (!$this->part instanceof Part) {
             $this->quantity = round($this->quantity);
         }
-
-        //Check that the part is not the build representation part of this assembly or one of its parents
-        if ($this->part && $this->part->getBuiltAssembly() instanceof Assembly) {
-            //Get the associated assembly
-            $associated_assembly = $this->part->getBuiltAssembly();
-            //Check that it is not the same as the current assembly neither one of its parents
-            $current_assembly = $this->assembly;
-            while ($current_assembly) {
-                if ($associated_assembly === $current_assembly) {
-                    $context->buildViolation('assembly.bom_entry.can_not_add_own_builds_part')
-                        ->atPath('part')
-                        ->addViolation();
-                }
-                $current_assembly = $current_assembly->getParent();
-            }
-        }
     }
 
 

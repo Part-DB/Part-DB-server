@@ -141,13 +141,6 @@ class Assembly extends AbstractStructuralDBElement
     #[Length(max: 100)]
     protected ?string $ipn = null;
 
-    /**
-     * @var Part|null The (optional) part that represents the builds of this assembly in the stock
-     */
-    #[ORM\OneToOne(mappedBy: 'built_assembly', targetEntity: Part::class, cascade: ['persist'], orphanRemoval: true)]
-    #[Groups(['assembly:read', 'assembly:write'])]
-    protected ?Part $build_part = null;
-
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $order_only_missing_parts = false;
 
@@ -338,59 +331,9 @@ class Assembly extends AbstractStructuralDBElement
         return $this;
     }
 
-    /**
-     * Checks if this assembly has an associated part representing the builds of this assembly in the stock.
-     */
-    public function hasBuildPart(): bool
-    {
-        return $this->build_part instanceof Part;
-    }
-
-    /**
-     * Gets the part representing the builds of this assembly in the stock, if it is existing
-     */
-    public function getBuildPart(): ?Part
-    {
-        return $this->build_part;
-    }
-
-    /**
-     * Sets the part representing the builds of this assembly in the stock.
-     */
-    public function setBuildPart(?Part $build_part): void
-    {
-        $this->build_part = $build_part;
-        if ($build_part instanceof Part) {
-            $build_part->setBuiltAssembly($this);
-        }
-    }
-
     #[Assert\Callback]
     public function validate(ExecutionContextInterface $context, $payload): void
     {
-        //If this assembly has subassemblies, and these have builds part, they must be included in the BOM
-        foreach ($this->getChildren() as $child) {
-            if (!$child->getBuildPart() instanceof Part) {
-                continue;
-            }
-            //We have to search all bom entries for the build part
-            $found = false;
-            foreach ($this->getBomEntries() as $bom_entry) {
-                if ($bom_entry->getPart() === $child->getBuildPart()) {
-                    $found = true;
-                    break;
-                }
-            }
-
-            //When the build part is not found, we have to add an error
-            if (!$found) {
-                $context->buildViolation('assembly.bom_has_to_include_all_subelement_parts')
-                    ->atPath('bom_entries')
-                    ->setParameter('%assembly_name%', $child->getName())
-                    ->setParameter('%part_name%', $child->getBuildPart()->getName())
-                    ->addViolation();
-            }
-        }
     }
 
     /**

@@ -8954,24 +8954,6 @@ Exampletown</target>
         <target>新しいアセンブリ</target>
       </segment>
     </unit>
-    <unit id="M51YUE." name="assembly.edit.associated_build_part">
-      <segment>
-        <source>assembly.edit.associated_build_part</source>
-        <target>関連コンポーネント</target>
-      </segment>
-    </unit>
-    <unit id="nH9R9f." name="assembly.edit.associated_build_part.add">
-      <segment>
-        <source>assembly.edit.associated_build_part.add</source>
-        <target>コンポーネントを追加</target>
-      </segment>
-    </unit>
-    <unit id="oVfOk.i" name="assembly.edit.associated_build.hint">
-      <segment>
-        <source>assembly.edit.associated_build.hint</source>
-        <target>このコンポーネントは、アセンブリの製造されたインスタンスを表します。製造されたインスタンスが必要な場合は登録してください。それ以外の場合、コンポーネントの数量は該当するプロジェクトを構築する際にのみ使用されます。</target>
-      </segment>
-    </unit>
     <unit id="_wZ_JZY" name="assembly.edit.bom.import_bom">
       <segment>
         <source>assembly.edit.bom.import_bom</source>
@@ -9080,60 +9062,6 @@ Exampletown</target>
         <target>部品を追加</target>
       </segment>
     </unit>
-    <unit id="ZbDTUTS" name="assembly.builds.check_assembly_status">
-      <segment>
-        <source>assembly.builds.check_assembly_status</source>
-        <target><![CDATA[アセンブリの現在の状態は<b>"%assembly_status%"</b>です。この状態でビルドを続行してよろしいですか？]]></target>
-      </segment>
-    </unit>
-    <unit id="xq1Soad" name="assembly.builds.build_not_possible">
-      <segment>
-        <source>assembly.builds.build_not_possible</source>
-        <target>ビルド不可能: 必要な部品が不足しています</target>
-      </segment>
-    </unit>
-    <unit id="njRyDHQ" name="assembly.builds.following_bom_entries_miss_instock">
-      <segment>
-        <source>assembly.builds.following_bom_entries_miss_instock</source>
-        <target>%number_of_builds% 回のビルドを行うのに十分な部品在庫がありません。不足している部品:</target>
-      </segment>
-    </unit>
-    <unit id="sp7Z0MS" name="assembly.builds.build_possible">
-      <segment>
-        <source>assembly.builds.build_possible</source>
-        <target>ビルド可能</target>
-      </segment>
-    </unit>
-    <unit id="1uZzdEl" name="assembly.builds.number_of_builds_possible">
-      <segment>
-        <source>assembly.builds.number_of_builds_possible</source>
-        <target><![CDATA[現在の在庫では<b>%max_builds%</b> 回のアセンブリをビルドできます。]]></target>
-      </segment>
-    </unit>
-    <unit id="pW6QLXf" name="assembly.builds.number_of_builds">
-      <segment>
-        <source>assembly.builds.number_of_builds</source>
-        <target>ビルドするアセンブリ数</target>
-      </segment>
-    </unit>
-    <unit id="mtJqT_a" name="assembly.build.btn_build">
-      <segment>
-        <source>assembly.build.btn_build</source>
-        <target>ビルド</target>
-      </segment>
-    </unit>
-    <unit id="1bCA1zb" name="assembly.build.form.referencedAssembly">
-      <segment>
-        <source>assembly.build.form.referencedAssembly</source>
-        <target>アセンブリ「%name%」</target>
-      </segment>
-    </unit>
-    <unit id="LFSVVcP" name="assembly.builds.no_stocked_builds">
-      <segment>
-        <source>assembly.builds.no_stocked_builds</source>
-        <target>在庫のビルド済みアセンブリ数</target>
-      </segment>
-    </unit>
     <unit id="dGFHutJ" name="assembly.info.bom_entries_count">
       <segment>
         <source>assembly.info.bom_entries_count</source>
@@ -9144,18 +9072,6 @@ Exampletown</target>
       <segment>
         <source>assembly.info.sub_assemblies_count</source>
         <target>サブアセンブリ</target>
-      </segment>
-    </unit>
-    <unit id="HZYhTlb" name="assembly.builds.stocked">
-      <segment>
-        <source>assembly.builds.stocked</source>
-        <target>在庫あり</target>
-      </segment>
-    </unit>
-    <unit id="9EG0PLW" name="assembly.builds.needed">
-      <segment>
-        <source>assembly.builds.needed</source>
-        <target>必要数量</target>
       </segment>
     </unit>
     <unit id="hO7vWmc" name="assembly.bom.delete.confirm">
@@ -9206,24 +9122,6 @@ Exampletown</target>
         <target>コメント</target>
       </segment>
     </unit>
-    <unit id="87YpQ_u" name="assembly.builds.following_bom_entries_miss_instock_n">
-      <segment>
-        <source>assembly.builds.following_bom_entries_miss_instock_n</source>
-        <target>このアセンブリを%number_of_builds%回作成するための部品が十分に在庫にありません。以下の部品が不足しています:</target>
-      </segment>
-    </unit>
-    <unit id="JlQhDdS" name="assembly.build.help">
-      <segment>
-        <source>assembly.build.help</source>
-        <target>どの在庫から必要な部品を取り出すか（およびその数量）を選択してください。部品を取り出した場合は、各項目のチェックをオンにするか、最上部のチェックボックスを使って一括でオンにすることができます。</target>
-      </segment>
-    </unit>
-    <unit id="rs_qty" name="assembly.build.required_qty">
-      <segment>
-        <source>assembly.build.required_qty</source>
-        <target>必要な数量</target>
-      </segment>
-    </unit>
     <unit id="UJpD7n6" name="assembly.import_bom">
       <segment>
         <source>assembly.import_bom</source>
@@ -9242,34 +9140,10 @@ Exampletown</target>
         <target>識別子</target>
       </segment>
     </unit>
-    <unit id="yes_button" name="assembly.build.yes_button">
-      <segment>
-        <source>assembly.build.yes_button</source>
-        <target>はい</target>
-      </segment>
-    </unit>
-    <unit id="no_button" name="assembly.build.no_button">
-      <segment>
-        <source>assembly.build.no_button</source>
-        <target>いいえ</target>
-      </segment>
-    </unit>
     <unit id="JLhsU08" name="assembly.confirmation.required">
       <segment>
         <source>assembly.confirmation.required</source>
         <target><![CDATA[続行してよろしいですか？]]></target>
-      </segment>
-    </unit>
-    <unit id="build_success" name="assembly.build.success">
-      <segment>
-        <source>assembly.build.success</source>
-        <target>ビルドが正常に完了しました！</target>
-      </segment>
-    </unit>
-    <unit id="build_cancelled" name="assembly.build.cancelled">
-      <segment>
-        <source>assembly.build.cancelled</source>
-        <target>ビルドがキャンセルされました。</target>
       </segment>
     </unit>
     <unit id="nl.jtSx" name="assembly.bom_import.type">

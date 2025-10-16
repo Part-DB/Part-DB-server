@@ -9,7 +9,6 @@ use App\Form\Type\AssemblySelectType;
 use App\Form\Type\BigDecimalNumberType;
 use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\PartSelectType;
-use App\Form\Type\ProjectSelectType;
 use App\Form\Type\RichTextEditorType;
 use App\Form\Type\SIUnitType;
 use Symfony\Component\Form\AbstractType;

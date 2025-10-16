@@ -9217,24 +9217,6 @@ exemple de ville</target>
         <target>Nouvel assemblage</target>
       </segment>
     </unit>
-    <unit id="M51YUE." name="assembly.edit.associated_build_part">
-      <segment>
-        <source>assembly.edit.associated_build_part</source>
-        <target>Composant associé</target>
-      </segment>
-    </unit>
-    <unit id="nH9R9f." name="assembly.edit.associated_build_part.add">
-      <segment>
-        <source>assembly.edit.associated_build_part.add</source>
-        <target>Ajouter un composant</target>
-      </segment>
-    </unit>
-    <unit id="oVfOk.i" name="assembly.edit.associated_build.hint">
-      <segment>
-        <source>assembly.edit.associated_build.hint</source>
-        <target>Ce composant représente les instances fabriquées de l'assemblage. Indiquez si des instances fabriquées sont nécessaires. Sinon, les quantités des composants ne seront appliquées que lors de la construction du projet correspondant.</target>
-      </segment>
-    </unit>
     <unit id="_wZ_JZY" name="assembly.edit.bom.import_bom">
       <segment>
         <source>assembly.edit.bom.import_bom</source>
@@ -9343,60 +9325,6 @@ exemple de ville</target>
         <target>Ajouter des pièces</target>
       </segment>
     </unit>
-    <unit id="ZbDTUTS" name="assembly.builds.check_assembly_status">
-      <segment>
-        <source>assembly.builds.check_assembly_status</source>
-        <target><![CDATA[Le statut actuel de l'assemblage est <b>"%assembly_status%"</b>. Vérifiez bien si vous souhaitez construire l'assemblage avec ce statut !]]></target>
-      </segment>
-    </unit>
-    <unit id="xq1Soad" name="assembly.builds.build_not_possible">
-      <segment>
-        <source>assembly.builds.build_not_possible</source>
-        <target>Construction impossible : pièces insuffisantes disponibles</target>
-      </segment>
-    </unit>
-    <unit id="njRyDHQ" name="assembly.builds.following_bom_entries_miss_instock">
-      <segment>
-        <source>assembly.builds.following_bom_entries_miss_instock</source>
-        <target>Il n'y a pas suffisamment de pièces en stock pour construire ce projet %number_of_builds% fois. Les pièces suivantes manquent en stock :</target>
-      </segment>
-    </unit>
-    <unit id="sp7Z0MS" name="assembly.builds.build_possible">
-      <segment>
-        <source>assembly.builds.build_possible</source>
-        <target>Construction possible</target>
-      </segment>
-    </unit>
-    <unit id="1uZzdEl" name="assembly.builds.number_of_builds_possible">
-      <segment>
-        <source>assembly.builds.number_of_builds_possible</source>
-        <target><![CDATA[Vous disposez de suffisamment de pièces en stock pour construire <b>%max_builds%</b> unités de cet assemblage.]]></target>
-      </segment>
-    </unit>
-    <unit id="pW6QLXf" name="assembly.builds.number_of_builds">
-      <segment>
-        <source>assembly.builds.number_of_builds</source>
-        <target>Nombre d'assemblages à construire</target>
-      </segment>
-    </unit>
-    <unit id="mtJqT_a" name="assembly.build.btn_build">
-      <segment>
-        <source>assembly.build.btn_build</source>
-        <target>Construire</target>
-      </segment>
-    </unit>
-    <unit id="1bCA1zb" name="assembly.build.form.referencedAssembly">
-      <segment>
-        <source>assembly.build.form.referencedAssembly</source>
-        <target>Assemblage "%name%"</target>
-      </segment>
-    </unit>
-    <unit id="LFSVVcP" name="assembly.builds.no_stocked_builds">
-      <segment>
-        <source>assembly.builds.no_stocked_builds</source>
-        <target>Nombre d'instances construites en stock</target>
-      </segment>
-    </unit>
     <unit id="dGFHutJ" name="assembly.info.bom_entries_count">
       <segment>
         <source>assembly.info.bom_entries_count</source>
@@ -9407,18 +9335,6 @@ exemple de ville</target>
       <segment>
         <source>assembly.info.sub_assemblies_count</source>
         <target>Sous-ensembles</target>
-      </segment>
-    </unit>
-    <unit id="HZYhTlb" name="assembly.builds.stocked">
-      <segment>
-        <source>assembly.builds.stocked</source>
-        <target>en stock</target>
-      </segment>
-    </unit>
-    <unit id="9EG0PLW" name="assembly.builds.needed">
-      <segment>
-        <source>assembly.builds.needed</source>
-        <target>nécessaire</target>
       </segment>
     </unit>
     <unit id="hO7vWmc" name="assembly.bom.delete.confirm">
@@ -9469,24 +9385,6 @@ exemple de ville</target>
         <target>Commentaires</target>
       </segment>
     </unit>
-    <unit id="87YpQ_u" name="assembly.builds.following_bom_entries_miss_instock_n">
-      <segment>
-        <source>assembly.builds.following_bom_entries_miss_instock_n</source>
-        <target>Il n'y a pas suffisamment de pièces en stock pour construire cet assemblage %number_of_builds% fois. Les pièces suivantes manquent en stock :</target>
-      </segment>
-    </unit>
-    <unit id="JlQhDdS" name="assembly.build.help">
-      <segment>
-        <source>assembly.build.help</source>
-        <target>Sélectionnez les stocks à partir desquels les pièces nécessaires à la construction seront prises (et en quelle quantité). Vérifiez chaque pièce en les retirant, ou utilisez la case supérieure pour les sélectionner toutes à la fois.</target>
-      </segment>
-    </unit>
-    <unit id="iP5_QVj" name="assembly.build.required_qty">
-      <segment>
-        <source>assembly.build.required_qty</source>
-        <target>Quantité requise</target>
-      </segment>
-    </unit>
     <unit id="UJpD7n6" name="assembly.import_bom">
       <segment>
         <source>assembly.import_bom</source>
@@ -9515,24 +9413,6 @@ exemple de ville</target>
       <segment>
         <source>assembly.bom.price</source>
         <target>Prix</target>
-      </segment>
-    </unit>
-    <unit id="63adIrC" name="assembly.build.dont_check_quantity">
-      <segment state="translated">
-        <source>assembly.build.dont_check_quantity</source>
-        <target>Ne pas vérifier les quantités</target>
-      </segment>
-    </unit>
-    <unit id="O0DP6tK" name="assembly.build.dont_check_quantity.help">
-      <segment state="translated">
-        <source>assembly.build.dont_check_quantity.help</source>
-        <target>Si cette option est activée, les quantités sélectionnées seront retirées du stock, quelle que soit leur suffisance pour l’assemblage.</target>
-      </segment>
-    </unit>
-    <unit id="9bc0nzK" name="assembly.build.add_builds_to_builds_part">
-      <segment state="translated">
-        <source>assembly.build.add_builds_to_builds_part</source>
-        <target>Ajouter les unités construites à la pièce assemblée</target>
       </segment>
     </unit>
     <unit id="nl.jtSx" name="assembly.bom_import.type">

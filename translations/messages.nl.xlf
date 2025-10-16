@@ -844,24 +844,6 @@
         <target>Nieuwe assemblage</target>
       </segment>
     </unit>
-    <unit id="M51YUE." name="assembly.edit.associated_build_part">
-      <segment>
-        <source>assembly.edit.associated_build_part</source>
-        <target>Geassocieerd onderdeel</target>
-      </segment>
-    </unit>
-    <unit id="nH9R9f." name="assembly.edit.associated_build_part.add">
-      <segment>
-        <source>assembly.edit.associated_build_part.add</source>
-        <target>Onderdeel toevoegen</target>
-      </segment>
-    </unit>
-    <unit id="oVfOk.i" name="assembly.edit.associated_build.hint">
-      <segment>
-        <source>assembly.edit.associated_build.hint</source>
-        <target>Dit onderdeel vertegenwoordigt de vervaardigde exemplaren van de assemblage. Geef aan of vervaardigde exemplaren nodig zijn. Zo niet, dan worden de aantallen onderdelen alleen gebruikt bij het bouwen van het bijbehorende project.</target>
-      </segment>
-    </unit>
     <unit id="_wZ_JZY" name="assembly.edit.bom.import_bom">
       <segment>
         <source>assembly.edit.bom.import_bom</source>
@@ -970,60 +952,6 @@
         <target>Onderdelen toevoegen</target>
       </segment>
     </unit>
-    <unit id="ZbDTUTS" name="assembly.builds.check_assembly_status">
-      <segment>
-        <source>assembly.builds.check_assembly_status</source>
-        <target><![CDATA[De huidige status van de assemblage is <b>"%assembly_status%"</b>. Bevestig dat je hiermee wilt doorgaan!]]></target>
-      </segment>
-    </unit>
-    <unit id="xq1Soad" name="assembly.builds.build_not_possible">
-      <segment>
-        <source>assembly.builds.build_not_possible</source>
-        <target>Bouwen is niet mogelijk: niet voldoende onderdelen beschikbaar</target>
-      </segment>
-    </unit>
-    <unit id="njRyDHQ" name="assembly.builds.following_bom_entries_miss_instock">
-      <segment>
-        <source>assembly.builds.following_bom_entries_miss_instock</source>
-        <target>Er zijn niet voldoende onderdelen in voorraad om %number_of_builds% keer te bouwen. De volgende onderdelen ontbreken:</target>
-      </segment>
-    </unit>
-    <unit id="sp7Z0MS" name="assembly.builds.build_possible">
-      <segment>
-        <source>assembly.builds.build_possible</source>
-        <target>Bouwen mogelijk</target>
-      </segment>
-    </unit>
-    <unit id="1uZzdEl" name="assembly.builds.number_of_builds_possible">
-      <segment>
-        <source>assembly.builds.number_of_builds_possible</source>
-        <target><![CDATA[Er zijn genoeg onderdelen beschikbaar om <b>%max_builds%</b> assemblages te bouwen.]]></target>
-      </segment>
-    </unit>
-    <unit id="pW6QLXf" name="assembly.builds.number_of_builds">
-      <segment>
-        <source>assembly.builds.number_of_builds</source>
-        <target>Aantal te bouwen assemblages</target>
-      </segment>
-    </unit>
-    <unit id="mtJqT_a" name="assembly.build.btn_build">
-      <segment>
-        <source>assembly.build.btn_build</source>
-        <target>Bouwen</target>
-      </segment>
-    </unit>
-    <unit id="1bCA1zb" name="assembly.build.form.referencedAssembly">
-      <segment>
-        <source>assembly.build.form.referencedAssembly</source>
-        <target>Assemblage "%name%"</target>
-      </segment>
-    </unit>
-    <unit id="LFSVVcP" name="assembly.builds.no_stocked_builds">
-      <segment>
-        <source>assembly.builds.no_stocked_builds</source>
-        <target>Aantal geassembleerde onderdelen op voorraad</target>
-      </segment>
-    </unit>
     <unit id="dGFHutJ" name="assembly.info.bom_entries_count">
       <segment>
         <source>assembly.info.bom_entries_count</source>
@@ -1034,18 +962,6 @@
       <segment>
         <source>assembly.info.sub_assemblies_count</source>
         <target>Subgroepen</target>
-      </segment>
-    </unit>
-    <unit id="HZYhTlb" name="assembly.builds.stocked">
-      <segment>
-        <source>assembly.builds.stocked</source>
-        <target>Op voorraad</target>
-      </segment>
-    </unit>
-    <unit id="9EG0PLW" name="assembly.builds.needed">
-      <segment>
-        <source>assembly.builds.needed</source>
-        <target>Nodig</target>
       </segment>
     </unit>
     <unit id="hO7vWmc" name="assembly.bom.delete.confirm">
@@ -1096,24 +1012,6 @@
         <target>Notities</target>
       </segment>
     </unit>
-    <unit id="87YpQ_u" name="assembly.builds.following_bom_entries_miss_instock_n">
-      <segment>
-        <source>assembly.builds.following_bom_entries_miss_instock_n</source>
-        <target>Er zijn niet genoeg onderdelen op voorraad om deze assemblage %number_of_builds% keer te bouwen. Van de volgende onderdelen is er niet genoeg op voorraad:</target>
-      </segment>
-    </unit>
-    <unit id="JlQhDdS" name="assembly.build.help">
-      <segment>
-        <source>assembly.build.help</source>
-        <target>Selecteer uit welke voorraden de benodigde onderdelen voor de bouw gehaald moeten worden (en in welke hoeveelheid). Vink elk onderdeel afzonderlijk aan als het is verwijderd, of gebruik de bovenste selectievak om alle selectievakjes in één keer aan te vinken.</target>
-      </segment>
-    </unit>
-    <unit id="iP5_QVj" name="assembly.build.required_qty">
-      <segment>
-        <source>assembly.build.required_qty</source>
-        <target>Benodigde hoeveelheid</target>
-      </segment>
-    </unit>
     <unit id="UJpD7n6" name="assembly.import_bom">
       <segment>
         <source>assembly.import_bom</source>
@@ -1144,58 +1042,10 @@
         <target>Prijs</target>
       </segment>
     </unit>
-    <unit id="63adIrC" name="assembly.build.dont_check_quantity">
-      <segment state="translated">
-        <source>assembly.build.dont_check_quantity</source>
-        <target>Hoeveelheden niet controleren</target>
-      </segment>
-    </unit>
-    <unit id="O0DP6tK" name="assembly.build.dont_check_quantity.help">
-      <segment state="translated">
-        <source>assembly.build.dont_check_quantity.help</source>
-        <target>Als deze optie is geselecteerd, worden de geselecteerde hoeveelheden uit de voorraad verwijderd, ongeacht of er meer of minder onderdelen zijn dan nodig is voor de assemblage.</target>
-      </segment>
-    </unit>
-    <unit id="9bc0nzK" name="assembly.build.add_builds_to_builds_part">
-      <segment state="translated">
-        <source>assembly.build.add_builds_to_builds_part</source>
-        <target>Gemaakte instanties toevoegen aan onderdeel van assemblage</target>
-      </segment>
-    </unit>
-    <unit id="rs_qty" name="assembly.build.required_qty">
-      <segment>
-        <source>assembly.build.required_qty</source>
-        <target>Benodigd aantal</target>
-      </segment>
-    </unit>
-    <unit id="yes_button" name="assembly.build.yes_button">
-      <segment>
-        <source>assembly.build.yes_button</source>
-        <target>Ja</target>
-      </segment>
-    </unit>
-    <unit id="no_button" name="assembly.build.no_button">
-      <segment>
-        <source>assembly.build.no_button</source>
-        <target>Nee</target>
-      </segment>
-    </unit>
     <unit id="JLhsU08" name="assembly.confirmation.required">
       <segment>
         <source>assembly.confirmation.required</source>
         <target><![CDATA[Bevestig je dat je door wilt gaan?]]></target>
-      </segment>
-    </unit>
-    <unit id="build_success" name="assembly.build.success">
-      <segment>
-        <source>assembly.build.success</source>
-        <target>De assemblage is succesvol gebouwd!</target>
-      </segment>
-    </unit>
-    <unit id="build_cancelled" name="assembly.build.cancelled">
-      <segment>
-        <source>assembly.build.cancelled</source>
-        <target>De assemblage is geannuleerd.</target>
       </segment>
     </unit>
     <unit id="nl.jtSx" name="assembly.bom_import.type">

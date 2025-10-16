@@ -19,13 +19,6 @@ trait AssemblyTrait
     protected Collection $assembly_bom_entries;
 
     /**
-     * @var Assembly|null If a assembly is set here, then this part is special and represents the builds of an assembly.
-     */
-    #[ORM\OneToOne(inversedBy: 'build_part', targetEntity: Assembly::class)]
-    #[ORM\JoinColumn]
-    protected ?Assembly $built_assembly = null;
-
-    /**
      *  Returns all AssemblyBOMEntry that use this part.
      *
      * @phpstan-return Collection<int, AssemblyBOMEntry>
@@ -34,36 +27,6 @@ trait AssemblyTrait
     {
         return $this->assembly_bom_entries;
     }
-
-    /**
-     * Checks whether this part represents the builds of a assembly
-     * @return bool True if it represents the builds, false if not
-     */
-    #[Groups(['part:read'])]
-    public function isAssemblyBuildPart(): bool
-    {
-        return $this->built_assembly !== null;
-    }
-
-    /**
-     * Returns the assembly that this part represents the builds of, or null if it doesn't
-     */
-    public function getBuiltAssembly(): ?Assembly
-    {
-        return $this->built_assembly;
-    }
-
-
-    /**
-     * Sets the assembly that this part represents the builds of
-     * @param Assembly|null $built_assembly The assembly that this part represents the builds of, or null if it is not a build part
-     */
-    public function setBuiltAssembly(?Assembly $built_assembly): self
-    {
-        $this->built_assembly = $built_assembly;
-        return $this;
-    }
-
 
     /**
      * Get all assemblies which uses this part.

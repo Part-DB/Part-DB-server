@@ -24,9 +24,7 @@ namespace App\Controller;
 
 use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Parameters\AbstractParameter;
-use App\Entity\ProjectSystem\Project;
 use App\Services\Attachments\AssemblyPreviewGenerator;
-use App\Services\Attachments\ProjectPreviewGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Category;
@@ -157,44 +155,6 @@ class TypeaheadController extends AbstractController
         }
 
         return new JsonResponse($data);
-    }
-
-    #[Route(path: '/projects/search/{query}', name: 'typeahead_projects')]
-    public function projects(
-        EntityManagerInterface  $entityManager,
-        ProjectPreviewGenerator $projectPreviewGenerator,
-        AttachmentURLGenerator  $attachmentURLGenerator,
-        string                  $query = ""
-    ): JsonResponse {
-        $this->denyAccessUnlessGranted('@projects.read');
-
-        $result = [];
-
-        $projectRepository = $entityManager->getRepository(Project::class);
-
-        $projects = $projectRepository->autocompleteSearch($query, 100);
-
-        foreach ($projects as $project) {
-            $preview_attachment = $projectPreviewGenerator->getTablePreviewAttachment($project);
-
-            if($preview_attachment instanceof Attachment) {
-                $preview_url = $attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_sm');
-            } else {
-                $preview_url = '';
-            }
-
-            /** @var Project $project */
-            $result[] = [
-                'id' => $project->getID(),
-                'name' => $project->getName(),
-                'category' => '',
-                'footprint' => '',
-                'description' => mb_strimwidth($project->getDescription(), 0, 127, '...'),
-                'image' => $preview_url,
-            ];
-        }
-
-        return new JsonResponse($result);
     }
 
     #[Route(path: '/assemblies/search/{query}', name: 'typeahead_assemblies')]
