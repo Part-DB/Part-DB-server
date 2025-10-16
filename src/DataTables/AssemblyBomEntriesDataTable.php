@@ -91,6 +91,8 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
                         return htmlspecialchars((string) $context->getName());
                     }
 
+                    $tmp = $context->getName();
+
                     if ($context->getPart() !== null) {
                         $tmp = $this->partDataTableHelper->renderName($context->getPart());
                         $tmp = $this->translator->trans('part.table.name.value.for_part', ['%value%' => $tmp]);

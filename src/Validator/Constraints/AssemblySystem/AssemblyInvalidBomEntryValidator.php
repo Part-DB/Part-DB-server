@@ -97,19 +97,6 @@ class AssemblyInvalidBomEntryValidator extends ConstraintValidator
 
     }
 
-    private function isOnSameLevel(Assembly $assembly1, Assembly $assembly2): bool
-    {
-        $parent1 = $assembly1->getParent();
-        $parent2 = $assembly2->getParent();
-
-        if ($parent1 === null || $parent2 === null) {
-            return false;
-        }
-
-        // Beide Assemblies teilen denselben Parent
-        return $parent1 !== null && $parent2 !== null && $parent1->getId() === $parent2->getId();
-    }
-
     /**
      * Adds a violation to the current context if it hasn’t already been added.
      *
@@ -117,11 +104,11 @@ class AssemblyInvalidBomEntryValidator extends ConstraintValidator
      * already exists in the context. If such a violation is found, the current violation is not added again.
      * The process involves reflection to access private or protected properties of violation objects.
      *
-     * @param mixed         $value The value that triggered the violation.
-     * @param Constraint    $constraint The constraint containing the validation details.
+     * @param mixed                     $value The value that triggered the violation.
+     * @param AssemblyInvalidBomEntry   $constraint The constraint containing the validation details.
      *
      */
-    private function addViolation($value, Constraint $constraint): void
+    private function addViolation($value, AssemblyInvalidBomEntry $constraint): void
     {
         /** @var ConstraintViolationBuilder $buildViolation */
         $buildViolation = $this->context->buildViolation($constraint->message)

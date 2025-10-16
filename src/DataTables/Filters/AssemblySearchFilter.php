@@ -135,17 +135,6 @@ class AssemblySearchFilter implements FilterInterface
         return $this;
     }
 
-    public function isCategory(): bool
-    {
-        return $this->category;
-    }
-
-    public function setCategory(bool $category): AssemblySearchFilter
-    {
-        $this->category = $category;
-        return $this;
-    }
-
     public function isDescription(): bool
     {
         return $this->description;

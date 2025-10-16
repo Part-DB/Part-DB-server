@@ -132,10 +132,10 @@ class AssemblyCycleValidator extends ConstraintValidator
      * The process involves reflection to access private or protected properties of violation objects.
      *
      * @param mixed         $value The value that triggered the violation.
-     * @param Constraint    $constraint The constraint containing the validation details.
+     * @param AssemblyCycle $constraint The constraint containing the validation details.
      *
      */
-    private function addViolation(mixed $value, Constraint $constraint): void
+    private function addViolation(mixed $value, AssemblyCycle $constraint): void
     {
         /** @var ConstraintViolationBuilder $buildViolation */
         $buildViolation = $this->context->buildViolation($constraint->message)
