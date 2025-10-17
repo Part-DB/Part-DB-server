@@ -41,6 +41,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
@@ -86,6 +87,7 @@ class PartFilter implements FilterInterface
     public readonly EntityConstraint $lotOwner;
 
     public readonly EntityConstraint $measurementUnit;
+    public readonly EntityConstraint $partCustomState;
     public readonly TextConstraint $manufacturer_product_url;
     public readonly TextConstraint $manufacturer_product_number;
     public readonly IntConstraint $attachmentsCount;
@@ -128,6 +130,7 @@ class PartFilter implements FilterInterface
         $this->favorite = new BooleanConstraint('part.favorite');
         $this->needsReview = new BooleanConstraint('part.needs_review');
         $this->measurementUnit = new EntityConstraint($nodesListBuilder, MeasurementUnit::class, 'part.partUnit');
+        $this->partCustomState = new EntityConstraint($nodesListBuilder, PartCustomState::class, 'part.partCustomState');
         $this->mass = new NumberConstraint('part.mass');
         $this->dbId = new IntConstraint('part.id');
         $this->ipn = new TextConstraint('part.ipn');
