@@ -23,9 +23,12 @@ declare(strict_types=1);
 
 namespace App\Settings\SystemSettings;
 
+use App\Form\Type\LanguageMenuEntriesType;
 use App\Form\Type\LocaleSelectType;
 use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
+use Jbtronics\SettingsBundle\ParameterTypes\ArrayType;
+use Jbtronics\SettingsBundle\ParameterTypes\StringType;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
@@ -60,4 +63,14 @@ class LocalizationSettings
         envVar: "string:BASE_CURRENCY", envVarMode: EnvVarMode::OVERWRITE
     )]
     public string $baseCurrency = 'EUR';
+
+    #[SettingsParameter(type: ArrayType::class,
+        label: new TM("settings.system.localization.language_menu_entries"),
+        description: new TM("settings.system.localization.language_menu_entries.description"),
+        options: ['type' => StringType::class],
+        formType: LanguageMenuEntriesType::class,
+        formOptions: ['multiple' => true, 'required' => false, 'ordered' => true],
+    )]
+    #[Assert\All([new Assert\Locale()])]
+    public array $languageMenuEntries = [];
 }
