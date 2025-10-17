@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parts\PartCustomState;
@@ -50,7 +51,7 @@ class DataStructureFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         //Reset autoincrement
-        $types = [AttachmentType::class, Project::class, Category::class, Footprint::class, Manufacturer::class,
+        $types = [AttachmentType::class, Project::class, Assembly::class, Category::class, Footprint::class, Manufacturer::class,
             MeasurementUnit::class, StorageLocation::class, Supplier::class, PartCustomState::class];
 
         foreach ($types as $type) {

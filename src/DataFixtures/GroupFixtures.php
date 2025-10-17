@@ -58,6 +58,7 @@ class GroupFixtures extends Fixture
         $users->setName('users');
         $this->permission_presets->applyPreset($users, PermissionPresetsHelper::PRESET_EDITOR);
         $this->addDevicesPermissions($users);
+        $this->addAssemblyPermissions($users);
         $this->setReference(self::USERS, $users);
         $manager->persist($users);
 
@@ -67,6 +68,11 @@ class GroupFixtures extends Fixture
     private function addDevicesPermissions(Group $group): void
     {
         $this->permissionManager->setAllOperationsOfPermission($group, 'projects', true);
+    }
+
+    private function addAssemblyPermissions(Group $group): void
+    {
+        $this->permissionManager->setAllOperationsOfPermission($group, 'assemblies', true);
     }
 
 }

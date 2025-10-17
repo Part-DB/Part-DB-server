@@ -50,7 +50,7 @@ class PartSelectType extends AbstractType implements DataMapperInterface
             $options = $form->get('autocomplete')->getConfig()->getOptions();
 
 
-            if (!isset($data['autocomplete']) || '' === $data['autocomplete']) {
+            if (!isset($data['autocomplete']) || '' === $data['autocomplete'] || empty($data['autocomplete'])) {
                 $options['choices'] = [];
             } else {
                 //Extract the ID from the submitted data
