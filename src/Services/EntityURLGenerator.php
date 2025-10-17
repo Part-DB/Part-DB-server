@@ -83,6 +83,7 @@ class EntityURLGenerator
             'delete' => $this->deleteURL($entity),
             'file_download' => $this->downloadURL($entity),
             'file_view' => $this->viewURL($entity),
+            'delivered' => $this->deliveredURL($entity),
             default => throw new InvalidArgumentException('Method is not supported!'),
         };
     }
@@ -167,6 +168,11 @@ class EntityURLGenerator
         }
 
         throw new \RuntimeException('Attachment has no internal nor external path!');
+    }
+
+    public function deliveredURL(Part $entity): string
+    {
+        return $this->urlGenerator->generate('part_delivered', ['id' => $entity->getID()]);
     }
 
     public function downloadURL($entity): string
