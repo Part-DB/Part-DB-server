@@ -87,7 +87,8 @@ export default class extends Controller {
         //Load translations if not english
         let translations = loadTranslation(language);
         if (translations) {
-            config.translations = [translations];
+            //Keep existing translations (e.g. from other plugins), if any
+            config.translations = [window.CKEDITOR_TRANSLATIONS, translations];
         }
 
         const watchdog = new EditorWatchdog();
