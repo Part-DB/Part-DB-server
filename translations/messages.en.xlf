@@ -14191,39 +14191,39 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       </segment>
     </unit>
     <unit id="LWLi016" name="settings.system">
-      <segment>
+      <segment state="translated">
         <source>settings.system</source>
         <target>System</target>
       </segment>
     </unit>
     <unit id="8syOoyh" name="settings.behavior">
-      <segment>
+      <segment state="translated">
         <source>settings.behavior</source>
         <target>Behavior</target>
       </segment>
     </unit>
     <unit id="lAiL2Jw" name="settings.ips">
-      <segment>
+      <segment state="translated">
         <source>settings.ips</source>
         <target>Info providers</target>
       </segment>
     </unit>
     <unit id="GuUZqpX" name="settings.misc">
-      <segment>
+      <segment state="translated">
         <source>settings.misc</source>
         <target>Misc</target>
       </segment>
     </unit>
     <unit id="mNLyYXa" name="settings.system.localization.language_menu_entries">
-      <segment>
+      <segment state="translated">
         <source>settings.system.localization.language_menu_entries</source>
         <target>Language menu entries</target>
       </segment>
     </unit>
     <unit id="Ej2znKK" name="settings.system.localization.language_menu_entries.description">
-      <segment>
+      <segment state="translated">
         <source>settings.system.localization.language_menu_entries.description</source>
-        <target><![CDATA[The languages to show in the language drop-down menu. Order can be changed via drag & drop. Leave empty to show all available languages.]]></target>
+        <target>The languages to show in the language drop-down menu. Order can be changed via drag &amp; drop. Leave empty to show all available languages.</target>
       </segment>
     </unit>
   </file>
