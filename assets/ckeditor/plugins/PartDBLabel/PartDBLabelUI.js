@@ -24,7 +24,7 @@ require('./lang/de.js');
 import { addListToDropdown, createDropdown } from 'ckeditor5';
 
 import {Collection} from 'ckeditor5';
-import {Model} from 'ckeditor5';
+import {UIModel} from 'ckeditor5';
 
 export default class PartDBLabelUI extends Plugin {
     init() {
@@ -151,18 +151,28 @@ const PLACEHOLDERS = [
 function getDropdownItemsDefinitions(t) {
     const itemDefinitions = new Collection();
 
+    let first = true;
+
     for ( const group of PLACEHOLDERS) {
+
         //Add group header
-        itemDefinitions.add({
-            'type': 'separator',
-            model: new Model( {
-                withText: true,
-            })
-        });
+
+        //Skip separator for first group
+        if (!first) {
+
+            itemDefinitions.add({
+                'type': 'separator',
+                model: new UIModel( {
+                    withText: true,
+                })
+            });
+        } else {
+            first = false;
+        }
 
         itemDefinitions.add({
             type: 'button',
-            model: new Model( {
+            model: new UIModel( {
                 label: t(group.label),
                 withText: true,
                 isEnabled: false,
@@ -173,7 +183,7 @@ function getDropdownItemsDefinitions(t) {
         for ( const entry of group.entries) {
             const definition = {
                 type: 'button',
-                model: new Model( {
+                model: new UIModel( {
                     commandParam: entry[0],
                     label: t(entry[1]),
                     tooltip: entry[0],
