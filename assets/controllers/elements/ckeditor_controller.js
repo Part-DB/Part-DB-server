@@ -31,7 +31,8 @@ import "../../css/components/ckeditor.css";
 const translationContext = require.context(
     'ckeditor5/translations',
     false,
-    /\.js$/
+    //Only load the translation files we will really need
+    /(de|it|fr|ru|ja|cs|da|zh|pl|hu)\.js$/
 );
 
 function loadTranslation(language) {
