@@ -20,6 +20,7 @@
 import {Plugin} from 'ckeditor5';
 
 require('./lang/de.js');
+require('./lang/en.js');
 
 import { addListToDropdown, createDropdown } from 'ckeditor5';
 
