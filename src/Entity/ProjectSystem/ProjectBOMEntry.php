@@ -36,6 +36,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Contracts\TimeStampableInterface;
+use App\Repository\DBElementRepository;
 use App\Validator\UniqueValidatableInterface;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
@@ -54,7 +55,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * The ProjectBOMEntry class represents an entry in a project's BOM.
  */
 #[ORM\HasLifecycleCallbacks]
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: DBElementRepository::class)]
 #[ORM\Table('project_bom_entries')]
 #[ApiResource(
     operations: [

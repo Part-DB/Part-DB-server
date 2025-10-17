@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\Trees;
 
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -154,6 +155,10 @@ class TreeViewGenerator
             $href_type = 'list_parts';
         }
 
+        if ($mode === 'assemblies') {
+            $href_type = 'list_parts';
+        }
+
         $generic = $this->getGenericTree($class, $parent);
         $treeIterator = new TreeViewNodeIterator($generic);
         $recursiveIterator = new RecursiveIteratorIterator($treeIterator, RecursiveIteratorIterator::SELF_FIRST);
@@ -180,6 +185,15 @@ class TreeViewGenerator
 
         if (($mode === 'list_parts_root' || $mode === 'devices') && $this->rootNodeEnabled) {
             $root_node = new TreeViewNode($this->entityClassToRootNodeString($class), $this->entityClassToRootNodeHref($class), $generic);
+            $root_node->setExpanded($this->rootNodeExpandedByDefault);
+            $root_node->setIcon($this->entityClassToRootNodeIcon($class));
+
+            $generic = [$root_node];
+        } elseif ($mode === 'assemblies' && $this->rootNodeEnabled) {
+            //We show the root node as a link to the list of all assemblies
+            $show_all_parts_url = $this->router->generate('assemblies_list');
+
+            $root_node = new TreeViewNode($this->entityClassToRootNodeString($class), $show_all_parts_url, $generic);
             $root_node->setExpanded($this->rootNodeExpandedByDefault);
             $root_node->setIcon($this->entityClassToRootNodeIcon($class));
 
@@ -219,6 +233,7 @@ class TreeViewGenerator
             Manufacturer::class => $this->translator->trans('manufacturer.labelp'),
             Supplier::class => $this->translator->trans('supplier.labelp'),
             Project::class => $this->translator->trans('project.labelp'),
+            Assembly::class => $this->translator->trans('assembly.labelp'),
             default => $this->translator->trans('tree.root_node.text'),
         };
     }
@@ -233,6 +248,7 @@ class TreeViewGenerator
             Manufacturer::class => $icon.'fa-industry',
             Supplier::class => $icon.'fa-truck',
             Project::class => $icon.'fa-archive',
+            Assembly::class => $icon.'fa-list',
             default => null,
         };
     }
