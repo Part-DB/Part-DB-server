@@ -28,6 +28,26 @@ import {EditorWatchdog} from 'ckeditor5';
 import "ckeditor5/ckeditor5.css";;
 import "../../css/components/ckeditor.css";
 
+const translationContext = require.context(
+    'ckeditor5/translations',
+    false,
+    /\.js$/
+);
+
+function loadTranslation(language) {
+    if (!language || language === 'en') {
+        return null;
+    }
+    const lang = language.slice(0, 2);
+    const path = `./${lang}.js`;
+    if (translationContext.keys().includes(path)) {
+        const module = translationContext(path);
+        return module.default;
+    } else {
+        return null;
+    }
+}
+
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
     connect() {
@@ -61,6 +81,12 @@ export default class extends Controller {
             emoji: {
                 definitionsUrl: emojiURL
             }
+        }
+
+        //Load translations if not english
+        let translations = loadTranslation(language);
+        if (translations) {
+            config.translations = [translations];
         }
 
         const watchdog = new EditorWatchdog();
