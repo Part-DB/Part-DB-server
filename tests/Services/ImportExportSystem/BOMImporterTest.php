@@ -31,7 +31,7 @@ use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Services\ImportExportSystem\BOMImporter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 final class BOMImporterTest extends WebTestCase
 {
@@ -64,15 +64,17 @@ final class BOMImporterTest extends WebTestCase
         4;"C6";"CP_Radial_D6.3mm_P2.50mm";1;"47uF";;;
         CSV;
 
-        $file = $this->createMock(File::class);
+        $file = $this->createMock(UploadedFile::class);
         $file->method('getContent')->willReturn($input);
+        $file->method('getClientOriginalName')->willReturn('import.kicad_pcb');
+        $file->method('getClientOriginalExtension')->willReturn('kicad_pcb');
 
         $project = new Project();
         $this->assertCount(0, $project->getBOMEntries());
 
-        $bom_entries = $this->service->importFileIntoProject($file, $project, ['type' => 'kicad_pcbnew']);
-        $this->assertContainsOnlyInstancesOf(ProjectBOMEntry::class, $bom_entries);
-        $this->assertCount(4, $bom_entries);
+        $importerResult = $this->service->importFileIntoProject($file, $project, ['type' => 'kicad_pcbnew']);
+        $this->assertContainsOnlyInstancesOf(ProjectBOMEntry::class, $importerResult->getBomEntries());
+        $this->assertCount(4, $importerResult->getBomEntries());
 
         //Check that the BOM entries are added to the project
         $this->assertCount(4, $project->getBOMEntries());
@@ -89,7 +91,8 @@ final class BOMImporterTest extends WebTestCase
         4;"C6";"CP_Radial_D6.3mm_P2.50mm";1;"47uF";;;
         CSV;
 
-        $bom = $this->service->stringToBOMEntries($input, ['type' => 'kicad_pcbnew']);
+        $project = new Project();
+        $bom = $this->service->stringToBOMEntries($project, $input, ['type' => 'kicad_pcbnew']);
 
         $this->assertContainsOnlyInstancesOf(ProjectBOMEntry::class, $bom);
         $this->assertCount(4, $bom);
@@ -108,7 +111,8 @@ final class BOMImporterTest extends WebTestCase
         4;"C6";"CP_Radial_D6.3mm_P2.50mm";1;"47uF";;;
         CSV;
 
-        $bom = $this->service->stringToBOMEntries($input, ['type' => 'kicad_pcbnew']);
+        $project = new Project();
+        $bom = $this->service->stringToBOMEntries($project, $input, ['type' => 'kicad_pcbnew']);
 
         $this->assertContainsOnlyInstancesOf(ProjectBOMEntry::class, $bom);
         $this->assertCount(4, $bom);
@@ -128,7 +132,8 @@ final class BOMImporterTest extends WebTestCase
 
         $this->expectException(\UnexpectedValueException::class);
 
-        $this->service->stringToBOMEntries($input, ['type' => 'kicad_pcbnew']);
+        $project = new Project();
+        $this->service->stringToBOMEntries($project, $input, ['type' => 'kicad_pcbnew']);
     }
 
     public function testDetectFields(): void
@@ -382,7 +387,8 @@ final class BOMImporterTest extends WebTestCase
             'Mouser SPN' => 'Mouser SPN'
         ];
 
-        $bom_entries = $this->service->stringToBOMEntries($input, [
+        $project = new Project();
+        $bom_entries = $this->service->stringToBOMEntries($project, $input, [
             'type' => 'kicad_schematic',
             'field_mapping' => $field_mapping,
             'delimiter' => ','
@@ -435,7 +441,8 @@ final class BOMImporterTest extends WebTestCase
             'MPN2' => 2
         ];
 
-        $bom_entries = $this->service->stringToBOMEntries($input, [
+        $project = new Project();
+        $bom_entries = $this->service->stringToBOMEntries($project, $input, [
             'type' => 'kicad_schematic',
             'field_mapping' => $field_mapping,
             'field_priorities' => $field_priorities,
@@ -473,7 +480,8 @@ final class BOMImporterTest extends WebTestCase
             'Quantity' => 'Quantity'
         ];
 
-        $bom_entries = $this->service->stringToBOMEntries($input, [
+        $project = new Project();
+        $bom_entries = $this->service->stringToBOMEntries($project, $input, [
             'type' => 'kicad_schematic',
             'field_mapping' => $field_mapping,
             'delimiter' => ','
@@ -505,7 +513,8 @@ final class BOMImporterTest extends WebTestCase
             'Quantity' => 'Quantity'
         ];
 
-        $bom_entries = $this->service->stringToBOMEntries($input, [
+        $project = new Project();
+        $bom_entries = $this->service->stringToBOMEntries($project, $input, [
             'type' => 'kicad_schematic',
             'field_mapping' => $field_mapping,
             'delimiter' => ','
@@ -534,7 +543,8 @@ final class BOMImporterTest extends WebTestCase
             'Quantity' => 'Quantity'
         ];
 
-        $bom_entries = $this->service->stringToBOMEntries($input, [
+        $project = new Project();
+        $bom_entries = $this->service->stringToBOMEntries($project, $input, [
             'type' => 'kicad_schematic',
             'field_mapping' => $field_mapping,
             'delimiter' => ','
@@ -563,7 +573,8 @@ final class BOMImporterTest extends WebTestCase
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('Required field "Designator" is missing or empty');
 
-        $this->service->stringToBOMEntries($input, [
+        $project = new Project();
+        $this->service->stringToBOMEntries($project, $input, [
             'type' => 'kicad_schematic',
             'field_mapping' => $field_mapping,
             'delimiter' => ','
@@ -586,7 +597,8 @@ final class BOMImporterTest extends WebTestCase
         $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('Mismatch between quantity and component references');
 
-        $this->service->stringToBOMEntries($input, [
+        $project = new Project();
+        $this->service->stringToBOMEntries($project, $input, [
             'type' => 'kicad_schematic',
             'field_mapping' => $field_mapping,
             'delimiter' => ','
@@ -607,7 +619,8 @@ final class BOMImporterTest extends WebTestCase
             'Quantity' => 'Quantity'
         ];
 
-        $bom_entries = $this->service->stringToBOMEntries($input, [
+        $project = new Project();
+        $bom_entries = $this->service->stringToBOMEntries($project, $input, [
             'type' => 'kicad_schematic',
             'field_mapping' => $field_mapping,
             'delimiter' => ','

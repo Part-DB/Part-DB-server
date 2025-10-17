@@ -124,6 +124,10 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     <<: *PART_CONTAINING
     label: "[[Project]]"
 
+  assemblies:
+    <<: *PART_CONTAINING
+    label: "perm.assemblies"
+
   attachment_types:
     <<: *PART_CONTAINING
     label: "[[Attachment_type]]"

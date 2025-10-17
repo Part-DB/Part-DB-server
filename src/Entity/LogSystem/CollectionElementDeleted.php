@@ -41,6 +41,8 @@ declare(strict_types=1);
 
 namespace App\Entity\LogSystem;
 
+use App\Entity\AssemblySystem\Assembly;
+use App\Entity\Attachments\AssemblyAttachment;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\AttachmentTypeAttachment;
@@ -61,6 +63,7 @@ use App\Entity\Contracts\LogWithEventUndoInterface;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Parameters\PartCustomStateParameter;
 use App\Entity\Parts\PartCustomState;
+use App\Entity\Parameters\AssemblyParameter;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\AttachmentTypeParameter;
@@ -150,6 +153,7 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
     {
         if (is_a($abstract_class, AbstractParameter::class, true)) {
             return match ($this->getTargetClass()) {
+                Assembly::class => AssemblyParameter::class,
                 AttachmentType::class => AttachmentTypeParameter::class,
                 Category::class => CategoryParameter::class,
                 Currency::class => CurrencyParameter::class,
@@ -172,6 +176,7 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
                 Category::class => CategoryAttachment::class,
                 Currency::class => CurrencyAttachment::class,
                 Project::class => ProjectAttachment::class,
+                Assembly::class => AssemblyAttachment::class,
                 Footprint::class => FootprintAttachment::class,
                 Group::class => GroupAttachment::class,
                 Manufacturer::class => ManufacturerAttachment::class,

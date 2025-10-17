@@ -202,6 +202,24 @@
         <target>Exporteer alle elementen</target>
       </segment>
     </unit>
+    <unit id="Ujhd6e3" name="export.readable.label">
+      <segment state="translated">
+        <source>export.readable.label</source>
+        <target>Leesbare export</target>
+      </segment>
+    </unit>
+    <unit id="a5h8ltP" name="export.readable">
+      <segment state="translated">
+        <source>export.readable</source>
+        <target>CSV</target>
+      </segment>
+    </unit>
+    <unit id="keJnq8f" name="export.readable_bom">
+      <segment state="translated">
+        <source>export.readable_bom</source>
+        <target>PDF</target>
+      </segment>
+    </unit>
     <unit id="zPSdxU4" name="mass_creation.help">
       <segment state="translated">
         <source>mass_creation.help</source>
@@ -446,6 +464,947 @@
       <segment state="translated">
         <source>user.edit.tfa.disable_tfa_title</source>
         <target>Weet u zeker dat u wilt doorgaan?</target>
+      </segment>
+    </unit>
+    <unit id="FV7YOW6" name="part.table.name.value.for_part">
+      <segment state="translated">
+        <source>part.table.name.value.for_part</source>
+        <target>%value% (Onderdeel)</target>
+      </segment>
+    </unit>
+    <unit id="o4zUJc5" name="part.table.name.value.for_assembly">
+      <segment state="translated">
+        <source>part.table.name.value.for_assembly</source>
+        <target>%value% (Assemblage)</target>
+      </segment>
+    </unit>
+    <unit id="GW8ZOX7" name="part.table.name.value.for_project">
+      <segment state="translated">
+        <source>part.table.name.value.for_project</source>
+        <target>%value% (Project)</target>
+      </segment>
+    </unit>
+    <unit id="hIIFtI1" name="assembly.edit.status">
+      <segment state="translated">
+        <source>assembly.edit.status</source>
+        <target>Montagestatus</target>
+      </segment>
+    </unit>
+    <unit id="zRd.psv" name="assembly.status.draft">
+      <segment state="translated">
+        <source>assembly.status.draft</source>
+        <target>Προσχέδιο</target>
+      </segment>
+    </unit>
+    <unit id="_U8bb1t" name="assembly.status.planning">
+      <segment state="translated">
+        <source>assembly.status.planning</source>
+        <target>Υπό σχεδιασμό</target>
+      </segment>
+    </unit>
+    <unit id="GgUh7RT" name="assembly.status.in_production">
+      <segment state="translated">
+        <source>assembly.status.in_production</source>
+        <target>Σε παραγωγή</target>
+      </segment>
+    </unit>
+    <unit id="IluD8iU" name="assembly.status.finished">
+      <segment state="translated">
+        <source>assembly.status.finished</source>
+        <target>Ολοκληρώθηκε</target>
+      </segment>
+    </unit>
+    <unit id="Mybkd1s" name="assembly.status.archived">
+      <segment state="translated">
+        <source>assembly.status.archived</source>
+        <target>Αρχειοθετήθηκε</target>
+      </segment>
+    </unit>
+    <unit id="G2sXzh7" name="assembly.label">
+      <segment>
+        <source>assembly.label</source>
+        <target>Assemblage</target>
+      </segment>
+    </unit>
+    <unit id="dL51AVa" name="assembly.caption">
+      <segment>
+        <source>assembly.caption</source>
+        <target>Assemblage</target>
+      </segment>
+    </unit>
+    <unit id="G_rlE3w" name="perm.assemblies">
+      <segment>
+        <source>perm.assemblies</source>
+        <target>Assemblages</target>
+      </segment>
+    </unit>
+    <unit id="dipIGt4" name="assembly_bom_entry.label">
+      <segment>
+        <source>assembly_bom_entry.label</source>
+        <target>Componenten</target>
+      </segment>
+    </unit>
+    <unit id="TvHlYfl" name="assembly.labelp">
+      <segment>
+        <source>assembly.labelp</source>
+        <target>Assemblages</target>
+      </segment>
+    </unit>
+    <unit id="Tab5Ou1" name="assembly.referencedAssembly.labelp">
+      <segment>
+        <source>assembly.referencedAssembly.labelp</source>
+        <target>Gerefereerde assemblages</target>
+      </segment>
+    </unit>
+    <unit id="gyRGdfv" name="assembly.edit">
+      <segment>
+        <source>assembly.edit</source>
+        <target>Assemblage bewerken</target>
+      </segment>
+    </unit>
+    <unit id="4Tdtoj_" name="assembly.new">
+      <segment>
+        <source>assembly.new</source>
+        <target>Nieuwe assemblage</target>
+      </segment>
+    </unit>
+    <unit id="_wZ_JZY" name="assembly.edit.bom.import_bom">
+      <segment>
+        <source>assembly.edit.bom.import_bom</source>
+        <target>Componenten importeren</target>
+      </segment>
+    </unit>
+    <unit id="vsmgKMw" name="log.database_updated.failed">
+      <segment>
+        <source>log.database_updated.failed</source>
+        <target>__log.database_updated.failed</target>
+      </segment>
+    </unit>
+    <unit id="GcQrTTE" name="log.database_updated.old_version">
+      <segment>
+        <source>log.database_updated.old_version</source>
+        <target>__log.database_updated.old_version</target>
+      </segment>
+    </unit>
+    <unit id="JJF47vK" name="log.database_updated.new_version">
+      <segment>
+        <source>log.database_updated.new_version</source>
+        <target>__log.database_updated.new_version</target>
+      </segment>
+    </unit>
+    <unit id="iVHS_sh" name="tree.tools.edit.assemblies">
+      <segment>
+        <source>tree.tools.edit.assemblies</source>
+        <target>Assemblages</target>
+      </segment>
+    </unit>
+    <unit id="naAMjcH" name="assembly.bom_import.flash.success">
+      <segment>
+        <source>assembly.bom_import.flash.success</source>
+        <target>%count% component(en) zijn succesvol geïmporteerd in de assemblage.</target>
+      </segment>
+    </unit>
+    <unit id="ScQhV.o" name="assembly.bom_import.flash.invalid_entries">
+      <segment>
+        <source>assembly.bom_import.flash.invalid_entries</source>
+        <target>Validatiefout! Controleer het geïmporteerde bestand!</target>
+      </segment>
+    </unit>
+    <unit id="luj_uCZ" name="assembly.bom_import.flash.invalid_file">
+      <segment>
+        <source>assembly.bom_import.flash.invalid_file</source>
+        <target>Het bestand kon niet worden geïmporteerd. Controleer of je het correcte bestandstype hebt geselecteerd. Foutmelding: %message%</target>
+      </segment>
+    </unit>
+    <unit id="u7SYWcB" name="assembly.bom.quantity">
+      <segment>
+        <source>assembly.bom.quantity</source>
+        <target>Aantal</target>
+      </segment>
+    </unit>
+    <unit id="D7dPvPL" name="assembly.bom.mountnames">
+      <segment>
+        <source>assembly.bom.mountnames</source>
+        <target>Montagenamen</target>
+      </segment>
+    </unit>
+    <unit id="kd8Db5T" name="assembly.bom.designator">
+      <segment>
+        <source>assembly.bom.designator</source>
+        <target>Referentieaanduiding</target>
+      </segment>
+    </unit>
+    <unit id="jd7dh6G" name="assembly.bom.designator.help">
+      <segment>
+        <source>assembly.bom.designator.help</source>
+        <target>Vrije referentieaanduidingen (designator)</target>
+      </segment>
+    </unit>
+    <unit id="rswC4eS" name="assembly.bom.instockAmount">
+      <segment state="translated">
+        <source>assembly.bom.instockAmount</source>
+        <target>Beschikbaar in voorraad</target>
+      </segment>
+    </unit>
+    <unit id="oNutri3" name="assembly.info.title">
+      <segment>
+        <source>assembly.info.title</source>
+        <target>Assemblage-informatie</target>
+      </segment>
+    </unit>
+    <unit id="aO1rzVQ" name="assembly.info.info.label">
+      <segment>
+        <source>assembly.info.info.label</source>
+        <target>Informatie</target>
+      </segment>
+    </unit>
+    <unit id="9dOByT_" name="assembly.info.sub_assemblies.label">
+      <segment>
+        <source>assembly.info.sub_assemblies.label</source>
+        <target>Subassemblages</target>
+      </segment>
+    </unit>
+    <unit id="Hmf0EwN" name="assembly.info.builds.label">
+      <segment>
+        <source>assembly.info.builds.label</source>
+        <target>Bouw</target>
+      </segment>
+    </unit>
+    <unit id="z3F4Rcu" name="assembly.info.bom_add_parts">
+      <segment>
+        <source>assembly.info.bom_add_parts</source>
+        <target>Onderdelen toevoegen</target>
+      </segment>
+    </unit>
+    <unit id="dGFHutJ" name="assembly.info.bom_entries_count">
+      <segment>
+        <source>assembly.info.bom_entries_count</source>
+        <target>Onderdelen</target>
+      </segment>
+    </unit>
+    <unit id="xJ7oBM4" name="assembly.info.sub_assemblies_count">
+      <segment>
+        <source>assembly.info.sub_assemblies_count</source>
+        <target>Subgroepen</target>
+      </segment>
+    </unit>
+    <unit id="hO7vWmc" name="assembly.bom.delete.confirm">
+      <segment state="translated">
+        <source>assembly.bom.delete.confirm</source>
+        <target>Weet u zeker dat u dit item wilt verwijderen?</target>
+      </segment>
+    </unit>
+    <unit id="tgs_7u9" name="assembly.add_parts_to_assembly">
+      <segment>
+        <source>assembly.add_parts_to_assembly</source>
+        <target>Onderdelen toevoegen aan assemblage</target>
+      </segment>
+    </unit>
+    <unit id="u7iO1dE" name="part.info.add_part_to_assembly">
+      <segment state="translated">
+        <source>part.info.add_part_to_assembly</source>
+        <target>Dit onderdeel aan een assemblage toevoegen</target>
+      </segment>
+    </unit>
+    <unit id="1zsGacg3" name="assembly.bom.project">
+      <segment>
+        <source>assembly.bom.project</source>
+        <target>Project</target>
+      </segment>
+    </unit>
+    <unit id="od1xTi3" name="assembly.bom.referencedAssembly">
+      <segment>
+        <source>assembly.bom.referencedAssembly</source>
+        <target>Assemblage</target>
+      </segment>
+    </unit>
+    <unit id="PPsM0Dg" name="assembly.bom.name">
+      <segment>
+        <source>assembly.bom.name</source>
+        <target>Naam</target>
+      </segment>
+    </unit>
+    <unit id="jd7dh6G" name="assembly.bom.name.help">
+      <segment>
+        <source>assembly.bom.name.help</source>
+        <target>Menselijk leesbare titel van de stuklijstinvoer</target>
+      </segment>
+    </unit>
+    <unit id="nUEs.ld" name="assembly.bom.comment">
+      <segment>
+        <source>assembly.bom.comment</source>
+        <target>Notities</target>
+      </segment>
+    </unit>
+    <unit id="UJpD7n6" name="assembly.import_bom">
+      <segment>
+        <source>assembly.import_bom</source>
+        <target>Importeer onderdelen voor assemblage</target>
+      </segment>
+    </unit>
+    <unit id="WTasGao" name="assembly.bom.partOrAssembly">
+      <segment>
+        <source>assembly.bom.partOrAssembly</source>
+        <target>Onderdeel of samenstelling</target>
+      </segment>
+    </unit>
+    <unit id="jd7fn8K" name="assembly.bom.identifiers">
+      <segment>
+        <source>assembly.bom.identifiers</source>
+        <target>Identificatoren</target>
+      </segment>
+    </unit>
+    <unit id="jHKh8Zp" name="assembly.bom.add_entry">
+      <segment>
+        <source>assembly.bom.add_entry</source>
+        <target>Voer item in</target>
+      </segment>
+    </unit>
+    <unit id="RsZ77df" name="assembly.bom.price">
+      <segment>
+        <source>assembly.bom.price</source>
+        <target>Prijs</target>
+      </segment>
+    </unit>
+    <unit id="JLhsU08" name="assembly.confirmation.required">
+      <segment>
+        <source>assembly.confirmation.required</source>
+        <target><![CDATA[Bevestig je dat je door wilt gaan?]]></target>
+      </segment>
+    </unit>
+    <unit id="nl.jtSx" name="assembly.bom_import.type">
+      <segment state="translated">
+        <source>assembly.bom_import.type</source>
+        <target>Type</target>
+      </segment>
+    </unit>
+    <unit id="LtbSLHx" name="assembly.bom_import.type.json">
+      <segment state="translated">
+        <source>assembly.bom_import.type.json</source>
+        <target>JSON voor assemblage</target>
+      </segment>
+    </unit>
+    <unit id="6clEV3p" name="assembly.bom_import.type.csv">
+      <segment state="translated">
+        <source>assembly.bom_import.type.csv</source>
+        <target>CSV voor een assemblage</target>
+      </segment>
+    </unit>
+    <unit id="clXFAdN" name="assembly.bom_import.type.kicad_pcbnew">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_pcbnew</source>
+        <target>CSV (KiCAD Pcbnew)</target>
+      </segment>
+    </unit>
+    <unit id="oiuejI1" name="assembly.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>assembly.bom_import.type.kicad_schematic</source>
+        <target>KiCAD Schematische editor BOM (CSV-bestand)</target>
+      </segment>
+    </unit>
+    <unit id="0IekETE" name="assembly.bom_import.clear_existing_bom">
+      <segment state="translated">
+        <source>assembly.bom_import.clear_existing_bom</source>
+        <target>Bestaande BOM wissen vóór importeren</target>
+      </segment>
+    </unit>
+    <unit id="S4QY6pA" name="assembly.bom_import.clear_existing_bom.help">
+      <segment state="translated">
+        <source>assembly.bom_import.clear_existing_bom.help</source>
+        <target>Wanneer dit is ingeschakeld, worden alle bestaande BOM-items verwijderd en vervangen door de geïmporteerde gegevens.</target>
+      </segment>
+    </unit>
+    <unit id="RVNWPsh" name="assembly.import_bom.template.header.json">
+      <segment>
+        <source>assembly.import_bom.template.header.json</source>
+        <target>JSON-sjabloon voor assemblage</target>
+      </segment>
+    </unit>
+    <unit id="GtUk9b" name="assembly.import_bom.template.header.csv">
+      <segment>
+        <source>assembly.import_bom.template.header.csv</source>
+        <target>CSV-importsjabloon voor een assemblage</target>
+      </segment>
+    </unit>
+    <unit id="eU4FfCr" name="assembly.import_bom.template.header.kicad_pcbnew">
+      <segment>
+        <source>assembly.import_bom.template.header.kicad_pcbnew</source>
+        <target>CSV-sjabloon voor assemblage (KiCAD Pcbnew BOM)</target>
+      </segment>
+    </unit>
+    <unit id="aLomVVS" name="assembly.bom_import.template.entry.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.name</source>
+        <target>Naam van onderdeel in de assemblage</target>
+      </segment>
+    </unit>
+    <unit id="o4ZcLfV" name="assembly.bom_import.template.entry.part.mpnr">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.mpnr</source>
+        <target>Onderdeelnummer van de fabrikant</target>
+      </segment>
+    </unit>
+    <unit id="n3YbKeU" name="assembly.bom_import.template.entry.part.ipn">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.ipn</source>
+        <target>Unieke IPN van het onderdeel</target>
+      </segment>
+    </unit>
+    <unit id="l2SYJP5" name="assembly.bom_import.template.entry.part.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.name</source>
+        <target>Unieke naam van het onderdeel</target>
+      </segment>
+    </unit>
+    <unit id="VgXQ1xW" name="assembly.bom_import.template.entry.part.manufacturer.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.manufacturer.name</source>
+        <target>Unieke naam van de fabrikant</target>
+      </segment>
+    </unit>
+    <unit id="MpB.o_L" name="assembly.bom_import.template.entry.part.category.name">
+      <segment>
+        <source>assembly.bom_import.template.entry.part.category.name</source>
+        <target>Unieke naam van de categorie</target>
+      </segment>
+    </unit>
+    <unit id="NIcfgj84" name="assembly.bom_import.template.json.table">
+      <segment>
+        <source>assembly.bom_import.template.json.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Veld</th>
+                <th>Voorwaarde</th>
+                <th>Gegevenstype</th>
+                <th>Beschrijving</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Verplicht veld</td>
+                <td>Kommagetal (Float)</td>
+                <td>Moet worden ingevuld en een kommagetal (Float) bevatten dat groter is dan 0,0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Wanneer ingevuld, moet het een niet-lege tekst zijn. De naam van het item binnen de assemblage.</td>
+              </tr>
+              <tr>
+                <td>part</td>
+                <td>Optioneel</td>
+                <td>Object/Array</td>
+                <td>
+                  Als een onderdeel moet worden toegewezen, moet dit een object/array zijn en moet ten minste één van de volgende velden worden ingevuld:
+                  <ul>
+                    <li>part.id</li>
+                    <li>part.mpnr</li>
+                    <li>part.ipn</li>
+                    <li>part.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part.id</td>
+                <td>Optioneel</td>
+                <td>Hele getal</td>
+                <td>Een geheel getal > 0. Komt overeen met de interne numerieke ID van het onderdeel in de database.</td>
+              </tr>
+              <tr>
+                <td>part.mpnr</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Niet-lege tekst, wanneer part.id, part.ipn of part.name niet zijn ingevuld.</td>
+              </tr>
+              <tr>
+                <td>part.ipn</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Niet-lege tekst wanneer part.id, part.mpnr of part.name niet zijn ingevuld.</td>
+              </tr>
+              <tr>
+                <td>part.name</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Niet-lege tekst, wanneer part.id, part.mpnr of part.ipn niet zijn ingevuld.</td>
+              </tr>
+              <tr>
+                <td>part.description</td>
+                <td>Optioneel</td>
+                <td>Tekst of null</td>
+                <td>Indien ingevuld, moet het een niet-lege tekst of null zijn. Deze waarde vervangt de bestaande waarde in het onderdeel.</td>
+              </tr>
+              <tr>
+                <td>part.manufacturer</td>
+                <td>Optioneel</td>
+                <td>Object/Array</td>
+                <td>
+                  Als de fabrikant van het onderdeel moet worden gewijzigd of uniek moet worden opgezocht met de waarde part.mpnr, moet dit een object/array zijn en moet ten minste één van de volgende velden worden ingevuld:
+                  <ul>
+                    <li>manufacturer.id</li>
+                    <li>manufacturer.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>manufacturer.id</td>
+                <td>Optioneel</td>
+                <td>Hele getal</td>
+                <td>Een geheel getal > 0. Komt overeen met de interne numerieke ID van de fabrikant.</td>
+              </tr>
+              <tr>
+                <td>manufacturer.name</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Niet-lege tekst als manufacturer.id niet is ingevuld.</td>
+              </tr>
+              <tr>
+                <td>part.category</td>
+                <td>Optioneel</td>
+                <td>Object/Array</td>
+                <td>
+                  Als de categorie van het onderdeel moet worden gewijzigd, moet dit een object/array zijn en moet ten minste één van de volgende velden worden ingevuld:
+                  <ul>
+                    <li>category.id</li>
+                    <li>category.name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>category.id</td>
+                <td>Optioneel</td>
+                <td>Hele getal</td>
+                <td>Een geheel getal > 0. Komt overeen met de interne numerieke ID van de categorie van het onderdeel.</td>
+              </tr>
+              <tr>
+                <td>category.name</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Niet-lege tekst als category.id niet is ingevuld.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="aK4i2aT" name="assembly.bom_import.template.csv.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.csv.exptected_columns</source>
+        <target>Mogelijke kolommen:</target>
+      </segment>
+    </unit>
+    <unit id="a8UhiwR" name="assembly.bom_import.template.csv.table">
+      <segment>
+        <source>assembly.bom_import.template.csv.table</source>
+        <target>
+          <![CDATA[
+          <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Kolom</th>
+                <th>Voorwaarde</th>
+                <th>Gegevenstype</th>
+                <th>Beschrijving</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>quantity</td>
+                <td>Verplicht veld</td>
+                <td>Kommagetal (Float)</td>
+                <td>Moet worden ingevuld en moet een kommagetal (Float) bevatten dat groter is dan 0,0.</td>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>De naam van het item binnen de assemblage.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolommen die beginnen met part_</strong></td>
+                <td>
+                  Als een onderdeel moet worden toegewezen, moet ten minste één van de volgende kolommen worden ingevuld:
+                  <ul>
+                    <li>part_id</li>
+                    <li>part_mpnr</li>
+                    <li>part_ipn</li>
+                    <li>part_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_id</td>
+                <td>Optioneel</td>
+                <td>Hele getal</td>
+                <td>Een geheel getal > 0. Komt overeen met de interne numerieke ID van het onderdeel in de database.</td>
+              </tr>
+              <tr>
+                <td>part_mpnr</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Moet worden ingevuld als part_id, part_ipn of part_name niet zijn ingevuld.</td>
+              </tr>
+              <tr>
+                <td>part_ipn</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Moet worden ingevuld als part_id, part_mpnr of part_name niet zijn ingevuld.</td>
+              </tr>
+              <tr>
+                <td>part_name</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Moet worden ingevuld als part_id, part_mpnr of part_ipn niet zijn ingevuld.</td>
+              </tr>
+              <tr>
+                <td>part_description</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Wordt overgenomen en vervangt de bestaande waarde van de beschrijving als er een niet-lege tekst wordt opgegeven.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolommen die beginnen met part_manufacturer_</strong></td>
+                <td>
+                  Als de fabrikant van een onderdeel moet worden gewijzigd of uniek moet worden gezocht via part_mpnr, moet ten minste één van de volgende kolommen worden ingevuld:
+                  <ul>
+                    <li>part_manufacturer_id</li>
+                    <li>part_manufacturer_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_id</td>
+                <td>Optioneel</td>
+                <td>Hele getal</td>
+                <td>Een geheel getal > 0. Komt overeen met de interne numerieke ID van de fabrikant.</td>
+              </tr>
+              <tr>
+                <td>part_manufacturer_name</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Moet worden ingevuld als part_manufacturer_id niet wordt opgegeven.</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Kolommen die beginnen met part_category_</strong></td>
+                <td>
+                  Als de categorie van een onderdeel moet worden gewijzigd, moet ten minste één van de volgende kolommen worden ingevuld:
+                  <ul>
+                    <li>part_category_id</li>
+                    <li>part_category_name</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>part_category_id</td>
+                <td>Optioneel</td>
+                <td>Hele getal</td>
+                <td>Een geheel getal > 0. Komt overeen met de interne numerieke ID van de categorie van het onderdeel.</td>
+              </tr>
+              <tr>
+                <td>part_category_name</td>
+                <td>Optioneel</td>
+                <td>Tekst</td>
+                <td>Moet worden ingevuld als part_category_id niet wordt opgegeven.</td>
+              </tr>
+            </tbody>
+          </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="cU1bfDa" name="assembly.bom_import.template.kicad_pcbnew.exptected_columns">
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns</source>
+        <target>Verwachte kolommen:</target>
+      </segment>
+    </unit>
+    <unit id="gvaB1sb" name="assembly.bom_import.template.kicad_pcbnew.exptected_columns.note">
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
+          <target>
+            <![CDATA[
+              <p><strong>Opmerking:</strong> Er wordt geen mapping uitgevoerd met specifieke componenten uit de categoriebeheer.</p>
+            ]]>
+          </target>
+        </segment>
+    </unit>
+    <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.table</source>
+        <target>
+          <![CDATA[
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Veld</th>
+                        <th>Voorwaarde</th>
+                        <th>Gegevenstype</th>
+                        <th>Beschrijving</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Id</td>
+                        <td>Optioneel</td>
+                        <td>Integer</td>
+                        <td>Vrij veld. Een unieke identificatienummer voor elk onderdeel.</td>
+                    </tr>
+                    <tr>
+                        <td>Designator</td>
+                        <td>Optioneel</td>
+                        <td>String</td>
+                        <td>Vrij veld. Een unieke referentienaam voor het onderdeel op de PCB, bijvoorbeeld "R1" voor weerstand 1.<br>Wordt gebruikt als positioneringsnaam in de onderdelenlijst van de assemblage.</td>
+                    </tr>
+                    <tr>
+                        <td>Package</td>
+                        <td>Optioneel</td>
+                        <td>String</td>
+                        <td>Vrij veld. De behuizing of vormfactor van het onderdeel, bijvoorbeeld "0805" voor SMD-weerstanden.<br>Wordt niet opgenomen in de onderdelenlijst binnen de assemblage.</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td>Vereist</td>
+                        <td>Integer</td>
+                        <td>Het aantal identieke onderdelen dat nodig is om een assemblage-instantie te creëren.<br>Wordt gebruikt als hoeveelheid in de onderdelenlijst binnen de assemblage.</td>
+                    </tr>
+                    <tr>
+                        <td>Designation</td>
+                        <td>Vereist</td>
+                        <td>String</td>
+                        <td>De beschrijving of functie van het onderdeel, zoals weerstandwaarde "10kΩ" of condensatorwaarde "100nF".<br>Wordt gebruikt als de naam in de onderdelenlijst binnen de assemblage.</td>
+                    </tr>
+                    <tr>
+                        <td>Supplier and ref</td>
+                        <td>Optioneel</td>
+                        <td>String</td>
+                        <td>Vrij veld. Kan bijvoorbeeld specifieke informatie over leveranciers bevatten.<br>Wordt gebruikt als notitie in de onderdelenlijst binnen de assemblage.</td>
+                    </tr>
+                </tbody>
+            </table>
+          ]]>
+        </target>
+      </segment>
+    </unit>
+    <unit id="uT5zcT1" name="assembly_list.all.title">
+      <segment state="translated">
+        <source>assembly_list.all.title</source>
+        <target>Alle assemblages</target>
+      </segment>
+    </unit>
+    <unit id="8Ijh3db" name="assembly.edit.tab.common">
+      <segment state="translated">
+        <source>assembly.edit.tab.common</source>
+        <target>Algemeen</target>
+      </segment>
+    </unit>
+    <unit id="jTnEypG" name="assembly.edit.tab.advanced">
+      <segment state="translated">
+        <source>assembly.edit.tab.advanced</source>
+        <target>Geavanceerde opties</target>
+      </segment>
+    </unit>
+    <unit id="7uhe3gC" name="assembly.edit.tab.attachments">
+      <segment state="translated">
+        <source>assembly.edit.tab.attachments</source>
+        <target>Bijlagen</target>
+      </segment>
+    </unit>
+    <unit id="jEr4cP1" name="assembly.filter.dbId">
+      <segment state="translated">
+        <source>assembly.filter.dbId</source>
+        <target>Database-ID</target>
+      </segment>
+    </unit>
+    <unit id="leRwbN3" name="assembly.filter.ipn">
+      <segment state="translated">
+        <source>assembly.filter.ipn</source>
+        <target>Intern partnummer (IPN)</target>
+      </segment>
+    </unit>
+    <unit id="jR5Cxy1" name="assembly.filter.name">
+      <segment state="translated">
+        <source>assembly.filter.name</source>
+        <target>Naam</target>
+      </segment>
+    </unit>
+    <unit id="LiW5CM3" name="assembly.filter.description">
+      <segment state="translated">
+        <source>assembly.filter.description</source>
+        <target>Beschrijving</target>
+      </segment>
+    </unit>
+    <unit id="kix5dMf" name="assembly.filter.comment">
+      <segment state="translated">
+        <source>assembly.filter.comment</source>
+        <target>Opmerkingen</target>
+      </segment>
+    </unit>
+    <unit id="ux2Ws9p" name="assembly.filter.attachments_count">
+      <segment state="translated">
+        <source>assembly.filter.attachments_count</source>
+        <target>Aantal bijlagen</target>
+      </segment>
+    </unit>
+    <unit id="su8izLb" name="assembly.filter.attachmentName">
+      <segment state="translated">
+        <source>assembly.filter.attachmentName</source>
+        <target>Naam van de bijlage</target>
+      </segment>
+    </unit>
+    <unit id="5cDe9Ta" name="assemblies.create.btn">
+      <segment state="translated">
+        <source>assemblies.create.btn</source>
+        <target>Nieuwe assemblage aanmaken</target>
+      </segment>
+    </unit>
+    <unit id="acEe1Tb" name="assembly.table.id">
+      <segment state="translated">
+        <source>assembly.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="7Ui1WzP" name="assembly.table.name">
+      <segment state="translated">
+        <source>assembly.table.name</source>
+        <target>Naam</target>
+      </segment>
+    </unit>
+    <unit id="ieVaFEu" name="assembly.table.ipn">
+      <segment state="translated">
+        <source>assembly.table.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="7un9oeW" name="assembly.table.description">
+      <segment state="translated">
+        <source>assembly.table.description</source>
+        <target>Beschrijving</target>
+      </segment>
+    </unit>
+    <unit id="ahzol5T" name="assembly.table.referencedAssemblies">
+      <segment state="translated">
+        <source>assembly.table.referencedAssemblies</source>
+        <target>Gerefereerde assemblages</target>
+      </segment>
+    </unit>
+    <unit id="igaT4kQ" name="assembly.table.addedDate">
+      <segment state="translated">
+        <source>assembly.table.addedDate</source>
+        <target>Toegevoegd</target>
+      </segment>
+    </unit>
+    <unit id="au8IEcW" name="assembly.table.lastModified">
+      <segment state="translated">
+        <source>assembly.table.lastModified</source>
+        <target>Laatst gewijzigd</target>
+      </segment>
+    </unit>
+    <unit id="9dERbn1" name="assembly.table.edit">
+      <segment state="translated">
+        <source>assembly.table.edit</source>
+        <target>Bewerken</target>
+      </segment>
+    </unit>
+    <unit id="5gTze41" name="assembly.table.edit.title">
+      <segment state="translated">
+        <source>assembly.table.edit.title</source>
+        <target>Assemblage bewerken</target>
+      </segment>
+    </unit>
+    <unit id="juTbw2C" name="assembly.table.invalid_regex">
+      <segment state="translated">
+        <source>assembly.table.invalid_regex</source>
+        <target>Ongeldige reguliere expressie (regex)</target>
+      </segment>
+    </unit>
+    <unit id="8uh6vTx" name="assembly.bom.table.id">
+      <segment state="translated">
+        <source>assembly.bom.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="ijncxl3" name="assembly.bom.table.name">
+      <segment state="translated">
+        <source>assembly.bom.table.name</source>
+        <target>Naam</target>
+      </segment>
+    </unit>
+    <unit id="Pe5Bkw1" name="assembly.bom.table.quantity">
+      <segment state="translated">
+        <source>assembly.bom.table.quantity</source>
+        <target>Hoeveelheid</target>
+      </segment>
+    </unit>
+    <unit id="7hdpoc2" name="assembly.bom.table.ipn">
+      <segment state="translated">
+        <source>assembly.bom.table.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="1nbwdk5" name="assembly.bom.table.description">
+      <segment state="translated">
+        <source>assembly.bom.table.description</source>
+        <target>Beschrijving</target>
+      </segment>
+    </unit>
+    <unit id="jd7fhvc" name="assembly.bom.table.category">
+      <segment state="translated">
+        <source>assembly.bom.table.category</source>
+        <target>Categorie</target>
+      </segment>
+    </unit>
+    <unit id="ab12cd" name="assembly.bom.table.manufacturer">
+      <segment state="translated">
+        <source>assembly.bom.table.manufacturer</source>
+        <target>Fabrikant</target>
+      </segment>
+    </unit>
+    <unit id="7dk4gTa" name="assembly.bom.table.designator">
+      <segment state="translated">
+        <source>assembly.bom.table.designator</source>
+        <target>Referentieaanduiding</target>
+      </segment>
+    </unit>
+    <unit id="ef34gh" name="assembly.bom.table.mountnames">
+      <segment state="translated">
+        <source>assembly.bom.table.mountnames</source>
+        <target>Montagenamen</target>
+      </segment>
+    </unit>
+    <unit id="ij56kl" name="assembly.bom.table.storage_location">
+      <segment state="translated">
+        <source>assembly.bom.table.storage_location</source>
+        <target>Opslaglocatie</target>
+      </segment>
+    </unit>
+    <unit id="mn78op" name="assembly.bom.table.amount">
+      <segment state="translated">
+        <source>assembly.bom.table.amount</source>
+        <target>Aantal</target>
+      </segment>
+    </unit>
+    <unit id="uv12wx" name="assembly.bom.table.addedDate">
+      <segment state="translated">
+        <source>assembly.bom.table.addedDate</source>
+        <target>Aangemaakt op</target>
+      </segment>
+    </unit>
+    <unit id="yz34aa" name="assembly.bom.table.lastModified">
+      <segment state="translated">
+        <source>assembly.bom.table.lastModified</source>
+        <target>Laatst gewijzigd</target>
+      </segment>
+    </unit>
+    <unit id="bb56cc" name="assembly.bom.table.edit">
+      <segment state="translated">
+        <source>assembly.bom.table.edit</source>
+        <target>Bewerken</target>
       </segment>
     </unit>
     <unit id="1b5ja1c" name="perm.part_custom_states">

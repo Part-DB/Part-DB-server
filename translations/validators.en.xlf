@@ -115,6 +115,12 @@
         <target>The internal part number must be unique. {{ value }} is already in use!</target>
       </segment>
     </unit>
+    <unit id="Zhn4Xq1" name="assembly.ipn.must_be_unique">
+      <segment state="translated">
+        <source>assembly.ipn.must_be_unique</source>
+        <target>The internal part number must be unique. {{ value }} is already in use!</target>
+      </segment>
+    </unit>
     <unit id="P31Yg.d" name="validator.project.bom_entry.name_or_part_needed">
       <segment state="translated">
         <source>validator.project.bom_entry.name_or_part_needed</source>
@@ -245,6 +251,114 @@
       <segment state="translated">
         <source>settings.synonyms.type_synonyms.collection_type.duplicate</source>
         <target>There is already a translation defined for this type and language!</target>
+      </segment>
+    </unit>
+    <unit id="b1ZWoQ5" name="validator.bom_importer.invalid_import_type">
+      <segment state="translated">
+        <source>validator.bom_importer.invalid_import_type</source>
+        <target>Invalid import type!</target>
+      </segment>
+    </unit>
+    <unit id="rbo1XEP" name="validator.bom_importer.invalid_file_extension">
+      <segment state="translated">
+        <source>validator.bom_importer.invalid_file_extension</source>
+        <target>Invalid file extension "%extension%" for import type %importType%". Allowed file extensions: %allowedExtensions%.</target>
+      </segment>
+    </unit>
+    <unit id="qyoCAaP" name="assembly.bom_entry.part_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.part_already_in_bom</source>
+        <target>This part already exists in the list!</target>
+      </segment>
+    </unit>
+    <unit id="KiW1eoj" name="assembly.bom_entry.assembly_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.assembly_already_in_bom</source>
+        <target>This assembly already exists as an entry!</target>
+      </segment>
+    </unit>
+    <unit id="j8ATef1" name="assembly.bom_entry.assembly_cycle">
+      <segment>
+        <source>assembly.bom_entry.assembly_cycle</source>
+        <target>A cycle was detected: the assembly "%name%" indirectly references itself.</target>
+      </segment>
+    </unit>
+    <unit id="cEtB87a" name="assembly.bom_entry.invalid_child_entry">
+      <segment>
+        <source>assembly.bom_entry.invalid_child_entry</source>
+        <target>An assembly must not reference a subassembly from its own hierarchy in the BOM entries.</target>
+      </segment>
+    </unit>
+    <unit id="Pi60dJ9" name="assembly.bom_entry.name_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.name_already_in_bom</source>
+        <target>There is already a part with this name!</target>
+      </segment>
+    </unit>
+    <unit id="KWc.wZ4" name="validator.assembly.bom_entry.name_or_part_needed">
+      <segment>
+        <source>validator.assembly.bom_entry.name_or_part_needed</source>
+        <target>You must select a part or set a name for the entry!</target>
+      </segment>
+    </unit>
+    <unit id="Q42Zh.e" name="validator.assembly.bom_entry.only_part_or_assembly_allowed">
+      <segment state="translated">
+        <source>validator.assembly.bom_entry.only_part_or_assembly_allowed</source>
+        <target>Only one part or assembly may be selected. Please modify your selection!</target>
+      </segment>
+    </unit>
+    <unit id="a1dKro7" name="validator.bom_importer.json_csv.quantity.required">
+      <segment>
+        <source>validator.bom_importer.json_csv.quantity.required</source>
+        <target>you must specify a quantity > 0!</target>
+      </segment>
+    </unit>
+    <unit id="hlBA1Pd" name="validator.bom_importer.json_csv.quantity.float">
+      <segment>
+        <source>validator.bom_importer.json_csv.quantity.float</source>
+        <target>expected as float greater than 0.0</target>
+      </segment>
+    </unit>
+    <unit id="eBCiG.1" name="validator.bom_importer.json_csv.parameter.string.notEmpty">
+      <segment>
+        <source>validator.bom_importer.json_csv.parameter.string.notEmpty</source>
+        <target>expected as non-empty string</target>
+      </segment>
+    </unit>
+    <unit id="aKg7qlT" name="validator.bom_importer.json_csv.parameter.string.notEmpty.null">
+      <segment>
+        <source>validator.bom_importer.json_csv.parameter.string.notEmpty.null</source>
+        <target>als nicht leere Zeichenkette oder null erwartet</target>
+      </segment>
+    </unit>
+    <unit id="g8HPqwx" name="validator.bom_importer.json_csv.parameter.array">
+      <segment>
+        <source>validator.bom_importer.json_csv.parameter.array</source>
+        <target>expectd as array</target>
+      </segment>
+    </unit>
+    <unit id="adLRxnA" name="validator.bom_importer.json_csv.parameter.subproperties">
+      <segment>
+        <source>validator.bom_importer.json_csv.parameter.subproperties</source>
+        <target>must have at least one of the following sub-properties: %propertyString%</target>
+      </segment>
+    </unit>
+    <unit id="kt12PW4" name="validator.bom_importer.json_csv.parameter.notFoundFor">
+      <segment>
+        <source>validator.bom_importer.json_csv.parameter.notFoundFor</source>
+        <target>not found for %value%</target>
+      </segment>
+    </unit>
+    <unit id="bhc3WQf" name="validator.bom_importer.json_csv.parameter.noExactMatch">
+      <segment>
+        <source>validator.bom_importer.json_csv.parameter.noExactMatch</source>
+        <target>does not match exactly. Given for import: %importValue%, found (%foundId%): %foundValue%</target>
+      </segment>
+    </unit>
+    <unit id="Kb1hpq3" name="validator.bom_importer.json_csv.parameter.manufacturerOrCategoryWithSubProperties">
+      <segment>
+        <source>validator.bom_importer.json_csv.parameter.manufacturerOrCategoryWithSubProperties</source>
+        <target>must have either assigned as sub-property: "id" as an integer greater than 0, or "name" as a non-empty string</target>
       </segment>
     </unit>
     <unit id="zT_j_oQ" name="validator.invalid_gtin">

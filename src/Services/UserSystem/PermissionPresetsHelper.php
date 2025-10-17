@@ -105,6 +105,7 @@ class PermissionPresetsHelper
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'part_custom_states', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'suppliers', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'projects', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'assemblies', PermissionData::ALLOW);
 
         //Allow to change system settings
         $this->permissionResolver->setPermission($perm_holder, 'config', 'change_system_settings', PermissionData::ALLOW);
@@ -136,6 +137,7 @@ class PermissionPresetsHelper
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'part_custom_states', PermissionData::ALLOW, ['import']);
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'suppliers', PermissionData::ALLOW, ['import']);
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'projects', PermissionData::ALLOW, ['import']);
+        $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'assemblies', PermissionData::ALLOW, ['import']);
 
         //Attachments permissions
         $this->permissionResolver->setPermission($permHolder, 'attachments', 'show_private', PermissionData::ALLOW);
@@ -182,6 +184,9 @@ class PermissionPresetsHelper
 
         //Set projects permissions
         $this->permissionResolver->setPermission($perm_holder, 'projects', 'read', PermissionData::ALLOW);
+
+        //Set assemblies permissions
+        $this->permissionResolver->setPermission($perm_holder, 'assemblies', 'read', PermissionData::ALLOW);
 
         return $perm_holder;
     }

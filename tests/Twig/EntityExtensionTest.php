@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Tests\Twig;
 
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Parts\PartCustomState;
 use App\Entity\ProjectSystem\Project;
@@ -61,6 +62,7 @@ final class EntityExtensionTest extends WebTestCase
         $this->assertSame('manufacturer', $this->service->entityType(new Manufacturer()));
         $this->assertSame('category', $this->service->entityType(new Category()));
         $this->assertSame('device', $this->service->entityType(new Project()));
+        $this->assertSame('assembly', $this->service->entityType(new Assembly()));
         $this->assertSame('attachment', $this->service->entityType(new PartAttachment()));
         $this->assertSame('supplier', $this->service->entityType(new Supplier()));
         $this->assertSame('user', $this->service->entityType(new User()));

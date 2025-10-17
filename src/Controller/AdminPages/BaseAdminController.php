@@ -23,6 +23,8 @@ declare(strict_types=1);
 namespace App\Controller\AdminPages;
 
 use App\DataTables\LogDataTable;
+use App\Entity\AssemblySystem\Assembly;
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentUpload;
@@ -193,6 +195,15 @@ abstract class BaseAdminController extends AbstractController
                     $entity->setMasterPictureAttachment(null);
                 }
 
+                if ($entity instanceof Assembly) {
+                    /* Replace ipn placeholder with the IPN information if applicable.
+                     * The '%%ipn%%' placeholder is automatically inserted into the Name property,
+                     * depending on CREATE_ASSEMBLY_USE_IPN_PLACEHOLDER_IN_NAME, when creating a new one,
+                     * to avoid having to insert it manually */
+
+                    $entity->setName(str_ireplace('%%ipn%%', $entity->getIpn() ?? '', $entity->getName()));
+                }
+
                 $this->commentHelper->setMessage($form['log_comment']->getData());
 
                 $em->persist($entity);
@@ -285,6 +296,15 @@ abstract class BaseAdminController extends AbstractController
             //Ensure that the master picture is still part of the attachments
             if ($new_entity instanceof AttachmentContainingDBElement && ($new_entity->getMasterPictureAttachment() !== null && !$new_entity->getAttachments()->contains($new_entity->getMasterPictureAttachment()))) {
                 $new_entity->setMasterPictureAttachment(null);
+            }
+
+            if ($new_entity instanceof Assembly) {
+                /* Replace ipn placeholder with the IPN information if applicable.
+                 * The '%%ipn%%' placeholder is automatically inserted into the Name property,
+                 * depending on CREATE_ASSEMBLY_USE_IPN_PLACEHOLDER_IN_NAME, when creating a new one,
+                 * to avoid having to insert it manually */
+
+                $new_entity->setName(str_ireplace('%%ipn%%', $new_entity->getIpn() ?? '', $new_entity->getName()));
             }
 
             $this->commentHelper->setMessage($form['log_comment']->getData());
@@ -450,6 +470,10 @@ abstract class BaseAdminController extends AbstractController
                     return $this->redirectToRoute($this->route_base.'_edit', ['id' => $entity->getID()]);
                 }
             } else {
+                if ($entity instanceof Assembly) {
+                    $this->markReferencedBomEntry($entity);
+                }
+
                 if ($entity instanceof AbstractStructuralDBElement) {
                     $parent = $entity->getParent();
 
@@ -496,5 +520,17 @@ abstract class BaseAdminController extends AbstractController
         $this->denyAccessUnlessGranted('read', $entity);
 
         return $exporter->exportEntityFromRequest($entity, $request);
+    }
+
+    private function markReferencedBomEntry(Assembly $referencedAssembly): void
+    {
+        $bomEntries = $this->entityManager->getRepository(AssemblyBOMEntry::class)->findBy(['referencedAssembly' => $referencedAssembly]);
+
+        foreach ($bomEntries as $entry) {
+            $entry->setReferencedAssembly(null);
+            $entry->setName($referencedAssembly->getName(). ' DELETED');
+
+            $this->entityManager->persist($entry);
+        }
     }
 }
