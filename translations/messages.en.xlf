@@ -14214,5 +14214,17 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Misc</target>
       </segment>
     </unit>
+    <unit id="mNLyYXa" name="settings.system.localization.language_menu_entries">
+      <segment state="translated">
+        <source>settings.system.localization.language_menu_entries</source>
+        <target>Language menu entries</target>
+      </segment>
+    </unit>
+    <unit id="Ej2znKK" name="settings.system.localization.language_menu_entries.description">
+      <segment state="translated">
+        <source>settings.system.localization.language_menu_entries.description</source>
+        <target>The languages to show in the language drop-down menu. Order can be changed via drag &amp; drop. Leave empty to show all available languages.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
