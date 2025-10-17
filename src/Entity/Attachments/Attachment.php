@@ -97,7 +97,7 @@ use function in_array;
 #[DiscriminatorMap(typeProperty: '_type', mapping: self::API_DISCRIMINATOR_MAP)]
 abstract class Attachment extends AbstractNamedDBElement
 {
-    private const ORM_DISCRIMINATOR_MAP = ['Part' => PartAttachment::class, 'Device' => ProjectAttachment::class,
+    private const ORM_DISCRIMINATOR_MAP = ['Part' => PartAttachment::class, 'Device' => ProjectAttachment::class, 'Assembly' => AssemblyAttachment::class,
         'AttachmentType' => AttachmentTypeAttachment::class,
         'Category' => CategoryAttachment::class, 'Footprint' => FootprintAttachment::class, 'Manufacturer' => ManufacturerAttachment::class,
         'Currency' => CurrencyAttachment::class, 'Group' => GroupAttachment::class, 'MeasurementUnit' => MeasurementUnitAttachment::class,
@@ -107,7 +107,8 @@ abstract class Attachment extends AbstractNamedDBElement
     /*
      * The discriminator map used for API platform. The key should be the same as the api platform short type (the @type JSONLD field).
      */
-    private const API_DISCRIMINATOR_MAP = ["Part" => PartAttachment::class, "Project" => ProjectAttachment::class, "AttachmentType" => AttachmentTypeAttachment::class,
+    private const API_DISCRIMINATOR_MAP = ["Part" => PartAttachment::class, "Project" => ProjectAttachment::class, "Assembly" => AssemblyAttachment::class,
+        "AttachmentType" => AttachmentTypeAttachment::class,
         "Category" => CategoryAttachment::class, "Footprint" => FootprintAttachment::class, "Manufacturer" => ManufacturerAttachment::class,
         "Currency" => CurrencyAttachment::class, "Group" => GroupAttachment::class, "MeasurementUnit" => MeasurementUnitAttachment::class,
         "StorageLocation" => StorageLocationAttachment::class, "Supplier" => SupplierAttachment::class, "User" => UserAttachment::class, "LabelProfile" => LabelAttachment::class];

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\Attachments;
 
+use App\Entity\Attachments\AssemblyAttachment;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentType;
@@ -84,6 +85,7 @@ class AttachmentSubmitHandler
             CategoryAttachment::class => 'category',
             CurrencyAttachment::class => 'currency',
             ProjectAttachment::class => 'project',
+            AssemblyAttachment::class => 'assembly',
             FootprintAttachment::class => 'footprint',
             GroupAttachment::class => 'group',
             ManufacturerAttachment::class => 'manufacturer',

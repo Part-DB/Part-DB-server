@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\ProjectSystem\Project;
@@ -49,8 +50,8 @@ class DataStructureFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         //Reset autoincrement
-        $types = [AttachmentType::class, Project::class, Category::class, Footprint::class, Manufacturer::class,
-            MeasurementUnit::class, StorageLocation::class, Supplier::class,];
+        $types = [AttachmentType::class, Project::class, Assembly::class, Category::class, Footprint::class,
+            Manufacturer::class, MeasurementUnit::class, StorageLocation::class, Supplier::class,];
 
         foreach ($types as $type) {
             $this->createNodesForClass($type, $manager);

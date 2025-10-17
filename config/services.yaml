@@ -164,6 +164,9 @@ services:
         arguments:
             $saml_enabled: '%partdb.saml.enabled%'
 
+    App\Validator\Constraints\AssemblySystem\AssemblyCycleValidator:
+        tags: [ 'validator.constraint_validator' ]
+
     ####################################################################################################################
     # Table settings
     ####################################################################################################################
