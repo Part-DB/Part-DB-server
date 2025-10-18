@@ -14223,7 +14223,13 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="Ej2znKK" name="settings.system.localization.language_menu_entries.description">
       <segment state="translated">
         <source>settings.system.localization.language_menu_entries.description</source>
-        <target>The languages to show in the language drop-down menu. Order can be changed via drag &amp; drop. Leave empty to show all available languages.</target>
+        <target><![CDATA[The languages to show in the language drop-down menu. Order can be changed via drag & drop. Leave empty to show all available languages.]]></target>
+      </segment>
+    </unit>
+    <unit id="xIZ_mEX" name="project.builds.no_bom_entries">
+      <segment>
+        <source>project.builds.no_bom_entries</source>
+        <target>Project has no BOM entries</target>
       </segment>
     </unit>
   </file>
