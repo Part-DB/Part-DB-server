@@ -14226,5 +14226,11 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>The languages to show in the language drop-down menu. Order can be changed via drag &amp; drop. Leave empty to show all available languages.</target>
       </segment>
     </unit>
+    <unit id="xIZ_mEX" name="project.builds.no_bom_entries">
+      <segment state="translated">
+        <source>project.builds.no_bom_entries</source>
+        <target>Project has no BOM entries</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
