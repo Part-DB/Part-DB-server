@@ -36,6 +36,7 @@ use App\Exceptions\InvalidRegexException;
 use App\Form\Filters\PartFilterType;
 use App\Services\Parts\PartsTableActionHandler;
 use App\Services\Trees\NodesListBuilder;
+use App\Settings\BehaviorSettings\SidebarSettings;
 use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
@@ -56,9 +57,19 @@ class PartListsController extends AbstractController
         private readonly NodesListBuilder $nodesListBuilder,
         private readonly DataTableFactory $dataTableFactory,
         private readonly TranslatorInterface $translator,
-        private readonly TableSettings $tableSettings
+        private readonly TableSettings $tableSettings,
+        private readonly SidebarSettings $sidebarSettings,
     )
     {
+    }
+
+    /**
+     * Gets the filter operator to use by default (INCLUDING_CHILDREN or =)
+     * @return string
+     */
+    private function getFilterOperator(): string
+    {
+        return $this->sidebarSettings->dataStructureNodesTableIncludeChildren ? 'INCLUDING_CHILDREN' : '=';
     }
 
     #[Route(path: '/table/action', name: 'table_action', methods: ['POST'])]
@@ -203,7 +214,7 @@ class PartListsController extends AbstractController
         return $this->showListWithFilter($request,
             'parts/lists/category_list.html.twig',
             function (PartFilter $filter) use ($category) {
-                $filter->category->setOperator('INCLUDING_CHILDREN')->setValue($category);
+                $filter->category->setOperator($this->getFilterOperator())->setValue($category);
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('category')->get('value'));
             }, [
@@ -221,7 +232,7 @@ class PartListsController extends AbstractController
         return $this->showListWithFilter($request,
             'parts/lists/footprint_list.html.twig',
             function (PartFilter $filter) use ($footprint) {
-                $filter->footprint->setOperator('INCLUDING_CHILDREN')->setValue($footprint);
+                $filter->footprint->setOperator($this->getFilterOperator())->setValue($footprint);
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('footprint')->get('value'));
             }, [
@@ -239,7 +250,7 @@ class PartListsController extends AbstractController
         return $this->showListWithFilter($request,
             'parts/lists/manufacturer_list.html.twig',
             function (PartFilter $filter) use ($manufacturer) {
-                $filter->manufacturer->setOperator('INCLUDING_CHILDREN')->setValue($manufacturer);
+                $filter->manufacturer->setOperator($this->getFilterOperator())->setValue($manufacturer);
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('manufacturer')->get('value'));
             }, [
@@ -257,7 +268,7 @@ class PartListsController extends AbstractController
         return $this->showListWithFilter($request,
             'parts/lists/store_location_list.html.twig',
             function (PartFilter $filter) use ($storelocation) {
-                $filter->storelocation->setOperator('INCLUDING_CHILDREN')->setValue($storelocation);
+                $filter->storelocation->setOperator($this->getFilterOperator())->setValue($storelocation);
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('storelocation')->get('value'));
             }, [
@@ -275,7 +286,7 @@ class PartListsController extends AbstractController
         return $this->showListWithFilter($request,
             'parts/lists/supplier_list.html.twig',
             function (PartFilter $filter) use ($supplier) {
-                $filter->supplier->setOperator('INCLUDING_CHILDREN')->setValue($supplier);
+                $filter->supplier->setOperator($this->getFilterOperator())->setValue($supplier);
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('supplier')->get('value'));
             }, [
