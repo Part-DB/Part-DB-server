@@ -33,6 +33,11 @@ export default class extends Controller {
     _tomSelect;
 
     connect() {
+        let dropdownParent = "body";
+        if (this.element.closest('.modal')) {
+            dropdownParent = null
+        }
+
         let settings = {
             plugins: {
                 remove_button:{},
@@ -43,7 +48,7 @@ export default class extends Controller {
             selectOnTab: true,
             createOnBlur: true,
             create: true,
-            dropdownParent: 'body',
+            dropdownParent: dropdownParent,
         };
 
         if(this.element.dataset.autocomplete) {

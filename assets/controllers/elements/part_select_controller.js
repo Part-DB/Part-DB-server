@@ -10,13 +10,19 @@ export default class extends Controller {
 
     connect() {
 
+        //Check if tomselect is inside an modal and do not attach the dropdown to body in that case (as it breaks the modal)
+        let dropdownParent = "body";
+        if (this.element.closest('.modal')) {
+            dropdownParent = null
+        }
+
         let settings = {
             allowEmptyOption: true,
             plugins: ['dropdown_input'],
             searchField: ["name", "description", "category", "footprint"],
             valueField: "id",
             labelField: "name",
-            dropdownParent: 'body',
+            dropdownParent: dropdownParent,
             preload: "focus",
             render: {
                 item: (data, escape) => {
