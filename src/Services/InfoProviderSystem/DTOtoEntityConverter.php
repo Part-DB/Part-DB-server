@@ -221,7 +221,7 @@ final class DTOtoEntityConverter
             $attachment = $this->convertFile($image, $image_type);
 
             $attachments_grouped[$attachment->getName()][] = $attachment;
-            if (count($attachments_grouped[$attachment->getName()] ?? []) > 1) {
+            if (count($attachments_grouped[$attachment->getName()]) > 1) {
                 $attachment->setName($attachment->getName() . ' (' . (count($attachments_grouped[$attachment->getName()]) + 1) . ')');
             }
 
@@ -236,7 +236,7 @@ final class DTOtoEntityConverter
             $attachment = $this->convertFile($datasheet, $datasheet_type);
 
             $attachments_grouped[$attachment->getName()][] = $attachment;
-            if (count($attachments_grouped[$attachment->getName()] ?? []) > 1) {
+            if (count($attachments_grouped[$attachment->getName()]) > 1) {
                 $attachment->setName($attachment->getName() . ' (' . (count($attachments_grouped[$attachment->getName()])) . ')');
             }
 
