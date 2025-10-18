@@ -14232,5 +14232,17 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Project has no BOM entries</target>
       </segment>
     </unit>
+    <unit id="pCKgjIr" name="settings.behavior.sidebar.data_structure_nodes_table_include_children">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.data_structure_nodes_table_include_children</source>
+        <target>Tables should include children nodes by default</target>
+      </segment>
+    </unit>
+    <unit id="KJQHfwV" name="settings.behavior.sidebar.data_structure_nodes_table_include_children.help">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.data_structure_nodes_table_include_children.help</source>
+        <target>If checked, the part tables for categories, footprints, etc. should include all parts of child categories. If not checked, only parts that strictly belong to the clicked node are shown.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
