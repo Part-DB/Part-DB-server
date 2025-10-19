@@ -8711,7 +8711,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>log.type.security.backup_keys_reset</source>
-        <target>Neue Backupkeys erzeugt</target>
+        <target>Neue Backup-Keys erzeugt</target>
       </segment>
     </unit>
     <unit id="RF1.KEr" name="log.type.security.google_enabled">
@@ -14187,6 +14187,67 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>info_providers.bulk_import.max_mappings_reached</source>
         <target>Maximale Anzahl von Zuordnungen erreicht</target>
+      </segment>
+    </unit>
+    <unit id="LWLi016" name="settings.system">
+      <segment state="translated">
+        <source>settings.system</source>
+        <target>System</target>
+      </segment>
+    </unit>
+    <unit id="8syOoyh" name="settings.behavior">
+      <segment state="translated">
+        <source>settings.behavior</source>
+        <target>Verhalten</target>
+      </segment>
+    </unit>
+    <unit id="lAiL2Jw" name="settings.ips">
+      <segment state="translated">
+        <source>settings.ips</source>
+        <target>Informationsquellen</target>
+      </segment>
+    </unit>
+    <unit id="GuUZqpX" name="settings.misc">
+      <segment state="translated">
+        <source>settings.misc</source>
+        <target>Verschiedenes</target>
+      </segment>
+    </unit>
+    <unit id="mNLyYXa" name="settings.system.localization.language_menu_entries">
+      <segment state="translated">
+        <source>settings.system.localization.language_menu_entries</source>
+        <target>Einträge des Sprachenmenüs</target>
+      </segment>
+    </unit>
+    <unit id="Ej2znKK" name="settings.system.localization.language_menu_entries.description">
+      <segment state="translated">
+        <source>settings.system.localization.language_menu_entries.description</source>
+        <target>Die Sprachen, die im Sprachen Dropdown-Menü angezeigt werden sollen. Die Reihenfolge kann via Drag&amp;Drop geändert werden. Lassen Sie das Feld leer, um alle verfügbaren Sprachen anzuzeigen.</target>
+      </segment>
+    </unit>
+    <unit id="xIZ_mEX" name="project.builds.no_bom_entries">
+      <segment state="translated">
+        <source>project.builds.no_bom_entries</source>
+        <target>Das Projekt hat keine BOM Einträge</target>
+      </segment>
+    </unit>
+    <unit id="pCKgjIr" name="settings.behavior.sidebar.data_structure_nodes_table_include_children">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.data_structure_nodes_table_include_children</source>
+        <target>Tabellen sollen Kindelemente standardmäßig inkludieren</target>
+      </segment>
+    </unit>
+    <unit id="KJQHfwV" name="settings.behavior.sidebar.data_structure_nodes_table_include_children.help">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.data_structure_nodes_table_include_children.help</source>
+        <target>Wenn ausgewählt, werden für Bauteiletabellen von Kategorien, Footprints, etc. alle Bauteile der Kindkategorie inkludiert. Wenn diese Option nicht ausgewählt ist, werden in den Bauteiletabellen nur die Bauteile angezeigt, die strikt zu der angeklickten Kategorie gehören (exklusive Kindelementen).</target>
+      </segment>
+    </unit>
+    <unit id="Gdlnmav" name="info_providers.search.error.oauth_reconnect">
+      <segment state="translated">
+        <source>info_providers.search.error.oauth_reconnect</source>
+        <target>Folgende Informationsquelle benötigt eine OAuth Neu-Verbindung: %provider%
+Dies ist auf der Informationsquellen Übersichtsseite möglich.</target>
       </segment>
     </unit>
   </file>
