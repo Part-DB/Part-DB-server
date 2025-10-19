@@ -14244,5 +14244,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>If checked, the part tables for categories, footprints, etc. should include all parts of child categories. If not checked, only parts that strictly belong to the clicked node are shown.</target>
       </segment>
     </unit>
+    <unit id="Gdlnmav" name="info_providers.search.error.oauth_reconnect">
+      <segment>
+        <source>info_providers.search.error.oauth_reconnect</source>
+        <target>You need to reconnect OAuth for following providers: %provider%
+You can do this in the provider info list.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

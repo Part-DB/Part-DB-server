@@ -25,6 +25,7 @@ namespace App\Controller;
 
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
+use App\Exceptions\OAuthReconnectRequiredException;
 use App\Form\InfoProviderSystem\PartSearchType;
 use App\Services\InfoProviderSystem\ExistingPartFinder;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
@@ -175,7 +176,10 @@ class InfoProviderController extends  AbstractController
                 $this->addFlash('error',$e->getMessage());
                 //Log the exception
                 $exceptionLogger->error('Error during info provider search: ' . $e->getMessage(), ['exception' => $e]);
+            } catch (OAuthReconnectRequiredException $e) {
+                $this->addFlash('error', t('info_providers.search.error.oauth_reconnect', ['%provider%' => $e->getProviderName()]));
             }
+
 
             // modify the array to an array of arrays that has a field for a matching local Part
             // the advantage to use that format even when we don't look for local parts is that we
