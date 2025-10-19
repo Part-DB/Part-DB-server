@@ -181,6 +181,27 @@ final class PartController extends AbstractController
         return $this->redirectToRoute('bulk_info_provider_step2', ['jobId' => $jobId]);
     }
 
+    #[Route(path: '/{id}/delivered', name: 'part_delivered')]
+    public function delivered(Part $part, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $part);
+
+        $partLot = $part->getPartLots()[0] ?? null;
+        if (!$partLot instanceof PartLot) {
+            $this->addFlash('error', 'part.delivered.error.no_lot');
+            return $this->redirectToRoute('part_info', ['id' => $part->getID()]);
+        }
+
+        $partLot->setAmount($partLot->getAmount() + $part->getOrderAmount());
+        $part->setOrderAmount(0);
+        $part->setOrderDelivery(null);
+
+        $this->em->persist($part);
+        $this->em->flush();
+
+        return $this->redirectToRoute('part_info', ['id' => $part->getID()]);
+    }
+
     #[Route(path: '/{id}/delete', name: 'part_delete', methods: ['DELETE'])]
     public function delete(Request $request, Part $part): RedirectResponse
     {
