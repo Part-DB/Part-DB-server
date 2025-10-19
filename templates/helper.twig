@@ -214,11 +214,11 @@
 {% endmacro %}
 
 {% macro parameters_table(parameters) %}
-    <table class="table table-hover table-striped table-sm">
+    <table class="table table-hover table-striped table-sm" style="table-layout: fixed;">
         <thead>
         <tr>
             <th>{% trans %}specifications.property{% endtrans %}</th>
-            <th>{% trans %}specifications.symbol{% endtrans %}</th>
+            <th class="col-sm-1">{% trans %}specifications.symbol{% endtrans %}</th>
             <th>{% trans %}specifications.value{% endtrans %}</th>
         </tr>
         </thead>
