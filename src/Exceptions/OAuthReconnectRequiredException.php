@@ -27,7 +27,7 @@ use Throwable;
 
 class OAuthReconnectRequiredException extends \RuntimeException
 {
-    private string $providerName;
+    private string $providerName = "unknown";
 
     public function __construct(string $message = "You need to reconnect the OAuth connection for this provider!", int $code = 0, ?Throwable $previous = null)
     {
