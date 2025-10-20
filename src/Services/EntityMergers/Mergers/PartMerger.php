@@ -65,6 +65,7 @@ class PartMerger implements EntityMergerInterface
         $this->useOtherValueIfNotNull($target, $other, 'footprint');
         $this->useOtherValueIfNotNull($target, $other, 'category');
         $this->useOtherValueIfNotNull($target, $other, 'partUnit');
+        $this->useOtherValueIfNotNull($target, $other, 'partCustomState');
 
         //We assume that the higher value is the correct one for minimum instock
         $this->useLargerValue($target, $other, 'minamount');
