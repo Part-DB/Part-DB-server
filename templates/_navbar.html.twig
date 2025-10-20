@@ -5,13 +5,13 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary border-bottom shadow-sm fixed-top py-0" id="navbar">
     <div class="container-fluid">
         <div class="d-flex justify-content-start align-items-center">
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#sidebar-container">
+            <button type="button" class="navbar-toggler p-2" data-bs-toggle="collapse" data-bs-target="#sidebar-container">
                 <span class="visually-hidden">{% trans %}sidebar.toggle{% endtrans %}</span>
                 <!-- <span class="navbar-toggler-icon"></span> -->
                 <i class="fas fa-folder-open fa-lg fa-fw"></i>
             </button>
             {% if is_granted("@tools.label_scanner") %}        
-                <a href="{{ path('scan_dialog') }}" class="navbar-toggler nav-link ms-3">
+                <a href="{{ path('scan_dialog') }}" class="navbar-toggler nav-link ms-2 p-2">
                        <i class="fas fa-camera-retro fa-fw"></i>
                 </a>
             {% endif %}
@@ -20,7 +20,7 @@
         <a class="navbar-brand" href="{{ path('homepage') }}"><i class="fa fa-microchip"
                                                                  aria-hidden="true"></i> {{ vars.partdb_title() }}</a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        <button class="navbar-toggler p-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
                 aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <!-- <span class="navbar-toggler-icon"></span> -->
             <i class="fas fa-bars  fa-lg"></i>
