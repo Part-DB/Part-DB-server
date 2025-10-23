@@ -33,7 +33,6 @@ use Symfony\Component\Serializer\Attribute\Context;
  * @extends Attachment<Assembly>
  */
 #[UniqueEntity(['name', 'attachment_type', 'element'])]
-#[UniqueEntity(['name', 'attachment_type', 'element'])]
 #[ORM\Entity]
 class AssemblyAttachment extends Attachment
 {
