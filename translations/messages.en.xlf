@@ -551,7 +551,7 @@
     <unit id="3bcKBzY" name="part_custom_state.caption">
       <segment state="translated">
         <source>part_custom_state.caption</source>
-        <target>Custom part state</target>
+        <target>Custom part states</target>
       </segment>
     </unit>
     <unit id="crdkzlg" name="storelocation.labelp">
@@ -6252,7 +6252,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     <unit id="5adacKb" name="tree.tools.edit.part_custom_state">
       <segment state="translated">
         <source>tree.tools.edit.part_custom_state</source>
-        <target>Custom part state</target>
+        <target>Custom part states</target>
       </segment>
     </unit>
     <unit id=".Ux4R3T" name="tree.tools.edit.label_profile">
