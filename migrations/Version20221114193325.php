@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
+use App\Doctrine\Migration\ContainerAwareMigrationInterface;
 use App\Migration\AbstractMultiPlatformMigration;
 use App\Migration\WithPermPresetsTrait;
 use App\Services\UserSystem\PermissionPresetsHelper;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Schema;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
-final class Version20221114193325 extends AbstractMultiPlatformMigration implements ContainerAwareInterface
+final class Version20221114193325 extends AbstractMultiPlatformMigration implements ContainerAwareMigrationInterface
 {
     use WithPermPresetsTrait;
 

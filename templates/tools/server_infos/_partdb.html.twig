@@ -1,4 +1,5 @@
 {% import "helper.twig" as helper %}
+{% import "vars.macro.twig" as vars %}
 
 <table class="table table-sm table-striped table-hover table-bordered">
     <tbody>
@@ -15,7 +16,7 @@
     </tr>
     <tr>
         <td>Part-DB Instance name</td>
-        <td>{{ partdb_title }}</td>
+        <td>{{ vars.partdb_title() }}</td>
     </tr>
     <tr>
         <td>Default locale</td>

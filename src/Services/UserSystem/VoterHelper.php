@@ -28,6 +28,9 @@ use App\Repository\UserRepository;
 use App\Security\ApiTokenAuthenticatedToken;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @see \App\Tests\Services\UserSystem\VoterHelperTest
@@ -35,10 +38,14 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 final class VoterHelper
 {
     private readonly UserRepository $userRepository;
+    private readonly array $permissionStructure;
 
-    public function __construct(private readonly PermissionManager $permissionManager, private readonly EntityManagerInterface $entityManager)
+    public function __construct(private readonly PermissionManager $permissionManager,
+        private readonly TranslatorInterface $translator,
+        private readonly EntityManagerInterface $entityManager)
     {
         $this->userRepository = $this->entityManager->getRepository(User::class);
+        $this->permissionStructure = $this->permissionManager->getPermissionStructure();
     }
 
     /**
@@ -47,11 +54,16 @@ final class VoterHelper
      * @param  TokenInterface  $token  The token to check
      * @param  string  $permission  The permission to check
      * @param  string  $operation  The operation to check
+     * @param  Vote|null $vote  The vote object to add reasons to (optional). If null, no reasons are added.
      * @return bool
      */
-    public function isGranted(TokenInterface $token, string $permission, string $operation): bool
+    public function isGranted(TokenInterface $token, string $permission, string $operation, ?Vote $vote = null): bool
     {
-        return $this->isGrantedTrinary($token, $permission, $operation) ?? false;
+        $tmp = $this->isGrantedTrinary($token, $permission, $operation) ?? false;
+        if ($tmp === false) {
+            $this->addReason($vote, $permission, $operation);
+        }
+        return $tmp;
     }
 
     /**
@@ -123,5 +135,18 @@ final class VoterHelper
     public function isValidOperation(string $permission, string $operation): bool
     {
         return $this->permissionManager->isValidOperation($permission, $operation);
+    }
+
+    public function addReason(?Vote $voter, string $permission, $operation): void
+    {
+        if ($voter !== null) {
+            $voter->addReason(sprintf("User does not have permission %s -> %s -> %s (%s.%s).",
+                $this->translator->trans('perm.group.'.($this->permissionStructure['perms'][$permission]['group'] ?? 'unknown') ),
+                $this->translator->trans($this->permissionStructure['perms'][$permission]['label'] ?? $permission),
+                $this->translator->trans($this->permissionStructure['perms'][$permission]['operations'][$operation]['label'] ?? $operation),
+                $permission,
+                $operation
+            ));
+        }
     }
 }

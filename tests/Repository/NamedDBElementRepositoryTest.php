@@ -32,7 +32,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class NamedDBElementRepositoryTest extends WebTestCase
 {
-    private $entityManager;
     /**
      * @var StructuralDBElementRepository
      */
@@ -42,11 +41,11 @@ class NamedDBElementRepositoryTest extends WebTestCase
     {
         $kernel = self::bootKernel();
 
-        $this->entityManager = $kernel->getContainer()
+        $entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
 
-        $this->repo = $this->entityManager->getRepository(User::class);
+        $this->repo = $entityManager->getRepository(User::class);
     }
 
     public function testGetGenericNodeTree(): void

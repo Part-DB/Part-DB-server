@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Tests\Twig;
 
 use App\Entity\Attachments\PartAttachment;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
@@ -67,6 +68,7 @@ class EntityExtensionTest extends WebTestCase
         $this->assertSame('currency', $this->service->getEntityType(new Currency()));
         $this->assertSame('measurement_unit', $this->service->getEntityType(new MeasurementUnit()));
         $this->assertSame('label_profile', $this->service->getEntityType(new LabelProfile()));
+        $this->assertSame('part_custom_state', $this->service->getEntityType(new PartCustomState()));
     }
 
 }

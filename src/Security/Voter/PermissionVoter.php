@@ -24,6 +24,7 @@ namespace App\Security\Voter;
 
 use App\Services\UserSystem\VoterHelper;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
@@ -39,12 +40,17 @@ final class PermissionVoter extends Voter
 
     }
 
-    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         $attribute = ltrim($attribute, '@');
         [$perm, $op] = explode('.', $attribute);
 
-        return $this->helper->isGranted($token, $perm, $op);
+        $result = $this->helper->isGranted($token, $perm, $op);
+        if ($result === false) {
+            $this->helper->addReason($vote, $perm, $op);
+        }
+
+        return $result;
     }
 
     public function supportsAttribute(string $attribute): bool

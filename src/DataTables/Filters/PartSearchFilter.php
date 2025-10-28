@@ -21,6 +21,7 @@ declare(strict_types=1);
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 namespace App\DataTables\Filters;
+use App\DataTables\Filters\Constraints\AbstractConstraint;
 use Doctrine\ORM\QueryBuilder;
 
 class PartSearchFilter implements FilterInterface
@@ -144,36 +145,40 @@ class PartSearchFilter implements FilterInterface
             //For regex, we pass the query as is, save html special chars
             $queryBuilder->setParameter('search_query', $this->keyword);
             return;
+        } else {
+            //Escape % and _ characters in the keyword
+            $this->keyword = str_replace(['%', '_'], ['\%', '\_'], $this->keyword);
+
+            //Split keyword on spaces, but limit token count
+            $tokens = explode(' ', $this->keyword, 5);
+
+            $params = new \Doctrine\Common\Collections\ArrayCollection();
+
+            //Perform search of every single token in every selected field
+            //AND-combine the results (all tokens must be present in any result, but the order does not matter)
+            for ($i = 0; $i < sizeof($tokens); $i++) {
+                $this->it = $i;
+                $tokens[$i] = trim($tokens[$i]);
+              
+                //Skip empty words (e.g. because of multiple spaces)
+                if ($tokens[$i] === '') {
+                    continue;
+                }
+                //Convert the fields to search to a list of expressions
+                $expressions = array_map(function (string $field): string {
+                    return sprintf("ILIKE(%s, :search_query%u) = TRUE", $field, $this->it);
+                }, $fields_to_search);
+              
+                //Aggregate the parameters for consolidated commission
+                $params[] = new \Doctrine\ORM\Query\Parameter('search_query' . $i, '%' . $tokens[$i] . '%');
+              
+                //Add Or concatenation of the expressions to our query
+                $queryBuilder->andWhere(
+                    $queryBuilder->expr()->orX(...$expressions)
+                );
+            }
+            $queryBuilder->setParameters($params);
         }
-
-        //Split keyword on spaces, but limit token count to not blow up the DB
-        $tokens = explode(' ', $this->keyword, 5);
-
-        $params = new \Doctrine\Common\Collections\ArrayCollection();
-
-        //Perform search of every single token in every selected field, AND the where clauses
-        for ($i = 0; $i < sizeof($tokens); $i++) {
-            $this->it = $i;
-            $tokens[$i] = trim($tokens[$i]);
-
-            //Skip empty words (e.g. because of multiple spaces)
-            if ($tokens[$i] === '') continue;
-
-            //Convert the fields to search to a list of expressions
-            $expressions = array_map(function (string $field): string {
-                return sprintf("ILIKE(%s, :search_query%u) = TRUE", $field, $this->it);
-            }, $fields_to_search);
-
-            //Aggregate the parameters for consolidated commission
-            $params[] = new \Doctrine\ORM\Query\Parameter('search_query' . $i, '%' . $tokens[$i] . '%');
-
-            //Add Or concatenation of the expressions to our query
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->orX(...$expressions)
-            );
-        }
-        $queryBuilder->setParameters($params);
-
     }
 
     public function getKeyword(): string

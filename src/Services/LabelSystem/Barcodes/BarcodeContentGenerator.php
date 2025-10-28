@@ -95,6 +95,11 @@ final class BarcodeContentGenerator
         return $prefix.$id;
     }
 
+    /**
+     * @param  array<string, string> $map
+     * @param  object  $target
+     * @return string
+     */
     private function classToString(array $map, object $target): string
     {
         $class = $target::class;

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Helpers;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Helpers\BBCodeToMarkdownConverter;
 use PHPUnit\Framework\TestCase;
 
@@ -34,7 +35,7 @@ class BBCodeToMarkdownConverterTest extends TestCase
         $this->converter = new BBCodeToMarkdownConverter();
     }
 
-    public function dataProvider(): \Iterator
+    public static function dataProvider(): \Iterator
     {
         yield ['[b]Bold[/b]', '**Bold**'];
         yield ['[i]Italic[/i]', '*Italic*'];
@@ -46,11 +47,11 @@ class BBCodeToMarkdownConverterTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProvider
      *
      * @param $bbcode
      * @param $expected
      */
+    #[DataProvider('dataProvider')]
     public function testConvert($bbcode, $expected): void
     {
         $this->assertSame($expected, $this->converter->convert($bbcode));

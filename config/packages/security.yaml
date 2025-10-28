@@ -13,7 +13,7 @@ security:
 
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern: ^/(_(profiler|wdt)|css|images|js|\.well-known)/
             security: false
         main:
             provider: app_user_provider

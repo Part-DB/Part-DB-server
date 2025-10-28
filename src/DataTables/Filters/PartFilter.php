@@ -22,12 +22,16 @@ declare(strict_types=1);
  */
 namespace App\DataTables\Filters;
 
+use App\DataTables\Filters\Constraints\AbstractConstraint;
 use App\DataTables\Filters\Constraints\BooleanConstraint;
 use App\DataTables\Filters\Constraints\ChoiceConstraint;
 use App\DataTables\Filters\Constraints\DateTimeConstraint;
 use App\DataTables\Filters\Constraints\EntityConstraint;
 use App\DataTables\Filters\Constraints\IntConstraint;
 use App\DataTables\Filters\Constraints\NumberConstraint;
+use App\DataTables\Filters\Constraints\Part\BulkImportJobExistsConstraint;
+use App\DataTables\Filters\Constraints\Part\BulkImportJobStatusConstraint;
+use App\DataTables\Filters\Constraints\Part\BulkImportPartStatusConstraint;
 use App\DataTables\Filters\Constraints\Part\LessThanDesiredConstraint;
 use App\DataTables\Filters\Constraints\Part\ParameterConstraint;
 use App\DataTables\Filters\Constraints\Part\TagsConstraint;
@@ -37,6 +41,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
@@ -82,6 +87,7 @@ class PartFilter implements FilterInterface
     public readonly EntityConstraint $lotOwner;
 
     public readonly EntityConstraint $measurementUnit;
+    public readonly EntityConstraint $partCustomState;
     public readonly TextConstraint $manufacturer_product_url;
     public readonly TextConstraint $manufacturer_product_number;
     public readonly IntConstraint $attachmentsCount;
@@ -101,8 +107,19 @@ class PartFilter implements FilterInterface
     public readonly TextConstraint $bomName;
     public readonly TextConstraint $bomComment;
 
+    /*************************************************
+     * Bulk Import Job tab
+     *************************************************/
+
+    public readonly BulkImportJobExistsConstraint $inBulkImportJob;
+    public readonly BulkImportJobStatusConstraint $bulkImportJobStatus;
+    public readonly BulkImportPartStatusConstraint $bulkImportPartStatus;
+
     public function __construct(NodesListBuilder $nodesListBuilder)
     {
+        //Must be done for every new set of attachment filters, to ensure deterministic parameter names.
+        AbstractConstraint::resetParameterCounter();
+
         $this->name = new TextConstraint('part.name');
         $this->description = new TextConstraint('part.description');
         $this->comment = new TextConstraint('part.comment');
@@ -113,6 +130,7 @@ class PartFilter implements FilterInterface
         $this->favorite = new BooleanConstraint('part.favorite');
         $this->needsReview = new BooleanConstraint('part.needs_review');
         $this->measurementUnit = new EntityConstraint($nodesListBuilder, MeasurementUnit::class, 'part.partUnit');
+        $this->partCustomState = new EntityConstraint($nodesListBuilder, PartCustomState::class, 'part.partCustomState');
         $this->mass = new NumberConstraint('part.mass');
         $this->dbId = new IntConstraint('part.id');
         $this->ipn = new TextConstraint('part.ipn');
@@ -126,7 +144,7 @@ class PartFilter implements FilterInterface
          */
         $this->amountSum = (new IntConstraint('(
                     SELECT COALESCE(SUM(__partLot.amount), 0.0)
-                    FROM '.PartLot::class.' __partLot
+                    FROM ' . PartLot::class . ' __partLot
                     WHERE __partLot.part = part.id
                     AND __partLot.instock_unknown = false
                     AND (__partLot.expiration_date IS NULL OR __partLot.expiration_date > CURRENT_DATE())
@@ -161,6 +179,11 @@ class PartFilter implements FilterInterface
         $this->bomQuantity = new NumberConstraint('_projectBomEntries.quantity');
         $this->bomName = new TextConstraint('_projectBomEntries.name');
         $this->bomComment = new TextConstraint('_projectBomEntries.comment');
+
+        // Bulk Import Job filters
+        $this->inBulkImportJob = new BulkImportJobExistsConstraint();
+        $this->bulkImportJobStatus = new BulkImportJobStatusConstraint();
+        $this->bulkImportPartStatus = new BulkImportPartStatusConstraint();
 
     }
 

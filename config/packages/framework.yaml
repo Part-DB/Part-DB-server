@@ -1,9 +1,6 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
     secret: '%env(APP_SECRET)%'
-    csrf_protection: true
-    annotations: false
-    handle_all_throwables: true
 
     # We set this header by ourselves, so we can disable it here
     disallow_search_engine_index: false
@@ -30,8 +27,11 @@ framework:
 
     #esi: true
     #fragments: true
-    php_errors:
-        log: true
+
+
+    form: { csrf_protection: { token_id: 'submit' } }
+    csrf_protection:
+        stateless_token_ids: ['submit', 'authenticate', 'logout']
 
 when@test:
     framework:

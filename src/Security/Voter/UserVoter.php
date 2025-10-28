@@ -26,6 +26,7 @@ use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use App\Services\UserSystem\VoterHelper;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 use function in_array;
@@ -79,7 +80,7 @@ final class UserVoter extends Voter
      *
      * @param  string  $attribute
      */
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         $user = $this->helper->resolveUser($token);
 
@@ -97,7 +98,7 @@ final class UserVoter extends Voter
         if (($subject instanceof User) && $subject->getID() === $user->getID() &&
             $this->helper->isValidOperation('self', $attribute)) {
             //Then we also need to check the self permission
-            $tmp = $this->helper->isGranted($token, 'self', $attribute);
+            $tmp = $this->helper->isGranted($token, 'self', $attribute, $vote);
             //But if the self value is not allowed then use just the user value:
             if ($tmp) {
                 return $tmp;
@@ -106,7 +107,7 @@ final class UserVoter extends Voter
 
         //Else just check user permission:
         if ($this->helper->isValidOperation('users', $attribute)) {
-            return $this->helper->isGranted($token, 'users', $attribute);
+            return $this->helper->isGranted($token, 'users', $attribute, $vote);
         }
 
         return false;

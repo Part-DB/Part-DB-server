@@ -90,9 +90,9 @@ class PermissionSchemaUpdaterTest extends WebTestCase
 
         //Do an upgrade and afterward the move, add, and withdraw permissions should be set to ALLOW
         self::assertTrue($this->service->upgradeSchema($user, 1));
-        self::assertEquals(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('parts_stock', 'move'));
-        self::assertEquals(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('parts_stock', 'add'));
-        self::assertEquals(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('parts_stock', 'withdraw'));
+        self::assertSame(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('parts_stock', 'move'));
+        self::assertSame(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('parts_stock', 'add'));
+        self::assertSame(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('parts_stock', 'withdraw'));
     }
 
     public function testUpgradeSchemaToVersion2(): void
@@ -106,9 +106,9 @@ class PermissionSchemaUpdaterTest extends WebTestCase
 
         //After the upgrade all operations should be available under the name "projects" with the same values
         self::assertTrue($this->service->upgradeSchema($user, 2));
-        self::assertEquals(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('projects', 'read'));
-        self::assertEquals(PermissionData::INHERIT, $user->getPermissions()->getPermissionValue('projects', 'edit'));
-        self::assertEquals(PermissionData::DISALLOW, $user->getPermissions()->getPermissionValue('projects', 'delete'));
+        self::assertSame(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('projects', 'read'));
+        self::assertSame(PermissionData::INHERIT, $user->getPermissions()->getPermissionValue('projects', 'edit'));
+        self::assertSame(PermissionData::DISALLOW, $user->getPermissions()->getPermissionValue('projects', 'delete'));
     }
 
     public function testUpgradeSchemaToVersion3(): void

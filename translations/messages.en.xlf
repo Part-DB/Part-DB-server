@@ -548,6 +548,12 @@
         <target>Measurement Unit</target>
       </segment>
     </unit>
+    <unit id="3bcKBzY" name="part_custom_state.caption">
+      <segment state="translated">
+        <source>part_custom_state.caption</source>
+        <target>Custom part states</target>
+      </segment>
+    </unit>
     <unit id="crdkzlg" name="storelocation.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:5</note>
@@ -4831,6 +4837,12 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Measurement Unit</target>
       </segment>
     </unit>
+    <unit id="G1hmQdb" name="part.table.partCustomState">
+      <segment state="translated">
+        <source>part.table.partCustomState</source>
+        <target>Custom part state</target>
+      </segment>
+    </unit>
     <unit id="R5pc2FR" name="part.table.addedDate">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:236</note>
@@ -5695,6 +5707,12 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Measuring unit</target>
       </segment>
     </unit>
+    <unit id="G1hmQdb" name="part.edit.partCustomState">
+      <segment state="translated">
+        <source>part.edit.partCustomState</source>
+        <target>Custom part state</target>
+      </segment>
+    </unit>
     <unit id="oY_9HE9" name="part.edit.comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:212</note>
@@ -5982,6 +6000,12 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Measurement unit</target>
       </segment>
     </unit>
+    <unit id="a1mPcMw" name="part_custom_state.label">
+      <segment state="translated">
+        <source>part_custom_state.label</source>
+        <target>Custom part state</target>
+      </segment>
+    </unit>
     <unit id="__SP1Zy" name="currency.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:90</note>
@@ -6223,6 +6247,12 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <segment state="translated">
         <source>tree.tools.edit.measurement_unit</source>
         <target>Measurement Unit</target>
+      </segment>
+    </unit>
+    <unit id="5adacKb" name="tree.tools.edit.part_custom_state">
+      <segment state="translated">
+        <source>tree.tools.edit.part_custom_state</source>
+        <target>Custom part states</target>
       </segment>
     </unit>
     <unit id=".Ux4R3T" name="tree.tools.edit.label_profile">
@@ -7162,7 +7192,10 @@ Exampletown</target>
       Element 1.1.1
    Element 1.2
 Element 2
-Element 3</target>
+Element 3
+
+Element 1 -&gt; Element 1.1
+Element 1 -&gt; Element 1.2</target>
       </segment>
     </unit>
     <unit id="TWSqPFi" name="entity.mass_creation.btn">
@@ -8495,6 +8528,12 @@ Element 3</target>
         <target>Measurement unit</target>
       </segment>
     </unit>
+    <unit id="1b5ja1c" name="perm.part_custom_states">
+      <segment state="translated">
+        <source>perm.part_custom_states</source>
+        <target>Custom part state</target>
+      </segment>
+    </unit>
     <unit id="coNue69" name="user.settings.pw_old.label">
       <notes>
         <note priority="1">obsolete</note>
@@ -8549,16 +8588,6 @@ Element 3</target>
       <segment state="translated">
         <source>tfa.provider.google</source>
         <target>Authenticator app</target>
-      </segment>
-    </unit>
-    <unit id="fGkpjYW" name="Login successful">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>Login successful</source>
-        <target>Login successful</target>
       </segment>
     </unit>
     <unit id="KSHVrbr" name="log.type.exception">
@@ -8684,15 +8713,6 @@ Element 3</target>
       <segment state="translated">
         <source>tfa_u2f.key_added_successful</source>
         <target>Security key added successfully.</target>
-      </segment>
-    </unit>
-    <unit id="VhxhtYo" name="Username">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>Username</source>
-        <target>Username</target>
       </segment>
     </unit>
     <unit id="gDVCAxj" name="log.type.security.google_disabled">
@@ -8941,6 +8961,12 @@ Element 3</target>
         <target>Edit part</target>
       </segment>
     </unit>
+    <unit id="keLmdcq" name="part_list.action.scrollable_hint">
+      <segment state="translated">
+        <source>part_list.action.scrollable_hint</source>
+        <target>Scroll to see all actions</target>
+      </segment>
+    </unit>
     <unit id="w3XOUoO" name="part_list.action.action.title">
       <segment state="translated">
         <source>part_list.action.action.title</source>
@@ -9010,7 +9036,7 @@ Element 3</target>
     <unit id="gaoMsrY" name="part_list.action.part_count">
       <segment state="translated">
         <source>part_list.action.part_count</source>
-        <target>%count% parts selected!</target>
+        <target>%count% parts selected</target>
       </segment>
     </unit>
     <unit id="FhdheZY" name="company.edit.quick.website">
@@ -9329,6 +9355,72 @@ Element 3</target>
       <segment state="translated">
         <source>part.filter.attachmentName</source>
         <target>Attachment name</target>
+      </segment>
+    </unit>
+    <unit id="_5zM4Zv" name="filter.bulk_import_job.label">
+      <segment state="translated">
+        <source>filter.bulk_import_job.label</source>
+        <target>Bulk Import Job</target>
+      </segment>
+    </unit>
+    <unit id="rXReB8s" name="filter.bulk_import_job.job_status">
+      <segment state="translated">
+        <source>filter.bulk_import_job.job_status</source>
+        <target>Job Status</target>
+      </segment>
+    </unit>
+    <unit id="VSY.FIr" name="filter.bulk_import_job.part_status_in_job">
+      <segment state="translated">
+        <source>filter.bulk_import_job.part_status_in_job</source>
+        <target>Part Status in Job</target>
+      </segment>
+    </unit>
+    <unit id="2Euegw5" name="filter.bulk_import_job.status.pending">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.pending</source>
+        <target>Pending</target>
+      </segment>
+    </unit>
+    <unit id="JT3CbaE" name="filter.bulk_import_job.status.in_progress">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.in_progress</source>
+        <target>In Progress</target>
+      </segment>
+    </unit>
+    <unit id="J9uBFFo" name="filter.bulk_import_job.status.completed">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.completed</source>
+        <target>Completed</target>
+      </segment>
+    </unit>
+    <unit id="lv4PVt2" name="filter.bulk_import_job.status.stopped">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.stopped</source>
+        <target>Stopped</target>
+      </segment>
+    </unit>
+    <unit id="0qKD5hC" name="filter.bulk_import_job.status.failed">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.failed</source>
+        <target>Failed</target>
+      </segment>
+    </unit>
+    <unit id="q35A9Tf" name="filter.bulk_import_job.part_status.pending">
+      <segment state="translated">
+        <source>filter.bulk_import_job.part_status.pending</source>
+        <target>Pending</target>
+      </segment>
+    </unit>
+    <unit id=".Bxg5IL" name="filter.bulk_import_job.part_status.completed">
+      <segment state="translated">
+        <source>filter.bulk_import_job.part_status.completed</source>
+        <target>Completed</target>
+      </segment>
+    </unit>
+    <unit id="kRFtBzL" name="filter.bulk_import_job.part_status.skipped">
+      <segment state="translated">
+        <source>filter.bulk_import_job.part_status.skipped</source>
+        <target>Skipped</target>
       </segment>
     </unit>
     <unit id="YcIyWEZ" name="filter.choice_constraint.operator.ANY">
@@ -10825,6 +10917,12 @@ Element 3</target>
         <target>Measuring Unit</target>
       </segment>
     </unit>
+    <unit id="2COnw1k" name="log.element_edited.changed_fields.partCustomState">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.partCustomState</source>
+        <target>Custom part state</target>
+      </segment>
+    </unit>
     <unit id="c9XMmAp" name="log.element_edited.changed_fields.expiration_date">
       <segment state="translated">
         <source>log.element_edited.changed_fields.expiration_date</source>
@@ -10901,6 +10999,12 @@ Element 3</target>
       <segment state="translated">
         <source>part_list.action.export_xml</source>
         <target>Export to XML</target>
+      </segment>
+    </unit>
+    <unit id="X.gTRGX" name="part_list.action.export_xlsx">
+      <segment state="translated">
+        <source>part_list.action.export_xlsx</source>
+        <target>Export to Excel</target>
       </segment>
     </unit>
     <unit id="w0AgPEI" name="parts.import.title">
@@ -11081,6 +11185,18 @@ Element 3</target>
       <segment state="translated">
         <source>measurement_unit.edit</source>
         <target>Edit Measurement Unit</target>
+      </segment>
+    </unit>
+    <unit id="ba52d.g" name="part_custom_state.new">
+      <segment state="translated">
+        <source>part_custom_state.new</source>
+        <target>New custom part state</target>
+      </segment>
+    </unit>
+    <unit id="c1.gb2d" name="part_custom_state.edit">
+      <segment state="translated">
+        <source>part_custom_state.edit</source>
+        <target>Edit custom part state</target>
       </segment>
     </unit>
     <unit id="uW2WHHC" name="user.aboutMe.label">
@@ -12210,7 +12326,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="VZuIXC1" name="info_providers.search.no_results">
       <segment state="translated">
         <source>info_providers.search.no_results</source>
-        <target>No results found at the selected providers! Check your search term or try to choose additional providers.</target>
+        <target>No results found</target>
       </segment>
     </unit>
     <unit id="It1umoK" name="tfa.check.code.confirmation">
@@ -12315,6 +12431,529 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Profile saved!</target>
       </segment>
     </unit>
+    <unit id="XUlcyOb" name="settings.ips.element14">
+      <segment state="translated">
+        <source>settings.ips.element14</source>
+        <target>Element 14 / Farnell</target>
+      </segment>
+    </unit>
+    <unit id="1N9Wp0_" name="settings.ips.element14.apiKey">
+      <segment state="translated">
+        <source>settings.ips.element14.apiKey</source>
+        <target>API Key</target>
+      </segment>
+    </unit>
+    <unit id="p7LGAIX" name="settings.ips.element14.apiKey.help">
+      <segment state="translated">
+        <source>settings.ips.element14.apiKey.help</source>
+        <target>You can register for an API key on &lt;a href="https://partner.element14.com/"&gt;https://partner.element14.com/&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="ZdUHpZc" name="settings.ips.element14.storeId">
+      <segment state="translated">
+        <source>settings.ips.element14.storeId</source>
+        <target>Store Domain</target>
+      </segment>
+    </unit>
+    <unit id="XXGUxF6" name="settings.ips.element14.storeId.help">
+      <segment state="translated">
+        <source>settings.ips.element14.storeId.help</source>
+        <target>The store domain to retrieve the data from. This decides the language and currency of results. See &lt;a href="https://partner.element14.com/docs/Product_Search_API_REST__Description"&gt;here&lt;/a&gt; for a list of valid domains.</target>
+      </segment>
+    </unit>
+    <unit id="WKWZIm2" name="settings.ips.tme">
+      <segment state="translated">
+        <source>settings.ips.tme</source>
+        <target>TME</target>
+      </segment>
+    </unit>
+    <unit id="KgK78ks" name="settings.ips.tme.token">
+      <segment state="translated">
+        <source>settings.ips.tme.token</source>
+        <target>API Token</target>
+      </segment>
+    </unit>
+    <unit id="_pYLrPT" name="settings.ips.tme.token.help">
+      <segment state="translated">
+        <source>settings.ips.tme.token.help</source>
+        <target>You can get an API token and secret on &lt;a href="https://developers.tme.eu/en/"&gt;https://developers.tme.eu/en/&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="yswx4bq" name="settings.ips.tme.secret">
+      <segment state="translated">
+        <source>settings.ips.tme.secret</source>
+        <target>API Secret</target>
+      </segment>
+    </unit>
+    <unit id="edYZA5y" name="settings.ips.tme.currency">
+      <segment state="translated">
+        <source>settings.ips.tme.currency</source>
+        <target>Currency</target>
+      </segment>
+    </unit>
+    <unit id="EsVqpUJ" name="settings.ips.tme.language">
+      <segment state="translated">
+        <source>settings.ips.tme.language</source>
+        <target>Language</target>
+      </segment>
+    </unit>
+    <unit id="qFwUGJJ" name="settings.ips.tme.country">
+      <segment state="translated">
+        <source>settings.ips.tme.country</source>
+        <target>Country</target>
+      </segment>
+    </unit>
+    <unit id="Mf2WKob" name="settings.ips.tme.grossPrices">
+      <segment state="translated">
+        <source>settings.ips.tme.grossPrices</source>
+        <target>Get gross prices (including tax)</target>
+      </segment>
+    </unit>
+    <unit id="A.x1dyH" name="settings.ips.mouser">
+      <segment state="translated">
+        <source>settings.ips.mouser</source>
+        <target>Mouser</target>
+      </segment>
+    </unit>
+    <unit id="5ZxvqyY" name="settings.ips.mouser.apiKey">
+      <segment state="translated">
+        <source>settings.ips.mouser.apiKey</source>
+        <target>API key</target>
+      </segment>
+    </unit>
+    <unit id="gu.JlpT" name="settings.ips.mouser.apiKey.help">
+      <segment state="translated">
+        <source>settings.ips.mouser.apiKey.help</source>
+        <target>You can register for an API key on &lt;a href="https://eu.mouser.com/api-hub/"&gt;https://eu.mouser.com/api-hub/&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="Q66CNjw" name="settings.ips.mouser.searchLimit">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchLimit</source>
+        <target>Search limit</target>
+      </segment>
+    </unit>
+    <unit id="aj5nhIi" name="settings.ips.mouser.searchLimit.help">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchLimit.help</source>
+        <target>The maximum amount of results for a single search. Can not be higher than 50.</target>
+      </segment>
+    </unit>
+    <unit id="q8.Wpbu" name="settings.ips.mouser.searchOptions">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions</source>
+        <target>Search filters</target>
+      </segment>
+    </unit>
+    <unit id="7ERXoOf" name="settings.ips.mouser.searchOptions.help">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.help</source>
+        <target>This allows you to only show parts with a certain availability and/or compliance.</target>
+      </segment>
+    </unit>
+    <unit id="2_fx.rT" name="settings.ips.mouser.searchOptions.none">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.none</source>
+        <target>No filter</target>
+      </segment>
+    </unit>
+    <unit id=".PbDhl9" name="settings.ips.mouser.searchOptions.rohs">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.rohs</source>
+        <target>Only RoHS compliant parts</target>
+      </segment>
+    </unit>
+    <unit id="4SPypVz" name="settings.ips.mouser.searchOptions.inStock">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.inStock</source>
+        <target>Only in stock parts</target>
+      </segment>
+    </unit>
+    <unit id="xU8_Qw." name="settings.ips.mouser.searchOptions.rohsAndInStock">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.rohsAndInStock</source>
+        <target>Only in stock, RoHS compliant parts</target>
+      </segment>
+    </unit>
+    <unit id="fQYt0Om" name="settings.ips.lcsc">
+      <segment state="translated">
+        <source>settings.ips.lcsc</source>
+        <target>LCSC</target>
+      </segment>
+    </unit>
+    <unit id="iD6HBym" name="settings.ips.lcsc.help">
+      <segment state="translated">
+        <source>settings.ips.lcsc.help</source>
+        <target>Warning: LCSC does not provide an official API. This provider utilizes the webshop API. LCSC did not intend the use of this API, and it could break any time, so use it on your own risk.</target>
+      </segment>
+    </unit>
+    <unit id="v7inGbo" name="settings.ips.lcsc.enabled">
+      <segment state="translated">
+        <source>settings.ips.lcsc.enabled</source>
+        <target>Enable</target>
+      </segment>
+    </unit>
+    <unit id="3KcMouQ" name="settings.ips.lcsc.currency">
+      <segment state="translated">
+        <source>settings.ips.lcsc.currency</source>
+        <target>Currency</target>
+      </segment>
+    </unit>
+    <unit id="kKv0J3." name="settings.system.attachments">
+      <segment state="translated">
+        <source>settings.system.attachments</source>
+        <target>Attachments &amp; Files</target>
+      </segment>
+    </unit>
+    <unit id="dsRff8T" name="settings.system.attachments.maxFileSize">
+      <segment state="translated">
+        <source>settings.system.attachments.maxFileSize</source>
+        <target>Maximum file size</target>
+      </segment>
+    </unit>
+    <unit id="uI1XsbJ" name="settings.system.attachments.maxFileSize.help">
+      <segment state="translated">
+        <source>settings.system.attachments.maxFileSize.help</source>
+        <target>The maximum size of files that can be uploaded. Please note that this is also limited by PHP configuration.</target>
+      </segment>
+    </unit>
+    <unit id="sIt9Ovp" name="settings.system.attachments.allowDownloads">
+      <segment state="translated">
+        <source>settings.system.attachments.allowDownloads</source>
+        <target>Allow downloading of external files</target>
+      </segment>
+    </unit>
+    <unit id="T.PBu5P" name="settings.system.attachments.allowDownloads.help">
+      <segment state="translated">
+        <source>settings.system.attachments.allowDownloads.help</source>
+        <target>With this option users can download external files into Part-DB by providing an URL. &lt;b&gt;Attention: This can be a security issue, as it might allow users to access intranet ressources via Part-DB!&lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id=".OyihML" name="settings.system.attachments.downloadByDefault">
+      <segment state="translated">
+        <source>settings.system.attachments.downloadByDefault</source>
+        <target>Download new attachment URLs by default</target>
+      </segment>
+    </unit>
+    <unit id="UuDCaUI" name="settings.system.customization">
+      <segment state="translated">
+        <source>settings.system.customization</source>
+        <target>Customization</target>
+      </segment>
+    </unit>
+    <unit id="VYMqQr5" name="settings.system.customization.instanceName">
+      <segment state="translated">
+        <source>settings.system.customization.instanceName</source>
+        <target>Instance name</target>
+      </segment>
+    </unit>
+    <unit id="0YFxSHZ" name="settings.system.customization.instanceName.help">
+      <segment state="translated">
+        <source>settings.system.customization.instanceName.help</source>
+        <target>Name of this Part-DB installation. The value is shown in nav bar and titles.</target>
+      </segment>
+    </unit>
+    <unit id="28n6rA7" name="settings.system.customization.banner">
+      <segment state="translated">
+        <source>settings.system.customization.banner</source>
+        <target>Homepage banner</target>
+      </segment>
+    </unit>
+    <unit id="cdwJbbA" name="settings.system.history">
+      <segment state="translated">
+        <source>settings.system.history</source>
+        <target>History log</target>
+      </segment>
+    </unit>
+    <unit id="6TrsK5U" name="settings.system.history.saveChangedFields">
+      <segment state="translated">
+        <source>settings.system.history.saveChangedFields</source>
+        <target>Save which fields of an element were changed in log entries</target>
+      </segment>
+    </unit>
+    <unit id="IVP9YL8" name="settings.system.history.saveOldData">
+      <segment state="translated">
+        <source>settings.system.history.saveOldData</source>
+        <target>Save the old data in log entries on element changes</target>
+      </segment>
+    </unit>
+    <unit id="clqgFOW" name="settings.system.history.saveNewData">
+      <segment state="translated">
+        <source>settings.system.history.saveNewData</source>
+        <target>Save the new data in log entries on element change/creation</target>
+      </segment>
+    </unit>
+    <unit id="MITi2KP" name="settings.system.history.saveRemovedData">
+      <segment state="translated">
+        <source>settings.system.history.saveRemovedData</source>
+        <target>Save removed data in log entries on element deletion</target>
+      </segment>
+    </unit>
+    <unit id="pinyqu2" name="settings.system.customization.theme">
+      <segment state="translated">
+        <source>settings.system.customization.theme</source>
+        <target>Global theme</target>
+      </segment>
+    </unit>
+    <unit id="Aky9nXE" name="settings.system.history.enforceComments">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments</source>
+        <target>Enforce comments for action types</target>
+      </segment>
+    </unit>
+    <unit id="axivgKB" name="settings.system.history.enforceComments.description">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.description</source>
+        <target>With this option, you can specify for which actions, users are enforced to give a reason, which will be logged in history.</target>
+      </segment>
+    </unit>
+    <unit id="eqQKTzQ" name="settings.system.history.enforceComments.type.part_edit">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.part_edit</source>
+        <target>Part edit</target>
+      </segment>
+    </unit>
+    <unit id="Ip_kAO3" name="settings.system.history.enforceComments.type.part_create">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.part_create</source>
+        <target>Part creation</target>
+      </segment>
+    </unit>
+    <unit id="qEa.03L" name="settings.system.history.enforceComments.type.part_delete">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.part_delete</source>
+        <target>Part deletion</target>
+      </segment>
+    </unit>
+    <unit id="zjITvo2" name="settings.system.history.enforceComments.type.part_stock_operation">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.part_stock_operation</source>
+        <target>Part stock operation</target>
+      </segment>
+    </unit>
+    <unit id="hPbibkF" name="settings.system.history.enforceComments.type.datastructure_edit">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.datastructure_edit</source>
+        <target>Data structure edit</target>
+      </segment>
+    </unit>
+    <unit id="7mB_fP3" name="settings.system.history.enforceComments.type.datastructure_create">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.datastructure_create</source>
+        <target>Data structure creation</target>
+      </segment>
+    </unit>
+    <unit id="nt8eToz" name="settings.system.history.enforceComments.type.datastructure_delete">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.datastructure_delete</source>
+        <target>Data structure deletion</target>
+      </segment>
+    </unit>
+    <unit id="zQ8vq5N" name="settings.system.privacy.useGravatar">
+      <segment state="translated">
+        <source>settings.system.privacy.useGravatar</source>
+        <target>Use Gravatar avatars</target>
+      </segment>
+    </unit>
+    <unit id="8IszKgp" name="settings.system.privacy.useGravatar.description">
+      <segment state="translated">
+        <source>settings.system.privacy.useGravatar.description</source>
+        <target>If a user does not have an avatar image specified, use the avatar from Gravatar based on the user email. This causes the browser to load pictures from a third-party!</target>
+      </segment>
+    </unit>
+    <unit id="rxHBzbv" name="settings.system.privacy.checkForUpdates">
+      <segment state="translated">
+        <source>settings.system.privacy.checkForUpdates</source>
+        <target>Check for Part-DB updates</target>
+      </segment>
+    </unit>
+    <unit id="LrAcb0O" name="settings.system.privacy.checkForUpdates.description">
+      <segment state="translated">
+        <source>settings.system.privacy.checkForUpdates.description</source>
+        <target>Part-DB regularly checks if a new version is available on GitHub. Disable this here, if you do not want this or if your server can not connect to the internet.</target>
+      </segment>
+    </unit>
+    <unit id="nMhHcYc" name="settings.system.localization.locale">
+      <segment state="translated">
+        <source>settings.system.localization.locale</source>
+        <target>Default language / locale</target>
+      </segment>
+    </unit>
+    <unit id="vWBNX1b" name="settings.system.localization">
+      <segment state="translated">
+        <source>settings.system.localization</source>
+        <target>Localization</target>
+      </segment>
+    </unit>
+    <unit id="7_M.HcK" name="settings.system.localization.timezone">
+      <segment state="translated">
+        <source>settings.system.localization.timezone</source>
+        <target>Default timezone</target>
+      </segment>
+    </unit>
+    <unit id="CCMOzX7" name="settings.system.localization.base_currency">
+      <segment state="translated">
+        <source>settings.system.localization.base_currency</source>
+        <target>Base currency</target>
+      </segment>
+    </unit>
+    <unit id="0GRlEe5" name="settings.system.localization.base_currency_description">
+      <segment state="translated">
+        <source>settings.system.localization.base_currency_description</source>
+        <target>The currency that is used to store price information and exchange rates in. This currency is assumed, when no currency is set for a price information.
+&lt;b&gt;Please note that the currencies are not converted, when changing this value. So changing the default currency after you already added price information, will result in wrong prices!&lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id="cvpTUeY" name="settings.system.privacy">
+      <segment state="translated">
+        <source>settings.system.privacy</source>
+        <target>Privacy</target>
+      </segment>
+    </unit>
+    <unit id="TVAVZUl" name="settings.title">
+      <segment state="translated">
+        <source>settings.title</source>
+        <target>Server settings</target>
+      </segment>
+    </unit>
+    <unit id="xtw_ol7" name="settings.misc.kicad_eda">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda</source>
+        <target>KiCAD integration</target>
+      </segment>
+    </unit>
+    <unit id="8u9_KDD" name="settings.misc.kicad_eda.category_depth">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.category_depth</source>
+        <target>Category depth</target>
+      </segment>
+    </unit>
+    <unit id="w07P3Dt" name="settings.misc.kicad_eda.category_depth.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.category_depth.help</source>
+        <target>This value determines the depth of the category tree, that is visible inside KiCad. 0 means that only the top level categories are visible. Set to a value &gt; 0 to show more levels. Set to -1, to show all parts of Part-DB inside a sigle cnategory in KiCad.</target>
+      </segment>
+    </unit>
+    <unit id="VwvmcWE" name="settings.behavior.sidebar">
+      <segment state="translated">
+        <source>settings.behavior.sidebar</source>
+        <target>Sidebar</target>
+      </segment>
+    </unit>
+    <unit id="FIneGzR" name="settings.behavior.sidebar.items">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.items</source>
+        <target>Sidebar items</target>
+      </segment>
+    </unit>
+    <unit id="jc0JTvL" name="settings.behavior.sidebar.items.help">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.items.help</source>
+        <target>The menus which appear at the sidebar by default. Order of items can be changed via drag &amp; drop.</target>
+      </segment>
+    </unit>
+    <unit id="gVSWDkE" name="settings.behavior.sidebar.rootNodeEnabled">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.rootNodeEnabled</source>
+        <target>Use root node</target>
+      </segment>
+    </unit>
+    <unit id="uk0yKdg" name="settings.behavior.sidebar.rootNodeEnabled.help">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.rootNodeEnabled.help</source>
+        <target>If this is enabled, all top-level categories, footprints, etc. will be put under a single root node. If disabled, the top-level categories will be put directly into the menu.</target>
+      </segment>
+    </unit>
+    <unit id="brCNh0M" name="settings.behavior.sidebar.rootNodeExpanded">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.rootNodeExpanded</source>
+        <target>Expand root node by default</target>
+      </segment>
+    </unit>
+    <unit id="NkW8ELV" name="settings.behavior.table">
+      <segment state="translated">
+        <source>settings.behavior.table</source>
+        <target>Tables</target>
+      </segment>
+    </unit>
+    <unit id="1Zrv2eZ" name="settings.behavior.table.default_page_size">
+      <segment state="translated">
+        <source>settings.behavior.table.default_page_size</source>
+        <target>Default page size</target>
+      </segment>
+    </unit>
+    <unit id="lbx.zdp" name="settings.behavior.table.default_page_size.help">
+      <segment state="translated">
+        <source>settings.behavior.table.default_page_size.help</source>
+        <target>The default page size on full page tables. Set to -1 to show all items by default without pagination.</target>
+      </segment>
+    </unit>
+    <unit id="G1N8QW3" name="settings.behavior.table.parts_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.parts_default_columns</source>
+        <target>Default columns for part tables</target>
+      </segment>
+    </unit>
+    <unit id="SUD8H3b" name="settings.behavior.table.parts_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.parts_default_columns.help</source>
+        <target>The columns to show by default in part tables. Order of items can be changed via drag &amp; drop.</target>
+      </segment>
+    </unit>
+    <unit id="hazr_g5" name="settings.ips.oemsecrets">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets</source>
+        <target>OEMSecrets</target>
+      </segment>
+    </unit>
+    <unit id="ljRPsNX" name="settings.ips.oemsecrets.keepZeroPrices">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.keepZeroPrices</source>
+        <target>Keep distributors with zero prices</target>
+      </segment>
+    </unit>
+    <unit id="c7YTKEY" name="settings.ips.oemsecrets.keepZeroPrices.help">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.keepZeroPrices.help</source>
+        <target>If this is not set, distributors where the prices are 0 will be discarded as invalid</target>
+      </segment>
+    </unit>
+    <unit id="ym9EcxF" name="settings.ips.oemsecrets.parseParams">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.parseParams</source>
+        <target>Extract parameters from description</target>
+      </segment>
+    </unit>
+    <unit id="U4aFfJ3" name="settings.ips.oemsecrets.parseParams.help">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.parseParams.help</source>
+        <target>If enabled, the provider tries to convert the unstructured descriptions of OEMSecrets into structured parameters. Each parameter in the description should have the form "...;name1:value1;name2:value2"</target>
+      </segment>
+    </unit>
+    <unit id="YMpgQPU" name="settings.ips.oemsecrets.sortMode">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.sortMode</source>
+        <target>Result sort mode</target>
+      </segment>
+    </unit>
+    <unit id="3VDLyjD" name="settings.ips.oemsecrets.sortMode.N">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.sortMode.N</source>
+        <target>None</target>
+      </segment>
+    </unit>
+    <unit id="Oz.6cJY" name="settings.ips.oemsecrets.sortMode.C">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.sortMode.C</source>
+        <target>Completeness (prioritize items with detailed information)</target>
+      </segment>
+    </unit>
+    <unit id="KLJYfJ0" name="settings.ips.oemsecrets.sortMode.M">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.sortMode.M</source>
+        <target>Completeness &amp; Manufacturer name</target>
+      </segment>
+    </unit>
     <unit id="8C9ijHM" name="entity.export.flash.error.no_entities">
       <segment state="translated">
         <source>entity.export.flash.error.no_entities</source>
@@ -12360,13 +12999,1335 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="4wpp6h." name="part_list.action.action.change_location">
       <segment state="translated">
         <source>part_list.action.action.change_location</source>
-        <target>Change location (only for parts with single stock)</target>
+        <target>Change location (only for parts with single lot)</target>
       </segment>
     </unit>
     <unit id="9_9I.m4" name="parts.table.action_handler.error.part_lots_multiple">
       <segment state="translated">
         <source>parts.table.action_handler.error.part_lots_multiple</source>
         <target>This part contains more than one stock. Change the location by hand to select, which stock to choose.</target>
+      </segment>
+    </unit>
+    <unit id="qn25jL." name="settings.ips.reichelt">
+      <segment state="translated">
+        <source>settings.ips.reichelt</source>
+        <target>Reichelt</target>
+      </segment>
+    </unit>
+    <unit id="yYazL3j" name="settings.ips.reichelt.help">
+      <segment state="translated">
+        <source>settings.ips.reichelt.help</source>
+        <target>Reichelt.com offers no official API, so this info provider webscrapes the website to extract info. It could break at any time, use it at your own risk.</target>
+      </segment>
+    </unit>
+    <unit id="2EVJVc6" name="settings.ips.reichelt.include_vat">
+      <segment state="translated">
+        <source>settings.ips.reichelt.include_vat</source>
+        <target>Include VAT in prices</target>
+      </segment>
+    </unit>
+    <unit id="Ocp5ktF" name="settings.ips.pollin">
+      <segment state="translated">
+        <source>settings.ips.pollin</source>
+        <target>Pollin</target>
+      </segment>
+    </unit>
+    <unit id="Xlj6kj2" name="settings.ips.pollin.help">
+      <segment state="translated">
+        <source>settings.ips.pollin.help</source>
+        <target>Pollin.de offers no official API, so this info provider webscrapes the website to extract info. It could break at any time, use it at your own risk.</target>
+      </segment>
+    </unit>
+    <unit id="TEm7uIg" name="settings.behavior.sidebar.rootNodeRedirectsToNewEntity">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.rootNodeRedirectsToNewEntity</source>
+        <target>Root nodes redirect to new entity pages</target>
+      </segment>
+    </unit>
+    <unit id="j7HiQ80" name="settings.ips.digikey">
+      <segment state="translated">
+        <source>settings.ips.digikey</source>
+        <target>Digikey</target>
+      </segment>
+    </unit>
+    <unit id="_ViyVdh" name="settings.ips.digikey.client_id">
+      <segment state="translated">
+        <source>settings.ips.digikey.client_id</source>
+        <target>Client ID</target>
+      </segment>
+    </unit>
+    <unit id="eB9dDyp" name="settings.ips.digikey.secret">
+      <segment state="translated">
+        <source>settings.ips.digikey.secret</source>
+        <target>Secret</target>
+      </segment>
+    </unit>
+    <unit id="5xjmMzf" name="settings.ips.octopart">
+      <segment state="translated">
+        <source>settings.ips.octopart</source>
+        <target>Octopart / Nexar</target>
+      </segment>
+    </unit>
+    <unit id="vGv90iO" name="settings.ips.octopart.searchLimit">
+      <segment state="translated">
+        <source>settings.ips.octopart.searchLimit</source>
+        <target>Number of results</target>
+      </segment>
+    </unit>
+    <unit id="au4Yeps" name="settings.ips.octopart.searchLimit.help">
+      <segment state="translated">
+        <source>settings.ips.octopart.searchLimit.help</source>
+        <target>The number of results to get from Octopart while searching (please note that this counts towards your API limits)</target>
+      </segment>
+    </unit>
+    <unit id="Tiqmk.8" name="settings.ips.octopart.onlyAuthorizedSellers">
+      <segment state="translated">
+        <source>settings.ips.octopart.onlyAuthorizedSellers</source>
+        <target>Only authorized sellers</target>
+      </segment>
+    </unit>
+    <unit id="ECQkeJy" name="settings.ips.octopart.onlyAuthorizedSellers.help">
+      <segment state="translated">
+        <source>settings.ips.octopart.onlyAuthorizedSellers.help</source>
+        <target>Set to false to include non-authorized offers in the results</target>
+      </segment>
+    </unit>
+    <unit id="iRDDtdU" name="settings.misc.exchange_rate">
+      <segment state="translated">
+        <source>settings.misc.exchange_rate</source>
+        <target>Money exchange rates</target>
+      </segment>
+    </unit>
+    <unit id="0REngfi" name="settings.misc.exchange_rate.fixer_api_key">
+      <segment state="translated">
+        <source>settings.misc.exchange_rate.fixer_api_key</source>
+        <target>Fixer.io API Key</target>
+      </segment>
+    </unit>
+    <unit id="COLhoWD" name="settings.misc.exchange_rate.fixer_api_key.help">
+      <segment state="translated">
+        <source>settings.misc.exchange_rate.fixer_api_key.help</source>
+        <target>If you need exchange rates between non-euro currencies, you can input an API key from fixer.io here.</target>
+      </segment>
+    </unit>
+    <unit id="Ffr5xYM" name="settings.behavior.part_info">
+      <segment state="translated">
+        <source>settings.behavior.part_info</source>
+        <target>Part info page</target>
+      </segment>
+    </unit>
+    <unit id="weH3j.a" name="settings.behavior.part_info.show_part_image_overlay">
+      <segment state="translated">
+        <source>settings.behavior.part_info.show_part_image_overlay</source>
+        <target>Show image overlay</target>
+      </segment>
+    </unit>
+    <unit id="SCUs3WS" name="settings.behavior.part_info.show_part_image_overlay.help">
+      <segment state="translated">
+        <source>settings.behavior.part_info.show_part_image_overlay.help</source>
+        <target>Show the image overlay with attachment details on hovering over the part image gallery.</target>
+      </segment>
+    </unit>
+    <unit id="ALfPkeR" name="perm.config.change_system_settings">
+      <segment state="translated">
+        <source>perm.config.change_system_settings</source>
+        <target>Change system settings</target>
+      </segment>
+    </unit>
+    <unit id="TlHeIjk" name="tree.tools.system.settings">
+      <segment state="translated">
+        <source>tree.tools.system.settings</source>
+        <target>System settings</target>
+      </segment>
+    </unit>
+    <unit id="3YsJ4i6" name="settings.tooltip.overrideable_by_env">
+      <segment state="translated">
+        <source>settings.tooltip.overrideable_by_env</source>
+        <target>The value of this parameter can be overridden by setting the environment variable "%env%".</target>
+      </segment>
+    </unit>
+    <unit id="boWkQh7" name="settings.flash.saved">
+      <segment state="translated">
+        <source>settings.flash.saved</source>
+        <target>Settings saved successfully.</target>
+      </segment>
+    </unit>
+    <unit id="tEYWrWD" name="settings.flash.invalid">
+      <segment state="translated">
+        <source>settings.flash.invalid</source>
+        <target>Settings are invalid. Please check your input!</target>
+      </segment>
+    </unit>
+    <unit id="yRXWSRN" name="info_providers.settings.title">
+      <segment state="translated">
+        <source>info_providers.settings.title</source>
+        <target>Info provider settings</target>
+      </segment>
+    </unit>
+    <unit id="VgSodKY" name="form.apikey.redacted">
+      <segment state="translated">
+        <source>form.apikey.redacted</source>
+        <target>Redacted for security reasons</target>
+      </segment>
+    </unit>
+    <unit id="J716Oh4" name="project.bom_import.map_fields">
+      <segment state="translated">
+        <source>project.bom_import.map_fields</source>
+        <target>Map Fields</target>
+      </segment>
+    </unit>
+    <unit id="wvT5Xvn" name="project.bom_import.map_fields.help">
+      <segment state="translated">
+        <source>project.bom_import.map_fields.help</source>
+        <target>Configure how CSV columns map to BOM fields</target>
+      </segment>
+    </unit>
+    <unit id="nh7uLPe" name="project.bom_import.delimiter">
+      <segment state="translated">
+        <source>project.bom_import.delimiter</source>
+        <target>Delimiter</target>
+      </segment>
+    </unit>
+    <unit id="MSlSeE4" name="project.bom_import.delimiter.comma">
+      <segment state="translated">
+        <source>project.bom_import.delimiter.comma</source>
+        <target>Comma (,)</target>
+      </segment>
+    </unit>
+    <unit id="UdDSB0h" name="project.bom_import.delimiter.semicolon">
+      <segment state="translated">
+        <source>project.bom_import.delimiter.semicolon</source>
+        <target>Semicolon (;)</target>
+      </segment>
+    </unit>
+    <unit id="Wpa4Gmf" name="project.bom_import.delimiter.tab">
+      <segment state="translated">
+        <source>project.bom_import.delimiter.tab</source>
+        <target>Tab</target>
+      </segment>
+    </unit>
+    <unit id="tjrG_vU" name="project.bom_import.field_mapping.title">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.title</source>
+        <target>Field Mapping</target>
+      </segment>
+    </unit>
+    <unit id="nWu8B7R" name="project.bom_import.field_mapping.csv_field">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.csv_field</source>
+        <target>CSV Field</target>
+      </segment>
+    </unit>
+    <unit id="D0KlFqm" name="project.bom_import.field_mapping.maps_to">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.maps_to</source>
+        <target>Maps To</target>
+      </segment>
+    </unit>
+    <unit id="rhUpmxC" name="project.bom_import.field_mapping.suggestion">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.suggestion</source>
+        <target>Suggestion</target>
+      </segment>
+    </unit>
+    <unit id="TM0mgKr" name="project.bom_import.field_mapping.priority">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority</source>
+        <target>Priority</target>
+      </segment>
+    </unit>
+    <unit id="xY8NSRr" name="project.bom_import.field_mapping.priority_help">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority_help</source>
+        <target>Priority (lower number = higher priority)</target>
+      </segment>
+    </unit>
+    <unit id="CuXg8WU" name="project.bom_import.field_mapping.priority_short">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority_short</source>
+        <target>P</target>
+      </segment>
+    </unit>
+    <unit id="jOHOShN" name="project.bom_import.field_mapping.priority_note">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority_note</source>
+        <target>Priority Tip: Lower numbers = higher priority. Default priority is 10. Use priorities 1-9 for most important fields, 10+ for normal priority.</target>
+      </segment>
+    </unit>
+    <unit id="pvmv3OT" name="project.bom_import.field_mapping.summary">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.summary</source>
+        <target>Field Mapping Summary</target>
+      </segment>
+    </unit>
+    <unit id="VjLf1Pf" name="project.bom_import.field_mapping.select_to_see_summary">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.select_to_see_summary</source>
+        <target>Select field mappings to see summary</target>
+      </segment>
+    </unit>
+    <unit id="JOPny6T" name="project.bom_import.field_mapping.no_suggestion">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.no_suggestion</source>
+        <target>No suggestion</target>
+      </segment>
+    </unit>
+    <unit id="1LWEtqL" name="project.bom_import.preview">
+      <segment state="translated">
+        <source>project.bom_import.preview</source>
+        <target>Preview</target>
+      </segment>
+    </unit>
+    <unit id="1CJA0aY" name="project.bom_import.flash.session_expired">
+      <segment state="translated">
+        <source>project.bom_import.flash.session_expired</source>
+        <target>Import session has expired. Please upload your file again.</target>
+      </segment>
+    </unit>
+    <unit id="BLN7XRN" name="project.bom_import.field_mapping.ignore">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.ignore</source>
+        <target>Ignore</target>
+      </segment>
+    </unit>
+    <unit id="yiIB3yV" name="project.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>project.bom_import.type.kicad_schematic</source>
+        <target>KiCAD Schematic BOM (CSV file)</target>
+      </segment>
+    </unit>
+    <unit id="ltE6xPP" name="common.back">
+      <segment state="translated">
+        <source>common.back</source>
+        <target>Back</target>
+      </segment>
+    </unit>
+    <unit id="HCTqjZO" name="project.bom_import.validation.errors.required_field_missing">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.required_field_missing</source>
+        <target>Line %line%: Required field "%field%" is missing or empty. Please ensure this field is mapped and contains data.</target>
+      </segment>
+    </unit>
+    <unit id="_ua5YM7" name="project.bom_import.validation.errors.no_valid_designators">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.no_valid_designators</source>
+        <target>Line %line%: Designator field contains no valid component references. Expected format: "R1,C2,U3" or "R1, C2, U3".</target>
+      </segment>
+    </unit>
+    <unit id="xpkq3rW" name="project.bom_import.validation.warnings.unusual_designator_format">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.unusual_designator_format</source>
+        <target>Line %line%: Some component references may have unusual format: %designators%. Expected format: "R1", "C2", "U3", etc.</target>
+      </segment>
+    </unit>
+    <unit id="M54Ud5d" name="project.bom_import.validation.errors.duplicate_designators">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.duplicate_designators</source>
+        <target>Line %line%: Duplicate component references found: %designators%. Each component should be referenced only once per line.</target>
+      </segment>
+    </unit>
+    <unit id="ZULFZh2" name="project.bom_import.validation.errors.invalid_quantity">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.invalid_quantity</source>
+        <target>Line %line%: Quantity "%quantity%" is not a valid number. Please enter a numeric value (e.g., 1, 2.5, 10).</target>
+      </segment>
+    </unit>
+    <unit id="3WbRgsl" name="project.bom_import.validation.errors.quantity_zero_or_negative">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.quantity_zero_or_negative</source>
+        <target>Line %line%: Quantity must be greater than 0, got %quantity%.</target>
+      </segment>
+    </unit>
+    <unit id="_nWGsSU" name="project.bom_import.validation.warnings.quantity_unusually_high">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.quantity_unusually_high</source>
+        <target>Line %line%: Quantity %quantity% seems unusually high. Please verify this is correct.</target>
+      </segment>
+    </unit>
+    <unit id="iJWw39f" name="project.bom_import.validation.warnings.quantity_not_whole_number">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.quantity_not_whole_number</source>
+        <target>Line %line%: Quantity %quantity% is not a whole number, but you have %count% component references. This may indicate a mismatch.</target>
+      </segment>
+    </unit>
+    <unit id="Zffmgvv" name="project.bom_import.validation.errors.quantity_designator_mismatch">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.quantity_designator_mismatch</source>
+        <target>Line %line%: Mismatch between quantity and component references. Quantity: %quantity%, References: %count% (%designators%). These should match. Either adjust the quantity or check your component references.</target>
+      </segment>
+    </unit>
+    <unit id="JqHpDIo" name="project.bom_import.validation.errors.invalid_partdb_id">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.invalid_partdb_id</source>
+        <target>Line %line%: Part-DB ID "%id%" is not a valid number. Please enter a numeric ID.</target>
+      </segment>
+    </unit>
+    <unit id="Mr7W6r0" name="project.bom_import.validation.errors.partdb_id_zero_or_negative">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.partdb_id_zero_or_negative</source>
+        <target>Line %line%: Part-DB ID must be greater than 0, got %id%.</target>
+      </segment>
+    </unit>
+    <unit id="gRH6IeR" name="project.bom_import.validation.warnings.partdb_id_not_found">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.partdb_id_not_found</source>
+        <target>Line %line%: Part-DB ID %id% not found in database. The component will be imported without linking to an existing part.</target>
+      </segment>
+    </unit>
+    <unit id="eMfaBYo" name="project.bom_import.validation.info.partdb_link_success">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.partdb_link_success</source>
+        <target>Line %line%: Successfully linked to Part-DB part "%name%" (ID: %id%).</target>
+      </segment>
+    </unit>
+    <unit id="b_m9p.f" name="project.bom_import.validation.warnings.no_component_name">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.no_component_name</source>
+        <target>Line %line%: No component name/designation provided (MPN, Designation, or Value). Component will be named "Unknown Component".</target>
+      </segment>
+    </unit>
+    <unit id=".LAGdMe" name="project.bom_import.validation.warnings.package_name_too_long">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.package_name_too_long</source>
+        <target>Line %line%: Package name "%package%" is unusually long. Please verify this is correct.</target>
+      </segment>
+    </unit>
+    <unit id="wFF49kl" name="project.bom_import.validation.info.library_prefix_detected">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.library_prefix_detected</source>
+        <target>Line %line%: Package "%package%" contains library prefix. This will be automatically removed during import.</target>
+      </segment>
+    </unit>
+    <unit id="hEO2sxC" name="project.bom_import.validation.errors.non_numeric_field">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.non_numeric_field</source>
+        <target>Line %line%: Field "%field%" contains non-numeric value "%value%". Please enter a valid number.</target>
+      </segment>
+    </unit>
+    <unit id="Ear_sUX" name="project.bom_import.validation.info.import_summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.import_summary</source>
+        <target>Import summary: %total% total entries, %valid% valid, %invalid% with issues.</target>
+      </segment>
+    </unit>
+    <unit id="SqJZ97A" name="project.bom_import.validation.errors.summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.summary</source>
+        <target>Found %count% validation error(s) that must be fixed before import can proceed.</target>
+      </segment>
+    </unit>
+    <unit id="s7dzFnp" name="project.bom_import.validation.warnings.summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.summary</source>
+        <target>Found %count% warning(s). Please review these issues before proceeding.</target>
+      </segment>
+    </unit>
+    <unit id="2KaAHmS" name="project.bom_import.validation.info.all_valid">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.all_valid</source>
+        <target>All entries passed validation successfully!</target>
+      </segment>
+    </unit>
+    <unit id="Lyb3BjK" name="project.bom_import.validation.summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.summary</source>
+        <target>Validation Summary</target>
+      </segment>
+    </unit>
+    <unit id="DUM8GoE" name="project.bom_import.validation.total_entries">
+      <segment state="translated">
+        <source>project.bom_import.validation.total_entries</source>
+        <target>Total Entries</target>
+      </segment>
+    </unit>
+    <unit id="AtLGGU2" name="project.bom_import.validation.valid_entries">
+      <segment state="translated">
+        <source>project.bom_import.validation.valid_entries</source>
+        <target>Valid Entries</target>
+      </segment>
+    </unit>
+    <unit id="mgdn5v3" name="project.bom_import.validation.invalid_entries">
+      <segment state="translated">
+        <source>project.bom_import.validation.invalid_entries</source>
+        <target>Invalid Entries</target>
+      </segment>
+    </unit>
+    <unit id="qmJ5BfF" name="project.bom_import.validation.success_rate">
+      <segment state="translated">
+        <source>project.bom_import.validation.success_rate</source>
+        <target>Success Rate</target>
+      </segment>
+    </unit>
+    <unit id="QyDsrFV" name="project.bom_import.validation.errors.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.title</source>
+        <target>Validation Errors</target>
+      </segment>
+    </unit>
+    <unit id="d.Mvu0a" name="project.bom_import.validation.errors.description">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.description</source>
+        <target>The following errors must be fixed before the import can proceed:</target>
+      </segment>
+    </unit>
+    <unit id="MGFfKr." name="project.bom_import.validation.warnings.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.title</source>
+        <target>Validation Warnings</target>
+      </segment>
+    </unit>
+    <unit id="tt4VxY6" name="project.bom_import.validation.warnings.description">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.description</source>
+        <target>The following warnings should be reviewed before proceeding:</target>
+      </segment>
+    </unit>
+    <unit id="YuAdYeh" name="project.bom_import.validation.info.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.title</source>
+        <target>Information</target>
+      </segment>
+    </unit>
+    <unit id="1pUfi7Q" name="project.bom_import.validation.details.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.title</source>
+        <target>Detailed Validation Results</target>
+      </segment>
+    </unit>
+    <unit id="4Vv0Xns" name="project.bom_import.validation.details.line">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.line</source>
+        <target>Line</target>
+      </segment>
+    </unit>
+    <unit id="RbvD2zF" name="project.bom_import.validation.details.status">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="iGtKkH_" name="project.bom_import.validation.details.messages">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.messages</source>
+        <target>Messages</target>
+      </segment>
+    </unit>
+    <unit id="IgdgZd8" name="project.bom_import.validation.details.valid">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.valid</source>
+        <target>Valid</target>
+      </segment>
+    </unit>
+    <unit id="lWQEtkq" name="project.bom_import.validation.details.invalid">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.invalid</source>
+        <target>Invalid</target>
+      </segment>
+    </unit>
+    <unit id="tPn6Ind" name="project.bom_import.validation.all_valid">
+      <segment state="translated">
+        <source>project.bom_import.validation.all_valid</source>
+        <target>All entries are valid and ready for import!</target>
+      </segment>
+    </unit>
+    <unit id="fzoGCaf" name="project.bom_import.validation.fix_errors">
+      <segment state="translated">
+        <source>project.bom_import.validation.fix_errors</source>
+        <target>Please fix the validation errors before proceeding with the import.</target>
+      </segment>
+    </unit>
+    <unit id="nc9MqUc" name="project.bom_import.type.generic_csv">
+      <segment state="translated">
+        <source>project.bom_import.type.generic_csv</source>
+        <target>Generic CSV</target>
+      </segment>
+    </unit>
+    <unit id=".N35Pvs" name="label_generator.update_profile">
+      <segment state="translated">
+        <source>label_generator.update_profile</source>
+        <target>Update profile with current settings</target>
+      </segment>
+    </unit>
+    <unit id="ulTo6Aa" name="label_generator.profile_updated">
+      <segment state="translated">
+        <source>label_generator.profile_updated</source>
+        <target>Label profile updated successfully.</target>
+      </segment>
+    </unit>
+    <unit id="7lgFa7I" name="settings.behavior.hompepage.items">
+      <segment state="translated">
+        <source>settings.behavior.hompepage.items</source>
+        <target>Homepage items</target>
+      </segment>
+    </unit>
+    <unit id="FsrRdkp" name="settings.behavior.homepage.items.help">
+      <segment state="translated">
+        <source>settings.behavior.homepage.items.help</source>
+        <target>The items to show at the homepage. Order can be changed via drag &amp; drop.</target>
+      </segment>
+    </unit>
+    <unit id="CYw3_pS" name="settings.system.customization.showVersionOnHomepage">
+      <segment state="translated">
+        <source>settings.system.customization.showVersionOnHomepage</source>
+        <target>Show Part-DB version on homepage</target>
+      </segment>
+    </unit>
+    <unit id="GLYhV9m" name="settings.behavior.part_info.extract_params_from_description">
+      <segment state="translated">
+        <source>settings.behavior.part_info.extract_params_from_description</source>
+        <target>Extract parameters from part description</target>
+      </segment>
+    </unit>
+    <unit id="aYOedkN" name="settings.behavior.part_info.extract_params_from_notes">
+      <segment state="translated">
+        <source>settings.behavior.part_info.extract_params_from_notes</source>
+        <target>Extract parameters from part notes</target>
+      </segment>
+    </unit>
+    <unit id="nCH2MW6" name="settings.ips.default_providers">
+      <segment state="translated">
+        <source>settings.ips.default_providers</source>
+        <target>Default search providers</target>
+      </segment>
+    </unit>
+    <unit id="TLNoCLT" name="settings.ips.general">
+      <segment state="translated">
+        <source>settings.ips.general</source>
+        <target>General settings</target>
+      </segment>
+    </unit>
+    <unit id="IDs2sXK" name="settings.ips.default_providers.help">
+      <segment state="translated">
+        <source>settings.ips.default_providers.help</source>
+        <target>These providers will be preselected for searches in part providers.</target>
+      </segment>
+    </unit>
+    <unit id="dv6eslZ" name="settings.behavior.table.preview_image_max_width">
+      <segment state="translated">
+        <source>settings.behavior.table.preview_image_max_width</source>
+        <target>Preview image max width (px)</target>
+      </segment>
+    </unit>
+    <unit id="5bOoqEL" name="settings.behavior.table.preview_image_min_width">
+      <segment state="translated">
+        <source>settings.behavior.table.preview_image_min_width</source>
+        <target>Preview image min width (px)</target>
+      </segment>
+    </unit>
+    <unit id="vkjf5qA" name="info_providers.bulk_import.step1.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step1.title</source>
+        <target>Bulk Info Provider Import - Step 1</target>
+      </segment>
+    </unit>
+    <unit id="dqV7NUB" name="info_providers.bulk_import.parts_selected">
+      <segment state="translated">
+        <source>info_providers.bulk_import.parts_selected</source>
+        <target>parts selected</target>
+      </segment>
+    </unit>
+    <unit id="o474JoG" name="info_providers.bulk_import.step1.global_mapping_description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step1.global_mapping_description</source>
+        <target>Configure field mappings that will be applied to all selected parts. For example: "MPN → LCSC + Mouser" means search LCSC and Mouser providers using each part's MPN field.</target>
+      </segment>
+    </unit>
+    <unit id="d9OFVmQ" name="info_providers.bulk_import.selected_parts">
+      <segment state="translated">
+        <source>info_providers.bulk_import.selected_parts</source>
+        <target>Selected Parts</target>
+      </segment>
+    </unit>
+    <unit id="0IM.WJg" name="info_providers.bulk_import.field_mappings">
+      <segment state="translated">
+        <source>info_providers.bulk_import.field_mappings</source>
+        <target>Field Mappings</target>
+      </segment>
+    </unit>
+    <unit id="cZb6a7b" name="info_providers.bulk_import.field_mappings_help">
+      <segment state="translated">
+        <source>info_providers.bulk_import.field_mappings_help</source>
+        <target>Define which part fields to search with which info providers. Multiple mappings will be combined.</target>
+      </segment>
+    </unit>
+    <unit id="hImbHbq" name="info_providers.bulk_import.add_mapping">
+      <segment state="translated">
+        <source>info_providers.bulk_import.add_mapping</source>
+        <target>Add Mapping</target>
+      </segment>
+    </unit>
+    <unit id="u4_QWOb" name="info_providers.bulk_import.search_results.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.search_results.title</source>
+        <target>Search Results</target>
+      </segment>
+    </unit>
+    <unit id="aXSJ0L3" name="info_providers.bulk_import.errors">
+      <segment state="translated">
+        <source>info_providers.bulk_import.errors</source>
+        <target>errors</target>
+      </segment>
+    </unit>
+    <unit id="TPEhXlb" name="info_providers.bulk_import.results_found">
+      <segment state="translated">
+        <source>info_providers.bulk_import.results_found</source>
+        <target>%count% results found</target>
+      </segment>
+    </unit>
+    <unit id="8coVh8q" name="info_providers.bulk_import.source_field">
+      <segment state="translated">
+        <source>info_providers.bulk_import.source_field</source>
+        <target>Source Field</target>
+      </segment>
+    </unit>
+    <unit id="VdUOMZf" name="info_providers.bulk_import.view_existing">
+      <segment state="translated">
+        <source>info_providers.bulk_import.view_existing</source>
+        <target>View Existing</target>
+      </segment>
+    </unit>
+    <unit id="LPN5MOO" name="info_providers.bulk_search.search_field">
+      <segment state="translated">
+        <source>info_providers.bulk_search.search_field</source>
+        <target>Search Field</target>
+      </segment>
+    </unit>
+    <unit id="DTm1q3f" name="info_providers.bulk_search.providers">
+      <segment state="translated">
+        <source>info_providers.bulk_search.providers</source>
+        <target>Info Providers</target>
+      </segment>
+    </unit>
+    <unit id="5zem1xb" name="info_providers.bulk_import.actions.label">
+      <segment state="translated">
+        <source>info_providers.bulk_import.actions.label</source>
+        <target>Actions</target>
+      </segment>
+    </unit>
+    <unit id="rA4WDLA" name="info_providers.bulk_search.providers.help">
+      <segment state="translated">
+        <source>info_providers.bulk_search.providers.help</source>
+        <target>Select which info providers to search when parts have this field.</target>
+      </segment>
+    </unit>
+    <unit id="OS0qJRC" name="info_providers.bulk_search.submit">
+      <segment state="translated">
+        <source>info_providers.bulk_search.submit</source>
+        <target>Search All Parts</target>
+      </segment>
+    </unit>
+    <unit id="ItmvNLj" name="info_providers.bulk_search.field.select">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.select</source>
+        <target>Select a field to search by</target>
+      </segment>
+    </unit>
+    <unit id="AKm8Kw9" name="info_providers.bulk_search.field.mpn">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.mpn</source>
+        <target>Manufacturer Part Number (MPN)</target>
+      </segment>
+    </unit>
+    <unit id="Wne2ljh" name="info_providers.bulk_search.field.name">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.name</source>
+        <target>Part Name</target>
+      </segment>
+    </unit>
+    <unit id="iOh1gJZ" name="part_list.action.action.info_provider">
+      <segment state="translated">
+        <source>part_list.action.action.info_provider</source>
+        <target>Info Provider</target>
+      </segment>
+    </unit>
+    <unit id="xukxTs_" name="part_list.action.bulk_info_provider_import">
+      <segment state="translated">
+        <source>part_list.action.bulk_info_provider_import</source>
+        <target>Bulk Info Provider Import</target>
+      </segment>
+    </unit>
+    <unit id="yzpXFkB" name="info_providers.bulk_import.step1.spn_recommendation">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step1.spn_recommendation</source>
+        <target>SPN (Supplier Part Number) is recommended for better results. Add a mapping for each supplier to use their SPNs.</target>
+      </segment>
+    </unit>
+    <unit id="QDr.VVc" name="info_providers.bulk_import.update_part">
+      <segment state="translated">
+        <source>info_providers.bulk_import.update_part</source>
+        <target>Update Part</target>
+      </segment>
+    </unit>
+    <unit id="e_DDQ2u" name="info_providers.bulk_import.prefetch_details">
+      <segment state="translated">
+        <source>info_providers.bulk_import.prefetch_details</source>
+        <target>Prefetch Details</target>
+      </segment>
+    </unit>
+    <unit id="v4T9Uwz" name="info_providers.bulk_import.prefetch_details_help">
+      <segment state="translated">
+        <source>info_providers.bulk_import.prefetch_details_help</source>
+        <target>Prefetch details for all results. This will take longer, but will speed up workflow for updating parts.</target>
+      </segment>
+    </unit>
+    <unit id="mRdK1ts" name="info_providers.bulk_import.step2.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.title</source>
+        <target>Bulk import from info providers</target>
+      </segment>
+    </unit>
+    <unit id="Y.b5mGJ" name="info_providers.bulk_import.step2.card_title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.card_title</source>
+        <target>Bulk import for %count% parts - %date%</target>
+      </segment>
+    </unit>
+    <unit id="fyatGYL" name="info_providers.bulk_import.parts">
+      <segment state="translated">
+        <source>info_providers.bulk_import.parts</source>
+        <target>parts</target>
+      </segment>
+    </unit>
+    <unit id="hlBJ6Qh" name="info_providers.bulk_import.results">
+      <segment state="translated">
+        <source>info_providers.bulk_import.results</source>
+        <target>results</target>
+      </segment>
+    </unit>
+    <unit id="V8eTEPM" name="info_providers.bulk_import.created_at">
+      <segment state="translated">
+        <source>info_providers.bulk_import.created_at</source>
+        <target>Created at</target>
+      </segment>
+    </unit>
+    <unit id="CiqevAs" name="info_providers.bulk_import.status.in_progress">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.in_progress</source>
+        <target>In Progress</target>
+      </segment>
+    </unit>
+    <unit id="YeLN8i_" name="info_providers.bulk_import.status.completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.completed</source>
+        <target>Completed</target>
+      </segment>
+    </unit>
+    <unit id="TIzGVyk" name="info_providers.bulk_import.status.failed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.failed</source>
+        <target>Failed</target>
+      </segment>
+    </unit>
+    <unit id="RxaZ6kn" name="info_providers.bulk_import.table.name">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="36MkrQF" name="info_providers.bulk_import.table.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.description</source>
+        <target>Description</target>
+      </segment>
+    </unit>
+    <unit id="Y_yl259" name="info_providers.bulk_import.table.manufacturer">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.manufacturer</source>
+        <target>Manufacturer</target>
+      </segment>
+    </unit>
+    <unit id="FgXYE1H" name="info_providers.bulk_import.table.provider">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.provider</source>
+        <target>Provider</target>
+      </segment>
+    </unit>
+    <unit id="_gf1tWi" name="info_providers.bulk_import.table.source_field">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.source_field</source>
+        <target>Source Field</target>
+      </segment>
+    </unit>
+    <unit id="CoSmRQc" name="info_providers.bulk_import.back">
+      <segment state="translated">
+        <source>info_providers.bulk_import.back</source>
+        <target>Back</target>
+      </segment>
+    </unit>
+    <unit id="Hn7AtYS" name="info_providers.bulk_import.progress">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress</source>
+        <target>Progress:</target>
+      </segment>
+    </unit>
+    <unit id="w9LaKAB" name="info_providers.bulk_import.status.pending">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.pending</source>
+        <target>Pending</target>
+      </segment>
+    </unit>
+    <unit id="KcADJb." name="info_providers.bulk_import.completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.completed</source>
+        <target>completed</target>
+      </segment>
+    </unit>
+    <unit id="hptkZvI" name="info_providers.bulk_import.skipped">
+      <segment state="translated">
+        <source>info_providers.bulk_import.skipped</source>
+        <target>skipped</target>
+      </segment>
+    </unit>
+    <unit id="vylzyYJ" name="info_providers.bulk_import.mark_completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mark_completed</source>
+        <target>Mark Completed</target>
+      </segment>
+    </unit>
+    <unit id="ePdcL7W" name="info_providers.bulk_import.mark_skipped">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mark_skipped</source>
+        <target>Mark Skipped</target>
+      </segment>
+    </unit>
+    <unit id="3HeDhTB" name="info_providers.bulk_import.mark_pending">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mark_pending</source>
+        <target>Mark Pending</target>
+      </segment>
+    </unit>
+    <unit id="p.igAUH" name="info_providers.bulk_import.skip_reason">
+      <segment state="translated">
+        <source>info_providers.bulk_import.skip_reason</source>
+        <target>Skip reason</target>
+      </segment>
+    </unit>
+    <unit id="6bTLFzZ" name="info_providers.bulk_import.editing_part">
+      <segment state="translated">
+        <source>info_providers.bulk_import.editing_part</source>
+        <target>Editing part as part of bulk import</target>
+      </segment>
+    </unit>
+    <unit id="ItOX1kK" name="info_providers.bulk_import.complete">
+      <segment state="translated">
+        <source>info_providers.bulk_import.complete</source>
+        <target>Complete</target>
+      </segment>
+    </unit>
+    <unit id="bHLXJ8Z" name="info_providers.bulk_import.existing_jobs">
+      <segment state="translated">
+        <source>info_providers.bulk_import.existing_jobs</source>
+        <target>Existing Jobs</target>
+      </segment>
+    </unit>
+    <unit id="jg2YuGQ" name="info_providers.bulk_import.job_name">
+      <segment state="translated">
+        <source>info_providers.bulk_import.job_name</source>
+        <target>Job Name</target>
+      </segment>
+    </unit>
+    <unit id="jUc1.Um" name="info_providers.bulk_import.parts_count">
+      <segment state="translated">
+        <source>info_providers.bulk_import.parts_count</source>
+        <target>Parts Count</target>
+      </segment>
+    </unit>
+    <unit id="aY1IgEO" name="info_providers.bulk_import.results_count">
+      <segment state="translated">
+        <source>info_providers.bulk_import.results_count</source>
+        <target>Results Count</target>
+      </segment>
+    </unit>
+    <unit id="1GAZk4m" name="info_providers.bulk_import.progress_label">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress_label</source>
+        <target>Progress: %current%/%total%</target>
+      </segment>
+    </unit>
+    <unit id="k78UdMX" name="info_providers.bulk_import.manage_jobs">
+      <segment state="translated">
+        <source>info_providers.bulk_import.manage_jobs</source>
+        <target>Manage Bulk Import Jobs</target>
+      </segment>
+    </unit>
+    <unit id="mJ73hdI" name="info_providers.bulk_import.view_results">
+      <segment state="translated">
+        <source>info_providers.bulk_import.view_results</source>
+        <target>View Results</target>
+      </segment>
+    </unit>
+    <unit id="d5ZxGBG" name="info_providers.bulk_import.status">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="Z.AgcWf" name="info_providers.bulk_import.manage_jobs_description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.manage_jobs_description</source>
+        <target>View and manage all your bulk import jobs. To create a new job, select parts and click "Bulk import from info providers".</target>
+      </segment>
+    </unit>
+    <unit id="0lCZLRC" name="info_providers.bulk_import.no_jobs_found">
+      <segment state="translated">
+        <source>info_providers.bulk_import.no_jobs_found</source>
+        <target>No bulk import jobs found.</target>
+      </segment>
+    </unit>
+    <unit id="LheSXys" name="info_providers.bulk_import.create_first_job">
+      <segment state="translated">
+        <source>info_providers.bulk_import.create_first_job</source>
+        <target>Create your first bulk import job by selecting multiple parts in a part table and select the "Bulk info provider import" option.</target>
+      </segment>
+    </unit>
+    <unit id="Lm_DPbH" name="info_providers.bulk_import.confirm_delete_job">
+      <segment state="translated">
+        <source>info_providers.bulk_import.confirm_delete_job</source>
+        <target>Are you sure you want to delete this job?</target>
+      </segment>
+    </unit>
+    <unit id="kZd.W42" name="info_providers.bulk_import.job_name_template">
+      <segment state="translated">
+        <source>info_providers.bulk_import.job_name_template</source>
+        <target>Bulk import for %count% parts</target>
+      </segment>
+    </unit>
+    <unit id="W6GycWK" name="info_providers.bulk_import.step2.instructions.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.title</source>
+        <target>How to use bulk import</target>
+      </segment>
+    </unit>
+    <unit id="QTkki_T" name="info_providers.bulk_import.step2.instructions.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.description</source>
+        <target>Follow these steps to efficiently update your parts:</target>
+      </segment>
+    </unit>
+    <unit id="OI1oD42" name="info_providers.bulk_import.step2.instructions.step1">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.step1</source>
+        <target>Click "Update Part" to edit a part with the supplier data</target>
+      </segment>
+    </unit>
+    <unit id="U.QKhv." name="info_providers.bulk_import.step2.instructions.step2">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.step2</source>
+        <target>Review and modify the part information as needed. Note: You need to click "Save" twice to save the changes.</target>
+      </segment>
+    </unit>
+    <unit id="WlnTz0N" name="info_providers.bulk_import.step2.instructions.step3">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.step3</source>
+        <target>Click "Complete" to mark the part as done and return to this overview</target>
+      </segment>
+    </unit>
+    <unit id="IyXU.4X" name="info_providers.bulk_import.created_by">
+      <segment state="translated">
+        <source>info_providers.bulk_import.created_by</source>
+        <target>Created By</target>
+      </segment>
+    </unit>
+    <unit id="egSjRGI" name="info_providers.bulk_import.completed_at">
+      <segment state="translated">
+        <source>info_providers.bulk_import.completed_at</source>
+        <target>Completed At</target>
+      </segment>
+    </unit>
+    <unit id="9L.HbvX" name="info_providers.bulk_import.action.label">
+      <segment state="translated">
+        <source>info_providers.bulk_import.action.label</source>
+        <target>Action</target>
+      </segment>
+    </unit>
+    <unit id="vcNdo9m" name="info_providers.bulk_import.action.delete">
+      <segment state="translated">
+        <source>info_providers.bulk_import.action.delete</source>
+        <target>Delete</target>
+      </segment>
+    </unit>
+    <unit id="bE3MUIU" name="info_providers.bulk_import.status.active">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.active</source>
+        <target>Active</target>
+      </segment>
+    </unit>
+    <unit id="R3FVzb3" name="info_providers.bulk_import.progress.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress.title</source>
+        <target>Progress</target>
+      </segment>
+    </unit>
+    <unit id="pKciwfa" name="info_providers.bulk_import.progress.completed_text">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress.completed_text</source>
+        <target>%completed% / %total% completed</target>
+      </segment>
+    </unit>
+    <unit id="9yPFVrM" name="info_providers.bulk_import.status.stopped">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.stopped</source>
+        <target>Stopped</target>
+      </segment>
+    </unit>
+    <unit id="we_yrOV" name="info_providers.bulk_import.action.stop">
+      <segment state="translated">
+        <source>info_providers.bulk_import.action.stop</source>
+        <target>Stop</target>
+      </segment>
+    </unit>
+    <unit id="SNkUbfh" name="info_providers.bulk_import.confirm_stop_job">
+      <segment state="translated">
+        <source>info_providers.bulk_import.confirm_stop_job</source>
+        <target>Are you sure you want to stop this job?</target>
+      </segment>
+    </unit>
+    <unit id="dlO_h_K" name="part.filter.in_bulk_import_job">
+      <segment state="translated">
+        <source>part.filter.in_bulk_import_job</source>
+        <target>In Bulk Import Job</target>
+      </segment>
+    </unit>
+    <unit id="rOeRN8O" name="part.filter.bulk_import_job_status">
+      <segment state="translated">
+        <source>part.filter.bulk_import_job_status</source>
+        <target>Bulk Import Job Status</target>
+      </segment>
+    </unit>
+    <unit id="940sEqZ" name="part.filter.bulk_import_part_status">
+      <segment state="translated">
+        <source>part.filter.bulk_import_part_status</source>
+        <target>Bulk Import Part Status</target>
+      </segment>
+    </unit>
+    <unit id="rv.QfEA" name="part.edit.tab.bulk_import">
+      <segment state="translated">
+        <source>part.edit.tab.bulk_import</source>
+        <target>Bulk Import Job</target>
+      </segment>
+    </unit>
+    <unit id="BUAqJHD" name="bulk_import.status.pending">
+      <segment state="translated">
+        <source>bulk_import.status.pending</source>
+        <target>Pending</target>
+      </segment>
+    </unit>
+    <unit id="GkVa8H3" name="bulk_import.status.in_progress">
+      <segment state="translated">
+        <source>bulk_import.status.in_progress</source>
+        <target>In Progress</target>
+      </segment>
+    </unit>
+    <unit id="da3QKdj" name="bulk_import.status.completed">
+      <segment state="translated">
+        <source>bulk_import.status.completed</source>
+        <target>Completed</target>
+      </segment>
+    </unit>
+    <unit id="YM7qaAP" name="bulk_import.status.stopped">
+      <segment state="translated">
+        <source>bulk_import.status.stopped</source>
+        <target>Stopped</target>
+      </segment>
+    </unit>
+    <unit id="5SSBsBs" name="bulk_import.status.failed">
+      <segment state="translated">
+        <source>bulk_import.status.failed</source>
+        <target>Failed</target>
+      </segment>
+    </unit>
+    <unit id="JprgheW" name="bulk_import.part_status.pending">
+      <segment state="translated">
+        <source>bulk_import.part_status.pending</source>
+        <target>Pending</target>
+      </segment>
+    </unit>
+    <unit id="iDoZxrE" name="bulk_import.part_status.completed">
+      <segment state="translated">
+        <source>bulk_import.part_status.completed</source>
+        <target>Completed</target>
+      </segment>
+    </unit>
+    <unit id="KInkh07" name="bulk_import.part_status.skipped">
+      <segment state="translated">
+        <source>bulk_import.part_status.skipped</source>
+        <target>Skipped</target>
+      </segment>
+    </unit>
+    <unit id="tmVFe1V" name="bulk_import.part_status.failed">
+      <segment state="translated">
+        <source>bulk_import.part_status.failed</source>
+        <target>Failed</target>
+      </segment>
+    </unit>
+    <unit id="Jxg8Jia" name="bulk_info_provider_import_job.label">
+      <segment state="translated">
+        <source>bulk_info_provider_import_job.label</source>
+        <target>Bulk info provider import</target>
+      </segment>
+    </unit>
+    <unit id="SV1_VvJ" name="bulk_info_provider_import_job_part.label">
+      <segment state="translated">
+        <source>bulk_info_provider_import_job_part.label</source>
+        <target>Bulk Import Job Part</target>
+      </segment>
+    </unit>
+    <unit id="XQV7AkF" name="info_providers.bulk_search.priority">
+      <segment state="translated">
+        <source>info_providers.bulk_search.priority</source>
+        <target>Priority</target>
+      </segment>
+    </unit>
+    <unit id="XR9mZP_" name="info_providers.bulk_search.priority.help">
+      <segment state="translated">
+        <source>info_providers.bulk_search.priority.help</source>
+        <target>Lower numbers = higher priority. Same priority = combine results. Different priorities = try highest first, fallback if no results.</target>
+      </segment>
+    </unit>
+    <unit id="Iz3Ow0_" name="info_providers.bulk_import.priority_system.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.priority_system.title</source>
+        <target>Priority System</target>
+      </segment>
+    </unit>
+    <unit id="CPwXFjE" name="info_providers.bulk_import.priority_system.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.priority_system.description</source>
+        <target>Lower numbers = higher priority. Same priority = combine results. Different priorities = try highest first, fallback if no results.</target>
+      </segment>
+    </unit>
+    <unit id="v.rTI5s" name="info_providers.bulk_import.priority_system.example">
+      <segment state="translated">
+        <source>info_providers.bulk_import.priority_system.example</source>
+        <target>Example: Priority 1: "LCSC SPN → LCSC", Priority 2: "MPN → LCSC + Mouser", Priority 3: "Name → All providers"</target>
+      </segment>
+    </unit>
+    <unit id="yMhBL_K" name="info_providers.bulk_import.search.submit">
+      <segment state="translated">
+        <source>info_providers.bulk_import.search.submit</source>
+        <target>Search Providers</target>
+      </segment>
+    </unit>
+    <unit id="NSXIcCk" name="info_providers.bulk_import.research.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.title</source>
+        <target>Research Parts</target>
+      </segment>
+    </unit>
+    <unit id="i53VvpV" name="info_providers.bulk_import.research.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.description</source>
+        <target>Re-search for parts using updated information (e.g., new MPNs). Uses the same field mappings as the original search.</target>
+      </segment>
+    </unit>
+    <unit id="S2HVT9P" name="info_providers.bulk_import.research.all_pending">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.all_pending</source>
+        <target>Research All Pending Parts</target>
+      </segment>
+    </unit>
+    <unit id="ri9TEXX" name="info_providers.bulk_import.research.part">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.part</source>
+        <target>Research</target>
+      </segment>
+    </unit>
+    <unit id="izeEDar" name="info_providers.bulk_import.research.part_tooltip">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.part_tooltip</source>
+        <target>Research this part with updated information</target>
+      </segment>
+    </unit>
+    <unit id="jPCU0MO" name="info_providers.bulk_import.max_mappings_reached">
+      <segment state="translated">
+        <source>info_providers.bulk_import.max_mappings_reached</source>
+        <target>Maximum number of mappings reached</target>
+      </segment>
+    </unit>
+    <unit id="LWLi016" name="settings.system">
+      <segment state="translated">
+        <source>settings.system</source>
+        <target>System</target>
+      </segment>
+    </unit>
+    <unit id="8syOoyh" name="settings.behavior">
+      <segment state="translated">
+        <source>settings.behavior</source>
+        <target>Behavior</target>
+      </segment>
+    </unit>
+    <unit id="lAiL2Jw" name="settings.ips">
+      <segment state="translated">
+        <source>settings.ips</source>
+        <target>Info providers</target>
+      </segment>
+    </unit>
+    <unit id="GuUZqpX" name="settings.misc">
+      <segment state="translated">
+        <source>settings.misc</source>
+        <target>Misc</target>
+      </segment>
+    </unit>
+    <unit id="mNLyYXa" name="settings.system.localization.language_menu_entries">
+      <segment state="translated">
+        <source>settings.system.localization.language_menu_entries</source>
+        <target>Language menu entries</target>
+      </segment>
+    </unit>
+    <unit id="Ej2znKK" name="settings.system.localization.language_menu_entries.description">
+      <segment state="translated">
+        <source>settings.system.localization.language_menu_entries.description</source>
+        <target><![CDATA[The languages to show in the language drop-down menu. Order can be changed via drag & drop. Leave empty to show all available languages.]]></target>
+      </segment>
+    </unit>
+    <unit id="xIZ_mEX" name="project.builds.no_bom_entries">
+      <segment>
+        <source>project.builds.no_bom_entries</source>
+        <target>Project has no BOM entries</target>
+      </segment>
+    </unit>
+    <unit id="pCKgjIr" name="settings.behavior.sidebar.data_structure_nodes_table_include_children">
+      <segment>
+        <source>settings.behavior.sidebar.data_structure_nodes_table_include_children</source>
+        <target>Tables should include children nodes by default</target>
+      </segment>
+    </unit>
+    <unit id="KJQHfwV" name="settings.behavior.sidebar.data_structure_nodes_table_include_children.help">
+      <segment>
+        <source>settings.behavior.sidebar.data_structure_nodes_table_include_children.help</source>
+        <target>If checked, the part tables for categories, footprints, etc. should include all parts of child categories. If not checked, only parts that strictly belong to the clicked node are shown.</target>
+      </segment>
+    </unit>
+    <unit id="Gdlnmav" name="info_providers.search.error.oauth_reconnect">
+      <segment>
+        <source>info_providers.search.error.oauth_reconnect</source>
+        <target>You need to reconnect OAuth for following providers: %provider%
+You can do this in the provider info list.</target>
+      </segment>
+    </unit>
+    <unit id="xIZ_mEX" name="project.builds.no_bom_entries">
+      <segment state="translated">
+        <source>project.builds.no_bom_entries</source>
+        <target>Project has no BOM entries</target>
+      </segment>
+    </unit>
+    <unit id="pCKgjIr" name="settings.behavior.sidebar.data_structure_nodes_table_include_children">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.data_structure_nodes_table_include_children</source>
+        <target>Tables should include children nodes by default</target>
+      </segment>
+    </unit>
+    <unit id="KJQHfwV" name="settings.behavior.sidebar.data_structure_nodes_table_include_children.help">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.data_structure_nodes_table_include_children.help</source>
+        <target>If checked, the part tables for categories, footprints, etc. should include all parts of child categories. If not checked, only parts that strictly belong to the clicked node are shown.</target>
+      </segment>
+    </unit>
+    <unit id="Gdlnmav" name="info_providers.search.error.oauth_reconnect">
+      <segment state="translated">
+        <source>info_providers.search.error.oauth_reconnect</source>
+        <target>You need to reconnect OAuth for following providers: %provider%
+You can do this in the provider info list.</target>
       </segment>
     </unit>
   </file>

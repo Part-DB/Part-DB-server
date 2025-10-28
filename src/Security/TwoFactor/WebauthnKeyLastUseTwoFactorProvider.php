@@ -33,6 +33,7 @@ use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\TwoFactorProviderInterface
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DependencyInjection\Attribute\AutowireDecorated;
+use Webauthn\PublicKeyCredential;
 
 /**
  * This class decorates the Webauthn TwoFactorProvider and adds additional logic which allows us to set a last used date
@@ -88,10 +89,12 @@ class WebauthnKeyLastUseTwoFactorProvider implements TwoFactorProviderInterface
 
     private function getWebauthnKeyFromCode(string $authenticationCode): ?WebauthnKey
     {
-        $publicKeyCredentialLoader = $this->webauthnProvider->getPublicKeyCredentialLoader();
+        $serializer = $this->webauthnProvider->getWebauthnSerializer();
 
         //Try to load the public key credential from the code
-        $publicKeyCredential = $publicKeyCredentialLoader->load($authenticationCode);
+        $publicKeyCredential = $serializer->deserialize($authenticationCode, PublicKeyCredential::class, 'json', [
+            'json_decode_options' => JSON_THROW_ON_ERROR
+        ]);
 
         //Find the credential source for the given credential id
         $publicKeyCredentialSource = $this->publicKeyCredentialSourceRepository->findOneByCredentialId($publicKeyCredential->rawId);

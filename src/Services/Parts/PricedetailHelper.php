@@ -25,6 +25,7 @@ namespace App\Services\Parts;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Pricedetail;
+use App\Settings\SystemSettings\LocalizationSettings;
 use Brick\Math\BigDecimal;
 use Brick\Math\RoundingMode;
 use Doctrine\ORM\PersistentCollection;
@@ -39,7 +40,7 @@ class PricedetailHelper
 {
     protected string $locale;
 
-    public function __construct(protected string $base_currency)
+    public function __construct()
     {
         $this->locale = Locale::getDefault();
     }

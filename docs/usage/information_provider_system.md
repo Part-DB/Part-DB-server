@@ -68,6 +68,13 @@ If you already have attachment types for images and datasheets and want the info
 can
 add the alternative names "Datasheet" and "Image" to the alternative names field of the attachment types.
 
+## Bulk import
+
+If you want to update the information of multiple parts, you can use the bulk import system: Go to a part table and select
+the parts you want to update. In the bulk actions dropdown select "Bulk info provider import" and click "Apply".
+You will be redirected to a page, where you can select how part fields should be mapped to info provider fields, and the 
+results will be shown.
+
 ## Data providers
 
 The system tries to be as flexible as possible, so many different information sources can be used.
@@ -79,6 +86,11 @@ That way it is pretty easy to create new providers as they just need to do very 
 Normally the providers utilize an API of a service, and you need to create an account at the provider and get an API key.
 Also, there are limits on how many requests you can do per day or month, depending on the provider and your contract
 with them.
+
+Data providers can be either configured in the system settings (in the info provider tab) or on the settings page which is
+reachable via the cogwheel symbol next to the provider in the provider list. It is also possible to configure them via
+environment variables. See below for the available configuration options. API keys configured via environment variables
+are redacted in the settings interface.
 
 The following providers are currently available and shipped with Part-DB:
 

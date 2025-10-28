@@ -82,7 +82,7 @@ final class FormatExtension extends AbstractExtension
     public function formatBytes(int $bytes, int $precision = 2): string
     {
         $size = ['B','kB','MB','GB','TB','PB','EB','ZB','YB'];
-        $factor = floor((strlen((string) $bytes) - 1) / 3);
+        $factor = (int) floor((strlen((string) $bytes) - 1) / 3);
         //We use the real (10 based) SI prefix here
         return sprintf("%.{$precision}f", $bytes / (1000 ** $factor)) . ' ' . @$size[$factor];
     }

@@ -112,12 +112,12 @@ class AttachmentURLGenerator
     /**
      * Returns a URL to a thumbnail of the attachment file.
      * For external files the original URL is returned.
-     * @return string|null The URL or null if the attachment file is not existing
+     * @return string|null The URL or null if the attachment file is not existing or is invalid
      */
     public function getThumbnailURL(Attachment $attachment, string $filter_name = 'thumbnail_sm'): ?string
     {
         if (!$attachment->isPicture()) {
-            throw new InvalidArgumentException('Thumbnail creation only works for picture attachments!');
+            return null;
         }
 
         if (!$attachment->hasInternal()){

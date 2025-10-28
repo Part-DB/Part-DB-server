@@ -33,9 +33,6 @@ use PHPUnit\Framework\TestCase;
 class ProjectBuildRequestTest extends TestCase
 {
 
-    /** @var MeasurementUnit $float_unit */
-    private MeasurementUnit $float_unit;
-
     /** @var Project */
     private Project $project1;
     /** @var ProjectBOMEntry */
@@ -49,30 +46,25 @@ class ProjectBuildRequestTest extends TestCase
     private PartLot $lot1b;
     private PartLot $lot2;
 
-    /** @var Part */
-    private Part $part1;
-    /** @var Part */
-    private Part $part2;
-
 
     public function setUp(): void
     {
-        $this->float_unit = new MeasurementUnit();
-        $this->float_unit->setName('float');
-        $this->float_unit->setUnit('f');
-        $this->float_unit->setIsInteger(false);
-        $this->float_unit->setUseSIPrefix(true);
+        $float_unit = new MeasurementUnit();
+        $float_unit->setName('float');
+        $float_unit->setUnit('f');
+        $float_unit->setIsInteger(false);
+        $float_unit->setUseSIPrefix(true);
 
         //Setup some example parts and part lots
-        $this->part1 = new Part();
-        $this->part1->setName('Part 1');
+        $part1 = new Part();
+        $part1->setName('Part 1');
         $this->lot1a = new class extends PartLot {
             public function getID(): ?int
             {
                 return 1;
             }
         };
-        $this->part1->addPartLot($this->lot1a);
+        $part1->addPartLot($this->lot1a);
         $this->lot1a->setAmount(10);
         $this->lot1a->setDescription('Lot 1a');
 
@@ -82,25 +74,25 @@ class ProjectBuildRequestTest extends TestCase
                 return 2;
             }
         };
-        $this->part1->addPartLot($this->lot1b);
+        $part1->addPartLot($this->lot1b);
         $this->lot1b->setAmount(20);
         $this->lot1b->setDescription('Lot 1b');
 
-        $this->part2 = new Part();
+        $part2 = new Part();
 
-        $this->part2->setName('Part 2');
-        $this->part2->setPartUnit($this->float_unit);
+        $part2->setName('Part 2');
+        $part2->setPartUnit($float_unit);
         $this->lot2 = new PartLot();
-        $this->part2->addPartLot($this->lot2);
+        $part2->addPartLot($this->lot2);
         $this->lot2->setAmount(2.5);
         $this->lot2->setDescription('Lot 2');
 
         $this->bom_entry1a = new ProjectBOMEntry();
-        $this->bom_entry1a->setPart($this->part1);
+        $this->bom_entry1a->setPart($part1);
         $this->bom_entry1a->setQuantity(2);
 
         $this->bom_entry1b = new ProjectBOMEntry();
-        $this->bom_entry1b->setPart($this->part2);
+        $this->bom_entry1b->setPart($part2);
         $this->bom_entry1b->setQuantity(1.5);
 
         $this->bom_entry1c = new ProjectBOMEntry();

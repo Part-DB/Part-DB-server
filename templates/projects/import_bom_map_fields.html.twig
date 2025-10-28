@@ -1,0 +1,204 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}project.bom_import.map_fields{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-arrows-left-right fa-fw"></i>
+    {% trans %}project.bom_import.map_fields{% endtrans %}{% if project %}: <i>{{ project.name }}</i>{% endif %}
+{% endblock %}
+
+{% block card_content %}
+    {% if validation_result is defined %}
+        {% include 'projects/_bom_validation_results.html.twig' with {
+            validation_result: validation_result,
+            show_summary: true,
+            show_details: false
+        } %}
+    {% endif %}
+
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="fa-solid fa-info-circle fa-fw"></i>
+                {% trans %}project.bom_import.map_fields.help{% endtrans %}
+            </div>
+            <div class="alert alert-warning">
+                <i class="fa-solid fa-lightbulb fa-fw"></i>
+                {% trans %}project.bom_import.field_mapping.priority_note{% endtrans %}
+            </div>
+        </div>
+    </div>
+
+    {{ form_start(form) }}
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            {{ form_row(form.delimiter) }}
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title mb-0">
+                <i class="fa-solid fa-table-columns fa-fw"></i>
+                {% trans %}project.bom_import.field_mapping.title{% endtrans %}
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{% trans %}project.bom_import.field_mapping.csv_field{% endtrans %}</th>
+                            <th>{% trans %}project.bom_import.field_mapping.maps_to{% endtrans %}</th>
+                            <th>{% trans %}project.bom_import.field_mapping.suggestion{% endtrans %}</th>
+                            <th>{% trans %}project.bom_import.field_mapping.priority{% endtrans %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for field in detected_fields %}
+                            <tr>
+                                <td>
+                                    <code>{{ field }}</code>
+                                </td>
+                                <td>
+                                    {{ form_widget(form['mapping_' ~ field_name_mapping[field]], {
+                                        'attr': {
+                                            'class': 'form-select field-mapping-select',
+                                            'data-field': field
+                                        }
+                                    }) }}
+                                </td>
+                                <td>
+                                    {% if suggested_mapping[field] is defined %}
+                                        <span class="badge bg-success">
+                                            <i class="fa-solid fa-magic fa-fw"></i>
+                                            {{ suggested_mapping[field] }}
+                                        </span>
+                                    {% else %}
+                                        <span class="text-muted">
+                                            <i class="fa-solid fa-question fa-fw"></i>
+                                            {% trans %}project.bom_import.field_mapping.no_suggestion{% endtrans %}
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <input type="number"
+                                           class="form-control form-control-sm priority-input"
+                                           min="1"
+                                           value="10"
+                                           style="width: 80px;"
+                                           data-field="{{ field }}"
+                                           title="{% trans %}project.bom_import.field_mapping.priority_help{% endtrans %}">
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-3">
+                <h6>{% trans %}project.bom_import.field_mapping.summary{% endtrans %}:</h6>
+                <div id="mapping-summary" class="alert alert-info">
+                    <i class="fa-solid fa-info-circle fa-fw"></i>
+                    {% trans %}project.bom_import.field_mapping.select_to_see_summary{% endtrans %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        {{ form_widget(form.submit, {
+            'attr': {
+                'class': 'btn btn-primary'
+            }
+        }) }}
+        <a href="{{ path('project_import_bom', {'id': project.id}) }}" class="btn btn-secondary">
+            <i class="fa-solid fa-arrow-left fa-fw"></i>
+            {% trans %}common.back{% endtrans %}
+        </a>
+    </div>
+
+    {{ form_end(form) }}
+
+    <script nonce="{{ csp_nonce('script') }}">
+        // Function to initialize the field mapping page
+        function initializeFieldMapping() {
+            const suggestions = {{ suggested_mapping|json_encode|raw }};
+            const fieldNameMapping = {{ field_name_mapping|json_encode|raw }};
+
+            Object.keys(suggestions).forEach(function(field) {
+                // Use the sanitized field name from the server-side mapping
+                const sanitizedField = fieldNameMapping[field];
+                const select = document.querySelector('[name="form[mapping_' + sanitizedField + ']"]');
+                if (select && !select.value) {
+                    select.value = suggestions[field];
+                }
+            });
+
+            // Update mapping summary
+            updateMappingSummary();
+
+            // Add event listeners for dynamic updates
+            document.querySelectorAll('.field-mapping-select').forEach(function(select) {
+                select.addEventListener('change', updateMappingSummary);
+            });
+
+            document.querySelectorAll('.priority-input').forEach(function(input) {
+                input.addEventListener('change', updateMappingSummary);
+            });
+        }
+
+        // Initialize on both DOMContentLoaded and Turbo events
+        document.addEventListener('DOMContentLoaded', initializeFieldMapping);
+        document.addEventListener('turbo:load', initializeFieldMapping);
+        document.addEventListener('turbo:frame-load', function(event) {
+            // Only initialize if this frame contains our field mapping content
+            if (event.target.id === 'content' || event.target.closest('#content')) {
+                initializeFieldMapping();
+            }
+        });
+
+        function updateMappingSummary() {
+            const summary = document.getElementById('mapping-summary');
+            const mappings = {};
+            const priorities = {};
+
+            // Collect all mappings and priorities
+            document.querySelectorAll('.field-mapping-select').forEach(function(select) {
+                const field = select.getAttribute('data-field');
+                const target = select.value;
+                const priorityInput = document.querySelector('.priority-input[data-field="' + field + '"]');
+                const priority = priorityInput ? parseInt(priorityInput.value) || 10 : 10;
+
+                if (target && target !== '') {
+                    if (!mappings[target]) {
+                        mappings[target] = [];
+                    }
+                    mappings[target].push({
+                        field: field,
+                        priority: priority
+                    });
+                }
+            });
+
+            // Sort by priority and build summary
+            let summaryHtml = '<div class="row">';
+            Object.keys(mappings).forEach(function(target) {
+                const fieldMappings = mappings[target].sort((a, b) => a.priority - b.priority);
+                const fieldList = fieldMappings.map(m => m.field + ' (' + '{{ "project.bom_import.field_mapping.priority_short"|trans }}' + m.priority + ')').join(', ');
+
+                summaryHtml += '<div class="col-md-6 mb-2">';
+                summaryHtml += '<strong>' + target + ':</strong> ' + fieldList;
+                summaryHtml += '</div>';
+            });
+            summaryHtml += '</div>';
+
+            if (Object.keys(mappings).length === 0) {
+                summary.innerHTML = '<i class="fa-solid fa-info-circle fa-fw"></i> {{ "project.bom_import.field_mapping.select_to_see_summary"|trans }}';
+            } else {
+                summary.innerHTML = summaryHtml;
+            }
+        }
+    </script>
+{% endblock %}

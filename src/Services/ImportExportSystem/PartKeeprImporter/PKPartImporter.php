@@ -35,6 +35,7 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
+use App\Settings\SystemSettings\LocalizationSettings;
 use Brick\Math\BigDecimal;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Intl\Currencies;
@@ -47,7 +48,7 @@ class PKPartImporter
 {
     use PKImportHelperTrait;
 
-    public function __construct(EntityManagerInterface $em, PropertyAccessorInterface $propertyAccessor, private readonly string $base_currency)
+    public function __construct(EntityManagerInterface $em, PropertyAccessorInterface $propertyAccessor, private readonly LocalizationSettings $localizationSettings)
     {
         $this->em = $em;
         $this->propertyAccessor = $propertyAccessor;
@@ -89,6 +90,8 @@ class PKPartImporter
                 if ($part['partUnit_id'] !== '1') {
                     $this->setAssociationField($entity, 'partUnit', MeasurementUnit::class, $part['partUnit_id']);
                 }
+
+                $this->setAssociationField($entity, 'partCustomState', MeasurementUnit::class, $part['partCustomState_id']);
 
                 //Create a part lot to store the stock level and location
                 $lot = new PartLot();
@@ -210,7 +213,7 @@ class PKPartImporter
         $currency_iso_code = strtoupper($currency_iso_code);
 
         //We do not have a currency for the base currency to be consistent with prices without currencies
-        if ($currency_iso_code === $this->base_currency) {
+        if ($currency_iso_code === $this->localizationSettings->baseCurrency) {
             return null;
         }
 

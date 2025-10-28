@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Security\Voter;
 
+use App\Entity\Attachments\PartCustomStateAttachment;
 use App\Services\UserSystem\VoterHelper;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Attachments\AttachmentContainingDBElement;
@@ -41,6 +42,7 @@ use App\Entity\Attachments\UserAttachment;
 use RuntimeException;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 use function in_array;
@@ -56,7 +58,7 @@ final class AttachmentVoter extends Voter
     {
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
 
         //This voter only works for attachments
@@ -65,7 +67,8 @@ final class AttachmentVoter extends Voter
         }
 
         if ($attribute === 'show_private') {
-            return $this->helper->isGranted($token, 'attachments', 'show_private');
+            $vote?->addReason('User is not allowed to view private attachments.');
+            return $this->helper->isGranted($token, 'attachments', 'show_private', $vote);
         }
 
 
@@ -97,6 +100,8 @@ final class AttachmentVoter extends Voter
                 $param = 'measurement_units';
             } elseif (is_a($subject, PartAttachment::class, true)) {
                 $param = 'parts';
+            } elseif (is_a($subject, PartCustomStateAttachment::class, true)) {
+                $param = 'part_custom_states';
             } elseif (is_a($subject, StorageLocationAttachment::class, true)) {
                 $param = 'storelocations';
             } elseif (is_a($subject, SupplierAttachment::class, true)) {
@@ -111,7 +116,8 @@ final class AttachmentVoter extends Voter
                 throw new RuntimeException('Encountered unknown Parameter type: ' . $subject);
             }
 
-            return $this->helper->isGranted($token, $param, $this->mapOperation($attribute));
+            $vote?->addReason('User is not allowed to '.$this->mapOperation($attribute).' attachments of type '.$param.'.');
+            return $this->helper->isGranted($token, $param, $this->mapOperation($attribute), $vote);
         }
 
         return false;

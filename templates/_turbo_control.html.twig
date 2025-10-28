@@ -22,7 +22,12 @@
 <div class="d-none" data-title="{{ current_page_title|trim|raw }}" {{ stimulus_controller('turbo/title') }}></div>
 
 <div class="d-none" {{ stimulus_controller('turbo/locale_menu') }}>
-    {% for locale in locale_menu %}
+    {% set locales = settings_instance('localization').languageMenuEntries %}
+    {% if locales is empty %}
+        {% set locales = locale_menu %}
+    {% endif %}
+
+    {% for locale in locales %}
         <a class="dropdown-item" data-turbo="false" data-turbo-frame="_top" href="{{ path(app.request.attributes.get('_route'),
             app.request.query.all|merge(app.request.attributes.get('_route_params'))|merge({'_locale': locale})) }}">
             {{ locale|language_name }} ({{ locale|upper }})</a>

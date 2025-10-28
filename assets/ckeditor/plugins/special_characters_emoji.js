@@ -17,14 +17,12 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import SpecialCharacters from '@ckeditor/ckeditor5-special-characters/src/specialcharacters';
-import SpecialCharactersEssentials from '@ckeditor/ckeditor5-special-characters/src/specialcharactersessentials';
+import SpecialCharacters from 'ckeditor5';
+import SpecialCharactersEssentials from 'ckeditor5';
 
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import {Plugin} from 'ckeditor5';
 
-const emoji = require('emoji.json');
-
-export default class SpecialCharactersEmoji extends Plugin {
+export default class SpecialCharactersGreek extends Plugin {
 
     init() {
         const editor = this.editor;
@@ -32,9 +30,6 @@ export default class SpecialCharactersEmoji extends Plugin {
 
         //Add greek characters to special characters
         specialCharsPlugin.addItems('Greek', this.getGreek());
-
-        //Add Emojis to special characters
-        specialCharsPlugin.addItems('Emoji', this.getEmojis());
     }
 
     getGreek() {
@@ -95,15 +90,5 @@ export default class SpecialCharactersEmoji extends Plugin {
             { title: 'koppa', character: 'Ϟ' },
             { title: 'san', character: 'Ϻ' },
         ];
-    }
-
-    getEmojis() {
-        //Map our emoji data to the format the plugin expects
-        return emoji.map(emoji => {
-            return {
-                title: emoji.name,
-                character: emoji.char
-            };
-        });
     }
 }

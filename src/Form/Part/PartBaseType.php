@@ -30,6 +30,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Form\AttachmentFormType;
 use App\Form\ParameterType;
@@ -40,6 +41,7 @@ use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\LogSystem\EventCommentNeededHelper;
+use App\Services\LogSystem\EventCommentType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -170,6 +172,12 @@ class PartBaseType extends AbstractType
                 'disable_not_selectable' => true,
                 'label' => 'part.edit.partUnit',
             ])
+            ->add('partCustomState', StructuralEntityType::class, [
+                'class' => PartCustomState::class,
+                'required' => false,
+                'disable_not_selectable' => true,
+                'label' => 'part.edit.partCustomState',
+            ])
             ->add('ipn', TextType::class, [
                 'required' => false,
                 'empty_data' => null,
@@ -265,7 +273,7 @@ class PartBaseType extends AbstractType
         $builder->add('log_comment', TextType::class, [
             'label' => 'edit.log_comment',
             'mapped' => false,
-            'required' => $this->event_comment_needed_helper->isCommentNeeded($new_part ? 'part_create' : 'part_edit'),
+            'required' => $this->event_comment_needed_helper->isCommentNeeded($new_part ? EventCommentType::PART_CREATE : EventCommentType::PART_EDIT),
             'empty_data' => null,
         ]);
 

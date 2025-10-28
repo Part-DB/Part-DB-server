@@ -548,6 +548,12 @@
         <target>Unidad de medida</target>
       </segment>
     </unit>
+    <unit id="3bcKBzY" name="part_custom_state.caption">
+      <segment state="translated">
+        <source>part_custom_state.caption</source>
+        <target>Estado personalizado del componente</target>
+      </segment>
+    </unit>
     <unit id="crdkzlg" name="storelocation.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:5</note>
@@ -4830,6 +4836,12 @@ Subelementos serán desplazados hacia arriba.</target>
         <target>Unidad de Medida</target>
       </segment>
     </unit>
+    <unit id="G1hmQdb" name="part.table.partCustomState">
+      <segment state="translated">
+        <source>part.table.partCustomState</source>
+        <target>Estado personalizado del componente</target>
+      </segment>
+    </unit>
     <unit id="R5pc2FR" name="part.table.addedDate">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:236</note>
@@ -5694,6 +5706,12 @@ Subelementos serán desplazados hacia arriba.</target>
         <target>Unidad de medida</target>
       </segment>
     </unit>
+    <unit id="G1hmQdb" name="part.edit.partCustomState">
+      <segment state="translated">
+        <source>part.edit.partCustomState</source>
+        <target>Estado personalizado de la pieza</target>
+      </segment>
+    </unit>
     <unit id="oY_9HE9" name="part.edit.comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:212</note>
@@ -5981,6 +5999,12 @@ Subelementos serán desplazados hacia arriba.</target>
         <target>Unidad de medida</target>
       </segment>
     </unit>
+    <unit id="a1mPcMw" name="part_custom_state.label">
+      <segment state="translated">
+        <source>part_custom_state.label</source>
+        <target>Estado personalizado de la pieza</target>
+      </segment>
+    </unit>
     <unit id="__SP1Zy" name="currency.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:90</note>
@@ -6222,6 +6246,12 @@ Subelementos serán desplazados hacia arriba.</target>
       <segment state="translated">
         <source>tree.tools.edit.measurement_unit</source>
         <target>Unidad de medida</target>
+      </segment>
+    </unit>
+    <unit id="5adacKb" name="tree.tools.edit.part_custom_state">
+      <segment state="translated">
+        <source>tree.tools.edit.part_custom_state</source>
+        <target>Estado personalizado del componente</target>
       </segment>
     </unit>
     <unit id=".Ux4R3T" name="tree.tools.edit.label_profile">
@@ -8494,6 +8524,12 @@ Elemento 3</target>
         <target>Unidad de medida</target>
       </segment>
     </unit>
+    <unit id="1b5ja1c" name="perm.part_custom_states">
+      <segment state="translated">
+        <source>perm.part_custom_states</source>
+        <target>Estado personalizado del componente</target>
+      </segment>
+    </unit>
     <unit id="coNue69" name="user.settings.pw_old.label">
       <notes>
         <note priority="1">obsolete</note>
@@ -9009,7 +9045,7 @@ Elemento 3</target>
     <unit id="gaoMsrY" name="part_list.action.part_count">
       <segment state="translated">
         <source>part_list.action.part_count</source>
-        <target>¡%count% componentes seleccionadas!</target>
+        <target>¡%count% componentes seleccionadas</target>
       </segment>
     </unit>
     <unit id="FhdheZY" name="company.edit.quick.website">
@@ -10824,6 +10860,12 @@ Elemento 3</target>
         <target>Unidad de medida</target>
       </segment>
     </unit>
+    <unit id="2COnw1k" name="log.element_edited.changed_fields.partCustomState">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.partCustomState</source>
+        <target>Estado personalizado del componente</target>
+      </segment>
+    </unit>
     <unit id="c9XMmAp" name="log.element_edited.changed_fields.expiration_date">
       <segment state="translated">
         <source>log.element_edited.changed_fields.expiration_date</source>
@@ -11080,6 +11122,18 @@ Elemento 3</target>
       <segment state="translated">
         <source>measurement_unit.edit</source>
         <target>Editar Unidad de Medida</target>
+      </segment>
+    </unit>
+    <unit id="ba52d.g" name="part_custom_state.new">
+      <segment state="translated">
+        <source>part_custom_state.new</source>
+        <target>Nuevo estado personalizado del componente</target>
+      </segment>
+    </unit>
+    <unit id="c1.gb2d" name="part_custom_state.edit">
+      <segment state="translated">
+        <source>part_custom_state.edit</source>
+        <target>Editar estado personalizado del componente</target>
       </segment>
     </unit>
     <unit id="uW2WHHC" name="user.aboutMe.label">
@@ -12342,6 +12396,30 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
       <segment state="translated">
         <source>attachment.view_external</source>
         <target>Ver versión externa</target>
+      </segment>
+    </unit>
+    <unit id="X9HUFrv" name="part.table.actions.error">
+      <segment state="translated">
+        <source>part.table.actions.error</source>
+        <target>Han ocurrido %count% errores mientras se ejecutaba la acción:</target>
+      </segment>
+    </unit>
+    <unit id=".ppbsNn" name="part.table.actions.error_detail">
+      <segment state="translated">
+        <source>part.table.actions.error_detail</source>
+        <target>%part_name% (ID: %part_id%): %message%</target>
+      </segment>
+    </unit>
+    <unit id="4wpp6h." name="part_list.action.action.change_location">
+      <segment state="translated">
+        <source>part_list.action.action.change_location</source>
+        <target>Cambiar de ubicación (solo para componentes con un único lote)</target>
+      </segment>
+    </unit>
+    <unit id="9_9I.m4" name="parts.table.action_handler.error.part_lots_multiple">
+      <segment state="translated">
+        <source>parts.table.action_handler.error.part_lots_multiple</source>
+        <target>Este componente contiene más de un stock. Cambie la ubicación manualmente para seleccionar el stock deseado.</target>
       </segment>
     </unit>
   </file>

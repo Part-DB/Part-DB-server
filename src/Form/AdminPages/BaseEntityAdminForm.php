@@ -25,6 +25,7 @@ namespace App\Form\AdminPages;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\UserSystem\Group;
+use App\Services\LogSystem\EventCommentType;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -152,7 +153,7 @@ class BaseEntityAdminForm extends AbstractType
         $builder->add('log_comment', TextType::class, [
             'label' => 'edit.log_comment',
             'mapped' => false,
-            'required' => $this->eventCommentNeededHelper->isCommentNeeded($is_new ? 'datastructure_create': 'datastructure_edit'),
+            'required' => $this->eventCommentNeededHelper->isCommentNeeded($is_new ? EventCommentType::DATASTRUCTURE_CREATE: EventCommentType::DATASTRUCTURE_EDIT),
             'empty_data' => null,
         ]);
 

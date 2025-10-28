@@ -30,7 +30,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class UserRepositoryTest extends WebTestCase
 {
 
-    private $entityManager;
     /**
      * @var UserRepository
      */
@@ -40,11 +39,11 @@ class UserRepositoryTest extends WebTestCase
     {
         $kernel = self::bootKernel();
 
-        $this->entityManager = $kernel->getContainer()
+        $entityManager = $kernel->getContainer()
             ->get('doctrine')
             ->getManager();
 
-        $this->repo = $this->entityManager->getRepository(User::class);
+        $this->repo = $entityManager->getRepository(User::class);
     }
 
 

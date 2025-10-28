@@ -45,8 +45,10 @@ export default class extends DatatablesController {
         //Hide/Unhide panel with the selection tools
         if (count > 0) {
             selectPanel.classList.remove('d-none');
+            selectPanel.classList.add('sticky-select-bar');
         } else {
             selectPanel.classList.add('d-none');
+            selectPanel.classList.remove('sticky-select-bar');
         }
 
         //Update selection count text

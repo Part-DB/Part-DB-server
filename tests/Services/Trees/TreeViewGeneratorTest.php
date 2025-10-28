@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\Trees;
 
+use PHPUnit\Framework\Attributes\Group;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Category;
 use App\Helpers\Trees\TreeViewNode;
@@ -29,9 +30,7 @@ use App\Services\Trees\TreeViewGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-/**
- * @group DB
- */
+#[Group('DB')]
 class TreeViewGeneratorTest extends WebTestCase
 {
     protected $em;

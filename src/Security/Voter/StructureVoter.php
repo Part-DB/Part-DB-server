@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -33,6 +34,7 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Services\UserSystem\VoterHelper;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 use function is_object;
@@ -52,6 +54,7 @@ final class StructureVoter extends Voter
         Supplier::class => 'suppliers',
         Currency::class => 'currencies',
         MeasurementUnit::class => 'measurement_units',
+        PartCustomState::class => 'part_custom_states',
     ];
 
     public function __construct(private readonly VoterHelper $helper)
@@ -113,10 +116,10 @@ final class StructureVoter extends Voter
      *
      * @param  string  $attribute
      */
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         $permission_name = $this->instanceToPermissionName($subject);
         //Just resolve the permission
-        return $this->helper->isGranted($token, $permission_name, $attribute);
+        return $this->helper->isGranted($token, $permission_name, $attribute, $vote);
     }
 }
