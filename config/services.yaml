@@ -240,8 +240,6 @@ services:
         tags:
             - { name: doctrine.event_listener, event: onFlush, connection: default }
 
-    App\Validator\Constraints\UniquePartIpnValidator:
-        tags: [ 'validator.constraint_validator' ]
 
     # We are needing this service inside a migration, where only the container is injected. So we need to define it as public, to access it from the container.
     App\Services\UserSystem\PermissionPresetsHelper:
