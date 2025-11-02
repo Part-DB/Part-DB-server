@@ -19,17 +19,17 @@ class UniquePartIpnValidator extends ConstraintValidator
         $this->ipnSuggestSettings = $ipnSuggestSettings;
     }
 
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (null === $value || '' === $value) {
             return;
         }
 
+        //If the autoAppendSuffix option is enabled, the IPN becomes unique automatically later
         if ($this->ipnSuggestSettings->autoAppendSuffix) {
             return;
         }
 
-        // Stelle sicher, dass es unser eigenes Constraint ist (wichtig für PHPStan)
         if (!$constraint instanceof UniquePartIpnConstraint) {
             return;
         }
