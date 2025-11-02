@@ -30,6 +30,7 @@ use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Attachments\CurrencyAttachment;
 use App\Entity\Attachments\LabelAttachment;
+use App\Entity\Attachments\PartCustomStateAttachment;
 use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Attachments\GroupAttachment;
@@ -80,6 +81,7 @@ class AttachmentSubmitHandler
         //The mapping used to determine which folder will be used for an attachment type
         $this->folder_mapping = [
             PartAttachment::class => 'part',
+            PartCustomStateAttachment::class => 'part_custom_state',
             AttachmentTypeAttachment::class => 'attachment_type',
             CategoryAttachment::class => 'category',
             CurrencyAttachment::class => 'currency',

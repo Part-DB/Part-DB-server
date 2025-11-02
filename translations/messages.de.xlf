@@ -548,6 +548,12 @@
         <target>Maßeinheit</target>
       </segment>
     </unit>
+    <unit id="3bcKBzY" name="part_custom_state.caption">
+      <segment state="translated">
+        <source>part_custom_state.caption</source>
+        <target>Benutzerdefinierter Bauteilstatus</target>
+      </segment>
+    </unit>
     <unit id="crdkzlg" name="storelocation.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:5</note>
@@ -4890,6 +4896,12 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Maßeinheit</target>
       </segment>
     </unit>
+    <unit id="G1hmQdb" name="part.table.partCustomState">
+      <segment state="translated">
+        <source>part.table.partCustomState</source>
+        <target>Benutzerdefinierter Bauteilstatus</target>
+      </segment>
+    </unit>
     <unit id="R5pc2FR" name="part.table.addedDate">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:236</note>
@@ -5754,6 +5766,12 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Maßeinheit</target>
       </segment>
     </unit>
+    <unit id="kE1wJ1a" name="part.edit.partCustomState">
+      <segment state="translated">
+        <source>part.edit.partCustomState</source>
+        <target>Benutzerdefinierter Bauteilstatus</target>
+      </segment>
+    </unit>
     <unit id="oY_9HE9" name="part.edit.comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:212</note>
@@ -6041,6 +6059,12 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Maßeinheit</target>
       </segment>
     </unit>
+    <unit id="a1mPcMw" name="part_custom_state.label">
+      <segment state="translated">
+        <source>part_custom_state.label</source>
+        <target>Benutzerdefinierter Bauteilstatus</target>
+      </segment>
+    </unit>
     <unit id="__SP1Zy" name="currency.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:90</note>
@@ -6282,6 +6306,12 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>tree.tools.edit.measurement_unit</source>
         <target>Maßeinheiten</target>
+      </segment>
+    </unit>
+    <unit id="5adacKb" name="tree.tools.edit.part_custom_state">
+      <segment state="translated">
+        <source>tree.tools.edit.part_custom_state</source>
+        <target>Benutzerdefinierter Bauteilstatus</target>
       </segment>
     </unit>
     <unit id=".Ux4R3T" name="tree.tools.edit.label_profile">
@@ -8563,6 +8593,12 @@ Element 1 -> Element 1.2]]></target>
         <target>Maßeinheiten</target>
       </segment>
     </unit>
+    <unit id="1b5ja1c" name="perm.part_custom_states">
+      <segment state="translated">
+        <source>perm.part_custom_states</source>
+        <target>Benutzerdefinierter Bauteilstatus</target>
+      </segment>
+    </unit>
     <unit id="coNue69" name="user.settings.pw_old.label">
       <notes>
         <note priority="1">obsolete</note>
@@ -8777,7 +8813,7 @@ Element 1 -> Element 1.2]]></target>
       </notes>
       <segment state="translated">
         <source>log.type.security.backup_keys_reset</source>
-        <target>Neue Backupkeys erzeugt</target>
+        <target>Neue Backup-Keys erzeugt</target>
       </segment>
     </unit>
     <unit id="RF1.KEr" name="log.type.security.google_enabled">
@@ -10958,6 +10994,12 @@ Element 1 -> Element 1.2]]></target>
         <target>Maßeinheit</target>
       </segment>
     </unit>
+    <unit id="2COnw1k" name="log.element_edited.changed_fields.partCustomState">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.partCustomState</source>
+        <target>Benutzerdefinierter Bauteilstatus</target>
+      </segment>
+    </unit>
     <unit id="c9XMmAp" name="log.element_edited.changed_fields.expiration_date">
       <segment state="translated">
         <source>log.element_edited.changed_fields.expiration_date</source>
@@ -11220,6 +11262,18 @@ Element 1 -> Element 1.2]]></target>
       <segment state="translated">
         <source>measurement_unit.edit</source>
         <target>Bearbeite Maßeinheit</target>
+      </segment>
+    </unit>
+    <unit id="ba52d.g" name="part_custom_state.new">
+      <segment state="translated">
+        <source>part_custom_state.new</source>
+        <target>Neuer benutzerdefinierter Bauteilstatus</target>
+      </segment>
+    </unit>
+    <unit id="c1.gb2d" name="part_custom_state.edit">
+      <segment state="translated">
+        <source>part_custom_state.edit</source>
+        <target>Bearbeite benutzerdefinierten Bauteilstatus</target>
       </segment>
     </unit>
     <unit id="uW2WHHC" name="user.aboutMe.label">
@@ -14313,6 +14367,67 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>info_providers.bulk_import.max_mappings_reached</source>
         <target>Maximale Anzahl von Zuordnungen erreicht</target>
+      </segment>
+    </unit>
+    <unit id="LWLi016" name="settings.system">
+      <segment state="translated">
+        <source>settings.system</source>
+        <target>System</target>
+      </segment>
+    </unit>
+    <unit id="8syOoyh" name="settings.behavior">
+      <segment state="translated">
+        <source>settings.behavior</source>
+        <target>Verhalten</target>
+      </segment>
+    </unit>
+    <unit id="lAiL2Jw" name="settings.ips">
+      <segment state="translated">
+        <source>settings.ips</source>
+        <target>Informationsquellen</target>
+      </segment>
+    </unit>
+    <unit id="GuUZqpX" name="settings.misc">
+      <segment state="translated">
+        <source>settings.misc</source>
+        <target>Verschiedenes</target>
+      </segment>
+    </unit>
+    <unit id="mNLyYXa" name="settings.system.localization.language_menu_entries">
+      <segment state="translated">
+        <source>settings.system.localization.language_menu_entries</source>
+        <target>Einträge des Sprachenmenüs</target>
+      </segment>
+    </unit>
+    <unit id="Ej2znKK" name="settings.system.localization.language_menu_entries.description">
+      <segment state="translated">
+        <source>settings.system.localization.language_menu_entries.description</source>
+        <target>Die Sprachen, die im Sprachen Dropdown-Menü angezeigt werden sollen. Die Reihenfolge kann via Drag&amp;Drop geändert werden. Lassen Sie das Feld leer, um alle verfügbaren Sprachen anzuzeigen.</target>
+      </segment>
+    </unit>
+    <unit id="xIZ_mEX" name="project.builds.no_bom_entries">
+      <segment state="translated">
+        <source>project.builds.no_bom_entries</source>
+        <target>Das Projekt hat keine BOM Einträge</target>
+      </segment>
+    </unit>
+    <unit id="pCKgjIr" name="settings.behavior.sidebar.data_structure_nodes_table_include_children">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.data_structure_nodes_table_include_children</source>
+        <target>Tabellen sollen Kindelemente standardmäßig inkludieren</target>
+      </segment>
+    </unit>
+    <unit id="KJQHfwV" name="settings.behavior.sidebar.data_structure_nodes_table_include_children.help">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.data_structure_nodes_table_include_children.help</source>
+        <target>Wenn ausgewählt, werden für Bauteiletabellen von Kategorien, Footprints, etc. alle Bauteile der Kindkategorie inkludiert. Wenn diese Option nicht ausgewählt ist, werden in den Bauteiletabellen nur die Bauteile angezeigt, die strikt zu der angeklickten Kategorie gehören (exklusive Kindelementen).</target>
+      </segment>
+    </unit>
+    <unit id="Gdlnmav" name="info_providers.search.error.oauth_reconnect">
+      <segment state="translated">
+        <source>info_providers.search.error.oauth_reconnect</source>
+        <target>Folgende Informationsquelle benötigt eine OAuth Neu-Verbindung: %provider%
+Dies ist auf der Informationsquellen Übersichtsseite möglich.</target>
       </segment>
     </unit>
     <unit id="L4nq52R" name="settings.misc.ipn_suggest.useDuplicateDescription.help">

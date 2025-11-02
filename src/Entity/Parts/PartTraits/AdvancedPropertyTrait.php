@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\Parts\InfoProviderReference;
+use App\Entity\Parts\PartCustomState;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
@@ -74,6 +75,14 @@ trait AdvancedPropertyTrait
     #[ORM\Embedded(class: InfoProviderReference::class, columnPrefix: 'provider_reference_')]
     #[Groups(['full', 'part:read'])]
     protected InfoProviderReference $providerReference;
+
+    /**
+     * @var ?PartCustomState the custom state for the part
+     */
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
+    #[ORM\ManyToOne(targetEntity: PartCustomState::class)]
+    #[ORM\JoinColumn(name: 'id_part_custom_state')]
+    protected ?PartCustomState $partCustomState = null;
 
     /**
      * Checks if this part is marked, for that it needs further review.
@@ -182,7 +191,24 @@ trait AdvancedPropertyTrait
         return $this;
     }
 
+    /**
+     * Gets the custom part state for the part
+     * Returns null if no specific part state is set.
+     */
+    public function getPartCustomState(): ?PartCustomState
+    {
+        return $this->partCustomState;
+    }
 
+    /**
+     * Sets the custom part state.
+     *
+     * @return $this
+     */
+    public function setPartCustomState(?PartCustomState $partCustomState): self
+    {
+        $this->partCustomState = $partCustomState;
 
-
+        return $this;
+    }
 }

@@ -16,14 +16,17 @@
 </head>
 <body>
 {% for element in elements %}
+    {# The page div ensures the page breaks, while the page-inner elements restrict the content to the page size. Sine dompdf 3.1.1 we cannot apply the position: absolute; to the page element directly. #}
     <div class="page">
-        {% if options.barcodeType.none %}
-            {% include "label_system/labels/label_page_none.html.twig" %}
-        {% elseif options.barcodeType.is2D() %}
-            {% include "label_system/labels/label_page_qr.html.twig" %}
-        {% elseif options.barcodeType.is1D() %}
-            {% include "label_system/labels/label_page_1d.html.twig" %}
-        {% endif %}
+        <div class="page-inner">
+            {% if options.barcodeType.none %}
+                {% include "label_system/labels/label_page_none.html.twig" %}
+            {% elseif options.barcodeType.is2D() %}
+                {% include "label_system/labels/label_page_qr.html.twig" %}
+            {% elseif options.barcodeType.is1D() %}
+                {% include "label_system/labels/label_page_1d.html.twig" %}
+            {% endif %}
+        </div>
     </div>
 {% endfor %}
 </body>

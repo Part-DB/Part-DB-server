@@ -86,7 +86,7 @@
                                         <li class="nav-item">
                                             <a data-bs-toggle="tab" class="nav-link link-anchor" href="#attachments">{% trans %}admin.attachments{% endtrans %}</a>
                                         </li>
-                                        {% if entity.parameters is defined %}
+                                        {% if entity.parameters is defined and showParameters == true %}
                                             <li class="nav-item">
                                                 <a data-bs-toggle="tab" class="nav-link link-anchor" href="#parameters">{% trans %}admin.parameters{% endtrans %}</a>
                                             </li>

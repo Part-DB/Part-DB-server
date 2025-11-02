@@ -27,8 +27,9 @@ use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings()]
+#[Settings(label: new TM("settings.ips"))]
 class InfoProviderSettings
 {
     use SettingsTrait;

@@ -25,8 +25,9 @@ namespace App\Settings\MiscSettings;
 
 use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
 use Jbtronics\SettingsBundle\Settings\Settings;
+use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings]
+#[Settings(label: new TM("settings.misc"))]
 class MiscSettings
 {
     #[EmbeddedSettings]

@@ -10,6 +10,9 @@
 {% block card_content %}
     {{ form_start(form) }}
 
+    {# Default submit to use when pressing enter. #}
+    <input type="submit" name="label_dialog[update]" class="d-none">
+
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link active" data-bs-toggle="tab" id="common-tab" role="tab" aria-controls="common" aria-selected="true" href="#common"
