@@ -41,6 +41,7 @@ class IpnSuggestSettings
 
     #[SettingsParameter(
         label: new TM("settings.misc.ipn_suggest.regex"),
+        description: new TM("settings.misc.ipn_suggest.regex.help"),
         options: ['type' => StringType::class],
         formOptions: ['attr' => ['placeholder' => '^[A-Za-z0-9]{3,4}(?:-[A-Za-z0-9]{3,4})*-\d{4}$']],
         envVar: "IPN_SUGGEST_REGEX", envVarMode: EnvVarMode::OVERWRITE,
@@ -72,6 +73,7 @@ class IpnSuggestSettings
 
     #[SettingsParameter(
         label: new TM("settings.misc.ipn_suggest.useDuplicateDescription"),
+        description: new TM("settings.misc.ipn_suggest.useDuplicateDescription.help"),
         envVar: "bool:IPN_USE_DUPLICATE_DESCRIPTION", envVarMode: EnvVarMode::OVERWRITE,
     )]
     public bool $useDuplicateDescription = false;
