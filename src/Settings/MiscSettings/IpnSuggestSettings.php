@@ -60,7 +60,7 @@ class IpnSuggestSettings
         label: new TM("settings.misc.ipn_suggest.autoAppendSuffix"),
         envVar: "bool:IPN_AUTO_APPEND_SUFFIX", envVarMode: EnvVarMode::OVERWRITE,
     )]
-    public bool $autoAppendSuffix = true;
+    public bool $autoAppendSuffix = false;
 
     #[SettingsParameter(label: new TM("settings.misc.ipn_suggest.suggestPartDigits"),
         description: new TM("settings.misc.ipn_suggest.suggestPartDigits.help"),
