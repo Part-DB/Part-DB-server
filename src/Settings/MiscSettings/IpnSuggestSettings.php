@@ -64,10 +64,10 @@ class IpnSuggestSettings
 
     #[SettingsParameter(label: new TM("settings.misc.ipn_suggest.suggestPartDigits"),
         description: new TM("settings.misc.ipn_suggest.suggestPartDigits.help"),
-        formOptions: ['attr' => ['min' => 1, 'max' => 100]],
+        formOptions: ['attr' => ['min' => 1, 'max' => 8]],
         envVar: "int:IPN_SUGGEST_PART_DIGITS", envVarMode: EnvVarMode::OVERWRITE
     )]
-    #[Assert\Range(min: 1, max: 6)]
+    #[Assert\Range(min: 1, max: 8)]
     public int $suggestPartDigits = 4;
 
     #[SettingsParameter(
