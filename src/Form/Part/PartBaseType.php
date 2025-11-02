@@ -93,6 +93,7 @@ class PartBaseType extends AbstractType
         if ($this->ipnSuggestSettings->regex !== null && $this->ipnSuggestSettings->regex !== '') {
             $ipnAttr['pattern'] = $this->ipnSuggestSettings->regex;
             $ipnAttr['placeholder'] = $this->ipnSuggestSettings->regex;
+            $ipnAttr['title'] = $this->ipnSuggestSettings->regexHelp;
         }
 
         $ipnOptions = [
