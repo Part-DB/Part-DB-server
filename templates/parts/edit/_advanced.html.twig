@@ -1,6 +1,16 @@
 {{ form_row(form.needsReview) }}
 {{ form_row(form.favorite) }}
 {{ form_row(form.mass) }}
-{{ form_row(form.ipn) }}
+<div {{ stimulus_controller('elements/ipn_suggestion', {
+    partId: part.id,
+    partCategoryId: part.category ? part.category.id : null,
+    partDescription: part.description,
+    suggestions: ipnSuggestions,
+    'commonSectionHeader': 'part.edit.tab.advanced.ipn.commonSectionHeader'|trans,
+    'partIncrementHeader': 'part.edit.tab.advanced.ipn.partIncrementHeader'|trans,
+    'suggestUrl': url('ipn_suggestions')
+}) }}>
+    {{ form_row(form.ipn) }}
+</div>
 {{ form_row(form.partUnit) }}
 {{ form_row(form.partCustomState) }}
