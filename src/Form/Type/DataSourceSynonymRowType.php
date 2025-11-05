@@ -60,7 +60,7 @@ class DataSourceSynonymRowType extends AbstractType
                 'required' => true,
                 // Restrict to languages configured in the language menu: disable ChoiceLoader and provide explicit choices
                 'choice_loader' => null,
-                'choices' => $this->buildLocaleChoices(),
+                'choices' => $this->buildLocaleChoices(true),
                 'preferred_choices' => $this->getPreferredLocales(),
                 'constraints' => [
                     new Assert\NotBlank(message: 'settings.system.data_source_synonyms.row_type.value_not_blank'),
@@ -97,9 +97,14 @@ class DataSourceSynonymRowType extends AbstractType
      * Returns only locales configured in the language menu (settings) or falls back to the parameter.
      * Format: ['German (DE)' => 'de', ...]
      */
-    private function buildLocaleChoices(): array
+    private function buildLocaleChoices(bool $returnPossible = false): array
     {
         $locales = $this->getPreferredLocales();
+
+        if ($returnPossible) {
+            $locales = $this->getPossibleLocales();
+        }
+
         $choices = [];
         foreach ($locales as $code) {
             $label = Locales::getName($code);
@@ -117,6 +122,11 @@ class DataSourceSynonymRowType extends AbstractType
     {
         $fromSettings = $this->localizationSettings->languageMenuEntries ?? [];
         return !empty($fromSettings) ? array_values($fromSettings) : array_values($this->preferredLanguagesParam);
+    }
+
+    private function getPossibleLocales(): array
+    {
+        return array_values($this->preferredLanguagesParam);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
