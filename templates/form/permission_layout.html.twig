@@ -21,7 +21,7 @@
                             {% set dataSource = 'project' %}
                         {% endif %}
 
-                        {% set dataSourceName = get_data_source_name(dataSource, form.vars.label) %}
+                        {% set dataSourceName = get_data_source_name_plural(dataSource, form.vars.label) %}
                         {% set translatedSource = form.vars.label|trans %}
                         {% if dataSourceName != translatedSource %}
                             {{ translatedSource }}

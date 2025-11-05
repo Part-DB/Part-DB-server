@@ -12897,7 +12897,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="lEcz6N1" name="settings.system.data_source_synonyms.configuration.help">
       <segment state="translated">
         <source>settings.system.data_source_synonyms.configuration.help</source>
-        <target>Define your own synonyms for the given data sources. Expected in JSON-format with your preferred language iso-codes. Example: %format%.</target>
+        <target>Define your own synonyms for the given data sources. Add data source, language and translations freely; unused languages remain empty.</target>
       </segment>
     </unit>
     <unit id="kd8nBt4" name="settings.behavior.data_source_synonyms.category">
@@ -12934,6 +12934,42 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>settings.behavior.data_source_synonyms.project</source>
         <target>Project</target>
+      </segment>
+    </unit>
+    <unit id="dGuR4cl" name="settings.behavior.data_source_synonyms.collection.add_entry">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.collection.add_entry</source>
+        <target>Add entry</target>
+      </segment>
+    </unit>
+    <unit id="nctZn5c" name="settings.behavior.data_source_synonyms.collection.remove_entry">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.collection.remove_entry</source>
+        <target>Remove entry</target>
+      </segment>
+    </unit>
+    <unit id="kdoci8c" name="settings.behavior.data_source_synonyms.row_type.form.datasource">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.row_type.form.datasource</source>
+        <target>Data source</target>
+      </segment>
+    </unit>
+    <unit id="cjcUeb3" name="settings.behavior.data_source_synonyms.row_type.form.locale">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.row_type.form.locale</source>
+        <target>Locale</target>
+      </segment>
+    </unit>
+    <unit id="jcueBn3" name="settings.behavior.data_source_synonyms.row_type.form.translation_singular">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.row_type.form.translation_singular</source>
+        <target>Translation singular</target>
+      </segment>
+    </unit>
+    <unit id="ncud7Rc" name="settings.behavior.data_source_synonyms.row_type.form.translation_plural">
+      <segment state="translated">
+        <source>settings.behavior.data_source_synonyms.row_type.form.translation_plural</source>
+        <target>Translation plural</target>
       </segment>
     </unit>
     <unit id="cvpTUeY" name="settings.system.privacy">

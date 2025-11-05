@@ -2,42 +2,66 @@
 
 namespace App\Twig;
 
-use App\Settings\BehaviorSettings\DataSourceSynonymsSettings;
+use App\Services\Misc\DataSourceSynonymResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class DataSourceNameExtension extends AbstractExtension
 {
-    private TranslatorInterface $translator;
-    private array $dataSourceSynonyms;
-
-    public function __construct(TranslatorInterface $translator, DataSourceSynonymsSettings $dataSourceSynonymsSettings)
-    {
-        $this->translator = $translator;
-        $this->dataSourceSynonyms = $dataSourceSynonymsSettings->getSynonymsAsArray();
+    public function __construct(
+        private readonly TranslatorInterface $translator,
+        private readonly DataSourceSynonymResolver $resolver,
+    ) {
     }
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('get_data_source_name', [$this, 'getDataSourceName']),
+            new TwigFunction('get_data_source_name_singular', [$this, 'getDataSourceNameSingular']),
+            new TwigFunction('get_data_source_name_plural', [$this, 'getDataSourceNamePlural']),
+            new TwigFunction('data_source_name_with_hint', [$this, 'getDataSourceNameWithHint']),
         ];
     }
 
     /**
-     * Based on the locale and data source names, gives the right synonym value back or the default translator value.
+     * Returns the singular synonym for the given data source in current locale,
+     * or the translated fallback key if no synonym provided.
      */
-    public function getDataSourceName(string $dataSourceName, string $defaultKey): string
+    public function getDataSourceNameSingular(string $dataSourceName, string $defaultKeySingular): string
     {
-        $locale = $this->translator->getLocale();
+        return $this->resolver->displayNameSingular($dataSourceName, $defaultKeySingular, $this->translator->getLocale());
+    }
 
-        // Use alternative dataSource synonym (if available)
-        if (isset($this->dataSourceSynonyms[$dataSourceName][$locale])) {
-            return $this->dataSourceSynonyms[$dataSourceName][$locale];
+    /**
+     * Returns the plural synonym for the given data source in current locale,
+     * or the translated fallback key if no synonym provided.
+     */
+    public function getDataSourceNamePlural(string $dataSourceName, string $defaultKeyPlural): string
+    {
+        return $this->resolver->displayNamePlural($dataSourceName, $defaultKeyPlural, $this->translator->getLocale());
+    }
+
+    /**
+     * Like data_source_name, only with a note if a synonym was set (uses translation key 'datasource.synonym').
+     */
+    public function getDataSourceNameWithHint(string $dataSourceName, string $defaultKey, string $type = 'singular'): string
+    {
+        $type = $type === 'singular' ? 'singular' : 'plural';
+
+        $resolved = $type === 'singular'
+            ? $this->resolver->displayNameSingular($dataSourceName, $defaultKey, $this->translator->getLocale())
+            : $this->resolver->displayNamePlural($dataSourceName, $defaultKey, $this->translator->getLocale());
+
+        $fallback = $this->translator->trans($defaultKey);
+
+        if ($resolved !== $fallback) {
+            return $this->translator->trans('datasource.synonym', [
+                '%name%' => $fallback,
+                '%synonym%' => $resolved,
+            ]);
         }
 
-        // Otherwise return the standard translation
-        return $this->translator->trans($defaultKey);
+        return $fallback;
     }
 }

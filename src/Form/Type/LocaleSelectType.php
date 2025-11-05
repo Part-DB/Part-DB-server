@@ -23,19 +23,18 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
-use App\Settings\SystemSettings\LocalizationSettings;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * A locale select field that uses the preferred languages from the configuration.
-
  */
 class LocaleSelectType extends AbstractType
 {
 
-    public function __construct(private LocalizationSettings $localizationSetting)
+    public function __construct(#[Autowire(param: 'partdb.locale_menu')] private readonly array $preferred_languages)
     {
 
     }
@@ -47,7 +46,7 @@ class LocaleSelectType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'preferred_choices' => array_column($this->localizationSetting->preferredLanguages, 'value'),
+            'preferred_choices' => $this->preferred_languages,
         ]);
     }
 }

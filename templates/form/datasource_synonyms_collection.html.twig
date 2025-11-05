@@ -1,0 +1,48 @@
+{% block datasource_synonyms_collection_widget %}
+    {% set _attrs = attr|default({}) %}
+    {% set _attrs = _attrs|merge({
+        class: (_attrs.class|default('') ~ ' datasource-synonyms-collection-widget')|trim
+    }) %}
+
+    {% set has_proto = prototype is defined %}
+    {% if has_proto %}
+        {% set __proto %}
+            <div class="tc-item mb-2 border rounded p-2">
+                {{ form_widget(prototype) }}
+                <div class="mt-2">
+                    <button type="button" class="btn btn-outline-danger btn-sm tc-remove" data-action="elements--datasource-synonyms-collection#remove">
+                        <i class="fa fa-trash"></i> {{ 'settings.behavior.data_source_synonyms.collection.remove_entry'|trans }}
+                    </button>
+                </div>
+            </div>
+        {% endset %}
+        {% set _proto_html = __proto|e('html_attr') %}
+        {% set _proto_name = form.vars.prototype_name|default('__name__') %}
+        {% set _index = form|length %}
+    {% endif %}
+
+    <div
+    {{ stimulus_controller('elements/datasource_synonyms_collection', {
+        prototype: has_proto ? _proto_html : '',
+        prototypeName: has_proto ? _proto_name : '__name__',
+        index: has_proto ? _index : (form|length)
+    }) }}
+    {{ block('widget_container_attributes')|raw }}{% for k,v in _attrs %} {{ k }}="{{ v }}"{% endfor %}
+    >
+        <div class="tc-items" data-elements--datasource-synonyms-collection-target="items">
+            {% for child in form %}
+                <div class="tc-item mb-2 border rounded p-2">
+                    {{ form_widget(child) }}
+                    <div class="mt-2">
+                        <button type="button" class="btn btn-outline-danger btn-sm tc-remove" data-action="elements--datasource-synonyms-collection#remove">
+                            <i class="fa fa-trash"></i> {{ 'settings.behavior.data_source_synonyms.collection.remove_entry'|trans }}
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <button type="button" class="btn btn-outline-primary btn-sm mt-2 tc-add" data-action="elements--datasource-synonyms-collection#add">
+            <i class="fa fa-plus"></i> {{ 'settings.behavior.data_source_synonyms.collection.add_entry'|trans }}
+        </button>
+    </div>
+{% endblock %}

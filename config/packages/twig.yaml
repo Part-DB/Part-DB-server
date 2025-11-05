@@ -1,13 +1,13 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
-    form_themes: ['bootstrap_5_horizontal_layout.html.twig', 'form/extended_bootstrap_layout.html.twig', 'form/permission_layout.html.twig', 'form/filter_types_layout.html.twig']
+    form_themes: ['bootstrap_5_horizontal_layout.html.twig', 'form/extended_bootstrap_layout.html.twig', 'form/permission_layout.html.twig', 'form/filter_types_layout.html.twig', 'form/datasource_synonyms_collection.html.twig']
 
     paths:
         '%kernel.project_dir%/assets/css': css
 
     globals:
         allow_email_pw_reset: '%partdb.users.email_pw_reset%'
-        location_settings: '@App\Settings\SystemSettings\LocalizationSettings'
+        locale_menu: '%partdb.locale_menu%'
         attachment_manager: '@App\Services\Attachments\AttachmentManager'
         label_profile_dropdown_helper: '@App\Services\LabelSystem\LabelProfileDropdownHelper'
         error_page_admin_email: '%partdb.error_pages.admin_email%'

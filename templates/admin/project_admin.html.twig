@@ -3,9 +3,8 @@
 {# @var entity App\Entity\ProjectSystem\Project #}
 
 {% block card_title %}
-    {% set dataSourceName = get_data_source_name('project', 'project.caption') %}
-    {% set translatedSource = 'project.caption'|trans %}
-    <i class="fas fa-archive fa-fw"></i> {% if dataSourceName != translatedSource %}{{ 'datasource.synonym'|trans({'%name%': translatedSource, '%synonym%': dataSourceName}) }}{% else %}{{ translatedSource }}{% endif %}
+    <i class="fas fa-archive fa-fw"></i>
+    {{ data_source_name_with_hint('project', 'project.labelp') }}
 {% endblock %}
 
 {% block edit_title %}

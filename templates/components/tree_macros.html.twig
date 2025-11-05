@@ -20,9 +20,14 @@
 
     {% for source in data_sources %}
         {% if source[3] %} {# show_condition #}
-            <li><button class="tree-btns dropdown-item" data-mode="{{ source[0] }}" data-url="{{ source[1] }}" data-text="{{ get_data_source_name(source[4], source[2]) }}"
-                        {{ stimulus_action('elements/sidebar_tree', 'changeDataSource')  }}
-                >{{ get_data_source_name(source[4], source[2]) }}</button></li>
+            <li>
+                <button class="tree-btns dropdown-item"
+                        data-mode="{{ source[0] }}"
+                        data-url="{{ source[1] }}"
+                        data-text="{{ get_data_source_name_plural(source[4], source[2]) }}"
+                    {{ stimulus_action('elements/sidebar_tree', 'changeDataSource')  }}
+                >{{ get_data_source_name_plural(source[4], source[2]) }}</button>
+            </li>
         {% endif %}
     {% endfor %}
 {% endmacro %}
