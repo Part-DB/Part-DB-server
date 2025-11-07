@@ -18,8 +18,8 @@
  */
 
 .hoverpic {
-    min-width: 10px;
-    max-width: 30px;
+    min-width: var(--table-image-preview-min-size, 20px);
+    max-width: var(--table-image-preview-max-size, 35px);
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -49,7 +49,7 @@
 }
 
 .part-table-image {
-    max-height: 40px;
+    max-height: calc(1.2*var(--table-image-preview-max-size, 35px)); /** Aspect ratio of maximum 1.2 */
     object-fit: contain;
 }
 

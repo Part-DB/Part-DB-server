@@ -23,9 +23,31 @@ import { default as FullEditor } from "../../ckeditor/markdown_full";
 import { default as SingleLineEditor} from "../../ckeditor/markdown_single_line";
 import { default as HTMLLabelEditor } from "../../ckeditor/html_label";
 
-import EditorWatchdog from '@ckeditor/ckeditor5-watchdog/src/editorwatchdog';
+import {EditorWatchdog} from 'ckeditor5';
 
+import "ckeditor5/ckeditor5.css";;
 import "../../css/components/ckeditor.css";
+
+const translationContext = require.context(
+    'ckeditor5/translations',
+    false,
+    //Only load the translation files we will really need
+    /(de|it|fr|ru|ja|cs|da|zh|pl|hu)\.js$/
+);
+
+function loadTranslation(language) {
+    if (!language || language === 'en') {
+        return null;
+    }
+    const lang = language.slice(0, 2);
+    const path = `./${lang}.js`;
+    if (translationContext.keys().includes(path)) {
+        const module = translationContext(path);
+        return module.default;
+    } else {
+        return null;
+    }
+}
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
@@ -51,9 +73,22 @@ export default class extends Controller {
 
         const language = document.body.dataset.locale ?? "en";
 
+        const emojiURL = new URL('../../ckeditor/emojis.json', import.meta.url).href;
+
         const config = {
             language: language,
             licenseKey: "GPL",
+
+            emoji: {
+                definitionsUrl: emojiURL
+            }
+        }
+
+        //Load translations if not english
+        let translations = loadTranslation(language);
+        if (translations) {
+            //Keep existing translations (e.g. from other plugins), if any
+            config.translations = [window.CKEDITOR_TRANSLATIONS, translations];
         }
 
         const watchdog = new EditorWatchdog();
@@ -70,6 +105,15 @@ export default class extends Controller {
                     if (editor_div && new_classes) {
                         editor_div.classList.add(...new_classes.split(","));
                     }
+
+                    // Automatic synchronization of source input
+                    editor.model.document.on("change:data", () => {
+                        editor.updateSourceElement();
+
+                        // Dispatch the input event for further treatment
+                        const event = new Event("input");
+                        this.element.dispatchEvent(event);
+                    });
 
                     //This return is important! Otherwise we get mysterious errors in the console
                     //See: https://github.com/ckeditor/ckeditor5/issues/5897#issuecomment-628471302

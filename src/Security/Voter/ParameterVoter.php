@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Security\Voter;
 
+use App\Entity\Parameters\PartCustomStateParameter;
 use App\Services\UserSystem\VoterHelper;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractDBElement;
@@ -39,6 +40,7 @@ use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\Parameters\SupplierParameter;
 use RuntimeException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
@@ -53,7 +55,7 @@ final class ParameterVoter extends Voter
     {
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         //return $this->resolver->inherit($user, 'attachments', $attribute) ?? false;
 
@@ -96,6 +98,8 @@ final class ParameterVoter extends Voter
             $param = 'measurement_units';
         } elseif (is_a($subject, PartParameter::class, true)) {
             $param = 'parts';
+        } elseif (is_a($subject, PartCustomStateParameter::class, true)) {
+            $param = 'part_custom_states';
         } elseif (is_a($subject, StorageLocationParameter::class, true)) {
             $param = 'storelocations';
         } elseif (is_a($subject, SupplierParameter::class, true)) {
@@ -108,7 +112,7 @@ final class ParameterVoter extends Voter
             throw new RuntimeException('Encountered unknown Parameter type: ' . (is_object($subject) ? $subject::class : $subject));
         }
 
-        return $this->helper->isGranted($token, $param, $attribute);
+        return $this->helper->isGranted($token, $param, $attribute, $vote);
     }
 
     protected function supports(string $attribute, $subject): bool

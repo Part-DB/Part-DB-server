@@ -29,6 +29,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
@@ -138,6 +139,11 @@ class ToolsTreeBuilder
                 $this->translator->trans('info_providers.search.title'),
                 $this->urlGenerator->generate('info_providers_search')
             ))->setIcon('fa-treeview fa-fw fa-solid fa-cloud-arrow-down');
+            
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('info_providers.bulk_import.manage_jobs'),
+                $this->urlGenerator->generate('bulk_info_provider_manage')
+            ))->setIcon('fa-treeview fa-fw fa-solid fa-tasks');
         }
 
         return $nodes;
@@ -211,6 +217,12 @@ class ToolsTreeBuilder
                 $this->translator->trans('tree.tools.edit.label_profile'),
                 $this->urlGenerator->generate('label_profile_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-qrcode');
+        }
+        if ($this->security->isGranted('read', new PartCustomState())) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.part_custom_state'),
+                $this->urlGenerator->generate('part_custom_state_new')
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-tools');
         }
         if ($this->security->isGranted('create', new Part())) {
             $nodes[] = (new TreeViewNode(
@@ -287,6 +299,13 @@ class ToolsTreeBuilder
                 $this->translator->trans('tools.server_infos.title'),
                 $this->urlGenerator->generate('tools_server_infos')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-database');
+        }
+
+        if ($this->security->isGranted('@config.change_system_settings')) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('tree.tools.system.settings'),
+                $this->urlGenerator->generate('system_settings')
+            ))->setIcon('fa fa-fw fa-gears fa-solid');
         }
 
         return $nodes;

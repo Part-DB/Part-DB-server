@@ -38,6 +38,7 @@ use App\Repository\StructuralDBElementRepository;
 use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Cache\UserCacheKeyGenerator;
 use App\Services\EntityURLGenerator;
+use App\Settings\BehaviorSettings\SidebarSettings;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use RecursiveIteratorIterator;
@@ -53,6 +54,10 @@ use function count;
  */
 class TreeViewGenerator
 {
+
+    private readonly bool $rootNodeExpandedByDefault;
+    private readonly bool $rootNodeEnabled;
+
     public function __construct(
         protected EntityURLGenerator $urlGenerator,
         protected EntityManagerInterface $em,
@@ -61,11 +66,10 @@ class TreeViewGenerator
         protected UserCacheKeyGenerator $keyGenerator,
         protected TranslatorInterface $translator,
         private readonly UrlGeneratorInterface $router,
-        protected bool $rootNodeExpandedByDefault,
-        protected bool $rootNodeEnabled,
-        //TODO: Make this configurable in the future
-        protected bool $rootNodeRedirectsToNewEntity = false,
+        private readonly SidebarSettings $sidebarSettings,
     ) {
+        $this->rootNodeEnabled = $this->sidebarSettings->rootNodeEnabled;
+        $this->rootNodeExpandedByDefault = $this->sidebarSettings->rootNodeExpanded;
     }
 
     /**
@@ -188,7 +192,7 @@ class TreeViewGenerator
     protected function entityClassToRootNodeHref(string $class): ?string
     {
         //If the root node should redirect to the new entity page, we return the URL for the new entity.
-        if ($this->rootNodeRedirectsToNewEntity) {
+        if ($this->sidebarSettings->rootNodeRedirectsToNewEntity) {
             return match ($class) {
                 Category::class => $this->router->generate('category_new'),
                 StorageLocation::class => $this->router->generate('store_location_new'),

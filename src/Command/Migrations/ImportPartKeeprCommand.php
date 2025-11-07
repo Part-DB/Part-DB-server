@@ -44,7 +44,7 @@ class ImportPartKeeprCommand extends Command
         protected PKDatastructureImporter $datastructureImporter, protected PKPartImporter $partImporter, protected PKImportHelper $importHelper,
         protected PKOptionalImporter $optionalImporter)
     {
-        parent::__construct(self::$defaultName);
+        parent::__construct();
     }
 
     protected function configure(): void
@@ -120,6 +120,11 @@ class ImportPartKeeprCommand extends Command
         $io->info('Importing part measurement units...');
         $count = $this->datastructureImporter->importPartUnits($data);
         $io->success('Imported '.$count.' measurement units.');
+
+        //Import the custom states
+        $io->info('Importing custom states...');
+        $count = $this->datastructureImporter->importPartCustomStates($data);
+        $io->success('Imported '.$count.' custom states.');
 
         //Import manufacturers
         $io->info('Importing manufacturers...');

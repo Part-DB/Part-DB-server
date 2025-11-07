@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Services\System;
 
+use App\Settings\SystemSettings\PrivacySettings;
 use Psr\Log\LoggerInterface;
 use Shivas\VersioningBundle\Service\VersionManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -43,7 +44,7 @@ class UpdateAvailableManager
 
     public function __construct(private readonly HttpClientInterface $httpClient,
         private readonly CacheInterface $updateCache, private readonly VersionManagerInterface $versionManager,
-        private readonly bool $check_for_updates, private readonly LoggerInterface $logger,
+        private readonly PrivacySettings $privacySettings, private readonly LoggerInterface $logger,
         #[Autowire(param: 'kernel.debug')] private readonly bool $is_dev_mode)
     {
 
@@ -83,7 +84,7 @@ class UpdateAvailableManager
     public function isUpdateAvailable(): bool
     {
         //If we don't want to check for updates, we can return false
-        if (!$this->check_for_updates) {
+        if (!$this->privacySettings->checkForUpdates) {
             return false;
         }
 
@@ -101,7 +102,7 @@ class UpdateAvailableManager
     private function getLatestVersionInfo(): array
     {
         //If we don't want to check for updates, we can return dummy data
-        if (!$this->check_for_updates) {
+        if (!$this->privacySettings->checkForUpdates) {
             return [
                 'version' => '0.0.1',
                 'url' => 'update-checking-disabled'

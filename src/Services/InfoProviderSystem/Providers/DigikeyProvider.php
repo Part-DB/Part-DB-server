@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Entity\Parts\ManufacturingStatus;
+use App\Exceptions\OAuthReconnectRequiredException;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
@@ -31,6 +32,7 @@ use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\OAuth\OAuthTokenManager;
+use App\Settings\InfoProviderSystem\DigikeySettings;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class DigikeyProvider implements InfoProviderInterface
@@ -55,17 +57,16 @@ class DigikeyProvider implements InfoProviderInterface
     ];
 
     public function __construct(HttpClientInterface $httpClient, private readonly OAuthTokenManager $authTokenManager,
-        private readonly string $currency, private readonly string $clientId,
-        private readonly string $language, private readonly string $country)
+        private readonly DigikeySettings $settings,)
     {
         //Create the HTTP client with some default options
         $this->digikeyClient = $httpClient->withOptions([
             "base_uri" => self::BASE_URI,
             "headers" => [
-                "X-DIGIKEY-Client-Id" => $clientId,
-                "X-DIGIKEY-Locale-Site" => $this->country,
-                "X-DIGIKEY-Locale-Language" => $this->language,
-                "X-DIGIKEY-Locale-Currency" => $this->currency,
+                "X-DIGIKEY-Client-Id" => $this->settings->clientId,
+                "X-DIGIKEY-Locale-Site" => $this->settings->country,
+                "X-DIGIKEY-Locale-Language" => $this->settings->language,
+                "X-DIGIKEY-Locale-Currency" => $this->settings->currency,
                 "X-DIGIKEY-Customer-Id" => 0,
             ]
         ]);
@@ -78,7 +79,8 @@ class DigikeyProvider implements InfoProviderInterface
             'description' => 'This provider uses the DigiKey API to search for parts.',
             'url' => 'https://www.digikey.com/',
             'oauth_app_name' => self::OAUTH_APP_NAME,
-            'disabled_help' => 'Set the PROVIDER_DIGIKEY_CLIENT_ID and PROVIDER_DIGIKEY_SECRET env option and connect OAuth to enable.'
+            'disabled_help' => 'Set the Client ID and Secret in provider settings and connect OAuth to enable.',
+            'settings_class' => DigikeySettings::class,
         ];
     }
 
@@ -101,7 +103,7 @@ class DigikeyProvider implements InfoProviderInterface
     public function isActive(): bool
     {
         //The client ID has to be set and a token has to be available (user clicked connect)
-        return $this->clientId !== '' && $this->authTokenManager->hasToken(self::OAUTH_APP_NAME);
+        return $this->settings->clientId !== null && $this->settings->clientId !== '' && $this->authTokenManager->hasToken(self::OAUTH_APP_NAME);
     }
 
     public function searchByKeyword(string $keyword): array
@@ -116,12 +118,22 @@ class DigikeyProvider implements InfoProviderInterface
         ];
 
         //$response = $this->digikeyClient->request('POST', '/Search/v3/Products/Keyword', [
-        $response = $this->digikeyClient->request('POST', '/products/v4/search/keyword', [
-            'json' => $request,
-            'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
-        ]);
+        try {
+            $response = $this->digikeyClient->request('POST', '/products/v4/search/keyword', [
+                'json' => $request,
+                'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
+            ]);
 
-        $response_array = $response->toArray();
+            $response_array = $response->toArray();
+        } catch (\InvalidArgumentException $exception) {
+            //Check if the exception was caused by an invalid or expired token
+            if (str_contains($exception->getMessage(), 'access_token')) {
+                throw OAuthReconnectRequiredException::forProvider($this->getProviderKey());
+            }
+
+            throw $exception;
+        }
+
 
 
         $result = [];
@@ -149,9 +161,18 @@ class DigikeyProvider implements InfoProviderInterface
 
     public function getDetails(string $id): PartDetailDTO
     {
-        $response = $this->digikeyClient->request('GET', '/products/v4/search/' . urlencode($id) . '/productdetails', [
-            'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
-        ]);
+        try {
+            $response = $this->digikeyClient->request('GET', '/products/v4/search/' . urlencode($id) . '/productdetails', [
+                'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
+            ]);
+        } catch (\InvalidArgumentException $exception) {
+            //Check if the exception was caused by an invalid or expired token
+            if (str_contains($exception->getMessage(), 'access_token')) {
+                throw OAuthReconnectRequiredException::forProvider($this->getProviderKey());
+            }
+
+            throw $exception;
+        }
 
         $response_array = $response->toArray();
         $product = $response_array['Product'];
@@ -268,7 +289,7 @@ class DigikeyProvider implements InfoProviderInterface
         $prices = [];
 
         foreach ($price_breaks as $price_break) {
-            $prices[] = new PriceDTO(minimum_discount_amount:  $price_break['BreakQuantity'], price: (string) $price_break['UnitPrice'], currency_iso_code: $this->currency);
+            $prices[] = new PriceDTO(minimum_discount_amount:  $price_break['BreakQuantity'], price: (string) $price_break['UnitPrice'], currency_iso_code: $this->settings->currency);
         }
 
         return [

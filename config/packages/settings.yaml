@@ -1,0 +1,15 @@
+jbtronics_settings:
+  default_storage_adapter: Jbtronics\SettingsBundle\Storage\ORMStorageAdapter
+
+  cache:
+    default_cacheable: true
+
+  orm_storage:
+    default_entity_class: App\Entity\SettingsEntry
+
+
+# Disable caching for development environment
+when@dev:
+  jbtronics_settings:
+    cache:
+      default_cacheable: false

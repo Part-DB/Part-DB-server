@@ -37,6 +37,7 @@ use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use App\Settings\InfoProviderSystem\MouserSettings;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -50,10 +51,7 @@ class MouserProvider implements InfoProviderInterface
 
     public function __construct(
         private readonly HttpClientInterface $mouserClient,
-        private readonly string $api_key,
-        private readonly string $language,
-        private readonly string $options,
-        private readonly int $search_limit
+        private readonly MouserSettings $settings,
     ) {
     }
 
@@ -63,7 +61,8 @@ class MouserProvider implements InfoProviderInterface
             'name' => 'Mouser',
             'description' => 'This provider uses the Mouser API to search for parts.',
             'url' => 'https://www.mouser.com/',
-            'disabled_help' => 'Configure the API key in the PROVIDER_MOUSER_KEY environment variable to enable.'
+            'disabled_help' => 'Configure the API key in the provider settings to enable.',
+            'settings_class' => MouserSettings::class
         ];
     }
 
@@ -74,7 +73,7 @@ class MouserProvider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return $this->api_key !== '';
+        return $this->settings->apiKey !== '' && $this->settings->apiKey !== null;
     }
 
     public function searchByKeyword(string $keyword): array
@@ -120,18 +119,27 @@ class MouserProvider implements InfoProviderInterface
 
         $response = $this->mouserClient->request('POST', self::ENDPOINT_URL."/keyword", [
             'query' => [
-                'apiKey' => $this->api_key,
+                'apiKey' => $this->settings->apiKey
             ],
             'json' => [
                 'SearchByKeywordRequest' => [
                     'keyword' => $keyword,
-                    'records' => $this->search_limit, //self::NUMBER_OF_RESULTS,
+                    'records' => $this->settings->searchLimit, //self::NUMBER_OF_RESULTS,
                     'startingRecord' => 0,
-                    'searchOptions' => $this->options,
-                    'searchWithYourSignUpLanguage' => $this->language,
+                    'searchOptions' => $this->settings->searchOption->value,
+                    'searchWithYourSignUpLanguage' => $this->settings->searchWithSignUpLanguage ? 'true' : 'false',
                 ]
             ],
         ]);
+
+        // Check for API errors before processing response
+        if ($response->getStatusCode() !== 200) {
+            throw new \RuntimeException(sprintf(
+                'Mouser API returned HTTP %d: %s',
+                $response->getStatusCode(),
+                $response->getContent(false)
+            ));
+        }
 
         return $this->responseToDTOArray($response);
     }
@@ -161,7 +169,7 @@ class MouserProvider implements InfoProviderInterface
 
         $response = $this->mouserClient->request('POST', self::ENDPOINT_URL."/partnumber", [
             'query' => [
-                'apiKey' => $this->api_key,
+                'apiKey' => $this->settings->apiKey,
             ],
             'json' => [
                 'SearchByPartRequest' => [
@@ -170,6 +178,16 @@ class MouserProvider implements InfoProviderInterface
                 ]
             ],
         ]);
+
+        // Check for API errors before processing response
+        if ($response->getStatusCode() !== 200) {
+            throw new \RuntimeException(sprintf(
+                'Mouser API returned HTTP %d: %s',
+                $response->getStatusCode(),
+                $response->getContent(false)
+            ));
+        }
+
         $tmp = $this->responseToDTOArray($response);
 
         //Ensure that we have exactly one result
@@ -287,6 +305,17 @@ class MouserProvider implements InfoProviderInterface
         return (float)$val;
     }
 
+    private function mapCurrencyCode(string $currency): string
+    {
+        //Mouser uses "RMB" for Chinese Yuan, but the correct ISO code is "CNY"
+        if ($currency === "RMB") {
+            return "CNY";
+        }
+
+        //For all other currencies, we assume that the ISO code is correct
+        return $currency;
+    }
+
     /**
      * Converts the pricing (StandardPricing field) from the Mouser API to an array of PurchaseInfoDTOs
      * @param  array  $price_breaks
@@ -303,7 +332,7 @@ class MouserProvider implements InfoProviderInterface
             $prices[] = new PriceDTO(
                 minimum_discount_amount: $price_break['Quantity'],
                 price: (string)$number,
-                currency_iso_code: $price_break['Currency']
+                currency_iso_code: $this->mapCurrencyCode($price_break['Currency'])
             );
         }
 

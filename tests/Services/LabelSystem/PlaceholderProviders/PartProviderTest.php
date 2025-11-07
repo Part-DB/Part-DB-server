@@ -41,6 +41,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem\PlaceholderProviders;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\Parts\ManufacturingStatus;
 use Doctrine\ORM\EntityManager;
 use App\Entity\Parts\Category;
@@ -50,9 +52,7 @@ use App\Services\LabelSystem\PlaceholderProviders\PartProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-/**
- * @group DB
- */
+#[Group('DB')]
 class PartProviderTest extends WebTestCase
 {
     /**
@@ -87,7 +87,7 @@ class PartProviderTest extends WebTestCase
         $this->target->setComment('<b>Bold</b> *Italic*');
     }
 
-    public function dataProvider(): \Iterator
+    public static function dataProvider(): \Iterator
     {
         yield ['Node 2.1', '[[CATEGORY]]'];
         yield ['Node 2 → Node 2.1', '[[CATEGORY_FULL]]'];
@@ -105,9 +105,7 @@ class PartProviderTest extends WebTestCase
         yield ['Bold Italic', '[[COMMENT_T]]'];
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[DataProvider('dataProvider')]
     public function testReplace(string $expected, string $placeholder): void
     {
         $this->assertSame($expected, $this->service->replace($placeholder, $this->target));

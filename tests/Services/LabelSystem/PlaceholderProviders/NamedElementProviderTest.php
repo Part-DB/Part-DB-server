@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem\PlaceholderProviders;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Services\LabelSystem\PlaceholderProviders\NamedElementProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -66,14 +67,12 @@ class NamedElementProviderTest extends WebTestCase
         };
     }
 
-    public function dataProvider(): \Iterator
+    public static function dataProvider(): \Iterator
     {
         yield ['This is my Name', '[[NAME]]'];
     }
 
-    /**
-     * @dataProvider dataProvider
-     */
+    #[DataProvider('dataProvider')]
     public function testReplace(string $expected, string $placeholder): void
     {
         $this->assertSame($expected, $this->service->replace($placeholder, $this->target));

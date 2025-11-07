@@ -100,7 +100,7 @@ final class TriStateCheckboxType extends AbstractType implements DataTransformer
      * @return mixed The value in the transformed representation
      *
      */
-    public function transform(mixed $value)
+    public function transform(mixed $value): mixed
     {
         if (true === $value) {
             return 'true';
@@ -142,7 +142,7 @@ final class TriStateCheckboxType extends AbstractType implements DataTransformer
      *
      * @return mixed The value in the original representation
      */
-    public function reverseTransform(mixed $value)
+    public function reverseTransform(mixed $value): mixed
     {
         return match ($value) {
             'true' => true,

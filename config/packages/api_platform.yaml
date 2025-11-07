@@ -32,7 +32,6 @@ api_platform:
 
     pagination_client_items_per_page: true # Allow clients to override the default items per page
 
-  keep_legacy_inflector: false
   # Need to be true, or some tests will fail
   use_symfony_listeners: true
 

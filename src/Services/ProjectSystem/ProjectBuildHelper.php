@@ -31,9 +31,9 @@ use App\Services\Parts\PartLotWithdrawAddHelper;
 /**
  * @see \App\Tests\Services\ProjectSystem\ProjectBuildHelperTest
  */
-class ProjectBuildHelper
+final readonly class ProjectBuildHelper
 {
-    public function __construct(private readonly PartLotWithdrawAddHelper $withdraw_add_helper)
+    public function __construct(private PartLotWithdrawAddHelper $withdraw_add_helper)
     {
     }
 
@@ -63,18 +63,35 @@ class ProjectBuildHelper
      */
     public function getMaximumBuildableCount(Project $project): int
     {
+        $bom_entries = $project->getBomEntries();
+        if ($bom_entries->isEmpty()) {
+            return 0;
+        }
         $maximum_buildable_count = PHP_INT_MAX;
-        foreach ($project->getBomEntries() as $bom_entry) {
+        foreach ($bom_entries as $bom_entry) {
             //Skip BOM entries without a part (as we can not determine that)
             if (!$bom_entry->isPartBomEntry()) {
                 continue;
             }
-
             //The maximum buildable count for the whole project is the minimum of all BOM entries
             $maximum_buildable_count = min($maximum_buildable_count, $this->getMaximumBuildableCountForBOMEntry($bom_entry));
         }
-
         return $maximum_buildable_count;
+    }
+
+    /**
+     * Returns the maximum buildable amount of the given project as string, based on the stock of the used parts in the BOM.
+     * If the maximum buildable count is infinite, the string '∞' is returned.
+     * @param  Project  $project
+     * @return string
+     */
+    public function getMaximumBuildableCountAsString(Project $project): string
+    {
+        $max_count = $this->getMaximumBuildableCount($project);
+        if ($max_count === PHP_INT_MAX) {
+            return '∞';
+        }
+        return (string) $max_count;
     }
 
     /**

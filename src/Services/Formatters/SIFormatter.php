@@ -38,6 +38,11 @@ class SIFormatter
      */
     public function getMagnitude(float $value): int
     {
+        //Check for zero, as log10(0) is undefined/gives -infinity, which leads to casting issues in PHP8.5+
+        if (0.0 === $value) {
+            return 0;
+        }
+
         return (int) floor(log10(abs($value)));
     }
 

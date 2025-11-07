@@ -30,6 +30,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Form\AttachmentFormType;
 use App\Form\ParameterType;
@@ -40,6 +41,8 @@ use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\LogSystem\EventCommentNeededHelper;
+use App\Services\LogSystem\EventCommentType;
+use App\Settings\MiscSettings\IpnSuggestSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -55,8 +58,12 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PartBaseType extends AbstractType
 {
-    public function __construct(protected Security $security, protected UrlGeneratorInterface $urlGenerator, protected EventCommentNeededHelper $event_comment_needed_helper)
-    {
+    public function __construct(
+        protected Security $security,
+        protected UrlGeneratorInterface $urlGenerator,
+        protected EventCommentNeededHelper $event_comment_needed_helper,
+        protected IpnSuggestSettings $ipnSuggestSettings,
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -67,6 +74,39 @@ class PartBaseType extends AbstractType
 
         /** @var PartDetailDTO|null $dto */
         $dto = $options['info_provider_dto'];
+
+        $descriptionAttr = [
+            'placeholder' => 'part.edit.description.placeholder',
+            'rows' => 2,
+        ];
+
+        if ($this->ipnSuggestSettings->useDuplicateDescription) {
+            // Only add attribute when duplicate description feature is enabled
+            $descriptionAttr['data-ipn-suggestion'] = 'descriptionField';
+        }
+
+        $ipnAttr =  [
+            'class' => 'ipn-suggestion-field',
+            'data-elements--ipn-suggestion-target' => 'input',
+            'autocomplete' => 'off',
+        ];
+
+        if ($this->ipnSuggestSettings->regex !== null && $this->ipnSuggestSettings->regex !== '') {
+            $ipnAttr['pattern'] = $this->ipnSuggestSettings->regex;
+            $ipnAttr['placeholder'] = $this->ipnSuggestSettings->regex;
+            $ipnAttr['title'] = $this->ipnSuggestSettings->regexHelp;
+        }
+
+        $ipnOptions = [
+            'required' => false,
+            'empty_data' => null,
+            'label' => 'part.edit.ipn',
+            'attr' => $ipnAttr,
+        ];
+
+        if (isset($ipnAttr['pattern']) && $this->ipnSuggestSettings->regexHelp !== null && $this->ipnSuggestSettings->regexHelp !== '') {
+            $ipnOptions['help'] = $this->ipnSuggestSettings->regexHelp;
+        }
 
         //Common section
         $builder
@@ -82,10 +122,7 @@ class PartBaseType extends AbstractType
                 'empty_data' => '',
                 'label' => 'part.edit.description',
                 'mode' => 'markdown-single_line',
-                'attr' => [
-                    'placeholder' => 'part.edit.description.placeholder',
-                    'rows' => 2,
-                ],
+                'attr' => $descriptionAttr,
             ])
             ->add('minAmount', SIUnitType::class, [
                 'attr' => [
@@ -103,6 +140,9 @@ class PartBaseType extends AbstractType
                 'disable_not_selectable' => true,
                 //Do not require category for new parts, so that the user must select the category by hand and cannot forget it (the requirement is handled by the constraint in the entity)
                 'required' => !$new_part,
+                'attr' => [
+                    'data-ipn-suggestion' => 'categoryField',
+                ]
             ])
             ->add('footprint', StructuralEntityType::class, [
                 'class' => Footprint::class,
@@ -170,11 +210,13 @@ class PartBaseType extends AbstractType
                 'disable_not_selectable' => true,
                 'label' => 'part.edit.partUnit',
             ])
-            ->add('ipn', TextType::class, [
+            ->add('partCustomState', StructuralEntityType::class, [
+                'class' => PartCustomState::class,
                 'required' => false,
-                'empty_data' => null,
-                'label' => 'part.edit.ipn',
-            ]);
+                'disable_not_selectable' => true,
+                'label' => 'part.edit.partCustomState',
+            ])
+            ->add('ipn', TextType::class, $ipnOptions);
 
         //Comment section
         $builder->add('comment', RichTextEditorType::class, [
@@ -265,7 +307,7 @@ class PartBaseType extends AbstractType
         $builder->add('log_comment', TextType::class, [
             'label' => 'edit.log_comment',
             'mapped' => false,
-            'required' => $this->event_comment_needed_helper->isCommentNeeded($new_part ? 'part_create' : 'part_edit'),
+            'required' => $this->event_comment_needed_helper->isCommentNeeded($new_part ? EventCommentType::PART_CREATE : EventCommentType::PART_EDIT),
             'empty_data' => null,
         ]);
 

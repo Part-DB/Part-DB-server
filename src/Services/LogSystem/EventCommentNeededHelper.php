@@ -22,37 +22,25 @@ declare(strict_types=1);
  */
 namespace App\Services\LogSystem;
 
+use App\Settings\SystemSettings\HistorySettings;
+
 /**
  * This service is used to check if a log change comment is needed for a given operation type.
  * It is configured using the "enforce_change_comments_for" config parameter.
  * @see \App\Tests\Services\LogSystem\EventCommentNeededHelperTest
  */
-class EventCommentNeededHelper
+final class EventCommentNeededHelper
 {
-    final public const VALID_OPERATION_TYPES = [
-        'part_edit',
-        'part_create',
-        'part_delete',
-        'part_stock_operation',
-        'datastructure_edit',
-        'datastructure_create',
-        'datastructure_delete',
-    ];
-
-    public function __construct(protected array $enforce_change_comments_for)
+    public function __construct(private readonly HistorySettings $settings)
     {
+
     }
 
     /**
      * Checks if a log change comment is needed for the given operation type
      */
-    public function isCommentNeeded(string $comment_type): bool
+    public function isCommentNeeded(EventCommentType $comment_type): bool
     {
-        //Check if the comment type is valid
-        if (! in_array($comment_type, self::VALID_OPERATION_TYPES, true)) {
-            throw new \InvalidArgumentException('The comment type "'.$comment_type.'" is not valid!');
-        }
-
-        return in_array($comment_type, $this->enforce_change_comments_for, true);
+        return in_array($comment_type, $this->settings->enforceComments, true);
     }
 }

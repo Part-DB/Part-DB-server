@@ -6,8 +6,8 @@ knpu_oauth2_client:
             type: generic
             provider_class: '\League\OAuth2\Client\Provider\GenericProvider'
 
-            client_id: '%env(PROVIDER_DIGIKEY_CLIENT_ID)%'
-            client_secret: '%env(PROVIDER_DIGIKEY_SECRET)%'
+            client_id: '%env(settings:digikey:clientId)%'
+            client_secret: '%env(settings:digikey:secret)%'
 
             redirect_route: 'oauth_client_check'
             redirect_params: {name: 'ip_digikey_oauth'}
@@ -26,8 +26,8 @@ knpu_oauth2_client:
             type: generic
             provider_class: '\League\OAuth2\Client\Provider\GenericProvider'
 
-            client_id: '%env(PROVIDER_OCTOPART_CLIENT_ID)%'
-            client_secret: '%env(PROVIDER_OCTOPART_SECRET)%'
+            client_id: '%env(settings:octopart:clientId)%'
+            client_secret: '%env(settings:octopart:secret)%'
 
             redirect_route: 'oauth_client_check'
             redirect_params: { name: 'ip_octopart_oauth' }

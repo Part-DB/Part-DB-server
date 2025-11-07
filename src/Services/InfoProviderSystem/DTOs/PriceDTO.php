@@ -28,21 +28,21 @@ use Brick\Math\BigDecimal;
 /**
  * This DTO represents a price for a single unit in a certain discount range
  */
-class PriceDTO
+readonly class PriceDTO
 {
-    private readonly BigDecimal $price_as_big_decimal;
+    private BigDecimal $price_as_big_decimal;
 
     public function __construct(
         /** @var float The minimum amount that needs to get ordered for this price to be valid */
-        public readonly float $minimum_discount_amount,
+        public float $minimum_discount_amount,
         /** @var string The price as string (with .) */
-        public readonly string $price,
+        public string $price,
         /** @var string The currency of the used ISO code of this price detail */
-        public readonly ?string $currency_iso_code,
+        public ?string $currency_iso_code,
         /** @var bool If the price includes tax */
-        public readonly ?bool $includes_tax = true,
+        public ?bool $includes_tax = true,
         /** @var float the price related quantity */
-        public readonly ?float $price_related_quantity = 1.0,
+        public ?float $price_related_quantity = 1.0,
     )
     {
         $this->price_as_big_decimal = BigDecimal::of($this->price);

@@ -197,7 +197,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var string|null The language/locale the user prefers
      */
-    #[Assert\Language]
+    #[Assert\Locale]
     #[Groups(['full', 'import', 'user:read'])]
     #[ORM\Column(name: 'config_language', type: Types::STRING, nullable: true)]
     protected ?string $language = '';

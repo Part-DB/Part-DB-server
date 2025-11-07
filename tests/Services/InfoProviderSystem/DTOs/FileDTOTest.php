@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Tests\Services\InfoProviderSystem\DTOs;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use PHPUnit\Framework\TestCase;
 
@@ -40,9 +41,7 @@ class FileDTOTest extends TestCase
         yield ["test%7Cse", "test|se"];
     }
 
-    /**
-     * @dataProvider escapingDataProvider
-     */
+    #[DataProvider('escapingDataProvider')]
     public function testURLEscaping(string $expected, string $input): void
     {
         $fileDTO = new FileDTO( $input);

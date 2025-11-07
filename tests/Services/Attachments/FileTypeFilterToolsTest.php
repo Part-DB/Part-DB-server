@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\Attachments;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\Attachments\FileTypeFilterTools;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -35,7 +36,7 @@ class FileTypeFilterToolsTest extends WebTestCase
         self::$service = self::getContainer()->get(FileTypeFilterTools::class);
     }
 
-    public function validateDataProvider(): \Iterator
+    public static function validateDataProvider(): \Iterator
     {
         yield ['', true];
         //Empty string is valid
@@ -54,7 +55,7 @@ class FileTypeFilterToolsTest extends WebTestCase
         yield ['.png .jpg .gif', false];
     }
 
-    public function normalizeDataProvider(): \Iterator
+    public static function normalizeDataProvider(): \Iterator
     {
         yield ['', ''];
         yield ['.jpeg,.png,.gif', '.jpeg,.png,.gif'];
@@ -68,7 +69,7 @@ class FileTypeFilterToolsTest extends WebTestCase
         yield ['png, .gif, .png,', '.png,.gif'];
     }
 
-    public function extensionAllowedDataProvider(): \Iterator
+    public static function extensionAllowedDataProvider(): \Iterator
     {
         yield ['', 'txt', true];
         yield ['', 'everything_should_match', true];
@@ -85,25 +86,20 @@ class FileTypeFilterToolsTest extends WebTestCase
 
     /**
      * Test the validateFilterString method.
-     *
-     * @dataProvider validateDataProvider
      */
+    #[DataProvider('validateDataProvider')]
     public function testValidateFilterString(string $filter, bool $expected): void
     {
         $this->assertSame($expected, self::$service->validateFilterString($filter));
     }
 
-    /**
-     * @dataProvider normalizeDataProvider
-     */
+    #[DataProvider('normalizeDataProvider')]
     public function testNormalizeFilterString(string $filter, string $expected): void
     {
         $this->assertSame($expected, self::$service->normalizeFilterString($filter));
     }
 
-    /**
-     * @dataProvider extensionAllowedDataProvider
-     */
+    #[DataProvider('extensionAllowedDataProvider')]
     public function testIsExtensionAllowed(string $filter, string $extension, bool $expected): void
     {
         $this->assertSame($expected, self::$service->isExtensionAllowed($filter, $extension));

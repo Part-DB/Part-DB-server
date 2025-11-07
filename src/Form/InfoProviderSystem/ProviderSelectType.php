@@ -28,6 +28,7 @@ use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProviderSelectType extends AbstractType
@@ -44,13 +45,43 @@ class ProviderSelectType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'choices' => $this->providerRegistry->getActiveProviders(),
-            'choice_label' => ChoiceList::label($this, static fn (?InfoProviderInterface $choice) => $choice?->getProviderInfo()['name']),
-            'choice_value' => ChoiceList::value($this, static fn(?InfoProviderInterface $choice) => $choice?->getProviderKey()),
+        $providers = $this->providerRegistry->getActiveProviders();
 
-            'multiple' => true,
-        ]);
+        $resolver->setDefault('input', 'object');
+        $resolver->setAllowedTypes('input', 'string');
+        //Either the form returns the provider objects or their keys
+        $resolver->setAllowedValues('input', ['object', 'string']);
+        $resolver->setDefault('multiple', true);
+
+        $resolver->setDefault('choices', function (Options $options) use ($providers) {
+            if ('object' === $options['input']) {
+                return $this->providerRegistry->getActiveProviders();
+            }
+
+            $tmp = [];
+            foreach ($providers as $provider) {
+                $name = $provider->getProviderInfo()['name'];
+                $tmp[$name] = $provider->getProviderKey();
+            }
+
+            return $tmp;
+        });
+
+        //The choice_label and choice_value only needs to be set if we want the objects
+        $resolver->setDefault('choice_label', function (Options $options){
+            if ('object' === $options['input']) {
+                return ChoiceList::label($this, static fn (?InfoProviderInterface $choice) => $choice?->getProviderInfo()['name']);
+            }
+
+            return null;
+        });
+        $resolver->setDefault('choice_value', function (Options $options) {
+            if ('object' === $options['input']) {
+                return ChoiceList::value($this, static fn(?InfoProviderInterface $choice) => $choice?->getProviderKey());
+            }
+
+            return null;
+        });
     }
 
 }
