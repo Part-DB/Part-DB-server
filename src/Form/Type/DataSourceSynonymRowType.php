@@ -52,20 +52,16 @@ class DataSourceSynonymRowType extends AbstractType
                 'label' => false,
                 'choices' => $this->buildDataSourceChoices($options['data_sources']),
                 'required' => true,
-                'row_attr' => [
-                    'class' => 'form-floating',
-                ],
                 'constraints' => [
                     new Assert\NotBlank(),
                 ],
+                'row_attr' => ['class' => 'mb-0'],
+                'attr' => ['class' => 'form-select-sm']
             ])
             ->add('locale', LocaleType::class, [
                 //'label' => 'settings.behavior.data_source_synonyms.row_type.form.locale',
                 'label' => false,
                 'required' => true,
-                'row_attr' => [
-                    'class' => 'form-floating',
-                ],
                 // Restrict to languages configured in the language menu: disable ChoiceLoader and provide explicit choices
                 'choice_loader' => null,
                 'choices' => $this->buildLocaleChoices(true),
@@ -73,34 +69,30 @@ class DataSourceSynonymRowType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(),
                 ],
+                'row_attr' => ['class' => 'mb-0'],
+                'attr' => ['class' => 'form-select-sm']
             ])
             ->add('translation_singular', TextType::class, [
-                'label' => 'settings.behavior.data_source_synonyms.row_type.form.translation_singular',
+                //'label' => 'settings.behavior.data_source_synonyms.row_type.form.translation_singular',
+                'label' => false,
                 'required' => true,
                 'empty_data' => '',
                 'constraints' => [
                     new Assert\NotBlank(),
                 ],
-                'row_attr' => [
-                    'class' => 'form-floating',
-                ],
-                'attr' => [
-                    'placeholder' => '' // to show floating label even when empty
-                ]
+                'row_attr' => ['class' => 'mb-0'],
+                'attr' => ['class' => 'form-select-sm']
             ])
             ->add('translation_plural', TextType::class, [
-                'label' => 'settings.behavior.data_source_synonyms.row_type.form.translation_plural',
-                'row_attr' => [
-                    'class' => 'form-floating',
-                ],
+                //'label' => 'settings.behavior.data_source_synonyms.row_type.form.translation_plural',
+                'label' => false,
                 'required' => true,
                 'empty_data' => '',
                 'constraints' => [
                     new Assert\NotBlank(),
                 ],
-                'attr' => [
-                    'placeholder' => '' // to show floating label even when empty
-                ]
+                'row_attr' => ['class' => 'mb-0'],
+                'attr' => ['class' => 'form-select-sm']
             ]);
     }
 
