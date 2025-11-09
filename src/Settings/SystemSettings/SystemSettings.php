@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace App\Settings\SystemSettings;
 
 use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
-use App\Settings\BehaviorSettings\DataSourceSynonymsSettings;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 

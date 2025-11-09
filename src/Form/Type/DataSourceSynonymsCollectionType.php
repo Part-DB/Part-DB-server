@@ -27,38 +27,69 @@ class DataSourceSynonymsCollectionType extends AbstractType
     {
     }
 
+    private function flattenStructure(array $modelValue): array
+    {
+        //If the model is already flattened, return as is
+        if (array_is_list($modelValue)) {
+            return $modelValue;
+        }
+
+        $out = [];
+        foreach ($modelValue as $dataSource => $locales) {
+            if (!is_array($locales)) {
+                continue;
+            }
+            foreach ($locales as $locale => $translations) {
+                if (!is_array($translations)) {
+                    continue;
+                }
+                $out[] = [
+                    'dataSource' => $dataSource,
+                    'locale' => $locale,
+                    'translation_singular' => $translations['singular'] ?? '',
+                    'translation_plural' => $translations['plural'] ?? '',
+                ];
+            }
+        }
+        return $out;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
+            //Flatten the structure
+            $data = $event->getData();
+            $event->setData($this->flattenStructure($data));
+        });
+
         $builder->addModelTransformer(new CallbackTransformer(
-        // Model -> View
-            function ($modelValue) {
-                if (!is_array($modelValue)) {
-                    return [[
-                        'dataSource' => null,
-                        'locale' => null,
-                        'translation_singular' => null,
-                        'translation_plural' => null,
-                    ]];
+            // Model -> View
+            $this->flattenStructure(...),
+            // View -> Model (keep list; let existing behavior unchanged)
+            function (array $viewValue) {
+                //Turn our flat list back into the structured array
+
+                foreach ($viewValue as $row) {
+                    if (!is_array($row)) {
+                        continue;
+                    }
+                    $dataSource = $row['dataSource'] ?? null;
+                    $locale = $row['locale'] ?? null;
+                    $translation_singular = $row['translation_singular'] ?? null;
+                    $translation_plural = $row['translation_plural'] ?? null;
+
+                    if (!is_string($dataSource) || $dataSource === ''
+                        || !is_string($locale) || $locale === ''
+                    ) {
+                        continue;
+                    }
+
+                    $out[$dataSource][$locale] = [
+                        'singular' => is_string($translation_singular) ? $translation_singular : '',
+                        'plural' => is_string($translation_plural) ? $translation_plural : '',
+                    ];
                 }
 
-                return $modelValue === [] ? [[
-                    'dataSource' => null,
-                    'locale' => null,
-                    'translation_singular' => null,
-                    'translation_plural' => null,
-                ]] : $modelValue;
-            },
-            // View -> Model (keep list; let existing behavior unchanged)
-            function ($viewValue) {
-                if (!is_array($viewValue)) {
-                    return [];
-                }
-                $out = [];
-                foreach ($viewValue as $row) {
-                    if (is_array($row)) {
-                        $out[] = $row;
-                    }
-                }
                 return $out;
             }
         ));

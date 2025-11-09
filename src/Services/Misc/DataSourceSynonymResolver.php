@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace App\Services\Misc;
 
-use App\Settings\BehaviorSettings\DataSourceSynonymsSettings;
+use App\Settings\SystemSettings\DataSourceSynonymsSettings;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 readonly class DataSourceSynonymResolver
@@ -60,7 +60,7 @@ readonly class DataSourceSynonymResolver
 
     private function synonyms(string $dataSource, string $locale): array
     {
-        $all = $this->synonymsSettings->getSynonymsAsArray();
+        $all = [];
         $row = $all[$dataSource][$locale] ?? ['singular' => '', 'plural' => ''];
 
         return [
