@@ -52,7 +52,7 @@ class DataSourceSynonymRowType extends AbstractType
                 'choices' => $this->buildDataSourceChoices($options['data_sources']),
                 'required' => true,
                 'constraints' => [
-                    new Assert\NotBlank(message: 'settings.system.data_source_synonyms.row_type.value_not_blank'),
+                    new Assert\NotBlank(),
                 ],
             ])
             ->add('locale', LocaleType::class, [
@@ -63,7 +63,7 @@ class DataSourceSynonymRowType extends AbstractType
                 'choices' => $this->buildLocaleChoices(true),
                 'preferred_choices' => $this->getPreferredLocales(),
                 'constraints' => [
-                    new Assert\NotBlank(message: 'settings.system.data_source_synonyms.row_type.value_not_blank'),
+                    new Assert\NotBlank(),
                 ],
             ])
             ->add('translation_singular', TextType::class, [
@@ -71,7 +71,7 @@ class DataSourceSynonymRowType extends AbstractType
                 'required' => true,
                 'empty_data' => '',
                 'constraints' => [
-                    new Assert\NotBlank(message: 'settings.system.data_source_synonyms.row_type.value_not_blank'),
+                    new Assert\NotBlank(),
                 ],
             ])
             ->add('translation_plural', TextType::class, [
@@ -79,7 +79,7 @@ class DataSourceSynonymRowType extends AbstractType
                 'required' => true,
                 'empty_data' => '',
                 'constraints' => [
-                    new Assert\NotBlank(message: 'settings.system.data_source_synonyms.row_type.value_not_blank'),
+                    new Assert\NotBlank(),
                 ],
             ]);
     }
@@ -133,9 +133,5 @@ class DataSourceSynonymRowType extends AbstractType
     {
         $resolver->setRequired('data_sources');
         $resolver->setAllowedTypes('data_sources', 'array');
-
-        $resolver->setDefaults([
-            'error_translation_domain' => 'validators',
-        ]);
     }
 }
