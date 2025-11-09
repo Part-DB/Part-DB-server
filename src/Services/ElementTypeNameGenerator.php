@@ -34,6 +34,7 @@ use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Exceptions\EntityNotSupportedException;
+use App\Settings\SystemSettings\DataSourceSynonymsSettings;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -42,7 +43,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final readonly class ElementTypeNameGenerator
 {
 
-    public function __construct(private TranslatorInterface $translator, private EntityURLGenerator $entityURLGenerator)
+    public function __construct(
+        private TranslatorInterface $translator,
+        private EntityURLGenerator $entityURLGenerator,
+        private DataSourceSynonymsSettings $synonymsSettings,
+    )
     {
     }
 
@@ -64,6 +69,32 @@ final readonly class ElementTypeNameGenerator
         return $this->typeLabel($entity);
     }
 
+    private function resolveSynonymLabel(ElementTypes $type, ?string $locale, bool $plural): ?string
+    {
+        $locale ??= $this->translator->getLocale();
+
+        if ($this->synonymsSettings->isSynonymDefinedForType($type)) {
+            if ($plural) {
+                $syn = $this->synonymsSettings->getSingularSynonymForType($type, $locale);
+            } else {
+                $syn = $this->synonymsSettings->getPluralSynonymForType($type, $locale);
+            }
+
+            if ($syn === null) {
+                //Try to fall back to english
+                if ($plural) {
+                    $syn = $this->synonymsSettings->getSingularSynonymForType($type, 'en');
+                } else {
+                    $syn = $this->synonymsSettings->getPluralSynonymForType($type, 'en');
+                }
+            }
+
+            return $syn;
+        }
+
+        return null;
+    }
+
     /**
      * Gets a localized label for the type of the entity. If user defined synonyms are defined,
      * these are used instead of the default labels.
@@ -75,7 +106,8 @@ final readonly class ElementTypeNameGenerator
     {
         $type = ElementTypes::fromValue($entity);
 
-        return $this->translator->trans($type->getDefaultLabelKey(), locale: $locale);
+        return $this->resolveSynonymLabel($type, $locale, false)
+            ?? $this->translator->trans($type->getDefaultLabelKey(), locale: $locale);
     }
 
     /**
@@ -88,7 +120,8 @@ final readonly class ElementTypeNameGenerator
     {
         $type = ElementTypes::fromValue($entity);
 
-        return $this->translator->trans($type->getDefaultPluralLabelKey(), locale: $locale);
+        return $this->resolveSynonymLabel($type, $locale, true)
+            ?? $this->translator->trans($type->getDefaultPluralLabelKey(), locale: $locale);
     }
 
 
@@ -137,7 +170,7 @@ final readonly class ElementTypeNameGenerator
         } else { //Target does not have a name
             $tmp = sprintf(
                 '<i>%s</i>: %s',
-                $this->getLocalizedTypeLabel($entity),
+                $this->typeLabel($entity),
                 $entity->getID()
             );
         }
@@ -181,7 +214,7 @@ final readonly class ElementTypeNameGenerator
     {
         return sprintf(
             '<i>%s</i>: %s [%s]',
-            $this->getLocalizedTypeLabel($class),
+            $this->typeLabel($class),
             $id,
             $this->translator->trans('log.target_deleted')
         );

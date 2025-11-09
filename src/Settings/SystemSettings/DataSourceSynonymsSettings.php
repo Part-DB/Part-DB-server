@@ -66,8 +66,37 @@ class DataSourceSynonymsSettings
      */
     public array $customTypeLabels = [];
 
-    public function isCustomLabelDefinedForType(ElementTypes $type): bool
+    /**
+     * Checks if there is any synonym defined for the given type (no matter which language).
+     * @param  ElementTypes  $type
+     * @return bool
+     */
+    public function isSynonymDefinedForType(ElementTypes $type): bool
     {
         return isset($this->customTypeLabels[$type->value]);
+    }
+
+    /**
+     * Returns the singular synonym for the given type and locale, or null if none is defined.
+     * @param  ElementTypes  $type
+     * @param  string  $locale
+     * @return string|null
+     */
+    public function getSingularSynonymForType(ElementTypes $type, string $locale): ?string
+    {
+        return $this->customTypeLabels[$type->value][$locale]['singular'] ?? null;
+    }
+
+    /**
+     * Returns the plural synonym for the given type and locale, or null if none is defined.
+     * @param  ElementTypes  $type
+     * @param  string|null  $locale
+     * @return string|null
+     */
+    public function getPluralSynonymForType(ElementTypes $type, ?string $locale): ?string
+    {
+        return $this->customTypeLabels[$type->value][$locale]['plural']
+            ?? $this->customTypeLabels[$type->value][$locale]['singular']
+            ?? null;
     }
 }
