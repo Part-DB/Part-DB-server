@@ -48,14 +48,6 @@ class DataSourceSynonymsSettings
         formType: DataSourceSynonymsCollectionType::class,
         formOptions: [
             'required' => false,
-            'data_sources' => [
-                'category' => new TM("settings.behavior.data_source_synonyms.category"),
-                'storagelocation' => new TM("settings.behavior.data_source_synonyms.storagelocation"),
-                'footprint' => new TM("settings.behavior.data_source_synonyms.footprint"),
-                'manufacturer' => new TM("settings.behavior.data_source_synonyms.manufacturer"),
-                'supplier' => new TM("settings.behavior.data_source_synonyms.supplier"),
-                'project' => new TM("settings.behavior.data_source_synonyms.project"),
-            ],
         ],
     )]
     #[Assert\Type('array')]

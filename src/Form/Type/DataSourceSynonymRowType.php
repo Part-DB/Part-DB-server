@@ -22,10 +22,12 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
+use App\Services\ElementTypes;
 use App\Settings\SystemSettings\LocalizationSettings;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -38,6 +40,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class DataSourceSynonymRowType extends AbstractType
 {
+
+    private const PREFFERED_TYPES = [
+        ElementTypes::CATEGORY,
+        ElementTypes::STORAGE_LOCATION,
+        ElementTypes::FOOTPRINT,
+        ElementTypes::MANUFACTURER,
+        ElementTypes::SUPPLIER,
+        ElementTypes::PROJECT,
+    ];
+
     public function __construct(
         private readonly LocalizationSettings $localizationSettings,
         #[Autowire(param: 'partdb.locale_menu')] private readonly array $preferredLanguagesParam,
@@ -47,19 +59,19 @@ class DataSourceSynonymRowType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('dataSource', ChoiceType::class, [
-                //'label' => 'settings.behavior.data_source_synonyms.row_type.form.datasource',
+            ->add('dataSource', EnumType::class, [
+                'class' => ElementTypes::class,
                 'label' => false,
-                'choices' => $this->buildDataSourceChoices($options['data_sources']),
+                //'choices' => $this->buildDataSourceChoices($options['data_sources']),
                 'required' => true,
                 'constraints' => [
                     new Assert\NotBlank(),
                 ],
                 'row_attr' => ['class' => 'mb-0'],
-                'attr' => ['class' => 'form-select-sm']
+                'attr' => ['class' => 'form-select-sm'],
+                'preferred_choices' => self::PREFFERED_TYPES
             ])
             ->add('locale', LocaleType::class, [
-                //'label' => 'settings.behavior.data_source_synonyms.row_type.form.locale',
                 'label' => false,
                 'required' => true,
                 // Restrict to languages configured in the language menu: disable ChoiceLoader and provide explicit choices
@@ -73,7 +85,6 @@ class DataSourceSynonymRowType extends AbstractType
                 'attr' => ['class' => 'form-select-sm']
             ])
             ->add('translation_singular', TextType::class, [
-                //'label' => 'settings.behavior.data_source_synonyms.row_type.form.translation_singular',
                 'label' => false,
                 'required' => true,
                 'empty_data' => '',
@@ -84,7 +95,6 @@ class DataSourceSynonymRowType extends AbstractType
                 'attr' => ['class' => 'form-select-sm']
             ])
             ->add('translation_plural', TextType::class, [
-                //'label' => 'settings.behavior.data_source_synonyms.row_type.form.translation_plural',
                 'label' => false,
                 'required' => true,
                 'empty_data' => '',
@@ -96,14 +106,6 @@ class DataSourceSynonymRowType extends AbstractType
             ]);
     }
 
-    private function buildDataSourceChoices(array $dataSources): array
-    {
-        $choices = [];
-        foreach ($dataSources as $key => $label) {
-            $choices[(string)$label] = (string)$key;
-        }
-        return $choices;
-    }
 
     /**
      * Returns only locales configured in the language menu (settings) or falls back to the parameter.
@@ -139,11 +141,5 @@ class DataSourceSynonymRowType extends AbstractType
     private function getPossibleLocales(): array
     {
         return array_values($this->preferredLanguagesParam);
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setRequired('data_sources');
-        $resolver->setAllowedTypes('data_sources', 'array');
     }
 }

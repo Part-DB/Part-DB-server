@@ -225,4 +225,5 @@ enum ElementTypes: string implements TranslatableInterface
 
         throw new EntityNotSupportedException(sprintf('No localized label for the element with type %s was found!', $className));
     }
+
 }

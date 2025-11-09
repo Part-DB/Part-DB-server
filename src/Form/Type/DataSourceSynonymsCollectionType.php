@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
+use App\Services\ElementTypes;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -12,7 +13,6 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Intl\Locales;
-use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -44,7 +44,8 @@ class DataSourceSynonymsCollectionType extends AbstractType
                     continue;
                 }
                 $out[] = [
-                    'dataSource' => $dataSource,
+                    //Convert string to enum value
+                    'dataSource' => ElementTypes::from($dataSource),
                     'locale' => $locale,
                     'translation_singular' => $translations['singular'] ?? '',
                     'translation_plural' => $translations['plural'] ?? '',
@@ -78,13 +79,13 @@ class DataSourceSynonymsCollectionType extends AbstractType
                     $translation_singular = $row['translation_singular'] ?? null;
                     $translation_plural = $row['translation_plural'] ?? null;
 
-                    if (!is_string($dataSource) || $dataSource === ''
-                        || !is_string($locale) || $locale === ''
+                    if ($dataSource === null ||
+                        !is_string($locale) || $locale === ''
                     ) {
                         continue;
                     }
 
-                    $out[$dataSource][$locale] = [
+                    $out[$dataSource->value][$locale] = [
                         'singular' => is_string($translation_singular) ? $translation_singular : '',
                         'plural' => is_string($translation_plural) ? $translation_plural : '',
                     ];
@@ -153,8 +154,8 @@ class DataSourceSynonymsCollectionType extends AbstractType
             $sortable = $rows;
 
             usort($sortable, static function ($a, $b) {
-                $aDs = (string)($a['dataSource'] ?? '');
-                $bDs = (string)($b['dataSource'] ?? '');
+                $aDs = $a['dataSource']?->value ?? '';
+                $bDs = $b['dataSource']?->value ?? '';
 
                 $cmpDs = strcasecmp($aDs, $bDs);
                 if ($cmpDs !== 0) {
@@ -176,8 +177,6 @@ class DataSourceSynonymsCollectionType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setRequired(['data_sources']);
-        $resolver->setAllowedTypes('data_sources', 'array');
 
         // Defaults for the collection and entry type
         $resolver->setDefaults([
@@ -189,14 +188,7 @@ class DataSourceSynonymsCollectionType extends AbstractType
             'prototype' => true,
             'empty_data' => [],
             'entry_options' => ['label' => false],
-            'error_translation_domain' => 'validators',
         ]);
-
-        // Pass data_sources automatically to each row (DataSourceSynonymRowType)
-        $resolver->setNormalizer('entry_options', function (Options $options, $value) {
-            $value = is_array($value) ? $value : [];
-            return $value + ['data_sources' => $options['data_sources']];
-        });
     }
 
     public function getParent(): ?string
