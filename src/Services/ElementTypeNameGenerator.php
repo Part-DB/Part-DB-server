@@ -75,17 +75,17 @@ final readonly class ElementTypeNameGenerator
 
         if ($this->synonymsSettings->isSynonymDefinedForType($type)) {
             if ($plural) {
-                $syn = $this->synonymsSettings->getSingularSynonymForType($type, $locale);
-            } else {
                 $syn = $this->synonymsSettings->getPluralSynonymForType($type, $locale);
+            } else {
+                $syn = $this->synonymsSettings->getSingularSynonymForType($type, $locale);
             }
 
             if ($syn === null) {
                 //Try to fall back to english
                 if ($plural) {
-                    $syn = $this->synonymsSettings->getSingularSynonymForType($type, 'en');
-                } else {
                     $syn = $this->synonymsSettings->getPluralSynonymForType($type, 'en');
+                } else {
+                    $syn = $this->synonymsSettings->getSingularSynonymForType($type, 'en');
                 }
             }
 

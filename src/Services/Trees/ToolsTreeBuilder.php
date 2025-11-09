@@ -38,7 +38,7 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Helpers\Trees\TreeViewNode;
 use App\Services\Cache\UserCacheKeyGenerator;
-use App\Services\Misc\DataSourceSynonymResolver;
+use App\Services\ElementTypeNameGenerator;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -57,7 +57,7 @@ class ToolsTreeBuilder
         protected TagAwareCacheInterface $cache,
         protected UserCacheKeyGenerator $keyGenerator,
         protected Security $security,
-        protected readonly DataSourceSynonymResolver $synonymResolver,
+        private readonly ElementTypeNameGenerator $elementTypeNameGenerator,
     ) {
     }
 
@@ -167,90 +167,67 @@ class ToolsTreeBuilder
 
         if ($this->security->isGranted('read', new AttachmentType())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.attachment_types'),
+                $this->elementTypeNameGenerator->typeLabelPlural(AttachmentType::class),
                 $this->urlGenerator->generate('attachment_type_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-file-alt');
         }
         if ($this->security->isGranted('read', new Category())) {
             $nodes[] = (new TreeViewNode(
-                $this->synonymResolver->displayNamePlural(
-                    'category',
-                    'tree.tools.edit.categories',
-                    $this->translator->getLocale()
-                ),
+                $this->elementTypeNameGenerator->typeLabelPlural(Category::class),
                 $this->urlGenerator->generate('category_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-tags');
         }
         if ($this->security->isGranted('read', new Project())) {
             $nodes[] = (new TreeViewNode(
-                $this->synonymResolver->displayNamePlural(
-                    'project',
-                    'tree.tools.edit.projects',
-                    $this->translator->getLocale()),
+                $this->elementTypeNameGenerator->typeLabelPlural(Project::class),
                 $this->urlGenerator->generate('project_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-archive');
         }
         if ($this->security->isGranted('read', new Supplier())) {
             $nodes[] = (new TreeViewNode(
-                $this->synonymResolver->displayNamePlural(
-                    'supplier',
-                    'tree.tools.edit.suppliers',
-                    $this->translator->getLocale()
-                ),
+                $this->elementTypeNameGenerator->typeLabelPlural(Supplier::class),
                 $this->urlGenerator->generate('supplier_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-truck');
         }
         if ($this->security->isGranted('read', new Manufacturer())) {
             $nodes[] = (new TreeViewNode(
-                $this->synonymResolver->displayNamePlural(
-                    'manufacturer',
-                    'tree.tools.edit.manufacturer',
-                    $this->translator->getLocale()
-                ),
+                $this->elementTypeNameGenerator->typeLabelPlural(Manufacturer::class),
                 $this->urlGenerator->generate('manufacturer_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-industry');
         }
         if ($this->security->isGranted('read', new StorageLocation())) {
             $nodes[] = (new TreeViewNode(
-                $this->synonymResolver->displayNamePlural(
-                    'storagelocation',
-                    'tree.tools.edit.storelocation',
-                    $this->translator->getLocale()
-                ),
+                $this->elementTypeNameGenerator->typeLabelPlural(StorageLocation::class),
                 $this->urlGenerator->generate('store_location_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-cube');
         }
         if ($this->security->isGranted('read', new Footprint())) {
             $nodes[] = (new TreeViewNode(
-                $this->synonymResolver->displayNamePlural(
-                    'footprint',
-                    'tree.tools.edit.footprint',
-                    $this->translator->getLocale()
-                ),
+                $this->elementTypeNameGenerator->typeLabelPlural(Footprint::class),
                 $this->urlGenerator->generate('footprint_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-microchip');
         }
         if ($this->security->isGranted('read', new Currency())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.currency'),
+                $this->elementTypeNameGenerator->typeLabelPlural(Currency::class),
                 $this->urlGenerator->generate('currency_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-coins');
         }
         if ($this->security->isGranted('read', new MeasurementUnit())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.measurement_unit'),
+                $this->elementTypeNameGenerator->typeLabelPlural(MeasurementUnit::class),
                 $this->urlGenerator->generate('measurement_unit_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-balance-scale');
         }
         if ($this->security->isGranted('read', new LabelProfile())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.label_profile'),
+                $this->elementTypeNameGenerator->typeLabelPlural(LabelProfile::class),
                 $this->urlGenerator->generate('label_profile_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-qrcode');
         }
         if ($this->security->isGranted('read', new PartCustomState())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.part_custom_state'),
+                $this->elementTypeNameGenerator->typeLabelPlural(PartCustomState::class),
                 $this->urlGenerator->generate('part_custom_state_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-tools');
         }

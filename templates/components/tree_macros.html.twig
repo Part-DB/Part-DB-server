@@ -3,12 +3,12 @@
 
     {# Format is [mode, route, label, show_condition] #}
     {% set data_sources = [
-        ['categories', path('tree_category_root'), 'category.labelp', is_granted('@categories.read') and is_granted('@parts.read'), 'category'],
-        ['locations', path('tree_location_root'), 'storelocation.labelp', is_granted('@storelocations.read') and is_granted('@parts.read'), 'storagelocation'],
-        ['footprints', path('tree_footprint_root'), 'footprint.labelp', is_granted('@footprints.read') and is_granted('@parts.read'), 'footprint'],
-        ['manufacturers', path('tree_manufacturer_root'), 'manufacturer.labelp', is_granted('@manufacturers.read') and is_granted('@parts.read'), 'manufacturer'],
-        ['suppliers', path('tree_supplier_root'), 'supplier.labelp', is_granted('@suppliers.read') and is_granted('@parts.read'), 'supplier'],
-        ['projects', path('tree_device_root'), 'project.labelp', is_granted('@projects.read'), 'project'],
+        ['categories', path('tree_category_root'), '@category@@', is_granted('@categories.read') and is_granted('@parts.read')],
+        ['locations', path('tree_location_root'), '@storage_location@@', is_granted('@storelocations.read') and is_granted('@parts.read'), ],
+        ['footprints', path('tree_footprint_root'), '@footprint@@', is_granted('@footprints.read') and is_granted('@parts.read')],
+        ['manufacturers', path('tree_manufacturer_root'), '@manufacturer@@', is_granted('@manufacturers.read') and is_granted('@parts.read'), 'manufacturer'],
+        ['suppliers', path('tree_supplier_root'), '@supplier@@', is_granted('@suppliers.read') and is_granted('@parts.read'), 'supplier'],
+        ['projects', path('tree_device_root'), '@project@@', is_granted('@projects.read'), 'project'],
         ['tools', path('tree_tools'), 'tools.label', true, 'tool'],
     ] %}
 
@@ -21,12 +21,18 @@
     {% for source in data_sources %}
         {% if source[3] %} {# show_condition #}
             <li>
+                {% if source[2] starts with '@' %}
+                    {% set label = type_label_p(source[2]|replace({'@': ''})) %}
+                {% else %}
+                    {% set label = source[2]|trans %}
+                {% endif %}
+
                 <button class="tree-btns dropdown-item"
                         data-mode="{{ source[0] }}"
                         data-url="{{ source[1] }}"
-                        data-text="{{ get_data_source_name_plural(source[4], source[2]) }}"
+                        data-text="{{ label }}"
                     {{ stimulus_action('elements/sidebar_tree', 'changeDataSource')  }}
-                >{{ get_data_source_name_plural(source[4], source[2]) }}</button>
+                >{{ label }}</button>
             </li>
         {% endif %}
     {% endfor %}

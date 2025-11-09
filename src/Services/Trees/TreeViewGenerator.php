@@ -36,6 +36,7 @@ use App\Helpers\Trees\TreeViewNodeIterator;
 use App\Repository\NamedDBElementRepository;
 use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Cache\UserCacheKeyGenerator;
+use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\Misc\DataSourceSynonymResolver;
 use App\Settings\BehaviorSettings\SidebarSettings;
@@ -67,7 +68,8 @@ class TreeViewGenerator
         protected TranslatorInterface $translator,
         private readonly UrlGeneratorInterface $router,
         private readonly SidebarSettings $sidebarSettings,
-        protected readonly DataSourceSynonymResolver $synonymResolver
+        protected readonly DataSourceSynonymResolver $synonymResolver,
+        private readonly ElementTypeNameGenerator $elementTypeNameGenerator
     ) {
         $this->rootNodeEnabled = $this->sidebarSettings->rootNodeEnabled;
         $this->rootNodeExpandedByDefault = $this->sidebarSettings->rootNodeExpanded;
@@ -213,17 +215,7 @@ class TreeViewGenerator
 
     protected function entityClassToRootNodeString(string $class): string
     {
-        $locale = $this->translator->getLocale();
-
-        return match ($class) {
-            Category::class => $this->synonymResolver->displayNamePlural('category', $locale),
-            StorageLocation::class => $this->synonymResolver->displayNamePlural('storelocation', $locale),
-            Footprint::class => $this->synonymResolver->displayNamePlural('footprint', $locale),
-            Manufacturer::class => $this->synonymResolver->displayNamePlural('manufacturer', $locale),
-            Supplier::class => $this->synonymResolver->displayNamePlural('supplier', $locale),
-            Project::class => $this->synonymResolver->displayNamePlural('project', $locale),
-            default => $this->translator->trans('tree.root_node.text'),
-        };
+        return $this->elementTypeNameGenerator->typeLabelPlural($class);
     }
 
     protected function entityClassToRootNodeIcon(string $class): ?string
