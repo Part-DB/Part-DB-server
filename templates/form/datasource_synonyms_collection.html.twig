@@ -1,3 +1,20 @@
+{% macro renderForm(child) %}
+    <div class="tc-item mt-1 px-2 pb-1 border-bottom">
+        {% form_theme child "form/vertical_bootstrap_layout.html.twig" %}
+        <div class="row">
+            <div class="col">{{ form_row(child.dataSource) }}</div>
+            <div class="col">{{ form_row(child.locale) }}</div>
+            <div class="col">{{ form_row(child.translation_singular) }}</div>
+            <div class="col">{{ form_row(child.translation_plural) }}</div>
+            <div class="col">
+                <button type="button" class="btn btn-outline-danger tc-remove" data-action="elements--datasource-synonyms-collection#remove">
+                    <i class="fa fa-trash"></i> {{ 'settings.behavior.data_source_synonyms.collection.remove_entry'|trans }}
+                </button>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
 {% block datasource_synonyms_collection_widget %}
     {% set _attrs = attr|default({}) %}
     {% set _attrs = _attrs|merge({
@@ -7,14 +24,7 @@
     {% set has_proto = prototype is defined %}
     {% if has_proto %}
         {% set __proto %}
-            <div class="tc-item mb-2 border rounded p-2">
-                {{ form_widget(prototype) }}
-                <div class="mt-2">
-                    <button type="button" class="btn btn-outline-danger btn-sm tc-remove" data-action="elements--datasource-synonyms-collection#remove">
-                        <i class="fa fa-trash"></i> {{ 'settings.behavior.data_source_synonyms.collection.remove_entry'|trans }}
-                    </button>
-                </div>
-            </div>
+            {{- _self.renderForm(prototype) -}}
         {% endset %}
         {% set _proto_html = __proto|e('html_attr') %}
         {% set _proto_name = form.vars.prototype_name|default('__name__') %}
@@ -29,20 +39,13 @@
     }) }}
     {{ block('widget_container_attributes')|raw }}{% for k,v in _attrs %} {{ k }}="{{ v }}"{% endfor %}
     >
-        <div class="tc-items" data-elements--datasource-synonyms-collection-target="items">
-            {% for child in form %}
-                <div class="tc-item mb-2 border rounded p-2">
-                    {{ form_widget(child) }}
-                    <div class="mt-2">
-                        <button type="button" class="btn btn-outline-danger btn-sm tc-remove" data-action="elements--datasource-synonyms-collection#remove">
-                            <i class="fa fa-trash"></i> {{ 'settings.behavior.data_source_synonyms.collection.remove_entry'|trans }}
-                        </button>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        <button type="button" class="btn btn-outline-primary btn-sm mt-2 tc-add" data-action="elements--datasource-synonyms-collection#add">
-            <i class="fa fa-plus"></i> {{ 'settings.behavior.data_source_synonyms.collection.add_entry'|trans }}
-        </button>
+    <div class="tc-items" data-elements--datasource-synonyms-collection-target="items">
+        {% for child in form %}
+            {{ _self.renderForm(child) }}
+        {% endfor %}
+    </div>
+    <button type="button" class="btn btn-outline-primary btn-sm mt-2 tc-add" data-action="elements--datasource-synonyms-collection#add">
+        <i class="fa fa-plus"></i> {{ 'settings.behavior.data_source_synonyms.collection.add_entry'|trans }}
+    </button>
     </div>
 {% endblock %}
