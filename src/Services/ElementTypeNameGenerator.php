@@ -39,10 +39,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @see \App\Tests\Services\ElementTypeNameGeneratorTest
  */
-class ElementTypeNameGenerator
+final readonly class ElementTypeNameGenerator
 {
 
-    public function __construct(protected TranslatorInterface $translator, private readonly EntityURLGenerator $entityURLGenerator)
+    public function __construct(private TranslatorInterface $translator, private EntityURLGenerator $entityURLGenerator)
     {
     }
 
