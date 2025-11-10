@@ -307,7 +307,7 @@
       </notes>
       <segment state="translated">
         <source>mass_creation.label</source>
-        <target>Création en nombre</target>
+        <target>Création en masse</target>
       </segment>
     </unit>
     <unit id="lslBqdc" name="admin.common">
@@ -874,7 +874,7 @@ L'utilisateur devra configurer à nouveau toutes les méthodes d'authentificatio
       </notes>
       <segment state="translated">
         <source>entity.delete.confirm_title</source>
-        <target>Voulez-vous vraiment supprimer %name%?</target>
+        <target>Voulez-vous vraiment supprimer %name% ?</target>
       </segment>
     </unit>
     <unit id="WR9DNyZ" name="entity.delete.message">
@@ -3721,7 +3721,7 @@ Notez également que sans authentification à deux facteurs, votre compte n'est 
       </notes>
       <segment state="translated">
         <source>tfa_backup.reset_codes.confirm_title</source>
-        <target>Êtes-vous sûr de vouloir réinitialiser  les codes ?</target>
+        <target>Êtes-vous sûr de vouloir réinitialiser les codes ?</target>
       </segment>
     </unit>
     <unit id="hY9ABJQ" name="tfa_backup.reset_codes.confirm_message">
@@ -4180,7 +4180,7 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       </notes>
       <segment state="translated">
         <source>csfr_invalid</source>
-        <target>Le jeton RFTS n'est pas valable ! Rechargez cette page ou contactez un administrateur si le problème persiste !</target>
+        <target>Le jeton CSRF n'est pas valide ! Rechargez cette page ou contactez un administrateur si le problème persiste !</target>
       </segment>
     </unit>
     <unit id="GFvuxVv" name="label_generator.no_entities_found">
@@ -4410,7 +4410,7 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       </notes>
       <segment state="translated">
         <source>pw_reset.token</source>
-        <target>Jeton</target>
+        <target>Token</target>
       </segment>
     </unit>
     <unit id="dT3xOQw" name="pw_reset.new_pw.error">
@@ -5313,7 +5313,7 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       </notes>
       <segment state="translated">
         <source>label_options.lines_mode.help</source>
-        <target>Si vous sélectionnez Twig ici, le champ de contenu est interprété comme un modèle Twig. Voir &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;Documentation de Twig&lt;/a&gt; et &lt;a href="https://github.com/Part-DB/Part-DB-symfony/wiki/Labels#twig-mode"&gt;Wiki&lt;/a&gt; pour plus d'informations.</target>
+        <target>Si vous sélectionnez Twig ici, le champ de contenu est interprété comme un modèle Twig. Voir &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;Documentation de Twig&lt;/a&gt; et &lt;a href="https://docs.part-db.de/usage/labels.html#twig-mode"&gt;Wiki&lt;/a&gt; pour plus d'informations.</target>
       </segment>
     </unit>
     <unit id="isvxbiX" name="label_options.page_size.label">
@@ -5367,7 +5367,7 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       </notes>
       <segment state="translated">
         <source>label_options.lines_mode.label</source>
-        <target>Parser mode</target>
+        <target>Mode du parseur</target>
       </segment>
     </unit>
     <unit id="NL2fpah" name="label_options.width.placeholder">
@@ -5439,7 +5439,7 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       </notes>
       <segment state="translated">
         <source>parameters.name.placeholder</source>
-        <target>Ex.  Gain de courant DC</target>
+        <target>Ex. Gain de courant DC</target>
       </segment>
     </unit>
     <unit id="_UzXoe_" name="parameters.symbol.placeholder">
@@ -5734,7 +5734,7 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       </notes>
       <segment state="translated">
         <source>part.edit.reset</source>
-        <target>rejeter les modifications</target>
+        <target>Rejeter les modifications</target>
       </segment>
     </unit>
     <unit id="0dN8aBB" name="part.edit.name.placeholder">
@@ -6473,7 +6473,7 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       </notes>
       <segment state="translated">
         <source>go.exclamation</source>
-        <target>Allez!</target>
+        <target>Allez !</target>
       </segment>
     </unit>
     <unit id="C7iK92Y" name="language.english">
@@ -6525,7 +6525,7 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       </notes>
       <segment state="translated">
         <source>attachment.table.element</source>
-        <target>élément lié</target>
+        <target>Élément lié</target>
       </segment>
     </unit>
     <unit id="CDqsi0w" name="attachment.edit.isPicture">
@@ -6535,7 +6535,7 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       </notes>
       <segment state="translated">
         <source>attachment.edit.isPicture</source>
-        <target>Image?</target>
+        <target>Image ?</target>
       </segment>
     </unit>
     <unit id="4ChxRG." name="attachment.edit.is3DModel">
@@ -6545,7 +6545,7 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       </notes>
       <segment state="translated">
         <source>attachment.edit.is3DModel</source>
-        <target>Modèle 3D?</target>
+        <target>Modèle 3D ?</target>
       </segment>
     </unit>
     <unit id="s8ioU_S" name="attachment.edit.isBuiltin">
@@ -6555,7 +6555,7 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       </notes>
       <segment state="translated">
         <source>attachment.edit.isBuiltin</source>
-        <target>Intégré?</target>
+        <target>Intégré ?</target>
       </segment>
     </unit>
     <unit id="dCDr.ik" name="category.edit.default_comment.placeholder">
@@ -6775,7 +6775,7 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       </notes>
       <segment state="translated">
         <source>attachment_type.edit.filetype_filter.help</source>
-        <target>Vous pouvez spécifier ici une liste, séparée par des virgules, des extensions de fichiers ou des mimétapes qu'un fichier téléchargé avec ce type de pièce jointe doit avoir. Pour autoriser tous les fichiers d'images pris en charge, utilisez image/*.</target>
+        <target>Vous pouvez spécifier ici une liste, séparée par des virgules, des extensions de fichiers ou des types mimes qu'un fichier téléchargé avec ce type de pièce jointe doit avoir. Pour autoriser tous les fichiers d'images pris en charge, utilisez image/*.</target>
       </segment>
     </unit>
     <unit id="KdVu0w1" name="attachment_type.edit.filetype_filter.placeholder">
@@ -7158,8 +7158,14 @@ exemple de ville</target>
       <segment state="translated">
         <source>mass_creation.lines.placeholder</source>
         <target>Élément 1
+   Élément 1.1
+      Élément 1.1.1
+   Élément 1.2
 Élément 2
-Élément 3</target>
+Élément 3
+
+Élément 1 -&gt; Élément 1.1
+Élément 1 -&gt; Élément 1.2</target>
       </segment>
     </unit>
     <unit id="TWSqPFi" name="entity.mass_creation.btn">
@@ -7969,7 +7975,7 @@ exemple de ville</target>
       </notes>
       <segment state="translated">
         <source>perm.projects</source>
-        <target>Projet perm</target>
+        <target>Projets</target>
       </segment>
     </unit>
     <unit id="Fa9cXuf" name="perm.part.attachment_types">
@@ -8079,7 +8085,7 @@ exemple de ville</target>
       </notes>
       <segment state="translated">
         <source>perm.users.edit_infos</source>
-        <target>Editer les informations</target>
+        <target>Éditer les informations</target>
       </segment>
     </unit>
     <unit id=".Mu5RB1" name="perm.users.edit_permissions">
@@ -8529,7 +8535,7 @@ exemple de ville</target>
       </notes>
       <segment state="translated">
         <source>google</source>
-        <target>google</target>
+        <target>Google</target>
       </segment>
     </unit>
     <unit id="agByADP" name="tfa.provider.webauthn_two_factor_provider">
@@ -8886,7 +8892,7 @@ exemple de ville</target>
     <unit id="0VKsxz3" name="entity.delete.must_not_contain_parts">
       <segment state="translated">
         <source>entity.delete.must_not_contain_parts</source>
-        <target>L'élement contient encore des parties ! Vous devez déplacer les parties pour pouvoir supprimer cet élément.</target>
+        <target>L'élément "%PATH%" contient encore des composants ! Vous devez déplacer les composants pour pouvoir supprimer cet élément.</target>
       </segment>
     </unit>
     <unit id="1hxhr3b" name="entity.delete.must_not_contain_attachments">
@@ -8904,7 +8910,7 @@ exemple de ville</target>
     <unit id="nak8YJ9" name="entity.delete.must_not_contain_users">
       <segment state="translated">
         <source>entity.delete.must_not_contain_users</source>
-        <target>Des utilisateurs utilisent toujours ce groupe ! Changez les de groupe pour pouvoir supprimer ce groupe.</target>
+        <target>Des utilisateurs utilisent toujours ce groupe ! Changez-les de groupe pour pouvoir supprimer ce groupe.</target>
       </segment>
     </unit>
     <unit id="6ud5yrD" name="part.table.edit">
@@ -9090,7 +9096,7 @@ exemple de ville</target>
     <unit id="KGgSvdN" name="tools.reel_calc.result_amount">
       <segment state="translated">
         <source>tools.reel_calc.result_amount</source>
-        <target>Nbre approximatif de composants</target>
+        <target>Nombre approximatif de composants</target>
       </segment>
     </unit>
     <unit id="d2KFRC_" name="tools.reel_calc.outer_greater_inner_error">
@@ -9186,7 +9192,7 @@ exemple de ville</target>
     <unit id="QCi4ct2" name="filter.text_constraint.value.operator.STARTS">
       <segment state="translated">
         <source>filter.text_constraint.value.operator.STARTS</source>
-        <target>Commencer avec</target>
+        <target>Commence par</target>
       </segment>
     </unit>
     <unit id="n3YhIhU" name="filter.text_constraint.value.operator.CONTAINS">
@@ -10032,7 +10038,7 @@ exemple de ville</target>
     <unit id="nCkMC62" name="part.info.withdraw_modal.amount">
       <segment state="translated">
         <source>part.info.withdraw_modal.amount</source>
-        <target>Quantitée</target>
+        <target>Quantité</target>
       </segment>
     </unit>
     <unit id="XnFMx7Q" name="part.info.withdraw_modal.move_to">
@@ -10194,13 +10200,13 @@ exemple de ville</target>
     <unit id="Hqb3M_R" name="project.builds.build_not_possible">
       <segment state="translated">
         <source>project.builds.build_not_possible</source>
-        <target>Construction impossible : Pièces non stockées</target>
+        <target>Fabrication impossible : Pièces non stockées</target>
       </segment>
     </unit>
     <unit id=".I7zcoK" name="project.builds.following_bom_entries_miss_instock">
       <segment state="translated">
         <source>project.builds.following_bom_entries_miss_instock</source>
-        <target>Les composants suivant n'ont pas assez de stock pour concevoir au moins une fois ce projet :</target>
+        <target>Les composants suivant n'ont pas assez de stock pour fabriquer au moins une fois ce projet :</target>
       </segment>
     </unit>
     <unit id="fGT0qfb" name="project.builds.stocked">
@@ -10230,19 +10236,19 @@ exemple de ville</target>
     <unit id="iuSpPbg" name="project.builds.check_project_status">
       <segment state="translated">
         <source>project.builds.check_project_status</source>
-        <target/>
+        <target>Le status du projet en cours est &lt;b&gt;"%project_status%"&lt;/b&gt;. Vous devriez vérifier que vous voulez vraiment concevoir le projet avec ce status !</target>
       </segment>
     </unit>
     <unit id="Y7vSSxi" name="project.builds.following_bom_entries_miss_instock_n">
       <segment state="translated">
         <source>project.builds.following_bom_entries_miss_instock_n</source>
-        <target>Vous n'avez pas assez de composants en stock pour fabriquer ce projet %number_of_builds% fois. Il manque cet élément instock:</target>
+        <target>Vous n'avez pas assez de composants en stock pour fabriquer ce projet %number_of_builds% fois. Il manque cet élément en stock :</target>
       </segment>
     </unit>
     <unit id="1BGl3Dv" name="project.build.flash.invalid_input">
       <segment state="translated">
         <source>project.build.flash.invalid_input</source>
-        <target>Ne peut pas fabriquer ce projet. Vérifier les entrées!</target>
+        <target>Impossible de fabriquer ce projet. Vérifier les entrées !</target>
       </segment>
     </unit>
     <unit id="eZP4nWT" name="project.build.required_qty">
@@ -10266,7 +10272,7 @@ exemple de ville</target>
     <unit id="srYaI3Z" name="project.build.buildsPartLot.new_lot">
       <segment state="translated">
         <source>project.build.buildsPartLot.new_lot</source>
-        <target/>
+        <target>Créer un nouveau lot</target>
       </segment>
     </unit>
     <unit id="z4i8LTc" name="project.build.add_builds_to_builds_part">
@@ -10374,7 +10380,7 @@ exemple de ville</target>
     <unit id="MJoZl4f" name="homepage.forum.text">
       <segment state="translated">
         <source>homepage.forum.text</source>
-        <target>Si vous avez des questions à propos de Part-DB , rendez vous sur &lt;a href="%href%" class="link-external" target="_blank"&gt;Github&lt;/a&gt;</target>
+        <target>Si vous avez des questions à propos de Part-DB, rendez-vous sur &lt;a href="%href%" class="link-external" target="_blank"&gt;Github&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="YsukbnK" name="log.element_edited.changed_fields.category">
@@ -10560,7 +10566,7 @@ exemple de ville</target>
     <unit id="034sklg" name="log.element_edited.changed_fields.not_selectable">
       <segment state="translated">
         <source>log.element_edited.changed_fields.not_selectable</source>
-        <target>Pas séléctionné</target>
+        <target>Non sélectionné</target>
       </segment>
     </unit>
     <unit id="VnV5ZXF" name="log.element_edited.changed_fields.parent">
@@ -10668,7 +10674,7 @@ exemple de ville</target>
     <unit id="wFzQD92" name="log.element_edited.changed_fields.unit">
       <segment state="translated">
         <source>log.element_edited.changed_fields.unit</source>
-        <target/>
+        <target>Symbole unitaire</target>
       </segment>
     </unit>
     <unit id="GNr5tO4" name="log.element_edited.changed_fields.is_integer">
@@ -10776,7 +10782,7 @@ exemple de ville</target>
     <unit id="Gsrp09m" name="log.element_edited.changed_fields.currency">
       <segment state="translated">
         <source>log.element_edited.changed_fields.currency</source>
-        <target>Devise préferée</target>
+        <target>Devise préférée</target>
       </segment>
     </unit>
     <unit id="UfVwEoE" name="log.element_edited.changed_fields.enforce2FA">
@@ -11100,7 +11106,7 @@ exemple de ville</target>
     <unit id="MDJdKXv" name="project.bom_import.clear_existing_bom.help">
       <segment state="translated">
         <source>project.bom_import.clear_existing_bom.help</source>
-        <target>En selectionnant cette option, toutes les entrées précédentes vont être supprimées du projet et récrite par l'importation de la BOM !</target>
+        <target>En sélectionnant cette option, toutes les entrées précédentes vont être supprimées du projet et récrite par l'importation de la BOM !</target>
       </segment>
     </unit>
     <unit id="6ZefVTs" name="project.bom_import.flash.invalid_file">
@@ -11112,7 +11118,7 @@ exemple de ville</target>
     <unit id="VYjO8pv" name="project.bom_import.flash.invalid_entries">
       <segment state="translated">
         <source>project.bom_import.flash.invalid_entries</source>
-        <target>Problème lors de la validation ! Vérifier les données!</target>
+        <target>Problème lors de la validation ! Vérifier les données !</target>
       </segment>
     </unit>
     <unit id="PLQ.uCm" name="project.import_bom">
@@ -11214,7 +11220,7 @@ exemple de ville</target>
     <unit id="o5u.Nnz" name="part.filter.lessThanDesired">
       <segment state="translated">
         <source>part.filter.lessThanDesired</source>
-        <target>En stock il y en a moins que voulu(total amount &lt; min. amount)</target>
+        <target>En stock il y en a moins que voulu(qty totale &lt; qty min.)</target>
       </segment>
     </unit>
     <unit id="YN9eLcZ" name="part.filter.lotOwner">
@@ -11244,7 +11250,7 @@ exemple de ville</target>
     <unit id="sg8NMZk" name="log.user_login.ip_anonymize_hint">
       <segment state="translated">
         <source>log.user_login.ip_anonymize_hint</source>
-        <target>Si les dernières chiffres de l'adresse IP sont manquants, alors le mode RGPD est activé, dans lequel l'adresse IP est anonyme.</target>
+        <target>Si les derniers chiffres de l'adresse IP sont manquants, alors le mode RGPD est activé, dans lequel l'adresse IP est anonyme.</target>
       </segment>
     </unit>
     <unit id="K_LOvwj" name="log.user_not_allowed.unauthorized_access_attempt_to">
@@ -11292,7 +11298,7 @@ exemple de ville</target>
     <unit id="Ty5FlW3" name="log.element_changed.data_after">
       <segment state="translated">
         <source>log.element_changed.data_after</source>
-        <target/>
+        <target>Données après changement</target>
       </segment>
     </unit>
     <unit id="sgeAZXV" name="log.element_changed.diff">
@@ -11646,7 +11652,7 @@ exemple de ville</target>
     <unit id="FtkEr6m" name="perm.system.show_available_updates">
       <segment state="translated">
         <source>perm.system.show_available_updates</source>
-        <target>Voir les mises-à-jour de Part-Db disponibles</target>
+        <target>Voir les mises-à-jour de Part-DB disponibles</target>
       </segment>
     </unit>
     <unit id="3oF2wIn" name="user.settings.api_tokens">
@@ -11940,7 +11946,7 @@ exemple de ville</target>
     <unit id="CIDXYeb" name="part_association.type.compatible">
       <segment state="translated">
         <source>part_association.type.compatible</source>
-        <target>est compatible avec</target>
+        <target>Est compatible avec</target>
       </segment>
     </unit>
     <unit id="9ahaE3u" name="part_association.table.to_this_part">
@@ -12492,7 +12498,7 @@ exemple de ville</target>
     <unit id="2_fx.rT" name="settings.ips.mouser.searchOptions.none">
       <segment state="translated">
         <source>settings.ips.mouser.searchOptions.none</source>
-        <target>Aucun filtres</target>
+        <target>Aucuns filtres</target>
       </segment>
     </unit>
     <unit id=".PbDhl9" name="settings.ips.mouser.searchOptions.rohs">
@@ -12666,7 +12672,7 @@ exemple de ville</target>
     <unit id="zjITvo2" name="settings.system.history.enforceComments.type.part_stock_operation">
       <segment state="translated">
         <source>settings.system.history.enforceComments.type.part_stock_operation</source>
-        <target>Operation de stock d'un composant</target>
+        <target>Opération de stock d'un composant</target>
       </segment>
     </unit>
     <unit id="hPbibkF" name="settings.system.history.enforceComments.type.datastructure_edit">
@@ -12726,7 +12732,7 @@ exemple de ville</target>
     <unit id="7_M.HcK" name="settings.system.localization.timezone">
       <segment state="translated">
         <source>settings.system.localization.timezone</source>
-        <target>Timezone par défaut</target>
+        <target>Fuseau horaire par défaut</target>
       </segment>
     </unit>
     <unit id="CCMOzX7" name="settings.system.localization.base_currency">
@@ -12781,7 +12787,7 @@ exemple de ville</target>
     <unit id="FIneGzR" name="settings.behavior.sidebar.items">
       <segment state="translated">
         <source>settings.behavior.sidebar.items</source>
-        <target>Elements de barre latérale</target>
+        <target>Éléments de barre latérale</target>
       </segment>
     </unit>
     <unit id="jc0JTvL" name="settings.behavior.sidebar.items.help">
@@ -12865,7 +12871,7 @@ exemple de ville</target>
     <unit id="U4aFfJ3" name="settings.ips.oemsecrets.parseParams.help">
       <segment state="translated">
         <source>settings.ips.oemsecrets.parseParams.help</source>
-        <target>Si activé, les fournisseurs essaient de convertir les descriptions non structurés des OEMSecrets en structures de paramètres. Chaque paramètre dans la description doit avoir la forme "...;name1:value;name2:value2"</target>
+        <target>Si activé, les fournisseurs essaient de convertir les descriptions non structurées des OEMSecrets en structures de paramètres. Chaque paramètre dans la description doit avoir la forme "...;name1:value;name2:value2"</target>
       </segment>
     </unit>
     <unit id="YMpgQPU" name="settings.ips.oemsecrets.sortMode">
@@ -13243,7 +13249,7 @@ exemple de ville</target>
     <unit id="HCTqjZO" name="project.bom_import.validation.errors.required_field_missing">
       <segment state="translated">
         <source>project.bom_import.validation.errors.required_field_missing</source>
-        <target>Light %line% : Le champ requis "%field%" est manquant ou vide. Assurez-vous que ce champ est mappé et contiens des données.</target>
+        <target>Ligne %line% : Le champ requis "%field%" est manquant ou vide. Assurez-vous que ce champ est mappé et contiens des données.</target>
       </segment>
     </unit>
     <unit id="_ua5YM7" name="project.bom_import.validation.errors.no_valid_designators">
@@ -13993,7 +13999,7 @@ exemple de ville</target>
     <unit id="R3FVzb3" name="info_providers.bulk_import.progress.title">
       <segment state="translated">
         <source>info_providers.bulk_import.progress.title</source>
-        <target>Progrès</target>
+        <target>Progression</target>
       </segment>
     </unit>
     <unit id="pKciwfa" name="info_providers.bulk_import.progress.completed_text">
