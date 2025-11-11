@@ -365,11 +365,5 @@
         <target>Neplatný kód. Zkontrolujte, zda je vaše ověřovací aplikace správně nastavena a zda je čas správně nastaven jak na serveru, tak na ověřovacím zařízení.</target>
       </segment>
     </unit>
-    <unit id="djd7Z5r" name="settings.system.data_source_synonyms.collection_type.duplicate">
-      <segment state="translated">
-        <source>settings.system.data_source_synonyms.collection_type.duplicate</source>
-        <target>Dvojitá kombinace zdroje dat a jazyka.</target>
-      </segment>
-    </unit>
   </file>
 </xliff>

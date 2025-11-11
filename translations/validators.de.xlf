@@ -365,11 +365,5 @@
         <target>Ungültiger Code. Überprüfen Sie, ob die Authenticator App korrekt eingerichtet ist und ob der Server und das Gerät beide die korrekte Uhrzeit eingestellt haben.</target>
       </segment>
     </unit>
-    <unit id="djd7Z5r" name="settings.system.data_source_synonyms.collection_type.duplicate">
-      <segment state="translated">
-        <source>settings.system.data_source_synonyms.collection_type.duplicate</source>
-        <target>Doppelte Kombination aus Datenquelle und Sprache.</target>
-      </segment>
-    </unit>
   </file>
 </xliff>

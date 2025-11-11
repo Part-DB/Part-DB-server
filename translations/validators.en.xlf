@@ -365,11 +365,5 @@
         <target>Invalid code. Check that your authenticator app is set up correctly and that both the server and authentication device has the time set correctly.</target>
       </segment>
     </unit>
-    <unit id="djd7Z5r" name="settings.system.data_source_synonyms.collection_type.duplicate">
-      <segment state="translated">
-        <source>settings.system.data_source_synonyms.collection_type.duplicate</source>
-        <target>Duplicate combination of data source and locale.</target>
-      </segment>
-    </unit>
   </file>
 </xliff>

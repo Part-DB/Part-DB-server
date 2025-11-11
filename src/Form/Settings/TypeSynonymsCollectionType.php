@@ -144,7 +144,7 @@ class TypeSynonymsCollectionType extends AbstractType
                             if ($child->has('dataSource')) {
                                 $child->get('dataSource')->addError(
                                     new FormError($this->translator->trans(
-                                        'settings.system.data_source_synonyms.collection_type.duplicate',
+                                        'settings.synonyms.type_synonyms.collection_type.duplicate',
                                         [], 'validators'
                                     ))
                                 );
@@ -152,7 +152,7 @@ class TypeSynonymsCollectionType extends AbstractType
                             if ($child->has('locale')) {
                                 $child->get('locale')->addError(
                                     new FormError($this->translator->trans(
-                                        'settings.system.data_source_synonyms.collection_type.duplicate',
+                                        'settings.synonyms.type_synonyms.collection_type.duplicate',
                                         [], 'validators'
                                     ))
                                 );
