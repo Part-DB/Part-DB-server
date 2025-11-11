@@ -12816,60 +12816,6 @@ Please note, that you can not impersonate a disabled user. If you try you will g
 <b>Please note that the currencies are not converted, when changing this value. So changing the default currency after you already added price information, will result in wrong prices!</b>]]></target>
       </segment>
     </unit>
-    <unit id="2ChJxDR" name="settings.system.data_source_synonyms">
-      <segment state="translated">
-        <source>settings.system.data_source_synonyms</source>
-        <target>Data source synonyms</target>
-      </segment>
-    </unit>
-    <unit id="ScBY7AG" name="settings.system.data_source_synonyms.configuration">
-      <segment state="translated">
-        <source>settings.system.data_source_synonyms.configuration</source>
-        <target>Source</target>
-      </segment>
-    </unit>
-    <unit id="BgO4r9I" name="settings.system.data_source_synonyms.configuration.help">
-      <segment state="translated">
-        <source>settings.system.data_source_synonyms.configuration.help</source>
-        <target>Define your own synonyms for the given data sources. Add data source, language and translations freely; unused languages remain empty.</target>
-      </segment>
-    </unit>
-    <unit id="5vyyr9P" name="settings.behavior.data_source_synonyms.category">
-      <segment state="translated">
-        <source>settings.behavior.data_source_synonyms.category</source>
-        <target>Category</target>
-      </segment>
-    </unit>
-    <unit id="wFEJU6v" name="settings.behavior.data_source_synonyms.storagelocation">
-      <segment state="translated">
-        <source>settings.behavior.data_source_synonyms.storagelocation</source>
-        <target>Storage location</target>
-      </segment>
-    </unit>
-    <unit id=".MopkkR" name="settings.behavior.data_source_synonyms.footprint">
-      <segment state="translated">
-        <source>settings.behavior.data_source_synonyms.footprint</source>
-        <target>Footprint</target>
-      </segment>
-    </unit>
-    <unit id="juUDNRe" name="settings.behavior.data_source_synonyms.manufacturer">
-      <segment state="translated">
-        <source>settings.behavior.data_source_synonyms.manufacturer</source>
-        <target>Manufacturer</target>
-      </segment>
-    </unit>
-    <unit id="4tbzqwK" name="settings.behavior.data_source_synonyms.supplier">
-      <segment state="translated">
-        <source>settings.behavior.data_source_synonyms.supplier</source>
-        <target>Supplier</target>
-      </segment>
-    </unit>
-    <unit id="wkXHGxb" name="settings.behavior.data_source_synonyms.project">
-      <segment state="translated">
-        <source>settings.behavior.data_source_synonyms.project</source>
-        <target>Project</target>
-      </segment>
-    </unit>
     <unit id="hgZ7RL9" name="settings.behavior.data_source_synonyms.collection.add_entry">
       <segment state="translated">
         <source>settings.behavior.data_source_synonyms.collection.add_entry</source>
@@ -14513,6 +14459,31 @@ You can do this in the provider info list.</target>
       <segment>
         <source>group.labelp</source>
         <target>Groups</target>
+      </segment>
+    </unit>
+    <unit id="q7Fs2zm" name="settings.system.synonyms">
+      <segment>
+        <source>settings.system.synonyms</source>
+        <target>Synonyms</target>
+      </segment>
+    </unit>
+    <unit id="4ySREb5" name="settings.system.synonyms.help">
+      <segment>
+        <source>settings.system.synonyms.help</source>
+        <target>The synonyms systems allow overriding how Part-DB call certain things. This can be useful, especially if Part-DB is used in a different context than electronics.
+Please note that this system is currently experimental, and the synonyms defined here might not show up at all places.</target>
+      </segment>
+    </unit>
+    <unit id="uqVQTKd" name="settings.system.synonyms.type_synonyms">
+      <segment>
+        <source>settings.system.synonyms.type_synonyms</source>
+        <target>Type synonyms</target>
+      </segment>
+    </unit>
+    <unit id="wK6CEkB" name="settings.system.synonyms.type_synonyms.help">
+      <segment>
+        <source>settings.system.synonyms.type_synonyms.help</source>
+        <target>Type synonyms allow you to replace the labels of built-in data types. For example, you can rename "Footprint" to something else.</target>
       </segment>
     </unit>
   </file>

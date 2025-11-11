@@ -38,7 +38,6 @@ use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Cache\UserCacheKeyGenerator;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
-use App\Services\Misc\DataSourceSynonymResolver;
 use App\Settings\BehaviorSettings\SidebarSettings;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
@@ -68,7 +67,6 @@ class TreeViewGenerator
         protected TranslatorInterface $translator,
         private readonly UrlGeneratorInterface $router,
         private readonly SidebarSettings $sidebarSettings,
-        protected readonly DataSourceSynonymResolver $synonymResolver,
         private readonly ElementTypeNameGenerator $elementTypeNameGenerator
     ) {
         $this->rootNodeEnabled = $this->sidebarSettings->rootNodeEnabled;

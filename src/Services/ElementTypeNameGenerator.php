@@ -34,7 +34,7 @@ use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Exceptions\EntityNotSupportedException;
-use App\Settings\SystemSettings\DataSourceSynonymsSettings;
+use App\Settings\SynonymSettings;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -46,7 +46,7 @@ final readonly class ElementTypeNameGenerator
     public function __construct(
         private TranslatorInterface $translator,
         private EntityURLGenerator $entityURLGenerator,
-        private DataSourceSynonymsSettings $synonymsSettings,
+        private SynonymSettings $synonymsSettings,
     )
     {
     }

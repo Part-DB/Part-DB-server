@@ -33,8 +33,7 @@ class SystemSettings
     #[EmbeddedSettings()]
     public ?LocalizationSettings $localization = null;
 
-    #[EmbeddedSettings]
-    public ?DataSourceSynonymsSettings $dataSourceSynonyms = null;
+
 
     #[EmbeddedSettings()]
     public ?CustomizationSettings $customization = null;

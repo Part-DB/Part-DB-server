@@ -20,30 +20,28 @@
 
 declare(strict_types=1);
 
-namespace App\Settings\SystemSettings;
+namespace App\Settings;
 
 use App\Form\Type\DataSourceSynonymsCollectionType;
 use App\Services\ElementTypes;
-use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\ParameterTypes\ArrayType;
 use Jbtronics\SettingsBundle\ParameterTypes\SerializeType;
-use Jbtronics\SettingsBundle\ParameterTypes\StringType;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[Settings(label: new TM("settings.system.data_source_synonyms"))]
+#[Settings(label: new TM("settings.system.synonyms"), description: "settings.system.synonyms.help")]
 #[SettingsIcon("fa-language")]
-class DataSourceSynonymsSettings
+class SynonymSettings
 {
     use SettingsTrait;
 
     #[SettingsParameter(
         ArrayType::class,
-        label: new TM("settings.system.data_source_synonyms.configuration"),
-        description: new TM("settings.system.data_source_synonyms.configuration.help"),
+        label: new TM("settings.system.synonyms.type_synonyms"),
+        description: new TM("settings.system.synonyms.type_synonyms.help"),
         options: ['type' => SerializeType::class],
         formType: DataSourceSynonymsCollectionType::class,
         formOptions: [
@@ -53,7 +51,7 @@ class DataSourceSynonymsSettings
     #[Assert\Type('array')]
     #[Assert\All([new Assert\Type('array')])]
     /**
-     * @var array<string, array<string, array{singular: string, plural: string}>> $customTypeLabels
+     * @var array<string, array<string, array{singular: string, plural: string}>> $typeSynonyms
      * An array of the form: [
      * 'category' => [
      *    'en' => ['singular' => 'Category', 'plural' => 'Categories'],
@@ -64,7 +62,7 @@ class DataSourceSynonymsSettings
      *   ],
      * ]
      */
-    public array $customTypeLabels = [];
+    public array $typeSynonyms = [];
 
     /**
      * Checks if there is any synonym defined for the given type (no matter which language).
@@ -73,7 +71,7 @@ class DataSourceSynonymsSettings
      */
     public function isSynonymDefinedForType(ElementTypes $type): bool
     {
-        return isset($this->customTypeLabels[$type->value]);
+        return isset($this->typeSynonyms[$type->value]);
     }
 
     /**
@@ -84,7 +82,7 @@ class DataSourceSynonymsSettings
      */
     public function getSingularSynonymForType(ElementTypes $type, string $locale): ?string
     {
-        return $this->customTypeLabels[$type->value][$locale]['singular'] ?? null;
+        return $this->typeSynonyms[$type->value][$locale]['singular'] ?? null;
     }
 
     /**
@@ -95,8 +93,8 @@ class DataSourceSynonymsSettings
      */
     public function getPluralSynonymForType(ElementTypes $type, ?string $locale): ?string
     {
-        return $this->customTypeLabels[$type->value][$locale]['plural']
-            ?? $this->customTypeLabels[$type->value][$locale]['singular']
+        return $this->typeSynonyms[$type->value][$locale]['plural']
+            ?? $this->typeSynonyms[$type->value][$locale]['singular']
             ?? null;
     }
 }
