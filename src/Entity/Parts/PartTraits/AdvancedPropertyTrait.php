@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\Parts\InfoProviderReference;
+use App\Validator\Constraints\Year2038BugWorkaround;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
@@ -56,6 +57,15 @@ trait AdvancedPropertyTrait
     #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $mass = null;
+
+    /**
+     * @var \DateTimeInterface|null Set a time when the new order will arive.
+     *                Set to null, if there is no known date or no order.
+     */
+    #[Groups(['extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Year2038BugWorkaround]
+    protected ?\DateTimeInterface $orderDelivery = null;
 
     /**
      * @var string|null The internal part number of the part
@@ -138,6 +148,27 @@ trait AdvancedPropertyTrait
     {
         $this->mass = $mass;
 
+        return $this;
+    }
+
+    /**
+     * Gets the expected delivery date of the part. Returns null, if no delivery is due.
+     */
+    public function getOrderDelivery(): ?\DateTimeInterface
+    {
+        return $this->orderDelivery;
+    }
+
+    /**
+     * Sets the expected delivery date of the part. Set to null, if no delivery is due.
+     *
+     * @param \DateTimeInterface|null $orderDelivery The new delivery date
+     *
+     * @return $this
+     */
+    public function setOrderDelivery(?\DateTimeInterface $orderDelivery): self
+    {
+        $this->orderDelivery = $orderDelivery;
         return $this;
     }
 
