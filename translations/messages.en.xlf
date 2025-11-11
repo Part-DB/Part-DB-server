@@ -7658,16 +7658,6 @@ Element 1 -> Element 1.2]]></target>
         <target>System</target>
       </segment>
     </unit>
-    <unit id="QpKjLiE" name="perm.parts">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.parts</source>
-        <target>Parts</target>
-      </segment>
-    </unit>
     <unit id="lkP7BGp" name="perm.read">
       <notes>
         <note priority="1">obsolete</note>
@@ -7928,16 +7918,6 @@ Element 1 -> Element 1.2]]></target>
         <target>Orders</target>
       </segment>
     </unit>
-    <unit id="9e70TDD" name="perm.storelocations">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.storelocations</source>
-        <target>Storage locations</target>
-      </segment>
-    </unit>
     <unit id="iKqTace" name="perm.move">
       <notes>
         <note priority="1">obsolete</note>
@@ -7956,66 +7936,6 @@ Element 1 -> Element 1.2]]></target>
       <segment state="translated">
         <source>perm.list_parts</source>
         <target>List parts</target>
-      </segment>
-    </unit>
-    <unit id="qp4Nw88" name="perm.part.footprints">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.part.footprints</source>
-        <target>Footprints</target>
-      </segment>
-    </unit>
-    <unit id="ochCbWd" name="perm.part.categories">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.part.categories</source>
-        <target>Categories</target>
-      </segment>
-    </unit>
-    <unit id="gJeta6V" name="perm.part.supplier">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.part.supplier</source>
-        <target>Suppliers</target>
-      </segment>
-    </unit>
-    <unit id="AAW9ULn" name="perm.part.manufacturers">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.part.manufacturers</source>
-        <target>Manufacturers</target>
-      </segment>
-    </unit>
-    <unit id="xIsPPzY" name="perm.projects">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.projects</source>
-        <target>Projects</target>
-      </segment>
-    </unit>
-    <unit id="Fa9cXuf" name="perm.part.attachment_types">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.part.attachment_types</source>
-        <target>Attachment types</target>
       </segment>
     </unit>
     <unit id="lIHo4Hd" name="perm.tools.import">
@@ -8526,12 +8446,6 @@ Element 1 -> Element 1.2]]></target>
       <segment state="translated">
         <source>perm.measurement_units</source>
         <target>Measurement unit</target>
-      </segment>
-    </unit>
-    <unit id="zckNn8G" name="perm.part_custom_states">
-      <segment state="translated">
-        <source>perm.part_custom_states</source>
-        <target>Custom part state</target>
       </segment>
     </unit>
     <unit id="coNue69" name="user.settings.pw_old.label">
@@ -14478,6 +14392,12 @@ Please note that this system is currently experimental, and the synonyms defined
       <segment>
         <source>settings.synonyms.type_synonyms.help</source>
         <target>Type synonyms allow you to replace the labels of built-in data types. For example, you can rename "Footprint" to something else.</target>
+      </segment>
+    </unit>
+    <unit id="GSqBiVV" name="{{part}}">
+      <segment>
+        <source>{{part}}</source>
+        <target>Parts</target>
       </segment>
     </unit>
   </file>
