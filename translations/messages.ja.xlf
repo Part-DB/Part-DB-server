@@ -8966,11 +8966,5 @@ Exampletown</target>
         <target>部品のIPN入力時に提案される接頭辞。</target>
       </segment>
     </unit>
-    <unit id="a7uOieC" name="datasource.synonym">
-      <segment state="translated">
-        <source>datasource.synonym</source>
-        <target>%name% (あなたの同義語: %synonym%)</target>
-      </segment>
-    </unit>
   </file>
 </xliff>

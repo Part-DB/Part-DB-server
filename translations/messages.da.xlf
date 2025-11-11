@@ -12328,11 +12328,5 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
         <target>Du forsøgte at fjerne/tilføje en mængde sat til nul! Der blev ikke foretaget nogen handling.</target>
       </segment>
     </unit>
-    <unit id="a7uOieC" name="datasource.synonym">
-      <segment state="translated">
-        <source>datasource.synonym</source>
-        <target>%name% (Dit synonym: %synonym%)</target>
-      </segment>
-    </unit>
   </file>
 </xliff>
