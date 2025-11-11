@@ -7,18 +7,18 @@
             <div class="col">{{ form_row(child.translation_singular) }}</div>
             <div class="col">{{ form_row(child.translation_plural) }}</div>
             <div class="col">
-                <button type="button" class="btn btn-outline-danger btn-sm tc-remove" data-action="elements--datasource-synonyms-collection#remove">
-                    <i class="fa fa-trash"></i> {{ 'settings.behavior.data_source_synonyms.collection.remove_entry'|trans }}
+                <button type="button" class="btn btn-outline-danger btn-sm tc-remove" {{ stimulus_action('pages/synonyms_collection', 'remove' )}}>
+                    <i class="fa fa-trash"></i> {{ 'settings.synonyms.type_synonym.remove_entry'|trans }}
                 </button>
             </div>
         </div>
     </div>
 {% endmacro %}
 
-{% block datasource_synonyms_collection_widget %}
+{% block type_synonyms_collection_widget %}
     {% set _attrs = attr|default({}) %}
     {% set _attrs = _attrs|merge({
-        class: (_attrs.class|default('') ~ ' datasource-synonyms-collection-widget')|trim
+        class: (_attrs.class|default('') ~ ' type_synonyms_collection-widget')|trim
     }) %}
 
     {% set has_proto = prototype is defined %}
@@ -32,7 +32,7 @@
     {% endif %}
 
     <div
-    {{ stimulus_controller('elements/datasource_synonyms_collection', {
+    {{ stimulus_controller('pages/synonyms_collection', {
         prototype: has_proto ? _proto_html : '',
         prototypeName: has_proto ? _proto_name : '__name__',
         index: has_proto ? _index : (form|length)
@@ -40,20 +40,20 @@
     {{ block('widget_container_attributes')|raw }}{% for k,v in _attrs %} {{ k }}="{{ v }}"{% endfor %}
     >
     <div class="row">
-        <div class="col text-center"><strong>{% trans %}settings.behavior.data_source_synonyms.row_type.form.datasource{% endtrans %}</strong></div>
-        <div class="col text-center"><strong>{% trans %}settings.behavior.data_source_synonyms.row_type.form.locale{% endtrans %}</strong></div>
-        <div class="col text-center"><strong>{% trans %}settings.behavior.data_source_synonyms.row_type.form.translation_singular{% endtrans %}</strong></div>
-        <div class="col text-center"><strong>{% trans %}settings.behavior.data_source_synonyms.row_type.form.translation_plural{% endtrans %}</strong></div>
+        <div class="col text-center"><strong>{% trans%}settings.synonyms.type_synonym.type{% endtrans%}</strong></div>
+        <div class="col text-center"><strong>{% trans%}settings.synonyms.type_synonym.language{% endtrans%}</strong></div>
+        <div class="col text-center"><strong>{% trans%}settings.synonyms.type_synonym.translation_singular{% endtrans%}</strong></div>
+        <div class="col text-center"><strong>{% trans%}settings.synonyms.type_synonym.translation_plural{% endtrans%}</strong></div>
         <div class="col text-center"></div>
     </div>
 
-    <div class="tc-items" data-elements--datasource-synonyms-collection-target="items">
+    <div class="tc-items" {{ stimulus_target('pages/synonyms_collection', 'items') }}>
         {% for child in form %}
             {{ _self.renderForm(child) }}
         {% endfor %}
     </div>
-    <button type="button" class="btn btn-outline-primary btn-sm mt-2 tc-add" data-action="elements--datasource-synonyms-collection#add">
-        <i class="fa fa-plus"></i> {{ 'settings.behavior.data_source_synonyms.collection.add_entry'|trans }}
+    <button type="button" class="btn btn-outline-primary btn-sm mt-2 tc-add" {{ stimulus_action('pages/synonyms_collection', 'add')}}>
+        <i class="fa fa-plus"></i> {{ 'settings.synonyms.type_synonym.add_entry'|trans }}
     </button>
     </div>
 {% endblock %}

@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace App\Settings;
 
-use App\Form\Type\DataSourceSynonymsCollectionType;
+use App\Form\Settings\TypeSynonymsCollectionType;
 use App\Services\ElementTypes;
 use Jbtronics\SettingsBundle\ParameterTypes\ArrayType;
 use Jbtronics\SettingsBundle\ParameterTypes\SerializeType;
@@ -43,7 +43,7 @@ class SynonymSettings
         label: new TM("settings.system.synonyms.type_synonyms"),
         description: new TM("settings.system.synonyms.type_synonyms.help"),
         options: ['type' => SerializeType::class],
-        formType: DataSourceSynonymsCollectionType::class,
+        formType: TypeSynonymsCollectionType::class,
         formOptions: [
             'required' => false,
         ],

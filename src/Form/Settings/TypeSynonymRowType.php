@@ -20,28 +20,26 @@
 
 declare(strict_types=1);
 
-namespace App\Form\Type;
+namespace App\Form\Settings;
 
 use App\Services\ElementTypes;
 use App\Settings\SystemSettings\LocalizationSettings;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Intl\Locales;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * A single translation row: data source + language + translations (singular/plural).
  */
-class DataSourceSynonymRowType extends AbstractType
+class TypeSynonymRowType extends AbstractType
 {
 
-    private const PREFFERED_TYPES = [
+    private const PREFERRED_TYPES = [
         ElementTypes::CATEGORY,
         ElementTypes::STORAGE_LOCATION,
         ElementTypes::FOOTPRINT,
@@ -62,14 +60,13 @@ class DataSourceSynonymRowType extends AbstractType
             ->add('dataSource', EnumType::class, [
                 'class' => ElementTypes::class,
                 'label' => false,
-                //'choices' => $this->buildDataSourceChoices($options['data_sources']),
                 'required' => true,
                 'constraints' => [
                     new Assert\NotBlank(),
                 ],
                 'row_attr' => ['class' => 'mb-0'],
                 'attr' => ['class' => 'form-select-sm'],
-                'preferred_choices' => self::PREFFERED_TYPES
+                'preferred_choices' => self::PREFERRED_TYPES
             ])
             ->add('locale', LocaleType::class, [
                 'label' => false,

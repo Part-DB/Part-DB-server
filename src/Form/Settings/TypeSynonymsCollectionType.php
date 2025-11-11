@@ -1,8 +1,26 @@
 <?php
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ *  Copyright (C) 2019 - 2025 Jan Böhmer (https://github.com/jbtronics)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 declare(strict_types=1);
 
-namespace App\Form\Type;
+namespace App\Form\Settings;
 
 use App\Services\ElementTypes;
 use Symfony\Component\Form\AbstractType;
@@ -21,7 +39,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * View data: list [{dataSource, locale, translation_singular, translation_plural}, ...]
  * Model data: same structure (list). Optionally expands a nested map to a list.
  */
-class DataSourceSynonymsCollectionType extends AbstractType
+class TypeSynonymsCollectionType extends AbstractType
 {
     public function __construct(private readonly TranslatorInterface $translator)
     {
@@ -180,7 +198,7 @@ class DataSourceSynonymsCollectionType extends AbstractType
 
         // Defaults for the collection and entry type
         $resolver->setDefaults([
-            'entry_type' => DataSourceSynonymRowType::class,
+            'entry_type' => TypeSynonymRowType::class,
             'allow_add' => true,
             'allow_delete' => true,
             'by_reference' => false,
@@ -198,6 +216,6 @@ class DataSourceSynonymsCollectionType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'datasource_synonyms_collection';
+        return 'type_synonyms_collection';
     }
 }

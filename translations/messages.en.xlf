@@ -14486,5 +14486,41 @@ Please note that this system is currently experimental, and the synonyms defined
         <target>Type synonyms allow you to replace the labels of built-in data types. For example, you can rename "Footprint" to something else.</target>
       </segment>
     </unit>
+    <unit id="O10voez" name="settings.synonyms.type_synonym.type">
+      <segment>
+        <source>settings.synonyms.type_synonym.type</source>
+        <target>Type</target>
+      </segment>
+    </unit>
+    <unit id="1BDQVEp" name="settings.synonyms.type_synonym.language">
+      <segment>
+        <source>settings.synonyms.type_synonym.language</source>
+        <target>Language</target>
+      </segment>
+    </unit>
+    <unit id="2.g2ewQ" name="settings.synonyms.type_synonym.translation_singular">
+      <segment>
+        <source>settings.synonyms.type_synonym.translation_singular</source>
+        <target>Translation Singular</target>
+      </segment>
+    </unit>
+    <unit id="Up9ZhvR" name="settings.synonyms.type_synonym.translation_plural">
+      <segment>
+        <source>settings.synonyms.type_synonym.translation_plural</source>
+        <target>Translation Plural</target>
+      </segment>
+    </unit>
+    <unit id="BHoS230" name="settings.synonyms.type_synonym.add_entry">
+      <segment>
+        <source>settings.synonyms.type_synonym.add_entry</source>
+        <target>Add entry</target>
+      </segment>
+    </unit>
+    <unit id="wvtOEBn" name="settings.synonyms.type_synonym.remove_entry">
+      <segment>
+        <source>settings.synonyms.type_synonym.remove_entry</source>
+        <target>Remove entry</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
