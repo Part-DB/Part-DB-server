@@ -144,6 +144,8 @@ class PartSearchFilter implements FilterInterface
         if ($this->regex) {
             $queryBuilder->setParameter('search_query', $this->keyword);
         } else {
+            //Escape % and _ characters in the keyword
+            $this->keyword = str_replace(['%', '_'], ['\%', '\_'], $this->keyword);
             $queryBuilder->setParameter('search_query', '%' . $this->keyword . '%');
         }
     }

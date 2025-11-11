@@ -38,13 +38,17 @@ export default class extends Controller {
             this._emptyMessage = this.element.getAttribute('title');
         }
 
+        let dropdownParent = "body";
+        if (this.element.closest('.modal')) {
+            dropdownParent = null
+        }
 
         let settings = {
             plugins: ["clear_button"],
             allowEmptyOption: true,
             selectOnTab: true,
             maxOptions: null,
-            dropdownParent: 'body',
+            dropdownParent: dropdownParent,
 
             render: {
                 item: this.renderItem.bind(this),

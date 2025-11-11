@@ -114,4 +114,22 @@ class ProjectBuildHelperTest extends WebTestCase
         $this->assertSame(0, $this->service->getMaximumBuildableCount($project));
 
     }
+
+    public function testGetMaximumBuildableCountEmpty(): void
+    {
+        $project = new Project();
+
+        $this->assertSame(0, $this->service->getMaximumBuildableCount($project));
+    }
+
+    public function testGetMaximumBuildableCountAsString(): void
+    {
+        $project = new Project();
+        $bom_entry1 = new ProjectBOMEntry();
+        $bom_entry1->setName("Test");
+        $project->addBomEntry($bom_entry1);
+
+        $this->assertSame('∞', $this->service->getMaximumBuildableCountAsString($project));
+
+    }
 }

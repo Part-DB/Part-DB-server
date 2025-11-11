@@ -24,7 +24,7 @@
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^3.2.0",
-        "dompdf/dompdf": "^v3.0.0",
+        "dompdf/dompdf": "^3.1.2",
         "gregwar/captcha-bundle": "^2.1.0",
         "hshn/base64-encoded-file": "^5.0",
         "jbtronics/2fa-webauthn": "^3.0.0",

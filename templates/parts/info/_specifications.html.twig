@@ -4,6 +4,9 @@
 {% for name, parameters in part.groupedParameters %}
     {% if name is not empty %}<h5 class="mt-1">{{ name }}</h5>{% endif %}
     {{ helper.parameters_table(parameters) }}
+    {% if not loop.last %}
+        <hr class="my-0">
+    {% endif %}
 {% endfor %}
 
 {% if description_params is not empty %}

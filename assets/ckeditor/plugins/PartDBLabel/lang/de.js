@@ -17,15 +17,9 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Make sure that the global object is defined. If not, define it.
-window.CKEDITOR_TRANSLATIONS = window.CKEDITOR_TRANSLATIONS || {};
+import {add} from "ckeditor5";
 
-// Make sure that the dictionary for Polish translations exist.
-window.CKEDITOR_TRANSLATIONS[ 'de' ] = window.CKEDITOR_TRANSLATIONS[ 'de' ] || {};
-window.CKEDITOR_TRANSLATIONS[ 'de' ].dictionary =  window.CKEDITOR_TRANSLATIONS[ 'de' ].dictionary || {};
-
-// Extend the dictionary for Polish translations with your translations:
-Object.assign( window.CKEDITOR_TRANSLATIONS[ 'de' ].dictionary, {
+add( "de", {
     'Label Placeholder': 'Label Platzhalter',
     'Part': 'Bauteil',
 
@@ -88,5 +82,4 @@ Object.assign( window.CKEDITOR_TRANSLATIONS[ 'de' ].dictionary, {
     'Instance name': 'Instanzname',
     'Target type': 'Zieltyp',
     'URL of this Part-DB instance': 'URL dieser Part-DB Instanz',
-
-} );
+});
