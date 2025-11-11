@@ -1,8 +1,7 @@
 {% extends "admin/base_admin.html.twig" %}
 
 {% block card_title %}
-    <i class="fas fa-microchip fa-fw"></i>
-    {{ data_source_name_with_hint('footprint', 'footprint.labelp') }}
+    <i class="fas fa-microchip fa-fw"></i> {{ type_label_p(entity) }}
 {% endblock %}
 
 {% block master_picture_block %}

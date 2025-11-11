@@ -3,7 +3,7 @@
 {% import "vars.macro.twig" as vars %}
 
 {% block card_title %}
-    <i class="fa-solid fa-coins"></i> {% trans %}currency.caption{% endtrans %}
+    <i class="fa-solid fa-coins"></i> {{ type_label_p(entity) }}
 {% endblock %}
 
 {% block additional_controls %}

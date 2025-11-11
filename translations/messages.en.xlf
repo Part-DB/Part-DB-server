@@ -97,16 +97,6 @@
         <target>New category</target>
       </segment>
     </unit>
-    <unit id="z1GMBc_" name="currency.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>currency.caption</source>
-        <target>Currency</target>
-      </segment>
-    </unit>
     <unit id="KSFhj_3" name="currency.iso_code.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:12</note>
@@ -418,16 +408,6 @@
         <target>New footprint</target>
       </segment>
     </unit>
-    <unit id="tvm4F9e" name="group.edit.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>group.edit.caption</source>
-        <target>Groups</target>
-      </segment>
-    </unit>
     <unit id="m27aWeR" name="user.edit.permissions">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
@@ -458,15 +438,6 @@
       <segment state="translated">
         <source>group.new</source>
         <target>New group</target>
-      </segment>
-    </unit>
-    <unit id="jXqdnm_" name="label_profile.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>label_profile.caption</source>
-        <target>Label profiles</target>
       </segment>
     </unit>
     <unit id="GgwITAf" name="label_profile.advanced">
@@ -507,17 +478,6 @@
         <target>New label profile</target>
       </segment>
     </unit>
-    <unit id="r3pQ31P" name="manufacturer.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>manufacturer.caption</source>
-        <target>Manufacturers</target>
-      </segment>
-    </unit>
     <unit id="AVQBOWW" name="manufacturer.edit">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:8</note>
@@ -536,22 +496,6 @@
       <segment state="translated">
         <source>manufacturer.new</source>
         <target>New manufacturer</target>
-      </segment>
-    </unit>
-    <unit id="3ra2AyY" name="measurement_unit.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\MeasurementUnitAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\MeasurementUnitAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>measurement_unit.caption</source>
-        <target>Measurement Unit</target>
-      </segment>
-    </unit>
-    <unit id="3bcKBzY" name="part_custom_state.caption">
-      <segment state="translated">
-        <source>part_custom_state.caption</source>
-        <target>Custom part states</target>
       </segment>
     </unit>
     <unit id="crdkzlg" name="storelocation.labelp">
@@ -618,16 +562,6 @@
       <segment state="translated">
         <source>supplier.new</source>
         <target>New supplier</target>
-      </segment>
-    </unit>
-    <unit id="vX.dhjK" name="user.edit.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:8</note>
-        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:8</note>
-      </notes>
-      <segment state="translated">
-        <source>user.edit.caption</source>
-        <target>Users</target>
       </segment>
     </unit>
     <unit id="Ux8wVuF" name="user.edit.configuration">
@@ -4897,7 +4831,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Measurement Unit</target>
       </segment>
     </unit>
-    <unit id="G1hmQdb" name="part.table.partCustomState">
+    <unit id="JjTO6Nq" name="part.table.partCustomState">
       <segment state="translated">
         <source>part.table.partCustomState</source>
         <target>Custom part state</target>
@@ -5767,7 +5701,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Measuring unit</target>
       </segment>
     </unit>
-    <unit id="G1hmQdb" name="part.edit.partCustomState">
+    <unit id="ro8Iwr_" name="part.edit.partCustomState">
       <segment state="translated">
         <source>part.edit.partCustomState</source>
         <target>Custom part state</target>
@@ -6060,7 +5994,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Measurement unit</target>
       </segment>
     </unit>
-    <unit id="a1mPcMw" name="part_custom_state.label">
+    <unit id="NpDx4rr" name="part_custom_state.label">
       <segment state="translated">
         <source>part_custom_state.label</source>
         <target>Custom part state</target>
@@ -6309,7 +6243,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Measurement Unit</target>
       </segment>
     </unit>
-    <unit id="5adacKb" name="tree.tools.edit.part_custom_state">
+    <unit id="oYLWbbv" name="tree.tools.edit.part_custom_state">
       <segment state="translated">
         <source>tree.tools.edit.part_custom_state</source>
         <target>Custom part states</target>
@@ -8594,7 +8528,7 @@ Element 1 -> Element 1.2]]></target>
         <target>Measurement unit</target>
       </segment>
     </unit>
-    <unit id="1b5ja1c" name="perm.part_custom_states">
+    <unit id="zckNn8G" name="perm.part_custom_states">
       <segment state="translated">
         <source>perm.part_custom_states</source>
         <target>Custom part state</target>
@@ -10995,7 +10929,7 @@ Element 1 -> Element 1.2]]></target>
         <target>Measuring Unit</target>
       </segment>
     </unit>
-    <unit id="2COnw1k" name="log.element_edited.changed_fields.partCustomState">
+    <unit id="8QD.2.r" name="log.element_edited.changed_fields.partCustomState">
       <segment state="translated">
         <source>log.element_edited.changed_fields.partCustomState</source>
         <target>Custom part state</target>
@@ -11265,13 +11199,13 @@ Element 1 -> Element 1.2]]></target>
         <target>Edit Measurement Unit</target>
       </segment>
     </unit>
-    <unit id="ba52d.g" name="part_custom_state.new">
+    <unit id="Ae0GMtY" name="part_custom_state.new">
       <segment state="translated">
         <source>part_custom_state.new</source>
         <target>New custom part state</target>
       </segment>
     </unit>
-    <unit id="c1.gb2d" name="part_custom_state.edit">
+    <unit id="5uZ23wR" name="part_custom_state.edit">
       <segment state="translated">
         <source>part_custom_state.edit</source>
         <target>Edit custom part state</target>
@@ -12882,91 +12816,91 @@ Please note, that you can not impersonate a disabled user. If you try you will g
 <b>Please note that the currencies are not converted, when changing this value. So changing the default currency after you already added price information, will result in wrong prices!</b>]]></target>
       </segment>
     </unit>
-    <unit id="o6zcqUt" name="settings.system.data_source_synonyms">
+    <unit id="2ChJxDR" name="settings.system.data_source_synonyms">
       <segment state="translated">
         <source>settings.system.data_source_synonyms</source>
         <target>Data source synonyms</target>
       </segment>
     </unit>
-    <unit id="kue6Tga" name="settings.system.data_source_synonyms.configuration">
+    <unit id="ScBY7AG" name="settings.system.data_source_synonyms.configuration">
       <segment state="translated">
         <source>settings.system.data_source_synonyms.configuration</source>
         <target>Source</target>
       </segment>
     </unit>
-    <unit id="lEcz6N1" name="settings.system.data_source_synonyms.configuration.help">
+    <unit id="BgO4r9I" name="settings.system.data_source_synonyms.configuration.help">
       <segment state="translated">
         <source>settings.system.data_source_synonyms.configuration.help</source>
         <target>Define your own synonyms for the given data sources. Add data source, language and translations freely; unused languages remain empty.</target>
       </segment>
     </unit>
-    <unit id="kd8nBt4" name="settings.behavior.data_source_synonyms.category">
+    <unit id="5vyyr9P" name="settings.behavior.data_source_synonyms.category">
       <segment state="translated">
         <source>settings.behavior.data_source_synonyms.category</source>
         <target>Category</target>
       </segment>
     </unit>
-    <unit id="id3hnbC" name="settings.behavior.data_source_synonyms.storagelocation">
+    <unit id="wFEJU6v" name="settings.behavior.data_source_synonyms.storagelocation">
       <segment state="translated">
         <source>settings.behavior.data_source_synonyms.storagelocation</source>
         <target>Storage location</target>
       </segment>
     </unit>
-    <unit id="kdz5RcV" name="settings.behavior.data_source_synonyms.footprint">
+    <unit id=".MopkkR" name="settings.behavior.data_source_synonyms.footprint">
       <segment state="translated">
         <source>settings.behavior.data_source_synonyms.footprint</source>
         <target>Footprint</target>
       </segment>
     </unit>
-    <unit id="uBeDc7l" name="settings.behavior.data_source_synonyms.manufacturer">
+    <unit id="juUDNRe" name="settings.behavior.data_source_synonyms.manufacturer">
       <segment state="translated">
         <source>settings.behavior.data_source_synonyms.manufacturer</source>
         <target>Manufacturer</target>
       </segment>
     </unit>
-    <unit id="OewynB4" name="settings.behavior.data_source_synonyms.supplier">
+    <unit id="4tbzqwK" name="settings.behavior.data_source_synonyms.supplier">
       <segment state="translated">
         <source>settings.behavior.data_source_synonyms.supplier</source>
         <target>Supplier</target>
       </segment>
     </unit>
-    <unit id="n7ze4lk" name="settings.behavior.data_source_synonyms.project">
+    <unit id="wkXHGxb" name="settings.behavior.data_source_synonyms.project">
       <segment state="translated">
         <source>settings.behavior.data_source_synonyms.project</source>
         <target>Project</target>
       </segment>
     </unit>
-    <unit id="dGuR4cl" name="settings.behavior.data_source_synonyms.collection.add_entry">
+    <unit id="hgZ7RL9" name="settings.behavior.data_source_synonyms.collection.add_entry">
       <segment state="translated">
         <source>settings.behavior.data_source_synonyms.collection.add_entry</source>
         <target>Add entry</target>
       </segment>
     </unit>
-    <unit id="nctZn5c" name="settings.behavior.data_source_synonyms.collection.remove_entry">
+    <unit id="7HflN1Y" name="settings.behavior.data_source_synonyms.collection.remove_entry">
       <segment state="translated">
         <source>settings.behavior.data_source_synonyms.collection.remove_entry</source>
         <target>Remove entry</target>
       </segment>
     </unit>
-    <unit id="kdoci8c" name="settings.behavior.data_source_synonyms.row_type.form.datasource">
+    <unit id="VNp5CjI" name="settings.behavior.data_source_synonyms.row_type.form.datasource">
       <segment state="translated">
         <source>settings.behavior.data_source_synonyms.row_type.form.datasource</source>
         <target>Data source</target>
       </segment>
     </unit>
-    <unit id="cjcUeb3" name="settings.behavior.data_source_synonyms.row_type.form.locale">
+    <unit id="LFARb50" name="settings.behavior.data_source_synonyms.row_type.form.locale">
       <segment state="translated">
         <source>settings.behavior.data_source_synonyms.row_type.form.locale</source>
         <target>Locale</target>
       </segment>
     </unit>
-    <unit id="jcueBn3" name="settings.behavior.data_source_synonyms.row_type.form.translation_singular">
+    <unit id="qPFpVR5" name="settings.behavior.data_source_synonyms.row_type.form.translation_singular">
       <segment state="translated">
         <source>settings.behavior.data_source_synonyms.row_type.form.translation_singular</source>
         <target>Translation singular</target>
       </segment>
     </unit>
-    <unit id="ncud7Rc" name="settings.behavior.data_source_synonyms.row_type.form.translation_plural">
+    <unit id="LfkaWzO" name="settings.behavior.data_source_synonyms.row_type.form.translation_plural">
       <segment state="translated">
         <source>settings.behavior.data_source_synonyms.row_type.form.translation_plural</source>
         <target>Translation plural</target>
@@ -14497,31 +14431,6 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       </segment>
     </unit>
     <unit id="xIZ_mEX" name="project.builds.no_bom_entries">
-      <segment>
-        <source>project.builds.no_bom_entries</source>
-        <target>Project has no BOM entries</target>
-      </segment>
-    </unit>
-    <unit id="pCKgjIr" name="settings.behavior.sidebar.data_structure_nodes_table_include_children">
-      <segment>
-        <source>settings.behavior.sidebar.data_structure_nodes_table_include_children</source>
-        <target>Tables should include children nodes by default</target>
-      </segment>
-    </unit>
-    <unit id="KJQHfwV" name="settings.behavior.sidebar.data_structure_nodes_table_include_children.help">
-      <segment>
-        <source>settings.behavior.sidebar.data_structure_nodes_table_include_children.help</source>
-        <target>If checked, the part tables for categories, footprints, etc. should include all parts of child categories. If not checked, only parts that strictly belong to the clicked node are shown.</target>
-      </segment>
-    </unit>
-    <unit id="Gdlnmav" name="info_providers.search.error.oauth_reconnect">
-      <segment>
-        <source>info_providers.search.error.oauth_reconnect</source>
-        <target>You need to reconnect OAuth for following providers: %provider%
-You can do this in the provider info list.</target>
-      </segment>
-    </unit>
-    <unit id="xIZ_mEX" name="project.builds.no_bom_entries">
       <segment state="translated">
         <source>project.builds.no_bom_entries</source>
         <target>Project has no BOM entries</target>
@@ -14558,10 +14467,52 @@ You can do this in the provider info list.</target>
         <target>A PCRE-compatible regular expression every IPN has to fulfill. Leave empty to allow all everything as IPN. </target>
       </segment>
     </unit>
-    <unit id="a7uOieC" name="datasource.synonym">
+    <unit id="nT9n46F" name="datasource.synonym">
       <segment state="translated">
         <source>datasource.synonym</source>
         <target>%name% (Your synonym: %synonym%)</target>
+      </segment>
+    </unit>
+    <unit id="MoHHSNT" name="user.labelp">
+      <segment>
+        <source>user.labelp</source>
+        <target>Users</target>
+      </segment>
+    </unit>
+    <unit id="5.oI1XD" name="currency.labelp">
+      <segment>
+        <source>currency.labelp</source>
+        <target>Currencies</target>
+      </segment>
+    </unit>
+    <unit id="8F2EwVK" name="measurement_unit.labelp">
+      <segment>
+        <source>measurement_unit.labelp</source>
+        <target>Measurement units</target>
+      </segment>
+    </unit>
+    <unit id="hYrcka2" name="attachment_type.labelp">
+      <segment>
+        <source>attachment_type.labelp</source>
+        <target>Attachment types</target>
+      </segment>
+    </unit>
+    <unit id="p.Sjja3" name="label_profile.labelp">
+      <segment>
+        <source>label_profile.labelp</source>
+        <target>Label profiles</target>
+      </segment>
+    </unit>
+    <unit id="Y_ISV0y" name="part_custom_state.labelp">
+      <segment>
+        <source>part_custom_state.labelp</source>
+        <target>Custom part states</target>
+      </segment>
+    </unit>
+    <unit id="aXr7mN." name="group.labelp">
+      <segment>
+        <source>group.labelp</source>
+        <target>Groups</target>
       </segment>
     </unit>
   </file>

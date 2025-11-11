@@ -2,8 +2,7 @@
 {% import "label_system/dropdown_macro.html.twig" as dropdown %}
 
 {% block card_title %}
-    <i class="fas fa-cube fa-fw"></i>
-    {{ data_source_name_with_hint('storagelocation', 'storelocation.labelp') }}
+    <i class="fas fa-cube fa-fw"></i> {{ type_label_p(entity) }}
 {% endblock %}
 
 {% block additional_controls %}

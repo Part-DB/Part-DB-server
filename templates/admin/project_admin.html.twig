@@ -3,8 +3,7 @@
 {# @var entity App\Entity\ProjectSystem\Project #}
 
 {% block card_title %}
-    <i class="fas fa-archive fa-fw"></i>
-    {{ data_source_name_with_hint('project', 'project.labelp') }}
+    <i class="fas fa-archive fa-fw"></i> {{ type_label_p(entity) }}
 {% endblock %}
 
 {% block edit_title %}
