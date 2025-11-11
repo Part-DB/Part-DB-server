@@ -32,7 +32,7 @@ use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[Settings(label: new TM("settings.system.synonyms"), description: "settings.system.synonyms.help")]
+#[Settings(label: new TM("settings.synonyms"), description: "settings.synonyms.help")]
 #[SettingsIcon("fa-language")]
 class SynonymSettings
 {
@@ -40,8 +40,8 @@ class SynonymSettings
 
     #[SettingsParameter(
         ArrayType::class,
-        label: new TM("settings.system.synonyms.type_synonyms"),
-        description: new TM("settings.system.synonyms.type_synonyms.help"),
+        label: new TM("settings.synonyms.type_synonyms"),
+        description: new TM("settings.synonyms.type_synonyms.help"),
         options: ['type' => SerializeType::class],
         formType: TypeSynonymsCollectionType::class,
         formOptions: [

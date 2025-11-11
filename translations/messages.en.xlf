@@ -14419,31 +14419,6 @@ You can do this in the provider info list.</target>
         <target>Groups</target>
       </segment>
     </unit>
-    <unit id="q7Fs2zm" name="settings.system.synonyms">
-      <segment>
-        <source>settings.system.synonyms</source>
-        <target>Synonyms</target>
-      </segment>
-    </unit>
-    <unit id="4ySREb5" name="settings.system.synonyms.help">
-      <segment>
-        <source>settings.system.synonyms.help</source>
-        <target>The synonyms systems allow overriding how Part-DB call certain things. This can be useful, especially if Part-DB is used in a different context than electronics.
-Please note that this system is currently experimental, and the synonyms defined here might not show up at all places.</target>
-      </segment>
-    </unit>
-    <unit id="uqVQTKd" name="settings.system.synonyms.type_synonyms">
-      <segment>
-        <source>settings.system.synonyms.type_synonyms</source>
-        <target>Type synonyms</target>
-      </segment>
-    </unit>
-    <unit id="wK6CEkB" name="settings.system.synonyms.type_synonyms.help">
-      <segment>
-        <source>settings.system.synonyms.type_synonyms.help</source>
-        <target>Type synonyms allow you to replace the labels of built-in data types. For example, you can rename "Footprint" to something else.</target>
-      </segment>
-    </unit>
     <unit id="O10voez" name="settings.synonyms.type_synonym.type">
       <segment>
         <source>settings.synonyms.type_synonym.type</source>
@@ -14478,6 +14453,31 @@ Please note that this system is currently experimental, and the synonyms defined
       <segment>
         <source>settings.synonyms.type_synonym.remove_entry</source>
         <target>Remove entry</target>
+      </segment>
+    </unit>
+    <unit id="mLu.2F2" name="settings.synonyms">
+      <segment>
+        <source>settings.synonyms</source>
+        <target>Synonyms</target>
+      </segment>
+    </unit>
+    <unit id="SHgc9i." name="settings.synonyms.help">
+      <segment>
+        <source>settings.synonyms.help</source>
+        <target>The synonyms systems allow overriding how Part-DB call certain things. This can be useful, especially if Part-DB is used in a different context than electronics.
+Please note that this system is currently experimental, and the synonyms defined here might not show up at all places.</target>
+      </segment>
+    </unit>
+    <unit id="piB78W5" name="settings.synonyms.type_synonyms">
+      <segment>
+        <source>settings.synonyms.type_synonyms</source>
+        <target>Type synonyms</target>
+      </segment>
+    </unit>
+    <unit id="J8T2HuD" name="settings.synonyms.type_synonyms.help">
+      <segment>
+        <source>settings.synonyms.type_synonyms.help</source>
+        <target>Type synonyms allow you to replace the labels of built-in data types. For example, you can rename "Footprint" to something else.</target>
       </segment>
     </unit>
   </file>
