@@ -174,8 +174,8 @@ class TypeSynonymsCollectionType extends AbstractType
             $sortable = $rows;
 
             usort($sortable, static function ($a, $b) {
-                $aDs = $a['dataSource']?->value ?? '';
-                $bDs = $b['dataSource']?->value ?? '';
+                $aDs = $a['dataSource']->value ?? '';
+                $bDs = $b['dataSource']->value ?? '';
 
                 $cmpDs = strcasecmp($aDs, $bDs);
                 if ($cmpDs !== 0) {
