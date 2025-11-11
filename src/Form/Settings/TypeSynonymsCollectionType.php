@@ -88,6 +88,8 @@ class TypeSynonymsCollectionType extends AbstractType
             function (array $viewValue) {
                 //Turn our flat list back into the structured array
 
+                $out = [];
+
                 foreach ($viewValue as $row) {
                     if (!is_array($row)) {
                         continue;
@@ -133,8 +135,8 @@ class TypeSynonymsCollectionType extends AbstractType
                 $ds = $row['dataSource'] ?? null;
                 $loc = $row['locale'] ?? null;
 
-                if (is_string($ds) && $ds !== '' && is_string($loc) && $loc !== '') {
-                    $key = $ds . '|' . $loc;
+                if ($ds !== null && is_string($loc) && $loc !== '') {
+                    $key = $ds->value . '|' . $loc;
                     if (isset($seen[$key])) {
                         $hasDuplicate = true;
 
