@@ -47,6 +47,12 @@ class AppSettings
     #[EmbeddedSettings()]
     public ?InfoProviderSettings $infoProviders = null;
 
+    #[EmbeddedSettings]
+    public ?SynonymSettings $synonyms = null;
+
     #[EmbeddedSettings()]
     public ?MiscSettings $miscSettings = null;
+
+
+
 }

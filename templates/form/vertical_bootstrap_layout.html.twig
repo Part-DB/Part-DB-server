@@ -1,0 +1,26 @@
+{% extends 'bootstrap_5_layout.html.twig' %}
+
+
+{%- block choice_widget_collapsed -%}
+    {# Only add the BS5 form-select class if we dont use bootstrap-selectpicker  #}
+    {# {% if attr["data-controller"] is defined and attr["data-controller"] not in ["elements--selectpicker"] %}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-select')|trim}) -%}
+    {% else %}
+        {# If it is an selectpicker add form-control class to fill whole width
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
+    {% endif %}
+    #}
+
+    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-select')|trim}) -%}
+
+    {# If no data-controller was explictly defined add data-controller=elements--select #}
+    {% if attr["data-controller"] is not defined %}
+        {%- set attr = attr|merge({"data-controller": "elements--select"}) -%}
+
+        {% if attr["data-empty-message"] is not defined %}
+            {%- set attr = attr|merge({"data-empty-message": ("selectpicker.nothing_selected"|trans)}) -%}
+        {% endif %}
+    {% endif %}
+
+    {{- block("choice_widget_collapsed", "bootstrap_base_layout.html.twig") -}}
+{%- endblock choice_widget_collapsed -%}

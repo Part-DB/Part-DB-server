@@ -1,0 +1,116 @@
+<?php
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ *  Copyright (C) 2019 - 2025 Jan Böhmer (https://github.com/jbtronics)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+declare(strict_types=1);
+
+namespace App\Settings;
+
+use App\Form\Settings\TypeSynonymsCollectionType;
+use App\Services\ElementTypes;
+use Jbtronics\SettingsBundle\ParameterTypes\ArrayType;
+use Jbtronics\SettingsBundle\ParameterTypes\SerializeType;
+use Jbtronics\SettingsBundle\Settings\Settings;
+use Jbtronics\SettingsBundle\Settings\SettingsParameter;
+use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Symfony\Component\Translation\TranslatableMessage as TM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+#[Settings(label: new TM("settings.synonyms"), description: "settings.synonyms.help")]
+#[SettingsIcon("fa-language")]
+class SynonymSettings
+{
+    use SettingsTrait;
+
+    #[SettingsParameter(
+        ArrayType::class,
+        label: new TM("settings.synonyms.type_synonyms"),
+        description: new TM("settings.synonyms.type_synonyms.help"),
+        options: ['type' => SerializeType::class],
+        formType: TypeSynonymsCollectionType::class,
+        formOptions: [
+            'required' => false,
+        ],
+    )]
+    #[Assert\Type('array')]
+    #[Assert\All([new Assert\Type('array')])]
+    /**
+     * @var array<string, array<string, array{singular: string, plural: string}>> $typeSynonyms
+     * An array of the form: [
+     * 'category' => [
+     *    'en' => ['singular' => 'Category', 'plural' => 'Categories'],
+     *    'de' => ['singular' => 'Kategorie', 'plural' => 'Kategorien'],
+     * ],
+     * 'manufacturer' => [
+     *   'en' => ['singular' => 'Manufacturer', 'plural' =>'Manufacturers'],
+     *   ],
+     * ]
+     */
+    public array $typeSynonyms = [];
+
+    /**
+     * Checks if there is any synonym defined for the given type (no matter which language).
+     * @param  ElementTypes  $type
+     * @return bool
+     */
+    public function isSynonymDefinedForType(ElementTypes $type): bool
+    {
+        return isset($this->typeSynonyms[$type->value]) && count($this->typeSynonyms[$type->value]) > 0;
+    }
+
+    /**
+     * Returns the singular synonym for the given type and locale, or null if none is defined.
+     * @param  ElementTypes  $type
+     * @param  string  $locale
+     * @return string|null
+     */
+    public function getSingularSynonymForType(ElementTypes $type, string $locale): ?string
+    {
+        return $this->typeSynonyms[$type->value][$locale]['singular'] ?? null;
+    }
+
+    /**
+     * Returns the plural synonym for the given type and locale, or null if none is defined.
+     * @param  ElementTypes  $type
+     * @param  string|null  $locale
+     * @return string|null
+     */
+    public function getPluralSynonymForType(ElementTypes $type, ?string $locale): ?string
+    {
+        return $this->typeSynonyms[$type->value][$locale]['plural']
+            ?? $this->typeSynonyms[$type->value][$locale]['singular']
+            ?? null;
+    }
+
+    /**
+     * Sets a synonym for the given type and locale.
+     * @param  ElementTypes  $type
+     * @param  string  $locale
+     * @param  string  $singular
+     * @param  string  $plural
+     * @return void
+     */
+    public function setSynonymForType(ElementTypes $type, string $locale, string $singular, string $plural): void
+    {
+        $this->typeSynonyms[$type->value][$locale] = [
+            'singular' => $singular,
+            'plural' => $plural,
+        ];
+    }
+}

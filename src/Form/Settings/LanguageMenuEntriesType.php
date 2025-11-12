@@ -21,12 +21,11 @@
 declare(strict_types=1);
 
 
-namespace App\Form\Type;
+namespace App\Form\Settings;
 
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
-use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Intl\Languages;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
