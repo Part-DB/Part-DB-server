@@ -14400,5 +14400,17 @@ Please note that this system is currently experimental, and the synonyms defined
         <target>Parts</target>
       </segment>
     </unit>
+    <unit id="wjcsjzT" name="log.element_edited.changed_fields.part_ipn_prefix">
+      <segment>
+        <source>log.element_edited.changed_fields.part_ipn_prefix</source>
+        <target>IPN prefix</target>
+      </segment>
+    </unit>
+    <unit id="R4hoCqe" name="part.labelp">
+      <segment>
+        <source>part.labelp</source>
+        <target>Parts</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

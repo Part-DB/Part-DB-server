@@ -30,20 +30,27 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Exceptions\EntityNotSupportedException;
 use App\Services\ElementTypeNameGenerator;
+use App\Services\ElementTypes;
 use App\Services\Formatters\AmountFormatter;
+use App\Settings\SynonymSettings;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ElementTypeNameGeneratorTest extends WebTestCase
 {
-    /**
-     * @var AmountFormatter
-     */
-    protected $service;
+    protected ElementTypeNameGenerator $service;
+    private SynonymSettings $synonymSettings;
 
     protected function setUp(): void
     {
         //Get an service instance.
         $this->service = self::getContainer()->get(ElementTypeNameGenerator::class);
+        $this->synonymSettings = self::getContainer()->get(SynonymSettings::class);
+    }
+
+    protected function tearDown(): void
+    {
+        //Clean up synonym settings
+        $this->synonymSettings->typeSynonyms = [];
     }
 
     public function testGetLocalizedTypeNameCombination(): void
@@ -83,5 +90,31 @@ class ElementTypeNameGeneratorTest extends WebTestCase
                 return 'Stub';
             }
         });
+    }
+
+    public function testTypeLabel(): void
+    {
+        //If no synonym is defined, the default label should be used
+        $this->assertSame('Part', $this->service->typeLabel(Part::class));
+        $this->assertSame('Part', $this->service->typeLabel(new Part()));
+        $this->assertSame('Part', $this->service->typeLabel(ElementTypes::PART));
+        $this->assertSame('Part', $this->service->typeLabel('part'));
+
+        //Define a synonym for parts in english
+        $this->synonymSettings->setSynonymForType(ElementTypes::PART, 'en', 'Singular', 'Plurals');
+        $this->assertSame('Singular', $this->service->typeLabel(Part::class));
+    }
+
+    public function testTypeLabelPlural(): void
+    {
+        //If no synonym is defined, the default label should be used
+        $this->assertSame('Parts', $this->service->typeLabelPlural(Part::class));
+        $this->assertSame('Parts', $this->service->typeLabelPlural(new Part()));
+        $this->assertSame('Parts', $this->service->typeLabelPlural(ElementTypes::PART));
+        $this->assertSame('Parts', $this->service->typeLabelPlural('part'));
+
+        //Define a synonym for parts in english
+        $this->synonymSettings->setSynonymForType(ElementTypes::PART, 'en', 'Singular', 'Plurals');
+        $this->assertSame('Plurals', $this->service->typeLabelPlural(Part::class));
     }
 }

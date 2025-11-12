@@ -35,7 +35,7 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsEventListener]
-readonly class RegisterSynonymsAsTranslationParameters
+readonly class RegisterSynonymsAsTranslationParametersListener
 {
     private Translator $translator;
 
@@ -67,7 +67,7 @@ readonly class RegisterSynonymsAsTranslationParameters
 
                 //And we have lowercase versions for both
                 $placeholders['[' . $elementType->value . ']'] = mb_strtolower($this->typeNameGenerator->typeLabel($elementType));
-                $placeholders['[' . $elementType->value . ']'] = mb_strtolower($this->typeNameGenerator->typeLabelPlural($elementType));
+                $placeholders['[[' . $elementType->value . ']]'] = mb_strtolower($this->typeNameGenerator->typeLabelPlural($elementType));
             }
 
             return $placeholders;

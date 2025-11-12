@@ -71,7 +71,7 @@ class SynonymSettings
      */
     public function isSynonymDefinedForType(ElementTypes $type): bool
     {
-        return isset($this->typeSynonyms[$type->value]);
+        return isset($this->typeSynonyms[$type->value]) && count($this->typeSynonyms[$type->value]) > 0;
     }
 
     /**
@@ -96,5 +96,21 @@ class SynonymSettings
         return $this->typeSynonyms[$type->value][$locale]['plural']
             ?? $this->typeSynonyms[$type->value][$locale]['singular']
             ?? null;
+    }
+
+    /**
+     * Sets a synonym for the given type and locale.
+     * @param  ElementTypes  $type
+     * @param  string  $locale
+     * @param  string  $singular
+     * @param  string  $plural
+     * @return void
+     */
+    public function setSynonymForType(ElementTypes $type, string $locale, string $singular, string $plural): void
+    {
+        $this->typeSynonyms[$type->value][$locale] = [
+            'singular' => $singular,
+            'plural' => $plural,
+        ];
     }
 }
