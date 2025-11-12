@@ -366,7 +366,7 @@
       </segment>
     </unit>
     <unit id="I330cr5" name="settings.synonyms.type_synonyms.collection_type.duplicate">
-      <segment>
+      <segment state="translated">
         <source>settings.synonyms.type_synonyms.collection_type.duplicate</source>
         <target>There is already a translation defined for this type and language!</target>
       </segment>
