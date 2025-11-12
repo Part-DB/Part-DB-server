@@ -116,6 +116,16 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
   value should be handled as confidential data and not shared publicly.
 * `SHOW_PART_IMAGE_OVERLAY`: Set to 0 to disable the part image overlay, which appears if you hover over an image in the
   part image gallery
+* `IPN_SUGGEST_REGEX`: A global regular expression, that part IPNs have to fullfill. Enforce your own format for your users.
+* `IPN_SUGGEST_REGEX_HELP`: Define your own user help text for the Regex format specification.
+* `IPN_AUTO_APPEND_SUFFIX`: When enabled, an incremental suffix will be added to the user input when entering an existing 
+* IPN again upon saving.
+* `IPN_SUGGEST_PART_DIGITS`: Defines the fixed number of digits used as the increment at the end of an IPN (Internal Part Number). 
+  IPN prefixes, maintained within part categories and their hierarchy, form the foundation for suggesting complete IPNs. 
+  These suggestions become accessible during IPN input of a part. The constant specifies the digits used to calculate and assign 
+  unique increments for parts within a category hierarchy, ensuring consistency and uniqueness in IPN generation.
+* `IPN_USE_DUPLICATE_DESCRIPTION`: When enabled, the part’s description is used to find existing parts with the same 
+  description and to determine the next available IPN by incrementing their numeric suffix for the suggestion list.
 
 ### E-Mail settings (all env only)
 
@@ -136,7 +146,7 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
 * `TABLE_PARTS_DEFAULT_COLUMNS`: The columns in parts tables, which are visible by default (when loading table for first
   time).
   Also specify the default order of the columns. This is a comma separated list of column names. Available columns
-  are: `name`, `id`, `ipn`, `description`, `category`, `footprint`, `manufacturer`, `storage_location`, `amount`, `minamount`, `partUnit`, `addedDate`, `lastModified`, `needs_review`, `favorite`, `manufacturing_status`, `manufacturer_product_number`, `mass`, `tags`, `attachments`, `edit`.
+  are: `name`, `id`, `ipn`, `description`, `category`, `footprint`, `manufacturer`, `storage_location`, `amount`, `minamount`, `partUnit`, `partCustomState`, `addedDate`, `lastModified`, `needs_review`, `favorite`, `manufacturing_status`, `manufacturer_product_number`, `mass`, `tags`, `attachments`, `edit`.
 
 ### History/Eventlog-related settings
 

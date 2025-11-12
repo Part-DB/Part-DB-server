@@ -7437,11 +7437,13 @@
             <field Field="lowStock" Type="tinyint(1)" Null="NO" Key="" Extra="" Comment="" />
             <field Field="metaPart" Type="tinyint(1)" Null="NO" Key="" Default="0" Extra="" Comment="" />
             <field Field="partUnit_id" Type="int(11)" Null="YES" Key="MUL" Default="NULL" Extra="" Comment="" />
+            <field Field="partCustomState_id" Type="int(11)" Null="YES" Key="MUL" Default="NULL" Extra="" Comment="" />
             <field Field="storageLocation_id" Type="int(11)" Null="YES" Key="MUL" Default="NULL" Extra="" Comment="" />
             <key Table="part" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="id" Collation="A" Cardinality="3" Null="" Index_type="BTREE" Comment="" Index_comment="" Ignored="NO" />
             <key Table="part" Non_unique="1" Key_name="IDX_E93DDFF812469DE2" Seq_in_index="1" Column_name="category_id" Collation="A" Cardinality="3" Null="YES" Index_type="BTREE" Comment="" Index_comment="" Ignored="NO" />
             <key Table="part" Non_unique="1" Key_name="IDX_E93DDFF851364C98" Seq_in_index="1" Column_name="footprint_id" Collation="A" Cardinality="3" Null="YES" Index_type="BTREE" Comment="" Index_comment="" Ignored="NO" />
             <key Table="part" Non_unique="1" Key_name="IDX_E93DDFF8F7A36E87" Seq_in_index="1" Column_name="partUnit_id" Collation="A" Cardinality="3" Null="YES" Index_type="BTREE" Comment="" Index_comment="" Ignored="NO" />
+            <key Table="part" Non_unique="1" Key_name="IDX_E93DDFF8F7A36E88" Seq_in_index="1" Column_name="partCustomState_id" Collation="A" Cardinality="3" Null="YES" Index_type="BTREE" Comment="" Index_comment="" Ignored="NO" />
             <key Table="part" Non_unique="1" Key_name="IDX_E93DDFF873CD58AF" Seq_in_index="1" Column_name="storageLocation_id" Collation="A" Cardinality="3" Null="YES" Index_type="BTREE" Comment="" Index_comment="" Ignored="NO" />
             <options Name="part" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="3" Avg_row_length="5461" Data_length="16384" Max_data_length="0" Index_length="65536" Data_free="0" Auto_increment="4" Create_time="2023-03-22 22:28:36" Update_time="2023-03-22 22:40:40" Collation="utf8mb3_unicode_ci" Create_options="" Comment="" Max_index_length="0" Temporary="N" />
         </table_structure>
