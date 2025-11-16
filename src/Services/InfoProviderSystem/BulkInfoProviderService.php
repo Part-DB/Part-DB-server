@@ -44,6 +44,8 @@ final class BulkInfoProviderService
         if (empty($parts)) {
             throw new \InvalidArgumentException('No valid parts found for bulk import');
         }
+        
+        $this->logger->info("BulkInfoProvider: Starting bulk search for " . count($parts) . " parts.");
 
         $partResults = [];
         $hasAnyResults = false;
@@ -52,14 +54,46 @@ final class BulkInfoProviderService
         $batchProviders = [];
         $regularProviders = [];
 
+        // [INICIO DE PARCHE 11 - Lógica de limpieza de clave]
         foreach ($fieldMappings as $mapping) {
             foreach ($mapping->providers as $providerKey) {
+
+                // Lógica de limpieza de claves de proveedor
                 if (!is_string($providerKey)) {
-                    $this->logger->error('Invalid provider key type', [
+                    if (is_array($providerKey) || is_object($providerKey)) {
+                        // 1. Extrae la clave del array (puede tener null bytes, ej: \0App\...\LCSCProvider\0)
+                        $classNameKey = array_key_first((array) $providerKey);
+
+                        if (is_string($classNameKey)) {
+
+                            // 2. ¡¡¡LIMPIAR NULL BYTES!!!
+                            $cleanedKey = str_replace("\0", '', $classNameKey);
+
+                            // 3. Usa Regex en la clave limpia para extraer el *último* nombre de la clase
+                            //    El '.*\\\' busca de forma codiciosa hasta la última barra invertida.
+                            if (preg_match('/.*\\\\([\w]+Provider)/', $cleanedKey, $matches)) {
+                                // $matches[1] ahora SÍ será "LCSCProvider"
+                                $className = $matches[1];
+
+                                // 4. Convierte "LCSCProvider" a "lcsc"
+                                $newKey = strtolower(str_replace('Provider', '', $className));
+                                $this->logger->info("BulkInfoProvider: Converted provider key '{$classNameKey}' to '{$newKey}'");
+                                $providerKey = $newKey; // $providerKey ahora es un string
+                            } else {
+                                $this->logger->warning("BulkInfoProvider: Regex failed to match on cleaned key", ['key' => $cleanedKey]);
+                            }
+                        }
+                    }
+                }
+                // Fin de la lógica de limpieza
+
+                // Si después de la limpieza aún no es una cadena, ahora sí es un error
+                if (!is_string($providerKey)) {
+                    $this->logger->error('Invalid provider key type AFTER cleanup', [
                         'providerKey' => $providerKey,
                         'type' => gettype($providerKey)
                     ]);
-                    continue;
+                    continue; // Saltar este proveedor mal formado
                 }
 
                 $provider = $this->providerRegistry->getProviderByKey($providerKey);
@@ -70,12 +104,24 @@ final class BulkInfoProviderService
                 }
             }
         }
+        // [FIN DE PARCHE 11]
+
+        $this->logger->info("BulkInfoProvider: Identified " . count($batchProviders) . " batch providers and " . count($regularProviders) . " regular providers.");
+        if (!empty($batchProviders)) {
+            $this->logger->debug("BulkInfoProvider: Batch providers found: " . implode(', ', array_keys($batchProviders)));
+        }
+        if (!empty($regularProviders)) {
+            $this->logger->debug("BulkInfoProvider: Regular providers found: " . implode(', ', array_keys($regularProviders)));
+        }
 
         // Process batch providers first (more efficient)
         $batchResults = $this->processBatchProviders($parts, $fieldMappings, $batchProviders);
+        $this->logger->info("BulkInfoProvider: Completed batch processing. Batch results count: " . count($batchResults));
+
 
         // Process regular providers
         $regularResults = $this->processRegularProviders($parts, $fieldMappings, $regularProviders, $batchResults);
+        $this->logger->info("BulkInfoProvider: Completed regular processing. Regular results count: " . count($regularResults));
 
         // Combine and format results for each part
         foreach ($parts as $part) {
@@ -100,6 +146,7 @@ final class BulkInfoProviderService
         }
 
         if (!$hasAnyResults) {
+            $this->logger->warning("BulkInfoProvider: No search results found for any parts after processing.");
             throw new \RuntimeException('No search results found for any of the selected parts');
         }
 
@@ -109,9 +156,43 @@ final class BulkInfoProviderService
         if ($prefetchDetails) {
             $this->prefetchDetailsForResults($response);
         }
-
+        
+        $this->logger->info("BulkInfoProvider: Bulk search completed successfully with results.");
         return $response;
     }
+    
+    /**
+     * [INICIO PARCHE 11]
+     * Helper function to check for provider key match, handling corrupted keys.
+     */
+    private function providerKeyMatches(string $cleanedKey, array $providerList): bool
+    {
+        foreach ($providerList as $providerKey) {
+            if (is_string($providerKey)) {
+                if ($providerKey === $cleanedKey) {
+                    return true;
+                }
+                continue;
+            }
+            
+            // Start of our cleaning logic
+            if (is_array($providerKey) || is_object($providerKey)) {
+                $classNameKey = array_key_first((array) $providerKey);
+                if (is_string($classNameKey)) {
+                    $cleanedListKey = str_replace("\0", '', $classNameKey);
+                    if (preg_match('/.*\\\\([\w]+Provider)/', $cleanedListKey, $matches)) {
+                        $className = $matches[1];
+                        $newKey = strtolower(str_replace('Provider', '', $className));
+                        if ($newKey === $cleanedKey) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    // [FIN PARCHE 11]
 
     /**
      * Process parts using batch-capable info providers.
@@ -127,18 +208,25 @@ final class BulkInfoProviderService
 
         foreach ($batchProviders as $providerKey => $provider) {
             $keywords = $this->collectKeywordsForProvider($parts, $fieldMappings, $providerKey);
+            $this->logger->info("BulkInfoProvider: processBatchProviders: Collected " . count($keywords) . " keywords for provider '{$providerKey}'");
 
             if (empty($keywords)) {
                 continue;
             }
+            
+            $this->logger->debug("BulkInfoProvider: processBatchProviders: Keywords for '{$providerKey}':", $keywords);
 
             try {
                 $providerResults = $provider->searchByKeywordsBatch($keywords);
+                $this->logger->info("BulkInfoProvider: processBatchProviders: Received " . count($providerResults) . " results from '{$providerKey}' batch search.");
 
                 // Map results back to parts
                 foreach ($parts as $part) {
                     foreach ($fieldMappings as $mapping) {
-                        if (!in_array($providerKey, $mapping->providers, true)) {
+                        
+                        // [INICIO PARCHE 11] - Corrección de la comprobación
+                        if (!$this->providerKeyMatches($providerKey, $mapping->providers)) {
+                        // [FIN PARCHE 11]
                             continue;
                         }
 
@@ -189,8 +277,16 @@ final class BulkInfoProviderService
             }
 
             foreach ($fieldMappings as $mapping) {
-                $providers = array_intersect($mapping->providers, array_keys($regularProviders));
-
+                
+                // [INICIO PARCHE 11] - Corrección de la intersección
+                $providers = [];
+                foreach (array_keys($regularProviders) as $regProviderKey) {
+                    if ($this->providerKeyMatches($regProviderKey, $mapping->providers)) {
+                        $providers[] = $regProviderKey;
+                    }
+                }
+                // [FIN PARCHE 11]
+                
                 if (empty($providers)) {
                     continue;
                 }
@@ -199,9 +295,12 @@ final class BulkInfoProviderService
                 if (!$keyword) {
                     continue;
                 }
+                
+                $this->logger->info("BulkInfoProvider: processRegularProviders: Searching for keyword '{$keyword}' with providers: " . implode(',', $providers));
 
                 try {
                     $dtos = $this->infoRetriever->searchByKeyword($keyword, $providers);
+                    $this->logger->info("BulkInfoProvider: processRegularProviders: Found " . count($dtos) . " results for keyword '{$keyword}'");
 
                     foreach ($dtos as $dto) {
                         $regularResults[$part->getId()][] = new BulkSearchPartResultDTO(
@@ -239,7 +338,10 @@ final class BulkInfoProviderService
 
         foreach ($parts as $part) {
             foreach ($fieldMappings as $mapping) {
-                if (!in_array($providerKey, $mapping->providers, true)) {
+                
+                // [INICIO PARCHE 11] - Corrección de la comprobación
+                if (!$this->providerKeyMatches($providerKey, $mapping->providers)) {
+                // [FIN PARCHE 11]
                     continue;
                 }
 
