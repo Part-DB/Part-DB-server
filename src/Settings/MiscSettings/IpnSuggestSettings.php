@@ -53,7 +53,7 @@ class IpnSuggestSettings
         label: new TM("settings.misc.ipn_suggest.regex_help"),
         description: new TM("settings.misc.ipn_suggest.regex_help_description"),
         options: ['type' => StringType::class],
-        formOptions: ['attr' => ['placeholder' => 'Format: 3–4 alphanumeric segments (any number) separated by "-", followed by "-" and 4 digits, e.g., PCOM-RES-0001']],
+        formOptions: ['attr' => ['placeholder' => new TM('settings.misc.ipn_suggest.regex.help.placeholder')]],
         envVar: "IPN_SUGGEST_REGEX_HELP", envVarMode: EnvVarMode::OVERWRITE,
     )]
     public ?string $regexHelp = null;
