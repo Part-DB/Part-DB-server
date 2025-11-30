@@ -30,6 +30,7 @@ use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\StaticMessage;
 
 class ProviderSelectType extends AbstractType
 {
@@ -70,7 +71,9 @@ class ProviderSelectType extends AbstractType
         //The choice_label and choice_value only needs to be set if we want the objects
         $resolver->setDefault('choice_label', function (Options $options){
             if ('object' === $options['input']) {
-                return ChoiceList::label($this, static fn (?InfoProviderInterface $choice) => $choice?->getProviderInfo()['name']);
+                return ChoiceList::label($this, static fn (?InfoProviderInterface $choice) => new StaticMessage($choice?->getProviderInfo()['name']));
+            } else {
+                return static fn ($choice, $key, $value) => new StaticMessage($key);
             }
 
             return null;
