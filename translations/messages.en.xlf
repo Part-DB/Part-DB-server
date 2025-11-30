@@ -14460,5 +14460,23 @@ Please note that this system is currently experimental, and the synonyms defined
         <target>Bulk import job part</target>
       </segment>
     </unit>
+    <unit id="91Wvg.F" name="password_toggle.hide">
+      <segment state="translated">
+        <source>password_toggle.hide</source>
+        <target>Hide</target>
+      </segment>
+    </unit>
+    <unit id="2vciZN7" name="password_toggle.show">
+      <segment state="translated">
+        <source>password_toggle.show</source>
+        <target>Show</target>
+      </segment>
+    </unit>
+    <unit id="PVw6Lx4" name="settings.misc.ipn_suggest.regex.help.placeholder">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex.help.placeholder</source>
+        <target>e.g. Format: 3–4 alphanumeric segments (any number) separated by "-", followed by "-" and 4 digits, e.g., PCOM-RES-0001</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
