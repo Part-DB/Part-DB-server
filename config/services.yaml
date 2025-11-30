@@ -274,8 +274,11 @@ services:
         tags:
             - { name: monolog.processor }
 
-when@test:
+when@test: &test
     services:
+
+        App\DataFixtures\:
+            resource: '../src/DataFixtures/'
 
         App\Doctrine\Purger\:
             resource: '../src/Doctrine/Purger/'
@@ -294,6 +297,4 @@ when@test:
                 - { default: '@App\Doctrine\Purger\DoNotUsePurgerFactory' }
 
 when@dev:
-    services:
-        App\DataFixtures\:
-            resource: '../src/DataFixtures/'
+    *test

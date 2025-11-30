@@ -1548,11 +1548,6 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *     dump_destination?: scalar|null, // A stream URL where dumps should be written to. // Default: null
  *     theme?: "dark"|"light", // Changes the color of the dump() output when rendered directly on the templating. "dark" (default) or "light". // Default: "dark"
  * }
- * @psalm-type MakerConfig = array{
- *     root_namespace?: scalar|null, // Default: "App"
- *     generate_final_classes?: bool, // Default: true
- *     generate_final_entities?: bool, // Default: false
- * }
  * @psalm-type WebpackEncoreConfig = array{
  *     output_path: scalar|null, // The path where Encore is building the assets - i.e. Encore.setOutputPath()
  *     crossorigin?: false|"anonymous"|"use-credentials", // crossorigin value when Encore.enableIntegrityHashes() is used, can be false (default), anonymous or use-credentials // Default: false
@@ -1676,6 +1671,12 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         data_loader?: scalar|null, // Default: null
  *         post_processors?: array<string, array<string, mixed>>,
  *     },
+ * }
+ * @psalm-type DamaDoctrineTestConfig = array{
+ *     enable_static_connection?: mixed, // Default: true
+ *     enable_static_meta_data_cache?: bool, // Default: true
+ *     enable_static_query_cache?: bool, // Default: true
+ *     connection_keys?: list<mixed>,
  * }
  * @psalm-type TwigExtraConfig = array{
  *     cache?: bool|array{
@@ -2372,13 +2373,6 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         invalidate_on_env_change?: bool, // Default: true
  *     },
  * }
- * @psalm-type JbtronicsTranslationEditorConfig = array{
- *     translations_path?: scalar|null, // Default: "%translator.default_path%"
- *     format?: scalar|null, // Default: "xlf"
- *     xliff_version?: scalar|null, // Default: "2.0"
- *     use_intl_icu_format?: bool, // Default: false
- *     writer_options?: list<scalar|null>,
- * }
  * @psalm-type ApiPlatformConfig = array{
  *     title?: scalar|null, // The title of the API. // Default: ""
  *     description?: scalar|null, // The description of the API. // Default: ""
@@ -2634,11 +2628,17 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         ...<mixed>
  *     },
  * }
- * @psalm-type DamaDoctrineTestConfig = array{
- *     enable_static_connection?: mixed, // Default: true
- *     enable_static_meta_data_cache?: bool, // Default: true
- *     enable_static_query_cache?: bool, // Default: true
- *     connection_keys?: list<mixed>,
+ * @psalm-type MakerConfig = array{
+ *     root_namespace?: scalar|null, // Default: "App"
+ *     generate_final_classes?: bool, // Default: true
+ *     generate_final_entities?: bool, // Default: false
+ * }
+ * @psalm-type JbtronicsTranslationEditorConfig = array{
+ *     translations_path?: scalar|null, // Default: "%translator.default_path%"
+ *     format?: scalar|null, // Default: "xlf"
+ *     xliff_version?: scalar|null, // Default: "2.0"
+ *     use_intl_icu_format?: bool, // Default: false
+ *     writer_options?: list<scalar|null>,
  * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
