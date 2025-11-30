@@ -305,7 +305,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "11.1",
-            "ref": "c6658a60fc9d594805370eacdf542c3d6b5c0869"
+            "ref": "1117deb12541f35793eec9fff7494d7aa12283fc"
         },
         "files": [
             ".env.test",
@@ -488,12 +488,12 @@
         ]
     },
     "symfony/framework-bundle": {
-        "version": "7.3",
+        "version": "7.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "7.3",
-            "ref": "5a1497d539f691b96afd45ae397ce5fe30beb4b9"
+            "version": "7.4",
+            "ref": "09f6e081c763a206802674ce0cb34a022f0ffc6d"
         },
         "files": [
             ".editorconfig",
@@ -550,15 +550,15 @@
         "version": "v4.4.2"
     },
     "symfony/monolog-bundle": {
-        "version": "3.10",
+        "version": "3.11",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "3.7",
-            "ref": "aff23899c4440dd995907613c1dd709b6f59503f"
+            "ref": "1b9efb10c54cb51c713a9391c9300ff8bceda459"
         },
         "files": [
-            "./config/packages/monolog.yaml"
+            "config/packages/monolog.yaml"
         ]
     },
     "symfony/options-resolver": {
@@ -611,12 +611,12 @@
         ]
     },
     "symfony/routing": {
-        "version": "7.3",
+        "version": "7.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "7.0",
-            "ref": "21b72649d5622d8f7da329ffb5afb232a023619d"
+            "version": "7.4",
+            "ref": "bc94c4fd86f393f3ab3947c18b830ea343e51ded"
         },
         "files": [
             "config/packages/routing.yaml",
@@ -627,12 +627,12 @@
         "version": "v5.3.4"
     },
     "symfony/security-bundle": {
-        "version": "6.4",
+        "version": "7.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "6.4",
-            "ref": "2ae08430db28c8eb4476605894296c82a642028f"
+            "version": "7.4",
+            "ref": "c42fee7802181cdd50f61b8622715829f5d2335c"
         },
         "files": [
             "config/packages/security.yaml",
@@ -655,18 +655,18 @@
         "version": "v1.1.5"
     },
     "symfony/stimulus-bundle": {
-        "version": "2.27",
+        "version": "2.31",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "2.20",
-            "ref": "e058471c5502e549c1404ebdd510099107bb5549"
+            "version": "2.24",
+            "ref": "3357f2fa6627b93658d8e13baa416b2a94a50c5f"
         },
         "files": [
-            "assets/bootstrap.js",
             "assets/controllers.json",
             "assets/controllers/csrf_protection_controller.js",
-            "assets/controllers/hello_controller.js"
+            "assets/controllers/hello_controller.js",
+            "assets/stimulus_bootstrap.js"
         ]
     },
     "symfony/stopwatch": {
@@ -779,12 +779,12 @@
         ]
     },
     "symfony/webpack-encore-bundle": {
-        "version": "2.2",
+        "version": "2.3",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "2.0",
-            "ref": "9ef5412a4a2a8415aca3a3f2b4edd3866aab9a19"
+            "ref": "719f6110345acb6495e496601fc1b4977d7102b3"
         },
         "files": [
             "assets/app.js",

@@ -23,13 +23,12 @@ declare(strict_types=1);
 namespace App\Tests\Form\InfoProviderSystem;
 
 use App\Form\InfoProviderSystem\GlobalFieldMappingType;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Form\FormFactoryInterface;
 
-/**
- * @group slow
- * @group DB
- */
+#[Group("slow")]
+#[Group("DB")]
 class GlobalFieldMappingTypeTest extends KernelTestCase
 {
     private FormFactoryInterface $formFactory;

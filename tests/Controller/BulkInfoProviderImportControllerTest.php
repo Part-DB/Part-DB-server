@@ -30,13 +30,12 @@ use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @group slow
- * @group DB
- */
+#[Group("slow")]
+#[Group("DB")]
 class BulkInfoProviderImportControllerTest extends WebTestCase
 {
     public function testStep1WithoutIds(): void
