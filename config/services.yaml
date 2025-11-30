@@ -32,6 +32,9 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
+        exclude:
+            - '../src/DataFixtures/'
+            - '../src/Doctrine/Purger/'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -230,10 +233,6 @@ services:
         arguments:
             $enforce_index_php: '%env(bool:NO_URL_REWRITE_AVAILABLE)%'
 
-    App\Doctrine\Purger\ResetAutoIncrementPurgerFactory:
-        tags:
-            - { name: 'doctrine.fixtures.purger_factory', alias: 'reset_autoincrement_purger' }
-
     App\Repository\PartRepository:
         arguments:
             $translator: '@translator'
@@ -277,6 +276,14 @@ services:
 
 when@test:
     services:
+
+        App\Doctrine\Purger\:
+            resource: '../src/Doctrine/Purger/'
+
+        App\Doctrine\Purger\ResetAutoIncrementPurgerFactory:
+            tags:
+                - { name: 'doctrine.fixtures.purger_factory', alias: 'reset_autoincrement_purger' }
+
         # Decorate the doctrine fixtures load command to use our custom purger by default
         doctrine.fixtures_load_command.custom:
             decorates: doctrine.fixtures_load_command
@@ -285,3 +292,8 @@ when@test:
                 - '@doctrine.fixtures.loader'
                 - '@doctrine'
                 - { default: '@App\Doctrine\Purger\DoNotUsePurgerFactory' }
+
+when@dev:
+    services:
+        App\DataFixtures\:
+            resource: '../src/DataFixtures/'
