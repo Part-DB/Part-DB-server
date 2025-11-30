@@ -30,6 +30,7 @@ use Jbtronics\SettingsBundle\ParameterTypes\StringType;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Symfony\Component\Translation\StaticMessage;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -43,7 +44,7 @@ class IpnSuggestSettings
         label: new TM("settings.misc.ipn_suggest.regex"),
         description: new TM("settings.misc.ipn_suggest.regex.help"),
         options: ['type' => StringType::class],
-        formOptions: ['attr' => ['placeholder' => '^[A-Za-z0-9]{3,4}(?:-[A-Za-z0-9]{3,4})*-\d{4}$']],
+        formOptions: ['attr' => ['placeholder' => new StaticMessage( '^[A-Za-z0-9]{3,4}(?:-[A-Za-z0-9]{3,4})*-\d{4}$')]],
         envVar: "IPN_SUGGEST_REGEX", envVarMode: EnvVarMode::OVERWRITE,
     )]
     public ?string $regex = null;

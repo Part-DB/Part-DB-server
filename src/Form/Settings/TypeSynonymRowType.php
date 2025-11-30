@@ -31,6 +31,7 @@ use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Intl\Locales;
+use Symfony\Component\Translation\StaticMessage;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -67,7 +68,9 @@ class TypeSynonymRowType extends AbstractType
                     new Assert\NotBlank(),
                 ],
                 'choice_label' => function (ElementTypes $choice) {
-                    return $this->translator->trans($choice->getDefaultLabelKey()) . ' (' . $this->translator->trans($choice->getDefaultPluralLabelKey()) . ')';
+                    return new StaticMessage(
+                        $this->translator->trans($choice->getDefaultLabelKey()) . ' (' . $this->translator->trans($choice->getDefaultPluralLabelKey()) . ')'
+                    );
                 },
                 'row_attr' => ['class' => 'mb-0'],
                 'attr' => ['class' => 'form-select-sm'],
