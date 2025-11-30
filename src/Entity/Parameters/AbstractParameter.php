@@ -124,7 +124,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     /**
      * @var float|null the guaranteed minimum value of this property
      */
-    #[Assert\Type(['float', null])]
+    #[Assert\Type(['float', 'null'])]
     #[Assert\LessThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.min_lesser_typical')]
     #[Assert\LessThan(propertyPath: 'value_max', message: 'parameters.validator.min_lesser_max')]
     #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
@@ -134,7 +134,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     /**
      * @var float|null the typical value of this property
      */
-    #[Assert\Type([null, 'float'])]
+    #[Assert\Type(['null', 'float'])]
     #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_typical = null;
@@ -142,7 +142,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     /**
      * @var float|null the maximum value of this property
      */
-    #[Assert\Type(['float', null])]
+    #[Assert\Type(['float', 'null'])]
     #[Assert\GreaterThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.max_greater_typical')]
     #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
@@ -461,7 +461,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
 
         return $str;
     }
-    
+
     /**
      * Returns the class of the element that is allowed to be associated with this attachment.
      * @return string

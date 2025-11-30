@@ -72,11 +72,9 @@ class ProviderSelectType extends AbstractType
         $resolver->setDefault('choice_label', function (Options $options){
             if ('object' === $options['input']) {
                 return ChoiceList::label($this, static fn (?InfoProviderInterface $choice) => new StaticMessage($choice?->getProviderInfo()['name']));
-            } else {
-                return static fn ($choice, $key, $value) => new StaticMessage($key);
             }
 
-            return null;
+            return static fn ($choice, $key, $value) => new StaticMessage($key);
         });
         $resolver->setDefault('choice_value', function (Options $options) {
             if ('object' === $options['input']) {
