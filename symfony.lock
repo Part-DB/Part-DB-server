@@ -779,12 +779,12 @@
         ]
     },
     "symfony/webpack-encore-bundle": {
-        "version": "2.2",
+        "version": "2.3",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "2.0",
-            "ref": "9ef5412a4a2a8415aca3a3f2b4edd3866aab9a19"
+            "ref": "719f6110345acb6495e496601fc1b4977d7102b3"
         },
         "files": [
             "assets/app.js",
