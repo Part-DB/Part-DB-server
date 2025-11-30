@@ -134,7 +134,7 @@ class BOMImporter
 
     private function parseKiCADPCB(string $data): array
     {
-        $csv = Reader::createFromString($data);
+        $csv = Reader::fromString($data);
         $csv->setDelimiter(';');
         $csv->setHeaderOffset(0);
 
@@ -175,7 +175,7 @@ class BOMImporter
      */
     private function validateKiCADPCB(string $data): array
     {
-        $csv = Reader::createFromString($data);
+        $csv = Reader::fromString($data);
         $csv->setDelimiter(';');
         $csv->setHeaderOffset(0);
 
@@ -202,7 +202,7 @@ class BOMImporter
         // Handle potential BOM (Byte Order Mark) at the beginning
         $data = preg_replace('/^\xEF\xBB\xBF/', '', $data);
 
-        $csv = Reader::createFromString($data);
+        $csv = Reader::fromString($data);
         $csv->setDelimiter($delimiter);
         $csv->setHeaderOffset(0);
 
@@ -262,7 +262,7 @@ class BOMImporter
         // Handle potential BOM (Byte Order Mark) at the beginning
         $data = preg_replace('/^\xEF\xBB\xBF/', '', $data);
 
-        $csv = Reader::createFromString($data);
+        $csv = Reader::fromString($data);
         $csv->setDelimiter($delimiter);
         $csv->setHeaderOffset(0);
 
