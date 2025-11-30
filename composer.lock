@@ -4940,24 +4940,24 @@
         },
         {
             "name": "jbtronics/dompdf-font-loader-bundle",
-            "version": "v1.1.5",
+            "version": "v1.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/dompdf-font-loader-bundle.git",
-                "reference": "83a0e50ecceefea0a63915dae758e00788fd067e"
+                "reference": "5fb434f35544d5757292cd5471768dda3862c932"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/dompdf-font-loader-bundle/zipball/83a0e50ecceefea0a63915dae758e00788fd067e",
-                "reference": "83a0e50ecceefea0a63915dae758e00788fd067e",
+                "url": "https://api.github.com/repos/jbtronics/dompdf-font-loader-bundle/zipball/5fb434f35544d5757292cd5471768dda3862c932",
+                "reference": "5fb434f35544d5757292cd5471768dda3862c932",
                 "shasum": ""
             },
             "require": {
                 "dompdf/dompdf": "^1.0.0|^2.0.0|^3.0.0",
                 "ext-json": "*",
                 "php": "^8.1",
-                "symfony/finder": "^6.0|^7.0",
-                "symfony/framework-bundle": "^6.0|^7.0"
+                "symfony/finder": "^6.0|^7.0|^8.0",
+                "symfony/framework-bundle": "^6.0|^7.0|^8.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.5",
@@ -4989,22 +4989,22 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/dompdf-font-loader-bundle/issues",
-                "source": "https://github.com/jbtronics/dompdf-font-loader-bundle/tree/v1.1.5"
+                "source": "https://github.com/jbtronics/dompdf-font-loader-bundle/tree/v1.1.6"
             },
-            "time": "2025-07-25T20:29:05+00:00"
+            "time": "2025-11-30T22:19:12+00:00"
         },
         {
             "name": "jbtronics/settings-bundle",
-            "version": "v3.1.1",
+            "version": "v3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/settings-bundle.git",
-                "reference": "1067dd3d816cd0a6be7ac3d3989587ea05040bd4"
+                "reference": "f16bce21b54d202baabfe05cb7c64a14d43b9671"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/settings-bundle/zipball/1067dd3d816cd0a6be7ac3d3989587ea05040bd4",
-                "reference": "1067dd3d816cd0a6be7ac3d3989587ea05040bd4",
+                "url": "https://api.github.com/repos/jbtronics/settings-bundle/zipball/f16bce21b54d202baabfe05cb7c64a14d43b9671",
+                "reference": "f16bce21b54d202baabfe05cb7c64a14d43b9671",
                 "shasum": ""
             },
             "require": {
@@ -5012,11 +5012,11 @@
                 "ext-json": "*",
                 "php": "^8.1",
                 "symfony/deprecation-contracts": "^3.4",
-                "symfony/form": "^6.4|^7.0",
-                "symfony/framework-bundle": "^6.4|^7.0",
-                "symfony/translation": "^7.0|^6.4",
+                "symfony/form": "^6.4|^7.0|^8.0",
+                "symfony/framework-bundle": "^6.4|^7.0|^8.0",
+                "symfony/translation": "^7.0|^6.4|^8.0",
                 "symfony/translation-contracts": "^2.5|^3.0",
-                "symfony/validator": "^6.4|^7.0",
+                "symfony/validator": "^6.4|^7.0|^8.0",
                 "symfony/var-exporter": "^6.4|^7.0"
             },
             "require-dev": {
@@ -5030,10 +5030,10 @@
                 "phpstan/phpstan-symfony": "^1.3",
                 "phpunit/phpunit": "^9.5",
                 "roave/security-advisories": "dev-latest",
-                "symfony/console": "^6.4|^7.0",
-                "symfony/phpunit-bridge": "^6.4|^7.0",
-                "symfony/security-csrf": "^7.0|^6.4",
-                "symfony/twig-bridge": "^6.4|^7.0"
+                "symfony/console": "^6.4|^7.0|^8.0",
+                "symfony/phpunit-bridge": "^6.4|^7.0|^8.0",
+                "symfony/security-csrf": "^7.0|^6.4|^8.0",
+                "symfony/twig-bridge": "^6.4|^7.0|^8.0"
             },
             "suggest": {
                 "doctrine/doctrine-bundle": "To use the doctrine ORM storage",
@@ -5065,7 +5065,7 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/settings-bundle/issues",
-                "source": "https://github.com/jbtronics/settings-bundle/tree/v3.1.1"
+                "source": "https://github.com/jbtronics/settings-bundle/tree/v3.1.2"
             },
             "funding": [
                 {
@@ -5077,7 +5077,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-09-22T22:00:15+00:00"
+            "time": "2025-11-30T22:22:49+00:00"
         },
         {
             "name": "jfcherng/php-color-output",
@@ -16133,16 +16133,16 @@
         },
         {
             "name": "symfony/webpack-encore-bundle",
-            "version": "v2.3.0",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/webpack-encore-bundle.git",
-                "reference": "7ae70d44c24c3b913f308af8396169b5c6d9e0f5"
+                "reference": "5b932e0feddd81aaf0ecd7d5fcd2e450e5a7817e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/7ae70d44c24c3b913f308af8396169b5c6d9e0f5",
-                "reference": "7ae70d44c24c3b913f308af8396169b5c6d9e0f5",
+                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/5b932e0feddd81aaf0ecd7d5fcd2e450e5a7817e",
+                "reference": "5b932e0feddd81aaf0ecd7d5fcd2e450e5a7817e",
                 "shasum": ""
             },
             "require": {
@@ -16185,7 +16185,7 @@
             "description": "Integration of your Symfony app with Webpack Encore",
             "support": {
                 "issues": "https://github.com/symfony/webpack-encore-bundle/issues",
-                "source": "https://github.com/symfony/webpack-encore-bundle/tree/v2.3.0"
+                "source": "https://github.com/symfony/webpack-encore-bundle/tree/v2.4.0"
             },
             "funding": [
                 {
@@ -16205,7 +16205,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-05T11:43:32+00:00"
+            "time": "2025-11-27T13:41:46+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -17783,27 +17783,27 @@
         },
         {
             "name": "jbtronics/translation-editor-bundle",
-            "version": "v1.1.2",
+            "version": "v1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/translation-editor-bundle.git",
-                "reference": "bab5dd6ef41e87ba3d60c6363793e1cdf5cb6249"
+                "reference": "36bfb256e11d231d185bc2491323b041ba731257"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/translation-editor-bundle/zipball/bab5dd6ef41e87ba3d60c6363793e1cdf5cb6249",
-                "reference": "bab5dd6ef41e87ba3d60c6363793e1cdf5cb6249",
+                "url": "https://api.github.com/repos/jbtronics/translation-editor-bundle/zipball/36bfb256e11d231d185bc2491323b041ba731257",
+                "reference": "36bfb256e11d231d185bc2491323b041ba731257",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "php": "^8.1",
                 "symfony/deprecation-contracts": "^3.4",
-                "symfony/framework-bundle": "^6.4|^7.0",
-                "symfony/translation": "^7.0|^6.4",
+                "symfony/framework-bundle": "^6.4|^7.0|^8.0",
+                "symfony/translation": "^7.0|^6.4|^8.0",
                 "symfony/translation-contracts": "^2.5|^3.0",
-                "symfony/twig-bundle": "^7.0|^6.4",
-                "symfony/web-profiler-bundle": "^7.0|^6.4"
+                "symfony/twig-bundle": "^7.0|^6.4|^8.0",
+                "symfony/web-profiler-bundle": "^7.0|^6.4|^8.0"
             },
             "require-dev": {
                 "ekino/phpstan-banned-code": "^1.0",
@@ -17837,7 +17837,7 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/translation-editor-bundle/issues",
-                "source": "https://github.com/jbtronics/translation-editor-bundle/tree/v1.1.2"
+                "source": "https://github.com/jbtronics/translation-editor-bundle/tree/v1.1.3"
             },
             "funding": [
                 {
@@ -17849,7 +17849,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-07-28T09:19:13+00:00"
+            "time": "2025-11-30T22:23:47+00:00"
         },
         {
             "name": "myclabs/deep-copy",
