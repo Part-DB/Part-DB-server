@@ -14460,5 +14460,17 @@ Please note that this system is currently experimental, and the synonyms defined
         <target>Bulk import job part</target>
       </segment>
     </unit>
+    <unit id="91Wvg.F" name="password_toggle.hide">
+      <segment>
+        <source>password_toggle.hide</source>
+        <target>Hide</target>
+      </segment>
+    </unit>
+    <unit id="2vciZN7" name="password_toggle.show">
+      <segment>
+        <source>password_toggle.show</source>
+        <target>Show</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
