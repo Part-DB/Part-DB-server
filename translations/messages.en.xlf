@@ -3448,7 +3448,7 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment state="translated">
         <source>group.label</source>
-        <target>Group:</target>
+        <target>Group</target>
       </segment>
     </unit>
     <unit id="6KVtnw_" name="user.permissions">
@@ -14410,6 +14410,54 @@ Please note that this system is currently experimental, and the synonyms defined
       <segment>
         <source>part.labelp</source>
         <target>Parts</target>
+      </segment>
+    </unit>
+    <unit id=".tjK0ju" name="project_bom_entry.labelp">
+      <segment>
+        <source>project_bom_entry.labelp</source>
+        <target>BOM entries</target>
+      </segment>
+    </unit>
+    <unit id="ftBf11d" name="part_lot.labelp">
+      <segment>
+        <source>part_lot.labelp</source>
+        <target>Part lots</target>
+      </segment>
+    </unit>
+    <unit id="UVDJmYp" name="orderdetail.labelp">
+      <segment>
+        <source>orderdetail.labelp</source>
+        <target>Order details</target>
+      </segment>
+    </unit>
+    <unit id="83AQqv." name="pricedetail.labelp">
+      <segment>
+        <source>pricedetail.labelp</source>
+        <target>Price details</target>
+      </segment>
+    </unit>
+    <unit id="4KRV2mB" name="parameter.labelp">
+      <segment>
+        <source>parameter.labelp</source>
+        <target>Parameters</target>
+      </segment>
+    </unit>
+    <unit id="AAYYeiw" name="part_association.labelp">
+      <segment>
+        <source>part_association.labelp</source>
+        <target>Part associations</target>
+      </segment>
+    </unit>
+    <unit id="2_3Lz7i" name="bulk_info_provider_import_job.labelp">
+      <segment>
+        <source>bulk_info_provider_import_job.labelp</source>
+        <target>Bulk info provider imports</target>
+      </segment>
+    </unit>
+    <unit id="BXTqi16" name="bulk_info_provider_import_job_part.labelp">
+      <segment>
+        <source>bulk_info_provider_import_job_part.labelp</source>
+        <target>Bulk import job part</target>
       </segment>
     </unit>
   </file>
