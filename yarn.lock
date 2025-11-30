@@ -2029,7 +2029,7 @@
 "@symfony/ux-turbo@file:vendor/symfony/ux-turbo/assets":
   version "2.30.0"
 
-"@symfony/webpack-encore@^5.0.0":
+"@symfony/webpack-encore@^5.1.0":
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/@symfony/webpack-encore/-/webpack-encore-5.3.1.tgz#a8b183bb8ba9f8ce0aa47be5f520ae194ffa1412"
   integrity sha512-fNevCvcFMWrY63b901F2mvuECFUqwrQUUEJ9TZkO42lc81F0D6yiTMCFpzTKNrUIO7JSoD8aQxAWJbI5Kly4yg==
@@ -3094,7 +3094,7 @@ core-js-compat@^3.43.0:
   dependencies:
     browserslist "^4.28.0"
 
-core-js@^3.23.0:
+core-js@^3.38.0:
   version "3.47.0"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.47.0.tgz#436ef07650e191afeb84c24481b298bd60eb4a17"
   integrity sha512-c3Q2VVkGAUyupsjRnaNX6u8Dq2vAdzm9iuPj5FW0fRxzlxgq9Q39MDq10IvmQSpLgHQNyQzQmOo6bgGHmH3NNg==
