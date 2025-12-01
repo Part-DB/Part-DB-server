@@ -279,6 +279,8 @@ when@test: &test
 
         App\DataFixtures\:
             resource: '../src/DataFixtures/'
+            autoconfigure: true
+            autowire: true
 
         App\Doctrine\Purger\:
             resource: '../src/Doctrine/Purger/'
