@@ -78,4 +78,32 @@ class IpnSuggestSettings
         envVar: "bool:IPN_USE_DUPLICATE_DESCRIPTION", envVarMode: EnvVarMode::OVERWRITE,
     )]
     public bool $useDuplicateDescription = false;
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.ipn_suggest.fallbackPrefix"),
+        description: new TM("settings.misc.ipn_suggest.fallbackPrefix.help"),
+        options: ['type' => StringType::class],
+    )]
+    public string $fallbackPrefix = 'N.A.';
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.ipn_suggest.numberSeparator"),
+        description: new TM("settings.misc.ipn_suggest.numberSeparator.help"),
+        options: ['type' => StringType::class],
+    )]
+    public ?string $numberSeparator = '-';
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.ipn_suggest.categorySeparator"),
+        description: new TM("settings.misc.ipn_suggest.categorySeparator.help"),
+        options: ['type' => StringType::class],
+    )]
+    public ?string $categorySeparator = '-';
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.ipn_suggest.globalPrefix"),
+        description: new TM("settings.misc.ipn_suggest.globalPrefix.help"),
+        options: ['type' => StringType::class],
+    )]
+    public ?string $globalPrefix = null;
 }

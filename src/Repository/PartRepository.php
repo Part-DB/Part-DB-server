@@ -132,6 +132,20 @@ class PartRepository extends NamedDBElementRepository
         $category = $part->getCategory();
         $ipnSuggestions = ['commonPrefixes' => [], 'prefixesPartIncrement' => []];
 
+        //Show global prefix first if configured
+        if ($this->ipnSuggestSettings->globalPrefix !== null && $this->ipnSuggestSettings->globalPrefix !== '') {
+            $ipnSuggestions['commonPrefixes'][] = [
+                'title' => $this->ipnSuggestSettings->globalPrefix,
+                'description' => $this->translator->trans('part.edit.tab.advanced.ipn.prefix.global_prefix')
+            ];
+
+            $increment = $this->generateNextPossibleGlobalIncrement();
+            $ipnSuggestions['prefixesPartIncrement'][] = [
+                'title' => $this->ipnSuggestSettings->globalPrefix . $increment,
+                'description' => $this->translator->trans('part.edit.tab.advanced.ipn.prefix.global_prefix')
+            ];
+        }
+
         if (strlen($description) > 150) {
             $description = substr($description, 0, 150);
         }
@@ -160,17 +174,17 @@ class PartRepository extends NamedDBElementRepository
         if ($category instanceof Category) {
             $currentPath = $category->getPartIpnPrefix();
             $directIpnPrefixEmpty = $category->getPartIpnPrefix() === '';
-            $currentPath = $currentPath === '' ? 'n.a.' : $currentPath;
+            $currentPath = $currentPath === '' ? $this->ipnSuggestSettings->fallbackPrefix : $currentPath;
 
             $increment = $this->generateNextPossiblePartIncrement($currentPath, $part, $suggestPartDigits);
 
             $ipnSuggestions['commonPrefixes'][] = [
-                'title' => $currentPath . '-',
+                'title' => $currentPath . $this->ipnSuggestSettings->numberSeparator,
                 'description' => $directIpnPrefixEmpty ? $this->translator->trans('part.edit.tab.advanced.ipn.prefix_empty.direct_category', ['%name%' => $category->getName()]) : $this->translator->trans('part.edit.tab.advanced.ipn.prefix.direct_category')
             ];
 
             $ipnSuggestions['prefixesPartIncrement'][] = [
-                'title' => $currentPath . '-' . $increment,
+                'title' => $currentPath . $this->ipnSuggestSettings->numberSeparator . $increment,
                 'description' => $directIpnPrefixEmpty ? $this->translator->trans('part.edit.tab.advanced.ipn.prefix_empty.direct_category', ['%name%' => $category->getName()]) : $this->translator->trans('part.edit.tab.advanced.ipn.prefix.direct_category.increment')
             ];
 
@@ -179,18 +193,19 @@ class PartRepository extends NamedDBElementRepository
 
             while ($parentCategory instanceof Category) {
                 // Prepend the parent category's prefix to the current path
-                $currentPath = $parentCategory->getPartIpnPrefix() . '-' . $currentPath;
-                $currentPath = $parentCategory->getPartIpnPrefix() === '' ? 'n.a.-' . $currentPath : $currentPath;
+                $effectiveIPNPrefix = $parentCategory->getPartIpnPrefix() === '' ? $this->ipnSuggestSettings->fallbackPrefix : $parentCategory->getPartIpnPrefix();
+
+                $currentPath = $effectiveIPNPrefix .  $this->ipnSuggestSettings->categorySeparator . $currentPath;
 
                 $ipnSuggestions['commonPrefixes'][] = [
-                    'title' => $currentPath . '-',
+                    'title' => $currentPath . $this->ipnSuggestSettings->numberSeparator,
                     'description' => $this->translator->trans('part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment')
                 ];
 
                 $increment = $this->generateNextPossiblePartIncrement($currentPath, $part, $suggestPartDigits);
 
                 $ipnSuggestions['prefixesPartIncrement'][] = [
-                    'title' => $currentPath . '-' . $increment,
+                    'title' => $currentPath . $this->ipnSuggestSettings->numberSeparator . $increment,
                     'description' => $this->translator->trans('part.edit.tab.advanced.ipn.prefix.hierarchical.increment')
                 ];
 
@@ -199,7 +214,7 @@ class PartRepository extends NamedDBElementRepository
             }
         } elseif ($part->getID() === null) {
             $ipnSuggestions['commonPrefixes'][] = [
-                'title' => 'n.a.',
+                'title' => $this->ipnSuggestSettings->fallbackPrefix,
                 'description' => $this->translator->trans('part.edit.tab.advanced.ipn.prefix.not_saved')
             ];
         }
@@ -246,6 +261,33 @@ class PartRepository extends NamedDBElementRepository
         return $this->getNextIpnSuggestion($givenIpnsWithSameDescription);
     }
 
+    private function generateNextPossibleGlobalIncrement(): string
+    {
+        $qb = $this->createQueryBuilder('part');
+
+
+        $qb->select('part.ipn')
+            ->where('REGEXP(part.ipn, :ipnPattern) = TRUE')
+            ->setParameter('ipnPattern', '^' . preg_quote($this->ipnSuggestSettings->globalPrefix, '/') . '\d+$')
+            ->orderBy('NATSORT(part.ipn)', 'DESC')
+            ->setMaxResults(1)
+        ;
+
+        $highestIPN = $qb->getQuery()->getOneOrNullResult();
+        if ($highestIPN !== null) {
+            //Remove the prefix and extract the increment part
+            $incrementPart = substr($highestIPN['ipn'], strlen($this->ipnSuggestSettings->globalPrefix));
+            //Extract a number using regex
+            preg_match('/(\d+)$/', $incrementPart, $matches);
+            $incrementInt = isset($matches[1]) ? (int) $matches[1] + 1 : 0;
+        } else {
+            $incrementInt = 1;
+        }
+
+
+        return str_pad((string) $incrementInt, $this->ipnSuggestSettings->suggestPartDigits, '0', STR_PAD_LEFT);
+    }
+
     /**
      * Generates the next possible increment for a part within a given category, while ensuring uniqueness.
      *
@@ -266,7 +308,7 @@ class PartRepository extends NamedDBElementRepository
     {
         $qb = $this->createQueryBuilder('part');
 
-        $expectedLength = strlen($currentPath) + 1 + $suggestPartDigits; // Path + '-' + $suggestPartDigits digits
+        $expectedLength = strlen($currentPath) + strlen($this->ipnSuggestSettings->categorySeparator) + $suggestPartDigits; // Path + '-' + $suggestPartDigits digits
 
         // Fetch all parts in the given category, sorted by their ID in ascending order
         $qb->select('part')
