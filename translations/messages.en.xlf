@@ -14478,5 +14478,11 @@ Please note that this system is currently experimental, and the synonyms defined
         <target>e.g. Format: 3–4 alphanumeric segments (any number) separated by "-", followed by "-" and 4 digits, e.g., PCOM-RES-0001</target>
       </segment>
     </unit>
+    <unit id="M5Q_eZW" name="part.edit.tab.advanced.ipn.prefix.global_prefix">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.global_prefix</source>
+        <target>The global IPN prefix, common across all parts</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
