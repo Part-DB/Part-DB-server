@@ -35,7 +35,7 @@ use Symfony\Component\Translation\TranslatableMessage as TM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[Settings(label: new TM("settings.misc.ipn_suggest"))]
-#[SettingsIcon("fa-list")]
+#[SettingsIcon("fa-arrow-up-1-9")]
 class IpnSuggestSettings
 {
     use SettingsTrait;
@@ -91,14 +91,14 @@ class IpnSuggestSettings
         description: new TM("settings.misc.ipn_suggest.numberSeparator.help"),
         options: ['type' => StringType::class],
     )]
-    public ?string $numberSeparator = '-';
+    public string $numberSeparator = '-';
 
     #[SettingsParameter(
         label: new TM("settings.misc.ipn_suggest.categorySeparator"),
         description: new TM("settings.misc.ipn_suggest.categorySeparator.help"),
         options: ['type' => StringType::class],
     )]
-    public ?string $categorySeparator = '-';
+    public string $categorySeparator = '-';
 
     #[SettingsParameter(
         label: new TM("settings.misc.ipn_suggest.globalPrefix"),
