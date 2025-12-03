@@ -14484,5 +14484,53 @@ Please note that this system is currently experimental, and the synonyms defined
         <target>The global IPN prefix, common across all parts</target>
       </segment>
     </unit>
+    <unit id="WlKvQeB" name="settings.misc.ipn_suggest.fallbackPrefix">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.fallbackPrefix</source>
+        <target>Fallback prefix</target>
+      </segment>
+    </unit>
+    <unit id="Fr8hXdE" name="settings.misc.ipn_suggest.fallbackPrefix.help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.fallbackPrefix.help</source>
+        <target>The IPN prefix that should be used, if a category has no prefix defined.</target>
+      </segment>
+    </unit>
+    <unit id="_p9cMpI" name="settings.misc.ipn_suggest.numberSeparator">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.numberSeparator</source>
+        <target>Number separator</target>
+      </segment>
+    </unit>
+    <unit id="CqfzuM6" name="settings.misc.ipn_suggest.numberSeparator.help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.numberSeparator.help</source>
+        <target>The separator character used to separate the IPN number from the prefix.</target>
+      </segment>
+    </unit>
+    <unit id="PisGfwB" name="settings.misc.ipn_suggest.categorySeparator">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.categorySeparator</source>
+        <target>Category separator</target>
+      </segment>
+    </unit>
+    <unit id="jlNd0CI" name="settings.misc.ipn_suggest.categorySeparator.help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.categorySeparator.help</source>
+        <target>The separator character used to separate different levels of category prefixes.</target>
+      </segment>
+    </unit>
+    <unit id="MkiJuRK" name="settings.misc.ipn_suggest.globalPrefix">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.globalPrefix</source>
+        <target>Global prefix</target>
+      </segment>
+    </unit>
+    <unit id="Akh9iFg" name="settings.misc.ipn_suggest.globalPrefix.help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.globalPrefix.help</source>
+        <target>If enabled, an option for to generate IPN with this global prefix, shared across parts in all categories.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
