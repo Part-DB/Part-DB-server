@@ -9650,19 +9650,19 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="9GtmqC1" name="part.new_build_part.error.build_part_already_exists">
       <segment state="translated">
         <source>part.new_build_part.error.build_part_already_exists</source>
-        <target>The project already has a build part!</target>
+        <target>The [project] already has a build [part]!</target>
       </segment>
     </unit>
     <unit id="9soO_kf" name="project.edit.associated_build_part">
       <segment state="translated">
         <source>project.edit.associated_build_part</source>
-        <target>Associated builds part</target>
+        <target>Associated builds [part]</target>
       </segment>
     </unit>
     <unit id="8Mu.T78" name="project.edit.associated_build_part.add">
       <segment state="translated">
         <source>project.edit.associated_build_part.add</source>
-        <target>Add builds part</target>
+        <target>Add builds [part]</target>
       </segment>
     </unit>
     <unit id="sPdCBUl" name="project.edit.associated_build.hint">
@@ -9680,7 +9680,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="yCR6rBb" name="part.is_build_part">
       <segment state="translated">
         <source>part.is_build_part</source>
-        <target>Is project builds part</target>
+        <target>Is [project] builds [part]</target>
       </segment>
     </unit>
     <unit id="dV.E0zI" name="project.info.title">
@@ -10898,7 +10898,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="lYlHhtl" name="storelocation.part_owner_must_match.label">
       <segment state="translated">
         <source>storelocation.part_owner_must_match.label</source>
-        <target>Part Lot owner must match storage location owner</target>
+        <target>[part_lot] owner must match [storage_location] owner</target>
       </segment>
     </unit>
     <unit id="eMHXpbV" name="part_lot.owner">
@@ -10934,7 +10934,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="9zWwSvC" name="part.withdraw.access_denied">
       <segment state="translated">
         <source>part.withdraw.access_denied</source>
-        <target>Not allowed to do the desired action. Please check your permissions and the owner of the part lots.</target>
+        <target>Not allowed to do the desired action. Please check your permissions and the owner of the [[part_lot]].</target>
       </segment>
     </unit>
     <unit id="4ynARET" name="part.info.amount.less_than_desired">
@@ -10952,7 +10952,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="krpFlYH" name="log.element_edited.changed_fields.part_owner_must_match">
       <segment state="translated">
         <source>log.element_edited.changed_fields.part_owner_must_match</source>
-        <target>Part owner must match storage location owner</target>
+        <target>[part] owner must match [storage_location] owner</target>
       </segment>
     </unit>
     <unit id="o5u.Nnz" name="part.filter.lessThanDesired">
