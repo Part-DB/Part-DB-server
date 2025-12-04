@@ -14436,5 +14436,252 @@ Dies ist auf der Informationsquellen Übersichtsseite möglich.</target>
         <target>Wenn aktiviert, wird die Bauteil-Beschreibung verwendet, um vorhandene Teile mit derselben Beschreibung zu finden und die nächste verfügbare IPN für die Vorschlagsliste zu ermitteln, indem der numerische Suffix entsprechend erhöht wird.</target>
       </segment>
     </unit>
+    <unit id="NIw6dtz" name="settings.misc.ipn_suggest.regex.help">
+      <segment>
+        <source>settings.misc.ipn_suggest.regex.help</source>
+        <target>Ein PCRE-kompatibler regulärer Ausdruck, den jede IPN erfüllen muss. Leer lassen, um alles als IPN zu erlauben.</target>
+      </segment>
+    </unit>
+    <unit id="MoHHSNT" name="user.labelp">
+      <segment>
+        <source>user.labelp</source>
+        <target>Benutzer</target>
+      </segment>
+    </unit>
+    <unit id="5.oI1XD" name="currency.labelp">
+      <segment>
+        <source>currency.labelp</source>
+        <target>Währungen</target>
+      </segment>
+    </unit>
+    <unit id="8F2EwVK" name="measurement_unit.labelp">
+      <segment>
+        <source>measurement_unit.labelp</source>
+        <target>Maßeinheiten</target>
+      </segment>
+    </unit>
+    <unit id="hYrcka2" name="attachment_type.labelp">
+      <segment>
+        <source>attachment_type.labelp</source>
+        <target>Dateitypen</target>
+      </segment>
+    </unit>
+    <unit id="p.Sjja3" name="label_profile.labelp">
+      <segment>
+        <source>label_profile.labelp</source>
+        <target>Labelprofile</target>
+      </segment>
+    </unit>
+    <unit id="Y_ISV0y" name="part_custom_state.labelp">
+      <segment>
+        <source>part_custom_state.labelp</source>
+        <target>Benutzerdefinierte Bauteilstatus</target>
+      </segment>
+    </unit>
+    <unit id="aXr7mN." name="group.labelp">
+      <segment>
+        <source>group.labelp</source>
+        <target>Gruppen</target>
+      </segment>
+    </unit>
+    <unit id="O10voez" name="settings.synonyms.type_synonym.type">
+      <segment>
+        <source>settings.synonyms.type_synonym.type</source>
+        <target>Typ</target>
+      </segment>
+    </unit>
+    <unit id="1BDQVEp" name="settings.synonyms.type_synonym.language">
+      <segment>
+        <source>settings.synonyms.type_synonym.language</source>
+        <target>Sprache</target>
+      </segment>
+    </unit>
+    <unit id="2.g2ewQ" name="settings.synonyms.type_synonym.translation_singular">
+      <segment>
+        <source>settings.synonyms.type_synonym.translation_singular</source>
+        <target>Übersetzung Singular</target>
+      </segment>
+    </unit>
+    <unit id="Up9ZhvR" name="settings.synonyms.type_synonym.translation_plural">
+      <segment>
+        <source>settings.synonyms.type_synonym.translation_plural</source>
+        <target>Übersetzung Plural</target>
+      </segment>
+    </unit>
+    <unit id="BHoS230" name="settings.synonyms.type_synonym.add_entry">
+      <segment>
+        <source>settings.synonyms.type_synonym.add_entry</source>
+        <target>Eintrag hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="wvtOEBn" name="settings.synonyms.type_synonym.remove_entry">
+      <segment>
+        <source>settings.synonyms.type_synonym.remove_entry</source>
+        <target>Eintrag entfernen</target>
+      </segment>
+    </unit>
+    <unit id="mLu.2F2" name="settings.synonyms">
+      <segment>
+        <source>settings.synonyms</source>
+        <target>Synonyme</target>
+      </segment>
+    </unit>
+    <unit id="SHgc9i." name="settings.synonyms.help">
+      <segment>
+        <source>settings.synonyms.help</source>
+        <target>Das Synonymsystem ermöglicht es, zu überschreiben, wie Part-DB bestimmte Dinge benennt. Dies kann nützlich sein, insbesondere wenn Part-DB in einem anderen Kontext als Elektronik verwendet wird.
+Bitte beachten Sie, dass dieses System derzeit experimentell ist und die hier definierten Synonyme möglicherweise nicht an allen Stellen angezeigt werden.</target>
+      </segment>
+    </unit>
+    <unit id="piB78W5" name="settings.synonyms.type_synonyms">
+      <segment>
+        <source>settings.synonyms.type_synonyms</source>
+        <target>Typsynonyme</target>
+      </segment>
+    </unit>
+    <unit id="J8T2HuD" name="settings.synonyms.type_synonyms.help">
+      <segment>
+        <source>settings.synonyms.type_synonyms.help</source>
+        <target>Mit Typsynonymen können Sie die Bezeichnungen von integrierten Datentypen ersetzen. Zum Beispiel können Sie „Footprint" in etwas anderes umbenennen.</target>
+      </segment>
+    </unit>
+    <unit id="GSqBiVV" name="{{part}}">
+      <segment>
+        <source>{{part}}</source>
+        <target>Bauteile</target>
+      </segment>
+    </unit>
+    <unit id="wjcsjzT" name="log.element_edited.changed_fields.part_ipn_prefix">
+      <segment>
+        <source>log.element_edited.changed_fields.part_ipn_prefix</source>
+        <target>IPN-Präfix</target>
+      </segment>
+    </unit>
+    <unit id="R4hoCqe" name="part.labelp">
+      <segment>
+        <source>part.labelp</source>
+        <target>Bauteile</target>
+      </segment>
+    </unit>
+    <unit id=".tjK0ju" name="project_bom_entry.labelp">
+      <segment>
+        <source>project_bom_entry.labelp</source>
+        <target>BOM-Einträge</target>
+      </segment>
+    </unit>
+    <unit id="ftBf11d" name="part_lot.labelp">
+      <segment>
+        <source>part_lot.labelp</source>
+        <target>Bauteilbestände</target>
+      </segment>
+    </unit>
+    <unit id="UVDJmYp" name="orderdetail.labelp">
+      <segment>
+        <source>orderdetail.labelp</source>
+        <target>Bestellinformationen</target>
+      </segment>
+    </unit>
+    <unit id="83AQqv." name="pricedetail.labelp">
+      <segment>
+        <source>pricedetail.labelp</source>
+        <target>Preisinformationen</target>
+      </segment>
+    </unit>
+    <unit id="4KRV2mB" name="parameter.labelp">
+      <segment>
+        <source>parameter.labelp</source>
+        <target>Parameter</target>
+      </segment>
+    </unit>
+    <unit id="AAYYeiw" name="part_association.labelp">
+      <segment>
+        <source>part_association.labelp</source>
+        <target>Bauteilzuordnungen</target>
+      </segment>
+    </unit>
+    <unit id="2_3Lz7i" name="bulk_info_provider_import_job.labelp">
+      <segment>
+        <source>bulk_info_provider_import_job.labelp</source>
+        <target>Massenimporte von Informationsquellen</target>
+      </segment>
+    </unit>
+    <unit id="BXTqi16" name="bulk_info_provider_import_job_part.labelp">
+      <segment>
+        <source>bulk_info_provider_import_job_part.labelp</source>
+        <target>Massenimportauftrag Bauteil</target>
+      </segment>
+    </unit>
+    <unit id="91Wvg.F" name="password_toggle.hide">
+      <segment>
+        <source>password_toggle.hide</source>
+        <target>Ausblenden</target>
+      </segment>
+    </unit>
+    <unit id="2vciZN7" name="password_toggle.show">
+      <segment>
+        <source>password_toggle.show</source>
+        <target>Anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="PVw6Lx4" name="settings.misc.ipn_suggest.regex.help.placeholder">
+      <segment>
+        <source>settings.misc.ipn_suggest.regex.help.placeholder</source>
+        <target>z.B. Format: 3–4 alphanumerische Segmente getrennt durch „-", gefolgt von „-" und 4 Ziffern, z.B. PCOM-RES-0001</target>
+      </segment>
+    </unit>
+    <unit id="M5Q_eZW" name="part.edit.tab.advanced.ipn.prefix.global_prefix">
+      <segment>
+        <source>part.edit.tab.advanced.ipn.prefix.global_prefix</source>
+        <target>Das globale IPN-Präfix, das für alle Bauteile gilt</target>
+      </segment>
+    </unit>
+    <unit id="WlKvQeB" name="settings.misc.ipn_suggest.fallbackPrefix">
+      <segment>
+        <source>settings.misc.ipn_suggest.fallbackPrefix</source>
+        <target>Fallback-Präfix</target>
+      </segment>
+    </unit>
+    <unit id="Fr8hXdE" name="settings.misc.ipn_suggest.fallbackPrefix.help">
+      <segment>
+        <source>settings.misc.ipn_suggest.fallbackPrefix.help</source>
+        <target>Das IPN-Präfix, das verwendet werden soll, wenn eine Kategorie kein Präfix definiert hat.</target>
+      </segment>
+    </unit>
+    <unit id="_p9cMpI" name="settings.misc.ipn_suggest.numberSeparator">
+      <segment>
+        <source>settings.misc.ipn_suggest.numberSeparator</source>
+        <target>Nummerntrennzeichen</target>
+      </segment>
+    </unit>
+    <unit id="CqfzuM6" name="settings.misc.ipn_suggest.numberSeparator.help">
+      <segment>
+        <source>settings.misc.ipn_suggest.numberSeparator.help</source>
+        <target>Das Trennzeichen, das verwendet wird, um die IPN-Nummer vom Präfix zu trennen.</target>
+      </segment>
+    </unit>
+    <unit id="PisGfwB" name="settings.misc.ipn_suggest.categorySeparator">
+      <segment>
+        <source>settings.misc.ipn_suggest.categorySeparator</source>
+        <target>Kategorietrennzeichen</target>
+      </segment>
+    </unit>
+    <unit id="jlNd0CI" name="settings.misc.ipn_suggest.categorySeparator.help">
+      <segment>
+        <source>settings.misc.ipn_suggest.categorySeparator.help</source>
+        <target>Das Trennzeichen, das verwendet wird, um verschiedene Ebenen von Kategoriepräfixen zu trennen.</target>
+      </segment>
+    </unit>
+    <unit id="MkiJuRK" name="settings.misc.ipn_suggest.globalPrefix">
+      <segment>
+        <source>settings.misc.ipn_suggest.globalPrefix</source>
+        <target>Globales Präfix</target>
+      </segment>
+    </unit>
+    <unit id="Akh9iFg" name="settings.misc.ipn_suggest.globalPrefix.help">
+      <segment>
+        <source>settings.misc.ipn_suggest.globalPrefix.help</source>
+        <target>Wenn aktiviert, wird eine Option zur Generierung einer IPN mit diesem globalen Präfix angeboten, das für Bauteile in allen Kategorien gilt.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
