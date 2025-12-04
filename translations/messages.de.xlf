@@ -14318,7 +14318,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="CPwXFjE" name="info_providers.bulk_import.priority_system.description">
       <segment state="translated">
         <source>info_providers.bulk_import.priority_system.description</source>
-        <target>Lower numbers = higher priority. Same priority = combine results. Different priorities = try highest first, fallback if no results.</target>
+        <target>Niedrigere Zahlen = höhere Priorität. Gleiche Priorität = Ergebnisse kombinieren. Unterschiedliche Prioritäten = zuerst die höchste versuchen, bei fehlenden Ergebnissen auf die niedrigere zurückgreifen.</target>
       </segment>
     </unit>
     <unit id="v.rTI5s" name="info_providers.bulk_import.priority_system.example">

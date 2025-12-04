@@ -104,7 +104,7 @@
       </notes>
       <segment state="translated">
         <source>parameters.validator.min_lesser_typical</source>
-        <target>Value must be lesser or equal the the typical value ({{ compared_value }}).</target>
+        <target>Value must be less than or equal to the typical value ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="Yfp2uC5" name="parameters.validator.min_lesser_max">
@@ -124,7 +124,7 @@
       </notes>
       <segment state="translated">
         <source>parameters.validator.min_lesser_max</source>
-        <target>Value must be lesser than the maximum value ({{ compared_value }}).</target>
+        <target>Value must be less than the maximum value ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="P6b.8Ou" name="parameters.validator.max_greater_typical">
@@ -144,7 +144,7 @@
       </notes>
       <segment state="translated">
         <source>parameters.validator.max_greater_typical</source>
-        <target>Value must be greater or equal than the typical value ({{ compared_value }}).</target>
+        <target>Value must be greater than or equal to the typical value ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="P41193Y" name="validator.user.username_already_used">
@@ -154,7 +154,7 @@
       </notes>
       <segment state="translated">
         <source>validator.user.username_already_used</source>
-        <target>A user with this name is already exisiting</target>
+        <target>A user with this name already exists</target>
       </segment>
     </unit>
     <unit id="EKPQiyf" name="user.invalid_username">
