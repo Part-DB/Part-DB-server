@@ -14288,7 +14288,7 @@ You can do this in the provider info list.</target>
     <unit id="NIw6dtz" name="settings.misc.ipn_suggest.regex.help">
       <segment>
         <source>settings.misc.ipn_suggest.regex.help</source>
-        <target>A PCRE-compatible regular expression every IPN has to fulfill. Leave empty to allow all everything as IPN. </target>
+        <target>A PCRE-compatible regular expression every IPN has to fulfill. Leave empty to allow everything as IPN.</target>
       </segment>
     </unit>
     <unit id="MoHHSNT" name="user.labelp">
