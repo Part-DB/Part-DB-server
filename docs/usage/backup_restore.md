@@ -6,7 +6,7 @@ parent: Usage
 
 # Backup and Restore Data
 
-When working productively you should back up the data and configuration of Part-DB regularly to prevent data loss. This
+When working productively, you should back up the data and configuration of Part-DB regularly to prevent data loss. This
 is also useful if you want to migrate your Part-DB instance from one server to another. In that case, you just have to
 back up the data on server 1, move the backup to server 2, install Part-DB on server 2, and restore the backup.
 
@@ -27,7 +27,7 @@ for more info about these options.
 
 ## Backup (manual)
 
-3 parts have to be backed up: The configuration files, which contain the instance-specific options, the
+Three parts have to be backed up: The configuration files, which contain the instance-specific options, the
 uploaded files of attachments, and the database containing the most data of Part-DB.
 Everything else like thumbnails and cache files, are recreated automatically when needed.
 
@@ -44,7 +44,7 @@ You have to recursively copy the `uploads/` folder and the `public/media` folder
 
 #### SQLite
 
-If you are using sqlite, it is sufficient to just copy your `app.db` from your database location (normally `var/app.db`)
+If you are using SQLite, it is sufficient to just copy your `app.db` from your database location (normally `var/app.db`)
 to your backup location.
 
 #### MySQL / MariaDB
