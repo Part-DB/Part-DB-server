@@ -6,7 +6,7 @@ nav_order: 4
 
 # Getting started
 
-After Part-DB you should begin with customizing the settings, and setting up the basic structures.
+After Part-DB you should begin with customizing the settings and setting up the basic structures.
 Before starting, it's useful to read a bit about the [concepts of Part-DB]({% link concepts.md %}).
 
 1. TOC

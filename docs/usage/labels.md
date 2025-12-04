@@ -6,7 +6,7 @@ parent: Usage
 
 # Labels
 
-Part-DB support the generation and printing of labels for parts, part lots and storage locations.
+Part-DB supports the generation and printing of labels for parts, part lots and storage locations.
 You can use the "Tools -> Label generator" menu entry to create labels or click the label generation link on the part.
 
 You can define label templates by creating Label profiles. This way you can create many similar-looking labels with for

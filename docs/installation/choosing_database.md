@@ -38,7 +38,7 @@ you have started creating data**. So you should choose the database type for you
 
 * **Performance**: SQLite is not as fast as MySQL or PostgreSQL, especially when using complex queries or many users.
 * **Emulated RegEx search**: SQLite does not support RegEx search natively. Part-DB can emulate it, however that is pretty slow.
-* **Emualted natural sorting**: SQLite does not support natural sorting natively. Part-DB can emulate it, but it is pretty slow.
+* **Emulated natural sorting**: SQLite does not support natural sorting natively. Part-DB can emulate it, but it is pretty slow.
 * **Limitations with Unicode**: SQLite has limitations in comparisons and sorting of Unicode characters, which might lead to
   unexpected behavior when using non-ASCII characters in your data. For example `µ` (micro sign) is not seen as equal to 
   `μ` (greek minuscule mu), therefore searching for `µ` (micro sign) will not find parts containing `μ` (mu) and vice versa.
@@ -131,7 +131,7 @@ The host (here 127.0.0.1) and port should also be specified according to your My
 In the `serverVersion` parameter you can specify the version of the MySQL/MariaDB server you are using, in the way the server returns it 
 (e.g. `8.0.37` for MySQL and `10.4.14-MariaDB`). If you do not know it, you can leave the default value.
 
-If you want to use a unix socket for the connection instead of a TCP connnection, you can specify the socket path in the `unix_socket` parameter.
+If you want to use a unix socket for the connection instead of a TCP connection, you can specify the socket path in the `unix_socket` parameter.
 ```shell
 DATABASE_URL="mysql://user:password@localhost/database?serverVersion=8.0.37&unix_socket=/var/run/mysqld/mysqld.sock"
 ```
@@ -150,7 +150,7 @@ In the `serverVersion` parameter you can specify the version of the PostgreSQL s
 
 The `charset` parameter specify the character set of the database. It should be set to `utf8` to ensure that all characters are stored correctly.
 
-If you want to use a unix socket for the connection instead of a TCP connnection, you can specify the socket path in the `host` parameter.
+If you want to use a unix socket for the connection instead of a TCP connection, you can specify the socket path in the `host` parameter.
 ```shell
 DATABASE_URL="postgresql://db_user@localhost/db_name?serverVersion=16.6&charset=utf8&host=/var/run/postgresql"
 ```
@@ -177,6 +177,6 @@ In natural sorting, it would be sorted as:
 Part-DB can sort names in part tables and tree views naturally. PostgreSQL and MariaDB 10.7+ support natural sorting natively,
 and it is automatically used if available.
 
-For SQLite and MySQL < 10.7 it has to be emulated if wanted, which is pretty slow. Therefore it has to be explicity enabled by setting the
+For SQLite and MySQL < 10.7 it has to be emulated if wanted, which is pretty slow. Therefore it has to be explicitly enabled by setting the
 `DATABASE_EMULATE_NATURAL_SORT` environment variable to `1`. If it is 0 the classical binary sorting is used, on these databases. The emulations
 might have some quirks and issues, so it is recommended to use a database which supports natural sorting natively, if you want to use it.

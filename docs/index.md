@@ -18,8 +18,7 @@ It is installed on a web server and so can be accessed with any browser without 
 > You can log in with username: **user** and password: **user**, to change/create data.
 >
 > Every change to the master branch gets automatically deployed, so it represents the current development progress and
-> is
-> maybe not completely stable. Please mind, that the free Heroku instance is used, so it can take some time when loading
+> may not be completely stable. Please mind, that the free Heroku instance is used, so it can take some time when loading
 > the page
 > for the first time.
 
@@ -53,7 +52,7 @@ It is installed on a web server and so can be accessed with any browser without 
   KiCad and see available   parts from Part-DB directly inside KiCad.
 
 With these features Part-DB is useful to hobbyists, who want to keep track of their private electronic parts inventory,
-or makerspaces, where many users have should have (controlled) access to the shared inventory.
+or makerspaces, where many users should have (controlled) access to the shared inventory.
 
 Part-DB is also used by small companies and universities for managing their inventory.
 

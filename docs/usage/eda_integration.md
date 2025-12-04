@@ -60,7 +60,7 @@ If you type in a character, you will get an autocomplete list of all symbols and
 
 ### Parts and category visibility
 
-Only parts and their categories, on which there is any kind of EDA metadata are defined show up in KiCad. So if you want to see parts in KiCad,
+Only parts and their categories on which there is any kind of EDA metadata defined show up in KiCad. So if you want to see parts in KiCad,
 you need to define at least a symbol, footprint, reference prefix, or value on a part, category or footprint.
 
 You can use the "Force visibility" checkbox on a part or category to override this behavior and force parts to be visible or hidden in KiCad.

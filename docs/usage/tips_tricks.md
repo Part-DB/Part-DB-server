@@ -88,9 +88,9 @@ the user as "owner" of a part lot. This way, only he is allowed to add or remove
 
 ## Update notifications
 
-Part-DB can show you a notification that there is a newer version than currently installed available. The notification
+Part-DB can show you a notification that there is a newer version than currently installed. The notification
 will be shown on the homepage and the server info page.
-It is only be shown to users which has the `Show available Part-DB updates` permission.
+It is only shown to users which have the `Show available Part-DB updates` permission.
 
 For the notification to work, Part-DB queries the GitHub API every 2 days to check for new releases. No data is sent to
 GitHub besides the metadata required for the connection (so the public IP address of your computer running Part-DB).
@@ -98,6 +98,6 @@ If you don't want Part-DB to query the GitHub API, or if your server can not rea
 update notifications by setting the `CHECK_FOR_UPDATES` option to `false`.
 
 ## Internet access via proxy
-If you server running Part-DB does not have direct access to the internet, but has to use a proxy server, you can configure
+If your server running Part-DB does not have direct access to the internet, but has to use a proxy server, you can configure
 the proxy settings in the `.env.local` file (or docker env config). You can set the `HTTP_PROXY` and `HTTPS_PROXY` environment
 variables to the URL of your proxy server. If your proxy server requires authentication, you can include the username and password in the URL.

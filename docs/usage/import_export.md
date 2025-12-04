@@ -49,7 +49,7 @@ You can upload the file that should be imported here and choose various options 
   review" after the import. This can be useful if you want to review all imported parts before using them.
 * **Create unknown data structures**: If this is selected Part-DB will create new data structures (like categories,
   manufacturers, etc.) if no data structure(s) with the same name and path already exists. If this is not selected, only
-  existing data structures will be used and if no matching data strucure is found, the imported parts field will be empty.
+  existing data structures will be used and if no matching data structure is found, the imported parts field will be empty.
 * **Path delimiter**: Part-DB allows you to create/select nested data structures (like categories, manufacturers, etc.)
   by using a path (e.g. `Category 1->Category 1.1`, which will select/create the `Category 1.1` whose parent
   is `Category 1`). This path is separated by the path delimiter. If you want to use a different path delimiter than the

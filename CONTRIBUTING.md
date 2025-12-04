@@ -20,7 +20,7 @@ was translated in other languages (this is possible via the "Other languages" dr
 ## Project structure
 Part-DB uses symfony's recommended [project structure](https://symfony.com/doc/current/best_practices.html).
 Interesting folders are:
-* `public`: Everything in this directory will be publicy accessible via web. Use this folder to serve static images.
+* `public`: Everything in this directory will be publicly accessible via web. Use this folder to serve static images.
 * `assets`: The frontend assets are saved here. You can find the javascript and CSS code here.
 * `src`: Part-DB's PHP code is saved here. Note that the sub directories are structured by the classes purposes (so use `Controller` Controllers, `Entities` for Database models, etc.)
 * `translations`: The translations used in Part-DB are saved here
@@ -49,7 +49,7 @@ Part-DB uses GitHub actions to run various tests and checks on the code:
 * PHPunit tests run successful
 * Config files, translations and templates has valid syntax
 * Doctrine schema valid
-* No known vulnerable dependecies are used
+* No known vulnerable dependencies are used
 * Static analysis successful (phpstan with `--level=2`)
 
 Further the code coverage of the PHPunit tests is determined and uploaded to [CodeCov](https://codecov.io/gh/Part-DB/Part-DB-server).

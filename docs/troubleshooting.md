@@ -9,7 +9,7 @@ Sometimes things go wrong and Part-DB shows an error message. This page should h
 
 ## Error messages
 
-When a common, easy fixable error occurs (like a non-up-to-date database), Part-DB will show you some short instructions
+When a common, easily fixable error occurs (like a non-up-to-date database), Part-DB will show you some short instructions
 on how to fix the problem. If you have a problem that is not listed here, please open an issue on GitHub.
 
 ## General procedure
