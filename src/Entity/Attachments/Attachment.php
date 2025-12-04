@@ -166,9 +166,10 @@ abstract class Attachment extends AbstractNamedDBElement
      * @var string|null The path to the external source if the file is stored externally or was downloaded from an
      * external source. Null if there is no external source.
      */
-    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 2048,  nullable: true)]
     #[Groups(['attachment:read'])]
     #[ApiProperty(example: 'http://example.com/image.jpg')]
+    #[Assert\Length(2048)]
     protected ?string $external_path = null;
 
     /**
@@ -551,8 +552,8 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     #[Groups(['attachment:write'])]
     #[SerializedName('url')]
-    #[ApiProperty(description: 'Set the path of the attachment here. 
-    Provide either an external URL, a path to a builtin file (like %FOOTPRINTS%/Active/ICs/IC_DFS.png) or an empty 
+    #[ApiProperty(description: 'Set the path of the attachment here.
+    Provide either an external URL, a path to a builtin file (like %FOOTPRINTS%/Active/ICs/IC_DFS.png) or an empty
     string if the attachment has an internal file associated and you\'d like to reset the external source.
     If you set a new (nonempty) file path any associated internal file will be removed!')]
     public function setURL(?string $url): self
