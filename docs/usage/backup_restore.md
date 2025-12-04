@@ -27,7 +27,7 @@ for more info about these options.
 
 ## Backup (manual)
 
-3 parts have to be backup-ed: The configuration files, which contain the instance-specific options, the
+3 parts have to be backed up: The configuration files, which contain the instance-specific options, the
 uploaded files of attachments, and the database containing the most data of Part-DB.
 Everything else like thumbnails and cache files, are recreated automatically when needed.
 
@@ -56,7 +56,7 @@ interface (`mysqldump -uBACKUP -pPASSWORD DATABASE`)
 ## Restore
 
 Install Part-DB as usual as described in the installation section, except for the database creation/migration part. You
-have to use the same database type (SQLite or MySQL) as on the backuped server instance.
+have to use the same database type (SQLite or MySQL) as on the backed up server instance.
 
 ### Restore configuration
 
@@ -71,7 +71,7 @@ Copy the `uploads/` and the `public/media/` folder from your backup into your ne
 
 #### SQLite
 
-Copy the backup-ed `app.db` into the database folder normally `var/app.db` in Part-DB root folder.
+Copy the backed up `app.db` into the database folder normally `var/app.db` in Part-DB root folder.
 
 #### MySQL / MariaDB
 

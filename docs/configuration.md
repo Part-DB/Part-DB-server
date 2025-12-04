@@ -10,7 +10,7 @@ Part-DBs behavior can be configured to your needs. There are different kinds of 
 user-changeable (changeable dynamically via frontend), options that can be configured by environment variables, and
 options that are only configurable via Symfony config files.
 
-## User configruation
+## User configuration
 
 The following things can be changed for every user and a user can change it for himself (if he has the correct permission
 for it). Configuration is either possible via the user's own settings page (where you can also change the password) or via
@@ -43,7 +43,7 @@ options listed, see `.env` file for the full list of possible env variables.
 Environment variables allow to overwrite settings in the web interface. This is useful, if you want to enforce certain
 settings to be unchangable by users, or if you want to configure settings in a central place in a deployed environment.
 On the settings page, you can hover over a setting to see, which environment variable can be used to overwrite it, it 
-is shown as tooltip. API keys or similar sensitve data which is overwritten by env variables, are redacted on the web
+is shown as tooltip. API keys or similar sensitive data which is overwritten by env variables, are redacted on the web
 interface, so that even administrators cannot see them (only the last 2 characters and the length).
 
 For technical and security reasons some settings can only be configured via environment variables and not via the web
@@ -116,7 +116,7 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
   value should be handled as confidential data and not shared publicly.
 * `SHOW_PART_IMAGE_OVERLAY`: Set to 0 to disable the part image overlay, which appears if you hover over an image in the
   part image gallery
-* `IPN_SUGGEST_REGEX`: A global regular expression, that part IPNs have to fullfill. Enforce your own format for your users.
+* `IPN_SUGGEST_REGEX`: A global regular expression, that part IPNs have to fulfill. Enforce your own format for your users.
 * `IPN_SUGGEST_REGEX_HELP`: Define your own user help text for the Regex format specification.
 * `IPN_AUTO_APPEND_SUFFIX`: When enabled, an incremental suffix will be added to the user input when entering an existing 
 * IPN again upon saving.

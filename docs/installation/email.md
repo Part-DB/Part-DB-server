@@ -19,7 +19,7 @@ automatic mail providers (like MailChimp or SendGrid). If you want to use one of
 Mailer documentation for more information.
 
 We will only cover the configuration of an SMTP provider here, which is sufficient for most use-cases.
-You will need an email account, which you can use send emails from via password-bases SMTP authentication, this account
+You will need an email account, which you can use to send emails from via password-based SMTP authentication, this account
 should be dedicated to Part-DB.
 
 To configure the SMTP provider, you have to set the following environment variables:

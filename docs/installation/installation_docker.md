@@ -143,11 +143,11 @@ services:
        # - DB_AUTOMIGRATE=true
 
       # You can configure Part-DB using the webUI or environment variables
-      # However you can add add any other environment configuration you want here
+      # However you can add any other environment configuration you want here
       # See .env file for all available options or https://docs.part-db.de/configuration.html
 
-      # Override value if you want to show to show a given text on homepage.
-      # When this is outcommented the webUI can be used to configure the banner
+      # Override value if you want to show a given text on homepage.
+      # When this is commented out the webUI can be used to configure the banner
       #- BANNER=This is a test banner<br>with a line break
 
   database:

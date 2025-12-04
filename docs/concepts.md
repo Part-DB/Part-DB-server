@@ -28,7 +28,7 @@ A part entity has many fields, which can be used to describe it better. Most of 
   the comment field or the specifications
 * **Category** (Required): The category (see there) to which this part belongs to.
 * **Tags**: The list of tags this part belongs to. Tags can be used to group parts logically (similar to the category),
-  but tags are much less strict and formal (they don't have to be defined forehands) and you can assign multiple tags to
+  but tags are much less strict and formal (they don't have to be defined beforehand) and you can assign multiple tags to
   a part. When clicking on a tag, a list with all parts which have the same tag, is shown.
 * **Min Instock**: *Not really implemented yet*. Parts where the total instock is below this value, will show up for
   ordering.
