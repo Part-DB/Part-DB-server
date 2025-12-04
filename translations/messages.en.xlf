@@ -6536,7 +6536,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>validator.part_lot.location_full</source>
-        <target>The storage location was marked as full, so you can not add a new part to it.</target>
+        <target>The [storage_location] was marked as full, so you can not add a new [part] to it.</target>
       </segment>
     </unit>
     <unit id="h6qELde" name="validator.part_lot.only_existing">
@@ -6546,7 +6546,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>validator.part_lot.only_existing</source>
-        <target>The storage location was marked as "only existing", so you can not add new part to it.</target>
+        <target>The [storage_location] was marked as "only existing", so you can not add new [part] to it.</target>
       </segment>
     </unit>
     <unit id="2yWi8eP" name="validator.part_lot.single_part">
@@ -6556,7 +6556,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>validator.part_lot.single_part</source>
-        <target>The storage location was marked as "single part", so you can not add a new part to it.</target>
+        <target>The [storage_location] was marked as "single [part]", so you can not add a new [part] to it.</target>
       </segment>
     </unit>
     <unit id="aBSsuxp" name="m_status.active.help">
@@ -6737,7 +6737,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>entity.edit.not_selectable.help</source>
-        <target>If this option is activated, this element can not be assigned to a part property. Useful if this element is just used for grouping.</target>
+        <target>If this option is activated, this element can not be assigned to a [part] property. Useful if this element is just used for grouping.</target>
       </segment>
     </unit>
     <unit id="poCwov." name="bbcode.hint">
@@ -7182,7 +7182,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>storelocation.edit.is_full.help</source>
-        <target>If this option is selected, it is neither possible to add new parts to this storelocation or to increase the amount of existing parts.</target>
+        <target>If this option is selected, it is neither possible to add new [[part]] to this storelocation or to increase the amount of existing [[part]].</target>
       </segment>
     </unit>
     <unit id="V1su4ac" name="storelocation.limit_to_existing.label">
@@ -7192,7 +7192,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>storelocation.limit_to_existing.label</source>
-        <target>Limit to existing parts</target>
+        <target>Limit to existing [[part]]</target>
       </segment>
     </unit>
     <unit id="6D.6huj" name="storelocation.limit_to_existing.help">
@@ -7202,7 +7202,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>storelocation.limit_to_existing.help</source>
-        <target>If this option is activated, it is not possible to add new parts to this storelocation, but the amount of existing parts can be increased.</target>
+        <target>If this option is activated, it is not possible to add new [[part]] to this storelocation, but the amount of existing [[part]] can be increased.</target>
       </segment>
     </unit>
     <unit id="tGVVeof" name="storelocation.only_single_part.label">
@@ -7212,7 +7212,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>storelocation.only_single_part.label</source>
-        <target>Only single part</target>
+        <target>Only single [part]</target>
       </segment>
     </unit>
     <unit id="Hyh5pvY" name="storelocation.only_single_part.help">
@@ -7222,7 +7222,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>storelocation.only_single_part.help</source>
-        <target>If this option is activated, only a single part (with every amount) can be assigned to this storage location. Useful for small SMD boxes or feeders.</target>
+        <target>If this option is activated, only a single [part] (with every amount) can be assigned to this [storage_location]. Useful for small SMD boxes or feeders.</target>
       </segment>
     </unit>
     <unit id="sty2ele" name="storelocation.storage_type.label">
@@ -7242,7 +7242,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>storelocation.storage_type.help</source>
-        <target>You can select a measurement unit here, which a part must have to be able to be assigned to this storage location</target>
+        <target>You can select a [measurement_unit] here, which a [part] must have to be able to be assigned to this [storage_location]</target>
       </segment>
     </unit>
     <unit id="ilC3c6u" name="supplier.edit.default_currency">
@@ -9596,13 +9596,13 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="hpPkHYF" name="project.add_parts_to_project">
       <segment state="translated">
         <source>project.add_parts_to_project</source>
-        <target>Add parts to project BOM</target>
+        <target>Add [[part]] to [project] BOM</target>
       </segment>
     </unit>
     <unit id="mauieYX" name="part.info.add_part_to_project">
       <segment state="translated">
         <source>part.info.add_part_to_project</source>
-        <target>Add this part to a project</target>
+        <target>Add this [part] to a [project]</target>
       </segment>
     </unit>
     <unit id="5r.n1zf" name="project_bom_entry.label">
@@ -9668,13 +9668,13 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="sPdCBUl" name="project.edit.associated_build.hint">
       <segment state="translated">
         <source>project.edit.associated_build.hint</source>
-        <target>This part represents the builds of this project, which are stored somewhere.</target>
+        <target>This [part] represents the builds of this [project], which are stored somewhere.</target>
       </segment>
     </unit>
     <unit id="Cke2p4U" name="part.info.projectBuildPart.hint">
       <segment state="translated">
         <source>part.info.projectBuildPart.hint</source>
-        <target>This part represents the builds of the following project and is associated with it</target>
+        <target>This [part] represents the builds of the following [project] and is associated with it</target>
       </segment>
     </unit>
     <unit id="yCR6rBb" name="part.is_build_part">
@@ -9686,7 +9686,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="dV.E0zI" name="project.info.title">
       <segment state="translated">
         <source>project.info.title</source>
-        <target>Project info</target>
+        <target>{project} info</target>
       </segment>
     </unit>
     <unit id="LYURecm" name="project.info.bom_entries_count">
@@ -9914,7 +9914,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id=".I7zcoK" name="project.builds.following_bom_entries_miss_instock">
       <segment state="translated">
         <source>project.builds.following_bom_entries_miss_instock</source>
-        <target>The following parts have not enough stock to build this project at least once:</target>
+        <target>The following [[part]] have not enough stock to build this [project] at least once:</target>
       </segment>
     </unit>
     <unit id="fGT0qfb" name="project.builds.stocked">
@@ -9938,19 +9938,19 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="NdZ1t7a" name="project.builds.number_of_builds_possible">
       <segment state="translated">
         <source>project.builds.number_of_builds_possible</source>
-        <target>You have enough stocked to build &lt;b&gt;%max_builds%&lt;/b&gt; builds of this project.</target>
+        <target><![CDATA[You have enough stocked to build <b>%max_builds%</b> builds of this [project].]]></target>
       </segment>
     </unit>
     <unit id="iuSpPbg" name="project.builds.check_project_status">
       <segment state="translated">
         <source>project.builds.check_project_status</source>
-        <target>The current project status is &lt;b&gt;"%project_status%"&lt;/b&gt;. You should check if you really want to build the project with this status!</target>
+        <target><![CDATA[The current [project] status is <b>"%project_status%"</b>. You should check if you really want to build the [project] with this status!]]></target>
       </segment>
     </unit>
     <unit id="Y7vSSxi" name="project.builds.following_bom_entries_miss_instock_n">
       <segment state="translated">
         <source>project.builds.following_bom_entries_miss_instock_n</source>
-        <target>You do not have enough parts stocked to build this project %number_of_builds% times. The following parts have missing instock:</target>
+        <target>You do not have enough [[part]] stocked to build this [project] %number_of_builds% times. The following [[part]] have missing instock:</target>
       </segment>
     </unit>
     <unit id="1BGl3Dv" name="project.build.flash.invalid_input">
@@ -9974,7 +9974,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="zgLSR.X" name="project.build.help">
       <segment state="translated">
         <source>project.build.help</source>
-        <target>Choose from which part lots the stock to build this project should be taken (and in which amount). Check the checkbox for each BOM Entry, when you are finished withdrawing the parts, or use the top checkbox to check all boxes at once.</target>
+        <target>Choose from which [[part_lot]] the stock to build this [project] should be taken (and in which amount). Check the checkbox for each BOM Entry, when you are finished withdrawing the [[part]], or use the top checkbox to check all boxes at once.</target>
       </segment>
     </unit>
     <unit id="srYaI3Z" name="project.build.buildsPartLot.new_lot">
@@ -11524,7 +11524,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="bkPXoxM" name="project.build.dont_check_quantity.help">
       <segment state="translated">
         <source>project.build.dont_check_quantity.help</source>
-        <target>If this option is selected, the given withdraw quantities are used as given, no matter if more or less parts are actually required to build this project.</target>
+        <target>If this option is selected, the given withdraw quantities are used as given, no matter if more or less [[part]] are actually required to build this [project].</target>
       </segment>
     </unit>
     <unit id="XsE9cmC" name="part_list.action.invert_selection">
