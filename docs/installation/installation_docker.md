@@ -136,7 +136,7 @@ services:
       # In docker env logs will be redirected to stderr
       - APP_ENV=docker
 
-       # Uncomment this, if you want to use the automatic database migration feature. With this you have you do not have to
+       # Uncomment this, if you want to use the automatic database migration feature. With this you do not have to
        # run the doctrine:migrations:migrate commands on installation or upgrade. A database backup is written to the uploads/
        # folder (under .automigration-backup), so you can restore it, if the migration fails.
        # This feature is currently experimental, so use it at your own risk!

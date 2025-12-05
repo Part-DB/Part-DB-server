@@ -65,7 +65,7 @@ $$E=mc^2$$
 ## Update currency exchange rates automatically
 
 Part-DB can update the currency exchange rates of all defined currencies programmatically
-by calling the `php bin/console partdb:currencies:update-exchange-rates`.
+by calling `php bin/console partdb:currencies:update-exchange-rates`.
 
 If you call this command regularly (e.g. with a cronjob), you can keep the exchange rates up-to-date.
 
