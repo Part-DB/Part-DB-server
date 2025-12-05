@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="ja">
   <file id="messages.en">
     <unit id="0Md_YOf" name="attachment_type.caption">
@@ -556,17 +556,6 @@
       <segment state="translated">
         <source>storelocation.new</source>
         <target>保管場所を新規作成</target>
-      </segment>
-    </unit>
-    <unit id="ykqfBBp" name="supplier.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>supplier.caption</source>
-        <target>サプライヤー</target>
       </segment>
     </unit>
     <unit id="DpVIJeK" name="supplier.edit">
@@ -2409,26 +2398,6 @@
         <target>単価</target>
       </segment>
     </unit>
-    <unit id="EKnfKFl" name="edit.caption_short">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-      </notes>
-      <segment state="translated">
-        <source>edit.caption_short</source>
-        <target>編集</target>
-      </segment>
-    </unit>
-    <unit id="qNZM46r" name="delete.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-      </notes>
-      <segment state="translated">
-        <source>delete.caption</source>
-        <target>削除</target>
-      </segment>
-    </unit>
     <unit id="aUihK3c" name="part_lots.description">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:7</note>
@@ -3039,16 +3008,6 @@
       <segment state="translated">
         <source>tfa_u2f.add_key.backup_hint</source>
         <target>鍵を紛失しても確実にアクセスできるように、別のキーををバックアップとして登録し、大切に保管しておくことをおすすめします。</target>
-      </segment>
-    </unit>
-    <unit id="ktQ_kY9" name="r_u2f_two_factor.name">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-      </notes>
-      <segment state="translated">
-        <source>r_u2f_two_factor.name</source>
-        <target>表示されているキー名（例: バックアップ）</target>
       </segment>
     </unit>
     <unit id="HI4_6dF" name="tfa_u2f.add_key.add_button">
@@ -4044,17 +4003,6 @@
         <target>サプライヤー</target>
       </segment>
     </unit>
-    <unit id="Bs5QvO0" name="search.deactivateBarcode">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:57</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
-        <note priority="1">templates\base.html.twig:75</note>
-      </notes>
-      <segment state="translated">
-        <source>search.deactivateBarcode</source>
-        <target>バーコードを無効化</target>
-      </segment>
-    </unit>
     <unit id="biFM.cv" name="search.regexmatching">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
@@ -4330,16 +4278,6 @@
         <target>変更を保存しました。</target>
       </segment>
     </unit>
-    <unit id="w57VDWn" name="part.edited_flash.invalid">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-        <note priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-      </notes>
-      <segment state="translated">
-        <source>part.edited_flash.invalid</source>
-        <target>保存中のエラー: 入力を確認してください</target>
-      </segment>
-    </unit>
     <unit id="suYw2UL" name="part.deleted">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:216</note>
@@ -4571,16 +4509,6 @@
       <segment state="translated">
         <source>user.settings.2fa.backup_codes.regenerated</source>
         <target>新しいバックアップ コードが正常に生成されました。</target>
-      </segment>
-    </unit>
-    <unit id="zC0oO.O" name="attachment.table.filename">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.table.filename</source>
-        <target>ファイル名</target>
       </segment>
     </unit>
     <unit id="dNey6.4" name="attachment.table.filesize">
@@ -6349,16 +6277,6 @@
         <target>新規作成</target>
       </segment>
     </unit>
-    <unit id="3Vc5_D2" name="attachment.external_file">
-      <notes>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.external_file</source>
-        <target>外部ファイル</target>
-      </segment>
-    </unit>
     <unit id="gexfRxf" name="attachment.edit">
       <notes>
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
@@ -6627,16 +6545,6 @@
       <segment state="translated">
         <source>validator.noneofitschild.children</source>
         <target>要素は自身の子とすることはできません。</target>
-      </segment>
-    </unit>
-    <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>validator.part_lot.location_full.no_increasment</source>
-        <target>在庫数量を増やせません。保管場所が満杯とマークされています。 (新しい数量の最大 {{ old_amount }})</target>
       </segment>
     </unit>
     <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
@@ -7490,39 +7398,6 @@ Exampletown</target>
         <target>変更を破棄</target>
       </segment>
     </unit>
-    <unit id="7TiUzGF" name="part.withdraw.btn">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:166</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.btn</source>
-        <target>撤回</target>
-      </segment>
-    </unit>
-    <unit id="RVKdVNt" name="part.withdraw.comment:">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:171</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.comment:</source>
-        <target>コメント/目的</target>
-      </segment>
-    </unit>
-    <unit id="kXcojTi" name="part.add.caption">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:189</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.caption</source>
-        <target>部品を追加</target>
-      </segment>
-    </unit>
     <unit id="rYoCVp9" name="part.add.btn">
       <notes>
         <note priority="1">templates\Parts\show_part_info.html.twig:194</note>
@@ -7534,28 +7409,6 @@ Exampletown</target>
         <target>追加</target>
       </segment>
     </unit>
-    <unit id="4CUEJg5" name="part.add.comment">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:199</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.comment</source>
-        <target>コメント/目的</target>
-      </segment>
-    </unit>
-    <unit id="zIFsIyd" name="admin.comment">
-      <notes>
-        <note priority="1">templates\AdminPages\CompanyAdminBase.html.twig:15</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>admin.comment</source>
-        <target>コメント</target>
-      </segment>
-    </unit>
     <unit id="74zmrRr" name="manufacturer_url.label">
       <notes>
         <note priority="1">src\Form\PartType.php:83</note>
@@ -7565,69 +7418,6 @@ Exampletown</target>
       <segment state="translated">
         <source>manufacturer_url.label</source>
         <target>メーカーへのリンク</target>
-      </segment>
-    </unit>
-    <unit id="8QVpbd0" name="part.description.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:66</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.description.placeholder</source>
-        <target>例: NPN 45V 0,1A 0,5W</target>
-      </segment>
-    </unit>
-    <unit id="w_lfSsB" name="part.instock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:69</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.instock.placeholder</source>
-        <target>例: 10</target>
-      </segment>
-    </unit>
-    <unit id="58zdDWF" name="part.mininstock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:72</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.mininstock.placeholder</source>
-        <target>例: 5</target>
-      </segment>
-    </unit>
-    <unit id="cpRdMwo" name="part.order.price_per">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.order.price_per</source>
-        <target>あたりの価格:</target>
-      </segment>
-    </unit>
-    <unit id="1n22zD9" name="part.withdraw.caption">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.caption</source>
-        <target>部品を撤回する</target>
-      </segment>
-    </unit>
-    <unit id="pVVBLyB" name="datatable.datatable.lengthMenu">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>datatable.datatable.lengthMenu</source>
-        <target>_MENU_</target>
       </segment>
     </unit>
     <unit id="P.GFwjI" name="perm.group.parts">
@@ -8702,15 +8492,6 @@ Exampletown</target>
         <target>要素の以前のバージョンを表示する (タイムトラベル)</target>
       </segment>
     </unit>
-    <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>tfa_u2f.key_added_successful</source>
-        <target>セキュリティー キーの追加に成功しました。</target>
-      </segment>
-    </unit>
     <unit id="47ienTP" name="Username">
       <notes>
         <note category="state" priority="1">obsolete</note>
@@ -8916,12 +8697,6 @@ Exampletown</target>
       <segment state="translated">
         <source>group.edit.enforce_2fa.help</source>
         <target>このオプションを選択すると、このグループの直接のメンバーは2番目の認証要素を少なくとも1つ設定する必要があります。権限を厳密に管理するグループに推奨されます。</target>
-      </segment>
-    </unit>
-    <unit id="i7QKlzx" name="selectpicker.empty">
-      <segment state="translated">
-        <source>selectpicker.empty</source>
-        <target>未選択</target>
       </segment>
     </unit>
     <unit id="TPI_1p0" name="selectpicker.nothing_selected">

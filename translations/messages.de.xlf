@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
   <file id="messages.de">
     <unit id="x_wTSQS" name="attachment_type.caption">
@@ -147,17 +147,6 @@
         <target>Neue Währung</target>
       </segment>
     </unit>
-    <unit id="YFQ8iCW" name="project.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>project.caption</source>
-        <target>Projekte</target>
-      </segment>
-    </unit>
     <unit id="pe43jlV" name="project.edit">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
@@ -242,7 +231,7 @@
       </notes>
       <segment state="translated">
         <source>part.info.timetravel_hint</source>
-        <target><![CDATA[So sah das Bauteil vor %timestamp% aus. <i>Beachten Sie, dass dieses Feature experimentell ist und die angezeigten Infos daher nicht unbedingt korrekt sind.</i>]]></target>
+        <target>So sah das Bauteil vor %timestamp% aus. &lt;i&gt;Beachten Sie, dass dieses Feature experimentell ist und die angezeigten Infos daher nicht unbedingt korrekt sind.&lt;/i&gt;</target>
       </segment>
     </unit>
     <unit id="3exvSpl" name="standard.label">
@@ -589,17 +578,6 @@
         <target>Neuer Lagerort</target>
       </segment>
     </unit>
-    <unit id="Rt3eY_7" name="supplier.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>supplier.caption</source>
-        <target>Lieferanten</target>
-      </segment>
-    </unit>
     <unit id="ozZU_B5" name="supplier.edit">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:16</note>
@@ -737,9 +715,9 @@
       </notes>
       <segment state="translated">
         <source>user.edit.tfa.disable_tfa_message</source>
-        <target><![CDATA[Dies wird <b>alle aktiven Zwei-Faktor-Authentifizierungsmethoden des Nutzers deaktivieren</b> und die <b>Backupcodes löschen</b>! <br>
-Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müssen und neue Backupcodes ausdrucken müssen! <br><br>
-<b>Führen sie dies nur durch, wenn Sie über die Identität des (um Hilfe suchenden) Benutzers absolut sicher sind, da ansonsten eine Kompromittierung des Accounts durch einen Angreifer erfolgen könnte!</b>]]></target>
+        <target>Dies wird &lt;b&gt;alle aktiven Zwei-Faktor-Authentifizierungsmethoden des Nutzers deaktivieren&lt;/b&gt; und die &lt;b&gt;Backupcodes löschen&lt;/b&gt;! &lt;br&gt;
+Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müssen und neue Backupcodes ausdrucken müssen! &lt;br&gt;&lt;br&gt;
+&lt;b&gt;Führen sie dies nur durch, wenn Sie über die Identität des (um Hilfe suchenden) Benutzers absolut sicher sind, da ansonsten eine Kompromittierung des Accounts durch einen Angreifer erfolgen könnte!&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="APsHYu0" name="user.edit.tfa.disable_tfa.btn">
@@ -1446,7 +1424,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>homepage.github.text</source>
-        <target><![CDATA[Quellcode, Downloads, Bugreports, ToDo-Liste usw. gibts auf der <a class="link-external" target="_blank" href="%href%">GitHub Projektseite</a>]]></target>
+        <target>Quellcode, Downloads, Bugreports, ToDo-Liste usw. gibts auf der &lt;a class="link-external" target="_blank" href="%href%"&gt;GitHub Projektseite&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="D5OKsgU" name="homepage.help.caption">
@@ -1468,7 +1446,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>homepage.help.text</source>
-        <target><![CDATA[Hilfe und Tipps finden sie im <a class="link-external" rel="noopener" target="_blank" href="%href%">Wiki</a> der GitHub Seite.]]></target>
+        <target>Hilfe und Tipps finden sie im &lt;a class="link-external" rel="noopener" target="_blank" href="%href%"&gt;Wiki&lt;/a&gt; der GitHub Seite.</target>
       </segment>
     </unit>
     <unit id="dnirx4v" name="homepage.forum.caption">
@@ -1710,7 +1688,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>email.pw_reset.fallback</source>
-        <target><![CDATA[Wenn dies nicht funktioniert, rufen Sie <a href="%url%">%url%</a> auf und geben Sie die folgenden Daten ein]]></target>
+        <target>Wenn dies nicht funktioniert, rufen Sie &lt;a href="%url%"&gt;%url%&lt;/a&gt; auf und geben Sie die folgenden Daten ein</target>
       </segment>
     </unit>
     <unit id="DduL9Hu" name="email.pw_reset.username">
@@ -1740,7 +1718,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>email.pw_reset.valid_unit %date%</source>
-        <target><![CDATA[Das Reset-Token ist gültig bis <i>%date%</i>]]></target>
+        <target>Das Reset-Token ist gültig bis &lt;i&gt;%date%&lt;/i&gt;</target>
       </segment>
     </unit>
     <unit id="8sBnjRy" name="orderdetail.delete">
@@ -2430,26 +2408,6 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Stückpreis</target>
       </segment>
     </unit>
-    <unit id="CbWR2nl" name="edit.caption_short">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-      </notes>
-      <segment state="translated">
-        <source>edit.caption_short</source>
-        <target>Bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="er4pQft" name="delete.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-      </notes>
-      <segment state="translated">
-        <source>delete.caption</source>
-        <target>Löschen</target>
-      </segment>
-    </unit>
     <unit id="pg0yCCK" name="part_lots.description">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:7</note>
@@ -3062,16 +3020,6 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Um den Zugang auch bei Verlust des Schlüssels zu gewährleisten, ist es empfehlenswert einen zweiten Schlüssel als Backup zu registrieren und diesen an einem sicheren Ort zu lagern!</target>
       </segment>
     </unit>
-    <unit id="IcnYTDa" name="r_u2f_two_factor.name">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-      </notes>
-      <segment state="translated">
-        <source>r_u2f_two_factor.name</source>
-        <target>Anzeigename des Schlüssels (z.B. Backup)</target>
-      </segment>
-    </unit>
     <unit id="wH4JBAx" name="tfa_u2f.add_key.add_button">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:19</note>
@@ -3643,8 +3591,8 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>tfa_google.disable.confirm_message</source>
-        <target><![CDATA[Wenn Sie die Authenticator App deaktivieren, werden alle Backupcodes gelöscht, daher sie müssen sie evtl. neu ausdrucken.<br>
-Beachten Sie außerdem, dass ihr Account ohne Zwei-Faktor-Authentifizierung nicht mehr so gut gegen Angreifer geschützt ist!]]></target>
+        <target>Wenn Sie die Authenticator App deaktivieren, werden alle Backupcodes gelöscht, daher sie müssen sie evtl. neu ausdrucken.&lt;br&gt;
+Beachten Sie außerdem, dass ihr Account ohne Zwei-Faktor-Authentifizierung nicht mehr so gut gegen Angreifer geschützt ist!</target>
       </segment>
     </unit>
     <unit id="yu9MSt5" name="tfa_google.disabled_message">
@@ -3664,7 +3612,7 @@ Beachten Sie außerdem, dass ihr Account ohne Zwei-Faktor-Authentifizierung nich
       </notes>
       <segment state="translated">
         <source>tfa_google.step.download</source>
-        <target><![CDATA[Laden Sie eine Authenticator App herunter (z.B. <a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">Google Authenticator</a> oder <a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp">FreeOTP Authenticator</a>)]]></target>
+        <target>Laden Sie eine Authenticator App herunter (z.B. &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"&gt;Google Authenticator&lt;/a&gt; oder &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp"&gt;FreeOTP Authenticator&lt;/a&gt;)</target>
       </segment>
     </unit>
     <unit id="eriwJoR" name="tfa_google.step.scan">
@@ -3906,8 +3854,8 @@ Beachten Sie außerdem, dass ihr Account ohne Zwei-Faktor-Authentifizierung nich
       </notes>
       <segment state="translated">
         <source>tfa_trustedDevices.explanation</source>
-        <target><![CDATA[Bei der Überprüfung des zweiten Faktors, kann der aktuelle Computer als vertrauenswürdig gekennzeichnet werden, daher werden keine Zwei-Faktor-Überprüfungen mehr an diesem Computer benötigt.
-Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertrauenswürdig ist, können Sie hier den Status <i>aller </i>Computer zurücksetzen.]]></target>
+        <target>Bei der Überprüfung des zweiten Faktors, kann der aktuelle Computer als vertrauenswürdig gekennzeichnet werden, daher werden keine Zwei-Faktor-Überprüfungen mehr an diesem Computer benötigt.
+Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertrauenswürdig ist, können Sie hier den Status &lt;i&gt;aller &lt;/i&gt;Computer zurücksetzen.</target>
       </segment>
     </unit>
     <unit id="FZINq8z" name="tfa_trustedDevices.invalidate.confirm_title">
@@ -4063,17 +4011,6 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>supplier.label</source>
         <target>Lieferant</target>
-      </segment>
-    </unit>
-    <unit id="liOuf4u" name="search.deactivateBarcode">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:57</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
-        <note priority="1">templates\base.html.twig:75</note>
-      </notes>
-      <segment state="translated">
-        <source>search.deactivateBarcode</source>
-        <target>Deakt. Barcode</target>
       </segment>
     </unit>
     <unit id="h7QrXRa" name="search.regexmatching">
@@ -4367,16 +4304,6 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Änderungen gespeichert!</target>
       </segment>
     </unit>
-    <unit id="bNFdvNL" name="part.edited_flash.invalid">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-        <note priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-      </notes>
-      <segment state="translated">
-        <source>part.edited_flash.invalid</source>
-        <target>Fehler beim Speichern: Überprüfen Sie ihre Eingaben!</target>
-      </segment>
-    </unit>
     <unit id="XFmvSsv" name="part.deleted">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:216</note>
@@ -4608,16 +4535,6 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>user.settings.2fa.backup_codes.regenerated</source>
         <target>Neue Backupcodes erfolgreich erzeugt.</target>
-      </segment>
-    </unit>
-    <unit id="9OPMdQa" name="attachment.table.filename">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.table.filename</source>
-        <target>Dateiname</target>
       </segment>
     </unit>
     <unit id="hSn3zNG" name="attachment.table.filesize">
@@ -5384,7 +5301,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>label_options.lines_mode.help</source>
-        <target><![CDATA[Wenn Sie hier Twig auswählen, wird das Contentfeld als Twig-Template interpretiert. Weitere Hilfe gibt es in der <a href="https://twig.symfony.com/doc/3.x/templates.html">Twig Dokumentation</a> und dem <a href="https://docs.part-db.de/usage/labels.html#twig-mode">Wiki</a>.]]></target>
+        <target>Wenn Sie hier Twig auswählen, wird das Contentfeld als Twig-Template interpretiert. Weitere Hilfe gibt es in der &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;Twig Dokumentation&lt;/a&gt; und dem &lt;a href="https://docs.part-db.de/usage/labels.html#twig-mode"&gt;Wiki&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="isvxbiX" name="label_options.page_size.label">
@@ -6407,16 +6324,6 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Neues Element</target>
       </segment>
     </unit>
-    <unit id="U.Ovrd7" name="attachment.external_file">
-      <notes>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.external_file</source>
-        <target>Externe Datei</target>
-      </segment>
-    </unit>
     <unit id="YqYH6GX" name="attachment.edit">
       <notes>
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
@@ -6685,16 +6592,6 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>validator.noneofitschild.children</source>
         <target>Ein Kindelement kann nicht das übergeordnete Element sein!</target>
-      </segment>
-    </unit>
-    <unit id="j_GFZOQ" name="validator.part_lot.location_full.no_increasment">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>validator.part_lot.location_full.no_increasment</source>
-        <target>Der verwendete Lagerort wurde als voll markiert, daher kann der Bestand nicht erhöht werden. (Neuer Bestand maximal {{ old_amount }})</target>
       </segment>
     </unit>
     <unit id="eeEjB4s" name="validator.part_lot.location_full">
@@ -7252,15 +7149,15 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>mass_creation.lines.placeholder</source>
-        <target><![CDATA[Element 1
+        <target>Element 1
    Element 1.1
       Element 1.1.1
    Element 1.2
 Element 2
 Element 3
 
-Element 1 -> Element 1.1
-Element 1 -> Element 1.2]]></target>
+Element 1 -&gt; Element 1.1
+Element 1 -&gt; Element 1.2</target>
       </segment>
     </unit>
     <unit id="TWSqPFi" name="entity.mass_creation.btn">
@@ -7553,39 +7450,6 @@ Element 1 -> Element 1.2]]></target>
         <target>Änderungen verwerfen</target>
       </segment>
     </unit>
-    <unit id="rwhG3NF" name="part.withdraw.btn">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:166</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.btn</source>
-        <target>Entnehmen</target>
-      </segment>
-    </unit>
-    <unit id="KYhBkRo" name="part.withdraw.comment:">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:171</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.comment:</source>
-        <target>Kommentar/Zweck</target>
-      </segment>
-    </unit>
-    <unit id="kAlV8Zt" name="part.add.caption">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:189</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.caption</source>
-        <target>Bauteil hinzufügen</target>
-      </segment>
-    </unit>
     <unit id="TAZxRYj" name="part.add.btn">
       <notes>
         <note priority="1">templates\Parts\show_part_info.html.twig:194</note>
@@ -7597,28 +7461,6 @@ Element 1 -> Element 1.2]]></target>
         <target>Hinzufügen</target>
       </segment>
     </unit>
-    <unit id="yqLffb1" name="part.add.comment">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:199</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.comment</source>
-        <target>Kommentar/Zweck</target>
-      </segment>
-    </unit>
-    <unit id="oj5uuIF" name="admin.comment">
-      <notes>
-        <note priority="1">templates\AdminPages\CompanyAdminBase.html.twig:15</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>admin.comment</source>
-        <target>Notizen</target>
-      </segment>
-    </unit>
     <unit id="VI_567B" name="manufacturer_url.label">
       <notes>
         <note priority="1">src\Form\PartType.php:83</note>
@@ -7628,69 +7470,6 @@ Element 1 -> Element 1.2]]></target>
       <segment state="translated">
         <source>manufacturer_url.label</source>
         <target>Herstellerlink</target>
-      </segment>
-    </unit>
-    <unit id="hx8T2RQ" name="part.description.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:66</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.description.placeholder</source>
-        <target>z.B. NPN 45V 0,1A 0,5W</target>
-      </segment>
-    </unit>
-    <unit id="SDwGex2" name="part.instock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:69</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.instock.placeholder</source>
-        <target>z.B. 12</target>
-      </segment>
-    </unit>
-    <unit id="of7AUNW" name="part.mininstock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:72</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.mininstock.placeholder</source>
-        <target>z.B. 10</target>
-      </segment>
-    </unit>
-    <unit id="OsZzrme" name="part.order.price_per">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.order.price_per</source>
-        <target>pro</target>
-      </segment>
-    </unit>
-    <unit id="dEQm2lQ" name="part.withdraw.caption">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.caption</source>
-        <target>Bauteile entnehmen</target>
-      </segment>
-    </unit>
-    <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>datatable.datatable.lengthMenu</source>
-        <target>_MENU_</target>
       </segment>
     </unit>
     <unit id="IPge2iH" name="perm.group.parts">
@@ -8771,15 +8550,6 @@ Element 1 -> Element 1.2]]></target>
         <target>Alte Versionsstände anzeigen (Zeitreisen)</target>
       </segment>
     </unit>
-    <unit id="tyCC1qL" name="tfa_u2f.key_added_successful">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>tfa_u2f.key_added_successful</source>
-        <target>Sicherheitsschlüssel erfolgreich hinzugefügt.</target>
-      </segment>
-    </unit>
     <unit id="gDVCAxj" name="log.type.security.google_disabled">
       <notes>
         <note category="state" priority="1">obsolete</note>
@@ -8976,12 +8746,6 @@ Element 1 -> Element 1.2]]></target>
       <segment state="translated">
         <source>group.edit.enforce_2fa.help</source>
         <target>Wenn diese Option aktiv ist, muss jedes direkte Mitglied dieser Gruppe, mindestens einen zweiten Faktor zur Authentifizierung einrichten. Empfohlen z.B. für administrative Gruppen mit weitreichenden Berechtigungen.</target>
-      </segment>
-    </unit>
-    <unit id="O2l2jsJ" name="selectpicker.empty">
-      <segment state="translated">
-        <source>selectpicker.empty</source>
-        <target>Nichts ausgewählt</target>
       </segment>
     </unit>
     <unit id="NwsYm0P" name="selectpicker.nothing_selected">
@@ -9240,12 +9004,6 @@ Element 1 -> Element 1.2]]></target>
       <segment state="translated">
         <source>user.pw_change_needed.flash</source>
         <target>Passwortänderung nötig! Bitte setze ein neues Passwort.</target>
-      </segment>
-    </unit>
-    <unit id="x98ftIM" name="tree.root_node.text">
-      <segment state="translated">
-        <source>tree.root_node.text</source>
-        <target>Wurzel</target>
       </segment>
     </unit>
     <unit id="2LkM7pn" name="part_list.action.select_null">
@@ -9545,25 +9303,25 @@ Element 1 -> Element 1.2]]></target>
     <unit id="r4vDLAt" name="filter.parameter_value_constraint.operator.&lt;">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&lt;</source>
-        <target><![CDATA[Typ. Wert <]]></target>
+        <target>Typ. Wert &lt;</target>
       </segment>
     </unit>
     <unit id="X9SA3UP" name="filter.parameter_value_constraint.operator.&gt;">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&gt;</source>
-        <target><![CDATA[Typ. Wert >]]></target>
+        <target>Typ. Wert &gt;</target>
       </segment>
     </unit>
     <unit id="BQGaoQS" name="filter.parameter_value_constraint.operator.&lt;=">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&lt;=</source>
-        <target><![CDATA[Typ. Wert <=]]></target>
+        <target>Typ. Wert &lt;=</target>
       </segment>
     </unit>
     <unit id="2ha3P6g" name="filter.parameter_value_constraint.operator.&gt;=">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&gt;=</source>
-        <target><![CDATA[Typ. Wert >=]]></target>
+        <target>Typ. Wert &gt;=</target>
       </segment>
     </unit>
     <unit id="4DaBace" name="filter.parameter_value_constraint.operator.BETWEEN">
@@ -9671,7 +9429,7 @@ Element 1 -> Element 1.2]]></target>
     <unit id="4tHhDtU" name="parts_list.search.searching_for">
       <segment state="translated">
         <source>parts_list.search.searching_for</source>
-        <target><![CDATA[Suche Teile mit dem Suchbegriff <b>%keyword%</b>]]></target>
+        <target>Suche Teile mit dem Suchbegriff &lt;b&gt;%keyword%&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="4vomKLa" name="parts_list.search_options.caption">
@@ -10331,13 +10089,13 @@ Element 1 -> Element 1.2]]></target>
     <unit id="NdZ1t7a" name="project.builds.number_of_builds_possible">
       <segment state="translated">
         <source>project.builds.number_of_builds_possible</source>
-        <target><![CDATA[Sie haben genug Bauteile auf Lager, um <b>%max_builds%</b> Exemplare dieses Projektes zu bauen.]]></target>
+        <target>Sie haben genug Bauteile auf Lager, um &lt;b&gt;%max_builds%&lt;/b&gt; Exemplare dieses Projektes zu bauen.</target>
       </segment>
     </unit>
     <unit id="iuSpPbg" name="project.builds.check_project_status">
       <segment state="translated">
         <source>project.builds.check_project_status</source>
-        <target><![CDATA[Der aktuelle Projektstatus ist <b>"%project_status%"</b>. Sie sollten überprüfen, ob sie das Projekt mit diesem Status wirklich bauen wollen!]]></target>
+        <target>Der aktuelle Projektstatus ist &lt;b&gt;"%project_status%"&lt;/b&gt;. Sie sollten überprüfen, ob sie das Projekt mit diesem Status wirklich bauen wollen!</target>
       </segment>
     </unit>
     <unit id="Y7vSSxi" name="project.builds.following_bom_entries_miss_instock_n">
@@ -10451,7 +10209,7 @@ Element 1 -> Element 1.2]]></target>
     <unit id="GzqIwHH" name="entity.select.add_hint">
       <segment state="translated">
         <source>entity.select.add_hint</source>
-        <target><![CDATA[Nutzen Sie -> um verschachtelte Strukturen anzulegen, z.B. "Element 1->Element 1.1"]]></target>
+        <target>Nutzen Sie -&gt; um verschachtelte Strukturen anzulegen, z.B. "Element 1-&gt;Element 1.1"</target>
       </segment>
     </unit>
     <unit id="S4CxO.T" name="entity.select.group.new_not_added_to_DB">
@@ -10475,13 +10233,13 @@ Element 1 -> Element 1.2]]></target>
     <unit id="XLnXtsR" name="homepage.first_steps.introduction">
       <segment state="translated">
         <source>homepage.first_steps.introduction</source>
-        <target><![CDATA[Die Datenbank ist momentan noch leer. Sie möchten möglicherweise die <a href="%url%">Dokumentation</a> lesen oder anfangen, die folgenden Datenstrukturen anzulegen.]]></target>
+        <target>Die Datenbank ist momentan noch leer. Sie möchten möglicherweise die &lt;a href="%url%"&gt;Dokumentation&lt;/a&gt; lesen oder anfangen, die folgenden Datenstrukturen anzulegen.</target>
       </segment>
     </unit>
     <unit id="Q79MOIk" name="homepage.first_steps.create_part">
       <segment state="translated">
         <source>homepage.first_steps.create_part</source>
-        <target><![CDATA[Oder Sie können direkt ein <a href="%url%">neues Bauteil erstellen</a>.]]></target>
+        <target>Oder Sie können direkt ein &lt;a href="%url%"&gt;neues Bauteil erstellen&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="vplYq4f" name="homepage.first_steps.hide_hint">
@@ -10493,7 +10251,7 @@ Element 1 -> Element 1.2]]></target>
     <unit id="MJoZl4f" name="homepage.forum.text">
       <segment state="translated">
         <source>homepage.forum.text</source>
-        <target><![CDATA[Für Fragen rund um Part-DB, nutze das <a class="link-external" rel="noopener" target="_blank" href="%href%">Diskussionsforum</a>]]></target>
+        <target>Für Fragen rund um Part-DB, nutze das &lt;a class="link-external" rel="noopener" target="_blank" href="%href%"&gt;Diskussionsforum&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="YsukbnK" name="log.element_edited.changed_fields.category">
@@ -11159,7 +10917,7 @@ Element 1 -> Element 1.2]]></target>
     <unit id="p_IxB9K" name="parts.import.help_documentation">
       <segment state="translated">
         <source>parts.import.help_documentation</source>
-        <target><![CDATA[Konsultieren Sie die <a href="%link%">Dokumentation</a> für weiter Informationen über das Dateiformat.]]></target>
+        <target>Konsultieren Sie die &lt;a href="%link%"&gt;Dokumentation&lt;/a&gt; für weiter Informationen über das Dateiformat.</target>
       </segment>
     </unit>
     <unit id="awbvhVq" name="parts.import.help">
@@ -11351,7 +11109,7 @@ Element 1 -> Element 1.2]]></target>
     <unit id="o5u.Nnz" name="part.filter.lessThanDesired">
       <segment state="translated">
         <source>part.filter.lessThanDesired</source>
-        <target><![CDATA[Weniger vorhanden als gewünscht (Gesamtmenge < Mindestmenge)]]></target>
+        <target>Weniger vorhanden als gewünscht (Gesamtmenge &lt; Mindestmenge)</target>
       </segment>
     </unit>
     <unit id="YN9eLcZ" name="part.filter.lotOwner">
@@ -11818,12 +11576,6 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Ablaufdatum</target>
       </segment>
     </unit>
-    <unit id="5k6W3jw" name="api_tokens.added_date">
-      <segment state="translated">
-        <source>api_tokens.added_date</source>
-        <target>Erstellt am</target>
-      </segment>
-    </unit>
     <unit id="leWWwKP" name="api_tokens.last_time_used">
       <segment state="translated">
         <source>api_tokens.last_time_used</source>
@@ -12163,13 +11915,13 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="i68lU5x" name="part.merge.confirm.title">
       <segment state="translated">
         <source>part.merge.confirm.title</source>
-        <target><![CDATA[Möchten Sie wirklich <b>%other%</b> in <b>%target%</b> zusammenführen?]]></target>
+        <target>Möchten Sie wirklich &lt;b&gt;%other%&lt;/b&gt; in &lt;b&gt;%target%&lt;/b&gt; zusammenführen?</target>
       </segment>
     </unit>
     <unit id="k0anzYV" name="part.merge.confirm.message">
       <segment state="translated">
         <source>part.merge.confirm.message</source>
-        <target><![CDATA[<b>%other%</b> wird gelöscht, und das aktuelle Bauteil wird mit den angezeigten Daten gespeichert.]]></target>
+        <target>&lt;b&gt;%other%&lt;/b&gt; wird gelöscht, und das aktuelle Bauteil wird mit den angezeigten Daten gespeichert.</target>
       </segment>
     </unit>
     <unit id="mmW5Yl1" name="part.info.merge_modal.title">
@@ -12523,7 +12275,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="p7LGAIX" name="settings.ips.element14.apiKey.help">
       <segment state="translated">
         <source>settings.ips.element14.apiKey.help</source>
-        <target><![CDATA[Sie können sich unter <a href="https://partner.element14.com/">https://partner.element14.com/</a> für einen API-Schlüssel registrieren.]]></target>
+        <target>Sie können sich unter &lt;a href="https://partner.element14.com/"&gt;https://partner.element14.com/&lt;/a&gt; für einen API-Schlüssel registrieren.</target>
       </segment>
     </unit>
     <unit id="ZdUHpZc" name="settings.ips.element14.storeId">
@@ -12535,7 +12287,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="XXGUxF6" name="settings.ips.element14.storeId.help">
       <segment state="translated">
         <source>settings.ips.element14.storeId.help</source>
-        <target><![CDATA[Die Domain des Shops, aus dem die Daten abgerufen werden sollen. Diese bestimmt die Sprache und Währung der Ergebnisse. Eine Liste der gültigen Domains finden Sie <a href="https://partner.element14.com/docs/Product_Search_API_REST__Description">hier</a>.]]></target>
+        <target>Die Domain des Shops, aus dem die Daten abgerufen werden sollen. Diese bestimmt die Sprache und Währung der Ergebnisse. Eine Liste der gültigen Domains finden Sie &lt;a href="https://partner.element14.com/docs/Product_Search_API_REST__Description"&gt;hier&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="WKWZIm2" name="settings.ips.tme">
@@ -12553,7 +12305,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="_pYLrPT" name="settings.ips.tme.token.help">
       <segment state="translated">
         <source>settings.ips.tme.token.help</source>
-        <target><![CDATA[Sie können einen API-Token und einen geheimen Schlüssel unter <a href="https://developers.tme.eu/en/">https://developers.tme.eu/en/</a> erhalten.]]></target>
+        <target>Sie können einen API-Token und einen geheimen Schlüssel unter &lt;a href="https://developers.tme.eu/en/"&gt;https://developers.tme.eu/en/&lt;/a&gt; erhalten.</target>
       </segment>
     </unit>
     <unit id="yswx4bq" name="settings.ips.tme.secret">
@@ -12601,7 +12353,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="gu.JlpT" name="settings.ips.mouser.apiKey.help">
       <segment state="translated">
         <source>settings.ips.mouser.apiKey.help</source>
-        <target><![CDATA[Sie können sich unter <a href="https://eu.mouser.com/api-hub/">https://eu.mouser.com/api-hub/</a> für einen API-Schlüssel registrieren.]]></target>
+        <target>Sie können sich unter &lt;a href="https://eu.mouser.com/api-hub/"&gt;https://eu.mouser.com/api-hub/&lt;/a&gt; für einen API-Schlüssel registrieren.</target>
       </segment>
     </unit>
     <unit id="Q66CNjw" name="settings.ips.mouser.searchLimit">
@@ -12649,7 +12401,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="xU8_Qw." name="settings.ips.mouser.searchOptions.rohsAndInStock">
       <segment state="translated">
         <source>settings.ips.mouser.searchOptions.rohsAndInStock</source>
-        <target><![CDATA[Sofort verfügbar & RoHS konform]]></target>
+        <target>Sofort verfügbar &amp; RoHS konform</target>
       </segment>
     </unit>
     <unit id="fQYt0Om" name="settings.ips.lcsc">
@@ -12679,7 +12431,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="kKv0J3." name="settings.system.attachments">
       <segment state="translated">
         <source>settings.system.attachments</source>
-        <target><![CDATA[Anhänge & Dateien]]></target>
+        <target>Anhänge &amp; Dateien</target>
       </segment>
     </unit>
     <unit id="dsRff8T" name="settings.system.attachments.maxFileSize">
@@ -12703,7 +12455,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="T.PBu5P" name="settings.system.attachments.allowDownloads.help">
       <segment state="translated">
         <source>settings.system.attachments.allowDownloads.help</source>
-        <target><![CDATA[Mit dieser Option können Benutzer externe Dateien in die Part-DB herunterladen, indem sie eine URL angeben. <b>Achtung: Dies kann ein Sicherheitsrisiko darstellen, da Benutzer dadurch möglicherweise über die Part-DB auf Intranet-Ressourcen zugreifen können!</b>]]></target>
+        <target>Mit dieser Option können Benutzer externe Dateien in die Part-DB herunterladen, indem sie eine URL angeben. &lt;b&gt;Achtung: Dies kann ein Sicherheitsrisiko darstellen, da Benutzer dadurch möglicherweise über die Part-DB auf Intranet-Ressourcen zugreifen können!&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id=".OyihML" name="settings.system.attachments.downloadByDefault">
@@ -12877,8 +12629,8 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="0GRlEe5" name="settings.system.localization.base_currency_description">
       <segment state="translated">
         <source>settings.system.localization.base_currency_description</source>
-        <target><![CDATA[Die Währung, in der Preisinformationen und Wechselkurse gespeichert werden. Diese Währung wird angenommen, wenn für eine Preisinformation keine Währung festgelegt ist.
-<b>Bitte beachten Sie, dass die Währungen bei einer Änderung dieses Wertes nicht umgerechnet werden. Wenn Sie also die Basiswährung ändern, nachdem Sie bereits Preisinformationen hinzugefügt haben, führt dies zu falschen Preisen!</b>]]></target>
+        <target>Die Währung, in der Preisinformationen und Wechselkurse gespeichert werden. Diese Währung wird angenommen, wenn für eine Preisinformation keine Währung festgelegt ist.
+&lt;b&gt;Bitte beachten Sie, dass die Währungen bei einer Änderung dieses Wertes nicht umgerechnet werden. Wenn Sie also die Basiswährung ändern, nachdem Sie bereits Preisinformationen hinzugefügt haben, führt dies zu falschen Preisen!&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="cvpTUeY" name="settings.system.privacy">
@@ -12908,7 +12660,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="w07P3Dt" name="settings.misc.kicad_eda.category_depth.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.category_depth.help</source>
-        <target><![CDATA[Dieser Wert bestimmt die Tiefe des Kategoriebaums, der in KiCad sichtbar ist. 0 bedeutet, dass nur die Kategorien der obersten Ebene sichtbar sind. Setzen Sie den Wert auf > 0, um weitere Ebenen anzuzeigen. Setzen Sie den Wert auf -1, um alle Teile der Part-DB innerhalb einer einzigen Kategorie in KiCad anzuzeigen.]]></target>
+        <target>Dieser Wert bestimmt die Tiefe des Kategoriebaums, der in KiCad sichtbar ist. 0 bedeutet, dass nur die Kategorien der obersten Ebene sichtbar sind. Setzen Sie den Wert auf &gt; 0, um weitere Ebenen anzuzeigen. Setzen Sie den Wert auf -1, um alle Teile der Part-DB innerhalb einer einzigen Kategorie in KiCad anzuzeigen.</target>
       </segment>
     </unit>
     <unit id="VwvmcWE" name="settings.behavior.sidebar">
@@ -12926,7 +12678,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="jc0JTvL" name="settings.behavior.sidebar.items.help">
       <segment state="translated">
         <source>settings.behavior.sidebar.items.help</source>
-        <target><![CDATA[Die Menüs, die standardmäßig in der Seitenleiste angezeigt werden. Die Reihenfolge der Elemente kann per Drag & Drop geändert werden.]]></target>
+        <target>Die Menüs, die standardmäßig in der Seitenleiste angezeigt werden. Die Reihenfolge der Elemente kann per Drag &amp; Drop geändert werden.</target>
       </segment>
     </unit>
     <unit id="gVSWDkE" name="settings.behavior.sidebar.rootNodeEnabled">
@@ -12974,7 +12726,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="SUD8H3b" name="settings.behavior.table.parts_default_columns.help">
       <segment state="translated">
         <source>settings.behavior.table.parts_default_columns.help</source>
-        <target><![CDATA[Die Spalten, die standardmäßig in Bauteiltabellen angezeigt werden sollen. Die Reihenfolge der Elemente kann per Drag & Drop geändert werden.]]></target>
+        <target>Die Spalten, die standardmäßig in Bauteiltabellen angezeigt werden sollen. Die Reihenfolge der Elemente kann per Drag &amp; Drop geändert werden.</target>
       </segment>
     </unit>
     <unit id="hazr_g5" name="settings.ips.oemsecrets">
@@ -13028,7 +12780,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="KLJYfJ0" name="settings.ips.oemsecrets.sortMode.M">
       <segment state="translated">
         <source>settings.ips.oemsecrets.sortMode.M</source>
-        <target><![CDATA[Vollständigkeit & Herstellername]]></target>
+        <target>Vollständigkeit &amp; Herstellername</target>
       </segment>
     </unit>
     <unit id="8C9ijHM" name="entity.export.flash.error.no_entities">
@@ -13688,7 +13440,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="FsrRdkp" name="settings.behavior.homepage.items.help">
       <segment state="translated">
         <source>settings.behavior.homepage.items.help</source>
-        <target><![CDATA[Die Elemente, die auf der Startseite angezeigt werden sollen. Die Reihenfolge kann per Drag & Drop geändert werden.]]></target>
+        <target>Die Elemente, die auf der Startseite angezeigt werden sollen. Die Reihenfolge kann per Drag &amp; Drop geändert werden.</target>
       </segment>
     </unit>
     <unit id="CYw3_pS" name="settings.system.customization.showVersionOnHomepage">

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="nl">
   <file id="messages.en">
     <unit id="0Md_YOf" name="attachment_type.caption">
@@ -145,17 +145,6 @@
       <segment state="translated">
         <source>currency.new</source>
         <target>Nieuwe valuta</target>
-      </segment>
-    </unit>
-    <unit id="zNlEdQs" name="project.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>project.caption</source>
-        <target>Project</target>
       </segment>
     </unit>
     <unit id="DTt5Co7" name="project.edit">
@@ -587,17 +576,6 @@
       <segment state="translated">
         <source>storelocation.new</source>
         <target>Nieuwe opslag locatie</target>
-      </segment>
-    </unit>
-    <unit id="ykqfBBp" name="supplier.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>supplier.caption</source>
-        <target>Leveranciers</target>
       </segment>
     </unit>
     <unit id="DpVIJeK" name="supplier.edit">
