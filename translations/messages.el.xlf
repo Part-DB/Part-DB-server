@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="el">
   <file id="messages.en">
     <unit id="0Md_YOf" name="attachment_type.caption">
@@ -337,17 +337,6 @@
       <segment state="translated">
         <source>storelocation.labelp</source>
         <target>Χώροι αποθήκευσης</target>
-      </segment>
-    </unit>
-    <unit id="ykqfBBp" name="supplier.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>supplier.caption</source>
-        <target>Προμηθευτές</target>
       </segment>
     </unit>
     <unit id=".YoS4pi" name="user.edit.caption">
@@ -1208,26 +1197,6 @@
         <target>Τιμή μονάδας</target>
       </segment>
     </unit>
-    <unit id="EKnfKFl" name="edit.caption_short">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-      </notes>
-      <segment state="translated">
-        <source>edit.caption_short</source>
-        <target>Επεξεργασία</target>
-      </segment>
-    </unit>
-    <unit id="qNZM46r" name="delete.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-      </notes>
-      <segment state="translated">
-        <source>delete.caption</source>
-        <target>Διαγραφή</target>
-      </segment>
-    </unit>
     <unit id="aUihK3c" name="part_lots.description">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:7</note>
@@ -1519,16 +1488,6 @@
       <segment state="translated">
         <source>entity.info.common.tab</source>
         <target>Συνηθισμένος</target>
-      </segment>
-    </unit>
-    <unit id="3Vc5_D2" name="attachment.external_file">
-      <notes>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.external_file</source>
-        <target>Εξωτερικό αρχείο</target>
       </segment>
     </unit>
     <unit id="gexfRxf" name="attachment.edit">

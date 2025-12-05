@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
   <file id="messages.en">
     <unit id="x_wTSQS" name="attachment_type.caption">
@@ -137,17 +137,6 @@
         <target>New currency</target>
       </segment>
     </unit>
-    <unit id="YFQ8iCW" name="project.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>project.caption</source>
-        <target>Project</target>
-      </segment>
-    </unit>
     <unit id="pe43jlV" name="project.edit">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
@@ -232,7 +221,7 @@
       </notes>
       <segment state="final">
         <source>part.info.timetravel_hint</source>
-        <target><![CDATA[This is how the part appeared before %timestamp%. <i>Please note that this feature is experimental, so the info may not be correct.</i>]]></target>
+        <target>This is how the part appeared before %timestamp%. &lt;i&gt;Please note that this feature is experimental, so the info may not be correct.&lt;/i&gt;</target>
       </segment>
     </unit>
     <unit id="3exvSpl" name="standard.label">
@@ -533,17 +522,6 @@
         <target>New storage location</target>
       </segment>
     </unit>
-    <unit id="Rt3eY_7" name="supplier.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>supplier.caption</source>
-        <target>Suppliers</target>
-      </segment>
-    </unit>
     <unit id="ozZU_B5" name="supplier.edit">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:16</note>
@@ -671,10 +649,10 @@
       </notes>
       <segment state="translated">
         <source>user.edit.tfa.disable_tfa_message</source>
-        <target><![CDATA[This will disable <b>all active two-factor authentication methods of the user</b> and delete the <b>backup codes</b>!
-<br>
-The user will have to set up all two-factor authentication methods again and print new backup codes! <br><br>
-<b>Only do this if you are absolutely sure about the identity of the user (seeking help), otherwise the account could be compromised by an attacker!</b>]]></target>
+        <target>This will disable &lt;b&gt;all active two-factor authentication methods of the user&lt;/b&gt; and delete the &lt;b&gt;backup codes&lt;/b&gt;!
+&lt;br&gt;
+The user will have to set up all two-factor authentication methods again and print new backup codes! &lt;br&gt;&lt;br&gt;
+&lt;b&gt;Only do this if you are absolutely sure about the identity of the user (seeking help), otherwise the account could be compromised by an attacker!&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="APsHYu0" name="user.edit.tfa.disable_tfa.btn">
@@ -825,9 +803,9 @@ The user will have to set up all two-factor authentication methods again and pri
       </notes>
       <segment state="translated">
         <source>entity.delete.message</source>
-        <target><![CDATA[This can not be undone!
-<br>
-Sub elements will be moved upwards.]]></target>
+        <target>This can not be undone!
+&lt;br&gt;
+Sub elements will be moved upwards.</target>
       </segment>
     </unit>
     <unit id="2tKAqHw" name="entity.delete">
@@ -1381,7 +1359,7 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment state="final">
         <source>homepage.github.text</source>
-        <target><![CDATA[Source, downloads, bug reports, to-do-list etc. can be found on <a href="%href%" class="link-external" target="_blank">GitHub project page</a>]]></target>
+        <target>Source, downloads, bug reports, to-do-list etc. can be found on &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub project page&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="D5OKsgU" name="homepage.help.caption">
@@ -1403,7 +1381,7 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment state="translated">
         <source>homepage.help.text</source>
-        <target><![CDATA[Help and tips can be found in Wiki the <a href="%href%" class="link-external" target="_blank">GitHub page</a>]]></target>
+        <target>Help and tips can be found in Wiki the &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub page&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="dnirx4v" name="homepage.forum.caption">
@@ -1645,7 +1623,7 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment state="translated">
         <source>email.pw_reset.fallback</source>
-        <target><![CDATA[If this does not work for you, go to <a href="%url%">%url%</a> and enter the following info]]></target>
+        <target>If this does not work for you, go to &lt;a href="%url%"&gt;%url%&lt;/a&gt; and enter the following info</target>
       </segment>
     </unit>
     <unit id="DduL9Hu" name="email.pw_reset.username">
@@ -1675,7 +1653,7 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment state="translated">
         <source>email.pw_reset.valid_unit %date%</source>
-        <target><![CDATA[The reset token will be valid until <i>%date%</i>.]]></target>
+        <target>The reset token will be valid until &lt;i&gt;%date%&lt;/i&gt;.</target>
       </segment>
     </unit>
     <unit id="8sBnjRy" name="orderdetail.delete">
@@ -2365,26 +2343,6 @@ Sub elements will be moved upwards.]]></target>
         <target>Unit Price</target>
       </segment>
     </unit>
-    <unit id="CbWR2nl" name="edit.caption_short">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-      </notes>
-      <segment state="translated">
-        <source>edit.caption_short</source>
-        <target>Edit</target>
-      </segment>
-    </unit>
-    <unit id="er4pQft" name="delete.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-      </notes>
-      <segment state="translated">
-        <source>delete.caption</source>
-        <target>Delete</target>
-      </segment>
-    </unit>
     <unit id="pg0yCCK" name="part_lots.description">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:7</note>
@@ -2997,16 +2955,6 @@ Sub elements will be moved upwards.]]></target>
         <target>To ensure access even if the key is lost, it is recommended to register a second key as backup and store it in a safe place!</target>
       </segment>
     </unit>
-    <unit id="IcnYTDa" name="r_u2f_two_factor.name">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-      </notes>
-      <segment state="translated">
-        <source>r_u2f_two_factor.name</source>
-        <target>Shown key name (e.g. Backup)</target>
-      </segment>
-    </unit>
     <unit id="wH4JBAx" name="tfa_u2f.add_key.add_button">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:19</note>
@@ -3578,8 +3526,8 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment state="translated">
         <source>tfa_google.disable.confirm_message</source>
-        <target><![CDATA[If you disable the Authenticator App, all backup codes will be deleted, so you may need to reprint them.<br>
-Also note that without two-factor authentication, your account is no longer as well protected against attackers!]]></target>
+        <target>If you disable the Authenticator App, all backup codes will be deleted, so you may need to reprint them.&lt;br&gt;
+Also note that without two-factor authentication, your account is no longer as well protected against attackers!</target>
       </segment>
     </unit>
     <unit id="yu9MSt5" name="tfa_google.disabled_message">
@@ -3599,7 +3547,7 @@ Also note that without two-factor authentication, your account is no longer as w
       </notes>
       <segment state="translated">
         <source>tfa_google.step.download</source>
-        <target><![CDATA[Download an authenticator app (e.g. <a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">Google Authenticator</a> oder <a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp">FreeOTP Authenticator</a>)]]></target>
+        <target>Download an authenticator app (e.g. &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"&gt;Google Authenticator&lt;/a&gt; oder &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp"&gt;FreeOTP Authenticator&lt;/a&gt;)</target>
       </segment>
     </unit>
     <unit id="eriwJoR" name="tfa_google.step.scan">
@@ -3841,8 +3789,8 @@ Also note that without two-factor authentication, your account is no longer as w
       </notes>
       <segment state="translated">
         <source>tfa_trustedDevices.explanation</source>
-        <target><![CDATA[When checking the second factor, the current computer can be marked as trustworthy, so no more two-factor checks on this computer are needed.
-If you have done this incorrectly or if a computer is no longer trusted, you can reset the status of <i>all </i>computers here.]]></target>
+        <target>When checking the second factor, the current computer can be marked as trustworthy, so no more two-factor checks on this computer are needed.
+If you have done this incorrectly or if a computer is no longer trusted, you can reset the status of &lt;i&gt;all &lt;/i&gt;computers here.</target>
       </segment>
     </unit>
     <unit id="FZINq8z" name="tfa_trustedDevices.invalidate.confirm_title">
@@ -3998,17 +3946,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <segment state="translated">
         <source>supplier.label</source>
         <target>Supplier</target>
-      </segment>
-    </unit>
-    <unit id="liOuf4u" name="search.deactivateBarcode">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:57</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
-        <note priority="1">templates\base.html.twig:75</note>
-      </notes>
-      <segment state="translated">
-        <source>search.deactivateBarcode</source>
-        <target>Deact. Barcode</target>
       </segment>
     </unit>
     <unit id="h7QrXRa" name="search.regexmatching">
@@ -4302,16 +4239,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Saved changes!</target>
       </segment>
     </unit>
-    <unit id="bNFdvNL" name="part.edited_flash.invalid">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-        <note priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-      </notes>
-      <segment state="translated">
-        <source>part.edited_flash.invalid</source>
-        <target>Error during saving: Please check your inputs!</target>
-      </segment>
-    </unit>
     <unit id="XFmvSsv" name="part.deleted">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:216</note>
@@ -4543,16 +4470,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <segment state="translated">
         <source>user.settings.2fa.backup_codes.regenerated</source>
         <target>New backup codes successfully generated.</target>
-      </segment>
-    </unit>
-    <unit id="9OPMdQa" name="attachment.table.filename">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.table.filename</source>
-        <target>File name</target>
       </segment>
     </unit>
     <unit id="hSn3zNG" name="attachment.table.filesize">
@@ -5319,7 +5236,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>label_options.lines_mode.help</source>
-        <target><![CDATA[If you select Twig here, the content field is interpreted as Twig template. See <a href="https://twig.symfony.com/doc/3.x/templates.html">Twig documentation</a> and <a href="https://docs.part-db.de/usage/labels.html#twig-mode">Wiki</a> for more information.]]></target>
+        <target>If you select Twig here, the content field is interpreted as Twig template. See &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;Twig documentation&lt;/a&gt; and &lt;a href="https://docs.part-db.de/usage/labels.html#twig-mode"&gt;Wiki&lt;/a&gt; for more information.</target>
       </segment>
     </unit>
     <unit id="isvxbiX" name="label_options.page_size.label">
@@ -6342,16 +6259,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>New Element</target>
       </segment>
     </unit>
-    <unit id="U.Ovrd7" name="attachment.external_file">
-      <notes>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.external_file</source>
-        <target>External file</target>
-      </segment>
-    </unit>
     <unit id="YqYH6GX" name="attachment.edit">
       <notes>
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
@@ -6620,16 +6527,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <segment state="translated">
         <source>validator.noneofitschild.children</source>
         <target>The parent can not be one of the children of itself.</target>
-      </segment>
-    </unit>
-    <unit id="j_GFZOQ" name="validator.part_lot.location_full.no_increasment">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>validator.part_lot.location_full.no_increasment</source>
-        <target>The storage location was marked as full, so you can not increase the instock amount. (New amount max. {{ old_amount }})</target>
       </segment>
     </unit>
     <unit id="eeEjB4s" name="validator.part_lot.location_full">
@@ -7187,15 +7084,15 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>mass_creation.lines.placeholder</source>
-        <target><![CDATA[Element 1
+        <target>Element 1
    Element 1.1
       Element 1.1.1
    Element 1.2
 Element 2
 Element 3
 
-Element 1 -> Element 1.1
-Element 1 -> Element 1.2]]></target>
+Element 1 -&gt; Element 1.1
+Element 1 -&gt; Element 1.2</target>
       </segment>
     </unit>
     <unit id="TWSqPFi" name="entity.mass_creation.btn">
@@ -7488,39 +7385,6 @@ Element 1 -> Element 1.2]]></target>
         <target>Discard changes</target>
       </segment>
     </unit>
-    <unit id="rwhG3NF" name="part.withdraw.btn">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:166</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.btn</source>
-        <target>Withdraw</target>
-      </segment>
-    </unit>
-    <unit id="KYhBkRo" name="part.withdraw.comment:">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:171</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.comment:</source>
-        <target>Comment/Purpose</target>
-      </segment>
-    </unit>
-    <unit id="kAlV8Zt" name="part.add.caption">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:189</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.caption</source>
-        <target>Add parts</target>
-      </segment>
-    </unit>
     <unit id="TAZxRYj" name="part.add.btn">
       <notes>
         <note priority="1">templates\Parts\show_part_info.html.twig:194</note>
@@ -7532,28 +7396,6 @@ Element 1 -> Element 1.2]]></target>
         <target>Add</target>
       </segment>
     </unit>
-    <unit id="yqLffb1" name="part.add.comment">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:199</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.comment</source>
-        <target>Comment/Purpose</target>
-      </segment>
-    </unit>
-    <unit id="oj5uuIF" name="admin.comment">
-      <notes>
-        <note priority="1">templates\AdminPages\CompanyAdminBase.html.twig:15</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>admin.comment</source>
-        <target>Notes</target>
-      </segment>
-    </unit>
     <unit id="VI_567B" name="manufacturer_url.label">
       <notes>
         <note priority="1">src\Form\PartType.php:83</note>
@@ -7563,69 +7405,6 @@ Element 1 -> Element 1.2]]></target>
       <segment state="translated">
         <source>manufacturer_url.label</source>
         <target>Manufacturer link</target>
-      </segment>
-    </unit>
-    <unit id="hx8T2RQ" name="part.description.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:66</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.description.placeholder</source>
-        <target>e.g. NPN 45V 0,1A 0,5W</target>
-      </segment>
-    </unit>
-    <unit id="SDwGex2" name="part.instock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:69</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.instock.placeholder</source>
-        <target>e.g. 10</target>
-      </segment>
-    </unit>
-    <unit id="of7AUNW" name="part.mininstock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:72</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.mininstock.placeholder</source>
-        <target>e.g. 5</target>
-      </segment>
-    </unit>
-    <unit id="OsZzrme" name="part.order.price_per">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.order.price_per</source>
-        <target>Price per</target>
-      </segment>
-    </unit>
-    <unit id="dEQm2lQ" name="part.withdraw.caption">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.caption</source>
-        <target>Withdraw parts</target>
-      </segment>
-    </unit>
-    <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>datatable.datatable.lengthMenu</source>
-        <target>_MENU_</target>
       </segment>
     </unit>
     <unit id="IPge2iH" name="perm.group.parts">
@@ -8620,15 +8399,6 @@ Element 1 -> Element 1.2]]></target>
         <target>Show old element versions (time travel)</target>
       </segment>
     </unit>
-    <unit id="tyCC1qL" name="tfa_u2f.key_added_successful">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>tfa_u2f.key_added_successful</source>
-        <target>Security key added successfully.</target>
-      </segment>
-    </unit>
     <unit id="gDVCAxj" name="log.type.security.google_disabled">
       <notes>
         <note category="state" priority="1">obsolete</note>
@@ -8825,12 +8595,6 @@ Element 1 -> Element 1.2]]></target>
       <segment state="translated">
         <source>group.edit.enforce_2fa.help</source>
         <target>If this option is enabled, every direct member of this group, has to configure at least one second-factor for authentication. Recommended for administrative groups with much permissions.</target>
-      </segment>
-    </unit>
-    <unit id="O2l2jsJ" name="selectpicker.empty">
-      <segment state="translated">
-        <source>selectpicker.empty</source>
-        <target>Nothing selected</target>
       </segment>
     </unit>
     <unit id="NwsYm0P" name="selectpicker.nothing_selected">
@@ -9089,12 +8853,6 @@ Element 1 -> Element 1.2]]></target>
       <segment state="translated">
         <source>user.pw_change_needed.flash</source>
         <target>Your password needs to be changed! Please set a new password.</target>
-      </segment>
-    </unit>
-    <unit id="x98ftIM" name="tree.root_node.text">
-      <segment state="translated">
-        <source>tree.root_node.text</source>
-        <target>Root node</target>
       </segment>
     </unit>
     <unit id="2LkM7pn" name="part_list.action.select_null">
@@ -9394,25 +9152,25 @@ Element 1 -> Element 1.2]]></target>
     <unit id="r4vDLAt" name="filter.parameter_value_constraint.operator.&lt;">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&lt;</source>
-        <target><![CDATA[Typ. Value <]]></target>
+        <target>Typ. Value &lt;</target>
       </segment>
     </unit>
     <unit id="X9SA3UP" name="filter.parameter_value_constraint.operator.&gt;">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&gt;</source>
-        <target><![CDATA[Typ. Value >]]></target>
+        <target>Typ. Value &gt;</target>
       </segment>
     </unit>
     <unit id="BQGaoQS" name="filter.parameter_value_constraint.operator.&lt;=">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&lt;=</source>
-        <target><![CDATA[Typ. Value <=]]></target>
+        <target>Typ. Value &lt;=</target>
       </segment>
     </unit>
     <unit id="2ha3P6g" name="filter.parameter_value_constraint.operator.&gt;=">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.&gt;=</source>
-        <target><![CDATA[Typ. Value >=]]></target>
+        <target>Typ. Value &gt;=</target>
       </segment>
     </unit>
     <unit id="4DaBace" name="filter.parameter_value_constraint.operator.BETWEEN">
@@ -9520,7 +9278,7 @@ Element 1 -> Element 1.2]]></target>
     <unit id="4tHhDtU" name="parts_list.search.searching_for">
       <segment state="translated">
         <source>parts_list.search.searching_for</source>
-        <target><![CDATA[Searching parts with keyword <b>%keyword%</b>]]></target>
+        <target>Searching parts with keyword &lt;b&gt;%keyword%&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="4vomKLa" name="parts_list.search_options.caption">
@@ -10180,13 +9938,13 @@ Element 1 -> Element 1.2]]></target>
     <unit id="NdZ1t7a" name="project.builds.number_of_builds_possible">
       <segment state="translated">
         <source>project.builds.number_of_builds_possible</source>
-        <target><![CDATA[You have enough stocked to build <b>%max_builds%</b> builds of this project.]]></target>
+        <target>You have enough stocked to build &lt;b&gt;%max_builds%&lt;/b&gt; builds of this project.</target>
       </segment>
     </unit>
     <unit id="iuSpPbg" name="project.builds.check_project_status">
       <segment state="translated">
         <source>project.builds.check_project_status</source>
-        <target><![CDATA[The current project status is <b>"%project_status%"</b>. You should check if you really want to build the project with this status!]]></target>
+        <target>The current project status is &lt;b&gt;"%project_status%"&lt;/b&gt;. You should check if you really want to build the project with this status!</target>
       </segment>
     </unit>
     <unit id="Y7vSSxi" name="project.builds.following_bom_entries_miss_instock_n">
@@ -10300,7 +10058,7 @@ Element 1 -> Element 1.2]]></target>
     <unit id="GzqIwHH" name="entity.select.add_hint">
       <segment state="translated">
         <source>entity.select.add_hint</source>
-        <target><![CDATA[Use -> to create nested structures, e.g. "Node 1->Node 1.1"]]></target>
+        <target>Use -&gt; to create nested structures, e.g. "Node 1-&gt;Node 1.1"</target>
       </segment>
     </unit>
     <unit id="S4CxO.T" name="entity.select.group.new_not_added_to_DB">
@@ -10324,13 +10082,13 @@ Element 1 -> Element 1.2]]></target>
     <unit id="XLnXtsR" name="homepage.first_steps.introduction">
       <segment state="translated">
         <source>homepage.first_steps.introduction</source>
-        <target><![CDATA[Your database is still empty. You might want to read the <a href="%url%">documentation</a> or start to creating the following data structures:]]></target>
+        <target>Your database is still empty. You might want to read the &lt;a href="%url%"&gt;documentation&lt;/a&gt; or start to creating the following data structures:</target>
       </segment>
     </unit>
     <unit id="Q79MOIk" name="homepage.first_steps.create_part">
       <segment state="translated">
         <source>homepage.first_steps.create_part</source>
-        <target><![CDATA[Or you can directly <a href="%url%">create a new part</a>.]]></target>
+        <target>Or you can directly &lt;a href="%url%"&gt;create a new part&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="vplYq4f" name="homepage.first_steps.hide_hint">
@@ -10342,7 +10100,7 @@ Element 1 -> Element 1.2]]></target>
     <unit id="MJoZl4f" name="homepage.forum.text">
       <segment state="translated">
         <source>homepage.forum.text</source>
-        <target><![CDATA[For questions about Part-DB use the <a href="%href%" class="link-external" target="_blank">discussion forum</a>]]></target>
+        <target>For questions about Part-DB use the &lt;a href="%href%" class="link-external" target="_blank"&gt;discussion forum&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="YsukbnK" name="log.element_edited.changed_fields.category">
@@ -11008,7 +10766,7 @@ Element 1 -> Element 1.2]]></target>
     <unit id="p_IxB9K" name="parts.import.help_documentation">
       <segment state="translated">
         <source>parts.import.help_documentation</source>
-        <target><![CDATA[See the <a href="%link%">documentation</a> for more information on the file format.]]></target>
+        <target>See the &lt;a href="%link%"&gt;documentation&lt;/a&gt; for more information on the file format.</target>
       </segment>
     </unit>
     <unit id="awbvhVq" name="parts.import.help">
@@ -11200,7 +10958,7 @@ Element 1 -> Element 1.2]]></target>
     <unit id="o5u.Nnz" name="part.filter.lessThanDesired">
       <segment state="translated">
         <source>part.filter.lessThanDesired</source>
-        <target><![CDATA[In stock less than desired (total amount < min. amount)]]></target>
+        <target>In stock less than desired (total amount &lt; min. amount)</target>
       </segment>
     </unit>
     <unit id="YN9eLcZ" name="part.filter.lotOwner">
@@ -11667,12 +11425,6 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Expiration date</target>
       </segment>
     </unit>
-    <unit id="5k6W3jw" name="api_tokens.added_date">
-      <segment state="translated">
-        <source>api_tokens.added_date</source>
-        <target>Added at</target>
-      </segment>
-    </unit>
     <unit id="leWWwKP" name="api_tokens.last_time_used">
       <segment state="translated">
         <source>api_tokens.last_time_used</source>
@@ -12012,13 +11764,13 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="i68lU5x" name="part.merge.confirm.title">
       <segment state="translated">
         <source>part.merge.confirm.title</source>
-        <target><![CDATA[Do you really want to merge <b>%other%</b> into <b>%target%</b>?]]></target>
+        <target>Do you really want to merge &lt;b&gt;%other%&lt;/b&gt; into &lt;b&gt;%target%&lt;/b&gt;?</target>
       </segment>
     </unit>
     <unit id="k0anzYV" name="part.merge.confirm.message">
       <segment state="translated">
         <source>part.merge.confirm.message</source>
-        <target><![CDATA[<b>%other%</b> will be deleted, and the part will be saved with the shown information.]]></target>
+        <target>&lt;b&gt;%other%&lt;/b&gt; will be deleted, and the part will be saved with the shown information.</target>
       </segment>
     </unit>
     <unit id="mmW5Yl1" name="part.info.merge_modal.title">
@@ -12372,7 +12124,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="p7LGAIX" name="settings.ips.element14.apiKey.help">
       <segment state="translated">
         <source>settings.ips.element14.apiKey.help</source>
-        <target><![CDATA[You can register for an API key on <a href="https://partner.element14.com/">https://partner.element14.com/</a>.]]></target>
+        <target>You can register for an API key on &lt;a href="https://partner.element14.com/"&gt;https://partner.element14.com/&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="ZdUHpZc" name="settings.ips.element14.storeId">
@@ -12384,7 +12136,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="XXGUxF6" name="settings.ips.element14.storeId.help">
       <segment state="translated">
         <source>settings.ips.element14.storeId.help</source>
-        <target><![CDATA[The store domain to retrieve the data from. This decides the language and currency of results. See <a href="https://partner.element14.com/docs/Product_Search_API_REST__Description">here</a> for a list of valid domains.]]></target>
+        <target>The store domain to retrieve the data from. This decides the language and currency of results. See &lt;a href="https://partner.element14.com/docs/Product_Search_API_REST__Description"&gt;here&lt;/a&gt; for a list of valid domains.</target>
       </segment>
     </unit>
     <unit id="WKWZIm2" name="settings.ips.tme">
@@ -12402,7 +12154,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="_pYLrPT" name="settings.ips.tme.token.help">
       <segment state="translated">
         <source>settings.ips.tme.token.help</source>
-        <target><![CDATA[You can get an API token and secret on <a href="https://developers.tme.eu/en/">https://developers.tme.eu/en/</a>.]]></target>
+        <target>You can get an API token and secret on &lt;a href="https://developers.tme.eu/en/"&gt;https://developers.tme.eu/en/&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="yswx4bq" name="settings.ips.tme.secret">
@@ -12450,7 +12202,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="gu.JlpT" name="settings.ips.mouser.apiKey.help">
       <segment state="translated">
         <source>settings.ips.mouser.apiKey.help</source>
-        <target><![CDATA[You can register for an API key on <a href="https://eu.mouser.com/api-hub/">https://eu.mouser.com/api-hub/</a>.]]></target>
+        <target>You can register for an API key on &lt;a href="https://eu.mouser.com/api-hub/"&gt;https://eu.mouser.com/api-hub/&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="Q66CNjw" name="settings.ips.mouser.searchLimit">
@@ -12528,7 +12280,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="kKv0J3." name="settings.system.attachments">
       <segment state="translated">
         <source>settings.system.attachments</source>
-        <target><![CDATA[Attachments & Files]]></target>
+        <target>Attachments &amp; Files</target>
       </segment>
     </unit>
     <unit id="dsRff8T" name="settings.system.attachments.maxFileSize">
@@ -12552,7 +12304,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="T.PBu5P" name="settings.system.attachments.allowDownloads.help">
       <segment state="translated">
         <source>settings.system.attachments.allowDownloads.help</source>
-        <target><![CDATA[With this option users can download external files into Part-DB by providing an URL. <b>Attention: This can be a security issue, as it might allow users to access intranet ressources via Part-DB!</b>]]></target>
+        <target>With this option users can download external files into Part-DB by providing an URL. &lt;b&gt;Attention: This can be a security issue, as it might allow users to access intranet ressources via Part-DB!&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id=".OyihML" name="settings.system.attachments.downloadByDefault">
@@ -12726,8 +12478,8 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="0GRlEe5" name="settings.system.localization.base_currency_description">
       <segment state="translated">
         <source>settings.system.localization.base_currency_description</source>
-        <target><![CDATA[The currency that is used to store price information and exchange rates in. This currency is assumed, when no currency is set for a price information.
-<b>Please note that the currencies are not converted, when changing this value. So changing the default currency after you already added price information, will result in wrong prices!</b>]]></target>
+        <target>The currency that is used to store price information and exchange rates in. This currency is assumed, when no currency is set for a price information.
+&lt;b&gt;Please note that the currencies are not converted, when changing this value. So changing the default currency after you already added price information, will result in wrong prices!&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="cvpTUeY" name="settings.system.privacy">
@@ -12757,7 +12509,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="w07P3Dt" name="settings.misc.kicad_eda.category_depth.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.category_depth.help</source>
-        <target><![CDATA[This value determines the depth of the category tree, that is visible inside KiCad. 0 means that only the top level categories are visible. Set to a value > 0 to show more levels. Set to -1, to show all parts of Part-DB inside a sigle cnategory in KiCad.]]></target>
+        <target>This value determines the depth of the category tree, that is visible inside KiCad. 0 means that only the top level categories are visible. Set to a value &gt; 0 to show more levels. Set to -1, to show all parts of Part-DB inside a sigle cnategory in KiCad.</target>
       </segment>
     </unit>
     <unit id="VwvmcWE" name="settings.behavior.sidebar">
@@ -12775,7 +12527,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="jc0JTvL" name="settings.behavior.sidebar.items.help">
       <segment state="translated">
         <source>settings.behavior.sidebar.items.help</source>
-        <target><![CDATA[The menus which appear at the sidebar by default. Order of items can be changed via drag & drop.]]></target>
+        <target>The menus which appear at the sidebar by default. Order of items can be changed via drag &amp; drop.</target>
       </segment>
     </unit>
     <unit id="gVSWDkE" name="settings.behavior.sidebar.rootNodeEnabled">
@@ -12823,7 +12575,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="SUD8H3b" name="settings.behavior.table.parts_default_columns.help">
       <segment state="translated">
         <source>settings.behavior.table.parts_default_columns.help</source>
-        <target><![CDATA[The columns to show by default in part tables. Order of items can be changed via drag & drop.]]></target>
+        <target>The columns to show by default in part tables. Order of items can be changed via drag &amp; drop.</target>
       </segment>
     </unit>
     <unit id="hazr_g5" name="settings.ips.oemsecrets">
@@ -12877,7 +12629,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="KLJYfJ0" name="settings.ips.oemsecrets.sortMode.M">
       <segment state="translated">
         <source>settings.ips.oemsecrets.sortMode.M</source>
-        <target><![CDATA[Completeness & Manufacturer name]]></target>
+        <target>Completeness &amp; Manufacturer name</target>
       </segment>
     </unit>
     <unit id="8C9ijHM" name="entity.export.flash.error.no_entities">
@@ -13537,7 +13289,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="FsrRdkp" name="settings.behavior.homepage.items.help">
       <segment state="translated">
         <source>settings.behavior.homepage.items.help</source>
-        <target><![CDATA[The items to show at the homepage. Order can be changed via drag & drop.]]></target>
+        <target>The items to show at the homepage. Order can be changed via drag &amp; drop.</target>
       </segment>
     </unit>
     <unit id="CYw3_pS" name="settings.system.customization.showVersionOnHomepage">
@@ -14251,7 +14003,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="Ej2znKK" name="settings.system.localization.language_menu_entries.description">
       <segment state="translated">
         <source>settings.system.localization.language_menu_entries.description</source>
-        <target><![CDATA[The languages to show in the language drop-down menu. Order can be changed via drag & drop. Leave empty to show all available languages.]]></target>
+        <target>The languages to show in the language drop-down menu. Order can be changed via drag &amp; drop. Leave empty to show all available languages.</target>
       </segment>
     </unit>
     <unit id="xIZ_mEX" name="project.builds.no_bom_entries">
