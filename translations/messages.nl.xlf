@@ -856,5 +856,11 @@
         <target>Maak eerst een component en wijs het toe aan een categorie: met de bestaande categorieën en hun eigen IPN-prefixen kan de IPN voor het component automatisch worden voorgesteld</target>
       </segment>
     </unit>
+    <unit id="Y_ISV0y" name="part_custom_state.labelp">
+      <segment>
+        <source>part_custom_state.labelp</source>
+        <target>Aangepaste staten van onderdelen</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

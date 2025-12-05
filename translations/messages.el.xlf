@@ -1667,5 +1667,17 @@
         <target>Δημιουργήστε πρώτα ένα εξάρτημα και αντιστοιχίστε το σε μια κατηγορία: με τις υπάρχουσες κατηγορίες και τα δικά τους προθέματα IPN, η ονομασία IPN για το εξάρτημα μπορεί να προταθεί αυτόματα</target>
       </segment>
     </unit>
+    <unit id="Y_ISV0y" name="part_custom_state.labelp">
+      <segment>
+        <source>part_custom_state.labelp</source>
+        <target>Προσαρμοσμένες καταστάσεις μερών</target>
+      </segment>
+    </unit>
+    <unit id="uF_oOxY" name="manufacturer.labelp">
+      <segment>
+        <source>manufacturer.labelp</source>
+        <target>Κατασκευαστές</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
