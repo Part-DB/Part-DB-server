@@ -137,17 +137,6 @@
         <target>New currency</target>
       </segment>
     </unit>
-    <unit id="YFQ8iCW" name="project.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>project.caption</source>
-        <target>Project</target>
-      </segment>
-    </unit>
     <unit id="pe43jlV" name="project.edit">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
@@ -531,17 +520,6 @@
       <segment state="translated">
         <source>storelocation.new</source>
         <target>New storage location</target>
-      </segment>
-    </unit>
-    <unit id="Rt3eY_7" name="supplier.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>supplier.caption</source>
-        <target>Suppliers</target>
       </segment>
     </unit>
     <unit id="ozZU_B5" name="supplier.edit">
@@ -2365,26 +2343,6 @@ Sub elements will be moved upwards.</target>
         <target>Unit Price</target>
       </segment>
     </unit>
-    <unit id="CbWR2nl" name="edit.caption_short">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-      </notes>
-      <segment state="translated">
-        <source>edit.caption_short</source>
-        <target>Edit</target>
-      </segment>
-    </unit>
-    <unit id="er4pQft" name="delete.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-      </notes>
-      <segment state="translated">
-        <source>delete.caption</source>
-        <target>Delete</target>
-      </segment>
-    </unit>
     <unit id="pg0yCCK" name="part_lots.description">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:7</note>
@@ -2995,16 +2953,6 @@ Sub elements will be moved upwards.</target>
       <segment state="translated">
         <source>tfa_u2f.add_key.backup_hint</source>
         <target>To ensure access even if the key is lost, it is recommended to register a second key as backup and store it in a safe place!</target>
-      </segment>
-    </unit>
-    <unit id="IcnYTDa" name="r_u2f_two_factor.name">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-      </notes>
-      <segment state="translated">
-        <source>r_u2f_two_factor.name</source>
-        <target>Shown key name (e.g. Backup)</target>
       </segment>
     </unit>
     <unit id="wH4JBAx" name="tfa_u2f.add_key.add_button">
@@ -4000,17 +3948,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Supplier</target>
       </segment>
     </unit>
-    <unit id="liOuf4u" name="search.deactivateBarcode">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:57</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
-        <note priority="1">templates\base.html.twig:75</note>
-      </notes>
-      <segment state="translated">
-        <source>search.deactivateBarcode</source>
-        <target>Deact. Barcode</target>
-      </segment>
-    </unit>
     <unit id="h7QrXRa" name="search.regexmatching">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
@@ -4302,16 +4239,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Saved changes!</target>
       </segment>
     </unit>
-    <unit id="bNFdvNL" name="part.edited_flash.invalid">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-        <note priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-      </notes>
-      <segment state="translated">
-        <source>part.edited_flash.invalid</source>
-        <target>Error during saving: Please check your inputs!</target>
-      </segment>
-    </unit>
     <unit id="XFmvSsv" name="part.deleted">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:216</note>
@@ -4543,16 +4470,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <segment state="translated">
         <source>user.settings.2fa.backup_codes.regenerated</source>
         <target>New backup codes successfully generated.</target>
-      </segment>
-    </unit>
-    <unit id="9OPMdQa" name="attachment.table.filename">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.table.filename</source>
-        <target>File name</target>
       </segment>
     </unit>
     <unit id="hSn3zNG" name="attachment.table.filesize">
@@ -6342,16 +6259,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>New Element</target>
       </segment>
     </unit>
-    <unit id="U.Ovrd7" name="attachment.external_file">
-      <notes>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.external_file</source>
-        <target>External file</target>
-      </segment>
-    </unit>
     <unit id="YqYH6GX" name="attachment.edit">
       <notes>
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
@@ -6620,16 +6527,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <segment state="translated">
         <source>validator.noneofitschild.children</source>
         <target>The parent can not be one of the children of itself.</target>
-      </segment>
-    </unit>
-    <unit id="j_GFZOQ" name="validator.part_lot.location_full.no_increasment">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>validator.part_lot.location_full.no_increasment</source>
-        <target>The storage location was marked as full, so you can not increase the instock amount. (New amount max. {{ old_amount }})</target>
       </segment>
     </unit>
     <unit id="eeEjB4s" name="validator.part_lot.location_full">
@@ -7488,39 +7385,6 @@ Element 1 -&gt; Element 1.2</target>
         <target>Discard changes</target>
       </segment>
     </unit>
-    <unit id="rwhG3NF" name="part.withdraw.btn">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:166</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.btn</source>
-        <target>Withdraw</target>
-      </segment>
-    </unit>
-    <unit id="KYhBkRo" name="part.withdraw.comment:">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:171</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.comment:</source>
-        <target>Comment/Purpose</target>
-      </segment>
-    </unit>
-    <unit id="kAlV8Zt" name="part.add.caption">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:189</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.caption</source>
-        <target>Add parts</target>
-      </segment>
-    </unit>
     <unit id="TAZxRYj" name="part.add.btn">
       <notes>
         <note priority="1">templates\Parts\show_part_info.html.twig:194</note>
@@ -7532,28 +7396,6 @@ Element 1 -&gt; Element 1.2</target>
         <target>Add</target>
       </segment>
     </unit>
-    <unit id="yqLffb1" name="part.add.comment">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:199</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.comment</source>
-        <target>Comment/Purpose</target>
-      </segment>
-    </unit>
-    <unit id="oj5uuIF" name="admin.comment">
-      <notes>
-        <note priority="1">templates\AdminPages\CompanyAdminBase.html.twig:15</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>admin.comment</source>
-        <target>Notes</target>
-      </segment>
-    </unit>
     <unit id="VI_567B" name="manufacturer_url.label">
       <notes>
         <note priority="1">src\Form\PartType.php:83</note>
@@ -7563,69 +7405,6 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>manufacturer_url.label</source>
         <target>Manufacturer link</target>
-      </segment>
-    </unit>
-    <unit id="hx8T2RQ" name="part.description.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:66</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.description.placeholder</source>
-        <target>e.g. NPN 45V 0,1A 0,5W</target>
-      </segment>
-    </unit>
-    <unit id="SDwGex2" name="part.instock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:69</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.instock.placeholder</source>
-        <target>e.g. 10</target>
-      </segment>
-    </unit>
-    <unit id="of7AUNW" name="part.mininstock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:72</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.mininstock.placeholder</source>
-        <target>e.g. 5</target>
-      </segment>
-    </unit>
-    <unit id="OsZzrme" name="part.order.price_per">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.order.price_per</source>
-        <target>Price per</target>
-      </segment>
-    </unit>
-    <unit id="dEQm2lQ" name="part.withdraw.caption">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.caption</source>
-        <target>Withdraw parts</target>
-      </segment>
-    </unit>
-    <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>datatable.datatable.lengthMenu</source>
-        <target>_MENU_</target>
       </segment>
     </unit>
     <unit id="IPge2iH" name="perm.group.parts">
@@ -8620,15 +8399,6 @@ Element 1 -&gt; Element 1.2</target>
         <target>Show old element versions (time travel)</target>
       </segment>
     </unit>
-    <unit id="tyCC1qL" name="tfa_u2f.key_added_successful">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>tfa_u2f.key_added_successful</source>
-        <target>Security key added successfully.</target>
-      </segment>
-    </unit>
     <unit id="gDVCAxj" name="log.type.security.google_disabled">
       <notes>
         <note category="state" priority="1">obsolete</note>
@@ -8825,12 +8595,6 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>group.edit.enforce_2fa.help</source>
         <target>If this option is enabled, every direct member of this group, has to configure at least one second-factor for authentication. Recommended for administrative groups with much permissions.</target>
-      </segment>
-    </unit>
-    <unit id="O2l2jsJ" name="selectpicker.empty">
-      <segment state="translated">
-        <source>selectpicker.empty</source>
-        <target>Nothing selected</target>
       </segment>
     </unit>
     <unit id="NwsYm0P" name="selectpicker.nothing_selected">
@@ -9089,12 +8853,6 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>user.pw_change_needed.flash</source>
         <target>Your password needs to be changed! Please set a new password.</target>
-      </segment>
-    </unit>
-    <unit id="x98ftIM" name="tree.root_node.text">
-      <segment state="translated">
-        <source>tree.root_node.text</source>
-        <target>Root node</target>
       </segment>
     </unit>
     <unit id="2LkM7pn" name="part_list.action.select_null">
@@ -11665,12 +11423,6 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>api_tokens.expiration_date</source>
         <target>Expiration date</target>
-      </segment>
-    </unit>
-    <unit id="5k6W3jw" name="api_tokens.added_date">
-      <segment state="translated">
-        <source>api_tokens.added_date</source>
-        <target>Added at</target>
       </segment>
     </unit>
     <unit id="leWWwKP" name="api_tokens.last_time_used">
@@ -14392,12 +14144,6 @@ Please note that this system is currently experimental, and the synonyms defined
       <segment state="translated">
         <source>settings.synonyms.type_synonyms.help</source>
         <target>Type synonyms allow you to replace the labels of built-in data types. For example, you can rename "Footprint" to something else.</target>
-      </segment>
-    </unit>
-    <unit id="GSqBiVV" name="{{part}}">
-      <segment state="translated">
-        <source>{{part}}</source>
-        <target>Parts</target>
       </segment>
     </unit>
     <unit id="wjcsjzT" name="log.element_edited.changed_fields.part_ipn_prefix">
