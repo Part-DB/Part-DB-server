@@ -18,7 +18,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
 
   parts: # e.g. this maps to perms_parts in User/Group database
     group: "data"
-    label: "{{part}}"
+    label: "[[Part]]"
     operations: # Here are all possible operations are listed => the op name is mapped to bit value
       read:
         label: "perm.read"
@@ -71,7 +71,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
 
 
   storelocations: &PART_CONTAINING
-    label: "{{storage_location}}"
+    label: "[[Storage_location]]"
     group: "data"
     operations:
       read:
@@ -103,39 +103,39 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
 
   footprints:
     <<: *PART_CONTAINING
-    label: "{{footprint}}"
+    label: "[[Footprint]]"
 
   categories:
     <<: *PART_CONTAINING
-    label: "{{category}}"
+    label: "[[Category]]"
 
   suppliers:
     <<: *PART_CONTAINING
-    label: "{{supplier}}"
+    label: "[[Supplier]]"
 
   manufacturers:
     <<: *PART_CONTAINING
-    label: "{{manufacturer}}"
+    label: "[[Manufacturer]]"
 
   projects:
     <<: *PART_CONTAINING
-    label: "{{project}}"
+    label: "[[Project]]"
 
   attachment_types:
     <<: *PART_CONTAINING
-    label: "{{attachment_type}}"
+    label: "[[Attachment_type]]"
 
   currencies:
     <<: *PART_CONTAINING
-    label: "{{currency}}"
+    label: "[[Currency]]"
 
   measurement_units:
     <<: *PART_CONTAINING
-    label: "{{measurement_unit}}"
+    label: "[[Measurement_unit]]"
 
   part_custom_states:
     <<: *PART_CONTAINING
-    label: "{{part_custom_state}}"
+    label: "[[Part_custom_state]]"
 
   tools:
     label: "perm.part.tools"

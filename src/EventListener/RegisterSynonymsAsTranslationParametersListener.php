@@ -60,10 +60,10 @@ readonly class RegisterSynonymsAsTranslationParametersListener
 
             //Generate a placeholder for each element type
             foreach (ElementTypes::cases() as $elementType) {
-                //We have a placeholder for singular
-                $placeholders['{' . $elementType->value . '}'] = $this->typeNameGenerator->typeLabel($elementType);
-                //We have a placeholder for plural
-                $placeholders['{{' . $elementType->value . '}}'] = $this->typeNameGenerator->typeLabelPlural($elementType);
+                //Versions with capitalized first letter
+                $capitalized = ucfirst($elementType->value); //We have only ASCII element type values, so this is sufficient
+                $placeholders['[' . $capitalized . ']'] = $this->typeNameGenerator->typeLabel($elementType);
+                $placeholders['[[' . $capitalized . ']]'] = $this->typeNameGenerator->typeLabelPlural($elementType);
 
                 //And we have lowercase versions for both
                 $placeholders['[' . $elementType->value . ']'] = mb_strtolower($this->typeNameGenerator->typeLabel($elementType));

@@ -40,10 +40,11 @@ class RegisterSynonymsAsTranslationParametersTest extends KernelTestCase
         $placeholders = $this->listener->getSynonymPlaceholders();
 
         $this->assertIsArray($placeholders);
-        $this->assertSame('Part', $placeholders['{part}']);
-        $this->assertSame('Parts', $placeholders['{{part}}']);
-        //Lowercase versions:
+        // Curly braces for lowercase versions
         $this->assertSame('part', $placeholders['[part]']);
         $this->assertSame('parts', $placeholders['[[part]]']);
+        // Square brackets for capitalized versions (with capital first letter in placeholder)
+        $this->assertSame('Part', $placeholders['[Part]']);
+        $this->assertSame('Parts', $placeholders['[[Part]]']);
     }
 }
