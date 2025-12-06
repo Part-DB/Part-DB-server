@@ -6,7 +6,7 @@ nav_order: 5
 
 # Configuration
 
-Part-DBs behavior can be configured to your needs. There are different kinds of configuration options: Options, which are
+Part-DB's behavior can be configured to your needs. There are different kinds of configuration options: Options that are
 user-changeable (changeable dynamically via frontend), options that can be configured by environment variables, and
 options that are only configurable via Symfony config files.
 
@@ -40,8 +40,8 @@ The following configuration options can only be changed by the server administra
 variables, changing the `.env.local` file or setting env for your docker container. Here are just the most important
 options listed, see `.env` file for the full list of possible env variables.
 
-Environment variables allow to overwrite settings in the web interface. This is useful, if you want to enforce certain
-settings to be unchangable by users, or if you want to configure settings in a central place in a deployed environment.
+Environment variables allow you to overwrite settings in the web interface. This is useful if you want to enforce certain
+settings to be unchangeable by users, or if you want to configure settings in a central place in a deployed environment.
 On the settings page, you can hover over a setting to see, which environment variable can be used to overwrite it, it 
 is shown as tooltip. API keys or similar sensitive data which is overwritten by env variables, are redacted on the web
 interface, so that even administrators cannot see them (only the last 2 characters and the length).
@@ -105,11 +105,11 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
     * `part_delete`: Delete operation of an existing part
     * `part_create`: Creation of a new part
     * `part_stock_operation`: Stock operation on a part (therefore withdraw, add or move stock)
-    * `datastructure_edit`: Edit operation of an existing datastructure (e.g. category, manufacturer, ...)
-    * `datastructure_delete`: Delete operation of a existing datastructure (e.g. category, manufacturer, ...)
-    * `datastructure_create`: Creation of a new datastructure (e.g. category, manufacturer, ...)
-* `CHECK_FOR_UPDATES` (default `1`): Set this to 0, if you do not want Part-DB to connect to GitHub to check for new
-  versions, or if your server can not connect to the internet.
+    * `datastructure_edit`: Edit operation of an existing data structure (e.g. category, manufacturer, ...)
+    * `datastructure_delete`: Delete operation of an existing data structure (e.g. category, manufacturer, ...)
+    * `datastructure_create`: Creation of a new data structure (e.g. category, manufacturer, ...)
+* `CHECK_FOR_UPDATES` (default `1`): Set this to 0 if you do not want Part-DB to connect to GitHub to check for new
+  versions, or if your server cannot connect to the internet.
 * `APP_SECRET` (env only): This variable is a configuration parameter used for various security-related purposes,
   particularly for securing and protecting various aspects of your application. It's a secret key that is used for
   cryptographic operations and security measures (session management, CSRF protection, etc..). Therefore this
@@ -262,10 +262,10 @@ markdown (and even some subset of HTML) syntax to format the text.
 
 ## parameters.yaml
 
-You can also configure some options via the `config/parameters.yaml` file. This should normally not need,
-and you should know what you are doing, when you change something here. You should expect, that you will have to do some
-manual merge, when you have changed something here and update to a newer version of Part-DB. It is possible that
-configuration options here will change or be  completely removed in future versions of Part-DB.
+You can also configure some options via the `config/parameters.yaml` file. This should normally not be needed,
+and you should know what you are doing when you change something here. You should expect that you will have to do some
+manual merges when you have changed something here and update to a newer version of Part-DB. It is possible that
+configuration options here will change or be completely removed in future versions of Part-DB.
 
 If you change something here, you have to clear the cache, before the changes will take effect with the
 command `bin/console cache:clear`.

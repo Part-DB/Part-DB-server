@@ -46,7 +46,7 @@ See [Authentication chapter]({% link api/authentication.md %}) for more details.
 
 The API is split into different endpoints, which are reachable under the `/api/` path of your Part-DB instance (
 e.g. `https://your-part-db.local/api/`).
-There are various endpoints for each entity type (like `part`, `manufacturer`, etc.), which allow you to read and write data, and some special endpoints like `search` or `statistics`.
+There are various endpoints for each entity type (like `parts`, `manufacturers`, etc.), which allow you to read and write data, and some special endpoints like `search` or `statistics`.
 
 For example, all API endpoints for managing categories are available under `/api/categories/`. Depending on the exact
 path and the HTTP method used, you can read, create, update or delete categories.
@@ -56,7 +56,7 @@ For most entities, there are endpoints like this:
 * **POST**: `/api/categories/` - Create a new category
 * **GET**: `/api/categories/{id}` - Get a specific category by its ID
 * **DELETE**: `/api/categories/{id}` - Delete a specific category by its ID
-* **UPDATE**: `/api/categories/{id}` - Update a specific category by its ID. Only the fields which are sent in the
+* **PATCH**: `/api/categories/{id}` - Update a specific category by its ID. Only the fields which are sent in the
   request are updated, all other fields are left unchanged.
   Be aware that you have to set the [JSON Merge Patch](https://datatracker.ietf.org/doc/html/rfc7386) content type
   header (`Content-Type: application/merge-patch+json`) for this to work.

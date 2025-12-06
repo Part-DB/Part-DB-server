@@ -198,10 +198,6 @@ the [Mouser API page](https://www.mouser.de/api-home/).
 You will receive an API token, which you have to put in the Part-DB env configuration (see below):
 At the registration you choose a country, language, and currency in which you want to get the results.
 
-*Attention*: Currently (January 2024) the mouser API seems to be somewhat broken, in the way that it does not return any
-information about datasheets and part specifications. Therefore Part-DB can not retrieve them, even if they are shown
-at the mouser page. See [issue #503](https://github.com/Part-DB/Part-DB-server/issues/503) for more info.
-
 Following env configuration options are available:
 
 * `PROVIDER_MOUSER_KEY`: The API key you got from Mouser (mandatory)
@@ -217,7 +213,7 @@ Following env configuration options are available:
 webshop uses an internal JSON based API to render the page. Part-DB can use this inofficial API to get part information
 from LCSC. 
 
-**Please note, that the use of this internal API is not intended or endorsed by LCS and it could break at any time. So use it at your own risk.**
+**Please note that the use of this internal API is not intended or endorsed by LCSC and it could break at any time. So use it at your own risk.**
 
 An API key is not required, it is enough to enable the provider using the following env configuration options:
 
