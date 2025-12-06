@@ -198,10 +198,6 @@ the [Mouser API page](https://www.mouser.de/api-home/).
 You will receive an API token, which you have to put in the Part-DB env configuration (see below):
 At the registration you choose a country, language, and currency in which you want to get the results.
 
-*Attention*: Currently (January 2024), the Mouser API seems to be somewhat broken, in the way that it does not return any
-information about datasheets and part specifications. Therefore Part-DB cannot retrieve them, even if they are shown
-on the Mouser page. See [issue #503](https://github.com/Part-DB/Part-DB-server/issues/503) for more info.
-
 Following env configuration options are available:
 
 * `PROVIDER_MOUSER_KEY`: The API key you got from Mouser (mandatory)
