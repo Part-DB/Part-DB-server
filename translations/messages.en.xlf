@@ -14394,12 +14394,6 @@ Please note that this system is currently experimental, and the synonyms defined
         <target>Type synonyms allow you to replace the labels of built-in data types. For example, you can rename "Footprint" to something else.</target>
       </segment>
     </unit>
-    <unit id="GSqBiVV" name="[[Part]]">
-      <segment>
-        <source>[[Part]]</source>
-        <target>Parts</target>
-      </segment>
-    </unit>
     <unit id="wjcsjzT" name="log.element_edited.changed_fields.part_ipn_prefix">
       <segment>
         <source>log.element_edited.changed_fields.part_ipn_prefix</source>
