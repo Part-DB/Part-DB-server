@@ -3135,7 +3135,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.parts_instock_sum</source>
-        <target>Summe aller vorhanden [[part]]bestände</target>
+        <target>Summe aller vorhandenen Bestände an [[part]]</target>
       </segment>
     </unit>
     <unit id="uHmvfnI" name="statistics.parts_with_price">
