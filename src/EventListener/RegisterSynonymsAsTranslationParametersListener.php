@@ -60,14 +60,18 @@ readonly class RegisterSynonymsAsTranslationParametersListener
 
             //Generate a placeholder for each element type
             foreach (ElementTypes::cases() as $elementType) {
-                //We have a placeholder for singular
-                $placeholders['{' . $elementType->value . '}'] = $this->typeNameGenerator->typeLabel($elementType);
-                //We have a placeholder for plural
-                $placeholders['{{' . $elementType->value . '}}'] = $this->typeNameGenerator->typeLabelPlural($elementType);
+                // Get the capitalized labels
+                $capitalizedSingular = $this->typeNameGenerator->typeLabel($elementType);
+                $capitalizedPlural = $this->typeNameGenerator->typeLabelPlural($elementType);
+                
+                // Curly braces for lowercase versions
+                $placeholders['{' . $elementType->value . '}'] = mb_strtolower($capitalizedSingular);
+                $placeholders['{{' . $elementType->value . '}}'] = mb_strtolower($capitalizedPlural);
 
-                //And we have lowercase versions for both
-                $placeholders['[' . $elementType->value . ']'] = mb_strtolower($this->typeNameGenerator->typeLabel($elementType));
-                $placeholders['[[' . $elementType->value . ']]'] = mb_strtolower($this->typeNameGenerator->typeLabelPlural($elementType));
+                // Square brackets for capitalized versions (with capital first letter in placeholder)
+                $capitalizedKey = ucfirst($elementType->value);
+                $placeholders['[' . $capitalizedKey . ']'] = $capitalizedSingular;
+                $placeholders['[[' . $capitalizedKey . ']]'] = $capitalizedPlural;
             }
 
             return $placeholders;
