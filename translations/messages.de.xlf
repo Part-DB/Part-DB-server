@@ -19,7 +19,7 @@
       </notes>
       <segment state="translated">
         <source>attachment_type.edit</source>
-        <target>Bearbeite [attachment_type]</target>
+        <target>Bearbeite [Attachment_type]</target>
       </segment>
     </unit>
     <unit id="wyou6GD" name="attachment_type.new">
@@ -29,7 +29,7 @@
       </notes>
       <segment state="translated">
         <source>attachment_type.new</source>
-        <target>Neuer [attachment_type]</target>
+        <target>Neuer [Attachment_type]</target>
       </segment>
     </unit>
     <unit id="JHaxw0a" name="category.labelp">
@@ -84,7 +84,7 @@
       </notes>
       <segment state="translated">
         <source>category.edit</source>
-        <target>Bearbeite [category]</target>
+        <target>Bearbeite [Category]</target>
       </segment>
     </unit>
     <unit id="6.rAXsX" name="category.new">
@@ -94,7 +94,7 @@
       </notes>
       <segment state="translated">
         <source>category.new</source>
-        <target>Neue [category]</target>
+        <target>Neue [Category]</target>
       </segment>
     </unit>
     <unit id="z1GMBc_" name="currency.caption">
@@ -134,7 +134,7 @@
       </notes>
       <segment state="translated">
         <source>currency.edit</source>
-        <target>Bearbeite [currency]</target>
+        <target>Bearbeite [Currency]</target>
       </segment>
     </unit>
     <unit id="aTtTsUc" name="currency.new">
@@ -144,7 +144,7 @@
       </notes>
       <segment state="translated">
         <source>currency.new</source>
-        <target>Neue [currency]</target>
+        <target>Neue [Currency]</target>
       </segment>
     </unit>
     <unit id="pe43jlV" name="project.edit">
@@ -154,7 +154,7 @@
       </notes>
       <segment state="translated">
         <source>project.edit</source>
-        <target>Bearbeite [project]</target>
+        <target>Bearbeite [Project]</target>
       </segment>
     </unit>
     <unit id="sYgrSg9" name="project.new">
@@ -164,7 +164,7 @@
       </notes>
       <segment state="translated">
         <source>project.new</source>
-        <target>Neues [project]</target>
+        <target>Neues [Project]</target>
       </segment>
     </unit>
     <unit id="eLrezdb" name="search.placeholder">
@@ -394,7 +394,7 @@
       </notes>
       <segment state="translated">
         <source>footprint.edit</source>
-        <target>Bearbeite [footprint]</target>
+        <target>Bearbeite [Footprint]</target>
       </segment>
     </unit>
     <unit id="9RgpRoK" name="footprint.new">
@@ -404,7 +404,7 @@
       </notes>
       <segment state="translated">
         <source>footprint.new</source>
-        <target>Neuer [footprint]</target>
+        <target>Neuer [Footprint]</target>
       </segment>
     </unit>
     <unit id="tvm4F9e" name="group.edit.caption">
@@ -436,7 +436,7 @@
       </notes>
       <segment state="translated">
         <source>group.edit</source>
-        <target>Bearbeite [group]</target>
+        <target>Bearbeite [Group]</target>
       </segment>
     </unit>
     <unit id="_RN3Wph" name="group.new">
@@ -446,7 +446,7 @@
       </notes>
       <segment state="translated">
         <source>group.new</source>
-        <target>Neue [group]</target>
+        <target>Neue [Group]</target>
       </segment>
     </unit>
     <unit id="jXqdnm_" name="label_profile.caption">
@@ -483,7 +483,7 @@
       </notes>
       <segment state="translated">
         <source>label_profile.edit</source>
-        <target>Bearbeite [label_profile]</target>
+        <target>Bearbeite [Label_profile]</target>
       </segment>
     </unit>
     <unit id="WkNFJjx" name="label_profile.new">
@@ -493,7 +493,7 @@
       </notes>
       <segment state="translated">
         <source>label_profile.new</source>
-        <target>Neues [label_profile]</target>
+        <target>Neues [Label_profile]</target>
       </segment>
     </unit>
     <unit id="r3pQ31P" name="manufacturer.caption">
@@ -514,7 +514,7 @@
       </notes>
       <segment state="translated">
         <source>manufacturer.edit</source>
-        <target>Bearbeite [manufacturer]</target>
+        <target>Bearbeite [Manufacturer]</target>
       </segment>
     </unit>
     <unit id="dRX_cvD" name="manufacturer.new">
@@ -524,7 +524,7 @@
       </notes>
       <segment state="translated">
         <source>manufacturer.new</source>
-        <target>Neuer [manufacturer]</target>
+        <target>Neuer [Manufacturer]</target>
       </segment>
     </unit>
     <unit id="3ra2AyY" name="measurement_unit.caption">
@@ -565,7 +565,7 @@
       </notes>
       <segment state="translated">
         <source>storelocation.edit</source>
-        <target>Bearbeite [storage_location]</target>
+        <target>Bearbeite [Storage_location]</target>
       </segment>
     </unit>
     <unit id="am0iTCO" name="storelocation.new">
@@ -575,7 +575,7 @@
       </notes>
       <segment state="translated">
         <source>storelocation.new</source>
-        <target>Neuer [storage_location]</target>
+        <target>Neuer [Storage_location]</target>
       </segment>
     </unit>
     <unit id="ozZU_B5" name="supplier.edit">
@@ -585,7 +585,7 @@
       </notes>
       <segment state="translated">
         <source>supplier.edit</source>
-        <target>Bearbeite [supplier]</target>
+        <target>Bearbeite [Supplier]</target>
       </segment>
     </unit>
     <unit id="b8jlkMd" name="supplier.new">
@@ -595,7 +595,7 @@
       </notes>
       <segment state="translated">
         <source>supplier.new</source>
-        <target>Neuer [supplier]</target>
+        <target>Neuer [Supplier]</target>
       </segment>
     </unit>
     <unit id="vX.dhjK" name="user.edit.caption">
@@ -737,7 +737,7 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
       </notes>
       <segment state="translated">
         <source>user.edit</source>
-        <target>Bearbeite [user]</target>
+        <target>Bearbeite [User]</target>
       </segment>
     </unit>
     <unit id="esEoaa_" name="user.new">
@@ -747,7 +747,7 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
       </notes>
       <segment state="translated">
         <source>user.new</source>
-        <target>Neuer [user]</target>
+        <target>Neuer [User]</target>
       </segment>
     </unit>
     <unit id="KqHffuc" name="attachment.delete">
@@ -1781,7 +1781,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>part.edit.title</source>
-        <target>Bearbeite [part] %name%</target>
+        <target>Bearbeite [Part] %name%</target>
       </segment>
     </unit>
     <unit id="yFxHuAp" name="part.edit.card_title">
@@ -1942,7 +1942,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>part.new.card_title</source>
-        <target>Neues [part] erstellen</target>
+        <target>Neues [Part] erstellen</target>
       </segment>
     </unit>
     <unit id="5TCcXwk" name="part_lot.delete">
@@ -3124,7 +3124,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.distinct_parts_count</source>
-        <target>Anzahl verschiedener [[part]]</target>
+        <target>Anzahl verschiedener [[Part]]</target>
       </segment>
     </unit>
     <unit id="sIGqnJ0" name="statistics.parts_instock_sum">
@@ -3135,7 +3135,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.parts_instock_sum</source>
-        <target>Summe aller vorhandenen Bestände an [[part]]</target>
+        <target>Summe aller vorhandenen Bestände an [[Part]]</target>
       </segment>
     </unit>
     <unit id="uHmvfnI" name="statistics.parts_with_price">
@@ -3157,7 +3157,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.categories_count</source>
-        <target>Anzahl [[category]]</target>
+        <target>Anzahl [[Category]]</target>
       </segment>
     </unit>
     <unit id="s0nLRjN" name="statistics.footprints_count">
@@ -3168,7 +3168,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.footprints_count</source>
-        <target>Anzahl [[footprint]]</target>
+        <target>Anzahl [[Footprint]]</target>
       </segment>
     </unit>
     <unit id="f0gHZzl" name="statistics.manufacturers_count">
@@ -3179,7 +3179,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.manufacturers_count</source>
-        <target>Anzahl [[manufacturer]]</target>
+        <target>Anzahl [[Manufacturer]]</target>
       </segment>
     </unit>
     <unit id="_4rvCd3" name="statistics.storelocations_count">
@@ -3190,7 +3190,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.storelocations_count</source>
-        <target>Anzahl [[storage_location]]</target>
+        <target>Anzahl [[Storage_location]]</target>
       </segment>
     </unit>
     <unit id="tzzUvrm" name="statistics.suppliers_count">
@@ -3201,7 +3201,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.suppliers_count</source>
-        <target>Anzahl [[supplier]]</target>
+        <target>Anzahl [[Supplier]]</target>
       </segment>
     </unit>
     <unit id="QEk.sHE" name="statistics.currencies_count">
@@ -3212,7 +3212,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.currencies_count</source>
-        <target>Anzahl [[currency]]</target>
+        <target>Anzahl [[Currency]]</target>
       </segment>
     </unit>
     <unit id="MTCnGlN" name="statistics.measurement_units_count">
@@ -3223,7 +3223,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.measurement_units_count</source>
-        <target>Anzahl [[measurement_unit]]</target>
+        <target>Anzahl [[Measurement_unit]]</target>
       </segment>
     </unit>
     <unit id="7sRXll2" name="statistics.devices_count">
@@ -3234,7 +3234,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.devices_count</source>
-        <target>Anzahl [[project]]</target>
+        <target>Anzahl [[Project]]</target>
       </segment>
     </unit>
     <unit id="2u7zTMF" name="statistics.attachment_types_count">
@@ -3245,7 +3245,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.attachment_types_count</source>
-        <target>Anzahl [[attachment_type]]</target>
+        <target>Anzahl [[Attachment_type]]</target>
       </segment>
     </unit>
     <unit id="C0XsLQc" name="statistics.all_attachments_count">
@@ -6247,7 +6247,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.part</source>
-        <target>Neues [part]</target>
+        <target>Neues [Part]</target>
       </segment>
     </unit>
     <unit id="nIHj_yk" name="tree.tools.show.all_parts">
@@ -11013,25 +11013,25 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="r5F3f_G" name="measurement_unit.new">
       <segment state="translated">
         <source>measurement_unit.new</source>
-        <target>Neue [measurement_unit]</target>
+        <target>Neue [Measurement_unit]</target>
       </segment>
     </unit>
     <unit id="W.vDRLw" name="measurement_unit.edit">
       <segment state="translated">
         <source>measurement_unit.edit</source>
-        <target>Bearbeite [measurement_unit]</target>
+        <target>Bearbeite [Measurement_unit]</target>
       </segment>
     </unit>
     <unit id="ba52d.g" name="part_custom_state.new">
       <segment state="translated">
         <source>part_custom_state.new</source>
-        <target>Neuer [part_custom_state]</target>
+        <target>Neuer [Part_custom_state]</target>
       </segment>
     </unit>
     <unit id="c1.gb2d" name="part_custom_state.edit">
       <segment state="translated">
         <source>part_custom_state.edit</source>
-        <target>Bearbeite [part_custom_state]</target>
+        <target>Bearbeite [Part_custom_state]</target>
       </segment>
     </unit>
     <unit id="uW2WHHC" name="user.aboutMe.label">
