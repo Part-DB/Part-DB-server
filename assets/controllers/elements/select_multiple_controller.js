@@ -26,10 +26,15 @@ export default class extends Controller {
     _tomSelect;
 
     connect() {
+        let dropdownParent = "body";
+        if (this.element.closest('.modal')) {
+            dropdownParent = null
+        }
+
         this._tomSelect = new TomSelect(this.element, {
             maxItems: 1000,
             allowEmptyOption: true,
-            dropdownParent: 'body',
+            dropdownParent: dropdownParent,
             plugins: ['remove_button'],
         });
     }

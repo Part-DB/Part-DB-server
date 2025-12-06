@@ -34,6 +34,11 @@ export default class extends Controller {
 
     connect() {
 
+        let dropdownParent = "body";
+        if (this.element.closest('.modal')) {
+            dropdownParent = null
+        }
+
         let settings = {
             persistent: false,
             create: true,
@@ -42,7 +47,7 @@ export default class extends Controller {
             selectOnTab: true,
             //This a an ugly solution to disable the delimiter parsing of the TomSelect plugin
             delimiter: 'VERY_L0NG_D€LIMITER_WHICH_WILL_NEVER_BE_ENCOUNTERED_IN_A_STRING',
-            dropdownParent: 'body',
+            dropdownParent: dropdownParent,
             render: {
                 item: (data, escape) => {
                     return '<span>' + escape(data.label) + '</span>';

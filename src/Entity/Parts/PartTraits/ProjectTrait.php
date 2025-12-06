@@ -15,7 +15,7 @@ trait ProjectTrait
     /**
      * @var Collection<ProjectBOMEntry> $project_bom_entries
      */
-    #[ORM\OneToMany(mappedBy: 'part', targetEntity: ProjectBOMEntry::class, cascade: ['remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: ProjectBOMEntry::class, mappedBy: 'part')]
     protected Collection $project_bom_entries;
 
     /**

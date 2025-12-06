@@ -66,12 +66,6 @@
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
         {{ encore_entry_script_tags('webauthn_tfa') }}
-
-        {# load translation files for ckeditor #}
-        {% set two_chars_locale = app.request.locale|default("en")|slice(0,2) %}
-        {% if two_chars_locale != "en" %}
-            <script src="{{ asset("build/ckeditor_translations/" ~ two_chars_locale ~ ".js") }}"></script>
-        {% endif %}
     {% endblock %}
 </head>
 <body data-base-url="{{ path('homepage', {'_locale': app.request.locale}) }}" data-locale="{{ app.request.locale|default("en")|slice(0,2) }}">

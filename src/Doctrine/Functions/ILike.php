@@ -56,7 +56,6 @@ class ILike extends FunctionNode
     {
         $platform = $sqlWalker->getConnection()->getDatabasePlatform();
 
-        //
         if ($platform instanceof AbstractMySQLPlatform || $platform instanceof SQLitePlatform) {
             $operator = 'LIKE';
         } elseif ($platform instanceof PostgreSQLPlatform) {
@@ -66,6 +65,12 @@ class ILike extends FunctionNode
             throw new \RuntimeException('Platform ' . gettype($platform) . ' does not support case insensitive like expressions.');
         }
 
-        return '(' . $this->value->dispatch($sqlWalker) . ' ' . $operator . ' ' . $this->expr->dispatch($sqlWalker) . ')';
+        $escape = "";
+        if ($platform instanceof SQLitePlatform) {
+            //SQLite needs ESCAPE explicitly defined backslash as escape character
+            $escape = " ESCAPE '\\'";
+        }
+
+        return '(' . $this->value->dispatch($sqlWalker) . ' ' . $operator . ' ' . $this->expr->dispatch($sqlWalker) . $escape . ')';
     }
 }

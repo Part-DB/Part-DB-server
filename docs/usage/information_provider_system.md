@@ -68,6 +68,13 @@ If you already have attachment types for images and datasheets and want the info
 can
 add the alternative names "Datasheet" and "Image" to the alternative names field of the attachment types.
 
+## Bulk import
+
+If you want to update the information of multiple parts, you can use the bulk import system: Go to a part table and select
+the parts you want to update. In the bulk actions dropdown select "Bulk info provider import" and click "Apply".
+You will be redirected to a page, where you can select how part fields should be mapped to info provider fields, and the 
+results will be shown.
+
 ## Data providers
 
 The system tries to be as flexible as possible, so many different information sources can be used.

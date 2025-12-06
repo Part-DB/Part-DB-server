@@ -132,6 +132,15 @@ class MouserProvider implements InfoProviderInterface
             ],
         ]);
 
+        // Check for API errors before processing response
+        if ($response->getStatusCode() !== 200) {
+            throw new \RuntimeException(sprintf(
+                'Mouser API returned HTTP %d: %s',
+                $response->getStatusCode(),
+                $response->getContent(false)
+            ));
+        }
+
         return $this->responseToDTOArray($response);
     }
 
@@ -169,6 +178,16 @@ class MouserProvider implements InfoProviderInterface
                 ]
             ],
         ]);
+
+        // Check for API errors before processing response
+        if ($response->getStatusCode() !== 200) {
+            throw new \RuntimeException(sprintf(
+                'Mouser API returned HTTP %d: %s',
+                $response->getStatusCode(),
+                $response->getContent(false)
+            ));
+        }
+
         $tmp = $this->responseToDTOArray($response);
 
         //Ensure that we have exactly one result
@@ -286,6 +305,17 @@ class MouserProvider implements InfoProviderInterface
         return (float)$val;
     }
 
+    private function mapCurrencyCode(string $currency): string
+    {
+        //Mouser uses "RMB" for Chinese Yuan, but the correct ISO code is "CNY"
+        if ($currency === "RMB") {
+            return "CNY";
+        }
+
+        //For all other currencies, we assume that the ISO code is correct
+        return $currency;
+    }
+
     /**
      * Converts the pricing (StandardPricing field) from the Mouser API to an array of PurchaseInfoDTOs
      * @param  array  $price_breaks
@@ -302,7 +332,7 @@ class MouserProvider implements InfoProviderInterface
             $prices[] = new PriceDTO(
                 minimum_discount_amount: $price_break['Quantity'],
                 price: (string)$number,
-                currency_iso_code: $price_break['Currency']
+                currency_iso_code: $this->mapCurrencyCode($price_break['Currency'])
             );
         }
 

@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Entity\Parts\ManufacturingStatus;
+use App\Exceptions\OAuthReconnectRequiredException;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
@@ -117,12 +118,22 @@ class DigikeyProvider implements InfoProviderInterface
         ];
 
         //$response = $this->digikeyClient->request('POST', '/Search/v3/Products/Keyword', [
-        $response = $this->digikeyClient->request('POST', '/products/v4/search/keyword', [
-            'json' => $request,
-            'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
-        ]);
+        try {
+            $response = $this->digikeyClient->request('POST', '/products/v4/search/keyword', [
+                'json' => $request,
+                'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
+            ]);
 
-        $response_array = $response->toArray();
+            $response_array = $response->toArray();
+        } catch (\InvalidArgumentException $exception) {
+            //Check if the exception was caused by an invalid or expired token
+            if (str_contains($exception->getMessage(), 'access_token')) {
+                throw OAuthReconnectRequiredException::forProvider($this->getProviderKey());
+            }
+
+            throw $exception;
+        }
+
 
 
         $result = [];
@@ -150,9 +161,18 @@ class DigikeyProvider implements InfoProviderInterface
 
     public function getDetails(string $id): PartDetailDTO
     {
-        $response = $this->digikeyClient->request('GET', '/products/v4/search/' . urlencode($id) . '/productdetails', [
-            'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
-        ]);
+        try {
+            $response = $this->digikeyClient->request('GET', '/products/v4/search/' . urlencode($id) . '/productdetails', [
+                'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
+            ]);
+        } catch (\InvalidArgumentException $exception) {
+            //Check if the exception was caused by an invalid or expired token
+            if (str_contains($exception->getMessage(), 'access_token')) {
+                throw OAuthReconnectRequiredException::forProvider($this->getProviderKey());
+            }
+
+            throw $exception;
+        }
 
         $response_array = $response->toArray();
         $product = $response_array['Product'];

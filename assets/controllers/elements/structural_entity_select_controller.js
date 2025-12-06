@@ -40,7 +40,10 @@ export default class extends Controller {
         const allowAdd = this.element.getAttribute("data-allow-add") === "true";
         const addHint = this.element.getAttribute("data-add-hint") ?? "";
 
-
+        let dropdownParent = "body";
+        if (this.element.closest('.modal')) {
+            dropdownParent = null
+        }
 
 
         let settings = {
@@ -54,7 +57,7 @@ export default class extends Controller {
             maxItems: 1,
             delimiter: "$$VERY_LONG_DELIMITER_THAT_SHOULD_NEVER_APPEAR$$",
             splitOn: null,
-            dropdownParent: 'body',
+            dropdownParent: dropdownParent,
 
             searchField: [
                 {field: "text", weight : 2},

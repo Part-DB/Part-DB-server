@@ -8,7 +8,7 @@ parameters:
 
   # This is used as workaround for places where we can not access the settings directly (like the 2FA application names)
   partdb.title: '%env(string:settings:customization:instanceName)%'  # The title shown inside of Part-DB (e.g. in the navbar and on homepage)
-  partdb.locale_menu: ['en', 'de', 'it', 'fr', 'ru', 'ja', 'cs', 'da', 'zh', 'pl']    # The languages that are shown in user drop down menu
+  partdb.locale_menu: ['en', 'de', 'it', 'fr', 'ru', 'ja', 'cs', 'da', 'zh', 'pl', 'hu']    # The languages that are shown in user drop down menu
 
   partdb.default_uri: '%env(string:DEFAULT_URI)%'             # The default URI to use for the Part-DB instance (e.g. https://part-db.example.com/). This is used for generating links in emails
 
@@ -104,3 +104,9 @@ parameters:
   env(SAML_ROLE_MAPPING): '{}'
 
   env(DATABASE_EMULATE_NATURAL_SORT): 0
+
+  ######################################################################################################################
+  # Bulk Info Provider Import Configuration
+  ######################################################################################################################
+  partdb.bulk_import.batch_size: 20                      # Number of parts to process in each batch during bulk operations
+  partdb.bulk_import.max_parts_per_operation: 1000       # Maximum number of parts allowed per bulk import operation

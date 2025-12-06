@@ -73,4 +73,11 @@ class SidebarSettings
      */
     #[SettingsParameter(label: new TM("settings.behavior.sidebar.rootNodeRedirectsToNewEntity"))]
     public bool $rootNodeRedirectsToNewEntity = false;
+
+    /**
+     * @var bool Whether to include child nodes in the data structure nodes table, or only show the selected node's parts.
+     */
+    #[SettingsParameter(label: new TM("settings.behavior.sidebar.data_structure_nodes_table_include_children"),
+    description: new TM("settings.behavior.sidebar.data_structure_nodes_table_include_children.help"))]
+    public bool $dataStructureNodesTableIncludeChildren = true;
 }
