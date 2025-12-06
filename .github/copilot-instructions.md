@@ -1,6 +1,6 @@
 # Copilot Instructions for Part-DB
 
-Part-DB is an Open-Source inventory management system for electronic components built with Symfony 6 and modern web technologies.
+Part-DB is an Open-Source inventory management system for electronic components built with Symfony 7.4 and modern web technologies.
 
 ## Technology Stack
 
@@ -57,7 +57,7 @@ Part-DB is an Open-Source inventory management system for electronic components 
 
 - Create database: `php bin/console doctrine:database:create --env=dev`
 - Run migrations: `php bin/console doctrine:migrations:migrate --env=dev`
-- Load fixtures: `php bin/console partdb:fixtures:load --env=dev`
+- Load fixtures: `php bin/console partdb:fixtures:load -n --env=dev`
 
 Or use Makefile shortcuts:
 - `make dev-setup`: Complete development environment setup
