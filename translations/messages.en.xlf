@@ -6073,7 +6073,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.attachment_types</source>
-        <target>{{attachment_type}}</target>
+        <target>[[Attachment_type]]</target>
       </segment>
     </unit>
     <unit id="u8jQbAc" name="tree.tools.edit.categories">
@@ -6084,7 +6084,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.categories</source>
-        <target>{{category}}</target>
+        <target>[[Category]]</target>
       </segment>
     </unit>
     <unit id="3n2K_az" name="tree.tools.edit.projects">
@@ -6095,7 +6095,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.projects</source>
-        <target>{{project}}</target>
+        <target>[[Project]]</target>
       </segment>
     </unit>
     <unit id="raK7qaK" name="tree.tools.edit.suppliers">
@@ -6106,7 +6106,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.suppliers</source>
-        <target>{{supplier}}</target>
+        <target>[[Supplier]]</target>
       </segment>
     </unit>
     <unit id="1IJ48Y0" name="tree.tools.edit.manufacturer">
@@ -6117,7 +6117,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.manufacturer</source>
-        <target>{{manufacturer}}</target>
+        <target>[[Manufacturer]]</target>
       </segment>
     </unit>
     <unit id="GNbWH_O" name="tree.tools.edit.storelocation">
@@ -6127,7 +6127,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.storelocation</source>
-        <target>{{storage_location}}</target>
+        <target>[[Storage_location]]</target>
       </segment>
     </unit>
     <unit id="7ZOhkd." name="tree.tools.edit.footprint">
@@ -6137,7 +6137,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.footprint</source>
-        <target>{{footprint}}</target>
+        <target>[[Footprint]]</target>
       </segment>
     </unit>
     <unit id="U1zYjzD" name="tree.tools.edit.currency">
@@ -6147,7 +6147,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.currency</source>
-        <target>{{currency}}</target>
+        <target>[[Currency]]</target>
       </segment>
     </unit>
     <unit id="NnzEujm" name="tree.tools.edit.measurement_unit">
@@ -6157,13 +6157,13 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.measurement_unit</source>
-        <target>{{measurement_unit}}</target>
+        <target>[[Measurement_unit]]</target>
       </segment>
     </unit>
     <unit id="oYLWbbv" name="tree.tools.edit.part_custom_state">
       <segment state="translated">
         <source>tree.tools.edit.part_custom_state</source>
-        <target>{{part_custom_state}}</target>
+        <target>[[Part_custom_state]]</target>
       </segment>
     </unit>
     <unit id=".Ux4R3T" name="tree.tools.edit.label_profile">
@@ -6172,7 +6172,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.label_profile</source>
-        <target>{{label_profile}}</target>
+        <target>[[Label_profile]]</target>
       </segment>
     </unit>
     <unit id="eyvi0Zt" name="tree.tools.edit.part">
@@ -6224,7 +6224,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>tree.tools.system.users</source>
-        <target>{{user}}</target>
+        <target>[[User]]</target>
       </segment>
     </unit>
     <unit id="dTEQQ3T" name="tree.tools.system.groups">
@@ -6234,7 +6234,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>tree.tools.system.groups</source>
-        <target>{{group}}</target>
+        <target>[[Group]]</target>
       </segment>
     </unit>
     <unit id="NWWki1R" name="tree.tools.system.event_log">
@@ -9686,7 +9686,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="dV.E0zI" name="project.info.title">
       <segment state="translated">
         <source>project.info.title</source>
-        <target>{project} info</target>
+        <target>[Project] info</target>
       </segment>
     </unit>
     <unit id="LYURecm" name="project.info.bom_entries_count">

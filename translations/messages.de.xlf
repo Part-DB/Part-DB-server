@@ -19,7 +19,7 @@
       </notes>
       <segment state="translated">
         <source>attachment_type.edit</source>
-        <target>Bearbeite Dateityp</target>
+        <target>Bearbeite [attachment_type]</target>
       </segment>
     </unit>
     <unit id="wyou6GD" name="attachment_type.new">
@@ -29,7 +29,7 @@
       </notes>
       <segment state="translated">
         <source>attachment_type.new</source>
-        <target>Neuer Dateityp</target>
+        <target>Neuer [attachment_type]</target>
       </segment>
     </unit>
     <unit id="JHaxw0a" name="category.labelp">
@@ -84,7 +84,7 @@
       </notes>
       <segment state="translated">
         <source>category.edit</source>
-        <target>Bearbeite Kategorie</target>
+        <target>Bearbeite [category]</target>
       </segment>
     </unit>
     <unit id="6.rAXsX" name="category.new">
@@ -94,7 +94,7 @@
       </notes>
       <segment state="translated">
         <source>category.new</source>
-        <target>Neue Kategorie</target>
+        <target>Neue [category]</target>
       </segment>
     </unit>
     <unit id="z1GMBc_" name="currency.caption">
@@ -134,7 +134,7 @@
       </notes>
       <segment state="translated">
         <source>currency.edit</source>
-        <target>Bearbeite Währung</target>
+        <target>Bearbeite [currency]</target>
       </segment>
     </unit>
     <unit id="aTtTsUc" name="currency.new">
@@ -144,7 +144,7 @@
       </notes>
       <segment state="translated">
         <source>currency.new</source>
-        <target>Neue Währung</target>
+        <target>Neue [currency]</target>
       </segment>
     </unit>
     <unit id="pe43jlV" name="project.edit">
@@ -154,7 +154,7 @@
       </notes>
       <segment state="translated">
         <source>project.edit</source>
-        <target>Bearbeite Projekt</target>
+        <target>Bearbeite [project]</target>
       </segment>
     </unit>
     <unit id="sYgrSg9" name="project.new">
@@ -164,7 +164,7 @@
       </notes>
       <segment state="translated">
         <source>project.new</source>
-        <target>Neues Projekt</target>
+        <target>Neues [project]</target>
       </segment>
     </unit>
     <unit id="eLrezdb" name="search.placeholder">
@@ -394,7 +394,7 @@
       </notes>
       <segment state="translated">
         <source>footprint.edit</source>
-        <target>Bearbeite Footprint</target>
+        <target>Bearbeite [footprint]</target>
       </segment>
     </unit>
     <unit id="9RgpRoK" name="footprint.new">
@@ -404,7 +404,7 @@
       </notes>
       <segment state="translated">
         <source>footprint.new</source>
-        <target>Neuer Footprint</target>
+        <target>Neuer [footprint]</target>
       </segment>
     </unit>
     <unit id="tvm4F9e" name="group.edit.caption">
@@ -436,7 +436,7 @@
       </notes>
       <segment state="translated">
         <source>group.edit</source>
-        <target>Bearbeite Gruppe</target>
+        <target>Bearbeite [group]</target>
       </segment>
     </unit>
     <unit id="_RN3Wph" name="group.new">
@@ -446,7 +446,7 @@
       </notes>
       <segment state="translated">
         <source>group.new</source>
-        <target>Neue Gruppe</target>
+        <target>Neue [group]</target>
       </segment>
     </unit>
     <unit id="jXqdnm_" name="label_profile.caption">
@@ -483,7 +483,7 @@
       </notes>
       <segment state="translated">
         <source>label_profile.edit</source>
-        <target>Bearbeite Labelprofil</target>
+        <target>Bearbeite [label_profile]</target>
       </segment>
     </unit>
     <unit id="WkNFJjx" name="label_profile.new">
@@ -493,7 +493,7 @@
       </notes>
       <segment state="translated">
         <source>label_profile.new</source>
-        <target>Neues Labelprofil</target>
+        <target>Neues [label_profile]</target>
       </segment>
     </unit>
     <unit id="r3pQ31P" name="manufacturer.caption">
@@ -514,7 +514,7 @@
       </notes>
       <segment state="translated">
         <source>manufacturer.edit</source>
-        <target>Bearbeite Hersteller</target>
+        <target>Bearbeite [manufacturer]</target>
       </segment>
     </unit>
     <unit id="dRX_cvD" name="manufacturer.new">
@@ -524,7 +524,7 @@
       </notes>
       <segment state="translated">
         <source>manufacturer.new</source>
-        <target>Neuer Hersteller</target>
+        <target>Neuer [manufacturer]</target>
       </segment>
     </unit>
     <unit id="3ra2AyY" name="measurement_unit.caption">
@@ -565,7 +565,7 @@
       </notes>
       <segment state="translated">
         <source>storelocation.edit</source>
-        <target>Bearbeite Lagerort</target>
+        <target>Bearbeite [storage_location]</target>
       </segment>
     </unit>
     <unit id="am0iTCO" name="storelocation.new">
@@ -575,7 +575,7 @@
       </notes>
       <segment state="translated">
         <source>storelocation.new</source>
-        <target>Neuer Lagerort</target>
+        <target>Neuer [storage_location]</target>
       </segment>
     </unit>
     <unit id="ozZU_B5" name="supplier.edit">
@@ -585,7 +585,7 @@
       </notes>
       <segment state="translated">
         <source>supplier.edit</source>
-        <target>Bearbeite Lieferant</target>
+        <target>Bearbeite [supplier]</target>
       </segment>
     </unit>
     <unit id="b8jlkMd" name="supplier.new">
@@ -595,7 +595,7 @@
       </notes>
       <segment state="translated">
         <source>supplier.new</source>
-        <target>Neuer Lieferant</target>
+        <target>Neuer [supplier]</target>
       </segment>
     </unit>
     <unit id="vX.dhjK" name="user.edit.caption">
@@ -737,7 +737,7 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
       </notes>
       <segment state="translated">
         <source>user.edit</source>
-        <target>Bearbeite Benutzer</target>
+        <target>Bearbeite [user]</target>
       </segment>
     </unit>
     <unit id="esEoaa_" name="user.new">
@@ -747,7 +747,7 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
       </notes>
       <segment state="translated">
         <source>user.new</source>
-        <target>Neuer Benutzer</target>
+        <target>Neuer [user]</target>
       </segment>
     </unit>
     <unit id="KqHffuc" name="attachment.delete">
@@ -1781,7 +1781,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>part.edit.title</source>
-        <target>Bearbeite Bauteil %name%</target>
+        <target>Bearbeite [part] %name%</target>
       </segment>
     </unit>
     <unit id="yFxHuAp" name="part.edit.card_title">
@@ -1942,7 +1942,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>part.new.card_title</source>
-        <target>Neues Bauteil erstellen</target>
+        <target>Neues [part] erstellen</target>
       </segment>
     </unit>
     <unit id="5TCcXwk" name="part_lot.delete">
@@ -3124,7 +3124,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.distinct_parts_count</source>
-        <target>Anzahl verschiedener Bauteile</target>
+        <target>Anzahl verschiedener [[part]]</target>
       </segment>
     </unit>
     <unit id="sIGqnJ0" name="statistics.parts_instock_sum">
@@ -3135,7 +3135,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.parts_instock_sum</source>
-        <target>Summe aller vorhanden Bauteilebestände</target>
+        <target>Summe aller vorhanden [[part]]bestände</target>
       </segment>
     </unit>
     <unit id="uHmvfnI" name="statistics.parts_with_price">
@@ -3146,7 +3146,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.parts_with_price</source>
-        <target>Bauteile mit Preisinformationen</target>
+        <target>[[Part]] mit Preisinformationen</target>
       </segment>
     </unit>
     <unit id="7x89_xL" name="statistics.categories_count">
@@ -3157,7 +3157,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.categories_count</source>
-        <target>Anzahl Kategorien</target>
+        <target>Anzahl [[category]]</target>
       </segment>
     </unit>
     <unit id="s0nLRjN" name="statistics.footprints_count">
@@ -3168,7 +3168,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.footprints_count</source>
-        <target>Anzahl Footprints</target>
+        <target>Anzahl [[footprint]]</target>
       </segment>
     </unit>
     <unit id="f0gHZzl" name="statistics.manufacturers_count">
@@ -3179,7 +3179,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.manufacturers_count</source>
-        <target>Anzahl Hersteller</target>
+        <target>Anzahl [[manufacturer]]</target>
       </segment>
     </unit>
     <unit id="_4rvCd3" name="statistics.storelocations_count">
@@ -3190,7 +3190,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.storelocations_count</source>
-        <target>Anzahl Lagerorte</target>
+        <target>Anzahl [[storage_location]]</target>
       </segment>
     </unit>
     <unit id="tzzUvrm" name="statistics.suppliers_count">
@@ -3201,7 +3201,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.suppliers_count</source>
-        <target>Anzahl Lieferanten</target>
+        <target>Anzahl [[supplier]]</target>
       </segment>
     </unit>
     <unit id="QEk.sHE" name="statistics.currencies_count">
@@ -3212,7 +3212,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.currencies_count</source>
-        <target>Anzahl Währungen</target>
+        <target>Anzahl [[currency]]</target>
       </segment>
     </unit>
     <unit id="MTCnGlN" name="statistics.measurement_units_count">
@@ -3223,7 +3223,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.measurement_units_count</source>
-        <target>Anzahl Maßeinheiten</target>
+        <target>Anzahl [[measurement_unit]]</target>
       </segment>
     </unit>
     <unit id="7sRXll2" name="statistics.devices_count">
@@ -3234,7 +3234,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.devices_count</source>
-        <target>Anzahl Baugruppen</target>
+        <target>Anzahl [[project]]</target>
       </segment>
     </unit>
     <unit id="2u7zTMF" name="statistics.attachment_types_count">
@@ -3245,7 +3245,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.attachment_types_count</source>
-        <target>Anzahl Anhangstypen</target>
+        <target>Anzahl [[attachment_type]]</target>
       </segment>
     </unit>
     <unit id="C0XsLQc" name="statistics.all_attachments_count">
@@ -6138,7 +6138,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.attachment_types</source>
-        <target>Dateitypen</target>
+        <target>[[Attachment_type]]</target>
       </segment>
     </unit>
     <unit id="u8jQbAc" name="tree.tools.edit.categories">
@@ -6149,7 +6149,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.categories</source>
-        <target>Kategorien</target>
+        <target>[[Category]]</target>
       </segment>
     </unit>
     <unit id="3n2K_az" name="tree.tools.edit.projects">
@@ -6160,7 +6160,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.projects</source>
-        <target>Projekte</target>
+        <target>[[Project]]</target>
       </segment>
     </unit>
     <unit id="raK7qaK" name="tree.tools.edit.suppliers">
@@ -6171,7 +6171,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.suppliers</source>
-        <target>Lieferanten</target>
+        <target>[[Supplier]]</target>
       </segment>
     </unit>
     <unit id="1IJ48Y0" name="tree.tools.edit.manufacturer">
@@ -6182,7 +6182,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.manufacturer</source>
-        <target>Hersteller</target>
+        <target>[[Manufacturer]]</target>
       </segment>
     </unit>
     <unit id="GNbWH_O" name="tree.tools.edit.storelocation">
@@ -6192,7 +6192,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.storelocation</source>
-        <target>Lagerorte</target>
+        <target>[[Storage_location]]</target>
       </segment>
     </unit>
     <unit id="7ZOhkd." name="tree.tools.edit.footprint">
@@ -6202,7 +6202,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.footprint</source>
-        <target>Footprints</target>
+        <target>[[Footprint]]</target>
       </segment>
     </unit>
     <unit id="U1zYjzD" name="tree.tools.edit.currency">
@@ -6212,7 +6212,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.currency</source>
-        <target>Währungen</target>
+        <target>[[Currency]]</target>
       </segment>
     </unit>
     <unit id="NnzEujm" name="tree.tools.edit.measurement_unit">
@@ -6222,13 +6222,13 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.measurement_unit</source>
-        <target>Maßeinheiten</target>
+        <target>[[Measurement_unit]]</target>
       </segment>
     </unit>
     <unit id="5adacKb" name="tree.tools.edit.part_custom_state">
       <segment state="translated">
         <source>tree.tools.edit.part_custom_state</source>
-        <target>Benutzerdefinierter Bauteilstatus</target>
+        <target>[[Part_custom_state]]</target>
       </segment>
     </unit>
     <unit id=".Ux4R3T" name="tree.tools.edit.label_profile">
@@ -6237,7 +6237,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.label_profile</source>
-        <target>Labelprofil</target>
+        <target>[[Label_profile]]</target>
       </segment>
     </unit>
     <unit id="eyvi0Zt" name="tree.tools.edit.part">
@@ -6247,7 +6247,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.part</source>
-        <target>Neues Bauteil</target>
+        <target>Neues [part]</target>
       </segment>
     </unit>
     <unit id="nIHj_yk" name="tree.tools.show.all_parts">
@@ -6289,7 +6289,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.system.users</source>
-        <target>Benutzer</target>
+        <target>[[User]]</target>
       </segment>
     </unit>
     <unit id="dTEQQ3T" name="tree.tools.system.groups">
@@ -6299,7 +6299,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.system.groups</source>
-        <target>Gruppen</target>
+        <target>[[Group]]</target>
       </segment>
     </unit>
     <unit id="NWWki1R" name="tree.tools.system.event_log">
@@ -11013,25 +11013,25 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="r5F3f_G" name="measurement_unit.new">
       <segment state="translated">
         <source>measurement_unit.new</source>
-        <target>Neue Maßeinheit</target>
+        <target>Neue [measurement_unit]</target>
       </segment>
     </unit>
     <unit id="W.vDRLw" name="measurement_unit.edit">
       <segment state="translated">
         <source>measurement_unit.edit</source>
-        <target>Bearbeite Maßeinheit</target>
+        <target>Bearbeite [measurement_unit]</target>
       </segment>
     </unit>
     <unit id="ba52d.g" name="part_custom_state.new">
       <segment state="translated">
         <source>part_custom_state.new</source>
-        <target>Neuer benutzerdefinierter Bauteilstatus</target>
+        <target>Neuer [part_custom_state]</target>
       </segment>
     </unit>
     <unit id="c1.gb2d" name="part_custom_state.edit">
       <segment state="translated">
         <source>part_custom_state.edit</source>
-        <target>Bearbeite benutzerdefinierten Bauteilstatus</target>
+        <target>Bearbeite [part_custom_state]</target>
       </segment>
     </unit>
     <unit id="uW2WHHC" name="user.aboutMe.label">
