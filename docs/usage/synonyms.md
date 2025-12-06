@@ -57,7 +57,6 @@ You can create synonyms for the following element types:
 | **attachment_type**| Attachment Type       | Document Type, File Category                   |
 | **category**       | Category              | Group, Class, Type, Collection                 |
 | **currency**       | Currency              | Monetary Unit, Money Type                      |
-| **device**         | Device                | Assembly, System, Machine                      |
 | **footprint**      | Footprint             | Package, Form Factor, Physical Type            |
 | **group**          | Group                 | Team, Department, Role                         |
 | **label_profile**  | Label Profile         | Label Template, Print Template                 |
@@ -67,7 +66,7 @@ You can create synonyms for the following element types:
 | **part**           | Part                  | Component, Item, Product, Article, SKU         |
 | **part_lot**       | Part Lot              | Stock Item, Inventory Item, Batch              |
 | **project**        | Project               | Assembly, Build, Work Order                    |
-| **storelocation**  | Storage Location      | Warehouse, Bin, Location, Place                |
+| **storage_location**| Storage Location     | Warehouse, Bin, Location, Place                |
 | **supplier**       | Supplier              | Vendor, Distributor, Reseller                  |
 | **user**           | User                  | Member, Account, Person                        |
 
@@ -124,9 +123,9 @@ This allows Part-DB to maintain proper multilingual support even with custom ter
 - Category → Material Type
 - Part Lot → Batch
 - Storage Location → Warehouse Zone
-- Device → Assembly
+- Project → Assembly
 
-**Result**: The interface uses manufacturing terminology: "Materials", "Batches", "Warehouse Zones"
+**Result**: The interface uses manufacturing terminology: "Materials", "Batches", "Warehouse Zones", "Assemblies"
 
 ### Small Business Retail
 
@@ -163,10 +162,10 @@ This allows Part-DB to maintain proper multilingual support even with custom ter
 - Part → Resource
 - Category → Resource Type
 - Storage Location → Area
-- Device → Equipment
+- Project → Activity
 - Part Lot → Available Unit
 
-**Result**: Educational context: "Resources", "Resource Types", "Areas"
+**Result**: Educational context: "Resources", "Resource Types", "Areas", "Activities"
 
 ## Managing Synonyms
 
