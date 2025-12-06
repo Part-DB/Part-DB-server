@@ -129,9 +129,7 @@ class BuerklinProvider implements InfoProviderInterface
      */
     private function queryDetail(string $id): PartDetailDTO
     {
-        $response = $this->makeAPICall('/products', ['sku' => $id]);
-
-        $arr = $response->toArray();
+        $arr = $this->makeAPICall('/products', ['sku' => $id]);
         $product = $arr['result'] ?? null;
 
         if ($product === null) {
