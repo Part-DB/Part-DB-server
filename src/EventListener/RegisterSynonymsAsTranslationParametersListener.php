@@ -69,7 +69,8 @@ readonly class RegisterSynonymsAsTranslationParametersListener
                 $placeholders['{{' . $elementType->value . '}}'] = mb_strtolower($capitalizedPlural);
 
                 // Square brackets for capitalized versions (with capital first letter in placeholder)
-                $capitalizedKey = ucfirst($elementType->value);
+                // Use mb_strtoupper for the first character to handle multibyte strings consistently
+                $capitalizedKey = mb_strtoupper(mb_substr($elementType->value, 0, 1)) . mb_substr($elementType->value, 1);
                 $placeholders['[' . $capitalizedKey . ']'] = $capitalizedSingular;
                 $placeholders['[[' . $capitalizedKey . ']]'] = $capitalizedPlural;
             }
