@@ -28,8 +28,6 @@ Part-DB is an Open-Source inventory management system for electronic components 
 - Use type hints for all parameters and return types
 - Always declare strict types: `declare(strict_types=1);` at the top of PHP files
 - Use PHPDoc blocks for complex logic or when type information is needed
-- Check code style with: `vendor/bin/ecs check src/` or `vendor/bin/ecs check tests/`
-- Fix violations with: `vendor/bin/ecs check src/ --fix`
 
 ### TypeScript/JavaScript
 
