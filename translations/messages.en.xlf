@@ -2581,7 +2581,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>parts_list.category.title</source>
-        <target>[[part]] with [category]</target>
+        <target>[[Part]] with [category]</target>
       </segment>
     </unit>
     <unit id="qZfLMs5" name="parts_list.footprint.title">
@@ -2591,7 +2591,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>parts_list.footprint.title</source>
-        <target>[[part]] with [footprint]</target>
+        <target>[[Part]] with [footprint]</target>
       </segment>
     </unit>
     <unit id="wzH1LnU" name="parts_list.manufacturer.title">
@@ -2601,7 +2601,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>parts_list.manufacturer.title</source>
-        <target>[[part]] with [manufacturer]</target>
+        <target>[[Part]] with [manufacturer]</target>
       </segment>
     </unit>
     <unit id="z0tqm9_" name="parts_list.search.title">
@@ -2621,7 +2621,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>parts_list.storelocation.title</source>
-        <target>[[part]] with [[storage_location]]</target>
+        <target>[[Part]] with [[storage_location]]</target>
       </segment>
     </unit>
     <unit id="dqIl9gT" name="parts_list.supplier.title">
@@ -2631,7 +2631,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>parts_list.supplier.title</source>
-        <target>[[part]] with [supplier]</target>
+        <target>[[Part]] with [supplier]</target>
       </segment>
     </unit>
     <unit id="BJygaSh" name="parts_list.tags.title">
@@ -10898,7 +10898,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="lYlHhtl" name="storelocation.part_owner_must_match.label">
       <segment state="translated">
         <source>storelocation.part_owner_must_match.label</source>
-        <target>[part_lot] owner must match [storage_location] owner</target>
+        <target>[Part_lot] owner must match [storage_location] owner</target>
       </segment>
     </unit>
     <unit id="eMHXpbV" name="part_lot.owner">
@@ -10952,7 +10952,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="krpFlYH" name="log.element_edited.changed_fields.part_owner_must_match">
       <segment state="translated">
         <source>log.element_edited.changed_fields.part_owner_must_match</source>
-        <target>[part] owner must match [storage_location] owner</target>
+        <target>[Part] owner must match [storage_location] owner</target>
       </segment>
     </unit>
     <unit id="o5u.Nnz" name="part.filter.lessThanDesired">
