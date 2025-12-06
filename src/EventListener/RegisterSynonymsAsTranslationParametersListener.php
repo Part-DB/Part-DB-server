@@ -60,19 +60,14 @@ readonly class RegisterSynonymsAsTranslationParametersListener
 
             //Generate a placeholder for each element type
             foreach (ElementTypes::cases() as $elementType) {
-                // Get the capitalized labels
-                $capitalizedSingular = $this->typeNameGenerator->typeLabel($elementType);
-                $capitalizedPlural = $this->typeNameGenerator->typeLabelPlural($elementType);
-                
-                // Curly braces for lowercase versions
-                $placeholders['{' . $elementType->value . '}'] = mb_strtolower($capitalizedSingular);
-                $placeholders['{{' . $elementType->value . '}}'] = mb_strtolower($capitalizedPlural);
+                //Versions with capitalized first letter
+                $capitalized = ucfirst($elementType->value); //We have only ASCII element type values, so this is sufficient
+                $placeholders['[' . $capitalized . ']'] = $this->typeNameGenerator->typeLabel($elementType);
+                $placeholders['[[' . $capitalized . ']]'] = $this->typeNameGenerator->typeLabelPlural($elementType);
 
-                // Square brackets for capitalized versions (with capital first letter in placeholder)
-                // Use mb_strtoupper for the first character to handle multibyte strings consistently
-                $capitalizedKey = mb_strtoupper(mb_substr($elementType->value, 0, 1)) . mb_substr($elementType->value, 1);
-                $placeholders['[' . $capitalizedKey . ']'] = $capitalizedSingular;
-                $placeholders['[[' . $capitalizedKey . ']]'] = $capitalizedPlural;
+                //And we have lowercase versions for both
+                $placeholders['[' . $elementType->value . ']'] = mb_strtolower($this->typeNameGenerator->typeLabel($elementType));
+                $placeholders['[[' . $elementType->value . ']]'] = mb_strtolower($this->typeNameGenerator->typeLabelPlural($elementType));
             }
 
             return $placeholders;
