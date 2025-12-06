@@ -14545,9 +14545,9 @@ Bitte beachten Sie, dass dieses System derzeit experimentell ist und die hier de
         <target>Mit Typsynonymen können Sie die Bezeichnungen von integrierten Datentypen ersetzen. Zum Beispiel können Sie „Footprint" in etwas anderes umbenennen.</target>
       </segment>
     </unit>
-    <unit id="GSqBiVV" name="{{part}}">
+    <unit id="GSqBiVV" name="[[Part]]">
       <segment>
-        <source>{{part}}</source>
+        <source>[[Part]]</source>
         <target>Bauteile</target>
       </segment>
     </unit>
