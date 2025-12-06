@@ -14429,5 +14429,14 @@ Bitte beachten Sie, dass dieses System derzeit experimentell ist und die hier de
         <target>Wenn aktiviert, wird eine Option zur Generierung einer IPN mit diesem globalen Präfix angeboten, das für Bauteile in allen Kategorien gilt.</target>
       </segment>
     </unit>
+    <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
+        <notes>
+            <note priority="1">Do not remove! Used for datatables rendering.</note>
+        </notes>
+        <segment state="translated">
+            <source>datatable.datatable.lengthMenu</source>
+            <target>_MENU_</target>
+          </segment>
+    </unit>
   </file>
 </xliff>
