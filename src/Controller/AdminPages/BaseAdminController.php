@@ -366,6 +366,14 @@ abstract class BaseAdminController extends AbstractController
                 }
             }
 
+            //Count how many actual new entities were created (id is null until persisted)
+            $created_count = 0;
+            foreach ($results as $result) {
+                if (null === $result->getID()) {
+                    $created_count++;
+                }
+            }
+
             //Persist valid entities to DB
             foreach ($results as $result) {
                 $em->persist($result);
@@ -373,7 +381,7 @@ abstract class BaseAdminController extends AbstractController
             $em->flush();
 
             if (count($results) > 0) {
-                $this->addFlash('success', t('entity.mass_creation_flash', ['%COUNT%' => count($results)]));
+                $this->addFlash('success', t('entity.mass_creation_flash', ['%COUNT%' => $created_count]));
             }
         }
 
