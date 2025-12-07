@@ -50,6 +50,21 @@ docker-compose logs -f
 
 Please include the error logs in your issue on GitHub, if you open an issue.
 
+## KiCad Integration Issues
+
+### "API responded with error code: 0: Unknown"
+
+If you get this error when trying to connect KiCad to Part-DB, it is most likely caused by KiCad not trusting your SSL/TLS certificate.
+
+**Cause:** KiCad does not trust self-signed SSL/TLS certificates.
+
+**Solutions:**
+- Use HTTP instead of HTTPS for the `root_url` in your KiCad library configuration (only recommended for local networks)
+- Use a certificate from a trusted Certificate Authority (CA) like [Let's Encrypt](https://letsencrypt.org/)
+- Add your self-signed certificate to the system's trusted certificate store on the computer running KiCad (the exact steps depend on your operating system)
+
+For more information about KiCad integration, see the [EDA / KiCad integration](../usage/eda_integration.md) documentation.
+
 ## Report Issue
 
 If an error occurs, or you found a bug, please [open an issue on GitHub](https://github.com/Part-DB/Part-DB-server).

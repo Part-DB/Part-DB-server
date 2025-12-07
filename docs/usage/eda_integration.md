@@ -22,6 +22,16 @@ This also allows to configure available and usable parts and their properties in
 Part-DB should be accessible from the PCs with KiCad. The URL should be stable (so no dynamically changing IP).
 You require a user account in Part-DB, which has permission to access the Part-DB API and create API tokens. Every user can have their own account, or you set up a shared read-only account.
 
+{: .warning }
+> **HTTPS with Self-Signed Certificates**
+> 
+> KiCad does not trust self-signed SSL/TLS certificates. If your Part-DB instance uses HTTPS with a self-signed certificate, KiCad will fail to connect and show an error like: `API responded with error code: 0: Unknown`.
+> 
+> To resolve this issue, you have the following options:
+> - Use HTTP instead of HTTPS for the `root_url` (only recommended for local networks)
+> - Use a certificate from a trusted Certificate Authority (CA) like [Let's Encrypt](https://letsencrypt.org/)
+> - Add your self-signed certificate to the system's trusted certificate store on the computer running KiCad (the exact steps depend on your operating system)
+
 To connect KiCad with Part-DB do the following steps:
 
 1. Create an API token on the user settings page for the KiCad application and copy/save it when it is shown. Currently, KiCad can only read the Part-DB database, so a token with a read-only scope is enough.
