@@ -42,6 +42,12 @@ class BuerklinProvider implements InfoProviderInterface
 
     public const DISTRIBUTOR_NAME = 'Buerklin';
     private const OAUTH_APP_NAME = 'ip_buerklin_oauth';
+    private const CACHE_TTL = 600;
+    /**
+     * Local in-request cache to avoid hitting the PSR cache repeatedly for the same product.
+     * @var array<string, array>
+     */
+    private array $productCache = [];
 
     public function __construct(
         private readonly HttpClientInterface $client,
@@ -117,6 +123,43 @@ class BuerklinProvider implements InfoProviderInterface
 
         return $token;
     }
+    private function getDefaultQueryParams(): array
+    {
+        return [
+            'curr' => $this->currency ?: 'EUR',
+            'language' => $this->language ?: 'en',
+        ];
+    }
+
+    private function getProduct(string $code): array
+    {
+        $code = strtoupper(trim($code));
+        if ($code === '') {
+            throw new \InvalidArgumentException('Product code must not be empty.');
+        }
+
+        $cacheKey = sprintf(
+            'buerklin.product.%s',
+            md5($code . '|' . $this->language . '|' . $this->currency)
+        );
+
+        if (isset($this->productCache[$cacheKey])) {
+            return $this->productCache[$cacheKey];
+        }
+
+        $item = $this->partInfoCache->getItem($cacheKey);
+        if ($item->isHit() && is_array($cached = $item->get())) {
+            return $this->productCache[$cacheKey] = $cached;
+        }
+
+        $product = $this->makeAPICall('/products/' . rawurlencode($code) . '/');
+
+        $item->set($product);
+        $item->expiresAfter(self::CACHE_TTL);
+        $this->partInfoCache->save($item);
+
+        return $this->productCache[$cacheKey] = $product;
+    }
 
     private function makeAPICall(string $endpoint, array $queryParams = []): array
     {
@@ -124,7 +167,7 @@ class BuerklinProvider implements InfoProviderInterface
             $response = $this->client->request('GET', self::ENDPOINT_URL . $endpoint, [
                 'auth_bearer' => $this->getToken(),
                 'headers' => ['Accept' => 'application/json'],
-                'query' => array_merge(['curr' => $this->currency ?: 'EUR', 'language' => $this->language ?: 'de'], $queryParams),
+                'query' => array_merge($this->getDefaultQueryParams(), $queryParams),
             ]);
 
             return $response->toArray();
@@ -170,10 +213,7 @@ class BuerklinProvider implements InfoProviderInterface
      */
     private function queryDetail(string $id): PartDetailDTO
     {
-        $product = $this->makeAPICall('/products/' . rawurlencode($id) . '/', [
-            'curr' => $this->currency,
-            'language' => $this->language,
-        ]);
+        $product = $this->getProduct($id);
         if ($product === null) {
             throw new \RuntimeException('Could not find product code: ' . $id);
         }
@@ -205,38 +245,36 @@ class BuerklinProvider implements InfoProviderInterface
         // If this is a search-result object, it may not contain prices/features/images -> reload full detail.
         if ((!isset($product['price']) && !isset($product['volumePrices'])) && isset($product['code'])) {
             try {
-                $product = $this->makeAPICall('/products/' . rawurlencode((string) $product['code']) . '/');
+                $product = $this->getProduct((string) $product['code']);
             } catch (\Throwable $e) {
                 // If reload fails, keep the partial product data and continue.
             }
         }
 
-        // Images (already absolute + dedup in getProductImages())
+        // Extract Images from API response
         $productImages = $this->getProductImages($product['images'] ?? null);
 
-        // Preview image: DO NOT prefix ENDPOINT_URL here (images are already absolute)
+        // Set Preview image
         $preview = $productImages[0]->url ?? null;
 
-        // Features live in classifications[0].features in Bürklin JSON
+        // Extract features (parameters) from classifications[0].features of Bürklin JSON response
         $features = $product['classifications'][0]['features'] ?? [];
-        $group = $product['classifications'][0]['name'] ?? null;
 
+        // Feature Parameters (from classifications->features)
+        $featureParams = $this->attributesToParameters($features, ''); //leave group empty for normal parameters
 
-        // 1) Feature-Parameter (aus classifications->features)
-        $featureParams = $this->attributesToParameters($features, $group);
-
-        // 2) Compliance-Parameter (aus Top-Level Feldern wie RoHS/SVHC/…)
+        // Compliance-Parameter (from Top-Level fields like RoHS/SVHC/…)
         $complianceParams = $this->complianceToParameters($product, 'Compliance');
 
-        // 3) Zusammenführen
+        // Merge all parameters
         $allParams = array_merge($featureParams, $complianceParams);
 
-        // Footprint: "Design" (en) / "Bauform" (de)
+        // Assign Footprint: "Design" (en) / "Bauform" (de) / "Enclosure" (en) / "Gehäuse" (de)
         $footprint = null;
         if (is_array($features)) {
             foreach ($features as $feature) {
                 $name = $feature['name'] ?? null;
-                if ($name === 'Design' || $name === 'Bauform') {
+                if ($name === 'Design' || $name === 'Bauform' || $name === 'Enclosure' || $name === 'Gehäuse') {
                     $footprint = $feature['featureValues'][0]['value'] ?? null;
                     break;
                 }
@@ -281,7 +319,7 @@ class BuerklinProvider implements InfoProviderInterface
             provider_url: $this->getProductShortURL((string) ($product['code'] ?? $code)),
             footprint: $footprint,
 
-            datasheets: null, // not in /products/{code}/ JSON; you decided to skip for now
+            datasheets: null, // not found in JSON response, the Buerklin website however has links to datasheets
             images: $productImages,
 
             parameters: $allParams,
@@ -346,12 +384,10 @@ class BuerklinProvider implements InfoProviderInterface
     /**
      * Returns a deduplicated list of product images as FileDTOs.
      *
-     * Bürklin liefert oft mehrere Einträge mit gleicher URL (und verschiedene "format"s).
-     * Diese Variante:
-     * - nimmt nur echte URL-Strings
-     * - macht relative URLs absolut
-     * - dedupliziert nach URL
-     * - bevorzugt zoom/product vor thumbnail
+     * - takes only real image arrays (with 'url' field)
+     * - makes relative URLs absolut
+     * - deduplicates using URL
+     * - prefers 'zoom' format, then 'product' format, then all others
      *
      * @param  array|null $images
      * @return \App\Services\InfoProviderSystem\DTOs\FileDTO[]
@@ -361,21 +397,21 @@ class BuerklinProvider implements InfoProviderInterface
         if (!is_array($images))
             return [];
 
-        // 1) Nur echte Image-Arrays
+        // 1) Only real image entries with URL
         $imgs = array_values(array_filter($images, fn($i) => is_array($i) && !empty($i['url'])));
 
-        // 2) Bevorzuge zoom; wenn vorhanden, nimm ausschließlich zoom
+        // 2) Prefer zoom images
         $zoom = array_values(array_filter($imgs, fn($i) => ($i['format'] ?? null) === 'zoom'));
         $chosen = count($zoom) > 0
             ? $zoom
             : array_values(array_filter($imgs, fn($i) => ($i['format'] ?? null) === 'product'));
 
-        // 3) Falls auch keine product-Bilder da sind, nimm alles (letzter Fallback)
+        // 3) If still none, take all
         if (count($chosen) === 0) {
             $chosen = $imgs;
         }
 
-        // 4) Dedupliziere nach URL + relativ -> absolut
+        // 4) Deduplicate by URL (after making absolute)
         $byUrl = [];
         foreach ($chosen as $img) {
             $url = (string) $img['url'];
@@ -417,7 +453,6 @@ class BuerklinProvider implements InfoProviderInterface
             if (!is_string($name) || trim($name) === '')
                 continue;
 
-            // Bürklin: featureValues ist ein Array von { value: "..." }
             $vals = [];
             foreach (($f['featureValues'] ?? []) as $fv) {
                 if (is_array($fv) && isset($fv['value']) && is_string($fv['value']) && trim($fv['value']) !== '') {
@@ -427,16 +462,16 @@ class BuerklinProvider implements InfoProviderInterface
             if (count($vals) === 0)
                 continue;
 
-            // Mehrfachwerte zusammenführen
+            // Multiple values: join with comma
             $value = implode(', ', array_values(array_unique($vals)));
 
-            // Unit/Symbol aus Bürklin (optional)
+            // Unit/Symbol from Buerklin feature
             $unit = $f['featureUnit']['symbol'] ?? null;
             if (!is_string($unit) || trim($unit) === '') {
                 $unit = null;
             }
 
-            // ParameterDTO kann Zahl/Range/Unit parsing selbst
+            // ParameterDTO parses value field (handles value+unit)
             $out[] = ParameterDTO::parseValueField(
                 name: $name,
                 value: $value,
@@ -446,7 +481,7 @@ class BuerklinProvider implements InfoProviderInterface
             );
         }
 
-        // Dedupe nach Name (falls Bürklin doppelt liefert)
+        // deduplicate by name
         $byName = [];
         foreach ($out as $p) {
             $byName[$p->name] ??= $p;
@@ -472,15 +507,14 @@ class BuerklinProvider implements InfoProviderInterface
 
         $products = $response['products'] ?? [];
 
-        // Normalfall: Search liefert Treffer
+        // Normal case: products found in search results
         if (is_array($products) && count($products) > 0) {
             return array_map(fn($p) => $this->getPartDetail($p), $products);
         }
 
-        // Fallback: Bestellnummer/Code direkt abfragen
-        // (funktioniert bei deinen Postman-Tests für /products/{code}/)
+        // Fallback: try direct lookup by code
         try {
-            $product = $this->makeAPICall('/products/' . rawurlencode($keyword) . '/');
+            $product = $this->getProduct($keyword);
             return [$this->getPartDetail($product)];
         } catch (\Throwable $e) {
             return [];
@@ -492,10 +526,7 @@ class BuerklinProvider implements InfoProviderInterface
     public function getDetails(string $id): PartDetailDTO
     {
         // Detail endpoint is /products/{code}/
-        $response = $this->makeAPICall('/products/' . rawurlencode($id) . '/', [
-            'curr' => $this->currency,
-            'language' => $this->language,
-        ]);
+        $response = $this->getProduct($id);
 
         return $this->getPartDetail($response);
     }
@@ -538,13 +569,11 @@ class BuerklinProvider implements InfoProviderInterface
             );
         };
 
-        $add('RoHS', $product['labelRoHS'] ?? null);          // "Ja"
+        $add('RoHS', $product['labelRoHS'] ?? null);          // "yes"/"no"
         $add('RoHS date', $product['dateRoHS'] ?? null);      // ISO string
         $add('SVHC', $product['SVHC'] ?? null);               // bool
         $add('Hazardous good', $product['hazardousGood'] ?? null);       // bool
         $add('Hazardous materials', $product['hazardousMaterials'] ?? null); // bool
-
-        // Optional, oft nützlich:
         $add('Country of origin', $product['countryOfOrigin'] ?? null);
         $add('Customs code', $product['articleCustomsCode'] ?? null);
 
