@@ -536,7 +536,7 @@ class BuerklinProvider implements InfoProviderInterface
         return [
             ProviderCapabilities::BASIC,
             ProviderCapabilities::PICTURE,
-            ProviderCapabilities::DATASHEET,
+            //ProviderCapabilities::DATASHEET, //currently not implemented
             ProviderCapabilities::PRICE,
             ProviderCapabilities::FOOTPRINT,
         ];
