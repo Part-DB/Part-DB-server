@@ -39,6 +39,18 @@ if [ -d /var/www/html/var/db ]; then
     fi
 fi
 
+# Install additional composer packages if COMPOSER_EXTRA_PACKAGES is set
+if [ -n "$COMPOSER_EXTRA_PACKAGES" ]; then
+    echo "Installing additional composer packages: $COMPOSER_EXTRA_PACKAGES"
+    sudo -E -u www-data composer require $COMPOSER_EXTRA_PACKAGES --no-interaction --no-progress --optimize-autoloader
+    if [ $? -eq 0 ]; then
+        echo "Successfully installed additional composer packages"
+    else
+        echo "Failed to install additional composer packages"
+        exit 1
+    fi
+fi
+
 # Start PHP-FPM (the PHP_VERSION is replaced by the configured version in the Dockerfile)
 php-fpmPHP_VERSION -F &
 

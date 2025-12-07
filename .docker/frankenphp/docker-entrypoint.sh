@@ -26,6 +26,18 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 		composer install --prefer-dist --no-progress --no-interaction
 	fi
 
+	# Install additional composer packages if COMPOSER_EXTRA_PACKAGES is set
+	if [ -n "$COMPOSER_EXTRA_PACKAGES" ]; then
+		echo "Installing additional composer packages: $COMPOSER_EXTRA_PACKAGES"
+		composer require $COMPOSER_EXTRA_PACKAGES --no-interaction --no-progress --optimize-autoloader
+		if [ $? -eq 0 ]; then
+			echo "Successfully installed additional composer packages"
+		else
+			echo "Failed to install additional composer packages"
+			exit 1
+		fi
+	fi
+
 	if grep -q ^DATABASE_URL= .env; then
 		echo "Waiting for database to be ready..."
 		ATTEMPTS_LEFT_TO_REACH_DATABASE=60
