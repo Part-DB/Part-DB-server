@@ -169,7 +169,7 @@ abstract class Attachment extends AbstractNamedDBElement
     #[ORM\Column(type: Types::STRING, length: 2048,  nullable: true)]
     #[Groups(['attachment:read'])]
     #[ApiProperty(example: 'http://example.com/image.jpg')]
-    #[Assert\Length(2048)]
+    #[Assert\Length(max: 2048)]
     protected ?string $external_path = null;
 
     /**
