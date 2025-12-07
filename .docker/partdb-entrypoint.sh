@@ -45,11 +45,18 @@ if [ -n "$COMPOSER_EXTRA_PACKAGES" ]; then
     # Note: COMPOSER_EXTRA_PACKAGES is intentionally not quoted to allow word splitting
     # This enables passing multiple package names separated by spaces
     # shellcheck disable=SC2086
-    sudo -E -u www-data composer require $COMPOSER_EXTRA_PACKAGES --no-dev --no-interaction --no-progress --optimize-autoloader
+    sudo -E -u www-data composer require $COMPOSER_EXTRA_PACKAGES --no-install --no-interaction --no-progress
     if [ $? -eq 0 ]; then
-        echo "Successfully installed additional composer packages"
+        echo "Running composer install to install packages without dev dependencies..."
+        sudo -E -u www-data composer install --no-dev --no-interaction --no-progress --optimize-autoloader
+        if [ $? -eq 0 ]; then
+            echo "Successfully installed additional composer packages"
+        else
+            echo "Failed to install composer dependencies"
+            exit 1
+        fi
     else
-        echo "Failed to install additional composer packages"
+        echo "Failed to add additional composer packages to composer.json"
         exit 1
     fi
 fi
