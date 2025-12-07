@@ -8,30 +8,12 @@ FROM composer:latest AS composer-deps
 
 WORKDIR /build
 
-# Copy composer files and install PHP dependencies (needed for Symfony UX assets)
-COPY composer.json composer.lock symfony.lock ./
-RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --ignore-platform-reqs
+# Copy entire project to install dependencies and generate translations
+COPY . .
 
-# ---
-
-# Stage to generate Symfony translations needed for webpack
-FROM composer:latest AS translations
-
-WORKDIR /build
-
-# Copy composer dependencies and application files
-COPY --from=composer-deps /build/vendor ./vendor
-COPY composer.json composer.lock symfony.lock ./
-COPY .env ./
-COPY bin ./bin
-COPY config ./config
-COPY public ./public
-COPY src ./src
-COPY templates ./templates
-COPY translations ./translations
-
-# Generate autoloader and dump translations
-RUN composer dump-autoload --no-dev --classmap-authoritative && \
+# Install composer dependencies (needed for Symfony UX assets and cache warmup)
+RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --ignore-platform-reqs && \
+    composer dump-autoload --no-dev --classmap-authoritative && \
     php bin/console cache:clear --no-warmup && \
     php bin/console cache:warmup
 
@@ -41,15 +23,8 @@ FROM node:22-bookworm-slim AS assets
 
 WORKDIR /build
 
-# Copy vendor directory from composer stage (needed for Symfony UX packages)
-COPY --from=composer-deps /build/vendor ./vendor
-
-# Copy generated translations from Symfony
-COPY --from=translations /build/var/translations ./var/translations
-
-# Copy package files
-COPY package.json yarn.lock webpack.config.js ./
-COPY assets ./assets
+# Copy entire project with vendor and generated translations from composer-deps stage
+COPY --from=composer-deps /build ./
 
 # Install dependencies and build assets
 RUN yarn install --network-timeout 600000 && \
