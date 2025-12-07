@@ -15,12 +15,74 @@ To make emails work you have to properly configure a mail provider in Part-DB.
 ## Configuration
 
 Part-DB uses [Symfony Mailer](https://symfony.com/doc/current/mailer.html) to send emails, which supports multiple
-automatic mail providers (like MailChimp or SendGrid). If you want to use one of these providers, check the Symfony
+mail providers (like Mailgun, SendGrid, or Brevo). If you want to use one of these providers, check the Symfony
 Mailer documentation for more information.
 
 We will only cover the configuration of an SMTP provider here, which is sufficient for most use-cases.
 You will need an email account, which you can use to send emails from via password-based SMTP authentication, this account
 should be dedicated to Part-DB.
+
+### Using specialized mail providers (Mailgun, SendGrid, etc.)
+
+If you want to use a specialized mail provider like Mailgun, SendGrid, Brevo (formerly Sendinblue), Amazon SES, or 
+Postmark instead of SMTP, you need to install the corresponding Symfony mailer package first.
+
+#### Docker installation
+
+If you are using Part-DB in Docker, you can install additional mailer packages by setting the `COMPOSER_EXTRA_PACKAGES` 
+environment variable in your `docker-compose.yaml`:
+
+```yaml
+environment:
+  - COMPOSER_EXTRA_PACKAGES=symfony/mailgun-mailer
+  - MAILER_DSN=mailgun+api://API_KEY:DOMAIN@default
+  - EMAIL_SENDER_EMAIL=noreply@yourdomain.com
+  - EMAIL_SENDER_NAME=Part-DB
+  - ALLOW_EMAIL_PW_RESET=1
+```
+
+You can install multiple packages by separating them with spaces:
+
+```yaml
+environment:
+  - COMPOSER_EXTRA_PACKAGES=symfony/mailgun-mailer symfony/sendgrid-mailer
+```
+
+The packages will be installed automatically when the container starts.
+
+Common mailer packages:
+- `symfony/mailgun-mailer` - For [Mailgun](https://www.mailgun.com/)
+- `symfony/sendgrid-mailer` - For [SendGrid](https://sendgrid.com/)
+- `symfony/brevo-mailer` - For [Brevo](https://www.brevo.com/) (formerly Sendinblue)
+- `symfony/amazon-mailer` - For [Amazon SES](https://aws.amazon.com/ses/)
+- `symfony/postmark-mailer` - For [Postmark](https://postmarkapp.com/)
+
+#### Direct installation (non-Docker)
+
+If you have installed Part-DB directly on your server (not in Docker), you need to manually install the required 
+mailer package using composer.
+
+Navigate to your Part-DB installation directory and run:
+
+```bash
+# Install the package as the web server user
+sudo -u www-data composer require symfony/mailgun-mailer
+
+# Clear the cache
+sudo -u www-data php bin/console cache:clear
+```
+
+Replace `symfony/mailgun-mailer` with the package you need. You can install multiple packages at once:
+
+```bash
+sudo -u www-data composer require symfony/mailgun-mailer symfony/sendgrid-mailer
+```
+
+After installing the package, configure the `MAILER_DSN` in your `.env.local` file according to the provider's 
+documentation (see [Symfony Mailer documentation](https://symfony.com/doc/current/mailer.html) for DSN format for 
+each provider).
+
+## SMTP Configuration
 
 To configure the SMTP provider, you have to set the following environment variables:
 
