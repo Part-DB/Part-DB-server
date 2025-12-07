@@ -29,6 +29,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartAssociation;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\PartLot;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Services\EntityMergers\Mergers\PartMerger;
@@ -54,6 +55,7 @@ class PartMergerTest extends KernelTestCase
         $manufacturer1 = new Manufacturer();
         $manufacturer2 = new Manufacturer();
         $unit = new MeasurementUnit();
+        $customState = new PartCustomState();
 
         $part1 = (new Part())
             ->setCategory($category)
@@ -62,7 +64,8 @@ class PartMergerTest extends KernelTestCase
         $part2 = (new Part())
             ->setFootprint($footprint)
             ->setManufacturer($manufacturer2)
-            ->setPartUnit($unit);
+            ->setPartUnit($unit)
+            ->setPartCustomState($customState);
 
         $merged = $this->merger->merge($part1, $part2);
         $this->assertSame($merged, $part1);
@@ -70,6 +73,7 @@ class PartMergerTest extends KernelTestCase
         $this->assertSame($footprint, $merged->getFootprint());
         $this->assertSame($manufacturer1, $merged->getManufacturer());
         $this->assertSame($unit, $merged->getPartUnit());
+        $this->assertSame($customState, $merged->getPartCustomState());
     }
 
     public function testMergeOfTags(): void

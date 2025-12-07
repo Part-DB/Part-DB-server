@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="zh-CN">
   <file id="messages.en">
     <unit id="0Md_YOf" name="attachment_type.caption">
@@ -145,17 +145,6 @@
       <segment state="translated">
         <source>currency.new</source>
         <target>新建货币</target>
-      </segment>
-    </unit>
-    <unit id="zNlEdQs" name="project.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>project.caption</source>
-        <target>项目</target>
       </segment>
     </unit>
     <unit id="DTt5Co7" name="project.edit">
@@ -548,6 +537,12 @@
         <target>计量单位</target>
       </segment>
     </unit>
+    <unit id="3bcKBzY" name="part_custom_state.caption">
+      <segment state="translated">
+        <source>part_custom_state.caption</source>
+        <target>部件的自定义状态</target>
+      </segment>
+    </unit>
     <unit id="vZGwiMS" name="storelocation.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:5</note>
@@ -581,17 +576,6 @@
       <segment state="translated">
         <source>storelocation.new</source>
         <target>新建存储位置</target>
-      </segment>
-    </unit>
-    <unit id="ykqfBBp" name="supplier.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>supplier.caption</source>
-        <target>供应商</target>
       </segment>
     </unit>
     <unit id="DpVIJeK" name="supplier.edit">
@@ -1850,6 +1834,66 @@
         <target>高级</target>
       </segment>
     </unit>
+    <unit id="a1k7Blf" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
+        <target>Sugestie bez zwiększenia części</target>
+      </segment>
+    </unit>
+    <unit id="2achA.b" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
+        <target>包含部件数值增量的建议</target>
+      </segment>
+    </unit>
+    <unit id="a7jKe3c" name="part.edit.tab.advanced.ipn.prefix.description.current-increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.current-increment</source>
+        <target>部件的当前IPN规格</target>
+      </segment>
+    </unit>
+    <unit id="kEco9iX" name="part.edit.tab.advanced.ipn.prefix.description.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.increment</source>
+        <target>基于相同部件描述的下一个可能的IPN规格</target>
+      </segment>
+    </unit>
+    <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
+        <target>直接类别的 IPN 前缀为空，请在类别“%name%”中指定。</target>
+      </segment>
+    </unit>
+    <unit id="ec2DiJd" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
+        <target>直接类别的IPN前缀</target>
+      </segment>
+    </unit>
+    <unit id="2e.kJb4" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
+        <target>直接类别的IPN前缀和部件特定的增量</target>
+      </segment>
+    </unit>
+    <unit id="ba1GCoq" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
+        <target>具有父级前缀层级类别顺序的IPN前缀</target>
+      </segment>
+    </unit>
+    <unit id="d1uVFa3" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
+        <target>具有父级前缀层级类别顺序和组件特定增量的IPN前缀</target>
+      </segment>
+    </unit>
+    <unit id="a4rPagW" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
+        <target>请先创建组件并将其分配到类别：基于现有类别及其专属的IPN前缀，可以自动建议组件的IPN</target>
+      </segment>
+    </unit>
     <unit id="uc9NwcF" name="part.edit.tab.part_lots">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:40</note>
@@ -2371,26 +2415,6 @@
       <segment state="translated">
         <source>part.order.single_price</source>
         <target>单价</target>
-      </segment>
-    </unit>
-    <unit id="EKnfKFl" name="edit.caption_short">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-      </notes>
-      <segment state="translated">
-        <source>edit.caption_short</source>
-        <target>编辑</target>
-      </segment>
-    </unit>
-    <unit id="qNZM46r" name="delete.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-      </notes>
-      <segment state="translated">
-        <source>delete.caption</source>
-        <target>删除</target>
       </segment>
     </unit>
     <unit id="aUihK3c" name="part_lots.description">
@@ -3003,16 +3027,6 @@
       <segment state="translated">
         <source>tfa_u2f.add_key.backup_hint</source>
         <target>为了确保即使密钥丢失也能访问，建议注册第二个密钥作为备份并将其存放在安全的地方！</target>
-      </segment>
-    </unit>
-    <unit id="ktQ_kY9" name="r_u2f_two_factor.name">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-      </notes>
-      <segment state="translated">
-        <source>r_u2f_two_factor.name</source>
-        <target>显示的密钥名称（例如备份）</target>
       </segment>
     </unit>
     <unit id="HI4_6dF" name="tfa_u2f.add_key.add_button">
@@ -4008,17 +4022,6 @@
         <target>供应商</target>
       </segment>
     </unit>
-    <unit id="Bs5QvO0" name="search.deactivateBarcode">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:57</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
-        <note priority="1">templates\base.html.twig:75</note>
-      </notes>
-      <segment state="translated">
-        <source>search.deactivateBarcode</source>
-        <target>停用条码</target>
-      </segment>
-    </unit>
     <unit id="biFM.cv" name="search.regexmatching">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
@@ -4310,16 +4313,6 @@
         <target>已保存更改。</target>
       </segment>
     </unit>
-    <unit id="w57VDWn" name="part.edited_flash.invalid">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-        <note priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-      </notes>
-      <segment state="translated">
-        <source>part.edited_flash.invalid</source>
-        <target>保存时出错。请检查输入</target>
-      </segment>
-    </unit>
     <unit id="suYw2UL" name="part.deleted">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:216</note>
@@ -4551,16 +4544,6 @@
       <segment state="translated">
         <source>user.settings.2fa.backup_codes.regenerated</source>
         <target>成功生成新备份代码。</target>
-      </segment>
-    </unit>
-    <unit id="zC0oO.O" name="attachment.table.filename">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.table.filename</source>
-        <target>文件名</target>
       </segment>
     </unit>
     <unit id="dNey6.4" name="attachment.table.filesize">
@@ -4837,6 +4820,12 @@
       <segment state="translated">
         <source>part.table.partUnit</source>
         <target>计量单位</target>
+      </segment>
+    </unit>
+    <unit id="G1hmQdb" name="part.table.partCustomState">
+      <segment state="translated">
+        <source>part.table.partCustomState</source>
+        <target>部件的自定义状态</target>
       </segment>
     </unit>
     <unit id="pw75u4x" name="part.table.addedDate">
@@ -5703,6 +5692,12 @@
         <target>计量单位</target>
       </segment>
     </unit>
+    <unit id="G1hmQdb" name="part.edit.partCustomState">
+      <segment state="translated">
+        <source>part.edit.partCustomState</source>
+        <target>部件的自定义状态</target>
+      </segment>
+    </unit>
     <unit id="LTZRVlq" name="part.edit.comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:212</note>
@@ -5990,6 +5985,12 @@
         <target>计量单位</target>
       </segment>
     </unit>
+    <unit id="a1mPcMw" name="part_custom_state.label">
+      <segment state="translated">
+        <source>part_custom_state.label</source>
+        <target>部件自定义状态</target>
+      </segment>
+    </unit>
     <unit id="5lJftbn" name="currency.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:90</note>
@@ -6233,6 +6234,12 @@
         <target>计量单位</target>
       </segment>
     </unit>
+    <unit id="5adacKb" name="tree.tools.edit.part_custom_state">
+      <segment state="translated">
+        <source>tree.tools.edit.part_custom_state</source>
+        <target>部件自定义状态</target>
+      </segment>
+    </unit>
     <unit id="YAalchf" name="tree.tools.edit.label_profile">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
@@ -6324,16 +6331,6 @@
       <segment state="translated">
         <source>entity.tree.new</source>
         <target>新建</target>
-      </segment>
-    </unit>
-    <unit id="3Vc5_D2" name="attachment.external_file">
-      <notes>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.external_file</source>
-        <target>外部文件</target>
       </segment>
     </unit>
     <unit id="gexfRxf" name="attachment.edit">
@@ -6604,16 +6601,6 @@
       <segment state="translated">
         <source>validator.noneofitschild.children</source>
         <target>父元素不能是它的子元素。</target>
-      </segment>
-    </unit>
-    <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>validator.part_lot.location_full.no_increasment</source>
-        <target>存储位置已标记为已满，无法增加库存量。（新的库存上限 {{ old_amount }}）</target>
       </segment>
     </unit>
     <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
@@ -6965,6 +6952,12 @@
       <segment state="translated">
         <source>category.edit.partname_regex</source>
         <target>名称过滤器</target>
+      </segment>
+    </unit>
+    <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix</source>
+        <target>部件 IPN 前缀</target>
       </segment>
     </unit>
     <unit id="UH78POJ" name="category.edit.default_description">
@@ -7462,39 +7455,6 @@ Element 3</target>
         <target>放弃更改</target>
       </segment>
     </unit>
-    <unit id="7TiUzGF" name="part.withdraw.btn">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:166</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.btn</source>
-        <target>提取</target>
-      </segment>
-    </unit>
-    <unit id="RVKdVNt" name="part.withdraw.comment:">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:171</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.comment:</source>
-        <target>注解/目的</target>
-      </segment>
-    </unit>
-    <unit id="kXcojTi" name="part.add.caption">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:189</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.caption</source>
-        <target>添加部件</target>
-      </segment>
-    </unit>
     <unit id="rYoCVp9" name="part.add.btn">
       <notes>
         <note priority="1">templates\Parts\show_part_info.html.twig:194</note>
@@ -7506,28 +7466,6 @@ Element 3</target>
         <target>增加</target>
       </segment>
     </unit>
-    <unit id="4CUEJg5" name="part.add.comment">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:199</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.comment</source>
-        <target>注解/目的</target>
-      </segment>
-    </unit>
-    <unit id="zIFsIyd" name="admin.comment">
-      <notes>
-        <note priority="1">templates\AdminPages\CompanyAdminBase.html.twig:15</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>admin.comment</source>
-        <target>注释</target>
-      </segment>
-    </unit>
     <unit id="74zmrRr" name="manufacturer_url.label">
       <notes>
         <note priority="1">src\Form\PartType.php:83</note>
@@ -7537,69 +7475,6 @@ Element 3</target>
       <segment state="translated">
         <source>manufacturer_url.label</source>
         <target>制造商链接</target>
-      </segment>
-    </unit>
-    <unit id="8QVpbd0" name="part.description.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:66</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.description.placeholder</source>
-        <target> </target>
-      </segment>
-    </unit>
-    <unit id="w_lfSsB" name="part.instock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:69</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.instock.placeholder</source>
-        <target> </target>
-      </segment>
-    </unit>
-    <unit id="58zdDWF" name="part.mininstock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:72</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.mininstock.placeholder</source>
-        <target> </target>
-      </segment>
-    </unit>
-    <unit id="cpRdMwo" name="part.order.price_per">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.order.price_per</source>
-        <target>每件价格</target>
-      </segment>
-    </unit>
-    <unit id="1n22zD9" name="part.withdraw.caption">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.caption</source>
-        <target>取出零件</target>
-      </segment>
-    </unit>
-    <unit id="pVVBLyB" name="datatable.datatable.lengthMenu">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>datatable.datatable.lengthMenu</source>
-        <target>_MENU_</target>
       </segment>
     </unit>
     <unit id="P.GFwjI" name="perm.group.parts">
@@ -8502,6 +8377,12 @@ Element 3</target>
         <target>计量单位</target>
       </segment>
     </unit>
+    <unit id="1b5ja1c" name="perm.part_custom_states">
+      <segment state="translated">
+        <source>perm.part_custom_states</source>
+        <target>部件的自定义状态</target>
+      </segment>
+    </unit>
     <unit id="ZrVNh2o" name="user.settings.pw_old.label">
       <notes>
         <note priority="1">obsolete</note>
@@ -8682,15 +8563,6 @@ Element 3</target>
       <segment state="translated">
         <source>perm.tools.timeTravel</source>
         <target>显示旧元素版本（时间旅行）</target>
-      </segment>
-    </unit>
-    <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>tfa_u2f.key_added_successful</source>
-        <target>安全密钥添加成功。</target>
       </segment>
     </unit>
     <unit id="47ienTP" name="Username">
@@ -8898,12 +8770,6 @@ Element 3</target>
       <segment state="translated">
         <source>group.edit.enforce_2fa.help</source>
         <target>该组的每个直接成员都必须配置至少一个的第二因素进行身份验证。</target>
-      </segment>
-    </unit>
-    <unit id="i7QKlzx" name="selectpicker.empty">
-      <segment state="translated">
-        <source>selectpicker.empty</source>
-        <target>未选择任何内容</target>
       </segment>
     </unit>
     <unit id="TPI_1p0" name="selectpicker.nothing_selected">
@@ -9156,12 +9022,6 @@ Element 3</target>
       <segment state="translated">
         <source>user.pw_change_needed.flash</source>
         <target>密码需要更改。请设置新密码</target>
-      </segment>
-    </unit>
-    <unit id="uEMvuw8" name="tree.root_node.text">
-      <segment state="translated">
-        <source>tree.root_node.text</source>
-        <target>根节点</target>
       </segment>
     </unit>
     <unit id="EieqscF" name="part_list.action.select_null">
@@ -10280,10 +10140,22 @@ Element 3</target>
         <target> </target>
       </segment>
     </unit>
+    <unit id="OXeGz1A" name="category.edit.part_ipn_prefix.placeholder">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.placeholder</source>
+        <target>例如："B12A"</target>
+      </segment>
+    </unit>
     <unit id="QFgP__5" name="category.edit.partname_regex.help">
       <segment state="translated">
         <source>category.edit.partname_regex.help</source>
         <target>与PCRE兼容的正则表达式，部分名称必须匹配。</target>
+      </segment>
+    </unit>
+    <unit id="a1bUsfJ" name="category.edit.part_ipn_prefix.help">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.help</source>
+        <target>输入零件IPN时建议的前缀。</target>
       </segment>
     </unit>
     <unit id="vr7oZKL" name="entity.select.add_hint">
@@ -10832,6 +10704,12 @@ Element 3</target>
         <target>计量单位</target>
       </segment>
     </unit>
+    <unit id="2COnw1k" name="log.element_edited.changed_fields.partCustomState">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.partCustomState</source>
+        <target>部件的自定义状态</target>
+      </segment>
+    </unit>
     <unit id="nwxlI_C" name="log.element_edited.changed_fields.expiration_date">
       <segment state="translated">
         <source>log.element_edited.changed_fields.expiration_date</source>
@@ -11088,6 +10966,18 @@ Element 3</target>
       <segment state="translated">
         <source>measurement_unit.edit</source>
         <target>编辑度量单位</target>
+      </segment>
+    </unit>
+    <unit id="ba52d.g" name="part_custom_state.new">
+      <segment state="translated">
+        <source>part_custom_state.new</source>
+        <target>部件的新自定义状态</target>
+      </segment>
+    </unit>
+    <unit id="c1.gb2d" name="part_custom_state.edit">
+      <segment state="translated">
+        <source>part_custom_state.edit</source>
+        <target>编辑部件的自定义状态</target>
       </segment>
     </unit>
     <unit id="gRatnCn" name="user.aboutMe.label">
@@ -11630,12 +11520,6 @@ Element 3</target>
       <segment state="translated">
         <source>api_tokens.expiration_date</source>
         <target>有效期</target>
-      </segment>
-    </unit>
-    <unit id="b5uLOjr" name="api_tokens.added_date">
-      <segment state="translated">
-        <source>api_tokens.added_date</source>
-        <target>添加于</target>
       </segment>
     </unit>
     <unit id="QPwuYKl" name="api_tokens.last_time_used">
@@ -12207,6 +12091,99 @@ Element 3</target>
         <source>entity.mass_creation_flash</source>
         <target>成功创建 %COUNT% 个元素。</target>
       </segment>
+    </unit>
+    <unit id="hYrcka2" name="attachment_type.labelp">
+      <segment>
+        <source>attachment_type.labelp</source>
+        <target>附件类型</target>
+      </segment>
+    </unit>
+    <unit id="5.oI1XD" name="currency.labelp">
+      <segment>
+        <source>currency.labelp</source>
+        <target>货币</target>
+      </segment>
+    </unit>
+    <unit id="aXr7mN." name="group.labelp">
+      <segment>
+        <source>group.labelp</source>
+        <target>组</target>
+      </segment>
+    </unit>
+    <unit id="p.Sjja3" name="label_profile.labelp">
+      <segment>
+        <source>label_profile.labelp</source>
+        <target>标签配置</target>
+      </segment>
+    </unit>
+    <unit id="8F2EwVK" name="measurement_unit.labelp">
+      <segment>
+        <source>measurement_unit.labelp</source>
+        <target>计量单位</target>
+      </segment>
+    </unit>
+    <unit id="UVDJmYp" name="orderdetail.labelp">
+      <segment>
+        <source>orderdetail.labelp</source>
+        <target>订单详情</target>
+      </segment>
+    </unit>
+    <unit id="4KRV2mB" name="parameter.labelp">
+      <segment>
+        <source>parameter.labelp</source>
+        <target>参数</target>
+      </segment>
+    </unit>
+    <unit id="R4hoCqe" name="part.labelp">
+      <segment>
+        <source>part.labelp</source>
+        <target>部件</target>
+      </segment>
+    </unit>
+    <unit id="AAYYeiw" name="part_association.labelp">
+      <segment>
+        <source>part_association.labelp</source>
+        <target>部件关联</target>
+      </segment>
+    </unit>
+    <unit id="Y_ISV0y" name="part_custom_state.labelp">
+      <segment>
+        <source>part_custom_state.labelp</source>
+        <target>部件自定义状态</target>
+      </segment>
+    </unit>
+    <unit id="ftBf11d" name="part_lot.labelp">
+      <segment>
+        <source>part_lot.labelp</source>
+        <target>部件批次</target>
+      </segment>
+    </unit>
+    <unit id="83AQqv." name="pricedetail.labelp">
+      <segment>
+        <source>pricedetail.labelp</source>
+        <target>价格详情</target>
+      </segment>
+    </unit>
+    <unit id=".tjK0ju" name="project_bom_entry.labelp">
+      <segment>
+        <source>project_bom_entry.labelp</source>
+        <target>BOM条目</target>
+      </segment>
+    </unit>
+    <unit id="MoHHSNT" name="user.labelp">
+      <segment>
+        <source>user.labelp</source>
+        <target>用户</target>
+      </segment>
+    </unit>
+    <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
+        <notes>
+            <note priority="1">Do not remove! Used for datatables rendering.</note>
+        </notes>
+        <segment state="translated">
+            <source>datatable.datatable.lengthMenu</source>
+            <target>_MENU_</target>
+          </segment>
     </unit>
   </file>
 </xliff>

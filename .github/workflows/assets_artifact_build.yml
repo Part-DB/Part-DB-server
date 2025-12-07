@@ -22,7 +22,7 @@ jobs:
       APP_ENV: prod
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -60,7 +60,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Setup node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
 
@@ -80,13 +80,13 @@ jobs:
         run: zip -r /tmp/partdb_assets.zip public/build/ vendor/
 
       - name: Upload assets artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: Only dependencies and built assets
           path: /tmp/partdb_assets.zip
 
       - name: Upload full artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: Full Part-DB including dependencies and built assets
           path: /tmp/partdb_with_assets.zip

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="ru">
   <file id="messages.en">
     <unit id="x_wTSQS" name="attachment_type.caption">
@@ -145,17 +145,6 @@
       <segment state="translated">
         <source>currency.new</source>
         <target>Новая валюта</target>
-      </segment>
-    </unit>
-    <unit id="YFQ8iCW" name="project.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>project.caption</source>
-        <target>Проект</target>
       </segment>
     </unit>
     <unit id="pe43jlV" name="project.edit">
@@ -548,6 +537,12 @@
         <target>Единица измерения</target>
       </segment>
     </unit>
+    <unit id="3bcKBzY" name="part_custom_state.caption">
+      <segment state="translated">
+        <source>part_custom_state.caption</source>
+        <target>Пользовательское состояние компонента</target>
+      </segment>
+    </unit>
     <unit id="crdkzlg" name="storelocation.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:5</note>
@@ -581,17 +576,6 @@
       <segment state="translated">
         <source>storelocation.new</source>
         <target>Новое место хранения</target>
-      </segment>
-    </unit>
-    <unit id="Rt3eY_7" name="supplier.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>supplier.caption</source>
-        <target>Поставщики</target>
       </segment>
     </unit>
     <unit id="ozZU_B5" name="supplier.edit">
@@ -731,7 +715,7 @@
       </notes>
       <segment state="translated">
         <source>user.edit.tfa.disable_tfa_message</source>
-        <target>Это выключит &lt;b&gt;все активные двухфакторной способы аутентификации пользователя&lt;/b&gt;и удалит &lt;b&gt;резервные коды&lt;/b&gt;! 
+        <target>Это выключит &lt;b&gt;все активные двухфакторной способы аутентификации пользователя&lt;/b&gt;и удалит &lt;b&gt;резервные коды&lt;/b&gt;!
 &lt;br&gt;
 Пользователь должен будет снова настроить все методы двухфакторной аутентификации и распечатать новые резервные коды! &lt;br&gt;&lt;br&gt;
 &lt;b&gt;Делайте это только в том случае, если вы абсолютно уверены в личности пользователя (обращающегося за помощью), в противном случае учетная запись может быть взломана злоумышленником!&lt;/b&gt;</target>
@@ -1850,6 +1834,66 @@
         <target>Расширенные</target>
       </segment>
     </unit>
+    <unit id="a1k7Blf" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
+        <target>Предложения без увеличения частей.</target>
+      </segment>
+    </unit>
+    <unit id="2achA.b" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
+        <target>Предложения с числовыми приращениями частей</target>
+      </segment>
+    </unit>
+    <unit id="a7jKe3c" name="part.edit.tab.advanced.ipn.prefix.description.current-increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.current-increment</source>
+        <target>Текущая спецификация IPN для детали</target>
+      </segment>
+    </unit>
+    <unit id="kEco9iX" name="part.edit.tab.advanced.ipn.prefix.description.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.increment</source>
+        <target>Следующая возможная спецификация IPN на основе идентичного описания детали</target>
+      </segment>
+    </unit>
+    <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
+        <target>Префикс IPN для прямой категории пуст, укажите его в категории «%name%».</target>
+      </segment>
+    </unit>
+    <unit id="ec2DiJd" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
+        <target>Префикс IPN для прямой категории</target>
+      </segment>
+    </unit>
+    <unit id="2e.kJb4" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
+        <target>Префикс IPN прямой категории и специфическое для части приращение</target>
+      </segment>
+    </unit>
+    <unit id="ba1GCoq" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
+        <target>IPN-префиксы с иерархическим порядком категорий родительских префиксов</target>
+      </segment>
+    </unit>
+    <unit id="d1uVFa3" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
+        <target>IPN-префиксы с иерархическим порядком категорий родительских префиксов и специфическим увеличением для компонента</target>
+      </segment>
+    </unit>
+    <unit id="a4rPagW" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
+        <target>Сначала создайте компонент и назначьте ему категорию: на основе существующих категорий и их собственных IPN-префиксов идентификатор IPN для компонента может быть предложен автоматически</target>
+      </segment>
+    </unit>
     <unit id="c3S4jwK" name="part.edit.tab.part_lots">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:40</note>
@@ -2371,26 +2415,6 @@
       <segment state="translated">
         <source>part.order.single_price</source>
         <target>Цена за единицу</target>
-      </segment>
-    </unit>
-    <unit id="CbWR2nl" name="edit.caption_short">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-      </notes>
-      <segment state="translated">
-        <source>edit.caption_short</source>
-        <target>Редакт.</target>
-      </segment>
-    </unit>
-    <unit id="er4pQft" name="delete.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-      </notes>
-      <segment state="translated">
-        <source>delete.caption</source>
-        <target>Удалить</target>
       </segment>
     </unit>
     <unit id="pg0yCCK" name="part_lots.description">
@@ -3004,16 +3028,6 @@
       <segment state="translated">
         <source>tfa_u2f.add_key.backup_hint</source>
         <target>Чтобы не утратить доступ в случае потери ключа мы рекомендуем зарегистрировать еще один как резервный и хранить его в безопасном месте!</target>
-      </segment>
-    </unit>
-    <unit id="IcnYTDa" name="r_u2f_two_factor.name">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-      </notes>
-      <segment state="translated">
-        <source>r_u2f_two_factor.name</source>
-        <target>Отображаемое имя ключа (напр. Резервный)</target>
       </segment>
     </unit>
     <unit id="wH4JBAx" name="tfa_u2f.add_key.add_button">
@@ -3740,7 +3754,7 @@
       </notes>
       <segment state="translated">
         <source>tfa_backup.reset_codes.confirm_message</source>
-        <target>Это удалит все предыдущие коды и создаст набор новых. Это не может быть отменено. 
+        <target>Это удалит все предыдущие коды и создаст набор новых. Это не может быть отменено.
 Не забудьте распечатать новы кода и хранить их в безопасном месте!</target>
       </segment>
     </unit>
@@ -4008,17 +4022,6 @@
       <segment state="translated">
         <source>supplier.label</source>
         <target>Поставщик</target>
-      </segment>
-    </unit>
-    <unit id="liOuf4u" name="search.deactivateBarcode">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:57</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
-        <note priority="1">templates\base.html.twig:75</note>
-      </notes>
-      <segment state="translated">
-        <source>search.deactivateBarcode</source>
-        <target>Деактивировать штрих-код</target>
       </segment>
     </unit>
     <unit id="h7QrXRa" name="search.regexmatching">
@@ -4312,16 +4315,6 @@
         <target>Изменения сохранены!</target>
       </segment>
     </unit>
-    <unit id="bNFdvNL" name="part.edited_flash.invalid">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-        <note priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-      </notes>
-      <segment state="translated">
-        <source>part.edited_flash.invalid</source>
-        <target>Ошибка при сохранении: проверьте введенные данные!</target>
-      </segment>
-    </unit>
     <unit id="XFmvSsv" name="part.deleted">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:216</note>
@@ -4553,16 +4546,6 @@
       <segment state="translated">
         <source>user.settings.2fa.backup_codes.regenerated</source>
         <target>Новые резервные коды успешно сгенерированы.</target>
-      </segment>
-    </unit>
-    <unit id="9OPMdQa" name="attachment.table.filename">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.table.filename</source>
-        <target>Имя файла</target>
       </segment>
     </unit>
     <unit id="hSn3zNG" name="attachment.table.filesize">
@@ -4839,6 +4822,12 @@
       <segment state="translated">
         <source>part.table.partUnit</source>
         <target>Единица измерения</target>
+      </segment>
+    </unit>
+    <unit id="G1hmQdb" name="part.table.partCustomState">
+      <segment state="translated">
+        <source>part.table.partCustomState</source>
+        <target>Пользовательское состояние детали</target>
       </segment>
     </unit>
     <unit id="R5pc2FR" name="part.table.addedDate">
@@ -5705,6 +5694,12 @@
         <target>Единица измерения</target>
       </segment>
     </unit>
+    <unit id="G1hmQdb" name="part.edit.partCustomState">
+      <segment state="translated">
+        <source>part.edit.partCustomState</source>
+        <target>Пользовательское состояние части</target>
+      </segment>
+    </unit>
     <unit id="oY_9HE9" name="part.edit.comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:212</note>
@@ -5992,6 +5987,12 @@
         <target>Единица измерения</target>
       </segment>
     </unit>
+    <unit id="a1mPcMw" name="part_custom_state.label">
+      <segment state="translated">
+        <source>part_custom_state.label</source>
+        <target>Пользовательское состояние детали</target>
+      </segment>
+    </unit>
     <unit id="__SP1Zy" name="currency.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:90</note>
@@ -6235,6 +6236,12 @@
         <target>Единица измерения</target>
       </segment>
     </unit>
+    <unit id="5adacKb" name="tree.tools.edit.part_custom_state">
+      <segment state="translated">
+        <source>tree.tools.edit.part_custom_state</source>
+        <target>Пользовательское состояние компонента</target>
+      </segment>
+    </unit>
     <unit id=".Ux4R3T" name="tree.tools.edit.label_profile">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
@@ -6326,16 +6333,6 @@
       <segment state="translated">
         <source>entity.tree.new</source>
         <target>Новый Элемент</target>
-      </segment>
-    </unit>
-    <unit id="U.Ovrd7" name="attachment.external_file">
-      <notes>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.external_file</source>
-        <target>Внешний файл</target>
       </segment>
     </unit>
     <unit id="YqYH6GX" name="attachment.edit">
@@ -6606,16 +6603,6 @@
       <segment state="translated">
         <source>validator.noneofitschild.children</source>
         <target>Родитель не может быть дочерним по отношению к себе</target>
-      </segment>
-    </unit>
-    <unit id="j_GFZOQ" name="validator.part_lot.location_full.no_increasment">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>validator.part_lot.location_full.no_increasment</source>
-        <target>Вы не можете увеличивать складские объемы в хранилище помеченном как "полное". (Новое макс. количество {{ old_amount }})</target>
       </segment>
     </unit>
     <unit id="eeEjB4s" name="validator.part_lot.location_full">
@@ -6968,6 +6955,12 @@
       <segment state="translated">
         <source>category.edit.partname_regex</source>
         <target>Фильтр по имени</target>
+      </segment>
+    </unit>
+    <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix</source>
+        <target>Префикс IPN детали</target>
       </segment>
     </unit>
     <unit id="yY_ld.7" name="category.edit.default_description">
@@ -7463,39 +7456,6 @@
         <target>Отменить изменения</target>
       </segment>
     </unit>
-    <unit id="rwhG3NF" name="part.withdraw.btn">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:166</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.btn</source>
-        <target>Изъять</target>
-      </segment>
-    </unit>
-    <unit id="KYhBkRo" name="part.withdraw.comment:">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:171</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.comment:</source>
-        <target>Комментарий/Цель</target>
-      </segment>
-    </unit>
-    <unit id="kAlV8Zt" name="part.add.caption">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:189</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.caption</source>
-        <target>Добавить компонент</target>
-      </segment>
-    </unit>
     <unit id="TAZxRYj" name="part.add.btn">
       <notes>
         <note priority="1">templates\Parts\show_part_info.html.twig:194</note>
@@ -7507,28 +7467,6 @@
         <target>Добавить</target>
       </segment>
     </unit>
-    <unit id="yqLffb1" name="part.add.comment">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:199</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.comment</source>
-        <target>Комментарий/Цель</target>
-      </segment>
-    </unit>
-    <unit id="oj5uuIF" name="admin.comment">
-      <notes>
-        <note priority="1">templates\AdminPages\CompanyAdminBase.html.twig:15</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>admin.comment</source>
-        <target>Комментарий</target>
-      </segment>
-    </unit>
     <unit id="VI_567B" name="manufacturer_url.label">
       <notes>
         <note priority="1">src\Form\PartType.php:83</note>
@@ -7538,69 +7476,6 @@
       <segment state="translated">
         <source>manufacturer_url.label</source>
         <target>Ссылка на производителя</target>
-      </segment>
-    </unit>
-    <unit id="hx8T2RQ" name="part.description.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:66</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.description.placeholder</source>
-        <target>н.р. NNPN 45V 0,1A 0,5W</target>
-      </segment>
-    </unit>
-    <unit id="SDwGex2" name="part.instock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:69</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.instock.placeholder</source>
-        <target>н.р. 10</target>
-      </segment>
-    </unit>
-    <unit id="of7AUNW" name="part.mininstock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:72</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.mininstock.placeholder</source>
-        <target>н.р. 5</target>
-      </segment>
-    </unit>
-    <unit id="OsZzrme" name="part.order.price_per">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.order.price_per</source>
-        <target>Цена на</target>
-      </segment>
-    </unit>
-    <unit id="dEQm2lQ" name="part.withdraw.caption">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.caption</source>
-        <target>Изъять компоненты</target>
-      </segment>
-    </unit>
-    <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>datatable.datatable.lengthMenu</source>
-        <target>_MENU_</target>
       </segment>
     </unit>
     <unit id="IPge2iH" name="perm.group.parts">
@@ -8503,6 +8378,12 @@
         <target>Единица измерения</target>
       </segment>
     </unit>
+    <unit id="1b5ja1c" name="perm.part_custom_states">
+      <segment state="translated">
+        <source>perm.part_custom_states</source>
+        <target>Пользовательское состояние компонента</target>
+      </segment>
+    </unit>
     <unit id="coNue69" name="user.settings.pw_old.label">
       <notes>
         <note priority="1">obsolete</note>
@@ -8683,15 +8564,6 @@
       <segment state="translated">
         <source>perm.tools.timeTravel</source>
         <target>Показать предыдущие версии элемента</target>
-      </segment>
-    </unit>
-    <unit id="tyCC1qL" name="tfa_u2f.key_added_successful">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>tfa_u2f.key_added_successful</source>
-        <target> Ключ безопасности успешно добавлен.</target>
       </segment>
     </unit>
     <unit id="VhxhtYo" name="Username">
@@ -8899,12 +8771,6 @@
       <segment state="translated">
         <source>group.edit.enforce_2fa.help</source>
         <target>Если эта опция разрешена, каждый член данной группы обязан сконфигурировать как минимум один вторичный способ аутентификации. Рекомендовано для административных групп с большими правами.</target>
-      </segment>
-    </unit>
-    <unit id="O2l2jsJ" name="selectpicker.empty">
-      <segment state="translated">
-        <source>selectpicker.empty</source>
-        <target>Ничего не выбрано</target>
       </segment>
     </unit>
     <unit id="NwsYm0P" name="selectpicker.nothing_selected">
@@ -9157,12 +9023,6 @@
       <segment state="translated">
         <source>user.pw_change_needed.flash</source>
         <target>Вам нужно сменить пароль! Пожалуйста, задайте новый.</target>
-      </segment>
-    </unit>
-    <unit id="x98ftIM" name="tree.root_node.text">
-      <segment state="translated">
-        <source>tree.root_node.text</source>
-        <target>Корень</target>
       </segment>
     </unit>
     <unit id="2LkM7pn" name="part_list.action.select_null">
@@ -10281,10 +10141,22 @@
         <target>e.g "/Конденсатор \d+ nF/i"</target>
       </segment>
     </unit>
+    <unit id="OXeGz1A" name="category.edit.part_ipn_prefix.placeholder">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.placeholder</source>
+        <target>e.g "B12A"</target>
+      </segment>
+    </unit>
     <unit id="DL.TreI" name="category.edit.partname_regex.help">
       <segment state="translated">
         <source>category.edit.partname_regex.help</source>
         <target>PCRE-совместимое регулярное выражение которому должно соответствовать имя компонента.</target>
+      </segment>
+    </unit>
+    <unit id="a1bUsfJ" name="category.edit.part_ipn_prefix.help">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.help</source>
+        <target>Предлагаемый префикс при вводе IPN детали.</target>
       </segment>
     </unit>
     <unit id="GzqIwHH" name="entity.select.add_hint">
@@ -10833,6 +10705,12 @@
         <target>Единица измерения</target>
       </segment>
     </unit>
+    <unit id="2COnw1k" name="log.element_edited.changed_fields.partCustomState">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.partCustomState</source>
+        <target>Пользовательское состояние детали</target>
+      </segment>
+    </unit>
     <unit id="c9XMmAp" name="log.element_edited.changed_fields.expiration_date">
       <segment state="translated">
         <source>log.element_edited.changed_fields.expiration_date</source>
@@ -11089,6 +10967,18 @@
       <segment state="translated">
         <source>measurement_unit.edit</source>
         <target>Изменить единицу измерения</target>
+      </segment>
+    </unit>
+    <unit id="ba52d.g" name="part_custom_state.new">
+      <segment state="translated">
+        <source>part_custom_state.new</source>
+        <target>Новое пользовательское состояние компонента</target>
+      </segment>
+    </unit>
+    <unit id="c1.gb2d" name="part_custom_state.edit">
+      <segment state="translated">
+        <source>part_custom_state.edit</source>
+        <target>Редактировать пользовательское состояние компонента</target>
       </segment>
     </unit>
     <unit id="uW2WHHC" name="user.aboutMe.label">
@@ -11631,12 +11521,6 @@
       <segment state="translated">
         <source>api_tokens.expiration_date</source>
         <target>Дата истечения срока действия</target>
-      </segment>
-    </unit>
-    <unit id="5k6W3jw" name="api_tokens.added_date">
-      <segment state="translated">
-        <source>api_tokens.added_date</source>
-        <target>Добавлен</target>
       </segment>
     </unit>
     <unit id="leWWwKP" name="api_tokens.last_time_used">
@@ -12322,6 +12206,99 @@
         <source>label_generator.profile_saved</source>
         <target>Профиль сохранен!</target>
       </segment>
+    </unit>
+    <unit id="hYrcka2" name="attachment_type.labelp">
+      <segment>
+        <source>attachment_type.labelp</source>
+        <target>Типы вложений</target>
+      </segment>
+    </unit>
+    <unit id="5.oI1XD" name="currency.labelp">
+      <segment>
+        <source>currency.labelp</source>
+        <target>Валюты</target>
+      </segment>
+    </unit>
+    <unit id="aXr7mN." name="group.labelp">
+      <segment>
+        <source>group.labelp</source>
+        <target>Группы</target>
+      </segment>
+    </unit>
+    <unit id="p.Sjja3" name="label_profile.labelp">
+      <segment>
+        <source>label_profile.labelp</source>
+        <target>Профили этикеток</target>
+      </segment>
+    </unit>
+    <unit id="8F2EwVK" name="measurement_unit.labelp">
+      <segment>
+        <source>measurement_unit.labelp</source>
+        <target>Единицы измерения</target>
+      </segment>
+    </unit>
+    <unit id="UVDJmYp" name="orderdetail.labelp">
+      <segment>
+        <source>orderdetail.labelp</source>
+        <target>Детали заказов</target>
+      </segment>
+    </unit>
+    <unit id="4KRV2mB" name="parameter.labelp">
+      <segment>
+        <source>parameter.labelp</source>
+        <target>Параметры</target>
+      </segment>
+    </unit>
+    <unit id="R4hoCqe" name="part.labelp">
+      <segment>
+        <source>part.labelp</source>
+        <target>Компоненты</target>
+      </segment>
+    </unit>
+    <unit id="AAYYeiw" name="part_association.labelp">
+      <segment>
+        <source>part_association.labelp</source>
+        <target>Связи компонентов</target>
+      </segment>
+    </unit>
+    <unit id="Y_ISV0y" name="part_custom_state.labelp">
+      <segment>
+        <source>part_custom_state.labelp</source>
+        <target>Пользовательские состояния деталей</target>
+      </segment>
+    </unit>
+    <unit id="ftBf11d" name="part_lot.labelp">
+      <segment>
+        <source>part_lot.labelp</source>
+        <target>Лоты компонентов</target>
+      </segment>
+    </unit>
+    <unit id="83AQqv." name="pricedetail.labelp">
+      <segment>
+        <source>pricedetail.labelp</source>
+        <target>Детали цен</target>
+      </segment>
+    </unit>
+    <unit id=".tjK0ju" name="project_bom_entry.labelp">
+      <segment>
+        <source>project_bom_entry.labelp</source>
+        <target>BOM записи</target>
+      </segment>
+    </unit>
+    <unit id="MoHHSNT" name="user.labelp">
+      <segment>
+        <source>user.labelp</source>
+        <target>Пользователи</target>
+      </segment>
+    </unit>
+    <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
+        <notes>
+            <note priority="1">Do not remove! Used for datatables rendering.</note>
+        </notes>
+        <segment state="translated">
+            <source>datatable.datatable.lengthMenu</source>
+            <target>_MENU_</target>
+          </segment>
     </unit>
   </file>
 </xliff>

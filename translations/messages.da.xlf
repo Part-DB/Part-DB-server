@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="da">
   <file id="messages.en">
     <unit id="0Md_YOf" name="attachment_type.caption">
@@ -145,17 +145,6 @@
       <segment state="translated">
         <source>currency.new</source>
         <target>Ny valuta</target>
-      </segment>
-    </unit>
-    <unit id="zNlEdQs" name="project.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>project.caption</source>
-        <target>Projekt</target>
       </segment>
     </unit>
     <unit id="DTt5Co7" name="project.edit">
@@ -548,6 +537,12 @@
         <target>Måleenhed</target>
       </segment>
     </unit>
+    <unit id="3bcKBzY" name="part_custom_state.caption">
+      <segment state="translated">
+        <source>part_custom_state.caption</source>
+        <target>Brugerdefineret komponentstatus</target>
+      </segment>
+    </unit>
     <unit id="vZGwiMS" name="storelocation.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:5</note>
@@ -581,17 +576,6 @@
       <segment state="translated">
         <source>storelocation.new</source>
         <target>Ny lagerlokation</target>
-      </segment>
-    </unit>
-    <unit id="ykqfBBp" name="supplier.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>supplier.caption</source>
-        <target>Leverandører</target>
       </segment>
     </unit>
     <unit id="DpVIJeK" name="supplier.edit">
@@ -1850,6 +1834,66 @@ Underelementer vil blive flyttet opad.</target>
         <target>Advanceret</target>
       </segment>
     </unit>
+    <unit id="a1k7Blf" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
+        <target>Forslag uden del-inkrement</target>
+      </segment>
+    </unit>
+    <unit id="2achA.b" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
+        <target>Forslag med numeriske deleforøgelser</target>
+      </segment>
+    </unit>
+    <unit id="a7jKe3c" name="part.edit.tab.advanced.ipn.prefix.description.current-increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.current-increment</source>
+        <target>Aktuel IPN-specifikation for delen</target>
+      </segment>
+    </unit>
+    <unit id="kEco9iX" name="part.edit.tab.advanced.ipn.prefix.description.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.increment</source>
+        <target>Næste mulige IPN-specifikation baseret på en identisk delebeskrivelse</target>
+      </segment>
+    </unit>
+    <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
+        <target>IPN-præfikset for den direkte kategori er tomt, angiv det i kategorien "%name%"</target>
+      </segment>
+    </unit>
+    <unit id="ec2DiJd" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
+        <target>IPN-præfiks for direkte kategori</target>
+      </segment>
+    </unit>
+    <unit id="2e.kJb4" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
+        <target>IPN-præfiks for den direkte kategori og en delspecifik inkrement</target>
+      </segment>
+    </unit>
+    <unit id="ba1GCoq" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
+        <target>IPN-præfikser med hierarkisk rækkefølge af overordnede præfikser</target>
+      </segment>
+    </unit>
+    <unit id="d1uVFa3" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
+        <target>IPN-præfikser med hierarkisk rækkefølge af overordnede præfikser og en del-specifik inkrement</target>
+      </segment>
+    </unit>
+    <unit id="a4rPagW" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
+        <target>Opret først en komponent, og tildel den en kategori: med eksisterende kategorier og deres egne IPN-præfikser kan IPN-betegnelsen for komponenten foreslås automatisk</target>
+      </segment>
+    </unit>
     <unit id="uc9NwcF" name="part.edit.tab.part_lots">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:40</note>
@@ -2371,26 +2415,6 @@ Underelementer vil blive flyttet opad.</target>
       <segment state="translated">
         <source>part.order.single_price</source>
         <target>Enhedspris</target>
-      </segment>
-    </unit>
-    <unit id="EKnfKFl" name="edit.caption_short">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-      </notes>
-      <segment state="translated">
-        <source>edit.caption_short</source>
-        <target>Ret</target>
-      </segment>
-    </unit>
-    <unit id="qNZM46r" name="delete.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-      </notes>
-      <segment state="translated">
-        <source>delete.caption</source>
-        <target>Slet</target>
       </segment>
     </unit>
     <unit id="aUihK3c" name="part_lots.description">
@@ -3003,16 +3027,6 @@ Underelementer vil blive flyttet opad.</target>
       <segment state="translated">
         <source>tfa_u2f.add_key.backup_hint</source>
         <target>For at sikre adgang, selvom nøglen går tabt, anbefales det at registrere en anden nøgle som backup og opbevare den et sikkert sted!</target>
-      </segment>
-    </unit>
-    <unit id="ktQ_kY9" name="r_u2f_two_factor.name">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-      </notes>
-      <segment state="translated">
-        <source>r_u2f_two_factor.name</source>
-        <target>Vist nøglenavn (f.eks. backup)</target>
       </segment>
     </unit>
     <unit id="HI4_6dF" name="tfa_u2f.add_key.add_button">
@@ -4007,17 +4021,6 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
         <target>Leverandør</target>
       </segment>
     </unit>
-    <unit id="Bs5QvO0" name="search.deactivateBarcode">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:57</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
-        <note priority="1">templates\base.html.twig:75</note>
-      </notes>
-      <segment state="translated">
-        <source>search.deactivateBarcode</source>
-        <target>Deakt. stregkode</target>
-      </segment>
-    </unit>
     <unit id="biFM.cv" name="search.regexmatching">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
@@ -4309,16 +4312,6 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
         <target>Ændringer gemt!</target>
       </segment>
     </unit>
-    <unit id="w57VDWn" name="part.edited_flash.invalid">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-        <note priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-      </notes>
-      <segment state="translated">
-        <source>part.edited_flash.invalid</source>
-        <target>Fejl ved lagring: Tjek dine indtastninger!</target>
-      </segment>
-    </unit>
     <unit id="suYw2UL" name="part.deleted">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:216</note>
@@ -4550,16 +4543,6 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
       <segment state="translated">
         <source>user.settings.2fa.backup_codes.regenerated</source>
         <target>Nye backupkoder blev oprettet.</target>
-      </segment>
-    </unit>
-    <unit id="zC0oO.O" name="attachment.table.filename">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.table.filename</source>
-        <target>Filnavn</target>
       </segment>
     </unit>
     <unit id="dNey6.4" name="attachment.table.filesize">
@@ -4836,6 +4819,12 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
       <segment state="translated">
         <source>part.table.partUnit</source>
         <target>Måleenhed</target>
+      </segment>
+    </unit>
+    <unit id="G1hmQdb" name="part.table.partCustomState">
+      <segment state="translated">
+        <source>part.table.partCustomState</source>
+        <target>Brugerdefineret komponentstatus</target>
       </segment>
     </unit>
     <unit id="pw75u4x" name="part.table.addedDate">
@@ -5702,6 +5691,12 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
         <target>Måleenhed</target>
       </segment>
     </unit>
+    <unit id="G1hmQdb" name="part.edit.partCustomState">
+      <segment state="translated">
+        <source>part.edit.partCustomState</source>
+        <target>Brugerdefineret deltilstand</target>
+      </segment>
+    </unit>
     <unit id="LTZRVlq" name="part.edit.comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:212</note>
@@ -5989,6 +5984,12 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
         <target>Måleenhed</target>
       </segment>
     </unit>
+    <unit id="a1mPcMw" name="part_custom_state.label">
+      <segment state="translated">
+        <source>part_custom_state.label</source>
+        <target>Brugerdefineret deltilstand</target>
+      </segment>
+    </unit>
     <unit id="5lJftbn" name="currency.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:90</note>
@@ -6232,6 +6233,12 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
         <target>Måleenhed</target>
       </segment>
     </unit>
+    <unit id="5adacKb" name="tree.tools.edit.part_custom_state">
+      <segment state="translated">
+        <source>tree.tools.edit.part_custom_state</source>
+        <target>Brugerdefineret komponenttilstand</target>
+      </segment>
+    </unit>
     <unit id="YAalchf" name="tree.tools.edit.label_profile">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
@@ -6323,16 +6330,6 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
       <segment state="translated">
         <source>entity.tree.new</source>
         <target>Nyt element</target>
-      </segment>
-    </unit>
-    <unit id="3Vc5_D2" name="attachment.external_file">
-      <notes>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.external_file</source>
-        <target>Ekstern fil</target>
       </segment>
     </unit>
     <unit id="gexfRxf" name="attachment.edit">
@@ -6603,16 +6600,6 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
       <segment state="translated">
         <source>validator.noneofitschild.children</source>
         <target>Et underordnet element kan ikke være det overordnede element!</target>
-      </segment>
-    </unit>
-    <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>validator.part_lot.location_full.no_increasment</source>
-        <target>Den anvendte lagerlokation er markeret som fuld, derfor kan beholdningen ikke øges. (Nyt lager maksimum {{ old_amount }})</target>
       </segment>
     </unit>
     <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
@@ -6964,6 +6951,12 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
       <segment state="translated">
         <source>category.edit.partname_regex</source>
         <target>Navnefilter</target>
+      </segment>
+    </unit>
+    <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix</source>
+        <target>IPN-komponentförstavelse</target>
       </segment>
     </unit>
     <unit id="UH78POJ" name="category.edit.default_description">
@@ -7462,39 +7455,6 @@ Element 3</target>
         <target>Fortryd ændringer</target>
       </segment>
     </unit>
-    <unit id="7TiUzGF" name="part.withdraw.btn">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:166</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.btn</source>
-        <target>Fjern</target>
-      </segment>
-    </unit>
-    <unit id="RVKdVNt" name="part.withdraw.comment:">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:171</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.comment:</source>
-        <target>Kommentar/formål</target>
-      </segment>
-    </unit>
-    <unit id="kXcojTi" name="part.add.caption">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:189</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.caption</source>
-        <target>Tilføj komponent</target>
-      </segment>
-    </unit>
     <unit id="rYoCVp9" name="part.add.btn">
       <notes>
         <note priority="1">templates\Parts\show_part_info.html.twig:194</note>
@@ -7506,28 +7466,6 @@ Element 3</target>
         <target>Tilføj</target>
       </segment>
     </unit>
-    <unit id="4CUEJg5" name="part.add.comment">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:199</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.comment</source>
-        <target>Kommentar/formål</target>
-      </segment>
-    </unit>
-    <unit id="zIFsIyd" name="admin.comment">
-      <notes>
-        <note priority="1">templates\AdminPages\CompanyAdminBase.html.twig:15</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>admin.comment</source>
-        <target>Noter</target>
-      </segment>
-    </unit>
     <unit id="74zmrRr" name="manufacturer_url.label">
       <notes>
         <note priority="1">src\Form\PartType.php:83</note>
@@ -7537,69 +7475,6 @@ Element 3</target>
       <segment state="translated">
         <source>manufacturer_url.label</source>
         <target>Producentlink</target>
-      </segment>
-    </unit>
-    <unit id="8QVpbd0" name="part.description.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:66</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.description.placeholder</source>
-        <target>f.eks. NPN 45V 0,1A 0,5W</target>
-      </segment>
-    </unit>
-    <unit id="w_lfSsB" name="part.instock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:69</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.instock.placeholder</source>
-        <target>f.eks. 10</target>
-      </segment>
-    </unit>
-    <unit id="58zdDWF" name="part.mininstock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:72</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.mininstock.placeholder</source>
-        <target>f.eks. 12</target>
-      </segment>
-    </unit>
-    <unit id="cpRdMwo" name="part.order.price_per">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.order.price_per</source>
-        <target>Stykpris</target>
-      </segment>
-    </unit>
-    <unit id="1n22zD9" name="part.withdraw.caption">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.caption</source>
-        <target>Fjern komponenter</target>
-      </segment>
-    </unit>
-    <unit id="pVVBLyB" name="datatable.datatable.lengthMenu">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>datatable.datatable.lengthMenu</source>
-        <target>_MENU_</target>
       </segment>
     </unit>
     <unit id="P.GFwjI" name="perm.group.parts">
@@ -8502,6 +8377,12 @@ Element 3</target>
         <target>Måleenhed</target>
       </segment>
     </unit>
+    <unit id="1b5ja1c" name="perm.part_custom_states">
+      <segment state="translated">
+        <source>perm.part_custom_states</source>
+        <target>Brugerdefineret komponentstatus</target>
+      </segment>
+    </unit>
     <unit id="ZrVNh2o" name="user.settings.pw_old.label">
       <notes>
         <note priority="1">obsolete</note>
@@ -8682,15 +8563,6 @@ Element 3</target>
       <segment state="translated">
         <source>perm.tools.timeTravel</source>
         <target>Vis tidligere versioner (tidsrejser)</target>
-      </segment>
-    </unit>
-    <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>tfa_u2f.key_added_successful</source>
-        <target>Sikkerhedsnøgle tilføjet</target>
       </segment>
     </unit>
     <unit id="47ienTP" name="Username">
@@ -8898,12 +8770,6 @@ Element 3</target>
       <segment state="translated">
         <source>group.edit.enforce_2fa.help</source>
         <target>Hvis denne option er valgt, skal hvert direkte medlem af denne gruppe konfigurere mindst en anden faktor til godkendelse. Anbefales f.eks. til administrative grupper med omfattende autorisationer.</target>
-      </segment>
-    </unit>
-    <unit id="i7QKlzx" name="selectpicker.empty">
-      <segment state="translated">
-        <source>selectpicker.empty</source>
-        <target>Ingenting valgt</target>
       </segment>
     </unit>
     <unit id="TPI_1p0" name="selectpicker.nothing_selected">
@@ -9156,12 +9022,6 @@ Element 3</target>
       <segment state="translated">
         <source>user.pw_change_needed.flash</source>
         <target>Ændring af password påkrævet! Venligst vælg et nyt password.</target>
-      </segment>
-    </unit>
-    <unit id="uEMvuw8" name="tree.root_node.text">
-      <segment state="translated">
-        <source>tree.root_node.text</source>
-        <target>Rod</target>
       </segment>
     </unit>
     <unit id="EieqscF" name="part_list.action.select_null">
@@ -10280,10 +10140,22 @@ Element 3</target>
         <target>f.eks. "/Kondensator \d+ nF/i"</target>
       </segment>
     </unit>
+    <unit id="OXeGz1A" name="category.edit.part_ipn_prefix.placeholder">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.placeholder</source>
+        <target>f.eks. "B12A"</target>
+      </segment>
+    </unit>
     <unit id="QFgP__5" name="category.edit.partname_regex.help">
       <segment state="translated">
         <source>category.edit.partname_regex.help</source>
         <target>Et PCRE-kompatibelt regulært udtryk, som delnavnet skal opfylde.</target>
+      </segment>
+    </unit>
+    <unit id="a1bUsfJ" name="category.edit.part_ipn_prefix.help">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.help</source>
+        <target>Et prefix foreslået, når IPN for en del indtastes.</target>
       </segment>
     </unit>
     <unit id="vr7oZKL" name="entity.select.add_hint">
@@ -10832,6 +10704,12 @@ Element 3</target>
         <target>Måleenhed</target>
       </segment>
     </unit>
+    <unit id="2COnw1k" name="log.element_edited.changed_fields.partCustomState">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.partCustomState</source>
+        <target>Brugerdefineret komponentstatus</target>
+      </segment>
+    </unit>
     <unit id="nwxlI_C" name="log.element_edited.changed_fields.expiration_date">
       <segment state="translated">
         <source>log.element_edited.changed_fields.expiration_date</source>
@@ -11094,6 +10972,18 @@ Oversættelsen
       <segment state="translated">
         <source>measurement_unit.edit</source>
         <target>Ret måleenhed</target>
+      </segment>
+    </unit>
+    <unit id="ba52d.g" name="part_custom_state.new">
+      <segment state="translated">
+        <source>part_custom_state.new</source>
+        <target>Ny brugerdefineret komponentstatus</target>
+      </segment>
+    </unit>
+    <unit id="c1.gb2d" name="part_custom_state.edit">
+      <segment state="translated">
+        <source>part_custom_state.edit</source>
+        <target>Rediger brugerdefineret komponentstatus</target>
       </segment>
     </unit>
     <unit id="gRatnCn" name="user.aboutMe.label">
@@ -11636,12 +11526,6 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
       <segment state="translated">
         <source>api_tokens.expiration_date</source>
         <target>Udløbsdato</target>
-      </segment>
-    </unit>
-    <unit id="b5uLOjr" name="api_tokens.added_date">
-      <segment state="translated">
-        <source>api_tokens.added_date</source>
-        <target>Oprettet den</target>
       </segment>
     </unit>
     <unit id="QPwuYKl" name="api_tokens.last_time_used">
@@ -12195,6 +12079,99 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
         <source>part.withdraw.zero_amount</source>
         <target>Du forsøgte at fjerne/tilføje en mængde sat til nul! Der blev ikke foretaget nogen handling.</target>
       </segment>
+    </unit>
+    <unit id="hYrcka2" name="attachment_type.labelp">
+      <segment>
+        <source>attachment_type.labelp</source>
+        <target>Bilagstyper</target>
+      </segment>
+    </unit>
+    <unit id="5.oI1XD" name="currency.labelp">
+      <segment>
+        <source>currency.labelp</source>
+        <target>Valutaer</target>
+      </segment>
+    </unit>
+    <unit id="aXr7mN." name="group.labelp">
+      <segment>
+        <source>group.labelp</source>
+        <target>Grupper</target>
+      </segment>
+    </unit>
+    <unit id="p.Sjja3" name="label_profile.labelp">
+      <segment>
+        <source>label_profile.labelp</source>
+        <target>Labelprofiler</target>
+      </segment>
+    </unit>
+    <unit id="8F2EwVK" name="measurement_unit.labelp">
+      <segment>
+        <source>measurement_unit.labelp</source>
+        <target>Måleenheder</target>
+      </segment>
+    </unit>
+    <unit id="UVDJmYp" name="orderdetail.labelp">
+      <segment>
+        <source>orderdetail.labelp</source>
+        <target>Bestillingsoplysninger</target>
+      </segment>
+    </unit>
+    <unit id="4KRV2mB" name="parameter.labelp">
+      <segment>
+        <source>parameter.labelp</source>
+        <target>Parametre</target>
+      </segment>
+    </unit>
+    <unit id="R4hoCqe" name="part.labelp">
+      <segment>
+        <source>part.labelp</source>
+        <target>Komponenter</target>
+      </segment>
+    </unit>
+    <unit id="AAYYeiw" name="part_association.labelp">
+      <segment>
+        <source>part_association.labelp</source>
+        <target>Komponentforbindelser</target>
+      </segment>
+    </unit>
+    <unit id="Y_ISV0y" name="part_custom_state.labelp">
+      <segment>
+        <source>part_custom_state.labelp</source>
+        <target>Brugerdefinerede deltilstande</target>
+      </segment>
+    </unit>
+    <unit id="ftBf11d" name="part_lot.labelp">
+      <segment>
+        <source>part_lot.labelp</source>
+        <target>Komponentbeholdninger</target>
+      </segment>
+    </unit>
+    <unit id="83AQqv." name="pricedetail.labelp">
+      <segment>
+        <source>pricedetail.labelp</source>
+        <target>Prisinformationer</target>
+      </segment>
+    </unit>
+    <unit id=".tjK0ju" name="project_bom_entry.labelp">
+      <segment>
+        <source>project_bom_entry.labelp</source>
+        <target>BOM-registreringer</target>
+      </segment>
+    </unit>
+    <unit id="MoHHSNT" name="user.labelp">
+      <segment>
+        <source>user.labelp</source>
+        <target>Brugere</target>
+      </segment>
+    </unit>
+    <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
+        <notes>
+            <note priority="1">Do not remove! Used for datatables rendering.</note>
+        </notes>
+        <segment state="translated">
+            <source>datatable.datatable.lengthMenu</source>
+            <target>_MENU_</target>
+          </segment>
     </unit>
   </file>
 </xliff>

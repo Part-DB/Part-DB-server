@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
   <file id="messages.en">
     <unit id="x_wTSQS" name="attachment_type.caption">
@@ -145,17 +145,6 @@
       <segment state="translated">
         <source>currency.new</source>
         <target>Nuova valuta</target>
-      </segment>
-    </unit>
-    <unit id="YFQ8iCW" name="project.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>project.caption</source>
-        <target>Progetto</target>
       </segment>
     </unit>
     <unit id="pe43jlV" name="project.edit">
@@ -548,6 +537,12 @@
         <target>Unità di misura</target>
       </segment>
     </unit>
+    <unit id="3bcKBzY" name="part_custom_state.caption">
+      <segment state="translated">
+        <source>part_custom_state.caption</source>
+        <target>Stato personalizzato del componente</target>
+      </segment>
+    </unit>
     <unit id="crdkzlg" name="storelocation.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:5</note>
@@ -581,17 +576,6 @@
       <segment state="translated">
         <source>storelocation.new</source>
         <target>Nuova ubicazione</target>
-      </segment>
-    </unit>
-    <unit id="Rt3eY_7" name="supplier.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>supplier.caption</source>
-        <target>Fornitori</target>
       </segment>
     </unit>
     <unit id="ozZU_B5" name="supplier.edit">
@@ -1842,6 +1826,66 @@ I sub elementi saranno spostati verso l'alto.</target>
         <target>Avanzate</target>
       </segment>
     </unit>
+    <unit id="a1k7Blf" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
+        <target>Suggerimenti senza incremento di parte</target>
+      </segment>
+    </unit>
+    <unit id="2achA.b" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
+        <target>Suggerimenti con incrementi numerici delle parti</target>
+      </segment>
+    </unit>
+    <unit id="a7jKe3c" name="part.edit.tab.advanced.ipn.prefix.description.current-increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.current-increment</source>
+        <target>Specifica IPN attuale per il pezzo</target>
+      </segment>
+    </unit>
+    <unit id="kEco9iX" name="part.edit.tab.advanced.ipn.prefix.description.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.increment</source>
+        <target>Prossima specifica IPN possibile basata su una descrizione identica del pezzo</target>
+      </segment>
+    </unit>
+    <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
+        <target>Il prefisso IPN della categoria diretta è vuoto, specificarlo nella categoria "%name%"</target>
+      </segment>
+    </unit>
+    <unit id="ec2DiJd" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
+        <target>Prefisso IPN della categoria diretta</target>
+      </segment>
+    </unit>
+    <unit id="2e.kJb4" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
+        <target>Prefisso IPN della categoria diretta e di un incremento specifico della parte</target>
+      </segment>
+    </unit>
+    <unit id="ba1GCoq" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
+        <target>Prefissi IPN con ordine gerarchico delle categorie dei prefissi padre</target>
+      </segment>
+    </unit>
+    <unit id="d1uVFa3" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
+        <target>Prefissi IPN con ordine gerarchico delle categorie dei prefissi padre e un incremento specifico per il pezzo</target>
+      </segment>
+    </unit>
+    <unit id="a4rPagW" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
+        <target>Crea prima un componente e assegnagli una categoria: con le categorie esistenti e i loro propri prefissi IPN, l'identificativo IPN per il componente può essere suggerito automaticamente</target>
+      </segment>
+    </unit>
     <unit id="c3S4jwK" name="part.edit.tab.part_lots">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:40</note>
@@ -2363,26 +2407,6 @@ I sub elementi saranno spostati verso l'alto.</target>
       <segment state="translated">
         <source>part.order.single_price</source>
         <target>Prezzo unitario</target>
-      </segment>
-    </unit>
-    <unit id="CbWR2nl" name="edit.caption_short">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-      </notes>
-      <segment state="translated">
-        <source>edit.caption_short</source>
-        <target>Modificare</target>
-      </segment>
-    </unit>
-    <unit id="er4pQft" name="delete.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-      </notes>
-      <segment state="translated">
-        <source>delete.caption</source>
-        <target>Eliminare</target>
       </segment>
     </unit>
     <unit id="pg0yCCK" name="part_lots.description">
@@ -2995,16 +3019,6 @@ I sub elementi saranno spostati verso l'alto.</target>
       <segment state="translated">
         <source>tfa_u2f.add_key.backup_hint</source>
         <target>Per garantire l'accesso anche se la chiave viene persa, si consiglia di registrare una seconda chiave come backup e conservarla in un luogo sicuro!</target>
-      </segment>
-    </unit>
-    <unit id="IcnYTDa" name="r_u2f_two_factor.name">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-      </notes>
-      <segment state="translated">
-        <source>r_u2f_two_factor.name</source>
-        <target>Nome della chiave visualizzato (ad es. Backup)</target>
       </segment>
     </unit>
     <unit id="wH4JBAx" name="tfa_u2f.add_key.add_button">
@@ -4001,17 +4015,6 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
         <target>Fornitore</target>
       </segment>
     </unit>
-    <unit id="liOuf4u" name="search.deactivateBarcode">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:57</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
-        <note priority="1">templates\base.html.twig:75</note>
-      </notes>
-      <segment state="translated">
-        <source>search.deactivateBarcode</source>
-        <target>Disatt. Barcode</target>
-      </segment>
-    </unit>
     <unit id="h7QrXRa" name="search.regexmatching">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
@@ -4303,16 +4306,6 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
         <target>Modifiche salvate!</target>
       </segment>
     </unit>
-    <unit id="bNFdvNL" name="part.edited_flash.invalid">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-        <note priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-      </notes>
-      <segment state="translated">
-        <source>part.edited_flash.invalid</source>
-        <target>Errore durante il salvataggio: per favore controllare i dati immessi!</target>
-      </segment>
-    </unit>
     <unit id="XFmvSsv" name="part.deleted">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:216</note>
@@ -4544,16 +4537,6 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
       <segment state="translated">
         <source>user.settings.2fa.backup_codes.regenerated</source>
         <target>I nuovi codici di backup sono stati generati.</target>
-      </segment>
-    </unit>
-    <unit id="9OPMdQa" name="attachment.table.filename">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.table.filename</source>
-        <target>Nome del file</target>
       </segment>
     </unit>
     <unit id="hSn3zNG" name="attachment.table.filesize">
@@ -4830,6 +4813,12 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
       <segment state="translated">
         <source>part.table.partUnit</source>
         <target>Unità di misura</target>
+      </segment>
+    </unit>
+    <unit id="G1hmQdb" name="part.table.partCustomState">
+      <segment state="translated">
+        <source>part.table.partCustomState</source>
+        <target>Stato personalizzato del componente</target>
       </segment>
     </unit>
     <unit id="R5pc2FR" name="part.table.addedDate">
@@ -5696,6 +5685,12 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
         <target>Unità di misura</target>
       </segment>
     </unit>
+    <unit id="G1hmQdb" name="part.edit.partCustomState">
+      <segment state="translated">
+        <source>part.edit.partCustomState</source>
+        <target>Stato personalizzato della parte</target>
+      </segment>
+    </unit>
     <unit id="oY_9HE9" name="part.edit.comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:212</note>
@@ -5983,6 +5978,12 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
         <target>Unità di misura</target>
       </segment>
     </unit>
+    <unit id="a1mPcMw" name="part_custom_state.label">
+      <segment state="translated">
+        <source>part_custom_state.label</source>
+        <target>Stato personalizzato della parte</target>
+      </segment>
+    </unit>
     <unit id="__SP1Zy" name="currency.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:90</note>
@@ -6226,6 +6227,12 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
         <target>Unità di misura</target>
       </segment>
     </unit>
+    <unit id="5adacKb" name="tree.tools.edit.part_custom_state">
+      <segment state="translated">
+        <source>tree.tools.edit.part_custom_state</source>
+        <target>Stato personalizzato del componente</target>
+      </segment>
+    </unit>
     <unit id=".Ux4R3T" name="tree.tools.edit.label_profile">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
@@ -6317,16 +6324,6 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
       <segment state="translated">
         <source>entity.tree.new</source>
         <target>Nuovo elemento</target>
-      </segment>
-    </unit>
-    <unit id="U.Ovrd7" name="attachment.external_file">
-      <notes>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.external_file</source>
-        <target>File esterno</target>
       </segment>
     </unit>
     <unit id="YqYH6GX" name="attachment.edit">
@@ -6597,16 +6594,6 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
       <segment state="translated">
         <source>validator.noneofitschild.children</source>
         <target>Un elemento figlio non può essere anche elemento padre!</target>
-      </segment>
-    </unit>
-    <unit id="j_GFZOQ" name="validator.part_lot.location_full.no_increasment">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>validator.part_lot.location_full.no_increasment</source>
-        <target>L'ubicazione è stata contrassegnata come piena, quindi non è possibile aumentare la quantità di scorte. (Nuova q.tà max. {{ old_amount }})</target>
       </segment>
     </unit>
     <unit id="eeEjB4s" name="validator.part_lot.location_full">
@@ -6958,6 +6945,12 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
       <segment state="translated">
         <source>category.edit.partname_regex</source>
         <target>Filtro nome</target>
+      </segment>
+    </unit>
+    <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix</source>
+        <target>Prefisso parte IPN</target>
       </segment>
     </unit>
     <unit id="yY_ld.7" name="category.edit.default_description">
@@ -7456,39 +7449,6 @@ Element 3</target>
         <target>Scartare le modifiche</target>
       </segment>
     </unit>
-    <unit id="rwhG3NF" name="part.withdraw.btn">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:166</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.btn</source>
-        <target>Prelevare</target>
-      </segment>
-    </unit>
-    <unit id="KYhBkRo" name="part.withdraw.comment:">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:171</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.comment:</source>
-        <target>Commento/Oggetto</target>
-      </segment>
-    </unit>
-    <unit id="kAlV8Zt" name="part.add.caption">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:189</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.caption</source>
-        <target>Aggiungere componenti</target>
-      </segment>
-    </unit>
     <unit id="TAZxRYj" name="part.add.btn">
       <notes>
         <note priority="1">templates\Parts\show_part_info.html.twig:194</note>
@@ -7500,28 +7460,6 @@ Element 3</target>
         <target>Aggiungere</target>
       </segment>
     </unit>
-    <unit id="yqLffb1" name="part.add.comment">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:199</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.comment</source>
-        <target>Commento/Oggetto</target>
-      </segment>
-    </unit>
-    <unit id="oj5uuIF" name="admin.comment">
-      <notes>
-        <note priority="1">templates\AdminPages\CompanyAdminBase.html.twig:15</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>admin.comment</source>
-        <target>Note</target>
-      </segment>
-    </unit>
     <unit id="VI_567B" name="manufacturer_url.label">
       <notes>
         <note priority="1">src\Form\PartType.php:83</note>
@@ -7531,69 +7469,6 @@ Element 3</target>
       <segment state="translated">
         <source>manufacturer_url.label</source>
         <target>Link al sito del produttore</target>
-      </segment>
-    </unit>
-    <unit id="hx8T2RQ" name="part.description.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:66</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.description.placeholder</source>
-        <target>es. NPN 45V 0,1A 0,5W</target>
-      </segment>
-    </unit>
-    <unit id="SDwGex2" name="part.instock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:69</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.instock.placeholder</source>
-        <target>es. 10</target>
-      </segment>
-    </unit>
-    <unit id="of7AUNW" name="part.mininstock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:72</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.mininstock.placeholder</source>
-        <target>es. 5</target>
-      </segment>
-    </unit>
-    <unit id="OsZzrme" name="part.order.price_per">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.order.price_per</source>
-        <target>Prezzo per</target>
-      </segment>
-    </unit>
-    <unit id="dEQm2lQ" name="part.withdraw.caption">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.caption</source>
-        <target>Prelevare componenti</target>
-      </segment>
-    </unit>
-    <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>datatable.datatable.lengthMenu</source>
-        <target>_MENU_</target>
       </segment>
     </unit>
     <unit id="IPge2iH" name="perm.group.parts">
@@ -8496,6 +8371,12 @@ Element 3</target>
         <target>Unità di misura</target>
       </segment>
     </unit>
+    <unit id="1b5ja1c" name="perm.part_custom_states">
+      <segment state="translated">
+        <source>perm.part_custom_states</source>
+        <target>Stato personalizzato del componente</target>
+      </segment>
+    </unit>
     <unit id="coNue69" name="user.settings.pw_old.label">
       <notes>
         <note priority="1">obsolete</note>
@@ -8676,15 +8557,6 @@ Element 3</target>
       <segment state="translated">
         <source>perm.tools.timeTravel</source>
         <target>Mostra gli stati delle vecchie versioni (viaggio nel tempo)</target>
-      </segment>
-    </unit>
-    <unit id="tyCC1qL" name="tfa_u2f.key_added_successful">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>tfa_u2f.key_added_successful</source>
-        <target>Chiave di sicurezza aggiunta con successo.</target>
       </segment>
     </unit>
     <unit id="VhxhtYo" name="Username">
@@ -8892,12 +8764,6 @@ Element 3</target>
       <segment state="translated">
         <source>group.edit.enforce_2fa.help</source>
         <target>Quando questa opzione è attiva, ogni membro diretto del gruppo deve impostare almeno un secondo fattore per l'autenticazione. Raccomandato ad es. per gruppi amministrativi con autorizzazioni di vasta portata.</target>
-      </segment>
-    </unit>
-    <unit id="O2l2jsJ" name="selectpicker.empty">
-      <segment state="translated">
-        <source>selectpicker.empty</source>
-        <target>Niente selezionato</target>
       </segment>
     </unit>
     <unit id="NwsYm0P" name="selectpicker.nothing_selected">
@@ -9150,12 +9016,6 @@ Element 3</target>
       <segment state="translated">
         <source>user.pw_change_needed.flash</source>
         <target>È necessario cambiare la password! Impostare una nuova password.</target>
-      </segment>
-    </unit>
-    <unit id="x98ftIM" name="tree.root_node.text">
-      <segment state="translated">
-        <source>tree.root_node.text</source>
-        <target>Radice</target>
       </segment>
     </unit>
     <unit id="2LkM7pn" name="part_list.action.select_null">
@@ -10274,10 +10134,22 @@ Element 3</target>
         <target>es. "/Condensatore \d+ nF/i"</target>
       </segment>
     </unit>
+    <unit id="OXeGz1A" name="category.edit.part_ipn_prefix.placeholder">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.placeholder</source>
+        <target>es. "B12A"</target>
+      </segment>
+    </unit>
     <unit id="DL.TreI" name="category.edit.partname_regex.help">
       <segment state="translated">
         <source>category.edit.partname_regex.help</source>
         <target>Un'espressione regolare compatibile con PCRE che il nome del componente deve soddisfare.</target>
+      </segment>
+    </unit>
+    <unit id="a1bUsfJ" name="category.edit.part_ipn_prefix.help">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.help</source>
+        <target>Un prefisso suggerito durante l'inserimento dell'IPN di una parte.</target>
       </segment>
     </unit>
     <unit id="GzqIwHH" name="entity.select.add_hint">
@@ -10826,6 +10698,12 @@ Element 3</target>
         <target>Unità di misura</target>
       </segment>
     </unit>
+    <unit id="2COnw1k" name="log.element_edited.changed_fields.partCustomState">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.partCustomState</source>
+        <target>Stato personalizzato della parte</target>
+      </segment>
+    </unit>
     <unit id="c9XMmAp" name="log.element_edited.changed_fields.expiration_date">
       <segment state="translated">
         <source>log.element_edited.changed_fields.expiration_date</source>
@@ -11082,6 +10960,18 @@ Element 3</target>
       <segment state="translated">
         <source>measurement_unit.edit</source>
         <target>Modificare l'unità di misura</target>
+      </segment>
+    </unit>
+    <unit id="ba52d.g" name="part_custom_state.new">
+      <segment state="translated">
+        <source>part_custom_state.new</source>
+        <target>Nuovo stato personalizzato del componente</target>
+      </segment>
+    </unit>
+    <unit id="c1.gb2d" name="part_custom_state.edit">
+      <segment state="translated">
+        <source>part_custom_state.edit</source>
+        <target>Modifica stato personalizzato del componente</target>
       </segment>
     </unit>
     <unit id="uW2WHHC" name="user.aboutMe.label">
@@ -11624,12 +11514,6 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
       <segment state="translated">
         <source>api_tokens.expiration_date</source>
         <target>Data di scadenza</target>
-      </segment>
-    </unit>
-    <unit id="5k6W3jw" name="api_tokens.added_date">
-      <segment state="translated">
-        <source>api_tokens.added_date</source>
-        <target>Aggiunto il</target>
       </segment>
     </unit>
     <unit id="leWWwKP" name="api_tokens.last_time_used">
@@ -12369,6 +12253,99 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <source>parts.table.action_handler.error.part_lots_multiple</source>
         <target>Questo componente contiene più di uno stock. Cambia manualmente la posizione per selezionare quale stock scegliere.</target>
       </segment>
+    </unit>
+    <unit id="hYrcka2" name="attachment_type.labelp">
+      <segment>
+        <source>attachment_type.labelp</source>
+        <target>Tipi di allegati</target>
+      </segment>
+    </unit>
+    <unit id="5.oI1XD" name="currency.labelp">
+      <segment>
+        <source>currency.labelp</source>
+        <target>Valute</target>
+      </segment>
+    </unit>
+    <unit id="aXr7mN." name="group.labelp">
+      <segment>
+        <source>group.labelp</source>
+        <target>Gruppi</target>
+      </segment>
+    </unit>
+    <unit id="p.Sjja3" name="label_profile.labelp">
+      <segment>
+        <source>label_profile.labelp</source>
+        <target>Profili di etichette</target>
+      </segment>
+    </unit>
+    <unit id="8F2EwVK" name="measurement_unit.labelp">
+      <segment>
+        <source>measurement_unit.labelp</source>
+        <target>Unità di misura</target>
+      </segment>
+    </unit>
+    <unit id="UVDJmYp" name="orderdetail.labelp">
+      <segment>
+        <source>orderdetail.labelp</source>
+        <target>Dettagli dell'ordine</target>
+      </segment>
+    </unit>
+    <unit id="4KRV2mB" name="parameter.labelp">
+      <segment>
+        <source>parameter.labelp</source>
+        <target>Parametri</target>
+      </segment>
+    </unit>
+    <unit id="R4hoCqe" name="part.labelp">
+      <segment>
+        <source>part.labelp</source>
+        <target>Componenti</target>
+      </segment>
+    </unit>
+    <unit id="AAYYeiw" name="part_association.labelp">
+      <segment>
+        <source>part_association.labelp</source>
+        <target>Associazioni di componenti</target>
+      </segment>
+    </unit>
+    <unit id="Y_ISV0y" name="part_custom_state.labelp">
+      <segment>
+        <source>part_custom_state.labelp</source>
+        <target>Stati personalizzati della parte</target>
+      </segment>
+    </unit>
+    <unit id="ftBf11d" name="part_lot.labelp">
+      <segment>
+        <source>part_lot.labelp</source>
+        <target>Lotti di componenti</target>
+      </segment>
+    </unit>
+    <unit id="83AQqv." name="pricedetail.labelp">
+      <segment>
+        <source>pricedetail.labelp</source>
+        <target>Informazioni sui prezzi</target>
+      </segment>
+    </unit>
+    <unit id=".tjK0ju" name="project_bom_entry.labelp">
+      <segment>
+        <source>project_bom_entry.labelp</source>
+        <target>Voci della BOM</target>
+      </segment>
+    </unit>
+    <unit id="MoHHSNT" name="user.labelp">
+      <segment>
+        <source>user.labelp</source>
+        <target>Utenti</target>
+      </segment>
+    </unit>
+    <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
+        <notes>
+            <note priority="1">Do not remove! Used for datatables rendering.</note>
+        </notes>
+        <segment state="translated">
+            <source>datatable.datatable.lengthMenu</source>
+            <target>_MENU_</target>
+          </segment>
     </unit>
   </file>
 </xliff>

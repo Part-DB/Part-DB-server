@@ -78,7 +78,7 @@ results will be shown.
 ## Data providers
 
 The system tries to be as flexible as possible, so many different information sources can be used.
-Each information source is called am "info provider" and handles the communication with the external source.
+Each information source is called an "info provider" and handles the communication with the external source.
 The providers are just a driver that handles the communication with the different external sources and converts them
 into a common format Part-DB understands.
 That way it is pretty easy to create new providers as they just need to do very little work.
@@ -157,7 +157,7 @@ again, to establish a new connection.
 
 ### TME
 
-The TME provider uses the API of [TME](https://www.tme.eu/) to search for parts and getting shopping information from
+The TME provider uses the API of [TME](https://www.tme.eu/) to search for parts and get shopping information from
 them.
 To use it you have to create an account at TME and get an API key on the [TME API page](https://developers.tme.eu/en/).
 You have to generate a new anonymous key there and enter the key and secret in the Part-DB env configuration (see
@@ -176,10 +176,10 @@ The following env configuration options are available:
 
 ### Farnell / Element14 / Newark
 
-The Farnell provider uses the [Farnell API](https://partner.element14.com/) to search for parts and getting shopping
+The Farnell provider uses the [Farnell API](https://partner.element14.com/) to search for parts and get shopping
 information from [Farnell](https://www.farnell.com/).
 You have to create an account at Farnell and get an API key on the [Farnell API page](https://partner.element14.com/).
-Register a new application there (settings does not matter, as long as you select the "Product Search API") and you will
+Register a new application there (settings do not matter, as long as you select the "Product Search API") and you will
 get an API key.
 
 The following env configuration options are available:
@@ -191,16 +191,12 @@ The following env configuration options are available:
 
 ### Mouser
 
-The Mouser provider uses the [Mouser API](https://www.mouser.de/api-home/) to search for parts and getting shopping
+The Mouser provider uses the [Mouser API](https://www.mouser.de/api-home/) to search for parts and get shopping
 information from [Mouser](https://www.mouser.com/).
 You have to create an account at Mouser and register for an API key for the Search API on
 the [Mouser API page](https://www.mouser.de/api-home/).
 You will receive an API token, which you have to put in the Part-DB env configuration (see below):
 At the registration you choose a country, language, and currency in which you want to get the results.
-
-*Attention*: Currently (January 2024) the mouser API seems to be somewhat broken, in the way that it does not return any
-information about datasheets and part specifications. Therefore Part-DB can not retrieve them, even if they are shown
-at the mouser page. See [issue #503](https://github.com/Part-DB/Part-DB-server/issues/503) for more info.
 
 Following env configuration options are available:
 
@@ -217,7 +213,7 @@ Following env configuration options are available:
 webshop uses an internal JSON based API to render the page. Part-DB can use this inofficial API to get part information
 from LCSC. 
 
-**Please note, that the use of this internal API is not intended or endorsed by LCS and it could break at any time. So use it at your own risk.**
+**Please note that the use of this internal API is not intended or endorsed by LCSC and it could break at any time. So use it at your own risk.**
 
 An API key is not required, it is enough to enable the provider using the following env configuration options:
 
@@ -226,7 +222,7 @@ An API key is not required, it is enough to enable the provider using the follow
 
 ### OEMsecrets
 
-The oemsecrets provider uses the [oemsecrets API](https://www.oemsecrets.com/) to search for parts and getting shopping
+The oemsecrets provider uses the [oemsecrets API](https://www.oemsecrets.com/) to search for parts and get shopping
 information from them. Similar to octopart it aggregates offers from different distributors.
 
 You can apply for a free API key on the [oemsecrets API page](https://www.oemsecrets.com/api/) and put the key you get
