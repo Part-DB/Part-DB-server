@@ -37,7 +37,7 @@ class RegisterSynonymsAsTranslationParametersTest extends KernelTestCase
 
     public function testGetSynonymPlaceholders(): void
     {
-        $placeholders = $this->listener->getSynonymPlaceholders();
+        $placeholders = $this->listener->getSynonymPlaceholders('en');
 
         $this->assertIsArray($placeholders);
         // Curly braces for lowercase versions

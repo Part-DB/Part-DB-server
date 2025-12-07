@@ -50,9 +50,9 @@ readonly class RegisterSynonymsAsTranslationParametersListener
         $this->translator = $translator;
     }
 
-    public function getSynonymPlaceholders(): array
+    public function getSynonymPlaceholders(string $locale): array
     {
-        return $this->cache->get('partdb_synonym_placeholders', function (ItemInterface $item) {
+        return $this->cache->get('partdb_synonym_placeholders' . '_' . $locale, function (ItemInterface $item) use ($locale) {
             $item->tag('synonyms');
 
 
@@ -62,12 +62,12 @@ readonly class RegisterSynonymsAsTranslationParametersListener
             foreach (ElementTypes::cases() as $elementType) {
                 //Versions with capitalized first letter
                 $capitalized = ucfirst($elementType->value); //We have only ASCII element type values, so this is sufficient
-                $placeholders['[' . $capitalized . ']'] = $this->typeNameGenerator->typeLabel($elementType);
-                $placeholders['[[' . $capitalized . ']]'] = $this->typeNameGenerator->typeLabelPlural($elementType);
+                $placeholders['[' . $capitalized . ']'] = $this->typeNameGenerator->typeLabel($elementType, $locale);
+                $placeholders['[[' . $capitalized . ']]'] = $this->typeNameGenerator->typeLabelPlural($elementType, $locale);
 
                 //And we have lowercase versions for both
-                $placeholders['[' . $elementType->value . ']'] = mb_strtolower($this->typeNameGenerator->typeLabel($elementType));
-                $placeholders['[[' . $elementType->value . ']]'] = mb_strtolower($this->typeNameGenerator->typeLabelPlural($elementType));
+                $placeholders['[' . $elementType->value . ']'] = mb_strtolower($this->typeNameGenerator->typeLabel($elementType, $locale));
+                $placeholders['[[' . $elementType->value . ']]'] = mb_strtolower($this->typeNameGenerator->typeLabelPlural($elementType, $locale));
             }
 
             return $placeholders;
@@ -82,7 +82,7 @@ readonly class RegisterSynonymsAsTranslationParametersListener
         }
 
         //Register all placeholders for synonyms
-        $placeholders = $this->getSynonymPlaceholders();
+        $placeholders = $this->getSynonymPlaceholders($event->getRequest()->getLocale());
         foreach ($placeholders as $key => $value) {
             $this->translator->addGlobalParameter($key, $value);
         }
