@@ -29,12 +29,15 @@ use App\DataTables\PartsDataTable;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\Part;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Exceptions\InvalidRegexException;
 use App\Form\Filters\PartFilterType;
 use App\Services\Parts\PartsTableActionHandler;
 use App\Services\Trees\NodesListBuilder;
+use App\Settings\BehaviorSettings\SidebarSettings;
+use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -43,12 +46,30 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
+
+use function Symfony\Component\Translation\t;
 
 class PartListsController extends AbstractController
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly NodesListBuilder $nodesListBuilder, private readonly DataTableFactory $dataTableFactory, private readonly TranslatorInterface $translator)
+    public function __construct(private readonly EntityManagerInterface $entityManager,
+        private readonly NodesListBuilder $nodesListBuilder,
+        private readonly DataTableFactory $dataTableFactory,
+        private readonly TranslatorInterface $translator,
+        private readonly TableSettings $tableSettings,
+        private readonly SidebarSettings $sidebarSettings,
+    )
     {
+    }
+
+    /**
+     * Gets the filter operator to use by default (INCLUDING_CHILDREN or =)
+     * @return string
+     */
+    private function getFilterOperator(): string
+    {
+        return $this->sidebarSettings->dataStructureNodesTableIncludeChildren ? 'INCLUDING_CHILDREN' : '=';
     }
 
     #[Route(path: '/table/action', name: 'table_action', methods: ['POST'])]
@@ -71,13 +92,32 @@ class PartListsController extends AbstractController
         if (null === $action || null === $ids) {
             $this->addFlash('error', 'part.table.actions.no_params_given');
         } else {
+            $errors = [];
+
             $parts = $actionHandler->idStringToArray($ids);
-            $redirectResponse = $actionHandler->handleAction($action, $parts, $target ? (int) $target : null, $redirect);
+            $redirectResponse = $actionHandler->handleAction($action, $parts, $target ? (int) $target : null, $redirect, $errors);
 
             //Save changes
             $this->entityManager->flush();
 
-            $this->addFlash('success', 'part.table.actions.success');
+            if (count($errors) === 0) {
+                $this->addFlash('success', 'part.table.actions.success');
+            } else {
+                $this->addFlash('error', t('part.table.actions.error', ['%count%' => count($errors)]));
+                //Create a flash message for each error
+                foreach ($errors as $error) {
+                    /** @var Part $part */
+                    $part = $error['part'];
+
+                    $this->addFlash('error',
+                        t('part.table.actions.error_detail', [
+                            '%part_name%' => $part->getName(),
+                            '%part_id%' => $part->getID(),
+                            '%message%' => $error['message']
+                        ])
+                    );
+                }
+            }
         }
 
         //If the action handler returned a response, we use it, otherwise we redirect back to the previous page.
@@ -125,18 +165,21 @@ class PartListsController extends AbstractController
             $filter_changer($filter);
         }
 
-        $filterForm = $this->createForm(PartFilterType::class, $filter, ['method' => 'GET']);
-        if($form_changer !== null) {
-            $form_changer($filterForm);
+        //If we are in a post request for the tables, we only have to apply the filter form if the submit query param was set
+        //This saves us some time from creating this complicated term on simple list pages, where no special filter is applied
+        $filterForm = null;
+        if ($request->getMethod() !== 'POST' || $request->query->has('part_filter')) {
+            $filterForm = $this->createForm(PartFilterType::class, $filter, ['method' => 'GET']);
+            if ($form_changer !== null) {
+                $form_changer($filterForm);
+            }
+
+            $filterForm->handleRequest($formRequest);
         }
 
-        $filterForm->handleRequest($formRequest);
-
-        $table = $this->dataTableFactory->createFromType(
-            PartsDataTable::class,
-            array_merge(['filter' => $filter], $additional_table_vars),
-            ['lengthMenu' => PartsDataTable::LENGTH_MENU]
-        )
+        $table = $this->dataTableFactory->createFromType(PartsDataTable::class, array_merge(
+            ['filter' => $filter], $additional_table_vars),
+            ['pageLength' => $this->tableSettings->fullDefaultPageSize, 'lengthMenu' => PartsDataTable::LENGTH_MENU])
             ->handleRequest($request);
 
         if ($table->isCallback()) {
@@ -159,7 +202,7 @@ class PartListsController extends AbstractController
 
         return $this->render($template, array_merge([
             'datatable' => $table,
-            'filterForm' => $filterForm->createView(),
+            'filterForm' => $filterForm?->createView(),
         ], $additonal_template_vars));
     }
 
@@ -171,7 +214,7 @@ class PartListsController extends AbstractController
         return $this->showListWithFilter($request,
             'parts/lists/category_list.html.twig',
             function (PartFilter $filter) use ($category) {
-                $filter->category->setOperator('INCLUDING_CHILDREN')->setValue($category);
+                $filter->category->setOperator($this->getFilterOperator())->setValue($category);
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('category')->get('value'));
             }, [
@@ -189,7 +232,7 @@ class PartListsController extends AbstractController
         return $this->showListWithFilter($request,
             'parts/lists/footprint_list.html.twig',
             function (PartFilter $filter) use ($footprint) {
-                $filter->footprint->setOperator('INCLUDING_CHILDREN')->setValue($footprint);
+                $filter->footprint->setOperator($this->getFilterOperator())->setValue($footprint);
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('footprint')->get('value'));
             }, [
@@ -207,7 +250,7 @@ class PartListsController extends AbstractController
         return $this->showListWithFilter($request,
             'parts/lists/manufacturer_list.html.twig',
             function (PartFilter $filter) use ($manufacturer) {
-                $filter->manufacturer->setOperator('INCLUDING_CHILDREN')->setValue($manufacturer);
+                $filter->manufacturer->setOperator($this->getFilterOperator())->setValue($manufacturer);
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('manufacturer')->get('value'));
             }, [
@@ -225,7 +268,7 @@ class PartListsController extends AbstractController
         return $this->showListWithFilter($request,
             'parts/lists/store_location_list.html.twig',
             function (PartFilter $filter) use ($storelocation) {
-                $filter->storelocation->setOperator('INCLUDING_CHILDREN')->setValue($storelocation);
+                $filter->storelocation->setOperator($this->getFilterOperator())->setValue($storelocation);
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('storelocation')->get('value'));
             }, [
@@ -243,7 +286,7 @@ class PartListsController extends AbstractController
         return $this->showListWithFilter($request,
             'parts/lists/supplier_list.html.twig',
             function (PartFilter $filter) use ($supplier) {
-                $filter->supplier->setOperator('INCLUDING_CHILDREN')->setValue($supplier);
+                $filter->supplier->setOperator($this->getFilterOperator())->setValue($supplier);
             }, function (FormInterface $filterForm) {
                 $this->disableFormFieldAfterCreation($filterForm->get('supplier')->get('value'));
             }, [

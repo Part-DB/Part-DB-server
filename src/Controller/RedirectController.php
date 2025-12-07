@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\UserSystem\User;
+use App\Settings\SystemSettings\LocalizationSettings;
 use function function_exists;
 use function in_array;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,7 +36,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class RedirectController extends AbstractController
 {
-    public function __construct(protected string $default_locale, protected TranslatorInterface $translator, protected bool $enforce_index_php)
+    public function __construct(private readonly LocalizationSettings $localizationSettings, protected TranslatorInterface $translator, protected bool $enforce_index_php)
     {
     }
 
@@ -46,7 +47,7 @@ class RedirectController extends AbstractController
     public function addLocalePart(Request $request): RedirectResponse
     {
         //By default, we use the global default locale
-        $locale = $this->default_locale;
+        $locale = $this->localizationSettings->locale;
 
         //Check if a user has set a preferred language setting:
         $user = $this->getUser();

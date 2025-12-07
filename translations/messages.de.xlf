@@ -242,7 +242,7 @@
       </notes>
       <segment state="translated">
         <source>part.info.timetravel_hint</source>
-        <target>Dies ist wie das Bauteil bevor dem %timestamp% aussah. &lt;i&gt;Beachten Sie, dass dieses Feature experimentell ist und die angezeigten Infos daher nicht unbedingt korrekt sind.&lt;/i&gt;</target>
+        <target>So sah das Bauteil vor %timestamp% aus. &lt;i&gt;Beachten Sie, dass dieses Feature experimentell ist und die angezeigten Infos daher nicht unbedingt korrekt sind.&lt;/i&gt;</target>
       </segment>
     </unit>
     <unit id="3exvSpl" name="standard.label">
@@ -1644,7 +1644,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>log.undo.confirm_message</source>
-        <target>Wollen Sie wirklich die gegebene Änderung rückgängig machen / Das Element auf einen alten Versionsstand zurücksetzen?</target>
+        <target>Wollen Sie wirklich die gegebene Änderung rückgängig machen? / Das Element auf einen alten Versionsstand zurücksetzen?</target>
       </segment>
     </unit>
     <unit id="lM5TX19" name="mail.footer.email_sent_by">
@@ -1654,7 +1654,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>mail.footer.email_sent_by</source>
-        <target>Diese Email wurde automatisch erstellt von</target>
+        <target>Diese E-Mail wurde automatisch erstellt von</target>
       </segment>
     </unit>
     <unit id="k9Ef078" name="mail.footer.dont_reply">
@@ -1664,7 +1664,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>mail.footer.dont_reply</source>
-        <target>Antworten Sie nicht auf diese Email.</target>
+        <target>Antworten Sie nicht auf diese E-Mail.</target>
       </segment>
     </unit>
     <unit id="rFVlidi" name="email.hi %name%">
@@ -1684,7 +1684,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>email.pw_reset.message</source>
-        <target>jemand (hoffentlich Sie) hat ein Reset ihres Passwortes angefordert. Wenn diese Anfrage nicht von Ihnen stammt, ignorieren sie diese Email.</target>
+        <target>jemand (hoffentlich Sie) hat ein Reset ihres Passwortes angefordert. Wenn diese Anfrage nicht von Ihnen stammt, ignorieren Sie diese E-Mail.</target>
       </segment>
     </unit>
     <unit id="P8NjvoC" name="email.pw_reset.button">
@@ -1734,7 +1734,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>email.pw_reset.valid_unit %date%</source>
-        <target>Das Reset Token ist gültig bis &lt;i&gt;%date%&lt;/i&gt;</target>
+        <target>Das Reset-Token ist gültig bis &lt;i&gt;%date%&lt;/i&gt;</target>
       </segment>
     </unit>
     <unit id="8sBnjRy" name="orderdetail.delete">
@@ -2166,7 +2166,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>user.last_editing_user</source>
-        <target>Nutzer der dieses Bauteil zu Letzt bearbeitete</target>
+        <target>Nutzer der dieses Bauteil zuletzt bearbeitete</target>
       </segment>
     </unit>
     <unit id="R8D9PGv" name="part.isFavorite">
@@ -2983,7 +2983,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>tfa_u2f.explanation</source>
-        <target>Mithilfe eines U2F/FIDO kompatiblem Sicherheitsschlüssel (z.B. YubiKey oder NitroKey) kann eine benutzerfreundliche und sichere Zwei-Faktor-Authentifizierung ermöglicht. Die Sicherheitsschlüssel können hier registriert werden, und wird eine Zwei-Faktor-Überprüfung benötigt, so muss der Schlüssel nur per USB angesteckt oder per NFC gegen das Gerät getippt werden.</target>
+        <target>Mithilfe eines U2F/FIDO kompatiblen Sicherheitsschlüssel (z.B. YubiKey oder NitroKey) kann eine benutzerfreundliche und sichere Zwei-Faktor-Authentifizierung ermöglicht. Die Sicherheitsschlüssel können hier registriert werden, und wird eine Zwei-Faktor-Überprüfung benötigt, so muss der Schlüssel nur per USB angesteckt oder per NFC gegen das Gerät getippt werden.</target>
       </segment>
     </unit>
     <unit id="bhRAGAm" name="tfa_u2f.add_key.backup_hint">
@@ -2993,7 +2993,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>tfa_u2f.add_key.backup_hint</source>
-        <target>Um den Zugang auch bei Verlust des Schlüssels zu gewährleisten, ist es empfehlenswert einen zweiten Schlüssel als Backup zu registrieren und diesen an einem sicherem Ort zu lagern!</target>
+        <target>Um den Zugang auch bei Verlust des Schlüssels zu gewährleisten, ist es empfehlenswert einen zweiten Schlüssel als Backup zu registrieren und diesen an einem sicheren Ort zu lagern!</target>
       </segment>
     </unit>
     <unit id="IcnYTDa" name="r_u2f_two_factor.name">
@@ -3297,7 +3297,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>tfa_backup.codes.explanation</source>
-        <target>Drucken Sie diese Codes aus und bewahren Sie sie an einem sicherem Ort auf!</target>
+        <target>Drucken Sie diese Codes aus und bewahren Sie sie an einem sicheren Ort auf!</target>
       </segment>
     </unit>
     <unit id="MhULnmd" name="tfa_backup.codes.help">
@@ -3406,7 +3406,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>user.email.label</source>
-        <target>Email</target>
+        <target>E-Mail</target>
       </segment>
     </unit>
     <unit id="DDujIT3" name="user.department.label">
@@ -3710,7 +3710,7 @@ Beachten Sie außerdem, dass ihr Account ohne Zwei-Faktor-Authentifizierung nich
       </notes>
       <segment state="translated">
         <source>tfa_backup.explanation</source>
-        <target>Mithilfe dieser Backupcodes können Sie auf ihren Account zugreifen, selbst wenn Sie das Gerät mit der Authenticator App verlieren sollten. Drucken Sie die Codes aus und bewahren Sie sie an einem sicherem Ort auf.</target>
+        <target>Mithilfe dieser Backupcodes können Sie auf ihren Account zugreifen, selbst wenn Sie das Gerät mit der Authenticator App verlieren sollten. Drucken Sie die Codes aus und bewahren Sie sie an einem sicheren Ort auf.</target>
       </segment>
     </unit>
     <unit id="rL_dWDY" name="tfa_backup.reset_codes.confirm_title">
@@ -4379,7 +4379,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>pw_reset.user_or_email</source>
-        <target>Benutzername / Email</target>
+        <target>Benutzername / E-Mail</target>
       </segment>
     </unit>
     <unit id="NY57ee_" name="pw_reset.request.success">
@@ -4389,7 +4389,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>pw_reset.request.success</source>
-        <target>Passwort Anfrage erfolgreich! Überprüfen Sie Ihre Emails für weitere Informationen.</target>
+        <target>Passwort-Anfrage erfolgreich! Überprüfen Sie Ihre E-Mails für weitere Informationen.</target>
       </segment>
     </unit>
     <unit id=".8EBt8k" name="pw_reset.username">
@@ -5131,7 +5131,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>attachment.edit.secure_file.help</source>
-        <target>Auf ein Anhang der als privat gekennzeichnet ist, kann nur durch einen angemeldeten Benutzer zugegriffen werden, der die entsprechende Berechtigung besitzt. Wenn diese Option aktiv ist, werden keine Thumbnails erzeugt, und der Zugriff auf die Datei ist langsamer.</target>
+        <target>Auf einen Anhang, der als privat gekennzeichnet wurde, kann nur durch einen angemeldeten Benutzer zugegriffen werden, der die entsprechende Berechtigung besitzt. Wenn diese Option aktiv ist, werden keine Thumbnails erzeugt, und der Zugriff auf die Datei ist langsamer.</target>
       </segment>
     </unit>
     <unit id="AdYtBQG" name="attachment.edit.url.help">
@@ -5339,7 +5339,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>label_options.barcode_type.label</source>
-        <target>Barcodetyp</target>
+        <target>Barcode-Typ</target>
       </segment>
     </unit>
     <unit id="OnaZspp" name="label_profile.lines.label">
@@ -6067,7 +6067,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>pw_reset.email.subject</source>
-        <target>Passwort Reset für Ihren Part-DB Account</target>
+        <target>Passwort-Reset für Ihren Part-DB-Account</target>
       </segment>
     </unit>
     <unit id="fCMgZ9m" name="tree.tools.tools">
@@ -6504,7 +6504,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>flash.password_change_needed</source>
-        <target>Ihr Password muss geändert werden!</target>
+        <target>Ihr Passwort muss geändert werden!</target>
       </segment>
     </unit>
     <unit id="8I8zHPK" name="attachment.table.type">
@@ -6584,7 +6584,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>validator.noneofitschild.self</source>
-        <target>Ein Element kann nicht sein eigenenes übergeordnetes Element sein!</target>
+        <target>Ein Element kann nicht sein eigenes übergeordnetes Element sein!</target>
       </segment>
     </unit>
     <unit id="W90LyFQ" name="validator.noneofitschild.children">
@@ -6614,7 +6614,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>validator.part_lot.location_full</source>
-        <target>Der Lagerort ist voll, daher können keine neue Teile hinzugefügt werden.</target>
+        <target>Der Lagerort ist voll, daher können keine neuen Teile hinzugefügt werden.</target>
       </segment>
     </unit>
     <unit id="h6qELde" name="validator.part_lot.only_existing">
@@ -6815,7 +6815,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>entity.edit.not_selectable.help</source>
-        <target>Wenn diese Option aktiviert ist, dann kann dieses Element keinem Bauteil als Eigenschaft zugewiesen werden. Hilfreich z.B. wenn dieses Element nur der reinen Sortierung dienen soll.</target>
+        <target>Wenn diese Option aktiviert ist, dann kann dieses Element keinem Bauteil als Eigenschaft zugewiesen werden. Hilfreich z.B., wenn dieses Element nur der reinen Sortierung dienen soll.</target>
       </segment>
     </unit>
     <unit id="poCwov." name="bbcode.hint">
@@ -6865,7 +6865,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>category.edit.disable_footprints.help</source>
-        <target>Wenn diese Option aktiviert ist, ist die Footprint Eigenschaft für alle Bauteile in dieser Kategorie, deaktiviert.</target>
+        <target>Wenn diese Option aktiviert ist, ist die Footprint-Eigenschaft für alle Bauteile in dieser Kategorie, deaktiviert.</target>
       </segment>
     </unit>
     <unit id="JWHe4Hi" name="category.edit.disable_manufacturers">
@@ -6895,7 +6895,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>category.edit.disable_autodatasheets</source>
-        <target>Deaktiviere Automatische Datenblatt links</target>
+        <target>Deaktiviere automatische Datenblatt-Links</target>
       </segment>
     </unit>
     <unit id="veb39eK" name="category.edit.disable_autodatasheets.help">
@@ -6905,7 +6905,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>category.edit.disable_autodatasheets.help</source>
-        <target>Wenn diese Option aktiviert ist, werden für Bauteile mit dieser Kategorie keine automatischen Datenblattlinks erzeugt.</target>
+        <target>Wenn diese Option aktiviert ist, werden für Bauteile mit dieser Kategorie keine automatischen Datenblatt-Links erzeugt.</target>
       </segment>
     </unit>
     <unit id="QzSkLse" name="category.edit.disable_properties">
@@ -6925,7 +6925,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>category.edit.disable_properties.help</source>
-        <target>Wenn diese Option aktiviert ist, sind die Bauteileeigenschaften für alle Bauteile in dieser Kategorie, deaktiviert.</target>
+        <target>Wenn diese Option aktiviert ist, sind die Bauteileeigenschaften für alle Bauteile in dieser Kategorie deaktiviert.</target>
       </segment>
     </unit>
     <unit id="ILoRXgM" name="category.edit.partname_hint">
@@ -7157,8 +7157,14 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>mass_creation.lines.placeholder</source>
         <target>Element 1
+   Element 1.1
+      Element 1.1.1
+   Element 1.2
 Element 2
-Element 3</target>
+Element 3
+
+Element 1 -&gt; Element 1.1
+Element 1 -&gt; Element 1.2</target>
       </segment>
     </unit>
     <unit id="TWSqPFi" name="entity.mass_creation.btn">
@@ -7288,7 +7294,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>storelocation.only_single_part.help</source>
-        <target>Wenn diese Option aktiviert ist, kann dieser Lagerort nur ein einzelnes Bauteil aber in beliebiger Menge fassen. Hilfreich für kleine SMD Fächer oder Feeder.</target>
+        <target>Wenn diese Option aktiviert ist, kann dieser Lagerort nur ein einzelnes Bauteil aber in beliebiger Menge fassen. Hilfreich für kleine SMD-Fächer oder -Feeder.</target>
       </segment>
     </unit>
     <unit id="sty2ele" name="storelocation.storage_type.label">
@@ -8547,16 +8553,6 @@ Element 3</target>
         <target>Authenticator App</target>
       </segment>
     </unit>
-    <unit id="fGkpjYW" name="Login successful">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>Login successful</source>
-        <target>Login erfolgreich.</target>
-      </segment>
-    </unit>
     <unit id="KSHVrbr" name="log.type.exception">
       <notes>
         <note priority="1">obsolete</note>
@@ -8682,15 +8678,6 @@ Element 3</target>
         <target>Sicherheitsschlüssel erfolgreich hinzugefügt.</target>
       </segment>
     </unit>
-    <unit id="VhxhtYo" name="Username">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>Username</source>
-        <target>Benutzername</target>
-      </segment>
-    </unit>
     <unit id="gDVCAxj" name="log.type.security.google_disabled">
       <notes>
         <note category="state" priority="1">obsolete</note>
@@ -8724,7 +8711,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>log.type.security.backup_keys_reset</source>
-        <target>Neue Backupkeys erzeugt</target>
+        <target>Neue Backup-Keys erzeugt</target>
       </segment>
     </unit>
     <unit id="RF1.KEr" name="log.type.security.google_enabled">
@@ -8868,13 +8855,13 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.labels.use_twig</source>
-        <target>Twig Modus benutzen</target>
+        <target>Twig-Modus benutzen</target>
       </segment>
     </unit>
     <unit id="iXxuTa3" name="label_profile.showInDropdown">
       <segment state="translated">
         <source>label_profile.showInDropdown</source>
-        <target>In Barcode Schnellauswahl anzeigen</target>
+        <target>In Barcode-Schnellauswahl anzeigen</target>
       </segment>
     </unit>
     <unit id="bgHCh2E" name="group.edit.enforce_2fa">
@@ -8937,6 +8924,12 @@ Element 3</target>
         <target>Bauteil ändern</target>
       </segment>
     </unit>
+    <unit id="keLmdcq" name="part_list.action.scrollable_hint">
+      <segment state="translated">
+        <source>part_list.action.scrollable_hint</source>
+        <target>Scrollen Sie, um alle Aktionen anzuzeigen</target>
+      </segment>
+    </unit>
     <unit id="w3XOUoO" name="part_list.action.action.title">
       <segment state="translated">
         <source>part_list.action.action.title</source>
@@ -8964,7 +8957,7 @@ Element 3</target>
     <unit id="sbuGwh6" name="part_list.action.action.group.change_field">
       <segment state="translated">
         <source>part_list.action.action.group.change_field</source>
-        <target>Change field</target>
+        <target>Feld ändern</target>
       </segment>
     </unit>
     <unit id="hk8FMXL" name="part_list.action.action.change_category">
@@ -9006,7 +8999,7 @@ Element 3</target>
     <unit id="gaoMsrY" name="part_list.action.part_count">
       <segment state="translated">
         <source>part_list.action.part_count</source>
-        <target>%count% Bauteile ausgewählt!</target>
+        <target>%count% Bauteile ausgewählt</target>
       </segment>
     </unit>
     <unit id="FhdheZY" name="company.edit.quick.website">
@@ -9024,7 +9017,7 @@ Element 3</target>
     <unit id="r2diIQ6" name="company.edit.quick.phone">
       <segment state="translated">
         <source>company.edit.quick.phone</source>
-        <target>Call phone</target>
+        <target>Telefonanruf</target>
       </segment>
     </unit>
     <unit id="siE4EDy" name="company.edit.quick.fax">
@@ -9126,7 +9119,7 @@ Element 3</target>
     <unit id="CdphPiM" name="tools.reel_calc.explanation">
       <segment state="translated">
         <source>tools.reel_calc.explanation</source>
-        <target>Dieser Rechner erlaubt es Abzuschätzen wie viele Bauteile noch auf einer SMD Rolle (Reel) vorhanden sind. Messen Sie die angegeben Dimensionen auf der Rolle nach (oder nutzen Sie die Vorgaben) und drücken Sie "Update".</target>
+        <target>Dieser Rechner erlaubt es Abzuschätzen wie viele Bauteile noch auf einer SMD Rolle (Reel) vorhanden sind. Messen Sie die angegebenen Dimensionen auf der Rolle nach (oder nutzen Sie die Vorgaben) und drücken Sie "Update".</target>
       </segment>
     </unit>
     <unit id="21dEh63" name="perm.tools.reel_calculator">
@@ -9144,7 +9137,7 @@ Element 3</target>
     <unit id="Y3Vpp8G" name="user.pw_change_needed.flash">
       <segment state="translated">
         <source>user.pw_change_needed.flash</source>
-        <target>Passwortänderung benötigt! Bitte setze ein neues Passwort.</target>
+        <target>Passwortänderung nötig! Bitte setze ein neues Passwort.</target>
       </segment>
     </unit>
     <unit id="x98ftIM" name="tree.root_node.text">
@@ -9252,7 +9245,7 @@ Element 3</target>
     <unit id="w846rID" name="filter.entity_constraint.operator.INCLUDING_CHILDREN">
       <segment state="translated">
         <source>filter.entity_constraint.operator.INCLUDING_CHILDREN</source>
-        <target>Gleich (inklusive Kindelementen)</target>
+        <target>Gleich (inklusive Kindelemente)</target>
       </segment>
     </unit>
     <unit id="LSAhDQ6" name="filter.entity_constraint.operator.EXCLUDING_CHILDREN">
@@ -9270,7 +9263,7 @@ Element 3</target>
     <unit id="smzf9vn" name="filter.tags_constraint.operator.ANY">
       <segment state="translated">
         <source>filter.tags_constraint.operator.ANY</source>
-        <target>Irgendeiner der Tags</target>
+        <target>Irgendeines der Tags</target>
       </segment>
     </unit>
     <unit id="eYdPDKM" name="filter.tags_constraint.operator.ALL">
@@ -9325,6 +9318,72 @@ Element 3</target>
       <segment state="translated">
         <source>part.filter.attachmentName</source>
         <target>Name des Anhangs</target>
+      </segment>
+    </unit>
+    <unit id="_5zM4Zv" name="filter.bulk_import_job.label">
+      <segment state="translated">
+        <source>filter.bulk_import_job.label</source>
+        <target>Massenimport-Auftrag</target>
+      </segment>
+    </unit>
+    <unit id="rXReB8s" name="filter.bulk_import_job.job_status">
+      <segment state="translated">
+        <source>filter.bulk_import_job.job_status</source>
+        <target>Auftragsstatus</target>
+      </segment>
+    </unit>
+    <unit id="VSY.FIr" name="filter.bulk_import_job.part_status_in_job">
+      <segment state="translated">
+        <source>filter.bulk_import_job.part_status_in_job</source>
+        <target>Bauteile-Status in Auftrag</target>
+      </segment>
+    </unit>
+    <unit id="2Euegw5" name="filter.bulk_import_job.status.pending">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.pending</source>
+        <target>Ausstehend</target>
+      </segment>
+    </unit>
+    <unit id="JT3CbaE" name="filter.bulk_import_job.status.in_progress">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.in_progress</source>
+        <target>In Bearbeitung</target>
+      </segment>
+    </unit>
+    <unit id="J9uBFFo" name="filter.bulk_import_job.status.completed">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.completed</source>
+        <target>Abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="lv4PVt2" name="filter.bulk_import_job.status.stopped">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.stopped</source>
+        <target>Angehalten</target>
+      </segment>
+    </unit>
+    <unit id="0qKD5hC" name="filter.bulk_import_job.status.failed">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.failed</source>
+        <target>Fehlgeschlagen</target>
+      </segment>
+    </unit>
+    <unit id="q35A9Tf" name="filter.bulk_import_job.part_status.pending">
+      <segment state="translated">
+        <source>filter.bulk_import_job.part_status.pending</source>
+        <target>Ausstehend</target>
+      </segment>
+    </unit>
+    <unit id=".Bxg5IL" name="filter.bulk_import_job.part_status.completed">
+      <segment state="translated">
+        <source>filter.bulk_import_job.part_status.completed</source>
+        <target>Abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="kRFtBzL" name="filter.bulk_import_job.part_status.skipped">
+      <segment state="translated">
+        <source>filter.bulk_import_job.part_status.skipped</source>
+        <target>Übersprungen</target>
       </segment>
     </unit>
     <unit id="YcIyWEZ" name="filter.choice_constraint.operator.ANY">
@@ -9504,7 +9563,7 @@ Element 3</target>
     <unit id="j_bx9XF" name="part.filter.lotDescription">
       <segment state="translated">
         <source>part.filter.lotDescription</source>
-        <target>Beschreibung des Bauteilebestand</target>
+        <target>Beschreibung des Bauteilbestands</target>
       </segment>
     </unit>
     <unit id="4tHhDtU" name="parts_list.search.searching_for">
@@ -9774,7 +9833,7 @@ Element 3</target>
     <unit id="wZmvg7i" name="project.bom.quantity">
       <segment state="translated">
         <source>project.bom.quantity</source>
-        <target>BOM Menge</target>
+        <target>BOM-Menge</target>
       </segment>
     </unit>
     <unit id="tLW4nD1" name="project.bom.mountnames">
@@ -9822,13 +9881,13 @@ Element 3</target>
     <unit id="uok31Te" name="project.bom.delete.confirm">
       <segment state="translated">
         <source>project.bom.delete.confirm</source>
-        <target>Wollen sie diesen BOM Eintrag wirklich löschen?</target>
+        <target>Wollen sie diesen BOM-Eintrag wirklich löschen?</target>
       </segment>
     </unit>
     <unit id="hpPkHYF" name="project.add_parts_to_project">
       <segment state="translated">
         <source>project.add_parts_to_project</source>
-        <target>Bauteile zur Projekt BOM hinzufügen</target>
+        <target>Bauteile zur Projekt-BOM hinzufügen</target>
       </segment>
     </unit>
     <unit id="mauieYX" name="part.info.add_part_to_project">
@@ -9840,7 +9899,7 @@ Element 3</target>
     <unit id="5r.n1zf" name="project_bom_entry.label">
       <segment state="translated">
         <source>project_bom_entry.label</source>
-        <target>BOM Eintrag</target>
+        <target>BOM-Eintrag</target>
       </segment>
     </unit>
     <unit id="jVfeA_3" name="project.edit.status">
@@ -9906,7 +9965,7 @@ Element 3</target>
     <unit id="Cke2p4U" name="part.info.projectBuildPart.hint">
       <segment state="translated">
         <source>part.info.projectBuildPart.hint</source>
-        <target>Dieses Bauteil repräsentiert die gebauten Instanzen folgendes Projektes und ist mit diesem verknüpft</target>
+        <target>Dieses Bauteil repräsentiert die gebauten Instanzen des folgenden Projektes und ist mit diesem verknüpft</target>
       </segment>
     </unit>
     <unit id="yCR6rBb" name="part.is_build_part">
@@ -9924,7 +9983,7 @@ Element 3</target>
     <unit id="LYURecm" name="project.info.bom_entries_count">
       <segment state="translated">
         <source>project.info.bom_entries_count</source>
-        <target>BOM Einträge</target>
+        <target>BOM-Einträge</target>
       </segment>
     </unit>
     <unit id="YQN8E9O" name="project.info.sub_projects_count">
@@ -9936,7 +9995,7 @@ Element 3</target>
     <unit id="7nV.Cmd" name="project.info.bom_add_parts">
       <segment state="translated">
         <source>project.info.bom_add_parts</source>
-        <target>BOM Einträge hinzufügen</target>
+        <target>BOM-Einträge hinzufügen</target>
       </segment>
     </unit>
     <unit id="mo8KjGV" name="project.info.info.label">
@@ -9960,19 +10019,19 @@ Element 3</target>
     <unit id="8tP3lQI" name="part.info.withdraw_modal.title.withdraw">
       <segment state="translated">
         <source>part.info.withdraw_modal.title.withdraw</source>
-        <target>Bauteile aus Lot entnehmen</target>
+        <target>Bauteile aus Bestand entnehmen</target>
       </segment>
     </unit>
     <unit id="tJ6JCIJ" name="part.info.withdraw_modal.title.add">
       <segment state="translated">
         <source>part.info.withdraw_modal.title.add</source>
-        <target>Bauteile zu Lot hinzufügen</target>
+        <target>Bauteile zu Bestand hinzufügen</target>
       </segment>
     </unit>
     <unit id="7zTowlz" name="part.info.withdraw_modal.title.move">
       <segment state="translated">
         <source>part.info.withdraw_modal.title.move</source>
-        <target>Verschiebe Bauteile in ein anderes Lot</target>
+        <target>Verschiebe Bauteile in anderen Bestand</target>
       </segment>
     </unit>
     <unit id="nCkMC62" name="part.info.withdraw_modal.amount">
@@ -10092,13 +10151,13 @@ Element 3</target>
     <unit id="eosqE8B" name="tools.builtin_footprints_viewer.title">
       <segment state="translated">
         <source>tools.builtin_footprints_viewer.title</source>
-        <target>Mitgelieferte Footprint Bilder</target>
+        <target>Mitgelieferte Footprint-Bilder</target>
       </segment>
     </unit>
     <unit id="WdsaHPv" name="tools.builtin_footprints_viewer.hint">
       <segment state="translated">
         <source>tools.builtin_footprints_viewer.hint</source>
-        <target>Diese Galerie listet alle mitgelieferten Footprint Bilder auf. Wenn Sie diese in einem Anhang nutzen wollen, tippen Sie den Namen (oder ein Stichwort) in das URL-Feld des Anhangs ein und wählen Sie das gewünschte Bild aus dem Dropdown-Menü aus.</target>
+        <target>Diese Galerie listet alle mitgelieferten Footprint-Bilder auf. Wenn Sie diese in einem Anhang nutzen wollen, tippen Sie den Namen (oder ein Stichwort) in das URL-Feld des Anhangs ein und wählen Sie das gewünschte Bild aus dem Dropdown-Menü aus.</target>
       </segment>
     </unit>
     <unit id="EFtEJ2v" name="tools.ic_logos.title">
@@ -10206,7 +10265,7 @@ Element 3</target>
     <unit id="zgLSR.X" name="project.build.help">
       <segment state="translated">
         <source>project.build.help</source>
-        <target>Wählen Sie aus, aus welchen Beständen die zum Bau notwendigen Bauteile genommen werden sollen (und in welcher Anzahl). Setzen Sie den Haken für jeden BOM Eintrag, wenn sie die Bauteile entnommen haben, oder nutzen Sie die oberste Checkbox, um alle Haken auf einmal zu setzen.</target>
+        <target>Wählen Sie aus, aus welchen Beständen die zum Bau notwendigen Bauteile genommen werden sollen (und in welcher Anzahl). Setzen Sie den Haken für jeden BOM-Eintrag, wenn sie die Bauteile entnommen haben, oder nutzen Sie die oberste Checkbox, um alle Haken auf einmal zu setzen.</target>
       </segment>
     </unit>
     <unit id="srYaI3Z" name="project.build.buildsPartLot.new_lot">
@@ -10308,7 +10367,7 @@ Element 3</target>
     <unit id="Q79MOIk" name="homepage.first_steps.create_part">
       <segment state="translated">
         <source>homepage.first_steps.create_part</source>
-        <target>Oder Sie könne direkt ein &lt;a href="%url%"&gt;neues Bauteil erstellen&lt;/a&gt;.</target>
+        <target>Oder Sie können direkt ein &lt;a href="%url%"&gt;neues Bauteil erstellen&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="vplYq4f" name="homepage.first_steps.hide_hint">
@@ -10350,7 +10409,7 @@ Element 3</target>
     <unit id="MEoOVw3" name="log.element_edited.changed_fields.pw_reset_expires">
       <segment state="translated">
         <source>log.element_edited.changed_fields.pw_reset_expires</source>
-        <target>Passwort Reset</target>
+        <target>Passwort-Reset</target>
       </segment>
     </unit>
     <unit id="GwOb2Mv" name="log.element_edited.changed_fields.comment">
@@ -10368,7 +10427,7 @@ Element 3</target>
     <unit id="z3691pl" name="log.element_edited.changed_fields.supplier_product_url">
       <segment state="translated">
         <source>log.element_edited.changed_fields.supplier_product_url</source>
-        <target>Produkt URL</target>
+        <target>Produkt-URL</target>
       </segment>
     </unit>
     <unit id="CFoU9E3" name="log.element_edited.changed_fields.price">
@@ -10410,7 +10469,7 @@ Element 3</target>
     <unit id="rGPtQ9t" name="log.element_edited.changed_fields.options.barcode_type">
       <segment state="translated">
         <source>log.element_edited.changed_fields.options.barcode_type</source>
-        <target>Barcodetyp</target>
+        <target>Barcode-Typ</target>
       </segment>
     </unit>
     <unit id="yXXyMR7" name="log.element_edited.changed_fields.status">
@@ -10422,7 +10481,7 @@ Element 3</target>
     <unit id="KbQOwwT" name="log.element_edited.changed_fields.quantity">
       <segment state="translated">
         <source>log.element_edited.changed_fields.quantity</source>
-        <target>BOM Menge</target>
+        <target>BOM-Menge</target>
       </segment>
     </unit>
     <unit id="nslqnAB" name="log.element_edited.changed_fields.mountnames">
@@ -10476,7 +10535,7 @@ Element 3</target>
     <unit id="lLXp.Sn" name="log.element_edited.changed_fields.disable_autodatasheets">
       <segment state="translated">
         <source>log.element_edited.changed_fields.disable_autodatasheets</source>
-        <target>Deaktiviere Automatische Datenblatt links</target>
+        <target>Deaktiviere Automatische Datenblatt-Links</target>
       </segment>
     </unit>
     <unit id="fCDSKXJ" name="log.element_edited.changed_fields.disable_properties">
@@ -10560,7 +10619,7 @@ Element 3</target>
     <unit id="sBVDEyp" name="log.element_edited.changed_fields.auto_product_url">
       <segment state="translated">
         <source>log.element_edited.changed_fields.auto_product_url</source>
-        <target>Produkt URL</target>
+        <target>Produkt-URL</target>
       </segment>
     </unit>
     <unit id="h9kfyaE" name="log.element_edited.changed_fields.is_full">
@@ -10590,7 +10649,7 @@ Element 3</target>
     <unit id="Op5BIZr" name="log.element_edited.changed_fields.footprint_3d">
       <segment state="translated">
         <source>log.element_edited.changed_fields.footprint_3d</source>
-        <target>3D Modell</target>
+        <target>3D-Modell</target>
       </segment>
     </unit>
     <unit id="EjLCiIb" name="log.element_edited.changed_fields.master_picture_attachment">
@@ -10626,7 +10685,7 @@ Element 3</target>
     <unit id="AKoXx51" name="log.element_edited.changed_fields.use_si_prefix">
       <segment state="translated">
         <source>log.element_edited.changed_fields.use_si_prefix</source>
-        <target>Benutze SI Prefixe</target>
+        <target>Benutze SI-Prefixe</target>
       </segment>
     </unit>
     <unit id="6QFoB1D" name="log.element_edited.changed_fields.options.width">
@@ -10854,19 +10913,19 @@ Element 3</target>
     <unit id="6LmTC_6" name="user.saml_user.pw_change_hint">
       <segment state="translated">
         <source>user.saml_user.pw_change_hint</source>
-        <target>Sie verwenden Single Sign-On (SSO) zum Einloggen. Sie können ihr Passwort und Zwei-Faktor-Authentifizierungen deshalb hier nicht konfigurieren. Nutzen Sie stattdessen die zentrale Seite ihres SSO Anbieters!</target>
+        <target>Sie verwenden Single Sign-on (SSO) zum Einloggen. Sie können Ihr Passwort und Zwei-Faktor-Authentifizierungen deshalb hier nicht konfigurieren. Nutzen Sie stattdessen die zentrale Seite ihres SSO-Anbieters!</target>
       </segment>
     </unit>
     <unit id="DM_p1JB" name="login.sso_saml_login">
       <segment state="translated">
         <source>login.sso_saml_login</source>
-        <target>Single Sign-On Login (SSO)</target>
+        <target>Single Sign-on Login (SSO)</target>
       </segment>
     </unit>
     <unit id="03xCu1l" name="login.local_login_hint">
       <segment state="translated">
         <source>login.local_login_hint</source>
-        <target>Das untenstehende Formular kann nur für den Login mit einem lokalen Benutzer verwendet werden. Wenn Sie sich stattdessen via Single Sign-On einloggen wollen, nutzen Sie den obenstehenden Button.</target>
+        <target>Das untenstehende Formular kann nur für den Login mit einem lokalen Benutzer verwendet werden. Wenn Sie sich stattdessen via Single Sign-on einloggen wollen, nutzen Sie den obenstehenden Button.</target>
       </segment>
     </unit>
     <unit id="HG8kB1l" name="part_list.action.action.export">
@@ -10897,6 +10956,12 @@ Element 3</target>
       <segment state="translated">
         <source>part_list.action.export_xml</source>
         <target>Export als XML</target>
+      </segment>
+    </unit>
+    <unit id="X.gTRGX" name="part_list.action.export_xlsx">
+      <segment state="translated">
+        <source>part_list.action.export_xlsx</source>
+        <target>Export als Excel</target>
       </segment>
     </unit>
     <unit id="w0AgPEI" name="parts.import.title">
@@ -11016,7 +11081,7 @@ Element 3</target>
     <unit id="Ie9LLKJ" name="project.bom_import.flash.success">
       <segment state="translated">
         <source>project.bom_import.flash.success</source>
-        <target>%count% BOM Einträge erfolgreich importiert.</target>
+        <target>%count% BOM-Einträge erfolgreich importiert.</target>
       </segment>
     </unit>
     <unit id="KVyS8Kn" name="project.bom_import.type">
@@ -11034,13 +11099,13 @@ Element 3</target>
     <unit id="AtW_ooO" name="project.bom_import.clear_existing_bom">
       <segment state="translated">
         <source>project.bom_import.clear_existing_bom</source>
-        <target>Lösche existierende BOM Einträge vor dem Import</target>
+        <target>Lösche existierende BOM-Einträge vor dem Import</target>
       </segment>
     </unit>
     <unit id="MDJdKXv" name="project.bom_import.clear_existing_bom.help">
       <segment state="translated">
         <source>project.bom_import.clear_existing_bom.help</source>
-        <target>Wenn diese Option ausgewählt ist, werden alle bereits im Projekt existierenden BOM Einträge gelöscht und mit den importierten BOM Daten überschrieben.</target>
+        <target>Wenn diese Option ausgewählt ist, werden alle bereits im Projekt existierenden BOM-Einträge gelöscht und mit den importierten BOM-Daten überschrieben.</target>
       </segment>
     </unit>
     <unit id="6ZefVTs" name="project.bom_import.flash.invalid_file">
@@ -11142,7 +11207,7 @@ Element 3</target>
     <unit id="KGXzzaq" name="log.cli_user">
       <segment state="translated">
         <source>log.cli_user</source>
-        <target>CLI Benutzer</target>
+        <target>CLI-Benutzer</target>
       </segment>
     </unit>
     <unit id="krpFlYH" name="log.element_edited.changed_fields.part_owner_must_match">
@@ -11184,7 +11249,7 @@ Element 3</target>
     <unit id="sg8NMZk" name="log.user_login.ip_anonymize_hint">
       <segment state="translated">
         <source>log.user_login.ip_anonymize_hint</source>
-        <target>Wenn die letzten Stellen der IP-Adresse fehlen, dann ist der DSGVO Modus aktiviert, bei dem IP-Adressen anonymisiert werden.</target>
+        <target>Wenn die letzten Stellen der IP-Adresse fehlen, dann ist der DSGVO-Modus aktiviert, bei dem IP-Adressen anonymisiert werden.</target>
       </segment>
     </unit>
     <unit id="K_LOvwj" name="log.user_not_allowed.unauthorized_access_attempt_to">
@@ -11534,7 +11599,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="R7y5NfE" name="oauth_client.flash.connection_successful">
       <segment state="translated">
         <source>oauth_client.flash.connection_successful</source>
-        <target>Verbindung zur OAuth Anwendung erfolgreich hergestellt!</target>
+        <target>Verbindung zur OAuth-Anwendung erfolgreich hergestellt!</target>
       </segment>
     </unit>
     <unit id="Pmwz6z4" name="perm.part.info_providers">
@@ -11594,7 +11659,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="3oF2wIn" name="user.settings.api_tokens">
       <segment state="translated">
         <source>user.settings.api_tokens</source>
-        <target>API Token</target>
+        <target>API-Token</target>
       </segment>
     </unit>
     <unit id="NlhkTaQ" name="user.settings.api_tokens.description">
@@ -11654,13 +11719,13 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="fogYDOT" name="user.settings.show_api_documentation">
       <segment state="translated">
         <source>user.settings.show_api_documentation</source>
-        <target>API Dokumentation anzeigen</target>
+        <target>API-Dokumentation anzeigen</target>
       </segment>
     </unit>
     <unit id="P2IsHB1" name="api_token.create_new">
       <segment state="translated">
         <source>api_token.create_new</source>
-        <target>Neuen API Token erstellen</target>
+        <target>Neuen API-Token erstellen</target>
       </segment>
     </unit>
     <unit id="aASP7Uk" name="api_token.level.read_only">
@@ -11690,7 +11755,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="ocY_B26" name="api_tokens.access_level.help">
       <segment state="translated">
         <source>api_tokens.access_level.help</source>
-        <target>Hiermit lässt sich einschränken, worauf der API Token Zugriff ermöglicht. Der Zugriff ist immer durch die Berechtigungen des Nutzers begrenzt.</target>
+        <target>Hiermit lässt sich einschränken, worauf der API-Token Zugriff ermöglicht. Der Zugriff ist immer durch die Berechtigungen des Nutzers begrenzt.</target>
       </segment>
     </unit>
     <unit id="v5LJEMn" name="api_tokens.expiration_date.help">
@@ -11702,7 +11767,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="URBfOVX" name="api_tokens.your_token_is">
       <segment state="translated">
         <source>api_tokens.your_token_is</source>
-        <target>Ihr API Token ist</target>
+        <target>Ihr API-Token ist</target>
       </segment>
     </unit>
     <unit id="64wAuHa" name="api_tokens.please_save_it">
@@ -11744,13 +11809,13 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="GHM.X8R" name="perm.api.access_api">
       <segment state="translated">
         <source>perm.api.access_api</source>
-        <target>API Zugriff</target>
+        <target>API-Zugriff</target>
       </segment>
     </unit>
     <unit id="OrJrwBa" name="perm.api.manage_tokens">
       <segment state="translated">
         <source>perm.api.manage_tokens</source>
-        <target>API Token verwalten</target>
+        <target>API-Token verwalten</target>
       </segment>
     </unit>
     <unit id="IG1_0K3" name="user.settings.api_tokens.delete.title">
@@ -11774,13 +11839,13 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="i623ek8" name="api_tokens.deleted">
       <segment state="translated">
         <source>api_tokens.deleted</source>
-        <target>API Token erfolgreich entfernt!</target>
+        <target>API-Token erfolgreich entfernt!</target>
       </segment>
     </unit>
     <unit id="Ba2OP2S" name="user.settings.api_tokens.no_api_tokens_yet">
       <segment state="translated">
         <source>user.settings.api_tokens.no_api_tokens_yet</source>
-        <target>Bisher wurden keine API Token erstellt.</target>
+        <target>Bisher wurden keine API-Token erstellt.</target>
       </segment>
     </unit>
     <unit id="VHKK3KL" name="api_token.ends_with">
@@ -11810,13 +11875,13 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="W5qYo4M" name="scan_dialog.mode.ipn">
       <segment state="translated">
         <source>scan_dialog.mode.ipn</source>
-        <target>IPN Barcode</target>
+        <target>IPN-Barcode</target>
       </segment>
     </unit>
     <unit id="dnCyzXq" name="scan_dialog.mode.internal">
       <segment state="translated">
         <source>scan_dialog.mode.internal</source>
-        <target>Part-DB Barcode</target>
+        <target>Part-DB-Barcode</target>
       </segment>
     </unit>
     <unit id="JziKG8u" name="part_association.label">
@@ -11924,19 +11989,19 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="CynMoO5" name="part_lot.edit.vendor_barcode">
       <segment state="translated">
         <source>part_lot.edit.vendor_barcode</source>
-        <target>Lieferanten Barcode</target>
+        <target>Lieferanten-Barcode</target>
       </segment>
     </unit>
     <unit id="22Y3GfL" name="part_lot.edit.vendor_barcode.help">
       <segment state="translated">
         <source>part_lot.edit.vendor_barcode.help</source>
-        <target>Wenn dieser Bestand bereits ein Barcode hat (der z.B. vom Lieferanten aufgebracht wurde), können Sie hier den Inhalt des Barcodes angeben, damit Sie diesen Bestand durch scannen des Barcodes finden.</target>
+        <target>Wenn dieser Bestand bereits einen Barcode hat (der z.B. vom Lieferanten aufgebracht wurde), können Sie hier den Inhalt des Barcodes angeben, damit Sie diesen Bestand durch Scannen des Barcodes finden.</target>
       </segment>
     </unit>
     <unit id="tFAtJBM" name="scan_dialog.mode.vendor">
       <segment state="translated">
         <source>scan_dialog.mode.vendor</source>
-        <target>Lieferanten Barcode (in Bauteilebestand konfiguriert)</target>
+        <target>Lieferanten-Barcode (in Bauteilebestand konfiguriert)</target>
       </segment>
     </unit>
     <unit id="J8fTjKW" name="project.bom.instockAmount">
@@ -12056,7 +12121,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="duBTELg" name="part.info.withdraw_modal.delete_lot_if_empty">
       <segment state="translated">
         <source>part.info.withdraw_modal.delete_lot_if_empty</source>
-        <target>Lösche diesen Bestand, wenn er durch Operation leer wird</target>
+        <target>Lösche diesen Bestand, wenn er durch die Operation leer wird</target>
       </segment>
     </unit>
     <unit id="SMclulD" name="info_providers.search.error.client_exception">
@@ -12080,7 +12145,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="Ta9otKz" name="eda_info.kicad_section.title">
       <segment state="translated">
         <source>eda_info.kicad_section.title</source>
-        <target>KiCad spezifische Einstellungen</target>
+        <target>KiCad-spezifische Einstellungen</target>
       </segment>
     </unit>
     <unit id="zjeDW4V" name="eda_info.value">
@@ -12146,19 +12211,19 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="BufiSOt" name="api.api_endpoints.title">
       <segment state="translated">
         <source>api.api_endpoints.title</source>
-        <target>API Endpunkte</target>
+        <target>API-Endpunkte</target>
       </segment>
     </unit>
     <unit id="4qU.QCJ" name="api.api_endpoints.partdb">
       <segment state="translated">
         <source>api.api_endpoints.partdb</source>
-        <target>Part-DB API</target>
+        <target>Part-DB-API</target>
       </segment>
     </unit>
     <unit id="mKqaVw1" name="api.api_endpoints.kicad_root_url">
       <segment state="translated">
         <source>api.api_endpoints.kicad_root_url</source>
-        <target>KiCad API root URL</target>
+        <target>KiCad-API Root URL</target>
       </segment>
     </unit>
     <unit id="wbdbASc" name="eda_info.visibility">
@@ -12206,7 +12271,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="VZuIXC1" name="info_providers.search.no_results">
       <segment state="translated">
         <source>info_providers.search.no_results</source>
-        <target>Keine Ergebnisse in den gegebenen Quellen gefunden! Prüfen Sie ihr Suchwort oder versuchen Sie weitere Informationsquellen auszuwählen.</target>
+        <target>Keine Ergebnisse in den gegebenen Quellen gefunden! Prüfen Sie Ihr Suchwort oder versuchen Sie weitere Informationsquellen auszuwählen.</target>
       </segment>
     </unit>
     <unit id="It1umoK" name="tfa.check.code.confirmation">
@@ -12236,7 +12301,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="bT1nkI9" name="info_providers.search.existing_part_found">
       <segment state="translated">
         <source>info_providers.search.existing_part_found</source>
-        <target>Dieses Bauteil (oder ein sehr ähnliches) existiert bereits in der Datenbank. Bitte überprüfen Sie, ob es das gleiche ist und ob Sie dies erneut erstellen möchten!</target>
+        <target>Dieses Bauteil (oder ein sehr ähnliches) existiert bereits in der Datenbank. Bitte überprüfen Sie, ob es dasselbe ist und ob Sie dies erneut erstellen möchten!</target>
       </segment>
     </unit>
     <unit id="TDxYuTP" name="info_providers.search.update_existing_part">
@@ -12266,13 +12331,13 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="sSAJDdr" name="scan_dialog.mode.eigp">
       <segment state="translated">
         <source>scan_dialog.mode.eigp</source>
-        <target>EIGP 114 Barcode (z. B. der Datamatrix code auf Digikey und Mouser Bauteilen)</target>
+        <target>EIGP 114 Barcode (z. B. der Datamatrix-Code auf Digikey und Mouser Bauteilen)</target>
       </segment>
     </unit>
     <unit id="QSMS_Bd" name="scan_dialog.info_mode">
       <segment state="translated">
         <source>scan_dialog.info_mode</source>
-        <target>Info Modus (Barcode dekodieren und Inhalte anzeigen, aber nicht zum Bauteil weiterleiten)</target>
+        <target>Info-Modus (Barcode dekodieren und Inhalte anzeigen, aber nicht zum Bauteil weiterleiten)</target>
       </segment>
     </unit>
     <unit id="k5Gvkgp" name="label_scanner.decoded_info.title">
@@ -12311,6 +12376,529 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Profil gespeichert!</target>
       </segment>
     </unit>
+    <unit id="XUlcyOb" name="settings.ips.element14">
+      <segment state="translated">
+        <source>settings.ips.element14</source>
+        <target>Element 14 / Farnell</target>
+      </segment>
+    </unit>
+    <unit id="1N9Wp0_" name="settings.ips.element14.apiKey">
+      <segment state="translated">
+        <source>settings.ips.element14.apiKey</source>
+        <target>API-Key</target>
+      </segment>
+    </unit>
+    <unit id="p7LGAIX" name="settings.ips.element14.apiKey.help">
+      <segment state="translated">
+        <source>settings.ips.element14.apiKey.help</source>
+        <target>Sie können sich unter &lt;a href="https://partner.element14.com/"&gt;https://partner.element14.com/&lt;/a&gt; für einen API-Schlüssel registrieren.</target>
+      </segment>
+    </unit>
+    <unit id="ZdUHpZc" name="settings.ips.element14.storeId">
+      <segment state="translated">
+        <source>settings.ips.element14.storeId</source>
+        <target>Store Domain</target>
+      </segment>
+    </unit>
+    <unit id="XXGUxF6" name="settings.ips.element14.storeId.help">
+      <segment state="translated">
+        <source>settings.ips.element14.storeId.help</source>
+        <target>Die Domain des Shops, aus dem die Daten abgerufen werden sollen. Diese bestimmt die Sprache und Währung der Ergebnisse. Eine Liste der gültigen Domains finden Sie &lt;a href="https://partner.element14.com/docs/Product_Search_API_REST__Description"&gt;hier&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="WKWZIm2" name="settings.ips.tme">
+      <segment state="translated">
+        <source>settings.ips.tme</source>
+        <target>TME</target>
+      </segment>
+    </unit>
+    <unit id="KgK78ks" name="settings.ips.tme.token">
+      <segment state="translated">
+        <source>settings.ips.tme.token</source>
+        <target>API-Token</target>
+      </segment>
+    </unit>
+    <unit id="_pYLrPT" name="settings.ips.tme.token.help">
+      <segment state="translated">
+        <source>settings.ips.tme.token.help</source>
+        <target>Sie können einen API-Token und einen geheimen Schlüssel unter &lt;a href="https://developers.tme.eu/en/"&gt;https://developers.tme.eu/en/&lt;/a&gt; erhalten.</target>
+      </segment>
+    </unit>
+    <unit id="yswx4bq" name="settings.ips.tme.secret">
+      <segment state="translated">
+        <source>settings.ips.tme.secret</source>
+        <target>API-Secret</target>
+      </segment>
+    </unit>
+    <unit id="edYZA5y" name="settings.ips.tme.currency">
+      <segment state="translated">
+        <source>settings.ips.tme.currency</source>
+        <target>Währung</target>
+      </segment>
+    </unit>
+    <unit id="EsVqpUJ" name="settings.ips.tme.language">
+      <segment state="translated">
+        <source>settings.ips.tme.language</source>
+        <target>Sprache</target>
+      </segment>
+    </unit>
+    <unit id="qFwUGJJ" name="settings.ips.tme.country">
+      <segment state="translated">
+        <source>settings.ips.tme.country</source>
+        <target>Land</target>
+      </segment>
+    </unit>
+    <unit id="Mf2WKob" name="settings.ips.tme.grossPrices">
+      <segment state="translated">
+        <source>settings.ips.tme.grossPrices</source>
+        <target>Bruttopreise (inklusive Steuern) abrufen</target>
+      </segment>
+    </unit>
+    <unit id="A.x1dyH" name="settings.ips.mouser">
+      <segment state="translated">
+        <source>settings.ips.mouser</source>
+        <target>Mouser</target>
+      </segment>
+    </unit>
+    <unit id="5ZxvqyY" name="settings.ips.mouser.apiKey">
+      <segment state="translated">
+        <source>settings.ips.mouser.apiKey</source>
+        <target>API-Key</target>
+      </segment>
+    </unit>
+    <unit id="gu.JlpT" name="settings.ips.mouser.apiKey.help">
+      <segment state="translated">
+        <source>settings.ips.mouser.apiKey.help</source>
+        <target>Sie können sich unter &lt;a href="https://eu.mouser.com/api-hub/"&gt;https://eu.mouser.com/api-hub/&lt;/a&gt; für einen API-Schlüssel registrieren.</target>
+      </segment>
+    </unit>
+    <unit id="Q66CNjw" name="settings.ips.mouser.searchLimit">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchLimit</source>
+        <target>Suchlimit</target>
+      </segment>
+    </unit>
+    <unit id="aj5nhIi" name="settings.ips.mouser.searchLimit.help">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchLimit.help</source>
+        <target>Die maximale Anzahl an Ergebnissen für eine einzelne Suche. Kann nicht höher als 50 sein.</target>
+      </segment>
+    </unit>
+    <unit id="q8.Wpbu" name="settings.ips.mouser.searchOptions">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions</source>
+        <target>Suchfilter</target>
+      </segment>
+    </unit>
+    <unit id="7ERXoOf" name="settings.ips.mouser.searchOptions.help">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.help</source>
+        <target>Erlaubt es nur Teile mit einer bestimmten Verfügbarkeit und/oder Konformität anzuzeigen</target>
+      </segment>
+    </unit>
+    <unit id="2_fx.rT" name="settings.ips.mouser.searchOptions.none">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.none</source>
+        <target>Keine Filterung</target>
+      </segment>
+    </unit>
+    <unit id=".PbDhl9" name="settings.ips.mouser.searchOptions.rohs">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.rohs</source>
+        <target>Nur RoHS konforme Bauteile</target>
+      </segment>
+    </unit>
+    <unit id="4SPypVz" name="settings.ips.mouser.searchOptions.inStock">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.inStock</source>
+        <target>Nur sofort verfügbare Bauteile</target>
+      </segment>
+    </unit>
+    <unit id="xU8_Qw." name="settings.ips.mouser.searchOptions.rohsAndInStock">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.rohsAndInStock</source>
+        <target>Sofort verfügbar &amp; RoHS konform</target>
+      </segment>
+    </unit>
+    <unit id="fQYt0Om" name="settings.ips.lcsc">
+      <segment state="translated">
+        <source>settings.ips.lcsc</source>
+        <target>LCSC</target>
+      </segment>
+    </unit>
+    <unit id="iD6HBym" name="settings.ips.lcsc.help">
+      <segment state="translated">
+        <source>settings.ips.lcsc.help</source>
+        <target>Achtung: LCSC stellt keine offizielle API zur Verfügung. Dieser Anbieter nutzt die Webshop-API. LCSC hat die Nutzung dieser API nicht vorgesehen, und sie kann jederzeit ausfallen. Die Nutzung erfolgt daher auf eigene Gefahr.</target>
+      </segment>
+    </unit>
+    <unit id="v7inGbo" name="settings.ips.lcsc.enabled">
+      <segment state="translated">
+        <source>settings.ips.lcsc.enabled</source>
+        <target>Aktivieren</target>
+      </segment>
+    </unit>
+    <unit id="3KcMouQ" name="settings.ips.lcsc.currency">
+      <segment state="translated">
+        <source>settings.ips.lcsc.currency</source>
+        <target>Währung</target>
+      </segment>
+    </unit>
+    <unit id="kKv0J3." name="settings.system.attachments">
+      <segment state="translated">
+        <source>settings.system.attachments</source>
+        <target>Anhänge &amp; Dateien</target>
+      </segment>
+    </unit>
+    <unit id="dsRff8T" name="settings.system.attachments.maxFileSize">
+      <segment state="translated">
+        <source>settings.system.attachments.maxFileSize</source>
+        <target>Maximale Dateigröße</target>
+      </segment>
+    </unit>
+    <unit id="uI1XsbJ" name="settings.system.attachments.maxFileSize.help">
+      <segment state="translated">
+        <source>settings.system.attachments.maxFileSize.help</source>
+        <target>Die maximale Größe der Dateien, die hochgeladen werden können. Bitte beachten Sie, dass dies auch durch die PHP-Konfiguration begrenzt ist.</target>
+      </segment>
+    </unit>
+    <unit id="sIt9Ovp" name="settings.system.attachments.allowDownloads">
+      <segment state="translated">
+        <source>settings.system.attachments.allowDownloads</source>
+        <target>Herunterladen externer Dateien zulassen</target>
+      </segment>
+    </unit>
+    <unit id="T.PBu5P" name="settings.system.attachments.allowDownloads.help">
+      <segment state="translated">
+        <source>settings.system.attachments.allowDownloads.help</source>
+        <target>Mit dieser Option können Benutzer externe Dateien in die Part-DB herunterladen, indem sie eine URL angeben. &lt;b&gt;Achtung: Dies kann ein Sicherheitsrisiko darstellen, da Benutzer dadurch möglicherweise über die Part-DB auf Intranet-Ressourcen zugreifen können!&lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id=".OyihML" name="settings.system.attachments.downloadByDefault">
+      <segment state="translated">
+        <source>settings.system.attachments.downloadByDefault</source>
+        <target>Standardmäßig die URL für neue Anhänge herunterladen</target>
+      </segment>
+    </unit>
+    <unit id="UuDCaUI" name="settings.system.customization">
+      <segment state="translated">
+        <source>settings.system.customization</source>
+        <target>Anpassungen</target>
+      </segment>
+    </unit>
+    <unit id="VYMqQr5" name="settings.system.customization.instanceName">
+      <segment state="translated">
+        <source>settings.system.customization.instanceName</source>
+        <target>Instanzname</target>
+      </segment>
+    </unit>
+    <unit id="0YFxSHZ" name="settings.system.customization.instanceName.help">
+      <segment state="translated">
+        <source>settings.system.customization.instanceName.help</source>
+        <target>Name dieser Part-DB-Installation. Der Wert wird in der Navigationsleiste und in Titeln angezeigt.</target>
+      </segment>
+    </unit>
+    <unit id="28n6rA7" name="settings.system.customization.banner">
+      <segment state="translated">
+        <source>settings.system.customization.banner</source>
+        <target>Startseiten Banner</target>
+      </segment>
+    </unit>
+    <unit id="cdwJbbA" name="settings.system.history">
+      <segment state="translated">
+        <source>settings.system.history</source>
+        <target>Ereignislog</target>
+      </segment>
+    </unit>
+    <unit id="6TrsK5U" name="settings.system.history.saveChangedFields">
+      <segment state="translated">
+        <source>settings.system.history.saveChangedFields</source>
+        <target>Speichern, welche Felder eines Elements in Protokolleinträgen geändert wurden.</target>
+      </segment>
+    </unit>
+    <unit id="IVP9YL8" name="settings.system.history.saveOldData">
+      <segment state="translated">
+        <source>settings.system.history.saveOldData</source>
+        <target>Alten Daten in Protokolleinträgen bei Elementänderungen speichern</target>
+      </segment>
+    </unit>
+    <unit id="clqgFOW" name="settings.system.history.saveNewData">
+      <segment state="translated">
+        <source>settings.system.history.saveNewData</source>
+        <target>Neue Daten in Logeinträgen bei Elementänderung/-erstellung speichern</target>
+      </segment>
+    </unit>
+    <unit id="MITi2KP" name="settings.system.history.saveRemovedData">
+      <segment state="translated">
+        <source>settings.system.history.saveRemovedData</source>
+        <target>Gelöschte Daten in Logeintrag beim Löschen von Elementen speichern</target>
+      </segment>
+    </unit>
+    <unit id="pinyqu2" name="settings.system.customization.theme">
+      <segment state="translated">
+        <source>settings.system.customization.theme</source>
+        <target>Globales Thema</target>
+      </segment>
+    </unit>
+    <unit id="Aky9nXE" name="settings.system.history.enforceComments">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments</source>
+        <target>Kommentare für Aktionen erzwingen</target>
+      </segment>
+    </unit>
+    <unit id="axivgKB" name="settings.system.history.enforceComments.description">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.description</source>
+        <target>Mit dieser Option können Sie festlegen, für welche Aktionen Benutzer einen Grund angeben müssen, der protokolliert wird.</target>
+      </segment>
+    </unit>
+    <unit id="eqQKTzQ" name="settings.system.history.enforceComments.type.part_edit">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.part_edit</source>
+        <target>Bauteil bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="Ip_kAO3" name="settings.system.history.enforceComments.type.part_create">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.part_create</source>
+        <target>Bauteil erstellen</target>
+      </segment>
+    </unit>
+    <unit id="qEa.03L" name="settings.system.history.enforceComments.type.part_delete">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.part_delete</source>
+        <target>Bauteil löschen</target>
+      </segment>
+    </unit>
+    <unit id="zjITvo2" name="settings.system.history.enforceComments.type.part_stock_operation">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.part_stock_operation</source>
+        <target>Bauteilebestand ändern</target>
+      </segment>
+    </unit>
+    <unit id="hPbibkF" name="settings.system.history.enforceComments.type.datastructure_edit">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.datastructure_edit</source>
+        <target>Datenstruktur bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="7mB_fP3" name="settings.system.history.enforceComments.type.datastructure_create">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.datastructure_create</source>
+        <target>Datenstruktur erstellen</target>
+      </segment>
+    </unit>
+    <unit id="nt8eToz" name="settings.system.history.enforceComments.type.datastructure_delete">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.datastructure_delete</source>
+        <target>Datenstruktur löschen</target>
+      </segment>
+    </unit>
+    <unit id="zQ8vq5N" name="settings.system.privacy.useGravatar">
+      <segment state="translated">
+        <source>settings.system.privacy.useGravatar</source>
+        <target>Verwende Gravatar Avatare</target>
+      </segment>
+    </unit>
+    <unit id="8IszKgp" name="settings.system.privacy.useGravatar.description">
+      <segment state="translated">
+        <source>settings.system.privacy.useGravatar.description</source>
+        <target>Wenn ein Benutzer kein Avatar-Bild angegeben hat, verwenden Sie das Avatar von Gravatar basierend auf der E-Mail-Adresse des Benutzers. Dies führt dazu, dass der Browser Bilder von einem Drittanbieter lädt!</target>
+      </segment>
+    </unit>
+    <unit id="rxHBzbv" name="settings.system.privacy.checkForUpdates">
+      <segment state="translated">
+        <source>settings.system.privacy.checkForUpdates</source>
+        <target>Auf verfügbare Aktualisierungen von Part-DB prüfen</target>
+      </segment>
+    </unit>
+    <unit id="LrAcb0O" name="settings.system.privacy.checkForUpdates.description">
+      <segment state="translated">
+        <source>settings.system.privacy.checkForUpdates.description</source>
+        <target>Part-DB überprüft regelmäßig, ob auf GitHub eine neue Version verfügbar ist. Deaktivieren Sie diese Option hier, wenn Sie dies nicht wünschen oder wenn Ihr Server keine Verbindung zum Internet herstellen kann.</target>
+      </segment>
+    </unit>
+    <unit id="nMhHcYc" name="settings.system.localization.locale">
+      <segment state="translated">
+        <source>settings.system.localization.locale</source>
+        <target>Standardsprache</target>
+      </segment>
+    </unit>
+    <unit id="vWBNX1b" name="settings.system.localization">
+      <segment state="translated">
+        <source>settings.system.localization</source>
+        <target>Lokalisierung</target>
+      </segment>
+    </unit>
+    <unit id="7_M.HcK" name="settings.system.localization.timezone">
+      <segment state="translated">
+        <source>settings.system.localization.timezone</source>
+        <target>Standardzeitzone</target>
+      </segment>
+    </unit>
+    <unit id="CCMOzX7" name="settings.system.localization.base_currency">
+      <segment state="translated">
+        <source>settings.system.localization.base_currency</source>
+        <target>Basiswährung</target>
+      </segment>
+    </unit>
+    <unit id="0GRlEe5" name="settings.system.localization.base_currency_description">
+      <segment state="translated">
+        <source>settings.system.localization.base_currency_description</source>
+        <target>Die Währung, in der Preisinformationen und Wechselkurse gespeichert werden. Diese Währung wird angenommen, wenn für eine Preisinformation keine Währung festgelegt ist.
+&lt;b&gt;Bitte beachten Sie, dass die Währungen bei einer Änderung dieses Wertes nicht umgerechnet werden. Wenn Sie also die Basiswährung ändern, nachdem Sie bereits Preisinformationen hinzugefügt haben, führt dies zu falschen Preisen!&lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id="cvpTUeY" name="settings.system.privacy">
+      <segment state="translated">
+        <source>settings.system.privacy</source>
+        <target>Datenschutz</target>
+      </segment>
+    </unit>
+    <unit id="TVAVZUl" name="settings.title">
+      <segment state="translated">
+        <source>settings.title</source>
+        <target>Servereinstellungen</target>
+      </segment>
+    </unit>
+    <unit id="xtw_ol7" name="settings.misc.kicad_eda">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda</source>
+        <target>KiCAD-Integration</target>
+      </segment>
+    </unit>
+    <unit id="8u9_KDD" name="settings.misc.kicad_eda.category_depth">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.category_depth</source>
+        <target>Kategorientiefe</target>
+      </segment>
+    </unit>
+    <unit id="w07P3Dt" name="settings.misc.kicad_eda.category_depth.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.category_depth.help</source>
+        <target>Dieser Wert bestimmt die Tiefe des Kategoriebaums, der in KiCad sichtbar ist. 0 bedeutet, dass nur die Kategorien der obersten Ebene sichtbar sind. Setzen Sie den Wert auf &gt; 0, um weitere Ebenen anzuzeigen. Setzen Sie den Wert auf -1, um alle Teile der Part-DB innerhalb einer einzigen Kategorie in KiCad anzuzeigen.</target>
+      </segment>
+    </unit>
+    <unit id="VwvmcWE" name="settings.behavior.sidebar">
+      <segment state="translated">
+        <source>settings.behavior.sidebar</source>
+        <target>Seitenleiste</target>
+      </segment>
+    </unit>
+    <unit id="FIneGzR" name="settings.behavior.sidebar.items">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.items</source>
+        <target>Seitenleisteneinträge</target>
+      </segment>
+    </unit>
+    <unit id="jc0JTvL" name="settings.behavior.sidebar.items.help">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.items.help</source>
+        <target>Die Menüs, die standardmäßig in der Seitenleiste angezeigt werden. Die Reihenfolge der Elemente kann per Drag &amp; Drop geändert werden.</target>
+      </segment>
+    </unit>
+    <unit id="gVSWDkE" name="settings.behavior.sidebar.rootNodeEnabled">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.rootNodeEnabled</source>
+        <target>Stammknoten anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="uk0yKdg" name="settings.behavior.sidebar.rootNodeEnabled.help">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.rootNodeEnabled.help</source>
+        <target>Ist diese Funktion aktiviert, werden alle Kategorien der obersten Ebene, Footprints usw. unter einem einzigen Stammknoten zusammengefasst. Ist sie deaktiviert, werden die Kategorien der obersten Ebene direkt im Menü angezeigt.</target>
+      </segment>
+    </unit>
+    <unit id="brCNh0M" name="settings.behavior.sidebar.rootNodeExpanded">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.rootNodeExpanded</source>
+        <target>Stammknoten standardmäßig ausgeklappt</target>
+      </segment>
+    </unit>
+    <unit id="NkW8ELV" name="settings.behavior.table">
+      <segment state="translated">
+        <source>settings.behavior.table</source>
+        <target>Tabellen</target>
+      </segment>
+    </unit>
+    <unit id="1Zrv2eZ" name="settings.behavior.table.default_page_size">
+      <segment state="translated">
+        <source>settings.behavior.table.default_page_size</source>
+        <target>Standardmäßige Seitengröße</target>
+      </segment>
+    </unit>
+    <unit id="lbx.zdp" name="settings.behavior.table.default_page_size.help">
+      <segment state="translated">
+        <source>settings.behavior.table.default_page_size.help</source>
+        <target>Wie viele Einträge standardmäßig auf ganzseitigen Tabellen gezeigt werden. Setzen Sie den Wert auf -1, um standardmäßig alle Elemente ohne Seitenunterteilung anzuzeigen.</target>
+      </segment>
+    </unit>
+    <unit id="G1N8QW3" name="settings.behavior.table.parts_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.parts_default_columns</source>
+        <target>Standardmäßige Spalten für Bauteiletabellen</target>
+      </segment>
+    </unit>
+    <unit id="SUD8H3b" name="settings.behavior.table.parts_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.parts_default_columns.help</source>
+        <target>Die Spalten, die standardmäßig in Bauteiltabellen angezeigt werden sollen. Die Reihenfolge der Elemente kann per Drag &amp; Drop geändert werden.</target>
+      </segment>
+    </unit>
+    <unit id="hazr_g5" name="settings.ips.oemsecrets">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets</source>
+        <target>OEMSecrets</target>
+      </segment>
+    </unit>
+    <unit id="ljRPsNX" name="settings.ips.oemsecrets.keepZeroPrices">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.keepZeroPrices</source>
+        <target>Händler mit Nullpreisen anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="c7YTKEY" name="settings.ips.oemsecrets.keepZeroPrices.help">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.keepZeroPrices.help</source>
+        <target>Wenn dies nicht gesetzt ist, werden Händler, deren Preise 0 betragen, als ungültig verworfen.</target>
+      </segment>
+    </unit>
+    <unit id="ym9EcxF" name="settings.ips.oemsecrets.parseParams">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.parseParams</source>
+        <target>Parameter aus Beschreibung extrahieren</target>
+      </segment>
+    </unit>
+    <unit id="U4aFfJ3" name="settings.ips.oemsecrets.parseParams.help">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.parseParams.help</source>
+        <target>Wenn diese Option aktiviert ist, versucht der Anbieter, die unstrukturierten Beschreibungen von OEMSecrets in strukturierte Parameter umzuwandeln. Jeder Parameter in der Beschreibung sollte die Form „...;name1:value1;name2:value2“ haben.</target>
+      </segment>
+    </unit>
+    <unit id="YMpgQPU" name="settings.ips.oemsecrets.sortMode">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.sortMode</source>
+        <target>Sortierung der Ergebnisse</target>
+      </segment>
+    </unit>
+    <unit id="3VDLyjD" name="settings.ips.oemsecrets.sortMode.N">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.sortMode.N</source>
+        <target>Keine</target>
+      </segment>
+    </unit>
+    <unit id="Oz.6cJY" name="settings.ips.oemsecrets.sortMode.C">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.sortMode.C</source>
+        <target>Vollständigkeit (Priorisierung von Elementen mit detaillierten Informationen)</target>
+      </segment>
+    </unit>
+    <unit id="KLJYfJ0" name="settings.ips.oemsecrets.sortMode.M">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.sortMode.M</source>
+        <target>Vollständigkeit &amp; Herstellername</target>
+      </segment>
+    </unit>
     <unit id="8C9ijHM" name="entity.export.flash.error.no_entities">
       <segment state="translated">
         <source>entity.export.flash.error.no_entities</source>
@@ -12339,6 +12927,1327 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>attachment.view_external</source>
         <target>Externe Version anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="X9HUFrv" name="part.table.actions.error">
+      <segment state="translated">
+        <source>part.table.actions.error</source>
+        <target>Es traten %count% Fehler bei der Aktion auf!</target>
+      </segment>
+    </unit>
+    <unit id=".ppbsNn" name="part.table.actions.error_detail">
+      <segment state="translated">
+        <source>part.table.actions.error_detail</source>
+        <target>%part_name% (ID: %part_id%): %message%</target>
+      </segment>
+    </unit>
+    <unit id="4wpp6h." name="part_list.action.action.change_location">
+      <segment state="translated">
+        <source>part_list.action.action.change_location</source>
+        <target>Lagerort ändern (nur für Bauteile mit einzelnem Bestand)</target>
+      </segment>
+    </unit>
+    <unit id="9_9I.m4" name="parts.table.action_handler.error.part_lots_multiple">
+      <segment state="translated">
+        <source>parts.table.action_handler.error.part_lots_multiple</source>
+        <target>Dieses Bauteil enthält mehr als einen Bestand. Ändere den Lagerort bei Hand, um auszuwählen, welcher Bestand geändert werden soll.</target>
+      </segment>
+    </unit>
+    <unit id="qn25jL." name="settings.ips.reichelt">
+      <segment state="translated">
+        <source>settings.ips.reichelt</source>
+        <target>Reichelt</target>
+      </segment>
+    </unit>
+    <unit id="yYazL3j" name="settings.ips.reichelt.help">
+      <segment state="translated">
+        <source>settings.ips.reichelt.help</source>
+        <target>Reichelt.com bietet keine offizielle API an, daher extrahiert dieser Informationsanbieter die Informationen per Webscraping aus der Website. Dies kann jederzeit unterbrochen werden, die Nutzung erfolgt auf eigene Gefahr.</target>
+      </segment>
+    </unit>
+    <unit id="2EVJVc6" name="settings.ips.reichelt.include_vat">
+      <segment state="translated">
+        <source>settings.ips.reichelt.include_vat</source>
+        <target>Preise inkl. Mehrwertsteuer anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="Ocp5ktF" name="settings.ips.pollin">
+      <segment state="translated">
+        <source>settings.ips.pollin</source>
+        <target>Pollin</target>
+      </segment>
+    </unit>
+    <unit id="Xlj6kj2" name="settings.ips.pollin.help">
+      <segment state="translated">
+        <source>settings.ips.pollin.help</source>
+        <target>Pollin.de bietet keine offizielle API an, daher extrahiert dieser Informationsanbieter die Daten per Webscraping aus der Website. Dies kann jederzeit aufhören zu funktionieren, die Nutzung erfolgt auf eigene Gefahr.</target>
+      </segment>
+    </unit>
+    <unit id="TEm7uIg" name="settings.behavior.sidebar.rootNodeRedirectsToNewEntity">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.rootNodeRedirectsToNewEntity</source>
+        <target>Stammknoten leitet zur Erstellung eines neuen Elements weiter</target>
+      </segment>
+    </unit>
+    <unit id="j7HiQ80" name="settings.ips.digikey">
+      <segment state="translated">
+        <source>settings.ips.digikey</source>
+        <target>Digikey</target>
+      </segment>
+    </unit>
+    <unit id="_ViyVdh" name="settings.ips.digikey.client_id">
+      <segment state="translated">
+        <source>settings.ips.digikey.client_id</source>
+        <target>Client ID</target>
+      </segment>
+    </unit>
+    <unit id="eB9dDyp" name="settings.ips.digikey.secret">
+      <segment state="translated">
+        <source>settings.ips.digikey.secret</source>
+        <target>Secret</target>
+      </segment>
+    </unit>
+    <unit id="5xjmMzf" name="settings.ips.octopart">
+      <segment state="translated">
+        <source>settings.ips.octopart</source>
+        <target>Octopart / Nexar</target>
+      </segment>
+    </unit>
+    <unit id="vGv90iO" name="settings.ips.octopart.searchLimit">
+      <segment state="translated">
+        <source>settings.ips.octopart.searchLimit</source>
+        <target>Anzahl an Ergebnissen</target>
+      </segment>
+    </unit>
+    <unit id="au4Yeps" name="settings.ips.octopart.searchLimit.help">
+      <segment state="translated">
+        <source>settings.ips.octopart.searchLimit.help</source>
+        <target>Die Anzahl der Ergebnisse, die Sie bei der Suche von Octopart erhalten möchten (bitte beachten Sie, dass dies auf Ihre API-Limits angerechnet wird)</target>
+      </segment>
+    </unit>
+    <unit id="Tiqmk.8" name="settings.ips.octopart.onlyAuthorizedSellers">
+      <segment state="translated">
+        <source>settings.ips.octopart.onlyAuthorizedSellers</source>
+        <target>Nur autorisierte Verkäufer</target>
+      </segment>
+    </unit>
+    <unit id="ECQkeJy" name="settings.ips.octopart.onlyAuthorizedSellers.help">
+      <segment state="translated">
+        <source>settings.ips.octopart.onlyAuthorizedSellers.help</source>
+        <target>Anwählen, um nicht-autorisierte Angebote in den Ergebnissen anzuzeigen</target>
+      </segment>
+    </unit>
+    <unit id="iRDDtdU" name="settings.misc.exchange_rate">
+      <segment state="translated">
+        <source>settings.misc.exchange_rate</source>
+        <target>Wechselkurse</target>
+      </segment>
+    </unit>
+    <unit id="0REngfi" name="settings.misc.exchange_rate.fixer_api_key">
+      <segment state="translated">
+        <source>settings.misc.exchange_rate.fixer_api_key</source>
+        <target>Fixer.io API-Key</target>
+      </segment>
+    </unit>
+    <unit id="COLhoWD" name="settings.misc.exchange_rate.fixer_api_key.help">
+      <segment state="translated">
+        <source>settings.misc.exchange_rate.fixer_api_key.help</source>
+        <target>Wenn Sie Wechselkurse zwischen Nicht-Euro-Währungen benötigen, können Sie hier einen API-Schlüssel von fixer.io eingeben.</target>
+      </segment>
+    </unit>
+    <unit id="Ffr5xYM" name="settings.behavior.part_info">
+      <segment state="translated">
+        <source>settings.behavior.part_info</source>
+        <target>Bauteileinfoseite</target>
+      </segment>
+    </unit>
+    <unit id="weH3j.a" name="settings.behavior.part_info.show_part_image_overlay">
+      <segment state="translated">
+        <source>settings.behavior.part_info.show_part_image_overlay</source>
+        <target>Bildoverlay anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="SCUs3WS" name="settings.behavior.part_info.show_part_image_overlay.help">
+      <segment state="translated">
+        <source>settings.behavior.part_info.show_part_image_overlay.help</source>
+        <target>Zeigen Sie die Bildoverlay mit den Details zum Anhang an, wenn Sie mit der Maus über die Teilebildgalerie fahren.</target>
+      </segment>
+    </unit>
+    <unit id="ALfPkeR" name="perm.config.change_system_settings">
+      <segment state="translated">
+        <source>perm.config.change_system_settings</source>
+        <target>Systemeinstellungen bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="TlHeIjk" name="tree.tools.system.settings">
+      <segment state="translated">
+        <source>tree.tools.system.settings</source>
+        <target>Systemeinstellungen</target>
+      </segment>
+    </unit>
+    <unit id="3YsJ4i6" name="settings.tooltip.overrideable_by_env">
+      <segment state="translated">
+        <source>settings.tooltip.overrideable_by_env</source>
+        <target>Der Wert dieses Parameters kann durch Setzen der Umgebungsvariable „%env%“ überschrieben werden.</target>
+      </segment>
+    </unit>
+    <unit id="boWkQh7" name="settings.flash.saved">
+      <segment state="translated">
+        <source>settings.flash.saved</source>
+        <target>Einstellungen erfolgreich gespeichert.</target>
+      </segment>
+    </unit>
+    <unit id="tEYWrWD" name="settings.flash.invalid">
+      <segment state="translated">
+        <source>settings.flash.invalid</source>
+        <target>Die Einstellungen sind ungültig. Bitte überprüfen Sie Ihre Eingabe!</target>
+      </segment>
+    </unit>
+    <unit id="yRXWSRN" name="info_providers.settings.title">
+      <segment state="translated">
+        <source>info_providers.settings.title</source>
+        <target>Informationsquelle-Einstellungen</target>
+      </segment>
+    </unit>
+    <unit id="VgSodKY" name="form.apikey.redacted">
+      <segment state="translated">
+        <source>form.apikey.redacted</source>
+        <target>Aus Sicherheitsgründen ausgeblendet</target>
+      </segment>
+    </unit>
+    <unit id="J716Oh4" name="project.bom_import.map_fields">
+      <segment state="translated">
+        <source>project.bom_import.map_fields</source>
+        <target>Spalten zuordnen</target>
+      </segment>
+    </unit>
+    <unit id="wvT5Xvn" name="project.bom_import.map_fields.help">
+      <segment state="translated">
+        <source>project.bom_import.map_fields.help</source>
+        <target>Wählen Sie aus, wie CSV Spalten auf BOM-Felder gemappt werden</target>
+      </segment>
+    </unit>
+    <unit id="nh7uLPe" name="project.bom_import.delimiter">
+      <segment state="translated">
+        <source>project.bom_import.delimiter</source>
+        <target>Trennzeichen</target>
+      </segment>
+    </unit>
+    <unit id="MSlSeE4" name="project.bom_import.delimiter.comma">
+      <segment state="translated">
+        <source>project.bom_import.delimiter.comma</source>
+        <target>Komma (,)</target>
+      </segment>
+    </unit>
+    <unit id="UdDSB0h" name="project.bom_import.delimiter.semicolon">
+      <segment state="translated">
+        <source>project.bom_import.delimiter.semicolon</source>
+        <target>Semikolon (;)</target>
+      </segment>
+    </unit>
+    <unit id="Wpa4Gmf" name="project.bom_import.delimiter.tab">
+      <segment state="translated">
+        <source>project.bom_import.delimiter.tab</source>
+        <target>Tab</target>
+      </segment>
+    </unit>
+    <unit id="tjrG_vU" name="project.bom_import.field_mapping.title">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.title</source>
+        <target>Spaltenzuordnung</target>
+      </segment>
+    </unit>
+    <unit id="nWu8B7R" name="project.bom_import.field_mapping.csv_field">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.csv_field</source>
+        <target>CSV-Spalte</target>
+      </segment>
+    </unit>
+    <unit id="D0KlFqm" name="project.bom_import.field_mapping.maps_to">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.maps_to</source>
+        <target>Mappt auf</target>
+      </segment>
+    </unit>
+    <unit id="rhUpmxC" name="project.bom_import.field_mapping.suggestion">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.suggestion</source>
+        <target>Vorschlag</target>
+      </segment>
+    </unit>
+    <unit id="TM0mgKr" name="project.bom_import.field_mapping.priority">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority</source>
+        <target>Priorität</target>
+      </segment>
+    </unit>
+    <unit id="xY8NSRr" name="project.bom_import.field_mapping.priority_help">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority_help</source>
+        <target>Priorität (kleinere Nummer = höhere Priorität)</target>
+      </segment>
+    </unit>
+    <unit id="CuXg8WU" name="project.bom_import.field_mapping.priority_short">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority_short</source>
+        <target>P</target>
+      </segment>
+    </unit>
+    <unit id="jOHOShN" name="project.bom_import.field_mapping.priority_note">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority_note</source>
+        <target>Prioritätstipp: Niedrigere Zahlen = höhere Priorität. Die Standardpriorität ist 10. Verwenden Sie die Prioritäten 1–9 für die wichtigsten Felder und 10+ für normale Priorität.</target>
+      </segment>
+    </unit>
+    <unit id="pvmv3OT" name="project.bom_import.field_mapping.summary">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.summary</source>
+        <target>Zusammenfassung der Zuordnung</target>
+      </segment>
+    </unit>
+    <unit id="VjLf1Pf" name="project.bom_import.field_mapping.select_to_see_summary">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.select_to_see_summary</source>
+        <target>Wählen Sie Zuordnungen aus, um eine Zusammenfassung anzuzeigen.</target>
+      </segment>
+    </unit>
+    <unit id="JOPny6T" name="project.bom_import.field_mapping.no_suggestion">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.no_suggestion</source>
+        <target>Kein Vorschlag</target>
+      </segment>
+    </unit>
+    <unit id="1LWEtqL" name="project.bom_import.preview">
+      <segment state="translated">
+        <source>project.bom_import.preview</source>
+        <target>Vorschau</target>
+      </segment>
+    </unit>
+    <unit id="1CJA0aY" name="project.bom_import.flash.session_expired">
+      <segment state="translated">
+        <source>project.bom_import.flash.session_expired</source>
+        <target>Die Import-Sitzung ist abgelaufen. Bitte laden Sie Ihre Datei erneut hoch.</target>
+      </segment>
+    </unit>
+    <unit id="BLN7XRN" name="project.bom_import.field_mapping.ignore">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.ignore</source>
+        <target>Ignorieren</target>
+      </segment>
+    </unit>
+    <unit id="yiIB3yV" name="project.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>project.bom_import.type.kicad_schematic</source>
+        <target>KiCAD Schaltplaneditor BOM (CSV Datei)</target>
+      </segment>
+    </unit>
+    <unit id="ltE6xPP" name="common.back">
+      <segment state="translated">
+        <source>common.back</source>
+        <target>Zurück</target>
+      </segment>
+    </unit>
+    <unit id="HCTqjZO" name="project.bom_import.validation.errors.required_field_missing">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.required_field_missing</source>
+        <target>Zeile %line%: Das Pflichtfeld „%field%“ fehlt oder ist leer. Bitte stellen Sie sicher, dass dieses Feld zugeordnet ist und Daten enthält.</target>
+      </segment>
+    </unit>
+    <unit id="_ua5YM7" name="project.bom_import.validation.errors.no_valid_designators">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.no_valid_designators</source>
+        <target>Zeile %line%: Das Bezeichnungsfeld enthält keine gültigen Komponentenreferenzen. Erwartetes Format: „R1,C2,U3“ oder „R1, C2, U3“.</target>
+      </segment>
+    </unit>
+    <unit id="xpkq3rW" name="project.bom_import.validation.warnings.unusual_designator_format">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.unusual_designator_format</source>
+        <target>Zeile %line%: Einige Komponentenreferenzen haben möglicherweise ein ungewöhnliches Format: %designators%. Erwartetes Format: „R1“, „C2“, „U3“ usw.</target>
+      </segment>
+    </unit>
+    <unit id="M54Ud5d" name="project.bom_import.validation.errors.duplicate_designators">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.duplicate_designators</source>
+        <target>Zeile %line%: Doppelte Komponentenreferenzen gefunden: %designators%. Jede Komponente sollte nur einmal pro Zeile referenziert werden.</target>
+      </segment>
+    </unit>
+    <unit id="ZULFZh2" name="project.bom_import.validation.errors.invalid_quantity">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.invalid_quantity</source>
+        <target>Zeile %line%: Die Menge „%quantity%“ ist keine gültige Zahl. Bitte geben Sie einen numerischen Wert ein (z. B. 1, 2,5, 10).</target>
+      </segment>
+    </unit>
+    <unit id="3WbRgsl" name="project.bom_import.validation.errors.quantity_zero_or_negative">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.quantity_zero_or_negative</source>
+        <target>Zeile %line%: Die Menge muss größer als 0 sein, erhaltene Menge %quantity%.</target>
+      </segment>
+    </unit>
+    <unit id="_nWGsSU" name="project.bom_import.validation.warnings.quantity_unusually_high">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.quantity_unusually_high</source>
+        <target>Zeile %line%: Die Menge %quantity% erscheint ungewöhnlich hoch. Bitte überprüfen Sie, ob dies korrekt ist.</target>
+      </segment>
+    </unit>
+    <unit id="iJWw39f" name="project.bom_import.validation.warnings.quantity_not_whole_number">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.quantity_not_whole_number</source>
+        <target>Zeile %line%: Die Menge %quantity% ist keine ganze Zahl, aber Sie haben %count% Komponentenreferenzen. Dies kann auf eine Nichtübereinstimmung hindeuten.</target>
+      </segment>
+    </unit>
+    <unit id="Zffmgvv" name="project.bom_import.validation.errors.quantity_designator_mismatch">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.quantity_designator_mismatch</source>
+        <target>Zeile %line%: Diskrepanz zwischen Menge und Komponentenreferenzen. Menge: %quantity%, Referenzen: %count% (%designators%). Diese sollten übereinstimmen. Passen Sie entweder die Menge an oder überprüfen Sie Ihre Komponentenreferenzen.</target>
+      </segment>
+    </unit>
+    <unit id="JqHpDIo" name="project.bom_import.validation.errors.invalid_partdb_id">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.invalid_partdb_id</source>
+        <target>Zeile %line%: Part-DB ID „%id%“ ist keine gültige Zahl. Bitte geben Sie eine numerische ID ein.</target>
+      </segment>
+    </unit>
+    <unit id="Mr7W6r0" name="project.bom_import.validation.errors.partdb_id_zero_or_negative">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.partdb_id_zero_or_negative</source>
+        <target>Zeile %line%: Die Part-DB ID muss größer als 0 sein, erhaltene ID lautet %id%.</target>
+      </segment>
+    </unit>
+    <unit id="gRH6IeR" name="project.bom_import.validation.warnings.partdb_id_not_found">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.partdb_id_not_found</source>
+        <target>Zeile %line%: Teil-DB-ID %id% nicht in der Datenbank gefunden. Die Komponente wird ohne Verknüpfung mit einem vorhandenen Teil importiert.</target>
+      </segment>
+    </unit>
+    <unit id="eMfaBYo" name="project.bom_import.validation.info.partdb_link_success">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.partdb_link_success</source>
+        <target>Zeile %line%: Erfolgreich mit dem Bauteil „%name%“ (ID: %id%) verknüpft.</target>
+      </segment>
+    </unit>
+    <unit id="b_m9p.f" name="project.bom_import.validation.warnings.no_component_name">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.no_component_name</source>
+        <target>Zeile %line%: Kein Komponentenname/keine Komponentenbezeichnung angegeben (MPN, Bezeichnung oder Wert). Die Komponente wird als „Unbekanntes Bauteil” bezeichnet.</target>
+      </segment>
+    </unit>
+    <unit id=".LAGdMe" name="project.bom_import.validation.warnings.package_name_too_long">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.package_name_too_long</source>
+        <target>Zeile %line%: Der Footprintname „%package%“ ist ungewöhnlich lang. Bitte überprüfen Sie, ob er korrekt ist.</target>
+      </segment>
+    </unit>
+    <unit id="wFF49kl" name="project.bom_import.validation.info.library_prefix_detected">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.library_prefix_detected</source>
+        <target>Zeile %line%: Das Footprint „%package%“ enthält ein Bibliothekspräfix. Dieses wird beim Import automatisch entfernt.</target>
+      </segment>
+    </unit>
+    <unit id="hEO2sxC" name="project.bom_import.validation.errors.non_numeric_field">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.non_numeric_field</source>
+        <target>Zeile %line%: Das Feld „%field%“ enthält den nicht numerischen Wert „%value%“. Bitte geben Sie eine gültige Zahl ein.</target>
+      </segment>
+    </unit>
+    <unit id="Ear_sUX" name="project.bom_import.validation.info.import_summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.import_summary</source>
+        <target>Importübersicht: %total% Einträge insgesamt, %valid% gültig, %invalid% mit Problemen.</target>
+      </segment>
+    </unit>
+    <unit id="SqJZ97A" name="project.bom_import.validation.errors.summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.summary</source>
+        <target>Es wurden %count% Validierungsfehler gefunden, die behoben werden müssen, bevor der Import fortgesetzt werden kann.</target>
+      </segment>
+    </unit>
+    <unit id="s7dzFnp" name="project.bom_import.validation.warnings.summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.summary</source>
+        <target>Es wurden %count% Warnungen gefunden. Bitte überprüfen Sie diese Probleme, bevor Sie fortfahren.</target>
+      </segment>
+    </unit>
+    <unit id="2KaAHmS" name="project.bom_import.validation.info.all_valid">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.all_valid</source>
+        <target>Alle Einträge haben die Validierung erfolgreich bestanden!</target>
+      </segment>
+    </unit>
+    <unit id="Lyb3BjK" name="project.bom_import.validation.summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.summary</source>
+        <target>Validierungsübersicht</target>
+      </segment>
+    </unit>
+    <unit id="DUM8GoE" name="project.bom_import.validation.total_entries">
+      <segment state="translated">
+        <source>project.bom_import.validation.total_entries</source>
+        <target>Gesamtzahl der Einträge</target>
+      </segment>
+    </unit>
+    <unit id="AtLGGU2" name="project.bom_import.validation.valid_entries">
+      <segment state="translated">
+        <source>project.bom_import.validation.valid_entries</source>
+        <target>Gültige Einträge</target>
+      </segment>
+    </unit>
+    <unit id="mgdn5v3" name="project.bom_import.validation.invalid_entries">
+      <segment state="translated">
+        <source>project.bom_import.validation.invalid_entries</source>
+        <target>Ungültige Einträge</target>
+      </segment>
+    </unit>
+    <unit id="qmJ5BfF" name="project.bom_import.validation.success_rate">
+      <segment state="translated">
+        <source>project.bom_import.validation.success_rate</source>
+        <target>Erfolgsquote</target>
+      </segment>
+    </unit>
+    <unit id="QyDsrFV" name="project.bom_import.validation.errors.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.title</source>
+        <target>Validierungsfehler</target>
+      </segment>
+    </unit>
+    <unit id="d.Mvu0a" name="project.bom_import.validation.errors.description">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.description</source>
+        <target>Die folgenden Fehler müssen behoben werden, bevor der Import fortgesetzt werden kann:</target>
+      </segment>
+    </unit>
+    <unit id="MGFfKr." name="project.bom_import.validation.warnings.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.title</source>
+        <target>Validierungswarnungen</target>
+      </segment>
+    </unit>
+    <unit id="tt4VxY6" name="project.bom_import.validation.warnings.description">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.description</source>
+        <target>Die folgenden Warnhinweise sollten vor dem Fortfahren gelesen werden:</target>
+      </segment>
+    </unit>
+    <unit id="YuAdYeh" name="project.bom_import.validation.info.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.title</source>
+        <target>Informationen</target>
+      </segment>
+    </unit>
+    <unit id="1pUfi7Q" name="project.bom_import.validation.details.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.title</source>
+        <target>Detaillierte Validierungsergebnisse</target>
+      </segment>
+    </unit>
+    <unit id="4Vv0Xns" name="project.bom_import.validation.details.line">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.line</source>
+        <target>Zeile</target>
+      </segment>
+    </unit>
+    <unit id="RbvD2zF" name="project.bom_import.validation.details.status">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="iGtKkH_" name="project.bom_import.validation.details.messages">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.messages</source>
+        <target>Meldungen</target>
+      </segment>
+    </unit>
+    <unit id="IgdgZd8" name="project.bom_import.validation.details.valid">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.valid</source>
+        <target>Gültig</target>
+      </segment>
+    </unit>
+    <unit id="lWQEtkq" name="project.bom_import.validation.details.invalid">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.invalid</source>
+        <target>Ungültig</target>
+      </segment>
+    </unit>
+    <unit id="tPn6Ind" name="project.bom_import.validation.all_valid">
+      <segment state="translated">
+        <source>project.bom_import.validation.all_valid</source>
+        <target>Alle Einträge sind gültig und bereit zum Import!</target>
+      </segment>
+    </unit>
+    <unit id="fzoGCaf" name="project.bom_import.validation.fix_errors">
+      <segment state="translated">
+        <source>project.bom_import.validation.fix_errors</source>
+        <target>Bitte beheben Sie die Validierungsfehler, bevor Sie mit dem Import fortfahren.</target>
+      </segment>
+    </unit>
+    <unit id="nc9MqUc" name="project.bom_import.type.generic_csv">
+      <segment state="translated">
+        <source>project.bom_import.type.generic_csv</source>
+        <target>Generische CSV-Datei</target>
+      </segment>
+    </unit>
+    <unit id=".N35Pvs" name="label_generator.update_profile">
+      <segment state="translated">
+        <source>label_generator.update_profile</source>
+        <target>Profil mit aktuellen Einstellungen aktualisieren</target>
+      </segment>
+    </unit>
+    <unit id="ulTo6Aa" name="label_generator.profile_updated">
+      <segment state="translated">
+        <source>label_generator.profile_updated</source>
+        <target>Labelprofil aktualisiert</target>
+      </segment>
+    </unit>
+    <unit id="7lgFa7I" name="settings.behavior.hompepage.items">
+      <segment state="translated">
+        <source>settings.behavior.hompepage.items</source>
+        <target>Startseiten-Elemente</target>
+      </segment>
+    </unit>
+    <unit id="FsrRdkp" name="settings.behavior.homepage.items.help">
+      <segment state="translated">
+        <source>settings.behavior.homepage.items.help</source>
+        <target>Die Elemente, die auf der Startseite angezeigt werden sollen. Die Reihenfolge kann per Drag &amp; Drop geändert werden.</target>
+      </segment>
+    </unit>
+    <unit id="CYw3_pS" name="settings.system.customization.showVersionOnHomepage">
+      <segment state="translated">
+        <source>settings.system.customization.showVersionOnHomepage</source>
+        <target>Part-DB-Version auf der Startseite anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="GLYhV9m" name="settings.behavior.part_info.extract_params_from_description">
+      <segment state="translated">
+        <source>settings.behavior.part_info.extract_params_from_description</source>
+        <target>Parameter aus der Bauteil-Beschreibung extrahieren</target>
+      </segment>
+    </unit>
+    <unit id="aYOedkN" name="settings.behavior.part_info.extract_params_from_notes">
+      <segment state="translated">
+        <source>settings.behavior.part_info.extract_params_from_notes</source>
+        <target>Parameter aus der Bauteil-Notiz extrahieren</target>
+      </segment>
+    </unit>
+    <unit id="nCH2MW6" name="settings.ips.default_providers">
+      <segment state="translated">
+        <source>settings.ips.default_providers</source>
+        <target>Standard-Suchquellen</target>
+      </segment>
+    </unit>
+    <unit id="TLNoCLT" name="settings.ips.general">
+      <segment state="translated">
+        <source>settings.ips.general</source>
+        <target>Allgemeine Einstellungen</target>
+      </segment>
+    </unit>
+    <unit id="IDs2sXK" name="settings.ips.default_providers.help">
+      <segment state="translated">
+        <source>settings.ips.default_providers.help</source>
+        <target>Diese Anbieter werden für die Suche in Informationsquellen vorausgewählt.</target>
+      </segment>
+    </unit>
+    <unit id="dv6eslZ" name="settings.behavior.table.preview_image_max_width">
+      <segment state="translated">
+        <source>settings.behavior.table.preview_image_max_width</source>
+        <target>Max. Vorschaubild-Breite (px)</target>
+      </segment>
+    </unit>
+    <unit id="5bOoqEL" name="settings.behavior.table.preview_image_min_width">
+      <segment state="translated">
+        <source>settings.behavior.table.preview_image_min_width</source>
+        <target>Min. Vorschaubild-Breite (px)</target>
+      </segment>
+    </unit>
+    <unit id="vkjf5qA" name="info_providers.bulk_import.step1.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step1.title</source>
+        <target>Massenimport von Datenquellen – Schritt 1</target>
+      </segment>
+    </unit>
+    <unit id="dqV7NUB" name="info_providers.bulk_import.parts_selected">
+      <segment state="translated">
+        <source>info_providers.bulk_import.parts_selected</source>
+        <target>Bauteile ausgewählt</target>
+      </segment>
+    </unit>
+    <unit id="o474JoG" name="info_providers.bulk_import.step1.global_mapping_description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step1.global_mapping_description</source>
+        <target>Konfigurieren Sie Feldzuordnungen, die auf alle ausgewählten Teile angewendet werden sollen. Beispiel: „MPN → LCSC + Mouser” bedeutet, dass die Anbieter LCSC und Mouser anhand des MPN-Feldes jedes Teils durchsucht werden.</target>
+      </segment>
+    </unit>
+    <unit id="d9OFVmQ" name="info_providers.bulk_import.selected_parts">
+      <segment state="translated">
+        <source>info_providers.bulk_import.selected_parts</source>
+        <target>Ausgewählte Bauteile</target>
+      </segment>
+    </unit>
+    <unit id="0IM.WJg" name="info_providers.bulk_import.field_mappings">
+      <segment state="translated">
+        <source>info_providers.bulk_import.field_mappings</source>
+        <target>Feldzuordnungen</target>
+      </segment>
+    </unit>
+    <unit id="cZb6a7b" name="info_providers.bulk_import.field_mappings_help">
+      <segment state="translated">
+        <source>info_providers.bulk_import.field_mappings_help</source>
+        <target>Legen Sie fest, welche Bauteilefelder mit welchen Informationsanbietern durchsucht werden sollen. Mehrere Zuordnungen werden kombiniert.</target>
+      </segment>
+    </unit>
+    <unit id="hImbHbq" name="info_providers.bulk_import.add_mapping">
+      <segment state="translated">
+        <source>info_providers.bulk_import.add_mapping</source>
+        <target>Zuordnung hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="u4_QWOb" name="info_providers.bulk_import.search_results.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.search_results.title</source>
+        <target>Suchergebnisse</target>
+      </segment>
+    </unit>
+    <unit id="aXSJ0L3" name="info_providers.bulk_import.errors">
+      <segment state="translated">
+        <source>info_providers.bulk_import.errors</source>
+        <target>Fehler</target>
+      </segment>
+    </unit>
+    <unit id="TPEhXlb" name="info_providers.bulk_import.results_found">
+      <segment state="translated">
+        <source>info_providers.bulk_import.results_found</source>
+        <target>%count% Ergebnisse gefunden</target>
+      </segment>
+    </unit>
+    <unit id="8coVh8q" name="info_providers.bulk_import.source_field">
+      <segment state="translated">
+        <source>info_providers.bulk_import.source_field</source>
+        <target>Bauteilefeld</target>
+      </segment>
+    </unit>
+    <unit id="VdUOMZf" name="info_providers.bulk_import.view_existing">
+      <segment state="translated">
+        <source>info_providers.bulk_import.view_existing</source>
+        <target>Existierendes ansehen</target>
+      </segment>
+    </unit>
+    <unit id="LPN5MOO" name="info_providers.bulk_search.search_field">
+      <segment state="translated">
+        <source>info_providers.bulk_search.search_field</source>
+        <target>Suchfeld</target>
+      </segment>
+    </unit>
+    <unit id="DTm1q3f" name="info_providers.bulk_search.providers">
+      <segment state="translated">
+        <source>info_providers.bulk_search.providers</source>
+        <target>Datenquellen</target>
+      </segment>
+    </unit>
+    <unit id="5zem1xb" name="info_providers.bulk_import.actions.label">
+      <segment state="translated">
+        <source>info_providers.bulk_import.actions.label</source>
+        <target>Aktionen</target>
+      </segment>
+    </unit>
+    <unit id="rA4WDLA" name="info_providers.bulk_search.providers.help">
+      <segment state="translated">
+        <source>info_providers.bulk_search.providers.help</source>
+        <target>Wählen Sie aus, welche Datenquellen durchsucht werden sollen, wenn Bauteile dieses Feld haben.</target>
+      </segment>
+    </unit>
+    <unit id="OS0qJRC" name="info_providers.bulk_search.submit">
+      <segment state="translated">
+        <source>info_providers.bulk_search.submit</source>
+        <target>Alle Bauteile suchen</target>
+      </segment>
+    </unit>
+    <unit id="ItmvNLj" name="info_providers.bulk_search.field.select">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.select</source>
+        <target>Wählen Sie ein Feld zum Suchen aus</target>
+      </segment>
+    </unit>
+    <unit id="AKm8Kw9" name="info_providers.bulk_search.field.mpn">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.mpn</source>
+        <target>Herstellernummer (MPN)</target>
+      </segment>
+    </unit>
+    <unit id="Wne2ljh" name="info_providers.bulk_search.field.name">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.name</source>
+        <target>Bauteile Name</target>
+      </segment>
+    </unit>
+    <unit id="iOh1gJZ" name="part_list.action.action.info_provider">
+      <segment state="translated">
+        <source>part_list.action.action.info_provider</source>
+        <target>Datenquellen</target>
+      </segment>
+    </unit>
+    <unit id="xukxTs_" name="part_list.action.bulk_info_provider_import">
+      <segment state="translated">
+        <source>part_list.action.bulk_info_provider_import</source>
+        <target>Massenimport von Datenquellen</target>
+      </segment>
+    </unit>
+    <unit id="yzpXFkB" name="info_providers.bulk_import.step1.spn_recommendation">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step1.spn_recommendation</source>
+        <target>Lieferantenteilenummer (SPN) wird für bessere Ergebnisse empfohlen. Fügen Sie für jeden Lieferanten eine Zuordnung hinzu, damit dessen SPNs verwendet werden können.</target>
+      </segment>
+    </unit>
+    <unit id="QDr.VVc" name="info_providers.bulk_import.update_part">
+      <segment state="translated">
+        <source>info_providers.bulk_import.update_part</source>
+        <target>Bauteil aktualisieren</target>
+      </segment>
+    </unit>
+    <unit id="e_DDQ2u" name="info_providers.bulk_import.prefetch_details">
+      <segment state="translated">
+        <source>info_providers.bulk_import.prefetch_details</source>
+        <target>Vorabruf der Bauteiledetails</target>
+      </segment>
+    </unit>
+    <unit id="v4T9Uwz" name="info_providers.bulk_import.prefetch_details_help">
+      <segment state="translated">
+        <source>info_providers.bulk_import.prefetch_details_help</source>
+        <target>Details für alle Ergebnisse vorab abrufen. Dies dauert zwar länger, beschleunigt jedoch den Arbeitsablauf für die Aktualisierung von Bauteilen.</target>
+      </segment>
+    </unit>
+    <unit id="mRdK1ts" name="info_providers.bulk_import.step2.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.title</source>
+        <target>Massenimport von Informationsquellen</target>
+      </segment>
+    </unit>
+    <unit id="Y.b5mGJ" name="info_providers.bulk_import.step2.card_title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.card_title</source>
+        <target>Massenimport für %count% Bauteile – %date%</target>
+      </segment>
+    </unit>
+    <unit id="fyatGYL" name="info_providers.bulk_import.parts">
+      <segment state="translated">
+        <source>info_providers.bulk_import.parts</source>
+        <target>Bauteile</target>
+      </segment>
+    </unit>
+    <unit id="hlBJ6Qh" name="info_providers.bulk_import.results">
+      <segment state="translated">
+        <source>info_providers.bulk_import.results</source>
+        <target>Ergebnisse</target>
+      </segment>
+    </unit>
+    <unit id="V8eTEPM" name="info_providers.bulk_import.created_at">
+      <segment state="translated">
+        <source>info_providers.bulk_import.created_at</source>
+        <target>Erstellt am</target>
+      </segment>
+    </unit>
+    <unit id="CiqevAs" name="info_providers.bulk_import.status.in_progress">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.in_progress</source>
+        <target>In Bearbeitung</target>
+      </segment>
+    </unit>
+    <unit id="YeLN8i_" name="info_providers.bulk_import.status.completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.completed</source>
+        <target>Abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="TIzGVyk" name="info_providers.bulk_import.status.failed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.failed</source>
+        <target>Fehlgeschlagen</target>
+      </segment>
+    </unit>
+    <unit id="RxaZ6kn" name="info_providers.bulk_import.table.name">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="36MkrQF" name="info_providers.bulk_import.table.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.description</source>
+        <target>Beschreibung</target>
+      </segment>
+    </unit>
+    <unit id="Y_yl259" name="info_providers.bulk_import.table.manufacturer">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.manufacturer</source>
+        <target>Hersteller</target>
+      </segment>
+    </unit>
+    <unit id="FgXYE1H" name="info_providers.bulk_import.table.provider">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.provider</source>
+        <target>Quelle</target>
+      </segment>
+    </unit>
+    <unit id="_gf1tWi" name="info_providers.bulk_import.table.source_field">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.source_field</source>
+        <target>Bauteilefeld</target>
+      </segment>
+    </unit>
+    <unit id="CoSmRQc" name="info_providers.bulk_import.back">
+      <segment state="translated">
+        <source>info_providers.bulk_import.back</source>
+        <target>Zurück</target>
+      </segment>
+    </unit>
+    <unit id="Hn7AtYS" name="info_providers.bulk_import.progress">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress</source>
+        <target>Fortschritt:</target>
+      </segment>
+    </unit>
+    <unit id="w9LaKAB" name="info_providers.bulk_import.status.pending">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.pending</source>
+        <target>Ausstehend</target>
+      </segment>
+    </unit>
+    <unit id="KcADJb." name="info_providers.bulk_import.completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.completed</source>
+        <target>abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="hptkZvI" name="info_providers.bulk_import.skipped">
+      <segment state="translated">
+        <source>info_providers.bulk_import.skipped</source>
+        <target>übersprungen</target>
+      </segment>
+    </unit>
+    <unit id="vylzyYJ" name="info_providers.bulk_import.mark_completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mark_completed</source>
+        <target>Als abgeschlossen markieren</target>
+      </segment>
+    </unit>
+    <unit id="ePdcL7W" name="info_providers.bulk_import.mark_skipped">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mark_skipped</source>
+        <target>Als übersprungen markieren</target>
+      </segment>
+    </unit>
+    <unit id="3HeDhTB" name="info_providers.bulk_import.mark_pending">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mark_pending</source>
+        <target>Als ausstehend markieren</target>
+      </segment>
+    </unit>
+    <unit id="p.igAUH" name="info_providers.bulk_import.skip_reason">
+      <segment state="translated">
+        <source>info_providers.bulk_import.skip_reason</source>
+        <target>Grund des Überspringens</target>
+      </segment>
+    </unit>
+    <unit id="6bTLFzZ" name="info_providers.bulk_import.editing_part">
+      <segment state="translated">
+        <source>info_providers.bulk_import.editing_part</source>
+        <target>Bearbeite Bauteil als Teil des Massenimports</target>
+      </segment>
+    </unit>
+    <unit id="ItOX1kK" name="info_providers.bulk_import.complete">
+      <segment state="translated">
+        <source>info_providers.bulk_import.complete</source>
+        <target>Abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="bHLXJ8Z" name="info_providers.bulk_import.existing_jobs">
+      <segment state="translated">
+        <source>info_providers.bulk_import.existing_jobs</source>
+        <target>Existierende Aufträge</target>
+      </segment>
+    </unit>
+    <unit id="jg2YuGQ" name="info_providers.bulk_import.job_name">
+      <segment state="translated">
+        <source>info_providers.bulk_import.job_name</source>
+        <target>Auftragsname</target>
+      </segment>
+    </unit>
+    <unit id="jUc1.Um" name="info_providers.bulk_import.parts_count">
+      <segment state="translated">
+        <source>info_providers.bulk_import.parts_count</source>
+        <target>Bauteileanzahl</target>
+      </segment>
+    </unit>
+    <unit id="aY1IgEO" name="info_providers.bulk_import.results_count">
+      <segment state="translated">
+        <source>info_providers.bulk_import.results_count</source>
+        <target>Ergebnisanzahl</target>
+      </segment>
+    </unit>
+    <unit id="1GAZk4m" name="info_providers.bulk_import.progress_label">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress_label</source>
+        <target>Fortschritt: %current%/%total%</target>
+      </segment>
+    </unit>
+    <unit id="k78UdMX" name="info_providers.bulk_import.manage_jobs">
+      <segment state="translated">
+        <source>info_providers.bulk_import.manage_jobs</source>
+        <target>Massenimportaufträge verwalten</target>
+      </segment>
+    </unit>
+    <unit id="mJ73hdI" name="info_providers.bulk_import.view_results">
+      <segment state="translated">
+        <source>info_providers.bulk_import.view_results</source>
+        <target>Ergebnisse anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="d5ZxGBG" name="info_providers.bulk_import.status">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="Z.AgcWf" name="info_providers.bulk_import.manage_jobs_description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.manage_jobs_description</source>
+        <target>Alle Ihre Massenimportaufträge anzeigen und verwalten. Um einen neuen Auftrag zu erstellen, wählen Sie Bauteile aus und klicken Sie auf „Massenimport von Informationsanbietern”.</target>
+      </segment>
+    </unit>
+    <unit id="0lCZLRC" name="info_providers.bulk_import.no_jobs_found">
+      <segment state="translated">
+        <source>info_providers.bulk_import.no_jobs_found</source>
+        <target>Es wurden keine Massenimportaufträge gefunden.</target>
+      </segment>
+    </unit>
+    <unit id="LheSXys" name="info_providers.bulk_import.create_first_job">
+      <segment state="translated">
+        <source>info_providers.bulk_import.create_first_job</source>
+        <target>Erstellen Sie Ihren ersten Massenimportauftrag, indem Sie mehrere Bauteile in einer Bauteiletabelle auswählen und die Option „Massenimport aus Informationsanbieter“ auswählen.</target>
+      </segment>
+    </unit>
+    <unit id="Lm_DPbH" name="info_providers.bulk_import.confirm_delete_job">
+      <segment state="translated">
+        <source>info_providers.bulk_import.confirm_delete_job</source>
+        <target>Möchten Sie diesen Auftrag wirklich löschen?</target>
+      </segment>
+    </unit>
+    <unit id="kZd.W42" name="info_providers.bulk_import.job_name_template">
+      <segment state="translated">
+        <source>info_providers.bulk_import.job_name_template</source>
+        <target>Massenimport für %count% Teile</target>
+      </segment>
+    </unit>
+    <unit id="W6GycWK" name="info_providers.bulk_import.step2.instructions.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.title</source>
+        <target>So verwenden Sie den Massenimport</target>
+      </segment>
+    </unit>
+    <unit id="QTkki_T" name="info_providers.bulk_import.step2.instructions.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.description</source>
+        <target>Befolgen Sie diese Schritte, um Ihre Teile effizient zu aktualisieren:</target>
+      </segment>
+    </unit>
+    <unit id="OI1oD42" name="info_providers.bulk_import.step2.instructions.step1">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.step1</source>
+        <target>Klicken Sie auf „Teil aktualisieren“, um ein Teil aus den Informationsquellen zu aktualisieren.</target>
+      </segment>
+    </unit>
+    <unit id="U.QKhv." name="info_providers.bulk_import.step2.instructions.step2">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.step2</source>
+        <target>Überprüfen und ändern Sie die Teileinformationen nach Bedarf. Hinweis: Sie müssen zweimal auf „Speichern“ klicken, um die Änderungen zu speichern.</target>
+      </segment>
+    </unit>
+    <unit id="WlnTz0N" name="info_providers.bulk_import.step2.instructions.step3">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.step3</source>
+        <target>Klicken Sie auf „Abgeschlossen“, um den Teil als erledigt zu markieren und zu dieser Übersicht zurückzukehren.</target>
+      </segment>
+    </unit>
+    <unit id="IyXU.4X" name="info_providers.bulk_import.created_by">
+      <segment state="translated">
+        <source>info_providers.bulk_import.created_by</source>
+        <target>Erstellt von</target>
+      </segment>
+    </unit>
+    <unit id="egSjRGI" name="info_providers.bulk_import.completed_at">
+      <segment state="translated">
+        <source>info_providers.bulk_import.completed_at</source>
+        <target>Abgeschlossen am</target>
+      </segment>
+    </unit>
+    <unit id="9L.HbvX" name="info_providers.bulk_import.action.label">
+      <segment state="translated">
+        <source>info_providers.bulk_import.action.label</source>
+        <target>Aktion</target>
+      </segment>
+    </unit>
+    <unit id="vcNdo9m" name="info_providers.bulk_import.action.delete">
+      <segment state="translated">
+        <source>info_providers.bulk_import.action.delete</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="bE3MUIU" name="info_providers.bulk_import.status.active">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.active</source>
+        <target>Aktiv</target>
+      </segment>
+    </unit>
+    <unit id="R3FVzb3" name="info_providers.bulk_import.progress.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress.title</source>
+        <target>Fortschritt</target>
+      </segment>
+    </unit>
+    <unit id="pKciwfa" name="info_providers.bulk_import.progress.completed_text">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress.completed_text</source>
+        <target>%completed%/%total% abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="9yPFVrM" name="info_providers.bulk_import.status.stopped">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.stopped</source>
+        <target>Angehalten</target>
+      </segment>
+    </unit>
+    <unit id="we_yrOV" name="info_providers.bulk_import.action.stop">
+      <segment state="translated">
+        <source>info_providers.bulk_import.action.stop</source>
+        <target>Stop</target>
+      </segment>
+    </unit>
+    <unit id="SNkUbfh" name="info_providers.bulk_import.confirm_stop_job">
+      <segment state="translated">
+        <source>info_providers.bulk_import.confirm_stop_job</source>
+        <target>Sind sie sicher, dass sie diesen Auftrag anhalten wollen?</target>
+      </segment>
+    </unit>
+    <unit id="dlO_h_K" name="part.filter.in_bulk_import_job">
+      <segment state="translated">
+        <source>part.filter.in_bulk_import_job</source>
+        <target>Im Massenimport-Auftrag</target>
+      </segment>
+    </unit>
+    <unit id="rOeRN8O" name="part.filter.bulk_import_job_status">
+      <segment state="translated">
+        <source>part.filter.bulk_import_job_status</source>
+        <target>Status des Massenimportauftrags</target>
+      </segment>
+    </unit>
+    <unit id="940sEqZ" name="part.filter.bulk_import_part_status">
+      <segment state="translated">
+        <source>part.filter.bulk_import_part_status</source>
+        <target>Status des Bauteils im Massenimport</target>
+      </segment>
+    </unit>
+    <unit id="rv.QfEA" name="part.edit.tab.bulk_import">
+      <segment state="translated">
+        <source>part.edit.tab.bulk_import</source>
+        <target>Massenimportauftrag</target>
+      </segment>
+    </unit>
+    <unit id="BUAqJHD" name="bulk_import.status.pending">
+      <segment state="translated">
+        <source>bulk_import.status.pending</source>
+        <target>Ausstehend</target>
+      </segment>
+    </unit>
+    <unit id="GkVa8H3" name="bulk_import.status.in_progress">
+      <segment state="translated">
+        <source>bulk_import.status.in_progress</source>
+        <target>In Bearbeitung</target>
+      </segment>
+    </unit>
+    <unit id="da3QKdj" name="bulk_import.status.completed">
+      <segment state="translated">
+        <source>bulk_import.status.completed</source>
+        <target>Abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="YM7qaAP" name="bulk_import.status.stopped">
+      <segment state="translated">
+        <source>bulk_import.status.stopped</source>
+        <target>Angehalten</target>
+      </segment>
+    </unit>
+    <unit id="5SSBsBs" name="bulk_import.status.failed">
+      <segment state="translated">
+        <source>bulk_import.status.failed</source>
+        <target>Fehlgeschlagen</target>
+      </segment>
+    </unit>
+    <unit id="JprgheW" name="bulk_import.part_status.pending">
+      <segment state="translated">
+        <source>bulk_import.part_status.pending</source>
+        <target>Ausstehend</target>
+      </segment>
+    </unit>
+    <unit id="iDoZxrE" name="bulk_import.part_status.completed">
+      <segment state="translated">
+        <source>bulk_import.part_status.completed</source>
+        <target>Abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="KInkh07" name="bulk_import.part_status.skipped">
+      <segment state="translated">
+        <source>bulk_import.part_status.skipped</source>
+        <target>Übersprungen</target>
+      </segment>
+    </unit>
+    <unit id="tmVFe1V" name="bulk_import.part_status.failed">
+      <segment state="translated">
+        <source>bulk_import.part_status.failed</source>
+        <target>Fehlgeschlagen</target>
+      </segment>
+    </unit>
+    <unit id="Jxg8Jia" name="bulk_info_provider_import_job.label">
+      <segment state="translated">
+        <source>bulk_info_provider_import_job.label</source>
+        <target>Massenimport von Informationquellen</target>
+      </segment>
+    </unit>
+    <unit id="SV1_VvJ" name="bulk_info_provider_import_job_part.label">
+      <segment state="translated">
+        <source>bulk_info_provider_import_job_part.label</source>
+        <target>Massenimportauftrag Bauteil</target>
+      </segment>
+    </unit>
+    <unit id="XQV7AkF" name="info_providers.bulk_search.priority">
+      <segment state="translated">
+        <source>info_providers.bulk_search.priority</source>
+        <target>Priorität</target>
+      </segment>
+    </unit>
+    <unit id="XR9mZP_" name="info_providers.bulk_search.priority.help">
+      <segment state="translated">
+        <source>info_providers.bulk_search.priority.help</source>
+        <target>Niedrigere Zahlen = höhere Priorität. Gleiche Priorität = Ergebnisse kombinieren. Unterschiedliche Prioritäten = zuerst die höchste versuchen, bei fehlenden Ergebnissen auf die niedrigere zurückgreifen.</target>
+      </segment>
+    </unit>
+    <unit id="Iz3Ow0_" name="info_providers.bulk_import.priority_system.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.priority_system.title</source>
+        <target>Prioritätssystem</target>
+      </segment>
+    </unit>
+    <unit id="CPwXFjE" name="info_providers.bulk_import.priority_system.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.priority_system.description</source>
+        <target>Lower numbers = higher priority. Same priority = combine results. Different priorities = try highest first, fallback if no results.</target>
+      </segment>
+    </unit>
+    <unit id="v.rTI5s" name="info_providers.bulk_import.priority_system.example">
+      <segment state="translated">
+        <source>info_providers.bulk_import.priority_system.example</source>
+        <target>Beispiel: Priorität 1: „LCSC SPN → LCSC“, Priorität 2: „MPN → LCSC + Mouser“, Priorität 3: „Name → Alle Anbieter“</target>
+      </segment>
+    </unit>
+    <unit id="yMhBL_K" name="info_providers.bulk_import.search.submit">
+      <segment state="translated">
+        <source>info_providers.bulk_import.search.submit</source>
+        <target>Datenquellen</target>
+      </segment>
+    </unit>
+    <unit id="NSXIcCk" name="info_providers.bulk_import.research.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.title</source>
+        <target>Bauteile erneut suchen</target>
+      </segment>
+    </unit>
+    <unit id="i53VvpV" name="info_providers.bulk_import.research.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.description</source>
+        <target>Erneute Suche nach Teilen unter Verwendung aktualisierter Informationen (z. B. neue MPNs). Verwendet dieselben Feldzuordnungen wie die ursprüngliche Suche.</target>
+      </segment>
+    </unit>
+    <unit id="S2HVT9P" name="info_providers.bulk_import.research.all_pending">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.all_pending</source>
+        <target>Alle ausstehenden Teile erneut suchen</target>
+      </segment>
+    </unit>
+    <unit id="ri9TEXX" name="info_providers.bulk_import.research.part">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.part</source>
+        <target>Erneut suchen</target>
+      </segment>
+    </unit>
+    <unit id="izeEDar" name="info_providers.bulk_import.research.part_tooltip">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.part_tooltip</source>
+        <target>Dieses Bauteil mit aktualisierten Informationen erneut suchen</target>
+      </segment>
+    </unit>
+    <unit id="jPCU0MO" name="info_providers.bulk_import.max_mappings_reached">
+      <segment state="translated">
+        <source>info_providers.bulk_import.max_mappings_reached</source>
+        <target>Maximale Anzahl von Zuordnungen erreicht</target>
+      </segment>
+    </unit>
+    <unit id="LWLi016" name="settings.system">
+      <segment state="translated">
+        <source>settings.system</source>
+        <target>System</target>
+      </segment>
+    </unit>
+    <unit id="8syOoyh" name="settings.behavior">
+      <segment state="translated">
+        <source>settings.behavior</source>
+        <target>Verhalten</target>
+      </segment>
+    </unit>
+    <unit id="lAiL2Jw" name="settings.ips">
+      <segment state="translated">
+        <source>settings.ips</source>
+        <target>Informationsquellen</target>
+      </segment>
+    </unit>
+    <unit id="GuUZqpX" name="settings.misc">
+      <segment state="translated">
+        <source>settings.misc</source>
+        <target>Verschiedenes</target>
+      </segment>
+    </unit>
+    <unit id="mNLyYXa" name="settings.system.localization.language_menu_entries">
+      <segment state="translated">
+        <source>settings.system.localization.language_menu_entries</source>
+        <target>Einträge des Sprachenmenüs</target>
+      </segment>
+    </unit>
+    <unit id="Ej2znKK" name="settings.system.localization.language_menu_entries.description">
+      <segment state="translated">
+        <source>settings.system.localization.language_menu_entries.description</source>
+        <target>Die Sprachen, die im Sprachen Dropdown-Menü angezeigt werden sollen. Die Reihenfolge kann via Drag&amp;Drop geändert werden. Lassen Sie das Feld leer, um alle verfügbaren Sprachen anzuzeigen.</target>
+      </segment>
+    </unit>
+    <unit id="xIZ_mEX" name="project.builds.no_bom_entries">
+      <segment state="translated">
+        <source>project.builds.no_bom_entries</source>
+        <target>Das Projekt hat keine BOM Einträge</target>
+      </segment>
+    </unit>
+    <unit id="pCKgjIr" name="settings.behavior.sidebar.data_structure_nodes_table_include_children">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.data_structure_nodes_table_include_children</source>
+        <target>Tabellen sollen Kindelemente standardmäßig inkludieren</target>
+      </segment>
+    </unit>
+    <unit id="KJQHfwV" name="settings.behavior.sidebar.data_structure_nodes_table_include_children.help">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.data_structure_nodes_table_include_children.help</source>
+        <target>Wenn ausgewählt, werden für Bauteiletabellen von Kategorien, Footprints, etc. alle Bauteile der Kindkategorie inkludiert. Wenn diese Option nicht ausgewählt ist, werden in den Bauteiletabellen nur die Bauteile angezeigt, die strikt zu der angeklickten Kategorie gehören (exklusive Kindelementen).</target>
+      </segment>
+    </unit>
+    <unit id="Gdlnmav" name="info_providers.search.error.oauth_reconnect">
+      <segment state="translated">
+        <source>info_providers.search.error.oauth_reconnect</source>
+        <target>Folgende Informationsquelle benötigt eine OAuth Neu-Verbindung: %provider%
+Dies ist auf der Informationsquellen Übersichtsseite möglich.</target>
       </segment>
     </unit>
   </file>

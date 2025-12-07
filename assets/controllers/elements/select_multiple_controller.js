@@ -20,13 +20,21 @@
 import {Controller} from "@hotwired/stimulus";
 import TomSelect from "tom-select";
 
+// TODO: Merge with select_controller.js
+
 export default class extends Controller {
     _tomSelect;
 
     connect() {
+        let dropdownParent = "body";
+        if (this.element.closest('.modal')) {
+            dropdownParent = null
+        }
+
         this._tomSelect = new TomSelect(this.element, {
             maxItems: 1000,
             allowEmptyOption: true,
+            dropdownParent: dropdownParent,
             plugins: ['remove_button'],
         });
     }

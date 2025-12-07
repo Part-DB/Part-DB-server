@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Repository;
 
 use App\Entity\LogSystem\AbstractLogEntry;
@@ -110,7 +112,8 @@ class LogEntryRepositoryTest extends KernelTestCase
         $this->assertCount(2, $logs);
 
         //The first one must be newer than the second one
-        $this->assertGreaterThanOrEqual($logs[0]->getTimestamp(), $logs[1]->getTimestamp());
+        $this->assertGreaterThanOrEqual($logs[1]->getTimestamp(), $logs[0]->getTimestamp());
+        $this->assertGreaterThanOrEqual($logs[1]->getID(), $logs[0]->getID());
     }
 
     public function testGetElementExistedAtTimestamp(): void

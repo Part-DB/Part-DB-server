@@ -20,12 +20,6 @@ nelmio_security:
             - 'digikey.com'
             - 'nexar.com'
 
-    # forces Microsoft's XSS-Protection with
-    # its block mode
-    xss_protection:
-        enabled: true
-        mode_block: true
-
     # Send a full URL in the `Referer` header when performing a same-origin request,
     # only send the origin of the document to secure destination (HTTPS->HTTPS),
     # and send no header to a less secure destination (HTTPS->HTTP).
@@ -69,9 +63,3 @@ nelmio_security:
                 - 'data:'
             block-all-mixed-content: true # defaults to false, blocks HTTP content over HTTPS transport
             # upgrade-insecure-requests: true # defaults to false, upgrades HTTP requests to HTTPS transport
-
-when@dev:
-    # disables the Content-Security-Policy header
-    nelmio_security:
-        csp:
-            enabled: false

@@ -16,7 +16,7 @@
     <unit id="wOYPZmb" name="saml.error.cannot_login_saml_user_locally">
       <segment state="translated">
         <source>saml.error.cannot_login_saml_user_locally</source>
-        <target>Sie können sich nicht mittels lokaler Authentifizierung als SAML Benutzer einloggen! Benutzen Sie stattdessen den SSO login.</target>
+        <target>Sie können sich nicht mittels lokaler Authentifizierung als SAML-Benutzer einloggen! Benutzen Sie stattdessen den SSO Login.</target>
       </segment>
     </unit>
   </file>

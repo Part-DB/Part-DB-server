@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\Misc;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\Misc\FAIconGenerator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -41,7 +42,7 @@ class FAIconGeneratorTest extends WebTestCase
         $this->service = self::getContainer()->get(FAIconGenerator::class);
     }
 
-    public function fileExtensionDataProvider(): \Iterator
+    public static function fileExtensionDataProvider(): \Iterator
     {
         yield ['pdf', 'fa-file-pdf'];
         yield ['jpeg','fa-file-image'];
@@ -95,9 +96,7 @@ class FAIconGeneratorTest extends WebTestCase
         yield ['fgd', 'fa-file'];
     }
 
-    /**
-     * @dataProvider fileExtensionDataProvider
-     */
+    #[DataProvider('fileExtensionDataProvider')]
     public function testFileExtensionToFAType(string $ext, string $expected): void
     {
         $this->assertSame($expected, $this->service->fileExtensionToFAType($ext), 'Failed for extension .'.$ext);

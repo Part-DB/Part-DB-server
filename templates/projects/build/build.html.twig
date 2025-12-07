@@ -18,10 +18,9 @@
         </div>
     {% endif %}
 
-    <div class="alert {% if can_build %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+    <div class="alert {% if can_build %}alert-success{% elseif bom_empty%}alert-warning{% else %}alert-danger{% endif %}" role="alert">
         {% if bom_empty %}
             <h5><i class="fa-solid fa-circle-exclamation fa-fw"></i> {% trans %}project.builds.no_bom_entries{% endtrans %}</h5>
-            <span class="text-muted">{% trans %}project.builds.no_bom_entries_hint{% endtrans %}</span>
         {% elseif not can_build %}
             <h5><i class="fa-solid fa-circle-exclamation fa-fw"></i> {% trans %}project.builds.build_not_possible{% endtrans %}</h5>
             <b>{% trans with {"%number_of_builds%": number_of_builds} %}project.builds.following_bom_entries_miss_instock_n{% endtrans %}</b>

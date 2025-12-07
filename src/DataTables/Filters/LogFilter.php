@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\DataTables\Filters;
 
+use App\DataTables\Filters\Constraints\AbstractConstraint;
 use App\DataTables\Filters\Constraints\ChoiceConstraint;
 use App\DataTables\Filters\Constraints\DateTimeConstraint;
 use App\DataTables\Filters\Constraints\EntityConstraint;
@@ -44,6 +45,9 @@ class LogFilter implements FilterInterface
 
     public function __construct()
     {
+        //Must be done for every new set of attachment filters, to ensure deterministic parameter names.
+        AbstractConstraint::resetParameterCounter();
+
         $this->timestamp = new DateTimeConstraint('log.timestamp');
         $this->dbId = new IntConstraint('log.id');
         $this->level = new ChoiceConstraint('log.level');

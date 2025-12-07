@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Services\Formatters;
 
 use App\Entity\PriceInformations\Currency;
+use App\Settings\SystemSettings\LocalizationSettings;
 use Locale;
 use NumberFormatter;
 
@@ -30,7 +31,7 @@ class MoneyFormatter
 {
     protected string $locale;
 
-    public function __construct(protected string $base_currency)
+    public function __construct(private readonly LocalizationSettings $localizationSettings)
     {
         $this->locale = Locale::getDefault();
     }
@@ -45,7 +46,7 @@ class MoneyFormatter
      */
     public function format(string|float $value, ?Currency $currency = null, int $decimals = 5, bool $show_all_digits = false): string
     {
-        $iso_code = $this->base_currency;
+        $iso_code = $this->localizationSettings->baseCurrency;
         if ($currency instanceof Currency && ($currency->getIsoCode() !== '')) {
             $iso_code = $currency->getIsoCode();
         }

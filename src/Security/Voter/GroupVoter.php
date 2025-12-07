@@ -25,6 +25,7 @@ namespace App\Security\Voter;
 use App\Entity\UserSystem\Group;
 use App\Services\UserSystem\VoterHelper;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
@@ -43,9 +44,9 @@ final class GroupVoter extends Voter
      *
      * @param  string  $attribute
      */
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
-        return $this->helper->isGranted($token, 'groups', $attribute);
+        return $this->helper->isGranted($token, 'groups', $attribute, $vote);
     }
 
     /**

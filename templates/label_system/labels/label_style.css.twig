@@ -3,17 +3,31 @@
 }
 
 .page {
+    /** We cannot apply the position: absolute trick here, because then dompdf will not respect the page break anymore **/
+
     page-break-inside: avoid;
     page-break-before: avoid;
     page-break-after: always;
 
     overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.page-inner {
     /* Absolute position prevents automatic page breaks */
+    /*position: absolute;*/
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+
+    overflow: hidden;
+
+    page-break-inside: avoid;
+    page-break-before: avoid;
+    page-break-after: avoid;
 }
 
 /* Last page should not break */

@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Services\Parts;
 
+use App\Entity\Parts\StorageLocation;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -29,12 +30,13 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Repository\PartRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
+use function Symfony\Component\Translation\t;
 
 final class PartsTableActionHandler
 {
@@ -61,8 +63,9 @@ final class PartsTableActionHandler
     /**
      * @param Part[] $selected_parts
      * @return RedirectResponse|null Returns a redirect response if the user should be redirected to another page, otherwise null
+     * //@param-out list<array{'part': Part, 'message': string|TranslatableInterface}>|array<void> $errors
      */
-    public function handleAction(string $action, array $selected_parts, ?int $target_id, ?string $redirect_url = null): ?RedirectResponse
+    public function handleAction(string $action, array $selected_parts, ?int $target_id, ?string $redirect_url = null, array &$errors = []): ?RedirectResponse
     {
         if ($action === 'add_to_project') {
             return new RedirectResponse(
@@ -95,7 +98,7 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
 
         //When action starts with "export_" we have to redirect to the export controller
         $matches = [];
-        if (preg_match('/^export_(json|yaml|xml|csv)$/', $action, $matches)) {
+        if (preg_match('/^export_(json|yaml|xml|csv|xlsx)$/', $action, $matches)) {
             $ids = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
             $level = match ($target_id) {
                 2 => 'extended',
@@ -108,6 +111,16 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
                 $this->urlGenerator->generate('parts_export', [
                     'format' => $matches[1],
                     'level' => $level,
+                    'ids' => $ids,
+                    '_redirect' => $redirect_url
+                ])
+            );
+        }
+
+        if ($action === 'bulk_info_provider_import') {
+            $ids = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
+            return new RedirectResponse(
+                $this->urlGenerator->generate('bulk_info_provider_step1', [
                     'ids' => $ids,
                     '_redirect' => $redirect_url
                 ])
@@ -160,6 +173,29 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
                 case 'change_unit':
                     $this->denyAccessUnlessGranted('@measurement_units.read');
                     $part->setPartUnit(null === $target_id ? null : $this->entityManager->find(MeasurementUnit::class, $target_id));
+                    break;
+                case 'change_location':
+                    $this->denyAccessUnlessGranted('@storelocations.read');
+                    //Retrieve the first part lot and set the location for it
+                    $part_lots = $part->getPartLots();
+                    if ($part_lots->count() > 0) {
+                        if ($part_lots->count() > 1) {
+                            $errors[] = [
+                                'part' => $part,
+                                'message' => t('parts.table.action_handler.error.part_lots_multiple'),
+                            ];
+                            break;
+                        }
+
+                        $part_lot = $part_lots->first();
+                        $part_lot->setStorageLocation(null === $target_id ? null : $this->entityManager->find(StorageLocation::class, $target_id));
+                    } else { //Create a new part lot if there are none
+                        $part_lot = new PartLot();
+                        $part_lot->setPart($part);
+                        $part_lot->setInstockUnknown(true); //We do not know how many parts are in stock, so we set it to true
+                        $part_lot->setStorageLocation(null === $target_id ? null : $this->entityManager->find(StorageLocation::class, $target_id));
+                        $this->entityManager->persist($part_lot);
+                    }
                     break;
 
                 default:

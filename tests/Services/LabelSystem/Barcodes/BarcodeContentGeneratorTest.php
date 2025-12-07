@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem\Barcodes;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
@@ -57,31 +58,27 @@ class BarcodeContentGeneratorTest extends KernelTestCase
         $this->service = self::getContainer()->get(BarcodeContentGenerator::class);
     }
 
-    public function Barcode1DDataProvider(): \Iterator
+    public static function Barcode1DDataProvider(): \Iterator
     {
         yield ['P0000', Part::class];
         yield ['L0000', PartLot::class];
         yield ['S0000', StorageLocation::class];
     }
 
-    public function Barcode2DDataProvider(): \Iterator
+    public static function Barcode2DDataProvider(): \Iterator
     {
         yield ['/scan/part/0', Part::class];
         yield ['/scan/lot/0', PartLot::class];
         yield ['/scan/location/0', StorageLocation::class];
     }
 
-    /**
-     * @dataProvider Barcode1DDataProvider
-     */
+    #[DataProvider('Barcode1DDataProvider')]
     public function testGet1DBarcodeContent(string $expected, string $class): void
     {
         $this->assertSame($expected, $this->service->get1DBarcodeContent(new $class()));
     }
 
-    /**
-     * @dataProvider Barcode2DDataProvider
-     */
+    #[DataProvider('Barcode2DDataProvider')]
     public function testGetURLContent(string $expected, string $class): void
     {
         $url = $this->service->getURLContent(new $class());

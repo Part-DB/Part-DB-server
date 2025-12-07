@@ -6,16 +6,12 @@ twig:
         '%kernel.project_dir%/assets/css': css
 
     globals:
-        partdb_title: '%partdb.title%'
-        default_currency: '%partdb.default_currency%'
-        global_theme: '%partdb.global_theme%'
         allow_email_pw_reset: '%partdb.users.email_pw_reset%'
         locale_menu: '%partdb.locale_menu%'
         attachment_manager: '@App\Services\Attachments\AttachmentManager'
         label_profile_dropdown_helper: '@App\Services\LabelSystem\LabelProfileDropdownHelper'
         error_page_admin_email: '%partdb.error_pages.admin_email%'
         error_page_show_help: '%partdb.error_pages.show_help%'
-        sidebar_items: '%partdb.sidebar.items%'
         sidebar_tree_updater: '@App\Services\Trees\SidebarTreeUpdater'
         avatar_helper: '@App\Services\UserSystem\UserAvatarHelper'
         available_themes: '%partdb.available_themes%'

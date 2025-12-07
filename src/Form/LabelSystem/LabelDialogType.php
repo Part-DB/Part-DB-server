@@ -87,6 +87,16 @@ class LabelDialogType extends AbstractType
             ]
         ]);
 
+        if ($options['profile'] !== null) {
+            $builder->add('update_profile', SubmitType::class, [
+                'label' => 'label_generator.update_profile',
+                'disabled' => !$this->security->isGranted('edit', $options['profile']),
+                'attr' => [
+                    'class' => 'btn btn-outline-success'
+                ]
+            ]);
+        }
+
         $builder->add('update', SubmitType::class, [
             'label' => 'label_generator.update',
         ]);
@@ -97,5 +107,6 @@ class LabelDialogType extends AbstractType
         parent::configureOptions($resolver);
         $resolver->setDefault('mapped', false);
         $resolver->setDefault('disable_options', false);
+        $resolver->setDefault('profile', null);
     }
 }

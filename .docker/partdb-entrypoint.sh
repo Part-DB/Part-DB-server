@@ -40,7 +40,49 @@ if [ -d /var/www/html/var/db ]; then
 fi
 
 # Start PHP-FPM (the PHP_VERSION is replaced by the configured version in the Dockerfile)
-service phpPHP_VERSION-fpm start
+php-fpmPHP_VERSION -F &
+
+
+# Run migrations if automigration is enabled via env variable DB_AUTOMIGRATE
+if [ "$DB_AUTOMIGRATE" = "true" ]; then
+		echo "Waiting for database to be ready..."
+		ATTEMPTS_LEFT_TO_REACH_DATABASE=60
+		until [ $ATTEMPTS_LEFT_TO_REACH_DATABASE -eq 0 ] || DATABASE_ERROR=$(sudo -E -u www-data php bin/console dbal:run-sql -q "SELECT 1" 2>&1); do
+			if [ $? -eq 255 ]; then
+				# If the Doctrine command exits with 255, an unrecoverable error occurred
+				ATTEMPTS_LEFT_TO_REACH_DATABASE=0
+				break
+			fi
+			sleep 1
+			ATTEMPTS_LEFT_TO_REACH_DATABASE=$((ATTEMPTS_LEFT_TO_REACH_DATABASE - 1))
+			echo "Still waiting for database to be ready... Or maybe the database is not reachable. $ATTEMPTS_LEFT_TO_REACH_DATABASE attempts left."
+		done
+
+		if [ $ATTEMPTS_LEFT_TO_REACH_DATABASE -eq 0 ]; then
+			echo "The database is not up or not reachable:"
+			echo "$DATABASE_ERROR"
+			exit 1
+		else
+			echo "The database is now ready and reachable"
+		fi
+
+    # Check if there are any available migrations to do, by executing doctrine:migrations:up-to-date
+    # and checking if the exit code is 0 (up to date) or 1 (not up to date)
+    if  sudo -E -u www-data php bin/console doctrine:migrations:up-to-date --no-interaction; then
+        echo "Database is up to date, no migrations necessary."
+    else
+        echo "Migrations available..."
+        echo "Do backup of database..."
+
+        sudo -E -u www-data mkdir -p /var/www/html/uploads/.automigration-backup/
+        # Backup the database
+        sudo -E -u www-data php bin/console partdb:backup -n --database /var/www/html/uploads/.automigration-backup/backup-$(date +%Y-%m-%d_%H-%M-%S).zip
+
+        # Check if there are any migration files
+        sudo -E -u www-data php bin/console doctrine:migrations:migrate --no-interaction
+    fi
+
+fi
 
 # first arg is `-f` or `--some-option` (taken from https://github.com/docker-library/php/blob/master/8.2/bullseye/apache/docker-php-entrypoint)
 if [ "${1#-}" != "$1" ]; then

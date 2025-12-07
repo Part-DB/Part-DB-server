@@ -34,9 +34,14 @@ use function is_array;
  */
 final class InheritanceSecurityPolicy implements SecurityPolicyInterface
 {
+    /**
+     * @var array<string, string[]>
+     */
     private array $allowedMethods;
 
-    public function __construct(private array $allowedTags = [], private array $allowedFilters = [], array $allowedMethods = [], private array $allowedProperties = [], private array $allowedFunctions = [])
+    public function __construct(private array $allowedTags = [], private array $allowedFilters = [], array $allowedMethods = [],
+        /** @var array<string, string|string[]> */
+        private array $allowedProperties = [], private array $allowedFunctions = [])
     {
         $this->setAllowedMethods($allowedMethods);
     }

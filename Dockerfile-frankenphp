@@ -1,4 +1,4 @@
-FROM dunglas/frankenphp:1-php8.3 AS frankenphp_upstream
+FROM dunglas/frankenphp:1-php8.4 AS frankenphp_upstream
 
 RUN apt-get update && apt-get -y install \
       curl \
@@ -13,13 +13,33 @@ RUN apt-get update && apt-get -y install \
       zip \
     && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*;
 
-# Install node and yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get update && apt-get install -y \
-      nodejs yarn \
-    && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*
+RUN set -eux; \
+    # Prepare keyrings directory
+    mkdir -p /etc/apt/keyrings; \
+    \
+    # Import Yarn GPG key
+    curl -fsSL https://dl.yarnpkg.com/debian/pubkey.gpg \
+      | tee /etc/apt/keyrings/yarn.gpg >/dev/null; \
+    chmod 644 /etc/apt/keyrings/yarn.gpg; \
+    \
+    # Add Yarn repo with signed-by
+    echo "deb [signed-by=/etc/apt/keyrings/yarn.gpg] https://dl.yarnpkg.com/debian stable main" \
+      | tee /etc/apt/sources.list.d/yarn.list; \
+    \
+    # Run NodeSource setup script (unchanged)
+    curl -sL https://deb.nodesource.com/setup_22.x | bash -; \
+    \
+    # Install Node.js + Yarn
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+      nodejs \
+      yarn; \
+    \
+    # Cleanup
+    apt-get -y autoremove; \
+    apt-get clean autoclean; \
+    rm -rf /var/lib/apt/lists/*
+
 
 # Install PHP
 RUN set -eux; \

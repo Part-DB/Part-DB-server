@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\EventSubscriber\UserSystem;
 
 use App\Entity\UserSystem\User;
+use App\Settings\SystemSettings\LocalizationSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
@@ -33,7 +34,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 final class SetUserTimezoneSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly string $default_timezone, private readonly Security $security)
+    public function __construct(private readonly LocalizationSettings $localizationSettings, private readonly Security $security)
     {
     }
 
@@ -48,8 +49,8 @@ final class SetUserTimezoneSubscriber implements EventSubscriberInterface
         }
 
         //Fill with default value if needed
-        if (null === $timezone && $this->default_timezone !== '') {
-            $timezone = $this->default_timezone;
+        if (null === $timezone && $this->localizationSettings->timezone !== '') {
+            $timezone = $this->localizationSettings->timezone;
         }
 
         //If timezone was configured anywhere set it, otherwise just use the one from php.ini

@@ -66,7 +66,7 @@ class AttachmentRepository extends DBElementRepository
     }
 
     /**
-     * Gets the count of all external attachments (attachments containing an external path).
+     * Gets the count of all external attachments (attachments containing only an external path).
      *
      * @throws NoResultException
      * @throws NonUniqueResultException
@@ -75,8 +75,9 @@ class AttachmentRepository extends DBElementRepository
     {
         $qb = $this->createQueryBuilder('attachment');
         $qb->select('COUNT(attachment)')
-            ->andWhere('attaachment.internal_path IS NULL')
-            ->where('attachment.external_path IS NOT NULL');
+            ->where('attachment.external_path IS NOT NULL')
+            ->andWhere('attachment.internal_path IS NULL');
+
         $query = $qb->getQuery();
 
         return (int) $query->getSingleScalarResult();

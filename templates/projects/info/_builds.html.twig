@@ -9,10 +9,9 @@
     </div>
 {% endif %}
 
-<div class="alert mt-2 {% if can_build %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+<div class="alert mt-2 {% if can_build %}alert-success{% elseif bom_empty%}alert-warning{% else %}alert-danger{% endif %}" role="alert">
     {% if bom_empty %}
         <h5><i class="fa-solid fa-circle-exclamation fa-fw"></i> {% trans %}project.builds.no_bom_entries{% endtrans %}</h5>
-        <span class="text-muted">{% trans %}project.builds.no_bom_entries_hint{% endtrans %}</span>
     {% elseif not can_build %}
         <h5><i class="fa-solid fa-circle-exclamation fa-fw"></i> {% trans %}project.builds.build_not_possible{% endtrans %}</h5>
         <b>{% trans %}project.builds.following_bom_entries_miss_instock{% endtrans %}</b>
@@ -23,7 +22,7 @@
         </ul>
     {% else %}
         <h5><i class="fa-solid fa-circle-check fa-fw"></i> {% trans %}project.builds.build_possible{% endtrans %}</h5>
-        <span>{% trans with {"%max_builds%": buildHelper.maximumBuildableCount(project)} %}project.builds.number_of_builds_possible{% endtrans %}</span>
+        <span>{% trans with {"%max_builds%": buildHelper.maximumBuildableCountAsString(project)} %}project.builds.number_of_builds_possible{% endtrans %}</span>
     {% endif %}
 </div>
 

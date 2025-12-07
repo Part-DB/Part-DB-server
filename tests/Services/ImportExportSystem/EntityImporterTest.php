@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\ImportExportSystem;
 
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\LabelSystem\LabelProfile;
@@ -34,10 +36,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-/**
- * @group DB
- */
+#[Group('DB')]
 class EntityImporterTest extends WebTestCase
 {
     /**
@@ -75,8 +78,8 @@ class EntityImporterTest extends WebTestCase
         $em = self::getContainer()->get(EntityManagerInterface::class);
         $parent = $em->find(AttachmentType::class, 1);
         $results = $this->service->massCreation($lines, AttachmentType::class, $parent, $errors);
-        $this->assertCount(3, $results);
-        $this->assertSame($parent, $results[0]->getParent());
+        $this->assertCount(4, $results);
+        $this->assertSame("Test 1", $results[1]->getName());
 
         //Test for addition of existing elements
         $errors = [];
@@ -113,6 +116,31 @@ EOT;
 
     }
 
+    public function testMassCreationArrow(): void
+    {
+        $input = <<<EOT
+        Test1 -> Test1.1
+        Test1 -> Test1.2
+        Test2 -> Test2.1
+        Test1
+            Test1.3
+        EOT;
+
+        $errors = [];
+        $results = $this->service->massCreation($input, AttachmentType::class, null, $errors);
+
+        //We have 6 elements, and 0 errors
+        $this->assertCount(0, $errors);
+        $this->assertCount(6, $results);
+
+        $this->assertEquals('Test1', $results[0]->getName());
+        $this->assertEquals('Test1.1', $results[1]->getName());
+        $this->assertEquals('Test1.2', $results[2]->getName());
+        $this->assertEquals('Test2', $results[3]->getName());
+        $this->assertEquals('Test2.1', $results[4]->getName());
+        $this->assertEquals('Test1.3', $results[5]->getName());
+    }
+
     public function testMassCreationNested(): void
     {
         $input = <<<EOT
@@ -132,15 +160,15 @@ EOT;
 
         //We have 7 elements, and 0 errors
         $this->assertCount(0, $errors);
-        $this->assertCount(7, $results);
+        $this->assertCount(8, $results);
 
-        $element1 = $results[0];
-        $element11 = $results[1];
-        $element111 = $results[2];
-        $element112 = $results[3];
-        $element12 = $results[4];
-        $element121 = $results[5];
-        $element2 = $results[6];
+        $element1 = $results[1];
+        $element11 = $results[2];
+        $element111 = $results[3];
+        $element112 = $results[4];
+        $element12 = $results[5];
+        $element121 = $results[6];
+        $element2 = $results[7];
 
         $this->assertSame('Test 1', $element1->getName());
         $this->assertSame('Test 1.1', $element11->getName());
@@ -174,7 +202,7 @@ EOT;
         $this->assertSame($longName, $errors[0]['entity']->getName());
     }
 
-    public function formatDataProvider(): \Iterator
+    public static function formatDataProvider(): \Iterator
     {
         yield ['csv', 'csv'];
         yield ['csv', 'CSV'];
@@ -182,11 +210,13 @@ EOT;
         yield ['json', 'json'];
         yield ['yaml', 'yml'];
         yield ['yaml', 'YAML'];
+        yield ['xlsx', 'xlsx'];
+        yield ['xlsx', 'XLSX'];
+        yield ['xls', 'xls'];
+        yield ['xls', 'XLS'];
     }
 
-    /**
-     * @dataProvider formatDataProvider
-     */
+    #[DataProvider('formatDataProvider')]
     public function testDetermineFormat(string $expected, string $extension): void
     {
         $this->assertSame($expected, $this->service->determineFormat($extension));
@@ -318,5 +348,42 @@ EOT;
         $this->assertSame('Test 1 manufacturer', $results[0]->getManufacturer()->getName());
         $this->assertSame($category, $results[0]->getCategory());
         $this->assertSame('test,test2', $results[0]->getTags());
+    }
+
+    public function testImportExcelFileProjects(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        
+        $worksheet->setCellValue('A1', 'name');
+        $worksheet->setCellValue('B1', 'comment');
+        $worksheet->setCellValue('A2', 'Test Excel 1');
+        $worksheet->setCellValue('B2', 'Test Excel 1 notes');
+        $worksheet->setCellValue('A3', 'Test Excel 2');
+        $worksheet->setCellValue('B3', 'Test Excel 2 notes');
+        
+        $tempFile = tempnam(sys_get_temp_dir(), 'test_excel') . '.xlsx';
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($tempFile);
+        
+        $file = new File($tempFile);
+        
+        $errors = [];
+        $results = $this->service->importFile($file, [
+            'class' => Project::class,
+            'format' => 'xlsx',
+            'csv_delimiter' => ';',
+        ], $errors);
+
+        $this->assertCount(2, $results);
+        $this->assertEmpty($errors);
+        $this->assertContainsOnlyInstancesOf(Project::class, $results);
+
+        $this->assertSame('Test Excel 1', $results[0]->getName());
+        $this->assertSame('Test Excel 1 notes', $results[0]->getComment());
+        $this->assertSame('Test Excel 2', $results[1]->getName());
+        $this->assertSame('Test Excel 2 notes', $results[1]->getComment());
+        
+        unlink($tempFile);
     }
 }

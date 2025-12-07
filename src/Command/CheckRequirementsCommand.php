@@ -69,8 +69,8 @@ class CheckRequirementsCommand extends Command
         if ($io->isVerbose()) {
             $io->comment('Checking PHP version...');
         }
-        //We recommend PHP 8.2, but 8.1 is the minimum
-        if (PHP_VERSION_ID < 80200) {
+        //We recommend PHP 8.2, but 8.2 is the minimum
+        if (PHP_VERSION_ID < 80400) {
             $io->warning('You are using PHP '. PHP_VERSION .'. This will work, but a newer version is recommended.');
         } elseif (!$only_issues) {
             $io->success('PHP version is sufficient.');
@@ -84,7 +84,7 @@ class CheckRequirementsCommand extends Command
                 $io->success('You are using a 64-bit system.');
             }
         } else {
-            $io->warning('You are using a system with an unknown bit size. That is interesting xD');
+            $io->warning(' areYou using a system with an unknown bit size. That is interesting xD');
         }
 
         //Check if opcache is enabled

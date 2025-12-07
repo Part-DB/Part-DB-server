@@ -96,14 +96,15 @@ class TextConstraint extends AbstractConstraint
 
         //The CONTAINS, LIKE, STARTS and ENDS operators use the LIKE operator, but we have to build the value string differently
         $like_value = null;
+        $escaped_value = str_replace(['%', '_'], ['\%', '\_'], $this->value);
         if ($this->operator === 'LIKE') {
-            $like_value = $this->value;
+            $like_value = $this->value; //Here we do not escape anything, as the user may provide % and _ wildcards
         } elseif ($this->operator === 'STARTS') {
-            $like_value = $this->value . '%';
+            $like_value = $escaped_value . '%';
         } elseif ($this->operator === 'ENDS') {
-            $like_value = '%' . $this->value;
+            $like_value = '%' . $escaped_value;
         } elseif ($this->operator === 'CONTAINS') {
-            $like_value = '%' . $this->value . '%';
+            $like_value = '%' . $escaped_value . '%';
         }
 
         if ($like_value !== null) {

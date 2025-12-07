@@ -21,6 +21,7 @@ declare(strict_types=1);
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 namespace App\DataTables\Filters;
+use App\DataTables\Filters\Constraints\AbstractConstraint;
 use Doctrine\ORM\QueryBuilder;
 
 class PartSearchFilter implements FilterInterface
@@ -143,6 +144,8 @@ class PartSearchFilter implements FilterInterface
         if ($this->regex) {
             $queryBuilder->setParameter('search_query', $this->keyword);
         } else {
+            //Escape % and _ characters in the keyword
+            $this->keyword = str_replace(['%', '_'], ['\%', '\_'], $this->keyword);
             $queryBuilder->setParameter('search_query', '%' . $this->keyword . '%');
         }
     }

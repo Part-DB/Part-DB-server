@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
+use App\Settings\SystemSettings\LocalizationSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\PriceInformations\Currency;
@@ -32,7 +33,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class SupplierForm extends CompanyForm
 {
-    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper, protected string $base_currency)
+    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper, private readonly LocalizationSettings $localizationSettings)
     {
         parent::__construct($security, $eventCommentNeededHelper);
     }
@@ -53,7 +54,7 @@ class SupplierForm extends CompanyForm
 
         $builder->add('shipping_costs', BigDecimalMoneyType::class, [
             'required' => false,
-            'currency' => $this->base_currency,
+            'currency' => $this->localizationSettings->baseCurrency,
             'scale' => 3,
             'label' => 'supplier.shipping_costs.label',
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
