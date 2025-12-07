@@ -29,6 +29,9 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	# Install additional composer packages if COMPOSER_EXTRA_PACKAGES is set
 	if [ -n "$COMPOSER_EXTRA_PACKAGES" ]; then
 		echo "Installing additional composer packages: $COMPOSER_EXTRA_PACKAGES"
+		# Note: COMPOSER_EXTRA_PACKAGES is intentionally not quoted to allow word splitting
+		# This enables passing multiple package names separated by spaces
+		# shellcheck disable=SC2086
 		composer require $COMPOSER_EXTRA_PACKAGES --no-interaction --no-progress --optimize-autoloader
 		if [ $? -eq 0 ]; then
 			echo "Successfully installed additional composer packages"
