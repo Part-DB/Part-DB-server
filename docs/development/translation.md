@@ -28,9 +28,14 @@ This approach has several advantages:
 
 ### Using Translations in Code
 
-In PHP/Twig:
+In Twig (short syntax):
 ```twig
 {{ 'part.info.title'|trans }}
+```
+
+In Twig (block syntax for longer text):
+```twig
+{% trans %}part.info.title{% endtrans %}
 ```
 
 In PHP:
@@ -59,6 +64,8 @@ The synonym system uses special placeholders in translation strings that get rep
 
 Where `Type` is the element type name (e.g., `category`, `part`, `manufacturer`, etc.).
 
+**Note for inflected languages**: In languages like German where words are inflected (e.g., case declensions), synonyms should be defined in the nominative case (the standard/dictionary form). The placeholders will be substituted as-is, so translations need to be written to work with the nominative form.
+
 ### Available Element Types
 
 The following element types support synonyms:
@@ -77,67 +84,13 @@ The following element types support synonyms:
 
 ### Examples
 
-#### Basic Usage
+**Example 1**: `"Click here to create a new [Category]"`
+- Default: "Click here to create a new Category"
+- With synonym (Category → "Product Type"): "Click here to create a new Product Type"
 
-Translation string:
-```
-"Click here to create a new [Category]"
-```
-
-Default output:
-```
-"Click here to create a new Category"
-```
-
-With custom synonym (Category → "Product Type"):
-```
-"Click here to create a new Product Type"
-```
-
-#### Multiple Placeholders
-
-Translation string:
-```
-"This [part] belongs to [category] 'Electronics'"
-```
-
-Default output:
-```
-"This part belongs to category 'Electronics'"
-```
-
-With custom synonyms:
-```
-"This component belongs to product group 'Electronics'"
-```
-
-#### Plural Usage
-
-Translation string:
-```
-"You have 5 [[part]] in 3 [[category]]"
-```
-
-Default output:
-```
-"You have 5 parts in 3 categories"
-```
-
-With custom synonyms (Part → "Component", Category → "Group"):
-```
-"You have 5 components in 3 groups"
-```
-
-#### Case Variations
-
-Translation string:
-```
-"Select a [Category] to view its [[part]]"
-```
-
-This demonstrates:
-- `[Category]` - Capitalized singular (starts sentence or emphasizes)
-- `[[part]]` - Lowercase plural (mid-sentence)
+**Example 2**: `"You have 5 [[part]] in 3 [[category]]"`
+- Default: "You have 5 parts in 3 categories"
+- With synonyms (Part → "Component", Category → "Group"): "You have 5 components in 3 groups"
 
 ### Technical Implementation
 
@@ -153,39 +106,13 @@ The system automatically:
 - Falls back to default translations if no synonym is defined
 - Caches placeholder values for performance
 
-### Guidelines for Using Synonyms in Translations
+### Guidelines for Using Synonyms
 
-When writing or updating translation strings:
-
-1. **Use synonyms for entity type references**: When referring to entity types like categories, parts, manufacturers, etc., use the synonym placeholders instead of hardcoding the type name.
-
-   ✅ Good: `"Delete this [category]?"`
-   
-   ❌ Bad: `"Delete this category?"`
-
-2. **Match the case to context**:
-   - Use capitalized forms (`[Type]`, `[[Type]]`) at the start of sentences or for emphasis
-   - Use lowercase forms (`[type]`, `[[type]]`) in the middle of sentences
-
-3. **Choose singular vs. plural appropriately**:
-   - Use singular for single items: `"Create new [part]"`
-   - Use plural for multiple items or lists: `"Available [[part]]"`
-
-4. **Consistency**: Be consistent with placeholder usage across similar translation strings
-
-5. **Don't overuse**: Only use placeholders for actual entity type names. Don't use them for:
-   - Action verbs (use regular translations)
-   - Specific feature names
-   - UI element names that aren't entity types
-
-### Testing Synonyms
-
-To test how your translations work with synonyms:
-
-1. Go to Settings → Synonyms in Part-DB
-2. Define custom synonyms for the types you're testing
-3. Navigate to pages that use your translation strings
-4. Verify the synonyms appear correctly with proper capitalization and plurality
+When writing translation strings:
+- Use placeholders for entity types (✅ `"Delete this [category]?"` ❌ `"Delete this category?"`)
+- Match case to context: capitalized (`[Type]`, `[[Type]]`) at sentence start, lowercase (`[type]`, `[[type]]`) mid-sentence
+- Use singular for single items, plural for multiple items
+- Only use for actual entity type names, not for actions or feature names
 
 ## Translation Parameters
 
