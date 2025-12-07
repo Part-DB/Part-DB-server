@@ -474,7 +474,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         max_host_connections?: int, // The maximum number of connections to a single host.
  *         default_options?: array{
  *             headers?: array<string, mixed>,
- *             vars?: list<mixed>,
+ *             vars?: array<string, mixed>,
  *             max_redirects?: int, // The maximum number of redirects to follow.
  *             http_version?: scalar|null, // The default HTTP version, typically 1.1 or 2.0, leave to null for the best version.
  *             resolve?: array<string, scalar|null>,
@@ -497,7 +497,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *                 md5?: mixed,
  *             },
  *             crypto_method?: scalar|null, // The minimum version of TLS to accept; must be one of STREAM_CRYPTO_METHOD_TLSv*_CLIENT constants.
- *             extra?: list<mixed>,
+ *             extra?: array<string, mixed>,
  *             rate_limiter?: scalar|null, // Rate limiter name to use for throttling requests. // Default: null
  *             caching?: bool|array{ // Caching configuration.
  *                 enabled?: bool, // Default: false
@@ -550,7 +550,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *                 md5?: mixed,
  *             },
  *             crypto_method?: scalar|null, // The minimum version of TLS to accept; must be one of STREAM_CRYPTO_METHOD_TLSv*_CLIENT constants.
- *             extra?: list<mixed>,
+ *             extra?: array<string, mixed>,
  *             rate_limiter?: scalar|null, // Rate limiter name to use for throttling requests. // Default: null
  *             caching?: bool|array{ // Caching configuration.
  *                 enabled?: bool, // Default: false
@@ -1677,6 +1677,12 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         post_processors?: array<string, array<string, mixed>>,
  *     },
  * }
+ * @psalm-type DamaDoctrineTestConfig = array{
+ *     enable_static_connection?: mixed, // Default: true
+ *     enable_static_meta_data_cache?: bool, // Default: true
+ *     enable_static_query_cache?: bool, // Default: true
+ *     connection_keys?: list<mixed>,
+ * }
  * @psalm-type TwigExtraConfig = array{
  *     cache?: bool|array{
  *         enabled?: bool, // Default: false
@@ -2244,9 +2250,9 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *             destinationStrictlyMatches?: bool,
  *             allowRepeatAttributeName?: bool,
  *             rejectUnsolicitedResponsesWithInResponseTo?: bool,
- *             signatureAlgorithm?: "http:\/\/www.w3.org\/2000\/09\/xmldsig#rsa-sha1"|"http:\/\/www.w3.org\/2000\/09\/xmldsig#dsa-sha1"|"http:\/\/www.w3.org\/2001\/04\/xmldsig-more#rsa-sha256"|"http:\/\/www.w3.org\/2001\/04\/xmldsig-more#rsa-sha384"|"http:\/\/www.w3.org\/2001\/04\/xmldsig-more#rsa-sha512",
- *             digestAlgorithm?: "http:\/\/www.w3.org\/2000\/09\/xmldsig#sha1"|"http:\/\/www.w3.org\/2001\/04\/xmlenc#sha256"|"http:\/\/www.w3.org\/2001\/04\/xmldsig-more#sha384"|"http:\/\/www.w3.org\/2001\/04\/xmlenc#sha512",
- *             encryption_algorithm?: "http:\/\/www.w3.org\/2001\/04\/xmlenc#tripledes-cbc"|"http:\/\/www.w3.org\/2001\/04\/xmlenc#aes128-cbc"|"http:\/\/www.w3.org\/2001\/04\/xmlenc#aes192-cbc"|"http:\/\/www.w3.org\/2001\/04\/xmlenc#aes256-cbc"|"http:\/\/www.w3.org\/2009\/xmlenc11#aes128-gcm"|"http:\/\/www.w3.org\/2009\/xmlenc11#aes192-gcm"|"http:\/\/www.w3.org\/2009\/xmlenc11#aes256-gcm",
+ *             signatureAlgorithm?: "http://www.w3.org/2000/09/xmldsig#rsa-sha1"|"http://www.w3.org/2000/09/xmldsig#dsa-sha1"|"http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"|"http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"|"http://www.w3.org/2001/04/xmldsig-more#rsa-sha512",
+ *             digestAlgorithm?: "http://www.w3.org/2000/09/xmldsig#sha1"|"http://www.w3.org/2001/04/xmlenc#sha256"|"http://www.w3.org/2001/04/xmldsig-more#sha384"|"http://www.w3.org/2001/04/xmlenc#sha512",
+ *             encryption_algorithm?: "http://www.w3.org/2001/04/xmlenc#tripledes-cbc"|"http://www.w3.org/2001/04/xmlenc#aes128-cbc"|"http://www.w3.org/2001/04/xmlenc#aes192-cbc"|"http://www.w3.org/2001/04/xmlenc#aes256-cbc"|"http://www.w3.org/2009/xmlenc11#aes128-gcm"|"http://www.w3.org/2009/xmlenc11#aes192-gcm"|"http://www.w3.org/2009/xmlenc11#aes256-gcm",
  *             lowercaseUrlencoding?: bool,
  *         },
  *         contactPerson?: array{
@@ -2633,12 +2639,6 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         item_uri_template?: mixed,
  *         ...<mixed>
  *     },
- * }
- * @psalm-type DamaDoctrineTestConfig = array{
- *     enable_static_connection?: mixed, // Default: true
- *     enable_static_meta_data_cache?: bool, // Default: true
- *     enable_static_query_cache?: bool, // Default: true
- *     connection_keys?: list<mixed>,
  * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
