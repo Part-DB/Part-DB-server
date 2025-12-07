@@ -67,6 +67,7 @@ RUN apt-get update && apt-get -y install \
       php${PHP_VERSION}-sqlite3 \
       php${PHP_VERSION}-mysql \
       php${PHP_VERSION}-pgsql \
+      git \
       gpg \
       sudo \
     && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/* \
