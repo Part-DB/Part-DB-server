@@ -177,7 +177,7 @@ RUN composer install -a --no-dev && \
     composer clear-cache
 
 # Copy pre-built assets from the assets stage
-COPY --from=assets --chown=www-data:www-data /build/public/build ./public/build
+COPY --from=assets /build/public/build ./public/build
 
 # Use docker env to output logs to stdout
 ENV APP_ENV=docker
