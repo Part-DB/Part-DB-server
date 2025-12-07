@@ -19,6 +19,7 @@ WORKDIR /build
 # Copy composer dependencies and application files
 COPY --from=composer-deps /build/vendor ./vendor
 COPY composer.json composer.lock symfony.lock ./
+COPY .env ./
 COPY bin ./bin
 COPY config ./config
 COPY public ./public
