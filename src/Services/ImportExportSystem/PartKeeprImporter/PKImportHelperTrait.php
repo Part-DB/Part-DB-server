@@ -150,6 +150,11 @@ trait PKImportHelperTrait
 
             $target->addAttachment($attachment);
             $this->em->persist($attachment);
+
+            //If the attachment is an image, and the target has no master picture yet, set it
+            if ($attachment->isPicture() && $target->getMasterPictureAttachment() === null) {
+                $target->setMasterPictureAttachment($attachment);
+            }
         }
 
         $this->em->flush();
