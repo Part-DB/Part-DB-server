@@ -380,12 +380,15 @@ abstract class BaseAdminController extends AbstractController
             }
             $em->flush();
 
-            if (count($results) > 0) {
+            if (count($created_count) > 0) {
                 $this->addFlash('success', t('entity.mass_creation_flash', ['%COUNT%' => $created_count]));
             }
 
-            //Recreate mass creation form, so we get the updated parent list and empty lines
-            $mass_creation_form = $this->createForm(MassCreationForm::class, ['entity_class' => $this->entity_class]);
+            if (count($errors)) {
+                //Recreate mass creation form, so we get the updated parent list and empty lines
+                $mass_creation_form = $this->createForm(MassCreationForm::class, ['entity_class' => $this->entity_class]);
+            }
+
         }
 
         return $this->render($this->twig_template, [
