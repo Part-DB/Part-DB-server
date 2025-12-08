@@ -10,13 +10,13 @@
     <unit id="IFQ5XrG" name="saml.error.cannot_login_local_user_per_saml">
       <segment state="translated">
         <source>saml.error.cannot_login_local_user_per_saml</source>
-        <target>Impossible de se connecter via le SSO (Single Sign On) !</target>
+        <target>Vous ne pouvez-pas vous connecter comme utilisateur local via le SSO ! Utilisez votre mot de passe local à la place.</target>
       </segment>
     </unit>
     <unit id="wOYPZmb" name="saml.error.cannot_login_saml_user_locally">
       <segment state="translated">
         <source>saml.error.cannot_login_saml_user_locally</source>
-        <target>Vous ne pouvez pas utiliser l'authentification par mot de passe ! Veuillez utiliser le SSO!</target>
+        <target>Vous ne pouvez pas utiliser la connexion locale pour vous connecter via un utilisateur SAML ! Utilisez le SSO à la place.</target>
       </segment>
     </unit>
   </file>

@@ -29,6 +29,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
@@ -37,6 +38,7 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Helpers\Trees\TreeViewNode;
 use App\Services\Cache\UserCacheKeyGenerator;
+use App\Services\ElementTypeNameGenerator;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -49,8 +51,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class ToolsTreeBuilder
 {
-    public function __construct(protected TranslatorInterface $translator, protected UrlGeneratorInterface $urlGenerator, protected TagAwareCacheInterface $cache, protected UserCacheKeyGenerator $keyGenerator, protected Security $security)
-    {
+    public function __construct(
+        protected TranslatorInterface $translator,
+        protected UrlGeneratorInterface $urlGenerator,
+        protected TagAwareCacheInterface $cache,
+        protected UserCacheKeyGenerator $keyGenerator,
+        protected Security $security,
+        private readonly ElementTypeNameGenerator $elementTypeNameGenerator,
+    ) {
     }
 
     /**
@@ -138,7 +146,7 @@ class ToolsTreeBuilder
                 $this->translator->trans('info_providers.search.title'),
                 $this->urlGenerator->generate('info_providers_search')
             ))->setIcon('fa-treeview fa-fw fa-solid fa-cloud-arrow-down');
-            
+
             $nodes[] = (new TreeViewNode(
                 $this->translator->trans('info_providers.bulk_import.manage_jobs'),
                 $this->urlGenerator->generate('bulk_info_provider_manage')
@@ -159,63 +167,69 @@ class ToolsTreeBuilder
 
         if ($this->security->isGranted('read', new AttachmentType())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.attachment_types'),
+                $this->elementTypeNameGenerator->typeLabelPlural(AttachmentType::class),
                 $this->urlGenerator->generate('attachment_type_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-file-alt');
         }
         if ($this->security->isGranted('read', new Category())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.categories'),
+                $this->elementTypeNameGenerator->typeLabelPlural(Category::class),
                 $this->urlGenerator->generate('category_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-tags');
         }
         if ($this->security->isGranted('read', new Project())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.projects'),
+                $this->elementTypeNameGenerator->typeLabelPlural(Project::class),
                 $this->urlGenerator->generate('project_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-archive');
         }
         if ($this->security->isGranted('read', new Supplier())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.suppliers'),
+                $this->elementTypeNameGenerator->typeLabelPlural(Supplier::class),
                 $this->urlGenerator->generate('supplier_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-truck');
         }
         if ($this->security->isGranted('read', new Manufacturer())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.manufacturer'),
+                $this->elementTypeNameGenerator->typeLabelPlural(Manufacturer::class),
                 $this->urlGenerator->generate('manufacturer_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-industry');
         }
         if ($this->security->isGranted('read', new StorageLocation())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.storelocation'),
+                $this->elementTypeNameGenerator->typeLabelPlural(StorageLocation::class),
                 $this->urlGenerator->generate('store_location_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-cube');
         }
         if ($this->security->isGranted('read', new Footprint())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.footprint'),
+                $this->elementTypeNameGenerator->typeLabelPlural(Footprint::class),
                 $this->urlGenerator->generate('footprint_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-microchip');
         }
         if ($this->security->isGranted('read', new Currency())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.currency'),
+                $this->elementTypeNameGenerator->typeLabelPlural(Currency::class),
                 $this->urlGenerator->generate('currency_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-coins');
         }
         if ($this->security->isGranted('read', new MeasurementUnit())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.measurement_unit'),
+                $this->elementTypeNameGenerator->typeLabelPlural(MeasurementUnit::class),
                 $this->urlGenerator->generate('measurement_unit_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-balance-scale');
         }
         if ($this->security->isGranted('read', new LabelProfile())) {
             $nodes[] = (new TreeViewNode(
-                $this->translator->trans('tree.tools.edit.label_profile'),
+                $this->elementTypeNameGenerator->typeLabelPlural(LabelProfile::class),
                 $this->urlGenerator->generate('label_profile_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-qrcode');
+        }
+        if ($this->security->isGranted('read', new PartCustomState())) {
+            $nodes[] = (new TreeViewNode(
+                $this->elementTypeNameGenerator->typeLabelPlural(PartCustomState::class),
+                $this->urlGenerator->generate('part_custom_state_new')
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-tools');
         }
         if ($this->security->isGranted('create', new Part())) {
             $nodes[] = (new TreeViewNode(

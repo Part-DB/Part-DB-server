@@ -5,5 +5,7 @@ nav_order: 7
 has_children: true
 ---
 
+# Upgrade
+
 This section provides information on how to upgrade Part-DB to the latest version.
-This is intended for major release upgrades, where requirements or things changes significantly.
+This is intended for major release upgrades, where requirements or things change significantly.

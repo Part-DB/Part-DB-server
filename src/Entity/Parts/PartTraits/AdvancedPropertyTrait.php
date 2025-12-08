@@ -23,12 +23,14 @@ declare(strict_types=1);
 namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\Parts\InfoProviderReference;
+use App\Entity\Parts\PartCustomState;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Length;
+use App\Validator\Constraints\UniquePartIpnConstraint;
 
 /**
  * Advanced properties of a part, not related to a more specific group.
@@ -64,6 +66,7 @@ trait AdvancedPropertyTrait
     #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::STRING, length: 100, unique: true, nullable: true)]
     #[Length(max: 100)]
+    #[UniquePartIpnConstraint]
     protected ?string $ipn = null;
 
     /**
@@ -72,6 +75,14 @@ trait AdvancedPropertyTrait
     #[ORM\Embedded(class: InfoProviderReference::class, columnPrefix: 'provider_reference_')]
     #[Groups(['full', 'part:read'])]
     protected InfoProviderReference $providerReference;
+
+    /**
+     * @var ?PartCustomState the custom state for the part
+     */
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
+    #[ORM\ManyToOne(targetEntity: PartCustomState::class)]
+    #[ORM\JoinColumn(name: 'id_part_custom_state')]
+    protected ?PartCustomState $partCustomState = null;
 
     /**
      * Checks if this part is marked, for that it needs further review.
@@ -180,7 +191,24 @@ trait AdvancedPropertyTrait
         return $this;
     }
 
+    /**
+     * Gets the custom part state for the part
+     * Returns null if no specific part state is set.
+     */
+    public function getPartCustomState(): ?PartCustomState
+    {
+        return $this->partCustomState;
+    }
 
+    /**
+     * Sets the custom part state.
+     *
+     * @return $this
+     */
+    public function setPartCustomState(?PartCustomState $partCustomState): self
+    {
+        $this->partCustomState = $partCustomState;
 
-
+        return $this;
+    }
 }

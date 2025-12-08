@@ -104,7 +104,7 @@
       </notes>
       <segment state="translated">
         <source>parameters.validator.min_lesser_typical</source>
-        <target>Value must be lesser or equal the the typical value ({{ compared_value }}).</target>
+        <target>Value must be less than or equal to the typical value ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="Yfp2uC5" name="parameters.validator.min_lesser_max">
@@ -124,7 +124,7 @@
       </notes>
       <segment state="translated">
         <source>parameters.validator.min_lesser_max</source>
-        <target>Value must be lesser than the maximum value ({{ compared_value }}).</target>
+        <target>Value must be less than the maximum value ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="P6b.8Ou" name="parameters.validator.max_greater_typical">
@@ -144,7 +144,7 @@
       </notes>
       <segment state="translated">
         <source>parameters.validator.max_greater_typical</source>
-        <target>Value must be greater or equal than the typical value ({{ compared_value }}).</target>
+        <target>Value must be greater than or equal to the typical value ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="P41193Y" name="validator.user.username_already_used">
@@ -154,7 +154,7 @@
       </notes>
       <segment state="translated">
         <source>validator.user.username_already_used</source>
-        <target>A user with this name is already exisiting</target>
+        <target>A user with this name already exists</target>
       </segment>
     </unit>
     <unit id="EKPQiyf" name="user.invalid_username">
@@ -347,13 +347,13 @@
         <target>Due to technical limitations, it is not possible to select dates after the 2038-01-19 on 32-bit systems!</target>
       </segment>
     </unit>
-    <unit id="89nojXY" name="validator.fileSize.invalidFormat">
+    <unit id="iM9yb_p" name="validator.fileSize.invalidFormat">
       <segment state="translated">
         <source>validator.fileSize.invalidFormat</source>
         <target>Invalid file size format. Use an integer number plus K, M, G as suffix for Kilo, Mega or Gigabytes.</target>
       </segment>
     </unit>
-    <unit id="iXcU7ce" name="validator.invalid_range">
+    <unit id="ZFxQ0BZ" name="validator.invalid_range">
       <segment state="translated">
         <source>validator.invalid_range</source>
         <target>The given range is not valid!</target>
@@ -363,6 +363,12 @@
       <segment state="translated">
         <source>validator.google_code.wrong_code</source>
         <target>Invalid code. Check that your authenticator app is set up correctly and that both the server and authentication device has the time set correctly.</target>
+      </segment>
+    </unit>
+    <unit id="I330cr5" name="settings.synonyms.type_synonyms.collection_type.duplicate">
+      <segment>
+        <source>settings.synonyms.type_synonyms.collection_type.duplicate</source>
+        <target>There is already a translation defined for this type and language!</target>
       </segment>
     </unit>
   </file>

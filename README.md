@@ -29,8 +29,8 @@ If you want to test Part-DB without installing it, you can use [this](https://de
 
 You can log in with username: *user* and password: *user*.
 
-Every change to the master branch gets automatically deployed, so it represents the current development progress and is
-may not completely stable. Please mind, that the free Heroku instance is used, so it can take some time when loading
+Every change to the master branch gets automatically deployed, so it represents the current development progress and
+may not be completely stable. Please mind, that the free Heroku instance is used, so it can take some time when loading
 the page
 for the first time.
 
@@ -142,7 +142,7 @@ There you will find various methods to support development on a monthly or a one
 
 ## Built with
 
-* [Symfony 5](https://symfony.com/): The main framework used for the serverside PHP
+* [Symfony 6](https://symfony.com/): The main framework used for the serverside PHP
 * [Bootstrap 5](https://getbootstrap.com/) and [Bootswatch](https://bootswatch.com/): Used as website theme
 * [Fontawesome](https://fontawesome.com/): Used as icon set
 * [Hotwire Stimulus](https://stimulus.hotwired.dev/) and [Hotwire Turbo](https://turbo.hotwired.dev/): Frontend

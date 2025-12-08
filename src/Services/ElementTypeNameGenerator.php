@@ -24,66 +24,31 @@ namespace App\Services;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
-use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\NamedElementInterface;
-use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
-use App\Entity\InfoProviderSystem\BulkInfoProviderImportJobPart;
-use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parameters\AbstractParameter;
-use App\Entity\Parts\Category;
-use App\Entity\Parts\Footprint;
-use App\Entity\Parts\Manufacturer;
-use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
-use App\Entity\Parts\PartAssociation;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\StorageLocation;
-use App\Entity\Parts\Supplier;
-use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
-use App\Entity\UserSystem\Group;
-use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
+use App\Settings\SynonymSettings;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @see \App\Tests\Services\ElementTypeNameGeneratorTest
  */
-class ElementTypeNameGenerator
+final readonly class ElementTypeNameGenerator
 {
-    protected array $mapping;
 
-    public function __construct(protected TranslatorInterface $translator, private readonly EntityURLGenerator $entityURLGenerator)
+    public function __construct(
+        private TranslatorInterface $translator,
+        private EntityURLGenerator $entityURLGenerator,
+        private SynonymSettings $synonymsSettings,
+    )
     {
-        //Child classes has to become before parent classes
-        $this->mapping = [
-            Attachment::class => $this->translator->trans('attachment.label'),
-            Category::class => $this->translator->trans('category.label'),
-            AttachmentType::class => $this->translator->trans('attachment_type.label'),
-            Project::class => $this->translator->trans('project.label'),
-            ProjectBOMEntry::class => $this->translator->trans('project_bom_entry.label'),
-            Footprint::class => $this->translator->trans('footprint.label'),
-            Manufacturer::class => $this->translator->trans('manufacturer.label'),
-            MeasurementUnit::class => $this->translator->trans('measurement_unit.label'),
-            Part::class => $this->translator->trans('part.label'),
-            PartLot::class => $this->translator->trans('part_lot.label'),
-            StorageLocation::class => $this->translator->trans('storelocation.label'),
-            Supplier::class => $this->translator->trans('supplier.label'),
-            Currency::class => $this->translator->trans('currency.label'),
-            Orderdetail::class => $this->translator->trans('orderdetail.label'),
-            Pricedetail::class => $this->translator->trans('pricedetail.label'),
-            Group::class => $this->translator->trans('group.label'),
-            User::class => $this->translator->trans('user.label'),
-            AbstractParameter::class => $this->translator->trans('parameter.label'),
-            LabelProfile::class => $this->translator->trans('label_profile.label'),
-            PartAssociation::class => $this->translator->trans('part_association.label'),
-            BulkInfoProviderImportJob::class => $this->translator->trans('bulk_info_provider_import_job.label'),
-            BulkInfoProviderImportJobPart::class => $this->translator->trans('bulk_info_provider_import_job_part.label'),
-        ];
     }
 
     /**
@@ -97,26 +62,68 @@ class ElementTypeNameGenerator
      * @return string the localized label for the entity type
      *
      * @throws EntityNotSupportedException when the passed entity is not supported
+     * @deprecated Use label() instead
      */
     public function getLocalizedTypeLabel(object|string $entity): string
     {
-        $class = is_string($entity) ? $entity : $entity::class;
-
-        //Check if we have a direct array entry for our entity class, then we can use it
-        if (isset($this->mapping[$class])) {
-            return $this->mapping[$class];
-        }
-
-        //Otherwise iterate over array and check for inheritance (needed when the proxy element from doctrine are passed)
-        foreach ($this->mapping as $class_to_check => $translation) {
-            if (is_a($entity, $class_to_check, true)) {
-                return $translation;
-            }
-        }
-
-        //When nothing was found throw an exception
-        throw new EntityNotSupportedException(sprintf('No localized label for the element with type %s was found!', is_object($entity) ? $entity::class : (string) $entity));
+        return $this->typeLabel($entity);
     }
+
+    private function resolveSynonymLabel(ElementTypes $type, ?string $locale, bool $plural): ?string
+    {
+        $locale ??= $this->translator->getLocale();
+
+        if ($this->synonymsSettings->isSynonymDefinedForType($type)) {
+            if ($plural) {
+                $syn = $this->synonymsSettings->getPluralSynonymForType($type, $locale);
+            } else {
+                $syn = $this->synonymsSettings->getSingularSynonymForType($type, $locale);
+            }
+
+            if ($syn === null) {
+                //Try to fall back to english
+                if ($plural) {
+                    $syn = $this->synonymsSettings->getPluralSynonymForType($type, 'en');
+                } else {
+                    $syn = $this->synonymsSettings->getSingularSynonymForType($type, 'en');
+                }
+            }
+
+            return $syn;
+        }
+
+        return null;
+    }
+
+    /**
+     * Gets a localized label for the type of the entity. If user defined synonyms are defined,
+     * these are used instead of the default labels.
+     * @param  object|string  $entity
+     * @param  string|null  $locale
+     * @return string
+     */
+    public function typeLabel(object|string $entity, ?string $locale = null): string
+    {
+        $type = ElementTypes::fromValue($entity);
+
+        return $this->resolveSynonymLabel($type, $locale, false)
+            ?? $this->translator->trans($type->getDefaultLabelKey(), locale: $locale);
+    }
+
+    /**
+     * Similar to label(), but returns the plural version of the label.
+     * @param  object|string  $entity
+     * @param  string|null  $locale
+     * @return string
+     */
+    public function typeLabelPlural(object|string $entity, ?string $locale = null): string
+    {
+        $type = ElementTypes::fromValue($entity);
+
+        return $this->resolveSynonymLabel($type, $locale, true)
+            ?? $this->translator->trans($type->getDefaultPluralLabelKey(), locale: $locale);
+    }
+
 
     /**
      * Returns a string like in the format ElementType: ElementName.
@@ -132,7 +139,7 @@ class ElementTypeNameGenerator
      */
     public function getTypeNameCombination(NamedElementInterface $entity, bool $use_html = false): string
     {
-        $type = $this->getLocalizedTypeLabel($entity);
+        $type = $this->typeLabel($entity);
         if ($use_html) {
             return '<i>' . $type . ':</i> ' . htmlspecialchars($entity->getName());
         }
@@ -142,7 +149,7 @@ class ElementTypeNameGenerator
 
 
     /**
-     * Returns a HTML formatted label for the given enitity in the format "Type: Name" (on elements with a name) and
+     * Returns a HTML formatted label for the given entity in the format "Type: Name" (on elements with a name) and
      * "Type: ID" (on elements without a name). If possible the value is given as a link to the element.
      * @param  AbstractDBElement  $entity The entity for which the label should be generated
      * @param  bool  $include_associated If set to true, the associated entity (like the part belonging to a part lot) is included in the label to give further information
@@ -163,7 +170,7 @@ class ElementTypeNameGenerator
         } else { //Target does not have a name
             $tmp = sprintf(
                 '<i>%s</i>: %s',
-                $this->getLocalizedTypeLabel($entity),
+                $this->typeLabel($entity),
                 $entity->getID()
             );
         }
@@ -207,7 +214,7 @@ class ElementTypeNameGenerator
     {
         return sprintf(
             '<i>%s</i>: %s [%s]',
-            $this->getLocalizedTypeLabel($class),
+            $this->typeLabel($class),
             $id,
             $this->translator->trans('log.target_deleted')
         );

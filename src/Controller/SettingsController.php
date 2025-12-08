@@ -64,7 +64,7 @@ class SettingsController extends AbstractController
             $this->settingsManager->save($settings);
 
             //It might be possible, that the tree settings have changed, so clear the cache
-            $cache->invalidateTags(['tree_treeview', 'sidebar_tree_update']);
+            $cache->invalidateTags(['tree_tools', 'tree_treeview', 'sidebar_tree_update', 'synonyms']);
 
             $this->addFlash('success', t('settings.flash.saved'));
         }

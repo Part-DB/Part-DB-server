@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
-  <file id="messages.en">
+  <file id="messages.de">
     <unit id="x_wTSQS" name="attachment_type.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
@@ -19,7 +19,7 @@
       </notes>
       <segment state="translated">
         <source>attachment_type.edit</source>
-        <target>Bearbeite Dateityp</target>
+        <target>Bearbeite [Attachment_type]</target>
       </segment>
     </unit>
     <unit id="wyou6GD" name="attachment_type.new">
@@ -29,7 +29,7 @@
       </notes>
       <segment state="translated">
         <source>attachment_type.new</source>
-        <target>Neuer Dateityp</target>
+        <target>Neuer [Attachment_type]</target>
       </segment>
     </unit>
     <unit id="JHaxw0a" name="category.labelp">
@@ -84,7 +84,7 @@
       </notes>
       <segment state="translated">
         <source>category.edit</source>
-        <target>Bearbeite Kategorie</target>
+        <target>Bearbeite [Category]</target>
       </segment>
     </unit>
     <unit id="6.rAXsX" name="category.new">
@@ -94,7 +94,7 @@
       </notes>
       <segment state="translated">
         <source>category.new</source>
-        <target>Neue Kategorie</target>
+        <target>Neue [Category]</target>
       </segment>
     </unit>
     <unit id="z1GMBc_" name="currency.caption">
@@ -134,7 +134,7 @@
       </notes>
       <segment state="translated">
         <source>currency.edit</source>
-        <target>Bearbeite Währung</target>
+        <target>Bearbeite [Currency]</target>
       </segment>
     </unit>
     <unit id="aTtTsUc" name="currency.new">
@@ -144,18 +144,7 @@
       </notes>
       <segment state="translated">
         <source>currency.new</source>
-        <target>Neue Währung</target>
-      </segment>
-    </unit>
-    <unit id="YFQ8iCW" name="project.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>project.caption</source>
-        <target>Projekte</target>
+        <target>Neue [Currency]</target>
       </segment>
     </unit>
     <unit id="pe43jlV" name="project.edit">
@@ -165,7 +154,7 @@
       </notes>
       <segment state="translated">
         <source>project.edit</source>
-        <target>Bearbeite Projekt</target>
+        <target>Bearbeite [Project]</target>
       </segment>
     </unit>
     <unit id="sYgrSg9" name="project.new">
@@ -175,7 +164,7 @@
       </notes>
       <segment state="translated">
         <source>project.new</source>
-        <target>Neues Projekt</target>
+        <target>Neues [Project]</target>
       </segment>
     </unit>
     <unit id="eLrezdb" name="search.placeholder">
@@ -405,7 +394,7 @@
       </notes>
       <segment state="translated">
         <source>footprint.edit</source>
-        <target>Bearbeite Footprint</target>
+        <target>Bearbeite [Footprint]</target>
       </segment>
     </unit>
     <unit id="9RgpRoK" name="footprint.new">
@@ -415,7 +404,7 @@
       </notes>
       <segment state="translated">
         <source>footprint.new</source>
-        <target>Neuer Footprint</target>
+        <target>Neuer [Footprint]</target>
       </segment>
     </unit>
     <unit id="tvm4F9e" name="group.edit.caption">
@@ -447,7 +436,7 @@
       </notes>
       <segment state="translated">
         <source>group.edit</source>
-        <target>Bearbeite Gruppe</target>
+        <target>Bearbeite [Group]</target>
       </segment>
     </unit>
     <unit id="_RN3Wph" name="group.new">
@@ -457,7 +446,7 @@
       </notes>
       <segment state="translated">
         <source>group.new</source>
-        <target>Neue Gruppe</target>
+        <target>Neue [Group]</target>
       </segment>
     </unit>
     <unit id="jXqdnm_" name="label_profile.caption">
@@ -494,7 +483,7 @@
       </notes>
       <segment state="translated">
         <source>label_profile.edit</source>
-        <target>Bearbeite Labelprofil</target>
+        <target>Bearbeite [Label_profile]</target>
       </segment>
     </unit>
     <unit id="WkNFJjx" name="label_profile.new">
@@ -504,7 +493,7 @@
       </notes>
       <segment state="translated">
         <source>label_profile.new</source>
-        <target>Neues Labelprofil</target>
+        <target>Neues [Label_profile]</target>
       </segment>
     </unit>
     <unit id="r3pQ31P" name="manufacturer.caption">
@@ -525,7 +514,7 @@
       </notes>
       <segment state="translated">
         <source>manufacturer.edit</source>
-        <target>Bearbeite Hersteller</target>
+        <target>Bearbeite [Manufacturer]</target>
       </segment>
     </unit>
     <unit id="dRX_cvD" name="manufacturer.new">
@@ -535,7 +524,7 @@
       </notes>
       <segment state="translated">
         <source>manufacturer.new</source>
-        <target>Neuer Hersteller</target>
+        <target>Neuer [Manufacturer]</target>
       </segment>
     </unit>
     <unit id="3ra2AyY" name="measurement_unit.caption">
@@ -546,6 +535,12 @@
       <segment state="translated">
         <source>measurement_unit.caption</source>
         <target>Maßeinheit</target>
+      </segment>
+    </unit>
+    <unit id="3bcKBzY" name="part_custom_state.caption">
+      <segment state="translated">
+        <source>part_custom_state.caption</source>
+        <target>Benutzerdefinierter Bauteilstatus</target>
       </segment>
     </unit>
     <unit id="crdkzlg" name="storelocation.labelp">
@@ -570,7 +565,7 @@
       </notes>
       <segment state="translated">
         <source>storelocation.edit</source>
-        <target>Bearbeite Lagerort</target>
+        <target>Bearbeite [Storage_location]</target>
       </segment>
     </unit>
     <unit id="am0iTCO" name="storelocation.new">
@@ -580,18 +575,7 @@
       </notes>
       <segment state="translated">
         <source>storelocation.new</source>
-        <target>Neuer Lagerort</target>
-      </segment>
-    </unit>
-    <unit id="Rt3eY_7" name="supplier.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>supplier.caption</source>
-        <target>Lieferanten</target>
+        <target>Neuer [Storage_location]</target>
       </segment>
     </unit>
     <unit id="ozZU_B5" name="supplier.edit">
@@ -601,7 +585,7 @@
       </notes>
       <segment state="translated">
         <source>supplier.edit</source>
-        <target>Bearbeite Lieferant</target>
+        <target>Bearbeite [Supplier]</target>
       </segment>
     </unit>
     <unit id="b8jlkMd" name="supplier.new">
@@ -611,7 +595,7 @@
       </notes>
       <segment state="translated">
         <source>supplier.new</source>
-        <target>Neuer Lieferant</target>
+        <target>Neuer [Supplier]</target>
       </segment>
     </unit>
     <unit id="vX.dhjK" name="user.edit.caption">
@@ -753,7 +737,7 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
       </notes>
       <segment state="translated">
         <source>user.edit</source>
-        <target>Bearbeite Benutzer</target>
+        <target>Bearbeite [User]</target>
       </segment>
     </unit>
     <unit id="esEoaa_" name="user.new">
@@ -763,7 +747,7 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
       </notes>
       <segment state="translated">
         <source>user.new</source>
-        <target>Neuer Benutzer</target>
+        <target>Neuer [User]</target>
       </segment>
     </unit>
     <unit id="KqHffuc" name="attachment.delete">
@@ -1797,7 +1781,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>part.edit.title</source>
-        <target>Bearbeite Bauteil %name%</target>
+        <target>Bearbeite [Part] %name%</target>
       </segment>
     </unit>
     <unit id="yFxHuAp" name="part.edit.card_title">
@@ -1839,6 +1823,66 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <segment state="translated">
         <source>part.edit.tab.advanced</source>
         <target>Erweiterte Optionen</target>
+      </segment>
+    </unit>
+    <unit id="_iVXTDt" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
+        <target>Vorschläge ohne Teil-Inkrement</target>
+      </segment>
+    </unit>
+    <unit id="7.yHB9w" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
+        <target>Vorschläge mit numerischen Teil-Inkrement</target>
+      </segment>
+    </unit>
+    <unit id="H1o.JFb" name="part.edit.tab.advanced.ipn.prefix.description.current-increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.current-increment</source>
+        <target>Aktuelle IPN-Angabe des Bauteils</target>
+      </segment>
+    </unit>
+    <unit id="wt.Rn7C" name="part.edit.tab.advanced.ipn.prefix.description.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.description.increment</source>
+        <target>Nächstmögliche IPN-Angabe auf Basis der identischen Bauteil-Beschreibung</target>
+      </segment>
+    </unit>
+    <unit id="RXA8jNa" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
+        <target>IPN-Präfix der direkten Kategorie leer, geben Sie einen Präfix in Kategorie "%name%" an</target>
+      </segment>
+    </unit>
+    <unit id="fdSIyqC" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
+        <target>IPN-Präfix der direkten Kategorie</target>
+      </segment>
+    </unit>
+    <unit id="0l7ST7C" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
+        <target>IPN-Präfix der direkten Kategorie und eines teilspezifischen Inkrements</target>
+      </segment>
+    </unit>
+    <unit id="1Y9qoug" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
+        <target>IPN-Präfixe mit hierarchischer Kategorienreihenfolge der Elternpräfixe</target>
+      </segment>
+    </unit>
+    <unit id="a6_204L" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
+        <target>IPN-Präfixe mit hierarchischer Kategorienreihenfolge der Elternpräfixe und ein teilsspezifisches Inkrement</target>
+      </segment>
+    </unit>
+    <unit id="VS8w2qp" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
+        <target>Bitte erstellen Sie zuerst ein Bauteil und weisen Sie dieses einer Kategorie zu: mit vorhandenen Kategorien und derene eigenen IPN-Präfix kann die IPN-Angabe für das jeweilige Teil automatisch vorgeschlagen werden</target>
       </segment>
     </unit>
     <unit id="c3S4jwK" name="part.edit.tab.part_lots">
@@ -1898,7 +1942,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>part.new.card_title</source>
-        <target>Neues Bauteil erstellen</target>
+        <target>Neues [Part] erstellen</target>
       </segment>
     </unit>
     <unit id="5TCcXwk" name="part_lot.delete">
@@ -2362,26 +2406,6 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <segment state="translated">
         <source>part.order.single_price</source>
         <target>Stückpreis</target>
-      </segment>
-    </unit>
-    <unit id="CbWR2nl" name="edit.caption_short">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
-      </notes>
-      <segment state="translated">
-        <source>edit.caption_short</source>
-        <target>Bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="er4pQft" name="delete.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
-      </notes>
-      <segment state="translated">
-        <source>delete.caption</source>
-        <target>Löschen</target>
       </segment>
     </unit>
     <unit id="pg0yCCK" name="part_lots.description">
@@ -2996,16 +3020,6 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Um den Zugang auch bei Verlust des Schlüssels zu gewährleisten, ist es empfehlenswert einen zweiten Schlüssel als Backup zu registrieren und diesen an einem sicheren Ort zu lagern!</target>
       </segment>
     </unit>
-    <unit id="IcnYTDa" name="r_u2f_two_factor.name">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
-      </notes>
-      <segment state="translated">
-        <source>r_u2f_two_factor.name</source>
-        <target>Anzeigename des Schlüssels (z.B. Backup)</target>
-      </segment>
-    </unit>
     <unit id="wH4JBAx" name="tfa_u2f.add_key.add_button">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:19</note>
@@ -3110,7 +3124,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.distinct_parts_count</source>
-        <target>Anzahl verschiedener Bauteile</target>
+        <target>Anzahl verschiedener [[Part]]</target>
       </segment>
     </unit>
     <unit id="sIGqnJ0" name="statistics.parts_instock_sum">
@@ -3121,7 +3135,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.parts_instock_sum</source>
-        <target>Summe aller vorhanden Bauteilebestände</target>
+        <target>Summe aller vorhandenen Bestände an [[Part]]</target>
       </segment>
     </unit>
     <unit id="uHmvfnI" name="statistics.parts_with_price">
@@ -3132,7 +3146,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.parts_with_price</source>
-        <target>Bauteile mit Preisinformationen</target>
+        <target>[[Part]] mit Preisinformationen</target>
       </segment>
     </unit>
     <unit id="7x89_xL" name="statistics.categories_count">
@@ -3143,7 +3157,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.categories_count</source>
-        <target>Anzahl Kategorien</target>
+        <target>Anzahl [[Category]]</target>
       </segment>
     </unit>
     <unit id="s0nLRjN" name="statistics.footprints_count">
@@ -3154,7 +3168,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.footprints_count</source>
-        <target>Anzahl Footprints</target>
+        <target>Anzahl [[Footprint]]</target>
       </segment>
     </unit>
     <unit id="f0gHZzl" name="statistics.manufacturers_count">
@@ -3165,7 +3179,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.manufacturers_count</source>
-        <target>Anzahl Hersteller</target>
+        <target>Anzahl [[Manufacturer]]</target>
       </segment>
     </unit>
     <unit id="_4rvCd3" name="statistics.storelocations_count">
@@ -3176,7 +3190,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.storelocations_count</source>
-        <target>Anzahl Lagerorte</target>
+        <target>Anzahl [[Storage_location]]</target>
       </segment>
     </unit>
     <unit id="tzzUvrm" name="statistics.suppliers_count">
@@ -3187,7 +3201,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.suppliers_count</source>
-        <target>Anzahl Lieferanten</target>
+        <target>Anzahl [[Supplier]]</target>
       </segment>
     </unit>
     <unit id="QEk.sHE" name="statistics.currencies_count">
@@ -3198,7 +3212,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.currencies_count</source>
-        <target>Anzahl Währungen</target>
+        <target>Anzahl [[Currency]]</target>
       </segment>
     </unit>
     <unit id="MTCnGlN" name="statistics.measurement_units_count">
@@ -3209,7 +3223,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.measurement_units_count</source>
-        <target>Anzahl Maßeinheiten</target>
+        <target>Anzahl [[Measurement_unit]]</target>
       </segment>
     </unit>
     <unit id="7sRXll2" name="statistics.devices_count">
@@ -3220,7 +3234,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.devices_count</source>
-        <target>Anzahl Baugruppen</target>
+        <target>Anzahl [[Project]]</target>
       </segment>
     </unit>
     <unit id="2u7zTMF" name="statistics.attachment_types_count">
@@ -3231,7 +3245,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>statistics.attachment_types_count</source>
-        <target>Anzahl Anhangstypen</target>
+        <target>Anzahl [[Attachment_type]]</target>
       </segment>
     </unit>
     <unit id="C0XsLQc" name="statistics.all_attachments_count">
@@ -3999,17 +4013,6 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Lieferant</target>
       </segment>
     </unit>
-    <unit id="liOuf4u" name="search.deactivateBarcode">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:57</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
-        <note priority="1">templates\base.html.twig:75</note>
-      </notes>
-      <segment state="translated">
-        <source>search.deactivateBarcode</source>
-        <target>Deakt. Barcode</target>
-      </segment>
-    </unit>
     <unit id="h7QrXRa" name="search.regexmatching">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
@@ -4301,16 +4304,6 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Änderungen gespeichert!</target>
       </segment>
     </unit>
-    <unit id="bNFdvNL" name="part.edited_flash.invalid">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-        <note priority="1">Part-DB1\src\Controller\PartController.php:186</note>
-      </notes>
-      <segment state="translated">
-        <source>part.edited_flash.invalid</source>
-        <target>Fehler beim Speichern: Überprüfen Sie ihre Eingaben!</target>
-      </segment>
-    </unit>
     <unit id="XFmvSsv" name="part.deleted">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:216</note>
@@ -4542,16 +4535,6 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>user.settings.2fa.backup_codes.regenerated</source>
         <target>Neue Backupcodes erfolgreich erzeugt.</target>
-      </segment>
-    </unit>
-    <unit id="9OPMdQa" name="attachment.table.filename">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:148</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.table.filename</source>
-        <target>Dateiname</target>
       </segment>
     </unit>
     <unit id="hSn3zNG" name="attachment.table.filesize">
@@ -4828,6 +4811,12 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>part.table.partUnit</source>
         <target>Maßeinheit</target>
+      </segment>
+    </unit>
+    <unit id="G1hmQdb" name="part.table.partCustomState">
+      <segment state="translated">
+        <source>part.table.partCustomState</source>
+        <target>Benutzerdefinierter Bauteilstatus</target>
       </segment>
     </unit>
     <unit id="R5pc2FR" name="part.table.addedDate">
@@ -5694,6 +5683,12 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Maßeinheit</target>
       </segment>
     </unit>
+    <unit id="kE1wJ1a" name="part.edit.partCustomState">
+      <segment state="translated">
+        <source>part.edit.partCustomState</source>
+        <target>Benutzerdefinierter Bauteilstatus</target>
+      </segment>
+    </unit>
     <unit id="oY_9HE9" name="part.edit.comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:212</note>
@@ -5981,6 +5976,12 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Maßeinheit</target>
       </segment>
     </unit>
+    <unit id="a1mPcMw" name="part_custom_state.label">
+      <segment state="translated">
+        <source>part_custom_state.label</source>
+        <target>Benutzerdefinierter Bauteilstatus</target>
+      </segment>
+    </unit>
     <unit id="__SP1Zy" name="currency.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:90</note>
@@ -6137,7 +6138,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.attachment_types</source>
-        <target>Dateitypen</target>
+        <target>[[Attachment_type]]</target>
       </segment>
     </unit>
     <unit id="u8jQbAc" name="tree.tools.edit.categories">
@@ -6148,7 +6149,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.categories</source>
-        <target>Kategorien</target>
+        <target>[[Category]]</target>
       </segment>
     </unit>
     <unit id="3n2K_az" name="tree.tools.edit.projects">
@@ -6159,7 +6160,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.projects</source>
-        <target>Projekte</target>
+        <target>[[Project]]</target>
       </segment>
     </unit>
     <unit id="raK7qaK" name="tree.tools.edit.suppliers">
@@ -6170,7 +6171,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.suppliers</source>
-        <target>Lieferanten</target>
+        <target>[[Supplier]]</target>
       </segment>
     </unit>
     <unit id="1IJ48Y0" name="tree.tools.edit.manufacturer">
@@ -6181,7 +6182,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.manufacturer</source>
-        <target>Hersteller</target>
+        <target>[[Manufacturer]]</target>
       </segment>
     </unit>
     <unit id="GNbWH_O" name="tree.tools.edit.storelocation">
@@ -6191,7 +6192,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.storelocation</source>
-        <target>Lagerorte</target>
+        <target>[[Storage_location]]</target>
       </segment>
     </unit>
     <unit id="7ZOhkd." name="tree.tools.edit.footprint">
@@ -6201,7 +6202,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.footprint</source>
-        <target>Footprints</target>
+        <target>[[Footprint]]</target>
       </segment>
     </unit>
     <unit id="U1zYjzD" name="tree.tools.edit.currency">
@@ -6211,7 +6212,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.currency</source>
-        <target>Währungen</target>
+        <target>[[Currency]]</target>
       </segment>
     </unit>
     <unit id="NnzEujm" name="tree.tools.edit.measurement_unit">
@@ -6221,7 +6222,13 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.measurement_unit</source>
-        <target>Maßeinheiten</target>
+        <target>[[Measurement_unit]]</target>
+      </segment>
+    </unit>
+    <unit id="5adacKb" name="tree.tools.edit.part_custom_state">
+      <segment state="translated">
+        <source>tree.tools.edit.part_custom_state</source>
+        <target>[[Part_custom_state]]</target>
       </segment>
     </unit>
     <unit id=".Ux4R3T" name="tree.tools.edit.label_profile">
@@ -6230,7 +6237,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.label_profile</source>
-        <target>Labelprofil</target>
+        <target>[[Label_profile]]</target>
       </segment>
     </unit>
     <unit id="eyvi0Zt" name="tree.tools.edit.part">
@@ -6240,7 +6247,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.part</source>
-        <target>Neues Bauteil</target>
+        <target>Neues [Part]</target>
       </segment>
     </unit>
     <unit id="nIHj_yk" name="tree.tools.show.all_parts">
@@ -6282,7 +6289,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.system.users</source>
-        <target>Benutzer</target>
+        <target>[[User]]</target>
       </segment>
     </unit>
     <unit id="dTEQQ3T" name="tree.tools.system.groups">
@@ -6292,7 +6299,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>tree.tools.system.groups</source>
-        <target>Gruppen</target>
+        <target>[[Group]]</target>
       </segment>
     </unit>
     <unit id="NWWki1R" name="tree.tools.system.event_log">
@@ -6315,16 +6322,6 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>entity.tree.new</source>
         <target>Neues Element</target>
-      </segment>
-    </unit>
-    <unit id="U.Ovrd7" name="attachment.external_file">
-      <notes>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>attachment.external_file</source>
-        <target>Externe Datei</target>
       </segment>
     </unit>
     <unit id="YqYH6GX" name="attachment.edit">
@@ -6595,16 +6592,6 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>validator.noneofitschild.children</source>
         <target>Ein Kindelement kann nicht das übergeordnete Element sein!</target>
-      </segment>
-    </unit>
-    <unit id="j_GFZOQ" name="validator.part_lot.location_full.no_increasment">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>validator.part_lot.location_full.no_increasment</source>
-        <target>Der verwendete Lagerort wurde als voll markiert, daher kann der Bestand nicht erhöht werden. (Neuer Bestand maximal {{ old_amount }})</target>
       </segment>
     </unit>
     <unit id="eeEjB4s" name="validator.part_lot.location_full">
@@ -6956,6 +6943,12 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>category.edit.partname_regex</source>
         <target>Namensfilter</target>
+      </segment>
+    </unit>
+    <unit id="a37rx0r" name="category.edit.part_ipn_prefix">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix</source>
+        <target>Bauteil IPN-Präfix</target>
       </segment>
     </unit>
     <unit id="yY_ld.7" name="category.edit.default_description">
@@ -7457,39 +7450,6 @@ Element 1 -&gt; Element 1.2</target>
         <target>Änderungen verwerfen</target>
       </segment>
     </unit>
-    <unit id="rwhG3NF" name="part.withdraw.btn">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:166</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.btn</source>
-        <target>Entnehmen</target>
-      </segment>
-    </unit>
-    <unit id="KYhBkRo" name="part.withdraw.comment:">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:171</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.comment:</source>
-        <target>Kommentar/Zweck</target>
-      </segment>
-    </unit>
-    <unit id="kAlV8Zt" name="part.add.caption">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:189</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.caption</source>
-        <target>Bauteil hinzufügen</target>
-      </segment>
-    </unit>
     <unit id="TAZxRYj" name="part.add.btn">
       <notes>
         <note priority="1">templates\Parts\show_part_info.html.twig:194</note>
@@ -7501,28 +7461,6 @@ Element 1 -&gt; Element 1.2</target>
         <target>Hinzufügen</target>
       </segment>
     </unit>
-    <unit id="yqLffb1" name="part.add.comment">
-      <notes>
-        <note priority="1">templates\Parts\show_part_info.html.twig:199</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.add.comment</source>
-        <target>Kommentar/Zweck</target>
-      </segment>
-    </unit>
-    <unit id="oj5uuIF" name="admin.comment">
-      <notes>
-        <note priority="1">templates\AdminPages\CompanyAdminBase.html.twig:15</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>admin.comment</source>
-        <target>Notizen</target>
-      </segment>
-    </unit>
     <unit id="VI_567B" name="manufacturer_url.label">
       <notes>
         <note priority="1">src\Form\PartType.php:83</note>
@@ -7532,69 +7470,6 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>manufacturer_url.label</source>
         <target>Herstellerlink</target>
-      </segment>
-    </unit>
-    <unit id="hx8T2RQ" name="part.description.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:66</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.description.placeholder</source>
-        <target>z.B. NPN 45V 0,1A 0,5W</target>
-      </segment>
-    </unit>
-    <unit id="SDwGex2" name="part.instock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:69</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.instock.placeholder</source>
-        <target>z.B. 12</target>
-      </segment>
-    </unit>
-    <unit id="of7AUNW" name="part.mininstock.placeholder">
-      <notes>
-        <note priority="1">src\Form\PartType.php:72</note>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.mininstock.placeholder</source>
-        <target>z.B. 10</target>
-      </segment>
-    </unit>
-    <unit id="OsZzrme" name="part.order.price_per">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.order.price_per</source>
-        <target>pro</target>
-      </segment>
-    </unit>
-    <unit id="dEQm2lQ" name="part.withdraw.caption">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>part.withdraw.caption</source>
-        <target>Bauteile entnehmen</target>
-      </segment>
-    </unit>
-    <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>datatable.datatable.lengthMenu</source>
-        <target>_MENU_</target>
       </segment>
     </unit>
     <unit id="IPge2iH" name="perm.group.parts">
@@ -8497,6 +8372,12 @@ Element 1 -&gt; Element 1.2</target>
         <target>Maßeinheiten</target>
       </segment>
     </unit>
+    <unit id="1b5ja1c" name="perm.part_custom_states">
+      <segment state="translated">
+        <source>perm.part_custom_states</source>
+        <target>Benutzerdefinierter Bauteilstatus</target>
+      </segment>
+    </unit>
     <unit id="coNue69" name="user.settings.pw_old.label">
       <notes>
         <note priority="1">obsolete</note>
@@ -8667,15 +8548,6 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>perm.tools.timeTravel</source>
         <target>Alte Versionsstände anzeigen (Zeitreisen)</target>
-      </segment>
-    </unit>
-    <unit id="tyCC1qL" name="tfa_u2f.key_added_successful">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>tfa_u2f.key_added_successful</source>
-        <target>Sicherheitsschlüssel erfolgreich hinzugefügt.</target>
       </segment>
     </unit>
     <unit id="gDVCAxj" name="log.type.security.google_disabled">
@@ -8874,12 +8746,6 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>group.edit.enforce_2fa.help</source>
         <target>Wenn diese Option aktiv ist, muss jedes direkte Mitglied dieser Gruppe, mindestens einen zweiten Faktor zur Authentifizierung einrichten. Empfohlen z.B. für administrative Gruppen mit weitreichenden Berechtigungen.</target>
-      </segment>
-    </unit>
-    <unit id="O2l2jsJ" name="selectpicker.empty">
-      <segment state="translated">
-        <source>selectpicker.empty</source>
-        <target>Nichts ausgewählt</target>
       </segment>
     </unit>
     <unit id="NwsYm0P" name="selectpicker.nothing_selected">
@@ -9138,12 +9004,6 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>user.pw_change_needed.flash</source>
         <target>Passwortänderung nötig! Bitte setze ein neues Passwort.</target>
-      </segment>
-    </unit>
-    <unit id="x98ftIM" name="tree.root_node.text">
-      <segment state="translated">
-        <source>tree.root_node.text</source>
-        <target>Wurzel</target>
       </segment>
     </unit>
     <unit id="2LkM7pn" name="part_list.action.select_null">
@@ -10328,10 +10188,22 @@ Element 1 -&gt; Element 1.2</target>
         <target>z.B. "/Kondensator \d+ nF/i"</target>
       </segment>
     </unit>
+    <unit id="5zV57Ks" name="category.edit.part_ipn_prefix.placeholder">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.placeholder</source>
+        <target>z.B. "B12A"</target>
+      </segment>
+    </unit>
     <unit id="DL.TreI" name="category.edit.partname_regex.help">
       <segment state="translated">
         <source>category.edit.partname_regex.help</source>
         <target>Ein PCRE-kompatibler regulärer Ausdruck, den der Bauteilename erfüllen muss.</target>
+      </segment>
+    </unit>
+    <unit id="f3gkGc9" name="category.edit.part_ipn_prefix.help">
+      <segment state="translated">
+        <source>category.edit.part_ipn_prefix.help</source>
+        <target>Ein Präfix, der bei der IPN-Eingabe eines Bauteils vorgeschlagen wird.</target>
       </segment>
     </unit>
     <unit id="GzqIwHH" name="entity.select.add_hint">
@@ -10880,6 +10752,12 @@ Element 1 -&gt; Element 1.2</target>
         <target>Maßeinheit</target>
       </segment>
     </unit>
+    <unit id="2COnw1k" name="log.element_edited.changed_fields.partCustomState">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.partCustomState</source>
+        <target>Benutzerdefinierter Bauteilstatus</target>
+      </segment>
+    </unit>
     <unit id="c9XMmAp" name="log.element_edited.changed_fields.expiration_date">
       <segment state="translated">
         <source>log.element_edited.changed_fields.expiration_date</source>
@@ -11135,13 +11013,25 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="r5F3f_G" name="measurement_unit.new">
       <segment state="translated">
         <source>measurement_unit.new</source>
-        <target>Neue Maßeinheit</target>
+        <target>Neue [Measurement_unit]</target>
       </segment>
     </unit>
     <unit id="W.vDRLw" name="measurement_unit.edit">
       <segment state="translated">
         <source>measurement_unit.edit</source>
-        <target>Bearbeite Maßeinheit</target>
+        <target>Bearbeite [Measurement_unit]</target>
+      </segment>
+    </unit>
+    <unit id="ba52d.g" name="part_custom_state.new">
+      <segment state="translated">
+        <source>part_custom_state.new</source>
+        <target>Neuer [Part_custom_state]</target>
+      </segment>
+    </unit>
+    <unit id="c1.gb2d" name="part_custom_state.edit">
+      <segment state="translated">
+        <source>part_custom_state.edit</source>
+        <target>Bearbeite [Part_custom_state]</target>
       </segment>
     </unit>
     <unit id="uW2WHHC" name="user.aboutMe.label">
@@ -11684,12 +11574,6 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>api_tokens.expiration_date</source>
         <target>Ablaufdatum</target>
-      </segment>
-    </unit>
-    <unit id="5k6W3jw" name="api_tokens.added_date">
-      <segment state="translated">
-        <source>api_tokens.added_date</source>
-        <target>Erstellt am</target>
       </segment>
     </unit>
     <unit id="leWWwKP" name="api_tokens.last_time_used">
@@ -13055,6 +12939,54 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Wenn Sie Wechselkurse zwischen Nicht-Euro-Währungen benötigen, können Sie hier einen API-Schlüssel von fixer.io eingeben.</target>
       </segment>
     </unit>
+    <unit id="yBc_psK" name="settings.misc.ipn_suggest">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest</source>
+        <target>Bauteil IPN-Vorschlagsliste</target>
+      </segment>
+    </unit>
+    <unit id="rMHQxvM" name="settings.misc.ipn_suggest.regex">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex</source>
+        <target>Regex</target>
+      </segment>
+    </unit>
+    <unit id="jGPeETQ" name="settings.misc.ipn_suggest.regex_help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex_help</source>
+        <target>Hilfetext</target>
+      </segment>
+    </unit>
+    <unit id="gsSNHJd" name="settings.misc.ipn_suggest.regex_help_description">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex_help_description</source>
+        <target>Definieren Sie Ihren eigenen Nutzer-Hilfetext zur Regex Formatvorgabe.</target>
+      </segment>
+    </unit>
+    <unit id="irHQep1" name="settings.misc.ipn_suggest.autoAppendSuffix">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.autoAppendSuffix</source>
+        <target>Hänge ein inkrementelles Suffix an, wenn eine IPN bereits durch ein anderes Bauteil verwendet wird.</target>
+      </segment>
+    </unit>
+    <unit id="MHvNzxt" name="settings.misc.ipn_suggest.suggestPartDigits">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.suggestPartDigits</source>
+        <target>Stellen für numerisches Inkrement</target>
+      </segment>
+    </unit>
+    <unit id="kH.lU0y" name="settings.misc.ipn_suggest.useDuplicateDescription">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.useDuplicateDescription</source>
+        <target>Verwende Bauteilebeschreibung zur Ermittlung der nächsten IPN</target>
+      </segment>
+    </unit>
+    <unit id="1RN3Xwz" name="settings.misc.ipn_suggest.suggestPartDigits.help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.suggestPartDigits.help</source>
+        <target>Die Anzahl der Ziffern, die für die inkrementale Nummerierung von Teilen im IPN-Vorschlagssystem verwendet werden.</target>
+      </segment>
+    </unit>
     <unit id="Ffr5xYM" name="settings.behavior.part_info">
       <segment state="translated">
         <source>settings.behavior.part_info</source>
@@ -14138,7 +14070,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="CPwXFjE" name="info_providers.bulk_import.priority_system.description">
       <segment state="translated">
         <source>info_providers.bulk_import.priority_system.description</source>
-        <target>Lower numbers = higher priority. Same priority = combine results. Different priorities = try highest first, fallback if no results.</target>
+        <target>Niedrigere Zahlen = höhere Priorität. Gleiche Priorität = Ergebnisse kombinieren. Unterschiedliche Prioritäten = zuerst die höchste versuchen, bei fehlenden Ergebnissen auf die niedrigere zurückgreifen.</target>
       </segment>
     </unit>
     <unit id="v.rTI5s" name="info_providers.bulk_import.priority_system.example">
@@ -14249,6 +14181,262 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Folgende Informationsquelle benötigt eine OAuth Neu-Verbindung: %provider%
 Dies ist auf der Informationsquellen Übersichtsseite möglich.</target>
       </segment>
+    </unit>
+    <unit id="L4nq52R" name="settings.misc.ipn_suggest.useDuplicateDescription.help">
+      <segment>
+        <source>settings.misc.ipn_suggest.useDuplicateDescription.help</source>
+        <target>Wenn aktiviert, wird die Bauteil-Beschreibung verwendet, um vorhandene Teile mit derselben Beschreibung zu finden und die nächste verfügbare IPN für die Vorschlagsliste zu ermitteln, indem der numerische Suffix entsprechend erhöht wird.</target>
+      </segment>
+    </unit>
+    <unit id="NIw6dtz" name="settings.misc.ipn_suggest.regex.help">
+      <segment>
+        <source>settings.misc.ipn_suggest.regex.help</source>
+        <target>Ein PCRE-kompatibler regulärer Ausdruck, den jede IPN erfüllen muss. Leer lassen, um alles als IPN zu erlauben.</target>
+      </segment>
+    </unit>
+    <unit id="MoHHSNT" name="user.labelp">
+      <segment>
+        <source>user.labelp</source>
+        <target>Benutzer</target>
+      </segment>
+    </unit>
+    <unit id="5.oI1XD" name="currency.labelp">
+      <segment>
+        <source>currency.labelp</source>
+        <target>Währungen</target>
+      </segment>
+    </unit>
+    <unit id="8F2EwVK" name="measurement_unit.labelp">
+      <segment>
+        <source>measurement_unit.labelp</source>
+        <target>Maßeinheiten</target>
+      </segment>
+    </unit>
+    <unit id="hYrcka2" name="attachment_type.labelp">
+      <segment>
+        <source>attachment_type.labelp</source>
+        <target>Dateitypen</target>
+      </segment>
+    </unit>
+    <unit id="p.Sjja3" name="label_profile.labelp">
+      <segment>
+        <source>label_profile.labelp</source>
+        <target>Labelprofile</target>
+      </segment>
+    </unit>
+    <unit id="Y_ISV0y" name="part_custom_state.labelp">
+      <segment>
+        <source>part_custom_state.labelp</source>
+        <target>Benutzerdefinierte Bauteilstatus</target>
+      </segment>
+    </unit>
+    <unit id="aXr7mN." name="group.labelp">
+      <segment>
+        <source>group.labelp</source>
+        <target>Gruppen</target>
+      </segment>
+    </unit>
+    <unit id="O10voez" name="settings.synonyms.type_synonym.type">
+      <segment>
+        <source>settings.synonyms.type_synonym.type</source>
+        <target>Typ</target>
+      </segment>
+    </unit>
+    <unit id="1BDQVEp" name="settings.synonyms.type_synonym.language">
+      <segment>
+        <source>settings.synonyms.type_synonym.language</source>
+        <target>Sprache</target>
+      </segment>
+    </unit>
+    <unit id="2.g2ewQ" name="settings.synonyms.type_synonym.translation_singular">
+      <segment>
+        <source>settings.synonyms.type_synonym.translation_singular</source>
+        <target>Übersetzung Singular</target>
+      </segment>
+    </unit>
+    <unit id="Up9ZhvR" name="settings.synonyms.type_synonym.translation_plural">
+      <segment>
+        <source>settings.synonyms.type_synonym.translation_plural</source>
+        <target>Übersetzung Plural</target>
+      </segment>
+    </unit>
+    <unit id="BHoS230" name="settings.synonyms.type_synonym.add_entry">
+      <segment>
+        <source>settings.synonyms.type_synonym.add_entry</source>
+        <target>Eintrag hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="wvtOEBn" name="settings.synonyms.type_synonym.remove_entry">
+      <segment>
+        <source>settings.synonyms.type_synonym.remove_entry</source>
+        <target>Eintrag entfernen</target>
+      </segment>
+    </unit>
+    <unit id="mLu.2F2" name="settings.synonyms">
+      <segment>
+        <source>settings.synonyms</source>
+        <target>Synonyme</target>
+      </segment>
+    </unit>
+    <unit id="SHgc9i." name="settings.synonyms.help">
+      <segment>
+        <source>settings.synonyms.help</source>
+        <target>Das Synonymsystem ermöglicht es, zu überschreiben, wie Part-DB bestimmte Dinge benennt. Dies kann nützlich sein, insbesondere wenn Part-DB in einem anderen Kontext als Elektronik verwendet wird.
+Bitte beachten Sie, dass dieses System derzeit experimentell ist und die hier definierten Synonyme möglicherweise nicht an allen Stellen angezeigt werden.</target>
+      </segment>
+    </unit>
+    <unit id="piB78W5" name="settings.synonyms.type_synonyms">
+      <segment>
+        <source>settings.synonyms.type_synonyms</source>
+        <target>Typsynonyme</target>
+      </segment>
+    </unit>
+    <unit id="J8T2HuD" name="settings.synonyms.type_synonyms.help">
+      <segment>
+        <source>settings.synonyms.type_synonyms.help</source>
+        <target>Mit Typsynonymen können Sie die Bezeichnungen von integrierten Datentypen ersetzen. Zum Beispiel können Sie „Footprint" in etwas anderes umbenennen.</target>
+      </segment>
+    </unit>
+    <unit id="wjcsjzT" name="log.element_edited.changed_fields.part_ipn_prefix">
+      <segment>
+        <source>log.element_edited.changed_fields.part_ipn_prefix</source>
+        <target>IPN-Präfix</target>
+      </segment>
+    </unit>
+    <unit id="R4hoCqe" name="part.labelp">
+      <segment>
+        <source>part.labelp</source>
+        <target>Bauteile</target>
+      </segment>
+    </unit>
+    <unit id=".tjK0ju" name="project_bom_entry.labelp">
+      <segment>
+        <source>project_bom_entry.labelp</source>
+        <target>BOM-Einträge</target>
+      </segment>
+    </unit>
+    <unit id="ftBf11d" name="part_lot.labelp">
+      <segment>
+        <source>part_lot.labelp</source>
+        <target>Bauteilbestände</target>
+      </segment>
+    </unit>
+    <unit id="UVDJmYp" name="orderdetail.labelp">
+      <segment>
+        <source>orderdetail.labelp</source>
+        <target>Bestellinformationen</target>
+      </segment>
+    </unit>
+    <unit id="83AQqv." name="pricedetail.labelp">
+      <segment>
+        <source>pricedetail.labelp</source>
+        <target>Preisinformationen</target>
+      </segment>
+    </unit>
+    <unit id="4KRV2mB" name="parameter.labelp">
+      <segment>
+        <source>parameter.labelp</source>
+        <target>Parameter</target>
+      </segment>
+    </unit>
+    <unit id="AAYYeiw" name="part_association.labelp">
+      <segment>
+        <source>part_association.labelp</source>
+        <target>Bauteilzuordnungen</target>
+      </segment>
+    </unit>
+    <unit id="2_3Lz7i" name="bulk_info_provider_import_job.labelp">
+      <segment>
+        <source>bulk_info_provider_import_job.labelp</source>
+        <target>Massenimporte von Informationsquellen</target>
+      </segment>
+    </unit>
+    <unit id="BXTqi16" name="bulk_info_provider_import_job_part.labelp">
+      <segment>
+        <source>bulk_info_provider_import_job_part.labelp</source>
+        <target>Massenimportauftrag Bauteil</target>
+      </segment>
+    </unit>
+    <unit id="91Wvg.F" name="password_toggle.hide">
+      <segment>
+        <source>password_toggle.hide</source>
+        <target>Ausblenden</target>
+      </segment>
+    </unit>
+    <unit id="2vciZN7" name="password_toggle.show">
+      <segment>
+        <source>password_toggle.show</source>
+        <target>Anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="PVw6Lx4" name="settings.misc.ipn_suggest.regex.help.placeholder">
+      <segment>
+        <source>settings.misc.ipn_suggest.regex.help.placeholder</source>
+        <target>z.B. Format: 3–4 alphanumerische Segmente getrennt durch „-", gefolgt von „-" und 4 Ziffern, z.B. PCOM-RES-0001</target>
+      </segment>
+    </unit>
+    <unit id="M5Q_eZW" name="part.edit.tab.advanced.ipn.prefix.global_prefix">
+      <segment>
+        <source>part.edit.tab.advanced.ipn.prefix.global_prefix</source>
+        <target>Das globale IPN-Präfix, das für alle Bauteile gilt</target>
+      </segment>
+    </unit>
+    <unit id="WlKvQeB" name="settings.misc.ipn_suggest.fallbackPrefix">
+      <segment>
+        <source>settings.misc.ipn_suggest.fallbackPrefix</source>
+        <target>Fallback-Präfix</target>
+      </segment>
+    </unit>
+    <unit id="Fr8hXdE" name="settings.misc.ipn_suggest.fallbackPrefix.help">
+      <segment>
+        <source>settings.misc.ipn_suggest.fallbackPrefix.help</source>
+        <target>Das IPN-Präfix, das verwendet werden soll, wenn eine Kategorie kein Präfix definiert hat.</target>
+      </segment>
+    </unit>
+    <unit id="_p9cMpI" name="settings.misc.ipn_suggest.numberSeparator">
+      <segment>
+        <source>settings.misc.ipn_suggest.numberSeparator</source>
+        <target>Nummerntrennzeichen</target>
+      </segment>
+    </unit>
+    <unit id="CqfzuM6" name="settings.misc.ipn_suggest.numberSeparator.help">
+      <segment>
+        <source>settings.misc.ipn_suggest.numberSeparator.help</source>
+        <target>Das Trennzeichen, das verwendet wird, um die IPN-Nummer vom Präfix zu trennen.</target>
+      </segment>
+    </unit>
+    <unit id="PisGfwB" name="settings.misc.ipn_suggest.categorySeparator">
+      <segment>
+        <source>settings.misc.ipn_suggest.categorySeparator</source>
+        <target>Kategorietrennzeichen</target>
+      </segment>
+    </unit>
+    <unit id="jlNd0CI" name="settings.misc.ipn_suggest.categorySeparator.help">
+      <segment>
+        <source>settings.misc.ipn_suggest.categorySeparator.help</source>
+        <target>Das Trennzeichen, das verwendet wird, um verschiedene Ebenen von Kategoriepräfixen zu trennen.</target>
+      </segment>
+    </unit>
+    <unit id="MkiJuRK" name="settings.misc.ipn_suggest.globalPrefix">
+      <segment>
+        <source>settings.misc.ipn_suggest.globalPrefix</source>
+        <target>Globales Präfix</target>
+      </segment>
+    </unit>
+    <unit id="Akh9iFg" name="settings.misc.ipn_suggest.globalPrefix.help">
+      <segment>
+        <source>settings.misc.ipn_suggest.globalPrefix.help</source>
+        <target>Wenn aktiviert, wird eine Option zur Generierung einer IPN mit diesem globalen Präfix angeboten, das für Bauteile in allen Kategorien gilt.</target>
+      </segment>
+    </unit>
+    <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
+        <notes>
+            <note priority="1">Do not remove! Used for datatables rendering.</note>
+        </notes>
+        <segment state="translated">
+            <source>datatable.datatable.lengthMenu</source>
+            <target>_MENU_</target>
+          </segment>
     </unit>
   </file>
 </xliff>

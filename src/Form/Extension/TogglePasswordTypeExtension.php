@@ -46,8 +46,8 @@ final class TogglePasswordTypeExtension extends AbstractTypeExtension
     {
         $resolver->setDefaults([
             'toggle' => false,
-            'hidden_label' => 'Hide',
-            'visible_label' => 'Show',
+            'hidden_label' => new TranslatableMessage('password_toggle.hide'),
+            'visible_label' => new TranslatableMessage('password_toggle.show'),
             'hidden_icon' => 'Default',
             'visible_icon' => 'Default',
             'button_classes' => ['toggle-password-button'],

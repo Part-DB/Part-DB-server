@@ -32,13 +32,12 @@ use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\UserSystem\User;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @group slow
- * @group DB
- */
+#[Group("slow")]
+#[Group("DB")]
 class PartControllerTest extends WebTestCase
 {
     public function testShowPart(): void

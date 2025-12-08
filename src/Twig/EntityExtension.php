@@ -24,6 +24,7 @@ namespace App\Twig;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
@@ -75,6 +76,8 @@ final class EntityExtension extends AbstractExtension
 
             /* Gets a human readable label for the type of the given entity */
             new TwigFunction('entity_type_label', fn(object|string $entity): string => $this->nameGenerator->getLocalizedTypeLabel($entity)),
+            new TwigFunction('type_label', fn(object|string $entity): string => $this->nameGenerator->typeLabel($entity)),
+            new TwigFunction('type_label_p', fn(object|string $entity): string => $this->nameGenerator->typeLabelPlural($entity)),
         ];
     }
 
@@ -115,6 +118,7 @@ final class EntityExtension extends AbstractExtension
             Currency::class => 'currency',
             MeasurementUnit::class => 'measurement_unit',
             LabelProfile::class => 'label_profile',
+            PartCustomState::class => 'part_custom_state',
         ];
 
         foreach ($map as $class => $type) {
