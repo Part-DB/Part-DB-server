@@ -1734,7 +1734,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *     length?: scalar|null, // Default: 5
  *     width?: scalar|null, // Default: 130
  *     height?: scalar|null, // Default: 50
- *     font?: scalar|null, // Default: "C:\\Users\\mail\\Documents\\PHP\\Part-DB-server\\vendor\\gregwar\\captcha-bundle\\DependencyInjection/../Generator/Font/captcha.ttf"
+ *     font?: scalar|null, // Default: "/opt/partdb/vendor/gregwar/captcha-bundle/DependencyInjection/../Generator/Font/captcha.ttf"
  *     keep_value?: scalar|null, // Default: false
  *     charset?: scalar|null, // Default: "abcdefhjkmnprstuvwxyz23456789"
  *     as_file?: scalar|null, // Default: false
