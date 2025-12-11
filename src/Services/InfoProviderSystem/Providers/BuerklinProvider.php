@@ -603,7 +603,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
 
         return $params;
     }
-    public function searchBatch(array $keywords): array
+    public function searchByKeywordsBatch(array $keywords): array
     {
         $results = [];
 
