@@ -29,6 +29,7 @@ use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\BuerklinSettings;
 use App\Services\OAuth\OAuthTokenManager;
 use Psr\Cache\CacheItemPoolInterface;
@@ -603,42 +604,28 @@ class BuerklinProvider implements BatchInfoProviderInterface
 
         return $params;
     }
+    /**
+     * @param string[] $keywords
+     * @return array<string, SearchResultDTO[]>
+     */
     public function searchByKeywordsBatch(array $keywords): array
     {
         $results = [];
 
         foreach ($keywords as $keyword) {
-            $keyword = trim((string) $keyword);
+            $keyword = strtoupper(trim((string) $keyword));
             if ($keyword === '') {
                 continue;
             }
 
-            // 1) Erst versuchen: direkte Produktabfrage (Order-Number)
-            try {
-                $product = $this->makeAPICall('/products/' . rawurlencode($keyword) . '/');
-                $results[$keyword] = $this->getPartDetail($product);
-                continue;
-            } catch (\Throwable $e) {
-                // ignore – war wohl keine gültige Bürklin-OrderNumber
-            }
+            // Bestehende Einzelsuche wiederverwenden → liefert PartDetailDTO[]
+            $partDetails = $this->searchByKeyword($keyword);
 
-            // 2) Zweiter Versuch: freie Suche über search API
-            $products = $this->searchProducts($keyword);
-
-            // Falls nix gefunden → normalisierte Suche (wie single search)
-            if (empty($products)) {
-                $normalized = preg_replace('/[^A-Za-z0-9]+/', ' ', $keyword);
-                $normalized = trim(preg_replace('/\s+/', ' ', $normalized));
-
-                if ($normalized !== '' && stripos($normalized, $keyword) !== 0) {
-                    $products = $this->searchProducts($normalized);
-                }
-            }
-
-            if (!empty($products)) {
-                // Nur das erste Produkt zurückgeben (Part-DB erwartet 1:1-Mapping)
-                $results[$keyword] = $this->getPartDetail($products[0]);
-            }
+            // In SearchResultDTO[] konvertieren
+            $results[$keyword] = array_map(
+                fn(PartDetailDTO $detail) => $this->convertPartDetailToSearchResult($detail),
+                $partDetails
+            );
         }
 
         return $results;
@@ -653,6 +640,25 @@ class BuerklinProvider implements BatchInfoProviderInterface
         ]);
 
         return $response['products'] ?? [];
+    }
+    /**
+     * Konvertiert ein PartDetailDTO in ein SearchResultDTO für Bulk-Suche.
+     */
+    private function convertPartDetailToSearchResult(PartDetailDTO $detail): SearchResultDTO
+    {
+        return new SearchResultDTO(
+            provider_key: $detail->provider_key,
+            provider_id: $detail->provider_id,
+            name: $detail->name,
+            description: $detail->description ?? '',
+            category: $detail->category ?? null,
+            manufacturer: $detail->manufacturer ?? null,
+            mpn: $detail->mpn ?? null,
+            preview_image_url: $detail->preview_image_url ?? null,
+            manufacturing_status: $detail->manufacturing_status ?? null,
+            provider_url: $detail->provider_url ?? null,
+            footprint: $detail->footprint ?? null,
+        );
     }
 
 }
