@@ -29,6 +29,7 @@ use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use App\Settings\InfoProviderSystem\BuerklinSettings;
 use App\Services\OAuth\OAuthTokenManager;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -53,19 +54,7 @@ class BuerklinProvider implements InfoProviderInterface
         private readonly HttpClientInterface $client,
         private readonly OAuthTokenManager $authTokenManager,
         private readonly CacheItemPoolInterface $partInfoCache,
-        #[Autowire(env: "string:PROVIDER_BUERKLIN_CLIENT_ID")]
-        private readonly string $clientId = "",
-        #[Autowire(env: "string:PROVIDER_BUERKLIN_SECRET")]
-        private readonly string $secret = "",
-        #[Autowire(env: "string:PROVIDER_BUERKLIN_USERNAME")]
-        private readonly string $username = "",
-        #[Autowire(env: "string:PROVIDER_BUERKLIN_PASSWORD")]
-        private readonly string $password = "",
-        #[Autowire(env: "string:PROVIDER_BUERKLIN_LANGUAGE")]
-        private readonly string $language = "en",
-        #[Autowire(env: "string:PROVIDER_BUERKLIN_CURRENCY")]
-        private readonly string $currency = "EUR"
-    ) {
+        ) {
 
     }
 
@@ -94,10 +83,10 @@ class BuerklinProvider implements InfoProviderInterface
             ],
             'body' => [
                 'grant_type' => 'password',
-                'client_id' => $this->clientId,
-                'client_secret' => $this->secret,
-                'username' => $this->username,
-                'password' => $this->password,
+                'client_id' => $this->settings->clientId,
+                'client_secret' => $this->settings->secret,
+                'username' => $this->settings->username,
+                'password' => $this->settings->password,
             ],
         ]);
 
@@ -126,8 +115,8 @@ class BuerklinProvider implements InfoProviderInterface
     private function getDefaultQueryParams(): array
     {
         return [
-            'curr' => $this->currency ?: 'EUR',
-            'language' => $this->language ?: 'en',
+            'curr' => $this->settings->currency ?: 'EUR',
+            'language' => $this->settings->language ?: 'en',
         ];
     }
 
@@ -201,10 +190,10 @@ class BuerklinProvider implements InfoProviderInterface
     public function isActive(): bool
     {
         //The client ID has to be set and a token has to be available (user clicked connect)
-        return $this->clientId !== ''
-            && $this->secret !== ''
-            && $this->username !== ''
-            && $this->password !== '';
+        return $this->settings->clientId !== ''
+            && $this->settings->secret !== ''
+            && $this->settings->username !== ''
+            && $this->settings->password !== '';
     }
 
     /**
@@ -355,7 +344,7 @@ class BuerklinProvider implements InfoProviderInterface
             return new PriceDTO(
                 minimum_discount_amount: (float) ($price['minQuantity'] ?? 1),
                 price: $valStr,
-                currency_iso_code: (string) ($price['currencyIso'] ?? $this->currency ?? 'EUR'),
+                currency_iso_code: (string) ($price['currencyIso'] ?? $this->settings->currency ?? 'EUR'),
                 includes_tax: false
             );
         }, $prices);
