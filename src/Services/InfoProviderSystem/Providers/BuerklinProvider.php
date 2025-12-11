@@ -490,7 +490,7 @@ class BuerklinProvider implements InfoProviderInterface
 
         $response = $this->makeAPICall('/products/search/', [
             'pageSize' => 50,
-            'currentPage' => 1,
+            'currentPage' => 0,
             'query' => $keyword,
             'sort' => 'relevance',
         ]);
