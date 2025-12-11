@@ -31,7 +31,6 @@ use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\BuerklinSettings;
-use App\Services\OAuth\OAuthTokenManager;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpClient\HttpOptions;
@@ -53,7 +52,6 @@ class BuerklinProvider implements BatchInfoProviderInterface
 
     public function __construct(
         private readonly HttpClientInterface $client,
-        private readonly OAuthTokenManager $authTokenManager,
         private readonly CacheItemPoolInterface $partInfoCache,
         private readonly BuerklinSettings $settings,
     ) {
@@ -197,20 +195,6 @@ class BuerklinProvider implements BatchInfoProviderInterface
             && $this->settings->secret !== ''
             && $this->settings->username !== ''
             && $this->settings->password !== '';
-    }
-
-    /**
-     * @param  string  $id
-     * @return PartDetailDTO
-     */
-    private function queryDetail(string $id): PartDetailDTO
-    {
-        $product = $this->getProduct($id);
-        if ($product === null) {
-            throw new \RuntimeException('Could not find product code: ' . $id);
-        }
-
-        return $this->getPartDetail($product);
     }
 
     /**
@@ -423,18 +407,8 @@ class BuerklinProvider implements BatchInfoProviderInterface
         );
     }
 
-
-
-    /**
-     * @param  array|null  $attributes
-     * @return ParameterDTO[]
-     */
     private function attributesToParameters(array $features, ?string $group = null): array
     {
-        if (!is_array($features)) {
-            return [];
-        }
-
         $out = [];
 
         foreach ($features as $f) {
@@ -482,7 +456,9 @@ class BuerklinProvider implements BatchInfoProviderInterface
         return array_values($byName);
     }
 
-
+    /**
+     * @return PartDetailDTO[]
+     */
     public function searchByKeyword(string $keyword): array
     {
         $keyword = strtoupper(trim($keyword));
@@ -512,8 +488,6 @@ class BuerklinProvider implements BatchInfoProviderInterface
             return [];
         }
     }
-
-
 
     public function getDetails(string $id): PartDetailDTO
     {
@@ -613,6 +587,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
      */
     public function searchByKeywordsBatch(array $keywords): array
     {
+        /** @var array<string, SearchResultDTO[]> $results */
         $results = [];
 
         foreach ($keywords as $keyword) {
@@ -622,6 +597,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
             }
 
             // Reuse existing single search -> returns PartDetailDTO[]
+            /** @var PartDetailDTO[] $partDetails */
             $partDetails = $this->searchByKeyword($keyword);
 
             // Convert to SearchResultDTO[]
@@ -632,18 +608,6 @@ class BuerklinProvider implements BatchInfoProviderInterface
         }
 
         return $results;
-    }
-
-    private function searchProducts(string $query): array
-    {
-        $response = $this->makeAPICall('/products/search/', [
-            'pageSize' => 50,
-            'currentPage' => 0,
-            'query' => $query,
-            'sort' => 'relevance',
-        ]);
-
-        return $response['products'] ?? [];
     }
 
     /**
