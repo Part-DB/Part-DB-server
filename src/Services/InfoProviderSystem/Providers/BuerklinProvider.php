@@ -561,28 +561,16 @@ class BuerklinProvider implements InfoProviderInterface
 
         $add('RoHS conform', $product['labelRoHS'] ?? null);          // "yes"/"no"
 
-        // RoHS-Datum: Name immer "RoHS date", Format abhängig von Sprache
         $rawRoHsDate = $product['dateRoHS'] ?? null;
+        // Try to parse and reformat date to Y-m-d (don't use language-dependent formats)
         if (is_string($rawRoHsDate) && $rawRoHsDate !== '') {
             try {
                 $dt = new \DateTimeImmutable($rawRoHsDate);
-
-                $lang = strtolower($this->settings->language);
-
-                if ($lang === 'de') {
-                    // d.m.Y Date format if German: 31.03.2015
-                    $formatted = $dt->format('d.m.Y');
-                } elseif ($lang === 'en') {
-                    // n/j/y Date format if English: 3/31/15
-                    $formatted = $dt->format('n/j/y');
-                } else {
-                    // Fallback
-                    $formatted = $dt->format('Y-m-d');
-                }
+                $formatted = $dt->format('Y-m-d');
             } catch (\Exception $e) {
                 $formatted = $rawRoHsDate;
             }
-            // Use always the same parameter name
+            // Use always the same parameter name (don't use language-dependent names)
             $add('RoHS date', $formatted);
         }
         $add('SVHC free', $product['SVHC'] ?? null);               // bool
@@ -592,8 +580,25 @@ class BuerklinProvider implements InfoProviderInterface
         $add('Country of origin', $product['countryOfOrigin'] ?? null);
         // Customs tariffs code/Zolltarifnummer always as string otherwise "85411000" is stored as "8.5411e+7"
         if (isset($product['articleCustomsCode'])) {
-            $code = (string) $product['articleCustomsCode'];
-            $add('Customs code', $code);
+            // Rohwert als String
+            $codeRaw = (string) $product['articleCustomsCode'];
+
+            // Optional: nur Ziffern behalten (falls mal Leerzeichen o.ä. drin sind)
+            $code = preg_replace('/\D/', '', $codeRaw) ?? $codeRaw;
+            $code = trim($code);
+
+            if ($code !== '') {
+                $params[] = new ParameterDTO(
+                    name: 'Customs code',
+                    value_text: $code,
+                    value_typ: null,
+                    value_min: null,
+                    value_max: null,
+                    unit: null,
+                    symbol: null,
+                    group: $group
+                );
+            }
         }
 
         return $params;
