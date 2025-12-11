@@ -3,6 +3,7 @@
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  *  Copyright (C) 2019 - 2025 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2025 Marc Kreidler (https://github.com/mkne)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -42,40 +43,41 @@ class BuerklinSettings
     use SettingsTrait;
 
     #[SettingsParameter(
-        label: new TM("settings.ips.buerklin.client_id"),
+        label: new TM("settings.ips.digikey.client_id"),
         formType: APIKeyType::class,
         envVar: "PROVIDER_BUERKLIN_CLIENT_ID", envVarMode: EnvVarMode::OVERWRITE
     )]
     public ?string $clientId = null;
 
     #[SettingsParameter(
-        label: new TM("settings.ips.buerklin.secret"),
+        label: new TM("settings.ips.digikey.secret"),
         formType: APIKeyType::class,
         envVar: "PROVIDER_BUERKLIN_SECRET", envVarMode: EnvVarMode::OVERWRITE
     )]
     public ?string $secret = null;
 
         #[SettingsParameter(
-        label: new TM("settings.ips.buerklin.username"),
+        label: new TM("user.username"),
         formType: APIKeyType::class,
         envVar: "PROVIDER_BUERKLIN_USER", envVarMode: EnvVarMode::OVERWRITE
     )]
     public ?string $username = null;
 
         #[SettingsParameter(
-        label: new TM("settings.ips.buerklin.password"),
+        label: new TM("user.edit.password"),
         formType: APIKeyType::class,
         envVar: "PROVIDER_BUERKLIN_PASSWORD", envVarMode: EnvVarMode::OVERWRITE
     )]
     public ?string $password = null;
 
-    #[SettingsParameter(label: new TM("settings.ips.buerklin.currency"), formType: CurrencyType::class,
-        formOptions: ["preferred_choices" => ["EUR", "USD", "CHF", "GBP"]],
+    #[SettingsParameter(label: new TM("settings.ips.tme.currency"), formType: CurrencyType::class,
+        formOptions: ["preferred_choices" => ["EUR"]],
         envVar: "PROVIDER_BUERKLIN_CURRENCY", envVarMode: EnvVarMode::OVERWRITE)]
     #[Assert\Currency()]
     public string $currency = "EUR";
 
-    #[SettingsParameter(label: new TM("settings.ips.buerklin.language"), formType: LanguageType::class,
+    #[SettingsParameter(label: new TM("settings.ips.tme.language"), formType: LanguageType::class,
+                        formOptions: ["preferred_choices" => ["en", "de"]],
         envVar: "PROVIDER_BUERKLIN_LANGUAGE", envVarMode: EnvVarMode::OVERWRITE)]
     #[Assert\Language]
     public string $language = "en";
