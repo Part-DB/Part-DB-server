@@ -36,7 +36,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpClient\HttpOptions;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class BuerklinProvider implements InfoProviderInterface
+class BuerklinProvider implements BatchInfoProviderInterface
 {
 
     private const ENDPOINT_URL = 'https://www.buerklin.com/buerklinws/v2/buerklin';
@@ -603,4 +603,56 @@ class BuerklinProvider implements InfoProviderInterface
 
         return $params;
     }
+    public function searchBatch(array $keywords): array
+    {
+        $results = [];
+
+        foreach ($keywords as $keyword) {
+            $keyword = trim((string) $keyword);
+            if ($keyword === '') {
+                continue;
+            }
+
+            // 1) Erst versuchen: direkte Produktabfrage (Order-Number)
+            try {
+                $product = $this->makeAPICall('/products/' . rawurlencode($keyword) . '/');
+                $results[$keyword] = $this->getPartDetail($product);
+                continue;
+            } catch (\Throwable $e) {
+                // ignore – war wohl keine gültige Bürklin-OrderNumber
+            }
+
+            // 2) Zweiter Versuch: freie Suche über search API
+            $products = $this->searchProducts($keyword);
+
+            // Falls nix gefunden → normalisierte Suche (wie single search)
+            if (empty($products)) {
+                $normalized = preg_replace('/[^A-Za-z0-9]+/', ' ', $keyword);
+                $normalized = trim(preg_replace('/\s+/', ' ', $normalized));
+
+                if ($normalized !== '' && stripos($normalized, $keyword) !== 0) {
+                    $products = $this->searchProducts($normalized);
+                }
+            }
+
+            if (!empty($products)) {
+                // Nur das erste Produkt zurückgeben (Part-DB erwartet 1:1-Mapping)
+                $results[$keyword] = $this->getPartDetail($products[0]);
+            }
+        }
+
+        return $results;
+    }
+    private function searchProducts(string $query): array
+    {
+        $response = $this->makeAPICall('/products/search/', [
+            'pageSize' => 50,
+            'currentPage' => 0,
+            'query' => $query,
+            'sort' => 'relevance',
+        ]);
+
+        return $response['products'] ?? [];
+    }
+
 }
