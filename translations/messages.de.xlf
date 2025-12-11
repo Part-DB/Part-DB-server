@@ -14444,5 +14444,19 @@ Bitte beachten Sie, dass dieses System derzeit experimentell ist und die hier de
         <target>Buerklin</target>
       </segment>
     </unit>
+    <unit id="nlVH1Nb" name="settings.ips.buerklin.username">
+      <segment>
+        <source>settings.ips.buerklin.username</source>
+        <target>Benutzername</target>
+      </segment>
+    </unit>
+    <unit id="BlR_EQc" name="settings.ips.buerklin.help">
+      <segment>
+        <source>settings.ips.buerklin.help</source>
+        <target>Buerklin-API-Zugriffsbeschränkungen: 100 Requests/Minute pro IP-Adresse
+Buerklin-API-Authentication-Server: 
+10 Requests/Minute pro IP-Adresse</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
