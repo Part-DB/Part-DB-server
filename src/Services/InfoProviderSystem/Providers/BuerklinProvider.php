@@ -54,6 +54,7 @@ class BuerklinProvider implements InfoProviderInterface
         private readonly HttpClientInterface $client,
         private readonly OAuthTokenManager $authTokenManager,
         private readonly CacheItemPoolInterface $partInfoCache,
+        private readonly BuerklinSettings $settings,
         ) {
 
     }
@@ -129,7 +130,7 @@ class BuerklinProvider implements InfoProviderInterface
 
         $cacheKey = sprintf(
             'buerklin.product.%s',
-            md5($code . '|' . $this->language . '|' . $this->currency)
+            md5($code . '|' . $this->settings->language . '|' . $this->settings->currency)
         );
 
         if (isset($this->productCache[$cacheKey])) {
@@ -276,7 +277,7 @@ class BuerklinProvider implements InfoProviderInterface
 
         if (!is_array($prices) || count($prices) === 0) {
             $pVal = $product['price']['value'] ?? null;
-            $pCur = $product['price']['currencyIso'] ?? ($this->currency ?: 'EUR');
+            $pCur = $product['price']['currencyIso'] ?? ($this->settings->currency ?: 'EUR');
 
             if (is_numeric($pVal)) {
                 $prices = [
