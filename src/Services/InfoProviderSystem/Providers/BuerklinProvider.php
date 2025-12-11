@@ -77,7 +77,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
             }
         }
 
-        // Bürklin OAuth2 password grant (ROPC)
+        // Buerklin OAuth2 password grant (ROPC)
         $resp = $this->client->request('POST', 'https://www.buerklin.com/authorizationserver/oauth/token/', [
             'headers' => [
                 'Accept' => 'application/json',
@@ -96,7 +96,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
 
         if (!isset($data['access_token'])) {
             throw new \RuntimeException(
-                'Invalid token response from Bürklin: HTTP ' . $resp->getStatusCode() . ' body=' . $resp->getContent(false)
+                'Invalid token response from Buerklin: HTTP ' . $resp->getStatusCode() . ' body=' . $resp->getContent(false)
             );
         }
 
@@ -114,6 +114,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
 
         return $token;
     }
+
     private function getDefaultQueryParams(): array
     {
         return [
@@ -188,10 +189,10 @@ class BuerklinProvider implements BatchInfoProviderInterface
         return 'buerklin';
     }
 
-    // This provider is always active
+    // This provider is considered active if settings are present
     public function isActive(): bool
     {
-        //The client ID has to be set and a token has to be available (user clicked connect)
+        // The client credentials and user credentials must be set
         return $this->settings->clientId !== ''
             && $this->settings->secret !== ''
             && $this->settings->username !== ''
@@ -227,13 +228,13 @@ class BuerklinProvider implements BatchInfoProviderInterface
     }
 
     /**
-     * Takes a deserialized json object of the product and returns a PartDetailDTO
+     * Takes a deserialized JSON object of the product and returns a PartDetailDTO
      * @param  array  $product
      * @return PartDetailDTO
      */
     private function getPartDetail(array $product): PartDetailDTO
     {
-        // If this is a search-result object, it may not contain prices/features/images -> reload full detail.
+        // If this is a search-result object, it may not contain prices/features/images -> reload full details.
         if ((!isset($product['price']) && !isset($product['volumePrices'])) && isset($product['code'])) {
             try {
                 $product = $this->getProduct((string) $product['code']);
@@ -242,25 +243,25 @@ class BuerklinProvider implements BatchInfoProviderInterface
             }
         }
 
-        // Extract Images from API response
+        // Extract images from API response
         $productImages = $this->getProductImages($product['images'] ?? null);
 
-        // Set Preview image
+        // Set preview image
         $preview = $productImages[0]->url ?? null;
 
-        // Extract features (parameters) from classifications[0].features of Bürklin JSON response
+        // Extract features (parameters) from classifications[0].features of Buerklin JSON response
         $features = $product['classifications'][0]['features'] ?? [];
 
-        // Feature Parameters (from classifications->features)
-        $featureParams = $this->attributesToParameters($features, ''); //leave group empty for normal parameters
+        // Feature parameters (from classifications->features)
+        $featureParams = $this->attributesToParameters($features, ''); // leave group empty for normal parameters
 
-        // Compliance-Parameter (from Top-Level fields like RoHS/SVHC/…)
+        // Compliance parameters (from top-level fields like RoHS/SVHC/…)
         $complianceParams = $this->complianceToParameters($product, 'Compliance');
 
         // Merge all parameters
         $allParams = array_merge($featureParams, $complianceParams);
 
-        // Assign Footprint: "Design" (en) / "Bauform" (de) / "Enclosure" (en) / "Gehäuse" (de)
+        // Assign footprint: "Design" (en) / "Bauform" (de) / "Enclosure" (en) / "Gehäuse" (de)
         $footprint = null;
         if (is_array($features)) {
             foreach ($features as $feature) {
@@ -337,10 +338,10 @@ class BuerklinProvider implements BatchInfoProviderInterface
         $priceDTOs = array_map(function ($price) {
             $val = $price['value'] ?? null;
             $valStr = is_numeric($val)
-                ? number_format((float) $val, 6, '.', '') // 6 Nachkommastellen, trailing zeros ok
+                ? number_format((float) $val, 6, '.', '') // 6 decimal places, trailing zeros are fine
                 : (string) $val;
 
-            // Optional: weich kürzen (z.B. 75.550000 -> 75.55)
+            // Optional: softly trim unnecessary trailing zeros (e.g. 75.550000 -> 75.55)
             $valStr = rtrim(rtrim($valStr, '0'), '.');
 
             return new PriceDTO(
@@ -376,7 +377,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
      * Returns a deduplicated list of product images as FileDTOs.
      *
      * - takes only real image arrays (with 'url' field)
-     * - makes relative URLs absolut
+     * - makes relative URLs absolute
      * - deduplicates using URL
      * - prefers 'zoom' format, then 'product' format, then all others
      *
@@ -456,13 +457,13 @@ class BuerklinProvider implements BatchInfoProviderInterface
             // Multiple values: join with comma
             $value = implode(', ', array_values(array_unique($vals)));
 
-            // Unit/Symbol from Buerklin feature
+            // Unit/symbol from Buerklin feature
             $unit = $f['featureUnit']['symbol'] ?? null;
             if (!is_string($unit) || trim($unit) === '') {
                 $unit = null;
             }
 
-            // ParameterDTO parses value field (handles value+unit)
+            // ParameterDTO parses value field (handles value + unit)
             $out[] = ParameterDTO::parseValueField(
                 name: $name,
                 value: $value,
@@ -472,7 +473,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
             );
         }
 
-        // deduplicate by name
+        // Deduplicate by name
         $byName = [];
         foreach ($out as $p) {
             $byName[$p->name] ??= $p;
@@ -527,11 +528,12 @@ class BuerklinProvider implements BatchInfoProviderInterface
         return [
             ProviderCapabilities::BASIC,
             ProviderCapabilities::PICTURE,
-                //ProviderCapabilities::DATASHEET, //currently not implemented
+                //ProviderCapabilities::DATASHEET, // currently not implemented
             ProviderCapabilities::PRICE,
             ProviderCapabilities::FOOTPRINT,
         ];
     }
+
     private function complianceToParameters(array $product, ?string $group = 'Compliance'): array
     {
         $params = [];
@@ -543,7 +545,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
             if (is_bool($value)) {
                 $value = $value ? 'Yes' : 'No';
             } elseif (is_array($value) || is_object($value)) {
-                // avoid dumping huge structures
+                // Avoid dumping large or complex structures
                 return;
             } else {
                 $value = trim((string) $value);
@@ -563,7 +565,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
         $add('RoHS conform', $product['labelRoHS'] ?? null);          // "yes"/"no"
 
         $rawRoHsDate = $product['dateRoHS'] ?? null;
-        // Try to parse and reformat date to Y-m-d (don't use language-dependent formats)
+        // Try to parse and reformat date to Y-m-d (do not use language-dependent formats)
         if (is_string($rawRoHsDate) && $rawRoHsDate !== '') {
             try {
                 $dt = new \DateTimeImmutable($rawRoHsDate);
@@ -571,7 +573,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
             } catch (\Exception $e) {
                 $formatted = $rawRoHsDate;
             }
-            // Use always the same parameter name (don't use language-dependent names)
+            // Always use the same parameter name (do not use language-dependent names)
             $add('RoHS date', $formatted);
         }
         $add('SVHC free', $product['SVHC'] ?? null);               // bool
@@ -579,12 +581,12 @@ class BuerklinProvider implements BatchInfoProviderInterface
         $add('Hazardous materials', $product['hazardousMaterials'] ?? null); // bool
 
         $add('Country of origin', $product['countryOfOrigin'] ?? null);
-        // Customs tariffs code/Zolltarifnummer always as string otherwise "85411000" is stored as "8.5411e+7"
+        // Customs tariff code must always be stored as string, otherwise "85411000" may be stored as "8.5411e+7"
         if (isset($product['articleCustomsCode'])) {
-            // Rohwert als String
+            // Raw value as string
             $codeRaw = (string) $product['articleCustomsCode'];
 
-            // Optional: nur Ziffern behalten (falls mal Leerzeichen o.ä. drin sind)
+            // Optionally keep only digits (in case of spaces or other characters)
             $code = preg_replace('/\D/', '', $codeRaw) ?? $codeRaw;
             $code = trim($code);
 
@@ -604,6 +606,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
 
         return $params;
     }
+
     /**
      * @param string[] $keywords
      * @return array<string, SearchResultDTO[]>
@@ -618,10 +621,10 @@ class BuerklinProvider implements BatchInfoProviderInterface
                 continue;
             }
 
-            // Bestehende Einzelsuche wiederverwenden → liefert PartDetailDTO[]
+            // Reuse existing single search -> returns PartDetailDTO[]
             $partDetails = $this->searchByKeyword($keyword);
 
-            // In SearchResultDTO[] konvertieren
+            // Convert to SearchResultDTO[]
             $results[$keyword] = array_map(
                 fn(PartDetailDTO $detail) => $this->convertPartDetailToSearchResult($detail),
                 $partDetails
@@ -630,6 +633,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
 
         return $results;
     }
+
     private function searchProducts(string $query): array
     {
         $response = $this->makeAPICall('/products/search/', [
@@ -641,8 +645,9 @@ class BuerklinProvider implements BatchInfoProviderInterface
 
         return $response['products'] ?? [];
     }
+
     /**
-     * Konvertiert ein PartDetailDTO in ein SearchResultDTO für Bulk-Suche.
+     * Converts a PartDetailDTO into a SearchResultDTO for bulk search.
      */
     private function convertPartDetailToSearchResult(PartDetailDTO $detail): SearchResultDTO
     {
