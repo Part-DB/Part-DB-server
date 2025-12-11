@@ -55,7 +55,7 @@ class BuerklinProvider implements InfoProviderInterface
         private readonly OAuthTokenManager $authTokenManager,
         private readonly CacheItemPoolInterface $partInfoCache,
         private readonly BuerklinSettings $settings,
-        ) {
+    ) {
 
     }
 
@@ -526,7 +526,7 @@ class BuerklinProvider implements InfoProviderInterface
         return [
             ProviderCapabilities::BASIC,
             ProviderCapabilities::PICTURE,
-            //ProviderCapabilities::DATASHEET, //currently not implemented
+                //ProviderCapabilities::DATASHEET, //currently not implemented
             ProviderCapabilities::PRICE,
             ProviderCapabilities::FOOTPRINT,
         ];
@@ -559,13 +559,42 @@ class BuerklinProvider implements InfoProviderInterface
             );
         };
 
-        $add('RoHS', $product['labelRoHS'] ?? null);          // "yes"/"no"
-        $add('RoHS date', $product['dateRoHS'] ?? null);      // ISO string
-        $add('SVHC', $product['SVHC'] ?? null);               // bool
+        $add('RoHS conform', $product['labelRoHS'] ?? null);          // "yes"/"no"
+
+        // RoHS-Datum: Name immer "RoHS date", Format abhängig von Sprache
+        $rawRoHsDate = $product['dateRoHS'] ?? null;
+        if (is_string($rawRoHsDate) && $rawRoHsDate !== '') {
+            try {
+                $dt = new \DateTimeImmutable($rawRoHsDate);
+
+                $lang = strtolower($this->settings->language);
+
+                if ($lang === 'de') {
+                    // d.m.Y Date format if German: 31.03.2015
+                    $formatted = $dt->format('d.m.Y');
+                } elseif ($lang === 'en') {
+                    // n/j/y Date format if English: 3/31/15
+                    $formatted = $dt->format('n/j/y');
+                } else {
+                    // Fallback
+                    $formatted = $dt->format('Y-m-d');
+                }
+            } catch (\Exception $e) {
+                $formatted = $rawRoHsDate;
+            }
+            // Use always the same parameter name
+            $add('RoHS date', $formatted);
+        }
+        $add('SVHC free', $product['SVHC'] ?? null);               // bool
         $add('Hazardous good', $product['hazardousGood'] ?? null);       // bool
         $add('Hazardous materials', $product['hazardousMaterials'] ?? null); // bool
+
         $add('Country of origin', $product['countryOfOrigin'] ?? null);
-        $add('Customs code', $product['articleCustomsCode'] ?? null);
+        // Customs tariffs code/Zolltarifnummer always as string otherwise "85411000" is stored as "8.5411e+7"
+        if (isset($product['articleCustomsCode'])) {
+            $code = (string) $product['articleCustomsCode'];
+            $add('Customs code', $code);
+        }
 
         return $params;
     }
