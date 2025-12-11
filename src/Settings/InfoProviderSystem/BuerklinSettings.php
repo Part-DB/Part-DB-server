@@ -36,7 +36,7 @@ use Symfony\Component\Translation\TranslatableMessage as TM;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[Settings(label: new TM("settings.ips.buerklin"))]
+#[Settings(label: new TM("settings.ips.buerklin"), description: new TM("settings.ips.buerklin.help"))]
 #[SettingsIcon("fa-plug")]
 class BuerklinSettings
 {
@@ -57,7 +57,7 @@ class BuerklinSettings
     public ?string $secret = null;
 
         #[SettingsParameter(
-        label: new TM("user.username"),
+        label: new TM("settings.ips.buerklin.username"),
         formType: APIKeyType::class,
         envVar: "PROVIDER_BUERKLIN_USER", envVarMode: EnvVarMode::OVERWRITE
     )]
