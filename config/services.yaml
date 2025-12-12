@@ -260,6 +260,8 @@ services:
             $enabled: '%env(bool:DATABASE_MYSQL_USE_SSL_CA)%'
             $verify: '%env(bool:DATABASE_MYSQL_SSL_VERIFY_CERT)%'
 
+    App\Helpers\Assemblies\AssemblyPartAggregator: ~
+
     ####################################################################################################################
     # Monolog
     ####################################################################################################################
