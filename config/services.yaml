@@ -283,6 +283,10 @@ services:
 
 when@test: &test
     services:
+        _defaults:
+            autowire: true
+            autoconfigure: true
+
         # Decorate the doctrine fixtures load command to use our custom purger by default
         doctrine.fixtures_load_command.custom:
             decorates: doctrine.fixtures_load_command
@@ -291,3 +295,6 @@ when@test: &test
                 - '@doctrine.fixtures.loader'
                 - '@doctrine'
                 - { default: '@App\Doctrine\Purger\DoNotUsePurgerFactory' }
+
+        App\Services\ImportExportSystem\EntityExporter:
+            public: true
