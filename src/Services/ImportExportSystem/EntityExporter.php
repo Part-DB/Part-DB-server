@@ -65,7 +65,7 @@ class EntityExporter
 {
     public function __construct(
         protected SerializerInterface    $serializer,
-        protected AssemblyPartAggregator $partAggregator, private readonly AssemblyPartAggregator $assemblyPartAggregator,
+        protected AssemblyPartAggregator $partAggregator, private readonly AssemblyPartAggregator $assemblyPartAggregator
     ) {
     }
 
