@@ -10063,7 +10063,7 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
     <unit id="dipIGt4" name="assembly_bom_entry.label">
       <segment>
         <source>assembly_bom_entry.label</source>
-        <target>Componenti</target>
+        <target>Componente</target>
       </segment>
     </unit>
     <unit id="TvHlYfl" name="assembly.labelp">
@@ -11023,6 +11023,12 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
       <segment>
         <source>project_bom_entry.labelp</source>
         <target>Voci della BOM</target>
+      </segment>
+    </unit>
+    <unit id="dk87cTl" name="assembly_bom_entry.labelp">
+      <segment>
+        <source>assembly_bom_entry.labelp</source>
+        <target>Componenti</target>
       </segment>
     </unit>
     <unit id="MoHHSNT" name="user.labelp">

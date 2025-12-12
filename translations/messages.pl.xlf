@@ -9932,7 +9932,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="dipIGt4" name="assembly_bom_entry.label">
       <segment>
         <source>assembly_bom_entry.label</source>
-        <target>Komponenty</target>
+        <target>Składnik</target>
       </segment>
     </unit>
     <unit id="TvHlYfl" name="assembly.labelp">
@@ -10868,6 +10868,12 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
       <segment>
         <source>project_bom_entry.labelp</source>
         <target>Wpisy BOM</target>
+      </segment>
+    </unit>
+    <unit id="dk87cTl" name="assembly_bom_entry.labelp">
+      <segment>
+        <source>assembly_bom_entry.labelp</source>
+        <target>Składniki</target>
       </segment>
     </unit>
     <unit id="MoHHSNT" name="user.labelp">

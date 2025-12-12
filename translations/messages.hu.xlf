@@ -11440,6 +11440,12 @@
         <target>BOM bejegyzések</target>
       </segment>
     </unit>
+    <unit id="dk87cTl" name="assembly_bom_entry.labelp">
+      <segment>
+        <source>assembly_bom_entry.labelp</source>
+        <target>Összetevők</target>
+      </segment>
+    </unit>
     <unit id="MoHHSNT" name="user.labelp">
       <segment>
         <source>user.labelp</source>

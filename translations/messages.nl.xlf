@@ -541,7 +541,7 @@
     <unit id="dipIGt4" name="assembly_bom_entry.label">
       <segment>
         <source>assembly_bom_entry.label</source>
-        <target>Componenten</target>
+        <target>Bestanddeel</target>
       </segment>
     </unit>
     <unit id="TvHlYfl" name="assembly.labelp">

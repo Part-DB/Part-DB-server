@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Entity\AssemblySystem\Assembly;
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
@@ -57,6 +59,8 @@ enum ElementTypes: string implements TranslatableInterface
     case ATTACHMENT_TYPE = "attachment_type";
     case PROJECT = "project";
     case PROJECT_BOM_ENTRY = "project_bom_entry";
+    case ASSEMBLY = "assembly";
+    case ASSEMBLY_BOM_ENTRY = "assembly_bom_entry";
     case FOOTPRINT = "footprint";
     case MANUFACTURER = "manufacturer";
     case MEASUREMENT_UNIT = "measurement_unit";
@@ -83,6 +87,8 @@ enum ElementTypes: string implements TranslatableInterface
         AttachmentType::class => self::ATTACHMENT_TYPE,
         Project::class => self::PROJECT,
         ProjectBOMEntry::class => self::PROJECT_BOM_ENTRY,
+        Assembly::class => self::ASSEMBLY,
+        AssemblyBOMEntry::class => self::ASSEMBLY_BOM_ENTRY,
         Footprint::class => self::FOOTPRINT,
         Manufacturer::class => self::MANUFACTURER,
         MeasurementUnit::class => self::MEASUREMENT_UNIT,
@@ -114,6 +120,8 @@ enum ElementTypes: string implements TranslatableInterface
             self::ATTACHMENT_TYPE => 'attachment_type.label',
             self::PROJECT => 'project.label',
             self::PROJECT_BOM_ENTRY => 'project_bom_entry.label',
+            self::ASSEMBLY => 'assembly.label',
+            self::ASSEMBLY_BOM_ENTRY => 'assembly_bom_entry.label',
             self::FOOTPRINT => 'footprint.label',
             self::MANUFACTURER => 'manufacturer.label',
             self::MEASUREMENT_UNIT => 'measurement_unit.label',
@@ -143,6 +151,8 @@ enum ElementTypes: string implements TranslatableInterface
             self::ATTACHMENT_TYPE => 'attachment_type.labelp',
             self::PROJECT => 'project.labelp',
             self::PROJECT_BOM_ENTRY => 'project_bom_entry.labelp',
+            self::ASSEMBLY => 'assembly.labelp',
+            self::ASSEMBLY_BOM_ENTRY => 'assembly_bom_entry.labelp',
             self::FOOTPRINT => 'footprint.labelp',
             self::MANUFACTURER => 'manufacturer.labelp',
             self::MEASUREMENT_UNIT => 'measurement_unit.labelp',

@@ -10836,7 +10836,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="dipIGt4" name="assembly_bom_entry.label">
       <segment>
         <source>assembly_bom_entry.label</source>
-        <target>Součásti</target>
+        <target>Komponenta</target>
       </segment>
     </unit>
     <unit id="TvHlYfl" name="assembly.labelp">
@@ -12252,6 +12252,12 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
       <segment>
         <source>project_bom_entry.labelp</source>
         <target>Položky BOM</target>
+      </segment>
+    </unit>
+    <unit id="dk87cTl" name="assembly_bom_entry.labelp">
+      <segment>
+        <source>assembly_bom_entry.labelp</source>
+        <target>Součásti</target>
       </segment>
     </unit>
     <unit id="MoHHSNT" name="user.labelp">

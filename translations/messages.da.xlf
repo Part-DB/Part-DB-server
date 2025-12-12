@@ -9836,7 +9836,7 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
     <unit id="dipIGt4" name="assembly_bom_entry.label">
       <segment>
         <source>assembly_bom_entry.label</source>
-        <target>Komponenter</target>
+        <target>Komponent</target>
       </segment>
     </unit>
     <unit id="TvHlYfl" name="assembly.labelp">
@@ -12889,6 +12889,12 @@ Bemærk venligst, at dette system i øjeblikket er eksperimentelt, og de synonym
       <segment state="translated">
         <source>project_bom_entry.labelp</source>
         <target>Stykliste(BOM)-posteringer</target>
+      </segment>
+    </unit>
+    <unit id="dk87cTl" name="assembly_bom_entry.labelp">
+      <segment>
+        <source>assembly_bom_entry.labelp</source>
+        <target>Komponenter</target>
       </segment>
     </unit>
     <unit id="ftBf11d" name="part_lot.labelp">

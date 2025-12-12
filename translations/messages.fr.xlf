@@ -6519,7 +6519,7 @@ exemple de ville</target>
     <unit id="dipIGt4" name="assembly_bom_entry.label">
       <segment>
         <source>assembly_bom_entry.label</source>
-        <target>Composants</target>
+        <target>Composant</target>
       </segment>
     </unit>
     <unit id="TvHlYfl" name="assembly.labelp">

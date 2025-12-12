@@ -10855,6 +10855,12 @@ Element 3</target>
         <target>BOM条目</target>
       </segment>
     </unit>
+    <unit id="dk87cTl" name="assembly_bom_entry.labelp">
+      <segment>
+        <source>assembly_bom_entry.labelp</source>
+        <target>组件</target>
+      </segment>
+    </unit>
     <unit id="MoHHSNT" name="user.labelp">
       <segment>
         <source>user.labelp</source>
