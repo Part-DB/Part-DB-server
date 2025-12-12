@@ -36,7 +36,7 @@
             <a class="btn btn-secondary ms-2" {% if not is_granted('@assemblies.edit') %}disabled{% endif %}
                href="{{ path('assembly_edit', {"id": assembly.id}) }}#part">
                 <i class="fa-solid fa-square-plus fa-cog"></i>
-                {% trans %}assembly_bom_entry.label{% endtrans %}
+                {% trans %}assembly_bom_entry.labelp{% endtrans %}
             </a>
 
             <a class="btn btn-secondary ms-2" {% if not is_granted('@assemblies.edit') %}disabled{% endif %}
@@ -84,7 +84,7 @@
             <button class="nav-link" id="part-tab" data-bs-toggle="tab" data-bs-target="#part-tab-pane"
                     type="button" role="tab" aria-controls="part-tab-pane" aria-selected="false">
                 <i class="fa-solid fa-list-check fa-fw"></i>
-                {% trans %}assembly_bom_entry.label{% endtrans %}
+                {% trans %}assembly_bom_entry.labelp{% endtrans %}
                 <span class="badge bg-secondary">{{ assembly.bomEntries | length }}</span>
             </button>
         </li>

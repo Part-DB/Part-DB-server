@@ -76,8 +76,8 @@ enum LogTargetType: int
     case BULK_INFO_PROVIDER_IMPORT_JOB_PART = 22;
     case PART_CUSTOM_STATE = 23;
 
-    case ASSEMBLY = 23;
-    case ASSEMBLY_BOM_ENTRY = 24;
+    case ASSEMBLY = 24;
+    case ASSEMBLY_BOM_ENTRY = 25;
 
     /**
      * Returns the class name of the target type or null if the target type is NONE.

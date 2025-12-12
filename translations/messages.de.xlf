@@ -13261,7 +13261,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="dipIGt4" name="assembly_bom_entry.label">
       <segment>
         <source>assembly_bom_entry.label</source>
-        <target>Bauteile</target>
+        <target>Komponente</target>
       </segment>
     </unit>
     <unit id="TvHlYfl" name="assembly.labelp">
@@ -15633,6 +15633,12 @@ Bitte beachten Sie, dass dieses System derzeit experimentell ist und die hier de
       <segment>
         <source>project_bom_entry.labelp</source>
         <target>BOM-Einträge</target>
+      </segment>
+    </unit>
+    <unit id="dk87cTl" name="assembly_bom_entry.labelp">
+      <segment>
+        <source>assembly_bom_entry.labelp</source>
+        <target>Komponenten</target>
       </segment>
     </unit>
     <unit id="ftBf11d" name="part_lot.labelp">

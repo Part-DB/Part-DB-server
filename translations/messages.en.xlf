@@ -13104,7 +13104,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="dipIGt4" name="assembly_bom_entry.label">
       <segment>
         <source>assembly_bom_entry.label</source>
-        <target>Parts</target>
+        <target>Component</target>
       </segment>
     </unit>
     <unit id="G_rlE3w" name="perm.assemblies">
@@ -15482,6 +15482,12 @@ Please note that this system is currently experimental, and the synonyms defined
       <segment>
         <source>project_bom_entry.labelp</source>
         <target>BOM entries</target>
+      </segment>
+    </unit>
+    <unit id="dk87cTl" name="assembly_bom_entry.labelp">
+      <segment>
+        <source>assembly_bom_entry.labelp</source>
+        <target>Components</target>
       </segment>
     </unit>
     <unit id="ftBf11d" name="part_lot.labelp">
