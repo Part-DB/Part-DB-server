@@ -507,6 +507,10 @@ class BOMImporter
                 $values = str_getcsv($row, ';');
             }
 
+            if (trim($row) === '' || count($values) === 1) {
+                continue;
+            }
+
             foreach ($headers as $index => $column) {
                 //Change the column names in small letters
                 $column = strtolower($column);
