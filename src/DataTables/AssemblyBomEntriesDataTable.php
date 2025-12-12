@@ -128,6 +128,11 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
             ])
             ->add('description', MarkdownColumn::class, [
                 'label' => $this->translator->trans('part.table.description'),
+                'orderField' => "CASE
+                    WHEN part.id IS NOT NULL THEN part.description
+                    WHEN referencedAssembly.id IS NOT NULL THEN referencedAssembly.description
+                    ELSE bom_entry.comment
+                 END",
                 'data' => function (AssemblyBOMEntry $context) {
                     if ($context->getPart() instanceof Part) {
                         return $context->getPart()->getDescription();
@@ -166,6 +171,7 @@ class AssemblyBomEntriesDataTable implements DataTableTypeInterface
             ])
             ->add('designator', TextColumn::class, [
                 'label' => 'assembly.bom.designator',
+                'orderField' => 'bom_entry.designator',
                 'render' => function ($value, AssemblyBOMEntry $context) {
                     return htmlspecialchars($context->getDesignator());
                 },
