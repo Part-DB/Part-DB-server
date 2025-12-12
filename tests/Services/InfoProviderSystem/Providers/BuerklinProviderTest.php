@@ -67,7 +67,7 @@ class BuerklinProviderTest extends TestCase
             ->method('request')
             ->with(
                 'GET',
-                $this->callback(fn ($url) => str_contains((string) $url, $expectedUrl)),
+                $this->callback(fn($url) => str_contains((string) $url, $expectedUrl)),
                 $this->anything()
             )
             ->willReturn($response);
@@ -107,11 +107,15 @@ class BuerklinProviderTest extends TestCase
         $this->assertCount(3, $params);
 
         $this->assertSame('Zener voltage', $params[0]->name);
-        $this->assertSame('12', $params[0]->value_text);
+        $this->assertNull($params[0]->value_text);
+        $this->assertSame(12.0, $params[0]->value_typ);
+        $this->assertNull($params[0]->value_min);
+        $this->assertNull($params[0]->value_max);
         $this->assertSame('V', $params[0]->unit);
 
         $this->assertSame('Length', $params[1]->name);
-        $this->assertSame('2.9', $params[1]->value_text);
+        $this->assertNull($params[1]->value_text);
+        $this->assertSame(2.9, $params[1]->value_typ);
         $this->assertSame('mm', $params[1]->unit);
 
         $this->assertSame('Assembly', $params[2]->name);
