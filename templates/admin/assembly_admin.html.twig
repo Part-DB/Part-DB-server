@@ -1,0 +1,48 @@
+{% extends "admin/base_admin.html.twig" %}
+
+{# @var entity App\Entity\AssemblySystem\Assembly #}
+
+{% block card_title %}
+    <i class="fas fa-archive fa-fw"></i> {% trans %}assembly.caption{% endtrans %}
+{% endblock %}
+
+{% block edit_title %}
+    {% trans %}assembly.edit{% endtrans %}: {{ entity.name }}
+{% endblock %}
+
+{% block new_title %}
+    {% trans %}assembly.new{% endtrans %}
+{% endblock %}
+
+{% block additional_pills %}
+    <li class="nav-item"><a data-bs-toggle="tab" class="nav-link link-anchor" href="#part">{% trans %}assembly_bom_entry.labelp{% endtrans %}</a></li>
+{% endblock %}
+
+{% block quick_links %}
+    <div class="btn-toolbar" style="display: inline-block;">
+        <div class="btn-group">
+            <a class="btn btn-outline-secondary" href="{{ entity_url(entity) }}"><i class="fas fa-eye fa-fw"></i></a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block additional_controls %}
+    {{ form_row(form.description) }}
+    {{ form_row(form.status) }}
+    {{ form_row(form.ipn) }}
+{% endblock %}
+
+{% block additional_panes %}
+    <div class="tab-pane" id="part">
+        {% form_theme form.bom_entries with ['form/collection_types_layout_assembly.html.twig'] %}
+        {{ form_errors(form.bom_entries) }}
+        {{ form_widget(form.bom_entries) }}
+        {% if entity.id %}
+            <a href="{{ path('assembly_import_bom', {'id': entity.id}) }}" class="btn btn-secondary mb-2"
+            {% if not is_granted('edit', entity) %}disabled="disabled"{% endif %}>
+                <i class="fa-solid fa-file-import fa-fw"></i>
+                {% trans %}assembly.edit.bom.import_bom{% endtrans %}
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}

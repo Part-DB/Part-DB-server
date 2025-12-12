@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Entity\AssemblySystem\Assembly;
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Base\AbstractDBElement;
@@ -189,6 +191,8 @@ final readonly class ElementTypeNameGenerator
                 $on = $entity->getOrderdetail()->getPart();
             } elseif ($entity instanceof ProjectBOMEntry && $entity->getProject() instanceof Project) {
                 $on = $entity->getProject();
+            } elseif ($entity instanceof AssemblyBOMEntry && $entity->getAssembly() instanceof Assembly) {
+                $on = $entity->getAssembly();
             }
 
             if (isset($on) && $on instanceof NamedElementInterface) {

@@ -109,15 +109,20 @@
                     {% trans %}vendor.partinfo.history{% endtrans %}
                 </a>
             </li>
-            {% if part.projectBomEntries is not empty %}
-                <li class="nav-item">
-                    <a class="nav-link" id="projects-tab" data-bs-toggle="tab" href="#projects" role="tab">
-                        <i class="fas fa-archive fa-fw"></i>
-                        {% trans %}project.labelp{% endtrans %}
-                        <span class="badge bg-secondary">{{ part.projectBomEntries | length }}</span>
-                    </a>
-                </li>
-            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" id="projects-tab" data-bs-toggle="tab" href="#projects" role="tab">
+                    <i class="fas fa-archive fa-fw"></i>
+                    {% trans %}project.labelp{% endtrans %}
+                    <span class="badge bg-secondary">{{ part.projectBomEntries | length }}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="assemblies-tab" data-bs-toggle="tab" href="#assemblies" role="tab">
+                    <i class="fas fa-archive fa-fw"></i>
+                    {% trans %}assembly.labelp{% endtrans %}
+                    <span class="badge bg-secondary">{{ part.assemblyBomEntries | length }}</span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" id="tools-tab" data-bs-toggle="tab" href="#tools" role="tab">
                     <i class="fas fa-tools"></i>
@@ -165,6 +170,10 @@
 
             <div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
                 {% include "parts/info/_projects.html.twig" %}
+            </div>
+
+            <div class="tab-pane fade" id="assemblies" role="tabpanel" aria-labelledby="assemblies-tab">
+                {% include "parts/info/_assemblies.html.twig" %}
             </div>
 
             <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
