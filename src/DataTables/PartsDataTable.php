@@ -486,6 +486,13 @@ final class PartsDataTable implements DataTableTypeInterface
             //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
             //$builder->addGroupBy('_projectBomEntries');
         }
+        if (str_contains($dql, '_assembly.')) {
+            $builder->leftJoin('part.assembly_bom_entries', '_assemblyBomEntries');
+            $builder->leftJoin('_assemblyBomEntries.assembly', '_assembly');
+        }
+        if (str_contains($dql, '_assemblyBomEntries')) {
+            $builder->leftJoin('part.assembly_bom_entries', '_assemblyBomEntries');
+        }
         if (str_contains($dql, '_jobPart')) {
             $builder->leftJoin('part.bulkImportJobParts', '_jobPart');
             $builder->leftJoin('_jobPart.job', '_bulkImportJob');
