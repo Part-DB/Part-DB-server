@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\InfoProviderSystem\Providers;
 
-use App\Services\InfoProviderSystem\Providers\BuerklinProvider;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use App\Services\InfoProviderSystem\Providers\BuerklinProvider;
 use App\Settings\InfoProviderSystem\BuerklinSettings;
 use PHPUnit\Framework\TestCase;
+use Psr\Cache\CacheItemInterface;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use Psr\Cache\CacheItemPoolInterface;
-use Psr\Cache\CacheItemInterface;
 
 /**
  * Full behavioral test suite for BuerklinProvider.
@@ -21,7 +21,6 @@ use Psr\Cache\CacheItemInterface;
 class BuerklinProviderTest extends TestCase
 {
     private HttpClientInterface $httpClient;
-    private OAuthTokenManager $tokenManager;
     private CacheItemPoolInterface $cache;
     private BuerklinSettings $settings;
     private BuerklinProvider $provider;
@@ -38,13 +37,19 @@ class BuerklinProviderTest extends TestCase
         $this->cache = $this->createMock(CacheItemPoolInterface::class);
         $this->cache->method('getItem')->willReturn($cacheItem);
 
-        $this->settings = new BuerklinSettings();
-        $this->settings->clientId = 'CID';
-        $this->settings->secret = 'SECRET';
-        $this->settings->username = 'USER';
-        $this->settings->password = 'PASS';
-        $this->settings->language = 'en';
-        $this->settings->currency = 'EUR';
+        // IMPORTANT: Settings must not be instantiated directly (SettingsBundle forbids constructor)
+        $ref = new \ReflectionClass(BuerklinSettings::class);
+        /** @var BuerklinSettings $settings */
+        $settings = $ref->newInstanceWithoutConstructor();
+
+        $settings->clientId = 'CID';
+        $settings->secret = 'SECRET';
+        $settings->username = 'USER';
+        $settings->password = 'PASS';
+        $settings->language = 'en';
+        $settings->currency = 'EUR';
+
+        $this->settings = $settings;
 
         $this->provider = new BuerklinProvider(
             client: $this->httpClient,
@@ -62,15 +67,12 @@ class BuerklinProviderTest extends TestCase
             ->method('request')
             ->with(
                 'GET',
-                $this->callback(fn($url) => str_contains($url, $expectedUrl)),
+                $this->callback(fn ($url) => str_contains((string) $url, $expectedUrl)),
                 $this->anything()
             )
             ->willReturn($response);
     }
 
-    // ---------------------------------------------------------
-    // Test: attributesToParameters
-    // ---------------------------------------------------------
     public function testAttributesToParametersParsesUnitsAndValues(): void
     {
         $method = new \ReflectionMethod(BuerklinProvider::class, 'attributesToParameters');
@@ -117,9 +119,6 @@ class BuerklinProviderTest extends TestCase
         $this->assertNull($params[2]->unit);
     }
 
-    // ---------------------------------------------------------
-    // Test: complianceToParameters
-    // ---------------------------------------------------------
     public function testComplianceParameters(): void
     {
         $method = new \ReflectionMethod(BuerklinProvider::class, 'complianceToParameters');
@@ -151,9 +150,6 @@ class BuerklinProviderTest extends TestCase
         $this->assertSame('85411000', $map['Customs code']);
     }
 
-    // ---------------------------------------------------------
-    // Test: image handling
-    // ---------------------------------------------------------
     public function testImageSelectionPrefersZoomAndDeduplicates(): void
     {
         $method = new \ReflectionMethod(BuerklinProvider::class, 'getProductImages');
@@ -162,7 +158,7 @@ class BuerklinProviderTest extends TestCase
         $images = [
             ['format' => 'product', 'url' => '/img/a.webp'],
             ['format' => 'zoom', 'url' => '/img/z.webp'],
-            ['format' => 'zoom', 'url' => '/img/z.webp'], // dup
+            ['format' => 'zoom', 'url' => '/img/z.webp'], // duplicate
             ['format' => 'thumbnail', 'url' => '/img/t.webp']
         ];
 
@@ -172,9 +168,6 @@ class BuerklinProviderTest extends TestCase
         $this->assertSame('https://www.buerklin.com/img/z.webp', $results[0]->url);
     }
 
-    // ---------------------------------------------------------
-    // Test: footprint extraction
-    // ---------------------------------------------------------
     public function testFootprintExtraction(): void
     {
         $method = new \ReflectionMethod(BuerklinProvider::class, 'getPartDetail');
@@ -203,9 +196,6 @@ class BuerklinProviderTest extends TestCase
         $this->assertSame('SOT-23', $dto->footprint);
     }
 
-    // ---------------------------------------------------------
-    // Test: price formatting
-    // ---------------------------------------------------------
     public function testPriceFormatting(): void
     {
         $detailPrice = [
@@ -222,16 +212,11 @@ class BuerklinProviderTest extends TestCase
         $vendorInfo = $method->invoke($this->provider, 'SKU1', 'https://x', $detailPrice);
 
         $price = $vendorInfo[0]->prices[0];
-
         $this->assertSame('0.0885', $price->price);
     }
 
-    // ---------------------------------------------------------
-    // Test: batch search produces SearchResultDTO[]
-    // ---------------------------------------------------------
     public function testBatchSearchReturnsSearchResultDTO(): void
     {
-        // Mock searchByKeyword to avoid HTTP
         $mockDetail = new PartDetailDTO(
             provider_key: 'buerklin',
             provider_id: 'TESTID',
@@ -242,7 +227,6 @@ class BuerklinProviderTest extends TestCase
         $provider = $this->getMockBuilder(BuerklinProvider::class)
             ->setConstructorArgs([
                 $this->httpClient,
-                $this->tokenManager,
                 $this->cache,
                 $this->settings
             ])
@@ -254,13 +238,12 @@ class BuerklinProviderTest extends TestCase
         $result = $provider->searchByKeywordsBatch(['ABC']);
 
         $this->assertArrayHasKey('ABC', $result);
+        $this->assertIsArray($result['ABC']);
+        $this->assertCount(1, $result['ABC']);
         $this->assertInstanceOf(SearchResultDTO::class, $result['ABC'][0]);
         $this->assertSame('Zener', $result['ABC'][0]->name);
     }
 
-    // ---------------------------------------------------------
-    // Test: convertPartDetailToSearchResult
-    // ---------------------------------------------------------
     public function testConvertPartDetailToSearchResult(): void
     {
         $detail = new PartDetailDTO(
