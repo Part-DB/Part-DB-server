@@ -13,7 +13,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\CacheItemInterface;
-use App\Services\OAuth\OAuthTokenManager;
 
 /**
  * Full behavioral test suite for BuerklinProvider.
@@ -30,7 +29,6 @@ class BuerklinProviderTest extends TestCase
     protected function setUp(): void
     {
         $this->httpClient = $this->createMock(HttpClientInterface::class);
-        $this->tokenManager = $this->createMock(OAuthTokenManager::class);
 
         // Cache mock
         $cacheItem = $this->createMock(CacheItemInterface::class);
@@ -50,7 +48,6 @@ class BuerklinProviderTest extends TestCase
 
         $this->provider = new BuerklinProvider(
             client: $this->httpClient,
-            authTokenManager: $this->tokenManager,
             partInfoCache: $this->cache,
             settings: $this->settings,
         );
