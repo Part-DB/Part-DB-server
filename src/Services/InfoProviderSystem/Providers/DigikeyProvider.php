@@ -311,6 +311,13 @@ class DigikeyProvider implements InfoProviderInterface
             'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
         ]);
 
+        if ($response->getStatusCode() === 404) {
+            return [
+                'datasheets' => [],
+                'images' => [],
+            ];
+        }
+
         $media_array = $response->toArray();
 
         foreach ($media_array['MediaLinks'] as $media_link) {
