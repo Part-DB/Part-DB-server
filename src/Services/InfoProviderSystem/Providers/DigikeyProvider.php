@@ -311,14 +311,14 @@ class DigikeyProvider implements InfoProviderInterface
             'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
         ]);
 
-        if ($response->getStatusCode() === 404) {
+        // Return empty arrays if the response has no content or fails (e.g., 404, 500+)
+        $media_array = $response->toArray(false);
+        if (empty($media_array) || !isset($media_array['MediaLinks'])) {
             return [
                 'datasheets' => [],
                 'images' => [],
             ];
         }
-
-        $media_array = $response->toArray();
 
         foreach ($media_array['MediaLinks'] as $media_link) {
             $file = new FileDTO(url: $media_link['Url'], name: $media_link['Title']);
