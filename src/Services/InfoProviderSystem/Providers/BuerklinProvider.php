@@ -354,7 +354,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
      */
     private function getProductShortURL(string $product_code): string
     {
-        return 'https://www.buerklin.com/de/p/' . $product_code . '/';
+        return 'https://www.buerklin.com/' . $this->settings->language . '/p/' . $product_code . '/';
     }
 
     /**
