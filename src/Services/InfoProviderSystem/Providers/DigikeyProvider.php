@@ -88,10 +88,10 @@ class DigikeyProvider implements InfoProviderInterface
     {
         return [
             ProviderCapabilities::BASIC,
-            ProviderCapabilities::FOOTPRINT,
             ProviderCapabilities::PICTURE,
             ProviderCapabilities::DATASHEET,
             ProviderCapabilities::PRICE,
+            ProviderCapabilities::FOOTPRINT,
         ];
     }
 

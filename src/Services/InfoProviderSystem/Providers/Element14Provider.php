@@ -307,6 +307,7 @@ class Element14Provider implements InfoProviderInterface
             ProviderCapabilities::BASIC,
             ProviderCapabilities::PICTURE,
             ProviderCapabilities::DATASHEET,
+            ProviderCapabilities::PRICE,
         ];
     }
 }
