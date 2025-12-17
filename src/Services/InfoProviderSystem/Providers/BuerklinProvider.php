@@ -32,8 +32,6 @@ use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\BuerklinSettings;
 use Psr\Cache\CacheItemPoolInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
-use Symfony\Component\HttpClient\HttpOptions;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class BuerklinProvider implements BatchInfoProviderInterface
@@ -404,7 +402,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
         }
 
         return array_map(
-            fn($url) => new \App\Services\InfoProviderSystem\DTOs\FileDTO($url),
+            fn($url) => new FileDTO($url),
             array_values($byUrl)
         );
     }
@@ -490,9 +488,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
             } catch (\Throwable $e) {
                 return [];
             }
-        }
-        else
-        {
+        } else {
             return [];
         }
     }
@@ -510,7 +506,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
         return [
             ProviderCapabilities::BASIC,
             ProviderCapabilities::PICTURE,
-            //ProviderCapabilities::DATASHEET, // currently not implemented
+                //ProviderCapabilities::DATASHEET, // currently not implemented
             ProviderCapabilities::PRICE,
             ProviderCapabilities::FOOTPRINT,
         ];
