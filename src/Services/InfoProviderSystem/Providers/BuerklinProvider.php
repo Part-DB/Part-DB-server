@@ -370,8 +370,9 @@ class BuerklinProvider implements BatchInfoProviderInterface
      */
     private function getProductImages(?array $images): array
     {
-        if (!is_array($images))
+        if (!is_array($images)) {
             return [];
+        }
 
         // 1) Only real image entries with URL
         $imgs = array_values(array_filter($images, fn($i) => is_array($i) && !empty($i['url'])));
@@ -395,8 +396,9 @@ class BuerklinProvider implements BatchInfoProviderInterface
             if (!str_starts_with($url, 'http://') && !str_starts_with($url, 'https://')) {
                 $url = 'https://www.buerklin.com' . $url;
             }
-            if (!filter_var($url, FILTER_VALIDATE_URL))
+            if (!filter_var($url, FILTER_VALIDATE_URL)) {
                 continue;
+            }
 
             $byUrl[$url] = $url;
         }
@@ -412,12 +414,14 @@ class BuerklinProvider implements BatchInfoProviderInterface
         $out = [];
 
         foreach ($features as $f) {
-            if (!is_array($f))
+            if (!is_array($f)) {
                 continue;
+            }
 
             $name = $f['name'] ?? null;
-            if (!is_string($name) || trim($name) === '')
+            if (!is_string($name) || trim($name) === '') {
                 continue;
+            }
 
             $vals = [];
             foreach (($f['featureValues'] ?? []) as $fv) {
@@ -425,8 +429,9 @@ class BuerklinProvider implements BatchInfoProviderInterface
                     $vals[] = trim($fv['value']);
                 }
             }
-            if (count($vals) === 0)
+            if (empty($vals)) {
                 continue;
+            }
 
             // Multiple values: join with comma
             $value = implode(', ', array_values(array_unique($vals)));
@@ -462,29 +467,32 @@ class BuerklinProvider implements BatchInfoProviderInterface
     public function searchByKeyword(string $keyword): array
     {
         $keyword = strtoupper(trim($keyword));
-        if ($keyword === '') {
-            return [];
+        if (!empty($keyword)) {
+
+            $response = $this->makeAPICall('/products/search/', [
+                'pageSize' => 50,
+                'currentPage' => 0,
+                'query' => $keyword,
+                'sort' => 'relevance',
+            ]);
+
+            $products = $response['products'] ?? [];
+
+            // Normal case: products found in search results
+            if (is_array($products) && !empty($products)) {
+                return array_map(fn($p) => $this->getPartDetail($p), $products);
+            }
+
+            // Fallback: try direct lookup by code
+            try {
+                $product = $this->getProduct($keyword);
+                return [$this->getPartDetail($product)];
+            } catch (\Throwable $e) {
+                return [];
+            }
         }
-
-        $response = $this->makeAPICall('/products/search/', [
-            'pageSize' => 50,
-            'currentPage' => 0,
-            'query' => $keyword,
-            'sort' => 'relevance',
-        ]);
-
-        $products = $response['products'] ?? [];
-
-        // Normal case: products found in search results
-        if (is_array($products) && count($products) > 0) {
-            return array_map(fn($p) => $this->getPartDetail($p), $products);
-        }
-
-        // Fallback: try direct lookup by code
-        try {
-            $product = $this->getProduct($keyword);
-            return [$this->getPartDetail($product)];
-        } catch (\Throwable $e) {
+        else
+        {
             return [];
         }
     }
@@ -502,7 +510,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
         return [
             ProviderCapabilities::BASIC,
             ProviderCapabilities::PICTURE,
-                //ProviderCapabilities::DATASHEET, // currently not implemented
+            //ProviderCapabilities::DATASHEET, // currently not implemented
             ProviderCapabilities::PRICE,
             ProviderCapabilities::FOOTPRINT,
         ];
@@ -513,8 +521,9 @@ class BuerklinProvider implements BatchInfoProviderInterface
         $params = [];
 
         $add = function (string $name, $value) use (&$params, $group) {
-            if ($value === null)
+            if ($value === null) {
                 return;
+            }
 
             if (is_bool($value)) {
                 $value = $value ? 'Yes' : 'No';
@@ -523,8 +532,9 @@ class BuerklinProvider implements BatchInfoProviderInterface
                 return;
             } else {
                 $value = trim((string) $value);
-                if ($value === '')
+                if ($value === '') {
                     return;
+                }
             }
 
             $params[] = ParameterDTO::parseValueField(
