@@ -30,7 +30,6 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
-use App\Services\OAuth\OAuthTokenManager;
 use App\Settings\InfoProviderSystem\BuerklinSettings;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -51,10 +50,9 @@ class BuerklinProvider implements BatchInfoProviderInterface
 
     public function __construct(
         private readonly HttpClientInterface $client,
-        private readonly OAuthTokenManager $authTokenManager,
         private readonly CacheItemPoolInterface $partInfoCache,
         private readonly BuerklinSettings $settings,
-      ) {
+    ) {
 
     }
 
@@ -64,15 +62,51 @@ class BuerklinProvider implements BatchInfoProviderInterface
      */
     private function getToken(): string
     {
-        //Check if we already have a token saved for this app, otherwise we have to retrieve one via OAuth
-        if (!$this->authTokenManager->hasToken(self::OAUTH_APP_NAME)) {
-            $this->authTokenManager->retrieveROPCToken(self::OAUTH_APP_NAME, $this->settings->username, $this->settings->password);
+        // Cache token to avoid hammering the auth server on every request
+        $cacheKey = 'buerklin.oauth.token';
+        $item = $this->partInfoCache->getItem($cacheKey);
+
+        if ($item->isHit()) {
+            $token = $item->get();
+            if (is_string($token) && $token !== '') {
+                return $token;
+            }
         }
 
-        $token = $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME);
-        if ($token === null) {
-            throw new \RuntimeException('Could not retrieve OAuth token for Buerklin API.');
+        // Buerklin OAuth2 password grant (ROPC)
+        $resp = $this->client->request('POST', 'https://www.buerklin.com/authorizationserver/oauth/token/', [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/x-www-form-urlencoded',
+            ],
+            'body' => [
+                'grant_type' => 'password',
+                'client_id' => $this->settings->clientId,
+                'client_secret' => $this->settings->secret,
+                'username' => $this->settings->username,
+                'password' => $this->settings->password,
+            ],
+        ]);
+
+        $data = $resp->toArray(false);
+
+        if (!isset($data['access_token'])) {
+            throw new \RuntimeException(
+                'Invalid token response from Buerklin: HTTP ' . $resp->getStatusCode() . ' body=' . $resp->getContent(false)
+            );
         }
+
+        $token = (string) $data['access_token'];
+
+        // Cache for (expires_in - 30s) if available
+        $ttl = 300;
+        if (isset($data['expires_in']) && is_numeric($data['expires_in'])) {
+            $ttl = max(60, (int) $data['expires_in'] - 30);
+        }
+
+        $item->set($token);
+        $item->expiresAfter($ttl);
+        $this->partInfoCache->save($item);
 
         return $token;
     }
