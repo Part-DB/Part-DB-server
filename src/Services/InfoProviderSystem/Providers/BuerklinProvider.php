@@ -465,30 +465,29 @@ class BuerklinProvider implements BatchInfoProviderInterface
     public function searchByKeyword(string $keyword): array
     {
         $keyword = strtoupper(trim($keyword));
-        if (!empty($keyword)) {
+        if ($keyword === '') {
+            return [];
+        }
 
-            $response = $this->makeAPICall('/products/search/', [
-                'pageSize' => 50,
-                'currentPage' => 0,
-                'query' => $keyword,
-                'sort' => 'relevance',
-            ]);
+        $response = $this->makeAPICall('/products/search/', [
+            'pageSize' => 50,
+            'currentPage' => 0,
+            'query' => $keyword,
+            'sort' => 'relevance',
+        ]);
 
-            $products = $response['products'] ?? [];
+        $products = $response['products'] ?? [];
 
-            // Normal case: products found in search results
-            if (is_array($products) && !empty($products)) {
-                return array_map(fn($p) => $this->getPartDetail($p), $products);
-            }
+        // Normal case: products found in search results
+        if (is_array($products) && !empty($products)) {
+            return array_map(fn($p) => $this->getPartDetail($p), $products);
+        }
 
-            // Fallback: try direct lookup by code
-            try {
-                $product = $this->getProduct($keyword);
-                return [$this->getPartDetail($product)];
-            } catch (\Throwable $e) {
-                return [];
-            }
-        } else {
+        // Fallback: try direct lookup by code
+        try {
+            $product = $this->getProduct($keyword);
+            return [$this->getPartDetail($product)];
+        } catch (\Throwable $e) {
             return [];
         }
     }
