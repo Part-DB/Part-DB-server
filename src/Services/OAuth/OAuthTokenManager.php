@@ -159,4 +159,21 @@ final class OAuthTokenManager
 
         return $this->saveToken($app_name, $access_token);
     }
+
+    /**
+     * Retrieves an access token for the given app name using the client ROPC grant (so no user flow is needed)
+     * The app_name must be registered in the knpu_oauth2_client.yaml
+     * The token is saved to the database, and afterwards can be used as usual
+     * @param  string  $app_name
+     * @return OAuthToken
+     */
+    public function retrieveROPCToken(string $app_name, string $user, string $password): OAuthToken
+    {
+        $client = $this->clientRegistry->getClient($app_name);
+        $access_token = $client->getOAuth2Provider()->getAccessToken('password', [
+            'username' => $user,
+            'password' => $password
+        ];
+        return $this->saveToken($app_name, $access_token);
+    }
 }
