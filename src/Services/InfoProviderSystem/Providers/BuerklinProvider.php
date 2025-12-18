@@ -175,8 +175,9 @@ class BuerklinProvider implements BatchInfoProviderInterface
             'name' => 'Buerklin',
             'description' => 'This provider uses the Buerklin API to search for parts.',
             'url' => 'https://www.buerklin.com/',
-            'oauth_app_name' => self::OAUTH_APP_NAME,
-            'disabled_help' => 'Set the environment variables PROVIDER_BUERKLIN_CLIENT_ID, PROVIDER_BUERKLIN_SECRET, PROVIDER_BUERKLIN_USERNAME and PROVIDER_BUERKLIN_PASSWORD.'
+            //'oauth_app_name' => self::OAUTH_APP_NAME, //https://github.com/Part-DB/Part-DB-server/pull/1151#discussion_r2622979937
+            'disabled_help' => 'Configure the API Client ID, Secret, Username and Password provided by Buerklin in the provider settings to enable.',
+            'settings_class' => BuerklinSettings::class
         ];
     }
 
