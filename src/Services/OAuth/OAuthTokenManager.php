@@ -173,7 +173,7 @@ final class OAuthTokenManager
         $access_token = $client->getOAuth2Provider()->getAccessToken('password', [
             'username' => $user,
             'password' => $password
-        ];
+        ]);
         return $this->saveToken($app_name, $access_token);
     }
 }
