@@ -40,7 +40,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
     private const ENDPOINT_URL = 'https://www.buerklin.com/buerklinws/v2/buerklin';
 
     public const DISTRIBUTOR_NAME = 'Buerklin';
-    private const OAUTH_APP_NAME = 'ip_buerklin_oauth';
+
     private const CACHE_TTL = 600;
     /**
      * Local in-request cache to avoid hitting the PSR cache repeatedly for the same product.
@@ -175,7 +175,6 @@ class BuerklinProvider implements BatchInfoProviderInterface
             'name' => 'Buerklin',
             'description' => 'This provider uses the Buerklin API to search for parts.',
             'url' => 'https://www.buerklin.com/',
-            //'oauth_app_name' => self::OAUTH_APP_NAME, //https://github.com/Part-DB/Part-DB-server/pull/1151#discussion_r2622979937
             'disabled_help' => 'Configure the API Client ID, Secret, Username and Password provided by Buerklin in the provider settings to enable.',
             'settings_class' => BuerklinSettings::class
         ];

@@ -36,18 +36,3 @@ knpu_oauth2_client:
                 urlAuthorize: 'https://identity.nexar.com/connect/authorize'
                 urlAccessToken: 'https://identity.nexar.com/connect/token'
                 urlResourceOwnerDetails: ''
-
-        ip_buerklin_oauth:
-            type: generic
-            provider_class: '\League\OAuth2\Client\Provider\GenericProvider'
-
-            client_id: '%env(settings:buerklin:clientId)%'
-            client_secret: '%env(settings:buerklin:secret)%'
-
-            redirect_route: 'oauth_client_check'
-            redirect_params: { name: 'ip_buerklin_oauth' }
-
-            provider_options:
-                urlAuthorize: 'https://www.buerklin.com/authorizationserver/oauth/token'
-                urlAccessToken: 'https://www.buerklin.com/authorizationserver/oauth/token'
-                urlResourceOwnerDetails: ''
