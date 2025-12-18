@@ -79,7 +79,14 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                     return htmlspecialchars($this->amountFormatter->format($context->getQuantity(), $context->getPart()->getPartUnit()));
                 },
             ])
-
+			->add('part_id', TextColumn::class, [
+				'label' => 'part-id',
+				'visible' => true,
+				'orderField' => 'part.id',
+				'render' => function ($value, ProjectBOMEntry $context) {
+					return $context->getPart() instanceof Part ? (string) $context->getPart()->getId() : '';
+				},
+			])
             ->add('name', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.name'),
                 'orderField' => 'NATSORT(part.name)',
