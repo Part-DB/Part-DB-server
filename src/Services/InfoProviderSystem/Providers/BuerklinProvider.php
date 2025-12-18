@@ -30,6 +30,7 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use App\Services\OAuth\OAuthTokenManager;
 use App\Settings\InfoProviderSystem\BuerklinSettings;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -50,9 +51,10 @@ class BuerklinProvider implements BatchInfoProviderInterface
 
     public function __construct(
         private readonly HttpClientInterface $client,
+        private readonly OAuthTokenManager $authTokenManager,
         private readonly CacheItemPoolInterface $partInfoCache,
         private readonly BuerklinSettings $settings,
-    ) {
+      ) {
 
     }
 
