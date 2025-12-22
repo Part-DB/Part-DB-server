@@ -33,6 +33,9 @@ class PartSearchFilter implements FilterInterface
     /** @var bool Use name field for searching */
     protected bool $name = true;
 
+    /** @var bool Use id field for searching */
+    protected bool $dbId = true;
+
     /** @var bool Use category name for searching */
     protected bool $category = true;
 
@@ -79,6 +82,9 @@ class PartSearchFilter implements FilterInterface
 
         if($this->name) {
             $fields_to_search[] = 'part.name';
+        }
+        if($this->dbId) {
+            $fields_to_search[] = 'part.id';
         }
         if($this->category) {
             $fields_to_search[] = '_category.name';
@@ -180,6 +186,17 @@ class PartSearchFilter implements FilterInterface
     public function setName(bool $name): PartSearchFilter
     {
         $this->name = $name;
+        return $this;
+    }
+
+    public function isDbId(): bool
+    {
+        return $this->dbId;
+    }
+
+    public function setDbId(bool $dbId): PartSearchFilter
+    {
+        $this->dbId = $dbId;
         return $this;
     }
 
