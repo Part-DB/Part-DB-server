@@ -319,6 +319,7 @@ class PartListsController extends AbstractController
 
         //As an unchecked checkbox is not set in the query, the default value for all bools have to be false (which is the default argument value)!
         $filter->setName($request->query->getBoolean('name'));
+        $filter->setDbId($request->query->getBoolean('dbid'));
         $filter->setCategory($request->query->getBoolean('category'));
         $filter->setDescription($request->query->getBoolean('description'));
         $filter->setMpn($request->query->getBoolean('mpn'));

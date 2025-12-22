@@ -66,6 +66,15 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'visible' => false,
             ])
 
+            ->add('partId', TextColumn::class, [
+                'label'=> $this->translator->trans('part.table.part_id'),
+                'visible' => false,
+                'orderField' => 'part.id',
+                'render' => function ($value, ProjectBOMEntry $context) {
+                    return $context->getPart()->getId();
+                }
+            ])
+            
             ->add('quantity', TextColumn::class, [
                 'label' => $this->translator->trans('project.bom.quantity'),
                 'className' => 'text-center',
