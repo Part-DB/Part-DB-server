@@ -135,9 +135,8 @@
 
 {% block additional_content %}
     {% if pdf_data %}
-        {# Make the PDF viewer a few pixels taller so Chromium-based browsers show the PDF toolbar by default (fixes #1165) #}
-        <div class="card mt-2 p-1 border-secondary" style="resize: vertical; overflow: auto; height: 280px; min-height: 200px;">
-            <object id="pdf_preview" data="{{ pdf_data | data_uri(mime='application/pdf') }}" style="height: 100%; width: 100%; display: block;">
+        <div class="card mt-2 p-1 border-secondary" style="resize: vertical; overflow: scroll; height: 280px">
+            <object id="pdf_preview"  data="{{ pdf_data | data_uri(mime='application/pdf') }}"style="height: inherit">
             </object>
         </div>
     {% endif %}
