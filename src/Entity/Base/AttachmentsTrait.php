@@ -32,8 +32,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * Requirements:
  * - Class using this trait should have $id property (e.g., via DBElementTrait)
- * - Class may optionally have $master_picture_attachment property (via MasterAttachmentTrait)
+ * - Class using this trait should use MasterAttachmentTrait for full functionality
  * - Class should implement HasAttachmentsInterface
+ *
+ * Note: This trait has an optional dependency on MasterAttachmentTrait.
+ * If MasterAttachmentTrait is used, the removeAttachment and cloneAttachments methods
+ * will handle master picture attachment properly. Otherwise, those checks are no-ops.
  */
 trait AttachmentsTrait
 {

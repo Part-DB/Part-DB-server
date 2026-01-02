@@ -92,7 +92,7 @@ trait StructuralElementTrait
      * Alternative names (semicolon-separated) for this element, which can be used for searching (especially for info provider system)
      */
     #[ORM\Column(type: Types::TEXT, nullable: true, options: ['default' => null])]
-    private ?string $alternative_names = null;
+    private ?string $alternative_names = '';
 
     /**
      * Initialize structural element collections.
@@ -189,7 +189,7 @@ trait StructuralElementTrait
      *
      * The level of the root node is -1.
      *
-     * @return int the level of this element (zero means a most top element
+     * @return int the level of this element (zero means the topmost element
      *             [a sub element of the root node])
      */
     public function getLevel(): int

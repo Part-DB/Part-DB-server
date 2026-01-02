@@ -64,7 +64,7 @@ interface StructuralElementInterface
      *
      * The level of the root node is -1.
      *
-     * @return int the level of this element (zero means a most top element)
+     * @return int the level of this element (zero means the topmost element)
      */
     public function getLevel(): int;
 }
