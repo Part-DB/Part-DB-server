@@ -47,6 +47,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\TypeInfo\Type\NullableType;
+use Symfony\Component\TypeInfo\Type\ObjectType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -93,7 +95,7 @@ class AttachmentType extends AbstractStructuralDBElement
     #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
     #[Groups(['attachment_type:read', 'attachment_type:write'])]
-    #[ApiProperty(readableLink: true, writableLink: false)]
+    #[ApiProperty(readableLink: true, writableLink: false, nativeType: new NullableType(new ObjectType(self::class)))]
     protected ?AbstractStructuralDBElement $parent = null;
 
     /**
