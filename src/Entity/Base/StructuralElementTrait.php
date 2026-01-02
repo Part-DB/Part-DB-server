@@ -92,7 +92,7 @@ trait StructuralElementTrait
      * Alternative names (semicolon-separated) for this element, which can be used for searching (especially for info provider system)
      */
     #[ORM\Column(type: Types::TEXT, nullable: true, options: ['default' => null])]
-    private ?string $alternative_names = "";
+    private ?string $alternative_names = null;
 
     /**
      * Initialize structural element collections.
@@ -153,7 +153,7 @@ trait StructuralElementTrait
     /**
      * Get the parent of this element.
      *
-     * @return static|null The parent element. Null if this element, does not have a parent.
+     * @return static|null The parent element. Null if this element does not have a parent.
      */
     public function getParent(): ?self
     {
@@ -163,7 +163,7 @@ trait StructuralElementTrait
     /**
      *  Get the comment of the element as markdown encoded string.
      *
-     * @return string the comment
+     * @return string|null the comment
      */
     public function getComment(): ?string
     {

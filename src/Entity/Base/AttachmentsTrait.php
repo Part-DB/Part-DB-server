@@ -86,7 +86,7 @@ trait AttachmentsTrait
         $this->attachments->removeElement($attachment);
 
         //Check if this is the master attachment -> remove it from master attachment too, or it can not be deleted from DB...
-        if (isset($this->master_picture_attachment) && $attachment === $this->master_picture_attachment) {
+        if ($this->master_picture_attachment !== null && $attachment === $this->master_picture_attachment) {
             $this->setMasterPictureAttachment(null);
         }
 
@@ -104,7 +104,7 @@ trait AttachmentsTrait
             //Set master attachment is needed
             foreach ($attachments as $attachment) {
                 $clone = clone $attachment;
-                if (isset($this->master_picture_attachment) && $attachment === $this->master_picture_attachment) {
+                if ($this->master_picture_attachment !== null && $attachment === $this->master_picture_attachment) {
                     $this->setMasterPictureAttachment($clone);
                 }
                 $this->addAttachment($clone);

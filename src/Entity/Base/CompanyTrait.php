@@ -94,7 +94,7 @@ trait CompanyTrait
     }
 
     /**
-     * Set the addres.
+     * Set the address.
      *
      * @param string $new_address the new address (with "\n" as line break)
      *
