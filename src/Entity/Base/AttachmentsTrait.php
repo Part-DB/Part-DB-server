@@ -29,6 +29,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Trait providing attachments functionality.
+ *
+ * Requirements:
+ * - Class using this trait should have $id property (e.g., via DBElementTrait)
+ * - Class may optionally have $master_picture_attachment property (via MasterAttachmentTrait)
+ * - Class should implement HasAttachmentsInterface
  */
 trait AttachmentsTrait
 {

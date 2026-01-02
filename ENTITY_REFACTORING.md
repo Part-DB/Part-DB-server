@@ -4,6 +4,48 @@
 
 This refactoring decomposes the deep entity inheritance hierarchy into a more flexible trait-based architecture. This provides better code reusability, composition, and maintainability.
 
+## Architecture Diagram
+
+### Before (Deep Inheritance):
+```
+AbstractDBElement (ID logic)
+    └─ AbstractNamedDBElement (name + timestamps)
+        └─ AttachmentContainingDBElement (attachments)
+            └─ AbstractStructuralDBElement (tree/hierarchy + parameters)
+                ├─ AbstractPartsContainingDBElement
+                │   ├─ Category
+                │   ├─ Footprint
+                │   ├─ StorageLocation
+                │   └─ AbstractCompany (company fields)
+                │       ├─ Manufacturer
+                │       └─ Supplier
+```
+
+### After (Trait Composition):
+```
+Traits:                          Interfaces:
+- DBElementTrait                 - DBElementInterface
+- NamedElementTrait              - NamedElementInterface
+- TimestampTrait                 - TimeStampableInterface
+- AttachmentsTrait               - HasAttachmentsInterface
+- MasterAttachmentTrait          - HasMasterAttachmentInterface
+- StructuralElementTrait         - StructuralElementInterface
+- ParametersTrait                - HasParametersInterface
+- CompanyTrait                   - CompanyInterface
+
+Class Hierarchy (now uses traits):
+AbstractDBElement (uses DBElementTrait, implements DBElementInterface)
+    └─ AbstractNamedDBElement (uses NamedElementTrait + TimestampTrait)
+        └─ AttachmentContainingDBElement (uses AttachmentsTrait + MasterAttachmentTrait)
+            └─ AbstractStructuralDBElement (uses StructuralElementTrait + ParametersTrait)
+                ├─ AbstractPartsContainingDBElement
+                │   ├─ Category (gets all traits via inheritance)
+                │   ├─ Footprint (gets all traits via inheritance)
+                │   └─ AbstractCompany (uses CompanyTrait)
+                │       ├─ Manufacturer
+                │       └─ Supplier
+```
+
 ## Changes Made
 
 ### New Traits Created

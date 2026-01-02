@@ -34,6 +34,11 @@ use function count;
 
 /**
  * Trait for structural/hierarchical elements forming a tree structure.
+ *
+ * Requirements:
+ * - Class using this trait must have getName() method (e.g., via NamedElementTrait)
+ * - Class using this trait must have getID() method (e.g., via DBElementTrait)
+ * - Class should implement StructuralElementInterface
  */
 trait StructuralElementTrait
 {
