@@ -52,8 +52,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\TypeInfo\Type\NullableType;
-use Symfony\Component\TypeInfo\Type\ObjectType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -127,7 +125,7 @@ class Currency extends AbstractStructuralDBElement
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
     #[Groups(['currency:read', 'currency:write'])]
-    #[ApiProperty(readableLink: false, writableLink: false, nativeType: new NullableType(new ObjectType(self::class)))]
+    #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
 
     /**
