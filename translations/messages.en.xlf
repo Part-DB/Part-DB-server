@@ -9938,13 +9938,13 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="NdZ1t7a" name="project.builds.number_of_builds_possible">
       <segment state="translated">
         <source>project.builds.number_of_builds_possible</source>
-        <target><![CDATA[You have enough stocked to build <b>%max_builds%</b> builds of this [project].]]></target>
+        <target>You have enough stocked to build &lt;b&gt;%max_builds%&lt;/b&gt; builds of this [project].</target>
       </segment>
     </unit>
     <unit id="iuSpPbg" name="project.builds.check_project_status">
       <segment state="translated">
         <source>project.builds.check_project_status</source>
-        <target><![CDATA[The current [project] status is <b>"%project_status%"</b>. You should check if you really want to build the [project] with this status!]]></target>
+        <target>The current [project] status is &lt;b&gt;"%project_status%"&lt;/b&gt;. You should check if you really want to build the [project] with this status!</target>
       </segment>
     </unit>
     <unit id="Y7vSSxi" name="project.builds.following_bom_entries_miss_instock_n">
@@ -14159,121 +14159,121 @@ Please note that this system is currently experimental, and the synonyms defined
       </segment>
     </unit>
     <unit id=".tjK0ju" name="project_bom_entry.labelp">
-      <segment>
+      <segment state="translated">
         <source>project_bom_entry.labelp</source>
         <target>BOM entries</target>
       </segment>
     </unit>
     <unit id="ftBf11d" name="part_lot.labelp">
-      <segment>
+      <segment state="translated">
         <source>part_lot.labelp</source>
         <target>Part lots</target>
       </segment>
     </unit>
     <unit id="UVDJmYp" name="orderdetail.labelp">
-      <segment>
+      <segment state="translated">
         <source>orderdetail.labelp</source>
         <target>Order details</target>
       </segment>
     </unit>
     <unit id="83AQqv." name="pricedetail.labelp">
-      <segment>
+      <segment state="translated">
         <source>pricedetail.labelp</source>
         <target>Price details</target>
       </segment>
     </unit>
     <unit id="4KRV2mB" name="parameter.labelp">
-      <segment>
+      <segment state="translated">
         <source>parameter.labelp</source>
         <target>Parameters</target>
       </segment>
     </unit>
     <unit id="AAYYeiw" name="part_association.labelp">
-      <segment>
+      <segment state="translated">
         <source>part_association.labelp</source>
         <target>Part associations</target>
       </segment>
     </unit>
     <unit id="2_3Lz7i" name="bulk_info_provider_import_job.labelp">
-      <segment>
+      <segment state="translated">
         <source>bulk_info_provider_import_job.labelp</source>
         <target>Bulk info provider imports</target>
       </segment>
     </unit>
     <unit id="BXTqi16" name="bulk_info_provider_import_job_part.labelp">
-      <segment>
+      <segment state="translated">
         <source>bulk_info_provider_import_job_part.labelp</source>
         <target>Bulk import job part</target>
       </segment>
     </unit>
     <unit id="91Wvg.F" name="password_toggle.hide">
-      <segment>
+      <segment state="translated">
         <source>password_toggle.hide</source>
         <target>Hide</target>
       </segment>
     </unit>
     <unit id="2vciZN7" name="password_toggle.show">
-      <segment>
+      <segment state="translated">
         <source>password_toggle.show</source>
         <target>Show</target>
       </segment>
     </unit>
     <unit id="PVw6Lx4" name="settings.misc.ipn_suggest.regex.help.placeholder">
-      <segment>
+      <segment state="translated">
         <source>settings.misc.ipn_suggest.regex.help.placeholder</source>
         <target>e.g. Format: 3–4 alphanumeric segments (any number) separated by "-", followed by "-" and 4 digits, e.g., PCOM-RES-0001</target>
       </segment>
     </unit>
     <unit id="M5Q_eZW" name="part.edit.tab.advanced.ipn.prefix.global_prefix">
-      <segment>
+      <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.global_prefix</source>
         <target>The global IPN prefix, common across all parts</target>
       </segment>
     </unit>
     <unit id="WlKvQeB" name="settings.misc.ipn_suggest.fallbackPrefix">
-      <segment>
+      <segment state="translated">
         <source>settings.misc.ipn_suggest.fallbackPrefix</source>
         <target>Fallback prefix</target>
       </segment>
     </unit>
     <unit id="Fr8hXdE" name="settings.misc.ipn_suggest.fallbackPrefix.help">
-      <segment>
+      <segment state="translated">
         <source>settings.misc.ipn_suggest.fallbackPrefix.help</source>
         <target>The IPN prefix that should be used, if a category has no prefix defined.</target>
       </segment>
     </unit>
     <unit id="_p9cMpI" name="settings.misc.ipn_suggest.numberSeparator">
-      <segment>
+      <segment state="translated">
         <source>settings.misc.ipn_suggest.numberSeparator</source>
         <target>Number separator</target>
       </segment>
     </unit>
     <unit id="CqfzuM6" name="settings.misc.ipn_suggest.numberSeparator.help">
-      <segment>
+      <segment state="translated">
         <source>settings.misc.ipn_suggest.numberSeparator.help</source>
         <target>The separator character used to separate the IPN number from the prefix.</target>
       </segment>
     </unit>
     <unit id="PisGfwB" name="settings.misc.ipn_suggest.categorySeparator">
-      <segment>
+      <segment state="translated">
         <source>settings.misc.ipn_suggest.categorySeparator</source>
         <target>Category separator</target>
       </segment>
     </unit>
     <unit id="jlNd0CI" name="settings.misc.ipn_suggest.categorySeparator.help">
-      <segment>
+      <segment state="translated">
         <source>settings.misc.ipn_suggest.categorySeparator.help</source>
         <target>The separator character used to separate different levels of category prefixes.</target>
       </segment>
     </unit>
     <unit id="MkiJuRK" name="settings.misc.ipn_suggest.globalPrefix">
-      <segment>
+      <segment state="translated">
         <source>settings.misc.ipn_suggest.globalPrefix</source>
         <target>Global prefix</target>
       </segment>
     </unit>
     <unit id="Akh9iFg" name="settings.misc.ipn_suggest.globalPrefix.help">
-      <segment>
+      <segment state="translated">
         <source>settings.misc.ipn_suggest.globalPrefix.help</source>
         <target>If enabled, an option for to generate IPN with this global prefix, shared across parts in all categories.</target>
       </segment>
@@ -14288,7 +14288,7 @@ Please note that this system is currently experimental, and the synonyms defined
       </segment>
     </unit>
     <unit id="8BkjGyq" name="project.bom.part_id">
-      <segment>
+      <segment state="translated">
         <source>project.bom.part_id</source>
         <target>[Part] ID</target>
       </segment>
