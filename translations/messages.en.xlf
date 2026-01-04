@@ -14287,6 +14287,27 @@ Please note that this system is currently experimental, and the synonyms defined
         <target>_MENU_</target>
       </segment>
     </unit>
+    <unit id="Ae8pGfM" name="settings.ips.buerklin">
+      <segment state="translated">
+        <source>settings.ips.buerklin</source>
+        <target>Buerklin</target>
+      </segment>
+    </unit>
+    <unit id="nlVH1Nb" name="settings.ips.buerklin.username">
+      <segment state="translated">
+        <source>settings.ips.buerklin.username</source>
+        <target>User name</target>
+      </segment>
+    </unit>
+    <unit id="BlR_EQc" name="settings.ips.buerklin.help">
+      <segment state="translated">
+        <source>settings.ips.buerklin.help</source>
+        <target>Buerklin-API access limits: 
+100 requests/minute per IP address
+Buerklin-API Authentication server:
+10 requests/minute per IP address</target>
+      </segment>
+    </unit>
     <unit id="8BkjGyq" name="project.bom.part_id">
       <segment state="translated">
         <source>project.bom.part_id</source>
