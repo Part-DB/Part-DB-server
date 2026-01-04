@@ -43,7 +43,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ProjectBomEntriesDataTable implements DataTableTypeInterface
 {
     public function __construct(protected TranslatorInterface $translator, protected PartDataTableHelper $partDataTableHelper,
-        protected EntityURLGenerator $entityURLGenerator, protected AmountFormatter $amountFormatter, private readonly ElementTypeNameGenerator $elementTypeNameGenerator)
+        protected EntityURLGenerator $entityURLGenerator, protected AmountFormatter $amountFormatter)
     {
     }
 
