@@ -58,6 +58,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
 
     /**
      * Gets the latest OAuth token for the Buerklin API, or creates a new one if none is available
+     * TODO: Rework this to use the OAuth token manager system in the database...
      * @return string
      */
     private function getToken(): string
