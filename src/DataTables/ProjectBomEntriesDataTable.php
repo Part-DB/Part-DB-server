@@ -29,6 +29,7 @@ use App\DataTables\Helpers\PartDataTableHelper;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
 use Doctrine\ORM\QueryBuilder;
@@ -41,7 +42,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProjectBomEntriesDataTable implements DataTableTypeInterface
 {
-    public function __construct(protected TranslatorInterface $translator, protected PartDataTableHelper $partDataTableHelper, protected EntityURLGenerator $entityURLGenerator, protected AmountFormatter $amountFormatter)
+    public function __construct(protected TranslatorInterface $translator, protected PartDataTableHelper $partDataTableHelper,
+        protected EntityURLGenerator $entityURLGenerator, protected AmountFormatter $amountFormatter, private readonly ElementTypeNameGenerator $elementTypeNameGenerator)
     {
     }
 
@@ -79,8 +81,8 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                     return htmlspecialchars($this->amountFormatter->format($context->getQuantity(), $context->getPart()->getPartUnit()));
                 },
             ])
-			->add('part_id', TextColumn::class, [
-				'label' => 'part-id',
+			->add('partId', TextColumn::class, [
+				'label' => $this->translator->trans('project.bom.part_id'),
 				'visible' => true,
 				'orderField' => 'part.id',
 				'render' => function ($value, ProjectBOMEntry $context) {
