@@ -189,10 +189,10 @@ class BuerklinProvider implements BatchInfoProviderInterface
     public function isActive(): bool
     {
         // The client credentials and user credentials must be set
-        return $this->settings->clientId !== ''
-            && $this->settings->secret !== ''
-            && $this->settings->username !== ''
-            && $this->settings->password !== '';
+        return $this->settings->clientId !== null && $this->settings->clientId !== ''
+            && $this->settings->secret !== null && $this->settings->secret !== ''
+            && $this->settings->username !== null && $this->settings->username !== ''
+            && $this->settings->password !== null && $this->settings->password !== '';
     }
 
     /**
