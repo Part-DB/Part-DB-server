@@ -27,7 +27,7 @@
                                    title="{% trans %}info_providers.settings.title{% endtrans %}"
                                 ><i class="fa-solid fa-cog"></i></a>
                             {% endif %}
-                            {% for capability in provider.capabilities %}
+                            {% for capability in provider.capabilities|sort((a, b) => a.orderIndex <=> b.orderIndex) %}
                                 {# @var capability \App\Services\InfoProviderSystem\Providers\ProviderCapabilities #}
                                 <span class="badge text-bg-secondary">
                                     <i class="{{ capability.fAIconClass }} fa-fw"></i>

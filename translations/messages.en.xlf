@@ -14032,128 +14032,128 @@ You can do this in the provider info list.</target>
       </segment>
     </unit>
     <unit id="L4nq52R" name="settings.misc.ipn_suggest.useDuplicateDescription.help">
-      <segment>
+      <segment state="translated">
         <source>settings.misc.ipn_suggest.useDuplicateDescription.help</source>
         <target>When enabled, the part’s description is used to find existing parts with the same description and to determine the next available IPN by incrementing their numeric suffix for the suggestion list.</target>
       </segment>
     </unit>
     <unit id="NIw6dtz" name="settings.misc.ipn_suggest.regex.help">
-      <segment>
+      <segment state="translated">
         <source>settings.misc.ipn_suggest.regex.help</source>
         <target>A PCRE-compatible regular expression every IPN has to fulfill. Leave empty to allow everything as IPN.</target>
       </segment>
     </unit>
     <unit id="MoHHSNT" name="user.labelp">
-      <segment>
+      <segment state="translated">
         <source>user.labelp</source>
         <target>Users</target>
       </segment>
     </unit>
     <unit id="5.oI1XD" name="currency.labelp">
-      <segment>
+      <segment state="translated">
         <source>currency.labelp</source>
         <target>Currencies</target>
       </segment>
     </unit>
     <unit id="8F2EwVK" name="measurement_unit.labelp">
-      <segment>
+      <segment state="translated">
         <source>measurement_unit.labelp</source>
         <target>Measurement units</target>
       </segment>
     </unit>
     <unit id="hYrcka2" name="attachment_type.labelp">
-      <segment>
+      <segment state="translated">
         <source>attachment_type.labelp</source>
         <target>Attachment types</target>
       </segment>
     </unit>
     <unit id="p.Sjja3" name="label_profile.labelp">
-      <segment>
+      <segment state="translated">
         <source>label_profile.labelp</source>
         <target>Label profiles</target>
       </segment>
     </unit>
     <unit id="Y_ISV0y" name="part_custom_state.labelp">
-      <segment>
+      <segment state="translated">
         <source>part_custom_state.labelp</source>
         <target>Custom part states</target>
       </segment>
     </unit>
     <unit id="aXr7mN." name="group.labelp">
-      <segment>
+      <segment state="translated">
         <source>group.labelp</source>
         <target>Groups</target>
       </segment>
     </unit>
     <unit id="O10voez" name="settings.synonyms.type_synonym.type">
-      <segment>
+      <segment state="translated">
         <source>settings.synonyms.type_synonym.type</source>
         <target>Type</target>
       </segment>
     </unit>
     <unit id="1BDQVEp" name="settings.synonyms.type_synonym.language">
-      <segment>
+      <segment state="translated">
         <source>settings.synonyms.type_synonym.language</source>
         <target>Language</target>
       </segment>
     </unit>
     <unit id="2.g2ewQ" name="settings.synonyms.type_synonym.translation_singular">
-      <segment>
+      <segment state="translated">
         <source>settings.synonyms.type_synonym.translation_singular</source>
         <target>Translation Singular</target>
       </segment>
     </unit>
     <unit id="Up9ZhvR" name="settings.synonyms.type_synonym.translation_plural">
-      <segment>
+      <segment state="translated">
         <source>settings.synonyms.type_synonym.translation_plural</source>
         <target>Translation Plural</target>
       </segment>
     </unit>
     <unit id="BHoS230" name="settings.synonyms.type_synonym.add_entry">
-      <segment>
+      <segment state="translated">
         <source>settings.synonyms.type_synonym.add_entry</source>
         <target>Add entry</target>
       </segment>
     </unit>
     <unit id="wvtOEBn" name="settings.synonyms.type_synonym.remove_entry">
-      <segment>
+      <segment state="translated">
         <source>settings.synonyms.type_synonym.remove_entry</source>
         <target>Remove entry</target>
       </segment>
     </unit>
     <unit id="mLu.2F2" name="settings.synonyms">
-      <segment>
+      <segment state="translated">
         <source>settings.synonyms</source>
         <target>Synonyms</target>
       </segment>
     </unit>
     <unit id="SHgc9i." name="settings.synonyms.help">
-      <segment>
+      <segment state="translated">
         <source>settings.synonyms.help</source>
         <target>The synonyms systems allow overriding how Part-DB call certain things. This can be useful, especially if Part-DB is used in a different context than electronics.
 Please note that this system is currently experimental, and the synonyms defined here might not show up at all places.</target>
       </segment>
     </unit>
     <unit id="piB78W5" name="settings.synonyms.type_synonyms">
-      <segment>
+      <segment state="translated">
         <source>settings.synonyms.type_synonyms</source>
         <target>Type synonyms</target>
       </segment>
     </unit>
     <unit id="J8T2HuD" name="settings.synonyms.type_synonyms.help">
-      <segment>
+      <segment state="translated">
         <source>settings.synonyms.type_synonyms.help</source>
         <target>Type synonyms allow you to replace the labels of built-in data types. For example, you can rename "Footprint" to something else.</target>
       </segment>
     </unit>
     <unit id="wjcsjzT" name="log.element_edited.changed_fields.part_ipn_prefix">
-      <segment>
+      <segment state="translated">
         <source>log.element_edited.changed_fields.part_ipn_prefix</source>
         <target>IPN prefix</target>
       </segment>
     </unit>
     <unit id="R4hoCqe" name="part.labelp">
-      <segment>
+      <segment state="translated">
         <source>part.labelp</source>
         <target>Parts</target>
       </segment>
@@ -14306,6 +14306,12 @@ Please note that this system is currently experimental, and the synonyms defined
 100 requests/minute per IP address
 Buerklin-API Authentication server:
 10 requests/minute per IP address</target>
+      </segment>
+    </unit>
+    <unit id="8BkjGyq" name="project.bom.part_id">
+      <segment>
+        <source>project.bom.part_id</source>
+        <target>[Part] ID</target>
       </segment>
     </unit>
   </file>

@@ -79,6 +79,7 @@
         "symfony/string": "7.4.*",
         "symfony/translation": "7.4.*",
         "symfony/twig-bundle": "7.4.*",
+        "symfony/type-info": "7.4.0",
         "symfony/ux-translator": "^2.10",
         "symfony/ux-turbo": "^2.0",
         "symfony/validator": "7.4.*",
