@@ -264,7 +264,7 @@ The following env configuration options are available:
 
 The Buerklin provider uses the [Buerklin API](https://www.buerklin.com/en/services/eprocurement/) to search for parts and get information.
 To use it you have to request access to the API.
-You will get an e-mail with the client ID and client secret, which you have to put in the Part-DB env configuration (see below).
+You will get an e-mail with the client ID and client secret, which you have to put in the Part-DB configuration (see below).
 
 Please note that the Buerklin API is limited to 100 requests/minute per IP address and 
 access to the Authentication server is limited to 10 requests/minute per IP address
