@@ -36,6 +36,7 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand('partdb:migrate-db', 'Migrate the database to a different platform')]
 class DBMigrationCommand extends Command
@@ -55,8 +56,10 @@ class DBMigrationCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
+        $io = new SymfonyStyle($input, $output);
+
         // Example migration logic (to be replaced with actual migration code)
-        $output->writeln('Starting database migration...');
+        $io->info('Starting database migration...');
 
         //Disable all event listeners on target EM to avoid unwanted side effects
         $eventManager = $this->targetEM->getEventManager();
@@ -66,15 +69,16 @@ class DBMigrationCommand extends Command
             }
         }
 
-        $output->writeln('Clear target database...');
+        $io->info('Clear target database...');
         $this->importHelper->purgeDatabaseForImport($this->targetEM, ['internal', 'migration_versions']);
 
         $metadata = $this->targetEM->getMetadataFactory()->getAllMetadata();
 
+        $io->info('Modifying entity metadata for migration...');
         //First we modify each entity metadata to have an persist cascade on all relations
         foreach ($metadata as $metadatum) {
             $entityClass = $metadatum->getName();
-            $output->writeln('Modifying cascade and ID settings for entity: ' . $entityClass);
+            $io->writeln('Modifying cascade and ID settings for entity: ' . $entityClass, OutputInterface::VERBOSITY_VERBOSE);
 
             foreach ($metadatum->getAssociationNames() as $fieldName) {
                 $mapping = $metadatum->getAssociationMapping($fieldName);
@@ -86,6 +90,8 @@ class DBMigrationCommand extends Command
         }
 
 
+        $io->progressStart(count($metadata));
+
         //Afterwards we migrate all entities
         foreach ($metadata as $metadatum) {
             //skip all superclasses
@@ -95,15 +101,19 @@ class DBMigrationCommand extends Command
 
             $entityClass = $metadatum->getName();
 
-            $output->writeln('Migrating entity: ' . $entityClass);
+            $io->note('Migrating entity: ' . $entityClass);
 
             $repo = $this->sourceEM->getRepository($entityClass);
             $items = $repo->findAll();
-            foreach ($items as $item) {
+            foreach ($items as $index => $item) {
                 $this->targetEM->persist($item);
             }
             $this->targetEM->flush();
+
+            $io->
         }
+
+        $io->progressFinish();
 
         //Migrate all manufacturers from source to target
         /*$manufacturerRepo = $this->sourceEM->getRepository(Manufacturer::class);
@@ -115,6 +125,10 @@ class DBMigrationCommand extends Command
         */
 
         $output->writeln('Database migration completed successfully.');
+
+        if ($io->isVerbose()) {
+            $io->info('Process took peak memory: ' . round(memory_get_peak_usage(true) / 1024 / 1024, 2) . ' MB');
+        }
 
         return Command::SUCCESS;
     }
