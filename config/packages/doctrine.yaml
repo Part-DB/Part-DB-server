@@ -1,61 +1,56 @@
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
-
-        # Required for DAMA doctrine test bundle
-        use_savepoints: true
-
-        # IMPORTANT: You MUST configure your server version,
-        # either here or in the DATABASE_URL env var (see .env file)
-
+        # 1. GLOBAL SETTINGS (Apply to all connections)
         types:
-            # UTC datetimes
-            datetime:
-                class: App\Doctrine\Types\UTCDateTimeType
-            date:
-                class: App\Doctrine\Types\UTCDateTimeType
+            datetime: App\Doctrine\Types\UTCDateTimeType
+            date: App\Doctrine\Types\UTCDateTimeType
+            datetime_immutable: App\Doctrine\Types\UTCDateTimeImmutableType
+            date_immutable: App\Doctrine\Types\UTCDateTimeImmutableType
+            big_decimal: App\Doctrine\Types\BigDecimalType
+            tinyint: App\Doctrine\Types\TinyIntType
 
-            datetime_immutable:
-                class: App\Doctrine\Types\UTCDateTimeImmutableType
-            date_immutable:
-                class: App\Doctrine\Types\UTCDateTimeImmutableType
+        connections:
+            default:
+                use_savepoints: true
+                schema_filter: ~^(?!internal)~
+                url: '%env(resolve:DATABASE_URL)%'
 
-            big_decimal:
-                class: App\Doctrine\Types\BigDecimalType
-            tinyint:
-                class: App\Doctrine\Types\TinyIntType
-
-        schema_filter: ~^(?!internal)~
-        # Only enable this when needed
-        profiling_collect_backtrace: false
+            migration_source:
+                use_savepoints: true
+                schema_filter: ~^(?!internal)~
+                url: '%env(resolve:DB_MIGRATION_SOURCE)%'
 
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
-        report_fields_where_declared: true
-        validate_xml_mapping: true
-        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        identity_generation_preferences:
-            Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
-        auto_mapping: true
-        controller_resolver:
-            auto_mapping: true
-        mappings:
-            App:
-                type: attribute
-                is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
 
-        dql:
-            string_functions:
-                regexp: App\Doctrine\Functions\Regexp
-                field:  DoctrineExtensions\Query\Mysql\Field
-                field2: App\Doctrine\Functions\Field2
-                natsort: App\Doctrine\Functions\Natsort
-                array_position: App\Doctrine\Functions\ArrayPosition
-                ilike: App\Doctrine\Functions\ILike
+        entity_managers:
+            default: &common_orm_settings
+                report_fields_where_declared: true
+                validate_xml_mapping: true
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                identity_generation_preferences:
+                    Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
+                mappings:
+                    App:
+                        type: attribute
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: App
+                dql:
+                    string_functions:
+                        regexp: App\Doctrine\Functions\Regexp
+                        field: DoctrineExtensions\Query\Mysql\Field
+                        field2: App\Doctrine\Functions\Field2
+                        natsort: App\Doctrine\Functions\Natsort
+                        array_position: App\Doctrine\Functions\ArrayPosition
+                        ilike: App\Doctrine\Functions\ILike
+                connection: default
+
+            migration_source:
+                <<: *common_orm_settings
+                connection: migration_source
 
 when@test:
     doctrine:
