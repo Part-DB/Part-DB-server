@@ -39,12 +39,26 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Entity\Base\AttachmentsTrait;
+use App\Entity\Base\DBElementTrait;
+use App\Entity\Base\MasterAttachmentTrait;
+use App\Entity\Base\NamedElementTrait;
+use App\Entity\Base\StructuralElementTrait;
+use App\Entity\Base\TimestampTrait;
+use App\Entity\Contracts\DBElementInterface;
+use App\Entity\Contracts\HasAttachmentsInterface;
+use App\Entity\Contracts\HasMasterAttachmentInterface;
+use App\Entity\Contracts\HasParametersInterface;
+use App\Entity\Contracts\NamedElementInterface;
+use App\Entity\Contracts\StructuralElementInterface;
+use App\Entity\Contracts\TimeStampableInterface;
+use App\Entity\Parameters\ParametersTrait;
+use App\EntityListeners\TreeCacheInvalidationListener;
 use App\Repository\Parts\MeasurementUnitRepository;
+use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\DBAL\Types\Types;
-use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\MeasurementUnitAttachment;
-use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Parameters\MeasurementUnitParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -56,14 +70,15 @@ use Symfony\Component\Validator\Constraints\Length;
 /**
  * This unit represents the unit in which the amount of parts in stock are measured.
  * This could be something like N, grams, meters, etc...
- *
- * @extends AbstractPartsContainingDBElement<MeasurementUnitAttachment,MeasurementUnitParameter>
  */
 #[UniqueEntity('unit')]
 #[ORM\Entity(repositoryClass: MeasurementUnitRepository::class)]
 #[ORM\Table(name: '`measurement_units`')]
 #[ORM\Index(columns: ['name'], name: 'unit_idx_name')]
 #[ORM\Index(columns: ['parent_id', 'name'], name: 'unit_idx_parent_name')]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
+#[UniqueEntity(fields: ['name', 'parent'], message: 'structural.entity.unique_name', ignoreNull: false)]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -92,8 +107,15 @@ use Symfony\Component\Validator\Constraints\Length;
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment", "unit"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
-class MeasurementUnit extends AbstractPartsContainingDBElement
+class MeasurementUnit implements DBElementInterface, NamedElementInterface, TimeStampableInterface, HasAttachmentsInterface, HasMasterAttachmentInterface, StructuralElementInterface, HasParametersInterface, \Stringable, \JsonSerializable
 {
+    use DBElementTrait;
+    use NamedElementTrait;
+    use TimestampTrait;
+    use AttachmentsTrait;
+    use MasterAttachmentTrait;
+    use StructuralElementTrait;
+    use ParametersTrait;
     /**
      * @var string The unit symbol that should be used for the Unit. This could be something like "", g (for grams)
      *             or m (for meters).
@@ -131,7 +153,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     #[ORM\JoinColumn(name: 'parent_id')]
     #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     #[ApiProperty(readableLink: false, writableLink: false)]
-    protected ?AbstractStructuralDBElement $parent = null;
+    protected ?self $parent = null;
 
     /**
      * @var Collection<int, MeasurementUnitAttachment>
@@ -150,6 +172,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     /** @var Collection<int, MeasurementUnitParameter>
      */
     #[Assert\Valid]
+    #[UniqueObjectCollection(fields: ['name', 'group', 'element'])]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: MeasurementUnitParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
@@ -201,9 +224,33 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     }
     public function __construct()
     {
-        parent::__construct();
+        $this->initializeAttachments();
+        $this->initializeStructuralElement();
         $this->children = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+    }
+
+    public function __clone()
+    {
+        if ($this->id) {
+            $this->cloneDBElement();
+            $this->cloneAttachments();
+            
+            // We create a new object, so give it a new creation date
+            $this->addedDate = null;
+            
+            //Deep clone parameters
+            $parameters = $this->parameters;
+            $this->parameters = new ArrayCollection();
+            foreach ($parameters as $parameter) {
+                $this->addParameter(clone $parameter);
+            }
+        }
+    }
+
+    public function jsonSerialize(): array
+    {
+        return ['@id' => $this->getID()];
     }
 }
