@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Command\Migrations;
 
+use App\Entity\AssemblySystem\Assembly;
 use Symfony\Component\Console\Attribute\AsCommand;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractNamedDBElement;
@@ -88,6 +89,7 @@ class ConvertBBCodeCommand extends Command
             AttachmentType::class => ['comment'],
             StorageLocation::class => ['comment'],
             Project::class => ['comment'],
+            Assembly::class => ['comment'],
             Category::class => ['comment'],
             Manufacturer::class => ['comment'],
             MeasurementUnit::class => ['comment'],

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
@@ -99,6 +100,7 @@ class EntityURLGenerator
             AttachmentType::class => 'attachment_type_edit',
             Category::class => 'category_edit',
             Project::class => 'project_edit',
+            Assembly::class => 'assembly_edit',
             Supplier::class => 'supplier_edit',
             Manufacturer::class => 'manufacturer_edit',
             StorageLocation::class => 'store_location_edit',
@@ -206,6 +208,7 @@ class EntityURLGenerator
             AttachmentType::class => 'attachment_type_edit',
             Category::class => 'category_edit',
             Project::class => 'project_info',
+            Assembly::class => 'assembly_info',
             Supplier::class => 'supplier_edit',
             Manufacturer::class => 'manufacturer_edit',
             StorageLocation::class => 'store_location_edit',
@@ -237,6 +240,7 @@ class EntityURLGenerator
             AttachmentType::class => 'attachment_type_edit',
             Category::class => 'category_edit',
             Project::class => 'project_edit',
+            Assembly::class => 'assembly_edit',
             Supplier::class => 'supplier_edit',
             Manufacturer::class => 'manufacturer_edit',
             StorageLocation::class => 'store_location_edit',
@@ -269,6 +273,7 @@ class EntityURLGenerator
             AttachmentType::class => 'attachment_type_new',
             Category::class => 'category_new',
             Project::class => 'project_new',
+            Assembly::class => 'assembly_new',
             Supplier::class => 'supplier_new',
             Manufacturer::class => 'manufacturer_new',
             StorageLocation::class => 'store_location_new',
@@ -301,6 +306,7 @@ class EntityURLGenerator
             AttachmentType::class => 'attachment_type_clone',
             Category::class => 'category_clone',
             Project::class => 'device_clone',
+            Assembly::class => 'assembly_clone',
             Supplier::class => 'supplier_clone',
             Manufacturer::class => 'manufacturer_clone',
             StorageLocation::class => 'store_location_clone',
@@ -329,6 +335,7 @@ class EntityURLGenerator
     {
         $map = [
             Project::class => 'project_info',
+            Assembly::class => 'assembly_info',
 
             Category::class => 'part_list_category',
             Footprint::class => 'part_list_footprint',
@@ -347,6 +354,7 @@ class EntityURLGenerator
             AttachmentType::class => 'attachment_type_delete',
             Category::class => 'category_delete',
             Project::class => 'project_delete',
+            Assembly::class => 'assembly_delete',
             Supplier::class => 'supplier_delete',
             Manufacturer::class => 'manufacturer_delete',
             StorageLocation::class => 'store_location_delete',
