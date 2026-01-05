@@ -26,6 +26,8 @@ namespace App\Command\Migrations;
 use App\DataTables\Helpers\ColumnSortHelper;
 use App\Entity\Parts\Manufacturer;
 use App\Services\ImportExportSystem\PartKeeprImporter\PKImportHelper;
+use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Doctrine\ORM\Id\AssignedGenerator;
@@ -122,6 +124,10 @@ class DBMigrationCommand extends Command
         $this->targetEM->flush();
         */
 
+        //Fix sequences / auto increment values on target database
+        $io->info('Fixing sequences / auto increment values on target database...');
+        $this->fixAutoIncrements($this->targetEM);
+
         $output->writeln('Database migration completed successfully.');
 
         if ($io->isVerbose()) {
@@ -129,5 +135,34 @@ class DBMigrationCommand extends Command
         }
 
         return Command::SUCCESS;
+    }
+
+    private function fixAutoIncrements(EntityManagerInterface $em): void
+    {
+        $connection = $em->getConnection();
+        $platform = $connection->getDatabasePlatform();
+
+        if ($platform instanceof PostgreSQLPlatform) {
+            $connection->executeStatement(
+                //From: https://wiki.postgresql.org/wiki/Fixing_Sequences
+                <<<SQL
+                SELECT 'SELECT SETVAL(' ||
+                    quote_literal(quote_ident(PGT.schemaname) || '.' || quote_ident(S.relname)) ||
+                    ', COALESCE(MAX(' ||quote_ident(C.attname)|| '), 1) ) FROM ' ||
+                    quote_ident(PGT.schemaname)|| '.'||quote_ident(T.relname)|| ';'
+                FROM pg_class AS S,
+                     pg_depend AS D,
+                     pg_class AS T,
+                     pg_attribute AS C,
+                     pg_tables AS PGT
+                WHERE S.relkind = 'S'
+                    AND S.oid = D.objid
+                    AND D.refobjid = T.oid
+                    AND D.refobjid = C.attrelid
+                    AND D.refobjsubid = C.attnum
+                    AND T.relname = PGT.tablename
+                ORDER BY S.relname;
+                SQL);
+        };
     }
 }
