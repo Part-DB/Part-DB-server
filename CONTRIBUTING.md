@@ -17,6 +17,8 @@ If you want to start translation for a new language that does not have an entry 
 Part-DB uses translation keys (e.g. part.info.title) that are sorted by their usage, so you will most likely have to lookup, how the key
 was translated in other languages (this is possible via the "Other languages" dropdown in the translation editor).
 
+For detailed information about the translation system, including how to use type synonyms and placeholders, see the [Translation System Documentation](docs/development/translation.md).
+
 ## Project structure
 Part-DB uses Symfony's recommended [project structure](https://symfony.com/doc/current/best_practices.html).
 Interesting folders are:
