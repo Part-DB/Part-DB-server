@@ -109,8 +109,6 @@ class DBMigrationCommand extends Command
                 $this->targetEM->persist($item);
             }
             $this->targetEM->flush();
-
-            $io->
         }
 
         $io->progressFinish();
