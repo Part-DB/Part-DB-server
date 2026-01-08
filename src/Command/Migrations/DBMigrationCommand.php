@@ -26,8 +26,11 @@ namespace App\Command\Migrations;
 use App\DataTables\Helpers\ColumnSortHelper;
 use App\Entity\Parts\Manufacturer;
 use App\Services\ImportExportSystem\PartKeeprImporter\PKImportHelper;
+use Doctrine\Bundle\DoctrineBundle\ConnectionFactory;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
+use Doctrine\DBAL\Tools\DsnParser;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Doctrine\ORM\Id\AssignedGenerator;
@@ -36,6 +39,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -43,22 +47,39 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[AsCommand('partdb:migrate-db', 'Migrate the database to a different platform')]
 class DBMigrationCommand extends Command
 {
-    private readonly EntityManagerInterface $sourceEM;
-    private readonly EntityManagerInterface $targetEM;
+    private ?EntityManagerInterface $sourceEM = null;
 
-    public function __construct(private readonly ManagerRegistry $managerRegistry,
+    public function __construct(
+        private readonly EntityManagerInterface $targetEM,
         private readonly PKImportHelper $importHelper,
     )
     {
-        $this->sourceEM = $this->managerRegistry->getManager('migration_source');
-        $this->targetEM = $this->managerRegistry->getManager('default');
-
         parent::__construct();
+    }
+
+    public function configure(): void
+    {
+        $this->
+            addArgument('url', InputArgument::REQUIRED, 'The database connection URL of the source database to migrate from');
+    }
+
+    /**
+     * Construct a source EntityManager based on the given connection URL
+     * @param  string  $url
+     * @return EntityManagerInterface
+     */
+    private function getSourceEm(string $url): EntityManagerInterface
+    {
+        $connectionFactory = new ConnectionFactory();
+        $connection = $connectionFactory->createConnection(['url' => $url]);
+        return new EntityManager($connection, $this->targetEM->getConfiguration());
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+
+        $this->sourceEM = $this->getSourceEm($input->getArgument('url'));
 
         // Example migration logic (to be replaced with actual migration code)
         $io->info('Starting database migration...');

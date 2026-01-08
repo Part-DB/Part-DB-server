@@ -1622,6 +1622,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         flysystem?: array{
  *             filesystem_service: scalar|null|Param,
  *         },
+ *         asset_mapper?: array<mixed>,
  *         chain?: array{
  *             loaders: list<scalar|null|Param>,
  *         },
@@ -2301,11 +2302,13 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     controllers_json?: scalar|null|Param, // Default: "%kernel.project_dir%/assets/controllers.json"
  * }
  * @psalm-type UxTranslatorConfig = array{
- *     dump_directory?: scalar|null|Param, // Default: "%kernel.project_dir%/var/translations"
+ *     dump_directory?: scalar|null|Param, // The directory where translations and TypeScript types are dumped. // Default: "%kernel.project_dir%/var/translations"
+ *     dump_typescript?: bool|Param, // Control whether TypeScript types are dumped alongside translations. Disable this if you do not use TypeScript (e.g. in production when using AssetMapper). // Default: true
  *     domains?: string|array{ // List of domains to include/exclude from the generated translations. Prefix with a `!` to exclude a domain.
  *         type?: scalar|null|Param,
  *         elements?: list<scalar|null|Param>,
  *     },
+ *     keys_patterns?: list<scalar|null|Param>,
  * }
  * @psalm-type DompdfFontLoaderConfig = array{
  *     autodiscovery?: bool|array{
