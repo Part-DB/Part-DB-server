@@ -23,20 +23,17 @@ declare(strict_types=1);
 
 namespace App\Command\Migrations;
 
-use App\DataTables\Helpers\ColumnSortHelper;
-use App\Entity\Parts\Manufacturer;
 use App\Services\ImportExportSystem\PartKeeprImporter\PKImportHelper;
 use Doctrine\Bundle\DoctrineBundle\ConnectionFactory;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
-use Doctrine\DBAL\Tools\DsnParser;
+use Doctrine\Migrations\Configuration\EntityManager\ExistingEntityManager;
+use Doctrine\Migrations\Configuration\Migration\ExistingConfiguration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-
+use Doctrine\Migrations\DependencyFactory;
 use Doctrine\ORM\Id\AssignedGenerator;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -44,14 +41,14 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[AsCommand('partdb:migrate-db', 'Migrate the database to a different platform')]
-class DBMigrationCommand extends Command
+#[AsCommand('partdb:migrations:convert-db-platform', 'Convert the database to a different platform')]
+class DBPlatformConvertCommand extends Command
 {
-    private ?EntityManagerInterface $sourceEM = null;
 
     public function __construct(
         private readonly EntityManagerInterface $targetEM,
         private readonly PKImportHelper $importHelper,
+        private readonly DependencyFactory $dependencyFactory,
     )
     {
         parent::__construct();
@@ -60,26 +57,23 @@ class DBMigrationCommand extends Command
     public function configure(): void
     {
         $this->
-            addArgument('url', InputArgument::REQUIRED, 'The database connection URL of the source database to migrate from');
-    }
-
-    /**
-     * Construct a source EntityManager based on the given connection URL
-     * @param  string  $url
-     * @return EntityManagerInterface
-     */
-    private function getSourceEm(string $url): EntityManagerInterface
-    {
-        $connectionFactory = new ConnectionFactory();
-        $connection = $connectionFactory->createConnection(['url' => $url]);
-        return new EntityManager($connection, $this->targetEM->getConfiguration());
+        addArgument('url', InputArgument::REQUIRED, 'The database connection URL of the source database to migrate from');
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
-        $this->sourceEM = $this->getSourceEm($input->getArgument('url'));
+        $sourceEM = $this->getSourceEm($input->getArgument('url'));
+
+        //Check that both databases are not using the same driver
+        if ($sourceEM->getConnection()->getDatabasePlatform()::class === $this->targetEM->getConnection()->getDatabasePlatform()::class) {
+            $io->error('Source and target database are using the same database platform / driver. This command is only intended to migrate between different database platforms (e.g. from MySQL to PostgreSQL).');
+            return 1;
+        }
+
+
+        $this->ensureVersionUpToDate($sourceEM);
 
         // Example migration logic (to be replaced with actual migration code)
         $io->info('Starting database migration...');
@@ -115,7 +109,7 @@ class DBMigrationCommand extends Command
 
         $io->progressStart(count($metadata));
 
-        //Afterwards we migrate all entities
+        //Afterward we migrate all entities
         foreach ($metadata as $metadatum) {
             //skip all superclasses
             if ($metadatum->isMappedSuperclass) {
@@ -126,7 +120,7 @@ class DBMigrationCommand extends Command
 
             $io->note('Migrating entity: ' . $entityClass);
 
-            $repo = $this->sourceEM->getRepository($entityClass);
+            $repo = $sourceEM->getRepository($entityClass);
             $items = $repo->findAll();
             foreach ($items as $index => $item) {
                 $this->targetEM->persist($item);
@@ -136,26 +130,47 @@ class DBMigrationCommand extends Command
 
         $io->progressFinish();
 
-        //Migrate all manufacturers from source to target
-        /*$manufacturerRepo = $this->sourceEM->getRepository(Manufacturer::class);
-        $manufacturers = $manufacturerRepo->findAll();
-        foreach ($manufacturers as $manufacturer) {
-            $this->targetEM->persist($manufacturer);
-        }
-        $this->targetEM->flush();
-        */
 
         //Fix sequences / auto increment values on target database
         $io->info('Fixing sequences / auto increment values on target database...');
         $this->fixAutoIncrements($this->targetEM);
 
-        $output->writeln('Database migration completed successfully.');
+        $io->success('Database migration completed successfully.');
 
         if ($io->isVerbose()) {
             $io->info('Process took peak memory: ' . round(memory_get_peak_usage(true) / 1024 / 1024, 2) . ' MB');
         }
 
         return Command::SUCCESS;
+    }
+
+    /**
+     * Construct a source EntityManager based on the given connection URL
+     * @param  string  $url
+     * @return EntityManagerInterface
+     */
+    private function getSourceEm(string $url): EntityManagerInterface
+    {
+        $connectionFactory = new ConnectionFactory();
+        $connection = $connectionFactory->createConnection(['url' => $url]);
+        return new EntityManager($connection, $this->targetEM->getConfiguration());
+    }
+
+    private function ensureVersionUpToDate(EntityManagerInterface $sourceEM): void
+    {
+        //Ensure that target database is up to date
+        $migrationStatusCalculator = $this->dependencyFactory->getMigrationStatusCalculator();
+        $newMigrations = $migrationStatusCalculator->getNewMigrations();
+        if (count($newMigrations->getItems()) > 0) {
+            throw new \RuntimeException("Target database is not up to date. Please run all migrations (with doctrine:migrations:migrate) before starting the migration process.");
+        }
+
+        $sourceDependencyLoader = DependencyFactory::fromEntityManager(new ExistingConfiguration($this->dependencyFactory->getConfiguration()), new ExistingEntityManager($sourceEM));
+        $sourceMigrationStatusCalculator = $sourceDependencyLoader->getMigrationStatusCalculator();
+        $sourceNewMigrations = $sourceMigrationStatusCalculator->getNewMigrations();
+        if (count($sourceNewMigrations->getItems()) > 0) {
+            throw new \RuntimeException("Source database is not up to date. Please run all migrations (with doctrine:migrations:migrate) on the source database before starting the migration process.");
+        }
     }
 
     private function fixAutoIncrements(EntityManagerInterface $em): void
@@ -165,7 +180,7 @@ class DBMigrationCommand extends Command
 
         if ($platform instanceof PostgreSQLPlatform) {
             $connection->executeStatement(
-                //From: https://wiki.postgresql.org/wiki/Fixing_Sequences
+            //From: https://wiki.postgresql.org/wiki/Fixing_Sequences
                 <<<SQL
                 SELECT 'SELECT SETVAL(' ||
                     quote_literal(quote_ident(PGT.schemaname) || '.' || quote_ident(S.relname)) ||
