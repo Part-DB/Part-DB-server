@@ -40,6 +40,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 #[AsCommand('partdb:migrations:convert-db-platform', 'Convert the database to a different platform')]
 class DBPlatformConvertCommand extends Command
@@ -49,6 +50,8 @@ class DBPlatformConvertCommand extends Command
         private readonly EntityManagerInterface $targetEM,
         private readonly PKImportHelper $importHelper,
         private readonly DependencyFactory $dependencyFactory,
+        #[Autowire('%kernel.project_dir%')]
+        private readonly string $kernelProjectDir,
     )
     {
         parent::__construct();
@@ -57,7 +60,7 @@ class DBPlatformConvertCommand extends Command
     public function configure(): void
     {
         $this->
-        addArgument('url', InputArgument::REQUIRED, 'The database connection URL of the source database to migrate from');
+            addArgument('url', InputArgument::REQUIRED, 'The database connection URL of the source database to migrate from');
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
@@ -74,6 +77,19 @@ class DBPlatformConvertCommand extends Command
 
 
         $this->ensureVersionUpToDate($sourceEM);
+
+        $io->note('This command is still in development. If you encounter any problems, please report them to the issue tracker on GitHub.');
+        $io->warning(sprintf('This command will delete all existing data in the target database "%s". Make sure that you have no important data in the database before you continue!',
+            $this->targetEM->getConnection()->getDatabase() ?? 'unknown'
+        ));
+
+        $io->ask('Please type "DELETE ALL DATA" to continue.', '', function ($answer) {
+            if (strtoupper($answer) !== 'DELETE ALL DATA') {
+                throw new \RuntimeException('You did not type "DELETE ALL DATA"!');
+            }
+            return $answer;
+        });
+
 
         // Example migration logic (to be replaced with actual migration code)
         $io->info('Starting database migration...');
@@ -151,6 +167,9 @@ class DBPlatformConvertCommand extends Command
      */
     private function getSourceEm(string $url): EntityManagerInterface
     {
+        //Replace any %kernel.project_dir% placeholders
+        $url = str_replace('%kernel.project_dir%', $this->kernelProjectDir, $url);
+
         $connectionFactory = new ConnectionFactory();
         $connection = $connectionFactory->createConnection(['url' => $url]);
         return new EntityManager($connection, $this->targetEM->getConfiguration());
