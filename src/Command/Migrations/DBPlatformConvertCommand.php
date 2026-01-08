@@ -59,8 +59,9 @@ class DBPlatformConvertCommand extends Command
 
     public function configure(): void
     {
-        $this->
-            addArgument('url', InputArgument::REQUIRED, 'The database connection URL of the source database to migrate from');
+        $this
+            ->setHelp('This command allows you to migrate the database from one database platform to another (e.g. from MySQL to PostgreSQL).')
+            ->addArgument('url', InputArgument::REQUIRED, 'The database connection URL of the source database to migrate from');
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int
