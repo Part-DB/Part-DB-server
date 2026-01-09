@@ -72,8 +72,11 @@ class DBPlatformConvertCommand extends Command
 
         //Check that both databases are not using the same driver
         if ($sourceEM->getConnection()->getDatabasePlatform()::class === $this->targetEM->getConnection()->getDatabasePlatform()::class) {
-            $io->error('Source and target database are using the same database platform / driver. This command is only intended to migrate between different database platforms (e.g. from MySQL to PostgreSQL).');
-            return 1;
+            $io->warning('Source and target database are using the same database platform / driver. This command is only intended to migrate between different database platforms (e.g. from MySQL to PostgreSQL).');
+            if (!$io->confirm('Do you want to continue anyway?', false)) {
+                $io->info('Aborting migration process.');
+                return Command::SUCCESS;
+            }
         }
 
 
@@ -219,6 +222,6 @@ class DBPlatformConvertCommand extends Command
                     AND T.relname = PGT.tablename
                 ORDER BY S.relname;
                 SQL);
-        };
+        }
     }
 }
