@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\DataTables\Filters;
 use App\DataTables\Filters\Constraints\AbstractConstraint;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\DBAL\ParameterType;
 
 class PartSearchFilter implements FilterInterface
 {
@@ -32,6 +33,9 @@ class PartSearchFilter implements FilterInterface
 
     /** @var bool Use name field for searching */
     protected bool $name = true;
+
+    /** @var bool Use id field for searching */
+    protected bool $dbId = false;
 
     /** @var bool Use category name for searching */
     protected bool $category = true;
@@ -120,33 +124,51 @@ class PartSearchFilter implements FilterInterface
     public function apply(QueryBuilder $queryBuilder): void
     {
         $fields_to_search = $this->getFieldsToSearch();
+        $is_numeric = preg_match('/^\d+$/', $this->keyword) === 1;
+
+        // Add exact ID match only when the keyword is numeric
+        $search_dbId = $is_numeric && (bool)$this->dbId;
 
         //If we have nothing to search for, do nothing
-        if ($fields_to_search === [] || $this->keyword === '') {
+        if (($fields_to_search === [] && !$search_dbId) || $this->keyword === '') {
             return;
         }
 
-        //Convert the fields to search to a list of expressions
-        $expressions = array_map(function (string $field): string {
+        $expressions = [];
+        
+        if($fields_to_search !== []) {
+            //Convert the fields to search to a list of expressions
+            $expressions = array_map(function (string $field): string {
+                if ($this->regex) {
+                    return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
+                }
+
+                return sprintf("ILIKE(%s, :search_query) = TRUE", $field);
+            }, $fields_to_search);
+            
+            //For regex, we pass the query as is, for like we add % to the start and end as wildcards
             if ($this->regex) {
-                return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
+                $queryBuilder->setParameter('search_query', $this->keyword);
+            } else {
+                //Escape % and _ characters in the keyword
+                $this->keyword = str_replace(['%', '_'], ['\%', '\_'], $this->keyword);
+                $queryBuilder->setParameter('search_query', '%' . $this->keyword . '%');
             }
+        }
 
-            return sprintf("ILIKE(%s, :search_query) = TRUE", $field);
-        }, $fields_to_search);
+        //Use equal expression to just search for exact numeric matches
+        if ($search_dbId) {
+            $expressions[] = $queryBuilder->expr()->eq('part.id', ':id_exact');
+            $queryBuilder->setParameter('id_exact', (int) $this->keyword,
+                \Doctrine\DBAL\ParameterType::INTEGER);
+        }
 
-        //Add Or concatenation of the expressions to our query
-        $queryBuilder->andWhere(
-            $queryBuilder->expr()->orX(...$expressions)
-        );
-
-        //For regex, we pass the query as is, for like we add % to the start and end as wildcards
-        if ($this->regex) {
-            $queryBuilder->setParameter('search_query', $this->keyword);
-        } else {
-            //Escape % and _ characters in the keyword
-            $this->keyword = str_replace(['%', '_'], ['\%', '\_'], $this->keyword);
-            $queryBuilder->setParameter('search_query', '%' . $this->keyword . '%');
+        //Guard condition
+        if (!empty($expressions)) {
+            //Add Or concatenation of the expressions to our query
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->orX(...$expressions)
+            );
         }
     }
 
@@ -180,6 +202,17 @@ class PartSearchFilter implements FilterInterface
     public function setName(bool $name): PartSearchFilter
     {
         $this->name = $name;
+        return $this;
+    }
+
+    public function isDbId(): bool
+    {
+        return $this->dbId;
+    }
+
+    public function setDbId(bool $dbId): PartSearchFilter
+    {
+        $this->dbId = $dbId;
         return $this;
     }
 
