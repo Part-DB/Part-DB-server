@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Command\Migrations;
 
+use App\Entity\UserSystem\User;
 use App\Services\ImportExportSystem\PartKeeprImporter\PKImportHelper;
 use Doctrine\Bundle\DoctrineBundle\ConnectionFactory;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
@@ -87,6 +88,9 @@ class DBPlatformConvertCommand extends Command
             $this->targetEM->getConnection()->getDatabase() ?? 'unknown'
         ));
 
+        //$users = $sourceEM->getRepository(User::class)->findAll();
+        //dump($users);
+
         $io->ask('Please type "DELETE ALL DATA" to continue.', '', function ($answer) {
             if (strtoupper($answer) !== 'DELETE ALL DATA') {
                 throw new \RuntimeException('You did not type "DELETE ALL DATA"!');
@@ -120,6 +124,7 @@ class DBPlatformConvertCommand extends Command
             foreach ($metadatum->getAssociationNames() as $fieldName) {
                 $mapping = $metadatum->getAssociationMapping($fieldName);
                 $mapping->cascade = array_unique(array_merge($mapping->cascade, ['persist']));
+                $mapping->fetch = ClassMetadata::FETCH_EAGER; //Avoid lazy loading issues during migration
 
                 $metadatum->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
                 $metadatum->setIdGenerator(new AssignedGenerator());
@@ -128,6 +133,10 @@ class DBPlatformConvertCommand extends Command
 
 
         $io->progressStart(count($metadata));
+
+        //First we migrate users to avoid foreign key constraint issues
+        $io->info('Migrating users first to avoid foreign key constraint issues...');
+        $this->fixUsers($sourceEM);
 
         //Afterward we migrate all entities
         foreach ($metadata as $metadatum) {
@@ -193,6 +202,23 @@ class DBPlatformConvertCommand extends Command
         $sourceNewMigrations = $sourceMigrationStatusCalculator->getNewMigrations();
         if (count($sourceNewMigrations->getItems()) > 0) {
             throw new \RuntimeException("Source database is not up to date. Please run all migrations (with doctrine:migrations:migrate) on the source database before starting the migration process.");
+        }
+    }
+
+    private function fixUsers(EntityManagerInterface $sourceEM): void
+    {
+        //To avoid a problem with (Column 'settings' cannot be null) in MySQL we need to migrate the user entities first
+        //and fix the settings and backupCodes fields
+
+        $reflClass = new \ReflectionClass(User::class);
+        foreach ($sourceEM->getRepository(User::class)->findAll() as $user) {
+            foreach (['settings', 'backupCodes'] as $field) {
+                $property = $reflClass->getProperty($field);
+                if (!$property->isInitialized($user) || $property->getValue($user) === null) {
+                    $property->setValue($user, []);
+                }
+            }
+            $this->targetEM->persist($user);
         }
     }
 
