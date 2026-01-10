@@ -39,10 +39,10 @@ class PKImportHelper
      * Existing users and groups are not purged.
      * This is needed to avoid ID collisions.
      */
-    public function purgeDatabaseForImport(): void
+    public function purgeDatabaseForImport(?EntityManagerInterface $entityManager = null, array $excluded_tables = ['users', 'groups', 'u2f_keys', 'internal', 'migration_versions']): void
     {
         //We use the ResetAutoIncrementORMPurger to reset the auto increment values of the tables. Also it normalizes table names before checking for exclusion.
-        $purger = new ResetAutoIncrementORMPurger($this->em, ['users', 'groups', 'u2f_keys', 'internal', 'migration_versions']);
+        $purger = new ResetAutoIncrementORMPurger($entityManager ?? $this->em, $excluded_tables);
         $purger->purge();
     }
 
