@@ -68,6 +68,7 @@ docker exec --user=www-data partdb php bin/console cache:clear
   deleted!*
 * `settings:migrate-env-to-settings`: Migrate configuration from environment variables to the settings interface.
 The value of the environment variable is copied to the settings database, so the environment variable can be removed afterwards without losing the configuration.
+* `partdb:migrations:convert-db-platform`: Convert the database platform (e.g. from SQLite to MySQL/MariaDB or PostgreSQL, or vice versa).
 
 ## Database commands
 
