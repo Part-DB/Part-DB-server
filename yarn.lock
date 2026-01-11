@@ -2785,9 +2785,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001759:
-  version "1.0.30001763"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001763.tgz#9397446dd110b1aeadb0df249c41b2ece7f90f09"
-  integrity sha512-mh/dGtq56uN98LlNX9qdbKnzINhX0QzhiWBFEkFfsFO4QyCvL8YegrJAazCwXIeqkIob8BlZPGM3xdnY+sgmvQ==
+  version "1.0.30001764"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001764.tgz#03206c56469f236103b90f9ae10bcb8b9e1f6005"
+  integrity sha512-9JGuzl2M+vPL+pz70gtMF9sHdMFbY9FJaQBi186cHKH3pSzDvzoUJUPV6fqiKIMyXbud9ZLg4F3Yza1vJ1+93g==
 
 ccount@^2.0.0:
   version "2.0.1"
@@ -5959,9 +5959,9 @@ path-type@^4.0.0:
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
 pdfmake@^0.2.2:
-  version "0.2.22"
-  resolved "https://registry.yarnpkg.com/pdfmake/-/pdfmake-0.2.22.tgz#f0b3d4986476f121d97ce68d80da7b09c76cffe8"
-  integrity sha512-nY0tvBlBCAfefFzXkWGHzW7OQeWKsGKL8M1I8o+fFhLBDtYesSA2G/KxfOF8jn+l53kzCLSTAdmTyPV2EM/v9g==
+  version "0.2.23"
+  resolved "https://registry.yarnpkg.com/pdfmake/-/pdfmake-0.2.23.tgz#249ce735fbc58e212ea3343d60f388408b8f2f02"
+  integrity sha512-A/IksoKb/ikOZH1edSDJ/2zBbqJKDghD4+fXn3rT7quvCJDlsZMs3NmIB3eajLMMFU9Bd3bZPVvlUMXhvFI+bQ==
   dependencies:
     "@foliojs-fork/linebreak" "^1.1.2"
     "@foliojs-fork/pdfkit" "^0.15.3"
