@@ -680,7 +680,7 @@ class OEMSecretsProvider implements InfoProviderInterface
         if (is_array($prices)) {
             // Step 1: Check if prices exist in the preferred currency
             if (isset($prices[$this->settings->currency]) && is_array($prices[$this->settings->currency])) {
-                $priceDetails = $prices[$this->$this->settings->currency];
+                $priceDetails = $prices[$this->settings->currency];
                 foreach ($priceDetails as $priceDetail) {
                     if (
                         is_array($priceDetail) &&
