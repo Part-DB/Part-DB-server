@@ -92,6 +92,9 @@ final class BarcodeScanHelper
         if ($type === BarcodeSourceType::EIGP114) {
             return $this->parseEIGP114Barcode($input);
         }
+        if ($type === BarcodeSourceType::LCSC) {
+	        return $this->parseLCSCBarcode($input);
+	    }
 
         //Null means auto and we try the different formats
         $result = $this->parseInternalBarcode($input);
@@ -117,12 +120,22 @@ final class BarcodeScanHelper
             return $result;
         }
 
+        // Try LCSC barcode
+        if (LCSCBarcodeScanResult::looksLike($input)) {
+	        return $this->parseLCSCBarcode($input);
+	    }
+
         throw new InvalidArgumentException('Unknown barcode');
     }
 
     private function parseEIGP114Barcode(string $input): EIGP114BarcodeScanResult
     {
         return EIGP114BarcodeScanResult::parseFormat06Code($input);
+    }
+
+    private function parseLCSCBarcode(string $input): LCSCBarcodeScanResult
+    {
+        return LCSCBarcodeScanResult::parse($input);
     }
 
     private function parseUserDefinedBarcode(string $input): ?LocalBarcodeScanResult

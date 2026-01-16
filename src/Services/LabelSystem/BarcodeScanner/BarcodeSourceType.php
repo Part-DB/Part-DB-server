@@ -42,4 +42,7 @@ enum BarcodeSourceType
      * EIGP114 formatted barcodes like used by digikey, mouser, etc.
      */
     case EIGP114;
+
+    /** For LCSC.com formatted QR codes */
+    case LCSC;
 }
