@@ -1,0 +1,66 @@
+{% if decoded is not empty %}
+  <hr>
+
+  <div class="d-flex align-items-center mb-2">
+    <h4 class="mb-0 me-2">{% trans %}label_scanner.part_info.title{% endtrans %}</h4>
+
+    {% if createUrl %}
+      <a class="btn btn-primary ms-2 mb-2"
+         href="{{ createUrl }}"
+         target="_blank"
+         title="{% trans %}part.create.btn{% endtrans %}">
+        <i class="fa-solid fa-plus-square"></i>
+      </a>
+    {% endif %}
+  </div>
+
+  {% if found %}
+    <div class="alert alert-success mb-2">
+      {{ partName }}
+      {% if partUrl %}
+        — <a href="{{ partUrl }}" target="_blank">{% trans %}open{% endtrans %}</a>
+      {% endif %}
+    </div>
+
+    {% if locations is not empty %}
+        <table class="table table-sm mb-2 w-auto">
+            <thead>
+            <tr>
+                <th scope="col">{% trans %}part_lots.storage_location{% endtrans %}</th>
+                <th scope="col" class="text-end" style="width: 6rem;">
+                    {% trans %}part_lots.amount{% endtrans %}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for loc in locations %}
+                <tr>
+                    <td>
+                        <ul class="structural_link d-inline">
+                            {% for crumb in loc.breadcrumb %}
+                                <li><a href="{{ crumb.url }}" target="_blank">{{ crumb.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td class="text-end" style="width: 6rem;">
+                        {% if loc.qty is not null %}<strong>{{ loc.qty }}</strong>{% else %}<span class="text-muted">—</span>{% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+      <div class="text-muted mb-2">{% trans %}label_scanner.no_locations{% endtrans %}</div>
+    {% endif %}
+  {% else %}
+    <div class="alert alert-warning mb-2">
+      {% trans %}scan.qr_not_found{% endtrans %}
+    </div>
+  {% endif %}
+
+  <div class="pt-3">
+    <hr class="my-0">
+  </div>
+  <div class="mb-4"></div>
+
+{% endif %}

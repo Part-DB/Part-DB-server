@@ -230,4 +230,46 @@ final class BarcodeRedirector
         }
         throw new EntityNotFoundException();
     }
+
+    public function resolvePartOrNull(BarcodeScanResultInterface $barcodeScan): ?Part
+    {
+        try {
+            if ($barcodeScan instanceof LocalBarcodeScanResult) {
+                return $this->resolvePartFromLocal($barcodeScan);
+            }
+
+            if ($barcodeScan instanceof EIGP114BarcodeScanResult) {
+                return $this->getPartFromVendor($barcodeScan);
+            }
+
+            if ($barcodeScan instanceof LCSCBarcodeScanResult) {
+                return $this->getPartFromLCSC($barcodeScan);
+            }
+
+            return null;
+        } catch (EntityNotFoundException) {
+            return null;
+        }
+    }
+
+    private function resolvePartFromLocal(LocalBarcodeScanResult $barcodeScan): ?Part
+    {
+        switch ($barcodeScan->target_type) {
+            case LabelSupportedElement::PART:
+                $part = $this->em->find(Part::class, $barcodeScan->target_id);
+                return $part instanceof Part ? $part : null;
+
+            case LabelSupportedElement::PART_LOT:
+                $lot = $this->em->find(PartLot::class, $barcodeScan->target_id);
+                if (!$lot instanceof PartLot) {
+                    return null;
+                }
+                return $lot->getPart();
+
+            default:
+                // STORELOCATION etc. doesn't map to a Part
+                return null;
+        }
+    }
+
 }

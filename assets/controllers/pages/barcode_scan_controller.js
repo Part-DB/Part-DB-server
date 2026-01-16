@@ -21,16 +21,20 @@ import {Controller} from "@hotwired/stimulus";
 //import * as ZXing from "@zxing/library";
 
 import {Html5QrcodeScanner, Html5Qrcode} from "@part-db/html5-qrcode";
+import { generateCsrfToken, generateCsrfHeaders } from "../csrf_protection_controller";
 
 /* stimulusFetch: 'lazy' */
 
 export default class extends Controller {
     _scanner = null;
     _submitting = false;
+    _lastDecodedText = "";
 
     connect() {
         // Prevent double init if connect fires twice
         if (this._scanner) return;
+
+        this.bindModeToggles();
 
         //This function ensures, that the qrbox is 70% of the total viewport
         let qrboxFunction = function(viewfinderWidth, viewfinderHeight) {
@@ -65,6 +69,8 @@ export default class extends Controller {
         const scanner = this._scanner;
         this._scanner = null;
         this._submitting = false;
+        this._lastDecodedText = "";
+        this.unbindModeToggles();
 
         if (!scanner) return;
 
@@ -76,15 +82,80 @@ export default class extends Controller {
         }
     }
 
+    /**
+     * Add events to Mode checkboxes so they both can't be selected at the same time
+     */
+    bindModeToggles() {
+        const info = document.getElementById("scan_dialog_info_mode");
+        const aug  = document.getElementById("scan_dialog_augmented_mode");
+        if (!info || !aug) return;
+
+        const onInfoChange = () => {
+            if (info.checked) aug.checked = false;
+        };
+        const onAugChange = () => {
+            if (aug.checked) info.checked = false;
+        };
+
+        info.addEventListener("change", onInfoChange);
+        aug.addEventListener("change", onAugChange);
+
+        // Save references so we can remove listeners on disconnect
+        this._onInfoChange = onInfoChange;
+        this._onAugChange = onAugChange;
+    }
+
+    unbindModeToggles() {
+        const info = document.getElementById("scan_dialog_info_mode");
+        const aug  = document.getElementById("scan_dialog_augmented_mode");
+        if (!info || !aug) return;
+
+        if (this._onInfoChange) info.removeEventListener("change", this._onInfoChange);
+        if (this._onAugChange) aug.removeEventListener("change", this._onAugChange);
+
+        this._onInfoChange = null;
+        this._onAugChange = null;
+    }
+
+
+
     async onScanSuccess(decodedText) {
+        if (!decodedText) return;
+
+        const normalized = String(decodedText).trim();
+
+        // If we already handled this exact barcode and it's still showing, ignore.
+        if (normalized === this._lastDecodedText) return;
+
+        // If a request/submit is in-flight, ignore scans.
         if (this._submitting) return;
+
+        // Mark as handled immediately (prevents spam even if callback fires repeatedly)
+        this._lastDecodedText = normalized;
         this._submitting = true;
 
         //Put our decoded Text into the input box
         const input = document.getElementById("scan_dialog_input");
         if (input) input.value = decodedText;
 
-        // Stop scanner BEFORE submitting to avoid camera transition races
+        const augmented = !!document.getElementById("scan_dialog_augmented_mode")?.checked;
+
+        // If augmented mode: do NOT submit the form.
+        if (augmented) {
+            try {
+                await this.lookupAndRender(decodedText);
+            } catch (e) {
+                console.warn("[barcode_scan] augmented lookup failed", e);
+                // Allow retry on failure by clearing last decoded text
+                this._lastDecodedText = "";
+            } finally {
+                // allow scanning again
+                this._submitting = false;
+            }
+            return;
+        }
+
+        // Non-augmented: Stop scanner BEFORE submitting to avoid camera transition races
         try {
             if (this._scanner?.clear) {
                 await this._scanner.clear();
@@ -97,5 +168,38 @@ export default class extends Controller {
 
         //Submit form
         document.getElementById("scan_dialog_form")?.requestSubmit();
+    }
+
+    async lookupAndRender(decodedText) {
+        const form = document.getElementById("scan_dialog_form");
+        if (!form) return;
+
+        // Ensure the hidden csrf field has been converted from placeholder -> real token + cookie set
+        generateCsrfToken(form);
+
+        const mode =
+            document.querySelector('input[name="scan_dialog[mode]"]:checked')?.value ?? "";
+
+        const body = new URLSearchParams();
+        body.set("input", decodedText);
+        if (mode !== "") body.set("mode", mode);
+
+        const headers = {
+            "Accept": "text/html",
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+            ...generateCsrfHeaders(form), // adds the special CSRF header Symfony expects (if enabled)
+        };
+
+        const resp = await fetch(this.element.dataset.augmentedUrl, {
+            method: "POST",
+            headers,
+            body: body.toString(),
+            credentials: "same-origin",
+        });
+
+        const html = await resp.text();
+
+        const el = document.getElementById("scan-augmented-result");
+        if (el) el.innerHTML = html;
     }
 }
