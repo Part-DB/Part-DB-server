@@ -295,9 +295,6 @@ class ScanController extends AbstractController
         return array_reverse($items);
     }
 
-
-
-
     #[Route(path: '/augmented', name: 'scan_augmented', methods: ['POST'])]
     public function augmented(Request $request): Response
     {
@@ -317,7 +314,13 @@ class ScanController extends AbstractController
             $modeEnum = BarcodeSourceType::from((int) $mode);
         }
 
-        $scan = $this->barcodeNormalizer->scanBarcodeContent($input, $modeEnum);
+        try {
+            $scan = $this->barcodeNormalizer->scanBarcodeContent($input, $modeEnum);
+        } catch (InvalidArgumentException) {
+            // When the camera/barcode reader momentarily misreads a barcode whilst scanning
+            // return and empty result, so the good read data still remains visible
+            return new Response('', 200);
+        }
         $decoded = $scan->getDecodedForInfoMode();
 
         $locale = $request->getLocale();
