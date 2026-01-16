@@ -36,6 +36,8 @@ export default class extends Controller {
 
         this.bindModeToggles();
 
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
         //This function ensures, that the qrbox is 70% of the total viewport
         let qrboxFunction = function(viewfinderWidth, viewfinderHeight) {
             let minEdgePercentage = 0.7; // 70%
@@ -55,6 +57,8 @@ export default class extends Controller {
         this._scanner = new Html5QrcodeScanner(this.element.id, {
             fps: 10,
             qrbox: qrboxFunction,
+            // Key change: shrink preview height on mobile
+            ...(isMobile ? { aspectRatio: 1.0 } : {}),
             experimentalFeatures: {
                 //This option improves reading quality on android chrome
                 useBarCodeDetectorIfSupported: true,
