@@ -23,15 +23,14 @@ import {Controller} from "@hotwired/stimulus";
 import {Html5QrcodeScanner, Html5Qrcode} from "@part-db/html5-qrcode";
 
 /* stimulusFetch: 'lazy' */
+
 export default class extends Controller {
-
-    //codeReader = null;
-
     _scanner = null;
-
+    _submitting = false;
 
     connect() {
-        console.log('Init Scanner');
+        // Prevent double init if connect fires twice
+        if (this._scanner) return;
 
         //This function ensures, that the qrbox is 70% of the total viewport
         let qrboxFunction = function(viewfinderWidth, viewfinderHeight) {
@@ -45,8 +44,8 @@ export default class extends Controller {
         }
 
         //Try to get the number of cameras. If the number is 0, then the promise will fail, and we show the warning dialog
-        Html5Qrcode.getCameras().catch((devices) => {
-                document.getElementById('scanner-warning').classList.remove('d-none');
+        Html5Qrcode.getCameras().catch(() => {
+            document.getElementById("scanner-warning")?.classList.remove("d-none");
         });
 
         this._scanner = new Html5QrcodeScanner(this.element.id, {
@@ -54,22 +53,49 @@ export default class extends Controller {
             qrbox: qrboxFunction,
             experimentalFeatures: {
                 //This option improves reading quality on android chrome
-                useBarCodeDetectorIfSupported: true
-            }
+                useBarCodeDetectorIfSupported: true,
+            },
         }, false);
 
         this._scanner.render(this.onScanSuccess.bind(this));
     }
 
     disconnect() {
-        this._scanner.pause();
-        this._scanner.clear();
+        // If we already stopped/cleared before submit, nothing to do.
+        const scanner = this._scanner;
+        this._scanner = null;
+        this._submitting = false;
+
+        if (!scanner) return;
+
+        try {
+            const p = scanner.clear?.();
+            if (p && typeof p.then === "function") p.catch(() => {});
+        } catch (_) {
+            // ignore
+        }
     }
 
-    onScanSuccess(decodedText, decodedResult) {
+    async onScanSuccess(decodedText) {
+        if (this._submitting) return;
+        this._submitting = true;
+
         //Put our decoded Text into the input box
-        document.getElementById('scan_dialog_input').value = decodedText;
+        const input = document.getElementById("scan_dialog_input");
+        if (input) input.value = decodedText;
+
+        // Stop scanner BEFORE submitting to avoid camera transition races
+        try {
+            if (this._scanner?.clear) {
+                await this._scanner.clear();
+            }
+        } catch (_) {
+            // ignore
+        } finally {
+            this._scanner = null;
+        }
+
         //Submit form
-        document.getElementById('scan_dialog_form').requestSubmit();
+        document.getElementById("scan_dialog_form")?.requestSubmit();
     }
 }
