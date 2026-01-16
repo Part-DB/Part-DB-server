@@ -47,4 +47,7 @@ enum BarcodeSourceType
      * GTIN /EAN barcodes, which are used on most products in the world. These are checked with the GTIN field of a part.
      */
     case GTIN;
+
+    /** For LCSC.com formatted QR codes */
+    case LCSC;
 }

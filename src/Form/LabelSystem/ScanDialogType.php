@@ -77,6 +77,7 @@ class ScanDialogType extends AbstractType
                 BarcodeSourceType::USER_DEFINED => 'scan_dialog.mode.user',
                 BarcodeSourceType::EIGP114 => 'scan_dialog.mode.eigp',
                 BarcodeSourceType::GTIN => 'scan_dialog.mode.gtin',
+                BarcodeSourceType::LCSC => 'scan_dialog.mode.lcsc',
             },
         ]);
 

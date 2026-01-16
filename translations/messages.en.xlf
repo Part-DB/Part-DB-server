@@ -9500,6 +9500,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>EIGP 114 barcode (e.g. the datamatrix codes on digikey and mouser orders)</target>
       </segment>
     </unit>
+    <unit id="lAzDdr" name="scan_dialog.mode.lcsc">
+      <segment state="translated">
+        <source>scan_dialog.mode.lcsc</source>
+        <target>LCSC.com barcode</target>
+      </segment>
+    </unit>
     <unit id="QSMS_Bd" name="scan_dialog.info_mode">
       <segment state="translated">
         <source>scan_dialog.info_mode</source>
