@@ -321,36 +321,44 @@ class ScanController extends AbstractController
 
         $decoded = $scan->getDecodedForInfoMode();
 
-        // Resolve part (or null)
-        $part = $this->barcodeParser->resolvePartOrNull($scan);
-
+        // Determine if this barcode resolves to *anything* (part, lot->part, storelocation)
         $redirectUrl = null;
-        if ($part !== null) {
-            // Redirector knows how to route parts, lots, and storelocations.
+        $targetFound = false;
+
+        try {
             $redirectUrl = $this->barcodeParser->getRedirectURL($scan);
+            $targetFound = true;
+        } catch (EntityNotFoundException) {
+            $targetFound = false;
         }
 
-        // Build template vars
+        // Only resolve Part for part-like targets. Storelocation scans should remain null here.
+        $part = null;
         $partName = null;
         $partUrl = null;
         $locations = [];
-        $createUrl = null;
 
-        if ($part !== null) {
-            $partName = $part->getName();
-            $partUrl = $this->generateUrl('app_part_show', ['id' => $part->getID()]);
-            $locations = $this->buildLocationsForPart($part);
-        } else {
+        if ($targetFound) {
+            $part = $this->barcodeParser->resolvePartOrNull($scan);
+
+            if ($part instanceof Part) {
+                $partName = $part->getName();
+                $partUrl = $this->generateUrl('app_part_show', ['id' => $part->getID()]);
+                $locations = $this->buildLocationsForPart($part);
+            }
+        }
+
+        // Create link only when NOT found (vendor codes)
+        $createUrl = null;
+        if (!$targetFound) {
             $createUrl = $this->buildCreateUrlForScanResult($scan, $locale);
         }
 
-        // Render one fragment that shows:
-        // - decoded info (optional if you kept it)
-        // - part info + locations when found
-        // - create link when not found
+        // Render fragment (use openUrl for universal "Open" link)
         $html = $this->renderView('label_system/scanner/augmented_result.html.twig', [
             'decoded' => $decoded,
-            'found' => ($part !== null),
+            'found' => $targetFound,
+            'openUrl' => $redirectUrl,
             'partName' => $partName,
             'partUrl' => $partUrl,
             'locations' => $locations,
@@ -359,7 +367,7 @@ class ScanController extends AbstractController
 
         return new JsonResponse([
             'ok' => true,
-            'found' => ($part !== null),
+            'found' => $targetFound,
             'redirectUrl' => $redirectUrl, // client redirects only when infoMode=false
             'html' => $html,
             'infoMode' => $infoMode,
