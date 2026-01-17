@@ -9524,6 +9524,18 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Part information</target>
       </segment>
     </unit>
+    <unit id="k9lvxgf" name="label_scanner.target_found">
+      <segment state="translated">
+        <source>label_scanner.target_found</source>
+        <target>Item Found</target>
+      </segment>
+    </unit>
+    <unit id="kd6G2gf" name="label_scanner.scan_result.title">
+      <segment state="translated">
+        <source>label_scanner.scan_result.title</source>
+        <target>Scan result</target>
+      </segment>
+    </unit>
     <unit id="kG2vk5p" name="label_scanner.no_locations">
       <segment state="translated">
         <source>label_scanner.no_locations</source>

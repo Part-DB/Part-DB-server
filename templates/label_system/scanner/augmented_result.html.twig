@@ -2,7 +2,14 @@
   <hr>
 
   <div class="d-flex align-items-center mb-2">
-    <h4 class="mb-0 me-2">{% trans %}label_scanner.part_info.title{% endtrans %}</h4>
+      <h4 class="mb-0 me-2">
+          {% if found and partName %}
+              {% trans %}label_scanner.part_info.title{% endtrans %}
+          {% else %}
+              {% trans %}label_scanner.scan_result.title{% endtrans %}
+          {% endif %}
+      </h4>
+
 
     {% if createUrl %}
       <a class="btn btn-primary ms-2 mb-2"
@@ -15,42 +22,53 @@
   </div>
 
   {% if found %}
-    <div class="alert alert-success mb-2">
-      {{ partName }}
-      {% if partUrl %}
-        — <a href="{{ partUrl }}" target="_blank">{% trans %}open{% endtrans %}</a>
-      {% endif %}
-    </div>
+      <div class="alert alert-success mb-2 d-flex align-items-center justify-content-between">
+          <div>
+              {% if partName %}
+                  {{ partName }}
+              {% else %}
+                  {% trans %}label_scanner.target_found{% endtrans %}
+              {% endif %}
+          </div>
 
-    {% if locations is not empty %}
-        <table class="table table-sm mb-2 w-auto">
-            <thead>
-            <tr>
-                <th scope="col">{% trans %}part_lots.storage_location{% endtrans %}</th>
-                <th scope="col" class="text-end" style="width: 6rem;">
-                    {% trans %}part_lots.amount{% endtrans %}
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for loc in locations %}
+          {% if openUrl %}
+              <a href="{{ openUrl }}" target="_blank" class="btn btn-sm btn-outline-success">
+                  {% trans %}open{% endtrans %}
+              </a>
+          {% endif %}
+      </div>
+
+     {% if partName %}
+        {% if locations is not empty %}
+            <table class="table table-sm mb-2 w-auto">
+                <thead>
                 <tr>
-                    <td>
-                        <ul class="structural_link d-inline">
-                            {% for crumb in loc.breadcrumb %}
-                                <li><a href="{{ crumb.url }}" target="_blank">{{ crumb.name }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </td>
-                    <td class="text-end" style="width: 6rem;">
-                        {% if loc.qty is not null %}<strong>{{ loc.qty }}</strong>{% else %}<span class="text-muted">—</span>{% endif %}
-                    </td>
+                    <th scope="col">{% trans %}part_lots.storage_location{% endtrans %}</th>
+                    <th scope="col" class="text-end" style="width: 6rem;">
+                        {% trans %}part_lots.amount{% endtrans %}
+                    </th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-      <div class="text-muted mb-2">{% trans %}label_scanner.no_locations{% endtrans %}</div>
+                </thead>
+                <tbody>
+                {% for loc in locations %}
+                    <tr>
+                        <td>
+                            <ul class="structural_link d-inline">
+                                {% for crumb in loc.breadcrumb %}
+                                    <li><a href="{{ crumb.url }}" target="_blank">{{ crumb.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td class="text-end" style="width: 6rem;">
+                            {% if loc.qty is not null %}<strong>{{ loc.qty }}</strong>{% else %}<span class="text-muted">—</span>{% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+          <div class="text-muted mb-2">{% trans %}label_scanner.no_locations{% endtrans %}</div>
+        {% endif %}
     {% endif %}
   {% else %}
     <div class="alert alert-warning mb-2">
