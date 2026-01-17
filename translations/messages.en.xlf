@@ -9512,12 +9512,6 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Info mode (Decode barcode and show its contents, but do not redirect to part)</target>
       </segment>
     </unit>
-    <unit id="gShSnBd" name="scan_dialog.augmented_mode">
-      <segment state="translated">
-        <source>scan_dialog.augmented_mode</source>
-        <target>Augmented mode (Decode barcode, look up, and display database part information)</target>
-      </segment>
-    </unit>
     <unit id="k5Gvkgp" name="label_scanner.decoded_info.title">
       <segment state="translated">
         <source>label_scanner.decoded_info.title</source>
@@ -9534,6 +9528,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>label_scanner.no_locations</source>
         <target>Part is not stored at any locations</target>
+      </segment>
+    </unit>
+    <unit id="fGrv35p" name="label_scanner.qr_part_no_found">
+      <segment state="translated">
+        <source>label_scanner.qr_part_no_found</source>
+        <target>No part found for scanned barcode, click button above to Create Part</target>
       </segment>
     </unit>
     <unit id="nmXQWcS" name="label_generator.edit_profiles">

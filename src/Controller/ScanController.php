@@ -83,46 +83,39 @@ class ScanController extends AbstractController
         $form = $this->createForm(ScanDialogType::class);
         $form->handleRequest($request);
 
-        $mode = null;
+        // If JS is working, scanning uses /scan/lookup and this action just renders the page.
+        // This fallback only runs if user submits the form manually or uses ?input=...
         if ($input === null && $form->isSubmitted() && $form->isValid()) {
             $input = $form['input']->getData();
-            $mode = $form['mode']->getData();
         }
 
         $infoModeData = null;
-        $createUrl = null;
 
-        if ($input !== null) {
+        if ($input !== null && $input !== '') {
+            $mode = $form->isSubmitted() ? $form['mode']->getData() : null;
+            $infoMode = $form->isSubmitted() ? (bool) $form['info_mode']->getData() : false;
+
             try {
-                $scan_result = $this->barcodeNormalizer->scanBarcodeContent($input, $mode ?? null);
+                $scan = $this->barcodeNormalizer->scanBarcodeContent((string) $input, $mode ?? null);
 
-                //Perform a redirect if the info mode is not enabled
-                if (!$form['info_mode']->getData()) {
-                    try {
-                        // redirect user to part page
-                        return $this->redirect($this->barcodeParser->getRedirectURL($scan_result));
-                    } catch (EntityNotFoundException) {
-                        // Part not found -> show decoded info + optional "create part" link
-                        $infoModeData = $scan_result->getDecodedForInfoMode();
-
-                        $createUrl = $this->buildCreateUrlForScanResult($scan_result, $request->getLocale());
-
-                        if ($createUrl === null) {
-                            $this->addFlash('warning', 'scan.qr_not_found');
-                        }
-                    }
-                } else { //Otherwise retrieve infoModeData
-                    $infoModeData = $scan_result->getDecodedForInfoMode();
+                // If not in info mode, mimic “normal scan” behavior: redirect if possible.
+                if (!$infoMode) {
+                    $url = $this->barcodeParser->getRedirectURL($scan);
+                    return $this->redirect($url);
                 }
-            } catch (InvalidArgumentException) {
-                $this->addFlash('error', 'scan.format_unknown');
+
+                // Info mode fallback: render page with prefilled result
+                $infoModeData = $scan->getDecodedForInfoMode();
+
+            } catch (\Throwable $e) {
+                // Keep fallback user-friendly; avoid 500
+                $this->addFlash('warning', 'scan.format_unknown');
             }
         }
 
         return $this->render('label_system/scanner/scanner.html.twig', [
             'form' => $form,
             'infoModeData' => $infoModeData,
-            'createUrl' => $createUrl,
         ]);
     }
 
@@ -295,64 +288,81 @@ class ScanController extends AbstractController
         return array_reverse($items);
     }
 
-    #[Route(path: '/augmented', name: 'scan_augmented', methods: ['POST'])]
-    public function augmented(Request $request): Response
+    /**
+     * Provides XHR endpoint for looking up barcode information and return JSON response
+     * @param Request $request
+     * @return JsonResponse
+     */
+    #[Route(path: '/lookup', name: 'scan_lookup', methods: ['POST'])]
+    public function lookup(Request $request): JsonResponse
     {
         $this->denyAccessUnlessGranted('@tools.label_scanner');
 
-        $input = (string) $request->request->get('input', '');
-        $mode  = $request->request->get('mode'); // string|null
+        $input = trim((string) $request->request->get('input', ''));
+        $mode  = (string) ($request->request->get('mode') ?? '');
+        $infoMode = (bool) filter_var($request->request->get('info_mode', false), FILTER_VALIDATE_BOOL);
+        $locale = $request->getLocale();
 
         if ($input === '') {
-            // Return empty fragment or an error fragment; your choice
-            return new Response('', 200);
+            return new JsonResponse(['ok' => false], 200);
         }
 
         $modeEnum = null;
-        if ($mode !== null && $mode !== '') {
-            // Radio values are enum integers in your form
+        if ($mode !== '') {
             $modeEnum = BarcodeSourceType::from((int) $mode);
         }
 
         try {
             $scan = $this->barcodeNormalizer->scanBarcodeContent($input, $modeEnum);
         } catch (InvalidArgumentException) {
-            // When the camera/barcode reader momentarily misreads a barcode whilst scanning
-            // return and empty result, so the good read data still remains visible
-            return new Response('', 200);
+            // Camera sometimes produces garbage decodes for a frame; ignore those.
+            return new JsonResponse(['ok' => false], 200);
         }
+
         $decoded = $scan->getDecodedForInfoMode();
 
-        $locale = $request->getLocale();
+        // Resolve part (or null)
         $part = $this->barcodeParser->resolvePartOrNull($scan);
 
-        $found = $part !== null;
+        $redirectUrl = null;
+        if ($part !== null) {
+            // Redirector knows how to route parts, lots, and storelocations.
+            $redirectUrl = $this->barcodeParser->getRedirectURL($scan);
+        }
+
+        // Build template vars
         $partName = null;
         $partUrl = null;
         $locations = [];
         $createUrl = null;
 
-        if ($found) {
+        if ($part !== null) {
             $partName = $part->getName();
-
-            // This is the same route BarcodeRedirector uses
             $partUrl = $this->generateUrl('app_part_show', ['id' => $part->getID()]);
-
-            // Build locations (see below)
             $locations = $this->buildLocationsForPart($part);
-
         } else {
-            // Reuse your centralized create-url logic (the helper you already extracted)
             $createUrl = $this->buildCreateUrlForScanResult($scan, $locale);
         }
 
-        return $this->render('label_system/scanner/augmented_result.html.twig', [
+        // Render one fragment that shows:
+        // - decoded info (optional if you kept it)
+        // - part info + locations when found
+        // - create link when not found
+        $html = $this->renderView('label_system/scanner/augmented_result.html.twig', [
             'decoded' => $decoded,
-            'found' => $found,
+            'found' => ($part !== null),
             'partName' => $partName,
             'partUrl' => $partUrl,
             'locations' => $locations,
             'createUrl' => $createUrl,
         ]);
+
+        return new JsonResponse([
+            'ok' => true,
+            'found' => ($part !== null),
+            'redirectUrl' => $redirectUrl, // client redirects only when infoMode=false
+            'html' => $html,
+            'infoMode' => $infoMode,
+        ], 200);
     }
 }
