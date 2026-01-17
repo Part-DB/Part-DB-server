@@ -85,11 +85,6 @@ class ScanDialogType extends AbstractType
             'required' => false,
         ]);
 
-        $builder->add('augmented_mode', CheckboxType::class, [
-            'label' => 'scan_dialog.augmented_mode',
-            'required' => false,
-        ]);
-
         $builder->add('submit', SubmitType::class, [
             'label' => 'scan_dialog.submit',
         ]);
