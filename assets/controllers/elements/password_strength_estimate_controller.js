@@ -96,7 +96,7 @@ export default class extends Controller {
                 classes = "bg-warning badge-warning";
                 break;
             case 2:
-                text = trans("user.password_strength.medium", {}, 'frontend')
+                text = trans("user.password_strength.medium", {}, 'frontend');
                 classes = "bg-info badge-info";
                 break;
             case 3:
