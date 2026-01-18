@@ -4014,16 +4014,6 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
         <target>Reg.Ex. Correspondance</target>
       </segment>
     </unit>
-    <unit id="N66qZeD" name="search.submit">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:68</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:62</note>
-      </notes>
-      <segment state="translated">
-        <source>search.submit</source>
-        <target>Rechercher!</target>
-      </segment>
-    </unit>
     <unit id="Kw3N1AA" name="actions">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>

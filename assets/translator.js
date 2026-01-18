@@ -15,4 +15,7 @@ const translator = createTranslator({
     localeFallbacks,
 });
 
-export const { trans } = translator;
+// Wrapper function with default domain set to 'frontend'
+export const trans = (id, parameters = {}, domain = 'frontend', locale = null) => {
+    return translator.trans(id, parameters, domain, locale);
+};

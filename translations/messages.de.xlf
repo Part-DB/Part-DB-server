@@ -4024,16 +4024,6 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Reg.Ex. Matching</target>
       </segment>
     </unit>
-    <unit id="U5IhkwB" name="search.submit">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:68</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:62</note>
-      </notes>
-      <segment state="translated">
-        <source>search.submit</source>
-        <target>Los!</target>
-      </segment>
-    </unit>
     <unit id="UXyo9ZT" name="project.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
@@ -11302,36 +11292,6 @@ Element 1 -> Element 1.2]]></target>
       <segment state="translated">
         <source>label_generator.no_lines_given</source>
         <target>Kein Textinhalt angegeben! Die erzeugten Label werden leer sein.</target>
-      </segment>
-    </unit>
-    <unit id="9rnHbSK" name="user.password_strength.very_weak">
-      <segment state="translated">
-        <source>user.password_strength.very_weak</source>
-        <target>Sehr schwach</target>
-      </segment>
-    </unit>
-    <unit id="gKHmHwM" name="user.password_strength.weak">
-      <segment state="translated">
-        <source>user.password_strength.weak</source>
-        <target>Schwach</target>
-      </segment>
-    </unit>
-    <unit id="c44gN8b" name="user.password_strength.medium">
-      <segment state="translated">
-        <source>user.password_strength.medium</source>
-        <target>Mittel</target>
-      </segment>
-    </unit>
-    <unit id="NwiBLHc" name="user.password_strength.strong">
-      <segment state="translated">
-        <source>user.password_strength.strong</source>
-        <target>Stark</target>
-      </segment>
-    </unit>
-    <unit id="Bw.iCUm" name="user.password_strength.very_strong">
-      <segment state="translated">
-        <source>user.password_strength.very_strong</source>
-        <target>Sehr stark</target>
       </segment>
     </unit>
     <unit id="m.RBg6w" name="perm.users.impersonate">
