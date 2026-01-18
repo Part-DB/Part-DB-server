@@ -79,9 +79,9 @@ export default class extends Controller {
             panelPlacement: this.element.dataset.panelPlacement,
             plugins: [recentSearchesPlugin],
             openOnFocus: true,
-            placeholder: trans("search.placeholder"),
+            placeholder: trans("search.placeholder", {}, 'frontend'),
             translations: {
-                submitButtonTitle: trans("search.submit")
+                submitButtonTitle: trans("search.submit", {}, 'frontend')
             },
 
             // Use a navigator compatible with turbo:
@@ -150,7 +150,7 @@ export default class extends Controller {
                         },
                         templates: {
                             header({ html }) {
-                                return html`<span class="aa-SourceHeaderTitle">${trans("part.labelp")}</span>
+                                return html`<span class="aa-SourceHeaderTitle">${trans("part.labelp", {}, 'frontend')}</span>
                                     <div class="aa-SourceHeaderLine" />`;
                             },
                             item({item, components, html}) {

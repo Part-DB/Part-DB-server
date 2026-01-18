@@ -1,6 +1,9 @@
 ux_translator:
     # The directory where the JavaScript translations are dumped
     dump_directory: '%kernel.project_dir%/var/translations'
+    # Only include the frontend translation domain in the JavaScript bundle
+    domains:
+        - 'frontend'
 
 when@prod:
     ux_translator:

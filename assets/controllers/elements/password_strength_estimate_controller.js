@@ -88,23 +88,23 @@ export default class extends Controller {
 
         switch (level) {
             case 0:
-                text = trans("user.password_strength.very_weak");
+                text = trans("user.password_strength.very_weak", {}, 'frontend');
                 classes = "bg-danger badge-danger";
                 break;
             case 1:
-                text = trans("user.password_strength.weak");
+                text = trans("user.password_strength.weak", {}, 'frontend');
                 classes = "bg-warning badge-warning";
                 break;
             case 2:
-                text = trans("user.password_strength.medium")
+                text = trans("user.password_strength.medium", {}, 'frontend')
                 classes = "bg-info badge-info";
                 break;
             case 3:
-                text = trans("user.password_strength.strong");
+                text = trans("user.password_strength.strong", {}, 'frontend');
                 classes = "bg-primary badge-primary";
                 break;
             case 4:
-                text = trans("user.password_strength.very_strong");
+                text = trans("user.password_strength.very_strong", {}, 'frontend');
                 classes = "bg-success badge-success";
                 break;
             default:
