@@ -39,27 +39,43 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Entity\Base\AttachmentsTrait;
+use App\Entity\Base\DBElementTrait;
+use App\Entity\Base\MasterAttachmentTrait;
+use App\Entity\Base\NamedElementTrait;
+use App\Entity\Base\StructuralElementTrait;
+use App\Entity\Base\TimestampTrait;
+use App\Entity\Contracts\DBElementInterface;
+use App\Entity\Contracts\HasAttachmentsInterface;
+use App\Entity\Contracts\HasMasterAttachmentInterface;
+use App\Entity\Contracts\HasParametersInterface;
+use App\Entity\Contracts\NamedElementInterface;
+use App\Entity\Contracts\StructuralElementInterface;
+use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\EDA\EDAFootprintInfo;
+use App\Entity\Parameters\ParametersTrait;
+use App\EntityListeners\TreeCacheInvalidationListener;
 use App\Repository\Parts\FootprintRepository;
-use App\Entity\Base\AbstractStructuralDBElement;
+use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\FootprintAttachment;
-use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Parameters\FootprintParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This entity represents a footprint of a part (its physical dimensions and shape).
- *
- * @extends AbstractPartsContainingDBElement<FootprintAttachment, FootprintParameter>
  */
 #[ORM\Entity(repositoryClass: FootprintRepository::class)]
 #[ORM\Table('`footprints`')]
 #[ORM\Index(columns: ['name'], name: 'footprint_idx_name')]
 #[ORM\Index(columns: ['parent_id', 'name'], name: 'footprint_idx_parent_name')]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
+#[UniqueEntity(fields: ['name', 'parent'], message: 'structural.entity.unique_name', ignoreNull: false)]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -88,13 +104,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
-class Footprint extends AbstractPartsContainingDBElement
+class Footprint implements DBElementInterface, NamedElementInterface, TimeStampableInterface, HasAttachmentsInterface, HasMasterAttachmentInterface, StructuralElementInterface, HasParametersInterface, \Stringable, \JsonSerializable
 {
+    use DBElementTrait;
+    use NamedElementTrait;
+    use TimestampTrait;
+    use AttachmentsTrait;
+    use MasterAttachmentTrait;
+    use StructuralElementTrait;
+    use ParametersTrait;
+
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id')]
     #[Groups(['footprint:read', 'footprint:write'])]
     #[ApiProperty(readableLink: false, writableLink: false)]
-    protected ?AbstractStructuralDBElement $parent = null;
+    protected ?self $parent = null;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
     #[ORM\OrderBy(['name' => Criteria::ASC])]
@@ -128,6 +152,7 @@ class Footprint extends AbstractPartsContainingDBElement
     /** @var Collection<int, FootprintParameter>
      */
     #[Assert\Valid]
+    #[UniqueObjectCollection(fields: ['name', 'group', 'element'])]
     #[ORM\OneToMany(mappedBy: 'element', targetEntity: FootprintParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[Groups(['footprint:read', 'footprint:write'])]
@@ -145,11 +170,35 @@ class Footprint extends AbstractPartsContainingDBElement
 
     public function __construct()
     {
-        parent::__construct();
+        $this->initializeAttachments();
+        $this->initializeStructuralElement();
         $this->children = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->parameters = new ArrayCollection();
         $this->eda_info = new EDAFootprintInfo();
+    }
+
+    public function __clone()
+    {
+        if ($this->id) {
+            $this->cloneDBElement();
+            $this->cloneAttachments();
+            
+            // We create a new object, so give it a new creation date
+            $this->addedDate = null;
+            
+            //Deep clone parameters
+            $parameters = $this->parameters;
+            $this->parameters = new ArrayCollection();
+            foreach ($parameters as $parameter) {
+                $this->addParameter(clone $parameter);
+            }
+        }
+    }
+
+    public function jsonSerialize(): array
+    {
+        return ['@id' => $this->getID()];
     }
 
     /****************************************

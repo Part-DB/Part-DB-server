@@ -24,13 +24,11 @@ namespace App\Entity\Attachments;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\MasterAttachmentTrait;
+use App\Entity\Base\AttachmentsTrait;
 use App\Entity\Contracts\HasAttachmentsInterface;
 use App\Entity\Contracts\HasMasterAttachmentInterface;
 use App\Repository\AttachmentContainingDBElementRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @template AT of Attachment
@@ -39,83 +37,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
 abstract class AttachmentContainingDBElement extends AbstractNamedDBElement implements HasMasterAttachmentInterface, HasAttachmentsInterface
 {
     use MasterAttachmentTrait;
-
-    /**
-     * @var Collection<int, Attachment>
-     * @phpstan-var Collection<int, AT>
-     * ORM Mapping is done in subclasses (e.g. Part)
-     */
-    #[Groups(['full', 'import'])]
-    protected Collection $attachments;
+    use AttachmentsTrait;
 
     public function __construct()
     {
-        $this->attachments = new ArrayCollection();
+        $this->initializeAttachments();
     }
 
     public function __clone()
     {
-        if ($this->id) {
-            $attachments = $this->attachments;
-            $this->attachments = new ArrayCollection();
-            //Set master attachment is needed
-            foreach ($attachments as $attachment) {
-                $clone = clone $attachment;
-                if ($attachment === $this->master_picture_attachment) {
-                    $this->setMasterPictureAttachment($clone);
-                }
-                $this->addAttachment($clone);
-            }
-        }
+        $this->cloneAttachments();
 
         //Parent has to be last call, as it resets the ID
         parent::__clone();
-    }
-
-    /********************************************************************************
-     *
-     *   Getters
-     *
-     *********************************************************************************/
-
-    /**
-     *  Gets all attachments associated with this element.
-     */
-    public function getAttachments(): Collection
-    {
-        return $this->attachments;
-    }
-
-    /**
-     * Adds an attachment to this element.
-     *
-     * @param Attachment $attachment Attachment
-     *
-     * @return $this
-     */
-    public function addAttachment(Attachment $attachment): self
-    {
-        //Attachment must be associated with this element
-        $attachment->setElement($this);
-        $this->attachments->add($attachment);
-
-        return $this;
-    }
-
-    /**
-     * Removes the given attachment from this element.
-     *
-     * @return $this
-     */
-    public function removeAttachment(Attachment $attachment): self
-    {
-        $this->attachments->removeElement($attachment);
-
-        //Check if this is the master attachment -> remove it from master attachment too, or it can not be deleted from DB...
-        if ($attachment === $this->getMasterPictureAttachment()) {
-            $this->setMasterPictureAttachment(null);
-        }
-
-        return $this;
     }
 }
