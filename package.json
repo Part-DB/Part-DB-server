@@ -17,7 +17,7 @@
         "popper.js": "^1.14.7",
         "regenerator-runtime": "^0.13.9",
         "webpack": "^5.74.0",
-        "webpack-bundle-analyzer": "^4.3.0",
+        "webpack-bundle-analyzer": "^5.1.1",
         "webpack-cli": "^5.1.0",
         "webpack-notifier": "^1.15.0"
     },
@@ -65,7 +65,7 @@
         "json-formatter-js": "^2.3.4",
         "jszip": "^3.2.0",
         "katex": "^0.16.0",
-        "marked": "^16.1.1",
+        "marked": "^17.0.1",
         "marked-gfm-heading-id": "^4.1.1",
         "marked-mangle": "^1.0.1",
         "pdfmake": "^0.2.2",
