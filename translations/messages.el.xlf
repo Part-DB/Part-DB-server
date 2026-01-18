@@ -1,11 +1,10 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="el">
   <file id="messages.en">
     <unit id="0Md_YOf" name="attachment_type.caption">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
+        <note>Caption for attachment type</note>
       </notes>
       <segment state="translated">
         <source>attachment_type.caption</source>
@@ -14,17 +13,7 @@
     </unit>
     <unit id="OllfX2C" name="category.labelp">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:4</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:22</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:7</note>
-        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:22</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:7</note>
-        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:4</note>
-        <note priority="1">templates\base.html.twig:163</note>
-        <note priority="1">templates\base.html.twig:170</note>
-        <note priority="1">templates\base.html.twig:197</note>
-        <note priority="1">templates\base.html.twig:225</note>
+        <note>Plural label for category</note>
       </notes>
       <segment state="translated">
         <source>category.labelp</source>
@@ -33,11 +22,7 @@
     </unit>
     <unit id="lnjU5yu" name="admin.options">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:8</note>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:19</note>
-        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:8</note>
-        <note priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:11</note>
-        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:8</note>
+        <note>Admin section: options</note>
       </notes>
       <segment state="translated">
         <source>admin.options</source>
@@ -46,11 +31,7 @@
     </unit>
     <unit id="CuAPq5N" name="admin.advanced">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:9</note>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CompanyAdminBase.html.twig:15</note>
-        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:9</note>
-        <note priority="1">Part-DB1\templates\AdminPages\CompanyAdminBase.html.twig:15</note>
-        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:9</note>
+        <note>Admin section: advanced</note>
       </notes>
       <segment state="translated">
         <source>admin.advanced</source>
@@ -59,8 +40,7 @@
     </unit>
     <unit id="BJtSZa4" name="currency.caption">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
+        <note>Caption for currency</note>
       </notes>
       <segment state="translated">
         <source>currency.caption</source>
@@ -69,8 +49,7 @@
     </unit>
     <unit id="dzfYFww" name="currency.iso_code.caption">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:12</note>
-        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:12</note>
+        <note>Caption for currency iso code</note>
       </notes>
       <segment state="translated">
         <source>currency.iso_code.caption</source>
@@ -79,8 +58,7 @@
     </unit>
     <unit id="lrCa3tF" name="currency.symbol.caption">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:15</note>
-        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:15</note>
+        <note>Caption for currency symbol</note>
       </notes>
       <segment state="translated">
         <source>currency.symbol.caption</source>
@@ -89,21 +67,7 @@
     </unit>
     <unit id="lQ8QeGr" name="search.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:67</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:27</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:43</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:63</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:27</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:43</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:63</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:9</note>
-        <note priority="1">templates\base.html.twig:80</note>
-        <note priority="1">templates\base.html.twig:179</note>
-        <note priority="1">templates\base.html.twig:206</note>
-        <note priority="1">templates\base.html.twig:237</note>
+        <note>Placeholder text for search</note>
       </notes>
       <segment state="translated">
         <source>search.placeholder</source>
@@ -112,14 +76,7 @@
     </unit>
     <unit id="10f_Ka3" name="expandAll">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:23</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:3</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:23</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:3</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:13</note>
-        <note priority="1">templates\base.html.twig:166</note>
-        <note priority="1">templates\base.html.twig:193</note>
-        <note priority="1">templates\base.html.twig:221</note>
+        <note>Translation for expandAll</note>
       </notes>
       <segment state="translated">
         <source>expandAll</source>
@@ -128,14 +85,7 @@
     </unit>
     <unit id="eS_kUcS" name="reduceAll">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:27</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:27</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:4</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:17</note>
-        <note priority="1">templates\base.html.twig:167</note>
-        <note priority="1">templates\base.html.twig:194</note>
-        <note priority="1">templates\base.html.twig:222</note>
+        <note>Translation for reduceAll</note>
       </notes>
       <segment state="translated">
         <source>reduceAll</source>
@@ -144,9 +94,7 @@
     </unit>
     <unit id="7uawYY6" name="standard.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:60</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:60</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:42</note>
+        <note>Label for standard</note>
       </notes>
       <segment state="translated">
         <source>standard.label</source>
@@ -155,9 +103,7 @@
     </unit>
     <unit id="Fe5ax26" name="infos.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:61</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:61</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:43</note>
+        <note>Label for infos</note>
       </notes>
       <segment state="translated">
         <source>infos.label</source>
@@ -166,9 +112,7 @@
     </unit>
     <unit id="Y2QKWU9" name="export.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:66</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:66</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note>Label for export</note>
       </notes>
       <segment state="translated">
         <source>export.label</source>
@@ -177,9 +121,7 @@
     </unit>
     <unit id="k5fWSN4" name="import_export.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:68</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:68</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:47</note>
+        <note>Label for import export</note>
       </notes>
       <segment state="translated">
         <source>import_export.label</source>
@@ -188,8 +130,7 @@
     </unit>
     <unit id="sOYxh4M" name="mass_creation.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:69</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:69</note>
+        <note>Label for mass creation</note>
       </notes>
       <segment state="translated">
         <source>mass_creation.label</source>
@@ -198,9 +139,7 @@
     </unit>
     <unit id="wTQX7oE" name="admin.common">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:82</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:82</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:59</note>
+        <note>Admin section: common</note>
       </notes>
       <segment state="translated">
         <source>admin.common</source>
@@ -209,8 +148,7 @@
     </unit>
     <unit id="NmnCJhH" name="admin.attachments">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:86</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:86</note>
+        <note>Admin section: attachments</note>
       </notes>
       <segment state="translated">
         <source>admin.attachments</source>
@@ -219,9 +157,7 @@
     </unit>
     <unit id="R949JGz" name="export_all.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:179</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:167</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:142</note>
+        <note>Label for export all</note>
       </notes>
       <segment state="translated">
         <source>export_all.label</source>
@@ -230,8 +166,7 @@
     </unit>
     <unit id="zPSdxU4" name="mass_creation.help">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:185</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:173</note>
+        <note>Help text for mass creation</note>
       </notes>
       <segment state="translated">
         <source>mass_creation.help</source>
@@ -240,9 +175,7 @@
     </unit>
     <unit id="a5.CFfq" name="edit.caption">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:35</note>
+        <note>Caption for edit</note>
       </notes>
       <segment state="translated">
         <source>edit.caption</source>
@@ -251,9 +184,7 @@
     </unit>
     <unit id="bblk5.r" name="new.caption">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:37</note>
+        <note>Caption for new</note>
       </notes>
       <segment state="translated">
         <source>new.caption</source>
@@ -262,13 +193,7 @@
     </unit>
     <unit id="ZJ9SPOS" name="footprint.labelp">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:4</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:9</note>
-        <note priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:9</note>
-        <note priority="1">templates\base.html.twig:172</note>
-        <note priority="1">templates\base.html.twig:199</note>
-        <note priority="1">templates\base.html.twig:227</note>
+        <note>Plural label for footprint</note>
       </notes>
       <segment state="translated">
         <source>footprint.labelp</source>
@@ -277,8 +202,7 @@
     </unit>
     <unit id="ZOZqHeB" name="group.edit.caption">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
+        <note>Caption for group edit</note>
       </notes>
       <segment state="translated">
         <source>group.edit.caption</source>
@@ -287,10 +211,7 @@
     </unit>
     <unit id="iK5P0V5" name="user.edit.permissions">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:16</note>
-        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
-        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:16</note>
+        <note>User edit permissions</note>
       </notes>
       <segment state="translated">
         <source>user.edit.permissions</source>
@@ -299,9 +220,7 @@
     </unit>
     <unit id="Fum_mCX" name="manufacturer.caption">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+        <note>Caption for manufacturer</note>
       </notes>
       <segment state="translated">
         <source>manufacturer.caption</source>
@@ -310,8 +229,7 @@
     </unit>
     <unit id="6tFKnGD" name="measurement_unit.caption">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\MeasurementUnitAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\MeasurementUnitAdmin.html.twig:4</note>
+        <note>Caption for measurement unit</note>
       </notes>
       <segment state="translated">
         <source>measurement_unit.caption</source>
@@ -326,13 +244,7 @@
     </unit>
     <unit id="vZGwiMS" name="storelocation.labelp">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:5</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:8</note>
-        <note priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:8</note>
-        <note priority="1">templates\base.html.twig:171</note>
-        <note priority="1">templates\base.html.twig:198</note>
-        <note priority="1">templates\base.html.twig:226</note>
+        <note>Plural label for storelocation</note>
       </notes>
       <segment state="translated">
         <source>storelocation.labelp</source>
@@ -341,8 +253,7 @@
     </unit>
     <unit id=".YoS4pi" name="user.edit.caption">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:8</note>
-        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:8</note>
+        <note>Caption for user edit</note>
       </notes>
       <segment state="translated">
         <source>user.edit.caption</source>
@@ -351,8 +262,7 @@
     </unit>
     <unit id="eDE4Z9X" name="user.edit.configuration">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:14</note>
-        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:14</note>
+        <note>User edit configuration</note>
       </notes>
       <segment state="translated">
         <source>user.edit.configuration</source>
@@ -361,8 +271,7 @@
     </unit>
     <unit id="3HIFZxy" name="user.edit.password">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:15</note>
-        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:15</note>
+        <note>User edit password</note>
       </notes>
       <segment state="translated">
         <source>user.edit.password</source>
@@ -371,8 +280,7 @@
     </unit>
     <unit id="CpSdWDM" name="user.edit.tfa.caption">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:45</note>
-        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:45</note>
+        <note>Caption for user edit tfa</note>
       </notes>
       <segment state="translated">
         <source>user.edit.tfa.caption</source>
@@ -381,8 +289,7 @@
     </unit>
     <unit id="QAuf3JI" name="user.edit.tfa.google_active">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:47</note>
-        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:47</note>
+        <note>User edit tfa google active</note>
       </notes>
       <segment state="translated">
         <source>user.edit.tfa.google_active</source>
@@ -391,12 +298,7 @@
     </unit>
     <unit id="7v_PSOf" name="tfa_backup.remaining_tokens">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:48</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:15</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:95</note>
-        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:48</note>
-        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:15</note>
-        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:95</note>
+        <note>Translation for tfa backup remaining tokens</note>
       </notes>
       <segment state="translated">
         <source>tfa_backup.remaining_tokens</source>
@@ -405,12 +307,7 @@
     </unit>
     <unit id="xhNIm7L" name="tfa_backup.generation_date">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:49</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:17</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:96</note>
-        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:49</note>
-        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:17</note>
-        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:96</note>
+        <note>Translation for tfa backup generation date</note>
       </notes>
       <segment state="translated">
         <source>tfa_backup.generation_date</source>
@@ -419,10 +316,7 @@
     </unit>
     <unit id="_m6S_4Y" name="user.edit.tfa.disabled">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:53</note>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:60</note>
-        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:53</note>
-        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:60</note>
+        <note>User edit tfa disabled</note>
       </notes>
       <segment state="translated">
         <source>user.edit.tfa.disabled</source>
@@ -431,8 +325,7 @@
     </unit>
     <unit id="TagZ6I5" name="user.edit.tfa.u2f_keys_count">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:56</note>
-        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:56</note>
+        <note>User edit tfa u2f keys count</note>
       </notes>
       <segment state="translated">
         <source>user.edit.tfa.u2f_keys_count</source>
@@ -441,8 +334,7 @@
     </unit>
     <unit id=".K9hu_c" name="user.edit.tfa.disable_tfa_title">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
-        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+        <note>User edit tfa disable tfa title</note>
       </notes>
       <segment state="translated">
         <source>user.edit.tfa.disable_tfa_title</source>
@@ -451,8 +343,7 @@
     </unit>
     <unit id="xORuIU4" name="user.edit.tfa.disable_tfa_message">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
-        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+        <note>User edit tfa disable tfa message</note>
       </notes>
       <segment state="translated">
         <source>user.edit.tfa.disable_tfa_message</source>
@@ -464,8 +355,7 @@
     </unit>
     <unit id="02HvwiS" name="user.edit.tfa.disable_tfa.btn">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:73</note>
-        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:73</note>
+        <note>User edit tfa disable tfa btn</note>
       </notes>
       <segment state="translated">
         <source>user.edit.tfa.disable_tfa.btn</source>
@@ -474,11 +364,7 @@
     </unit>
     <unit id="0EjI8FY" name="attachment.delete">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:4</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:63</note>
+        <note>Translation for attachment delete</note>
       </notes>
       <segment state="translated">
         <source>attachment.delete</source>
@@ -487,12 +373,7 @@
     </unit>
     <unit id="ffvhms1" name="attachment.external">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:41</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:35</note>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
-        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
-        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
+        <note>Translation for attachment external</note>
       </notes>
       <segment state="translated">
         <source>attachment.external</source>
@@ -501,10 +382,7 @@
     </unit>
     <unit id="vTU.j2g" name="attachment.preview.alt">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:49</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:47</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:47</note>
-        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:45</note>
+        <note>Translation for attachment preview alt</note>
       </notes>
       <segment state="translated">
         <source>attachment.preview.alt</source>
@@ -513,12 +391,7 @@
     </unit>
     <unit id="CNqXx.c" name="attachment.view">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:52</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:50</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:50</note>
-        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:48</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:45</note>
+        <note>Translation for attachment view</note>
       </notes>
       <segment state="translated">
         <source>attachment.view</source>
@@ -527,14 +400,7 @@
     </unit>
     <unit id="HnHc.HV" name="attachment.file_not_found">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:58</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:56</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:43</note>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:166</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:56</note>
-        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:54</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:38</note>
-        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:166</note>
+        <note>Translation for attachment file not found</note>
       </notes>
       <segment state="translated">
         <source>attachment.file_not_found</source>
@@ -543,10 +409,7 @@
     </unit>
     <unit id="vnfQKjk" name="attachment.secure">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:66</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:64</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:48</note>
-        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:62</note>
+        <note>Translation for attachment secure</note>
       </notes>
       <segment state="translated">
         <source>attachment.secure</source>
@@ -555,10 +418,7 @@
     </unit>
     <unit id="NCjSwVs" name="attachment.create">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:79</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:77</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:77</note>
-        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:75</note>
+        <note>Translation for attachment create</note>
       </notes>
       <segment state="translated">
         <source>attachment.create</source>
@@ -567,12 +427,7 @@
     </unit>
     <unit id="kxhr8KP" name="part_lot.edit.delete.confirm">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:84</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:82</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:33</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:82</note>
-        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:80</note>
-        <note priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:33</note>
+        <note>Part lot: edit delete confirm</note>
       </notes>
       <segment state="translated">
         <source>part_lot.edit.delete.confirm</source>
@@ -581,9 +436,7 @@
     </unit>
     <unit id="RqM7iAG" name="entity.delete.confirm_title">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:2</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:2</note>
-        <note priority="1">templates\AdminPages\_delete_form.html.twig:2</note>
+        <note>Translation for entity delete confirm title</note>
       </notes>
       <segment state="translated">
         <source>entity.delete.confirm_title</source>
@@ -592,9 +445,7 @@
     </unit>
     <unit id="0B3xeO2" name="entity.delete.message">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:3</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:3</note>
-        <note priority="1">templates\AdminPages\_delete_form.html.twig:3</note>
+        <note>Translation for entity delete message</note>
       </notes>
       <segment state="translated">
         <source>entity.delete.message</source>
@@ -605,9 +456,7 @@
     </unit>
     <unit id="eyyICVM" name="entity.delete">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:11</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:11</note>
-        <note priority="1">templates\AdminPages\_delete_form.html.twig:9</note>
+        <note>Translation for entity delete</note>
       </notes>
       <segment state="translated">
         <source>entity.delete</source>
@@ -616,9 +465,7 @@
     </unit>
     <unit id="A15hzUY" name="entity.delete.recursive">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:24</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:24</note>
-        <note priority="1">templates\AdminPages\_delete_form.html.twig:12</note>
+        <note>Translation for entity delete recursive</note>
       </notes>
       <segment state="translated">
         <source>entity.delete.recursive</source>
@@ -627,12 +474,7 @@
     </unit>
     <unit id="4_pqNGT" name="export.format">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:4</note>
-        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:76</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:4</note>
-        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:76</note>
-        <note priority="1">templates\AdminPages\_export_form.html.twig:4</note>
-        <note priority="1">src\Form\ImportType.php:67</note>
+        <note>Translation for export format</note>
       </notes>
       <segment state="translated">
         <source>export.format</source>
@@ -641,9 +483,7 @@
     </unit>
     <unit id="dA2Gh6w" name="export.level.simple">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:19</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:19</note>
-        <note priority="1">templates\AdminPages\_export_form.html.twig:19</note>
+        <note>Translation for export level simple</note>
       </notes>
       <segment state="translated">
         <source>export.level.simple</source>
@@ -652,9 +492,7 @@
     </unit>
     <unit id="0UfNFxx" name="export.level.extended">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:20</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:20</note>
-        <note priority="1">templates\AdminPages\_export_form.html.twig:20</note>
+        <note>Translation for export level extended</note>
       </notes>
       <segment state="translated">
         <source>export.level.extended</source>
@@ -663,9 +501,7 @@
     </unit>
     <unit id="dLPhjKy" name="export.level.full">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:21</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:21</note>
-        <note priority="1">templates\AdminPages\_export_form.html.twig:21</note>
+        <note>Translation for export level full</note>
       </notes>
       <segment state="translated">
         <source>export.level.full</source>
@@ -674,9 +510,7 @@
     </unit>
     <unit id="5c8F8f2" name="export.include_children">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:31</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:31</note>
-        <note priority="1">templates\AdminPages\_export_form.html.twig:31</note>
+        <note>Translation for export include children</note>
       </notes>
       <segment state="translated">
         <source>export.include_children</source>
@@ -685,9 +519,7 @@
     </unit>
     <unit id="G8WtNph" name="export.btn">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:39</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:39</note>
-        <note priority="1">templates\AdminPages\_export_form.html.twig:39</note>
+        <note>Translation for export btn</note>
       </notes>
       <segment state="translated">
         <source>export.btn</source>
@@ -696,17 +528,7 @@
     </unit>
     <unit id="2y0kouO" name="id.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:4</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:12</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:24</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:36</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:12</note>
-        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:24</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:36</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:94</note>
-        <note priority="1">templates\Parts\edit_part_info.html.twig:12</note>
-        <note priority="1">templates\Parts\show_part_info.html.twig:11</note>
+        <note>Label for id</note>
       </notes>
       <segment state="translated">
         <source>id.label</source>
@@ -715,22 +537,7 @@
     </unit>
     <unit id="cMLFYZw" name="createdAt">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:11</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:76</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:77</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:6</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:69</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:12</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:77</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:11</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:59</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:60</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:6</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:69</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:12</note>
-        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:53</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:101</note>
-        <note priority="1">templates\Parts\show_part_info.html.twig:248</note>
+        <note>Translation for createdAt</note>
       </notes>
       <segment state="translated">
         <source>createdAt</source>
@@ -739,16 +546,7 @@
     </unit>
     <unit id="ZcUFNEJ" name="lastModified">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:25</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:21</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:8</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:73</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:25</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:21</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:8</note>
-        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:49</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:114</note>
-        <note priority="1">templates\Parts\show_part_info.html.twig:263</note>
+        <note>Translation for lastModified</note>
       </notes>
       <segment state="translated">
         <source>lastModified</source>
@@ -757,8 +555,7 @@
     </unit>
     <unit id="noZi5aQ" name="entity.info.parts_count">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:38</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:38</note>
+        <note>Info about entity: parts count</note>
       </notes>
       <segment state="translated">
         <source>entity.info.parts_count</source>
@@ -767,8 +564,7 @@
     </unit>
     <unit id="rpzRyMx" name="attachment.list.title">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:3</note>
-        <note priority="1">Part-DB1\templates\attachment_list.html.twig:3</note>
+        <note>Title for attachment list</note>
       </notes>
       <segment state="translated">
         <source>attachment.list.title</source>
@@ -777,12 +573,7 @@
     </unit>
     <unit id="79bMpjW" name="part_list.loading.caption">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:10</note>
-        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:8</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:6</note>
-        <note priority="1">Part-DB1\templates\attachment_list.html.twig:10</note>
-        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:8</note>
-        <note priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:6</note>
+        <note>Caption for part list loading</note>
       </notes>
       <segment state="translated">
         <source>part_list.loading.caption</source>
@@ -791,12 +582,7 @@
     </unit>
     <unit id="dJ3yFo4" name="part_list.loading.message">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:11</note>
-        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:9</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:7</note>
-        <note priority="1">Part-DB1\templates\attachment_list.html.twig:11</note>
-        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:9</note>
-        <note priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:7</note>
+        <note>Translation for part list loading message</note>
       </notes>
       <segment state="translated">
         <source>part_list.loading.message</source>
@@ -805,9 +591,7 @@
     </unit>
     <unit id="ZQMol4U" name="vendor.base.javascript_hint">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:68</note>
-        <note priority="1">Part-DB1\templates\base.html.twig:68</note>
-        <note priority="1">templates\base.html.twig:246</note>
+        <note>Translation for vendor base javascript hint</note>
       </notes>
       <segment state="translated">
         <source>vendor.base.javascript_hint</source>
@@ -816,8 +600,7 @@
     </unit>
     <unit id="0rLRD9e" name="sidebar.big.toggle">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:73</note>
-        <note priority="1">Part-DB1\templates\base.html.twig:73</note>
+        <note>Translation for sidebar big toggle</note>
       </notes>
       <segment state="translated">
         <source>sidebar.big.toggle</source>
@@ -826,9 +609,7 @@
     </unit>
     <unit id="jgfKRbc" name="loading.caption">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:95</note>
-        <note priority="1">Part-DB1\templates\base.html.twig:95</note>
-        <note priority="1">templates\base.html.twig:271</note>
+        <note>Caption for loading</note>
       </notes>
       <segment state="translated">
         <source>loading.caption</source>
@@ -837,9 +618,7 @@
     </unit>
     <unit id="PbxPO3f" name="loading.message">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:96</note>
-        <note priority="1">Part-DB1\templates\base.html.twig:96</note>
-        <note priority="1">templates\base.html.twig:272</note>
+        <note>Translation for loading message</note>
       </notes>
       <segment state="translated">
         <source>loading.message</source>
@@ -848,9 +627,7 @@
     </unit>
     <unit id="g3Hp.cE" name="loading.bar">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:101</note>
-        <note priority="1">Part-DB1\templates\base.html.twig:101</note>
-        <note priority="1">templates\base.html.twig:277</note>
+        <note>Translation for loading bar</note>
       </notes>
       <segment state="translated">
         <source>loading.bar</source>
@@ -859,9 +636,7 @@
     </unit>
     <unit id="rIod4Xs" name="back_to_top">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:112</note>
-        <note priority="1">Part-DB1\templates\base.html.twig:112</note>
-        <note priority="1">templates\base.html.twig:288</note>
+        <note>Translation for back to top</note>
       </notes>
       <segment state="translated">
         <source>back_to_top</source>
@@ -870,8 +645,7 @@
     </unit>
     <unit id="yXZ1kdn" name="permission.edit.permission">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:35</note>
-        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:35</note>
+        <note>Translation for permission edit permission</note>
       </notes>
       <segment state="translated">
         <source>permission.edit.permission</source>
@@ -880,8 +654,7 @@
     </unit>
     <unit id="tFYZZcS" name="permission.edit.value">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:36</note>
-        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:36</note>
+        <note>Translation for permission edit value</note>
       </notes>
       <segment state="translated">
         <source>permission.edit.value</source>
@@ -890,8 +663,7 @@
     </unit>
     <unit id="KzyDL60" name="permission.legend.title">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:53</note>
-        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:53</note>
+        <note>Title for permission legend</note>
       </notes>
       <segment state="translated">
         <source>permission.legend.title</source>
@@ -900,8 +672,7 @@
     </unit>
     <unit id="owrJ0Qw" name="permission.legend.disallow">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:57</note>
-        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:57</note>
+        <note>Translation for permission legend disallow</note>
       </notes>
       <segment state="translated">
         <source>permission.legend.disallow</source>
@@ -910,8 +681,7 @@
     </unit>
     <unit id="1nY8d_O" name="permission.legend.allow">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:61</note>
-        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:61</note>
+        <note>Translation for permission legend allow</note>
       </notes>
       <segment state="translated">
         <source>permission.legend.allow</source>
@@ -920,8 +690,7 @@
     </unit>
     <unit id="uNMtwn9" name="permission.legend.inherit">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:65</note>
-        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:65</note>
+        <note>Translation for permission legend inherit</note>
       </notes>
       <segment state="translated">
         <source>permission.legend.inherit</source>
@@ -930,8 +699,7 @@
     </unit>
     <unit id="QSE9MT9" name="bool.true">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:3</note>
-        <note priority="1">Part-DB1\templates\helper.twig:3</note>
+        <note>Translation for bool true</note>
       </notes>
       <segment state="translated">
         <source>bool.true</source>
@@ -940,8 +708,7 @@
     </unit>
     <unit id="UlrxUmI" name="bool.false">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:5</note>
-        <note priority="1">Part-DB1\templates\helper.twig:5</note>
+        <note>Translation for bool false</note>
       </notes>
       <segment state="translated">
         <source>bool.false</source>
@@ -950,8 +717,7 @@
     </unit>
     <unit id="haOas0X" name="Yes">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:92</note>
-        <note priority="1">Part-DB1\templates\helper.twig:87</note>
+        <note>Translation for Yes</note>
       </notes>
       <segment state="translated">
         <source>Yes</source>
@@ -960,8 +726,7 @@
     </unit>
     <unit id="HqRCoTS" name="No">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:94</note>
-        <note priority="1">Part-DB1\templates\helper.twig:89</note>
+        <note>Translation for No</note>
       </notes>
       <segment state="translated">
         <source>No</source>
@@ -970,9 +735,7 @@
     </unit>
     <unit id="GDYG7.b" name="homepage.license">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:22</note>
-        <note priority="1">Part-DB1\templates\homepage.html.twig:22</note>
-        <note priority="1">templates\homepage.html.twig:19</note>
+        <note>Translation for homepage license</note>
       </notes>
       <segment state="translated">
         <source>homepage.license</source>
@@ -981,9 +744,7 @@
     </unit>
     <unit id="5nDb2pj" name="homepage.github.caption">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:31</note>
-        <note priority="1">Part-DB1\templates\homepage.html.twig:31</note>
-        <note priority="1">templates\homepage.html.twig:28</note>
+        <note>Caption for homepage github</note>
       </notes>
       <segment state="translated">
         <source>homepage.github.caption</source>
@@ -992,9 +753,7 @@
     </unit>
     <unit id="7nCeHg7" name="homepage.github.text">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:31</note>
-        <note priority="1">Part-DB1\templates\homepage.html.twig:31</note>
-        <note priority="1">templates\homepage.html.twig:28</note>
+        <note>Translation for homepage github text</note>
       </notes>
       <segment state="translated">
         <source>homepage.github.text</source>
@@ -1003,8 +762,7 @@
     </unit>
     <unit id="MUTx89j" name="attachment.file_size">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:10</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:10</note>
+        <note>Translation for attachment file size</note>
       </notes>
       <segment state="translated">
         <source>attachment.file_size</source>
@@ -1013,8 +771,7 @@
     </unit>
     <unit id="GSjs0LU" name="attachment.download">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:67</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:50</note>
+        <note>Translation for attachment download</note>
       </notes>
       <segment state="translated">
         <source>attachment.download</source>
@@ -1023,12 +780,7 @@
     </unit>
     <unit id="t2TNwOq" name="Unknown">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:13</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:28</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:50</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:13</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:28</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:50</note>
+        <note>Translation for Unknown</note>
       </notes>
       <segment state="translated">
         <source>Unknown</source>
@@ -1037,8 +789,7 @@
     </unit>
     <unit id="xQkqdM5" name="part.isFavorite">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:41</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:41</note>
+        <note>Part isFavorite</note>
       </notes>
       <segment state="translated">
         <source>part.isFavorite</source>
@@ -1047,8 +798,7 @@
     </unit>
     <unit id="qwRgUmm" name="part.minOrderAmount">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:46</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:46</note>
+        <note>Part minOrderAmount</note>
       </notes>
       <segment state="translated">
         <source>part.minOrderAmount</source>
@@ -1057,15 +807,7 @@
     </unit>
     <unit id="WB3sH1G" name="manufacturer.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:8</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:46</note>
-        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:84</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:8</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:41</note>
-        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:84</note>
-        <note priority="1">templates\base.html.twig:70</note>
-        <note priority="1">templates\Parts\show_part_info.html.twig:24</note>
-        <note priority="1">src\Form\PartType.php:80</note>
+        <note>Label for manufacturer</note>
       </notes>
       <segment state="translated">
         <source>manufacturer.label</source>
@@ -1074,13 +816,7 @@
     </unit>
     <unit id="LSnWIG7" name="description.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:32</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:19</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:32</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:18</note>
-        <note priority="1">templates\base.html.twig:58</note>
-        <note priority="1">templates\Parts\show_part_info.html.twig:31</note>
-        <note priority="1">src\Form\PartType.php:65</note>
+        <note>Label for description</note>
       </notes>
       <segment state="translated">
         <source>description.label</source>
@@ -1089,15 +825,7 @@
     </unit>
     <unit id="ZY57BXc" name="category.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:34</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:15</note>
-        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:80</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:34</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:14</note>
-        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:80</note>
-        <note priority="1">templates\base.html.twig:56</note>
-        <note priority="1">templates\Parts\show_part_info.html.twig:32</note>
-        <note priority="1">src\Form\PartType.php:74</note>
+        <note>Label for category</note>
       </notes>
       <segment state="translated">
         <source>category.label</source>
@@ -1106,10 +834,7 @@
     </unit>
     <unit id="J.AXbaM" name="instock.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:39</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:39</note>
-        <note priority="1">templates\Parts\show_part_info.html.twig:42</note>
-        <note priority="1">src\Form\PartType.php:69</note>
+        <note>Label for instock</note>
       </notes>
       <segment state="translated">
         <source>instock.label</source>
@@ -1118,10 +843,7 @@
     </unit>
     <unit id="VYcxdrz" name="mininstock.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:41</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:41</note>
-        <note priority="1">templates\Parts\show_part_info.html.twig:44</note>
-        <note priority="1">src\Form\PartType.php:72</note>
+        <note>Label for mininstock</note>
       </notes>
       <segment state="translated">
         <source>mininstock.label</source>
@@ -1130,14 +852,7 @@
     </unit>
     <unit id="griVyRf" name="footprint.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:45</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
-        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:83</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:45</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:47</note>
-        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:83</note>
-        <note priority="1">templates\base.html.twig:73</note>
-        <note priority="1">templates\Parts\show_part_info.html.twig:47</note>
+        <note>Label for footprint</note>
       </notes>
       <segment state="translated">
         <source>footprint.label</source>
@@ -1146,11 +861,7 @@
     </unit>
     <unit id="LL2dt8U" name="part.avg_price.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:56</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:59</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:57</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:60</note>
-        <note priority="1">templates\Parts\show_part_info.html.twig:51</note>
+        <note>Label for part avg price</note>
       </notes>
       <segment state="translated">
         <source>part.avg_price.label</source>
@@ -1159,8 +870,7 @@
     </unit>
     <unit id="3tdTZVD" name="part.supplier.name">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:5</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:5</note>
+        <note>Part supplier name</note>
       </notes>
       <segment state="translated">
         <source>part.supplier.name</source>
@@ -1169,8 +879,7 @@
     </unit>
     <unit id="_SpdO.3" name="part.order.minamount">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:28</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:28</note>
+        <note>Part order minamount</note>
       </notes>
       <segment state="translated">
         <source>part.order.minamount</source>
@@ -1179,8 +888,7 @@
     </unit>
     <unit id="4RsODVR" name="part.order.price">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:29</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:29</note>
+        <note>Part order price</note>
       </notes>
       <segment state="translated">
         <source>part.order.price</source>
@@ -1189,8 +897,7 @@
     </unit>
     <unit id="Lr0c8K3" name="part.order.single_price">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:31</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:31</note>
+        <note>Part order single price</note>
       </notes>
       <segment state="translated">
         <source>part.order.single_price</source>
@@ -1199,8 +906,7 @@
     </unit>
     <unit id="aUihK3c" name="part_lots.description">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:7</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:6</note>
+        <note>Description for part lots</note>
       </notes>
       <segment state="translated">
         <source>part_lots.description</source>
@@ -1209,8 +915,7 @@
     </unit>
     <unit id="SOcXkyd" name="part_lots.storage_location">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:8</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:7</note>
+        <note>Translation for part lots storage location</note>
       </notes>
       <segment state="translated">
         <source>part_lots.storage_location</source>
@@ -1219,8 +924,7 @@
     </unit>
     <unit id="jVYrm0U" name="part_lots.amount">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:9</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:8</note>
+        <note>Translation for part lots amount</note>
       </notes>
       <segment state="translated">
         <source>part_lots.amount</source>
@@ -1229,8 +933,7 @@
     </unit>
     <unit id="upshmqD" name="part_lots.location_unknown">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:24</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:22</note>
+        <note>Translation for part lots location unknown</note>
       </notes>
       <segment state="translated">
         <source>part_lots.location_unknown</source>
@@ -1239,8 +942,7 @@
     </unit>
     <unit id="BTUni9r" name="part_lots.instock_unknown">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:31</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:29</note>
+        <note>Translation for part lots instock unknown</note>
       </notes>
       <segment state="translated">
         <source>part_lots.instock_unknown</source>
@@ -1249,8 +951,7 @@
     </unit>
     <unit id="NFa2bFQ" name="part_lots.expiration_date">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:40</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:38</note>
+        <note>Translation for part lots expiration date</note>
       </notes>
       <segment state="translated">
         <source>part_lots.expiration_date</source>
@@ -1259,8 +960,7 @@
     </unit>
     <unit id="axp.g13" name="part_lots.is_expired">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:48</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:46</note>
+        <note>Translation for part lots is expired</note>
       </notes>
       <segment state="translated">
         <source>part_lots.is_expired</source>
@@ -1269,8 +969,7 @@
     </unit>
     <unit id="EWX1Sti" name="part_lots.need_refill">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:55</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:53</note>
+        <note>Translation for part lots need refill</note>
       </notes>
       <segment state="translated">
         <source>part_lots.need_refill</source>
@@ -1279,8 +978,7 @@
     </unit>
     <unit id="E4S6Pvg" name="part.info.prev_picture">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:15</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:15</note>
+        <note>Info about part: prev picture</note>
       </notes>
       <segment state="translated">
         <source>part.info.prev_picture</source>
@@ -1289,8 +987,7 @@
     </unit>
     <unit id="2PpQKL9" name="part.info.next_picture">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:19</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:19</note>
+        <note>Info about part: next picture</note>
       </notes>
       <segment state="translated">
         <source>part.info.next_picture</source>
@@ -1299,8 +996,7 @@
     </unit>
     <unit id="8zIQiUL" name="part.mass.tooltip">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:21</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:21</note>
+        <note>Tooltip for part mass</note>
       </notes>
       <segment state="translated">
         <source>part.mass.tooltip</source>
@@ -1309,8 +1005,7 @@
     </unit>
     <unit id="9o2FQD1" name="part.needs_review.badge">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:30</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:30</note>
+        <note>Part needs review badge</note>
       </notes>
       <segment state="translated">
         <source>part.needs_review.badge</source>
@@ -1319,8 +1014,7 @@
     </unit>
     <unit id="dF6ZXKR" name="part.favorite.badge">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:39</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:39</note>
+        <note>Part favorite badge</note>
       </notes>
       <segment state="translated">
         <source>part.favorite.badge</source>
@@ -1329,8 +1023,7 @@
     </unit>
     <unit id="EgLR013" name="part.obsolete.badge">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:47</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:47</note>
+        <note>Part obsolete badge</note>
       </notes>
       <segment state="translated">
         <source>part.obsolete.badge</source>
@@ -1339,9 +1032,7 @@
     </unit>
     <unit id="cTsojYo" name="part.edit.btn">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:6</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:4</note>
-        <note priority="1">templates\Parts\show_part_info.html.twig:125</note>
+        <note>Part edit btn</note>
       </notes>
       <segment state="translated">
         <source>part.edit.btn</source>
@@ -1350,9 +1041,7 @@
     </unit>
     <unit id="XGGYjnA" name="part.clone.btn">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:16</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:14</note>
-        <note priority="1">templates\Parts\show_part_info.html.twig:135</note>
+        <note>Part clone btn</note>
       </notes>
       <segment state="translated">
         <source>part.clone.btn</source>
@@ -1361,9 +1050,7 @@
     </unit>
     <unit id="WzQH7wQ" name="part.create.btn">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:24</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_action_bar.html.twig:4</note>
-        <note priority="1">templates\Parts\show_part_info.html.twig:143</note>
+        <note>Part create btn</note>
       </notes>
       <segment state="translated">
         <source>part.create.btn</source>
@@ -1372,8 +1059,7 @@
     </unit>
     <unit id="GayDkXI" name="part.delete.confirm_title">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:31</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:29</note>
+        <note>Part delete confirm title</note>
       </notes>
       <segment state="translated">
         <source>part.delete.confirm_title</source>
@@ -1382,8 +1068,7 @@
     </unit>
     <unit id="v4cgmfN" name="part.delete.message">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:32</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:30</note>
+        <note>Part delete message</note>
       </notes>
       <segment state="translated">
         <source>part.delete.message</source>
@@ -1392,8 +1077,7 @@
     </unit>
     <unit id="CJHxw_e" name="part.delete">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:39</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:37</note>
+        <note>Part delete</note>
       </notes>
       <segment state="translated">
         <source>part.delete</source>
@@ -1402,8 +1086,7 @@
     </unit>
     <unit id="7BufWRt" name="parts_list.all.title">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\all_list.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\Parts\lists\all_list.html.twig:4</note>
+        <note>Title for parts list all</note>
       </notes>
       <segment state="translated">
         <source>parts_list.all.title</source>
@@ -1412,8 +1095,7 @@
     </unit>
     <unit id="TOD4O3j" name="parts_list.category.title">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\category_list.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\Parts\lists\category_list.html.twig:4</note>
+        <note>Title for parts list category</note>
       </notes>
       <segment state="translated">
         <source>parts_list.category.title</source>
@@ -1422,8 +1104,7 @@
     </unit>
     <unit id="yCsUZQZ" name="parts_list.footprint.title">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\footprint_list.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\Parts\lists\footprint_list.html.twig:4</note>
+        <note>Title for parts list footprint</note>
       </notes>
       <segment state="translated">
         <source>parts_list.footprint.title</source>
@@ -1432,8 +1113,7 @@
     </unit>
     <unit id="j4vXh3o" name="parts_list.manufacturer.title">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\manufacturer_list.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\Parts\lists\manufacturer_list.html.twig:4</note>
+        <note>Title for parts list manufacturer</note>
       </notes>
       <segment state="translated">
         <source>parts_list.manufacturer.title</source>
@@ -1442,8 +1122,7 @@
     </unit>
     <unit id="6uogzri" name="parts_list.search.title">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\search_list.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\Parts\lists\search_list.html.twig:4</note>
+        <note>Title for parts list search</note>
       </notes>
       <segment state="translated">
         <source>parts_list.search.title</source>
@@ -1452,8 +1131,7 @@
     </unit>
     <unit id="gwE_D3w" name="parts_list.storelocation.title">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\store_location_list.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\Parts\lists\store_location_list.html.twig:4</note>
+        <note>Title for parts list storelocation</note>
       </notes>
       <segment state="translated">
         <source>parts_list.storelocation.title</source>
@@ -1462,8 +1140,7 @@
     </unit>
     <unit id="K3Nj1UQ" name="parts_list.supplier.title">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\supplier_list.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\Parts\lists\supplier_list.html.twig:4</note>
+        <note>Title for parts list supplier</note>
       </notes>
       <segment state="translated">
         <source>parts_list.supplier.title</source>
@@ -1472,8 +1149,7 @@
     </unit>
     <unit id="DBlWwba" name="parts_list.tags.title">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\tags_list.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\Parts\lists\tags_list.html.twig:4</note>
+        <note>Title for parts list tags</note>
       </notes>
       <segment state="translated">
         <source>parts_list.tags.title</source>
@@ -1482,8 +1158,7 @@
     </unit>
     <unit id="5tFcxpX" name="entity.info.common.tab">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:22</note>
-        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:17</note>
+        <note>Info about entity: common.tab</note>
       </notes>
       <segment state="translated">
         <source>entity.info.common.tab</source>
@@ -1492,8 +1167,7 @@
     </unit>
     <unit id="gexfRxf" name="attachment.edit">
       <notes>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
-        <note category="state" priority="1">obsolete</note>
+        <note>Edit button/heading for attachment</note>
       </notes>
       <segment state="translated">
         <source>attachment.edit</source>
@@ -1640,9 +1314,9 @@
     </unit>
     <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
         <notes>
-            <note priority="1">Do not remove! Used for datatables rendering.</note>
-        </notes>
-        <segment state="translated">
+        <note>Translation for datatable datatable lengthMenu</note>
+      </notes>
+      <segment state="translated">
             <source>datatable.datatable.lengthMenu</source>
             <target>_MENU_</target>
           </segment>
