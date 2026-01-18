@@ -2040,6 +2040,16 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             xr_spatial_tracking?: mixed, // Default: null
  *         },
  *     },
+ *     cross_origin_isolation?: bool|array{
+ *         enabled?: bool|Param, // Default: false
+ *         paths?: array<string, array{ // Default: []
+ *             coep?: "unsafe-none"|"require-corp"|"credentialless"|Param, // Cross-Origin-Embedder-Policy (COEP) header value
+ *             coop?: "unsafe-none"|"same-origin-allow-popups"|"same-origin"|"noopener-allow-popups"|Param, // Cross-Origin-Opener-Policy (COOP) header value
+ *             corp?: "same-site"|"same-origin"|"cross-origin"|Param, // Cross-Origin-Resource-Policy (CORP) header value
+ *             report_only?: bool|Param, // Use Report-Only headers instead of enforcing (applies to COEP and COOP only) // Default: false
+ *             report_to?: scalar|null|Param, // Reporting endpoint name for violations (requires Reporting API configuration, applies to COEP and COOP only) // Default: null
+ *         }>,
+ *     },
  * }
  * @psalm-type TurboConfig = array{
  *     broadcast?: bool|array{
