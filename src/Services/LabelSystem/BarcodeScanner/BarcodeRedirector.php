@@ -45,6 +45,7 @@ use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
+use App\Repository\Parts\PartRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use InvalidArgumentException;
@@ -77,6 +78,10 @@ final class BarcodeRedirector
             return $this->getURLVendorBarcode($barcodeScan);
         }
 
+        if ($barcodeScan instanceof LCSCBarcodeScanResult) {
+	        return $this->getURLLCSCBarcode($barcodeScan);
+	    }
+
         throw new InvalidArgumentException('Unknown $barcodeScan type: '.get_class($barcodeScan));
     }
 
@@ -100,6 +105,54 @@ final class BarcodeRedirector
             default:
                 throw new InvalidArgumentException('Unknown $type: '.$barcodeScan->target_type->name);
         }
+    }
+
+    /**
+     * Gets the URL to a part from a scan of the LCSC Barcode
+     */
+    private function getURLLCSCBarcode(LCSCBarcodeScanResult $barcodeScan): string
+    {
+        $part = $this->getPartFromLCSC($barcodeScan);
+	    return $this->urlGenerator->generate('app_part_show', ['id' => $part->getID()]);
+    }
+
+    /**
+     * Resolve LCSC barcode -> Part.
+     * Strategy:
+     *  1) Try providerReference.provider_id == pc (LCSC "Cxxxxxx") if you store it there
+     *  2) Fallback to manufacturer_product_number == pm (MPN)
+     * Returns first match (consistent with EIGP114 logic)
+     */
+    private function getPartFromLCSC(LCSCBarcodeScanResult $barcodeScan): Part
+    {
+    	// Try LCSC code (pc) as provider id if available
+	    $pc = $barcodeScan->getPC(); // e.g. C138033
+	    if ($pc) {
+        	$qb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
+	        $qb->where($qb->expr()->like('LOWER(part.providerReference.provider_id)', 'LOWER(:vendor_id)'));
+	        $qb->setParameter('vendor_id', $pc);
+	        $results = $qb->getQuery()->getResult();
+        	if ($results) {
+	            return $results[0];
+        	}
+  	    }
+
+	    // Fallback to MPN (pm)
+	    $pm = $barcodeScan->getPM(); // e.g. RC0402FR-071ML
+	    if (!$pm) {
+        	throw new EntityNotFoundException();
+	    }
+
+	    $mpnQb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
+	    $mpnQb->where($mpnQb->expr()->like('LOWER(part.manufacturer_product_number)', 'LOWER(:mpn)'));
+	    $mpnQb->setParameter('mpn', $pm);
+
+	    $results = $mpnQb->getQuery()->getResult();
+	    if ($results) {
+        	return $results[0];
+	    }
+
+	    throw new EntityNotFoundException();
     }
 
     /**
@@ -163,4 +216,46 @@ final class BarcodeRedirector
         }
         throw new EntityNotFoundException();
     }
+
+    public function resolvePartOrNull(BarcodeScanResultInterface $barcodeScan): ?Part
+    {
+        try {
+            if ($barcodeScan instanceof LocalBarcodeScanResult) {
+                return $this->resolvePartFromLocal($barcodeScan);
+            }
+
+            if ($barcodeScan instanceof EIGP114BarcodeScanResult) {
+                return $this->getPartFromVendor($barcodeScan);
+            }
+
+            if ($barcodeScan instanceof LCSCBarcodeScanResult) {
+                return $this->getPartFromLCSC($barcodeScan);
+            }
+
+            return null;
+        } catch (EntityNotFoundException) {
+            return null;
+        }
+    }
+
+    private function resolvePartFromLocal(LocalBarcodeScanResult $barcodeScan): ?Part
+    {
+        switch ($barcodeScan->target_type) {
+            case LabelSupportedElement::PART:
+                $part = $this->em->find(Part::class, $barcodeScan->target_id);
+                return $part instanceof Part ? $part : null;
+
+            case LabelSupportedElement::PART_LOT:
+                $lot = $this->em->find(PartLot::class, $barcodeScan->target_id);
+                if (!$lot instanceof PartLot) {
+                    return null;
+                }
+                return $lot->getPart();
+
+            default:
+                // STORELOCATION etc. doesn't map to a Part
+                return null;
+        }
+    }
+
 }
