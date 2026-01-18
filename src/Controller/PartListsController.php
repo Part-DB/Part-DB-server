@@ -331,7 +331,7 @@ class PartListsController extends AbstractController
         $filter->setSupplier($request->query->getBoolean('supplier'));
         $filter->setManufacturer($request->query->getBoolean('manufacturer'));
         $filter->setFootprint($request->query->getBoolean('footprint'));
-
+        $filter->setAssembly($request->query->getBoolean('assembly'));
 
         $filter->setRegex($request->query->getBoolean('regex'));
 
