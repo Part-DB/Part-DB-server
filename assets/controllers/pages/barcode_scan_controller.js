@@ -70,6 +70,6 @@ export default class extends Controller {
         //Put our decoded Text into the input box
         document.getElementById('scan_dialog_input').value = decodedText;
         //Submit form
-        document.getElementById('scan_dialog_form').submit();
+        document.getElementById('scan_dialog_form').requestSubmit();
     }
 }
