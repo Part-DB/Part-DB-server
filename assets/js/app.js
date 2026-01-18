@@ -44,7 +44,7 @@ import "./register_events";
 import "./tristate_checkboxes";
 
 //Define jquery globally
-window.$ = window.jQuery = require("jquery");
+global.$ = global.jQuery = require("jquery");
 
 //Use the local WASM file for the ZXing library
 import {
