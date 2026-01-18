@@ -204,7 +204,7 @@ export default class extends Controller {
 
         if (data.not_in_db_yet) {
             //Not yet added items are shown italic and with a badge
-            name += "<i><b>" + escape(data.text) + "</b></i>" + "<span class='ms-3 badge bg-info badge-info'>" + trans("entity.select.group.new_not_added_to_DB", {}, 'frontend') + "</span>";
+            name += "<i><b>" + escape(data.text) + "</b></i>" + "<span class='ms-3 badge bg-info badge-info'>" + trans("entity.select.group.new_not_added_to_DB") + "</span>";
         } else {
             name += "<b>" + escape(data.text) + "</b>";
         }
