@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
+  <file id="frontend.en">
+    <unit id="eLrezdb" name="search.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:67</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:27</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:43</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:63</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:43</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:63</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:9</note>
+        <note priority="1">templates\base.html.twig:80</note>
+        <note priority="1">templates\base.html.twig:179</note>
+        <note priority="1">templates\base.html.twig:206</note>
+        <note priority="1">templates\base.html.twig:237</note>
+      </notes>
+      <segment state="translated">
+        <source>search.placeholder</source>
+        <target>Suche</target>
+      </segment>
+    </unit>
+    <unit id="R4hoCqe" name="part.labelp">
+      <segment state="translated">
+        <source>part.labelp</source>
+        <target>Bauteile</target>
+      </segment>
+    </unit>
+    <unit id="S4CxO.T" name="entity.select.group.new_not_added_to_DB">
+      <segment state="translated">
+        <source>entity.select.group.new_not_added_to_DB</source>
+        <target>Neu (noch nicht zur DB hinzugefügt)</target>
+      </segment>
+    </unit>
+    <unit id="9rnHbSK" name="user.password_strength.very_weak">
+      <segment state="translated">
+        <source>user.password_strength.very_weak</source>
+        <target>Sehr schwach</target>
+      </segment>
+    </unit>
+    <unit id="gKHmHwM" name="user.password_strength.weak">
+      <segment state="translated">
+        <source>user.password_strength.weak</source>
+        <target>Schwach</target>
+      </segment>
+    </unit>
+    <unit id="c44gN8b" name="user.password_strength.medium">
+      <segment state="translated">
+        <source>user.password_strength.medium</source>
+        <target>Mittel</target>
+      </segment>
+    </unit>
+    <unit id="NwiBLHc" name="user.password_strength.strong">
+      <segment state="translated">
+        <source>user.password_strength.strong</source>
+        <target>Stark</target>
+      </segment>
+    </unit>
+    <unit id="Bw.iCUm" name="user.password_strength.very_strong">
+      <segment state="translated">
+        <source>user.password_strength.very_strong</source>
+        <target>Sehr stark</target>
+      </segment>
+    </unit>
+    <unit id="U5IhkwB" name="search.submit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>search.submit</source>
+        <target>Los!</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>
