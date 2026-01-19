@@ -100,7 +100,10 @@ class LCSCBarcodeScanResult implements BarcodeScanResultInterface
         $fields = [];
 
         // This format is comma-separated pairs, values do not contain commas in your sample.
-        $pairs = array_filter(array_map('trim', explode(',', $inner)));
+        $pairs = array_filter(
+            array_map('trim', explode(',', $inner)),
+            static fn(string $s): bool => $s !== ''
+        );
 
         foreach ($pairs as $pair) {
             $pos = strpos($pair, ':');
