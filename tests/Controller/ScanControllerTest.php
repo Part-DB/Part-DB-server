@@ -51,4 +51,59 @@ final class ScanControllerTest extends WebTestCase
         $this->client->request('GET', '/scan/part/1');
         $this->assertResponseRedirects('/en/part/1');
     }
+
+    public function testLookupReturnsFoundOnKnownPart(): void
+    {
+        $this->client->request('POST', '/en/scan/lookup', [
+            'input' => '0000001',
+            'mode' => '',
+            'info_mode' => 'true',
+        ]);
+
+        $this->assertResponseIsSuccessful();
+
+        $data = json_decode((string) $this->client->getResponse()->getContent(), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->assertTrue($data['ok']);
+        $this->assertTrue($data['found']);
+        $this->assertSame('/en/part/1', $data['redirectUrl']);
+        $this->assertTrue($data['infoMode']);
+        $this->assertIsString($data['html']);
+        $this->assertNotSame('', trim($data['html']));
+    }
+
+    public function testLookupReturnsNotFoundOnUnknownPart(): void
+    {
+        $this->client->request('POST', '/en/scan/lookup', [
+            // Use a valid LCSC barcode
+            'input' => '{pbn:PICK2407080035,on:WM2407080118,pc:C365735,pm:ES8316,qty:12,mc:,cc:1,pdi:120044290,hp:null,wc:ZH}',
+            'mode' => '',
+            'info_mode' => 'true',
+        ]);
+
+        $this->assertResponseIsSuccessful();
+
+        $data = json_decode((string)$this->client->getResponse()->getContent(), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->assertTrue($data['ok']);
+        $this->assertFalse($data['found']);
+        $this->assertSame(null, $data['redirectUrl']);
+        $this->assertTrue($data['infoMode']);
+        $this->assertIsString($data['html']);
+        $this->assertNotSame('', trim($data['html']));
+    }
+
+    public function testLookupReturnsFalseOnGarbageInput(): void
+    {
+        $this->client->request('POST', '/en/scan/lookup', [
+            'input' => 'not-a-real-barcode',
+            'mode' => '',
+            'info_mode' => 'false',
+        ]);
+
+        $this->assertResponseIsSuccessful();
+
+        $data = json_decode((string) $this->client->getResponse()->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        $this->assertFalse($data['ok']);
+    }
 }

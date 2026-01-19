@@ -49,6 +49,11 @@ use App\Services\LabelSystem\BarcodeScanner\BarcodeSourceType;
 use App\Services\LabelSystem\BarcodeScanner\LocalBarcodeScanResult;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\Services\LabelSystem\BarcodeScanner\EIGP114BarcodeScanResult;
+use App\Services\LabelSystem\BarcodeScanner\LCSCBarcodeScanResult;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeScanResultInterface;
+use InvalidArgumentException;
+
 
 final class BarcodeRedirectorTest extends KernelTestCase
 {
@@ -81,5 +86,75 @@ final class BarcodeRedirectorTest extends KernelTestCase
         //If we encounter an invalid lot, we must throw an exception
         $this->service->getRedirectURL(new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT,
             12_345_678, BarcodeSourceType::INTERNAL));
+    }
+
+    public function testGetRedirectURLThrowsOnUnknownScanType(): void
+    {
+        $unknown = new class implements BarcodeScanResultInterface {
+            public function getDecodedForInfoMode(): array
+            {
+                return [];
+            }
+        };
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->service->getRedirectURL($unknown);
+    }
+
+    public function testEIGPBarcodeWithoutSupplierPartNumberThrowsEntityNotFound(): void
+    {
+        $scan = new EIGP114BarcodeScanResult([]);
+
+        $this->expectException(EntityNotFoundException::class);
+        $this->service->getRedirectURL($scan);
+    }
+
+    public function testEIGPBarcodeResolvePartOrNullReturnsNullWhenNotFound(): void
+    {
+        $scan = new EIGP114BarcodeScanResult([]);
+
+        $this->assertNull($this->service->resolvePartOrNull($scan));
+    }
+
+    public function testLCSCBarcodeMissingPmThrowsEntityNotFound(): void
+    {
+        // pc present but no pm => getPartFromLCSC() will throw EntityNotFoundException
+        // because it falls back to PM when PC doesn't match anything.
+        $scan = new LCSCBarcodeScanResult(
+            fields: ['pc' => 'C0000000', 'pm' => ''], // pm becomes null via getPM()
+            raw_input: '{pc:C0000000,pm:}'
+        );
+
+        $this->expectException(EntityNotFoundException::class);
+        $this->service->getRedirectURL($scan);
+    }
+
+    public function testLCSCBarcodeResolvePartOrNullReturnsNullWhenNotFound(): void
+    {
+        $scan = new LCSCBarcodeScanResult(
+            fields: ['pc' => 'C0000000', 'pm' => ''],
+            raw_input: '{pc:C0000000,pm:}'
+        );
+
+        $this->assertNull($this->service->resolvePartOrNull($scan));
+    }
+
+    public function testLCSCParseRejectsNonLCSCFormat(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        LCSCBarcodeScanResult::parse('not-an-lcsc-barcode');
+    }
+
+    public function testLCSCParseExtractsFields(): void
+    {
+        $scan = LCSCBarcodeScanResult::parse('{pbn:PB1,on:ON1,pc:C138033,pm:RC0402FR-071ML,qty:10}');
+
+        $this->assertSame('RC0402FR-071ML', $scan->getPM());
+        $this->assertSame('C138033', $scan->getPC());
+
+        $decoded = $scan->getDecodedForInfoMode();
+        $this->assertSame('LCSC', $decoded['Barcode type']);
+        $this->assertSame('RC0402FR-071ML', $decoded['MPN (pm)']);
+        $this->assertSame('C138033', $decoded['LCSC code (pc)']);
     }
 }
