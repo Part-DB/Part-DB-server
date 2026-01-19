@@ -309,7 +309,9 @@ class ScanController extends AbstractController
 
         $modeEnum = null;
         if ($mode !== '') {
-            $modeEnum = BarcodeSourceType::from((int) $mode);
+            $i = (int) $mode;
+            $cases = BarcodeSourceType::cases();
+            $modeEnum = $cases[$i] ?? null; // null if out of range
         }
 
         try {
