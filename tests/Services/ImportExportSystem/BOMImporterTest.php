@@ -353,6 +353,13 @@ class BOMImporterTest extends WebTestCase
 
     public function testStringToBOMEntriesKiCADSchematic(): void
     {
+        // Create test suppliers for this test
+        $lcscSupplier = new Supplier();
+        $lcscSupplier->setName('LCSC');
+
+        $this->entityManager->persist($lcscSupplier);
+        $this->entityManager->flush();
+
         $input = <<<CSV
         "Reference","Value","Footprint","Quantity","MPN","Manufacturer","LCSC SPN","Mouser SPN"
         "R1,R2","10k","R_0805_2012Metric",2,"CRCW080510K0FKEA","Vishay","C123456","123-M10K"
@@ -386,10 +393,16 @@ class BOMImporterTest extends WebTestCase
         $this->assertStringContainsString('Value: 10k', $bom_entries[0]->getComment());
         $this->assertStringContainsString('MPN: CRCW080510K0FKEA', $bom_entries[0]->getComment());
         $this->assertStringContainsString('Manf: Vishay', $bom_entries[0]->getComment());
+        $this->assertStringContainsString('LCSC SPN: C123456', $bom_entries[0]->getComment());
 
         // Check second entry
         $this->assertEquals('C1', $bom_entries[1]->getMountnames());
         $this->assertEquals(1.0, $bom_entries[1]->getQuantity());
+        $this->assertStringContainsString('LCSC SPN: C789012', $bom_entries[1]->getComment());
+
+        // Clean up
+        $this->entityManager->remove($lcscSupplier);
+        $this->entityManager->flush();
     }
 
     public function testStringToBOMEntriesKiCADSchematicWithPriority(): void
