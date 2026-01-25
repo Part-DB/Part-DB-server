@@ -40,9 +40,12 @@ use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpClient\Exception\ClientException;
+use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+
+use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
 
 use function Symfony\Component\Translation\t;
 
@@ -178,6 +181,13 @@ class InfoProviderController extends  AbstractController
                 $exceptionLogger->error('Error during info provider search: ' . $e->getMessage(), ['exception' => $e]);
             } catch (OAuthReconnectRequiredException $e) {
                 $this->addFlash('error', t('info_providers.search.error.oauth_reconnect', ['%provider%' => $e->getProviderName()]));
+            } catch (TransportException $e) {
+                $this->addFlash('error', t('info_providers.search.error.transport_exception'));
+                $exceptionLogger->error('Transport error during info provider search: ' . $e->getMessage(), ['exception' => $e]);
+            } catch (\RuntimeException $e) {
+                $this->addFlash('error', t('info_providers.search.error.general_exception', ['%type%' => (new \ReflectionClass($e))->getShortName()]));
+                //Log the exception
+                $exceptionLogger->error('Error during info provider search: ' . $e->getMessage(), ['exception' => $e]);
             }
 
 
