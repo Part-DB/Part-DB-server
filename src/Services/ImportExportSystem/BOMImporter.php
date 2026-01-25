@@ -400,8 +400,8 @@ class BOMImporter
             if (isset($mapped_entry['Manufacturer'])) {
                 $comment_parts[] = 'Manf: ' . $mapped_entry['Manufacturer'];
             }
-            if (isset($mapped_entry['LCSC'])) {
-                $comment_parts[] = 'LCSC: ' . $mapped_entry['LCSC'];
+            if (isset($mapped_entry['LCSC SPN'])) {
+                $comment_parts[] = 'LCSC: ' . $mapped_entry['LCSC SPN'];
             }
             if (isset($mapped_entry['Supplier and ref'])) {
                 $comment_parts[] = $mapped_entry['Supplier and ref'];
