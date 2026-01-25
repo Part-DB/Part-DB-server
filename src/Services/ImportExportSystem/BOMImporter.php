@@ -274,6 +274,13 @@ class BOMImporter
         $entries_by_key = []; // Track entries by name+part combination
         $mapped_entries = []; // Collect all mapped entries for validation
 
+        // Fetch suppliers once for efficiency
+        $suppliers = $this->entityManager->getRepository(\App\Entity\Parts\Supplier::class)->findAll();
+        $supplierSPNKeys = [];
+        foreach ($suppliers as $supplier) {
+            $supplierSPNKeys[] = $supplier->getName() . ' SPN';
+        }
+
         foreach ($csv->getRecords() as $offset => $entry) {
             // Apply field mapping to translate column names
             $mapped_entry = $this->applyFieldMapping($entry, $field_mapping, $field_priorities);
@@ -402,10 +409,7 @@ class BOMImporter
             }
 
             // Add supplier part numbers dynamically
-            $suppliers = $this->entityManager->getRepository(\App\Entity\Parts\Supplier::class)->findAll();
-            foreach ($suppliers as $supplier) {
-                $supplierName = $supplier->getName();
-                $spnKey = $supplierName . ' SPN';
+            foreach ($supplierSPNKeys as $spnKey) {
                 if (isset($mapped_entry[$spnKey]) && !empty($mapped_entry[$spnKey])) {
                     $comment_parts[] = $spnKey . ': ' . $mapped_entry[$spnKey];
                 }
