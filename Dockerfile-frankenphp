@@ -14,31 +14,21 @@ RUN apt-get update && apt-get -y install \
     && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*;
 
 RUN set -eux; \
-    # Prepare keyrings directory
-    mkdir -p /etc/apt/keyrings; \
-    \
-    # Import Yarn GPG key
-    curl -fsSL https://dl.yarnpkg.com/debian/pubkey.gpg \
-      | tee /etc/apt/keyrings/yarn.gpg >/dev/null; \
-    chmod 644 /etc/apt/keyrings/yarn.gpg; \
-    \
-    # Add Yarn repo with signed-by
-    echo "deb [signed-by=/etc/apt/keyrings/yarn.gpg] https://dl.yarnpkg.com/debian stable main" \
-      | tee /etc/apt/sources.list.d/yarn.list; \
-    \
-    # Run NodeSource setup script (unchanged)
+    # Run NodeSource setup script
     curl -sL https://deb.nodesource.com/setup_22.x | bash -; \
     \
-    # Install Node.js + Yarn
+    # Install Node.js
     apt-get update; \
     apt-get install -y --no-install-recommends \
-      nodejs \
-      yarn; \
+      nodejs; \
     \
     # Cleanup
     apt-get -y autoremove; \
     apt-get clean autoclean; \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/*; \
+    \
+    # Install Yarn via npm
+    npm install -g yarn
 
 
 # Install PHP
