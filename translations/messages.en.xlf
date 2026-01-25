@@ -14274,5 +14274,17 @@ Buerklin-API Authentication server:
         <target>[Part] ID</target>
       </segment>
     </unit>
+    <unit id="WdszgJG" name="info_providers.search.error.general_exception">
+      <segment state="translated">
+        <source>info_providers.search.error.general_exception</source>
+        <target>Unknown error while trying to retrieve parts from info provider: %type%. Check that your providers are configured correctly and access keys are correct. See server logs for more information.</target>
+      </segment>
+    </unit>
+    <unit id="RFhwYWd" name="info_providers.search.error.transport_exception">
+      <segment state="translated">
+        <source>info_providers.search.error.transport_exception</source>
+        <target>Transport error while retrieving information from the providers. Check that your server has internet accesss. See server logs for more info.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
