@@ -1,6 +1,40 @@
 ARG BASE_IMAGE=debian:bookworm-slim
 ARG PHP_VERSION=8.4
 
+# ---
+# Build assets stage - runs on native platform (not emulated)
+# This stage builds the frontend assets (JavaScript, CSS) using Node.js and Yarn
+# The --platform=$BUILDPLATFORM ensures this stage runs on the native build platform (amd64)
+# and not under emulation for ARM builds
+FROM --platform=$BUILDPLATFORM composer:latest AS composer-deps
+
+WORKDIR /build
+
+# Copy entire project to install dependencies and generate translations
+COPY . .
+
+# Install composer dependencies (needed for Symfony UX assets and cache warmup)
+RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --ignore-platform-reqs && \
+    composer dump-autoload --no-dev --classmap-authoritative && \
+    php bin/console cache:clear --no-warmup && \
+    php bin/console cache:warmup
+
+# ---
+
+FROM --platform=$BUILDPLATFORM node:22-bookworm-slim AS assets
+
+WORKDIR /build
+
+# Copy entire project with vendor and generated translations from composer-deps stage
+COPY --from=composer-deps /build ./
+
+# Install dependencies and build assets
+RUN yarn install --network-timeout 600000 && \
+    yarn build && \
+    yarn cache clean
+
+# ---
+
 FROM ${BASE_IMAGE} AS base
 ARG PHP_VERSION
 
@@ -36,6 +70,7 @@ RUN apt-get update && apt-get -y install \
       php${PHP_VERSION}-sqlite3 \
       php${PHP_VERSION}-mysql \
       php${PHP_VERSION}-pgsql \
+      git \
       gpg \
       sudo \
     && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/* \
@@ -44,15 +79,6 @@ RUN apt-get update && apt-get -y install \
     && chown -R www-data:www-data /var/www/html \
 # delete the "index.html" that installing Apache drops in here
     && rm -rvf /var/www/html/*
-
-# Install node and yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    curl -sL https://deb.nodesource.com/setup_22.x | bash - && \
-    apt-get update && apt-get install -y \
-      nodejs \
-      yarn \
-    && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*
 
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -149,14 +175,13 @@ RUN a2dissite 000-default.conf && \
     a2enconf docker-php && \
     a2enmod rewrite
 
-# Install composer and yarn dependencies for Part-DB
+# Install composer dependencies for Part-DB
 USER www-data
 RUN composer install -a --no-dev && \
     composer clear-cache
-RUN yarn install --network-timeout 600000 && \
-    yarn build && \
-    yarn cache clean && \
-    rm -rf node_modules/
+
+# Copy pre-built assets from the assets stage
+COPY --from=assets /build/public/build ./public/build
 
 # Use docker env to output logs to stdout
 ENV APP_ENV=docker
