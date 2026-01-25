@@ -400,9 +400,17 @@ class BOMImporter
             if (isset($mapped_entry['Manufacturer'])) {
                 $comment_parts[] = 'Manf: ' . $mapped_entry['Manufacturer'];
             }
-            if (isset($mapped_entry['LCSC SPN'])) {
-                $comment_parts[] = 'LCSC: ' . $mapped_entry['LCSC SPN'];
+
+            // Add supplier part numbers dynamically
+            $suppliers = $this->entityManager->getRepository(\App\Entity\Parts\Supplier::class)->findAll();
+            foreach ($suppliers as $supplier) {
+                $supplierName = $supplier->getName();
+                $spnKey = $supplierName . ' SPN';
+                if (isset($mapped_entry[$spnKey]) && !empty($mapped_entry[$spnKey])) {
+                    $comment_parts[] = $spnKey . ': ' . $mapped_entry[$spnKey];
+                }
             }
+
             if (isset($mapped_entry['Supplier and ref'])) {
                 $comment_parts[] = $mapped_entry['Supplier and ref'];
             }
