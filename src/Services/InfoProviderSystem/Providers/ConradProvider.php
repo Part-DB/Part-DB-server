@@ -31,7 +31,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 readonly class ConradProvider implements InfoProviderInterface
 {
 
-    private const SEARCH_ENDPOINT = 'https://api.conrad.de/search/1/v3/facetSearch';
+    private const SEARCH_ENDPOINT = '/search/1/v3/facetSearch';
 
     public function __construct(private HttpClientInterface $httpClient, private ConradSettings $settings)
     {
@@ -40,7 +40,7 @@ readonly class ConradProvider implements InfoProviderInterface
     public function getProviderInfo(): array
     {
         return [
-            'name' => 'Pollin',
+            'name' => 'Conrad',
             'description' => 'Retrieves part information from conrad.de',
             'url' => 'https://www.conrad.de/',
             'disabled_help' => 'Set API key in settings',
@@ -58,9 +58,38 @@ readonly class ConradProvider implements InfoProviderInterface
         return !empty($this->settings->apiKey);
     }
 
+    private function getProductUrl(string $productId): string
+    {
+        return 'https://' . $this->settings->shopID->getDomain() . '/' . $this->settings->shopID->getLanguage() . '/p/' . $productId;
+    }
+
+    private function getFootprintFromTechnicalDetails(array $technicalDetails): ?string
+    {
+        foreach ($technicalDetails as $detail) {
+            if ($detail['name'] === 'ATT_LOV_HOUSING_SEMICONDUCTORS') {
+                return $detail['values'][0] ?? null;
+            }
+        }
+
+        return null;
+    }
+
+    private function getFootprintFromTechnicalAttributes(array $technicalDetails): ?string
+    {
+        foreach ($technicalDetails as $detail) {
+            if ($detail['attributeID'] === 'ATT.LOV.HOUSING_SEMICONDUCTORS') {
+                return $detail['values'][0]['value'] ?? null;
+            }
+        }
+
+        return null;
+    }
+
     public function searchByKeyword(string $keyword): array
     {
-        $url = self::SEARCH_ENDPOINT . '/' . $this->settings->country . '/' . $this->settings->language . '/' . $this->settings->customerType;
+        $url = $this->settings->shopID->getAPIRoot() . self::SEARCH_ENDPOINT . '/'
+            . $this->settings->shopID->getDomainEnd() . '/' . $this->settings->shopID->getLanguage()
+            . '/' . $this->settings->shopID->getCustomerType();
 
         $response = $this->httpClient->request('POST', $url, [
             'query' => [
@@ -68,13 +97,15 @@ readonly class ConradProvider implements InfoProviderInterface
             ],
             'json' => [
                 'query' => $keyword,
+                'size' => 25,
             ],
         ]);
 
         $out = [];
         $results = $response->toArray();
 
-        foreach($results as $result) {
+        foreach($results['hits'] as $result) {
+
             $out[] = new SearchResultDTO(
                 provider_key: $this->getProviderKey(),
                 provider_id: $result['productId'],
@@ -83,6 +114,8 @@ readonly class ConradProvider implements InfoProviderInterface
                 manufacturer: $result['brand']['name'] ?? null,
                 mpn: $result['manufacturerId'] ??  null,
                 preview_image_url: $result['image'] ?? null,
+                provider_url: $this->getProductUrl($result['productId']),
+                footprint: $this->getFootprintFromTechnicalDetails($result['technicalDetails'] ?? []),
             );
         }
 
@@ -91,7 +124,29 @@ readonly class ConradProvider implements InfoProviderInterface
 
     public function getDetails(string $id): PartDetailDTO
     {
-        // TODO: Implement getDetails() method.
+        $productInfoURL = $this->settings->shopID->getAPIRoot() . '/product/1/service/' . $this->settings->shopID->getShopID()
+            . '/product/' . $id;
+
+        $response = $this->httpClient->request('GET', $productInfoURL, [
+            'query' => [
+                'apikey' => $this->settings->apiKey,
+            ]
+        ]);
+
+        $data = $response->toArray();
+
+        return new PartDetailDTO(
+            provider_key: $this->getProviderKey(),
+            provider_id: $data['shortProductNumber'],
+            name: $data['productShortInformation']['title'],
+            description: $data['productShortInformation']['shortDescription'] ?? '',
+            manufacturer: $data['brand']['displayName'] ?? null,
+            mpn: $data['productFullInformation']['manufacturer']['id'] ?? null,
+            preview_image_url: $data['productShortInformation']['mainImage']['imageUrl'] ?? null,
+            provider_url: $this->getProductUrl($data['shortProductNumber']),
+            footprint: $this->getFootprintFromTechnicalAttributes($data['productFullInformation']['technicalAttributes'] ?? []),
+            notes: $data['productFullInformation']['description'] ?? null,
+        );
     }
 
     public function getCapabilities(): array

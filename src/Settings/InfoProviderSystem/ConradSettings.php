@@ -31,6 +31,7 @@ use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -46,24 +47,11 @@ class ConradSettings
         formOptions: ["help_html" => true], envVar: "PROVIDER_CONRAD_API_KEY", envVarMode: EnvVarMode::OVERWRITE)]
     public ?string $apiKey = null;
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.country"), formType: CountryType::class,
-        envVar: "PROVIDER_CONRAD_COUNTRY", envVarMode: EnvVarMode::OVERWRITE)]
-    #[Assert\Country]
-    public string $country = "DE";
+    #[SettingsParameter(label: new TM("settings.ips.conrad.shopID"),
+        formType: EnumType::class,
+        formOptions: ['class' => ConradShopIDs::class],
+    )]
+    public ConradShopIDs $shopID = ConradShopIDs::COM_B2B;
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.language"), formType: LanguageType::class,
-        envVar: "PROVIDER_CONRAD_LANGUAGE", envVarMode: EnvVarMode::OVERWRITE)]
-    #[Assert\Language]
-    public string $language = "en";
-
-    #[SettingsParameter(label: new TM("settings.ips.conrad.customerType"), formType: ChoiceType::class,
-        formOptions: [
-            "choices" => [
-                "settings.ips.conrad.customerType.b2c" => "b2c",
-                "settings.ips.conrad.customerType.b2b" => "b2b",
-            ],
-        ],
-        envVar: "PROVIDER_CONRAD_LANGUAGE", envVarMode: EnvVarMode::OVERWRITE, )]
-    #[Assert\Choice(choices: ["b2c", "b2b"])]
-    public string $customerType = "b2c";
+    public bool $includeVAT = true;
 }
