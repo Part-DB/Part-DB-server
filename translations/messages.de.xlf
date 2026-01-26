@@ -12675,6 +12675,18 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Pollin.de bietet keine offizielle API an, daher extrahiert dieser Informationsanbieter die Daten per Webscraping aus der Website. Dies kann jederzeit aufhören zu funktionieren, die Nutzung erfolgt auf eigene Gefahr.</target>
       </segment>
     </unit>
+    <unit id="Ocp5ktF" name="settings.ips.conrad">
+      <segment state="translated">
+        <source>settings.ips.conrad</source>
+        <target>Conrad</target>
+      </segment>
+    </unit>
+    <unit id="Xlj6kj2" name="settings.ips.conrad.help">
+      <segment state="translated">
+        <source>settings.ips.conrad.help</source>
+        <target>Conrad.de bietet keine öffentlich verfügbare API an, daher extrahiert dieser Informationsanbieter die Daten per Webscraping aus der Website. Dies kann jederzeit aufhören zu funktionieren, die Nutzung erfolgt auf eigene Gefahr.</target>
+      </segment>
+    </unit>
     <unit id="TEm7uIg" name="settings.behavior.sidebar.rootNodeRedirectsToNewEntity">
       <segment state="translated">
         <source>settings.behavior.sidebar.rootNodeRedirectsToNewEntity</source>
