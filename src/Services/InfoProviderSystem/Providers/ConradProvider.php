@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\Providers;
 
+use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\ConradSettings;
@@ -83,6 +84,20 @@ readonly class ConradProvider implements InfoProviderInterface
         }
 
         return null;
+    }
+
+    private function technicalAttributesToParameters(array $technicalAttributes): array
+    {
+        $parameters = [];
+        foreach ($technicalAttributes as $attribute) {
+            if ($attribute['multiValue'] ?? false === true) {
+                throw new \LogicException('Multi value attributes are not supported yet');
+            }
+            $parameters[] = ParameterDTO::parseValueField($attribute['attributeName'],
+                $attribute['values'][0]['value'], $attribute['values'][0]['unit']['name'] ?? null);
+        }
+
+        return $parameters;
     }
 
     public function searchByKeyword(string $keyword): array
@@ -146,6 +161,7 @@ readonly class ConradProvider implements InfoProviderInterface
             provider_url: $this->getProductUrl($data['shortProductNumber']),
             footprint: $this->getFootprintFromTechnicalAttributes($data['productFullInformation']['technicalAttributes'] ?? []),
             notes: $data['productFullInformation']['description'] ?? null,
+            parameters: $this->technicalAttributesToParameters($data['productFullInformation']['technicalAttributes'] ?? []),
         );
     }
 
