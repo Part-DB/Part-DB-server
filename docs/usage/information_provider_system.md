@@ -278,6 +278,19 @@ The following env configuration options are available:
 * `PROVIDER_BUERKLIN_CURRENCY`: The currency you want to get prices in if available (optional, 3 letter ISO-code, default: `EUR`).
 * `PROVIDER_BUERKLIN_LANGUAGE`: The language you want to get the descriptions in. Possible values: `de` = German, `en` = English. (optional, default: `en`)
 
+### Conrad
+
+The conrad provider the [Conrad API](https://developer.conrad.com/) to search for parts and retried their information.
+To use it you have to request access to the API, however it seems currently your mail address needs to be allowlisted before you can register for an account.
+For testing it is possible to temporarily use an API key the [Conrad](https://www.conrad.com/) website uses to communicate with the backend, however, this might change at any time and stop working.
+
+The following env configuration options are available:
+* `PROVIDER_CONRAD_KEY`: The API key you got from Conrad (mandatory)
+* `PROVIDER_CONRAD_ENABLED`: Set this to `1` to enable the Conrad provider
+* `PROVIDER_CONRAD_LANGUAGE`: The language you want to get the descriptions in (optional, default: `en`)
+* `PROVIDER_CONRAD_COUNTRY`: The country you want to get the prices for (optional, default: `DE`)
+* `PROVIDER_CONRAD_INCLUDE_VAT`: If set to `1`, the prices will be gross prices (including tax), otherwise net prices (optional, default: `1`)
+
 ### Custom provider
 
 To create a custom provider, you have to create a new class implementing the `InfoProviderInterface` interface. As long

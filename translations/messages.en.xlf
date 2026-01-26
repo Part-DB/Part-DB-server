@@ -12676,6 +12676,18 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Pollin.de offers no official API, so this info provider webscrapes the website to extract info. It could break at any time, use it at your own risk.</target>
       </segment>
     </unit>
+    <unit id="Ocp5ktF" name="settings.ips.conrad">
+      <segment state="translated">
+        <source>settings.ips.conrad</source>
+        <target>Conrad</target>
+      </segment>
+    </unit>
+    <unit id="Xlj6kj2" name="settings.ips.conrad.help">
+      <segment state="translated">
+        <source>settings.ips.conrad.help</source>
+        <target>Conrad.de offers no publically available API, so this info provider webscrapes the website to extract info. It could break at any time, use it at your own risk.</target>
+      </segment>
+    </unit>
     <unit id="TEm7uIg" name="settings.behavior.sidebar.rootNodeRedirectsToNewEntity">
       <segment state="translated">
         <source>settings.behavior.sidebar.rootNodeRedirectsToNewEntity</source>
