@@ -1,0 +1,374 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}Part-DB {% trans %}update_manager.title{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-cloud-download-alt"></i> Part-DB {% trans %}update_manager.title{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+<div>
+
+    {# Maintenance Mode Warning #}
+    {% if is_maintenance %}
+        <div class="alert alert-warning" role="alert">
+            <i class="fas fa-tools me-2"></i>
+            <strong>{% trans %}update_manager.maintenance_mode_active{% endtrans %}</strong>
+            {% if maintenance_info.reason is defined %}
+                - {{ maintenance_info.reason }}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {# Lock Warning #}
+    {% if is_locked %}
+        <div class="alert alert-info" role="alert">
+            <i class="fas fa-lock me-2"></i>
+            <strong>{% trans %}update_manager.update_in_progress{% endtrans %}</strong>
+            {% if lock_info.started_at is defined %}
+                ({% trans %}update_manager.started_at{% endtrans %}: {{ lock_info.started_at }})
+            {% endif %}
+            <a href="{{ path('admin_update_manager_progress') }}" class="alert-link ms-2">
+                {% trans %}update_manager.view_progress{% endtrans %}
+            </a>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        {# Current Version Card #}
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <i class="fas fa-info-circle me-2"></i>{% trans %}update_manager.current_installation{% endtrans %}
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm mb-0">
+                        <tbody>
+                            <tr>
+                                <th scope="row" style="width: 40%">{% trans %}update_manager.version{% endtrans %}</th>
+                                <td>
+                                    <span class="badge bg-primary fs-6">{{ status.current_version }}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{% trans %}update_manager.installation_type{% endtrans %}</th>
+                                <td>
+                                    <span class="badge bg-secondary">{{ status.installation.type_name }}</span>
+                                </td>
+                            </tr>
+                            {% if status.git.is_git_install %}
+                                <tr>
+                                    <th scope="row">{% trans %}update_manager.git_branch{% endtrans %}</th>
+                                    <td><code>{{ status.git.branch ?? 'N/A' }}</code></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">{% trans %}update_manager.git_commit{% endtrans %}</th>
+                                    <td><code>{{ status.git.commit ?? 'N/A' }}</code></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">{% trans %}update_manager.local_changes{% endtrans %}</th>
+                                    <td>
+                                        {% if status.git.has_local_changes %}
+                                            <span class="badge bg-warning text-dark">
+                                                <i class="fas fa-exclamation-triangle me-1"></i>{% trans %}update_manager.yes{% endtrans %}
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-success">
+                                                <i class="fas fa-check me-1"></i>{% trans %}update_manager.no{% endtrans %}
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <th scope="row">{% trans %}update_manager.auto_update_supported{% endtrans %}</th>
+                                <td>
+                                    {% if status.can_auto_update %}
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-check me-1"></i>{% trans %}update_manager.yes{% endtrans %}
+                                        </span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">
+                                            <i class="fas fa-times me-1"></i>{% trans %}update_manager.no{% endtrans %}
+                                        </span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <form action="{{ path('admin_update_manager_refresh') }}" method="post" class="d-inline">
+                        <input type="hidden" name="_token" value="{{ csrf_token('update_manager_refresh') }}">
+                        <button type="submit" class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-sync-alt me-1"></i> {% trans %}update_manager.refresh{% endtrans %}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {# Latest Version / Update Card #}
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100 {{ status.update_available ? 'border-success' : '' }}">
+                <div class="card-header {{ status.update_available ? 'bg-success text-white' : '' }}">
+                    {% if status.update_available %}
+                        <i class="fas fa-gift me-2"></i>{% trans %}update_manager.new_version_available.title{% endtrans %}
+                    {% else %}
+                        <i class="fas fa-check-circle me-2"></i>{% trans %}update_manager.latest_release{% endtrans %}
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    {% if status.latest_version %}
+                        <div class="text-center mb-3">
+                            <span class="badge bg-{{ status.update_available ? 'success' : 'primary' }} fs-4 px-4 py-2">
+                                {{ status.latest_tag }}
+                            </span>
+                            {% if not status.update_available %}
+                                <p class="text-success mt-2 mb-0">
+                                    <i class="fas fa-check-circle me-1"></i>
+                                    {% trans %}update_manager.already_up_to_date{% endtrans %}
+                                </p>
+                            {% endif %}
+                        </div>
+
+                        {% if status.update_available and status.can_auto_update and validation.valid %}
+                            <form action="{{ path('admin_update_manager_start') }}" method="post" onsubmit="return confirm('{% trans %}update_manager.confirm_update{% endtrans %}');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('update_manager_start') }}">
+                                <input type="hidden" name="version" value="{{ status.latest_tag }}">
+
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-success btn-lg">
+                                        <i class="fas fa-download me-2"></i>
+                                        {% trans %}update_manager.update_to{% endtrans %} {{ status.latest_tag }}
+                                    </button>
+                                </div>
+
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" name="backup" value="1" id="create-backup" checked>
+                                    <label class="form-check-label" for="create-backup">
+                                        <i class="fas fa-database me-1"></i> {% trans %}update_manager.create_backup{% endtrans %}
+                                    </label>
+                                </div>
+                            </form>
+                        {% endif %}
+
+                        {% if status.published_at %}
+                            <p class="text-muted small mt-3 mb-0">
+                                <i class="fas fa-calendar me-1"></i>
+                                {% trans %}update_manager.released{% endtrans %}: {{ status.published_at|date('Y-m-d') }}
+                            </p>
+                        {% endif %}
+                    {% else %}
+                        <div class="text-center text-muted py-4">
+                            <i class="fas fa-question-circle fa-3x mb-3"></i>
+                            <p>{% trans %}update_manager.could_not_fetch_releases{% endtrans %}</p>
+                        </div>
+                    {% endif %}
+                </div>
+                {% if status.latest_tag %}
+                    <div class="card-footer">
+                        <a href="{{ path('admin_update_manager_release', {tag: status.latest_tag}) }}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-file-alt me-1"></i> {% trans %}update_manager.view_release_notes{% endtrans %}
+                        </a>
+                        {% if status.release_url %}
+                            <a href="{{ status.release_url }}" class="btn btn-outline-secondary btn-sm" target="_blank">
+                                <i class="fab fa-github me-1"></i> GitHub
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {# Validation Issues #}
+    {% if not validation.valid %}
+        <div class="alert alert-warning" role="alert">
+            <h6 class="alert-heading">
+                <i class="fas fa-exclamation-triangle me-2"></i>{% trans %}update_manager.validation_issues{% endtrans %}
+            </h6>
+            <ul class="mb-0">
+                {% for error in validation.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        {# Available Versions #}
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <i class="fas fa-tags me-2"></i>{% trans %}update_manager.available_versions{% endtrans %}
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                        <table class="table table-hover table-sm mb-0">
+                            <thead class="sticky-top" style="background-color: #f8f9fa;">
+                                <tr>
+                                    <th>{% trans %}update_manager.version{% endtrans %}</th>
+                                    <th>{% trans %}update_manager.released{% endtrans %}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for release in all_releases %}
+                                    <tr{% if release.version == status.current_version %} class="table-active"{% endif %}>
+                                        <td>
+                                            <code>{{ release.tag }}</code>
+                                            {% if release.prerelease %}
+                                                <span class="badge bg-warning text-dark ms-1">pre</span>
+                                            {% endif %}
+                                            {% if release.version == status.current_version %}
+                                                <span class="badge bg-primary ms-1">{% trans %}update_manager.current{% endtrans %}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-muted small">
+                                            {{ release.published_at|date('Y-m-d') }}
+                                        </td>
+                                        <td class="text-end">
+                                            <div class="btn-group btn-group-sm">
+                                                <a href="{{ path('admin_update_manager_release', {tag: release.tag}) }}"
+                                                   class="btn btn-outline-secondary"
+                                                   title="{% trans %}update_manager.view_release_notes{% endtrans %}">
+                                                    <i class="fas fa-file-alt"></i>
+                                                </a>
+                                                {% if release.version != status.current_version and status.can_auto_update and validation.valid %}
+                                                    <form action="{{ path('admin_update_manager_start') }}" method="post" class="d-inline"
+                                                          onsubmit="return confirm('{% if release.version > status.current_version %}{% trans %}update_manager.confirm_update{% endtrans %}{% else %}{% trans %}update_manager.confirm_downgrade{% endtrans %}{% endif %}');">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('update_manager_start') }}">
+                                                        <input type="hidden" name="version" value="{{ release.tag }}">
+                                                        <input type="hidden" name="backup" value="1">
+                                                        <button type="submit"
+                                                            class="btn btn-{{ release.version > status.current_version ? 'outline-success' : 'outline-warning' }}"
+                                                            title="{% trans %}update_manager.switch_to{% endtrans %} {{ release.tag }}">
+                                                            {% if release.version > status.current_version %}
+                                                                <i class="fas fa-arrow-up"></i>
+                                                            {% else %}
+                                                                <i class="fas fa-arrow-down"></i>
+                                                            {% endif %}
+                                                        </button>
+                                                    </form>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted py-3">
+                                            {% trans %}update_manager.no_releases_found{% endtrans %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Update History & Backups #}
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#logs-tab" type="button">
+                                <i class="fas fa-history me-1"></i>{% trans %}update_manager.update_logs{% endtrans %}
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#backups-tab" type="button">
+                                <i class="fas fa-archive me-1"></i>{% trans %}update_manager.backups{% endtrans %}
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body p-0">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="logs-tab">
+                            <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                                <table class="table table-hover table-sm mb-0">
+                                    <thead class="sticky-top" style="background-color: #f8f9fa;">
+                                        <tr>
+                                            <th>{% trans %}update_manager.date{% endtrans %}</th>
+                                            <th>{% trans %}update_manager.log_file{% endtrans %}</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for log in update_logs %}
+                                            <tr>
+                                                <td class="text-muted small">
+                                                    {{ log.date|date('Y-m-d H:i') }}
+                                                </td>
+                                                <td><code class="small">{{ log.file }}</code></td>
+                                                <td>
+                                                    <a href="{{ path('admin_update_manager_log', {filename: log.file}) }}"
+                                                       class="btn btn-sm btn-outline-secondary">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="3" class="text-center text-muted py-3">
+                                                    {% trans %}update_manager.no_logs_found{% endtrans %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="backups-tab">
+                            <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
+                                <table class="table table-hover table-sm mb-0">
+                                    <thead class="sticky-top" style="background-color: #f8f9fa;">
+                                        <tr>
+                                            <th>{% trans %}update_manager.date{% endtrans %}</th>
+                                            <th>{% trans %}update_manager.file{% endtrans %}</th>
+                                            <th>{% trans %}update_manager.size{% endtrans %}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for backup in backups %}
+                                            <tr>
+                                                <td class="text-muted small">
+                                                    {{ backup.date|date('Y-m-d H:i') }}
+                                                </td>
+                                                <td><code class="small">{{ backup.file }}</code></td>
+                                                <td class="text-muted small">
+                                                    {{ (backup.size / 1024 / 1024)|number_format(1) }} MB
+                                                </td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="3" class="text-center text-muted py-3">
+                                                    {% trans %}update_manager.no_backups_found{% endtrans %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Non-auto-update installations info #}
+    {% if not status.can_auto_update %}
+        <div class="alert alert-secondary">
+            <h6 class="alert-heading">
+                <i class="fas fa-info-circle me-2"></i>{{ status.installation.type_name }}
+            </h6>
+            <p class="mb-0">{{ status.installation.update_instructions }}</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

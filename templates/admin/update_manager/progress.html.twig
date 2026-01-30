@@ -1,0 +1,196 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}
+    {% if is_downgrade|default(false) %}
+        {% trans %}update_manager.progress.downgrade_title{% endtrans %}
+    {% else %}
+        {% trans %}update_manager.progress.title{% endtrans %}
+    {% endif %}
+{% endblock %}
+
+{% block card_title %}
+    {% if progress and progress.status == 'running' %}
+        <i class="fas fa-sync-alt fa-spin"></i>
+    {% elseif progress and progress.status == 'completed' %}
+        <i class="fas fa-check-circle text-success"></i>
+    {% elseif progress and progress.status == 'failed' %}
+        <i class="fas fa-times-circle text-danger"></i>
+    {% else %}
+        <i class="fas fa-hourglass-start"></i>
+    {% endif %}
+    {% if is_downgrade|default(false) %}
+        {% trans %}update_manager.progress.downgrade_title{% endtrans %}
+    {% else %}
+        {% trans %}update_manager.progress.title{% endtrans %}
+    {% endif %}
+{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+    {# Auto-refresh while update is running - also refresh when 'starting' status #}
+    {% if not progress or progress.status == 'running' or progress.status == 'starting' %}
+        <meta http-equiv="refresh" content="2">
+    {% endif %}
+{% endblock %}
+
+{% block card_content %}
+<div id="update-progress">
+
+    {# Progress Header #}
+    <div class="text-center mb-4">
+        <div class="mb-3">
+            {% if progress and progress.status == 'completed' %}
+                <i class="fas fa-check-circle fa-3x text-success"></i>
+            {% elseif progress and progress.status == 'failed' %}
+                <i class="fas fa-times-circle fa-3x text-danger"></i>
+            {% else %}
+                <i class="fas fa-cog fa-spin fa-3x text-primary"></i>
+            {% endif %}
+        </div>
+        <h4>
+            {% if progress and progress.status == 'running' %}
+                {% if is_downgrade|default(false) %}
+                    {% trans %}update_manager.progress.downgrading{% endtrans %}
+                {% else %}
+                    {% trans %}update_manager.progress.updating{% endtrans %}
+                {% endif %}
+            {% elseif progress and progress.status == 'completed' %}
+                {% if is_downgrade|default(false) %}
+                    {% trans %}update_manager.progress.downgrade_completed{% endtrans %}
+                {% else %}
+                    {% trans %}update_manager.progress.completed{% endtrans %}
+                {% endif %}
+            {% elseif progress and progress.status == 'failed' %}
+                {% if is_downgrade|default(false) %}
+                    {% trans %}update_manager.progress.downgrade_failed{% endtrans %}
+                {% else %}
+                    {% trans %}update_manager.progress.failed{% endtrans %}
+                {% endif %}
+            {% else %}
+                {% trans %}update_manager.progress.initializing{% endtrans %}
+            {% endif %}
+        </h4>
+        <p class="text-muted">
+            {% if progress %}
+                {% if is_downgrade|default(false) %}
+                    {% trans with {'%version%': progress.target_version|default('unknown')} %}update_manager.progress.downgrading_to{% endtrans %}
+                {% else %}
+                    {% trans with {'%version%': progress.target_version|default('unknown')} %}update_manager.progress.updating_to{% endtrans %}
+                {% endif %}
+            {% endif %}
+        </p>
+    </div>
+
+    {# Progress Bar #}
+    {% set percent = progress ? ((progress.current_step|default(0) / progress.total_steps|default(12)) * 100)|round : 0 %}
+    {% if progress and progress.status == 'completed' %}
+        {% set percent = 100 %}
+    {% endif %}
+    <div class="progress mb-4" style="height: 25px;">
+        <div class="progress-bar {% if progress and progress.status == 'completed' %}bg-success{% elseif progress and progress.status == 'failed' %}bg-danger{% else %}progress-bar-striped progress-bar-animated{% endif %}"
+             role="progressbar"
+             style="width: {{ percent }}%"
+             aria-valuenow="{{ progress.current_step|default(0) }}"
+             aria-valuemin="0"
+             aria-valuemax="{{ progress.total_steps|default(12) }}">
+            {{ percent }}%
+        </div>
+    </div>
+
+    {# Current Step - shows what's currently being worked on #}
+    {% if progress and (progress.status == 'running' or progress.status == 'starting') %}
+        <div class="alert alert-info mb-4">
+            <strong>{{ progress.step_name|default('initializing')|replace({'_': ' '})|capitalize }}</strong>:
+            {{ progress.step_message|default('Processing...') }}
+        </div>
+    {% endif %}
+
+    {# Error Message #}
+    {% if progress and progress.status == 'failed' %}
+        <div class="alert alert-danger mb-4">
+            <strong>{% trans %}update_manager.progress.error{% endtrans %}:</strong>
+            {{ progress.error|default('An unknown error occurred') }}
+        </div>
+    {% endif %}
+
+    {# Success Message #}
+    {% if progress and progress.status == 'completed' %}
+        <div class="alert alert-success mb-4">
+            <i class="fas fa-check-circle me-2"></i>
+            {% if is_downgrade|default(false) %}
+                {% trans %}update_manager.progress.downgrade_success_message{% endtrans %}
+            {% else %}
+                {% trans %}update_manager.progress.success_message{% endtrans %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {# Steps Timeline #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-list-ol me-2"></i>
+            {% if is_downgrade|default(false) %}
+                {% trans %}update_manager.progress.downgrade_steps{% endtrans %}
+            {% else %}
+                {% trans %}update_manager.progress.steps{% endtrans %}
+            {% endif %}
+        </div>
+        <div class="card-body p-0">
+            <ul class="list-group list-group-flush">
+                {% if progress and progress.steps %}
+                    {% for step in progress.steps %}
+                        <li class="list-group-item d-flex align-items-center">
+                            {% if step.success %}
+                                <i class="fas fa-check-circle text-success me-3"></i>
+                            {% else %}
+                                <i class="fas fa-times-circle text-danger me-3"></i>
+                            {% endif %}
+                            <div class="flex-grow-1">
+                                <strong>{{ step.step|replace({'_': ' '})|capitalize }}</strong>
+                                <br><small class="text-muted">{{ step.message }}</small>
+                            </div>
+                            <small class="text-muted">{{ step.timestamp|date('H:i:s') }}</small>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <li class="list-group-item text-center text-muted py-3">
+                        <i class="fas fa-clock me-2"></i>{% trans %}update_manager.progress.waiting{% endtrans %}
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    {# Actions #}
+    <div class="text-center">
+        {% if progress and (progress.status == 'completed' or progress.status == 'failed') %}
+            <a href="{{ path('admin_update_manager') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-1"></i> {% trans %}update_manager.progress.back{% endtrans %}
+            </a>
+            <a href="{{ path('admin_update_manager_progress') }}" class="btn btn-primary">
+                <i class="fas fa-sync-alt me-1"></i> {% trans %}update_manager.progress.refresh_page{% endtrans %}
+            </a>
+        {% endif %}
+    </div>
+
+    {# Warning Notice #}
+    {% if not progress or progress.status == 'running' or progress.status == 'starting' %}
+        <div class="alert alert-warning mt-4">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>{% trans %}update_manager.progress.warning{% endtrans %}:</strong>
+            {% if is_downgrade|default(false) %}
+                {% trans %}update_manager.progress.downgrade_do_not_close{% endtrans %}
+            {% else %}
+                {% trans %}update_manager.progress.do_not_close{% endtrans %}
+            {% endif %}
+        </div>
+
+        {# JavaScript refresh - more reliable than meta refresh #}
+        <script>
+            setTimeout(function() {
+                window.location.reload();
+            }, 2000);
+        </script>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="15">
+    <title>Part-DB - {% trans %}update_manager.maintenance.title{% endtrans %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .maintenance-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 550px;
+            text-align: center;
+        }
+
+        .icon-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #00d4ff 0%, #00ff88 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: pulse 2s infinite;
+        }
+
+        .icon-container i {
+            font-size: 50px;
+            color: #1a1a2e;
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 30px 10px rgba(0, 212, 255, 0.2); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        h1 {
+            color: #00d4ff;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .reason-badge {
+            background: rgba(0, 212, 255, 0.15);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            padding: 12px 24px;
+            border-radius: 30px;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        .progress-container {
+            margin: 30px 0;
+        }
+
+        .progress {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #00d4ff, #00ff88);
+            animation: progressAnim 2.5s ease-in-out infinite;
+        }
+
+        @keyframes progressAnim {
+            0% { width: 0%; margin-left: 0%; }
+            50% { width: 40%; margin-left: 30%; }
+            100% { width: 0%; margin-left: 100%; }
+        }
+
+        .timer {
+            font-family: 'SF Mono', 'Consolas', monospace;
+            font-size: 2rem;
+            color: #00ff88;
+            margin: 20px 0;
+        }
+
+        .status-steps {
+            text-align: left;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .status-step {
+            padding: 8px 0;
+            color: rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+        }
+
+        .status-step i {
+            width: 24px;
+            margin-right: 12px;
+        }
+
+        .status-step.active {
+            color: #00d4ff;
+        }
+
+        .status-step.completed {
+            color: #00ff88;
+        }
+
+        .refresh-info {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        .refresh-info i {
+            animation: spin 2s linear infinite;
+        }
+
+        .logo {
+            opacity: 0.3;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="maintenance-card">
+        <div class="icon-container">
+            <i class="fas fa-cog"></i>
+        </div>
+
+        <h1>{% trans %}update_manager.maintenance.heading{% endtrans %}</h1>
+
+        <p class="text-secondary fs-5">
+            {% trans %}update_manager.maintenance.description{% endtrans %}
+        </p>
+
+        <div class="reason-badge">
+            <i class="fas fa-arrow-up me-2"></i>
+            {{ reason }}
+        </div>
+
+        <div class="progress-container">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar"></div>
+            </div>
+        </div>
+
+        <div class="status-steps">
+            <div class="status-step" id="step-backup">
+                <i class="fas fa-database"></i>
+                <span>{% trans %}update_manager.maintenance.step_backup{% endtrans %}</span>
+            </div>
+            <div class="status-step" id="step-download">
+                <i class="fas fa-download"></i>
+                <span>{% trans %}update_manager.maintenance.step_download{% endtrans %}</span>
+            </div>
+            <div class="status-step" id="step-install">
+                <i class="fas fa-box-open"></i>
+                <span>{% trans %}update_manager.maintenance.step_install{% endtrans %}</span>
+            </div>
+            <div class="status-step" id="step-migrate">
+                <i class="fas fa-database"></i>
+                <span>{% trans %}update_manager.maintenance.step_migrate{% endtrans %}</span>
+            </div>
+            <div class="status-step" id="step-cache">
+                <i class="fas fa-sync"></i>
+                <span>{% trans %}update_manager.maintenance.step_cache{% endtrans %}</span>
+            </div>
+        </div>
+
+        {% if duration is not null %}
+            <div class="timer" id="timer">
+                {{ duration // 60 }}:{{ '%02d'|format(duration % 60) }}
+            </div>
+        {% endif %}
+
+        <p class="refresh-info">
+            <i class="fas fa-sync-alt me-1"></i>
+            {% trans %}update_manager.maintenance.auto_refresh{% endtrans %}
+        </p>
+
+        <div class="logo">
+            <i class="fa fa-microchip me-2"></i> Part-DB
+        </div>
+    </div>
+
+    <script>
+        // Simulate step progression
+        const steps = ['step-backup', 'step-download', 'step-install', 'step-migrate', 'step-cache'];
+        let currentStep = 0;
+
+        function updateSteps() {
+            steps.forEach((stepId, index) => {
+                const step = document.getElementById(stepId);
+                if (index < currentStep) {
+                    step.classList.add('completed');
+                    step.classList.remove('active');
+                    step.querySelector('i').className = 'fas fa-check-circle';
+                } else if (index === currentStep) {
+                    step.classList.add('active');
+                    step.querySelector('i').className = 'fas fa-spinner fa-spin';
+                }
+            });
+
+            currentStep = (currentStep + 1) % (steps.length + 1);
+            if (currentStep === 0) {
+                steps.forEach(stepId => {
+                    const step = document.getElementById(stepId);
+                    step.classList.remove('completed', 'active');
+                    step.querySelector('i').className = step.querySelector('i').className.replace('fa-check-circle', 'fas');
+                    step.querySelector('i').className = step.querySelector('i').className.replace('fa-spinner fa-spin', 'fas');
+                });
+            }
+        }
+
+        setInterval(updateSteps, 3000);
+
+        // Update timer
+        {% if duration is not null %}
+        let seconds = {{ duration }};
+        const timerEl = document.getElementById('timer');
+
+        setInterval(() => {
+            seconds++;
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            timerEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+        }, 1000);
+        {% endif %}
+    </script>
+</body>
+</html>
