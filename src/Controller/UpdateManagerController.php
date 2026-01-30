@@ -265,4 +265,75 @@ class UpdateManagerController extends AbstractController
             'is_maintenance' => $this->updateExecutor->isMaintenanceMode(),
         ]);
     }
+
+    /**
+     * Get backup details for restore confirmation.
+     */
+    #[Route('/backup/{filename}', name: 'admin_update_manager_backup_details', methods: ['GET'])]
+    public function backupDetails(string $filename): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('@system.manage_updates');
+
+        $details = $this->updateExecutor->getBackupDetails($filename);
+
+        if (!$details) {
+            return $this->json(['error' => 'Backup not found'], 404);
+        }
+
+        return $this->json($details);
+    }
+
+    /**
+     * Restore from a backup.
+     */
+    #[Route('/restore', name: 'admin_update_manager_restore', methods: ['POST'])]
+    public function restore(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('@system.manage_updates');
+
+        // Validate CSRF token
+        if (!$this->isCsrfTokenValid('update_manager_restore', $request->request->get('_token'))) {
+            $this->addFlash('error', 'Invalid CSRF token.');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        // Check if already locked
+        if ($this->updateExecutor->isLocked()) {
+            $this->addFlash('error', 'An update or restore is already in progress.');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        $filename = $request->request->get('filename');
+        $restoreDatabase = $request->request->getBoolean('restore_database', true);
+        $restoreConfig = $request->request->getBoolean('restore_config', false);
+        $restoreAttachments = $request->request->getBoolean('restore_attachments', false);
+
+        if (!$filename) {
+            $this->addFlash('error', 'No backup file specified.');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        // Verify the backup exists
+        $backupDetails = $this->updateExecutor->getBackupDetails($filename);
+        if (!$backupDetails) {
+            $this->addFlash('error', 'Backup file not found.');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        // Execute restore (this is a synchronous operation for now - could be made async later)
+        $result = $this->updateExecutor->restoreBackup(
+            $filename,
+            $restoreDatabase,
+            $restoreConfig,
+            $restoreAttachments
+        );
+
+        if ($result['success']) {
+            $this->addFlash('success', 'Backup restored successfully.');
+        } else {
+            $this->addFlash('error', 'Restore failed: ' . ($result['error'] ?? 'Unknown error'));
+        }
+
+        return $this->redirectToRoute('admin_update_manager');
+    }
 }

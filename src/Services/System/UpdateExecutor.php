@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Services\System;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Shivas\VersioningBundle\Service\VersionManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -51,7 +52,8 @@ class UpdateExecutor
     public function __construct(#[Autowire(param: 'kernel.project_dir')] private readonly string $project_dir,
         private readonly LoggerInterface $logger, private readonly Filesystem $filesystem,
         private readonly InstallationTypeDetector $installationTypeDetector,
-        private readonly VersionManagerInterface $versionManager)
+        private readonly VersionManagerInterface $versionManager,
+        private readonly EntityManagerInterface $entityManager)
     {
 
     }
@@ -626,6 +628,330 @@ class UpdateExecutor
         usort($backups, fn($a, $b) => $b['date'] <=> $a['date']);
 
         return $backups;
+    }
+
+    /**
+     * Get details about a specific backup file.
+     *
+     * @param string $filename The backup filename
+     * @return array|null Backup details or null if not found
+     */
+    public function getBackupDetails(string $filename): ?array
+    {
+        $backupDir = $this->project_dir . '/' . self::BACKUP_DIR;
+        $backupPath = $backupDir . '/' . basename($filename);
+
+        if (!file_exists($backupPath) || !str_ends_with($backupPath, '.zip')) {
+            return null;
+        }
+
+        // Parse version info from filename: pre-update-v2.5.1-to-v2.5.0-2024-01-30-185400.zip
+        $info = [
+            'file' => basename($backupPath),
+            'path' => $backupPath,
+            'date' => filemtime($backupPath),
+            'size' => filesize($backupPath),
+            'from_version' => null,
+            'to_version' => null,
+        ];
+
+        if (preg_match('/pre-update-v([\d.]+)-to-v?([\d.]+)-/', $filename, $matches)) {
+            $info['from_version'] = $matches[1];
+            $info['to_version'] = $matches[2];
+        }
+
+        // Check what the backup contains by reading the ZIP
+        try {
+            $zip = new \ZipArchive();
+            if ($zip->open($backupPath) === true) {
+                $info['contains_database'] = $zip->locateName('database.sql') !== false || $zip->locateName('var/app.db') !== false;
+                $info['contains_config'] = $zip->locateName('.env.local') !== false || $zip->locateName('config/parameters.yaml') !== false;
+                $info['contains_attachments'] = $zip->locateName('public/media/') !== false || $zip->locateName('uploads/') !== false;
+                $zip->close();
+            }
+        } catch (\Exception $e) {
+            $this->logger->warning('Could not read backup ZIP contents', ['error' => $e->getMessage()]);
+        }
+
+        return $info;
+    }
+
+    /**
+     * Restore from a backup file.
+     *
+     * @param string $filename The backup filename to restore
+     * @param bool $restoreDatabase Whether to restore the database
+     * @param bool $restoreConfig Whether to restore config files
+     * @param bool $restoreAttachments Whether to restore attachments
+     * @param callable|null $onProgress Callback for progress updates
+     * @return array{success: bool, steps: array, error: ?string}
+     */
+    public function restoreBackup(
+        string $filename,
+        bool $restoreDatabase = true,
+        bool $restoreConfig = false,
+        bool $restoreAttachments = false,
+        ?callable $onProgress = null
+    ): array {
+        $this->steps = [];
+        $startTime = microtime(true);
+
+        $log = function (string $step, string $message, bool $success, ?float $duration = null) use ($onProgress): void {
+            $entry = [
+                'step' => $step,
+                'message' => $message,
+                'success' => $success,
+                'timestamp' => (new \DateTime())->format('c'),
+                'duration' => $duration,
+            ];
+            $this->steps[] = $entry;
+            $this->logger->info('[Restore] ' . $step . ': ' . $message, ['success' => $success]);
+
+            if ($onProgress) {
+                $onProgress($entry);
+            }
+        };
+
+        try {
+            // Validate backup file
+            $backupDir = $this->project_dir . '/' . self::BACKUP_DIR;
+            $backupPath = $backupDir . '/' . basename($filename);
+
+            if (!file_exists($backupPath)) {
+                throw new \RuntimeException('Backup file not found: ' . $filename);
+            }
+
+            $stepStart = microtime(true);
+
+            // Step 1: Acquire lock
+            $this->acquireLock('restore');
+            $log('lock', 'Acquired exclusive restore lock', true, microtime(true) - $stepStart);
+
+            // Step 2: Enable maintenance mode
+            $stepStart = microtime(true);
+            $this->enableMaintenanceMode('Restoring from backup...');
+            $log('maintenance', 'Enabled maintenance mode', true, microtime(true) - $stepStart);
+
+            // Step 3: Extract backup to temp directory
+            $stepStart = microtime(true);
+            $tempDir = sys_get_temp_dir() . '/partdb_restore_' . uniqid();
+            $this->filesystem->mkdir($tempDir);
+
+            $zip = new \ZipArchive();
+            if ($zip->open($backupPath) !== true) {
+                throw new \RuntimeException('Could not open backup ZIP file');
+            }
+            $zip->extractTo($tempDir);
+            $zip->close();
+            $log('extract', 'Extracted backup to temporary directory', true, microtime(true) - $stepStart);
+
+            // Step 4: Restore database if requested and present
+            if ($restoreDatabase) {
+                $stepStart = microtime(true);
+                $this->restoreDatabaseFromBackup($tempDir);
+                $log('database', 'Restored database', true, microtime(true) - $stepStart);
+            }
+
+            // Step 5: Restore config files if requested and present
+            if ($restoreConfig) {
+                $stepStart = microtime(true);
+                $this->restoreConfigFromBackup($tempDir);
+                $log('config', 'Restored configuration files', true, microtime(true) - $stepStart);
+            }
+
+            // Step 6: Restore attachments if requested and present
+            if ($restoreAttachments) {
+                $stepStart = microtime(true);
+                $this->restoreAttachmentsFromBackup($tempDir);
+                $log('attachments', 'Restored attachments', true, microtime(true) - $stepStart);
+            }
+
+            // Step 7: Clean up temp directory
+            $stepStart = microtime(true);
+            $this->filesystem->remove($tempDir);
+            $log('cleanup', 'Cleaned up temporary files', true, microtime(true) - $stepStart);
+
+            // Step 8: Clear cache
+            $stepStart = microtime(true);
+            $this->runCommand(['php', 'bin/console', 'cache:clear', '--no-warmup'], 'Clear cache');
+            $log('cache_clear', 'Cleared application cache', true, microtime(true) - $stepStart);
+
+            // Step 9: Warm up cache
+            $stepStart = microtime(true);
+            $this->runCommand(['php', 'bin/console', 'cache:warmup'], 'Warm up cache');
+            $log('cache_warmup', 'Warmed up application cache', true, microtime(true) - $stepStart);
+
+            // Step 10: Disable maintenance mode
+            $stepStart = microtime(true);
+            $this->disableMaintenanceMode();
+            $log('maintenance_off', 'Disabled maintenance mode', true, microtime(true) - $stepStart);
+
+            // Step 11: Release lock
+            $this->releaseLock();
+
+            $totalDuration = microtime(true) - $startTime;
+            $log('complete', sprintf('Restore completed successfully in %.1f seconds', $totalDuration), true, microtime(true) - $stepStart);
+
+            return [
+                'success' => true,
+                'steps' => $this->steps,
+                'error' => null,
+            ];
+
+        } catch (\Throwable $e) {
+            $this->logger->error('Restore failed: ' . $e->getMessage(), [
+                'exception' => $e,
+                'file' => $filename,
+            ]);
+
+            // Try to clean up
+            try {
+                $this->disableMaintenanceMode();
+                $this->releaseLock();
+                if (isset($tempDir) && is_dir($tempDir)) {
+                    $this->filesystem->remove($tempDir);
+                }
+            } catch (\Throwable $cleanupError) {
+                $this->logger->error('Cleanup after failed restore also failed', ['error' => $cleanupError->getMessage()]);
+            }
+
+            return [
+                'success' => false,
+                'steps' => $this->steps,
+                'error' => $e->getMessage(),
+            ];
+        }
+    }
+
+    /**
+     * Restore database from backup.
+     */
+    private function restoreDatabaseFromBackup(string $tempDir): void
+    {
+        // Check for SQL dump (MySQL/PostgreSQL)
+        $sqlFile = $tempDir . '/database.sql';
+        if (file_exists($sqlFile)) {
+            // Import SQL using mysql/psql command directly
+            // First, get database connection params from Doctrine
+            $connection = $this->entityManager->getConnection();
+            $params = $connection->getParams();
+            $platform = $connection->getDatabasePlatform();
+
+            if ($platform instanceof \Doctrine\DBAL\Platforms\AbstractMySQLPlatform) {
+                // Use mysql command to import - need to use shell to handle input redirection
+                $mysqlCmd = 'mysql';
+                if (isset($params['host'])) {
+                    $mysqlCmd .= ' -h ' . escapeshellarg($params['host']);
+                }
+                if (isset($params['port'])) {
+                    $mysqlCmd .= ' -P ' . escapeshellarg((string)$params['port']);
+                }
+                if (isset($params['user'])) {
+                    $mysqlCmd .= ' -u ' . escapeshellarg($params['user']);
+                }
+                if (isset($params['password']) && $params['password']) {
+                    $mysqlCmd .= ' -p' . escapeshellarg($params['password']);
+                }
+                if (isset($params['dbname'])) {
+                    $mysqlCmd .= ' ' . escapeshellarg($params['dbname']);
+                }
+                $mysqlCmd .= ' < ' . escapeshellarg($sqlFile);
+
+                // Execute using shell
+                $process = Process::fromShellCommandline($mysqlCmd, $this->project_dir, null, null, 300);
+                $process->run();
+
+                if (!$process->isSuccessful()) {
+                    throw new \RuntimeException('MySQL import failed: ' . $process->getErrorOutput());
+                }
+            } elseif ($platform instanceof \Doctrine\DBAL\Platforms\PostgreSQLPlatform) {
+                // Use psql command to import
+                $psqlCmd = 'psql';
+                if (isset($params['host'])) {
+                    $psqlCmd .= ' -h ' . escapeshellarg($params['host']);
+                }
+                if (isset($params['port'])) {
+                    $psqlCmd .= ' -p ' . escapeshellarg((string)$params['port']);
+                }
+                if (isset($params['user'])) {
+                    $psqlCmd .= ' -U ' . escapeshellarg($params['user']);
+                }
+                if (isset($params['dbname'])) {
+                    $psqlCmd .= ' -d ' . escapeshellarg($params['dbname']);
+                }
+                $psqlCmd .= ' -f ' . escapeshellarg($sqlFile);
+
+                // Set PGPASSWORD environment variable if password is provided
+                $env = null;
+                if (isset($params['password']) && $params['password']) {
+                    $env = ['PGPASSWORD' => $params['password']];
+                }
+
+                // Execute using shell
+                $process = Process::fromShellCommandline($psqlCmd, $this->project_dir, $env, null, 300);
+                $process->run();
+
+                if (!$process->isSuccessful()) {
+                    throw new \RuntimeException('PostgreSQL import failed: ' . $process->getErrorOutput());
+                }
+            } else {
+                throw new \RuntimeException('Unsupported database platform for restore');
+            }
+
+            return;
+        }
+
+        // Check for SQLite database file
+        $sqliteFile = $tempDir . '/var/app.db';
+        if (file_exists($sqliteFile)) {
+            $targetDb = $this->project_dir . '/var/app.db';
+            $this->filesystem->copy($sqliteFile, $targetDb, true);
+            return;
+        }
+
+        $this->logger->warning('No database found in backup');
+    }
+
+    /**
+     * Restore config files from backup.
+     */
+    private function restoreConfigFromBackup(string $tempDir): void
+    {
+        // Restore .env.local
+        $envLocal = $tempDir . '/.env.local';
+        if (file_exists($envLocal)) {
+            $this->filesystem->copy($envLocal, $this->project_dir . '/.env.local', true);
+        }
+
+        // Restore config/parameters.yaml
+        $parametersYaml = $tempDir . '/config/parameters.yaml';
+        if (file_exists($parametersYaml)) {
+            $this->filesystem->copy($parametersYaml, $this->project_dir . '/config/parameters.yaml', true);
+        }
+
+        // Restore config/banner.md
+        $bannerMd = $tempDir . '/config/banner.md';
+        if (file_exists($bannerMd)) {
+            $this->filesystem->copy($bannerMd, $this->project_dir . '/config/banner.md', true);
+        }
+    }
+
+    /**
+     * Restore attachments from backup.
+     */
+    private function restoreAttachmentsFromBackup(string $tempDir): void
+    {
+        // Restore public/media
+        $publicMedia = $tempDir . '/public/media';
+        if (is_dir($publicMedia)) {
+            $this->filesystem->mirror($publicMedia, $this->project_dir . '/public/media', null, ['override' => true]);
+        }
+
+        // Restore uploads
+        $uploads = $tempDir . '/uploads';
+        if (is_dir($uploads)) {
+            $this->filesystem->mirror($uploads, $this->project_dir . '/uploads', null, ['override' => true]);
+        }
     }
 
     /**

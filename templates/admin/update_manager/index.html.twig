@@ -342,6 +342,7 @@
                                             <th>{% trans %}update_manager.date{% endtrans %}</th>
                                             <th>{% trans %}update_manager.file{% endtrans %}</th>
                                             <th>{% trans %}update_manager.size{% endtrans %}</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -354,10 +355,30 @@
                                                 <td class="text-muted small">
                                                     {{ (backup.size / 1024 / 1024)|number_format(1) }} MB
                                                 </td>
+                                                <td class="text-end">
+                                                    {% if status.can_auto_update and validation.valid %}
+                                                        <form action="{{ path('admin_update_manager_restore') }}" method="post" class="d-inline"
+                                                              data-controller="backup-restore"
+                                                              data-backup-restore-filename-value="{{ backup.file }}"
+                                                              data-backup-restore-date-value="{{ backup.date|date('Y-m-d H:i') }}"
+                                                              data-backup-restore-confirm-title-value="{{ 'update_manager.restore_confirm_title'|trans }}"
+                                                              data-backup-restore-confirm-message-value="{{ 'update_manager.restore_confirm_message'|trans }}"
+                                                              data-backup-restore-confirm-warning-value="{{ 'update_manager.restore_confirm_warning'|trans }}">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token('update_manager_restore') }}">
+                                                            <input type="hidden" name="filename" value="{{ backup.file }}">
+                                                            <input type="hidden" name="restore_database" value="1">
+                                                            <button type="submit"
+                                                                class="btn btn-sm btn-outline-warning"
+                                                                title="{% trans %}update_manager.restore_backup{% endtrans %}">
+                                                                <i class="fas fa-undo"></i>
+                                                            </button>
+                                                        </form>
+                                                    {% endif %}
+                                                </td>
                                             </tr>
                                         {% else %}
                                             <tr>
-                                                <td colspan="3" class="text-center text-muted py-3">
+                                                <td colspan="4" class="text-center text-muted py-3">
                                                     {% trans %}update_manager.no_backups_found{% endtrans %}
                                                 </td>
                                             </tr>

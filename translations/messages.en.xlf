@@ -14994,5 +14994,29 @@ Buerklin-API Authentication server:
         <target>WARNING: This version does not include the Update Manager. After downgrading, you will need to update manually using the command line (git checkout, composer install, etc.).</target>
       </segment>
     </unit>
+    <unit id="um_restore_backup" name="update_manager.restore_backup">
+      <segment state="translated">
+        <source>update_manager.restore_backup</source>
+        <target>Restore backup</target>
+      </segment>
+    </unit>
+    <unit id="um_restore_confirm_title" name="update_manager.restore_confirm_title">
+      <segment state="translated">
+        <source>update_manager.restore_confirm_title</source>
+        <target>Restore from Backup</target>
+      </segment>
+    </unit>
+    <unit id="um_restore_confirm_message" name="update_manager.restore_confirm_message">
+      <segment state="translated">
+        <source>update_manager.restore_confirm_message</source>
+        <target>Are you sure you want to restore your database from this backup?</target>
+      </segment>
+    </unit>
+    <unit id="um_restore_confirm_warning" name="update_manager.restore_confirm_warning">
+      <segment state="translated">
+        <source>update_manager.restore_confirm_warning</source>
+        <target>WARNING: This will overwrite your current database with the backup data. This action cannot be undone! Make sure you have a current backup before proceeding.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
