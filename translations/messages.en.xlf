@@ -14988,5 +14988,11 @@ Buerklin-API Authentication server:
         <target>Are you sure you want to downgrade Part-DB? This will revert to an older version. A backup will be created before the downgrade.</target>
       </segment>
     </unit>
+    <unit id="um_downgrade_removes_update_manager" name="update_manager.downgrade_removes_update_manager">
+      <segment state="translated">
+        <source>update_manager.downgrade_removes_update_manager</source>
+        <target>WARNING: This version does not include the Update Manager. After downgrading, you will need to update manually using the command line (git checkout, composer install, etc.).</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
