@@ -133,7 +133,13 @@
                         </div>
 
                         {% if status.update_available and status.can_auto_update and validation.valid %}
-                            <form action="{{ path('admin_update_manager_start') }}" method="post" onsubmit="return confirmVersionChange('{{ status.latest_tag }}', false);">
+                            <form action="{{ path('admin_update_manager_start') }}" method="post"
+                                  data-controller="update-confirm"
+                                  data-update-confirm-is-downgrade-value="false"
+                                  data-update-confirm-target-version-value="{{ status.latest_tag }}"
+                                  data-update-confirm-confirm-update-value="{{ 'update_manager.confirm_update'|trans }}"
+                                  data-update-confirm-confirm-downgrade-value="{{ 'update_manager.confirm_downgrade'|trans }}"
+                                  data-update-confirm-downgrade-warning-value="{{ 'update_manager.downgrade_removes_update_manager'|trans }}">
                                 <input type="hidden" name="_token" value="{{ csrf_token('update_manager_start') }}">
                                 <input type="hidden" name="version" value="{{ status.latest_tag }}">
 
@@ -237,7 +243,12 @@
                                                 </a>
                                                 {% if release.version != status.current_version and status.can_auto_update and validation.valid %}
                                                     <form action="{{ path('admin_update_manager_start') }}" method="post" class="d-inline"
-                                                          onsubmit="return confirmVersionChange('{{ release.tag }}', {{ release.version < status.current_version ? 'true' : 'false' }});">
+                                                          data-controller="update-confirm"
+                                                          data-update-confirm-is-downgrade-value="{{ release.version < status.current_version ? 'true' : 'false' }}"
+                                                          data-update-confirm-target-version-value="{{ release.tag }}"
+                                                          data-update-confirm-confirm-update-value="{{ 'update_manager.confirm_update'|trans }}"
+                                                          data-update-confirm-confirm-downgrade-value="{{ 'update_manager.confirm_downgrade'|trans }}"
+                                                          data-update-confirm-downgrade-warning-value="{{ 'update_manager.downgrade_removes_update_manager'|trans }}">
                                                         <input type="hidden" name="_token" value="{{ csrf_token('update_manager_start') }}">
                                                         <input type="hidden" name="version" value="{{ release.tag }}">
                                                         <input type="hidden" name="backup" value="1">
@@ -371,37 +382,4 @@
         </div>
     {% endif %}
 </div>
-
-<script>
-// Version where Update Manager was introduced
-const UPDATE_MANAGER_MIN_VERSION = '2.6.0';
-
-function confirmVersionChange(targetVersion, isDowngrade) {
-    const targetClean = targetVersion.replace(/^v/, '');
-
-    if (isDowngrade) {
-        // Check if downgrading to a version without Update Manager
-        if (compareVersions(targetClean, UPDATE_MANAGER_MIN_VERSION) < 0) {
-            return confirm(
-                '{% trans %}update_manager.confirm_downgrade{% endtrans %}\n\n' +
-                '⚠️ {% trans %}update_manager.downgrade_removes_update_manager{% endtrans %}'
-            );
-        }
-        return confirm('{% trans %}update_manager.confirm_downgrade{% endtrans %}');
-    }
-    return confirm('{% trans %}update_manager.confirm_update{% endtrans %}');
-}
-
-function compareVersions(v1, v2) {
-    const parts1 = v1.split('.').map(Number);
-    const parts2 = v2.split('.').map(Number);
-    for (let i = 0; i < Math.max(parts1.length, parts2.length); i++) {
-        const p1 = parts1[i] || 0;
-        const p2 = parts2[i] || 0;
-        if (p1 < p2) return -1;
-        if (p1 > p2) return 1;
-    }
-    return 0;
-}
-</script>
 {% endblock %}
