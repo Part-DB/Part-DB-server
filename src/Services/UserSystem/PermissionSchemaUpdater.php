@@ -157,4 +157,21 @@ class PermissionSchemaUpdater
             $permissions->setPermissionValue('system', 'show_updates', $new_value);
         }
     }
+
+    private function upgradeSchemaToVersion4(HasPermissionsInterface $holder): void //@phpstan-ignore-line This is called via reflection
+    {
+        $permissions = $holder->getPermissions();
+
+        //If the system.manage_updates permission is not defined yet, set it to true if the user can show updates AND has server_infos permission
+        //This ensures that admins who can view updates and server info can also manage (execute) updates
+        if (!$permissions->isPermissionSet('system', 'manage_updates')) {
+
+            $new_value = TrinaryLogicHelper::and(
+                $permissions->getPermissionValue('system', 'show_updates'),
+                $permissions->getPermissionValue('system', 'server_infos')
+            );
+
+            $permissions->setPermissionValue('system', 'manage_updates', $new_value);
+        }
+    }
 }
