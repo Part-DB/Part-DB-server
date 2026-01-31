@@ -100,6 +100,10 @@ enum ConradShopIDs: string implements TranslatableInterface
      */
     public function getShopID(): string
     {
+        if ($this === self::CH_B2C_FR || $this === self::CH_B2C_DE) {
+            return 'CQ_CH_B2C';
+        }
+
         return $this->value;
     }
 

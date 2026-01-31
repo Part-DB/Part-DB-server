@@ -53,5 +53,6 @@ class ConradSettings
     )]
     public ConradShopIDs $shopID = ConradShopIDs::COM_B2B;
 
+    #[SettingsParameter(label: new TM("settings.ips.reichelt.include_vat"))]
     public bool $includeVAT = true;
 }

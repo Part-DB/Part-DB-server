@@ -26,6 +26,8 @@ namespace App\Services\InfoProviderSystem\Providers;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\ConradSettings;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -34,9 +36,18 @@ readonly class ConradProvider implements InfoProviderInterface
 {
 
     private const SEARCH_ENDPOINT = '/search/1/v3/facetSearch';
+    public const DISTRIBUTOR_NAME = 'Conrad';
 
-    public function __construct(private HttpClientInterface $httpClient, private ConradSettings $settings)
+    private HttpClientInterface $httpClient;
+
+    public function __construct( HttpClientInterface $httpClient, private ConradSettings $settings)
     {
+        //We want everything in JSON
+        $this->httpClient = $httpClient->withOptions([
+            'headers' => [
+                'Accept' => 'application/json',
+            ],
+        ]);
     }
 
     public function getProviderInfo(): array
@@ -76,6 +87,44 @@ readonly class ConradProvider implements InfoProviderInterface
         return null;
     }
 
+    public function searchByKeyword(string $keyword): array
+    {
+        $url = $this->settings->shopID->getAPIRoot() . self::SEARCH_ENDPOINT . '/'
+            . $this->settings->shopID->getDomainEnd() . '/' . $this->settings->shopID->getLanguage()
+            . '/' . $this->settings->shopID->getCustomerType();
+
+        $response = $this->httpClient->request('POST', $url, [
+            'query' => [
+                'apikey' => $this->settings->apiKey,
+            ],
+            'json' => [
+                'query' => $keyword,
+                'size' => 50,
+                'sort' => [["field"=>"_score","order"=>"desc"]],
+            ],
+        ]);
+
+        $out = [];
+        $results = $response->toArray();
+
+        foreach($results['hits'] as $result) {
+
+            $out[] = new SearchResultDTO(
+                provider_key: $this->getProviderKey(),
+                provider_id: $result['productId'],
+                name: $result['title'],
+                description: '',
+                manufacturer: $result['brand']['name'] ?? null,
+                mpn: $result['manufacturerId'] ??  null,
+                preview_image_url: $result['image'] ?? null,
+                provider_url: $this->getProductUrl($result['productId']),
+                footprint: $this->getFootprintFromTechnicalDetails($result['technicalDetails'] ?? []),
+            );
+        }
+
+        return $out;
+    }
+
     private function getFootprintFromTechnicalAttributes(array $technicalDetails): ?string
     {
         foreach ($technicalDetails as $detail) {
@@ -87,6 +136,10 @@ readonly class ConradProvider implements InfoProviderInterface
         return null;
     }
 
+    /**
+     * @param  array  $technicalAttributes
+     * @return array<ParameterDTO>
+     */
     private function technicalAttributesToParameters(array $technicalAttributes): array
     {
         return array_map(static function (array $p) {
@@ -139,6 +192,10 @@ readonly class ConradProvider implements InfoProviderInterface
         }, $technicalAttributes);
     }
 
+    /**
+     * @param  array  $productMedia
+     * @return array<FileDTO>
+     */
     public function productMediaToDatasheets(array $productMedia): array
     {
         $files = [];
@@ -149,42 +206,70 @@ readonly class ConradProvider implements InfoProviderInterface
         return $files;
     }
 
-    public function searchByKeyword(string $keyword): array
-    {
-        $url = $this->settings->shopID->getAPIRoot() . self::SEARCH_ENDPOINT . '/'
-            . $this->settings->shopID->getDomainEnd() . '/' . $this->settings->shopID->getLanguage()
-            . '/' . $this->settings->shopID->getCustomerType();
 
-        $response = $this->httpClient->request('POST', $url, [
+    /**
+     * Queries prices for a given product ID. It makes a POST request to the Conrad API
+     * @param  string  $productId
+     * @return PurchaseInfoDTO
+     */
+    private function queryPrices(string $productId): PurchaseInfoDTO
+    {
+        $priceQueryURL = $this->settings->shopID->getAPIRoot() . '/price-availability/4/'
+            . $this->settings->shopID->getShopID() . '/facade';
+
+        $response = $this->httpClient->request('POST', $priceQueryURL, [
             'query' => [
                 'apikey' => $this->settings->apiKey,
+                'overrideCalculationSchema' => $this->settings->includeVAT ? 'GROSS' : 'NET'
             ],
             'json' => [
-                'query' => $keyword,
-                'size' => 50,
-                'sort' => [["field"=>"_score","order"=>"desc"]],
-            ],
+                'ns:inputArticleItemList' => [
+                    "#namespaces" => [
+                        "ns" => "http://www.conrad.de/ccp/basit/service/article/priceandavailabilityservice/api"
+                    ],
+                    'articles' => [
+                        [
+                            "articleID" => $productId,
+                            "calculatePrice" => true,
+                            "checkAvailability" => true,
+                        ],
+                    ]
+                ]
+            ]
         ]);
 
-        $out = [];
-        $results = $response->toArray();
+        $result = $response->toArray();
 
-        foreach($results['hits'] as $result) {
+        $priceInfo = $result['priceAndAvailabilityFacadeResponse']['priceAndAvailability']['price'] ?? [];
+        $price = $priceInfo['price'] ?? "0.0";
+        $currency = $priceInfo['currency'] ?? "EUR";
+        $includesVat = $priceInfo['isGrossAmount'] === "true" ?? true;
+        $minOrderAmount = $result['priceAndAvailabilityFacadeResponse']['priceAndAvailability']['availabilityStatus']['minimumOrderQuantity'] ?? 1;
 
-            $out[] = new SearchResultDTO(
-                provider_key: $this->getProviderKey(),
-                provider_id: $result['productId'],
-                name: $result['title'],
-                description: '',
-                manufacturer: $result['brand']['name'] ?? null,
-                mpn: $result['manufacturerId'] ??  null,
-                preview_image_url: $result['image'] ?? null,
-                provider_url: $this->getProductUrl($result['productId']),
-                footprint: $this->getFootprintFromTechnicalDetails($result['technicalDetails'] ?? []),
+        $prices = [];
+        foreach ($priceInfo['priceScale'] as $priceScale) {
+            $prices[] = new PriceDTO(
+                minimum_discount_amount: max($priceScale['scaleFrom'], $minOrderAmount),
+                price: (string)$priceScale['pricePerUnit'],
+                currency_iso_code: $currency,
+                includes_tax: $includesVat
+            );
+        }
+        if (empty($prices)) { //Fallback if no price scales are defined
+            $prices[] = new PriceDTO(
+                minimum_discount_amount: $minOrderAmount,
+                price: (string)$price,
+                currency_iso_code: $currency,
+                includes_tax: $includesVat
             );
         }
 
-        return $out;
+        return new PurchaseInfoDTO(
+            distributor_name: self::DISTRIBUTOR_NAME,
+            order_number: $productId,
+            prices: $prices,
+            product_url: $this->getProductUrl($productId)
+        );
     }
 
     public function getDetails(string $id): PartDetailDTO
@@ -212,7 +297,8 @@ readonly class ConradProvider implements InfoProviderInterface
             footprint: $this->getFootprintFromTechnicalAttributes($data['productFullInformation']['technicalAttributes'] ?? []),
             notes: $data['productFullInformation']['description'] ?? null,
             datasheets: $this->productMediaToDatasheets($data['productMedia'] ?? []),
-            parameters: $this->technicalAttributesToParameters($data['productFullInformation']['technicalAttributes'] ?? [])
+            parameters: $this->technicalAttributesToParameters($data['productFullInformation']['technicalAttributes'] ?? []),
+            vendor_infos: [$this->queryPrices($data['shortProductNumber'])]
         );
     }
 
