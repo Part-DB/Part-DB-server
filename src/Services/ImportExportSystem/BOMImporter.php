@@ -277,8 +277,11 @@ class BOMImporter
         // Fetch suppliers once for efficiency
         $suppliers = $this->entityManager->getRepository(\App\Entity\Parts\Supplier::class)->findAll();
         $supplierSPNKeys = [];
+        $suppliersByName = []; // Map supplier names to supplier objects
         foreach ($suppliers as $supplier) {
-            $supplierSPNKeys[] = $supplier->getName() . ' SPN';
+            $supplierName = $supplier->getName();
+            $supplierSPNKeys[] = $supplierName . ' SPN';
+            $suppliersByName[$supplierName] = $supplier;
         }
 
         foreach ($csv->getRecords() as $offset => $entry) {
@@ -353,6 +356,41 @@ class BOMImporter
                     $part = $existingPart;
                     // Update name with actual part name
                     $name = $existingPart->getName();
+                }
+            }
+
+            // Try to link existing part based on supplier part number if no Part-DB ID is given
+            if ($part === null) {
+                // Check all available supplier SPN fields
+                foreach ($suppliersByName as $supplierName => $supplier) {
+                    $supplier_spn = null;
+
+                    if (isset($mapped_entry[$supplierName . ' SPN']) && !empty(trim($mapped_entry[$supplierName . ' SPN']))) {
+                        $supplier_spn = trim($mapped_entry[$supplierName . ' SPN']);
+                    }
+
+                    if ($supplier_spn !== null) {
+                        // Query for orderdetails with matching supplier and SPN
+                        $orderdetail = $this->entityManager->getRepository(\App\Entity\PriceInformations\Orderdetail::class)
+                            ->findOneBy([
+                                'supplier' => $supplier,
+                                'supplierpartnr' => $supplier_spn,
+                            ]);
+
+                        if ($orderdetail !== null && $orderdetail->getPart() !== null) {
+                            $part = $orderdetail->getPart();
+                            $name = $part->getName(); // Update name with actual part name
+
+                            $this->logger->info('Linked BOM entry to existing part via supplier SPN', [
+                                'supplier' => $supplierName,
+                                'supplier_spn' => $supplier_spn,
+                                'part_id' => $part->getID(),
+                                'part_name' => $part->getName(),
+                            ]);
+
+                            break; // Stop searching once a match is found
+                        }
+                    }
                 }
             }
 
