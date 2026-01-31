@@ -31,7 +31,8 @@ enum ConradShopIDs: string implements TranslatableInterface
     case COM_B2B = 'HP_COM_B2B';
     case DE_B2B = 'CQ_DE_B2B';
     case AT_B2C = 'CQ_AT_B2C';
-    case CH_B2C = 'CQ_CH_B2C';
+    case CH_B2C_DE = 'CQ_CH_B2C_DE';
+    case CH_B2C_FR = 'CQ_CH_B2C_FR';
     case SE_B2B = 'HP_SE_B2B';
     case HU_B2C = 'CQ_HU_B2C';
     case CZ_B2B = 'HP_CZ_B2B';
@@ -54,7 +55,8 @@ enum ConradShopIDs: string implements TranslatableInterface
         return match ($this) {
             self::DE_B2B => "conrad.de (B2B)",
             self::AT_B2C => "conrad.at (B2C)",
-            self::CH_B2C => "conrad.ch (B2C)",
+            self::CH_B2C_DE => "conrad.ch DE (B2C)",
+            self::CH_B2C_FR => "conrad.ch FR (B2C)",
             self::SE_B2B => "conrad.se (B2B)",
             self::HU_B2C => "conrad.hu (B2C)",
             self::CZ_B2B => "conrad.cz (B2B)",
@@ -64,7 +66,7 @@ enum ConradShopIDs: string implements TranslatableInterface
             self::DE_B2C => "conrad.de (B2C)",
             self::PL_B2B => "conrad.pl (B2B)",
             self::NL_B2B => "conrad.nl (B2B)",
-            self::DK_B2B => "conrad.dk (B2B)",
+            self::DK_B2B => "conradelektronik.dk (B2B)",
             self::IT_B2B => "conrad.it (B2B)",
             self::NL_B2C => "conrad.nl (B2C)",
             self::FR_B2B => "conrad.fr (B2B)",
@@ -76,6 +78,10 @@ enum ConradShopIDs: string implements TranslatableInterface
 
     public function getDomain(): string
     {
+        if ($this === self::DK_B2B) {
+            return 'conradelektronik.dk';
+        }
+
         return 'conrad.' . $this->getDomainEnd();
     }
 
@@ -102,7 +108,7 @@ enum ConradShopIDs: string implements TranslatableInterface
         return match ($this) {
             self::DE_B2B, self::DE_B2C => 'de',
             self::AT_B2B, self::AT_B2C => 'at',
-            self::CH_B2C => 'ch',
+            self::CH_B2C_DE => 'ch', self::CH_B2C_FR => 'ch',
             self::SE_B2B => 'se',
             self::HU_B2C => 'hu',
             self::CZ_B2B => 'cz',
@@ -123,7 +129,7 @@ enum ConradShopIDs: string implements TranslatableInterface
     {
         return match ($this) {
             self::DE_B2B, self::DE_B2C, self::AT_B2B, self::AT_B2C => 'de',
-            self::CH_B2C => 'de',
+            self::CH_B2C_DE => 'de', self::CH_B2C_FR => 'fr',
             self::SE_B2B => 'sv',
             self::HU_B2C => 'hu',
             self::CZ_B2B => 'cs',
@@ -150,7 +156,7 @@ enum ConradShopIDs: string implements TranslatableInterface
             self::DE_B2B, self::AT_B2B, self::SE_B2B, self::CZ_B2B, self::SI_B2B,
             self::SK_B2B, self::BE_B2B, self::PL_B2B, self::NL_B2B, self::DK_B2B,
             self::IT_B2B, self::FR_B2B, self::COM_B2B, self::HR_B2B => 'b2b',
-            self::DE_B2C, self::AT_B2C, self::CH_B2C, self::HU_B2C, self::NL_B2C => 'b2c',
+            self::DE_B2C, self::AT_B2C, self::CH_B2C_DE, self::CH_B2C_FR, self::HU_B2C, self::NL_B2C => 'b2c',
         };
     }
 }
