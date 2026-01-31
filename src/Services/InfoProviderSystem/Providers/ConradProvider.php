@@ -295,6 +295,7 @@ readonly class ConradProvider implements InfoProviderInterface
             provider_id: $data['shortProductNumber'],
             name: $data['productFullInformation']['manufacturer']['name'] ?? $data['productFullInformation']['manufacturer']['id']  ?? $data['shortProductNumber'],
             description: $data['productShortInformation']['title'] ?? '',
+            category: $data['productShortInformation']['articleGroupName'] ?? null,
             manufacturer: $data['brand']['displayName'] !== null ? preg_replace("/[\u{2122}\u{00ae}]/", "", $data['brand']['displayName']) : null, //Replace ™ and ® symbols
             mpn: $data['productFullInformation']['manufacturer']['id'] ?? null,
             preview_image_url: $data['productShortInformation']['mainImage']['imageUrl'] ?? null,
