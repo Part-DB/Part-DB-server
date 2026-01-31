@@ -50,6 +50,7 @@ class ConradSettings
     public ?string $apiKey = null;
 
     #[SettingsParameter(label: new TM("settings.ips.conrad.shopID"),
+        description: new TM("settings.ips.conrad.shopID.description"),
         formType: EnumType::class,
         formOptions: ['class' => ConradShopIDs::class],
     )]
@@ -64,7 +65,8 @@ class ConradSettings
     #[Assert\Unique()]
     #[Assert\All([new Assert\Language()])]
     #[SettingsParameter(type: ArrayType::class,
-        label: new TM("settings.ips.conrad.attachment_language_filter"), options: ['type' => StringType::class],
+        label: new TM("settings.ips.conrad.attachment_language_filter"), description: new TM("settings.ips.conrad.attachment_language_filter.description"),
+        options: ['type' => StringType::class],
         formType: LanguageType::class,
         formOptions: [
             'multiple' => true,
