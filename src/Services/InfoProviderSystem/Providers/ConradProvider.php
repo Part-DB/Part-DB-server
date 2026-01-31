@@ -89,16 +89,54 @@ readonly class ConradProvider implements InfoProviderInterface
 
     private function technicalAttributesToParameters(array $technicalAttributes): array
     {
-        $parameters = [];
-        foreach ($technicalAttributes as $attribute) {
-            if ($attribute['multiValue'] ?? false === true) {
-                throw new \LogicException('Multi value attributes are not supported yet');
-            }
-            $parameters[] = ParameterDTO::parseValueField($attribute['attributeName'],
-                $attribute['values'][0]['value'], $attribute['values'][0]['unit']['name'] ?? null);
-        }
+        return array_map(static function (array $p) {
+            if (count($p['values']) === 1) { //Single value attribute
+                if (array_key_exists('unit', $p['values'][0])) {
+                    return ParameterDTO::parseValueField( //With unit
+                        name: $p['attributeName'],
+                        value: $p['values'][0]['value'],
+                        unit: $p['values'][0]['unit']['name'],
+                    );
+                }
 
-        return $parameters;
+                return ParameterDTO::parseValueIncludingUnit(
+                    name: $p['attributeName'],
+                    value: $p['values'][0]['value'],
+                );
+            }
+
+            if (count($p['values']) === 2) { //Multi value attribute (e.g. min/max)
+                $value  = $p['values'][0]['value'] ?? null;
+                $value2 = $p['values'][1]['value'] ?? null;
+                $unit   = $p['values'][0]['unit']['name'] ?? '';
+                $unit2  = $p['values'][1]['unit']['name'] ?? '';
+                if ($unit === $unit2 && is_numeric($value) && is_numeric($value2)) {
+                    if (array_key_exists('unit', $p['values'][0])) { //With unit
+                        return new ParameterDTO(
+                            name: $p['attributeName'],
+                            value_min: (float)$value,
+                            value_max:  (float)$value2,
+                            unit: $unit,
+                        );
+                    }
+
+                    return new ParameterDTO(
+                        name: $p['attributeName'],
+                        value_min: (float)$value,
+                        value_max: (float)$value2,
+                    );
+                }
+            }
+
+            // fallback implementation
+            $values = implode(", ", array_map(fn($q) =>
+            array_key_exists('unit', $q) ?  $q['value']." ". $q['unit'] : $q['value']
+                , $p['values']));
+            return ParameterDTO::parseValueIncludingUnit(
+                name: $p['attributeName'],
+                value: $values,
+            );
+        }, $technicalAttributes);
     }
 
     public function productMediaToDatasheets(array $productMedia): array
