@@ -30,6 +30,7 @@ enum ConradShopIDs: string implements TranslatableInterface
 {
     case COM_B2B = 'HP_COM_B2B';
     case DE_B2B = 'CQ_DE_B2B';
+    case DE_B2C = 'CQ_DE_B2C';
     case AT_B2C = 'CQ_AT_B2C';
     case CH_B2C_DE = 'CQ_CH_B2C_DE';
     case CH_B2C_FR = 'CQ_CH_B2C_FR';
@@ -39,12 +40,12 @@ enum ConradShopIDs: string implements TranslatableInterface
     case SI_B2B = 'HP_SI_B2B';
     case SK_B2B = 'HP_SK_B2B';
     case BE_B2B = 'HP_BE_B2B';
-    case DE_B2C = 'CQ_DE_B2C';
     case PL_B2B = 'HP_PL_B2B';
     case NL_B2B = 'CQ_NL_B2B';
+    case NL_B2C = 'CQ_NL_B2C';
     case DK_B2B = 'HP_DK_B2B';
     case IT_B2B = 'HP_IT_B2B';
-    case NL_B2C = 'CQ_NL_B2C';
+
     case FR_B2B = 'HP_FR_B2B';
     case AT_B2B = 'CQ_AT_B2B';
     case HR_B2B = 'HP_HR_B2B';
