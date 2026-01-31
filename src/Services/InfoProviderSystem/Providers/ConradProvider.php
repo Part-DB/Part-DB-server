@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\Providers;
 
+use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
@@ -100,6 +101,16 @@ readonly class ConradProvider implements InfoProviderInterface
         return $parameters;
     }
 
+    public function productMediaToDatasheets(array $productMedia): array
+    {
+        $files = [];
+        foreach ($productMedia['manuals'] as $manual) {
+            $files[] = new FileDTO($manual['fullUrl'], $manual['title'] . ' (' . $manual['language'] . ')');
+        }
+
+        return $files;
+    }
+
     public function searchByKeyword(string $keyword): array
     {
         $url = $this->settings->shopID->getAPIRoot() . self::SEARCH_ENDPOINT . '/'
@@ -112,7 +123,8 @@ readonly class ConradProvider implements InfoProviderInterface
             ],
             'json' => [
                 'query' => $keyword,
-                'size' => 25,
+                'size' => 50,
+                'sort' => [["field"=>"_score","order"=>"desc"]],
             ],
         ]);
 
@@ -161,14 +173,18 @@ readonly class ConradProvider implements InfoProviderInterface
             provider_url: $this->getProductUrl($data['shortProductNumber']),
             footprint: $this->getFootprintFromTechnicalAttributes($data['productFullInformation']['technicalAttributes'] ?? []),
             notes: $data['productFullInformation']['description'] ?? null,
-            parameters: $this->technicalAttributesToParameters($data['productFullInformation']['technicalAttributes'] ?? []),
+            datasheets: $this->productMediaToDatasheets($data['productMedia'] ?? []),
+            parameters: $this->technicalAttributesToParameters($data['productFullInformation']['technicalAttributes'] ?? [])
         );
     }
 
     public function getCapabilities(): array
     {
-        return [ProviderCapabilities::BASIC,
+        return [
+            ProviderCapabilities::BASIC,
             ProviderCapabilities::PICTURE,
-            ProviderCapabilities::PRICE,];
+            ProviderCapabilities::DATASHEET,
+            ProviderCapabilities::PRICE,
+        ];
     }
 }
