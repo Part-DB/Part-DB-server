@@ -53,7 +53,10 @@ class UpdateExecutor
         private readonly LoggerInterface $logger, private readonly Filesystem $filesystem,
         private readonly InstallationTypeDetector $installationTypeDetector,
         private readonly VersionManagerInterface $versionManager,
-        private readonly EntityManagerInterface $entityManager)
+        private readonly EntityManagerInterface $entityManager,
+        #[Autowire(param: 'app.debug_mode')]
+        private readonly bool $debugMode = false
+    )
     {
 
     }
@@ -361,13 +364,23 @@ class UpdateExecutor
 
             // Step 7: Install dependencies
             $stepStart = microtime(true);
-            $this->runCommand([
-                'composer', 'install',
-                '--no-dev',
-                '--optimize-autoloader',
-                '--no-interaction',
-                '--no-progress',
-            ], 'Install dependencies', 600);
+            if ($this->debugMode) {
+                $this->runCommand([ //Install with dev dependencies in debug mode
+                    'composer',
+                    'install',
+                    '--no-interaction',
+                    '--no-progress',
+                ], 'Install dependencies', 600);
+            } else {
+                $this->runCommand([
+                    'composer',
+                    'install',
+                    '--no-dev',
+                    '--optimize-autoloader',
+                    '--no-interaction',
+                    '--no-progress',
+                ], 'Install dependencies', 600);
+            }
             $log('composer', 'Installed/updated dependencies', true, microtime(true) - $stepStart);
 
             // Step 8: Run database migrations
