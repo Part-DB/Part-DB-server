@@ -63,7 +63,10 @@ class InfoProviderSettings
 
     #[EmbeddedSettings]
     public ?PollinSettings $pollin = null;
-    
+
     #[EmbeddedSettings]
     public ?BuerklinSettings $buerklin = null;
+
+    #[EmbeddedSettings]
+    public ?ConradSettings $conrad = null;
 }

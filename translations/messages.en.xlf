@@ -9928,13 +9928,13 @@ Element 1 -> Element 1.2]]></target>
     <unit id="NdZ1t7a" name="project.builds.number_of_builds_possible">
       <segment state="translated">
         <source>project.builds.number_of_builds_possible</source>
-        <target>You have enough stocked to build &lt;b&gt;%max_builds%&lt;/b&gt; builds of this [project].</target>
+        <target><![CDATA[You have enough stocked to build <b>%max_builds%</b> builds of this [project].]]></target>
       </segment>
     </unit>
     <unit id="iuSpPbg" name="project.builds.check_project_status">
       <segment state="translated">
         <source>project.builds.check_project_status</source>
-        <target>The current [project] status is &lt;b&gt;"%project_status%"&lt;/b&gt;. You should check if you really want to build the [project] with this status!</target>
+        <target><![CDATA[The current [project] status is <b>"%project_status%"</b>. You should check if you really want to build the [project] with this status!]]></target>
       </segment>
     </unit>
     <unit id="Y7vSSxi" name="project.builds.following_bom_entries_miss_instock_n">
@@ -14284,6 +14284,36 @@ Buerklin-API Authentication server:
       <segment state="translated">
         <source>info_providers.search.error.transport_exception</source>
         <target>Transport error while retrieving information from the providers. Check that your server has internet accesss. See server logs for more info.</target>
+      </segment>
+    </unit>
+    <unit id="kHKChQB" name="settings.ips.conrad">
+      <segment>
+        <source>settings.ips.conrad</source>
+        <target>Conrad</target>
+      </segment>
+    </unit>
+    <unit id="gwZXJ0F" name="settings.ips.conrad.shopID">
+      <segment>
+        <source>settings.ips.conrad.shopID</source>
+        <target>Shop ID</target>
+      </segment>
+    </unit>
+    <unit id="honqnBf" name="settings.ips.conrad.shopID.description">
+      <segment>
+        <source>settings.ips.conrad.shopID.description</source>
+        <target>The version of the conrad store you wanna get results from. This determines language, prices and currency of the results. If both a B2B and a B2C version if available, you should choose the B2C version if you want prices including VAT. </target>
+      </segment>
+    </unit>
+    <unit id="EVcQbEK" name="settings.ips.conrad.attachment_language_filter">
+      <segment>
+        <source>settings.ips.conrad.attachment_language_filter</source>
+        <target>Language filter for attachments</target>
+      </segment>
+    </unit>
+    <unit id="MWPmQf2" name="settings.ips.conrad.attachment_language_filter.description">
+      <segment>
+        <source>settings.ips.conrad.attachment_language_filter.description</source>
+        <target>Only includes attachments in the selected languages in the results.</target>
       </segment>
     </unit>
   </file>

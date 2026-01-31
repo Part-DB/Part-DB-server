@@ -278,6 +278,16 @@ The following env configuration options are available:
 * `PROVIDER_BUERKLIN_CURRENCY`: The currency you want to get prices in if available (optional, 3 letter ISO-code, default: `EUR`).
 * `PROVIDER_BUERKLIN_LANGUAGE`: The language you want to get the descriptions in. Possible values: `de` = German, `en` = English. (optional, default: `en`)
 
+### Conrad
+
+The conrad provider the [Conrad API](https://developer.conrad.com/) to search for parts and retried their information.
+To use it you have to request access to the API, however it seems currently your mail address needs to be allowlisted before you can register for an account.
+The conrad webpages uses the API key in the requests, so you might be able to extract a working API key by listening to browser requests.
+That method is not officially supported nor encouraged by Part-DB, and might break at any moment.
+
+The following env configuration options are available:
+* `PROVIDER_CONRAD_API_KEY`: The API key you got from Conrad (mandatory)
+
 ### Custom provider
 
 To create a custom provider, you have to create a new class implementing the `InfoProviderInterface` interface. As long
