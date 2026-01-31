@@ -112,8 +112,8 @@ readonly class ConradProvider implements InfoProviderInterface
             $out[] = new SearchResultDTO(
                 provider_key: $this->getProviderKey(),
                 provider_id: $result['productId'],
-                name: $result['title'],
-                description: '',
+                name: $result['manufacturerId'] ?? $result['productId'],
+                description: $result['title'] ?? '',
                 manufacturer: $result['brand']['name'] ?? null,
                 mpn: $result['manufacturerId'] ??  null,
                 preview_image_url: $result['image'] ?? null,
@@ -247,7 +247,7 @@ readonly class ConradProvider implements InfoProviderInterface
         $minOrderAmount = $result['priceAndAvailabilityFacadeResponse']['priceAndAvailability']['availabilityStatus']['minimumOrderQuantity'] ?? 1;
 
         $prices = [];
-        foreach ($priceInfo['priceScale'] as $priceScale) {
+        foreach ($priceInfo['priceScale'] ?? [] as $priceScale) {
             $prices[] = new PriceDTO(
                 minimum_discount_amount: max($priceScale['scaleFrom'], $minOrderAmount),
                 price: (string)$priceScale['pricePerUnit'],
@@ -288,9 +288,9 @@ readonly class ConradProvider implements InfoProviderInterface
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
             provider_id: $data['shortProductNumber'],
-            name: $data['productShortInformation']['title'],
-            description: $data['productShortInformation']['shortDescription'] ?? '',
-            manufacturer: $data['brand']['displayName'] ?? null,
+            name: $data['productFullInformation']['manufacturer']['name'] ?? $data['productFullInformation']['manufacturer']['id']  ?? $data['shortProductNumber'],
+            description: $data['productShortInformation']['title'] ?? '',
+            manufacturer: $data['brand']['displayName'] !== null ? preg_replace("/[\u{2122}\u{00ae}]/", "", $data['brand']['displayName']) : null, //Replace ™ and ® symbols
             mpn: $data['productFullInformation']['manufacturer']['id'] ?? null,
             preview_image_url: $data['productShortInformation']['mainImage']['imageUrl'] ?? null,
             provider_url: $this->getProductUrl($data['shortProductNumber']),
