@@ -200,6 +200,11 @@ readonly class ConradProvider implements InfoProviderInterface
     {
         $files = [];
         foreach ($productMedia['manuals'] as $manual) {
+            //Filter out unwanted languages
+            if (!empty($this->settings->attachmentLanguageFilter) && !in_array($manual['language'], $this->settings->attachmentLanguageFilter, true)) {
+                continue;
+            }
+
             $files[] = new FileDTO($manual['fullUrl'], $manual['title'] . ' (' . $manual['language'] . ')');
         }
 

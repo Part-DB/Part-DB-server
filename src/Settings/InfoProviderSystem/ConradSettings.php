@@ -26,6 +26,8 @@ namespace App\Settings\InfoProviderSystem;
 use App\Form\Type\APIKeyType;
 use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
+use Jbtronics\SettingsBundle\ParameterTypes\ArrayType;
+use Jbtronics\SettingsBundle\ParameterTypes\StringType;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
@@ -55,4 +57,19 @@ class ConradSettings
 
     #[SettingsParameter(label: new TM("settings.ips.reichelt.include_vat"))]
     public bool $includeVAT = true;
+
+    /**
+     * @var array|string[] Only attachments in these languages will be downloaded (ISO 639-1 codes)
+     */
+    #[Assert\Unique()]
+    #[Assert\All([new Assert\Language()])]
+    #[SettingsParameter(type: ArrayType::class,
+        label: new TM("settings.ips.conrad.attachment_language_filter"), options: ['type' => StringType::class],
+        formType: LanguageType::class,
+        formOptions: [
+            'multiple' => true,
+            'preferred_choices' => ['en', 'de', 'fr', 'it', 'cs', 'da', 'nl', 'hu', 'hr', 'sk', 'pl']
+        ],
+    )]
+    public array $attachmentLanguageFilter = ['en'];
 }
