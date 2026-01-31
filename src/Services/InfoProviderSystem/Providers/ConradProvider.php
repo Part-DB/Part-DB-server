@@ -248,7 +248,7 @@ readonly class ConradProvider implements InfoProviderInterface
         $priceInfo = $result['priceAndAvailabilityFacadeResponse']['priceAndAvailability']['price'] ?? [];
         $price = $priceInfo['price'] ?? "0.0";
         $currency = $priceInfo['currency'] ?? "EUR";
-        $includesVat = $priceInfo['isGrossAmount'] === "true" ?? true;
+        $includesVat = !$priceInfo['isGrossAmount'] || $priceInfo['isGrossAmount'] === "true";
         $minOrderAmount = $result['priceAndAvailabilityFacadeResponse']['priceAndAvailability']['availabilityStatus']['minimumOrderQuantity'] ?? 1;
 
         $prices = [];
