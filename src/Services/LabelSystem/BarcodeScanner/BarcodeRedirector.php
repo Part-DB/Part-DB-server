@@ -92,7 +92,7 @@ final class BarcodeRedirector
                     throw new EntityNotFoundException();
                 }
 
-                return $this->urlGenerator->generate('app_part_show', ['id' => $lot->getPart()->getID()]);
+                return $this->urlGenerator->generate('app_part_show', ['id' => $lot->getPart()->getID(), 'highlightLot' => $lot->getID()]);
 
             case LabelSupportedElement::STORELOCATION:
                 return $this->urlGenerator->generate('part_list_store_location', ['id' => $barcodeScan->target_id]);

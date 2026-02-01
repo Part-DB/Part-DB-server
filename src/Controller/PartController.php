@@ -135,6 +135,7 @@ final class PartController extends AbstractController
                 'description_params' => $this->partInfoSettings->extractParamsFromDescription ? $parameterExtractor->extractParameters($part->getDescription()) : [],
                 'comment_params' => $this->partInfoSettings->extractParamsFromNotes ? $parameterExtractor->extractParameters($part->getComment()) : [],
                 'withdraw_add_helper' => $withdrawAddHelper,
+                'highlightLotId' => $request->query->getInt('highlightLot', 0),
             ]
         );
     }
