@@ -28,8 +28,9 @@ use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use App\Services\InfoProviderSystem\PartInfoRetriever;
+use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Settings\InfoProviderSystem\GenericWebProviderSettings;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Price;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -40,7 +41,9 @@ class GenericWebProvider implements InfoProviderInterface
 
     private readonly HttpClientInterface $httpClient;
 
-    public function __construct(HttpClientInterface $httpClient, private readonly GenericWebProviderSettings $settings)
+    public function __construct(HttpClientInterface $httpClient, private readonly GenericWebProviderSettings $settings,
+        private readonly ProviderRegistry $providerRegistry, private readonly PartInfoRetriever $infoRetriever,
+    )
     {
         $this->httpClient = $httpClient->withOptions(
             [
@@ -228,6 +231,37 @@ class GenericWebProvider implements InfoProviderInterface
         return null;
     }
 
+    /**
+     * Delegates the URL to another provider if possible, otherwise return null
+     * @param  string  $url
+     * @return PartDetailDTO|null
+     */
+    private function delegateToOtherProvider(string $url): ?PartDetailDTO
+    {
+        //Extract domain from url:
+        $host = parse_url($url, PHP_URL_HOST);
+        if ($host === false || $host === null) {
+            return null;
+        }
+
+        $provider = $this->providerRegistry->getProviderHandlingDomain($host);
+
+        if ($provider !== null && $provider->isActive() && $provider->getProviderKey() !== $this->getProviderKey()) {
+            try {
+                $id = $provider->getIDFromURL($url);
+                if ($id !== null) {
+                    return $this->infoRetriever->getDetails($provider->getProviderKey(), $id);
+                }
+                return null;
+            } catch (ProviderIDNotSupportedException $e) {
+                //Ignore and continue
+                return null;
+            }
+        }
+
+        return null;
+    }
+
     public function getDetails(string $id): PartDetailDTO
     {
         //Add scheme if missing
@@ -245,6 +279,12 @@ class GenericWebProvider implements InfoProviderInterface
             parse_url($url, PHP_URL_HOST) === null ||
             parse_url($url, PHP_URL_PATH) === null) {
             throw new ProviderIDNotSupportedException("The given ID is not a valid URL: ".$id);
+        }
+
+        //Before loading the page, try to delegate to another provider
+        $delegatedPart = $this->delegateToOtherProvider($url);
+        if ($delegatedPart !== null) {
+            return $delegatedPart;
         }
 
         //Try to get the webpage content
