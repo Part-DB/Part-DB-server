@@ -104,6 +104,14 @@ class GenericWebProvider implements InfoProviderInterface
                 $offer = $jsonLd['offers'];
             }
 
+            //Make $jsonLd['url'] absolute if it's relative
+            if (isset($jsonLd['url']) && parse_url($jsonLd['url'], PHP_URL_SCHEME) === null) {
+                $parsedUrl = parse_url($url);
+                $scheme = $parsedUrl['scheme'] ?? 'https';
+                $host = $parsedUrl['host'] ?? '';
+                $jsonLd['url'] = $scheme.'://'.$host.$jsonLd['url'];
+            }
+
             $vendor_infos = [new PurchaseInfoDTO(
                 distributor_name: $this->extractShopName($url),
                 order_number: (string) ($jsonLd['sku'] ?? $jsonLd['@id'] ?? $jsonLd['gtin'] ?? 'Unknown'),
@@ -190,6 +198,14 @@ class GenericWebProvider implements InfoProviderInterface
             $canonicalURL = $dom->filter('link[rel="canonical"]')->attr('href');
         } else if ($dom->filter('meta[property="og:url"]')->count() > 0) {
             $canonicalURL = $dom->filter('meta[property="og:url"]')->attr('content');
+        }
+
+        //If the canonical URL is relative, make it absolute
+        if (parse_url($canonicalURL, PHP_URL_SCHEME) === null) {
+            $parsedUrl = parse_url($url);
+            $scheme = $parsedUrl['scheme'] ?? 'https';
+            $host = $parsedUrl['host'] ?? '';
+            $canonicalURL = $scheme.'://'.$host.$canonicalURL;
         }
 
         //Try to find json-ld data in the head
