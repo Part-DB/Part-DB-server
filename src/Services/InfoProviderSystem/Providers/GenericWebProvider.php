@@ -97,10 +97,17 @@ class GenericWebProvider implements InfoProviderInterface
 
         $vendor_infos = null;
         if (isset($jsonLd['offers'])) {
+
+            if (array_is_list($jsonLd['offers'])) {
+                $offer = $jsonLd['offers'][0];
+            } else {
+                $offer = $jsonLd['offers'];
+            }
+
             $vendor_infos = [new PurchaseInfoDTO(
                 distributor_name: $this->extractShopName($url),
-                order_number: $jsonLd['sku'] ?? $jsonLd['@id'] ?? $jsonLd['gtin'] ?? 'Unknown',
-                prices: [new PriceDTO(minimum_discount_amount: 1, price: (string) $jsonLd['offers']['price'], currency_iso_code: $jsonLd['offers']['priceCurrency'] ?? null)],
+                order_number: (string) ($jsonLd['sku'] ?? $jsonLd['@id'] ?? $jsonLd['gtin'] ?? 'Unknown'),
+                prices: [new PriceDTO(minimum_discount_amount: 1, price: (string) $offer['price'], currency_iso_code: $offer['priceCurrency'] ?? null)],
                 product_url: $jsonLd['url'] ?? $url,
         )];
         }
@@ -189,8 +196,14 @@ class GenericWebProvider implements InfoProviderInterface
         $jsonLdNodes = $dom->filter('script[type="application/ld+json"]');
         foreach ($jsonLdNodes as $node) {
             $jsonLd = $this->json_decode_forgiving($node->textContent);
-            if (isset($jsonLd['@type']) && $jsonLd['@type'] === 'Product') { //If we find a product use that data
-                return $this->productJsonLdToPart($jsonLd, $canonicalURL, $dom);
+            //If the content of json-ld is an array, try to find a product inside
+            if (!array_is_list($jsonLd)) {
+                $jsonLd = [$jsonLd];
+            }
+            foreach ($jsonLd as $item) {
+                if (isset($item['@type']) && $item['@type'] === 'Product') {
+                    return $this->productJsonLdToPart($item, $canonicalURL, $dom);
+                }
             }
         }
 
