@@ -196,6 +196,16 @@ class GenericWebProvider implements InfoProviderInterface
                 price: $price,
                 currency_iso_code: $this->getMetaContent($dom, 'product:price:currency'),
             );
+        } else {
+            //Amazon fallback
+            $amazonAmount = $dom->filter('input[type="hidden"][name*="amount"]');
+            if ($amazonAmount->count() > 0) {
+                $prices[] = new PriceDTO(
+                    minimum_discount_amount: 1,
+                    price: $amazonAmount->first()->attr('value'),
+                    currency_iso_code: $dom->filter('input[type="hidden"][name*="currencyCode"]')->first()->attr('value'),
+                );
+            }
         }
 
         $vendor_infos = [new PurchaseInfoDTO(
