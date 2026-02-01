@@ -30,7 +30,7 @@ use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings(label: new TM("settings.ips.generic_web_provider"), description: new TM("settings.ips.generic_web_provider.description"))]
+#[Settings(name: "generic_web_provider", label: new TM("settings.ips.generic_web_provider"), description: new TM("settings.ips.generic_web_provider.description"))]
 #[SettingsIcon("fa-plug")]
 class GenericWebProviderSettings
 {
