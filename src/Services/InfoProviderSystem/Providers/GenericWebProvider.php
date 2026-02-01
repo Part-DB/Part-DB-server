@@ -27,6 +27,7 @@ use App\Exceptions\ProviderIDNotSupportedException;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use App\Settings\InfoProviderSystem\GenericWebProviderSettings;
 use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Price;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -38,7 +39,7 @@ class GenericWebProvider implements InfoProviderInterface
 
     private readonly HttpClientInterface $httpClient;
 
-    public function __construct(HttpClientInterface $httpClient)
+    public function __construct(HttpClientInterface $httpClient, private readonly GenericWebProviderSettings $settings)
     {
         $this->httpClient = $httpClient->withOptions(
             [
@@ -54,9 +55,10 @@ class GenericWebProvider implements InfoProviderInterface
     {
         return [
             'name' => 'Generic Web URL',
-            'description' => 'Tries to extract a part from a given product',
+            'description' => 'Tries to extract a part from a given product webpage URL using common metadata standards like JSON-LD and OpenGraph.',
             //'url' => 'https://example.com',
-            'disabled_help' => 'Enable in settings to use this provider'
+            'disabled_help' => 'Enable in settings to use this provider',
+            'settings_class' => GenericWebProviderSettings::class,
         ];
     }
 
@@ -67,7 +69,7 @@ class GenericWebProvider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return true;
+        return $this->settings->enabled;
     }
 
     public function searchByKeyword(string $keyword): array
