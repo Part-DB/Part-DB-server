@@ -15018,6 +15018,24 @@ Buerklin-API Authentication server:
         <target>WARNING: This will overwrite your current database with the backup data. This action cannot be undone! Make sure you have a current backup before proceeding.</target>
       </segment>
     </unit>
+    <unit id="um_web_updates_disabled" name="update_manager.web_updates_disabled">
+      <segment state="translated">
+        <source>update_manager.web_updates_disabled</source>
+        <target>Web-based updates are disabled</target>
+      </segment>
+    </unit>
+    <unit id="um_web_updates_disabled_hint" name="update_manager.web_updates_disabled_hint">
+      <segment state="translated">
+        <source>update_manager.web_updates_disabled_hint</source>
+        <target>Web-based updates have been disabled by the server administrator. Please use the CLI command "php bin/console partdb:update" to perform updates.</target>
+      </segment>
+    </unit>
+    <unit id="um_backup_restore_disabled" name="update_manager.backup_restore_disabled">
+      <segment state="translated">
+        <source>update_manager.backup_restore_disabled</source>
+        <target>Backup restore is disabled by server configuration.</target>
+      </segment>
+    </unit>
     <unit id="kHKChQB" name="settings.ips.conrad">
       <segment>
         <source>settings.ips.conrad</source>

@@ -34,6 +34,23 @@
         </div>
     {% endif %}
 
+    {# Web Updates Disabled Warning #}
+    {% if web_updates_disabled %}
+        <div class="alert alert-secondary" role="alert">
+            <i class="fas fa-ban me-2"></i>
+            <strong>{% trans %}update_manager.web_updates_disabled{% endtrans %}</strong>
+            <p class="mb-0 mt-2">{% trans %}update_manager.web_updates_disabled_hint{% endtrans %}</p>
+        </div>
+    {% endif %}
+
+    {# Backup Restore Disabled Warning #}
+    {% if backup_restore_disabled %}
+        <div class="alert alert-secondary" role="alert">
+            <i class="fas fa-ban me-2"></i>
+            <strong>{% trans %}update_manager.backup_restore_disabled{% endtrans %}</strong>
+        </div>
+    {% endif %}
+
     <div class="row">
         {# Current Version Card #}
         <div class="col-lg-6 mb-4">
@@ -132,7 +149,7 @@
                             {% endif %}
                         </div>
 
-                        {% if status.update_available and status.can_auto_update and validation.valid %}
+                        {% if status.update_available and status.can_auto_update and validation.valid and not web_updates_disabled %}
                             <form action="{{ path('admin_update_manager_start') }}" method="post"
                                   data-controller="update-confirm"
                                   data-update-confirm-is-downgrade-value="false"
@@ -241,7 +258,7 @@
                                                    title="{% trans %}update_manager.view_release_notes{% endtrans %}">
                                                     <i class="fas fa-file-alt"></i>
                                                 </a>
-                                                {% if release.version != status.current_version and status.can_auto_update and validation.valid %}
+                                                {% if release.version != status.current_version and status.can_auto_update and validation.valid and not web_updates_disabled %}
                                                     <form action="{{ path('admin_update_manager_start') }}" method="post" class="d-inline"
                                                           data-controller="update-confirm"
                                                           data-update-confirm-is-downgrade-value="{{ release.version < status.current_version ? 'true' : 'false' }}"
@@ -356,7 +373,7 @@
                                                     {{ (backup.size / 1024 / 1024)|number_format(1) }} MB
                                                 </td>
                                                 <td class="text-end">
-                                                    {% if status.can_auto_update and validation.valid %}
+                                                    {% if status.can_auto_update and validation.valid and not backup_restore_disabled %}
                                                         <form action="{{ path('admin_update_manager_restore') }}" method="post" class="d-inline"
                                                               data-controller="backup-restore"
                                                               data-backup-restore-filename-value="{{ backup.file }}"

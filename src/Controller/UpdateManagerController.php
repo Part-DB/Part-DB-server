@@ -27,9 +27,11 @@ use App\Services\System\UpdateChecker;
 use App\Services\System\UpdateExecutor;
 use Shivas\VersioningBundle\Service\VersionManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
@@ -41,11 +43,35 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/admin/update-manager')]
 class UpdateManagerController extends AbstractController
 {
-    public function __construct(private readonly UpdateChecker $updateChecker,
+    public function __construct(
+        private readonly UpdateChecker $updateChecker,
         private readonly UpdateExecutor $updateExecutor,
-        private readonly VersionManagerInterface $versionManager)
-    {
+        private readonly VersionManagerInterface $versionManager,
+        #[Autowire(env: 'bool:DISABLE_WEB_UPDATES')]
+        private readonly bool $webUpdatesDisabled = false,
+        #[Autowire(env: 'bool:DISABLE_BACKUP_RESTORE')]
+        private readonly bool $backupRestoreDisabled = false,
+    ) {
+    }
 
+    /**
+     * Check if web updates are disabled and throw exception if so.
+     */
+    private function denyIfWebUpdatesDisabled(): void
+    {
+        if ($this->webUpdatesDisabled) {
+            throw new AccessDeniedHttpException('Web-based updates are disabled by server configuration. Please use the CLI command instead.');
+        }
+    }
+
+    /**
+     * Check if backup restore is disabled and throw exception if so.
+     */
+    private function denyIfBackupRestoreDisabled(): void
+    {
+        if ($this->backupRestoreDisabled) {
+            throw new AccessDeniedHttpException('Backup restore is disabled by server configuration.');
+        }
     }
 
     /**
@@ -71,6 +97,8 @@ class UpdateManagerController extends AbstractController
             'maintenance_info' => $this->updateExecutor->getMaintenanceInfo(),
             'update_logs' => $this->updateExecutor->getUpdateLogs(),
             'backups' => $this->updateExecutor->getBackups(),
+            'web_updates_disabled' => $this->webUpdatesDisabled,
+            'backup_restore_disabled' => $this->backupRestoreDisabled,
         ]);
     }
 
@@ -177,6 +205,7 @@ class UpdateManagerController extends AbstractController
     public function startUpdate(Request $request): Response
     {
         $this->denyAccessUnlessGranted('@system.manage_updates');
+        $this->denyIfWebUpdatesDisabled();
 
         // Validate CSRF token
         if (!$this->isCsrfTokenValid('update_manager_start', $request->request->get('_token'))) {
@@ -290,6 +319,7 @@ class UpdateManagerController extends AbstractController
     public function restore(Request $request): Response
     {
         $this->denyAccessUnlessGranted('@system.manage_updates');
+        $this->denyIfBackupRestoreDisabled();
 
         // Validate CSRF token
         if (!$this->isCsrfTokenValid('update_manager_restore', $request->request->get('_token'))) {

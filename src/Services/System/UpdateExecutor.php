@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace App\Services\System;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Shivas\VersioningBundle\Service\VersionManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -41,7 +40,6 @@ class UpdateExecutor
     private const LOCK_FILE = 'var/update.lock';
     private const MAINTENANCE_FILE = 'var/maintenance.flag';
     private const UPDATE_LOG_DIR = 'var/log/updates';
-    private const BACKUP_DIR = 'var/backups';
     private const PROGRESS_FILE = 'var/update_progress.json';
 
     /** @var array<array{step: string, message: string, success: bool, timestamp: string, duration: ?float}> */
@@ -49,13 +47,15 @@ class UpdateExecutor
 
     private ?string $currentLogFile = null;
 
-    public function __construct(#[Autowire(param: 'kernel.project_dir')] private readonly string $project_dir,
-        private readonly LoggerInterface $logger, private readonly Filesystem $filesystem,
+    public function __construct(
+        #[Autowire(param: 'kernel.project_dir')]
+        private readonly string $project_dir,
+        private readonly LoggerInterface $logger,
+        private readonly Filesystem $filesystem,
         private readonly InstallationTypeDetector $installationTypeDetector,
         private readonly VersionManagerInterface $versionManager,
-        private readonly EntityManagerInterface $entityManager)
-    {
-
+        private readonly BackupManager $backupManager,
+    ) {
     }
 
     /**
@@ -252,6 +252,13 @@ class UpdateExecutor
             $errors[] = 'PHP CLI not found. Please ensure PHP is installed and in PATH.';
         }
 
+        // Check if yarn is available (for frontend assets)
+        $process = new Process(['yarn', '--version']);
+        $process->run();
+        if (!$process->isSuccessful()) {
+            $errors[] = 'Yarn command not found. Please ensure Yarn is installed and in PATH for frontend asset compilation.';
+        }
+
         // Check write permissions
         $testDirs = ['var', 'vendor', 'public'];
         foreach ($testDirs as $dir) {
@@ -345,7 +352,7 @@ class UpdateExecutor
             // Step 4: Create backup (optional)
             if ($createBackup) {
                 $stepStart = microtime(true);
-                $backupFile = $this->createBackup($targetVersion);
+                $backupFile = $this->backupManager->createBackup($targetVersion);
                 $log('backup', 'Created backup: ' . basename($backupFile), true, microtime(true) - $stepStart);
             }
 
@@ -359,7 +366,7 @@ class UpdateExecutor
             $this->runCommand(['git', 'checkout', $targetVersion], 'Checkout version');
             $log('checkout', 'Checked out version: ' . $targetVersion, true, microtime(true) - $stepStart);
 
-            // Step 7: Install dependencies
+            // Step 7: Install PHP dependencies
             $stepStart = microtime(true);
             $this->runCommand([
                 'composer', 'install',
@@ -367,10 +374,26 @@ class UpdateExecutor
                 '--optimize-autoloader',
                 '--no-interaction',
                 '--no-progress',
-            ], 'Install dependencies', 600);
-            $log('composer', 'Installed/updated dependencies', true, microtime(true) - $stepStart);
+            ], 'Install PHP dependencies', 600);
+            $log('composer', 'Installed/updated PHP dependencies', true, microtime(true) - $stepStart);
 
-            // Step 8: Run database migrations
+            // Step 8: Install frontend dependencies
+            $stepStart = microtime(true);
+            $this->runCommand([
+                'yarn', 'install',
+                '--frozen-lockfile',
+                '--non-interactive',
+            ], 'Install frontend dependencies', 600);
+            $log('yarn_install', 'Installed frontend dependencies', true, microtime(true) - $stepStart);
+
+            // Step 9: Build frontend assets
+            $stepStart = microtime(true);
+            $this->runCommand([
+                'yarn', 'build',
+            ], 'Build frontend assets', 600);
+            $log('yarn_build', 'Built frontend assets', true, microtime(true) - $stepStart);
+
+            // Step 10: Run database migrations
             $stepStart = microtime(true);
             $this->runCommand([
                 'php', 'bin/console', 'doctrine:migrations:migrate',
@@ -379,7 +402,7 @@ class UpdateExecutor
             ], 'Run migrations', 300);
             $log('migrations', 'Database migrations completed', true, microtime(true) - $stepStart);
 
-            // Step 9: Clear cache
+            // Step 11: Clear cache
             $stepStart = microtime(true);
             $this->runCommand([
                 'php', 'bin/console', 'cache:clear',
@@ -388,7 +411,7 @@ class UpdateExecutor
             ], 'Clear cache', 120);
             $log('cache_clear', 'Cleared application cache', true, microtime(true) - $stepStart);
 
-            // Step 10: Warm up cache
+            // Step 12: Warm up cache
             $stepStart = microtime(true);
             $this->runCommand([
                 'php', 'bin/console', 'cache:warmup',
@@ -396,12 +419,12 @@ class UpdateExecutor
             ], 'Warmup cache', 120);
             $log('cache_warmup', 'Warmed up application cache', true, microtime(true) - $stepStart);
 
-            // Step 11: Disable maintenance mode
+            // Step 13: Disable maintenance mode
             $stepStart = microtime(true);
             $this->disableMaintenanceMode();
             $log('maintenance_off', 'Disabled maintenance mode', true, microtime(true) - $stepStart);
 
-            // Step 12: Release lock
+            // Step 14: Release lock
             $stepStart = microtime(true);
             $this->releaseLock();
 
@@ -433,7 +456,21 @@ class UpdateExecutor
                         '--optimize-autoloader',
                         '--no-interaction',
                     ], 'Reinstall dependencies after rollback', 600);
-                    $log('rollback_composer', 'Reinstalled dependencies after rollback', true);
+                    $log('rollback_composer', 'Reinstalled PHP dependencies after rollback', true);
+
+                    // Re-run yarn install after rollback
+                    $this->runCommand([
+                        'yarn', 'install',
+                        '--frozen-lockfile',
+                        '--non-interactive',
+                    ], 'Reinstall frontend dependencies after rollback', 600);
+                    $log('rollback_yarn_install', 'Reinstalled frontend dependencies after rollback', true);
+
+                    // Re-run yarn build after rollback
+                    $this->runCommand([
+                        'yarn', 'build',
+                    ], 'Rebuild frontend assets after rollback', 600);
+                    $log('rollback_yarn_build', 'Rebuilt frontend assets after rollback', true);
 
                     // Clear cache after rollback
                     $this->runCommand([
@@ -460,32 +497,6 @@ class UpdateExecutor
                 'duration' => microtime(true) - $startTime,
             ];
         }
-    }
-
-    /**
-     * Create a backup before updating.
-     */
-    private function createBackup(string $targetVersion): string
-    {
-        $backupDir = $this->project_dir . '/' . self::BACKUP_DIR;
-
-        if (!is_dir($backupDir)) {
-            $this->filesystem->mkdir($backupDir, 0755);
-        }
-
-        // Include version numbers in backup filename: pre-update-v2.5.1-to-v2.6.0-2024-01-30-185400.zip
-        $currentVersion = $this->getCurrentVersionString();
-        $targetVersionClean = preg_replace('/[^a-zA-Z0-9\.]/', '', $targetVersion);
-        $backupFile = $backupDir . '/pre-update-v' . $currentVersion . '-to-' . $targetVersionClean . '-' . date('Y-m-d-His') . '.zip';
-
-        $this->runCommand([
-            'php', 'bin/console', 'partdb:backup',
-            '--full',
-            '--overwrite',
-            $backupFile,
-        ], 'Create backup', 600);
-
-        return $backupFile;
     }
 
     /**
@@ -605,79 +616,27 @@ class UpdateExecutor
 
     /**
      * Get list of backups.
+     * @deprecated Use BackupManager::getBackups() directly
      */
     public function getBackups(): array
     {
-        $backupDir = $this->project_dir . '/' . self::BACKUP_DIR;
-
-        if (!is_dir($backupDir)) {
-            return [];
-        }
-
-        $backups = [];
-        foreach (glob($backupDir . '/*.zip') as $backupFile) {
-            $backups[] = [
-                'file' => basename($backupFile),
-                'path' => $backupFile,
-                'date' => filemtime($backupFile),
-                'size' => filesize($backupFile),
-            ];
-        }
-
-        // Sort by date descending
-        usort($backups, fn($a, $b) => $b['date'] <=> $a['date']);
-
-        return $backups;
+        return $this->backupManager->getBackups();
     }
 
     /**
      * Get details about a specific backup file.
-     *
-     * @param string $filename The backup filename
-     * @return array|null Backup details or null if not found
+     * @deprecated Use BackupManager::getBackupDetails() directly
      */
     public function getBackupDetails(string $filename): ?array
     {
-        $backupDir = $this->project_dir . '/' . self::BACKUP_DIR;
-        $backupPath = $backupDir . '/' . basename($filename);
-
-        if (!file_exists($backupPath) || !str_ends_with($backupPath, '.zip')) {
-            return null;
-        }
-
-        // Parse version info from filename: pre-update-v2.5.1-to-v2.5.0-2024-01-30-185400.zip
-        $info = [
-            'file' => basename($backupPath),
-            'path' => $backupPath,
-            'date' => filemtime($backupPath),
-            'size' => filesize($backupPath),
-            'from_version' => null,
-            'to_version' => null,
-        ];
-
-        if (preg_match('/pre-update-v([\d.]+)-to-v?([\d.]+)-/', $filename, $matches)) {
-            $info['from_version'] = $matches[1];
-            $info['to_version'] = $matches[2];
-        }
-
-        // Check what the backup contains by reading the ZIP
-        try {
-            $zip = new \ZipArchive();
-            if ($zip->open($backupPath) === true) {
-                $info['contains_database'] = $zip->locateName('database.sql') !== false || $zip->locateName('var/app.db') !== false;
-                $info['contains_config'] = $zip->locateName('.env.local') !== false || $zip->locateName('config/parameters.yaml') !== false;
-                $info['contains_attachments'] = $zip->locateName('public/media/') !== false || $zip->locateName('uploads/') !== false;
-                $zip->close();
-            }
-        } catch (\Exception $e) {
-            $this->logger->warning('Could not read backup ZIP contents', ['error' => $e->getMessage()]);
-        }
-
-        return $info;
+        return $this->backupManager->getBackupDetails($filename);
     }
 
     /**
-     * Restore from a backup file.
+     * Restore from a backup file with maintenance mode and cache clearing.
+     *
+     * This wraps BackupManager::restoreBackup with additional safety measures
+     * like lock acquisition, maintenance mode, and cache operations.
      *
      * @param string $filename The backup filename to restore
      * @param bool $restoreDatabase Whether to restore the database
@@ -713,18 +672,12 @@ class UpdateExecutor
         };
 
         try {
-            // Validate backup file
-            $backupDir = $this->project_dir . '/' . self::BACKUP_DIR;
-            $backupPath = $backupDir . '/' . basename($filename);
-
-            if (!file_exists($backupPath)) {
-                throw new \RuntimeException('Backup file not found: ' . $filename);
-            }
-
             $stepStart = microtime(true);
 
             // Step 1: Acquire lock
-            $this->acquireLock('restore');
+            if (!$this->acquireLock()) {
+                throw new \RuntimeException('Could not acquire lock. Another operation may be in progress.');
+            }
             $log('lock', 'Acquired exclusive restore lock', true, microtime(true) - $stepStart);
 
             // Step 2: Enable maintenance mode
@@ -732,65 +685,43 @@ class UpdateExecutor
             $this->enableMaintenanceMode('Restoring from backup...');
             $log('maintenance', 'Enabled maintenance mode', true, microtime(true) - $stepStart);
 
-            // Step 3: Extract backup to temp directory
+            // Step 3: Delegate to BackupManager for core restoration
             $stepStart = microtime(true);
-            $tempDir = sys_get_temp_dir() . '/partdb_restore_' . uniqid();
-            $this->filesystem->mkdir($tempDir);
+            $result = $this->backupManager->restoreBackup(
+                $filename,
+                $restoreDatabase,
+                $restoreConfig,
+                $restoreAttachments,
+                function ($entry) use ($log) {
+                    // Forward progress from BackupManager
+                    $log($entry['step'], $entry['message'], $entry['success'], $entry['duration'] ?? null);
+                }
+            );
 
-            $zip = new \ZipArchive();
-            if ($zip->open($backupPath) !== true) {
-                throw new \RuntimeException('Could not open backup ZIP file');
-            }
-            $zip->extractTo($tempDir);
-            $zip->close();
-            $log('extract', 'Extracted backup to temporary directory', true, microtime(true) - $stepStart);
-
-            // Step 4: Restore database if requested and present
-            if ($restoreDatabase) {
-                $stepStart = microtime(true);
-                $this->restoreDatabaseFromBackup($tempDir);
-                $log('database', 'Restored database', true, microtime(true) - $stepStart);
+            if (!$result['success']) {
+                throw new \RuntimeException($result['error'] ?? 'Restore failed');
             }
 
-            // Step 5: Restore config files if requested and present
-            if ($restoreConfig) {
-                $stepStart = microtime(true);
-                $this->restoreConfigFromBackup($tempDir);
-                $log('config', 'Restored configuration files', true, microtime(true) - $stepStart);
-            }
-
-            // Step 6: Restore attachments if requested and present
-            if ($restoreAttachments) {
-                $stepStart = microtime(true);
-                $this->restoreAttachmentsFromBackup($tempDir);
-                $log('attachments', 'Restored attachments', true, microtime(true) - $stepStart);
-            }
-
-            // Step 7: Clean up temp directory
-            $stepStart = microtime(true);
-            $this->filesystem->remove($tempDir);
-            $log('cleanup', 'Cleaned up temporary files', true, microtime(true) - $stepStart);
-
-            // Step 8: Clear cache
+            // Step 4: Clear cache
             $stepStart = microtime(true);
             $this->runCommand(['php', 'bin/console', 'cache:clear', '--no-warmup'], 'Clear cache');
             $log('cache_clear', 'Cleared application cache', true, microtime(true) - $stepStart);
 
-            // Step 9: Warm up cache
+            // Step 5: Warm up cache
             $stepStart = microtime(true);
             $this->runCommand(['php', 'bin/console', 'cache:warmup'], 'Warm up cache');
             $log('cache_warmup', 'Warmed up application cache', true, microtime(true) - $stepStart);
 
-            // Step 10: Disable maintenance mode
+            // Step 6: Disable maintenance mode
             $stepStart = microtime(true);
             $this->disableMaintenanceMode();
             $log('maintenance_off', 'Disabled maintenance mode', true, microtime(true) - $stepStart);
 
-            // Step 11: Release lock
+            // Step 7: Release lock
             $this->releaseLock();
 
             $totalDuration = microtime(true) - $startTime;
-            $log('complete', sprintf('Restore completed successfully in %.1f seconds', $totalDuration), true, microtime(true) - $stepStart);
+            $log('complete', sprintf('Restore completed successfully in %.1f seconds', $totalDuration), true);
 
             return [
                 'success' => true,
@@ -808,9 +739,6 @@ class UpdateExecutor
             try {
                 $this->disableMaintenanceMode();
                 $this->releaseLock();
-                if (isset($tempDir) && is_dir($tempDir)) {
-                    $this->filesystem->remove($tempDir);
-                }
             } catch (\Throwable $cleanupError) {
                 $this->logger->error('Cleanup after failed restore also failed', ['error' => $cleanupError->getMessage()]);
             }
@@ -820,137 +748,6 @@ class UpdateExecutor
                 'steps' => $this->steps,
                 'error' => $e->getMessage(),
             ];
-        }
-    }
-
-    /**
-     * Restore database from backup.
-     */
-    private function restoreDatabaseFromBackup(string $tempDir): void
-    {
-        // Check for SQL dump (MySQL/PostgreSQL)
-        $sqlFile = $tempDir . '/database.sql';
-        if (file_exists($sqlFile)) {
-            // Import SQL using mysql/psql command directly
-            // First, get database connection params from Doctrine
-            $connection = $this->entityManager->getConnection();
-            $params = $connection->getParams();
-            $platform = $connection->getDatabasePlatform();
-
-            if ($platform instanceof \Doctrine\DBAL\Platforms\AbstractMySQLPlatform) {
-                // Use mysql command to import - need to use shell to handle input redirection
-                $mysqlCmd = 'mysql';
-                if (isset($params['host'])) {
-                    $mysqlCmd .= ' -h ' . escapeshellarg($params['host']);
-                }
-                if (isset($params['port'])) {
-                    $mysqlCmd .= ' -P ' . escapeshellarg((string)$params['port']);
-                }
-                if (isset($params['user'])) {
-                    $mysqlCmd .= ' -u ' . escapeshellarg($params['user']);
-                }
-                if (isset($params['password']) && $params['password']) {
-                    $mysqlCmd .= ' -p' . escapeshellarg($params['password']);
-                }
-                if (isset($params['dbname'])) {
-                    $mysqlCmd .= ' ' . escapeshellarg($params['dbname']);
-                }
-                $mysqlCmd .= ' < ' . escapeshellarg($sqlFile);
-
-                // Execute using shell
-                $process = Process::fromShellCommandline($mysqlCmd, $this->project_dir, null, null, 300);
-                $process->run();
-
-                if (!$process->isSuccessful()) {
-                    throw new \RuntimeException('MySQL import failed: ' . $process->getErrorOutput());
-                }
-            } elseif ($platform instanceof \Doctrine\DBAL\Platforms\PostgreSQLPlatform) {
-                // Use psql command to import
-                $psqlCmd = 'psql';
-                if (isset($params['host'])) {
-                    $psqlCmd .= ' -h ' . escapeshellarg($params['host']);
-                }
-                if (isset($params['port'])) {
-                    $psqlCmd .= ' -p ' . escapeshellarg((string)$params['port']);
-                }
-                if (isset($params['user'])) {
-                    $psqlCmd .= ' -U ' . escapeshellarg($params['user']);
-                }
-                if (isset($params['dbname'])) {
-                    $psqlCmd .= ' -d ' . escapeshellarg($params['dbname']);
-                }
-                $psqlCmd .= ' -f ' . escapeshellarg($sqlFile);
-
-                // Set PGPASSWORD environment variable if password is provided
-                $env = null;
-                if (isset($params['password']) && $params['password']) {
-                    $env = ['PGPASSWORD' => $params['password']];
-                }
-
-                // Execute using shell
-                $process = Process::fromShellCommandline($psqlCmd, $this->project_dir, $env, null, 300);
-                $process->run();
-
-                if (!$process->isSuccessful()) {
-                    throw new \RuntimeException('PostgreSQL import failed: ' . $process->getErrorOutput());
-                }
-            } else {
-                throw new \RuntimeException('Unsupported database platform for restore');
-            }
-
-            return;
-        }
-
-        // Check for SQLite database file
-        $sqliteFile = $tempDir . '/var/app.db';
-        if (file_exists($sqliteFile)) {
-            $targetDb = $this->project_dir . '/var/app.db';
-            $this->filesystem->copy($sqliteFile, $targetDb, true);
-            return;
-        }
-
-        $this->logger->warning('No database found in backup');
-    }
-
-    /**
-     * Restore config files from backup.
-     */
-    private function restoreConfigFromBackup(string $tempDir): void
-    {
-        // Restore .env.local
-        $envLocal = $tempDir . '/.env.local';
-        if (file_exists($envLocal)) {
-            $this->filesystem->copy($envLocal, $this->project_dir . '/.env.local', true);
-        }
-
-        // Restore config/parameters.yaml
-        $parametersYaml = $tempDir . '/config/parameters.yaml';
-        if (file_exists($parametersYaml)) {
-            $this->filesystem->copy($parametersYaml, $this->project_dir . '/config/parameters.yaml', true);
-        }
-
-        // Restore config/banner.md
-        $bannerMd = $tempDir . '/config/banner.md';
-        if (file_exists($bannerMd)) {
-            $this->filesystem->copy($bannerMd, $this->project_dir . '/config/banner.md', true);
-        }
-    }
-
-    /**
-     * Restore attachments from backup.
-     */
-    private function restoreAttachmentsFromBackup(string $tempDir): void
-    {
-        // Restore public/media
-        $publicMedia = $tempDir . '/public/media';
-        if (is_dir($publicMedia)) {
-            $this->filesystem->mirror($publicMedia, $this->project_dir . '/public/media', null, ['override' => true]);
-        }
-
-        // Restore uploads
-        $uploads = $tempDir . '/uploads';
-        if (is_dir($uploads)) {
-            $this->filesystem->mirror($uploads, $this->project_dir . '/uploads', null, ['override' => true]);
         }
     }
 
@@ -1048,7 +845,7 @@ class UpdateExecutor
             'create_backup' => $createBackup,
             'started_at' => (new \DateTime())->format('c'),
             'current_step' => 0,
-            'total_steps' => 12,
+            'total_steps' => 14,
             'step_name' => 'initializing',
             'step_message' => 'Starting update process...',
             'steps' => [],
