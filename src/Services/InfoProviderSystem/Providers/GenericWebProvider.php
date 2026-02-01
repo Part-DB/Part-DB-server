@@ -161,6 +161,14 @@ class GenericWebProvider implements InfoProviderInterface
 
     public function getDetails(string $id): PartDetailDTO
     {
+        //Add scheme if missing
+        if (!preg_match('/^https?:\/\//', $id)) {
+            //Remove any leading slashes
+            $id = ltrim($id, '/');
+
+            $id = 'https://'.$id;
+        }
+
         $url = $id;
 
         //Try to get the webpage content
