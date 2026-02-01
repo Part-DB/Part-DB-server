@@ -224,6 +224,12 @@ class GenericWebProvider implements InfoProviderInterface
         return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
     }
 
+    /**
+     * Gets the content of a meta tag by its name or property attribute, or null if not found
+     * @param  Crawler  $dom
+     * @param  string  $name
+     * @return string|null
+     */
     private function getMetaContent(Crawler $dom, string $name): ?string
     {
         $meta = $dom->filter('meta[property="'.$name.'"]');
@@ -304,7 +310,7 @@ class GenericWebProvider implements InfoProviderInterface
             //Before loading the page, try to delegate to another provider
             $delegatedPart = $this->delegateToOtherProvider($url);
             if ($delegatedPart !== null) {
-                return $delegatedPart;
+                return $this->infoRetriever->getDetailsForSearchResult($delegatedPart);
             }
         }
 
