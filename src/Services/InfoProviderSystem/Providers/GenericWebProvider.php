@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Exceptions\ProviderIDNotSupportedException;
+use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
@@ -75,9 +76,9 @@ class GenericWebProvider implements InfoProviderInterface
     public function searchByKeyword(string $keyword): array
     {
         try {
-        return [
-            $this->getDetails($keyword)
-        ]; } catch (ProviderIDNotSupportedException $e) {
+            return [
+                $this->getDetails($keyword)
+            ]; } catch (ProviderIDNotSupportedException $e) {
             return [];
         }
     }
@@ -143,7 +144,7 @@ class GenericWebProvider implements InfoProviderInterface
                 order_number: (string) ($jsonLd['sku'] ?? $jsonLd['@id'] ?? $jsonLd['gtin'] ?? 'Unknown'),
                 prices: $prices,
                 product_url: $jsonLd['url'] ?? $url,
-        )];
+            )];
         }
 
         $image = null;
@@ -161,6 +162,26 @@ class GenericWebProvider implements InfoProviderInterface
             $image = $image['contentUrl'] ?? $image['url'] ?? null;
         }
 
+        //Try to extract parameters from additionalProperty
+        $parameters = [];
+        if (isset($jsonLd['additionalProperty']) && array_is_list($jsonLd['additionalProperty'])) {
+            foreach ($jsonLd['additionalProperty'] as $property) { //TODO: Handle minValue and maxValue
+                if (isset ($property['unitText'])) {
+                    $parameters[] = ParameterDTO::parseValueField(
+                        name: $property['name'] ?? 'Unknown',
+                        value: $property['value'] ?? '',
+                        unit: $property['unitText']
+                    );
+                } else {
+                    $parameters[] = ParameterDTO::parseValueIncludingUnit(
+                        name: $property['name'] ?? 'Unknown',
+                        value: $property['value'] ?? ''
+                    );
+                }
+            }
+        }
+
+
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
             provider_id: $url,
@@ -169,9 +190,10 @@ class GenericWebProvider implements InfoProviderInterface
             category: isset($jsonLd['category']) && is_string($jsonLd['category']) ? $jsonLd['category'] : null,
             manufacturer: $jsonLd['manufacturer']['name'] ?? $jsonLd['brand']['name'] ?? null,
             mpn: $jsonLd['mpn'] ?? null,
-            preview_image_url:  $image,
+            preview_image_url: $image,
             provider_url: $url,
             notes: $notes,
+            parameters: $parameters,
             vendor_infos: $vendor_infos,
             mass: isset($jsonLd['weight']['value']) ? (float)$jsonLd['weight']['value'] : null,
         );
