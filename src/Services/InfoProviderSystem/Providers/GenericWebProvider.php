@@ -28,6 +28,7 @@ use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Settings\InfoProviderSystem\GenericWebProviderSettings;
@@ -78,9 +79,17 @@ class GenericWebProvider implements InfoProviderInterface
 
     public function searchByKeyword(string $keyword): array
     {
+        $url = $this->fixAndValidateURL($keyword);
+
+        //Before loading the page, try to delegate to another provider
+        $delegatedPart = $this->delegateToOtherProvider($url);
+        if ($delegatedPart !== null) {
+            return [$delegatedPart];
+        }
+
         try {
             return [
-                $this->getDetails($keyword)
+                $this->getDetails($keyword, false) //We already tried delegation
             ]; } catch (ProviderIDNotSupportedException $e) {
             return [];
         }
@@ -234,9 +243,9 @@ class GenericWebProvider implements InfoProviderInterface
     /**
      * Delegates the URL to another provider if possible, otherwise return null
      * @param  string  $url
-     * @return PartDetailDTO|null
+     * @return SearchResultDTO|null
      */
-    private function delegateToOtherProvider(string $url): ?PartDetailDTO
+    private function delegateToOtherProvider(string $url): ?SearchResultDTO
     {
         //Extract domain from url:
         $host = parse_url($url, PHP_URL_HOST);
@@ -250,7 +259,10 @@ class GenericWebProvider implements InfoProviderInterface
             try {
                 $id = $provider->getIDFromURL($url);
                 if ($id !== null) {
-                    return $this->infoRetriever->getDetails($provider->getProviderKey(), $id);
+                    $results = $this->infoRetriever->searchByKeyword($id, [$provider]);
+                    if (count($results) > 0) {
+                        return $results[0];
+                    }
                 }
                 return null;
             } catch (ProviderIDNotSupportedException $e) {
@@ -262,29 +274,38 @@ class GenericWebProvider implements InfoProviderInterface
         return null;
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    private function fixAndValidateURL(string $url): string
     {
+        $originalUrl = $url;
+
         //Add scheme if missing
-        if (!preg_match('/^https?:\/\//', $id)) {
+        if (!preg_match('/^https?:\/\//', $url)) {
             //Remove any leading slashes
-            $id = ltrim($id, '/');
+            $url = ltrim($url, '/');
 
-            $id = 'https://'.$id;
+            $url = 'https://'.$url;
         }
-
-        $url = $id;
 
         //If this is not a valid URL with host, domain and path, throw an exception
         if (filter_var($url, FILTER_VALIDATE_URL) === false ||
             parse_url($url, PHP_URL_HOST) === null ||
             parse_url($url, PHP_URL_PATH) === null) {
-            throw new ProviderIDNotSupportedException("The given ID is not a valid URL: ".$id);
+            throw new ProviderIDNotSupportedException("The given ID is not a valid URL: ".$originalUrl);
         }
 
-        //Before loading the page, try to delegate to another provider
-        $delegatedPart = $this->delegateToOtherProvider($url);
-        if ($delegatedPart !== null) {
-            return $delegatedPart;
+        return $url;
+    }
+
+    public function getDetails(string $id, bool $check_for_delegation = true): PartDetailDTO
+    {
+        $url = $this->fixAndValidateURL($id);
+
+        if ($check_for_delegation) {
+            //Before loading the page, try to delegate to another provider
+            $delegatedPart = $this->delegateToOtherProvider($url);
+            if ($delegatedPart !== null) {
+                return $delegatedPart;
+            }
         }
 
         //Try to get the webpage content
