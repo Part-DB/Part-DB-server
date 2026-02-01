@@ -112,10 +112,30 @@ class GenericWebProvider implements InfoProviderInterface
                 $jsonLd['url'] = $scheme.'://'.$host.$jsonLd['url'];
             }
 
+            $prices = [];
+            if (isset($offer['price'])) {
+                $prices[] = new PriceDTO(
+                    minimum_discount_amount: 1,
+                    price: (string) $offer['price'],
+                    currency_iso_code: $offer['priceCurrency'] ?? null
+                );
+            } else if (isset($offer['offers']) && array_is_list($offer['offers'])) {
+                //Some sites nest offers
+                foreach ($offer['offers'] as $subOffer) {
+                    if (isset($subOffer['price'])) {
+                        $prices[] = new PriceDTO(
+                            minimum_discount_amount: 1,
+                            price: (string) $subOffer['price'],
+                            currency_iso_code: $subOffer['priceCurrency'] ?? null
+                        );
+                    }
+                }
+            }
+
             $vendor_infos = [new PurchaseInfoDTO(
                 distributor_name: $this->extractShopName($url),
                 order_number: (string) ($jsonLd['sku'] ?? $jsonLd['@id'] ?? $jsonLd['gtin'] ?? 'Unknown'),
-                prices: [new PriceDTO(minimum_discount_amount: 1, price: (string) $offer['price'], currency_iso_code: $offer['priceCurrency'] ?? null)],
+                prices: $prices,
                 product_url: $jsonLd['url'] ?? $url,
         )];
         }
@@ -123,10 +143,16 @@ class GenericWebProvider implements InfoProviderInterface
         $image = null;
         if (isset($jsonLd['image'])) {
             if (is_array($jsonLd['image'])) {
-                $image = $jsonLd['image'][0] ?? null;
+                if (array_is_list($jsonLd['image'])) {
+                    $image = $jsonLd['image'][0] ?? null;
+                }
             } elseif (is_string($jsonLd['image'])) {
                 $image = $jsonLd['image'];
             }
+        }
+        //If image is an object with @type ImageObject, extract the url
+        if (is_array($image) && isset($image['@type']) && $image['@type'] === 'ImageObject') {
+            $image = $image['contentUrl'] ?? $image['url'] ?? null;
         }
 
         return new PartDetailDTO(
