@@ -39,6 +39,8 @@ use App\Entity\UserSystem\User;
 use App\Helpers\Trees\TreeViewNode;
 use App\Services\Cache\UserCacheKeyGenerator;
 use App\Services\ElementTypeNameGenerator;
+use App\Services\InfoProviderSystem\Providers\GenericWebProvider;
+use App\Settings\InfoProviderSystem\GenericWebProviderSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -58,6 +60,7 @@ class ToolsTreeBuilder
         protected UserCacheKeyGenerator $keyGenerator,
         protected Security $security,
         private readonly ElementTypeNameGenerator $elementTypeNameGenerator,
+        private readonly GenericWebProviderSettings $genericWebProviderSettings
     ) {
     }
 
@@ -146,6 +149,13 @@ class ToolsTreeBuilder
                 $this->translator->trans('info_providers.search.title'),
                 $this->urlGenerator->generate('info_providers_search')
             ))->setIcon('fa-treeview fa-fw fa-solid fa-cloud-arrow-down');
+
+            if ($this->genericWebProviderSettings->enabled) {
+                $nodes[] = (new TreeViewNode(
+                    $this->translator->trans('info_providers.from_url.title'),
+                    $this->urlGenerator->generate('info_providers_from_url')
+                ))->setIcon('fa-treeview fa-fw fa-solid fa-book-atlas');
+            }
 
             $nodes[] = (new TreeViewNode(
                 $this->translator->trans('info_providers.bulk_import.manage_jobs'),

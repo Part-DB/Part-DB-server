@@ -30,6 +30,7 @@ use App\Form\InfoProviderSystem\PartSearchType;
 use App\Services\InfoProviderSystem\ExistingPartFinder;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
+use App\Services\InfoProviderSystem\Providers\GenericWebProvider;
 use App\Settings\AppSettings;
 use App\Settings\InfoProviderSystem\InfoProviderGeneralSettings;
 use Doctrine\ORM\EntityManagerInterface;
@@ -39,6 +40,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\HttpFoundation\Request;
@@ -207,5 +209,59 @@ class InfoProviderController extends  AbstractController
             'results' => $results,
             'update_target' => $update_target
         ]);
+    }
+
+    #[Route('/from_url', name: 'info_providers_from_url')]
+    public function fromURL(Request $request, GenericWebProvider $provider): Response
+    {
+        $this->denyAccessUnlessGranted('@info_providers.create_parts');
+
+        if (!$provider->isActive()) {
+            $this->addFlash('error', "Generic Web Provider is not active. Please enable it in the provider settings.");
+            return $this->redirectToRoute('info_providers_list');
+        }
+
+        $formBuilder = $this->createFormBuilder();
+        $formBuilder->add('url', UrlType::class, [
+            'label' => 'info_providers.from_url.url.label',
+            'required' => true,
+        ]);
+        $formBuilder->add('submit', SubmitType::class, [
+            'label' => 'info_providers.search.submit',
+        ]);
+
+        $form = $formBuilder->getForm();
+        $form->handleRequest($request);
+
+        $partDetail = null;
+        if ($form->isSubmitted() && $form->isValid()) {
+            //Try to retrieve the part detail from the given URL
+            $url = $form->get('url')->getData();
+            try {
+                $searchResult = $this->infoRetriever->searchByKeyword(
+                    keyword: $url,
+                    providers: [$provider]
+                );
+
+                if (count($searchResult) === 0) {
+                    $this->addFlash('warning', t('info_providers.from_url.no_part_found'));
+                } else {
+                    $searchResult = $searchResult[0];
+                    //Redirect to the part creation page with the found part detail
+                    return $this->redirectToRoute('info_providers_create_part', [
+                        'providerKey' => $searchResult->provider_key,
+                        'providerId' => $searchResult->provider_id,
+                    ]);
+                }
+            } catch (ExceptionInterface $e) {
+                $this->addFlash('error', t('info_providers.search.error.general_exception', ['%type%' => (new \ReflectionClass($e))->getShortName()]));
+            }
+        }
+
+        return $this->render('info_providers/from_url/from_url.html.twig', [
+            'form' => $form,
+            'partDetail' => $partDetail,
+        ]);
+
     }
 }

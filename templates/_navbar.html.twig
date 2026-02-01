@@ -10,9 +10,9 @@
                 <!-- <span class="navbar-toggler-icon"></span> -->
                 <i class="fas fa-folder-open fa-lg fa-fw"></i>
             </button>
-            {% if is_granted("@tools.label_scanner") %}        
+            {% if is_granted("@tools.label_scanner") %}
                 <a href="{{ path('scan_dialog') }}" class="navbar-toggler nav-link ms-3">
-                       <i class="fas fa-camera-retro fa-fw"></i>
+                    <i class="fas fa-camera-retro fa-fw"></i>
                 </a>
             {% endif %}
         </div>
@@ -52,6 +52,14 @@
                                             {% trans %}info_providers.search.title{% endtrans %}
                                         </a>
                                     </li>
+                                    {% if settings_instance('generic_web_provider').enabled %}
+                                        <li>
+                                            <a class="dropdown-item" href="{{ path('info_providers_from_url') }}">
+                                                <i class="fa-fw fa-solid fa-book-atlas"></i>
+                                                {% trans %}info_providers.from_url.title{% endtrans %}
+                                            </a>
+                                        </li>
+                                    {% endif %}
                                 {% endif %}
 
                                 {% if is_granted('@parts.import') %}
@@ -69,7 +77,7 @@
             {% if is_granted('@parts.read') %}
                 {{ search.search_form("navbar") }}
 
-            {# {% include "_navbar_search.html.twig" %} #}
+                {# {% include "_navbar_search.html.twig" %} #}
             {% endif %}
 
 
