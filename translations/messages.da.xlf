@@ -14319,5 +14319,47 @@ Buerklin API-godkendelsesserver: 10 anmodninger/minut pr. IP-adresse</target>
         <target>Inkluderer kun vedhæftede filer på de valgte sprog i resultaterne.</target>
       </segment>
     </unit>
+    <unit id="PNmvQ.U" name="settings.ips.generic_web_provider">
+      <segment state="translated">
+        <source>settings.ips.generic_web_provider</source>
+        <target>Generisk Web URL udbyder</target>
+      </segment>
+    </unit>
+    <unit id="Vk3BoE_" name="settings.ips.generic_web_provider.description">
+      <segment state="translated">
+        <source>settings.ips.generic_web_provider.description</source>
+        <target>Denne informationsudbyder gør det gør det muligt at hente grundlæggende information om dele fra flere butiksside ULR'er</target>
+      </segment>
+    </unit>
+    <unit id="Pu8juaH" name="settings.ips.generic_web_provider.enabled.help">
+      <segment state="translated">
+        <source>settings.ips.generic_web_provider.enabled.help</source>
+        <target>Når udbyderen er aktiveret, kan brugere foretage anmodninger til vilkårlige websteder på vegne af Part-DB-serveren. Aktivér kun dette, hvis du er opmærksom på de potentielle konsekvenser det kan have.</target>
+      </segment>
+    </unit>
+    <unit id="IvIOYcn" name="info_providers.from_url.title">
+      <segment state="translated">
+        <source>info_providers.from_url.title</source>
+        <target>Opret [komponent] fra URL</target>
+      </segment>
+    </unit>
+    <unit id="QLL7vDC" name="info_providers.from_url.url.label">
+      <segment state="translated">
+        <source>info_providers.from_url.url.label</source>
+        <target>URL</target>
+      </segment>
+    </unit>
+    <unit id="JTbTQLl" name="info_providers.from_url.no_part_found">
+      <segment state="translated">
+        <source>info_providers.from_url.no_part_found</source>
+        <target>Der blev ikke fundet nogle komponenter med den angivne URL. Er du sikker på, at dette er en gyldig webadresse til butikken?</target>
+      </segment>
+    </unit>
+    <unit id="xoSvJk0" name="info_providers.from_url.help">
+      <segment state="translated">
+        <source>info_providers.from_url.help</source>
+        <target>Opretter en komponent baseret på den givne URL. Den forsøger at delegere den til en eksisterende informationsudbyder, hvis det er muligt, ellers vil der blive nemlig blive forsøgt at udtrække ufuldendte data fra websidens metadata.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
