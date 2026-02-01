@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\Providers;
 
+use App\Exceptions\ProviderIDNotSupportedException;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
@@ -71,9 +72,12 @@ class GenericWebProvider implements InfoProviderInterface
 
     public function searchByKeyword(string $keyword): array
     {
+        try {
         return [
             $this->getDetails($keyword)
-        ];
+        ]; } catch (ProviderIDNotSupportedException $e) {
+            return [];
+        }
     }
 
     private function extractShopName(string $url): string
@@ -211,6 +215,13 @@ class GenericWebProvider implements InfoProviderInterface
         }
 
         $url = $id;
+
+        //If this is not a valid URL with host, domain and path, throw an exception
+        if (filter_var($url, FILTER_VALIDATE_URL) === false ||
+            parse_url($url, PHP_URL_HOST) === null ||
+            parse_url($url, PHP_URL_PATH) === null) {
+            throw new ProviderIDNotSupportedException("The given ID is not a valid URL: ".$id);
+        }
 
         //Try to get the webpage content
         $response = $this->httpClient->request('GET', $url);
