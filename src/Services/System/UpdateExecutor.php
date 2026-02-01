@@ -55,6 +55,8 @@ class UpdateExecutor
         private readonly InstallationTypeDetector $installationTypeDetector,
         private readonly VersionManagerInterface $versionManager,
         private readonly BackupManager $backupManager,
+        #[Autowire(param: 'app.debug_mode')]
+        private readonly bool $debugMode = false,
     ) {
     }
 
@@ -368,13 +370,23 @@ class UpdateExecutor
 
             // Step 7: Install PHP dependencies
             $stepStart = microtime(true);
-            $this->runCommand([
-                'composer', 'install',
-                '--no-dev',
-                '--optimize-autoloader',
-                '--no-interaction',
-                '--no-progress',
-            ], 'Install PHP dependencies', 600);
+            if ($this->debugMode) {
+                $this->runCommand([ // Install with dev dependencies in debug mode
+                    'composer',
+                    'install',
+                    '--no-interaction',
+                    '--no-progress',
+                ], 'Install PHP dependencies', 600);
+            } else {
+                $this->runCommand([
+                    'composer',
+                    'install',
+                    '--no-dev',
+                    '--optimize-autoloader',
+                    '--no-interaction',
+                    '--no-progress',
+                ], 'Install PHP dependencies', 600);
+            }
             $log('composer', 'Installed/updated PHP dependencies', true, microtime(true) - $stepStart);
 
             // Step 8: Install frontend dependencies
