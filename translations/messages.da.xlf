@@ -9,7 +9,7 @@
       </notes>
       <segment state="translated">
         <source>attachment_type.caption</source>
-        <target>Bilags filtyper</target>
+        <target>Bilag-filtyper</target>
       </segment>
     </unit>
     <unit id="f_CALXB" name="attachment_type.edit">
@@ -14287,6 +14287,36 @@ Buerklin API-godkendelsesserver: 10 anmodninger/minut pr. IP-adresse</target>
       <segment state="translated">
         <source>info_providers.search.error.transport_exception</source>
         <target>Der opstod transportfejl under hentning af oplysninger fra udbydere. Kontroller, om din server har internetadgang. Se serverloggene for at få flere oplysninger.</target>
+      </segment>
+    </unit>
+    <unit id="kHKChQB" name="settings.ips.conrad">
+      <segment state="translated">
+        <source>settings.ips.conrad</source>
+        <target>Conrad</target>
+      </segment>
+    </unit>
+    <unit id="gwZXJ0F" name="settings.ips.conrad.shopID">
+      <segment state="translated">
+        <source>settings.ips.conrad.shopID</source>
+        <target>Shop ID</target>
+      </segment>
+    </unit>
+    <unit id="honqnBf" name="settings.ips.conrad.shopID.description">
+      <segment state="translated">
+        <source>settings.ips.conrad.shopID.description</source>
+        <target>Den version af Conrad-butikken du vil have resultater fra. Dette bestemmer sprog, priser og valuta for resultaterne. Hvis både en B2B- og en B2C-version er tilgængelig, skal du vælge B2C-versionen, hvis du ønsker priser inklusiv moms.</target>
+      </segment>
+    </unit>
+    <unit id="EVcQbEK" name="settings.ips.conrad.attachment_language_filter">
+      <segment state="translated">
+        <source>settings.ips.conrad.attachment_language_filter</source>
+        <target>Sprogfilter for bilag</target>
+      </segment>
+    </unit>
+    <unit id="MWPmQf2" name="settings.ips.conrad.attachment_language_filter.description">
+      <segment state="translated">
+        <source>settings.ips.conrad.attachment_language_filter.description</source>
+        <target>Inkluderer kun vedhæftede filer på de valgte sprog i resultaterne.</target>
       </segment>
     </unit>
   </file>
