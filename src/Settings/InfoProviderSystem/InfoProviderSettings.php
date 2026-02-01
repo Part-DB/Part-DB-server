@@ -38,6 +38,9 @@ class InfoProviderSettings
     public ?InfoProviderGeneralSettings $general = null;
 
     #[EmbeddedSettings]
+    public ?GenericWebProviderSettings $genericWebProvider = null;
+
+    #[EmbeddedSettings]
     public ?DigikeySettings $digikey = null;
 
     #[EmbeddedSettings]

@@ -14316,5 +14316,47 @@ Buerklin-API Authentication server:
         <target>Only includes attachments in the selected languages in the results.</target>
       </segment>
     </unit>
+    <unit id="PNmvQ.U" name="settings.ips.generic_web_provider">
+      <segment>
+        <source>settings.ips.generic_web_provider</source>
+        <target>Generic Web URL Provider</target>
+      </segment>
+    </unit>
+    <unit id="Vk3BoE_" name="settings.ips.generic_web_provider.description">
+      <segment>
+        <source>settings.ips.generic_web_provider.description</source>
+        <target>This info provider allows to retrieve basic part information from many shop page URLs.</target>
+      </segment>
+    </unit>
+    <unit id="Pu8juaH" name="settings.ips.generic_web_provider.enabled.help">
+      <segment>
+        <source>settings.ips.generic_web_provider.enabled.help</source>
+        <target>When the provider is enabled, users can make requests to arbitary websites on behalf of the Part-DB server. Only enable this, if you are aware of the potential consequences.</target>
+      </segment>
+    </unit>
+    <unit id="IvIOYcn" name="info_providers.from_url.title">
+      <segment>
+        <source>info_providers.from_url.title</source>
+        <target>Create [part] from URL</target>
+      </segment>
+    </unit>
+    <unit id="QLL7vDC" name="info_providers.from_url.url.label">
+      <segment>
+        <source>info_providers.from_url.url.label</source>
+        <target>URL</target>
+      </segment>
+    </unit>
+    <unit id="JTbTQLl" name="info_providers.from_url.no_part_found">
+      <segment>
+        <source>info_providers.from_url.no_part_found</source>
+        <target>No part found from the given URL. Are you sure this is a valid shop URL?</target>
+      </segment>
+    </unit>
+    <unit id="xoSvJk0" name="info_providers.from_url.help">
+      <segment>
+        <source>info_providers.from_url.help</source>
+        <target>Creates a part based on the given URL. It tries to delegate it to an existing info provider if possible, otherwise it will be tried to extract rudimentary data from the webpage's metadata.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
