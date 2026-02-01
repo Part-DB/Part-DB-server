@@ -30,9 +30,10 @@ use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\ConradSettings;
+use App\Settings\InfoProviderSystem\ConradShopIDs;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-readonly class ConradProvider implements InfoProviderInterface
+readonly class ConradProvider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {
 
     private const SEARCH_ENDPOINT = '/search/1/v3/facetSearch';
@@ -316,5 +317,27 @@ readonly class ConradProvider implements InfoProviderInterface
             ProviderCapabilities::DATASHEET,
             ProviderCapabilities::PRICE,
         ];
+    }
+
+    public function getHandledDomains(): array
+    {
+        $domains = [];
+        foreach (ConradShopIDs::cases() as $shopID) {
+            $domains[] = $shopID->getDomain();
+        }
+        return array_unique($domains);
+    }
+
+    public function getIDFromURL(string $url): ?string
+    {
+        //Input: https://www.conrad.de/de/p/apple-iphone-air-wolkenweiss-256-gb-eek-a-a-g-16-5-cm-6-5-zoll-3475299.html
+        //The numbers before the optional .html are the product ID
+
+        $matches = [];
+        if (preg_match('/-(\d+)(\.html)?$/', $url, $matches) === 1) {
+            return $matches[1];
+        }
+
+        return null;
     }
 }

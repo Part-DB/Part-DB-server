@@ -33,7 +33,7 @@ use App\Settings\InfoProviderSystem\Element14Settings;
 use Composer\CaBundle\CaBundle;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class Element14Provider implements InfoProviderInterface
+class Element14Provider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {
 
     private const ENDPOINT_URL = 'https://api.element14.com/catalog/products';
@@ -308,5 +308,22 @@ class Element14Provider implements InfoProviderInterface
             ProviderCapabilities::PICTURE,
             ProviderCapabilities::DATASHEET,
         ];
+    }
+
+    public function getHandledDomains(): array
+    {
+        return ['element14.com', 'farnell.com', 'newark.com'];
+    }
+
+    public function getIDFromURL(string $url): ?string
+    {
+        //Input URL example: https://de.farnell.com/on-semiconductor/bc547b/transistor-npn-to-92/dp/1017673
+        //The digits after the /dp/ are the part ID
+        $matches = [];
+        if (preg_match('#/dp/(\d+)#', $url, $matches) === 1) {
+            return $matches[1];
+        }
+
+        return null;
     }
 }
