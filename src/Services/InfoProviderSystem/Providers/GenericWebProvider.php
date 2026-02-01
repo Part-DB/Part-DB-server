@@ -35,9 +35,18 @@ class GenericWebProvider implements InfoProviderInterface
 
     public const DISTRIBUTOR_NAME = 'Website';
 
-    public function __construct(private readonly HttpClientInterface $httpClient)
-    {
+    private readonly HttpClientInterface $httpClient;
 
+    public function __construct(HttpClientInterface $httpClient)
+    {
+        $this->httpClient = $httpClient->withOptions(
+            [
+                'headers' => [
+                    'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
+                ],
+                'timeout' => 15,
+            ]
+        );
     }
 
     public function getProviderInfo(): array
@@ -76,7 +85,7 @@ class GenericWebProvider implements InfoProviderInterface
         return $host;
     }
 
-    private function productJsonLdToPart(array $jsonLd, string $url): PartDetailDTO
+    private function productJsonLdToPart(array $jsonLd, string $url, Crawler $dom): PartDetailDTO
     {
         $notes = $jsonLd['description'] ?? "";
         if (isset($jsonLd['disambiguatingDescription'])) {
@@ -109,7 +118,7 @@ class GenericWebProvider implements InfoProviderInterface
             provider_key: $this->getProviderKey(),
             provider_id: $url,
             name: $jsonLd ['name'] ?? 'Unknown Name',
-            description: '',
+            description: $this->getMetaContent($dom, 'og:description') ?? $this->getMetaContent($dom, 'description') ?? '',
             category: isset($jsonLd['category']) && is_string($jsonLd['category']) ? $jsonLd['category'] : null,
             manufacturer: $jsonLd['manufacturer']['name'] ?? $jsonLd['brand']['name'] ?? null,
             mpn: $jsonLd['mpn'] ?? null,
@@ -134,6 +143,22 @@ class GenericWebProvider implements InfoProviderInterface
         return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
     }
 
+    private function getMetaContent(Crawler $dom, string $name): ?string
+    {
+        $meta = $dom->filter('meta[property="'.$name.'"]');
+        if ($meta->count() > 0) {
+            return $meta->attr('content');
+        }
+
+        //Try name attribute
+        $meta = $dom->filter('meta[name="'.$name.'"]');
+        if ($meta->count() > 0) {
+            return $meta->attr('content');
+        }
+
+        return null;
+    }
+
     public function getDetails(string $id): PartDetailDTO
     {
         $url = $id;
@@ -153,17 +178,43 @@ class GenericWebProvider implements InfoProviderInterface
         }
 
         //Try to find json-ld data in the head
-        $jsonLdNodes = $dom->filter('head script[type="application/ld+json"]');
+        $jsonLdNodes = $dom->filter('script[type="application/ld+json"]');
         foreach ($jsonLdNodes as $node) {
             $jsonLd = $this->json_decode_forgiving($node->textContent);
             if (isset($jsonLd['@type']) && $jsonLd['@type'] === 'Product') { //If we find a product use that data
-                return $this->productJsonLdToPart($jsonLd, $canonicalURL);
+                return $this->productJsonLdToPart($jsonLd, $canonicalURL, $dom);
             }
         }
 
-        
+        //If no JSON-LD data is found, try to extract basic data from meta tags
+        $pageTitle = $dom->filter('title')->count() > 0 ? $dom->filter('title')->text() : 'Unknown';
 
-        return null;
+        $prices = [];
+        if ($price = $this->getMetaContent($dom, 'product:price:amount')) {
+            $prices[] = new PriceDTO(
+                minimum_discount_amount: 1,
+                price: $price,
+                currency_iso_code: $this->getMetaContent($dom, 'product:price:currency'),
+            );
+        }
+
+        $vendor_infos = [new PurchaseInfoDTO(
+            distributor_name: $this->extractShopName($canonicalURL),
+            order_number: 'Unknown',
+            prices: $prices,
+            product_url: $canonicalURL,
+        )];
+
+        return new PartDetailDTO(
+            provider_key: $this->getProviderKey(),
+            provider_id: $canonicalURL,
+            name: $this->getMetaContent($dom, 'og:title') ?? $pageTitle,
+            description: $this->getMetaContent($dom, 'og:description') ?? $this->getMetaContent($dom, 'description') ?? '',
+            manufacturer: $this->getMetaContent($dom, 'product:brand'),
+            preview_image_url: $this->getMetaContent($dom, 'og:image'),
+            provider_url: $canonicalURL,
+            vendor_infos: $vendor_infos,
+        );
     }
 
     public function getCapabilities(): array
