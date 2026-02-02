@@ -1,0 +1,30 @@
+{% extends 'main_card.html.twig' %}
+
+{% block card_title %}<i class="fas fa-camera-retro fa-fw"></i>Handheld Scanner Operations{% endblock %}
+
+{% block card_content %}
+{{ form_start(form, {'attr': {'id': 'handheld_dialog_form'}}) }}
+
+{{ form_row(form.location) }}
+{{ form_row(form.missingloc) }}
+{{ form_row(form.locfrompart) }}
+{{ form_row(form.foundloc) }}
+{{ form_row(form.manufacturer_pn) }}
+{{ form_row(form.missingpart) }}
+{{ form_row(form.foundpart) }}
+{{ form_row(form.quantity) }}
+{{ form_row(form.autocommit) }}
+
+<div>
+{{ form_row(form.last_manufacturer_pn) }}
+{{ form_row(form.last_quantity) }}
+</div>
+
+<div {{ stimulus_controller('pages/handheld_scan')}}>
+  {{ form_widget(form.connect) }}
+  {{ form_widget(form.disconnect) }}
+  {{ form_widget(form.submit) }}
+</div>
+
+{{ form_end(form) }}
+{% endblock %}
