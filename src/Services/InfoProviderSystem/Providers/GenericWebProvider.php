@@ -28,8 +28,10 @@ use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use App\Services\InfoProviderSystem\PartInfoRetriever;
+use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Settings\InfoProviderSystem\GenericWebProviderSettings;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\Securities\Price;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -40,7 +42,9 @@ class GenericWebProvider implements InfoProviderInterface
 
     private readonly HttpClientInterface $httpClient;
 
-    public function __construct(HttpClientInterface $httpClient, private readonly GenericWebProviderSettings $settings)
+    public function __construct(HttpClientInterface $httpClient, private readonly GenericWebProviderSettings $settings,
+        private readonly ProviderRegistry $providerRegistry, private readonly PartInfoRetriever $infoRetriever,
+    )
     {
         $this->httpClient = $httpClient->withOptions(
             [
@@ -75,9 +79,17 @@ class GenericWebProvider implements InfoProviderInterface
 
     public function searchByKeyword(string $keyword): array
     {
+        $url = $this->fixAndValidateURL($keyword);
+
+        //Before loading the page, try to delegate to another provider
+        $delegatedPart = $this->delegateToOtherProvider($url);
+        if ($delegatedPart !== null) {
+            return [$delegatedPart];
+        }
+
         try {
             return [
-                $this->getDetails($keyword)
+                $this->getDetails($keyword, false) //We already tried delegation
             ]; } catch (ProviderIDNotSupportedException $e) {
             return [];
         }
@@ -212,6 +224,12 @@ class GenericWebProvider implements InfoProviderInterface
         return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
     }
 
+    /**
+     * Gets the content of a meta tag by its name or property attribute, or null if not found
+     * @param  Crawler  $dom
+     * @param  string  $name
+     * @return string|null
+     */
     private function getMetaContent(Crawler $dom, string $name): ?string
     {
         $meta = $dom->filter('meta[property="'.$name.'"]');
@@ -228,23 +246,72 @@ class GenericWebProvider implements InfoProviderInterface
         return null;
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    /**
+     * Delegates the URL to another provider if possible, otherwise return null
+     * @param  string  $url
+     * @return SearchResultDTO|null
+     */
+    private function delegateToOtherProvider(string $url): ?SearchResultDTO
     {
-        //Add scheme if missing
-        if (!preg_match('/^https?:\/\//', $id)) {
-            //Remove any leading slashes
-            $id = ltrim($id, '/');
-
-            $id = 'https://'.$id;
+        //Extract domain from url:
+        $host = parse_url($url, PHP_URL_HOST);
+        if ($host === false || $host === null) {
+            return null;
         }
 
-        $url = $id;
+        $provider = $this->providerRegistry->getProviderHandlingDomain($host);
+
+        if ($provider !== null && $provider->isActive() && $provider->getProviderKey() !== $this->getProviderKey()) {
+            try {
+                $id = $provider->getIDFromURL($url);
+                if ($id !== null) {
+                    $results = $this->infoRetriever->searchByKeyword($id, [$provider]);
+                    if (count($results) > 0) {
+                        return $results[0];
+                    }
+                }
+                return null;
+            } catch (ProviderIDNotSupportedException $e) {
+                //Ignore and continue
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    private function fixAndValidateURL(string $url): string
+    {
+        $originalUrl = $url;
+
+        //Add scheme if missing
+        if (!preg_match('/^https?:\/\//', $url)) {
+            //Remove any leading slashes
+            $url = ltrim($url, '/');
+
+            $url = 'https://'.$url;
+        }
 
         //If this is not a valid URL with host, domain and path, throw an exception
         if (filter_var($url, FILTER_VALIDATE_URL) === false ||
             parse_url($url, PHP_URL_HOST) === null ||
             parse_url($url, PHP_URL_PATH) === null) {
-            throw new ProviderIDNotSupportedException("The given ID is not a valid URL: ".$id);
+            throw new ProviderIDNotSupportedException("The given ID is not a valid URL: ".$originalUrl);
+        }
+
+        return $url;
+    }
+
+    public function getDetails(string $id, bool $check_for_delegation = true): PartDetailDTO
+    {
+        $url = $this->fixAndValidateURL($id);
+
+        if ($check_for_delegation) {
+            //Before loading the page, try to delegate to another provider
+            $delegatedPart = $this->delegateToOtherProvider($url);
+            if ($delegatedPart !== null) {
+                return $this->infoRetriever->getDetailsForSearchResult($delegatedPart);
+            }
         }
 
         //Try to get the webpage content

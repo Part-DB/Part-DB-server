@@ -64,7 +64,7 @@ final class BarcodeRedirectorTest extends KernelTestCase
     {
         yield [new LocalBarcodeScanResult(LabelSupportedElement::PART, 1, BarcodeSourceType::INTERNAL), '/en/part/1'];
         //Part lot redirects to Part info page (Part lot 1 is associated with part 3)
-        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 1, BarcodeSourceType::INTERNAL), '/en/part/3'];
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 1, BarcodeSourceType::INTERNAL), '/en/part/3?highlightLot=1'];
         yield [new LocalBarcodeScanResult(LabelSupportedElement::STORELOCATION, 1, BarcodeSourceType::INTERNAL), '/en/store_location/1/parts'];
     }
 

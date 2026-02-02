@@ -36,7 +36,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class PollinProvider implements InfoProviderInterface
+class PollinProvider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {
 
     public function __construct(private readonly HttpClientInterface $client,
@@ -141,11 +141,16 @@ class PollinProvider implements InfoProviderInterface
         $orderId = trim($dom->filter('span[itemprop="sku"]')->text()); //Text is important here
 
         //Calculate the mass
-        $massStr = $dom->filter('meta[itemprop="weight"]')->attr('content');
-        //Remove the unit
-        $massStr = str_replace('kg', '', $massStr);
-        //Convert to float and convert to grams
-        $mass = (float) $massStr * 1000;
+        $massDom = $dom->filter('meta[itemprop="weight"]');
+        if ($massDom->count() > 0) {
+            $massStr = $massDom->attr('content');
+            $massStr = str_replace('kg', '', $massStr);
+            //Convert to float and convert to grams
+            $mass = (float) $massStr * 1000;
+        } else {
+            $mass = null;
+        }
+
 
         //Parse purchase info
         $purchaseInfo = new PurchaseInfoDTO('Pollin', $orderId, $this->parsePrices($dom), $productPageUrl);
@@ -247,5 +252,23 @@ class PollinProvider implements InfoProviderInterface
             ProviderCapabilities::PRICE,
             ProviderCapabilities::DATASHEET
         ];
+    }
+
+    public function getHandledDomains(): array
+    {
+        return ['pollin.de'];
+    }
+
+    public function getIDFromURL(string $url): ?string
+    {
+        //URL like: https://www.pollin.de/p/shelly-bluetooth-schalter-und-dimmer-blu-zb-button-plug-play-mocha-592325
+
+        //Extract the 6-digit number at the end of the URL
+        $matches = [];
+        if (preg_match('/-(\d{6})(?:\/|$)/', $url, $matches)) {
+            return $matches[1];
+        }
+
+        return null;
     }
 }
