@@ -14268,7 +14268,7 @@ Please note that this system is currently experimental, and the synonyms defined
     <unit id="BlR_EQc" name="settings.ips.buerklin.help">
       <segment state="translated">
         <source>settings.ips.buerklin.help</source>
-        <target>Buerklin-API access limits: 
+        <target>Buerklin-API access limits:
 100 requests/minute per IP address
 Buerklin-API Authentication server:
 10 requests/minute per IP address</target>
