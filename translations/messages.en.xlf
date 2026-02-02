@@ -14718,60 +14718,6 @@ Buerklin-API Authentication server:
         <target>bytes</target>
       </segment>
     </unit>
-    <unit id="kVfrQQ_" name="update_manager.maintenance.title">
-      <segment state="translated">
-        <source>update_manager.maintenance.title</source>
-        <target>Maintenance</target>
-      </segment>
-    </unit>
-    <unit id="DJPbvVc" name="update_manager.maintenance.heading">
-      <segment state="translated">
-        <source>update_manager.maintenance.heading</source>
-        <target>Part-DB is Updating</target>
-      </segment>
-    </unit>
-    <unit id="x2kQd7v" name="update_manager.maintenance.description">
-      <segment state="translated">
-        <source>update_manager.maintenance.description</source>
-        <target>We're installing updates to make Part-DB even better. This should only take a moment.</target>
-      </segment>
-    </unit>
-    <unit id="LF4Ebik" name="update_manager.maintenance.step_backup">
-      <segment state="translated">
-        <source>update_manager.maintenance.step_backup</source>
-        <target>Creating backup</target>
-      </segment>
-    </unit>
-    <unit id="uioqI08" name="update_manager.maintenance.step_download">
-      <segment state="translated">
-        <source>update_manager.maintenance.step_download</source>
-        <target>Downloading updates</target>
-      </segment>
-    </unit>
-    <unit id="lNjhpKA" name="update_manager.maintenance.step_install">
-      <segment state="translated">
-        <source>update_manager.maintenance.step_install</source>
-        <target>Installing files</target>
-      </segment>
-    </unit>
-    <unit id="SfP.cFa" name="update_manager.maintenance.step_migrate">
-      <segment state="translated">
-        <source>update_manager.maintenance.step_migrate</source>
-        <target>Running migrations</target>
-      </segment>
-    </unit>
-    <unit id="u_8lAEw" name="update_manager.maintenance.step_cache">
-      <segment state="translated">
-        <source>update_manager.maintenance.step_cache</source>
-        <target>Clearing cache</target>
-      </segment>
-    </unit>
-    <unit id="ys_sMwM" name="update_manager.maintenance.auto_refresh">
-      <segment state="translated">
-        <source>update_manager.maintenance.auto_refresh</source>
-        <target>This page will refresh automatically when the update is complete.</target>
-      </segment>
-    </unit>
     <unit id="Gt.91s_" name="perm.system.manage_updates">
       <segment state="translated">
         <source>perm.system.manage_updates</source>

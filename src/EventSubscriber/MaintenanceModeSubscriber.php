@@ -37,8 +37,7 @@ use Twig\Environment;
  */
 readonly class MaintenanceModeSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private UpdateExecutor $updateExecutor,
-        private Environment $twig)
+    public function __construct(private UpdateExecutor $updateExecutor)
     {
 
     }
@@ -48,7 +47,6 @@ readonly class MaintenanceModeSubscriber implements EventSubscriberInterface
         return [
             // High priority to run before other listeners
             KernelEvents::REQUEST => ['onKernelRequest', 512], //High priority to run before other listeners
-            KernelEvents::RESPONSE => ['onKernelResponse', -512] // Low priority to run after other listeners
         ];
     }
 
@@ -71,13 +69,12 @@ readonly class MaintenanceModeSubscriber implements EventSubscriberInterface
 
         // Get maintenance info
         $maintenanceInfo = $this->updateExecutor->getMaintenanceInfo();
-        $lockInfo = $this->updateExecutor->getLockInfo();
 
         // Calculate how long the update has been running
         $duration = null;
-        if ($lockInfo && isset($lockInfo['started_at'])) {
+        if ($maintenanceInfo && isset($maintenanceInfo['enabled_at'])) {
             try {
-                $startedAt = new \DateTime($lockInfo['started_at']);
+                $startedAt = new \DateTime($maintenanceInfo['enabled_at']);
                 $now = new \DateTime();
                 $duration = $now->getTimestamp() - $startedAt->getTimestamp();
             } catch (\Exception) {
@@ -85,45 +82,13 @@ readonly class MaintenanceModeSubscriber implements EventSubscriberInterface
             }
         }
 
-        // Try to render the Twig template, fall back to simple HTML
-        try {
-            $content = $this->twig->render('maintenance/maintenance.html.twig', [
-                'reason' => $maintenanceInfo['reason'] ?? 'Maintenance in progress',
-                'started_at' => $maintenanceInfo['enabled_at'] ?? null,
-                'duration' => $duration,
-            ]);
-        } catch (\Exception) {
-            // Fallback to simple HTML if Twig fails
-            $content = $this->getSimpleMaintenanceHtml($maintenanceInfo, $duration);
-        }
+        $content = $this->getSimpleMaintenanceHtml($maintenanceInfo, $duration);
 
         $response = new Response($content, Response::HTTP_SERVICE_UNAVAILABLE);
         $response->headers->set('Retry-After', '30');
         $response->headers->set('Cache-Control', 'no-store, no-cache, must-revalidate');
 
         $event->setResponse($response);
-    }
-
-    public function onKernelResponse(ResponseEvent $event)
-    {
-        // Only handle main requests
-        if (!$event->isMainRequest()) {
-            return;
-        }
-
-        // Skip if not in maintenance mode
-        if (!$this->updateExecutor->isMaintenanceMode()) {
-            return;
-        }
-
-        // Allow CLI requests
-        if (PHP_SAPI === 'cli') {
-            return;
-        }
-
-        //Remove all Content-Security-Policy headers to allow loading resources during maintenance
-        $response = $event->getResponse();
-        $response->headers->remove('Content-Security-Policy');
     }
 
     /**
@@ -133,6 +98,8 @@ readonly class MaintenanceModeSubscriber implements EventSubscriberInterface
     {
         $reason = htmlspecialchars($maintenanceInfo['reason'] ?? 'Update in progress');
         $durationText = $duration !== null ? sprintf('%d seconds', $duration) : 'a moment';
+
+        $startDateStr = $maintenanceInfo['enabled_at'] ?? 'unknown time';
 
         return <<<HTML
 <!DOCTYPE html>
@@ -233,7 +200,7 @@ readonly class MaintenanceModeSubscriber implements EventSubscriberInterface
         <div class="icon">
             <span class="spinner">⚙️</span>
         </div>
-        <h1>Part-DB is Updating</h1>
+        <h1>Part-DB is under maintenance</h1>
         <p>We're making things better. This should only take a moment.</p>
 
         <div class="reason">
@@ -245,7 +212,9 @@ readonly class MaintenanceModeSubscriber implements EventSubscriberInterface
         </div>
 
         <p class="info">
-            Update running for <span class="duration">{$durationText}</span><br>
+            Maintenance mode active since <span class="duration">{$startDateStr}</span><br>
+            <br>
+            Started <span class="duration">{$durationText}</span> ago<br>
             <small>This page will automatically refresh every 15 seconds.</small>
         </p>
     </div>
