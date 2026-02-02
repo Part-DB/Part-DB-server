@@ -15108,5 +15108,17 @@ Buerklin-API Authentication server:
         <target>Cannot update automatically from WebUI</target>
       </segment>
     </unit>
+    <unit id="XquvWL5" name="update_manager.switch_to">
+      <segment>
+        <source>update_manager.switch_to</source>
+        <target>Switch to</target>
+      </segment>
+    </unit>
+    <unit id="oKMBb9S" name="update_manager.update_to">
+      <segment>
+        <source>update_manager.update_to</source>
+        <target>Update to</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
