@@ -32,7 +32,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[AsCommand('partdb:maintenance_mode', 'Enable/disable maintenance mode and set a message')]
+#[AsCommand('partdb:maintenance-mode', 'Enable/disable maintenance mode and set a message')]
 class MaintenanceModeCommand extends Command
 {
     public function __construct(
