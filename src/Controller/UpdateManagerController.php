@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Services\System\BackupManager;
 use App\Services\System\UpdateChecker;
 use App\Services\System\UpdateExecutor;
 use Shivas\VersioningBundle\Service\VersionManagerInterface;
@@ -47,6 +48,7 @@ class UpdateManagerController extends AbstractController
         private readonly UpdateChecker $updateChecker,
         private readonly UpdateExecutor $updateExecutor,
         private readonly VersionManagerInterface $versionManager,
+        private readonly BackupManager $backupManager,
         #[Autowire(env: 'bool:DISABLE_WEB_UPDATES')]
         private readonly bool $webUpdatesDisabled = false,
         #[Autowire(env: 'bool:DISABLE_BACKUP_RESTORE')]
@@ -96,7 +98,7 @@ class UpdateManagerController extends AbstractController
             'is_maintenance' => $this->updateExecutor->isMaintenanceMode(),
             'maintenance_info' => $this->updateExecutor->getMaintenanceInfo(),
             'update_logs' => $this->updateExecutor->getUpdateLogs(),
-            'backups' => $this->updateExecutor->getBackups(),
+            'backups' => $this->backupManager->getBackups(),
             'web_updates_disabled' => $this->webUpdatesDisabled,
             'backup_restore_disabled' => $this->backupRestoreDisabled,
         ]);
@@ -131,7 +133,7 @@ class UpdateManagerController extends AbstractController
             return $this->json(['error' => 'Invalid CSRF token'], Response::HTTP_FORBIDDEN);
         }
 
-        $this->updateChecker->refreshGitInfo();
+        $this->updateChecker->refreshVersionInfo();
 
         return $this->json([
             'success' => true,
@@ -173,7 +175,7 @@ class UpdateManagerController extends AbstractController
     #[Route('/log/{filename}', name: 'admin_update_manager_log', methods: ['GET'])]
     public function viewLog(string $filename): Response
     {
-        $this->denyAccessUnlessGranted('@system.show_updates');
+        $this->denyAccessUnlessGranted('@system.manage_updates');
 
         // Security: Only allow viewing files from the update logs directory
         $logs = $this->updateExecutor->getUpdateLogs();
@@ -303,7 +305,7 @@ class UpdateManagerController extends AbstractController
     {
         $this->denyAccessUnlessGranted('@system.manage_updates');
 
-        $details = $this->updateExecutor->getBackupDetails($filename);
+        $details = $this->backupManager->getBackupDetails($filename);
 
         if (!$details) {
             return $this->json(['error' => 'Backup not found'], 404);
@@ -344,7 +346,7 @@ class UpdateManagerController extends AbstractController
         }
 
         // Verify the backup exists
-        $backupDetails = $this->updateExecutor->getBackupDetails($filename);
+        $backupDetails = $this->backupManager->getBackupDetails($filename);
         if (!$backupDetails) {
             $this->addFlash('error', 'Backup file not found.');
             return $this->redirectToRoute('admin_update_manager');

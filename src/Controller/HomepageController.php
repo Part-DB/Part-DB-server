@@ -24,8 +24,8 @@ namespace App\Controller;
 
 use App\DataTables\LogDataTable;
 use App\Entity\Parts\Part;
-use App\Services\Misc\GitVersionInfo;
 use App\Services\System\BannerHelper;
+use App\Services\System\GitVersionInfoProvider;
 use App\Services\System\UpdateAvailableManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -43,7 +43,7 @@ class HomepageController extends AbstractController
 
 
     #[Route(path: '/', name: 'homepage')]
-    public function homepage(Request $request, GitVersionInfo $versionInfo, EntityManagerInterface $entityManager,
+    public function homepage(Request $request, GitVersionInfoProvider $versionInfo, EntityManagerInterface $entityManager,
     UpdateAvailableManager $updateAvailableManager): Response
     {
         $this->denyAccessUnlessGranted('HAS_ACCESS_PERMISSIONS');
@@ -77,8 +77,8 @@ class HomepageController extends AbstractController
 
         return $this->render('homepage.html.twig', [
             'banner' => $this->bannerHelper->getBanner(),
-            'git_branch' => $versionInfo->getGitBranchName(),
-            'git_commit' => $versionInfo->getGitCommitHash(),
+            'git_branch' => $versionInfo->getBranchName(),
+            'git_commit' => $versionInfo->getCommitHash(),
             'show_first_steps' => $show_first_steps,
             'datatable' => $table,
             'new_version_available' => $updateAvailableManager->isUpdateAvailable(),

@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Services\System\InstallationType;
 use App\Services\System\UpdateChecker;
 use App\Services\System\UpdateExecutor;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -134,7 +133,7 @@ HELP
         // Handle --refresh option
         if ($input->getOption('refresh')) {
             $io->text('Refreshing version information...');
-            $this->updateChecker->refreshGitInfo();
+            $this->updateChecker->refreshVersionInfo();
             $io->success('Version cache cleared.');
         }
 

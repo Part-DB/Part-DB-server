@@ -26,51 +26,9 @@ namespace App\Services\System;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Process\Process;
 
-/**
- * Detects the installation type of Part-DB to determine the appropriate update strategy.
- */
-enum InstallationType: string
+readonly class InstallationTypeDetector
 {
-    case GIT = 'git';
-    case DOCKER = 'docker';
-    case ZIP_RELEASE = 'zip_release';
-    case UNKNOWN = 'unknown';
-
-    public function getLabel(): string
-    {
-        return match($this) {
-            self::GIT => 'Git Clone',
-            self::DOCKER => 'Docker',
-            self::ZIP_RELEASE => 'Release Archive',
-            self::UNKNOWN => 'Unknown',
-        };
-    }
-
-    public function supportsAutoUpdate(): bool
-    {
-        return match($this) {
-            self::GIT => true,
-            self::DOCKER => false,
-            // ZIP_RELEASE auto-update not yet implemented
-            self::ZIP_RELEASE => false,
-            self::UNKNOWN => false,
-        };
-    }
-
-    public function getUpdateInstructions(): string
-    {
-        return match($this) {
-            self::GIT => 'Run: php bin/console partdb:update',
-            self::DOCKER => 'Pull the new Docker image and recreate the container: docker-compose pull && docker-compose up -d',
-            self::ZIP_RELEASE => 'Download the new release ZIP from GitHub, extract it over your installation, and run: php bin/console doctrine:migrations:migrate && php bin/console cache:clear',
-            self::UNKNOWN => 'Unable to determine installation type. Please update manually.',
-        };
-    }
-}
-
-class InstallationTypeDetector
-{
-    public function __construct(#[Autowire(param: 'kernel.project_dir')] private readonly string $project_dir)
+    public function __construct(#[Autowire(param: 'kernel.project_dir')] private string $project_dir, private GitVersionInfoProvider $gitVersionInfoProvider)
     {
 
     }
@@ -129,7 +87,7 @@ class InstallationTypeDetector
      */
     public function isGitInstall(): bool
     {
-        return is_dir($this->project_dir . '/.git');
+        return $this->gitVersionInfoProvider->isGitRepo();
     }
 
     /**
@@ -169,51 +127,21 @@ class InstallationTypeDetector
 
     /**
      * Get Git-specific information.
+     * @return array{branch: string|null, commit: string|null, remote_url: string|null, has_local_changes: bool}
      */
     private function getGitInfo(): array
     {
-        $info = [
-            'branch' => null,
-            'commit' => null,
-            'remote_url' => null,
-            'has_local_changes' => false,
+        return [
+            'branch' => $this->gitVersionInfoProvider->getBranchName(),
+            'commit' => $this->gitVersionInfoProvider->getCommitHash(8),
+            'remote_url' => $this->gitVersionInfoProvider->getRemoteURL(),
+            'has_local_changes' => $this->gitVersionInfoProvider->hasLocalChanges() ?? false,
         ];
-
-        // Get branch
-        $headFile = $this->project_dir . '/.git/HEAD';
-        if (file_exists($headFile)) {
-            $head = file_get_contents($headFile);
-            if (preg_match('#ref: refs/heads/(.+)#', $head, $matches)) {
-                $info['branch'] = trim($matches[1]);
-            }
-        }
-
-        // Get remote URL
-        $configFile = $this->project_dir . '/.git/config';
-        if (file_exists($configFile)) {
-            $config = file_get_contents($configFile);
-            if (preg_match('#url = (.+)#', $config, $matches)) {
-                $info['remote_url'] = trim($matches[1]);
-            }
-        }
-
-        // Get commit hash
-        $process = new Process(['git', 'rev-parse', '--short', 'HEAD'], $this->project_dir);
-        $process->run();
-        if ($process->isSuccessful()) {
-            $info['commit'] = trim($process->getOutput());
-        }
-
-        // Check for local changes
-        $process = new Process(['git', 'status', '--porcelain'], $this->project_dir);
-        $process->run();
-        $info['has_local_changes'] = !empty(trim($process->getOutput()));
-
-        return $info;
     }
 
     /**
      * Get Docker-specific information.
+     * @return array{container_id: string|null, image: string|null}
      */
     private function getDockerInfo(): array
     {

@@ -48,6 +48,7 @@ class UpdateChecker
         private readonly CacheInterface $updateCache, private readonly VersionManagerInterface $versionManager,
         private readonly PrivacySettings $privacySettings, private readonly LoggerInterface $logger,
         private readonly InstallationTypeDetector $installationTypeDetector,
+        private readonly GitVersionInfoProvider $gitVersionInfoProvider,
         #[Autowire(param: 'kernel.debug')] private readonly bool $is_dev_mode,
         #[Autowire(param: 'kernel.project_dir')] private readonly string $project_dir)
     {
@@ -84,34 +85,15 @@ class UpdateChecker
             'is_git_install' => false,
         ];
 
-        $gitDir = $this->project_dir . '/.git';
-
-        if (!is_dir($gitDir)) {
+        if (!$this->gitVersionInfoProvider->isGitRepo()) {
             return $info;
         }
 
         $info['is_git_install'] = true;
 
-        // Get branch from HEAD file
-        $headFile = $gitDir . '/HEAD';
-        if (file_exists($headFile)) {
-            $head = file_get_contents($headFile);
-            if (preg_match('#ref: refs/heads/(.+)#', $head, $matches)) {
-                $info['branch'] = trim($matches[1]);
-            }
-        }
-
-        // Get current commit
-        $process = new Process(['git', 'rev-parse', '--short', 'HEAD'], $this->project_dir);
-        $process->run();
-        if ($process->isSuccessful()) {
-            $info['commit'] = trim($process->getOutput());
-        }
-
-        // Check for local changes
-        $process = new Process(['git', 'status', '--porcelain'], $this->project_dir);
-        $process->run();
-        $info['has_local_changes'] = !empty(trim($process->getOutput()));
+        $info['branch'] = $this->gitVersionInfoProvider->getBranchName();
+        $info['commit'] = $this->gitVersionInfoProvider->getCommitHash(8);
+        $info['has_local_changes'] = $this->gitVersionInfoProvider->hasLocalChanges();
 
         // Get commits behind (fetch first)
         if ($info['branch']) {
@@ -151,7 +133,7 @@ class UpdateChecker
     /**
      * Force refresh git information by invalidating cache.
      */
-    public function refreshGitInfo(): void
+    public function refreshVersionInfo(): void
     {
         $gitInfo = $this->getGitInfo();
         if ($gitInfo['branch']) {
