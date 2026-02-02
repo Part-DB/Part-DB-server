@@ -219,6 +219,16 @@
         </div>
     {% endif %}
 
+    {# Non-auto-update installations info #}
+    {% if not status.can_auto_update %}
+        <div class="alert alert-secondary">
+            <h6 class="alert-heading">
+                <i class="fas fa-info-circle me-2"></i>{% trans%}update_manager.cant_auto_update{% endtrans%}: {{ status.installation.type_name }}
+            </h6>
+            <p class="mb-0">{{ status.installation.update_instructions }}</p>
+        </div>
+    {% endif %}
+
     <div class="row">
         {# Available Versions #}
         <div class="col-lg-6 mb-4">
@@ -409,15 +419,5 @@
             </div>
         </div>
     </div>
-
-    {# Non-auto-update installations info #}
-    {% if not status.can_auto_update %}
-        <div class="alert alert-secondary">
-            <h6 class="alert-heading">
-                <i class="fas fa-info-circle me-2"></i>{{ status.installation.type_name }}
-            </h6>
-            <p class="mb-0">{{ status.installation.update_instructions }}</p>
-        </div>
-    {% endif %}
 </div>
 {% endblock %}
