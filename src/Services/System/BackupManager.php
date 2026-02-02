@@ -35,17 +35,18 @@ use Symfony\Component\Process\Process;
  * This service handles all backup-related operations and can be used
  * by the Update Manager, CLI commands, or other services.
  */
-class BackupManager
+readonly class BackupManager
 {
     private const BACKUP_DIR = 'var/backups';
 
     public function __construct(
         #[Autowire(param: 'kernel.project_dir')]
-        private readonly string $projectDir,
-        private readonly LoggerInterface $logger,
-        private readonly Filesystem $filesystem,
-        private readonly VersionManagerInterface $versionManager,
-        private readonly EntityManagerInterface $entityManager,
+        private string $projectDir,
+        private LoggerInterface $logger,
+        private Filesystem $filesystem,
+        private VersionManagerInterface $versionManager,
+        private EntityManagerInterface $entityManager,
+        private CommandRunHelper $commandRunHelper,
     ) {
     }
 
@@ -90,7 +91,7 @@ class BackupManager
             $backupFile = $backupDir . '/' . $prefix . '-v' . $currentVersion . '-' . date('Y-m-d-His') . '.zip';
         }
 
-        $this->runCommand([
+        $this->commandRunHelper->runCommand([
             'php', 'bin/console', 'partdb:backup',
             '--full',
             '--overwrite',
@@ -103,7 +104,7 @@ class BackupManager
     }
 
     /**
-     * Get list of backups.
+     * Get list of backups, that are available, sorted by date descending.
      *
      * @return array<array{file: string, path: string, date: int, size: int}>
      */
@@ -126,7 +127,7 @@ class BackupManager
         }
 
         // Sort by date descending
-        usort($backups, fn($a, $b) => $b['date'] <=> $a['date']);
+        usort($backups, static fn($a, $b) => $b['date'] <=> $a['date']);
 
         return $backups;
     }
@@ -135,7 +136,7 @@ class BackupManager
      * Get details about a specific backup file.
      *
      * @param string $filename The backup filename
-     * @return array|null Backup details or null if not found
+     * @return null|array{file: string, path: string, date: int, size: int, from_version: ?string, to_version: ?string, contains_database?: bool, contains_config?: bool, contains_attachments?: bool} Backup details or null if not found
      */
     public function getBackupDetails(string $filename): ?array
     {
@@ -448,40 +449,5 @@ class BackupManager
         if (is_dir($uploads)) {
             $this->filesystem->mirror($uploads, $this->projectDir . '/uploads', null, ['override' => true]);
         }
-    }
-
-    /**
-     * Run a shell command with proper error handling.
-     */
-    private function runCommand(array $command, string $description, int $timeout = 120): string
-    {
-        $process = new Process($command, $this->projectDir);
-        $process->setTimeout($timeout);
-
-        // Set environment variables
-        $currentEnv = getenv();
-        if (!is_array($currentEnv)) {
-            $currentEnv = [];
-        }
-        $env = array_merge($currentEnv, [
-            'HOME' => $this->projectDir,
-            'COMPOSER_HOME' => $this->projectDir . '/var/composer',
-            'PATH' => getenv('PATH') ?: '/usr/local/bin:/usr/bin:/bin',
-        ]);
-        $process->setEnv($env);
-
-        $output = '';
-        $process->run(function ($type, $buffer) use (&$output) {
-            $output .= $buffer;
-        });
-
-        if (!$process->isSuccessful()) {
-            $errorOutput = $process->getErrorOutput() ?: $process->getOutput();
-            throw new \RuntimeException(
-                sprintf('%s failed: %s', $description, trim($errorOutput))
-            );
-        }
-
-        return $output;
     }
 }

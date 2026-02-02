@@ -46,6 +46,7 @@ class UpdateExecutor
     private array $steps = [];
 
     private ?string $currentLogFile = null;
+    private CommandRunHelper $commandRunHelper;
 
     public function __construct(
         #[Autowire(param: 'kernel.project_dir')]
@@ -58,6 +59,7 @@ class UpdateExecutor
         #[Autowire(param: 'app.debug_mode')]
         private readonly bool $debugMode = false,
     ) {
+        $this->commandRunHelper = new CommandRunHelper($this);
     }
 
     /**
@@ -516,36 +518,7 @@ class UpdateExecutor
      */
     private function runCommand(array $command, string $description, int $timeout = 120): string
     {
-        $process = new Process($command, $this->project_dir);
-        $process->setTimeout($timeout);
-
-        // Set environment variables needed for Composer and other tools
-        // This is especially important when running as www-data which may not have HOME set
-        // We inherit from current environment and override/add specific variables
-        $currentEnv = getenv();
-        if (!is_array($currentEnv)) {
-            $currentEnv = [];
-        }
-        $env = array_merge($currentEnv, [
-            'HOME' => $this->project_dir,
-            'COMPOSER_HOME' => $this->project_dir . '/var/composer',
-            'PATH' => getenv('PATH') ?: '/usr/local/bin:/usr/bin:/bin',
-        ]);
-        $process->setEnv($env);
-
-        $output = '';
-        $process->run(function ($type, $buffer) use (&$output) {
-            $output .= $buffer;
-        });
-
-        if (!$process->isSuccessful()) {
-            $errorOutput = $process->getErrorOutput() ?: $process->getOutput();
-            throw new \RuntimeException(
-                sprintf('%s failed: %s', $description, trim($errorOutput))
-            );
-        }
-
-        return $output;
+        return $this->commandRunHelper->runCommand($command, $description, $timeout);
     }
 
     /**
