@@ -72,6 +72,7 @@ class UpdateChecker
 
     /**
      * Get Git repository information.
+     * @return array{branch: ?string, commit: ?string, has_local_changes: bool, commits_behind: int, is_git_install: bool}
      */
     public function getGitInfo(): array
     {
@@ -227,6 +228,7 @@ class UpdateChecker
 
     /**
      * Get the latest stable release.
+     * @return array{version: string, tag: string, name: string, url: string, published_at: string, body: string, prerelease: bool, assets: array}|null
      */
     public function getLatestRelease(bool $includePrerelease = false): ?array
     {
@@ -264,6 +266,8 @@ class UpdateChecker
 
     /**
      * Get comprehensive update status.
+     * @return array{current_version: string, latest_version: ?string, latest_tag: ?string, update_available: bool, release_notes: ?string, release_url: ?string,
+     *      published_at: ?string, git: array, installation: array, can_auto_update: bool, update_blockers: array, check_enabled: bool}
      */
     public function getUpdateStatus(): array
     {
@@ -318,6 +322,7 @@ class UpdateChecker
 
     /**
      * Get releases newer than the current version.
+     * @return array<array{version: string, tag: string, name: string, url: string, published_at: string, body: string, prerelease: bool, assets: array}>
      */
     public function getAvailableUpdates(bool $includePrerelease = false): array
     {
