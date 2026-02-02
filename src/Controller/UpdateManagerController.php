@@ -41,7 +41,7 @@ use Symfony\Component\Routing\Attribute\Route;
  * This provides a read-only view of update status and instructions.
  * Actual updates should be performed via the CLI command for safety.
  */
-#[Route('/admin/update-manager')]
+#[Route('/system/update-manager')]
 class UpdateManagerController extends AbstractController
 {
     public function __construct(
@@ -259,7 +259,7 @@ class UpdateManagerController extends AbstractController
     #[Route('/progress', name: 'admin_update_manager_progress', methods: ['GET'])]
     public function progress(): Response
     {
-        $this->denyAccessUnlessGranted('@system.show_updates');
+        $this->denyAccessUnlessGranted('@system.manage_updates');
 
         $progress = $this->updateExecutor->getProgress();
         $currentVersion = $this->versionManager->getVersion()->toString();
