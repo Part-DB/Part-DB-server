@@ -14544,84 +14544,6 @@ Buerklin-API Authentication server:
         <target>No backups found</target>
       </segment>
     </unit>
-    <unit id="8BSL9GV" name="update_manager.pre_update_checklist">
-      <segment state="translated">
-        <source>update_manager.pre_update_checklist</source>
-        <target>Pre-Update Checklist</target>
-      </segment>
-    </unit>
-    <unit id="P1xXFlV" name="update_manager.before_updating">
-      <segment state="translated">
-        <source>update_manager.before_updating</source>
-        <target>Before Updating</target>
-      </segment>
-    </unit>
-    <unit id="0aNVXao" name="update_manager.checklist.requirements">
-      <segment state="translated">
-        <source>update_manager.checklist.requirements</source>
-        <target>All requirements met</target>
-      </segment>
-    </unit>
-    <unit id="yhiqck." name="update_manager.checklist.no_local_changes">
-      <segment state="translated">
-        <source>update_manager.checklist.no_local_changes</source>
-        <target>No local modifications</target>
-      </segment>
-    </unit>
-    <unit id="3Lshokz" name="update_manager.checklist.backup_created">
-      <segment state="translated">
-        <source>update_manager.checklist.backup_created</source>
-        <target>Backup will be created automatically</target>
-      </segment>
-    </unit>
-    <unit id="Z6lMC2c" name="update_manager.checklist.read_release_notes">
-      <segment state="translated">
-        <source>update_manager.checklist.read_release_notes</source>
-        <target>Read release notes for breaking changes</target>
-      </segment>
-    </unit>
-    <unit id="XE2YbZr" name="update_manager.update_will">
-      <segment state="translated">
-        <source>update_manager.update_will</source>
-        <target>The Update Will</target>
-      </segment>
-    </unit>
-    <unit id="g4crXwv" name="update_manager.will.backup">
-      <segment state="translated">
-        <source>update_manager.will.backup</source>
-        <target>Create a full backup</target>
-      </segment>
-    </unit>
-    <unit id="4C.brFM" name="update_manager.will.maintenance">
-      <segment state="translated">
-        <source>update_manager.will.maintenance</source>
-        <target>Enable maintenance mode</target>
-      </segment>
-    </unit>
-    <unit id="jy3h0dy" name="update_manager.will.git">
-      <segment state="translated">
-        <source>update_manager.will.git</source>
-        <target>Pull latest code from Git</target>
-      </segment>
-    </unit>
-    <unit id="aOk4IcV" name="update_manager.will.composer">
-      <segment state="translated">
-        <source>update_manager.will.composer</source>
-        <target>Update dependencies via Composer</target>
-      </segment>
-    </unit>
-    <unit id="vL9FtOr" name="update_manager.will.migrations">
-      <segment state="translated">
-        <source>update_manager.will.migrations</source>
-        <target>Run database migrations</target>
-      </segment>
-    </unit>
-    <unit id="G60bsW8" name="update_manager.will.cache">
-      <segment state="translated">
-        <source>update_manager.will.cache</source>
-        <target>Clear and rebuild cache</target>
-      </segment>
-    </unit>
     <unit id="hxz8Fme" name="update_manager.validation_issues">
       <segment state="translated">
         <source>update_manager.validation_issues</source>
@@ -14712,40 +14634,10 @@ Buerklin-API Authentication server:
         <target>Manage Part-DB updates</target>
       </segment>
     </unit>
-    <unit id="6MhRvQ6" name="update_manager.update_now">
-      <segment state="translated">
-        <source>update_manager.update_now</source>
-        <target>Update Now</target>
-      </segment>
-    </unit>
-    <unit id="jhDpFun" name="update_manager.update_from_to">
-      <segment state="translated">
-        <source>update_manager.update_from_to</source>
-        <target>Update from %from% to %to%</target>
-      </segment>
-    </unit>
-    <unit id="8qZ5Ygo" name="update_manager.update_description">
-      <segment state="translated">
-        <source>update_manager.update_description</source>
-        <target>Click the button to start the update process. A backup will be created automatically and you can monitor the progress.</target>
-      </segment>
-    </unit>
-    <unit id="TP3asR1" name="update_manager.start_update">
-      <segment state="translated">
-        <source>update_manager.start_update</source>
-        <target>Start Update</target>
-      </segment>
-    </unit>
     <unit id="Mw2sya4" name="update_manager.create_backup">
       <segment state="translated">
         <source>update_manager.create_backup</source>
         <target>Create backup before updating (recommended)</target>
-      </segment>
-    </unit>
-    <unit id="L3oNCuE" name="update_manager.estimated_time">
-      <segment state="translated">
-        <source>update_manager.estimated_time</source>
-        <target>Update typically takes 2-5 minutes</target>
       </segment>
     </unit>
     <unit id="fWGZSZ1" name="update_manager.confirm_update">
@@ -14754,22 +14646,10 @@ Buerklin-API Authentication server:
         <target>Are you sure you want to update Part-DB? A backup will be created before the update.</target>
       </segment>
     </unit>
-    <unit id="N5_QQps" name="update_manager.starting">
-      <segment state="translated">
-        <source>update_manager.starting</source>
-        <target>Starting...</target>
-      </segment>
-    </unit>
     <unit id="Fashdp." name="update_manager.already_up_to_date">
       <segment state="translated">
         <source>update_manager.already_up_to_date</source>
         <target>You are running the latest version of Part-DB.</target>
-      </segment>
-    </unit>
-    <unit id="laclLuP" name="update_manager.cli_alternative">
-      <segment state="translated">
-        <source>update_manager.cli_alternative</source>
-        <target>Alternatively, you can update via the command line:</target>
       </segment>
     </unit>
     <unit id="JPZ9w0l" name="update_manager.progress.title">
@@ -14866,12 +14746,6 @@ Buerklin-API Authentication server:
       <segment state="translated">
         <source>update_manager.progress.downgrade_title</source>
         <target>Downgrade Progress</target>
-      </segment>
-    </unit>
-    <unit id="c6kYIQQ" name="update_manager.progress.downgrading">
-      <segment state="translated">
-        <source>update_manager.progress.downgrading</source>
-        <target>Downgrading Part-DB...</target>
       </segment>
     </unit>
     <unit id="9iiGqBW" name="update_manager.progress.downgrading_to">
