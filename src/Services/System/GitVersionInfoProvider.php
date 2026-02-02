@@ -85,20 +85,26 @@ final readonly class GitVersionInfoProvider
      */
     public function getCommitHash(int $length = 8): ?string
     {
-        $filename = $this->getGitDirectory() . '/refs/remotes/origin/'.$this->getBranchName();
-        if (is_file($filename)) {
-            $head = file($filename);
-
-            if (!isset($head[0])) {
-                return null;
-            }
-
-            $hash = $head[0];
-
-            return substr($hash, 0, $length);
+        $path = $this->getGitDirectory() . '/HEAD';
+        if (!file_exists($path)) {
+            return null;
         }
 
-        return null; // this is not a Git installation
+        $head = trim(file_get_contents($path));
+
+        // If it's a symbolic ref (e.g., "ref: refs/heads/main")
+        if (str_starts_with($head, 'ref:')) {
+            $refPath = $this->getGitDirectory() . '/' . trim(substr($head, 5));
+            if (file_exists($refPath)) {
+                $hash = trim(file_get_contents($refPath));
+            }
+        } else {
+            // Otherwise, it's a detached HEAD (the hash is right there)
+            $hash = $head;
+        }
+
+        return isset($hash) ? substr($hash, 0, $length) : null;
+
     }
 
     /**
