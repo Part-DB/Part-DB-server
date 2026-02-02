@@ -34,6 +34,8 @@ use Symfony\Component\Process\Process;
  *
  * This service should primarily be used from CLI commands, not web requests,
  * due to the long-running nature of updates and permission requirements.
+ *
+ * For web requests, use startBackgroundUpdate() method.
  */
 class UpdateExecutor
 {
@@ -46,7 +48,6 @@ class UpdateExecutor
     private array $steps = [];
 
     private ?string $currentLogFile = null;
-    private CommandRunHelper $commandRunHelper;
 
     public function __construct(
         #[Autowire(param: 'kernel.project_dir')]
@@ -56,10 +57,10 @@ class UpdateExecutor
         private readonly InstallationTypeDetector $installationTypeDetector,
         private readonly VersionManagerInterface $versionManager,
         private readonly BackupManager $backupManager,
+        private readonly CommandRunHelper $commandRunHelper,
         #[Autowire(param: 'app.debug_mode')]
         private readonly bool $debugMode = false,
     ) {
-        $this->commandRunHelper = new CommandRunHelper($this);
     }
 
     /**
@@ -75,14 +76,12 @@ class UpdateExecutor
      */
     public function isLocked(): bool
     {
-        $lockFile = $this->project_dir . '/' . self::LOCK_FILE;
-
-        if (!file_exists($lockFile)) {
+        // Check if lock is stale (older than 1 hour)
+        $lockData = $this->getLockInfo();
+        if ($lockData === null) {
             return false;
         }
 
-        // Check if lock is stale (older than 1 hour)
-        $lockData = json_decode(file_get_contents($lockFile), true);
         if ($lockData && isset($lockData['started_at'])) {
             $startedAt = new \DateTime($lockData['started_at']);
             $now = new \DateTime();
@@ -100,7 +99,8 @@ class UpdateExecutor
     }
 
     /**
-     * Get lock information.
+     * Get lock information, or null if not locked.
+     * @return null|array{started_at: string, pid: int, user: string}
      */
     public function getLockInfo(): ?array
     {
@@ -110,7 +110,7 @@ class UpdateExecutor
             return null;
         }
 
-        return json_decode(file_get_contents($lockFile), true);
+        return json_decode(file_get_contents($lockFile), true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -123,6 +123,7 @@ class UpdateExecutor
 
     /**
      * Get maintenance mode information.
+     * @return null|array{enabled_at: string, reason: string}
      */
     public function getMaintenanceInfo(): ?array
     {
@@ -132,7 +133,7 @@ class UpdateExecutor
             return null;
         }
 
-        return json_decode(file_get_contents($maintenanceFile), true);
+        return json_decode(file_get_contents($maintenanceFile), true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -157,7 +158,7 @@ class UpdateExecutor
             'user' => get_current_user(),
         ];
 
-        $this->filesystem->dumpFile($lockFile, json_encode($lockData, JSON_PRETTY_PRINT));
+        $this->filesystem->dumpFile($lockFile, json_encode($lockData, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT));
 
         return true;
     }
@@ -191,7 +192,7 @@ class UpdateExecutor
             'reason' => $reason,
         ];
 
-        $this->filesystem->dumpFile($maintenanceFile, json_encode($data, JSON_PRETTY_PRINT));
+        $this->filesystem->dumpFile($maintenanceFile, json_encode($data, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT));
     }
 
     /**
@@ -574,6 +575,7 @@ class UpdateExecutor
 
     /**
      * Get list of update log files.
+     * @return array{file: string, path: string, date: int, size: int}[]
      */
     public function getUpdateLogs(): array
     {
@@ -594,28 +596,11 @@ class UpdateExecutor
         }
 
         // Sort by date descending
-        usort($logs, fn($a, $b) => $b['date'] <=> $a['date']);
+        usort($logs, static fn($a, $b) => $b['date'] <=> $a['date']);
 
         return $logs;
     }
 
-    /**
-     * Get list of backups.
-     * @deprecated Use BackupManager::getBackups() directly
-     */
-    public function getBackups(): array
-    {
-        return $this->backupManager->getBackups();
-    }
-
-    /**
-     * Get details about a specific backup file.
-     * @deprecated Use BackupManager::getBackupDetails() directly
-     */
-    public function getBackupDetails(string $filename): ?array
-    {
-        return $this->backupManager->getBackupDetails($filename);
-    }
 
     /**
      * Restore from a backup file with maintenance mode and cache clearing.
@@ -746,8 +731,9 @@ class UpdateExecutor
 
     /**
      * Save progress to file for web UI polling.
+     * @param array{status: string, target_version: string, create_backup: bool, started_at: string, current_step: int, total_steps: int, step_name: string, step_message: string, steps: array, error: ?string} $progress
      */
-    public function saveProgress(array $progress): void
+    private function saveProgress(array $progress): void
     {
         $progressFile = $this->getProgressFilePath();
         $progressDir = dirname($progressFile);
@@ -756,11 +742,12 @@ class UpdateExecutor
             $this->filesystem->mkdir($progressDir);
         }
 
-        $this->filesystem->dumpFile($progressFile, json_encode($progress, JSON_PRETTY_PRINT));
+        $this->filesystem->dumpFile($progressFile, json_encode($progress, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT));
     }
 
     /**
      * Get current update progress from file.
+     * @return null|array{status: string, target_version: string, create_backup: bool, started_at: string, current_step: int, total_steps: int, step_name: string, step_message: string, steps: array, error: ?string}
      */
     public function getProgress(): ?array
     {
@@ -770,7 +757,7 @@ class UpdateExecutor
             return null;
         }
 
-        $data = json_decode(file_get_contents($progressFile), true);
+        $data = json_decode(file_get_contents($progressFile), true, 512, JSON_THROW_ON_ERROR);
 
         // If the progress file is stale (older than 30 minutes), consider it invalid
         if ($data && isset($data['started_at'])) {

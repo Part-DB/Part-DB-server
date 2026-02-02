@@ -74,12 +74,6 @@ class UpdateExecutorTest extends KernelTestCase
         $this->assertIsArray($logs);
     }
 
-    public function testGetBackupsReturnsArray(): void
-    {
-        $backups = $this->updateExecutor->getBackups();
-
-        $this->assertIsArray($backups);
-    }
 
     public function testValidateUpdatePreconditionsReturnsProperStructure(): void
     {
