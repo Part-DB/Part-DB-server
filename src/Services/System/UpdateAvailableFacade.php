@@ -24,12 +24,8 @@ declare(strict_types=1);
 namespace App\Services\System;
 
 use App\Settings\SystemSettings\PrivacySettings;
-use Psr\Log\LoggerInterface;
-use Shivas\VersioningBundle\Service\VersionManagerInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Version\Version;
 
 /**

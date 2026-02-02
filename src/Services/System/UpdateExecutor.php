@@ -55,7 +55,7 @@ class UpdateExecutor
         private readonly LoggerInterface $logger,
         private readonly Filesystem $filesystem,
         private readonly InstallationTypeDetector $installationTypeDetector,
-        private readonly VersionManagerInterface $versionManager,
+        private readonly UpdateChecker $updateChecker,
         private readonly BackupManager $backupManager,
         private readonly CommandRunHelper $commandRunHelper,
         #[Autowire(param: 'app.debug_mode')]
@@ -68,7 +68,7 @@ class UpdateExecutor
      */
     private function getCurrentVersionString(): string
     {
-        return $this->versionManager->getVersion()->toString();
+        return $this->updateChecker->getCurrentVersionString();
     }
 
     /**
