@@ -863,6 +863,8 @@ class UpdateExecutor
 
         // Execute in background using shell_exec for proper detachment
         // shell_exec with & runs the command in background
+
+        //@php-ignore-next-line We really need to use shell_exec here
         $output = shell_exec($command);
 
         // Give it a moment to start

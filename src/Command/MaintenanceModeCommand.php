@@ -106,7 +106,7 @@ class MaintenanceModeCommand extends Command
 
             if ($enable) {
                 // Use provided message or fallback to a default English message
-                $reason = is_string($message) && $message !== ''
+                $reason = is_string($message)
                     ? $message
                     : 'The system is temporarily unavailable due to maintenance.';
 

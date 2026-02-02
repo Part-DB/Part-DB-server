@@ -28,8 +28,6 @@ use Symfony\Component\Process\Process;
 
 class CommandRunHelper
 {
-    private UpdateExecutor $updateExecutor;
-
     public function __construct(
         #[Autowire(param: 'kernel.project_dir')] private readonly string $project_dir
     )

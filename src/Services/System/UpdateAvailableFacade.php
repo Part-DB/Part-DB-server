@@ -33,8 +33,6 @@ use Version\Version;
  */
 class UpdateAvailableFacade
 {
-
-    private const API_URL = 'https://api.github.com/repos/Part-DB/Part-DB-server/releases/latest';
     private const CACHE_KEY = 'uam_latest_version';
     private const CACHE_TTL = 60 * 60 * 24 * 2; // 2 day
 

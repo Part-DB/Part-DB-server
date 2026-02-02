@@ -145,15 +145,12 @@ class UpdateChecker
     /**
      * Get all available releases from GitHub (cached).
      *
-     * @return array<array{version: string, tag: string, name: string, url: string, published_at: string, body: string, prerelease: bool, assets: array}>
+     * @return array<array{version: string, tag: string, name: string, url: string, published_at: string, body: string, prerelease: bool, draft:bool, assets: array, tarball_url: ?string, zipball_url: ?string}>
      */
     public function getAvailableReleases(int $limit = 10): array
     {
         if (!$this->privacySettings->checkForUpdates) {
-            return [ //If we don't want to check for updates, we can return dummy data
-                'version' => '0.0.1',
-                'url' => 'update-checking-disabled'
-            ];
+            return [];
         }
 
         return $this->updateCache->get(self::CACHE_KEY_RELEASES, function (ItemInterface $item) use ($limit) {
