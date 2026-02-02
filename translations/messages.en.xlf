@@ -14442,18 +14442,6 @@ Buerklin-API Authentication server:
         <target>For safety and reliability, updates should be performed via the command line interface. The update process will automatically create a backup, enable maintenance mode, and handle migrations.</target>
       </segment>
     </unit>
-    <unit id="3GfxhCf" name="update_manager.yes">
-      <segment state="translated">
-        <source>update_manager.yes</source>
-        <target>Yes</target>
-      </segment>
-    </unit>
-    <unit id="PMpZwMm" name="update_manager.no">
-      <segment state="translated">
-        <source>update_manager.no</source>
-        <target>No</target>
-      </segment>
-    </unit>
     <unit id="cTzUzRc" name="update_manager.up_to_date">
       <segment state="translated">
         <source>update_manager.up_to_date</source>

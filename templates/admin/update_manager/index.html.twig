@@ -87,11 +87,11 @@
                                     <td>
                                         {% if status.git.has_local_changes %}
                                             <span class="badge bg-warning text-dark">
-                                                <i class="fas fa-exclamation-triangle me-1"></i>{% trans %}update_manager.yes{% endtrans %}
+                                                <i class="fas fa-exclamation-triangle me-1"></i>{% trans %}Yes{% endtrans %}
                                             </span>
                                         {% else %}
                                             <span class="badge bg-success">
-                                                <i class="fas fa-check me-1"></i>{% trans %}update_manager.no{% endtrans %}
+                                                <i class="fas fa-check me-1"></i>{% trans %}No{% endtrans %}
                                             </span>
                                         {% endif %}
                                     </td>
@@ -102,11 +102,11 @@
                                 <td>
                                     {% if status.can_auto_update %}
                                         <span class="badge bg-success">
-                                            <i class="fas fa-check me-1"></i>{% trans %}update_manager.yes{% endtrans %}
+                                            <i class="fas fa-check me-1"></i>{% trans %}Yes{% endtrans %}
                                         </span>
                                     {% else %}
                                         <span class="badge bg-secondary">
-                                            <i class="fas fa-times me-1"></i>{% trans %}update_manager.no{% endtrans %}
+                                            <i class="fas fa-times me-1"></i>{% trans %}No{% endtrans %}
                                         </span>
                                     {% endif %}
                                 </td>
