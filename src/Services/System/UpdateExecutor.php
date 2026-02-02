@@ -835,15 +835,26 @@ class UpdateExecutor
             $this->filesystem->mkdir($logDir, 0755);
         }
 
-        // Use nohup to properly detach the process from the web request
-        // The process will continue running even after the PHP request ends
-        $command = sprintf(
-            'nohup php %s partdb:update %s %s --force --no-interaction >> %s 2>&1 &',
-            escapeshellarg($consolePath),
-            escapeshellarg($targetVersion),
-            $createBackup ? '' : '--no-backup',
-            escapeshellarg($logFile)
-        );
+        //If we are on Windows, we cannot use nohup
+        if (PHP_OS_FAMILY === 'Windows') {
+            $command = sprintf(
+                'start /B php %s partdb:update %s %s --force --no-interaction >> %s 2>&1',
+                escapeshellarg($consolePath),
+                escapeshellarg($targetVersion),
+                $createBackup ? '' : '--no-backup',
+                escapeshellarg($logFile)
+            );
+        } else { //Unix like platforms should be able to use nohup
+            // Use nohup to properly detach the process from the web request
+            // The process will continue running even after the PHP request ends
+            $command = sprintf(
+                'nohup php %s partdb:update %s %s --force --no-interaction >> %s 2>&1 &',
+                escapeshellarg($consolePath),
+                escapeshellarg($targetVersion),
+                $createBackup ? '' : '--no-backup',
+                escapeshellarg($logFile)
+            );
+        }
 
         $this->logger->info('Starting background update', [
             'command' => $command,
