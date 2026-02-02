@@ -166,7 +166,7 @@ HELP
         $includePrerelease = $input->getOption('include-prerelease');
 
         if (!$targetVersion) {
-            $latest = $this->updateChecker->getLatestRelease($includePrerelease);
+            $latest = $this->updateChecker->getLatestVersion($includePrerelease);
             if (!$latest) {
                 $io->error('Could not determine the latest version. Please specify a version manually.');
                 return Command::FAILURE;
@@ -175,7 +175,7 @@ HELP
         }
 
         // Validate target version
-        if (!$this->updateChecker->isNewerVersion($targetVersion)) {
+        if (!$this->updateChecker->isNewerVersionThanCurrent($targetVersion)) {
             $io->warning(sprintf(
                 'Version %s is not newer than the current version %s.',
                 $targetVersion,

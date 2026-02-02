@@ -26,7 +26,7 @@ use App\DataTables\LogDataTable;
 use App\Entity\Parts\Part;
 use App\Services\System\BannerHelper;
 use App\Services\System\GitVersionInfoProvider;
-use App\Services\System\UpdateAvailableManager;
+use App\Services\System\UpdateAvailableFacade;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,7 +44,7 @@ class HomepageController extends AbstractController
 
     #[Route(path: '/', name: 'homepage')]
     public function homepage(Request $request, GitVersionInfoProvider $versionInfo, EntityManagerInterface $entityManager,
-    UpdateAvailableManager $updateAvailableManager): Response
+    UpdateAvailableFacade $updateAvailableManager): Response
     {
         $this->denyAccessUnlessGranted('HAS_ACCESS_PERMISSIONS');
 

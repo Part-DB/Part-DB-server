@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
-use App\Services\System\UpdateAvailableManager;
+use App\Services\System\UpdateAvailableFacade;
 use Symfony\Bundle\SecurityBundle\Security;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -33,7 +33,7 @@ use Twig\TwigFunction;
  */
 final class UpdateExtension extends AbstractExtension
 {
-    public function __construct(private readonly UpdateAvailableManager $updateAvailableManager,
+    public function __construct(private readonly UpdateAvailableFacade $updateAvailableManager,
         private readonly Security $security)
     {
 

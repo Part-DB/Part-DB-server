@@ -75,7 +75,7 @@ class UpdateChecker
      * Get Git repository information.
      * @return array{branch: ?string, commit: ?string, has_local_changes: bool, commits_behind: int, is_git_install: bool}
      */
-    public function getGitInfo(): array
+    private function getGitInfo(): array
     {
         $info = [
             'branch' => null,
@@ -113,7 +113,7 @@ class UpdateChecker
             return 0;
         }
 
-        $cacheKey = self::CACHE_KEY_COMMITS . '_' . md5($branch);
+        $cacheKey = self::CACHE_KEY_COMMITS . '_' . hash('xxh3', $branch);
 
         return $this->updateCache->get($cacheKey, function (ItemInterface $item) use ($branch) {
             $item->expiresAfter(self::CACHE_TTL);
@@ -135,9 +135,9 @@ class UpdateChecker
      */
     public function refreshVersionInfo(): void
     {
-        $gitInfo = $this->getGitInfo();
-        if ($gitInfo['branch']) {
-            $this->updateCache->delete(self::CACHE_KEY_COMMITS . '_' . md5($gitInfo['branch']));
+        $gitBranch = $this->gitVersionInfoProvider->getBranchName();
+        if ($gitBranch) {
+            $this->updateCache->delete(self::CACHE_KEY_COMMITS . '_' . hash('xxh3', $gitBranch));
         }
         $this->updateCache->delete(self::CACHE_KEY_RELEASES);
     }
@@ -150,7 +150,10 @@ class UpdateChecker
     public function getAvailableReleases(int $limit = 10): array
     {
         if (!$this->privacySettings->checkForUpdates) {
-            return [];
+            return [ //If we don't want to check for updates, we can return dummy data
+                'version' => '0.0.1',
+                'url' => 'update-checking-disabled'
+            ];
         }
 
         return $this->updateCache->get(self::CACHE_KEY_RELEASES, function (ItemInterface $item) use ($limit) {
@@ -212,7 +215,7 @@ class UpdateChecker
      * Get the latest stable release.
      * @return array{version: string, tag: string, name: string, url: string, published_at: string, body: string, prerelease: bool, assets: array}|null
      */
-    public function getLatestRelease(bool $includePrerelease = false): ?array
+    public function getLatestVersion(bool $includePrerelease = false): ?array
     {
         $releases = $this->getAvailableReleases();
 
@@ -236,11 +239,13 @@ class UpdateChecker
     /**
      * Check if a specific version is newer than current.
      */
-    public function isNewerVersion(string $version): bool
+    public function isNewerVersionThanCurrent(Version|string $version): bool
     {
+        if ($version instanceof Version) {
+            return $version->isGreaterThan($this->getCurrentVersion());
+        }
         try {
-            $targetVersion = Version::fromString(ltrim($version, 'v'));
-            return $targetVersion->isGreaterThan($this->getCurrentVersion());
+            return Version::fromString(ltrim($version, 'v'))->isGreaterThan($this->getCurrentVersion());
         } catch (\Exception) {
             return false;
         }
@@ -254,7 +259,7 @@ class UpdateChecker
     public function getUpdateStatus(): array
     {
         $current = $this->getCurrentVersion();
-        $latest = $this->getLatestRelease();
+        $latest = $this->getLatestVersion();
         $gitInfo = $this->getGitInfo();
         $installInfo = $this->installationTypeDetector->getInstallationInfo();
 

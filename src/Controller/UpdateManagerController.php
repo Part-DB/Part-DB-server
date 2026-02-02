@@ -226,7 +226,7 @@ class UpdateManagerController extends AbstractController
 
         if (!$targetVersion) {
             // Get latest version if not specified
-            $latest = $this->updateChecker->getLatestRelease();
+            $latest = $this->updateChecker->getLatestVersion();
             if (!$latest) {
                 $this->addFlash('error', 'Could not determine target version.');
                 return $this->redirectToRoute('admin_update_manager');

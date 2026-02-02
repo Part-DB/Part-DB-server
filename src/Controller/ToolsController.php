@@ -28,7 +28,7 @@ use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\Doctrine\DBInfoHelper;
 use App\Services\Doctrine\NatsortDebugHelper;
 use App\Services\System\GitVersionInfoProvider;
-use App\Services\System\UpdateAvailableManager;
+use App\Services\System\UpdateAvailableFacade;
 use App\Settings\AppSettings;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,7 +48,7 @@ class ToolsController extends AbstractController
 
     #[Route(path: '/server_infos', name: 'tools_server_infos')]
     public function systemInfos(GitVersionInfoProvider $versionInfo, DBInfoHelper $DBInfoHelper, NatsortDebugHelper $natsortDebugHelper,
-        AttachmentSubmitHandler $attachmentSubmitHandler, UpdateAvailableManager $updateAvailableManager,
+        AttachmentSubmitHandler $attachmentSubmitHandler, UpdateAvailableFacade $updateAvailableManager,
         AppSettings $settings): Response
     {
         $this->denyAccessUnlessGranted('@system.server_infos');
