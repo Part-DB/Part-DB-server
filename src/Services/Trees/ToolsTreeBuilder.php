@@ -329,7 +329,7 @@ class ToolsTreeBuilder
             $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.system.update_manager'),
                 $this->urlGenerator->generate('admin_update_manager')
-            ))->setIcon('fa-fw fa-treeview fa-solid fa-cloud-download-alt');
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-arrow-circle-up');
         }
 
         return $nodes;
