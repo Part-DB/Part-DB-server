@@ -26,17 +26,19 @@ namespace App\EventSubscriber;
 use App\Services\System\UpdateExecutor;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Twig\Environment;
 
 /**
  * Blocks all web requests when maintenance mode is enabled during updates.
  */
-class MaintenanceModeSubscriber implements EventSubscriberInterface
+readonly class MaintenanceModeSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly UpdateExecutor $updateExecutor,
-        private readonly Environment $twig)
+    public function __construct(private UpdateExecutor $updateExecutor,
+        private Environment $twig)
     {
 
     }
@@ -45,7 +47,8 @@ class MaintenanceModeSubscriber implements EventSubscriberInterface
     {
         return [
             // High priority to run before other listeners
-            KernelEvents::REQUEST => ['onKernelRequest', 512],
+            KernelEvents::REQUEST => ['onKernelRequest', 512], //High priority to run before other listeners
+            KernelEvents::RESPONSE => ['onKernelResponse', -512] // Low priority to run after other listeners
         ];
     }
 
@@ -62,7 +65,7 @@ class MaintenanceModeSubscriber implements EventSubscriberInterface
         }
 
         // Allow CLI requests
-        if (php_sapi_name() === 'cli') {
+        if (PHP_SAPI === 'cli') {
             return;
         }
 
@@ -99,6 +102,28 @@ class MaintenanceModeSubscriber implements EventSubscriberInterface
         $response->headers->set('Cache-Control', 'no-store, no-cache, must-revalidate');
 
         $event->setResponse($response);
+    }
+
+    public function onKernelResponse(ResponseEvent $event)
+    {
+        // Only handle main requests
+        if (!$event->isMainRequest()) {
+            return;
+        }
+
+        // Skip if not in maintenance mode
+        if (!$this->updateExecutor->isMaintenanceMode()) {
+            return;
+        }
+
+        // Allow CLI requests
+        if (PHP_SAPI === 'cli') {
+            return;
+        }
+
+        //Remove all Content-Security-Policy headers to allow loading resources during maintenance
+        $response = $event->getResponse();
+        $response->headers->remove('Content-Security-Policy');
     }
 
     /**
