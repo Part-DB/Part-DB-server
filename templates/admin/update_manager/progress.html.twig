@@ -186,7 +186,7 @@
         </div>
 
         {# JavaScript refresh - more reliable than meta refresh #}
-        <script>
+        <script nonce="{{ csp_nonce('script') }}">
             setTimeout(function() {
                 window.location.reload();
             }, 2000);
