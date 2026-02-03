@@ -29,7 +29,7 @@
     {{ parent() }}
     {# Auto-refresh while update is running - also refresh when 'starting' status #}
     {% if not progress or progress.status == 'running' or progress.status == 'starting' %}
-        <meta http-equiv="refresh" content="2">
+        <meta http-equiv="refresh" content="5">
     {% endif %}
 {% endblock %}
 
@@ -189,7 +189,7 @@
         <script nonce="{{ csp_nonce('script') }}">
             setTimeout(function() {
                 window.location.reload();
-            }, 2000);
+            }, 5000);
         </script>
     {% endif %}
 </div>
