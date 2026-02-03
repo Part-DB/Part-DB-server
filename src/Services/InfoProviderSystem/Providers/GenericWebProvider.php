@@ -32,6 +32,7 @@ use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Settings\InfoProviderSystem\GenericWebProviderSettings;
+use Brick\Schema\Interfaces\BreadcrumbList;
 use Brick\Schema\Interfaces\ImageObject;
 use Brick\Schema\Interfaces\Product;
 use Brick\Schema\Interfaces\PropertyValue;
@@ -39,11 +40,6 @@ use Brick\Schema\Interfaces\QuantitativeValue;
 use Brick\Schema\Interfaces\Thing;
 use Brick\Schema\SchemaReader;
 use Brick\Schema\SchemaTypeList;
-use Brick\StructuredData\HTMLReader;
-use Brick\StructuredData\Reader\JsonLdReader;
-use Brick\StructuredData\Reader\MicrodataReader;
-use Brick\StructuredData\Reader\RdfaLiteReader;
-use Brick\StructuredData\Reader\ReaderChain;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -116,7 +112,33 @@ class GenericWebProvider implements InfoProviderInterface
         return $host;
     }
 
-    private function productToPart(Product $product, string $url, Crawler $dom): PartDetailDTO
+    private function breadcrumbToCategory(?BreadcrumbList $breadcrumbList): ?string
+    {
+        if ($breadcrumbList === null) {
+            return null;
+        }
+
+        $items = $breadcrumbList->itemListElement->getValues();
+        if (count($items) < 1) {
+            return null;
+        }
+
+        try {
+            //Build our category from the breadcrumb items
+            $categories = [];
+            foreach ($items as $item) {
+                if (isset($item->name)) {
+                    $categories[] = trim($item->name->toString());
+                }
+            }
+        } catch (\Throwable) {
+            return null;
+        }
+
+        return implode(' -> ', $categories);
+    }
+
+    private function productToPart(Product $product, string $url, Crawler $dom, ?BreadcrumbList $categoryBreadcrumb): PartDetailDTO
     {
         $notes = $product->description->toString() ?? "";
         if ($product->disambiguatingDescription !== null) {
@@ -200,7 +222,7 @@ class GenericWebProvider implements InfoProviderInterface
             provider_id: $url,
             name: $product->name?->toString() ?? $product->alternateName?->toString() ?? $product?->mpn->toString() ?? 'Unknown Name',
             description: $this->getMetaContent($dom, 'og:description') ?? $this->getMetaContent($dom, 'description') ?? '',
-            category: $product->category?->toString(),
+            category: $this->breadcrumbToCategory($categoryBreadcrumb) ?? $product->category?->toString(),
             manufacturer: self::propertyOrString($product->manufacturer) ?? self::propertyOrString($product->brand),
             mpn: $product->mpn?->toString(),
             preview_image_url: $image,
@@ -348,10 +370,19 @@ class GenericWebProvider implements InfoProviderInterface
         $schemaReader = SchemaReader::forAllFormats();
         $things = $schemaReader->readHtml($content, $canonicalURL);
 
+        //Try to find a breadcrumb schema to extract the category
+        $categoryBreadCrumbs = null;
+        foreach ($things as $thing) {
+            if ($thing instanceof BreadcrumbList) {
+                $categoryBreadCrumbs = $thing;
+                break;
+            }
+        }
+
         //Try to find a Product schema
         foreach ($things as $thing) {
             if ($thing instanceof Product) {
-                return $this->productToPart($thing, $canonicalURL, $dom);
+                return $this->productToPart($thing, $canonicalURL, $dom, $categoryBreadCrumbs);
             }
         }
 
