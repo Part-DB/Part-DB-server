@@ -32,6 +32,18 @@ use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Settings\InfoProviderSystem\GenericWebProviderSettings;
+use Brick\Schema\Interfaces\ImageObject;
+use Brick\Schema\Interfaces\Product;
+use Brick\Schema\Interfaces\PropertyValue;
+use Brick\Schema\Interfaces\QuantitativeValue;
+use Brick\Schema\Interfaces\Thing;
+use Brick\Schema\SchemaReader;
+use Brick\Schema\SchemaTypeList;
+use Brick\StructuredData\HTMLReader;
+use Brick\StructuredData\Reader\JsonLdReader;
+use Brick\StructuredData\Reader\MicrodataReader;
+use Brick\StructuredData\Reader\RdfaLiteReader;
+use Brick\StructuredData\Reader\ReaderChain;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -104,125 +116,121 @@ class GenericWebProvider implements InfoProviderInterface
         return $host;
     }
 
-    private function productJsonLdToPart(array $jsonLd, string $url, Crawler $dom): PartDetailDTO
+    private function productToPart(Product $product, string $url, Crawler $dom): PartDetailDTO
     {
-        $notes = $jsonLd['description'] ?? "";
-        if (isset($jsonLd['disambiguatingDescription'])) {
+        $notes = $product->description->toString() ?? "";
+        if ($product->disambiguatingDescription !== null) {
             if (!empty($notes)) {
                 $notes .= "\n\n";
             }
-            $notes .= $jsonLd['disambiguatingDescription'];
+            $notes .= $product->disambiguatingDescription->toString();
         }
 
+
+        //Extract vendor infos
         $vendor_infos = null;
-        if (isset($jsonLd['offers'])) {
-
-            if (array_is_list($jsonLd['offers'])) {
-                $offer = $jsonLd['offers'][0];
-            } else {
-                $offer = $jsonLd['offers'];
-            }
-
-            //Make $jsonLd['url'] absolute if it's relative
-            if (isset($jsonLd['url']) && parse_url($jsonLd['url'], PHP_URL_SCHEME) === null) {
-                $parsedUrl = parse_url($url);
-                $scheme = $parsedUrl['scheme'] ?? 'https';
-                $host = $parsedUrl['host'] ?? '';
-                $jsonLd['url'] = $scheme.'://'.$host.$jsonLd['url'];
-            }
-
+        $offer = $product->offers->getFirstValue();
+        if ($offer !== null) {
             $prices = [];
-            if (isset($offer['price'])) {
-                $prices[] = new PriceDTO(
+            if ($offer->price->toString() !== null) {
+                $prices = [new PriceDTO(
                     minimum_discount_amount: 1,
-                    price: (string) $offer['price'],
-                    currency_iso_code: $offer['priceCurrency'] ?? null
-                );
-            } else if (isset($offer['offers']) && array_is_list($offer['offers'])) {
-                //Some sites nest offers
-                foreach ($offer['offers'] as $subOffer) {
-                    if (isset($subOffer['price'])) {
-                        $prices[] = new PriceDTO(
+                    price: $offer->price->toString(),
+                    currency_iso_code: $offer->priceCurrency?->toString()
+                )];
+            } else { //Check for nested offers (like IKEA does it)
+                $offer2 = $offer->offers->getFirstValue();
+                if ($offer2 !== null && $offer2->price->toString() !== null) {
+                    $prices = [
+                        new PriceDTO(
                             minimum_discount_amount: 1,
-                            price: (string) $subOffer['price'],
-                            currency_iso_code: $subOffer['priceCurrency'] ?? null
-                        );
-                    }
+                            price: $offer2->price->toString(),
+                            currency_iso_code: $offer2->priceCurrency?->toString()
+                        )
+                    ];
                 }
             }
 
             $vendor_infos = [new PurchaseInfoDTO(
                 distributor_name: $this->extractShopName($url),
-                order_number: (string) ($jsonLd['sku'] ?? $jsonLd['@id'] ?? $jsonLd['gtin'] ?? 'Unknown'),
+                order_number: $product->sku?->toString() ?? $product->identifier?->toString() ?? 'Unknown',
                 prices: $prices,
-                product_url: $jsonLd['url'] ?? $url,
+                product_url: $offer->url?->toString() ?? $url,
             )];
         }
 
+        //Extract image:
         $image = null;
-        if (isset($jsonLd['image'])) {
-            if (is_array($jsonLd['image'])) {
-                if (array_is_list($jsonLd['image'])) {
-                    $image = $jsonLd['image'][0] ?? null;
-                }
-            } elseif (is_string($jsonLd['image'])) {
-                $image = $jsonLd['image'];
+        if ($product->image !== null) {
+            $imageObj = $product->image->getFirstValue();
+            if (is_string($imageObj)) {
+                $image = $imageObj;
+            } else if ($imageObj instanceof ImageObject) {
+                $image = $imageObj->contentUrl?->toString() ?? $imageObj->url?->toString();
             }
         }
-        //If image is an object with @type ImageObject, extract the url
-        if (is_array($image) && isset($image['@type']) && $image['@type'] === 'ImageObject') {
-            $image = $image['contentUrl'] ?? $image['url'] ?? null;
-        }
 
-        //Try to extract parameters from additionalProperty
+        //Extract parameters from additionalProperty
         $parameters = [];
-        if (isset($jsonLd['additionalProperty']) && array_is_list($jsonLd['additionalProperty'])) {
-            foreach ($jsonLd['additionalProperty'] as $property) { //TODO: Handle minValue and maxValue
-                if (isset ($property['unitText'])) {
+        foreach ($product->additionalProperty->getValues() as $property) {
+            if ($property instanceof PropertyValue) { //TODO: Handle minValue and maxValue
+                if ($property->unitText->toString() !== null) {
                     $parameters[] = ParameterDTO::parseValueField(
-                        name: $property['name'] ?? 'Unknown',
-                        value: $property['value'] ?? '',
-                        unit: $property['unitText']
+                        name: $property->name->toString() ?? 'Unknown',
+                        value: $property->value->toString() ?? '',
+                        unit: $property->unitText->toString()
                     );
                 } else {
                     $parameters[] = ParameterDTO::parseValueIncludingUnit(
-                        name: $property['name'] ?? 'Unknown',
-                        value: $property['value'] ?? ''
+                        name: $property->name->toString() ?? 'Unknown',
+                        value: $property->value->toString() ?? ''
                     );
                 }
             }
         }
 
+        //Try to extract weight
+        $mass = null;
+        if (($weight = $product?->weight->getFirstValue()) instanceof QuantitativeValue) {
+            $mass = $weight->value->toString();
+        }
 
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
             provider_id: $url,
-            name: $jsonLd ['name'] ?? 'Unknown Name',
+            name: $product->name?->toString() ?? $product->alternateName?->toString() ?? $product?->mpn->toString() ?? 'Unknown Name',
             description: $this->getMetaContent($dom, 'og:description') ?? $this->getMetaContent($dom, 'description') ?? '',
-            category: isset($jsonLd['category']) && is_string($jsonLd['category']) ? $jsonLd['category'] : null,
-            manufacturer: $jsonLd['manufacturer']['name'] ?? $jsonLd['brand']['name'] ?? null,
-            mpn: $jsonLd['mpn'] ?? null,
+            category: $product->category?->toString(),
+            manufacturer: self::propertyOrString($product->manufacturer) ?? self::propertyOrString($product->brand),
+            mpn: $product->mpn?->toString(),
             preview_image_url: $image,
             provider_url: $url,
             notes: $notes,
             parameters: $parameters,
             vendor_infos: $vendor_infos,
-            mass: isset($jsonLd['weight']['value']) ? (float)$jsonLd['weight']['value'] : null,
+            mass: $mass
         );
     }
 
-    /**
-     * Decodes JSON in a forgiving way, trying to fix common issues.
-     * @param  string  $json
-     * @return array
-     * @throws \JsonException
-     */
-    private function json_decode_forgiving(string $json): array
+    private static function propertyOrString(SchemaTypeList|Thing|string|null $value, string $property = "name"): ?string
     {
-        //Sanitize common issues
-        $json = preg_replace("/[\r\n]+/", " ", $json);
-        return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+        if ($value instanceof SchemaTypeList) {
+            $value = $value->getFirstValue();
+        }
+        if ($value === null) {
+            return null;
+        }
+
+        if (is_string($value)) {
+            return $value;
+        }
+
+        if ($value instanceof Thing) {
+            return $value->$property?->toString();
+        }
+        return null;
     }
+
 
     /**
      * Gets the content of a meta tag by its name or property attribute, or null if not found
@@ -336,18 +344,14 @@ class GenericWebProvider implements InfoProviderInterface
             $canonicalURL = $scheme.'://'.$host.$canonicalURL;
         }
 
-        //Try to find json-ld data in the head
-        $jsonLdNodes = $dom->filter('script[type="application/ld+json"]');
-        foreach ($jsonLdNodes as $node) {
-            $jsonLd = $this->json_decode_forgiving($node->textContent);
-            //If the content of json-ld is an array, try to find a product inside
-            if (!array_is_list($jsonLd)) {
-                $jsonLd = [$jsonLd];
-            }
-            foreach ($jsonLd as $item) {
-                if (isset($item['@type']) && $item['@type'] === 'Product') {
-                    return $this->productJsonLdToPart($item, $canonicalURL, $dom);
-                }
+
+        $schemaReader = SchemaReader::forAllFormats();
+        $things = $schemaReader->readHtml($content, $canonicalURL);
+
+        //Try to find a Product schema
+        foreach ($things as $thing) {
+            if ($thing instanceof Product) {
+                return $this->productToPart($thing, $canonicalURL, $dom);
             }
         }
 

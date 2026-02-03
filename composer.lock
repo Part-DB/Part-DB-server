@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e387d6d016f33eb7302c47ecb7a12b9",
+    "content-hash": "7ca9c95fb85f6bf3d9b8a3aa98ca33f6",
     "packages": [
         {
             "name": "amphp/amp",
@@ -2386,6 +2386,117 @@
                 }
             ],
             "time": "2025-03-29T13:50:30+00:00"
+        },
+        {
+            "name": "brick/schema",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/brick/schema.git",
+                "reference": "b5114bf5e8092430041a37efe1cfd5279ca764c0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/brick/schema/zipball/b5114bf5e8092430041a37efe1cfd5279ca764c0",
+                "reference": "b5114bf5e8092430041a37efe1cfd5279ca764c0",
+                "shasum": ""
+            },
+            "require": {
+                "brick/structured-data": "~0.1.0 || ~0.2.0",
+                "ext-dom": "*",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "brick/varexporter": "^0.6",
+                "vimeo/psalm": "6.12.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Brick\\Schema\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Schema.org library for PHP",
+            "keywords": [
+                "JSON-LD",
+                "brick",
+                "microdata",
+                "rdfa lite",
+                "schema",
+                "schema.org",
+                "structured data"
+            ],
+            "support": {
+                "issues": "https://github.com/brick/schema/issues",
+                "source": "https://github.com/brick/schema/tree/0.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/BenMorel",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-06-12T07:03:20+00:00"
+        },
+        {
+            "name": "brick/structured-data",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/brick/structured-data.git",
+                "reference": "be9b28720e2aba87f19c90500700970be85affde"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/brick/structured-data/zipball/be9b28720e2aba87f19c90500700970be85affde",
+                "reference": "be9b28720e2aba87f19c90500700970be85affde",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-json": "*",
+                "ext-libxml": "*",
+                "php": "^8.1",
+                "sabre/uri": "^2.1 || ^3.0"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^2.0",
+                "phpunit/phpunit": "^8.0 || ^9.0",
+                "vimeo/psalm": "6.12.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Brick\\StructuredData\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Microdata, RDFa Lite & JSON-LD structured data reader",
+            "keywords": [
+                "JSON-LD",
+                "brick",
+                "microdata",
+                "rdfa",
+                "structured data"
+            ],
+            "support": {
+                "issues": "https://github.com/brick/structured-data/issues",
+                "source": "https://github.com/brick/structured-data/tree/0.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/BenMorel",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-06-10T23:48:46+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -9594,6 +9705,66 @@
                 "source": "https://github.com/MyIntervals/PHP-CSS-Parser/tree/v9.1.0"
             },
             "time": "2025-09-14T07:37:21+00:00"
+        },
+        {
+            "name": "sabre/uri",
+            "version": "3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sabre-io/uri.git",
+                "reference": "38eeab6ed9eec435a2188db489d4649c56272c51"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sabre-io/uri/zipball/38eeab6ed9eec435a2188db489d4649c56272c51",
+                "reference": "38eeab6ed9eec435a2188db489d4649c56272c51",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.64",
+                "phpstan/extension-installer": "^1.4",
+                "phpstan/phpstan": "^1.12",
+                "phpstan/phpstan-phpunit": "^1.4",
+                "phpstan/phpstan-strict-rules": "^1.6",
+                "phpunit/phpunit": "^9.6"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/functions.php"
+                ],
+                "psr-4": {
+                    "Sabre\\Uri\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Evert Pot",
+                    "email": "me@evertpot.com",
+                    "homepage": "http://evertpot.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Functions for making sense out of URIs.",
+            "homepage": "http://sabre.io/uri/",
+            "keywords": [
+                "rfc3986",
+                "uri",
+                "url"
+            ],
+            "support": {
+                "forum": "https://groups.google.com/group/sabredav-discuss",
+                "issues": "https://github.com/sabre-io/uri/issues",
+                "source": "https://github.com/fruux/sabre-uri"
+            },
+            "time": "2024-09-04T15:30:08+00:00"
         },
         {
             "name": "scheb/2fa-backup-code",
