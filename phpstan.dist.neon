@@ -6,6 +6,9 @@ parameters:
         - src
     #    - tests
 
+    banned_code:
+         non_ignorable: false # Allow to ignore some banned code
+
     excludePaths:
             - src/DataTables/Adapter/*
             - src/Configuration/*
@@ -61,3 +64,6 @@ parameters:
 
         # Ignore error of unused WithPermPresetsTrait, as it is used in the migrations which are not analyzed by Phpstan
         - '#Trait App\\Migration\\WithPermPresetsTrait is used zero times and is not analysed#'
+        -
+            message: '#Should not use function "shell_exec"#'
+            path: src/Services/System/UpdateExecutor.php

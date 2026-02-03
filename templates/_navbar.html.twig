@@ -82,6 +82,19 @@
 
 
             <ul class="navbar-nav ms-3" id="login-content">
+                {# Update notification badge #}
+                {% if is_update_available() %}
+                    <li class="nav-item me-2">
+                        <a href="{{ path('admin_update_manager') }}" class="nav-link position-relative"
+                           title="{% trans %}update_manager.new_version_available.title{% endtrans %}: {{ get_latest_version() }}">
+                            <i class="fas fa-arrow-circle-up text-success"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" style="font-size: 0.6rem;">
+                                {% trans %}update_manager.new{% endtrans %}
+                            </span>
+                        </a>
+                    </li>
+                {% endif %}
+
                 <li class="nav-item dropdown">
                     <a href="#" class="dropdown-toggle link-anchor nav-link" data-bs-toggle="dropdown" role="button"
                        aria-haspopup="true" aria-expanded="false" id="navbar-user-dropdown-btn" data-bs-reference="window">

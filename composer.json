@@ -11,6 +11,7 @@
         "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
+        "ext-zip": "*",
         "amphp/http-client": "^5.1",
         "api-platform/doctrine-orm": "^4.1",
         "api-platform/json-api": "^4.0.0",
