@@ -14688,6 +14688,12 @@ Buerklin-API Authentication server:
         <target>Updating to version %version%</target>
       </segment>
     </unit>
+    <unit id="9iiGqBW" name="update_manager.progress.downgrading_to">
+      <segment state="translated">
+        <source>update_manager.progress.downgrading_to</source>
+        <target>Downgrading to version %version%</target>
+      </segment>
+    </unit>
     <unit id="53NE8hP" name="update_manager.progress.error">
       <segment state="translated">
         <source>update_manager.progress.error</source>
@@ -14746,12 +14752,6 @@ Buerklin-API Authentication server:
       <segment state="translated">
         <source>update_manager.progress.downgrade_title</source>
         <target>Downgrade Progress</target>
-      </segment>
-    </unit>
-    <unit id="9iiGqBW" name="update_manager.progress.downgrading_to">
-      <segment state="translated">
-        <source>update_manager.progress.downgrading_to</source>
-        <target>Downgrading to version %version%</target>
       </segment>
     </unit>
     <unit id="XYR1vvR" name="update_manager.progress.downgrade_completed">
