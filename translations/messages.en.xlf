@@ -12826,6 +12826,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>System settings</target>
       </segment>
     </unit>
+    <unit id="of5wN9M" name="tree.tools.system.update_manager">
+      <segment state="translated">
+        <source>tree.tools.system.update_manager</source>
+        <target>Update Manager</target>
+      </segment>
+    </unit>
     <unit id="3YsJ4i6" name="settings.tooltip.overrideable_by_env">
       <segment state="translated">
         <source>settings.tooltip.overrideable_by_env</source>
@@ -14262,7 +14268,7 @@ Please note that this system is currently experimental, and the synonyms defined
     <unit id="BlR_EQc" name="settings.ips.buerklin.help">
       <segment state="translated">
         <source>settings.ips.buerklin.help</source>
-        <target>Buerklin-API access limits: 
+        <target>Buerklin-API access limits:
 100 requests/minute per IP address
 Buerklin-API Authentication server:
 10 requests/minute per IP address</target>
@@ -14284,6 +14290,552 @@ Buerklin-API Authentication server:
       <segment state="translated">
         <source>info_providers.search.error.transport_exception</source>
         <target>Transport error while retrieving information from the providers. Check that your server has internet accesss. See server logs for more info.</target>
+      </segment>
+    </unit>
+    <unit id="PExOL_J" name="update_manager.title">
+      <segment state="translated">
+        <source>update_manager.title</source>
+        <target>Update Manager</target>
+      </segment>
+    </unit>
+    <unit id="DkbDuK5" name="update_manager.new">
+      <segment state="translated">
+        <source>update_manager.new</source>
+        <target>New</target>
+      </segment>
+    </unit>
+    <unit id="O3BU_4C" name="update_manager.current_installation">
+      <segment state="translated">
+        <source>update_manager.current_installation</source>
+        <target>Current Installation</target>
+      </segment>
+    </unit>
+    <unit id="McAk_FQ" name="update_manager.version">
+      <segment state="translated">
+        <source>update_manager.version</source>
+        <target>Version</target>
+      </segment>
+    </unit>
+    <unit id="wJj_PaX" name="update_manager.installation_type">
+      <segment state="translated">
+        <source>update_manager.installation_type</source>
+        <target>Installation Type</target>
+      </segment>
+    </unit>
+    <unit id="cJRLvZH" name="update_manager.git_branch">
+      <segment state="translated">
+        <source>update_manager.git_branch</source>
+        <target>Git Branch</target>
+      </segment>
+    </unit>
+    <unit id="w_QspQf" name="update_manager.git_commit">
+      <segment state="translated">
+        <source>update_manager.git_commit</source>
+        <target>Git Commit</target>
+      </segment>
+    </unit>
+    <unit id="55D76Ye" name="update_manager.local_changes">
+      <segment state="translated">
+        <source>update_manager.local_changes</source>
+        <target>Local Changes</target>
+      </segment>
+    </unit>
+    <unit id="MauuHyR" name="update_manager.commits_behind">
+      <segment state="translated">
+        <source>update_manager.commits_behind</source>
+        <target>Commits Behind</target>
+      </segment>
+    </unit>
+    <unit id="G9HzSYg" name="update_manager.auto_update_supported">
+      <segment state="translated">
+        <source>update_manager.auto_update_supported</source>
+        <target>Auto-Update Supported</target>
+      </segment>
+    </unit>
+    <unit id="TFuuQVs" name="update_manager.refresh">
+      <segment state="translated">
+        <source>update_manager.refresh</source>
+        <target>Refresh</target>
+      </segment>
+    </unit>
+    <unit id="WV10ozS" name="update_manager.latest_release">
+      <segment state="translated">
+        <source>update_manager.latest_release</source>
+        <target>Latest Release</target>
+      </segment>
+    </unit>
+    <unit id="pMdT6Ln" name="update_manager.tag">
+      <segment state="translated">
+        <source>update_manager.tag</source>
+        <target>Tag</target>
+      </segment>
+    </unit>
+    <unit id="rxA5Q.H" name="update_manager.released">
+      <segment state="translated">
+        <source>update_manager.released</source>
+        <target>Released</target>
+      </segment>
+    </unit>
+    <unit id="ZkqzT1I" name="update_manager.release_notes">
+      <segment state="translated">
+        <source>update_manager.release_notes</source>
+        <target>Release Notes</target>
+      </segment>
+    </unit>
+    <unit id="VsLmOMA" name="update_manager.view">
+      <segment state="translated">
+        <source>update_manager.view</source>
+        <target>View</target>
+      </segment>
+    </unit>
+    <unit id="KiDikJp" name="update_manager.view_on_github">
+      <segment state="translated">
+        <source>update_manager.view_on_github</source>
+        <target>View on GitHub</target>
+      </segment>
+    </unit>
+    <unit id="Ps4N7pW" name="update_manager.view_release">
+      <segment state="translated">
+        <source>update_manager.view_release</source>
+        <target>View Release</target>
+      </segment>
+    </unit>
+    <unit id="Op0GjdW" name="update_manager.could_not_fetch_releases">
+      <segment state="translated">
+        <source>update_manager.could_not_fetch_releases</source>
+        <target>Could not fetch release information. Check your internet connection.</target>
+      </segment>
+    </unit>
+    <unit id="p2oOHqy" name="update_manager.how_to_update">
+      <segment state="translated">
+        <source>update_manager.how_to_update</source>
+        <target>How to Update</target>
+      </segment>
+    </unit>
+    <unit id="T8wDaa4" name="update_manager.cli_instruction">
+      <segment state="translated">
+        <source>update_manager.cli_instruction</source>
+        <target>To update Part-DB, run one of the following commands in your terminal:</target>
+      </segment>
+    </unit>
+    <unit id="anX9IHz" name="update_manager.check_for_updates">
+      <segment state="translated">
+        <source>update_manager.check_for_updates</source>
+        <target>Check for updates</target>
+      </segment>
+    </unit>
+    <unit id="jQSkEnc" name="update_manager.update_to_latest">
+      <segment state="translated">
+        <source>update_manager.update_to_latest</source>
+        <target>Update to latest version</target>
+      </segment>
+    </unit>
+    <unit id="BLqqNYf" name="update_manager.update_to_specific">
+      <segment state="translated">
+        <source>update_manager.update_to_specific</source>
+        <target>Update to specific version</target>
+      </segment>
+    </unit>
+    <unit id="sepynnN" name="update_manager.cli_recommendation">
+      <segment state="translated">
+        <source>update_manager.cli_recommendation</source>
+        <target>For safety and reliability, updates should be performed via the command line interface. The update process will automatically create a backup, enable maintenance mode, and handle migrations.</target>
+      </segment>
+    </unit>
+    <unit id="cTzUzRc" name="update_manager.up_to_date">
+      <segment state="translated">
+        <source>update_manager.up_to_date</source>
+        <target>Up to date</target>
+      </segment>
+    </unit>
+    <unit id="4twG2aT" name="update_manager.newer">
+      <segment state="translated">
+        <source>update_manager.newer</source>
+        <target>Newer</target>
+      </segment>
+    </unit>
+    <unit id="x3_aj6." name="update_manager.current">
+      <segment state="translated">
+        <source>update_manager.current</source>
+        <target>Current</target>
+      </segment>
+    </unit>
+    <unit id="JmMErjH" name="update_manager.older">
+      <segment state="translated">
+        <source>update_manager.older</source>
+        <target>Older</target>
+      </segment>
+    </unit>
+    <unit id="n9bdBil" name="update_manager.prerelease">
+      <segment state="translated">
+        <source>update_manager.prerelease</source>
+        <target>Pre-release</target>
+      </segment>
+    </unit>
+    <unit id="JNSumag" name="update_manager.status">
+      <segment state="translated">
+        <source>update_manager.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="CyrTWmk" name="update_manager.available_versions">
+      <segment state="translated">
+        <source>update_manager.available_versions</source>
+        <target>Available Versions</target>
+      </segment>
+    </unit>
+    <unit id="dNDITfe" name="update_manager.no_releases_found">
+      <segment state="translated">
+        <source>update_manager.no_releases_found</source>
+        <target>No releases found</target>
+      </segment>
+    </unit>
+    <unit id="DYpFv6Y" name="update_manager.view_release_notes">
+      <segment state="translated">
+        <source>update_manager.view_release_notes</source>
+        <target>View Release Notes</target>
+      </segment>
+    </unit>
+    <unit id="8OQbJJF" name="update_manager.update_logs">
+      <segment state="translated">
+        <source>update_manager.update_logs</source>
+        <target>Update Logs</target>
+      </segment>
+    </unit>
+    <unit id="EQ.7NKA" name="update_manager.backups">
+      <segment state="translated">
+        <source>update_manager.backups</source>
+        <target>Backups</target>
+      </segment>
+    </unit>
+    <unit id="RzACl7b" name="update_manager.date">
+      <segment state="translated">
+        <source>update_manager.date</source>
+        <target>Date</target>
+      </segment>
+    </unit>
+    <unit id="qrXWWID" name="update_manager.log_file">
+      <segment state="translated">
+        <source>update_manager.log_file</source>
+        <target>Log File</target>
+      </segment>
+    </unit>
+    <unit id="RqecL.0" name="update_manager.no_logs_found">
+      <segment state="translated">
+        <source>update_manager.no_logs_found</source>
+        <target>No update logs found</target>
+      </segment>
+    </unit>
+    <unit id="kBsDajR" name="update_manager.file">
+      <segment state="translated">
+        <source>update_manager.file</source>
+        <target>File</target>
+      </segment>
+    </unit>
+    <unit id="iyqnH4y" name="update_manager.size">
+      <segment state="translated">
+        <source>update_manager.size</source>
+        <target>Size</target>
+      </segment>
+    </unit>
+    <unit id="zrVIiyj" name="update_manager.no_backups_found">
+      <segment state="translated">
+        <source>update_manager.no_backups_found</source>
+        <target>No backups found</target>
+      </segment>
+    </unit>
+    <unit id="hxz8Fme" name="update_manager.validation_issues">
+      <segment state="translated">
+        <source>update_manager.validation_issues</source>
+        <target>Validation Issues</target>
+      </segment>
+    </unit>
+    <unit id="_79O_U0" name="update_manager.maintenance_mode_active">
+      <segment state="translated">
+        <source>update_manager.maintenance_mode_active</source>
+        <target>Maintenance mode is active</target>
+      </segment>
+    </unit>
+    <unit id="A1MNL8F" name="update_manager.update_in_progress">
+      <segment state="translated">
+        <source>update_manager.update_in_progress</source>
+        <target>An update is currently in progress</target>
+      </segment>
+    </unit>
+    <unit id="NQDT5rh" name="update_manager.started_at">
+      <segment state="translated">
+        <source>update_manager.started_at</source>
+        <target>Started at</target>
+      </segment>
+    </unit>
+    <unit id="Y2w3Oal" name="update_manager.new_version_available.message">
+      <segment state="translated">
+        <source>update_manager.new_version_available.message</source>
+        <target>Part-DB version %version% is now available! Consider updating to get the latest features and security fixes.</target>
+      </segment>
+    </unit>
+    <unit id="vp8Fp8e" name="update_manager.changelog">
+      <segment state="translated">
+        <source>update_manager.changelog</source>
+        <target>Changelog</target>
+      </segment>
+    </unit>
+    <unit id="wYtPY8_" name="update_manager.no_release_notes">
+      <segment state="translated">
+        <source>update_manager.no_release_notes</source>
+        <target>No release notes available for this version.</target>
+      </segment>
+    </unit>
+    <unit id="0amNk.A" name="update_manager.back_to_update_manager">
+      <segment state="translated">
+        <source>update_manager.back_to_update_manager</source>
+        <target>Back to Update Manager</target>
+      </segment>
+    </unit>
+    <unit id="3RaBRRh" name="update_manager.download_assets">
+      <segment state="translated">
+        <source>update_manager.download_assets</source>
+        <target>Download</target>
+      </segment>
+    </unit>
+    <unit id="yw.Bqwa" name="update_manager.update_to_this_version">
+      <segment state="translated">
+        <source>update_manager.update_to_this_version</source>
+        <target>Update to this Version</target>
+      </segment>
+    </unit>
+    <unit id="458.UTU" name="update_manager.run_command_to_update">
+      <segment state="translated">
+        <source>update_manager.run_command_to_update</source>
+        <target>Run the following command in your terminal to update to this version:</target>
+      </segment>
+    </unit>
+    <unit id="1iYIZ6C" name="update_manager.log_viewer">
+      <segment state="translated">
+        <source>update_manager.log_viewer</source>
+        <target>Log Viewer</target>
+      </segment>
+    </unit>
+    <unit id="AXavng5" name="update_manager.update_log">
+      <segment state="translated">
+        <source>update_manager.update_log</source>
+        <target>Update Log</target>
+      </segment>
+    </unit>
+    <unit id=".QzwEpo" name="update_manager.bytes">
+      <segment state="translated">
+        <source>update_manager.bytes</source>
+        <target>bytes</target>
+      </segment>
+    </unit>
+    <unit id="Gt.91s_" name="perm.system.manage_updates">
+      <segment state="translated">
+        <source>perm.system.manage_updates</source>
+        <target>Manage Part-DB updates</target>
+      </segment>
+    </unit>
+    <unit id="Mw2sya4" name="update_manager.create_backup">
+      <segment state="translated">
+        <source>update_manager.create_backup</source>
+        <target>Create backup before updating (recommended)</target>
+      </segment>
+    </unit>
+    <unit id="fWGZSZ1" name="update_manager.confirm_update">
+      <segment state="translated">
+        <source>update_manager.confirm_update</source>
+        <target>Are you sure you want to update Part-DB? A backup will be created before the update.</target>
+      </segment>
+    </unit>
+    <unit id="Fashdp." name="update_manager.already_up_to_date">
+      <segment state="translated">
+        <source>update_manager.already_up_to_date</source>
+        <target>You are running the latest version of Part-DB.</target>
+      </segment>
+    </unit>
+    <unit id="JPZ9w0l" name="update_manager.progress.title">
+      <segment state="translated">
+        <source>update_manager.progress.title</source>
+        <target>Update Progress</target>
+      </segment>
+    </unit>
+    <unit id="7oAKwee" name="update_manager.progress.updating">
+      <segment state="translated">
+        <source>update_manager.progress.updating</source>
+        <target>Updating Part-DB...</target>
+      </segment>
+    </unit>
+    <unit id="ffxDMB4" name="update_manager.progress.completed">
+      <segment state="translated">
+        <source>update_manager.progress.completed</source>
+        <target>Update Completed!</target>
+      </segment>
+    </unit>
+    <unit id="ZKFaIiJ" name="update_manager.progress.failed">
+      <segment state="translated">
+        <source>update_manager.progress.failed</source>
+        <target>Update Failed</target>
+      </segment>
+    </unit>
+    <unit id="bSdCWOK" name="update_manager.progress.initializing">
+      <segment state="translated">
+        <source>update_manager.progress.initializing</source>
+        <target>Initializing...</target>
+      </segment>
+    </unit>
+    <unit id="1kwqhDj" name="update_manager.progress.updating_to">
+      <segment state="translated">
+        <source>update_manager.progress.updating_to</source>
+        <target>Updating to version %version%</target>
+      </segment>
+    </unit>
+    <unit id="9iiGqBW" name="update_manager.progress.downgrading_to">
+      <segment state="translated">
+        <source>update_manager.progress.downgrading_to</source>
+        <target>Downgrading to version %version%</target>
+      </segment>
+    </unit>
+    <unit id="53NE8hP" name="update_manager.progress.error">
+      <segment state="translated">
+        <source>update_manager.progress.error</source>
+        <target>Error</target>
+      </segment>
+    </unit>
+    <unit id="30Cg6Gj" name="update_manager.progress.success_message">
+      <segment state="translated">
+        <source>update_manager.progress.success_message</source>
+        <target>Part-DB has been successfully updated! You may need to refresh the page to see the new version.</target>
+      </segment>
+    </unit>
+    <unit id="qnpVyIP" name="update_manager.progress.steps">
+      <segment state="translated">
+        <source>update_manager.progress.steps</source>
+        <target>Update Steps</target>
+      </segment>
+    </unit>
+    <unit id="048it9m" name="update_manager.progress.waiting">
+      <segment state="translated">
+        <source>update_manager.progress.waiting</source>
+        <target>Waiting for update to start...</target>
+      </segment>
+    </unit>
+    <unit id="uydk07m" name="update_manager.progress.back">
+      <segment state="translated">
+        <source>update_manager.progress.back</source>
+        <target>Back to Update Manager</target>
+      </segment>
+    </unit>
+    <unit id="egnoPy_" name="update_manager.progress.refresh_page">
+      <segment state="translated">
+        <source>update_manager.progress.refresh_page</source>
+        <target>Refresh Page</target>
+      </segment>
+    </unit>
+    <unit id="q9vs_v7" name="update_manager.progress.warning">
+      <segment state="translated">
+        <source>update_manager.progress.warning</source>
+        <target>Important</target>
+      </segment>
+    </unit>
+    <unit id="b.ubGIM" name="update_manager.progress.do_not_close">
+      <segment state="translated">
+        <source>update_manager.progress.do_not_close</source>
+        <target>Please do not close this page or navigate away while the update is in progress. The update will continue even if you close this page, but you won't be able to monitor the progress.</target>
+      </segment>
+    </unit>
+    <unit id="SQxsQbQ" name="update_manager.progress.auto_refresh">
+      <segment state="translated">
+        <source>update_manager.progress.auto_refresh</source>
+        <target>This page will automatically refresh every 2 seconds to show progress.</target>
+      </segment>
+    </unit>
+    <unit id="aSHDhOi" name="update_manager.progress.downgrade_title">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_title</source>
+        <target>Downgrade Progress</target>
+      </segment>
+    </unit>
+    <unit id="XYR1vvR" name="update_manager.progress.downgrade_completed">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_completed</source>
+        <target>Downgrade Completed!</target>
+      </segment>
+    </unit>
+    <unit id="OaKRuqb" name="update_manager.progress.downgrade_failed">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_failed</source>
+        <target>Downgrade Failed</target>
+      </segment>
+    </unit>
+    <unit id="bDwkcfw" name="update_manager.progress.downgrade_success_message">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_success_message</source>
+        <target>Part-DB has been successfully downgraded! You may need to refresh the page to see the new version.</target>
+      </segment>
+    </unit>
+    <unit id="U_wIKH7" name="update_manager.progress.downgrade_steps">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_steps</source>
+        <target>Downgrade Steps</target>
+      </segment>
+    </unit>
+    <unit id="quoDXGW" name="update_manager.progress.downgrade_do_not_close">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_do_not_close</source>
+        <target>Please do not close this page or navigate away while the downgrade is in progress. The downgrade will continue even if you close this page, but you won't be able to monitor the progress.</target>
+      </segment>
+    </unit>
+    <unit id="k056kqg" name="update_manager.confirm_downgrade">
+      <segment state="translated">
+        <source>update_manager.confirm_downgrade</source>
+        <target>Are you sure you want to downgrade Part-DB? This will revert to an older version. A backup will be created before the downgrade.</target>
+      </segment>
+    </unit>
+    <unit id="FqMFu60" name="update_manager.downgrade_removes_update_manager">
+      <segment state="translated">
+        <source>update_manager.downgrade_removes_update_manager</source>
+        <target>WARNING: This version does not include the Update Manager. After downgrading, you will need to update manually using the command line (git checkout, composer install, etc.).</target>
+      </segment>
+    </unit>
+    <unit id="gJ1zayM" name="update_manager.restore_backup">
+      <segment state="translated">
+        <source>update_manager.restore_backup</source>
+        <target>Restore backup</target>
+      </segment>
+    </unit>
+    <unit id="rzkOf7b" name="update_manager.restore_confirm_title">
+      <segment state="translated">
+        <source>update_manager.restore_confirm_title</source>
+        <target>Restore from Backup</target>
+      </segment>
+    </unit>
+    <unit id="sKf8kah" name="update_manager.restore_confirm_message">
+      <segment state="translated">
+        <source>update_manager.restore_confirm_message</source>
+        <target>Are you sure you want to restore your database from this backup?</target>
+      </segment>
+    </unit>
+    <unit id="iCc3vNw" name="update_manager.restore_confirm_warning">
+      <segment state="translated">
+        <source>update_manager.restore_confirm_warning</source>
+        <target>WARNING: This will overwrite your current database with the backup data. This action cannot be undone! Make sure you have a current backup before proceeding.</target>
+      </segment>
+    </unit>
+    <unit id="Tsaqpw6" name="update_manager.web_updates_disabled">
+      <segment state="translated">
+        <source>update_manager.web_updates_disabled</source>
+        <target>Web-based updates are disabled</target>
+      </segment>
+    </unit>
+    <unit id="ievNCa2" name="update_manager.web_updates_disabled_hint">
+      <segment state="translated">
+        <source>update_manager.web_updates_disabled_hint</source>
+        <target>Web-based updates have been disabled by the server administrator. Please use the CLI command "php bin/console partdb:update" to perform updates.</target>
+      </segment>
+    </unit>
+    <unit id="Gq.JxJC" name="update_manager.backup_restore_disabled">
+      <segment state="translated">
+        <source>update_manager.backup_restore_disabled</source>
+        <target>Backup restore is disabled by server configuration.</target>
       </segment>
     </unit>
     <unit id="kHKChQB" name="settings.ips.conrad">
@@ -14356,6 +14908,24 @@ Buerklin-API Authentication server:
       <segment>
         <source>info_providers.from_url.help</source>
         <target>Creates a part based on the given URL. It tries to delegate it to an existing info provider if possible, otherwise it will be tried to extract rudimentary data from the webpage's metadata.</target>
+      </segment>
+    </unit>
+    <unit id="SWd8mI9" name="update_manager.cant_auto_update">
+      <segment>
+        <source>update_manager.cant_auto_update</source>
+        <target>Cannot update automatically from WebUI</target>
+      </segment>
+    </unit>
+    <unit id="XquvWL5" name="update_manager.switch_to">
+      <segment>
+        <source>update_manager.switch_to</source>
+        <target>Switch to</target>
+      </segment>
+    </unit>
+    <unit id="oKMBb9S" name="update_manager.update_to">
+      <segment>
+        <source>update_manager.update_to</source>
+        <target>Update to</target>
       </segment>
     </unit>
   </file>

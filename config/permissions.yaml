@@ -297,6 +297,10 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       show_updates:
         label: "perm.system.show_available_updates"
         apiTokenRole: ROLE_API_ADMIN
+      manage_updates:
+        label: "perm.system.manage_updates"
+        alsoSet: ['show_updates', 'server_infos']
+        apiTokenRole: ROLE_API_ADMIN
 
 
   attachments:

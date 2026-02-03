@@ -50,6 +50,14 @@ docker exec --user=www-data partdb php bin/console cache:clear
 * `php bin/console partdb:currencies:update-exchange-rates`: Update the exchange rates of all currencies from the
   internet
 
+## Update Manager commands
+
+{: .note }
+> The Update Manager is an experimental feature. See the [Update Manager documentation](update_manager.md) for details.
+
+* `php bin/console partdb:update`: Check for and perform updates to Part-DB. Use `--check` to only check for updates without installing.
+* `php bin/console partdb:maintenance-mode`: Enable, disable, or check the status of maintenance mode. Use `--enable`, `--disable`, or `--status`.
+
 ## Installation/Maintenance commands
 
 * `php bin/console partdb:backup`: Backup the database and the attachments
