@@ -39,6 +39,7 @@ use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Brick\Math\BigDecimal;
 
 class ProjectBomEntriesDataTable implements DataTableTypeInterface
 {
@@ -178,6 +179,67 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
 
                     return '';
                 }
+            ])
+            ->add('price', TextColumn::class, [
+                'label' => 'project.bom.price',
+                'render' => function ($value, ProjectBOMEntry $context) {
+                    // Let's attempt to get the part, if we don't we will just assume zero
+                    $part = $context->getPart();
+                    $price = BigDecimal::zero();
+                    $pricedetails = null;
+                    $order = null;
+                    // Check if we get a part and get the first order if so
+                    // if not see if there is a non-part price set
+                    if($part) {
+                        $order = $context->getPart()->getOrderdetails()->first();
+                    } else if($context->getPrice() !== null) {
+                        $price = $context->getPrice();
+                    }
+
+                    // check if there is an order, if so get the first pricedetail of the order
+                    if($order!==null && $order !== false) {
+                        $pricedetails = $order->getPricedetails()->first();
+                    }
+
+                    // check if there is a pricedetail, if so get the first price
+                    if($pricedetails !== null && $pricedetails !== false) {
+                        $price = $pricedetails->getPrice();
+                    }
+
+                    // return the price
+                    return  htmlspecialchars(number_format($price->toFloat(),2));
+                },
+                'visible' => false,
+            ])
+            ->add('ext_price', TextColumn::class, [
+                'label' => 'project.bom.ext_price',
+                'render' => function ($value, ProjectBOMEntry $context) {
+                    // Let's attempt to get the part, if we don't we will just assume zero
+                    $part = $context->getPart();
+                    $price = BigDecimal::zero();
+                    $pricedetails = null;
+                    $order = null;
+                    // Check if we get a part and get the first order if so
+                    // if not see if there is a non-part price set
+                    if($part) {
+                        $order = $context->getPart()->getOrderdetails()->first();
+                    } else if($context->getPrice() !== null) {
+                        $price = $context->getPrice();
+                    }
+
+                    // check if there is an order, if so get the first pricedetail of the order
+                    if($order!==null && $order !== false) {
+                        $pricedetails = $order->getPricedetails()->first();
+                    }
+
+                    // check if there is a pricedetail, if so get the first price
+                    if($pricedetails !== null && $pricedetails !== false) {
+                        $price = $pricedetails->getPrice();
+                    }
+
+                    // return the price
+                    return  htmlspecialchars(number_format($price->toFloat() * $context->getQuantity(),2));
+                },
             ])
 
             ->add('addedDate', LocaleDateTimeColumn::class, [
