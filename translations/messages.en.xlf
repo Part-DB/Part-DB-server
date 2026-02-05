@@ -7272,7 +7272,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>user.firstName.placeholder</source>
-        <target>e.g John</target>
+        <target>e.g. John</target>
       </segment>
     </unit>
     <unit id="lYSMN_y" name="user.lastName.placeholder">
