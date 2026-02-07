@@ -1,24 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
   <file id="frontend.it">
     <unit id="eLrezdb" name="search.placeholder">
-          <notes>
-            <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
-            <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:67</note>
-            <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:27</note>
-            <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:43</note>
-            <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:63</note>
-            <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
-            <note priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
-            <note priority="1">Part-DB1\templates\_sidebar.html.twig:27</note>
-            <note priority="1">Part-DB1\templates\_sidebar.html.twig:43</note>
-            <note priority="1">Part-DB1\templates\_sidebar.html.twig:63</note>
-            <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:9</note>
-            <note priority="1">templates\base.html.twig:80</note>
-            <note priority="1">templates\base.html.twig:179</note>
-            <note priority="1">templates\base.html.twig:206</note>
-            <note priority="1">templates\base.html.twig:237</note>
-          </notes>
           <segment state="translated">
             <source>search.placeholder</source>
             <target>Ricerca</target>
@@ -67,10 +50,6 @@
           </segment>
         </unit>
     <unit id="U5IhkwB" name="search.submit">
-          <notes>
-            <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:68</note>
-            <note priority="1">Part-DB1\templates\_navbar_search.html.twig:62</note>
-          </notes>
           <segment state="translated">
             <source>search.submit</source>
             <target>Cerca!</target>
