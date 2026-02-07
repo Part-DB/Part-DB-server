@@ -11868,7 +11868,7 @@ Buerklin-API-Authentication-Server:
     <unit id="Ps4N7pW" name="update_manager.view_release">
       <segment state="translated">
         <source>update_manager.view_release</source>
-        <target>update_manager.view_release</target>
+        <target>Release ansehen</target>
       </segment>
     </unit>
     <unit id="Op0GjdW" name="update_manager.could_not_fetch_releases">
@@ -11964,7 +11964,7 @@ Buerklin-API-Authentication-Server:
     <unit id="DYpFv6Y" name="update_manager.view_release_notes">
       <segment state="translated">
         <source>update_manager.view_release_notes</source>
-        <target>update_manager.view_release_notes</target>
+        <target>Release notes ansehen</target>
       </segment>
     </unit>
     <unit id="8OQbJJF" name="update_manager.update_logs">
@@ -12102,7 +12102,7 @@ Buerklin-API-Authentication-Server:
     <unit id="Gt.91s_" name="perm.system.manage_updates">
       <segment state="translated">
         <source>perm.system.manage_updates</source>
-        <target>perm.system.manage_updates</target>
+        <target>Part-DB Updated verwalten</target>
       </segment>
     </unit>
     <unit id="Mw2sya4" name="update_manager.create_backup">
