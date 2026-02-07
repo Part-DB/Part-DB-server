@@ -12829,6 +12829,12 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
         <target>Systemindstillinger</target>
       </segment>
     </unit>
+    <unit id="of5wN9M" name="tree.tools.system.update_manager">
+      <segment state="translated">
+        <source>tree.tools.system.update_manager</source>
+        <target>Update Manager</target>
+      </segment>
+    </unit>
     <unit id="3YsJ4i6" name="settings.tooltip.overrideable_by_env">
       <segment state="translated">
         <source>settings.tooltip.overrideable_by_env</source>
@@ -14289,6 +14295,552 @@ Buerklin API-godkendelsesserver: 10 anmodninger/minut pr. IP-adresse</target>
         <target>Der opstod transportfejl under hentning af oplysninger fra udbydere. Kontroller, om din server har internetadgang. Se serverloggene for at få flere oplysninger.</target>
       </segment>
     </unit>
+    <unit id="PExOL_J" name="update_manager.title">
+      <segment state="translated">
+        <source>update_manager.title</source>
+        <target>Update Manager</target>
+      </segment>
+    </unit>
+    <unit id="DkbDuK5" name="update_manager.new">
+      <segment state="translated">
+        <source>update_manager.new</source>
+        <target>Ny</target>
+      </segment>
+    </unit>
+    <unit id="O3BU_4C" name="update_manager.current_installation">
+      <segment state="translated">
+        <source>update_manager.current_installation</source>
+        <target>Nuværende installation</target>
+      </segment>
+    </unit>
+    <unit id="McAk_FQ" name="update_manager.version">
+      <segment state="translated">
+        <source>update_manager.version</source>
+        <target>Version</target>
+      </segment>
+    </unit>
+    <unit id="wJj_PaX" name="update_manager.installation_type">
+      <segment state="translated">
+        <source>update_manager.installation_type</source>
+        <target>Installationstype</target>
+      </segment>
+    </unit>
+    <unit id="cJRLvZH" name="update_manager.git_branch">
+      <segment state="translated">
+        <source>update_manager.git_branch</source>
+        <target>Git Branch</target>
+      </segment>
+    </unit>
+    <unit id="w_QspQf" name="update_manager.git_commit">
+      <segment state="translated">
+        <source>update_manager.git_commit</source>
+        <target>Git Commit</target>
+      </segment>
+    </unit>
+    <unit id="55D76Ye" name="update_manager.local_changes">
+      <segment state="translated">
+        <source>update_manager.local_changes</source>
+        <target>Lokale ændringer</target>
+      </segment>
+    </unit>
+    <unit id="MauuHyR" name="update_manager.commits_behind">
+      <segment state="translated">
+        <source>update_manager.commits_behind</source>
+        <target>Bagvedliggende Commits</target>
+      </segment>
+    </unit>
+    <unit id="G9HzSYg" name="update_manager.auto_update_supported">
+      <segment state="translated">
+        <source>update_manager.auto_update_supported</source>
+        <target>Automatisk opdatering er mulig</target>
+      </segment>
+    </unit>
+    <unit id="TFuuQVs" name="update_manager.refresh">
+      <segment state="translated">
+        <source>update_manager.refresh</source>
+        <target>Opdatér</target>
+      </segment>
+    </unit>
+    <unit id="WV10ozS" name="update_manager.latest_release">
+      <segment state="translated">
+        <source>update_manager.latest_release</source>
+        <target>Sidste release</target>
+      </segment>
+    </unit>
+    <unit id="pMdT6Ln" name="update_manager.tag">
+      <segment state="translated">
+        <source>update_manager.tag</source>
+        <target>Tag</target>
+      </segment>
+    </unit>
+    <unit id="rxA5Q.H" name="update_manager.released">
+      <segment state="translated">
+        <source>update_manager.released</source>
+        <target>Released</target>
+      </segment>
+    </unit>
+    <unit id="ZkqzT1I" name="update_manager.release_notes">
+      <segment state="translated">
+        <source>update_manager.release_notes</source>
+        <target>Release notes</target>
+      </segment>
+    </unit>
+    <unit id="VsLmOMA" name="update_manager.view">
+      <segment state="translated">
+        <source>update_manager.view</source>
+        <target>Vis</target>
+      </segment>
+    </unit>
+    <unit id="KiDikJp" name="update_manager.view_on_github">
+      <segment state="translated">
+        <source>update_manager.view_on_github</source>
+        <target>Vis på GitHub</target>
+      </segment>
+    </unit>
+    <unit id="Ps4N7pW" name="update_manager.view_release">
+      <segment state="translated">
+        <source>update_manager.view_release</source>
+        <target>Vis release</target>
+      </segment>
+    </unit>
+    <unit id="Op0GjdW" name="update_manager.could_not_fetch_releases">
+      <segment state="translated">
+        <source>update_manager.could_not_fetch_releases</source>
+        <target>Kunne ikke hente releaseinformation. Check din internetforbindelse.</target>
+      </segment>
+    </unit>
+    <unit id="p2oOHqy" name="update_manager.how_to_update">
+      <segment state="translated">
+        <source>update_manager.how_to_update</source>
+        <target>Sådan opdaterer du</target>
+      </segment>
+    </unit>
+    <unit id="T8wDaa4" name="update_manager.cli_instruction">
+      <segment state="translated">
+        <source>update_manager.cli_instruction</source>
+        <target>For at opdatere Part-DB, kør en af følgende kommandoer i en terminal:</target>
+      </segment>
+    </unit>
+    <unit id="anX9IHz" name="update_manager.check_for_updates">
+      <segment state="translated">
+        <source>update_manager.check_for_updates</source>
+        <target>Søg efter opdateringer</target>
+      </segment>
+    </unit>
+    <unit id="jQSkEnc" name="update_manager.update_to_latest">
+      <segment state="translated">
+        <source>update_manager.update_to_latest</source>
+        <target>Opdatér til nyeste version</target>
+      </segment>
+    </unit>
+    <unit id="BLqqNYf" name="update_manager.update_to_specific">
+      <segment state="translated">
+        <source>update_manager.update_to_specific</source>
+        <target>Opdatér til en bestemt version</target>
+      </segment>
+    </unit>
+    <unit id="sepynnN" name="update_manager.cli_recommendation">
+      <segment state="translated">
+        <source>update_manager.cli_recommendation</source>
+        <target>Af sikkerheds- og pålidelighedshensyn bør opdateringer udføres via kommandolinjer. Opdateringsprocessen opretter automatisk en sikkerhedskopi, aktiverer vedligeholdelsestilstand og håndterer migreringer.</target>
+      </segment>
+    </unit>
+    <unit id="cTzUzRc" name="update_manager.up_to_date">
+      <segment state="translated">
+        <source>update_manager.up_to_date</source>
+        <target>Nyeste version</target>
+      </segment>
+    </unit>
+    <unit id="4twG2aT" name="update_manager.newer">
+      <segment state="translated">
+        <source>update_manager.newer</source>
+        <target>Nyere</target>
+      </segment>
+    </unit>
+    <unit id="x3_aj6." name="update_manager.current">
+      <segment state="translated">
+        <source>update_manager.current</source>
+        <target>Aktuelle</target>
+      </segment>
+    </unit>
+    <unit id="JmMErjH" name="update_manager.older">
+      <segment state="translated">
+        <source>update_manager.older</source>
+        <target>Ældre</target>
+      </segment>
+    </unit>
+    <unit id="n9bdBil" name="update_manager.prerelease">
+      <segment state="translated">
+        <source>update_manager.prerelease</source>
+        <target>Pre-release</target>
+      </segment>
+    </unit>
+    <unit id="JNSumag" name="update_manager.status">
+      <segment state="translated">
+        <source>update_manager.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="CyrTWmk" name="update_manager.available_versions">
+      <segment state="translated">
+        <source>update_manager.available_versions</source>
+        <target>Tilgængelige versioner</target>
+      </segment>
+    </unit>
+    <unit id="dNDITfe" name="update_manager.no_releases_found">
+      <segment state="translated">
+        <source>update_manager.no_releases_found</source>
+        <target>Ingen releases fundet</target>
+      </segment>
+    </unit>
+    <unit id="DYpFv6Y" name="update_manager.view_release_notes">
+      <segment state="translated">
+        <source>update_manager.view_release_notes</source>
+        <target>Vis release noter</target>
+      </segment>
+    </unit>
+    <unit id="8OQbJJF" name="update_manager.update_logs">
+      <segment state="translated">
+        <source>update_manager.update_logs</source>
+        <target>Opdateringslog</target>
+      </segment>
+    </unit>
+    <unit id="EQ.7NKA" name="update_manager.backups">
+      <segment state="translated">
+        <source>update_manager.backups</source>
+        <target>Backups</target>
+      </segment>
+    </unit>
+    <unit id="RzACl7b" name="update_manager.date">
+      <segment state="translated">
+        <source>update_manager.date</source>
+        <target>Dato</target>
+      </segment>
+    </unit>
+    <unit id="qrXWWID" name="update_manager.log_file">
+      <segment state="translated">
+        <source>update_manager.log_file</source>
+        <target>Logfil</target>
+      </segment>
+    </unit>
+    <unit id="RqecL.0" name="update_manager.no_logs_found">
+      <segment state="translated">
+        <source>update_manager.no_logs_found</source>
+        <target>Ingen opdateringslogs fundet</target>
+      </segment>
+    </unit>
+    <unit id="kBsDajR" name="update_manager.file">
+      <segment state="translated">
+        <source>update_manager.file</source>
+        <target>Fil</target>
+      </segment>
+    </unit>
+    <unit id="iyqnH4y" name="update_manager.size">
+      <segment state="translated">
+        <source>update_manager.size</source>
+        <target>Størrelse</target>
+      </segment>
+    </unit>
+    <unit id="zrVIiyj" name="update_manager.no_backups_found">
+      <segment state="translated">
+        <source>update_manager.no_backups_found</source>
+        <target>Ingen backups fundet</target>
+      </segment>
+    </unit>
+    <unit id="hxz8Fme" name="update_manager.validation_issues">
+      <segment state="translated">
+        <source>update_manager.validation_issues</source>
+        <target>Valideringsproblemer</target>
+      </segment>
+    </unit>
+    <unit id="_79O_U0" name="update_manager.maintenance_mode_active">
+      <segment state="translated">
+        <source>update_manager.maintenance_mode_active</source>
+        <target>Vedligeholdelsestilstand er aktiv</target>
+      </segment>
+    </unit>
+    <unit id="A1MNL8F" name="update_manager.update_in_progress">
+      <segment state="translated">
+        <source>update_manager.update_in_progress</source>
+        <target>En opdatering er i øjeblikket i gang</target>
+      </segment>
+    </unit>
+    <unit id="NQDT5rh" name="update_manager.started_at">
+      <segment state="translated">
+        <source>update_manager.started_at</source>
+        <target>Startet kl.</target>
+      </segment>
+    </unit>
+    <unit id="Y2w3Oal" name="update_manager.new_version_available.message">
+      <segment state="translated">
+        <source>update_manager.new_version_available.message</source>
+        <target>Part-DB version %version% er nu tilgængelig! Overvej at opdatere for at få de nyeste funktioner og sikkerhedsrettelser.</target>
+      </segment>
+    </unit>
+    <unit id="vp8Fp8e" name="update_manager.changelog">
+      <segment state="translated">
+        <source>update_manager.changelog</source>
+        <target>Changelog</target>
+      </segment>
+    </unit>
+    <unit id="wYtPY8_" name="update_manager.no_release_notes">
+      <segment state="translated">
+        <source>update_manager.no_release_notes</source>
+        <target>Ingen release noter tilgængelige for denne version.</target>
+      </segment>
+    </unit>
+    <unit id="0amNk.A" name="update_manager.back_to_update_manager">
+      <segment state="translated">
+        <source>update_manager.back_to_update_manager</source>
+        <target>Tilbage til Update Manager</target>
+      </segment>
+    </unit>
+    <unit id="3RaBRRh" name="update_manager.download_assets">
+      <segment state="translated">
+        <source>update_manager.download_assets</source>
+        <target>Download</target>
+      </segment>
+    </unit>
+    <unit id="yw.Bqwa" name="update_manager.update_to_this_version">
+      <segment state="translated">
+        <source>update_manager.update_to_this_version</source>
+        <target>Opdatér til denne version</target>
+      </segment>
+    </unit>
+    <unit id="458.UTU" name="update_manager.run_command_to_update">
+      <segment state="translated">
+        <source>update_manager.run_command_to_update</source>
+        <target>Kør følgende kommando i din terminal for at opdatere til denne version:</target>
+      </segment>
+    </unit>
+    <unit id="1iYIZ6C" name="update_manager.log_viewer">
+      <segment state="translated">
+        <source>update_manager.log_viewer</source>
+        <target>Logviser</target>
+      </segment>
+    </unit>
+    <unit id="AXavng5" name="update_manager.update_log">
+      <segment state="translated">
+        <source>update_manager.update_log</source>
+        <target>Update log</target>
+      </segment>
+    </unit>
+    <unit id=".QzwEpo" name="update_manager.bytes">
+      <segment state="translated">
+        <source>update_manager.bytes</source>
+        <target>bytes</target>
+      </segment>
+    </unit>
+    <unit id="Gt.91s_" name="perm.system.manage_updates">
+      <segment state="translated">
+        <source>perm.system.manage_updates</source>
+        <target>Administrer Part-DB-opdateringer</target>
+      </segment>
+    </unit>
+    <unit id="Mw2sya4" name="update_manager.create_backup">
+      <segment state="translated">
+        <source>update_manager.create_backup</source>
+        <target>Opret sikkerhedskopi før opdatering (anbefales)</target>
+      </segment>
+    </unit>
+    <unit id="fWGZSZ1" name="update_manager.confirm_update">
+      <segment state="translated">
+        <source>update_manager.confirm_update</source>
+        <target>Er du sikker på, at du vil opdatere Part-DB? Der vil blive oprettet en sikkerhedskopi før opdateringen.</target>
+      </segment>
+    </unit>
+    <unit id="Fashdp." name="update_manager.already_up_to_date">
+      <segment state="translated">
+        <source>update_manager.already_up_to_date</source>
+        <target>Du benytter den seneste version af Part-DB.</target>
+      </segment>
+    </unit>
+    <unit id="JPZ9w0l" name="update_manager.progress.title">
+      <segment state="translated">
+        <source>update_manager.progress.title</source>
+        <target>Opdateringsstatus</target>
+      </segment>
+    </unit>
+    <unit id="7oAKwee" name="update_manager.progress.updating">
+      <segment state="translated">
+        <source>update_manager.progress.updating</source>
+        <target>Part-DB opdateres</target>
+      </segment>
+    </unit>
+    <unit id="ffxDMB4" name="update_manager.progress.completed">
+      <segment state="translated">
+        <source>update_manager.progress.completed</source>
+        <target>Opdatering fuldendt!</target>
+      </segment>
+    </unit>
+    <unit id="ZKFaIiJ" name="update_manager.progress.failed">
+      <segment state="translated">
+        <source>update_manager.progress.failed</source>
+        <target>Opdatering fejlet</target>
+      </segment>
+    </unit>
+    <unit id="bSdCWOK" name="update_manager.progress.initializing">
+      <segment state="translated">
+        <source>update_manager.progress.initializing</source>
+        <target>Initialiserer...</target>
+      </segment>
+    </unit>
+    <unit id="1kwqhDj" name="update_manager.progress.updating_to">
+      <segment state="translated">
+        <source>update_manager.progress.updating_to</source>
+        <target>Opdaterer til version %version%</target>
+      </segment>
+    </unit>
+    <unit id="9iiGqBW" name="update_manager.progress.downgrading_to">
+      <segment state="translated">
+        <source>update_manager.progress.downgrading_to</source>
+        <target>Downgrade til version %version%</target>
+      </segment>
+    </unit>
+    <unit id="53NE8hP" name="update_manager.progress.error">
+      <segment state="translated">
+        <source>update_manager.progress.error</source>
+        <target>Fejl</target>
+      </segment>
+    </unit>
+    <unit id="30Cg6Gj" name="update_manager.progress.success_message">
+      <segment state="translated">
+        <source>update_manager.progress.success_message</source>
+        <target>Part-DB er blevet opdateret! Du skal muligvis opdatere siden for at se den nye version.</target>
+      </segment>
+    </unit>
+    <unit id="qnpVyIP" name="update_manager.progress.steps">
+      <segment state="translated">
+        <source>update_manager.progress.steps</source>
+        <target>Opdateringstrin</target>
+      </segment>
+    </unit>
+    <unit id="048it9m" name="update_manager.progress.waiting">
+      <segment state="translated">
+        <source>update_manager.progress.waiting</source>
+        <target>Venter på at opdateringen begynder...</target>
+      </segment>
+    </unit>
+    <unit id="uydk07m" name="update_manager.progress.back">
+      <segment state="translated">
+        <source>update_manager.progress.back</source>
+        <target>Tilbage til Update Manager</target>
+      </segment>
+    </unit>
+    <unit id="egnoPy_" name="update_manager.progress.refresh_page">
+      <segment state="translated">
+        <source>update_manager.progress.refresh_page</source>
+        <target>Opdatér side</target>
+      </segment>
+    </unit>
+    <unit id="q9vs_v7" name="update_manager.progress.warning">
+      <segment state="translated">
+        <source>update_manager.progress.warning</source>
+        <target>Vigtig</target>
+      </segment>
+    </unit>
+    <unit id="b.ubGIM" name="update_manager.progress.do_not_close">
+      <segment state="translated">
+        <source>update_manager.progress.do_not_close</source>
+        <target>Luk ikke denne side eller naviger væk mens opdateringen er i gang. Opdateringen fortsætter, selvom du lukker siden, men du vil ikke kunne overvåge status.</target>
+      </segment>
+    </unit>
+    <unit id="SQxsQbQ" name="update_manager.progress.auto_refresh">
+      <segment state="translated">
+        <source>update_manager.progress.auto_refresh</source>
+        <target>Denne side opdateres automatisk hvert 2. sekund for at vise status.</target>
+      </segment>
+    </unit>
+    <unit id="aSHDhOi" name="update_manager.progress.downgrade_title">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_title</source>
+        <target>Downgrade fremskridt</target>
+      </segment>
+    </unit>
+    <unit id="XYR1vvR" name="update_manager.progress.downgrade_completed">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_completed</source>
+        <target>Downgrade afsluttet!</target>
+      </segment>
+    </unit>
+    <unit id="OaKRuqb" name="update_manager.progress.downgrade_failed">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_failed</source>
+        <target>Downgrade fejlet</target>
+      </segment>
+    </unit>
+    <unit id="bDwkcfw" name="update_manager.progress.downgrade_success_message">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_success_message</source>
+        <target>Part-DB er blevet downgraded! Du skal muligvis opdatere siden for at se den nye version.</target>
+      </segment>
+    </unit>
+    <unit id="U_wIKH7" name="update_manager.progress.downgrade_steps">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_steps</source>
+        <target>Downgrade-trin</target>
+      </segment>
+    </unit>
+    <unit id="quoDXGW" name="update_manager.progress.downgrade_do_not_close">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_do_not_close</source>
+        <target>Luk ikke denne side eller naviger væk mens nedgraderingen er i gang. Downgrade fortsætter, selvom du lukker siden, men du vil så ikke kunne overvåge status.</target>
+      </segment>
+    </unit>
+    <unit id="k056kqg" name="update_manager.confirm_downgrade">
+      <segment state="translated">
+        <source>update_manager.confirm_downgrade</source>
+        <target>Er du sikker på, at du vil downgrade Part-DB? Dette vil ende ud i en ældre Part-dB version. Der vil blive oprettet en sikkerhedskopi før downgrade udføres.</target>
+      </segment>
+    </unit>
+    <unit id="FqMFu60" name="update_manager.downgrade_removes_update_manager">
+      <segment state="translated">
+        <source>update_manager.downgrade_removes_update_manager</source>
+        <target>ADVARSEL: Denne version inkluderer ikke Update-Manager. Efter downgrade skal du opdatere manuelt ved hjælp af kommandolinjen (git checkout, composer install osv.).</target>
+      </segment>
+    </unit>
+    <unit id="gJ1zayM" name="update_manager.restore_backup">
+      <segment state="translated">
+        <source>update_manager.restore_backup</source>
+        <target>Indlæs backup</target>
+      </segment>
+    </unit>
+    <unit id="rzkOf7b" name="update_manager.restore_confirm_title">
+      <segment state="translated">
+        <source>update_manager.restore_confirm_title</source>
+        <target>Gendan fra sikkerhedskopi</target>
+      </segment>
+    </unit>
+    <unit id="sKf8kah" name="update_manager.restore_confirm_message">
+      <segment state="translated">
+        <source>update_manager.restore_confirm_message</source>
+        <target>Er du sikker på, at du vil gendanne din database fra denne sikkerhedskopi?</target>
+      </segment>
+    </unit>
+    <unit id="iCc3vNw" name="update_manager.restore_confirm_warning">
+      <segment state="translated">
+        <source>update_manager.restore_confirm_warning</source>
+        <target>ADVARSEL: Dette vil overskrive din nuværende database med backupdataene. Denne handling kan ikke fortrydes! Sørg for, at du har en gyldig backup, før du fortsætter.</target>
+      </segment>
+    </unit>
+    <unit id="Tsaqpw6" name="update_manager.web_updates_disabled">
+      <segment state="translated">
+        <source>update_manager.web_updates_disabled</source>
+        <target>Webbaserede opdateringer er deaktiveret</target>
+      </segment>
+    </unit>
+    <unit id="ievNCa2" name="update_manager.web_updates_disabled_hint">
+      <segment state="translated">
+        <source>update_manager.web_updates_disabled_hint</source>
+        <target>Webbaserede opdateringer er blevet deaktiveret af serveradministratoren. Brug venligst CLI-kommandoen "php bin/console partdb:update" til at udføre opdateringer.</target>
+      </segment>
+    </unit>
+    <unit id="Gq.JxJC" name="update_manager.backup_restore_disabled">
+      <segment state="translated">
+        <source>update_manager.backup_restore_disabled</source>
+        <target>Gendannelse af sikkerhedskopi er deaktiveret af serverkonfigurationen.</target>
+      </segment>
+    </unit>
     <unit id="kHKChQB" name="settings.ips.conrad">
       <segment state="translated">
         <source>settings.ips.conrad</source>
@@ -14359,6 +14911,24 @@ Buerklin API-godkendelsesserver: 10 anmodninger/minut pr. IP-adresse</target>
       <segment state="translated">
         <source>info_providers.from_url.help</source>
         <target>Opretter en komponent baseret på den givne URL. Den forsøger at delegere den til en eksisterende informationsudbyder, hvis det er muligt, ellers vil der blive nemlig blive forsøgt at udtrække ufuldendte data fra websidens metadata.</target>
+      </segment>
+    </unit>
+    <unit id="SWd8mI9" name="update_manager.cant_auto_update">
+      <segment state="translated">
+        <source>update_manager.cant_auto_update</source>
+        <target>Kan ikke opdatere automatisk fra WebUI</target>
+      </segment>
+    </unit>
+    <unit id="XquvWL5" name="update_manager.switch_to">
+      <segment state="translated">
+        <source>update_manager.switch_to</source>
+        <target>Skift til</target>
+      </segment>
+    </unit>
+    <unit id="oKMBb9S" name="update_manager.update_to">
+      <segment state="translated">
+        <source>update_manager.update_to</source>
+        <target>Opdatér til</target>
       </segment>
     </unit>
   </file>
