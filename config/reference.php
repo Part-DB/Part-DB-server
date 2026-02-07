@@ -2387,6 +2387,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         prefetch_all?: bool|Param, // Default: true
  *     },
  *     cache?: array{
+ *         metadata_service?: scalar|Param|null, // Default: "cache.system"
  *         service?: scalar|Param|null, // Default: "cache.app.taggable"
  *         default_cacheable?: bool|Param, // Default: false
  *         ttl?: int|Param, // Default: 0

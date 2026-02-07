@@ -96,6 +96,21 @@ The following providers are currently available and shipped with Part-DB:
 
 (All trademarks are property of their respective owners. Part-DB is not affiliated with any of the companies.)
 
+### Generic Web URL Provider
+The Generic Web URL Provider can extract part information from any webpage that contains structured data in the form of
+[Schema.org](https://schema.org/) format. Many e-commerce websites use this format to provide detailed product information
+for search engines and other services. Therefore it allows Part-DB to retrieve rudimentary part information (like name, image and price)
+from a wide range of websites without the need for a dedicated API integration.
+To use the Generic Web URL Provider, simply enable it in the information provider settings. No additional configuration
+is required. Afterwards you can enter any product URL in the search field, and Part-DB will attempt to extract the relevant part information
+from the webpage.
+
+Please note that if this provider is enabled, Part-DB will make HTTP requests to external websites to fetch product data, which
+may have privacy and security implications.
+
+Following env configuration options are available:
+* `PROVIDER_GENERIC_WEB_ENABLED`: Set this to `1` to enable the Generic Web URL Provider (optional, default: `0`)
+
 ### Octopart
 
 The Octopart provider uses the [Octopart / Nexar API](https://nexar.com/api) to search for parts and get information.
@@ -277,6 +292,16 @@ The following env configuration options are available:
 * `PROVIDER_BUERKLIN_PASSWORD`: The password you got from Buerklin (mandatory)
 * `PROVIDER_BUERKLIN_CURRENCY`: The currency you want to get prices in if available (optional, 3 letter ISO-code, default: `EUR`).
 * `PROVIDER_BUERKLIN_LANGUAGE`: The language you want to get the descriptions in. Possible values: `de` = German, `en` = English. (optional, default: `en`)
+
+### Conrad
+
+The conrad provider the [Conrad API](https://developer.conrad.com/) to search for parts and retried their information.
+To use it you have to request access to the API, however it seems currently your mail address needs to be allowlisted before you can register for an account.
+The conrad webpages uses the API key in the requests, so you might be able to extract a working API key by listening to browser requests.
+That method is not officially supported nor encouraged by Part-DB, and might break at any moment.
+
+The following env configuration options are available:
+* `PROVIDER_CONRAD_API_KEY`: The API key you got from Conrad (mandatory)
 
 ### Custom provider
 
