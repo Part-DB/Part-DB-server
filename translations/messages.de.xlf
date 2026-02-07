@@ -12354,13 +12354,13 @@ Buerklin-API-Authentication-Server:
     <unit id="Pu8juaH" name="settings.ips.generic_web_provider.enabled.help">
       <segment state="translated">
         <source>settings.ips.generic_web_provider.enabled.help</source>
-        <target>settings.ips.generic_web_provider.enabled.help</target>
+        <target>Wenn der Anbieter aktiviert ist, können Benutzer im Namen des Part-DB-Servers Anfragen an beliebige Websites stellen. Aktivieren Sie diese Option nur, wenn Sie sich der möglichen Folgen bewusst sind.</target>
       </segment>
     </unit>
     <unit id="IvIOYcn" name="info_providers.from_url.title">
       <segment state="translated">
         <source>info_providers.from_url.title</source>
-        <target>Erstelle [part] aus URL</target>
+        <target>Erstelle [Part] aus URL</target>
       </segment>
     </unit>
     <unit id="QLL7vDC" name="info_providers.from_url.url.label">
