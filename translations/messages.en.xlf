@@ -14839,73 +14839,73 @@ Buerklin-API Authentication server:
       </segment>
     </unit>
     <unit id="kHKChQB" name="settings.ips.conrad">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.conrad</source>
         <target>Conrad</target>
       </segment>
     </unit>
     <unit id="gwZXJ0F" name="settings.ips.conrad.shopID">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.conrad.shopID</source>
         <target>Shop ID</target>
       </segment>
     </unit>
     <unit id="honqnBf" name="settings.ips.conrad.shopID.description">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.conrad.shopID.description</source>
-        <target>The version of the conrad store you wanna get results from. This determines language, prices and currency of the results. If both a B2B and a B2C version if available, you should choose the B2C version if you want prices including VAT. </target>
+        <target>The version of the conrad store you wanna get results from. This determines language, prices and currency of the results. If both a B2B and a B2C version if available, you should choose the B2C version if you want prices including VAT.</target>
       </segment>
     </unit>
     <unit id="EVcQbEK" name="settings.ips.conrad.attachment_language_filter">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.conrad.attachment_language_filter</source>
         <target>Language filter for attachments</target>
       </segment>
     </unit>
     <unit id="MWPmQf2" name="settings.ips.conrad.attachment_language_filter.description">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.conrad.attachment_language_filter.description</source>
         <target>Only includes attachments in the selected languages in the results.</target>
       </segment>
     </unit>
     <unit id="PNmvQ.U" name="settings.ips.generic_web_provider">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.generic_web_provider</source>
         <target>Generic Web URL Provider</target>
       </segment>
     </unit>
     <unit id="Vk3BoE_" name="settings.ips.generic_web_provider.description">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.generic_web_provider.description</source>
         <target>This info provider allows to retrieve basic part information from many shop page URLs.</target>
       </segment>
     </unit>
     <unit id="Pu8juaH" name="settings.ips.generic_web_provider.enabled.help">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.generic_web_provider.enabled.help</source>
         <target>When the provider is enabled, users can make requests to arbitary websites on behalf of the Part-DB server. Only enable this, if you are aware of the potential consequences.</target>
       </segment>
     </unit>
     <unit id="IvIOYcn" name="info_providers.from_url.title">
-      <segment>
+      <segment state="translated">
         <source>info_providers.from_url.title</source>
         <target>Create [part] from URL</target>
       </segment>
     </unit>
     <unit id="QLL7vDC" name="info_providers.from_url.url.label">
-      <segment>
+      <segment state="translated">
         <source>info_providers.from_url.url.label</source>
         <target>URL</target>
       </segment>
     </unit>
     <unit id="JTbTQLl" name="info_providers.from_url.no_part_found">
-      <segment>
+      <segment state="translated">
         <source>info_providers.from_url.no_part_found</source>
         <target>No part found from the given URL. Are you sure this is a valid shop URL?</target>
       </segment>
     </unit>
     <unit id="xoSvJk0" name="info_providers.from_url.help">
-      <segment>
+      <segment state="translated">
         <source>info_providers.from_url.help</source>
         <target>Creates a part based on the given URL. It tries to delegate it to an existing info provider if possible, otherwise it will be tried to extract rudimentary data from the webpage's metadata.</target>
       </segment>
