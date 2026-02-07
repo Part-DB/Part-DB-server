@@ -67,3 +67,6 @@ parameters:
         -
             message: '#Should not use function "shell_exec"#'
             path: src/Services/System/UpdateExecutor.php
+
+        - message: '#Access to an undefined property Brick\\Schema\\Interfaces\\#'
+          path: src/Services/InfoProviderSystem/Providers/GenericWebProvider.php

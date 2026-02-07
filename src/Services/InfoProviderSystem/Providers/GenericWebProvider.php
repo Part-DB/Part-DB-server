@@ -213,14 +213,14 @@ class GenericWebProvider implements InfoProviderInterface
 
         //Try to extract weight
         $mass = null;
-        if (($weight = $product?->weight->getFirstValue()) instanceof QuantitativeValue) {
+        if (($weight = $product->weight?->getFirstValue()) instanceof QuantitativeValue) {
             $mass = $weight->value->toString();
         }
 
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
             provider_id: $url,
-            name: $product->name?->toString() ?? $product->alternateName?->toString() ?? $product?->mpn->toString() ?? 'Unknown Name',
+            name: $product->name?->toString() ?? $product->alternateName?->toString() ?? $product->mpn?->toString() ?? 'Unknown Name',
             description: $this->getMetaContent($dom, 'og:description') ?? $this->getMetaContent($dom, 'description') ?? '',
             category: $this->breadcrumbToCategory($categoryBreadcrumb) ?? $product->category?->toString(),
             manufacturer: self::propertyOrString($product->manufacturer) ?? self::propertyOrString($product->brand),
@@ -247,10 +247,7 @@ class GenericWebProvider implements InfoProviderInterface
             return $value;
         }
 
-        if ($value instanceof Thing) {
-            return $value->$property?->toString();
-        }
-        return null;
+        return $value->$property?->toString();
     }
 
 
