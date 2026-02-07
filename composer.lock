@@ -3209,29 +3209,29 @@
         },
         {
             "name": "doctrine/deprecations",
-            "version": "1.1.5",
+            "version": "1.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/deprecations.git",
-                "reference": "459c2f5dd3d6a4633d3b5f46ee2b1c40f57d3f38"
+                "reference": "d4fe3e6fd9bb9e72557a19674f44d8ac7db4c6ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/459c2f5dd3d6a4633d3b5f46ee2b1c40f57d3f38",
-                "reference": "459c2f5dd3d6a4633d3b5f46ee2b1c40f57d3f38",
+                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/d4fe3e6fd9bb9e72557a19674f44d8ac7db4c6ca",
+                "reference": "d4fe3e6fd9bb9e72557a19674f44d8ac7db4c6ca",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1 || ^8.0"
             },
             "conflict": {
-                "phpunit/phpunit": "<=7.5 || >=13"
+                "phpunit/phpunit": "<=7.5 || >=14"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^9 || ^12 || ^13",
-                "phpstan/phpstan": "1.4.10 || 2.1.11",
+                "doctrine/coding-standard": "^9 || ^12 || ^14",
+                "phpstan/phpstan": "1.4.10 || 2.1.30",
                 "phpstan/phpstan-phpunit": "^1.0 || ^2",
-                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.6 || ^10.5 || ^11.5 || ^12",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.6 || ^10.5 || ^11.5 || ^12.4 || ^13.0",
                 "psr/log": "^1 || ^2 || ^3"
             },
             "suggest": {
@@ -3251,9 +3251,9 @@
             "homepage": "https://www.doctrine-project.org/",
             "support": {
                 "issues": "https://github.com/doctrine/deprecations/issues",
-                "source": "https://github.com/doctrine/deprecations/tree/1.1.5"
+                "source": "https://github.com/doctrine/deprecations/tree/1.1.6"
             },
-            "time": "2025-04-07T20:06:18+00:00"
+            "time": "2026-02-07T07:09:04+00:00"
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -16522,16 +16522,16 @@
         },
         {
             "name": "tecnickcom/tc-lib-barcode",
-            "version": "2.4.22",
+            "version": "2.4.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/tc-lib-barcode.git",
-                "reference": "ee997f9240f826a6a9274f55e2edb8f185871e30"
+                "reference": "605b92bfaf8ed2cba18a1c6603d90bc828aa3d5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/tc-lib-barcode/zipball/ee997f9240f826a6a9274f55e2edb8f185871e30",
-                "reference": "ee997f9240f826a6a9274f55e2edb8f185871e30",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-barcode/zipball/605b92bfaf8ed2cba18a1c6603d90bc828aa3d5b",
+                "reference": "605b92bfaf8ed2cba18a1c6603d90bc828aa3d5b",
                 "shasum": ""
             },
             "require": {
@@ -16546,7 +16546,7 @@
                 "pdepend/pdepend": "2.16.2",
                 "phpcompatibility/php-compatibility": "^10.0.0@dev",
                 "phpmd/phpmd": "2.15.0",
-                "phpunit/phpunit": "12.5.6 || 11.5.44 || 10.5.58",
+                "phpunit/phpunit": "12.5.8 || 11.5.50 || 10.5.63",
                 "squizlabs/php_codesniffer": "4.0.1"
             },
             "type": "library",
@@ -16611,7 +16611,7 @@
             ],
             "support": {
                 "issues": "https://github.com/tecnickcom/tc-lib-barcode/issues",
-                "source": "https://github.com/tecnickcom/tc-lib-barcode/tree/2.4.22"
+                "source": "https://github.com/tecnickcom/tc-lib-barcode/tree/2.4.24"
             },
             "funding": [
                 {
@@ -16619,20 +16619,20 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-01-24T12:40:59+00:00"
+            "time": "2026-02-04T19:57:11+00:00"
         },
         {
             "name": "tecnickcom/tc-lib-color",
-            "version": "2.3.6",
+            "version": "2.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/tc-lib-color.git",
-                "reference": "3d8ee89d83c1c60a275a0c1885f11370a4d86461"
+                "reference": "6331d57bd847d883652012a5c3594aa03aea4c50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/tc-lib-color/zipball/3d8ee89d83c1c60a275a0c1885f11370a4d86461",
-                "reference": "3d8ee89d83c1c60a275a0c1885f11370a4d86461",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-color/zipball/6331d57bd847d883652012a5c3594aa03aea4c50",
+                "reference": "6331d57bd847d883652012a5c3594aa03aea4c50",
                 "shasum": ""
             },
             "require": {
@@ -16643,7 +16643,7 @@
                 "pdepend/pdepend": "2.16.2",
                 "phpcompatibility/php-compatibility": "^10.0.0@dev",
                 "phpmd/phpmd": "2.15.0",
-                "phpunit/phpunit": "12.5.6 || 11.5.44 || 10.5.58",
+                "phpunit/phpunit": "12.5.8 || 11.5.50 || 10.5.63",
                 "squizlabs/php_codesniffer": "4.0.1"
             },
             "type": "library",
@@ -16681,7 +16681,7 @@
             ],
             "support": {
                 "issues": "https://github.com/tecnickcom/tc-lib-color/issues",
-                "source": "https://github.com/tecnickcom/tc-lib-color/tree/2.3.6"
+                "source": "https://github.com/tecnickcom/tc-lib-color/tree/2.3.8"
             },
             "funding": [
                 {
@@ -16689,7 +16689,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-01-24T12:39:16+00:00"
+            "time": "2026-02-04T19:55:28+00:00"
         },
         {
             "name": "thecodingmachine/safe",
@@ -19039,16 +19039,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "11.5.50",
+            "version": "11.5.51",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "fdfc727f0fcacfeb8fcb30c7e5da173125b58be3"
+                "reference": "ad14159f92910b0f0e3928c13e9b2077529de091"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fdfc727f0fcacfeb8fcb30c7e5da173125b58be3",
-                "reference": "fdfc727f0fcacfeb8fcb30c7e5da173125b58be3",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ad14159f92910b0f0e3928c13e9b2077529de091",
+                "reference": "ad14159f92910b0f0e3928c13e9b2077529de091",
                 "shasum": ""
             },
             "require": {
@@ -19063,7 +19063,7 @@
                 "phar-io/version": "^3.2.1",
                 "php": ">=8.2",
                 "phpunit/php-code-coverage": "^11.0.12",
-                "phpunit/php-file-iterator": "^5.1.0",
+                "phpunit/php-file-iterator": "^5.1.1",
                 "phpunit/php-invoker": "^5.0.1",
                 "phpunit/php-text-template": "^4.0.1",
                 "phpunit/php-timer": "^7.0.1",
@@ -19075,6 +19075,7 @@
                 "sebastian/exporter": "^6.3.2",
                 "sebastian/global-state": "^7.0.2",
                 "sebastian/object-enumerator": "^6.0.1",
+                "sebastian/recursion-context": "^6.0.3",
                 "sebastian/type": "^5.1.3",
                 "sebastian/version": "^5.0.2",
                 "staabm/side-effects-detector": "^1.0.5"
@@ -19120,7 +19121,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.50"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.51"
             },
             "funding": [
                 {
@@ -19144,25 +19145,25 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-01-27T05:59:18+00:00"
+            "time": "2026-02-05T07:59:30+00:00"
         },
         {
             "name": "rector/rector",
-            "version": "2.3.5",
+            "version": "2.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "9442f4037de6a5347ae157fe8e6c7cda9d909070"
+                "reference": "ca9ebb81d280cd362ea39474dabd42679e32ca6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/9442f4037de6a5347ae157fe8e6c7cda9d909070",
-                "reference": "9442f4037de6a5347ae157fe8e6c7cda9d909070",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/ca9ebb81d280cd362ea39474dabd42679e32ca6b",
+                "reference": "ca9ebb81d280cd362ea39474dabd42679e32ca6b",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4|^8.0",
-                "phpstan/phpstan": "^2.1.36"
+                "phpstan/phpstan": "^2.1.38"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -19196,7 +19197,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.3.5"
+                "source": "https://github.com/rectorphp/rector/tree/2.3.6"
             },
             "funding": [
                 {
@@ -19204,7 +19205,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-01-28T15:22:48+00:00"
+            "time": "2026-02-06T14:25:06+00:00"
         },
         {
             "name": "roave/security-advisories",
@@ -19212,12 +19213,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "57534122edd70a2b3dbb02b65f2091efc57e4ab7"
+                "reference": "7ea2d110787f6807213e27a1255c6b858ad99d89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/57534122edd70a2b3dbb02b65f2091efc57e4ab7",
-                "reference": "57534122edd70a2b3dbb02b65f2091efc57e4ab7",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/7ea2d110787f6807213e27a1255c6b858ad99d89",
+                "reference": "7ea2d110787f6807213e27a1255c6b858ad99d89",
                 "shasum": ""
             },
             "conflict": {
@@ -19697,7 +19698,7 @@
                 "microsoft/microsoft-graph": ">=1.16,<1.109.1|>=2,<2.0.1",
                 "microsoft/microsoft-graph-beta": "<2.0.1",
                 "microsoft/microsoft-graph-core": "<2.0.2",
-                "microweber/microweber": "<=2.0.19",
+                "microweber/microweber": "<2.0.20",
                 "mikehaertl/php-shellcommand": "<1.6.1",
                 "mineadmin/mineadmin": "<=3.0.9",
                 "miniorange/miniorange-saml": "<1.4.3",
@@ -19839,7 +19840,7 @@
                 "prestashop/blockwishlist": ">=2,<2.1.1",
                 "prestashop/contactform": ">=1.0.1,<4.3",
                 "prestashop/gamification": "<2.3.2",
-                "prestashop/prestashop": "<8.2.3",
+                "prestashop/prestashop": "<8.2.4|>=9.0.0.0-alpha1,<9.0.3",
                 "prestashop/productcomments": "<5.0.2",
                 "prestashop/ps_checkout": "<4.4.1|>=5,<5.0.5",
                 "prestashop/ps_contactinfo": "<=3.3.2",
@@ -20114,7 +20115,7 @@
                 "wikimedia/parsoid": "<0.12.2",
                 "willdurand/js-translation-bundle": "<2.1.1",
                 "winter/wn-backend-module": "<1.2.4",
-                "winter/wn-cms-module": "<1.0.476|>=1.1,<1.1.11|>=1.2,<1.2.7",
+                "winter/wn-cms-module": "<=1.2.9",
                 "winter/wn-dusk-plugin": "<2.1",
                 "winter/wn-system-module": "<1.2.4",
                 "wintercms/winter": "<=1.2.3",
@@ -20223,7 +20224,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-02-03T19:20:38+00:00"
+            "time": "2026-02-05T22:08:29+00:00"
         },
         {
             "name": "sebastian/cli-parser",
