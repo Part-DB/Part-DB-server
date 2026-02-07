@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="pl">
-  <file id="frontend.pl">
+  <file id="frontend.en">
     <unit id="eLrezdb" name="search.placeholder">
-          <segment state="translated">
-            <source>search.placeholder</source>
-            <target>Szukaj</target>
-          </segment>
-        </unit>
+      <segment state="translated">
+        <source>search.placeholder</source>
+        <target>Szukaj</target>
+      </segment>
+    </unit>
     <unit id="R4hoCqe" name="part.labelp">
-          <segment>
-            <source>part.labelp</source>
-            <target>Komponenty</target>
-          </segment>
-        </unit>
+      <segment state="translated">
+        <source>part.labelp</source>
+        <target>Komponenty</target>
+      </segment>
+    </unit>
     <unit id="S4CxO.T" name="entity.select.group.new_not_added_to_DB">
-          <segment state="translated">
-            <source>entity.select.group.new_not_added_to_DB</source>
-            <target>Nowość (jeszcze niedodana do DB)</target>
-          </segment>
-        </unit>
+      <segment state="translated">
+        <source>entity.select.group.new_not_added_to_DB</source>
+        <target>Nowość (jeszcze niedodana do DB)</target>
+      </segment>
+    </unit>
     <unit id="9rnHbSK" name="user.password_strength.very_weak">
-          <segment state="translated">
-            <source>user.password_strength.very_weak</source>
-            <target>Bardzo słabe</target>
-          </segment>
-        </unit>
+      <segment state="translated">
+        <source>user.password_strength.very_weak</source>
+        <target>Bardzo słabe</target>
+      </segment>
+    </unit>
     <unit id="gKHmHwM" name="user.password_strength.weak">
-          <segment state="translated">
-            <source>user.password_strength.weak</source>
-            <target>Słabe</target>
-          </segment>
-        </unit>
+      <segment state="translated">
+        <source>user.password_strength.weak</source>
+        <target>Słabe</target>
+      </segment>
+    </unit>
     <unit id="c44gN8b" name="user.password_strength.medium">
-          <segment state="translated">
-            <source>user.password_strength.medium</source>
-            <target>Średnie</target>
-          </segment>
-        </unit>
+      <segment state="translated">
+        <source>user.password_strength.medium</source>
+        <target>Średnie</target>
+      </segment>
+    </unit>
     <unit id="NwiBLHc" name="user.password_strength.strong">
-          <segment state="translated">
-            <source>user.password_strength.strong</source>
-            <target>Mocne</target>
-          </segment>
-        </unit>
+      <segment state="translated">
+        <source>user.password_strength.strong</source>
+        <target>Mocne</target>
+      </segment>
+    </unit>
     <unit id="Bw.iCUm" name="user.password_strength.very_strong">
-          <segment state="translated">
-            <source>user.password_strength.very_strong</source>
-            <target>Bardzo mocne</target>
-          </segment>
-        </unit>
+      <segment state="translated">
+        <source>user.password_strength.very_strong</source>
+        <target>Bardzo mocne</target>
+      </segment>
+    </unit>
     <unit id="U5IhkwB" name="search.submit">
-          <segment state="translated">
-            <source>search.submit</source>
-            <target>Idź!</target>
-          </segment>
-        </unit>
+      <segment state="translated">
+        <source>search.submit</source>
+        <target>Idź!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
