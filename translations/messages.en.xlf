@@ -6383,7 +6383,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="final">
         <source>log.collection_deleted.deleted</source>
-        <target>Deleted element:</target>
+        <target>Deleted element</target>
       </segment>
     </unit>
     <unit id="KCtfAzp" name="go.exclamation">
@@ -9928,13 +9928,13 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="NdZ1t7a" name="project.builds.number_of_builds_possible">
       <segment state="translated">
         <source>project.builds.number_of_builds_possible</source>
-        <target><![CDATA[You have enough stocked to build <b>%max_builds%</b> builds of this [project].]]></target>
+        <target>You have enough stocked to build &lt;b&gt;%max_builds%&lt;/b&gt; builds of this [project].</target>
       </segment>
     </unit>
     <unit id="iuSpPbg" name="project.builds.check_project_status">
       <segment state="translated">
         <source>project.builds.check_project_status</source>
-        <target><![CDATA[The current [project] status is <b>"%project_status%"</b>. You should check if you really want to build the [project] with this status!]]></target>
+        <target>The current [project] status is &lt;b&gt;"%project_status%"&lt;/b&gt;. You should check if you really want to build the [project] with this status!</target>
       </segment>
     </unit>
     <unit id="Y7vSSxi" name="project.builds.following_bom_entries_miss_instock_n">
