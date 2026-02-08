@@ -12425,5 +12425,17 @@ Buerklin-API Authentication server:
         <target>GTIN / EAN barcode</target>
       </segment>
     </unit>
+    <unit id="cmchX59" name="attachment_type.edit.allowed_targets">
+      <segment>
+        <source>attachment_type.edit.allowed_targets</source>
+        <target>Use only for</target>
+      </segment>
+    </unit>
+    <unit id="t5R8p1l" name="attachment_type.edit.allowed_targets.help">
+      <segment>
+        <source>attachment_type.edit.allowed_targets.help</source>
+        <target>Make this attachment type only available for certain element classes. Leave empty to show this attachment type for all element classes.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
