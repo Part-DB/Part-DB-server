@@ -92,17 +92,12 @@ class KiCadApiController extends AbstractController
      * Creates a JSON response with HTTP cache headers (ETag and Cache-Control).
      * Returns 304 Not Modified if the client's ETag matches.
      */
-    private function createCachedJsonResponse(Request $request, array $data, int $maxAge): JsonResponse
+    private function createCachedJsonResponse(Request $request, array $data, int $maxAge): Response
     {
-        $etag = '"' . md5(json_encode($data)) . '"';
-
-        if ($request->headers->get('If-None-Match') === $etag) {
-            return new Response('', Response::HTTP_NOT_MODIFIED);
-        }
-
         $response = new JsonResponse($data);
+        $response->setEtag(md5(json_encode($data)));
         $response->headers->set('Cache-Control', 'private, max-age=' . $maxAge);
-        $response->headers->set('ETag', $etag);
+        $response->isNotModified($request);
 
         return $response;
     }
