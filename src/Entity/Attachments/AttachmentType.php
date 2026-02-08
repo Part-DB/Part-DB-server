@@ -134,6 +134,12 @@ class AttachmentType extends AbstractStructuralDBElement
     #[ORM\OneToMany(mappedBy: 'attachment_type', targetEntity: Attachment::class)]
     protected Collection $attachments_with_type;
 
+    /**
+     * @var array|null A list of allowed targets where this attachment type can be assigned to.
+     */
+    #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true)]
+    protected ?array $allowed_targets = null;
+
     #[Groups(['attachment_type:read'])]
     protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['attachment_type:read'])]

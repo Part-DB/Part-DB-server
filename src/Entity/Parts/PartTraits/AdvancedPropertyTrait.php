@@ -85,6 +85,14 @@ trait AdvancedPropertyTrait
     protected ?PartCustomState $partCustomState = null;
 
     /**
+     * @var string|null The GTIN (Global Trade Item Number) of the part, for example a UPC or EAN code
+     */
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Length(max: 14)]
+    protected ?string $gtin = null;
+
+    /**
      * Checks if this part is marked, for that it needs further review.
      */
     public function isNeedsReview(): bool
@@ -209,6 +217,28 @@ trait AdvancedPropertyTrait
     {
         $this->partCustomState = $partCustomState;
 
+        return $this;
+    }
+
+    /**
+     * Gets the GTIN (Global Trade Item Number) of the part, for example a UPC or EAN code.
+     * Returns null if no GTIN is set.
+     */
+    public function getGtin(): ?string
+    {
+        return $this->gtin;
+    }
+
+    /**
+     * Sets the GTIN (Global Trade Item Number) of the part, for example a UPC or EAN code.
+     *
+     * @param string|null $gtin The new GTIN of the part
+     *
+     * @return $this
+     */
+    public function setGtin(?string $gtin): self
+    {
+        $this->gtin = $gtin;
         return $this;
     }
 }

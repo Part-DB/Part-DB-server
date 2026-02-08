@@ -171,6 +171,14 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     #[Length(max: 255)]
     protected ?string $user_barcode = null;
 
+    /**
+     * @var \DateTimeImmutable|null The date when the last stocktake was performed for this part lot. Set to null, if no stocktake was performed yet.
+     */
+    #[Groups(['extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]
+    #[ORM\Column( type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    #[Year2038BugWorkaround]
+    protected ?\DateTimeImmutable $last_stocktake_at = null;
+
     public function __clone()
     {
         if ($this->id) {
@@ -388,6 +396,26 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     public function setUserBarcode(?string $user_barcode): PartLot
     {
         $this->user_barcode = $user_barcode;
+        return $this;
+    }
+
+    /**
+     * Returns the date when the last stocktake was performed for this part lot. Returns null, if no stocktake was performed yet.
+     * @return \DateTimeImmutable|null
+     */
+    public function getLastStocktakeAt(): ?\DateTimeImmutable
+    {
+        return $this->last_stocktake_at;
+    }
+
+    /**
+     * Sets the date when the last stocktake was performed for this part lot. Set to null, if no stocktake was performed yet.
+     * @param  \DateTimeImmutable|null  $last_stocktake_at
+     * @return $this
+     */
+    public function setLastStocktakeAt(?\DateTimeImmutable $last_stocktake_at): self
+    {
+        $this->last_stocktake_at = $last_stocktake_at;
         return $this;
     }
 
