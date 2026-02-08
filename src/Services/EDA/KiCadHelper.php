@@ -294,15 +294,16 @@ class KiCadHelper
             }
         }
 
-        //Add stock quantity and storage locations
+        //Add stock quantity and storage locations (only count non-expired lots with known quantity)
         $totalStock = 0;
         $locations = [];
         foreach ($part->getPartLots() as $lot) {
-            if (!$lot->isInstockUnknown() && $lot->isExpired() !== true) {
+            $isAvailable = !$lot->isInstockUnknown() && $lot->isExpired() !== true;
+            if ($isAvailable) {
                 $totalStock += $lot->getAmount();
-            }
-            if ($lot->getAmount() > 0 && $lot->getStorageLocation() !== null) {
-                $locations[] = $lot->getStorageLocation()->getName();
+                if ($lot->getAmount() > 0 && $lot->getStorageLocation() !== null) {
+                    $locations[] = $lot->getStorageLocation()->getName();
+                }
             }
         }
         $result['fields']['Stock'] = $this->createField($totalStock);
@@ -443,8 +444,8 @@ class KiCadHelper
             if ($firstPdf === null) {
                 $extension = $attachment->getExtension();
                 if ($extension === null && $attachment->hasExternal()) {
-                    $urlPath = parse_url($attachment->getExternalPath(), PHP_URL_PATH) ?? '';
-                    $extension = strtolower(pathinfo($urlPath, PATHINFO_EXTENSION));
+                    $urlPath = parse_url($attachment->getExternalPath(), PHP_URL_PATH);
+                    $extension = is_string($urlPath) ? strtolower(pathinfo($urlPath, PATHINFO_EXTENSION)) : null;
                 }
                 if ($extension === 'pdf') {
                     $firstPdf = $attachment;
