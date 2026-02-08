@@ -12422,7 +12422,7 @@ Buerklin-API Authentication server:
     <unit id="0qHQof." name="scan_dialog.mode.gtin">
       <segment>
         <source>scan_dialog.mode.gtin</source>
-        <target>GTIN / EAN</target>
+        <target>GTIN / EAN barcode</target>
       </segment>
     </unit>
   </file>
