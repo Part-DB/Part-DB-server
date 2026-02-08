@@ -148,6 +148,11 @@ class KiCadApiControllerTest extends WebTestCase
                             'value' => 'http://localhost/en/part/1/info',
                             'visible' => 'False',
                         ),
+                    'Part-DB URL' =>
+                        array(
+                            'value' => 'http://localhost/en/part/1/info',
+                            'visible' => 'False',
+                        ),
                     'description' =>
                         array(
                             'value' => '',
@@ -166,6 +171,11 @@ class KiCadApiControllerTest extends WebTestCase
                     'Part-DB ID' =>
                         array(
                             'value' => '1',
+                            'visible' => 'False',
+                        ),
+                    'Stock' =>
+                        array(
+                            'value' => '0',
                             'visible' => 'False',
                         ),
                 ),
@@ -221,6 +231,11 @@ class KiCadApiControllerTest extends WebTestCase
                             'value' => 'http://localhost/en/part/1/info',
                             'visible' => 'False',
                         ),
+                    'Part-DB URL' =>
+                        array (
+                            'value' => 'http://localhost/en/part/1/info',
+                            'visible' => 'False',
+                        ),
                     'description' =>
                         array (
                             'value' => '',
@@ -241,10 +256,42 @@ class KiCadApiControllerTest extends WebTestCase
                             'value' => '1',
                             'visible' => 'False',
                         ),
+                    'Stock' =>
+                        array (
+                            'value' => '0',
+                            'visible' => 'False',
+                        ),
                 ),
         );
 
         self::assertEquals($expected, $data);
+    }
+
+    public function testCategoriesHasCacheHeaders(): void
+    {
+        $client = $this->createClientWithCredentials();
+        $client->request('GET', self::BASE_URL.'/categories.json');
+
+        self::assertResponseIsSuccessful();
+        $response = $client->getResponse();
+        self::assertNotNull($response->headers->get('ETag'));
+        self::assertStringContainsString('max-age=', $response->headers->get('Cache-Control'));
+    }
+
+    public function testConditionalRequestReturns304(): void
+    {
+        $client = $this->createClientWithCredentials();
+        $client->request('GET', self::BASE_URL.'/categories.json');
+
+        $etag = $client->getResponse()->headers->get('ETag');
+        self::assertNotNull($etag);
+
+        //Make a conditional request with the ETag
+        $client->request('GET', self::BASE_URL.'/categories.json', [], [], [
+            'HTTP_IF_NONE_MATCH' => $etag,
+        ]);
+
+        self::assertResponseStatusCodeSame(304);
     }
 
 }

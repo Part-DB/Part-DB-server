@@ -27,6 +27,8 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Services\EDA\KiCadHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -55,15 +57,16 @@ class KiCadApiController extends AbstractController
     }
 
     #[Route('/categories.json', name: 'kicad_api_categories')]
-    public function categories(): Response
+    public function categories(Request $request): Response
     {
         $this->denyAccessUnlessGranted('@categories.read');
 
-        return $this->json($this->kiCADHelper->getCategories());
+        $data = $this->kiCADHelper->getCategories();
+        return $this->createCachedJsonResponse($request, $data, 300);
     }
 
     #[Route('/parts/category/{category}.json', name: 'kicad_api_category')]
-    public function categoryParts(?Category $category): Response
+    public function categoryParts(Request $request, ?Category $category): Response
     {
         if ($category !== null) {
             $this->denyAccessUnlessGranted('read', $category);
@@ -72,14 +75,35 @@ class KiCadApiController extends AbstractController
         }
         $this->denyAccessUnlessGranted('@parts.read');
 
-        return $this->json($this->kiCADHelper->getCategoryParts($category));
+        $data = $this->kiCADHelper->getCategoryParts($category);
+        return $this->createCachedJsonResponse($request, $data, 300);
     }
 
     #[Route('/parts/{part}.json', name: 'kicad_api_part')]
-    public function partDetails(Part $part): Response
+    public function partDetails(Request $request, Part $part): Response
     {
         $this->denyAccessUnlessGranted('read', $part);
 
-        return $this->json($this->kiCADHelper->getKiCADPart($part));
+        $data = $this->kiCADHelper->getKiCADPart($part);
+        return $this->createCachedJsonResponse($request, $data, 60);
+    }
+
+    /**
+     * Creates a JSON response with HTTP cache headers (ETag and Cache-Control).
+     * Returns 304 Not Modified if the client's ETag matches.
+     */
+    private function createCachedJsonResponse(Request $request, array $data, int $maxAge): JsonResponse
+    {
+        $etag = '"' . md5(json_encode($data)) . '"';
+
+        if ($request->headers->get('If-None-Match') === $etag) {
+            return new JsonResponse(null, Response::HTTP_NOT_MODIFIED);
+        }
+
+        $response = new JsonResponse($data);
+        $response->headers->set('Cache-Control', 'private, max-age=' . $maxAge);
+        $response->headers->set('ETag', $etag);
+
+        return $response;
     }
 }
