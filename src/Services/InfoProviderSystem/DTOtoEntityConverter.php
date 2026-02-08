@@ -175,6 +175,8 @@ final class DTOtoEntityConverter
         $entity->setManufacturingStatus($dto->manufacturing_status ?? ManufacturingStatus::NOT_SET);
         $entity->setManufacturerProductURL($dto->manufacturer_product_url ?? '');
 
+        $entity->setGtin($dto->gtin);
+
         //Set the provider reference on the part
         $entity->setProviderReference(InfoProviderReference::fromPartDTO($dto));
 

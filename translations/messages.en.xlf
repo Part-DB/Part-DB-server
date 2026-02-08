@@ -12407,5 +12407,11 @@ Buerklin-API Authentication server:
         <target>GTIN / EAN</target>
       </segment>
     </unit>
+    <unit id="TyykD7B" name="info_providers.capabilities.gtin">
+      <segment>
+        <source>info_providers.capabilities.gtin</source>
+        <target>GTIN / EAN</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

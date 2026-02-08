@@ -59,6 +59,8 @@ class SearchResultDTO
         public readonly ?string $provider_url = null,
         /** @var string|null A footprint representation of the providers page */
         public readonly ?string $footprint = null,
+        /** @var string|null The GTIN / EAN of the part */
+        public readonly ?string $gtin = null,
     )
     {
         if ($preview_image_url !== null) {
@@ -90,6 +92,7 @@ class SearchResultDTO
             'manufacturing_status' => $this->manufacturing_status?->value,
             'provider_url' => $this->provider_url,
             'footprint' => $this->footprint,
+            'gtin' => $this->gtin,
         ];
     }
 
@@ -112,6 +115,7 @@ class SearchResultDTO
             manufacturing_status: isset($data['manufacturing_status']) ? ManufacturingStatus::tryFrom($data['manufacturing_status']) : null,
             provider_url: $data['provider_url'] ?? null,
             footprint: $data['footprint'] ?? null,
+            gtin: $data['gtin'] ?? null,
         );
     }
 }

@@ -43,6 +43,9 @@ enum ProviderCapabilities
     /** Information about the footprint of a part */
     case FOOTPRINT;
 
+    /** Provider can provide GTIN for a part */
+    case GTIN;
+
     /**
      * Get the order index for displaying capabilities in a stable order.
      * @return int
@@ -55,6 +58,7 @@ enum ProviderCapabilities
             self::DATASHEET => 3,
             self::PRICE => 4,
             self::FOOTPRINT => 5,
+            self::GTIN => 6,
         };
     }
 
@@ -66,6 +70,7 @@ enum ProviderCapabilities
                 self::PICTURE => 'picture',
                 self::DATASHEET => 'datasheet',
                 self::PRICE => 'price',
+                self::GTIN => 'gtin',
             };
     }
 
@@ -77,6 +82,7 @@ enum ProviderCapabilities
                 self::PICTURE => 'fa-image',
                 self::DATASHEET => 'fa-file-alt',
                 self::PRICE => 'fa-money-bill-wave',
+                self::GTIN => 'fa-barcode',
             };
     }
 }
