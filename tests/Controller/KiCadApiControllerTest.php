@@ -187,20 +187,19 @@ class KiCadApiControllerTest extends WebTestCase
     public function testPartDetailsPart2(): void
     {
         $client = $this->createClientWithCredentials();
-        $client->request('GET', self::BASE_URL.'/parts/1.json');
+        $client->request('GET', self::BASE_URL.'/parts/2.json');
 
-        //Response should still be successful, but the result should be empty
         self::assertResponseIsSuccessful();
         $content = $client->getResponse()->getContent();
         self::assertJson($content);
 
         $data = json_decode($content, true);
 
-        //For part 2 things info should be taken from the category and footprint
+        //For part 2, EDA info should be inherited from category and footprint (no part-level overrides)
         $expected = array (
-            'id' => '1',
-            'name' => 'Part 1',
-            'symbolIdStr' => 'Part:1',
+            'id' => '2',
+            'name' => 'Part 2',
+            'symbolIdStr' => 'Category:1',
             'exclude_from_bom' => 'False',
             'exclude_from_board' => 'True',
             'exclude_from_sim' => 'False',
@@ -208,32 +207,32 @@ class KiCadApiControllerTest extends WebTestCase
                 array (
                     'footprint' =>
                         array (
-                            'value' => 'Part:1',
+                            'value' => 'Footprint:1',
                             'visible' => 'False',
                         ),
                     'reference' =>
                         array (
-                            'value' => 'P',
+                            'value' => 'C',
                             'visible' => 'True',
                         ),
                     'value' =>
                         array (
-                            'value' => 'Part 1',
+                            'value' => 'Part 2',
                             'visible' => 'True',
                         ),
                     'keywords' =>
                         array (
-                            'value' => '',
+                            'value' => 'test, Test, Part2',
                             'visible' => 'False',
                         ),
                     'datasheet' =>
                         array (
-                            'value' => 'http://localhost/en/part/1/info',
+                            'value' => 'http://localhost/en/part/2/info',
                             'visible' => 'False',
                         ),
                     'Part-DB URL' =>
                         array (
-                            'value' => 'http://localhost/en/part/1/info',
+                            'value' => 'http://localhost/en/part/2/info',
                             'visible' => 'False',
                         ),
                     'description' =>
@@ -246,14 +245,39 @@ class KiCadApiControllerTest extends WebTestCase
                             'value' => 'Node 1',
                             'visible' => 'False',
                         ),
+                    'Manufacturer' =>
+                        array (
+                            'value' => 'Node 1',
+                            'visible' => 'False',
+                        ),
                     'Manufacturing Status' =>
                         array (
-                            'value' => '',
+                            'value' => 'Active',
+                            'visible' => 'False',
+                        ),
+                    'Part-DB Footprint' =>
+                        array (
+                            'value' => 'Node 1',
+                            'visible' => 'False',
+                        ),
+                    'Mass' =>
+                        array (
+                            'value' => '100.2 g',
                             'visible' => 'False',
                         ),
                     'Part-DB ID' =>
                         array (
-                            'value' => '1',
+                            'value' => '2',
+                            'visible' => 'False',
+                        ),
+                    'Part-DB IPN' =>
+                        array (
+                            'value' => 'IPN123',
+                            'visible' => 'False',
+                        ),
+                    'manf' =>
+                        array (
+                            'value' => 'Node 1',
                             'visible' => 'False',
                         ),
                     'Stock' =>
