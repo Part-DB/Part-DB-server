@@ -227,10 +227,11 @@ class GenericWebProvider implements InfoProviderInterface
             mpn: $product->mpn?->toString(),
             preview_image_url: $image,
             provider_url: $url,
+            gtin: $product->gtin14?->toString() ?? $product->gtin13?->toString() ?? $product->gtin12?->toString() ?? $product->gtin8?->toString(),
             notes: $notes,
             parameters: $parameters,
             vendor_infos: $vendor_infos,
-            mass: $mass
+            mass: $mass,
         );
     }
 
@@ -429,7 +430,8 @@ class GenericWebProvider implements InfoProviderInterface
         return [
             ProviderCapabilities::BASIC,
             ProviderCapabilities::PICTURE,
-            ProviderCapabilities::PRICE
+            ProviderCapabilities::PRICE,
+            ProviderCapabilities::GTIN,
         ];
     }
 }
