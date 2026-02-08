@@ -12419,5 +12419,11 @@ Buerklin-API Authentication server:
         <target>GTIN</target>
       </segment>
     </unit>
+    <unit id="0qHQof." name="scan_dialog.mode.gtin">
+      <segment>
+        <source>scan_dialog.mode.gtin</source>
+        <target>GTIN / EAN</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

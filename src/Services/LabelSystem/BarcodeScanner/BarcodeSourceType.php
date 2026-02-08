@@ -42,4 +42,9 @@ enum BarcodeSourceType
      * EIGP114 formatted barcodes like used by digikey, mouser, etc.
      */
     case EIGP114;
+
+    /**
+     * GTIN /EAN barcodes, which are used on most products in the world. These are checked with the GTIN field of a part.
+     */
+    case GTIN;
 }
