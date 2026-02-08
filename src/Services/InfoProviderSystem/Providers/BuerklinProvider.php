@@ -661,10 +661,13 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
         if (strpos($path, '/p/') === false) {
             return null;
         }
+        
+        // Reject "/.../p" and "/.../p/" (no actual ID)
+        if ($id === 'p' || $id === '') {
+            return null;
+        }
     
-        $id = basename(rtrim($path, '/'));
-    
-        return $id !== '' ? $id : null;
+        return $id;
     }
 
 }
