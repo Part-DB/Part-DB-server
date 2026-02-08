@@ -311,6 +311,17 @@ class KiCadHelper
             $result['fields']['Storage Location'] = $this->createField(implode(', ', array_unique($locations)));
         }
 
+        //Add parameters marked for KiCad export
+        foreach ($part->getParameters() as $parameter) {
+            if ($parameter->isKicadExport() && $parameter->getName() !== '') {
+                $fieldName = $parameter->getName();
+                //Don't overwrite hardcoded fields
+                if (!isset($result['fields'][$fieldName])) {
+                    $result['fields'][$fieldName] = $this->createField($parameter->getFormattedValue());
+                }
+            }
+        }
+
         return $result;
     }
 

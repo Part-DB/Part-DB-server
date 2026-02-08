@@ -55,6 +55,7 @@ use App\Entity\Parameters\SupplierParameter;
 use App\Entity\Parts\MeasurementUnit;
 use App\Form\Type\ExponentialNumberType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -146,6 +147,11 @@ class ParameterType extends AbstractType
                 'placeholder' => 'parameter.group.placeholder',
                 'class' => 'form-control-sm',
             ],
+        ]);
+
+        $builder->add('kicad_export', CheckboxType::class, [
+            'label' => false,
+            'required' => false,
         ]);
     }
 

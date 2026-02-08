@@ -642,6 +642,12 @@ Sub elements will be moved upwards.</target>
         <target>Group</target>
       </segment>
     </unit>
+    <unit id="kicadExportHelp" name="specifications.kicad_export.help">
+      <segment state="translated">
+        <source>specifications.kicad_export.help</source>
+        <target>Export this parameter as a KiCad field</target>
+      </segment>
+    </unit>
     <unit id="XclPxI9" name="specification.create">
       <segment state="translated">
         <source>specification.create</source>

@@ -24,6 +24,7 @@ namespace App\Tests\Services\EDA;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
+use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
@@ -358,5 +359,84 @@ class KiCadHelperTest extends KernelTestCase
         $result = $this->helper->getKiCADPart($part);
 
         self::assertSame('False', $result['fields']['Stock']['visible']);
+    }
+
+    /**
+     * Test that a parameter with kicad_export=true appears in the KiCad fields.
+     */
+    public function testParameterWithKicadExportAppearsInFields(): void
+    {
+        $category = $this->em->find(Category::class, 1);
+
+        $part = new Part();
+        $part->setName('Part with Exported Parameter');
+        $part->setCategory($category);
+
+        $param = new PartParameter();
+        $param->setName('Voltage Rating');
+        $param->setValueTypical(3.3);
+        $param->setUnit('V');
+        $param->setKicadExport(true);
+        $part->addParameter($param);
+
+        $this->em->persist($part);
+        $this->em->flush();
+
+        $result = $this->helper->getKiCADPart($part);
+
+        self::assertArrayHasKey('Voltage Rating', $result['fields']);
+        self::assertSame('3.3 V', $result['fields']['Voltage Rating']['value']);
+    }
+
+    /**
+     * Test that a parameter with kicad_export=false does NOT appear in the KiCad fields.
+     */
+    public function testParameterWithoutKicadExportDoesNotAppear(): void
+    {
+        $category = $this->em->find(Category::class, 1);
+
+        $part = new Part();
+        $part->setName('Part with Non-exported Parameter');
+        $part->setCategory($category);
+
+        $param = new PartParameter();
+        $param->setName('Internal Note');
+        $param->setValueText('for testing only');
+        $param->setKicadExport(false);
+        $part->addParameter($param);
+
+        $this->em->persist($part);
+        $this->em->flush();
+
+        $result = $this->helper->getKiCADPart($part);
+
+        self::assertArrayNotHasKey('Internal Note', $result['fields']);
+    }
+
+    /**
+     * Test that an exported parameter named "description" does NOT overwrite the hardcoded description field.
+     */
+    public function testExportedParameterDoesNotOverwriteHardcodedField(): void
+    {
+        $category = $this->em->find(Category::class, 1);
+
+        $part = new Part();
+        $part->setName('Part with Conflicting Parameter');
+        $part->setDescription('The real description');
+        $part->setCategory($category);
+
+        $param = new PartParameter();
+        $param->setName('description');
+        $param->setValueText('should not overwrite');
+        $param->setKicadExport(true);
+        $part->addParameter($param);
+
+        $this->em->persist($part);
+        $this->em->flush();
+
+        $result = $this->helper->getKiCADPart($part);
+
+        // The hardcoded description should win
+        self::assertSame('The real description', $result['fields']['description']['value']);
     }
 }

@@ -173,6 +173,13 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     protected string $group = '';
 
     /**
+     * @var bool Whether this parameter should be exported as a KiCad field in the EDA HTTP library API
+     */
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
+    #[ORM\Column(type: Types::BOOLEAN)]
+    protected bool $kicad_export = false;
+
+    /**
      * Mapping is done in subclasses.
      *
      * @var AbstractDBElement|null the element to which this parameter belongs to
@@ -469,6 +476,21 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     public function getElementClass(): string
     {
         return static::ALLOWED_ELEMENT_CLASS;
+    }
+
+    public function isKicadExport(): bool
+    {
+        return $this->kicad_export;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setKicadExport(bool $kicad_export): self
+    {
+        $this->kicad_export = $kicad_export;
+
+        return $this;
     }
 
     public function getComparableFields(): array
