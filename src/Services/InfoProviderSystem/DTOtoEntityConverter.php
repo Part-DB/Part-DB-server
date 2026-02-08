@@ -94,12 +94,13 @@ final class DTOtoEntityConverter
         $entity->setPrice($dto->getPriceAsBigDecimal());
         $entity->setPriceRelatedQuantity($dto->price_related_quantity);
 
-        //Currency TODO
         if ($dto->currency_iso_code !== null) {
             $entity->setCurrency($this->getCurrency($dto->currency_iso_code));
         } else {
             $entity->setCurrency(null);
         }
+
+        $entity->setIncludesVat($dto->includes_tax);
 
         return $entity;
     }

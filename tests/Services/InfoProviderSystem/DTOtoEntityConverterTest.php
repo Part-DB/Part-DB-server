@@ -101,6 +101,8 @@ class DTOtoEntityConverterTest extends WebTestCase
 
         //For base currencies, the currency field is null
         $this->assertNull($entity->getCurrency());
+
+        $this->assertTrue($entity->getIncludesVat());
     }
 
     public function testConvertPurchaseInfo(): void
