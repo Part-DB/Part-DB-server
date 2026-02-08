@@ -439,9 +439,16 @@ class KiCadHelper
                 return $this->getAttachmentUrl($attachment);
             }
 
-            //Track first PDF as fallback
-            if ($firstPdf === null && $attachment->getExtension() === 'pdf') {
-                $firstPdf = $attachment;
+            //Track first PDF as fallback (check internal extension or external URL path)
+            if ($firstPdf === null) {
+                $extension = $attachment->getExtension();
+                if ($extension === null && $attachment->hasExternal()) {
+                    $urlPath = parse_url($attachment->getExternalPath(), PHP_URL_PATH) ?? '';
+                    $extension = strtolower(pathinfo($urlPath, PATHINFO_EXTENSION));
+                }
+                if ($extension === 'pdf') {
+                    $firstPdf = $attachment;
+                }
             }
         }
 
