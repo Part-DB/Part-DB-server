@@ -90,6 +90,7 @@
         "symfony/yaml": "7.4.*",
         "symplify/easy-coding-standard": "^12.5.20",
         "tecnickcom/tc-lib-barcode": "^2.1.4",
+        "tiendanube/gtinvalidation": "^1.0",
         "twig/cssinliner-extra": "^3.0",
         "twig/extra-bundle": "^3.8",
         "twig/html-extra": "^3.8",

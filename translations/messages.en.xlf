@@ -12401,5 +12401,11 @@ Buerklin-API Authentication server:
         <target>Update to</target>
       </segment>
     </unit>
+    <unit id="XPhnMxn" name="part.gtin">
+      <segment>
+        <source>part.gtin</source>
+        <target>GTIN / EAN</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

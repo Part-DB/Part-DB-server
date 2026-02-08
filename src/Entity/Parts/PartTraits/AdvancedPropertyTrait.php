@@ -24,6 +24,7 @@ namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\Parts\InfoProviderReference;
 use App\Entity\Parts\PartCustomState;
+use App\Validator\Constraints\ValidGTIN;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
@@ -89,7 +90,7 @@ trait AdvancedPropertyTrait
      */
     #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\Column(type: Types::STRING, nullable: true)]
-    #[Length(max: 14)]
+    #[ValidGTIN]
     protected ?string $gtin = null;
 
     /**

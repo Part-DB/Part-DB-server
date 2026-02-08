@@ -216,7 +216,13 @@ class PartBaseType extends AbstractType
                 'disable_not_selectable' => true,
                 'label' => 'part.edit.partCustomState',
             ])
-            ->add('ipn', TextType::class, $ipnOptions);
+            ->add('ipn', TextType::class, $ipnOptions)
+            ->add('gtin', TextType::class, [
+                'required' => false,
+                'empty_data' => null,
+                'label' => 'part.gtin',
+            ])
+            ;
 
         //Comment section
         $builder->add('comment', RichTextEditorType::class, [
