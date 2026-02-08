@@ -12443,5 +12443,17 @@ Buerklin-API Authentication server:
         <target>Prices include VAT</target>
       </segment>
     </unit>
+    <unit id="GUsVh5T" name="prices.incl_vat">
+      <segment>
+        <source>prices.incl_vat</source>
+        <target>Incl. VAT</target>
+      </segment>
+    </unit>
+    <unit id="3ipwaVQ" name="prices.excl_vat">
+      <segment>
+        <source>prices.excl_vat</source>
+        <target>Excl. VAT</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
