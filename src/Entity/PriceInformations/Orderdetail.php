@@ -52,6 +52,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Length;
 
@@ -384,6 +385,50 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
         }
 
         $this->supplier_product_url = $new_url;
+
+        return $this;
+    }
+
+    /**
+     * Checks if the prices of this orderdetail include VAT. This is determined by checking the pricedetails of this
+     * orderdetail. If there are no pricedetails or if the pricedetails have conflicting values, null is returned.
+     * @return bool|null
+     */
+    #[Groups(['orderdetail:read'])]
+    #[SerializedName('prices_include_vat')]
+    public function getPricesIncludesVAT(): ?bool
+    {
+        $value = null;
+        //We determine that via the pricedetails
+        foreach ($this->getPricedetails() as $pricedetail) {
+            /** @var Pricedetail $pricedetail */
+            if ($pricedetail->getIncludesVat() === null) {
+                return null; // If any pricedetail doesn't specify this, we can't determine it
+            }
+
+            if ($value === null) {
+                $value = $pricedetail->getIncludesVat(); // Set initial value
+            } elseif ($value !== $pricedetail->getIncludesVat()) {
+                return null; // If there are conflicting values, we can't determine it
+            }
+        }
+
+        return $value;
+    }
+
+    /**
+     * Sets whether the prices of this orderdetail include VAT. This is set for all pricedetails of this orderdetail.
+     * @param  bool|null  $includesVat
+     * @return $this
+     */
+    #[Groups(['orderdetail:write'])]
+    #[SerializedName('prices_include_vat')]
+    public function setPricesIncludesVAT(?bool $includesVat): self
+    {
+        foreach ($this->getPricedetails() as $pricedetail) {
+            /** @var Pricedetail $pricedetail */
+            $pricedetail->setIncludesVat($includesVat);
+        }
 
         return $this;
     }

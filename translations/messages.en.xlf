@@ -12437,5 +12437,11 @@ Buerklin-API Authentication server:
         <target>Make this attachment type only available for certain element classes. Leave empty to show this attachment type for all element classes.</target>
       </segment>
     </unit>
+    <unit id="LvlEUjC" name="orderdetails.edit.prices_includes_vat">
+      <segment>
+        <source>orderdetails.edit.prices_includes_vat</source>
+        <target>Prices include VAT</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

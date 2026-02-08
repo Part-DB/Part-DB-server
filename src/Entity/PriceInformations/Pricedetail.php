@@ -124,9 +124,9 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     /**
      * @var bool|null Whether the price includes VAT or not. Null means, that it is not specified, if the price includes VAT or not.
      */
-    #[ORM\Column(type: Types::BOOLEAN, nullable: true)]
+    #[ORM\Column(name: "include_vat", type: Types::BOOLEAN, nullable: true)]
     #[Groups(['extended', 'full', 'import', 'pricedetail:read', 'pricedetail:write'])]
-    protected ?bool $include_vat = null;
+    protected ?bool $includes_vat = null;
 
     public function __construct()
     {
@@ -271,6 +271,15 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
         return $this->currency?->getIsoCode();
     }
 
+    /**
+     * Returns whether the price includes VAT or not. Null means, that it is not specified, if the price includes VAT or not.
+     * @return bool|null
+     */
+    public function getIncludesVat(): ?bool
+    {
+        return $this->includes_vat;
+    }
+
     /********************************************************************************
      *
      *   Setters
@@ -369,24 +378,13 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     }
 
     /**
-     * Returns whether the price includes VAT or not. Null means, that it is not specified, if the price includes VAT or not.
-     * @return bool|null
-     */
-    public function getIncludeVat(): ?bool
-    {
-        return $this->include_vat;
-    }
-
-    /**
-     * Sets whether the price includes VAT or not. Null means, that it is not specified, if the price includes VAT or not.
-     * @param  bool|null  $include_vat
+     * Set whether the price includes VAT or not. Null means, that it is not specified, if the price includes VAT or not.
+     * @param bool|null $includes_vat
      * @return $this
      */
-    public function setIncludeVat(?bool $include_vat): self
+    public function setIncludesVat(?bool $includes_vat): self
     {
-        $this->include_vat = $include_vat;
+        $this->includes_vat = $includes_vat;
         return $this;
     }
-
-
 }

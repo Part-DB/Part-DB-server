@@ -61,4 +61,77 @@ class OrderdetailTest extends TestCase
         $this->assertSame($price5, $orderdetail->findPriceForQty(5.3));
         $this->assertSame($price5, $orderdetail->findPriceForQty(10000));
     }
+
+    public function testGetPricesIncludesVAT(): void
+    {
+        $orderdetail = new Orderdetail();
+
+        //By default, the pricesIncludesVAT property should be null for empty orderdetails
+        $this->assertNull($orderdetail->getPricesIncludesVAT());
+
+        $price0 = (new Pricedetail())->setMinDiscountQuantity(0.23);
+        $price1 = (new Pricedetail())->setMinDiscountQuantity(1);
+        $price5 = (new Pricedetail())->setMinDiscountQuantity(5.3);
+
+        $orderdetail->addPricedetail($price0)->addPricedetail($price1)->addPricedetail($price5);
+
+        //With empty pricedetails, the pricesIncludesVAT property should still be null
+        $this->assertNull($orderdetail->getPricesIncludesVAT());
+
+        //If all of the pricedetails have the same value for includesVAT, the pricesIncludesVAT property should return this value
+        $price0->setIncludesVAT(true);
+        $price1->setIncludesVAT(true);
+        $price5->setIncludesVAT(true);
+        $this->assertTrue($orderdetail->getPricesIncludesVAT());
+
+        $price0->setIncludesVAT(false);
+        $price1->setIncludesVAT(false);
+        $price5->setIncludesVAT(false);
+        $this->assertFalse($orderdetail->getPricesIncludesVAT());
+
+        //If the pricedetails have different values for includesVAT, the pricesIncludesVAT property should return null
+        $price0->setIncludesVAT(true);
+        $price1->setIncludesVAT(false);
+        $price5->setIncludesVAT(true);
+        $this->assertNull($orderdetail->getPricesIncludesVAT());
+
+        //If the pricedetails have different values for includesVAT, the pricesIncludesVAT property should return null, even if one of them is null
+        $price0->setIncludesVAT(null);
+        $price1->setIncludesVAT(false);
+        $price5->setIncludesVAT(false);
+        $this->assertNull($orderdetail->getPricesIncludesVAT());
+    }
+
+    public function testSetPricesIncludesVAT(): void
+    {
+        $orderdetail = new Orderdetail();
+        $price0 = (new Pricedetail())->setMinDiscountQuantity(0.23);
+        $price1 = (new Pricedetail())->setMinDiscountQuantity(1);
+        $price5 = (new Pricedetail())->setMinDiscountQuantity(5.3);
+
+        $orderdetail->addPricedetail($price0)->addPricedetail($price1)->addPricedetail($price5);
+
+        $this->assertNull($orderdetail->getPricesIncludesVAT());
+
+        $orderdetail->setPricesIncludesVAT(true);
+        $this->assertTrue($orderdetail->getPricesIncludesVAT());
+        //Ensure that the pricesIncludesVAT property is correctly propagated to the pricedetails
+        foreach ($orderdetail->getPricedetails() as $pricedetail) {
+            $this->assertTrue($pricedetail->getIncludesVAT());
+        }
+
+        $orderdetail->setPricesIncludesVAT(false);
+        $this->assertFalse($orderdetail->getPricesIncludesVAT());
+        //Ensure that the pricesIncludesVAT property is correctly propagated to the pricedetails
+        foreach ($orderdetail->getPricedetails() as $pricedetail) {
+            $this->assertFalse($pricedetail->getIncludesVAT());
+        }
+
+        $orderdetail->setPricesIncludesVAT(null);
+        $this->assertNull($orderdetail->getPricesIncludesVAT());
+        //Ensure that the pricesIncludesVAT property is correctly propagated to the pricedetails
+        foreach ($orderdetail->getPricedetails() as $pricedetail) {
+            $this->assertNull($pricedetail->getIncludesVAT());
+        }
+    }
 }

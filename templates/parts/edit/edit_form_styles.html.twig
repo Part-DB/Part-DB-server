@@ -32,6 +32,7 @@
             {{ form_row(form.supplierpartnr, {'attr': {'class': 'form-control-sm'}}) }}
             {{ form_row(form.supplier_product_url,  {'attr': {'class': 'form-control-sm'}}) }}
             {{ form_widget(form.obsolete) }}
+            {{ form_row(form.pricesIncludesVAT) }}
         </td>
         <td>
             <div {{ collection.controller(form.pricedetails, 'pricedetails.edit.delete.confirm') }}>
