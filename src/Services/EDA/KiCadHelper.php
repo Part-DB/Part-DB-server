@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Services\EDA;
 
+use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
@@ -198,13 +199,17 @@ class KiCadHelper
         $result["fields"]["value"] = $this->createField($part->getEdaInfo()->getValue() ?? $part->getName(), true);
         $result["fields"]["keywords"] = $this->createField($part->getTags());
 
-        //Use the part info page as datasheet link. It must be an absolute URL.
-        $result["fields"]["datasheet"] = $this->createField(
-            $this->urlGenerator->generate(
-                'part_info',
-                ['id' => $part->getId()],
-                UrlGeneratorInterface::ABSOLUTE_URL)
+        //Use the part info page as Part-DB link. It must be an absolute URL.
+        $partUrl = $this->urlGenerator->generate(
+            'part_info',
+            ['id' => $part->getId()],
+            UrlGeneratorInterface::ABSOLUTE_URL
         );
+
+        //Try to find an actual datasheet attachment (by type name, attachment name, or PDF extension)
+        $datasheetUrl = $this->findDatasheetUrl($part);
+        $result["fields"]["datasheet"] = $this->createField($datasheetUrl ?? $partUrl);
+        $result["fields"]["Part-DB URL"] = $this->createField($partUrl);
 
         //Add basic fields
         $result["fields"]["description"] = $this->createField($part->getDescription());
@@ -287,6 +292,22 @@ class KiCadHelper
                     $result["fields"][$fieldName] = $this->createField($orderdetail->getSupplierPartNr());
                 }
             }
+        }
+
+        //Add stock quantity and storage locations
+        $totalStock = 0;
+        $locations = [];
+        foreach ($part->getPartLots() as $lot) {
+            if (!$lot->isInstockUnknown() && $lot->isExpired() !== true) {
+                $totalStock += $lot->getAmount();
+            }
+            if ($lot->getAmount() > 0 && $lot->getStorageLocation() !== null) {
+                $locations[] = $lot->getStorageLocation()->getName();
+            }
+        }
+        $result['fields']['Stock'] = $this->createField($totalStock);
+        if ($locations !== []) {
+            $result['fields']['Storage Location'] = $this->createField(implode(', ', array_unique($locations)));
         }
 
         return $result;
@@ -394,5 +415,58 @@ class KiCadHelper
             'value' => (string)$value,
             'visible' => $this->boolToKicadBool($visible),
         ];
+    }
+
+    /**
+     * Finds the URL to the actual datasheet file for the given part.
+     * Searches attachments by type name, attachment name, and file extension.
+     * @return string|null The datasheet URL, or null if no datasheet was found.
+     */
+    private function findDatasheetUrl(Part $part): ?string
+    {
+        $firstPdf = null;
+
+        foreach ($part->getAttachments() as $attachment) {
+            //Check if the attachment type name contains "datasheet"
+            $typeName = $attachment->getAttachmentType()?->getName() ?? '';
+            if (str_contains(mb_strtolower($typeName), 'datasheet')) {
+                return $this->getAttachmentUrl($attachment);
+            }
+
+            //Check if the attachment name contains "datasheet"
+            $name = mb_strtolower($attachment->getName());
+            if (str_contains($name, 'datasheet') || str_contains($name, 'data sheet')) {
+                return $this->getAttachmentUrl($attachment);
+            }
+
+            //Track first PDF as fallback
+            if ($firstPdf === null && $attachment->getExtension() === 'pdf') {
+                $firstPdf = $attachment;
+            }
+        }
+
+        //Use first PDF attachment as fallback
+        if ($firstPdf !== null) {
+            return $this->getAttachmentUrl($firstPdf);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns an absolute URL for viewing the given attachment.
+     * Prefers the external URL (direct link) over the internal view route.
+     */
+    private function getAttachmentUrl(Attachment $attachment): string
+    {
+        if ($attachment->hasExternal()) {
+            return $attachment->getExternalPath();
+        }
+
+        return $this->urlGenerator->generate(
+            'attachment_view',
+            ['id' => $attachment->getId()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
     }
 }
