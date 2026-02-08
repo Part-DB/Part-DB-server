@@ -21,17 +21,30 @@ import {Controller} from "@hotwired/stimulus";
 //import * as ZXing from "@zxing/library";
 
 import {Html5QrcodeScanner, Html5Qrcode} from "@part-db/html5-qrcode";
+import { generateCsrfToken, generateCsrfHeaders } from "../csrf_protection_controller";
 
 /* stimulusFetch: 'lazy' */
+
 export default class extends Controller {
-
-    //codeReader = null;
-
     _scanner = null;
-
+    _submitting = false;
+    _lastDecodedText = "";
+    _onInfoChange = null;
 
     connect() {
-        console.log('Init Scanner');
+        // Prevent double init if connect fires twice
+        if (this._scanner) return;
+
+        // clear last decoded barcode when state changes on info box
+        const info = document.getElementById("scan_dialog_info_mode");
+        if (info) {
+            this._onInfoChange = () => {
+                this._lastDecodedText = "";
+            };
+            info.addEventListener("change", this._onInfoChange);
+        }
+
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
         //This function ensures, that the qrbox is 70% of the total viewport
         let qrboxFunction = function(viewfinderWidth, viewfinderHeight) {
@@ -45,31 +58,135 @@ export default class extends Controller {
         }
 
         //Try to get the number of cameras. If the number is 0, then the promise will fail, and we show the warning dialog
-        Html5Qrcode.getCameras().catch((devices) => {
-                document.getElementById('scanner-warning').classList.remove('d-none');
+        Html5Qrcode.getCameras().catch(() => {
+            document.getElementById("scanner-warning")?.classList.remove("d-none");
         });
 
         this._scanner = new Html5QrcodeScanner(this.element.id, {
             fps: 10,
             qrbox: qrboxFunction,
+            // Key change: shrink preview height on mobile
+            ...(isMobile ? { aspectRatio: 1.0 } : {}),
             experimentalFeatures: {
                 //This option improves reading quality on android chrome
-                useBarCodeDetectorIfSupported: true
-            }
+                useBarCodeDetectorIfSupported: true,
+            },
         }, false);
 
         this._scanner.render(this.onScanSuccess.bind(this));
     }
 
     disconnect() {
-        this._scanner.pause();
-        this._scanner.clear();
+        // If we already stopped/cleared before submit, nothing to do.
+        const scanner = this._scanner;
+        this._scanner = null;
+        this._submitting = false;
+        this._lastDecodedText = "";
+
+        // Unbind info-mode change handler (always do this, even if scanner is null)
+        const info = document.getElementById("scan_dialog_info_mode");
+        if (info && this._onInfoChange) {
+            info.removeEventListener("change", this._onInfoChange);
+        }
+        this._onInfoChange = null;
+
+        if (!scanner) return;
+
+        try {
+            const p = scanner.clear?.();
+            if (p && typeof p.then === "function") p.catch(() => {});
+        } catch (_) {
+            // ignore
+        }
     }
 
-    onScanSuccess(decodedText, decodedResult) {
+
+    async onScanSuccess(decodedText) {
+        if (!decodedText) return;
+
+        const normalized = String(decodedText).trim();
+        if (!normalized) return;
+
+        // scan once per barcode
+        if (normalized === this._lastDecodedText) return;
+
+        // If a request/submit is in-flight, ignore scans.
+        if (this._submitting) return;
+
+        // Mark as handled immediately (prevents spam even if callback fires repeatedly)
+        this._lastDecodedText = normalized;
+        this._submitting = true;
+
         //Put our decoded Text into the input box
-        document.getElementById('scan_dialog_input').value = decodedText;
-        //Submit form
-        document.getElementById('scan_dialog_form').requestSubmit();
+        const input = document.getElementById("scan_dialog_input");
+        if (input) input.value = decodedText;
+
+        const infoMode = !!document.getElementById("scan_dialog_info_mode")?.checked;
+
+        try {
+            const data = await this.lookup(normalized, infoMode);
+
+            // ok:false = transient junk decode; ignore without wiping UI
+            if (!data || data.ok !== true) {
+                this._lastDecodedText = ""; // allow retry
+                return;
+            }
+
+            // If info mode is OFF and part was found -> redirect
+            if (!infoMode && data.found && data.redirectUrl) {
+                window.location.assign(data.redirectUrl);
+                return;
+            }
+
+            // Otherwise render returned fragment HTML
+            if (typeof data.html === "string" && data.html !== "") {
+                const el = document.getElementById("scan-augmented-result");
+                if (el) el.innerHTML = data.html;
+            }
+        } catch (e) {
+            console.warn("[barcode_scan] lookup failed", e);
+            // allow retry on failure
+            this._lastDecodedText = "";
+        } finally {
+            this._submitting = false;
+        }
+    }
+
+
+    async lookup(decodedText, infoMode) {
+        const form = document.getElementById("scan_dialog_form");
+        if (!form) return { ok: false };
+
+        generateCsrfToken(form);
+
+        const mode =
+            document.querySelector('input[name="scan_dialog[mode]"]:checked')?.value ?? "";
+
+        const body = new URLSearchParams();
+        body.set("input", decodedText);
+        if (mode !== "") body.set("mode", mode);
+        body.set("info_mode", infoMode ? "1" : "0");
+
+        const headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+            ...generateCsrfHeaders(form),
+        };
+
+        const url = this.element.dataset.lookupUrl;
+        if (!url) throw new Error("Missing data-lookup-url on #reader-box");
+
+        const resp = await fetch(url, {
+            method: "POST",
+            headers,
+            body: body.toString(),
+            credentials: "same-origin",
+        });
+
+        if (!resp.ok) {
+            throw new Error(`lookup failed: HTTP ${resp.status}`);
+        }
+
+        return await resp.json();
     }
 }
