@@ -52,7 +52,7 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
             if (!is_a($class, Attachment::class, true)) {
                 return $class;
             }
-            return new StaticMessage($this->elementTypeNameGenerator->typeLabel($class::ALLOWED_ELEMENT_CLASS));
+            return new StaticMessage($this->elementTypeNameGenerator->typeLabelPlural($class::ALLOWED_ELEMENT_CLASS));
         };
 
 
