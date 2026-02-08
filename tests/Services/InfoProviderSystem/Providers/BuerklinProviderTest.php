@@ -268,4 +268,80 @@ class BuerklinProviderTest extends TestCase
         $this->assertSame('PartX', $dto->name);
         $this->assertSame('https://img', $dto->preview_image_url);
     }
+    public function testGetHandledDomains(): void
+    {
+        $this->assertSame(['buerklin.com'], $this->provider->getHandledDomains());
+    }
+    
+    /**
+     * @dataProvider buerklinIdFromUrlProvider
+     */
+    public function testGetIDFromURLExtractsId(string $url, ?string $expected): void
+    {
+        $this->assertSame($expected, $this->provider->getIDFromURL($url));
+    }
+    
+    public static function buerklinIdFromUrlProvider(): array
+    {
+        return [
+            'de long path' => [
+                'https://www.buerklin.com/de/p/bkl-electronic/niedervoltsteckverbinder/072341-l/40F1332/',
+                '40F1332',
+            ],
+            'de short path' => [
+                'https://www.buerklin.com/de/p/40F1332/',
+                '40F1332',
+            ],
+            'en long path' => [
+                'https://www.buerklin.com/en/p/bkl-electronic/dc-connectors/072341-l/40F1332/',
+                '40F1332',
+            ],
+            'en short path' => [
+                'https://www.buerklin.com/en/p/40F1332/',
+                '40F1332',
+            ],
+            'fragment should be ignored' => [
+                'https://www.buerklin.com/de/p/bkl-electronic/niedervoltsteckverbinder/072341-l/40F1332/#download',
+                '40F1332',
+            ],
+            'no trailing slash' => [
+                'https://www.buerklin.com/en/p/40F1332',
+                '40F1332',
+            ],
+            'query should be ignored' => [
+                'https://www.buerklin.com/en/p/40F1332/?foo=bar',
+                '40F1332',
+            ],
+            'query and fragment should be ignored' => [
+                'https://www.buerklin.com/en/p/40F1332/?foo=bar#download',
+                '40F1332',
+            ],
+    
+            // Negative cases
+            'not a product url (no /p/ segment)' => [
+                'https://www.buerklin.com/de/impressum/',
+                null,
+            ],
+            'path contains "p" but not "/p/"' => [
+                'https://www.buerklin.com/de/help/price/',
+                null,
+            ],
+            'ends with /p/ (no id)' => [
+                'https://www.buerklin.com/de/p/',
+                null,
+            ],
+            'ends with /p (no trailing slash)' => [
+                'https://www.buerklin.com/de/p',
+                null,
+            ],
+            'empty string' => [
+                '',
+                null,
+            ],
+            'not a url string' => [
+                'not a url',
+                null,
+            ],
+        ];
+    }
 }
