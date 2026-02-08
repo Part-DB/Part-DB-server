@@ -43,8 +43,6 @@ readonly class GTINBarcodeScanResult implements BarcodeScanResultInterface
             'GTIN' => $this->gtin,
             'GTIN type' => $obj->getType(),
             'Valid' => $this->validator->isValid() ? 'Yes' : 'No',
-            'Reference Number' => $obj->getReferenceNumber(),
-            'Check Digit' => $obj->getCheckDigit(),
         ];
     }
 

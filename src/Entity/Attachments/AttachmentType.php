@@ -213,7 +213,7 @@ class AttachmentType extends AbstractStructuralDBElement
 
         $tmp = [];
         foreach ($this->allowed_targets as $target) {
-            if (Attachment::ORM_DISCRIMINATOR_MAP[$target]) {
+            if (isset(Attachment::ORM_DISCRIMINATOR_MAP[$target])) {
                 $tmp[] = Attachment::ORM_DISCRIMINATOR_MAP[$target];
             }
             //Otherwise ignore the entry, as it is invalid

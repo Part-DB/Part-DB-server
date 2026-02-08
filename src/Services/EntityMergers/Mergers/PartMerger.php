@@ -59,6 +59,7 @@ class PartMerger implements EntityMergerInterface
         $this->useOtherValueIfNotEmtpy($target, $other, 'manufacturer_product_number');
         $this->useOtherValueIfNotEmtpy($target, $other, 'mass');
         $this->useOtherValueIfNotEmtpy($target, $other, 'ipn');
+        $this->useOtherValueIfNotEmtpy($target, $other, 'gtin');
 
         //Merge relations to other entities
         $this->useOtherValueIfNotNull($target, $other, 'manufacturer');

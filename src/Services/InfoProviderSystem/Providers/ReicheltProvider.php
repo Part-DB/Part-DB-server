@@ -149,6 +149,7 @@ class ReicheltProvider implements InfoProviderInterface
         $priceString = $dom->filter('meta[itemprop="price"]')->attr('content');
         $currency = $dom->filter('meta[itemprop="priceCurrency"]')->attr('content', 'EUR');
 
+        $gtin = null;
         foreach (['gtin13', 'gtin14', 'gtin12', 'gtin8'] as $gtinType) {
             if ($dom->filter("[itemprop=\"$gtinType\"]")->count() > 0) {
                 $gtin = $dom->filter("[itemprop=\"$gtinType\"]")->innerText();
