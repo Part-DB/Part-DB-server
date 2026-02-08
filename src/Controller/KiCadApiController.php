@@ -97,7 +97,7 @@ class KiCadApiController extends AbstractController
         $etag = '"' . md5(json_encode($data)) . '"';
 
         if ($request->headers->get('If-None-Match') === $etag) {
-            return new JsonResponse(null, Response::HTTP_NOT_MODIFIED);
+            return new Response('', Response::HTTP_NOT_MODIFIED);
         }
 
         $response = new JsonResponse($data);
