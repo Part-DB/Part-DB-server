@@ -67,6 +67,7 @@ class BatchEdaType extends AbstractType
             ])
             ->add('visibility', TriStateCheckboxType::class, [
                 'label' => 'eda_info.visibility',
+                'required' => false,
             ])
             ->add('apply_visibility', CheckboxType::class, [
                 'label' => 'batch_eda.apply',
@@ -75,6 +76,7 @@ class BatchEdaType extends AbstractType
             ])
             ->add('exclude_from_bom', TriStateCheckboxType::class, [
                 'label' => 'eda_info.exclude_from_bom',
+                'required' => false,
             ])
             ->add('apply_exclude_from_bom', CheckboxType::class, [
                 'label' => 'batch_eda.apply',
@@ -83,6 +85,7 @@ class BatchEdaType extends AbstractType
             ])
             ->add('exclude_from_board', TriStateCheckboxType::class, [
                 'label' => 'eda_info.exclude_from_board',
+                'required' => false,
             ])
             ->add('apply_exclude_from_board', CheckboxType::class, [
                 'label' => 'batch_eda.apply',
@@ -91,6 +94,7 @@ class BatchEdaType extends AbstractType
             ])
             ->add('exclude_from_sim', TriStateCheckboxType::class, [
                 'label' => 'eda_info.exclude_from_sim',
+                'required' => false,
             ])
             ->add('apply_exclude_from_sim', CheckboxType::class, [
                 'label' => 'batch_eda.apply',

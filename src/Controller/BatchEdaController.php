@@ -18,6 +18,36 @@ class BatchEdaController extends AbstractController
     {
     }
 
+    /**
+     * Compute shared EDA values across all parts. If all parts have the same value for a field, return it.
+     * @param Part[] $parts
+     * @return array<string, mixed>
+     */
+    private function getSharedEdaValues(array $parts): array
+    {
+        $fields = [
+            'reference_prefix' => static fn (Part $p) => $p->getEdaInfo()->getReferencePrefix(),
+            'value' => static fn (Part $p) => $p->getEdaInfo()->getValue(),
+            'kicad_symbol' => static fn (Part $p) => $p->getEdaInfo()->getKicadSymbol(),
+            'kicad_footprint' => static fn (Part $p) => $p->getEdaInfo()->getKicadFootprint(),
+            'visibility' => static fn (Part $p) => $p->getEdaInfo()->getVisibility(),
+            'exclude_from_bom' => static fn (Part $p) => $p->getEdaInfo()->getExcludeFromBom(),
+            'exclude_from_board' => static fn (Part $p) => $p->getEdaInfo()->getExcludeFromBoard(),
+            'exclude_from_sim' => static fn (Part $p) => $p->getEdaInfo()->getExcludeFromSim(),
+        ];
+
+        $data = [];
+        foreach ($fields as $key => $getter) {
+            $values = array_map($getter, $parts);
+            $unique = array_unique($values, SORT_REGULAR);
+            if (count($unique) === 1) {
+                $data[$key] = $unique[array_key_first($unique)];
+            }
+        }
+
+        return $data;
+    }
+
     #[Route('/tools/batch_eda_edit', name: 'batch_eda_edit')]
     public function batchEdaEdit(Request $request): Response
     {
@@ -36,7 +66,9 @@ class BatchEdaController extends AbstractController
             return $redirectUrl !== '' ? $this->redirect($redirectUrl) : $this->redirectToRoute('parts_show_all');
         }
 
-        $form = $this->createForm(BatchEdaType::class);
+        //Pre-populate form with shared values (when all parts have the same value)
+        $initialData = $this->getSharedEdaValues($parts);
+        $form = $this->createForm(BatchEdaType::class, $initialData);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
