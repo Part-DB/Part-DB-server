@@ -228,6 +228,11 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('attachments', PartAttachmentsColumn::class, [
                 'label' => $this->translator->trans('part.table.attachments'),
+            ])
+            ->add('eda_status', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.eda_status'),
+                'render' => fn($value, Part $context) => $this->partDataTableHelper->renderEdaStatus($context),
+                'className' => 'text-center',
             ]);
 
         //Add a column to list the projects where the part is used, when the user has the permission to see the projects

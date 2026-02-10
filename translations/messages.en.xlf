@@ -2930,6 +2930,42 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Attachments</target>
       </segment>
     </unit>
+    <unit id="eda_table_status" name="part.table.eda_status">
+      <segment state="translated">
+        <source>part.table.eda_status</source>
+        <target>EDA</target>
+      </segment>
+    </unit>
+    <unit id="eda_status_symbol" name="eda.status.symbol_set">
+      <segment state="translated">
+        <source>eda.status.symbol_set</source>
+        <target>KiCad symbol set</target>
+      </segment>
+    </unit>
+    <unit id="eda_status_footprint" name="eda.status.footprint_set">
+      <segment state="translated">
+        <source>eda.status.footprint_set</source>
+        <target>KiCad footprint set</target>
+      </segment>
+    </unit>
+    <unit id="eda_status_reference" name="eda.status.reference_set">
+      <segment state="translated">
+        <source>eda.status.reference_set</source>
+        <target>Reference prefix set</target>
+      </segment>
+    </unit>
+    <unit id="eda_status_complete" name="eda.status.complete">
+      <segment state="translated">
+        <source>eda.status.complete</source>
+        <target>EDA fields complete (symbol, footprint, reference)</target>
+      </segment>
+    </unit>
+    <unit id="eda_status_partial" name="eda.status.partial">
+      <segment state="translated">
+        <source>eda.status.partial</source>
+        <target>EDA fields partially set</target>
+      </segment>
+    </unit>
     <unit id="bMkafCp" name="flash.login_successful">
       <segment state="translated">
         <source>flash.login_successful</source>
@@ -3270,6 +3306,12 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <segment state="translated">
         <source>orderdetails.edit.obsolete</source>
         <target>No longer available</target>
+      </segment>
+    </unit>
+    <unit id="kicad_od_export" name="orderdetails.edit.kicad_export">
+      <segment state="translated">
+        <source>orderdetails.edit.kicad_export</source>
+        <target>Export to KiCad</target>
       </segment>
     </unit>
     <unit id="ZsO5AKM" name="orderdetails.edit.supplierpartnr.placeholder">

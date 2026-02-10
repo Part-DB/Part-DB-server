@@ -20,7 +20,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Controller;
 
 use App\Entity\Parts\Category;
@@ -33,30 +32,33 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
- * @see \App\Tests\Controller\KiCadApiControllerTest
+ * KiCad HTTP Library API v2 controller.
+ *
+ * Differences from v1:
+ * - Volatile fields: Stock and Storage Location are marked volatile (shown in KiCad but NOT saved to schematic)
+ * - Category descriptions: Uses actual category comments instead of URLs
+ * - Response format: Arrays wrapped in objects for extensibility
  */
-#[Route('/kicad-api/v1')]
-class KiCadApiController extends AbstractController
+#[Route('/kicad-api/v2')]
+class KiCadApiV2Controller extends AbstractController
 {
     public function __construct(
         private readonly KiCadHelper $kiCADHelper,
-    )
-    {
+    ) {
     }
 
-    #[Route('/', name: 'kicad_api_root')]
+    #[Route('/', name: 'kicad_api_v2_root')]
     public function root(): Response
     {
         $this->denyAccessUnlessGranted('HAS_ACCESS_PERMISSIONS');
 
-        //The API documentation says this can be either blank or the URL to the endpoints
         return $this->json([
             'categories' => '',
             'parts' => '',
         ]);
     }
 
-    #[Route('/categories.json', name: 'kicad_api_categories')]
+    #[Route('/categories.json', name: 'kicad_api_v2_categories')]
     public function categories(Request $request): Response
     {
         $this->denyAccessUnlessGranted('@categories.read');
@@ -65,7 +67,7 @@ class KiCadApiController extends AbstractController
         return $this->createCachedJsonResponse($request, $data, 300);
     }
 
-    #[Route('/parts/category/{category}.json', name: 'kicad_api_category')]
+    #[Route('/parts/category/{category}.json', name: 'kicad_api_v2_category')]
     public function categoryParts(Request $request, ?Category $category): Response
     {
         if ($category !== null) {
@@ -80,19 +82,16 @@ class KiCadApiController extends AbstractController
         return $this->createCachedJsonResponse($request, $data, 300);
     }
 
-    #[Route('/parts/{part}.json', name: 'kicad_api_part')]
+    #[Route('/parts/{part}.json', name: 'kicad_api_v2_part')]
     public function partDetails(Request $request, Part $part): Response
     {
         $this->denyAccessUnlessGranted('read', $part);
 
-        $data = $this->kiCADHelper->getKiCADPart($part);
+        // Use API v2 format with volatile fields
+        $data = $this->kiCADHelper->getKiCADPart($part, true);
         return $this->createCachedJsonResponse($request, $data, 60);
     }
 
-    /**
-     * Creates a JSON response with HTTP cache headers (ETag and Cache-Control).
-     * Returns 304 Not Modified if the client's ETag matches.
-     */
     private function createCachedJsonResponse(Request $request, array $data, int $maxAge): Response
     {
         $response = new JsonResponse($data);

@@ -116,11 +116,16 @@ class KiCadHelper
                 }
 
                 //Format the category for KiCAD
+                // Use the category comment as description if available, otherwise use the Part-DB URL
+                $description = $category->getComment();
+                if ($description === null || $description === '') {
+                    $description = $this->entityURLGenerator->listPartsURL($category);
+                }
+
                 $result[] = [
                     'id' => (string)$category->getId(),
                     'name' => $category->getFullPath('/'),
-                    //Show the category link as the category description, this also fixes an segfault in KiCad see issue #878
-                    'description' => $this->entityURLGenerator->listPartsURL($category),
+                    'description' => $description,
                 ];
             }
 
@@ -132,11 +137,13 @@ class KiCadHelper
      * Returns an array of objects containing all parts for the given category in the format required by KiCAD.
      * The result is cached for performance and invalidated on category or part changes.
      * @param  Category|null  $category
+     * @param  bool  $minimal  If true, only return id and name (faster for symbol chooser listing)
      * @return array
      */
-    public function getCategoryParts(?Category $category): array
+    public function getCategoryParts(?Category $category, bool $minimal = false): array
     {
-        return $this->kicadCache->get('kicad_category_parts_'.($category?->getID() ?? 0) . '_' . $this->category_depth,
+        $cacheKey = 'kicad_category_parts_'.($category?->getID() ?? 0) . '_' . $this->category_depth . ($minimal ? '_min' : '');
+        return $this->kicadCache->get($cacheKey,
             function (ItemInterface $item) use ($category) {
                 $item->tag([
                     $this->tagGenerator->getElementTypeCacheTag(Category::class),
@@ -182,7 +189,10 @@ class KiCadHelper
             });
     }
 
-    public function getKiCADPart(Part $part): array
+    /**
+     * @param bool $apiV2 If true, use API v2 format with volatile field support
+     */
+    public function getKiCADPart(Part $part, bool $apiV2 = false): array
     {
         $result = [
             'id' => (string)$part->getId(),
@@ -250,32 +260,7 @@ class KiCadHelper
             $result["fields"]["Part-DB IPN"] = $this->createField($part->getIpn());
         }
 
-        // Add supplier information from orderdetails (include obsolete orderdetails)
-        if ($part->getOrderdetails(false)->count() > 0) {
-            $supplierCounts = [];
-            
-            foreach ($part->getOrderdetails(false) as $orderdetail) {
-                if ($orderdetail->getSupplier() !== null && $orderdetail->getSupplierPartNr() !== '') {
-                    $supplierName = $orderdetail->getSupplier()->getName();
-
-                    $supplierName .= " SPN"; // Append "SPN" to the supplier name to indicate Supplier Part Number
-
-                    if (!isset($supplierCounts[$supplierName])) {
-                        $supplierCounts[$supplierName] = 0;
-                    }
-                    $supplierCounts[$supplierName]++;
-                    
-                    // Create field name with sequential number if more than one from same supplier (e.g. "Mouser", "Mouser 2", etc.)
-                    $fieldName = $supplierCounts[$supplierName] > 1 
-                        ? $supplierName . ' ' . $supplierCounts[$supplierName]
-                        : $supplierName;
-                    
-                    $result["fields"][$fieldName] = $this->createField($orderdetail->getSupplierPartNr());
-                }
-            }
-        }
-
-        //Add fields for KiCost:
+        //Add KiCost manufacturer fields (always present, independent of orderdetails)
         if ($part->getManufacturer() !== null) {
             $result["fields"]["manf"] = $this->createField($part->getManufacturer()->getName());
         }
@@ -283,13 +268,43 @@ class KiCadHelper
             $result['fields']['manf#'] = $this->createField($part->getManufacturerProductNumber());
         }
 
-        //For each supplier, add a field with the supplier name and the supplier part number for KiCost
-        if ($part->getOrderdetails(false)->count() > 0) {
-            foreach ($part->getOrderdetails(false) as $orderdetail) {
+        // Add supplier information from orderdetails (include obsolete orderdetails)
+        // If any orderdetail has kicad_export=true, only export those; otherwise export all (backward compat)
+        $allOrderdetails = $part->getOrderdetails(false);
+        if ($allOrderdetails->count() > 0) {
+            $hasKicadExportFlag = false;
+            foreach ($allOrderdetails as $od) {
+                if ($od->isKicadExport()) {
+                    $hasKicadExportFlag = true;
+                    break;
+                }
+            }
+
+            $supplierCounts = [];
+            foreach ($allOrderdetails as $orderdetail) {
                 if ($orderdetail->getSupplier() !== null && $orderdetail->getSupplierPartNr() !== '') {
-                    $fieldName = mb_strtolower($orderdetail->getSupplier()->getName()) . '#';
+                    // Skip orderdetails not marked for export when the flag is used
+                    if ($hasKicadExportFlag && !$orderdetail->isKicadExport()) {
+                        continue;
+                    }
+
+                    $supplierName = $orderdetail->getSupplier()->getName() . ' SPN';
+
+                    if (!isset($supplierCounts[$supplierName])) {
+                        $supplierCounts[$supplierName] = 0;
+                    }
+                    $supplierCounts[$supplierName]++;
+
+                    // Create field name with sequential number if more than one from same supplier
+                    $fieldName = $supplierCounts[$supplierName] > 1
+                        ? $supplierName . ' ' . $supplierCounts[$supplierName]
+                        : $supplierName;
 
                     $result["fields"][$fieldName] = $this->createField($orderdetail->getSupplierPartNr());
+
+                    //Also add a KiCost-compatible field (supplier_name# = SPN)
+                    $kicostFieldName = mb_strtolower($orderdetail->getSupplier()->getName()) . '#';
+                    $result["fields"][$kicostFieldName] = $this->createField($orderdetail->getSupplierPartNr());
                 }
             }
         }
@@ -306,9 +321,10 @@ class KiCadHelper
                 }
             }
         }
-        $result['fields']['Stock'] = $this->createField($totalStock);
+        // In API v2, stock and location are volatile (shown but not saved to schematic)
+        $result['fields']['Stock'] = $this->createField($totalStock, false, $apiV2);
         if ($locations !== []) {
-            $result['fields']['Storage Location'] = $this->createField(implode(', ', array_unique($locations)));
+            $result['fields']['Storage Location'] = $this->createField(implode(', ', array_unique($locations)), false, $apiV2);
         }
 
         //Add parameters marked for KiCad export
@@ -377,7 +393,7 @@ class KiCadHelper
 
         //If the user set a visibility, then use it
         if ($eda_info->getVisibility() !== null) {
-            return $part->getEdaInfo()->getVisibility();
+            return $eda_info->getVisibility();
         }
 
         //If the part has a category, then use the category visibility if possible
@@ -419,14 +435,21 @@ class KiCadHelper
      * Creates a field array for KiCAD
      * @param  string|int|float  $value
      * @param  bool  $visible
+     * @param  bool  $volatile  If true (API v2), field is shown in KiCad but NOT saved to schematic
      * @return array
      */
-    private function createField(string|int|float $value, bool $visible = false): array
+    private function createField(string|int|float $value, bool $visible = false, bool $volatile = false): array
     {
-        return [
+        $field = [
             'value' => (string)$value,
             'visible' => $this->boolToKicadBool($visible),
         ];
+
+        if ($volatile) {
+            $field['volatile'] = $this->boolToKicadBool(true);
+        }
+
+        return $field;
     }
 
     /**

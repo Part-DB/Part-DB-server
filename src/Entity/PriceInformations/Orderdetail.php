@@ -123,6 +123,13 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     protected bool $obsolete = false;
 
     /**
+     * @var bool Whether this orderdetail's supplier part number should be exported as a KiCad field
+     */
+    #[Groups(['full', 'import', 'orderdetail:read', 'orderdetail:write'])]
+    #[ORM\Column(type: Types::BOOLEAN)]
+    protected bool $kicad_export = false;
+
+    /**
      * @var string The URL to the product on the supplier's website
      */
     #[Assert\Url(requireTld: false)]
@@ -414,6 +421,21 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     public function setPricesIncludesVAT(?bool $includesVat): self
     {
         $this->prices_includes_vat = $includesVat;
+
+        return $this;
+    }
+
+    public function isKicadExport(): bool
+    {
+        return $this->kicad_export;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setKicadExport(bool $kicad_export): self
+    {
+        $this->kicad_export = $kicad_export;
 
         return $this;
     }

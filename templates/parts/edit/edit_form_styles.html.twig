@@ -33,6 +33,7 @@
             {{ form_row(form.supplier_product_url,  {'attr': {'class': 'form-control-sm'}}) }}
             {{ form_widget(form.obsolete) }}
             {{ form_widget(form.pricesIncludesVAT) }}
+            {{ form_widget(form.kicad_export) }}
         </td>
         <td>
             <div {{ collection.controller(form.pricedetails, 'pricedetails.edit.delete.confirm') }}>
