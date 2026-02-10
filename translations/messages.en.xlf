@@ -12479,5 +12479,35 @@ Buerklin-API Authentication server:
         <target>Stocktake</target>
       </segment>
     </unit>
+    <unit id="Vnhrb5R" name="part.info.stocktake_modal.title">
+      <segment>
+        <source>part.info.stocktake_modal.title</source>
+        <target>Stocktake lot</target>
+      </segment>
+    </unit>
+    <unit id="WqOG7RK" name="part.info.stocktake_modal.expected_amount">
+      <segment>
+        <source>part.info.stocktake_modal.expected_amount</source>
+        <target>Expected amount</target>
+      </segment>
+    </unit>
+    <unit id="E7IbVN6" name="part.info.stocktake_modal.actual_amount">
+      <segment>
+        <source>part.info.stocktake_modal.actual_amount</source>
+        <target>Actual amount</target>
+      </segment>
+    </unit>
+    <unit id="4GwSma7" name="log.part_stock_changed.stock_take">
+      <segment>
+        <source>log.part_stock_changed.stock_take</source>
+        <target>Stocktake</target>
+      </segment>
+    </unit>
+    <unit id="aRQPMW7" name="log.element_edited.changed_fields.last_stocktake_at">
+      <segment>
+        <source>log.element_edited.changed_fields.last_stocktake_at</source>
+        <target>Last stocktake</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -2,6 +2,7 @@
 {% import "label_system/dropdown_macro.html.twig" as dropdown %}
 
 {% include "parts/info/_withdraw_modal.html.twig" %}
+{% include "parts/info/_stocktake_modal.html.twig" %}
 
 <div class="table-responsive">
     <table class="table table-striped table-hover">
@@ -93,12 +94,15 @@
                         >
                             <i class="fa-solid fa-right-left fa-fw"></i>
                         </button>
+
+                        <button type="button" class="btn-primary btn" data-bs-toggle="modal" data-bs-target="#stocktake-modal" title="{% trans %}part.info.stocktake_modal.title{% endtrans %}"
+                                {% if not is_granted('stocktake', lot) %}disabled{% endif %}
+                                data-lot-id="{{ lot.id }}" data-lot-amount="{{ lot.amount }}"><i class="fas fa-clipboard-check fa-fw"></i></button>
                     </div>
                 </td>
                 <td>
                     {{ dropdown.profile_dropdown('part_lot', lot.id, false) }}
                 </td>
-                <td>
                 <td> {# Action for order information #}
                     <div class="btn-group">
                         <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -113,7 +117,6 @@
                             {% endif %}
                         </div>
                     </div>
-                </td>
                 </td>
             </tr>
         {% endfor %}
