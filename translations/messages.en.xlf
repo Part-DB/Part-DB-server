@@ -12455,5 +12455,17 @@ Buerklin-API Authentication server:
         <target>Excl. VAT</target>
       </segment>
     </unit>
+    <unit id="WDJ7EeF" name="settings.system.localization.prices_include_tax_by_default">
+      <segment>
+        <source>settings.system.localization.prices_include_tax_by_default</source>
+        <target>Prices include VAT by default</target>
+      </segment>
+    </unit>
+    <unit id="01oGY_r" name="settings.system.localization.prices_include_tax_by_default.description">
+      <segment>
+        <source>settings.system.localization.prices_include_tax_by_default.description</source>
+        <target>The default value for newly created purchase infos, if prices include VAT or not.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

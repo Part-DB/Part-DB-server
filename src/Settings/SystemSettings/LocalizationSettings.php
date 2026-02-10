@@ -25,6 +25,7 @@ namespace App\Settings\SystemSettings;
 
 use App\Form\Settings\LanguageMenuEntriesType;
 use App\Form\Type\LocaleSelectType;
+use App\Form\Type\TriStateCheckboxType;
 use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\ParameterTypes\ArrayType;
@@ -46,7 +47,7 @@ class LocalizationSettings
     #[Assert\Locale()]
     #[Assert\NotBlank()]
     #[SettingsParameter(label: new TM("settings.system.localization.locale"), formType: LocaleSelectType::class,
-    envVar: "string:DEFAULT_LANG", envVarMode: EnvVarMode::OVERWRITE)]
+        envVar: "string:DEFAULT_LANG", envVarMode: EnvVarMode::OVERWRITE)]
     public string $locale = 'en';
 
     #[Assert\Timezone()]
@@ -73,4 +74,14 @@ class LocalizationSettings
     )]
     #[Assert\All([new Assert\Locale()])]
     public array $languageMenuEntries = [];
+
+    #[SettingsParameter(label: new TM("settings.system.localization.prices_include_tax_by_default"),
+        description: new TM("settings.system.localization.prices_include_tax_by_default.description"),
+        formType: TriStateCheckboxType::class
+    )]
+    /**
+     * Indicates whether prices should include tax by default. This is used when creating new pricedetails.
+     * Null means that the VAT state should be indetermine by default.
+     */
+    public ?bool $pricesIncludeTaxByDefault = null;
 }
