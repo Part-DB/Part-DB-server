@@ -27,7 +27,7 @@ class BatchEdaController extends AbstractController
         $redirectUrl = $request->query->getString('_redirect', '');
 
         //Parse part IDs and load parts
-        $idArray = array_filter(array_map('intval', explode(',', $ids)));
+        $idArray = array_filter(array_map('intval', explode(',', $ids)), static fn (int $id): bool => $id > 0);
         $parts = $this->entityManager->getRepository(Part::class)->findBy(['id' => $idArray]);
 
         if ($parts === []) {

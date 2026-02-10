@@ -86,6 +86,7 @@ class PopulateKicadCommand extends Command
         $io->section('Current Footprint KiCad Values');
 
         $footprintRepo = $this->entityManager->getRepository(Footprint::class);
+        /** @var Footprint[] $footprints */
         $footprints = $footprintRepo->findAll();
 
         $rows = [];
@@ -103,6 +104,7 @@ class PopulateKicadCommand extends Command
         $io->section('Current Category KiCad Values');
 
         $categoryRepo = $this->entityManager->getRepository(Category::class);
+        /** @var Category[] $categories */
         $categories = $categoryRepo->findAll();
 
         $rows = [];
@@ -125,6 +127,7 @@ class PopulateKicadCommand extends Command
         $mappings = $this->getFootprintMappings();
 
         $footprintRepo = $this->entityManager->getRepository(Footprint::class);
+        /** @var Footprint[] $footprints */
         $footprints = $footprintRepo->findAll();
 
         $updated = 0;
@@ -174,6 +177,7 @@ class PopulateKicadCommand extends Command
         $mappings = $this->getCategoryMappings();
 
         $categoryRepo = $this->entityManager->getRepository(Category::class);
+        /** @var Category[] $categories */
         $categories = $categoryRepo->findAll();
 
         $updated = 0;
@@ -240,7 +244,7 @@ class PopulateKicadCommand extends Command
      * Returns footprint name to KiCad footprint path mappings.
      * These are based on KiCad 9.x standard library paths.
      *
-     * @return array<string, string>
+     * @return array<int|string, string>
      */
     private function getFootprintMappings(): array
     {
