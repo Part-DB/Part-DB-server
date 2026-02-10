@@ -12467,5 +12467,17 @@ Buerklin-API Authentication server:
         <target>The default value for newly created purchase infos, if prices include VAT or not.</target>
       </segment>
     </unit>
+    <unit id="heWSnAH" name="part_lot.edit.last_stocktake_at">
+      <segment>
+        <source>part_lot.edit.last_stocktake_at</source>
+        <target>Last stocktake</target>
+      </segment>
+    </unit>
+    <unit id=".LP93kG" name="perm.parts_stock.stocktake">
+      <segment>
+        <source>perm.parts_stock.stocktake</source>
+        <target>Stocktake</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

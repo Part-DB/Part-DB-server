@@ -19,53 +19,56 @@
 
         <tbody>
         {% for lot in part.partLots %}
+            {# @var lot App\Entity\Parts\PartLot #}
             <tr {% if lot.id == highlightLotId %}class="table-primary row-highlight row-pulse"{% endif %}>
                 <td>{{ lot.description }}</td>
                 <td>
                     {% if lot.storageLocation %}
                         {{ helper.structural_entity_link(lot.storageLocation) }}
                     {% else %}
-                        <span class="badge rounded-pill bg-warning">
+                        <span class="badge rounded-pill text-bg-warning">
                         <i class="fas fa-question-circle fa-fw"></i> {% trans %}part_lots.location_unknown{% endtrans %}
                     </span>
                     {% endif %}
                 </td>
                 <td>
                     {% if lot.instockUnknown %}
-                        <span class="badge rounded-pill bg-warning">
+                        <span class="badge rounded-pill text-bg-warning">
                         <i class="fas fa-question-circle fa-fw"></i> {% trans %}part_lots.instock_unknown{% endtrans %}
                     </span>
                     {% else %}
                         {{ lot.amount | format_amount(part.partUnit, {'decimals': 5}) }}
                     {% endif %}
                 </td>
-                <td>
-                    <h6>
-                        {% if lot.owner  %}
-                            <span class="badge bg-body-tertiary mb-1" title="{% trans %}part_lot.owner{% endtrans %}">
+                <td class="d-flex flex-column align-items-start">
+                    {% if lot.owner  %}
+                        <span class="badge text-bg-light mb-1" title="{% trans %}part_lot.owner{% endtrans %}">
                                 {{ helper.user_icon_link(lot.owner) }}
-                            </span><br>
-                        {% endif %}
-                        {% if lot.expirationDate %}
-                            <span class="badge bg-info mb-1" title="{% trans %}part_lots.expiration_date{% endtrans %}">
+                            </span>
+                    {% endif %}
+                    {% if lot.expirationDate %}
+                        <span class="badge text-bg-info mb-1" title="{% trans %}part_lots.expiration_date{% endtrans %}">
                             <i class="fas fa-calendar-alt fa-fw"></i> {{ lot.expirationDate | format_date() }}<br>
                         </span>
-                        {% endif %}
-                        {% if lot.expired %}
-                            <br>
-                            <span class="badge bg-warning mb-1">
+                    {% endif %}
+                    {% if lot.expired %}
+                        <span class="badge text-bg-warning mb-1">
                             <i class="fas fa-exclamation-circle fa-fw"></i>
                             {% trans %}part_lots.is_expired{% endtrans %}
                         </span>
-                        {% endif %}
-                        {% if lot.needsRefill %}
-                            <br>
-                            <span class="badge bg-warning mb-1">
-                            <i class="fas fa-dolly fa-fw"></i>
-                            {% trans %}part_lots.need_refill{% endtrans %}
-                        </span>
-                        {% endif %}
-                    </h6>
+                    {% endif %}
+                    {% if lot.needsRefill %}
+                        <span class="badge text-bg-warning mb-1">
+                                <i class="fas fa-dolly fa-fw"></i>
+                                {% trans %}part_lots.need_refill{% endtrans %}
+                            </span>
+                    {% endif %}
+                    {% if lot.lastStocktakeAt %}
+                        <span class="badge text-bg-secondary" title="{% trans %}part_lot.edit.last_stocktake_at{% endtrans %}">
+                                <i class="fas fa-clipboard-check fa-fw"></i>
+                                {{ lot.lastStocktakeAt | format_datetime("short") }}
+                            </span>
+                    {% endif %}
                 </td>
                 <td>
                     <div class="btn-group" role="group">
