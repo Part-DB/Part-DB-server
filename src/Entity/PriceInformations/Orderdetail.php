@@ -148,6 +148,13 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     #[ORM\JoinColumn(name: 'id_supplier')]
     protected ?Supplier $supplier = null;
 
+    /**
+     * @var bool|null Whether the prices includes VAT or not. Null means, that it is not specified, if the prices includes VAT or not.
+     */
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true)]
+    #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
+    protected ?bool $prices_includes_vat = null;
+
     public function __construct()
     {
         $this->pricedetails = new ArrayCollection();
@@ -390,45 +397,23 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     }
 
     /**
-     * Checks if the prices of this orderdetail include VAT. This is determined by checking the pricedetails of this
-     * orderdetail. If there are no pricedetails or if the pricedetails have conflicting values, null is returned.
+     * Checks if the prices of this orderdetail include VAT. Null means, that it is not specified, if the prices includes
+     * VAT or not.
      * @return bool|null
      */
-    #[Groups(['orderdetail:read'])]
-    #[SerializedName('prices_include_vat')]
     public function getPricesIncludesVAT(): ?bool
     {
-        $value = null;
-        //We determine that via the pricedetails
-        foreach ($this->getPricedetails() as $pricedetail) {
-            /** @var Pricedetail $pricedetail */
-            if ($pricedetail->getIncludesVat() === null) {
-                return null; // If any pricedetail doesn't specify this, we can't determine it
-            }
-
-            if ($value === null) {
-                $value = $pricedetail->getIncludesVat(); // Set initial value
-            } elseif ($value !== $pricedetail->getIncludesVat()) {
-                return null; // If there are conflicting values, we can't determine it
-            }
-        }
-
-        return $value;
+        return $this->prices_includes_vat;
     }
 
     /**
-     * Sets whether the prices of this orderdetail include VAT. This is set for all pricedetails of this orderdetail.
+     * Sets whether the prices of this orderdetail include VAT.
      * @param  bool|null  $includesVat
      * @return $this
      */
-    #[Groups(['orderdetail:write'])]
-    #[SerializedName('prices_include_vat')]
     public function setPricesIncludesVAT(?bool $includesVat): self
     {
-        foreach ($this->getPricedetails() as $pricedetail) {
-            /** @var Pricedetail $pricedetail */
-            $pricedetail->setIncludesVat($includesVat);
-        }
+        $this->prices_includes_vat = $includesVat;
 
         return $this;
     }

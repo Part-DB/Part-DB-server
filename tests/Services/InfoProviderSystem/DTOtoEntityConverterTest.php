@@ -94,15 +94,12 @@ class DTOtoEntityConverterTest extends WebTestCase
             minimum_discount_amount: 5,
             price: "10.0",
             currency_iso_code: 'EUR',
-            includes_tax: true,
         );
 
         $entity = $this->service->convertPrice($dto);
 
         //For base currencies, the currency field is null
         $this->assertNull($entity->getCurrency());
-
-        $this->assertTrue($entity->getIncludesVat());
     }
 
     public function testConvertPurchaseInfo(): void
@@ -117,6 +114,7 @@ class DTOtoEntityConverterTest extends WebTestCase
             order_number: 'TestOrderNumber',
             prices: $prices,
             product_url: 'https://example.com',
+            prices_include_vat: true,
         );
 
         $entity = $this->service->convertPurchaseInfo($dto);
@@ -124,6 +122,7 @@ class DTOtoEntityConverterTest extends WebTestCase
         $this->assertSame($dto->distributor_name, $entity->getSupplier()->getName());
         $this->assertSame($dto->order_number, $entity->getSupplierPartNr());
         $this->assertEquals($dto->product_url, $entity->getSupplierProductUrl());
+        $this->assertTrue($dto->prices_include_vat);
     }
 
     public function testConvertFileWithName(): void

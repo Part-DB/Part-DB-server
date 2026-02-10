@@ -121,12 +121,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     #[Groups(['pricedetail:read:standalone', 'pricedetail:write'])]
     protected ?Orderdetail $orderdetail = null;
 
-    /**
-     * @var bool|null Whether the price includes VAT or not. Null means, that it is not specified, if the price includes VAT or not.
-     */
-    #[ORM\Column(name: "include_vat", type: Types::BOOLEAN, nullable: true)]
-    #[Groups(['extended', 'full', 'import', 'pricedetail:read', 'pricedetail:write'])]
-    protected ?bool $includes_vat = null;
+
 
     public function __construct()
     {
@@ -277,7 +272,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      */
     public function getIncludesVat(): ?bool
     {
-        return $this->includes_vat;
+        return $this->orderdetail?->getPricesIncludesVAT();
     }
 
     /********************************************************************************
@@ -374,17 +369,6 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     {
         $this->min_discount_quantity = $new_min_discount_quantity;
 
-        return $this;
-    }
-
-    /**
-     * Set whether the price includes VAT or not. Null means, that it is not specified, if the price includes VAT or not.
-     * @param bool|null $includes_vat
-     * @return $this
-     */
-    public function setIncludesVat(?bool $includes_vat): self
-    {
-        $this->includes_vat = $includes_vat;
         return $this;
     }
 }

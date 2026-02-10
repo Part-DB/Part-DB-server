@@ -100,8 +100,6 @@ final class DTOtoEntityConverter
             $entity->setCurrency(null);
         }
 
-        $entity->setIncludesVat($dto->includes_tax);
-
         return $entity;
     }
 
@@ -117,6 +115,8 @@ final class DTOtoEntityConverter
         foreach ($dto->prices as $price) {
             $entity->addPricedetail($this->convertPrice($price));
         }
+
+        $entity->setPricesIncludesVAT($dto->prices_include_vat);
 
         return $entity;
     }

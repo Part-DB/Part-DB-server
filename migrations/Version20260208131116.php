@@ -22,7 +22,7 @@ final class Version20260208131116 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE part_lots ADD last_stocktake_at DATETIME DEFAULT NULL');
         $this->addSql('ALTER TABLE parts ADD gtin VARCHAR(255) DEFAULT NULL');
         $this->addSql('CREATE INDEX parts_idx_gtin ON parts (gtin)');
-        $this->addSql('ALTER TABLE pricedetails ADD include_vat TINYINT DEFAULT NULL');
+        $this->addSql('ALTER TABLE orderdetails ADD prices_includes_vat TINYINT DEFAULT NULL');
     }
 
     public function mySQLDown(Schema $schema): void
@@ -32,7 +32,7 @@ final class Version20260208131116 extends AbstractMultiPlatformMigration
         $this->addSql('DROP INDEX parts_idx_gtin ON `parts`');
         $this->addSql('ALTER TABLE `parts` DROP gtin');
         $this->addSql('ALTER TABLE part_lots DROP last_stocktake_at');
-        $this->addSql('ALTER TABLE `pricedetails` DROP include_vat');
+        $this->addSql('ALTER TABLE `orderdetails` DROP prices_includes_vat');
     }
 
     public function sqLiteUp(Schema $schema): void
@@ -57,7 +57,7 @@ final class Version20260208131116 extends AbstractMultiPlatformMigration
         $this->addSql('CREATE INDEX IDX_6940A7FE1ECB93AE ON parts (id_manufacturer)');
         $this->addSql('CREATE INDEX IDX_6940A7FEA3ED1215 ON parts (id_part_custom_state)');
         $this->addSql('CREATE INDEX parts_idx_gtin ON parts (gtin)');
-        $this->addSql('ALTER TABLE pricedetails ADD COLUMN include_vat BOOLEAN DEFAULT NULL');
+        $this->addSql('ALTER TABLE orderdetails ADD COLUMN prices_includes_vat BOOLEAN DEFAULT NULL');
     }
 
     public function sqLiteDown(Schema $schema): void
@@ -99,15 +99,14 @@ final class Version20260208131116 extends AbstractMultiPlatformMigration
         $this->addSql('CREATE INDEX parts_idx_datet_name_last_id_needs ON "parts" (datetime_added, name, last_modified, id, needs_review)');
         $this->addSql('CREATE INDEX parts_idx_name ON "parts" (name)');
         $this->addSql('CREATE INDEX parts_idx_ipn ON "parts" (ipn)');
-        $this->addSql('CREATE TEMPORARY TABLE __temp__pricedetails AS SELECT id, price, price_related_quantity, min_discount_quantity, manual_input, last_modified, datetime_added, id_currency, orderdetails_id FROM "pricedetails"');
-        $this->addSql('DROP TABLE "pricedetails"');
-        $this->addSql('CREATE TABLE "pricedetails" (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, price NUMERIC(11, 5) NOT NULL, price_related_quantity DOUBLE PRECISION NOT NULL, min_discount_quantity DOUBLE PRECISION NOT NULL, manual_input BOOLEAN NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, id_currency INTEGER DEFAULT NULL, orderdetails_id INTEGER NOT NULL, CONSTRAINT FK_C68C4459398D64AA FOREIGN KEY (id_currency) REFERENCES currencies (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_C68C44594A01DDC7 FOREIGN KEY (orderdetails_id) REFERENCES "orderdetails" (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE)');
-        $this->addSql('INSERT INTO "pricedetails" (id, price, price_related_quantity, min_discount_quantity, manual_input, last_modified, datetime_added, id_currency, orderdetails_id) SELECT id, price, price_related_quantity, min_discount_quantity, manual_input, last_modified, datetime_added, id_currency, orderdetails_id FROM __temp__pricedetails');
-        $this->addSql('DROP TABLE __temp__pricedetails');
-        $this->addSql('CREATE INDEX IDX_C68C4459398D64AA ON "pricedetails" (id_currency)');
-        $this->addSql('CREATE INDEX IDX_C68C44594A01DDC7 ON "pricedetails" (orderdetails_id)');
-        $this->addSql('CREATE INDEX pricedetails_idx_min_discount ON "pricedetails" (min_discount_quantity)');
-        $this->addSql('CREATE INDEX pricedetails_idx_min_discount_price_qty ON "pricedetails" (min_discount_quantity, price_related_quantity)');
+        $this->addSql('CREATE TEMPORARY TABLE __temp__orderdetails AS SELECT id, supplierpartnr, obsolete, supplier_product_url, last_modified, datetime_added, part_id, id_supplier FROM "orderdetails"');
+        $this->addSql('DROP TABLE "orderdetails"');
+        $this->addSql('CREATE TABLE "orderdetails" (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, supplierpartnr VARCHAR(255) NOT NULL, obsolete BOOLEAN NOT NULL, supplier_product_url CLOB NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, part_id INTEGER NOT NULL, id_supplier INTEGER DEFAULT NULL, CONSTRAINT FK_489AFCDC4CE34BEC FOREIGN KEY (part_id) REFERENCES "parts" (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_489AFCDCCBF180EB FOREIGN KEY (id_supplier) REFERENCES "suppliers" (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
+        $this->addSql('INSERT INTO "orderdetails" (id, supplierpartnr, obsolete, supplier_product_url, last_modified, datetime_added, part_id, id_supplier) SELECT id, supplierpartnr, obsolete, supplier_product_url, last_modified, datetime_added, part_id, id_supplier FROM __temp__orderdetails');
+        $this->addSql('DROP TABLE __temp__orderdetails');
+        $this->addSql('CREATE INDEX IDX_489AFCDC4CE34BEC ON "orderdetails" (part_id)');
+        $this->addSql('CREATE INDEX IDX_489AFCDCCBF180EB ON "orderdetails" (id_supplier)');
+        $this->addSql('CREATE INDEX orderdetails_supplier_part_nr ON "orderdetails" (supplierpartnr)');
     }
 
     public function postgreSQLUp(Schema $schema): void
@@ -116,7 +115,7 @@ final class Version20260208131116 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE part_lots ADD last_stocktake_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL');
         $this->addSql('ALTER TABLE parts ADD gtin VARCHAR(255) DEFAULT NULL');
         $this->addSql('CREATE INDEX parts_idx_gtin ON parts (gtin)');
-        $this->addSql('ALTER TABLE pricedetails ADD include_vat BOOLEAN DEFAULT NULL');
+        $this->addSql('ALTER TABLE orderdetails ADD prices_includes_vat BOOLEAN DEFAULT NULL');
     }
 
     public function postgreSQLDown(Schema $schema): void
@@ -125,6 +124,6 @@ final class Version20260208131116 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE part_lots DROP last_stocktake_at');
         $this->addSql('DROP INDEX parts_idx_gtin');
         $this->addSql('ALTER TABLE "parts" DROP gtin');
-        $this->addSql('ALTER TABLE "pricedetails" DROP include_vat');
+        $this->addSql('ALTER TABLE "orderdetails" DROP prices_includes_vat');
     }
 }
