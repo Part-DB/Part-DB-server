@@ -165,7 +165,9 @@ class PartDataTableHelper
             ? sprintf('<i class="fa-solid fa-bolt fa-fw text-success" title="%s"></i>', $this->translator->trans('eda.status.complete'))
             : sprintf('<i class="fa-solid fa-bolt fa-fw text-warning" title="%s"></i>', $this->translator->trans('eda.status.partial'));
 
-        return $statusIcon;
+        // Wrap in link to EDA settings tab
+        $editUrl = $this->entityURLGenerator->editURL($context) . '#eda';
+        return sprintf('<a href="%s">%s</a>', $editUrl, $statusIcon);
     }
 
     public function renderAmount(Part $context): string
