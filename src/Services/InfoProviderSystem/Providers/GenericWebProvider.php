@@ -310,6 +310,7 @@ class GenericWebProvider implements InfoProviderInterface
     private function fixAndValidateURL(string $url): string
     {
         $originalUrl = $url;
+        $url = urldecode($url);
 
         //Add scheme if missing
         if (!preg_match('/^https?:\/\//', $url)) {
