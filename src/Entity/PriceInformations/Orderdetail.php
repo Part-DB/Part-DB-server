@@ -126,7 +126,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      * @var bool Whether this orderdetail's supplier part number should be exported as a KiCad field
      */
     #[Groups(['full', 'import', 'orderdetail:read', 'orderdetail:write'])]
-    #[ORM\Column(type: Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
     protected bool $kicad_export = false;
 
     /**
