@@ -115,6 +115,7 @@ class PartBaseType extends AbstractType
                 'label' => 'part.edit.name',
                 'attr' => [
                     'placeholder' => 'part.edit.name.placeholder',
+                    'autofocus' => true,
                 ],
             ])
             ->add('description', RichTextEditorType::class, [

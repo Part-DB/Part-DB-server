@@ -79,9 +79,13 @@ export default class extends Controller {
         //Afterwards return the newly created row
         if(targetTable.tBodies[0]) {
             targetTable.tBodies[0].insertAdjacentHTML('beforeend', newElementStr);
+            var fields = targetTable.tBodies[0].querySelectorAll("input[type=number]");
+            fields[fields.length - 1].focus();
             return targetTable.tBodies[0].lastElementChild;
         } else { //Otherwise just insert it
             targetTable.insertAdjacentHTML('beforeend', newElementStr);
+            var fields = targetTable.querySelectorAll("input[type=number]");
+            fields[fields.length - 1].focus();
             return targetTable.lastElementChild;
         }
     }
