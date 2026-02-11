@@ -71,7 +71,7 @@ class BaseEntityAdminForm extends AbstractType
                 'label' => 'name.label',
                 'attr' => [
                     'placeholder' => 'part.name.placeholder',
-                    'autofocus' => true,
+                    'autofocus' => $is_new,
                 ],
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             ]);
