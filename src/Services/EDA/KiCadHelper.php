@@ -58,7 +58,7 @@ class KiCadHelper
         KiCadEDASettings $kiCadEDASettings,
     ) {
         $this->category_depth = $kiCadEDASettings->categoryDepth;
-        $this->datasheetAsPdf = $kiCadEDASettings->datasheetAsPdf;
+        $this->datasheetAsPdf = $kiCadEDASettings->datasheetAsPdf ?? true;
     }
 
     /**

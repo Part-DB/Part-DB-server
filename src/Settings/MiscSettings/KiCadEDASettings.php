@@ -47,5 +47,5 @@ class KiCadEDASettings
     #[SettingsParameter(label: new TM("settings.misc.kicad_eda.datasheet_link"),
         description: new TM("settings.misc.kicad_eda.datasheet_link.help"),
         envVar: "bool:EDA_KICAD_DATASHEET_AS_PDF", envVarMode: EnvVarMode::OVERWRITE)]
-    public bool $datasheetAsPdf = true;
+    public ?bool $datasheetAsPdf = true;
 }
