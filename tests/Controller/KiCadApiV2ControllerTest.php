@@ -26,7 +26,7 @@ use App\DataFixtures\APITokenFixtures;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class KiCadApiV2ControllerTest extends WebTestCase
+final class KiCadApiV2ControllerTest extends WebTestCase
 {
     private const BASE_URL = '/en/kicad-api/v2';
 
@@ -170,7 +170,8 @@ class KiCadApiV2ControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', self::BASE_URL.'/categories.json');
 
-        // Should redirect to login (302) since not authenticated
-        self::assertResponseRedirects();
+        // Anonymous user has default read permissions in Part-DB,
+        // so this returns 200 rather than a redirect
+        self::assertResponseIsSuccessful();
     }
 }

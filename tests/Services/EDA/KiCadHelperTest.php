@@ -35,7 +35,7 @@ use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 #[Group('DB')]
-class KiCadHelperTest extends KernelTestCase
+final class KiCadHelperTest extends KernelTestCase
 {
     private KiCadHelper $helper;
     private EntityManagerInterface $em;
