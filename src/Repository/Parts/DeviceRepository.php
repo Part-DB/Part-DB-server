@@ -51,4 +51,18 @@ class DeviceRepository extends StructuralDBElementRepository
         //Prevent user from deleting devices, to not accidentally remove filled devices from old versions
         return 1;
     }
+
+    public function autocompleteSearch(string $query, int $max_limits = 50): array
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->select('p')
+            ->where('ILIKE(p.name, :query) = TRUE');
+
+        $qb->setParameter('query', '%'.$query.'%');
+
+        $qb->setMaxResults($max_limits);
+        $qb->orderBy('NATSORT(p.name)', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -1839,6 +1839,18 @@
         <target>部件</target>
       </segment>
     </unit>
+    <unit id="statistics.projects" name="statistics.projects">
+      <segment state="translated">
+        <source>statistics.projects</source>
+        <target>项目</target>
+      </segment>
+    </unit>
+    <unit id="bd7zT1d" name="statistics.assemblies">
+      <segment state="translated">
+        <source>statistics.assemblies</source>
+        <target>组件</target>
+      </segment>
+    </unit>
     <unit id="QRdK9zd" name="statistics.data_structures">
       <notes>
         <note priority="1">new</note>

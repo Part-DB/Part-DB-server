@@ -122,6 +122,7 @@ class PartSearchFilter implements FilterInterface
         }
         if ($this->assembly) {
             $fields_to_search[] = '_assembly.name';
+            $fields_to_search[] = '_assembly.ipn';
         }
 
         return $fields_to_search;

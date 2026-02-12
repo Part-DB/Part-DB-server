@@ -57,7 +57,8 @@ class AssemblyRepository extends StructuralDBElementRepository
         $qb = $this->createQueryBuilder('assembly');
         $qb->select('assembly')
             ->where('ILIKE(assembly.name, :query) = TRUE')
-            ->orWhere('ILIKE(assembly.description, :query) = TRUE');
+            ->orWhere('ILIKE(assembly.description, :query) = TRUE')
+            ->orWhere('ILIKE(assembly.ipn, :query) = TRUE');
 
         $qb->setParameter('query', '%'.$query.'%');
 

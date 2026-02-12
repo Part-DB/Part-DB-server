@@ -128,7 +128,8 @@ class AssemblyController extends AbstractController
         ], $additonal_template_vars));
     }
 
-    #[Route(path: '/{id}/info', name: 'assembly_info', requirements: ['id' => '\d+'])]
+    #[Route(path: '/{id}/info', name: 'assembly_info')]
+    #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function info(Assembly $assembly, Request $request): Response
     {
         $this->denyAccessUnlessGranted('read', $assembly);

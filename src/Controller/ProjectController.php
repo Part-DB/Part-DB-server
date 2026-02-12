@@ -58,7 +58,8 @@ class ProjectController extends AbstractController
     ) {
     }
 
-    #[Route(path: '/{id}/info', name: 'project_info', requirements: ['id' => '\d+'])]
+    #[Route(path: '/{id}/info', name: 'project_info')]
+    #[Route(path: '/{id}', requirements: ['id' => '\d+'])]
     public function info(Project $project, Request $request, ProjectBuildHelper $buildHelper, TableSettings $tableSettings): Response
     {
         $this->denyAccessUnlessGranted('read', $project);

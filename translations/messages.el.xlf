@@ -1871,5 +1871,17 @@
         <target>Επεξεργασία</target>
       </segment>
     </unit>
+    <unit id="bd7zT1d" name="statistics.assemblies">
+      <segment state="translated">
+        <source>statistics.assemblies</source>
+        <target>Συναρμολογήσεις</target>
+      </segment>
+    </unit>
+        <unit id="statistics.projects" name="statistics.projects">
+      <segment state="translated">
+        <source>statistics.projects</source>
+        <target>Έργα</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

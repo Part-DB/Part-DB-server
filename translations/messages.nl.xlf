@@ -1548,5 +1548,17 @@
             <target>_MENU_</target>
           </segment>
     </unit>
+    <unit id="bd7zT1d" name="statistics.assemblies">
+      <segment state="translated">
+        <source>statistics.assemblies</source>
+        <target>Assemblages</target>
+      </segment>
+    </unit>
+        <unit id="statistics.projects" name="statistics.projects">
+      <segment state="translated">
+        <source>statistics.projects</source>
+        <target>Projecten</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
