@@ -1828,6 +1828,48 @@
         <target>プロジェクト</target>
       </segment>
     </unit>
+    <unit id="stats_cleanup_bom_error" name="statistics.cleanup_assembly_bom_entries.error">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.error</source>
+        <target>クリーンアップ中にエラーが発生しました。</target>
+      </segment>
+    </unit>
+    <unit id="stats_cleanup_bom_success" name="statistics.cleanup_assembly_bom_entries.success">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.success</source>
+        <target>%count% 個のエントリが正常にクリーンアップされました。</target>
+      </segment>
+    </unit>
+    <unit id="stats_cleanup_bom_confirm" name="statistics.cleanup_assembly_bom_entries.confirm">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.confirm</source>
+        <target>すべての無効な部品表エントリをクリーンアップしますか？部品へのリンクは削除され、名前は "part-id=id not found" に設定されます。</target>
+      </segment>
+    </unit>
+    <unit id="stats_cleanup_bom_btn" name="statistics.cleanup_assembly_bom_entries.button">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.button</source>
+        <target>クリーンアップ</target>
+      </segment>
+    </unit>
+    <unit id="stats_invalid_bom_count" name="statistics.invalid_part_bom_entries_count">
+      <segment state="translated">
+        <source>statistics.invalid_part_bom_entries_count</source>
+        <target>無効な部品表エントリ (部品が見つかりません)</target>
+      </segment>
+    </unit>
+    <unit id="statistics.distinct_projects_count" name="statistics.distinct_projects_count">
+      <segment state="translated">
+        <source>statistics.distinct_projects_count</source>
+        <target>[[Project]]の数</target>
+      </segment>
+    </unit>
+    <unit id="stats_assemblies_count" name="statistics.distinct_assemblies_count">
+      <segment state="translated">
+        <source>statistics.distinct_assemblies_count</source>
+        <target>[[Assembly]]の数</target>
+      </segment>
+    </unit>
     <unit id="bd7zT1d" name="statistics.assemblies">
       <segment state="translated">
         <source>statistics.assemblies</source>

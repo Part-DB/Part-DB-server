@@ -1560,5 +1560,47 @@
         <target>Projecten</target>
       </segment>
     </unit>
+    <unit id="stats_cleanup_bom_error" name="statistics.cleanup_assembly_bom_entries.error">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.error</source>
+        <target>Er is een fout opgetreden tijdens het opschonen.</target>
+      </segment>
+    </unit>
+    <unit id="stats_cleanup_bom_success" name="statistics.cleanup_assembly_bom_entries.success">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.success</source>
+        <target>%count% regels zijn succesvol opgeschoond.</target>
+      </segment>
+    </unit>
+    <unit id="stats_cleanup_bom_confirm" name="statistics.cleanup_assembly_bom_entries.confirm">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.confirm</source>
+        <target>Wilt u alle ongeldige stuklijstregels opschonen? De koppeling naar het onderdeel wordt verwijderd en de naam wordt ingesteld op "part-id=id not found".</target>
+      </segment>
+    </unit>
+    <unit id="stats_cleanup_bom_btn" name="statistics.cleanup_assembly_bom_entries.button">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.button</source>
+        <target>Opschonen</target>
+      </segment>
+    </unit>
+    <unit id="stats_invalid_bom_count" name="statistics.invalid_part_bom_entries_count">
+      <segment state="translated">
+        <source>statistics.invalid_part_bom_entries_count</source>
+        <target>Ongeldige stuklijstregels (onderdeel niet gevonden)</target>
+      </segment>
+    </unit>
+    <unit id="statistics.distinct_projects_count" name="statistics.distinct_projects_count">
+      <segment state="translated">
+        <source>statistics.distinct_projects_count</source>
+        <target>Aantal [[Project]]</target>
+      </segment>
+    </unit>
+    <unit id="stats_assemblies_count" name="statistics.distinct_assemblies_count">
+      <segment state="translated">
+        <source>statistics.distinct_assemblies_count</source>
+        <target>Aantal [[Assembly]]</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

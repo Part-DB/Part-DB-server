@@ -1808,6 +1808,48 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Projekte</target>
       </segment>
     </unit>
+    <unit id="stats_assemblies_count" name="statistics.distinct_assemblies_count">
+      <segment state="translated">
+        <source>statistics.distinct_assemblies_count</source>
+        <target>Anzahl [[Assembly]]</target>
+      </segment>
+    </unit>
+    <unit id="statistics.distinct_projects_count" name="statistics.distinct_projects_count">
+      <segment state="translated">
+        <source>statistics.distinct_projects_count</source>
+        <target>Anzahl [[Project]]</target>
+      </segment>
+    </unit>
+    <unit id="stats_invalid_bom_count" name="statistics.invalid_part_bom_entries_count">
+      <segment state="translated">
+        <source>statistics.invalid_part_bom_entries_count</source>
+        <target>Ungültige Stücklisteneinträge (Teil nicht gefunden)</target>
+      </segment>
+    </unit>
+    <unit id="stats_cleanup_bom_btn" name="statistics.cleanup_assembly_bom_entries.button">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.button</source>
+        <target>Bereinigen</target>
+      </segment>
+    </unit>
+    <unit id="stats_cleanup_bom_confirm" name="statistics.cleanup_assembly_bom_entries.confirm">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.confirm</source>
+        <target>Möchten Sie alle ungültigen Stücklisteneinträge bereinigen? Die Verknüpfung zum Teil wird gelöscht und der Name auf "part-id=id not found" gesetzt.</target>
+      </segment>
+    </unit>
+    <unit id="stats_cleanup_bom_success" name="statistics.cleanup_assembly_bom_entries.success">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.success</source>
+        <target>%count% Einträge wurden erfolgreich bereinigt.</target>
+      </segment>
+    </unit>
+    <unit id="stats_cleanup_bom_error" name="statistics.cleanup_assembly_bom_entries.error">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.error</source>
+        <target>Bei der Bereinigung ist ein Fehler aufgetreten.</target>
+      </segment>
+    </unit>
     <unit id="a2idAxu" name="statistics.data_structures">
       <notes>
         <note priority="1">new</note>

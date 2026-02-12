@@ -1845,6 +1845,48 @@ Subelementos serán desplazados hacia arriba.</target>
         <target>Proyectos</target>
       </segment>
     </unit>
+    <unit id="stats_cleanup_bom_error" name="statistics.cleanup_assembly_bom_entries.error">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.error</source>
+        <target>Ocurrió un error durante la limpieza.</target>
+      </segment>
+    </unit>
+    <unit id="stats_cleanup_bom_success" name="statistics.cleanup_assembly_bom_entries.success">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.success</source>
+        <target>%count% entradas se limpiaron con éxito.</target>
+      </segment>
+    </unit>
+    <unit id="stats_cleanup_bom_confirm" name="statistics.cleanup_assembly_bom_entries.confirm">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.confirm</source>
+        <target>¿Desea limpiar todas las entradas de lista de materiales no válidas? El enlace a la pieza se eliminará y el nombre se establecerá en "part-id=id not found".</target>
+      </segment>
+    </unit>
+    <unit id="stats_cleanup_bom_btn" name="statistics.cleanup_assembly_bom_entries.button">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.button</source>
+        <target>Limpiar</target>
+      </segment>
+    </unit>
+    <unit id="stats_invalid_bom_count" name="statistics.invalid_part_bom_entries_count">
+      <segment state="translated">
+        <source>statistics.invalid_part_bom_entries_count</source>
+        <target>Entradas de lista de materiales no válidas (pieza no encontrada)</target>
+      </segment>
+    </unit>
+    <unit id="statistics.distinct_projects_count" name="statistics.distinct_projects_count">
+      <segment state="translated">
+        <source>statistics.distinct_projects_count</source>
+        <target>Número de [[Project]]</target>
+      </segment>
+    </unit>
+    <unit id="stats_assemblies_count" name="statistics.distinct_assemblies_count">
+      <segment state="translated">
+        <source>statistics.distinct_assemblies_count</source>
+        <target>Número de [[Assembly]]</target>
+      </segment>
+    </unit>
     <unit id="bd7zT1d" name="statistics.assemblies">
       <segment state="translated">
         <source>statistics.assemblies</source>

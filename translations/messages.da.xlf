@@ -1803,6 +1803,48 @@ Underelementer vil blive flyttet opad.</target>
         <target>Projekter</target>
       </segment>
     </unit>
+    <unit id="stats_cleanup_bom_error" name="statistics.cleanup_assembly_bom_entries.error">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.error</source>
+        <target>Der opstod en fejl under oprydningen.</target>
+      </segment>
+    </unit>
+    <unit id="stats_cleanup_bom_success" name="statistics.cleanup_assembly_bom_entries.success">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.success</source>
+        <target>%count% poster blev ryddet op.</target>
+      </segment>
+    </unit>
+    <unit id="stats_cleanup_bom_confirm" name="statistics.cleanup_assembly_bom_entries.confirm">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.confirm</source>
+        <target>Vil du rydde op i alle ugyldige stykliste-poster? Forbindelsen til delen vil blive slettet, og navnet sat til "part-id=id not found".</target>
+      </segment>
+    </unit>
+    <unit id="stats_cleanup_bom_btn" name="statistics.cleanup_assembly_bom_entries.button">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.button</source>
+        <target>Ryd op</target>
+      </segment>
+    </unit>
+    <unit id="stats_invalid_bom_count" name="statistics.invalid_part_bom_entries_count">
+      <segment state="translated">
+        <source>statistics.invalid_part_bom_entries_count</source>
+        <target>Ugyldige stykliste-poster (del ikke fundet)</target>
+      </segment>
+    </unit>
+    <unit id="statistics.distinct_projects_count" name="statistics.distinct_projects_count">
+      <segment state="translated">
+        <source>statistics.distinct_projects_count</source>
+        <target>Antal [[Project]]</target>
+      </segment>
+    </unit>
+    <unit id="stats_assemblies_count" name="statistics.distinct_assemblies_count">
+      <segment state="translated">
+        <source>statistics.distinct_assemblies_count</source>
+        <target>Antal [[Assembly]]</target>
+      </segment>
+    </unit>
     <unit id="bd7zT1d" name="statistics.assemblies">
       <segment state="translated">
         <source>statistics.assemblies</source>

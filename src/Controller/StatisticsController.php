@@ -42,7 +42,10 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Services\Tools\StatisticsHelper;
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -56,5 +59,34 @@ class StatisticsController extends AbstractController
         return $this->render('tools/statistics/statistics.html.twig', [
             'helper' => $helper,
         ]);
+    }
+
+    #[Route(path: '/statistics/cleanup-assembly-bom-entries', name: 'statistics_cleanup_assembly_bom_entries', methods: ['POST'])]
+    public function cleanupAssemblyBOMEntries(EntityManagerInterface $em): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('@tools.statistics');
+
+        $qb = $em->createQueryBuilder();
+        $qb->select('be', 'IDENTITY(be.part) AS part_id')
+            ->from(AssemblyBOMEntry::class, 'be')
+            ->leftJoin('be.part', 'p')
+            ->where('be.part IS NOT NULL')
+            ->andWhere('p.id IS NULL');
+
+        $results = $qb->getQuery()->getResult();
+        $count = count($results);
+
+        foreach ($results as $result) {
+            /** @var AssemblyBOMEntry $entry */
+            $entry = $result[0];
+            $part_id = $result['part_id'] ?? 'unknown';
+
+            $entry->setPart(null);
+            $entry->setName(sprintf('part-id=%s not found', $part_id));
+        }
+
+        $em->flush();
+
+        return new JsonResponse(['success' => true, 'count' => $count]);
     }
 }
