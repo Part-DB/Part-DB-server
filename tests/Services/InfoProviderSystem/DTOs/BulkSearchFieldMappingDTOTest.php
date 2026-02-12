@@ -26,6 +26,15 @@ use PHPUnit\Framework\TestCase;
 class BulkSearchFieldMappingDTOTest extends TestCase
 {
 
+    public function testProviderInstanceNormalization(): void
+    {
+        $mockProvider = $this->createMock(\App\Services\InfoProviderSystem\Providers\InfoProviderInterface::class);
+        $mockProvider->method('getProviderKey')->willReturn('mock_provider');
+
+        $fieldMapping = new BulkSearchFieldMappingDTO(field: 'mpn', providers: ['provider1', $mockProvider], priority: 5);
+        $this->assertSame(['provider1', 'mock_provider'], $fieldMapping->providers);
+    }
+
     public function testIsSupplierPartNumberField(): void
     {
         $fieldMapping = new BulkSearchFieldMappingDTO(field: 'reichelt_spn', providers: ['provider1'], priority: 1);

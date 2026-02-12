@@ -28,7 +28,7 @@ import '../css/app/treeview.css';
 import '../css/app/images.css';
 
 // start the Stimulus application
-import '../bootstrap';
+import '../stimulus_bootstrap';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 const $ = require('jquery');
@@ -44,7 +44,7 @@ import "./register_events";
 import "./tristate_checkboxes";
 
 //Define jquery globally
-window.$ = window.jQuery = require("jquery");
+global.$ = global.jQuery = require("jquery");
 
 //Use the local WASM file for the ZXing library
 import {

@@ -22,7 +22,7 @@ import '../../css/components/tom-select_extensions.css';
 import TomSelect from "tom-select";
 import {Controller} from "@hotwired/stimulus";
 
-import {trans, ENTITY_SELECT_GROUP_NEW_NOT_ADDED_TO_DB} from '../../translator.js'
+import {trans} from '../../translator.js'
 
 import TomSelect_autoselect_typed from '../../tomselect/autoselect_typed/autoselect_typed'
 TomSelect.define('autoselect_typed', TomSelect_autoselect_typed)
@@ -204,7 +204,7 @@ export default class extends Controller {
 
         if (data.not_in_db_yet) {
             //Not yet added items are shown italic and with a badge
-            name += "<i><b>" + escape(data.text) + "</b></i>" + "<span class='ms-3 badge bg-info badge-info'>" + trans(ENTITY_SELECT_GROUP_NEW_NOT_ADDED_TO_DB) + "</span>";
+            name += "<i><b>" + escape(data.text) + "</b></i>" + "<span class='ms-3 badge bg-info badge-info'>" + trans("entity.select.group.new_not_added_to_DB") + "</span>";
         } else {
             name += "<b>" + escape(data.text) + "</b>";
         }

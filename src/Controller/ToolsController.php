@@ -27,8 +27,8 @@ use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\Doctrine\DBInfoHelper;
 use App\Services\Doctrine\NatsortDebugHelper;
-use App\Services\Misc\GitVersionInfo;
-use App\Services\System\UpdateAvailableManager;
+use App\Services\System\GitVersionInfoProvider;
+use App\Services\System\UpdateAvailableFacade;
 use App\Settings\AppSettings;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,16 +47,16 @@ class ToolsController extends AbstractController
     }
 
     #[Route(path: '/server_infos', name: 'tools_server_infos')]
-    public function systemInfos(GitVersionInfo $versionInfo, DBInfoHelper $DBInfoHelper, NatsortDebugHelper $natsortDebugHelper,
-        AttachmentSubmitHandler $attachmentSubmitHandler, UpdateAvailableManager $updateAvailableManager,
+    public function systemInfos(GitVersionInfoProvider $versionInfo, DBInfoHelper $DBInfoHelper, NatsortDebugHelper $natsortDebugHelper,
+        AttachmentSubmitHandler $attachmentSubmitHandler, UpdateAvailableFacade $updateAvailableManager,
         AppSettings $settings): Response
     {
         $this->denyAccessUnlessGranted('@system.server_infos');
 
         return $this->render('tools/server_infos/server_infos.html.twig', [
             //Part-DB section
-            'git_branch' => $versionInfo->getGitBranchName(),
-            'git_commit' => $versionInfo->getGitCommitHash(),
+            'git_branch' => $versionInfo->getBranchName(),
+            'git_commit' => $versionInfo->getCommitHash(),
             'default_locale' => $settings->system->localization->locale,
             'default_timezone' => $settings->system->localization->timezone,
             'default_currency' => $settings->system->localization->baseCurrency,

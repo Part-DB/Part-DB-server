@@ -8,7 +8,7 @@ parent: Usage
 
 Part-DB provides some console commands to display various information or perform some tasks.
 The commands are invoked from the main directory of Part-DB with the command `php bin/console [command]` in the context
-of the database user (so usually the webserver user), so you maybe have to use `sudo` or `su` to execute the commands: 
+of the web server user (so usually the webserver user), so you may have to use `sudo` or `su` to execute the commands: 
   
 ```bash
 sudo -u www-data php bin/console [command]
@@ -17,8 +17,8 @@ sudo -u www-data php bin/console [command]
 You can get help for every command with the parameter `--help`. See `php bin/console` for a list of all available
 commands.
 
-If you are running Part-DB in a docker container, you must either execute the commands from a shell inside a container,
-or use the `docker exec` command to execute the command directly inside the container. For example if you docker container
+If you are running Part-DB in a Docker container, you must either execute the commands from a shell inside the container,
+or use the `docker exec` command to execute the command directly inside the container. For example, if your Docker container
 is named `partdb`, you can execute the command `php bin/console cache:clear` with the following command:
 
 ```bash
@@ -50,6 +50,14 @@ docker exec --user=www-data partdb php bin/console cache:clear
 * `php bin/console partdb:currencies:update-exchange-rates`: Update the exchange rates of all currencies from the
   internet
 
+## Update Manager commands
+
+{: .note }
+> The Update Manager is an experimental feature. See the [Update Manager documentation](update_manager.md) for details.
+
+* `php bin/console partdb:update`: Check for and perform updates to Part-DB. Use `--check` to only check for updates without installing.
+* `php bin/console partdb:maintenance-mode`: Enable, disable, or check the status of maintenance mode. Use `--enable`, `--disable`, or `--status`.
+
 ## Installation/Maintenance commands
 
 * `php bin/console partdb:backup`: Backup the database and the attachments
@@ -61,13 +69,14 @@ docker exec --user=www-data partdb php bin/console cache:clear
 * `partdb:attachments:clean-unused`: Remove all attachments which are not used by any database entry (e.g. orphaned
   attachments)
 * `partdb:cache:clear`: Clears all caches, so the next page load will be slower, but the cache will be rebuilt. This can
-  maybe fix some issues, when the cache were corrupted. This command is also needed after changing things in
+  maybe fix some issues when the cache was corrupted. This command is also needed after changing things in
   the `parameters.yaml` file or upgrading Part-DB.
 * `partdb:migrations:import-partkeepr`: Imports a mysqldump XML dump of a PartKeepr database into Part-DB. This is only
   needed for users, which want to migrate from PartKeepr to Part-DB. *All existing data in the Part-DB database is
   deleted!*
 * `settings:migrate-env-to-settings`: Migrate configuration from environment variables to the settings interface.
 The value of the environment variable is copied to the settings database, so the environment variable can be removed afterwards without losing the configuration.
+* `partdb:migrations:convert-db-platform`: Convert the database platform (e.g. from SQLite to MySQL/MariaDB or PostgreSQL, or vice versa).
 
 ## Database commands
 
@@ -76,6 +85,6 @@ The value of the environment variable is copied to the settings database, so the
 
 ## Attachment commands
 
-* `php bin/console partdb:attachments:download`: Download all attachments, which are not already downloaded, to the
-  local filesystem. This is useful to create local backups of the attachments, no matter what happens on the remote and
- also makes pictures thumbnails available for the frontend for them
+* `php bin/console partdb:attachments:download`: Download all attachments that are not already downloaded to the
+  local filesystem. This is useful to create local backups of the attachments, no matter what happens on the remote, and
+  also makes picture thumbnails available for the frontend for them.

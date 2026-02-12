@@ -32,7 +32,7 @@ use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\TMESettings;
 
-class TMEProvider implements InfoProviderInterface
+class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {
 
     private const VENDOR_NAME = 'TME';
@@ -295,5 +295,23 @@ class TMEProvider implements InfoProviderInterface
             ProviderCapabilities::DATASHEET,
             ProviderCapabilities::PRICE,
         ];
+    }
+
+    public function getHandledDomains(): array
+    {
+        return ['tme.eu'];
+    }
+
+    public function getIDFromURL(string $url): ?string
+    {
+        //Input: https://www.tme.eu/de/details/fi321_se/kuhler/alutronic/
+        //The ID is the part after the details segment and before the next slash
+
+        $matches = [];
+        if (preg_match('#/details/([^/]+)/#', $url, $matches) === 1) {
+            return $matches[1];
+        }
+
+        return null;
     }
 }

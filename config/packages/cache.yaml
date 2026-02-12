@@ -23,3 +23,7 @@ framework:
 
             info_provider.cache:
                 adapter: cache.app
+
+            cache.settings:
+                adapter: cache.app
+                tags: true

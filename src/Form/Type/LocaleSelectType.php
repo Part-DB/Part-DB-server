@@ -30,7 +30,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * A locale select field that uses the preferred languages from the configuration.
-
  */
 class LocaleSelectType extends AbstractType
 {

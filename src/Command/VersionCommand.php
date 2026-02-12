@@ -22,9 +22,9 @@ declare(strict_types=1);
  */
 namespace App\Command;
 
-use Symfony\Component\Console\Attribute\AsCommand;
-use App\Services\Misc\GitVersionInfo;
+use App\Services\System\GitVersionInfoProvider;
 use Shivas\VersioningBundle\Service\VersionManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -33,7 +33,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[AsCommand('partdb:version|app:version', 'Shows the currently installed version of Part-DB.')]
 class VersionCommand extends Command
 {
-    public function __construct(protected VersionManagerInterface $versionManager, protected GitVersionInfo $gitVersionInfo)
+    public function __construct(protected VersionManagerInterface $versionManager, protected GitVersionInfoProvider $gitVersionInfo)
     {
         parent::__construct();
     }
@@ -48,9 +48,9 @@ class VersionCommand extends Command
 
         $message = 'Part-DB version: '. $this->versionManager->getVersion()->toString();
 
-        if ($this->gitVersionInfo->getGitBranchName() !== null) {
-            $message .= ' Git branch: '. $this->gitVersionInfo->getGitBranchName();
-            $message .= ', Git commit: '. $this->gitVersionInfo->getGitCommitHash();
+        if ($this->gitVersionInfo->getBranchName() !== null) {
+            $message .= ' Git branch: '. $this->gitVersionInfo->getBranchName();
+            $message .= ', Git commit: '. $this->gitVersionInfo->getCommitHash();
         }
 
         $io->success($message);

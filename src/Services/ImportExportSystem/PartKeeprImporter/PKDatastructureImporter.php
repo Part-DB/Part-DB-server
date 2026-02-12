@@ -152,7 +152,7 @@ class PKDatastructureImporter
     public function importPartCustomStates(array $data): int
     {
         if (!isset($data['partcustomstate'])) {
-            throw new \RuntimeException('$data must contain a "partcustomstate" key!');
+            return 0; //Not all PartKeepr installations have custom states
         }
 
         $partCustomStateData = $data['partcustomstate'];

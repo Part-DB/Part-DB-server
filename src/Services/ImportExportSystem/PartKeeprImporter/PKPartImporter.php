@@ -91,7 +91,10 @@ class PKPartImporter
                     $this->setAssociationField($entity, 'partUnit', MeasurementUnit::class, $part['partUnit_id']);
                 }
 
-                $this->setAssociationField($entity, 'partCustomState', MeasurementUnit::class, $part['partCustomState_id']);
+                if (isset($part['partCustomState_id'])) {
+                    $this->setAssociationField($entity, 'partCustomState', MeasurementUnit::class,
+                        $part['partCustomState_id']);
+                }
 
                 //Create a part lot to store the stock level and location
                 $lot = new PartLot();

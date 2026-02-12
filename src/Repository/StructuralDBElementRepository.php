@@ -243,6 +243,14 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
             return $result[0];
         }
 
+        //If the name contains category delimiters like ->, try to find the element by its full path
+        if (str_contains($name, '->')) {
+            $tmp = $this->getEntityByPath($name, '->');
+            if (count($tmp) > 0) {
+                return $tmp[count($tmp) - 1];
+            }
+        }
+
         //If we find nothing, return null
         return null;
     }

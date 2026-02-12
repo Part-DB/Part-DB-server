@@ -76,6 +76,8 @@ final class EntityExtension extends AbstractExtension
 
             /* Gets a human readable label for the type of the given entity */
             new TwigFunction('entity_type_label', fn(object|string $entity): string => $this->nameGenerator->getLocalizedTypeLabel($entity)),
+            new TwigFunction('type_label', fn(object|string $entity): string => $this->nameGenerator->typeLabel($entity)),
+            new TwigFunction('type_label_p', fn(object|string $entity): string => $this->nameGenerator->typeLabelPlural($entity)),
         ];
     }
 

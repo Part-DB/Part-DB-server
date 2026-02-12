@@ -17,14 +17,24 @@ This also allows to configure available and usable parts and their properties in
 ## KiCad Setup
 
 {: .important }
-> Part-DB uses the HTTP library feature of KiCad, which is experimental and not part of the stable KiCad 7 releases. If you want to use this feature, you need to install a KiCad nightly build (7.99 version). This feature will most likely also be part of KiCad 8.
+> Part-DB uses the HTTP library feature of KiCad, which was experimental in earlier versions. If you want to use this feature, you need to install KiCad 8 or newer.
 
-Part-DB should be accessible from the PCs with KiCAD. The URL should be stable (so no dynamically changing IP).
-You require a user account in Part-DB, which has permission to access Part-DB API and create API tokens. Every user can have its own account, or you set up a shared read-only account.
+Part-DB should be accessible from the PCs with KiCad. The URL should be stable (so no dynamically changing IP).
+You require a user account in Part-DB, which has permission to access the Part-DB API and create API tokens. Every user can have their own account, or you set up a shared read-only account.
+
+{: .warning }
+> **HTTPS with Self-Signed Certificates**
+> 
+> KiCad does not trust self-signed SSL/TLS certificates. If your Part-DB instance uses HTTPS with a self-signed certificate, KiCad will fail to connect and show an error like: `API responded with error code: 0: Unknown`.
+> 
+> To resolve this issue, you have the following options:
+> - Use HTTP instead of HTTPS for the `root_url` (only recommended for local networks)
+> - Use a certificate from a trusted Certificate Authority (CA) like [Let's Encrypt](https://letsencrypt.org/)
+> - Add your self-signed certificate to the system's trusted certificate store on the computer running KiCad (the exact steps depend on your operating system)
 
 To connect KiCad with Part-DB do the following steps:
 
-1. Create an API token on the user settings page for the KiCAD application and copy/save it, when it is shown. Currently, KiCad can only read Part-DB database, so a token with a read-only scope is enough.
+1. Create an API token on the user settings page for the KiCad application and copy/save it when it is shown. Currently, KiCad can only read the Part-DB database, so a token with a read-only scope is enough.
 2. Add some EDA metadata to parts, categories, or footprints. Only parts with usable info will show up in KiCad. See below for more info.
 3. Create a file `partd.kicad_httplib` (or similar, only the extension is important) with the following content:
 ```
@@ -54,18 +64,18 @@ Part-DB doesn't save any concrete footprints or symbols for the part. Instead, P
 
 You can define this on a per-part basis using the KiCad symbol and KiCad footprint field in the EDA tab of the part editor. Or you can define it at a category (symbol) or footprint level, to assign this value to all parts with this category and footprint.
 
-For example, to configure the values for a BC547 transistor you would put `Transistor_BJT:BC547` on the parts Kicad symbol to give it the right schematic symbol in EEschema and `Package_TO_SOT_THT:TO-92` to give it the right footprint in PcbNew.
+For example, to configure the values for a BC547 transistor you would put `Transistor_BJT:BC547` in the part's KiCad symbol field to give it the right schematic symbol in Eeschema and `Package_TO_SOT_THT:TO-92` to give it the right footprint in Pcbnew.
 
 If you type in a character, you will get an autocomplete list of all symbols and footprints available in the KiCad standard library. You can also input your own value.
 
 ### Parts and category visibility
 
-Only parts and their categories, on which there is any kind of EDA metadata are defined show up in KiCad. So if you want to see parts in KiCad,
+Only parts and their categories on which there is any kind of EDA metadata defined show up in KiCad. So if you want to see parts in KiCad,
 you need to define at least a symbol, footprint, reference prefix, or value on a part, category or footprint.
 
 You can use the "Force visibility" checkbox on a part or category to override this behavior and force parts to be visible or hidden in KiCad.
 
-*Please note that KiCad caches the library categories. So if you change something, which would change the visible categories in KiCad, you have to reload EEschema to see the changes.*
+*Please note that KiCad caches the library categories. So if you change something that would change the visible categories in KiCad, you have to reload Eeschema to see the changes.*
 
 ### Category depth in KiCad
 
