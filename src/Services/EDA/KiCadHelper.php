@@ -44,6 +44,9 @@ class KiCadHelper
     /** @var int The maximum level of the shown categories. 0 Means only the top level categories are shown. -1 means only a single one containing */
     private readonly int $category_depth;
 
+    /** @var bool Whether to resolve actual datasheet PDF URLs (true) or use Part-DB page links (false) */
+    private readonly bool $datasheetAsPdf;
+
     public function __construct(
         private readonly NodesListBuilder $nodesListBuilder,
         private readonly TagAwareCacheInterface $kicadCache,
@@ -55,6 +58,7 @@ class KiCadHelper
         KiCadEDASettings $kiCadEDASettings,
     ) {
         $this->category_depth = $kiCadEDASettings->categoryDepth;
+        $this->datasheetAsPdf = $kiCadEDASettings->datasheetAsPdf;
     }
 
     /**
@@ -216,9 +220,13 @@ class KiCadHelper
             UrlGeneratorInterface::ABSOLUTE_URL
         );
 
-        //Try to find an actual datasheet attachment (by type name, attachment name, or PDF extension)
-        $datasheetUrl = $this->findDatasheetUrl($part);
-        $result["fields"]["datasheet"] = $this->createField($datasheetUrl ?? $partUrl);
+        //Try to find an actual datasheet attachment (configurable: PDF URL vs Part-DB page link)
+        if ($this->datasheetAsPdf) {
+            $datasheetUrl = $this->findDatasheetUrl($part);
+            $result["fields"]["datasheet"] = $this->createField($datasheetUrl ?? $partUrl);
+        } else {
+            $result["fields"]["datasheet"] = $this->createField($partUrl);
+        }
         $result["fields"]["Part-DB URL"] = $this->createField($partUrl);
 
         //Add basic fields

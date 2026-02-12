@@ -9993,6 +9993,18 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>This value determines the depth of the category tree, that is visible inside KiCad. 0 means that only the top level categories are visible. Set to a value &gt; 0 to show more levels. Set to -1, to show all parts of Part-DB inside a sigle cnategory in KiCad.</target>
       </segment>
     </unit>
+    <unit id="kicad_ds_link" name="settings.misc.kicad_eda.datasheet_link">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.datasheet_link</source>
+        <target>Datasheet field links to PDF</target>
+      </segment>
+    </unit>
+    <unit id="kicad_ds_link_help" name="settings.misc.kicad_eda.datasheet_link.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.datasheet_link.help</source>
+        <target>When enabled, the datasheet field in KiCad will link to the actual PDF file (if found). When disabled, it will link to the Part-DB page instead. The Part-DB page link is always available as a separate "Part-DB URL" field.</target>
+      </segment>
+    </unit>
     <unit id="VwvmcWE" name="settings.behavior.sidebar">
       <segment state="translated">
         <source>settings.behavior.sidebar</source>
