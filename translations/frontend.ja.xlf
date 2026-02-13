@@ -2,22 +2,34 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="ja">
   <file id="frontend.ja">
     <unit id="lQ8QeGr" name="search.placeholder">
-          <segment state="translated">
-            <source>search.placeholder</source>
-            <target>検索</target>
-          </segment>
-        </unit>
+      <segment state="translated">
+        <source>search.placeholder</source>
+        <target>検索</target>
+      </segment>
+    </unit>
     <unit id="R4hoCqe" name="part.labelp">
-          <segment>
-            <source>part.labelp</source>
-            <target>部品</target>
-          </segment>
-        </unit>
+      <segment>
+        <source>part.labelp</source>
+        <target>部品</target>
+      </segment>
+    </unit>
     <unit id="N66qZeD" name="search.submit">
-          <segment state="translated">
-            <source>search.submit</source>
-            <target>検索</target>
-          </segment>
-        </unit>
+      <segment state="translated">
+        <source>search.submit</source>
+        <target>検索</target>
+      </segment>
+    </unit>
+    <unit id="TvHlYfl" name="assembly.labelp">
+      <segment state="translated">
+        <source>assembly.labelp</source>
+        <target>アセンブリ一覧</target>
+      </segment>
+    </unit>
+    <unit id="UXyo9ZT" name="project.labelp">
+      <segment state="translated">
+        <source>project.labelp</source>
+        <target>プロジェクト</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

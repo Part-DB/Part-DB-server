@@ -227,7 +227,7 @@ export default class extends Controller {
                             },
                             templates: {
                                 header({ html }) {
-                                    return html`<span class="aa-SourceHeaderTitle">${trans(STATISTICS_ASSEMBLIES)}</span>
+                                    return html`<span class="aa-SourceHeaderTitle">${trans("assembly.labelp")}</span>
                                             <div class="aa-SourceHeaderLine" />`;
                                 },
                                 item({ item, components, html }) {
@@ -273,7 +273,7 @@ export default class extends Controller {
                             },
                             templates: {
                                 header({ html }) {
-                                    return html`<span class="aa-SourceHeaderTitle">${trans(STATISTICS_PROJECTS)}</span>
+                                    return html`<span class="aa-SourceHeaderTitle">${trans("project.labelp")}</span>
                                             <div class="aa-SourceHeaderLine" />`;
                                 },
                                 item({ item, components, html }) {

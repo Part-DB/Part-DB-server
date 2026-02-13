@@ -1845,25 +1845,19 @@
         <target>项目</target>
       </segment>
     </unit>
-    <unit id="stats_cleanup_bom_error" name="statistics.cleanup_assembly_bom_entries.error">
+    <unit id="b5v8K2n" name="statistics.cleanup_assembly_bom_entries.error">
       <segment state="translated">
         <source>statistics.cleanup_assembly_bom_entries.error</source>
         <target>清理过程中发生错误。</target>
       </segment>
     </unit>
-    <unit id="stats_cleanup_bom_success" name="statistics.cleanup_assembly_bom_entries.success">
+    <unit id="m3n7X9q" name="statistics.cleanup_assembly_bom_entries.success">
       <segment state="translated">
         <source>statistics.cleanup_assembly_bom_entries.success</source>
         <target>成功清理了 %count% 条条目。</target>
       </segment>
     </unit>
-    <unit id="stats_cleanup_bom_confirm" name="statistics.cleanup_assembly_bom_entries.confirm">
-      <segment state="translated">
-        <source>statistics.cleanup_assembly_bom_entries.confirm</source>
-        <target>您想清理所有无效的物料清单条目吗？部件链接将被删除，名称将设置为 "part-id=id not found"。</target>
-      </segment>
-    </unit>
-    <unit id="stats_cleanup_bom_btn" name="statistics.cleanup_assembly_bom_entries.button">
+    <unit id="kL9p4j2" name="statistics.cleanup_assembly_bom_entries.button">
       <segment state="translated">
         <source>statistics.cleanup_assembly_bom_entries.button</source>
         <target>清理</target>
@@ -10928,7 +10922,31 @@ Element 3</target>
         <segment state="translated">
             <source>datatable.datatable.lengthMenu</source>
             <target>_MENU_</target>
-          </segment>
+        </segment>
+    </unit>
+    <unit id="v8r7X2a" name="statistics.invalid_assembly_preview_attachments_count">
+      <segment state="translated">
+        <source>statistics.invalid_assembly_preview_attachments_count</source>
+        <target>Invalid assembly preview attachments (attachment not found)</target>
+      </segment>
+    </unit>
+    <unit id="kL9p4j1" name="statistics.cleanup_assembly_preview_attachments.button">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_preview_attachments.button</source>
+        <target>Cleanup</target>
+      </segment>
+    </unit>
+    <unit id="m3n7X9p" name="statistics.cleanup_assembly_preview_attachments.success">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_preview_attachments.success</source>
+        <target>%count% entries were successfully cleaned up.</target>
+      </segment>
+    </unit>
+    <unit id="b5v8K2m" name="statistics.cleanup_assembly_preview_attachments.error">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_preview_attachments.error</source>
+        <target>An error occurred during cleanup.</target>
+      </segment>
     </unit>
   </file>
 </xliff>

@@ -190,4 +190,19 @@ class StatisticsHelper
 
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
+
+    /**
+     * Returns the number of assemblies that have a master_picture_attachment that does not exist anymore.
+     */
+    public function getInvalidAssemblyPreviewAttachmentsCount(): int
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('COUNT(a.id)')
+            ->from(Assembly::class, 'a')
+            ->leftJoin('a.master_picture_attachment', 'at')
+            ->where('a.master_picture_attachment IS NOT NULL')
+            ->andWhere('at.id IS NULL');
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
 }

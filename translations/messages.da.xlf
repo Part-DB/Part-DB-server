@@ -1803,25 +1803,19 @@ Underelementer vil blive flyttet opad.</target>
         <target>Projekter</target>
       </segment>
     </unit>
-    <unit id="stats_cleanup_bom_error" name="statistics.cleanup_assembly_bom_entries.error">
+    <unit id="b5v8K2n" name="statistics.cleanup_assembly_bom_entries.error">
       <segment state="translated">
         <source>statistics.cleanup_assembly_bom_entries.error</source>
         <target>Der opstod en fejl under oprydningen.</target>
       </segment>
     </unit>
-    <unit id="stats_cleanup_bom_success" name="statistics.cleanup_assembly_bom_entries.success">
+    <unit id="m3n7X9q" name="statistics.cleanup_assembly_bom_entries.success">
       <segment state="translated">
         <source>statistics.cleanup_assembly_bom_entries.success</source>
         <target>%count% poster blev ryddet op.</target>
       </segment>
     </unit>
-    <unit id="stats_cleanup_bom_confirm" name="statistics.cleanup_assembly_bom_entries.confirm">
-      <segment state="translated">
-        <source>statistics.cleanup_assembly_bom_entries.confirm</source>
-        <target>Vil du rydde op i alle ugyldige stykliste-poster? Forbindelsen til delen vil blive slettet, og navnet sat til "part-id=id not found".</target>
-      </segment>
-    </unit>
-    <unit id="stats_cleanup_bom_btn" name="statistics.cleanup_assembly_bom_entries.button">
+    <unit id="kL9p4j2" name="statistics.cleanup_assembly_bom_entries.button">
       <segment state="translated">
         <source>statistics.cleanup_assembly_bom_entries.button</source>
         <target>Ryd op</target>
@@ -13746,6 +13740,30 @@ Buerklin API-godkendelsesserver: 10 anmodninger/minut pr. IP-adresse</target>
       <segment state="translated">
         <source>update_manager.update_to</source>
         <target>Opdatér til</target>
+      </segment>
+    </unit>
+    <unit id="v8r7X2a" name="statistics.invalid_assembly_preview_attachments_count">
+      <segment state="translated">
+        <source>statistics.invalid_assembly_preview_attachments_count</source>
+        <target>Invalid assembly preview attachments (attachment not found)</target>
+      </segment>
+    </unit>
+    <unit id="kL9p4j1" name="statistics.cleanup_assembly_preview_attachments.button">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_preview_attachments.button</source>
+        <target>Cleanup</target>
+      </segment>
+    </unit>
+    <unit id="m3n7X9p" name="statistics.cleanup_assembly_preview_attachments.success">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_preview_attachments.success</source>
+        <target>%count% entries were successfully cleaned up.</target>
+      </segment>
+    </unit>
+    <unit id="b5v8K2m" name="statistics.cleanup_assembly_preview_attachments.error">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_preview_attachments.error</source>
+        <target>An error occurred during cleanup.</target>
       </segment>
     </unit>
   </file>

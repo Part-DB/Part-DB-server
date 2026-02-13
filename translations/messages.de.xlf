@@ -1826,25 +1826,19 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Ungültige Stücklisteneinträge (Teil nicht gefunden)</target>
       </segment>
     </unit>
-    <unit id="stats_cleanup_bom_btn" name="statistics.cleanup_assembly_bom_entries.button">
+    <unit id="kL9p4j2" name="statistics.cleanup_assembly_bom_entries.button">
       <segment state="translated">
         <source>statistics.cleanup_assembly_bom_entries.button</source>
         <target>Bereinigen</target>
       </segment>
     </unit>
-    <unit id="stats_cleanup_bom_confirm" name="statistics.cleanup_assembly_bom_entries.confirm">
-      <segment state="translated">
-        <source>statistics.cleanup_assembly_bom_entries.confirm</source>
-        <target>Möchten Sie alle ungültigen Stücklisteneinträge bereinigen? Die Verknüpfung zum Teil wird gelöscht und der Name auf "part-id=id not found" gesetzt.</target>
-      </segment>
-    </unit>
-    <unit id="stats_cleanup_bom_success" name="statistics.cleanup_assembly_bom_entries.success">
+    <unit id="m3n7X9q" name="statistics.cleanup_assembly_bom_entries.success">
       <segment state="translated">
         <source>statistics.cleanup_assembly_bom_entries.success</source>
         <target>%count% Einträge wurden erfolgreich bereinigt.</target>
       </segment>
     </unit>
-    <unit id="stats_cleanup_bom_error" name="statistics.cleanup_assembly_bom_entries.error">
+    <unit id="b5v8K2n" name="statistics.cleanup_assembly_bom_entries.error">
       <segment state="translated">
         <source>statistics.cleanup_assembly_bom_entries.error</source>
         <target>Bei der Bereinigung ist ein Fehler aufgetreten.</target>
@@ -13121,7 +13115,7 @@ Bitte beachten Sie, dass dieses System derzeit experimentell ist und die hier de
       <segment state="translated">
         <source>settings.ips.buerklin.help</source>
         <target>Buerklin-API-Zugriffsbeschränkungen: 100 Requests/Minute pro IP-Adresse
-Buerklin-API-Authentication-Server: 
+Buerklin-API-Authentication-Server:
 10 Requests/Minute pro IP-Adresse</target>
       </segment>
     </unit>
@@ -13885,6 +13879,30 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>log.element_edited.changed_fields.last_stocktake_at</source>
         <target>Letzte Inventur</target>
+      </segment>
+    </unit>
+    <unit id="v8r7X2a" name="statistics.invalid_assembly_preview_attachments_count">
+      <segment state="translated">
+        <source>statistics.invalid_assembly_preview_attachments_count</source>
+        <target>Ungültige Baugruppen-Vorschaubilder (Anhang nicht gefunden)</target>
+      </segment>
+    </unit>
+    <unit id="kL9p4j1" name="statistics.cleanup_assembly_preview_attachments.button">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_preview_attachments.button</source>
+        <target>Bereinigen</target>
+      </segment>
+    </unit>
+    <unit id="m3n7X9p" name="statistics.cleanup_assembly_preview_attachments.success">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_preview_attachments.success</source>
+        <target>%count% Einträge wurden erfolgreich bereinigt.</target>
+      </segment>
+    </unit>
+    <unit id="b5v8K2m" name="statistics.cleanup_assembly_preview_attachments.error">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_preview_attachments.error</source>
+        <target>Bei der Bereinigung ist ein Fehler aufgetreten.</target>
       </segment>
     </unit>
   </file>
