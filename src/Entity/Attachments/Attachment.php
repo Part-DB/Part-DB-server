@@ -97,7 +97,7 @@ use function in_array;
 #[DiscriminatorMap(typeProperty: '_type', mapping: self::API_DISCRIMINATOR_MAP)]
 abstract class Attachment extends AbstractNamedDBElement
 {
-    private const ORM_DISCRIMINATOR_MAP = ['Part' => PartAttachment::class, 'PartCustomState' => PartCustomStateAttachment::class, 'Device' => ProjectAttachment::class,
+    final public const ORM_DISCRIMINATOR_MAP = ['Part' => PartAttachment::class, 'PartCustomState' => PartCustomStateAttachment::class, 'Device' => ProjectAttachment::class,
         'AttachmentType' => AttachmentTypeAttachment::class,
         'Category' => CategoryAttachment::class, 'Footprint' => FootprintAttachment::class, 'Manufacturer' => ManufacturerAttachment::class,
         'Currency' => CurrencyAttachment::class, 'Group' => GroupAttachment::class, 'MeasurementUnit' => MeasurementUnitAttachment::class,
@@ -136,7 +136,7 @@ abstract class Attachment extends AbstractNamedDBElement
      * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
      * @phpstan-var class-string<T>
      */
-    protected const ALLOWED_ELEMENT_CLASS = AttachmentContainingDBElement::class;
+    public const ALLOWED_ELEMENT_CLASS = AttachmentContainingDBElement::class;
 
     /**
      * @var AttachmentUpload|null The options used for uploading a file to this attachment or modify it.

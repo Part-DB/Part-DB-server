@@ -2,7 +2,7 @@
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2023 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2026 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -21,30 +21,15 @@
 declare(strict_types=1);
 
 
-namespace App\Services\LabelSystem\BarcodeScanner;
+namespace App\Validator\Constraints;
+
+use Symfony\Component\Validator\Constraint;
 
 /**
- * This enum represents the different types, where a barcode/QR-code can be generated from
+ * A constraint to ensure that a GTIN is valid.
  */
-enum BarcodeSourceType
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
+class ValidGTIN extends Constraint
 {
-    /** This Barcode was generated using Part-DB internal recommended barcode generator */
-    case INTERNAL;
-    /** This barcode is containing an internal part number (IPN) */
-    case IPN;
 
-    /**
-     * This barcode is a user defined barcode defined on a part lot
-     */
-    case USER_DEFINED;
-
-    /**
-     * EIGP114 formatted barcodes like used by digikey, mouser, etc.
-     */
-    case EIGP114;
-
-    /**
-     * GTIN /EAN barcodes, which are used on most products in the world. These are checked with the GTIN field of a part.
-     */
-    case GTIN;
 }

@@ -74,16 +74,24 @@ export default class extends Controller {
         const newElementStr = this.htmlDecode(prototype.replace(regex, this.generateUID()));
 
 
+        let ret = null;
+
         //Insert new html after the last child element
         //If the table has a tbody, insert it there
         //Afterwards return the newly created row
         if(targetTable.tBodies[0]) {
             targetTable.tBodies[0].insertAdjacentHTML('beforeend', newElementStr);
-            return targetTable.tBodies[0].lastElementChild;
+             ret = targetTable.tBodies[0].lastElementChild;
         } else { //Otherwise just insert it
             targetTable.insertAdjacentHTML('beforeend', newElementStr);
-            return targetTable.lastElementChild;
+            ret = targetTable.lastElementChild;
         }
+
+        //Trigger an event to notify other components that a new element has been created, so they can for example initialize select2 on it
+        targetTable.dispatchEvent(new CustomEvent("collection:elementAdded", {bubbles: true}));
+
+        return ret;
+
     }
 
     /**

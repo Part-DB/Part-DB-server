@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ca9c95fb85f6bf3d9b8a3aa98ca33f6",
+    "content-hash": "b47c8579efa64349c5e65296e2a44206",
     "packages": [
         {
             "name": "amphp/amp",
@@ -16829,6 +16829,54 @@
                 }
             ],
             "time": "2025-05-14T06:15:44+00:00"
+        },
+        {
+            "name": "tiendanube/gtinvalidation",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TiendaNube/GtinValidator.git",
+                "reference": "7ff5794b6293eb748bf1efcddf4e20a657c31855"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TiendaNube/GtinValidator/zipball/7ff5794b6293eb748bf1efcddf4e20a657c31855",
+                "reference": "7ff5794b6293eb748bf1efcddf4e20a657c31855",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.6.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GtinValidation\\": "src/GtinValidation"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ryan Blakemore",
+                    "homepage": "https://github.com/ryanblak",
+                    "role": "developer"
+                }
+            ],
+            "description": "Validates GTIN product codes.",
+            "keywords": [
+                "gtin",
+                "product codes"
+            ],
+            "support": {
+                "issues": "https://github.com/TiendaNube/GtinValidator/issues",
+                "source": "https://github.com/TiendaNube/GtinValidator/tree/master"
+            },
+            "time": "2018-07-25T22:31:29+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

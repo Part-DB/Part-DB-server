@@ -24,8 +24,8 @@
                 </td>
                 <td>
                     {% if order.pricedetails is not empty %}
-                    <table class="table table-bordered table-sm table-striped table-hover">
-                        <thead class="thead-dark">
+                        <table class="table table-bordered table-sm table-striped table-hover">
+                            <thead class="thead-dark">
                             <tr>
                                 <th>{% trans %}part.order.minamount{% endtrans %}</th>
                                 <th>{% trans %}part.order.price{% endtrans %}</th>
@@ -36,32 +36,35 @@
                                     {% endif %}
                                 </th>
                             </tr>
-                        </thead>
-                        <tbody>
-                        {% for detail in order.pricedetails %}
-                        <tr>
+                            </thead>
+                            <tbody>
+                            {% for detail in order.pricedetails %}
+                                {# @var detail App\Entity\PriceInformations\Pricedetail #}
+                                <tr>
 
-                            <td>
-                                {{ detail.MinDiscountQuantity | format_amount(part.partUnit) }}
-                            </td>
-                            <td>
-                                {{ detail.price | format_money(detail.currency) }} / {{ detail.PriceRelatedQuantity | format_amount(part.partUnit) }}
-                                {% set tmp = pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency) %}
-                                {% if detail.currency != (app.user.currency ?? null) and tmp is not null and tmp.GreaterThan(0) %}
-                                    <span class="text-muted">({{ pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency, app.user.currency ?? null) | format_money(app.user.currency ?? null) }})</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                {{ detail.PricePerUnit  | format_money(detail.currency) }}
-                                {% set tmp = pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency) %}
-                                {% if detail.currency != (app.user.currency ?? null) and tmp is not null and tmp.GreaterThan(0) %}
-                                    <span class="text-muted">({{ pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency, app.user.currency ?? null) | format_money(app.user.currency ?? null) }})</span>
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                                    <td>
+                                        {{ detail.MinDiscountQuantity | format_amount(part.partUnit) }}
+                                    </td>
+                                    <td>
+                                        {{ detail.price | format_money(detail.currency) }} / {{ detail.PriceRelatedQuantity | format_amount(part.partUnit) }}
+                                        {% set tmp = pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency) %}
+                                        {% if detail.currency != (app.user.currency ?? null) and tmp is not null and tmp.GreaterThan(0) %}
+                                            <span class="text-muted">({{ pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency, app.user.currency ?? null) | format_money(app.user.currency ?? null) }})</span>
+                                        {% endif %}
+                                        <small class="text-muted">{{- helper.vat_text(detail.includesVAT) -}}</small>
+                                    </td>
+                                    <td>
+                                        {{ detail.PricePerUnit  | format_money(detail.currency) }}
+                                        {% set tmp = pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency) %}
+                                        {% if detail.currency != (app.user.currency ?? null) and tmp is not null and tmp.GreaterThan(0) %}
+                                            <span class="text-muted">({{ pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency, app.user.currency ?? null) | format_money(app.user.currency ?? null) }})</span>
+                                        {% endif %}
+                                        <small class="text-muted">{{- helper.vat_text(detail.includesVAT) -}}</small>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     {% endif %}
                 </td>
                 <td> {# Action for order information #}

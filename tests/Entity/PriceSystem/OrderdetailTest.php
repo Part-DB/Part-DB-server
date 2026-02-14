@@ -61,4 +61,18 @@ class OrderdetailTest extends TestCase
         $this->assertSame($price5, $orderdetail->findPriceForQty(5.3));
         $this->assertSame($price5, $orderdetail->findPriceForQty(10000));
     }
+
+    public function testGetSetPricesIncludesVAT(): void
+    {
+        $orderdetail = new Orderdetail();
+
+        //By default, the pricesIncludesVAT property should be null for empty orderdetails
+        $this->assertNull($orderdetail->getPricesIncludesVAT());
+
+        $orderdetail->setPricesIncludesVAT(true);
+        $this->assertTrue($orderdetail->getPricesIncludesVAT());
+
+        $orderdetail->setPricesIncludesVAT(false);
+        $this->assertFalse($orderdetail->getPricesIncludesVAT());
+    }
 }

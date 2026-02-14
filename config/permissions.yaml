@@ -68,6 +68,9 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       move:
         label: "perm.parts_stock.move"
         apiTokenRole: ROLE_API_EDIT
+      stocktake:
+        label: "perm.parts_stock.stocktake"
+        apiTokenRole: ROLE_API_EDIT
 
 
   storelocations: &PART_CONTAINING

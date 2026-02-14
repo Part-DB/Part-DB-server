@@ -218,6 +218,10 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.mass'),
                 'unit' => 'g'
             ])
+            ->add('gtin', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.gtin'),
+                'orderField' => 'NATSORT(part.gtin)'
+            ])
             ->add('tags', TagsColumn::class, [
                 'label' => $this->translator->trans('part.table.tags'),
             ])

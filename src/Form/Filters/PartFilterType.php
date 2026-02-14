@@ -135,6 +135,10 @@ class PartFilterType extends AbstractType
             'min' => 0,
         ]);
 
+        $builder->add('gtin', TextConstraintType::class, [
+            'label' => 'part.gtin',
+        ]);
+
         $builder->add('measurementUnit', StructuralEntityConstraintType::class, [
             'label' => 'part.edit.partUnit',
             'entity_class' => MeasurementUnit::class

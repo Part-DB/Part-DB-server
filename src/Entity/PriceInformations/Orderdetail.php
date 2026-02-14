@@ -52,6 +52,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Length;
 
@@ -146,6 +147,13 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     #[ORM\ManyToOne(targetEntity: Supplier::class, inversedBy: 'orderdetails')]
     #[ORM\JoinColumn(name: 'id_supplier')]
     protected ?Supplier $supplier = null;
+
+    /**
+     * @var bool|null Whether the prices includes VAT or not. Null means, that it is not specified, if the prices includes VAT or not.
+     */
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true)]
+    #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
+    protected ?bool $prices_includes_vat = null;
 
     public function __construct()
     {
@@ -384,6 +392,28 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
         }
 
         $this->supplier_product_url = $new_url;
+
+        return $this;
+    }
+
+    /**
+     * Checks if the prices of this orderdetail include VAT. Null means, that it is not specified, if the prices includes
+     * VAT or not.
+     * @return bool|null
+     */
+    public function getPricesIncludesVAT(): ?bool
+    {
+        return $this->prices_includes_vat;
+    }
+
+    /**
+     * Sets whether the prices of this orderdetail include VAT.
+     * @param  bool|null  $includesVat
+     * @return $this
+     */
+    public function setPricesIncludesVAT(?bool $includesVat): self
+    {
+        $this->prices_includes_vat = $includesVat;
 
         return $this;
     }
