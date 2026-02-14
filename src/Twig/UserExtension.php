@@ -43,11 +43,7 @@ namespace App\Twig;
 
 use Twig\Attribute\AsTwigFilter;
 use Twig\Attribute\AsTwigFunction;
-use App\Entity\Base\AbstractDBElement;
 use App\Entity\UserSystem\User;
-use App\Entity\LogSystem\AbstractLogEntry;
-use App\Repository\LogEntryRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
@@ -58,28 +54,11 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 final readonly class UserExtension
 {
-    private LogEntryRepository $repo;
 
-    public function __construct(EntityManagerInterface $em,
+    public function __construct(
         private Security $security,
         private UrlGeneratorInterface $urlGenerator)
     {
-        $this->repo = $em->getRepository(AbstractLogEntry::class);
-    }
-
-    /**
-     * Returns the user which has edited the given entity the last time.
-     */
-    #[AsTwigFunction('last_editing_user')]
-    public function lastEditingUser(AbstractDBElement $element): ?User
-    {
-        return $this->repo->getLastEditingUser($element);
-    }
-
-    #[AsTwigFunction('creating_user')]
-    public function creatingUser(AbstractDBElement $element): ?User
-    {
-        return $this->repo->getCreatingUser($element);
     }
 
     /**
