@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
 use App\DataTables\LogDataTable;
 use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Parts\Category;
@@ -151,7 +152,7 @@ final class PartController extends AbstractController
         $jobId = $request->query->get('jobId');
         $bulkJob = null;
         if ($jobId) {
-            $bulkJob = $this->em->getRepository(\App\Entity\InfoProviderSystem\BulkInfoProviderImportJob::class)->find($jobId);
+            $bulkJob = $this->em->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
             // Verify user owns this job
             if ($bulkJob && $bulkJob->getCreatedBy() !== $this->getUser()) {
                 $bulkJob = null;
@@ -172,7 +173,7 @@ final class PartController extends AbstractController
             throw $this->createAccessDeniedException('Invalid CSRF token');
         }
 
-        $bulkJob = $this->em->getRepository(\App\Entity\InfoProviderSystem\BulkInfoProviderImportJob::class)->find($jobId);
+        $bulkJob = $this->em->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
         if (!$bulkJob || $bulkJob->getCreatedBy() !== $this->getUser()) {
             throw $this->createNotFoundException('Bulk import job not found');
         }
@@ -338,7 +339,7 @@ final class PartController extends AbstractController
         $jobId = $request->query->get('jobId');
         $bulkJob = null;
         if ($jobId) {
-            $bulkJob = $this->em->getRepository(\App\Entity\InfoProviderSystem\BulkInfoProviderImportJob::class)->find($jobId);
+            $bulkJob = $this->em->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
             // Verify user owns this job
             if ($bulkJob && $bulkJob->getCreatedBy() !== $this->getUser()) {
                 $bulkJob = null;

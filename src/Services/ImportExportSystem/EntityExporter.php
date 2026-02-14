@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\ImportExportSystem;
 
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Helpers\FilenameSanatizer;
@@ -177,7 +178,7 @@ class EntityExporter
             $colIndex = 1;
 
             foreach ($columns as $column) {
-                $cellCoordinate = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex) . $rowIndex;
+                $cellCoordinate = Coordinate::stringFromColumnIndex($colIndex) . $rowIndex;
                 $worksheet->setCellValue($cellCoordinate, $column);
                 $colIndex++;
             }

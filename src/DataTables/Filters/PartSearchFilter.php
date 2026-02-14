@@ -160,7 +160,7 @@ class PartSearchFilter implements FilterInterface
         if ($search_dbId) {
             $expressions[] = $queryBuilder->expr()->eq('part.id', ':id_exact');
             $queryBuilder->setParameter('id_exact', (int) $this->keyword,
-                \Doctrine\DBAL\ParameterType::INTEGER);
+                ParameterType::INTEGER);
         }
 
         //Guard condition

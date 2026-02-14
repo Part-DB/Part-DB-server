@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\ImportExportSystem;
 
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parts\Category;
@@ -419,14 +420,14 @@ class EntityImporter
                 'worksheet_title' => $worksheet->getTitle()
             ]);
 
-            $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
+            $highestColumnIndex = Coordinate::columnIndexFromString($highestColumn);
             
             for ($row = 1; $row <= $highestRow; $row++) {
                 $rowData = [];
 
                 // Read all columns using numeric index
                 for ($colIndex = 1; $colIndex <= $highestColumnIndex; $colIndex++) {
-                    $col = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex);
+                    $col = Coordinate::stringFromColumnIndex($colIndex);
                     try {
                         $cellValue = $worksheet->getCell("{$col}{$row}")->getCalculatedValue();
                         $rowData[] = $cellValue ?? '';
