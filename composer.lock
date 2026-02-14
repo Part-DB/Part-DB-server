@@ -7862,16 +7862,16 @@
         },
         {
             "name": "part-db/label-fonts",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Part-DB/label-fonts.git",
-                "reference": "c85aeb051d6492961a2c59bc291979f15ce60e88"
+                "reference": "f93cbc8885c96792ab86f42d76e58cf8825975d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Part-DB/label-fonts/zipball/c85aeb051d6492961a2c59bc291979f15ce60e88",
-                "reference": "c85aeb051d6492961a2c59bc291979f15ce60e88",
+                "url": "https://api.github.com/repos/Part-DB/label-fonts/zipball/f93cbc8885c96792ab86f42d76e58cf8825975d9",
+                "reference": "f93cbc8885c96792ab86f42d76e58cf8825975d9",
                 "shasum": ""
             },
             "type": "library",
@@ -7894,9 +7894,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Part-DB/label-fonts/issues",
-                "source": "https://github.com/Part-DB/label-fonts/tree/v1.2.0"
+                "source": "https://github.com/Part-DB/label-fonts/tree/v1.3.0"
             },
-            "time": "2025-09-07T15:42:51+00:00"
+            "time": "2026-02-14T21:44:31+00:00"
         },
         {
             "name": "part-db/swap",
