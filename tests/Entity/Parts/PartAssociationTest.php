@@ -26,7 +26,7 @@ use App\Entity\Parts\AssociationType;
 use App\Entity\Parts\PartAssociation;
 use PHPUnit\Framework\TestCase;
 
-class PartAssociationTest extends TestCase
+final class PartAssociationTest extends TestCase
 {
 
     public function testGetTypeTranslationKey(): void

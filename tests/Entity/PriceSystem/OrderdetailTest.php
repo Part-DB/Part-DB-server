@@ -27,7 +27,7 @@ use App\Entity\PriceInformations\Pricedetail;
 use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 
-class OrderdetailTest extends TestCase
+final class OrderdetailTest extends TestCase
 {
     public function testAddRemovePricdetails(): void
     {

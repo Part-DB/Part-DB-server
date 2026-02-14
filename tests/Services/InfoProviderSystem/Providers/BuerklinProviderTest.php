@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\InfoProviderSystem\Providers;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\Providers\BuerklinProvider;
@@ -18,7 +19,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  * Full behavioral test suite for BuerklinProvider.
  * Includes parameter parsing, compliance parsing, images, prices and batch mode.
  */
-class BuerklinProviderTest extends TestCase
+final class BuerklinProviderTest extends TestCase
 {
     private HttpClientInterface $httpClient;
     private CacheItemPoolInterface $cache;
@@ -108,14 +109,14 @@ class BuerklinProviderTest extends TestCase
 
         $this->assertSame('Zener voltage', $params[0]->name);
         $this->assertNull($params[0]->value_text);
-        $this->assertSame(12.0, $params[0]->value_typ);
+        $this->assertEqualsWithDelta(12.0, $params[0]->value_typ, PHP_FLOAT_EPSILON);
         $this->assertNull($params[0]->value_min);
         $this->assertNull($params[0]->value_max);
         $this->assertSame('V', $params[0]->unit);
 
         $this->assertSame('Length', $params[1]->name);
         $this->assertNull($params[1]->value_text);
-        $this->assertSame(2.9, $params[1]->value_typ);
+        $this->assertEqualsWithDelta(2.9, $params[1]->value_typ, PHP_FLOAT_EPSILON);
         $this->assertSame('mm', $params[1]->unit);
 
         $this->assertSame('Assembly', $params[2]->name);
@@ -273,75 +274,70 @@ class BuerklinProviderTest extends TestCase
         $this->assertSame(['buerklin.com'], $this->provider->getHandledDomains());
     }
     
-    /**
-     * @dataProvider buerklinIdFromUrlProvider
-     */
+    #[DataProvider('buerklinIdFromUrlProvider')]
     public function testGetIDFromURLExtractsId(string $url, ?string $expected): void
     {
         $this->assertSame($expected, $this->provider->getIDFromURL($url));
     }
     
-    public static function buerklinIdFromUrlProvider(): array
+    public static function buerklinIdFromUrlProvider(): \Iterator
     {
-        return [
-            'de long path' => [
-                'https://www.buerklin.com/de/p/bkl-electronic/niedervoltsteckverbinder/072341-l/40F1332/',
-                '40F1332',
-            ],
-            'de short path' => [
-                'https://www.buerklin.com/de/p/40F1332/',
-                '40F1332',
-            ],
-            'en long path' => [
-                'https://www.buerklin.com/en/p/bkl-electronic/dc-connectors/072341-l/40F1332/',
-                '40F1332',
-            ],
-            'en short path' => [
-                'https://www.buerklin.com/en/p/40F1332/',
-                '40F1332',
-            ],
-            'fragment should be ignored' => [
-                'https://www.buerklin.com/de/p/bkl-electronic/niedervoltsteckverbinder/072341-l/40F1332/#download',
-                '40F1332',
-            ],
-            'no trailing slash' => [
-                'https://www.buerklin.com/en/p/40F1332',
-                '40F1332',
-            ],
-            'query should be ignored' => [
-                'https://www.buerklin.com/en/p/40F1332/?foo=bar',
-                '40F1332',
-            ],
-            'query and fragment should be ignored' => [
-                'https://www.buerklin.com/en/p/40F1332/?foo=bar#download',
-                '40F1332',
-            ],
-    
-            // Negative cases
-            'not a product url (no /p/ segment)' => [
-                'https://www.buerklin.com/de/impressum/',
-                null,
-            ],
-            'path contains "p" but not "/p/"' => [
-                'https://www.buerklin.com/de/help/price/',
-                null,
-            ],
-            'ends with /p/ (no id)' => [
-                'https://www.buerklin.com/de/p/',
-                null,
-            ],
-            'ends with /p (no trailing slash)' => [
-                'https://www.buerklin.com/de/p',
-                null,
-            ],
-            'empty string' => [
-                '',
-                null,
-            ],
-            'not a url string' => [
-                'not a url',
-                null,
-            ],
+        yield 'de long path' => [
+            'https://www.buerklin.com/de/p/bkl-electronic/niedervoltsteckverbinder/072341-l/40F1332/',
+            '40F1332',
+        ];
+        yield 'de short path' => [
+            'https://www.buerklin.com/de/p/40F1332/',
+            '40F1332',
+        ];
+        yield 'en long path' => [
+            'https://www.buerklin.com/en/p/bkl-electronic/dc-connectors/072341-l/40F1332/',
+            '40F1332',
+        ];
+        yield 'en short path' => [
+            'https://www.buerklin.com/en/p/40F1332/',
+            '40F1332',
+        ];
+        yield 'fragment should be ignored' => [
+            'https://www.buerklin.com/de/p/bkl-electronic/niedervoltsteckverbinder/072341-l/40F1332/#download',
+            '40F1332',
+        ];
+        yield 'no trailing slash' => [
+            'https://www.buerklin.com/en/p/40F1332',
+            '40F1332',
+        ];
+        yield 'query should be ignored' => [
+            'https://www.buerklin.com/en/p/40F1332/?foo=bar',
+            '40F1332',
+        ];
+        yield 'query and fragment should be ignored' => [
+            'https://www.buerklin.com/en/p/40F1332/?foo=bar#download',
+            '40F1332',
+        ];
+        // Negative cases
+        yield 'not a product url (no /p/ segment)' => [
+            'https://www.buerklin.com/de/impressum/',
+            null,
+        ];
+        yield 'path contains "p" but not "/p/"' => [
+            'https://www.buerklin.com/de/help/price/',
+            null,
+        ];
+        yield 'ends with /p/ (no id)' => [
+            'https://www.buerklin.com/de/p/',
+            null,
+        ];
+        yield 'ends with /p (no trailing slash)' => [
+            'https://www.buerklin.com/de/p',
+            null,
+        ];
+        yield 'empty string' => [
+            '',
+            null,
+        ];
+        yield 'not a url string' => [
+            'not a url',
+            null,
         ];
     }
 }

@@ -26,7 +26,7 @@ use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use PHPUnit\Framework\TestCase;
 
-class PurchaseInfoDTOTest extends TestCase
+final class PurchaseInfoDTOTest extends TestCase
 {
     public function testThrowOnInvalidType(): void
     {

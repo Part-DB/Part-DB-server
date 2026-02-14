@@ -35,7 +35,7 @@ use PhpParser\Node\Param;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DTOtoEntityConverterTest extends WebTestCase
+final class DTOtoEntityConverterTest extends WebTestCase
 {
 
     private ?DTOtoEntityConverter $service = null;

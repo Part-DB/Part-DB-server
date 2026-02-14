@@ -18,7 +18,7 @@ class TestPartLot extends PartLot
     }
 }
 
-class PartLotWithdrawAddHelperTest extends WebTestCase
+final class PartLotWithdrawAddHelperTest extends WebTestCase
 {
 
     /**

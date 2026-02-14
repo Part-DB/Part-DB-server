@@ -48,7 +48,7 @@ use App\Entity\LogSystem\UserLogoutLogEntry;
 use App\Services\LogSystem\EventLogger;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class EventLoggerTest extends WebTestCase
+final class EventLoggerTest extends WebTestCase
 {
     /**
      * @var EventLogger

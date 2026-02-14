@@ -25,7 +25,7 @@ namespace App\Tests\Services\Misc;
 use App\Services\ImportExportSystem\PartKeeprImporter\MySQLDumpXMLConverter;
 use PHPUnit\Framework\TestCase;
 
-class MySQLDumpXMLConverterTest extends TestCase
+final class MySQLDumpXMLConverterTest extends TestCase
 {
 
     public function testConvertMySQLDumpXMLDataToArrayStructure(): void

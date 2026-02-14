@@ -27,7 +27,7 @@ use App\DataTables\Filters\FilterInterface;
 use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\TestCase;
 
-class CompoundFilterTraitTest extends TestCase
+final class CompoundFilterTraitTest extends TestCase
 {
 
     public function testFindAllChildFiltersEmpty(): void
@@ -49,9 +49,9 @@ class CompoundFilterTraitTest extends TestCase
 
     public function testFindAllChildFilters(): void
     {
-        $f1 = $this->createMock(FilterInterface::class);
-        $f2 = $this->createMock(FilterInterface::class);
-        $f3 = $this->createMock(FilterInterface::class);
+        $f1 = $this->createStub(FilterInterface::class);
+        $f2 = $this->createStub(FilterInterface::class);
+        $f3 = $this->createStub(FilterInterface::class);
 
         $filter = new class($f1, $f2, $f3, null) {
             use CompoundFilterTrait;
@@ -108,7 +108,7 @@ class CompoundFilterTraitTest extends TestCase
             }
         };
 
-        $qb = $this->createMock(QueryBuilder::class);
+        $qb = $this->createStub(QueryBuilder::class);
         $filter->_applyAllChildFilters($qb);
     }
 

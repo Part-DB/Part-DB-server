@@ -26,7 +26,7 @@ use App\Entity\Parts\Category;
 use App\Serializer\StructuralElementFromNameDenormalizer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class StructuralElementFromNameDenormalizerTest extends WebTestCase
+final class StructuralElementFromNameDenormalizerTest extends WebTestCase
 {
 
     /** @var StructuralElementFromNameDenormalizer */

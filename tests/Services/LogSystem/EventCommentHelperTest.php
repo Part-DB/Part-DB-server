@@ -44,7 +44,7 @@ namespace App\Tests\Services\LogSystem;
 use App\Services\LogSystem\EventCommentHelper;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class EventCommentHelperTest extends WebTestCase
+final class EventCommentHelperTest extends WebTestCase
 {
     /**
      * @var EventCommentHelper

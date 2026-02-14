@@ -27,7 +27,7 @@ use App\Services\Parts\PartsTableActionHandler;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class PartsTableActionHandlerTest extends WebTestCase
+final class PartsTableActionHandlerTest extends WebTestCase
 {
     private PartsTableActionHandler $service;
 

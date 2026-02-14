@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Entity;
 
+use App\Entity\Parts\Part;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO;
 use App\Entity\InfoProviderSystem\BulkImportJobStatus;
 use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
 use App\Entity\UserSystem\User;
@@ -31,7 +33,7 @@ use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use PHPUnit\Framework\TestCase;
 
-class BulkInfoProviderImportJobTest extends TestCase
+final class BulkInfoProviderImportJobTest extends TestCase
 {
     private BulkInfoProviderImportJob $job;
     private User $user;
@@ -45,9 +47,9 @@ class BulkInfoProviderImportJobTest extends TestCase
         $this->job->setCreatedBy($this->user);
     }
 
-    private function createMockPart(int $id): \App\Entity\Parts\Part
+    private function createMockPart(int $id): Part
     {
-        $part = $this->createMock(\App\Entity\Parts\Part::class);
+        $part = $this->createMock(Part::class);
         $part->method('getId')->willReturn($id);
         $part->method('getName')->willReturn("Test Part {$id}");
         return $part;
@@ -58,7 +60,7 @@ class BulkInfoProviderImportJobTest extends TestCase
         $job = new BulkInfoProviderImportJob();
 
         $this->assertInstanceOf(\DateTimeImmutable::class, $job->getCreatedAt());
-        $this->assertEquals(BulkImportJobStatus::PENDING, $job->getStatus());
+        $this->assertSame(BulkImportJobStatus::PENDING, $job->getStatus());
         $this->assertEmpty($job->getPartIds());
         $this->assertEmpty($job->getFieldMappings());
         $this->assertEmpty($job->getSearchResultsRaw());
@@ -70,14 +72,14 @@ class BulkInfoProviderImportJobTest extends TestCase
     public function testBasicGettersSetters(): void
     {
         $this->job->setName('Test Job');
-        $this->assertEquals('Test Job', $this->job->getName());
+        $this->assertSame('Test Job', $this->job->getName());
 
         // Test with actual parts - this is what actually works
         $parts = [$this->createMockPart(1), $this->createMockPart(2), $this->createMockPart(3)];
         foreach ($parts as $part) {
             $this->job->addPart($part);
         }
-        $this->assertEquals([1, 2, 3], $this->job->getPartIds());
+        $this->assertSame([1, 2, 3], $this->job->getPartIds());
 
         $fieldMappings = [new BulkSearchFieldMappingDTO(field: 'field1', providers: ['provider1', 'provider2'])];
         $this->job->setFieldMappings($fieldMappings);
@@ -98,24 +100,24 @@ class BulkInfoProviderImportJobTest extends TestCase
         $this->assertFalse($this->job->isStopped());
 
         $this->job->markAsInProgress();
-        $this->assertEquals(BulkImportJobStatus::IN_PROGRESS, $this->job->getStatus());
+        $this->assertSame(BulkImportJobStatus::IN_PROGRESS, $this->job->getStatus());
         $this->assertTrue($this->job->isInProgress());
         $this->assertFalse($this->job->isPending());
 
         $this->job->markAsCompleted();
-        $this->assertEquals(BulkImportJobStatus::COMPLETED, $this->job->getStatus());
+        $this->assertSame(BulkImportJobStatus::COMPLETED, $this->job->getStatus());
         $this->assertTrue($this->job->isCompleted());
         $this->assertNotNull($this->job->getCompletedAt());
 
         $job2 = new BulkInfoProviderImportJob();
         $job2->markAsFailed();
-        $this->assertEquals(BulkImportJobStatus::FAILED, $job2->getStatus());
+        $this->assertSame(BulkImportJobStatus::FAILED, $job2->getStatus());
         $this->assertTrue($job2->isFailed());
         $this->assertNotNull($job2->getCompletedAt());
 
         $job3 = new BulkInfoProviderImportJob();
         $job3->markAsStopped();
-        $this->assertEquals(BulkImportJobStatus::STOPPED, $job3->getStatus());
+        $this->assertSame(BulkImportJobStatus::STOPPED, $job3->getStatus());
         $this->assertTrue($job3->isStopped());
         $this->assertNotNull($job3->getCompletedAt());
     }
@@ -139,7 +141,7 @@ class BulkInfoProviderImportJobTest extends TestCase
 
     public function testPartCount(): void
     {
-        $this->assertEquals(0, $this->job->getPartCount());
+        $this->assertSame(0, $this->job->getPartCount());
 
         // Test with actual parts - setPartIds doesn't actually add parts
         $parts = [
@@ -152,31 +154,31 @@ class BulkInfoProviderImportJobTest extends TestCase
         foreach ($parts as $part) {
             $this->job->addPart($part);
         }
-        $this->assertEquals(5, $this->job->getPartCount());
+        $this->assertSame(5, $this->job->getPartCount());
     }
 
     public function testResultCount(): void
     {
-        $this->assertEquals(0, $this->job->getResultCount());
+        $this->assertSame(0, $this->job->getResultCount());
 
         $searchResults = new BulkSearchResponseDTO([
-            new \App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO(
+            new BulkSearchPartResultsDTO(
                 part: $this->createMockPart(1),
                 searchResults: [new BulkSearchPartResultDTO(searchResult: new SearchResultDTO(provider_key: 'dummy', provider_id: '1234', name: 'Part 1', description: 'A part'))]
             ),
-            new \App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO(
+            new BulkSearchPartResultsDTO(
                 part: $this->createMockPart(2),
                 searchResults: [new BulkSearchPartResultDTO(searchResult: new SearchResultDTO(provider_key: 'dummy', provider_id: '1234', name: 'Part 2', description: 'A part')),
                 new BulkSearchPartResultDTO(searchResult: new SearchResultDTO(provider_key: 'dummy', provider_id: '5678', name: 'Part 2 Alt', description: 'Another part'))]
             ),
-            new \App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO(
+            new BulkSearchPartResultsDTO(
                 part: $this->createMockPart(3),
                 searchResults: []
             )
         ]);
 
         $this->job->setSearchResults($searchResults);
-        $this->assertEquals(3, $this->job->getResultCount());
+        $this->assertSame(3, $this->job->getResultCount());
     }
 
     public function testPartProgressTracking(): void
@@ -222,21 +224,21 @@ class BulkInfoProviderImportJobTest extends TestCase
             $this->job->addPart($part);
         }
 
-        $this->assertEquals(0, $this->job->getCompletedPartsCount());
-        $this->assertEquals(0, $this->job->getSkippedPartsCount());
+        $this->assertSame(0, $this->job->getCompletedPartsCount());
+        $this->assertSame(0, $this->job->getSkippedPartsCount());
 
         $this->job->markPartAsCompleted(1);
         $this->job->markPartAsCompleted(2);
         $this->job->markPartAsSkipped(3, 'Error');
 
-        $this->assertEquals(2, $this->job->getCompletedPartsCount());
-        $this->assertEquals(1, $this->job->getSkippedPartsCount());
+        $this->assertSame(2, $this->job->getCompletedPartsCount());
+        $this->assertSame(1, $this->job->getSkippedPartsCount());
     }
 
     public function testProgressPercentage(): void
     {
         $emptyJob = new BulkInfoProviderImportJob();
-        $this->assertEquals(100.0, $emptyJob->getProgressPercentage());
+        $this->assertEqualsWithDelta(100.0, $emptyJob->getProgressPercentage(), PHP_FLOAT_EPSILON);
 
         // Test with actual parts - setPartIds doesn't actually add parts
         $parts = [
@@ -250,18 +252,18 @@ class BulkInfoProviderImportJobTest extends TestCase
             $this->job->addPart($part);
         }
 
-        $this->assertEquals(0.0, $this->job->getProgressPercentage());
+        $this->assertEqualsWithDelta(0.0, $this->job->getProgressPercentage(), PHP_FLOAT_EPSILON);
 
         $this->job->markPartAsCompleted(1);
         $this->job->markPartAsCompleted(2);
-        $this->assertEquals(40.0, $this->job->getProgressPercentage());
+        $this->assertEqualsWithDelta(40.0, $this->job->getProgressPercentage(), PHP_FLOAT_EPSILON);
 
         $this->job->markPartAsSkipped(3, 'Error');
-        $this->assertEquals(60.0, $this->job->getProgressPercentage());
+        $this->assertEqualsWithDelta(60.0, $this->job->getProgressPercentage(), PHP_FLOAT_EPSILON);
 
         $this->job->markPartAsCompleted(4);
         $this->job->markPartAsCompleted(5);
-        $this->assertEquals(100.0, $this->job->getProgressPercentage());
+        $this->assertEqualsWithDelta(100.0, $this->job->getProgressPercentage(), PHP_FLOAT_EPSILON);
     }
 
     public function testIsAllPartsCompleted(): void
@@ -301,8 +303,8 @@ class BulkInfoProviderImportJobTest extends TestCase
             $this->job->addPart($part);
         }
 
-        $this->assertEquals('info_providers.bulk_import.job_name_template', $this->job->getDisplayNameKey());
-        $this->assertEquals(['%count%' => 3], $this->job->getDisplayNameParams());
+        $this->assertSame('info_providers.bulk_import.job_name_template', $this->job->getDisplayNameKey());
+        $this->assertSame(['%count%' => 3], $this->job->getDisplayNameParams());
     }
 
     public function testFormattedTimestamp(): void

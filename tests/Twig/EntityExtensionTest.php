@@ -39,7 +39,7 @@ use App\Entity\UserSystem\User;
 use App\Twig\EntityExtension;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class EntityExtensionTest extends WebTestCase
+final class EntityExtensionTest extends WebTestCase
 {
     /** @var EntityExtension */
     protected $service;

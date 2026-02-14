@@ -27,7 +27,7 @@ use App\Services\LabelSystem\Barcodes\BarcodeHelper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class BarcodeHelperTest extends WebTestCase
+final class BarcodeHelperTest extends WebTestCase
 {
 
     protected ?BarcodeHelper $service = null;

@@ -27,7 +27,7 @@ use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use App\DataFixtures\APITokenFixtures;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use ApiPlatform\Symfony\Bundle\Test\Client;
-class APITokenAuthenticationTest  extends ApiTestCase
+final class APITokenAuthenticationTest  extends ApiTestCase
 {
     public function testUnauthenticated(): void
     {

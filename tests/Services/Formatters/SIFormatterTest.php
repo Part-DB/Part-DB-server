@@ -25,7 +25,7 @@ namespace App\Tests\Services\Formatters;
 use App\Services\Formatters\SIFormatter;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class SIFormatterTest extends WebTestCase
+final class SIFormatterTest extends WebTestCase
 {
     /**
      * @var SIFormatter

@@ -30,7 +30,7 @@ use App\Services\Formatters\AmountFormatter;
 use App\Services\Parts\PricedetailHelper;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class PricedetailHelperTest extends WebTestCase
+final class PricedetailHelperTest extends WebTestCase
 {
     /**
      * @var AmountFormatter

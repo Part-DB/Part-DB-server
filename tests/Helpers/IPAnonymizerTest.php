@@ -26,7 +26,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use App\Helpers\IPAnonymizer;
 use PHPUnit\Framework\TestCase;
 
-class IPAnonymizerTest extends TestCase
+final class IPAnonymizerTest extends TestCase
 {
 
     public static function anonymizeDataProvider(): \Generator

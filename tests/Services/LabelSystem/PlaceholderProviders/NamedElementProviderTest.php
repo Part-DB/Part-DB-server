@@ -46,7 +46,7 @@ use App\Entity\Contracts\NamedElementInterface;
 use App\Services\LabelSystem\PlaceholderProviders\NamedElementProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class NamedElementProviderTest extends WebTestCase
+final class NamedElementProviderTest extends WebTestCase
 {
     /**
      * @var NamedElementProvider

@@ -25,7 +25,7 @@ namespace App\Tests\Helpers;
 use App\Helpers\TrinaryLogicHelper;
 use PHPUnit\Framework\TestCase;
 
-class TrinaryLogicHelperTest extends TestCase
+final class TrinaryLogicHelperTest extends TestCase
 {
 
     public function testNot()

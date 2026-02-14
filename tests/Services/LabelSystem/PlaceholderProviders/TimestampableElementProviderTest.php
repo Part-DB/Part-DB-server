@@ -48,7 +48,7 @@ use App\Services\LabelSystem\PlaceholderProviders\TimestampableElementProvider;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class TimestampableElementProviderTest extends WebTestCase
+final class TimestampableElementProviderTest extends WebTestCase
 {
     /**
      * @var GlobalProviders

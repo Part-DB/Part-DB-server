@@ -28,7 +28,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
-class EntityExporterTest extends WebTestCase
+final class EntityExporterTest extends WebTestCase
 {
     /**
      * @var EntityExporter
@@ -111,6 +111,6 @@ class EntityExporterTest extends WebTestCase
         $response = $this->service->exportEntityFromRequest($entities, $request);
 
         $this->assertSame('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', $response->headers->get('Content-Type'));
-        $this->assertStringContainsString('export_Category_simple.xlsx', $response->headers->get('Content-Disposition'));
+        $this->assertStringContainsString('export_Category_simple.xlsx', (string) $response->headers->get('Content-Disposition'));
     }
 }

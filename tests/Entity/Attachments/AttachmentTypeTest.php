@@ -28,7 +28,7 @@ use App\Entity\Attachments\UserAttachment;
 use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 
-class AttachmentTypeTest extends TestCase
+final class AttachmentTypeTest extends TestCase
 {
     public function testEmptyState(): void
     {

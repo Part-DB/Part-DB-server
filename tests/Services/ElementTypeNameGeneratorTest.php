@@ -35,7 +35,7 @@ use App\Services\Formatters\AmountFormatter;
 use App\Settings\SynonymSettings;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ElementTypeNameGeneratorTest extends WebTestCase
+final class ElementTypeNameGeneratorTest extends WebTestCase
 {
     protected ElementTypeNameGenerator $service;
     private SynonymSettings $synonymSettings;
