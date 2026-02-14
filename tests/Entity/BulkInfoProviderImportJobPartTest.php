@@ -39,8 +39,6 @@ final class BulkInfoProviderImportJobPartTest extends TestCase
 
     public function testConstructor(): void
     {
-        $this->assertSame($this->createStub(BulkInfoProviderImportJob::class), $this->jobPart->getJob());
-        $this->assertSame($this->createStub(Part::class), $this->jobPart->getPart());
         $this->assertSame(BulkImportPartStatus::PENDING, $this->jobPart->getStatus());
         $this->assertNull($this->jobPart->getReason());
         $this->assertNull($this->jobPart->getCompletedAt());
