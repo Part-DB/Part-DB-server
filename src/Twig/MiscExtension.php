@@ -32,9 +32,9 @@ use Twig\TwigFunction;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use Twig\Extension\AbstractExtension;
 
-final class MiscExtension
+final readonly class MiscExtension
 {
-    public function __construct(private readonly EventCommentNeededHelper $eventCommentNeededHelper)
+    public function __construct(private EventCommentNeededHelper $eventCommentNeededHelper)
     {
     }
 

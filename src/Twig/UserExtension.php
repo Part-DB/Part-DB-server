@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
+use Twig\Attribute\AsTwigFilter;
 use Twig\Attribute\AsTwigFunction;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\UserSystem\User;
@@ -51,39 +52,34 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
-use Twig\TwigFunction;
 
 /**
  * @see \App\Tests\Twig\UserExtensionTest
  */
-final class UserExtension
+final readonly class UserExtension
 {
-    private readonly LogEntryRepository $repo;
+    private LogEntryRepository $repo;
 
     public function __construct(EntityManagerInterface $em,
-        private readonly Security $security,
-        private readonly UrlGeneratorInterface $urlGenerator)
+        private Security $security,
+        private UrlGeneratorInterface $urlGenerator)
     {
         $this->repo = $em->getRepository(AbstractLogEntry::class);
     }
 
-    public function getFilters(): array
+    /**
+     * Returns the user which has edited the given entity the last time.
+     */
+    #[AsTwigFunction('last_editing_user')]
+    public function lastEditingUser(AbstractDBElement $element): ?User
     {
-        return [
-            new TwigFilter('remove_locale_from_path', fn(string $path): string => $this->removeLocaleFromPath($path)),
-        ];
+        return $this->repo->getLastEditingUser($element);
     }
 
-    public function getFunctions(): array
+    #[AsTwigFunction('creating_user')]
+    public function creatingUser(AbstractDBElement $element): ?User
     {
-        return [
-            /* Returns the user which has edited the given entity the last time. */
-            new TwigFunction('last_editing_user', fn(AbstractDBElement $element): ?User => $this->repo->getLastEditingUser($element)),
-            /* Returns the user which has created the given entity. */
-            new TwigFunction('creating_user', fn(AbstractDBElement $element): ?User => $this->repo->getCreatingUser($element)),
-        ];
+        return $this->repo->getCreatingUser($element);
     }
 
     /**
@@ -125,6 +121,7 @@ final class UserExtension
     /**
      * This function/filter generates a path.
      */
+    #[AsTwigFilter(name: 'remove_locale_from_path')]
     public function removeLocaleFromPath(string $path): string
     {
         //Ensure the path has the correct format

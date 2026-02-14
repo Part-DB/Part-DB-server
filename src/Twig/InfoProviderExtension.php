@@ -29,10 +29,10 @@ use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class InfoProviderExtension
+final readonly class InfoProviderExtension
 {
     public function __construct(
-        private readonly ProviderRegistry $providerRegistry
+        private ProviderRegistry $providerRegistry
     ) {}
 
     /**

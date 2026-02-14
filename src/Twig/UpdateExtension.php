@@ -32,10 +32,10 @@ use Twig\TwigFunction;
 /**
  * Twig extension for update-related functions.
  */
-final class UpdateExtension
+final readonly class UpdateExtension
 {
-    public function __construct(private readonly UpdateAvailableFacade $updateAvailableManager,
-        private readonly Security $security)
+    public function __construct(private UpdateAvailableFacade $updateAvailableManager,
+        private Security $security)
     {
 
     }

@@ -41,6 +41,9 @@ use App\Exceptions\EntityNotSupportedException;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\Trees\TreeViewGenerator;
+use Twig\Attribute\AsTwigFunction;
+use Twig\Attribute\AsTwigTest;
+use Twig\DeprecatedCallableInfo;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Twig\TwigTest;
@@ -48,61 +51,27 @@ use Twig\TwigTest;
 /**
  * @see \App\Tests\Twig\EntityExtensionTest
  */
-final class EntityExtension extends AbstractExtension
+final readonly class EntityExtension
 {
-    public function __construct(protected EntityURLGenerator $entityURLGenerator, protected TreeViewGenerator $treeBuilder, private readonly ElementTypeNameGenerator $nameGenerator)
+    public function __construct(private EntityURLGenerator $entityURLGenerator, private TreeViewGenerator $treeBuilder, private ElementTypeNameGenerator $nameGenerator)
     {
     }
 
-    public function getTests(): array
+    /**
+     * Checks if the given variable is an entity (instance of AbstractDBElement).
+     */
+    #[AsTwigTest("entity")]
+    public function entityTest(mixed $var): bool
     {
-        return [
-            /* Checks if the given variable is an entitity (instance of AbstractDBElement) */
-            new TwigTest('entity', static fn($var) => $var instanceof AbstractDBElement),
-        ];
+        return $var instanceof AbstractDBElement;
     }
 
-    public function getFunctions(): array
-    {
-        return [
-            /* Returns a string representation of the given entity */
-            new TwigFunction('entity_type', fn(object $entity): ?string => $this->getEntityType($entity)),
-            /* Returns the URL to the given entity */
-            new TwigFunction('entity_url', fn(AbstractDBElement $entity, string $method = 'info'): string => $this->generateEntityURL($entity, $method)),
-            /* Returns the URL to the given entity in timetravel mode */
-            new TwigFunction('timetravel_url', fn(AbstractDBElement $element, \DateTimeInterface $dateTime): ?string => $this->timeTravelURL($element, $dateTime)),
-            /* Generates a JSON array of the given tree */
-            new TwigFunction('tree_data', fn(AbstractDBElement $element, string $type = 'newEdit'): string => $this->treeData($element, $type)),
 
-            /* Gets a human readable label for the type of the given entity */
-            new TwigFunction('entity_type_label', fn(object|string $entity): string => $this->nameGenerator->getLocalizedTypeLabel($entity)),
-            new TwigFunction('type_label', fn(object|string $entity): string => $this->nameGenerator->typeLabel($entity)),
-            new TwigFunction('type_label_p', fn(object|string $entity): string => $this->nameGenerator->typeLabelPlural($entity)),
-        ];
-    }
-
-    public function timeTravelURL(AbstractDBElement $element, \DateTimeInterface $dateTime): ?string
-    {
-        try {
-            return $this->entityURLGenerator->timeTravelURL($element, $dateTime);
-        } catch (EntityNotSupportedException) {
-            return null;
-        }
-    }
-
-    public function treeData(AbstractDBElement $element, string $type = 'newEdit'): string
-    {
-        $tree = $this->treeBuilder->getTreeView($element::class, null, $type, $element);
-
-        return json_encode($tree, JSON_THROW_ON_ERROR);
-    }
-
-    public function generateEntityURL(AbstractDBElement $entity, string $method = 'info'): string
-    {
-        return $this->entityURLGenerator->getURL($entity, $method);
-    }
-
-    public function getEntityType(object $entity): ?string
+    /**
+     * Returns a string representation of the given entity
+     */
+    #[AsTwigFunction("entity_type")]
+    public function entityType(object $entity): ?string
     {
         $map = [
             Part::class => 'part',
@@ -128,5 +97,70 @@ final class EntityExtension extends AbstractExtension
         }
 
         return null;
+    }
+
+    /**
+     * Returns the URL for the given entity and method. E.g. for a Part and method "edit", it will return the URL to edit this part.
+     */
+    #[AsTwigFunction("entity_url")]
+    public function entityURL(AbstractDBElement $entity, string $method = 'info'): string
+    {
+        return $this->entityURLGenerator->getURL($entity, $method);
+    }
+
+
+    /**
+     * Returns the URL for the given entity in timetravel mode.
+     */
+    #[AsTwigFunction("timetravel_url")]
+    public function timeTravelURL(AbstractDBElement $element, \DateTimeInterface $dateTime): ?string
+    {
+        try {
+            return $this->entityURLGenerator->timeTravelURL($element, $dateTime);
+        } catch (EntityNotSupportedException) {
+            return null;
+        }
+    }
+
+    /**
+     * Generates a tree data structure for the given element, which can be used to display a tree view of the element and its related entities.
+     * The type parameter can be used to specify the type of tree view (e.g. "newEdit" for the tree view in the new/edit pages). The returned data is a JSON string.
+     */
+    #[AsTwigFunction("tree_data")]
+    public function treeData(AbstractDBElement $element, string $type = 'newEdit'): string
+    {
+        $tree = $this->treeBuilder->getTreeView($element::class, null, $type, $element);
+
+        return json_encode($tree, JSON_THROW_ON_ERROR);
+    }
+
+    /**
+     * Gets the localized type label for the given entity. E.g. for a Part, it will return "Part" in English and "Bauteil" in German.
+     * @deprecated Use the "type_label" function instead, which does the same but is more concise.
+     */
+    #[AsTwigFunction("entity_type_label", deprecationInfo: new DeprecatedCallableInfo("Part-DB", "2", "Use the 'type_label' function instead."))]
+    public function entityTypeLabel(object|string $entity): string
+    {
+        return $this->nameGenerator->getLocalizedTypeLabel($entity);
+    }
+
+    /**
+     * Gets the localized type label for the given entity. E.g. for a Part, it will return "Part" in English and "Bauteil" in German.
+     */
+    #[AsTwigFunction("type_label")]
+    public function typeLabel(object|string $entity): string
+    {
+        return $this->nameGenerator->typeLabel($entity);
+    }
+
+    /**
+     * Gets the localized plural type label for the given entity. E.g. for a Part, it will return "Parts" in English and "Bauteile" in German.
+     * @param  object|string  $entity
+     * @return string
+     */
+    #[AsTwigFunction("type_label_p")]
+    public function typeLabelPlural(object|string $entity): string
+    {
+        return $this->nameGenerator->typeLabelPlural($entity);
     }
 }
