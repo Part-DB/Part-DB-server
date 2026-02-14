@@ -18,7 +18,7 @@ use Rector\Symfony\Set\SymfonySetList;
 use Rector\TypeDeclaration\Rector\StmtsAwareInterface\DeclareStrictTypesRector;
 
 return RectorConfig::configure()
-    ->withComposerBased(phpunit: true)
+    ->withComposerBased(phpunit: true, symfony: true)
 
     ->withSymfonyContainerPhp(__DIR__ . '/tests/symfony-container.php')
     ->withSymfonyContainerXml(__DIR__ . '/var/cache/dev/App_KernelDevDebugContainer.xml')
@@ -57,6 +57,9 @@ return RectorConfig::configure()
         PreferPHPUnitThisCallRector::class,
         //Do not replace 'GET' with class constant,
         LiteralGetToRequestClassConstantRector::class,
+
+        //Do not move help text of commands to the command class, as we want to keep the help text in the command definition for better readability
+        \Rector\Symfony\Symfony73\Rector\Class_\CommandHelpToAttributeRector::class
     ])
 
     //Do not apply rules to Symfony own files
@@ -65,6 +68,7 @@ return RectorConfig::configure()
         __DIR__ . '/src/Kernel.php',
         __DIR__ . '/config/preload.php',
         __DIR__ . '/config/bundles.php',
+        __DIR__ . '/config/reference.php'
     ])
 
     ;
