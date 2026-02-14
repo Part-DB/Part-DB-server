@@ -12399,5 +12399,113 @@ Buerklin-API-Authentication-Server:
         <target>Update zu</target>
       </segment>
     </unit>
+    <unit id="XPhnMxn" name="part.gtin">
+      <segment state="translated">
+        <source>part.gtin</source>
+        <target>GTIN / EAN</target>
+      </segment>
+    </unit>
+    <unit id="TyykD7B" name="info_providers.capabilities.gtin">
+      <segment state="translated">
+        <source>info_providers.capabilities.gtin</source>
+        <target>GTIN / EAN</target>
+      </segment>
+    </unit>
+    <unit id="JBGly8p" name="part.table.gtin">
+      <segment state="translated">
+        <source>part.table.gtin</source>
+        <target>GTIN</target>
+      </segment>
+    </unit>
+    <unit id="0qHQof." name="scan_dialog.mode.gtin">
+      <segment state="translated">
+        <source>scan_dialog.mode.gtin</source>
+        <target>GTIN / EAN Barcode</target>
+      </segment>
+    </unit>
+    <unit id="cmchX59" name="attachment_type.edit.allowed_targets">
+      <segment state="translated">
+        <source>attachment_type.edit.allowed_targets</source>
+        <target>Nur verwenden für</target>
+      </segment>
+    </unit>
+    <unit id="t5R8p1l" name="attachment_type.edit.allowed_targets.help">
+      <segment state="translated">
+        <source>attachment_type.edit.allowed_targets.help</source>
+        <target>Machen Sie diesen Anhangstyp nur für bestimmte Elementtypen verfügbar. Leer lassen, um diesen Anhangstyp für alle Elementtypen anzuzeigen.</target>
+      </segment>
+    </unit>
+    <unit id="LvlEUjC" name="orderdetails.edit.prices_includes_vat">
+      <segment state="translated">
+        <source>orderdetails.edit.prices_includes_vat</source>
+        <target>Preise einschl. MwSt.</target>
+      </segment>
+    </unit>
+    <unit id="GUsVh5T" name="prices.incl_vat">
+      <segment state="translated">
+        <source>prices.incl_vat</source>
+        <target>Inkl. MwSt.</target>
+      </segment>
+    </unit>
+    <unit id="3ipwaVQ" name="prices.excl_vat">
+      <segment state="translated">
+        <source>prices.excl_vat</source>
+        <target>Exkl. MwSt.</target>
+      </segment>
+    </unit>
+    <unit id="WDJ7EeF" name="settings.system.localization.prices_include_tax_by_default">
+      <segment state="translated">
+        <source>settings.system.localization.prices_include_tax_by_default</source>
+        <target>Preise enthalten standardmäßig Mehrwertsteuer</target>
+      </segment>
+    </unit>
+    <unit id="01oGY_r" name="settings.system.localization.prices_include_tax_by_default.description">
+      <segment state="translated">
+        <source>settings.system.localization.prices_include_tax_by_default.description</source>
+        <target>Der Standardwert für neu erstellte Einkaufinformationen, ob die Preise Mehrwertsteuer enthalten oder nicht.</target>
+      </segment>
+    </unit>
+    <unit id="heWSnAH" name="part_lot.edit.last_stocktake_at">
+      <segment state="translated">
+        <source>part_lot.edit.last_stocktake_at</source>
+        <target>Letzte Inventur</target>
+      </segment>
+    </unit>
+    <unit id=".LP93kG" name="perm.parts_stock.stocktake">
+      <segment state="translated">
+        <source>perm.parts_stock.stocktake</source>
+        <target>Inventur</target>
+      </segment>
+    </unit>
+    <unit id="Vnhrb5R" name="part.info.stocktake_modal.title">
+      <segment state="translated">
+        <source>part.info.stocktake_modal.title</source>
+        <target>Inventur des Bestandes</target>
+      </segment>
+    </unit>
+    <unit id="WqOG7RK" name="part.info.stocktake_modal.expected_amount">
+      <segment state="translated">
+        <source>part.info.stocktake_modal.expected_amount</source>
+        <target>Erwartete Menge</target>
+      </segment>
+    </unit>
+    <unit id="E7IbVN6" name="part.info.stocktake_modal.actual_amount">
+      <segment state="translated">
+        <source>part.info.stocktake_modal.actual_amount</source>
+        <target>Tatsächliche Menge</target>
+      </segment>
+    </unit>
+    <unit id="4GwSma7" name="log.part_stock_changed.stock_take">
+      <segment state="translated">
+        <source>log.part_stock_changed.stock_take</source>
+        <target>Inventur</target>
+      </segment>
+    </unit>
+    <unit id="aRQPMW7" name="log.element_edited.changed_fields.last_stocktake_at">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.last_stocktake_at</source>
+        <target>Letzte Inventur</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
