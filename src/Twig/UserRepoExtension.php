@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Twig;
 
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\UserSystem\User;
 use App\Repository\LogEntryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -42,7 +43,7 @@ final readonly class UserRepoExtension
     #[AsTwigFunction('creating_user')]
     public function creatingUser(AbstractDBElement $element): ?User
     {
-        return $this->entityManager->getRepository(LogEntryRepository::class)->getCreatingUser($element);
+        return $this->entityManager->getRepository(AbstractLogEntry::class)->getCreatingUser($element);
     }
 
     /**
@@ -51,6 +52,6 @@ final readonly class UserRepoExtension
     #[AsTwigFunction('last_editing_user')]
     public function lastEditingUser(AbstractDBElement $element): ?User
     {
-        return $this->entityManager->getRepository(LogEntryRepository::class)->getLastEditingUser($element);
+        return $this->entityManager->getRepository(AbstractLogEntry::class)->getLastEditingUser($element);
     }
 }

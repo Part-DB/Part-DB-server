@@ -70,12 +70,14 @@ use App\Twig\Sandbox\SandboxedLabelExtension;
 use App\Twig\TwigCoreExtension;
 use InvalidArgumentException;
 use Twig\Environment;
+use Twig\Extension\AttributeExtension;
 use Twig\Extension\SandboxExtension;
 use Twig\Extra\Html\HtmlExtension;
 use Twig\Extra\Intl\IntlExtension;
 use Twig\Extra\Markdown\MarkdownExtension;
 use Twig\Extra\String\StringExtension;
 use Twig\Loader\ArrayLoader;
+use Twig\RuntimeLoader\FactoryRuntimeLoader;
 use Twig\Sandbox\SecurityPolicyInterface;
 
 /**
@@ -186,12 +188,17 @@ final class SandboxedTwigFactory
         $twig->addExtension(new StringExtension());
         $twig->addExtension(new HtmlExtension());
 
-        //Add Part-DB specific extension
-        $twig->addExtension($this->formatExtension);
-        $twig->addExtension($this->barcodeExtension);
-        $twig->addExtension($this->entityExtension);
-        $twig->addExtension($this->twigCoreExtension);
         $twig->addExtension($this->sandboxedLabelExtension);
+
+        //Our other extensions are using attributes, we need a bit more work to load them
+        $dynamicExtensions = [$this->formatExtension, $this->barcodeExtension, $this->entityExtension, $this->twigCoreExtension];
+        $dynamicExtensionsMap = [];
+
+        foreach ($dynamicExtensions as $extension) {
+            $twig->addExtension(new AttributeExtension($extension::class));
+            $dynamicExtensionsMap[$extension::class] = static fn () => $extension;
+        }
+        $twig->addRuntimeLoader(new FactoryRuntimeLoader($dynamicExtensionsMap));
 
         return $twig;
     }
