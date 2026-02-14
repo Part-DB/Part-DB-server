@@ -45,7 +45,6 @@
         "nelmio/security-bundle": "^3.0",
         "nyholm/psr7": "^1.1",
         "omines/datatables-bundle": "^0.10.0",
-        "paragonie/sodium_compat": "^1.21",
         "part-db/label-fonts": "^1.0",
         "part-db/swap-bundle": "^6.0.0",
         "phpoffice/phpspreadsheet": "^5.0.0",
@@ -129,7 +128,7 @@
     },
     "suggest": {
         "ext-bcmath": "Used to improve price calculation performance",
-        "ext-gmp": "Used to improve price calculation performanice"
+        "ext-gmp": "Used to improve price calculation performance"
     },
     "config": {
         "preferred-install": {
