@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
+use Twig\Attribute\AsTwigFunction;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\UserSystem\User;
 use App\Entity\LogSystem\AbstractLogEntry;
@@ -57,7 +58,7 @@ use Twig\TwigFunction;
 /**
  * @see \App\Tests\Twig\UserExtensionTest
  */
-final class UserExtension extends AbstractExtension
+final class UserExtension
 {
     private readonly LogEntryRepository $repo;
 
@@ -82,9 +83,6 @@ final class UserExtension extends AbstractExtension
             new TwigFunction('last_editing_user', fn(AbstractDBElement $element): ?User => $this->repo->getLastEditingUser($element)),
             /* Returns the user which has created the given entity. */
             new TwigFunction('creating_user', fn(AbstractDBElement $element): ?User => $this->repo->getCreatingUser($element)),
-            new TwigFunction('impersonator_user', $this->getImpersonatorUser(...)),
-            new TwigFunction('impersonation_active', $this->isImpersonationActive(...)),
-            new TwigFunction('impersonation_path', $this->getImpersonationPath(...)),
         ];
     }
 
@@ -93,6 +91,7 @@ final class UserExtension extends AbstractExtension
      * If the current user is not impersonated, null is returned.
      * @return User|null
      */
+    #[AsTwigFunction(name: 'impersonator_user')]
     public function getImpersonatorUser(): ?User
     {
         $token = $this->security->getToken();
@@ -107,11 +106,13 @@ final class UserExtension extends AbstractExtension
         return null;
     }
 
+    #[AsTwigFunction(name: 'impersonation_active')]
     public function isImpersonationActive(): bool
     {
         return $this->security->isGranted('IS_IMPERSONATOR');
     }
 
+    #[AsTwigFunction(name: 'impersonation_path')]
     public function getImpersonationPath(User $user, string $route_name = 'homepage'): string
     {
         if (! $this->security->isGranted('CAN_SWITCH_USER', $user)) {

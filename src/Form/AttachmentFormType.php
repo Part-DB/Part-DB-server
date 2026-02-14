@@ -122,9 +122,7 @@ class AttachmentFormType extends AbstractType
             ],
             'constraints' => [
                 //new AllowedFileExtension(),
-                new File([
-                    'maxSize' => $options['max_file_size'],
-                ]),
+                new File(maxSize: $options['max_file_size']),
             ],
         ]);
 

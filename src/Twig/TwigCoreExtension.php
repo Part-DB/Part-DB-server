@@ -22,6 +22,8 @@ declare(strict_types=1);
  */
 namespace App\Twig;
 
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Twig\Attribute\AsTwigFunction;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -32,21 +34,13 @@ use Twig\TwigTest;
  * The functionalities here extend the Twig with some core functions, which are independently of Part-DB.
  * @see \App\Tests\Twig\TwigCoreExtensionTest
  */
-final class TwigCoreExtension extends AbstractExtension
+final class TwigCoreExtension
 {
-    private readonly ObjectNormalizer $objectNormalizer;
+    private readonly NormalizerInterface $objectNormalizer;
 
     public function __construct()
     {
         $this->objectNormalizer = new ObjectNormalizer();
-    }
-
-    public function getFunctions(): array
-    {
-        return [
-            /* Returns the enum cases as values */
-            new TwigFunction('enum_cases', $this->getEnumCases(...)),
-        ];
     }
 
     public function getTests(): array
@@ -66,6 +60,7 @@ final class TwigCoreExtension extends AbstractExtension
      * @param  string  $enum_class
      * @phpstan-param class-string $enum_class
      */
+    #[AsTwigFunction(name: 'enum_cases')]
     public function getEnumCases(string $enum_class): array
     {
         if (!enum_exists($enum_class)) {

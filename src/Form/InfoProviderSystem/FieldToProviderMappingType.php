@@ -62,7 +62,7 @@ class FieldToProviderMappingType extends AbstractType
                 'style' => 'width: 80px;'
             ],
             'constraints' => [
-                new Range(['min' => 1, 'max' => 10]),
+                new Range(min: 1, max: 10),
             ],
         ]);
     }

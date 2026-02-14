@@ -147,10 +147,7 @@ class SecurityController extends AbstractController
                 'label' => 'user.settings.pw_confirm.label',
             ],
             'invalid_message' => 'password_must_match',
-            'constraints' => [new Length([
-                'min' => 6,
-                'max' => 128,
-            ])],
+            'constraints' => [new Length(min: 6, max: 128)],
         ]);
 
         $builder->add('submit', SubmitType::class, [
