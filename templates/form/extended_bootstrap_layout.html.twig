@@ -155,3 +155,8 @@
         {{- parent() -}}
     {% endif %}
 {% endblock %}
+
+{% block boolean_constraint_widget %}
+    {{ form_widget(form.value) }}
+    {{ form_errors(form.value) }}
+{% endblock %}
