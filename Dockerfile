@@ -1,6 +1,47 @@
 ARG BASE_IMAGE=debian:bookworm-slim
 ARG PHP_VERSION=8.4
+ARG NODE_VERSION=22
 
+# Node.js build stage for building frontend assets
+FROM node:${NODE_VERSION}-bookworm-slim AS node-builder
+
+WORKDIR /app
+
+# Install composer - needed for symfony UX packages
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Install minimal PHP for composer (only for installing dependencies)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    php-cli \
+    php-xml \
+    php-mbstring \
+    unzip \
+    git \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Copy composer files and install PHP dependencies (needed for Symfony UX assets)
+COPY composer.json composer.lock symfony.lock ./
+RUN composer install --no-scripts --no-autoloader --no-dev --prefer-dist
+
+# Copy package files for better layer caching
+COPY package.json yarn.lock ./
+
+# Install node dependencies
+RUN yarn install --network-timeout 600000
+
+# Copy necessary files for the build
+COPY webpack.config.js ./
+COPY assets ./assets
+COPY public ./public
+COPY translations ./translations
+
+# Build the assets
+RUN yarn build
+
+# Clean up
+RUN yarn cache clean && rm -rf node_modules/
+
+# Base stage for PHP
 FROM ${BASE_IMAGE} AS base
 ARG PHP_VERSION
 
@@ -44,13 +85,6 @@ RUN apt-get update && apt-get -y install \
     && chown -R www-data:www-data /var/www/html \
 # delete the "index.html" that installing Apache drops in here
     && rm -rvf /var/www/html/*
-
-# Install node and yarn
-RUN curl -sL https://deb.nodesource.com/setup_22.x | bash - && \
-    apt-get update && apt-get install -y \
-      nodejs \
-    && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/* && \
-    npm install -g yarn
 
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -151,10 +185,9 @@ RUN a2dissite 000-default.conf && \
 USER www-data
 RUN composer install -a --no-dev && \
     composer clear-cache
-RUN yarn install --network-timeout 600000 && \
-    yarn build && \
-    yarn cache clean && \
-    rm -rf node_modules/
+
+# Copy built frontend assets from node-builder stage
+COPY --from=node-builder --chown=www-data:www-data /app/public/build ./public/build
 
 # Use docker env to output logs to stdout
 ENV APP_ENV=docker
