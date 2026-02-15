@@ -65,28 +65,28 @@ class SandboxedLabelExtension extends AbstractExtension
      */
     public function associatedParts(AbstractPartsContainingDBElement $element): array
     {
-        /** @var AbstractPartsContainingRepository $repo */
+        /** @var AbstractPartsContainingRepository<AbstractPartsContainingDBElement> $repo */
         $repo = $this->em->getRepository($element::class);
         return $repo->getParts($element);
     }
 
     public function associatedPartsCount(AbstractPartsContainingDBElement $element): int
     {
-        /** @var AbstractPartsContainingRepository $repo */
+        /** @var AbstractPartsContainingRepository<AbstractPartsContainingDBElement> $repo */
         $repo = $this->em->getRepository($element::class);
         return $repo->getPartsCount($element);
     }
 
     public function associatedPartsRecursive(AbstractPartsContainingDBElement $element): array
     {
-        /** @var AbstractPartsContainingRepository $repo */
+        /** @var AbstractPartsContainingRepository<AbstractPartsContainingDBElement> $repo */
         $repo = $this->em->getRepository($element::class);
         return $repo->getPartsRecursive($element);
     }
 
     public function associatedPartsCountRecursive(AbstractPartsContainingDBElement $element): int
     {
-        /** @var AbstractPartsContainingRepository $repo */
+        /** @var AbstractPartsContainingRepository<AbstractPartsContainingDBElement> $repo */
         $repo = $this->em->getRepository($element::class);
         return $repo->getPartsCountRecursive($element);
     }
