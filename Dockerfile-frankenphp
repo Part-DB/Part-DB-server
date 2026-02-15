@@ -1,7 +1,8 @@
 ARG NODE_VERSION=22
 
 # Node.js build stage for building frontend assets
-FROM node:${NODE_VERSION}-bookworm-slim AS node-builder
+# Use native platform for build stage as it's platform-independent
+FROM --platform=$BUILDPLATFORM node:${NODE_VERSION}-bookworm-slim AS node-builder
 
 WORKDIR /app
 
