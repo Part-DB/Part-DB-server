@@ -94,6 +94,8 @@ the label content and you can access almost all data Part-DB offers. The label t
 where only certain operations are allowed. Only read access to entities is allowed. However, as it circumvents Part-DB normal permission system,
 the twig mode is only available to users with the "Twig mode" permission.
 
+It is useful to use the HTML embed feature of the editor, to have a block where you can write the twig code without worrying about the WYSIWYG editor messing with your code.
+
 The following variables are in injected into Twig and can be accessed using `{% raw %}{{ variable }}{% endraw %}` (
 or `{% raw %}{{ variable.property }}{% endraw %}`):
 
