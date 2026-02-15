@@ -58,6 +58,10 @@ class LabelGenerationProcessor implements ProcessorInterface
             throw new AccessDeniedHttpException('You do not have permission to generate labels.');
         }
 
+        if (!$data instanceof LabelGenerationRequest) {
+            throw new BadRequestHttpException('Invalid request data for label generation.');
+        }
+
         /** @var LabelGenerationRequest $request */
         $request = $data;
 
@@ -113,6 +117,7 @@ class LabelGenerationProcessor implements ProcessorInterface
         // Generate filename
         $filename = $this->generateFilename($elements[0], $profile);
 
+
         // Return PDF as response
         return new Response(
             $pdfContent,
@@ -127,7 +132,7 @@ class LabelGenerationProcessor implements ProcessorInterface
 
     private function generateFilename(AbstractDBElement $element, LabelProfile $profile): string
     {
-        $ret = 'label_' . $this->elementTypeNameGenerator->getLocalizedTypeLabel($element);
+        $ret = 'label_' . $this->elementTypeNameGenerator->typeLabel($element);
         $ret .= $element->getID();
         $ret .= '_' . preg_replace('/[^a-z0-9_\-]/i', '_', $profile->getName());
 
