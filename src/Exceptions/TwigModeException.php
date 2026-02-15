@@ -42,15 +42,14 @@ declare(strict_types=1);
 namespace App\Exceptions;
 
 use RuntimeException;
-use Twig\Error\Error;
 
 class TwigModeException extends RuntimeException
 {
     private const PROJECT_PATH = __DIR__ . '/../../';
 
-    public function __construct(?Error $previous = null)
+    public function __construct(?\Throwable $previous = null)
     {
-        parent::__construct($previous->getMessage(), 0, $previous);
+        parent::__construct($previous?->getMessage() ?? "Unknown message", 0, $previous);
     }
 
     /**
