@@ -47,6 +47,7 @@ use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
 use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Column\TextColumn;
@@ -364,7 +365,10 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addGroupBy('attachments')
             ->addGroupBy('partUnit')
             ->addGroupBy('partCustomState')
-            ->addGroupBy('parameters');
+            ->addGroupBy('parameters')
+
+            ->setHint(Query::HINT_READ_ONLY, true)
+        ;
 
         //Get the results in the same order as the IDs were passed
         FieldHelper::addOrderByFieldParam($builder, 'part.id', 'ids');
