@@ -5,10 +5,9 @@ FROM node:${NODE_VERSION}-bookworm-slim AS node-builder
 
 WORKDIR /app
 
-# Install composer - needed for symfony UX packages
+# Install composer and minimal PHP for running Symfony commands
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Install minimal PHP for composer (only for installing dependencies)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     php-cli \
     php-xml \
@@ -17,21 +16,31 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Copy composer files and install PHP dependencies (needed for Symfony UX assets)
+# Copy composer files and install dependencies (needed for Symfony UX assets)
 COPY composer.json composer.lock symfony.lock ./
-RUN composer install --no-scripts --no-autoloader --no-dev --prefer-dist
+RUN composer install --no-scripts --no-autoloader --no-dev --prefer-dist --ignore-platform-reqs
 
-# Copy package files for better layer caching
-COPY package.json yarn.lock ./
-
-# Install node dependencies
-RUN yarn install --network-timeout 600000
-
-# Copy necessary files for the build
-COPY webpack.config.js ./
-COPY assets ./assets
-COPY public ./public
+# Copy all application files needed for cache warmup and webpack build
+COPY .env* ./
+COPY bin ./bin
+COPY config ./config
+COPY src ./src
 COPY translations ./translations
+COPY public ./public
+COPY assets ./assets
+COPY webpack.config.js ./
+
+# Generate autoloader
+RUN composer dump-autoload
+
+# Create stub translations file for webpack build (real translations will be generated in final image)
+RUN mkdir -p var/translations && \
+    echo 'export const messages = {};' > var/translations/index.js && \
+    echo 'export const localeFallbacks = {};' >> var/translations/index.js
+
+# Copy package files and install node dependencies
+COPY package.json yarn.lock ./
+RUN yarn install --network-timeout 600000
 
 # Build the assets
 RUN yarn build
