@@ -23,12 +23,15 @@ declare(strict_types=1);
 
 namespace App\ApiResource;
 
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\OpenApi\Model\RequestBody;
+use ApiPlatform\OpenApi\Model\Response;
 use App\Entity\LabelSystem\LabelSupportedElement;
 use App\State\LabelGenerationProcessor;
+use App\Validator\Constraints\Misc\ValidRange;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -40,7 +43,12 @@ use Symfony\Component\Validator\Constraints as Assert;
     description: 'Generate PDF labels for parts, part lots, or storage locations using label profiles.',
     operations: [
         new Post(
+            inputFormats: ['json' => ['application/json']],
+            outputFormats: [],
             openapi: new Operation(
+                responses: [
+                    "200" => new Response(description: "PDF file containing the generated labels"),
+                ],
                 summary: 'Generate PDF labels',
                 description: 'Generate PDF labels for one or more elements using a label profile. Returns a PDF file.',
                 requestBody: new RequestBody(
@@ -48,8 +56,6 @@ use Symfony\Component\Validator\Constraints as Assert;
                     required: true,
                 ),
             ),
-            inputFormats: ['json' => ['application/json']],
-            outputFormats: [],
         )
     ],
     processor: LabelGenerationProcessor::class,
@@ -61,17 +67,15 @@ class LabelGenerationRequest
      */
     #[Assert\NotBlank(message: 'Profile ID is required')]
     #[Assert\Positive(message: 'Profile ID must be a positive integer')]
-    public int $profileId = 1;
+    public int $profileId = 0;
 
     /**
      * @var string Comma-separated list of element IDs or ranges (e.g., "1,2,5-10,15")
      */
     #[Assert\NotBlank(message: 'Element IDs are required')]
-    #[Assert\Regex(
-        pattern: '/^[\d,\-\s]+$/',
-        message: 'Element IDs must be a comma-separated list of numbers or ranges (e.g., "1,2,5-10")'
-    )]
-    public string $elementIds = '1,2,5-10';
+    #[ValidRange()]
+    #[ApiProperty(example: "1,2,5-10,15")]
+    public string $elementIds = '';
 
     /**
      * @var LabelSupportedElement|null Optional: Override the element type. If not provided, uses profile's default.
