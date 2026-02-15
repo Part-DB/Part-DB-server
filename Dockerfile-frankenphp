@@ -37,13 +37,8 @@ RUN composer dump-autoload
 # Create required directories for cache warmup
 RUN mkdir -p var/cache var/log uploads public/media
 
-# Generate real translations via cache warmup (needed for webpack build)
-RUN echo "yes" | php bin/console cache:warmup --env=prod 2>&1 || \
-    (echo "Warning: Cache warmup failed with exit code $?, but continuing..." && \
-     echo "Falling back to stub translations..." && \
-     mkdir -p var/translations && \
-     echo 'export const messages = {};' > var/translations/index.js && \
-     echo 'export const localeFallbacks = {};' >> var/translations/index.js)
+# Dump translations, which we need for cache warmup
+RUN php bin/console cache:warmup -n --env=prod 2>&1
 
 # Copy package files and install node dependencies
 COPY package.json yarn.lock ./
