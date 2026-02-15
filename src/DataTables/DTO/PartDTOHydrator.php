@@ -117,8 +117,8 @@ class PartDTOHydrator
                 mass: $row['mass'] ?? null,
                 gtin: $row['gtin'] ?? null,
                 tags: $row['tags'] ?? '',
-                favorite: $row['favorite'] ?? false,
-                needs_review: $row['needs_review'] ?? false,
+                favorite: (bool)($row['favorite'] ?? false),
+                needs_review: (bool)($row['needs_review'] ?? false),
                 addedDate: $row['addedDate'] ?? null,
                 lastModified: $row['lastModified'] ?? null,
                 manufacturing_status: $row['manufacturing_status'] ?? null,
@@ -139,9 +139,9 @@ class PartDTOHydrator
                 footprint_attachment_id: $row['footprint_attachment_id'] ?? null,
                 builtProject_id: $row['builtProject_id'] ?? null,
                 builtProject_name: $row['builtProject_name'] ?? null,
-                amountSum: $row['amountSum'] ?? 0.0,
-                expiredAmountSum: $row['expiredAmountSum'] ?? 0.0,
-                hasUnknownAmount: $row['hasUnknownAmount'] ?? false,
+                amountSum: (float)($row['amountSum'] ?? 0.0),
+                expiredAmountSum: (float)($row['expiredAmountSum'] ?? 0.0),
+                hasUnknownAmount: (bool)($row['hasUnknownAmount'] ?? false),
             );
 
             // Attach grouped data
