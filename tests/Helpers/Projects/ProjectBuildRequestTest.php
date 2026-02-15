@@ -30,7 +30,7 @@ use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Helpers\Projects\ProjectBuildRequest;
 use PHPUnit\Framework\TestCase;
 
-class ProjectBuildRequestTest extends TestCase
+final class ProjectBuildRequestTest extends TestCase
 {
 
     /** @var Project */

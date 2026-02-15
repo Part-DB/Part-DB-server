@@ -27,7 +27,7 @@ use PHPUnit\Framework\Attributes\Group;
 
 #[Group('slow')]
 #[Group('DB')]
-class PartCustomStateControllerTest extends AbstractAdminController
+final class PartCustomStateControllerTest extends AbstractAdminController
 {
     protected static string $base_path = '/en/part_custom_state';
     protected static string $entity_class = PartCustomState::class;

@@ -27,7 +27,7 @@ use App\DataFixtures\APITokenFixtures;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class KiCadApiControllerTest extends WebTestCase
+final class KiCadApiControllerTest extends WebTestCase
 {
     private const BASE_URL = '/en/kicad-api/v1';
 

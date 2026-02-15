@@ -24,6 +24,7 @@ namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\Parts\InfoProviderReference;
 use App\Entity\Parts\PartCustomState;
+use App\Validator\Constraints\ValidGTIN;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
@@ -83,6 +84,14 @@ trait AdvancedPropertyTrait
     #[ORM\ManyToOne(targetEntity: PartCustomState::class)]
     #[ORM\JoinColumn(name: 'id_part_custom_state')]
     protected ?PartCustomState $partCustomState = null;
+
+    /**
+     * @var string|null The GTIN (Global Trade Item Number) of the part, for example a UPC or EAN code
+     */
+    #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[ValidGTIN]
+    protected ?string $gtin = null;
 
     /**
      * Checks if this part is marked, for that it needs further review.
@@ -209,6 +218,28 @@ trait AdvancedPropertyTrait
     {
         $this->partCustomState = $partCustomState;
 
+        return $this;
+    }
+
+    /**
+     * Gets the GTIN (Global Trade Item Number) of the part, for example a UPC or EAN code.
+     * Returns null if no GTIN is set.
+     */
+    public function getGtin(): ?string
+    {
+        return $this->gtin;
+    }
+
+    /**
+     * Sets the GTIN (Global Trade Item Number) of the part, for example a UPC or EAN code.
+     *
+     * @param string|null $gtin The new GTIN of the part
+     *
+     * @return $this
+     */
+    public function setGtin(?string $gtin): self
+    {
+        $this->gtin = $gtin;
         return $this;
     }
 }

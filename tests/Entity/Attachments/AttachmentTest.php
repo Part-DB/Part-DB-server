@@ -55,7 +55,7 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
-class AttachmentTest extends TestCase
+final class AttachmentTest extends TestCase
 {
     public function testEmptyState(): void
     {

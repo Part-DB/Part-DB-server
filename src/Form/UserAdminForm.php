@@ -177,10 +177,7 @@ class UserAdminForm extends AbstractType
                 'required' => false,
                 'mapped' => false,
                 'disabled' => !$this->security->isGranted('set_password', $entity) || $entity->isSamlUser(),
-                'constraints' => [new Length([
-                    'min' => 6,
-                    'max' => 128,
-                ])],
+                'constraints' => [new Length(min: 6, max: 128)],
             ])
 
             ->add('need_pw_change', CheckboxType::class, [

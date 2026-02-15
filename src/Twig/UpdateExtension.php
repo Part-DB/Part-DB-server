@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
+use Twig\Attribute\AsTwigFunction;
 use App\Services\System\UpdateAvailableFacade;
 use Symfony\Bundle\SecurityBundle\Security;
 use Twig\Extension\AbstractExtension;
@@ -31,26 +32,18 @@ use Twig\TwigFunction;
 /**
  * Twig extension for update-related functions.
  */
-final class UpdateExtension extends AbstractExtension
+final readonly class UpdateExtension
 {
-    public function __construct(private readonly UpdateAvailableFacade $updateAvailableManager,
-        private readonly Security $security)
+    public function __construct(private UpdateAvailableFacade $updateAvailableManager,
+        private Security $security)
     {
 
-    }
-
-    public function getFunctions(): array
-    {
-        return [
-            new TwigFunction('is_update_available', $this->isUpdateAvailable(...)),
-            new TwigFunction('get_latest_version', $this->getLatestVersion(...)),
-            new TwigFunction('get_latest_version_url', $this->getLatestVersionUrl(...)),
-        ];
     }
 
     /**
      * Check if an update is available and the user has permission to see it.
      */
+    #[AsTwigFunction(name: 'is_update_available')]
     public function isUpdateAvailable(): bool
     {
         // Only show to users with the show_updates permission
@@ -64,6 +57,7 @@ final class UpdateExtension extends AbstractExtension
     /**
      * Get the latest available version string.
      */
+    #[AsTwigFunction(name: 'get_latest_version')]
     public function getLatestVersion(): string
     {
         return $this->updateAvailableManager->getLatestVersionString();
@@ -72,6 +66,7 @@ final class UpdateExtension extends AbstractExtension
     /**
      * Get the URL to the latest version release page.
      */
+    #[AsTwigFunction(name: 'get_latest_version_url')]
     public function getLatestVersionUrl(): string
     {
         return $this->updateAvailableManager->getLatestVersionUrl();

@@ -1,0 +1,63 @@
+<div class="modal fade" id="stocktake-modal" tabindex="-1" aria-labelledby="stocktake-modal-title" aria-hidden="true" {{ stimulus_controller('pages/part_stocktake_modal') }}>
+    <form method="post" action="{{ path('part_stocktake', {"id": part.id}) }}">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="stocktake-modal-title">{% trans %}part.info.stocktake_modal.title{% endtrans %}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {# non visible form elements #}
+                    <input type="hidden" name="lot_id" value="">
+                    <input type="hidden" name="_token" value="{{ csrf_token('part_stocktake-' ~ part.iD) }}">
+                    <input type="hidden" name="_redirect" value="{{  uri_without_host(app.request) }}">
+
+                    <div class="row mb-2">
+                        <label class="col-form-label col-sm-3">
+                            {% trans %}part.info.stocktake_modal.expected_amount{% endtrans %}
+                        </label>
+                        <div class="col-sm-9">
+                            <span id="stocktake-modal-expected-amount" class="form-control-plaintext">0</span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="col-form-label col-sm-3">
+                            {% trans %}part.info.stocktake_modal.actual_amount{% endtrans %}
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="number" required class="form-control" min="0" step="{{ (part.partUnit and not part.partUnit.integer) ? 'any' : '1' }}" name="actual_amount" value="">
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2">
+                        <label class="col-form-label col-sm-3">
+                            {% trans %}part.info.withdraw_modal.comment{% endtrans %}
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="comment" value="">
+                            <div class="form-text">{% trans %}part.info.withdraw_modal.comment.hint{% endtrans %}</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="col-form-label col-sm-3">
+                            {% trans %}part.info.withdraw_modal.timestamp{% endtrans %}
+                        </label>
+                        <div class="col-sm-9">
+                            {# The timestamp must be between a year ago and 1 hour in the future #}
+                            <input type="datetime-local" class="form-control" name="timestamp" value=""
+                                   max="{{ "+10mins"|date('Y-m-d\\TH:i') }}" min="{{ "-1year"|date('Y-m-d\\TH:i') }}">
+                            <div class="form-text">{% trans %}part.info.withdraw_modal.timestamp.hint{% endtrans %}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans %}modal.close{% endtrans %}</button>
+                    <button type="submit" class="btn btn-primary">{% trans %}modal.submit{% endtrans %}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

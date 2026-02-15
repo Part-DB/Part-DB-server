@@ -31,7 +31,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class PartNormalizerTest extends WebTestCase
+final class PartNormalizerTest extends WebTestCase
 {
     /** @var PartNormalizer */
     protected DenormalizerInterface&NormalizerInterface $service;

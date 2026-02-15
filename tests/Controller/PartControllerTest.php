@@ -38,7 +38,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 #[Group("slow")]
 #[Group("DB")]
-class PartControllerTest extends WebTestCase
+final class PartControllerTest extends WebTestCase
 {
     public function testShowPart(): void
     {

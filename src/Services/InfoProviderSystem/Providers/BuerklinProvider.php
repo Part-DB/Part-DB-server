@@ -34,7 +34,7 @@ use App\Settings\InfoProviderSystem\BuerklinSettings;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class BuerklinProvider implements BatchInfoProviderInterface
+class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProviderInterface
 {
 
     private const ENDPOINT_URL = 'https://www.buerklin.com/buerklinws/v2/buerklin';
@@ -365,7 +365,7 @@ class BuerklinProvider implements BatchInfoProviderInterface
      * - prefers 'zoom' format, then 'product' format, then all others
      *
      * @param  array|null $images
-     * @return \App\Services\InfoProviderSystem\DTOs\FileDTO[]
+     * @return FileDTO[]
      */
     private function getProductImages(?array $images): array
     {
@@ -634,6 +634,37 @@ class BuerklinProvider implements BatchInfoProviderInterface
             provider_url: $detail->provider_url ?? null,
             footprint: $detail->footprint ?? null,
         );
+    }
+
+    public function getHandledDomains(): array
+    {
+        return ['buerklin.com'];
+    }
+
+    public function getIDFromURL(string $url): ?string
+    {
+        //Inputs: 
+        //https://www.buerklin.com/de/p/bkl-electronic/niedervoltsteckverbinder/072341-l/40F1332/ 
+        //https://www.buerklin.com/de/p/40F1332/
+        //https://www.buerklin.com/en/p/bkl-electronic/dc-connectors/072341-l/40F1332/
+        //https://www.buerklin.com/en/p/40F1332/
+        //The ID is the last part after the manufacturer/category/mpn segment and before the final slash
+        //https://www.buerklin.com/de/p/bkl-electronic/niedervoltsteckverbinder/072341-l/40F1332/#download should also work
+        
+        $path = parse_url($url, PHP_URL_PATH);
+    
+        if (!$path) {
+            return null;
+        }
+    
+        // Ensure it's actually a product URL
+        if (strpos($path, '/p/') === false) {
+            return null;
+        }
+    
+        $id = basename(rtrim($path, '/'));
+    
+        return $id !== '' && $id !== 'p' ? $id : null;
     }
 
 }

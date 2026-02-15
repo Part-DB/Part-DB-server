@@ -5,6 +5,7 @@ export default class extends Controller
 {
     connect() {
         this.element.addEventListener('show.bs.modal', event => this._handleModalOpen(event));
+        this.element.addEventListener('shown.bs.modal', event => this._handleModalShown(event));
     }
 
     _handleModalOpen(event) {
@@ -60,5 +61,9 @@ export default class extends Controller
         } else { //Every other action is limited to the amount of parts in the lot
             amountInput.setAttribute('max', lotAmount);
         }
+    }
+
+    _handleModalShown(event) {
+        this.element.querySelector('input[name="amount"]').focus();
     }
 }

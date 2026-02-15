@@ -47,6 +47,7 @@ use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
 use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Column\TextColumn;
@@ -218,6 +219,10 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.mass'),
                 'unit' => 'g'
             ])
+            ->add('gtin', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.gtin'),
+                'orderField' => 'NATSORT(part.gtin)'
+            ])
             ->add('tags', TagsColumn::class, [
                 'label' => $this->translator->trans('part.table.tags'),
             ])
@@ -329,6 +334,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addSelect('orderdetails')
             ->addSelect('attachments')
             ->addSelect('storelocations')
+            ->addSelect('projectBomEntries')
             ->from(Part::class, 'part')
             ->leftJoin('part.category', 'category')
             ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
@@ -343,6 +349,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('part.partUnit', 'partUnit')
             ->leftJoin('part.partCustomState', 'partCustomState')
             ->leftJoin('part.parameters', 'parameters')
+            ->leftJoin('part.project_bom_entries', 'projectBomEntries')
             ->where('part.id IN (:ids)')
             ->setParameter('ids', $ids)
 
@@ -360,7 +367,12 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addGroupBy('attachments')
             ->addGroupBy('partUnit')
             ->addGroupBy('partCustomState')
-            ->addGroupBy('parameters');
+            ->addGroupBy('parameters')
+            ->addGroupBy('projectBomEntries')
+
+            ->setHint(Query::HINT_READ_ONLY, true)
+            ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, false)
+        ;
 
         //Get the results in the same order as the IDs were passed
         FieldHelper::addOrderByFieldParam($builder, 'part.id', 'ids');

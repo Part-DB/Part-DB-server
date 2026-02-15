@@ -91,18 +91,20 @@ in [official documentation](https://twig.symfony.com/doc/3.x/).
 
 Twig allows you for much more complex and dynamic label generation. You can use loops, conditions, and functions to create
 the label content and you can access almost all data Part-DB offers. The label templates are evaluated in a special sandboxed environment,
-where only certain operations are allowed. Only read access to entities is allowed. However as it circumvents Part-DB normal permission system, 
+where only certain operations are allowed. Only read access to entities is allowed. However, as it circumvents Part-DB normal permission system,
 the twig mode is only available to users with the "Twig mode" permission.
+
+It is useful to use the HTML embed feature of the editor, to have a block where you can write the twig code without worrying about the WYSIWYG editor messing with your code.
 
 The following variables are in injected into Twig and can be accessed using `{% raw %}{{ variable }}{% endraw %}` (
 or `{% raw %}{{ variable.property }}{% endraw %}`):
 
 | Variable name                              | Description                                                                          |
 |--------------------------------------------|--------------------------------------------------------------------------------------|
-| `{% raw %}{{ element }}{% endraw %}`       | The target element, selected in label dialog.                                         |
+| `{% raw %}{{ element }}{% endraw %}`       | The target element, selected in label dialog.                                        |
 | `{% raw %}{{ user }}{% endraw %}`          | The current logged in user. Null if you are not logged in                            |
 | `{% raw %}{{ install_title }}{% endraw %}` | The name of the current Part-DB instance (similar to [[INSTALL_NAME]] placeholder).  |
-| `{% raw %}{{ page }}{% endraw %}`          | The page number (the nth-element for which the label is generated                    |
+| `{% raw %}{{ page }}{% endraw %}`          | The page number (the nth-element for which the label is generated )                  |
 | `{% raw %}{{ last_page }}{% endraw %}`     | The page number of the last element. Equals the number of all pages / element labels |
 | `{% raw %}{{ paper_width }}{% endraw %}`   | The width of the label paper in mm                                                   |
 | `{% raw %}{{ paper_height }}{% endraw %}`  | The height of the label paper in mm                                                  |
@@ -236,12 +238,18 @@ certain data:
 
 #### Functions
 
-| Function name                                | Description                                                                                   |
-|----------------------------------------------|-----------------------------------------------------------------------------------------------|
-| `placeholder(placeholder, element)`          | Get the value of a placeholder of an element                                                  |
-| `entity_type(element)`                       | Get the type of an entity as string                                                           |
-| `entity_url(element, type)`                  | Get the URL to a specific entity type page (e.g. `info`, `edit`, etc.)                        |
-| `barcode_svg(content, type)`                 | Generate a barcode SVG from the content and type (e.g. `QRCODE`, `CODE128` etc.). A svg string is returned, which you need to data uri encode to inline it.       |
+| Function name                            | Description                                                                                                                                                 |
+|------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `placeholder(placeholder, element)`      | Get the value of a placeholder of an element                                                                                                                |
+| `entity_type(element)`                   | Get the type of an entity as string                                                                                                                         |
+| `entity_url(element, type)`              | Get the URL to a specific entity type page (e.g. `info`, `edit`, etc.)                                                                                      |
+| `barcode_svg(content, type)`             | Generate a barcode SVG from the content and type (e.g. `QRCODE`, `CODE128` etc.). A svg string is returned, which you need to data uri encode to inline it. |
+| `associated_parts(element)`              | Get the associated parts of an element like a storagelocation, footprint, etc. Only the directly associated parts are returned                              |
+| `associated_parts_r(element)`            | Get the associated parts of an element like a storagelocation, footprint, etc. including all sub-entities recursively (e.g. sub-locations)                  |
+| `associated_parts_count(element)`        | Get the count of associated parts of an element like a storagelocation, footprint, excluding sub-entities                                                   |
+| `associated_parts_count_r(element)`      | Get the count of associated parts of an element like a storagelocation, footprint, including all sub-entities recursively (e.g. sub-locations)              |
+| `type_label(element)`                     | Get the name of the type of an element (e.g. "Part", "Storage location", etc.)                                                                              |
+| `type_label_p(element)`                    | Get the name of the type of an element in plural form (e.g. "Parts", "Storage locations", etc.)                                                              |
 
 ### Filters
 
@@ -285,5 +293,5 @@ If you want to use a different (more beautiful) font, you can use the [custom fo
 feature.
 There is the [Noto](https://www.google.com/get/noto/) font family from Google, which supports a lot of languages and is
 available in different styles (regular, bold, italic, bold-italic).
-For example, you can use [Noto CJK](https://github.com/notofonts/noto-cjk) for more beautiful Chinese, Japanese, 
+For example, you can use [Noto CJK](https://github.com/notofonts/noto-cjk) for more beautiful Chinese, Japanese,
 and Korean characters.

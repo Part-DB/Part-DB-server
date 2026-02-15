@@ -48,6 +48,7 @@ enum PartTableColumns : string implements TranslatableInterface
     case MPN = "manufacturer_product_number";
     case CUSTOM_PART_STATE = 'partCustomState';
     case MASS = "mass";
+    case GTIN = "gtin";
     case TAGS = "tags";
     case ATTACHMENTS = "attachments";
     case EDIT = "edit";

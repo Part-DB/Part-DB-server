@@ -29,7 +29,7 @@ use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Services\ProjectSystem\ProjectBuildHelper;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ProjectBuildHelperTest extends WebTestCase
+final class ProjectBuildHelperTest extends WebTestCase
 {
     /** @var ProjectBuildHelper */
     protected $service;

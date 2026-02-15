@@ -18,7 +18,7 @@ class TestPartLot extends PartLot
     }
 }
 
-class PartLotWithdrawAddHelperTest extends WebTestCase
+final class PartLotWithdrawAddHelperTest extends WebTestCase
 {
 
     /**
@@ -153,5 +153,20 @@ class PartLotWithdrawAddHelperTest extends WebTestCase
         $this->service->move($this->partLot2, $this->partLot3, 2.2, "Test");
         $this->assertEqualsWithDelta(5.0, $this->partLot2->getAmount(), PHP_FLOAT_EPSILON);
         $this->assertEqualsWithDelta(2.0, $this->partLot3->getAmount(), PHP_FLOAT_EPSILON);
+    }
+
+    public function testStocktake(): void
+    {
+        //Stocktake lot 1 to 20
+        $this->service->stocktake($this->partLot1, 20, "Test");
+        $this->assertEqualsWithDelta(20.0, $this->partLot1->getAmount(), PHP_FLOAT_EPSILON);
+        $this->assertNotNull($this->partLot1->getLastStocktakeAt()); //Stocktake date should be set
+
+        //Stocktake lot 2 to 5
+        $this->partLot2->setInstockUnknown(true);
+        $this->service->stocktake($this->partLot2, 0, "Test");
+        $this->assertEqualsWithDelta(0.0, $this->partLot2->getAmount(), PHP_FLOAT_EPSILON);
+        $this->assertFalse($this->partLot2->isInstockUnknown()); //Instock unknown should be cleared
+
     }
 }

@@ -25,7 +25,7 @@ namespace App\Tests\Entity\UserSystem;
 use App\Entity\UserSystem\ApiTokenType;
 use PHPUnit\Framework\TestCase;
 
-class ApiTokenTypeTest extends TestCase
+final class ApiTokenTypeTest extends TestCase
 {
 
     public function testGetTokenPrefix(): void

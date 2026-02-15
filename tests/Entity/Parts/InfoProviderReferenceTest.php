@@ -26,7 +26,7 @@ use App\Entity\Parts\InfoProviderReference;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use PHPUnit\Framework\TestCase;
 
-class InfoProviderReferenceTest extends TestCase
+final class InfoProviderReferenceTest extends TestCase
 {
     public function testNoProvider(): void
     {

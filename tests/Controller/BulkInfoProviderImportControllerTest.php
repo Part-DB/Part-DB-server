@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use App\Services\InfoProviderSystem\BulkInfoProviderService;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO;
 use App\Entity\InfoProviderSystem\BulkImportJobStatus;
 use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
 use App\Entity\Parts\Part;
@@ -36,7 +38,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 #[Group("slow")]
 #[Group("DB")]
-class BulkInfoProviderImportControllerTest extends WebTestCase
+final class BulkInfoProviderImportControllerTest extends WebTestCase
 {
     public function testStep1WithoutIds(): void
     {
@@ -174,8 +176,8 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
 
         // Verify the template rendered the source_field and source_keyword correctly
         $content = $client->getResponse()->getContent();
-        $this->assertStringContainsString('test_field', $content);
-        $this->assertStringContainsString('test_keyword', $content);
+        $this->assertStringContainsString('test_field', (string) $content);
+        $this->assertStringContainsString('test_keyword', (string) $content);
 
         // Clean up - find by ID to avoid detached entity issues
         $jobId = $job->getId();
@@ -607,7 +609,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         }
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-        $this->assertStringContainsString('Bulk Info Provider Import', $client->getResponse()->getContent());
+        $this->assertStringContainsString('Bulk Info Provider Import', (string) $client->getResponse()->getContent());
     }
 
     public function testStep1FormSubmissionWithErrors(): void
@@ -630,7 +632,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         }
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
-        $this->assertStringContainsString('Bulk Info Provider Import', $client->getResponse()->getContent());
+        $this->assertStringContainsString('Bulk Info Provider Import', (string) $client->getResponse()->getContent());
     }
 
     public function testBulkInfoProviderServiceKeywordExtraction(): void
@@ -647,18 +649,18 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         }
 
         // Test that the service can extract keywords from parts
-        $bulkService = $client->getContainer()->get(\App\Services\InfoProviderSystem\BulkInfoProviderService::class);
+        $bulkService = $client->getContainer()->get(BulkInfoProviderService::class);
 
         // Create field mappings to verify the service works
         $fieldMappings = [
-            new \App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO('name', ['test'], 1),
-            new \App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO('mpn', ['test'], 2)
+            new BulkSearchFieldMappingDTO('name', ['test'], 1),
+            new BulkSearchFieldMappingDTO('mpn', ['test'], 2)
         ];
 
         // The service may return an empty result or throw when no results are found
         try {
             $result = $bulkService->performBulkSearch([$part], $fieldMappings, false);
-            $this->assertInstanceOf(\App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO::class, $result);
+            $this->assertInstanceOf(BulkSearchResponseDTO::class, $result);
         } catch (\RuntimeException $e) {
             $this->assertStringContainsString('No search results found', $e->getMessage());
         }
@@ -725,12 +727,12 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         }
 
         // Test that the service can handle supplier part number fields
-        $bulkService = $client->getContainer()->get(\App\Services\InfoProviderSystem\BulkInfoProviderService::class);
+        $bulkService = $client->getContainer()->get(BulkInfoProviderService::class);
 
         // Create field mappings with supplier SPN field mapping
         $fieldMappings = [
-            new \App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO('invalid_field', ['test'], 1),
-            new \App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO('test_supplier_spn', ['test'], 2)
+            new BulkSearchFieldMappingDTO('invalid_field', ['test'], 1),
+            new BulkSearchFieldMappingDTO('test_supplier_spn', ['test'], 2)
         ];
 
         // The service should be able to process the request and throw an exception when no results are found
@@ -756,11 +758,11 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         }
 
         // Test that the service can handle batch processing
-        $bulkService = $client->getContainer()->get(\App\Services\InfoProviderSystem\BulkInfoProviderService::class);
+        $bulkService = $client->getContainer()->get(BulkInfoProviderService::class);
 
         // Create field mappings with multiple keywords
         $fieldMappings = [
-            new \App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO('empty', ['test'], 1)
+            new BulkSearchFieldMappingDTO('empty', ['test'], 1)
         ];
 
         // The service should be able to process the request and throw an exception when no results are found
@@ -786,7 +788,7 @@ class BulkInfoProviderImportControllerTest extends WebTestCase
         }
 
         // Test that the service can handle prefetch details
-        $bulkService = $client->getContainer()->get(\App\Services\InfoProviderSystem\BulkInfoProviderService::class);
+        $bulkService = $client->getContainer()->get(BulkInfoProviderService::class);
 
         // Create empty search results to test prefetch method
         $searchResults = new BulkSearchResponseDTO([

@@ -192,7 +192,7 @@
     {% set preview_attach = part_preview_generator.tablePreviewAttachment(part) %}
     {% if preview_attach %}
         <img src="{{ attachment_thumbnail(preview_attach, 'thumbnail_xs') }}" class="entity-image-xs" alt="Part image"
-                {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ attachment_thumbnail(preview_attach) }}">
+            {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ attachment_thumbnail(preview_attach) }}">
     {% endif %}
     <a href="{{ entity_url(part) }}">{{ part.name }}</a>
 {% endmacro %}
@@ -239,5 +239,13 @@
         <i>{% trans %}datetime.never{% endtrans %}</i>
     {% else %}
         {{ datetime|format_datetime }}
+    {% endif %}
+{% endmacro %}
+
+{% macro vat_text(bool) %}
+    {% if bool === true %}
+        ({% trans %}prices.incl_vat{% endtrans %})
+    {% elseif bool === false %}
+        ({% trans %}prices.excl_vat{% endtrans %})
     {% endif %}
 {% endmacro %}

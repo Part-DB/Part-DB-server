@@ -95,7 +95,7 @@ final class LabelHTMLGenerator
                             'paper_height' => $options->getHeight(),
                         ]
                     );
-                } catch (Error $exception) {
+                } catch (\Throwable $exception) {
                     throw new TwigModeException($exception);
                 }
             } else {

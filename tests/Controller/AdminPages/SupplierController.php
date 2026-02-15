@@ -27,7 +27,7 @@ use App\Entity\Parts\Supplier;
 
 #[Group('slow')]
 #[Group('DB')]
-class SupplierController extends AbstractAdminController
+final class SupplierController extends AbstractAdminController
 {
     protected static string $base_path = '/en/supplier';
     protected static string $entity_class = Supplier::class;

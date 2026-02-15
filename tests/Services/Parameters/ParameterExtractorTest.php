@@ -46,7 +46,7 @@ use App\Entity\Parameters\AbstractParameter;
 use App\Services\Parameters\ParameterExtractor;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ParameterExtractorTest extends WebTestCase
+final class ParameterExtractorTest extends WebTestCase
 {
     protected $service;
 

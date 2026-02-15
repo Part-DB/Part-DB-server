@@ -25,7 +25,7 @@ namespace App\Tests\Services\LabelSystem\BarcodeScanner;
 use App\Services\LabelSystem\BarcodeScanner\EIGP114BarcodeScanResult;
 use PHPUnit\Framework\TestCase;
 
-class EIGP114BarcodeScanResultTest extends TestCase
+final class EIGP114BarcodeScanResultTest extends TestCase
 {
 
     public function testGuessBarcodeVendor(): void

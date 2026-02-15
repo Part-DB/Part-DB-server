@@ -27,7 +27,7 @@ use App\Entity\Parts\StorageLocation;
 
 #[Group('slow')]
 #[Group('DB')]
-class StorelocationController extends AbstractAdminController
+final class StorelocationController extends AbstractAdminController
 {
     protected static string $base_path = '/en/store_location';
     protected static string $entity_class = StorageLocation::class;

@@ -92,9 +92,7 @@ class UserSettingsType extends AbstractType
                     'accept' => 'image/*',
                 ],
                 'constraints' => [
-                    new File([
-                        'maxSize' => '5M',
-                    ]),
+                    new File(maxSize: '5M'),
                 ],
             ])
             ->add('aboutMe', RichTextEditorType::class, [

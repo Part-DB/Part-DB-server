@@ -31,6 +31,7 @@ use App\Form\Type\StructuralEntityType;
 use App\Form\Type\UserSelectType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -109,6 +110,14 @@ class PartLotType extends AbstractType
             'required' => false,
             //Do not remove whitespace chars on the beginning and end of the string
             'trim' => false,
+        ]);
+
+        $builder->add('last_stocktake_at', DateTimeType::class, [
+            'label' => 'part_lot.edit.last_stocktake_at',
+            'widget' => 'single_text',
+            'disabled' => !$this->security->isGranted('@parts_stock.stocktake'),
+            'required' => false,
+            'empty_data' => null,
         ]);
     }
 

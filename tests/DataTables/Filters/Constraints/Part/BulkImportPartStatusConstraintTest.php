@@ -28,7 +28,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\TestCase;
 
-class BulkImportPartStatusConstraintTest extends TestCase
+final class BulkImportPartStatusConstraintTest extends TestCase
 {
     private BulkImportPartStatusConstraint $constraint;
     private QueryBuilder $queryBuilder;
@@ -46,7 +46,7 @@ class BulkImportPartStatusConstraintTest extends TestCase
 
     public function testConstructor(): void
     {
-        $this->assertEquals([], $this->constraint->getValue());
+        $this->assertSame([], $this->constraint->getValue());
         $this->assertEmpty($this->constraint->getOperator());
         $this->assertFalse($this->constraint->isEnabled());
     }
@@ -56,7 +56,7 @@ class BulkImportPartStatusConstraintTest extends TestCase
         $values = ['pending', 'completed', 'skipped'];
         $this->constraint->setValue($values);
 
-        $this->assertEquals($values, $this->constraint->getValue());
+        $this->assertSame($values, $this->constraint->getValue());
     }
 
     public function testGetAndSetOperator(): void
@@ -64,7 +64,7 @@ class BulkImportPartStatusConstraintTest extends TestCase
         $operator = 'ANY';
         $this->constraint->setOperator($operator);
 
-        $this->assertEquals($operator, $this->constraint->getOperator());
+        $this->assertSame($operator, $this->constraint->getOperator());
     }
 
     public function testIsEnabledWithEmptyValues(): void
@@ -294,6 +294,6 @@ class BulkImportPartStatusConstraintTest extends TestCase
 
         $this->constraint->apply($this->queryBuilder);
 
-        $this->assertEquals($statusValues, $this->constraint->getValue());
+        $this->assertSame($statusValues, $this->constraint->getValue());
     }
 }

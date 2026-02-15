@@ -295,10 +295,7 @@ class UserSettingsController extends AbstractController
                         'autocomplete' => 'new-password',
                     ],
                 ],
-                'constraints' => [new Length([
-                    'min' => 6,
-                    'max' => 128,
-                ])],
+                'constraints' => [new Length(min: 6, max: 128)],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'save',

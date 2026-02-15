@@ -36,7 +36,7 @@ use App\Services\EntityMergers\Mergers\PartMerger;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class PartMergerTest extends KernelTestCase
+final class PartMergerTest extends KernelTestCase
 {
 
     /** @var PartMerger|null  */

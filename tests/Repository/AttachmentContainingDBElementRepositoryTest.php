@@ -28,7 +28,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class AttachmentContainingDBElementRepositoryTest extends KernelTestCase
+final class AttachmentContainingDBElementRepositoryTest extends KernelTestCase
 {
 
     private EntityManagerInterface $entityManager;

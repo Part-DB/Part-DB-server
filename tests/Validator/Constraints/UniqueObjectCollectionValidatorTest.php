@@ -30,7 +30,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-class UniqueObjectCollectionValidatorTest extends ConstraintValidatorTestCase
+final class UniqueObjectCollectionValidatorTest extends ConstraintValidatorTestCase
 {
     protected function createValidator(): UniqueObjectCollectionValidator
     {

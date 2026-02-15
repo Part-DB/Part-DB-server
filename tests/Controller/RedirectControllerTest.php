@@ -33,7 +33,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 #[Group('slow')]
 #[Group('DB')]
-class RedirectControllerTest extends WebTestCase
+final class RedirectControllerTest extends WebTestCase
 {
     protected EntityManagerInterface $em;
     protected UserRepository $userRepo;

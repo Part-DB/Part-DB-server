@@ -84,6 +84,8 @@ class ReicheltProvider implements InfoProviderInterface
             $name = $element->filter('meta[itemprop="name"]')->attr('content');
             $sku = $element->filter('meta[itemprop="sku"]')->attr('content');
 
+
+
             //Try to extract a picture URL:
             $pictureURL = $element->filter("div.al_artlogo img")->attr('src');
 
@@ -95,7 +97,8 @@ class ReicheltProvider implements InfoProviderInterface
                 category: null,
                 manufacturer: $sku,
                 preview_image_url: $pictureURL,
-                provider_url: $element->filter('a.al_artinfo_link')->attr('href')
+                provider_url: $element->filter('a.al_artinfo_link')->attr('href'),
+
                 );
         });
 
@@ -146,6 +149,15 @@ class ReicheltProvider implements InfoProviderInterface
         $priceString = $dom->filter('meta[itemprop="price"]')->attr('content');
         $currency = $dom->filter('meta[itemprop="priceCurrency"]')->attr('content', 'EUR');
 
+        $gtin = null;
+        foreach (['gtin13', 'gtin14', 'gtin12', 'gtin8'] as $gtinType) {
+            if ($dom->filter("[itemprop=\"$gtinType\"]")->count() > 0) {
+                $gtin = $dom->filter("[itemprop=\"$gtinType\"]")->innerText();
+                break;
+            }
+        }
+
+
         //Create purchase info
         $purchaseInfo = new PurchaseInfoDTO(
             distributor_name: self::DISTRIBUTOR_NAME,
@@ -167,10 +179,11 @@ class ReicheltProvider implements InfoProviderInterface
             mpn: $this->parseMPN($dom),
             preview_image_url: $json[0]['article_picture'],
             provider_url: $productPage,
+            gtin: $gtin,
             notes: $notes,
             datasheets: $datasheets,
             parameters: $this->parseParameters($dom),
-            vendor_infos: [$purchaseInfo]
+            vendor_infos: [$purchaseInfo],
         );
 
     }
@@ -273,6 +286,7 @@ class ReicheltProvider implements InfoProviderInterface
             ProviderCapabilities::PICTURE,
             ProviderCapabilities::DATASHEET,
             ProviderCapabilities::PRICE,
+            ProviderCapabilities::GTIN,
         ];
     }
 }

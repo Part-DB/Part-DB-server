@@ -26,7 +26,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use App\Helpers\BBCodeToMarkdownConverter;
 use PHPUnit\Framework\TestCase;
 
-class BBCodeToMarkdownConverterTest extends TestCase
+final class BBCodeToMarkdownConverterTest extends TestCase
 {
     protected BBCodeToMarkdownConverter $converter;
 

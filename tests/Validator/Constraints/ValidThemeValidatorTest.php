@@ -27,7 +27,7 @@ use App\Validator\Constraints\ValidThemeValidator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-class ValidThemeValidatorTest extends ConstraintValidatorTestCase
+final class ValidThemeValidatorTest extends ConstraintValidatorTestCase
 {
 
     protected function createValidator(): ValidThemeValidator

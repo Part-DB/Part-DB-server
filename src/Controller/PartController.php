@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
 use App\DataTables\LogDataTable;
 use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Parts\Category;
@@ -54,12 +55,14 @@ use Exception;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function Symfony\Component\Translation\t;
@@ -149,7 +152,7 @@ final class PartController extends AbstractController
         $jobId = $request->query->get('jobId');
         $bulkJob = null;
         if ($jobId) {
-            $bulkJob = $this->em->getRepository(\App\Entity\InfoProviderSystem\BulkInfoProviderImportJob::class)->find($jobId);
+            $bulkJob = $this->em->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
             // Verify user owns this job
             if ($bulkJob && $bulkJob->getCreatedBy() !== $this->getUser()) {
                 $bulkJob = null;
@@ -170,7 +173,7 @@ final class PartController extends AbstractController
             throw $this->createAccessDeniedException('Invalid CSRF token');
         }
 
-        $bulkJob = $this->em->getRepository(\App\Entity\InfoProviderSystem\BulkInfoProviderImportJob::class)->find($jobId);
+        $bulkJob = $this->em->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
         if (!$bulkJob || $bulkJob->getCreatedBy() !== $this->getUser()) {
             throw $this->createNotFoundException('Bulk import job not found');
         }
@@ -336,7 +339,7 @@ final class PartController extends AbstractController
         $jobId = $request->query->get('jobId');
         $bulkJob = null;
         if ($jobId) {
-            $bulkJob = $this->em->getRepository(\App\Entity\InfoProviderSystem\BulkInfoProviderImportJob::class)->find($jobId);
+            $bulkJob = $this->em->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
             // Verify user owns this job
             if ($bulkJob && $bulkJob->getCreatedBy() !== $this->getUser()) {
                 $bulkJob = null;
@@ -461,6 +464,54 @@ final class PartController extends AbstractController
                 'jobId' => $request->query->get('jobId')
             ]
         );
+    }
+
+    #[Route(path: '/{id}/stocktake', name: 'part_stocktake', methods: ['POST'])]
+    #[IsCsrfTokenValid(new Expression("'part_stocktake-' ~ args['part'].getid()"), '_token')]
+    public function stocktakeHandler(Part $part, EntityManagerInterface $em, PartLotWithdrawAddHelper $withdrawAddHelper,
+        Request $request,
+    ): Response
+    {
+        $partLot = $em->find(PartLot::class, $request->request->get('lot_id'));
+
+        //Check that the user is allowed to stocktake the partlot
+        $this->denyAccessUnlessGranted('stocktake', $partLot);
+
+        if (!$partLot instanceof PartLot) {
+            throw new \RuntimeException('Part lot not found!');
+        }
+        //Ensure that the partlot belongs to the part
+        if ($partLot->getPart() !== $part) {
+            throw new \RuntimeException("The origin partlot does not belong to the part!");
+        }
+
+        $actualAmount = (float) $request->request->get('actual_amount');
+        $comment = $request->request->get('comment');
+
+        $timestamp = null;
+        $timestamp_str = $request->request->getString('timestamp', '');
+        //Try to parse the timestamp
+        if ($timestamp_str !== '') {
+            $timestamp = new DateTime($timestamp_str);
+        }
+
+        $withdrawAddHelper->stocktake($partLot, $actualAmount, $comment, $timestamp);
+
+        //Ensure that the timestamp is not in the future
+        if ($timestamp !== null && $timestamp > new DateTime("+20min")) {
+            throw new \LogicException("The timestamp must not be in the future!");
+        }
+
+        //Save the changes to the DB
+        $em->flush();
+        $this->addFlash('success', 'part.withdraw.success');
+
+        //If a redirect was passed, then redirect there
+        if ($request->request->get('_redirect')) {
+            return $this->redirect($request->request->get('_redirect'));
+        }
+        //Otherwise just redirect to the part page
+        return $this->redirectToRoute('part_info', ['id' => $part->getID()]);
     }
 
     #[Route(path: '/{id}/add_withdraw', name: 'part_add_withdraw', methods: ['POST'])]

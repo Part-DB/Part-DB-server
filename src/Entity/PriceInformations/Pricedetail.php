@@ -121,6 +121,8 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     #[Groups(['pricedetail:read:standalone', 'pricedetail:write'])]
     protected ?Orderdetail $orderdetail = null;
 
+
+
     public function __construct()
     {
         $this->price = BigDecimal::zero()->toScale(self::PRICE_PRECISION);
@@ -262,6 +264,15 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     public function getCurrencyISOCode(): ?string
     {
         return $this->currency?->getIsoCode();
+    }
+
+    /**
+     * Returns whether the price includes VAT or not. Null means, that it is not specified, if the price includes VAT or not.
+     * @return bool|null
+     */
+    public function getIncludesVat(): ?bool
+    {
+        return $this->orderdetail?->getPricesIncludesVAT();
     }
 
     /********************************************************************************
