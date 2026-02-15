@@ -54,6 +54,8 @@ class TwoStepORMAdapter extends ORMAdapter
 
     private \Closure|null $query_modifier = null;
 
+    private \Closure|null $dto_hydrator = null;
+
     public function __construct(?ManagerRegistry $registry = null)
     {
         parent::__construct($registry);
@@ -82,6 +84,10 @@ class TwoStepORMAdapter extends ORMAdapter
         $resolver->setDefault('query_modifier', null);
         $resolver->setAllowedTypes('query_modifier', ['null', \Closure::class]);
 
+        //Add the possibility to use a custom DTO hydrator instead of entity hydration
+        $resolver->setDefault('dto_hydrator', null);
+        $resolver->setAllowedTypes('dto_hydrator', ['null', \Closure::class]);
+
     }
 
     protected function afterConfiguration(array $options): void
@@ -90,6 +96,7 @@ class TwoStepORMAdapter extends ORMAdapter
         $this->detailQueryCallable = $options['detail_query'];
         $this->use_simple_total = $options['simple_total_query'];
         $this->query_modifier = $options['query_modifier'];
+        $this->dto_hydrator = $options['dto_hydrator'];
     }
 
     protected function prepareQuery(AdapterQuery $query): void
@@ -189,9 +196,19 @@ class TwoStepORMAdapter extends ORMAdapter
 
         $detail_query = $detail_qb->getQuery();
 
-        //We pass the results of the detail query to the datatable for view rendering
-        foreach ($detail_query->getResult() as $item) {
-            yield $item;
+        // If a DTO hydrator is configured, use array hydration and build DTOs
+        if ($this->dto_hydrator !== null) {
+            $arrayResults = $detail_query->getArrayResult();
+            $dtos = $this->dto_hydrator->__invoke($arrayResults);
+            foreach ($dtos as $dto) {
+                yield $dto;
+            }
+        } else {
+            // Original behavior: hydrate as entities
+            //We pass the results of the detail query to the datatable for view rendering
+            foreach ($detail_query->getResult() as $item) {
+                yield $item;
+            }
         }
     }
 

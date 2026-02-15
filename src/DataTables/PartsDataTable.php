@@ -34,6 +34,8 @@ use App\DataTables\Column\RowClassColumn;
 use App\DataTables\Column\SelectColumn;
 use App\DataTables\Column\SIUnitNumberColumn;
 use App\DataTables\Column\TagsColumn;
+use App\DataTables\DTO\PartDTO;
+use App\DataTables\DTO\PartDTOHydrator;
 use App\DataTables\Filters\PartFilter;
 use App\DataTables\Filters\PartSearchFilter;
 use App\DataTables\Helpers\ColumnSortHelper;
@@ -47,6 +49,7 @@ use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
 use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Column\TextColumn;
@@ -68,6 +71,8 @@ final class PartsDataTable implements DataTableTypeInterface
         private readonly Security $security,
         private readonly ColumnSortHelper $csh,
         private readonly TableSettings $tableSettings,
+        private readonly PartDTOHydrator $partDTOHydrator,
+        private readonly EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -91,7 +96,7 @@ final class PartsDataTable implements DataTableTypeInterface
         $this->csh
             //Color the table rows depending on the review and favorite status
             ->add('row_color', RowClassColumn::class, [
-                'render' => function ($value, Part $context): string {
+                'render' => function ($value, $context): string {
                     if ($context->isNeedsReview()) {
                         return 'table-secondary';
                     }
@@ -106,11 +111,11 @@ final class PartsDataTable implements DataTableTypeInterface
             ->add('picture', TextColumn::class, [
                 'label' => '',
                 'className' => 'no-colvis',
-                'render' => fn($value, Part $context) => $this->partDataTableHelper->renderPicture($context),
+                'render' => fn($value, $context) => $this->partDataTableHelper->renderPicture($context),
             ], visibility_configurable: false)
             ->add('name', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.name'),
-                'render' => fn($value, Part $context) => $this->partDataTableHelper->renderName($context),
+                'render' => fn($value, $context) => $this->partDataTableHelper->renderName($context),
                 'orderField' => 'NATSORT(part.name)'
             ])
             ->add('id', TextColumn::class, [
@@ -142,17 +147,17 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.storeLocations'),
                 //We need to use a aggregate function to get the first store location, as we have a one-to-many relation
                 'orderField' => 'NATSORT(MIN(_storelocations.name))',
-                'render' => fn($value, Part $context) => $this->partDataTableHelper->renderStorageLocations($context),
+                'render' => fn($value, $context) => $this->partDataTableHelper->renderStorageLocations($context),
             ], alias: 'storage_location')
 
             ->add('amount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.amount'),
-                'render' => fn($value, Part $context) => $this->partDataTableHelper->renderAmount($context),
+                'render' => fn($value, $context) => $this->partDataTableHelper->renderAmount($context),
                 'orderField' => 'amountSum'
             ])
             ->add('minamount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
-                'render' => fn($value, Part $context): string => htmlspecialchars($this->amountFormatter->format(
+                'render' => fn($value, $context): string => htmlspecialchars($this->amountFormatter->format(
                     $value,
                     $context->getPartUnit()
                 )),
@@ -160,7 +165,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->add('partUnit', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.partUnit'),
                 'orderField' => 'NATSORT(_partUnit.name)',
-                'render' => function ($value, Part $context): string {
+                'render' => function ($value, $context): string {
                     $partUnit = $context->getPartUnit();
                     if ($partUnit === null) {
                         return '';
@@ -177,7 +182,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->add('partCustomState', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.partCustomState'),
                 'orderField' => 'NATSORT(_partCustomState.name)',
-                'render' => function($value, Part $context): string {
+                'render' => function($value, $context): string {
                     $partCustomState = $context->getPartCustomState();
 
                     if ($partCustomState === null) {
@@ -202,7 +207,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->add('manufacturing_status', EnumColumn::class, [
                 'label' => $this->translator->trans('part.table.manufacturingStatus'),
                 'class' => ManufacturingStatus::class,
-                'render' => function (?ManufacturingStatus $status, Part $context): string {
+                'render' => function (?ManufacturingStatus $status, $context): string {
                     if ($status === null) {
                         return '';
                     }
@@ -233,7 +238,7 @@ final class PartsDataTable implements DataTableTypeInterface
         if ($this->security->isGranted('read', Project::class)) {
             $this->csh->add('projects', TextColumn::class, [
                 'label' => $this->translator->trans('project.labelp'),
-                'render' => function ($value, Part $context): string {
+                'render' => function ($value, $context): string {
                     //Only show the first 5 projects names
                     $projects = $context->getProjects();
                     $tmp = "";
@@ -241,8 +246,19 @@ final class PartsDataTable implements DataTableTypeInterface
                     $max = 5;
 
                     for ($i = 0; $i < min($max, count($projects)); $i++) {
-                        $url = $this->urlGenerator->infoURL($projects[$i]);
-                        $tmp .= sprintf('<a href="%s">%s</a>', $url, htmlspecialchars($projects[$i]->getName()));
+                        $project = $projects[$i];
+                        
+                        // For DTO, projects are arrays with id and name
+                        if (is_array($project)) {
+                            $projectProxy = $this->entityManager->getReference(Project::class, $project['id']);
+                            $url = $this->urlGenerator->infoURL($projectProxy);
+                            $tmp .= sprintf('<a href="%s">%s</a>', $url, htmlspecialchars($project['name']));
+                        } else {
+                            // For Part entity, projects are Project objects
+                            $url = $this->urlGenerator->infoURL($project);
+                            $tmp .= sprintf('<a href="%s">%s</a>', $url, htmlspecialchars($project->getName()));
+                        }
+                        
                         if ($i < count($projects) - 1) {
                             $tmp .= ", ";
                         }
@@ -260,8 +276,22 @@ final class PartsDataTable implements DataTableTypeInterface
         $this->csh
             ->add('edit', IconLinkColumn::class, [
                 'label' => $this->translator->trans('part.table.edit'),
-                'href' => fn($value, Part $context) => $this->urlGenerator->editURL($context),
-                'disabled' => fn($value, Part $context) => !$this->security->isGranted('edit', $context),
+                'href' => function ($value, $context) {
+                    // For DTO, get a Part reference for URL generation
+                    if ($context instanceof PartDTO) {
+                        $partProxy = $this->entityManager->getReference(Part::class, $context->getId());
+                        return $this->urlGenerator->editURL($partProxy);
+                    }
+                    return $this->urlGenerator->editURL($context);
+                },
+                'disabled' => function ($value, $context) {
+                    // For DTO, get a Part reference for permission check
+                    if ($context instanceof PartDTO) {
+                        $partProxy = $this->entityManager->getReference(Part::class, $context->getId());
+                        return !$this->security->isGranted('edit', $partProxy);
+                    }
+                    return !$this->security->isGranted('edit', $context);
+                },
                 'title' => $this->translator->trans('part.table.edit.title'),
             ]);
 
@@ -285,6 +315,8 @@ final class PartsDataTable implements DataTableTypeInterface
                     new SearchCriteriaProvider(),
                 ],
                 'query_modifier' => $this->addJoins(...),
+                // Use DTO hydration instead of full entity loading
+                'dto_hydrator' => fn(array $results) => $this->partDTOHydrator->hydrateFromQueryResults($results),
             ]);
     }
 
@@ -312,59 +344,100 @@ final class PartsDataTable implements DataTableTypeInterface
         $ids = array_map(static fn($row) => $row['id'], $filter_results);
 
         /*
-         * In this query we take the IDs which were filtered, paginated and sorted in the filter query, and fetch the
-         * full entities.
-         * We can do complex fetch joins, as we do not need to filter or sort here (which would kill the performance).
-         * The only condition should be for the IDs.
-         * It is important that elements are ordered the same way, as the IDs are passed, or ordering will be wrong.
+         * Optimized query that selects only specific fields needed for table rendering.
+         * Instead of loading full Part entities, we select scalar values and build lightweight DTOs.
+         * This significantly reduces memory usage and improves performance.
          *
-         * We do not require the subqueries like amountSum here, as it is not used to render the table (and only for sorting)
+         * We compute aggregated amounts (amountSum, expiredAmountSum, hasUnknownAmount) using subqueries
+         * to avoid complex PHP iteration.
          */
         $builder
-            ->select('part')
-            ->addSelect('category')
-            ->addSelect('footprint')
-            ->addSelect('manufacturer')
-            ->addSelect('partUnit')
-            ->addSelect('partCustomState')
-            ->addSelect('master_picture_attachment')
-            ->addSelect('footprint_attachment')
-            ->addSelect('partLots')
-            ->addSelect('orderdetails')
-            ->addSelect('attachments')
-            ->addSelect('storelocations')
+            // Core Part fields
+            ->select('part.id AS id')
+            ->addSelect('part.name AS name')
+            ->addSelect('part.ipn AS ipn')
+            ->addSelect('part.description AS description')
+            ->addSelect('part.minamount AS minamount')
+            ->addSelect('part.manufacturer_product_number AS manufacturer_product_number')
+            ->addSelect('part.mass AS mass')
+            ->addSelect('part.gtin AS gtin')
+            ->addSelect('part.tags AS tags')
+            ->addSelect('part.favorite AS favorite')
+            ->addSelect('part.needs_review AS needs_review')
+            ->addSelect('part.addedDate AS addedDate')
+            ->addSelect('part.lastModified AS lastModified')
+            ->addSelect('part.manufacturing_status AS manufacturing_status')
+
+            // Related entity IDs and names
+            ->addSelect('category.id AS category_id')
+            ->addSelect('category.name AS category_name')
+            ->addSelect('footprint.id AS footprint_id')
+            ->addSelect('footprint.name AS footprint_name')
+            ->addSelect('manufacturer.id AS manufacturer_id')
+            ->addSelect('manufacturer.name AS manufacturer_name')
+            ->addSelect('partUnit.id AS partUnit_id')
+            ->addSelect('partUnit.name AS partUnit_name')
+            ->addSelect('partUnit.unit AS partUnit_unit')
+            ->addSelect('partCustomState.id AS partCustomState_id')
+            ->addSelect('partCustomState.name AS partCustomState_name')
+            ->addSelect('master_picture_attachment.id AS master_picture_attachment_id')
+            ->addSelect('master_picture_attachment.filename AS master_picture_attachment_filename')
+            ->addSelect('master_picture_attachment.name AS master_picture_attachment_name')
+            ->addSelect('footprint_attachment.id AS footprint_attachment_id')
+            ->addSelect('builtProject.id AS builtProject_id')
+            ->addSelect('builtProject.name AS builtProject_name')
+
+            // Part lots for storage locations
+            ->addSelect('partLots.id AS partLot_id')
+            ->addSelect('storelocations.id AS storageLocation_id')
+            ->addSelect('storelocations.name AS storageLocation_name')
+            ->addSelect('storelocations.full_path AS storageLocation_fullPath')
+
+            // Attachments
+            ->addSelect('attachments.id AS attachment_id')
+
+            // Projects
+            ->addSelect('projects.id AS project_id')
+            ->addSelect('projects.name AS project_name')
+
+            // Computed/aggregated amounts using subqueries
+            ->addSelect('(
+                SELECT COALESCE(SUM(pl_sum.amount), 0.0)
+                FROM ' . PartLot::class . ' pl_sum
+                WHERE pl_sum.part = part.id
+                AND pl_sum.instock_unknown = false
+                AND (pl_sum.expiration_date IS NULL OR pl_sum.expiration_date > CURRENT_DATE())
+            ) AS amountSum')
+            ->addSelect('(
+                SELECT COALESCE(SUM(pl_exp.amount), 0.0)
+                FROM ' . PartLot::class . ' pl_exp
+                WHERE pl_exp.part = part.id
+                AND pl_exp.instock_unknown = false
+                AND pl_exp.expiration_date IS NOT NULL
+                AND pl_exp.expiration_date <= CURRENT_DATE()
+            ) AS expiredAmountSum')
+            ->addSelect('(
+                SELECT CASE WHEN COUNT(pl_unk.id) > 0 THEN true ELSE false END
+                FROM ' . PartLot::class . ' pl_unk
+                WHERE pl_unk.part = part.id
+                AND pl_unk.instock_unknown = true
+            ) AS hasUnknownAmount')
+
             ->from(Part::class, 'part')
             ->leftJoin('part.category', 'category')
-            ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
-            ->leftJoin('part.partLots', 'partLots')
-            ->leftJoin('partLots.storage_location', 'storelocations')
             ->leftJoin('part.footprint', 'footprint')
             ->leftJoin('footprint.master_picture_attachment', 'footprint_attachment')
             ->leftJoin('part.manufacturer', 'manufacturer')
-            ->leftJoin('part.orderdetails', 'orderdetails')
-            ->leftJoin('orderdetails.supplier', 'suppliers')
-            ->leftJoin('part.attachments', 'attachments')
             ->leftJoin('part.partUnit', 'partUnit')
             ->leftJoin('part.partCustomState', 'partCustomState')
-            ->leftJoin('part.parameters', 'parameters')
+            ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
+            ->leftJoin('part.builtProject', 'builtProject')
+            ->leftJoin('part.partLots', 'partLots')
+            ->leftJoin('partLots.storage_location', 'storelocations')
+            ->leftJoin('part.attachments', 'attachments')
+            ->leftJoin('part.projects', 'projects')
             ->where('part.id IN (:ids)')
-            ->setParameter('ids', $ids)
-
-            //We have to group by all elements, or only the first sub elements of an association is fetched! (caused issue #190)
-            ->addGroupBy('part')
-            ->addGroupBy('partLots')
-            ->addGroupBy('category')
-            ->addGroupBy('master_picture_attachment')
-            ->addGroupBy('storelocations')
-            ->addGroupBy('footprint')
-            ->addGroupBy('footprint_attachment')
-            ->addGroupBy('manufacturer')
-            ->addGroupBy('orderdetails')
-            ->addGroupBy('suppliers')
-            ->addGroupBy('attachments')
-            ->addGroupBy('partUnit')
-            ->addGroupBy('partCustomState')
-            ->addGroupBy('parameters');
+            ->setParameter('ids', $ids);
 
         //Get the results in the same order as the IDs were passed
         FieldHelper::addOrderByFieldParam($builder, 'part.id', 'ids');

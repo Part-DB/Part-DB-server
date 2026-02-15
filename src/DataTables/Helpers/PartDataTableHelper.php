@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\DataTables\Helpers;
 
+use App\DataTables\DTO\PartDTO;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Attachments\Attachment;
@@ -31,6 +32,7 @@ use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -44,10 +46,11 @@ class PartDataTableHelper
         private readonly EntityURLGenerator $entityURLGenerator,
         private readonly TranslatorInterface $translator,
         private readonly AmountFormatter $amountFormatter,
+        private readonly EntityManagerInterface $entityManager,
     ) {
     }
 
-    public function renderName(Part $context): string
+    public function renderName($context): string
     {
         $icon = '';
 
@@ -60,22 +63,62 @@ class PartDataTableHelper
             $icon = sprintf('<i class="fa-solid fa-ambulance fa-fw me-1" title="%s"></i>',
                 $this->translator->trans('part.needs_review.badge'));
         }
-        if ($context->getBuiltProject() instanceof Project) {
+        if ($context->getBuiltProject() !== null) {
             $icon = sprintf('<i class="fa-solid fa-box-archive fa-fw me-1" title="%s"></i>',
                 $this->translator->trans('part.info.projectBuildPart.hint').': '.$context->getBuiltProject()->getName());
         }
 
+        // For DTO, create a Part proxy for URL generation
+        $partForUrl = $context;
+        if ($context instanceof PartDTO) {
+            $partForUrl = $this->entityManager->getReference(Part::class, $context->getId());
+        }
 
         return sprintf(
             '<a href="%s">%s%s</a>',
-            $this->entityURLGenerator->infoURL($context),
+            $this->entityURLGenerator->infoURL($partForUrl),
             $icon,
             htmlspecialchars($context->getName())
         );
     }
 
-    public function renderPicture(Part $context): string
+    public function renderPicture($context): string
     {
+        // For DTO, we already have the attachment info, so we can create a lightweight attachment object
+        if ($context instanceof PartDTO) {
+            $preview_attachment = null;
+            
+            // First check if part has a master picture attachment
+            if ($context->master_picture_attachment_id !== null) {
+                $preview_attachment = $this->entityManager->getReference(Attachment::class, $context->master_picture_attachment_id);
+            }
+            // Otherwise check if footprint has a master picture attachment  
+            elseif ($context->footprint_attachment_id !== null) {
+                $preview_attachment = $this->entityManager->getReference(Attachment::class, $context->footprint_attachment_id);
+            }
+            
+            if (!$preview_attachment instanceof Attachment) {
+                return '';
+            }
+            
+            // For DTO we have the name and filename pre-loaded, but we need to access them from the full attachment
+            // Since we're using getReference, we'll get a proxy that will load data on access
+            $title = htmlspecialchars($context->master_picture_attachment_name ?? '');
+            if ($context->master_picture_attachment_filename) {
+                $title .= ' ('.htmlspecialchars($context->master_picture_attachment_filename).')';
+            }
+
+            return sprintf(
+                '<img alt="%s" src="%s" data-thumbnail="%s" class="%s" data-title="%s" data-controller="elements--hoverpic">',
+                'Part image',
+                $this->attachmentURLGenerator->getThumbnailURL($preview_attachment),
+                $this->attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_md'),
+                'hoverpic part-table-image',
+                $title
+            );
+        }
+        
+        // Original behavior for Part entities
         $preview_attachment = $this->previewGenerator->getTablePreviewAttachment($context);
         if (!$preview_attachment instanceof Attachment) {
             return '';
@@ -96,26 +139,40 @@ class PartDataTableHelper
         );
     }
 
-    public function renderStorageLocations(Part $context): string
+    public function renderStorageLocations($context): string
     {
         $tmp = [];
+        
+        // For DTO, part lots are already PartLotDTO objects
         foreach ($context->getPartLots() as $lot) {
             //Ignore lots without storelocation
-            if (!$lot->getStorageLocation() instanceof StorageLocation) {
+            $storageLocation = $lot->getStorageLocation();
+            if ($storageLocation === null) {
                 continue;
             }
+            
+            // For DTO, we need to create a StorageLocation reference for URL generation
+            $storageLocationForUrl = $storageLocation;
+            if (!($storageLocation instanceof StorageLocation)) {
+                // The lot DTO returns a simple object, we need a proper reference
+                $storageLocationForUrl = $this->entityManager->getReference(
+                    StorageLocation::class,
+                    $storageLocation->getId()
+                );
+            }
+            
             $tmp[] = sprintf(
                 '<a href="%s" title="%s">%s</a>',
-                $this->entityURLGenerator->listPartsURL($lot->getStorageLocation()),
-                htmlspecialchars($lot->getStorageLocation()->getFullPath()),
-                htmlspecialchars($lot->getStorageLocation()->getName())
+                $this->entityURLGenerator->listPartsURL($storageLocationForUrl),
+                htmlspecialchars($storageLocation->getFullPath() ?? ''),
+                htmlspecialchars($storageLocation->getName() ?? '')
             );
         }
 
         return implode('<br>', $tmp);
     }
 
-    public function renderAmount(Part $context): string
+    public function renderAmount($context): string
     {
         $amount = $context->getAmountSum();
         $expiredAmount = $context->getExpiredAmountSum();
