@@ -36,9 +36,11 @@ COPY webpack.config.js ./
 RUN composer dump-autoload
 
 # Create stub translations file for webpack build (real translations will be generated in final image)
-RUN mkdir -p var/translations && \
-    echo 'export const messages = {};' > var/translations/index.js && \
-    echo 'export const localeFallbacks = {};' >> var/translations/index.js
+RUN mkdir -p var/translations
+COPY <<EOF var/translations/index.js
+export const messages = {};
+export const localeFallbacks = {};
+EOF
 
 # Copy package files and install node dependencies
 COPY package.json yarn.lock ./
