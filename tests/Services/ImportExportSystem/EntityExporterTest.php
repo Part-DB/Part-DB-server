@@ -43,9 +43,9 @@ final class EntityExporterTest extends WebTestCase
 
     private function getEntities(): array
     {
-        $entity1 = (new Category())->setName('Enitity 1')->setComment('Test');
-        $entity1_1 = (new Category())->setName('Enitity 1.1')->setParent($entity1);
-        $entity2 = (new Category())->setName('Enitity 2');
+        $entity1 = (new Category())->setName('Entity%1')->setComment('Test');
+        $entity1_1 = (new Category())->setName('Entity 1.1')->setParent($entity1);
+        $entity2 = (new Category())->setName('Entity 2');
 
         return [$entity1, $entity1_1, $entity2];
     }
@@ -55,12 +55,12 @@ final class EntityExporterTest extends WebTestCase
         $entities = $this->getEntities();
 
         $json_without_children = $this->service->exportEntities($entities, ['format' => 'json', 'level' => 'simple']);
-        $this->assertJsonStringEqualsJsonString('[{"name":"Enitity 1","type":"category","full_name":"Enitity 1"},{"name":"Enitity 1.1","type":"category","full_name":"Enitity 1->Enitity 1.1"},{"name":"Enitity 2","type":"category","full_name":"Enitity 2"}]',
+        $this->assertJsonStringEqualsJsonString('[{"name":"Entity%1","type":"category","full_name":"Entity%1"},{"name":"Entity 1.1","type":"category","full_name":"Entity%1->Entity 1.1"},{"name":"Entity 2","type":"category","full_name":"Entity 2"}]',
             $json_without_children);
 
         $json_with_children = $this->service->exportEntities($entities,
             ['format' => 'json', 'level' => 'simple', 'include_children' => true]);
-        $this->assertJsonStringEqualsJsonString('[{"children":[{"children":[],"name":"Enitity 1.1","type":"category","full_name":"Enitity 1->Enitity 1.1"}],"name":"Enitity 1","type":"category","full_name":"Enitity 1"},{"children":[],"name":"Enitity 1.1","type":"category","full_name":"Enitity 1->Enitity 1.1"},{"children":[],"name":"Enitity 2","type":"category","full_name":"Enitity 2"}]',
+        $this->assertJsonStringEqualsJsonString('[{"children":[{"children":[],"name":"Entity 1.1","type":"category","full_name":"Entity%1->Entity 1.1"}],"name":"Entity%1","type":"category","full_name":"Entity%1"},{"children":[],"name":"Entity 1.1","type":"category","full_name":"Entity%1->Entity 1.1"},{"children":[],"name":"Entity 2","type":"category","full_name":"Entity 2"}]',
             $json_with_children);
     }
 
@@ -95,8 +95,8 @@ final class EntityExporterTest extends WebTestCase
         $this->assertSame('name', $worksheet->getCell('A1')->getValue());
         $this->assertSame('full_name', $worksheet->getCell('B1')->getValue());
         
-        $this->assertSame('Enitity 1', $worksheet->getCell('A2')->getValue());
-        $this->assertSame('Enitity 1', $worksheet->getCell('B2')->getValue());
+        $this->assertSame('Entity%1', $worksheet->getCell('A2')->getValue());
+        $this->assertSame('Entity%1', $worksheet->getCell('B2')->getValue());
         
         unlink($tempFile);
     }

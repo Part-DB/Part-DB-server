@@ -266,11 +266,14 @@ class EntityExporter
             //Sanitize the filename
             $filename = FilenameSanatizer::sanitizeFilename($filename);
 
+            //Remove percent for fallback
+            $fallback = str_replace("%", "_", $filename);
+            
             // Create the disposition of the file
             $disposition = $response->headers->makeDisposition(
                 ResponseHeaderBag::DISPOSITION_ATTACHMENT,
                 $filename,
-                u($filename)->ascii()->toString(),
+                $fallback,
             );
             // Set the content disposition
             $response->headers->set('Content-Disposition', $disposition);
