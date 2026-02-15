@@ -334,6 +334,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addSelect('orderdetails')
             ->addSelect('attachments')
             ->addSelect('storelocations')
+            ->addSelect('projectBomEntries')
             ->from(Part::class, 'part')
             ->leftJoin('part.category', 'category')
             ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
@@ -348,6 +349,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('part.partUnit', 'partUnit')
             ->leftJoin('part.partCustomState', 'partCustomState')
             ->leftJoin('part.parameters', 'parameters')
+            ->leftJoin('part.project_bom_entries', 'projectBomEntries')
             ->where('part.id IN (:ids)')
             ->setParameter('ids', $ids)
 
@@ -366,8 +368,10 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addGroupBy('partUnit')
             ->addGroupBy('partCustomState')
             ->addGroupBy('parameters')
+            ->addGroupBy('projectBomEntries')
 
             ->setHint(Query::HINT_READ_ONLY, true)
+            ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, false)
         ;
 
         //Get the results in the same order as the IDs were passed
