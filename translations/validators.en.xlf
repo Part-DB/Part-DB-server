@@ -248,7 +248,7 @@
       </segment>
     </unit>
     <unit id="zT_j_oQ" name="validator.invalid_gtin">
-      <segment>
+      <segment state="translated">
         <source>validator.invalid_gtin</source>
         <target>This is not an valid GTIN / EAN!</target>
       </segment>

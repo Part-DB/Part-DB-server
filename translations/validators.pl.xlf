@@ -148,7 +148,7 @@
     <unit id="asBxPxe" name="project.bom_has_to_include_all_subelement_parts">
       <segment state="translated">
         <source>project.bom_has_to_include_all_subelement_parts</source>
-        <target>BOM projektu musi zawierać wszystkie komponenty produkcyjne podprojektów. Brakuje komponentu %part_name% projektu %project_name%!</target>
+        <target>BOM projektu musi zawierać wszystkie komponenty produkcyjne pod projektów</target>
       </segment>
     </unit>
     <unit id="uxaE9Ct" name="project.bom_entry.price_not_allowed_on_parts">
@@ -223,6 +223,12 @@
         <target>Ze względu na ograniczenia techniczne nie jest możliwe wybranie daty po 19 stycznia 2038 w systemach 32-bitowych!</target>
       </segment>
     </unit>
+    <unit id="iM9yb_p" name="validator.fileSize.invalidFormat">
+      <segment state="translated">
+        <source>validator.fileSize.invalidFormat</source>
+        <target>Niewłaściwy format</target>
+      </segment>
+    </unit>
     <unit id="ZFxQ0BZ" name="validator.invalid_range">
       <segment state="translated">
         <source>validator.invalid_range</source>
@@ -233,6 +239,12 @@
       <segment state="translated">
         <source>validator.google_code.wrong_code</source>
         <target>Nieprawidłowy kod. Sprawdź, czy aplikacja uwierzytelniająca jest poprawnie skonfigurowana i czy zarówno serwer, jak i urządzenie uwierzytelniające mają poprawnie ustawiony czas.</target>
+      </segment>
+    </unit>
+    <unit id="I330cr5" name="settings.synonyms.type_synonyms.collection_type.duplicate">
+      <segment state="translated">
+        <source>settings.synonyms.type_synonyms.collection_type.duplicate</source>
+        <target>Duplikuj</target>
       </segment>
     </unit>
   </file>
