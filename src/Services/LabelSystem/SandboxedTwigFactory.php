@@ -86,11 +86,11 @@ use Twig\Sandbox\SecurityPolicyInterface;
  */
 final class SandboxedTwigFactory
 {
-    private const ALLOWED_TAGS = ['apply', 'autoescape', 'do', 'for', 'if', 'set', 'verbatim', 'with'];
+    private const ALLOWED_TAGS = ['apply', 'autoescape', 'do', 'for', 'if', 'set', 'types', 'verbatim', 'with'];
     private const ALLOWED_FILTERS = ['abs', 'batch', 'capitalize', 'column', 'country_name',
-        'currency_name', 'currency_symbol', 'date', 'date_modify', 'data_uri', 'default', 'escape', 'filter', 'first', 'format',
+        'currency_name', 'currency_symbol', 'date', 'date_modify', 'data_uri', 'default', 'escape', 'filter', 'find', 'first', 'format',
         'format_currency', 'format_date', 'format_datetime', 'format_number', 'format_time', 'html_to_markdown', 'join', 'keys',
-        'language_name', 'last', 'length', 'locale_name', 'lower', 'map', 'markdown_to_html', 'merge', 'nl2br', 'raw', 'number_format',
+        'language_name', 'last', 'length', 'locale_name', 'lower', 'map', 'markdown_to_html', 'merge', 'nl2br', 'number_format',  'raw',
         'reduce', 'replace', 'reverse', 'round', 'slice', 'slug', 'sort', 'spaceless', 'split', 'striptags', 'timezone_name', 'title',
         'trim', 'u', 'upper', 'url_encode',
 
@@ -104,12 +104,12 @@ final class SandboxedTwigFactory
         ];
 
     private const ALLOWED_FUNCTIONS = ['country_names', 'country_timezones', 'currency_names', 'cycle',
-        'date', 'html_classes', 'language_names', 'locale_names', 'max', 'min', 'random', 'range', 'script_names',
-        'template_from_string', 'timezone_names',
+        'date', 'enum', 'enum_cases', 'html_classes', 'language_names', 'locale_names', 'max', 'min', 'random', 'range', 'script_names',
+        'timezone_names',
 
         //Part-DB specific extensions:
         //EntityExtension:
-        'entity_type', 'entity_url',
+        'entity_type', 'entity_url', 'type_label', 'type_label_plural',
         //BarcodeExtension:
         'barcode_svg',
         //SandboxedLabelExtension
@@ -131,7 +131,7 @@ final class SandboxedTwigFactory
             'getValueTypical', 'getUnit', 'getValueText', ],
         MeasurementUnit::class => ['getUnit', 'isInteger', 'useSIPrefix'],
         PartLot::class => ['isExpired', 'getDescription', 'getComment', 'getExpirationDate', 'getStorageLocation',
-            'getPart', 'isInstockUnknown', 'getAmount', 'getNeedsRefill', 'getVendorBarcode'],
+            'getPart', 'isInstockUnknown', 'getAmount', 'getOwner', 'getLastStocktakeAt', 'getNeedsRefill', 'getVendorBarcode'],
         StorageLocation::class => ['isFull', 'isOnlySinglePart', 'isLimitToExistingParts', 'getStorageType'],
         Supplier::class => ['getShippingCosts', 'getDefaultCurrency'],
         Part::class => ['isNeedsReview', 'getTags', 'getMass', 'getIpn', 'getProviderReference',
@@ -142,13 +142,13 @@ final class SandboxedTwigFactory
             'getParameters', 'getGroupedParameters',
             'isProjectBuildPart', 'getBuiltProject',
             'getAssociatedPartsAsOwner', 'getAssociatedPartsAsOther', 'getAssociatedPartsAll',
-            'getEdaInfo'
+            'getEdaInfo', 'getGtin'
             ],
         Currency::class => ['getIsoCode', 'getInverseExchangeRate', 'getExchangeRate'],
         Orderdetail::class => ['getPart', 'getSupplier', 'getSupplierPartNr', 'getObsolete',
-            'getPricedetails', 'findPriceForQty', 'isObsolete', 'getSupplierProductUrl'],
+            'getPricedetails', 'findPriceForQty', 'isObsolete', 'getSupplierProductUrl', 'getPricesIncludesVAT'],
         Pricedetail::class => ['getOrderdetail', 'getPrice', 'getPricePerUnit', 'getPriceRelatedQuantity',
-            'getMinDiscountQuantity', 'getCurrency', 'getCurrencyISOCode'],
+            'getMinDiscountQuantity', 'getCurrency', 'getCurrencyISOCode', 'getIncludesVat'],
         InfoProviderReference:: class => ['getProviderKey', 'getProviderId', 'getProviderUrl', 'getLastUpdated', 'isProviderCreated'],
         PartAssociation::class => ['getType', 'getComment', 'getOwner', 'getOther', 'getOtherType'],
 
