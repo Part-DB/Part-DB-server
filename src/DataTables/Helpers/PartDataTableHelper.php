@@ -69,10 +69,9 @@ class PartDataTableHelper
         }
 
         // For DTO, create a Part proxy for URL generation
-        $partForUrl = $context;
-        if ($context instanceof PartDTO) {
-            $partForUrl = $this->entityManager->getReference(Part::class, $context->getId());
-        }
+        $partForUrl = $context instanceof PartDTO 
+            ? $this->entityManager->getReference(Part::class, $context->getId())
+            : $context;
 
         return sprintf(
             '<a href="%s">%s%s</a>',
