@@ -135,8 +135,8 @@ VOLUME ["/var/www/html/uploads", "/var/www/html/public/media"]
 HEALTHCHECK --start-period=60s CMD curl -f http://localhost:2019/metrics || exit 1
 
 # See https://caddyserver.com/docs/conventions#file-locations for details
-ENV XDG_CONFIG_HOME /config
-ENV XDG_DATA_HOME /data
+ENV XDG_CONFIG_HOME=/config
+ENV XDG_DATA_HOME=/data
 
 EXPOSE 80
 EXPOSE 443
