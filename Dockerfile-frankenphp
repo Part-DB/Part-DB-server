@@ -33,12 +33,15 @@ COPY webpack.config.js ./
 # Generate autoloader
 RUN composer dump-autoload
 
-# Create stub translations file for webpack build (real translations will be generated in final image)
-RUN mkdir -p var/translations
-COPY <<EOF var/translations/index.js
-export const messages = {};
-export const localeFallbacks = {};
-EOF
+# Create required directories for cache warmup
+RUN mkdir -p var/cache var/log uploads public/media
+
+# Generate real translations via cache warmup (needed for webpack build)
+RUN echo "yes" | php bin/console cache:warmup --env=prod || \
+    (echo "Warning: Cache warmup failed, but continuing..." && \
+     mkdir -p var/translations && \
+     echo 'export const messages = {};' > var/translations/index.js && \
+     echo 'export const localeFallbacks = {};' >> var/translations/index.js)
 
 # Copy package files and install node dependencies
 COPY package.json yarn.lock ./
