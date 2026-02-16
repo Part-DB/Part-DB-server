@@ -666,7 +666,7 @@ final class BOMImporterTest extends WebTestCase
             'Quantity' => 'Quantity'
         ];
 
-        $bom_entries = $this->service->stringToBOMEntries($input, [
+        $bom_entries = $this->service->stringToBOMEntries($lcscSupplier, $input, [
             'type' => 'kicad_schematic',
             'field_mapping' => $field_mapping,
             'delimiter' => ','
@@ -741,7 +741,7 @@ final class BOMImporterTest extends WebTestCase
             'Quantity' => 'Quantity'
         ];
 
-        $bom_entries = $this->service->stringToBOMEntries($input, [
+        $bom_entries = $this->service->stringToBOMEntries($lcscSupplier,$input, [
             'type' => 'kicad_schematic',
             'field_mapping' => $field_mapping,
             'delimiter' => ','
