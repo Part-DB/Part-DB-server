@@ -133,8 +133,8 @@ jobs:
             jbtronics/part-db1
           tags: |
             type=edge,branch=master
-            type=ref,event=branch,
-            type=ref,event=tag,
+            type=ref,event=branch
+            type=ref,event=tag
             type=schedule
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
