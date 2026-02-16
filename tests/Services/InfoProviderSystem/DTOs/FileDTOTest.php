@@ -26,7 +26,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use PHPUnit\Framework\TestCase;
 
-class FileDTOTest extends TestCase
+final class FileDTOTest extends TestCase
 {
 
 

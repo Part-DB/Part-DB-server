@@ -53,7 +53,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 #[Group('DB')]
-class PartProviderTest extends WebTestCase
+final class PartProviderTest extends WebTestCase
 {
     /**
      * @var PartProvider
@@ -62,20 +62,15 @@ class PartProviderTest extends WebTestCase
 
     protected Part $target;
 
-    /**
-     * @var EntityManager
-     */
-    protected $em;
-
     protected function setUp(): void
     {
         self::bootKernel();
         $this->service = self::getContainer()->get(PartProvider::class);
         $this->target = new Part();
-        $this->em = self::getContainer()->get(EntityManagerInterface::class);
+        $em = self::getContainer()->get(EntityManagerInterface::class);
 
-        $this->target->setCategory($this->em->find(Category::class, 6));
-        $this->target->setFootprint($this->em->find(Footprint::class, 6));
+        $this->target->setCategory($em->find(Category::class, 6));
+        $this->target->setFootprint($em->find(Footprint::class, 6));
         $this->target->setManufacturer(null);
 
         $this->target->setMass(1234.2);

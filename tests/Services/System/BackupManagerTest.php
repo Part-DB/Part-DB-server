@@ -25,7 +25,7 @@ namespace App\Tests\Services\System;
 use App\Services\System\BackupManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class BackupManagerTest extends KernelTestCase
+final class BackupManagerTest extends KernelTestCase
 {
     private ?BackupManager $backupManager = null;
 
@@ -77,9 +77,9 @@ class BackupManagerTest extends KernelTestCase
 
         $result = preg_match('/pre-update-v([\d.]+)-to-v?([\d.]+)-/', $filename, $matches);
 
-        $this->assertEquals(1, $result);
-        $this->assertEquals('2.5.1', $matches[1]);
-        $this->assertEquals('2.6.0', $matches[2]);
+        $this->assertSame(1, $result);
+        $this->assertSame('2.5.1', $matches[1]);
+        $this->assertSame('2.6.0', $matches[2]);
     }
 
     /**
@@ -90,13 +90,13 @@ class BackupManagerTest extends KernelTestCase
         // Without 'v' prefix on target version
         $filename1 = 'pre-update-v1.0.0-to-2.0.0-2024-01-30-185400.zip';
         preg_match('/pre-update-v([\d.]+)-to-v?([\d.]+)-/', $filename1, $matches1);
-        $this->assertEquals('1.0.0', $matches1[1]);
-        $this->assertEquals('2.0.0', $matches1[2]);
+        $this->assertSame('1.0.0', $matches1[1]);
+        $this->assertSame('2.0.0', $matches1[2]);
 
         // With 'v' prefix on target version
         $filename2 = 'pre-update-v1.0.0-to-v2.0.0-2024-01-30-185400.zip';
         preg_match('/pre-update-v([\d.]+)-to-v?([\d.]+)-/', $filename2, $matches2);
-        $this->assertEquals('1.0.0', $matches2[1]);
-        $this->assertEquals('2.0.0', $matches2[2]);
+        $this->assertSame('1.0.0', $matches2[1]);
+        $this->assertSame('2.0.0', $matches2[2]);
     }
 }

@@ -32,7 +32,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 #[Group('DB')]
 #[Group('slow')]
-class ApplicationAvailabilityFunctionalTest extends WebTestCase
+final class ApplicationAvailabilityFunctionalTest extends WebTestCase
 {
     #[DataProvider('urlProvider')]
     public function testPageIsSuccessful(string $url): void

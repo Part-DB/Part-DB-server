@@ -39,7 +39,9 @@ readonly class PriceDTO
         public string $price,
         /** @var string The currency of the used ISO code of this price detail */
         public ?string $currency_iso_code,
-        /** @var bool If the price includes tax */
+        /** @var bool If the price includes tax
+         * @deprecated Use the prices_include_vat property of the PurchaseInfoDTO instead, as this property is not reliable if there are multiple prices with different values for includes_tax
+         */
         public ?bool $includes_tax = true,
         /** @var float the price related quantity */
         public ?float $price_related_quantity = 1.0,

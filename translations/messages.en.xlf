@@ -12401,5 +12401,113 @@ Buerklin-API Authentication server:
         <target>Update to</target>
       </segment>
     </unit>
+    <unit id="XPhnMxn" name="part.gtin">
+      <segment state="translated">
+        <source>part.gtin</source>
+        <target>GTIN / EAN</target>
+      </segment>
+    </unit>
+    <unit id="TyykD7B" name="info_providers.capabilities.gtin">
+      <segment state="translated">
+        <source>info_providers.capabilities.gtin</source>
+        <target>GTIN / EAN</target>
+      </segment>
+    </unit>
+    <unit id="JBGly8p" name="part.table.gtin">
+      <segment state="translated">
+        <source>part.table.gtin</source>
+        <target>GTIN</target>
+      </segment>
+    </unit>
+    <unit id="0qHQof." name="scan_dialog.mode.gtin">
+      <segment state="translated">
+        <source>scan_dialog.mode.gtin</source>
+        <target>GTIN / EAN barcode</target>
+      </segment>
+    </unit>
+    <unit id="cmchX59" name="attachment_type.edit.allowed_targets">
+      <segment state="translated">
+        <source>attachment_type.edit.allowed_targets</source>
+        <target>Use only for</target>
+      </segment>
+    </unit>
+    <unit id="t5R8p1l" name="attachment_type.edit.allowed_targets.help">
+      <segment state="translated">
+        <source>attachment_type.edit.allowed_targets.help</source>
+        <target>Make this attachment type only available for certain element classes. Leave empty to show this attachment type for all element classes.</target>
+      </segment>
+    </unit>
+    <unit id="LvlEUjC" name="orderdetails.edit.prices_includes_vat">
+      <segment state="translated">
+        <source>orderdetails.edit.prices_includes_vat</source>
+        <target>Prices include VAT</target>
+      </segment>
+    </unit>
+    <unit id="GUsVh5T" name="prices.incl_vat">
+      <segment state="translated">
+        <source>prices.incl_vat</source>
+        <target>Incl. VAT</target>
+      </segment>
+    </unit>
+    <unit id="3ipwaVQ" name="prices.excl_vat">
+      <segment state="translated">
+        <source>prices.excl_vat</source>
+        <target>Excl. VAT</target>
+      </segment>
+    </unit>
+    <unit id="WDJ7EeF" name="settings.system.localization.prices_include_tax_by_default">
+      <segment state="translated">
+        <source>settings.system.localization.prices_include_tax_by_default</source>
+        <target>Prices include VAT by default</target>
+      </segment>
+    </unit>
+    <unit id="01oGY_r" name="settings.system.localization.prices_include_tax_by_default.description">
+      <segment state="translated">
+        <source>settings.system.localization.prices_include_tax_by_default.description</source>
+        <target>The default value for newly created purchase infos, if prices include VAT or not.</target>
+      </segment>
+    </unit>
+    <unit id="heWSnAH" name="part_lot.edit.last_stocktake_at">
+      <segment state="translated">
+        <source>part_lot.edit.last_stocktake_at</source>
+        <target>Last stocktake</target>
+      </segment>
+    </unit>
+    <unit id=".LP93kG" name="perm.parts_stock.stocktake">
+      <segment state="translated">
+        <source>perm.parts_stock.stocktake</source>
+        <target>Stocktake</target>
+      </segment>
+    </unit>
+    <unit id="Vnhrb5R" name="part.info.stocktake_modal.title">
+      <segment state="translated">
+        <source>part.info.stocktake_modal.title</source>
+        <target>Stocktake lot</target>
+      </segment>
+    </unit>
+    <unit id="WqOG7RK" name="part.info.stocktake_modal.expected_amount">
+      <segment state="translated">
+        <source>part.info.stocktake_modal.expected_amount</source>
+        <target>Expected amount</target>
+      </segment>
+    </unit>
+    <unit id="E7IbVN6" name="part.info.stocktake_modal.actual_amount">
+      <segment state="translated">
+        <source>part.info.stocktake_modal.actual_amount</source>
+        <target>Actual amount</target>
+      </segment>
+    </unit>
+    <unit id="4GwSma7" name="log.part_stock_changed.stock_take">
+      <segment state="translated">
+        <source>log.part_stock_changed.stock_take</source>
+        <target>Stocktake</target>
+      </segment>
+    </unit>
+    <unit id="aRQPMW7" name="log.element_edited.changed_fields.last_stocktake_at">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.last_stocktake_at</source>
+        <target>Last stocktake</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

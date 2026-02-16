@@ -22,7 +22,11 @@ declare(strict_types=1);
  */
 namespace App\Twig;
 
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Twig\Attribute\AsTwigFilter;
+use Twig\Attribute\AsTwigFunction;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Twig\Attribute\AsTwigTest;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -32,58 +36,54 @@ use Twig\TwigTest;
  * The functionalities here extend the Twig with some core functions, which are independently of Part-DB.
  * @see \App\Tests\Twig\TwigCoreExtensionTest
  */
-final class TwigCoreExtension extends AbstractExtension
+final readonly class TwigCoreExtension
 {
-    private readonly ObjectNormalizer $objectNormalizer;
+    private NormalizerInterface $objectNormalizer;
 
     public function __construct()
     {
         $this->objectNormalizer = new ObjectNormalizer();
     }
 
-    public function getFunctions(): array
+    /**
+     * Checks if the given variable is an instance of the given class/interface/enum. E.g. `x is instanceof('App\Entity\Parts\Part')`
+     * @param  mixed  $var
+     * @param  string  $instance
+     * @return bool
+     */
+    #[AsTwigTest("instanceof")]
+    public function testInstanceOf(mixed $var, string $instance): bool
     {
-        return [
-            /* Returns the enum cases as values */
-            new TwigFunction('enum_cases', $this->getEnumCases(...)),
-        ];
-    }
+        if (!class_exists($instance) && !interface_exists($instance) && !enum_exists($instance)) {
+            throw new \InvalidArgumentException(sprintf('The given class/interface/enum "%s" does not exist!', $instance));
+        }
 
-    public function getTests(): array
-    {
-        return [
-            /*
-             * Checks if a given variable is an instance of a given class. E.g. ` x is instanceof('App\Entity\Parts\Part')`
-             */
-            new TwigTest('instanceof', static fn($var, $instance) => $var instanceof $instance),
-            /* Checks if a given variable is an object. E.g. `x is object` */
-            new TwigTest('object', static fn($var): bool => is_object($var)),
-            new TwigTest('enum', fn($var) => $var instanceof \UnitEnum),
-        ];
+        return $var instanceof $instance;
     }
 
     /**
-     * @param  string  $enum_class
-     * @phpstan-param class-string $enum_class
+     * Checks if the given variable is an object. This can be used to check if a variable is an object, without knowing the exact class of the object. E.g. `x is object`
+     * @param  mixed  $var
+     * @return bool
      */
-    public function getEnumCases(string $enum_class): array
+    #[AsTwigTest("object")]
+    public function testObject(mixed $var): bool
     {
-        if (!enum_exists($enum_class)) {
-            throw new \InvalidArgumentException(sprintf('The given class "%s" is not an enum!', $enum_class));
-        }
-
-        /** @noinspection PhpUndefinedMethodInspection */
-        return ($enum_class)::cases();
+        return is_object($var);
     }
 
-    public function getFilters(): array
+    /**
+     * Checks if the given variable is an enum (instance of UnitEnum). This can be used to check if a variable is an enum, without knowing the exact class of the enum. E.g. `x is enum`
+     * @param  mixed  $var
+     * @return bool
+     */
+    #[AsTwigTest("enum")]
+    public function testEnum(mixed $var): bool
     {
-        return [
-            /* Converts the given object to an array representation of the public/accessible properties  */
-            new TwigFilter('to_array', fn($object) => $this->toArray($object)),
-        ];
+        return $var instanceof \UnitEnum;
     }
 
+    #[AsTwigFilter('to_array')]
     public function toArray(object|array $object): array
     {
         //If it is already an array, we can just return it

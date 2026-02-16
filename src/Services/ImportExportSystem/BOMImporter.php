@@ -22,6 +22,8 @@ declare(strict_types=1);
  */
 namespace App\Services\ImportExportSystem;
 
+use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
@@ -275,7 +277,7 @@ class BOMImporter
         $mapped_entries = []; // Collect all mapped entries for validation
 
         // Fetch suppliers once for efficiency
-        $suppliers = $this->entityManager->getRepository(\App\Entity\Parts\Supplier::class)->findAll();
+        $suppliers = $this->entityManager->getRepository(Supplier::class)->findAll();
         $supplierSPNKeys = [];
         $suppliersByName = []; // Map supplier names to supplier objects
         foreach ($suppliers as $supplier) {
@@ -371,7 +373,7 @@ class BOMImporter
 
                     if ($supplier_spn !== null) {
                         // Query for orderdetails with matching supplier and SPN
-                        $orderdetail = $this->entityManager->getRepository(\App\Entity\PriceInformations\Orderdetail::class)
+                        $orderdetail = $this->entityManager->getRepository(Orderdetail::class)
                             ->findOneBy([
                                 'supplier' => $supplier,
                                 'supplierpartnr' => $supplier_spn,
@@ -535,7 +537,7 @@ class BOMImporter
         ];
 
         // Add dynamic supplier fields based on available suppliers in the database
-        $suppliers = $this->entityManager->getRepository(\App\Entity\Parts\Supplier::class)->findAll();
+        $suppliers = $this->entityManager->getRepository(Supplier::class)->findAll();
         foreach ($suppliers as $supplier) {
             $supplierName = $supplier->getName();
             $targets[$supplierName . ' SPN'] = [
@@ -570,7 +572,7 @@ class BOMImporter
         ];
 
         // Add supplier-specific patterns
-        $suppliers = $this->entityManager->getRepository(\App\Entity\Parts\Supplier::class)->findAll();
+        $suppliers = $this->entityManager->getRepository(Supplier::class)->findAll();
         foreach ($suppliers as $supplier) {
             $supplierName = $supplier->getName();
             $supplierLower = strtolower($supplierName);

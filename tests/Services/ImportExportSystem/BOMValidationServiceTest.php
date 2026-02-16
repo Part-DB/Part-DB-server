@@ -32,18 +32,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @see \App\Services\ImportExportSystem\BOMValidationService
  */
-class BOMValidationServiceTest extends WebTestCase
+final class BOMValidationServiceTest extends WebTestCase
 {
     private BOMValidationService $validationService;
-    private EntityManagerInterface $entityManager;
-    private TranslatorInterface $translator;
 
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->entityManager = self::getContainer()->get(EntityManagerInterface::class);
-        $this->translator = self::getContainer()->get(TranslatorInterface::class);
-        $this->validationService = new BOMValidationService($this->entityManager, $this->translator);
+        $entityManager = self::getContainer()->get(EntityManagerInterface::class);
+        $translator = self::getContainer()->get(TranslatorInterface::class);
+        $this->validationService = new BOMValidationService($entityManager, $translator);
     }
 
     public function testValidateBOMEntryWithValidData(): void
@@ -244,7 +242,7 @@ class BOMValidationServiceTest extends WebTestCase
 
         $this->assertTrue($result['is_valid']);
         $this->assertCount(1, $result['info']);
-        $this->assertStringContainsString('library prefix', $result['info'][0]);
+        $this->assertStringContainsString('library prefix', (string) $result['info'][0]);
     }
 
     public function testValidateBOMEntriesWithMultipleEntries(): void
@@ -314,7 +312,7 @@ class BOMValidationServiceTest extends WebTestCase
         $this->assertEquals(2, $stats['error_count']);
         $this->assertEquals(1, $stats['warning_count']);
         $this->assertEquals(2, $stats['info_count']);
-        $this->assertEquals(80.0, $stats['success_rate']);
+        $this->assertEqualsWithDelta(80.0, $stats['success_rate'], PHP_FLOAT_EPSILON);
     }
 
     public function testGetErrorMessage(): void
@@ -344,6 +342,6 @@ class BOMValidationServiceTest extends WebTestCase
 
         $message = $this->validationService->getErrorMessage($validation_result);
 
-        $this->assertEquals('', $message);
+        $this->assertSame('', $message);
     }
 }

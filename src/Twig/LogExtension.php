@@ -25,21 +25,26 @@ namespace App\Twig;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Services\LogSystem\LogDataFormatter;
 use App\Services\LogSystem\LogDiffFormatter;
+use Twig\Attribute\AsTwigFunction;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-final class LogExtension extends AbstractExtension
+final readonly class LogExtension
 {
 
-    public function __construct(private readonly LogDataFormatter $logDataFormatter, private readonly LogDiffFormatter $logDiffFormatter)
+    public function __construct(private LogDataFormatter $logDataFormatter, private LogDiffFormatter $logDiffFormatter)
     {
     }
 
-    public function getFunctions(): array
+    #[AsTwigFunction(name: 'format_log_data', isSafe: ['html'])]
+    public function formatLogData(mixed $data, AbstractLogEntry $logEntry, string $fieldName): string
     {
-        return [
-            new TwigFunction('format_log_data', fn($data, AbstractLogEntry $logEntry, string $fieldName): string => $this->logDataFormatter->formatData($data, $logEntry, $fieldName), ['is_safe' => ['html']]),
-            new TwigFunction('format_log_diff', fn($old_data, $new_data): string => $this->logDiffFormatter->formatDiff($old_data, $new_data), ['is_safe' => ['html']]),
-        ];
+        return $this->logDataFormatter->formatData($data, $logEntry, $fieldName);
+    }
+
+    #[AsTwigFunction(name: 'format_log_diff', isSafe: ['html'])]
+    public function formatLogDiff(mixed $old_data, mixed $new_data): string
+    {
+        return $this->logDiffFormatter->formatDiff($old_data, $new_data);
     }
 }

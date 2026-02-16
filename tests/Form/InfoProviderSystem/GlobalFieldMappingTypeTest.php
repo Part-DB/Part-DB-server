@@ -29,7 +29,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 
 #[Group("slow")]
 #[Group("DB")]
-class GlobalFieldMappingTypeTest extends KernelTestCase
+final class GlobalFieldMappingTypeTest extends KernelTestCase
 {
     private FormFactoryInterface $formFactory;
 

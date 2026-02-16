@@ -30,7 +30,7 @@ use App\Entity\Parts\Category;
 use App\Entity\UserSystem\User;
 use PHPUnit\Framework\TestCase;
 
-class LogTargetTypeTest extends TestCase
+final class LogTargetTypeTest extends TestCase
 {
 
     public function testToClass(): void

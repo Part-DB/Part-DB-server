@@ -27,7 +27,7 @@ use App\Entity\Parts\MeasurementUnit;
 
 #[Group('slow')]
 #[Group('DB')]
-class MeasurementUnitController extends AbstractAdminController
+final class MeasurementUnitController extends AbstractAdminController
 {
     protected static string $base_path = '/en/measurement_unit';
     protected static string $entity_class = MeasurementUnit::class;

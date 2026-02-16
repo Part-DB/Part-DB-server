@@ -42,6 +42,7 @@ class PartDetailDTO extends SearchResultDTO
         ?ManufacturingStatus $manufacturing_status = null,
         ?string $provider_url = null,
         ?string $footprint = null,
+        ?string $gtin = null,
         public readonly ?string $notes = null,
         /** @var FileDTO[]|null */
         public readonly ?array $datasheets = null,
@@ -68,6 +69,7 @@ class PartDetailDTO extends SearchResultDTO
             manufacturing_status: $manufacturing_status,
             provider_url: $provider_url,
             footprint: $footprint,
+            gtin: $gtin
         );
     }
 }

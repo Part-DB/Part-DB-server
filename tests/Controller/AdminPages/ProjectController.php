@@ -28,7 +28,7 @@ use App\Entity\ProjectSystem\Project;
 
 #[Group('slow')]
 #[Group('DB')]
-class ProjectController extends AbstractAdminController
+final class ProjectController extends AbstractAdminController
 {
     protected static string $base_path = '/en/project';
     protected static string $entity_class = Project::class;

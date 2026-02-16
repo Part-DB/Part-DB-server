@@ -30,7 +30,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 /**
  * @Group DB
  */
-class NodesListBuilderTest extends WebTestCase
+final class NodesListBuilderTest extends WebTestCase
 {
     protected $em;
     /**

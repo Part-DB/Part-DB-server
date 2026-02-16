@@ -80,6 +80,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Index(columns: ['datetime_added', 'name', 'last_modified', 'id', 'needs_review'], name: 'parts_idx_datet_name_last_id_needs')]
 #[ORM\Index(columns: ['name'], name: 'parts_idx_name')]
 #[ORM\Index(columns: ['ipn'], name: 'parts_idx_ipn')]
+#[ORM\Index(columns: ['gtin'], name: 'parts_idx_gtin')]
 #[ApiResource(
     operations: [
         new Get(normalizationContext: [

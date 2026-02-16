@@ -56,6 +56,7 @@ class TristateHelper {
 
         document.addEventListener("turbo:load", listener);
         document.addEventListener("turbo:render", listener);
+        document.addEventListener("collection:elementAdded", listener);
     }
 }
 

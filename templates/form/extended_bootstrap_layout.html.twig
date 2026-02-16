@@ -100,6 +100,17 @@
     {%- endif -%}
 {%- endblock tristate_widget %}
 
+{% block tristate_row -%}
+    <div{% with {attr: row_attr|merge({class: (row_attr.class|default('mb-3') ~ ' row')|trim})} %}{{ block('attributes') }}{% endwith %}>{#--#}
+        <div class="{{ block('form_label_class') }}"></div>{#--#}
+        <div class="{{ block('form_group_class') }}">
+            {{- form_widget(form) -}}
+            {{- form_help(form) -}}
+            {{- form_errors(form) -}}
+        </div>{#--#}
+    </div>
+{%- endblock tristate_row %}
+
 {%- block choice_widget_collapsed -%}
     {# Only add the BS5 form-select class if we dont use bootstrap-selectpicker  #}
     {# {% if attr["data-controller"] is defined and attr["data-controller"] not in ["elements--selectpicker"] %}
@@ -143,4 +154,9 @@
     {% else %}
         {{- parent() -}}
     {% endif %}
+{% endblock %}
+
+{% block boolean_constraint_widget %}
+    {{ form_widget(form.value) }}
+    {{ form_errors(form.value) }}
 {% endblock %}

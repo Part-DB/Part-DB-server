@@ -120,6 +120,7 @@ readonly class ConradProvider implements InfoProviderInterface, URLHandlerInfoPr
                 preview_image_url: $result['image'] ?? null,
                 provider_url: $this->getProductUrl($result['productId']),
                 footprint: $this->getFootprintFromTechnicalDetails($result['technicalDetails'] ?? []),
+                gtin: $result['ean'] ?? null,
             );
         }
 
@@ -302,6 +303,7 @@ readonly class ConradProvider implements InfoProviderInterface, URLHandlerInfoPr
             preview_image_url: $data['productShortInformation']['mainImage']['imageUrl'] ?? null,
             provider_url: $this->getProductUrl($data['shortProductNumber']),
             footprint: $this->getFootprintFromTechnicalAttributes($data['productFullInformation']['technicalAttributes'] ?? []),
+            gtin: $data['productFullInformation']['eanCode'] ?? null,
             notes: $data['productFullInformation']['description'] ?? null,
             datasheets: $this->productMediaToDatasheets($data['productMedia'] ?? []),
             parameters: $this->technicalAttributesToParameters($data['productFullInformation']['technicalAttributes'] ?? []),
@@ -316,6 +318,8 @@ readonly class ConradProvider implements InfoProviderInterface, URLHandlerInfoPr
             ProviderCapabilities::PICTURE,
             ProviderCapabilities::DATASHEET,
             ProviderCapabilities::PRICE,
+            ProviderCapabilities::FOOTPRINT,
+            ProviderCapabilities::GTIN,
         ];
     }
 

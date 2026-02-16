@@ -25,7 +25,7 @@ namespace App\Tests\Entity\UserSystem;
 use App\Entity\UserSystem\PermissionData;
 use PHPUnit\Framework\TestCase;
 
-class PermissionDataTest extends TestCase
+final class PermissionDataTest extends TestCase
 {
 
     public function testGetSetIs(): void

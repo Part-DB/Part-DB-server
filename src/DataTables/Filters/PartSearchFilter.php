@@ -138,13 +138,21 @@ class PartSearchFilter implements FilterInterface
         if (($fields_to_search === [] && !$search_dbId) || $this->keyword === '') {
             return;
         }
+      
+        //Use equal expression to just search for exact numeric matches
+        if ($search_dbId) {
+            $expressions[] = $queryBuilder->expr()->eq('part.id', ':id_exact');
+            $queryBuilder->setParameter('id_exact', (int) $this->keyword,
+                ParameterType::INTEGER);
+          return;
+        }
 
         if($this->regex) {
             //Convert the fields to search to a list of expressions
             $expressions = array_map(function (string $field): string {
                 return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
             }, $fields_to_search);
-
+          
             //Add Or concatenation of the expressions to our query
             $queryBuilder->andWhere(
                 $queryBuilder->expr()->orX(...$expressions)
@@ -159,8 +167,6 @@ class PartSearchFilter implements FilterInterface
 
             //Split keyword on spaces, but limit token count
             $tokens = explode(' ', $this->keyword, 5);
-
-            $params = new \Doctrine\Common\Collections\ArrayCollection();
 
             //Perform search of every single token in every selected field
             //AND-combine the results (all tokens must be present in any result, but the order does not matter)
@@ -185,7 +191,7 @@ class PartSearchFilter implements FilterInterface
                     $queryBuilder->expr()->orX(...$expressions)
                 );
             }
-            $queryBuilder->setParameters($params);
+            $queryBuilder->setParameters(new ArrayCollection($params));
         }
     }
 

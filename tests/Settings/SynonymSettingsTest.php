@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,7 +20,6 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Settings;
 
 use App\Services\ElementTypes;
@@ -25,7 +27,7 @@ use App\Settings\SynonymSettings;
 use App\Tests\SettingsTestHelper;
 use PHPUnit\Framework\TestCase;
 
-class SynonymSettingsTest extends TestCase
+final class SynonymSettingsTest extends TestCase
 {
 
     public function testGetSingularSynonymForType(): void

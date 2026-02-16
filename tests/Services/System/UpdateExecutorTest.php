@@ -25,7 +25,7 @@ namespace App\Tests\Services\System;
 use App\Services\System\UpdateExecutor;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class UpdateExecutorTest extends KernelTestCase
+final class UpdateExecutorTest extends KernelTestCase
 {
     private ?UpdateExecutor $updateExecutor = null;
 

@@ -22,6 +22,8 @@ declare(strict_types=1);
  */
 namespace App\Tests\Services\ImportExportSystem;
 
+use App\Entity\PriceInformations\Orderdetail;
+use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
 use App\Entity\ProjectSystem\Project;
@@ -31,7 +33,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\File;
 
-class BOMImporterTest extends WebTestCase
+final class BOMImporterTest extends WebTestCase
 {
 
     /**
@@ -391,7 +393,7 @@ class BOMImporterTest extends WebTestCase
 
         // Check first entry
         $this->assertEquals('R1,R2', $bom_entries[0]->getMountnames());
-        $this->assertEquals(2.0, $bom_entries[0]->getQuantity());
+        $this->assertEqualsWithDelta(2.0, $bom_entries[0]->getQuantity(), PHP_FLOAT_EPSILON);
         $this->assertEquals('CRCW080510K0FKEA (R_0805_2012Metric)', $bom_entries[0]->getName());
         $this->assertStringContainsString('Value: 10k', $bom_entries[0]->getComment());
         $this->assertStringContainsString('MPN: CRCW080510K0FKEA', $bom_entries[0]->getComment());
@@ -402,7 +404,7 @@ class BOMImporterTest extends WebTestCase
 
         // Check second entry
         $this->assertEquals('C1', $bom_entries[1]->getMountnames());
-        $this->assertEquals(1.0, $bom_entries[1]->getQuantity());
+        $this->assertEqualsWithDelta(1.0, $bom_entries[1]->getQuantity(), PHP_FLOAT_EPSILON);
         $this->assertStringContainsString('LCSC SPN: C789012', $bom_entries[1]->getComment());
         $this->assertStringContainsString('Mouser SPN: 80-CL21A104KOCLRNC', $bom_entries[1]->getComment());
 
@@ -542,7 +544,7 @@ class BOMImporterTest extends WebTestCase
         $this->assertCount(1, $bom_entries); // Should merge into one entry
 
         $this->assertEquals('R1,R2', $bom_entries[0]->getMountnames());
-        $this->assertEquals(2.0, $bom_entries[0]->getQuantity());
+        $this->assertEqualsWithDelta(2.0, $bom_entries[0]->getQuantity(), PHP_FLOAT_EPSILON);
         $this->assertEquals('CRCW080510K0FKEA', $bom_entries[0]->getName());
     }
 
@@ -630,7 +632,7 @@ class BOMImporterTest extends WebTestCase
         $this->entityManager->persist($part);
 
         // Create orderdetail linking the part to a supplier SPN
-        $orderdetail = new \App\Entity\PriceInformations\Orderdetail();
+        $orderdetail = new Orderdetail();
         $orderdetail->setPart($part);
         $orderdetail->setSupplier($lcscSupplier);
         $orderdetail->setSupplierpartnr('C123456');
@@ -664,7 +666,7 @@ class BOMImporterTest extends WebTestCase
         $this->assertSame($part, $bom_entries[0]->getPart());
         $this->assertEquals('Test Resistor 10k 0805', $bom_entries[0]->getName());
         $this->assertEquals('R1,R2', $bom_entries[0]->getMountnames());
-        $this->assertEquals(2.0, $bom_entries[0]->getQuantity());
+        $this->assertEqualsWithDelta(2.0, $bom_entries[0]->getQuantity(), PHP_FLOAT_EPSILON);
         $this->assertStringContainsString('LCSC SPN: C123456', $bom_entries[0]->getComment());
         $this->assertStringContainsString('Part-DB ID: ' . $part->getID(), $bom_entries[0]->getComment());
 
@@ -691,7 +693,7 @@ class BOMImporterTest extends WebTestCase
         $part1->setCategory($this->getDefaultCategory($this->entityManager));
         $this->entityManager->persist($part1);
 
-        $orderdetail1 = new \App\Entity\PriceInformations\Orderdetail();
+        $orderdetail1 = new Orderdetail();
         $orderdetail1->setPart($part1);
         $orderdetail1->setSupplier($lcscSupplier);
         $orderdetail1->setSupplierpartnr('C123456');
@@ -703,7 +705,7 @@ class BOMImporterTest extends WebTestCase
         $part2->setCategory($this->getDefaultCategory($this->entityManager));
         $this->entityManager->persist($part2);
 
-        $orderdetail2 = new \App\Entity\PriceInformations\Orderdetail();
+        $orderdetail2 = new Orderdetail();
         $orderdetail2->setPart($part2);
         $orderdetail2->setSupplier($mouserSupplier);
         $orderdetail2->setSupplierpartnr('789-CAP100NF');
@@ -794,12 +796,12 @@ class BOMImporterTest extends WebTestCase
     private function getDefaultCategory(EntityManagerInterface $entityManager)
     {
         // Get the first available category or create a default one
-        $categoryRepo = $entityManager->getRepository(\App\Entity\Parts\Category::class);
+        $categoryRepo = $entityManager->getRepository(Category::class);
         $categories = $categoryRepo->findAll();
 
         if (empty($categories)) {
             // Create a default category if none exists
-            $category = new \App\Entity\Parts\Category();
+            $category = new Category();
             $category->setName('Default Category');
             $entityManager->persist($category);
             $entityManager->flush();

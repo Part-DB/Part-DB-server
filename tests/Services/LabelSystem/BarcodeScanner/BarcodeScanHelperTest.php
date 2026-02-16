@@ -50,7 +50,7 @@ use App\Services\LabelSystem\BarcodeScanner\EIGP114BarcodeScanResult;
 use App\Services\LabelSystem\BarcodeScanner\LocalBarcodeScanResult;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class BarcodeScanHelperTest extends WebTestCase
+final class BarcodeScanHelperTest extends WebTestCase
 {
     private ?BarcodeScanHelper $service = null;
 

@@ -82,7 +82,7 @@ final class PartInfoRetriever
     protected function searchInProvider(InfoProviderInterface $provider, string $keyword): array
     {
         //Generate key and escape reserved characters from the provider id
-        $escaped_keyword = urlencode($keyword);
+        $escaped_keyword = hash('xxh3', $keyword);
         return $this->partInfoCache->get("search_{$provider->getProviderKey()}_{$escaped_keyword}", function (ItemInterface $item) use ($provider, $keyword) {
             //Set the expiration time
             $item->expiresAfter(!$this->debugMode ? self::CACHE_RESULT_EXPIRATION : 1);
@@ -108,7 +108,7 @@ final class PartInfoRetriever
         }
 
         //Generate key and escape reserved characters from the provider id
-        $escaped_part_id = urlencode($part_id);
+        $escaped_part_id = hash('xxh3', $part_id);
         return $this->partInfoCache->get("details_{$provider_key}_{$escaped_part_id}", function (ItemInterface $item) use ($provider, $part_id) {
             //Set the expiration time
             $item->expiresAfter(!$this->debugMode ? self::CACHE_DETAIL_EXPIRATION : 1);

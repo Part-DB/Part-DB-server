@@ -37,7 +37,7 @@ use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class LCSCProviderTest extends TestCase
+final class LCSCProviderTest extends TestCase
 {
     private LCSCSettings $settings;
     private LCSCProvider $provider;
@@ -67,7 +67,7 @@ class LCSCProviderTest extends TestCase
 
     public function testGetProviderKey(): void
     {
-        $this->assertEquals('lcsc', $this->provider->getProviderKey());
+        $this->assertSame('lcsc', $this->provider->getProviderKey());
     }
 
     public function testIsActiveWhenEnabled(): void
@@ -125,8 +125,8 @@ class LCSCProviderTest extends TestCase
         $this->assertIsArray($results);
         $this->assertCount(1, $results);
         $this->assertInstanceOf(PartDetailDTO::class, $results[0]);
-        $this->assertEquals('C123456', $results[0]->provider_id);
-        $this->assertEquals('Test Component', $results[0]->name);
+        $this->assertSame('C123456', $results[0]->provider_id);
+        $this->assertSame('Test Component', $results[0]->name);
     }
 
     public function testSearchByKeywordWithRegularTerm(): void
@@ -162,8 +162,8 @@ class LCSCProviderTest extends TestCase
         $this->assertIsArray($results);
         $this->assertCount(1, $results);
         $this->assertInstanceOf(PartDetailDTO::class, $results[0]);
-        $this->assertEquals('C789012', $results[0]->provider_id);
-        $this->assertEquals('Regular Component', $results[0]->name);
+        $this->assertSame('C789012', $results[0]->provider_id);
+        $this->assertSame('Regular Component', $results[0]->name);
     }
 
     public function testSearchByKeywordWithTipProduct(): void
@@ -202,8 +202,8 @@ class LCSCProviderTest extends TestCase
         $this->assertIsArray($results);
         $this->assertCount(1, $results);
         $this->assertInstanceOf(PartDetailDTO::class, $results[0]);
-        $this->assertEquals('C555555', $results[0]->provider_id);
-        $this->assertEquals('Tip Component', $results[0]->name);
+        $this->assertSame('C555555', $results[0]->provider_id);
+        $this->assertSame('Tip Component', $results[0]->name);
     }
 
     public function testSearchByKeywordsBatch(): void
@@ -288,12 +288,12 @@ class LCSCProviderTest extends TestCase
         $result = $this->provider->getDetails('C123456');
 
         $this->assertInstanceOf(PartDetailDTO::class, $result);
-        $this->assertEquals('C123456', $result->provider_id);
-        $this->assertEquals('Detailed Component', $result->name);
-        $this->assertEquals('Detailed description', $result->description);
-        $this->assertEquals('Detailed Manufacturer', $result->manufacturer);
+        $this->assertSame('C123456', $result->provider_id);
+        $this->assertSame('Detailed Component', $result->name);
+        $this->assertSame('Detailed description', $result->description);
+        $this->assertSame('Detailed Manufacturer', $result->manufacturer);
         $this->assertEquals('0603', $result->footprint);
-        $this->assertEquals('https://www.lcsc.com/product-detail/C123456.html', $result->provider_url);
+        $this->assertSame('https://www.lcsc.com/product-detail/C123456.html', $result->provider_url);
         $this->assertCount(1, $result->images);
         $this->assertCount(2, $result->parameters);
         $this->assertCount(1, $result->vendor_infos);
@@ -465,8 +465,8 @@ class LCSCProviderTest extends TestCase
         $this->assertIsArray($result);
         $this->assertCount(1, $result);
         $this->assertInstanceOf(PurchaseInfoDTO::class, $result[0]);
-        $this->assertEquals('LCSC', $result[0]->distributor_name);
-        $this->assertEquals('C123456', $result[0]->order_number);
+        $this->assertSame('LCSC', $result[0]->distributor_name);
+        $this->assertSame('C123456', $result[0]->order_number);
         $this->assertCount(2, $result[0]->prices);
     }
 
@@ -493,7 +493,7 @@ class LCSCProviderTest extends TestCase
         $this->httpClient->setResponseFactory([$mockResponse]);
 
         $result = $this->provider->getDetails('C123456');
-        $this->assertEquals('Electronic Components -> Resistors (SMT)', $result->category);
+        $this->assertSame('Electronic Components -> Resistors (SMT)', $result->category);
     }
 
     public function testEmptyFootprintHandling(): void

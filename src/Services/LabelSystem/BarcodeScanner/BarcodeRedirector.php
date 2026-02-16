@@ -77,6 +77,10 @@ final class BarcodeRedirector
             return $this->getURLVendorBarcode($barcodeScan);
         }
 
+        if ($barcodeScan instanceof GTINBarcodeScanResult) {
+            return $this->getURLGTINBarcode($barcodeScan);
+        }
+
         throw new InvalidArgumentException('Unknown $barcodeScan type: '.get_class($barcodeScan));
     }
 
@@ -108,6 +112,16 @@ final class BarcodeRedirector
     private function getURLVendorBarcode(EIGP114BarcodeScanResult $barcodeScan): string
     {
         $part = $this->getPartFromVendor($barcodeScan);
+        return $this->urlGenerator->generate('app_part_show', ['id' => $part->getID()]);
+    }
+
+    private function getURLGTINBarcode(GTINBarcodeScanResult $barcodeScan): string
+    {
+        $part = $this->em->getRepository(Part::class)->findOneBy(['gtin' => $barcodeScan->gtin]);
+        if (!$part instanceof Part) {
+            throw new EntityNotFoundException();
+        }
+
         return $this->urlGenerator->generate('app_part_show', ['id' => $part->getID()]);
     }
 

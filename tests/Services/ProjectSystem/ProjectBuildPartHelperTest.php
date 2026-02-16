@@ -26,7 +26,7 @@ use App\Entity\ProjectSystem\Project;
 use App\Services\ProjectSystem\ProjectBuildPartHelper;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ProjectBuildPartHelperTest extends WebTestCase
+final class ProjectBuildPartHelperTest extends WebTestCase
 {
     /** @var ProjectBuildPartHelper */
     protected $service;

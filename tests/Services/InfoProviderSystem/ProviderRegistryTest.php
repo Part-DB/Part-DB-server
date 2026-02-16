@@ -27,7 +27,7 @@ use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use App\Services\InfoProviderSystem\Providers\URLHandlerInfoProviderInterface;
 use PHPUnit\Framework\TestCase;
 
-class ProviderRegistryTest extends TestCase
+final class ProviderRegistryTest extends TestCase
 {
 
     /** @var InfoProviderInterface[] */

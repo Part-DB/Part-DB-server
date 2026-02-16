@@ -94,7 +94,13 @@
                                 <small class="text-muted">{{ dto.footprint }}</small>
                             {% endif %}
                         </td>
-                        <td>{{ helper.m_status_to_badge(dto.manufacturing_status) }}</td>
+                        <td>
+                            {{ helper.m_status_to_badge(dto.manufacturing_status) }}
+                            {% if dto.gtin %}
+                                <br>
+                                <span class="badge text-bg-secondary" title="{% trans %}part.gtin{% endtrans %}"><i class="fa-solid fa-barcode"></i> {{ dto.gtin }}</span>
+                            {% endif %}
+                        </td>
                         <td>
                             {% if dto.provider_url %}
                                 <a href="{{ dto.provider_url }}" target="_blank" rel="noopener">

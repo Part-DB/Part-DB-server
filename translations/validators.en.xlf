@@ -247,5 +247,11 @@
         <target>There is already a translation defined for this type and language!</target>
       </segment>
     </unit>
+    <unit id="zT_j_oQ" name="validator.invalid_gtin">
+      <segment state="translated">
+        <source>validator.invalid_gtin</source>
+        <target>This is not an valid GTIN / EAN!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

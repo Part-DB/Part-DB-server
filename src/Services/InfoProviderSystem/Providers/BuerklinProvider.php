@@ -365,7 +365,7 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
      * - prefers 'zoom' format, then 'product' format, then all others
      *
      * @param  array|null $images
-     * @return \App\Services\InfoProviderSystem\DTOs\FileDTO[]
+     * @return FileDTO[]
      */
     private function getProductImages(?array $images): array
     {
