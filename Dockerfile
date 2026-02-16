@@ -13,8 +13,8 @@ WORKDIR /app
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Use BuildKit cache mounts for apt in builder stage
-RUN --mount=type=cache,id=apt-cache-node,target=/var/cache/apt \
-    --mount=type=cache,id=apt-lists-node,target=/var/lib/apt/lists \
+RUN --mount=type=cache,id=apt-cache-node-$TARGETARCH,target=/var/cache/apt \
+    --mount=type=cache,id=apt-lists-node-$TARGETARCH,target=/var/lib/apt/lists \
     apt-get update && apt-get install -y --no-install-recommends \
         php-cli \
         php-xml \
@@ -67,8 +67,8 @@ FROM ${BASE_IMAGE} AS base
 ARG PHP_VERSION
 
 # Use BuildKit cache mounts for apt in base stage
-RUN --mount=type=cache,id=apt-cache,target=/var/cache/apt \
-    --mount=type=cache,id=apt-lists,target=/var/lib/apt/lists \
+RUN --mount=type=cache,id=apt-cache-$TARGETARCH,target=/var/cache/apt \
+    --mount=type=cache,id=apt-lists-$TARGETARCH,target=/var/lib/apt/lists \
     apt-get update && apt-get -y install \
       apt-transport-https \
       lsb-release \
