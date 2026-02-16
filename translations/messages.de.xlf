@@ -11832,7 +11832,7 @@ Buerklin-API-Authentication-Server:
     <unit id="WV10ozS" name="update_manager.latest_release">
       <segment state="translated">
         <source>update_manager.latest_release</source>
-        <target>update_manager.latest_release</target>
+        <target>Neueste Version</target>
       </segment>
     </unit>
     <unit id="pMdT6Ln" name="update_manager.tag">
@@ -12078,25 +12078,25 @@ Buerklin-API-Authentication-Server:
     <unit id="458.UTU" name="update_manager.run_command_to_update">
       <segment state="translated">
         <source>update_manager.run_command_to_update</source>
-        <target>update_manager.run_command_to_update</target>
+        <target>Führen Sie den folgenden Befehl in Ihrem Terminal aus, um auf diese Version zu aktualisieren:</target>
       </segment>
     </unit>
     <unit id="1iYIZ6C" name="update_manager.log_viewer">
       <segment state="translated">
         <source>update_manager.log_viewer</source>
-        <target>update_manager.log_viewer</target>
+        <target>Protokollanzeige</target>
       </segment>
     </unit>
     <unit id="AXavng5" name="update_manager.update_log">
       <segment state="translated">
         <source>update_manager.update_log</source>
-        <target>update_manager.update_log</target>
+        <target>Update-Protokoll</target>
       </segment>
     </unit>
     <unit id=".QzwEpo" name="update_manager.bytes">
       <segment state="translated">
         <source>update_manager.bytes</source>
-        <target>update_manager.bytes</target>
+        <target>Bytes</target>
       </segment>
     </unit>
     <unit id="Gt.91s_" name="perm.system.manage_updates">
@@ -12108,43 +12108,43 @@ Buerklin-API-Authentication-Server:
     <unit id="Mw2sya4" name="update_manager.create_backup">
       <segment state="translated">
         <source>update_manager.create_backup</source>
-        <target>update_manager.create_backup</target>
+        <target>Erstelle vor dem Update ein Backup (empfohlen)</target>
       </segment>
     </unit>
     <unit id="fWGZSZ1" name="update_manager.confirm_update">
       <segment state="translated">
         <source>update_manager.confirm_update</source>
-        <target>update_manager.confirm_update</target>
+        <target>Sind Sie sicher, dass Sie Part-DB aktualisieren möchten? Vor dem Update wird ein Backup erstellt.</target>
       </segment>
     </unit>
     <unit id="Fashdp." name="update_manager.already_up_to_date">
       <segment state="translated">
         <source>update_manager.already_up_to_date</source>
-        <target>update_manager.already_up_to_date</target>
+        <target>Sie verwenden bereits die neueste Version von Part-DB.</target>
       </segment>
     </unit>
     <unit id="JPZ9w0l" name="update_manager.progress.title">
       <segment state="translated">
         <source>update_manager.progress.title</source>
-        <target>update_manager.progress.title</target>
+        <target>Update-Fortschritt</target>
       </segment>
     </unit>
     <unit id="7oAKwee" name="update_manager.progress.updating">
       <segment state="translated">
         <source>update_manager.progress.updating</source>
-        <target>update_manager.progress.updating</target>
+        <target>Part-DB wird aktualisiert...</target>
       </segment>
     </unit>
     <unit id="ffxDMB4" name="update_manager.progress.completed">
       <segment state="translated">
         <source>update_manager.progress.completed</source>
-        <target>update_manager.progress.completed</target>
+        <target>Update abgeschlossen!</target>
       </segment>
     </unit>
     <unit id="ZKFaIiJ" name="update_manager.progress.failed">
       <segment state="translated">
         <source>update_manager.progress.failed</source>
-        <target>update_manager.progress.failed</target>
+        <target>Update fehlgeschlagen</target>
       </segment>
     </unit>
     <unit id="bSdCWOK" name="update_manager.progress.initializing">
