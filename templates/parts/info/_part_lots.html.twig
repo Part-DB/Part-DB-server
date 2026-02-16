@@ -41,35 +41,37 @@
                         {{ lot.amount | format_amount(part.partUnit, {'decimals': 5}) }}
                     {% endif %}
                 </td>
-                <td class="d-flex flex-column align-items-start">
-                    {% if lot.owner  %}
-                        <span class="badge text-bg-light mb-1" title="{% trans %}part_lot.owner{% endtrans %}">
+                <td >
+                    <div class="d-flex flex-column align-items-start">
+                        {% if lot.owner  %}
+                            <span class="badge text-bg-light mb-1" title="{% trans %}part_lot.owner{% endtrans %}">
                                 {{ helper.user_icon_link(lot.owner) }}
                             </span>
-                    {% endif %}
-                    {% if lot.expirationDate %}
-                        <span class="badge text-bg-info mb-1" title="{% trans %}part_lots.expiration_date{% endtrans %}">
+                        {% endif %}
+                        {% if lot.expirationDate %}
+                            <span class="badge text-bg-info mb-1" title="{% trans %}part_lots.expiration_date{% endtrans %}">
                             <i class="fas fa-calendar-alt fa-fw"></i> {{ lot.expirationDate | format_date() }}<br>
                         </span>
-                    {% endif %}
-                    {% if lot.expired %}
-                        <span class="badge text-bg-warning mb-1">
+                        {% endif %}
+                        {% if lot.expired %}
+                            <span class="badge text-bg-warning mb-1">
                             <i class="fas fa-exclamation-circle fa-fw"></i>
                             {% trans %}part_lots.is_expired{% endtrans %}
                         </span>
-                    {% endif %}
-                    {% if lot.needsRefill %}
-                        <span class="badge text-bg-warning mb-1">
+                        {% endif %}
+                        {% if lot.needsRefill %}
+                            <span class="badge text-bg-warning mb-1">
                                 <i class="fas fa-dolly fa-fw"></i>
                                 {% trans %}part_lots.need_refill{% endtrans %}
                             </span>
-                    {% endif %}
-                    {% if lot.lastStocktakeAt %}
-                        <span class="badge text-bg-secondary" title="{% trans %}part_lot.edit.last_stocktake_at{% endtrans %}">
+                        {% endif %}
+                        {% if lot.lastStocktakeAt %}
+                            <span class="badge text-bg-secondary" title="{% trans %}part_lot.edit.last_stocktake_at{% endtrans %}">
                                 <i class="fas fa-clipboard-check fa-fw"></i>
                                 {{ lot.lastStocktakeAt | format_datetime("short") }}
                             </span>
-                    {% endif %}
+                        {% endif %}
+                    </div>
                 </td>
                 <td>
                     <div class="btn-group" role="group">
