@@ -108,11 +108,19 @@ export default class extends Controller {
             const raw_order = saved_state.order;
 
             settings.initial_order = raw_order.map((order) => {
+                //Skip if direction is empty, as this is the default, otherwise datatables server is confused when the order is sent in the request, but the initial order is set to an empty direction
+                if (order[1] === '') {
+                    return null;
+                }
+
                 return {
                     column: order[0],
                     dir: order[1]
                 }
             });
+
+            //Remove null values from the initial_order array
+            settings.initial_order = settings.initial_order.filter(order => order !== null);
         }
 
         let options = {
