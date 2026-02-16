@@ -2,6 +2,7 @@
 ARG BASE_IMAGE=debian:bookworm-slim
 ARG PHP_VERSION=8.4
 ARG NODE_VERSION=22
+ARG TARGETARCH
 
 # Node.js build stage for building frontend assets
 # Use native platform for build stage as it's platform-independent
