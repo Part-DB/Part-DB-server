@@ -126,30 +126,32 @@ export default class extends Controller {
     }
 
     showToast(type, message) {
-        // Create a simple alert that doesn't disrupt layout
-        const alertId = 'alert-' + Date.now();
         const iconClass = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle';
-        const alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
+        const bgClass = type === 'success' ? 'bg-success' : 'bg-danger';
+        const title = type === 'success' ? 'Success' : 'Error';
+        const timeString = new Date().toLocaleString(undefined, {
+            year: '2-digit',
+            month: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit'
+        });
 
-        const alertHTML = `
-            <div class="alert ${alertClass} alert-dismissible fade show position-fixed"
-                 style="top: 20px; right: 20px; z-index: 9999; max-width: 400px;"
-                 id="${alertId}" role="alert">
-                <i class="fas ${iconClass} me-2"></i>
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        const toastHTML = `
+            <div role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" data-controller="common--toast" class="toast shadow fade show">
+                <div class="toast-header ${bgClass} text-white">
+                    <i class="fas fa-fw ${iconClass} me-2"></i>
+                    <strong class="me-auto">${title}</strong>
+                    <small class="text-white">${timeString}</small>
+                    <button type="button" class="ms-2 mb-1 btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body ${bgClass} text-white">
+                    ${message}
+                </div>
             </div>
         `;
 
-        // Add alert to body
-        document.body.insertAdjacentHTML('beforeend', alertHTML);
-
-        // Auto-remove after 5 seconds if not closed manually
-        setTimeout(() => {
-            const elementToRemove = document.getElementById(alertId);
-            if (elementToRemove) {
-                elementToRemove.remove();
-            }
-        }, 5000);
+        // Add toast to body. The common--toast controller will move it to the container.
+        document.body.insertAdjacentHTML('beforeend', toastHTML);
     }
 }
