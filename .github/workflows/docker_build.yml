@@ -44,13 +44,12 @@ jobs:
           # Mark the image build from master as latest (as we dont have really releases yet)
           tags: |
             type=edge,branch=master
-            type=ref,event=branch,
-            type=ref,event=tag,
+            type=ref,event=branch
+            type=ref,event=tag
             type=schedule
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            type=ref,event=branch
             type=ref,event=pr
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.clone_url }}
@@ -139,7 +138,6 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            type=ref,event=branch
             type=ref,event=pr
 
       -
