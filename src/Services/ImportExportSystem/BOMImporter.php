@@ -243,13 +243,13 @@ class BOMImporter
     /**
      * Import string data into an array of BOM entries, which are not yet assigned to a project.
      *
-     * @param Project|Assembly $importObject The object determining the context of the BOM entry (either a Project or Assembly).
-     * @param string           $data The data to import
-     * @param array            $options An array of options
+     * @param object    $importObject The object determining the context of the BOM entry (either a Project or Assembly).
+     * @param string    $data The data to import
+     * @param array     $options An array of options
      *
-     * @return ProjectBOMEntry[]|AssemblyBOMEntry[] An array of imported entries
+     * @return ProjectBOMEntry[]|AssemblyBOMEntry[]|object[] An array of imported entries
      */
-    public function stringToBOMEntries(Project|Assembly $importObject, string $data, array $options): array
+    public function stringToBOMEntries(object $importObject, string $data, array $options): array
     {
         $resolver = new OptionsResolver();
         $resolver = $this->configureOptions($resolver);
@@ -299,12 +299,12 @@ class BOMImporter
      * The BOM entries are added to the provided Project or Assembly, depending on the context.
      *
      * @param string $data The semicolon- or comma-delimited CSV data to be parsed.
-     * @param Project|Assembly  $importObject The object determining the context of the BOM entry (either a Project or Assembly).
+     * @param object $importObject The object determining the context of the BOM entry (either a Project or Assembly).
      * @return ImporterResult The result of the import process, containing the created BOM entries.
      *
      * @throws UnexpectedValueException If required fields are missing in the provided data.
      */
-    private function parseKiCADPCB(string $data, Project|Assembly $importObject): ImporterResult
+    private function parseKiCADPCB(string $data, object $importObject): ImporterResult
     {
         $result = new ImporterResult();
 
