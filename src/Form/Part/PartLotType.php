@@ -117,7 +117,6 @@ class PartLotType extends AbstractType
             'widget' => 'single_text',
             'disabled' => !$this->security->isGranted('@parts_stock.stocktake'),
             'required' => false,
-            'empty_data' => null,
         ]);
     }
 
