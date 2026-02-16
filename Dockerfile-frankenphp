@@ -1,10 +1,9 @@
 ARG NODE_VERSION=22
-ARG TARGETARCH
 
 # Node.js build stage for building frontend assets
 # Use native platform for build stage as it's platform-independent
 FROM --platform=$BUILDPLATFORM node:${NODE_VERSION}-bookworm-slim AS node-builder
-
+ARG TARGETARCH
 WORKDIR /app
 
 # Install composer and minimal PHP for running Symfony commands
@@ -64,7 +63,7 @@ RUN yarn cache clean && rm -rf node_modules/
 
 # FrankenPHP base stage
 FROM dunglas/frankenphp:1-php8.4 AS frankenphp_upstream
-
+ARG TARGETARCH
 RUN --mount=type=cache,id=apt-cache-$TARGETARCH,target=/var/cache/apt \
     --mount=type=cache,id=apt-lists-$TARGETARCH,target=/var/lib/apt/lists \
     apt-get update && apt-get -y install \

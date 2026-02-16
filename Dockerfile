@@ -2,12 +2,10 @@
 ARG BASE_IMAGE=debian:bookworm-slim
 ARG PHP_VERSION=8.4
 ARG NODE_VERSION=22
-ARG TARGETARCH
-
 # Node.js build stage for building frontend assets
 # Use native platform for build stage as it's platform-independent
 FROM --platform=$BUILDPLATFORM node:${NODE_VERSION}-bookworm-slim AS node-builder
-
+ARG TARGETARCH
 WORKDIR /app
 
 # Install composer and minimal PHP for running Symfony commands
@@ -66,6 +64,7 @@ RUN yarn cache clean && rm -rf node_modules/
 # Base stage for PHP
 FROM ${BASE_IMAGE} AS base
 ARG PHP_VERSION
+ARG TARGETARCH
 
 # Use BuildKit cache mounts for apt in base stage
 RUN --mount=type=cache,id=apt-cache-$TARGETARCH,target=/var/cache/apt \
