@@ -145,7 +145,7 @@ class PartSearchFilter implements FilterInterface
         //Use equal expression to just search for exact numeric matches
         if ($search_dbId) {
             $expressions[] = $queryBuilder->expr()->eq('part.id', ':id_exact');
-            params[] = new \Doctrine\ORM\Query\Parameter('id_exact', (int) $this->keyword,
+            $params[] = new \Doctrine\ORM\Query\Parameter('id_exact', (int) $this->keyword,
                 ParameterType::INTEGER);
         }
 
@@ -156,7 +156,7 @@ class PartSearchFilter implements FilterInterface
             }, $fields_to_search);
             
             //For regex, we pass the query as is, save html special chars
-            params[] = new \Doctrine\ORM\Query\Parameter('search_query', $this->keyword);
+            $params[] = new \Doctrine\ORM\Query\Parameter('search_query', $this->keyword);
         } else {
             //Escape % and _ characters in the keyword
             $this->keyword = str_replace(['%', '_'], ['\%', '\_'], $this->keyword);
