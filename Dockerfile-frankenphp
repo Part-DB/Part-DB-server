@@ -9,17 +9,23 @@ WORKDIR /app
 # Install composer and minimal PHP for running Symfony commands
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    php-cli \
-    php-xml \
-    php-mbstring \
-    unzip \
-    git \
+# Use BuildKit cache mounts for apt in builder stage
+RUN --mount=type=cache,id=apt-cache-node,target=/var/cache/apt \
+    --mount=type=cache,id=apt-lists-node,target=/var/lib/apt/lists \
+    apt-get update && apt-get install -y --no-install-recommends \
+        php-cli \
+        php-xml \
+        php-mbstring \
+        unzip \
+        git \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy composer files and install dependencies (needed for Symfony UX assets)
 COPY composer.json composer.lock symfony.lock ./
-RUN composer install --no-scripts --no-autoloader --no-dev --prefer-dist --ignore-platform-reqs
+
+# Use BuildKit cache for Composer downloads
+RUN --mount=type=cache,id=composer-cache,target=/root/.cache/composer \
+    composer install --no-scripts --no-autoloader --no-dev --prefer-dist --ignore-platform-reqs
 
 # Copy all application files needed for cache warmup and webpack build
 COPY .env* ./
@@ -42,7 +48,12 @@ RUN php bin/console cache:warmup -n --env=prod 2>&1
 
 # Copy package files and install node dependencies
 COPY package.json yarn.lock ./
-RUN yarn install --network-timeout 600000
+
+# Use BuildKit cache for yarn/npm
+RUN --mount=type=cache,id=yarn-cache,target=/root/.cache/yarn \
+    --mount=type=cache,id=npm-cache,target=/root/.npm \
+    yarn install --network-timeout 600000
+
 
 # Build the assets
 RUN yarn build
@@ -53,7 +64,9 @@ RUN yarn cache clean && rm -rf node_modules/
 # FrankenPHP base stage
 FROM dunglas/frankenphp:1-php8.4 AS frankenphp_upstream
 
-RUN apt-get update && apt-get -y install \
+RUN --mount=type=cache,id=apt-cache,target=/var/cache/apt \
+    --mount=type=cache,id=apt-lists,target=/var/lib/apt/lists \
+    apt-get update && apt-get -y install \
       curl \
       ca-certificates \
       mariadb-client \
@@ -111,7 +124,6 @@ COPY --link . ./
 RUN set -eux; \
 	mkdir -p var/cache var/log; \
 	composer dump-autoload --classmap-authoritative --no-dev; \
-	composer dump-env prod; \
 	composer run-script --no-dev post-install-cmd; \
 	chmod +x bin/console; sync;
 
