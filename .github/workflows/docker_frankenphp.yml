@@ -21,10 +21,13 @@ jobs:
         include:
           - platform: linux/amd64
             runner: ubuntu-latest
+            platform-slug: amd64
           - platform: linux/arm64
             runner: ubuntu-24.04-arm
+            platform-slug: arm64
           - platform: linux/arm/v7
             runner: ubuntu-24.04-arm
+            platform-slug: armv7
     runs-on: ${{ matrix.runner }}
     steps:
       -
@@ -58,6 +61,7 @@ jobs:
             org.opencontainers.image.source=https://github.com/Part-DB/Part-DB-server
             org.opencontainers.image.authors=Jan Böhmer
             org.opencontainers.licenses=AGPL-3.0-or-later
+          # Disable automatic 'latest' tag in build jobs - it will be created in merge job
           flavor: |
             latest=false
 
@@ -98,7 +102,7 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v4
         with:
-          name: digests-${{ strategy.job-index }}
+          name: digests-${{ matrix.platform-slug }}
           path: /tmp/digests/*
           if-no-files-found: error
           retention-days: 1
