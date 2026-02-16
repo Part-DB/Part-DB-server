@@ -139,8 +139,8 @@ class PartSearchFilter implements FilterInterface
             return;
         }
       
-        expressions = new array();
-        params = new array();
+        $expressions = array();
+        $params = array();
         
         //Use equal expression to just search for exact numeric matches
         if ($search_dbId) {
