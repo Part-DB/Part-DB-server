@@ -139,8 +139,8 @@ class PartSearchFilter implements FilterInterface
             return;
         }
       
-        $expressions = array();
-        $params = array();
+        $expressions = [];
+        $params = [];
         
         //Use equal expression to just search for exact numeric matches
         if ($search_dbId) {
@@ -148,7 +148,7 @@ class PartSearchFilter implements FilterInterface
             params[] = new \Doctrine\ORM\Query\Parameter('id_exact', (int) $this->keyword,
                 ParameterType::INTEGER);
         }
-        else if($this->regex) {
+        
             //Convert the fields to search to a list of expressions
             $expressions = array_map(function (string $field): string {
                 return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
@@ -184,13 +184,16 @@ class PartSearchFilter implements FilterInterface
             }
         }
         
-        //Add Or concatenation of the expressions to our query
-        $queryBuilder->andWhere(
-            $queryBuilder->expr()->orX(...$expressions)
-        );
         $queryBuilder->setParameters(
             new \Doctrine\Common\Collections\ArrayCollection($params)
         );
+        //Guard condition
+        if (!empty($expressions)) {
+            //Add Or concatenation of the expressions to our query
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->orX(...$expressions)
+            );
+        }
     }
 
     public function getKeyword(): string
