@@ -1,15 +1,75 @@
+# syntax=docker/dockerfile:1
 ARG BASE_IMAGE=debian:bookworm-slim
 ARG PHP_VERSION=8.4
+ARG NODE_VERSION=22
+# Node.js build stage for building frontend assets
+# Use native platform for build stage as it's platform-independent
+FROM --platform=$BUILDPLATFORM node:${NODE_VERSION}-bookworm-slim AS node-builder
+ARG TARGETARCH
+WORKDIR /app
 
+# Install composer and minimal PHP for running Symfony commands
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Use BuildKit cache mounts for apt in builder stage
+RUN --mount=type=cache,id=apt-cache-node-$TARGETARCH,target=/var/cache/apt \
+    --mount=type=cache,id=apt-lists-node-$TARGETARCH,target=/var/lib/apt/lists \
+    apt-get update && apt-get install -y --no-install-recommends \
+        php-cli \
+        php-xml \
+        php-mbstring \
+        unzip \
+        git \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Copy composer files and install dependencies (needed for Symfony UX assets)
+COPY composer.json composer.lock symfony.lock ./
+
+# Use BuildKit cache for Composer downloads
+RUN --mount=type=cache,id=composer-cache,target=/root/.cache/composer \
+    composer install --no-scripts --no-autoloader --no-dev --prefer-dist --ignore-platform-reqs
+
+# Copy all application files needed for cache warmup and webpack build
+COPY .env* ./
+COPY bin ./bin
+COPY config ./config
+COPY src ./src
+COPY translations ./translations
+COPY public ./public
+COPY assets ./assets
+COPY webpack.config.js ./
+
+# Generate autoloader
+RUN composer dump-autoload
+
+# Create required directories for cache warmup
+RUN mkdir -p var/cache var/log uploads public/media
+
+# Dump translations, which we need for cache warmup
+RUN php bin/console cache:warmup -n --env=prod 2>&1
+
+# Copy package files and install node dependencies
+COPY package.json yarn.lock ./
+# Use BuildKit cache for yarn/npm
+RUN --mount=type=cache,id=yarn-cache,target=/root/.cache/yarn \
+    --mount=type=cache,id=npm-cache,target=/root/.npm \
+    yarn install --network-timeout 600000
+
+# Build the assets
+RUN yarn build
+
+# Clean up
+RUN yarn cache clean && rm -rf node_modules/
+
+# Base stage for PHP
 FROM ${BASE_IMAGE} AS base
 ARG PHP_VERSION
+ARG TARGETARCH
 
-# Install needed dependencies for PHP build
-#RUN apt-get update &&  apt-get install -y pkg-config curl libcurl4-openssl-dev libicu-dev \
-#    libpng-dev libjpeg-dev libfreetype6-dev gnupg zip libzip-dev libjpeg62-turbo-dev libonig-dev libxslt-dev libwebp-dev vim \
-#    && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update && apt-get -y install \
+# Use BuildKit cache mounts for apt in base stage
+RUN --mount=type=cache,id=apt-cache-$TARGETARCH,target=/var/cache/apt \
+    --mount=type=cache,id=apt-lists-$TARGETARCH,target=/var/lib/apt/lists \
+    apt-get update && apt-get -y install \
       apt-transport-https \
       lsb-release \
       ca-certificates \
@@ -39,18 +99,9 @@ RUN apt-get update && apt-get -y install \
       gpg \
       sudo \
     && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/* \
-# Create workdir and set permissions if directory does not exists
     && mkdir -p /var/www/html \
     && chown -R www-data:www-data /var/www/html \
-# delete the "index.html" that installing Apache drops in here
     && rm -rvf /var/www/html/*
-
-# Install node and yarn
-RUN curl -sL https://deb.nodesource.com/setup_22.x | bash - && \
-    apt-get update && apt-get install -y \
-      nodejs \
-    && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/* && \
-    npm install -g yarn
 
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -65,14 +116,12 @@ ENV APACHE_ENVVARS=$APACHE_CONFDIR/envvars
 #   : ${APACHE_RUN_USER:=www-data}
 #   export APACHE_RUN_USER
 # so that they can be overridden at runtime ("-e APACHE_RUN_USER=...")
-RUN  sed -ri 's/^export ([^=]+)=(.*)$/: ${\1:=\2}\nexport \1/' "$APACHE_ENVVARS"; \
-      set -eux; . "$APACHE_ENVVARS";  \
-    	\
-    # logs should go to stdout / stderr
-    	ln -sfT /dev/stderr "$APACHE_LOG_DIR/error.log"; \
-    	ln -sfT /dev/stdout "$APACHE_LOG_DIR/access.log"; \
-    	ln -sfT /dev/stdout "$APACHE_LOG_DIR/other_vhosts_access.log"; \
-        chown -R --no-dereference "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$APACHE_LOG_DIR";
+RUN sed -ri 's/^export ([^=]+)=(.*)$/: ${\1:=\2}\nexport \1/' "$APACHE_ENVVARS" && \
+    set -eux; . "$APACHE_ENVVARS" && \
+    ln -sfT /dev/stderr "$APACHE_LOG_DIR/error.log" && \
+    ln -sfT /dev/stdout "$APACHE_LOG_DIR/access.log" && \
+    ln -sfT /dev/stdout "$APACHE_LOG_DIR/other_vhosts_access.log" && \
+    chown -R --no-dereference "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$APACHE_LOG_DIR"
 
 # ---
 
@@ -141,7 +190,6 @@ COPY --chown=www-data:www-data . .
 # Setup apache2
 RUN a2dissite 000-default.conf && \
     a2ensite symfony.conf && \
-# Enable php-fpm
     a2enmod proxy_fcgi setenvif && \
     a2enconf php${PHP_VERSION}-fpm && \
     a2enconf docker-php && \
@@ -149,12 +197,13 @@ RUN a2dissite 000-default.conf && \
 
 # Install composer and yarn dependencies for Part-DB
 USER www-data
-RUN composer install -a --no-dev && \
+# Use BuildKit cache for Composer when running as www-data by setting COMPOSER_CACHE_DIR
+RUN --mount=type=cache,id=composer-cache,target=/tmp/.composer-cache \
+    COMPOSER_CACHE_DIR=/tmp/.composer-cache composer install -a --no-dev && \
     composer clear-cache
-RUN yarn install --network-timeout 600000 && \
-    yarn build && \
-    yarn cache clean && \
-    rm -rf node_modules/
+
+# Copy built frontend assets from node-builder stage
+COPY --from=node-builder --chown=www-data:www-data /app/public/build ./public/build
 
 # Use docker env to output logs to stdout
 ENV APP_ENV=docker
@@ -166,10 +215,12 @@ USER root
 RUN sed -i "s/PHP_VERSION/${PHP_VERSION}/g" ./.docker/partdb-entrypoint.sh
 
 # Copy entrypoint and apache2-foreground to /usr/local/bin and make it executable
-RUN install ./.docker/partdb-entrypoint.sh /usr/local/bin && \
-    install ./.docker/apache2-foreground /usr/local/bin
+# Convert CRLF -> LF and install entrypoint scripts with executable mode
+RUN sed -i 's/\r$//' ./.docker/partdb-entrypoint.sh ./.docker/apache2-foreground && \
+    install -m 0755 ./.docker/partdb-entrypoint.sh /usr/local/bin/ && \
+    install -m 0755 ./.docker/apache2-foreground /usr/local/bin/
 ENTRYPOINT ["partdb-entrypoint.sh"]
-CMD ["apache2-foreground"]
+CMD ["/usr/local/bin/apache2-foreground"]
 
 # https://httpd.apache.org/docs/2.4/stopping.html#gracefulstop
 STOPSIGNAL SIGWINCH
