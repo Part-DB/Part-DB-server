@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\DataTables\Filters;
 use App\DataTables\Filters\Constraints\AbstractConstraint;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\DBAL\ParameterType;
 
 class PartSearchFilter implements FilterInterface
 {
@@ -32,6 +33,9 @@ class PartSearchFilter implements FilterInterface
 
     /** @var bool Use name field for searching */
     protected bool $name = true;
+
+    /** @var bool Use id field for searching */
+    protected bool $dbId = false;
 
     /** @var bool Use category name for searching */
     protected bool $category = true;
@@ -125,9 +129,13 @@ class PartSearchFilter implements FilterInterface
     public function apply(QueryBuilder $queryBuilder): void
     {
         $fields_to_search = $this->getFieldsToSearch();
+        $is_numeric = preg_match('/^\d+$/', $this->keyword) === 1;
+
+        // Add exact ID match only when the keyword is numeric
+        $search_dbId = $is_numeric && (bool)$this->dbId;
 
         //If we have nothing to search for, do nothing
-        if ($fields_to_search === [] || $this->keyword === '') {
+        if (($fields_to_search === [] && !$search_dbId) || $this->keyword === '') {
             return;
         }
 
@@ -211,6 +219,17 @@ class PartSearchFilter implements FilterInterface
     public function setName(bool $name): PartSearchFilter
     {
         $this->name = $name;
+        return $this;
+    }
+
+    public function isDbId(): bool
+    {
+        return $this->dbId;
+    }
+
+    public function setDbId(bool $dbId): PartSearchFilter
+    {
+        $this->dbId = $dbId;
         return $this;
     }
 

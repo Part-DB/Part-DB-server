@@ -71,7 +71,7 @@ Encore
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 
-    // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
+    // enables the Symfony UX Stimulus bridge (used in assets/stimulus_bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
 
     // will require an extra script tag for runtime.js
@@ -169,22 +169,25 @@ for (const theme of AVAILABLE_THEMES) {
 
 
 if (Encore.isProduction()) {
-    Encore.addPlugin(new CompressionPlugin({
-        filename: '[path][base].br',
-        algorithm: 'brotliCompress',
-        test: /\.(js|css|html|svg)$/,
-        compressionOptions: {
-            // zlib’s `level` option matches Brotli’s `BROTLI_PARAM_QUALITY` option.
-            level: 11,
-        },
-        //threshold: 10240,
-        minRatio: 0.8,
-        deleteOriginalAssets: false,
-    }))
+    Encore
+        .addPlugin(new CompressionPlugin({
+            filename: '[path][base].br',
+            algorithm: 'brotliCompress',
+            test: /\.(js|css|html|svg)$/,
+            compressionOptions: {
+                // zlib’s `level` option matches Brotli’s `BROTLI_PARAM_QUALITY` option.
+                level: 11,
+            },
+            threshold: 10240,
+            minRatio: 0.8,
+            deleteOriginalAssets: false,
+        }))
 
         .addPlugin(new CompressionPlugin({
             filename: '[path][base].gz',
             algorithm: 'gzip',
+            threshold: 10240,
+            minRatio: 0.8,
             test: /\.(js|css|html|svg)$/,
             deleteOriginalAssets: false,
         }))

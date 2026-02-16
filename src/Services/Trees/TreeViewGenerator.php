@@ -34,9 +34,9 @@ use App\Entity\ProjectSystem\Project;
 use App\Helpers\Trees\TreeViewNode;
 use App\Helpers\Trees\TreeViewNodeIterator;
 use App\Repository\NamedDBElementRepository;
-use App\Repository\StructuralDBElementRepository;
 use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Cache\UserCacheKeyGenerator;
+use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use App\Settings\BehaviorSettings\SidebarSettings;
 use Doctrine\ORM\EntityManagerInterface;
@@ -67,6 +67,7 @@ class TreeViewGenerator
         protected TranslatorInterface $translator,
         private readonly UrlGeneratorInterface $router,
         private readonly SidebarSettings $sidebarSettings,
+        private readonly ElementTypeNameGenerator $elementTypeNameGenerator
     ) {
         $this->rootNodeEnabled = $this->sidebarSettings->rootNodeEnabled;
         $this->rootNodeExpandedByDefault = $this->sidebarSettings->rootNodeExpanded;
@@ -212,15 +213,7 @@ class TreeViewGenerator
 
     protected function entityClassToRootNodeString(string $class): string
     {
-        return match ($class) {
-            Category::class => $this->translator->trans('category.labelp'),
-            StorageLocation::class => $this->translator->trans('storelocation.labelp'),
-            Footprint::class => $this->translator->trans('footprint.labelp'),
-            Manufacturer::class => $this->translator->trans('manufacturer.labelp'),
-            Supplier::class => $this->translator->trans('supplier.labelp'),
-            Project::class => $this->translator->trans('project.labelp'),
-            default => $this->translator->trans('tree.root_node.text'),
-        };
+        return $this->elementTypeNameGenerator->typeLabelPlural($class);
     }
 
     protected function entityClassToRootNodeIcon(string $class): ?string

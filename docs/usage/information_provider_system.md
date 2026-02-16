@@ -78,7 +78,7 @@ results will be shown.
 ## Data providers
 
 The system tries to be as flexible as possible, so many different information sources can be used.
-Each information source is called am "info provider" and handles the communication with the external source.
+Each information source is called an "info provider" and handles the communication with the external source.
 The providers are just a driver that handles the communication with the different external sources and converts them
 into a common format Part-DB understands.
 That way it is pretty easy to create new providers as they just need to do very little work.
@@ -95,6 +95,21 @@ are redacted in the settings interface.
 The following providers are currently available and shipped with Part-DB:
 
 (All trademarks are property of their respective owners. Part-DB is not affiliated with any of the companies.)
+
+### Generic Web URL Provider
+The Generic Web URL Provider can extract part information from any webpage that contains structured data in the form of
+[Schema.org](https://schema.org/) format. Many e-commerce websites use this format to provide detailed product information
+for search engines and other services. Therefore it allows Part-DB to retrieve rudimentary part information (like name, image and price)
+from a wide range of websites without the need for a dedicated API integration.
+To use the Generic Web URL Provider, simply enable it in the information provider settings. No additional configuration
+is required. Afterwards you can enter any product URL in the search field, and Part-DB will attempt to extract the relevant part information
+from the webpage.
+
+Please note that if this provider is enabled, Part-DB will make HTTP requests to external websites to fetch product data, which
+may have privacy and security implications.
+
+Following env configuration options are available:
+* `PROVIDER_GENERIC_WEB_ENABLED`: Set this to `1` to enable the Generic Web URL Provider (optional, default: `0`)
 
 ### Octopart
 
@@ -157,7 +172,7 @@ again, to establish a new connection.
 
 ### TME
 
-The TME provider uses the API of [TME](https://www.tme.eu/) to search for parts and getting shopping information from
+The TME provider uses the API of [TME](https://www.tme.eu/) to search for parts and get shopping information from
 them.
 To use it you have to create an account at TME and get an API key on the [TME API page](https://developers.tme.eu/en/).
 You have to generate a new anonymous key there and enter the key and secret in the Part-DB env configuration (see
@@ -176,10 +191,10 @@ The following env configuration options are available:
 
 ### Farnell / Element14 / Newark
 
-The Farnell provider uses the [Farnell API](https://partner.element14.com/) to search for parts and getting shopping
+The Farnell provider uses the [Farnell API](https://partner.element14.com/) to search for parts and get shopping
 information from [Farnell](https://www.farnell.com/).
 You have to create an account at Farnell and get an API key on the [Farnell API page](https://partner.element14.com/).
-Register a new application there (settings does not matter, as long as you select the "Product Search API") and you will
+Register a new application there (settings do not matter, as long as you select the "Product Search API") and you will
 get an API key.
 
 The following env configuration options are available:
@@ -191,16 +206,12 @@ The following env configuration options are available:
 
 ### Mouser
 
-The Mouser provider uses the [Mouser API](https://www.mouser.de/api-home/) to search for parts and getting shopping
+The Mouser provider uses the [Mouser API](https://www.mouser.de/api-home/) to search for parts and get shopping
 information from [Mouser](https://www.mouser.com/).
 You have to create an account at Mouser and register for an API key for the Search API on
 the [Mouser API page](https://www.mouser.de/api-home/).
 You will receive an API token, which you have to put in the Part-DB env configuration (see below):
 At the registration you choose a country, language, and currency in which you want to get the results.
-
-*Attention*: Currently (January 2024) the mouser API seems to be somewhat broken, in the way that it does not return any
-information about datasheets and part specifications. Therefore Part-DB can not retrieve them, even if they are shown
-at the mouser page. See [issue #503](https://github.com/Part-DB/Part-DB-server/issues/503) for more info.
 
 Following env configuration options are available:
 
@@ -217,7 +228,7 @@ Following env configuration options are available:
 webshop uses an internal JSON based API to render the page. Part-DB can use this inofficial API to get part information
 from LCSC. 
 
-**Please note, that the use of this internal API is not intended or endorsed by LCS and it could break at any time. So use it at your own risk.**
+**Please note that the use of this internal API is not intended or endorsed by LCSC and it could break at any time. So use it at your own risk.**
 
 An API key is not required, it is enough to enable the provider using the following env configuration options:
 
@@ -226,7 +237,7 @@ An API key is not required, it is enough to enable the provider using the follow
 
 ### OEMsecrets
 
-The oemsecrets provider uses the [oemsecrets API](https://www.oemsecrets.com/) to search for parts and getting shopping
+The oemsecrets provider uses the [oemsecrets API](https://www.oemsecrets.com/) to search for parts and get shopping
 information from them. Similar to octopart it aggregates offers from different distributors.
 
 You can apply for a free API key on the [oemsecrets API page](https://www.oemsecrets.com/api/) and put the key you get
@@ -263,6 +274,34 @@ This is not an official API and could break at any time. So use it at your own r
 
 The following env configuration options are available:
 * `PROVIDER_POLLIN_ENABLED`: Set this to `1` to enable the Pollin provider
+
+### Buerklin
+
+The Buerklin provider uses the [Buerklin API](https://www.buerklin.com/en/services/eprocurement/) to search for parts and get information.
+To use it you have to request access to the API.
+You will get an e-mail with the client ID and client secret, which you have to put in the Part-DB configuration (see below).
+
+Please note that the Buerklin API is limited to 100 requests/minute per IP address and 
+access to the Authentication server is limited to 10 requests/minute per IP address
+
+The following env configuration options are available:
+
+* `PROVIDER_BUERKLIN_CLIENT_ID`: The client ID you got from Buerklin (mandatory)
+* `PROVIDER_BUERKLIN_SECRET`: The client secret you got from Buerklin (mandatory)
+* `PROVIDER_BUERKLIN_USERNAME`: The username you got from Buerklin (mandatory)
+* `PROVIDER_BUERKLIN_PASSWORD`: The password you got from Buerklin (mandatory)
+* `PROVIDER_BUERKLIN_CURRENCY`: The currency you want to get prices in if available (optional, 3 letter ISO-code, default: `EUR`).
+* `PROVIDER_BUERKLIN_LANGUAGE`: The language you want to get the descriptions in. Possible values: `de` = German, `en` = English. (optional, default: `en`)
+
+### Conrad
+
+The conrad provider the [Conrad API](https://developer.conrad.com/) to search for parts and retried their information.
+To use it you have to request access to the API, however it seems currently your mail address needs to be allowlisted before you can register for an account.
+The conrad webpages uses the API key in the requests, so you might be able to extract a working API key by listening to browser requests.
+That method is not officially supported nor encouraged by Part-DB, and might break at any moment.
+
+The following env configuration options are available:
+* `PROVIDER_CONRAD_API_KEY`: The API key you got from Conrad (mandatory)
 
 ### Custom provider
 

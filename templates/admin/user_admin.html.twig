@@ -5,7 +5,7 @@
 {# @var entity \App\Entity\UserSystem\User #}
 
 {% block card_title %}
-    <i class="fas fa-user fa-fw"></i> {% trans %}user.edit.caption{% endtrans %}
+    <i class="fas fa-user fa-fw"></i> {{ type_label_p(entity) }}
 {% endblock %}
 
 {% block comment %}{% endblock %}

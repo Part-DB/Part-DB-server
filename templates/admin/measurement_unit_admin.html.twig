@@ -1,7 +1,7 @@
 {% extends "admin/base_admin.html.twig" %}
 
 {% block card_title %}
-    <i class="fas fa-balance-scale fa-fw"></i> {% trans %}measurement_unit.caption{% endtrans %}
+    <i class="fas fa-balance-scale fa-fw"></i> {{ type_label_p(entity) }}
 {% endblock %}
 
 {% block edit_title %}

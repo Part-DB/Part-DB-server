@@ -36,7 +36,7 @@
                     {% for section_widget in tab_widget %}
                         {% set settings_object = section_widget.vars.value %}
 
-                        {% if section_widget.vars.compound ?? false %}
+                        {% if section_widget.vars.embedded_settings_metadata is defined %} {# Check if we have nested embedded settings or not #}
                             <fieldset>
                                 <legend class="offset-3">
                                     <i class="fa-solid {{ settings_icon(settings_object)|default('fa-sliders') }} fa-fw"></i>

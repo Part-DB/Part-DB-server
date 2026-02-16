@@ -19,7 +19,7 @@
 
         <tbody>
         {% for lot in part.partLots %}
-            <tr>
+            <tr {% if lot.id == highlightLotId %}class="table-primary row-highlight row-pulse"{% endif %}>
                 <td>{{ lot.description }}</td>
                 <td>
                     {% if lot.storageLocation %}

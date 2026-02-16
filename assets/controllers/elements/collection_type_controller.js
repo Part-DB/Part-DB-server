@@ -21,6 +21,7 @@ import {Controller} from "@hotwired/stimulus";
 
 import * as bootbox from "bootbox";
 import "../../css/components/bootbox_extensions.css";
+import accept from "attr-accept";
 
 export default class extends Controller {
     static values = {
@@ -112,6 +113,33 @@ export default class extends Controller {
                 dataTransfer.items.add(file);
 
                 rowInput.files = dataTransfer.files;
+
+                //Check the file extension and find the corresponding attachment type based on the data-filetype_filter attribute
+                const attachmentTypeSelect = newElement.querySelector("select");
+                if (attachmentTypeSelect) {
+                    let foundMatch = false;
+                    for (let j = 0; j < attachmentTypeSelect.options.length; j++) {
+                        const option = attachmentTypeSelect.options[j];
+                        //skip disabled options
+                        if (option.disabled) {
+                            continue;
+                        }
+
+                        const filter = option.getAttribute('data-filetype_filter');
+                        if (filter) {
+                            if (accept({name: file.name, type: file.type}, filter)) {
+                                attachmentTypeSelect.value = option.value;
+                                foundMatch = true;
+                                break;
+                            }
+                        } else { //If no filter is set, chose this option until we find a better match
+                            if (!foundMatch) {
+                                attachmentTypeSelect.value = option.value;
+                                foundMatch = true;
+                            }
+                        }
+                    }
+                }
             }
 
         });

@@ -353,6 +353,16 @@ class BOMImporterTest extends WebTestCase
 
     public function testStringToBOMEntriesKiCADSchematic(): void
     {
+        // Create test suppliers for this test
+        $lcscSupplier = new Supplier();
+        $lcscSupplier->setName('LCSC');
+        $mouserSupplier = new Supplier();
+        $mouserSupplier->setName('Mouser');
+
+        $this->entityManager->persist($lcscSupplier);
+        $this->entityManager->persist($mouserSupplier);
+        $this->entityManager->flush();
+
         $input = <<<CSV
         "Reference","Value","Footprint","Quantity","MPN","Manufacturer","LCSC SPN","Mouser SPN"
         "R1,R2","10k","R_0805_2012Metric",2,"CRCW080510K0FKEA","Vishay","C123456","123-M10K"
@@ -386,10 +396,20 @@ class BOMImporterTest extends WebTestCase
         $this->assertStringContainsString('Value: 10k', $bom_entries[0]->getComment());
         $this->assertStringContainsString('MPN: CRCW080510K0FKEA', $bom_entries[0]->getComment());
         $this->assertStringContainsString('Manf: Vishay', $bom_entries[0]->getComment());
+        $this->assertStringContainsString('LCSC SPN: C123456', $bom_entries[0]->getComment());
+        $this->assertStringContainsString('Mouser SPN: 123-M10K', $bom_entries[0]->getComment());
+
 
         // Check second entry
         $this->assertEquals('C1', $bom_entries[1]->getMountnames());
         $this->assertEquals(1.0, $bom_entries[1]->getQuantity());
+        $this->assertStringContainsString('LCSC SPN: C789012', $bom_entries[1]->getComment());
+        $this->assertStringContainsString('Mouser SPN: 80-CL21A104KOCLRNC', $bom_entries[1]->getComment());
+
+        // Clean up
+        $this->entityManager->remove($lcscSupplier);
+        $this->entityManager->remove($mouserSupplier);
+        $this->entityManager->flush();
     }
 
     public function testStringToBOMEntriesKiCADSchematicWithPriority(): void
@@ -594,6 +614,181 @@ class BOMImporterTest extends WebTestCase
         $this->assertContainsOnlyInstancesOf(ProjectBOMEntry::class, $bom_entries);
         $this->assertCount(1, $bom_entries);
         $this->assertEquals('R1,R2', $bom_entries[0]->getMountnames());
+    }
+
+    public function testStringToBOMEntriesKiCADSchematicWithSupplierSPN(): void
+    {
+        // Create test supplier
+        $lcscSupplier = new Supplier();
+        $lcscSupplier->setName('LCSC');
+        $this->entityManager->persist($lcscSupplier);
+
+        // Create a test part with required fields
+        $part = new Part();
+        $part->setName('Test Resistor 10k 0805');
+        $part->setCategory($this->getDefaultCategory($this->entityManager));
+        $this->entityManager->persist($part);
+
+        // Create orderdetail linking the part to a supplier SPN
+        $orderdetail = new \App\Entity\PriceInformations\Orderdetail();
+        $orderdetail->setPart($part);
+        $orderdetail->setSupplier($lcscSupplier);
+        $orderdetail->setSupplierpartnr('C123456');
+        $this->entityManager->persist($orderdetail);
+
+        $this->entityManager->flush();
+
+        // Import CSV with LCSC SPN matching the orderdetail
+        $input = <<<CSV
+        "Reference","Value","LCSC SPN","Quantity"
+        "R1,R2","10k","C123456","2"
+        CSV;
+
+        $field_mapping = [
+            'Reference' => 'Designator',
+            'Value' => 'Value',
+            'LCSC SPN' => 'LCSC SPN',
+            'Quantity' => 'Quantity'
+        ];
+
+        $bom_entries = $this->service->stringToBOMEntries($input, [
+            'type' => 'kicad_schematic',
+            'field_mapping' => $field_mapping,
+            'delimiter' => ','
+        ]);
+
+        $this->assertContainsOnlyInstancesOf(ProjectBOMEntry::class, $bom_entries);
+        $this->assertCount(1, $bom_entries);
+
+        // Verify that the BOM entry is linked to the correct part via supplier SPN
+        $this->assertSame($part, $bom_entries[0]->getPart());
+        $this->assertEquals('Test Resistor 10k 0805', $bom_entries[0]->getName());
+        $this->assertEquals('R1,R2', $bom_entries[0]->getMountnames());
+        $this->assertEquals(2.0, $bom_entries[0]->getQuantity());
+        $this->assertStringContainsString('LCSC SPN: C123456', $bom_entries[0]->getComment());
+        $this->assertStringContainsString('Part-DB ID: ' . $part->getID(), $bom_entries[0]->getComment());
+
+        // Clean up
+        $this->entityManager->remove($orderdetail);
+        $this->entityManager->remove($part);
+        $this->entityManager->remove($lcscSupplier);
+        $this->entityManager->flush();
+    }
+
+    public function testStringToBOMEntriesKiCADSchematicWithMultipleSupplierSPNs(): void
+    {
+        // Create test suppliers
+        $lcscSupplier = new Supplier();
+        $lcscSupplier->setName('LCSC');
+        $mouserSupplier = new Supplier();
+        $mouserSupplier->setName('Mouser');
+        $this->entityManager->persist($lcscSupplier);
+        $this->entityManager->persist($mouserSupplier);
+
+        // Create first part linked via LCSC SPN
+        $part1 = new Part();
+        $part1->setName('Resistor 10k');
+        $part1->setCategory($this->getDefaultCategory($this->entityManager));
+        $this->entityManager->persist($part1);
+
+        $orderdetail1 = new \App\Entity\PriceInformations\Orderdetail();
+        $orderdetail1->setPart($part1);
+        $orderdetail1->setSupplier($lcscSupplier);
+        $orderdetail1->setSupplierpartnr('C123456');
+        $this->entityManager->persist($orderdetail1);
+
+        // Create second part linked via Mouser SPN
+        $part2 = new Part();
+        $part2->setName('Capacitor 100nF');
+        $part2->setCategory($this->getDefaultCategory($this->entityManager));
+        $this->entityManager->persist($part2);
+
+        $orderdetail2 = new \App\Entity\PriceInformations\Orderdetail();
+        $orderdetail2->setPart($part2);
+        $orderdetail2->setSupplier($mouserSupplier);
+        $orderdetail2->setSupplierpartnr('789-CAP100NF');
+        $this->entityManager->persist($orderdetail2);
+
+        $this->entityManager->flush();
+
+        // Import CSV with both LCSC and Mouser SPNs
+        $input = <<<CSV
+        "Reference","Value","LCSC SPN","Mouser SPN","Quantity"
+        "R1","10k","C123456","","1"
+        "C1","100nF","","789-CAP100NF","1"
+        CSV;
+
+        $field_mapping = [
+            'Reference' => 'Designator',
+            'Value' => 'Value',
+            'LCSC SPN' => 'LCSC SPN',
+            'Mouser SPN' => 'Mouser SPN',
+            'Quantity' => 'Quantity'
+        ];
+
+        $bom_entries = $this->service->stringToBOMEntries($input, [
+            'type' => 'kicad_schematic',
+            'field_mapping' => $field_mapping,
+            'delimiter' => ','
+        ]);
+
+        $this->assertCount(2, $bom_entries);
+
+        // Verify first entry linked via LCSC SPN
+        $this->assertSame($part1, $bom_entries[0]->getPart());
+        $this->assertEquals('Resistor 10k', $bom_entries[0]->getName());
+
+        // Verify second entry linked via Mouser SPN
+        $this->assertSame($part2, $bom_entries[1]->getPart());
+        $this->assertEquals('Capacitor 100nF', $bom_entries[1]->getName());
+
+        // Clean up
+        $this->entityManager->remove($orderdetail1);
+        $this->entityManager->remove($orderdetail2);
+        $this->entityManager->remove($part1);
+        $this->entityManager->remove($part2);
+        $this->entityManager->remove($lcscSupplier);
+        $this->entityManager->remove($mouserSupplier);
+        $this->entityManager->flush();
+    }
+
+    public function testStringToBOMEntriesKiCADSchematicWithNonMatchingSPN(): void
+    {
+        // Create test supplier
+        $lcscSupplier = new Supplier();
+        $lcscSupplier->setName('LCSC');
+        $this->entityManager->persist($lcscSupplier);
+        $this->entityManager->flush();
+
+        // Import CSV with LCSC SPN that doesn't match any orderdetail
+        $input = <<<CSV
+        "Reference","Value","LCSC SPN","Quantity"
+        "R1","10k","C999999","1"
+        CSV;
+
+        $field_mapping = [
+            'Reference' => 'Designator',
+            'Value' => 'Value',
+            'LCSC SPN' => 'LCSC SPN',
+            'Quantity' => 'Quantity'
+        ];
+
+        $bom_entries = $this->service->stringToBOMEntries($input, [
+            'type' => 'kicad_schematic',
+            'field_mapping' => $field_mapping,
+            'delimiter' => ','
+        ]);
+
+        $this->assertCount(1, $bom_entries);
+
+        // Verify that no part is linked (SPN not found)
+        $this->assertNull($bom_entries[0]->getPart());
+        $this->assertEquals('10k', $bom_entries[0]->getName()); // Should use Value as name
+        $this->assertStringContainsString('LCSC SPN: C999999', $bom_entries[0]->getComment());
+
+        // Clean up
+        $this->entityManager->remove($lcscSupplier);
+        $this->entityManager->flush();
     }
 
     private function getDefaultCategory(EntityManagerInterface $entityManager)

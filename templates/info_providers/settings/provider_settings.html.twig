@@ -10,7 +10,7 @@
 {% block card_content %}
     <div class="offset-sm-3">
         <h3>
-            {% if info_provider_info.url %}
+            {% if info_provider_info.url is defined %}
                 <a href="{{ info_provider_info.url }}" class="link-external" target="_blank" rel="nofollow">{{ info_provider_info.name }}</a>
             {% else %}
                 {{ info_provider_info.name }}

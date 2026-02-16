@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace App\Settings\SystemSettings;
 
-use App\Form\Type\LanguageMenuEntriesType;
+use App\Form\Settings\LanguageMenuEntriesType;
 use App\Form\Type\LocaleSelectType;
 use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;

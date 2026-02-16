@@ -33,7 +33,7 @@ use App\Settings\InfoProviderSystem\LCSCSettings;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class LCSCProvider implements BatchInfoProviderInterface
+class LCSCProvider implements BatchInfoProviderInterface, URLHandlerInfoProviderInterface
 {
 
     private const ENDPOINT_URL = 'https://wmsc.lcsc.com/ftps/wm';
@@ -451,5 +451,22 @@ class LCSCProvider implements BatchInfoProviderInterface
             ProviderCapabilities::PRICE,
             ProviderCapabilities::FOOTPRINT,
         ];
+    }
+
+    public function getHandledDomains(): array
+    {
+        return ['lcsc.com'];
+    }
+
+    public function getIDFromURL(string $url): ?string
+    {
+        //Input example: https://www.lcsc.com/product-detail/C258144.html?s_z=n_BC547
+        //The part between the "C" and the ".html" is the unique ID
+
+        $matches = [];
+        if (preg_match("#/product-detail/(\w+)\.html#", $url, $matches) > 0) {
+            return $matches[1];
+        }
+        return null;
     }
 }

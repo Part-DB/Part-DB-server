@@ -24,28 +24,23 @@ declare(strict_types=1);
 namespace App\Services\System;
 
 use App\Settings\SystemSettings\PrivacySettings;
-use Psr\Log\LoggerInterface;
-use Shivas\VersioningBundle\Service\VersionManagerInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Version\Version;
 
 /**
  * This class checks if a new version of Part-DB is available.
  */
-class UpdateAvailableManager
+class UpdateAvailableFacade
 {
-
-    private const API_URL = 'https://api.github.com/repos/Part-DB/Part-DB-server/releases/latest';
     private const CACHE_KEY = 'uam_latest_version';
     private const CACHE_TTL = 60 * 60 * 24 * 2; // 2 day
 
-    public function __construct(private readonly HttpClientInterface $httpClient,
-        private readonly CacheInterface $updateCache, private readonly VersionManagerInterface $versionManager,
-        private readonly PrivacySettings $privacySettings, private readonly LoggerInterface $logger,
-        #[Autowire(param: 'kernel.debug')] private readonly bool $is_dev_mode)
+    public function __construct(
+        private readonly CacheInterface $updateCache,
+        private readonly PrivacySettings $privacySettings,
+        private readonly UpdateChecker $updateChecker,
+    )
     {
 
     }
@@ -89,9 +84,7 @@ class UpdateAvailableManager
         }
 
         $latestVersion = $this->getLatestVersion();
-        $currentVersion = $this->versionManager->getVersion();
-
-        return $latestVersion->isGreaterThan($currentVersion);
+        return $this->updateChecker->isNewerVersionThanCurrent($latestVersion);
     }
 
     /**
@@ -111,34 +104,7 @@ class UpdateAvailableManager
 
         return $this->updateCache->get(self::CACHE_KEY, function (ItemInterface $item) {
             $item->expiresAfter(self::CACHE_TTL);
-            try {
-                $response = $this->httpClient->request('GET', self::API_URL);
-                $result = $response->toArray();
-                $tag_name = $result['tag_name'];
-
-                // Remove the leading 'v' from the tag name
-                $version = substr($tag_name, 1);
-
-                return [
-                    'version' => $version,
-                    'url' => $result['html_url'],
-                ];
-            } catch (\Exception $e) {
-                //When we are in dev mode, throw the exception, otherwise just silently log it
-                if ($this->is_dev_mode) {
-                    throw $e;
-                }
-
-                //In the case of an error, try it again after half of the cache time
-                $item->expiresAfter(self::CACHE_TTL / 2);
-
-                $this->logger->error('Checking for updates failed: ' . $e->getMessage());
-
-                return [
-                    'version' => '0.0.1',
-                    'url' => 'update-checking-error'
-                ];
-            }
+            return $this->updateChecker->getLatestVersion();
         });
     }
 }

@@ -109,6 +109,13 @@ class DBElementRepository extends EntityRepository
             return [];
         }
 
+        //Ensure that all IDs are integers and none is null
+        foreach ($ids as $id) {
+            if (!is_int($id)) {
+                throw new \InvalidArgumentException('Non-integer ID given to findByIDInMatchingOrder: ' . var_export($id, true));
+            }
+        }
+
         $cache_key = implode(',', $ids);
 
         //Check if the result is already cached

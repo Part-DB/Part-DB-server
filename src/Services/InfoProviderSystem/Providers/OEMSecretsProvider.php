@@ -397,13 +397,13 @@ class OEMSecretsProvider implements InfoProviderInterface
      * Generates a cache key for storing part details based on the provided provider ID.
      *
      * This method creates a unique cache key by prefixing the provider ID with 'part_details_'
-     * and hashing the provider ID using MD5 to ensure a consistent and compact key format.
+     * and hashing the provider ID using XXH3 to ensure a consistent and compact key format.
      *
      * @param string $provider_id The unique identifier of the provider or part.
      * @return string The generated cache key.
      */
     private function getCacheKey(string $provider_id): string {
-        return 'oemsecrets_part_' . md5($provider_id);
+        return 'oemsecrets_part_' . hash('xxh3', $provider_id);
     }
 
 
@@ -680,7 +680,7 @@ class OEMSecretsProvider implements InfoProviderInterface
         if (is_array($prices)) {
             // Step 1: Check if prices exist in the preferred currency
             if (isset($prices[$this->settings->currency]) && is_array($prices[$this->settings->currency])) {
-                $priceDetails = $prices[$this->$this->settings->currency];
+                $priceDetails = $prices[$this->settings->currency];
                 foreach ($priceDetails as $priceDetail) {
                     if (
                         is_array($priceDetail) &&

@@ -167,7 +167,7 @@ class EntityImporter
         }
 
         //Only return objects once
-        return array_values(array_unique($valid_entities));
+        return array_values(array_unique($valid_entities, SORT_REGULAR));
     }
 
     /**

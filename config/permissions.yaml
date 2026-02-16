@@ -18,7 +18,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
 
   parts: # e.g. this maps to perms_parts in User/Group database
     group: "data"
-    label: "perm.parts"
+    label: "[[Part]]"
     operations: # Here are all possible operations are listed => the op name is mapped to bit value
       read:
         label: "perm.read"
@@ -71,7 +71,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
 
 
   storelocations: &PART_CONTAINING
-    label: "perm.storelocations"
+    label: "[[Storage_location]]"
     group: "data"
     operations:
       read:
@@ -103,39 +103,39 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
 
   footprints:
     <<: *PART_CONTAINING
-    label: "perm.part.footprints"
+    label: "[[Footprint]]"
 
   categories:
     <<: *PART_CONTAINING
-    label: "perm.part.categories"
+    label: "[[Category]]"
 
   suppliers:
     <<: *PART_CONTAINING
-    label: "perm.part.supplier"
+    label: "[[Supplier]]"
 
   manufacturers:
     <<: *PART_CONTAINING
-    label: "perm.part.manufacturers"
+    label: "[[Manufacturer]]"
 
   projects:
     <<: *PART_CONTAINING
-    label: "perm.projects"
+    label: "[[Project]]"
 
   attachment_types:
     <<: *PART_CONTAINING
-    label: "perm.part.attachment_types"
+    label: "[[Attachment_type]]"
 
   currencies:
     <<: *PART_CONTAINING
-    label: "perm.currencies"
+    label: "[[Currency]]"
 
   measurement_units:
     <<: *PART_CONTAINING
-    label: "perm.measurement_units"
+    label: "[[Measurement_unit]]"
 
   part_custom_states:
     <<: *PART_CONTAINING
-    label: "perm.part_custom_states"
+    label: "[[Part_custom_state]]"
 
   tools:
     label: "perm.part.tools"
@@ -296,6 +296,10 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         apiTokenRole: ROLE_API_ADMIN
       show_updates:
         label: "perm.system.show_available_updates"
+        apiTokenRole: ROLE_API_ADMIN
+      manage_updates:
+        label: "perm.system.manage_updates"
+        alsoSet: ['show_updates', 'server_infos']
         apiTokenRole: ROLE_API_ADMIN
 
 
