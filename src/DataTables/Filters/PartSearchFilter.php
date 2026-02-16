@@ -139,28 +139,23 @@ class PartSearchFilter implements FilterInterface
             return;
         }
       
+        expressions = new array();
+        params = new array();
+        
         //Use equal expression to just search for exact numeric matches
         if ($search_dbId) {
             $expressions[] = $queryBuilder->expr()->eq('part.id', ':id_exact');
-            $queryBuilder->setParameter('id_exact', (int) $this->keyword,
+            params[] = new \Doctrine\ORM\Query\Parameter('id_exact', (int) $this->keyword,
                 ParameterType::INTEGER);
-          return;
         }
-
-        if($this->regex) {
+        else if($this->regex) {
             //Convert the fields to search to a list of expressions
             $expressions = array_map(function (string $field): string {
                 return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
             }, $fields_to_search);
-          
-            //Add Or concatenation of the expressions to our query
-            $queryBuilder->andWhere(
-                $queryBuilder->expr()->orX(...$expressions)
-            );
-
+            
             //For regex, we pass the query as is, save html special chars
-            $queryBuilder->setParameter('search_query', $this->keyword);
-            return;
+            params[] = new \Doctrine\ORM\Query\Parameter('search_query', $this->keyword);
         } else {
             //Escape % and _ characters in the keyword
             $this->keyword = str_replace(['%', '_'], ['\%', '\_'], $this->keyword);
@@ -169,7 +164,7 @@ class PartSearchFilter implements FilterInterface
             $tokens = explode(' ', $this->keyword, 5);
 
             //Perform search of every single token in every selected field
-            //AND-combine the results (all tokens must be present in any result, but the order does not matter)
+            //AND-combine the results (all tokens must be present in any of the results)
             for ($i = 0; $i < sizeof($tokens); $i++) {
                 $this->it = $i;
                 $tokens[$i] = trim($tokens[$i]);
@@ -184,15 +179,18 @@ class PartSearchFilter implements FilterInterface
                 }, $fields_to_search);
               
                 //Aggregate the parameters for consolidated commission
-                $params[] = new \Doctrine\ORM\Query\Parameter('search_query' . $i, '%' . $tokens[$i] . '%');
-              
-                //Add Or concatenation of the expressions to our query
-                $queryBuilder->andWhere(
-                    $queryBuilder->expr()->orX(...$expressions)
-                );
+                $params[] = new \Doctrine\ORM\Query\Parameter('search_query' . $i,
+                                                              '%' . $tokens[$i] . '%');
             }
-            $queryBuilder->setParameters(new ArrayCollection($params));
         }
+        
+        //Add Or concatenation of the expressions to our query
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->orX(...$expressions)
+        );
+        $queryBuilder->setParameters(
+            new \Doctrine\Common\Collections\ArrayCollection($params)
+        );
     }
 
     public function getKeyword(): string
