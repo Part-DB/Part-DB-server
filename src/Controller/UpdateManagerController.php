@@ -315,6 +315,80 @@ class UpdateManagerController extends AbstractController
     }
 
     /**
+     * Create a manual backup.
+     */
+    #[Route('/backup', name: 'admin_update_manager_backup', methods: ['POST'])]
+    public function createBackup(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('@system.manage_updates');
+
+        if (!$this->isCsrfTokenValid('update_manager_backup', $request->request->get('_token'))) {
+            $this->addFlash('error', 'Invalid CSRF token.');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        if ($this->updateExecutor->isLocked()) {
+            $this->addFlash('error', 'Cannot create backup while an update is in progress.');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        try {
+            $backupPath = $this->backupManager->createBackup(null, 'manual');
+            $this->addFlash('success', 'update_manager.backup.created');
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Backup failed: ' . $e->getMessage());
+        }
+
+        return $this->redirectToRoute('admin_update_manager');
+    }
+
+    /**
+     * Delete a backup file.
+     */
+    #[Route('/backup/delete', name: 'admin_update_manager_backup_delete', methods: ['POST'])]
+    public function deleteBackup(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('@system.manage_updates');
+
+        if (!$this->isCsrfTokenValid('update_manager_delete', $request->request->get('_token'))) {
+            $this->addFlash('error', 'Invalid CSRF token.');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        $filename = $request->request->get('filename');
+        if ($filename && $this->backupManager->deleteBackup($filename)) {
+            $this->addFlash('success', 'update_manager.backup.deleted');
+        } else {
+            $this->addFlash('error', 'update_manager.backup.delete_error');
+        }
+
+        return $this->redirectToRoute('admin_update_manager');
+    }
+
+    /**
+     * Delete an update log file.
+     */
+    #[Route('/log/delete', name: 'admin_update_manager_log_delete', methods: ['POST'])]
+    public function deleteLog(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('@system.manage_updates');
+
+        if (!$this->isCsrfTokenValid('update_manager_delete', $request->request->get('_token'))) {
+            $this->addFlash('error', 'Invalid CSRF token.');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        $filename = $request->request->get('filename');
+        if ($filename && $this->updateExecutor->deleteLog($filename)) {
+            $this->addFlash('success', 'update_manager.log.deleted');
+        } else {
+            $this->addFlash('error', 'update_manager.log.delete_error');
+        }
+
+        return $this->redirectToRoute('admin_update_manager');
+    }
+
+    /**
      * Restore from a backup.
      */
     #[Route('/restore', name: 'admin_update_manager_restore', methods: ['POST'])]
