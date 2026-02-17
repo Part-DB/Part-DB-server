@@ -2,7 +2,7 @@
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2024 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2025 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -23,25 +23,25 @@ declare(strict_types=1);
 
 namespace App\Settings\BehaviorSettings;
 
-use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
+use App\Settings\SettingsIcon;
+use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
-use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings(label: new TM("settings.behavior"))]
-class BehaviorSettings
+#[Settings(name: "keybindings", label: new TM("settings.behavior.keybindings"))]
+#[SettingsIcon('fa-keyboard')]
+class KeybindingsSettings
 {
-    use SettingsTrait;
-
-    #[EmbeddedSettings]
-    public ?SidebarSettings $sidebar = null;
-
-    #[EmbeddedSettings]
-    public ?TableSettings $table = null;
-
-    #[EmbeddedSettings]
-    public ?PartInfoSettings $partInfo = null;
-
-    #[EmbeddedSettings]
-    public ?KeybindingsSettings $keybindings = null;
+    /**
+     * Whether to enable special character keybindings (Alt+key) in text input fields
+     * @var bool
+     */
+    #[SettingsParameter(
+        label: new TM("settings.behavior.keybindings.enable_special_characters"), 
+        description: new TM("settings.behavior.keybindings.enable_special_characters.help"),
+        envVar: "bool:KEYBINDINGS_SPECIAL_CHARS_ENABLED", 
+        envVarMode: EnvVarMode::OVERWRITE
+    )]
+    public bool $enableSpecialCharacters = true;
 }
