@@ -343,11 +343,26 @@
                                                     {{ log.date|date('Y-m-d H:i') }}
                                                 </td>
                                                 <td><code class="small">{{ log.file }}</code></td>
-                                                <td>
-                                                    <a href="{{ path('admin_update_manager_log', {filename: log.file}) }}"
-                                                       class="btn btn-sm btn-outline-secondary">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
+                                                <td class="text-end">
+                                                    <div class="btn-group btn-group-sm">
+                                                        <a href="{{ path('admin_update_manager_log', {filename: log.file}) }}"
+                                                           class="btn btn-outline-secondary"
+                                                           title="{% trans %}update_manager.view_log{% endtrans %}">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                        {% if is_granted('@system.manage_updates') %}
+                                                            <form action="{{ path('admin_update_manager_log_delete') }}" method="post" class="d-inline"
+                                                                  data-turbo-confirm="{% trans %}update_manager.log.delete.confirm{% endtrans %}">
+                                                                <input type="hidden" name="_token" value="{{ csrf_token('update_manager_delete') }}">
+                                                                <input type="hidden" name="filename" value="{{ log.file }}">
+                                                                <button type="submit"
+                                                                    class="btn btn-outline-danger"
+                                                                    title="{% trans %}update_manager.delete{% endtrans %}">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </button>
+                                                            </form>
+                                                        {% endif %}
+                                                    </div>
                                                 </td>
                                             </tr>
                                         {% else %}
@@ -362,6 +377,17 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="backups-tab">
+                            {% if is_granted('@system.manage_updates') and status.can_auto_update and not is_locked %}
+                                <div class="p-2 border-bottom">
+                                    <form action="{{ path('admin_update_manager_backup') }}" method="post" class="d-inline"
+                                          data-turbo-confirm="{% trans %}update_manager.backup.create.confirm{% endtrans %}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('update_manager_backup') }}">
+                                        <button type="submit" class="btn btn-sm btn-success">
+                                            <i class="fas fa-download me-1"></i>{% trans %}update_manager.backup.create{% endtrans %}
+                                        </button>
+                                    </form>
+                                </div>
+                            {% endif %}
                             <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
                                 <table class="table table-hover table-sm mb-0">
                                     <thead class="sticky-top" style="background-color: #f8f9fa;">
@@ -383,24 +409,38 @@
                                                     {{ (backup.size / 1024 / 1024)|number_format(1) }} MB
                                                 </td>
                                                 <td class="text-end">
-                                                    {% if status.can_auto_update and validation.valid and not backup_restore_disabled %}
-                                                        <form action="{{ path('admin_update_manager_restore') }}" method="post" class="d-inline"
-                                                              data-controller="backup-restore"
-                                                              data-backup-restore-filename-value="{{ backup.file }}"
-                                                              data-backup-restore-date-value="{{ backup.date|date('Y-m-d H:i') }}"
-                                                              data-backup-restore-confirm-title-value="{{ 'update_manager.restore_confirm_title'|trans }}"
-                                                              data-backup-restore-confirm-message-value="{{ 'update_manager.restore_confirm_message'|trans }}"
-                                                              data-backup-restore-confirm-warning-value="{{ 'update_manager.restore_confirm_warning'|trans }}">
-                                                            <input type="hidden" name="_token" value="{{ csrf_token('update_manager_restore') }}">
-                                                            <input type="hidden" name="filename" value="{{ backup.file }}">
-                                                            <input type="hidden" name="restore_database" value="1">
-                                                            <button type="submit"
-                                                                class="btn btn-sm btn-outline-warning"
-                                                                title="{% trans %}update_manager.restore_backup{% endtrans %}">
-                                                                <i class="fas fa-undo"></i>
-                                                            </button>
-                                                        </form>
-                                                    {% endif %}
+                                                    <div class="btn-group btn-group-sm">
+                                                        {% if status.can_auto_update and validation.valid and not backup_restore_disabled %}
+                                                            <form action="{{ path('admin_update_manager_restore') }}" method="post" class="d-inline"
+                                                                  data-controller="backup-restore"
+                                                                  data-backup-restore-filename-value="{{ backup.file }}"
+                                                                  data-backup-restore-date-value="{{ backup.date|date('Y-m-d H:i') }}"
+                                                                  data-backup-restore-confirm-title-value="{{ 'update_manager.restore_confirm_title'|trans }}"
+                                                                  data-backup-restore-confirm-message-value="{{ 'update_manager.restore_confirm_message'|trans }}"
+                                                                  data-backup-restore-confirm-warning-value="{{ 'update_manager.restore_confirm_warning'|trans }}">
+                                                                <input type="hidden" name="_token" value="{{ csrf_token('update_manager_restore') }}">
+                                                                <input type="hidden" name="filename" value="{{ backup.file }}">
+                                                                <input type="hidden" name="restore_database" value="1">
+                                                                <button type="submit"
+                                                                    class="btn btn-outline-warning"
+                                                                    title="{% trans %}update_manager.restore_backup{% endtrans %}">
+                                                                    <i class="fas fa-undo"></i>
+                                                                </button>
+                                                            </form>
+                                                        {% endif %}
+                                                        {% if is_granted('@system.manage_updates') %}
+                                                            <form action="{{ path('admin_update_manager_backup_delete') }}" method="post" class="d-inline"
+                                                                  data-turbo-confirm="{% trans %}update_manager.backup.delete.confirm{% endtrans %}">
+                                                                <input type="hidden" name="_token" value="{{ csrf_token('update_manager_delete') }}">
+                                                                <input type="hidden" name="filename" value="{{ backup.file }}">
+                                                                <button type="submit"
+                                                                    class="btn btn-outline-danger"
+                                                                    title="{% trans %}update_manager.delete{% endtrans %}">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </button>
+                                                            </form>
+                                                        {% endif %}
+                                                    </div>
                                                 </td>
                                             </tr>
                                         {% else %}
