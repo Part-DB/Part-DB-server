@@ -143,6 +143,12 @@ export default class extends Controller {
                 return;
             }
 
+            // If info mode is OFF and part was NOT found, redirect to create part URL
+            if (!infoMode && !data.found && data.createUrl) {
+                window.location.assign(data.createUrl);
+                return;
+            }
+
             // Otherwise render returned fragment HTML
             if (typeof data.html === "string" && data.html !== "") {
                 const el = document.getElementById("scan-augmented-result");

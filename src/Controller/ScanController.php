@@ -382,6 +382,7 @@ class ScanController extends AbstractController
             'ok' => true,
             'found' => $targetFound,
             'redirectUrl' => $redirectUrl, // client redirects only when infoMode=false
+            'createUrl' => $createUrl,
             'html' => $html,
             'infoMode' => $infoMode,
         ], 200);
