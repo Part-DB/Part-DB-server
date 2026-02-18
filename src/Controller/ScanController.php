@@ -100,8 +100,19 @@ class ScanController extends AbstractController
 
                 // If not in info mode, mimic “normal scan” behavior: redirect if possible.
                 if (!$infoMode) {
-                    $url = $this->barcodeParser->getRedirectURL($scan);
-                    return $this->redirect($url);
+                    try {
+                        $url = $this->barcodeParser->getRedirectURL($scan);
+                        return $this->redirect($url);
+                    } catch (EntityNotFoundException) {
+                        // Decoded OK, but no part is found. If it’s a vendor code, redirect to create.
+                        $createUrl = $this->buildCreateUrlForScanResult($scan, $request->getLocale());
+                        if ($createUrl !== null) {
+                            return $this->redirect($createUrl);
+                        }
+
+                        // Otherwise: show “not found” (not “format unknown”)
+                        $this->addFlash('warning', 'scan.qr_not_found');
+                    }
                 }
 
                 // Info mode fallback: render page with prefilled result
