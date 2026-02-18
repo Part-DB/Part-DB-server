@@ -33,7 +33,7 @@
             {{ form_row(form.supplier_product_url,  {'attr': {'class': 'form-control-sm'}}) }}
             {{ form_widget(form.obsolete) }}
             {{ form_widget(form.pricesIncludesVAT) }}
-            {{ form_widget(form.kicad_export) }}
+            {{ form_widget(form.eda_visibility) }}
         </td>
         <td>
             <div {{ collection.controller(form.pricedetails, 'pricedetails.edit.delete.confirm') }}>
@@ -80,7 +80,9 @@
         <td {{ stimulus_controller('pages/latex_preview', {"unit": true}) }}>{{ form_widget(form.unit, {"attr": {"data-pages--parameters-autocomplete-target": "unit", "data-pages--latex-preview-target": "input"}}) }}{{ form_errors(form.unit) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
         <td>{{ form_widget(form.value_text) }}{{ form_errors(form.value_text) }}</td>
         <td>{{ form_widget(form.group) }}{{ form_errors(form.group) }}</td>
-        <td class="text-center">{{ form_widget(form.kicad_export) }}</td>
+        {% if form.eda_visibility is defined %}
+        <td class="text-center">{{ form_widget(form.eda_visibility) }}</td>
+        {% endif %}
         <td>
             <button type="button" class="btn btn-danger btn-sm order_btn_delete position-relative {% if form.parent.vars.allow_delete is defined and  not form.parent.vars.allow_delete %}disabled{% endif %}"
                     {{ collection.delete_btn() }} title="{% trans %}orderdetail.delete{% endtrans %}">

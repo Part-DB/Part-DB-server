@@ -362,9 +362,9 @@ final class KiCadHelperTest extends KernelTestCase
     }
 
     /**
-     * Test that a parameter with kicad_export=true appears in the KiCad fields.
+     * Test that a parameter with eda_visibility=true appears in the KiCad fields.
      */
-    public function testParameterWithKicadExportAppearsInFields(): void
+    public function testParameterWithEdaVisibilityAppearsInFields(): void
     {
         $category = $this->em->find(Category::class, 1);
 
@@ -376,7 +376,7 @@ final class KiCadHelperTest extends KernelTestCase
         $param->setName('Voltage Rating');
         $param->setValueTypical(3.3);
         $param->setUnit('V');
-        $param->setKicadExport(true);
+        $param->setEdaVisibility(true);
         $part->addParameter($param);
 
         $this->em->persist($part);
@@ -389,9 +389,9 @@ final class KiCadHelperTest extends KernelTestCase
     }
 
     /**
-     * Test that a parameter with kicad_export=false does NOT appear in the KiCad fields.
+     * Test that a parameter with eda_visibility=false does NOT appear in the KiCad fields.
      */
-    public function testParameterWithoutKicadExportDoesNotAppear(): void
+    public function testParameterWithoutEdaVisibilityDoesNotAppear(): void
     {
         $category = $this->em->find(Category::class, 1);
 
@@ -402,7 +402,7 @@ final class KiCadHelperTest extends KernelTestCase
         $param = new PartParameter();
         $param->setName('Internal Note');
         $param->setValueText('for testing only');
-        $param->setKicadExport(false);
+        $param->setEdaVisibility(false);
         $part->addParameter($param);
 
         $this->em->persist($part);
@@ -411,6 +411,31 @@ final class KiCadHelperTest extends KernelTestCase
         $result = $this->helper->getKiCADPart($part);
 
         self::assertArrayNotHasKey('Internal Note', $result['fields']);
+    }
+
+    /**
+     * Test that a parameter with eda_visibility=null (system default) does NOT appear in the KiCad fields.
+     */
+    public function testParameterWithNullEdaVisibilityDoesNotAppear(): void
+    {
+        $category = $this->em->find(Category::class, 1);
+
+        $part = new Part();
+        $part->setName('Part with Default Parameter');
+        $part->setCategory($category);
+
+        $param = new PartParameter();
+        $param->setName('Default Param');
+        $param->setValueText('some value');
+        // eda_visibility is null by default
+        $part->addParameter($param);
+
+        $this->em->persist($part);
+        $this->em->flush();
+
+        $result = $this->helper->getKiCADPart($part);
+
+        self::assertArrayNotHasKey('Default Param', $result['fields']);
     }
 
     /**
@@ -428,7 +453,7 @@ final class KiCadHelperTest extends KernelTestCase
         $param = new PartParameter();
         $param->setName('description');
         $param->setValueText('should not overwrite');
-        $param->setKicadExport(true);
+        $param->setEdaVisibility(true);
         $part->addParameter($param);
 
         $this->em->persist($part);

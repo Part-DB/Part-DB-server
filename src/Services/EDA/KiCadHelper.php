@@ -47,6 +47,9 @@ class KiCadHelper
     /** @var bool Whether to resolve actual datasheet PDF URLs (true) or use Part-DB page links (false) */
     private readonly bool $datasheetAsPdf;
 
+    /** @var bool The system-wide default for EDA visibility when not explicitly set on an element */
+    private readonly bool $defaultEdaVisibility;
+
     public function __construct(
         private readonly NodesListBuilder $nodesListBuilder,
         private readonly TagAwareCacheInterface $kicadCache,
@@ -59,6 +62,7 @@ class KiCadHelper
     ) {
         $this->category_depth = $kiCadEDASettings->categoryDepth;
         $this->datasheetAsPdf = $kiCadEDASettings->datasheetAsPdf ?? true;
+        $this->defaultEdaVisibility = $kiCadEDASettings->defaultEdaVisibility;
     }
 
     /**
@@ -194,10 +198,14 @@ class KiCadHelper
     }
 
     /**
-     * @param bool $apiV2 If true, use API v2 format with volatile field support
+     * @param int $apiVersion The API version to use (1 or 2). Version 2 adds volatile field support.
      */
-    public function getKiCADPart(Part $part, bool $apiV2 = false): array
+    public function getKiCADPart(Part $part, int $apiVersion = 1): array
     {
+        if ($apiVersion < 1 || $apiVersion > 2) {
+            throw new \InvalidArgumentException(sprintf('Unsupported API version %d. Supported versions: 1, 2.', $apiVersion));
+        }
+
         $result = [
             'id' => (string)$part->getId(),
             'name' => $part->getName(),
@@ -277,13 +285,14 @@ class KiCadHelper
         }
 
         // Add supplier information from orderdetails (include obsolete orderdetails)
-        // If any orderdetail has kicad_export=true, only export those; otherwise export all (backward compat)
+        // If any orderdetail has eda_visibility explicitly set to true, only export those;
+        // otherwise export all (backward compat when no flags are set)
         $allOrderdetails = $part->getOrderdetails(false);
         if ($allOrderdetails->count() > 0) {
-            $hasKicadExportFlag = false;
+            $hasExplicitEdaVisibility = false;
             foreach ($allOrderdetails as $od) {
-                if ($od->isKicadExport()) {
-                    $hasKicadExportFlag = true;
+                if ($od->isEdaVisibility() !== null) {
+                    $hasExplicitEdaVisibility = true;
                     break;
                 }
             }
@@ -291,8 +300,9 @@ class KiCadHelper
             $supplierCounts = [];
             foreach ($allOrderdetails as $orderdetail) {
                 if ($orderdetail->getSupplier() !== null && $orderdetail->getSupplierPartNr() !== '') {
-                    // Skip orderdetails not marked for export when the flag is used
-                    if ($hasKicadExportFlag && !$orderdetail->isKicadExport()) {
+                    // When explicit flags exist, filter by resolved visibility
+                    $resolvedVisibility = $orderdetail->isEdaVisibility() ?? $this->defaultEdaVisibility;
+                    if ($hasExplicitEdaVisibility && !$resolvedVisibility) {
                         continue;
                     }
 
@@ -330,14 +340,15 @@ class KiCadHelper
             }
         }
         // In API v2, stock and location are volatile (shown but not saved to schematic)
-        $result['fields']['Stock'] = $this->createField($totalStock, false, $apiV2);
+        $result['fields']['Stock'] = $this->createField($totalStock, false, $apiVersion >= 2);
         if ($locations !== []) {
-            $result['fields']['Storage Location'] = $this->createField(implode(', ', array_unique($locations)), false, $apiV2);
+            $result['fields']['Storage Location'] = $this->createField(implode(', ', array_unique($locations)), false, $apiVersion >= 2);
         }
 
-        //Add parameters marked for KiCad export
+        //Add parameters marked for EDA export (explicit true, or system default when null)
         foreach ($part->getParameters() as $parameter) {
-            if ($parameter->isKicadExport() && $parameter->getName() !== '') {
+            $paramVisibility = $parameter->isEdaVisibility() ?? $this->defaultEdaVisibility;
+            if ($paramVisibility && $parameter->getName() !== '') {
                 $fieldName = $parameter->getName();
                 //Don't overwrite hardcoded fields
                 if (!isset($result['fields'][$fieldName])) {

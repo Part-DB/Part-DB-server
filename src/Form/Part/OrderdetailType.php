@@ -79,9 +79,9 @@ class OrderdetailType extends AbstractType
             'label' => 'orderdetails.edit.prices_includes_vat',
         ]);
 
-        $builder->add('kicad_export', CheckboxType::class, [
+        $builder->add('eda_visibility', CheckboxType::class, [
             'required' => false,
-            'label' => 'orderdetails.edit.kicad_export',
+            'label' => 'orderdetails.edit.eda_visibility',
         ]);
 
         //Add pricedetails after we know the data, so we can set the default currency

@@ -642,10 +642,10 @@ Sub elements will be moved upwards.</target>
         <target>Group</target>
       </segment>
     </unit>
-    <unit id="kicadExportHelp" name="specifications.kicad_export.help">
+    <unit id="edaVisibilityHelp" name="specifications.eda_visibility.help">
       <segment state="translated">
-        <source>specifications.kicad_export.help</source>
-        <target>Export this parameter as a KiCad field</target>
+        <source>specifications.eda_visibility.help</source>
+        <target>Export this parameter as an EDA field</target>
       </segment>
     </unit>
     <unit id="XclPxI9" name="specification.create">
@@ -3308,10 +3308,10 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>No longer available</target>
       </segment>
     </unit>
-    <unit id="kicad_od_export" name="orderdetails.edit.kicad_export">
+    <unit id="eda_od_visibility" name="orderdetails.edit.eda_visibility">
       <segment state="translated">
-        <source>orderdetails.edit.kicad_export</source>
-        <target>Export to KiCad</target>
+        <source>orderdetails.edit.eda_visibility</source>
+        <target>EDA visibility</target>
       </segment>
     </unit>
     <unit id="ZsO5AKM" name="orderdetails.edit.supplierpartnr.placeholder">
@@ -10003,6 +10003,18 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>settings.misc.kicad_eda.datasheet_link.help</source>
         <target>When enabled, the datasheet field in KiCad will link to the actual PDF file (if found). When disabled, it will link to the Part-DB page instead. The Part-DB page link is always available as a separate "Part-DB URL" field.</target>
+      </segment>
+    </unit>
+    <unit id="eda_default_vis" name="settings.misc.kicad_eda.default_eda_visibility">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_eda_visibility</source>
+        <target>Default EDA visibility</target>
+      </segment>
+    </unit>
+    <unit id="eda_default_vis_help" name="settings.misc.kicad_eda.default_eda_visibility.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_eda_visibility.help</source>
+        <target>Default EDA visibility for parameters and orderdetails that have no explicit value set. When enabled, all parameters and supplier part numbers will be exported to EDA by default.</target>
       </segment>
     </unit>
     <unit id="VwvmcWE" name="settings.behavior.sidebar">

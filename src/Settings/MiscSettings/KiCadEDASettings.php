@@ -48,4 +48,9 @@ class KiCadEDASettings
         description: new TM("settings.misc.kicad_eda.datasheet_link.help"),
         envVar: "bool:EDA_KICAD_DATASHEET_AS_PDF", envVarMode: EnvVarMode::OVERWRITE)]
     public ?bool $datasheetAsPdf = true;
+
+    #[SettingsParameter(label: new TM("settings.misc.kicad_eda.default_eda_visibility"),
+        description: new TM("settings.misc.kicad_eda.default_eda_visibility.help"),
+        envVar: "bool:EDA_KICAD_DEFAULT_VISIBILITY", envVarMode: EnvVarMode::OVERWRITE)]
+    public bool $defaultEdaVisibility = false;
 }

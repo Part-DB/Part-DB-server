@@ -32,6 +32,7 @@ class PopulateKicadCommand extends Command
             ->addOption('categories', null, InputOption::VALUE_NONE, 'Only update category entities')
             ->addOption('force', null, InputOption::VALUE_NONE, 'Overwrite existing values (by default, only empty values are updated)')
             ->addOption('list', null, InputOption::VALUE_NONE, 'List all footprints and categories with their current KiCad values')
+            ->addOption('mapping-file', null, InputOption::VALUE_REQUIRED, 'Path to a JSON file with custom mappings (merges with built-in defaults)')
         ;
     }
 
@@ -43,6 +44,7 @@ class PopulateKicadCommand extends Command
         $categoriesOnly = $input->getOption('categories');
         $force = $input->getOption('force');
         $list = $input->getOption('list');
+        $mappingFile = $input->getOption('mapping-file');
 
         // If neither specified, do both
         $doFootprints = !$categoriesOnly || $footprintsOnly;
@@ -53,6 +55,26 @@ class PopulateKicadCommand extends Command
             return Command::SUCCESS;
         }
 
+        // Load mappings: start with built-in defaults, then merge user-supplied file
+        $footprintMappings = $this->getFootprintMappings();
+        $categoryMappings = $this->getCategoryMappings();
+
+        if ($mappingFile !== null) {
+            $customMappings = $this->loadMappingFile($mappingFile, $io);
+            if ($customMappings === null) {
+                return Command::FAILURE;
+            }
+            if (isset($customMappings['footprints']) && is_array($customMappings['footprints'])) {
+                // User mappings take priority (overwrite defaults)
+                $footprintMappings = array_merge($footprintMappings, $customMappings['footprints']);
+                $io->text(sprintf('Loaded %d custom footprint mappings from %s', count($customMappings['footprints']), $mappingFile));
+            }
+            if (isset($customMappings['categories']) && is_array($customMappings['categories'])) {
+                $categoryMappings = array_merge($categoryMappings, $customMappings['categories']);
+                $io->text(sprintf('Loaded %d custom category mappings from %s', count($customMappings['categories']), $mappingFile));
+            }
+        }
+
         if ($dryRun) {
             $io->note('DRY RUN MODE - No changes will be made');
         }
@@ -60,12 +82,12 @@ class PopulateKicadCommand extends Command
         $totalUpdated = 0;
 
         if ($doFootprints) {
-            $updated = $this->updateFootprints($io, $dryRun, $force);
+            $updated = $this->updateFootprints($io, $dryRun, $force, $footprintMappings);
             $totalUpdated += $updated;
         }
 
         if ($doCategories) {
-            $updated = $this->updateCategories($io, $dryRun, $force);
+            $updated = $this->updateCategories($io, $dryRun, $force, $categoryMappings);
             $totalUpdated += $updated;
         }
 
@@ -120,11 +142,9 @@ class PopulateKicadCommand extends Command
         $io->table(['ID', 'Name', 'KiCad Symbol'], $rows);
     }
 
-    private function updateFootprints(SymfonyStyle $io, bool $dryRun, bool $force): int
+    private function updateFootprints(SymfonyStyle $io, bool $dryRun, bool $force, array $mappings): int
     {
         $io->section('Updating Footprint Entities');
-
-        $mappings = $this->getFootprintMappings();
 
         $footprintRepo = $this->entityManager->getRepository(Footprint::class);
         /** @var Footprint[] $footprints */
@@ -142,13 +162,14 @@ class PopulateKicadCommand extends Command
                 continue;
             }
 
-            // Check for exact match first
-            if (isset($mappings[$name])) {
-                $newValue = $mappings[$name];
-                $io->text(sprintf('  %s: %s -> %s', $name, $currentValue ?? '(empty)', $newValue));
+            // Check for exact match on name first, then try alternative names
+            $matchedValue = $this->findFootprintMapping($mappings, $name, $footprint->getAlternativeNames());
+
+            if ($matchedValue !== null) {
+                $io->text(sprintf('  %s: %s -> %s', $name, $currentValue ?? '(empty)', $matchedValue));
 
                 if (!$dryRun) {
-                    $footprint->getEdaInfo()->setKicadFootprint($newValue);
+                    $footprint->getEdaInfo()->setKicadFootprint($matchedValue);
                 }
                 $updated++;
             } else {
@@ -170,11 +191,9 @@ class PopulateKicadCommand extends Command
         return $updated;
     }
 
-    private function updateCategories(SymfonyStyle $io, bool $dryRun, bool $force): int
+    private function updateCategories(SymfonyStyle $io, bool $dryRun, bool $force, array $mappings): int
     {
         $io->section('Updating Category Entities');
-
-        $mappings = $this->getCategoryMappings();
 
         $categoryRepo = $this->entityManager->getRepository(Category::class);
         /** @var Category[] $categories */
@@ -192,22 +211,17 @@ class PopulateKicadCommand extends Command
                 continue;
             }
 
-            // Check for matches using the pattern-based mappings
-            $matched = false;
-            foreach ($mappings as $pattern => $kicadSymbol) {
-                if ($this->matchesPattern($name, $pattern)) {
-                    $io->text(sprintf('  %s: %s -> %s', $name, $currentValue ?? '(empty)', $kicadSymbol));
+            // Check for matches using the pattern-based mappings (also check alternative names)
+            $matchedValue = $this->findCategoryMapping($mappings, $name, $category->getAlternativeNames());
 
-                    if (!$dryRun) {
-                        $category->getEdaInfo()->setKicadSymbol($kicadSymbol);
-                    }
-                    $updated++;
-                    $matched = true;
-                    break;
+            if ($matchedValue !== null) {
+                $io->text(sprintf('  %s: %s -> %s', $name, $currentValue ?? '(empty)', $matchedValue));
+
+                if (!$dryRun) {
+                    $category->getEdaInfo()->setKicadSymbol($matchedValue);
                 }
-            }
-
-            if (!$matched) {
+                $updated++;
+            } else {
                 $skipped[] = $name;
             }
         }
@@ -225,6 +239,34 @@ class PopulateKicadCommand extends Command
         return $updated;
     }
 
+    /**
+     * Loads a JSON mapping file and returns the parsed data.
+     * Expected format: {"footprints": {"Name": "KiCad:Path"}, "categories": {"Pattern": "KiCad:Path"}}
+     *
+     * @return array|null The parsed mappings, or null on error
+     */
+    private function loadMappingFile(string $path, SymfonyStyle $io): ?array
+    {
+        if (!file_exists($path)) {
+            $io->error(sprintf('Mapping file not found: %s', $path));
+            return null;
+        }
+
+        $content = file_get_contents($path);
+        if ($content === false) {
+            $io->error(sprintf('Could not read mapping file: %s', $path));
+            return null;
+        }
+
+        $data = json_decode($content, true);
+        if (!is_array($data)) {
+            $io->error(sprintf('Invalid JSON in mapping file: %s', $path));
+            return null;
+        }
+
+        return $data;
+    }
+
     private function matchesPattern(string $name, string $pattern): bool
     {
         // Check for exact match
@@ -238,6 +280,71 @@ class PopulateKicadCommand extends Command
         }
 
         return false;
+    }
+
+    /**
+     * Finds a footprint mapping by checking the entity name and its alternative names.
+     * Footprints use exact matching.
+     *
+     * @param array<string, string> $mappings
+     * @param string $name The primary name of the footprint
+     * @param string|null $alternativeNames Comma-separated alternative names
+     * @return string|null The matched KiCad path, or null if no match found
+     */
+    private function findFootprintMapping(array $mappings, string $name, ?string $alternativeNames): ?string
+    {
+        // Check primary name
+        if (isset($mappings[$name])) {
+            return $mappings[$name];
+        }
+
+        // Check alternative names
+        if ($alternativeNames !== null && $alternativeNames !== '') {
+            foreach (explode(',', $alternativeNames) as $altName) {
+                $altName = trim($altName);
+                if ($altName !== '' && isset($mappings[$altName])) {
+                    return $mappings[$altName];
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Finds a category mapping by checking the entity name and its alternative names.
+     * Categories use pattern-based matching (case-insensitive contains).
+     *
+     * @param array<string, string> $mappings
+     * @param string $name The primary name of the category
+     * @param string|null $alternativeNames Comma-separated alternative names
+     * @return string|null The matched KiCad symbol path, or null if no match found
+     */
+    private function findCategoryMapping(array $mappings, string $name, ?string $alternativeNames): ?string
+    {
+        // Check primary name against all patterns
+        foreach ($mappings as $pattern => $kicadSymbol) {
+            if ($this->matchesPattern($name, $pattern)) {
+                return $kicadSymbol;
+            }
+        }
+
+        // Check alternative names against all patterns
+        if ($alternativeNames !== null && $alternativeNames !== '') {
+            foreach (explode(',', $alternativeNames) as $altName) {
+                $altName = trim($altName);
+                if ($altName === '') {
+                    continue;
+                }
+                foreach ($mappings as $pattern => $kicadSymbol) {
+                    if ($this->matchesPattern($altName, $pattern)) {
+                        return $kicadSymbol;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -495,5 +602,38 @@ class PopulateKicadCommand extends Command
             'Varistor' => 'Device:Varistor',
             'Photo' => 'Device:LED', // Photodiode/phototransistor
         ];
+    }
+
+    /**
+     * Load a custom mapping file (JSON format).
+     *
+     * Expected format:
+     * {
+     *   "footprints": { "SOT-23": "Package_TO_SOT_SMD:SOT-23", ... },
+     *   "categories": { "Resistor": "Device:R", ... }
+     * }
+     *
+     * @return array|null The parsed mappings, or null on error
+     */
+    private function loadMappingFile(string $path, SymfonyStyle $io): ?array
+    {
+        if (!file_exists($path)) {
+            $io->error(sprintf('Mapping file not found: %s', $path));
+            return null;
+        }
+
+        $content = file_get_contents($path);
+        if ($content === false) {
+            $io->error(sprintf('Could not read mapping file: %s', $path));
+            return null;
+        }
+
+        $data = json_decode($content, true);
+        if (!is_array($data)) {
+            $io->error(sprintf('Invalid JSON in mapping file: %s', json_last_error_msg()));
+            return null;
+        }
+
+        return $data;
     }
 }

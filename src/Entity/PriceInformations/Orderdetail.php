@@ -123,11 +123,11 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     protected bool $obsolete = false;
 
     /**
-     * @var bool Whether this orderdetail's supplier part number should be exported as a KiCad field
+     * @var bool|null Whether this orderdetail's supplier part number should be exported as an EDA field. Null means use system default.
      */
     #[Groups(['full', 'import', 'orderdetail:read', 'orderdetail:write'])]
-    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
-    protected bool $kicad_export = false;
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true, options: ['default' => null])]
+    protected ?bool $eda_visibility = null;
 
     /**
      * @var string The URL to the product on the supplier's website
@@ -425,17 +425,17 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
         return $this;
     }
 
-    public function isKicadExport(): bool
+    public function isEdaVisibility(): ?bool
     {
-        return $this->kicad_export;
+        return $this->eda_visibility;
     }
 
     /**
      * @return $this
      */
-    public function setKicadExport(bool $kicad_export): self
+    public function setEdaVisibility(?bool $eda_visibility): self
     {
-        $this->kicad_export = $kicad_export;
+        $this->eda_visibility = $eda_visibility;
 
         return $this;
     }

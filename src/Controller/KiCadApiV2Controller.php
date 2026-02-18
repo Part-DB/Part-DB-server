@@ -34,6 +34,9 @@ use Symfony\Component\Routing\Attribute\Route;
 /**
  * KiCad HTTP Library API v2 controller.
  *
+ * v1 spec: https://dev-docs.kicad.org/en/apis-and-binding/http-libraries/index.html
+ * v2 spec (draft): https://gitlab.com/RosyDev/kicad-dev-docs/-/blob/http-lib-v2/content/apis-and-binding/http-libraries/http-lib-v2-00.adoc
+ *
  * Differences from v1:
  * - Volatile fields: Stock and Storage Location are marked volatile (shown in KiCad but NOT saved to schematic)
  * - Category descriptions: Uses actual category comments instead of URLs
@@ -64,7 +67,7 @@ class KiCadApiV2Controller extends AbstractController
         $this->denyAccessUnlessGranted('@categories.read');
 
         $data = $this->kiCADHelper->getCategories();
-        return $this->createCachedJsonResponse($request, $data, 300);
+        return $this->createCacheableJsonResponse($request, $data, 300);
     }
 
     #[Route('/parts/category/{category}.json', name: 'kicad_api_v2_category')]
@@ -79,7 +82,7 @@ class KiCadApiV2Controller extends AbstractController
 
         $minimal = $request->query->getBoolean('minimal', false);
         $data = $this->kiCADHelper->getCategoryParts($category, $minimal);
-        return $this->createCachedJsonResponse($request, $data, 300);
+        return $this->createCacheableJsonResponse($request, $data, 300);
     }
 
     #[Route('/parts/{part}.json', name: 'kicad_api_v2_part')]
@@ -88,11 +91,11 @@ class KiCadApiV2Controller extends AbstractController
         $this->denyAccessUnlessGranted('read', $part);
 
         // Use API v2 format with volatile fields
-        $data = $this->kiCADHelper->getKiCADPart($part, true);
-        return $this->createCachedJsonResponse($request, $data, 60);
+        $data = $this->kiCADHelper->getKiCADPart($part, 2);
+        return $this->createCacheableJsonResponse($request, $data, 60);
     }
 
-    private function createCachedJsonResponse(Request $request, array $data, int $maxAge): Response
+    private function createCacheableJsonResponse(Request $request, array $data, int $maxAge): Response
     {
         $response = new JsonResponse($data);
         $response->setEtag(md5(json_encode($data)));

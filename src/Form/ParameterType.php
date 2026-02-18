@@ -149,10 +149,13 @@ class ParameterType extends AbstractType
             ],
         ]);
 
-        $builder->add('kicad_export', CheckboxType::class, [
-            'label' => false,
-            'required' => false,
-        ]);
+        // Only show the EDA visibility field for part parameters, as it has no function for other entities
+        if ($options['data_class'] === PartParameter::class) {
+            $builder->add('eda_visibility', CheckboxType::class, [
+                'label' => false,
+                'required' => false,
+            ]);
+        }
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options): void

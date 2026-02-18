@@ -62,7 +62,7 @@ class KiCadApiController extends AbstractController
         $this->denyAccessUnlessGranted('@categories.read');
 
         $data = $this->kiCADHelper->getCategories();
-        return $this->createCachedJsonResponse($request, $data, 300);
+        return $this->createCacheableJsonResponse($request, $data, 300);
     }
 
     #[Route('/parts/category/{category}.json', name: 'kicad_api_category')]
@@ -77,7 +77,7 @@ class KiCadApiController extends AbstractController
 
         $minimal = $request->query->getBoolean('minimal', false);
         $data = $this->kiCADHelper->getCategoryParts($category, $minimal);
-        return $this->createCachedJsonResponse($request, $data, 300);
+        return $this->createCacheableJsonResponse($request, $data, 300);
     }
 
     #[Route('/parts/{part}.json', name: 'kicad_api_part')]
@@ -86,14 +86,14 @@ class KiCadApiController extends AbstractController
         $this->denyAccessUnlessGranted('read', $part);
 
         $data = $this->kiCADHelper->getKiCADPart($part);
-        return $this->createCachedJsonResponse($request, $data, 60);
+        return $this->createCacheableJsonResponse($request, $data, 60);
     }
 
     /**
      * Creates a JSON response with HTTP cache headers (ETag and Cache-Control).
      * Returns 304 Not Modified if the client's ETag matches.
      */
-    private function createCachedJsonResponse(Request $request, array $data, int $maxAge): Response
+    private function createCacheableJsonResponse(Request $request, array $data, int $maxAge): Response
     {
         $response = new JsonResponse($data);
         $response->setEtag(md5(json_encode($data)));
