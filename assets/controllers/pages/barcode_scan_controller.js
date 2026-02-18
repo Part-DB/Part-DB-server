@@ -117,6 +117,11 @@ export default class extends Controller {
         this._lastDecodedText = normalized;
         this._submitting = true;
 
+        // Clear previous augmented result immediately to avoid stale info
+        // lingering when the next scan is not augmented (or is transient/junk).
+        const el = document.getElementById("scan-augmented-result");
+        if (el) el.innerHTML = "";
+
         //Put our decoded Text into the input box
         const input = document.getElementById("scan_dialog_input");
         if (input) input.value = decodedText;
