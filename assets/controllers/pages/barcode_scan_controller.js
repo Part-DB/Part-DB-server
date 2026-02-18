@@ -30,6 +30,7 @@ export default class extends Controller {
     _submitting = false;
     _lastDecodedText = "";
     _onInfoChange = null;
+    _onFormSubmit = null;
 
     connect() {
         // Prevent double init if connect fires twice
@@ -42,6 +43,22 @@ export default class extends Controller {
                 this._lastDecodedText = "";
             };
             info.addEventListener("change", this._onInfoChange);
+        }
+
+        // Stop camera cleanly before manual form submit (prevents broken camera after reload)
+        const form = document.getElementById("scan_dialog_form");
+        if (form) {
+            this._onFormSubmit = () => {
+                try {
+                    const p = this._scanner?.clear?.();
+                    if (p && typeof p.then === "function") p.catch(() => {});
+                } catch (_) {
+                    // ignore
+                }
+            };
+
+            // capture=true so we run before other handlers / navigation
+            form.addEventListener("submit", this._onFormSubmit, { capture: true });
         }
 
         const isMobile = window.matchMedia("(max-width: 768px)").matches;
@@ -89,6 +106,13 @@ export default class extends Controller {
             info.removeEventListener("change", this._onInfoChange);
         }
         this._onInfoChange = null;
+
+        // remove the onForm submit handler
+        const form = document.getElementById("scan_dialog_form");
+        if (form && this._onFormSubmit) {
+            form.removeEventListener("submit", this._onFormSubmit, { capture: true });
+        }
+        this._onFormSubmit = null;
 
         if (!scanner) return;
 
