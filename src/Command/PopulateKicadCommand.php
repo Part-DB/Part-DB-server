@@ -603,37 +603,4 @@ class PopulateKicadCommand extends Command
             'Photo' => 'Device:LED', // Photodiode/phototransistor
         ];
     }
-
-    /**
-     * Load a custom mapping file (JSON format).
-     *
-     * Expected format:
-     * {
-     *   "footprints": { "SOT-23": "Package_TO_SOT_SMD:SOT-23", ... },
-     *   "categories": { "Resistor": "Device:R", ... }
-     * }
-     *
-     * @return array|null The parsed mappings, or null on error
-     */
-    private function loadMappingFile(string $path, SymfonyStyle $io): ?array
-    {
-        if (!file_exists($path)) {
-            $io->error(sprintf('Mapping file not found: %s', $path));
-            return null;
-        }
-
-        $content = file_get_contents($path);
-        if ($content === false) {
-            $io->error(sprintf('Could not read mapping file: %s', $path));
-            return null;
-        }
-
-        $data = json_decode($content, true);
-        if (!is_array($data)) {
-            $io->error(sprintf('Invalid JSON in mapping file: %s', json_last_error_msg()));
-            return null;
-        }
-
-        return $data;
-    }
 }
