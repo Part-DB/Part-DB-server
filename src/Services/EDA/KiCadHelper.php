@@ -197,15 +197,8 @@ class KiCadHelper
             });
     }
 
-    /**
-     * @param int $apiVersion The API version to use (1 or 2). Version 2 adds volatile field support.
-     */
-    public function getKiCADPart(Part $part, int $apiVersion = 1): array
+    public function getKiCADPart(Part $part): array
     {
-        if ($apiVersion < 1 || $apiVersion > 2) {
-            throw new \InvalidArgumentException(sprintf('Unsupported API version %d. Supported versions: 1, 2.', $apiVersion));
-        }
-
         $result = [
             'id' => (string)$part->getId(),
             'name' => $part->getName(),
@@ -339,10 +332,9 @@ class KiCadHelper
                 }
             }
         }
-        // In API v2, stock and location are volatile (shown but not saved to schematic)
-        $result['fields']['Stock'] = $this->createField($totalStock, false, $apiVersion >= 2);
+        $result['fields']['Stock'] = $this->createField($totalStock);
         if ($locations !== []) {
-            $result['fields']['Storage Location'] = $this->createField(implode(', ', array_unique($locations)), false, $apiVersion >= 2);
+            $result['fields']['Storage Location'] = $this->createField(implode(', ', array_unique($locations)));
         }
 
         //Add parameters marked for EDA export (explicit true, or system default when null)
@@ -454,21 +446,14 @@ class KiCadHelper
      * Creates a field array for KiCAD
      * @param  string|int|float  $value
      * @param  bool  $visible
-     * @param  bool  $volatile  If true (API v2), field is shown in KiCad but NOT saved to schematic
      * @return array
      */
-    private function createField(string|int|float $value, bool $visible = false, bool $volatile = false): array
+    private function createField(string|int|float $value, bool $visible = false): array
     {
-        $field = [
+        return [
             'value' => (string)$value,
             'visible' => $this->boolToKicadBool($visible),
         ];
-
-        if ($volatile) {
-            $field['volatile'] = $this->boolToKicadBool(true);
-        }
-
-        return $field;
     }
 
     /**
