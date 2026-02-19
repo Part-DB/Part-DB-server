@@ -9500,8 +9500,8 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>EIGP 114 barcode (e.g. the datamatrix codes on digikey and mouser orders)</target>
       </segment>
     </unit>
-    <unit id="lAzDdr" name="scan_dialog.mode.lcsc">
-      <segment state="translated">
+    <unit id="BnqcKWx" name="scan_dialog.mode.lcsc">
+      <segment>
         <source>scan_dialog.mode.lcsc</source>
         <target>LCSC.com barcode</target>
       </segment>
@@ -9518,32 +9518,32 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Decoded information</target>
       </segment>
     </unit>
-    <unit id="k6Gv1gf" name="label_scanner.part_info.title">
-      <segment state="translated">
+    <unit id="539VyRy" name="label_scanner.part_info.title">
+      <segment>
         <source>label_scanner.part_info.title</source>
         <target>Part information</target>
       </segment>
     </unit>
-    <unit id="k9lvxgf" name="label_scanner.target_found">
-      <segment state="translated">
+    <unit id="kQnodbA" name="label_scanner.target_found">
+      <segment>
         <source>label_scanner.target_found</source>
         <target>Item Found</target>
       </segment>
     </unit>
-    <unit id="kd6G2gf" name="label_scanner.scan_result.title">
-      <segment state="translated">
+    <unit id="7Arfw2q" name="label_scanner.scan_result.title">
+      <segment>
         <source>label_scanner.scan_result.title</source>
         <target>Scan result</target>
       </segment>
     </unit>
-    <unit id="kG2vk5p" name="label_scanner.no_locations">
-      <segment state="translated">
+    <unit id="PTh4EK_" name="label_scanner.no_locations">
+      <segment>
         <source>label_scanner.no_locations</source>
         <target>Part is not stored at any locations</target>
       </segment>
     </unit>
-    <unit id="fGrv35p" name="label_scanner.qr_part_no_found">
-      <segment state="translated">
+    <unit id="lV9HDL0" name="label_scanner.qr_part_no_found">
+      <segment>
         <source>label_scanner.qr_part_no_found</source>
         <target>No part found for scanned barcode, click button above to Create Part</target>
       </segment>
