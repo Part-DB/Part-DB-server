@@ -388,4 +388,91 @@ final class PopulateKicadCommandTest extends KernelTestCase
         $this->entityManager->remove($reloadedCategory);
         $this->entityManager->flush();
     }
+
+    public function testMappingFileWithBothFootprintsAndCategories(): void
+    {
+        $footprint = new Footprint();
+        $footprint->setName('CustomPkg');
+        $this->entityManager->persist($footprint);
+
+        $category = new Category();
+        $category->setName('CustomType');
+        $this->entityManager->persist($category);
+
+        $this->entityManager->flush();
+
+        $footprintId = $footprint->getId();
+        $categoryId = $category->getId();
+
+        $mappingFile = sys_get_temp_dir() . '/partdb_test_both_' . uniqid() . '.json';
+        file_put_contents($mappingFile, json_encode([
+            'footprints' => [
+                'CustomPkg' => 'Custom:Footprint',
+            ],
+            'categories' => [
+                'CustomType' => 'Custom:Symbol',
+            ],
+        ]));
+
+        try {
+            $this->commandTester->execute(['--mapping-file' => $mappingFile]);
+
+            $output = $this->commandTester->getDisplay();
+            $this->assertEquals(0, $this->commandTester->getStatusCode());
+            $this->assertStringContainsString('custom footprint mappings', $output);
+            $this->assertStringContainsString('custom category mappings', $output);
+
+            $this->entityManager->clear();
+
+            $reloadedFp = $this->entityManager->find(Footprint::class, $footprintId);
+            $this->assertEquals('Custom:Footprint', $reloadedFp->getEdaInfo()->getKicadFootprint());
+
+            $reloadedCat = $this->entityManager->find(Category::class, $categoryId);
+            $this->assertEquals('Custom:Symbol', $reloadedCat->getEdaInfo()->getKicadSymbol());
+
+            // Cleanup
+            $this->entityManager->remove($reloadedFp);
+            $this->entityManager->remove($reloadedCat);
+            $this->entityManager->flush();
+        } finally {
+            @unlink($mappingFile);
+        }
+    }
+
+    public function testMappingFileWithOnlyCategoriesSection(): void
+    {
+        $category = new Category();
+        $category->setName('OnlyCatType');
+        $this->entityManager->persist($category);
+        $this->entityManager->flush();
+
+        $categoryId = $category->getId();
+
+        $mappingFile = sys_get_temp_dir() . '/partdb_test_catonly_' . uniqid() . '.json';
+        file_put_contents($mappingFile, json_encode([
+            'categories' => [
+                'OnlyCatType' => 'Custom:CatSymbol',
+            ],
+        ]));
+
+        try {
+            $this->commandTester->execute(['--categories' => true, '--mapping-file' => $mappingFile]);
+
+            $output = $this->commandTester->getDisplay();
+            $this->assertEquals(0, $this->commandTester->getStatusCode());
+            $this->assertStringContainsString('custom category mappings', $output);
+            // Should NOT mention footprint mappings since they weren't in the file
+            $this->assertStringNotContainsString('custom footprint mappings', $output);
+
+            $this->entityManager->clear();
+
+            $reloaded = $this->entityManager->find(Category::class, $categoryId);
+            $this->assertEquals('Custom:CatSymbol', $reloaded->getEdaInfo()->getKicadSymbol());
+
+            $this->entityManager->remove($reloaded);
+            $this->entityManager->flush();
+        } finally {
+            @unlink($mappingFile);
+        }
+    }
 }

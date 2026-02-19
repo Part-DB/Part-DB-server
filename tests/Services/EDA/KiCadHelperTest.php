@@ -26,9 +26,12 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Category;
+use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
+use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Orderdetail;
 use App\Services\EDA\KiCadHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\Group;
@@ -463,5 +466,139 @@ final class KiCadHelperTest extends KernelTestCase
 
         // The hardcoded description should win
         self::assertSame('The real description', $result['fields']['description']['value']);
+    }
+
+    /**
+     * Test that orderdetails without explicit eda_visibility are all exported (backward compat).
+     */
+    public function testOrderdetailsExportedWhenNoEdaVisibilitySet(): void
+    {
+        $category = $this->em->find(Category::class, 1);
+
+        $supplier = new Supplier();
+        $supplier->setName('TestSupplier');
+        $this->em->persist($supplier);
+
+        $part = new Part();
+        $part->setName('Part with Supplier');
+        $part->setCategory($category);
+
+        $od = new Orderdetail();
+        $od->setSupplier($supplier);
+        $od->setSupplierpartnr('TS-001');
+        // eda_visibility is null (default)
+        $part->addOrderdetail($od);
+
+        $this->em->persist($part);
+        $this->em->flush();
+
+        $result = $this->helper->getKiCADPart($part);
+
+        // Should export since no explicit flags are set (backward compat)
+        self::assertArrayHasKey('TestSupplier SPN', $result['fields']);
+        self::assertSame('TS-001', $result['fields']['TestSupplier SPN']['value']);
+        // KiCost field should also be present
+        self::assertArrayHasKey('testsupplier#', $result['fields']);
+        self::assertSame('TS-001', $result['fields']['testsupplier#']['value']);
+    }
+
+    /**
+     * Test that only orderdetails with eda_visibility=true are exported when explicit flags exist.
+     */
+    public function testOrderdetailsFilteredByExplicitEdaVisibility(): void
+    {
+        $category = $this->em->find(Category::class, 1);
+
+        $supplier1 = new Supplier();
+        $supplier1->setName('VisibleSupplier');
+        $this->em->persist($supplier1);
+
+        $supplier2 = new Supplier();
+        $supplier2->setName('HiddenSupplier');
+        $this->em->persist($supplier2);
+
+        $part = new Part();
+        $part->setName('Part with Mixed Visibility');
+        $part->setCategory($category);
+
+        $od1 = new Orderdetail();
+        $od1->setSupplier($supplier1);
+        $od1->setSupplierpartnr('VIS-001');
+        $od1->setEdaVisibility(true);
+        $part->addOrderdetail($od1);
+
+        $od2 = new Orderdetail();
+        $od2->setSupplier($supplier2);
+        $od2->setSupplierpartnr('HID-001');
+        $od2->setEdaVisibility(false);
+        $part->addOrderdetail($od2);
+
+        $this->em->persist($part);
+        $this->em->flush();
+
+        $result = $this->helper->getKiCADPart($part);
+
+        // Visible supplier should be exported
+        self::assertArrayHasKey('VisibleSupplier SPN', $result['fields']);
+        self::assertSame('VIS-001', $result['fields']['VisibleSupplier SPN']['value']);
+
+        // Hidden supplier should NOT be exported
+        self::assertArrayNotHasKey('HiddenSupplier SPN', $result['fields']);
+    }
+
+    /**
+     * Test that manufacturer fields (manf, manf#) are always exported.
+     */
+    public function testManufacturerFieldsExported(): void
+    {
+        $category = $this->em->find(Category::class, 1);
+
+        $manufacturer = new Manufacturer();
+        $manufacturer->setName('Acme Corp');
+        $this->em->persist($manufacturer);
+
+        $part = new Part();
+        $part->setName('Acme Widget');
+        $part->setCategory($category);
+        $part->setManufacturer($manufacturer);
+        $part->setManufacturerProductNumber('ACM-1234');
+
+        $this->em->persist($part);
+        $this->em->flush();
+
+        $result = $this->helper->getKiCADPart($part);
+
+        self::assertArrayHasKey('manf', $result['fields']);
+        self::assertSame('Acme Corp', $result['fields']['manf']['value']);
+        self::assertArrayHasKey('manf#', $result['fields']);
+        self::assertSame('ACM-1234', $result['fields']['manf#']['value']);
+        self::assertArrayHasKey('Manufacturer', $result['fields']);
+        self::assertArrayHasKey('MPN', $result['fields']);
+    }
+
+    /**
+     * Test that a parameter with empty name is not exported even with eda_visibility=true.
+     */
+    public function testParameterWithEmptyNameIsSkipped(): void
+    {
+        $category = $this->em->find(Category::class, 1);
+
+        $part = new Part();
+        $part->setName('Part with Empty Param Name');
+        $part->setCategory($category);
+
+        $param = new PartParameter();
+        $param->setName('');
+        $param->setValueText('some value');
+        $param->setEdaVisibility(true);
+        $part->addParameter($param);
+
+        $this->em->persist($part);
+        $this->em->flush();
+
+        $result = $this->helper->getKiCADPart($part);
+
+        // Empty-named parameter should not appear
+        self::assertArrayNotHasKey('', $result['fields']);
     }
 }
