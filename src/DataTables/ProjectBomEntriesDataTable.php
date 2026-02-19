@@ -28,6 +28,7 @@ use App\DataTables\Column\MarkdownColumn;
 use App\DataTables\Helpers\PartDataTableHelper;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
@@ -143,6 +144,12 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'property' => 'part.manufacturer',
                 'label' => $this->translator->trans('part.table.manufacturer'),
                 'orderField' => 'NATSORT(manufacturer.name)',
+            ])
+
+            ->add('manufacturingStatus', EntityColumn::class, [
+                'property' => 'part.manufacturingStatus',
+                'label' => $this->translator->trans('part.table.manufacturingStatus'),
+                'orderField' => 'NATSORT(manufacturingStatus.name)',
             ])
 
             ->add('mountnames', TextColumn::class, [
