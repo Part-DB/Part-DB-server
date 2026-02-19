@@ -236,6 +236,121 @@ final class PopulateKicadCommandTest extends KernelTestCase
         $this->entityManager->flush();
     }
 
+    public function testMappingFileOverridesDefaults(): void
+    {
+        // Create a footprint that has a built-in mapping (SOT-23 -> Package_TO_SOT_SMD:SOT-23)
+        $footprint = new Footprint();
+        $footprint->setName('SOT-23');
+        $this->entityManager->persist($footprint);
+        $this->entityManager->flush();
+
+        $footprintId = $footprint->getId();
+
+        // Create a temporary JSON mapping file that overrides SOT-23
+        $mappingFile = sys_get_temp_dir() . '/partdb_test_mappings_' . uniqid() . '.json';
+        file_put_contents($mappingFile, json_encode([
+            'footprints' => [
+                'SOT-23' => 'Custom_Library:Custom_SOT-23',
+            ],
+        ]));
+
+        try {
+            // Run with mapping file
+            $this->commandTester->execute(['--footprints' => true, '--mapping-file' => $mappingFile]);
+
+            $output = $this->commandTester->getDisplay();
+            $this->assertEquals(0, $this->commandTester->getStatusCode());
+            $this->assertStringContainsString('custom footprint mappings', $output);
+
+            $this->entityManager->clear();
+
+            // Should use the custom mapping, not the built-in one
+            $reloaded = $this->entityManager->find(Footprint::class, $footprintId);
+            $this->assertEquals('Custom_Library:Custom_SOT-23', $reloaded->getEdaInfo()->getKicadFootprint());
+
+            // Cleanup
+            $this->entityManager->remove($reloaded);
+            $this->entityManager->flush();
+        } finally {
+            @unlink($mappingFile);
+        }
+    }
+
+    public function testMappingFileInvalidJsonReturnsFailure(): void
+    {
+        $mappingFile = sys_get_temp_dir() . '/partdb_test_invalid_' . uniqid() . '.json';
+        file_put_contents($mappingFile, 'not valid json{{{');
+
+        try {
+            $this->commandTester->execute(['--mapping-file' => $mappingFile]);
+
+            $output = $this->commandTester->getDisplay();
+            $this->assertEquals(1, $this->commandTester->getStatusCode());
+            $this->assertStringContainsString('Invalid JSON', $output);
+        } finally {
+            @unlink($mappingFile);
+        }
+    }
+
+    public function testMappingFileNotFoundReturnsFailure(): void
+    {
+        $this->commandTester->execute(['--mapping-file' => '/nonexistent/path/mappings.json']);
+
+        $this->assertEquals(1, $this->commandTester->getStatusCode());
+        $output = $this->commandTester->getDisplay();
+        $this->assertStringContainsString('Mapping file not found', $output);
+    }
+
+    public function testFootprintAlternativeNameMatching(): void
+    {
+        // Create a footprint with a primary name that has no mapping,
+        // but an alternative name that does
+        $footprint = new Footprint();
+        $footprint->setName('MyCustomSOT23');
+        $footprint->setAlternativeNames('SOT-23, SOT23-3L');
+        $this->entityManager->persist($footprint);
+        $this->entityManager->flush();
+
+        $footprintId = $footprint->getId();
+
+        $this->commandTester->execute(['--footprints' => true]);
+
+        $this->entityManager->clear();
+
+        // Should match via alternative name "SOT-23"
+        $reloaded = $this->entityManager->find(Footprint::class, $footprintId);
+        $this->assertEquals('Package_TO_SOT_SMD:SOT-23', $reloaded->getEdaInfo()->getKicadFootprint());
+
+        // Cleanup
+        $this->entityManager->remove($reloaded);
+        $this->entityManager->flush();
+    }
+
+    public function testCategoryAlternativeNameMatching(): void
+    {
+        // Create a category with a primary name that has no mapping,
+        // but an alternative name that matches a pattern
+        $category = new Category();
+        $category->setName('SMD Components');
+        $category->setAlternativeNames('Resistor SMD, Chip Resistors');
+        $this->entityManager->persist($category);
+        $this->entityManager->flush();
+
+        $categoryId = $category->getId();
+
+        $this->commandTester->execute(['--categories' => true]);
+
+        $this->entityManager->clear();
+
+        // Should match via alternative name "Resistor SMD" matching pattern "Resistor"
+        $reloaded = $this->entityManager->find(Category::class, $categoryId);
+        $this->assertEquals('Device:R', $reloaded->getEdaInfo()->getKicadSymbol());
+
+        // Cleanup
+        $this->entityManager->remove($reloaded);
+        $this->entityManager->flush();
+    }
+
     public function testBothFootprintsAndCategoriesUpdatedByDefault(): void
     {
         // Create one of each
