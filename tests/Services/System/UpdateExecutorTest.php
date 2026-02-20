@@ -158,7 +158,7 @@ final class UpdateExecutorTest extends KernelTestCase
     {
         // Create a temporary log file in the update logs directory
         $projectDir = self::getContainer()->getParameter('kernel.project_dir');
-        $logDir = $projectDir . '/var/update_logs';
+        $logDir = $projectDir . '/var/log/updates';
 
         if (!is_dir($logDir)) {
             mkdir($logDir, 0755, true);
