@@ -49,8 +49,8 @@ final class UpdateManagerControllerTest extends WebTestCase
 
         $client->request('GET', '/en/system/update-manager');
 
-        // Should redirect to login
-        $this->assertResponseRedirects();
+        // Should deny access (401 with HTTP Basic auth in test env)
+        $this->assertResponseStatusCodeSame(401);
     }
 
     public function testIndexPageAccessibleByAdmin(): void
