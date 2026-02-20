@@ -24,14 +24,17 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Services\System\BackupManager;
+use App\Services\System\InstallationTypeDetector;
 use App\Services\System\UpdateChecker;
 use App\Services\System\UpdateExecutor;
 use Shivas\VersioningBundle\Service\VersionManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -49,6 +52,7 @@ class UpdateManagerController extends AbstractController
         private readonly UpdateExecutor $updateExecutor,
         private readonly VersionManagerInterface $versionManager,
         private readonly BackupManager $backupManager,
+        private readonly InstallationTypeDetector $installationTypeDetector,
         #[Autowire(env: 'bool:DISABLE_WEB_UPDATES')]
         private readonly bool $webUpdatesDisabled = false,
         #[Autowire(env: 'bool:DISABLE_BACKUP_RESTORE')]
@@ -101,6 +105,7 @@ class UpdateManagerController extends AbstractController
             'backups' => $this->backupManager->getBackups(),
             'web_updates_disabled' => $this->webUpdatesDisabled,
             'backup_restore_disabled' => $this->backupRestoreDisabled,
+            'is_docker' => $this->installationTypeDetector->isDocker(),
         ]);
     }
 
@@ -386,6 +391,25 @@ class UpdateManagerController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_update_manager');
+    }
+
+    /**
+     * Download a backup file.
+     */
+    #[Route('/backup/download/{filename}', name: 'admin_update_manager_backup_download', methods: ['GET'])]
+    public function downloadBackup(string $filename): BinaryFileResponse
+    {
+        $this->denyAccessUnlessGranted('@system.manage_updates');
+
+        $details = $this->backupManager->getBackupDetails($filename);
+        if (!$details) {
+            throw $this->createNotFoundException('Backup not found');
+        }
+
+        $response = new BinaryFileResponse($details['path']);
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $details['file']);
+
+        return $response;
     }
 
     /**

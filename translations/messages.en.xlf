@@ -12377,6 +12377,18 @@ Buerklin-API Authentication server:
         <target>Delete</target>
       </segment>
     </unit>
+    <unit id="um_bk_download" name="update_manager.backup.download">
+      <segment state="translated">
+        <source>update_manager.backup.download</source>
+        <target>Download backup</target>
+      </segment>
+    </unit>
+    <unit id="um_bk_docker_warning" name="update_manager.backup.docker_warning">
+      <segment state="translated">
+        <source>update_manager.backup.docker_warning</source>
+        <target>Docker installation detected. Backups are stored in var/backups/ which is not a persistent volume. Use the download button to save backups externally, or mount var/backups/ as a volume in your docker-compose.yml.</target>
+      </segment>
+    </unit>
     <unit id="kHKChQB" name="settings.ips.conrad">
       <segment state="translated">
         <source>settings.ips.conrad</source>
