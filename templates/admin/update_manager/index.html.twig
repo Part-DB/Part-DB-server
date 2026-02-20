@@ -377,15 +377,21 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="backups-tab">
-                            {% if is_granted('@system.manage_updates') and status.can_auto_update and not is_locked %}
+                            {% if is_granted('@system.manage_updates') and not is_locked %}
                                 <div class="p-2 border-bottom">
                                     <form action="{{ path('admin_update_manager_backup') }}" method="post" class="d-inline"
                                           data-turbo-confirm="{% trans %}update_manager.backup.create.confirm{% endtrans %}">
                                         <input type="hidden" name="_token" value="{{ csrf_token('update_manager_backup') }}">
                                         <button type="submit" class="btn btn-sm btn-success">
-                                            <i class="fas fa-download me-1"></i>{% trans %}update_manager.backup.create{% endtrans %}
+                                            <i class="fas fa-plus me-1"></i>{% trans %}update_manager.backup.create{% endtrans %}
                                         </button>
                                     </form>
+                                </div>
+                            {% endif %}
+                            {% if is_docker %}
+                                <div class="alert alert-info alert-sm m-2 mb-0 py-2 small">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    {% trans %}update_manager.backup.docker_warning{% endtrans %}
                                 </div>
                             {% endif %}
                             <div class="table-responsive" style="max-height: 350px; overflow-y: auto;">
@@ -410,7 +416,14 @@
                                                 </td>
                                                 <td class="text-end">
                                                     <div class="btn-group btn-group-sm">
-                                                        {% if status.can_auto_update and validation.valid and not backup_restore_disabled %}
+                                                        {% if is_granted('@system.manage_updates') %}
+                                                            <a href="{{ path('admin_update_manager_backup_download', {filename: backup.file}) }}"
+                                                               class="btn btn-outline-secondary"
+                                                               title="{% trans %}update_manager.backup.download{% endtrans %}">
+                                                                <i class="fas fa-download"></i>
+                                                            </a>
+                                                        {% endif %}
+                                                        {% if not backup_restore_disabled and is_granted('@system.manage_updates') %}
                                                             <form action="{{ path('admin_update_manager_restore') }}" method="post" class="d-inline"
                                                                   data-controller="backup-restore"
                                                                   data-backup-restore-filename-value="{{ backup.file }}"
