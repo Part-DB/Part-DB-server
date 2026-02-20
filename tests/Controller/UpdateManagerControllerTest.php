@@ -47,7 +47,7 @@ final class UpdateManagerControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/system/update-manager');
+        $client->request('GET', '/en/system/update-manager');
 
         // Should redirect to login
         $this->assertResponseRedirects();
@@ -58,7 +58,7 @@ final class UpdateManagerControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsAdmin($client);
 
-        $client->request('GET', '/system/update-manager');
+        $client->request('GET', '/en/system/update-manager');
 
         $this->assertResponseIsSuccessful();
     }
@@ -68,12 +68,12 @@ final class UpdateManagerControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsAdmin($client);
 
-        $client->request('POST', '/system/update-manager/backup', [
+        $client->request('POST', '/en/system/update-manager/backup', [
             '_token' => 'invalid',
         ]);
 
         // Should redirect with error flash
-        $this->assertResponseRedirects('/system/update-manager');
+        $this->assertResponseRedirects();
     }
 
     public function testDeleteBackupRequiresCsrf(): void
@@ -81,12 +81,12 @@ final class UpdateManagerControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsAdmin($client);
 
-        $client->request('POST', '/system/update-manager/backup/delete', [
+        $client->request('POST', '/en/system/update-manager/backup/delete', [
             '_token' => 'invalid',
             'filename' => 'test.zip',
         ]);
 
-        $this->assertResponseRedirects('/system/update-manager');
+        $this->assertResponseRedirects();
     }
 
     public function testDeleteLogRequiresCsrf(): void
@@ -94,12 +94,12 @@ final class UpdateManagerControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsAdmin($client);
 
-        $client->request('POST', '/system/update-manager/log/delete', [
+        $client->request('POST', '/en/system/update-manager/log/delete', [
             '_token' => 'invalid',
             'filename' => 'test.log',
         ]);
 
-        $this->assertResponseRedirects('/system/update-manager');
+        $this->assertResponseRedirects();
     }
 
     public function testDownloadBackupReturns404ForNonExistent(): void
@@ -107,7 +107,7 @@ final class UpdateManagerControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsAdmin($client);
 
-        $client->request('GET', '/system/update-manager/backup/download/nonexistent.zip');
+        $client->request('GET', '/en/system/update-manager/backup/download/nonexistent.zip');
 
         $this->assertResponseStatusCodeSame(404);
     }
@@ -117,7 +117,7 @@ final class UpdateManagerControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsAdmin($client);
 
-        $client->request('GET', '/system/update-manager/backup/nonexistent.zip');
+        $client->request('GET', '/en/system/update-manager/backup/nonexistent.zip');
 
         $this->assertResponseStatusCodeSame(404);
     }
@@ -128,7 +128,7 @@ final class UpdateManagerControllerTest extends WebTestCase
         $this->loginAsAdmin($client);
 
         // DISABLE_BACKUP_RESTORE=1 is the default in .env, so this should return 403
-        $client->request('POST', '/system/update-manager/restore', [
+        $client->request('POST', '/en/system/update-manager/restore', [
             '_token' => 'invalid',
             'filename' => 'test.zip',
         ]);
