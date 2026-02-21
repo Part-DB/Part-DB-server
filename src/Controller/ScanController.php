@@ -311,7 +311,7 @@ class ScanController extends AbstractController
         $input = trim($request->request->getString('input', ''));
 
         // We cannot use getEnum here, because we get an empty string for mode, when auto mode is selected
-        $mode  = $request->request->getString('mode', BarcodeSourceType::class, '');
+        $mode  = $request->request->getString('mode', '');
         if ($mode === '') {
             $modeEnum = null;
         } else {

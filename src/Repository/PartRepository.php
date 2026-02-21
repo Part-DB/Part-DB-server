@@ -433,16 +433,16 @@ class PartRepository extends NamedDBElementRepository
         $qb->select('part');
 
         if ($caseInsensitive) {
-            $qb->where("LOWER(part.mpn) = LOWER(:mpn)");
+            $qb->where("LOWER(part.manufacturer_product_number) = LOWER(:mpn)");
         } else {
-            $qb->where("part.mpn = :mpn");
+            $qb->where("part.manufacturer_product_number = :mpn");
         }
 
         if ($manufacturerName !== null) {
             $qb->leftJoin('part.manufacturer', 'manufacturer');
 
             if ($caseInsensitive) {
-                $qb->andWhere("LOWER(part.manufacturer.name) = LOWER(:manufacturerName)");
+                $qb->andWhere("LOWER(manufacturer.name) = LOWER(:manufacturerName)");
             } else {
                 $qb->andWhere("manufacturer.name = :manufacturerName");
             }
