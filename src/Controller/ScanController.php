@@ -42,8 +42,10 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Form\LabelSystem\ScanDialogType;
+use App\Services\InfoProviderSystem\Providers\LCSCProvider;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeRedirector;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeScanHelper;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeScanResultInterface;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeSourceType;
 use App\Services\LabelSystem\BarcodeScanner\LocalBarcodeScanResult;
 use App\Services\LabelSystem\BarcodeScanner\LCSCBarcodeScanResult;
@@ -105,7 +107,7 @@ class ScanController extends AbstractController
                         return $this->redirect($url);
                     } catch (EntityNotFoundException) {
                         // Decoded OK, but no part is found. If it’s a vendor code, redirect to create.
-                        $createUrl = $this->buildCreateUrlForScanResult($scan, $request->getLocale());
+                        $createUrl = $this->buildCreateUrlForScanResult($scan);
                         if ($createUrl !== null) {
                             return $this->redirect($createUrl);
                         }
@@ -161,21 +163,19 @@ class ScanController extends AbstractController
 
     /**
      * Builds a URL for creating a new part based on the barcode data
-     * @param object $scanResult
-     * @param string $locale
+     * @param BarcodeScanResultInterface $scanResult
      * @return string|null
      */
-    private function buildCreateUrlForScanResult(object $scanResult, string $locale): ?string
+    private function buildCreateUrlForScanResult(BarcodeScanResultInterface $scanResult): ?string
     {
         // LCSC
         if ($scanResult instanceof LCSCBarcodeScanResult) {
             $lcscCode = $scanResult->getPC();
-            if (is_string($lcscCode) && $lcscCode !== '') {
-                return '/'
-                    . rawurlencode($locale)
-                    . '/part/from_info_provider/lcsc/'
-                    . rawurlencode($lcscCode)
-                    . '/create';
+            if ($lcscCode !== null && $lcscCode !== '') {
+                return $this->generateUrl('info_providers_create_part', [
+                    'providerKey' => 'lcsc',
+                    'providerId' => $lcscCode,
+                ]);
             }
         }
 
@@ -185,7 +185,7 @@ class ScanController extends AbstractController
 
             // Mouser: use supplierPartNumber -> search provider -> provider_id
             if ($vendor === 'mouser'
-                && is_string($scanResult->supplierPartNumber)
+                && $scanResult->supplierPartNumber !== null
                 && $scanResult->supplierPartNumber !== ''
             ) {
                 try {
@@ -204,12 +204,12 @@ class ScanController extends AbstractController
                     // If there are results, provider_id is MouserPartNumber (per MouserProvider.php)
                     $best = $dtos[0] ?? null;
 
-                    if ($best !== null && is_string($best->provider_id) && $best->provider_id !== '') {
-                        return '/'
-                            . rawurlencode($locale)
-                            . '/part/from_info_provider/mouser/'
-                            . rawurlencode($best->provider_id)
-                            . '/create';
+                    if ($best !== null && $best->provider_id !== '') {
+
+                        return $this->generateUrl('info_providers_create_part', [
+                            'providerKey' => 'mouser',
+                            'providerId' => $best->provider_id,
+                        ]);
                     }
 
                     $this->addFlash('warning', 'No Mouser match found for this MPN.');
@@ -238,11 +238,10 @@ class ScanController extends AbstractController
                     $id = $scanResult->customerPartNumber ?: $scanResult->supplierPartNumber;
 
                     if (is_string($id) && $id !== '') {
-                        return '/'
-                            . rawurlencode($locale)
-                            . '/part/from_info_provider/digikey/'
-                            . rawurlencode($id)
-                            . '/create';
+                        return $this->generateUrl('info_providers_create_part', [
+                            'providerKey' => 'digikey',
+                            'providerId' => $id,
+                        ]);
                     }
                 } catch (\InvalidArgumentException) {
                     $this->addFlash('warning', 'Digi-Key provider is not installed/enabled');
@@ -312,7 +311,6 @@ class ScanController extends AbstractController
         $input = trim((string) $request->request->get('input', ''));
         $mode  = (string) ($request->request->get('mode') ?? '');
         $infoMode = (bool) filter_var($request->request->get('info_mode', false), FILTER_VALIDATE_BOOL);
-        $locale = $request->getLocale();
 
         if ($input === '') {
             return new JsonResponse(['ok' => false], 200);
@@ -364,7 +362,7 @@ class ScanController extends AbstractController
         // Create link only when NOT found (vendor codes)
         $createUrl = null;
         if (!$targetFound) {
-            $createUrl = $this->buildCreateUrlForScanResult($scan, $locale);
+            $createUrl = $this->buildCreateUrlForScanResult($scan);
         }
 
         // Render fragment (use openUrl for universal "Open" link)
