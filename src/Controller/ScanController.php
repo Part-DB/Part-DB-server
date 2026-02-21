@@ -308,19 +308,12 @@ class ScanController extends AbstractController
     {
         $this->denyAccessUnlessGranted('@tools.label_scanner');
 
-        $input = trim((string) $request->request->get('input', ''));
-        $mode  = (string) ($request->request->get('mode') ?? '');
-        $infoMode = (bool) filter_var($request->request->get('info_mode', false), FILTER_VALIDATE_BOOL);
+        $input = trim($request->request->getString('input', ''));
+        $modeEnum  = $request->request->getEnum('mode', BarcodeSourceType::class);
+        $infoMode = $request->request->getBoolean('info_mode', false);
 
         if ($input === '') {
             return new JsonResponse(['ok' => false], 200);
-        }
-
-        $modeEnum = null;
-        if ($mode !== '') {
-            $i = (int) $mode;
-            $cases = BarcodeSourceType::cases();
-            $modeEnum = $cases[$i] ?? null; // null if out of range
         }
 
         try {
@@ -340,7 +333,6 @@ class ScanController extends AbstractController
             $redirectUrl = $this->barcodeParser->getRedirectURL($scan);
             $targetFound = true;
         } catch (EntityNotFoundException) {
-            $targetFound = false;
         }
 
         // Only resolve Part for part-like targets. Storelocation scans should remain null here.
