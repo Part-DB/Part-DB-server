@@ -309,7 +309,15 @@ class ScanController extends AbstractController
         $this->denyAccessUnlessGranted('@tools.label_scanner');
 
         $input = trim($request->request->getString('input', ''));
-        $modeEnum  = $request->request->getEnum('mode', BarcodeSourceType::class);
+
+        // We cannot use getEnum here, because we get an empty string for mode, when auto mode is selected
+        $mode  = $request->request->getString('mode', BarcodeSourceType::class, '');
+        if ($mode === '') {
+            $modeEnum = null;
+        } else {
+            $modeEnum = BarcodeSourceType::from($mode); // validate enum value; will throw if invalid
+        }
+
         $infoMode = $request->request->getBoolean('info_mode', false);
 
         if ($input === '') {
