@@ -132,13 +132,10 @@ final class BarcodeRedirector
     	// Try LCSC code (pc) as provider id if available
 	    $pc = $barcodeScan->lcscCode; // e.g. C138033
 	    if ($pc) {
-        	$qb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
-	        $qb->where($qb->expr()->like('LOWER(part.providerReference.provider_id)', 'LOWER(:vendor_id)'));
-	        $qb->setParameter('vendor_id', $pc);
-	        $results = $qb->getQuery()->getResult();
-        	if ($results) {
-	            return $results[0];
-        	}
+            $part = $this->em->getRepository(Part::class)->getPartByProviderInfo($pc);
+            if ($part !== null) {
+                return $part;
+            }
   	    }
 
 	    // Fallback to MPN (pm)
@@ -147,14 +144,10 @@ final class BarcodeRedirector
         	throw new EntityNotFoundException();
 	    }
 
-	    $mpnQb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
-	    $mpnQb->where($mpnQb->expr()->like('LOWER(part.manufacturer_product_number)', 'LOWER(:mpn)'));
-	    $mpnQb->setParameter('mpn', $pm);
-
-	    $results = $mpnQb->getQuery()->getResult();
-	    if ($results) {
-        	return $results[0];
-	    }
+        $part = $this->em->getRepository(Part::class)->getPartByMPN($pm);
+        if ($part !== null) {
+            return $part;
+        }
 
 	    throw new EntityNotFoundException();
     }
@@ -189,17 +182,14 @@ final class BarcodeRedirector
         // the info provider system or if the part was bought from a different vendor than the data was retrieved
         // from.
         if($barcodeScan->digikeyPartNumber) {
-            $qb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
-            //Lower() to be case insensitive
-            $qb->where($qb->expr()->like('LOWER(part.providerReference.provider_id)', 'LOWER(:vendor_id)'));
-            $qb->setParameter('vendor_id', $barcodeScan->digikeyPartNumber);
-            $results = $qb->getQuery()->getResult();
-            if ($results) {
-                return $results[0];
+
+            $part = $this->em->getRepository(Part::class)->getPartByProviderInfo($barcodeScan->digikeyPartNumber);
+            if ($part !== null) {
+                return $part;
             }
         }
 
-        if(!$barcodeScan->supplierPartNumber){
+        if (!$barcodeScan->supplierPartNumber){
             throw new EntityNotFoundException();
         }
 
@@ -207,27 +197,12 @@ final class BarcodeRedirector
         //multiple manufacturers to use the same part number for their version of a common product
         //We assume the user is able to realize when this returns the wrong part
         //If the barcode specifies the manufacturer we try to use that as well
-        $mpnQb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
-        $mpnQb->where($mpnQb->expr()->like('LOWER(part.manufacturer_product_number)', 'LOWER(:mpn)'));
-        $mpnQb->setParameter('mpn', $barcodeScan->supplierPartNumber);
 
-        if($barcodeScan->mouserManufacturer){
-            $manufacturerQb = $this->em->getRepository(Manufacturer::class)->createQueryBuilder("manufacturer");
-            $manufacturerQb->where($manufacturerQb->expr()->like("LOWER(manufacturer.name)", "LOWER(:manufacturer_name)"));
-            $manufacturerQb->setParameter("manufacturer_name", $barcodeScan->mouserManufacturer);
-            $manufacturers = $manufacturerQb->getQuery()->getResult();
-
-            if($manufacturers) {
-                $mpnQb->andWhere($mpnQb->expr()->eq("part.manufacturer", ":manufacturer"));
-                $mpnQb->setParameter("manufacturer", $manufacturers);
-            }
-
+        $part = $this->em->getRepository(Part::class)->getPartByMPN($barcodeScan->supplierPartNumber, $barcodeScan->mouserManufacturer);
+        if($part !== null) {
+            return $part;
         }
 
-        $results = $mpnQb->getQuery()->getResult();
-        if($results){
-            return $results[0];
-        }
         throw new EntityNotFoundException();
     }
 

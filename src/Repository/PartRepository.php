@@ -389,4 +389,69 @@ class PartRepository extends NamedDBElementRepository
         return $baseIpn . '_' . ($maxSuffix + 1);
     }
 
+    /**
+     * Finds a part based on the provided info provider key and ID, with an option for case sensitivity.
+     * If no part is found with the given provider key and ID, null is returned.
+     * @param  string  $providerID
+     * @param  string|null  $providerKey If null, the provider key will not be included in the search criteria, and only the provider ID will be used for matching.
+     * @param  bool  $caseInsensitive  If true, the provider ID comparison will be case-insensitive. Default is true.
+     * @return Part|null
+     */
+    public function getPartByProviderInfo(string $providerID, ?string $providerKey = null, bool $caseInsensitive = true): ?Part
+    {
+        $qb = $this->createQueryBuilder('part');
+        $qb->select('part');
+
+        if ($providerKey) {
+            $qb->where("part.providerReference.provider_key = :providerKey");
+            $qb->setParameter('providerKey', $providerKey);
+        }
+
+
+        if ($caseInsensitive) {
+            $qb->andWhere("LOWER(part.providerReference.provider_id) = LOWER(:providerID)");
+        } else {
+            $qb->andWhere("part.providerReference.provider_id = :providerID");
+        }
+
+        $qb->setParameter('providerID', $providerID);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * Finds a part based on the provided MPN (Manufacturer Part Number), with an option for case sensitivity.
+     * If no part is found with the given MPN, null is returned.
+     * @param  string  $mpn
+     * @param  string|null  $manufacturerName If provided, the search will also include a match for the manufacturer's name. If null, the manufacturer name will not be included in the search criteria.
+     * @param  bool  $caseInsensitive If true, the MPN comparison will be case-insensitive. Default is true (case-insensitive).
+     * @return Part|null
+     */
+    public function getPartByMPN(string $mpn, ?string $manufacturerName = null, bool $caseInsensitive = true): ?Part
+    {
+        $qb = $this->createQueryBuilder('part');
+        $qb->select('part');
+
+        if ($caseInsensitive) {
+            $qb->where("LOWER(part.mpn) = LOWER(:mpn)");
+        } else {
+            $qb->where("part.mpn = :mpn");
+        }
+
+        if ($manufacturerName !== null) {
+            $qb->leftJoin('part.manufacturer', 'manufacturer');
+
+            if ($caseInsensitive) {
+                $qb->andWhere("LOWER(part.manufacturer.name) = LOWER(:manufacturerName)");
+            } else {
+                $qb->andWhere("manufacturer.name = :manufacturerName");
+            }
+            $qb->setParameter('manufacturerName', $manufacturerName);
+        }
+
+        $qb->setParameter('mpn', $mpn);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
 }
