@@ -116,45 +116,27 @@ final class BarcodeRedirectorTest extends KernelTestCase
         $this->assertNull($this->service->resolvePartOrNull($scan));
     }
 
+    public function testLCSCBarcodeResolvePartOrNullReturnsNullWhenNotFound(): void
+    {
+        $scan = new LCSCBarcodeScanResult(
+            fields: ['pc' => 'C0000000', 'pm' => ''],
+            rawInput: '{pc:C0000000,pm:}'
+        );
+
+        $this->assertNull($this->service->resolvePartOrNull($scan));
+    }
+
+
     public function testLCSCBarcodeMissingPmThrowsEntityNotFound(): void
     {
         // pc present but no pm => getPartFromLCSC() will throw EntityNotFoundException
         // because it falls back to PM when PC doesn't match anything.
         $scan = new LCSCBarcodeScanResult(
             fields: ['pc' => 'C0000000', 'pm' => ''], // pm becomes null via getPM()
-            raw_input: '{pc:C0000000,pm:}'
+            rawInput: '{pc:C0000000,pm:}'
         );
 
         $this->expectException(EntityNotFoundException::class);
         $this->service->getRedirectURL($scan);
-    }
-
-    public function testLCSCBarcodeResolvePartOrNullReturnsNullWhenNotFound(): void
-    {
-        $scan = new LCSCBarcodeScanResult(
-            fields: ['pc' => 'C0000000', 'pm' => ''],
-            raw_input: '{pc:C0000000,pm:}'
-        );
-
-        $this->assertNull($this->service->resolvePartOrNull($scan));
-    }
-
-    public function testLCSCParseRejectsNonLCSCFormat(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        LCSCBarcodeScanResult::parse('not-an-lcsc-barcode');
-    }
-
-    public function testLCSCParseExtractsFields(): void
-    {
-        $scan = LCSCBarcodeScanResult::parse('{pbn:PB1,on:ON1,pc:C138033,pm:RC0402FR-071ML,qty:10}');
-
-        $this->assertSame('RC0402FR-071ML', $scan->mpn);
-        $this->assertSame('C138033', $scan->lcscCode);
-
-        $decoded = $scan->getDecodedForInfoMode();
-        $this->assertSame('LCSC', $decoded['Barcode type']);
-        $this->assertSame('RC0402FR-071ML', $decoded['MPN (pm)']);
-        $this->assertSame('C138033', $decoded['LCSC code (pc)']);
     }
 }

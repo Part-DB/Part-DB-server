@@ -51,7 +51,7 @@ readonly class LCSCBarcodeScanResult implements BarcodeScanResultInterface
      */
     public function __construct(
         public array $fields,
-        public string $raw_input,
+        public string $rawInput,
     ) {
 
         $this->pickBatchNumber = $this->fields['pbn'] ?? null;
