@@ -32,7 +32,7 @@
         <div class="d-flex align-items-center mb-2">
             <h4 class="mb-0">{% trans %}label_scanner.decoded_info.title{% endtrans %}</h4>
 
-            {% if createUrl %}
+            {% if createUrl is defined and createUrl %}
 		    <a class="btn btn-primary ms-2" href="{{ createUrl }}"
                     target="_blank" title="{% trans %}part.create.btn{% endtrans %}">
                 <i class="fa-solid fa-plus-square"></i>
