@@ -131,7 +131,7 @@ final class BarcodeScanHelper
         }
 
         // Try LCSC barcode
-        if (LCSCBarcodeScanResult::looksLike($input)) {
+        if (LCSCBarcodeScanResult::isLCSCBarcode($input)) {
 	        return $this->parseLCSCBarcode($input);
 	    }
 

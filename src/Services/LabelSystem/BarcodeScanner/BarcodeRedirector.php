@@ -130,7 +130,7 @@ final class BarcodeRedirector
     private function getPartFromLCSC(LCSCBarcodeScanResult $barcodeScan): Part
     {
     	// Try LCSC code (pc) as provider id if available
-	    $pc = $barcodeScan->getPC(); // e.g. C138033
+	    $pc = $barcodeScan->lcscCode; // e.g. C138033
 	    if ($pc) {
         	$qb = $this->em->getRepository(Part::class)->createQueryBuilder('part');
 	        $qb->where($qb->expr()->like('LOWER(part.providerReference.provider_id)', 'LOWER(:vendor_id)'));
@@ -142,7 +142,7 @@ final class BarcodeRedirector
   	    }
 
 	    // Fallback to MPN (pm)
-	    $pm = $barcodeScan->getPM(); // e.g. RC0402FR-071ML
+	    $pm = $barcodeScan->mpn; // e.g. RC0402FR-071ML
 	    if (!$pm) {
         	throw new EntityNotFoundException();
 	    }

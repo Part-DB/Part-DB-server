@@ -149,8 +149,8 @@ final class BarcodeRedirectorTest extends KernelTestCase
     {
         $scan = LCSCBarcodeScanResult::parse('{pbn:PB1,on:ON1,pc:C138033,pm:RC0402FR-071ML,qty:10}');
 
-        $this->assertSame('RC0402FR-071ML', $scan->getPM());
-        $this->assertSame('C138033', $scan->getPC());
+        $this->assertSame('RC0402FR-071ML', $scan->mpn);
+        $this->assertSame('C138033', $scan->lcscCode);
 
         $decoded = $scan->getDecodedForInfoMode();
         $this->assertSame('LCSC', $decoded['Barcode type']);

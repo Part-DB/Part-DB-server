@@ -170,7 +170,7 @@ class ScanController extends AbstractController
     {
         // LCSC
         if ($scanResult instanceof LCSCBarcodeScanResult) {
-            $lcscCode = $scanResult->getPC();
+            $lcscCode = $scanResult->lcscCode;
             if ($lcscCode !== null && $lcscCode !== '') {
                 return $this->generateUrl('info_providers_create_part', [
                     'providerKey' => 'lcsc',

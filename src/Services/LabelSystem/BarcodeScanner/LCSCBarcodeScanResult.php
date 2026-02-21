@@ -10,39 +10,65 @@ use InvalidArgumentException;
  * This class represents the content of a lcsc.com barcode
  * Its data structure is represented by {pbn:...,on:...,pc:...,pm:...,qty:...}
  */
-class LCSCBarcodeScanResult implements BarcodeScanResultInterface
+readonly class LCSCBarcodeScanResult implements BarcodeScanResultInterface
 {
+
+    /** @var string|null (pbn) */
+    public ?string $pickBatchNumber;
+
+    /** @var string|null (on) */
+    public ?string $orderNumber;
+
+    /** @var string|null LCSC Supplier part number (pc) */
+    public ?string $lcscCode;
+
+    /** @var string|null (pm) */
+    public ?string $mpn;
+
+    /** @var int|null (qty) */
+    public ?int $quantity;
+
+    /** @var string|null Country Channel as raw value (CC) */
+    public ?string $countryChannel;
+
+    /**
+     * @var string|null Warehouse code as raw value (WC)
+     */
+    public ?string $warehouseCode;
+
+    /**
+     * @var string|null Unknown numeric code (pdi)
+     */
+    public ?string $pdi;
+
+    /**
+     * @var string|null Unknown value (hp)
+     */
+    public ?string $hp;
+
     /**
      * @param array<string, string> $fields
      */
     public function __construct(
-        public readonly array $fields,
-        public readonly string $raw_input,
-    ) {}
+        public array $fields,
+        public string $raw_input,
+    ) {
+
+        $this->pickBatchNumber = $this->fields['pbn'] ?? null;
+        $this->orderNumber = $this->fields['on'] ?? null;
+        $this->lcscCode = $this->fields['pc'] ?? null;
+        $this->mpn = $this->fields['pm'] ?? null;
+        $this->quantity = isset($this->fields['qty']) ? (int)$this->fields['qty'] : null;
+        $this->countryChannel = $this->fields['cc'] ?? null;
+        $this->warehouseCode = $this->fields['wc'] ?? null;
+        $this->pdi = $this->fields['pdi'] ?? null;
+        $this->hp = $this->fields['hp'] ?? null;
+
+    }
 
     public function getSourceType(): BarcodeSourceType
     {
         return BarcodeSourceType::LCSC;
-    }
-
-    /**
-     * @return string|null The manufactures part number
-     */
-    public function getPM(): ?string
-    {
-        $v = $this->fields['pm'] ?? null;
-        $v = $v !== null ? trim($v) : null;
-        return ($v === '') ? null : $v;
-    }
-
-    /**
-     * @return string|null The lcsc.com part number
-     */
-    public function getPC(): ?string
-    {
-        $v = $this->fields['pc'] ?? null;
-        $v = $v !== null ? trim($v) : null;
-        return ($v === '') ? null : $v;
     }
 
     /**
@@ -53,13 +79,15 @@ class LCSCBarcodeScanResult implements BarcodeScanResultInterface
         // Keep it human-friendly
         return [
             'Barcode type' => 'LCSC',
-            'MPN (pm)' => $this->getPM() ?? '',
-            'LCSC code (pc)' => $this->getPC() ?? '',
-            'Qty' => $this->fields['qty'] ?? '',
-            'Order No (on)' => $this->fields['on'] ?? '',
-            'Pick Batch (pbn)' => $this->fields['pbn'] ?? '',
-            'Warehouse (wc)' => $this->fields['wc'] ?? '',
-            'Country/Channel (cc)' => $this->fields['cc'] ?? '',
+            'MPN (pm)' => $this->mpn ?? '',
+            'LCSC code (pc)' => $this->lcscCode ?? '',
+            'Qty' => $this->quantity !== null ? (string) $this->quantity : '',
+            'Order No (on)' => $this->orderNumber ?? '',
+            'Pick Batch (pbn)' => $this->pickBatchNumber ?? '',
+            'Warehouse (wc)' => $this->warehouseCode ?? '',
+            'Country/Channel (cc)' => $this->countryChannel ?? '',
+            'PDI (unknown meaning)' => $this->pdi ?? '',
+            'HP (unknown meaning)' => $this->hp ?? '',
         ];
     }
 
@@ -68,7 +96,7 @@ class LCSCBarcodeScanResult implements BarcodeScanResultInterface
      * @param string $input
      * @return bool
      */
-    public static function looksLike(string $input): bool
+    public static function isLCSCBarcode(string $input): bool
     {
         $s = trim($input);
 
@@ -90,18 +118,17 @@ class LCSCBarcodeScanResult implements BarcodeScanResultInterface
     {
         $raw = trim($input);
 
-        if (!self::looksLike($raw)) {
+        if (!self::isLCSCBarcode($raw)) {
             throw new InvalidArgumentException('Not an LCSC barcode');
         }
 
-        $inner = trim($raw);
-        $inner = substr($inner, 1, -1); // remove { }
+        $inner = substr($raw, 1, -1); // remove { }
 
         $fields = [];
 
         // This format is comma-separated pairs, values do not contain commas in your sample.
         $pairs = array_filter(
-            array_map('trim', explode(',', $inner)),
+            array_map(trim(...), explode(',', $inner)),
             static fn(string $s): bool => $s !== ''
         );
 

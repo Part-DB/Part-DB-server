@@ -170,8 +170,8 @@ final class BarcodeScanHelperTest extends WebTestCase
         $result = $this->service->scanBarcodeContent($input);
 
         $this->assertInstanceOf(LCSCBarcodeScanResult::class, $result);
-        $this->assertSame('C138033', $result->getPC());
-        $this->assertSame('RC0402FR-071ML', $result->getPM());
+        $this->assertSame('C138033', $result->lcscCode);
+        $this->assertSame('RC0402FR-071ML', $result->mpn);
     }
 
     public function testLcscExplicitTypeParses(): void
@@ -181,8 +181,8 @@ final class BarcodeScanHelperTest extends WebTestCase
         $result = $this->service->scanBarcodeContent($input, BarcodeSourceType::LCSC);
 
         $this->assertInstanceOf(LCSCBarcodeScanResult::class, $result);
-        $this->assertSame('C138033', $result->getPC());
-        $this->assertSame('RC0402FR-071ML', $result->getPM());
+        $this->assertSame('C138033', $result->lcscCode);
+        $this->assertSame('RC0402FR-071ML', $result->mpn);
     }
 
     public function testLcscExplicitTypeRejectsNonLcsc(): void
