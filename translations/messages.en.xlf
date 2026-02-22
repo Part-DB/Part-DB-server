@@ -9521,7 +9521,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="kQnodbA" name="label_scanner.target_found">
       <segment>
         <source>label_scanner.target_found</source>
-        <target>Item Found</target>
+        <target>Item found in database</target>
       </segment>
     </unit>
     <unit id="7Arfw2q" name="label_scanner.scan_result.title">

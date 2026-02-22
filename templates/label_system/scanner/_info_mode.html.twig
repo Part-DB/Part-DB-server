@@ -86,7 +86,42 @@
                 </div>
             </div>
         </div>
+
+        {% elseif entity %} {# If we have an entity but that is not an part #}
+
+            <div class="card border-success">
+                <h5 class="card-header text-bg-success">
+                    <small>{% trans %}label_scanner.target_found{% endtrans %}: {{ type_label(entity) }}</small>
+                    {% if openUrl %}
+                        <div class="btn-group float-end">
+                            <a href="{{ openUrl }}" target="_blank" class="btn btn-sm btn-outline-light"
+                               title="{% trans %}label_scanner.open{% endtrans %}">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                        </div>
+                    {% endif %}
+
+                </h5>
+                <div class="card-body row">
+                    <div class="col-2">
+                        <img class="d-block w-100 img-fluid img-thumbnail bg-light part-info-image"
+                             src="{{ entity_thumbnail(entity) ?? asset('img/part_placeholder.svg') }}" alt="">
+                    </div>
+
+
+                    <div class="col-10">
+                        <h4 class="card-title mb-0">{{ entity.name }}</h4>
+                        <p>{% trans %}id.label{% endtrans %}: {{ entity.id }} ({{ type_label(entity) }})</p>
+
+                        {% if entity.fullPath is defined %}
+                            {{ helper.breadcrumb_entity_link(entity)}}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
     {% endif %}
+
 
     {% if createUrl %}
         <div class="alert alert-info mb-2">
