@@ -18,13 +18,13 @@
 
             </h5>
             <div class="card-body row">
-                <div class="col-2">
+                <div class="col-sm-2">
                     <img class="d-block w-100 img-fluid img-thumbnail bg-light part-info-image"
                          src="{{ entity_thumbnail(part) ?? asset('img/part_placeholder.svg') }}" alt="">
                 </div>
 
 
-                <div class="col-10">
+                <div class="col-sm-10">
                     <h4 class="card-title mb-0">{{ part.name }}</h4>
                     <div class="card-text text-muted">{{ part.description | format_markdown(true) }}</div>
                     <div>
@@ -103,13 +103,13 @@
 
                 </h5>
                 <div class="card-body row">
-                    <div class="col-2">
+                    <div class="col-sm-2">
                         <img class="d-block w-100 img-fluid img-thumbnail bg-light part-info-image"
                              src="{{ entity_thumbnail(entity) ?? asset('img/part_placeholder.svg') }}" alt="">
                     </div>
 
 
-                    <div class="col-10">
+                    <div class="col-sm-10">
                         <h4 class="card-title mb-0">{{ entity.name }}</h4>
                         <p>{% trans %}id.label{% endtrans %}: {{ entity.id }} ({{ type_label(entity) }})</p>
 
