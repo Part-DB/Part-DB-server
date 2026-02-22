@@ -77,14 +77,14 @@ final class BarcodeScanResultHandlerTest extends KernelTestCase
     #[Group('DB')]
     public function testGetRedirectURL(LocalBarcodeScanResult $scanResult, string $url): void
     {
-        $this->assertSame($url, $this->service->getRedirectURL($scanResult));
+        $this->assertSame($url, $this->service->getInfoURL($scanResult));
     }
 
     public function testGetRedirectEntityNotFount(): void
     {
         $this->expectException(EntityNotFoundException::class);
         //If we encounter an invalid lot, we must throw an exception
-        $this->service->getRedirectURL(new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT,
+        $this->service->getInfoURL(new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT,
             12_345_678, BarcodeSourceType::INTERNAL));
     }
 
@@ -98,7 +98,7 @@ final class BarcodeScanResultHandlerTest extends KernelTestCase
         };
 
         $this->expectException(InvalidArgumentException::class);
-        $this->service->getRedirectURL($unknown);
+        $this->service->getInfoURL($unknown);
     }
 
     public function testEIGPBarcodeWithoutSupplierPartNumberThrowsEntityNotFound(): void
@@ -106,14 +106,14 @@ final class BarcodeScanResultHandlerTest extends KernelTestCase
         $scan = new EIGP114BarcodeScanResult([]);
 
         $this->expectException(EntityNotFoundException::class);
-        $this->service->getRedirectURL($scan);
+        $this->service->getInfoURL($scan);
     }
 
     public function testEIGPBarcodeResolvePartOrNullReturnsNullWhenNotFound(): void
     {
         $scan = new EIGP114BarcodeScanResult([]);
 
-        $this->assertNull($this->service->resolvePartOrNull($scan));
+        $this->assertNull($this->service->resolvePart($scan));
     }
 
     public function testLCSCBarcodeResolvePartOrNullReturnsNullWhenNotFound(): void
@@ -123,7 +123,7 @@ final class BarcodeScanResultHandlerTest extends KernelTestCase
             rawInput: '{pc:C0000000,pm:}'
         );
 
-        $this->assertNull($this->service->resolvePartOrNull($scan));
+        $this->assertNull($this->service->resolvePart($scan));
     }
 
 
@@ -137,6 +137,6 @@ final class BarcodeScanResultHandlerTest extends KernelTestCase
         );
 
         $this->expectException(EntityNotFoundException::class);
-        $this->service->getRedirectURL($scan);
+        $this->service->getInfoURL($scan);
     }
 }
