@@ -95,42 +95,43 @@ class ScanController extends AbstractController
 
         if ($input !== null && $input !== '') {
             $mode = $form->isSubmitted() ? $form['mode']->getData() : null;
-            $infoMode = $form->isSubmitted() ? (bool) $form['info_mode']->getData() : false;
+            $infoMode = $form->isSubmitted() && $form['info_mode']->getData();
 
             try {
-                $scan = $this->barcodeNormalizer->scanBarcodeContent((string) $input, $mode ?? null);
+                $scan = $this->barcodeNormalizer->scanBarcodeContent($input, $mode ?? null);
 
                 // If not in info mode, mimic “normal scan” behavior: redirect if possible.
                 if (!$infoMode) {
-                    try {
-                        $url = $this->resultHandler->getInfoURL($scan);
-                        return $this->redirect($url);
-                    } catch (EntityNotFoundException) {
-                        // Decoded OK, but no part is found. If it’s a vendor code, redirect to create.
-                        $createUrl = $this->buildCreateUrlForScanResult($scan);
-                        if ($createUrl !== null) {
-                            return $this->redirect($createUrl);
-                        }
 
-                        // Otherwise: show “not found” (not “format unknown”)
-                        $this->addFlash('warning', 'scan.qr_not_found');
+                    // Try to get an Info URL if possible
+                    $url = $this->resultHandler->getInfoURL($scan);
+                    if ($url !== null) {
+                        return $this->redirect($url);
+                    }
+
+                    //Try to get an creation URL if possible (only for vendor codes)
+                    $createUrl = $this->buildCreateUrlForScanResult($scan);
+                    if ($createUrl !== null) {
+                        return $this->redirect($createUrl);
+                    }
+
+                    //// Otherwise: show “not found” (not “format unknown”)
+                    $this->addFlash('warning', 'scan.qr_not_found');
+                } else { // Info mode
+                    // Info mode fallback: render page with prefilled result
+                    $decoded = $scan->getDecodedForInfoMode();
+
+                    //Try to resolve to an entity, to enhance info mode with entity-specific data
+                    $dbEntity = $this->resultHandler->resolveEntity($scan);
+                    $resolvedPart = $this->resultHandler->resolvePart($scan);
+                    $openUrl = $this->resultHandler->getInfoURL($scan);
+
+                    //If no entity is found, try to create an URL for creating a new part (only for vendor codes)
+                    $createUrl = null;
+                    if ($dbEntity === null) {
+                        $createUrl = $this->buildCreateUrlForScanResult($scan);
                     }
                 }
-
-                // Info mode fallback: render page with prefilled result
-                $decoded = $scan->getDecodedForInfoMode();
-
-                //Try to resolve to an entity, to enhance info mode with entity-specific data
-                $dbEntity = $this->resultHandler->resolveEntity($scan);
-                $resolvedPart = $this->resultHandler->resolvePart($scan);
-                $openUrl = $this->resultHandler->getInfoURL($scan);
-
-                //If no entity is found, try to create an URL for creating a new part (only for vendor codes)
-                $createUrl = null;
-                if ($dbEntity === null) {
-                    $createUrl = $this->buildCreateUrlForScanResult($scan);
-                }
-
             } catch (\Throwable $e) {
                 // Keep fallback user-friendly; avoid 500
                 $this->addFlash('warning', 'scan.format_unknown');
@@ -170,7 +171,7 @@ class ScanController extends AbstractController
                 source_type: BarcodeSourceType::INTERNAL
             );
 
-            return $this->redirect($this->resultHandler->getInfoURL($scan_result));
+            return $this->redirect($this->resultHandler->getInfoURL($scan_result) ?? throw new EntityNotFoundException("Not found"));
         } catch (EntityNotFoundException) {
             $this->addFlash('success', 'scan.qr_not_found');
 
@@ -179,7 +180,7 @@ class ScanController extends AbstractController
     }
 
     /**
-     * Builds a URL for creating a new part based on the barcode data
+     * Builds a URL for creating a new part based on the barcode data, handles exceptions and shows user-friendly error messages if the provider is not active or if there is an error during URL generation.
      * @param BarcodeScanResultInterface $scanResult
      * @return string|null
      */
@@ -190,8 +191,8 @@ class ScanController extends AbstractController
         } catch (InfoProviderNotActiveException $e) {
             $this->addFlash('error', $e->getMessage());
         } catch (\Throwable) {
-            $this->addFlash('error', 'An error occurred while looking up the provider for this barcode. Please try again later.');
             // Don’t break scanning UX if provider lookup fails
+            $this->addFlash('error', 'An error occurred while looking up the provider for this barcode. Please try again later.');
         }
 
         return null;
@@ -231,7 +232,6 @@ class ScanController extends AbstractController
         }
 
         $decoded = $scan->getDecodedForInfoMode();
-
 
         //Try to resolve to an entity, to enhance info mode with entity-specific data
         $dbEntity = $this->resultHandler->resolveEntity($scan);
