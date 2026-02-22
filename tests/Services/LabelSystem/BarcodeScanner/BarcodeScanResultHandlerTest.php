@@ -80,12 +80,13 @@ final class BarcodeScanResultHandlerTest extends KernelTestCase
         $this->assertSame($url, $this->service->getInfoURL($scanResult));
     }
 
-    public function testGetRedirectEntityNotFount(): void
+    public function testGetRedirectEntityNotFound(): void
     {
-        $this->expectException(EntityNotFoundException::class);
-        //If we encounter an invalid lot, we must throw an exception
-        $this->service->getInfoURL(new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT,
+        //If we encounter an invalid lot, we must get an null result
+        $url = $this->service->getInfoURL(new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT,
             12_345_678, BarcodeSourceType::INTERNAL));
+
+        $this->assertNull($url);
     }
 
     public function testGetRedirectURLThrowsOnUnknownScanType(): void
@@ -101,19 +102,12 @@ final class BarcodeScanResultHandlerTest extends KernelTestCase
         $this->service->getInfoURL($unknown);
     }
 
-    public function testEIGPBarcodeWithoutSupplierPartNumberThrowsEntityNotFound(): void
-    {
-        $scan = new EIGP114BarcodeScanResult([]);
-
-        $this->expectException(EntityNotFoundException::class);
-        $this->service->getInfoURL($scan);
-    }
-
     public function testEIGPBarcodeResolvePartOrNullReturnsNullWhenNotFound(): void
     {
         $scan = new EIGP114BarcodeScanResult([]);
 
         $this->assertNull($this->service->resolvePart($scan));
+        $this->assertNull($this->service->getInfoURL($scan));
     }
 
     public function testLCSCBarcodeResolvePartOrNullReturnsNullWhenNotFound(): void
@@ -124,19 +118,6 @@ final class BarcodeScanResultHandlerTest extends KernelTestCase
         );
 
         $this->assertNull($this->service->resolvePart($scan));
-    }
-
-
-    public function testLCSCBarcodeMissingPmThrowsEntityNotFound(): void
-    {
-        // pc present but no pm => getPartFromLCSC() will throw EntityNotFoundException
-        // because it falls back to PM when PC doesn't match anything.
-        $scan = new LCSCBarcodeScanResult(
-            fields: ['pc' => 'C0000000', 'pm' => ''], // pm becomes null via getPM()
-            rawInput: '{pc:C0000000,pm:}'
-        );
-
-        $this->expectException(EntityNotFoundException::class);
-        $this->service->getInfoURL($scan);
+        $this->assertNull($this->service->getInfoURL($scan));
     }
 }
