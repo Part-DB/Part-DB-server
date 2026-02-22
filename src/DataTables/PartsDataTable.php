@@ -228,6 +228,16 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('attachments', PartAttachmentsColumn::class, [
                 'label' => $this->translator->trans('part.table.attachments'),
+            ])
+            ->add('eda_info_reference_prefix', TextColumn::class, [
+                'label' => $this->translator->trans('eda_info.reference_prefix'),
+                'render' => fn($value, Part $context) => htmlspecialchars($context->getEdaInfo()->getReferencePrefix() ?? ''),
+                'orderField' => 'NATSORT(part.eda_info.reference_prefix)'
+            ])
+            ->add('eda_info_value', TextColumn::class, [
+                'label' => $this->translator->trans('eda_info.value'),
+                'render' => fn($value, Part $context) => htmlspecialchars($context->getEdaInfo()->getValue() ?? ''),
+                'orderField' => 'NATSORT(part.eda_info.value)'
             ]);
 
         //Add a column to list the projects where the part is used, when the user has the permission to see the projects
