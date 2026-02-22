@@ -10,7 +10,6 @@
     <div class="">
         <div class="form-group row">
             <div class="offset-sm-3 col-sm-9">
-
                 <div class="img-thumbnail" style="max-width: 600px;">
                     <div id="reader-box" {{ stimulus_controller('pages/barcode_scan') }}
                          data-lookup-url="{{ path('scan_lookup') }}"></div>
@@ -18,13 +17,22 @@
             </div>
         </div>
 
+        <div id="scan-augmented-result" class="mt-3">
+            {% include "label_system/scanner/_info_mode.html.twig" %}
+        </div>
+
+        {{ form_start(form, {'attr': {'id': 'scan_dialog_form'}}) }}
+
+        {{ form_end(form) }}
     </div>
+{% endblock %}
 
-    <div id="scan-augmented-result" class="mt-3">
-        {% include "label_system/scanner/_info_mode.html.twig" %}
-    </div>
-
-    {{ form_start(form, {'attr': {'id': 'scan_dialog_form'}}) }}
-
-    {{ form_end(form) }}
+{% block scan_results %}
+    <turbo-stream action="replace" action="morph" target="scan-augmented-result">
+        <template>
+            <div id="scan-augmented-result" class="mt-3">
+                {% include "label_system/scanner/_info_mode.html.twig" %}
+            </div>
+        </template>
+    </turbo-stream>
 {% endblock %}

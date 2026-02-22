@@ -64,6 +64,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Entity\Parts\Part;
 use \App\Entity\Parts\StorageLocation;
+use Symfony\UX\Turbo\TurboBundle;
 
 /**
  * @see \App\Tests\Controller\ScanControllerTest
@@ -131,11 +132,30 @@ class ScanController extends AbstractController
                     if ($dbEntity === null) {
                         $createUrl = $this->buildCreateUrlForScanResult($scan);
                     }
+
+                    if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+                        $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+                        return $this->renderBlock('label_system/scanner/scanner.html.twig', 'scan_results', [
+                            'decoded' => $decoded,
+                            'entity' => $dbEntity,
+                            'part' => $resolvedPart,
+                            'openUrl' => $openUrl,
+                            'createUrl' => $createUrl,
+                        ]);
+                    }
+
                 }
             } catch (\Throwable $e) {
                 // Keep fallback user-friendly; avoid 500
                 $this->addFlash('warning', 'scan.format_unknown');
             }
+        }
+
+        //When we reach here, only the flash messages are relevant, so if it's a Turbo request, only send the flash message fragment, so the client can show it without a full page reload
+        if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+            $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+            //Only send our flash message, so the client can show it without a full page reload
+            return $this->renderBlock('_turbo_control.html.twig', 'flashes');
         }
 
         return $this->render('label_system/scanner/scanner.html.twig', [
@@ -196,70 +216,5 @@ class ScanController extends AbstractController
         }
 
         return null;
-    }
-
-    /**
-     * Provides XHR endpoint for looking up barcode information and return JSON response
-     * @param Request $request
-     * @return JsonResponse
-     */
-    #[Route(path: '/lookup', name: 'scan_lookup', methods: ['POST'])]
-    public function lookup(Request $request): JsonResponse
-    {
-        $this->denyAccessUnlessGranted('@tools.label_scanner');
-
-        $input = trim($request->request->getString('input', ''));
-
-        // We cannot use getEnum here, because we get an empty string for mode, when auto mode is selected
-        $mode  = $request->request->getString('mode', '');
-        if ($mode === '') {
-            $modeEnum = null;
-        } else {
-            $modeEnum = BarcodeSourceType::from($mode); // validate enum value; will throw if invalid
-        }
-
-        $infoMode = $request->request->getBoolean('info_mode', false);
-
-        if ($input === '') {
-            return new JsonResponse(['ok' => false], 200);
-        }
-
-        try {
-            $scan = $this->barcodeNormalizer->scanBarcodeContent($input, $modeEnum);
-        } catch (InvalidArgumentException) {
-            // Camera sometimes produces garbage decodes for a frame; ignore those.
-            return new JsonResponse(['ok' => false], 200);
-        }
-
-        $decoded = $scan->getDecodedForInfoMode();
-
-        //Try to resolve to an entity, to enhance info mode with entity-specific data
-        $dbEntity = $this->resultHandler->resolveEntity($scan);
-        $resolvedPart = $this->resultHandler->resolvePart($scan);
-        $openUrl = $this->resultHandler->getInfoURL($scan);
-
-        //If no entity is found, try to create an URL for creating a new part (only for vendor codes)
-        $createUrl = null;
-        if ($dbEntity === null) {
-            $createUrl = $this->buildCreateUrlForScanResult($scan);
-        }
-
-        // Render fragment (use openUrl for universal "Open" link)
-        $html = $this->renderView('label_system/scanner/_info_mode.html.twig', [
-            'decoded' => $decoded,
-            'entity' => $dbEntity,
-            'part' => $resolvedPart,
-            'openUrl' => $openUrl,
-            'createUrl' => $createUrl,
-        ]);
-
-        return new JsonResponse([
-            'ok' => true,
-            'found' => $openUrl !== null, // we consider the code "found", if we can at least show an info page (even if the part is not found, but we can show the decoded data and a "create" button)
-            'redirectUrl' => $openUrl, // client redirects only when infoMode=false
-            'createUrl' => $createUrl,
-            'html' => $html,
-            'infoMode' => $infoMode,
-        ], 200);
     }
 }
