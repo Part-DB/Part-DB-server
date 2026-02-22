@@ -26,25 +26,28 @@ namespace App\Services\LabelSystem\BarcodeScanner;
 /**
  * This enum represents the different types, where a barcode/QR-code can be generated from
  */
-enum BarcodeSourceType
+enum BarcodeSourceType: string
 {
     /** This Barcode was generated using Part-DB internal recommended barcode generator */
-    case INTERNAL;
+    case INTERNAL = 'internal';
     /** This barcode is containing an internal part number (IPN) */
-    case IPN;
+    case IPN = 'ipn';
 
     /**
      * This barcode is a user defined barcode defined on a part lot
      */
-    case USER_DEFINED;
+    case USER_DEFINED = 'user_defined';
 
     /**
      * EIGP114 formatted barcodes like used by digikey, mouser, etc.
      */
-    case EIGP114;
+    case EIGP114 = 'eigp114';
 
     /**
      * GTIN /EAN barcodes, which are used on most products in the world. These are checked with the GTIN field of a part.
      */
-    case GTIN;
+    case GTIN = 'gtin';
+
+    /** For LCSC.com formatted QR codes */
+    case LCSC = 'lcsc';
 }
