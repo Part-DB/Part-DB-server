@@ -43,7 +43,7 @@ namespace App\Controller;
 
 use App\Form\LabelSystem\ScanDialogType;
 use App\Services\InfoProviderSystem\Providers\LCSCProvider;
-use App\Services\LabelSystem\BarcodeScanner\BarcodeRedirector;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeScanResultHandler;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeScanHelper;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeScanResultInterface;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeSourceType;
@@ -71,7 +71,7 @@ use \App\Entity\Parts\StorageLocation;
 class ScanController extends AbstractController
 {
     public function __construct(
-	protected BarcodeRedirector $barcodeParser,
+	protected BarcodeScanResultHandler $barcodeParser,
 	protected BarcodeScanHelper $barcodeNormalizer,
         private readonly ProviderRegistry $providerRegistry,
         private readonly PartInfoRetriever $infoRetriever,
@@ -103,7 +103,7 @@ class ScanController extends AbstractController
                 // If not in info mode, mimic “normal scan” behavior: redirect if possible.
                 if (!$infoMode) {
                     try {
-                        $url = $this->barcodeParser->getRedirectURL($scan);
+                        $url = $this->barcodeParser->getInfoURL($scan);
                         return $this->redirect($url);
                     } catch (EntityNotFoundException) {
                         // Decoded OK, but no part is found. If it’s a vendor code, redirect to create.
@@ -153,7 +153,7 @@ class ScanController extends AbstractController
                 source_type: BarcodeSourceType::INTERNAL
             );
 
-            return $this->redirect($this->barcodeParser->getRedirectURL($scan_result));
+            return $this->redirect($this->barcodeParser->getInfoURL($scan_result));
         } catch (EntityNotFoundException) {
             $this->addFlash('success', 'scan.qr_not_found');
 
@@ -338,7 +338,7 @@ class ScanController extends AbstractController
         $targetFound = false;
 
         try {
-            $redirectUrl = $this->barcodeParser->getRedirectURL($scan);
+            $redirectUrl = $this->barcodeParser->getInfoURL($scan);
             $targetFound = true;
         } catch (EntityNotFoundException) {
         }
@@ -350,7 +350,7 @@ class ScanController extends AbstractController
         $locations = [];
 
         if ($targetFound) {
-            $part = $this->barcodeParser->resolvePartOrNull($scan);
+            $part = $this->barcodeParser->resolvePart($scan);
 
             if ($part instanceof Part) {
                 $partName = $part->getName();

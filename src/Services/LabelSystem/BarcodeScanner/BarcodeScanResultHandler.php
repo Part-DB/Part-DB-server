@@ -52,11 +52,13 @@ use InvalidArgumentException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
+ * This class handles the result of a barcode scan and determines further actions, like which URL the user should be redirected to.
+ *
  * @see \App\Tests\Services\LabelSystem\Barcodes\BarcodeRedirectorTest
  */
-final class BarcodeRedirector
+final readonly class BarcodeScanResultHandler
 {
-    public function __construct(private readonly UrlGeneratorInterface $urlGenerator, private readonly EntityManagerInterface $em)
+    public function __construct(private UrlGeneratorInterface $urlGenerator, private EntityManagerInterface $em)
     {
     }
 
@@ -68,25 +70,21 @@ final class BarcodeRedirector
      *
      * @throws EntityNotFoundException
      */
-    public function getRedirectURL(BarcodeScanResultInterface $barcodeScan): string
+    public function getInfoURL(BarcodeScanResultInterface $barcodeScan): string
     {
+        //For our internal barcode format we can directly determine the target without looking up the part
+        //Also here we can encounter different types of barcodes, like storage location barcodes, which are not resolvable to a part
         if($barcodeScan instanceof LocalBarcodeScanResult) {
             return $this->getURLLocalBarcode($barcodeScan);
         }
 
-        if ($barcodeScan instanceof EIGP114BarcodeScanResult) {
-            return $this->getURLVendorBarcode($barcodeScan);
+        //For other barcodes try to resolve the part first and then redirect to the part page
+        $localPart = $this->resolvePart($barcodeScan);
+        if ($localPart !== null) {
+            return $this->urlGenerator->generate('app_part_show', ['id' => $localPart->getID()]);
         }
 
-        if ($barcodeScan instanceof GTINBarcodeScanResult) {
-            return $this->getURLGTINBarcode($barcodeScan);
-        }
-
-        if ($barcodeScan instanceof LCSCBarcodeScanResult) {
-	        return $this->getURLLCSCBarcode($barcodeScan);
-	    }
-
-        throw new InvalidArgumentException('Unknown $barcodeScan type: '.get_class($barcodeScan));
+        throw new EntityNotFoundException('Could not resolve a local part for the given barcode scan result');
     }
 
     private function getURLLocalBarcode(LocalBarcodeScanResult $barcodeScan): string
@@ -112,119 +110,31 @@ final class BarcodeRedirector
     }
 
     /**
-     * Gets the URL to a part from a scan of the LCSC Barcode
+     * Tries to resolve a Part from the given barcode scan result. Returns null if no part could be found for the given barcode,
+     * or the barcode doesn't contain information allowing to resolve to a local part.
+     * @param  BarcodeScanResultInterface  $barcodeScan
+     * @return Part|null
+     * @throws \InvalidArgumentException if the barcode scan result type is unknown and cannot be handled this function
      */
-    private function getURLLCSCBarcode(LCSCBarcodeScanResult $barcodeScan): string
+    public function resolvePart(BarcodeScanResultInterface $barcodeScan): ?Part
     {
-        $part = $this->getPartFromLCSC($barcodeScan);
-	    return $this->urlGenerator->generate('app_part_show', ['id' => $part->getID()]);
-    }
-
-    /**
-     * Resolve LCSC barcode -> Part.
-     * Strategy:
-     *  1) Try providerReference.provider_id == pc (LCSC "Cxxxxxx") if you store it there
-     *  2) Fallback to manufacturer_product_number == pm (MPN)
-     * Returns first match (consistent with EIGP114 logic)
-     */
-    private function getPartFromLCSC(LCSCBarcodeScanResult $barcodeScan): Part
-    {
-    	// Try LCSC code (pc) as provider id if available
-	    $pc = $barcodeScan->lcscCode; // e.g. C138033
-	    if ($pc) {
-            $part = $this->em->getRepository(Part::class)->getPartByProviderInfo($pc);
-            if ($part !== null) {
-                return $part;
-            }
-  	    }
-
-	    // Fallback to MPN (pm)
-	    $pm = $barcodeScan->mpn; // e.g. RC0402FR-071ML
-	    if (!$pm) {
-        	throw new EntityNotFoundException();
-	    }
-
-        $part = $this->em->getRepository(Part::class)->getPartByMPN($pm);
-        if ($part !== null) {
-            return $part;
+        if ($barcodeScan instanceof LocalBarcodeScanResult) {
+            return $this->resolvePartFromLocal($barcodeScan);
         }
 
-	    throw new EntityNotFoundException();
-    }
-
-    /**
-     * Gets the URL to a part from a scan of a Vendor Barcode
-     */
-    private function getURLVendorBarcode(EIGP114BarcodeScanResult $barcodeScan): string
-    {
-        $part = $this->getPartFromVendor($barcodeScan);
-        return $this->urlGenerator->generate('app_part_show', ['id' => $part->getID()]);
-    }
-
-    private function getURLGTINBarcode(GTINBarcodeScanResult $barcodeScan): string
-    {
-        $part = $this->em->getRepository(Part::class)->findOneBy(['gtin' => $barcodeScan->gtin]);
-        if (!$part instanceof Part) {
-            throw new EntityNotFoundException();
+        if ($barcodeScan instanceof EIGP114BarcodeScanResult) {
+            return $this->resolvePartFromVendor($barcodeScan);
         }
 
-        return $this->urlGenerator->generate('app_part_show', ['id' => $part->getID()]);
-    }
-
-    /**
-     * Gets a part from a scan of a Vendor Barcode by filtering for parts
-     * with the same Info Provider Id or, if that fails, by looking for parts with a
-     * matching manufacturer product number. Only returns the first matching part.
-     */
-    private function getPartFromVendor(EIGP114BarcodeScanResult $barcodeScan) : Part
-    {
-        // first check via the info provider ID (e.g. Vendor ID). This might fail if the part was not added via
-        // the info provider system or if the part was bought from a different vendor than the data was retrieved
-        // from.
-        if($barcodeScan->digikeyPartNumber) {
-
-            $part = $this->em->getRepository(Part::class)->getPartByProviderInfo($barcodeScan->digikeyPartNumber);
-            if ($part !== null) {
-                return $part;
-            }
+        if ($barcodeScan instanceof GTINBarcodeScanResult) {
+            return $this->resolvePartFromGTIN($barcodeScan);
         }
 
-        if (!$barcodeScan->supplierPartNumber){
-            throw new EntityNotFoundException();
+        if ($barcodeScan instanceof LCSCBarcodeScanResult) {
+            return $this->resolvePartFromLCSC($barcodeScan);
         }
 
-        //Fallback to the manufacturer part number. This may return false positives, since it is common for
-        //multiple manufacturers to use the same part number for their version of a common product
-        //We assume the user is able to realize when this returns the wrong part
-        //If the barcode specifies the manufacturer we try to use that as well
-
-        $part = $this->em->getRepository(Part::class)->getPartByMPN($barcodeScan->supplierPartNumber, $barcodeScan->mouserManufacturer);
-        if($part !== null) {
-            return $part;
-        }
-
-        throw new EntityNotFoundException();
-    }
-
-    public function resolvePartOrNull(BarcodeScanResultInterface $barcodeScan): ?Part
-    {
-        try {
-            if ($barcodeScan instanceof LocalBarcodeScanResult) {
-                return $this->resolvePartFromLocal($barcodeScan);
-            }
-
-            if ($barcodeScan instanceof EIGP114BarcodeScanResult) {
-                return $this->getPartFromVendor($barcodeScan);
-            }
-
-            if ($barcodeScan instanceof LCSCBarcodeScanResult) {
-                return $this->getPartFromLCSC($barcodeScan);
-            }
-
-            return null;
-        } catch (EntityNotFoundException) {
-            return null;
-        }
+        throw new \InvalidArgumentException("Unknown barcode scan result type: ".get_class($barcodeScan));
     }
 
     private function resolvePartFromLocal(LocalBarcodeScanResult $barcodeScan): ?Part
@@ -246,5 +156,69 @@ final class BarcodeRedirector
                 return null;
         }
     }
+
+    /**
+     * Gets a part from a scan of a Vendor Barcode by filtering for parts
+     * with the same Info Provider Id or, if that fails, by looking for parts with a
+     * matching manufacturer product number. Only returns the first matching part.
+     */
+    private function resolvePartFromVendor(EIGP114BarcodeScanResult $barcodeScan) : ?Part
+    {
+        // first check via the info provider ID (e.g. Vendor ID). This might fail if the part was not added via
+        // the info provider system or if the part was bought from a different vendor than the data was retrieved
+        // from.
+        if($barcodeScan->digikeyPartNumber) {
+
+            $part = $this->em->getRepository(Part::class)->getPartByProviderInfo($barcodeScan->digikeyPartNumber);
+            if ($part !== null) {
+                return $part;
+            }
+        }
+
+        if (!$barcodeScan->supplierPartNumber){
+            return null;
+        }
+
+        //Fallback to the manufacturer part number. This may return false positives, since it is common for
+        //multiple manufacturers to use the same part number for their version of a common product
+        //We assume the user is able to realize when this returns the wrong part
+        //If the barcode specifies the manufacturer we try to use that as well
+
+        return $this->em->getRepository(Part::class)->getPartByMPN($barcodeScan->supplierPartNumber, $barcodeScan->mouserManufacturer);
+    }
+
+    /**
+     * Resolve LCSC barcode -> Part.
+     * Strategy:
+     *  1) Try providerReference.provider_id == pc (LCSC "Cxxxxxx") if you store it there
+     *  2) Fallback to manufacturer_product_number == pm (MPN)
+     * Returns first match (consistent with EIGP114 logic)
+     */
+    private function resolvePartFromLCSC(LCSCBarcodeScanResult $barcodeScan): ?Part
+    {
+        // Try LCSC code (pc) as provider id if available
+        $pc = $barcodeScan->lcscCode; // e.g. C138033
+        if ($pc) {
+            $part = $this->em->getRepository(Part::class)->getPartByProviderInfo($pc);
+            if ($part !== null) {
+                return $part;
+            }
+        }
+
+        // Fallback to MPN (pm)
+        $pm = $barcodeScan->mpn; // e.g. RC0402FR-071ML
+        if (!$pm) {
+            return null;
+        }
+
+        return $this->em->getRepository(Part::class)->getPartByMPN($pm);
+    }
+
+    private function resolvePartFromGTIN(GTINBarcodeScanResult $barcodeScan): ?Part
+    {
+        return $this->em->getRepository(Part::class)->findOneBy(['gtin' => $barcodeScan->gtin]);
+    }
+
+
 
 }
