@@ -1,0 +1,183 @@
+<?php
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ *  Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+declare(strict_types=1);
+
+/**
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ * Copyright (C) 2019 - 2020 Jan Böhmer (https://github.com/jbtronics)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+namespace App\Tests\Services\LabelSystem\BarcodeScanner;
+
+use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
+use App\Entity\Parts\StorageLocation;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeScanResultHandler;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
+use App\Entity\LabelSystem\LabelSupportedElement;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeSourceType;
+use App\Services\LabelSystem\BarcodeScanner\LocalBarcodeScanResult;
+use Doctrine\ORM\EntityNotFoundException;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\Services\LabelSystem\BarcodeScanner\EIGP114BarcodeScanResult;
+use App\Services\LabelSystem\BarcodeScanner\LCSCBarcodeScanResult;
+use App\Services\LabelSystem\BarcodeScanner\BarcodeScanResultInterface;
+use InvalidArgumentException;
+
+
+final class BarcodeScanResultHandlerTest extends KernelTestCase
+{
+    private ?BarcodeScanResultHandler $service = null;
+
+    protected function setUp(): void
+    {
+        self::bootKernel();
+        $this->service = self::getContainer()->get(BarcodeScanResultHandler::class);
+    }
+
+    public static function urlDataProvider(): \Iterator
+    {
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART, 1, BarcodeSourceType::INTERNAL), '/en/part/1'];
+        //Part lot redirects to Part info page (Part lot 1 is associated with part 3)
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 1, BarcodeSourceType::INTERNAL), '/en/part/3?highlightLot=1'];
+        yield [new LocalBarcodeScanResult(LabelSupportedElement::STORELOCATION, 1, BarcodeSourceType::INTERNAL), '/en/store_location/1/parts'];
+    }
+
+    #[DataProvider('urlDataProvider')]
+    #[Group('DB')]
+    public function testGetRedirectURL(LocalBarcodeScanResult $scanResult, string $url): void
+    {
+        $this->assertSame($url, $this->service->getInfoURL($scanResult));
+    }
+
+    public function testGetRedirectEntityNotFound(): void
+    {
+        //If we encounter an invalid lot, we must get an null result
+        $url = $this->service->getInfoURL(new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT,
+            12_345_678, BarcodeSourceType::INTERNAL));
+
+        $this->assertNull($url);
+    }
+
+    public function testGetRedirectURLThrowsOnUnknownScanType(): void
+    {
+        $unknown = new class implements BarcodeScanResultInterface {
+            public function getDecodedForInfoMode(): array
+            {
+                return [];
+            }
+        };
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->service->getInfoURL($unknown);
+    }
+
+    public function testEIGPBarcodeResolvePartOrNullReturnsNullWhenNotFound(): void
+    {
+        $scan = new EIGP114BarcodeScanResult([]);
+
+        $this->assertNull($this->service->resolvePart($scan));
+        $this->assertNull($this->service->getInfoURL($scan));
+    }
+
+    public function testLCSCBarcodeResolvePartOrNullReturnsNullWhenNotFound(): void
+    {
+        $scan = new LCSCBarcodeScanResult(
+            fields: ['pc' => 'C0000000', 'pm' => ''],
+            rawInput: '{pc:C0000000,pm:}'
+        );
+
+        $this->assertNull($this->service->resolvePart($scan));
+        $this->assertNull($this->service->getInfoURL($scan));
+    }
+
+    public function testResolveEntityThrowsOnUnknownScanType(): void
+    {
+        $unknown = new class implements BarcodeScanResultInterface {
+            public function getDecodedForInfoMode(): array
+            {
+                return [];
+            }
+        };
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->service->resolvePart($unknown);
+    }
+
+    public function testResolveEntity(): void
+    {
+        $scan = new LocalBarcodeScanResult(LabelSupportedElement::PART, 1, BarcodeSourceType::INTERNAL);
+        $part = $this->service->resolveEntity($scan);
+
+        $this->assertSame(1, $part->getId());
+        $this->assertInstanceOf(Part::class, $part);
+
+        $scan = new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 1, BarcodeSourceType::INTERNAL);
+        $entity = $this->service->resolveEntity($scan);
+        $this->assertSame(1, $entity->getId());
+        $this->assertInstanceOf(PartLot::class, $entity);
+
+        $scan = new LocalBarcodeScanResult(LabelSupportedElement::STORELOCATION, 1, BarcodeSourceType::INTERNAL);
+        $entity = $this->service->resolveEntity($scan);
+        $this->assertSame(1, $entity->getId());
+        $this->assertInstanceOf(StorageLocation::class, $entity);
+    }
+
+    public function testResolvePart(): void
+    {
+        $scan = new LocalBarcodeScanResult(LabelSupportedElement::PART, 1, BarcodeSourceType::INTERNAL);
+        $part = $this->service->resolvePart($scan);
+
+        $this->assertSame(1, $part->getId());
+
+        $scan = new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 1, BarcodeSourceType::INTERNAL);
+        $part = $this->service->resolvePart($scan);
+        $this->assertSame(3, $part->getId());
+
+        $scan = new LocalBarcodeScanResult(LabelSupportedElement::STORELOCATION, 1, BarcodeSourceType::INTERNAL);
+        $part = $this->service->resolvePart($scan);
+        $this->assertNull($part); //Store location does not resolve to a part
+    }
+
+    public function testGetCreateInfos(): void
+    {
+        $lcscScan = LCSCBarcodeScanResult::parse('{pbn:PB1,on:ON1,pc:C138033,pm:RC0402FR-071ML,qty:10}');
+        $infos = $this->service->getCreateInfos($lcscScan);
+
+        $this->assertSame('lcsc', $infos['providerKey']);
+        $this->assertSame('C138033', $infos['providerId']);
+    }
+}

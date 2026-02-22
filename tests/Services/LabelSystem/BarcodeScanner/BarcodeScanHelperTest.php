@@ -49,6 +49,7 @@ use App\Services\LabelSystem\BarcodeScanner\BarcodeSourceType;
 use App\Services\LabelSystem\BarcodeScanner\EIGP114BarcodeScanResult;
 use App\Services\LabelSystem\BarcodeScanner\LocalBarcodeScanResult;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Services\LabelSystem\BarcodeScanner\LCSCBarcodeScanResult;
 
 final class BarcodeScanHelperTest extends WebTestCase
 {
@@ -124,6 +125,14 @@ final class BarcodeScanHelperTest extends WebTestCase
         ]);
 
         yield [$eigp114Result, "[)>\x1E06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS\x1E\x04"];
+
+        $lcscInput = '{pc:C138033,pm:RC0402FR-071ML,qty:10}';
+        $lcscResult = new LCSCBarcodeScanResult(
+            ['pc' => 'C138033', 'pm' => 'RC0402FR-071ML', 'qty' => '10'],
+            $lcscInput
+        );
+
+        yield [$lcscResult, $lcscInput];
     }
 
     public static function invalidDataProvider(): \Iterator
@@ -152,5 +161,34 @@ final class BarcodeScanHelperTest extends WebTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->service->scanBarcodeContent($input);
+    }
+
+    public function testAutoDetectLcscBarcode(): void
+    {
+        $input = '{pbn:PB1,on:ON1,pc:C138033,pm:RC0402FR-071ML,qty:10}';
+
+        $result = $this->service->scanBarcodeContent($input);
+
+        $this->assertInstanceOf(LCSCBarcodeScanResult::class, $result);
+        $this->assertSame('C138033', $result->lcscCode);
+        $this->assertSame('RC0402FR-071ML', $result->mpn);
+    }
+
+    public function testLcscExplicitTypeParses(): void
+    {
+        $input = '{pc:C138033,pm:RC0402FR-071ML,qty:10}';
+
+        $result = $this->service->scanBarcodeContent($input, BarcodeSourceType::LCSC);
+
+        $this->assertInstanceOf(LCSCBarcodeScanResult::class, $result);
+        $this->assertSame('C138033', $result->lcscCode);
+        $this->assertSame('RC0402FR-071ML', $result->mpn);
+    }
+
+    public function testLcscExplicitTypeRejectsNonLcsc(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->service->scanBarcodeContent('not-an-lcsc', BarcodeSourceType::LCSC);
     }
 }
