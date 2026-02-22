@@ -12563,10 +12563,17 @@ Buerklin-API Authentication server:
         <target>Create [part] from barcode</target>
       </segment>
     </unit>
+<<<<<<< HEAD
     <unit id="xH258F." name="parts.create_from_scan.title">
       <segment>
         <source>parts.create_from_scan.title</source>
         <target>Create [part] from label scan</target>
+=======
+    <unit id="8WZYwRJ" name="scan_dialog.mode.amazon">
+      <segment>
+        <source>scan_dialog.mode.amazon</source>
+        <target>Amazon barcode</target>
+>>>>>>> 0b9b2cbf (Allow to read amazon labels for part retrieval and creation)
       </segment>
     </unit>
   </file>

@@ -36,12 +36,12 @@ enum BarcodeSourceType: string
     /**
      * This barcode is a user defined barcode defined on a part lot
      */
-    case USER_DEFINED = 'user_defined';
+    case USER_DEFINED = 'user';
 
     /**
      * EIGP114 formatted barcodes like used by digikey, mouser, etc.
      */
-    case EIGP114 = 'eigp114';
+    case EIGP114 = 'eigp';
 
     /**
      * GTIN /EAN barcodes, which are used on most products in the world. These are checked with the GTIN field of a part.
@@ -50,4 +50,6 @@ enum BarcodeSourceType: string
 
     /** For LCSC.com formatted QR codes */
     case LCSC = 'lcsc';
+
+    case AMAZON = 'amazon';
 }

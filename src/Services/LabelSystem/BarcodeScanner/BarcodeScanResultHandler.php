@@ -144,7 +144,12 @@ final readonly class BarcodeScanResultHandler
             return $this->resolvePartFromLCSC($barcodeScan);
         }
 
-        throw new \InvalidArgumentException("Barcode does not support resolving to a local entity: ".get_class($barcodeScan));
+        if ($barcodeScan instanceof AmazonBarcodeScanResult) {
+            return $this->em->getRepository(Part::class)->getPartByProviderInfo($barcodeScan->asin)
+             ?? $this->em->getRepository(Part::class)->getPartBySPN($barcodeScan->asin);
+        }
+
+        return null;
     }
 
     /**
@@ -256,6 +261,13 @@ final readonly class BarcodeScanResultHandler
 
         if ($scanResult instanceof EIGP114BarcodeScanResult) {
             return $this->getCreationInfoForEIGP114($scanResult);
+        }
+
+        if ($scanResult instanceof AmazonBarcodeScanResult) {
+            return [
+                'providerKey' => 'canopy',
+                'providerId' => $scanResult->asin,
+            ];
         }
 
         return null;
