@@ -43,4 +43,9 @@ class CanopySettings
     public ?string $apiKey = null;
 
     public string $domain = "de";
+
+    /**
+     * @var bool If true, the provider will always retrieve details for a part, resulting in an additional API request
+     */
+    public bool $alwaysGetDetails = false;
 }
