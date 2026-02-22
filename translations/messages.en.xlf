@@ -12569,5 +12569,23 @@ Buerklin-API Authentication server:
         <target>Amazon barcode</target>
       </segment>
     </unit>
+    <unit id="BQWuR_G" name="settings.ips.canopy">
+      <segment>
+        <source>settings.ips.canopy</source>
+        <target>Canopy</target>
+      </segment>
+    </unit>
+    <unit id="44BfYzy" name="settings.ips.canopy.alwaysGetDetails">
+      <segment>
+        <source>settings.ips.canopy.alwaysGetDetails</source>
+        <target>Always fetch details</target>
+      </segment>
+    </unit>
+    <unit id="so_ms3t" name="settings.ips.canopy.alwaysGetDetails.help">
+      <segment>
+        <source>settings.ips.canopy.alwaysGetDetails.help</source>
+        <target>When selected, more details will be fetched from canopy when creating a part. This causes an additional API request, but gives product bullet points and category info.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

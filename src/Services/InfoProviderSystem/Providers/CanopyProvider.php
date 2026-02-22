@@ -75,7 +75,7 @@ class CanopyProvider implements InfoProviderInterface
 
     private function productPageFromASIN(string $asin): string
     {
-        return "https://www.amazon.{$this->settings->domain}/dp/{$asin}";
+        return "https://www.{$this->settings->getRealDomain()}/dp/{$asin}";
     }
 
     /**
