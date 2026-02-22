@@ -12563,5 +12563,11 @@ Buerklin-API Authentication server:
         <target>Create [part] from barcode</target>
       </segment>
     </unit>
+    <unit id="xH258F." name="parts.create_from_scan.title">
+      <segment state="translated">
+        <source>parts.create_from_scan.title</source>
+        <target>Create [part] from label scan</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
