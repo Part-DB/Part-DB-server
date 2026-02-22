@@ -28,40 +28,40 @@ namespace App\Services\LabelSystem\BarcodeScanner;
  * Based on PR 811, EIGP 114.2018 (https://www.ecianow.org/assets/docs/GIPC/EIGP-114.2018%20ECIA%20Labeling%20Specification%20for%20Product%20and%20Shipment%20Identification%20in%20the%20Electronics%20Industry%20-%202D%20Barcode.pdf),
  * , https://forum.digikey.com/t/digikey-product-labels-decoding-digikey-barcodes/41097
  */
-class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
+readonly class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
 {
 
     /**
      * @var string|null Ship date in format YYYYMMDD
      */
-    public readonly ?string $shipDate;
+    public ?string $shipDate;
 
     /**
      * @var string|null Customer assigned part number – Optional based on
      * agreements between Distributor and Supplier
      */
-    public readonly ?string $customerPartNumber;
+    public ?string $customerPartNumber;
 
     /**
      * @var string|null Supplier assigned part number
      */
-    public readonly ?string $supplierPartNumber;
+    public ?string $supplierPartNumber;
 
     /**
      * @var int|null Quantity of product
      */
-    public readonly ?int $quantity;
+    public ?int $quantity;
 
     /**
      * @var string|null Customer assigned purchase order number
      */
-    public readonly ?string $customerPO;
+    public ?string $customerPO;
 
     /**
      * @var string|null Line item number from PO. Required on Logistic Label when
      * used on back of Packing Slip. See Section 4.9
     */
-    public readonly ?string $customerPOLine;
+    public ?string $customerPOLine;
 
     /**
      * 9D - YYWW (Year and Week of Manufacture). ) If no date code is used
@@ -69,7 +69,7 @@ class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
      * to indicate the product is Not Traceable by this data field.
      * @var string|null
      */
-    public readonly ?string $dateCode;
+    public ?string $dateCode;
 
     /**
      * 10D - YYWW (Year and Week of Manufacture). ) If no date code is used
@@ -77,7 +77,7 @@ class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
      * to indicate the product is Not Traceable by this data field.
      * @var string|null
      */
-    public readonly ?string $alternativeDateCode;
+    public ?string $alternativeDateCode;
 
     /**
      * Traceability number assigned to a batch or group of items. If
@@ -86,14 +86,14 @@ class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
      * by this data field.
      * @var string|null
      */
-    public readonly ?string $lotCode;
+    public ?string $lotCode;
 
     /**
      * Country where part was manufactured. Two-letter code from
      * ISO 3166 country code list
      * @var string|null
      */
-    public readonly ?string $countryOfOrigin;
+    public ?string $countryOfOrigin;
 
     /**
      * @var string|null Unique alphanumeric number assigned by supplier
@@ -101,85 +101,85 @@ class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
      * Carton. Always used in conjunction with a mixed logistic label
      * with a 5S data identifier for Package ID.
      */
-    public readonly ?string $packageId1;
+    public ?string $packageId1;
 
     /**
      * @var string|null
      * 4S - Package ID for Logistic Carton with like items
      */
-    public readonly ?string $packageId2;
+    public ?string $packageId2;
 
     /**
      * @var string|null
      * 5S - Package ID for Logistic Carton with mixed items
      */
-    public readonly ?string $packageId3;
+    public ?string $packageId3;
 
     /**
      * @var string|null Unique alphanumeric number assigned by supplier.
      */
-    public readonly ?string $packingListNumber;
+    public ?string $packingListNumber;
 
     /**
      * @var string|null Ship date in format YYYYMMDD
      */
-    public readonly ?string $serialNumber;
+    public ?string $serialNumber;
 
     /**
      * @var string|null Code for sorting and classifying LEDs. Use when applicable
      */
-    public readonly ?string $binCode;
+    public ?string $binCode;
 
     /**
      * @var int|null Sequential carton count in format “#/#” or “# of #”
      */
-    public readonly ?int $packageCount;
+    public ?int $packageCount;
 
     /**
      * @var string|null Alphanumeric string assigned by the supplier to distinguish
      * from one closely-related design variation to another. Use as
      * required or when applicable
      */
-    public readonly ?string $revisionNumber;
+    public ?string $revisionNumber;
 
     /**
      * @var string|null Digikey Extension: This is not represented in the ECIA spec, but the field being used is found in the ANSI MH10.8.2-2016 spec on which the ECIA spec is based. In the ANSI spec it is called First Level (Supplier Assigned) Part Number.
      */
-    public readonly ?string $digikeyPartNumber;
+    public ?string $digikeyPartNumber;
 
     /**
      * @var string|null Digikey Extension: This can be shared across multiple invoices and time periods and is generated as an order enters our system from any vector (web, API, phone order, etc.)
      */
-    public readonly ?string $digikeySalesOrderNumber;
+    public ?string $digikeySalesOrderNumber;
 
     /**
      * @var string|null Digikey extension: This is typically assigned per shipment as items are being released to be picked in the warehouse. A SO can have many Invoice numbers
      */
-    public readonly ?string $digikeyInvoiceNumber;
+    public ?string $digikeyInvoiceNumber;
 
     /**
      * @var string|null Digikey extension: This is for internal DigiKey purposes and defines the label type.
      */
-    public readonly ?string $digikeyLabelType;
+    public ?string $digikeyLabelType;
 
     /**
      * @var string|null You will also see this as the last part of a URL for a product detail page. Ex https://www.digikey.com/en/products/detail/w%C3%BCrth-elektronik/860010672008/5726907
      */
-    public readonly ?string $digikeyPartID;
+    public ?string $digikeyPartID;
 
     /**
      * @var string|null Digikey Extension: For internal use of Digikey. Probably not needed
      */
-    public readonly ?string $digikeyNA;
+    public ?string $digikeyNA;
 
     /**
      * @var string|null Digikey Extension: This is a field of varying length used to keep the barcode approximately the same size between labels. It is safe to ignore.
      */
-    public readonly ?string $digikeyPadding;
+    public ?string $digikeyPadding;
 
-    public readonly ?string $mouserPositionInOrder;
+    public ?string $mouserPositionInOrder;
 
-    public readonly ?string $mouserManufacturer;
+    public ?string $mouserManufacturer;
 
 
 
@@ -187,7 +187,7 @@ class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
      *
      * @param  array<string, string>  $data The fields of the EIGP114 barcode, where the key is the field name and the value is the field content
      */
-    public function __construct(public readonly array $data)
+    public function __construct(public array $data)
     {
         //IDs per EIGP 114.2018
         $this->shipDate = $data['6D'] ?? null;
