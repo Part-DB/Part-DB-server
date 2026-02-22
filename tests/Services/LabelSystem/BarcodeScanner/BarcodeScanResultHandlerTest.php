@@ -41,6 +41,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\LabelSystem\BarcodeScanner;
 
+use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
+use App\Entity\Parts\StorageLocation;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeScanResultHandler;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
@@ -119,5 +122,62 @@ final class BarcodeScanResultHandlerTest extends KernelTestCase
 
         $this->assertNull($this->service->resolvePart($scan));
         $this->assertNull($this->service->getInfoURL($scan));
+    }
+
+    public function testResolveEntityThrowsOnUnknownScanType(): void
+    {
+        $unknown = new class implements BarcodeScanResultInterface {
+            public function getDecodedForInfoMode(): array
+            {
+                return [];
+            }
+        };
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->service->resolvePart($unknown);
+    }
+
+    public function testResolveEntity(): void
+    {
+        $scan = new LocalBarcodeScanResult(LabelSupportedElement::PART, 1, BarcodeSourceType::INTERNAL);
+        $part = $this->service->resolveEntity($scan);
+
+        $this->assertSame(1, $part->getId());
+        $this->assertInstanceOf(Part::class, $part);
+
+        $scan = new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 1, BarcodeSourceType::INTERNAL);
+        $entity = $this->service->resolveEntity($scan);
+        $this->assertSame(1, $entity->getId());
+        $this->assertInstanceOf(PartLot::class, $entity);
+
+        $scan = new LocalBarcodeScanResult(LabelSupportedElement::STORELOCATION, 1, BarcodeSourceType::INTERNAL);
+        $entity = $this->service->resolveEntity($scan);
+        $this->assertSame(1, $entity->getId());
+        $this->assertInstanceOf(StorageLocation::class, $entity->getId());
+    }
+
+    public function testResolvePart(): void
+    {
+        $scan = new LocalBarcodeScanResult(LabelSupportedElement::PART, 1, BarcodeSourceType::INTERNAL);
+        $part = $this->service->resolvePart($scan);
+
+        $this->assertSame(1, $part->getId());
+
+        $scan = new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 1, BarcodeSourceType::INTERNAL);
+        $part = $this->service->resolvePart($scan);
+        $this->assertSame(3, $part->getId());
+
+        $scan = new LocalBarcodeScanResult(LabelSupportedElement::STORELOCATION, 1, BarcodeSourceType::INTERNAL);
+        $part = $this->service->resolvePart($scan);
+        $this->assertNull($part); //Store location does not resolve to a part
+    }
+
+    public function testGetCreateInfos(): void
+    {
+        $lcscScan = LCSCBarcodeScanResult::parse('{pbn:PB1,on:ON1,pc:C138033,pm:RC0402FR-071ML,qty:10}');
+        $infos = $this->service->getCreateInfos($lcscScan);
+
+        $this->assertSame('lcsc', $infos['providerKey']);
+        $this->assertSame('C138033', $infos['providerId']);
     }
 }
