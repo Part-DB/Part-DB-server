@@ -45,6 +45,7 @@ use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
+use App\Entity\Parts\StorageLocation;
 use App\Repository\Parts\PartRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
@@ -72,51 +73,36 @@ final readonly class BarcodeScanResultHandler
      */
     public function getInfoURL(BarcodeScanResultInterface $barcodeScan): string
     {
-        //For our internal barcode format we can directly determine the target without looking up the part
-        //Also here we can encounter different types of barcodes, like storage location barcodes, which are not resolvable to a part
-        if($barcodeScan instanceof LocalBarcodeScanResult) {
-            return $this->getURLLocalBarcode($barcodeScan);
-        }
-
         //For other barcodes try to resolve the part first and then redirect to the part page
-        $localPart = $this->resolvePart($barcodeScan);
-        if ($localPart !== null) {
-            return $this->urlGenerator->generate('app_part_show', ['id' => $localPart->getID()]);
+        $entity = $this->resolveEntity($barcodeScan);
+
+        if ($entity === null) {
+            throw new EntityNotFoundException("No entity could be resolved for the given barcode scan result");
         }
 
-        throw new EntityNotFoundException('Could not resolve a local part for the given barcode scan result');
-    }
-
-    private function getURLLocalBarcode(LocalBarcodeScanResult $barcodeScan): string
-    {
-        switch ($barcodeScan->target_type) {
-            case LabelSupportedElement::PART:
-                return $this->urlGenerator->generate('app_part_show', ['id' => $barcodeScan->target_id]);
-            case LabelSupportedElement::PART_LOT:
-                //Try to determine the part to the given lot
-                $lot = $this->em->find(PartLot::class, $barcodeScan->target_id);
-                if (!$lot instanceof PartLot) {
-                    throw new EntityNotFoundException();
-                }
-
-                return $this->urlGenerator->generate('app_part_show', ['id' => $lot->getPart()->getID(), 'highlightLot' => $lot->getID()]);
-
-            case LabelSupportedElement::STORELOCATION:
-                return $this->urlGenerator->generate('part_list_store_location', ['id' => $barcodeScan->target_id]);
-
-            default:
-                throw new InvalidArgumentException('Unknown $type: '.$barcodeScan->target_type->name);
+        if ($entity instanceof Part) {
+            return $this->urlGenerator->generate('app_part_show', ['id' => $entity->getID()]);
         }
+
+        if ($entity instanceof PartLot) {
+            return $this->urlGenerator->generate('app_part_show', ['id' => $entity->getPart()->getID(), 'highlightLot' => $entity->getID()]);
+        }
+
+        if ($entity instanceof StorageLocation) {
+            return $this->urlGenerator->generate('part_list_store_location', ['id' => $entity->getID()]);
+        }
+
+        //@phpstan-ignore-next-line This should never happen, since resolveEntity should only return Part, PartLot or StorageLocation
+        throw new \LogicException("Resolved entity is of unknown type: ".get_class($entity));
     }
 
     /**
-     * Tries to resolve a Part from the given barcode scan result. Returns null if no part could be found for the given barcode,
-     * or the barcode doesn't contain information allowing to resolve to a local part.
+     * Tries to resolve the given barcode scan result to a local entity. This can be a Part, a PartLot or a StorageLocation, depending on the type of the barcode and the information contained in it.
+     * Returns null if no matching entity could be found.
      * @param  BarcodeScanResultInterface  $barcodeScan
-     * @return Part|null
-     * @throws \InvalidArgumentException if the barcode scan result type is unknown and cannot be handled this function
+     * @return Part|PartLot|StorageLocation
      */
-    public function resolvePart(BarcodeScanResultInterface $barcodeScan): ?Part
+    public function resolveEntity(BarcodeScanResultInterface $barcodeScan): Part|PartLot|StorageLocation|null
     {
         if ($barcodeScan instanceof LocalBarcodeScanResult) {
             return $this->resolvePartFromLocal($barcodeScan);
@@ -134,27 +120,37 @@ final readonly class BarcodeScanResultHandler
             return $this->resolvePartFromLCSC($barcodeScan);
         }
 
-        throw new \InvalidArgumentException("Unknown barcode scan result type: ".get_class($barcodeScan));
+        throw new \InvalidArgumentException("Barcode does not support resolving to a local entity: ".get_class($barcodeScan));
     }
 
-    private function resolvePartFromLocal(LocalBarcodeScanResult $barcodeScan): ?Part
+    /**
+     * Tries to resolve a Part from the given barcode scan result. Returns null if no part could be found for the given barcode,
+     * or the barcode doesn't contain information allowing to resolve to a local part.
+     * @param  BarcodeScanResultInterface  $barcodeScan
+     * @return Part|null
+     * @throws \InvalidArgumentException if the barcode scan result type is unknown and cannot be handled this function
+     */
+    public function resolvePart(BarcodeScanResultInterface $barcodeScan): ?Part
     {
-        switch ($barcodeScan->target_type) {
-            case LabelSupportedElement::PART:
-                $part = $this->em->find(Part::class, $barcodeScan->target_id);
-                return $part instanceof Part ? $part : null;
-
-            case LabelSupportedElement::PART_LOT:
-                $lot = $this->em->find(PartLot::class, $barcodeScan->target_id);
-                if (!$lot instanceof PartLot) {
-                    return null;
-                }
-                return $lot->getPart();
-
-            default:
-                // STORELOCATION etc. doesn't map to a Part
-                return null;
+        $entity = $this->resolveEntity($barcodeScan);
+        if ($entity instanceof Part) {
+            return $entity;
         }
+        if ($entity instanceof PartLot) {
+            return $entity->getPart();
+        }
+        //Storage locations are not associated with a specific part, so we cannot resolve a part for
+        //a storage location barcode
+        return null;
+    }
+
+    private function resolvePartFromLocal(LocalBarcodeScanResult $barcodeScan): Part|PartLot|StorageLocation|null
+    {
+        return match ($barcodeScan->target_type) {
+            LabelSupportedElement::PART => $this->em->find(Part::class, $barcodeScan->target_id),
+            LabelSupportedElement::PART_LOT => $this->em->find(PartLot::class, $barcodeScan->target_id),
+            LabelSupportedElement::STORELOCATION => $this->em->find(StorageLocation::class, $barcodeScan->target_id),
+        };
     }
 
     /**
