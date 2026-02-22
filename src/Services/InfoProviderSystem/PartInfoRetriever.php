@@ -95,7 +95,7 @@ final class PartInfoRetriever
         $escaped_keyword = hash('xxh3', $keyword);
         return $this->partInfoCache->get("search_{$provider->getProviderKey()}_{$escaped_keyword}", function (ItemInterface $item) use ($provider, $keyword) {
             //Set the expiration time
-            $item->expiresAfter(!$this->debugMode ? self::CACHE_RESULT_EXPIRATION : 1);
+            $item->expiresAfter(!$this->debugMode ? self::CACHE_RESULT_EXPIRATION : 10);
 
             return $provider->searchByKeyword($keyword);
         });
@@ -122,7 +122,7 @@ final class PartInfoRetriever
         $escaped_part_id = hash('xxh3', $part_id);
         return $this->partInfoCache->get("details_{$provider_key}_{$escaped_part_id}", function (ItemInterface $item) use ($provider, $part_id) {
             //Set the expiration time
-            $item->expiresAfter(!$this->debugMode ? self::CACHE_DETAIL_EXPIRATION : 1);
+            $item->expiresAfter(!$this->debugMode ? self::CACHE_DETAIL_EXPIRATION : 10);
 
             return $provider->getDetails($part_id);
         });
