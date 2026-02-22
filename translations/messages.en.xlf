@@ -9500,6 +9500,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>EIGP 114 barcode (e.g. the datamatrix codes on digikey and mouser orders)</target>
       </segment>
     </unit>
+    <unit id="BnqcKWx" name="scan_dialog.mode.lcsc">
+      <segment>
+        <source>scan_dialog.mode.lcsc</source>
+        <target>LCSC.com barcode</target>
+      </segment>
+    </unit>
     <unit id="QSMS_Bd" name="scan_dialog.info_mode">
       <segment state="translated">
         <source>scan_dialog.info_mode</source>
@@ -9510,6 +9516,24 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>label_scanner.decoded_info.title</source>
         <target>Decoded information</target>
+      </segment>
+    </unit>
+    <unit id="kQnodbA" name="label_scanner.target_found">
+      <segment>
+        <source>label_scanner.target_found</source>
+        <target>Item found in database</target>
+      </segment>
+    </unit>
+    <unit id="7Arfw2q" name="label_scanner.scan_result.title">
+      <segment>
+        <source>label_scanner.scan_result.title</source>
+        <target>Scan result</target>
+      </segment>
+    </unit>
+    <unit id="PTh4EK_" name="label_scanner.no_locations">
+      <segment>
+        <source>label_scanner.no_locations</source>
+        <target>Part is not stored at any location.</target>
       </segment>
     </unit>
     <unit id="nmXQWcS" name="label_generator.edit_profiles">
@@ -12507,6 +12531,36 @@ Buerklin-API Authentication server:
       <segment state="translated">
         <source>log.element_edited.changed_fields.last_stocktake_at</source>
         <target>Last stocktake</target>
+      </segment>
+    </unit>
+    <unit id="aEgd0if" name="label_scanner.open">
+      <segment>
+        <source>label_scanner.open</source>
+        <target>View details</target>
+      </segment>
+    </unit>
+    <unit id="vw_0Qws" name="label_scanner.db_part_found">
+      <segment>
+        <source>label_scanner.db_part_found</source>
+        <target>Database [part] found for barcode</target>
+      </segment>
+    </unit>
+    <unit id="zntajcd" name="label_scanner.part_can_be_created">
+      <segment>
+        <source>label_scanner.part_can_be_created</source>
+        <target>[Part] can be created</target>
+      </segment>
+    </unit>
+    <unit id="cLTbd9w" name="label_scanner.part_can_be_created.help">
+      <segment>
+        <source>label_scanner.part_can_be_created.help</source>
+        <target>No matching [part] was found in the database, but you can create a new [part] based of this barcode.</target>
+      </segment>
+    </unit>
+    <unit id="FfHA3Yf" name="label_scanner.part_create_btn">
+      <segment>
+        <source>label_scanner.part_create_btn</source>
+        <target>Create [part] from barcode</target>
       </segment>
     </unit>
   </file>
