@@ -21,15 +21,19 @@
 {# Insert info about when the sidebar trees were updated last time, so the sidebar_tree_controller can decide if it needs to reload the tree #}
 <span id="sidebar-last-time-updated" style="display: none;" data-last-update="{{ sidebar_tree_updater.lastTreeUpdate.format("Y-m-d\\TH:i:sP") }}"></span>
 
-<div class="d-none" {{ stimulus_controller('turbo/locale_menu') }}>
-    {% set locales = settings_instance('localization').languageMenuEntries %}
-    {% if locales is empty %}
-        {% set locales = locale_menu %}
-    {% endif %}
+<turbo-stream action="update" target="locale-select-menu">
+    <template>
+        {% set locales = settings_instance('localization').languageMenuEntries %}
+        {% if locales is empty %}
+            {% set locales = locale_menu %}
+        {% endif %}
 
-    {% for locale in locales %}
-        <a class="dropdown-item" data-turbo="false" data-turbo-frame="_top" href="{{ path(app.request.attributes.get('_route'),
-            app.request.query.all|merge(app.request.attributes.get('_route_params'))|merge({'_locale': locale})) }}">
-            {{ locale|language_name }} ({{ locale|upper }})</a>
-    {% endfor %}
-</div>
+        {% for locale in locales %}
+            <a class="dropdown-item" data-turbo="false" data-turbo-frame="_top" href="{{ path(app.request.attributes.get('_route'),
+                app.request.query.all|merge(app.request.attributes.get('_route_params'))|merge({'_locale': locale})) }}">
+                {{ locale|language_name }} ({{ locale|upper }})</a>
+        {% endfor %}
+    </template>
+</turbo-stream>
+
+
