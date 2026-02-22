@@ -454,4 +454,28 @@ class PartRepository extends NamedDBElementRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
 
+    /**
+     * Finds a part based on the provided SPN (Supplier Part Number), with an option for case sensitivity.
+     * If no part is found with the given SPN, null is returned.
+     * @param  string  $spn
+     * @param  bool  $caseInsensitive
+     * @return Part|null
+     */
+    public function getPartBySPN(string $spn, bool $caseInsensitive = true): ?Part
+    {
+        $qb = $this->createQueryBuilder('part');
+        $qb->select('part');
+
+        $qb->leftJoin('part.orderdetails', 'o');
+
+        if ($caseInsensitive) {
+            $qb->where("LOWER(o.supplierpartnr) = LOWER(:spn)");
+        } else {
+            $qb->where("o.supplierpartnr = :spn");
+        }
+
+        $qb->setParameter('spn', $spn);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

@@ -303,7 +303,17 @@ That method is not officially supported nor encouraged by Part-DB, and might bre
 The following env configuration options are available:
 * `PROVIDER_CONRAD_API_KEY`: The API key you got from Conrad (mandatory)
 
-### Custom provider
+### Canopy / Amazon
+The Canopy provider uses the [Canopy API](https://www.canopyapi.co/) to search for parts and get shopping information from Amazon. 
+Canopy is a third-party service that provides access to Amazon product data through their API. Their trial plan offers 100 requests per month for free, 
+and they also offer paid plans with higher limits. To use the Canopy provider, you need to create an account on the Canopy website and obtain an API key. 
+Once you have the API key, you can configure the Canopy provider in Part-DB using the web UI or environment variables:
+
+* `PROVIDER_CANOPY_API_KEY`: The API key you got from Canopy (mandatory)
+
+
+
+### Custom providers
 
 To create a custom provider, you have to create a new class implementing the `InfoProviderInterface` interface. As long
 as it is a valid Symfony service, it will be automatically loaded and can be used.

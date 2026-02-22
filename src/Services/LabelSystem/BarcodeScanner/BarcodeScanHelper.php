@@ -101,6 +101,10 @@ final class BarcodeScanHelper
 	        return $this->parseLCSCBarcode($input);
 	    }
 
+        if ($type === BarcodeSourceType::AMAZON) {
+            return new AmazonBarcodeScanResult($input);
+        }
+
         //Null means auto and we try the different formats
         $result = $this->parseInternalBarcode($input);
 
@@ -134,6 +138,11 @@ final class BarcodeScanHelper
         if (LCSCBarcodeScanResult::isLCSCBarcode($input)) {
 	        return $this->parseLCSCBarcode($input);
 	    }
+
+        //Try amazon barcode
+        if (AmazonBarcodeScanResult::isAmazonBarcode($input)) {
+            return new AmazonBarcodeScanResult($input);
+        }
 
         throw new InvalidArgumentException('Unknown barcode');
     }
