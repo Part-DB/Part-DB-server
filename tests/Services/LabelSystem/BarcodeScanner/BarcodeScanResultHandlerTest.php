@@ -153,7 +153,7 @@ final class BarcodeScanResultHandlerTest extends KernelTestCase
         $scan = new LocalBarcodeScanResult(LabelSupportedElement::STORELOCATION, 1, BarcodeSourceType::INTERNAL);
         $entity = $this->service->resolveEntity($scan);
         $this->assertSame(1, $entity->getId());
-        $this->assertInstanceOf(StorageLocation::class, $entity->getId());
+        $this->assertInstanceOf(StorageLocation::class, $entity);
     }
 
     public function testResolvePart(): void
