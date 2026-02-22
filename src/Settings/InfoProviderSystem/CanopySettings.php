@@ -87,7 +87,7 @@ class CanopySettings
      */
     public function getRealDomain(): string
     {
-        $domain = array_search($this->domain, self::ALLOWED_DOMAINS);
+        $domain = array_search($this->domain, self::ALLOWED_DOMAINS, true);
         if ($domain === false) {
             throw new \InvalidArgumentException("Invalid domain selected");
         }

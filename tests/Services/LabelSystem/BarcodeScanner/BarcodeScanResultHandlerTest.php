@@ -92,7 +92,7 @@ final class BarcodeScanResultHandlerTest extends KernelTestCase
         $this->assertNull($url);
     }
 
-    public function testGetRedirectURLThrowsOnUnknownScanType(): void
+    public function testGetRedirectURLReturnsNullOnUnknownScanType(): void
     {
         $unknown = new class implements BarcodeScanResultInterface {
             public function getDecodedForInfoMode(): array
@@ -101,8 +101,7 @@ final class BarcodeScanResultHandlerTest extends KernelTestCase
             }
         };
 
-        $this->expectException(InvalidArgumentException::class);
-        $this->service->getInfoURL($unknown);
+        $this->assertNull($this->service->getInfoURL($unknown));
     }
 
     public function testEIGPBarcodeResolvePartOrNullReturnsNullWhenNotFound(): void
@@ -124,7 +123,7 @@ final class BarcodeScanResultHandlerTest extends KernelTestCase
         $this->assertNull($this->service->getInfoURL($scan));
     }
 
-    public function testResolveEntityThrowsOnUnknownScanType(): void
+    public function testResolveEntityReturnNullOnUnknownScanType(): void
     {
         $unknown = new class implements BarcodeScanResultInterface {
             public function getDecodedForInfoMode(): array
@@ -133,8 +132,7 @@ final class BarcodeScanResultHandlerTest extends KernelTestCase
             }
         };
 
-        $this->expectException(InvalidArgumentException::class);
-        $this->service->resolvePart($unknown);
+        $this->assertNull($this->service->resolvePart($unknown));
     }
 
     public function testResolveEntity(): void
