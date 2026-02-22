@@ -16,10 +16,7 @@
     </turbo-stream>
 {% endblock %}
 
-{# Allow pages to request a fully reload of everything #}
-{% if global_reload_needed is defined and global_reload_needed %}
-    <div {{ stimulus_controller('turbo/global_reload') }}></div>
-{% endif %}
+
 
 {# Insert info about when the sidebar trees were updated last time, so the sidebar_tree_controller can decide if it needs to reload the tree #}
 <span id="sidebar-last-time-updated" style="display: none;" data-last-update="{{ sidebar_tree_updater.lastTreeUpdate.format("Y-m-d\\TH:i:sP") }}"></span>
