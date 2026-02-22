@@ -25,10 +25,14 @@ namespace App\Services\InfoProviderSystem;
 
 use App\Entity\Parts\Part;
 use App\Exceptions\InfoProviderNotActiveException;
+use App\Exceptions\OAuthReconnectRequiredException;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
+use Psr\Http\Client\ClientExceptionInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\HttpClient\Exception\ClientException;
+use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
@@ -51,6 +55,10 @@ final class PartInfoRetriever
      * @param  string  $keyword The keyword to search for
      * @return SearchResultDTO[] The search results
      * @throws InfoProviderNotActiveException if any of the given providers is not active
+     * @throws ClientException if any of the providers throws an exception during the search
+     * @throws \InvalidArgumentException if any of the given providers is not a valid provider key or instance
+     * @throws TransportException if any of the providers throws an exception during the search
+     * @throws OAuthReconnectRequiredException if any of the providers throws an exception during the search that indicates that the OAuth token needs to be refreshed
      */
     public function searchByKeyword(string $keyword, array $providers): array
     {

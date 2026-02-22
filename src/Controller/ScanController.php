@@ -75,8 +75,6 @@ class ScanController extends AbstractController
     public function __construct(
         protected BarcodeScanResultHandler $resultHandler,
         protected BarcodeScanHelper $barcodeNormalizer,
-        private readonly ProviderRegistry $providerRegistry,
-        private readonly PartInfoRetriever $infoRetriever,
     ) {}
 
     #[Route(path: '', name: 'scan_dialog')]
