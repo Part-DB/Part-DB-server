@@ -12563,5 +12563,11 @@ Buerklin-API Authentication server:
         <target>Create [part] from barcode</target>
       </segment>
     </unit>
+    <unit id="8WZYwRJ" name="scan_dialog.mode.amazon">
+      <segment>
+        <source>scan_dialog.mode.amazon</source>
+        <target>Amazon barcode</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
