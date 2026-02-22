@@ -46,7 +46,10 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
+use App\Exceptions\InfoProviderNotActiveException;
 use App\Repository\Parts\PartRepository;
+use App\Services\InfoProviderSystem\PartInfoRetriever;
+use App\Services\InfoProviderSystem\ProviderRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use InvalidArgumentException;
@@ -59,7 +62,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 final readonly class BarcodeScanResultHandler
 {
-    public function __construct(private UrlGeneratorInterface $urlGenerator, private EntityManagerInterface $em)
+    public function __construct(private UrlGeneratorInterface $urlGenerator, private EntityManagerInterface $em, private PartInfoRetriever $infoRetriever,
+        private ProviderRegistry $providerRegistry)
     {
     }
 
@@ -97,10 +101,32 @@ final readonly class BarcodeScanResultHandler
     }
 
     /**
+     * Returns a URL to create a new part based on this barcode scan result, if possible.
+     * @param  BarcodeScanResultInterface  $scanResult
+     * @return string|null
+     * @throws InfoProviderNotActiveException If the scan result contains information for a provider which is currently not active in the system
+     */
+    public function getCreationURL(BarcodeScanResultInterface $scanResult): ?string
+    {
+        $infos = $this->getCreateInfos($scanResult);
+        if ($infos === null) {
+            return null;
+        }
+
+        //Ensure that the provider is active, otherwise we should not generate a creation URL for it
+        $provider = $this->providerRegistry->getProviderByKey($infos['providerKey']);
+        if (!$provider->isActive()) {
+            throw InfoProviderNotActiveException::fromProvider($provider);
+        }
+
+        return $this->urlGenerator->generate('info_providers_create_part', ['providerKey' => $infos['providerKey'], 'providerId' => $infos['providerId']]);
+    }
+
+    /**
      * Tries to resolve the given barcode scan result to a local entity. This can be a Part, a PartLot or a StorageLocation, depending on the type of the barcode and the information contained in it.
      * Returns null if no matching entity could be found.
      * @param  BarcodeScanResultInterface  $barcodeScan
-     * @return Part|PartLot|StorageLocation
+     * @return Part|PartLot|StorageLocation|null
      */
     public function resolveEntity(BarcodeScanResultInterface $barcodeScan): Part|PartLot|StorageLocation|null
     {
@@ -113,7 +139,7 @@ final readonly class BarcodeScanResultHandler
         }
 
         if ($barcodeScan instanceof GTINBarcodeScanResult) {
-            return $this->resolvePartFromGTIN($barcodeScan);
+            return $this->em->getRepository(Part::class)->findOneBy(['gtin' => $barcodeScan->gtin]);
         }
 
         if ($barcodeScan instanceof LCSCBarcodeScanResult) {
@@ -210,11 +236,82 @@ final readonly class BarcodeScanResultHandler
         return $this->em->getRepository(Part::class)->getPartByMPN($pm);
     }
 
-    private function resolvePartFromGTIN(GTINBarcodeScanResult $barcodeScan): ?Part
+
+    /**
+     * Tries to extract creation information for a part from the given barcode scan result. This can be used to
+     * automatically fill in the info provider reference of a part, when creating a new part based on the scan result.
+     * Returns null if no provider information could be extracted from the scan result, or if the scan result type is unknown and cannot be handled by this function.
+     * It is not necessarily checked that the provider is active, or that the result actually exists on the provider side.
+     * @param  BarcodeScanResultInterface  $scanResult
+     * @return array{providerKey: string, providerId: string}|null
+     * @throws InfoProviderNotActiveException If the scan result contains information for a provider which is currently not active in the system
+     */
+    public function getCreateInfos(BarcodeScanResultInterface $scanResult): ?array
     {
-        return $this->em->getRepository(Part::class)->findOneBy(['gtin' => $barcodeScan->gtin]);
+        // LCSC
+        if ($scanResult instanceof LCSCBarcodeScanResult) {
+            return [
+                'providerKey' => 'lcsc',
+                'providerId' => $scanResult->lcscCode,
+            ];
+        }
+
+        if ($scanResult instanceof EIGP114BarcodeScanResult) {
+            return $this->getCreationInfoForEIGP114($scanResult);
+        }
+
+        return null;
+
     }
 
+    /**
+     * @param  EIGP114BarcodeScanResult  $scanResult
+     * @return array{providerKey: string, providerId: string}|null
+     */
+    private function getCreationInfoForEIGP114(EIGP114BarcodeScanResult $scanResult): ?array
+    {
+        $vendor = $scanResult->guessBarcodeVendor();
+
+        // Mouser: use supplierPartNumber -> search provider -> provider_id
+        if ($vendor === 'mouser' && $scanResult->supplierPartNumber !== null
+        ) {
+                // Search Mouser using the MPN
+                $dtos = $this->infoRetriever->searchByKeyword(
+                    keyword: $scanResult->supplierPartNumber,
+                    providers: ["mouser"]
+                );
+
+                // If there are results, provider_id is MouserPartNumber (per MouserProvider.php)
+                $best = $dtos[0] ?? null;
+
+                if ($best !== null) {
+                    return [
+                        'providerKey' => 'mouser',
+                        'providerId' => $best->provider_id,
+                    ];
+                }
+
+                return null;
+        }
+
+        // Digi-Key: can use customerPartNumber or supplierPartNumber directly
+        if ($vendor === 'digikey') {
+            return [
+                'providerKey' => 'digikey',
+                'providerId' => $scanResult->customerPartNumber ?? $scanResult->supplierPartNumber,
+            ];
+        }
+
+        // Element14: can use supplierPartNumber directly
+        if ($vendor === 'element14') {
+            return [
+                'providerKey' => 'element14',
+                'providerId' => $scanResult->supplierPartNumber,
+            ];
+        }
+
+        return null;
+    }
 
 
 }

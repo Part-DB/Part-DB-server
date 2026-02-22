@@ -41,6 +41,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Exceptions\InfoProviderNotActiveException;
 use App\Form\LabelSystem\ScanDialogType;
 use App\Services\InfoProviderSystem\Providers\LCSCProvider;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeScanResultHandler;
@@ -71,11 +72,11 @@ use \App\Entity\Parts\StorageLocation;
 class ScanController extends AbstractController
 {
     public function __construct(
-	protected BarcodeScanResultHandler $barcodeParser,
-	protected BarcodeScanHelper $barcodeNormalizer,
+        protected BarcodeScanResultHandler $resultHandler,
+        protected BarcodeScanHelper $barcodeNormalizer,
         private readonly ProviderRegistry $providerRegistry,
         private readonly PartInfoRetriever $infoRetriever,
-	) {}
+    ) {}
 
     #[Route(path: '', name: 'scan_dialog')]
     public function dialog(Request $request, #[MapQueryParameter] ?string $input = null): Response
@@ -103,7 +104,7 @@ class ScanController extends AbstractController
                 // If not in info mode, mimic “normal scan” behavior: redirect if possible.
                 if (!$infoMode) {
                     try {
-                        $url = $this->barcodeParser->getInfoURL($scan);
+                        $url = $this->resultHandler->getInfoURL($scan);
                         return $this->redirect($url);
                     } catch (EntityNotFoundException) {
                         // Decoded OK, but no part is found. If it’s a vendor code, redirect to create.
@@ -153,7 +154,7 @@ class ScanController extends AbstractController
                 source_type: BarcodeSourceType::INTERNAL
             );
 
-            return $this->redirect($this->barcodeParser->getInfoURL($scan_result));
+            return $this->redirect($this->resultHandler->getInfoURL($scan_result));
         } catch (EntityNotFoundException) {
             $this->addFlash('success', 'scan.qr_not_found');
 
@@ -168,86 +169,13 @@ class ScanController extends AbstractController
      */
     private function buildCreateUrlForScanResult(BarcodeScanResultInterface $scanResult): ?string
     {
-        // LCSC
-        if ($scanResult instanceof LCSCBarcodeScanResult) {
-            $lcscCode = $scanResult->lcscCode;
-            if ($lcscCode !== null && $lcscCode !== '') {
-                return $this->generateUrl('info_providers_create_part', [
-                    'providerKey' => 'lcsc',
-                    'providerId' => $lcscCode,
-                ]);
-            }
-        }
-
-        // Mouser / Digi-Key (EIGP114)
-        if ($scanResult instanceof EIGP114BarcodeScanResult) {
-            $vendor = $scanResult->guessBarcodeVendor();
-
-            // Mouser: use supplierPartNumber -> search provider -> provider_id
-            if ($vendor === 'mouser'
-                && $scanResult->supplierPartNumber !== null
-                && $scanResult->supplierPartNumber !== ''
-            ) {
-                try {
-                    $mouserProvider = $this->providerRegistry->getProviderByKey('mouser');
-
-                    if (!$mouserProvider->isActive()) {
-                        $this->addFlash('warning', 'Mouser provider is disabled / not configured.');
-                        return null;
-                    }
-                    // Search Mouser using the MPN
-                    $dtos = $this->infoRetriever->searchByKeyword(
-                        keyword: $scanResult->supplierPartNumber,
-                        providers: [$mouserProvider]
-                    );
-
-                    // If there are results, provider_id is MouserPartNumber (per MouserProvider.php)
-                    $best = $dtos[0] ?? null;
-
-                    if ($best !== null && $best->provider_id !== '') {
-
-                        return $this->generateUrl('info_providers_create_part', [
-                            'providerKey' => 'mouser',
-                            'providerId' => $best->provider_id,
-                        ]);
-                    }
-
-                    $this->addFlash('warning', 'No Mouser match found for this MPN.');
-                    return null;
-                } catch (\InvalidArgumentException) {
-                    // provider key not found in registry
-                    $this->addFlash('warning', 'Mouser provider is not installed/enabled.');
-                    return null;
-                } catch (\Throwable $e) {
-                    // Don’t break scanning UX if provider lookup fails
-                    $this->addFlash('warning', 'Mouser lookup failed: ' . $e->getMessage());
-                    return null;
-                }
-            }
-
-            // Digi-Key: can use customerPartNumber or supplierPartNumber directly
-            if ($vendor === 'digikey') {
-                try {
-                    $provider = $this->providerRegistry->getProviderByKey('digikey');
-
-                    if (!$provider->isActive()) {
-                        $this->addFlash('warning', 'Digi-Key provider is disabled / not configured (API key missing).');
-                        return null;
-                    }
-
-                    $id = $scanResult->customerPartNumber ?: $scanResult->supplierPartNumber;
-
-                    if (is_string($id) && $id !== '') {
-                        return $this->generateUrl('info_providers_create_part', [
-                            'providerKey' => 'digikey',
-                            'providerId' => $id,
-                        ]);
-                    }
-                } catch (\InvalidArgumentException) {
-                    $this->addFlash('warning', 'Digi-Key provider is not installed/enabled');
-                    return null;
-                }
-            }
+        try {
+            return $this->resultHandler->getCreationURL($scanResult);
+        } catch (InfoProviderNotActiveException $e) {
+            $this->addFlash('error', $e->getMessage());
+        } catch (\Throwable) {
+            $this->addFlash('error', 'An error occurred while looking up the provider for this barcode. Please try again later.');
+            // Don’t break scanning UX if provider lookup fails
         }
 
         return null;
@@ -338,7 +266,7 @@ class ScanController extends AbstractController
         $targetFound = false;
 
         try {
-            $redirectUrl = $this->barcodeParser->getInfoURL($scan);
+            $redirectUrl = $this->resultHandler->getInfoURL($scan);
             $targetFound = true;
         } catch (EntityNotFoundException) {
         }
@@ -350,7 +278,7 @@ class ScanController extends AbstractController
         $locations = [];
 
         if ($targetFound) {
-            $part = $this->barcodeParser->resolvePart($scan);
+            $part = $this->resultHandler->resolvePart($scan);
 
             if ($part instanceof Part) {
                 $partName = $part->getName();

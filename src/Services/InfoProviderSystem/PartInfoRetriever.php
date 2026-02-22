@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem;
 
 use App\Entity\Parts\Part;
+use App\Exceptions\InfoProviderNotActiveException;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
@@ -49,6 +50,7 @@ final class PartInfoRetriever
      * @param  string[]|InfoProviderInterface[]  $providers A list of providers to search in, either as provider keys or as provider instances
      * @param  string  $keyword The keyword to search for
      * @return SearchResultDTO[] The search results
+     * @throws InfoProviderNotActiveException if any of the given providers is not active
      */
     public function searchByKeyword(string $keyword, array $providers): array
     {
@@ -61,7 +63,7 @@ final class PartInfoRetriever
 
             //Ensure that the provider is active
             if (!$provider->isActive()) {
-                throw new \RuntimeException("The provider with key {$provider->getProviderKey()} is not active!");
+                throw InfoProviderNotActiveException::fromProvider($provider);
             }
 
             if (!$provider instanceof InfoProviderInterface) {
@@ -97,6 +99,7 @@ final class PartInfoRetriever
      * @param  string  $provider_key
      * @param  string  $part_id
      * @return PartDetailDTO
+     * @throws InfoProviderNotActiveException if the the given providers is not active
      */
     public function getDetails(string $provider_key, string $part_id): PartDetailDTO
     {
@@ -104,7 +107,7 @@ final class PartInfoRetriever
 
         //Ensure that the provider is active
         if (!$provider->isActive()) {
-            throw new \RuntimeException("The provider with key $provider_key is not active!");
+            throw InfoProviderNotActiveException::fromProvider($provider);
         }
 
         //Generate key and escape reserved characters from the provider id
