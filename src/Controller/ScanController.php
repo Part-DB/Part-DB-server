@@ -92,7 +92,6 @@ class ScanController extends AbstractController
             $input = $form['input']->getData();
         }
 
-        $infoModeData = null;
 
         if ($input !== null && $input !== '') {
             $mode = $form->isSubmitted() ? $form['mode']->getData() : null;
@@ -119,7 +118,18 @@ class ScanController extends AbstractController
                 }
 
                 // Info mode fallback: render page with prefilled result
-                $infoModeData = $scan->getDecodedForInfoMode();
+                $decoded = $scan->getDecodedForInfoMode();
+
+                //Try to resolve to an entity, to enhance info mode with entity-specific data
+                $dbEntity = $this->resultHandler->resolveEntity($scan);
+                $resolvedPart = $this->resultHandler->resolvePart($scan);
+                $openUrl = $this->resultHandler->getInfoURL($scan);
+
+                //If no entity is found, try to create an URL for creating a new part (only for vendor codes)
+                $createUrl = null;
+                if ($dbEntity === null) {
+                    $createUrl = $this->buildCreateUrlForScanResult($scan);
+                }
 
             } catch (\Throwable $e) {
                 // Keep fallback user-friendly; avoid 500
@@ -129,7 +139,13 @@ class ScanController extends AbstractController
 
         return $this->render('label_system/scanner/scanner.html.twig', [
             'form' => $form,
-            'infoModeData' => $infoModeData,
+
+            //Info mode
+            'decoded' => $decoded ?? null,
+            'entity' => $dbEntity ?? null,
+            'part' => $resolvedPart ?? null,
+            'openUrl' => $openUrl ?? null,
+            'createUrl' => $createUrl ?? null,
         ]);
     }
 
@@ -181,51 +197,6 @@ class ScanController extends AbstractController
         return null;
     }
 
-    private function buildLocationsForPart(Part $part): array
-    {
-        $byLocationId = [];
-
-        foreach ($part->getPartLots() as $lot) {
-            $loc = $lot->getStorageLocation();
-            if ($loc === null) {
-                continue;
-            }
-
-            $locId = $loc->getID();
-            $qty = $lot->getAmount();
-
-            if (!isset($byLocationId[$locId])) {
-                $byLocationId[$locId] = [
-                    'breadcrumb' => $this->buildStorageBreadcrumb($loc),
-                    'qty' => $qty,
-                ];
-            } else {
-                $byLocationId[$locId]['qty'] += $qty;
-            }
-        }
-
-        return array_values($byLocationId);
-    }
-
-    private function buildStorageBreadcrumb(StorageLocation $loc): array
-    {
-        $items = [];
-        $cur = $loc;
-
-        // 20 is the overflow limit in src/Entity/Base/AbstractStructuralDBElement.php line ~273
-        for ($i = 0; $i < 20 && $cur !== null; $i++) {
-            $items[] = [
-                'name' => $cur->getName(),
-                'url'  => $this->generateUrl('part_list_store_location', ['id' => $cur->getID()]),
-            ];
-
-            $parent = $cur->getParent(); // inherited from AbstractStructuralDBElement
-            $cur = ($parent instanceof StorageLocation) ? $parent : null;
-        }
-
-        return array_reverse($items);
-    }
-
     /**
      * Provides XHR endpoint for looking up barcode information and return JSON response
      * @param Request $request
@@ -261,53 +232,31 @@ class ScanController extends AbstractController
 
         $decoded = $scan->getDecodedForInfoMode();
 
-        // Determine if this barcode resolves to *anything* (part, lot->part, storelocation)
-        $redirectUrl = null;
-        $targetFound = false;
 
-        try {
-            $redirectUrl = $this->resultHandler->getInfoURL($scan);
-            $targetFound = true;
-        } catch (EntityNotFoundException) {
-        }
+        //Try to resolve to an entity, to enhance info mode with entity-specific data
+        $dbEntity = $this->resultHandler->resolveEntity($scan);
+        $resolvedPart = $this->resultHandler->resolvePart($scan);
+        $openUrl = $this->resultHandler->getInfoURL($scan);
 
-        // Only resolve Part for part-like targets. Storelocation scans should remain null here.
-        $part = null;
-        $partName = null;
-        $partUrl = null;
-        $locations = [];
-
-        if ($targetFound) {
-            $part = $this->resultHandler->resolvePart($scan);
-
-            if ($part instanceof Part) {
-                $partName = $part->getName();
-                $partUrl = $this->generateUrl('app_part_show', ['id' => $part->getID()]);
-                $locations = $this->buildLocationsForPart($part);
-            }
-        }
-
-        // Create link only when NOT found (vendor codes)
+        //If no entity is found, try to create an URL for creating a new part (only for vendor codes)
         $createUrl = null;
-        if (!$targetFound) {
+        if ($dbEntity === null) {
             $createUrl = $this->buildCreateUrlForScanResult($scan);
         }
 
         // Render fragment (use openUrl for universal "Open" link)
-        $html = $this->renderView('label_system/scanner/augmented_result.html.twig', [
+        $html = $this->renderView('label_system/scanner/_info_mode.html.twig', [
             'decoded' => $decoded,
-            'found' => $targetFound,
-            'openUrl' => $redirectUrl,
-            'partName' => $partName,
-            'partUrl' => $partUrl,
-            'locations' => $locations,
+            'entity' => $dbEntity,
+            'part' => $resolvedPart,
+            'openUrl' => $openUrl,
             'createUrl' => $createUrl,
         ]);
 
         return new JsonResponse([
             'ok' => true,
-            'found' => $targetFound,
-            'redirectUrl' => $redirectUrl, // client redirects only when infoMode=false
+            'found' => $openUrl !== null, // we consider the code "found", if we can at least show an info page (even if the part is not found, but we can show the decoded data and a "create" button)
+            'redirectUrl' => $openUrl, // client redirects only when infoMode=false
             'createUrl' => $createUrl,
             'html' => $html,
             'infoMode' => $infoMode,

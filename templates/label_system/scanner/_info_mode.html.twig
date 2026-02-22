@@ -1,0 +1,119 @@
+{% import "helper.twig" as helper %}
+
+{% if decoded is not empty %}
+    <hr>
+
+    {% if part %} {# Show detailed info when it is a part #}
+        <div class="card border-success">
+            <h5 class="card-header text-bg-success">
+                <small>{% trans %}label_scanner.db_part_found{% endtrans %}</small>
+                {% if openUrl %}
+                    <div class="btn-group float-end">
+                        <a href="{{ openUrl }}" target="_blank" class="btn btn-sm btn-outline-light"
+                           title="{% trans %}label_scanner.open{% endtrans %}">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
+                    </div>
+                {% endif %}
+
+            </h5>
+            <div class="card-body row">
+                <div class="col-2">
+                    <img class="d-block w-100 img-fluid img-thumbnail bg-light part-info-image"
+                         src="{{ entity_thumbnail(part) ?? asset('img/part_placeholder.svg') }}" alt="">
+                </div>
+
+
+                <div class="col-10">
+                    <h4 class="card-title mb-0">{{ part.name }}</h4>
+                    <div class="card-text text-muted">{{ part.description | format_markdown(true) }}</div>
+                    <div>
+                        <dt class="d-inline-block">
+                            <span class="visually-hidden">{% trans %}category.label{% endtrans %}</span>
+                            <i class="fas fa-tag fa-fw" title="{% trans %}category.label{% endtrans %}"></i>
+                        </dt>
+                        <dd class="d-inline">
+                            <span class="text-muted">{{ helper.structural_entity_link(part.category) }}</span>
+                        </dd>
+                    </div>
+
+                    <div>
+                        <dt class="d-inline-block">
+                            <span class="visually-hidden">{% trans %}footprint.label{% endtrans %}</span>
+                            <i class="fas fa-microchip fa-fw" title="{% trans %}footprint.label{% endtrans %}"></i>
+                        </dt>
+                        <dd class="d-inline">
+                            <span class="text-muted">{{ helper.structural_entity_link(part.footprint) }}</span>
+                        </dd>
+                    </div>
+
+                    {# Show part lots / locations #}
+                    {% if part.partLots is not empty %}
+                        <table class="table table-sm table-striped mb-2 w-auto">
+                            <thead>
+                            <tr>
+                                <th scope="col">{% trans %}part_lots.storage_location{% endtrans %}</th>
+                                <th scope="col" class="text-end" style="width: 6rem;">
+                                    {% trans %}part_lots.amount{% endtrans %}
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for lot in part.partLots %}
+                                <tr>
+                                    <td>
+                                        {% if lot.storageLocation %}
+                                            {{ helper.structural_entity_link(lot.storageLocation) }}
+                                        {% else %}
+                                            <span class="text-muted">—</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-end" style="width: 6rem;">
+                                        {% if lot.instockUnknown %}
+                                            <span class="text-muted">?</span>
+                                        {% else %}
+                                            {{ lot.amount | format_amount(part.partUnit, {'decimals': 5}) }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <div class="text-muted">{% trans %}label_scanner.no_locations{% endtrans %}</div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if createUrl %}
+        <div class="alert alert-info mb-2">
+            <h4 class="alert-heading mb-0">{% trans %}label_scanner.part_can_be_created{% endtrans %}</h4>
+            <p class="text-muted mb-0"><small >{% trans %}label_scanner.part_can_be_created.help{% endtrans %}</small></p>
+            <hr>
+            <a class="btn btn-outline-success" href="{{ createUrl }}" target="_blank"><i class="fas fa-plus-square"></i> {% trans %}label_scanner.part_create_btn{% endtrans %}</a>
+        </div>
+    {% endif %}
+
+    <h4 class="mt-2">
+        {% trans %}label_scanner.scan_result.title{% endtrans %}
+    </h4>
+
+    {# Decoded barcode fields #}
+    <table class="table table-striped table-hover table-bordered table-sm">
+        <tbody>
+        {% for key, value in decoded %}
+            <tr>
+                <th class="text-nowrap">{{ key }}</th>
+                <td><code>{{ value }}</code></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {# Whitespace under table and Input form fields #}
+    <hr>
+
+{% endif %}

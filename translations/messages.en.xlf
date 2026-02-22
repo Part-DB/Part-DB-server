@@ -9539,7 +9539,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="PTh4EK_" name="label_scanner.no_locations">
       <segment>
         <source>label_scanner.no_locations</source>
-        <target>Part is not stored at any locations</target>
+        <target>Part is not stored at any location.</target>
       </segment>
     </unit>
     <unit id="lV9HDL0" name="label_scanner.qr_part_no_found">
@@ -12543,6 +12543,36 @@ Buerklin-API Authentication server:
       <segment state="translated">
         <source>log.element_edited.changed_fields.last_stocktake_at</source>
         <target>Last stocktake</target>
+      </segment>
+    </unit>
+    <unit id="aEgd0if" name="label_scanner.open">
+      <segment>
+        <source>label_scanner.open</source>
+        <target>View details</target>
+      </segment>
+    </unit>
+    <unit id="vw_0Qws" name="label_scanner.db_part_found">
+      <segment>
+        <source>label_scanner.db_part_found</source>
+        <target>Database [part] found for barcode</target>
+      </segment>
+    </unit>
+    <unit id="zntajcd" name="label_scanner.part_can_be_created">
+      <segment>
+        <source>label_scanner.part_can_be_created</source>
+        <target>[Part] can be created</target>
+      </segment>
+    </unit>
+    <unit id="cLTbd9w" name="label_scanner.part_can_be_created.help">
+      <segment>
+        <source>label_scanner.part_can_be_created.help</source>
+        <target>No matching [part] was found in the database, but you can create a new [part] based of this barcode.</target>
+      </segment>
+    </unit>
+    <unit id="FfHA3Yf" name="label_scanner.part_create_btn">
+      <segment>
+        <source>label_scanner.part_create_btn</source>
+        <target>Create [part] from barcode</target>
       </segment>
     </unit>
   </file>

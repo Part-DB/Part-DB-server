@@ -71,17 +71,15 @@ final readonly class BarcodeScanResultHandler
      * Determines the URL to which the user should be redirected, when scanning a QR code.
      *
      * @param  BarcodeScanResultInterface  $barcodeScan The result of the barcode scan
-     * @return string the URL to which should be redirected
-     *
-     * @throws EntityNotFoundException
+     * @return string|null the URL to which should be redirected, or null if no suitable URL could be determined for the given barcode scan result
      */
-    public function getInfoURL(BarcodeScanResultInterface $barcodeScan): string
+    public function getInfoURL(BarcodeScanResultInterface $barcodeScan): ?string
     {
         //For other barcodes try to resolve the part first and then redirect to the part page
         $entity = $this->resolveEntity($barcodeScan);
 
         if ($entity === null) {
-            throw new EntityNotFoundException("No entity could be resolved for the given barcode scan result");
+            return null;
         }
 
         if ($entity instanceof Part) {

@@ -20,37 +20,11 @@
 
     </div>
 
-    <div id="scan-augmented-result" class="mt-3"></div>
+    <div id="scan-augmented-result" class="mt-3">
+        {% include "label_system/scanner/_info_mode.html.twig" %}
+    </div>
 
     {{ form_start(form, {'attr': {'id': 'scan_dialog_form'}}) }}
 
     {{ form_end(form) }}
-
-
-    {% if infoModeData %}
-        <hr>
-        <div class="d-flex align-items-center mb-2">
-            <h4 class="mb-0">{% trans %}label_scanner.decoded_info.title{% endtrans %}</h4>
-
-            {% if createUrl is defined and createUrl %}
-		    <a class="btn btn-primary ms-2" href="{{ createUrl }}"
-                    target="_blank" title="{% trans %}part.create.btn{% endtrans %}">
-                <i class="fa-solid fa-plus-square"></i>
-            </a>
-            {% endif %}
-        </div>
-
-        <table class="table table-striped table-hover table-bordered table-sm">
-            <tbody>
-            {% for key, value in infoModeData %}
-                <tr>
-                    <td>{{ key }}</td>
-                    <td><code>{{ value }}</code></td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-    {% endif %}
-
 {% endblock %}
