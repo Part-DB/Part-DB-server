@@ -72,4 +72,7 @@ class InfoProviderSettings
 
     #[EmbeddedSettings]
     public ?ConradSettings $conrad = null;
+
+    #[EmbeddedSettings]
+    public ?CanopySettings $canopy = null;
 }
