@@ -60,6 +60,15 @@
                                             </a>
                                         </li>
                                     {% endif %}
+
+                                    {% if is_granted("@tools.label_scanner") %}
+                                        <li>
+                                            <a class="dropdown-item" href="{{ path('scan_dialog') }}">
+                                                <i class="fa-fw fa-solid fa-camera-retro"></i>
+                                                {% trans %}parts.create_from_scan.title{% endtrans %}
+                                            </a>
+                                        </li>
+                                    {% endif %}
                                 {% endif %}
 
                                 {% if is_granted('@parts.import') %}
