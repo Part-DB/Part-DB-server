@@ -297,6 +297,22 @@ abstract class Attachment extends AbstractNamedDBElement
     }
 
     /**
+     * Returns true if this is a locally stored HTML file, which can be shown by the sandbox viewer.
+     * This is the case if we have an internal path with a html extension.
+     * @return bool
+     */
+    public function isLocalHTMLFile(): bool
+    {
+        if($this->hasInternal()){
+
+            $extension = pathinfo($this->getFilename(), PATHINFO_EXTENSION);
+
+            return in_array(strtolower($extension), ['html', 'htm'], true);
+        }
+        return false;
+    }
+
+    /**
      * Checks if this attachment has a path to an external file
      *
      * @return bool true, if there is a path to an external file
