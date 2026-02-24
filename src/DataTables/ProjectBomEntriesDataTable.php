@@ -150,8 +150,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ->add('manufacturing_status', EnumColumn::class, [
                 'label' => $this->translator->trans('part.table.manufacturingStatus'),
                 'class' => ManufacturingStatus::class,
-                'data' => fn (ProjectBOMEntry $context): ?ManufacturingStatus => $context->getPart()?->getManufacturingStatus(),
-                'render' => function (?ManufacturingStatus $status): string {
+                'render' => function (?ManufacturingStatus $status, Part $context): string {
                     if ($status === null) {
                         return '';
                     }
