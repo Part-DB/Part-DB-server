@@ -202,6 +202,10 @@ class CanopyProvider implements InfoProviderInterface
         $product = $response->toArray()['data']['amazonProduct'];
 
 
+        if ($product === null) {
+            throw new \RuntimeException("Product with ASIN $id not found");
+        }
+
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),
             provider_id: $product['asin'],
