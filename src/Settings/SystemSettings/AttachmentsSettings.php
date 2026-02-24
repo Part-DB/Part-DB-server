@@ -58,4 +58,11 @@ class AttachmentsSettings
         envVar: "bool:ATTACHMENT_DOWNLOAD_BY_DEFAULT", envVarMode: EnvVarMode::OVERWRITE
     )]
     public bool $downloadByDefault = false;
+
+    #[SettingsParameter(
+        label: new TM("settings.system.attachments.showHTMLAttachments"),
+        description: new TM("settings.system.attachments.showHTMLAttachments.help"),
+        envVar: "bool:ATTACHMENT_SHOW_HTML", envVarMode: EnvVarMode::OVERWRITE
+    )]
+    public bool $showHTMLAttachments = false;
 }
