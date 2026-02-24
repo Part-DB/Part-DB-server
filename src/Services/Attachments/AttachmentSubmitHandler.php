@@ -137,7 +137,10 @@ class AttachmentSubmitHandler
             $attachment->getName()
         );
 
-        return $safeName.'-'.uniqid('', false).'.'.$extension;
+        // Generate a 12-character URL-safe random string, which should avoid collisions and prevent from guessing file paths.
+        $random = str_replace(['+', '/', '='], ['0', '1', '2'], base64_encode(random_bytes(9)));
+
+        return $safeName.'-'.$random.'.'.$extension;
     }
 
     /**
