@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale | replace({"_": "-"}) }}"
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {# The content block is already escaped. so we must not escape it again. #}
+    <title></title>
+
+    <style>
+        /* Reset margins and stop the page from scrolling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+
+        /* The Flex Container */
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* The Warning Header */
+        .warning-bar {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10; /* Keep it above the iframe */
+        }
+
+        /* The Iframe: The 'flex: 1' makes it fill all remaining space */
+        .content-frame {
+            flex: 1;
+            border: none;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+{% block body %}
+    {# We have a fullscreen iframe, with an warning on top #}
+
+    <div class="wrapper">
+
+        <header>
+            <header class="warning-bar">
+                <b>⚠️ {% trans%}attachment.sandbox.warning{% endtrans %}</b>
+
+                <br>
+                <small>
+                    {% trans%}[Attachment]{% endtrans%}: {{ attachment.name }} /  {{ attachment.filename ?? "" }} ({% trans%}id.label{% endtrans %}: {{ attachment.id }})
+                    <a href="{{ path("homepage") }}" style="color: white; margin-left: 15px;">{% trans%}attachment.sandbox.back_to_partdb{% endtrans %}</a>
+                </small>
+            </header>
+        </header>
+
+        <iframe  referrerpolicy="no-referrer" class="content-frame"
+                 {# When changing this sandbox, also change the sandbox CSP in the controller #}
+                 sandbox="allow-scripts"
+                 srcdoc="{{ content|e('html_attr') }}"
+        ></iframe>
+
+
+    </div>
+
+{% endblock %}
+
+</body>
+</html>
