@@ -69,7 +69,7 @@ class AttachmentFileController extends AbstractController
 
         //Set an CSP that allows to run inline scripts, styles and images from external ressources, but does not allow any connections or others.
         //Also set the sandbox CSP directive with only "allow-script" to run basic scripts
-        $response->headers->set('Content-Security-Policy', "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; sandbox allow-scripts;");
+        $response->headers->set('Content-Security-Policy', "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; sandbox allow-scripts allow-downloads allow-modals;");
 
         //Forbid to embed the attachment render page in an iframe to prevent clickjacking, as it is not used anywhere else for now
         $response->headers->set('X-Frame-Options', 'DENY');
