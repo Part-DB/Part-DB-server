@@ -12617,5 +12617,17 @@ Buerklin-API Authentication server:
         <target>⚠️ When enabled, user uploaded HTML attachments can be viewed directly in the browser. Many potential malicious functions are restricted, still this is a potential security risk and should only be enabled, if you trust the users who can upload files.</target>
       </segment>
     </unit>
+    <unit id="BQo2xWi" name="attachment.sandbox.title">
+      <segment>
+        <source>attachment.sandbox.title</source>
+        <target>HTML [Attachment]</target>
+      </segment>
+    </unit>
+    <unit id="sJ6v9uJ" name="attachment.sandbox.as_plain_text">
+      <segment>
+        <source>attachment.sandbox.as_plain_text</source>
+        <target>View as plain text</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

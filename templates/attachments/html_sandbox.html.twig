@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>️⚠️️</text></svg>">
+
     {# The content block is already escaped. so we must not escape it again. #}
-    <title></title>
+    <title>{% trans %}attachment.sandbox.title{% endtrans %}: {{ attachment.filename }}</title>
 
     <style>
         /* Reset margins and stop the page from scrolling */
@@ -54,7 +56,8 @@
 
                 <br>
                 <small>
-                    {% trans%}[Attachment]{% endtrans%}: {{ attachment.name }} /  {{ attachment.filename ?? "" }} ({% trans%}id.label{% endtrans %}: {{ attachment.id }})
+                    {% trans%}[Attachment]{% endtrans%}: <b>{{ attachment.name }}</b> /  <b>{{ attachment.filename ?? "" }}</b> ({% trans%}id.label{% endtrans %}: {{ attachment.id }})
+                    <a href="{{ path("attachment_view", {id: attachment.id}) }}" style="color: white; margin-left: 15px;">{% trans%}attachment.sandbox.as_plain_text{% endtrans %}</a>
                     <a href="{{ path("homepage") }}" style="color: white; margin-left: 15px;">{% trans%}attachment.sandbox.back_to_partdb{% endtrans %}</a>
                 </small>
             </header>
