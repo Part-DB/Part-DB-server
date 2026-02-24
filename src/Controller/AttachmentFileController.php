@@ -88,8 +88,10 @@ class AttachmentFileController extends AbstractController
         $file_path = $this->helper->toAbsoluteInternalFilePath($attachment);
         $response = new BinaryFileResponse($file_path);
 
+        $response = $this->forbidHTMLContentType($response);
+
         //Set header content disposition, so that the file will be downloaded
-        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT);
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $attachment->getFilename());
 
         return $response;
     }
@@ -105,8 +107,23 @@ class AttachmentFileController extends AbstractController
         $file_path = $this->helper->toAbsoluteInternalFilePath($attachment);
         $response = new BinaryFileResponse($file_path);
 
+        $response = $this->forbidHTMLContentType($response);
+
         //Set header content disposition, so that the file will be downloaded
-        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE);
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE, $attachment->getFilename());
+
+        return $response;
+    }
+
+    private function forbidHTMLContentType(BinaryFileResponse $response): BinaryFileResponse
+    {
+        $mimeType = $response->getFile()->getMimeType();
+
+        if ($mimeType === 'text/html') {
+            $mimeType = 'text/plain';
+        }
+
+        $response->headers->set('Content-Type', $mimeType);
 
         return $response;
     }
