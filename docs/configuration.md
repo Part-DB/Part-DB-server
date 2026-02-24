@@ -86,6 +86,9 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
 * `ATTACHMENT_DOWNLOAD_BY_DEFAULT`: When this is set to 1, the "download external file" checkbox is checked by default
   when adding a new attachment. Otherwise, it is unchecked by default. Use this if you wanna download all attachments
   locally by default. Attachment download is only possible, when `ALLOW_ATTACHMENT_DOWNLOADS` is set to 1.
+* `ATTACHMENT_SHOW_HTML_FILES`: When enabled, user uploaded HTML attachments can be viewed directly in the browser. 
+  Many potential malicious functions are restricted, still this is a potential security risk and should only be enabled,
+  if you trust the users who can upload files. When set to 0, HTML files are rendered as plain text.
 * `USE_GRAVATAR`: Set to `1` to use [gravatar.com](https://gravatar.com/) images for user avatars (as long as they have
   not set their own picture). The users browsers have to download the pictures from a third-party (gravatar) server, so
   this might be a privacy risk.
