@@ -163,6 +163,13 @@ class ToolsTreeBuilder
             ))->setIcon('fa-treeview fa-fw fa-solid fa-tasks');
         }
 
+        if ($this->security->isGranted('@info_providers.create_parts')) {
+            $nodes[] = (new TreeViewNode(
+                "Handheld Scanner",
+                $this->urlGenerator->generate('handheld_scanner_dialog')
+            ))->setIcon('fa-treeview fa-fw fa-solid fa-camera-retro');
+        }
+
         return $nodes;
     }
 
