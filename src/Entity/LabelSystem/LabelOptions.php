@@ -65,6 +65,12 @@ class LabelOptions
     #[Groups(["extended", "full", "import"])]
     protected float $height = 30.0;
 
+    // TODO these have to go into the DB to be persisted.
+    // The default values preserve the current behaviour of the generator (custom css might break though...)
+    public int $xcount = 1;
+    public int $ycount = 1;
+    public int $skipcount = 0;
+
     /**
      * @var BarcodeType The type of the barcode that should be used in the label (e.g. 'qr')
      */
