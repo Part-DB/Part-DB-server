@@ -10311,6 +10311,24 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Show the image overlay with attachment details on hovering over the part image gallery.</target>
       </segment>
     </unit>
+    <unit id="0iYdzdk" name="settings.behavior.keybindings">
+      <segment state="translated">
+        <source>settings.behavior.keybindings</source>
+        <target>Keybindings</target>
+      </segment>
+    </unit>
+    <unit id="_x13bMa" name="settings.behavior.keybindings.enable_special_characters">
+      <segment state="translated">
+        <source>settings.behavior.keybindings.enable_special_characters</source>
+        <target>Enable special character keybindings</target>
+      </segment>
+    </unit>
+    <unit id="Af8Zzqr" name="settings.behavior.keybindings.enable_special_characters.help">
+      <segment state="translated">
+        <source>settings.behavior.keybindings.enable_special_characters.help</source>
+        <target>Enable Alt+key shortcuts to insert special characters (Greek letters, mathematical symbols, etc.) in text input fields. Disable this if the shortcuts conflict with your keyboard layout or system shortcuts.</target>
+      </segment>
+    </unit>
     <unit id="ALfPkeR" name="perm.config.change_system_settings">
       <segment state="translated">
         <source>perm.config.change_system_settings</source>
