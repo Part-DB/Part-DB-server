@@ -73,7 +73,9 @@
         {{ encore_entry_script_tags('webauthn_tfa') }}
     {% endblock %}
 </head>
-<body data-base-url="{{ path('homepage', {'_locale': app.request.locale}) }}" data-locale="{{ app.request.locale|default("en")|slice(0,2) }}">
+<body data-base-url="{{ path('homepage', {'_locale': app.request.locale}) }}" 
+      data-locale="{{ app.request.locale|default("en")|slice(0,2) }}"
+      data-keybindings-special-characters="{{ settings_instance('keybindings').enableSpecialCharacters ? 'true' : 'false' }}">
 {% block body %}
     <header>
         <turbo-frame id="navbar-frame" target="content" data-turbo-action="advance">
