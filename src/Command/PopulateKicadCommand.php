@@ -13,11 +13,14 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 #[AsCommand('partdb:kicad:populate', 'Populate KiCad footprint paths and symbol paths for footprints and categories')]
-class PopulateKicadCommand extends Command
+final class PopulateKicadCommand extends Command
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager)
+    private const DEFAULT_MAPPING_FILE = 'assets/commands/kicad_populate_default_mappings.json';
+
+    public function __construct(private readonly EntityManagerInterface $entityManager, #[Autowire("%kernel.project_dir%")] private readonly string $projectDir)
     {
         parent::__construct();
     }
@@ -56,8 +59,7 @@ class PopulateKicadCommand extends Command
         }
 
         // Load mappings: start with built-in defaults, then merge user-supplied file
-        $footprintMappings = $this->getFootprintMappings();
-        $categoryMappings = $this->getCategoryMappings();
+        ['footprints' => $footprintMappings, 'categories' => $categoryMappings] = $this->getDefaultMappings();
 
         if ($mappingFile !== null) {
             $customMappings = $this->loadMappingFile($mappingFile, $io);
@@ -348,259 +350,15 @@ class PopulateKicadCommand extends Command
     }
 
     /**
-     * Returns footprint name to KiCad footprint path mappings.
-     * These are based on KiCad 9.x standard library paths.
-     *
-     * @return array<int|string, string>
+     * Returns the default mappings for footprints and categories.
+     * @return array{footprints: array<string, string>, categories: array<string, string>}
+     * @throws \JsonException
      */
-    private function getFootprintMappings(): array
+    private function getDefaultMappings(): array
     {
-        return [
-            // === SOT packages ===
-            'SOT-23' => 'Package_TO_SOT_SMD:SOT-23',
-            'SOT-23-3' => 'Package_TO_SOT_SMD:SOT-23',
-            'SOT-23-5' => 'Package_TO_SOT_SMD:SOT-23-5',
-            'SOT-23-6' => 'Package_TO_SOT_SMD:SOT-23-6',
-            'SOT-223' => 'Package_TO_SOT_SMD:SOT-223-3_TabPin2',
-            'SOT-223-3' => 'Package_TO_SOT_SMD:SOT-223-3_TabPin2',
-            'SOT-89' => 'Package_TO_SOT_SMD:SOT-89-3',
-            'SOT-89-3' => 'Package_TO_SOT_SMD:SOT-89-3',
-            'SOT-323' => 'Package_TO_SOT_SMD:SOT-323_SC-70',
-            'SOT-363' => 'Package_TO_SOT_SMD:SOT-363_SC-70-6',
-            'TSOT-25' => 'Package_TO_SOT_SMD:SOT-23-5',
+        $path = $this->projectDir . '/' . self::DEFAULT_MAPPING_FILE;
+        $content = file_get_contents($path);
 
-            // === SC-70 ===
-            'SC-70-5' => 'Package_TO_SOT_SMD:SOT-353_SC-70-5',
-            'SC-70-6' => 'Package_TO_SOT_SMD:SOT-363_SC-70-6',
-
-            // === TO packages (through-hole) ===
-            'TO-220' => 'Package_TO_SOT_THT:TO-220-3_Vertical',
-            'TO-220AB' => 'Package_TO_SOT_THT:TO-220-3_Vertical',
-            'TO-220AB-3' => 'Package_TO_SOT_THT:TO-220-3_Vertical',
-            'TO-220FP' => 'Package_TO_SOT_THT:TO-220F-3_Vertical',
-            'TO-247-3' => 'Package_TO_SOT_THT:TO-247-3_Vertical',
-            'TO-92' => 'Package_TO_SOT_THT:TO-92_Inline',
-            'TO-92-3' => 'Package_TO_SOT_THT:TO-92_Inline',
-
-            // === TO packages (SMD) ===
-            'TO-252' => 'Package_TO_SOT_SMD:TO-252-2',
-            'TO-252-2L' => 'Package_TO_SOT_SMD:TO-252-2',
-            'TO-252-3L' => 'Package_TO_SOT_SMD:TO-252-3',
-            'TO-263' => 'Package_TO_SOT_SMD:TO-263-2',
-            'TO-263-2' => 'Package_TO_SOT_SMD:TO-263-2',
-            'D2PAK' => 'Package_TO_SOT_SMD:TO-252-2',
-            'DPAK' => 'Package_TO_SOT_SMD:TO-252-2',
-
-            // === SOIC ===
-            'SOIC-8' => 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm',
-            'ESOP-8' => 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm',
-            'SOIC-14' => 'Package_SO:SOIC-14_3.9x8.7mm_P1.27mm',
-            'SOIC-16' => 'Package_SO:SOIC-16_3.9x9.9mm_P1.27mm',
-
-            // === TSSOP / MSOP ===
-            'TSSOP-8' => 'Package_SO:TSSOP-8_3x3mm_P0.65mm',
-            'TSSOP-14' => 'Package_SO:TSSOP-14_4.4x5mm_P0.65mm',
-            'TSSOP-16' => 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm',
-            'TSSOP-16L' => 'Package_SO:TSSOP-16_4.4x5mm_P0.65mm',
-            'TSSOP-20' => 'Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm',
-            'MSOP-8' => 'Package_SO:MSOP-8_3x3mm_P0.65mm',
-            'MSOP-10' => 'Package_SO:MSOP-10_3x3mm_P0.5mm',
-            'MSOP-16' => 'Package_SO:MSOP-16_3x4mm_P0.5mm',
-
-            // === SOT-5 / SO-5 ===
-            'SO-5' => 'Package_TO_SOT_SMD:SOT-23-5',
-
-            // === DIP ===
-            'DIP-4' => 'Package_DIP:DIP-4_W7.62mm',
-            'DIP-6' => 'Package_DIP:DIP-6_W7.62mm',
-            'DIP-8' => 'Package_DIP:DIP-8_W7.62mm',
-            'DIP-14' => 'Package_DIP:DIP-14_W7.62mm',
-            'DIP-16' => 'Package_DIP:DIP-16_W7.62mm',
-            'DIP-18' => 'Package_DIP:DIP-18_W7.62mm',
-            'DIP-20' => 'Package_DIP:DIP-20_W7.62mm',
-            'DIP-24' => 'Package_DIP:DIP-24_W7.62mm',
-            'DIP-28' => 'Package_DIP:DIP-28_W7.62mm',
-            'DIP-40' => 'Package_DIP:DIP-40_W15.24mm',
-
-            // === QFN ===
-            'QFN-8' => 'Package_DFN_QFN:QFN-8-1EP_3x3mm_P0.65mm_EP1.55x1.55mm',
-            'QFN-12(3x3)' => 'Package_DFN_QFN:QFN-12-1EP_3x3mm_P0.5mm_EP1.65x1.65mm',
-            'QFN-16' => 'Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm',
-            'QFN-20' => 'Package_DFN_QFN:QFN-20-1EP_4x4mm_P0.5mm_EP2.5x2.5mm',
-            'QFN-24' => 'Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm',
-            'QFN-32' => 'Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm',
-            'QFN-48' => 'Package_DFN_QFN:QFN-48-1EP_7x7mm_P0.5mm_EP5.3x5.3mm',
-
-            // === TQFP / LQFP ===
-            'TQFP-32' => 'Package_QFP:TQFP-32_7x7mm_P0.8mm',
-            'TQFP-44' => 'Package_QFP:TQFP-44_10x10mm_P0.8mm',
-            'TQFP-48' => 'Package_QFP:TQFP-48_7x7mm_P0.5mm',
-            'TQFP-48(7x7)' => 'Package_QFP:TQFP-48_7x7mm_P0.5mm',
-            'TQFP-64' => 'Package_QFP:TQFP-64_10x10mm_P0.5mm',
-            'TQFP-100' => 'Package_QFP:TQFP-100_14x14mm_P0.5mm',
-            'LQFP-32' => 'Package_QFP:LQFP-32_7x7mm_P0.8mm',
-            'LQFP-48' => 'Package_QFP:LQFP-48_7x7mm_P0.5mm',
-            'LQFP-64' => 'Package_QFP:LQFP-64_10x10mm_P0.5mm',
-            'LQFP-100' => 'Package_QFP:LQFP-100_14x14mm_P0.5mm',
-
-            // === Diode packages ===
-            'SOD-123' => 'Diode_SMD:D_SOD-123',
-            'SOD-123F' => 'Diode_SMD:D_SOD-123F',
-            'SOD-123FL' => 'Diode_SMD:D_SOD-123F',
-            'SOD-323' => 'Diode_SMD:D_SOD-323',
-            'SOD-523' => 'Diode_SMD:D_SOD-523',
-            'SOD-882' => 'Diode_SMD:D_SOD-882',
-            'SOD-882D' => 'Diode_SMD:D_SOD-882',
-            'SMA(DO-214AC)' => 'Diode_SMD:D_SMA',
-            'SMA' => 'Diode_SMD:D_SMA',
-            'SMB' => 'Diode_SMD:D_SMB',
-            'SMC' => 'Diode_SMD:D_SMC',
-            'DO-35' => 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal',
-            'DO-35(DO-204AH)' => 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal',
-            'DO-41' => 'Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal',
-            'DO-201' => 'Diode_THT:D_DO-201_P15.24mm_Horizontal',
-
-            // === DFN ===
-            'DFN-2(0.6x1)' => 'Package_DFN_QFN:DFN-2-1EP_0.6x1.0mm_P0.65mm_EP0.2x0.55mm',
-            'DFN1006-2' => 'Package_DFN_QFN:DFN-2_1.0x0.6mm',
-            'DFN-6' => 'Package_DFN_QFN:DFN-6-1EP_2x2mm_P0.65mm_EP1x1.6mm',
-            'DFN-8' => 'Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm',
-
-            // === Passive component packages (SMD chip sizes) ===
-            // Using Resistor_SMD as default - capacitors/inductors can override at part level
-            '0201' => 'Resistor_SMD:R_0201_0603Metric',
-            '0402' => 'Resistor_SMD:R_0402_1005Metric',
-            '0603' => 'Resistor_SMD:R_0603_1608Metric',
-            '0805' => 'Resistor_SMD:R_0805_2012Metric',
-            '1206' => 'Resistor_SMD:R_1206_3216Metric',
-            '1210' => 'Resistor_SMD:R_1210_3225Metric',
-            '1812' => 'Resistor_SMD:R_1812_4532Metric',
-            '2010' => 'Resistor_SMD:R_2010_5025Metric',
-            '2512' => 'Resistor_SMD:R_2512_6332Metric',
-            '2917' => 'Resistor_SMD:R_2917_7343Metric',
-            '2920' => 'Resistor_SMD:R_2920_7350Metric',
-
-            // === Tantalum / electrolytic capacitor packages ===
-            'CASE-A-3216-18(mm)' => 'Capacitor_Tantalum_SMD:CP_EIA-3216-18_Kemet-A',
-            'CASE-B-3528-21(mm)' => 'Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B',
-            'CASE-C-6032-28(mm)' => 'Capacitor_Tantalum_SMD:CP_EIA-6032-28_Kemet-C',
-            'CASE-D-7343-31(mm)' => 'Capacitor_Tantalum_SMD:CP_EIA-7343-31_Kemet-D',
-            'CASE-E-7343-43(mm)' => 'Capacitor_Tantalum_SMD:CP_EIA-7343-43_Kemet-E',
-
-            // === Electrolytic capacitor (SMD) ===
-            'SMD,D4xL5.4mm' => 'Capacitor_SMD:CP_Elec_4x5.4',
-            'SMD,D5xL5.4mm' => 'Capacitor_SMD:CP_Elec_5x5.4',
-            'SMD,D6.3xL5.4mm' => 'Capacitor_SMD:CP_Elec_6.3x5.4',
-            'SMD,D6.3xL7.7mm' => 'Capacitor_SMD:CP_Elec_6.3x7.7',
-            'SMD,D8xL6.5mm' => 'Capacitor_SMD:CP_Elec_8x6.5',
-            'SMD,D8xL10mm' => 'Capacitor_SMD:CP_Elec_8x10',
-            'SMD,D10xL10mm' => 'Capacitor_SMD:CP_Elec_10x10',
-            'SMD,D10xL10.5mm' => 'Capacitor_SMD:CP_Elec_10x10.5',
-
-            // === Through-hole electrolytic capacitors (radial) ===
-            'Through Hole,D5xL11mm' => 'Capacitor_THT:CP_Radial_D5.0mm_P2.00mm',
-            'Through Hole,D6.3xL11mm' => 'Capacitor_THT:CP_Radial_D6.3mm_P2.50mm',
-            'Through Hole,D8xL11mm' => 'Capacitor_THT:CP_Radial_D8.0mm_P3.50mm',
-            'Through Hole,D10xL16mm' => 'Capacitor_THT:CP_Radial_D10.0mm_P5.00mm',
-            'Through Hole,D10xL20mm' => 'Capacitor_THT:CP_Radial_D10.0mm_P5.00mm',
-            'Through Hole,D12.5xL20mm' => 'Capacitor_THT:CP_Radial_D12.5mm_P5.00mm',
-
-            // === LED packages ===
-            'LED 3mm' => 'LED_THT:LED_D3.0mm',
-            'LED 5mm' => 'LED_THT:LED_D5.0mm',
-            'LED 0603' => 'LED_SMD:LED_0603_1608Metric',
-            'LED 0805' => 'LED_SMD:LED_0805_2012Metric',
-            'SMD5050-4P' => 'LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm',
-            'SMD5050-6P' => 'LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm',
-
-            // === Crystal packages ===
-            'HC-49' => 'Crystal:Crystal_HC49-4H_Vertical',
-            'HC-49/U' => 'Crystal:Crystal_HC49-4H_Vertical',
-            'HC-49/S' => 'Crystal:Crystal_HC49-U_Vertical',
-            'HC-49/US' => 'Crystal:Crystal_HC49-U_Vertical',
-
-            // === USB connectors ===
-            'USB-A' => 'Connector_USB:USB_A_Stewart_SS-52100-001_Horizontal',
-            'USB-B' => 'Connector_USB:USB_B_OST_USB-B1HSxx_Horizontal',
-            'USB-Mini-B' => 'Connector_USB:USB_Mini-B_Lumberg_2486_01_Horizontal',
-            'USB-Micro-B' => 'Connector_USB:USB_Micro-B_Molex-105017-0001',
-            'USB-C' => 'Connector_USB:USB_C_Receptacle_GCT_USB4085',
-
-            // === Pin headers ===
-            '1x2 P2.54mm' => 'Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical',
-            '1x3 P2.54mm' => 'Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical',
-            '1x4 P2.54mm' => 'Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical',
-            '1x5 P2.54mm' => 'Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical',
-            '1x6 P2.54mm' => 'Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical',
-            '1x8 P2.54mm' => 'Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical',
-            '1x10 P2.54mm' => 'Connector_PinHeader_2.54mm:PinHeader_1x10_P2.54mm_Vertical',
-            '2x2 P2.54mm' => 'Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical',
-            '2x3 P2.54mm' => 'Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical',
-            '2x4 P2.54mm' => 'Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical',
-            '2x5 P2.54mm' => 'Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical',
-            '2x10 P2.54mm' => 'Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Vertical',
-            '2x20 P2.54mm' => 'Connector_PinHeader_2.54mm:PinHeader_2x20_P2.54mm_Vertical',
-
-            // === SIP packages ===
-            'SIP-3-2.54mm' => 'Package_SIP:SIP-3_P2.54mm',
-            'SIP-4-2.54mm' => 'Package_SIP:SIP-4_P2.54mm',
-            'SIP-5-2.54mm' => 'Package_SIP:SIP-5_P2.54mm',
-        ];
-    }
-
-    /**
-     * Returns category name patterns to KiCad symbol path mappings.
-     * Uses pattern matching - order matters (first match wins).
-     *
-     * @return array<string, string>
-     */
-    private function getCategoryMappings(): array
-    {
-        return [
-            // More specific matches first
-            'Electrolytic' => 'Device:C_Polarized',
-            'Polarized' => 'Device:C_Polarized',
-            'Tantalum' => 'Device:C_Polarized',
-            'Zener' => 'Device:D_Zener',
-            'Schottky' => 'Device:D_Schottky',
-            'TVS' => 'Device:D_TVS',
-            'LED' => 'Device:LED',
-            'NPN' => 'Device:Q_NPN_BCE',
-            'PNP' => 'Device:Q_PNP_BCE',
-            'N-MOSFET' => 'Device:Q_NMOS_GDS',
-            'NMOS' => 'Device:Q_NMOS_GDS',
-            'N-MOS' => 'Device:Q_NMOS_GDS',
-            'P-MOSFET' => 'Device:Q_PMOS_GDS',
-            'PMOS' => 'Device:Q_PMOS_GDS',
-            'P-MOS' => 'Device:Q_PMOS_GDS',
-            'MOSFET' => 'Device:Q_NMOS_GDS', // Default to N-channel
-            'JFET' => 'Device:Q_NJFET_DSG',
-            'Ferrite' => 'Device:Ferrite_Bead',
-            'Crystal' => 'Device:Crystal',
-            'Oscillator' => 'Oscillator:Oscillator_Crystal',
-            'Fuse' => 'Device:Fuse',
-            'Transformer' => 'Device:Transformer_1P_1S',
-
-            // Generic matches (less specific)
-            'Resistor' => 'Device:R',
-            'Capacitor' => 'Device:C',
-            'Inductor' => 'Device:L',
-            'Diode' => 'Device:D',
-            'Transistor' => 'Device:Q_NPN_BCE',
-            'Voltage Regulator' => 'Regulator_Linear:LM317_TO-220',
-            'LDO' => 'Regulator_Linear:AMS1117-3.3',
-            'Op-Amp' => 'Amplifier_Operational:LM358',
-            'Comparator' => 'Comparator:LM393',
-            'Optocoupler' => 'Isolator:PC817',
-            'Relay' => 'Relay:Relay_DPDT',
-            'Connector' => 'Connector:Conn_01x02',
-            'Switch' => 'Switch:SW_Push',
-            'Button' => 'Switch:SW_Push',
-            'Potentiometer' => 'Device:R_POT',
-            'Trimpot' => 'Device:R_POT',
-            'Thermistor' => 'Device:Thermistor',
-            'Varistor' => 'Device:Varistor',
-            'Photo' => 'Device:LED', // Photodiode/phototransistor
-        ];
+        return json_decode($content, true, 512, JSON_THROW_ON_ERROR);
     }
 }

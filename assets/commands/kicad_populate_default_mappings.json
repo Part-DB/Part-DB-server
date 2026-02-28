@@ -68,6 +68,7 @@
         "LQFP-48": "Package_QFP:LQFP-48_7x7mm_P0.5mm",
         "LQFP-64": "Package_QFP:LQFP-64_10x10mm_P0.5mm",
         "LQFP-100": "Package_QFP:LQFP-100_14x14mm_P0.5mm",
+
         "SOD-123": "Diode_SMD:D_SOD-123",
         "SOD-123F": "Diode_SMD:D_SOD-123F",
         "SOD-123FL": "Diode_SMD:D_SOD-123F",
@@ -79,14 +80,17 @@
         "SMA": "Diode_SMD:D_SMA",
         "SMB": "Diode_SMD:D_SMB",
         "SMC": "Diode_SMD:D_SMC",
+
         "DO-35": "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal",
         "DO-35(DO-204AH)": "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal",
         "DO-41": "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal",
         "DO-201": "Diode_THT:D_DO-201_P15.24mm_Horizontal",
+
         "DFN-2(0.6x1)": "Package_DFN_QFN:DFN-2-1EP_0.6x1.0mm_P0.65mm_EP0.2x0.55mm",
         "DFN1006-2": "Package_DFN_QFN:DFN-2_1.0x0.6mm",
         "DFN-6": "Package_DFN_QFN:DFN-6-1EP_2x2mm_P0.65mm_EP1x1.6mm",
         "DFN-8": "Package_DFN_QFN:DFN-8-1EP_3x2mm_P0.5mm_EP1.3x1.5mm",
+
         "0201": "Resistor_SMD:R_0201_0603Metric",
         "0402": "Resistor_SMD:R_0402_1005Metric",
         "0603": "Resistor_SMD:R_0603_1608Metric",
@@ -98,11 +102,13 @@
         "2512": "Resistor_SMD:R_2512_6332Metric",
         "2917": "Resistor_SMD:R_2917_7343Metric",
         "2920": "Resistor_SMD:R_2920_7350Metric",
+
         "CASE-A-3216-18(mm)": "Capacitor_Tantalum_SMD:CP_EIA-3216-18_Kemet-A",
         "CASE-B-3528-21(mm)": "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B",
         "CASE-C-6032-28(mm)": "Capacitor_Tantalum_SMD:CP_EIA-6032-28_Kemet-C",
         "CASE-D-7343-31(mm)": "Capacitor_Tantalum_SMD:CP_EIA-7343-31_Kemet-D",
         "CASE-E-7343-43(mm)": "Capacitor_Tantalum_SMD:CP_EIA-7343-43_Kemet-E",
+
         "SMD,D4xL5.4mm": "Capacitor_SMD:CP_Elec_4x5.4",
         "SMD,D5xL5.4mm": "Capacitor_SMD:CP_Elec_5x5.4",
         "SMD,D6.3xL5.4mm": "Capacitor_SMD:CP_Elec_6.3x5.4",
@@ -111,27 +117,32 @@
         "SMD,D8xL10mm": "Capacitor_SMD:CP_Elec_8x10",
         "SMD,D10xL10mm": "Capacitor_SMD:CP_Elec_10x10",
         "SMD,D10xL10.5mm": "Capacitor_SMD:CP_Elec_10x10.5",
+
         "Through Hole,D5xL11mm": "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm",
         "Through Hole,D6.3xL11mm": "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm",
         "Through Hole,D8xL11mm": "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm",
         "Through Hole,D10xL16mm": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
         "Through Hole,D10xL20mm": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
         "Through Hole,D12.5xL20mm": "Capacitor_THT:CP_Radial_D12.5mm_P5.00mm",
+
         "LED 3mm": "LED_THT:LED_D3.0mm",
         "LED 5mm": "LED_THT:LED_D5.0mm",
         "LED 0603": "LED_SMD:LED_0603_1608Metric",
         "LED 0805": "LED_SMD:LED_0805_2012Metric",
         "SMD5050-4P": "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm",
         "SMD5050-6P": "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm",
+
         "HC-49": "Crystal:Crystal_HC49-4H_Vertical",
         "HC-49/U": "Crystal:Crystal_HC49-4H_Vertical",
         "HC-49/S": "Crystal:Crystal_HC49-U_Vertical",
         "HC-49/US": "Crystal:Crystal_HC49-U_Vertical",
+
         "USB-A": "Connector_USB:USB_A_Stewart_SS-52100-001_Horizontal",
         "USB-B": "Connector_USB:USB_B_OST_USB-B1HSxx_Horizontal",
         "USB-Mini-B": "Connector_USB:USB_Mini-B_Lumberg_2486_01_Horizontal",
         "USB-Micro-B": "Connector_USB:USB_Micro-B_Molex-105017-0001",
         "USB-C": "Connector_USB:USB_C_Receptacle_GCT_USB4085",
+
         "1x2 P2.54mm": "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical",
         "1x3 P2.54mm": "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical",
         "1x4 P2.54mm": "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical",
