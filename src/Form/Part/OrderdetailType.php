@@ -79,7 +79,7 @@ class OrderdetailType extends AbstractType
             'label' => 'orderdetails.edit.prices_includes_vat',
         ]);
 
-        $builder->add('eda_visibility', CheckboxType::class, [
+        $builder->add('eda_visibility', TriStateCheckboxType::class, [
             'required' => false,
             'label' => 'orderdetails.edit.eda_visibility',
         ]);
