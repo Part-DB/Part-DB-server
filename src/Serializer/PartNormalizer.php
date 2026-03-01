@@ -55,6 +55,15 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Norm
         'spn' => 'supplier_part_number',
         'supplier_product_number' => 'supplier_part_number',
         'storage_location' => 'storelocation',
+        //EDA/KiCad field aliases
+        'kicad_symbol' => 'eda_kicad_symbol',
+        'kicad_footprint' => 'eda_kicad_footprint',
+        'kicad_reference' => 'eda_reference_prefix',
+        'kicad_value' => 'eda_value',
+        'eda_exclude_bom' => 'eda_exclude_from_bom',
+        'eda_exclude_board' => 'eda_exclude_from_board',
+        'eda_exclude_sim' => 'eda_exclude_from_sim',
+        'eda_invisible' => 'eda_visibility',
     ];
 
     public function __construct(
@@ -190,7 +199,43 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Norm
             }
         }
 
+        //Handle EDA/KiCad fields
+        $this->applyEdaFields($object, $data);
+
         return $object;
+    }
+
+    /**
+     * Apply EDA/KiCad fields from CSV data to the Part's EDAPartInfo.
+     */
+    private function applyEdaFields(Part $part, array $data): void
+    {
+        $edaInfo = $part->getEdaInfo();
+
+        if (!empty($data['eda_kicad_symbol'])) {
+            $edaInfo->setKicadSymbol(trim((string) $data['eda_kicad_symbol']));
+        }
+        if (!empty($data['eda_kicad_footprint'])) {
+            $edaInfo->setKicadFootprint(trim((string) $data['eda_kicad_footprint']));
+        }
+        if (!empty($data['eda_reference_prefix'])) {
+            $edaInfo->setReferencePrefix(trim((string) $data['eda_reference_prefix']));
+        }
+        if (!empty($data['eda_value'])) {
+            $edaInfo->setValue(trim((string) $data['eda_value']));
+        }
+        if (isset($data['eda_exclude_from_bom']) && $data['eda_exclude_from_bom'] !== '') {
+            $edaInfo->setExcludeFromBom(filter_var($data['eda_exclude_from_bom'], FILTER_VALIDATE_BOOLEAN));
+        }
+        if (isset($data['eda_exclude_from_board']) && $data['eda_exclude_from_board'] !== '') {
+            $edaInfo->setExcludeFromBoard(filter_var($data['eda_exclude_from_board'], FILTER_VALIDATE_BOOLEAN));
+        }
+        if (isset($data['eda_exclude_from_sim']) && $data['eda_exclude_from_sim'] !== '') {
+            $edaInfo->setExcludeFromSim(filter_var($data['eda_exclude_from_sim'], FILTER_VALIDATE_BOOLEAN));
+        }
+        if (isset($data['eda_visibility']) && $data['eda_visibility'] !== '') {
+            $edaInfo->setVisibility(filter_var($data['eda_visibility'], FILTER_VALIDATE_BOOLEAN));
+        }
     }
 
     /**

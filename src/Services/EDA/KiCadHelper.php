@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Services\EDA;
 
+use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
@@ -43,6 +44,9 @@ class KiCadHelper
     /** @var int The maximum level of the shown categories. 0 Means only the top level categories are shown. -1 means only a single one containing */
     private readonly int $category_depth;
 
+    /** @var bool Whether to resolve actual datasheet PDF URLs (true) or use Part-DB page links (false) */
+    private readonly bool $datasheetAsPdf;
+
     public function __construct(
         private readonly NodesListBuilder $nodesListBuilder,
         private readonly TagAwareCacheInterface $kicadCache,
@@ -51,9 +55,10 @@ class KiCadHelper
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly EntityURLGenerator $entityURLGenerator,
         private readonly TranslatorInterface $translator,
-        KiCadEDASettings $kiCadEDASettings,
+        private readonly KiCadEDASettings $kiCadEDASettings,
     ) {
         $this->category_depth = $kiCadEDASettings->categoryDepth;
+        $this->datasheetAsPdf = $kiCadEDASettings->datasheetAsPdf ?? true;
     }
 
     /**
@@ -115,11 +120,16 @@ class KiCadHelper
                 }
 
                 //Format the category for KiCAD
+                // Use the category comment as description if available, otherwise use the Part-DB URL
+                $description = $category->getComment();
+                if ($description === null || $description === '') {
+                    $description = $this->entityURLGenerator->listPartsURL($category);
+                }
+
                 $result[] = [
                     'id' => (string)$category->getId(),
                     'name' => $category->getFullPath('/'),
-                    //Show the category link as the category description, this also fixes an segfault in KiCad see issue #878
-                    'description' => $this->entityURLGenerator->listPartsURL($category),
+                    'description' => $description,
                 ];
             }
 
@@ -131,11 +141,13 @@ class KiCadHelper
      * Returns an array of objects containing all parts for the given category in the format required by KiCAD.
      * The result is cached for performance and invalidated on category or part changes.
      * @param  Category|null  $category
+     * @param  bool  $minimal  If true, only return id and name (faster for symbol chooser listing)
      * @return array
      */
-    public function getCategoryParts(?Category $category): array
+    public function getCategoryParts(?Category $category, bool $minimal = false): array
     {
-        return $this->kicadCache->get('kicad_category_parts_'.($category?->getID() ?? 0) . '_' . $this->category_depth,
+        $cacheKey = 'kicad_category_parts_'.($category?->getID() ?? 0) . '_' . $this->category_depth . ($minimal ? '_min' : '');
+        return $this->kicadCache->get($cacheKey,
             function (ItemInterface $item) use ($category) {
                 $item->tag([
                     $this->tagGenerator->getElementTypeCacheTag(Category::class),
@@ -198,13 +210,21 @@ class KiCadHelper
         $result["fields"]["value"] = $this->createField($part->getEdaInfo()->getValue() ?? $part->getName(), true);
         $result["fields"]["keywords"] = $this->createField($part->getTags());
 
-        //Use the part info page as datasheet link. It must be an absolute URL.
-        $result["fields"]["datasheet"] = $this->createField(
-            $this->urlGenerator->generate(
-                'part_info',
-                ['id' => $part->getId()],
-                UrlGeneratorInterface::ABSOLUTE_URL)
+        //Use the part info page as Part-DB link. It must be an absolute URL.
+        $partUrl = $this->urlGenerator->generate(
+            'part_info',
+            ['id' => $part->getId()],
+            UrlGeneratorInterface::ABSOLUTE_URL
         );
+
+        //Try to find an actual datasheet attachment (configurable: PDF URL vs Part-DB page link)
+        if ($this->datasheetAsPdf) {
+            $datasheetUrl = $this->findDatasheetUrl($part);
+            $result["fields"]["datasheet"] = $this->createField($datasheetUrl ?? $partUrl);
+        } else {
+            $result["fields"]["datasheet"] = $this->createField($partUrl);
+        }
+        $result["fields"]["Part-DB URL"] = $this->createField($partUrl);
 
         //Add basic fields
         $result["fields"]["description"] = $this->createField($part->getDescription());
@@ -245,32 +265,7 @@ class KiCadHelper
             $result["fields"]["Part-DB IPN"] = $this->createField($part->getIpn());
         }
 
-        // Add supplier information from orderdetails (include obsolete orderdetails)
-        if ($part->getOrderdetails(false)->count() > 0) {
-            $supplierCounts = [];
-            
-            foreach ($part->getOrderdetails(false) as $orderdetail) {
-                if ($orderdetail->getSupplier() !== null && $orderdetail->getSupplierPartNr() !== '') {
-                    $supplierName = $orderdetail->getSupplier()->getName();
-
-                    $supplierName .= " SPN"; // Append "SPN" to the supplier name to indicate Supplier Part Number
-
-                    if (!isset($supplierCounts[$supplierName])) {
-                        $supplierCounts[$supplierName] = 0;
-                    }
-                    $supplierCounts[$supplierName]++;
-                    
-                    // Create field name with sequential number if more than one from same supplier (e.g. "Mouser", "Mouser 2", etc.)
-                    $fieldName = $supplierCounts[$supplierName] > 1 
-                        ? $supplierName . ' ' . $supplierCounts[$supplierName]
-                        : $supplierName;
-                    
-                    $result["fields"][$fieldName] = $this->createField($orderdetail->getSupplierPartNr());
-                }
-            }
-        }
-
-        //Add fields for KiCost:
+        //Add KiCost manufacturer fields (always present, independent of orderdetails)
         if ($part->getManufacturer() !== null) {
             $result["fields"]["manf"] = $this->createField($part->getManufacturer()->getName());
         }
@@ -278,13 +273,74 @@ class KiCadHelper
             $result['fields']['manf#'] = $this->createField($part->getManufacturerProductNumber());
         }
 
-        //For each supplier, add a field with the supplier name and the supplier part number for KiCost
-        if ($part->getOrderdetails(false)->count() > 0) {
-            foreach ($part->getOrderdetails(false) as $orderdetail) {
+        // Add supplier information from orderdetails (include obsolete orderdetails)
+        // If any orderdetail has eda_visibility explicitly set to true, only export those;
+        // otherwise export all (backward compat when no flags are set)
+        $allOrderdetails = $part->getOrderdetails(false);
+        if ($allOrderdetails->count() > 0) {
+            $hasExplicitEdaVisibility = false;
+            foreach ($allOrderdetails as $od) {
+                if ($od->isEdaVisibility() !== null) {
+                    $hasExplicitEdaVisibility = true;
+                    break;
+                }
+            }
+
+            $supplierCounts = [];
+            foreach ($allOrderdetails as $orderdetail) {
                 if ($orderdetail->getSupplier() !== null && $orderdetail->getSupplierPartNr() !== '') {
-                    $fieldName = mb_strtolower($orderdetail->getSupplier()->getName()) . '#';
+                    // When explicit flags exist, filter by resolved visibility
+                    $resolvedVisibility = $orderdetail->isEdaVisibility() ?? $this->kiCadEDASettings->defaultOrderdetailsVisibility;
+                    if ($hasExplicitEdaVisibility && !$resolvedVisibility) {
+                        continue;
+                    }
+
+                    $supplierName = $orderdetail->getSupplier()->getName() . ' SPN';
+
+                    if (!isset($supplierCounts[$supplierName])) {
+                        $supplierCounts[$supplierName] = 0;
+                    }
+                    $supplierCounts[$supplierName]++;
+
+                    // Create field name with sequential number if more than one from same supplier
+                    $fieldName = $supplierCounts[$supplierName] > 1
+                        ? $supplierName . ' ' . $supplierCounts[$supplierName]
+                        : $supplierName;
 
                     $result["fields"][$fieldName] = $this->createField($orderdetail->getSupplierPartNr());
+
+                    //Also add a KiCost-compatible field (supplier_name# = SPN)
+                    $kicostFieldName = mb_strtolower($orderdetail->getSupplier()->getName()) . '#';
+                    $result["fields"][$kicostFieldName] = $this->createField($orderdetail->getSupplierPartNr());
+                }
+            }
+        }
+
+        //Add stock quantity and storage locations (only count non-expired lots with known quantity)
+        $totalStock = 0;
+        $locations = [];
+        foreach ($part->getPartLots() as $lot) {
+            $isAvailable = !$lot->isInstockUnknown() && $lot->isExpired() !== true;
+            if ($isAvailable) {
+                $totalStock += $lot->getAmount();
+                if ($lot->getAmount() > 0 && $lot->getStorageLocation() !== null) {
+                    $locations[] = $lot->getStorageLocation()->getName();
+                }
+            }
+        }
+        $result['fields']['Stock'] = $this->createField($totalStock);
+        if ($locations !== []) {
+            $result['fields']['Storage Location'] = $this->createField(implode(', ', array_unique($locations)));
+        }
+
+        //Add parameters marked for EDA export (explicit true, or system default when null)
+        foreach ($part->getParameters() as $parameter) {
+            $paramVisibility = $parameter->isEdaVisibility() ?? $this->kiCadEDASettings->defaultParameterVisibility;
+            if ($paramVisibility && $parameter->getName() !== '') {
+                $fieldName = $parameter->getName();
+                //Don't overwrite hardcoded fields
+                if (!isset($result['fields'][$fieldName])) {
+                    $result['fields'][$fieldName] = $this->createField($parameter->getFormattedValue());
                 }
             }
         }
@@ -344,7 +400,7 @@ class KiCadHelper
 
         //If the user set a visibility, then use it
         if ($eda_info->getVisibility() !== null) {
-            return $part->getEdaInfo()->getVisibility();
+            return $eda_info->getVisibility();
         }
 
         //If the part has a category, then use the category visibility if possible
@@ -394,5 +450,65 @@ class KiCadHelper
             'value' => (string)$value,
             'visible' => $this->boolToKicadBool($visible),
         ];
+    }
+
+    /**
+     * Finds the URL to the actual datasheet file for the given part.
+     * Searches attachments by type name, attachment name, and file extension.
+     * @return string|null The datasheet URL, or null if no datasheet was found.
+     */
+    private function findDatasheetUrl(Part $part): ?string
+    {
+        $firstPdf = null;
+
+        foreach ($part->getAttachments() as $attachment) {
+            //Check if the attachment type name contains "datasheet"
+            $typeName = $attachment->getAttachmentType()?->getName() ?? '';
+            if (str_contains(mb_strtolower($typeName), 'datasheet')) {
+                return $this->getAttachmentUrl($attachment);
+            }
+
+            //Check if the attachment name contains "datasheet"
+            $name = mb_strtolower($attachment->getName());
+            if (str_contains($name, 'datasheet') || str_contains($name, 'data sheet')) {
+                return $this->getAttachmentUrl($attachment);
+            }
+
+            //Track first PDF as fallback (check internal extension or external URL path)
+            if ($firstPdf === null) {
+                $extension = $attachment->getExtension();
+                if ($extension === null && $attachment->hasExternal()) {
+                    $urlPath = parse_url($attachment->getExternalPath(), PHP_URL_PATH);
+                    $extension = is_string($urlPath) ? strtolower(pathinfo($urlPath, PATHINFO_EXTENSION)) : null;
+                }
+                if ($extension === 'pdf') {
+                    $firstPdf = $attachment;
+                }
+            }
+        }
+
+        //Use first PDF attachment as fallback
+        if ($firstPdf !== null) {
+            return $this->getAttachmentUrl($firstPdf);
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns an absolute URL for viewing the given attachment.
+     * Prefers the external URL (direct link) over the internal view route.
+     */
+    private function getAttachmentUrl(Attachment $attachment): string
+    {
+        if ($attachment->hasExternal()) {
+            return $attachment->getExternalPath();
+        }
+
+        return $this->urlGenerator->generate(
+            'attachment_view',
+            ['id' => $attachment->getId()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
     }
 }

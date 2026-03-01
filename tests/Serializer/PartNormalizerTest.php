@@ -136,4 +136,44 @@ final class PartNormalizerTest extends WebTestCase
         $this->assertEqualsWithDelta(1.0, $priceDetail->getPriceRelatedQuantity(), PHP_FLOAT_EPSILON);
         $this->assertEqualsWithDelta(1.0, $priceDetail->getMinDiscountQuantity(), PHP_FLOAT_EPSILON);
     }
+
+    public function testDenormalizeEdaFields(): void
+    {
+        $input = [
+            'name' => 'EDA Test Part',
+            'kicad_symbol' => 'Device:R',
+            'kicad_footprint' => 'Resistor_SMD:R_0805_2012Metric',
+            'kicad_reference' => 'R',
+            'kicad_value' => '10k',
+            'eda_exclude_bom' => 'true',
+            'eda_exclude_board' => 'false',
+        ];
+
+        $part = $this->service->denormalize($input, Part::class, 'json', ['groups' => ['import'], 'partdb_import' => true]);
+        $this->assertInstanceOf(Part::class, $part);
+        $this->assertSame('EDA Test Part', $part->getName());
+
+        $edaInfo = $part->getEdaInfo();
+        $this->assertSame('Device:R', $edaInfo->getKicadSymbol());
+        $this->assertSame('Resistor_SMD:R_0805_2012Metric', $edaInfo->getKicadFootprint());
+        $this->assertSame('R', $edaInfo->getReferencePrefix());
+        $this->assertSame('10k', $edaInfo->getValue());
+        $this->assertTrue($edaInfo->getExcludeFromBom());
+        $this->assertFalse($edaInfo->getExcludeFromBoard());
+    }
+
+    public function testDenormalizeEdaFieldsEmptyValuesIgnored(): void
+    {
+        $input = [
+            'name' => 'Part Without EDA',
+            'kicad_symbol' => '',
+            'kicad_footprint' => '',
+        ];
+
+        $part = $this->service->denormalize($input, Part::class, 'json', ['groups' => ['import'], 'partdb_import' => true]);
+
+        $edaInfo = $part->getEdaInfo();
+        $this->assertNull($edaInfo->getKicadSymbol());
+        $this->assertNull($edaInfo->getKicadFootprint());
+    }
 }

@@ -1,0 +1,88 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}batch_eda.title{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-bolt"></i> {% trans %}batch_eda.title{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+    <div class="mb-3">
+        <p>{% trans with {'%count%': parts|length} %}batch_eda.description{% endtrans %}</p>
+        <details>
+            <summary>{% trans %}batch_eda.show_parts{% endtrans %}</summary>
+            <ul class="list-unstyled ms-3 mt-1">
+                {% for part in parts %}
+                    <li><a href="{{ path('part_edit', {id: part.id}) }}">{{ part.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </details>
+    </div>
+
+    {{ form_start(form) }}
+
+    <p class="text-muted small">{% trans %}batch_eda.apply_hint{% endtrans %}</p>
+
+    <table class="table table-sm">
+        <thead>
+        <tr>
+            <th style="width: 30px;">{% trans %}batch_eda.apply{% endtrans %}</th>
+            <th>{% trans %}batch_eda.field{% endtrans %}</th>
+            <th>{% trans %}batch_eda.value{% endtrans %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="text-center align-middle">{{ form_widget(form.apply_reference_prefix) }}</td>
+            <td class="align-middle">{{ form_label(form.reference_prefix) }}</td>
+            <td>{{ form_widget(form.reference_prefix, {'attr': {'class': 'form-control-sm'}}) }}{{ form_errors(form.reference_prefix) }}</td>
+        </tr>
+        <tr>
+            <td class="text-center align-middle">{{ form_widget(form.apply_value) }}</td>
+            <td class="align-middle">{{ form_label(form.value) }}</td>
+            <td>{{ form_widget(form.value, {'attr': {'class': 'form-control-sm'}}) }}{{ form_errors(form.value) }}</td>
+        </tr>
+        <tr>
+            <td class="text-center align-middle">{{ form_widget(form.apply_kicad_symbol) }}</td>
+            <td class="align-middle">{{ form_label(form.kicad_symbol) }}</td>
+            <td>{{ form_widget(form.kicad_symbol) }}{{ form_errors(form.kicad_symbol) }}</td>
+        </tr>
+        <tr>
+            <td class="text-center align-middle">{{ form_widget(form.apply_kicad_footprint) }}</td>
+            <td class="align-middle">{{ form_label(form.kicad_footprint) }}</td>
+            <td>{{ form_widget(form.kicad_footprint) }}{{ form_errors(form.kicad_footprint) }}</td>
+        </tr>
+        <tr>
+            <td class="text-center align-middle">{{ form_widget(form.apply_visibility) }}</td>
+            <td class="align-middle">{{ form_label(form.visibility) }}</td>
+            <td>{{ form_widget(form.visibility) }}</td>
+        </tr>
+        <tr>
+            <td class="text-center align-middle">{{ form_widget(form.apply_exclude_from_bom) }}</td>
+            <td class="align-middle">{{ form_label(form.exclude_from_bom) }}</td>
+            <td>{{ form_widget(form.exclude_from_bom) }}</td>
+        </tr>
+        <tr>
+            <td class="text-center align-middle">{{ form_widget(form.apply_exclude_from_board) }}</td>
+            <td class="align-middle">{{ form_label(form.exclude_from_board) }}</td>
+            <td>{{ form_widget(form.exclude_from_board) }}</td>
+        </tr>
+        <tr>
+            <td class="text-center align-middle">{{ form_widget(form.apply_exclude_from_sim) }}</td>
+            <td class="align-middle">{{ form_label(form.exclude_from_sim) }}</td>
+            <td>{{ form_widget(form.exclude_from_sim) }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between">
+        {% if redirect_url %}
+            <a href="{{ redirect_url }}" class="btn btn-secondary">{% trans %}batch_eda.cancel{% endtrans %}</a>
+        {% else %}
+            <a href="{{ path('parts_show_all') }}" class="btn btn-secondary">{% trans %}batch_eda.cancel{% endtrans %}</a>
+        {% endif %}
+        {{ form_widget(form.submit) }}
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}

@@ -173,6 +173,13 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     protected string $group = '';
 
     /**
+     * @var bool|null Whether this parameter should be exported as a field in the EDA HTTP library API. Null means use system default.
+     */
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true, options: ['default' => null])]
+    protected ?bool $eda_visibility = null;
+
+    /**
      * Mapping is done in subclasses.
      *
      * @var AbstractDBElement|null the element to which this parameter belongs to
@@ -469,6 +476,21 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     public function getElementClass(): string
     {
         return static::ALLOWED_ELEMENT_CLASS;
+    }
+
+    public function isEdaVisibility(): ?bool
+    {
+        return $this->eda_visibility;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setEdaVisibility(?bool $eda_visibility): self
+    {
+        $this->eda_visibility = $eda_visibility;
+
+        return $this;
     }
 
     public function getComparableFields(): array

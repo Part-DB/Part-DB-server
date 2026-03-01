@@ -54,7 +54,9 @@ use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\Parameters\SupplierParameter;
 use App\Entity\Parts\MeasurementUnit;
 use App\Form\Type\ExponentialNumberType;
+use App\Form\Type\TriStateCheckboxType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -147,6 +149,14 @@ class ParameterType extends AbstractType
                 'class' => 'form-control-sm',
             ],
         ]);
+
+        // Only show the EDA visibility field for part parameters, as it has no function for other entities
+        if ($options['data_class'] === PartParameter::class) {
+            $builder->add('eda_visibility', TriStateCheckboxType::class, [
+                'label' => false,
+                'required' => false,
+            ]);
+        }
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options): void
