@@ -51,6 +51,9 @@ enum PartTableColumns : string implements TranslatableInterface
     case GTIN = "gtin";
     case TAGS = "tags";
     case ATTACHMENTS = "attachments";
+
+    case EDA_STATUS = "eda_status";
+
     case EDIT = "edit";
 
     public function trans(TranslatorInterface $translator, ?string $locale = null): string

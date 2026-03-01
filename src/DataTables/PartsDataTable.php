@@ -89,6 +89,10 @@ final class PartsDataTable implements DataTableTypeInterface
         $this->configureOptions($resolver);
         $options = $resolver->resolve($options);
 
+        /*************************************************************************************************************
+         * When adding columns here, add them also to PartTableColumns enum, to make them configurable in the settings!
+         *************************************************************************************************************/
+
         $this->csh
             //Color the table rows depending on the review and favorite status
             ->add('row_color', RowClassColumn::class, [
