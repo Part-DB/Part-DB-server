@@ -1,10 +1,10 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="it">
   <file id="messages.en">
     <unit id="x_wTSQS" name="attachment_type.caption">
       <segment state="translated">
         <source>attachment_type.caption</source>
-        <target>Tipi di file per allegati</target>
+        <target>Formati di file per gli allegati</target>
       </segment>
     </unit>
     <unit id="f_CALXB" name="attachment_type.edit">
@@ -59,12 +59,6 @@
       <segment state="translated">
         <source>category.new</source>
         <target>Nuova categoria</target>
-      </segment>
-    </unit>
-    <unit id="z1GMBc_" name="currency.caption">
-      <segment state="translated">
-        <source>currency.caption</source>
-        <target>Valuta</target>
       </segment>
     </unit>
     <unit id="KSFhj_3" name="currency.iso_code.caption">
@@ -244,12 +238,6 @@
         <target>Nuovo footprint</target>
       </segment>
     </unit>
-    <unit id="tvm4F9e" name="group.edit.caption">
-      <segment state="translated">
-        <source>group.edit.caption</source>
-        <target>Gruppi</target>
-      </segment>
-    </unit>
     <unit id="m27aWeR" name="user.edit.permissions">
       <segment state="translated">
         <source>user.edit.permissions</source>
@@ -272,12 +260,6 @@
       <segment state="translated">
         <source>group.new</source>
         <target>Nuovo gruppo</target>
-      </segment>
-    </unit>
-    <unit id="jXqdnm_" name="label_profile.caption">
-      <segment state="translated">
-        <source>label_profile.caption</source>
-        <target>Profili di etichette</target>
       </segment>
     </unit>
     <unit id="GgwITAf" name="label_profile.advanced">
@@ -310,12 +292,6 @@
         <target>Nuovo profilo di etichetta</target>
       </segment>
     </unit>
-    <unit id="r3pQ31P" name="manufacturer.caption">
-      <segment state="translated">
-        <source>manufacturer.caption</source>
-        <target>Produttori</target>
-      </segment>
-    </unit>
     <unit id="AVQBOWW" name="manufacturer.edit">
       <notes>
         <note category="state" priority="1">new</note>
@@ -332,18 +308,6 @@
       <segment state="translated">
         <source>manufacturer.new</source>
         <target>Nuovo produttore</target>
-      </segment>
-    </unit>
-    <unit id="3ra2AyY" name="measurement_unit.caption">
-      <segment state="translated">
-        <source>measurement_unit.caption</source>
-        <target>Unità di misura</target>
-      </segment>
-    </unit>
-    <unit id="3bcKBzY" name="part_custom_state.caption">
-      <segment state="translated">
-        <source>part_custom_state.caption</source>
-        <target>Stato personalizzato del componente</target>
       </segment>
     </unit>
     <unit id="crdkzlg" name="storelocation.labelp">
@@ -386,12 +350,6 @@
       <segment state="translated">
         <source>supplier.new</source>
         <target>Nuovo fornitore</target>
-      </segment>
-    </unit>
-    <unit id="vX.dhjK" name="user.edit.caption">
-      <segment state="translated">
-        <source>user.edit.caption</source>
-        <target>Utenti</target>
       </segment>
     </unit>
     <unit id="Ux8wVuF" name="user.edit.configuration">
@@ -1089,64 +1047,64 @@ I sub elementi saranno spostati verso l'alto.</target>
         <target>Avanzate</target>
       </segment>
     </unit>
-    <unit id="a1k7Blf" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+    <unit id="_iVXTDt" name="part.edit.tab.advanced.ipn.commonSectionHeader">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
-        <target>Suggerimenti senza incremento di parte</target>
+        <target>Suggerimenti senza incremento automatico</target>
       </segment>
     </unit>
-    <unit id="2achA.b" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+    <unit id="7.yHB9w" name="part.edit.tab.advanced.ipn.partIncrementHeader">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
-        <target>Suggerimenti con incrementi numerici delle parti</target>
+        <target>Suggerimenti con incremento numerico automatico</target>
       </segment>
     </unit>
-    <unit id="a7jKe3c" name="part.edit.tab.advanced.ipn.prefix.description.current-increment">
+    <unit id="H1o.JFb" name="part.edit.tab.advanced.ipn.prefix.description.current-increment">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.description.current-increment</source>
-        <target>Specifica IPN attuale per il pezzo</target>
+        <target>Specifiche IPN attuali del componente</target>
       </segment>
     </unit>
-    <unit id="kEco9iX" name="part.edit.tab.advanced.ipn.prefix.description.increment">
+    <unit id="wt.Rn7C" name="part.edit.tab.advanced.ipn.prefix.description.increment">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.description.increment</source>
-        <target>Prossima specifica IPN possibile basata su una descrizione identica del pezzo</target>
+        <target>Prossimo schema IPN suggerito in base a una descrizione componente identica</target>
       </segment>
     </unit>
-    <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+    <unit id="RXA8jNa" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
-        <target>Il prefisso IPN della categoria diretta è vuoto, specificarlo nella categoria "%name%"</target>
+        <target>Il prefisso IPN della categoria assegnata è vuoto. Definirne uno nella categoria "%name%"</target>
       </segment>
     </unit>
-    <unit id="ec2DiJd" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+    <unit id="fdSIyqC" name="part.edit.tab.advanced.ipn.prefix.direct_category">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
-        <target>Prefisso IPN della categoria diretta</target>
+        <target>Prefisso IPN della categoria assegnata al componente</target>
       </segment>
     </unit>
-    <unit id="2e.kJb4" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+    <unit id="0l7ST7C" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
-        <target>Prefisso IPN della categoria diretta e di un incremento specifico della parte</target>
+        <target>Prefisso IPN della categoria assegnata e incremento specifico del componente</target>
       </segment>
     </unit>
-    <unit id="ba1GCoq" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+    <unit id="1Y9qoug" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
-        <target>Prefissi IPN con ordine gerarchico delle categorie dei prefissi padre</target>
+        <target>Prefissi IPN secondo la gerarchia delle categorie (inclusi i prefissi delle categorie padre)</target>
       </segment>
     </unit>
-    <unit id="d1uVFa3" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+    <unit id="a6_204L" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
-        <target>Prefissi IPN con ordine gerarchico delle categorie dei prefissi padre e un incremento specifico per il pezzo</target>
+        <target>Prefissi IPN con ordine gerarchico delle categorie padre e incremento specifico del componente</target>
       </segment>
     </unit>
-    <unit id="a4rPagW" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+    <unit id="VS8w2qp" name="part.edit.tab.advanced.ipn.prefix.not_saved">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
-        <target>Crea prima un componente e assegnagli una categoria: con le categorie esistenti e i loro propri prefissi IPN, l'identificativo IPN per il componente può essere suggerito automaticamente</target>
+        <target>Per prima cosa, crea una parte e assegnala a una categoria: con le categorie esistenti e il proprio prefisso IPN, l'IPN per la parte può essere suggerito automaticamente</target>
       </segment>
     </unit>
     <unit id="c3S4jwK" name="part.edit.tab.part_lots">
@@ -2871,10 +2829,10 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
         <target>Unità di misura</target>
       </segment>
     </unit>
-    <unit id="G1hmQdb" name="part.table.partCustomState">
+    <unit id="JjTO6Nq" name="part.table.partCustomState">
       <segment state="translated">
         <source>part.table.partCustomState</source>
-        <target>Stato personalizzato del componente</target>
+        <target>Stato personalizzato</target>
       </segment>
     </unit>
     <unit id="R5pc2FR" name="part.table.addedDate">
@@ -3399,10 +3357,10 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
         <target>Unità di misura</target>
       </segment>
     </unit>
-    <unit id="G1hmQdb" name="part.edit.partCustomState">
+    <unit id="ro8Iwr_" name="part.edit.partCustomState">
       <segment state="translated">
         <source>part.edit.partCustomState</source>
-        <target>Stato personalizzato della parte</target>
+        <target>Stato personalizzato del componente</target>
       </segment>
     </unit>
     <unit id="oY_9HE9" name="part.edit.comment">
@@ -3573,10 +3531,10 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
         <target>Unità di misura</target>
       </segment>
     </unit>
-    <unit id="a1mPcMw" name="part_custom_state.label">
+    <unit id="NpDx4rr" name="part_custom_state.label">
       <segment state="translated">
         <source>part_custom_state.label</source>
-        <target>Stato personalizzato della parte</target>
+        <target>Stato personalizzato</target>
       </segment>
     </unit>
     <unit id="__SP1Zy" name="currency.label">
@@ -3726,10 +3684,10 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
         <target>Unità di misura</target>
       </segment>
     </unit>
-    <unit id="5adacKb" name="tree.tools.edit.part_custom_state">
+    <unit id="oYLWbbv" name="tree.tools.edit.part_custom_state">
       <segment state="translated">
         <source>tree.tools.edit.part_custom_state</source>
-        <target>Stato personalizzato del componente</target>
+        <target>[[Part_custom_state]]</target>
       </segment>
     </unit>
     <unit id=".Ux4R3T" name="tree.tools.edit.label_profile">
@@ -4388,10 +4346,10 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
         <target>Filtro nome</target>
       </segment>
     </unit>
-    <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
+    <unit id="a37rx0r" name="category.edit.part_ipn_prefix">
       <segment state="translated">
         <source>category.edit.part_ipn_prefix</source>
-        <target>Prefisso parte IPN</target>
+        <target>Prefisso IPN del componente</target>
       </segment>
     </unit>
     <unit id="yY_ld.7" name="category.edit.default_description">
@@ -4940,16 +4898,6 @@ Element 3</target>
         <target>Sistema</target>
       </segment>
     </unit>
-    <unit id="QpKjLiE" name="perm.parts">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.parts</source>
-        <target>Componenti</target>
-      </segment>
-    </unit>
     <unit id="lkP7BGp" name="perm.read">
       <notes>
         <note priority="1">obsolete</note>
@@ -5210,16 +5158,6 @@ Element 3</target>
         <target>Ordini</target>
       </segment>
     </unit>
-    <unit id="9e70TDD" name="perm.storelocations">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.storelocations</source>
-        <target>Ubicazioni</target>
-      </segment>
-    </unit>
     <unit id="iKqTace" name="perm.move">
       <notes>
         <note priority="1">obsolete</note>
@@ -5238,66 +5176,6 @@ Element 3</target>
       <segment state="translated">
         <source>perm.list_parts</source>
         <target>Lista dei componenti</target>
-      </segment>
-    </unit>
-    <unit id="qp4Nw88" name="perm.part.footprints">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.part.footprints</source>
-        <target>Footprint</target>
-      </segment>
-    </unit>
-    <unit id="ochCbWd" name="perm.part.categories">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.part.categories</source>
-        <target>Categorie</target>
-      </segment>
-    </unit>
-    <unit id="gJeta6V" name="perm.part.supplier">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.part.supplier</source>
-        <target>Fornitori</target>
-      </segment>
-    </unit>
-    <unit id="AAW9ULn" name="perm.part.manufacturers">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.part.manufacturers</source>
-        <target>Produttori</target>
-      </segment>
-    </unit>
-    <unit id="xIsPPzY" name="perm.projects">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.projects</source>
-        <target>Progetti</target>
-      </segment>
-    </unit>
-    <unit id="Fa9cXuf" name="perm.part.attachment_types">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.part.attachment_types</source>
-        <target>Tipi di allegati</target>
       </segment>
     </unit>
     <unit id="lIHo4Hd" name="perm.tools.import">
@@ -5810,12 +5688,6 @@ Element 3</target>
         <target>Unità di misura</target>
       </segment>
     </unit>
-    <unit id="1b5ja1c" name="perm.part_custom_states">
-      <segment state="translated">
-        <source>perm.part_custom_states</source>
-        <target>Stato personalizzato del componente</target>
-      </segment>
-    </unit>
     <unit id="coNue69" name="user.settings.pw_old.label">
       <notes>
         <note priority="1">obsolete</note>
@@ -5870,16 +5742,6 @@ Element 3</target>
       <segment state="translated">
         <source>tfa.provider.google</source>
         <target>Authenticator app</target>
-      </segment>
-    </unit>
-    <unit id="fGkpjYW" name="Login successful">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>Login successful</source>
-        <target>Accesso riuscito!</target>
       </segment>
     </unit>
     <unit id="KSHVrbr" name="log.type.exception">
@@ -5996,15 +5858,6 @@ Element 3</target>
       <segment state="translated">
         <source>perm.tools.timeTravel</source>
         <target>Mostra gli stati delle vecchie versioni (viaggio nel tempo)</target>
-      </segment>
-    </unit>
-    <unit id="VhxhtYo" name="Username">
-      <notes>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>Username</source>
-        <target>Nome utente</target>
       </segment>
     </unit>
     <unit id="gDVCAxj" name="log.type.security.google_disabled">
@@ -6245,6 +6098,12 @@ Element 3</target>
       <segment state="translated">
         <source>part.table.edit.title</source>
         <target>Modificare componente</target>
+      </segment>
+    </unit>
+    <unit id="keLmdcq" name="part_list.action.scrollable_hint">
+      <segment state="translated">
+        <source>part_list.action.scrollable_hint</source>
+        <target>Scorrere per vedere tutte le azioni</target>
       </segment>
     </unit>
     <unit id="w3XOUoO" name="part_list.action.action.title">
@@ -6629,6 +6488,72 @@ Element 3</target>
       <segment state="translated">
         <source>part.filter.attachmentName</source>
         <target>Nome dell'allegato</target>
+      </segment>
+    </unit>
+    <unit id="_5zM4Zv" name="filter.bulk_import_job.label">
+      <segment state="translated">
+        <source>filter.bulk_import_job.label</source>
+        <target>Attività di importazione massiva</target>
+      </segment>
+    </unit>
+    <unit id="rXReB8s" name="filter.bulk_import_job.job_status">
+      <segment state="translated">
+        <source>filter.bulk_import_job.job_status</source>
+        <target>Stato importazione</target>
+      </segment>
+    </unit>
+    <unit id="VSY.FIr" name="filter.bulk_import_job.part_status_in_job">
+      <segment state="translated">
+        <source>filter.bulk_import_job.part_status_in_job</source>
+        <target>Stato elaborazione componente</target>
+      </segment>
+    </unit>
+    <unit id="2Euegw5" name="filter.bulk_import_job.status.pending">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.pending</source>
+        <target>In attesa</target>
+      </segment>
+    </unit>
+    <unit id="JT3CbaE" name="filter.bulk_import_job.status.in_progress">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.in_progress</source>
+        <target>In esecuzione</target>
+      </segment>
+    </unit>
+    <unit id="J9uBFFo" name="filter.bulk_import_job.status.completed">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.completed</source>
+        <target>Completato</target>
+      </segment>
+    </unit>
+    <unit id="lv4PVt2" name="filter.bulk_import_job.status.stopped">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.stopped</source>
+        <target>Interrotto</target>
+      </segment>
+    </unit>
+    <unit id="0qKD5hC" name="filter.bulk_import_job.status.failed">
+      <segment state="translated">
+        <source>filter.bulk_import_job.status.failed</source>
+        <target>Fallito</target>
+      </segment>
+    </unit>
+    <unit id="q35A9Tf" name="filter.bulk_import_job.part_status.pending">
+      <segment state="translated">
+        <source>filter.bulk_import_job.part_status.pending</source>
+        <target>In attesa</target>
+      </segment>
+    </unit>
+    <unit id=".Bxg5IL" name="filter.bulk_import_job.part_status.completed">
+      <segment state="translated">
+        <source>filter.bulk_import_job.part_status.completed</source>
+        <target>Completato</target>
+      </segment>
+    </unit>
+    <unit id="kRFtBzL" name="filter.bulk_import_job.part_status.skipped">
+      <segment state="translated">
+        <source>filter.bulk_import_job.part_status.skipped</source>
+        <target>Saltato</target>
       </segment>
     </unit>
     <unit id="YcIyWEZ" name="filter.choice_constraint.operator.ANY">
@@ -7573,7 +7498,7 @@ Element 3</target>
         <target>es. "/Condensatore \d+ nF/i"</target>
       </segment>
     </unit>
-    <unit id="OXeGz1A" name="category.edit.part_ipn_prefix.placeholder">
+    <unit id="5zV57Ks" name="category.edit.part_ipn_prefix.placeholder">
       <segment state="translated">
         <source>category.edit.part_ipn_prefix.placeholder</source>
         <target>es. "B12A"</target>
@@ -7585,10 +7510,10 @@ Element 3</target>
         <target>Un'espressione regolare compatibile con PCRE che il nome del componente deve soddisfare.</target>
       </segment>
     </unit>
-    <unit id="a1bUsfJ" name="category.edit.part_ipn_prefix.help">
+    <unit id="f3gkGc9" name="category.edit.part_ipn_prefix.help">
       <segment state="translated">
         <source>category.edit.part_ipn_prefix.help</source>
-        <target>Un prefisso suggerito durante l'inserimento dell'IPN di una parte.</target>
+        <target>Prefisso suggerito durante l’inserimento dell’IPN del componente</target>
       </segment>
     </unit>
     <unit id="GzqIwHH" name="entity.select.add_hint">
@@ -8137,10 +8062,10 @@ Element 3</target>
         <target>Unità di misura</target>
       </segment>
     </unit>
-    <unit id="2COnw1k" name="log.element_edited.changed_fields.partCustomState">
+    <unit id="8QD.2.r" name="log.element_edited.changed_fields.partCustomState">
       <segment state="translated">
         <source>log.element_edited.changed_fields.partCustomState</source>
-        <target>Stato personalizzato della parte</target>
+        <target>Stato personalizzato del componente</target>
       </segment>
     </unit>
     <unit id="c9XMmAp" name="log.element_edited.changed_fields.expiration_date">
@@ -8219,6 +8144,12 @@ Element 3</target>
       <segment state="translated">
         <source>part_list.action.export_xml</source>
         <target>Esportare come XML</target>
+      </segment>
+    </unit>
+    <unit id="X.gTRGX" name="part_list.action.export_xlsx">
+      <segment state="translated">
+        <source>part_list.action.export_xlsx</source>
+        <target>Esportare in Excel</target>
       </segment>
     </unit>
     <unit id="w0AgPEI" name="parts.import.title">
@@ -8401,16 +8332,16 @@ Element 3</target>
         <target>Modificare l'unità di misura</target>
       </segment>
     </unit>
-    <unit id="ba52d.g" name="part_custom_state.new">
+    <unit id="Ae0GMtY" name="part_custom_state.new">
       <segment state="translated">
         <source>part_custom_state.new</source>
-        <target>Nuovo stato personalizzato del componente</target>
+        <target>Nuovo [part_custom_state]</target>
       </segment>
     </unit>
-    <unit id="c1.gb2d" name="part_custom_state.edit">
+    <unit id="5uZ23wR" name="part_custom_state.edit">
       <segment state="translated">
         <source>part_custom_state.edit</source>
-        <target>Modifica stato personalizzato del componente</target>
+        <target>Modifica [part_custom_state]</target>
       </segment>
     </unit>
     <unit id="uW2WHHC" name="user.aboutMe.label">
@@ -9609,6 +9540,529 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>Profilo salvato!</target>
       </segment>
     </unit>
+    <unit id="XUlcyOb" name="settings.ips.element14">
+      <segment state="translated">
+        <source>settings.ips.element14</source>
+        <target>Element 14 / Farnell</target>
+      </segment>
+    </unit>
+    <unit id="1N9Wp0_" name="settings.ips.element14.apiKey">
+      <segment state="translated">
+        <source>settings.ips.element14.apiKey</source>
+        <target>API Key</target>
+      </segment>
+    </unit>
+    <unit id="p7LGAIX" name="settings.ips.element14.apiKey.help">
+      <segment state="translated">
+        <source>settings.ips.element14.apiKey.help</source>
+        <target>Per ottenere una API Key puoi registrarti su &lt;a href="https://partner.element14.com/"&gt;https://partner.element14.com/&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="ZdUHpZc" name="settings.ips.element14.storeId">
+      <segment state="translated">
+        <source>settings.ips.element14.storeId</source>
+        <target>Store Domain</target>
+      </segment>
+    </unit>
+    <unit id="XXGUxF6" name="settings.ips.element14.storeId.help">
+      <segment state="translated">
+        <source>settings.ips.element14.storeId.help</source>
+        <target>Lo Store Domain da cui recuperare i dati. Questo determina la lingua e la valuta dei risultati. Per un elenco dei domini validi, vedere &lt;a href="https://partner.element14.com/docs/Product_Search_API_REST__Description"&gt;here&lt;/a&gt;</target>
+      </segment>
+    </unit>
+    <unit id="WKWZIm2" name="settings.ips.tme">
+      <segment state="translated">
+        <source>settings.ips.tme</source>
+        <target>TME</target>
+      </segment>
+    </unit>
+    <unit id="KgK78ks" name="settings.ips.tme.token">
+      <segment state="translated">
+        <source>settings.ips.tme.token</source>
+        <target>API Token</target>
+      </segment>
+    </unit>
+    <unit id="_pYLrPT" name="settings.ips.tme.token.help">
+      <segment state="translated">
+        <source>settings.ips.tme.token.help</source>
+        <target>Puoi ottenere un API token e secret su &lt;a href="https://developers.tme.eu/en/"&gt;https://developers.tme.eu/en/&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="yswx4bq" name="settings.ips.tme.secret">
+      <segment state="translated">
+        <source>settings.ips.tme.secret</source>
+        <target>API Secret</target>
+      </segment>
+    </unit>
+    <unit id="edYZA5y" name="settings.ips.tme.currency">
+      <segment state="translated">
+        <source>settings.ips.tme.currency</source>
+        <target>Valuta</target>
+      </segment>
+    </unit>
+    <unit id="EsVqpUJ" name="settings.ips.tme.language">
+      <segment state="translated">
+        <source>settings.ips.tme.language</source>
+        <target>Lingua</target>
+      </segment>
+    </unit>
+    <unit id="qFwUGJJ" name="settings.ips.tme.country">
+      <segment state="translated">
+        <source>settings.ips.tme.country</source>
+        <target>Nazione</target>
+      </segment>
+    </unit>
+    <unit id="Mf2WKob" name="settings.ips.tme.grossPrices">
+      <segment state="translated">
+        <source>settings.ips.tme.grossPrices</source>
+        <target>Ottieni i prezzi lordi (tasse incluse)</target>
+      </segment>
+    </unit>
+    <unit id="A.x1dyH" name="settings.ips.mouser">
+      <segment state="translated">
+        <source>settings.ips.mouser</source>
+        <target>Mouser</target>
+      </segment>
+    </unit>
+    <unit id="5ZxvqyY" name="settings.ips.mouser.apiKey">
+      <segment state="translated">
+        <source>settings.ips.mouser.apiKey</source>
+        <target>API Key</target>
+      </segment>
+    </unit>
+    <unit id="gu.JlpT" name="settings.ips.mouser.apiKey.help">
+      <segment state="translated">
+        <source>settings.ips.mouser.apiKey.help</source>
+        <target>Per ottenere una API key puoi registrarti su &lt;a href="https://eu.mouser.com/api-hub/"&gt;https://eu.mouser.com/api-hub/&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="Q66CNjw" name="settings.ips.mouser.searchLimit">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchLimit</source>
+        <target>Limite di ricerca</target>
+      </segment>
+    </unit>
+    <unit id="aj5nhIi" name="settings.ips.mouser.searchLimit.help">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchLimit.help</source>
+        <target>Numero massimo di risultati per una singola ricerca. Non può essere superiore a 50.</target>
+      </segment>
+    </unit>
+    <unit id="q8.Wpbu" name="settings.ips.mouser.searchOptions">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions</source>
+        <target>Filtri di ricerca</target>
+      </segment>
+    </unit>
+    <unit id="7ERXoOf" name="settings.ips.mouser.searchOptions.help">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.help</source>
+        <target>Permette di mostrare solo i componenti con una specifica disponibilità e/o conformità.</target>
+      </segment>
+    </unit>
+    <unit id="2_fx.rT" name="settings.ips.mouser.searchOptions.none">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.none</source>
+        <target>Nessun filtro</target>
+      </segment>
+    </unit>
+    <unit id=".PbDhl9" name="settings.ips.mouser.searchOptions.rohs">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.rohs</source>
+        <target>Solo componenti conformi RoHS</target>
+      </segment>
+    </unit>
+    <unit id="4SPypVz" name="settings.ips.mouser.searchOptions.inStock">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.inStock</source>
+        <target>Solo componenti disponibili a magazzino</target>
+      </segment>
+    </unit>
+    <unit id="xU8_Qw." name="settings.ips.mouser.searchOptions.rohsAndInStock">
+      <segment state="translated">
+        <source>settings.ips.mouser.searchOptions.rohsAndInStock</source>
+        <target>Solo componenti disponibili a magazzino e conformi RoHS</target>
+      </segment>
+    </unit>
+    <unit id="fQYt0Om" name="settings.ips.lcsc">
+      <segment state="translated">
+        <source>settings.ips.lcsc</source>
+        <target>LCSC</target>
+      </segment>
+    </unit>
+    <unit id="iD6HBym" name="settings.ips.lcsc.help">
+      <segment state="translated">
+        <source>settings.ips.lcsc.help</source>
+        <target>Avvertenza: LCSC non mette a disposizione un’API ufficiale. Questo provider utilizza l’API del webshop, il cui impiego non è previsto da LCSC e potrebbe cessare di funzionare in qualsiasi momento. L’utilizzo è a proprio rischio.</target>
+      </segment>
+    </unit>
+    <unit id="v7inGbo" name="settings.ips.lcsc.enabled">
+      <segment state="translated">
+        <source>settings.ips.lcsc.enabled</source>
+        <target>Abilitare</target>
+      </segment>
+    </unit>
+    <unit id="3KcMouQ" name="settings.ips.lcsc.currency">
+      <segment state="translated">
+        <source>settings.ips.lcsc.currency</source>
+        <target>Valuta</target>
+      </segment>
+    </unit>
+    <unit id="kKv0J3." name="settings.system.attachments">
+      <segment state="translated">
+        <source>settings.system.attachments</source>
+        <target>Allegati &amp; File</target>
+      </segment>
+    </unit>
+    <unit id="dsRff8T" name="settings.system.attachments.maxFileSize">
+      <segment state="translated">
+        <source>settings.system.attachments.maxFileSize</source>
+        <target>Dimensione massima del file</target>
+      </segment>
+    </unit>
+    <unit id="uI1XsbJ" name="settings.system.attachments.maxFileSize.help">
+      <segment state="translated">
+        <source>settings.system.attachments.maxFileSize.help</source>
+        <target>Dimensione massima consentita per i file caricati. Il limite effettivo può dipendere anche dalla configurazione di PHP.</target>
+      </segment>
+    </unit>
+    <unit id="sIt9Ovp" name="settings.system.attachments.allowDownloads">
+      <segment state="translated">
+        <source>settings.system.attachments.allowDownloads</source>
+        <target>Consentire il download di file esterni</target>
+      </segment>
+    </unit>
+    <unit id="T.PBu5P" name="settings.system.attachments.allowDownloads.help">
+      <segment state="translated">
+        <source>settings.system.attachments.allowDownloads.help</source>
+        <target>Con questa opzione gli utenti possono importare file esterni in Part-DB fornendo un URL. &lt;b&gt;Attenzione: questa funzionalità può comportare un rischio di sicurezza, poiché potrebbe permettere l’accesso a risorse intranet attraverso Part-DB!&lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id=".OyihML" name="settings.system.attachments.downloadByDefault">
+      <segment state="translated">
+        <source>settings.system.attachments.downloadByDefault</source>
+        <target>Scarica automaticamente i nuovi URL degli allegati</target>
+      </segment>
+    </unit>
+    <unit id="UuDCaUI" name="settings.system.customization">
+      <segment state="translated">
+        <source>settings.system.customization</source>
+        <target>Personalizzazione</target>
+      </segment>
+    </unit>
+    <unit id="VYMqQr5" name="settings.system.customization.instanceName">
+      <segment state="translated">
+        <source>settings.system.customization.instanceName</source>
+        <target>Nome dell’istanza</target>
+      </segment>
+    </unit>
+    <unit id="0YFxSHZ" name="settings.system.customization.instanceName.help">
+      <segment state="translated">
+        <source>settings.system.customization.instanceName.help</source>
+        <target>Nome di questa installazione di Part-DB. Il valore viene visualizzato nella barra di navigazione e nei titoli.</target>
+      </segment>
+    </unit>
+    <unit id="28n6rA7" name="settings.system.customization.banner">
+      <segment state="translated">
+        <source>settings.system.customization.banner</source>
+        <target>Banner della homepage</target>
+      </segment>
+    </unit>
+    <unit id="cdwJbbA" name="settings.system.history">
+      <segment state="translated">
+        <source>settings.system.history</source>
+        <target>Log storico</target>
+      </segment>
+    </unit>
+    <unit id="6TrsK5U" name="settings.system.history.saveChangedFields">
+      <segment state="translated">
+        <source>settings.system.history.saveChangedFields</source>
+        <target>Salvare nei log quali campi di un elemento sono stati modificati</target>
+      </segment>
+    </unit>
+    <unit id="IVP9YL8" name="settings.system.history.saveOldData">
+      <segment state="translated">
+        <source>settings.system.history.saveOldData</source>
+        <target>Salvare nei log i dati precedenti in caso di modifiche a un elemento</target>
+      </segment>
+    </unit>
+    <unit id="clqgFOW" name="settings.system.history.saveNewData">
+      <segment state="translated">
+        <source>settings.system.history.saveNewData</source>
+        <target>Salvare nei log i nuovi dati in caso di modifica o creazione di un elemento</target>
+      </segment>
+    </unit>
+    <unit id="MITi2KP" name="settings.system.history.saveRemovedData">
+      <segment state="translated">
+        <source>settings.system.history.saveRemovedData</source>
+        <target>Salvare nei log i dati rimossi in caso di eliminazione di un elemento</target>
+      </segment>
+    </unit>
+    <unit id="pinyqu2" name="settings.system.customization.theme">
+      <segment state="translated">
+        <source>settings.system.customization.theme</source>
+        <target>Tema dell’applicazione</target>
+      </segment>
+    </unit>
+    <unit id="Aky9nXE" name="settings.system.history.enforceComments">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments</source>
+        <target>Richiedere commenti per determinati tipi di azione</target>
+      </segment>
+    </unit>
+    <unit id="axivgKB" name="settings.system.history.enforceComments.description">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.description</source>
+        <target>Con questa opzione è possibile specificare per quali azioni gli utenti sono obbligati a fornire una motivazione, che verrà registrata nello storico.</target>
+      </segment>
+    </unit>
+    <unit id="eqQKTzQ" name="settings.system.history.enforceComments.type.part_edit">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.part_edit</source>
+        <target>Modifica componente</target>
+      </segment>
+    </unit>
+    <unit id="Ip_kAO3" name="settings.system.history.enforceComments.type.part_create">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.part_create</source>
+        <target>Creazione componente</target>
+      </segment>
+    </unit>
+    <unit id="qEa.03L" name="settings.system.history.enforceComments.type.part_delete">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.part_delete</source>
+        <target>Eliminazione componente</target>
+      </segment>
+    </unit>
+    <unit id="zjITvo2" name="settings.system.history.enforceComments.type.part_stock_operation">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.part_stock_operation</source>
+        <target>Movimento di magazzino del componente</target>
+      </segment>
+    </unit>
+    <unit id="hPbibkF" name="settings.system.history.enforceComments.type.datastructure_edit">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.datastructure_edit</source>
+        <target>Modifica struttura dati</target>
+      </segment>
+    </unit>
+    <unit id="7mB_fP3" name="settings.system.history.enforceComments.type.datastructure_create">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.datastructure_create</source>
+        <target>Creazione struttura dati</target>
+      </segment>
+    </unit>
+    <unit id="nt8eToz" name="settings.system.history.enforceComments.type.datastructure_delete">
+      <segment state="translated">
+        <source>settings.system.history.enforceComments.type.datastructure_delete</source>
+        <target>Eliminazione struttura dati</target>
+      </segment>
+    </unit>
+    <unit id="zQ8vq5N" name="settings.system.privacy.useGravatar">
+      <segment state="translated">
+        <source>settings.system.privacy.useGravatar</source>
+        <target>Utilizzare avatar Gravatar</target>
+      </segment>
+    </unit>
+    <unit id="8IszKgp" name="settings.system.privacy.useGravatar.description">
+      <segment state="translated">
+        <source>settings.system.privacy.useGravatar.description</source>
+        <target>Se un utente non ha un’immagine avatar impostata, utilizzare l’avatar di Gravatar in base all’indirizzo e-mail dell’utente. Ciò comporta il caricamento di immagini da un servizio di terze parti.</target>
+      </segment>
+    </unit>
+    <unit id="rxHBzbv" name="settings.system.privacy.checkForUpdates">
+      <segment state="translated">
+        <source>settings.system.privacy.checkForUpdates</source>
+        <target>Verificare la disponibilità di aggiornamenti per Part-DB</target>
+      </segment>
+    </unit>
+    <unit id="LrAcb0O" name="settings.system.privacy.checkForUpdates.description">
+      <segment state="translated">
+        <source>settings.system.privacy.checkForUpdates.description</source>
+        <target>Part-DB verifica regolarmente la disponibilità di nuove versioni su GitHub. Disabilitare questa funzione se non si desidera effettuare tale verifica oppure se il server non può connettersi a Internet.</target>
+      </segment>
+    </unit>
+    <unit id="nMhHcYc" name="settings.system.localization.locale">
+      <segment state="translated">
+        <source>settings.system.localization.locale</source>
+        <target>Lingua / impostazioni locali predefinite</target>
+      </segment>
+    </unit>
+    <unit id="vWBNX1b" name="settings.system.localization">
+      <segment state="translated">
+        <source>settings.system.localization</source>
+        <target>Localizzazione</target>
+      </segment>
+    </unit>
+    <unit id="7_M.HcK" name="settings.system.localization.timezone">
+      <segment state="translated">
+        <source>settings.system.localization.timezone</source>
+        <target>Fuso orario predefinito</target>
+      </segment>
+    </unit>
+    <unit id="CCMOzX7" name="settings.system.localization.base_currency">
+      <segment state="translated">
+        <source>settings.system.localization.base_currency</source>
+        <target>Valuta base</target>
+      </segment>
+    </unit>
+    <unit id="0GRlEe5" name="settings.system.localization.base_currency_description">
+      <segment state="translated">
+        <source>settings.system.localization.base_currency_description</source>
+        <target>Valuta utilizzata per memorizzare le informazioni sui prezzi e i tassi di cambio. Questa valuta viene utilizzata come riferimento quando per un prezzo non è specificata alcuna valuta.
+&lt;b&gt;Attenzione: le valute non vengono convertite automaticamente quando si modifica questo valore. Pertanto, cambiare la valuta predefinita dopo aver già inserito informazioni sui prezzi comporterà valori errati!&lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id="cvpTUeY" name="settings.system.privacy">
+      <segment state="translated">
+        <source>settings.system.privacy</source>
+        <target>Privacy</target>
+      </segment>
+    </unit>
+    <unit id="TVAVZUl" name="settings.title">
+      <segment state="translated">
+        <source>settings.title</source>
+        <target>Impostazioni del server</target>
+      </segment>
+    </unit>
+    <unit id="xtw_ol7" name="settings.misc.kicad_eda">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda</source>
+        <target>Integrazione KiCAD</target>
+      </segment>
+    </unit>
+    <unit id="8u9_KDD" name="settings.misc.kicad_eda.category_depth">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.category_depth</source>
+        <target>Profondità categoria</target>
+      </segment>
+    </unit>
+    <unit id="w07P3Dt" name="settings.misc.kicad_eda.category_depth.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.category_depth.help</source>
+        <target>Questo valore determina la profondità dell’albero delle categorie visibile in KiCad. 0 indica che sono visibili solo le categorie di primo livello. Impostare un valore &gt; 0 per mostrare livelli aggiuntivi. Impostare -1 per visualizzare tutti i componenti di Part-DB all’interno di un’unica categoria in KiCad.</target>
+      </segment>
+    </unit>
+    <unit id="VwvmcWE" name="settings.behavior.sidebar">
+      <segment state="translated">
+        <source>settings.behavior.sidebar</source>
+        <target>Barra laterale</target>
+      </segment>
+    </unit>
+    <unit id="FIneGzR" name="settings.behavior.sidebar.items">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.items</source>
+        <target>Elementi della barra laterale</target>
+      </segment>
+    </unit>
+    <unit id="jc0JTvL" name="settings.behavior.sidebar.items.help">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.items.help</source>
+        <target>I menu visualizzati nella barra laterale per impostazione predefinita. L’ordine degli elementi può essere modificato tramite drag &amp; drop.</target>
+      </segment>
+    </unit>
+    <unit id="gVSWDkE" name="settings.behavior.sidebar.rootNodeEnabled">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.rootNodeEnabled</source>
+        <target>Utilizzare il nodo radice</target>
+      </segment>
+    </unit>
+    <unit id="uk0yKdg" name="settings.behavior.sidebar.rootNodeEnabled.help">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.rootNodeEnabled.help</source>
+        <target>Se abilitato, tutte le categorie di primo livello, i footprint, ecc. verranno inseriti sotto un unico nodo radice. Se disabilitato, le categorie di primo livello verranno inserite direttamente nel menu.</target>
+      </segment>
+    </unit>
+    <unit id="brCNh0M" name="settings.behavior.sidebar.rootNodeExpanded">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.rootNodeExpanded</source>
+        <target>Espandere il nodo radice per impostazione predefinita</target>
+      </segment>
+    </unit>
+    <unit id="NkW8ELV" name="settings.behavior.table">
+      <segment state="translated">
+        <source>settings.behavior.table</source>
+        <target>Tabelle</target>
+      </segment>
+    </unit>
+    <unit id="1Zrv2eZ" name="settings.behavior.table.default_page_size">
+      <segment state="translated">
+        <source>settings.behavior.table.default_page_size</source>
+        <target>Dimensione pagina predefinita</target>
+      </segment>
+    </unit>
+    <unit id="lbx.zdp" name="settings.behavior.table.default_page_size.help">
+      <segment state="translated">
+        <source>settings.behavior.table.default_page_size.help</source>
+        <target>Numero di elementi per pagina predefinito nelle tabelle a pagina intera. Impostare -1 per mostrare tutti gli elementi per impostazione predefinita, senza paginazione.</target>
+      </segment>
+    </unit>
+    <unit id="G1N8QW3" name="settings.behavior.table.parts_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.parts_default_columns</source>
+        <target>Colonne predefinite per le tabelle dei componenti</target>
+      </segment>
+    </unit>
+    <unit id="SUD8H3b" name="settings.behavior.table.parts_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.parts_default_columns.help</source>
+        <target>Colonne da visualizzare per impostazione predefinita nelle tabelle dei componenti. L’ordine degli elementi può essere modificato tramite drag &amp; drop.</target>
+      </segment>
+    </unit>
+    <unit id="hazr_g5" name="settings.ips.oemsecrets">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets</source>
+        <target>OEMSecrets</target>
+      </segment>
+    </unit>
+    <unit id="ljRPsNX" name="settings.ips.oemsecrets.keepZeroPrices">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.keepZeroPrices</source>
+        <target>Includere i distributori con prezzo zero</target>
+      </segment>
+    </unit>
+    <unit id="c7YTKEY" name="settings.ips.oemsecrets.keepZeroPrices.help">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.keepZeroPrices.help</source>
+        <target>Se non impostato, i distributori con prezzi pari a 0 verranno scartati come non validi.</target>
+      </segment>
+    </unit>
+    <unit id="ym9EcxF" name="settings.ips.oemsecrets.parseParams">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.parseParams</source>
+        <target>Estrarre i parametri dalla descrizione</target>
+      </segment>
+    </unit>
+    <unit id="U4aFfJ3" name="settings.ips.oemsecrets.parseParams.help">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.parseParams.help</source>
+        <target>Se abilitato, il provider tenta di convertire le descrizioni non strutturate di OEMSecrets in parametri strutturati. Ogni parametro nella descrizione deve avere il formato “…;nome1:valore1;nome2:valore2".</target>
+      </segment>
+    </unit>
+    <unit id="YMpgQPU" name="settings.ips.oemsecrets.sortMode">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.sortMode</source>
+        <target>Modalità di ordinamento dei risultati</target>
+      </segment>
+    </unit>
+    <unit id="3VDLyjD" name="settings.ips.oemsecrets.sortMode.N">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.sortMode.N</source>
+        <target>Nessuno</target>
+      </segment>
+    </unit>
+    <unit id="Oz.6cJY" name="settings.ips.oemsecrets.sortMode.C">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.sortMode.C</source>
+        <target>Completezza (dare priorità agli elementi con informazioni dettagliate)</target>
+      </segment>
+    </unit>
+    <unit id="KLJYfJ0" name="settings.ips.oemsecrets.sortMode.M">
+      <segment state="translated">
+        <source>settings.ips.oemsecrets.sortMode.M</source>
+        <target>Completezza &amp; nome del produttore</target>
+      </segment>
+    </unit>
     <unit id="8C9ijHM" name="entity.export.flash.error.no_entities">
       <segment state="translated">
         <source>entity.export.flash.error.no_entities</source>
@@ -9663,98 +10117,2396 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
         <target>Questo componente contiene più di uno stock. Cambia manualmente la posizione per selezionare quale stock scegliere.</target>
       </segment>
     </unit>
-    <unit id="hYrcka2" name="attachment_type.labelp">
-      <segment>
-        <source>attachment_type.labelp</source>
-        <target>Tipi di allegati</target>
+    <unit id="qn25jL." name="settings.ips.reichelt">
+      <segment state="translated">
+        <source>settings.ips.reichelt</source>
+        <target>Reichelt</target>
       </segment>
     </unit>
-    <unit id="5.oI1XD" name="currency.labelp">
-      <segment>
-        <source>currency.labelp</source>
-        <target>Valute</target>
+    <unit id="yYazL3j" name="settings.ips.reichelt.help">
+      <segment state="translated">
+        <source>settings.ips.reichelt.help</source>
+        <target>Reichelt.com non mette a disposizione un’API ufficiale. Questo provider utilizza tecniche di web scraping per estrarre le informazioni dal sito. Il servizio potrebbe cessare di funzionare in qualsiasi momento. L’utilizzo è a proprio rischio.</target>
       </segment>
     </unit>
-    <unit id="aXr7mN." name="group.labelp">
-      <segment>
-        <source>group.labelp</source>
-        <target>Gruppi</target>
+    <unit id="2EVJVc6" name="settings.ips.reichelt.include_vat">
+      <segment state="translated">
+        <source>settings.ips.reichelt.include_vat</source>
+        <target>Includi l’IVA nei prezzi</target>
       </segment>
     </unit>
-    <unit id="p.Sjja3" name="label_profile.labelp">
-      <segment>
-        <source>label_profile.labelp</source>
-        <target>Profili di etichette</target>
+    <unit id="Ocp5ktF" name="settings.ips.pollin">
+      <segment state="translated">
+        <source>settings.ips.pollin</source>
+        <target>Pollin</target>
       </segment>
     </unit>
-    <unit id="8F2EwVK" name="measurement_unit.labelp">
-      <segment>
-        <source>measurement_unit.labelp</source>
-        <target>Unità di misura</target>
+    <unit id="Xlj6kj2" name="settings.ips.pollin.help">
+      <segment state="translated">
+        <source>settings.ips.pollin.help</source>
+        <target>Pollin.de non mette a disposizione un’API ufficiale. Questo provider utilizza tecniche di web scraping per estrarre le informazioni dal sito. Il servizio potrebbe cessare di funzionare in qualsiasi momento. L’utilizzo è a proprio rischio.</target>
       </segment>
     </unit>
-    <unit id="UVDJmYp" name="orderdetail.labelp">
-      <segment>
-        <source>orderdetail.labelp</source>
-        <target>Dettagli dell'ordine</target>
+    <unit id="TEm7uIg" name="settings.behavior.sidebar.rootNodeRedirectsToNewEntity">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.rootNodeRedirectsToNewEntity</source>
+        <target>Reindirizza i nodi radice della barra laterale alla pagina di creazione della nuova entità</target>
       </segment>
     </unit>
-    <unit id="4KRV2mB" name="parameter.labelp">
-      <segment>
-        <source>parameter.labelp</source>
-        <target>Parametri</target>
+    <unit id="j7HiQ80" name="settings.ips.digikey">
+      <segment state="translated">
+        <source>settings.ips.digikey</source>
+        <target>Digikey</target>
       </segment>
     </unit>
-    <unit id="R4hoCqe" name="part.labelp">
-      <segment>
-        <source>part.labelp</source>
-        <target>Componenti</target>
+    <unit id="_ViyVdh" name="settings.ips.digikey.client_id">
+      <segment state="translated">
+        <source>settings.ips.digikey.client_id</source>
+        <target>Client ID</target>
       </segment>
     </unit>
-    <unit id="AAYYeiw" name="part_association.labelp">
-      <segment>
-        <source>part_association.labelp</source>
-        <target>Associazioni di componenti</target>
+    <unit id="eB9dDyp" name="settings.ips.digikey.secret">
+      <segment state="translated">
+        <source>settings.ips.digikey.secret</source>
+        <target>Secret</target>
       </segment>
     </unit>
-    <unit id="Y_ISV0y" name="part_custom_state.labelp">
-      <segment>
-        <source>part_custom_state.labelp</source>
-        <target>Stati personalizzati della parte</target>
+    <unit id="5xjmMzf" name="settings.ips.octopart">
+      <segment state="translated">
+        <source>settings.ips.octopart</source>
+        <target>Octopart / Nexar</target>
       </segment>
     </unit>
-    <unit id="ftBf11d" name="part_lot.labelp">
-      <segment>
-        <source>part_lot.labelp</source>
-        <target>Lotti di componenti</target>
+    <unit id="vGv90iO" name="settings.ips.octopart.searchLimit">
+      <segment state="translated">
+        <source>settings.ips.octopart.searchLimit</source>
+        <target>Numero di risultati</target>
       </segment>
     </unit>
-    <unit id="83AQqv." name="pricedetail.labelp">
-      <segment>
-        <source>pricedetail.labelp</source>
-        <target>Informazioni sui prezzi</target>
+    <unit id="au4Yeps" name="settings.ips.octopart.searchLimit.help">
+      <segment state="translated">
+        <source>settings.ips.octopart.searchLimit.help</source>
+        <target>Numero di risultati da recuperare da Octopart durante la ricerca (si noti che questo valore incide sui limiti della propria API).</target>
       </segment>
     </unit>
-    <unit id=".tjK0ju" name="project_bom_entry.labelp">
-      <segment>
-        <source>project_bom_entry.labelp</source>
-        <target>Voci della BOM</target>
+    <unit id="Tiqmk.8" name="settings.ips.octopart.onlyAuthorizedSellers">
+      <segment state="translated">
+        <source>settings.ips.octopart.onlyAuthorizedSellers</source>
+        <target>Solo rivenditori autorizzati</target>
+      </segment>
+    </unit>
+    <unit id="ECQkeJy" name="settings.ips.octopart.onlyAuthorizedSellers.help">
+      <segment state="translated">
+        <source>settings.ips.octopart.onlyAuthorizedSellers.help</source>
+        <target>Impostare su “false” per includere nei risultati anche offerte di venditori non autorizzati.</target>
+      </segment>
+    </unit>
+    <unit id="iRDDtdU" name="settings.misc.exchange_rate">
+      <segment state="translated">
+        <source>settings.misc.exchange_rate</source>
+        <target>Tassi di cambio</target>
+      </segment>
+    </unit>
+    <unit id="0REngfi" name="settings.misc.exchange_rate.fixer_api_key">
+      <segment state="translated">
+        <source>settings.misc.exchange_rate.fixer_api_key</source>
+        <target>Fixer.io API Key</target>
+      </segment>
+    </unit>
+    <unit id="COLhoWD" name="settings.misc.exchange_rate.fixer_api_key.help">
+      <segment state="translated">
+        <source>settings.misc.exchange_rate.fixer_api_key.help</source>
+        <target>Per ottenere tassi di cambio tra valute diverse dall’euro, inserire qui una chiave API di fixer.io.</target>
+      </segment>
+    </unit>
+    <unit id="yBc_psK" name="settings.misc.ipn_suggest">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest</source>
+        <target>Suggerimenti IPN del componente</target>
+      </segment>
+    </unit>
+    <unit id="rMHQxvM" name="settings.misc.ipn_suggest.regex">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex</source>
+        <target>Espressione regolare</target>
+      </segment>
+    </unit>
+    <unit id="jGPeETQ" name="settings.misc.ipn_suggest.regex_help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex_help</source>
+        <target>Testo di aiuto</target>
+      </segment>
+    </unit>
+    <unit id="gsSNHJd" name="settings.misc.ipn_suggest.regex_help_description">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex_help_description</source>
+        <target>Definire un testo di aiuto personalizzato per specificare il formato dell’espressione regolare.</target>
+      </segment>
+    </unit>
+    <unit id="irHQep1" name="settings.misc.ipn_suggest.autoAppendSuffix">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.autoAppendSuffix</source>
+        <target>Aggiungere un suffisso incrementale all’IPN se il valore è già utilizzato da un altro componente</target>
+      </segment>
+    </unit>
+    <unit id="MHvNzxt" name="settings.misc.ipn_suggest.suggestPartDigits">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.suggestPartDigits</source>
+        <target>Cifre dell’incremento numerico</target>
+      </segment>
+    </unit>
+    <unit id="kH.lU0y" name="settings.misc.ipn_suggest.useDuplicateDescription">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.useDuplicateDescription</source>
+        <target>Utilizza la descrizione del componente per trovare il prossimo IPN disponibile</target>
+      </segment>
+    </unit>
+    <unit id="1RN3Xwz" name="settings.misc.ipn_suggest.suggestPartDigits.help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.suggestPartDigits.help</source>
+        <target>Numero di cifre utilizzate per la numerazione incrementale dei componenti nel sistema di suggerimento IPN (Internal Part Number).</target>
+      </segment>
+    </unit>
+    <unit id="Ffr5xYM" name="settings.behavior.part_info">
+      <segment state="translated">
+        <source>settings.behavior.part_info</source>
+        <target>Pagina informazioni componente</target>
+      </segment>
+    </unit>
+    <unit id="weH3j.a" name="settings.behavior.part_info.show_part_image_overlay">
+      <segment state="translated">
+        <source>settings.behavior.part_info.show_part_image_overlay</source>
+        <target>Mostra overlay dell’immagine</target>
+      </segment>
+    </unit>
+    <unit id="SCUs3WS" name="settings.behavior.part_info.show_part_image_overlay.help">
+      <segment state="translated">
+        <source>settings.behavior.part_info.show_part_image_overlay.help</source>
+        <target>Mostra una sovrapposizione sull’immagine con i dettagli degli allegati quando si passa il mouse sulla galleria immagini del componente.</target>
+      </segment>
+    </unit>
+    <unit id="ALfPkeR" name="perm.config.change_system_settings">
+      <segment state="translated">
+        <source>perm.config.change_system_settings</source>
+        <target>Modifica impostazioni di sistema</target>
+      </segment>
+    </unit>
+    <unit id="TlHeIjk" name="tree.tools.system.settings">
+      <segment state="translated">
+        <source>tree.tools.system.settings</source>
+        <target>Impostazioni di sistema</target>
+      </segment>
+    </unit>
+    <unit id="of5wN9M" name="tree.tools.system.update_manager">
+      <segment state="translated">
+        <source>tree.tools.system.update_manager</source>
+        <target>Gestione aggiornamenti</target>
+      </segment>
+    </unit>
+    <unit id="3YsJ4i6" name="settings.tooltip.overrideable_by_env">
+      <segment state="translated">
+        <source>settings.tooltip.overrideable_by_env</source>
+        <target>Il valore di questo parametro può essere sovrascritto impostando la variabile d’ambiente "%env%".</target>
+      </segment>
+    </unit>
+    <unit id="boWkQh7" name="settings.flash.saved">
+      <segment state="translated">
+        <source>settings.flash.saved</source>
+        <target>Impostazioni salvate correttamente.</target>
+      </segment>
+    </unit>
+    <unit id="tEYWrWD" name="settings.flash.invalid">
+      <segment state="translated">
+        <source>settings.flash.invalid</source>
+        <target>Le impostazioni non sono valide. Controllare i dati inseriti.</target>
+      </segment>
+    </unit>
+    <unit id="yRXWSRN" name="info_providers.settings.title">
+      <segment state="translated">
+        <source>info_providers.settings.title</source>
+        <target>Impostazioni provider informazioni</target>
+      </segment>
+    </unit>
+    <unit id="VgSodKY" name="form.apikey.redacted">
+      <segment state="translated">
+        <source>form.apikey.redacted</source>
+        <target>Omissis per motivi di sicurezza</target>
+      </segment>
+    </unit>
+    <unit id="J716Oh4" name="project.bom_import.map_fields">
+      <segment state="translated">
+        <source>project.bom_import.map_fields</source>
+        <target>Mappatura campi</target>
+      </segment>
+    </unit>
+    <unit id="wvT5Xvn" name="project.bom_import.map_fields.help">
+      <segment state="translated">
+        <source>project.bom_import.map_fields.help</source>
+        <target>Configura la mappatura delle colonne CSV ai campi della BOM</target>
+      </segment>
+    </unit>
+    <unit id="nh7uLPe" name="project.bom_import.delimiter">
+      <segment state="translated">
+        <source>project.bom_import.delimiter</source>
+        <target>Delimitatore</target>
+      </segment>
+    </unit>
+    <unit id="MSlSeE4" name="project.bom_import.delimiter.comma">
+      <segment state="translated">
+        <source>project.bom_import.delimiter.comma</source>
+        <target>Virgola (,)</target>
+      </segment>
+    </unit>
+    <unit id="UdDSB0h" name="project.bom_import.delimiter.semicolon">
+      <segment state="translated">
+        <source>project.bom_import.delimiter.semicolon</source>
+        <target>Punto e virgola (;)</target>
+      </segment>
+    </unit>
+    <unit id="Wpa4Gmf" name="project.bom_import.delimiter.tab">
+      <segment state="translated">
+        <source>project.bom_import.delimiter.tab</source>
+        <target>Tab</target>
+      </segment>
+    </unit>
+    <unit id="tjrG_vU" name="project.bom_import.field_mapping.title">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.title</source>
+        <target>Campo associato</target>
+      </segment>
+    </unit>
+    <unit id="nWu8B7R" name="project.bom_import.field_mapping.csv_field">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.csv_field</source>
+        <target>Campo CSV</target>
+      </segment>
+    </unit>
+    <unit id="D0KlFqm" name="project.bom_import.field_mapping.maps_to">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.maps_to</source>
+        <target>Corrisponde a</target>
+      </segment>
+    </unit>
+    <unit id="rhUpmxC" name="project.bom_import.field_mapping.suggestion">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.suggestion</source>
+        <target>Suggerimento</target>
+      </segment>
+    </unit>
+    <unit id="TM0mgKr" name="project.bom_import.field_mapping.priority">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority</source>
+        <target>Priorità</target>
+      </segment>
+    </unit>
+    <unit id="xY8NSRr" name="project.bom_import.field_mapping.priority_help">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority_help</source>
+        <target>Priorità (numero più basso = priorità più alta)</target>
+      </segment>
+    </unit>
+    <unit id="CuXg8WU" name="project.bom_import.field_mapping.priority_short">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority_short</source>
+        <target>P</target>
+      </segment>
+    </unit>
+    <unit id="jOHOShN" name="project.bom_import.field_mapping.priority_note">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.priority_note</source>
+        <target>Suggerimento sulla priorità: numeri più bassi corrispondono a priorità più alta. La priorità predefinita è 10. Utilizzare i valori da 1 a 9 per i campi più importanti e 10 o superiori per priorità normale.</target>
+      </segment>
+    </unit>
+    <unit id="pvmv3OT" name="project.bom_import.field_mapping.summary">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.summary</source>
+        <target>Riepilogo mappatura campi</target>
+      </segment>
+    </unit>
+    <unit id="VjLf1Pf" name="project.bom_import.field_mapping.select_to_see_summary">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.select_to_see_summary</source>
+        <target>Selezionare le mappature dei campi per visualizzare il riepilogo</target>
+      </segment>
+    </unit>
+    <unit id="JOPny6T" name="project.bom_import.field_mapping.no_suggestion">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.no_suggestion</source>
+        <target>Nessun suggerimento</target>
+      </segment>
+    </unit>
+    <unit id="1LWEtqL" name="project.bom_import.preview">
+      <segment state="translated">
+        <source>project.bom_import.preview</source>
+        <target>Anteprima</target>
+      </segment>
+    </unit>
+    <unit id="1CJA0aY" name="project.bom_import.flash.session_expired">
+      <segment state="translated">
+        <source>project.bom_import.flash.session_expired</source>
+        <target>La sessione di importazione è scaduta. Caricare nuovamente il file.</target>
+      </segment>
+    </unit>
+    <unit id="BLN7XRN" name="project.bom_import.field_mapping.ignore">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.ignore</source>
+        <target>Ignorare</target>
+      </segment>
+    </unit>
+    <unit id="yiIB3yV" name="project.bom_import.type.kicad_schematic">
+      <segment state="translated">
+        <source>project.bom_import.type.kicad_schematic</source>
+        <target>KiCad – BOM schema elettrico (file CSV)</target>
+      </segment>
+    </unit>
+    <unit id="ltE6xPP" name="common.back">
+      <segment state="translated">
+        <source>common.back</source>
+        <target>Indietro</target>
+      </segment>
+    </unit>
+    <unit id="HCTqjZO" name="project.bom_import.validation.errors.required_field_missing">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.required_field_missing</source>
+        <target>Riga %line%: il campo obbligatorio “%field%” è mancante o vuoto. Verificare che questo campo sia mappato e contenga dati.</target>
+      </segment>
+    </unit>
+    <unit id="_ua5YM7" name="project.bom_import.validation.errors.no_valid_designators">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.no_valid_designators</source>
+        <target>Riga %line%: il campo “Designator” non contiene riferimenti di componenti validi. Il formato previsto è “R1,C2,U3” oppure “R1, C2, U3”.</target>
+      </segment>
+    </unit>
+    <unit id="xpkq3rW" name="project.bom_import.validation.warnings.unusual_designator_format">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.unusual_designator_format</source>
+        <target>Riga %line%: alcuni riferimenti di componente presentano un formato atipico: %designators%. Il formato previsto è “R1”, “C2”, “U3”, ecc.</target>
+      </segment>
+    </unit>
+    <unit id="M54Ud5d" name="project.bom_import.validation.errors.duplicate_designators">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.duplicate_designators</source>
+        <target>Riga %line%: rilevati riferimenti di componente duplicati: %designators%. Ogni componente deve comparire una sola volta per riga.</target>
+      </segment>
+    </unit>
+    <unit id="ZULFZh2" name="project.bom_import.validation.errors.invalid_quantity">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.invalid_quantity</source>
+        <target>Riga %line%: il valore della quantità “%quantity%” non è valido. Inserire un numero (ad es. 1, 2.5, 10).</target>
+      </segment>
+    </unit>
+    <unit id="3WbRgsl" name="project.bom_import.validation.errors.quantity_zero_or_negative">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.quantity_zero_or_negative</source>
+        <target>Riga %line%: la quantità deve essere maggiore di 0 (valore inserito: %quantity%).</target>
+      </segment>
+    </unit>
+    <unit id="_nWGsSU" name="project.bom_import.validation.warnings.quantity_unusually_high">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.quantity_unusually_high</source>
+        <target>Riga %line%: la quantità %quantity% risulta insolitamente elevata. Verificare che il valore sia corretto.</target>
+      </segment>
+    </unit>
+    <unit id="iJWw39f" name="project.bom_import.validation.warnings.quantity_not_whole_number">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.quantity_not_whole_number</source>
+        <target>Riga %line%: la quantità %quantity% non è un numero intero, mentre risultano %count% riferimenti di componente. Potrebbe trattarsi di un’incongruenza.</target>
+      </segment>
+    </unit>
+    <unit id="Zffmgvv" name="project.bom_import.validation.errors.quantity_designator_mismatch">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.quantity_designator_mismatch</source>
+        <target>Riga %line%: incongruenza tra quantità e riferimenti di componente. Quantità: %quantity%, Riferimenti: %count% (%designators%). I valori devono coincidere. Correggere la quantità oppure verificare i riferimenti di componente.</target>
+      </segment>
+    </unit>
+    <unit id="JqHpDIo" name="project.bom_import.validation.errors.invalid_partdb_id">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.invalid_partdb_id</source>
+        <target>Riga %line%: l’ID Part-DB “%id%” non è un numero valido. Inserire un ID numerico.</target>
+      </segment>
+    </unit>
+    <unit id="Mr7W6r0" name="project.bom_import.validation.errors.partdb_id_zero_or_negative">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.partdb_id_zero_or_negative</source>
+        <target>Riga %line%: l’ID Part-DB deve essere maggiore di 0 (valore inserito: %id%).</target>
+      </segment>
+    </unit>
+    <unit id="gRH6IeR" name="project.bom_import.validation.warnings.partdb_id_not_found">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.partdb_id_not_found</source>
+        <target>Riga %line%: l’ID Part-DB %id% non è stato trovato nel database. Il componente verrà importato senza collegamento a un componente esistente.</target>
+      </segment>
+    </unit>
+    <unit id="eMfaBYo" name="project.bom_import.validation.info.partdb_link_success">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.partdb_link_success</source>
+        <target>Riga %line%: collegamento effettuato con successo al componente Part-DB “%name%” (ID: %id%).</target>
+      </segment>
+    </unit>
+    <unit id="b_m9p.f" name="project.bom_import.validation.warnings.no_component_name">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.no_component_name</source>
+        <target>Riga %line%: non è stato fornito alcun nome/designazione del componente (MPN, Designazione o Valore). Il componente verrà denominato “Componente sconosciuto”.</target>
+      </segment>
+    </unit>
+    <unit id=".LAGdMe" name="project.bom_import.validation.warnings.package_name_too_long">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.package_name_too_long</source>
+        <target>Riga %line%: il nome del package “%package%” risulta insolitamente lungo. Verificare che sia corretto.</target>
+      </segment>
+    </unit>
+    <unit id="wFF49kl" name="project.bom_import.validation.info.library_prefix_detected">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.library_prefix_detected</source>
+        <target>Riga %line%: il package “%package%” contiene un prefisso di libreria. Questo verrà rimosso automaticamente durante l’importazione.</target>
+      </segment>
+    </unit>
+    <unit id="hEO2sxC" name="project.bom_import.validation.errors.non_numeric_field">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.non_numeric_field</source>
+        <target>Riga %line%: il campo “%field%” contiene un valore non numerico “%value%”. Inserire un numero valido.</target>
+      </segment>
+    </unit>
+    <unit id="Ear_sUX" name="project.bom_import.validation.info.import_summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.import_summary</source>
+        <target>Riepilogo importazione: %total% voci totali, %valid% valide, %invalid% con problemi.</target>
+      </segment>
+    </unit>
+    <unit id="SqJZ97A" name="project.bom_import.validation.errors.summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.summary</source>
+        <target>Trovati %count% errori di validazione che devono essere corretti prima di procedere con l’importazione.</target>
+      </segment>
+    </unit>
+    <unit id="s7dzFnp" name="project.bom_import.validation.warnings.summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.summary</source>
+        <target>Trovati %count% avvisi. Si consiglia di verificare questi problemi prima di procedere.</target>
+      </segment>
+    </unit>
+    <unit id="2KaAHmS" name="project.bom_import.validation.info.all_valid">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.all_valid</source>
+        <target>Tutte le voci hanno superato con successo la validazione!</target>
+      </segment>
+    </unit>
+    <unit id="Lyb3BjK" name="project.bom_import.validation.summary">
+      <segment state="translated">
+        <source>project.bom_import.validation.summary</source>
+        <target>Riepilogo validazione</target>
+      </segment>
+    </unit>
+    <unit id="DUM8GoE" name="project.bom_import.validation.total_entries">
+      <segment state="translated">
+        <source>project.bom_import.validation.total_entries</source>
+        <target>Voci totali</target>
+      </segment>
+    </unit>
+    <unit id="AtLGGU2" name="project.bom_import.validation.valid_entries">
+      <segment state="translated">
+        <source>project.bom_import.validation.valid_entries</source>
+        <target>Voci valide</target>
+      </segment>
+    </unit>
+    <unit id="mgdn5v3" name="project.bom_import.validation.invalid_entries">
+      <segment state="translated">
+        <source>project.bom_import.validation.invalid_entries</source>
+        <target>Voci con problemi</target>
+      </segment>
+    </unit>
+    <unit id="qmJ5BfF" name="project.bom_import.validation.success_rate">
+      <segment state="translated">
+        <source>project.bom_import.validation.success_rate</source>
+        <target>Percentuale di successo</target>
+      </segment>
+    </unit>
+    <unit id="QyDsrFV" name="project.bom_import.validation.errors.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.title</source>
+        <target>Errori di validazione</target>
+      </segment>
+    </unit>
+    <unit id="d.Mvu0a" name="project.bom_import.validation.errors.description">
+      <segment state="translated">
+        <source>project.bom_import.validation.errors.description</source>
+        <target>I seguenti errori devono essere corretti prima che l’importazione possa proseguire:</target>
+      </segment>
+    </unit>
+    <unit id="MGFfKr." name="project.bom_import.validation.warnings.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.title</source>
+        <target>Avvisi di validazione</target>
+      </segment>
+    </unit>
+    <unit id="tt4VxY6" name="project.bom_import.validation.warnings.description">
+      <segment state="translated">
+        <source>project.bom_import.validation.warnings.description</source>
+        <target>I seguenti avvisi devono essere verificati prima di procedere:</target>
+      </segment>
+    </unit>
+    <unit id="YuAdYeh" name="project.bom_import.validation.info.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.info.title</source>
+        <target>Informazioni</target>
+      </segment>
+    </unit>
+    <unit id="1pUfi7Q" name="project.bom_import.validation.details.title">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.title</source>
+        <target>Risultati dettagliati della validazione</target>
+      </segment>
+    </unit>
+    <unit id="4Vv0Xns" name="project.bom_import.validation.details.line">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.line</source>
+        <target>Riga</target>
+      </segment>
+    </unit>
+    <unit id="RbvD2zF" name="project.bom_import.validation.details.status">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.status</source>
+        <target>Stato</target>
+      </segment>
+    </unit>
+    <unit id="iGtKkH_" name="project.bom_import.validation.details.messages">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.messages</source>
+        <target>Messaggi</target>
+      </segment>
+    </unit>
+    <unit id="IgdgZd8" name="project.bom_import.validation.details.valid">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.valid</source>
+        <target>Valido</target>
+      </segment>
+    </unit>
+    <unit id="lWQEtkq" name="project.bom_import.validation.details.invalid">
+      <segment state="translated">
+        <source>project.bom_import.validation.details.invalid</source>
+        <target>Non valido</target>
+      </segment>
+    </unit>
+    <unit id="tPn6Ind" name="project.bom_import.validation.all_valid">
+      <segment state="translated">
+        <source>project.bom_import.validation.all_valid</source>
+        <target>Tutte le voci sono valide e pronte per l’importazione!</target>
+      </segment>
+    </unit>
+    <unit id="fzoGCaf" name="project.bom_import.validation.fix_errors">
+      <segment state="translated">
+        <source>project.bom_import.validation.fix_errors</source>
+        <target>Correggere gli errori di validazione prima di procedere con l’importazione.</target>
+      </segment>
+    </unit>
+    <unit id="nc9MqUc" name="project.bom_import.type.generic_csv">
+      <segment state="translated">
+        <source>project.bom_import.type.generic_csv</source>
+        <target>CSV Generico</target>
+      </segment>
+    </unit>
+    <unit id=".N35Pvs" name="label_generator.update_profile">
+      <segment state="translated">
+        <source>label_generator.update_profile</source>
+        <target>Aggiornare il profilo con le impostazioni correnti</target>
+      </segment>
+    </unit>
+    <unit id="ulTo6Aa" name="label_generator.profile_updated">
+      <segment state="translated">
+        <source>label_generator.profile_updated</source>
+        <target>Profilo etichetta aggiornato con successo.</target>
+      </segment>
+    </unit>
+    <unit id="7lgFa7I" name="settings.behavior.hompepage.items">
+      <segment state="translated">
+        <source>settings.behavior.hompepage.items</source>
+        <target>Elementi della homepage</target>
+      </segment>
+    </unit>
+    <unit id="FsrRdkp" name="settings.behavior.homepage.items.help">
+      <segment state="translated">
+        <source>settings.behavior.homepage.items.help</source>
+        <target>Gli elementi da visualizzare nella homepage. L’ordine può essere modificato tramite trascinamento (drag &amp; drop).</target>
+      </segment>
+    </unit>
+    <unit id="CYw3_pS" name="settings.system.customization.showVersionOnHomepage">
+      <segment state="translated">
+        <source>settings.system.customization.showVersionOnHomepage</source>
+        <target>Mostra la versione di Part-DB nella homepage</target>
+      </segment>
+    </unit>
+    <unit id="GLYhV9m" name="settings.behavior.part_info.extract_params_from_description">
+      <segment state="translated">
+        <source>settings.behavior.part_info.extract_params_from_description</source>
+        <target>Estrarre i parametri dalla descrizione del componente</target>
+      </segment>
+    </unit>
+    <unit id="aYOedkN" name="settings.behavior.part_info.extract_params_from_notes">
+      <segment state="translated">
+        <source>settings.behavior.part_info.extract_params_from_notes</source>
+        <target>Estrarre i parametri dalle note del componente</target>
+      </segment>
+    </unit>
+    <unit id="nCH2MW6" name="settings.ips.default_providers">
+      <segment state="translated">
+        <source>settings.ips.default_providers</source>
+        <target>Provider di ricerca predefiniti</target>
+      </segment>
+    </unit>
+    <unit id="TLNoCLT" name="settings.ips.general">
+      <segment state="translated">
+        <source>settings.ips.general</source>
+        <target>Impostazioni generali</target>
+      </segment>
+    </unit>
+    <unit id="IDs2sXK" name="settings.ips.default_providers.help">
+      <segment state="translated">
+        <source>settings.ips.default_providers.help</source>
+        <target>Questi provider saranno preselezionati per le ricerche nei provider dei componenti.</target>
+      </segment>
+    </unit>
+    <unit id="dv6eslZ" name="settings.behavior.table.preview_image_max_width">
+      <segment state="translated">
+        <source>settings.behavior.table.preview_image_max_width</source>
+        <target>Larghezza massima immagine di anteprima (px)</target>
+      </segment>
+    </unit>
+    <unit id="5bOoqEL" name="settings.behavior.table.preview_image_min_width">
+      <segment state="translated">
+        <source>settings.behavior.table.preview_image_min_width</source>
+        <target>Larghezza minima immagine di anteprima (px)</target>
+      </segment>
+    </unit>
+    <unit id="vkjf5qA" name="info_providers.bulk_import.step1.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step1.title</source>
+        <target>Importazione massiva da provider di informazioni – Passo 1</target>
+      </segment>
+    </unit>
+    <unit id="dqV7NUB" name="info_providers.bulk_import.parts_selected">
+      <segment state="translated">
+        <source>info_providers.bulk_import.parts_selected</source>
+        <target>componenti selezionati</target>
+      </segment>
+    </unit>
+    <unit id="o474JoG" name="info_providers.bulk_import.step1.global_mapping_description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step1.global_mapping_description</source>
+        <target>Configurare le mappature dei campi che verranno applicate a tutti i componenti selezionati.
+Ad esempio: “MPN → LCSC + Mouser” significa che i provider LCSC e Mouser verranno interrogati utilizzando il campo MPN di ciascun componente.</target>
+      </segment>
+    </unit>
+    <unit id="d9OFVmQ" name="info_providers.bulk_import.selected_parts">
+      <segment state="translated">
+        <source>info_providers.bulk_import.selected_parts</source>
+        <target>Componenti selezionati</target>
+      </segment>
+    </unit>
+    <unit id="0IM.WJg" name="info_providers.bulk_import.field_mappings">
+      <segment state="translated">
+        <source>info_providers.bulk_import.field_mappings</source>
+        <target>Mappature dei campi</target>
+      </segment>
+    </unit>
+    <unit id="cZb6a7b" name="info_providers.bulk_import.field_mappings_help">
+      <segment state="translated">
+        <source>info_providers.bulk_import.field_mappings_help</source>
+        <target>Definire quali campi del componente devono essere utilizzati per interrogare i provider di informazioni. Più mappature verranno combinate tra loro.</target>
+      </segment>
+    </unit>
+    <unit id="hImbHbq" name="info_providers.bulk_import.add_mapping">
+      <segment state="translated">
+        <source>info_providers.bulk_import.add_mapping</source>
+        <target>Aggiungere mappatura</target>
+      </segment>
+    </unit>
+    <unit id="u4_QWOb" name="info_providers.bulk_import.search_results.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.search_results.title</source>
+        <target>Risultati di ricerca</target>
+      </segment>
+    </unit>
+    <unit id="aXSJ0L3" name="info_providers.bulk_import.errors">
+      <segment state="translated">
+        <source>info_providers.bulk_import.errors</source>
+        <target>errori</target>
+      </segment>
+    </unit>
+    <unit id="TPEhXlb" name="info_providers.bulk_import.results_found">
+      <segment state="translated">
+        <source>info_providers.bulk_import.results_found</source>
+        <target>Trovati %count% risultati</target>
+      </segment>
+    </unit>
+    <unit id="8coVh8q" name="info_providers.bulk_import.source_field">
+      <segment state="translated">
+        <source>info_providers.bulk_import.source_field</source>
+        <target>Campo di origine</target>
+      </segment>
+    </unit>
+    <unit id="VdUOMZf" name="info_providers.bulk_import.view_existing">
+      <segment state="translated">
+        <source>info_providers.bulk_import.view_existing</source>
+        <target>Visualizzare esistenti</target>
+      </segment>
+    </unit>
+    <unit id="LPN5MOO" name="info_providers.bulk_search.search_field">
+      <segment state="translated">
+        <source>info_providers.bulk_search.search_field</source>
+        <target>Campo di ricerca</target>
+      </segment>
+    </unit>
+    <unit id="DTm1q3f" name="info_providers.bulk_search.providers">
+      <segment state="translated">
+        <source>info_providers.bulk_search.providers</source>
+        <target>Provider di informazioni</target>
+      </segment>
+    </unit>
+    <unit id="5zem1xb" name="info_providers.bulk_import.actions.label">
+      <segment state="translated">
+        <source>info_providers.bulk_import.actions.label</source>
+        <target>Azioni</target>
+      </segment>
+    </unit>
+    <unit id="rA4WDLA" name="info_providers.bulk_search.providers.help">
+      <segment state="translated">
+        <source>info_providers.bulk_search.providers.help</source>
+        <target>Selezionare i provider di informazioni da utilizzare per la ricerca quando i componenti hanno questo campo valorizzato.</target>
+      </segment>
+    </unit>
+    <unit id="OS0qJRC" name="info_providers.bulk_search.submit">
+      <segment state="translated">
+        <source>info_providers.bulk_search.submit</source>
+        <target>Cercare in tutti i componenti</target>
+      </segment>
+    </unit>
+    <unit id="ItmvNLj" name="info_providers.bulk_search.field.select">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.select</source>
+        <target>Selezionare un campo per la ricerca</target>
+      </segment>
+    </unit>
+    <unit id="AKm8Kw9" name="info_providers.bulk_search.field.mpn">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.mpn</source>
+        <target>Codice del produttore (MPN)</target>
+      </segment>
+    </unit>
+    <unit id="Wne2ljh" name="info_providers.bulk_search.field.name">
+      <segment state="translated">
+        <source>info_providers.bulk_search.field.name</source>
+        <target>Nome del componente</target>
+      </segment>
+    </unit>
+    <unit id="iOh1gJZ" name="part_list.action.action.info_provider">
+      <segment state="translated">
+        <source>part_list.action.action.info_provider</source>
+        <target>Provider di informazioni</target>
+      </segment>
+    </unit>
+    <unit id="xukxTs_" name="part_list.action.bulk_info_provider_import">
+      <segment state="translated">
+        <source>part_list.action.bulk_info_provider_import</source>
+        <target>Importazione massiva da provider di informazioni</target>
+      </segment>
+    </unit>
+    <unit id="yzpXFkB" name="info_providers.bulk_import.step1.spn_recommendation">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step1.spn_recommendation</source>
+        <target>Per risultati migliori si consiglia di utilizzare l’SPN (Supplier Part Number). Aggiungere una mappatura per ogni fornitore per impiegare i relativi SPN.</target>
+      </segment>
+    </unit>
+    <unit id="QDr.VVc" name="info_providers.bulk_import.update_part">
+      <segment state="translated">
+        <source>info_providers.bulk_import.update_part</source>
+        <target>Aggiornare il componente</target>
+      </segment>
+    </unit>
+    <unit id="e_DDQ2u" name="info_providers.bulk_import.prefetch_details">
+      <segment state="translated">
+        <source>info_providers.bulk_import.prefetch_details</source>
+        <target>Precaricare i dettagli</target>
+      </segment>
+    </unit>
+    <unit id="v4T9Uwz" name="info_providers.bulk_import.prefetch_details_help">
+      <segment state="translated">
+        <source>info_providers.bulk_import.prefetch_details_help</source>
+        <target>Precaricare i dettagli per tutti i risultati. L’operazione richiederà più tempo, ma velocizzerà il flusso di lavoro per l’aggiornamento dei componenti.</target>
+      </segment>
+    </unit>
+    <unit id="mRdK1ts" name="info_providers.bulk_import.step2.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.title</source>
+        <target>Importazione massiva da provider di informazioni</target>
+      </segment>
+    </unit>
+    <unit id="Y.b5mGJ" name="info_providers.bulk_import.step2.card_title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.card_title</source>
+        <target>Importazione massiva di %count% componenti – %date%</target>
+      </segment>
+    </unit>
+    <unit id="fyatGYL" name="info_providers.bulk_import.parts">
+      <segment state="translated">
+        <source>info_providers.bulk_import.parts</source>
+        <target>componenti</target>
+      </segment>
+    </unit>
+    <unit id="hlBJ6Qh" name="info_providers.bulk_import.results">
+      <segment state="translated">
+        <source>info_providers.bulk_import.results</source>
+        <target>risultati</target>
+      </segment>
+    </unit>
+    <unit id="V8eTEPM" name="info_providers.bulk_import.created_at">
+      <segment state="translated">
+        <source>info_providers.bulk_import.created_at</source>
+        <target>Creato il</target>
+      </segment>
+    </unit>
+    <unit id="CiqevAs" name="info_providers.bulk_import.status.in_progress">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.in_progress</source>
+        <target>In corso</target>
+      </segment>
+    </unit>
+    <unit id="YeLN8i_" name="info_providers.bulk_import.status.completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.completed</source>
+        <target>Completato</target>
+      </segment>
+    </unit>
+    <unit id="TIzGVyk" name="info_providers.bulk_import.status.failed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.failed</source>
+        <target>Fallito</target>
+      </segment>
+    </unit>
+    <unit id="RxaZ6kn" name="info_providers.bulk_import.table.name">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.name</source>
+        <target>Nome</target>
+      </segment>
+    </unit>
+    <unit id="36MkrQF" name="info_providers.bulk_import.table.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.description</source>
+        <target>Descrizione</target>
+      </segment>
+    </unit>
+    <unit id="Y_yl259" name="info_providers.bulk_import.table.manufacturer">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.manufacturer</source>
+        <target>Produttore</target>
+      </segment>
+    </unit>
+    <unit id="FgXYE1H" name="info_providers.bulk_import.table.provider">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.provider</source>
+        <target>Provider</target>
+      </segment>
+    </unit>
+    <unit id="_gf1tWi" name="info_providers.bulk_import.table.source_field">
+      <segment state="translated">
+        <source>info_providers.bulk_import.table.source_field</source>
+        <target>Campo di origine</target>
+      </segment>
+    </unit>
+    <unit id="CoSmRQc" name="info_providers.bulk_import.back">
+      <segment state="translated">
+        <source>info_providers.bulk_import.back</source>
+        <target>Indietro</target>
+      </segment>
+    </unit>
+    <unit id="Hn7AtYS" name="info_providers.bulk_import.progress">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress</source>
+        <target>Avanzamento:</target>
+      </segment>
+    </unit>
+    <unit id="w9LaKAB" name="info_providers.bulk_import.status.pending">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.pending</source>
+        <target>In attesa</target>
+      </segment>
+    </unit>
+    <unit id="KcADJb." name="info_providers.bulk_import.completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.completed</source>
+        <target>completato</target>
+      </segment>
+    </unit>
+    <unit id="hptkZvI" name="info_providers.bulk_import.skipped">
+      <segment state="translated">
+        <source>info_providers.bulk_import.skipped</source>
+        <target>ignorato</target>
+      </segment>
+    </unit>
+    <unit id="vylzyYJ" name="info_providers.bulk_import.mark_completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mark_completed</source>
+        <target>Segnare come completato</target>
+      </segment>
+    </unit>
+    <unit id="ePdcL7W" name="info_providers.bulk_import.mark_skipped">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mark_skipped</source>
+        <target>Segnare come ignorato</target>
+      </segment>
+    </unit>
+    <unit id="3HeDhTB" name="info_providers.bulk_import.mark_pending">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mark_pending</source>
+        <target>Segnare come in attesa</target>
+      </segment>
+    </unit>
+    <unit id="p.igAUH" name="info_providers.bulk_import.skip_reason">
+      <segment state="translated">
+        <source>info_providers.bulk_import.skip_reason</source>
+        <target>Motivo dell’esclusione</target>
+      </segment>
+    </unit>
+    <unit id="6bTLFzZ" name="info_providers.bulk_import.editing_part">
+      <segment state="translated">
+        <source>info_providers.bulk_import.editing_part</source>
+        <target>Modifica del componente come parte dell’importazione massiva</target>
+      </segment>
+    </unit>
+    <unit id="ItOX1kK" name="info_providers.bulk_import.complete">
+      <segment state="translated">
+        <source>info_providers.bulk_import.complete</source>
+        <target>Completato</target>
+      </segment>
+    </unit>
+    <unit id="bHLXJ8Z" name="info_providers.bulk_import.existing_jobs">
+      <segment state="translated">
+        <source>info_providers.bulk_import.existing_jobs</source>
+        <target>Processi esistenti</target>
+      </segment>
+    </unit>
+    <unit id="jg2YuGQ" name="info_providers.bulk_import.job_name">
+      <segment state="translated">
+        <source>info_providers.bulk_import.job_name</source>
+        <target>Nome del processo</target>
+      </segment>
+    </unit>
+    <unit id="jUc1.Um" name="info_providers.bulk_import.parts_count">
+      <segment state="translated">
+        <source>info_providers.bulk_import.parts_count</source>
+        <target>Numero di componenti</target>
+      </segment>
+    </unit>
+    <unit id="aY1IgEO" name="info_providers.bulk_import.results_count">
+      <segment state="translated">
+        <source>info_providers.bulk_import.results_count</source>
+        <target>Numero di risultati</target>
+      </segment>
+    </unit>
+    <unit id="1GAZk4m" name="info_providers.bulk_import.progress_label">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress_label</source>
+        <target>Avanzamento: %current%/%total%</target>
+      </segment>
+    </unit>
+    <unit id="k78UdMX" name="info_providers.bulk_import.manage_jobs">
+      <segment state="translated">
+        <source>info_providers.bulk_import.manage_jobs</source>
+        <target>Gestione importazioni massive</target>
+      </segment>
+    </unit>
+    <unit id="mJ73hdI" name="info_providers.bulk_import.view_results">
+      <segment state="translated">
+        <source>info_providers.bulk_import.view_results</source>
+        <target>Visualizzare i risultati</target>
+      </segment>
+    </unit>
+    <unit id="d5ZxGBG" name="info_providers.bulk_import.status">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status</source>
+        <target>Stato</target>
+      </segment>
+    </unit>
+    <unit id="Z.AgcWf" name="info_providers.bulk_import.manage_jobs_description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.manage_jobs_description</source>
+        <target>Visualizzare e gestire tutte le operazioni di importazione massiva. Per creare una nuova operazione, selezionare i componenti e fare clic su “Importazione massiva da provider di informazioni”.</target>
+      </segment>
+    </unit>
+    <unit id="0lCZLRC" name="info_providers.bulk_import.no_jobs_found">
+      <segment state="translated">
+        <source>info_providers.bulk_import.no_jobs_found</source>
+        <target>Nessuna operazione di importazione massiva trovata.</target>
+      </segment>
+    </unit>
+    <unit id="LheSXys" name="info_providers.bulk_import.create_first_job">
+      <segment state="translated">
+        <source>info_providers.bulk_import.create_first_job</source>
+        <target>Creare la prima operazione di importazione massiva selezionando più componenti in una tabella dei componenti e scegliere l’opzione “Importazione massiva da provider di informazioni”.</target>
+      </segment>
+    </unit>
+    <unit id="Lm_DPbH" name="info_providers.bulk_import.confirm_delete_job">
+      <segment state="translated">
+        <source>info_providers.bulk_import.confirm_delete_job</source>
+        <target>Eliminare questa operazione?</target>
+      </segment>
+    </unit>
+    <unit id="kZd.W42" name="info_providers.bulk_import.job_name_template">
+      <segment state="translated">
+        <source>info_providers.bulk_import.job_name_template</source>
+        <target>Importazione massiva di %count% componenti</target>
+      </segment>
+    </unit>
+    <unit id="W6GycWK" name="info_providers.bulk_import.step2.instructions.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.title</source>
+        <target>Come utilizzare l’importazione massiva</target>
+      </segment>
+    </unit>
+    <unit id="QTkki_T" name="info_providers.bulk_import.step2.instructions.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.description</source>
+        <target>Seguire questi passaggi per aggiornare in modo efficiente i componenti:</target>
+      </segment>
+    </unit>
+    <unit id="OI1oD42" name="info_providers.bulk_import.step2.instructions.step1">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.step1</source>
+        <target>Fare clic su “Aggiornare il componente” per modificare il componente con i dati del fornitore.</target>
+      </segment>
+    </unit>
+    <unit id="U.QKhv." name="info_providers.bulk_import.step2.instructions.step2">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.step2</source>
+        <target>Rivedere e modificare le informazioni del componente secondo necessità. Nota: è necessario fare clic su “Salvare” due volte per salvare le modifiche.</target>
+      </segment>
+    </unit>
+    <unit id="WlnTz0N" name="info_providers.bulk_import.step2.instructions.step3">
+      <segment state="translated">
+        <source>info_providers.bulk_import.step2.instructions.step3</source>
+        <target>Fare clic su “Completare” per segnare il componente come completato e tornare a questa panoramica.</target>
+      </segment>
+    </unit>
+    <unit id="IyXU.4X" name="info_providers.bulk_import.created_by">
+      <segment state="translated">
+        <source>info_providers.bulk_import.created_by</source>
+        <target>Creato da</target>
+      </segment>
+    </unit>
+    <unit id="egSjRGI" name="info_providers.bulk_import.completed_at">
+      <segment state="translated">
+        <source>info_providers.bulk_import.completed_at</source>
+        <target>Completato il</target>
+      </segment>
+    </unit>
+    <unit id="9L.HbvX" name="info_providers.bulk_import.action.label">
+      <segment state="translated">
+        <source>info_providers.bulk_import.action.label</source>
+        <target>Azione</target>
+      </segment>
+    </unit>
+    <unit id="vcNdo9m" name="info_providers.bulk_import.action.delete">
+      <segment state="translated">
+        <source>info_providers.bulk_import.action.delete</source>
+        <target>Eliminare</target>
+      </segment>
+    </unit>
+    <unit id="bE3MUIU" name="info_providers.bulk_import.status.active">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.active</source>
+        <target>Attivo</target>
+      </segment>
+    </unit>
+    <unit id="R3FVzb3" name="info_providers.bulk_import.progress.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress.title</source>
+        <target>Avanzamento</target>
+      </segment>
+    </unit>
+    <unit id="pKciwfa" name="info_providers.bulk_import.progress.completed_text">
+      <segment state="translated">
+        <source>info_providers.bulk_import.progress.completed_text</source>
+        <target>%completed% / %total% completati</target>
+      </segment>
+    </unit>
+    <unit id="9yPFVrM" name="info_providers.bulk_import.status.stopped">
+      <segment state="translated">
+        <source>info_providers.bulk_import.status.stopped</source>
+        <target>Interrotto</target>
+      </segment>
+    </unit>
+    <unit id="we_yrOV" name="info_providers.bulk_import.action.stop">
+      <segment state="translated">
+        <source>info_providers.bulk_import.action.stop</source>
+        <target>Stop</target>
+      </segment>
+    </unit>
+    <unit id="SNkUbfh" name="info_providers.bulk_import.confirm_stop_job">
+      <segment state="translated">
+        <source>info_providers.bulk_import.confirm_stop_job</source>
+        <target>Confermare l’interruzione di questa operazione?</target>
+      </segment>
+    </unit>
+    <unit id="dlO_h_K" name="part.filter.in_bulk_import_job">
+      <segment state="translated">
+        <source>part.filter.in_bulk_import_job</source>
+        <target>Nell’operazione di importazione massiva</target>
+      </segment>
+    </unit>
+    <unit id="rOeRN8O" name="part.filter.bulk_import_job_status">
+      <segment state="translated">
+        <source>part.filter.bulk_import_job_status</source>
+        <target>Stato importazione massiva</target>
+      </segment>
+    </unit>
+    <unit id="940sEqZ" name="part.filter.bulk_import_part_status">
+      <segment state="translated">
+        <source>part.filter.bulk_import_part_status</source>
+        <target>Stato del componente nell’importazione massiva</target>
+      </segment>
+    </unit>
+    <unit id="rv.QfEA" name="part.edit.tab.bulk_import">
+      <segment state="translated">
+        <source>part.edit.tab.bulk_import</source>
+        <target>Operazione di importazione massiva</target>
+      </segment>
+    </unit>
+    <unit id="BUAqJHD" name="bulk_import.status.pending">
+      <segment state="translated">
+        <source>bulk_import.status.pending</source>
+        <target>In attesa</target>
+      </segment>
+    </unit>
+    <unit id="GkVa8H3" name="bulk_import.status.in_progress">
+      <segment state="translated">
+        <source>bulk_import.status.in_progress</source>
+        <target>In corso</target>
+      </segment>
+    </unit>
+    <unit id="da3QKdj" name="bulk_import.status.completed">
+      <segment state="translated">
+        <source>bulk_import.status.completed</source>
+        <target>Completato</target>
+      </segment>
+    </unit>
+    <unit id="YM7qaAP" name="bulk_import.status.stopped">
+      <segment state="translated">
+        <source>bulk_import.status.stopped</source>
+        <target>Interrotto</target>
+      </segment>
+    </unit>
+    <unit id="5SSBsBs" name="bulk_import.status.failed">
+      <segment state="translated">
+        <source>bulk_import.status.failed</source>
+        <target>Fallito</target>
+      </segment>
+    </unit>
+    <unit id="JprgheW" name="bulk_import.part_status.pending">
+      <segment state="translated">
+        <source>bulk_import.part_status.pending</source>
+        <target>In attesa</target>
+      </segment>
+    </unit>
+    <unit id="iDoZxrE" name="bulk_import.part_status.completed">
+      <segment state="translated">
+        <source>bulk_import.part_status.completed</source>
+        <target>Completato</target>
+      </segment>
+    </unit>
+    <unit id="KInkh07" name="bulk_import.part_status.skipped">
+      <segment state="translated">
+        <source>bulk_import.part_status.skipped</source>
+        <target>Saltato</target>
+      </segment>
+    </unit>
+    <unit id="tmVFe1V" name="bulk_import.part_status.failed">
+      <segment state="translated">
+        <source>bulk_import.part_status.failed</source>
+        <target>Fallito</target>
+      </segment>
+    </unit>
+    <unit id="Jxg8Jia" name="bulk_info_provider_import_job.label">
+      <segment state="translated">
+        <source>bulk_info_provider_import_job.label</source>
+        <target>Importazione massiva da provider di informazioni</target>
+      </segment>
+    </unit>
+    <unit id="SV1_VvJ" name="bulk_info_provider_import_job_part.label">
+      <segment state="translated">
+        <source>bulk_info_provider_import_job_part.label</source>
+        <target>Componente dell’operazione di importazione massiva</target>
+      </segment>
+    </unit>
+    <unit id="XQV7AkF" name="info_providers.bulk_search.priority">
+      <segment state="translated">
+        <source>info_providers.bulk_search.priority</source>
+        <target>Priorità</target>
+      </segment>
+    </unit>
+    <unit id="XR9mZP_" name="info_providers.bulk_search.priority.help">
+      <segment state="translated">
+        <source>info_providers.bulk_search.priority.help</source>
+        <target>Numeri più bassi corrispondono a priorità più alta. Stessa priorità = combinare i risultati. Priorità diverse = provare prima quella più alta; in assenza di risultati, utilizzare quella successiva come fallback.</target>
+      </segment>
+    </unit>
+    <unit id="Iz3Ow0_" name="info_providers.bulk_import.priority_system.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.priority_system.title</source>
+        <target>Logica di priorità</target>
+      </segment>
+    </unit>
+    <unit id="CPwXFjE" name="info_providers.bulk_import.priority_system.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.priority_system.description</source>
+        <target>Numeri più bassi corrispondono a priorità più alta. Stessa priorità = combinare i risultati. Priorità diverse = provare prima quella più alta; in assenza di risultati, utilizzare quella successiva come fallback.</target>
+      </segment>
+    </unit>
+    <unit id="v.rTI5s" name="info_providers.bulk_import.priority_system.example">
+      <segment state="translated">
+        <source>info_providers.bulk_import.priority_system.example</source>
+        <target>Esempio: Priorità 1: “LCSC SPN → LCSC”, Priorità 2: “MPN → LCSC + Mouser”, Priorità 3: “Nome → Tutti i provider”</target>
+      </segment>
+    </unit>
+    <unit id="yMhBL_K" name="info_providers.bulk_import.search.submit">
+      <segment state="translated">
+        <source>info_providers.bulk_import.search.submit</source>
+        <target>Ricercare nei provider</target>
+      </segment>
+    </unit>
+    <unit id="NSXIcCk" name="info_providers.bulk_import.research.title">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.title</source>
+        <target>Ricercare componenti</target>
+      </segment>
+    </unit>
+    <unit id="i53VvpV" name="info_providers.bulk_import.research.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.description</source>
+        <target>Ripetere la ricerca dei componenti utilizzando informazioni aggiornate (ad esempio nuovi MPN). Verranno utilizzate le stesse mappature dei campi della ricerca originale.</target>
+      </segment>
+    </unit>
+    <unit id="S2HVT9P" name="info_providers.bulk_import.research.all_pending">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.all_pending</source>
+        <target>Ricercare tutti i componenti in attesa</target>
+      </segment>
+    </unit>
+    <unit id="ri9TEXX" name="info_providers.bulk_import.research.part">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.part</source>
+        <target>Ricerca</target>
+      </segment>
+    </unit>
+    <unit id="izeEDar" name="info_providers.bulk_import.research.part_tooltip">
+      <segment state="translated">
+        <source>info_providers.bulk_import.research.part_tooltip</source>
+        <target>Ricercare questo componente utilizzando informazioni aggiornate</target>
+      </segment>
+    </unit>
+    <unit id="jPCU0MO" name="info_providers.bulk_import.max_mappings_reached">
+      <segment state="translated">
+        <source>info_providers.bulk_import.max_mappings_reached</source>
+        <target>Limite massimo di mappature raggiunto</target>
+      </segment>
+    </unit>
+    <unit id="LWLi016" name="settings.system">
+      <segment state="translated">
+        <source>settings.system</source>
+        <target>System</target>
+      </segment>
+    </unit>
+    <unit id="8syOoyh" name="settings.behavior">
+      <segment state="translated">
+        <source>settings.behavior</source>
+        <target>Comportamento</target>
+      </segment>
+    </unit>
+    <unit id="lAiL2Jw" name="settings.ips">
+      <segment state="translated">
+        <source>settings.ips</source>
+        <target>Provider di informazioni</target>
+      </segment>
+    </unit>
+    <unit id="GuUZqpX" name="settings.misc">
+      <segment state="translated">
+        <source>settings.misc</source>
+        <target>Varie</target>
+      </segment>
+    </unit>
+    <unit id="mNLyYXa" name="settings.system.localization.language_menu_entries">
+      <segment state="translated">
+        <source>settings.system.localization.language_menu_entries</source>
+        <target>Voci del menu lingua</target>
+      </segment>
+    </unit>
+    <unit id="Ej2znKK" name="settings.system.localization.language_menu_entries.description">
+      <segment state="translated">
+        <source>settings.system.localization.language_menu_entries.description</source>
+        <target>Lingue da visualizzare nel menu a tendina. L’ordine può essere modificato tramite trascinamento. Lasciare il campo vuoto per mostrare tutte le lingue disponibili.</target>
+      </segment>
+    </unit>
+    <unit id="xIZ_mEX" name="project.builds.no_bom_entries">
+      <segment state="translated">
+        <source>project.builds.no_bom_entries</source>
+        <target>Nessuna voce BOM presente nel progetto</target>
+      </segment>
+    </unit>
+    <unit id="pCKgjIr" name="settings.behavior.sidebar.data_structure_nodes_table_include_children">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.data_structure_nodes_table_include_children</source>
+        <target>Includere per impostazione predefinita i nodi figli nelle tabelle</target>
+      </segment>
+    </unit>
+    <unit id="KJQHfwV" name="settings.behavior.sidebar.data_structure_nodes_table_include_children.help">
+      <segment state="translated">
+        <source>settings.behavior.sidebar.data_structure_nodes_table_include_children.help</source>
+        <target>Se selezionato, le tabelle dei componenti per categorie, footprint, ecc. includeranno tutti i componenti delle categorie figlie. Se non selezionato, verranno mostrati solo i componenti che appartengono esclusivamente al nodo selezionato.</target>
+      </segment>
+    </unit>
+    <unit id="Gdlnmav" name="info_providers.search.error.oauth_reconnect">
+      <segment state="translated">
+        <source>info_providers.search.error.oauth_reconnect</source>
+        <target>È necessario riconnettere l’autenticazione OAuth per i seguenti provider: %provider%.
+È possibile farlo nella lista dei provider di informazioni.</target>
+      </segment>
+    </unit>
+    <unit id="L4nq52R" name="settings.misc.ipn_suggest.useDuplicateDescription.help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.useDuplicateDescription.help</source>
+        <target>Se abilitato, la descrizione del componente viene utilizzata per individuare componenti esistenti con la stessa descrizione e per determinare il prossimo IPN disponibile incrementando il suffisso numerico, da utilizzare nella lista dei suggerimenti.</target>
+      </segment>
+    </unit>
+    <unit id="NIw6dtz" name="settings.misc.ipn_suggest.regex.help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex.help</source>
+        <target>Espressione regolare compatibile PCRE che ogni IPN deve rispettare. Lasciare vuoto per consentire qualsiasi valore come IPN.</target>
       </segment>
     </unit>
     <unit id="MoHHSNT" name="user.labelp">
-      <segment>
+      <segment state="translated">
         <source>user.labelp</source>
         <target>Utenti</target>
       </segment>
     </unit>
+    <unit id="5.oI1XD" name="currency.labelp">
+      <segment state="translated">
+        <source>currency.labelp</source>
+        <target>Valute</target>
+      </segment>
+    </unit>
+    <unit id="8F2EwVK" name="measurement_unit.labelp">
+      <segment state="translated">
+        <source>measurement_unit.labelp</source>
+        <target>Unità di misura</target>
+      </segment>
+    </unit>
+    <unit id="hYrcka2" name="attachment_type.labelp">
+      <segment state="translated">
+        <source>attachment_type.labelp</source>
+        <target>Tipo di allegato</target>
+      </segment>
+    </unit>
+    <unit id="p.Sjja3" name="label_profile.labelp">
+      <segment state="translated">
+        <source>label_profile.labelp</source>
+        <target>Profili etichetta</target>
+      </segment>
+    </unit>
+    <unit id="Y_ISV0y" name="part_custom_state.labelp">
+      <segment state="translated">
+        <source>part_custom_state.labelp</source>
+        <target>Stati personalizzati del componente</target>
+      </segment>
+    </unit>
+    <unit id="aXr7mN." name="group.labelp">
+      <segment state="translated">
+        <source>group.labelp</source>
+        <target>Gruppi</target>
+      </segment>
+    </unit>
+    <unit id="O10voez" name="settings.synonyms.type_synonym.type">
+      <segment state="translated">
+        <source>settings.synonyms.type_synonym.type</source>
+        <target>Tipo</target>
+      </segment>
+    </unit>
+    <unit id="1BDQVEp" name="settings.synonyms.type_synonym.language">
+      <segment state="translated">
+        <source>settings.synonyms.type_synonym.language</source>
+        <target>Lingua</target>
+      </segment>
+    </unit>
+    <unit id="2.g2ewQ" name="settings.synonyms.type_synonym.translation_singular">
+      <segment state="translated">
+        <source>settings.synonyms.type_synonym.translation_singular</source>
+        <target>Traduzione al singolare</target>
+      </segment>
+    </unit>
+    <unit id="Up9ZhvR" name="settings.synonyms.type_synonym.translation_plural">
+      <segment state="translated">
+        <source>settings.synonyms.type_synonym.translation_plural</source>
+        <target>Traduzione al plurale</target>
+      </segment>
+    </unit>
+    <unit id="BHoS230" name="settings.synonyms.type_synonym.add_entry">
+      <segment state="translated">
+        <source>settings.synonyms.type_synonym.add_entry</source>
+        <target>Aggiungere voce</target>
+      </segment>
+    </unit>
+    <unit id="wvtOEBn" name="settings.synonyms.type_synonym.remove_entry">
+      <segment state="translated">
+        <source>settings.synonyms.type_synonym.remove_entry</source>
+        <target>Eliminare voce</target>
+      </segment>
+    </unit>
+    <unit id="mLu.2F2" name="settings.synonyms">
+      <segment state="translated">
+        <source>settings.synonyms</source>
+        <target>Sinonimi</target>
+      </segment>
+    </unit>
+    <unit id="SHgc9i." name="settings.synonyms.help">
+      <segment state="translated">
+        <source>settings.synonyms.help</source>
+        <target>Il sistema dei sinonimi permette di modificare come Part-DB denomina determinati elementi. Questo può essere utile, soprattutto se Part-DB viene utilizzato in contesti diversi dall’elettronica.
+Si noti che questo sistema è attualmente sperimentale e i sinonimi definiti qui potrebbero non comparire in tutte le sezioni.</target>
+      </segment>
+    </unit>
+    <unit id="piB78W5" name="settings.synonyms.type_synonyms">
+      <segment state="translated">
+        <source>settings.synonyms.type_synonyms</source>
+        <target>Sinonimi per il tipo</target>
+      </segment>
+    </unit>
+    <unit id="J8T2HuD" name="settings.synonyms.type_synonyms.help">
+      <segment state="translated">
+        <source>settings.synonyms.type_synonyms.help</source>
+        <target>I sinonimi per i tipi permettono di sostituire le etichette dei tipi di dati predefiniti. Ad esempio, è possibile rinominare “Footprint” con un altro nome.</target>
+      </segment>
+    </unit>
+    <unit id="wjcsjzT" name="log.element_edited.changed_fields.part_ipn_prefix">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.part_ipn_prefix</source>
+        <target>Prefisso IPN</target>
+      </segment>
+    </unit>
+    <unit id="R4hoCqe" name="part.labelp">
+      <segment state="translated">
+        <source>part.labelp</source>
+        <target>Componenti</target>
+      </segment>
+    </unit>
+    <unit id=".tjK0ju" name="project_bom_entry.labelp">
+      <segment state="translated">
+        <source>project_bom_entry.labelp</source>
+        <target>Voci di BOM</target>
+      </segment>
+    </unit>
+    <unit id="ftBf11d" name="part_lot.labelp">
+      <segment state="translated">
+        <source>part_lot.labelp</source>
+        <target>Lotti di componenti</target>
+      </segment>
+    </unit>
+    <unit id="UVDJmYp" name="orderdetail.labelp">
+      <segment state="translated">
+        <source>orderdetail.labelp</source>
+        <target>Dettagli ordine</target>
+      </segment>
+    </unit>
+    <unit id="83AQqv." name="pricedetail.labelp">
+      <segment state="translated">
+        <source>pricedetail.labelp</source>
+        <target>Dettagli prezzo</target>
+      </segment>
+    </unit>
+    <unit id="4KRV2mB" name="parameter.labelp">
+      <segment state="translated">
+        <source>parameter.labelp</source>
+        <target>Parametri</target>
+      </segment>
+    </unit>
+    <unit id="AAYYeiw" name="part_association.labelp">
+      <segment state="translated">
+        <source>part_association.labelp</source>
+        <target>Associazioni dei componenti</target>
+      </segment>
+    </unit>
+    <unit id="2_3Lz7i" name="bulk_info_provider_import_job.labelp">
+      <segment state="translated">
+        <source>bulk_info_provider_import_job.labelp</source>
+        <target>Importazioni massive da provider di informazioni</target>
+      </segment>
+    </unit>
+    <unit id="BXTqi16" name="bulk_info_provider_import_job_part.labelp">
+      <segment state="translated">
+        <source>bulk_info_provider_import_job_part.labelp</source>
+        <target>Componente del job di importazione massiva</target>
+      </segment>
+    </unit>
+    <unit id="91Wvg.F" name="password_toggle.hide">
+      <segment state="translated">
+        <source>password_toggle.hide</source>
+        <target>Nascondere</target>
+      </segment>
+    </unit>
+    <unit id="2vciZN7" name="password_toggle.show">
+      <segment state="translated">
+        <source>password_toggle.show</source>
+        <target>Mostrare</target>
+      </segment>
+    </unit>
+    <unit id="PVw6Lx4" name="settings.misc.ipn_suggest.regex.help.placeholder">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.regex.help.placeholder</source>
+        <target>Esempio di formato: 3–4 segmenti alfanumerici (di qualsiasi lunghezza) separati da “-”, seguiti da “-” e 4 cifre, ad es., PCOM-RES-0001</target>
+      </segment>
+    </unit>
+    <unit id="M5Q_eZW" name="part.edit.tab.advanced.ipn.prefix.global_prefix">
+      <segment state="translated">
+        <source>part.edit.tab.advanced.ipn.prefix.global_prefix</source>
+        <target>Prefisso IPN globale, comune a tutti i componenti</target>
+      </segment>
+    </unit>
+    <unit id="WlKvQeB" name="settings.misc.ipn_suggest.fallbackPrefix">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.fallbackPrefix</source>
+        <target>Prefisso di riserva</target>
+      </segment>
+    </unit>
+    <unit id="Fr8hXdE" name="settings.misc.ipn_suggest.fallbackPrefix.help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.fallbackPrefix.help</source>
+        <target>Il prefisso IPN da utilizzare se una categoria non ha un prefisso definito</target>
+      </segment>
+    </unit>
+    <unit id="_p9cMpI" name="settings.misc.ipn_suggest.numberSeparator">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.numberSeparator</source>
+        <target>Separatore di numeri</target>
+      </segment>
+    </unit>
+    <unit id="CqfzuM6" name="settings.misc.ipn_suggest.numberSeparator.help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.numberSeparator.help</source>
+        <target>Il carattere separatore utilizzato per separare il numero IPN dal prefisso</target>
+      </segment>
+    </unit>
+    <unit id="PisGfwB" name="settings.misc.ipn_suggest.categorySeparator">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.categorySeparator</source>
+        <target>Separatore di categorie</target>
+      </segment>
+    </unit>
+    <unit id="jlNd0CI" name="settings.misc.ipn_suggest.categorySeparator.help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.categorySeparator.help</source>
+        <target>Il carattere separatore utilizzato per separare i diversi livelli dei prefissi di categoria</target>
+      </segment>
+    </unit>
+    <unit id="MkiJuRK" name="settings.misc.ipn_suggest.globalPrefix">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.globalPrefix</source>
+        <target>Prefisso globale</target>
+      </segment>
+    </unit>
+    <unit id="Akh9iFg" name="settings.misc.ipn_suggest.globalPrefix.help">
+      <segment state="translated">
+        <source>settings.misc.ipn_suggest.globalPrefix.help</source>
+        <target>Se abilitato, permette di generare IPN utilizzando questo prefisso globale, condiviso tra i componenti di tutte le categorie.</target>
+      </segment>
+    </unit>
     <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
-        <notes>
-            <note priority="1">Do not remove! Used for datatables rendering.</note>
-        </notes>
-        <segment state="translated">
-            <source>datatable.datatable.lengthMenu</source>
-            <target>_MENU_</target>
-          </segment>
+      <notes>
+        <note priority="1">Do not remove! Used for datatables rendering.</note>
+      </notes>
+      <segment state="translated">
+        <source>datatable.datatable.lengthMenu</source>
+        <target>_MENU_</target>
+      </segment>
+    </unit>
+    <unit id="Ae8pGfM" name="settings.ips.buerklin">
+      <segment state="translated">
+        <source>settings.ips.buerklin</source>
+        <target>Buerklin</target>
+      </segment>
+    </unit>
+    <unit id="nlVH1Nb" name="settings.ips.buerklin.username">
+      <segment state="translated">
+        <source>settings.ips.buerklin.username</source>
+        <target>User name</target>
+      </segment>
+    </unit>
+    <unit id="BlR_EQc" name="settings.ips.buerklin.help">
+      <segment state="translated">
+        <source>settings.ips.buerklin.help</source>
+        <target>Limiti di accesso all’API Buerklin:
+100 richieste/minuto per indirizzo IP
+Server di autenticazione API Buerklin:
+10 richieste/minuto per indirizzo IP</target>
+      </segment>
+    </unit>
+    <unit id="8BkjGyq" name="project.bom.part_id">
+      <segment state="translated">
+        <source>project.bom.part_id</source>
+        <target>[Part] ID</target>
+      </segment>
+    </unit>
+    <unit id="WdszgJG" name="info_providers.search.error.general_exception">
+      <segment state="translated">
+        <source>info_providers.search.error.general_exception</source>
+        <target>Si è verificato un errore sconosciuto durante il recupero dei componenti dal provider di informazioni: %type%. Controllare che i provider siano configurati correttamente e che le chiavi di accesso siano valide. Per ulteriori dettagli, consultare i log del server.</target>
+      </segment>
+    </unit>
+    <unit id="RFhwYWd" name="info_providers.search.error.transport_exception">
+      <segment state="translated">
+        <source>info_providers.search.error.transport_exception</source>
+        <target>Errore di trasporto durante il recupero delle informazioni dai provider. Verificare che il server abbia accesso a Internet. Consultare i log del server per ulteriori dettagli.</target>
+      </segment>
+    </unit>
+    <unit id="PExOL_J" name="update_manager.title">
+      <segment state="translated">
+        <source>update_manager.title</source>
+        <target>Update Manager</target>
+      </segment>
+    </unit>
+    <unit id="DkbDuK5" name="update_manager.new">
+      <segment state="translated">
+        <source>update_manager.new</source>
+        <target>Nuovo</target>
+      </segment>
+    </unit>
+    <unit id="O3BU_4C" name="update_manager.current_installation">
+      <segment state="translated">
+        <source>update_manager.current_installation</source>
+        <target>Installazione corrente</target>
+      </segment>
+    </unit>
+    <unit id="McAk_FQ" name="update_manager.version">
+      <segment state="translated">
+        <source>update_manager.version</source>
+        <target>Versione</target>
+      </segment>
+    </unit>
+    <unit id="wJj_PaX" name="update_manager.installation_type">
+      <segment state="translated">
+        <source>update_manager.installation_type</source>
+        <target>Tipo di installazione</target>
+      </segment>
+    </unit>
+    <unit id="cJRLvZH" name="update_manager.git_branch">
+      <segment state="translated">
+        <source>update_manager.git_branch</source>
+        <target>Git Branch</target>
+      </segment>
+    </unit>
+    <unit id="w_QspQf" name="update_manager.git_commit">
+      <segment state="translated">
+        <source>update_manager.git_commit</source>
+        <target>Git Commit</target>
+      </segment>
+    </unit>
+    <unit id="55D76Ye" name="update_manager.local_changes">
+      <segment state="translated">
+        <source>update_manager.local_changes</source>
+        <target>Local Changes</target>
+      </segment>
+    </unit>
+    <unit id="MauuHyR" name="update_manager.commits_behind">
+      <segment state="translated">
+        <source>update_manager.commits_behind</source>
+        <target>Commits Behind</target>
+      </segment>
+    </unit>
+    <unit id="G9HzSYg" name="update_manager.auto_update_supported">
+      <segment state="translated">
+        <source>update_manager.auto_update_supported</source>
+        <target>Supporta l’aggiornamento automatico</target>
+      </segment>
+    </unit>
+    <unit id="TFuuQVs" name="update_manager.refresh">
+      <segment state="translated">
+        <source>update_manager.refresh</source>
+        <target>Aggiornare</target>
+      </segment>
+    </unit>
+    <unit id="WV10ozS" name="update_manager.latest_release">
+      <segment state="translated">
+        <source>update_manager.latest_release</source>
+        <target>Ultima Release</target>
+      </segment>
+    </unit>
+    <unit id="pMdT6Ln" name="update_manager.tag">
+      <segment state="translated">
+        <source>update_manager.tag</source>
+        <target>Tag</target>
+      </segment>
+    </unit>
+    <unit id="rxA5Q.H" name="update_manager.released">
+      <segment state="translated">
+        <source>update_manager.released</source>
+        <target>Released</target>
+      </segment>
+    </unit>
+    <unit id="ZkqzT1I" name="update_manager.release_notes">
+      <segment state="translated">
+        <source>update_manager.release_notes</source>
+        <target>Release Notes</target>
+      </segment>
+    </unit>
+    <unit id="VsLmOMA" name="update_manager.view">
+      <segment state="translated">
+        <source>update_manager.view</source>
+        <target>View</target>
+      </segment>
+    </unit>
+    <unit id="KiDikJp" name="update_manager.view_on_github">
+      <segment state="translated">
+        <source>update_manager.view_on_github</source>
+        <target>View on GitHub</target>
+      </segment>
+    </unit>
+    <unit id="Ps4N7pW" name="update_manager.view_release">
+      <segment state="translated">
+        <source>update_manager.view_release</source>
+        <target>View Release</target>
+      </segment>
+    </unit>
+    <unit id="Op0GjdW" name="update_manager.could_not_fetch_releases">
+      <segment state="translated">
+        <source>update_manager.could_not_fetch_releases</source>
+        <target>Impossibile ottenere le informazioni sulla release. Controllare la connessione Internet.</target>
+      </segment>
+    </unit>
+    <unit id="p2oOHqy" name="update_manager.how_to_update">
+      <segment state="translated">
+        <source>update_manager.how_to_update</source>
+        <target>Come aggiornare</target>
+      </segment>
+    </unit>
+    <unit id="T8wDaa4" name="update_manager.cli_instruction">
+      <segment state="translated">
+        <source>update_manager.cli_instruction</source>
+        <target>Per aggiornare Part-DB, eseguire uno dei seguenti comandi nel terminale:</target>
+      </segment>
+    </unit>
+    <unit id="anX9IHz" name="update_manager.check_for_updates">
+      <segment state="translated">
+        <source>update_manager.check_for_updates</source>
+        <target>Controllare aggiornamenti</target>
+      </segment>
+    </unit>
+    <unit id="jQSkEnc" name="update_manager.update_to_latest">
+      <segment state="translated">
+        <source>update_manager.update_to_latest</source>
+        <target>Aggiornare all'ultima versione</target>
+      </segment>
+    </unit>
+    <unit id="BLqqNYf" name="update_manager.update_to_specific">
+      <segment state="translated">
+        <source>update_manager.update_to_specific</source>
+        <target>Aggiornare a una versione specifica</target>
+      </segment>
+    </unit>
+    <unit id="sepynnN" name="update_manager.cli_recommendation">
+      <segment state="translated">
+        <source>update_manager.cli_recommendation</source>
+        <target>Per garantire sicurezza e affidabilità, gli aggiornamenti devono essere eseguiti tramite l’interfaccia a riga di comando. Il processo di aggiornamento creerà automaticamente un backup, attiverà la modalità di manutenzione e gestirà le migrazioni.</target>
+      </segment>
+    </unit>
+    <unit id="cTzUzRc" name="update_manager.up_to_date">
+      <segment state="translated">
+        <source>update_manager.up_to_date</source>
+        <target>Aggiornato</target>
+      </segment>
+    </unit>
+    <unit id="4twG2aT" name="update_manager.newer">
+      <segment state="translated">
+        <source>update_manager.newer</source>
+        <target>Più recente</target>
+      </segment>
+    </unit>
+    <unit id="x3_aj6." name="update_manager.current">
+      <segment state="translated">
+        <source>update_manager.current</source>
+        <target>Attuale</target>
+      </segment>
+    </unit>
+    <unit id="JmMErjH" name="update_manager.older">
+      <segment state="translated">
+        <source>update_manager.older</source>
+        <target>Meno recente</target>
+      </segment>
+    </unit>
+    <unit id="n9bdBil" name="update_manager.prerelease">
+      <segment state="translated">
+        <source>update_manager.prerelease</source>
+        <target>Pre-release</target>
+      </segment>
+    </unit>
+    <unit id="JNSumag" name="update_manager.status">
+      <segment state="translated">
+        <source>update_manager.status</source>
+        <target>Stato</target>
+      </segment>
+    </unit>
+    <unit id="CyrTWmk" name="update_manager.available_versions">
+      <segment state="translated">
+        <source>update_manager.available_versions</source>
+        <target>Versioni disponibili</target>
+      </segment>
+    </unit>
+    <unit id="dNDITfe" name="update_manager.no_releases_found">
+      <segment state="translated">
+        <source>update_manager.no_releases_found</source>
+        <target>Nessuna release trovata</target>
+      </segment>
+    </unit>
+    <unit id="DYpFv6Y" name="update_manager.view_release_notes">
+      <segment state="translated">
+        <source>update_manager.view_release_notes</source>
+        <target>View Release Notes</target>
+      </segment>
+    </unit>
+    <unit id="8OQbJJF" name="update_manager.update_logs">
+      <segment state="translated">
+        <source>update_manager.update_logs</source>
+        <target>Log aggiornamenti</target>
+      </segment>
+    </unit>
+    <unit id="EQ.7NKA" name="update_manager.backups">
+      <segment state="translated">
+        <source>update_manager.backups</source>
+        <target>Backups</target>
+      </segment>
+    </unit>
+    <unit id="RzACl7b" name="update_manager.date">
+      <segment state="translated">
+        <source>update_manager.date</source>
+        <target>Data</target>
+      </segment>
+    </unit>
+    <unit id="qrXWWID" name="update_manager.log_file">
+      <segment state="translated">
+        <source>update_manager.log_file</source>
+        <target>Log File</target>
+      </segment>
+    </unit>
+    <unit id="RqecL.0" name="update_manager.no_logs_found">
+      <segment state="translated">
+        <source>update_manager.no_logs_found</source>
+        <target>Nessun log di aggiornamento trovato</target>
+      </segment>
+    </unit>
+    <unit id="kBsDajR" name="update_manager.file">
+      <segment state="translated">
+        <source>update_manager.file</source>
+        <target>File</target>
+      </segment>
+    </unit>
+    <unit id="iyqnH4y" name="update_manager.size">
+      <segment state="translated">
+        <source>update_manager.size</source>
+        <target>Dimensione</target>
+      </segment>
+    </unit>
+    <unit id="zrVIiyj" name="update_manager.no_backups_found">
+      <segment state="translated">
+        <source>update_manager.no_backups_found</source>
+        <target>Nessun backup trovato</target>
+      </segment>
+    </unit>
+    <unit id="hxz8Fme" name="update_manager.validation_issues">
+      <segment state="translated">
+        <source>update_manager.validation_issues</source>
+        <target>Problemi di validazione</target>
+      </segment>
+    </unit>
+    <unit id="_79O_U0" name="update_manager.maintenance_mode_active">
+      <segment state="translated">
+        <source>update_manager.maintenance_mode_active</source>
+        <target>La modalità di manutenzione è attiva</target>
+      </segment>
+    </unit>
+    <unit id="A1MNL8F" name="update_manager.update_in_progress">
+      <segment state="translated">
+        <source>update_manager.update_in_progress</source>
+        <target>Un aggiornamento è attualmente in corso</target>
+      </segment>
+    </unit>
+    <unit id="NQDT5rh" name="update_manager.started_at">
+      <segment state="translated">
+        <source>update_manager.started_at</source>
+        <target>Avviato il</target>
+      </segment>
+    </unit>
+    <unit id="Y2w3Oal" name="update_manager.new_version_available.message">
+      <segment state="translated">
+        <source>update_manager.new_version_available.message</source>
+        <target>È ora disponibile la versione %version% di Part-DB! Si consiglia di aggiornare per ottenere le funzionalità più recenti e le ultime correzioni di sicurezza.</target>
+      </segment>
+    </unit>
+    <unit id="vp8Fp8e" name="update_manager.changelog">
+      <segment state="translated">
+        <source>update_manager.changelog</source>
+        <target>Changelog</target>
+      </segment>
+    </unit>
+    <unit id="wYtPY8_" name="update_manager.no_release_notes">
+      <segment state="translated">
+        <source>update_manager.no_release_notes</source>
+        <target>Non sono disponibili release note per questa versione.</target>
+      </segment>
+    </unit>
+    <unit id="0amNk.A" name="update_manager.back_to_update_manager">
+      <segment state="translated">
+        <source>update_manager.back_to_update_manager</source>
+        <target>Tornare all’Update Manager</target>
+      </segment>
+    </unit>
+    <unit id="3RaBRRh" name="update_manager.download_assets">
+      <segment state="translated">
+        <source>update_manager.download_assets</source>
+        <target>Download</target>
+      </segment>
+    </unit>
+    <unit id="yw.Bqwa" name="update_manager.update_to_this_version">
+      <segment state="translated">
+        <source>update_manager.update_to_this_version</source>
+        <target>Aggiornare a questa versione</target>
+      </segment>
+    </unit>
+    <unit id="458.UTU" name="update_manager.run_command_to_update">
+      <segment state="translated">
+        <source>update_manager.run_command_to_update</source>
+        <target>Eseguire il seguente comando nel terminale per aggiornare a questa versione:</target>
+      </segment>
+    </unit>
+    <unit id="1iYIZ6C" name="update_manager.log_viewer">
+      <segment state="translated">
+        <source>update_manager.log_viewer</source>
+        <target>Log Viewer</target>
+      </segment>
+    </unit>
+    <unit id="AXavng5" name="update_manager.update_log">
+      <segment state="translated">
+        <source>update_manager.update_log</source>
+        <target>Log aggiornamenti</target>
+      </segment>
+    </unit>
+    <unit id=".QzwEpo" name="update_manager.bytes">
+      <segment state="translated">
+        <source>update_manager.bytes</source>
+        <target>bytes</target>
+      </segment>
+    </unit>
+    <unit id="Gt.91s_" name="perm.system.manage_updates">
+      <segment state="translated">
+        <source>perm.system.manage_updates</source>
+        <target>Gestire gli aggiornamenti di Part-DB</target>
+      </segment>
+    </unit>
+    <unit id="Mw2sya4" name="update_manager.create_backup">
+      <segment state="translated">
+        <source>update_manager.create_backup</source>
+        <target>Creare un backup prima dell’aggiornamento (consigliato)</target>
+      </segment>
+    </unit>
+    <unit id="fWGZSZ1" name="update_manager.confirm_update">
+      <segment state="translated">
+        <source>update_manager.confirm_update</source>
+        <target>Confermare l’aggiornamento di Part-DB? Prima dell’aggiornamento verrà creato un backup.</target>
+      </segment>
+    </unit>
+    <unit id="Fashdp." name="update_manager.already_up_to_date">
+      <segment state="translated">
+        <source>update_manager.already_up_to_date</source>
+        <target>Part-DB è aggiornato all’ultima versione.</target>
+      </segment>
+    </unit>
+    <unit id="JPZ9w0l" name="update_manager.progress.title">
+      <segment state="translated">
+        <source>update_manager.progress.title</source>
+        <target>Stato aggiornamento</target>
+      </segment>
+    </unit>
+    <unit id="7oAKwee" name="update_manager.progress.updating">
+      <segment state="translated">
+        <source>update_manager.progress.updating</source>
+        <target>Part-DB in aggiornamento…</target>
+      </segment>
+    </unit>
+    <unit id="ffxDMB4" name="update_manager.progress.completed">
+      <segment state="translated">
+        <source>update_manager.progress.completed</source>
+        <target>Aggiornamento completato!</target>
+      </segment>
+    </unit>
+    <unit id="ZKFaIiJ" name="update_manager.progress.failed">
+      <segment state="translated">
+        <source>update_manager.progress.failed</source>
+        <target>Aggiornamento fallito</target>
+      </segment>
+    </unit>
+    <unit id="bSdCWOK" name="update_manager.progress.initializing">
+      <segment state="translated">
+        <source>update_manager.progress.initializing</source>
+        <target>Inizializzazione…</target>
+      </segment>
+    </unit>
+    <unit id="1kwqhDj" name="update_manager.progress.updating_to">
+      <segment state="translated">
+        <source>update_manager.progress.updating_to</source>
+        <target>Aggiornamento alla versione %version%</target>
+      </segment>
+    </unit>
+    <unit id="9iiGqBW" name="update_manager.progress.downgrading_to">
+      <segment state="translated">
+        <source>update_manager.progress.downgrading_to</source>
+        <target>Ripristino alla versione %version%</target>
+      </segment>
+    </unit>
+    <unit id="53NE8hP" name="update_manager.progress.error">
+      <segment state="translated">
+        <source>update_manager.progress.error</source>
+        <target>Errore</target>
+      </segment>
+    </unit>
+    <unit id="30Cg6Gj" name="update_manager.progress.success_message">
+      <segment state="translated">
+        <source>update_manager.progress.success_message</source>
+        <target>Aggiornamento di Part-DB completato con successo! Aggiornare la pagina per vedere la nuova versione.</target>
+      </segment>
+    </unit>
+    <unit id="qnpVyIP" name="update_manager.progress.steps">
+      <segment state="translated">
+        <source>update_manager.progress.steps</source>
+        <target>Passaggi di aggiornamento</target>
+      </segment>
+    </unit>
+    <unit id="048it9m" name="update_manager.progress.waiting">
+      <segment state="translated">
+        <source>update_manager.progress.waiting</source>
+        <target>In attesa dell’avvio dell’aggiornamento…</target>
+      </segment>
+    </unit>
+    <unit id="uydk07m" name="update_manager.progress.back">
+      <segment state="translated">
+        <source>update_manager.progress.back</source>
+        <target>Tornare all’Update Manager</target>
+      </segment>
+    </unit>
+    <unit id="egnoPy_" name="update_manager.progress.refresh_page">
+      <segment state="translated">
+        <source>update_manager.progress.refresh_page</source>
+        <target>Aggiornare la pagina</target>
+      </segment>
+    </unit>
+    <unit id="q9vs_v7" name="update_manager.progress.warning">
+      <segment state="translated">
+        <source>update_manager.progress.warning</source>
+        <target>Importante</target>
+      </segment>
+    </unit>
+    <unit id="b.ubGIM" name="update_manager.progress.do_not_close">
+      <segment state="translated">
+        <source>update_manager.progress.do_not_close</source>
+        <target>Non chiudere questa pagina né navigare altrove mentre l’aggiornamento è in corso. L’aggiornamento continuerà anche se si chiude la pagina, ma non sarà possibile monitorarne l’avanzamento.</target>
+      </segment>
+    </unit>
+    <unit id="SQxsQbQ" name="update_manager.progress.auto_refresh">
+      <segment state="translated">
+        <source>update_manager.progress.auto_refresh</source>
+        <target>Questa pagina si aggiornerà automaticamente ogni 2 secondi per mostrare l’avanzamento.</target>
+      </segment>
+    </unit>
+    <unit id="aSHDhOi" name="update_manager.progress.downgrade_title">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_title</source>
+        <target>Avanzamento ripristino versione precedente</target>
+      </segment>
+    </unit>
+    <unit id="XYR1vvR" name="update_manager.progress.downgrade_completed">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_completed</source>
+        <target>Ripristino alla versione precedente completato!</target>
+      </segment>
+    </unit>
+    <unit id="OaKRuqb" name="update_manager.progress.downgrade_failed">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_failed</source>
+        <target>Il ripristino alla versione precedente è fallito</target>
+      </segment>
+    </unit>
+    <unit id="bDwkcfw" name="update_manager.progress.downgrade_success_message">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_success_message</source>
+        <target>Part-DB è stato ripristinato con successo alla versione precedente! Potrebbe essere necessario aggiornare la pagina per visualizzare la nuova versione.</target>
+      </segment>
+    </unit>
+    <unit id="U_wIKH7" name="update_manager.progress.downgrade_steps">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_steps</source>
+        <target>Passaggi per il ripristino alla versione precedente</target>
+      </segment>
+    </unit>
+    <unit id="quoDXGW" name="update_manager.progress.downgrade_do_not_close">
+      <segment state="translated">
+        <source>update_manager.progress.downgrade_do_not_close</source>
+        <target>Non chiudere questa pagina né navigare altrove mentre il ripristino alla versione precedente è in corso. Il ripristino continuerà anche se si chiude la pagina, ma non sarà possibile monitorarne l’avanzamento.</target>
+      </segment>
+    </unit>
+    <unit id="k056kqg" name="update_manager.confirm_downgrade">
+      <segment state="translated">
+        <source>update_manager.confirm_downgrade</source>
+        <target>Confermare il ripristino di Part-DB a una versione precedente. Verrà creato un backup prima del ripristino.</target>
+      </segment>
+    </unit>
+    <unit id="FqMFu60" name="update_manager.downgrade_removes_update_manager">
+      <segment state="translated">
+        <source>update_manager.downgrade_removes_update_manager</source>
+        <target>ATTENZIONE: l’Update Manager non è presente in questa versione. Dopo il ripristino, l’aggiornamento dovrà essere eseguito manualmente tramite la riga di comando (git checkout, composer install, ecc.).</target>
+      </segment>
+    </unit>
+    <unit id="gJ1zayM" name="update_manager.restore_backup">
+      <segment state="translated">
+        <source>update_manager.restore_backup</source>
+        <target>Restore backup</target>
+      </segment>
+    </unit>
+    <unit id="rzkOf7b" name="update_manager.restore_confirm_title">
+      <segment state="translated">
+        <source>update_manager.restore_confirm_title</source>
+        <target>Restore from Backup</target>
+      </segment>
+    </unit>
+    <unit id="sKf8kah" name="update_manager.restore_confirm_message">
+      <segment state="translated">
+        <source>update_manager.restore_confirm_message</source>
+        <target>Confermare il ripristino del database utilizzando questo backup.</target>
+      </segment>
+    </unit>
+    <unit id="iCc3vNw" name="update_manager.restore_confirm_warning">
+      <segment state="translated">
+        <source>update_manager.restore_confirm_warning</source>
+        <target>ATTENZIONE: questa operazione sovrascriverà il database corrente con i dati del backup. L’azione non può essere annullata! Verificare di disporre di un backup aggiornato prima di procedere.</target>
+      </segment>
+    </unit>
+    <unit id="Tsaqpw6" name="update_manager.web_updates_disabled">
+      <segment state="translated">
+        <source>update_manager.web_updates_disabled</source>
+        <target>Gli aggiornamenti via web sono disabilitati</target>
+      </segment>
+    </unit>
+    <unit id="ievNCa2" name="update_manager.web_updates_disabled_hint">
+      <segment state="translated">
+        <source>update_manager.web_updates_disabled_hint</source>
+        <target>Gli aggiornamenti via web sono stati disabilitati dall’amministratore del server. Utilizzare il comando CLI “php bin/console partdb:update” per eseguire gli aggiornamenti.</target>
+      </segment>
+    </unit>
+    <unit id="Gq.JxJC" name="update_manager.backup_restore_disabled">
+      <segment state="translated">
+        <source>update_manager.backup_restore_disabled</source>
+        <target>Il ripristino del backup è disabilitato dalla configurazione del server.</target>
+      </segment>
+    </unit>
+    <unit id="kHKChQB" name="settings.ips.conrad">
+      <segment state="translated">
+        <source>settings.ips.conrad</source>
+        <target>Conrad</target>
+      </segment>
+    </unit>
+    <unit id="gwZXJ0F" name="settings.ips.conrad.shopID">
+      <segment state="translated">
+        <source>settings.ips.conrad.shopID</source>
+        <target>Shop ID</target>
+      </segment>
+    </unit>
+    <unit id="honqnBf" name="settings.ips.conrad.shopID.description">
+      <segment state="translated">
+        <source>settings.ips.conrad.shopID.description</source>
+        <target>La versione del negozio Conrad da cui recuperare i risultati. Questa determina lingua, prezzi e valuta dei risultati. Se sono disponibili sia la versione B2B sia la versione B2C, scegliere la versione B2C se si desiderano prezzi comprensivi di IVA.</target>
+      </segment>
+    </unit>
+    <unit id="EVcQbEK" name="settings.ips.conrad.attachment_language_filter">
+      <segment state="translated">
+        <source>settings.ips.conrad.attachment_language_filter</source>
+        <target>Filtro lingua per gli allegati</target>
+      </segment>
+    </unit>
+    <unit id="MWPmQf2" name="settings.ips.conrad.attachment_language_filter.description">
+      <segment state="translated">
+        <source>settings.ips.conrad.attachment_language_filter.description</source>
+        <target>Includere nei risultati solo gli allegati nelle lingue selezionate.</target>
+      </segment>
+    </unit>
+    <unit id="PNmvQ.U" name="settings.ips.generic_web_provider">
+      <segment state="translated">
+        <source>settings.ips.generic_web_provider</source>
+        <target>Web URL Provider Generico</target>
+      </segment>
+    </unit>
+    <unit id="Vk3BoE_" name="settings.ips.generic_web_provider.description">
+      <segment state="translated">
+        <source>settings.ips.generic_web_provider.description</source>
+        <target>Questo provider di informazioni consente di recuperare le informazioni di base sui componenti da più URL di pagine di negozi.</target>
+      </segment>
+    </unit>
+    <unit id="Pu8juaH" name="settings.ips.generic_web_provider.enabled.help">
+      <segment state="translated">
+        <source>settings.ips.generic_web_provider.enabled.help</source>
+        <target>Quando il provider è abilitato, gli utenti possono inviare richieste a siti web arbitrari a nome del server Part-DB. Abilitare questa opzione solo se si è consapevoli delle possibili conseguenze.</target>
+      </segment>
+    </unit>
+    <unit id="IvIOYcn" name="info_providers.from_url.title">
+      <segment state="translated">
+        <source>info_providers.from_url.title</source>
+        <target>Creare [part] da URL</target>
+      </segment>
+    </unit>
+    <unit id="QLL7vDC" name="info_providers.from_url.url.label">
+      <segment state="translated">
+        <source>info_providers.from_url.url.label</source>
+        <target>URL</target>
+      </segment>
+    </unit>
+    <unit id="JTbTQLl" name="info_providers.from_url.no_part_found">
+      <segment state="translated">
+        <source>info_providers.from_url.no_part_found</source>
+        <target>Nessun componente trovato dall’URL fornito. Si tratta di un URL di negozio valido?</target>
+      </segment>
+    </unit>
+    <unit id="xoSvJk0" name="info_providers.from_url.help">
+      <segment state="translated">
+        <source>info_providers.from_url.help</source>
+        <target>Crea un componente a partire dall’URL fornito. Se possibile, tenta di delegare l’operazione a un provider di informazioni esistente; in caso contrario, proverà a estrarre dati rudimentali dai metadati della pagina web.</target>
+      </segment>
+    </unit>
+    <unit id="SWd8mI9" name="update_manager.cant_auto_update">
+      <segment state="translated">
+        <source>update_manager.cant_auto_update</source>
+        <target>Aggiornamento automatico non disponibile dalla WebUI</target>
+      </segment>
+    </unit>
+    <unit id="XquvWL5" name="update_manager.switch_to">
+      <segment state="translated">
+        <source>update_manager.switch_to</source>
+        <target>Passare a</target>
+      </segment>
+    </unit>
+    <unit id="oKMBb9S" name="update_manager.update_to">
+      <segment state="translated">
+        <source>update_manager.update_to</source>
+        <target>Aggiornare a</target>
+      </segment>
+    </unit>
+    <unit id="XPhnMxn" name="part.gtin">
+      <segment state="translated">
+        <source>part.gtin</source>
+        <target>GTIN / EAN</target>
+      </segment>
+    </unit>
+    <unit id="TyykD7B" name="info_providers.capabilities.gtin">
+      <segment state="translated">
+        <source>info_providers.capabilities.gtin</source>
+        <target>GTIN / EAN</target>
+      </segment>
+    </unit>
+    <unit id="JBGly8p" name="part.table.gtin">
+      <segment state="translated">
+        <source>part.table.gtin</source>
+        <target>GTIN</target>
+      </segment>
+    </unit>
+    <unit id="0qHQof." name="scan_dialog.mode.gtin">
+      <segment state="translated">
+        <source>scan_dialog.mode.gtin</source>
+        <target>GTIN / EAN barcode</target>
+      </segment>
+    </unit>
+    <unit id="cmchX59" name="attachment_type.edit.allowed_targets">
+      <segment state="translated">
+        <source>attachment_type.edit.allowed_targets</source>
+        <target>Usare solo per</target>
+      </segment>
+    </unit>
+    <unit id="t5R8p1l" name="attachment_type.edit.allowed_targets.help">
+      <segment state="translated">
+        <source>attachment_type.edit.allowed_targets.help</source>
+        <target>Rendere questo tipo di allegato disponibile solo per determinate classi di elementi. Lasciare vuoto per rendere questo tipo di allegato disponibile per tutte le classi di elementi.</target>
+      </segment>
+    </unit>
+    <unit id="LvlEUjC" name="orderdetails.edit.prices_includes_vat">
+      <segment state="translated">
+        <source>orderdetails.edit.prices_includes_vat</source>
+        <target>I prezzi includono l’IVA</target>
+      </segment>
+    </unit>
+    <unit id="GUsVh5T" name="prices.incl_vat">
+      <segment state="translated">
+        <source>prices.incl_vat</source>
+        <target>Incl. IVA</target>
+      </segment>
+    </unit>
+    <unit id="3ipwaVQ" name="prices.excl_vat">
+      <segment state="translated">
+        <source>prices.excl_vat</source>
+        <target>Escl. IVA</target>
+      </segment>
+    </unit>
+    <unit id="WDJ7EeF" name="settings.system.localization.prices_include_tax_by_default">
+      <segment state="translated">
+        <source>settings.system.localization.prices_include_tax_by_default</source>
+        <target>I prezzi includono l’IVA per impostazione predefinita</target>
+      </segment>
+    </unit>
+    <unit id="01oGY_r" name="settings.system.localization.prices_include_tax_by_default.description">
+      <segment state="translated">
+        <source>settings.system.localization.prices_include_tax_by_default.description</source>
+        <target>Valore predefinito per le nuove informazioni di acquisto, relativo all’inclusione o meno dell’IVA nei prezzi.</target>
+      </segment>
+    </unit>
+    <unit id="heWSnAH" name="part_lot.edit.last_stocktake_at">
+      <segment state="translated">
+        <source>part_lot.edit.last_stocktake_at</source>
+        <target>Ultimo inventario</target>
+      </segment>
+    </unit>
+    <unit id=".LP93kG" name="perm.parts_stock.stocktake">
+      <segment state="translated">
+        <source>perm.parts_stock.stocktake</source>
+        <target>Inventario</target>
+      </segment>
+    </unit>
+    <unit id="Vnhrb5R" name="part.info.stocktake_modal.title">
+      <segment state="translated">
+        <source>part.info.stocktake_modal.title</source>
+        <target>Lotto di inventario</target>
+      </segment>
+    </unit>
+    <unit id="WqOG7RK" name="part.info.stocktake_modal.expected_amount">
+      <segment state="translated">
+        <source>part.info.stocktake_modal.expected_amount</source>
+        <target>Quantità prevista</target>
+      </segment>
+    </unit>
+    <unit id="E7IbVN6" name="part.info.stocktake_modal.actual_amount">
+      <segment state="translated">
+        <source>part.info.stocktake_modal.actual_amount</source>
+        <target>Quantità effettiva</target>
+      </segment>
+    </unit>
+    <unit id="4GwSma7" name="log.part_stock_changed.stock_take">
+      <segment state="translated">
+        <source>log.part_stock_changed.stock_take</source>
+        <target>Inventario</target>
+      </segment>
+    </unit>
+    <unit id="aRQPMW7" name="log.element_edited.changed_fields.last_stocktake_at">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.last_stocktake_at</source>
+        <target>Ultimo inventario</target>
+      </segment>
     </unit>
   </file>
 </xliff>

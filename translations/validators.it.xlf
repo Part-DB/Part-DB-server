@@ -223,6 +223,12 @@
         <target>A causa di limitazioni tecniche, non è possibile selezionare date successive al 19-01-2038 su sistemi a 32 bit!</target>
       </segment>
     </unit>
+    <unit id="iM9yb_p" name="validator.fileSize.invalidFormat">
+      <segment state="translated">
+        <source>validator.fileSize.invalidFormat</source>
+        <target>Formato di dimensione file non valido. Utilizzare un numero intero più K, M, G come suffisso per Kilo, Mega or Gigabytes.</target>
+      </segment>
+    </unit>
     <unit id="ZFxQ0BZ" name="validator.invalid_range">
       <segment state="translated">
         <source>validator.invalid_range</source>
@@ -233,6 +239,18 @@
       <segment state="translated">
         <source>validator.google_code.wrong_code</source>
         <target>Codice non valido. Controlla che la tua app di autenticazione sia impostata correttamente e che sia il server che il dispositivo di autenticazione abbiano l'ora impostata correttamente.</target>
+      </segment>
+    </unit>
+    <unit id="I330cr5" name="settings.synonyms.type_synonyms.collection_type.duplicate">
+      <segment state="translated">
+        <source>settings.synonyms.type_synonyms.collection_type.duplicate</source>
+        <target>Esiste già una traduzione definita per questo tipo e questa lingua!</target>
+      </segment>
+    </unit>
+    <unit id="zT_j_oQ" name="validator.invalid_gtin">
+      <segment state="translated">
+        <source>validator.invalid_gtin</source>
+        <target>Questo non è un valido GTIN / EAN!</target>
       </segment>
     </unit>
   </file>

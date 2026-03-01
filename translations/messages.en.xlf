@@ -9549,7 +9549,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       </segment>
     </unit>
     <unit id="BnqcKWx" name="scan_dialog.mode.lcsc">
-      <segment>
+      <segment state="translated">
         <source>scan_dialog.mode.lcsc</source>
         <target>LCSC.com barcode</target>
       </segment>
@@ -9567,19 +9567,19 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       </segment>
     </unit>
     <unit id="kQnodbA" name="label_scanner.target_found">
-      <segment>
+      <segment state="translated">
         <source>label_scanner.target_found</source>
         <target>Item found in database</target>
       </segment>
     </unit>
     <unit id="7Arfw2q" name="label_scanner.scan_result.title">
-      <segment>
+      <segment state="translated">
         <source>label_scanner.scan_result.title</source>
         <target>Scan result</target>
       </segment>
     </unit>
     <unit id="PTh4EK_" name="label_scanner.no_locations">
-      <segment>
+      <segment state="translated">
         <source>label_scanner.no_locations</source>
         <target>Part is not stored at any location.</target>
       </segment>
@@ -12690,133 +12690,133 @@ Buerklin-API Authentication server:
       </segment>
     </unit>
     <unit id="GNWhoTW" name="part.table.eda_reference">
-      <segment>
+      <segment state="translated">
         <source>part.table.eda_reference</source>
         <target>EDA Reference</target>
       </segment>
     </unit>
     <unit id="tW4yCbf" name="part.table.eda_value">
-      <segment>
+      <segment state="translated">
         <source>part.table.eda_value</source>
         <target>EDA value</target>
       </segment>
     </unit>
     <unit id="s1pgReC" name="settings.misc.kicad_eda.default_parameter_visibility">
-      <segment>
+      <segment state="translated">
         <source>settings.misc.kicad_eda.default_parameter_visibility</source>
         <target>Default EDA visibility of parameters</target>
       </segment>
     </unit>
     <unit id="Z78QunV" name="settings.misc.kicad_eda.default_parameter_visibility.help">
-      <segment>
+      <segment state="translated">
         <source>settings.misc.kicad_eda.default_parameter_visibility.help</source>
         <target>EDA visibility for all [part] parameters who does not have an explicit visibility set. When enabled all parameters will be visible in the EDA software by default.</target>
       </segment>
     </unit>
     <unit id="J6pYnaC" name="settings.misc.kicad_eda.default_orderdetails_visibility">
-      <segment>
+      <segment state="translated">
         <source>settings.misc.kicad_eda.default_orderdetails_visibility</source>
         <target>Default EDA visibility of purchase infos</target>
       </segment>
     </unit>
     <unit id="Hiye4C." name="settings.misc.kicad_eda.default_orderdetails_visibility.help">
-      <segment>
+      <segment state="translated">
         <source>settings.misc.kicad_eda.default_orderdetails_visibility.help</source>
         <target>EDA visibility for all purchase infos who does not have an explicit visibility set. When enabled all purchase infos will be visible in the EDA software by default.</target>
-        </segment>
+      </segment>
     </unit>
     <unit id="aEgd0if" name="label_scanner.open">
-      <segment>
+      <segment state="translated">
         <source>label_scanner.open</source>
         <target>View details</target>
       </segment>
     </unit>
     <unit id="vw_0Qws" name="label_scanner.db_part_found">
-      <segment>
+      <segment state="translated">
         <source>label_scanner.db_part_found</source>
         <target>Database [part] found for barcode</target>
       </segment>
     </unit>
     <unit id="zntajcd" name="label_scanner.part_can_be_created">
-      <segment>
+      <segment state="translated">
         <source>label_scanner.part_can_be_created</source>
         <target>[Part] can be created</target>
       </segment>
     </unit>
     <unit id="cLTbd9w" name="label_scanner.part_can_be_created.help">
-      <segment>
+      <segment state="translated">
         <source>label_scanner.part_can_be_created.help</source>
         <target>No matching [part] was found in the database, but you can create a new [part] based of this barcode.</target>
       </segment>
     </unit>
     <unit id="FfHA3Yf" name="label_scanner.part_create_btn">
-      <segment>
+      <segment state="translated">
         <source>label_scanner.part_create_btn</source>
         <target>Create [part] from barcode</target>
       </segment>
     </unit>
     <unit id="xH258F." name="parts.create_from_scan.title">
-      <segment>
+      <segment state="translated">
         <source>parts.create_from_scan.title</source>
         <target>Create [part] from label scan</target>
       </segment>
     </unit>
     <unit id="8WZYwRJ" name="scan_dialog.mode.amazon">
-      <segment>
+      <segment state="translated">
         <source>scan_dialog.mode.amazon</source>
         <target>Amazon barcode</target>
       </segment>
     </unit>
     <unit id="BQWuR_G" name="settings.ips.canopy">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.canopy</source>
         <target>Canopy</target>
       </segment>
     </unit>
     <unit id="44BfYzy" name="settings.ips.canopy.alwaysGetDetails">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.canopy.alwaysGetDetails</source>
         <target>Always fetch details</target>
       </segment>
     </unit>
     <unit id="so_ms3t" name="settings.ips.canopy.alwaysGetDetails.help">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.canopy.alwaysGetDetails.help</source>
         <target>When selected, more details will be fetched from canopy when creating a part. This causes an additional API request, but gives product bullet points and category info.</target>
       </segment>
     </unit>
     <unit id="D055xh8" name="attachment.sandbox.warning">
-      <segment>
+      <segment state="translated">
         <source>attachment.sandbox.warning</source>
         <target>WARNING: You are viewing an user uploaded attachment. This is untrusted content. Proceed with care.</target>
       </segment>
     </unit>
     <unit id="bRcdnJK" name="attachment.sandbox.back_to_partdb">
-      <segment>
+      <segment state="translated">
         <source>attachment.sandbox.back_to_partdb</source>
         <target>Back to Part-DB</target>
       </segment>
     </unit>
     <unit id="MzyA7N8" name="settings.system.attachments.showHTMLAttachments">
-      <segment>
+      <segment state="translated">
         <source>settings.system.attachments.showHTMLAttachments</source>
         <target>Show uploaded HTML file attachments (sandboxed)</target>
       </segment>
     </unit>
     <unit id="V_LJkRy" name="settings.system.attachments.showHTMLAttachments.help">
-      <segment>
+      <segment state="translated">
         <source>settings.system.attachments.showHTMLAttachments.help</source>
         <target>⚠️ When enabled, user uploaded HTML attachments can be viewed directly in the browser. Many potential malicious functions are restricted, still this is a potential security risk and should only be enabled, if you trust the users who can upload files.</target>
       </segment>
     </unit>
     <unit id="BQo2xWi" name="attachment.sandbox.title">
-      <segment>
+      <segment state="translated">
         <source>attachment.sandbox.title</source>
         <target>HTML [Attachment]</target>
       </segment>
     </unit>
     <unit id="sJ6v9uJ" name="attachment.sandbox.as_plain_text">
-      <segment>
+      <segment state="translated">
         <source>attachment.sandbox.as_plain_text</source>
         <target>View as plain text</target>
       </segment>
