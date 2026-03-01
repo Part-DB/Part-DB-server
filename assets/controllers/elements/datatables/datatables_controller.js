@@ -130,12 +130,22 @@ export default class extends Controller {
                 header: $(window).width() >= 768, //Only enable fixedHeaders on devices with big screen. Fixes scrolling issues on smartphones.
                 headerOffset: $("#navbar").outerHeight()
             },
-            buttons: [{
-                "extend": 'colvis',
-                'className': 'mr-2 btn-outline-secondary',
-                'columns': ':not(.no-colvis)',
-                "text": "<i class='fa fa-cog'></i>"
-            }],
+            buttons: [
+                {
+                    "extend": 'colvis',
+                    'className': 'mr-2 btn-outline-secondary',
+                    'columns': ':not(.no-colvis)',
+                    "text": "<i class='fa fa-cog'></i>"
+                },
+                {
+                    text: 'CSV',
+                    action: $.fn.initDataTables.exportBtnAction('csv', settings),
+                },
+                {
+                    text: 'Excel',
+                    action: $.fn.initDataTables.exportBtnAction('excel', settings),
+                }
+            ],
 
 
             rowCallback: this._rowCallback.bind(this),
