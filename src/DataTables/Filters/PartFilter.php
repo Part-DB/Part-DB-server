@@ -36,6 +36,7 @@ use App\DataTables\Filters\Constraints\Part\LessThanDesiredConstraint;
 use App\DataTables\Filters\Constraints\Part\ParameterConstraint;
 use App\DataTables\Filters\Constraints\Part\TagsConstraint;
 use App\DataTables\Filters\Constraints\TextConstraint;
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -107,6 +108,14 @@ class PartFilter implements FilterInterface
     public readonly NumberConstraint $bomQuantity;
     public readonly TextConstraint $bomName;
     public readonly TextConstraint $bomComment;
+
+    /*************************************************
+     * Assembly
+     *************************************************/
+
+    public readonly EntityConstraint $assembly;
+    public readonly NumberConstraint $assemblyBomQuantity;
+    public readonly TextConstraint $assemblyBomName;
 
     /*************************************************
      * Bulk Import Job tab
@@ -181,6 +190,10 @@ class PartFilter implements FilterInterface
         $this->bomQuantity = new NumberConstraint('_projectBomEntries.quantity');
         $this->bomName = new TextConstraint('_projectBomEntries.name');
         $this->bomComment = new TextConstraint('_projectBomEntries.comment');
+
+        $this->assembly = new EntityConstraint($nodesListBuilder, Assembly::class, '_assemblyBomEntries.assembly');
+        $this->assemblyBomQuantity = new NumberConstraint('_assemblyBomEntries.quantity');
+        $this->assemblyBomName = new TextConstraint('_assemblyBomEntries.name');
 
         // Bulk Import Job filters
         $this->inBulkImportJob = new BulkImportJobExistsConstraint();

@@ -42,9 +42,14 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Services\Tools\StatisticsHelper;
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
+use App\Entity\AssemblySystem\Assembly;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class StatisticsController extends AbstractController
 {
@@ -56,5 +61,98 @@ class StatisticsController extends AbstractController
         return $this->render('tools/statistics/statistics.html.twig', [
             'helper' => $helper,
         ]);
+    }
+
+    #[Route(path: '/statistics/cleanup-assembly-bom-entries', name: 'statistics_cleanup_assembly_bom_entries', methods: ['POST'])]
+    public function cleanupAssemblyBOMEntries(
+        EntityManagerInterface $em,
+        StatisticsHelper $helper,
+        TranslatorInterface $translator
+    ): JsonResponse {
+        $this->denyAccessUnlessGranted('@tools.statistics');
+
+        try {
+            // We fetch the IDs of the entries that have a non-existent part.
+            // We use a raw SQL approach or a more robust DQL to avoid proxy initialization issues.
+            $qb = $em->createQueryBuilder();
+            $qb->select('be.id', 'IDENTITY(be.part) AS part_id')
+                ->from(AssemblyBOMEntry::class, 'be')
+                ->leftJoin('be.part', 'p')
+                ->where('be.part IS NOT NULL')
+                ->andWhere('p.id IS NULL');
+
+            $results = $qb->getQuery()->getResult();
+            $count = count($results);
+
+            foreach ($results as $result) {
+                $entryId = $result['id'];
+                $partId = $result['part_id'] ?? 'unknown';
+
+                $entry = $em->find(AssemblyBOMEntry::class, $entryId);
+                if ($entry instanceof AssemblyBOMEntry) {
+                    $entry->setPart(null);
+                    $entry->setName(sprintf('part-id=%s not found', $partId));
+                }
+            }
+
+            $em->flush();
+
+            return new JsonResponse([
+                'success' => true,
+                'count' => $count,
+                'message' => $translator->trans('statistics.cleanup_assembly_bom_entries.success', [
+                    '%count%' => $count,
+                ]),
+                'new_count' => $helper->getInvalidPartBOMEntriesCount(),
+            ]);
+        } catch (\Exception $e) {
+            return new JsonResponse([
+                'success' => false,
+                'message' => $translator->trans('statistics.cleanup_assembly_bom_entries.error') . ' ' . $e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    #[Route(path: '/statistics/cleanup-assembly-preview-attachments', name: 'statistics_cleanup_assembly_preview_attachments', methods: ['POST'])]
+    public function cleanupAssemblyPreviewAttachments(
+        EntityManagerInterface $em,
+        StatisticsHelper $helper,
+        TranslatorInterface $translator
+    ): JsonResponse {
+        $this->denyAccessUnlessGranted('@tools.statistics');
+
+        try {
+            $qb = $em->createQueryBuilder();
+            $qb->select('a')
+                ->from(Assembly::class, 'a')
+                ->leftJoin('a.master_picture_attachment', 'm')
+                ->where('a.master_picture_attachment IS NOT NULL')
+                ->andWhere('m.id IS NULL');
+
+            $assemblies = $qb->getQuery()->getResult();
+            $count = count($assemblies);
+
+            foreach ($assemblies as $assembly) {
+                if ($assembly instanceof Assembly) {
+                    $assembly->setMasterPictureAttachment(null);
+                }
+            }
+
+            $em->flush();
+
+            return new JsonResponse([
+                'success' => true,
+                'count' => $count,
+                'message' => $translator->trans('statistics.cleanup_assembly_preview_attachments.success', [
+                    '%count%' => $count,
+                ]),
+                'new_count' => $helper->getInvalidAssemblyPreviewAttachmentsCount(),
+            ]);
+        } catch (\Exception $e) {
+            return new JsonResponse([
+                'success' => false,
+                'message' => $translator->trans('statistics.cleanup_assembly_preview_attachments.error') . ' ' . $e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

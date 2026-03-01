@@ -22,6 +22,8 @@ declare(strict_types=1);
  */
 namespace App\Entity\LogSystem;
 
+use App\Entity\AssemblySystem\Assembly;
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
@@ -74,6 +76,9 @@ enum LogTargetType: int
     case BULK_INFO_PROVIDER_IMPORT_JOB_PART = 22;
     case PART_CUSTOM_STATE = 23;
 
+    case ASSEMBLY = 24;
+    case ASSEMBLY_BOM_ENTRY = 25;
+
     /**
      * Returns the class name of the target type or null if the target type is NONE.
      * @return string|null
@@ -88,6 +93,8 @@ enum LogTargetType: int
             self::CATEGORY => Category::class,
             self::PROJECT => Project::class,
             self::BOM_ENTRY => ProjectBOMEntry::class,
+            self::ASSEMBLY => Assembly::class,
+            self::ASSEMBLY_BOM_ENTRY => AssemblyBOMEntry::class,
             self::FOOTPRINT => Footprint::class,
             self::GROUP => Group::class,
             self::MANUFACTURER => Manufacturer::class,

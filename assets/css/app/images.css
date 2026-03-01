@@ -67,3 +67,8 @@
 .object-fit-cover {
     object-fit: cover;
 }
+
+.assembly-table-image {
+    max-height: 40px;
+    object-fit: contain;
+}

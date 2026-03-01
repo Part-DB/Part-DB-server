@@ -70,6 +70,9 @@ class PartSearchFilter implements FilterInterface
     /** @var bool Use Internal Part number for searching */
     protected bool $ipn = true;
 
+    /** @var bool Use assembly name for searching */
+    protected bool $assembly = true;
+
     public function __construct(
         /** @var string The string to query for */
         protected string $keyword
@@ -116,6 +119,10 @@ class PartSearchFilter implements FilterInterface
         }
         if ($this->ipn) {
             $fields_to_search[] = 'part.ipn';
+        }
+        if ($this->assembly) {
+            $fields_to_search[] = '_assembly.name';
+            $fields_to_search[] = '_assembly.ipn';
         }
 
         return $fields_to_search;
@@ -337,5 +344,14 @@ class PartSearchFilter implements FilterInterface
         return $this;
     }
 
+    public function isAssembly(): bool
+    {
+        return $this->assembly;
+    }
 
+    public function setAssembly(bool $assembly): PartSearchFilter
+    {
+        $this->assembly = $assembly;
+        return $this;
+    }
 }

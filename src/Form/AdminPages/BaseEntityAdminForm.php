@@ -22,10 +22,12 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\UserSystem\Group;
 use App\Services\LogSystem\EventCommentType;
+use App\Settings\MiscSettings\AssemblySettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -47,8 +49,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BaseEntityAdminForm extends AbstractType
 {
-    public function __construct(protected Security $security, protected EventCommentNeededHelper $eventCommentNeededHelper)
-    {
+    public function __construct(
+        protected Security $security,
+        protected EventCommentNeededHelper $eventCommentNeededHelper,
+        protected ?AssemblySettings $assemblySettings = null,
+    ) {
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -69,6 +74,7 @@ class BaseEntityAdminForm extends AbstractType
             ->add('name', TextType::class, [
                 'empty_data' => '',
                 'label' => 'name.label',
+                'data' => $is_new && $entity instanceof Assembly && $this->assemblySettings !== null && $this->assemblySettings->useIpnPlaceholderInName ? '%%ipn%%' : $entity->getName(),
                 'attr' => [
                     'placeholder' => 'part.name.placeholder',
                     'autofocus' => $is_new,
@@ -115,7 +121,7 @@ class BaseEntityAdminForm extends AbstractType
             );
         }
 
-        if ($entity instanceof AbstractStructuralDBElement && !($entity instanceof Group || $entity instanceof Project || $entity instanceof Currency)) {
+        if ($entity instanceof AbstractStructuralDBElement && !($entity instanceof Group || $entity instanceof Project || $entity instanceof Assembly || $entity instanceof Currency)) {
             $builder->add('alternative_names', TextType::class, [
                 'required' => false,
                 'label' => 'entity.edit.alternative_names.label',

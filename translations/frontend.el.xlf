@@ -2,10 +2,22 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="el">
   <file id="frontend.el">
     <unit id="lQ8QeGr" name="search.placeholder">
-          <segment state="translated">
-            <source>search.placeholder</source>
-            <target>Αναζήτηση</target>
-          </segment>
-        </unit>
+      <segment state="translated">
+        <source>search.placeholder</source>
+        <target>Αναζήτηση</target>
+      </segment>
+    </unit>
+    <unit id="TvHlYfl" name="assembly.labelp">
+      <segment state="translated">
+        <source>assembly.labelp</source>
+        <target>Συναρμολογήσεις</target>
+      </segment>
+    </unit>
+    <unit id="UXyo9ZT" name="project.labelp">
+      <segment state="translated">
+        <source>project.labelp</source>
+        <target>Έργα</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -31,6 +31,11 @@
                         <button class="nav-link" id="filter-projects-tab" data-bs-toggle="tab" data-bs-target="#filter-projects"><i class="fas fa-archive fa-fw"></i> {% trans %}project.labelp{% endtrans %}</button>
                     </li>
                 {% endif %}
+                {% if filterForm.assembly is defined %}
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="filter-assemblies-tab" data-bs-toggle="tab" data-bs-target="#filter-assemblies"><i class="fas fa-archive fa-fw"></i> {% trans %}assembly.labelp{% endtrans %}</button>
+                    </li>
+                {% endif %}
                 {% if filterForm.inBulkImportJob is defined %}
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="filter-bulk-import-tab" data-bs-toggle="tab" data-bs-target="#filter-bulk-import"><i class="fas fa-download fa-fw"></i> {% trans %}part.edit.tab.bulk_import{% endtrans %}</button>
@@ -131,6 +136,13 @@
                         {{ form_row(filterForm.bomQuantity) }}
                         {{ form_row(filterForm.bomName) }}
                         {{ form_row(filterForm.bomComment) }}
+                    </div>
+                {% endif %}
+                {% if filterForm.assembly is defined %}
+                    <div class="tab-pane pt-3" id="filter-assemblies" role="tabpanel" aria-labelledby="filter-assemblies-tab" tabindex="0">
+                        {{ form_row(filterForm.assembly) }}
+                        {{ form_row(filterForm.assemblyBomQuantity) }}
+                        {{ form_row(filterForm.assemblyBomName) }}
                     </div>
                 {% endif %}
                 {% if filterForm.inBulkImportJob is defined %}

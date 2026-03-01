@@ -54,10 +54,19 @@ export default class extends Controller {
     }
 
     initialize() {
-        // The endpoint for searching parts
+        // The endpoint for searching parts or assemblies
         const base_url = this.element.dataset.autocomplete;
         // The URL template for the part detail pages
         const part_detail_uri_template = this.element.dataset.detailUrl;
+        // The URL template for the assembly detail pages
+        const assembly_detail_uri_template = this.element.dataset.assemblyDetailUrl;
+        // The URL template for the project detail pages
+        const project_detail_uri_template = this.element.dataset.projectDetailUrl;
+
+        const hasAssemblyDetailUrl =
+            typeof assembly_detail_uri_template === "string" && assembly_detail_uri_template.length > 0;
+        const hasProjectDetailUrl =
+            typeof project_detail_uri_template === "string" && project_detail_uri_template.length > 0;
 
         //The URL of the placeholder picture
         const placeholder_image = this.element.dataset.placeholderImage;
@@ -71,6 +80,43 @@ export default class extends Controller {
             key: 'RECENT_SEARCH',
             limit: 5,
         });
+
+        // Cache the last query to avoid fetching the same endpoint twice (parts source + assemblies source)
+        let lastQuery = null;
+        let lastFetchPromise = null;
+
+        const fetchMixedItems = (query) => {
+            if (query === lastQuery && lastFetchPromise) {
+                return lastFetchPromise;
+            }
+
+            lastQuery = query;
+
+            const urlString = base_url.replace('__QUERY__', encodeURIComponent(query));
+            const url = new URL(urlString, window.location.href);
+            if (hasAssemblyDetailUrl || hasProjectDetailUrl) {
+                url.searchParams.set('multidatasources', '1');
+            }
+
+            lastFetchPromise = fetch(url.toString())
+                .then((response) => response.json())
+                .then((items) => {
+                    //Iterate over all fields besides the id and highlight them (if present)
+                    const fields = ["name", "description", "category", "footprint"];
+
+                    items.forEach((item) => {
+                        for (const field of fields) {
+                            if (item[field] !== undefined && item[field] !== null) {
+                                item[field] = that._highlight(item[field], query);
+                            }
+                        }
+                    });
+
+                    return items;
+                });
+
+            return lastFetchPromise;
+        };
 
         this._autocomplete = autocomplete({
             container: this.element,
@@ -102,7 +148,7 @@ export default class extends Controller {
             },
 
             // If the form is submitted, forward the term to the form
-            onSubmit({state, event, ...setters}) {
+            onSubmit({ state, event, ...setters }) {
                 //Put the current text into each target input field
                 const input = that.inputTarget;
 
@@ -119,31 +165,15 @@ export default class extends Controller {
                 input.form.requestSubmit();
             },
 
-
             getSources({ query }) {
-                return [
-                    // The parts source
+                const sources = [
+                    // Parts source (filtered from mixed endpoint results)
                     {
                         sourceId: 'parts',
                         getItems() {
-                            const url = base_url.replace('__QUERY__', encodeURIComponent(query));
-
-                            const data = fetch(url)
-                                .then((response) => response.json())
-                                ;
-
-                            //Iterate over all fields besides the id and highlight them
-                            const fields = ["name", "description", "category", "footprint"];
-
-                            data.then((items) => {
-                                items.forEach((item) => {
-                                    for (const field of fields) {
-                                        item[field] = that._highlight(item[field], query);
-                                    }
-                                });
-                            });
-
-                            return data;
+                            return fetchMixedItems(query).then((items) =>
+                                items.filter((item) => item.type !== "assembly")
+                            );
                         },
                         getItemUrl({ item }) {
                             return part_detail_uri_template.replace('__ID__', item.id);
@@ -151,36 +181,130 @@ export default class extends Controller {
                         templates: {
                             header({ html }) {
                                 return html`<span class="aa-SourceHeaderTitle">${trans("part.labelp")}</span>
-                                    <div class="aa-SourceHeaderLine" />`;
+                                        <div class="aa-SourceHeaderLine" />`;
                             },
-                            item({item, components, html}) {
+                            item({ item, components, html }) {
                                 const details_url = part_detail_uri_template.replace('__ID__', item.id);
 
                                 return html`
-                                    <a class="aa-ItemLink" href="${details_url}">
-                                        <div class="aa-ItemContent">
-                                            <div class="aa-ItemIcon aa-ItemIcon--picture aa-ItemIcon--alignTop">
-                                                <img src="${item.image !== "" ? item.image : placeholder_image}" alt="${item.name}" width="30" height="30"/>
-                                            </div>
-                                            <div class="aa-ItemContentBody">
-                                                <div class="aa-ItemContentTitle">
-                                                    <b>
-                                                        ${components.Highlight({hit: item, attribute: 'name'})}
-                                                    </b>
+                                        <a class="aa-ItemLink" href="${details_url}">
+                                            <div class="aa-ItemContent">
+                                                <div class="aa-ItemIcon aa-ItemIcon--picture aa-ItemIcon--alignTop">
+                                                    <img src="${item.image !== "" ? item.image : placeholder_image}" alt="${item.name}" width="30" height="30"/>
                                                 </div>
-                                                <div class="aa-ItemContentDescription">
-                                                    ${components.Highlight({hit: item, attribute: 'description'})}
-                                                    ${item.category ? html`<p class="m-0"><span class="fa-solid fa-tags fa-fw"></span>${components.Highlight({hit: item, attribute: 'category'})}</p>` : ""}
-                                                    ${item.footprint ? html`<p class="m-0"><span class="fa-solid fa-microchip fa-fw"></span>${components.Highlight({hit: item, attribute: 'footprint'})}</p>` : ""}
+                                                <div class="aa-ItemContentBody">
+                                                    <div class="aa-ItemContentTitle">
+                                                        <b>
+                                                            ${components.Highlight({hit: item, attribute: 'name'})}
+                                                        </b>
+                                                    </div>
+                                                    <div class="aa-ItemContentDescription">
+                                                        ${components.Highlight({hit: item, attribute: 'description'})}
+                                                        ${item.category ? html`<p class="m-0"><span class="fa-solid fa-tags fa-fw"></span>${components.Highlight({hit: item, attribute: 'category'})}</p>` : ""}
+                                                        ${item.footprint ? html`<p class="m-0"><span class="fa-solid fa-microchip fa-fw"></span>${components.Highlight({hit: item, attribute: 'footprint'})}</p>` : ""}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                `;
+                                        </a>
+                                    `;
                             },
                         },
                     },
                 ];
+
+                if (hasAssemblyDetailUrl) {
+                    sources.push(
+                        // Assemblies source (filtered from the same mixed endpoint results)
+                        {
+                            sourceId: 'assemblies',
+                            getItems() {
+                                return fetchMixedItems(query).then((items) =>
+                                    items.filter((item) => item.type === "assembly")
+                                );
+                            },
+                            getItemUrl({ item }) {
+                                return assembly_detail_uri_template.replace('__ID__', item.id);
+                            },
+                            templates: {
+                                header({ html }) {
+                                    return html`<span class="aa-SourceHeaderTitle">${trans("assembly.labelp")}</span>
+                                            <div class="aa-SourceHeaderLine" />`;
+                                },
+                                item({ item, components, html }) {
+                                    const details_url = assembly_detail_uri_template.replace('__ID__', item.id);
+
+                                    return html`
+                                            <a class="aa-ItemLink" href="${details_url}">
+                                                <div class="aa-ItemContent">
+                                                    <div class="aa-ItemIcon aa-ItemIcon--picture aa-ItemIcon--alignTop">
+                                                        <img src="${item.image !== "" ? item.image : placeholder_image}" alt="${item.name}" width="30" height="30"/>
+                                                    </div>
+                                                    <div class="aa-ItemContentBody">
+                                                        <div class="aa-ItemContentTitle">
+                                                            <b>
+                                                                ${components.Highlight({hit: item, attribute: 'name'})}
+                                                            </b>
+                                                        </div>
+                                                        <div class="aa-ItemContentDescription">
+                                                            ${components.Highlight({hit: item, attribute: 'description'})}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        `;
+                                },
+                            },
+                        }
+                    );
+                }
+
+                if (hasProjectDetailUrl) {
+                    sources.push(
+                        // Projects source (filtered from the same mixed endpoint results)
+                        {
+                            sourceId: 'projects',
+                            getItems() {
+                                return fetchMixedItems(query).then((items) =>
+                                    items.filter((item) => item.type === "project")
+                                );
+                            },
+                            getItemUrl({ item }) {
+                                return project_detail_uri_template.replace('__ID__', item.id);
+                            },
+                            templates: {
+                                header({ html }) {
+                                    return html`<span class="aa-SourceHeaderTitle">${trans("project.labelp")}</span>
+                                            <div class="aa-SourceHeaderLine" />`;
+                                },
+                                item({ item, components, html }) {
+                                    const details_url = project_detail_uri_template.replace('__ID__', item.id);
+
+                                    return html`
+                                            <a class="aa-ItemLink" href="${details_url}">
+                                                <div class="aa-ItemContent">
+                                                    <div class="aa-ItemIcon aa-ItemIcon--picture aa-ItemIcon--alignTop">
+                                                        <img src="${item.image !== "" ? item.image : placeholder_image}" alt="${item.name}" width="30" height="30"/>
+                                                    </div>
+                                                    <div class="aa-ItemContentBody">
+                                                        <div class="aa-ItemContentTitle">
+                                                            <b>
+                                                                ${components.Highlight({hit: item, attribute: 'name'})}
+                                                            </b>
+                                                        </div>
+                                                        <div class="aa-ItemContentDescription">
+                                                            ${components.Highlight({hit: item, attribute: 'description'})}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        `;
+                                },
+                            },
+                        }
+                    );
+                }
+
+                return sources;
             },
         });
 
@@ -192,6 +316,5 @@ export default class extends Controller {
                 this._autocomplete.setIsOpen(false);
             });
         }
-
     }
 }

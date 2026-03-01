@@ -65,6 +65,10 @@
                         <label for="search_footprint" class="form-check-label justify-content-start">{% trans %}footprint.label{% endtrans %}</label>
                     </div>
                 {% endif %}
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="search_assembly" name="assembly" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                    <label for="search_assembly" class="form-check-label justify-content-start">{% trans %}assembly.label{% endtrans %}</label>
+                </div>
                 <hr>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="regex" name="regex" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
@@ -96,7 +100,9 @@
                 data-navbar-mode="{% if is_navbar %}true{% else %}false{% endif %}"
                 data-placeholder-image="{{ asset('img/part_placeholder.svg') }}"
                 data-autocomplete="{{ path('typeahead_parts', {'query': '__QUERY__'}) }}"
-                data-detail-url="{{ path('part_info', {'id': '__ID__'}) }}">
+                data-detail-url="{{ path('part_info', {'id': '__ID__'}) }}"
+                data-project-detail-url="{{ path('project_info', {'id': '__ID__'}) }}"
+                data-assembly-detail-url="{{ path('assembly_info', {'id': '__ID__'}) }}">
 
             <input type="hidden" name="keyword" required {{ stimulus_target('elements/part_search', 'input') }}>
         </div>

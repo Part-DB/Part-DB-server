@@ -41,8 +41,10 @@ declare(strict_types=1);
 
 namespace App\Services\Tools;
 
+use App\Entity\AssemblySystem\AssemblyBOMEntry;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -77,6 +79,14 @@ class StatisticsHelper
     public function getDistinctPartsCount(): int
     {
         return $this->part_repo->count([]);
+    }
+
+    /**
+     * Returns the count of distinct projects.
+     */
+    public function getDistinctProjectsCount(): int
+    {
+        return $this->em->getRepository(Project::class)->count([]);
     }
 
     /**
@@ -116,6 +126,7 @@ class StatisticsHelper
             'storelocation' => StorageLocation::class,
             'supplier' => Supplier::class,
             'currency' => Currency::class,
+            'assembly' => Assembly::class,
         ];
 
         if (!isset($arr[$type])) {
@@ -163,5 +174,35 @@ class StatisticsHelper
     public function getUserUploadedAttachmentsCount(): int
     {
         return $this->attachment_repo->getUserUploadedAttachments();
+    }
+
+    /**
+     * Returns the count of BOM entries which point to a non-existent part ID.
+     */
+    public function getInvalidPartBOMEntriesCount(): int
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('COUNT(be.id)')
+            ->from(AssemblyBOMEntry::class, 'be')
+            ->leftJoin('be.part', 'p')
+            ->where('be.part IS NOT NULL')
+            ->andWhere('p.id IS NULL');
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Returns the number of assemblies that have a master_picture_attachment that does not exist anymore.
+     */
+    public function getInvalidAssemblyPreviewAttachmentsCount(): int
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('COUNT(a.id)')
+            ->from(Assembly::class, 'a')
+            ->leftJoin('a.master_picture_attachment', 'at')
+            ->where('a.master_picture_attachment IS NOT NULL')
+            ->andWhere('at.id IS NULL');
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
     }
 }

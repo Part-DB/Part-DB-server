@@ -49,6 +49,18 @@
         <target>Velmi silné</target>
       </segment>
     </unit>
+    <unit id="TvHlYfl" name="assembly.labelp">
+      <segment state="translated">
+        <source>assembly.labelp</source>
+        <target>Sestavy</target>
+      </segment>
+    </unit>
+    <unit id="UXyo9ZT" name="project.labelp">
+      <segment state="translated">
+        <source>project.labelp</source>
+        <target>Projekty</target>
+      </segment>
+    </unit>
     <unit id="U5IhkwB" name="search.submit">
       <segment state="translated">
         <source>search.submit</source>

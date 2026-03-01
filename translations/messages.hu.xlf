@@ -1750,6 +1750,54 @@
         <target>Alkatrészek</target>
       </segment>
     </unit>
+    <unit id="statistics.projects" name="statistics.projects">
+      <segment state="translated">
+        <source>statistics.projects</source>
+        <target>Projektek</target>
+      </segment>
+    </unit>
+    <unit id="b5v8K2n" name="statistics.cleanup_assembly_bom_entries.error">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.error</source>
+        <target>Hiba történt a tisztítás során.</target>
+      </segment>
+    </unit>
+    <unit id="m3n7X9q" name="statistics.cleanup_assembly_bom_entries.success">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.success</source>
+        <target>%count% tétel sikeresen törölve.</target>
+      </segment>
+    </unit>
+    <unit id="kL9p4j2" name="statistics.cleanup_assembly_bom_entries.button">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_bom_entries.button</source>
+        <target>Tisztítás</target>
+      </segment>
+    </unit>
+    <unit id="stats_invalid_bom_count" name="statistics.invalid_part_bom_entries_count">
+      <segment state="translated">
+        <source>statistics.invalid_part_bom_entries_count</source>
+        <target>Érvénytelen darabjegyzék tételek (alkatrész nem található)</target>
+      </segment>
+    </unit>
+    <unit id="statistics.distinct_projects_count" name="statistics.distinct_projects_count">
+      <segment state="translated">
+        <source>statistics.distinct_projects_count</source>
+        <target>[[Project]] száma</target>
+      </segment>
+    </unit>
+    <unit id="stats_assemblies_count" name="statistics.distinct_assemblies_count">
+      <segment state="translated">
+        <source>statistics.distinct_assemblies_count</source>
+        <target>[[Assembly]] száma</target>
+      </segment>
+    </unit>
+    <unit id="bd7zT1d" name="statistics.assemblies">
+      <segment state="translated">
+        <source>statistics.assemblies</source>
+        <target>Összeállítások</target>
+      </segment>
+    </unit>
     <unit id="a2idAxu" name="statistics.data_structures">
       <notes>
         <note priority="1">new</note>
@@ -11440,6 +11488,12 @@
         <target>BOM bejegyzések</target>
       </segment>
     </unit>
+    <unit id="dk87cTl" name="assembly_bom_entry.labelp">
+      <segment>
+        <source>assembly_bom_entry.labelp</source>
+        <target>Összetevők</target>
+      </segment>
+    </unit>
     <unit id="MoHHSNT" name="user.labelp">
       <segment>
         <source>user.labelp</source>
@@ -11465,7 +11519,31 @@
         <segment state="translated">
             <source>datatable.datatable.lengthMenu</source>
             <target>_MENU_</target>
-          </segment>
+        </segment>
+    </unit>
+    <unit id="v8r7X2a" name="statistics.invalid_assembly_preview_attachments_count">
+      <segment state="translated">
+        <source>statistics.invalid_assembly_preview_attachments_count</source>
+        <target>Invalid assembly preview attachments (attachment not found)</target>
+      </segment>
+    </unit>
+    <unit id="kL9p4j1" name="statistics.cleanup_assembly_preview_attachments.button">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_preview_attachments.button</source>
+        <target>Cleanup</target>
+      </segment>
+    </unit>
+    <unit id="m3n7X9p" name="statistics.cleanup_assembly_preview_attachments.success">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_preview_attachments.success</source>
+        <target>%count% entries were successfully cleaned up.</target>
+      </segment>
+    </unit>
+    <unit id="b5v8K2m" name="statistics.cleanup_assembly_preview_attachments.error">
+      <segment state="translated">
+        <source>statistics.cleanup_assembly_preview_attachments.error</source>
+        <target>An error occurred during cleanup.</target>
+      </segment>
     </unit>
   </file>
 </xliff>

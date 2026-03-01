@@ -115,6 +115,12 @@
         <target>Interní číslo dílu musí být jedinečné. {{ value }} se již používá!</target>
       </segment>
     </unit>
+    <unit id="Zhn4Xq1" name="assembly.ipn.must_be_unique">
+      <segment state="translated">
+        <source>assembly.ipn.must_be_unique</source>
+        <target>Interní číslo dílu musí být jedinečné. {{ value }} se již používá!</target>
+      </segment>
+    </unit>
     <unit id="P31Yg.d" name="validator.project.bom_entry.name_or_part_needed">
       <segment state="translated">
         <source>validator.project.bom_entry.name_or_part_needed</source>
@@ -239,6 +245,114 @@
       <segment state="translated">
         <source>validator.google_code.wrong_code</source>
         <target>Neplatný kód. Zkontrolujte, zda je vaše ověřovací aplikace správně nastavena a zda je čas správně nastaven jak na serveru, tak na ověřovacím zařízení.</target>
+      </segment>
+    </unit>
+    <unit id="b1ZWoQ5" name="validator.bom_importer.invalid_import_type">
+      <segment state="translated">
+        <source>validator.bom_importer.invalid_import_type</source>
+        <target>Neplatný typ importu!</target>
+      </segment>
+    </unit>
+    <unit id="rbo1XEP" name="validator.bom_importer.invalid_file_extension">
+      <segment state="translated">
+        <source>validator.bom_importer.invalid_file_extension</source>
+        <target>Neplatná přípona souboru "%extension%" pro typ importu "%importType%". Povolené přípony souborů: %allowedExtensions%.</target>
+      </segment>
+    </unit>
+    <unit id="qyoCAaP" name="assembly.bom_entry.part_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.part_already_in_bom</source>
+        <target>Tato součást již existuje ve skupině!</target>
+      </segment>
+    </unit>
+    <unit id="KiW1eoj" name="assembly.bom_entry.assembly_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.assembly_already_in_bom</source>
+        <target>Tato sestava již existuje jako položka v seznamu materiálů!</target>
+      </segment>
+    </unit>
+    <unit id="j8ATef1" name="assembly.bom_entry.assembly_cycle">
+      <segment>
+        <source>assembly.bom_entry.assembly_cycle</source>
+        <target>Byl zjištěn cyklus: Sestava "%name%" nepřímo odkazuje sama na sebe.</target>
+      </segment>
+    </unit>
+    <unit id="cEtB87a" name="assembly.bom_entry.invalid_child_entry">
+      <segment>
+        <source>assembly.bom_entry.invalid_child_entry</source>
+        <target>Sestava nesmí ve svém seznamu materiálů (BOM) odkazovat na podskupinu, která je součástí její vlastní hierarchie.</target>
+      </segment>
+    </unit>
+    <unit id="Pi60dJ9" name="assembly.bom_entry.name_already_in_bom">
+      <segment>
+        <source>assembly.bom_entry.name_already_in_bom</source>
+        <target>Již existuje součást s tímto názvem!</target>
+      </segment>
+    </unit>
+    <unit id="KWc.wZ4" name="validator.assembly.bom_entry.name_or_part_needed">
+      <segment>
+        <source>validator.assembly.bom_entry.name_or_part_needed</source>
+        <target>Musíte vybrat součást nebo nastavit název pro nesoučást!</target>
+      </segment>
+    </unit>
+    <unit id="Q42Zh.e" name="validator.assembly.bom_entry.only_part_or_assembly_allowed">
+      <segment state="translated">
+        <source>validator.assembly.bom_entry.only_part_or_assembly_allowed</source>
+        <target>Je povoleno vybrat pouze jednu součástku nebo sestavu. Upravit prosím svůj výběr!</target>
+      </segment>
+    </unit>
+    <unit id="a1dKro7" name="validator.bom_importer.json_csv.quantity.required">
+      <segment>
+        <source>validator.bom_importer.json_csv.quantity.required</source>
+        <target>Musíte zadat množství > 0!</target>
+      </segment>
+    </unit>
+    <unit id="hlBA1Pd" name="validator.bom_importer.json_csv.quantity.float">
+      <segment>
+        <source>validator.bom_importer.json_csv.quantity.float</source>
+        <target>očekává se jako float větší než 0,0</target>
+      </segment>
+    </unit>
+    <unit id="eBCiG.1" name="validator.bom_importer.json_csv.parameter.string.notEmpty">
+      <segment>
+        <source>validator.bom_importer.json_csv.parameter.string.notEmpty</source>
+        <target>očekává se jako neprázdný řetězec</target>
+      </segment>
+    </unit>
+    <unit id="aKg7qlT" name="validator.bom_importer.json_csv.parameter.string.notEmpty.null">
+      <segment>
+        <source>validator.bom_importer.json_csv.parameter.string.notEmpty.null</source>
+        <target>očekává se jako neprázdný řetězec nebo null</target>
+      </segment>
+    </unit>
+    <unit id="g8HPqwx" name="validator.bom_importer.json_csv.parameter.array">
+      <segment>
+        <source>validator.bom_importer.json_csv.parameter.array</source>
+        <target>očekává se jako pole (array)</target>
+      </segment>
+    </unit>
+    <unit id="adLRxnA" name="validator.bom_importer.json_csv.parameter.subproperties">
+      <segment>
+        <source>validator.bom_importer.json_csv.parameter.subproperties</source>
+        <target>musí mít alespoň jeden z následujících pod-parametrů: %propertyString%</target>
+      </segment>
+    </unit>
+    <unit id="kt12PW4" name="validator.bom_importer.json_csv.parameter.notFoundFor">
+      <segment>
+        <source>validator.bom_importer.json_csv.parameter.notFoundFor</source>
+        <target>nenalezeno pro %value%</target>
+      </segment>
+    </unit>
+    <unit id="bhc3WQf" name="validator.bom_importer.json_csv.parameter.noExactMatch">
+      <segment>
+        <source>validator.bom_importer.json_csv.parameter.noExactMatch</source>
+        <target>se přesně neshoduje. Pro import zadáno: %importValue%, nalezeno (%foundId%): %foundValue%</target>
+      </segment>
+    </unit>
+    <unit id="Kb1hpq3" name="validator.bom_importer.json_csv.parameter.manufacturerOrCategoryWithSubProperties">
+      <segment>
+        <source>validator.bom_importer.json_csv.parameter.manufacturerOrCategoryWithSubProperties</source>
+        <target>musí obsahovat jako pod-parametr buď: "id" jako celé číslo větší než 0 nebo "name" jako neprázdný řetězec</target>
       </segment>
     </unit>
   </file>

@@ -39,6 +39,7 @@ use App\DataTables\Filters\PartSearchFilter;
 use App\DataTables\Helpers\ColumnSortHelper;
 use App\DataTables\Helpers\PartDataTableHelper;
 use App\Doctrine\Helpers\FieldHelper;
+use App\Entity\AssemblySystem\Assembly;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
@@ -258,6 +259,34 @@ final class PartsDataTable implements DataTableTypeInterface
             ]);
         }
 
+        //Add a assembly column to list where the part is used, when the user has the permission to see the assemblies
+        if ($this->security->isGranted('read', Assembly::class)) {
+            $this->csh->add('assemblies', TextColumn::class, [
+                'label' => $this->translator->trans('assembly.labelp'),
+                'render' => function ($value, Part $context): string {
+                    //Only show the first 5 assembly names
+                    $assemblies = $context->getAssemblies();
+                    $tmp = "";
+
+                    $max = 5;
+
+                    for ($i = 0; $i < min($max, count($assemblies)); $i++) {
+                        $url = $this->urlGenerator->infoURL($assemblies[$i]);
+                        $tmp .= sprintf('<a href="%s">%s</a>', $url, htmlspecialchars($assemblies[$i]->getName()));
+                        if ($i < count($assemblies) - 1) {
+                            $tmp .= ", ";
+                        }
+                    }
+
+                    if (count($assemblies) > $max) {
+                        $tmp .= ", + ".(count($assemblies) - $max);
+                    }
+
+                    return $tmp;
+                }
+            ]);
+        }
+
         $this->csh
             ->add('edit', IconLinkColumn::class, [
                 'label' => $this->translator->trans('part.table.edit'),
@@ -456,6 +485,13 @@ final class PartsDataTable implements DataTableTypeInterface
             $builder->leftJoin('part.project_bom_entries', '_projectBomEntries');
             //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
             //$builder->addGroupBy('_projectBomEntries');
+        }
+        if (str_contains($dql, '_assembly.')) {
+            $builder->leftJoin('part.assembly_bom_entries', '_assemblyBomEntries');
+            $builder->leftJoin('_assemblyBomEntries.assembly', '_assembly');
+        }
+        if (str_contains($dql, '_assemblyBomEntries')) {
+            $builder->leftJoin('part.assembly_bom_entries', '_assemblyBomEntries');
         }
         if (str_contains($dql, '_jobPart')) {
             $builder->leftJoin('part.bulkImportJobParts', '_jobPart');
