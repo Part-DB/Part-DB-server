@@ -12711,6 +12711,8 @@ Buerklin-API Authentication server:
       <segment>
         <source>settings.misc.kicad_eda.default_orderdetails_visibility.help</source>
         <target>EDA visibility for all purchase infos who does not have an explicit visibility set. When enabled all purchase infos will be visible in the EDA software by default.</target>
+        </segment>
+    </unit>
     <unit id="aEgd0if" name="label_scanner.open">
       <segment>
         <source>label_scanner.open</source>
