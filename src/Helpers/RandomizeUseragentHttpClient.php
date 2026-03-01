@@ -31,7 +31,7 @@ use Symfony\Contracts\HttpClient\ResponseStreamInterface;
  * HttpClient wrapper that randomizes the user agent for each request, to make it harder for servers to detect and block us.
  * When we get a 503, 403 or 429, we assume that the server is blocking us and try again with a different user agent, until we run out of retries.
  */
-class RandomizeUseragentHttpClient implements HttpClientInterface
+final class RandomizeUseragentHttpClient implements HttpClientInterface
 {
     public const USER_AGENTS = [
         "Mozilla/5.0 (Windows; U; Windows NT 10.0; Win64; x64) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/52.0.1359.302 Safari/600.6 Edge/15.25690",
