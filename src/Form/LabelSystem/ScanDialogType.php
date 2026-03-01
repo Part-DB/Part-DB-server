@@ -61,6 +61,7 @@ class ScanDialogType extends AbstractType
             'attr' => [
                 'autofocus' => true,
                 'id' => 'scan_dialog_input',
+                'style' => 'font-family: var(--bs-font-monospace)',
             ],
         ]);
 
