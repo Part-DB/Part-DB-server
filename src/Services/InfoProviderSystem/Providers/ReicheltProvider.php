@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\Providers;
 
+use App\Helpers\RandomizeUseragentHttpClient;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
@@ -30,7 +31,6 @@ use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\ReicheltSettings;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -39,10 +39,13 @@ class ReicheltProvider implements InfoProviderInterface
 
     public const DISTRIBUTOR_NAME = "Reichelt";
 
-    public function __construct(private readonly HttpClientInterface $client,
+    private readonly HttpClientInterface $client;
+
+    public function __construct(HttpClientInterface $client,
         private readonly ReicheltSettings $settings,
     )
     {
+        $this->client = new RandomizeUseragentHttpClient($client);
     }
 
     public function getProviderInfo(): array
