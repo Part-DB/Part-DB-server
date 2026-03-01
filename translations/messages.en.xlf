@@ -642,7 +642,7 @@ Sub elements will be moved upwards.</target>
         <target>Group</target>
       </segment>
     </unit>
-    <unit id="edaVisibilityHelp" name="specifications.eda_visibility.help">
+    <unit id="8rz303Z" name="specifications.eda_visibility.help">
       <segment state="translated">
         <source>specifications.eda_visibility.help</source>
         <target>Export this parameter as an EDA field</target>
@@ -2930,37 +2930,37 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Attachments</target>
       </segment>
     </unit>
-    <unit id="eda_table_status" name="part.table.eda_status">
+    <unit id="f3Dggp6" name="part.table.eda_status">
       <segment state="translated">
         <source>part.table.eda_status</source>
         <target>EDA</target>
       </segment>
     </unit>
-    <unit id="eda_status_symbol" name="eda.status.symbol_set">
+    <unit id="Q_myBuD" name="eda.status.symbol_set">
       <segment state="translated">
         <source>eda.status.symbol_set</source>
         <target>KiCad symbol set</target>
       </segment>
     </unit>
-    <unit id="eda_status_footprint" name="eda.status.footprint_set">
+    <unit id="QGLfvit" name="eda.status.footprint_set">
       <segment state="translated">
         <source>eda.status.footprint_set</source>
         <target>KiCad footprint set</target>
       </segment>
     </unit>
-    <unit id="eda_status_reference" name="eda.status.reference_set">
+    <unit id="hkze9M." name="eda.status.reference_set">
       <segment state="translated">
         <source>eda.status.reference_set</source>
         <target>Reference prefix set</target>
       </segment>
     </unit>
-    <unit id="eda_status_complete" name="eda.status.complete">
+    <unit id="OTXbAfL" name="eda.status.complete">
       <segment state="translated">
         <source>eda.status.complete</source>
         <target>EDA fields complete (symbol, footprint, reference)</target>
       </segment>
     </unit>
-    <unit id="eda_status_partial" name="eda.status.partial">
+    <unit id="z9E5RB." name="eda.status.partial">
       <segment state="translated">
         <source>eda.status.partial</source>
         <target>EDA fields partially set</target>
@@ -3308,10 +3308,10 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>No longer available</target>
       </segment>
     </unit>
-    <unit id="eda_od_visibility" name="orderdetails.edit.eda_visibility">
+    <unit id="6H0WQWq" name="orderdetails.edit.eda_visibility">
       <segment state="translated">
         <source>orderdetails.edit.eda_visibility</source>
-        <target>EDA visibility</target>
+        <target>Visible in EDA</target>
       </segment>
     </unit>
     <unit id="ZsO5AKM" name="orderdetails.edit.supplierpartnr.placeholder">
@@ -9993,25 +9993,25 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>This value determines the depth of the category tree, that is visible inside KiCad. 0 means that only the top level categories are visible. Set to a value &gt; 0 to show more levels. Set to -1, to show all parts of Part-DB inside a sigle cnategory in KiCad.</target>
       </segment>
     </unit>
-    <unit id="kicad_ds_link" name="settings.misc.kicad_eda.datasheet_link">
+    <unit id="X5.rQdO" name="settings.misc.kicad_eda.datasheet_link">
       <segment state="translated">
         <source>settings.misc.kicad_eda.datasheet_link</source>
         <target>Datasheet field links to PDF</target>
       </segment>
     </unit>
-    <unit id="kicad_ds_link_help" name="settings.misc.kicad_eda.datasheet_link.help">
+    <unit id="Fm1QTCs" name="settings.misc.kicad_eda.datasheet_link.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.datasheet_link.help</source>
         <target>When enabled, the datasheet field in KiCad will link to the actual PDF file (if found). When disabled, it will link to the Part-DB page instead. The Part-DB page link is always available as a separate "Part-DB URL" field.</target>
       </segment>
     </unit>
-    <unit id="eda_default_vis" name="settings.misc.kicad_eda.default_eda_visibility">
+    <unit id="SzYLUxS" name="settings.misc.kicad_eda.default_eda_visibility">
       <segment state="translated">
         <source>settings.misc.kicad_eda.default_eda_visibility</source>
         <target>Default EDA visibility</target>
       </segment>
     </unit>
-    <unit id="eda_default_vis_help" name="settings.misc.kicad_eda.default_eda_visibility.help">
+    <unit id="FqRsTQy" name="settings.misc.kicad_eda.default_eda_visibility.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.default_eda_visibility.help</source>
         <target>Default EDA visibility for parameters and orderdetails that have no explicit value set. When enabled, all parameters and supplier part numbers will be exported to EDA by default.</target>
@@ -10983,79 +10983,79 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Bulk Info Provider Import</target>
       </segment>
     </unit>
-    <unit id="batchEdaGroup" name="part_list.action.group.eda">
+    <unit id="VtS1yT7" name="part_list.action.group.eda">
       <segment state="translated">
         <source>part_list.action.group.eda</source>
         <target>EDA / KiCad</target>
       </segment>
     </unit>
-    <unit id="batchEdaAction" name="part_list.action.batch_edit_eda">
+    <unit id="swU1Rp2" name="part_list.action.batch_edit_eda">
       <segment state="translated">
         <source>part_list.action.batch_edit_eda</source>
         <target>Batch Edit EDA Fields</target>
       </segment>
     </unit>
-    <unit id="batchEdaTitle" name="batch_eda.title">
+    <unit id="ZaS_Hg5" name="batch_eda.title">
       <segment state="translated">
         <source>batch_eda.title</source>
         <target>Batch Edit EDA Fields</target>
       </segment>
     </unit>
-    <unit id="batchEdaDesc" name="batch_eda.description">
+    <unit id="k2FDo7A" name="batch_eda.description">
       <segment state="translated">
         <source>batch_eda.description</source>
         <target>Edit EDA/KiCad fields for %count% selected parts. Check the "Apply" box next to each field you want to change.</target>
       </segment>
     </unit>
-    <unit id="batchEdaShowParts" name="batch_eda.show_parts">
+    <unit id="WVHbic3" name="batch_eda.show_parts">
       <segment state="translated">
         <source>batch_eda.show_parts</source>
         <target>Show selected parts</target>
       </segment>
     </unit>
-    <unit id="batchEdaApplyHint" name="batch_eda.apply_hint">
+    <unit id="ubQd6G4" name="batch_eda.apply_hint">
       <segment state="translated">
         <source>batch_eda.apply_hint</source>
         <target>Only fields with the "Apply" checkbox checked will be changed. Unchecked fields are left unchanged.</target>
       </segment>
     </unit>
-    <unit id="batchEdaApply" name="batch_eda.apply">
+    <unit id="w.5FGYL" name="batch_eda.apply">
       <segment state="translated">
         <source>batch_eda.apply</source>
         <target>Apply</target>
       </segment>
     </unit>
-    <unit id="batchEdaField" name="batch_eda.field">
+    <unit id="9EmHp5C" name="batch_eda.field">
       <segment state="translated">
         <source>batch_eda.field</source>
         <target>Field</target>
       </segment>
     </unit>
-    <unit id="batchEdaValue" name="batch_eda.value">
+    <unit id="xHaCnEQ" name="batch_eda.value">
       <segment state="translated">
         <source>batch_eda.value</source>
         <target>Value</target>
       </segment>
     </unit>
-    <unit id="batchEdaSubmit" name="batch_eda.submit">
+    <unit id="PLqIBvC" name="batch_eda.submit">
       <segment state="translated">
         <source>batch_eda.submit</source>
         <target>Apply to Selected Parts</target>
       </segment>
     </unit>
-    <unit id="batchEdaCancel" name="batch_eda.cancel">
+    <unit id="5nO7Fpq" name="batch_eda.cancel">
       <segment state="translated">
         <source>batch_eda.cancel</source>
         <target>Cancel</target>
       </segment>
     </unit>
-    <unit id="batchEdaSuccess" name="batch_eda.success">
+    <unit id="vhlPBNU" name="batch_eda.success">
       <segment state="translated">
         <source>batch_eda.success</source>
         <target>EDA fields updated successfully.</target>
       </segment>
     </unit>
-    <unit id="batchEdaNoParts" name="batch_eda.no_parts_selected">
+    <unit id="2fMo760" name="batch_eda.no_parts_selected">
       <segment state="translated">
         <source>batch_eda.no_parts_selected</source>
         <target>No parts were selected for batch editing.</target>
