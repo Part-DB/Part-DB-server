@@ -396,10 +396,14 @@ class BOMImporter
                 }
             }
 
-            // Create unique key for this entry (name + part ID)
-            $entry_key = $name . '|' . ($part ? $part->getID() : 'null');
+            // Create unique key for this entry.
+            // When linked to a Part-DB part, use the part ID as key (merges footprint variants).
+            // Otherwise, use name (which includes package) to avoid merging unrelated components.
+            $entry_key = $part !== null
+                ? 'part:' . $part->getID()
+                : 'name:' . $name;
 
-            // Check if we already have an entry with the same name and part
+            // Check if we already have an entry with the same key
             if (isset($entries_by_key[$entry_key])) {
                 // Merge with existing entry
                 $existing_entry = $entries_by_key[$entry_key];
@@ -413,14 +417,22 @@ class BOMImporter
                 $existing_quantity = $existing_entry->getQuantity();
                 $existing_entry->setQuantity($existing_quantity + $quantity);
 
+                // Track footprint variants in comment when merging entries with different packages
+                $currentPackage = trim($mapped_entry['Package'] ?? '');
+                if ($currentPackage !== '' && !str_contains($existing_entry->getComment(), $currentPackage)) {
+                    $comment = $existing_entry->getComment();
+                    $existing_entry->setComment($comment . ', Footprint variant: ' . $currentPackage);
+                }
+
                 $this->logger->info('Merged duplicate BOM entry', [
                     'name' => $name,
-                    'part_id' => $part ? $part->getID() : null,
+                    'part_id' => $part?->getID(),
                     'original_quantity' => $existing_quantity,
                     'added_quantity' => $quantity,
                     'new_quantity' => $existing_quantity + $quantity,
                     'original_mountnames' => $existing_mountnames,
                     'added_mountnames' => $designator,
+                    'package' => $currentPackage,
                 ]);
 
                 continue; // Skip creating new entry

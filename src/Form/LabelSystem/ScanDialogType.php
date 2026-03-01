@@ -61,6 +61,8 @@ class ScanDialogType extends AbstractType
             'attr' => [
                 'autofocus' => true,
                 'id' => 'scan_dialog_input',
+                'style' => 'font-family: var(--bs-font-monospace)',
+                'data-controller' => 'elements--nonprintable-char-input',
             ],
         ]);
 
@@ -72,11 +74,7 @@ class ScanDialogType extends AbstractType
             'placeholder' => 'scan_dialog.mode.auto',
             'choice_label' => fn (?BarcodeSourceType $enum) => match($enum) {
                 null => 'scan_dialog.mode.auto',
-                BarcodeSourceType::INTERNAL => 'scan_dialog.mode.internal',
-                BarcodeSourceType::IPN => 'scan_dialog.mode.ipn',
-                BarcodeSourceType::USER_DEFINED => 'scan_dialog.mode.user',
-                BarcodeSourceType::EIGP114 => 'scan_dialog.mode.eigp',
-                BarcodeSourceType::GTIN => 'scan_dialog.mode.gtin',
+                default => 'scan_dialog.mode.' . $enum->value,
             },
         ]);
 

@@ -89,6 +89,10 @@ final class PartsDataTable implements DataTableTypeInterface
         $this->configureOptions($resolver);
         $options = $resolver->resolve($options);
 
+        /*************************************************************************************************************
+         * When adding columns here, add them also to PartTableColumns enum, to make them configurable in the settings!
+         *************************************************************************************************************/
+
         $this->csh
             //Color the table rows depending on the review and favorite status
             ->add('row_color', RowClassColumn::class, [
@@ -228,6 +232,21 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('attachments', PartAttachmentsColumn::class, [
                 'label' => $this->translator->trans('part.table.attachments'),
+            ])
+            ->add('eda_reference', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.eda_reference'),
+                'render' => static fn($value, Part $context) => htmlspecialchars($context->getEdaInfo()->getReferencePrefix() ?? ''),
+                'orderField' => 'NATSORT(part.eda_info.reference_prefix)'
+            ])
+            ->add('eda_value', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.eda_value'),
+                'render' => static fn($value, Part $context) => htmlspecialchars($context->getEdaInfo()->getValue() ?? ''),
+                'orderField' => 'NATSORT(part.eda_info.value)'
+            ])
+            ->add('eda_status', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.eda_status'),
+                'render' => fn($value, Part $context) => $this->partDataTableHelper->renderEdaStatus($context),
+                'className' => 'text-center',
             ]);
 
         //Add a column to list the projects where the part is used, when the user has the permission to see the projects

@@ -60,6 +60,15 @@
                                             </a>
                                         </li>
                                     {% endif %}
+
+                                    {% if is_granted("@tools.label_scanner") %}
+                                        <li>
+                                            <a class="dropdown-item" href="{{ path('scan_dialog') }}">
+                                                <i class="fa-fw fa-solid fa-camera-retro"></i>
+                                                {% trans %}parts.create_from_scan.title{% endtrans %}
+                                            </a>
+                                        </li>
+                                    {% endif %}
                                 {% endif %}
 
                                 {% if is_granted('@parts.import') %}
@@ -159,7 +168,7 @@
                         <li role="separator" class="dropdown-divider"></li>
                         <h6 class="dropdown-header">{% trans %}user.language_select{% endtrans %}</h6>
                         <div id="locale-select-menu">
-                            {# This menu is filled by 'turbo/locale_menu' controller from the _turbo_control.html.twig template, to always have the correct path #}
+                            {# This menu is filled by a turbo-stream in _turbo_contro.html.twig #}
                         </div>
                     </ul>
                 </li>

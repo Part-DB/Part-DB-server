@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Exceptions\ProviderIDNotSupportedException;
+use App\Helpers\RandomizeUseragentHttpClient;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
@@ -54,11 +55,8 @@ class GenericWebProvider implements InfoProviderInterface
         private readonly ProviderRegistry $providerRegistry, private readonly PartInfoRetriever $infoRetriever,
     )
     {
-        $this->httpClient = $httpClient->withOptions(
+        $this->httpClient = (new RandomizeUseragentHttpClient($httpClient))->withOptions(
             [
-                'headers' => [
-                    'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36',
-                ],
                 'timeout' => 15,
             ]
         );
