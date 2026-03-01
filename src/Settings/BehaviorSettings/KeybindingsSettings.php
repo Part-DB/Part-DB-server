@@ -21,16 +21,27 @@
 declare(strict_types=1);
 
 
-namespace App\Services\LabelSystem\BarcodeScanner;
+namespace App\Settings\BehaviorSettings;
 
-interface BarcodeScanResultInterface
+use App\Settings\SettingsIcon;
+use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
+use Jbtronics\SettingsBundle\Settings\Settings;
+use Jbtronics\SettingsBundle\Settings\SettingsParameter;
+use Symfony\Component\Translation\TranslatableMessage as TM;
+
+#[Settings(name: "keybindings", label: new TM("settings.behavior.keybindings"))]
+#[SettingsIcon('fa-keyboard')]
+class KeybindingsSettings
 {
     /**
-     * Returns all data that was decoded from the barcode in a format, that can be shown in a table to the user.
-     * The return values of this function are not meant to be parsed by code again, but should just give a information
-     * to the user.
-     * The keys of the returned array are the first column of the table and the values are the second column.
-     * @return array<string, string|int|float|null>
+     * Whether to enable special character keybindings (Alt+key) in text input fields
+     * @var bool
      */
-    public function getDecodedForInfoMode(): array;
+    #[SettingsParameter(
+        label: new TM("settings.behavior.keybindings.enable_special_characters"), 
+        description: new TM("settings.behavior.keybindings.enable_special_characters.help"),
+        envVar: "bool:KEYBINDINGS_SPECIAL_CHARS_ENABLED", 
+        envVarMode: EnvVarMode::OVERWRITE
+    )]
+    public bool $enableSpecialCharacters = true;
 }

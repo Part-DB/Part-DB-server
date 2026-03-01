@@ -1,7 +1,8 @@
+<?php
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2026 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -17,24 +18,29 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Controller } from '@hotwired/stimulus';
-import { Toast } from 'bootstrap';
+declare(strict_types=1);
 
-/**
- * The purpose of this controller, is to show all containers.
- * They should already be added via turbo-streams, but have to be called for to show them.
- */
-export default class extends Controller {
-    connect() {
-        //Move all toasts from the page into our toast container and show them
 
-        const toastContainer = document.getElementById('toast-container');
-        if (this.element.parentNode !== toastContainer) {
-            toastContainer.appendChild(this.element);
-            return;
+namespace App\Services\LabelSystem\BarcodeScanner;
+
+final readonly class AmazonBarcodeScanResult implements BarcodeScanResultInterface
+{
+    public function __construct(public string $asin) {
+        if (!self::isAmazonBarcode($asin)) {
+            throw new \InvalidArgumentException("The provided input '$asin' is not a valid Amazon barcode (ASIN)");
         }
+    }
 
-        const toast = new Toast(this.element);
-        toast.show();
+    public static function isAmazonBarcode(string $input): bool
+    {
+        //Amazon barcodes are 10 alphanumeric characters
+        return preg_match('/^[A-Z0-9]{10}$/i', $input) === 1;
+    }
+
+    public function getDecodedForInfoMode(): array
+    {
+        return [
+            'ASIN' => $this->asin,
+        ];
     }
 }
