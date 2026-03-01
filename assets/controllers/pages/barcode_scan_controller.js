@@ -114,7 +114,11 @@ export default class extends Controller {
         // Mark as handled immediately (prevents spam even if callback fires repeatedly)
         this._lastDecodedText = normalized;
 
-        document.getElementById('scan_dialog_input').value = decodedText;
+        const input = document.getElementById('scan_dialog_input');
+        input.value = decodedText;
+        //Trigger nonprintable char input controller to update the hidden input value
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+
         //Submit form
         document.getElementById('scan_dialog_form').requestSubmit();
     }
