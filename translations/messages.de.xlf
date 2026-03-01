@@ -641,6 +641,12 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Sektion</target>
       </segment>
     </unit>
+    <unit id="8rz303Z" name="specifications.eda_visibility.help">
+      <segment state="translated">
+        <source>specifications.eda_visibility.help</source>
+        <target>Diesen Parameter als EDA Feld exportieren</target>
+      </segment>
+    </unit>
     <unit id="XclPxI9" name="specification.create">
       <segment state="translated">
         <source>specification.create</source>
@@ -2923,6 +2929,42 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Dateianhänge</target>
       </segment>
     </unit>
+    <unit id="f3Dggp6" name="part.table.eda_status">
+      <segment state="translated">
+        <source>part.table.eda_status</source>
+        <target>EDA</target>
+      </segment>
+    </unit>
+    <unit id="Q_myBuD" name="eda.status.symbol_set">
+      <segment state="translated">
+        <source>eda.status.symbol_set</source>
+        <target>KiCad Symbol gesetzt</target>
+      </segment>
+    </unit>
+    <unit id="QGLfvit" name="eda.status.footprint_set">
+      <segment state="translated">
+        <source>eda.status.footprint_set</source>
+        <target>KiCad Footprint gesetzt</target>
+      </segment>
+    </unit>
+    <unit id="hkze9M." name="eda.status.reference_set">
+      <segment state="translated">
+        <source>eda.status.reference_set</source>
+        <target>Referenzpräfix gesetzt</target>
+      </segment>
+    </unit>
+    <unit id="OTXbAfL" name="eda.status.complete">
+      <segment state="translated">
+        <source>eda.status.complete</source>
+        <target>EDA Felder vollständig (Symbol, Footprint, Referenz)</target>
+      </segment>
+    </unit>
+    <unit id="z9E5RB." name="eda.status.partial">
+      <segment state="translated">
+        <source>eda.status.partial</source>
+        <target>EDA Felder teilweise gesetzt</target>
+      </segment>
+    </unit>
     <unit id="bMkafCp" name="flash.login_successful">
       <segment state="translated">
         <source>flash.login_successful</source>
@@ -3263,6 +3305,12 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>orderdetails.edit.obsolete</source>
         <target>Nicht mehr lieferbar</target>
+      </segment>
+    </unit>
+    <unit id="6H0WQWq" name="orderdetails.edit.eda_visibility">
+      <segment state="translated">
+        <source>orderdetails.edit.eda_visibility</source>
+        <target>Sichtbar in EDA</target>
       </segment>
     </unit>
     <unit id="ZsO5AKM" name="orderdetails.edit.supplierpartnr.placeholder">
@@ -9499,6 +9547,12 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>EIGP 114 Barcode (z. B. der Datamatrix-Code auf Digikey und Mouser Bauteilen)</target>
       </segment>
     </unit>
+    <unit id="BnqcKWx" name="scan_dialog.mode.lcsc">
+      <segment state="translated">
+        <source>scan_dialog.mode.lcsc</source>
+        <target>LCSC.com Barcode</target>
+      </segment>
+    </unit>
     <unit id="QSMS_Bd" name="scan_dialog.info_mode">
       <segment state="translated">
         <source>scan_dialog.info_mode</source>
@@ -9509,6 +9563,24 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>label_scanner.decoded_info.title</source>
         <target>Dekodierte Informationen</target>
+      </segment>
+    </unit>
+    <unit id="kQnodbA" name="label_scanner.target_found">
+      <segment state="translated">
+        <source>label_scanner.target_found</source>
+        <target>Artikel in Datenbank gefunden</target>
+      </segment>
+    </unit>
+    <unit id="7Arfw2q" name="label_scanner.scan_result.title">
+      <segment state="translated">
+        <source>label_scanner.scan_result.title</source>
+        <target>Scan-Ergebnis</target>
+      </segment>
+    </unit>
+    <unit id="PTh4EK_" name="label_scanner.no_locations">
+      <segment state="translated">
+        <source>label_scanner.no_locations</source>
+        <target>Bauteil ist an keinem Standort gespeichert.</target>
       </segment>
     </unit>
     <unit id="nmXQWcS" name="label_generator.edit_profiles">
@@ -9944,6 +10016,18 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Dieser Wert bestimmt die Tiefe des Kategoriebaums, der in KiCad sichtbar ist. 0 bedeutet, dass nur die Kategorien der obersten Ebene sichtbar sind. Setzen Sie den Wert auf &gt; 0, um weitere Ebenen anzuzeigen. Setzen Sie den Wert auf -1, um alle Teile der Part-DB innerhalb einer einzigen Kategorie in KiCad anzuzeigen.</target>
       </segment>
     </unit>
+    <unit id="X5.rQdO" name="settings.misc.kicad_eda.datasheet_link">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.datasheet_link</source>
+        <target>Datasheet Feld verlinkt auf PDF</target>
+      </segment>
+    </unit>
+    <unit id="Fm1QTCs" name="settings.misc.kicad_eda.datasheet_link.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.datasheet_link.help</source>
+        <target>Wenn aktiviert, verlinkt das Datenblatt-Feld in KiCad auf die tatsächliche PDF-Datei (sofern gefunden). Wenn deaktiviert, führt es stattdessen zur Part-DB-Seite. Der Link zur Part-DB-Seite ist immer als separates "Part-DB URL"-Feld verfügbar.</target>
+      </segment>
+    </unit>
     <unit id="VwvmcWE" name="settings.behavior.sidebar">
       <segment state="translated">
         <source>settings.behavior.sidebar</source>
@@ -10284,6 +10368,24 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>settings.behavior.part_info.show_part_image_overlay.help</source>
         <target>Zeigen Sie die Bildoverlay mit den Details zum Anhang an, wenn Sie mit der Maus über die Teilebildgalerie fahren.</target>
+      </segment>
+    </unit>
+    <unit id="0iYdzdk" name="settings.behavior.keybindings">
+      <segment state="translated">
+        <source>settings.behavior.keybindings</source>
+        <target>Tastenkürzel</target>
+      </segment>
+    </unit>
+    <unit id="_x13bMa" name="settings.behavior.keybindings.enable_special_characters">
+      <segment state="translated">
+        <source>settings.behavior.keybindings.enable_special_characters</source>
+        <target>Tastenkürzel für Sonderzeichen aktivieren</target>
+      </segment>
+    </unit>
+    <unit id="Af8Zzqr" name="settings.behavior.keybindings.enable_special_characters.help">
+      <segment state="translated">
+        <source>settings.behavior.keybindings.enable_special_characters.help</source>
+        <target>Aktivieren Sie Alt+Taste-Kürzel zum Einfügen von Sonderzeichen (griechische Buchstaben, mathematische Symbole etc.) in Texteingabefeldern. Deaktivieren, wenn die Kürzel mit Ihrer Tastaturbelegung oder Systemkürzeln kollidieren.</target>
       </segment>
     </unit>
     <unit id="ALfPkeR" name="perm.config.change_system_settings">
@@ -10908,6 +11010,84 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>part_list.action.bulk_info_provider_import</source>
         <target>Massenimport von Datenquellen</target>
+      </segment>
+    </unit>
+    <unit id="VtS1yT7" name="part_list.action.group.eda">
+      <segment state="translated">
+        <source>part_list.action.group.eda</source>
+        <target>EDA / KiCad</target>
+      </segment>
+    </unit>
+    <unit id="swU1Rp2" name="part_list.action.batch_edit_eda">
+      <segment state="translated">
+        <source>part_list.action.batch_edit_eda</source>
+        <target>EDA-Felder in Stapel bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="ZaS_Hg5" name="batch_eda.title">
+      <segment state="translated">
+        <source>batch_eda.title</source>
+        <target>EDA-Felder in Stapel bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="k2FDo7A" name="batch_eda.description">
+      <segment state="translated">
+        <source>batch_eda.description</source>
+        <target>Bearbeiten Sie EDA/KiCad-Felder für %count% ausgewählte Bauteile. Aktivieren Sie das Kontrollkästchen "Anwenden" neben jedem Feld, das Sie ändern möchten.</target>
+      </segment>
+    </unit>
+    <unit id="WVHbic3" name="batch_eda.show_parts">
+      <segment state="translated">
+        <source>batch_eda.show_parts</source>
+        <target>Ausgewählte Bauteile anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="ubQd6G4" name="batch_eda.apply_hint">
+      <segment state="translated">
+        <source>batch_eda.apply_hint</source>
+        <target>Nur Felder mit aktiviertem Kontrollkästchen "Anwenden" werden geändert. Deaktivierte Felder bleiben unverändert.</target>
+      </segment>
+    </unit>
+    <unit id="w.5FGYL" name="batch_eda.apply">
+      <segment state="translated">
+        <source>batch_eda.apply</source>
+        <target>Anwenden</target>
+      </segment>
+    </unit>
+    <unit id="9EmHp5C" name="batch_eda.field">
+      <segment state="translated">
+        <source>batch_eda.field</source>
+        <target>Feld</target>
+      </segment>
+    </unit>
+    <unit id="xHaCnEQ" name="batch_eda.value">
+      <segment state="translated">
+        <source>batch_eda.value</source>
+        <target>Wert</target>
+      </segment>
+    </unit>
+    <unit id="PLqIBvC" name="batch_eda.submit">
+      <segment state="translated">
+        <source>batch_eda.submit</source>
+        <target>Auf ausgewählte Bauteile anwenden</target>
+      </segment>
+    </unit>
+    <unit id="5nO7Fpq" name="batch_eda.cancel">
+      <segment state="translated">
+        <source>batch_eda.cancel</source>
+        <target>Abbrechen</target>
+      </segment>
+    </unit>
+    <unit id="vhlPBNU" name="batch_eda.success">
+      <segment state="translated">
+        <source>batch_eda.success</source>
+        <target>EDA-Felder erfolgreich aktualisiert.</target>
+      </segment>
+    </unit>
+    <unit id="2fMo760" name="batch_eda.no_parts_selected">
+      <segment state="translated">
+        <source>batch_eda.no_parts_selected</source>
+        <target>Für die Stapelbearbeitung wurden keine Bauteile ausgewählt.</target>
       </segment>
     </unit>
     <unit id="yzpXFkB" name="info_providers.bulk_import.step1.spn_recommendation">
@@ -12505,6 +12685,138 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>log.element_edited.changed_fields.last_stocktake_at</source>
         <target>Letzte Inventur</target>
+      </segment>
+    </unit>
+    <unit id="GNWhoTW" name="part.table.eda_reference">
+      <segment state="translated">
+        <source>part.table.eda_reference</source>
+        <target>EDA-Referenz</target>
+      </segment>
+    </unit>
+    <unit id="tW4yCbf" name="part.table.eda_value">
+      <segment state="translated">
+        <source>part.table.eda_value</source>
+        <target>EDA-Wert</target>
+      </segment>
+    </unit>
+    <unit id="s1pgReC" name="settings.misc.kicad_eda.default_parameter_visibility">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_visibility</source>
+        <target>Standard EDA-Sichtbarkeit für Parameter</target>
+      </segment>
+    </unit>
+    <unit id="Z78QunV" name="settings.misc.kicad_eda.default_parameter_visibility.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_visibility.help</source>
+        <target>EDA-Sichtbarkeit für alle [Part]-Parameter, die keine explizite Sichtbarkeit gesetzt haben. Wenn aktiviert, sind alle Parameter standardmäßig in der EDA-Software sichtbar.</target>
+      </segment>
+    </unit>
+    <unit id="J6pYnaC" name="settings.misc.kicad_eda.default_orderdetails_visibility">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_orderdetails_visibility</source>
+        <target>Standard EDA-Sichtbarkeit für Einkaufsinformationen</target>
+      </segment>
+    </unit>
+    <unit id="Hiye4C." name="settings.misc.kicad_eda.default_orderdetails_visibility.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_orderdetails_visibility.help</source>
+        <target>EDA-Sichtbarkeit für alle Bestellinformationen, die keine explizite Sichtbarkeit gesetzt haben. Bei Aktivierung sind alle Bestellinfos standardmäßig in der EDA-Software sichtbar.</target>
+      </segment>
+    </unit>
+    <unit id="aEgd0if" name="label_scanner.open">
+      <segment state="translated">
+        <source>label_scanner.open</source>
+        <target>Details anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="vw_0Qws" name="label_scanner.db_part_found">
+      <segment state="translated">
+        <source>label_scanner.db_part_found</source>
+        <target>Datenbank-[Part] für Barcode gefunden</target>
+      </segment>
+    </unit>
+    <unit id="zntajcd" name="label_scanner.part_can_be_created">
+      <segment state="translated">
+        <source>label_scanner.part_can_be_created</source>
+        <target>[Part] kann erstellt werden</target>
+      </segment>
+    </unit>
+    <unit id="cLTbd9w" name="label_scanner.part_can_be_created.help">
+      <segment state="translated">
+        <source>label_scanner.part_can_be_created.help</source>
+        <target>Kein passendes [Part] in der Datenbank gefunden, aber Sie können ein neues [Part] basierend auf diesem Barcode erstellen.</target>
+      </segment>
+    </unit>
+    <unit id="FfHA3Yf" name="label_scanner.part_create_btn">
+      <segment state="translated">
+        <source>label_scanner.part_create_btn</source>
+        <target>[Part] aus Barcode erstellen</target>
+      </segment>
+    </unit>
+    <unit id="xH258F." name="parts.create_from_scan.title">
+      <segment state="translated">
+        <source>parts.create_from_scan.title</source>
+        <target>[Part] aus Scan erstellen</target>
+      </segment>
+    </unit>
+    <unit id="8WZYwRJ" name="scan_dialog.mode.amazon">
+      <segment state="translated">
+        <source>scan_dialog.mode.amazon</source>
+        <target>Amazon Barcode</target>
+      </segment>
+    </unit>
+    <unit id="BQWuR_G" name="settings.ips.canopy">
+      <segment state="translated">
+        <source>settings.ips.canopy</source>
+        <target>Canopy</target>
+      </segment>
+    </unit>
+    <unit id="44BfYzy" name="settings.ips.canopy.alwaysGetDetails">
+      <segment state="translated">
+        <source>settings.ips.canopy.alwaysGetDetails</source>
+        <target>Details immer abrufen</target>
+      </segment>
+    </unit>
+    <unit id="so_ms3t" name="settings.ips.canopy.alwaysGetDetails.help">
+      <segment state="translated">
+        <source>settings.ips.canopy.alwaysGetDetails.help</source>
+        <target>Wenn aktiviert, werden beim Erstellen eines Bauteils mehr Details von canopy abgerufen. Das verursacht eine zusätzliche API-Anfrage, liefert aber Produkt-Bulletpoints und Kategoriedaten.</target>
+      </segment>
+    </unit>
+    <unit id="D055xh8" name="attachment.sandbox.warning">
+      <segment state="translated">
+        <source>attachment.sandbox.warning</source>
+        <target>WARNUNG: Sie betrachten einen von einem Nutzer hochgeladenen Anhang. Dabei handelt es sich um nicht vertrauenswürdigen Inhalt. Bitte vorsichtig fortfahren.</target>
+      </segment>
+    </unit>
+    <unit id="bRcdnJK" name="attachment.sandbox.back_to_partdb">
+      <segment state="translated">
+        <source>attachment.sandbox.back_to_partdb</source>
+        <target>Zurück zu Part-DB</target>
+      </segment>
+    </unit>
+    <unit id="MzyA7N8" name="settings.system.attachments.showHTMLAttachments">
+      <segment state="translated">
+        <source>settings.system.attachments.showHTMLAttachments</source>
+        <target>Hochgeladene HTML-Dateianhänge anzeigen (sandboxed)</target>
+      </segment>
+    </unit>
+    <unit id="V_LJkRy" name="settings.system.attachments.showHTMLAttachments.help">
+      <segment state="translated">
+        <source>settings.system.attachments.showHTMLAttachments.help</source>
+        <target>⚠️ Wenn aktiviert, können vom Nutzer hochgeladene HTML-Anhänge direkt im Browser angezeigt werden. Viele potenziell schädliche Funktionen sind eingeschränkt, dennoch besteht ein Sicherheitsrisiko und sollte nur aktiviert werden, wenn den hochladenden Nutzern vertraut wird.</target>
+      </segment>
+    </unit>
+    <unit id="BQo2xWi" name="attachment.sandbox.title">
+      <segment state="translated">
+        <source>attachment.sandbox.title</source>
+        <target>HTML [Attachment]</target>
+      </segment>
+    </unit>
+    <unit id="sJ6v9uJ" name="attachment.sandbox.as_plain_text">
+      <segment state="translated">
+        <source>attachment.sandbox.as_plain_text</source>
+        <target>Als Klartext anzeigen</target>
       </segment>
     </unit>
   </file>
