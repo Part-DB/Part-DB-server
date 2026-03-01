@@ -38,6 +38,7 @@ use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Attachments\StorageLocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
+use App\Entity\Contracts\DBElementInterface;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\Category;
 use App\Entity\PriceInformations\Pricedetail;
@@ -56,11 +57,9 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Supplier;
 use App\Entity\UserSystem\User;
 use App\Repository\DBElementRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * This class is for managing all database objects.
@@ -106,36 +105,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
     'user' => User::class]
 )]
 #[ORM\MappedSuperclass(repositoryClass: DBElementRepository::class)]
-abstract class AbstractDBElement implements JsonSerializable
+abstract class AbstractDBElement implements JsonSerializable, DBElementInterface
 {
-    /** @var int|null The Identification number for this part. This value is unique for the element in this table.
-     * Null if the element is not saved to DB yet.
-     */
-    #[Groups(['full', 'api:basic:read'])]
-    #[ORM\Column(type: Types::INTEGER)]
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    protected ?int $id = null;
+    use DBElementTrait;
 
     public function __clone()
     {
-        if ($this->id) {
-            //Set ID to null, so that an new entry is created
-            $this->id = null;
-        }
-    }
-
-    /**
-     * Get the ID. The ID can be zero, or even negative (for virtual elements). If an element is virtual, can be
-     * checked with isVirtualElement().
-     *
-     * Returns null, if the element is not saved to the DB yet.
-     *
-     * @return int|null the ID of this element
-     */
-    public function getID(): ?int
-    {
-        return $this->id;
+        $this->cloneDBElement();
     }
 
     public function jsonSerialize(): array
