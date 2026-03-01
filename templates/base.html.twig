@@ -79,7 +79,7 @@
 
 {# Listen for the special  #}
 {% if is_granted("@tools.label_scanner") %}
-<form class="d-none" {{ stimulus_controller('helpers/scan_special_char') }} action="{{ path("scan_dialog") }}">
+<form class="d-none" {{ stimulus_controller('helpers/scan_special_char') }} action="{{ path("scan_dialog") }}" data-turbo-frame="content">
     <input name="input" type="hidden">
 </form>
 {% endif %}
