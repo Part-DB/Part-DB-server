@@ -24,7 +24,7 @@ export default class extends Controller {
     _hiddenInput;
 
     connect() {
-        this.element.addEventListener("input", this._onInput.bind(this));
+        this.element.addEventListener("change", this._update.bind(this));
 
         // We use a hidden input to store the actual value of the field, which is submitted with the form.
         // The visible input is just for user interaction and can contain non-printable characters, which are not allowed in the hidden input.
@@ -33,11 +33,39 @@ export default class extends Controller {
         this._hiddenInput.name = this.element.name;
         this.element.removeAttribute("name");
         this.element.parentNode.insertBefore(this._hiddenInput, this.element.nextSibling);
+
+        this.element.addEventListener("keypress", this._onKeyPress.bind(this));
     }
 
-    _onInput(event) {
-        // Remove non-printable characters from the input value and store them in the hidden input
+    /**
+     * Ensures that non-printable characters like EOT, FS, etc. gets added to the input value when the user types them
+     * @param event
+     * @private
+     */
+    _onKeyPress(event) {
+        const ALLOWED_INPUT_CODES = [4, 28, 29, 30, 31]; //EOT, FS, GS, RS, US
 
+        if (!ALLOWED_INPUT_CODES.includes(event.keyCode)) {
+            return;
+        }
+
+        event.preventDefault();
+
+        const char = String.fromCharCode(event.keyCode);
+        this.element.value += char;
+
+        this._update();
+
+
+    }
+
+    _update() {
+        //Chrome workaround: Remove a leading ∠ character (U+2220) that appears when the user types a non-printable character at the beginning of the input field.
+        if (this.element.value.startsWith("∠")) {
+            this.element.value = this.element.value.substring(1);
+        }
+
+        // Remove non-printable characters from the input value and store them in the hidden input
         const normalizedValue = this.decodeNonPrintableChars(this.element.value);
         this._hiddenInput.value = normalizedValue;
 
