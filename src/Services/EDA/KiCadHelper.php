@@ -47,9 +47,6 @@ class KiCadHelper
     /** @var bool Whether to resolve actual datasheet PDF URLs (true) or use Part-DB page links (false) */
     private readonly bool $datasheetAsPdf;
 
-    /** @var bool The system-wide default for EDA visibility when not explicitly set on an element */
-    private readonly bool $defaultEdaVisibility;
-
     public function __construct(
         private readonly NodesListBuilder $nodesListBuilder,
         private readonly TagAwareCacheInterface $kicadCache,
@@ -58,11 +55,10 @@ class KiCadHelper
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly EntityURLGenerator $entityURLGenerator,
         private readonly TranslatorInterface $translator,
-        KiCadEDASettings $kiCadEDASettings,
+        private readonly KiCadEDASettings $kiCadEDASettings,
     ) {
         $this->category_depth = $kiCadEDASettings->categoryDepth;
         $this->datasheetAsPdf = $kiCadEDASettings->datasheetAsPdf ?? true;
-        $this->defaultEdaVisibility = $kiCadEDASettings->defaultEdaVisibility;
     }
 
     /**
@@ -294,7 +290,7 @@ class KiCadHelper
             foreach ($allOrderdetails as $orderdetail) {
                 if ($orderdetail->getSupplier() !== null && $orderdetail->getSupplierPartNr() !== '') {
                     // When explicit flags exist, filter by resolved visibility
-                    $resolvedVisibility = $orderdetail->isEdaVisibility() ?? $this->defaultEdaVisibility;
+                    $resolvedVisibility = $orderdetail->isEdaVisibility() ?? $this->kiCadEDASettings->defaultOrderdetailsVisibility;
                     if ($hasExplicitEdaVisibility && !$resolvedVisibility) {
                         continue;
                     }
@@ -339,7 +335,7 @@ class KiCadHelper
 
         //Add parameters marked for EDA export (explicit true, or system default when null)
         foreach ($part->getParameters() as $parameter) {
-            $paramVisibility = $parameter->isEdaVisibility() ?? $this->defaultEdaVisibility;
+            $paramVisibility = $parameter->isEdaVisibility() ?? $this->kiCadEDASettings->defaultParameterVisibility;
             if ($paramVisibility && $parameter->getName() !== '') {
                 $fieldName = $parameter->getName();
                 //Don't overwrite hardcoded fields

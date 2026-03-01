@@ -10005,18 +10005,6 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>When enabled, the datasheet field in KiCad will link to the actual PDF file (if found). When disabled, it will link to the Part-DB page instead. The Part-DB page link is always available as a separate "Part-DB URL" field.</target>
       </segment>
     </unit>
-    <unit id="SzYLUxS" name="settings.misc.kicad_eda.default_eda_visibility">
-      <segment state="translated">
-        <source>settings.misc.kicad_eda.default_eda_visibility</source>
-        <target>Default EDA visibility</target>
-      </segment>
-    </unit>
-    <unit id="FqRsTQy" name="settings.misc.kicad_eda.default_eda_visibility.help">
-      <segment state="translated">
-        <source>settings.misc.kicad_eda.default_eda_visibility.help</source>
-        <target>Default EDA visibility for parameters and orderdetails that have no explicit value set. When enabled, all parameters and supplier part numbers will be exported to EDA by default.</target>
-      </segment>
-    </unit>
     <unit id="VwvmcWE" name="settings.behavior.sidebar">
       <segment state="translated">
         <source>settings.behavior.sidebar</source>
@@ -12657,6 +12645,30 @@ Buerklin-API Authentication server:
       <segment state="translated">
         <source>log.element_edited.changed_fields.last_stocktake_at</source>
         <target>Last stocktake</target>
+      </segment>
+    </unit>
+    <unit id="s1pgReC" name="settings.misc.kicad_eda.default_parameter_visibility">
+      <segment>
+        <source>settings.misc.kicad_eda.default_parameter_visibility</source>
+        <target>Default EDA visibility of parameters</target>
+      </segment>
+    </unit>
+    <unit id="Z78QunV" name="settings.misc.kicad_eda.default_parameter_visibility.help">
+      <segment>
+        <source>settings.misc.kicad_eda.default_parameter_visibility.help</source>
+        <target>EDA visibility for all [part] parameters who does not have an explicit visibility set. When enabled all parameters will be visible in the EDA software by default.</target>
+      </segment>
+    </unit>
+    <unit id="J6pYnaC" name="settings.misc.kicad_eda.default_orderdetails_visibility">
+      <segment>
+        <source>settings.misc.kicad_eda.default_orderdetails_visibility</source>
+        <target>Default EDA visibility of purchase infos</target>
+      </segment>
+    </unit>
+    <unit id="Hiye4C." name="settings.misc.kicad_eda.default_orderdetails_visibility.help">
+      <segment>
+        <source>settings.misc.kicad_eda.default_orderdetails_visibility.help</source>
+        <target>EDA visibility for all purchase infos who does not have an explicit visibility set. When enabled all purchase infos will be visible in the EDA software by default.</target>
       </segment>
     </unit>
   </file>
