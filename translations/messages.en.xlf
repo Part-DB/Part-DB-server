@@ -12689,6 +12689,18 @@ Buerklin-API Authentication server:
         <target>Last stocktake</target>
       </segment>
     </unit>
+    <unit id="GNWhoTW" name="part.table.eda_reference">
+      <segment>
+        <source>part.table.eda_reference</source>
+        <target>EDA Reference</target>
+      </segment>
+    </unit>
+    <unit id="tW4yCbf" name="part.table.eda_value">
+      <segment>
+        <source>part.table.eda_value</source>
+        <target>EDA value</target>
+      </segment>
+    </unit>
     <unit id="s1pgReC" name="settings.misc.kicad_eda.default_parameter_visibility">
       <segment>
         <source>settings.misc.kicad_eda.default_parameter_visibility</source>
