@@ -603,6 +603,33 @@ class UpdateExecutor
 
 
     /**
+     * Delete a specific update log file.
+     */
+    public function deleteLog(string $filename): bool
+    {
+        // Validate filename pattern for security
+        if (!preg_match('/^update-[\w.\-]+\.log$/', $filename)) {
+            $this->logger->warning('Attempted to delete invalid log filename: ' . $filename);
+            return false;
+        }
+
+        $logPath = $this->project_dir . '/' . self::UPDATE_LOG_DIR . '/' . $filename;
+
+        if (!file_exists($logPath)) {
+            return false;
+        }
+
+        try {
+            $this->filesystem->remove($logPath);
+            $this->logger->info('Deleted update log: ' . $filename);
+            return true;
+        } catch (\Exception $e) {
+            $this->logger->error('Failed to delete update log: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
      * Restore from a backup file with maintenance mode and cache clearing.
      *
      * This wraps BackupManager::restoreBackup with additional safety measures

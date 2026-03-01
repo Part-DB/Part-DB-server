@@ -12491,6 +12491,84 @@ Buerklin-API Authentication server:
         <target>Backup restore is disabled by server configuration.</target>
       </segment>
     </unit>
+    <unit id="um_bk_create" name="update_manager.backup.create">
+      <segment state="translated">
+        <source>update_manager.backup.create</source>
+        <target>Create Backup</target>
+      </segment>
+    </unit>
+    <unit id="um_bk_create_confirm" name="update_manager.backup.create.confirm">
+      <segment state="translated">
+        <source>update_manager.backup.create.confirm</source>
+        <target>Create a full backup now? This may take a moment.</target>
+      </segment>
+    </unit>
+    <unit id="um_bk_created" name="update_manager.backup.created">
+      <segment state="translated">
+        <source>update_manager.backup.created</source>
+        <target>Backup created successfully.</target>
+      </segment>
+    </unit>
+    <unit id="um_bk_del_confirm" name="update_manager.backup.delete.confirm">
+      <segment state="translated">
+        <source>update_manager.backup.delete.confirm</source>
+        <target>Are you sure you want to delete this backup?</target>
+      </segment>
+    </unit>
+    <unit id="um_bk_deleted" name="update_manager.backup.deleted">
+      <segment state="translated">
+        <source>update_manager.backup.deleted</source>
+        <target>Backup deleted successfully.</target>
+      </segment>
+    </unit>
+    <unit id="um_bk_del_err" name="update_manager.backup.delete_error">
+      <segment state="translated">
+        <source>update_manager.backup.delete_error</source>
+        <target>Failed to delete backup.</target>
+      </segment>
+    </unit>
+    <unit id="um_log_del_confirm" name="update_manager.log.delete.confirm">
+      <segment state="translated">
+        <source>update_manager.log.delete.confirm</source>
+        <target>Are you sure you want to delete this log?</target>
+      </segment>
+    </unit>
+    <unit id="um_log_deleted" name="update_manager.log.deleted">
+      <segment state="translated">
+        <source>update_manager.log.deleted</source>
+        <target>Log deleted successfully.</target>
+      </segment>
+    </unit>
+    <unit id="um_log_del_err" name="update_manager.log.delete_error">
+      <segment state="translated">
+        <source>update_manager.log.delete_error</source>
+        <target>Failed to delete log.</target>
+      </segment>
+    </unit>
+    <unit id="um_view_log" name="update_manager.view_log">
+      <segment state="translated">
+        <source>update_manager.view_log</source>
+        <target>View log</target>
+      </segment>
+    </unit>
+    <unit id="um_delete" name="update_manager.delete">
+      <segment state="translated">
+        <source>update_manager.delete</source>
+        <target>Delete</target>
+      </segment>
+    </unit>
+    <unit id="um_bk_download" name="update_manager.backup.download">
+      <segment state="translated">
+        <source>update_manager.backup.download</source>
+        <target>Download backup</target>
+      </segment>
+    </unit>
+    <unit id="um_bk_docker_warning" name="update_manager.backup.docker_warning">
+      <segment state="translated">
+        <source>update_manager.backup.docker_warning</source>
+        <target>Docker installation detected. Backups are stored in var/backups/ which is not a persistent volume. Use the download button to save backups externally, or mount var/backups/ as a volume in your docker-compose.yml.</target>
+      </segment>
+    </unit>
     <unit id="kHKChQB" name="settings.ips.conrad">
       <segment state="translated">
         <source>settings.ips.conrad</source>

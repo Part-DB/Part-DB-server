@@ -24,14 +24,17 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Services\System\BackupManager;
+use App\Services\System\InstallationTypeDetector;
 use App\Services\System\UpdateChecker;
 use App\Services\System\UpdateExecutor;
 use Shivas\VersioningBundle\Service\VersionManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -49,6 +52,7 @@ class UpdateManagerController extends AbstractController
         private readonly UpdateExecutor $updateExecutor,
         private readonly VersionManagerInterface $versionManager,
         private readonly BackupManager $backupManager,
+        private readonly InstallationTypeDetector $installationTypeDetector,
         #[Autowire(env: 'bool:DISABLE_WEB_UPDATES')]
         private readonly bool $webUpdatesDisabled = false,
         #[Autowire(env: 'bool:DISABLE_BACKUP_RESTORE')]
@@ -101,6 +105,7 @@ class UpdateManagerController extends AbstractController
             'backups' => $this->backupManager->getBackups(),
             'web_updates_disabled' => $this->webUpdatesDisabled,
             'backup_restore_disabled' => $this->backupRestoreDisabled,
+            'is_docker' => $this->installationTypeDetector->isDocker(),
         ]);
     }
 
@@ -312,6 +317,99 @@ class UpdateManagerController extends AbstractController
         }
 
         return $this->json($details);
+    }
+
+    /**
+     * Create a manual backup.
+     */
+    #[Route('/backup', name: 'admin_update_manager_backup', methods: ['POST'])]
+    public function createBackup(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('@system.manage_updates');
+
+        if (!$this->isCsrfTokenValid('update_manager_backup', $request->request->get('_token'))) {
+            $this->addFlash('error', 'Invalid CSRF token.');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        if ($this->updateExecutor->isLocked()) {
+            $this->addFlash('error', 'Cannot create backup while an update is in progress.');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        try {
+            $backupPath = $this->backupManager->createBackup(null, 'manual');
+            $this->addFlash('success', 'update_manager.backup.created');
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Backup failed: ' . $e->getMessage());
+        }
+
+        return $this->redirectToRoute('admin_update_manager');
+    }
+
+    /**
+     * Delete a backup file.
+     */
+    #[Route('/backup/delete', name: 'admin_update_manager_backup_delete', methods: ['POST'])]
+    public function deleteBackup(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('@system.manage_updates');
+
+        if (!$this->isCsrfTokenValid('update_manager_delete', $request->request->get('_token'))) {
+            $this->addFlash('error', 'Invalid CSRF token.');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        $filename = $request->request->get('filename');
+        if ($filename && $this->backupManager->deleteBackup($filename)) {
+            $this->addFlash('success', 'update_manager.backup.deleted');
+        } else {
+            $this->addFlash('error', 'update_manager.backup.delete_error');
+        }
+
+        return $this->redirectToRoute('admin_update_manager');
+    }
+
+    /**
+     * Delete an update log file.
+     */
+    #[Route('/log/delete', name: 'admin_update_manager_log_delete', methods: ['POST'])]
+    public function deleteLog(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('@system.manage_updates');
+
+        if (!$this->isCsrfTokenValid('update_manager_delete', $request->request->get('_token'))) {
+            $this->addFlash('error', 'Invalid CSRF token.');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        $filename = $request->request->get('filename');
+        if ($filename && $this->updateExecutor->deleteLog($filename)) {
+            $this->addFlash('success', 'update_manager.log.deleted');
+        } else {
+            $this->addFlash('error', 'update_manager.log.delete_error');
+        }
+
+        return $this->redirectToRoute('admin_update_manager');
+    }
+
+    /**
+     * Download a backup file.
+     */
+    #[Route('/backup/download/{filename}', name: 'admin_update_manager_backup_download', methods: ['GET'])]
+    public function downloadBackup(string $filename): BinaryFileResponse
+    {
+        $this->denyAccessUnlessGranted('@system.manage_updates');
+
+        $details = $this->backupManager->getBackupDetails($filename);
+        if (!$details) {
+            throw $this->createNotFoundException('Backup not found');
+        }
+
+        $response = new BinaryFileResponse($details['path']);
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $details['file']);
+
+        return $response;
     }
 
     /**
