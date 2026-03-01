@@ -23,7 +23,10 @@ declare(strict_types=1);
 namespace App\Twig;
 
 use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentContainingDBElement;
+use App\Entity\Parts\Part;
 use App\Services\Attachments\AttachmentURLGenerator;
+use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\Misc\FAIconGenerator;
 use Twig\Attribute\AsTwigFunction;
 use Twig\Extension\AbstractExtension;
@@ -31,7 +34,7 @@ use Twig\TwigFunction;
 
 final readonly class AttachmentExtension
 {
-    public function __construct(private AttachmentURLGenerator $attachmentURLGenerator, private FAIconGenerator $FAIconGenerator)
+    public function __construct(private AttachmentURLGenerator $attachmentURLGenerator, private FAIconGenerator $FAIconGenerator, private PartPreviewGenerator $partPreviewGenerator)
     {
     }
 
@@ -42,6 +45,26 @@ final readonly class AttachmentExtension
     public function attachmentThumbnail(Attachment $attachment, string $filter_name = 'thumbnail_sm'): ?string
     {
         return $this->attachmentURLGenerator->getThumbnailURL($attachment, $filter_name);
+    }
+
+    /**
+     * Returns the URL of the thumbnail of the given element. Returns null if no thumbnail is available.
+     * For parts, a special preview image is generated, for other entities, the master picture is used as preview (if available).
+     */
+    #[AsTwigFunction("entity_thumbnail")]
+    public function entityThumbnail(AttachmentContainingDBElement $element, string $filter_name = 'thumbnail_sm'): ?string
+    {
+        if ($element instanceof Part) {
+            $preview_attachment = $this->partPreviewGenerator->getTablePreviewAttachment($element);
+        } else { // For other entities, we just use the master picture as preview, if available
+            $preview_attachment = $element->getMasterPictureAttachment();
+        }
+
+        if ($preview_attachment === null) {
+            return null;
+        }
+
+        return $this->attachmentURLGenerator->getThumbnailURL($preview_attachment, $filter_name);
     }
 
     /**

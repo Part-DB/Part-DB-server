@@ -24,10 +24,15 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem;
 
 use App\Entity\Parts\Part;
+use App\Exceptions\InfoProviderNotActiveException;
+use App\Exceptions\OAuthReconnectRequiredException;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
+use Psr\Http\Client\ClientExceptionInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\HttpClient\Exception\ClientException;
+use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
@@ -49,6 +54,11 @@ final class PartInfoRetriever
      * @param  string[]|InfoProviderInterface[]  $providers A list of providers to search in, either as provider keys or as provider instances
      * @param  string  $keyword The keyword to search for
      * @return SearchResultDTO[] The search results
+     * @throws InfoProviderNotActiveException if any of the given providers is not active
+     * @throws ClientException if any of the providers throws an exception during the search
+     * @throws \InvalidArgumentException if any of the given providers is not a valid provider key or instance
+     * @throws TransportException if any of the providers throws an exception during the search
+     * @throws OAuthReconnectRequiredException if any of the providers throws an exception during the search that indicates that the OAuth token needs to be refreshed
      */
     public function searchByKeyword(string $keyword, array $providers): array
     {
@@ -61,7 +71,7 @@ final class PartInfoRetriever
 
             //Ensure that the provider is active
             if (!$provider->isActive()) {
-                throw new \RuntimeException("The provider with key {$provider->getProviderKey()} is not active!");
+                throw InfoProviderNotActiveException::fromProvider($provider);
             }
 
             if (!$provider instanceof InfoProviderInterface) {
@@ -85,7 +95,7 @@ final class PartInfoRetriever
         $escaped_keyword = hash('xxh3', $keyword);
         return $this->partInfoCache->get("search_{$provider->getProviderKey()}_{$escaped_keyword}", function (ItemInterface $item) use ($provider, $keyword) {
             //Set the expiration time
-            $item->expiresAfter(!$this->debugMode ? self::CACHE_RESULT_EXPIRATION : 1);
+            $item->expiresAfter(!$this->debugMode ? self::CACHE_RESULT_EXPIRATION : 10);
 
             return $provider->searchByKeyword($keyword);
         });
@@ -97,6 +107,7 @@ final class PartInfoRetriever
      * @param  string  $provider_key
      * @param  string  $part_id
      * @return PartDetailDTO
+     * @throws InfoProviderNotActiveException if the the given providers is not active
      */
     public function getDetails(string $provider_key, string $part_id): PartDetailDTO
     {
@@ -104,14 +115,14 @@ final class PartInfoRetriever
 
         //Ensure that the provider is active
         if (!$provider->isActive()) {
-            throw new \RuntimeException("The provider with key $provider_key is not active!");
+            throw InfoProviderNotActiveException::fromProvider($provider);
         }
 
         //Generate key and escape reserved characters from the provider id
         $escaped_part_id = hash('xxh3', $part_id);
         return $this->partInfoCache->get("details_{$provider_key}_{$escaped_part_id}", function (ItemInterface $item) use ($provider, $part_id) {
             //Set the expiration time
-            $item->expiresAfter(!$this->debugMode ? self::CACHE_DETAIL_EXPIRATION : 1);
+            $item->expiresAfter(!$this->debugMode ? self::CACHE_DETAIL_EXPIRATION : 10);
 
             return $provider->getDetails($part_id);
         });
