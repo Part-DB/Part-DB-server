@@ -115,6 +115,61 @@ class PartDataTableHelper
         return implode('<br>', $tmp);
     }
 
+    /**
+     * Renders an EDA/KiCad completeness indicator for the given part.
+     * Shows icons for symbol, footprint, and value status.
+     */
+    public function renderEdaStatus(Part $context): string
+    {
+        $edaInfo = $context->getEdaInfo();
+        $category = $context->getCategory();
+        $footprint = $context->getFootprint();
+
+        // Determine effective values (direct or inherited)
+        $hasSymbol = $edaInfo->getKicadSymbol() !== null || $category?->getEdaInfo()->getKicadSymbol() !== null;
+        $hasFootprint = $edaInfo->getKicadFootprint() !== null || $footprint?->getEdaInfo()->getKicadFootprint() !== null;
+        $hasReference = $edaInfo->getReferencePrefix() !== null || $category?->getEdaInfo()->getReferencePrefix() !== null;
+
+        $symbolInherited = $edaInfo->getKicadSymbol() === null && $category?->getEdaInfo()->getKicadSymbol() !== null;
+        $footprintInherited = $edaInfo->getKicadFootprint() === null && $footprint?->getEdaInfo()->getKicadFootprint() !== null;
+
+        $icons = [];
+
+        // Symbol status
+        if ($hasSymbol) {
+            $title = $this->translator->trans('eda.status.symbol_set');
+            $class = $symbolInherited ? 'text-info' : 'text-success';
+            $icons[] = sprintf('<i class="fa-solid fa-microchip fa-fw %s" title="%s"></i>', $class, $title);
+        }
+
+        // Footprint status
+        if ($hasFootprint) {
+            $title = $this->translator->trans('eda.status.footprint_set');
+            $class = $footprintInherited ? 'text-info' : 'text-success';
+            $icons[] = sprintf('<i class="fa-solid fa-stamp fa-fw %s" title="%s"></i>', $class, $title);
+        }
+
+        // Reference prefix status
+        if ($hasReference) {
+            $icons[] = sprintf('<i class="fa-solid fa-font fa-fw text-success" title="%s"></i>',
+                $this->translator->trans('eda.status.reference_set'));
+        }
+
+        if (empty($icons)) {
+            return '';
+        }
+
+        // Overall status: all 3 = green check, partial = yellow
+        $allSet = $hasSymbol && $hasFootprint && $hasReference;
+        $statusIcon = $allSet
+            ? sprintf('<i class="fa-solid fa-bolt fa-fw text-success" title="%s"></i>', $this->translator->trans('eda.status.complete'))
+            : sprintf('<i class="fa-solid fa-bolt fa-fw text-warning" title="%s"></i>', $this->translator->trans('eda.status.partial'));
+
+        // Wrap in link to EDA settings tab (data-turbo=false to ensure hash is read on page load)
+        $editUrl = $this->entityURLGenerator->editURL($context) . '#eda';
+        return sprintf('<a href="%s" data-turbo="false">%s</a>', $editUrl, $statusIcon);
+    }
+
     public function renderAmount(Part $context): string
     {
         $amount = $context->getAmountSum();

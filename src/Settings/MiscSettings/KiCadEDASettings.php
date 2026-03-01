@@ -43,4 +43,23 @@ class KiCadEDASettings
         envVar: "int:EDA_KICAD_CATEGORY_DEPTH", envVarMode: EnvVarMode::OVERWRITE)]
     #[Assert\Range(min: -1)]
     public int $categoryDepth = 0;
+
+    #[SettingsParameter(label: new TM("settings.misc.kicad_eda.datasheet_link"),
+        description: new TM("settings.misc.kicad_eda.datasheet_link.help")
+    )]
+    public ?bool $datasheetAsPdf = true;
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.kicad_eda.default_parameter_visibility"),
+        description: new TM("settings.misc.kicad_eda.default_parameter_visibility.help"),
+
+    )]
+    public bool $defaultParameterVisibility = false;
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.kicad_eda.default_orderdetails_visibility"),
+        description: new TM("settings.misc.kicad_eda.default_orderdetails_visibility.help"),
+
+    )]
+    public bool $defaultOrderdetailsVisibility = false;
 }

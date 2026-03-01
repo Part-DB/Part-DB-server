@@ -123,6 +123,13 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     protected bool $obsolete = false;
 
     /**
+     * @var bool|null Whether this orderdetail's supplier part number should be exported as an EDA field. Null means use system default.
+     */
+    #[Groups(['full', 'import', 'orderdetail:read', 'orderdetail:write'])]
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true, options: ['default' => null])]
+    protected ?bool $eda_visibility = null;
+
+    /**
      * @var string The URL to the product on the supplier's website
      */
     #[Assert\Url(requireTld: false)]
@@ -414,6 +421,21 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     public function setPricesIncludesVAT(?bool $includesVat): self
     {
         $this->prices_includes_vat = $includesVat;
+
+        return $this;
+    }
+
+    public function isEdaVisibility(): ?bool
+    {
+        return $this->eda_visibility;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setEdaVisibility(?bool $eda_visibility): self
+    {
+        $this->eda_visibility = $eda_visibility;
 
         return $this;
     }
