@@ -87,3 +87,31 @@ To show more levels of categories, you can set this value to a higher number.
 If you set this value to -1, all parts are shown inside a single category in KiCad, without any subcategories.
 
 You can view the "real" category path of a part in the part details dialog in KiCad.
+
+### Kicad:populate command
+
+Part-DB also provides a command that attempts to automatically populate the KiCad symbol and footprint fields based on the part's category and footprint names.
+This is especially useful if you have a large database and want to quickly assign symbols and footprints to parts without doing it manually.
+
+For this run `bin/console partdb:kicad:populate --dry-run` in the terminal, it will show you a list of suggestions for mappings for your existing categories and footprints.
+It uses names and alternative names, when the primary name doesn't match, to find the right mapping.
+If you are happy with the suggestions, you can run the command without the `--dry-run` option to apply the changes to your database. By default, only empty values are updated, but you can use the `--force` option to overwrite existing values as well.
+
+It uses the mapping under `assets/commands/kicad_populate_default_mappings.json` by default, but you can extend/override it by providing your own mapping file
+with the `--mapping-file` option. 
+The mapping file is a JSON file with the following structure, where the key is the name of the footprint or category, and the value is the corresponding KiCad library path:
+```json
+{
+    "footprints": {
+        "MyCustomPackage": "MyLibrary:MyFootprint",
+        "0805": "Capacitor_SMD:C_0805_2012Metric"
+    },
+    "categories": {
+        "Sensor": "Sensor:Sensor_Temperature",
+        "MCU": "MCU_Microchip:PIC16F877A"
+    }
+}
+```
+Its okay if the file contains just one of the `footprints` or `categories` keys, so you can choose to only provide mappings for one of them if you want.
+
+It is recommended to take a backup of your database before running this command. 

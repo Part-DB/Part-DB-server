@@ -201,7 +201,7 @@ readonly class ConradProvider implements InfoProviderInterface, URLHandlerInfoPr
     public function productMediaToDatasheets(array $productMedia): array
     {
         $files = [];
-        foreach ($productMedia['manuals'] as $manual) {
+        foreach ($productMedia['manuals'] ?? [] as $manual) {
             //Filter out unwanted languages
             if (!empty($this->settings->attachmentLanguageFilter) && !in_array($manual['language'], $this->settings->attachmentLanguageFilter, true)) {
                 continue;

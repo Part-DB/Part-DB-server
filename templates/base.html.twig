@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="{{ app.request.locale | replace({"_": "-"}) }}"
-      {#  For the UX translator, just use the language part (before the _. should be 2 chars), otherwise it finds no translations #}
+    {#  For the UX translator, just use the language part (before the _. should be 2 chars), otherwise it finds no translations #}
       data-symfony-ux-translator-locale="{{ app.request.locale|u.truncate(2)  }}">
 <head>
     <meta charset="UTF-8">
@@ -25,6 +25,11 @@
     <meta name="turbo-cache-control" content="no-cache">
     <meta name="turbo-refresh-method" content="morph">
     <meta name="turbo-refresh-scroll" content="preserve">
+
+    {# Allow pages to request a fully reload of everything #}
+    {% if global_reload_needed is defined and global_reload_needed %}
+        <meta name="turbo-visit-control" content="reload">
+    {% endif %}
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('icon/apple-touch-icon.png') }}">
@@ -68,7 +73,17 @@
         {{ encore_entry_script_tags('webauthn_tfa') }}
     {% endblock %}
 </head>
-<body data-base-url="{{ path('homepage', {'_locale': app.request.locale}) }}" data-locale="{{ app.request.locale|default("en")|slice(0,2) }}">
+<body data-base-url="{{ path('homepage', {'_locale': app.request.locale}) }}"
+      data-locale="{{ app.request.locale|default("en")|slice(0,2) }}"
+      data-keybindings-special-characters="{{ settings_instance('keybindings').enableSpecialCharacters ? 'true' : 'false' }}">
+
+{# Listen for the special  #}
+{% if is_granted("@tools.label_scanner") %}
+<form class="d-none" {{ stimulus_controller('helpers/scan_special_char') }} action="{{ path("scan_dialog") }}" data-turbo-frame="content">
+    <input name="input" type="hidden">
+</form>
+{% endif %}
+
 {% block body %}
     <header>
         <turbo-frame id="navbar-frame" target="content" data-turbo-action="advance">
@@ -114,13 +129,13 @@
 
     <!-- Back to top button -->
     <button id="back-to-top" class="btn btn-primary back-to-top btn-sm" role="button" title="{% trans %}back_to_top{% endtrans %}"
-            {{ stimulus_controller('common/back_to_top') }} {{ stimulus_action('common/back_to_top', 'backToTop') }}>
+        {{ stimulus_controller('common/back_to_top') }} {{ stimulus_action('common/back_to_top', 'backToTop') }}>
         <i class="fas fa-angle-up fa-fw"></i>
     </button>
 
     {# Must be outside of the sidebar or it will be hidden too #}
     <button class="btn btn-outline-secondary btn-sm p-0 d-md-block d-none" type="button" id="sidebar-toggle-button" title="{% trans %}sidebar.big.toggle{% endtrans %}"
-            {{ stimulus_controller('common/hide_sidebar') }} {{ stimulus_action('common/hide_sidebar', 'toggleSidebar') }} style="--fa-width: 10px;">
+        {{ stimulus_controller('common/hide_sidebar') }} {{ stimulus_action('common/hide_sidebar', 'toggleSidebar') }} style="--fa-width: 10px;">
         <i class="fas fa-angle-left"></i>
     </button>
 

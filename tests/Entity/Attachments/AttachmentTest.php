@@ -279,4 +279,32 @@ final class AttachmentTest extends TestCase
         $reflection_property->setAccessible(true);
         $reflection_property->setValue($object, $value);
     }
+
+    public function testIsLocalHTMLFile(): void
+    {
+        $attachment = new PartAttachment();
+
+        $attachment->setExternalPath('https://google.de');
+        $this->assertFalse($attachment->isLocalHTMLFile());
+
+        $attachment->setExternalPath('https://google.de/test.html');
+        $this->assertFalse($attachment->isLocalHTMLFile());
+
+        $attachment->setInternalPath('%MEDIA%/test.html');
+        $this->assertTrue($attachment->isLocalHTMLFile());
+
+        $attachment->setInternalPath('%MEDIA%/test.htm');
+        $this->assertTrue($attachment->isLocalHTMLFile());
+
+        $attachment->setInternalPath('%MEDIA%/test.txt');
+        $this->assertFalse($attachment->isLocalHTMLFile());
+
+        //It works however, if the file is stored as txt, and the internal filename ends with .html
+        $attachment->setInternalPath('%MEDIA%/test.txt');
+        $this->setProtectedProperty($attachment, 'original_filename', 'test.html');
+        $this->assertTrue($attachment->isLocalHTMLFile());
+
+        $this->setProtectedProperty($attachment, 'original_filename', 'test.htm');
+        $this->assertTrue($attachment->isLocalHTMLFile());
+    }
 }

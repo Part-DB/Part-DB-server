@@ -92,8 +92,17 @@ final class BarcodeScanHelper
         if ($type === BarcodeSourceType::EIGP114) {
             return $this->parseEIGP114Barcode($input);
         }
+
         if ($type === BarcodeSourceType::GTIN) {
             return $this->parseGTINBarcode($input);
+        }
+
+        if ($type === BarcodeSourceType::LCSC) {
+	        return $this->parseLCSCBarcode($input);
+	    }
+
+        if ($type === BarcodeSourceType::AMAZON) {
+            return new AmazonBarcodeScanResult($input);
         }
 
         //Null means auto and we try the different formats
@@ -125,6 +134,16 @@ final class BarcodeScanHelper
             return $this->parseGTINBarcode($input);
         }
 
+        // Try LCSC barcode
+        if (LCSCBarcodeScanResult::isLCSCBarcode($input)) {
+	        return $this->parseLCSCBarcode($input);
+	    }
+
+        //Try amazon barcode
+        if (AmazonBarcodeScanResult::isAmazonBarcode($input)) {
+            return new AmazonBarcodeScanResult($input);
+        }
+
         throw new InvalidArgumentException('Unknown barcode');
     }
 
@@ -136,6 +155,11 @@ final class BarcodeScanHelper
     private function parseEIGP114Barcode(string $input): EIGP114BarcodeScanResult
     {
         return EIGP114BarcodeScanResult::parseFormat06Code($input);
+    }
+
+    private function parseLCSCBarcode(string $input): LCSCBarcodeScanResult
+    {
+        return LCSCBarcodeScanResult::parse($input);
     }
 
     private function parseUserDefinedBarcode(string $input): ?LocalBarcodeScanResult
