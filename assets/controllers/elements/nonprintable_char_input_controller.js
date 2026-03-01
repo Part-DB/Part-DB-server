@@ -19,12 +19,17 @@
 
 import {Controller} from "@hotwired/stimulus";
 
+/**
+ * Purpose of this controller is to allow users to input non-printable characters like EOT, FS, etc. in a form field and submit them correctly with the form.
+ * The visible input field encodes non-printable characters via their Unicode Control picture representation, e.g. \n becomes ␊ and \t becomes ␉, so that they can be displayed in the input field without breaking the form submission.
+ * The actual value of the field, which is submitted with the form, is stored in a hidden input and contains the non-printable characters in their original form.
+ */
 export default class extends Controller {
 
     _hiddenInput;
 
     connect() {
-        this.element.addEventListener("change", this._update.bind(this));
+        this.element.addEventListener("input", this._update.bind(this));
 
         // We use a hidden input to store the actual value of the field, which is submitted with the form.
         // The visible input is just for user interaction and can contain non-printable characters, which are not allowed in the hidden input.
