@@ -121,6 +121,7 @@ class BaseEntityAdminForm extends AbstractType
                 'label' => 'entity.edit.alternative_names.label',
                 'help' => 'entity.edit.alternative_names.help',
                 'empty_data' => null,
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
                 'attr' => [
                     'class' => 'tagsinput',
                     'data-controller' => 'elements--tagsinput',

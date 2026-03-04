@@ -195,6 +195,8 @@ abstract class BaseAdminController extends AbstractController
 
                 $this->commentHelper->setMessage($form['log_comment']->getData());
 
+                //In principle, the form should be disabled, if the edit permission is not granted, but for good measure, we also check it here, before saving changes.
+                $this->denyAccessUnlessGranted('edit', $entity);
                 $em->persist($entity);
                 $em->flush();
                 $this->addFlash('success', 'entity.edit_flash');
