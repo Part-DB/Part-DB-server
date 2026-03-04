@@ -420,7 +420,7 @@ class UpdateExecutor
             // Step 11: Clear cache
             $stepStart = microtime(true);
             $this->runCommand([
-                'php', 'bin/console', 'cache:clear',
+                'php', 'bin/console', 'cache:pool:clear', '--all',
                 '--env=prod',
                 '--no-interaction',
             ], 'Clear cache', 120);
@@ -489,7 +489,7 @@ class UpdateExecutor
 
                     // Clear cache after rollback
                     $this->runCommand([
-                        'php', 'bin/console', 'cache:clear',
+                        'php', 'bin/console', 'cache:pool:clear', '--all',
                         '--env=prod',
                     ], 'Clear cache after rollback', 120);
                     $log('rollback_cache', 'Cleared cache after rollback', true);
