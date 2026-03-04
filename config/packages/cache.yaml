@@ -25,5 +25,5 @@ framework:
                 adapter: cache.app
 
             cache.settings:
-                adapter: cache.app
+                adapter: cache.system
                 tags: true
