@@ -71,7 +71,10 @@ class TypeaheadController extends AbstractController
     #[Route(path: '/builtInResources/search', name: 'typeahead_builtInRessources')]
     public function builtInResources(Request $request, BuiltinAttachmentsFinder $finder): JsonResponse
     {
-        $query = $request->get('query');
+        //Ensure that the user can access Part-DB at all
+        $this->denyAccessUnlessGranted('HAS_ACCESS_PERMISSIONS');
+
+        $query = $request->query->getString('query');
         $array = $finder->find($query);
 
         $result = [];
