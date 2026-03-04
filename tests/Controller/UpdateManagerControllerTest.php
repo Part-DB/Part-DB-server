@@ -45,6 +45,18 @@ final class UpdateManagerControllerTest extends WebTestCase
         $client->loginUser($user);
     }
 
+    /**
+     * Get a valid CSRF token by first making a request to initialize the session.
+     */
+    private function getCsrfToken($client, string $tokenId): string
+    {
+        // Make a GET request first to initialize the session
+        $client->request('GET', '/en/system/update-manager');
+
+        return $client->getContainer()->get('security.csrf.token_manager')
+            ->getToken($tokenId)->getValue();
+    }
+
     public function testIndexPageRequiresAuth(): void
     {
         $client = static::createClient();
@@ -83,9 +95,7 @@ final class UpdateManagerControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsAdmin($client);
 
-        // Get a valid CSRF token
-        $csrfToken = $client->getContainer()->get('security.csrf.token_manager')
-            ->getToken('update_manager_backup')->getValue();
+        $csrfToken = $this->getCsrfToken($client, 'update_manager_backup');
 
         $client->request('POST', '/en/system/update-manager/backup', [
             '_token' => $csrfToken,
@@ -130,8 +140,7 @@ final class UpdateManagerControllerTest extends WebTestCase
         $testFile = 'test-delete-' . uniqid() . '.zip';
         file_put_contents($backupDir . '/' . $testFile, 'test');
 
-        $csrfToken = $client->getContainer()->get('security.csrf.token_manager')
-            ->getToken('update_manager_delete')->getValue();
+        $csrfToken = $this->getCsrfToken($client, 'update_manager_delete');
 
         $client->request('POST', '/en/system/update-manager/backup/delete', [
             '_token' => $csrfToken,
@@ -169,8 +178,7 @@ final class UpdateManagerControllerTest extends WebTestCase
         $testFile = 'update-test-delete-' . uniqid() . '.log';
         file_put_contents($logDir . '/' . $testFile, 'test log content');
 
-        $csrfToken = $client->getContainer()->get('security.csrf.token_manager')
-            ->getToken('update_manager_delete')->getValue();
+        $csrfToken = $this->getCsrfToken($client, 'update_manager_delete');
 
         $client->request('POST', '/en/system/update-manager/log/delete', [
             '_token' => $csrfToken,
@@ -248,8 +256,7 @@ final class UpdateManagerControllerTest extends WebTestCase
         $updateExecutor->acquireLock();
 
         try {
-            $csrfToken = $client->getContainer()->get('security.csrf.token_manager')
-                ->getToken('update_manager_backup')->getValue();
+            $csrfToken = $this->getCsrfToken($client, 'update_manager_backup');
 
             $client->request('POST', '/en/system/update-manager/backup', [
                 '_token' => $csrfToken,
