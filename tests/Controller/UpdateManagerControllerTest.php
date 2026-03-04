@@ -23,6 +23,8 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use App\Entity\UserSystem\User;
+use App\Services\System\BackupManager;
+use App\Services\System\UpdateExecutor;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -76,6 +78,31 @@ final class UpdateManagerControllerTest extends WebTestCase
         $this->assertResponseRedirects();
     }
 
+    public function testCreateBackupWithValidCsrf(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+
+        // Get a valid CSRF token
+        $csrfToken = $client->getContainer()->get('security.csrf.token_manager')
+            ->getToken('update_manager_backup')->getValue();
+
+        $client->request('POST', '/en/system/update-manager/backup', [
+            '_token' => $csrfToken,
+        ]);
+
+        $this->assertResponseRedirects();
+
+        // Clean up: delete the backup that was just created
+        $backupManager = $client->getContainer()->get(BackupManager::class);
+        $backups = $backupManager->getBackups();
+        foreach ($backups as $backup) {
+            if (str_contains($backup['file'], 'manual')) {
+                $backupManager->deleteBackup($backup['file']);
+            }
+        }
+    }
+
     public function testDeleteBackupRequiresCsrf(): void
     {
         $client = static::createClient();
@@ -87,6 +114,32 @@ final class UpdateManagerControllerTest extends WebTestCase
         ]);
 
         $this->assertResponseRedirects();
+    }
+
+    public function testDeleteBackupWithValidCsrf(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+
+        // Create a temporary backup file to delete
+        $backupManager = $client->getContainer()->get(BackupManager::class);
+        $backupDir = $backupManager->getBackupDir();
+        if (!is_dir($backupDir)) {
+            mkdir($backupDir, 0755, true);
+        }
+        $testFile = 'test-delete-' . uniqid() . '.zip';
+        file_put_contents($backupDir . '/' . $testFile, 'test');
+
+        $csrfToken = $client->getContainer()->get('security.csrf.token_manager')
+            ->getToken('update_manager_delete')->getValue();
+
+        $client->request('POST', '/en/system/update-manager/backup/delete', [
+            '_token' => $csrfToken,
+            'filename' => $testFile,
+        ]);
+
+        $this->assertResponseRedirects();
+        $this->assertFileDoesNotExist($backupDir . '/' . $testFile);
     }
 
     public function testDeleteLogRequiresCsrf(): void
@@ -102,6 +155,32 @@ final class UpdateManagerControllerTest extends WebTestCase
         $this->assertResponseRedirects();
     }
 
+    public function testDeleteLogWithValidCsrf(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+
+        // Create a temporary log file to delete
+        $projectDir = $client->getContainer()->getParameter('kernel.project_dir');
+        $logDir = $projectDir . '/var/log/updates';
+        if (!is_dir($logDir)) {
+            mkdir($logDir, 0755, true);
+        }
+        $testFile = 'update-test-delete-' . uniqid() . '.log';
+        file_put_contents($logDir . '/' . $testFile, 'test log content');
+
+        $csrfToken = $client->getContainer()->get('security.csrf.token_manager')
+            ->getToken('update_manager_delete')->getValue();
+
+        $client->request('POST', '/en/system/update-manager/log/delete', [
+            '_token' => $csrfToken,
+            'filename' => $testFile,
+        ]);
+
+        $this->assertResponseRedirects();
+        $this->assertFileDoesNotExist($logDir . '/' . $testFile);
+    }
+
     public function testDownloadBackupReturns404ForNonExistent(): void
     {
         $client = static::createClient();
@@ -110,6 +189,29 @@ final class UpdateManagerControllerTest extends WebTestCase
         $client->request('GET', '/en/system/update-manager/backup/download/nonexistent.zip');
 
         $this->assertResponseStatusCodeSame(404);
+    }
+
+    public function testDownloadBackupSuccess(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+
+        // Create a temporary backup file to download
+        $backupManager = $client->getContainer()->get(BackupManager::class);
+        $backupDir = $backupManager->getBackupDir();
+        if (!is_dir($backupDir)) {
+            mkdir($backupDir, 0755, true);
+        }
+        $testFile = 'test-download-' . uniqid() . '.zip';
+        file_put_contents($backupDir . '/' . $testFile, 'fake zip content');
+
+        $client->request('GET', '/en/system/update-manager/backup/download/' . $testFile);
+
+        $this->assertResponseIsSuccessful();
+        $this->assertResponseHeaderSame('content-disposition', 'attachment; filename=' . $testFile);
+
+        // Clean up
+        @unlink($backupDir . '/' . $testFile);
     }
 
     public function testBackupDetailsReturns404ForNonExistent(): void
@@ -134,5 +236,29 @@ final class UpdateManagerControllerTest extends WebTestCase
         ]);
 
         $this->assertResponseStatusCodeSame(403);
+    }
+
+    public function testCreateBackupBlockedWhenLocked(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+
+        // Acquire lock to simulate update in progress
+        $updateExecutor = $client->getContainer()->get(UpdateExecutor::class);
+        $updateExecutor->acquireLock();
+
+        try {
+            $csrfToken = $client->getContainer()->get('security.csrf.token_manager')
+                ->getToken('update_manager_backup')->getValue();
+
+            $client->request('POST', '/en/system/update-manager/backup', [
+                '_token' => $csrfToken,
+            ]);
+
+            $this->assertResponseRedirects();
+        } finally {
+            // Always release lock
+            $updateExecutor->releaseLock();
+        }
     }
 }
