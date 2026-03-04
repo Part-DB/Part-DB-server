@@ -304,11 +304,11 @@ final readonly class BarcodeScanResultHandler
                 return null;
         }
 
-        // Digi-Key: can use customerPartNumber or supplierPartNumber directly
+        // Digi-Key: supplierPartNumber directly
         if ($vendor === 'digikey') {
             return [
                 'providerKey' => 'digikey',
-                'providerId' => $scanResult->customerPartNumber ?? $scanResult->supplierPartNumber,
+                'providerId' => $scanResult->supplierPartNumber ?? throw new \RuntimeException('Digikey barcode does not contain required supplier part number'),
             ];
         }
 
@@ -316,7 +316,7 @@ final readonly class BarcodeScanResultHandler
         if ($vendor === 'element14') {
             return [
                 'providerKey' => 'element14',
-                'providerId' => $scanResult->supplierPartNumber,
+                'providerId' => $scanResult->supplierPartNumber ?? throw new \RuntimeException('Element14 barcode does not contain required supplier part number'),
             ];
         }
 
