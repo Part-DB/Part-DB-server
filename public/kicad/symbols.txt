@@ -1,4 +1,4 @@
-# Generated on Sun Mar  1 11:46:51 UTC 2026
+# Generated on Tue Mar  3 14:27:05 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -20842,6 +20842,9 @@ Sensor_Pressure:40PC015G
 Sensor_Pressure:40PC100G
 Sensor_Pressure:40PC150G
 Sensor_Pressure:40PC250G
+Sensor_Pressure:ABPxxxxxxxxx0
+Sensor_Pressure:ABPxxxxxxxxxA
+Sensor_Pressure:ABPxxxxxxxxxS
 Sensor_Pressure:BMP280
 Sensor_Pressure:ILPS28QSW
 Sensor_Pressure:LPS22DF
