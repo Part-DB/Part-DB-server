@@ -208,8 +208,15 @@ class TypeaheadController extends AbstractController
         /** @var Category|null $category */
         $category = $entityManager->getRepository(Category::class)->find($categoryId);
 
+        //Ensure the user has access to both the part and the category
+        $this->denyAccessUnlessGranted('read', $part);
+        if ($category !== null) {
+            $this->denyAccessUnlessGranted('read', $category);
+        }
+
         $clonedPart = clone $part;
         $clonedPart->setCategory($category);
+
 
         $partRepository = $entityManager->getRepository(Part::class);
         $ipnSuggestions = $partRepository->autoCompleteIpn($clonedPart, $description, $this->ipnSuggestSettings->suggestPartDigits);
