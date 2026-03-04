@@ -46,15 +46,16 @@ final class UpdateManagerControllerTest extends WebTestCase
     }
 
     /**
-     * Get a valid CSRF token by first making a request to initialize the session.
+     * Extract a CSRF token from the rendered update manager page.
      */
-    private function getCsrfToken($client, string $tokenId): string
+    private function getCsrfTokenFromPage($crawler, string $formAction): string
     {
-        // Make a GET request first to initialize the session
-        $client->request('GET', '/en/system/update-manager');
+        $form = $crawler->filter('form[action*="' . $formAction . '"]');
+        if ($form->count() === 0) {
+            $this->fail('Form with action containing "' . $formAction . '" not found on page');
+        }
 
-        return $client->getContainer()->get('security.csrf.token_manager')
-            ->getToken($tokenId)->getValue();
+        return $form->filter('input[name="_token"]')->attr('value');
     }
 
     public function testIndexPageRequiresAuth(): void
@@ -95,7 +96,9 @@ final class UpdateManagerControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsAdmin($client);
 
-        $csrfToken = $this->getCsrfToken($client, 'update_manager_backup');
+        // Load the page and extract CSRF token from the backup form
+        $crawler = $client->request('GET', '/en/system/update-manager');
+        $csrfToken = $this->getCsrfTokenFromPage($crawler, 'backup');
 
         $client->request('POST', '/en/system/update-manager/backup', [
             '_token' => $csrfToken,
@@ -131,7 +134,7 @@ final class UpdateManagerControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsAdmin($client);
 
-        // Create a temporary backup file to delete
+        // Create a temporary backup file so the page shows the delete form
         $backupManager = $client->getContainer()->get(BackupManager::class);
         $backupDir = $backupManager->getBackupDir();
         if (!is_dir($backupDir)) {
@@ -140,7 +143,9 @@ final class UpdateManagerControllerTest extends WebTestCase
         $testFile = 'test-delete-' . uniqid() . '.zip';
         file_put_contents($backupDir . '/' . $testFile, 'test');
 
-        $csrfToken = $this->getCsrfToken($client, 'update_manager_delete');
+        // Load the page and extract CSRF token from the delete form
+        $crawler = $client->request('GET', '/en/system/update-manager');
+        $csrfToken = $this->getCsrfTokenFromPage($crawler, 'backup/delete');
 
         $client->request('POST', '/en/system/update-manager/backup/delete', [
             '_token' => $csrfToken,
@@ -169,7 +174,7 @@ final class UpdateManagerControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsAdmin($client);
 
-        // Create a temporary log file to delete
+        // Create a temporary log file so the page shows the delete form
         $projectDir = $client->getContainer()->getParameter('kernel.project_dir');
         $logDir = $projectDir . '/var/log/updates';
         if (!is_dir($logDir)) {
@@ -178,7 +183,9 @@ final class UpdateManagerControllerTest extends WebTestCase
         $testFile = 'update-test-delete-' . uniqid() . '.log';
         file_put_contents($logDir . '/' . $testFile, 'test log content');
 
-        $csrfToken = $this->getCsrfToken($client, 'update_manager_delete');
+        // Load the page and extract CSRF token from the log delete form
+        $crawler = $client->request('GET', '/en/system/update-manager');
+        $csrfToken = $this->getCsrfTokenFromPage($crawler, 'log/delete');
 
         $client->request('POST', '/en/system/update-manager/log/delete', [
             '_token' => $csrfToken,
@@ -251,13 +258,15 @@ final class UpdateManagerControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsAdmin($client);
 
+        // Load the page first to get CSRF token before locking
+        $crawler = $client->request('GET', '/en/system/update-manager');
+        $csrfToken = $this->getCsrfTokenFromPage($crawler, 'backup');
+
         // Acquire lock to simulate update in progress
         $updateExecutor = $client->getContainer()->get(UpdateExecutor::class);
         $updateExecutor->acquireLock();
 
         try {
-            $csrfToken = $this->getCsrfToken($client, 'update_manager_backup');
-
             $client->request('POST', '/en/system/update-manager/backup', [
                 '_token' => $csrfToken,
             ]);
