@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\DataTables;
 
 use App\DataTables\Column\EntityColumn;
+use App\DataTables\Column\EnumColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
 use App\DataTables\Helpers\PartDataTableHelper;
@@ -146,10 +147,17 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'orderField' => 'NATSORT(manufacturer.name)',
             ])
 
-            ->add('manufacturingStatus', EntityColumn::class, [
-                'property' => 'part.manufacturingStatus',
+            ->add('manufacturing_status', EnumColumn::class, [
                 'label' => $this->translator->trans('part.table.manufacturingStatus'),
-                'orderField' => 'NATSORT(manufacturingStatus.name)',
+                'class' => ManufacturingStatus::class,
+                'data' => fn (ProjectBOMEntry $context): ?ManufacturingStatus => $context->getPart()?->getManufacturingStatus(),
+                'render' => function (?ManufacturingStatus $status): string {
+                    if ($status === null) {
+                        return '';
+                    }
+
+                    return $this->translator->trans($status->toTranslationKey());
+                },
             ])
 
             ->add('mountnames', TextColumn::class, [
