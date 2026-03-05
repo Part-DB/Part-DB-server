@@ -12563,6 +12563,24 @@ Buerklin-API Authentication server:
         <target>Download backup</target>
       </segment>
     </unit>
+    <unit id="um_bk_download_pw" name="update_manager.backup.download.password_label">
+      <segment state="translated">
+        <source>update_manager.backup.download.password_label</source>
+        <target>Confirm your password to download</target>
+      </segment>
+    </unit>
+    <unit id="um_bk_download_warn" name="update_manager.backup.download.security_warning">
+      <segment state="translated">
+        <source>update_manager.backup.download.security_warning</source>
+        <target>Backups contain sensitive data including password hashes and secrets. Please confirm your password to proceed with the download.</target>
+      </segment>
+    </unit>
+    <unit id="um_bk_download_invalid_pw" name="update_manager.backup.download.invalid_password">
+      <segment state="translated">
+        <source>update_manager.backup.download.invalid_password</source>
+        <target>Invalid password. Backup download denied.</target>
+      </segment>
+    </unit>
     <unit id="um_bk_docker_warning" name="update_manager.backup.docker_warning">
       <segment state="translated">
         <source>update_manager.backup.docker_warning</source>

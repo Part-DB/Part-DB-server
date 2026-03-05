@@ -58,6 +58,8 @@ final class UpdateManagerControllerTest extends WebTestCase
         return $form->filter('input[name="_token"]')->attr('value');
     }
 
+    // ---- Authentication tests ----
+
     public function testIndexPageRequiresAuth(): void
     {
         $client = static::createClient();
@@ -77,6 +79,8 @@ final class UpdateManagerControllerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
     }
+
+    // ---- Backup creation tests ----
 
     public function testCreateBackupRequiresCsrf(): void
     {
@@ -115,6 +119,33 @@ final class UpdateManagerControllerTest extends WebTestCase
             }
         }
     }
+
+    public function testCreateBackupBlockedWhenLocked(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+
+        // Load the page first to get CSRF token before locking
+        $crawler = $client->request('GET', '/en/system/update-manager');
+        $csrfToken = $this->getCsrfTokenFromPage($crawler, 'backup');
+
+        // Acquire lock to simulate update in progress
+        $updateExecutor = $client->getContainer()->get(UpdateExecutor::class);
+        $updateExecutor->acquireLock();
+
+        try {
+            $client->request('POST', '/en/system/update-manager/backup', [
+                '_token' => $csrfToken,
+            ]);
+
+            $this->assertResponseRedirects();
+        } finally {
+            // Always release lock
+            $updateExecutor->releaseLock();
+        }
+    }
+
+    // ---- Backup deletion tests ----
 
     public function testDeleteBackupRequiresCsrf(): void
     {
@@ -156,6 +187,8 @@ final class UpdateManagerControllerTest extends WebTestCase
         $this->assertFileDoesNotExist($backupDir . '/' . $testFile);
     }
 
+    // ---- Log deletion tests ----
+
     public function testDeleteLogRequiresCsrf(): void
     {
         $client = static::createClient();
@@ -196,38 +229,49 @@ final class UpdateManagerControllerTest extends WebTestCase
         $this->assertFileDoesNotExist($logDir . '/' . $testFile);
     }
 
-    public function testDownloadBackupReturns404ForNonExistent(): void
+    // ---- Backup download tests ----
+
+    public function testDownloadBackupBlockedByDefault(): void
     {
         $client = static::createClient();
         $this->loginAsAdmin($client);
 
-        $client->request('GET', '/en/system/update-manager/backup/download/nonexistent.zip');
+        // DISABLE_BACKUP_DOWNLOAD=1 is the default in .env, so this should return 403
+        $client->request('POST', '/en/system/update-manager/backup/download', [
+            '_token' => 'any',
+            'filename' => 'test.zip',
+            'password' => 'test',
+        ]);
 
-        $this->assertResponseStatusCodeSame(404);
+        $this->assertResponseStatusCodeSame(403);
     }
 
-    public function testDownloadBackupSuccess(): void
+    public function testDownloadBackupRequiresPost(): void
     {
         $client = static::createClient();
         $this->loginAsAdmin($client);
 
-        // Create a temporary backup file to download
-        $backupManager = $client->getContainer()->get(BackupManager::class);
-        $backupDir = $backupManager->getBackupDir();
-        if (!is_dir($backupDir)) {
-            mkdir($backupDir, 0755, true);
-        }
-        $testFile = 'test-download-' . uniqid() . '.zip';
-        file_put_contents($backupDir . '/' . $testFile, 'fake zip content');
+        // GET should return 405 Method Not Allowed
+        $client->request('GET', '/en/system/update-manager/backup/download');
 
-        $client->request('GET', '/en/system/update-manager/backup/download/' . $testFile);
-
-        $this->assertResponseIsSuccessful();
-        $this->assertResponseHeaderSame('content-disposition', 'attachment; filename=' . $testFile);
-
-        // Clean up
-        @unlink($backupDir . '/' . $testFile);
+        $this->assertResponseStatusCodeSame(405);
     }
+
+    public function testDownloadBackupRequiresAuth(): void
+    {
+        $client = static::createClient();
+
+        $client->request('POST', '/en/system/update-manager/backup/download', [
+            '_token' => 'any',
+            'filename' => 'test.zip',
+            'password' => 'test',
+        ]);
+
+        // Should deny access (401 with HTTP Basic auth in test env)
+        $this->assertResponseStatusCodeSame(401);
+    }
+
+    // ---- Backup details tests ----
 
     public function testBackupDetailsReturns404ForNonExistent(): void
     {
@@ -238,6 +282,8 @@ final class UpdateManagerControllerTest extends WebTestCase
 
         $this->assertResponseStatusCodeSame(404);
     }
+
+    // ---- Restore tests ----
 
     public function testRestoreBlockedWhenDisabled(): void
     {
@@ -253,28 +299,83 @@ final class UpdateManagerControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(403);
     }
 
-    public function testCreateBackupBlockedWhenLocked(): void
+    public function testRestoreRequiresAuth(): void
+    {
+        $client = static::createClient();
+
+        $client->request('POST', '/en/system/update-manager/restore', [
+            '_token' => 'invalid',
+            'filename' => 'test.zip',
+        ]);
+
+        $this->assertResponseStatusCodeSame(401);
+    }
+
+    // ---- Start update tests ----
+
+    public function testStartUpdateRequiresAuth(): void
+    {
+        $client = static::createClient();
+
+        $client->request('POST', '/en/system/update-manager/start', [
+            '_token' => 'invalid',
+            'version' => 'v1.0.0',
+        ]);
+
+        $this->assertResponseStatusCodeSame(401);
+    }
+
+    public function testStartUpdateBlockedWhenWebUpdatesDisabled(): void
     {
         $client = static::createClient();
         $this->loginAsAdmin($client);
 
-        // Load the page first to get CSRF token before locking
-        $crawler = $client->request('GET', '/en/system/update-manager');
-        $csrfToken = $this->getCsrfTokenFromPage($crawler, 'backup');
+        // DISABLE_WEB_UPDATES=1 is the default in .env
+        $client->request('POST', '/en/system/update-manager/start', [
+            '_token' => 'invalid',
+            'version' => 'v1.0.0',
+        ]);
 
-        // Acquire lock to simulate update in progress
-        $updateExecutor = $client->getContainer()->get(UpdateExecutor::class);
-        $updateExecutor->acquireLock();
+        $this->assertResponseStatusCodeSame(403);
+    }
 
-        try {
-            $client->request('POST', '/en/system/update-manager/backup', [
-                '_token' => $csrfToken,
-            ]);
+    // ---- Status and progress tests ----
 
-            $this->assertResponseRedirects();
-        } finally {
-            // Always release lock
-            $updateExecutor->releaseLock();
-        }
+    public function testStatusEndpointRequiresAuth(): void
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/en/system/update-manager/status');
+
+        $this->assertResponseStatusCodeSame(401);
+    }
+
+    public function testStatusEndpointAccessibleByAdmin(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+
+        $client->request('GET', '/en/system/update-manager/status');
+
+        $this->assertResponseIsSuccessful();
+    }
+
+    public function testProgressStatusEndpointRequiresAuth(): void
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/en/system/update-manager/progress/status');
+
+        $this->assertResponseStatusCodeSame(401);
+    }
+
+    public function testProgressStatusEndpointAccessibleByAdmin(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+
+        $client->request('GET', '/en/system/update-manager/progress/status');
+
+        $this->assertResponseIsSuccessful();
     }
 }

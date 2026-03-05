@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\UserSystem\User;
 use App\Services\System\BackupManager;
 use App\Services\System\InstallationTypeDetector;
 use App\Services\System\UpdateChecker;
@@ -36,6 +37,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
@@ -53,10 +55,13 @@ class UpdateManagerController extends AbstractController
         private readonly VersionManagerInterface $versionManager,
         private readonly BackupManager $backupManager,
         private readonly InstallationTypeDetector $installationTypeDetector,
+        private readonly UserPasswordHasherInterface $passwordHasher,
         #[Autowire(env: 'bool:DISABLE_WEB_UPDATES')]
         private readonly bool $webUpdatesDisabled = false,
         #[Autowire(env: 'bool:DISABLE_BACKUP_RESTORE')]
         private readonly bool $backupRestoreDisabled = false,
+        #[Autowire(env: 'bool:DISABLE_BACKUP_DOWNLOAD')]
+        private readonly bool $backupDownloadDisabled = false,
     ) {
     }
 
@@ -77,6 +82,16 @@ class UpdateManagerController extends AbstractController
     {
         if ($this->backupRestoreDisabled) {
             throw new AccessDeniedHttpException('Backup restore is disabled by server configuration.');
+        }
+    }
+
+    /**
+     * Check if backup download is disabled and throw exception if so.
+     */
+    private function denyIfBackupDownloadDisabled(): void
+    {
+        if ($this->backupDownloadDisabled) {
+            throw new AccessDeniedHttpException('Backup download is disabled by server configuration.');
         }
     }
 
@@ -105,6 +120,7 @@ class UpdateManagerController extends AbstractController
             'backups' => $this->backupManager->getBackups(),
             'web_updates_disabled' => $this->webUpdatesDisabled,
             'backup_restore_disabled' => $this->backupRestoreDisabled,
+            'backup_download_disabled' => $this->backupDownloadDisabled,
             'is_docker' => $this->installationTypeDetector->isDocker(),
         ]);
     }
@@ -211,6 +227,7 @@ class UpdateManagerController extends AbstractController
     #[Route('/start', name: 'admin_update_manager_start', methods: ['POST'])]
     public function startUpdate(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->denyAccessUnlessGranted('@system.manage_updates');
         $this->denyIfWebUpdatesDisabled();
 
@@ -325,6 +342,7 @@ class UpdateManagerController extends AbstractController
     #[Route('/backup', name: 'admin_update_manager_backup', methods: ['POST'])]
     public function createBackup(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->denyAccessUnlessGranted('@system.manage_updates');
 
         if (!$this->isCsrfTokenValid('update_manager_backup', $request->request->get('_token'))) {
@@ -338,7 +356,7 @@ class UpdateManagerController extends AbstractController
         }
 
         try {
-            $backupPath = $this->backupManager->createBackup(null, 'manual');
+            $this->backupManager->createBackup(null, 'manual');
             $this->addFlash('success', 'update_manager.backup.created');
         } catch (\Exception $e) {
             $this->addFlash('error', 'Backup failed: ' . $e->getMessage());
@@ -353,6 +371,7 @@ class UpdateManagerController extends AbstractController
     #[Route('/backup/delete', name: 'admin_update_manager_backup_delete', methods: ['POST'])]
     public function deleteBackup(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->denyAccessUnlessGranted('@system.manage_updates');
 
         if (!$this->isCsrfTokenValid('update_manager_delete', $request->request->get('_token'))) {
@@ -376,6 +395,7 @@ class UpdateManagerController extends AbstractController
     #[Route('/log/delete', name: 'admin_update_manager_log_delete', methods: ['POST'])]
     public function deleteLog(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->denyAccessUnlessGranted('@system.manage_updates');
 
         if (!$this->isCsrfTokenValid('update_manager_delete', $request->request->get('_token'))) {
@@ -395,12 +415,29 @@ class UpdateManagerController extends AbstractController
 
     /**
      * Download a backup file.
+     * Requires password confirmation as backups contain sensitive data (password hashes, secrets, etc.).
      */
-    #[Route('/backup/download/{filename}', name: 'admin_update_manager_backup_download', methods: ['GET'])]
-    public function downloadBackup(string $filename): BinaryFileResponse
+    #[Route('/backup/download', name: 'admin_update_manager_backup_download', methods: ['POST'])]
+    public function downloadBackup(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->denyAccessUnlessGranted('@system.manage_updates');
+        $this->denyIfBackupDownloadDisabled();
 
+        if (!$this->isCsrfTokenValid('update_manager_download', $request->request->get('_token'))) {
+            $this->addFlash('error', 'Invalid CSRF token.');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        // Verify password
+        $password = $request->request->get('password', '');
+        $user = $this->getUser();
+        if (!$user instanceof User || !$this->passwordHasher->isPasswordValid($user, $password)) {
+            $this->addFlash('error', 'update_manager.backup.download.invalid_password');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        $filename = $request->request->get('filename', '');
         $details = $this->backupManager->getBackupDetails($filename);
         if (!$details) {
             throw $this->createNotFoundException('Backup not found');
@@ -418,6 +455,7 @@ class UpdateManagerController extends AbstractController
     #[Route('/restore', name: 'admin_update_manager_restore', methods: ['POST'])]
     public function restore(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->denyAccessUnlessGranted('@system.manage_updates');
         $this->denyIfBackupRestoreDisabled();
 
