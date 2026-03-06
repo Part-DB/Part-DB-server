@@ -27,7 +27,6 @@ use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
@@ -82,11 +81,10 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
     denormalizationContext: ['groups' => ['part_lot:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiFilter(PropertyFilter::class)]
-#[ApiFilter(LikeFilter::class, properties: ["description", "comment"])]
+#[ApiFilter(LikeFilter::class, properties: ["description", "comment", "user_barcode"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(BooleanFilter::class, properties: ['instock_unknown', 'needs_refill'])]
 #[ApiFilter(RangeFilter::class, properties: ['amount'])]
-#[ApiFilter(SearchFilter::class, properties: ['user_barcode' => 'exact'])]
 #[ApiFilter(OrderFilter::class, properties: ['description', 'comment', 'addedDate', 'lastModified'])]
 class PartLot extends AbstractDBElement implements TimeStampableInterface, NamedElementInterface
 {
