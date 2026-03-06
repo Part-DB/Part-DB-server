@@ -418,10 +418,9 @@
                                                     <div class="btn-group btn-group-sm">
                                                         {% if not backup_download_disabled and is_granted('@system.manage_updates') %}
                                                             <button type="button"
-                                                                class="btn btn-outline-secondary btn-download-backup"
-                                                                data-filename="{{ backup.file }}"
+                                                                class="btn btn-outline-secondary"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#downloadBackupModal"
+                                                                data-bs-target="#downloadBackupModal-{{ loop.index }}"
                                                                 title="{% trans %}update_manager.backup.download{% endtrans %}">
                                                                 <i class="fas fa-download"></i>
                                                             </button>
@@ -457,6 +456,48 @@
                                                             </form>
                                                         {% endif %}
                                                     </div>
+                                                    {% if not backup_download_disabled and is_granted('@system.manage_updates') %}
+                                                    {# Per-backup download modal - no inline JS needed, CSP compatible with Turbo #}
+                                                    <div class="modal fade" id="downloadBackupModal-{{ loop.index }}" tabindex="-1" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <form action="{{ path('admin_update_manager_backup_download') }}" method="post" data-turbo="false">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title">
+                                                                            <i class="fas fa-download me-2"></i>{% trans %}update_manager.backup.download{% endtrans %}
+                                                                        </h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="alert alert-warning">
+                                                                            <i class="fas fa-exclamation-triangle me-1"></i>
+                                                                            {% trans %}update_manager.backup.download.security_warning{% endtrans %}
+                                                                        </div>
+                                                                        <p class="text-muted small mb-3">{{ backup.file }}</p>
+                                                                        <input type="hidden" name="_token" value="{{ csrf_token('update_manager_download') }}">
+                                                                        <input type="hidden" name="filename" value="{{ backup.file }}">
+                                                                        <input type="hidden" name="username" autocomplete="username">
+                                                                        <div class="mb-3">
+                                                                            <label for="downloadPassword-{{ loop.index }}" class="form-label">
+                                                                                {% trans %}update_manager.backup.download.password_label{% endtrans %}
+                                                                            </label>
+                                                                            <input type="password" class="form-control" id="downloadPassword-{{ loop.index }}"
+                                                                                   name="password" required autocomplete="current-password">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                                            {% trans %}cancel{% endtrans %}
+                                                                        </button>
+                                                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+                                                                            <i class="fas fa-download me-1"></i>{% trans %}update_manager.backup.download{% endtrans %}
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
                                                 </td>
                                             </tr>
                                         {% else %}
@@ -477,52 +518,4 @@
     </div>
 </div>
 
-{# Password confirmation modal for backup download #}
-{% if not backup_download_disabled and is_granted('@system.manage_updates') %}
-<div class="modal fade" id="downloadBackupModal" tabindex="-1" aria-labelledby="downloadBackupModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="{{ path('admin_update_manager_backup_download') }}" method="post" id="downloadBackupForm">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="downloadBackupModalLabel">
-                        <i class="fas fa-download me-2"></i>{% trans %}update_manager.backup.download{% endtrans %}
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="alert alert-warning">
-                        <i class="fas fa-exclamation-triangle me-1"></i>
-                        {% trans %}update_manager.backup.download.security_warning{% endtrans %}
-                    </div>
-                    <input type="hidden" name="_token" value="{{ csrf_token('update_manager_download') }}">
-                    <input type="hidden" name="filename" id="downloadBackupFilename" value="">
-                    <div class="mb-3">
-                        <label for="downloadBackupPassword" class="form-label">
-                            {% trans %}update_manager.backup.download.password_label{% endtrans %}
-                        </label>
-                        <input type="password" class="form-control" id="downloadBackupPassword"
-                               name="password" required autocomplete="current-password">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        {% trans %}cancel{% endtrans %}
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-download me-1"></i>{% trans %}update_manager.backup.download{% endtrans %}
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<script nonce="{{ csp_nonce('script') }}">
-    document.getElementById('downloadBackupModal').addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget;
-        var filename = button.getAttribute('data-filename');
-        document.getElementById('downloadBackupFilename').value = filename;
-        document.getElementById('downloadBackupPassword').value = '';
-    });
-</script>
-{% endif %}
 {% endblock %}

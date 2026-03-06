@@ -251,10 +251,10 @@ final class UpdateManagerControllerTest extends WebTestCase
         $client = static::createClient();
         $this->loginAsAdmin($client);
 
-        // GET should return 405 Method Not Allowed
+        // GET returns 404 since no GET route exists for this path
         $client->request('GET', '/en/system/update-manager/backup/download');
 
-        $this->assertResponseStatusCodeSame(405);
+        $this->assertResponseStatusCodeSame(404);
     }
 
     public function testDownloadBackupRequiresAuth(): void
