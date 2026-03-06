@@ -40,6 +40,8 @@ export default class extends TreeController {
         //Check if we have a saved mode
         const stored_mode = localStorage.getItem(this._storage_key);
 
+        this._frame = this.element.dataset.frame || "content"; //By default, navigate in the content frame, if a frame is defined
+
         //Use stored mode if possible, otherwise use default
         if(stored_mode) {
             try {

@@ -39,6 +39,8 @@ export default class extends Controller {
      */
     _tree = null;
 
+    _frame = "frame";
+
     connect() {
         const treeElement = this.treeTarget;
         if (!treeElement) {
@@ -48,6 +50,7 @@ export default class extends Controller {
 
         this._url = this.element.dataset.treeUrl;
         this._data = this.element.dataset.treeData;
+        this._frame = this.element.dataset.frame || "content"; //By default, navigate in the content frame, if a frame is defined
 
         if(this.element.dataset.treeShowTags === "true") {
             this._showTags = true;
@@ -99,7 +102,7 @@ export default class extends Controller {
             onNodeSelected: (event) => {
                 const node = event.detail.node;
                 if (node.href) {
-                    window.Turbo.visit(node.href, {action: "advance"});
+                    window.Turbo.visit(node.href, {action: "advance", frame: this._frame});
                     this._registerURLWatcher(node);
                 }
             },
