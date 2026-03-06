@@ -103,7 +103,6 @@ export default class extends Controller {
                 const node = event.detail.node;
                 if (node.href) {
                     window.Turbo.visit(node.href, {action: "advance", frame: this._frame});
-                    this._registerURLWatcher(node);
                 }
             },
         }, [BS5Theme, BS53Theme, FAIconTheme]);
