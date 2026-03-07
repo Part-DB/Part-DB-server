@@ -40,11 +40,9 @@
     <div class="tab-pane" id="eda">
         {{ form_row(form.eda_info.reference_prefix) }}
 
-        <div class="row">
-            <div class="{{ col_input }} {{ offset_label }}">
-                {{ form_row(form.eda_info.visibility) }}
-            </div>
-        </div>
+
+        {{ form_row(form.eda_info.visibility) }}
+        
 
         <div class="row mb-2">
             <div class="{{ col_input }} {{ offset_label }}">
