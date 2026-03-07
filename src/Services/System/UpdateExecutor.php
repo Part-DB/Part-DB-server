@@ -613,7 +613,7 @@ class UpdateExecutor
             return false;
         }
 
-        $logPath = $this->project_dir . '/' . self::UPDATE_LOG_DIR . '/' . $filename;
+        $logPath = $this->project_dir . '/' . self::UPDATE_LOG_DIR . '/' . basename($filename);
 
         if (!file_exists($logPath)) {
             return false;
