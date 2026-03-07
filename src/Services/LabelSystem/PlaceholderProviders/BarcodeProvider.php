@@ -114,10 +114,12 @@ final class BarcodeProvider implements PlaceholderProviderInterface
                 return '<b>IPN Barcode ERROR!</b>: '.$e->getMessage();
             }
         }
-
-
-
-
         return null;
+    }
+
+    public static function getDefaultPriority(): int
+    {
+        //This provider should be checked before all others, so that nothing is delegated for part lots
+        return 1000;
     }
 }
