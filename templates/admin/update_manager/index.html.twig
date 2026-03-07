@@ -427,7 +427,7 @@
                                                         {% endif %}
                                                         {% if not backup_restore_disabled and is_granted('@system.manage_updates') %}
                                                             <form action="{{ path('admin_update_manager_restore') }}" method="post" class="d-inline"
-                                                                  data-controller="backup-restore"
+                                                                  {{ stimulus_controller('backup-restore') }}
                                                                   data-backup-restore-filename-value="{{ backup.file }}"
                                                                   data-backup-restore-date-value="{{ backup.date|date('Y-m-d H:i') }}"
                                                                   data-backup-restore-confirm-title-value="{{ 'update_manager.restore_confirm_title'|trans }}"
@@ -456,9 +456,10 @@
                                                             </form>
                                                         {% endif %}
                                                     </div>
+
                                                     {% if not backup_download_disabled and is_granted('@system.manage_updates') %}
                                                     {# Per-backup download modal - no inline JS needed, CSP compatible with Turbo #}
-                                                    <div class="modal fade" id="downloadBackupModal-{{ loop.index }}" tabindex="-1" aria-hidden="true">
+                                                    <div class="modal fade text-start" id="downloadBackupModal-{{ loop.index }}" tabindex="-1" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <form action="{{ path('admin_update_manager_backup_download') }}" method="post" data-turbo="false">
@@ -487,7 +488,7 @@
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                                            {% trans %}cancel{% endtrans %}
+                                                                            {% trans %}modal.cancel{% endtrans %}
                                                                         </button>
                                                                         <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
                                                                             <i class="fas fa-download me-1"></i>{% trans %}update_manager.backup.download{% endtrans %}

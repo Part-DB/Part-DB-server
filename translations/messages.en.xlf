@@ -12917,5 +12917,11 @@ Buerklin-API Authentication server:
         <target>View as plain text</target>
       </segment>
     </unit>
+    <unit id="Ehsj93c" name="modal.cancel">
+      <segment>
+        <source>modal.cancel</source>
+        <target>Cancel</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
