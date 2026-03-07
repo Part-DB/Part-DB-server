@@ -301,6 +301,9 @@ final class PartController extends AbstractController
             $partLot->setUserBarcode($lotUserBarcode !== null ? (string)$lotUserBarcode : '');
 
             $new_part->addPartLot($partLot);
+
+            $this->addFlash('notice', t('part.create_from_info_provider.lot_filled_from_barcode'));
+
         }
 
 
