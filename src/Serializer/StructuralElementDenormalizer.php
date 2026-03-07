@@ -110,9 +110,8 @@ class StructuralElementDenormalizer implements DenormalizerInterface, Denormaliz
         //Check if we already have the entity in the database (via path)
         /** @var StructuralDBElementRepository<T> $repo */
         $repo = $this->entityManager->getRepository($type);
-        $deserialized_entity = $entity;
 
-        $path = $deserialized_entity->getFullPath(AbstractStructuralDBElement::PATH_DELIMITER_ARROW);
+        $path = $entity->getFullPath(AbstractStructuralDBElement::PATH_DELIMITER_ARROW);
         $db_elements = $repo->getEntityByPath($path, AbstractStructuralDBElement::PATH_DELIMITER_ARROW);
         if ($db_elements !== []) {
             //We already have the entity in the database, so we can return it
@@ -128,7 +127,7 @@ class StructuralElementDenormalizer implements DenormalizerInterface, Denormaliz
             $entity = $this->object_cache[$type][$path];
         } else {
             //Save the entity in the cache
-            $this->object_cache[$type][$path] = $deserialized_entity;
+            $this->object_cache[$type][$path] = $entity;
         }
 
         //In the next step we can denormalize the children, and add our children to the entity.
@@ -142,9 +141,9 @@ class StructuralElementDenormalizer implements DenormalizerInterface, Denormaliz
         }
 
         //We don't have the entity in the database, so we have to persist it
-        $this->entityManager->persist($deserialized_entity);
+        $this->entityManager->persist($entity);
 
-        return $deserialized_entity;
+        return $entity;
     }
 
     public function getSupportedTypes(?string $format): array

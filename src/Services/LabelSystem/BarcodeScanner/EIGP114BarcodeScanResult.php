@@ -271,6 +271,8 @@ readonly class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
      */
     public static function parseFormat06Code(string $input): self
     {
+        $rawInput = $input;
+
         //Ensure that the input is a valid format06 code
         if (!self::isFormat06Code($input)) {
             throw new \InvalidArgumentException("The given input is not a valid format06 code");
@@ -306,7 +308,7 @@ readonly class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
             $results[$key] = $fieldValue;
         }
 
-        return new self($results, $input);
+        return new self($results, $rawInput);
     }
 
     public function getDecodedForInfoMode(): array

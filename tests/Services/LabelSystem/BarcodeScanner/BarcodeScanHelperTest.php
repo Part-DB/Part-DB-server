@@ -115,6 +115,8 @@ final class BarcodeScanHelperTest extends WebTestCase
         yield [new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 2,BarcodeSourceType::USER_DEFINED),
             'lot2_vendor_barcode'];
 
+
+        $input =  "[)>\x1E06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS\x1E\x04";
         $eigp114Result = new EIGP114BarcodeScanResult([
             'P' => '596-777A1-ND',
             '1P' => 'XAF4444',
@@ -122,9 +124,9 @@ final class BarcodeScanHelperTest extends WebTestCase
             '10D' => '1452',
             '1T' => 'BF1103',
             '4L' => 'US',
-        ]);
+        ], $input);
 
-        yield [$eigp114Result, "[)>\x1E06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS\x1E\x04"];
+        yield [$eigp114Result, $input];
 
         $lcscInput = '{pc:C138033,pm:RC0402FR-071ML,qty:10}';
         $lcscResult = new LCSCBarcodeScanResult(
