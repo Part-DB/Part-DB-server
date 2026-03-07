@@ -48,6 +48,7 @@ global.$ = global.jQuery = require("jquery");
 
 //Use the local WASM file for the ZXing library
 import {
+    BarcodeDetector as ZXingBarcodeDetector,
     setZXingModuleOverrides,
 } from "barcode-detector/ponyfill";
 import  wasmFile from "../../node_modules/zxing-wasm/dist/reader/zxing_reader.wasm";
@@ -59,3 +60,7 @@ setZXingModuleOverrides({
         return prefix + path;
     },
 });
+
+// Prefer the ZXing WASM detector over inconsistent native BarcodeDetector implementations.
+// This improves Data Matrix decoding reliability for difficult DigiKey labels (see #1281).
+globalThis.BarcodeDetector = ZXingBarcodeDetector;
