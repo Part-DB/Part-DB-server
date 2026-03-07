@@ -82,6 +82,16 @@ final class BackupManagerTest extends KernelTestCase
         $this->assertSame('2.6.0', $matches[2]);
     }
 
+    public function testDeleteBackupReturnsFalseForNonExistentFile(): void
+    {
+        $this->assertFalse($this->backupManager->deleteBackup('non-existent.zip'));
+    }
+
+    public function testDeleteBackupReturnsFalseForNonZipFile(): void
+    {
+        $this->assertFalse($this->backupManager->deleteBackup('not-a-zip.txt'));
+    }
+
     /**
      * Test version parsing with different filename formats.
      */

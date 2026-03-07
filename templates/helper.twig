@@ -1,8 +1,8 @@
 {% macro boolean(value) %}
     {% if value %}
-        {% trans %}bool.true{% endtrans %}
+        {% trans %}Yes{% endtrans %}
     {% else %}
-        {% trans %}bool.false{% endtrans %}
+        {% trans %}No{% endtrans %}
     {% endif %}
 {% endmacro %}
 
@@ -14,9 +14,9 @@
 
 {% macro bool_icon(bool) %}
     {% if bool %}
-        <i class="fas fa-check-circle fa-fw" title="{% trans %}Yes{% endtrans %}"></i>
+        <i class="fas fa-check fa-fw" title="{% trans %}Yes{% endtrans %}"></i>
     {% else %}
-        <i class="fas fa-times-circle fa-fw" title="{% trans %}No{% endtrans %}"></i>
+        <i class="fas fa-times fa-fw" title="{% trans %}No{% endtrans %}"></i>
     {% endif %}
 {% endmacro %}
 
@@ -24,7 +24,7 @@
     {% if value %}
         {% set class = class ~ ' bg-success' %}
     {% else %}
-        {% set class = class ~ ' bg-danger' %}
+        {% set class = class ~ ' bg-secondary' %}
     {% endif %}
 
     <span class="{{ class }}">{{ _self.bool_icon(value) }} {{ _self.boolean(value) }}</span>

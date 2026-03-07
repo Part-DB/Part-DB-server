@@ -12491,6 +12491,102 @@ Buerklin-API Authentication server:
         <target>Backup restore is disabled by server configuration.</target>
       </segment>
     </unit>
+    <unit id="oAb35wU" name="update_manager.backup.create">
+      <segment state="translated">
+        <source>update_manager.backup.create</source>
+        <target>Create Backup</target>
+      </segment>
+    </unit>
+    <unit id="ms26oI0" name="update_manager.backup.create.confirm">
+      <segment state="translated">
+        <source>update_manager.backup.create.confirm</source>
+        <target>Create a full backup now? This may take a moment.</target>
+      </segment>
+    </unit>
+    <unit id="H9y0eLa" name="update_manager.backup.created">
+      <segment state="translated">
+        <source>update_manager.backup.created</source>
+        <target>Backup created successfully.</target>
+      </segment>
+    </unit>
+    <unit id="bMhXPVB" name="update_manager.backup.delete.confirm">
+      <segment state="translated">
+        <source>update_manager.backup.delete.confirm</source>
+        <target>Are you sure you want to delete this backup?</target>
+      </segment>
+    </unit>
+    <unit id="8tw67c_" name="update_manager.backup.deleted">
+      <segment state="translated">
+        <source>update_manager.backup.deleted</source>
+        <target>Backup deleted successfully.</target>
+      </segment>
+    </unit>
+    <unit id="BzBBuqk" name="update_manager.backup.delete_error">
+      <segment state="translated">
+        <source>update_manager.backup.delete_error</source>
+        <target>Failed to delete backup.</target>
+      </segment>
+    </unit>
+    <unit id="2olmcSs" name="update_manager.log.delete.confirm">
+      <segment state="translated">
+        <source>update_manager.log.delete.confirm</source>
+        <target>Are you sure you want to delete this log?</target>
+      </segment>
+    </unit>
+    <unit id=".ZrVHpp" name="update_manager.log.deleted">
+      <segment state="translated">
+        <source>update_manager.log.deleted</source>
+        <target>Log deleted successfully.</target>
+      </segment>
+    </unit>
+    <unit id="P2JI5Yw" name="update_manager.log.delete_error">
+      <segment state="translated">
+        <source>update_manager.log.delete_error</source>
+        <target>Failed to delete log.</target>
+      </segment>
+    </unit>
+    <unit id="Yos9FWk" name="update_manager.view_log">
+      <segment state="translated">
+        <source>update_manager.view_log</source>
+        <target>View log</target>
+      </segment>
+    </unit>
+    <unit id="B9uA2va" name="update_manager.delete">
+      <segment state="translated">
+        <source>update_manager.delete</source>
+        <target>Delete</target>
+      </segment>
+    </unit>
+    <unit id="ZtgvnXB" name="update_manager.backup.download">
+      <segment state="translated">
+        <source>update_manager.backup.download</source>
+        <target>Download backup</target>
+      </segment>
+    </unit>
+    <unit id="wxtmrnP" name="update_manager.backup.download.password_label">
+      <segment state="translated">
+        <source>update_manager.backup.download.password_label</source>
+        <target>Confirm your password to download</target>
+      </segment>
+    </unit>
+    <unit id="MIlTTgL" name="update_manager.backup.download.security_warning">
+      <segment state="translated">
+        <source>update_manager.backup.download.security_warning</source>
+        <target>Backups contain sensitive data including password hashes and secrets. Please confirm your password to proceed with the download.</target>
+      </segment>
+    </unit>
+    <unit id="kZPHBRt" name="update_manager.backup.download.invalid_password">
+      <segment state="translated">
+        <source>update_manager.backup.download.invalid_password</source>
+        <target>Invalid password. Backup download denied.</target>
+      </segment>
+    </unit>
+    <unit id="AZOjnE0" name="update_manager.backup.docker_warning">
+      <segment state="translated">
+        <source>update_manager.backup.docker_warning</source>
+        <target>Docker installation detected. Backups are stored in var/backups/ which is not a persistent volume. Use the download button to save backups externally, or mount var/backups/ as a volume in your docker-compose.yml.</target>
+      </segment>
+    </unit>
     <unit id="kHKChQB" name="settings.ips.conrad">
       <segment state="translated">
         <source>settings.ips.conrad</source>
@@ -12819,6 +12915,30 @@ Buerklin-API Authentication server:
       <segment state="translated">
         <source>attachment.sandbox.as_plain_text</source>
         <target>View as plain text</target>
+      </segment>
+    </unit>
+    <unit id="Ehsj93c" name="modal.cancel">
+      <segment>
+        <source>modal.cancel</source>
+        <target>Cancel</target>
+      </segment>
+    </unit>
+    <unit id="jdpoFf2" name="update_manager.web_updates_allowed">
+      <segment>
+        <source>update_manager.web_updates_allowed</source>
+        <target>Web updates allowed</target>
+      </segment>
+    </unit>
+    <unit id="bdWa7is" name="update_manager.backup_restore_allowed">
+      <segment>
+        <source>update_manager.backup_restore_allowed</source>
+        <target>Backup restore allowed</target>
+      </segment>
+    </unit>
+    <unit id="kllGQEN" name="update_manager.backup_download_allowed">
+      <segment>
+        <source>update_manager.backup_download_allowed</source>
+        <target>Backup download allowed</target>
       </segment>
     </unit>
   </file>
