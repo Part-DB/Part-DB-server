@@ -1,3 +1,6 @@
+includes:
+    - phpstan.banned_code.neon
+
 parameters:
 
     level: 5
@@ -5,9 +8,6 @@ parameters:
     paths:
         - src
     #    - tests
-
-    banned_code:
-         non_ignorable: false # Allow to ignore some banned code
 
     excludePaths:
             - src/DataTables/Adapter/*

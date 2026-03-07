@@ -325,7 +325,11 @@ class EntityImporter
 
         //Iterate over each $entity write it to DB (the invalid entities were already filtered out).
         foreach ($entities as $entity) {
-            $this->persistRecursively($entity);
+            if ($entity instanceof AbstractStructuralDBElement) {
+                $this->persistRecursively($entity);
+            } else {
+                $this->em->persist($entity);
+            }
         }
 
         //Save changes to database, when no error happened, or we should continue on error.
