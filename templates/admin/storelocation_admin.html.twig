@@ -8,7 +8,7 @@
 {% block additional_controls %}
     {% if entity.id %}
         <div class="row form-group">
-            <div class="{{ offset_col }} {{ input_col }}">
+            <div class="{{ offset_label }} {{ col_input }}">
                 {{ dropdown.profile_dropdown('storelocation', entity.id) }}
             </div>
         </div>

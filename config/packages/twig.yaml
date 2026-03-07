@@ -18,9 +18,9 @@ twig:
         saml_enabled: '%partdb.saml.enabled%'
         part_preview_generator: '@App\Services\Attachments\PartPreviewGenerator'
         # Bootstrap grid classes used for horizontal form layouts
-        label_col: 'col-sm-3 col-lg-2'
-        input_col: 'col-sm-9 col-lg-10'
-        offset_col: 'offset-sm-3 offset-lg-2'
+        col_label: 'col-sm-3 col-lg-2'
+        col_input: 'col-sm-9 col-lg-10'
+        offset_label: 'offset-sm-3 offset-lg-2'
 
 when@test:
     twig:

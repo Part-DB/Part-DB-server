@@ -41,13 +41,13 @@
         {{ form_row(form.eda_info.reference_prefix) }}
 
         <div class="row">
-            <div class="{{ input_col }} {{ offset_col }}">
+            <div class="{{ col_input }} {{ offset_label }}">
                 {{ form_row(form.eda_info.visibility) }}
             </div>
         </div>
 
         <div class="row mb-2">
-            <div class="{{ input_col }} {{ offset_col }}">
+            <div class="{{ col_input }} {{ offset_label }}">
                 {{ form_widget(form.eda_info.exclude_from_bom) }}
                 {{ form_widget(form.eda_info.exclude_from_board) }}
                 {{ form_widget(form.eda_info.exclude_from_sim) }}
@@ -55,7 +55,7 @@
         </div>
 
         <div class="row">
-            <div class="{{ input_col }} {{ offset_col }}">
+            <div class="{{ col_input }} {{ offset_label }}">
                 <h6>{% trans %}eda_info.kicad_section.title{% endtrans %}:</h6>
             </div>
         </div>

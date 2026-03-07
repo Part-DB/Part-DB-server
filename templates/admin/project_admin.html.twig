@@ -31,8 +31,8 @@
     {{ form_row(form.status) }}
     {% if entity.id %}
         <div class="mb-2 row">
-            <label class="col-form-label {{ label_col }}">{% trans %}project.edit.associated_build_part{% endtrans %}</label>
-            <div class="{{ input_col }}">
+            <label class="col-form-label {{ col_label }}">{% trans %}project.edit.associated_build_part{% endtrans %}</label>
+            <div class="{{ col_input }}">
                 {% if entity.buildPart %}
                     <span class="form-control-static"><a href="{{ entity_url(entity.buildPart) }}">{{ entity.buildPart.name }}</a></span>
                 {% else %}
