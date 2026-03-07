@@ -70,11 +70,16 @@ class PartSearchFilter implements FilterInterface
     /** @var bool Use Internal Part number for searching */
     protected bool $ipn = true;
 
+    /** @var int Helper variable for hacky array_map variable injection */
+    protected int $it = 0;
+
     public function __construct(
         /** @var string The string to query for */
         protected string $keyword
     )
     {
+        // Transform keyword and trim excess spaces
+        $keyword = trim(str_replace('+', ' ', $keyword));
     }
 
     protected function getFieldsToSearch(): array
@@ -133,36 +138,56 @@ class PartSearchFilter implements FilterInterface
         if (($fields_to_search === [] && !$search_dbId) || $this->keyword === '') {
             return;
         }
-
+      
         $expressions = [];
+        $params = [];
         
-        if($fields_to_search !== []) {
-            //Convert the fields to search to a list of expressions
-            $expressions = array_map(function (string $field): string {
-                if ($this->regex) {
-                    return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
-                }
-
-                return sprintf("ILIKE(%s, :search_query) = TRUE", $field);
-            }, $fields_to_search);
-            
-            //For regex, we pass the query as is, for like we add % to the start and end as wildcards
-            if ($this->regex) {
-                $queryBuilder->setParameter('search_query', $this->keyword);
-            } else {
-                //Escape % and _ characters in the keyword
-                $this->keyword = str_replace(['%', '_'], ['\%', '\_'], $this->keyword);
-                $queryBuilder->setParameter('search_query', '%' . $this->keyword . '%');
-            }
-        }
-
         //Use equal expression to just search for exact numeric matches
         if ($search_dbId) {
             $expressions[] = $queryBuilder->expr()->eq('part.id', ':id_exact');
-            $queryBuilder->setParameter('id_exact', (int) $this->keyword,
+            $params[] = new \Doctrine\ORM\Query\Parameter('id_exact', (int) $this->keyword,
                 ParameterType::INTEGER);
         }
 
+        if ($this->regex) {
+            //Convert the fields to search to a list of expressions
+            $expressions = array_map(function (string $field): string {
+                return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
+            }, $fields_to_search);
+            
+            //For regex, we pass the query as is, save html special chars
+            $params[] = new \Doctrine\ORM\Query\Parameter('search_query', $this->keyword);
+        } else {
+            //Escape % and _ characters in the keyword
+            $this->keyword = str_replace(['%', '_'], ['\%', '\_'], $this->keyword);
+
+            //Split keyword on spaces, but limit token count
+            $tokens = explode(' ', $this->keyword, 5);
+
+            //Perform search of every single token in every selected field
+            //AND-combine the results (all tokens must be present in any of the results)
+            for ($i = 0; $i < sizeof($tokens); $i++) {
+                $this->it = $i;
+                $tokens[$i] = trim($tokens[$i]);
+              
+                //Skip empty words (e.g. because of multiple spaces)
+                if ($tokens[$i] === '') {
+                    continue;
+                }
+                //Convert the fields to search to a list of expressions
+                $expressions = array_map(function (string $field): string {
+                    return sprintf("ILIKE(%s, :search_query%u) = TRUE", $field, $this->it);
+                }, $fields_to_search);
+              
+                //Aggregate the parameters for consolidated commission
+                $params[] = new \Doctrine\ORM\Query\Parameter('search_query' . $i,
+                                                              '%' . $tokens[$i] . '%');
+            }
+        }
+        
+        $queryBuilder->setParameters(
+            new \Doctrine\Common\Collections\ArrayCollection($params)
+        );
         //Guard condition
         if (!empty($expressions)) {
             //Add Or concatenation of the expressions to our query
@@ -336,6 +361,5 @@ class PartSearchFilter implements FilterInterface
         $this->comment = $comment;
         return $this;
     }
-
 
 }
