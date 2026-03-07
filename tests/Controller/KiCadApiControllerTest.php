@@ -121,6 +121,7 @@ final class KiCadApiControllerTest extends WebTestCase
             'exclude_from_bom' => 'False',
             'exclude_from_board' => 'True',
             'exclude_from_sim' => 'False',
+            'description' => '',
             'fields' =>
                 array(
                     'footprint' =>
@@ -203,6 +204,7 @@ final class KiCadApiControllerTest extends WebTestCase
             'exclude_from_bom' => 'False',
             'exclude_from_board' => 'True',
             'exclude_from_sim' => 'False',
+            'description' => '',
             'fields' =>
                 array (
                     'footprint' =>
