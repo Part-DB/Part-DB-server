@@ -47,6 +47,32 @@ final class PartLotsEndpointTest extends CrudEndpointTestCase
         $this->_testGetItem(2);
     }
 
+    public function testFilterByUserBarcode(): void
+    {
+        $response = self::createAuthenticatedClient()->request('GET', '/api/part_lots?user_barcode=lot2_vendor_barcode');
+
+        self::assertResponseIsSuccessful();
+        self::assertJsonContains([
+            'hydra:totalItems' => 1,
+        ]);
+
+        $json = $response->toArray();
+        self::assertSame('/api/part_lots/2', $json['hydra:member'][0]['@id']);
+    }
+
+    public function testFilterByUserBarcodeUsingWildcard(): void
+    {
+        $response = self::createAuthenticatedClient()->request('GET', '/api/part_lots?user_barcode=lot2_%');
+
+        self::assertResponseIsSuccessful();
+        self::assertJsonContains([
+            'hydra:totalItems' => 1,
+        ]);
+
+        $json = $response->toArray();
+        self::assertSame('/api/part_lots/2', $json['hydra:member'][0]['@id']);
+    }
+
     public function testCreateItem(): void
     {
         $this->_testPostItem([

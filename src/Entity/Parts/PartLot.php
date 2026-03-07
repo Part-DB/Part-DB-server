@@ -81,7 +81,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
     denormalizationContext: ['groups' => ['part_lot:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiFilter(PropertyFilter::class)]
-#[ApiFilter(LikeFilter::class, properties: ["description", "comment"])]
+#[ApiFilter(LikeFilter::class, properties: ["description", "comment", "user_barcode"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(BooleanFilter::class, properties: ['instock_unknown', 'needs_refill'])]
 #[ApiFilter(RangeFilter::class, properties: ['amount'])]
