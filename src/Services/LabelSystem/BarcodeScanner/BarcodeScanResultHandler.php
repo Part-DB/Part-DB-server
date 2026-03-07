@@ -117,7 +117,8 @@ final readonly class BarcodeScanResultHandler
             throw InfoProviderNotActiveException::fromProvider($provider);
         }
 
-        return $this->urlGenerator->generate('info_providers_create_part', ['providerKey' => $infos['providerKey'], 'providerId' => $infos['providerId']]);
+        //So far we can just copy over our provider info array to the URL parameters:
+        return $this->urlGenerator->generate('info_providers_create_part', $infos);
     }
 
     /**
@@ -146,7 +147,7 @@ final readonly class BarcodeScanResultHandler
 
         if ($barcodeScan instanceof AmazonBarcodeScanResult) {
             return $this->em->getRepository(Part::class)->getPartByProviderInfo($barcodeScan->asin)
-             ?? $this->em->getRepository(Part::class)->getPartBySPN($barcodeScan->asin);
+                ?? $this->em->getRepository(Part::class)->getPartBySPN($barcodeScan->asin);
         }
 
         return null;
@@ -246,7 +247,7 @@ final readonly class BarcodeScanResultHandler
      * Returns null if no provider information could be extracted from the scan result, or if the scan result type is unknown and cannot be handled by this function.
      * It is not necessarily checked that the provider is active, or that the result actually exists on the provider side.
      * @param  BarcodeScanResultInterface  $scanResult
-     * @return array{providerKey: string, providerId: string}|null
+     * @return array{providerKey: string, providerId: string, lotAmount?: float|int, lotName?: string, lotUserBarcode?: string}|null
      * @throws InfoProviderNotActiveException If the scan result contains information for a provider which is currently not active in the system
      */
     public function getCreateInfos(BarcodeScanResultInterface $scanResult): ?array
@@ -256,6 +257,9 @@ final readonly class BarcodeScanResultHandler
             return [
                 'providerKey' => 'lcsc',
                 'providerId' => $scanResult->lcscCode,
+                'lotAmount' => $scanResult->quantity,
+                'lotName' => $scanResult->orderNumber ?? $scanResult->pickBatchNumber,
+                'lotUserBarcode' => $scanResult->rawInput,
             ];
         }
 
@@ -276,7 +280,7 @@ final readonly class BarcodeScanResultHandler
 
     /**
      * @param  EIGP114BarcodeScanResult  $scanResult
-     * @return array{providerKey: string, providerId: string}|null
+     * * @return array{providerKey: string, providerId: string, lotAmount?: float|int, lotName?: string, lotUserBarcode?: string}|null
      */
     private function getCreationInfoForEIGP114(EIGP114BarcodeScanResult $scanResult): ?array
     {
@@ -285,23 +289,26 @@ final readonly class BarcodeScanResultHandler
         // Mouser: use supplierPartNumber -> search provider -> provider_id
         if ($vendor === 'mouser' && $scanResult->supplierPartNumber !== null
         ) {
-                // Search Mouser using the MPN
-                $dtos = $this->infoRetriever->searchByKeyword(
-                    keyword: $scanResult->supplierPartNumber,
-                    providers: ["mouser"]
-                );
+            // Search Mouser using the MPN
+            $dtos = $this->infoRetriever->searchByKeyword(
+                keyword: $scanResult->supplierPartNumber,
+                providers: ["mouser"]
+            );
 
-                // If there are results, provider_id is MouserPartNumber (per MouserProvider.php)
-                $best = $dtos[0] ?? null;
+            // If there are results, provider_id is MouserPartNumber (per MouserProvider.php)
+            $best = $dtos[0] ?? null;
 
-                if ($best !== null) {
-                    return [
-                        'providerKey' => 'mouser',
-                        'providerId' => $best->provider_id,
-                    ];
-                }
+            if ($best !== null) {
+                return [
+                    'providerKey' => 'mouser',
+                    'providerId' => $best->provider_id,
+                    'lotAmount' => $scanResult->quantity,
+                    'lotName' => $scanResult->customerPO,
+                    'lotUserBarcode' => $scanResult->rawInput,
+                ];
+            }
 
-                return null;
+            return null;
         }
 
         // Digi-Key: supplierPartNumber directly
@@ -309,6 +316,9 @@ final readonly class BarcodeScanResultHandler
             return [
                 'providerKey' => 'digikey',
                 'providerId' => $scanResult->supplierPartNumber ?? throw new \RuntimeException('Digikey barcode does not contain required supplier part number'),
+                'lotAmount' => $scanResult->quantity,
+                'lotName' => $scanResult->digikeyInvoiceNumber ?? $scanResult->digikeySalesOrderNumber ?? $scanResult->customerPO,
+                'lotUserBarcode' => $scanResult->rawInput,
             ];
         }
 
@@ -317,6 +327,9 @@ final readonly class BarcodeScanResultHandler
             return [
                 'providerKey' => 'element14',
                 'providerId' => $scanResult->supplierPartNumber ?? throw new \RuntimeException('Element14 barcode does not contain required supplier part number'),
+                'lotAmount' => $scanResult->quantity,
+                'lotName' => $scanResult->customerPO,
+                'lotUserBarcode' => $scanResult->rawInput,
             ];
         }
 
