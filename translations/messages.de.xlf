@@ -12489,6 +12489,102 @@ Buerklin-API-Authentication-Server:
         <target>Backup Wiederherstellungen wurden durch Serverkonfiguration deaktiviert.</target>
       </segment>
     </unit>
+    <unit id="oAb35wU" name="update_manager.backup.create">
+      <segment state="translated">
+        <source>update_manager.backup.create</source>
+        <target>Backup erstellen</target>
+      </segment>
+    </unit>
+    <unit id="ms26oI0" name="update_manager.backup.create.confirm">
+      <segment state="translated">
+        <source>update_manager.backup.create.confirm</source>
+        <target>Jetzt ein vollständiges Backup erstellen? Dies kann einen Moment dauern.</target>
+      </segment>
+    </unit>
+    <unit id="H9y0eLa" name="update_manager.backup.created">
+      <segment state="translated">
+        <source>update_manager.backup.created</source>
+        <target>Backup erfolgreich erstellt.</target>
+      </segment>
+    </unit>
+    <unit id="bMhXPVB" name="update_manager.backup.delete.confirm">
+      <segment state="translated">
+        <source>update_manager.backup.delete.confirm</source>
+        <target>Sind Sie sicher, dass Sie dieses Backup löschen möchten?</target>
+      </segment>
+    </unit>
+    <unit id="8tw67c_" name="update_manager.backup.deleted">
+      <segment state="translated">
+        <source>update_manager.backup.deleted</source>
+        <target>Backup erfolgreich gelöscht.</target>
+      </segment>
+    </unit>
+    <unit id="BzBBuqk" name="update_manager.backup.delete_error">
+      <segment state="translated">
+        <source>update_manager.backup.delete_error</source>
+        <target>Backup konnte nicht gelöscht werden.</target>
+      </segment>
+    </unit>
+    <unit id="2olmcSs" name="update_manager.log.delete.confirm">
+      <segment state="translated">
+        <source>update_manager.log.delete.confirm</source>
+        <target>Sind Sie sicher, dass Sie dieses Protokoll löschen möchten?</target>
+      </segment>
+    </unit>
+    <unit id=".ZrVHpp" name="update_manager.log.deleted">
+      <segment state="translated">
+        <source>update_manager.log.deleted</source>
+        <target>Protokoll erfolgreich gelöscht.</target>
+      </segment>
+    </unit>
+    <unit id="P2JI5Yw" name="update_manager.log.delete_error">
+      <segment state="translated">
+        <source>update_manager.log.delete_error</source>
+        <target>Protokoll konnte nicht gelöscht werden.</target>
+      </segment>
+    </unit>
+    <unit id="Yos9FWk" name="update_manager.view_log">
+      <segment state="translated">
+        <source>update_manager.view_log</source>
+        <target>Protokoll anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="B9uA2va" name="update_manager.delete">
+      <segment state="translated">
+        <source>update_manager.delete</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="ZtgvnXB" name="update_manager.backup.download">
+      <segment state="translated">
+        <source>update_manager.backup.download</source>
+        <target>Backup herunterladen</target>
+      </segment>
+    </unit>
+    <unit id="wxtmrnP" name="update_manager.backup.download.password_label">
+      <segment state="translated">
+        <source>update_manager.backup.download.password_label</source>
+        <target>Bestätigen Sie Ihr Passwort zum Herunterladen</target>
+      </segment>
+    </unit>
+    <unit id="MIlTTgL" name="update_manager.backup.download.security_warning">
+      <segment state="translated">
+        <source>update_manager.backup.download.security_warning</source>
+        <target>Backups enthalten sensible Daten, einschließlich Passwort-Hashes und Geheimnisse. Bitte bestätigen Sie Ihr Passwort, um mit dem Download fortzufahren.</target>
+      </segment>
+    </unit>
+    <unit id="kZPHBRt" name="update_manager.backup.download.invalid_password">
+      <segment state="translated">
+        <source>update_manager.backup.download.invalid_password</source>
+        <target>Ungültiges Passwort. Backup-Download verweigert.</target>
+      </segment>
+    </unit>
+    <unit id="AZOjnE0" name="update_manager.backup.docker_warning">
+      <segment state="translated">
+        <source>update_manager.backup.docker_warning</source>
+        <target>Docker-Installation erkannt. Backups werden in var/backups/ gespeichert, was kein persistentes Volume ist. Verwenden Sie die Download-Schaltfläche, um Backups extern zu speichern, oder binden Sie var/backups/ als Volume in Ihrer docker-compose.yml ein.</target>
+      </segment>
+    </unit>
     <unit id="kHKChQB" name="settings.ips.conrad">
       <segment state="translated">
         <source>settings.ips.conrad</source>
@@ -12817,6 +12913,36 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>attachment.sandbox.as_plain_text</source>
         <target>Als Klartext anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="Ehsj93c" name="modal.cancel">
+      <segment state="translated">
+        <source>modal.cancel</source>
+        <target>Abbrechen</target>
+      </segment>
+    </unit>
+    <unit id="jdpoFf2" name="update_manager.web_updates_allowed">
+      <segment state="translated">
+        <source>update_manager.web_updates_allowed</source>
+        <target>Web-Updates erlaubt</target>
+      </segment>
+    </unit>
+    <unit id="bdWa7is" name="update_manager.backup_restore_allowed">
+      <segment state="translated">
+        <source>update_manager.backup_restore_allowed</source>
+        <target>Backup-Wiederherstellung erlaubt</target>
+      </segment>
+    </unit>
+    <unit id="kllGQEN" name="update_manager.backup_download_allowed">
+      <segment state="translated">
+        <source>update_manager.backup_download_allowed</source>
+        <target>Backup-Download erlaubt</target>
+      </segment>
+    </unit>
+    <unit id="b8JxfcX" name="part.create_from_info_provider.lot_filled_from_barcode">
+      <segment state="translated">
+        <source>part.create_from_info_provider.lot_filled_from_barcode</source>
+        <target>[Part_lot] aus Barcode erstellt: Bitte überprüfen Sie, ob die Daten korrekt und gewünscht sind.</target>
       </segment>
     </unit>
   </file>

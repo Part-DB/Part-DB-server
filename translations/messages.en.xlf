@@ -12918,31 +12918,31 @@ Buerklin-API Authentication server:
       </segment>
     </unit>
     <unit id="Ehsj93c" name="modal.cancel">
-      <segment>
+      <segment state="translated">
         <source>modal.cancel</source>
         <target>Cancel</target>
       </segment>
     </unit>
     <unit id="jdpoFf2" name="update_manager.web_updates_allowed">
-      <segment>
+      <segment state="translated">
         <source>update_manager.web_updates_allowed</source>
         <target>Web updates allowed</target>
       </segment>
     </unit>
     <unit id="bdWa7is" name="update_manager.backup_restore_allowed">
-      <segment>
+      <segment state="translated">
         <source>update_manager.backup_restore_allowed</source>
         <target>Backup restore allowed</target>
       </segment>
     </unit>
     <unit id="kllGQEN" name="update_manager.backup_download_allowed">
-      <segment>
+      <segment state="translated">
         <source>update_manager.backup_download_allowed</source>
         <target>Backup download allowed</target>
       </segment>
     </unit>
     <unit id="b8JxfcX" name="part.create_from_info_provider.lot_filled_from_barcode">
-      <segment>
+      <segment state="translated">
         <source>part.create_from_info_provider.lot_filled_from_barcode</source>
         <target>[Part_lot] created from barcode: Please check if the data is correct and desired.</target>
       </segment>
