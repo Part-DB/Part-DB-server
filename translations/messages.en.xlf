@@ -12923,5 +12923,23 @@ Buerklin-API Authentication server:
         <target>Cancel</target>
       </segment>
     </unit>
+    <unit id="jdpoFf2" name="update_manager.web_updates_allowed">
+      <segment>
+        <source>update_manager.web_updates_allowed</source>
+        <target>Web updates allowed</target>
+      </segment>
+    </unit>
+    <unit id="bdWa7is" name="update_manager.backup_restore_allowed">
+      <segment>
+        <source>update_manager.backup_restore_allowed</source>
+        <target>Backup restore allowed</target>
+      </segment>
+    </unit>
+    <unit id="kllGQEN" name="update_manager.backup_download_allowed">
+      <segment>
+        <source>update_manager.backup_download_allowed</source>
+        <target>Backup download allowed</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
