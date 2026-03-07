@@ -250,7 +250,7 @@ class InfoProviderController extends  AbstractController
                     //Redirect to the part creation page with the found part detail
                     return $this->redirectToRoute('info_providers_create_part', [
                         'providerKey' => $searchResult->provider_key,
-                        'providerId' => $searchResult->provider_id,
+                        'providerId' => urlencode($searchResult->provider_id),
                     ]);
                 }
             } catch (ExceptionInterface $e) {

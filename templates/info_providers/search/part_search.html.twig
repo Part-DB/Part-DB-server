@@ -116,10 +116,10 @@
 
                             {% if update_target %} {# We update an existing part #}
                                 {% set href = path('info_providers_update_part',
-                                    {'providerKey': dto.provider_key, 'providerId': dto.provider_id, 'id': update_target.iD}) %}
+                                    {'providerKey': dto.provider_key, 'providerId': dto.provider_id|url_encode, 'id': update_target.iD}) %}
                             {% else %} {# Create a fresh part #}
                                 {% set href = path('info_providers_create_part',
-                                    {'providerKey': dto.provider_key, 'providerId': dto.provider_id}) %}
+                                    {'providerKey': dto.provider_key, 'providerId': dto.provider_id|url_encode}) %}
                             {% endif %}
 
                             {# If we have no local part, then we can just show the create button #}
@@ -139,7 +139,7 @@
                                        target="_blank" title="{% trans %}info_providers.search.show_existing_part{% endtrans %}">
                                         <i class="fa-solid fa-search"></i>
                                     </a>
-                                    <a class="btn btn-primary" href="{{ path("info_providers_update_part", {'id': localPart.id, 'providerKey': dto.provider_key, 'providerId': dto.provider_id}) }}"
+                                    <a class="btn btn-primary" href="{{ path("info_providers_update_part", {'id': localPart.id, 'providerKey': dto.provider_key, 'providerId': dto.provider_id|url_encode}) }}"
                                        target="_blank" title="{% trans %}info_providers.search.update_existing_part{% endtrans %}">
                                         <i class="fa-solid fa-arrows-rotate"></i>
                                     </a>
