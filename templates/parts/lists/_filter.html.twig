@@ -148,7 +148,7 @@
             {{ form_row(filterForm.discard) }}
 
             <div class="row mb-3">
-                <div class="{{ form_input_col_class }} {{ form_offset_col_class }}">
+                <div class="{{ input_col }} {{ offset_col }}">
                     <button type="button" class="btn btn-danger" {{ stimulus_action('helpers/form_cleanup', 'clearAll') }}>{% trans %}filter.clear_filters{% endtrans %}</button>
                 </div>
             </div>
