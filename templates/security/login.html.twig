@@ -22,7 +22,7 @@
 {% block card_content %}
 
     {% if saml_enabled %}
-        <div class="col-md-9 offset-md-3 col-lg-10 offset-lg-2">
+        <div class="{{ offset_label }} {{ col_input }}">
             <a class="btn btn-secondary" href="{{ path('saml_login') }}"><i class="fa-solid fa-house-user"></i> {% trans %}login.sso_saml_login{% endtrans %}</a>
 
             <p class="text-muted">{% trans %}login.local_login_hint{% endtrans %}</p>
@@ -39,6 +39,6 @@
     {{ form_end(form) }}
 
     {% if allow_email_pw_reset %}
-        <a class="offset-sm-2" href="{{ path('pw_reset_request') }}">{% trans %}pw_reset.password_forget{% endtrans %}</a>
+        <a class="{{ offset_label }}" href="{{ path('pw_reset_request') }}">{% trans %}pw_reset.password_forget{% endtrans %}</a>
     {% endif %}
 {% endblock %}

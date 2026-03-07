@@ -28,7 +28,7 @@
 {% block additional_panes %}
     <div class="tab-pane" id="eda">
         <div class="row">
-            <div class="col-sm-9 offset-sm-3">
+            <div class="{{ col_input }} {{ offset_label }}">
                 <h6>{% trans %}eda_info.kicad_section.title{% endtrans %}:</h6>
             </div>
         </div>

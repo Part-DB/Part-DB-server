@@ -10,10 +10,10 @@
     {{ form_row(form.iso_code) }}
     {% if entity.isoCode %}
         <div class="mt-0 mb-3">
-        <span class="form-text text-muted offset-3 col-9">
+        <span class="form-text text-muted {{ offset_label }} {{ col_input }}">
             <b>{% trans %}currency.iso_code.caption{% endtrans %}:</b> {{ entity.isoCode }}
         </span>
-            <span class="form-text text-muted offset-3 col-9">
+            <span class="form-text text-muted {{ offset_label }} {{ col_input }}">
             <b>{% trans %}currency.symbol.caption{% endtrans %}:</b> {{ entity.isoCode | currency_symbol }}
         </span>
         </div>
@@ -21,7 +21,7 @@
 
     {{ form_row(form.exchange_rate) }}
     {% if entity.inverseExchangeRate %}
-        <p class="form-text text-muted offset-3 col-9">
+        <p class="form-text text-muted {{ offset_label }} {{ col_input }}">
         {{ '1'|format_currency(vars.base_currency()) }} = {{ entity.inverseExchangeRate.tofloat | format_currency(entity.isoCode, {fraction_digit: 5}) }}<br>
         {{ '1'|format_currency(entity.isoCode) }} = {{ entity.exchangeRate.tofloat | format_currency(vars.base_currency(), {fraction_digit: 5}) }}
         </p>

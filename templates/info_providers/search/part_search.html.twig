@@ -28,7 +28,7 @@
     {{ form_row(form.providers) }}
 
     <div class="row mb-2">
-        <div class="col-sm-9 offset-sm-3">
+        <div class="{{ col_input }} {{ offset_label }}">
             <a href="{{ path('info_providers_list') }}">{% trans %}info_providers.search.info_providers_list{% endtrans %}</a>
         </div>
     </div>

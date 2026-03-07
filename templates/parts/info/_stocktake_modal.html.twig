@@ -13,39 +13,39 @@
                     <input type="hidden" name="_redirect" value="{{  uri_without_host(app.request) }}">
 
                     <div class="row mb-2">
-                        <label class="col-form-label col-sm-3">
+                        <label class="col-form-label {{ col_label }}">
                             {% trans %}part.info.stocktake_modal.expected_amount{% endtrans %}
                         </label>
-                        <div class="col-sm-9">
+                        <div class="{{ col_input }}">
                             <span id="stocktake-modal-expected-amount" class="form-control-plaintext">0</span>
                         </div>
                     </div>
 
                     <div class="row mb-2">
-                        <label class="col-form-label col-sm-3">
+                        <label class="col-form-label {{ col_label }}">
                             {% trans %}part.info.stocktake_modal.actual_amount{% endtrans %}
                         </label>
-                        <div class="col-sm-9">
+                        <div class="{{ col_input }}">
                             <input type="number" required class="form-control" min="0" step="{{ (part.partUnit and not part.partUnit.integer) ? 'any' : '1' }}" name="actual_amount" value="">
                         </div>
                     </div>
 
 
                     <div class="row mb-2">
-                        <label class="col-form-label col-sm-3">
+                        <label class="col-form-label {{ col_label }}">
                             {% trans %}part.info.withdraw_modal.comment{% endtrans %}
                         </label>
-                        <div class="col-sm-9">
+                        <div class="{{ col_input }}">
                             <input type="text" class="form-control" name="comment" value="">
                             <div class="form-text">{% trans %}part.info.withdraw_modal.comment.hint{% endtrans %}</div>
                         </div>
                     </div>
 
                     <div class="row mb-2">
-                        <label class="col-form-label col-sm-3">
+                        <label class="col-form-label {{ col_label }}">
                             {% trans %}part.info.withdraw_modal.timestamp{% endtrans %}
                         </label>
-                        <div class="col-sm-9">
+                        <div class="{{ col_input }}">
                             {# The timestamp must be between a year ago and 1 hour in the future #}
                             <input type="datetime-local" class="form-control" name="timestamp" value=""
                                    max="{{ "+10mins"|date('Y-m-d\\TH:i') }}" min="{{ "-1year"|date('Y-m-d\\TH:i') }}">
