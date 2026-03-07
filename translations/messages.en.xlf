@@ -12941,5 +12941,11 @@ Buerklin-API Authentication server:
         <target>Backup download allowed</target>
       </segment>
     </unit>
+    <unit id="b8JxfcX" name="part.create_from_info_provider.lot_filled_from_barcode">
+      <segment state="translated">
+        <source>part.create_from_info_provider.lot_filled_from_barcode</source>
+        <target>[Part_lot] created from barcode: Please check if the data is correct and desired.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
