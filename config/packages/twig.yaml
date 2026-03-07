@@ -17,6 +17,10 @@ twig:
         available_themes: '%partdb.available_themes%'
         saml_enabled: '%partdb.saml.enabled%'
         part_preview_generator: '@App\Services\Attachments\PartPreviewGenerator'
+        # Bootstrap grid classes used for horizontal form layouts
+        form_label_col_class: 'col-sm-3 col-lg-2'
+        form_input_col_class: 'col-sm-9 col-lg-10'
+        form_offset_col_class: 'offset-sm-3 offset-lg-2'
 
 when@test:
     twig:

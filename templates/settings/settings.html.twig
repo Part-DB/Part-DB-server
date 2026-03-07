@@ -43,7 +43,7 @@
                                     {{ (section_widget.vars.label ?? section_widget.vars.name|humanize)|trans }}
                                 </legend>
                                 <div class="row">
-                                    <div class="offset-sm-3 col mb-3 ps-2">
+                                    <div class="{{ form_offset_col_class }} col mb-3 ps-2">
                                         <b>{{ form_help(section_widget) }}</b>
                                         {{ form_errors(section_widget) }}
                                     </div>
