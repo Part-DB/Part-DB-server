@@ -49,6 +49,7 @@ export default class extends Controller {
             createOnBlur: true,
             create: true,
             dropdownParent: dropdownParent,
+            clearAfterSelect: true,
         };
 
         if(this.element.dataset.autocomplete) {

@@ -23,6 +23,8 @@ export default class extends Controller {
             valueField: "id",
             labelField: "name",
             dropdownParent: dropdownParent,
+            selectOnTab: true,
+            clearAfterSelect: true,
             preload: "focus",
             render: {
                 item: (data, escape) => {

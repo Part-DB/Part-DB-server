@@ -35,6 +35,8 @@ export default class extends Controller {
             maxItems: 1000,
             allowEmptyOption: true,
             dropdownParent: dropdownParent,
+            selectOnTab: true,
+            clearAfterSelect: true,
             plugins: ['remove_button'],
         });
     }

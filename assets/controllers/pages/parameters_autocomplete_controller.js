@@ -75,6 +75,7 @@ export default class extends Controller
             searchField: "name",
             //labelField: "name",
             valueField: "name",
+            clearAfterSelect: true,
             onItemAdd: this.onItemAdd.bind(this),
             render: {
                 option: (data, escape) => {

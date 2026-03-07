@@ -49,6 +49,7 @@ export default class extends Controller {
             selectOnTab: true,
             maxOptions: null,
             dropdownParent: dropdownParent,
+            clearAfterSelect: true,
 
             render: {
                 item: this.renderItem.bind(this),
