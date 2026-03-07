@@ -20,55 +20,25 @@
 {% endblock %}
 
 {% block card_content %}
-    <form action="{{ path('login') }}" method="post" data-turbo="false" class="form-horizontal">
 
-        <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+    {% if saml_enabled %}
+        <div class="{{ offset_label }} {{ col_input }}">
+            <a class="btn btn-secondary" href="{{ path('saml_login') }}"><i class="fa-solid fa-house-user"></i> {% trans %}login.sso_saml_login{% endtrans %}</a>
 
-        <input type="hidden" name="_target_path" value="{{ app.request.query.get('_target_path') }}" />
-
-        {% if saml_enabled %}
-            <div class="col-md-9 offset-md-3 col-lg-10 offset-lg-2">
-                <a class="btn btn-secondary" href="{{ path('saml_login') }}"><i class="fa-solid fa-house-user"></i> {% trans %}login.sso_saml_login{% endtrans %}</a>
-
-                <p class="text-muted">{% trans %}login.local_login_hint{% endtrans %}</p>
-            </div>
-
-        {% endif %}
-
-        <div class="form-group row">
-            <label class="col-form-label col-md-3 col-lg-2">{% trans %}login.username.label{% endtrans %}</label>
-            <div class="col-md-9 col-lg-10">
-                <input type="text" class="form-control"  name="_username" value="{{ last_username }}"
-                       placeholder="{% trans %}login.username.placeholder{% endtrans %}"  autocomplete="username">
-            </div>
+            <p class="text-muted">{% trans %}login.local_login_hint{% endtrans %}</p>
         </div>
-        <div class="form-group row">
-            <label class="col-form-label col-md-3 col-lg-2">{% trans %}login.password.label{% endtrans %}</label>
-            <div class="col-md-9 col-lg-10">
-                <input type="password" class="form-control" placeholder="{% trans %}login.password.placeholder{% endtrans %}" name="_password"
-                       autocomplete="current-password">
-            </div>
-        </div>
+    {% endif %}
 
-        <div class="form-group row">
-            <div class="col-md-9 offset-md-3 col-lg-10 offset-lg-2">
-                <div class="custom-control custom-checkbox custom-control-inline">
-                    <input class="form-check-input" name="_remember_me" id="remember_me" type="checkbox">
-                    <label class="form-check-label" for="remember_me">
-                        {% trans %}login.rememberme{% endtrans %}
-                    </label>
-                </div>
-            </div>
-        </div>
+    {{ form_start(form) }}
 
-        <div class="form-group row  mt-3">
-            <div class="col-md-9 offset-md-3 col-lg-10 offset-lg-2">
-                <button type="submit" class="btn btn-primary">{% trans %}login.btn{% endtrans %}</button>
-            </div>
-        </div>
-    </form>
+    {{ form_row(form._username) }}
+    {{ form_row(form._password) }}
+    {{ form_row(form._remember_me) }}
+    {{ form_row(form.submit) }}
+
+    {{ form_end(form) }}
 
     {% if allow_email_pw_reset %}
-        <a class="offset-sm-2" href="{{ path('pw_reset_request') }}">{% trans %}pw_reset.password_forget{% endtrans %}</a>
+        <a class="{{ offset_label }}" href="{{ path('pw_reset_request') }}">{% trans %}pw_reset.password_forget{% endtrans %}</a>
     {% endif %}
 {% endblock %}

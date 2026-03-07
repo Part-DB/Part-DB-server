@@ -129,7 +129,7 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <div class="col-sm-9 offset-sm-3">
+                                    <div class="{{ col_input }} {{ offset_label }}">
                                         <div class="btn-group">
                                             {{ form_widget(form.save) }}
                                             <button type="button" class="btn {% if entity.id is not null %}btn-primary{% else %}btn-success{% endif %} dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -186,7 +186,7 @@
 
                                 <div id="mass_creation" class="tab-pane fade">
                                     <div class="row">
-                                        <p class="text-muted offset-sm-3 col-sm-9">{% trans %}mass_creation.help{% endtrans %}</p>
+                                        <p class="text-muted {{ offset_label }} {{ col_input }}">{% trans %}mass_creation.help{% endtrans %}</p>
                                     </div>
                                     {{ form(mass_creation_form) }}
                                 </div>
@@ -195,9 +195,6 @@
                             {% endif %}
                         </div>
                     </fieldset>
-
-                    {# Include turbo control things, so we can still control page title and reloading #}
-                    {% include "_turbo_control.html.twig" %}
                 </turbo-frame>
             </div>
         </div>

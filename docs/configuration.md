@@ -144,6 +144,18 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
 * `ALLOW_EMAIL_PW_RESET`: Set this value to true, if you want to allow users to reset their password via an email
   notification. You have to configure the mail provider first before via the MAILER_DSN setting.
 
+### Update manager settings
+* `DISABLE_WEB_UPDATES` (default `1`): Set this to 0 to enable web-based updates. When enabled, you can perform updates
+  via the web interface in the update manager. This is disabled by default for security reasons, as it can be a risk if
+  not used carefully. You can still use the CLI commands to perform updates, even when web updates are disabled.
+* `DISABLE_BACKUP_RESTORE` (default `1`): Set this to 0 to enable backup restore via the web interface. When enabled, you can
+  restore backups via the web interface in the update manager. This is disabled by default for security reasons, as it can
+  be a risk if not used carefully. You can still use the CLI commands to perform backup restores, even when web-based
+  backup restore is disabled.
+* `DISABLE_BACKUP_DOWNLOAD` (default `1`): Set this to 0 to enable backup download via the web interface. When enabled, you can download backups via the web interface
+  in the update manager. This is disabled by default for security reasons, as it can be a risk if not used carefully, as
+  the downloads contain sensitive data like password hashes or secrets.
+
 ### Table related settings
 
 * `TABLE_DEFAULT_PAGE_SIZE`: The default page size for tables. This is the number of rows which are shown per page. Set

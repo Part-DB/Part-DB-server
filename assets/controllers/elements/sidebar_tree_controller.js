@@ -19,6 +19,7 @@
 
 import {Controller} from "@hotwired/stimulus";
 import {default as TreeController} from "./tree_controller";
+import {EVENT_INITIALIZED} from "@jbtronics/bs-treeview";
 
 export default class extends TreeController {
     static targets = [ "tree", 'sourceText' ];
@@ -40,6 +41,8 @@ export default class extends TreeController {
         //Check if we have a saved mode
         const stored_mode = localStorage.getItem(this._storage_key);
 
+        this._frame = this.element.dataset.frame || "content"; //By default, navigate in the content frame, if a frame is defined
+
         //Use stored mode if possible, otherwise use default
         if(stored_mode) {
             try {
@@ -55,6 +58,39 @@ export default class extends TreeController {
 
         //Register an event listener which checks if the tree needs to be updated
         document.addEventListener('turbo:render', this.doUpdateIfNeeded.bind(this));
+
+        //Register an event listener, to check if we end up on a page we can highlight in the tree, if so then higlight it
+        document.addEventListener('turbo:load', this._onTurboLoad.bind(this));
+        //On initial page load the tree is not available yet, so do another check after the tree is initialized
+        this.treeTarget.addEventListener(EVENT_INITIALIZED, (event) => {
+            this.selectNodeWithURL(document.location)
+        });
+    }
+
+    _onTurboLoad(event) {
+       this.selectNodeWithURL(event.detail.url);
+    }
+
+    selectNodeWithURL(url) {
+        //Get path from url
+        const path = new URL(url).pathname;
+
+        if (!this._tree) {
+            return;
+        }
+
+        //Unselect all nodes
+        this._tree.unselectAll({silent: true, ignorePreventUnselect: true});
+
+        //Try to find a node with this path as data-path
+        const nodes = this._tree.findNodes(path, "href");
+        if (nodes.length !== 1) {
+            return; //We can only work with exactly one node, if there are multiple nodes with the same path, we cannot know which one to select, so we do nothing
+        }
+        const node = nodes[0];
+
+        node.setSelected(true, {ignorePreventUnselect: true, silent: true});
+        this._tree.revealNode(node);
     }
 
     doUpdateIfNeeded()

@@ -18,6 +18,11 @@ twig:
         saml_enabled: '%partdb.saml.enabled%'
         part_preview_generator: '@App\Services\Attachments\PartPreviewGenerator'
 
+        # Bootstrap grid classes used for horizontal form layouts
+        col_label: 'col-sm-3 col-lg-2'                      # The column classes for form labels
+        col_input: 'col-sm-9 col-lg-10'                     # The column classes for form input fields
+        offset_label: 'offset-sm-3 offset-lg-2'             # Offset classes for elements that should be aligned with the input fields (e.g., submit buttons)
+
 when@test:
     twig:
         strict_variables: true

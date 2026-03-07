@@ -85,4 +85,41 @@ final class StructuralElementDenormalizerTest extends WebTestCase
         $result2 = $this->service->denormalize($data, Category::class, 'json', ['groups' => ['import']]);
         $this->assertSame($result, $result2);
     }
+
+    public function testDenormalizeViaChildren(): void
+    {
+        $data = ['name' => 'Node',
+            'children' => [
+                ['name' => 'A', 'children' => [['name' => '1'], ['name' => '2']]],
+                ['name' => 'B', 'children' => [['name' => '1'], ['name' => '2']]],
+                ['name' => 'C', 'children' => [['name' => '1'], ['name' => '2'], ['name' => '3']]],
+            ]
+        ];
+
+        $result = $this->service->denormalize($data, Category::class, 'json', ['groups' => ['import', 'include_children']]);
+        $this->assertInstanceOf(Category::class, $result);
+
+        $this->assertCount(3, $result->getChildren());
+        $this->assertSame('A', $result->getChildren()[0]->getName());
+        $this->assertSame('B', $result->getChildren()[1]->getName());
+        $this->assertSame('C', $result->getChildren()[2]->getName());
+        //Parents should be set correctly
+        $this->assertSame($result, $result->getChildren()[0]->getParent());
+        $this->assertSame($result, $result->getChildren()[1]->getParent());
+        $this->assertSame($result, $result->getChildren()[2]->getParent());
+
+        $this->assertCount(2, $result->getChildren()[0]->getChildren());
+        $this->assertSame('1', $result->getChildren()[0]->getChildren()[0]->getName());
+        $this->assertSame('2', $result->getChildren()[0]->getChildren()[1]->getName());
+        //Parents should be set correctly
+        $this->assertSame($result->getChildren()[0], $result->getChildren()[0]->getChildren()[0]->getParent());
+        $this->assertSame($result->getChildren()[0], $result->getChildren()[0]->getChildren()[1]->getParent());
+
+        $this->assertCount(2, $result->getChildren()[1]->getChildren());
+        $this->assertSame('1', $result->getChildren()[1]->getChildren()[0]->getName());
+        $this->assertSame('2', $result->getChildren()[1]->getChildren()[1]->getName());
+        //Must be different instances than the children of A, because we create new elements for the same path, if we don't have them in the DB
+        $this->assertNotSame($result->getChildren()[0]->getChildren()[0], $result->getChildren()[1]->getChildren()[0]);
+
+    }
 }

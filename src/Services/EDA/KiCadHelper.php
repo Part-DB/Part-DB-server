@@ -202,6 +202,7 @@ class KiCadHelper
             "exclude_from_bom" => $this->boolToKicadBool($part->getEdaInfo()->getExcludeFromBom() ?? $part->getCategory()?->getEdaInfo()->getExcludeFromBom() ?? false),
             "exclude_from_board" => $this->boolToKicadBool($part->getEdaInfo()->getExcludeFromBoard() ?? $part->getCategory()?->getEdaInfo()->getExcludeFromBoard() ?? false),
             "exclude_from_sim" => $this->boolToKicadBool($part->getEdaInfo()->getExcludeFromSim() ?? $part->getCategory()?->getEdaInfo()->getExcludeFromSim() ?? false),
+            "description" => $part->getDescription(),
             "fields" => []
         ];
 

@@ -177,6 +177,11 @@
             "allow-contrib": false,
             "require": "7.4.*",
             "docker": true
+        },
+        "phpstan/extension-installer": {
+            "ignore" : [
+                "ekino/phpstan-banned-code"
+            ]
         }
     }
 }

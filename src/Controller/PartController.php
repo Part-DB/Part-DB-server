@@ -290,6 +290,23 @@ final class PartController extends AbstractController
             $this->addFlash('warning', t("part.create_from_info_provider.no_category_yet"));
         }
 
+        $lotAmount = $request->query->get('lotAmount');
+        $lotName = $request->query->get('lotName');
+        $lotUserBarcode = $request->query->get('lotUserBarcode');
+
+        if ($lotAmount !== null || $lotName !== null || $lotUserBarcode !== null) {
+            $partLot = new PartLot();
+            $partLot->setAmount($lotAmount !== null ? (float)$lotAmount : 0);
+            $partLot->setDescription($lotName !== null ? (string)$lotName : '');
+            $partLot->setUserBarcode($lotUserBarcode !== null ? (string)$lotUserBarcode : '');
+
+            $new_part->addPartLot($partLot);
+
+            $this->addFlash('notice', t('part.create_from_info_provider.lot_filled_from_barcode'));
+
+        }
+
+
         return $this->renderPartForm('new', $request, $new_part, [
             'info_provider_dto' => $dto,
         ]);

@@ -71,7 +71,10 @@ class TypeaheadController extends AbstractController
     #[Route(path: '/builtInResources/search', name: 'typeahead_builtInRessources')]
     public function builtInResources(Request $request, BuiltinAttachmentsFinder $finder): JsonResponse
     {
-        $query = $request->get('query');
+        //Ensure that the user can access Part-DB at all
+        $this->denyAccessUnlessGranted('HAS_ACCESS_PERMISSIONS');
+
+        $query = $request->query->getString('query');
         $array = $finder->find($query);
 
         $result = [];
@@ -205,8 +208,15 @@ class TypeaheadController extends AbstractController
         /** @var Category|null $category */
         $category = $entityManager->getRepository(Category::class)->find($categoryId);
 
+        //Ensure the user has access to both the part and the category
+        $this->denyAccessUnlessGranted('read', $part);
+        if ($category !== null) {
+            $this->denyAccessUnlessGranted('read', $category);
+        }
+
         $clonedPart = clone $part;
         $clonedPart->setCategory($category);
+
 
         $partRepository = $entityManager->getRepository(Part::class);
         $ipnSuggestions = $partRepository->autoCompleteIpn($clonedPart, $description, $this->ipnSuggestSettings->suggestPartDigits);

@@ -38,12 +38,12 @@
 
                         {% if section_widget.vars.embedded_settings_metadata is defined %} {# Check if we have nested embedded settings or not #}
                             <fieldset>
-                                <legend class="offset-3">
+                                <legend class="{{ offset_label }}">
                                     <i class="fa-solid {{ settings_icon(settings_object)|default('fa-sliders') }} fa-fw"></i>
                                     {{ (section_widget.vars.label ?? section_widget.vars.name|humanize)|trans }}
                                 </legend>
                                 <div class="row">
-                                    <div class="offset-sm-3 col mb-3 ps-2">
+                                    <div class="{{ offset_label }} col mb-3 ps-2">
                                         <b>{{ form_help(section_widget) }}</b>
                                         {{ form_errors(section_widget) }}
                                     </div>

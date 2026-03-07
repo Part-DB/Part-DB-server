@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block card_content %}
-    <p class="text-muted offset-3">{% trans %}info_providers.from_url.help{% endtrans %}</p>
+    <p class="text-muted {{ offset_label }}">{% trans %}info_providers.from_url.help{% endtrans %}</p>
 
     {{ form_start(form) }}
     {{ form_row(form.url) }}

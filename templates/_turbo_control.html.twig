@@ -1,22 +1,18 @@
 {% block flashes %}
     {# Insert flashes #}
-    <turbo-stream action="replace" action="morph" target="toast-container">
+    <turbo-stream action="update" action="morph" target="toast-container">
         <template>
-            <div class="toast-container" id="toast-container">
-                {% for label, messages in app.flashes() %}
-                    {% for message in messages %}
-                        {{ include('_toast.html.twig', {
-                            'label': label,
-                            'message': message
-                        }) }}
-                    {% endfor %}
+            {% for label, messages in app.flashes() %}
+                {% for message in messages %}
+                    {{ include('_toast.html.twig', {
+                        'label': label,
+                        'message': message
+                    }) }}
                 {% endfor %}
-            </div>
+            {% endfor %}
         </template>
     </turbo-stream>
 {% endblock %}
-
-
 
 {# Insert info about when the sidebar trees were updated last time, so the sidebar_tree_controller can decide if it needs to reload the tree #}
 <span id="sidebar-last-time-updated" style="display: none;" data-last-update="{{ sidebar_tree_updater.lastTreeUpdate.format("Y-m-d\\TH:i:sP") }}"></span>

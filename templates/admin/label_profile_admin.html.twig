@@ -27,7 +27,7 @@
     {{ form_row(form.options.supported_element) }}
     <div class="mb-2 row">
         {{ form_label(form.options.width) }}
-        <div class="col-sm-9">
+        <div class="{{ col_input }}">
             <div class="input-group">
                 {{ form_widget(form.options.width) }}
 

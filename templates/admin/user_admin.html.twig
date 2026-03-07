@@ -50,7 +50,7 @@
 
     <div class="tab-pane" id="password">
         {% if entity.samlUser %}
-            <div class="offset-3 mb-3 col-9">
+            <div class="mb-3 {{ offset_label }} {{ col_input }}">
                 <span class="badge badge-warning bg-warning"><i class="fa-solid fa-house-user"></i> {% trans %}user.saml_user{% endtrans %}</span>
             </div>
         {% endif %}
@@ -60,7 +60,7 @@
         {{ form_row(form.disabled) }}
 
         {% if entity.id is not null %}
-            <div class="offset-3 mb-3">
+            <div class="{{ offset_label }} {{ col_input }} mb-3">
                 <hr>
                 <h6>{% trans %}user.edit.tfa.caption{% endtrans %}</h6>
 

@@ -39,6 +39,8 @@ export default class extends Controller {
      */
     _tree = null;
 
+    _frame = "frame";
+
     connect() {
         const treeElement = this.treeTarget;
         if (!treeElement) {
@@ -48,6 +50,7 @@ export default class extends Controller {
 
         this._url = this.element.dataset.treeUrl;
         this._data = this.element.dataset.treeData;
+        this._frame = this.element.dataset.frame || "content"; //By default, navigate in the content frame, if a frame is defined
 
         if(this.element.dataset.treeShowTags === "true") {
             this._showTags = true;
@@ -99,8 +102,7 @@ export default class extends Controller {
             onNodeSelected: (event) => {
                 const node = event.detail.node;
                 if (node.href) {
-                    window.Turbo.visit(node.href, {action: "advance"});
-                    this._registerURLWatcher(node);
+                    window.Turbo.visit(node.href, {action: "advance", frame: this._frame});
                 }
             },
         }, [BS5Theme, BS53Theme, FAIconTheme]);
@@ -110,41 +112,12 @@ export default class extends Controller {
             const treeView = event.detail.treeView;
             treeView.revealNode(treeView.getSelected());
 
-            //Add the url watcher to all selected nodes
-            for (const node of treeView.getSelected()) {
-                this._registerURLWatcher(node);
-            }
-
             //Add contextmenu event listener to the tree, which allows us to open the links in a new tab with a right click
             treeView.getTreeElement().addEventListener("contextmenu", this._onContextMenu.bind(this));
         });
 
     }
 
-    _registerURLWatcher(node)
-    {
-        //Register a watcher for a location change, which will unselect the node, if the location changes
-        const desired_url = node.href;
-
-        //Ensure that the node is unselected, if the location changes
-        const unselectNode = () => {
-            //Parse url so we can properly compare them
-            const desired = new URL(node.href, window.location.origin);
-
-            //We only compare the pathname, because the hash and parameters should not matter
-            if(window.location.pathname !== desired.pathname) {
-                //The ignore parameter is important here, otherwise the node will not be unselected
-                node.setSelected(false, {silent: true, ignorePreventUnselect: true});
-
-                //Unregister the watcher
-                document.removeEventListener('turbo:load', unselectNode);
-            }
-        };
-
-        //Register the watcher via hotwire turbo
-        //We must just load to have the new url in window.location
-        document.addEventListener('turbo:load', unselectNode);
-    }
 
     _onContextMenu(event)
     {

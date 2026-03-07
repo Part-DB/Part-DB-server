@@ -208,6 +208,79 @@ class UpdateExecutor
     }
 
     /**
+     * Reset PHP OPcache for the web server process.
+     *
+     * OPcache in PHP-FPM is separate from CLI. After updating code files,
+     * PHP-FPM may still serve stale cached bytecode, causing constructor
+     * mismatches and 500 errors. This method creates a temporary PHP script
+     * in the public directory, invokes it via HTTP to reset OPcache in the
+     * web server context, then removes the script.
+     *
+     * @return bool Whether OPcache was successfully reset
+     */
+    private function resetOpcache(): bool
+    {
+        $token = bin2hex(random_bytes(16));
+        $resetScript = $this->project_dir . '/public/_opcache_reset_' . $token . '.php';
+
+        try {
+            // Create a temporary PHP script that resets OPcache
+            $scriptContent = '<?php '
+                . 'if (function_exists("opcache_reset")) { opcache_reset(); echo "OK"; } '
+                . 'else { echo "NO_OPCACHE"; } '
+                . '@unlink(__FILE__);';
+
+            $this->filesystem->dumpFile($resetScript, $scriptContent);
+
+            // Try to invoke it via HTTP on localhost
+            $urls = [
+                'http://127.0.0.1/_opcache_reset_' . $token . '.php',
+                'http://localhost/_opcache_reset_' . $token . '.php',
+            ];
+
+            $success = false;
+            foreach ($urls as $url) {
+                try {
+                    $context = stream_context_create([
+                        'http' => [
+                            'timeout' => 5,
+                            'ignore_errors' => true,
+                        ],
+                    ]);
+
+                    $response = @file_get_contents($url, false, $context);
+                    if ($response === 'OK') {
+                        $this->logger->info('OPcache reset via ' . $url);
+                        $success = true;
+                        break;
+                    }
+                } catch (\Throwable $e) {
+                    // Try next URL
+                    continue;
+                }
+            }
+
+            if (!$success) {
+                $this->logger->info('OPcache reset via HTTP not available, trying CLI fallback');
+                // CLI opcache_reset() only affects CLI, but try anyway
+                if (function_exists('opcache_reset')) {
+                    opcache_reset();
+                }
+            }
+
+            return $success;
+        } catch (\Throwable $e) {
+            $this->logger->warning('OPcache reset failed: ' . $e->getMessage());
+            return false;
+        } finally {
+            // Ensure the temp script is removed
+            if (file_exists($resetScript)) {
+                @unlink($resetScript);
+            }
+        }
+    }
+
+    /**
      * Validate that we can perform an update.
      *
      * @return array{valid: bool, errors: array<string>}
@@ -420,7 +493,7 @@ class UpdateExecutor
             // Step 11: Clear cache
             $stepStart = microtime(true);
             $this->runCommand([
-                'php', 'bin/console', 'cache:clear',
+                'php', 'bin/console', 'cache:pool:clear', '--all',
                 '--env=prod',
                 '--no-interaction',
             ], 'Clear cache', 120);
@@ -434,12 +507,20 @@ class UpdateExecutor
             ], 'Warmup cache', 120);
             $log('cache_warmup', 'Warmed up application cache', true, microtime(true) - $stepStart);
 
-            // Step 13: Disable maintenance mode
+            // Step 13: Reset OPcache (if available)
+            $stepStart = microtime(true);
+            $opcacheResult = $this->resetOpcache();
+            $log('opcache_reset', $opcacheResult
+                ? 'Reset PHP OPcache for web server'
+                : 'OPcache reset skipped (not available or not needed)',
+                true, microtime(true) - $stepStart);
+
+            // Step 14: Disable maintenance mode
             $stepStart = microtime(true);
             $this->disableMaintenanceMode();
             $log('maintenance_off', 'Disabled maintenance mode', true, microtime(true) - $stepStart);
 
-            // Step 14: Release lock
+            // Step 15: Release lock
             $stepStart = microtime(true);
             $this->releaseLock();
 
@@ -489,10 +570,13 @@ class UpdateExecutor
 
                     // Clear cache after rollback
                     $this->runCommand([
-                        'php', 'bin/console', 'cache:clear',
+                        'php', 'bin/console', 'cache:pool:clear', '--all',
                         '--env=prod',
                     ], 'Clear cache after rollback', 120);
                     $log('rollback_cache', 'Cleared cache after rollback', true);
+
+                    // Reset OPcache after rollback
+                    $this->resetOpcache();
 
                 } catch (\Exception $rollbackError) {
                     $log('rollback_failed', 'Rollback failed: ' . $rollbackError->getMessage(), false);
@@ -603,6 +687,33 @@ class UpdateExecutor
 
 
     /**
+     * Delete a specific update log file.
+     */
+    public function deleteLog(string $filename): bool
+    {
+        // Validate filename pattern for security
+        if (!preg_match('/^update-[\w.\-]+\.log$/', $filename)) {
+            $this->logger->warning('Attempted to delete invalid log filename: ' . $filename);
+            return false;
+        }
+
+        $logPath = $this->project_dir . '/' . self::UPDATE_LOG_DIR . '/' . basename($filename);
+
+        if (!file_exists($logPath)) {
+            return false;
+        }
+
+        try {
+            $this->filesystem->remove($logPath);
+            $this->logger->info('Deleted update log: ' . $filename);
+            return true;
+        } catch (\Exception $e) {
+            $this->logger->error('Failed to delete update log: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
      * Restore from a backup file with maintenance mode and cache clearing.
      *
      * This wraps BackupManager::restoreBackup with additional safety measures
@@ -682,12 +793,17 @@ class UpdateExecutor
             $this->runCommand(['php', 'bin/console', 'cache:warmup'], 'Warm up cache');
             $log('cache_warmup', 'Warmed up application cache', true, microtime(true) - $stepStart);
 
-            // Step 6: Disable maintenance mode
+            // Step 6: Reset OPcache
+            $stepStart = microtime(true);
+            $this->resetOpcache();
+            $log('opcache_reset', 'Reset PHP OPcache', true, microtime(true) - $stepStart);
+
+            // Step 7: Disable maintenance mode
             $stepStart = microtime(true);
             $this->disableMaintenanceMode();
             $log('maintenance_off', 'Disabled maintenance mode', true, microtime(true) - $stepStart);
 
-            // Step 7: Release lock
+            // Step 8: Release lock
             $this->releaseLock();
 
             $totalDuration = microtime(true) - $startTime;
@@ -817,7 +933,7 @@ class UpdateExecutor
             'create_backup' => $createBackup,
             'started_at' => (new \DateTime())->format('c'),
             'current_step' => 0,
-            'total_steps' => 14,
+            'total_steps' => 15,
             'step_name' => 'initializing',
             'step_message' => 'Starting update process...',
             'steps' => [],
@@ -890,7 +1006,7 @@ class UpdateExecutor
         bool $createBackup = true,
         ?callable $onProgress = null
     ): array {
-        $totalSteps = 12;
+        $totalSteps = 13;
         $currentStep = 0;
 
         $updateProgress = function (string $stepName, string $message, bool $success = true) use (&$currentStep, $totalSteps, $targetVersion, $createBackup): void {
