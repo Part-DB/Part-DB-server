@@ -482,7 +482,7 @@ class BulkInfoProviderImportController extends AbstractController
             $this->updatePartSearchResults($job, $searchResultsDto[0] ?? null);
 
             // Prefetch details if requested
-            if ($prefetchDetails && $searchResultsDto !== null) {
+            if ($prefetchDetails) {
                 $this->bulkService->prefetchDetailsForResults($searchResultsDto);
             }
 
