@@ -14,6 +14,24 @@
 
 {% block card_content %}
 
+    <!-- Navigation -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="{{ path('bulk_info_provider_manage') }}" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-arrow-left"></i> {% trans %}info_providers.bulk_import.back_to_jobs{% endtrans %}
+        </a>
+        <a href="{{ path('parts_show_all') }}" class="btn btn-outline-primary btn-sm">
+            <i class="fas fa-list"></i> {% trans %}info_providers.bulk_import.back_to_parts{% endtrans %}
+        </a>
+    </div>
+
+    {% if job.isCompleted %}
+        <div class="alert alert-success mb-3" role="alert">
+            <i class="fas fa-check-circle"></i>
+            <strong>{% trans %}info_providers.bulk_import.job_completed{% endtrans %}</strong>
+            {% trans %}info_providers.bulk_import.job_completed.description{% endtrans %}
+        </div>
+    {% endif %}
+
 <div {{ stimulus_controller('bulk-import', {
     'jobId': job.id,
     'researchUrl': path('bulk_info_provider_research_part', {'jobId': job.id, 'partId': '__PART_ID__'}),

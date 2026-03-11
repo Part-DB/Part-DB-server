@@ -11103,6 +11103,30 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Update Part</target>
       </segment>
     </unit>
+    <unit id="back_to_jobs_btn" name="info_providers.bulk_import.back_to_jobs">
+      <segment state="translated">
+        <source>info_providers.bulk_import.back_to_jobs</source>
+        <target>Back to Jobs</target>
+      </segment>
+    </unit>
+    <unit id="back_to_parts_btn" name="info_providers.bulk_import.back_to_parts">
+      <segment state="translated">
+        <source>info_providers.bulk_import.back_to_parts</source>
+        <target>Back to Parts</target>
+      </segment>
+    </unit>
+    <unit id="job_completed_msg" name="info_providers.bulk_import.job_completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.job_completed</source>
+        <target>Job completed!</target>
+      </segment>
+    </unit>
+    <unit id="job_completed_desc" name="info_providers.bulk_import.job_completed.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.job_completed.description</source>
+        <target>All parts have been processed. You can review the results below or navigate back to the parts list.</target>
+      </segment>
+    </unit>
     <unit id="quick_apply_btn" name="info_providers.bulk_import.quick_apply">
       <segment state="translated">
         <source>info_providers.bulk_import.quick_apply</source>
