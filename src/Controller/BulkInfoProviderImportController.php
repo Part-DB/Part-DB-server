@@ -68,6 +68,10 @@ class BulkInfoProviderImportController extends AbstractController
     {
         $dtos = [];
         foreach ($fieldMappings as $mapping) {
+            // Skip entries where field is null/empty (e.g. user added a row but didn't select a field)
+            if (empty($mapping['field'])) {
+                continue;
+            }
             $dtos[] = new BulkSearchFieldMappingDTO(field: $mapping['field'], providers: $mapping['providers'], priority: $mapping['priority'] ?? 1);
         }
         return $dtos;
@@ -472,16 +476,7 @@ class BulkInfoProviderImportController extends AbstractController
             $fieldMappingDtos = $job->getFieldMappings();
             $prefetchDetails = $job->isPrefetchDetails();
 
-            try {
-                $searchResultsDto = $this->bulkService->performBulkSearch([$part], $fieldMappingDtos, $prefetchDetails);
-            } catch (\Exception $searchException) {
-                // Handle "no search results found" as a normal case, not an error
-                if (str_contains($searchException->getMessage(), 'No search results found')) {
-                    $searchResultsDto = null;
-                } else {
-                    throw $searchException;
-                }
-            }
+            $searchResultsDto = $this->bulkService->performBulkSearch([$part], $fieldMappingDtos, $prefetchDetails);
 
             // Update the job's search results for this specific part efficiently
             $this->updatePartSearchResults($job, $searchResultsDto[0] ?? null);
