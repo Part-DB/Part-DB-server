@@ -589,6 +589,296 @@ final class BulkInfoProviderImportControllerTest extends WebTestCase
         return $parts;
     }
 
+    public function testQuickApplyWithNonExistentJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/999999/part/1/quick-apply');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('error', $response);
+    }
+
+    public function testQuickApplyWithNonExistentPart(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->findOneBy(['name' => 'admin']);
+
+        if (!$user) {
+            $this->markTestSkipped('Admin user not found in fixtures');
+        }
+
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        $job->setSearchResults(new BulkSearchResponseDTO([]));
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/part/999999/quick-apply');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+
+        // Clean up
+        $entityManager->remove($job);
+        $entityManager->flush();
+    }
+
+    public function testQuickApplyWithNoSearchResults(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->findOneBy(['name' => 'admin']);
+
+        if (!$user) {
+            $this->markTestSkipped('Admin user not found in fixtures');
+        }
+
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        // Empty search results - no provider results for any parts
+        $job->setSearchResults(new BulkSearchResponseDTO([
+            new BulkSearchPartResultsDTO(part: $parts[0], searchResults: [], errors: [])
+        ]));
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        // Quick apply without providing providerKey/providerId and no search results available
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/part/1/quick-apply', [], [], [
+            'CONTENT_TYPE' => 'application/json',
+        ], json_encode([]));
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertFalse($response['success']);
+
+        // Clean up
+        $entityManager->remove($job);
+        $entityManager->flush();
+    }
+
+    public function testQuickApplyAccessControl(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $admin = $userRepository->findOneBy(['name' => 'admin']);
+        $readonly = $userRepository->findOneBy(['name' => 'noread']);
+
+        if (!$admin || !$readonly) {
+            $this->markTestSkipped('Required test users not found in fixtures');
+        }
+
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        // Create job owned by readonly user
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($readonly);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        $job->setSearchResults(new BulkSearchResponseDTO([]));
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        // Admin tries to quick apply on readonly user's job - should fail
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/part/1/quick-apply');
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+
+        // Clean up
+        $jobId = $job->getId();
+        $entityManager->clear();
+        $persistedJob = $entityManager->find(BulkInfoProviderImportJob::class, $jobId);
+        if ($persistedJob) {
+            $entityManager->remove($persistedJob);
+            $entityManager->flush();
+        }
+    }
+
+    public function testQuickApplyAllWithNonExistentJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/999999/quick-apply-all');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('error', $response);
+    }
+
+    public function testQuickApplyAllWithNoResults(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->findOneBy(['name' => 'admin']);
+
+        if (!$user) {
+            $this->markTestSkipped('Admin user not found in fixtures');
+        }
+
+        $parts = $this->getTestParts($entityManager, [1, 2]);
+
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        // Empty search results for all parts
+        $job->setSearchResults(new BulkSearchResponseDTO([
+            new BulkSearchPartResultsDTO(part: $parts[0], searchResults: [], errors: []),
+            new BulkSearchPartResultsDTO(part: $parts[1], searchResults: [], errors: []),
+        ]));
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/quick-apply-all');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($response['success']);
+        $this->assertEquals(0, $response['applied']);
+        $this->assertEquals(2, $response['no_results']);
+
+        // Clean up
+        $entityManager->remove($job);
+        $entityManager->flush();
+    }
+
+    public function testQuickApplyAllAccessControl(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepository = $entityManager->getRepository(User::class);
+        $readonly = $userRepository->findOneBy(['name' => 'noread']);
+
+        if (!$readonly) {
+            $this->markTestSkipped('Required test users not found in fixtures');
+        }
+
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($readonly);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        $job->setSearchResults(new BulkSearchResponseDTO([]));
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        // Admin tries quick apply all on readonly user's job
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $job->getId() . '/quick-apply-all');
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+
+        // Clean up
+        $jobId = $job->getId();
+        $entityManager->clear();
+        $persistedJob = $entityManager->find(BulkInfoProviderImportJob::class, $jobId);
+        if ($persistedJob) {
+            $entityManager->remove($persistedJob);
+            $entityManager->flush();
+        }
+    }
+
+    public function testStep2TemplateRenderingWithQuickApplyButtons(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = static::getContainer()->get('doctrine')->getManager();
+        $partRepository = $entityManager->getRepository(Part::class);
+        $part = $partRepository->find(1);
+
+        if (!$part) {
+            $this->markTestSkipped('Test part with ID 1 not found in fixtures');
+        }
+
+        $userRepository = $entityManager->getRepository(User::class);
+        $user = $userRepository->findOneBy(['name' => 'admin']);
+
+        if (!$user) {
+            $this->markTestSkipped('Admin user not found in fixtures');
+        }
+
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        $job->addPart($part);
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+
+        $searchResults = new BulkSearchResponseDTO(partResults: [
+            new BulkSearchPartResultsDTO(part: $part,
+                searchResults: [new BulkSearchPartResultDTO(
+                    searchResult: new SearchResultDTO(provider_key: 'test_provider', provider_id: 'TEST123', name: 'Test Component', description: 'Test description', manufacturer: 'Test Mfg', mpn: 'TEST-MPN', provider_url: 'https://example.com/test', preview_image_url: null),
+                    sourceField: 'mpn',
+                    sourceKeyword: 'TEST-MPN',
+                )]
+            )
+        ]);
+
+        $job->setSearchResults($searchResults);
+
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        $client->request('GET', '/tools/bulk_info_provider_import/step2/' . $job->getId());
+
+        if ($client->getResponse()->isRedirect()) {
+            $client->followRedirect();
+        }
+
+        self::assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        $content = (string) $client->getResponse()->getContent();
+        // Verify quick apply buttons are rendered (Stimulus renders camelCase as kebab-case data attributes)
+        $this->assertStringContainsString('quick-apply-url-value', $content);
+        $this->assertStringContainsString('quick-apply-all-url-value', $content);
+
+        // Clean up
+        $jobId = $job->getId();
+        $entityManager->clear();
+        $jobToRemove = $entityManager->find(BulkInfoProviderImportJob::class, $jobId);
+        if ($jobToRemove) {
+            $entityManager->remove($jobToRemove);
+            $entityManager->flush();
+        }
+    }
+
     public function testStep1Form(): void
     {
         $client = static::createClient();

@@ -11103,6 +11103,30 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Update Part</target>
       </segment>
     </unit>
+    <unit id="quick_apply_btn" name="info_providers.bulk_import.quick_apply">
+      <segment state="translated">
+        <source>info_providers.bulk_import.quick_apply</source>
+        <target>Quick Apply</target>
+      </segment>
+    </unit>
+    <unit id="quick_apply_tooltip" name="info_providers.bulk_import.quick_apply.tooltip">
+      <segment state="translated">
+        <source>info_providers.bulk_import.quick_apply.tooltip</source>
+        <target>Apply this provider result to the part without opening the edit form</target>
+      </segment>
+    </unit>
+    <unit id="quick_apply_all_btn" name="info_providers.bulk_import.quick_apply_all">
+      <segment state="translated">
+        <source>info_providers.bulk_import.quick_apply_all</source>
+        <target>Apply All (Top Results)</target>
+      </segment>
+    </unit>
+    <unit id="quick_apply_all_tooltip" name="info_providers.bulk_import.quick_apply_all.tooltip">
+      <segment state="translated">
+        <source>info_providers.bulk_import.quick_apply_all.tooltip</source>
+        <target>Apply the top-ranked search result to all pending parts without individual review</target>
+      </segment>
+    </unit>
     <unit id="e_DDQ2u" name="info_providers.bulk_import.prefetch_details">
       <segment state="translated">
         <source>info_providers.bulk_import.prefetch_details</source>

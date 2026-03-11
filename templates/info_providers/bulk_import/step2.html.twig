@@ -20,7 +20,9 @@
     'researchAllUrl': path('bulk_info_provider_research_all', {'jobId': job.id}),
     'markCompletedUrl': path('bulk_info_provider_mark_completed', {'jobId': job.id, 'partId': '__PART_ID__'}),
     'markSkippedUrl': path('bulk_info_provider_mark_skipped', {'jobId': job.id, 'partId': '__PART_ID__'}),
-    'markPendingUrl': path('bulk_info_provider_mark_pending', {'jobId': job.id, 'partId': '__PART_ID__'})
+    'markPendingUrl': path('bulk_info_provider_mark_pending', {'jobId': job.id, 'partId': '__PART_ID__'}),
+    'quickApplyUrl': path('bulk_info_provider_quick_apply', {'jobId': job.id, 'partId': '__PART_ID__'}),
+    'quickApplyAllUrl': path('bulk_info_provider_quick_apply_all', {'jobId': job.id})
 }) }}>
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
@@ -94,6 +96,13 @@
                             id="research-all-btn">
                         <span class="spinner-border spinner-border-sm me-1" style="display: none;" id="research-all-spinner"></span>
                         <i class="fas fa-search"></i> {% trans %}info_providers.bulk_import.research.all_pending{% endtrans %}
+                    </button>
+                    <button type="button" class="btn btn-success btn-sm"
+                            data-action="click->bulk-import#quickApplyAll"
+                            id="quick-apply-all-btn"
+                            title="{% trans %}info_providers.bulk_import.quick_apply_all.tooltip{% endtrans %}">
+                        <span class="spinner-border spinner-border-sm me-1" style="display: none;" id="quick-apply-all-spinner"></span>
+                        <i class="fas fa-bolt"></i> {% trans %}info_providers.bulk_import.quick_apply_all{% endtrans %}
                     </button>
                 </div>
             </div>
@@ -214,6 +223,16 @@
                                         </td>
                                         <td>
                                             <div class="btn-group-vertical btn-group-sm" role="group">
+                                                {% if not isCompleted %}
+                                                    <button type="button" class="btn btn-success"
+                                                            data-action="click->bulk-import#quickApply"
+                                                            data-part-id="{{ part.id }}"
+                                                            data-provider-key="{{ dto.provider_key }}"
+                                                            data-provider-id="{{ dto.provider_id }}"
+                                                            title="{% trans %}info_providers.bulk_import.quick_apply.tooltip{% endtrans %}">
+                                                        <i class="fas fa-bolt"></i> {% trans %}info_providers.bulk_import.quick_apply{% endtrans %}
+                                                    </button>
+                                                {% endif %}
                                                 {% set updateHref = path('info_providers_update_part',
                                                     {'id': part.id, 'providerKey': dto.provider_key, 'providerId': dto.provider_id}) ~ '?jobId=' ~ job.id %}
                                                 <a class="btn btn-primary{% if isCompleted %} disabled{% endif %}" href="{% if not isCompleted %}{{ updateHref }}{% else %}#{% endif %}"{% if isCompleted %} aria-disabled="true"{% endif %}>

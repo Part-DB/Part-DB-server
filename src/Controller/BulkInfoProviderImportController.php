@@ -29,10 +29,12 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
 use App\Entity\UserSystem\User;
 use App\Form\InfoProviderSystem\GlobalFieldMappingType;
+use App\Services\EntityMergers\Mergers\PartMerger;
 use App\Services\InfoProviderSystem\BulkInfoProviderService;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
+use App\Services\InfoProviderSystem\PartInfoRetriever;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -513,6 +515,171 @@ class BulkInfoProviderImportController extends AbstractController
                 ]
             );
         }
+    }
+
+    #[Route('/job/{jobId}/part/{partId}/quick-apply', name: 'bulk_info_provider_quick_apply', methods: ['POST'])]
+    public function quickApply(
+        int $jobId,
+        int $partId,
+        Request $request,
+        PartInfoRetriever $infoRetriever,
+        PartMerger $partMerger
+    ): JsonResponse {
+        $job = $this->validateJobAccess($jobId);
+        if (!$job) {
+            return $this->createErrorResponse('Job not found or access denied', 404, ['job_id' => $jobId]);
+        }
+
+        $part = $this->entityManager->getRepository(Part::class)->find($partId);
+        if (!$part) {
+            return $this->createErrorResponse('Part not found', 404, ['part_id' => $partId]);
+        }
+
+        $this->denyAccessUnlessGranted('edit', $part);
+
+        // Get provider key/id from request body, or fall back to top search result
+        $body = json_decode($request->getContent(), true) ?? [];
+        $providerKey = $body['providerKey'] ?? null;
+        $providerId = $body['providerId'] ?? null;
+
+        if (!$providerKey || !$providerId) {
+            $searchResults = $job->getSearchResults($this->entityManager);
+            foreach ($searchResults->partResults as $partResult) {
+                if ($partResult->part->getId() === $partId) {
+                    $sorted = $partResult->getResultsSortedByPriority();
+                    if (!empty($sorted)) {
+                        $providerKey = $sorted[0]->searchResult->provider_key;
+                        $providerId = $sorted[0]->searchResult->provider_id;
+                    }
+                    break;
+                }
+            }
+        }
+
+        if (!$providerKey || !$providerId) {
+            return $this->createErrorResponse('No search result available for this part', 400, ['part_id' => $partId]);
+        }
+
+        try {
+            $dto = $infoRetriever->getDetails($providerKey, $providerId);
+            $providerPart = $infoRetriever->dtoToPart($dto);
+            $partMerger->merge($part, $providerPart);
+
+            $this->entityManager->flush();
+
+            $job->markPartAsCompleted($partId);
+            if ($job->isAllPartsCompleted() && !$job->isCompleted()) {
+                $job->markAsCompleted();
+            }
+            $this->entityManager->flush();
+
+            return $this->json([
+                'success' => true,
+                'message' => sprintf('Applied provider data to "%s"', $part->getName()),
+                'part_id' => $partId,
+                'provider_key' => $providerKey,
+                'provider_id' => $providerId,
+                'progress' => $job->getProgressPercentage(),
+                'completed_count' => $job->getCompletedPartsCount(),
+                'total_count' => $job->getPartCount(),
+                'job_completed' => $job->isCompleted(),
+            ]);
+        } catch (\Exception $e) {
+            return $this->createErrorResponse(
+                'Quick apply failed: ' . $e->getMessage(),
+                500,
+                ['job_id' => $jobId, 'part_id' => $partId, 'exception' => $e->getMessage()]
+            );
+        }
+    }
+
+    #[Route('/job/{jobId}/quick-apply-all', name: 'bulk_info_provider_quick_apply_all', methods: ['POST'])]
+    public function quickApplyAll(
+        int $jobId,
+        PartInfoRetriever $infoRetriever,
+        PartMerger $partMerger
+    ): JsonResponse {
+        set_time_limit(600);
+
+        $job = $this->validateJobAccess($jobId);
+        if (!$job) {
+            return $this->createErrorResponse('Job not found or access denied', 404, ['job_id' => $jobId]);
+        }
+
+        $searchResults = $job->getSearchResults($this->entityManager);
+        $applied = 0;
+        $failed = 0;
+        $noResults = 0;
+        $errors = [];
+
+        foreach ($job->getJobParts() as $jobPart) {
+            if ($jobPart->isCompleted() || $jobPart->isSkipped()) {
+                continue;
+            }
+
+            $part = $jobPart->getPart();
+
+            if (!$this->isGranted('edit', $part)) {
+                $errors[] = sprintf('No edit permission for "%s"', $part->getName());
+                $failed++;
+                continue;
+            }
+
+            // Find top search result for this part
+            $providerKey = null;
+            $providerId = null;
+            foreach ($searchResults->partResults as $partResult) {
+                if ($partResult->part->getId() === $part->getId()) {
+                    $sorted = $partResult->getResultsSortedByPriority();
+                    if (!empty($sorted)) {
+                        $providerKey = $sorted[0]->searchResult->provider_key;
+                        $providerId = $sorted[0]->searchResult->provider_id;
+                    }
+                    break;
+                }
+            }
+
+            if (!$providerKey || !$providerId) {
+                $noResults++;
+                continue;
+            }
+
+            try {
+                $dto = $infoRetriever->getDetails($providerKey, $providerId);
+                $providerPart = $infoRetriever->dtoToPart($dto);
+                $partMerger->merge($part, $providerPart);
+                $this->entityManager->flush();
+
+                $job->markPartAsCompleted($part->getId());
+                $applied++;
+            } catch (\Exception $e) {
+                $this->logger->error('Quick apply failed for part', [
+                    'part_id' => $part->getId(),
+                    'part_name' => $part->getName(),
+                    'error' => $e->getMessage(),
+                ]);
+                $errors[] = sprintf('Failed for "%s": %s', $part->getName(), $e->getMessage());
+                $failed++;
+            }
+        }
+
+        if ($job->isAllPartsCompleted() && !$job->isCompleted()) {
+            $job->markAsCompleted();
+        }
+        $this->entityManager->flush();
+
+        return $this->json([
+            'success' => true,
+            'applied' => $applied,
+            'failed' => $failed,
+            'no_results' => $noResults,
+            'errors' => $errors,
+            'message' => sprintf('Applied to %d parts, %d failed, %d had no results', $applied, $failed, $noResults),
+            'progress' => $job->getProgressPercentage(),
+            'completed_count' => $job->getCompletedPartsCount(),
+            'total_count' => $job->getPartCount(),
+            'job_completed' => $job->isCompleted(),
+        ]);
     }
 
     #[Route('/job/{jobId}/research-all', name: 'bulk_info_provider_research_all', methods: ['POST'])]
