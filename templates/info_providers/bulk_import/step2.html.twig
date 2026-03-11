@@ -208,11 +208,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for result in part_result.searchResults %}
+                                {% set sortedResults = part_result.resultsSortedByPriority %}
+                                {% for result in sortedResults %}
                                     {# @var result \App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultDTO #}
                                     {% set dto = result.searchResult %}
                                     {% set localPart = result.localPart %}
-                                    <tr>
+                                    {% set isTopResult = loop.first %}
+                                    <tr{% if isTopResult and not isCompleted %} class="table-success"{% endif %}>
                                         <td>
                                             <img src="{{ dto.preview_image_url }}" data-thumbnail="{{ dto.preview_image_url }}"
                                                  class="hoverpic" style="max-width: 35px;" {{ stimulus_controller('elements/hoverpic') }}>
@@ -242,13 +244,14 @@
                                         <td>
                                             <div class="btn-group-vertical btn-group-sm" role="group">
                                                 {% if not isCompleted %}
-                                                    <button type="button" class="btn btn-success"
+                                                    <button type="button" class="btn btn-success{% if not isTopResult %} btn-outline-success{% endif %}"
                                                             data-action="click->bulk-import#quickApply"
                                                             data-part-id="{{ part.id }}"
                                                             data-provider-key="{{ dto.provider_key }}"
                                                             data-provider-id="{{ dto.provider_id }}"
                                                             title="{% trans %}info_providers.bulk_import.quick_apply.tooltip{% endtrans %}">
                                                         <i class="fas fa-bolt"></i> {% trans %}info_providers.bulk_import.quick_apply{% endtrans %}
+                                                        {% if isTopResult %}<span class="badge bg-light text-success ms-1">{% trans %}info_providers.bulk_import.recommended{% endtrans %}</span>{% endif %}
                                                     </button>
                                                 {% endif %}
                                                 {% set updateHref = path('info_providers_update_part',

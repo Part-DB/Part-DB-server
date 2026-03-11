@@ -121,13 +121,11 @@ export default class extends Controller {
 
     async markSkipped(event) {
         const partId = event.currentTarget.dataset.partId
-        const reason = prompt('Reason for skipping (optional):') || ''
-        
+
         try {
             const url = this.markSkippedUrlValue.replace('__PART_ID__', partId)
             const data = await this.fetchWithErrorHandling(url, {
-                method: 'POST',
-                body: JSON.stringify({ reason })
+                method: 'POST'
             })
             
             if (data.success) {

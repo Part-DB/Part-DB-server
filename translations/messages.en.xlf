@@ -11127,6 +11127,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>All parts have been processed. You can review the results below or navigate back to the parts list.</target>
       </segment>
     </unit>
+    <unit id="recommended_badge" name="info_providers.bulk_import.recommended">
+      <segment state="translated">
+        <source>info_providers.bulk_import.recommended</source>
+        <target>Top</target>
+      </segment>
+    </unit>
     <unit id="quick_apply_btn" name="info_providers.bulk_import.quick_apply">
       <segment state="translated">
         <source>info_providers.bulk_import.quick_apply</source>
