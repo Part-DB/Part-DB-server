@@ -23,7 +23,7 @@
 
     {% if saml_enabled %}
         <div class="{{ offset_label }} {{ col_input }}">
-            <a class="btn btn-secondary" href="{{ path('saml_login') }}"><i class="fa-solid fa-house-user"></i> {% trans %}login.sso_saml_login{% endtrans %}</a>
+            <a class="btn btn-secondary" href="{{ path('saml_login') }}" data-turbo="false"><i class="fa-solid fa-house-user"></i> {% trans %}login.sso_saml_login{% endtrans %}</a>
 
             <p class="text-muted">{% trans %}login.local_login_hint{% endtrans %}</p>
         </div>
