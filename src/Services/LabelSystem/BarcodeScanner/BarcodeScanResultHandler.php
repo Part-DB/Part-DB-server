@@ -142,7 +142,8 @@ final readonly class BarcodeScanResultHandler
         }
 
         if ($barcodeScan instanceof LCSCBarcodeScanResult) {
-            return $this->resolvePartFromLCSC($barcodeScan);
+            return $this->resolvePartFromLCSC($barcodeScan)
+                ?? $this->em->getRepository(Part::class)->getPartBySPN($barcodeScan->mpn);
         }
 
         if ($barcodeScan instanceof AmazonBarcodeScanResult) {
