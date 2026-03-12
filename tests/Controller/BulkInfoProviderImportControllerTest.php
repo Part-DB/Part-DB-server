@@ -1327,7 +1327,7 @@ final class BulkInfoProviderImportControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 
-    public function testMarkPartCompleted(): void
+    public function testMarkPartCompletedAutoCompletesJob(): void
     {
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
@@ -1354,7 +1354,7 @@ final class BulkInfoProviderImportControllerTest extends WebTestCase
         $this->cleanupJob($entityManager, $jobId);
     }
 
-    public function testMarkPartSkipped(): void
+    public function testMarkPartSkippedWithReason(): void
     {
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
@@ -1382,7 +1382,7 @@ final class BulkInfoProviderImportControllerTest extends WebTestCase
         $this->cleanupJob($entityManager, $jobId);
     }
 
-    public function testMarkPartPending(): void
+    public function testMarkPartPendingAfterCompleted(): void
     {
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
@@ -1744,7 +1744,7 @@ final class BulkInfoProviderImportControllerTest extends WebTestCase
         $this->assertNull($entityManager->find(BulkInfoProviderImportJob::class, $jobId));
     }
 
-    public function testStep2WithNonExistentJob(): void
+    public function testStep2RedirectsForNonExistentJob(): void
     {
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
