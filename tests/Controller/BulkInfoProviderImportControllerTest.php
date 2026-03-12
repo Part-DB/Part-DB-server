@@ -1483,7 +1483,7 @@ final class BulkInfoProviderImportControllerTest extends WebTestCase
         $this->cleanupJob($entityManager, $jobId);
     }
 
-    public function testQuickApplyWithNoSearchResults(): void
+    public function testQuickApplyEmptyResultsReturns400(): void
     {
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
