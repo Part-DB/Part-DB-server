@@ -216,8 +216,11 @@
                                     {% set isTopResult = loop.first %}
                                     <tr{% if isTopResult and not isCompleted %} class="table-success"{% endif %}>
                                         <td>
-                                            <img src="{{ dto.preview_image_url }}" data-thumbnail="{{ dto.preview_image_url }}"
-                                                 class="hoverpic" style="max-width: 35px;" {{ stimulus_controller('elements/hoverpic') }}>
+                                            {% if dto.preview_image_url %}
+                                                <img src="{{ dto.preview_image_url }}" data-thumbnail="{{ dto.preview_image_url }}"
+                                                     class="hoverpic" style="max-width: 35px;" {{ stimulus_controller('elements/hoverpic') }}
+                                                     onerror="this.style.display='none'">
+                                            {% endif %}
                                         </td>
                                         <td>
                                             {# Check for matches against source keyword (what was searched) #}
@@ -257,7 +260,7 @@
                                                 <span class="badge bg-info">{{ result.sourceField ?? 'unknown' }}</span>
                                             {% endif %}
                                             {% if result.sourceKeyword %}
-                                                <br><small>{{ result.sourceKeyword }}</small>
+                                                <br><small{% if anyMatch %} class="fw-bold text-success"{% endif %}>{{ result.sourceKeyword }}</small>
                                             {% endif %}
                                         </td>
                                         <td>
