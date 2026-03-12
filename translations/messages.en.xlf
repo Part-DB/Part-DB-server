@@ -11157,6 +11157,18 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>History</target>
       </segment>
     </unit>
+    <unit id="spn_match_badge" name="info_providers.bulk_import.spn_match">
+      <segment state="translated">
+        <source>info_providers.bulk_import.spn_match</source>
+        <target>SPN matches</target>
+      </segment>
+    </unit>
+    <unit id="match_badge" name="info_providers.bulk_import.match">
+      <segment state="translated">
+        <source>info_providers.bulk_import.match</source>
+        <target>Match</target>
+      </segment>
+    </unit>
     <unit id="quick_apply_btn" name="info_providers.bulk_import.quick_apply">
       <segment state="translated">
         <source>info_providers.bulk_import.quick_apply</source>

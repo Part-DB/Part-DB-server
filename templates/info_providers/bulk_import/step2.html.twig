@@ -220,8 +220,12 @@
                                                  class="hoverpic" style="max-width: 35px;" {{ stimulus_controller('elements/hoverpic') }}>
                                         </td>
                                         <td>
-                                            {% set nameMatch = dto.name is not null and part.name is not null and dto.name|lower == part.name|lower %}
-                                            {% set mpnMatch = dto.mpn is not null and part.manufacturerProductNumber is not null and dto.mpn|lower == part.manufacturerProductNumber|lower %}
+                                            {# Check for matches against source keyword (what was searched) #}
+                                            {% set sourceKw = result.sourceKeyword|default('')|lower %}
+                                            {% set nameMatch = sourceKw is not empty and dto.name is not null and dto.name|lower == sourceKw %}
+                                            {% set mpnMatch = sourceKw is not empty and dto.mpn is not null and dto.mpn|lower == sourceKw %}
+                                            {% set spnMatch = sourceKw is not empty and dto.provider_id is not null and dto.provider_id|lower == sourceKw %}
+                                            {% set anyMatch = nameMatch or mpnMatch or spnMatch %}
                                             {% if dto.provider_url is not null %}
                                                 <a href="{{ dto.provider_url }}" target="_blank" rel="noopener"{% if nameMatch %} class="fw-bold"{% endif %}>{{ dto.name }}</a>
                                             {% else %}
@@ -231,7 +235,7 @@
                                                 <span class="badge bg-success ms-1" title="{% trans %}info_providers.bulk_import.exact_match{% endtrans %}"><i class="fas fa-check-circle"></i></span>
                                             {% endif %}
                                             {% if dto.mpn is not null %}
-                                                <br><small{% if mpnMatch %} class="fw-bold text-success"{% else %} class="text-muted"{% endif %}>{{ dto.mpn }}</small>
+                                                <br><small{% if mpnMatch %} class="fw-bold text-success"{% endif %}>{{ dto.mpn }}</small>
                                                 {% if mpnMatch %}
                                                     <span class="badge bg-success ms-1" style="font-size: 0.65em;" title="{% trans %}info_providers.bulk_import.mpn_match{% endtrans %}">MPN <i class="fas fa-check-circle"></i></span>
                                                 {% endif %}
@@ -241,10 +245,17 @@
                                         <td>{{ dto.manufacturer ?? '' }}</td>
                                         <td>
                                             {{ info_provider_label(dto.provider_key)|default(dto.provider_key) }}
-                                            <br><small class="text-muted">{{ dto.provider_id }}</small>
+                                            <br><small{% if spnMatch %} class="fw-bold text-success"{% endif %}>{{ dto.provider_id }}</small>
+                                            {% if spnMatch %}
+                                                <span class="badge bg-success ms-1" style="font-size: 0.65em;" title="{% trans %}info_providers.bulk_import.spn_match{% endtrans %}">SPN <i class="fas fa-check-circle"></i></span>
+                                            {% endif %}
                                         </td>
                                         <td>
-                                            <span class="badge bg-info">{{ result.sourceField ?? 'unknown' }}</span>
+                                            {% if anyMatch %}
+                                                <span class="badge bg-success">{% trans %}info_providers.bulk_import.match{% endtrans %}</span>
+                                            {% else %}
+                                                <span class="badge bg-info">{{ result.sourceField ?? 'unknown' }}</span>
+                                            {% endif %}
                                             {% if result.sourceKeyword %}
                                                 <br><small>{{ result.sourceKeyword }}</small>
                                             {% endif %}
