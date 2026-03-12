@@ -396,6 +396,7 @@ class LCSCProvider implements BatchInfoProviderInterface, URLHandlerInfoProvider
         // Now collect all results (like .then() in JavaScript)
         foreach ($responses as $keyword => $response) {
             try {
+                $keyword = (string) $keyword;
                 $arr = $response->toArray(); // This waits for the response
                 $results[$keyword] = $this->processSearchResponse($arr, $keyword);
             } catch (\Exception $e) {
