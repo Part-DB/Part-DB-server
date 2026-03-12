@@ -1169,4 +1169,684 @@ final class BulkInfoProviderImportControllerTest extends WebTestCase
         $entityManager->remove($job);
         $entityManager->flush();
     }
+
+    /**
+     * Helper to create a job with search results for testing.
+     */
+    private function createJobWithSearchResults(object $entityManager, object $user, array $parts, string $status = 'in_progress'): BulkInfoProviderImportJob
+    {
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
+
+        $statusEnum = match ($status) {
+            'pending' => BulkImportJobStatus::PENDING,
+            'completed' => BulkImportJobStatus::COMPLETED,
+            'stopped' => BulkImportJobStatus::STOPPED,
+            default => BulkImportJobStatus::IN_PROGRESS,
+        };
+        $job->setStatus($statusEnum);
+
+        // Create search results with a result per part
+        $partResults = [];
+        foreach ($parts as $part) {
+            $partResults[] = new BulkSearchPartResultsDTO(
+                part: $part,
+                searchResults: [
+                    new BulkSearchPartResultDTO(
+                        searchResult: new SearchResultDTO(
+                            provider_key: 'test_provider',
+                            provider_id: 'TEST_' . $part->getId(),
+                            name: $part->getName() ?? 'Test Part',
+                            description: 'Test description',
+                            manufacturer: 'Test Mfg',
+                            mpn: 'MPN-' . $part->getId(),
+                            provider_url: 'https://example.com/' . $part->getId(),
+                            preview_image_url: null,
+                        ),
+                        sourceField: 'mpn',
+                        sourceKeyword: $part->getName() ?? 'test',
+                        localPart: null,
+                    ),
+                ]
+            );
+        }
+
+        $job->setSearchResults(new BulkSearchResponseDTO($partResults));
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        return $job;
+    }
+
+    private function cleanupJob(object $entityManager, int $jobId): void
+    {
+        $entityManager->clear();
+        $persistedJob = $entityManager->find(BulkInfoProviderImportJob::class, $jobId);
+        if ($persistedJob) {
+            $entityManager->remove($persistedJob);
+            $entityManager->flush();
+        }
+    }
+
+    public function testDeleteCompletedJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        $job = $this->createJobWithSearchResults($entityManager, $user, $parts, 'completed');
+        $jobId = $job->getId();
+
+        $client->request('DELETE', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/delete');
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($response['success']);
+
+        // Verify job was deleted
+        $entityManager->clear();
+        $this->assertNull($entityManager->find(BulkInfoProviderImportJob::class, $jobId));
+    }
+
+    public function testDeleteActiveJobFails(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        $job = $this->createJobWithSearchResults($entityManager, $user, $parts, 'in_progress');
+        $jobId = $job->getId();
+
+        $client->request('DELETE', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/delete');
+        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
+
+    public function testDeleteNonExistentJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $client->request('DELETE', '/en/tools/bulk_info_provider_import/job/999999/delete');
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+    }
+
+    public function testStopInProgressJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        $job = $this->createJobWithSearchResults($entityManager, $user, $parts, 'in_progress');
+        $jobId = $job->getId();
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/stop');
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($response['success']);
+
+        // Verify job is stopped
+        $entityManager->clear();
+        $stoppedJob = $entityManager->find(BulkInfoProviderImportJob::class, $jobId);
+        $this->assertTrue($stoppedJob->isStopped());
+
+        $entityManager->remove($stoppedJob);
+        $entityManager->flush();
+    }
+
+    public function testStopNonExistentJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/999999/stop');
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+    }
+
+    public function testMarkPartCompleted(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        $job = $this->createJobWithSearchResults($entityManager, $user, $parts);
+        $jobId = $job->getId();
+        $partId = $parts[0]->getId();
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/part/' . $partId . '/mark-completed');
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($response['success']);
+        $this->assertEquals(1, $response['completed_count']);
+        $this->assertTrue($response['job_completed']);
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
+
+    public function testMarkPartSkipped(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        $job = $this->createJobWithSearchResults($entityManager, $user, $parts);
+        $jobId = $job->getId();
+        $partId = $parts[0]->getId();
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/part/' . $partId . '/mark-skipped', [
+            'reason' => 'Not needed'
+        ]);
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($response['success']);
+        $this->assertEquals(1, $response['skipped_count']);
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
+
+    public function testMarkPartPending(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        $job = $this->createJobWithSearchResults($entityManager, $user, $parts);
+        $jobId = $job->getId();
+        $partId = $parts[0]->getId();
+
+        // First mark as completed
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/part/' . $partId . '/mark-completed');
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        // Then mark as pending again
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/part/' . $partId . '/mark-pending');
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($response['success']);
+        $this->assertEquals(0, $response['completed_count']);
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
+
+    public function testMarkPartCompletedNonExistentJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/999999/part/1/mark-completed');
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+    }
+
+    public function testQuickApplyWithValidJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        $job = $this->createJobWithSearchResults($entityManager, $user, $parts);
+        $jobId = $job->getId();
+        $partId = $parts[0]->getId();
+
+        // Quick apply will fail because test_provider doesn't exist, but it exercises the code path
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/part/' . $partId . '/quick-apply', [], [], [
+            'CONTENT_TYPE' => 'application/json',
+        ], json_encode(['providerKey' => 'test_provider', 'providerId' => 'TEST_1']));
+
+        // Will get 500 because test_provider doesn't exist, which exercises the catch block
+        $this->assertResponseStatusCodeSame(Response::HTTP_INTERNAL_SERVER_ERROR);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertFalse($response['success']);
+        $this->assertStringContainsString('Quick apply failed', $response['error']);
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
+
+    public function testQuickApplyFallsBackToTopResult(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        $job = $this->createJobWithSearchResults($entityManager, $user, $parts);
+        $jobId = $job->getId();
+        $partId = $parts[0]->getId();
+
+        // No providerKey/providerId in body - should fall back to top search result
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/part/' . $partId . '/quick-apply', [], [], [
+            'CONTENT_TYPE' => 'application/json',
+        ], '{}');
+
+        // Will get 500 because test_provider doesn't exist, but exercises the fallback code path
+        $this->assertResponseStatusCodeSame(Response::HTTP_INTERNAL_SERVER_ERROR);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertStringContainsString('Quick apply failed', $response['error']);
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
+
+    public function testQuickApplyWithNoSearchResults(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        // Create job with empty search results
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        $job->setSearchResults(new BulkSearchResponseDTO([
+            new BulkSearchPartResultsDTO(part: $parts[0], searchResults: [])
+        ]));
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        $jobId = $job->getId();
+        $partId = $parts[0]->getId();
+
+        // No provider specified and no search results - should return 400
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/part/' . $partId . '/quick-apply', [], [], [
+            'CONTENT_TYPE' => 'application/json',
+        ], '{}');
+        $this->assertResponseStatusCodeSame(Response::HTTP_BAD_REQUEST);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertStringContainsString('No search result available', $response['error']);
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
+
+    public function testQuickApplyNonExistentPart(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        $job = $this->createJobWithSearchResults($entityManager, $user, $parts);
+        $jobId = $job->getId();
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/part/999999/quick-apply');
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
+
+    public function testQuickApplyAllWithValidJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        $job = $this->createJobWithSearchResults($entityManager, $user, $parts);
+        $jobId = $job->getId();
+
+        // Quick apply all - will fail for test_provider but exercises the code path
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/quick-apply-all');
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($response['success']);
+        // Should have 1 failed (because test_provider doesn't exist)
+        $this->assertEquals(1, $response['failed']);
+        $this->assertNotEmpty($response['errors']);
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
+
+    public function testQuickApplyAllWithNoSearchResults(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        // Create job with empty results
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
+        $job->setStatus(BulkImportJobStatus::IN_PROGRESS);
+        $job->setSearchResults(new BulkSearchResponseDTO([
+            new BulkSearchPartResultsDTO(part: $parts[0], searchResults: [])
+        ]));
+        $entityManager->persist($job);
+        $entityManager->flush();
+
+        $jobId = $job->getId();
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/quick-apply-all');
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($response['success']);
+        $this->assertEquals(0, $response['applied']);
+        $this->assertEquals(1, $response['no_results']);
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
+
+    public function testQuickApplyAllNonExistentJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/999999/quick-apply-all');
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+    }
+
+    public function testQuickApplyAllSkipsCompletedParts(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        $job = $this->createJobWithSearchResults($entityManager, $user, $parts);
+        $jobId = $job->getId();
+
+        // Mark the part as completed first
+        $job->markPartAsCompleted($parts[0]->getId());
+        $entityManager->flush();
+
+        // Quick apply all should skip already-completed parts
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/quick-apply-all');
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals(0, $response['applied']);
+        $this->assertEquals(0, $response['failed']);
+        $this->assertEquals(0, $response['no_results']);
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
+
+    public function testDeleteStoppedJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        $job = $this->createJobWithSearchResults($entityManager, $user, $parts, 'stopped');
+        $jobId = $job->getId();
+
+        $client->request('DELETE', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/delete');
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($response['success']);
+
+        $entityManager->clear();
+        $this->assertNull($entityManager->find(BulkInfoProviderImportJob::class, $jobId));
+    }
+
+    public function testManagePageSplitsActiveAndHistory(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        // Create one active and one completed job
+        $activeJob = $this->createJobWithSearchResults($entityManager, $user, $parts, 'in_progress');
+        $completedJob = $this->createJobWithSearchResults($entityManager, $user, $parts, 'completed');
+
+        $client->request('GET', '/en/tools/bulk_info_provider_import/manage');
+        if ($client->getResponse()->isRedirect()) {
+            $client->followRedirect();
+        }
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        $content = (string) $client->getResponse()->getContent();
+        $this->assertStringContainsString('Active Jobs', $content);
+        $this->assertStringContainsString('History', $content);
+
+        $this->cleanupJob($entityManager, $activeJob->getId());
+        $this->cleanupJob($entityManager, $completedJob->getId());
+    }
+
+    public function testManagePageCleansUpPendingJobsWithNoResults(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        // Create a pending job with no results (should be cleaned up)
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+        foreach ($parts as $part) {
+            $job->addPart($part);
+        }
+        $job->setStatus(BulkImportJobStatus::PENDING);
+        $job->setSearchResults(new BulkSearchResponseDTO([]));
+        $entityManager->persist($job);
+        $entityManager->flush();
+        $jobId = $job->getId();
+
+        // Visit manage page - should trigger cleanup
+        $client->request('GET', '/en/tools/bulk_info_provider_import/manage');
+        if ($client->getResponse()->isRedirect()) {
+            $client->followRedirect();
+        }
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        // Verify the stale job was cleaned up
+        $entityManager->clear();
+        $this->assertNull($entityManager->find(BulkInfoProviderImportJob::class, $jobId));
+    }
+
+    public function testStep2WithNonExistentJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $client->request('GET', '/en/tools/bulk_info_provider_import/step2/999999');
+
+        // Should redirect with error flash
+        $this->assertResponseRedirects();
+    }
+
+    public function testStep2WithOtherUsersJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $otherUser = $entityManager->getRepository(User::class)->findOneBy(['name' => 'noread']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$otherUser || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        $job = $this->createJobWithSearchResults($entityManager, $otherUser, $parts);
+        $jobId = $job->getId();
+
+        $client->request('GET', '/en/tools/bulk_info_provider_import/step2/' . $jobId);
+
+        // Should redirect with access denied
+        $this->assertResponseRedirects();
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
+
+    public function testResearchPartNonExistentJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/999999/part/1/research');
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+    }
+
+    public function testResearchPartNonExistentPart(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        $job = $this->createJobWithSearchResults($entityManager, $user, $parts);
+        $jobId = $job->getId();
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/part/999999/research');
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
+
+    public function testResearchAllNonExistentJob(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/999999/research-all');
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
+    }
+
+    public function testResearchAllWithAllPartsCompleted(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $parts = $this->getTestParts($entityManager, [1]);
+
+        if (!$user || empty($parts)) {
+            $this->markTestSkipped('Required fixtures not found');
+        }
+
+        $job = $this->createJobWithSearchResults($entityManager, $user, $parts);
+        $jobId = $job->getId();
+
+        // Mark all parts as completed
+        foreach ($parts as $part) {
+            $job->markPartAsCompleted($part->getId());
+        }
+        $entityManager->flush();
+
+        $client->request('POST', '/en/tools/bulk_info_provider_import/job/' . $jobId . '/research-all');
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $response = json_decode($client->getResponse()->getContent(), true);
+        $this->assertTrue($response['success']);
+        $this->assertEquals(0, $response['researched_count']);
+
+        $this->cleanupJob($entityManager, $jobId);
+    }
 }
