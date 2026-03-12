@@ -9,7 +9,7 @@
 
 {% block card_title %}
     <i class="fas fa-search"></i> {% trans %}info_providers.bulk_import.step2.title{% endtrans %}
-    <span class="badge bg-secondary">{{ job.displayNameKey|trans(job.displayNameParams) }} - {{ job.formattedTimestamp }}</span>
+    <span class="badge bg-secondary">#{{ job.id }} - {{ job.displayNameKey|trans(job.displayNameParams) }}</span>
 {% endblock %}
 
 {% block card_content %}
@@ -44,7 +44,7 @@
 }) }}>
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
-            <h5 class="mb-1">{{ job.displayNameKey|trans(job.displayNameParams) }} - {{ job.formattedTimestamp }}</h5>
+            <h5 class="mb-1">#{{ job.id }} - {{ job.displayNameKey|trans(job.displayNameParams) }}</h5>
             <small class="text-muted">
                 {{ job.partCount }} {% trans %}info_providers.bulk_import.parts{% endtrans %} •
                 {{ job.resultCount }} {% trans %}info_providers.bulk_import.results{% endtrans %} •

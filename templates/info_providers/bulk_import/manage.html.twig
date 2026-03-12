@@ -97,7 +97,8 @@
     {% set showCompletedAt = showCompletedAt|default(false) %}
     <tr>
         <td>
-            <strong>{{ job.displayNameKey|trans(job.displayNameParams) }} - {{ job.formattedTimestamp }}</strong>
+            <strong>#{{ job.id }} - {{ job.displayNameKey|trans(job.displayNameParams) }}</strong>
+            <br><small class="text-muted">{{ job.formattedTimestamp }}</small>
         </td>
         <td>{{ job.partCount }}</td>
         <td>{{ job.resultCount }}</td>

@@ -282,8 +282,8 @@ class BulkInfoProviderImportController extends AbstractController
                 $updatedJobs = true;
             }
 
-            // Mark jobs with no results for deletion (failed searches)
-            if ($job->getResultCount() === 0 && $job->isInProgress()) {
+            // Mark jobs with no results for deletion (failed searches or stale pending)
+            if ($job->getResultCount() === 0 && ($job->isInProgress() || $job->isPending())) {
                 $jobsToDelete[] = $job;
             }
         }
