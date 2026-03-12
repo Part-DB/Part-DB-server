@@ -303,9 +303,23 @@ class BulkInfoProviderImportController extends AbstractController
             }
         }
 
+        // Refetch after cleanup and split into active vs finished
+        $allJobs = $this->entityManager->getRepository(BulkInfoProviderImportJob::class)
+            ->findBy([], ['createdAt' => 'DESC']);
+
+        $activeJobs = [];
+        $finishedJobs = [];
+        foreach ($allJobs as $job) {
+            if ($job->isCompleted() || $job->isFailed() || $job->isStopped()) {
+                $finishedJobs[] = $job;
+            } else {
+                $activeJobs[] = $job;
+            }
+        }
+
         return $this->render('info_providers/bulk_import/manage.html.twig', [
-            'jobs' => $this->entityManager->getRepository(BulkInfoProviderImportJob::class)
-                ->findBy([], ['createdAt' => 'DESC']) // Refetch after cleanup
+            'active_jobs' => $activeJobs,
+            'finished_jobs' => $finishedJobs,
         ]);
     }
 

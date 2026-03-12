@@ -11133,6 +11133,30 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Top</target>
       </segment>
     </unit>
+    <unit id="exact_match_badge" name="info_providers.bulk_import.exact_match">
+      <segment state="translated">
+        <source>info_providers.bulk_import.exact_match</source>
+        <target>Exact name match</target>
+      </segment>
+    </unit>
+    <unit id="mpn_match_badge" name="info_providers.bulk_import.mpn_match">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mpn_match</source>
+        <target>MPN matches</target>
+      </segment>
+    </unit>
+    <unit id="active_jobs_header" name="info_providers.bulk_import.active_jobs">
+      <segment state="translated">
+        <source>info_providers.bulk_import.active_jobs</source>
+        <target>Active Jobs</target>
+      </segment>
+    </unit>
+    <unit id="finished_jobs_header" name="info_providers.bulk_import.finished_jobs">
+      <segment state="translated">
+        <source>info_providers.bulk_import.finished_jobs</source>
+        <target>History</target>
+      </segment>
+    </unit>
     <unit id="quick_apply_btn" name="info_providers.bulk_import.quick_apply">
       <segment state="translated">
         <source>info_providers.bulk_import.quick_apply</source>

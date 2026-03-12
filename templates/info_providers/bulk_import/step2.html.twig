@@ -220,13 +220,21 @@
                                                  class="hoverpic" style="max-width: 35px;" {{ stimulus_controller('elements/hoverpic') }}>
                                         </td>
                                         <td>
+                                            {% set nameMatch = dto.name is not null and part.name is not null and dto.name|lower == part.name|lower %}
+                                            {% set mpnMatch = dto.mpn is not null and part.manufacturerProductNumber is not null and dto.mpn|lower == part.manufacturerProductNumber|lower %}
                                             {% if dto.provider_url is not null %}
-                                                <a href="{{ dto.provider_url }}" target="_blank" rel="noopener">{{ dto.name }}</a>
+                                                <a href="{{ dto.provider_url }}" target="_blank" rel="noopener"{% if nameMatch %} class="fw-bold"{% endif %}>{{ dto.name }}</a>
                                             {% else %}
-                                                {{ dto.name }}
+                                                <span{% if nameMatch %} class="fw-bold"{% endif %}>{{ dto.name }}</span>
+                                            {% endif %}
+                                            {% if nameMatch %}
+                                                <span class="badge bg-success ms-1" title="{% trans %}info_providers.bulk_import.exact_match{% endtrans %}"><i class="fas fa-check-circle"></i></span>
                                             {% endif %}
                                             {% if dto.mpn is not null %}
-                                                <br><small class="text-muted">{{ dto.mpn }}</small>
+                                                <br><small{% if mpnMatch %} class="fw-bold text-success"{% else %} class="text-muted"{% endif %}>{{ dto.mpn }}</small>
+                                                {% if mpnMatch %}
+                                                    <span class="badge bg-success ms-1" style="font-size: 0.65em;" title="{% trans %}info_providers.bulk_import.mpn_match{% endtrans %}">MPN <i class="fas fa-check-circle"></i></span>
+                                                {% endif %}
                                             {% endif %}
                                         </td>
                                         <td>{{ dto.description }}</td>
@@ -238,8 +246,8 @@
                                         <td>
                                             <span class="badge bg-info">{{ result.sourceField ?? 'unknown' }}</span>
                                             {% if result.sourceKeyword %}
-                                                <br><small class="text-muted">{{ result.sourceKeyword }}</small>
-                            {% endif %}
+                                                <br><small>{{ result.sourceKeyword }}</small>
+                                            {% endif %}
                                         </td>
                                         <td>
                                             <div class="btn-group-vertical btn-group-sm" role="group">
