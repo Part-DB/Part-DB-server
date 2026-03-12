@@ -1025,13 +1025,9 @@ final class BulkInfoProviderImportControllerTest extends WebTestCase
             new BulkSearchFieldMappingDTO('test_supplier_spn', ['test'], 2)
         ];
 
-        // The service should be able to process the request and throw an exception when no results are found
-        try {
-            $bulkService->performBulkSearch([$part], $fieldMappings, false);
-            $this->fail('Expected RuntimeException to be thrown when no search results are found');
-        } catch (\RuntimeException $e) {
-            $this->assertStringContainsString('No search results found', $e->getMessage());
-        }
+        // The service should return an empty response DTO when no results are found
+        $response = $bulkService->performBulkSearch([$part], $fieldMappings, false);
+        $this->assertFalse($response->hasAnyResults());
     }
 
     public function testBulkInfoProviderServiceBatchProcessing(): void
@@ -1055,13 +1051,9 @@ final class BulkInfoProviderImportControllerTest extends WebTestCase
             new BulkSearchFieldMappingDTO('empty', ['test'], 1)
         ];
 
-        // The service should be able to process the request and throw an exception when no results are found
-        try {
-            $response = $bulkService->performBulkSearch([$part], $fieldMappings, false);
-            $this->fail('Expected RuntimeException to be thrown when no search results are found');
-        } catch (\RuntimeException $e) {
-            $this->assertStringContainsString('No search results found', $e->getMessage());
-        }
+        // The service should return an empty response DTO when no results are found
+        $response = $bulkService->performBulkSearch([$part], $fieldMappings, false);
+        $this->assertFalse($response->hasAnyResults());
     }
 
     public function testBulkInfoProviderServicePrefetchDetails(): void
