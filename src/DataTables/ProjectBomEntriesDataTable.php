@@ -32,6 +32,7 @@ use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
+use App\Services\Parts\PricedetailHelper;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
@@ -44,7 +45,8 @@ use Brick\Math\BigDecimal;
 class ProjectBomEntriesDataTable implements DataTableTypeInterface
 {
     public function __construct(protected TranslatorInterface $translator, protected PartDataTableHelper $partDataTableHelper,
-        protected EntityURLGenerator $entityURLGenerator, protected AmountFormatter $amountFormatter)
+        protected EntityURLGenerator $entityURLGenerator, protected AmountFormatter $amountFormatter,
+        protected PricedetailHelper $pricedetailHelper)
     {
     }
 
@@ -183,28 +185,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ->add('price', TextColumn::class, [
                 'label' => 'project.bom.price',
                 'render' => function ($value, ProjectBOMEntry $context) {
-                    // Let's attempt to get the part, if we don't we will just assume zero
-                    $part = $context->getPart();
-                    $price = BigDecimal::zero();
-                    $pricedetails = null;
-                    $order = null;
-                    // Check if we get a part and get the first order if so
-                    // if not see if there is a non-part price set
-                    if($part) {
-                        $order = $context->getPart()->getOrderdetails()->first();
-                    } else if($context->getPrice() !== null) {
-                        $price = $context->getPrice();
-                    }
-
-                    // check if there is an order, if so get the first pricedetail of the order
-                    if($order!==null && $order !== false) {
-                        $pricedetails = $order->getPricedetails()->first();
-                    }
-
-                    // check if there is a pricedetail, if so get the first price
-                    if($pricedetails !== null && $pricedetails !== false) {
-                        $price = $pricedetails->getPrice();
-                    }
+                    $price = $this->getBomEntryUnitPrice($context);
 
                     // return the price
                     return  htmlspecialchars(number_format($price->toFloat(),2));
@@ -214,28 +195,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ->add('ext_price', TextColumn::class, [
                 'label' => 'project.bom.ext_price',
                 'render' => function ($value, ProjectBOMEntry $context) {
-                    // Let's attempt to get the part, if we don't we will just assume zero
-                    $part = $context->getPart();
-                    $price = BigDecimal::zero();
-                    $pricedetails = null;
-                    $order = null;
-                    // Check if we get a part and get the first order if so
-                    // if not see if there is a non-part price set
-                    if($part) {
-                        $order = $context->getPart()->getOrderdetails()->first();
-                    } else if($context->getPrice() !== null) {
-                        $price = $context->getPrice();
-                    }
-
-                    // check if there is an order, if so get the first pricedetail of the order
-                    if($order!==null && $order !== false) {
-                        $pricedetails = $order->getPricedetails()->first();
-                    }
-
-                    // check if there is a pricedetail, if so get the first price
-                    if($pricedetails !== null && $pricedetails !== false) {
-                        $price = $pricedetails->getPrice();
-                    }
+                    $price = $this->getBomEntryUnitPrice($context);
 
                     // return the price
                     return  htmlspecialchars(number_format($price->toFloat() * $context->getQuantity(),2));
@@ -266,6 +226,14 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 new SearchCriteriaProvider(),
             ],
         ]);
+    }
+    private function getBomEntryUnitPrice(ProjectBOMEntry $entry): BigDecimal
+    {
+        if ($entry->getPart() instanceof Part) {
+            return $this->pricedetailHelper->calculateAvgPrice($entry->getPart(), $entry->getQuantity()) ?? BigDecimal::zero();
+        }
+
+        return $entry->getPrice() ?? BigDecimal::zero();
     }
 
     private function getQuery(QueryBuilder $builder, array $options): void
