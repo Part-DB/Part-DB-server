@@ -142,8 +142,7 @@ final readonly class BarcodeScanResultHandler
         }
 
         if ($barcodeScan instanceof LCSCBarcodeScanResult) {
-            return $this->resolvePartFromLCSC($barcodeScan)
-                ?? $this->em->getRepository(Part::class)->getPartBySPN($barcodeScan->mpn);
+            return $this->resolvePartFromLCSC($barcodeScan);
         }
 
         if ($barcodeScan instanceof AmazonBarcodeScanResult) {
@@ -219,6 +218,7 @@ final readonly class BarcodeScanResultHandler
      * Strategy:
      *  1) Try providerReference.provider_id == pc (LCSC "Cxxxxxx") if you store it there
      * Returns first match (consistent with EIGP114 logic)
+     * 2) Fallback to search across supplier part number (SPN)
      */
     private function resolvePartFromLCSC(LCSCBarcodeScanResult $barcodeScan): ?Part
     {
@@ -231,8 +231,8 @@ final readonly class BarcodeScanResultHandler
             }
         }
 
-        // part does not exist in DB
-        return null;
+        // fallback to search by SPN
+        return $this->em->getRepository(Part::class)->getPartBySPN($pc);
     }
 
 
