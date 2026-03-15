@@ -217,8 +217,8 @@ final readonly class BarcodeScanResultHandler
      * Resolve LCSC barcode -> Part.
      * Strategy:
      *  1) Try providerReference.provider_id == pc (LCSC "Cxxxxxx") if you store it there
-     *  2) Fallback to manufacturer_product_number == pm (MPN)
      * Returns first match (consistent with EIGP114 logic)
+     * 2) Fallback to search across supplier part number (SPN)
      */
     private function resolvePartFromLCSC(LCSCBarcodeScanResult $barcodeScan): ?Part
     {
@@ -231,13 +231,8 @@ final readonly class BarcodeScanResultHandler
             }
         }
 
-        // Fallback to MPN (pm)
-        $pm = $barcodeScan->mpn; // e.g. RC0402FR-071ML
-        if (!$pm) {
-            return null;
-        }
-
-        return $this->em->getRepository(Part::class)->getPartByMPN($pm);
+        // fallback to search by SPN
+        return $this->em->getRepository(Part::class)->getPartBySPN($pc);
     }
 
 
