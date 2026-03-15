@@ -247,5 +247,11 @@
         <target>该类型在此语言下已存在翻译定义!</target>
       </segment>
     </unit>
+    <unit id="zT_j_oQ" name="validator.invalid_gtin">
+      <segment state="translated">
+        <source>validator.invalid_gtin</source>
+        <target>无效的GTIN / EAN 码。</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

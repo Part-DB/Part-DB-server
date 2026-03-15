@@ -12948,7 +12948,7 @@ Buerklin-API Authentication server:
       </segment>
     </unit>
     <unit id="F8pQuL9" name="project.bom_import.field_mapping.error.check_delimiter">
-      <segment>
+      <segment state="translated">
         <source>project.bom_import.field_mapping.error.check_delimiter</source>
         <target>Mapping error: Check if you have selected the right delimiter!</target>
       </segment>

@@ -12945,5 +12945,11 @@ Buerklin-API-Authentication-Server:
         <target>[Part_lot] aus Barcode erstellt: Bitte überprüfen Sie, ob die Daten korrekt und gewünscht sind.</target>
       </segment>
     </unit>
+    <unit id="F8pQuL9" name="project.bom_import.field_mapping.error.check_delimiter">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.error.check_delimiter</source>
+        <target>Zuordnungsfehler: Bitte prüfen Sie, ob Sie das richtige Trennzeichen ausgewählt haben!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
