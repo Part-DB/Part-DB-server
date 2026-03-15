@@ -48,51 +48,59 @@
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
-                        <tr>
-                            <th>{% trans %}project.bom_import.field_mapping.csv_field{% endtrans %}</th>
-                            <th>{% trans %}project.bom_import.field_mapping.maps_to{% endtrans %}</th>
-                            <th>{% trans %}project.bom_import.field_mapping.suggestion{% endtrans %}</th>
-                            <th>{% trans %}project.bom_import.field_mapping.priority{% endtrans %}</th>
-                        </tr>
+                    <tr>
+                        <th>{% trans %}project.bom_import.field_mapping.csv_field{% endtrans %}</th>
+                        <th>{% trans %}project.bom_import.field_mapping.maps_to{% endtrans %}</th>
+                        <th>{% trans %}project.bom_import.field_mapping.suggestion{% endtrans %}</th>
+                        <th>{% trans %}project.bom_import.field_mapping.priority{% endtrans %}</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        {% for field in detected_fields %}
-                            <tr>
-                                <td>
-                                    <code>{{ field }}</code>
-                                </td>
-                                <td>
+                    {% for field in detected_fields %}
+                        <tr>
+                            <td>
+                                <code>{{ field }}</code>
+                            </td>
+                            <td>
+                                {# TODO: This is more a workaround than a proper fix. Ideally the controller should be fixed in a way, that we get the correct fields here #}
+                                {% if field_name_mapping[field] is defined %}
+                                    {% set field_name = field_name_mapping[field]  %}
                                     {{ form_widget(form['mapping_' ~ field_name_mapping[field]], {
                                         'attr': {
                                             'class': 'form-select field-mapping-select',
                                             'data-field': field
                                         }
                                     }) }}
-                                </td>
-                                <td>
-                                    {% if suggested_mapping[field] is defined %}
-                                        <span class="badge bg-success">
+                                {% else %}
+                                    <b class="text-danger">
+                                        {% trans %}project.bom_import.field_mapping.error.check_delimiter{% endtrans %}
+                                    </b>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if suggested_mapping[field] is defined %}
+                                    <span class="badge bg-success">
                                             <i class="fa-solid fa-magic fa-fw"></i>
                                             {{ suggested_mapping[field] }}
                                         </span>
-                                    {% else %}
-                                        <span class="text-muted">
+                                {% else %}
+                                    <span class="text-muted">
                                             <i class="fa-solid fa-question fa-fw"></i>
                                             {% trans %}project.bom_import.field_mapping.no_suggestion{% endtrans %}
                                         </span>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <input type="number"
-                                           class="form-control form-control-sm priority-input"
-                                           min="1"
-                                           value="10"
-                                           style="width: 80px;"
-                                           data-field="{{ field }}"
-                                           title="{% trans %}project.bom_import.field_mapping.priority_help{% endtrans %}">
-                                </td>
-                            </tr>
-                        {% endfor %}
+                                {% endif %}
+                            </td>
+                            <td>
+                                <input type="number"
+                                       class="form-control form-control-sm priority-input"
+                                       min="1"
+                                       value="10"
+                                       style="width: 80px;"
+                                       data-field="{{ field }}"
+                                       title="{% trans %}project.bom_import.field_mapping.priority_help{% endtrans %}">
+                            </td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

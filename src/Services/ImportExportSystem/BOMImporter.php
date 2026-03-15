@@ -722,25 +722,35 @@ class BOMImporter
     }
 
     /**
+     * Try to detect the separator used in the CSV data by analyzing the first line and counting occurrences of common delimiters.
+     * @param  string  $data
+     * @return string
+     */
+    public function detectDelimiter(string $data): string
+    {
+        $delimiters = [',', ';', "\t"];
+        $lines = explode("\n", $data, 2);
+        $header_line = $lines[0] ?? '';
+        $delimiter_counts = [];
+        foreach ($delimiters as $delim) {
+            $delimiter_counts[$delim] = substr_count($header_line, $delim);
+        }
+        // Choose the delimiter with the highest count, default to comma if all are zero
+        $max_count = max($delimiter_counts);
+        $delimiter = array_search($max_count, $delimiter_counts, true);
+        if ($max_count === 0 || $delimiter === false) {
+            $delimiter = ',';
+        }
+        return $delimiter;
+    }
+
+    /**
      * Detect available fields in CSV data for field mapping UI
      */
     public function detectFields(string $data, ?string $delimiter = null): array
     {
         if ($delimiter === null) {
-            // Detect delimiter by counting occurrences in the first row (header)
-            $delimiters = [',', ';', "\t"];
-            $lines = explode("\n", $data, 2);
-            $header_line = $lines[0] ?? '';
-            $delimiter_counts = [];
-            foreach ($delimiters as $delim) {
-                $delimiter_counts[$delim] = substr_count($header_line, $delim);
-            }
-            // Choose the delimiter with the highest count, default to comma if all are zero
-            $max_count = max($delimiter_counts);
-            $delimiter = array_search($max_count, $delimiter_counts, true);
-            if ($max_count === 0 || $delimiter === false) {
-                $delimiter = ',';
-            }
+            $delimiter = $this->detectDelimiter($data);
         }
         // Handle potential BOM (Byte Order Mark) at the beginning
         $data = preg_replace('/^\xEF\xBB\xBF/', '', $data);

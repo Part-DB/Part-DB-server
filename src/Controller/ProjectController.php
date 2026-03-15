@@ -240,7 +240,8 @@ class ProjectController extends AbstractController
         }
 
         // Detect fields and get suggestions
-        $detected_fields = $BOMImporter->detectFields($file_content);
+        $detected_delimiter = $BOMImporter->detectDelimiter($file_content);
+        $detected_fields = $BOMImporter->detectFields($file_content, $detected_delimiter);
         $suggested_mapping = $BOMImporter->getSuggestedFieldMapping($detected_fields);
 
         // Create mapping of original field names to sanitized field names for template
@@ -257,7 +258,7 @@ class ProjectController extends AbstractController
         $builder->add('delimiter', ChoiceType::class, [
             'label' => 'project.bom_import.delimiter',
             'required' => true,
-            'data' => ',',
+            'data' => $detected_delimiter,
             'choices' => [
                 'project.bom_import.delimiter.comma' => ',',
                 'project.bom_import.delimiter.semicolon' => ';',
