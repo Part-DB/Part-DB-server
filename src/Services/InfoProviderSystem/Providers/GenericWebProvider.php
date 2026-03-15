@@ -315,7 +315,14 @@ class GenericWebProvider implements InfoProviderInterface
             //Remove any leading slashes
             $url = ltrim($url, '/');
 
-            $url = 'https://'.$url;
+            //If the URL starts with https:/ or http:/, add the missing slash
+            //Traefik removes the double slash as secruity measure, so we want to be forgiving and add it back if needed
+            //See https://github.com/Part-DB/Part-DB-server/issues/1296
+            if (preg_match('/^https?:\/[^\/]/', $url)) {
+                $url = preg_replace('/^(https?:)\/([^\/])/', '$1//$2', $url);
+            } else {
+                $url = 'https://'.$url;
+            }
         }
 
         //If this is not a valid URL with host, domain and path, throw an exception
