@@ -115,8 +115,8 @@ final class BarcodeScanResultHandlerTest extends KernelTestCase
     public function testLCSCBarcodeResolvePartOrNullReturnsNullWhenNotFound(): void
     {
         $scan = new LCSCBarcodeScanResult(
-            fields: ['pc' => 'C0000000', 'pm' => ''],
-            rawInput: '{pc:C0000000,pm:}'
+            fields: ['pc' => 'C0000000', 'pm' => 'NON_EXISTENT_MPN_12345'],
+            rawInput: '{pc:C0000000,pm:NON_EXISTENT_MPN_12345}'
         );
 
         $this->assertNull($this->service->resolvePart($scan));
