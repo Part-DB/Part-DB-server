@@ -12947,5 +12947,11 @@ Buerklin-API Authentication server:
         <target>[Part_lot] created from barcode: Please check if the data is correct and desired.</target>
       </segment>
     </unit>
+    <unit id="F8pQuL9" name="project.bom_import.field_mapping.error.check_delimiter">
+      <segment>
+        <source>project.bom_import.field_mapping.error.check_delimiter</source>
+        <target>Mapping error: Check if you have selected the right delimiter!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
