@@ -47,17 +47,17 @@
                                     </td>
                                     <td>
                                         {{ detail.price | format_money(detail.currency) }} / {{ detail.PriceRelatedQuantity | format_amount(part.partUnit) }}
-                                        {% set tmp = pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency) %}
+                                        {% set tmp = pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency, app.user.currency ?? null) %}
                                         {% if detail.currency != (app.user.currency ?? null) and tmp is not null and tmp.GreaterThan(0) %}
-                                            <span class="text-muted">({{ pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency, app.user.currency ?? null) | format_money(app.user.currency ?? null) }})</span>
+                                            <span class="text-muted">({{ tmp | format_money(app.user.currency ?? null) }})</span>
                                         {% endif %}
                                         <small class="text-muted">{{- helper.vat_text(detail.includesVAT) -}}</small>
                                     </td>
                                     <td>
                                         {{ detail.PricePerUnit  | format_money(detail.currency) }}
-                                        {% set tmp = pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency) %}
+                                        {% set tmp = pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency, app.user.currency ?? null) %}
                                         {% if detail.currency != (app.user.currency ?? null) and tmp is not null and tmp.GreaterThan(0) %}
-                                            <span class="text-muted">({{ pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency, app.user.currency ?? null) | format_money(app.user.currency ?? null) }})</span>
+                                            <span class="text-muted">({{ tmp | format_money(app.user.currency ?? null) }})</span>
                                         {% endif %}
                                         <small class="text-muted">{{- helper.vat_text(detail.includesVAT) -}}</small>
                                     </td>
