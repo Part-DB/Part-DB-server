@@ -10029,6 +10029,48 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>When enabled, the datasheet field in KiCad will link to the actual PDF file (if found). When disabled, it will link to the Part-DB page instead. The Part-DB page link is always available as a separate "Part-DB URL" field.</target>
       </segment>
     </unit>
+    <unit id="e2e7mR1" name="settings.misc.kicad_eda.editor.title">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.title</source>
+        <target>KiCad autocomplete lists</target>
+      </segment>
+    </unit>
+    <unit id="qjv1VVx" name="settings.misc.kicad_eda.editor.link">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.link</source>
+        <target>Edit autocomplete lists</target>
+      </segment>
+    </unit>
+    <unit id="f0qkcqg" name="settings.misc.kicad_eda.editor.description">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.description</source>
+        <target>Edit the contents of public/kicad/footprints.txt and public/kicad/symbols.txt. These files are used by the KiCad autocomplete fields in the admin UI.</target>
+      </segment>
+    </unit>
+    <unit id="AS3yDlb" name="settings.misc.kicad_eda.editor.footprints">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.footprints</source>
+        <target>Footprints list</target>
+      </segment>
+    </unit>
+    <unit id="Jj_YR7n" name="settings.misc.kicad_eda.editor.footprints.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.footprints.help</source>
+        <target>One entry per line. Used as autocomplete suggestions for KiCad footprint fields.</target>
+      </segment>
+    </unit>
+    <unit id="ELd3KQK" name="settings.misc.kicad_eda.editor.symbols">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.symbols</source>
+        <target>Symbols list</target>
+      </segment>
+    </unit>
+    <unit id="A9TOJgM" name="settings.misc.kicad_eda.editor.symbols.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.symbols.help</source>
+        <target>One entry per line. Used as autocomplete suggestions for KiCad symbol fields.</target>
+      </segment>
+    </unit>
     <unit id="VwvmcWE" name="settings.behavior.sidebar">
       <segment state="translated">
         <source>settings.behavior.sidebar</source>

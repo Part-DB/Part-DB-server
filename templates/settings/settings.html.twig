@@ -49,6 +49,15 @@
                                     </div>
                                 </div>
                                 {{ form_widget(section_widget) }}
+                                {% if section_widget.vars.name == 'kicadEDA' %}
+                                    <div class="row">
+                                        <div class="{{ offset_label }} col mt-2 ps-2">
+                                            <a href="{{ path('settings_kicad_lists') }}" class="btn btn-outline-secondary btn-sm">
+                                                <i class="fa-solid fa-pen-to-square fa-fw"></i> {% trans %}settings.misc.kicad_eda.editor.link{% endtrans %}
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </fieldset>
                             {% if not loop.last %}
                                 <hr class="mx-0 mb-2 mt-2">
