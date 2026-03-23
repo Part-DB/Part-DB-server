@@ -139,6 +139,16 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
     }
 
     /**
+     * Checks if a table exists in the database.
+     * @return bool Returns true, if the table exists
+     * @throws Exception
+     */
+    public function doesTableExist(string $table): bool
+    {
+        return $this->connection->createSchemaManager()->tablesExist([$table]);
+    }
+
+    /**
      * Checks if a column exists in a table.
      * @return bool Returns true, if the column exists
      * @throws Exception
