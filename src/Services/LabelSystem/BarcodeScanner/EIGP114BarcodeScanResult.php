@@ -254,12 +254,16 @@ readonly class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
      */
     public static function isFormat06Code(string $input): bool
     {
-        //Code must begin with [)><RS>06<GS>
-        if(!str_starts_with($input, "[)>\u{1E}06\u{1D}")){
-            return false;
+        //Code should begin with [)><RS>06<GS> as per the standard
+        if(!str_starts_with($input, "[)>\u{1E}06\u{1D}")
+        // some codes don't contain record separators
+        && !str_starts_with($input, "[)>06\u{1D}")
+        // This is found on old Mouser parts
+        && !str_starts_with($input, ">[)>06\u{1D}"))
+        {
+           return false;
         }
-
-        //Digikey does not put a trailer onto the barcode, so we just check for the header
+        //Digikey and Mouser don't put a trailer onto the barcode, so we just check for the header
 
         return true;
     }
