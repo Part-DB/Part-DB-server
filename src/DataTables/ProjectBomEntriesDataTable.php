@@ -183,9 +183,10 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                     return '';
                 }
             ])
-            ->add('storageLocations', TextColumn::class, [
-                'label' => 'part.table.storeLocations',
-                'orderField' => 'NATSORT(MIN(storageLocations.name))',
+            ->add('storelocation', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.storeLocations'),
+                //We need to use a aggregate function to get the first store location, as we have a one-to-many relation
+                'orderField' => 'NATSORT(MIN(_storelocations.name))',
                 'visible' => false,
                 'render' => function ($value, ProjectBOMEntry $context) {
                     if ($context->getPart() !== null) {
@@ -194,7 +195,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
 
                     return '';
                 }
-            ])
+            ], alias: 'storage_location')
 
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),
@@ -229,12 +230,22 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ->from(ProjectBOMEntry::class, 'bom_entry')
             ->leftJoin('bom_entry.part', 'part')
             ->leftJoin('part.category', 'category')
+            ->leftJoin('part.partLots', 'partLots')
+            ->leftJoin('partLots.storage_location', 'storelocations')
             ->leftJoin('part.footprint', 'footprint')
             ->leftJoin('part.manufacturer', 'manufacturer')
-            ->leftJoin('part.partLots', 'partLots')
-            ->leftJoin('partLots.storage_location', 'storageLocations')
+            ->leftJoin('part.partCustomState', 'partCustomState')
             ->where('bom_entry.project = :project')
             ->setParameter('project', $options['project'])
+
+            //We have to group by all elements, or only the first sub elements of an association is fetched! (see issue #190)
+            ->addGroupBy('part')
+            ->addGroupBy('partLots')
+            ->addGroupBy('category')
+            ->addGroupBy('storelocations')
+            ->addGroupBy('footprint')
+            ->addGroupBy('manufacturer')
+            ->addGroupBy('partCustomState')
         ;
     }
 
