@@ -231,6 +231,8 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ->leftJoin('part.category', 'category')
             ->leftJoin('part.footprint', 'footprint')
             ->leftJoin('part.manufacturer', 'manufacturer')
+            ->leftJoin('part.partLots', 'partLots')
+            ->leftJoin('partLots.storage_location', 'storageLocations')
             ->where('bom_entry.project = :project')
             ->setParameter('project', $options['project'])
         ;
