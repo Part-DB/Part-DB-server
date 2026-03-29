@@ -185,7 +185,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ])
             ->add('storageLocations', TextColumn::class, [
                 'label' => 'part.table.storeLocations',
-                'orderField' => 'NATSORT(MIN(storageLocations.name))',
+                'orderField' => 'NATSORT(storageLocationOrder)',
                 'visible' => false,
                 'render' => function ($value, ProjectBOMEntry $context) {
                     if ($context->getPart() !== null) {
@@ -226,6 +226,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
     {
         $builder->select('bom_entry')
             ->addSelect('part')
+            ->addSelect('(SELECT MIN(storageLocationSort.name) FROM ' . \App\Entity\Parts\PartLot::class . ' partLotSort LEFT JOIN partLotSort.storage_location storageLocationSort WHERE partLotSort.part = part) AS HIDDEN storageLocationOrder')
             ->from(ProjectBOMEntry::class, 'bom_entry')
             ->leftJoin('bom_entry.part', 'part')
             ->leftJoin('part.category', 'category')
