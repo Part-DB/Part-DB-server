@@ -185,6 +185,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ])
             ->add('storageLocations', TextColumn::class, [
                 'label' => 'part.table.storeLocations',
+                'orderField' => 'NATSORT(MIN(storageLocations.name))',
                 'visible' => false,
                 'render' => function ($value, ProjectBOMEntry $context) {
                     if ($context->getPart() !== null) {
