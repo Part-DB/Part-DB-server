@@ -248,6 +248,12 @@ final readonly class BarcodeScanResultHandler
             if ($part !== null) {
                 return $part;
             }
+
+            //Try to find the part by SPN/SKU
+            $part = $this->em->getRepository(Part::class)->getPartBySPN($pn);
+            if ($part !== null) {
+                return $part;
+            }
         }
 
         // Fallback: search by MPN
