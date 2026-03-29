@@ -12863,6 +12863,12 @@ Buerklin-API Authentication server:
         <target>Amazon barcode</target>
       </segment>
     </unit>
+    <unit id="d.V2Pid" name="scan_dialog.mode.tme">
+      <segment state="translated">
+        <source>scan_dialog.mode.tme</source>
+        <target>TME barcode</target>
+      </segment>
+    </unit>
     <unit id="BQWuR_G" name="settings.ips.canopy">
       <segment state="translated">
         <source>settings.ips.canopy</source>

@@ -150,6 +150,10 @@ final readonly class BarcodeScanResultHandler
                 ?? $this->em->getRepository(Part::class)->getPartBySPN($barcodeScan->asin);
         }
 
+        if ($barcodeScan instanceof TMEBarcodeScanResult) {
+            return $this->resolvePartFromTME($barcodeScan);
+        }
+
         return null;
     }
 
@@ -236,6 +240,26 @@ final readonly class BarcodeScanResultHandler
     }
 
 
+    private function resolvePartFromTME(TMEBarcodeScanResult $barcodeScan): ?Part
+    {
+        $pn = $barcodeScan->tmePartNumber;
+        if ($pn) {
+            $part = $this->em->getRepository(Part::class)->getPartByProviderInfo($pn);
+            if ($part !== null) {
+                return $part;
+            }
+
+            //Try to find the part by SPN/SKU
+            $part = $this->em->getRepository(Part::class)->getPartBySPN($pn);
+            if ($part !== null) {
+                return $part;
+            }
+        }
+
+        // Fallback: search by MPN
+        return $this->em->getRepository(Part::class)->getPartByMPN($barcodeScan->mpn, $barcodeScan->manufacturer);
+    }
+
     /**
      * Tries to extract creation information for a part from the given barcode scan result. This can be used to
      * automatically fill in the info provider reference of a part, when creating a new part based on the scan result.
@@ -247,6 +271,20 @@ final readonly class BarcodeScanResultHandler
      */
     public function getCreateInfos(BarcodeScanResultInterface $scanResult): ?array
     {
+        // TME
+        if ($scanResult instanceof TMEBarcodeScanResult) {
+            if ($scanResult->tmePartNumber === null) {
+                return null;
+            }
+            return [
+                'providerKey' => 'tme',
+                'providerId' => $scanResult->tmePartNumber,
+                'lotAmount' => $scanResult->quantity,
+                'lotName' => $scanResult->purchaseOrder,
+                'lotUserBarcode' => $scanResult->rawInput,
+            ];
+        }
+
         // LCSC
         if ($scanResult instanceof LCSCBarcodeScanResult) {
             return [

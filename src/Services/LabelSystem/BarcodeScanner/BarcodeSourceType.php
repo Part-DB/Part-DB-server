@@ -52,4 +52,7 @@ enum BarcodeSourceType: string
     case LCSC = 'lcsc';
 
     case AMAZON = 'amazon';
+
+    /** For TME (tme.eu) formatted QR codes */
+    case TME = 'tme';
 }

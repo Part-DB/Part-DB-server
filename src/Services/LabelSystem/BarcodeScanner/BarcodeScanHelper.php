@@ -105,6 +105,10 @@ final class BarcodeScanHelper
             return new AmazonBarcodeScanResult($input);
         }
 
+        if ($type === BarcodeSourceType::TME) {
+            return TMEBarcodeScanResult::parse($input);
+        }
+
         //Null means auto and we try the different formats
         $result = $this->parseInternalBarcode($input);
 
@@ -144,6 +148,11 @@ final class BarcodeScanHelper
             return new AmazonBarcodeScanResult($input);
         }
 
+        // Try TME barcode
+        if (TMEBarcodeScanResult::isTMEBarcode($input)) {
+            return TMEBarcodeScanResult::parse($input);
+        }
+
         throw new InvalidArgumentException('Unknown barcode');
     }
 
@@ -161,6 +170,7 @@ final class BarcodeScanHelper
     {
         return LCSCBarcodeScanResult::parse($input);
     }
+
 
     private function parseUserDefinedBarcode(string $input): ?LocalBarcodeScanResult
     {

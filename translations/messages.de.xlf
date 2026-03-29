@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
-  <file id="messages.en">
+  <file id="messages.de">
     <unit id="x_wTSQS" name="attachment_type.caption">
       <segment state="translated">
         <source>attachment_type.caption</source>
@@ -12859,6 +12859,12 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>scan_dialog.mode.amazon</source>
         <target>Amazon Barcode</target>
+      </segment>
+    </unit>
+    <unit id="d.V2Pid" name="scan_dialog.mode.tme">
+      <segment state="translated">
+        <source>scan_dialog.mode.tme</source>
+        <target>TME Barcode</target>
       </segment>
     </unit>
     <unit id="BQWuR_G" name="settings.ips.canopy">
