@@ -195,7 +195,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
 
                     return '';
                 }
-            ], alias: 'storage_location')
+            ])
 
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),
