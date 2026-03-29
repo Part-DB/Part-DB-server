@@ -171,10 +171,6 @@ final class BarcodeScanHelper
         return LCSCBarcodeScanResult::parse($input);
     }
 
-    private function parseTMEBarcode(string $input): TMEBarcodeScanResult
-    {
-        return TMEBarcodeScanResult::parse($input);
-    }
 
     private function parseUserDefinedBarcode(string $input): ?LocalBarcodeScanResult
     {
