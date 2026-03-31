@@ -219,6 +219,51 @@ docker-compose up -d
 docker exec --user=www-data partdb php bin/console doctrine:migrations:migrate
 ```
 
+### Automatic updates via Watchtower (Web UI)
+
+Part-DB supports triggering Docker container updates directly from the web interface using [Watchtower](https://containrrr.dev/watchtower/).
+When configured, administrators can check for and apply updates from the **System > Update Manager** page.
+
+To enable this feature, add a Watchtower service to your `docker-compose.yaml` and configure the connection:
+
+```yaml
+services:
+  partdb:
+    container_name: partdb
+    image: jbtronics/part-db1:latest
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    environment:
+      # ... your existing environment variables ...
+
+      # Watchtower integration for web-based updates
+      - WATCHTOWER_API_URL=http://watchtower:8080
+      - WATCHTOWER_API_TOKEN=your-secret-token
+    # ... your existing ports/volumes ...
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_HTTP_API_UPDATE=true
+      - WATCHTOWER_HTTP_API_TOKEN=your-secret-token
+      - WATCHTOWER_LABEL_ENABLE=true
+      - WATCHTOWER_CLEANUP=true
+    ports:
+      - '8081:8080'
+```
+
+{: .important }
+> Replace `your-secret-token` with a strong, unique token. The same token must be set in both the Part-DB (`WATCHTOWER_API_TOKEN`) and Watchtower (`WATCHTOWER_HTTP_API_TOKEN`) environment variables.
+
+{: .info }
+> `WATCHTOWER_LABEL_ENABLE=true` ensures Watchtower only manages containers with the `com.centurylinklabs.watchtower.enable=true` label, preventing it from updating other containers on the same host.
+
+Once configured, the Update Manager page will show the Watchtower connection status and provide an **Update via Watchtower** button when a new version is available. Clicking it triggers Watchtower to pull the latest image and recreate the Part-DB container automatically.
+
 ## Direct use of docker image
 
 You can use the `jbtronics/part-db1:master` image directly. You have to expose port 80 to a host port and configure

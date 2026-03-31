@@ -50,7 +50,8 @@ class UpdateChecker
         private readonly InstallationTypeDetector $installationTypeDetector,
         private readonly GitVersionInfoProvider $gitVersionInfoProvider,
         #[Autowire(param: 'kernel.debug')] private readonly bool $is_dev_mode,
-        #[Autowire(param: 'kernel.project_dir')] private readonly string $project_dir)
+        #[Autowire(param: 'kernel.project_dir')] private readonly string $project_dir,
+        private readonly ?WatchtowerClient $watchtowerClient = null)
     {
 
     }
@@ -284,8 +285,16 @@ class UpdateChecker
             $updateBlockers[] = 'local_changes';
         }
 
-        if ($installInfo['type'] === InstallationType::DOCKER) {
-            $updateBlockers[] = 'docker_installation';
+        // Docker installations require Watchtower for auto-update
+        $watchtowerConfigured = $this->watchtowerClient !== null && $this->watchtowerClient->isConfigured();
+        $watchtowerAvailable = $watchtowerConfigured && $this->watchtowerClient->isAvailable();
+
+        if ($installInfo['type'] === InstallationType::DOCKER && !$watchtowerConfigured) {
+            $canAutoUpdate = false;
+            $updateBlockers[] = 'docker_no_watchtower';
+        } elseif ($installInfo['type'] === InstallationType::DOCKER && !$watchtowerAvailable) {
+            $canAutoUpdate = false;
+            $updateBlockers[] = 'docker_watchtower_unreachable';
         }
 
         return [
@@ -301,6 +310,8 @@ class UpdateChecker
             'can_auto_update' => $canAutoUpdate,
             'update_blockers' => $updateBlockers,
             'check_enabled' => $this->privacySettings->checkForUpdates,
+            'watchtower_configured' => $watchtowerConfigured,
+            'watchtower_available' => $watchtowerAvailable,
         ];
     }
 

@@ -99,25 +99,35 @@
                                     </td>
                                 </tr>
                             {% endif %}
-                            <tr>
-                                <th scope="row">{% trans %}update_manager.auto_update_supported{% endtrans %}</th>
-                                <td>
-                                    {{ helper.boolean_badge(status.can_auto_update) }}
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row">{% trans %}update_manager.web_updates_allowed{% endtrans %}</th>
-                                <td>{{ helper.boolean_badge(not web_updates_disabled) }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">{% trans %}update_manager.backup_restore_allowed{% endtrans %}</th>
-                                <td>{{ helper.boolean_badge(not backup_restore_disabled) }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">{% trans %}update_manager.backup_download_allowed{% endtrans %}</th>
-                                <td>{{ helper.boolean_badge(not backup_download_disabled) }}</td>
-                            </tr>
+                            {% if is_docker %}
+                                {# Docker: show Watchtower status #}
+                                <tr>
+                                    <th scope="row">{% trans %}update_manager.docker.watchtower_status{% endtrans %}</th>
+                                    <td>
+                                        {% if status.watchtower_configured|default(false) and status.watchtower_available|default(false) %}
+                                            <span class="badge bg-success">
+                                                <i class="fas fa-check me-1"></i>{% trans %}update_manager.docker.watchtower_connected{% endtrans %}
+                                            </span>
+                                        {% elseif status.watchtower_configured|default(false) %}
+                                            <span class="badge bg-warning text-dark">
+                                                <i class="fas fa-exclamation-triangle me-1"></i>{% trans %}update_manager.docker.watchtower_unreachable_short{% endtrans %}
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">
+                                                <i class="fas fa-times me-1"></i>{% trans %}update_manager.docker.watchtower_not_configured{% endtrans %}
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                {# Git/other: show update readiness #}
+                                <tr>
+                                    <th scope="row">{% trans %}update_manager.auto_update_supported{% endtrans %}</th>
+                                    <td>
+                                        {{ helper.boolean_badge(status.can_auto_update) }}
+                                    </td>
+                                </tr>
+                            {% endif %}
 
                             </tbody>
                         </table>
@@ -158,30 +168,63 @@
                             </div>
 
                             {% if status.update_available and status.can_auto_update and validation.valid and not web_updates_disabled %}
-                                <form action="{{ path('admin_update_manager_start') }}" method="post"
-                                      data-controller="update-confirm"
-                                      data-update-confirm-is-downgrade-value="false"
-                                      data-update-confirm-target-version-value="{{ status.latest_tag }}"
-                                      data-update-confirm-confirm-update-value="{{ 'update_manager.confirm_update'|trans }}"
-                                      data-update-confirm-confirm-downgrade-value="{{ 'update_manager.confirm_downgrade'|trans }}"
-                                      data-update-confirm-downgrade-warning-value="{{ 'update_manager.downgrade_removes_update_manager'|trans }}">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('update_manager_start') }}">
-                                    <input type="hidden" name="version" value="{{ status.latest_tag }}">
+                                {% if is_docker %}
+                                    {# Docker update via Watchtower #}
+                                    <form action="{{ path('admin_update_manager_start_docker') }}" method="post"
+                                          data-controller="update-confirm"
+                                          data-update-confirm-is-downgrade-value="false"
+                                          data-update-confirm-target-version-value="{{ status.latest_tag }}"
+                                          data-update-confirm-confirm-update-value="{{ 'update_manager.docker.confirm_update'|trans }}"
+                                          data-update-confirm-confirm-downgrade-value="{{ 'update_manager.confirm_downgrade'|trans }}"
+                                          data-update-confirm-downgrade-warning-value="{{ 'update_manager.downgrade_removes_update_manager'|trans }}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('update_manager_start_docker') }}">
 
-                                    <div class="d-grid gap-2">
-                                        <button type="submit" class="btn btn-success btn-lg">
-                                            <i class="fas fa-download me-2"></i>
-                                            {% trans %}update_manager.update_to{% endtrans %} {{ status.latest_tag }}
-                                        </button>
-                                    </div>
+                                        <div class="d-grid gap-2">
+                                            <button type="submit" class="btn btn-success btn-lg">
+                                                <i class="fab fa-docker me-2"></i>
+                                                {% trans %}update_manager.docker.update_via_watchtower{% endtrans %} {{ status.latest_tag }}
+                                            </button>
+                                        </div>
 
-                                    <div class="form-check mt-3">
-                                        <input class="form-check-input" type="checkbox" name="backup" value="1" id="create-backup" checked>
-                                        <label class="form-check-label" for="create-backup">
-                                            <i class="fas fa-database me-1"></i> {% trans %}update_manager.create_backup{% endtrans %}
-                                        </label>
-                                    </div>
-                                </form>
+                                        <div class="form-check mt-3">
+                                            <input class="form-check-input" type="checkbox" name="backup" value="1" id="create-backup-docker" checked>
+                                            <label class="form-check-label" for="create-backup-docker">
+                                                <i class="fas fa-database me-1"></i> {% trans %}update_manager.create_backup{% endtrans %}
+                                            </label>
+                                        </div>
+
+                                        <div class="alert alert-info mt-3 mb-0 small">
+                                            <i class="fas fa-info-circle me-1"></i>
+                                            {% trans %}update_manager.docker.no_rollback_warning{% endtrans %}
+                                        </div>
+                                    </form>
+                                {% else %}
+                                    {# Git update #}
+                                    <form action="{{ path('admin_update_manager_start') }}" method="post"
+                                          data-controller="update-confirm"
+                                          data-update-confirm-is-downgrade-value="false"
+                                          data-update-confirm-target-version-value="{{ status.latest_tag }}"
+                                          data-update-confirm-confirm-update-value="{{ 'update_manager.confirm_update'|trans }}"
+                                          data-update-confirm-confirm-downgrade-value="{{ 'update_manager.confirm_downgrade'|trans }}"
+                                          data-update-confirm-downgrade-warning-value="{{ 'update_manager.downgrade_removes_update_manager'|trans }}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('update_manager_start') }}">
+                                        <input type="hidden" name="version" value="{{ status.latest_tag }}">
+
+                                        <div class="d-grid gap-2">
+                                            <button type="submit" class="btn btn-success btn-lg">
+                                                <i class="fas fa-download me-2"></i>
+                                                {% trans %}update_manager.update_to{% endtrans %} {{ status.latest_tag }}
+                                            </button>
+                                        </div>
+
+                                        <div class="form-check mt-3">
+                                            <input class="form-check-input" type="checkbox" name="backup" value="1" id="create-backup" checked>
+                                            <label class="form-check-label" for="create-backup">
+                                                <i class="fas fa-database me-1"></i> {% trans %}update_manager.create_backup{% endtrans %}
+                                            </label>
+                                        </div>
+                                    </form>
+                                {% endif %}
                             {% endif %}
 
                             {% if status.published_at %}
@@ -229,12 +272,55 @@
 
         {# Non-auto-update installations info #}
         {% if not status.can_auto_update %}
-            <div class="alert alert-secondary">
-                <h6 class="alert-heading">
-                    <i class="fas fa-info-circle me-2"></i>{% trans%}update_manager.cant_auto_update{% endtrans%}: {{ status.installation.type_name }}
-                </h6>
-                <p class="mb-0">{{ status.installation.update_instructions }}</p>
-            </div>
+            {% if is_docker and not status.watchtower_configured|default(false) %}
+                {# Docker without Watchtower - show setup instructions #}
+                <div class="card border-info mb-4">
+                    <div class="card-header bg-info text-white">
+                        <i class="fab fa-docker me-2"></i>{% trans %}update_manager.docker.setup_title{% endtrans %}
+                    </div>
+                    <div class="card-body">
+                        <p>{% trans %}update_manager.docker.setup_description{% endtrans %}</p>
+
+                        <h6>{% trans %}update_manager.docker.setup_step1{% endtrans %}</h6>
+                        <pre class="bg-dark text-light p-3 rounded"><code>services:
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_HTTP_API_UPDATE=true
+      - WATCHTOWER_HTTP_API_TOKEN=your-secret-token
+      - WATCHTOWER_LABEL_ENABLE=true
+    ports:
+      - "8080:8080"</code></pre>
+
+                        <h6>{% trans %}update_manager.docker.setup_step2{% endtrans %}</h6>
+                        <pre class="bg-dark text-light p-3 rounded"><code>WATCHTOWER_API_URL=http://watchtower:8080
+WATCHTOWER_API_TOKEN=your-secret-token</code></pre>
+
+                        <div class="alert alert-warning mb-0 mt-3">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            {% trans %}update_manager.docker.setup_network_hint{% endtrans %}
+                        </div>
+                    </div>
+                </div>
+            {% elseif is_docker and status.watchtower_configured|default(false) and not status.watchtower_available|default(false) %}
+                {# Docker with Watchtower configured but not reachable #}
+                <div class="alert alert-warning">
+                    <h6 class="alert-heading">
+                        <i class="fas fa-exclamation-triangle me-2"></i>{% trans %}update_manager.docker.watchtower_unreachable_title{% endtrans %}
+                    </h6>
+                    <p class="mb-0">{% trans %}update_manager.docker.watchtower_unreachable_description{% endtrans %}</p>
+                </div>
+            {% else %}
+                {# Other non-auto-update installations (ZIP, unknown) #}
+                <div class="alert alert-secondary">
+                    <h6 class="alert-heading">
+                        <i class="fas fa-info-circle me-2"></i>{% trans%}update_manager.cant_auto_update{% endtrans%}: {{ status.installation.type_name }}
+                    </h6>
+                    <p class="mb-0">{{ status.installation.update_instructions }}</p>
+                </div>
+            {% endif %}
         {% endif %}
 
         <div class="row">
@@ -277,6 +363,9 @@
                                                     <i class="fas fa-file-alt"></i>
                                                 </a>
                                                 {% if release.version != status.current_version and status.can_auto_update and validation.valid and not web_updates_disabled %}
+                                                    {% if is_docker %}
+                                                        {# Docker: version switching not supported, only update to latest via Watchtower #}
+                                                    {% else %}
                                                     <form action="{{ path('admin_update_manager_start') }}" method="post" class="d-inline"
                                                           data-controller="update-confirm"
                                                           data-update-confirm-is-downgrade-value="{{ release.version < status.current_version ? 'true' : 'false' }}"
@@ -297,6 +386,7 @@
                                                             {% endif %}
                                                         </button>
                                                     </form>
+                                                    {% endif %}
                                                 {% endif %}
                                             </div>
                                         </td>

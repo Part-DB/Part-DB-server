@@ -299,6 +299,23 @@ class UpdateExecutor
             );
         }
 
+        // Docker installations are updated via Watchtower - skip Git/Composer/Yarn checks
+        if ($installType === InstallationType::DOCKER) {
+            // Only check if already locked
+            if ($this->isLocked()) {
+                $lockInfo = $this->getLockInfo();
+                $errors[] = sprintf(
+                    'An update is already in progress (started at %s).',
+                    $lockInfo['started_at'] ?? 'unknown time'
+                );
+            }
+
+            return [
+                'valid' => empty($errors),
+                'errors' => $errors,
+            ];
+        }
+
         // Check for Git installation
         if ($installType === InstallationType::GIT) {
             // Check if git is available

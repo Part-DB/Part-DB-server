@@ -1,0 +1,235 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}update_manager.docker.progress_title{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fab fa-docker" data-docker-update-progress-target="titleIcon"></i>
+    {% trans %}update_manager.docker.progress_title{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+<style nonce="{{ csp_nonce('style') }}">
+    .docker-whale {
+        display: inline-block;
+        animation: whale-bob 2s ease-in-out infinite;
+    }
+    .docker-whale svg {
+        fill: #2496ED;
+    }
+    .docker-whale.success {
+        animation: whale-arrive 0.6s ease-out forwards;
+    }
+    .docker-whale.success svg { fill: #198754; }
+    .docker-whale.timeout { animation: none; }
+    .docker-whale.timeout svg { fill: #ffc107; }
+    .docker-whale.failed { animation: none; }
+    .docker-whale.failed svg { fill: #dc3545; }
+    @keyframes whale-bob {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        25% { transform: translateY(-8px) rotate(-2deg); }
+        75% { transform: translateY(4px) rotate(1deg); }
+    }
+    @keyframes whale-arrive {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+    .whale-waves {
+        text-align: center;
+        font-size: 0.5rem;
+        color: #2496ED66;
+        animation: wave-flow 3s linear infinite;
+        letter-spacing: -1px;
+        margin-top: -4px;
+    }
+    .docker-whale.success + .whale-waves,
+    .docker-whale.timeout + .whale-waves,
+    .docker-whale.failed + .whale-waves { animation: none; }
+    @keyframes wave-flow {
+        0% { opacity: 0.3; }
+        50% { opacity: 0.7; }
+        100% { opacity: 0.3; }
+    }
+    .step-timestamp { min-width: 60px; text-align: right; }
+    /* Progress bar widths - CSS classes to avoid CSP inline style violations */
+    .docker-progress { height: 25px; }
+    .progress-w-0 { width: 0%; }
+    .progress-w-15 { width: 15%; }
+    .progress-w-30 { width: 30%; }
+    .progress-w-50 { width: 50%; }
+    .progress-w-65 { width: 65%; }
+    .progress-w-80 { width: 80%; }
+    .progress-w-100 { width: 100%; }
+</style>
+<div data-controller="docker-update-progress"
+     data-docker-update-progress-health-url-value="{{ path('admin_update_manager_health') }}"
+     data-docker-update-progress-previous-version-value="{{ previous_version }}"
+     data-docker-update-progress-text-pulling-value="{% trans %}update_manager.docker.waiting_for_watchtower{% endtrans %}"
+     data-docker-update-progress-text-pulling-detail-value="{% trans %}update_manager.docker.step_pull_desc{% endtrans %}"
+     data-docker-update-progress-text-restarting-value="{% trans %}update_manager.docker.restarting_title{% endtrans %}"
+     data-docker-update-progress-text-restarting-detail-value="{% trans %}update_manager.docker.step_restart_desc{% endtrans %}"
+     data-docker-update-progress-text-success-value="{% trans %}update_manager.docker.success_title{% endtrans %}"
+     data-docker-update-progress-text-success-detail-value="{% trans %}update_manager.docker.success_message{% endtrans %}"
+     data-docker-update-progress-text-timeout-value="{% trans %}update_manager.docker.timeout_title{% endtrans %}"
+     data-docker-update-progress-text-timeout-detail-value="{% trans %}update_manager.docker.timeout_message{% endtrans %}"
+     data-docker-update-progress-text-step-pull-value="{% trans %}update_manager.docker.step_pull{% endtrans %}"
+     data-docker-update-progress-text-step-restart-value="{% trans %}update_manager.docker.step_restart{% endtrans %}">
+
+    {# Progress Header #}
+    <div class="text-center mb-4">
+        <div class="mb-3">
+            <div class="docker-whale-container">
+                <div class="docker-whale" data-docker-update-progress-target="headerWhale">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="80" height="64">
+                        <path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z"/>
+                    </svg>
+                </div>
+                <div class="whale-waves">~ ~ ~ ~ ~</div>
+            </div>
+        </div>
+        <h4 data-docker-update-progress-target="statusText">
+            {% trans %}update_manager.docker.updating{% endtrans %}
+        </h4>
+        <p class="text-muted" data-docker-update-progress-target="statusSubtext">
+            {% trans %}update_manager.docker.updating_via_watchtower{% endtrans %}
+        </p>
+    </div>
+
+    {# Progress Bar #}
+    <div class="progress mb-4 docker-progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated progress-w-15"
+             role="progressbar"
+             aria-valuenow="15"
+             aria-valuemin="0"
+             aria-valuemax="100"
+             data-docker-update-progress-target="progressBar">
+            15%
+        </div>
+    </div>
+
+    {# Current Step Info #}
+    <div class="alert alert-info mb-4" data-docker-update-progress-target="stepAlert">
+        <strong data-docker-update-progress-target="stepName">{% trans %}update_manager.docker.step_trigger{% endtrans %}</strong>:
+        <span data-docker-update-progress-target="stepMessage">{% trans %}update_manager.docker.step_trigger_desc{% endtrans %}</span>
+    </div>
+
+    {# Success Message #}
+    <div class="alert alert-success mb-4 d-none" data-docker-update-progress-target="successAlert">
+        <i class="fas fa-check-circle me-2"></i>
+        {% trans %}update_manager.docker.success_message{% endtrans %}
+        <br>
+        <strong>{% trans %}update_manager.docker.previous_version{% endtrans %}:</strong>
+        <span data-docker-update-progress-target="previousVersion">{{ previous_version }}</span>
+        &rarr;
+        <strong>{% trans %}update_manager.docker.new_version{% endtrans %}:</strong>
+        <span class="badge bg-success" data-docker-update-progress-target="newVersion">...</span>
+    </div>
+
+    {# Timeout Message #}
+    <div class="alert alert-warning mb-4 d-none" data-docker-update-progress-target="timeoutAlert">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        {% trans %}update_manager.docker.timeout_message{% endtrans %}
+    </div>
+
+    {# Error Message #}
+    <div class="alert alert-danger mb-4 d-none" data-docker-update-progress-target="errorAlert">
+        <i class="fas fa-times-circle me-2"></i>
+        <strong>{% trans %}update_manager.progress.error{% endtrans %}:</strong>
+        <span data-docker-update-progress-target="errorMessage"></span>
+    </div>
+
+    {# Steps Timeline - matches git progress style #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-list-ol me-2"></i>{% trans %}update_manager.docker.steps{% endtrans %}
+        </div>
+        <div class="card-body p-0">
+            <ul class="list-group list-group-flush">
+                {# Step 1: Trigger Watchtower #}
+                <li class="list-group-item d-flex align-items-center" data-docker-update-progress-target="stepRow" data-step="trigger">
+                    <i class="fas fa-check-circle text-success me-3" data-docker-update-progress-target="stepIcon"></i>
+                    <div class="flex-grow-1">
+                        <strong>{% trans %}update_manager.docker.step_trigger{% endtrans %}</strong>
+                        <br><small class="text-muted" data-docker-update-progress-target="stepDetail">{% trans %}update_manager.docker.step_trigger_desc{% endtrans %}</small>
+                    </div>
+                    <small class="text-muted step-timestamp" data-docker-update-progress-target="stepTime"></small>
+                </li>
+
+                {# Step 2: Pull Image #}
+                <li class="list-group-item d-flex align-items-center" data-docker-update-progress-target="stepRow" data-step="pull">
+                    <i class="fas fa-spinner fa-spin text-primary me-3" data-docker-update-progress-target="stepIcon"></i>
+                    <div class="flex-grow-1">
+                        <strong>{% trans %}update_manager.docker.step_pull{% endtrans %}</strong>
+                        <br><small class="text-muted" data-docker-update-progress-target="stepDetail">{% trans %}update_manager.docker.step_pull_desc{% endtrans %}</small>
+                    </div>
+                    <small class="text-muted step-timestamp" data-docker-update-progress-target="stepTime"></small>
+                </li>
+
+                {# Step 3: Stop Container #}
+                <li class="list-group-item d-flex align-items-center text-muted" data-docker-update-progress-target="stepRow" data-step="stop">
+                    <i class="fas fa-circle me-3" data-docker-update-progress-target="stepIcon"></i>
+                    <div class="flex-grow-1">
+                        <strong>{% trans %}update_manager.docker.step_stop{% endtrans %}</strong>
+                        <br><small class="text-muted" data-docker-update-progress-target="stepDetail">{% trans %}update_manager.docker.step_stop_desc{% endtrans %}</small>
+                    </div>
+                    <small class="text-muted step-timestamp" data-docker-update-progress-target="stepTime"></small>
+                </li>
+
+                {# Step 4: Restart Container #}
+                <li class="list-group-item d-flex align-items-center text-muted" data-docker-update-progress-target="stepRow" data-step="restart">
+                    <i class="fas fa-circle me-3" data-docker-update-progress-target="stepIcon"></i>
+                    <div class="flex-grow-1">
+                        <strong>{% trans %}update_manager.docker.step_restart{% endtrans %}</strong>
+                        <br><small class="text-muted" data-docker-update-progress-target="stepDetail">{% trans %}update_manager.docker.step_restart_desc{% endtrans %}</small>
+                    </div>
+                    <small class="text-muted step-timestamp" data-docker-update-progress-target="stepTime"></small>
+                </li>
+
+                {# Step 5: Health Check #}
+                <li class="list-group-item d-flex align-items-center text-muted" data-docker-update-progress-target="stepRow" data-step="health">
+                    <i class="fas fa-circle me-3" data-docker-update-progress-target="stepIcon"></i>
+                    <div class="flex-grow-1">
+                        <strong>{% trans %}update_manager.docker.step_health{% endtrans %}</strong>
+                        <br><small class="text-muted" data-docker-update-progress-target="stepDetail">{% trans %}update_manager.docker.step_health_desc{% endtrans %}</small>
+                    </div>
+                    <small class="text-muted step-timestamp" data-docker-update-progress-target="stepTime"></small>
+                </li>
+
+                {# Step 6: Verify Version #}
+                <li class="list-group-item d-flex align-items-center text-muted" data-docker-update-progress-target="stepRow" data-step="verify">
+                    <i class="fas fa-circle me-3" data-docker-update-progress-target="stepIcon"></i>
+                    <div class="flex-grow-1">
+                        <strong>{% trans %}update_manager.docker.step_verify{% endtrans %}</strong>
+                        <br><small class="text-muted" data-docker-update-progress-target="stepDetail">{% trans %}update_manager.docker.step_verify_desc{% endtrans %}</small>
+                    </div>
+                    <small class="text-muted step-timestamp" data-docker-update-progress-target="stepTime"></small>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    {# Elapsed Time #}
+    <div class="text-center text-muted small mb-3">
+        <i class="fas fa-clock me-1"></i>
+        {% trans %}update_manager.docker.elapsed{% endtrans %}:
+        <span data-docker-update-progress-target="elapsedTime">0s</span>
+    </div>
+
+    {# Actions - shown after completion or timeout #}
+    <div class="text-center d-none" data-docker-update-progress-target="actions">
+        <a href="{{ path('admin_update_manager') }}" class="btn btn-secondary me-2">
+            <i class="fas fa-arrow-left me-1"></i> {% trans %}update_manager.progress.back{% endtrans %}
+        </a>
+        <a href="/" class="btn btn-primary">
+            <i class="fas fa-home me-1"></i> {% trans %}update_manager.docker.go_to_homepage{% endtrans %}
+        </a>
+    </div>
+
+    {# Warning Notice #}
+    <div class="alert alert-warning mt-4" data-docker-update-progress-target="warningAlert">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        <strong>{% trans %}update_manager.docker.warning{% endtrans %}:</strong>
+        {% trans %}update_manager.docker.do_not_close{% endtrans %}
+    </div>
+</div>
+{% endblock %}
