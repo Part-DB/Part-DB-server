@@ -1574,6 +1574,66 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Bauteilesuche</target>
       </segment>
     </unit>
+    <unit id="Upyz4NL" name="assembly.search.title">
+      <segment state="translated">
+        <source>assembly.search.title</source>
+        <target>Baugruppensuche</target>
+      </segment>
+    </unit>
+    <unit id="deO4FsM" name="project.search.title">
+      <segment state="translated">
+        <source>project.search.title</source>
+        <target>Projektsuche</target>
+      </segment>
+    </unit>
+    <unit id="wNWc9GW" name="project.table.name">
+      <segment state="translated">
+        <source>project.table.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="Xq01S2F" name="project.table.id">
+      <segment state="translated">
+        <source>project.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="9AdhysG" name="project.table.description">
+      <segment state="translated">
+        <source>project.table.description</source>
+        <target>Beschreibung</target>
+      </segment>
+    </unit>
+    <unit id="4qJkRic" name="project.table.comment">
+      <segment state="translated">
+        <source>project.table.comment</source>
+        <target>Notizen</target>
+      </segment>
+    </unit>
+    <unit id="NrH0WW8" name="project.table.addedDate">
+      <segment state="translated">
+        <source>project.table.addedDate</source>
+        <target>Hinzugefügt am</target>
+      </segment>
+    </unit>
+    <unit id="6rN1Yf1" name="project.table.lastModified">
+      <segment state="translated">
+        <source>project.table.lastModified</source>
+        <target>Zuletzt geändert am</target>
+      </segment>
+    </unit>
+    <unit id="F2nNNFD" name="project.table.edit">
+      <segment state="translated">
+        <source>project.table.edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="KZCGmOp" name="project.table.edit.title">
+      <segment state="translated">
+        <source>project.table.edit.title</source>
+        <target>Projekt bearbeiten</target>
+      </segment>
+    </unit>
     <unit id=".nsfK4V" name="parts_list.storelocation.title">
       <segment state="translated">
         <source>parts_list.storelocation.title</source>
@@ -2444,6 +2504,24 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>datasource</source>
         <target>Datenquelle</target>
+      </segment>
+    </unit>
+    <unit id="cmck5zP" name="datasource.parts">
+      <segment state="translated">
+        <source>datasource.parts</source>
+        <target>Bauteile</target>
+      </segment>
+    </unit>
+    <unit id="3tkaYAP" name="datasource.projects">
+      <segment state="translated">
+        <source>datasource.projects</source>
+        <target>Projekte</target>
+      </segment>
+    </unit>
+    <unit id="aYPamdy" name="datasource.assemblies">
+      <segment state="translated">
+        <source>datasource.assemblies</source>
+        <target>Baugruppen</target>
       </segment>
     </unit>
     <unit id="uF_oOxY" name="manufacturer.labelp">
@@ -6827,6 +6905,18 @@ Element 1 -&gt; Element 1.2</target>
         <target>Suche Teile mit dem Suchbegriff &lt;b&gt;%keyword%&lt;/b&gt;</target>
       </segment>
     </unit>
+    <unit id="searching_for_assemblies" name="parts_list.search.searching_for_assemblies">
+      <segment state="translated">
+        <source>parts_list.search.searching_for_assemblies</source>
+        <target>Suche Baugruppen mit dem Suchbegriff &lt;b&gt;%keyword%&lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id="searching_for_projects" name="parts_list.search.searching_for_projects">
+      <segment state="translated">
+        <source>parts_list.search.searching_for_projects</source>
+        <target>Suche Projekte mit dem Suchbegriff &lt;b&gt;%keyword%&lt;/b&gt;</target>
+      </segment>
+    </unit>
     <unit id="4vomKLa" name="parts_list.search_options.caption">
       <segment state="translated">
         <source>parts_list.search_options.caption</source>
@@ -8692,8 +8782,8 @@ Element 1 -&gt; Element 1.2</target>
       </segment>
     </unit>
     <unit id="aki9R3e" name="project.bom_import.template.kicad_pcbnew.table">
-        <segment>
-            <source>project.bom_import.template.kicad_pcbnew.table</source>
+      <segment>
+        <source>project.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
@@ -8746,7 +8836,7 @@ Element 1 -&gt; Element 1.2</target>
                 </table>
                 ]]>
             </target>
-        </segment>
+      </segment>
     </unit>
     <unit id="6ZefVTs" name="project.bom_import.flash.invalid_file">
       <segment state="translated">
@@ -10467,10 +10557,22 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Standardmäßige Spalten für Baugruppentabellen</target>
       </segment>
     </unit>
+    <unit id="ObC5PW9" name="settings.behavior.table.projects_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.projects_default_columns</source>
+        <target>Standard-Spalten für Projekte</target>
+      </segment>
+    </unit>
     <unit id="t4jhp3R" name="settings.behavior.table.assemblies_default_columns.help">
       <segment state="translated">
         <source>settings.behavior.table.assemblies_default_columns.help</source>
         <target>Die Spalten, die standardmäßig in Baugruppentabellen angezeigt werden sollen. Die Reihenfolge der Elemente kann per Drag &amp; Drop geändert werden.</target>
+      </segment>
+    </unit>
+    <unit id="dHwCrSv" name="settings.behavior.table.projects_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.projects_default_columns.help</source>
+        <target>Wähle die Spalten aus, die standardmäßig in der Projektsuche angezeigt werden sollen.</target>
       </segment>
     </unit>
     <unit id="Uj8ie5E" name="settings.behavior.table.assemblies_bom_default_columns">
@@ -11178,8 +11280,8 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       </segment>
     </unit>
     <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
-        <segment>
-            <source>assembly.bom_import.template.kicad_pcbnew.table</source>
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
@@ -11232,7 +11334,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
                 </table>
                 ]]>
             </target>
-        </segment>
+      </segment>
     </unit>
     <unit id="X9HUFrv" name="part.table.actions.error">
       <segment state="translated">
@@ -12614,6 +12716,18 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Notizen</target>
       </segment>
     </unit>
+    <unit id="asdfghj" name="assembly.filter.status">
+      <segment state="translated">
+        <source>assembly.filter.status</source>
+        <target>Baugruppen-Status</target>
+      </segment>
+    </unit>
+    <unit id="qwertyu" name="assembly.filter.parent">
+      <segment state="translated">
+        <source>assembly.filter.parent</source>
+        <target>Übergeordnete Baugruppe</target>
+      </segment>
+    </unit>
     <unit id="ux2Ws9p" name="assembly.filter.attachments_count">
       <segment state="translated">
         <source>assembly.filter.attachments_count</source>
@@ -12656,6 +12770,12 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Beschreibung</target>
       </segment>
     </unit>
+    <unit id="acEe1Tb_notes" name="assembly.table.comment">
+      <segment state="translated">
+        <source>assembly.table.comment</source>
+        <target>Notizen</target>
+      </segment>
+    </unit>
     <unit id="ahzol5T" name="assembly.table.referencedAssemblies">
       <segment state="translated">
         <source>assembly.table.referencedAssemblies</source>
@@ -12690,6 +12810,96 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>assembly.table.invalid_regex</source>
         <target>Ungültiger regulärer Ausdruck (regex)</target>
+      </segment>
+    </unit>
+    <unit id="Ag9x60T" name="project.filter.dbId">
+      <segment state="translated">
+        <source>project.filter.dbId</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="MjSfszH" name="project.filter.name">
+      <segment state="translated">
+        <source>project.filter.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="ELxZW9y" name="project.filter.description">
+      <segment state="translated">
+        <source>project.filter.description</source>
+        <target>Beschreibung</target>
+      </segment>
+    </unit>
+    <unit id="svzDJ9V" name="project.filter.comment">
+      <segment state="translated">
+        <source>project.filter.comment</source>
+        <target>Notizen</target>
+      </segment>
+    </unit>
+    <unit id="sCPeQFs" name="project.filter.status">
+      <segment state="translated">
+        <source>project.filter.status</source>
+        <target>Projekt-Status</target>
+      </segment>
+    </unit>
+    <unit id="1Fcochg" name="project.filter.parent">
+      <segment state="translated">
+        <source>project.filter.parent</source>
+        <target>Übergeordnetes Projekt</target>
+      </segment>
+    </unit>
+    <unit id="s3yI9D6" name="project.filter.attachments_count">
+      <segment state="translated">
+        <source>project.filter.attachments_count</source>
+        <target>Anzahl Dateianhänge</target>
+      </segment>
+    </unit>
+    <unit id="75p958O" name="project.filter.attachmentName">
+      <segment state="translated">
+        <source>project.filter.attachmentName</source>
+        <target>Name des Dateianhangs</target>
+      </segment>
+    </unit>
+    <unit id="project.table.id" name="project.table.id">
+      <segment state="translated">
+        <source>project.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="project.table.name" name="project.table.name">
+      <segment state="translated">
+        <source>project.table.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="project.table.description" name="project.table.description">
+      <segment state="translated">
+        <source>project.table.description</source>
+        <target>Beschreibung</target>
+      </segment>
+    </unit>
+    <unit id="project.table.addedDate" name="project.table.addedDate">
+      <segment state="translated">
+        <source>project.table.addedDate</source>
+        <target>Hinzugefügt</target>
+      </segment>
+    </unit>
+    <unit id="project.table.lastModified" name="project.table.lastModified">
+      <segment state="translated">
+        <source>project.table.lastModified</source>
+        <target>Zuletzt bearbeitet</target>
+      </segment>
+    </unit>
+    <unit id="project.table.edit" name="project.table.edit">
+      <segment state="translated">
+        <source>project.table.edit</source>
+        <target>Ändern</target>
+      </segment>
+    </unit>
+    <unit id="project.table.edit.title" name="project.table.edit.title">
+      <segment state="translated">
+        <source>project.table.edit.title</source>
+        <target>Projekt ändern</target>
       </segment>
     </unit>
     <unit id="8uh6vTx" name="assembly.bom.table.id">

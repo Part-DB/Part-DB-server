@@ -1617,6 +1617,174 @@
         <target>搜索部件</target>
       </segment>
     </unit>
+    <unit id="Upyz4NL" name="assembly.search.title">
+      <segment state="translated">
+        <source>assembly.search.title</source>
+        <target>组合体搜索</target>
+      </segment>
+    </unit>
+    <unit id="deO4FsM" name="project.search.title">
+      <segment state="translated">
+        <source>project.search.title</source>
+        <target>项目搜索</target>
+      </segment>
+    </unit>
+    <unit id="Xq01S2F" name="project.table.id">
+      <segment state="translated">
+        <source>project.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="wNWc9GW" name="project.table.name">
+      <segment state="translated">
+        <source>project.table.name</source>
+        <target>名称</target>
+      </segment>
+    </unit>
+    <unit id="9AdhysG" name="project.table.description">
+      <segment state="translated">
+        <source>project.table.description</source>
+        <target>描述</target>
+      </segment>
+    </unit>
+    <unit id="4qJkRic" name="project.table.comment">
+      <segment state="translated">
+        <source>project.table.comment</source>
+        <target>备注</target>
+      </segment>
+    </unit>
+    <unit id="NrH0WW8" name="project.table.addedDate">
+      <segment state="translated">
+        <source>project.table.addedDate</source>
+        <target>添加日期</target>
+      </segment>
+    </unit>
+    <unit id="6rN1Yf1" name="project.table.lastModified">
+      <segment state="translated">
+        <source>project.table.lastModified</source>
+        <target>最后修改</target>
+      </segment>
+    </unit>
+    <unit id="F2nNNFD" name="project.table.edit">
+      <segment state="translated">
+        <source>project.table.edit</source>
+        <target>编辑</target>
+      </segment>
+    </unit>
+    <unit id="KZCGmOp" name="project.table.edit.title">
+      <segment state="translated">
+        <source>project.table.edit.title</source>
+        <target>编辑项目</target>
+      </segment>
+    </unit>
+    <unit id="cmck5zP" name="datasource.parts">
+      <segment state="translated">
+        <source>datasource.parts</source>
+        <target>零件</target>
+      </segment>
+    </unit>
+    <unit id="3tkaYAP" name="datasource.projects">
+      <segment state="translated">
+        <source>datasource.projects</source>
+        <target>项目</target>
+      </segment>
+    </unit>
+    <unit id="aYPamdy" name="datasource.assemblies">
+      <segment state="translated">
+        <source>datasource.assemblies</source>
+        <target>组合体</target>
+      </segment>
+    </unit>
+    <unit id="searching_for_assemblies" name="parts_list.search.searching_for_assemblies">
+      <segment state="translated">
+        <source>parts_list.search.searching_for_assemblies</source>
+        <target>正在搜索组合体...</target>
+      </segment>
+    </unit>
+    <unit id="searching_for_projects" name="parts_list.search.searching_for_projects">
+      <segment state="translated">
+        <source>parts_list.search.searching_for_projects</source>
+        <target>正在搜索项目...</target>
+      </segment>
+    </unit>
+    <unit id="ObC5PW9" name="settings.behavior.table.projects_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.projects_default_columns</source>
+        <target>项目表格默认列</target>
+      </segment>
+    </unit>
+    <unit id="dHwCrSv" name="settings.behavior.table.projects_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.projects_default_columns.help</source>
+        <target>选择要在项目表格中默认显示的列。</target>
+      </segment>
+    </unit>
+    <unit id="asdfghj" name="assembly.filter.status">
+      <segment state="translated">
+        <source>assembly.filter.status</source>
+        <target>组合体状态</target>
+      </segment>
+    </unit>
+    <unit id="qwertyu" name="assembly.filter.parent">
+      <segment state="translated">
+        <source>assembly.filter.parent</source>
+        <target>父级组合体</target>
+      </segment>
+    </unit>
+    <unit id="acEe1Tb_notes" name="assembly.table.comment">
+      <segment state="translated">
+        <source>assembly.table.comment</source>
+        <target>备注</target>
+      </segment>
+    </unit>
+    <unit id="Ag9x60T" name="project.filter.dbId">
+      <segment state="translated">
+        <source>project.filter.dbId</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="MjSfszH" name="project.filter.name">
+      <segment state="translated">
+        <source>project.filter.name</source>
+        <target>名称</target>
+      </segment>
+    </unit>
+    <unit id="ELxZW9y" name="project.filter.description">
+      <segment state="translated">
+        <source>project.filter.description</source>
+        <target>描述</target>
+      </segment>
+    </unit>
+    <unit id="svzDJ9V" name="project.filter.comment">
+      <segment state="translated">
+        <source>project.filter.comment</source>
+        <target>备注</target>
+      </segment>
+    </unit>
+    <unit id="sCPeQFs" name="project.filter.status">
+      <segment state="translated">
+        <source>project.filter.status</source>
+        <target>项目状态</target>
+      </segment>
+    </unit>
+    <unit id="1Fcochg" name="project.filter.parent">
+      <segment state="translated">
+        <source>project.filter.parent</source>
+        <target>父级项目</target>
+      </segment>
+    </unit>
+    <unit id="s3yI9D6" name="project.filter.attachments_count">
+      <segment state="translated">
+        <source>project.filter.attachments_count</source>
+        <target>附件数量</target>
+      </segment>
+    </unit>
+    <unit id="75p958O" name="project.filter.attachmentName">
+      <segment state="translated">
+        <source>project.filter.attachmentName</source>
+        <target>附件名称</target>
+      </segment>
+    </unit>
     <unit id="gwE_D3w" name="parts_list.storelocation.title">
       <segment state="translated">
         <source>parts_list.storelocation.title</source>
@@ -2883,10 +3051,10 @@
       </segment>
     </unit>
     <unit id="FV7YOW6" name="part.table.name.value.for_part">
-    	<segment state="translated">
-    		<source>part.table.name.value.for_part</source>
-    		<target>%value%（部件）</target>
-    	</segment>
+      <segment state="translated">
+        <source>part.table.name.value.for_part</source>
+        <target>%value%（部件）</target>
+      </segment>
     </unit>
     <unit id="o4zUJc5" name="part.table.name.value.for_assembly">
       <segment state="translated">
@@ -8752,8 +8920,8 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="aki9R3e" name="project.bom_import.template.kicad_pcbnew.table">
-        <segment>
-            <source>project.bom_import.template.kicad_pcbnew.table</source>
+      <segment>
+        <source>project.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
@@ -8806,7 +8974,7 @@ Element 3</target>
                 </table>
                 ]]>
             </target>
-        </segment>
+      </segment>
     </unit>
     <unit id="ijGhrbQ" name="project.bom_import.clear_existing_bom.help">
       <segment state="translated">
@@ -10543,18 +10711,18 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="gvaB1sb" name="assembly.bom_import.template.kicad_pcbnew.exptected_columns.note">
-        <segment>
-            <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.exptected_columns.note</source>
             <target>
                 <![CDATA[
                 <p><strong>注意:</strong> 未对类别管理中的特定组件进行映射。</p>
                 ]]>
             </target>
-        </segment>
+      </segment>
     </unit>
     <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
-        <segment>
-            <source>assembly.bom_import.template.kicad_pcbnew.table</source>
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
@@ -10607,7 +10775,7 @@ Element 3</target>
                 </table>
                 ]]>
             </target>
-        </segment>
+      </segment>
     </unit>
     <unit id="uT5zcT1" name="assembly_list.all.title">
       <segment state="translated">
@@ -10916,13 +11084,13 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
-        <notes>
-            <note priority="1">Do not remove! Used for datatables rendering.</note>
-        </notes>
-        <segment state="translated">
-            <source>datatable.datatable.lengthMenu</source>
-            <target>_MENU_</target>
-        </segment>
+      <notes>
+        <note priority="1">Do not remove! Used for datatables rendering.</note>
+      </notes>
+      <segment state="translated">
+        <source>datatable.datatable.lengthMenu</source>
+        <target>_MENU_</target>
+      </segment>
     </unit>
     <unit id="v8r7X2a" name="statistics.invalid_assembly_preview_attachments_count">
       <segment state="translated">

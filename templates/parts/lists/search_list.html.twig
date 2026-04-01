@@ -1,7 +1,16 @@
 {% extends "base.html.twig" %}
 
+{% import "components/search.macro.html.twig" as search %}
+
 {% block  title %}
-    {% trans %}parts_list.search.title{% endtrans %}: {{ keyword }}
+    {% if datasource == 'assemblies' %}
+        {% trans %}assembly.search.title{% endtrans %}
+    {% elseif datasource == 'projects' %}
+        {% trans %}project.search.title{% endtrans %}
+    {% else %}
+        {% trans %}parts_list.search.title{% endtrans %}
+    {% endif %}
+    : {{ keyword }}
 {% endblock %}
 
 {% block content %}
@@ -11,12 +20,27 @@
             <div class="accordion-header">
                 <button class="accordion-button collapsed py-2" data-bs-toggle="collapse" data-bs-target="#searchInfo">
                     <i class="fa-solid fa-magnifying-glass fa-fw"></i>
-                    {% trans %}parts_list.search.title{% endtrans %}:&nbsp;<b>{{ keyword }}</b>
+                    {% if datasource == 'assemblies' %}
+                        {% trans %}assembly.search.title{% endtrans %}
+                    {% elseif datasource == 'projects' %}
+                        {% trans %}project.search.title{% endtrans %}
+                    {% else %}
+                        {% trans %}parts_list.search.title{% endtrans %}
+                    {% endif %}
+                    :&nbsp;<b>{{ keyword }}</b>
                 </button>
             </div>
             <div id="searchInfo" class="accordion-collapse collapse" data-bs-parent="#listAccordion">
                 <div class="accordion-body">
-                    <h4>{% trans with {"%keyword%": keyword|escape} %}parts_list.search.searching_for{% endtrans %}</h4>
+                    <h4>
+                        {% if datasource == 'assemblies' %}
+                            {% trans with {"%keyword%": keyword|escape} %}parts_list.search.searching_for_assemblies{% endtrans %}
+                        {% elseif datasource == 'projects' %}
+                            {% trans with {"%keyword%": keyword|escape} %}parts_list.search.searching_for_projects{% endtrans %}
+                        {% else %}
+                            {% trans with {"%keyword%": keyword|escape} %}parts_list.search.searching_for{% endtrans %}
+                        {% endif %}
+                    </h4>
                     {% trans %}parts_list.search_options.caption{% endtrans %}:
 
 
@@ -25,45 +49,98 @@
                         <label class="form-check-label justify-content-start">{% trans %}name.label{% endtrans %}</label>
                     </div>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.category %}checked{% endif %}>
-                        <label class="form-check-label justify-content-start">{% trans %}category.label{% endtrans %}</label>
+                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.dbId %}checked{% endif %}>
+                        <label class="form-check-label justify-content-start">{% trans %}id.label{% endtrans %}</label>
                     </div>
+                    {% if datasource == 'parts' or datasource == 'assemblies' or datasource == 'projects' %}
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" disabled {% if searchFilter.category %}checked{% endif %}>
+                            <label class="form-check-label justify-content-start">
+                                {% if datasource == 'parts' %}
+                                    {% trans %}category.label{% endtrans %}
+                                {% elseif datasource == 'assemblies' %}
+                                    {% trans %}assembly.filter.parent{% endtrans %}
+                                {% else %}
+                                    {% trans %}project.filter.parent{% endtrans %}
+                                {% endif %}
+                            </label>
+                        </div>
+                    {% endif %}
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" disabled {% if searchFilter.description %}checked{% endif %}>
                         <label class="form-check-label justify-content-start">{% trans %}description.label{% endtrans %}</label>
                     </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.mpn %}checked{% endif %}>
-                        <label class="form-check-label justify-content-start">{% trans %}part.edit.mpn{% endtrans %}</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.tags %}checked{% endif %}>
-                        <label  class="form-check-label justify-content-start">{% trans %}tags.label{% endtrans %}</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.storelocation %}checked{% endif %}>
-                        <label class="form-check-label justify-content-start">{% trans %}storelocation.label{% endtrans %}</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.comment %}checked{% endif %}>
-                        <label class="form-check-label justify-content-start">{% trans %}comment.label{% endtrans %}</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.ordernr %}checked{% endif %}>
-                        <label for="search_supplierpartnr" class="form-check-label justify-content-start">{% trans %}orderdetails.edit.supplierpartnr{% endtrans %}</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.supplier %}checked{% endif %}>
-                        <label for="search_supplier" class="form-check-label justify-content-start">{% trans %}supplier.label{% endtrans %}</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.manufacturer %}checked{% endif %}>
-                        <label for="search_manufacturer" class="form-check-label justify-content-start">{% trans %}manufacturer.label{% endtrans %}</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.footprint %}checked{% endif %}>
-                        <label for="search_footprint" class="form-check-label justify-content-start">{% trans %}footprint.label{% endtrans %}</label>
-                    </div>
+                    {% if datasource == 'parts' %}
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" disabled {% if searchFilter.mpn %}checked{% endif %}>
+                            <label class="form-check-label justify-content-start">{% trans %}part.edit.mpn{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" disabled {% if searchFilter.tags %}checked{% endif %}>
+                            <label  class="form-check-label justify-content-start">{% trans %}tags.label{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" disabled {% if searchFilter.storelocation %}checked{% endif %}>
+                            <label class="form-check-label justify-content-start">{% trans %}storelocation.label{% endtrans %}</label>
+                        </div>
+                    {% endif %}
+                    {% if datasource == 'assemblies' %}
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" disabled {% if searchFilter.comment %}checked{% endif %}>
+                            <label class="form-check-label justify-content-start">{% trans %}assembly.filter.comment{% endtrans %}</label>
+                        </div>
+                    {% elseif datasource == 'projects' %}
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" disabled {% if searchFilter.comment %}checked{% endif %}>
+                            <label class="form-check-label justify-content-start">{% trans %}project.filter.comment{% endtrans %}</label>
+                        </div>
+                    {% else %}
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" disabled {% if searchFilter.comment %}checked{% endif %}>
+                            <label class="form-check-label justify-content-start">{% trans %}comment.label{% endtrans %}</label>
+                        </div>
+                    {% endif %}
+                    {% if datasource == 'parts' %}
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" disabled {% if searchFilter.manufacturingStatus %}checked{% endif %}>
+                            <label class="form-check-label justify-content-start">{% trans %}part.edit.manufacturing_status{% endtrans %}</label>
+                        </div>
+                    {% endif %}
+                    {% if datasource == 'parts' or datasource == 'assemblies' %}
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" disabled {% if searchFilter.ipn %}checked{% endif %}>
+                            <label class="form-check-label justify-content-start">{% trans %}part.edit.ipn{% endtrans %}</label>
+                        </div>
+                    {% endif %}
+                    {% if datasource == 'parts' %}
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" disabled {% if searchFilter.ordernr %}checked{% endif %}>
+                            <label for="search_supplierpartnr" class="form-check-label justify-content-start">{% trans %}orderdetails.edit.supplierpartnr{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" disabled {% if searchFilter.supplier %}checked{% endif %}>
+                            <label for="search_supplier" class="form-check-label justify-content-start">{% trans %}supplier.label{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" disabled {% if searchFilter.manufacturer %}checked{% endif %}>
+                            <label for="search_manufacturer" class="form-check-label justify-content-start">{% trans %}manufacturer.label{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" disabled {% if searchFilter.footprint %}checked{% endif %}>
+                            <label for="search_footprint" class="form-check-label justify-content-start">{% trans %}footprint.label{% endtrans %}</label>
+                        </div>
+                    {% endif %}
+                    {% if datasource == 'assemblies' %}
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" disabled {% if searchFilter.status %}checked{% endif %}>
+                            <label class="form-check-label justify-content-start">{% trans %}assembly.edit.status{% endtrans %}</label>
+                        </div>
+                    {% elseif datasource == 'projects' %}
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" disabled {% if searchFilter.status %}checked{% endif %}>
+                            <label class="form-check-label justify-content-start">{% trans %}project.edit.status{% endtrans %}</label>
+                        </div>
+                    {% endif %}
                     <hr>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" disabled {% if searchFilter.regex %}checked{% endif %}>
@@ -73,10 +150,13 @@
             </div>
         </div>
 
-
         {% include "parts/lists/_filter.html.twig" %}
     </div>
 
     {% include "parts/lists/_parts_list.html.twig" %}
 
+    <form action="{{ path('parts_search') }}" method="get" class="d-none">
+        <input type="hidden" name="keyword" value="{{ keyword }}">
+        {{ search.settings_drodown(true, searchFilter, true) }}
+    </form>
 {% endblock %}

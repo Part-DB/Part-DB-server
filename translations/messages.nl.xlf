@@ -1132,7 +1132,7 @@
               <p><strong>Opmerking:</strong> Er wordt geen mapping uitgevoerd met specifieke componenten uit de categoriebeheer.</p>
             ]]>
           </target>
-        </segment>
+      </segment>
     </unit>
     <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
       <segment>
@@ -1315,6 +1315,168 @@
       <segment state="translated">
         <source>assembly.table.edit.title</source>
         <target>Assemblage bewerken</target>
+      </segment>
+    </unit>
+    <unit id="V1p8X9m" name="assembly.search.title">
+      <segment state="translated">
+        <source>assembly.search.title</source>
+        <target>Assemblage zoeken</target>
+      </segment>
+    </unit>
+    <unit id="K3n7B2v" name="project.search.title">
+      <segment state="translated">
+        <source>project.search.title</source>
+        <target>Project zoeken</target>
+      </segment>
+    </unit>
+    <unit id="M9n2V5c" name="datasource.parts">
+      <segment state="translated">
+        <source>datasource.parts</source>
+        <target>Onderdelen</target>
+      </segment>
+    </unit>
+    <unit id="B4v7N1m" name="datasource.projects">
+      <segment state="translated">
+        <source>datasource.projects</source>
+        <target>Projecten</target>
+      </segment>
+    </unit>
+    <unit id="X8z2L5p" name="datasource.assemblies">
+      <segment state="translated">
+        <source>datasource.assemblies</source>
+        <target>Assemblages</target>
+      </segment>
+    </unit>
+    <unit id="H5n8M2v" name="parts_list.search.searching_for_assemblies">
+      <segment state="translated">
+        <source>parts_list.search.searching_for_assemblies</source>
+        <target>Zoeken naar assemblages met trefwoord %keyword%</target>
+      </segment>
+    </unit>
+    <unit id="J3k9P1L" name="parts_list.search.searching_for_projects">
+      <segment state="translated">
+        <source>parts_list.search.searching_for_projects</source>
+        <target>Zoeken naar projecten mit trefwoord %keyword%</target>
+      </segment>
+    </unit>
+    <unit id="T5v2N7c" name="settings.behavior.table.projects_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.projects_default_columns</source>
+        <target>Standaardkolommen voor projecten</target>
+      </segment>
+    </unit>
+    <unit id="R9z1K4m" name="settings.behavior.table.projects_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.projects_default_columns.help</source>
+        <target>Kies welke kolommen standaard worden weergegeven in de projectentabel.</target>
+      </segment>
+    </unit>
+    <unit id="L3n8B2v" name="assembly.filter.status">
+      <segment state="translated">
+        <source>assembly.filter.status</source>
+        <target>Assemblage-status</target>
+      </segment>
+    </unit>
+    <unit id="P5v2M9n" name="assembly.filter.parent">
+      <segment state="translated">
+        <source>assembly.filter.parent</source>
+        <target>Bovenliggende assemblage</target>
+      </segment>
+    </unit>
+    <unit id="N7c1V4p" name="assembly.table.comment">
+      <segment state="translated">
+        <source>assembly.table.comment</source>
+        <target>Notities</target>
+      </segment>
+    </unit>
+    <unit id="G3n9L2m" name="project.filter.dbId">
+      <segment state="translated">
+        <source>project.filter.dbId</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="K5v8N1p" name="project.filter.name">
+      <segment state="translated">
+        <source>project.filter.name</source>
+        <target>Naam</target>
+      </segment>
+    </unit>
+    <unit id="M2n7B4v" name="project.filter.description">
+      <segment state="translated">
+        <source>project.filter.description</source>
+        <target>Beschrijving</target>
+      </segment>
+    </unit>
+    <unit id="V9c1L5p" name="project.filter.comment">
+      <segment state="translated">
+        <source>project.filter.comment</source>
+        <target>Notities</target>
+      </segment>
+    </unit>
+    <unit id="H3n2N7m" name="project.filter.status">
+      <segment state="translated">
+        <source>project.filter.status</source>
+        <target>Projectstatus</target>
+      </segment>
+    </unit>
+    <unit id="P8v1M2v" name="project.filter.parent">
+      <segment state="translated">
+        <source>project.filter.parent</source>
+        <target>Bovenliggend project</target>
+      </segment>
+    </unit>
+    <unit id="J5k9P4L" name="project.filter.attachments_count">
+      <segment state="translated">
+        <source>project.filter.attachments_count</source>
+        <target>Aantal bijlagen</target>
+      </segment>
+    </unit>
+    <unit id="T1n7V5c" name="project.filter.attachmentName">
+      <segment state="translated">
+        <source>project.filter.attachmentName</source>
+        <target>Naam bijlage</target>
+      </segment>
+    </unit>
+    <unit id="Q4v8B2m" name="project.table.id">
+      <segment state="translated">
+        <source>project.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="W2n1M5v" name="project.table.name">
+      <segment state="translated">
+        <source>project.table.name</source>
+        <target>Projectnaam</target>
+      </segment>
+    </unit>
+    <unit id="S9z3L7p" name="project.table.description">
+      <segment state="translated">
+        <source>project.table.description</source>
+        <target>Beschrijving</target>
+      </segment>
+    </unit>
+    <unit id="Z5v2N4c" name="project.table.addedDate">
+      <segment state="translated">
+        <source>project.table.addedDate</source>
+        <target>Toegevoegd op</target>
+      </segment>
+    </unit>
+    <unit id="Y1n8M2p" name="project.table.lastModified">
+      <segment state="translated">
+        <source>project.table.lastModified</source>
+        <target>Laatst gewijzigd</target>
+      </segment>
+    </unit>
+    <unit id="K3v7N9m" name="project.table.edit">
+      <segment state="translated">
+        <source>project.table.edit</source>
+        <target>Bewerken</target>
+      </segment>
+    </unit>
+    <unit id="F2n5L1v" name="project.table.edit.title">
+      <segment state="translated">
+        <source>project.table.edit.title</source>
+        <target>Project bewerken</target>
       </segment>
     </unit>
     <unit id="juTbw2C" name="assembly.table.invalid_regex">
@@ -1540,13 +1702,13 @@
       </segment>
     </unit>
     <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
-        <notes>
-            <note priority="1">Do not remove! Used for datatables rendering.</note>
-        </notes>
-        <segment state="translated">
-            <source>datatable.datatable.lengthMenu</source>
-            <target>_MENU_</target>
-          </segment>
+      <notes>
+        <note priority="1">Do not remove! Used for datatables rendering.</note>
+      </notes>
+      <segment state="translated">
+        <source>datatable.datatable.lengthMenu</source>
+        <target>_MENU_</target>
+      </segment>
     </unit>
     <unit id="bd7zT1d" name="statistics.assemblies">
       <segment state="translated">
@@ -1554,7 +1716,7 @@
         <target>Assemblages</target>
       </segment>
     </unit>
-        <unit id="statistics.projects" name="statistics.projects">
+    <unit id="statistics.projects" name="statistics.projects">
       <segment state="translated">
         <source>statistics.projects</source>
         <target>Projecten</target>

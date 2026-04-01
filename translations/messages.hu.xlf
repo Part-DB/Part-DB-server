@@ -1528,6 +1528,174 @@
         <target>Alkatrészek keresése</target>
       </segment>
     </unit>
+    <unit id="Upyz4NL" name="assembly.search.title">
+      <segment state="translated">
+        <source>assembly.search.title</source>
+        <target>Szerelvények keresése</target>
+      </segment>
+    </unit>
+    <unit id="deO4FsM" name="project.search.title">
+      <segment state="translated">
+        <source>project.search.title</source>
+        <target>Projektek keresése</target>
+      </segment>
+    </unit>
+    <unit id="Xq01S2F" name="project.table.id">
+      <segment state="translated">
+        <source>project.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="wNWc9GW" name="project.table.name">
+      <segment state="translated">
+        <source>project.table.name</source>
+        <target>Név</target>
+      </segment>
+    </unit>
+    <unit id="9AdhysG" name="project.table.description">
+      <segment state="translated">
+        <source>project.table.description</source>
+        <target>Leírás</target>
+      </segment>
+    </unit>
+    <unit id="4qJkRic" name="project.table.comment">
+      <segment state="translated">
+        <source>project.table.comment</source>
+        <target>Megjegyzések</target>
+      </segment>
+    </unit>
+    <unit id="NrH0WW8" name="project.table.addedDate">
+      <segment state="translated">
+        <source>project.table.addedDate</source>
+        <target>Hozzáadva</target>
+      </segment>
+    </unit>
+    <unit id="6rN1Yf1" name="project.table.lastModified">
+      <segment state="translated">
+        <source>project.table.lastModified</source>
+        <target>Utoljára módosítva</target>
+      </segment>
+    </unit>
+    <unit id="F2nNNFD" name="project.table.edit">
+      <segment state="translated">
+        <source>project.table.edit</source>
+        <target>Szerkesztés</target>
+      </segment>
+    </unit>
+    <unit id="KZCGmOp" name="project.table.edit.title">
+      <segment state="translated">
+        <source>project.table.edit.title</source>
+        <target>Projekt szerkesztése</target>
+      </segment>
+    </unit>
+    <unit id="cmck5zP" name="datasource.parts">
+      <segment state="translated">
+        <source>datasource.parts</source>
+        <target>Alkatrészek</target>
+      </segment>
+    </unit>
+    <unit id="3tkaYAP" name="datasource.projects">
+      <segment state="translated">
+        <source>datasource.projects</source>
+        <target>Projektek</target>
+      </segment>
+    </unit>
+    <unit id="aYPamdy" name="datasource.assemblies">
+      <segment state="translated">
+        <source>datasource.assemblies</source>
+        <target>Szerelvények</target>
+      </segment>
+    </unit>
+    <unit id="searching_for_assemblies" name="parts_list.search.searching_for_assemblies">
+      <segment state="translated">
+        <source>parts_list.search.searching_for_assemblies</source>
+        <target>Szerelvények keresése...</target>
+      </segment>
+    </unit>
+    <unit id="searching_for_projects" name="parts_list.search.searching_for_projects">
+      <segment state="translated">
+        <source>parts_list.search.searching_for_projects</source>
+        <target>Projektek keresése...</target>
+      </segment>
+    </unit>
+    <unit id="ObC5PW9" name="settings.behavior.table.projects_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.projects_default_columns</source>
+        <target>Alapértelmezett oszlopok a projekttáblázatokhoz</target>
+      </segment>
+    </unit>
+    <unit id="dHwCrSv" name="settings.behavior.table.projects_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.projects_default_columns.help</source>
+        <target>Válassza ki a projekttáblázatokban alapértelmezés szerint megjelenítendő oszlopokat.</target>
+      </segment>
+    </unit>
+    <unit id="asdfghj" name="assembly.filter.status">
+      <segment state="translated">
+        <source>assembly.filter.status</source>
+        <target>Szerelvény állapota</target>
+      </segment>
+    </unit>
+    <unit id="qwertyu" name="assembly.filter.parent">
+      <segment state="translated">
+        <source>assembly.filter.parent</source>
+        <target>Szülő szerelvény</target>
+      </segment>
+    </unit>
+    <unit id="acEe1Tb_notes" name="assembly.table.comment">
+      <segment state="translated">
+        <source>assembly.table.comment</source>
+        <target>Megjegyzések</target>
+      </segment>
+    </unit>
+    <unit id="Ag9x60T" name="project.filter.dbId">
+      <segment state="translated">
+        <source>project.filter.dbId</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="MjSfszH" name="project.filter.name">
+      <segment state="translated">
+        <source>project.filter.name</source>
+        <target>Név</target>
+      </segment>
+    </unit>
+    <unit id="ELxZW9y" name="project.filter.description">
+      <segment state="translated">
+        <source>project.filter.description</source>
+        <target>Leírás</target>
+      </segment>
+    </unit>
+    <unit id="svzDJ9V" name="project.filter.comment">
+      <segment state="translated">
+        <source>project.filter.comment</source>
+        <target>Megjegyzések</target>
+      </segment>
+    </unit>
+    <unit id="sCPeQFs" name="project.filter.status">
+      <segment state="translated">
+        <source>project.filter.status</source>
+        <target>Projekt állapota</target>
+      </segment>
+    </unit>
+    <unit id="1Fcochg" name="project.filter.parent">
+      <segment state="translated">
+        <source>project.filter.parent</source>
+        <target>Szülő projekt</target>
+      </segment>
+    </unit>
+    <unit id="s3yI9D6" name="project.filter.attachments_count">
+      <segment state="translated">
+        <source>project.filter.attachments_count</source>
+        <target>Mellékletek száma</target>
+      </segment>
+    </unit>
+    <unit id="75p958O" name="project.filter.attachmentName">
+      <segment state="translated">
+        <source>project.filter.attachmentName</source>
+        <target>Melléklet neve</target>
+      </segment>
+    </unit>
     <unit id=".nsfK4V" name="parts_list.storelocation.title">
       <segment state="translated">
         <source>parts_list.storelocation.title</source>
@@ -11513,13 +11681,13 @@
       </segment>
     </unit>
     <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
-        <notes>
-            <note priority="1">Do not remove! Used for datatables rendering.</note>
-        </notes>
-        <segment state="translated">
-            <source>datatable.datatable.lengthMenu</source>
-            <target>_MENU_</target>
-        </segment>
+      <notes>
+        <note priority="1">Do not remove! Used for datatables rendering.</note>
+      </notes>
+      <segment state="translated">
+        <source>datatable.datatable.lengthMenu</source>
+        <target>_MENU_</target>
+      </segment>
     </unit>
     <unit id="v8r7X2a" name="statistics.invalid_assembly_preview_attachments_count">
       <segment state="translated">

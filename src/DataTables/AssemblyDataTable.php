@@ -82,6 +82,8 @@ final class AssemblyDataTable implements DataTableTypeInterface
                 'label' => '',
                 'className' => 'no-colvis',
                 'render' => fn($value, Assembly $context) => $this->assemblyDataTableHelper->renderPicture($context),
+                'orderable' => false,
+                'searchable' => false,
             ], visibility_configurable: false)
             ->add('name', TextColumn::class, [
                 'label' => $this->translator->trans('assembly.table.name'),
@@ -97,6 +99,10 @@ final class AssemblyDataTable implements DataTableTypeInterface
             ])
             ->add('description', MarkdownColumn::class, [
                 'label' => $this->translator->trans('assembly.table.description'),
+            ])
+            ->add('comment', MarkdownColumn::class, [
+                'label' => $this->translator->trans('assembly.table.comment'),
+                'render' => fn($value, Assembly $context) => $context->getComment()
             ])
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('assembly.table.addedDate'),
@@ -222,11 +228,23 @@ final class AssemblyDataTable implements DataTableTypeInterface
         //The join fields get prefixed with an underscore, so we can check if they are used in the query easy without confusing them for a assembly subfield
         $dql = $builder->getDQL();
 
-        if (str_contains($dql, '_master_picture_attachment')) {
+        //Helper function to check if a join alias is already present in the QueryBuilder
+        $hasJoin = static function (QueryBuilder $qb, string $alias): bool {
+            foreach ($qb->getDQLPart('join') as $joins) {
+                foreach ($joins as $join) {
+                    if ($join->getAlias() === $alias) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        };
+
+        if (str_contains($dql, '_master_picture_attachment') && !$hasJoin($builder, '_master_picture_attachment')) {
             $builder->leftJoin('assembly.master_picture_attachment', '_master_picture_attachment');
             $builder->addGroupBy('_master_picture_attachment');
         }
-        if (str_contains($dql, '_attachments')) {
+        if (str_contains($dql, '_attachments') && !$hasJoin($builder, '_attachments')) {
             $builder->leftJoin('assembly.attachments', '_attachments');
         }
 

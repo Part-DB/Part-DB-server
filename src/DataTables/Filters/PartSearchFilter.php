@@ -32,31 +32,31 @@ class PartSearchFilter implements FilterInterface
     protected bool $regex = false;
 
     /** @var bool Use name field for searching */
-    protected bool $name = true;
+    protected bool $name = false;
 
     /** @var bool Use id field for searching */
     protected bool $dbId = false;
 
     /** @var bool Use category name for searching */
-    protected bool $category = true;
+    protected bool $category = false;
 
     /** @var bool Use description for searching */
-    protected bool $description = true;
+    protected bool $description = false;
 
     /** @var bool Use tags for searching */
-    protected bool $tags = true;
+    protected bool $tags = false;
 
     /** @var bool Use storelocation name for searching */
-    protected bool $storelocation = true;
+    protected bool $storelocation = false;
 
     /** @var bool Use comment field for searching */
-    protected bool $comment = true;
+    protected bool $comment = false;
 
     /** @var bool Use ordernr for searching */
-    protected bool $ordernr = true;
+    protected bool $ordernr = false;
 
     /** @var bool Use manufacturer product name for searching */
-    protected bool $mpn = true;
+    protected bool $mpn = false;
 
     /** @var bool Use supplier name for searching */
     protected bool $supplier = false;
@@ -67,17 +67,32 @@ class PartSearchFilter implements FilterInterface
     /** @var bool Use footprint name for searching */
     protected bool $footprint = false;
 
+    /** @var bool Use manufacturing status for searching */
+    protected bool $manufacturingStatus = false;
+
     /** @var bool Use Internal Part number for searching */
-    protected bool $ipn = true;
+    protected bool $ipn = false;
 
     /** @var bool Use assembly name for searching */
-    protected bool $assembly = true;
+    protected bool $assembly = false;
+
+    /** @var string The datasource used for searching */
+    protected string $datasource = 'parts';
+
+    protected static int $parameterCounter = 0;
 
     public function __construct(
         /** @var string The string to query for */
         protected string $keyword
     )
     {
+    }
+
+    protected function generateParameterIdentifier(string $property): string
+    {
+        //Replace all special characters with underscores
+        $property = preg_replace('/\W/', '_', $property);
+        return $property . '_' . (self::$parameterCounter++) . '_';
     }
 
     protected function getFieldsToSearch(): array
@@ -88,7 +103,7 @@ class PartSearchFilter implements FilterInterface
             $fields_to_search[] = 'part.name';
         }
         if($this->category) {
-            $fields_to_search[] = '_category.name';
+            $fields_to_search[] = '_search_category.name';
         }
         if($this->description) {
             $fields_to_search[] = 'part.description';
@@ -100,29 +115,32 @@ class PartSearchFilter implements FilterInterface
             $fields_to_search[] = 'part.tags';
         }
         if($this->storelocation) {
-            $fields_to_search[] = '_storelocations.name';
+            $fields_to_search[] = '_search_storelocations.name';
         }
         if($this->ordernr) {
-            $fields_to_search[] = '_orderdetails.supplierpartnr';
+            $fields_to_search[] = '_search_orderdetails.supplierpartnr';
         }
         if($this->mpn) {
             $fields_to_search[] = 'part.manufacturer_product_number';
         }
         if($this->supplier) {
-            $fields_to_search[] = '_suppliers.name';
+            $fields_to_search[] = '_search_suppliers.name';
         }
         if($this->manufacturer) {
-            $fields_to_search[] = '_manufacturer.name';
+            $fields_to_search[] = '_search_manufacturer.name';
         }
         if($this->footprint) {
-            $fields_to_search[] = '_footprint.name';
+            $fields_to_search[] = '_search_footprint.name';
+        }
+        if($this->manufacturingStatus) {
+            $fields_to_search[] = 'part.manufacturing_status';
         }
         if ($this->ipn) {
             $fields_to_search[] = 'part.ipn';
         }
         if ($this->assembly) {
-            $fields_to_search[] = '_assembly.name';
-            $fields_to_search[] = '_assembly.ipn';
+            $fields_to_search[] = '_search_assembly.name';
+            $fields_to_search[] = '_search_assembly.ipn';
         }
 
         return $fields_to_search;
@@ -130,6 +148,33 @@ class PartSearchFilter implements FilterInterface
 
     public function apply(QueryBuilder $queryBuilder): void
     {
+        if ($this->category) {
+            $queryBuilder->leftJoin('part.category', '_search_category');
+        }
+        if ($this->storelocation) {
+            $queryBuilder->leftJoin('part.partLots', '_search_partLots')
+                ->leftJoin('_search_partLots.storage_location', '_search_storelocations');
+        }
+        if ($this->ordernr) {
+            $queryBuilder->leftJoin('part.orderdetails', '_search_orderdetails');
+        }
+        if ($this->supplier) {
+            if (!$this->ordernr) {
+                $queryBuilder->leftJoin('part.orderdetails', '_search_orderdetails');
+            }
+            $queryBuilder->leftJoin('_search_orderdetails.supplier', '_search_suppliers');
+        }
+        if ($this->manufacturer) {
+            $queryBuilder->leftJoin('part.manufacturer', '_search_manufacturer');
+        }
+        if ($this->footprint) {
+            $queryBuilder->leftJoin('part.footprint', '_search_footprint');
+        }
+        if ($this->assembly) {
+            $queryBuilder->leftJoin('part.assembly_bom_entries', '_search_assemblyBomEntries')
+                ->leftJoin('_search_assemblyBomEntries.assembly', '_search_assembly');
+        }
+
         $fields_to_search = $this->getFieldsToSearch();
         $is_numeric = preg_match('/^\d+$/', $this->keyword) === 1;
 
@@ -141,32 +186,34 @@ class PartSearchFilter implements FilterInterface
             return;
         }
 
+        $parameterIdentifier = $this->generateParameterIdentifier('search_query');
         $expressions = [];
-        
+
         if($fields_to_search !== []) {
             //Convert the fields to search to a list of expressions
-            $expressions = array_map(function (string $field): string {
+            $expressions = array_map(function (string $field) use ($parameterIdentifier): string {
                 if ($this->regex) {
-                    return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
+                    return sprintf("REGEXP(%s, :%s) = TRUE", $field, $parameterIdentifier);
                 }
 
-                return sprintf("ILIKE(%s, :search_query) = TRUE", $field);
+                return sprintf("ILIKE(%s, :%s) = TRUE", $field, $parameterIdentifier);
             }, $fields_to_search);
-            
+
             //For regex, we pass the query as is, for like we add % to the start and end as wildcards
             if ($this->regex) {
-                $queryBuilder->setParameter('search_query', $this->keyword);
+                $queryBuilder->setParameter($parameterIdentifier, $this->keyword);
             } else {
                 //Escape % and _ characters in the keyword
-                $this->keyword = str_replace(['%', '_'], ['\%', '\_'], $this->keyword);
-                $queryBuilder->setParameter('search_query', '%' . $this->keyword . '%');
+                $keyword_escaped = str_replace(['%', '_'], ['\%', '\_'], $this->keyword);
+                $queryBuilder->setParameter($parameterIdentifier, '%' . $keyword_escaped . '%');
             }
         }
 
         //Use equal expression to just search for exact numeric matches
         if ($search_dbId) {
-            $expressions[] = $queryBuilder->expr()->eq('part.id', ':id_exact');
-            $queryBuilder->setParameter('id_exact', (int) $this->keyword,
+            $idParameterIdentifier = $this->generateParameterIdentifier('id_exact');
+            $expressions[] = $queryBuilder->expr()->eq('part.id', ':' . $idParameterIdentifier);
+            $queryBuilder->setParameter($idParameterIdentifier, (int) $this->keyword,
                 ParameterType::INTEGER);
         }
 
@@ -333,6 +380,17 @@ class PartSearchFilter implements FilterInterface
         return $this;
     }
 
+    public function isManufacturingStatus(): bool
+    {
+        return $this->manufacturingStatus;
+    }
+
+    public function setManufacturingStatus(bool $manufacturingStatus): PartSearchFilter
+    {
+        $this->manufacturingStatus = $manufacturingStatus;
+        return $this;
+    }
+
     public function isComment(): bool
     {
         return $this->comment;
@@ -352,6 +410,33 @@ class PartSearchFilter implements FilterInterface
     public function setAssembly(bool $assembly): PartSearchFilter
     {
         $this->assembly = $assembly;
+        return $this;
+    }
+
+    /**
+     * Dummy method for compatibility with assembly/project search options in Twig.
+     */
+    public function isStatus(): bool
+    {
+        return false;
+    }
+
+    /**
+     * Dummy method for compatibility with assembly/project search options in Twig.
+     */
+    public function setStatus(bool $status): PartSearchFilter
+    {
+        return $this;
+    }
+
+    public function getDatasource(): string
+    {
+        return $this->datasource;
+    }
+
+    public function setDatasource(string $datasource): PartSearchFilter
+    {
+        $this->datasource = $datasource;
         return $this;
     }
 }

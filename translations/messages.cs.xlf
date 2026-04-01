@@ -1617,6 +1617,174 @@ Související prvky budou přesunuty nahoru.</target>
         <target>Vyhledat díly</target>
       </segment>
     </unit>
+    <unit id="Upyz4NL" name="assembly.search.title">
+      <segment state="translated">
+        <source>assembly.search.title</source>
+        <target>Hledání sestav</target>
+      </segment>
+    </unit>
+    <unit id="deO4FsM" name="project.search.title">
+      <segment state="translated">
+        <source>project.search.title</source>
+        <target>Hledání projektů</target>
+      </segment>
+    </unit>
+    <unit id="Xq01S2F" name="project.table.id">
+      <segment state="translated">
+        <source>project.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="wNWc9GW" name="project.table.name">
+      <segment state="translated">
+        <source>project.table.name</source>
+        <target>Název</target>
+      </segment>
+    </unit>
+    <unit id="9AdhysG" name="project.table.description">
+      <segment state="translated">
+        <source>project.table.description</source>
+        <target>Popis</target>
+      </segment>
+    </unit>
+    <unit id="4qJkRic" name="project.table.comment">
+      <segment state="translated">
+        <source>project.table.comment</source>
+        <target>Poznámky</target>
+      </segment>
+    </unit>
+    <unit id="NrH0WW8" name="project.table.addedDate">
+      <segment state="translated">
+        <source>project.table.addedDate</source>
+        <target>Přidáno dne</target>
+      </segment>
+    </unit>
+    <unit id="6rN1Yf1" name="project.table.lastModified">
+      <segment state="translated">
+        <source>project.table.lastModified</source>
+        <target>Naposledy upraveno</target>
+      </segment>
+    </unit>
+    <unit id="F2nNNFD" name="project.table.edit">
+      <segment state="translated">
+        <source>project.table.edit</source>
+        <target>Upravit</target>
+      </segment>
+    </unit>
+    <unit id="KZCGmOp" name="project.table.edit.title">
+      <segment state="translated">
+        <source>project.table.edit.title</source>
+        <target>Upravit projekt</target>
+      </segment>
+    </unit>
+    <unit id="cmck5zP" name="datasource.parts">
+      <segment state="translated">
+        <source>datasource.parts</source>
+        <target>Součástky</target>
+      </segment>
+    </unit>
+    <unit id="3tkaYAP" name="datasource.projects">
+      <segment state="translated">
+        <source>datasource.projects</source>
+        <target>Projekty</target>
+      </segment>
+    </unit>
+    <unit id="aYPamdy" name="datasource.assemblies">
+      <segment state="translated">
+        <source>datasource.assemblies</source>
+        <target>Sestavy</target>
+      </segment>
+    </unit>
+    <unit id="searching_for_assemblies" name="parts_list.search.searching_for_assemblies">
+      <segment state="translated">
+        <source>parts_list.search.searching_for_assemblies</source>
+        <target>Hledání sestav...</target>
+      </segment>
+    </unit>
+    <unit id="searching_for_projects" name="parts_list.search.searching_for_projects">
+      <segment state="translated">
+        <source>parts_list.search.searching_for_projects</source>
+        <target>Hledání projektů...</target>
+      </segment>
+    </unit>
+    <unit id="ObC5PW9" name="settings.behavior.table.projects_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.projects_default_columns</source>
+        <target>Výchozí sloupce pro tabulky projektů</target>
+      </segment>
+    </unit>
+    <unit id="dHwCrSv" name="settings.behavior.table.projects_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.projects_default_columns.help</source>
+        <target>Vyberte sloupce, které se mají ve výchozím nastavení zobrazovat v tabulkách projektů.</target>
+      </segment>
+    </unit>
+    <unit id="asdfghj" name="assembly.filter.status">
+      <segment state="translated">
+        <source>assembly.filter.status</source>
+        <target>Stav sestavy</target>
+      </segment>
+    </unit>
+    <unit id="qwertyu" name="assembly.filter.parent">
+      <segment state="translated">
+        <source>assembly.filter.parent</source>
+        <target>Nadřazená sestava</target>
+      </segment>
+    </unit>
+    <unit id="acEe1Tb_notes" name="assembly.table.comment">
+      <segment state="translated">
+        <source>assembly.table.comment</source>
+        <target>Poznámky</target>
+      </segment>
+    </unit>
+    <unit id="Ag9x60T" name="project.filter.dbId">
+      <segment state="translated">
+        <source>project.filter.dbId</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="MjSfszH" name="project.filter.name">
+      <segment state="translated">
+        <source>project.filter.name</source>
+        <target>Název</target>
+      </segment>
+    </unit>
+    <unit id="ELxZW9y" name="project.filter.description">
+      <segment state="translated">
+        <source>project.filter.description</source>
+        <target>Popis</target>
+      </segment>
+    </unit>
+    <unit id="svzDJ9V" name="project.filter.comment">
+      <segment state="translated">
+        <source>project.filter.comment</source>
+        <target>Poznámky</target>
+      </segment>
+    </unit>
+    <unit id="sCPeQFs" name="project.filter.status">
+      <segment state="translated">
+        <source>project.filter.status</source>
+        <target>Stav projektu</target>
+      </segment>
+    </unit>
+    <unit id="1Fcochg" name="project.filter.parent">
+      <segment state="translated">
+        <source>project.filter.parent</source>
+        <target>Nadřazený projekt</target>
+      </segment>
+    </unit>
+    <unit id="s3yI9D6" name="project.filter.attachments_count">
+      <segment state="translated">
+        <source>project.filter.attachments_count</source>
+        <target>Počet příloh</target>
+      </segment>
+    </unit>
+    <unit id="75p958O" name="project.filter.attachmentName">
+      <segment state="translated">
+        <source>project.filter.attachmentName</source>
+        <target>Název přílohy</target>
+      </segment>
+    </unit>
     <unit id=".nsfK4V" name="parts_list.storelocation.title">
       <segment state="translated">
         <source>parts_list.storelocation.title</source>
@@ -2937,11 +3105,11 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
       </segment>
     </unit>
     <unit id="G1hmQdb" name="part.table.partCustomState">
-          <segment state="translated">
-            <source>part.table.partCustomState</source>
-            <target>Vlastní stav součásti</target>
-          </segment>
-        </unit>
+      <segment state="translated">
+        <source>part.table.partCustomState</source>
+        <target>Vlastní stav součásti</target>
+      </segment>
+    </unit>
     <unit id="R5pc2FR" name="part.table.addedDate">
       <segment state="translated">
         <source>part.table.addedDate</source>
@@ -8722,8 +8890,8 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="aki9R3e" name="project.bom_import.template.kicad_pcbnew.table">
-        <segment>
-            <source>project.bom_import.template.kicad_pcbnew.table</source>
+      <segment>
+        <source>project.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
@@ -8776,7 +8944,7 @@ Element 3</target>
                 </table>
                 ]]>
             </target>
-        </segment>
+      </segment>
     </unit>
     <unit id="6ZefVTs" name="project.bom_import.flash.invalid_file">
       <segment state="translated">
@@ -11472,8 +11640,8 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
       </segment>
     </unit>
     <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
-        <segment>
-            <source>assembly.bom_import.template.kicad_pcbnew.table</source>
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
@@ -11526,7 +11694,7 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
                 </table>
                 ]]>
             </target>
-        </segment>
+      </segment>
     </unit>
     <unit id="QiZM3zY" name="typeahead.parts.part.name">
       <segment>
@@ -12315,13 +12483,13 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
       </segment>
     </unit>
     <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
-        <notes>
-            <note priority="1">Do not remove! Used for datatables rendering.</note>
-        </notes>
-        <segment state="translated">
-            <source>datatable.datatable.lengthMenu</source>
-            <target>_MENU_</target>
-          </segment>
+      <notes>
+        <note priority="1">Do not remove! Used for datatables rendering.</note>
+      </notes>
+      <segment state="translated">
+        <source>datatable.datatable.lengthMenu</source>
+        <target>_MENU_</target>
+      </segment>
     </unit>
     <unit id="v8r7X2a" name="statistics.invalid_assembly_preview_attachments_count">
       <segment state="translated">

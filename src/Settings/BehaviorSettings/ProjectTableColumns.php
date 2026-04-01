@@ -2,7 +2,7 @@
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2024 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2026 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -20,21 +20,17 @@
 
 declare(strict_types=1);
 
-
 namespace App\Settings\BehaviorSettings;
 
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-enum AssemblyTableColumns : string implements TranslatableInterface
+enum ProjectTableColumns : string implements TranslatableInterface
 {
-
     case NAME = "name";
     case ID = "id";
-    case IPN = "ipn";
     case DESCRIPTION = "description";
     case COMMENT = "comment";
-    case REFERENCED_ASSEMBLIES = "referencedAssemblies";
     case ADDED_DATE = "addedDate";
     case LAST_MODIFIED = "lastModified";
     case EDIT = "edit";
@@ -42,7 +38,7 @@ enum AssemblyTableColumns : string implements TranslatableInterface
     public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
         $key = match($this) {
-            default => 'assembly.table.' . $this->value,
+            default => 'project.table.' . $this->value,
         };
 
         return $translator->trans($key, locale: $locale);

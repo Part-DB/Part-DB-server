@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2026 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -20,12 +20,13 @@ declare(strict_types=1);
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 namespace App\DataTables\Filters;
+
 use Doctrine\ORM\QueryBuilder;
 
-class AssemblySearchFilter implements FilterInterface
+class ProjectSearchFilter implements FilterInterface
 {
-
     /** @var boolean Whether to use regex for searching */
     protected bool $regex = false;
 
@@ -38,32 +39,28 @@ class AssemblySearchFilter implements FilterInterface
     /** @var bool Use comment field for searching */
     protected bool $comment = false;
 
-    /** @var bool Use Internal part number for searching */
-    protected bool $ipn = false;
-
-    /** @var bool Use id field for searching */
-    protected bool $dbId = false;
-
-    /**
-     * If true, we search in the name of the parent assembly (if available).
-     * This field is named "category" to keep the API consistent with PartSearchFilter,
-     * although assemblies don't have categories (they only have parents).
-     */
-    protected bool $category = false;
-
     /** @var bool Use status field for searching */
     protected bool $status = false;
 
+    /**
+     * If true, we search in the name of the parent project (if available).
+     * This field is named "category" to keep the API consistent with PartSearchFilter and AssemblySearchFilter,
+     * although projects don't have categories (they only have parents).
+     */
+    protected bool $category = false;
+
+    /** @var bool Use dbId field for searching */
+    protected bool $dbId = false;
+
     /** @var string The datasource used for searching */
-    protected string $datasource = 'assemblies';
+    protected string $datasource = 'projects';
 
     protected static int $parameterCounter = 0;
 
     public function __construct(
         /** @var string The string to query for */
         protected string $keyword
-    )
-    {
+    ) {
     }
 
     protected function generateParameterIdentifier(string $property): string
@@ -77,28 +74,25 @@ class AssemblySearchFilter implements FilterInterface
     {
         $fields_to_search = [];
 
-        if($this->name) {
-            $fields_to_search[] = 'assembly.name';
+        if ($this->name) {
+            $fields_to_search[] = 'project.name';
         }
-        if($this->description) {
-            $fields_to_search[] = 'assembly.description';
+        if ($this->description) {
+            $fields_to_search[] = 'project.description';
         }
         if ($this->comment) {
-            $fields_to_search[] = 'assembly.comment';
-        }
-        if ($this->ipn) {
-            $fields_to_search[] = 'assembly.ipn';
+            $fields_to_search[] = 'project.comment';
         }
         if ($this->status) {
-            $fields_to_search[] = 'assembly.status';
-        }
-        if ($this->dbId) {
-            $fields_to_search[] = 'assembly.id';
+            $fields_to_search[] = 'project.status';
         }
         if ($this->category) {
-            // We search in the name of the parent assembly.
-            // This is named category for consistency with PartSearchFilter.
+            // We search in the name of the parent project.
+            // This is named category for consistency with PartSearchFilter and AssemblySearchFilter.
             $fields_to_search[] = '_search_parent.name';
+        }
+        if ($this->dbId) {
+            $fields_to_search[] = 'project.id';
         }
 
         return $fields_to_search;
@@ -107,7 +101,7 @@ class AssemblySearchFilter implements FilterInterface
     public function apply(QueryBuilder $queryBuilder): void
     {
         if ($this->category) {
-            // We search in the parent assembly.
+            // We search in the parent project.
             // Check if the join alias is already present in the QueryBuilder
             $hasJoin = false;
             foreach ($queryBuilder->getDQLPart('join') as $joins) {
@@ -120,7 +114,7 @@ class AssemblySearchFilter implements FilterInterface
             }
 
             if (!$hasJoin) {
-                $queryBuilder->leftJoin('assembly.parent', '_search_parent');
+                $queryBuilder->leftJoin('project.parent', '_search_parent');
             }
         }
 
@@ -162,7 +156,7 @@ class AssemblySearchFilter implements FilterInterface
         return $this->keyword;
     }
 
-    public function setKeyword(string $keyword): AssemblySearchFilter
+    public function setKeyword(string $keyword): self
     {
         $this->keyword = $keyword;
         return $this;
@@ -173,7 +167,7 @@ class AssemblySearchFilter implements FilterInterface
         return $this->regex;
     }
 
-    public function setRegex(bool $regex): AssemblySearchFilter
+    public function setRegex(bool $regex): self
     {
         $this->regex = $regex;
         return $this;
@@ -184,7 +178,7 @@ class AssemblySearchFilter implements FilterInterface
         return $this->name;
     }
 
-    public function setName(bool $name): AssemblySearchFilter
+    public function setName(bool $name): self
     {
         $this->name = $name;
         return $this;
@@ -195,20 +189,9 @@ class AssemblySearchFilter implements FilterInterface
         return $this->description;
     }
 
-    public function setDescription(bool $description): AssemblySearchFilter
+    public function setDescription(bool $description): self
     {
         $this->description = $description;
-        return $this;
-    }
-
-    public function isIPN(): bool
-    {
-        return $this->ipn;
-    }
-
-    public function setIPN(bool $ipn): AssemblySearchFilter
-    {
-        $this->ipn = $ipn;
         return $this;
     }
 
@@ -223,21 +206,6 @@ class AssemblySearchFilter implements FilterInterface
         return $this;
     }
 
-    public function isCategory(): bool
-    {
-        return $this->category;
-    }
-
-    /**
-     * Set if the parent assembly name should be searched.
-     * This is named "category" for consistency with PartSearchFilter.
-     */
-    public function setCategory(bool $category): self
-    {
-        $this->category = $category;
-        return $this;
-    }
-
     public function isStatus(): bool
     {
         return $this->status;
@@ -246,6 +214,21 @@ class AssemblySearchFilter implements FilterInterface
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+        return $this;
+    }
+
+    public function isCategory(): bool
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set if the parent project name should be searched.
+     * This is named "category" for consistency with PartSearchFilter and AssemblySearchFilter.
+     */
+    public function setCategory(bool $category): self
+    {
+        $this->category = $category;
         return $this;
     }
 
@@ -336,6 +319,16 @@ class AssemblySearchFilter implements FilterInterface
     }
 
     public function setOrdernr(bool $ordernr): self
+    {
+        return $this;
+    }
+
+    public function isIPN(): bool
+    {
+        return false;
+    }
+
+    public function setIPN(bool $ipn): self
     {
         return $this;
     }

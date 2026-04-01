@@ -120,6 +120,9 @@ export default class extends Controller {
 
         this._autocomplete = autocomplete({
             container: this.element,
+            initialState: {
+                query: this.element.dataset.initialQuery || that.inputTarget.value || ""
+            },
             //Place the panel in the navbar, if the element is in navbar mode
             panelContainer: navbar_mode ? document.getElementById("navbar-search-form") : document.body,
             panelPlacement: this.element.dataset.panelPlacement,
@@ -162,7 +165,10 @@ export default class extends Controller {
                 }
 
                 input.value = state.query;
-                input.form.requestSubmit();
+
+                if (input.form) {
+                    input.form.requestSubmit();
+                }
             },
 
             getSources({ query }) {

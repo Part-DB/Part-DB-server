@@ -85,6 +85,21 @@ class TableSettings
     public array $assembliesDefaultColumns = [AssemblyTableColumns::ID, AssemblyTableColumns::IPN, AssemblyTableColumns::NAME,
         AssemblyTableColumns::DESCRIPTION, AssemblyTableColumns::REFERENCED_ASSEMBLIES, AssemblyTableColumns::EDIT];
 
+    /** @var ProjectTableColumns[] */
+    #[SettingsParameter(ArrayType::class,
+        label: new TM("settings.behavior.table.projects_default_columns"),
+        description: new TM("settings.behavior.table.projects_default_columns.help"),
+        options: ['type' => EnumType::class, 'options' => ['class' => ProjectTableColumns::class]],
+        formType: \Symfony\Component\Form\Extension\Core\Type\EnumType::class,
+        formOptions: ['class' => ProjectTableColumns::class, 'multiple' => true, 'ordered' => true],
+        envVar: "TABLE_PROJECTS_DEFAULT_COLUMNS", envVarMode: EnvVarMode::OVERWRITE, envVarMapper: [self::class, 'mapProjectsDefaultColumnsEnv']
+    )]
+    #[Assert\NotBlank()]
+    #[Assert\Unique()]
+    #[Assert\All([new Assert\Type(ProjectTableColumns::class)])]
+    public array $projectsDefaultColumns = [ProjectTableColumns::NAME, ProjectTableColumns::DESCRIPTION,
+        ProjectTableColumns::COMMENT, ProjectTableColumns::EDIT];
+
     /** @var AssemblyBomTableColumns[] */
     #[SettingsParameter(ArrayType::class,
         label: new TM("settings.behavior.table.assemblies_bom_default_columns"),
@@ -140,6 +155,22 @@ class TableSettings
             $enum = AssemblyTableColumns::tryFrom($column);
             if (!$enum) {
                 throw new \InvalidArgumentException("Invalid column '$column' in TABLE_ASSEMBLIES_DEFAULT_COLUMNS");
+            }
+
+            $ret[] = $enum;
+        }
+
+        return $ret;
+    }
+
+    public static function mapProjectsDefaultColumnsEnv(string $columns): array
+    {
+        $exploded = explode(',', $columns);
+        $ret = [];
+        foreach ($exploded as $column) {
+            $enum = ProjectTableColumns::tryFrom($column);
+            if (!$enum) {
+                throw new \InvalidArgumentException("Invalid column '$column' in TABLE_PROJECTS_DEFAULT_COLUMNS");
             }
 
             $ret[] = $enum;

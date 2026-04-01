@@ -419,6 +419,18 @@ final class PartsDataTable implements DataTableTypeInterface
         //The join fields get prefixed with an underscore, so we can check if they are used in the query easy without confusing them for a part subfield
         $dql = $builder->getDQL();
 
+        //Helper function to check if a join alias is already present in the QueryBuilder
+        $hasJoin = static function (QueryBuilder $qb, string $alias): bool {
+            foreach ($qb->getDQLPart('join') as $joins) {
+                foreach ($joins as $join) {
+                    if ($join->getAlias() === $alias) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        };
+
         //Add the amountSum field, if it is used in the query
         if (str_contains($dql, 'amountSum')) {
             //Calculate amount sum using a subquery, so we can filter and sort by it
@@ -433,69 +445,85 @@ final class PartsDataTable implements DataTableTypeInterface
             );
         }
 
-        if (str_contains($dql, '_category')) {
+        if (str_contains($dql, '_category') && !$hasJoin($builder, '_category')) {
             $builder->leftJoin('part.category', '_category');
             $builder->addGroupBy('_category');
         }
-        if (str_contains($dql, '_master_picture_attachment')) {
+        if (str_contains($dql, '_master_picture_attachment') && !$hasJoin($builder, '_master_picture_attachment')) {
             $builder->leftJoin('part.master_picture_attachment', '_master_picture_attachment');
             $builder->addGroupBy('_master_picture_attachment');
         }
         if (str_contains($dql, '_partLots') || str_contains($dql, '_storelocations')) {
-            $builder->leftJoin('part.partLots', '_partLots');
-            $builder->leftJoin('_partLots.storage_location', '_storelocations');
+            if (!$hasJoin($builder, '_partLots')) {
+                $builder->leftJoin('part.partLots', '_partLots');
+            }
+            if (str_contains($dql, '_storelocations') && !$hasJoin($builder, '_storelocations')) {
+                $builder->leftJoin('_partLots.storage_location', '_storelocations');
+            }
             //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
             //$builder->addGroupBy('_partLots');
             //$builder->addGroupBy('_storelocations');
         }
-        if (str_contains($dql, '_footprint')) {
+        if (str_contains($dql, '_footprint') && !$hasJoin($builder, '_footprint')) {
             $builder->leftJoin('part.footprint', '_footprint');
             $builder->addGroupBy('_footprint');
         }
-        if (str_contains($dql, '_manufacturer')) {
+        if (str_contains($dql, '_manufacturer') && !$hasJoin($builder, '_manufacturer')) {
             $builder->leftJoin('part.manufacturer', '_manufacturer');
             $builder->addGroupBy('_manufacturer');
         }
         if (str_contains($dql, '_orderdetails') || str_contains($dql, '_suppliers')) {
-            $builder->leftJoin('part.orderdetails', '_orderdetails');
-            $builder->leftJoin('_orderdetails.supplier', '_suppliers');
+            if (!$hasJoin($builder, '_orderdetails')) {
+                $builder->leftJoin('part.orderdetails', '_orderdetails');
+            }
+            if (str_contains($dql, '_suppliers') && !$hasJoin($builder, '_suppliers')) {
+                $builder->leftJoin('_orderdetails.supplier', '_suppliers');
+            }
             //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
             //$builder->addGroupBy('_orderdetails');
             //$builder->addGroupBy('_suppliers');
         }
-        if (str_contains($dql, '_attachments')) {
+        if (str_contains($dql, '_attachments') && !$hasJoin($builder, '_attachments')) {
             $builder->leftJoin('part.attachments', '_attachments');
             //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
             //$builder->addGroupBy('_attachments');
         }
-        if (str_contains($dql, '_partUnit')) {
+        if (str_contains($dql, '_partUnit') && !$hasJoin($builder, '_partUnit')) {
             $builder->leftJoin('part.partUnit', '_partUnit');
             $builder->addGroupBy('_partUnit');
         }
-        if (str_contains($dql, '_partCustomState')) {
+        if (str_contains($dql, '_partCustomState') && !$hasJoin($builder, '_partCustomState')) {
             $builder->leftJoin('part.partCustomState', '_partCustomState');
             $builder->addGroupBy('_partCustomState');
         }
-        if (str_contains($dql, '_parameters')) {
+        if (str_contains($dql, '_parameters') && !$hasJoin($builder, '_parameters')) {
             $builder->leftJoin('part.parameters', '_parameters');
             //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
             //$builder->addGroupBy('_parameters');
         }
-        if (str_contains($dql, '_projectBomEntries')) {
+        if (str_contains($dql, '_projectBomEntries') && !$hasJoin($builder, '_projectBomEntries')) {
             $builder->leftJoin('part.project_bom_entries', '_projectBomEntries');
             //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
             //$builder->addGroupBy('_projectBomEntries');
         }
         if (str_contains($dql, '_assembly.')) {
-            $builder->leftJoin('part.assembly_bom_entries', '_assemblyBomEntries');
-            $builder->leftJoin('_assemblyBomEntries.assembly', '_assembly');
+            if (!$hasJoin($builder, '_assemblyBomEntries')) {
+                $builder->leftJoin('part.assembly_bom_entries', '_assemblyBomEntries');
+            }
+            if (!$hasJoin($builder, '_assembly')) {
+                $builder->leftJoin('_assemblyBomEntries.assembly', '_assembly');
+            }
         }
-        if (str_contains($dql, '_assemblyBomEntries')) {
+        if (str_contains($dql, '_assemblyBomEntries') && !$hasJoin($builder, '_assemblyBomEntries')) {
             $builder->leftJoin('part.assembly_bom_entries', '_assemblyBomEntries');
         }
         if (str_contains($dql, '_jobPart')) {
-            $builder->leftJoin('part.bulkImportJobParts', '_jobPart');
-            $builder->leftJoin('_jobPart.job', '_bulkImportJob');
+            if (!$hasJoin($builder, '_jobPart')) {
+                $builder->leftJoin('part.bulkImportJobParts', '_jobPart');
+            }
+            if (!$hasJoin($builder, '_bulkImportJob')) {
+                $builder->leftJoin('_jobPart.job', '_bulkImportJob');
+            }
             //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
             //$builder->addGroupBy('_jobPart');
             //$builder->addGroupBy('_bulkImportJob');

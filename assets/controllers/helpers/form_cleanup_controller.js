@@ -34,6 +34,10 @@ export default class extends Controller {
         /** @type {HTMLFormElement} */
         const form = event.target.closest('form');
 
+        if (!form) {
+            return;
+        }
+
         for(const element of form.elements) {
             if(! element.value) {
                 element.disabled = true;
@@ -53,6 +57,11 @@ export default class extends Controller {
     clearAll(event)
     {
         const form = event.target.closest('form');
+
+        if (!form) {
+            return;
+        }
+
         for(const element of form.elements) {
             // Do not clear elements with data-no-clear attribute
             if(element.dataset.noClear) {

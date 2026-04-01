@@ -1617,6 +1617,174 @@ I sub elementi saranno spostati verso l'alto.</target>
         <target>Ricerca componenti</target>
       </segment>
     </unit>
+    <unit id="Upyz4NL" name="assembly.search.title">
+      <segment state="translated">
+        <source>assembly.search.title</source>
+        <target>Ricerca assemblaggi</target>
+      </segment>
+    </unit>
+    <unit id="deO4FsM" name="project.search.title">
+      <segment state="translated">
+        <source>project.search.title</source>
+        <target>Ricerca progetti</target>
+      </segment>
+    </unit>
+    <unit id="Xq01S2F" name="project.table.id">
+      <segment state="translated">
+        <source>project.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="wNWc9GW" name="project.table.name">
+      <segment state="translated">
+        <source>project.table.name</source>
+        <target>Nome</target>
+      </segment>
+    </unit>
+    <unit id="9AdhysG" name="project.table.description">
+      <segment state="translated">
+        <source>project.table.description</source>
+        <target>Descrizione</target>
+      </segment>
+    </unit>
+    <unit id="4qJkRic" name="project.table.comment">
+      <segment state="translated">
+        <source>project.table.comment</source>
+        <target>Note</target>
+      </segment>
+    </unit>
+    <unit id="NrH0WW8" name="project.table.addedDate">
+      <segment state="translated">
+        <source>project.table.addedDate</source>
+        <target>Aggiunto il</target>
+      </segment>
+    </unit>
+    <unit id="6rN1Yf1" name="project.table.lastModified">
+      <segment state="translated">
+        <source>project.table.lastModified</source>
+        <target>Ultima modifica</target>
+      </segment>
+    </unit>
+    <unit id="F2nNNFD" name="project.table.edit">
+      <segment state="translated">
+        <source>project.table.edit</source>
+        <target>Modifica</target>
+      </segment>
+    </unit>
+    <unit id="KZCGmOp" name="project.table.edit.title">
+      <segment state="translated">
+        <source>project.table.edit.title</source>
+        <target>Modifica progetto</target>
+      </segment>
+    </unit>
+    <unit id="cmck5zP" name="datasource.parts">
+      <segment state="translated">
+        <source>datasource.parts</source>
+        <target>Parti</target>
+      </segment>
+    </unit>
+    <unit id="3tkaYAP" name="datasource.projects">
+      <segment state="translated">
+        <source>datasource.projects</source>
+        <target>Progetti</target>
+      </segment>
+    </unit>
+    <unit id="aYPamdy" name="datasource.assemblies">
+      <segment state="translated">
+        <source>datasource.assemblies</source>
+        <target>Assemblaggi</target>
+      </segment>
+    </unit>
+    <unit id="searching_for_assemblies" name="parts_list.search.searching_for_assemblies">
+      <segment state="translated">
+        <source>parts_list.search.searching_for_assemblies</source>
+        <target>Ricerca assemblaggi in corso...</target>
+      </segment>
+    </unit>
+    <unit id="searching_for_projects" name="parts_list.search.searching_for_projects">
+      <segment state="translated">
+        <source>parts_list.search.searching_for_projects</source>
+        <target>Ricerca progetti in corso...</target>
+      </segment>
+    </unit>
+    <unit id="ObC5PW9" name="settings.behavior.table.projects_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.projects_default_columns</source>
+        <target>Colonne predefinite per le tabelle dei progetti</target>
+      </segment>
+    </unit>
+    <unit id="dHwCrSv" name="settings.behavior.table.projects_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.projects_default_columns.help</source>
+        <target>Seleziona le colonne da visualizzare per impostazione predefinita nelle tabelle dei progetti.</target>
+      </segment>
+    </unit>
+    <unit id="asdfghj" name="assembly.filter.status">
+      <segment state="translated">
+        <source>assembly.filter.status</source>
+        <target>Stato assemblaggio</target>
+      </segment>
+    </unit>
+    <unit id="qwertyu" name="assembly.filter.parent">
+      <segment state="translated">
+        <source>assembly.filter.parent</source>
+        <target>Assemblaggio superiore</target>
+      </segment>
+    </unit>
+    <unit id="acEe1Tb_notes" name="assembly.table.comment">
+      <segment state="translated">
+        <source>assembly.table.comment</source>
+        <target>Note</target>
+      </segment>
+    </unit>
+    <unit id="Ag9x60T" name="project.filter.dbId">
+      <segment state="translated">
+        <source>project.filter.dbId</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="MjSfszH" name="project.filter.name">
+      <segment state="translated">
+        <source>project.filter.name</source>
+        <target>Nome</target>
+      </segment>
+    </unit>
+    <unit id="ELxZW9y" name="project.filter.description">
+      <segment state="translated">
+        <source>project.filter.description</source>
+        <target>Descrizione</target>
+      </segment>
+    </unit>
+    <unit id="svzDJ9V" name="project.filter.comment">
+      <segment state="translated">
+        <source>project.filter.comment</source>
+        <target>Note</target>
+      </segment>
+    </unit>
+    <unit id="sCPeQFs" name="project.filter.status">
+      <segment state="translated">
+        <source>project.filter.status</source>
+        <target>Stato progetto</target>
+      </segment>
+    </unit>
+    <unit id="1Fcochg" name="project.filter.parent">
+      <segment state="translated">
+        <source>project.filter.parent</source>
+        <target>Progetto superiore</target>
+      </segment>
+    </unit>
+    <unit id="s3yI9D6" name="project.filter.attachments_count">
+      <segment state="translated">
+        <source>project.filter.attachments_count</source>
+        <target>Numero di allegati</target>
+      </segment>
+    </unit>
+    <unit id="75p958O" name="project.filter.attachmentName">
+      <segment state="translated">
+        <source>project.filter.attachmentName</source>
+        <target>Nome allegato</target>
+      </segment>
+    </unit>
     <unit id=".nsfK4V" name="parts_list.storelocation.title">
       <segment state="translated">
         <source>parts_list.storelocation.title</source>
@@ -2884,10 +3052,10 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
       </segment>
     </unit>
     <unit id="FV7YOW6" name="part.table.name.value.for_part">
-        <segment state="translated">
-            <source>part.table.name.value.for_part</source>
-            <target>%value% (Componente)</target>
-        </segment>
+      <segment state="translated">
+        <source>part.table.name.value.for_part</source>
+        <target>%value% (Componente)</target>
+      </segment>
     </unit>
     <unit id="o4zUJc5" name="part.table.name.value.for_assembly">
       <segment state="translated">
@@ -8754,8 +8922,8 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="aki9R3e" name="project.bom_import.template.kicad_pcbnew.table">
-        <segment>
-            <source>project.bom_import.template.kicad_pcbnew.table</source>
+      <segment>
+        <source>project.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
@@ -8808,7 +8976,7 @@ Element 3</target>
                 </table>
                 ]]>
             </target>
-        </segment>
+      </segment>
     </unit>
     <unit id="MDJdKXv" name="project.bom_import.clear_existing_bom.help">
       <segment state="translated">
@@ -11086,13 +11254,13 @@ Notare che non è possibile impersonare un utente disattivato. Quando si prova a
       </segment>
     </unit>
     <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
-        <notes>
-            <note priority="1">Do not remove! Used for datatables rendering.</note>
-        </notes>
-        <segment state="translated">
-            <source>datatable.datatable.lengthMenu</source>
-            <target>_MENU_</target>
-        </segment>
+      <notes>
+        <note priority="1">Do not remove! Used for datatables rendering.</note>
+      </notes>
+      <segment state="translated">
+        <source>datatable.datatable.lengthMenu</source>
+        <target>_MENU_</target>
+      </segment>
     </unit>
     <unit id="v8r7X2a" name="statistics.invalid_assembly_preview_attachments_count">
       <segment state="translated">

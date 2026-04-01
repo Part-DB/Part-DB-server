@@ -24,8 +24,17 @@ namespace App\Controller;
 
 use App\DataTables\ErrorDataTable;
 use App\DataTables\Filters\PartFilter;
+use App\DataTables\Filters\AssemblyFilter;
+use App\DataTables\Filters\ProjectFilter;
+use App\DataTables\AssemblyDataTable;
+use App\DataTables\Filters\AssemblySearchFilter;
 use App\DataTables\Filters\PartSearchFilter;
+use App\DataTables\Filters\ProjectSearchFilter;
+use App\Form\Filters\AssemblyFilterType;
+use App\Form\Filters\PartFilterType;
+use App\Form\Filters\ProjectFilterType;
 use App\DataTables\PartsDataTable;
+use App\DataTables\ProjectSearchDataTable;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -33,7 +42,6 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Exceptions\InvalidRegexException;
-use App\Form\Filters\PartFilterType;
 use App\Services\Parts\PartsTableActionHandler;
 use App\Services\Trees\NodesListBuilder;
 use App\Settings\BehaviorSettings\SidebarSettings;
@@ -160,25 +168,52 @@ class PartListsController extends AbstractController
 
         $formRequest = clone $request;
         $formRequest->setMethod('GET');
-        $filter = new PartFilter($this->nodesListBuilder);
-        if($filter_changer !== null){
+
+        $filterType = $additional_table_vars['filterType'] ?? PartFilter::class;
+        unset($additional_table_vars['filterType']);
+
+        if ($filterType === PartFilter::class) {
+            $filter = new PartFilter($this->nodesListBuilder);
+        } elseif ($filterType === AssemblyFilter::class) {
+            $filter = new AssemblyFilter($this->nodesListBuilder);
+        } elseif ($filterType === ProjectFilter::class) {
+            $filter = new ProjectFilter($this->nodesListBuilder);
+        } else {
+            $filter = null;
+        }
+
+        if ($filter !== null && $filter_changer !== null) {
             $filter_changer($filter);
         }
 
         //If we are in a post request for the tables, we only have to apply the filter form if the submit query param was set
         //This saves us some time from creating this complicated term on simple list pages, where no special filter is applied
         $filterForm = null;
-        if ($request->getMethod() !== 'POST' || $request->query->has('part_filter')) {
-            $filterForm = $this->createForm(PartFilterType::class, $filter, ['method' => 'GET']);
-            if ($form_changer !== null) {
-                $form_changer($filterForm);
-            }
+        if ($request->getMethod() !== 'POST' || $request->query->has('part_filter') || $request->query->has('assembly_filter') || $request->query->has('project_filter') || $request->query->has('submit')) {
+            $formType = match ($filterType) {
+                PartFilter::class => PartFilterType::class,
+                AssemblyFilter::class => AssemblyFilterType::class,
+                ProjectFilter::class => ProjectFilterType::class,
+                default => null,
+            };
 
-            $filterForm->handleRequest($formRequest);
+            if ($formType !== null) {
+                $filterForm = $this->createForm($formType, $filter, ['method' => 'GET']);
+                if ($form_changer !== null) {
+                    $form_changer($filterForm);
+                }
+
+                $filterForm->handleRequest($formRequest);
+            }
         }
 
-        $table = $this->dataTableFactory->createFromType(PartsDataTable::class, array_merge(
-            ['filter' => $filter], $additional_table_vars),
+        $dataTableType = $additional_table_vars['dataTableType'] ?? PartsDataTable::class;
+        unset($additional_table_vars['dataTableType']);
+
+        $tableOptions = array_merge(
+            ['filter' => $filter], $additional_table_vars);
+
+        $table = $this->dataTableFactory->createFromType($dataTableType, $tableOptions,
             ['pageLength' => $this->tableSettings->fullDefaultPageSize, 'lengthMenu' => PartsDataTable::LENGTH_MENU])
             ->handleRequest($request);
 
@@ -313,25 +348,99 @@ class PartListsController extends AbstractController
         );
     }
 
-    private function searchRequestToFilter(Request $request): PartSearchFilter
+    /**
+     * @return PartSearchFilter|AssemblySearchFilter|ProjectSearchFilter
+     */
+    private function searchRequestToFilter(Request $request): object
     {
-        $filter = new PartSearchFilter($request->query->get('keyword', ''));
+        $datasource = $request->query->get('datasource', 'parts');
+        $keyword = $request->query->get('keyword', '');
+
+        if ($datasource === 'assemblies') {
+            $filter = new AssemblySearchFilter($keyword);
+            $filter->setDatasource($datasource);
+            $filter->setRegex($request->query->getBoolean('regex'));
+
+            //As an unchecked checkbox is not set in the query, the default value for all bools have to be false (which is the default argument value)!
+            //But if we are coming from a simple search (without search options set), we want to search in all fields by default
+            if ($request->query->has('name') || $request->query->has('description') || $request->query->has('comment') || $request->query->has('ipn') || $request->query->has('category') || $request->query->has('status') || $request->query->has('dbid')) {
+                $filter->setName($request->query->getBoolean('name'));
+                $filter->setDescription($request->query->getBoolean('description'));
+                $filter->setComment($request->query->getBoolean('comment') || $request->query->getBoolean('notes'));
+                $filter->setIPN($request->query->getBoolean('ipn'));
+                $filter->setCategory($request->query->getBoolean('category'));
+                $filter->setStatus($request->query->getBoolean('status'));
+                $filter->setDbId($request->query->getBoolean('dbid'));
+            } else {
+                //Simple search: search in all fields
+                $filter->setName(true);
+                $filter->setDescription(true);
+                $filter->setComment(true);
+                $filter->setIPN(true);
+                $filter->setStatus(true);
+            }
+
+            return $filter;
+        }
+
+        if ($datasource === 'projects') {
+            $filter = new ProjectSearchFilter($keyword);
+            $filter->setDatasource($datasource);
+            $filter->setRegex($request->query->getBoolean('regex'));
+
+            //As an unchecked checkbox is not set in the query, the default value for all bools have to be false (which is the default argument value)!
+            if ($request->query->has('name') || $request->query->has('description') || $request->query->has('comment') || $request->query->has('notes') || $request->query->has('category') || $request->query->has('status') || $request->query->has('dbid')) {
+                $filter->setName($request->query->getBoolean('name'));
+                $filter->setDescription($request->query->getBoolean('description'));
+                $filter->setComment($request->query->getBoolean('comment') || $request->query->getBoolean('notes'));
+                $filter->setCategory($request->query->getBoolean('category'));
+                $filter->setStatus($request->query->getBoolean('status'));
+                $filter->setDbId($request->query->getBoolean('dbid'));
+            } else {
+                //Simple search: search in all fields
+                $filter->setName(true);
+                $filter->setDescription(true);
+                $filter->setComment(true);
+                $filter->setStatus(true);
+            }
+
+            return $filter;
+        }
+
+        $filter = new PartSearchFilter($keyword);
+        $filter->setDatasource($datasource);
 
         //As an unchecked checkbox is not set in the query, the default value for all bools have to be false (which is the default argument value)!
-        $filter->setName($request->query->getBoolean('name'));
-        $filter->setDbId($request->query->getBoolean('dbid'));
-        $filter->setCategory($request->query->getBoolean('category'));
-        $filter->setDescription($request->query->getBoolean('description'));
-        $filter->setMpn($request->query->getBoolean('mpn'));
-        $filter->setTags($request->query->getBoolean('tags'));
-        $filter->setStorelocation($request->query->getBoolean('storelocation'));
-        $filter->setComment($request->query->getBoolean('comment'));
-        $filter->setIPN($request->query->getBoolean('ipn'));
-        $filter->setOrdernr($request->query->getBoolean('ordernr'));
-        $filter->setSupplier($request->query->getBoolean('supplier'));
-        $filter->setManufacturer($request->query->getBoolean('manufacturer'));
-        $filter->setFootprint($request->query->getBoolean('footprint'));
-        $filter->setAssembly($request->query->getBoolean('assembly'));
+        if ($request->query->has('name') || $request->query->has('description') || $request->query->has('comment') || $request->query->has('ipn') || $request->query->has('category') || $request->query->has('dbid') || $request->query->has('mpn') || $request->query->has('tags') || $request->query->has('storelocation') || $request->query->has('ordernr') || $request->query->has('supplier') || $request->query->has('manufacturer') || $request->query->has('footprint') || $request->query->has('assembly') || $request->query->has('manufacturing_status')) {
+            $filter->setName($request->query->getBoolean('name'));
+            $filter->setDbId($request->query->getBoolean('dbid'));
+            $filter->setCategory($request->query->getBoolean('category'));
+            $filter->setDescription($request->query->getBoolean('description'));
+            $filter->setMpn($request->query->getBoolean('mpn'));
+            $filter->setTags($request->query->getBoolean('tags'));
+            $filter->setStorelocation($request->query->getBoolean('storelocation'));
+            $filter->setComment($request->query->getBoolean('comment'));
+            $filter->setManufacturingStatus($request->query->getBoolean('manufacturing_status'));
+            $filter->setIPN($request->query->getBoolean('ipn'));
+            $filter->setOrdernr($request->query->getBoolean('ordernr'));
+            $filter->setSupplier($request->query->getBoolean('supplier'));
+            $filter->setManufacturer($request->query->getBoolean('manufacturer'));
+            $filter->setFootprint($request->query->getBoolean('footprint'));
+            $filter->setAssembly($request->query->getBoolean('assembly'));
+        } else {
+            //Simple search: search in all fields
+            $filter->setName(true);
+            $filter->setCategory(true);
+            $filter->setDescription(true);
+            $filter->setComment(true);
+            $filter->setManufacturingStatus(true);
+            $filter->setTags(true);
+            $filter->setStorelocation(true);
+            $filter->setOrdernr(true);
+            $filter->setMpn(true);
+            $filter->setIPN(true);
+            $filter->setAssembly(true);
+        }
 
         $filter->setRegex($request->query->getBoolean('regex'));
 
@@ -342,17 +451,34 @@ class PartListsController extends AbstractController
     public function showSearch(Request $request, DataTableFactory $dataTable): Response
     {
         $searchFilter = $this->searchRequestToFilter($request);
+        $datasource = $request->query->get('datasource', 'parts');
+
+        $dataTableType = PartsDataTable::class;
+        $template = 'parts/lists/search_list.html.twig';
+        $filterType = PartFilter::class;
+
+        if ($searchFilter instanceof AssemblySearchFilter) {
+            $dataTableType = AssemblyDataTable::class;
+            $filterType = AssemblyFilter::class;
+        } elseif ($searchFilter instanceof ProjectSearchFilter) {
+            $dataTableType = ProjectSearchDataTable::class;
+            $filterType = ProjectFilter::class;
+        }
 
         return $this->showListWithFilter($request,
-            'parts/lists/search_list.html.twig',
+            $template,
             null,
             null,
             [
                 'keyword' => $searchFilter->getKeyword(),
                 'searchFilter' => $searchFilter,
+                'dataTableType' => $dataTableType,
+                'datasource' => $datasource,
             ],
             [
                 'search' => $searchFilter,
+                'dataTableType' => $dataTableType,
+                'filterType' => $filterType,
             ]
         );
     }

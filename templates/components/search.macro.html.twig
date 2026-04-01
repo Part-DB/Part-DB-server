@@ -1,86 +1,230 @@
-{% macro settings_drodown(show_label_instead_icon = true) %}
+{% macro settings_drodown(show_label_instead_icon = true, searchFilter = null, isSearchList = false) %}
 
-    <div class="dropdown">
+    <div class="dropdown" {{ stimulus_controller('elements/search_options', {
+        'isSearchList': isSearchList or searchFilter is not null
+    }) }}>
         <button class="btn dropdown-toggle my-2" type="button" id="navbar-search-options" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-auto-close="true">
             {% if show_label_instead_icon %}{% trans %}search.options.label{% endtrans %}{% else %}<i class="fa-solid fa-gear"></i>{% endif %}
             <span class="caret"></span>
         </button>
         <div class="dropdown-menu" aria-labelledby="navbar-search-options">
-            <div class="px-2" style="width: max-content;">
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_name" name="name" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
-                    <label for="search_name" class="form-check-label justify-content-start">{% trans %}name.label{% endtrans %}</label>
+            <div style="width: max-content;">
+                <div class="mb-2 px-2">
+                    <label for="search_datasource" class="form-label">{% trans %}datasource{% endtrans %}</label>
+                    <select class="form-select form-select-sm" id="search_datasource" name="datasource"
+                            data-action="change->elements--search-options#onDatasourceChange"
+                            data-elements--search-options-target="datasource">
+                        <option value="parts" {% if (searchFilter and searchFilter.datasource == 'parts') or (not searchFilter and (app.request.get('datasource') == 'parts' or app.request.get('datasource') is empty)) %}selected{% endif %}>{% trans %}datasource.parts{% endtrans %}</option>
+                        <option value="projects" {% if (searchFilter and searchFilter.datasource == 'projects') or (not searchFilter and app.request.get('datasource') == 'projects') %}selected{% endif %}>{% trans %}datasource.projects{% endtrans %}</option>
+                        <option value="assemblies" {% if (searchFilter and searchFilter.datasource == 'assemblies') or (not searchFilter and app.request.get('datasource') == 'assemblies') %}selected{% endif %}>{% trans %}datasource.assemblies{% endtrans %}</option>
+                    </select>
                 </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_dbid" name="dbid" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
-                    <label for="search_dbid" class="form-check-label justify-content-start">{% trans %}id.label{% endtrans %}</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_category" name="category" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
-                    <label for="search_category" class="form-check-label justify-content-start">{% trans %}category.label{% endtrans %}</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_description" name="description" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
-                    <label for="search_description" class="form-check-label justify-content-start">{% trans %}description.label{% endtrans %}</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_mpn" name="mpn" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
-                    <label for="search_mpn" class="form-check-label justify-content-start">{% trans %}part.edit.mpn{% endtrans %}</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_tags" name="tags" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
-                    <label for="search_tags" class="form-check-label justify-content-start">{% trans %}tags.label{% endtrans %}</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_storelocation" name="storelocation" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
-                    <label for="search_storelocation" class="form-check-label justify-content-start">{% trans %}storelocation.label{% endtrans %}</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_comment" name="comment" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
-                    <label for="search_comment" class="form-check-label justify-content-start">{% trans %}comment.label{% endtrans %}</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_ipn" name="ipn" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
-                    <label for="search_ipn" class="form-check-label justify-content-start">{% trans %}part.edit.ipn{% endtrans %}</label>
-                </div>
-                {% if true %}
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="search_supplierpartnr" name="ordernr" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
-                        <label for="search_supplierpartnr" class="form-check-label justify-content-start">{% trans %}orderdetails.edit.supplierpartnr{% endtrans %}</label>
+                <hr data-elements--search-options-target="divider" class="my-1">
+                <div data-elements--search-options-target="partOptions" id="part-options-container">
+                    <div class="px-2">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_name" name="name" value="1"
+                                   {% if (searchFilter and searchFilter.name) or (not searchFilter and (app.request.query.has('name') ? app.request.get('name') == '1' : (app.request.get('datasource') == 'parts' or app.request.get('datasource') is empty))) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_name" class="form-check-label justify-content-start">{% trans %}name.label{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_dbid" name="dbid" value="1"
+                                   {% if (searchFilter and searchFilter.dbId) or (not searchFilter and app.request.get('dbid') == '1') %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_dbid" class="form-check-label justify-content-start">{% trans %}id.label{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_category" name="category" value="1"
+                                   {% if (searchFilter and searchFilter.category) or (not searchFilter and (app.request.query.has('category') ? app.request.get('category') == '1' : (app.request.get('datasource') == 'parts' or app.request.get('datasource') is empty))) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_category" class="form-check-label justify-content-start">{% trans %}category.label{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_description" name="description" value="1"
+                                   {% if (searchFilter and searchFilter.description) or (not searchFilter and (app.request.query.has('description') ? app.request.get('description') == '1' : (app.request.get('datasource') == 'parts' or app.request.get('datasource') is empty))) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_description" class="form-check-label justify-content-start">{% trans %}description.label{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_mpn" name="mpn" value="1"
+                                   {% if (searchFilter and searchFilter.mpn) or (not searchFilter and (app.request.query.has('mpn') ? app.request.get('mpn') == '1' : (app.request.get('datasource') == 'parts' or app.request.get('datasource') is empty))) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_mpn" class="form-check-label justify-content-start">{% trans %}part.edit.mpn{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_tags" name="tags" value="1"
+                                   {% if (searchFilter and searchFilter.tags) or (not searchFilter and (app.request.query.has('tags') ? app.request.get('tags') == '1' : (app.request.get('datasource') == 'parts' or app.request.get('datasource') is empty))) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_tags" class="form-check-label justify-content-start">{% trans %}tags.label{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_storelocation" name="storelocation" value="1"
+                                   {% if (searchFilter and searchFilter.storelocation) or (not searchFilter and (app.request.query.has('storelocation') ? app.request.get('storelocation') == '1' : (app.request.get('datasource') == 'parts' or app.request.get('datasource') is empty))) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_storelocation" class="form-check-label justify-content-start">{% trans %}storelocation.label{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_comment" name="comment" value="1"
+                                   {% if (searchFilter and searchFilter.comment is defined and searchFilter.comment) or (not searchFilter and (app.request.query.has('comment') ? app.request.get('comment') == '1' : (app.request.get('datasource') == 'parts' or app.request.get('datasource') is empty))) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_comment" class="form-check-label justify-content-start">{% trans %}comment.label{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_manufacturing_status" name="manufacturing_status" value="1"
+                                   {% if (searchFilter and searchFilter.manufacturingStatus is defined and searchFilter.manufacturingStatus) or (not searchFilter and (app.request.query.has('manufacturing_status') ? app.request.get('manufacturing_status') == '1' : (app.request.get('datasource') == 'parts' or app.request.get('datasource') is empty))) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_manufacturing_status" class="form-check-label justify-content-start">{% trans %}part.edit.manufacturing_status{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_ipn" name="ipn" value="1"
+                                   {% if (searchFilter and searchFilter.ipn) or (not searchFilter and (app.request.query.has('ipn') ? (app.request.get('ipn') == '1') : (app.request.get('datasource') == 'parts' or app.request.get('datasource') is empty))) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_ipn" class="form-check-label justify-content-start">{% trans %}part.edit.ipn{% endtrans %}</label>
+                        </div>
+                        {% if true %}
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="search_ordernr" name="ordernr" value="1"
+                                       {% if (searchFilter and searchFilter.ordernr) or (not searchFilter and (app.request.query.has('ordernr') ? app.request.get('ordernr') == '1' : (app.request.get('datasource') == 'parts' or app.request.get('datasource') is empty))) %}checked{% endif %}
+                                       {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                                <label for="search_ordernr" class="form-check-label justify-content-start">{% trans %}orderdetails.edit.supplierpartnr{% endtrans %}</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="search_supplier" name="supplier" value="1"
+                                       {% if (searchFilter and searchFilter.supplier) or (not searchFilter and app.request.get('supplier') == '1') %}checked{% endif %}
+                                       {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                                <label for="search_supplier" class="form-check-label justify-content-start">{% trans %}supplier.label{% endtrans %}</label>
+                            </div>
+                        {% endif %}
+                        {% if true %}
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="search_manufacturer" name="manufacturer" value="1"
+                                       {% if (searchFilter and searchFilter.manufacturer) or (not searchFilter and app.request.get('manufacturer') == '1') %}checked{% endif %}
+                                       {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                                <label for="search_manufacturer" class="form-check-label justify-content-start">{% trans %}manufacturer.label{% endtrans %}</label>
+                            </div>
+                        {% endif %}
+                        {% if true %}
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="search_footprint" name="footprint" value="1"
+                                       {% if (searchFilter and searchFilter.footprint) or (not searchFilter and app.request.get('footprint') == '1') %}checked{% endif %}
+                                       {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                                <label for="search_footprint" class="form-check-label justify-content-start">{% trans %}footprint.label{% endtrans %}</label>
+                            </div>
+                        {% endif %}
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_assembly" name="assembly" value="1"
+                                   {% if (searchFilter and searchFilter.assembly) or (not searchFilter and (app.request.query.has('assembly') ? app.request.get('assembly') == '1' : (app.request.get('datasource') == 'parts' or app.request.get('datasource') is empty))) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_assembly" class="form-check-label justify-content-start">{% trans %}assembly.label{% endtrans %}</label>
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="search_supplier" name="supplier" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
-                        <label for="search_supplier" class="form-check-label justify-content-start">{% trans %}supplier.label{% endtrans %}</label>
+                </div>
+
+                <div data-elements--search-options-target="assemblyOptions" id="assembly-options-container" class="d-none">
+                    <div class="px-2">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_assembly_name" name="name" value="1"
+                                   {% if (searchFilter and searchFilter.name) or (not searchFilter and (app.request.query.has('name') ? app.request.get('name') == '1' : app.request.get('datasource') == 'assemblies')) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_assembly_name" class="form-check-label justify-content-start">{% trans %}name.label{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_assembly_dbid" name="dbid" value="1"
+                                   {% if (searchFilter and searchFilter.dbId) or (not searchFilter and app.request.get('dbid') == '1') %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_assembly_dbid" class="form-check-label justify-content-start">{% trans %}id.label{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_assembly_ipn" name="ipn" value="1"
+                                   {% if (searchFilter and searchFilter.ipn) or (not searchFilter and (app.request.query.has('ipn') ? (app.request.get('ipn') == '1' or app.request.get('iPN') == '1') : app.request.get('datasource') == 'assemblies')) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_assembly_ipn" class="form-check-label justify-content-start">{% trans %}assembly.edit.ipn{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_assembly_description" name="description" value="1"
+                                   {% if (searchFilter and searchFilter.description) or (not searchFilter and (app.request.query.has('description') ? app.request.get('description') == '1' : app.request.get('datasource') == 'assemblies')) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_assembly_description" class="form-check-label justify-content-start">{% trans %}description.label{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_assembly_status" name="status" value="1"
+                                   {% if (searchFilter and searchFilter.status) or (not searchFilter and (app.request.query.has('status') ? app.request.get('status') == '1' : app.request.get('datasource') == 'assemblies')) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_assembly_status" class="form-check-label justify-content-start">{% trans %}assembly.edit.status{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_assembly_category" name="category" value="1"
+                                   {% if (searchFilter and searchFilter.category) or (not searchFilter and (app.request.query.has('category') ? app.request.get('category') == '1' : app.request.get('datasource') == 'assemblies')) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_assembly_category" class="form-check-label justify-content-start">{% trans %}assembly.filter.parent{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_assembly_notes" name="comment" value="1"
+                                   {% if (searchFilter and searchFilter.comment) or (not searchFilter and (app.request.query.has('notes') or app.request.query.has('comment') ? (app.request.get('notes') == '1' or app.request.get('comment') == '1') : app.request.get('datasource') == 'assemblies')) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_assembly_notes" class="form-check-label justify-content-start">{% trans %}assembly.filter.comment{% endtrans %}</label>
+                        </div>
                     </div>
-                {% endif %}
-                {% if true %}
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="search_manufacturer" name="manufacturer" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
-                        <label for="search_manufacturer" class="form-check-label justify-content-start">{% trans %}manufacturer.label{% endtrans %}</label>
+                </div>
+
+                <div data-elements--search-options-target="projectOptions" id="project-options-container" class="d-none">
+                    <div class="px-2">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_project_name" name="name" value="1"
+                                   {% if (searchFilter and searchFilter.name) or (not searchFilter and (app.request.query.has('name') ? app.request.get('name') == '1' : app.request.get('datasource') == 'projects')) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_project_name" class="form-check-label justify-content-start">{% trans %}name.label{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_project_dbid" name="dbid" value="1"
+                                   {% if (searchFilter and searchFilter.dbId) or (not searchFilter and app.request.get('dbid') == '1') %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_project_dbid" class="form-check-label justify-content-start">{% trans %}id.label{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_project_description" name="description" value="1"
+                                   {% if (searchFilter and searchFilter.description) or (not searchFilter and (app.request.query.has('description') ? app.request.get('description') == '1' : app.request.get('datasource') == 'projects')) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_project_description" class="form-check-label justify-content-start">{% trans %}description.label{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_project_notes" name="comment" value="1"
+                                   {% if (searchFilter and searchFilter.comment) or (not searchFilter and (app.request.query.has('comment') or app.request.query.has('notes') ? (app.request.get('comment') == '1' or app.request.get('notes') == '1') : app.request.get('datasource') == 'projects')) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_project_notes" class="form-check-label justify-content-start">{% trans %}project.filter.comment{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_project_status" name="status" value="1"
+                                   {% if (searchFilter and searchFilter.status) or (not searchFilter and (app.request.query.has('status') ? app.request.get('status') == '1' : app.request.get('datasource') == 'projects')) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_project_status" class="form-check-label justify-content-start">{% trans %}project.edit.status{% endtrans %}</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="search_project_category" name="category" value="1"
+                                   {% if (searchFilter and searchFilter.category) or (not searchFilter and (app.request.query.has('category') ? app.request.get('category') == '1' : app.request.get('datasource') == 'projects')) %}checked{% endif %}
+                                   {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                            <label for="search_project_category" class="form-check-label justify-content-start">{% trans %}project.filter.parent{% endtrans %}</label>
+                        </div>
                     </div>
-                {% endif %}
-                {% if true %}
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="search_footprint" name="footprint" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
-                        <label for="search_footprint" class="form-check-label justify-content-start">{% trans %}footprint.label{% endtrans %}</label>
-                    </div>
-                {% endif %}
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="search_assembly" name="assembly" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
-                    <label for="search_assembly" class="form-check-label justify-content-start">{% trans %}assembly.label{% endtrans %}</label>
                 </div>
                 <hr>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="regex" name="regex" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
-                    <label for="regex" class="form-check-label justify-content-start">{% trans %}search.regexmatching{% endtrans %}</label>
+                <div class="px-2">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="regex" name="regex" value="1"
+                               {% if (searchFilter and searchFilter.regex) or (not searchFilter and app.request.get('regex') == '1') %}checked{% endif %}
+                               {{ stimulus_controller('elements/sessionStorage_checkbox') }}>
+                        <label for="regex" class="form-check-label justify-content-start">{% trans %}search.regexmatching{% endtrans %}</label>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endmacro %}
 
 {# Render a complete usable search form including the form tags. mode can be "standalone" or "navbar" #}
-{% macro search_form(mode = "standalone") %}
+{% macro search_form(mode = "standalone", searchFilter = null, isSearchList = false) %}
     {% set is_navbar = (mode == "navbar") %}
 
     <form action="{{ path('parts_search') }}" class="d-flex {% if is_navbar %}my-lg-0{% endif%} ms-auto" method="get"
@@ -89,7 +233,7 @@
 
         {# Show the options left in navbar #}
         {% if is_navbar %}
-            {{ _self.settings_drodown(is_navbar) }}
+            {{ _self.settings_drodown(is_navbar, searchFilter, isSearchList) }}
         {% endif %}
 
         <div {{ stimulus_controller('elements/part_search') }}
@@ -102,14 +246,15 @@
                 data-autocomplete="{{ path('typeahead_parts', {'query': '__QUERY__'}) }}"
                 data-detail-url="{{ path('part_info', {'id': '__ID__'}) }}"
                 data-project-detail-url="{{ path('project_info', {'id': '__ID__'}) }}"
-                data-assembly-detail-url="{{ path('assembly_info', {'id': '__ID__'}) }}">
+                data-assembly-detail-url="{{ path('assembly_info', {'id': '__ID__'}) }}"
+                data-initial-query="{{ searchFilter ? searchFilter.keyword : app.request.get('keyword') }}">
 
-            <input type="hidden" name="keyword" required {{ stimulus_target('elements/part_search', 'input') }}>
+            <input type="hidden" name="keyword" required {{ stimulus_target('elements/part_search', 'input') }} value="{{ searchFilter ? searchFilter.keyword : app.request.get('keyword') }}">
         </div>
 
         {# And right in the standalone mode #}
         {% if not is_navbar %}
-            {{ _self.settings_drodown(is_navbar) }}
+            {{ _self.settings_drodown(is_navbar, searchFilter, isSearchList) }}
         {% endif %}
     </form>
 {% endmacro %}

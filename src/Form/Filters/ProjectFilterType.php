@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2026 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -20,11 +20,12 @@ declare(strict_types=1);
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 namespace App\Form\Filters;
 
-use App\DataTables\Filters\AssemblyFilter;
-use App\Entity\AssemblySystem\Assembly;
+use App\DataTables\Filters\ProjectFilter;
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\ProjectSystem\Project;
 use App\Form\Filters\Constraints\ChoiceConstraintType;
 use App\Form\Filters\Constraints\DateTimeConstraintType;
 use App\Form\Filters\Constraints\NumberConstraintType;
@@ -36,13 +37,13 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AssemblyFilterType extends AbstractType
+class ProjectFilterType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'compound' => true,
-            'data_class' => AssemblyFilter::class,
+            'data_class' => ProjectFilter::class,
             'csrf_protection' => false,
         ]);
     }
@@ -54,33 +55,33 @@ class AssemblyFilterType extends AbstractType
          */
 
         $builder->add('name', TextConstraintType::class, [
-            'label' => 'assembly.filter.name',
+            'label' => 'project.filter.name',
         ]);
 
         $builder->add('description', TextConstraintType::class, [
-            'label' => 'assembly.filter.description',
+            'label' => 'project.filter.description',
         ]);
 
         $builder->add('category', StructuralEntityConstraintType::class, [
-            'label' => 'assembly.filter.parent',
-            'entity_class' => Assembly::class,
+            'label' => 'project.filter.parent',
+            'entity_class' => Project::class,
         ]);
 
         $status_choices = [
-            'assembly.status.draft' => 'draft',
-            'assembly.status.planning' => 'planning',
-            'assembly.status.in_production' => 'in_production',
-            'assembly.status.finished' => 'finished',
-            'assembly.status.archived' => 'archived',
+            'project.status.draft' => 'draft',
+            'project.status.planning' => 'planning',
+            'project.status.in_production' => 'in_production',
+            'project.status.finished' => 'finished',
+            'project.status.archived' => 'archived',
         ];
 
         $builder->add('status', ChoiceConstraintType::class, [
-            'label' => 'assembly.filter.status',
+            'label' => 'project.filter.status',
             'choices' => $status_choices,
         ]);
 
         $builder->add('comment', TextConstraintType::class, [
-            'label' => 'assembly.filter.comment'
+            'label' => 'project.filter.comment'
         ]);
 
         /*
@@ -88,13 +89,9 @@ class AssemblyFilterType extends AbstractType
          */
 
         $builder->add('dbId', NumberConstraintType::class, [
-            'label' => 'assembly.filter.dbId',
+            'label' => 'project.filter.dbId',
             'min' => 1,
             'step' => 1,
-        ]);
-
-        $builder->add('ipn', TextConstraintType::class, [
-            'label' => 'assembly.filter.ipn',
         ]);
 
         $builder->add('lastModified', DateTimeConstraintType::class, [
@@ -109,7 +106,7 @@ class AssemblyFilterType extends AbstractType
          * Attachments count
          */
         $builder->add('attachmentsCount', NumberConstraintType::class, [
-            'label' => 'assembly.filter.attachments_count',
+            'label' => 'project.filter.attachments_count',
             'step' => 1,
             'min' => 0,
         ]);
@@ -120,7 +117,7 @@ class AssemblyFilterType extends AbstractType
         ]);
 
         $builder->add('attachmentName', TextConstraintType::class, [
-            'label' => 'assembly.filter.attachmentName',
+            'label' => 'project.filter.attachmentName',
         ]);
 
         $builder->add('submit', SubmitType::class, [

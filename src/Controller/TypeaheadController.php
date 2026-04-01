@@ -136,7 +136,7 @@ class TypeaheadController extends AbstractController
 
         $partRepository = $entityManager->getRepository(Part::class);
 
-        $parts = $partRepository->autocompleteSearch($query, 100);
+        $parts = $partRepository->autocompleteSearch($query, 10);
 
         /** @var Part[]|Assembly[] $data */
         $data = [];
@@ -167,7 +167,7 @@ class TypeaheadController extends AbstractController
             if ($this->isGranted('@projects.read')) {
                 $projectRepository = $entityManager->getRepository(Project::class);
 
-                $projects = $projectRepository->autocompleteSearch($query, 100);
+                $projects = $projectRepository->autocompleteSearch($query, 10);
 
                 foreach ($projects as $project) {
                     $preview_attachment = $projectPreviewGenerator->getTablePreviewAttachment($project);
@@ -194,7 +194,7 @@ class TypeaheadController extends AbstractController
             if ($this->isGranted('@assemblies.read')) {
                 $assemblyRepository = $entityManager->getRepository(Assembly::class);
 
-                $assemblies = $assemblyRepository->autocompleteSearch($query, 100);
+                $assemblies = $assemblyRepository->autocompleteSearch($query, 10);
 
                 foreach ($assemblies as $assembly) {
                     $preview_attachment = $assemblyPreviewGenerator->getTablePreviewAttachment($assembly);

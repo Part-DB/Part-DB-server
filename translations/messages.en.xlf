@@ -1575,6 +1575,66 @@ Sub elements will be moved upwards.</target>
         <target>Search [[part]]</target>
       </segment>
     </unit>
+    <unit id="Upyz4NL" name="assembly.search.title">
+      <segment state="translated">
+        <source>assembly.search.title</source>
+        <target>Assembly search</target>
+      </segment>
+    </unit>
+    <unit id="deO4FsM" name="project.search.title">
+      <segment state="translated">
+        <source>project.search.title</source>
+        <target>Project search</target>
+      </segment>
+    </unit>
+    <unit id="wNWc9GW" name="project.table.name">
+      <segment state="translated">
+        <source>project.table.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="Xq01S2F" name="project.table.id">
+      <segment state="translated">
+        <source>project.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="9AdhysG" name="project.table.description">
+      <segment state="translated">
+        <source>project.table.description</source>
+        <target>Description</target>
+      </segment>
+    </unit>
+    <unit id="4qJkRic" name="project.table.comment">
+      <segment state="translated">
+        <source>project.table.comment</source>
+        <target>Notes</target>
+      </segment>
+    </unit>
+    <unit id="NrH0WW8" name="project.table.addedDate">
+      <segment state="translated">
+        <source>project.table.addedDate</source>
+        <target>Added at</target>
+      </segment>
+    </unit>
+    <unit id="6rN1Yf1" name="project.table.lastModified">
+      <segment state="translated">
+        <source>project.table.lastModified</source>
+        <target>Last modified at</target>
+      </segment>
+    </unit>
+    <unit id="F2nNNFD" name="project.table.edit">
+      <segment state="translated">
+        <source>project.table.edit</source>
+        <target>Edit</target>
+      </segment>
+    </unit>
+    <unit id="KZCGmOp" name="project.table.edit.title">
+      <segment state="translated">
+        <source>project.table.edit.title</source>
+        <target>Edit project</target>
+      </segment>
+    </unit>
     <unit id=".nsfK4V" name="parts_list.storelocation.title">
       <segment state="translated">
         <source>parts_list.storelocation.title</source>
@@ -2445,6 +2505,24 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <segment state="translated">
         <source>datasource</source>
         <target>Data source</target>
+      </segment>
+    </unit>
+    <unit id="cmck5zP" name="datasource.parts">
+      <segment state="translated">
+        <source>datasource.parts</source>
+        <target>Parts</target>
+      </segment>
+    </unit>
+    <unit id="3tkaYAP" name="datasource.projects">
+      <segment state="translated">
+        <source>datasource.projects</source>
+        <target>Projects</target>
+      </segment>
+    </unit>
+    <unit id="aYPamdy" name="datasource.assemblies">
+      <segment state="translated">
+        <source>datasource.assemblies</source>
+        <target>Assemblies</target>
       </segment>
     </unit>
     <unit id="uF_oOxY" name="manufacturer.labelp">
@@ -6828,6 +6906,18 @@ Element 1 -&gt; Element 1.2</target>
         <target>Searching parts with keyword &lt;b&gt;%keyword%&lt;/b&gt;</target>
       </segment>
     </unit>
+    <unit id="searching_for_assemblies" name="parts_list.search.searching_for_assemblies">
+      <segment state="translated">
+        <source>parts_list.search.searching_for_assemblies</source>
+        <target>Searching assemblies with keyword &lt;b&gt;%keyword%&lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id="searching_for_projects" name="parts_list.search.searching_for_projects">
+      <segment state="translated">
+        <source>parts_list.search.searching_for_projects</source>
+        <target>Searching projects with keyword &lt;b&gt;%keyword%&lt;/b&gt;</target>
+      </segment>
+    </unit>
     <unit id="4vomKLa" name="parts_list.search_options.caption">
       <segment state="translated">
         <source>parts_list.search_options.caption</source>
@@ -8687,8 +8777,8 @@ Element 1 -&gt; Element 1.2</target>
       </segment>
     </unit>
     <unit id="aki9R3e" name="project.bom_import.template.kicad_pcbnew.table">
-        <segment>
-            <source>project.bom_import.template.kicad_pcbnew.table</source>
+      <segment>
+        <source>project.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
@@ -8741,7 +8831,7 @@ Element 1 -&gt; Element 1.2</target>
                 </table>
                 ]]>
             </target>
-        </segment>
+      </segment>
     </unit>
     <unit id="MDJdKXv" name="project.bom_import.clear_existing_bom.help">
       <segment state="translated">
@@ -10468,10 +10558,22 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Default columns for assembly tables</target>
       </segment>
     </unit>
+    <unit id="ObC5PW9" name="settings.behavior.table.projects_default_columns">
+      <segment state="translated">
+        <source>settings.behavior.table.projects_default_columns</source>
+        <target>Default columns for projects</target>
+      </segment>
+    </unit>
     <unit id="t4jhp3R" name="settings.behavior.table.assemblies_default_columns.help">
       <segment state="translated">
         <source>settings.behavior.table.assemblies_default_columns.help</source>
         <target>The columns to show by default in assembly tables. Order of items can be changed via drag &amp; drop.</target>
+      </segment>
+    </unit>
+    <unit id="dHwCrSv" name="settings.behavior.table.projects_default_columns.help">
+      <segment state="translated">
+        <source>settings.behavior.table.projects_default_columns.help</source>
+        <target>Select the columns that should be displayed by default in the project search.</target>
       </segment>
     </unit>
     <unit id="Uj8ie5E" name="settings.behavior.table.assemblies_bom_default_columns">
@@ -11179,8 +11281,8 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       </segment>
     </unit>
     <unit id="a1bK2tc" name="assembly.bom_import.template.kicad_pcbnew.table">
-        <segment>
-            <source>assembly.bom_import.template.kicad_pcbnew.table</source>
+      <segment>
+        <source>assembly.bom_import.template.kicad_pcbnew.table</source>
             <target>
                 <![CDATA[
                 <table class="table table-bordered table-striped">
@@ -11233,7 +11335,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
                 </table>
                 ]]>
             </target>
-        </segment>
+      </segment>
     </unit>
     <unit id="X9HUFrv" name="part.table.actions.error">
       <segment state="translated">
@@ -12636,7 +12738,19 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="kix5dMf" name="assembly.filter.comment">
       <segment state="translated">
         <source>assembly.filter.comment</source>
-        <target>Comments</target>
+        <target>Notes</target>
+      </segment>
+    </unit>
+    <unit id="asdfghj" name="assembly.filter.status">
+      <segment state="translated">
+        <source>assembly.filter.status</source>
+        <target>Assembly status</target>
+      </segment>
+    </unit>
+    <unit id="qwertyu" name="assembly.filter.parent">
+      <segment state="translated">
+        <source>assembly.filter.parent</source>
+        <target>Parent assembly</target>
       </segment>
     </unit>
     <unit id="ux2Ws9p" name="assembly.filter.attachments_count">
@@ -12681,6 +12795,12 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Description</target>
       </segment>
     </unit>
+    <unit id="acEe1Tb_notes" name="assembly.table.comment">
+      <segment state="translated">
+        <source>assembly.table.comment</source>
+        <target>Notes</target>
+      </segment>
+    </unit>
     <unit id="ahzol5T" name="assembly.table.referencedAssemblies">
       <segment state="translated">
         <source>assembly.table.referencedAssemblies</source>
@@ -12715,6 +12835,96 @@ Please note, that you can not impersonate a disabled user. If you try you will g
       <segment state="translated">
         <source>assembly.table.invalid_regex</source>
         <target>Invalid regular expression (regex)</target>
+      </segment>
+    </unit>
+    <unit id="Ag9x60T" name="project.filter.dbId">
+      <segment state="translated">
+        <source>project.filter.dbId</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="MjSfszH" name="project.filter.name">
+      <segment state="translated">
+        <source>project.filter.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="ELxZW9y" name="project.filter.description">
+      <segment state="translated">
+        <source>project.filter.description</source>
+        <target>Description</target>
+      </segment>
+    </unit>
+    <unit id="svzDJ9V" name="project.filter.comment">
+      <segment state="translated">
+        <source>project.filter.comment</source>
+        <target>Notes</target>
+      </segment>
+    </unit>
+    <unit id="sCPeQFs" name="project.filter.status">
+      <segment state="translated">
+        <source>project.filter.status</source>
+        <target>Project status</target>
+      </segment>
+    </unit>
+    <unit id="1Fcochg" name="project.filter.parent">
+      <segment state="translated">
+        <source>project.filter.parent</source>
+        <target>Parent project</target>
+      </segment>
+    </unit>
+    <unit id="s3yI9D6" name="project.filter.attachments_count">
+      <segment state="translated">
+        <source>project.filter.attachments_count</source>
+        <target>Number of attachments</target>
+      </segment>
+    </unit>
+    <unit id="75p958O" name="project.filter.attachmentName">
+      <segment state="translated">
+        <source>project.filter.attachmentName</source>
+        <target>Attachment name</target>
+      </segment>
+    </unit>
+    <unit id="project.table.id" name="project.table.id">
+      <segment state="translated">
+        <source>project.table.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="project.table.name" name="project.table.name">
+      <segment state="translated">
+        <source>project.table.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="project.table.description" name="project.table.description">
+      <segment state="translated">
+        <source>project.table.description</source>
+        <target>Description</target>
+      </segment>
+    </unit>
+    <unit id="project.table.addedDate" name="project.table.addedDate">
+      <segment state="translated">
+        <source>project.table.addedDate</source>
+        <target>Added</target>
+      </segment>
+    </unit>
+    <unit id="project.table.lastModified" name="project.table.lastModified">
+      <segment state="translated">
+        <source>project.table.lastModified</source>
+        <target>Last edited</target>
+      </segment>
+    </unit>
+    <unit id="project.table.edit" name="project.table.edit">
+      <segment state="translated">
+        <source>project.table.edit</source>
+        <target>Edit</target>
+      </segment>
+    </unit>
+    <unit id="project.table.edit.title" name="project.table.edit.title">
+      <segment state="translated">
+        <source>project.table.edit.title</source>
+        <target>Edit project</target>
       </segment>
     </unit>
     <unit id="8uh6vTx" name="assembly.bom.table.id">
