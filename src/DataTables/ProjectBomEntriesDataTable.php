@@ -1,8 +1,5 @@
 <?php
-
-declare(strict_types=1);
-
-/*
+/**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  *  Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
@@ -20,6 +17,9 @@ declare(strict_types=1);
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
+declare(strict_types=1);
+
 namespace App\DataTables;
 
 use App\DataTables\Column\EntityColumn;
@@ -44,9 +44,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProjectBomEntriesDataTable implements DataTableTypeInterface
 {
-    public function __construct(protected TranslatorInterface $translator, protected PartDataTableHelper $partDataTableHelper,
-        protected EntityURLGenerator $entityURLGenerator, protected AmountFormatter $amountFormatter)
-    {
+    public function __construct(
+        protected EntityURLGenerator $entityURLGenerator,
+        protected TranslatorInterface $translator,
+        protected AmountFormatter $amountFormatter,
+        protected PartDataTableHelper $partDataTableHelper
+    ) {
     }
 
 
@@ -62,7 +65,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                         return '';
                     }
                     return $this->partDataTableHelper->renderPicture($context->getPart());
-                },
+                }
             ])
 
             ->add('id', TextColumn::class, [
@@ -133,18 +136,18 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ->add('category', EntityColumn::class, [
                 'label' => $this->translator->trans('part.table.category'),
                 'property' => 'part.category',
-                'orderField' => 'NATSORT(category.name)',
+                'orderField' => 'NATSORT(category.name)'
             ])
             ->add('footprint', EntityColumn::class, [
                 'property' => 'part.footprint',
                 'label' => $this->translator->trans('part.table.footprint'),
-                'orderField' => 'NATSORT(footprint.name)',
+                'orderField' => 'NATSORT(footprint.name)'
             ])
 
             ->add('manufacturer', EntityColumn::class, [
                 'property' => 'part.manufacturer',
                 'label' => $this->translator->trans('part.table.manufacturer'),
-                'orderField' => 'NATSORT(manufacturer.name)',
+                'orderField' => 'NATSORT(manufacturer.name)'
             ])
 
             ->add('manufacturing_status', EnumColumn::class, [
@@ -225,7 +228,8 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
 
     private function getQuery(QueryBuilder $builder, array $options): void
     {
-        $builder->select('bom_entry')
+        $builder
+        	->select('bom_entry')
             ->addSelect('part')
             ->from(ProjectBOMEntry::class, 'bom_entry')
             ->leftJoin('bom_entry.part', 'part')
@@ -238,7 +242,6 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ->where('bom_entry.project = :project')
             ->setParameter('project', $options['project'])
 
-            //We have to group by all elements, or only the first sub elements of an association is fetched! (see issue #190)
             ->addGroupBy('part')
             ->addGroupBy('partLots')
             ->addGroupBy('category')
