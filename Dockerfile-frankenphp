@@ -62,7 +62,7 @@ RUN yarn build
 RUN yarn cache clean && rm -rf node_modules/
 
 # FrankenPHP base stage
-FROM dunglas/frankenphp:1-php8.4 AS frankenphp_upstream
+FROM dunglas/frankenphp:1-php8.4-bookworm AS frankenphp_upstream
 ARG TARGETARCH
 RUN --mount=type=cache,id=apt-cache-$TARGETARCH,target=/var/cache/apt \
     --mount=type=cache,id=apt-lists-$TARGETARCH,target=/var/lib/apt/lists \
