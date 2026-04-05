@@ -44,6 +44,7 @@ use App\Exceptions\AttachmentDownloadException;
 use App\Settings\SystemSettings\AttachmentsSettings;
 use Hshn\Base64EncodedFile\HttpFoundation\File\Base64EncodedFile;
 use Hshn\Base64EncodedFile\HttpFoundation\File\UploadedBase64EncodedFile;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpClient\NoPrivateNetworkHttpClient;
 use const DIRECTORY_SEPARATOR;
 use InvalidArgumentException;
@@ -77,6 +78,8 @@ class AttachmentSubmitHandler
         protected FileTypeFilterTools $filterTools,
         protected AttachmentsSettings $settings,
         protected readonly SVGSanitizer $SVGSanitizer,
+        #[Autowire(env: "bool:ALLOW_ATTACHMENT_DOWNLOADS_FROM_LOCALNETWORK")]
+        private readonly bool $allow_local_network_downloads = false,
     )
     {
         //The mapping used to determine which folder will be used for an attachment type
@@ -97,7 +100,9 @@ class AttachmentSubmitHandler
             LabelAttachment::class => 'label_profile',
         ];
 
-        $this->httpClient = new NoPrivateNetworkHttpClient($this->httpClient);
+        if (!$this->allow_local_network_downloads) {
+            $this->httpClient = new NoPrivateNetworkHttpClient($this->httpClient);
+        }
     }
 
     /**

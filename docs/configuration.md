@@ -86,6 +86,7 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
 * `ATTACHMENT_DOWNLOAD_BY_DEFAULT`: When this is set to 1, the "download external file" checkbox is checked by default
   when adding a new attachment. Otherwise, it is unchecked by default. Use this if you wanna download all attachments
   locally by default. Attachment download is only possible, when `ALLOW_ATTACHMENT_DOWNLOADS` is set to 1.
+* `ALLOW_ATTACHMENT_DOWNLOADS_FROM_LOCALNETWORK` (default `0`): When this is set to 1, users can make Part-DB directly download a file specified as a URL from the local network and create it as a local file. This allows users access to all resources available in the local network, which could be a security risk, so use this only if you trust your users and have a secure local network.
 * `ATTACHMENT_SHOW_HTML_FILES`: When enabled, user uploaded HTML attachments can be viewed directly in the browser. 
   Many potential malicious functions are restricted, still this is a potential security risk and should only be enabled,
   if you trust the users who can upload files. When set to 0, HTML files are rendered as plain text.
