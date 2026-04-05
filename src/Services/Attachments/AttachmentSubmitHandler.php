@@ -44,6 +44,7 @@ use App\Exceptions\AttachmentDownloadException;
 use App\Settings\SystemSettings\AttachmentsSettings;
 use Hshn\Base64EncodedFile\HttpFoundation\File\Base64EncodedFile;
 use Hshn\Base64EncodedFile\HttpFoundation\File\UploadedBase64EncodedFile;
+use Symfony\Component\HttpClient\NoPrivateNetworkHttpClient;
 use const DIRECTORY_SEPARATOR;
 use InvalidArgumentException;
 use RuntimeException;
@@ -95,6 +96,8 @@ class AttachmentSubmitHandler
             UserAttachment::class => 'user',
             LabelAttachment::class => 'label_profile',
         ];
+
+        $this->httpClient = new NoPrivateNetworkHttpClient($this->httpClient);
     }
 
     /**
@@ -373,6 +376,7 @@ class AttachmentSubmitHandler
                 ],
 
             ];
+
             $response = $this->httpClient->request('GET', $url, $opts);
             //Digikey wants TLSv1.3, so try again with that if we get a 403
             if ($response->getStatusCode() === 403) {
@@ -434,8 +438,8 @@ class AttachmentSubmitHandler
             $new_path = $this->pathResolver->realPathToPlaceholder($new_path);
             //Save the path to the attachment
             $attachment->setInternalPath($new_path);
-        } catch (TransportExceptionInterface) {
-            throw new AttachmentDownloadException('Transport error!');
+        } catch (TransportExceptionInterface $exception) {
+            throw new AttachmentDownloadException('Transport error: '.$exception->getMessage());
         }
 
         return $attachment;

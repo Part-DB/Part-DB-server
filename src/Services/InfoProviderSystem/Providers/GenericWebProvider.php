@@ -42,6 +42,7 @@ use Brick\Schema\Interfaces\Thing;
 use Brick\Schema\SchemaReader;
 use Brick\Schema\SchemaTypeList;
 use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\HttpClient\NoPrivateNetworkHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class GenericWebProvider implements InfoProviderInterface
@@ -55,7 +56,8 @@ class GenericWebProvider implements InfoProviderInterface
         private readonly ProviderRegistry $providerRegistry, private readonly PartInfoRetriever $infoRetriever,
     )
     {
-        $this->httpClient = (new RandomizeUseragentHttpClient($httpClient))->withOptions(
+        //Use NoPrivateNetworkHttpClient to prevent SSRF vulnerabilities, and RandomizeUseragentHttpClient to make it harder for servers to block us
+        $this->httpClient = (new RandomizeUseragentHttpClient(new NoPrivateNetworkHttpClient($httpClient)))->withOptions(
             [
                 'timeout' => 15,
             ]
