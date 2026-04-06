@@ -12941,307 +12941,307 @@ Buerklin-API Authentication server:
         <target>Backup download allowed</target>
       </segment>
     </unit>
-    <unit id="wt_setup_title" name="update_manager.docker.setup_title">
+    <unit id="Ld698rE" name="update_manager.docker.setup_title">
       <segment state="translated">
         <source>update_manager.docker.setup_title</source>
         <target>Enable One-Click Docker Updates with Watchtower</target>
       </segment>
     </unit>
-    <unit id="wt_setup_desc" name="update_manager.docker.setup_description">
+    <unit id="A_UDLkn" name="update_manager.docker.setup_description">
       <segment state="translated">
         <source>update_manager.docker.setup_description</source>
         <target>Part-DB can update your Docker container automatically using Watchtower, an open-source container updater. Add Watchtower as a companion container and configure the connection below.</target>
       </segment>
     </unit>
-    <unit id="wt_setup_s1" name="update_manager.docker.setup_step1">
+    <unit id="p092aHv" name="update_manager.docker.setup_step1">
       <segment state="translated">
         <source>update_manager.docker.setup_step1</source>
         <target>1. Add Watchtower to your docker-compose.yml:</target>
       </segment>
     </unit>
-    <unit id="wt_setup_s2" name="update_manager.docker.setup_step2">
+    <unit id="VVejRLi" name="update_manager.docker.setup_step2">
       <segment state="translated">
         <source>update_manager.docker.setup_step2</source>
         <target>2. Add these environment variables to your Part-DB container:</target>
       </segment>
     </unit>
-    <unit id="wt_setup_net" name="update_manager.docker.setup_network_hint">
+    <unit id="3tlczB." name="update_manager.docker.setup_network_hint">
       <segment state="translated">
         <source>update_manager.docker.setup_network_hint</source>
         <target>Make sure Part-DB and Watchtower are on the same Docker network. If you use label-based filtering in Watchtower (WATCHTOWER_LABEL_ENABLE=true), add the label "com.centurylinklabs.watchtower.enable=true" to your Part-DB container.</target>
       </segment>
     </unit>
-    <unit id="wt_unreach_t" name="update_manager.docker.watchtower_unreachable_title">
+    <unit id="5ZI3hh9" name="update_manager.docker.watchtower_unreachable_title">
       <segment state="translated">
         <source>update_manager.docker.watchtower_unreachable_title</source>
         <target>Watchtower Not Reachable</target>
       </segment>
     </unit>
-    <unit id="wt_unreach_d" name="update_manager.docker.watchtower_unreachable_description">
+    <unit id=".0wFRZ." name="update_manager.docker.watchtower_unreachable_description">
       <segment state="translated">
         <source>update_manager.docker.watchtower_unreachable_description</source>
         <target>Watchtower is configured but cannot be reached. Please verify that the Watchtower container is running and that the API URL and token are correct.</target>
       </segment>
     </unit>
-    <unit id="wt_confirm" name="update_manager.docker.confirm_update">
+    <unit id="PXadA3E" name="update_manager.docker.confirm_update">
       <segment state="translated">
         <source>update_manager.docker.confirm_update</source>
         <target>Are you sure you want to update Part-DB via Watchtower? The container will be restarted with the new image. Unlike Git updates, Docker updates cannot be automatically rolled back.</target>
       </segment>
     </unit>
-    <unit id="wt_update_btn" name="update_manager.docker.update_via_watchtower">
+    <unit id="zVnBU_y" name="update_manager.docker.update_via_watchtower">
       <segment state="translated">
         <source>update_manager.docker.update_via_watchtower</source>
         <target>Update via Watchtower to</target>
       </segment>
     </unit>
-    <unit id="wt_no_rollback" name="update_manager.docker.no_rollback_warning">
+    <unit id="rygIXG_" name="update_manager.docker.no_rollback_warning">
       <segment state="translated">
         <source>update_manager.docker.no_rollback_warning</source>
         <target>Docker updates cannot be automatically rolled back. A database backup will be created before updating so you can restore your data if needed.</target>
       </segment>
     </unit>
-    <unit id="wt_prog_title" name="update_manager.docker.progress_title">
+    <unit id="6YSYc7u" name="update_manager.docker.progress_title">
       <segment state="translated">
         <source>update_manager.docker.progress_title</source>
         <target>Docker Update in Progress</target>
       </segment>
     </unit>
-    <unit id="wt_waiting" name="update_manager.docker.waiting_for_watchtower">
+    <unit id="4zjA6Z2" name="update_manager.docker.waiting_for_watchtower">
       <segment state="translated">
         <source>update_manager.docker.waiting_for_watchtower</source>
         <target>Waiting for Watchtower to pull the new image...</target>
       </segment>
     </unit>
-    <unit id="wt_elapsed" name="update_manager.docker.elapsed">
+    <unit id="N4ayoEp" name="update_manager.docker.elapsed">
       <segment state="translated">
         <source>update_manager.docker.elapsed</source>
         <target>Elapsed</target>
       </segment>
     </unit>
-    <unit id="wt_wait_t" name="update_manager.docker.waiting_title">
+    <unit id="B2piu_D" name="update_manager.docker.waiting_title">
       <segment state="translated">
         <source>update_manager.docker.waiting_title</source>
         <target>Update Triggered</target>
       </segment>
     </unit>
-    <unit id="wt_wait_d" name="update_manager.docker.waiting_description">
+    <unit id="K7uq04F" name="update_manager.docker.waiting_description">
       <segment state="translated">
         <source>update_manager.docker.waiting_description</source>
         <target>Watchtower has been notified. It will pull the latest Docker image and restart the Part-DB container.</target>
       </segment>
     </unit>
-    <unit id="wt_working" name="update_manager.docker.watchtower_working">
+    <unit id="nYC4Dw9" name="update_manager.docker.watchtower_working">
       <segment state="translated">
         <source>update_manager.docker.watchtower_working</source>
         <target>Watchtower is processing the update...</target>
       </segment>
     </unit>
-    <unit id="wt_work_hint" name="update_manager.docker.watchtower_working_hint">
+    <unit id="IPd5mwk" name="update_manager.docker.watchtower_working_hint">
       <segment state="translated">
         <source>update_manager.docker.watchtower_working_hint</source>
         <target>This may take a few minutes depending on your internet speed and image size.</target>
       </segment>
     </unit>
-    <unit id="wt_restart_t" name="update_manager.docker.restarting_title">
+    <unit id="Q_XPcbn" name="update_manager.docker.restarting_title">
       <segment state="translated">
         <source>update_manager.docker.restarting_title</source>
         <target>Container Restarting</target>
       </segment>
     </unit>
-    <unit id="wt_restart_d" name="update_manager.docker.restarting_description">
+    <unit id="fxJe7Uc" name="update_manager.docker.restarting_description">
       <segment state="translated">
         <source>update_manager.docker.restarting_description</source>
         <target>Watchtower has pulled the new image and is restarting the Part-DB container.</target>
       </segment>
     </unit>
-    <unit id="wt_restart_h" name="update_manager.docker.restarting_hint">
+    <unit id="fgtq0OK" name="update_manager.docker.restarting_hint">
       <segment state="translated">
         <source>update_manager.docker.restarting_hint</source>
         <target>The page will automatically detect when the server comes back online. This usually takes 10-30 seconds.</target>
       </segment>
     </unit>
-    <unit id="wt_success_t" name="update_manager.docker.success_title">
+    <unit id="ZskYT6q" name="update_manager.docker.success_title">
       <segment state="translated">
         <source>update_manager.docker.success_title</source>
         <target>Update Complete!</target>
       </segment>
     </unit>
-    <unit id="wt_success_m" name="update_manager.docker.success_message">
+    <unit id="lIi.I9w" name="update_manager.docker.success_message">
       <segment state="translated">
         <source>update_manager.docker.success_message</source>
         <target>Part-DB has been successfully updated via Watchtower.</target>
       </segment>
     </unit>
-    <unit id="wt_prev_ver" name="update_manager.docker.previous_version">
+    <unit id="RqtjuI7" name="update_manager.docker.previous_version">
       <segment state="translated">
         <source>update_manager.docker.previous_version</source>
         <target>Previous version</target>
       </segment>
     </unit>
-    <unit id="wt_new_ver" name="update_manager.docker.new_version">
+    <unit id="KLNv9FX" name="update_manager.docker.new_version">
       <segment state="translated">
         <source>update_manager.docker.new_version</source>
         <target>New version</target>
       </segment>
     </unit>
-    <unit id="wt_back" name="update_manager.docker.back_to_update_manager">
+    <unit id="EyK.Bvs" name="update_manager.docker.back_to_update_manager">
       <segment state="translated">
         <source>update_manager.docker.back_to_update_manager</source>
         <target>Back to Update Manager</target>
       </segment>
     </unit>
-    <unit id="wt_home" name="update_manager.docker.go_to_homepage">
+    <unit id="qXEyzbC" name="update_manager.docker.go_to_homepage">
       <segment state="translated">
         <source>update_manager.docker.go_to_homepage</source>
         <target>Go to Homepage</target>
       </segment>
     </unit>
-    <unit id="wt_timeout_t" name="update_manager.docker.timeout_title">
+    <unit id="zLbfHFP" name="update_manager.docker.timeout_title">
       <segment state="translated">
         <source>update_manager.docker.timeout_title</source>
         <target>Update Taking Longer Than Expected</target>
       </segment>
     </unit>
-    <unit id="wt_timeout_m" name="update_manager.docker.timeout_message">
+    <unit id="fbpbM4e" name="update_manager.docker.timeout_message">
       <segment state="translated">
         <source>update_manager.docker.timeout_message</source>
         <target>The update is taking longer than expected. Check the Watchtower container logs for details. The update may still be in progress.</target>
       </segment>
     </unit>
-    <unit id="wt_retry" name="update_manager.docker.retry">
+    <unit id="eTDf1ym" name="update_manager.docker.retry">
       <segment state="translated">
         <source>update_manager.docker.retry</source>
         <target>Retry</target>
       </segment>
     </unit>
-    <unit id="wt_warning" name="update_manager.docker.warning">
+    <unit id="BTQH5SL" name="update_manager.docker.warning">
       <segment state="translated">
         <source>update_manager.docker.warning</source>
         <target>Warning</target>
       </segment>
     </unit>
-    <unit id="wt_no_close" name="update_manager.docker.do_not_close">
+    <unit id="5A6K7gA" name="update_manager.docker.do_not_close">
       <segment state="translated">
         <source>update_manager.docker.do_not_close</source>
         <target>Do not close this page. It will automatically detect when the update is complete.</target>
       </segment>
     </unit>
-    <unit id="wt_via" name="update_manager.docker.updating_via_watchtower">
+    <unit id="JOGLw48" name="update_manager.docker.updating_via_watchtower">
       <segment state="translated">
         <source>update_manager.docker.updating_via_watchtower</source>
         <target>Updating via Watchtower</target>
       </segment>
     </unit>
-    <unit id="wt_step_wait" name="update_manager.docker.step_waiting">
+    <unit id="L1aNTz2" name="update_manager.docker.step_waiting">
       <segment state="translated">
         <source>update_manager.docker.step_waiting</source>
         <target>Pulling Image</target>
       </segment>
     </unit>
-    <unit id="wt_steps" name="update_manager.docker.steps">
+    <unit id="K8G9Omp" name="update_manager.docker.steps">
       <segment state="translated">
         <source>update_manager.docker.steps</source>
         <target>Update Steps</target>
       </segment>
     </unit>
-    <unit id="wt_step_trig" name="update_manager.docker.step_trigger">
+    <unit id="rwPMohr" name="update_manager.docker.step_trigger">
       <segment state="translated">
         <source>update_manager.docker.step_trigger</source>
         <target>Trigger Update</target>
       </segment>
     </unit>
-    <unit id="wt_step_trig_d" name="update_manager.docker.step_trigger_desc">
+    <unit id="C6T6dki" name="update_manager.docker.step_trigger_desc">
       <segment state="translated">
         <source>update_manager.docker.step_trigger_desc</source>
         <target>Watchtower has been notified to check for updates</target>
       </segment>
     </unit>
-    <unit id="wt_step_pull" name="update_manager.docker.step_pull">
+    <unit id="sHx0nZN" name="update_manager.docker.step_pull">
       <segment state="translated">
         <source>update_manager.docker.step_pull</source>
         <target>Pull New Image</target>
       </segment>
     </unit>
-    <unit id="wt_step_pull_d" name="update_manager.docker.step_pull_desc">
+    <unit id="VC7sifr" name="update_manager.docker.step_pull_desc">
       <segment state="translated">
         <source>update_manager.docker.step_pull_desc</source>
         <target>Downloading the latest Docker image from the registry</target>
       </segment>
     </unit>
-    <unit id="wt_step_rest" name="update_manager.docker.step_restart">
+    <unit id="H5.XUFa" name="update_manager.docker.step_restart">
       <segment state="translated">
         <source>update_manager.docker.step_restart</source>
         <target>Restart Container</target>
       </segment>
     </unit>
-    <unit id="wt_step_rest_d" name="update_manager.docker.step_restart_desc">
+    <unit id="KRNQZKS" name="update_manager.docker.step_restart_desc">
       <segment state="translated">
         <source>update_manager.docker.step_restart_desc</source>
         <target>Stopping old container and starting new one</target>
       </segment>
     </unit>
-    <unit id="wt_step_ver" name="update_manager.docker.step_verify">
+    <unit id="y5ibGqB" name="update_manager.docker.step_verify">
       <segment state="translated">
         <source>update_manager.docker.step_verify</source>
         <target>Verify</target>
       </segment>
     </unit>
-    <unit id="wt_step_ver_d" name="update_manager.docker.step_verify_desc">
+    <unit id=".D286hQ" name="update_manager.docker.step_verify_desc">
       <segment state="translated">
         <source>update_manager.docker.step_verify_desc</source>
         <target>Confirming Part-DB is running on the new version</target>
       </segment>
     </unit>
-    <unit id="wt_status" name="update_manager.docker.watchtower_status">
+    <unit id="s72BGA8" name="update_manager.docker.watchtower_status">
       <segment state="translated">
         <source>update_manager.docker.watchtower_status</source>
         <target>Watchtower</target>
       </segment>
     </unit>
-    <unit id="wt_connected" name="update_manager.docker.watchtower_connected">
+    <unit id="HRw317s" name="update_manager.docker.watchtower_connected">
       <segment state="translated">
         <source>update_manager.docker.watchtower_connected</source>
         <target>Connected</target>
       </segment>
     </unit>
-    <unit id="wt_unreach_s" name="update_manager.docker.watchtower_unreachable_short">
+    <unit id="HcEk0Mh" name="update_manager.docker.watchtower_unreachable_short">
       <segment state="translated">
         <source>update_manager.docker.watchtower_unreachable_short</source>
         <target>Unreachable</target>
       </segment>
     </unit>
-    <unit id="wt_not_conf" name="update_manager.docker.watchtower_not_configured">
+    <unit id="lMwRNf9" name="update_manager.docker.watchtower_not_configured">
       <segment state="translated">
         <source>update_manager.docker.watchtower_not_configured</source>
         <target>Not configured</target>
       </segment>
     </unit>
-    <unit id="wt_step_stop" name="update_manager.docker.step_stop">
+    <unit id="IceG9y3" name="update_manager.docker.step_stop">
       <segment state="translated">
         <source>update_manager.docker.step_stop</source>
         <target>Stop Container</target>
       </segment>
     </unit>
-    <unit id="wt_step_stop_d" name="update_manager.docker.step_stop_desc">
+    <unit id="0sq_TgW" name="update_manager.docker.step_stop_desc">
       <segment state="translated">
         <source>update_manager.docker.step_stop_desc</source>
         <target>Gracefully stopping the current container before recreation</target>
       </segment>
     </unit>
-    <unit id="wt_step_health" name="update_manager.docker.step_health">
+    <unit id="et8F1eO" name="update_manager.docker.step_health">
       <segment state="translated">
         <source>update_manager.docker.step_health</source>
         <target>Health Check</target>
       </segment>
     </unit>
-    <unit id="wt_step_health_d" name="update_manager.docker.step_health_desc">
+    <unit id="v5tHPJK" name="update_manager.docker.step_health_desc">
       <segment state="translated">
         <source>update_manager.docker.step_health_desc</source>
         <target>Waiting for the new container to pass health checks</target>
       </segment>
     </unit>
-    <unit id="wt_updating" name="update_manager.docker.updating">
+    <unit id="ZLRHnm_" name="update_manager.docker.updating">
       <segment state="translated">
         <source>update_manager.docker.updating</source>
         <target>Updating Part-DB via Docker...</target>
