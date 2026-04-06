@@ -1,4 +1,4 @@
-# Generated on Mon Mar 30 04:50:41 UTC 2026
+# Generated on Mon Apr  6 04:50:13 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -1667,7 +1667,6 @@ Analog_ADC:CA3300
 Analog_ADC:HX711
 Analog_ADC:ICL7106CPL
 Analog_ADC:ICL7107CPL
-Analog_ADC:INA234AxYBJ
 Analog_ADC:LTC1406CGN
 Analog_ADC:LTC1406IGN
 Analog_ADC:LTC1594CS
@@ -2198,6 +2197,7 @@ Audio:WM8731SEDS
 Audio:YM2149
 Audio:YM2612
 Audio:YM3438
+Auxiliary_Items:Generic_Outline
 Auxiliary_Items:Jumper_Shunt
 Auxiliary_Items:MountingScrew
 Battery_Management:ADP5063
@@ -7772,6 +7772,7 @@ FPGA_Lattice:ICE40HX1K-TQ144
 FPGA_Lattice:ICE40HX4K-BG121
 FPGA_Lattice:ICE40HX4K-TQ144
 FPGA_Lattice:ICE40HX8K-BG121
+FPGA_Lattice:ICE40LP384-SG32
 FPGA_Lattice:ICE40UL1K-SWG16
 FPGA_Lattice:ICE40UP5K-SG48ITR
 FPGA_Lattice:ICE5LP1K-SG48
@@ -20303,7 +20304,6 @@ Sensor:BME280
 Sensor:BME680
 Sensor:CHT11
 Sensor:DHT11
-Sensor:INA260
 Sensor:LTC2990
 Sensor:MAX30102
 Sensor:Nuclear-Radiation_Detector
@@ -20590,9 +20590,12 @@ Sensor_Energy:INA219BxD
 Sensor_Energy:INA219BxDCN
 Sensor_Energy:INA226
 Sensor_Energy:INA228
+Sensor_Energy:INA229
 Sensor_Energy:INA233
+Sensor_Energy:INA234AxYBJ
 Sensor_Energy:INA237
 Sensor_Energy:INA238
+Sensor_Energy:INA260
 Sensor_Energy:LTC4151xMS
 Sensor_Energy:MCP39F521
 Sensor_Energy:PAC1931x-xJ6CX
@@ -20874,6 +20877,7 @@ Sensor_Proximity:BPR-105
 Sensor_Proximity:BPR-105F
 Sensor_Proximity:BPR-205
 Sensor_Proximity:CNY70
+Sensor_Proximity:FDC1004DGS
 Sensor_Proximity:GP2S700HCP
 Sensor_Proximity:ITR1201SR10AR
 Sensor_Proximity:ITR8307
@@ -21793,6 +21797,7 @@ Transistor_BJT:Q_NPN_Darlington_ECBC
 Transistor_BJT:Q_NPN_EBC
 Transistor_BJT:Q_NPN_ECB
 Transistor_BJT:Q_NPN_ECBC
+Transistor_BJT:Q_PNP_ACAB
 Transistor_BJT:Q_PNP_BCE
 Transistor_BJT:Q_PNP_BCEC
 Transistor_BJT:Q_PNP_BEC
