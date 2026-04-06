@@ -36,6 +36,7 @@ use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
 use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Column\TextColumn;
@@ -287,6 +288,9 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ->addGroupBy('footprint')
             ->addGroupBy('manufacturer')
             ->addGroupBy('partCustomState')
+
+            ->setHint(Query::HINT_READ_ONLY, true)
+            ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, false)
         ;
 
         FieldHelper::addOrderByFieldParam($builder, 'bom_entry.id', 'ids');
