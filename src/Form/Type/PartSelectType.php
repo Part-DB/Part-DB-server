@@ -80,7 +80,6 @@ class PartSelectType extends AbstractType implements DataMapperInterface
 
         $resolver->setDefaults([
             'attr' => [
-                'data-controller' => 'elements--part-select',
                 'data-autocomplete' => $this->urlGenerator->generate('typeahead_parts', ['query' => '__QUERY__']),
                 //Disable browser autocomplete
                 'autocomplete' => 'off',

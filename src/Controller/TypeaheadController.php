@@ -154,6 +154,7 @@ class TypeaheadController extends AbstractController
                 'type' => 'part',
                 'id' => $part->getID(),
                 'name' => $part->getName(),
+                'ipn' => $part->getIpn(),
                 'category' => $part->getCategory() instanceof Category ? $part->getCategory()->getName() : 'Unknown',
                 'footprint' => $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getName() : '',
                 'description' => mb_strimwidth($part->getDescription(), 0, 127, '...'),
@@ -210,6 +211,7 @@ class TypeaheadController extends AbstractController
                         'type' => 'assembly',
                         'id' => $assembly->getID(),
                         'name' => $assembly->getName(),
+                        'ipn' => $assembly->getIpn(),
                         'category' => '',
                         'footprint' => '',
                         'description' => mb_strimwidth($assembly->getDescription(), 0, 127, '...'),
@@ -248,8 +250,10 @@ class TypeaheadController extends AbstractController
 
             /** @var Assembly $assembly */
             $result[] = [
+                'type' => 'assembly',
                 'id' => $assembly->getID(),
                 'name' => $assembly->getName(),
+                'ipn' => $assembly->getIpn(),
                 'category' => '',
                 'footprint' => '',
                 'description' => mb_strimwidth($assembly->getDescription(), 0, 127, '...'),

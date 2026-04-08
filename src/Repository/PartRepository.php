@@ -101,6 +101,7 @@ class PartRepository extends NamedDBElementRepository
 
             ->where('ILIKE(part.name, :query) = TRUE')
             ->orWhere('ILIKE(part.description, :query) = TRUE')
+            ->orWhere('ILIKE(part.ipn, :query) = TRUE')
             ->orWhere('ILIKE(category.name, :query) = TRUE')
             ->orWhere('ILIKE(footprint.name, :query) = TRUE');
 

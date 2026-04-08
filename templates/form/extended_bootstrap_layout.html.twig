@@ -136,7 +136,15 @@
 {%- endblock choice_widget_collapsed -%}
 
 {% block part_select_widget %}
-    {{ form_widget(form.autocomplete) }}
+    <div {{ stimulus_controller('elements--part-select') }} data-autocomplete="{{ attr['data-autocomplete']|default('') }}">
+        {{ form_widget(form.autocomplete) }}
+    </div>
+{% endblock %}
+
+{% block assembly_select_widget %}
+    <div {{ stimulus_controller('elements--assembly-select') }} data-autocomplete="{{ attr['data-autocomplete']|default('') }}">
+        {{ form_widget(form.autocomplete) }}
+    </div>
 {% endblock %}
 
 {% block password_widget %}

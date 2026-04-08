@@ -77,7 +77,6 @@ class AssemblySelectType extends AbstractType implements DataMapperInterface
 
         $resolver->setDefaults([
             'attr' => [
-                'data-controller' => 'elements--assembly-select',
                 'data-autocomplete' => $this->urlGenerator->generate('typeahead_assemblies', ['query' => '__QUERY__']),
                 'autocomplete' => 'off',
             ],

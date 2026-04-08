@@ -10,12 +10,19 @@ export default class extends Controller {
 
     connect() {
 
+        //Check if tomselect is inside an modal and do not attach the dropdown to body in that case (as it breaks the modal)
+        let dropdownParent = "body";
+        if (this.element.closest('.modal')) {
+            dropdownParent = null
+        }
+
         let settings = {
             allowEmptyOption: true,
-            plugins: ['dropdown_input', 'clear_button'],
-            searchField: ["name", "description", "category", "footprint"],
+            plugins: ['dropdown_input', this.element.required ? null : 'clear_button'],
+            searchField: ["name", "description", "category", "footprint", "ipn"],
             valueField: "id",
             labelField: "name",
+            dropdownParent: dropdownParent,
             preload: "focus",
             render: {
                 item: (data, escape) => {
@@ -42,8 +49,9 @@ export default class extends Controller {
         };
 
 
-        if (this.element.dataset.autocomplete) {
-            const base_url = this.element.dataset.autocomplete;
+        if (this.element.dataset.autocomplete || this.element.querySelector('[data-autocomplete]')) {
+            const autocompleteElement = this.element.dataset.autocomplete ? this.element : this.element.querySelector('[data-autocomplete]');
+            const base_url = autocompleteElement.dataset.autocomplete;
             settings.valueField = "id";
             settings.load = (query, callback) => {
                 const url = base_url.replace('__QUERY__', encodeURIComponent(query));
@@ -57,7 +65,8 @@ export default class extends Controller {
             };
 
 
-            this._tomSelect = new TomSelect(this.element, settings);
+            const targetElement = this.element instanceof HTMLInputElement || this.element instanceof HTMLSelectElement ? this.element : this.element.querySelector('select, input');
+            this._tomSelect = new TomSelect(targetElement, settings);
             //this._tomSelect.clearOptions();
         }
     }

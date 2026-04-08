@@ -31,7 +31,7 @@
     {% set target_id = 'expand_row-' ~ form.vars.name %}
 
     {% import 'components/collection_type.macro.html.twig' as collection %}
-    <tr>
+    <tr {{ stimulus_controller('elements--bom-name-sync') }}>
         <td>
             <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#{{ target_id }}">
                 <i class="fa-solid fa-eye"></i>
@@ -42,11 +42,19 @@
             {{ form_errors(form.quantity) }}
         </td>
         <td style="min-width: 250px;">
-            {{ form_widget(form.part) }}
+            <div {{ stimulus_target('elements--bom-name-sync', 'part') }} data-action="change->elements--bom-name-sync#sync change@window->elements--bom-name-sync#sync">
+                {{ form_row(form.part) }}
+            </div>
             {{ form_errors(form.part) }}
         </td>
         <td>
-            {{ form_widget(form.name) }}
+            {{ form_widget(form.name, {
+                attr: {
+                    'data-elements--bom-name-sync-target': 'name',
+                    'data-original-placeholder': form.name.vars.attr.placeholder|default(''),
+                    'data-action': 'input->elements--bom-name-sync#sync'
+                }
+            }) }}
             {{ form_errors(form.name) }}
         </td>
         <td>
