@@ -9345,16 +9345,16 @@
         },
         {
             "name": "rhukster/dom-sanitizer",
-            "version": "1.0.9",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rhukster/dom-sanitizer.git",
-                "reference": "17a16925a6113f51595607bd30f50af4034f078b"
+                "reference": "49a98046b708a4c92f754f5b0ef1720bb85142e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rhukster/dom-sanitizer/zipball/17a16925a6113f51595607bd30f50af4034f078b",
-                "reference": "17a16925a6113f51595607bd30f50af4034f078b",
+                "url": "https://api.github.com/repos/rhukster/dom-sanitizer/zipball/49a98046b708a4c92f754f5b0ef1720bb85142e2",
+                "reference": "49a98046b708a4c92f754f5b0ef1720bb85142e2",
                 "shasum": ""
             },
             "require": {
@@ -9384,9 +9384,9 @@
             "description": "A simple but effective DOM/SVG/MathML Sanitizer for PHP 7.4+",
             "support": {
                 "issues": "https://github.com/rhukster/dom-sanitizer/issues",
-                "source": "https://github.com/rhukster/dom-sanitizer/tree/1.0.9"
+                "source": "https://github.com/rhukster/dom-sanitizer/tree/1.0.10"
             },
-            "time": "2026-03-31T20:54:47+00:00"
+            "time": "2026-04-10T17:00:11+00:00"
         },
         {
             "name": "robrichards/xmlseclibs",
