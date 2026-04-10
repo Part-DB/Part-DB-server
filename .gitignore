@@ -51,3 +51,10 @@ phpstan.neon
 
 .claude/
 CLAUDE.md
+
+.codex
+migrations/.codex
+docker-data/
+scripts/
+db/
+docker-compose.yaml

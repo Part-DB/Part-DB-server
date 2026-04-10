@@ -1,0 +1,1 @@
+# Custom KiCad autocomplete entries. One entry per line.

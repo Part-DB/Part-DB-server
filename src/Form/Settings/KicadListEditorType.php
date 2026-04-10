@@ -23,17 +23,24 @@ declare(strict_types=1);
 namespace App\Form\Settings;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class KicadListEditorType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('footprints', TextareaType::class, [
-                'label' => 'settings.misc.kicad_eda.editor.footprints',
+            ->add('useCustomList', CheckboxType::class, [
+                'label' => 'settings.misc.kicad_eda.use_custom_list',
+                'help' => 'settings.misc.kicad_eda.use_custom_list.help',
+                'required' => false,
+            ])
+            ->add('customFootprints', TextareaType::class, [
+                'label' => 'settings.misc.kicad_eda.editor.custom_footprints',
                 'help' => 'settings.misc.kicad_eda.editor.footprints.help',
                 'attr' => [
                     'rows' => 16,
@@ -41,8 +48,21 @@ final class KicadListEditorType extends AbstractType
                     'class' => 'font-monospace',
                 ],
             ])
-            ->add('symbols', TextareaType::class, [
-                'label' => 'settings.misc.kicad_eda.editor.symbols',
+            ->add('defaultFootprints', TextareaType::class, [
+                'label' => 'settings.misc.kicad_eda.editor.default_footprints',
+                'help' => 'settings.misc.kicad_eda.editor.default_files_help',
+                'disabled' => true,
+                'mapped' => false,
+                'data' => $options['default_footprints'],
+                'attr' => [
+                    'rows' => 16,
+                    'spellcheck' => 'false',
+                    'class' => 'font-monospace',
+                    'readonly' => 'readonly',
+                ],
+            ])
+            ->add('customSymbols', TextareaType::class, [
+                'label' => 'settings.misc.kicad_eda.editor.custom_symbols',
                 'help' => 'settings.misc.kicad_eda.editor.symbols.help',
                 'attr' => [
                     'rows' => 16,
@@ -50,8 +70,31 @@ final class KicadListEditorType extends AbstractType
                     'class' => 'font-monospace',
                 ],
             ])
+            ->add('defaultSymbols', TextareaType::class, [
+                'label' => 'settings.misc.kicad_eda.editor.default_symbols',
+                'help' => 'settings.misc.kicad_eda.editor.default_files_help',
+                'disabled' => true,
+                'mapped' => false,
+                'data' => $options['default_symbols'],
+                'attr' => [
+                    'rows' => 16,
+                    'spellcheck' => 'false',
+                    'class' => 'font-monospace',
+                    'readonly' => 'readonly',
+                ],
+            ])
             ->add('save', SubmitType::class, [
                 'label' => 'save',
             ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'default_footprints' => '',
+            'default_symbols' => '',
+        ]);
+        $resolver->setAllowedTypes('default_footprints', 'string');
+        $resolver->setAllowedTypes('default_symbols', 'string');
     }
 }

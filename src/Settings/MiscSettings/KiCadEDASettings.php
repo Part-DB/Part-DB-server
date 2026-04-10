@@ -62,4 +62,10 @@ class KiCadEDASettings
 
     )]
     public bool $defaultOrderdetailsVisibility = false;
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.kicad_eda.use_custom_list"),
+        description: new TM("settings.misc.kicad_eda.use_custom_list.help"),
+    )]
+    public bool $useCustomList = false;
 }

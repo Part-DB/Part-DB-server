@@ -23,7 +23,10 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Form\Settings\KicadListEditorType;
+use App\Settings\MiscSettings\KiCadEDASettings;
 use App\Services\EDA\KicadListFileManager;
+use Jbtronics\SettingsBundle\Exception\SettingsNotValidException;
+use Jbtronics\SettingsBundle\Manager\SettingsManagerInterface;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,14 +37,26 @@ use function Symfony\Component\Translation\t;
 
 final class KicadListEditorController extends AbstractController
 {
+    public function __construct(
+        private readonly SettingsManagerInterface $settingsManager,
+    ) {
+    }
+
     #[Route('/settings/misc/kicad-lists', name: 'settings_kicad_lists')]
     public function __invoke(Request $request, KicadListFileManager $fileManager): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $this->denyAccessUnlessGranted('@config.change_system_settings');
 
+        /** @var KiCadEDASettings $settings */
+        $settings = $this->settingsManager->createTemporaryCopy(KiCadEDASettings::class);
         $form = $this->createForm(KicadListEditorType::class, [
-            'footprints' => $fileManager->getFootprintsContent(),
-            'symbols' => $fileManager->getSymbolsContent(),
+            'useCustomList' => $settings->useCustomList,
+            'customFootprints' => $fileManager->getCustomFootprintsContent(),
+            'customSymbols' => $fileManager->getCustomSymbolsContent(),
+        ], [
+            'default_footprints' => $fileManager->getFootprintsContent(),
+            'default_symbols' => $fileManager->getSymbolsContent(),
         ]);
 
         $form->handleRequest($request);
@@ -50,11 +65,14 @@ final class KicadListEditorController extends AbstractController
             $data = $form->getData();
 
             try {
-                $fileManager->save($data['footprints'], $data['symbols']);
+                $fileManager->saveCustom($data['customFootprints'], $data['customSymbols']);
+                $settings->useCustomList = (bool) $data['useCustomList'];
+                $this->settingsManager->mergeTemporaryCopy($settings);
+                $this->settingsManager->save($settings);
                 $this->addFlash('success', t('settings.flash.saved'));
 
                 return $this->redirectToRoute('settings_kicad_lists');
-            } catch (RuntimeException $exception) {
+            } catch (RuntimeException|SettingsNotValidException $exception) {
                 $this->addFlash('error', $exception->getMessage());
             }
         }

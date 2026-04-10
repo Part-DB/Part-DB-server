@@ -23,6 +23,8 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use App\Entity\UserSystem\User;
+use App\Settings\MiscSettings\KiCadEDASettings;
+use Jbtronics\SettingsBundle\Manager\SettingsManagerInterface;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -32,8 +34,13 @@ final class KicadListEditorControllerTest extends WebTestCase
 {
     private string $footprintsPath;
     private string $symbolsPath;
+    private string $customFootprintsPath;
+    private string $customSymbolsPath;
     private string $originalFootprints;
     private string $originalSymbols;
+    private string $originalCustomFootprints;
+    private string $originalCustomSymbols;
+    private bool $originalUseCustomList;
 
     protected function setUp(): void
     {
@@ -42,14 +49,37 @@ final class KicadListEditorControllerTest extends WebTestCase
         $projectDir = dirname(__DIR__, 2);
         $this->footprintsPath = $projectDir . '/public/kicad/footprints.txt';
         $this->symbolsPath = $projectDir . '/public/kicad/symbols.txt';
+        $this->customFootprintsPath = $projectDir . '/public/kicad/footprints_custom.txt';
+        $this->customSymbolsPath = $projectDir . '/public/kicad/symbols_custom.txt';
         $this->originalFootprints = (string) file_get_contents($this->footprintsPath);
         $this->originalSymbols = (string) file_get_contents($this->symbolsPath);
+        $this->originalCustomFootprints = is_file($this->customFootprintsPath) ? (string) file_get_contents($this->customFootprintsPath) : '';
+        $this->originalCustomSymbols = is_file($this->customSymbolsPath) ? (string) file_get_contents($this->customSymbolsPath) : '';
+
+        static::bootKernel();
+        /** @var SettingsManagerInterface $settingsManager */
+        $settingsManager = static::getContainer()->get(SettingsManagerInterface::class);
+        /** @var KiCadEDASettings $settings */
+        $settings = $settingsManager->get(KiCadEDASettings::class);
+        $this->originalUseCustomList = $settings->useCustomList;
+        static::ensureKernelShutdown();
     }
 
     protected function tearDown(): void
     {
         file_put_contents($this->footprintsPath, $this->originalFootprints);
         file_put_contents($this->symbolsPath, $this->originalSymbols);
+        file_put_contents($this->customFootprintsPath, $this->originalCustomFootprints);
+        file_put_contents($this->customSymbolsPath, $this->originalCustomSymbols);
+
+        static::bootKernel();
+        /** @var SettingsManagerInterface $settingsManager */
+        $settingsManager = static::getContainer()->get(SettingsManagerInterface::class);
+        /** @var KiCadEDASettings $settings */
+        $settings = $settingsManager->get(KiCadEDASettings::class);
+        $settings->useCustomList = $this->originalUseCustomList;
+        $settingsManager->save($settings);
+        static::ensureKernelShutdown();
 
         parent::tearDown();
     }
@@ -73,21 +103,48 @@ final class KicadListEditorControllerTest extends WebTestCase
         $this->assertSelectorExists('form[name="kicad_list_editor"]');
     }
 
-    public function testEditorSavesFiles(): void
+    public function testEditorShowsDefaultAndCustomFiles(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        file_put_contents($this->footprintsPath, "DefaultFootprint\n");
+        file_put_contents($this->symbolsPath, "DefaultSymbol\n");
+        file_put_contents($this->customFootprintsPath, "CustomFootprint\n");
+        file_put_contents($this->customSymbolsPath, "CustomSymbol\n");
+
+        $crawler = $client->request('GET', '/en/settings/misc/kicad-lists');
+
+        $this->assertSame("CustomFootprint\n", $crawler->filter('#kicad_list_editor_customFootprints')->getNode(0)->nodeValue);
+        $this->assertSame("CustomSymbol\n", $crawler->filter('#kicad_list_editor_customSymbols')->getNode(0)->nodeValue);
+        $this->assertSame("DefaultFootprint\n", $crawler->filter('#kicad_list_editor_defaultFootprints')->getNode(0)->nodeValue);
+        $this->assertSame("DefaultSymbol\n", $crawler->filter('#kicad_list_editor_defaultSymbols')->getNode(0)->nodeValue);
+    }
+
+    public function testEditorSavesCustomFilesAndSetting(): void
     {
         $client = static::createClient();
         $this->loginAsUser($client, 'admin');
 
         $crawler = $client->request('GET', '/en/settings/misc/kicad-lists');
         $form = $crawler->filter('form[name="kicad_list_editor"]')->form();
-        $form['kicad_list_editor[footprints]'] = "Package_DIP:DIP-8_W7.62mm\n";
-        $form['kicad_list_editor[symbols]'] = "Device:R\n";
+        $form['kicad_list_editor[customFootprints]'] = "Package_DIP:DIP-8_W7.62mm\n";
+        $form['kicad_list_editor[customSymbols]'] = "Device:R\n";
+        $form['kicad_list_editor[useCustomList]']->tick();
 
         $client->submit($form);
 
         $this->assertResponseRedirects('/en/settings/misc/kicad-lists');
-        $this->assertSame("Package_DIP:DIP-8_W7.62mm\n", (string) file_get_contents($this->footprintsPath));
-        $this->assertSame("Device:R\n", (string) file_get_contents($this->symbolsPath));
+        $this->assertSame("Package_DIP:DIP-8_W7.62mm\n", (string) file_get_contents($this->customFootprintsPath));
+        $this->assertSame("Device:R\n", (string) file_get_contents($this->customSymbolsPath));
+        $this->assertSame($this->originalFootprints, (string) file_get_contents($this->footprintsPath));
+        $this->assertSame($this->originalSymbols, (string) file_get_contents($this->symbolsPath));
+
+        /** @var SettingsManagerInterface $settingsManager */
+        $settingsManager = $client->getContainer()->get(SettingsManagerInterface::class);
+        /** @var KiCadEDASettings $settings */
+        $settings = $settingsManager->reload(KiCadEDASettings::class);
+        $this->assertTrue($settings->useCustomList);
     }
 
     private function loginAsUser($client, string $username): void

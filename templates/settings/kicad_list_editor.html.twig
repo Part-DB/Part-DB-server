@@ -10,8 +10,19 @@
     </p>
 
     {{ form_start(form) }}
-    {{ form_row(form.footprints) }}
-    {{ form_row(form.symbols) }}
+    {{ form_row(form.useCustomList) }}
+
+    <div class="row g-3">
+        <div class="col-12 col-xl-6">
+            {{ form_row(form.customFootprints) }}
+            {{ form_row(form.customSymbols) }}
+        </div>
+        <div class="col-12 col-xl-6">
+            {{ form_row(form.defaultFootprints) }}
+            {{ form_row(form.defaultSymbols) }}
+        </div>
+    </div>
+
     {{ form_row(form.save) }}
     {{ form_end(form) }}
 {% endblock %}

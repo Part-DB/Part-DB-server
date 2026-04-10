@@ -29,6 +29,8 @@ final class KicadListFileManager
 {
     private const FOOTPRINTS_PATH = '/public/kicad/footprints.txt';
     private const SYMBOLS_PATH = '/public/kicad/symbols.txt';
+    private const CUSTOM_FOOTPRINTS_PATH = '/public/kicad/footprints_custom.txt';
+    private const CUSTOM_SYMBOLS_PATH = '/public/kicad/symbols_custom.txt';
 
     public function __construct(
         #[Autowire('%kernel.project_dir%')]
@@ -41,15 +43,25 @@ final class KicadListFileManager
         return $this->readFile(self::FOOTPRINTS_PATH);
     }
 
+    public function getCustomFootprintsContent(): string
+    {
+        return $this->readFile(self::CUSTOM_FOOTPRINTS_PATH);
+    }
+
     public function getSymbolsContent(): string
     {
         return $this->readFile(self::SYMBOLS_PATH);
     }
 
-    public function save(string $footprints, string $symbols): void
+    public function getCustomSymbolsContent(): string
     {
-        $this->writeFile(self::FOOTPRINTS_PATH, $this->normalizeContent($footprints));
-        $this->writeFile(self::SYMBOLS_PATH, $this->normalizeContent($symbols));
+        return $this->readFile(self::CUSTOM_SYMBOLS_PATH);
+    }
+
+    public function saveCustom(string $footprints, string $symbols): void
+    {
+        $this->writeFile(self::CUSTOM_FOOTPRINTS_PATH, $this->normalizeContent($footprints));
+        $this->writeFile(self::CUSTOM_SYMBOLS_PATH, $this->normalizeContent($symbols));
     }
 
     private function readFile(string $path): string
