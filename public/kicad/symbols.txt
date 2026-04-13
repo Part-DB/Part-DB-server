@@ -1,4 +1,4 @@
-# Generated on Mon Apr  6 04:50:13 UTC 2026
+# Generated on Mon Apr 13 05:20:06 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -899,6 +899,7 @@ Amplifier_Buffer:BUF634AxD
 Amplifier_Buffer:BUF634AxDDA
 Amplifier_Buffer:BUF634AxDRB
 Amplifier_Buffer:BUF634U
+Amplifier_Buffer:BUF802
 Amplifier_Buffer:EL2001CN
 Amplifier_Buffer:LH0002H
 Amplifier_Buffer:LM6321H
@@ -2254,6 +2255,11 @@ Battery_Management:BQ76200PW
 Battery_Management:BQ76920PW
 Battery_Management:BQ76930DBT
 Battery_Management:BQ76940DBT
+Battery_Management:BQ7695201PFBR
+Battery_Management:BQ7695202PFBR
+Battery_Management:BQ7695203PFBR
+Battery_Management:BQ7695204PFBR
+Battery_Management:BQ76952PFBR
 Battery_Management:BQ78350DBT
 Battery_Management:BQ78350DBT-R1
 Battery_Management:CN3063
@@ -2763,6 +2769,8 @@ Connector:DIN41612_02x32_AC
 Connector:DIN41612_02x32_AE
 Connector:DIN41612_02x32_ZB
 Connector:DIN41612_03x32_C_Split
+Connector:DP_Sink
+Connector:DP_Source
 Connector:DVI-D_Dual_Link
 Connector:DVI-I_Dual_Link
 Connector:ExpressCard
@@ -2901,6 +2909,7 @@ Connector:TestPoint_Alt
 Connector:TestPoint_Flag
 Connector:TestPoint_Probe
 Connector:TestPoint_Small
+Connector:TestPoint_Square
 Connector:UEXT_Host
 Connector:UEXT_Slave
 Connector:USB3_A
