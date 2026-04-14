@@ -237,6 +237,7 @@ class AssemblyPartAggregator
         $result = [
             'name' => $assembly->getName(),
             'ipn' => $assembly->getIpn(),
+            'status' => $assembly->getStatus() ?? '-',
             'quantity' => $quantity,
             'multiplier' => $depth === 0 ? null : $parentMultiplier,
             'parts' => [],
@@ -249,6 +250,7 @@ class AssemblyPartAggregator
                 $result['parts'][] = [
                     'name' => $bomEntry->getPart()->getName(),
                     'ipn' => $bomEntry->getPart()->getIpn(),
+                    'manufacturer' => $bomEntry->getPart()->getManufacturer()?->getName() ?? '-',
                     'quantity' => $bomEntry->getQuantity(),
                     'effectiveQuantity' => $bomEntry->getQuantity() * $parentMultiplier,
                 ];
@@ -262,8 +264,10 @@ class AssemblyPartAggregator
             } else {
                 $result['others'][] = [
                     'name' => $bomEntry->getName(),
+                    'ipn' => '-',
                     'quantity' => $bomEntry->getQuantity(),
                     'multiplier' => $parentMultiplier,
+                    'effectiveQuantity' => $bomEntry->getQuantity() * $parentMultiplier,
                 ];
             }
         }

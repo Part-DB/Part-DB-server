@@ -1,11 +1,12 @@
 <div class="referenced-assembly-table">
-    <div class="assembly-header">Referenced Assembly: {{ assembly.name }} [IPN: {% if assembly.ipn != '' %}{{ assembly.ipn }}{% else %}-{% endif %}, quantity: {{ assembly.quantity }}]</div>
+    <div class="assembly-header">Referenced Assembly: {{ assembly.name }} [IPN: {{ assembly.ipn|default('-') }}, Status: {{ assembly.status|default('-') }}, quantity: {{ assembly.quantity }}]</div>
 
     <table>
         <thead>
         <tr>
             <th>Type</th>
             <th>Name</th>
+            <th>Manufacturer</th>
             <th>IPN</th>
             <th>Quantity</th>
             <th>Multiplier</th>
@@ -17,6 +18,7 @@
             <tr>
                 <td>Part</td>
                 <td>{{ part.name }}</td>
+                <td>{{ part.manufacturer }}</td>
                 <td>{{ part.ipn }}</td>
                 <td>{{ part.quantity }}</td>
                 <td>{% if assembly.multiplier %}{{ assembly.multiplier }}{% else %}-{% endif %}</td>
@@ -29,9 +31,10 @@
                 <td>Other</td>
                 <td>{{ other.name }}</td>
                 <td>-</td>
+                <td>{{ other.ipn|default('-') }}</td>
                 <td>{{ other.quantity }}</td>
                 <td>{{ other.multiplier }}</td>
-                <td>-</td>
+                <td>{{ other.effectiveQuantity|default('-') }}</td>
             </tr>
         {% endfor %}
 
@@ -40,9 +43,10 @@
                 <td>Referenced assembly</td>
                 <td>{{ referencedAssembly.name }}</td>
                 <td>-</td>
+                <td>{{ referencedAssembly.ipn|default('-') }}</td>
                 <td>{{ referencedAssembly.quantity }}</td>
-                <td></td>
-                <td>{{ referencedAssembly.multiplier }}</td>
+                <td>{{ referencedAssembly.multiplier|default('-') }}</td>
+                <td>{{ (referencedAssembly.quantity * (referencedAssembly.multiplier|default(1)))|default(referencedAssembly.quantity) }}</td>
             </tr>
         {% endfor %}
         </tbody>

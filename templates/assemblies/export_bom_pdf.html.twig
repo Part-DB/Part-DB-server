@@ -27,6 +27,7 @@
         <th>#</th>
         <th>Assembly Name</th>
         <th>IPN</th>
+        <th>Status</th>
         <th>Section</th>
     </tr>
     </thead>
@@ -36,6 +37,7 @@
             <td>{{ loop.index }}</td>
             <td>Assembly: {{ assembly.name }}</td>
             <td>{% if assembly.ipn != '' %}{{ assembly.ipn }}{% else %}-{% endif %}</td>
+            <td>{{ assembly.status|default('-') }}</td>
             <td>{{ loop.index + 1 }}</td>
         </tr>
     {% endfor %}
@@ -45,11 +47,12 @@
 
 <!-- Assembly Details -->
 {% for assembly in assemblies %}
-    <div class="assembly-header">Assembly: {{ assembly.name }}</div>
+    <div class="assembly-header">Assembly: {{ assembly.name }} [IPN: {{ assembly.ipn|default('-') }}, Status: {{ assembly.status|default('-') }}]</div>
     <table>
         <thead>
         <tr>
             <th>Name</th>
+            <th>Manufacturer</th>
             <th>IPN</th>
             <th>Quantity</th>
             <th>Multiplier</th>
@@ -60,6 +63,7 @@
         {% for part in assembly.parts %}
             <tr>
                 <td>{{ part.name }}</td>
+                <td>{{ part.manufacturer }}</td>
                 <td>{{ part.ipn }}</td>
                 <td>{{ part.quantity }}</td>
                 <td>{% if assembly.multiplier %}{{ assembly.multiplier }}{% else %}-{% endif %}</td>
@@ -69,19 +73,21 @@
         {% for other in assembly.others %}
             <tr>
                 <td>{{ other.name }}</td>
-                <td>{{ other.ipn }}</td>
+                <td>-</td>
+                <td>{{ other.ipn|default('-') }}</td>
                 <td>{{ other.quantity }}</td>
                 <td>{{ other.multiplier }}</td>
-                <td>{{ other.effectiveQuantity }}</td>
+                <td>{{ other.effectiveQuantity|default('-') }}</td>
             </tr>
         {% endfor %}
         {% for referencedAssembly in assembly.referencedAssemblies %}
             <tr>
                 <td>{{ referencedAssembly.name }}</td>
-                <td>{{ referencedAssembly.ipn }}</td>
+                <td>-</td>
+                <td>{{ referencedAssembly.ipn|default('-') }}</td>
                 <td>{{ referencedAssembly.quantity }}</td>
-                <td></td>
-                <td>{{ referencedAssembly.quantity }}</td>
+                <td>{{ referencedAssembly.multiplier|default('-') }}</td>
+                <td>{{ (referencedAssembly.quantity * (referencedAssembly.multiplier|default(1)))|default(referencedAssembly.quantity) }}</td>
             </tr>
         {% endfor %}
         </tbody>

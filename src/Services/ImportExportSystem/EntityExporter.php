@@ -431,19 +431,20 @@ class EntityExporter
             ],
             Assembly::class => [
                 'header' => [
-                    'Id', 'ParentId', 'Type', 'AssemblyIpn', 'AssemblyNameHierarchical', 'AssemblyName',
+                    'Id', 'ParentId', 'Type', 'AssemblyIpn', 'AssemblyStatus', 'AssemblyNameHierarchical', 'AssemblyName',
                     'AssemblyFullName',
 
                     //BOM relevant attributes
                     'Quantity', 'PartId', 'PartName', 'Ipn', 'Manufacturer', 'Mpn', 'Name', 'Designator',
-                    'Description', 'ReferencedAssemblyId', 'ReferencedAssemblyIpn',
+                    'Description', 'ReferencedAssemblyId', 'ReferencedAssemblyIpn', 'ReferencedAssemblyStatus',
                     'ReferencedAssemblyFullName',
                 ],
-                'processEntity' => fn($entity, $depth) => [
+                'processEntity' => fn(Assembly $entity, $depth) => [
                     'Id' => $entity->getId(),
                     'ParentId' => $entity->getParent()?->getId() ?? '',
                     'Type' => 'assembly',
                     'AssemblyIpn' => $entity->getIpn(),
+                    'AssemblyStatus' => $entity->getStatus() ?? '-',
                     'AssemblyNameHierarchical' => str_repeat('--', $depth) . ' ' . $entity->getName(),
                     'AssemblyName' => $entity->getName(),
                     'AssemblyFullName' => $this->getFullName($entity),
@@ -460,6 +461,7 @@ class EntityExporter
                     'Description' => '-',
                     'ReferencedAssemblyId' => '-',
                     'ReferencedAssemblyIpn' => '-',
+                    'ReferencedAssemblyStatus' => '-',
                     'ReferencedAssemblyFullName' => '-',
                 ],
                 'processBomEntries' => fn($entity, $depth) => $this->processBomEntriesWithAggregatedParts($entity, $depth),
@@ -581,6 +583,7 @@ class EntityExporter
                 'ParentId' => '',
                 'Type' => 'assembly_bom_entry',
                 'AssemblyIpn' => $assembly->getIpn(),
+                'AssemblyStatus' => $bomEntry->getReferencedAssembly() ? $assembly->getStatus() : '-',
                 'AssemblyNameHierarchical' => str_repeat('--', $depth) . '> ' . $assembly->getName(),
                 'AssemblyName' => $assembly->getName(),
                 'AssemblyFullName' => $this->getFullName($assembly),
@@ -597,6 +600,7 @@ class EntityExporter
                 'Description' => $bomEntry->getPart()?->getDescription() ?? '-',
                 'ReferencedAssemblyId' => $bomEntry->getReferencedAssembly()?->getId() ?? '-',
                 'ReferencedAssemblyIpn' => $bomEntry->getReferencedAssembly()?->getIpn() ?? '-',
+                'ReferencedAssemblyStatus' => $bomEntry->getReferencedAssembly()?->getStatus() ?? '-',
                 'ReferencedAssemblyFullName' => $this->getFullName($bomEntry->getReferencedAssembly() ?? null),
             ];
 
@@ -615,6 +619,7 @@ class EntityExporter
                         'ParentId' => '',
                         'Type' => 'subassembly_part_list',
                         'AssemblyIpn' => $partAssembly ? $partAssembly->getIpn() : '',
+                        'AssemblyStatus' => $partAssembly ? $partAssembly->getStatus() : '-',
                         'AssemblyNameHierarchical' => '',
                         'AssemblyName' => $partAssembly ? $partAssembly->getName() : '',
                         'AssemblyFullName' => $this->getFullName($partAssembly),
@@ -624,13 +629,14 @@ class EntityExporter
                         'PartId' => $partData['part']?->getId(),
                         'PartName' => $partData['part']?->getName(),
                         'Ipn' => $partData['part']?->getIpn(),
-                        'Manufacturer' => $partData['part']?->getManufacturer()?->getName(),
+                        'Manufacturer' => $partData['part']?->getManufacturer()?->getName() ?? '-',
                         'Mpn' => $partData['part']?->getManufacturerProductNumber(),
                         'Name' => $partData['name'] ?? '',
                         'Designator' => $partData['designator'],
                         'Description' => $partData['part']?->getDescription(),
                         'ReferencedAssemblyId' => '-',
                         'ReferencedAssemblyIpn' => '-',
+                        'ReferencedAssemblyStatus' => '-',
                         'ReferencedAssemblyFullName' => '-',
                     ];
                 }
