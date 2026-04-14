@@ -24,13 +24,19 @@ namespace App\Services\EDA;
 
 use RuntimeException;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 
-final class KicadListFileManager
+final class KicadListFileManager implements CacheWarmerInterface
 {
     private const FOOTPRINTS_PATH = '/public/kicad/footprints.txt';
     private const SYMBOLS_PATH = '/public/kicad/symbols.txt';
     private const CUSTOM_FOOTPRINTS_PATH = '/public/kicad/footprints_custom.txt';
     private const CUSTOM_SYMBOLS_PATH = '/public/kicad/symbols_custom.txt';
+
+    private const CUSTOM_TEMPLATE = <<<'EOT'
+        # Custom KiCad autocomplete entries. One entry per line.
+
+        EOT;
 
     public function __construct(
         #[Autowire('%kernel.project_dir%')]
@@ -45,6 +51,8 @@ final class KicadListFileManager
 
     public function getCustomFootprintsContent(): string
     {
+        //Ensure that the custom file exists, so that the UI can always display it without error.
+        $this->createCustomFileIfNotExists(self::CUSTOM_FOOTPRINTS_PATH);
         return $this->readFile(self::CUSTOM_FOOTPRINTS_PATH);
     }
 
@@ -55,6 +63,8 @@ final class KicadListFileManager
 
     public function getCustomSymbolsContent(): string
     {
+        //Ensure that the custom file exists, so that the UI can always display it without error.
+        $this->createCustomFileIfNotExists(self::CUSTOM_SYMBOLS_PATH);
         return $this->readFile(self::CUSTOM_SYMBOLS_PATH);
     }
 
@@ -104,5 +114,38 @@ final class KicadListFileManager
         }
 
         return $normalized;
+    }
+
+    private function createCustomFileIfNotExists(string $path): void
+    {
+        $fullPath = $this->projectDir . $path;
+
+        if (!is_file($fullPath)) {
+            if (file_put_contents($fullPath, self::CUSTOM_TEMPLATE, LOCK_EX) === false) {
+                throw new RuntimeException(sprintf('Failed to create custom footprints file "%s".', $fullPath));
+            }
+        }
+    }
+
+    /**
+     * Ensures that the custom footprints and symbols files exist, so that the UI can always display them without error.
+     * @return void
+     */
+    public function createCustomFilesIfNotExist(): void
+    {
+        $this->createCustomFileIfNotExists(self::CUSTOM_FOOTPRINTS_PATH);
+        $this->createCustomFileIfNotExists(self::CUSTOM_SYMBOLS_PATH);
+    }
+
+
+    public function isOptional(): bool
+    {
+        return false;
+    }
+
+    public function warmUp(string $cacheDir, ?string $buildDir = null): array
+    {
+        $this->createCustomFilesIfNotExist();
+        return [];
     }
 }
