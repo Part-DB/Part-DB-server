@@ -95,6 +95,11 @@ services:
    docker-compose up -d
 ```    
 
+{: .warning }
+> If you run a root console inside the docker container, and wanna execute commands on the webserver behalf, be sure to use `sudo -E` command (with the `-E` flag) to preserve env variables from the current shell.
+> Otherwise Part-DB console might use the wrong configuration to execute commands.
+
+
 6. Create the initial database with
 
  ```bash

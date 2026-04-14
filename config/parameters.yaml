@@ -105,6 +105,8 @@ parameters:
 
   env(DATABASE_EMULATE_NATURAL_SORT): 0
 
+  env(ALLOW_ATTACHMENT_DOWNLOADS_FROM_LOCALNETWORK): 0
+
   ######################################################################################################################
   # Bulk Info Provider Import Configuration
   ######################################################################################################################

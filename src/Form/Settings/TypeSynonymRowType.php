@@ -139,7 +139,7 @@ class TypeSynonymRowType extends AbstractType
      */
     private function getPreferredLocales(): array
     {
-        $fromSettings = $this->localizationSettings->languageMenuEntries ?? [];
+        $fromSettings = $this->localizationSettings->languageMenuEntries;
         return !empty($fromSettings) ? array_values($fromSettings) : array_values($this->preferredLanguagesParam);
     }
 

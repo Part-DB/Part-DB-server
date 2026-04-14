@@ -1550,7 +1550,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     template_parameters?: array{ // Default parameters to be passed to the template
  *         className?: scalar|Param|null, // Default class attribute to apply to the root table elements // Default: "table table-bordered"
  *         columnFilter?: "thead"|"tfoot"|"both"|Param|null, // If and where to enable the DataTables Filter module // Default: null
- *         ...<mixed>
+ *         ...<string, mixed>
  *     },
  *     translation_domain?: scalar|Param|null, // Default translation domain to be used // Default: "messages"
  * }
@@ -1705,14 +1705,14 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             use_underscore?: bool|Param, // Default: true
  *             unordered_list_markers?: list<scalar|Param|null>,
  *         },
- *         ...<mixed>
+ *         ...<string, mixed>
  *     },
  * }
  * @psalm-type GregwarCaptchaConfig = array{
  *     length?: scalar|Param|null, // Default: 5
  *     width?: scalar|Param|null, // Default: 130
  *     height?: scalar|Param|null, // Default: 50
- *     font?: scalar|Param|null, // Default: "C:\\Users\\mail\\Documents\\PHP\\Part-DB-server\\vendor\\gregwar\\captcha-bundle\\DependencyInjection/../Generator/Font/captcha.ttf"
+ *     font?: scalar|Param|null, // Default: "/home/jan/php/Part-DB-server/vendor/gregwar/captcha-bundle/DependencyInjection/../Generator/Font/captcha.ttf"
  *     keep_value?: scalar|Param|null, // Default: false
  *     charset?: scalar|Param|null, // Default: "abcdefhjkmnprstuvwxyz23456789"
  *     as_file?: scalar|Param|null, // Default: false
@@ -2493,7 +2493,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             max_header_length?: int|Param, // Max header length supported by the cache server. // Default: 7500
  *             request_options?: mixed, // To pass options to the client charged with the request. // Default: []
  *             purger?: scalar|Param|null, // Specify a purger to use (available values: "api_platform.http_cache.purger.varnish.ban", "api_platform.http_cache.purger.varnish.xkey", "api_platform.http_cache.purger.souin"). // Default: "api_platform.http_cache.purger.varnish"
- *             xkey?: array{ // Deprecated: The "xkey" configuration is deprecated, use your own purger to customize surrogate keys or the appropriate paramters.
+ *             xkey?: array{ // Deprecated: The "xkey" configuration is deprecated, use your own purger to customize surrogate keys or the appropriate parameters.
  *                 glue?: scalar|Param|null, // xkey glue between keys // Default: " "
  *             },
  *         },
@@ -2649,7 +2649,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             cast_fn?: mixed,
  *             default?: mixed,
  *             filter_class?: mixed,
- *             ...<mixed>
+ *             ...<string, mixed>
  *         }>,
  *         strict_query_parameter_validation?: mixed,
  *         hide_hydra_operation?: mixed,
@@ -2669,7 +2669,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         name?: mixed,
  *         allow_create?: mixed,
  *         item_uri_template?: mixed,
- *         ...<mixed>
+ *         ...<string, mixed>
  *     },
  * }
  * @psalm-type ConfigType = array{
