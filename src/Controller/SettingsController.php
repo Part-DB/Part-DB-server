@@ -44,6 +44,7 @@ class SettingsController extends AbstractController
     public function systemSettings(Request $request, TagAwareCacheInterface $cache): Response
     {
         $this->denyAccessUnlessGranted('@config.change_system_settings');
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         //Create a clone of the settings object
         $settings = $this->settingsManager->createTemporaryCopy(AppSettings::class);
