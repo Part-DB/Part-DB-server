@@ -60,6 +60,7 @@ final class ApplicationAvailabilityFunctionalTest extends WebTestCase
         //User related things
         yield ['/user/settings'];
         yield ['/user/info'];
+        yield ['/settings/misc/kicad-lists'];
 
         //Login/logout
         yield ['/login'];
