@@ -106,7 +106,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Install yarn dependencies
         run: yarn install
@@ -129,7 +129,7 @@ jobs:
         run: ./bin/phpunit --coverage-clover=coverage.xml
 
       - name: Upload coverage
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         with:
           env_vars: PHP_VERSION,DB_TYPE
           token: ${{ secrets.CODECOV_TOKEN }}
