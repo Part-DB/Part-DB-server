@@ -29,6 +29,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Form type for editing the custom KiCad footprints and symbols lists.
+ */
 final class KicadListEditorType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

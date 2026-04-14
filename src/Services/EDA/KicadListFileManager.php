@@ -26,6 +26,9 @@ use RuntimeException;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 
+/**
+ * Manages the KiCad footprints and symbols list files, including reading, writing and ensuring their existence.
+ */
 final class KicadListFileManager implements CacheWarmerInterface
 {
     private const FOOTPRINTS_PATH = '/public/kicad/footprints.txt';
@@ -143,6 +146,10 @@ final class KicadListFileManager implements CacheWarmerInterface
         return false;
     }
 
+    /**
+     * Ensure that the custom footprints and symbols files exist and generate them on cache warmup, so that the frontend
+     * can always display them without error, even if the user has not yet visited the settings page.
+     */
     public function warmUp(string $cacheDir, ?string $buildDir = null): array
     {
         $this->createCustomFilesIfNotExist();
