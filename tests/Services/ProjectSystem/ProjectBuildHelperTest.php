@@ -34,8 +34,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 final class ProjectBuildHelperTest extends WebTestCase
 {
-    /** @var ProjectBuildHelper */
-    protected $service;
+    protected ProjectBuildHelper $service;
 
     protected function setUp(): void
     {
