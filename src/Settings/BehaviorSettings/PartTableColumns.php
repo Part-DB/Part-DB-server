@@ -52,6 +52,8 @@ enum PartTableColumns : string implements TranslatableInterface
     case TAGS = "tags";
     case ATTACHMENTS = "attachments";
 
+    case SI_NAME = "si_name";
+
     case EDA_REFERENCE = "eda_reference";
 
     case EDA_VALUE = "eda_value";
@@ -67,6 +69,7 @@ enum PartTableColumns : string implements TranslatableInterface
             self::NEEDS_REVIEW => 'part.table.needsReview',
             self::MANUFACTURING_STATUS => 'part.table.manufacturingStatus',
             self::MPN => 'part.table.mpn',
+            self::SI_NAME => 'part.table.si_name',
             default => 'part.table.' . $this->value,
         };
 
