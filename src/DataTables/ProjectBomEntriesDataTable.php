@@ -29,12 +29,15 @@ use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
 use App\DataTables\Helpers\PartDataTableHelper;
 use App\Doctrine\Helpers\FieldHelper;
-use App\Entity\Parts\Part;
 use App\Entity\Parts\ManufacturingStatus;
+use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
+use App\Services\Formatters\MoneyFormatter;
+use App\Services\ProjectSystem\ProjectBuildHelper;
+use Brick\Math\RoundingMode;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -50,7 +53,9 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
         protected EntityURLGenerator $entityURLGenerator,
         protected TranslatorInterface $translator,
         protected AmountFormatter $amountFormatter,
-        protected PartDataTableHelper $partDataTableHelper
+        protected PartDataTableHelper $partDataTableHelper,
+        protected ProjectBuildHelper $projectBuildHelper,
+        protected MoneyFormatter $moneyFormatter,
     ) {
     }
 
@@ -201,6 +206,27 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
 
                     return '';
                 }
+            ])
+            ->add('price', TextColumn::class, [
+                'label' => 'project.bom.price',
+                'visible' => false,
+                'render' => function ($value, ProjectBOMEntry $context) {
+                    $price = $this->projectBuildHelper->getEntryUnitPrice($context);
+                    return $this->moneyFormatter->format($price->toScale(2, RoundingMode::UP)->toFloat(), null, 2, true);
+                },
+            ])
+            ->add('ext_price', TextColumn::class, [
+                'label' => 'project.bom.ext_price',
+                'visible' => false,
+                'render' => function ($value, ProjectBOMEntry $context) {
+                    $price = $this->projectBuildHelper->getEntryUnitPrice($context);
+                    return $this->moneyFormatter->format(
+                        $price->multipliedBy($context->getQuantity())->toScale(2, RoundingMode::UP)->toFloat(),
+                        null,
+                        2,
+                        true
+                    );
+                },
             ])
 
             ->add('addedDate', LocaleDateTimeColumn::class, [
