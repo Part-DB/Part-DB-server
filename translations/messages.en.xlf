@@ -2780,6 +2780,12 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Name</target>
       </segment>
     </unit>
+    <unit id="sIvAlUe" name="part.table.si_value">
+      <segment state="translated">
+        <source>part.table.si_value</source>
+        <target>SI Value</target>
+      </segment>
+    </unit>
     <unit id="rW_SFJE" name="part.table.id">
       <segment state="translated">
         <source>part.table.id</source>
@@ -7212,6 +7218,18 @@ Element 1 -&gt; Element 1.2</target>
         <target>Subprojects</target>
       </segment>
     </unit>
+    <unit id="prjTtlBP" name="project.info.total_build_price">
+      <segment state="translated">
+        <source>project.info.total_build_price</source>
+        <target>Total build price</target>
+      </segment>
+    </unit>
+    <unit id="prjUntBP" name="project.info.per_unit_price">
+      <segment state="translated">
+        <source>project.info.per_unit_price</source>
+        <target>per unit</target>
+      </segment>
+    </unit>
     <unit id="7nV.Cmd" name="project.info.bom_add_parts">
       <segment state="translated">
         <source>project.info.bom_add_parts</source>
@@ -7234,6 +7252,12 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>project.bom.price</source>
         <target>Price</target>
+      </segment>
+    </unit>
+    <unit id="bomExPrc" name="project.bom.ext_price">
+      <segment state="translated">
+        <source>project.bom.ext_price</source>
+        <target>Extended Price</target>
       </segment>
     </unit>
     <unit id="8tP3lQI" name="part.info.withdraw_modal.title.withdraw">
