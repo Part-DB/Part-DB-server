@@ -82,7 +82,10 @@ class SiValueSort extends FunctionNode
         assert($this->field !== null, 'Field is not set');
 
         $platform = $sqlWalker->getConnection()->getDatabasePlatform();
-        $fieldSql = $this->field->dispatch($sqlWalker);
+        $rawField = $this->field->dispatch($sqlWalker);
+
+        // Normalize comma decimal separator to dot for SQL platforms (European locale support)
+        $fieldSql = "REPLACE({$rawField}, ',', '.')";
 
         if ($platform instanceof PostgreSQLPlatform) {
             return $this->getPostgreSQLSql($fieldSql);
@@ -91,6 +94,9 @@ class SiValueSort extends FunctionNode
         if ($platform instanceof AbstractMySQLPlatform) {
             return $this->getMySQLSql($fieldSql);
         }
+
+        // SQLite: comma normalization is handled in the PHP callback
+        $fieldSql = $rawField;
 
         if ($platform instanceof SQLitePlatform) {
             return "SI_VALUE({$fieldSql})";
@@ -167,6 +173,9 @@ class SiValueSort extends FunctionNode
         if ($value === null) {
             return null;
         }
+
+        // Normalize comma decimal separator to dot (European locale support)
+        $value = str_replace(',', '.', $value);
 
         // Match a number at the very start (allowing leading whitespace), optionally followed by an SI prefix
         if (!preg_match('/^\s*(\d+\.?\d*)\s*([pnuµmkKMGT])?/u', $value, $matches)) {

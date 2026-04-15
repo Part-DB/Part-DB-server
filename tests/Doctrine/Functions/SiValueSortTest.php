@@ -37,7 +37,7 @@ final class SiValueSortTest extends AbstractDoctrineFunctionTestCase
         $sql = $function->getSql($this->createSqlWalker(new PostgreSQLPlatform()));
 
         $this->assertStringContainsString('CASE', $sql);
-        $this->assertStringContainsString('substring(part_name', $sql);
+        $this->assertStringContainsString("REPLACE(part_name, ',', '.')", $sql);
         $this->assertStringContainsString('1e-12', $sql);
         $this->assertStringContainsString('1e-9', $sql);
         $this->assertStringContainsString('1e-6', $sql);
@@ -56,7 +56,7 @@ final class SiValueSortTest extends AbstractDoctrineFunctionTestCase
         $sql = $function->getSql($this->createSqlWalker(new MySQLPlatform()));
 
         $this->assertStringContainsString('CASE', $sql);
-        $this->assertStringContainsString('REGEXP_SUBSTR(part_name', $sql);
+        $this->assertStringContainsString("REPLACE(part_name, ',', '.')", $sql);
         $this->assertStringContainsString('1e-12', $sql);
         $this->assertStringContainsString('1e6', $sql);
     }
@@ -106,10 +106,15 @@ final class SiValueSortTest extends AbstractDoctrineFunctionTestCase
         yield 'plain_integer' => ['100', 100.0];
         yield 'plain_decimal' => ['4.7', 4.7];
 
-        // Decimal values with prefix
+        // Decimal values with prefix (dot separator)
         yield 'decimal_nano' => ['4.7nF', 4.7e-9];
         yield 'decimal_micro' => ['0.1uF', 0.1e-6];
         yield 'decimal_kilo' => ['2.2k', 2.2e3];
+
+        // Comma decimal separator (European locale)
+        yield 'comma_kilo' => ['4,7k', 4.7e3];
+        yield 'comma_micro' => ['2,2uF', 2.2e-6];
+        yield 'comma_kilo_space' => ['1,2 kΩ', 1.2e3];
 
         // Number NOT at the start — should return NULL
         yield 'prefixed_name' => ['CAP-100nF', null];
