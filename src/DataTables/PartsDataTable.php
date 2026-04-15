@@ -124,7 +124,8 @@ final class PartsDataTable implements DataTableTypeInterface
                 'render' => function ($value, Part $context): string {
                     $siValue = SiValueSort::sqliteSiValue($context->getName());
                     if ($siValue !== null) {
-                        return htmlspecialchars(sprintf('%g', $siValue));
+                        //Output it as scientific number with a big E
+                        return htmlspecialchars(sprintf('%G', $siValue));
                     }
                     return '';
                 },
