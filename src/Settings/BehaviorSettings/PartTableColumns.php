@@ -52,6 +52,8 @@ enum PartTableColumns : string implements TranslatableInterface
     case TAGS = "tags";
     case ATTACHMENTS = "attachments";
 
+    case SI_VALUE = "si_value";
+
     case EDA_REFERENCE = "eda_reference";
 
     case EDA_VALUE = "eda_value";
