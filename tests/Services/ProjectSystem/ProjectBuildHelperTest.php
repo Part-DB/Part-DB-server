@@ -264,6 +264,37 @@ final class ProjectBuildHelperTest extends WebTestCase
         $this->assertTrue(BigDecimal::of('11.00')->isEqualTo($result));
     }
 
+    public function testGetEntryUnitPriceReturnsZeroForNoPricingData(): void
+    {
+        $entry = new ProjectBOMEntry();
+        $entry->setPart(new Part()); // part with no orderdetails
+        $entry->setQuantity(5);
+
+        $result = $this->service->getEntryUnitPrice($entry);
+        $this->assertTrue(BigDecimal::zero()->isEqualTo($result));
+    }
+
+    public function testGetEntryUnitPriceNonPartEntry(): void
+    {
+        $entry = new ProjectBOMEntry();
+        $entry->setName('Wire');
+        $entry->setQuantity(2);
+        $entry->setPrice(BigDecimal::of('1.25'));
+
+        $result = $this->service->getEntryUnitPrice($entry);
+        $this->assertTrue(BigDecimal::of('1.25')->isEqualTo($result));
+    }
+
+    public function testGetEntryUnitPriceWithPart(): void
+    {
+        $entry = new ProjectBOMEntry();
+        $entry->setPart($this->makePartWithPrice(2.00));
+        $entry->setQuantity(3);
+
+        $result = $this->service->getEntryUnitPrice($entry);
+        $this->assertTrue(BigDecimal::of('2.00')->isEqualTo($result));
+    }
+
     public function testCalculateTotalBuildPriceRespectsMinOrderAmount(): void
     {
         $project = new Project();

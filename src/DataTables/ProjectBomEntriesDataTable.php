@@ -36,8 +36,7 @@ use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
 use App\Services\Formatters\MoneyFormatter;
-use App\Services\Parts\PricedetailHelper;
-use Brick\Math\BigDecimal;
+use App\Services\ProjectSystem\ProjectBuildHelper;
 use Brick\Math\RoundingMode;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
@@ -55,7 +54,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
         protected TranslatorInterface $translator,
         protected AmountFormatter $amountFormatter,
         protected PartDataTableHelper $partDataTableHelper,
-        protected PricedetailHelper $pricedetailHelper,
+        protected ProjectBuildHelper $projectBuildHelper,
         protected MoneyFormatter $moneyFormatter,
     ) {
     }
@@ -212,7 +211,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'label' => 'project.bom.price',
                 'visible' => false,
                 'render' => function ($value, ProjectBOMEntry $context) {
-                    $price = $this->getBomEntryUnitPrice($context);
+                    $price = $this->projectBuildHelper->getEntryUnitPrice($context);
                     return $this->moneyFormatter->format($price->toScale(2, RoundingMode::UP)->toFloat(), null, 2, true);
                 },
             ])
@@ -220,7 +219,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'label' => 'project.bom.ext_price',
                 'visible' => false,
                 'render' => function ($value, ProjectBOMEntry $context) {
-                    $price = $this->getBomEntryUnitPrice($context);
+                    $price = $this->projectBuildHelper->getEntryUnitPrice($context);
                     return $this->moneyFormatter->format(
                         $price->multipliedBy($context->getQuantity())->toScale(2, RoundingMode::UP)->toFloat(),
                         null,
@@ -256,21 +255,6 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 new SearchCriteriaProvider(),
             ],
         ]);
-    }
-
-    private function getBomEntryUnitPrice(ProjectBOMEntry $entry): BigDecimal
-    {
-        if ($entry->getPart() instanceof Part) {
-            $amount = $entry->getQuantity();
-            // If the BOM quantity is below the minimum order amount, use the minimum order amount
-            // for the price lookup — otherwise calculateAvgPrice returns null (no price tier matches).
-            $minOrderAmount = $this->pricedetailHelper->getMinOrderAmount($entry->getPart());
-            if ($minOrderAmount !== null) {
-                $amount = max($amount, $minOrderAmount);
-            }
-            return $this->pricedetailHelper->calculateAvgPrice($entry->getPart(), $amount) ?? BigDecimal::zero();
-        }
-        return $entry->getPrice() ?? BigDecimal::zero();
     }
 
     private function getFilterQuery(QueryBuilder $builder, array $options): void

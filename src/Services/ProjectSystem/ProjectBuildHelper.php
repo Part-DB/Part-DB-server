@@ -229,6 +229,16 @@ final readonly class ProjectBuildHelper
 
     /**
      * Returns the effective unit price for a single piece of the given BOM entry,
+     * taking bulk pricing and minimum order amounts into account for N builds.
+     * Returns BigDecimal::zero() when no pricing data is available.
+     */
+    public function getEntryUnitPrice(ProjectBOMEntry $entry, int $number_of_builds = 1, ?Currency $currency = null): BigDecimal
+    {
+        return $this->getBomEntryUnitPrice($entry, $number_of_builds, $currency) ?? BigDecimal::zero();
+    }
+
+    /**
+     * Returns the effective unit price for a single piece of the given BOM entry,
      * taking bulk pricing into account for N builds.
      */
     private function getBomEntryUnitPrice(ProjectBOMEntry $entry, int $number_of_builds, ?Currency $currency): ?BigDecimal
