@@ -69,10 +69,13 @@ class ProjectController extends AbstractController
             return $table->getResponse();
         }
 
+        $number_of_builds = max(1, $request->query->getInt('n', 1));
+
         return $this->render('projects/info/info.html.twig', [
             'buildHelper' => $buildHelper,
             'datatable' => $table,
             'project' => $project,
+            'number_of_builds' => $number_of_builds,
         ]);
     }
 
