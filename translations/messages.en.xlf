@@ -7236,6 +7236,12 @@ Element 1 -&gt; Element 1.2</target>
         <target>Price</target>
       </segment>
     </unit>
+    <unit id="bomExPrc" name="project.bom.ext_price">
+      <segment state="translated">
+        <source>project.bom.ext_price</source>
+        <target>Extended Price</target>
+      </segment>
+    </unit>
     <unit id="8tP3lQI" name="part.info.withdraw_modal.title.withdraw">
       <segment state="translated">
         <source>part.info.withdraw_modal.title.withdraw</source>
