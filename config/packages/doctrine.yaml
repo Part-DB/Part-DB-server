@@ -56,6 +56,7 @@ doctrine:
                 natsort: App\Doctrine\Functions\Natsort
                 array_position: App\Doctrine\Functions\ArrayPosition
                 ilike: App\Doctrine\Functions\ILike
+                si_value_sort: App\Doctrine\Functions\SiValueSort
 
 when@test:
     doctrine:

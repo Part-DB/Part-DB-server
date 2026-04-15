@@ -38,6 +38,7 @@ use App\DataTables\Filters\PartFilter;
 use App\DataTables\Filters\PartSearchFilter;
 use App\DataTables\Helpers\ColumnSortHelper;
 use App\DataTables\Helpers\PartDataTableHelper;
+use App\Doctrine\Functions\SiValueSort;
 use App\Doctrine\Helpers\FieldHelper;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
@@ -117,6 +118,18 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.name'),
                 'render' => fn($value, Part $context) => $this->partDataTableHelper->renderName($context),
                 'orderField' => 'NATSORT(part.name)'
+            ])
+            ->add('si_value', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.si_value'),
+                'render' => function ($value, Part $context): string {
+                    $siValue = SiValueSort::sqliteSiValue($context->getName());
+                    if ($siValue !== null) {
+                        //Output it as scientific number with a big E
+                        return htmlspecialchars(sprintf('%G', $siValue));
+                    }
+                    return '';
+                },
+                'orderField' => 'SI_VALUE_SORT(part.name)',
             ])
             ->add('id', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.id'),
@@ -482,6 +495,19 @@ final class PartsDataTable implements DataTableTypeInterface
             //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
             //$builder->addGroupBy('_jobPart');
             //$builder->addGroupBy('_bulkImportJob');
+        }
+
+        //When sorting by SI value, add NATSORT as a secondary sort so that parts without
+        //an SI-prefixed value fall back to natural string ordering seamlessly.
+        $orderByParts = $builder->getDQLPart('orderBy');
+        foreach ($orderByParts as $orderBy) {
+            foreach ($orderBy->getParts() as $part) {
+                if (str_contains($part, 'SI_VALUE_SORT')) {
+                    $direction = str_contains($part, 'DESC') ? 'DESC' : 'ASC';
+                    $builder->addOrderBy('NATSORT(part.name)', $direction);
+                    break 2;
+                }
+            }
         }
 
         return $builder;

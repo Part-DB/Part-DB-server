@@ -25,16 +25,22 @@ namespace App\Services\ProjectSystem;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use App\Entity\PriceInformations\Currency;
 use App\Helpers\Projects\ProjectBuildRequest;
 use App\Services\Parts\PartLotWithdrawAddHelper;
+use App\Services\Parts\PricedetailHelper;
+use Brick\Math\BigDecimal;
+use Brick\Math\RoundingMode;
 
 /**
  * @see \App\Tests\Services\ProjectSystem\ProjectBuildHelperTest
  */
 final readonly class ProjectBuildHelper
 {
-    public function __construct(private PartLotWithdrawAddHelper $withdraw_add_helper)
-    {
+    public function __construct(
+        private PartLotWithdrawAddHelper $withdraw_add_helper,
+        private PricedetailHelper $pricedetailHelper,
+    ) {
     }
 
     /**
@@ -167,5 +173,82 @@ final readonly class ProjectBuildHelper
         if ($buildRequest->getAddBuildsToBuildsPart()) {
             $this->withdraw_add_helper->add($buildRequest->getBuildsPartLot(), $buildRequest->getNumberOfBuilds(), $message);
         }
+    }
+
+    /**
+     * Calculates the total price to build the given project N times, taking bulk pricing into account.
+     * Returns null if no BOM entry has any pricing information.
+     */
+    public function calculateTotalBuildPrice(Project $project, int $number_of_builds = 1, ?Currency $currency = null): ?BigDecimal
+    {
+        $total = BigDecimal::zero();
+        $has_price = false;
+
+        foreach ($project->getBomEntries() as $entry) {
+            $unit_price = $this->getBomEntryUnitPrice($entry, $number_of_builds, $currency);
+            if ($unit_price === null) {
+                continue;
+            }
+            $has_price = true;
+            $total = $total->plus($unit_price->multipliedBy($entry->getQuantity())->multipliedBy($number_of_builds));
+        }
+
+        return $has_price ? $total : null;
+    }
+
+    /**
+     * Calculates the price to build one unit of the given project when ordering for N builds in total.
+     * Returns null if no BOM entry has any pricing information.
+     */
+    public function calculateUnitBuildPrice(Project $project, int $number_of_builds = 1, ?Currency $currency = null): ?BigDecimal
+    {
+        $total = $this->calculateTotalBuildPrice($project, $number_of_builds, $currency);
+        if ($total === null) {
+            return null;
+        }
+        return $total->dividedBy($number_of_builds, 10, RoundingMode::HALF_UP);
+    }
+
+    /**
+     * Returns the total build price rounded up to 2 decimal places, ready for display.
+     */
+    public function roundedTotalBuildPrice(Project $project, int $number_of_builds = 1, ?Currency $currency = null): ?BigDecimal
+    {
+        return $this->calculateTotalBuildPrice($project, $number_of_builds, $currency)
+            ?->toScale(2, RoundingMode::UP);
+    }
+
+    /**
+     * Returns the unit build price rounded up to 2 decimal places, ready for display.
+     */
+    public function roundedUnitBuildPrice(Project $project, int $number_of_builds = 1, ?Currency $currency = null): ?BigDecimal
+    {
+        return $this->calculateUnitBuildPrice($project, $number_of_builds, $currency)
+            ?->toScale(2, RoundingMode::UP);
+    }
+
+    /**
+     * Returns the effective unit price for a single piece of the given BOM entry,
+     * taking bulk pricing and minimum order amounts into account for N builds.
+     * Returns BigDecimal::zero() when no pricing data is available.
+     */
+    public function getEntryUnitPrice(ProjectBOMEntry $entry, int $number_of_builds = 1, ?Currency $currency = null): BigDecimal
+    {
+        return $this->getBomEntryUnitPrice($entry, $number_of_builds, $currency) ?? BigDecimal::zero();
+    }
+
+    /**
+     * Returns the effective unit price for a single piece of the given BOM entry,
+     * taking bulk pricing into account for N builds.
+     */
+    private function getBomEntryUnitPrice(ProjectBOMEntry $entry, int $number_of_builds, ?Currency $currency): ?BigDecimal
+    {
+        if ($entry->getPart() instanceof Part) {
+            $total_qty = $entry->getQuantity() * $number_of_builds;
+            $min_order = $this->pricedetailHelper->getMinOrderAmount($entry->getPart());
+            $effective_qty = ($min_order !== null) ? max($total_qty, $min_order) : $total_qty;
+            return $this->pricedetailHelper->calculateAvgPrice($entry->getPart(), $effective_qty, $currency);
+        }
+        return $entry->getPrice();
     }
 }

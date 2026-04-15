@@ -1,4 +1,4 @@
-# Generated on Mon Mar  9 04:24:12 UTC 2026
+# Generated on Mon Apr 13 05:20:06 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -899,6 +899,7 @@ Amplifier_Buffer:BUF634AxD
 Amplifier_Buffer:BUF634AxDDA
 Amplifier_Buffer:BUF634AxDRB
 Amplifier_Buffer:BUF634U
+Amplifier_Buffer:BUF802
 Amplifier_Buffer:EL2001CN
 Amplifier_Buffer:LH0002H
 Amplifier_Buffer:LM6321H
@@ -1667,7 +1668,6 @@ Analog_ADC:CA3300
 Analog_ADC:HX711
 Analog_ADC:ICL7106CPL
 Analog_ADC:ICL7107CPL
-Analog_ADC:INA234AxYBJ
 Analog_ADC:LTC1406CGN
 Analog_ADC:LTC1406IGN
 Analog_ADC:LTC1594CS
@@ -2198,6 +2198,7 @@ Audio:WM8731SEDS
 Audio:YM2149
 Audio:YM2612
 Audio:YM3438
+Auxiliary_Items:Generic_Outline
 Auxiliary_Items:Jumper_Shunt
 Auxiliary_Items:MountingScrew
 Battery_Management:ADP5063
@@ -2254,6 +2255,11 @@ Battery_Management:BQ76200PW
 Battery_Management:BQ76920PW
 Battery_Management:BQ76930DBT
 Battery_Management:BQ76940DBT
+Battery_Management:BQ7695201PFBR
+Battery_Management:BQ7695202PFBR
+Battery_Management:BQ7695203PFBR
+Battery_Management:BQ7695204PFBR
+Battery_Management:BQ76952PFBR
 Battery_Management:BQ78350DBT
 Battery_Management:BQ78350DBT-R1
 Battery_Management:CN3063
@@ -2763,6 +2769,8 @@ Connector:DIN41612_02x32_AC
 Connector:DIN41612_02x32_AE
 Connector:DIN41612_02x32_ZB
 Connector:DIN41612_03x32_C_Split
+Connector:DP_Sink
+Connector:DP_Source
 Connector:DVI-D_Dual_Link
 Connector:DVI-I_Dual_Link
 Connector:ExpressCard
@@ -2901,6 +2909,7 @@ Connector:TestPoint_Alt
 Connector:TestPoint_Flag
 Connector:TestPoint_Probe
 Connector:TestPoint_Small
+Connector:TestPoint_Square
 Connector:UEXT_Host
 Connector:UEXT_Slave
 Connector:USB3_A
@@ -7772,6 +7781,7 @@ FPGA_Lattice:ICE40HX1K-TQ144
 FPGA_Lattice:ICE40HX4K-BG121
 FPGA_Lattice:ICE40HX4K-TQ144
 FPGA_Lattice:ICE40HX8K-BG121
+FPGA_Lattice:ICE40LP384-SG32
 FPGA_Lattice:ICE40UL1K-SWG16
 FPGA_Lattice:ICE40UP5K-SG48ITR
 FPGA_Lattice:ICE5LP1K-SG48
@@ -15731,6 +15741,7 @@ Power_Management:RT9742AGJ5F
 Power_Management:RT9742ANGJ5F
 Power_Management:RT9742BGJ5F
 Power_Management:RT9742BNGJ5F
+Power_Management:RT9742SNGV
 Power_Management:SN6505ADBV
 Power_Management:SN6505BDBV
 Power_Management:SN6507DGQ
@@ -18692,6 +18703,7 @@ Regulator_Linear:TPS7A0530PDBZ
 Regulator_Linear:TPS7A0531PDBV
 Regulator_Linear:TPS7A0533PDBV
 Regulator_Linear:TPS7A0533PDBZ
+Regulator_Linear:TPS7A20xxxDBV
 Regulator_Linear:TPS7A20xxxDQN
 Regulator_Linear:TPS7A3301RGW
 Regulator_Linear:TPS7A39
@@ -20301,7 +20313,6 @@ Sensor:BME280
 Sensor:BME680
 Sensor:CHT11
 Sensor:DHT11
-Sensor:INA260
 Sensor:LTC2990
 Sensor:MAX30102
 Sensor:Nuclear-Radiation_Detector
@@ -20588,9 +20599,12 @@ Sensor_Energy:INA219BxD
 Sensor_Energy:INA219BxDCN
 Sensor_Energy:INA226
 Sensor_Energy:INA228
+Sensor_Energy:INA229
 Sensor_Energy:INA233
+Sensor_Energy:INA234AxYBJ
 Sensor_Energy:INA237
 Sensor_Energy:INA238
+Sensor_Energy:INA260
 Sensor_Energy:LTC4151xMS
 Sensor_Energy:MCP39F521
 Sensor_Energy:PAC1931x-xJ6CX
@@ -20872,6 +20886,7 @@ Sensor_Proximity:BPR-105
 Sensor_Proximity:BPR-105F
 Sensor_Proximity:BPR-205
 Sensor_Proximity:CNY70
+Sensor_Proximity:FDC1004DGS
 Sensor_Proximity:GP2S700HCP
 Sensor_Proximity:ITR1201SR10AR
 Sensor_Proximity:ITR8307
@@ -21791,6 +21806,7 @@ Transistor_BJT:Q_NPN_Darlington_ECBC
 Transistor_BJT:Q_NPN_EBC
 Transistor_BJT:Q_NPN_ECB
 Transistor_BJT:Q_NPN_ECBC
+Transistor_BJT:Q_PNP_ACAB
 Transistor_BJT:Q_PNP_BCE
 Transistor_BJT:Q_PNP_BCEC
 Transistor_BJT:Q_PNP_BEC
