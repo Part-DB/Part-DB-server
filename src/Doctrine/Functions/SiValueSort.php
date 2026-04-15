@@ -189,7 +189,7 @@ class SiValueSort extends FunctionNode
             return $number;
         }
 
-        $multiplier = self::SI_MULTIPLIERS[$prefix] ?? 1.0;
+        $multiplier = self::SI_MULTIPLIERS[$prefix] ?? 1.0; //@phpstan-ignore-line - fallback to 1.0 if prefix is not recognized (should not happen due to regex)
 
         return $number * $multiplier;
     }

@@ -59,6 +59,9 @@ parameters:
         - '#expects .*PartParameter, .*AbstractParameter given.#'
         - '#Part::getParameters\(\) should return .*AbstractParameter#'
 
+        # Fix some weird issue with how covariance with collections is solved
+        - '#Method App\\Entity\\Base\\AbstractStructuralDBElement::getParameters\(\) should return Doctrine\\Common\\Collections\\Collection<int, App\\Entity\\Parameters\\AbstractParameter> but returns#'
+
         # Ignore doctrine type mapping mismatch
         - '#Property .* type mapping mismatch: property can contain .* but database expects .*#'
 
@@ -70,3 +73,6 @@ parameters:
 
         - message: '#Access to an undefined property Brick\\Schema\\Interfaces\\#'
           path: src/Services/InfoProviderSystem/Providers/GenericWebProvider.php
+
+        -
+            identifier: nullCoalesce.property
