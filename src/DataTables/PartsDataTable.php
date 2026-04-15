@@ -119,8 +119,8 @@ final class PartsDataTable implements DataTableTypeInterface
                 'render' => fn($value, Part $context) => $this->partDataTableHelper->renderName($context),
                 'orderField' => 'NATSORT(part.name)'
             ])
-            ->add('si_name', TextColumn::class, [
-                'label' => $this->translator->trans('part.table.si_name'),
+            ->add('si_value', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.si_value'),
                 'render' => function ($value, Part $context): string {
                     $siValue = SiValueSort::sqliteSiValue($context->getName());
                     if ($siValue !== null) {

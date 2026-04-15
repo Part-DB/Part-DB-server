@@ -2780,10 +2780,10 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Name</target>
       </segment>
     </unit>
-    <unit id="sIvAlUe" name="part.table.si_name">
+    <unit id="sIvAlUe" name="part.table.si_value">
       <segment state="translated">
-        <source>part.table.si_name</source>
-        <target>Name (SI)</target>
+        <source>part.table.si_value</source>
+        <target>SI Value</target>
       </segment>
     </unit>
     <unit id="rW_SFJE" name="part.table.id">
