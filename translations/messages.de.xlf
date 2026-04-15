@@ -2779,6 +2779,12 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Name</target>
       </segment>
     </unit>
+    <unit id="sIvAlUe" name="part.table.si_value">
+      <segment state="translated">
+        <source>part.table.si_value</source>
+        <target>SI-Wert</target>
+      </segment>
+    </unit>
     <unit id="rW_SFJE" name="part.table.id">
       <segment state="translated">
         <source>part.table.id</source>
@@ -7211,6 +7217,18 @@ Element 1 -&gt; Element 1.2</target>
         <target>Unterprojekte</target>
       </segment>
     </unit>
+    <unit id="prjTtlBP" name="project.info.total_build_price">
+      <segment state="translated">
+        <source>project.info.total_build_price</source>
+        <target>Gesamterstellpreis</target>
+      </segment>
+    </unit>
+    <unit id="prjUntBP" name="project.info.per_unit_price">
+      <segment state="translated">
+        <source>project.info.per_unit_price</source>
+        <target>pro Einheit</target>
+      </segment>
+    </unit>
     <unit id="7nV.Cmd" name="project.info.bom_add_parts">
       <segment state="translated">
         <source>project.info.bom_add_parts</source>
@@ -7236,9 +7254,9 @@ Element 1 -&gt; Element 1.2</target>
       </segment>
     </unit>
     <unit id="bomExPrc" name="project.bom.ext_price">
-      <segment state="initial">
+      <segment state="translated">
         <source>project.bom.ext_price</source>
-        <target>Extended Price</target>
+        <target>Gesamtpreis</target>
       </segment>
     </unit>
     <unit id="8tP3lQI" name="part.info.withdraw_modal.title.withdraw">
@@ -10032,6 +10050,90 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>settings.misc.kicad_eda.datasheet_link.help</source>
         <target>Wenn aktiviert, verlinkt das Datenblatt-Feld in KiCad auf die tatsächliche PDF-Datei (sofern gefunden). Wenn deaktiviert, führt es stattdessen zur Part-DB-Seite. Der Link zur Part-DB-Seite ist immer als separates "Part-DB URL"-Feld verfügbar.</target>
+      </segment>
+    </unit>
+    <unit id="e2e7mR1" name="settings.misc.kicad_eda.editor.title">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.title</source>
+        <target>KiCad Autovervollständigungslisten</target>
+      </segment>
+    </unit>
+    <unit id="qjv1VVx" name="settings.misc.kicad_eda.editor.link">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.link</source>
+        <target>Autovervollständigungseinstellungen</target>
+      </segment>
+    </unit>
+    <unit id="f0qkcqg" name="settings.misc.kicad_eda.editor.description">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.description</source>
+        <target>Konfigurieren Sie, ob KiCad Autovervollständigung die automatisch generierten Standardlisten oder Ihre benutzerdefinierten Überschreibungsdateien verwendet. Die benutzerdefinierten Dateien sind hier bearbeitbar, während die Standarddateien nur lesbar zur Referenz angezeigt werden.</target>
+      </segment>
+    </unit>
+    <unit id="AS3yDlb" name="settings.misc.kicad_eda.editor.footprints">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.footprints</source>
+        <target>Footprint-Liste</target>
+      </segment>
+    </unit>
+    <unit id="Jj_YR7n" name="settings.misc.kicad_eda.editor.footprints.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.footprints.help</source>
+        <target>Ein Eintrag pro Zeile. Wird als Autovervollständigungsvorschlag für KiCad-Footprintfelder verwendet.</target>
+      </segment>
+    </unit>
+    <unit id="ELd3KQK" name="settings.misc.kicad_eda.editor.symbols">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.symbols</source>
+        <target>Symbolliste</target>
+      </segment>
+    </unit>
+    <unit id="A9TOJgM" name="settings.misc.kicad_eda.editor.symbols.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.symbols.help</source>
+        <target>Ein Eintrag pro Zeile. Wird als Autovervollständigungsvorschlag für KiCad-Symbolfelder verwendet.</target>
+      </segment>
+    </unit>
+    <unit id="tWYlL0u" name="settings.misc.kicad_eda.use_custom_list">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.use_custom_list</source>
+        <target>Benutzerdefinierte Autovervollständigungslisten verwenden</target>
+      </segment>
+    </unit>
+    <unit id="v0LK7n6" name="settings.misc.kicad_eda.use_custom_list.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.use_custom_list.help</source>
+        <target>Wenn aktiviert, verwendet die KiCad Autovervollständigung public/kicad/footprints_custom.txt und public/kicad/symbols_custom.txt anstelle der automatisch generierten Standarddateien.</target>
+      </segment>
+    </unit>
+    <unit id="Yl_fqfV" name="settings.misc.kicad_eda.editor.custom_footprints">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.custom_footprints</source>
+        <target>Benutzerdefinierte Footprint-Liste</target>
+      </segment>
+    </unit>
+    <unit id="GuD2JcQ" name="settings.misc.kicad_eda.editor.custom_symbols">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.custom_symbols</source>
+        <target>Benutzerdefinierte Symbolliste</target>
+      </segment>
+    </unit>
+    <unit id="k6m9b5F" name="settings.misc.kicad_eda.editor.default_footprints">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.default_footprints</source>
+        <target>Standard Footprint-Liste</target>
+      </segment>
+    </unit>
+    <unit id="bKkF8mM" name="settings.misc.kicad_eda.editor.default_symbols">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.default_symbols</source>
+        <target>Standardsymboliste</target>
+      </segment>
+    </unit>
+    <unit id="mIj_i4E" name="settings.misc.kicad_eda.editor.default_files_help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.editor.default_files_help</source>
+        <target>Automatisch generierte Datei wird nur zur Referenz angezeigt. Änderungen müssen in der benutzerdefinierten Liste vorgenommen werden.</target>
       </segment>
     </unit>
     <unit id="VwvmcWE" name="settings.behavior.sidebar">

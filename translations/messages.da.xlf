@@ -642,6 +642,12 @@ Underelementer vil blive flyttet opad.</target>
         <target>Gruppe</target>
       </segment>
     </unit>
+    <unit id="8rz303Z" name="specifications.eda_visibility.help">
+      <segment state="translated">
+        <source>specifications.eda_visibility.help</source>
+        <target>Eksporter denne parameter som et EDA felt</target>
+      </segment>
+    </unit>
     <unit id="XclPxI9" name="specification.create">
       <segment state="translated">
         <source>specification.create</source>
@@ -2923,6 +2929,42 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
         <target>Bilag</target>
       </segment>
     </unit>
+    <unit id="f3Dggp6" name="part.table.eda_status">
+      <segment state="translated">
+        <source>part.table.eda_status</source>
+        <target>EDA</target>
+      </segment>
+    </unit>
+    <unit id="Q_myBuD" name="eda.status.symbol_set">
+      <segment state="translated">
+        <source>eda.status.symbol_set</source>
+        <target>KiCad symbolsæt</target>
+      </segment>
+    </unit>
+    <unit id="QGLfvit" name="eda.status.footprint_set">
+      <segment state="translated">
+        <source>eda.status.footprint_set</source>
+        <target>KiCad footprintsæt</target>
+      </segment>
+    </unit>
+    <unit id="hkze9M." name="eda.status.reference_set">
+      <segment state="translated">
+        <source>eda.status.reference_set</source>
+        <target>eda. status.reference_set</target>
+      </segment>
+    </unit>
+    <unit id="OTXbAfL" name="eda.status.complete">
+      <segment state="translated">
+        <source>eda.status.complete</source>
+        <target>EDA felter udfyldt (symbol, footprint, reference)</target>
+      </segment>
+    </unit>
+    <unit id="z9E5RB." name="eda.status.partial">
+      <segment state="translated">
+        <source>eda.status.partial</source>
+        <target>EDA felter delvist udfyldt</target>
+      </segment>
+    </unit>
     <unit id="bMkafCp" name="flash.login_successful">
       <segment state="translated">
         <source>flash.login_successful</source>
@@ -3263,6 +3305,12 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
       <segment state="translated">
         <source>orderdetails.edit.obsolete</source>
         <target>Ikke længere tilgængelig</target>
+      </segment>
+    </unit>
+    <unit id="6H0WQWq" name="orderdetails.edit.eda_visibility">
+      <segment state="translated">
+        <source>orderdetails.edit.eda_visibility</source>
+        <target>Synlige i EDA</target>
       </segment>
     </unit>
     <unit id="ZsO5AKM" name="orderdetails.edit.supplierpartnr.placeholder">
@@ -9508,6 +9556,12 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
         <target>EIGP 114 stregkode (f.eks. Datamatrix-kode fra Digikey og Mouser dele)</target>
       </segment>
     </unit>
+    <unit id="BnqcKWx" name="scan_dialog.mode.lcsc">
+      <segment state="translated">
+        <source>scan_dialog.mode.lcsc</source>
+        <target>LCSC.com barcode</target>
+      </segment>
+    </unit>
     <unit id="QSMS_Bd" name="scan_dialog.info_mode">
       <segment state="translated">
         <source>scan_dialog.info_mode</source>
@@ -9518,6 +9572,24 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
       <segment state="translated">
         <source>label_scanner.decoded_info.title</source>
         <target>Afkodet information</target>
+      </segment>
+    </unit>
+    <unit id="kQnodbA" name="label_scanner.target_found">
+      <segment state="translated">
+        <source>label_scanner.target_found</source>
+        <target>Genstand fundet i database</target>
+      </segment>
+    </unit>
+    <unit id="7Arfw2q" name="label_scanner.scan_result.title">
+      <segment state="translated">
+        <source>label_scanner.scan_result.title</source>
+        <target>Scan-resultat</target>
+      </segment>
+    </unit>
+    <unit id="PTh4EK_" name="label_scanner.no_locations">
+      <segment state="translated">
+        <source>label_scanner.no_locations</source>
+        <target>Part er ikke gemt på nogen lokation.</target>
       </segment>
     </unit>
     <unit id="nmXQWcS" name="label_generator.edit_profiles">
@@ -9954,6 +10026,18 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
         <target>Denne værdi bestemmer dybden af ​​kategoritræet, der er synligt i KiCad. 0 betyder, at kun kategorierne på øverste niveau er synlige. Indstil værdien til &gt; 0 for at vise yderligere niveauer. Indstil værdien til -1 for at vise alle dele af deldatabasen inden for en enkelt kategori i KiCad.</target>
       </segment>
     </unit>
+    <unit id="X5.rQdO" name="settings.misc.kicad_eda.datasheet_link">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.datasheet_link</source>
+        <target>Databladsfelt linker til PDF</target>
+      </segment>
+    </unit>
+    <unit id="Fm1QTCs" name="settings.misc.kicad_eda.datasheet_link.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.datasheet_link.help</source>
+        <target>Når det er aktiveret, vil dataarkfeltet i KiCad linke til den faktiske PDF-fil (hvis den findes). Når det er deaktiveret, vil det i stedet linke til Part-DB-siden. Linket til Part-DB-siden er altid tilgængeligt som et separat felt "Part-DB URL".</target>
+      </segment>
+    </unit>
     <unit id="VwvmcWE" name="settings.behavior.sidebar">
       <segment state="translated">
         <source>settings.behavior.sidebar</source>
@@ -10294,6 +10378,24 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
       <segment state="translated">
         <source>settings.behavior.part_info.show_part_image_overlay.help</source>
         <target>Vis billedoverlejringen med detaljer om vedhæftet fil, når du holder musen over billedgalleriet med dele.</target>
+      </segment>
+    </unit>
+    <unit id="0iYdzdk" name="settings.behavior.keybindings">
+      <segment state="translated">
+        <source>settings.behavior.keybindings</source>
+        <target>Tastaturgenveje</target>
+      </segment>
+    </unit>
+    <unit id="_x13bMa" name="settings.behavior.keybindings.enable_special_characters">
+      <segment state="translated">
+        <source>settings.behavior.keybindings.enable_special_characters</source>
+        <target>Aktivér tastaturgenveje for specialtegn</target>
+      </segment>
+    </unit>
+    <unit id="Af8Zzqr" name="settings.behavior.keybindings.enable_special_characters.help">
+      <segment state="translated">
+        <source>settings.behavior.keybindings.enable_special_characters.help</source>
+        <target>Aktivér genvejstasten Alt+ for at indsætte specialtegn (græske bogstaver, matematiske symboler osv.) i tekstfelter. Deaktiver dette, hvis genvejene er i konflikt med dit tastaturlayout eller systemgenveje.</target>
       </segment>
     </unit>
     <unit id="ALfPkeR" name="perm.config.change_system_settings">
@@ -10918,6 +11020,84 @@ Bemærk venligst, at du ikke kan kopiere fra deaktiveret bruger. Hvis du prøver
       <segment state="translated">
         <source>part_list.action.bulk_info_provider_import</source>
         <target>Masseimport af datakilder</target>
+      </segment>
+    </unit>
+    <unit id="VtS1yT7" name="part_list.action.group.eda">
+      <segment state="translated">
+        <source>part_list.action.group.eda</source>
+        <target>EDA / KiCad</target>
+      </segment>
+    </unit>
+    <unit id="swU1Rp2" name="part_list.action.batch_edit_eda">
+      <segment state="translated">
+        <source>part_list.action.batch_edit_eda</source>
+        <target>Batchredigering af EDA-felter</target>
+      </segment>
+    </unit>
+    <unit id="ZaS_Hg5" name="batch_eda.title">
+      <segment state="translated">
+        <source>batch_eda.title</source>
+        <target>Batchredigering af EDA-felter</target>
+      </segment>
+    </unit>
+    <unit id="k2FDo7A" name="batch_eda.description">
+      <segment state="translated">
+        <source>batch_eda.description</source>
+        <target>Rediger EDA/KiCad-felter for %count% valgte dele. Markér feltet "Anvend" ud for hvert felt, du vil ændre.</target>
+      </segment>
+    </unit>
+    <unit id="WVHbic3" name="batch_eda.show_parts">
+      <segment state="translated">
+        <source>batch_eda.show_parts</source>
+        <target>Vis valgte dele</target>
+      </segment>
+    </unit>
+    <unit id="ubQd6G4" name="batch_eda.apply_hint">
+      <segment state="translated">
+        <source>batch_eda.apply_hint</source>
+        <target>Kun felter, hvor afkrydsningsfeltet "Anvend" er markeret, ændres. Felter, der ikke er markeret, ændres ikke.</target>
+      </segment>
+    </unit>
+    <unit id="w.5FGYL" name="batch_eda.apply">
+      <segment state="translated">
+        <source>batch_eda.apply</source>
+        <target>Anvend</target>
+      </segment>
+    </unit>
+    <unit id="9EmHp5C" name="batch_eda.field">
+      <segment state="translated">
+        <source>batch_eda.field</source>
+        <target>Felt</target>
+      </segment>
+    </unit>
+    <unit id="xHaCnEQ" name="batch_eda.value">
+      <segment state="translated">
+        <source>batch_eda.value</source>
+        <target>Værdi</target>
+      </segment>
+    </unit>
+    <unit id="PLqIBvC" name="batch_eda.submit">
+      <segment state="translated">
+        <source>batch_eda.submit</source>
+        <target>Anvend på udvalgte dele</target>
+      </segment>
+    </unit>
+    <unit id="5nO7Fpq" name="batch_eda.cancel">
+      <segment state="translated">
+        <source>batch_eda.cancel</source>
+        <target>Annullér</target>
+      </segment>
+    </unit>
+    <unit id="vhlPBNU" name="batch_eda.success">
+      <segment state="translated">
+        <source>batch_eda.success</source>
+        <target>EDA felter er nu opdateret</target>
+      </segment>
+    </unit>
+    <unit id="2fMo760" name="batch_eda.no_parts_selected">
+      <segment state="translated">
+        <source>batch_eda.no_parts_selected</source>
+        <target>Ingen dele blev valgt til batchredigering.</target>
       </segment>
     </unit>
     <unit id="yzpXFkB" name="info_providers.bulk_import.step1.spn_recommendation">
@@ -12233,7 +12413,7 @@ Buerklin API-godkendelsesserver: 10 anmodninger/minut pr. IP-adresse</target>
     <unit id="aSHDhOi" name="update_manager.progress.downgrade_title">
       <segment state="translated">
         <source>update_manager.progress.downgrade_title</source>
-        <target>Downgrade fremskridt</target>
+        <target>Downgrade fremskridtPart-DB er blevet nedgraderet! Du skal muligvis opdatere siden for at se den nye version.</target>
       </segment>
     </unit>
     <unit id="XYR1vvR" name="update_manager.progress.downgrade_completed">
@@ -12318,6 +12498,102 @@ Buerklin API-godkendelsesserver: 10 anmodninger/minut pr. IP-adresse</target>
       <segment state="translated">
         <source>update_manager.backup_restore_disabled</source>
         <target>Gendannelse af sikkerhedskopi er deaktiveret af serverkonfigurationen.</target>
+      </segment>
+    </unit>
+    <unit id="oAb35wU" name="update_manager.backup.create">
+      <segment state="translated">
+        <source>update_manager.backup.create</source>
+        <target>Opret sikkerhedskopi</target>
+      </segment>
+    </unit>
+    <unit id="ms26oI0" name="update_manager.backup.create.confirm">
+      <segment state="translated">
+        <source>update_manager.backup.create.confirm</source>
+        <target>Vil du lave en fuld sikkerhedskopi nu? Det kan tage et stykke tid.</target>
+      </segment>
+    </unit>
+    <unit id="H9y0eLa" name="update_manager.backup.created">
+      <segment state="translated">
+        <source>update_manager.backup.created</source>
+        <target>Sikkerhedskopi er oprettet.</target>
+      </segment>
+    </unit>
+    <unit id="bMhXPVB" name="update_manager.backup.delete.confirm">
+      <segment state="translated">
+        <source>update_manager.backup.delete.confirm</source>
+        <target>Er du sikker på at du vil slette denne backup?</target>
+      </segment>
+    </unit>
+    <unit id="8tw67c_" name="update_manager.backup.deleted">
+      <segment state="translated">
+        <source>update_manager.backup.deleted</source>
+        <target>Sikkerhedskopi er slettet.</target>
+      </segment>
+    </unit>
+    <unit id="BzBBuqk" name="update_manager.backup.delete_error">
+      <segment state="translated">
+        <source>update_manager.backup.delete_error</source>
+        <target>Sikkerhedskopi kunne ikke udføres.</target>
+      </segment>
+    </unit>
+    <unit id="2olmcSs" name="update_manager.log.delete.confirm">
+      <segment state="translated">
+        <source>update_manager.log.delete.confirm</source>
+        <target>Er du sikker på at du vil slette denne log?</target>
+      </segment>
+    </unit>
+    <unit id=".ZrVHpp" name="update_manager.log.deleted">
+      <segment state="translated">
+        <source>update_manager.log.deleted</source>
+        <target>Log slettet.</target>
+      </segment>
+    </unit>
+    <unit id="P2JI5Yw" name="update_manager.log.delete_error">
+      <segment state="translated">
+        <source>update_manager.log.delete_error</source>
+        <target>Kunne ikke slette loggen.</target>
+      </segment>
+    </unit>
+    <unit id="Yos9FWk" name="update_manager.view_log">
+      <segment state="translated">
+        <source>update_manager.view_log</source>
+        <target>Vis log.</target>
+      </segment>
+    </unit>
+    <unit id="B9uA2va" name="update_manager.delete">
+      <segment state="translated">
+        <source>update_manager.delete</source>
+        <target>Slet</target>
+      </segment>
+    </unit>
+    <unit id="ZtgvnXB" name="update_manager.backup.download">
+      <segment state="translated">
+        <source>update_manager.backup.download</source>
+        <target>Download sikkerhedskopi</target>
+      </segment>
+    </unit>
+    <unit id="wxtmrnP" name="update_manager.backup.download.password_label">
+      <segment state="translated">
+        <source>update_manager.backup.download.password_label</source>
+        <target>Bekræft password for at downloade</target>
+      </segment>
+    </unit>
+    <unit id="MIlTTgL" name="update_manager.backup.download.security_warning">
+      <segment state="translated">
+        <source>update_manager.backup.download.security_warning</source>
+        <target>Sikkerhedskopier indeholder følsomme data, herunder password-hashes og hemmeligheder. Bekræft venligst dit password for at fortsætte med download.</target>
+      </segment>
+    </unit>
+    <unit id="kZPHBRt" name="update_manager.backup.download.invalid_password">
+      <segment state="translated">
+        <source>update_manager.backup.download.invalid_password</source>
+        <target>Ugyldigt password. Download af sikkerhedskopi er afvist.</target>
+      </segment>
+    </unit>
+    <unit id="AZOjnE0" name="update_manager.backup.docker_warning">
+      <segment state="translated">
+        <source>update_manager.backup.docker_warning</source>
+        <target>Docker-installation registreret. Sikkerhedskopier gemmes i var/backups/, som ikke er en persistent enhed. Brug downloadknappen til at gemme sikkerhedskopier eksternt, eller montér var/backups/ som en enhed i din docker-compose.yml.</target>
       </segment>
     </unit>
     <unit id="kHKChQB" name="settings.ips.conrad">
@@ -12408,6 +12684,282 @@ Buerklin API-godkendelsesserver: 10 anmodninger/minut pr. IP-adresse</target>
       <segment state="translated">
         <source>update_manager.update_to</source>
         <target>Opdatér til</target>
+      </segment>
+    </unit>
+    <unit id="XPhnMxn" name="part.gtin">
+      <segment state="translated">
+        <source>part.gtin</source>
+        <target>GTIN / EAN</target>
+      </segment>
+    </unit>
+    <unit id="TyykD7B" name="info_providers.capabilities.gtin">
+      <segment state="translated">
+        <source>info_providers.capabilities.gtin</source>
+        <target>GTIN / EAN</target>
+      </segment>
+    </unit>
+    <unit id="JBGly8p" name="part.table.gtin">
+      <segment state="translated">
+        <source>part.table.gtin</source>
+        <target>GTIN</target>
+      </segment>
+    </unit>
+    <unit id="0qHQof." name="scan_dialog.mode.gtin">
+      <segment state="translated">
+        <source>scan_dialog.mode.gtin</source>
+        <target>GTIN / EAN barcode</target>
+      </segment>
+    </unit>
+    <unit id="cmchX59" name="attachment_type.edit.allowed_targets">
+      <segment state="translated">
+        <source>attachment_type.edit.allowed_targets</source>
+        <target>Anvend kun til</target>
+      </segment>
+    </unit>
+    <unit id="t5R8p1l" name="attachment_type.edit.allowed_targets.help">
+      <segment state="translated">
+        <source>attachment_type.edit.allowed_targets.help</source>
+        <target>Gør kun denne bilagstype tilgængelig for bestemte elementklasser. Lad feltet stå tomt for at vise denne bilagstype for alle elementklasser.</target>
+      </segment>
+    </unit>
+    <unit id="LvlEUjC" name="orderdetails.edit.prices_includes_vat">
+      <segment state="translated">
+        <source>orderdetails.edit.prices_includes_vat</source>
+        <target>Pris inklusiv moms.</target>
+      </segment>
+    </unit>
+    <unit id="GUsVh5T" name="prices.incl_vat">
+      <segment state="translated">
+        <source>prices.incl_vat</source>
+        <target>Inkl. moms</target>
+      </segment>
+    </unit>
+    <unit id="3ipwaVQ" name="prices.excl_vat">
+      <segment state="translated">
+        <source>prices.excl_vat</source>
+        <target>Ekskl. moms</target>
+      </segment>
+    </unit>
+    <unit id="WDJ7EeF" name="settings.system.localization.prices_include_tax_by_default">
+      <segment state="translated">
+        <source>settings.system.localization.prices_include_tax_by_default</source>
+        <target>Priserne er som standard inklusive moms</target>
+      </segment>
+    </unit>
+    <unit id="01oGY_r" name="settings.system.localization.prices_include_tax_by_default.description">
+      <segment state="translated">
+        <source>settings.system.localization.prices_include_tax_by_default.description</source>
+        <target>Standardværdien for nyoprettede købsoplysninger, uanset om priserne inkluderer moms eller ej.</target>
+      </segment>
+    </unit>
+    <unit id="heWSnAH" name="part_lot.edit.last_stocktake_at">
+      <segment state="translated">
+        <source>part_lot.edit.last_stocktake_at</source>
+        <target>Seneste optælling</target>
+      </segment>
+    </unit>
+    <unit id=".LP93kG" name="perm.parts_stock.stocktake">
+      <segment state="translated">
+        <source>perm.parts_stock.stocktake</source>
+        <target>Lageropgørelse</target>
+      </segment>
+    </unit>
+    <unit id="Vnhrb5R" name="part.info.stocktake_modal.title">
+      <segment state="translated">
+        <source>part.info.stocktake_modal.title</source>
+        <target>Lagerbeholdning</target>
+      </segment>
+    </unit>
+    <unit id="WqOG7RK" name="part.info.stocktake_modal.expected_amount">
+      <segment state="translated">
+        <source>part.info.stocktake_modal.expected_amount</source>
+        <target>Forventet mængde</target>
+      </segment>
+    </unit>
+    <unit id="E7IbVN6" name="part.info.stocktake_modal.actual_amount">
+      <segment state="translated">
+        <source>part.info.stocktake_modal.actual_amount</source>
+        <target>Aktuel mængde</target>
+      </segment>
+    </unit>
+    <unit id="4GwSma7" name="log.part_stock_changed.stock_take">
+      <segment state="translated">
+        <source>log.part_stock_changed.stock_take</source>
+        <target>Lagerbeholdning</target>
+      </segment>
+    </unit>
+    <unit id="aRQPMW7" name="log.element_edited.changed_fields.last_stocktake_at">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.last_stocktake_at</source>
+        <target>Sidste lagerbeholdning</target>
+      </segment>
+    </unit>
+    <unit id="GNWhoTW" name="part.table.eda_reference">
+      <segment state="translated">
+        <source>part.table.eda_reference</source>
+        <target>EDA reference</target>
+      </segment>
+    </unit>
+    <unit id="tW4yCbf" name="part.table.eda_value">
+      <segment state="translated">
+        <source>part.table.eda_value</source>
+        <target>EDA-værdi</target>
+      </segment>
+    </unit>
+    <unit id="s1pgReC" name="settings.misc.kicad_eda.default_parameter_visibility">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_visibility</source>
+        <target>Standard EDA-synlighed for parametre</target>
+      </segment>
+    </unit>
+    <unit id="Z78QunV" name="settings.misc.kicad_eda.default_parameter_visibility.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_visibility.help</source>
+        <target>EDA-synlighed for alle [Part]-parametre, som ikke har en eksplicit synlighedsindstilling. Når den er aktiveret, vil alle parametre som standard være synlige i EDA-softwaren.</target>
+      </segment>
+    </unit>
+    <unit id="J6pYnaC" name="settings.misc.kicad_eda.default_orderdetails_visibility">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_orderdetails_visibility</source>
+        <target>Standard EDA-synlighed for købsoplysninger</target>
+      </segment>
+    </unit>
+    <unit id="Hiye4C." name="settings.misc.kicad_eda.default_orderdetails_visibility.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_orderdetails_visibility.help</source>
+        <target>EDA-synlighed for alle købsoplysninger, som ikke har en eksplicit synlighedsindstilling. Når den er aktiveret, vil alle købsoplysninger som standard være synlige i EDA-softwaren.</target>
+      </segment>
+    </unit>
+    <unit id="aEgd0if" name="label_scanner.open">
+      <segment state="translated">
+        <source>label_scanner.open</source>
+        <target>Vis detaljer</target>
+      </segment>
+    </unit>
+    <unit id="vw_0Qws" name="label_scanner.db_part_found">
+      <segment state="translated">
+        <source>label_scanner.db_part_found</source>
+        <target>Database [part] fundet for barcode</target>
+      </segment>
+    </unit>
+    <unit id="zntajcd" name="label_scanner.part_can_be_created">
+      <segment state="translated">
+        <source>label_scanner.part_can_be_created</source>
+        <target>[Part] kan oprettes</target>
+      </segment>
+    </unit>
+    <unit id="cLTbd9w" name="label_scanner.part_can_be_created.help">
+      <segment state="translated">
+        <source>label_scanner.part_can_be_created.help</source>
+        <target>Der blev ikke fundet nogen matchende [part] i databasen, men du kan oprette en ny [part] baseret på denne stregkode.</target>
+      </segment>
+    </unit>
+    <unit id="FfHA3Yf" name="label_scanner.part_create_btn">
+      <segment state="translated">
+        <source>label_scanner.part_create_btn</source>
+        <target>Opret [part] fra barcode</target>
+      </segment>
+    </unit>
+    <unit id="xH258F." name="parts.create_from_scan.title">
+      <segment state="translated">
+        <source>parts.create_from_scan.title</source>
+        <target>Opret [part] ud fra labelscanning</target>
+      </segment>
+    </unit>
+    <unit id="8WZYwRJ" name="scan_dialog.mode.amazon">
+      <segment state="translated">
+        <source>scan_dialog.mode.amazon</source>
+        <target>Amazon barcode</target>
+      </segment>
+    </unit>
+    <unit id="BQWuR_G" name="settings.ips.canopy">
+      <segment state="translated">
+        <source>settings.ips.canopy</source>
+        <target>Canopy</target>
+      </segment>
+    </unit>
+    <unit id="44BfYzy" name="settings.ips.canopy.alwaysGetDetails">
+      <segment state="translated">
+        <source>settings.ips.canopy.alwaysGetDetails</source>
+        <target>Hent altid detaljer</target>
+      </segment>
+    </unit>
+    <unit id="so_ms3t" name="settings.ips.canopy.alwaysGetDetails.help">
+      <segment state="translated">
+        <source>settings.ips.canopy.alwaysGetDetails.help</source>
+        <target>Når dette er valgt, hentes flere detaljer fra canopy, når en del oprettes. Dette forårsager en yderligere API-anmodning, men giver produktpunkter og kategorioplysninger.</target>
+      </segment>
+    </unit>
+    <unit id="D055xh8" name="attachment.sandbox.warning">
+      <segment state="translated">
+        <source>attachment.sandbox.warning</source>
+        <target>ADVARSEL: Du ser en brugeruploadet vedhæftet fil. Dette er indhold, der ikke er tillid til. Vær forsigtig.</target>
+      </segment>
+    </unit>
+    <unit id="bRcdnJK" name="attachment.sandbox.back_to_partdb">
+      <segment state="translated">
+        <source>attachment.sandbox.back_to_partdb</source>
+        <target>Tilbage til Part-DB</target>
+      </segment>
+    </unit>
+    <unit id="MzyA7N8" name="settings.system.attachments.showHTMLAttachments">
+      <segment state="translated">
+        <source>settings.system.attachments.showHTMLAttachments</source>
+        <target>Vis uploadede HTML-filvedhæftninger (sandboxed)</target>
+      </segment>
+    </unit>
+    <unit id="V_LJkRy" name="settings.system.attachments.showHTMLAttachments.help">
+      <segment state="translated">
+        <source>settings.system.attachments.showHTMLAttachments.help</source>
+        <target>⚠️ Når det er aktiveret, kan brugeruploadede HTML-vedhæftninger ses direkte i browseren. Mange potentielt skadelige funktioner er begrænsede, men dette er stadig en potentiel sikkerhedsrisiko og bør kun aktiveres, hvis du har tillid til de brugere, der kan uploade filer.</target>
+      </segment>
+    </unit>
+    <unit id="BQo2xWi" name="attachment.sandbox.title">
+      <segment state="translated">
+        <source>attachment.sandbox.title</source>
+        <target>HTML [Vedhæftning]</target>
+      </segment>
+    </unit>
+    <unit id="sJ6v9uJ" name="attachment.sandbox.as_plain_text">
+      <segment state="translated">
+        <source>attachment.sandbox.as_plain_text</source>
+        <target>Vis som alm. tekst</target>
+      </segment>
+    </unit>
+    <unit id="Ehsj93c" name="modal.cancel">
+      <segment state="translated">
+        <source>modal.cancel</source>
+        <target>Annuller</target>
+      </segment>
+    </unit>
+    <unit id="jdpoFf2" name="update_manager.web_updates_allowed">
+      <segment state="translated">
+        <source>update_manager.web_updates_allowed</source>
+        <target>Web-opdateringer tilladt</target>
+      </segment>
+    </unit>
+    <unit id="bdWa7is" name="update_manager.backup_restore_allowed">
+      <segment state="translated">
+        <source>update_manager.backup_restore_allowed</source>
+        <target>Indlæsning af sikkerhedskopi (backup) tilladt</target>
+      </segment>
+    </unit>
+    <unit id="kllGQEN" name="update_manager.backup_download_allowed">
+      <segment state="translated">
+        <source>update_manager.backup_download_allowed</source>
+        <target>Download af sikkerhedskopi tilladt</target>
+      </segment>
+    </unit>
+    <unit id="b8JxfcX" name="part.create_from_info_provider.lot_filled_from_barcode">
+      <segment state="translated">
+        <source>part.create_from_info_provider.lot_filled_from_barcode</source>
+        <target>[Part_lot] oprettet fra stregkode: Kontroller venligst, om dataene er korrekte og ønskede.</target>
+      </segment>
+    </unit>
+    <unit id="F8pQuL9" name="project.bom_import.field_mapping.error.check_delimiter">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.error.check_delimiter</source>
+        <target>Felttilknytningsfejl: Kontroller, om du har valgt den rigtige tegn-afgrænser!</target>
       </segment>
     </unit>
   </file>

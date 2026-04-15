@@ -4,31 +4,31 @@
     <unit id="cRbk.cm" name="part.master_attachment.must_be_picture">
       <segment state="translated">
         <source>part.master_attachment.must_be_picture</source>
-        <target>Forhåndsvisnings-bilaget skal være et rigtigt billede!</target>
+        <target>Forhåndsvisningsvedhæftningen skal være et gyldigt billede!</target>
       </segment>
     </unit>
     <unit id="v8HkcJB" name="structural.entity.unique_name">
       <segment state="translated">
         <source>structural.entity.unique_name</source>
-        <target>Der eksisterer allerede et element med dette navn på dette niveau!</target>
+        <target>Et element med dette navn findes allerede på dette niveau!</target>
       </segment>
     </unit>
     <unit id="dW7b2B_" name="parameters.validator.min_lesser_typical">
       <segment state="translated">
         <source>parameters.validator.min_lesser_typical</source>
-        <target>Værdi skal være mindre end eller lig med den typiske værdi ({{ compared_value }}).</target>
+        <target>Værdien skal være mindre end eller lig med den typiske værdi ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="Yfp2uC5" name="parameters.validator.min_lesser_max">
       <segment state="translated">
         <source>parameters.validator.min_lesser_max</source>
-        <target>Værdi skal være mindre end maksumumværdien ({{ compared_value }}).</target>
+        <target>Værdien skal være mindre end den maksimale værdi ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="P6b.8Ou" name="parameters.validator.max_greater_typical">
       <segment state="translated">
         <source>parameters.validator.max_greater_typical</source>
-        <target>Værdi skal være større eller lig med den typiske værdi ({{ compared_value }}).</target>
+        <target>Værdien skal være større end eller lig med den typiske værdi ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="P41193Y" name="validator.user.username_already_used">
@@ -245,6 +245,12 @@
       <segment state="translated">
         <source>settings.synonyms.type_synonyms.collection_type.duplicate</source>
         <target>Der er allerede defineret en oversættelse for denne type og sprog!</target>
+      </segment>
+    </unit>
+    <unit id="zT_j_oQ" name="validator.invalid_gtin">
+      <segment state="translated">
+        <source>validator.invalid_gtin</source>
+        <target>Dette er ikke en gyldig GTIN / EAN!</target>
       </segment>
     </unit>
   </file>

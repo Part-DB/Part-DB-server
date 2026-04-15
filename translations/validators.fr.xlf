@@ -112,7 +112,7 @@
     <unit id="gZ5FFL1" name="part.ipn.must_be_unique">
       <segment state="translated">
         <source>part.ipn.must_be_unique</source>
-        <target>Le numéro de pièce interne doit être unique.{{ value }} est déjà utilisé !</target>
+        <target>Le numéro de pièce interne doit être unique. {{ value }} est déjà utilisé !</target>
       </segment>
     </unit>
     <unit id="P31Yg.d" name="validator.project.bom_entry.name_or_part_needed">
@@ -223,13 +223,13 @@
         <target>Suite à des limitations techniques, il n'est pas possible de sélectionner une date après le 19-01-2038 sur les systèmes 32-bit !</target>
       </segment>
     </unit>
-    <unit id="89nojXY" name="validator.fileSize.invalidFormat">
+    <unit id="iM9yb_p" name="validator.fileSize.invalidFormat">
       <segment state="translated">
         <source>validator.fileSize.invalidFormat</source>
         <target>Taille de fichier invalide. Utilisez un nombre avec le suffixe K, G, M pour Kilo, Mega ou Gigabytes.</target>
       </segment>
     </unit>
-    <unit id="iXcU7ce" name="validator.invalid_range">
+    <unit id="ZFxQ0BZ" name="validator.invalid_range">
       <segment state="translated">
         <source>validator.invalid_range</source>
         <target>L'écart fournit est invalide !</target>
@@ -239,6 +239,18 @@
       <segment state="translated">
         <source>validator.google_code.wrong_code</source>
         <target>Code invalide. Vérifiez que votre application d'authentification est paramétrée correctement que le serveur et périphérique d'authentification ont l'heure correcte.</target>
+      </segment>
+    </unit>
+    <unit id="I330cr5" name="settings.synonyms.type_synonyms.collection_type.duplicate">
+      <segment state="translated">
+        <source>settings.synonyms.type_synonyms.collection_type.duplicate</source>
+        <target>Il existe déjà une traduction définit pour ce type et langage !</target>
+      </segment>
+    </unit>
+    <unit id="zT_j_oQ" name="validator.invalid_gtin">
+      <segment state="translated">
+        <source>validator.invalid_gtin</source>
+        <target>Cela n'est pas un GTIN / EAN valide !</target>
       </segment>
     </unit>
   </file>
