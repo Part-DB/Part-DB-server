@@ -95,6 +95,14 @@
                         <turbo-frame id="content" data-turbo-action="advance">
                             {# Here will be the real content be injected#}
 
+                            {# These empty divs are here to ensure that Turbo Morphing correctly removes homepage elements when navigating away #}
+                            <div id="homepage-search-container" class="d-none" data-turbo-temporary></div>
+                            <div id="homepage-banner-container" class="d-none" data-turbo-temporary></div>
+                            <div id="homepage-first-steps" class="d-none" data-turbo-temporary></div>
+                            <div id="homepage-license" class="d-none" data-turbo-temporary></div>
+                            <div id="homepage-last-activity-container" class="d-none" data-turbo-temporary></div>
+                            <div id="new-version-alert" class="d-none" data-turbo-temporary></div>
+
                             {% block content %}
                             {% endblock %}
 

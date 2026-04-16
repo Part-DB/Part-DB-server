@@ -6,33 +6,37 @@
 
 {% block item_search %}
     {% if is_granted('@parts.read') %}
-        {{ search.search_form("standalone") }}
+        <div id="homepage-search-container" data-turbo-temporary>
+            {{ search.search_form("standalone") }}
+        </div>
     {% endif %}
 {% endblock %}
 
 {% block item_banner %}
-    <div class="rounded p-4 bg-body-secondary">
-        <h1 class="display-3">{{ vars.partdb_title() }}</h1>
-        {% if settings_instance('customization').showVersionOnHomepage %}
-            <h4>
-                {% trans %}version.caption{% endtrans %}: {{ shivas_app_version }}
-                {% if git_branch is not empty or git_commit is not empty %}
-                    ({{ git_branch ?? '' }}/{{ git_commit ?? '' }})
-                {% endif %}
-            </h4>
-        {% endif %}
-        {% if banner is not empty %}
-            <hr>
-            <div class="latex" data-controller="common--latex">
-                <h5>{{ banner | format_markdown }}</h5>
-            </div>
-        {% endif %}
+    <div id="homepage-banner-container" class="container-fluid" data-turbo-temporary>
+        <div id="homepage-banner" class="rounded p-4 bg-body-secondary">
+            <h1 class="display-3">{{ vars.partdb_title() }}</h1>
+            {% if settings_instance('customization').showVersionOnHomepage %}
+                <h4>
+                    {% trans %}version.caption{% endtrans %}: {{ shivas_app_version }}
+                    {% if git_branch is not empty or git_commit is not empty %}
+                        ({{ git_branch ?? '' }}/{{ git_commit ?? '' }})
+                    {% endif %}
+                </h4>
+            {% endif %}
+            {% if banner is not empty %}
+                <hr>
+                <div class="latex" data-controller="common--latex">
+                    <h5>{{ banner | format_markdown }}</h5>
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
 
 {% block item_first_steps %}
     {% if show_first_steps %}
-        <div class="card border-info">
+        <div id="homepage-first-steps" class="card border-info" data-turbo-temporary>
             <div class="card-header bg-info ">
                 <h4><i class="fa fa-circle-play fa-fw " aria-hidden="true"></i> {% trans %}homepage.first_steps.title{% endtrans %}</h4>
             </div>
@@ -53,7 +57,7 @@
 {% endblock %}
 
 {% block item_license %}
-    <div class="card border-primary">
+    <div id="homepage-license" class="card border-primary" data-turbo-temporary>
         <div class="card-header bg-primary text-white">
             <h4><i class="fa fa-book fa-fw" aria-hidden="true"></i> {% trans %}homepage.license{% endtrans %}</h4>
         </div>
@@ -73,18 +77,19 @@
 
 {% block item_last_activity %}
     {% if datatable is not null %}
-        <div class="card">
-            <div class="card-header"><i class="fas fa-fw fa-history"></i> {% trans %}homepage.last_activity{% endtrans %}</div>
-            <div class="card-body">
-                {% import "components/history_log_macros.html.twig" as log %}
-                {{ log.last_activity_component(datatable) }}
+        <div id="homepage-last-activity-container" class="container-fluid" data-turbo-temporary>
+            <div id="homepage-last-activity" class="card">
+                <div class="card-header"><i class="fas fa-fw fa-history"></i> {% trans %}homepage.last_activity{% endtrans %}</div>
+                <div class="card-body">
+                    {% import "components/history_log_macros.html.twig" as log %}
+                    {{ log.last_activity_component(datatable) }}
+                </div>
             </div>
         </div>
     {% endif %}
 {% endblock %}
 
 {% block content %}
-
     {% if is_granted('@system.show_updates') %}
         {{ nv.new_version_alert(new_version_available, new_version, new_version_url) }}
     {% endif %}
@@ -99,5 +104,4 @@
             </div>
         {% endif %}
     {% endfor %}
-
 {% endblock %}

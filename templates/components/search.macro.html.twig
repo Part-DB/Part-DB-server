@@ -250,6 +250,8 @@
                 data-initial-query="{{ searchFilter ? searchFilter.keyword : app.request.get('keyword') }}">
 
             <input type="hidden" name="keyword" required {{ stimulus_target('elements/part_search', 'input') }} value="{{ searchFilter ? searchFilter.keyword : app.request.get('keyword') }}">
+            {# Hidden submit button to allow form submission on enter, even if the real input is hidden/handled by JS #}
+            <input type="submit" class="d-none" aria-hidden="true">
         </div>
 
         {# And right in the standalone mode #}

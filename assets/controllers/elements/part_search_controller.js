@@ -73,6 +73,7 @@ export default class extends Controller {
 
         //If the element is in navbar mode, or not
         const navbar_mode = this.element.dataset.navbarMode === "true";
+        const panel_container_element = document.getElementById("navbar-search-form");
 
         const that = this;
 
@@ -124,7 +125,7 @@ export default class extends Controller {
                 query: this.element.dataset.initialQuery || that.inputTarget.value || ""
             },
             //Place the panel in the navbar, if the element is in navbar mode
-            panelContainer: navbar_mode ? document.getElementById("navbar-search-form") : document.body,
+            panelContainer: (navbar_mode && panel_container_element) ? panel_container_element : document.body,
             panelPlacement: this.element.dataset.panelPlacement,
             plugins: [recentSearchesPlugin],
             openOnFocus: true,
@@ -152,6 +153,11 @@ export default class extends Controller {
 
             // If the form is submitted, forward the term to the form
             onSubmit({ state, event, ...setters }) {
+                // If the user pressed enter, we want to submit the form
+                if (event) {
+                    event.preventDefault();
+                }
+
                 //Put the current text into each target input field
                 const input = that.inputTarget;
 
@@ -167,7 +173,13 @@ export default class extends Controller {
                 input.value = state.query;
 
                 if (input.form) {
-                    input.form.requestSubmit();
+                    // We prefer requestSubmit() as it is more compatible with Turbo and triggers submit event listeners
+                    // However, we fallback to submit() if requestSubmit() is not available
+                    if (typeof input.form.requestSubmit === 'function') {
+                        input.form.requestSubmit();
+                    } else {
+                        input.form.submit();
+                    }
                 }
             },
 

@@ -60,6 +60,10 @@ export default class extends TreeController {
     doUpdateIfNeeded()
     {
         const info_element = document.getElementById('sidebar-last-time-updated');
+        if (!info_element) {
+            return;
+        }
+
         const date_str = info_element.dataset.lastUpdate;
         const server_last_update = new Date(date_str);
 

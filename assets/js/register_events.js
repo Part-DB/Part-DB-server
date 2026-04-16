@@ -35,6 +35,7 @@ class RegisterEventHelper {
         });
 
         this.registerModalDropRemovalOnFormSubmit();
+        this.registerHomepageCleanupOnSearch();
 
 
     }
@@ -61,6 +62,39 @@ class RegisterEventHelper {
     registerLoadHandler(fn) {
         document.addEventListener('turbo:render', fn);
         document.addEventListener('turbo:load', fn);
+    }
+
+    registerHomepageCleanupOnSearch() {
+        const cleanup = () => {
+            const ids = [
+                'homepage-banner-container',
+                'homepage-last-activity-container',
+                'homepage-search-container',
+                'homepage-first-steps',
+                'homepage-license',
+                'new-version-alert'
+            ];
+
+            const isSearchPage = window.location.pathname.includes('/search') || window.location.search.includes('keyword=');
+
+            ids.forEach(id => {
+                const elements = document.querySelectorAll('#' + id);
+                elements.forEach(el => {
+                    if (isSearchPage) {
+                        //We hide it, instead of removing it, to not break Turbo Morphing anchors
+                        el.style.setProperty('display', 'none', 'important');
+                    } else {
+                        //On non-search pages, we ensure it is visible again if it was hidden by this script
+                        //But only if it's not one of the "anchor" divs from base.html.twig which should stay hidden
+                        if (el.hasAttribute('data-turbo-temporary')) {
+                             el.style.display = '';
+                        }
+                    }
+                });
+            });
+        };
+
+        this.registerLoadHandler(cleanup);
     }
 
     configureDropdowns() {

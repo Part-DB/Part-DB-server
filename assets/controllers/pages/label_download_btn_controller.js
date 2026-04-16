@@ -22,6 +22,9 @@ import {Controller} from "@hotwired/stimulus";
 export default class extends Controller
 {
     download(event) {
-        this.element.href = document.getElementById('pdf_preview').data
+        const preview = document.getElementById('pdf_preview');
+        if (preview) {
+            this.element.href = preview.data;
+        }
     }
 }
