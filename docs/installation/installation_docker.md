@@ -221,8 +221,11 @@ docker exec --user=www-data partdb php bin/console doctrine:migrations:migrate
 
 ### Automatic updates via Watchtower (Web UI)
 
-Part-DB supports triggering Docker container updates directly from the web interface using [Watchtower](https://containrrr.dev/watchtower/).
+Part-DB supports triggering Docker container updates directly from the web interface using [Watchtower](https://github.com/nicholas-fedor/watchtower).
 When configured, administrators can check for and apply updates from the **System > Update Manager** page.
+
+{: .info }
+> The original `containrrr/watchtower` project is no longer maintained (last release November 2023). These docs use the actively maintained community fork at [`nicholas-fedor/watchtower`](https://github.com/nicholas-fedor/watchtower), which is drop-in compatible with the original HTTP API.
 
 To enable this feature, add a Watchtower service to your `docker-compose.yaml` and configure the connection:
 
@@ -242,7 +245,7 @@ services:
     # ... your existing ports/volumes ...
 
   watchtower:
-    image: containrrr/watchtower
+    image: ghcr.io/nicholas-fedor/watchtower:latest
     container_name: watchtower
     restart: unless-stopped
     volumes:
