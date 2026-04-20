@@ -1,4 +1,4 @@
-# Generated on Mon Apr 13 05:19:27 UTC 2026
+# Generated on Mon Apr 20 05:18:27 UTC 2026
 # This file contains all footprints available in the offical KiCAD library
 Audio_Module:Reverb_BTDR-1H
 Audio_Module:Reverb_BTDR-1V
@@ -12028,6 +12028,8 @@ Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm
 Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm_ThermalVias
 Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm
 Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias
+Package_DFN_QFN:WQFN-28-1EP_3.5x5.5mm_P0.5mm_EP2.05x4.05mm
+Package_DFN_QFN:WQFN-28-1EP_3.5x5.5mm_P0.5mm_EP2.05x4.05mm_ThermalVias
 Package_DFN_QFN:WQFN-28-1EP_4x4mm_P0.4mm_EP2.7x2.7mm
 Package_DFN_QFN:WQFN-28-1EP_4x4mm_P0.4mm_EP2.7x2.7mm_ThermalVias
 Package_DFN_QFN:WQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm
