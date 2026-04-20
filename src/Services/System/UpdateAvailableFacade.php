@@ -104,7 +104,10 @@ class UpdateAvailableFacade
 
         return $this->updateCache->get(self::CACHE_KEY, function (ItemInterface $item) {
             $item->expiresAfter(self::CACHE_TTL);
-            return $this->updateChecker->getLatestVersion();
+            return $this->updateChecker->getLatestVersion() ?? [
+                'version' => '0.0.0',
+                'url' => 'no-release-found'
+            ];
         });
     }
 }
