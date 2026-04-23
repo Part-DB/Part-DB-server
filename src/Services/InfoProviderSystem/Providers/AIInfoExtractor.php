@@ -32,6 +32,11 @@ use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\AIExtractorSettings;
+use Symfony\AI\Platform\Message\Message;
+use Symfony\AI\Platform\Message\MessageBag;
+use Symfony\AI\Platform\Platform;
+use Symfony\AI\Platform\PlatformInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class AIInfoExtractor implements InfoProviderInterface
@@ -40,7 +45,10 @@ class AIInfoExtractor implements InfoProviderInterface
 
     private readonly HttpClientInterface $httpClient;
 
-    public function __construct(HttpClientInterface $httpClient, private readonly AIExtractorSettings $settings)
+    public function __construct(HttpClientInterface $httpClient, private readonly AIExtractorSettings $settings,
+        #[Autowire(service: "ai.traceable_platform.openrouter")]
+        private readonly PlatformInterface $aiPlatform
+    )
     {
         $this->httpClient = $httpClient->withOptions([
             'timeout' => 30,
@@ -68,7 +76,8 @@ class AIInfoExtractor implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return !empty($this->settings->apiKey) && $this->settings->enabled;
+        return true;
+        //return !empty($this->settings->apiKey) && $this->settings->enabled;
     }
 
     public function searchByKeyword(string $keyword): array
@@ -76,28 +85,28 @@ class AIInfoExtractor implements InfoProviderInterface
         // Treat the keyword as a URL and return a single search result
         $url = $this->normalizeURL($keyword);
 
-        try {
-            $part = $this->getDetails($url);
-            return [
-                new SearchResultDTO(
-                    provider_key: $this->getProviderKey(),
-                    provider_id: $url,
-                    name: $part->name,
-                    description: $part->description,
-                    category: $part->category,
-                    manufacturer: $part->manufacturer,
-                    mpn: $part->mpn,
-                    preview_image_url: $part->preview_image_url,
-                    manufacturing_status: $part->manufacturing_status,
-                    provider_url: $part->provider_url,
-                    footprint: $part->footprint,
-                    gtin: $part->gtin,
-                ),
-            ];
-        } catch (\Throwable $e) {
-            // Return empty array on error
-            return [];
-        }
+        //try {
+        $part = $this->getDetails($url);
+        return [
+            new SearchResultDTO(
+                provider_key: $this->getProviderKey(),
+                provider_id: $url,
+                name: $part->name,
+                description: $part->description,
+                category: $part->category,
+                manufacturer: $part->manufacturer,
+                mpn: $part->mpn,
+                preview_image_url: $part->preview_image_url,
+                manufacturing_status: $part->manufacturing_status,
+                provider_url: $part->provider_url,
+                footprint: $part->footprint,
+                gtin: $part->gtin,
+            ),
+        ];
+        //} catch (\Throwable $e) {
+        //    // Return empty array on error
+        //    return [];
+        //}
     }
 
     public function getDetails(string $id): PartDetailDTO
@@ -194,6 +203,108 @@ class AIInfoExtractor implements InfoProviderInterface
 
     private function callOpenRouterAPI(string $htmlContent, string $url): string
     {
+        $input = new MessageBag(
+            Message::forSystem($this->buildSystemPrompt()),
+            Message::ofUser("Extract part information from this webpage content:\n\nURL: $url\n\n$htmlContent")
+        );
+
+        $models = $this->aiPlatform->getModelCatalog()->getModels();
+
+        try {
+            //'openai/gpt-5-mini'
+            $result = $this->aiPlatform->invoke('openrouter/auto', $input, [
+                'response_format' => 'json_schema',
+                'json_schema' => [
+                    'name' => 'clock',
+                    'strict' => true,
+                    'schema' => [
+                        'type' => 'object',
+                        'properties' => [
+                            'name' => ['type' => 'string', 'description' => 'Product name'],
+                            'description' => ['type' => 'string', 'description' => 'Product description'],
+                            'manufacturer' => ['type' => ['string', 'null'], 'description' => 'Manufacturer name'],
+                            'mpn' => ['type' => ['string', 'null'], 'description' => 'Manufacturer Part Number'],
+                            'category' => ['type' => ['string', 'null'], 'description' => 'Product category'],
+                            'manufacturing_status' => ['type' => ['string', 'null'], 'enum' => ['active', 'obsolete', 'nrfnd', 'discontinued', null], 'description' => 'Manufacturing status'],
+                            'footprint' => ['type' => ['string', 'null'], 'description' => 'Package/footprint type'],
+                            'mass' => ['type' => ['number', 'null'], 'description' => 'Mass in grams'],
+                            'parameters' => [
+                                'type' => 'array',
+                                'items' => [
+                                    'type' => 'object',
+                                    'properties' => [
+                                        'name' => ['type' => 'string'],
+                                        'value' => ['type' => 'string'],
+                                        'unit' => ['type' => ['string', 'null']],
+                                    ],
+                                    'required' => ['name', 'value'],
+                                ],
+                            ],
+                            'datasheets' => [
+                                'type' => 'array',
+                                'items' => [
+                                    'type' => 'object',
+                                    'properties' => [
+                                        'url' => ['type' => 'string'],
+                                        'description' => ['type' => 'string'],
+                                    ],
+                                    'required' => ['url'],
+                                ],
+                            ],
+                            'images' => [
+                                'type' => 'array',
+                                'items' => [
+                                    'type' => 'object',
+                                    'properties' => [
+                                        'url' => ['type' => 'string'],
+                                        'description' => ['type' => 'string'],
+                                    ],
+                                    'required' => ['url'],
+                                ],
+                            ],
+                            'vendor_infos' => [
+                                'type' => 'array',
+                                'items' => [
+                                    'type' => 'object',
+                                    'properties' => [
+                                        'distributor_name' => ['type' => 'string'],
+                                        'order_number' => ['type' => ['string', 'null']],
+                                        'product_url' => ['type' => 'string'],
+                                        'prices' => [
+                                            'type' => 'array',
+                                            'items' => [
+                                                'type' => 'object',
+                                                'properties' => [
+                                                    'minimum_quantity' => ['type' => 'integer'],
+                                                    'price' => ['type' => 'number'],
+                                                    'currency' => ['type' => 'string'],
+                                                ],
+                                                'required' => ['minimum_quantity', 'price', 'currency'],
+                                            ],
+                                        ],
+                                    ],
+                                    'required' => ['distributor_name', 'product_url'],
+                                ],
+                            ],
+                            'manufacturer_product_url' => ['type' => ['string', 'null'], 'description' => 'Manufacturer product page URL'],
+                        ],
+                        'required' => ['name', 'description'],
+                    ],
+                ],
+            ]);
+        } catch (\Throwable $e) {
+            dump($e);
+            throw new \RuntimeException('LLM invocation failed: ' . $e->getMessage(), previous: $e);
+        }
+
+
+
+        dump($result->getResult()->getContent());
+
+        return json_encode($result->getResult()->getContent());
+
+        /*
+
         $systemPrompt = $this->buildSystemPrompt();
 
         // Define the tool/function for structured output
@@ -331,6 +442,8 @@ class AIInfoExtractor implements InfoProviderInterface
         $content = trim($content);
 
         return $content;
+        */
+
     }
 
     private function buildSystemPrompt(): string
