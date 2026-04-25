@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Services\AI;
 
+use Symfony\AI\Platform\Bridge\Generic\CompletionsModel;
 use Symfony\AI\Platform\Exception\ModelNotFoundException;
 use Symfony\AI\Platform\Model;
 use Symfony\AI\Platform\ModelCatalog\ModelCatalogInterface;
@@ -47,7 +48,7 @@ final readonly class AcceptAllModelsCatalog implements ModelCatalogInterface
             return $this->decorated->getModel($modelName);
         } catch (ModelNotFoundException $e) {
             //If the model is not found, return a generic model with the given name and no capabilities.
-            return new Model($modelName, []);
+            return new CompletionsModel($modelName, []);
         }
     }
 
