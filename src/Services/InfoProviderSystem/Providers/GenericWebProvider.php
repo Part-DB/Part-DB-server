@@ -48,6 +48,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class GenericWebProvider implements InfoProviderInterface
 {
 
+    use FixAndValidateUrlTrait;
+
     public const DISTRIBUTOR_NAME = 'Website';
 
     private readonly HttpClientInterface $httpClient;
@@ -308,34 +310,7 @@ class GenericWebProvider implements InfoProviderInterface
         return null;
     }
 
-    private function fixAndValidateURL(string $url): string
-    {
-        $originalUrl = $url;
 
-        //Add scheme if missing
-        if (!preg_match('/^https?:\/\//', $url)) {
-            //Remove any leading slashes
-            $url = ltrim($url, '/');
-
-            //If the URL starts with https:/ or http:/, add the missing slash
-            //Traefik removes the double slash as secruity measure, so we want to be forgiving and add it back if needed
-            //See https://github.com/Part-DB/Part-DB-server/issues/1296
-            if (preg_match('/^https?:\/[^\/]/', $url)) {
-                $url = preg_replace('/^(https?:)\/([^\/])/', '$1//$2', $url);
-            } else {
-                $url = 'https://'.$url;
-            }
-        }
-
-        //If this is not a valid URL with host, domain and path, throw an exception
-        if (filter_var($url, FILTER_VALIDATE_URL) === false ||
-            parse_url($url, PHP_URL_HOST) === null ||
-            parse_url($url, PHP_URL_PATH) === null) {
-            throw new ProviderIDNotSupportedException("The given ID is not a valid URL: ".$originalUrl);
-        }
-
-        return $url;
-    }
 
     public function getDetails(string $id, bool $check_for_delegation = true): PartDetailDTO
     {

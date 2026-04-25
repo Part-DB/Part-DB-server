@@ -24,32 +24,31 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\Providers;
 
-use App\Entity\Parts\ManufacturingStatus;
-use App\Services\InfoProviderSystem\DTOs\FileDTO;
-use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
+use App\Exceptions\ProviderIDNotSupportedException;
+use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
-use App\Services\InfoProviderSystem\DTOs\PriceDTO;
-use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
-use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\AIExtractorSettings;
 use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
-use Symfony\AI\Platform\Platform;
 use Symfony\AI\Platform\PlatformInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class AIInfoExtractor implements InfoProviderInterface
+final class AIInfoExtractor implements InfoProviderInterface
 {
+    use FixAndValidateUrlTrait;
+
     private const DISTRIBUTOR_NAME = 'AI Extracted';
 
     private readonly HttpClientInterface $httpClient;
 
-    public function __construct(HttpClientInterface $httpClient, private readonly AIExtractorSettings $settings,
+    public function __construct(
+        HttpClientInterface $httpClient,
+        private readonly AIExtractorSettings $settings,
         #[Autowire(service: "ai.traceable_platform.openrouter")]
-        private readonly PlatformInterface $aiPlatform
-    )
-    {
+        private readonly PlatformInterface $aiPlatform,
+        private readonly DTOJsonSchemaConverter $jsonSchemaConverter,
+    ) {
         $this->httpClient = $httpClient->withOptions([
             'timeout' => 30,
             'headers' => [
@@ -82,36 +81,17 @@ class AIInfoExtractor implements InfoProviderInterface
 
     public function searchByKeyword(string $keyword): array
     {
-        // Treat the keyword as a URL and return a single search result
-        $url = $this->normalizeURL($keyword);
-
-        //try {
-        $part = $this->getDetails($url);
-        return [
-            new SearchResultDTO(
-                provider_key: $this->getProviderKey(),
-                provider_id: $url,
-                name: $part->name,
-                description: $part->description,
-                category: $part->category,
-                manufacturer: $part->manufacturer,
-                mpn: $part->mpn,
-                preview_image_url: $part->preview_image_url,
-                manufacturing_status: $part->manufacturing_status,
-                provider_url: $part->provider_url,
-                footprint: $part->footprint,
-                gtin: $part->gtin,
-            ),
-        ];
-        //} catch (\Throwable $e) {
-        //    // Return empty array on error
-        //    return [];
-        //}
+        try {
+            return [
+                $this->getDetails($keyword)
+            ]; } catch (ProviderIDNotSupportedException $e) {
+            return [];
+        }
     }
 
     public function getDetails(string $id): PartDetailDTO
     {
-        $url = $this->normalizeURL($id);
+        $url = $this->fixAndValidateURL($id);
 
         // Fetch HTML content
         $response = $this->httpClient->request('GET', $url);
@@ -123,14 +103,11 @@ class AIInfoExtractor implements InfoProviderInterface
         // Truncate to max content length
         $truncatedHtml = $this->truncateHTML($cleanedHtml, $this->settings->maxContentLength);
 
-        // Call OpenRouter API
-        $llmResponse = $this->callOpenRouterAPI($truncatedHtml, $url);
-
-        // Parse JSON response
-        $data = json_decode($llmResponse, true, 512, JSON_THROW_ON_ERROR);
+        // Call LLM
+        $llmResponse = $this->callLLM($truncatedHtml, $url);
 
         // Build and return PartDetailDTO
-        return $this->buildPartDetailDTO($data, $url);
+        return $this->jsonSchemaConverter->jsonToDTO($llmResponse, $this->getProviderKey(), $url, $url, self::DISTRIBUTOR_NAME);
     }
 
     public function getCapabilities(): array
@@ -142,21 +119,6 @@ class AIInfoExtractor implements InfoProviderInterface
             ProviderCapabilities::PRICE,
             ProviderCapabilities::PARAMETERS,
         ];
-    }
-
-    private function normalizeURL(string $url): string
-    {
-        // Add https:// if no protocol
-        if (!preg_match('/^https?:\/\//', $url)) {
-            $url = 'https://' . ltrim($url, '/');
-        }
-
-        // Validate URL
-        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
-            throw new \InvalidArgumentException("Invalid URL: $url");
-        }
-
-        return $url;
     }
 
     private function cleanHTML(string $html): string
@@ -201,249 +163,24 @@ class AIInfoExtractor implements InfoProviderInterface
         return $truncated;
     }
 
-    private function callOpenRouterAPI(string $htmlContent, string $url): string
+    private function callLLM(string $htmlContent, string $url): array
     {
         $input = new MessageBag(
             Message::forSystem($this->buildSystemPrompt()),
             Message::ofUser("Extract part information from this webpage content:\n\nURL: $url\n\n$htmlContent")
         );
 
-        $models = $this->aiPlatform->getModelCatalog()->getModels();
-
         try {
             //'openai/gpt-5-mini'
             $result = $this->aiPlatform->invoke('openrouter/auto', $input, [
                 'response_format' => 'json_schema',
-                'json_schema' => [
-                    'name' => 'clock',
-                    'strict' => true,
-                    'schema' => [
-                        'type' => 'object',
-                        'properties' => [
-                            'name' => ['type' => 'string', 'description' => 'Product name'],
-                            'description' => ['type' => 'string', 'description' => 'Product description'],
-                            'manufacturer' => ['type' => ['string', 'null'], 'description' => 'Manufacturer name'],
-                            'mpn' => ['type' => ['string', 'null'], 'description' => 'Manufacturer Part Number'],
-                            'category' => ['type' => ['string', 'null'], 'description' => 'Product category'],
-                            'manufacturing_status' => ['type' => ['string', 'null'], 'enum' => ['active', 'obsolete', 'nrfnd', 'discontinued', null], 'description' => 'Manufacturing status'],
-                            'footprint' => ['type' => ['string', 'null'], 'description' => 'Package/footprint type'],
-                            'mass' => ['type' => ['number', 'null'], 'description' => 'Mass in grams'],
-                            'parameters' => [
-                                'type' => 'array',
-                                'items' => [
-                                    'type' => 'object',
-                                    'properties' => [
-                                        'name' => ['type' => 'string'],
-                                        'value' => ['type' => 'string'],
-                                        'unit' => ['type' => ['string', 'null']],
-                                    ],
-                                    'required' => ['name', 'value'],
-                                ],
-                            ],
-                            'datasheets' => [
-                                'type' => 'array',
-                                'items' => [
-                                    'type' => 'object',
-                                    'properties' => [
-                                        'url' => ['type' => 'string'],
-                                        'description' => ['type' => 'string'],
-                                    ],
-                                    'required' => ['url'],
-                                ],
-                            ],
-                            'images' => [
-                                'type' => 'array',
-                                'items' => [
-                                    'type' => 'object',
-                                    'properties' => [
-                                        'url' => ['type' => 'string'],
-                                        'description' => ['type' => 'string'],
-                                    ],
-                                    'required' => ['url'],
-                                ],
-                            ],
-                            'vendor_infos' => [
-                                'type' => 'array',
-                                'items' => [
-                                    'type' => 'object',
-                                    'properties' => [
-                                        'distributor_name' => ['type' => 'string'],
-                                        'order_number' => ['type' => ['string', 'null']],
-                                        'product_url' => ['type' => 'string'],
-                                        'prices' => [
-                                            'type' => 'array',
-                                            'items' => [
-                                                'type' => 'object',
-                                                'properties' => [
-                                                    'minimum_quantity' => ['type' => 'integer'],
-                                                    'price' => ['type' => 'number'],
-                                                    'currency' => ['type' => 'string'],
-                                                ],
-                                                'required' => ['minimum_quantity', 'price', 'currency'],
-                                            ],
-                                        ],
-                                    ],
-                                    'required' => ['distributor_name', 'product_url'],
-                                ],
-                            ],
-                            'manufacturer_product_url' => ['type' => ['string', 'null'], 'description' => 'Manufacturer product page URL'],
-                        ],
-                        'required' => ['name', 'description'],
-                    ],
-                ],
+                'json_schema' => $this->jsonSchemaConverter->getJSONSchema(),
             ]);
         } catch (\Throwable $e) {
-            dump($e);
-            throw new \RuntimeException('LLM invocation failed: ' . $e->getMessage(), previous: $e);
+            throw new \RuntimeException('LLM invocation failed: '.$e->getMessage(), previous: $e);
         }
 
-
-
-        dump($result->getResult()->getContent());
-
-        return json_encode($result->getResult()->getContent());
-
-        /*
-
-        $systemPrompt = $this->buildSystemPrompt();
-
-        // Define the tool/function for structured output
-        $toolDefinition = [
-            'type' => 'function',
-            'function' => [
-                'name' => 'extract_part_info',
-                'description' => 'Extract electronic component information from a webpage',
-                'parameters' => [
-                    'type' => 'object',
-                    'properties' => [
-                        'name' => ['type' => 'string', 'description' => 'Product name'],
-                        'description' => ['type' => 'string', 'description' => 'Product description'],
-                        'manufacturer' => ['type' => ['string', 'null'], 'description' => 'Manufacturer name'],
-                        'mpn' => ['type' => ['string', 'null'], 'description' => 'Manufacturer Part Number'],
-                        'category' => ['type' => ['string', 'null'], 'description' => 'Product category'],
-                        'manufacturing_status' => ['type' => ['string', 'null'], 'enum' => ['active', 'obsolete', 'nrfnd', 'discontinued', null], 'description' => 'Manufacturing status'],
-                        'footprint' => ['type' => ['string', 'null'], 'description' => 'Package/footprint type'],
-                        'mass' => ['type' => ['number', 'null'], 'description' => 'Mass in grams'],
-                        'parameters' => [
-                            'type' => 'array',
-                            'items' => [
-                                'type' => 'object',
-                                'properties' => [
-                                    'name' => ['type' => 'string'],
-                                    'value' => ['type' => 'string'],
-                                    'unit' => ['type' => ['string', 'null']],
-                                ],
-                                'required' => ['name', 'value'],
-                            ],
-                        ],
-                        'datasheets' => [
-                            'type' => 'array',
-                            'items' => [
-                                'type' => 'object',
-                                'properties' => [
-                                    'url' => ['type' => 'string'],
-                                    'description' => ['type' => 'string'],
-                                ],
-                                'required' => ['url'],
-                            ],
-                        ],
-                        'images' => [
-                            'type' => 'array',
-                            'items' => [
-                                'type' => 'object',
-                                'properties' => [
-                                    'url' => ['type' => 'string'],
-                                    'description' => ['type' => 'string'],
-                                ],
-                                'required' => ['url'],
-                            ],
-                        ],
-                        'vendor_infos' => [
-                            'type' => 'array',
-                            'items' => [
-                                'type' => 'object',
-                                'properties' => [
-                                    'distributor_name' => ['type' => 'string'],
-                                    'order_number' => ['type' => ['string', 'null']],
-                                    'product_url' => ['type' => 'string'],
-                                    'prices' => [
-                                        'type' => 'array',
-                                        'items' => [
-                                            'type' => 'object',
-                                            'properties' => [
-                                                'minimum_quantity' => ['type' => 'integer'],
-                                                'price' => ['type' => 'number'],
-                                                'currency' => ['type' => 'string'],
-                                            ],
-                                            'required' => ['minimum_quantity', 'price', 'currency'],
-                                        ],
-                                    ],
-                                ],
-                                'required' => ['distributor_name', 'product_url'],
-                            ],
-                        ],
-                        'manufacturer_product_url' => ['type' => ['string', 'null'], 'description' => 'Manufacturer product page URL'],
-                    ],
-                    'required' => ['name', 'description'],
-                ],
-            ],
-        ];
-
-        $payload = [
-            'model' => $this->settings->model,
-            'messages' => [
-                [
-                    'role' => 'system',
-                    'content' => $systemPrompt,
-                ],
-                [
-                    'role' => 'user',
-                    'content' => "Extract part information from this webpage content:\n\nURL: $url\n\n$htmlContent",
-                ],
-            ],
-            'tools' => [$toolDefinition],
-            'tool_choice' => ['type' => 'function', 'function' => ['name' => 'extract_part_info']],
-            'max_tokens' => 4096,
-            'temperature' => 0.1,
-        ];
-
-        $response = $this->httpClient->request('POST', 'https://openrouter.ai/api/v1/chat/completions', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->settings->apiKey,
-                'Content-Type' => 'application/json',
-                'HTTP-Referer' => 'https://github.com/Part-DB/Part-DB-server',
-                'X-Title' => 'Part-DB AI Info Extractor',
-            ],
-            'json' => $payload,
-        ]);
-
-        $data = $response->toArray();
-
-        $message = $data['choices'][0]['message'] ?? null;
-        if ($message === null) {
-            throw new \RuntimeException('No response message from LLM');
-        }
-
-        // Check if the model used the tool/function call
-        if (isset($message['tool_calls']) && !empty($message['tool_calls'])) {
-            foreach ($message['tool_calls'] as $toolCall) {
-                if ($toolCall['function']['name'] === 'extract_part_info') {
-                    return $toolCall['function']['arguments'];
-                }
-            }
-        }
-
-        // Fallback to content if no tool call (some models might not support tool calling)
-        $content = $message['content'] ?? throw new \RuntimeException('No response content from LLM');
-
-        // Strip markdown code blocks if present (fallback for models without tool support)
-        $content = preg_replace('/^```(?:json)?\s*\n?/i', '', $content);
-        $content = preg_replace('/\n?```\s*$/i', '', $content);
-        $content = trim($content);
-
-        return $content;
-        */
-
+        return $result->getResult()->getContent();
     }
 
     private function buildSystemPrompt(): string
@@ -485,119 +222,4 @@ For parameters, combine name, value, and unit. The unit should be separate if po
 PROMPT;
     }
 
-    private function buildPartDetailDTO(array $data, string $url): PartDetailDTO
-    {
-        // Map manufacturing status
-        $manufacturingStatus = null;
-        if (!empty($data['manufacturing_status'])) {
-            $status = strtolower((string) $data['manufacturing_status']);
-            $manufacturingStatus = match ($status) {
-                'active' => ManufacturingStatus::ACTIVE,
-                'obsolete', 'discontinued' => ManufacturingStatus::DISCONTINUED,
-                'nrfnd', 'not recommended for new designs' => ManufacturingStatus::NRFND,
-                'eol' => ManufacturingStatus::EOL,
-                'announced' => ManufacturingStatus::ANNOUNCED,
-                default => null,
-            };
-        }
-
-        // Build parameters
-        $parameters = null;
-        if (!empty($data['parameters']) && is_array($data['parameters'])) {
-            $parameters = [];
-            foreach ($data['parameters'] as $p) {
-                if (!empty($p['name'])) {
-                    $value = $p['value'] ?? '';
-                    $unit = $p['unit'] ?? null;
-                    // Combine value and unit for parsing
-                    $valueWithUnit = $unit ? $value . ' ' . $unit : $value;
-                    $parameters[] = ParameterDTO::parseValueField(
-                        name: $p['name'],
-                        value: $valueWithUnit
-                    );
-                }
-            }
-        }
-
-        // Build datasheets
-        $datasheets = null;
-        if (!empty($data['datasheets']) && is_array($data['datasheets'])) {
-            $datasheets = [];
-            foreach ($data['datasheets'] as $d) {
-                if (!empty($d['url'])) {
-                    $datasheets[] = new FileDTO(
-                        url: $d['url'],
-                        name: $d['description'] ?? 'Datasheet'
-                    );
-                }
-            }
-        }
-
-        // Build images
-        $images = null;
-        if (!empty($data['images']) && is_array($data['images'])) {
-            $images = [];
-            foreach ($data['images'] as $i) {
-                if (!empty($i['url'])) {
-                    $images[] = new FileDTO(
-                        url: $i['url'],
-                        name: $i['description'] ?? 'Image'
-                    );
-                }
-            }
-        }
-
-        // Build vendor infos
-        $vendorInfos = null;
-        if (!empty($data['vendor_infos']) && is_array($data['vendor_infos'])) {
-            $vendorInfos = [];
-            foreach ($data['vendor_infos'] as $v) {
-                $prices = [];
-                if (!empty($v['prices']) && is_array($v['prices'])) {
-                    foreach ($v['prices'] as $p) {
-                        $prices[] = new PriceDTO(
-                            minimum_discount_amount: (int) ($p['minimum_quantity'] ?? 1),
-                            price: (string) ($p['price'] ?? 0),
-                            currency_iso_code: $p['currency'] ?? 'USD',
-                            price_related_quantity: (int) ($p['minimum_quantity'] ?? 1),
-                        );
-                    }
-                }
-
-                $vendorInfos[] = new PurchaseInfoDTO(
-                    distributor_name: $v['distributor_name'] ?? self::DISTRIBUTOR_NAME,
-                    order_number: $v['order_number'] ?? 'Unknown',
-                    prices: $prices,
-                    product_url: $v['product_url'] ?? $url,
-                );
-            }
-        }
-
-        // Get preview image URL
-        $previewImageUrl = null;
-        if (!empty($data['images']) && is_array($data['images']) && !empty($data['images'][0]['url'])) {
-            $previewImageUrl = $data['images'][0]['url'];
-        }
-
-        return new PartDetailDTO(
-            provider_key: $this->getProviderKey(),
-            provider_id: $url,
-            name: $data['name'] ?? 'Unknown',
-            description: $data['description'] ?? '',
-            category: $data['category'] ?? null,
-            manufacturer: $data['manufacturer'] ?? null,
-            mpn: $data['mpn'] ?? null,
-            preview_image_url: $previewImageUrl,
-            manufacturing_status: $manufacturingStatus,
-            provider_url: $url,
-            footprint: $data['footprint'] ?? null,
-            mass: isset($data['mass']) && is_numeric($data['mass']) ? (float) $data['mass'] : null,
-            notes: null,
-            datasheets: $datasheets,
-            images: $images,
-            parameters: $parameters,
-            vendor_infos: $vendorInfos,
-            manufacturer_product_url: $data['manufacturer_product_url'] ?? null,
-        );
-    }
 }
