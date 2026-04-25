@@ -25,8 +25,10 @@ namespace App\Services\AI;
 
 use App\Settings\AISettings\LMStudioSettings;
 use App\Settings\AISettings\OpenRouterSettings;
+use Symfony\Contracts\Translation\TranslatableInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-enum AIPlatforms: string
+enum AIPlatforms: string implements TranslatableInterface
 {
     case OPENROUTER = 'openrouter';
     case LMSTUDIO = 'lmstudio';
@@ -53,5 +55,12 @@ enum AIPlatforms: string
 
             default => throw new \InvalidArgumentException(sprintf('No settings class defined for AI platform "%s".', $this->name)),
         };
+    }
+
+    public function trans(TranslatorInterface $translator, ?string $locale = null): string
+    {
+        $key = 'settings.ai.' . $this->value;
+
+        return $translator->trans($key, locale: $locale);
     }
 }

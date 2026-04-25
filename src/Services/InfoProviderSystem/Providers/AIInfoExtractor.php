@@ -26,14 +26,11 @@ namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Exceptions\ProviderIDNotSupportedException;
 use App\Services\AI\AIPlatformRegistry;
-use App\Services\AI\AIPlatforms;
 use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Settings\InfoProviderSystem\AIExtractorSettings;
 use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
-use Symfony\AI\Platform\PlatformInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class AIInfoExtractor implements InfoProviderInterface
@@ -76,8 +73,7 @@ final class AIInfoExtractor implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return true;
-        //return !empty($this->settings->apiKey) && $this->settings->enabled;
+        return $this->settings->platform !== null && $this->settings->model !== '';
     }
 
     public function searchByKeyword(string $keyword): array
@@ -172,10 +168,10 @@ final class AIInfoExtractor implements InfoProviderInterface
         );
 
         try {
-            $aiPlatform = $this->AIPlatformRegistry->getPlatform(AIPlatforms::OPENROUTER);
+            $aiPlatform = $this->AIPlatformRegistry->getPlatform($this->settings->platform ?? throw new \RuntimeException('No AI platform selected') );
 
             //'openai/gpt-5-mini'
-            $result = $aiPlatform->invoke('openrouter/auto', $input, [
+            $result = $aiPlatform->invoke($this->settings->model, $input, [
                 'response_format' => [
                     'type' => 'json_schema',
                         'json_schema' => $this->jsonSchemaConverter->getJSONSchema(),

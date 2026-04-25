@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace App\Settings\InfoProviderSystem;
 
+use App\Form\Settings\AiPlatformChoiceType;
+use App\Services\AI\AIPlatforms;
 use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
@@ -36,10 +38,11 @@ class AIExtractorSettings
 {
     use SettingsTrait;
 
-    #[SettingsParameter(label: new TM("settings.ips.ai_extractor.api_key"), description: new TM("settings.ips.ai_extractor.api_key.description"),
+    #[SettingsParameter(label: new TM("settings.ips.ai_extractor.ai_platform"), description: new TM("settings.ips.ai_extractor.ai_platform.help"),
+        formType: AiPlatformChoiceType::class,
         envVar: "string:PROVIDER_AI_EXTRACTOR_API_KEY", envVarMode: EnvVarMode::OVERWRITE
     )]
-    public ?string $apiKey = null;
+    public ?AIPlatforms $platform = null;
 
     #[SettingsParameter(label: new TM("settings.ips.ai_extractor.model"), description: new TM("settings.ips.ai_extractor.model.description"),
         envVar: "string:PROVIDER_AI_EXTRACTOR_MODEL", envVarMode: EnvVarMode::OVERWRITE
