@@ -25,6 +25,8 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Exceptions\ProviderIDNotSupportedException;
+use App\Services\AI\AIPlatformRegistry;
+use App\Services\AI\AIPlatforms;
 use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Settings\InfoProviderSystem\AIExtractorSettings;
@@ -45,8 +47,7 @@ final class AIInfoExtractor implements InfoProviderInterface
     public function __construct(
         HttpClientInterface $httpClient,
         private readonly AIExtractorSettings $settings,
-        #[Autowire(service: "ai.traceable_platform.openrouter")]
-        private readonly PlatformInterface $aiPlatform,
+        private readonly AIPlatformRegistry $AIPlatformRegistry,
         private readonly DTOJsonSchemaConverter $jsonSchemaConverter,
     ) {
         $this->httpClient = $httpClient->withOptions([
@@ -171,8 +172,10 @@ final class AIInfoExtractor implements InfoProviderInterface
         );
 
         try {
+            $aiPlatform = $this->AIPlatformRegistry->getPlatform(AIPlatforms::OPENROUTER);
+
             //'openai/gpt-5-mini'
-            $result = $this->aiPlatform->invoke('openrouter/auto', $input, [
+            $result = $aiPlatform->invoke('openrouter/auto', $input, [
                 'response_format' => 'json_schema',
                 'json_schema' => $this->jsonSchemaConverter->getJSONSchema(),
             ]);
