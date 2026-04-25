@@ -176,8 +176,10 @@ final class AIInfoExtractor implements InfoProviderInterface
 
             //'openai/gpt-5-mini'
             $result = $aiPlatform->invoke('openrouter/auto', $input, [
-                'response_format' => 'json_schema',
-                'json_schema' => $this->jsonSchemaConverter->getJSONSchema(),
+                'response_format' => [
+                    'type' => 'json_schema',
+                        'json_schema' => $this->jsonSchemaConverter->getJSONSchema(),
+                ]
             ]);
         } catch (\Throwable $e) {
             throw new \RuntimeException('LLM invocation failed: '.$e->getMessage(), previous: $e);
