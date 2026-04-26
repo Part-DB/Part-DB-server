@@ -23,7 +23,10 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Parameters\AbstractParameter;
+use App\Services\AI\AIPlatformRegistry;
+use App\Services\AI\AIPlatforms;
 use App\Settings\MiscSettings\IpnSuggestSettings;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Category;
@@ -54,6 +57,8 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 /**
  * In this controller the endpoints for the typeaheads are collected.
@@ -222,5 +227,22 @@ class TypeaheadController extends AbstractController
         $ipnSuggestions = $partRepository->autoCompleteIpn($clonedPart, $description, $this->ipnSuggestSettings->suggestPartDigits);
 
         return new JsonResponse($ipnSuggestions);
+    }
+
+    #[Route(path: '/ai/{platform}/models', name: 'typeahead_ai_models', requirements: ['platform' => '.+'])]
+    public function aiModels(
+        AIPlatforms $platform,
+        AIPlatformRegistry $platformRegistry,
+        CacheInterface $cache,
+    ): JsonResponse {
+
+        $this->denyAccessUnlessGranted('@config.change_system_settings');
+
+        $models = $cache->get('ai_models_'.$platform->value, function(ItemInterface $item) use ($platformRegistry, $platform) {
+            $item->expiresAfter(3600); //Cache for 1 hour
+            return $platformRegistry->getPlatform($platform)->getModelCatalog()->getModels();
+        });
+
+        return new JsonResponse($models);
     }
 }

@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Settings\InfoProviderSystem;
 
+use App\Form\Settings\AiModelsType;
 use App\Form\Settings\AiPlatformChoiceType;
 use App\Services\AI\AIPlatforms;
 use App\Settings\SettingsIcon;
@@ -36,15 +37,18 @@ use Symfony\Component\Translation\TranslatableMessage as TM;
 #[SettingsIcon("fa-robot")]
 class AIExtractorSettings
 {
+    private const MODEL_SELECTOR_LABEL = 'ai_extractor';
+
     use SettingsTrait;
 
     #[SettingsParameter(label: new TM("settings.ips.ai_extractor.ai_platform"), description: new TM("settings.ips.ai_extractor.ai_platform.help"),
-        formType: AiPlatformChoiceType::class,
+        formType: AiPlatformChoiceType::class, formOptions: ['platform_selector_label' => self::MODEL_SELECTOR_LABEL],
         envVar: "string:PROVIDER_AI_EXTRACTOR_API_KEY", envVarMode: EnvVarMode::OVERWRITE
     )]
     public ?AIPlatforms $platform = null;
 
     #[SettingsParameter(label: new TM("settings.ips.ai_extractor.model"), description: new TM("settings.ips.ai_extractor.model.description"),
+        formType: AiModelsType::class, formOptions: ['platform_selector' => self::MODEL_SELECTOR_LABEL],
         envVar: "string:PROVIDER_AI_EXTRACTOR_MODEL", envVarMode: EnvVarMode::OVERWRITE
     )]
     public string $model = 'z-ai/glm-4.7';

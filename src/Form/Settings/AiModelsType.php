@@ -23,43 +23,40 @@ declare(strict_types=1);
 
 namespace App\Form\Settings;
 
-use App\Services\AI\AIPlatformRegistry;
-use App\Services\AI\AIPlatforms;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * Allow to choose an AI platform from the enabled platforms in the system. This is used in the settings to choose the default platform for AI features.
+ * An text input with autocomplete for AI models from the given platform.
+ * The platform is determined by the value of another form field, which is specified by the "platform_selector" option. This allows to filter the available models based on the selected platform.
  */
-final class AiPlatformChoiceType extends AbstractType
+final class AiModelsType extends AbstractType
 {
-    public function __construct(private readonly AIPlatformRegistry $platformRegistry)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
     {
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
-        return EnumType::class;
+        return TextType::class;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-       $choices = array_map(static fn(string $val) => AIPlatforms::from($val), array_keys($this->platformRegistry->getEnabledPlatforms()));
-
-       $resolver->setDefaults([
-           'class' => AIPlatforms::class,
-           'choices' => $choices,
-           'required' => false,
-           'platform_selector_label' => null
-       ]);
+        //The target label of the platform select, which is used to filter the models for the selected platform.
+        $resolver->setRequired('platform_selector');
+        $resolver->setAllowedTypes('platform_selector', 'string');
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options): void
     {
-        $view->vars['attr']['data-platform-selector-label'] = $options['platform_selector_label'] ?? $view->vars['id'].'_label';
+        $view->vars['attr']['data-url-template'] = $this->urlGenerator->generate('typeahead_ai_models', ['platform' => '__PLATFORM__']);
+        $view->vars['attr']['data-controller'] = 'elements--ai-model-autocomplete';
+
+        $view->vars['attr']['data-platform-selector'] = $options['platform_selector'];
     }
 }
