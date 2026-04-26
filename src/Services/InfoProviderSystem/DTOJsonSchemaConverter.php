@@ -231,7 +231,7 @@ final class DTOJsonSchemaConverter
             provider_url: $productUrl,
             footprint: $data['footprint'] ?? null,
             gtin: $data['gtin'] ?? null,
-            notes: $data['notes'],
+            notes: $data['notes'] ?? null,
             datasheets: $datasheets,
             images: $images,
             parameters: $parameters,
