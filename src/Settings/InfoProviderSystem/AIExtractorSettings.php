@@ -35,32 +35,25 @@ use Symfony\AI\Platform\Capability;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
 #[Settings(name: "ai_extractor", label: new TM("settings.ips.ai_extractor"), description: new TM("settings.ips.ai_extractor.description"))]
-#[SettingsIcon("fa-robot")]
+#[SettingsIcon("fa-plug")]
 class AIExtractorSettings
 {
     private const MODEL_SELECTOR_LABEL = 'ai_extractor';
 
     use SettingsTrait;
 
-    #[SettingsParameter(label: new TM("settings.ips.ai_extractor.ai_platform"), description: new TM("settings.ips.ai_extractor.ai_platform.help"),
+    #[SettingsParameter(label: new TM("settings.ips.ai_extractor.ai_platform"),
         formType: AiPlatformChoiceType::class, formOptions: ['platform_selector_label' => self::MODEL_SELECTOR_LABEL],
-        envVar: "string:PROVIDER_AI_EXTRACTOR_API_KEY", envVarMode: EnvVarMode::OVERWRITE
     )]
     public ?AIPlatforms $platform = null;
 
-    #[SettingsParameter(label: new TM("settings.ips.ai_extractor.model"), description: new TM("settings.ips.ai_extractor.model.description"),
+    #[SettingsParameter(label: new TM("settings.ips.ai_extractor.model"), description: new TM("settings.ips.ai_extractor.model.help"),
         formType: AiModelsType::class, formOptions: ['platform_selector' => self::MODEL_SELECTOR_LABEL, 'filter_capability' => Capability::OUTPUT_STRUCTURED],
-        envVar: "string:PROVIDER_AI_EXTRACTOR_MODEL", envVarMode: EnvVarMode::OVERWRITE
     )]
-    public string $model = 'z-ai/glm-4.7';
+    public ?string $model = null;
 
-    #[SettingsParameter(label: new TM("settings.ips.ai_extractor.enabled"), description: new TM("settings.ips.ai_extractor.enabled.description"),
-        envVar: "bool:PROVIDER_AI_EXTRACTOR_ENABLED", envVarMode: EnvVarMode::OVERWRITE
-    )]
-    public bool $enabled = false;
-
-    #[SettingsParameter(label: new TM("settings.ips.ai_extractor.max_content_length"), description: new TM("settings.ips.ai_extractor.max_content_length.description"),
-        envVar: "int:PROVIDER_AI_EXTRACTOR_MAX_CONTENT_LENGTH", envVarMode: EnvVarMode::OVERWRITE
+    #[SettingsParameter(label: new TM("settings.ips.ai_extractor.max_content_length"),
+        description: new TM("settings.ips.ai_extractor.max_content_length.description"),
     )]
     public int $maxContentLength = 50000;
 }

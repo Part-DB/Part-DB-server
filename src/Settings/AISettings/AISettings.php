@@ -29,7 +29,7 @@ use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings(label: new TM("settings.ai"), description: "settings.ai.help")]
+#[Settings(label: new TM("settings.ai"))]
 #[SettingsIcon("fa-brain")]
 class AISettings
 {

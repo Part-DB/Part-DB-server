@@ -33,7 +33,7 @@ use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
 #[Settings(name: 'ai_openrouter', label: new TM("settings.ai.openrouter"), description: "settings.ai.openrouter.help")]
-#[SettingsIcon("fa-brain")]
+#[SettingsIcon("fa-robot")]
 class OpenRouterSettings implements AIPlatformSettingsInterface
 {
     use SettingsTrait;

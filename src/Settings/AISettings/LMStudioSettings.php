@@ -33,8 +33,8 @@ use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
-#[Settings(name: 'ai_lmstudio', label: new TM("settings.ai.openrouter"), description: "settings.ai.lmstudio.help")]
-#[SettingsIcon("fa-brain")]
+#[Settings(name: 'ai_lmstudio', label: new TM("settings.ai.lmstudio"))]
+#[SettingsIcon("fa-robot")]
 class LMStudioSettings implements AIPlatformSettingsInterface
 {
     use SettingsTrait;

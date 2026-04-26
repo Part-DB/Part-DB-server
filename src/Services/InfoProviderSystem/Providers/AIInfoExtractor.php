@@ -60,7 +60,7 @@ final class AIInfoExtractor implements InfoProviderInterface
         return [
             'name' => 'AI Information Extractor',
             'description' => 'Extract part info from any URL using OpenRouter LLM',
-            'url' => 'https://openrouter.ai',
+            //'url' => 'https://openrouter.ai',
             'disabled_help' => 'Configure OpenRouter API key in settings',
             'settings_class' => AIExtractorSettings::class,
         ];
@@ -73,7 +73,7 @@ final class AIInfoExtractor implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return $this->settings->platform !== null && $this->settings->model !== '';
+        return $this->settings->platform !== null && $this->settings->model !== null && $this->settings->model !== '';
     }
 
     public function searchByKeyword(string $keyword): array
@@ -171,7 +171,7 @@ final class AIInfoExtractor implements InfoProviderInterface
             $aiPlatform = $this->AIPlatformRegistry->getPlatform($this->settings->platform ?? throw new \RuntimeException('No AI platform selected') );
 
             //'openai/gpt-5-mini'
-            $result = $aiPlatform->invoke($this->settings->model, $input, [
+            $result = $aiPlatform->invoke($this->settings->model ?? throw new \RuntimeException('No model selected'), $input, [
                 'response_format' => [
                     'type' => 'json_schema',
                         'json_schema' => $this->jsonSchemaConverter->getJSONSchema(),
