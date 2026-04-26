@@ -48,14 +48,15 @@ final class DTOJsonSchemaConverter
                 'type' => 'object',
                 'properties' => [
                     'name' => ['type' => 'string', 'description' => 'Product name'],
-                    'description' => ['type' => 'string', 'description' => 'Product description'],
+                    'description' => ['type' => 'string', 'description' => 'A short description of the product, maybe containing the most important things. Onnly One line.'],
                     'manufacturer' => ['type' => ['string', 'null'], 'description' => 'Manufacturer name'],
                     'mpn' => ['type' => ['string', 'null'], 'description' => 'Manufacturer Part Number'],
-                    'category' => ['type' => ['string', 'null'], 'description' => 'Product category'],
+                    'category' => ['type' => ['string', 'null'], 'description' => 'Product category, e.g. "Passive components -> Resistors"'],
                     'manufacturing_status' => ['type' => ['string', 'null'], 'enum' => ['active', 'obsolete', 'nrfnd', 'discontinued', null], 'description' => 'Manufacturing status'],
-                    'footprint' => ['type' => ['string', 'null'], 'description' => 'Package/footprint type'],
+                    'footprint' => ['type' => ['string', 'null'], 'description' => 'Package/footprint type, like "SOT-23", "DIP-8", "QFN-32" etc.'],
                     'mass' => ['type' => ['number', 'null'], 'description' => 'Mass of the product in grams'],
-                    'gtin' => ['type' => ['string', 'null'], 'description' => 'Global Trade Item Number (GTIN) / EAN / UPC code'],
+                    'gtin' => ['type' => ['string', 'null'], 'description' => 'Global Trade Item Number (GTIN) / EAN / UPC code for barcodes'],
+                    'notes' => ['type' => ['string', 'null'], 'description' => 'Optional long description of the part with more details than description. Can be markdown formatted.'],
                     'parameters' => [
                         'type' => 'array',
                         'items' => [
@@ -98,6 +99,7 @@ final class DTOJsonSchemaConverter
                                 'distributor_name' => ['type' => 'string', 'description' => 'Name of the distributor or vendor. Typically the shop name'],
                                 'order_number' => ['type' => ['string', 'null'], 'description' => 'The order number or SKU used by the distributor. Optional, but can help to find the product on the distributor website.'],
                                 'product_url' => ['type' => 'string'],
+                                'prices_include_vat' => ['type' => ['boolean', 'null'], 'description' => 'Whether the prices include VAT or not. Null if unknown.'],
                                 'prices' => [
                                     'type' => 'array',
                                     'items' => [
@@ -194,8 +196,8 @@ final class DTOJsonSchemaConverter
                         $prices[] = new PriceDTO(
                             minimum_discount_amount: (int) ($p['minimum_quantity'] ?? 1),
                             price: (string) ($p['price'] ?? 0),
-                            currency_iso_code: $p['currency'] ?? 'USD',
-                            price_related_quantity: (int) ($p['minimum_quantity'] ?? 1),
+                            currency_iso_code: $p['currency'] ?? null,
+                            price_related_quantity: 1,
                         );
                     }
                 }
@@ -205,6 +207,7 @@ final class DTOJsonSchemaConverter
                     order_number: $v['order_number'] ?? 'Unknown',
                     prices: $prices,
                     product_url: $v['product_url'] ?? $productUrl,
+                    prices_include_vat: $v['prices_include_vat'] ?? null,
                 );
             }
         }
@@ -228,7 +231,7 @@ final class DTOJsonSchemaConverter
             provider_url: $productUrl,
             footprint: $data['footprint'] ?? null,
             gtin: $data['gtin'] ?? null,
-            notes: null,
+            notes: $data['notes'],
             datasheets: $datasheets,
             images: $images,
             parameters: $parameters,

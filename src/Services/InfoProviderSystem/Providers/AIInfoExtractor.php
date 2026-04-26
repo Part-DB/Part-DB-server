@@ -37,6 +37,8 @@ use Symfony\AI\Platform\Message\MessageBag;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+use function Symfony\Component\String\u;
+
 
 final class AIInfoExtractor implements InfoProviderInterface
 {
@@ -105,7 +107,10 @@ final class AIInfoExtractor implements InfoProviderInterface
         // Truncate to max content length
         $truncatedHtml = $this->truncateHTML($cleanedHtml, $this->settings->maxContentLength);*/
 
+        //Convert html to markdown, to provide a cleaner input to the LLM.
         $markdown = $this->htmlToMarkdown($html);
+        //Truncate markdown to max content length, if needed
+        $markdown = u($markdown)->truncate($this->settings->maxContentLength, '... [truncated]')->toString();
 
         //Extract structured data using traditional methods, to provide additional context to the LLM. This can help improve accuracy, especially for technical specifications that might be in tables or specific formats.
         $structuredData = $this->extractStructuredData($html, $url);
@@ -137,10 +142,21 @@ final class AIInfoExtractor implements InfoProviderInterface
     {
         //Extract only the main content of the page to avoid overwhelming the LLM with irrelevant information.
         $crawler = new Crawler($html);
-        $mainContent = $crawler->filter('main, article, #content')->first();
+        $mainContent = $crawler->filter('main, article, #content');
 
         // If we found a specific content area, get its HTML; otherwise, use the whole body.
-        $htmlToConvert = $mainContent->count() ? $mainContent->html() : $html;
+        //Concat the html of all matched nodes, to provide more context to the LLM, especially for pages that use multiple sections for product info.
+        if ($mainContent->count() > 0) {
+            $htmlToConvert = '';
+            foreach ($mainContent as $node) {
+                $htmlToConvert .= $node->ownerDocument->saveHTML($node);
+                $htmlToConvert .= "\n\n"; // Add some spacing between sections
+            }
+        } else {
+            //Use the whole body content, as it might contain relevant information, especially for simpler pages that don't have a clear main/content section.
+            $htmlToConvert = $html;
+        }
+
 
         //Concert to markdown
         $converter = new HtmlConverter([
@@ -161,48 +177,6 @@ final class AIInfoExtractor implements InfoProviderInterface
             ProviderCapabilities::PRICE,
             ProviderCapabilities::PARAMETERS,
         ];
-    }
-
-    private function cleanHTML(string $html): string
-    {
-        // Remove script tags
-        $html = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $html);
-
-        // Remove style tags
-        $html = preg_replace('/<style\b[^>]*>(.*?)<\/style>/is', '', $html);
-
-        // Remove nav tags
-        $html = preg_replace('/<nav\b[^>]*>(.*?)<\/nav>/is', '', $html);
-
-        // Remove footer tags
-        $html = preg_replace('/<footer\b[^>]*>(.*?)<\/footer>/is', '', $html);
-
-        // Remove header tags
-        $html = preg_replace('/<header\b[^>]*>(.*?)<\/header>/is', '', $html);
-
-        // Remove HTML comments
-        $html = preg_replace('/<!--(.*?)-->/is', '', $html);
-
-        return $html;
-    }
-
-    private function truncateHTML(string $html, int $maxLength): string
-    {
-        if (strlen($html) <= $maxLength) {
-            return $html;
-        }
-
-        // Truncate and find the last > or space to avoid cutting tags
-        $truncated = substr($html, 0, $maxLength);
-
-        // Find the last occurrence of > or space
-        $lastPos = max(strrpos($truncated, '>'), strrpos($truncated, ' '));
-
-        if ($lastPos !== false && $lastPos > $maxLength * 0.9) {
-            $truncated = substr($truncated, 0, $lastPos + 1);
-        }
-
-        return $truncated;
     }
 
     private function callLLM(string $htmlContent, string $url, ?string $structuredData = null): array
