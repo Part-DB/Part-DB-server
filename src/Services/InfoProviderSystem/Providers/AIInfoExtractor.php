@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Exceptions\ProviderIDNotSupportedException;
+use App\Helpers\RandomizeUseragentHttpClient;
 use App\Services\AI\AIPlatformRegistry;
 use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
@@ -35,6 +36,7 @@ use League\HTMLToMarkdown\HtmlConverter;
 use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
 use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\HttpClient\NoPrivateNetworkHttpClient;
 use Symfony\Component\Intl\Languages;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -55,12 +57,12 @@ final class AIInfoExtractor implements InfoProviderInterface
         private readonly AIPlatformRegistry $AIPlatformRegistry,
         private readonly DTOJsonSchemaConverter $jsonSchemaConverter,
     ) {
-        $this->httpClient = $httpClient->withOptions([
-            'timeout' => 30,
-            'headers' => [
-                'User-Agent' => 'Mozilla/5.0 (compatible; Part-DB AI-Extractor/1.0)',
-            ],
-        ]);
+        //Use NoPrivateNetworkHttpClient to prevent SSRF vulnerabilities, and RandomizeUseragentHttpClient to make it harder for servers to block us
+        $this->httpClient = (new RandomizeUseragentHttpClient(new NoPrivateNetworkHttpClient($httpClient)))->withOptions(
+            [
+                'timeout' => 15,
+            ]
+        );
     }
 
     public function getProviderInfo(): array
@@ -199,7 +201,7 @@ final class AIInfoExtractor implements InfoProviderInterface
             $result = $aiPlatform->invoke($this->settings->model ?? throw new \RuntimeException('No model selected'), $input, [
                 'response_format' => [
                     'type' => 'json_schema',
-                        'json_schema' => $this->jsonSchemaConverter->getJSONSchema(),
+                    'json_schema' => $this->jsonSchemaConverter->getJSONSchema(),
                 ]
             ]);
         } catch (\Throwable $e) {
