@@ -31,6 +31,7 @@ use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Symfony\AI\Platform\Capability;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
 #[Settings(name: "ai_extractor", label: new TM("settings.ips.ai_extractor"), description: new TM("settings.ips.ai_extractor.description"))]
@@ -48,7 +49,7 @@ class AIExtractorSettings
     public ?AIPlatforms $platform = null;
 
     #[SettingsParameter(label: new TM("settings.ips.ai_extractor.model"), description: new TM("settings.ips.ai_extractor.model.description"),
-        formType: AiModelsType::class, formOptions: ['platform_selector' => self::MODEL_SELECTOR_LABEL],
+        formType: AiModelsType::class, formOptions: ['platform_selector' => self::MODEL_SELECTOR_LABEL, 'filter_capability' => Capability::OUTPUT_STRUCTURED],
         envVar: "string:PROVIDER_AI_EXTRACTOR_MODEL", envVarMode: EnvVarMode::OVERWRITE
     )]
     public string $model = 'z-ai/glm-4.7';
