@@ -33,6 +33,7 @@ use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\AI\Platform\Capability;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 use Symfony\Component\Validator\Constraints\Language;
 
@@ -64,4 +65,9 @@ class AIExtractorSettings
         formType: LanguageType::class,
     )]
     public ?string $outputLanguage = null;
+
+   #[SettingsParameter(label: new TM("settings.ips.ai_extractor.additional_instructions"), description: new TM("settings.ips.ai_extractor.additional_instructions.description"),
+        formType: TextareaType::class,
+    )]
+    public ?string $additionalInstructions = null;
 }

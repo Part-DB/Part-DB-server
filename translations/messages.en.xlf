@@ -13127,5 +13127,17 @@ Buerklin-API Authentication server:
         <target>By default, the providers returns information in the same language as the website. With that option you can ask the AI to translate it for you. Might only work with certain models.</target>
       </segment>
     </unit>
+    <unit id="CAeeZlL" name="settings.ips.ai_extractor.additional_instructions">
+      <segment>
+        <source>settings.ips.ai_extractor.additional_instructions</source>
+        <target>Additional instructions</target>
+      </segment>
+    </unit>
+    <unit id=".UaUMk1" name="settings.ips.ai_extractor.additional_instructions.description">
+      <segment>
+        <source>settings.ips.ai_extractor.additional_instructions.description</source>
+        <target>The additional instructions will be appended to the system prompt.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

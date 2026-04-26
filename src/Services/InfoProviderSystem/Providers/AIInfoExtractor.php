@@ -233,6 +233,10 @@ PROMPT;
             $tmp .= "\n\nThe response must be in ". Languages::getName($this->settings->outputLanguage, 'en') ." language. Translate texts if needed.";
         }
 
+        if ($this->settings->additionalInstructions) {
+            $tmp .= "\n\nAdditional instructions:\n" . $this->settings->additionalInstructions;
+        }
+
         return $tmp;
     }
 
