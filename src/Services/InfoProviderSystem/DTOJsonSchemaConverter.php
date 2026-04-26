@@ -63,13 +63,19 @@ final class DTOJsonSchemaConverter
                             'type' => 'object',
                             'properties' => [
                                 'name' => ['type' => 'string'],
-                                'value' => ['type' => 'string'],
-                                'unit' => ['type' => ['string', 'null']],
+                                'symbol' => ['type' => ['string', 'null'], 'description' => 'An optional quantity symbol for the parameter in latex code, like R_1'],
+                                'value_typical' => ['type' => ['number', 'null'], 'description' => 'The typical value of the parameter. For example, for a resistor this could be 100 for a 100 Ohm resistor. Also used if only one numeric value is given. If used an unit should be given'],
+                                'value_min' => ['type' => ['number', 'null'], 'description' => 'If a range is given for the parameter, this is the minimum value. Null if no range is given.'],
+                                'value_max' => ['type' => ['number', 'null'], 'description' => 'If a range is given for the parameter, this is the maximum value. Null if not a range.'],
+                                'value_text' => ['type' => ['string', 'null'], 'description' => 'When a value is not numeric it can be put here as text. Only use if it does not fit in value_min, value_typical or value_max. E.g. "Yes", "Red", etc.'],
+                                'group' => ['type' => ['string', 'null'], 'description' => 'An optional group name for the parameter, e.g. "Electrical parameters", "Mechanical parameters" etc.'],
+                                'unit' => ['type' => ['string', 'null'], 'description' => 'The unit of the parameter values, e.g. kg, Ohm, V, etc.'],
                             ],
-                            'required' => ['name', 'value'],
+                            'required' => ['name', 'value_typical', 'value_min', 'value_max', 'value_text']
                         ],
                     ],
                     'datasheets' => [
+                        'description' => 'A list of datasheets, manuals, or other technical documents related to the product. Not images, but actual documents, preferably PDFs.',
                         'type' => 'array',
                         'items' => [
                             'type' => 'object',
@@ -145,13 +151,15 @@ final class DTOJsonSchemaConverter
             $parameters = [];
             foreach ($data['parameters'] as $p) {
                 if (!empty($p['name'])) {
-                    $value = $p['value'] ?? '';
-                    $unit = $p['unit'] ?? null;
-                    // Combine value and unit for parsing
-                    $valueWithUnit = $unit ? $value . ' ' . $unit : $value;
-                    $parameters[] = ParameterDTO::parseValueField(
+                    $parameters[] = new ParameterDTO(
                         name: $p['name'],
-                        value: $valueWithUnit
+                        value_text: $p['value_text'] ?? null,
+                        value_typ: isset($p['value_typical']) && is_numeric($p['value_typical']) ? (float) $p['value_typical'] : null,
+                        value_min: isset($p['value_min']) && is_numeric($p['value_min']) ? (float) $p['value_min'] : null,
+                        value_max: isset($p['value_max']) && is_numeric($p['value_max']) ? (float) $p['value_max'] : null,
+                        unit: $p['unit'] ?? null,
+                        symbol: $p['symbol'] ?? null,
+                        group: $p['group'] ?? null,
                     );
                 }
             }

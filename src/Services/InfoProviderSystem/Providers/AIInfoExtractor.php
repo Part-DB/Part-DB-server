@@ -217,13 +217,12 @@ Focus on the main content of the page, such as product descriptions, specificati
 
 Rules:
 - manufacturing_status: Use "active", "obsolete", "nrfnd" (not recommended for new designs), "discontinued", or null
-- parameters: Extract technical specs like voltage, current, temperature, etc.
+- parameters: Extract technical specs like voltage, current, temperature, etc. and put them into the fields according to the JSON schema. Include units if available.
 - prices: Extract pricing tiers with minimum_quantity, price, and currency code
 - URLs must be absolute (include https://...)
 - If information is not found, use null
-- Return ONLY the JSON, no explanation text
-
-For parameters, combine name, value, and unit. The unit should be separate if possible.
+- Try to avoid duplicating parameters, if the same parameter is mentioned multiple times, or if it is already used in another field.
+- Include only the 1 to 3 most relevant images, such as the main product image or important diagrams. Ignore decorative images, logos, or icons.
 PROMPT;
 
         if ($this->settings->outputLanguage === null) {
