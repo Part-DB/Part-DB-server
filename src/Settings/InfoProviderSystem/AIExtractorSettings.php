@@ -32,7 +32,9 @@ use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\AI\Platform\Capability;
+use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Translation\TranslatableMessage as TM;
+use Symfony\Component\Validator\Constraints\Language;
 
 #[Settings(name: "ai_extractor", label: new TM("settings.ips.ai_extractor"), description: new TM("settings.ips.ai_extractor.description"))]
 #[SettingsIcon("fa-plug")]
@@ -56,4 +58,10 @@ class AIExtractorSettings
         description: new TM("settings.ips.ai_extractor.max_content_length.description"),
     )]
     public int $maxContentLength = 50000;
+
+    #[Language]
+    #[SettingsParameter(label: new TM("settings.ips.ai_extractor.output_language"), description: new TM("settings.ips.ai_extractor.output_language.description"),
+        formType: LanguageType::class,
+    )]
+    public ?string $outputLanguage = null;
 }

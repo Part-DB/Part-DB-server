@@ -35,6 +35,7 @@ use League\HTMLToMarkdown\HtmlConverter;
 use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
 use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\Intl\Languages;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 use function Symfony\Component\String\u;
@@ -210,7 +211,7 @@ final class AIInfoExtractor implements InfoProviderInterface
 
     private function buildSystemPrompt(): string
     {
-        return <<<'PROMPT'
+        $tmp = <<<'PROMPT'
 You are an expert at extracting electronic component information from web pages. Extract structured data in JSON format, from markdown extracted from a product page.
 Focus on the main content of the page, such as product descriptions, specifications, and tables. Ignore navigation menus, footers, and sidebars.
 
@@ -224,6 +225,14 @@ Rules:
 
 For parameters, combine name, value, and unit. The unit should be separate if possible.
 PROMPT;
+
+        if ($this->settings->outputLanguage === null) {
+            $tmp .= "\n\nProvide the response in the same language of the webpage.";
+        } else {
+            $tmp .= "\n\nThe response must be in ". Languages::getName($this->settings->outputLanguage, 'en') ." language. Translate texts if needed.";
+        }
+
+        return $tmp;
     }
 
 }

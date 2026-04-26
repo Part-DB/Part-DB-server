@@ -13103,5 +13103,29 @@ Buerklin-API Authentication server:
         <target>The AI model that should be used for extraction. Must support structured output.</target>
       </segment>
     </unit>
+    <unit id="H1SYgGs" name="settings.ips.ai_extractor.max_content_length">
+      <segment>
+        <source>settings.ips.ai_extractor.max_content_length</source>
+        <target>Max. Website Content length</target>
+      </segment>
+    </unit>
+    <unit id="SZWiZE3" name="settings.ips.ai_extractor.max_content_length.description">
+      <segment>
+        <source>settings.ips.ai_extractor.max_content_length.description</source>
+        <target>The maximum number of characters of the website that are sent to the AI service.</target>
+      </segment>
+    </unit>
+    <unit id="pCsAHOv" name="settings.ips.ai_extractor.output_language">
+      <segment>
+        <source>settings.ips.ai_extractor.output_language</source>
+        <target>Output language</target>
+      </segment>
+    </unit>
+    <unit id="NVHHgpD" name="settings.ips.ai_extractor.output_language.description">
+      <segment>
+        <source>settings.ips.ai_extractor.output_language.description</source>
+        <target>By default, the providers returns information in the same language as the website. With that option you can ask the AI to translate it for you. Might only work with certain models.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
