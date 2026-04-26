@@ -54,7 +54,8 @@ final class DTOJsonSchemaConverter
                     'category' => ['type' => ['string', 'null'], 'description' => 'Product category'],
                     'manufacturing_status' => ['type' => ['string', 'null'], 'enum' => ['active', 'obsolete', 'nrfnd', 'discontinued', null], 'description' => 'Manufacturing status'],
                     'footprint' => ['type' => ['string', 'null'], 'description' => 'Package/footprint type'],
-                    'mass' => ['type' => ['number', 'null'], 'description' => 'Mass in grams'],
+                    'mass' => ['type' => ['number', 'null'], 'description' => 'Mass of the product in grams'],
+                    'gtin' => ['type' => ['string', 'null'], 'description' => 'Global Trade Item Number (GTIN) / EAN / UPC code'],
                     'parameters' => [
                         'type' => 'array',
                         'items' => [
@@ -94,17 +95,17 @@ final class DTOJsonSchemaConverter
                         'items' => [
                             'type' => 'object',
                             'properties' => [
-                                'distributor_name' => ['type' => 'string'],
-                                'order_number' => ['type' => ['string', 'null']],
+                                'distributor_name' => ['type' => 'string', 'description' => 'Name of the distributor or vendor. Typically the shop name'],
+                                'order_number' => ['type' => ['string', 'null'], 'description' => 'The order number or SKU used by the distributor. Optional, but can help to find the product on the distributor website.'],
                                 'product_url' => ['type' => 'string'],
                                 'prices' => [
                                     'type' => 'array',
                                     'items' => [
                                         'type' => 'object',
                                         'properties' => [
-                                            'minimum_quantity' => ['type' => 'integer'],
-                                            'price' => ['type' => 'number'],
-                                            'currency' => ['type' => 'string'],
+                                            'minimum_quantity' => ['type' => 'integer', 'description' => 'Minimum quantity for this price tier. 1 when no tiered pricing is available.'],
+                                            'price' => ['type' => 'number', 'description' => 'Price for the given minimum quantity.'],
+                                            'currency' => ['type' => 'string', 'description' => 'Currency ISO code, e.g. USD'],
                                         ],
                                         'required' => ['minimum_quantity', 'price', 'currency'],
                                     ],
@@ -226,6 +227,7 @@ final class DTOJsonSchemaConverter
             manufacturing_status: $manufacturingStatus,
             provider_url: $productUrl,
             footprint: $data['footprint'] ?? null,
+            gtin: $data['gtin'] ?? null,
             notes: null,
             datasheets: $datasheets,
             images: $images,

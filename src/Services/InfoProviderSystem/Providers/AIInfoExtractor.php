@@ -29,9 +29,14 @@ use App\Services\AI\AIPlatformRegistry;
 use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Settings\InfoProviderSystem\AIExtractorSettings;
+use Brick\Schema\SchemaReader;
+use Jkphl\Micrometa;
+use League\HTMLToMarkdown\HtmlConverter;
 use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+
 
 final class AIInfoExtractor implements InfoProviderInterface
 {
@@ -95,16 +100,56 @@ final class AIInfoExtractor implements InfoProviderInterface
         $html = $response->getContent();
 
         // Clean HTML
-        $cleanedHtml = $this->cleanHTML($html);
+        /*$cleanedHtml = $this->cleanHTML($html);
 
         // Truncate to max content length
-        $truncatedHtml = $this->truncateHTML($cleanedHtml, $this->settings->maxContentLength);
+        $truncatedHtml = $this->truncateHTML($cleanedHtml, $this->settings->maxContentLength);*/
+
+        $markdown = $this->htmlToMarkdown($html);
+
+        //Extract structured data using traditional methods, to provide additional context to the LLM. This can help improve accuracy, especially for technical specifications that might be in tables or specific formats.
+        $structuredData = $this->extractStructuredData($html, $url);
 
         // Call LLM
-        $llmResponse = $this->callLLM($truncatedHtml, $url);
+        $llmResponse = $this->callLLM($markdown, $url, $structuredData);
 
         // Build and return PartDetailDTO
-        return $this->jsonSchemaConverter->jsonToDTO($llmResponse, $this->getProviderKey(), $url, $url, self::DISTRIBUTOR_NAME);
+        $result = $this->jsonSchemaConverter->jsonToDTO($llmResponse, $this->getProviderKey(), $url, $url, self::DISTRIBUTOR_NAME);
+
+        return $result;
+    }
+
+    /**
+     * Extracts structured data from the HTML using microformats.
+     * @param  string  $html
+     * @param  string  $url
+     * @return string JSON encoded structured data
+     */
+    private function extractStructuredData(string $html, string $url): string
+    {
+        $micrometa = new Micrometa\Ports\Parser();
+        $items = $micrometa($url, $html);
+
+        return json_encode($items->toObject(), JSON_THROW_ON_ERROR);
+    }
+
+    private function htmlToMarkdown(string $html): string
+    {
+        //Extract only the main content of the page to avoid overwhelming the LLM with irrelevant information.
+        $crawler = new Crawler($html);
+        $mainContent = $crawler->filter('main, article, #content')->first();
+
+        // If we found a specific content area, get its HTML; otherwise, use the whole body.
+        $htmlToConvert = $mainContent->count() ? $mainContent->html() : $html;
+
+        //Concert to markdown
+        $converter = new HtmlConverter([
+            'strip_tags' => true,      // Removes tags that aren't Markdown-compatible (like <div>)
+            'hard_break' => true,      // Preserves line breaks
+            'remove_nodes' => 'nav footer script style' // Extra safety layer
+        ]);
+
+        return $converter->convert($htmlToConvert);
     }
 
     public function getCapabilities(): array
@@ -160,12 +205,17 @@ final class AIInfoExtractor implements InfoProviderInterface
         return $truncated;
     }
 
-    private function callLLM(string $htmlContent, string $url): array
+    private function callLLM(string $htmlContent, string $url, ?string $structuredData = null): array
     {
         $input = new MessageBag(
             Message::forSystem($this->buildSystemPrompt()),
             Message::ofUser("Extract part information from this webpage content:\n\nURL: $url\n\n$htmlContent")
         );
+
+        if ($structuredData) {
+            $input->add(Message::ofUser("Following data was extracted using traditional methods, but might be incomplete or inaccurate.
+             Enrich it with the actual website data:\n\n".$structuredData));
+        }
 
         try {
             $aiPlatform = $this->AIPlatformRegistry->getPlatform($this->settings->platform ?? throw new \RuntimeException('No AI platform selected') );
@@ -187,29 +237,8 @@ final class AIInfoExtractor implements InfoProviderInterface
     private function buildSystemPrompt(): string
     {
         return <<<'PROMPT'
-You are an expert at extracting electronic component information from web pages. Extract structured data in JSON format.
-
-Return ONLY a valid JSON object with this exact structure:
-{
-  "name": "string",
-  "description": "string",
-  "manufacturer": "string | null",
-  "mpn": "string | null",
-  "category": "string | null",
-  "manufacturing_status": "active|obsolete|nrfnd|discontinued|null",
-  "footprint": "string | null",
-  "mass": "number | null (in grams)",
-  "parameters": [{"name": "string", "value": "string", "unit": "string | null"}],
-  "datasheets": [{"url": "string", "description": "string"}],
-  "images": [{"url": "string", "description": "string"}],
-  "vendor_infos": [{
-    "distributor_name": "string",
-    "order_number": "string | null",
-    "product_url": "string",
-    "prices": [{"minimum_quantity": int, "price": number, "currency": "string"}]
-  }],
-  "manufacturer_product_url": "string | null"
-}
+You are an expert at extracting electronic component information from web pages. Extract structured data in JSON format, from markdown extracted from a product page.
+Focus on the main content of the page, such as product descriptions, specifications, and tables. Ignore navigation menus, footers, and sidebars.
 
 Rules:
 - manufacturing_status: Use "active", "obsolete", "nrfnd" (not recommended for new designs), "discontinued", or null

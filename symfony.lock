@@ -441,12 +441,6 @@
     "symfony/browser-kit": {
         "version": "v4.2.3"
     },
-    "symfony/cache": {
-        "version": "v4.2.3"
-    },
-    "symfony/cache-contracts": {
-        "version": "v1.1.5"
-    },
     "symfony/config": {
         "version": "v4.2.3"
     },
