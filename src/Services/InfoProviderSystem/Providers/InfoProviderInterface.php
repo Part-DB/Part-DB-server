@@ -61,16 +61,18 @@ interface InfoProviderInterface
     /**
      * Searches for a keyword and returns a list of search results
      * @param  string  $keyword The keyword to search for
+     * @param  array   $options  An associative array of options for the search, which can be used to pass additional parameters to the provider (e.g. filters, pagination, etc.). The content of this array is provider specific and not defined by the interface
      * @return SearchResultDTO[] A list of search results
      */
-    public function searchByKeyword(string $keyword): array;
+    public function searchByKeyword(string $keyword, array $options = []): array;
 
     /**
      * Returns detailed information about the part with the given id
      * @param  string  $id
+     * @param  array   $options  An associative array of options for the search, which can be used to pass additional parameters to the provider (e.g. filters, pagination, etc.). The content of this array is provider specific and not defined by the interface
      * @return PartDetailDTO
      */
-    public function getDetails(string $id): PartDetailDTO;
+    public function getDetails(string $id, array $options = []): PartDetailDTO;
 
     /**
      * A list of capabilities this provider supports (which kind of data it can provide).

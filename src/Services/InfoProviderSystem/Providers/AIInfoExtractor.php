@@ -86,7 +86,7 @@ final class AIInfoExtractor implements InfoProviderInterface
         return $this->settings->platform !== null && $this->settings->model !== null && $this->settings->model !== '';
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         try {
             return [
@@ -96,7 +96,7 @@ final class AIInfoExtractor implements InfoProviderInterface
         }
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         $url = $this->fixAndValidateURL($id);
 

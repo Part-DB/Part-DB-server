@@ -278,12 +278,13 @@ class OEMSecretsProvider implements InfoProviderInterface
      * and debugging with local JSON files. The results are processed, cached, and then sorted based
      * on the keyword and specified criteria.
      *
-     * @param  string  $keyword The part number to search for
+     * @param  string  $keyword
+     * @param  array  $options
      * @return array An array of processed product details, sorted by relevance and additional criteria.
      *
      * @throws \Exception If the JSON file used for debugging is not found or contains errors.
      */
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         /*
         oemsecrets Part Search API  3.0.1
@@ -414,12 +415,13 @@ class OEMSecretsProvider implements InfoProviderInterface
      * found in the cache, they are returned. If not, an exception is thrown indicating that
      * the details could not be found.
      *
-     * @param string $id The unique identifier of the provider or part.
+     * @param  string  $id
+     * @param  array  $options
      * @return PartDetailDTO The detailed information about the part.
      *
      * @throws \Exception If no details are found for the given provider ID.
      */
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         $cacheKey = $this->getCacheKey($id);
         $cacheItem = $this->partInfoCache->getItem($cacheKey);

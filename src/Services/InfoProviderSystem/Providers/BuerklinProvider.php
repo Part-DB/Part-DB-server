@@ -461,9 +461,11 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
     }
 
     /**
+     * @param  string  $keyword
+     * @param  array  $options
      * @return PartDetailDTO[]
      */
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         $keyword = strtoupper(trim($keyword));
         if ($keyword === '') {
@@ -493,7 +495,7 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
         }
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         // Detail endpoint is /products/{code}/
         $response = $this->getProduct($id);
@@ -588,10 +590,11 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
     }
 
     /**
-     * @param string[] $keywords
+     * @param  array  $keywords
+     * @param  array  $options
      * @return array<string, SearchResultDTO[]>
      */
-    public function searchByKeywordsBatch(array $keywords): array
+    public function searchByKeywordsBatch(array $keywords, array $options = []): array
     {
         /** @var array<string, SearchResultDTO[]> $results */
         $results = [];
@@ -643,27 +646,27 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
 
     public function getIDFromURL(string $url): ?string
     {
-        //Inputs: 
-        //https://www.buerklin.com/de/p/bkl-electronic/niedervoltsteckverbinder/072341-l/40F1332/ 
+        //Inputs:
+        //https://www.buerklin.com/de/p/bkl-electronic/niedervoltsteckverbinder/072341-l/40F1332/
         //https://www.buerklin.com/de/p/40F1332/
         //https://www.buerklin.com/en/p/bkl-electronic/dc-connectors/072341-l/40F1332/
         //https://www.buerklin.com/en/p/40F1332/
         //The ID is the last part after the manufacturer/category/mpn segment and before the final slash
         //https://www.buerklin.com/de/p/bkl-electronic/niedervoltsteckverbinder/072341-l/40F1332/#download should also work
-        
+
         $path = parse_url($url, PHP_URL_PATH);
-    
+
         if (!$path) {
             return null;
         }
-    
+
         // Ensure it's actually a product URL
         if (strpos($path, '/p/') === false) {
             return null;
         }
-    
+
         $id = basename(rtrim($path, '/'));
-    
+
         return $id !== '' && $id !== 'p' ? $id : null;
     }
 

@@ -87,7 +87,7 @@ class GenericWebProvider implements InfoProviderInterface
         return $this->settings->enabled;
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         $url = $this->fixAndValidateURL($keyword);
 

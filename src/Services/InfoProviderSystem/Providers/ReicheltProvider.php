@@ -69,7 +69,7 @@ class ReicheltProvider implements InfoProviderInterface
         return $this->settings->enabled;
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         $response = $this->client->request('GET', sprintf($this->getBaseURL() . '/shop/search/%s', $keyword));
         $html = $response->getContent();
@@ -108,7 +108,7 @@ class ReicheltProvider implements InfoProviderInterface
         return $results;
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         //Check that the ID is a number
         if (!is_numeric($id)) {

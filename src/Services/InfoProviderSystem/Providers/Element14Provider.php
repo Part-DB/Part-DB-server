@@ -282,12 +282,12 @@ class Element14Provider implements InfoProviderInterface, URLHandlerInfoProvider
         };
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         return $this->queryByTerm('any:' . $keyword);
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         $tmp = $this->queryByTerm('id:' . $id);
         if (count($tmp) === 0) {

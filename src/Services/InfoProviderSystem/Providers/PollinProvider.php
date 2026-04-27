@@ -66,7 +66,7 @@ class PollinProvider implements InfoProviderInterface, URLHandlerInfoProviderInt
         return $this->settings->enabled;
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         $response = $this->client->request('GET', 'https://www.pollin.de/search', [
             'query' => [
@@ -110,7 +110,7 @@ class PollinProvider implements InfoProviderInterface, URLHandlerInfoProviderInt
         };
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         //Ensure that $id is numeric
         if (!is_numeric($id)) {
