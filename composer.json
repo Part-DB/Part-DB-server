@@ -33,7 +33,7 @@
         "jbtronics/dompdf-font-loader-bundle": "^1.0.0",
         "jbtronics/settings-bundle": "^3.0.0",
         "jfcherng/php-diff": "^6.14",
-        "jkphl/micrometa": "dev-master",
+        "jkphl/micrometa": "^v3.4.0",
         "knpuniversity/oauth2-client-bundle": "^2.15",
         "league/commonmark": "^2.7",
         "league/csv": "^9.8.0",
@@ -160,12 +160,6 @@
             "App\\Tests\\": "tests/"
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/jbtronics/micrometa"
-        }
-    ],
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
