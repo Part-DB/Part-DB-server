@@ -184,8 +184,10 @@ class CanopyProvider implements InfoProviderInterface
             throw new \InvalidArgumentException("The id must be a valid ASIN (10 characters, letters and numbers)");
         }
 
+        $do_not_cache = ($options[self::OPTION_NO_CACHE] ?? false) || $this->settings->alwaysGetDetails;
+
         //Use cached details if available and the settings allow it, to avoid unnecessary API requests, since the search results already contain most of the details
-        if(!$this->settings->alwaysGetDetails && ($cached = $this->getFromCache($id)) !== null) {
+        if(!$do_not_cache && ($cached = $this->getFromCache($id)) !== null) {
             return $cached;
         }
 

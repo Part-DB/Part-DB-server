@@ -28,6 +28,7 @@ use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 
 interface InfoProviderInterface
 {
+    public const OPTION_NO_CACHE = 'no_cache'; // if set to true, the provider should not use any cache and retrieve fresh data from the source
 
     /**
      * Get information about this provider

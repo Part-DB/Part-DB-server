@@ -120,7 +120,7 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
         ];
     }
 
-    private function getProduct(string $code): array
+    private function getProduct(string $code, bool $use_cache = true): array
     {
         $code = strtoupper(trim($code));
         if ($code === '') {
@@ -131,6 +131,11 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
             'buerklin.product.%s',
             md5($code . '|' . $this->settings->language . '|' . $this->settings->currency)
         );
+
+        if (!$use_cache) {
+            $this->partInfoCache->deleteItem($cacheKey);
+            unset($this->productCache[$cacheKey]);
+        }
 
         if (isset($this->productCache[$cacheKey])) {
             return $this->productCache[$cacheKey];
@@ -488,7 +493,7 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
 
         // Fallback: try direct lookup by code
         try {
-            $product = $this->getProduct($keyword);
+            $product = $this->getProduct($keyword, use_cache: !($options[self::OPTION_NO_CACHE] ?? false));
             return [$this->getPartDetail($product)];
         } catch (\Throwable $e) {
             return [];
@@ -498,7 +503,8 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
     public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         // Detail endpoint is /products/{code}/
-        $response = $this->getProduct($id);
+        //By default use cache for details, but allow bypassing cache with option (e.g. for refresh)
+        $response = $this->getProduct($id, use_cache: !($options[self::OPTION_NO_CACHE] ?? false));
 
         return $this->getPartDetail($response);
     }

@@ -424,6 +424,11 @@ class OEMSecretsProvider implements InfoProviderInterface
     public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         $cacheKey = $this->getCacheKey($id);
+
+        if ($options[self::OPTION_NO_CACHE] ?? false) {
+            $this->partInfoCache->deleteItem($cacheKey);
+        }
+
         $cacheItem = $this->partInfoCache->getItem($cacheKey);
 
         if ($cacheItem->isHit()) {

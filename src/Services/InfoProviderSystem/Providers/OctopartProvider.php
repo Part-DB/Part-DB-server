@@ -369,9 +369,11 @@ class OctopartProvider implements InfoProviderInterface
 
     public function getDetails(string $id, array $options = []): PartDetailDTO
     {
+        $no_cache = $options[self::OPTION_NO_CACHE] ?? false;
+
         //Check if we have the part cached
         $cached = $this->getFromCache($id);
-        if ($cached !== null) {
+        if (!$no_cache && $cached !== null) {
             return $cached;
         }
 
