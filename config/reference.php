@@ -2353,6 +2353,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     proxy_namespace?: scalar|Param|null, // Default: "Jbtronics\\SettingsBundle\\Proxies"
  *     default_storage_adapter?: scalar|Param|null, // Default: null
  *     save_after_migration?: bool|Param, // Default: true
+ *     yaml_mapping_paths?: list<scalar|Param|null>,
+ *     metadata_compiler_providers?: list<scalar|Param|null>,
  *     file_storage?: array{
  *         storage_directory?: scalar|Param|null, // Default: "%kernel.project_dir%/var/jbtronics_settings/"
  *         default_filename?: scalar|Param|null, // Default: "settings"
