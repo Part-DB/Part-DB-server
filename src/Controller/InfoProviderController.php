@@ -31,6 +31,7 @@ use App\Services\InfoProviderSystem\ExistingPartFinder;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Services\InfoProviderSystem\Providers\GenericWebProvider;
+use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use App\Settings\AppSettings;
 use App\Settings\InfoProviderSystem\InfoProviderGeneralSettings;
 use Doctrine\ORM\EntityManagerInterface;
@@ -172,10 +173,15 @@ class InfoProviderController extends  AbstractController
             $keyword = $form->get('keyword')->getData();
             $providers = $form->get('providers')->getData();
 
+            $no_cache_search = $form->get('no_cache_search')->getData();
+            $no_cache_details = $form->get('no_cache_details')->getData();
+
             $dtos = [];
 
             try {
-                $dtos = $this->infoRetriever->searchByKeyword(keyword: $keyword, providers: $providers);
+                $dtos = $this->infoRetriever->searchByKeyword(keyword: $keyword, providers: $providers, options: [
+                    InfoProviderInterface::OPTION_NO_CACHE => $no_cache_search
+                ]);
             } catch (ClientException $e) {
                 $this->addFlash('error', t('info_providers.search.error.client_exception'));
                 $this->addFlash('error',$e->getMessage());
@@ -207,7 +213,8 @@ class InfoProviderController extends  AbstractController
         return $this->render('info_providers/search/part_search.html.twig', [
             'form' => $form,
             'results' => $results,
-            'update_target' => $update_target
+            'update_target' => $update_target,
+            'no_cache_details' => $no_cache_details ?? false,
         ]);
     }
 

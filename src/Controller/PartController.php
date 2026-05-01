@@ -346,10 +346,13 @@ final class PartController extends AbstractController
         $this->denyAccessUnlessGranted('edit', $part);
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
+        //Force info providers to not use cache, when retrieving part details for creating a new part, because otherwise we might end up with outdated information
+        $no_cache = $request->query->getBoolean('no_cache', false);
+
         //Save the old name of the target part for the template
         $old_name = $part->getName();
 
-        $dto = $infoRetriever->getDetails($providerKey, $providerId);
+        $dto = $infoRetriever->getDetails($providerKey, $providerId, [InfoProviderInterface::OPTION_NO_CACHE => $no_cache]);
         $provider_part = $infoRetriever->dtoToPart($dto);
 
         $part = $partMerger->merge($part, $provider_part);

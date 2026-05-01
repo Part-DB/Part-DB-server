@@ -13139,5 +13139,23 @@ Buerklin-API Authentication server:
         <target>The additional instructions will be appended to the system prompt.</target>
       </segment>
     </unit>
+    <unit id="Ycfssj2" name="info_providers.search.advanced_options">
+      <segment>
+        <source>info_providers.search.advanced_options</source>
+        <target>Advanced options</target>
+      </segment>
+    </unit>
+    <unit id="xfxZrXn" name="info_providers.no_cache_search">
+      <segment>
+        <source>info_providers.no_cache_search</source>
+        <target>Do not cache search results / Force fresh search</target>
+      </segment>
+    </unit>
+    <unit id="b_oc3T1" name="info_providers.no_cache_details">
+      <segment>
+        <source>info_providers.no_cache_details</source>
+        <target>Do not cache result details / Force fresh part detail retrieval</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

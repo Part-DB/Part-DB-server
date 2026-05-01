@@ -80,7 +80,7 @@ final class PartInfoRetriever
             }
 
             /** @noinspection SlowArrayOperationsInLoopInspection */
-            $results = array_merge($results, $this->searchInProvider($provider, $keyword));
+            $results = array_merge($results, $this->searchInProvider($provider, $keyword, $options));
         }
 
         return $results;
