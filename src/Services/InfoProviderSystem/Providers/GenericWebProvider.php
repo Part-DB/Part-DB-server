@@ -50,6 +50,8 @@ class GenericWebProvider implements InfoProviderInterface
 
     use FixAndValidateUrlTrait;
 
+    public const OPTION_CHECK_FOR_DELEGATION = 'check_for_delegation';
+
     public const DISTRIBUTOR_NAME = 'Website';
 
     private readonly HttpClientInterface $httpClient;
@@ -99,7 +101,7 @@ class GenericWebProvider implements InfoProviderInterface
 
         try {
             return [
-                $this->getDetails($keyword, false) //We already tried delegation
+                $this->getDetails($keyword, [self::OPTION_CHECK_FOR_DELEGATION => false]) //We already tried delegation
             ]; } catch (ProviderIDNotSupportedException $e) {
             return [];
         }
@@ -312,8 +314,10 @@ class GenericWebProvider implements InfoProviderInterface
 
 
 
-    public function getDetails(string $id, bool $check_for_delegation = true): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
+        //We check for delegation by default
+        $check_for_delegation = $options[self::OPTION_CHECK_FOR_DELEGATION] ?? true;
         $url = $this->fixAndValidateURL($id);
 
         if ($check_for_delegation) {
