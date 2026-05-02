@@ -34,6 +34,7 @@ use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
  * This is a workaround for outdated/incomplete model catalogs provided by AI platforms, which do not contain all available models, or do not update their catalogs frequently enough.
  */
 #[AsDecorator('ai.platform.model_catalog.lmstudio')]
+#[AsDecorator('ai.platform.model_catalog.openrouter')]
 final readonly class AcceptAllModelsCatalog implements ModelCatalogInterface
 {
 
