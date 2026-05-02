@@ -43,7 +43,6 @@ final readonly class AIPlatformRegistry
 
     public function __construct(
         SettingsManagerInterface $settingsManager,
-
         #[AutowireIterator(tag: 'ai.platform', indexAttribute: 'name')]
         iterable $platforms,
     ) {
