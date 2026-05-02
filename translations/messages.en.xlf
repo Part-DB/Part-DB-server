@@ -13157,5 +13157,29 @@ Buerklin-API Authentication server:
         <target>Do not cache result details / Force fresh part detail retrieval</target>
       </segment>
     </unit>
+    <unit id="Ja8CCDb" name="info_providers.from_url.method.generic_web">
+      <segment>
+        <source>info_providers.from_url.method.generic_web</source>
+        <target>Classic Web Scraper</target>
+      </segment>
+    </unit>
+    <unit id="s0kUzFW" name="info_providers.from_url.method.ai_web">
+      <segment>
+        <source>info_providers.from_url.method.ai_web</source>
+        <target>AI Web Scraper</target>
+      </segment>
+    </unit>
+    <unit id="HEFB1OC" name="info_providers.from_url.method">
+      <segment>
+        <source>info_providers.from_url.method</source>
+        <target>Method</target>
+      </segment>
+    </unit>
+    <unit id="9pG0VtU" name="info_providers.from_url.no_cache">
+      <segment>
+        <source>info_providers.from_url.no_cache</source>
+        <target>Ignore cache / Force fresh info retrieval</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

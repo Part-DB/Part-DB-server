@@ -16,6 +16,21 @@
 
     {{ form_start(form) }}
     {{ form_row(form.url) }}
+
+    {{ form_row(form.method) }}
+
+    <div class="row mb-2">
+        <div class="{{ col_input }} {{ offset_label }}">
+            <a data-bs-toggle="collapse" href="#infoSearchAdvancedPanel">{% trans %}info_providers.search.advanced_options{% endtrans %}</a>
+        </div>
+    </div>
+
+    <div class="collapse" id="infoSearchAdvancedPanel">
+        <div class="card card-body mb-2">
+            {{ form_row(form.no_cache) }}
+        </div>
+    </div>
+
     {{ form_row(form.submit) }}
     {{ form_end(form) }}
 {% endblock %}

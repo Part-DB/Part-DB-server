@@ -26,8 +26,10 @@ namespace App\Controller;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Exceptions\OAuthReconnectRequiredException;
+use App\Form\InfoProviderSystem\FromURLFormType;
 use App\Form\InfoProviderSystem\PartSearchType;
 use App\Services\InfoProviderSystem\ExistingPartFinder;
+use App\Services\InfoProviderSystem\CreateFromUrlHelper;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Services\InfoProviderSystem\Providers\GenericWebProvider;
@@ -219,35 +221,31 @@ class InfoProviderController extends  AbstractController
     }
 
     #[Route('/from_url', name: 'info_providers_from_url')]
-    public function fromURL(Request $request, GenericWebProvider $provider): Response
+    public function fromURL(Request $request, GenericWebProvider $provider, CreateFromUrlHelper $fromUrlHelper): Response
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
-        if (!$provider->isActive()) {
+        if (!$fromUrlHelper->canCreateFromUrl()) {
             $this->addFlash('error', "Generic Web Provider is not active. Please enable it in the provider settings.");
             return $this->redirectToRoute('info_providers_list');
         }
 
-        $formBuilder = $this->createFormBuilder();
-        $formBuilder->add('url', UrlType::class, [
-            'label' => 'info_providers.from_url.url.label',
-            'required' => true,
-        ]);
-        $formBuilder->add('submit', SubmitType::class, [
-            'label' => 'info_providers.search.submit',
-        ]);
-
-        $form = $formBuilder->getForm();
+        $form = $this->createForm(FromURLFormType::class);
         $form->handleRequest($request);
 
         $partDetail = null;
         if ($form->isSubmitted() && $form->isValid()) {
             //Try to retrieve the part detail from the given URL
             $url = $form->get('url')->getData();
+
+            $method = $form->get('method')->getData();
+            $no_cache = $form->get('no_cache')->getData();
+
             try {
+                //It's okay if we use the cached results here, as its just for convenience
                 $searchResult = $this->infoRetriever->searchByKeyword(
                     keyword: $url,
-                    providers: [$provider]
+                    providers: [$method],
                 );
 
                 if (count($searchResult) === 0) {
@@ -258,6 +256,7 @@ class InfoProviderController extends  AbstractController
                     return $this->redirectToRoute('info_providers_create_part', [
                         'providerKey' => $searchResult->provider_key,
                         'providerId' => $searchResult->provider_id,
+                        'no_cache' => $no_cache ? 1 : null,
                     ]);
                 }
             } catch (ExceptionInterface $e) {
