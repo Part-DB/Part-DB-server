@@ -29,7 +29,7 @@ import "ckeditor5/ckeditor5.css";;
 import "../../css/components/ckeditor.css";
 
 const translationContext = require.context(
-    'ckeditor5/translations',
+    'ckeditor5-translations', //Alias defined in webpack.config.js
     false,
     //Only load the translation files we will really need
     /(de|it|fr|ru|ja|cs|da|zh|pl|hu)\.js$/

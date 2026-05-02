@@ -22,6 +22,7 @@
 var Encore = require('@symfony/webpack-encore');
 
 const zlib = require('zlib');
+const path = require('path')
 const CompressionPlugin = require("compression-webpack-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -132,6 +133,10 @@ Encore
     .configureLoaderRule( 'images', loader => {
         loader.exclude = /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/;
     } )
+
+    .addAliases({
+        'ckeditor5-translations': path.resolve(__dirname, 'node_modules/ckeditor5/dist/translations')
+    })
 
 
 ;
