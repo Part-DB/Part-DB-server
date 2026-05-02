@@ -41,7 +41,7 @@ final class AiPlatformChoiceType extends AbstractType
     {
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return EnumType::class;
     }

@@ -244,7 +244,7 @@ class TypeaheadController extends AbstractController
 
         $capability_filter = $request->query->getEnum('capability', Capability::class);
 
-        $models = $cache->get('ai_models_'.$platform->value.'_'.($capability_filter?->value ?? 'all'),
+        $models = $cache->get('ai_models_'.$platform->value.'_'.($capability_filter->value ?? 'all'),
             function (ItemInterface $item) use ($platformRegistry, $platform, $capability_filter) {
                 $item->expiresAfter(3600); //Cache for 1 hour
                 if ($capability_filter === null) {
@@ -253,7 +253,7 @@ class TypeaheadController extends AbstractController
 
                 //Otherwise filter the models by the capability
                 return array_filter($platformRegistry->getPlatform($platform)->getModelCatalog()->getModels(),
-                    static fn(array $model) => in_array($capability_filter, $model['capabilities'] ?? [], true)
+                    static fn(array $model) => in_array($capability_filter, $model['capabilities'], true)
                 );
             });
 

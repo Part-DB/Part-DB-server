@@ -52,8 +52,6 @@ enum AIPlatforms: string implements TranslatableInterface
         return match ($this) {
             self::LMSTUDIO => LMStudioSettings::class,
             self::OPENROUTER => OpenRouterSettings::class,
-
-            default => throw new \InvalidArgumentException(sprintf('No settings class defined for AI platform "%s".', $this->name)),
         };
     }
 
