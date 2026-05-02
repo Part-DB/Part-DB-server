@@ -13068,145 +13068,145 @@ Buerklin-API Authentication server:
       </segment>
     </unit>
     <unit id="zl1XJq0" name="settings.ai">
-      <segment>
+      <segment state="translated">
         <source>settings.ai</source>
         <target>AI</target>
       </segment>
     </unit>
     <unit id="NqxqdyX" name="settings.ai.openrouter">
-      <segment>
+      <segment state="translated">
         <source>settings.ai.openrouter</source>
         <target>OpenRouter</target>
       </segment>
     </unit>
     <unit id="tWtvoDT" name="settings.ai.lmstudio">
-      <segment>
+      <segment state="translated">
         <source>settings.ai.lmstudio</source>
         <target>LMStudio</target>
       </segment>
     </unit>
     <unit id="foBzBG2" name="settings.ips.ai_extractor.model">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.ai_extractor.model</source>
         <target>AI Model</target>
       </segment>
     </unit>
     <unit id="PbXBTZO" name="settings.ips.ai_extractor.ai_platform">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.ai_extractor.ai_platform</source>
         <target>AI Platform</target>
       </segment>
     </unit>
     <unit id="axA7_TL" name="settings.ips.ai_extractor.model.help">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.ai_extractor.model.help</source>
         <target>The AI model that should be used for extraction. Must support structured output.</target>
       </segment>
     </unit>
     <unit id="H1SYgGs" name="settings.ips.ai_extractor.max_content_length">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.ai_extractor.max_content_length</source>
         <target>Max. Website Content length</target>
       </segment>
     </unit>
     <unit id="SZWiZE3" name="settings.ips.ai_extractor.max_content_length.description">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.ai_extractor.max_content_length.description</source>
         <target>The maximum number of characters of the website that are sent to the AI service.</target>
       </segment>
     </unit>
     <unit id="pCsAHOv" name="settings.ips.ai_extractor.output_language">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.ai_extractor.output_language</source>
         <target>Output language</target>
       </segment>
     </unit>
     <unit id="NVHHgpD" name="settings.ips.ai_extractor.output_language.description">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.ai_extractor.output_language.description</source>
         <target>By default, the providers returns information in the same language as the website. With that option you can ask the AI to translate it for you. Might only work with certain models.</target>
       </segment>
     </unit>
     <unit id="CAeeZlL" name="settings.ips.ai_extractor.additional_instructions">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.ai_extractor.additional_instructions</source>
         <target>Additional instructions</target>
       </segment>
     </unit>
     <unit id=".UaUMk1" name="settings.ips.ai_extractor.additional_instructions.description">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.ai_extractor.additional_instructions.description</source>
         <target>The additional instructions will be appended to the system prompt.</target>
       </segment>
     </unit>
     <unit id="Ycfssj2" name="info_providers.search.advanced_options">
-      <segment>
+      <segment state="translated">
         <source>info_providers.search.advanced_options</source>
         <target>Advanced options</target>
       </segment>
     </unit>
     <unit id="xfxZrXn" name="info_providers.no_cache_search">
-      <segment>
+      <segment state="translated">
         <source>info_providers.no_cache_search</source>
         <target>Do not cache search results / Force fresh search</target>
       </segment>
     </unit>
     <unit id="b_oc3T1" name="info_providers.no_cache_details">
-      <segment>
+      <segment state="translated">
         <source>info_providers.no_cache_details</source>
         <target>Do not cache result details / Force fresh part detail retrieval</target>
       </segment>
     </unit>
     <unit id="Ja8CCDb" name="info_providers.from_url.method.generic_web">
-      <segment>
+      <segment state="translated">
         <source>info_providers.from_url.method.generic_web</source>
         <target>Classic Web Scraper</target>
       </segment>
     </unit>
     <unit id="s0kUzFW" name="info_providers.from_url.method.ai_web">
-      <segment>
+      <segment state="translated">
         <source>info_providers.from_url.method.ai_web</source>
         <target>AI Web Scraper</target>
       </segment>
     </unit>
     <unit id="HEFB1OC" name="info_providers.from_url.method">
-      <segment>
+      <segment state="translated">
         <source>info_providers.from_url.method</source>
         <target>Method</target>
       </segment>
     </unit>
     <unit id="9pG0VtU" name="info_providers.from_url.no_cache">
-      <segment>
+      <segment state="translated">
         <source>info_providers.from_url.no_cache</source>
         <target>Ignore cache / Force fresh info retrieval</target>
       </segment>
     </unit>
     <unit id="302Jgvm" name="info_providers.from_url.skip_delegation">
-      <segment>
+      <segment state="translated">
         <source>info_providers.from_url.skip_delegation</source>
         <target>Do not delegate to specialized info providers</target>
       </segment>
     </unit>
     <unit id="pruvlK8" name="settings.ips.ai_extractor">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.ai_extractor</source>
         <target>AI Web Extractor</target>
       </segment>
     </unit>
     <unit id="wILs7pS" name="settings.ips.ai_extractor.description">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.ai_extractor.description</source>
         <target>This info provider uses an large language model (LLM) to extract detailed part information from arbitary shop URLs.</target>
       </segment>
     </unit>
     <unit id="1ShZ.1i" name="settings.ai.openrouter.help">
-      <segment>
+      <segment state="translated">
         <source>settings.ai.openrouter.help</source>
         <target>Access to many AI models via openrouter.ai</target>
       </segment>
     </unit>
     <unit id="kRcgIf0" name="settings.ai.lmstudio.hosturl">
-      <segment>
+      <segment state="translated">
         <source>settings.ai.lmstudio.hosturl</source>
         <target>Host URL</target>
       </segment>
