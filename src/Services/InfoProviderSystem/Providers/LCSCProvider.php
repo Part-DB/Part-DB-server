@@ -349,17 +349,18 @@ class LCSCProvider implements BatchInfoProviderInterface, URLHandlerInfoProvider
         return $result;
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         return $this->queryByTerm($keyword, true); // Use lightweight mode for search
     }
 
     /**
      * Batch search multiple keywords asynchronously (like JavaScript Promise.all)
-     * @param array $keywords Array of keywords to search
+     * @param  array  $keywords
+     * @param  array  $options
      * @return array Results indexed by keyword
      */
-    public function searchByKeywordsBatch(array $keywords): array
+    public function searchByKeywordsBatch(array $keywords, array $options = []): array
     {
         if (empty($keywords)) {
             return [];
@@ -428,7 +429,7 @@ class LCSCProvider implements BatchInfoProviderInterface, URLHandlerInfoProvider
         return $result;
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         $tmp = $this->queryByTerm($id, false);
         if (count($tmp) === 0) {

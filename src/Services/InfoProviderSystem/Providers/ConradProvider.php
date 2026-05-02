@@ -88,7 +88,7 @@ readonly class ConradProvider implements InfoProviderInterface, URLHandlerInfoPr
         return null;
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         $url = $this->settings->shopID->getAPIRoot() . self::SEARCH_ENDPOINT . '/'
             . $this->settings->shopID->getDomainEnd() . '/' . $this->settings->shopID->getLanguage()
@@ -279,7 +279,7 @@ readonly class ConradProvider implements InfoProviderInterface, URLHandlerInfoPr
         );
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         $productInfoURL = $this->settings->shopID->getAPIRoot() . '/product/1/service/' . $this->settings->shopID->getShopID()
             . '/product/' . $id;

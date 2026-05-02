@@ -33,6 +33,19 @@
         </div>
     </div>
 
+    <div class="row mb-2">
+        <div class="{{ col_input }} {{ offset_label }}">
+            <a data-bs-toggle="collapse" href="#infoSearchAdvancedPanel">{% trans %}info_providers.search.advanced_options{% endtrans %}</a>
+        </div>
+    </div>
+
+    <div class="collapse" id="infoSearchAdvancedPanel">
+        <div class="card card-body mb-2">
+            {{ form_row(form.no_cache_search) }}
+            {{ form_row(form.no_cache_details) }}
+        </div>
+    </div>
+
     {{ form_row(form.submit) }}
 
     {{ form_end(form) }}
@@ -116,16 +129,16 @@
 
                             {% if update_target %} {# We update an existing part #}
                                 {% set href = path('info_providers_update_part',
-                                    {'providerKey': dto.provider_key, 'providerId': dto.provider_id, 'id': update_target.iD}) %}
+                                    {'providerKey': dto.provider_key, 'providerId': dto.provider_id, 'id': update_target.iD, 'no_cache': no_cache_details ? 1 : null}) %}
                             {% else %} {# Create a fresh part #}
                                 {% set href = path('info_providers_create_part',
-                                    {'providerKey': dto.provider_key, 'providerId': dto.provider_id}) %}
+                                    {'providerKey': dto.provider_key, 'providerId': dto.provider_id, 'no_cache': no_cache_details ? 1 : null}) %}
                             {% endif %}
 
                             {# If we have no local part, then we can just show the create button #}
                             {% if localPart is null %}
                                 <a class="btn btn-primary" href="{{ href }}"
-                                target="_blank" title="{% trans %}part.create.btn{% endtrans %}">
+                                   target="_blank" title="{% trans %}part.create.btn{% endtrans %}">
                                     <i class="fa-solid fa-plus-square"></i>
                                 </a>
                             {% else %} {#  Otherwise add a button group with all three buttons #}
@@ -139,7 +152,7 @@
                                        target="_blank" title="{% trans %}info_providers.search.show_existing_part{% endtrans %}">
                                         <i class="fa-solid fa-search"></i>
                                     </a>
-                                    <a class="btn btn-primary" href="{{ path("info_providers_update_part", {'id': localPart.id, 'providerKey': dto.provider_key, 'providerId': dto.provider_id}) }}"
+                                    <a class="btn btn-primary" href="{{ path("info_providers_update_part", {'id': localPart.id, 'providerKey': dto.provider_key, 'providerId': dto.provider_id, 'no_cache': no_cache_details ? 1 : null }) }}"
                                        target="_blank" title="{% trans %}info_providers.search.update_existing_part{% endtrans %}">
                                         <i class="fa-solid fa-arrows-rotate"></i>
                                     </a>

@@ -69,7 +69,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
         return $this->tmeClient->isUsable();
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         $response = $this->tmeClient->makeRequest('Products/Search', [
             'Country' => $this->settings->country,
@@ -99,7 +99,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
         return $result;
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         $response = $this->tmeClient->makeRequest('Products/GetProducts', [
             'Country' => $this->settings->country,

@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Settings;
 
+use App\Settings\AISettings\AISettings;
 use App\Settings\BehaviorSettings\BehaviorSettings;
 use App\Settings\InfoProviderSystem\InfoProviderSettings;
 use App\Settings\MiscSettings\MiscSettings;
@@ -49,6 +50,9 @@ class AppSettings
 
     #[EmbeddedSettings]
     public ?SynonymSettings $synonyms = null;
+
+    #[EmbeddedSettings]
+    public ?AISettings $ai = null;
 
     #[EmbeddedSettings()]
     public ?MiscSettings $miscSettings = null;

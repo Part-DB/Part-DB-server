@@ -52,7 +52,7 @@
                                             {% trans %}info_providers.search.title{% endtrans %}
                                         </a>
                                     </li>
-                                    {% if settings_instance('generic_web_provider').enabled %}
+                                    {% if create_from_url_active() %}
                                         <li>
                                             <a class="dropdown-item" href="{{ path('info_providers_from_url') }}">
                                                 <i class="fa-fw fa-solid fa-book-atlas"></i>

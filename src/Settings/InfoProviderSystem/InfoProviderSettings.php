@@ -41,6 +41,9 @@ class InfoProviderSettings
     public ?GenericWebProviderSettings $genericWebProvider = null;
 
     #[EmbeddedSettings]
+    public ?AIExtractorSettings $aiExtractor = null;
+
+    #[EmbeddedSettings]
     public ?DigikeySettings $digikey = null;
 
     #[EmbeddedSettings]
@@ -75,4 +78,5 @@ class InfoProviderSettings
 
     #[EmbeddedSettings]
     public ?CanopySettings $canopy = null;
+
 }

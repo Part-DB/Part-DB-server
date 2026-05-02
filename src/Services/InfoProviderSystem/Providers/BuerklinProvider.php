@@ -120,7 +120,7 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
         ];
     }
 
-    private function getProduct(string $code): array
+    private function getProduct(string $code, bool $use_cache = true): array
     {
         $code = strtoupper(trim($code));
         if ($code === '') {
@@ -131,6 +131,11 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
             'buerklin.product.%s',
             md5($code . '|' . $this->settings->language . '|' . $this->settings->currency)
         );
+
+        if (!$use_cache) {
+            $this->partInfoCache->deleteItem($cacheKey);
+            unset($this->productCache[$cacheKey]);
+        }
 
         if (isset($this->productCache[$cacheKey])) {
             return $this->productCache[$cacheKey];
@@ -461,9 +466,11 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
     }
 
     /**
+     * @param  string  $keyword
+     * @param  array  $options
      * @return PartDetailDTO[]
      */
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         $keyword = strtoupper(trim($keyword));
         if ($keyword === '') {
@@ -486,17 +493,18 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
 
         // Fallback: try direct lookup by code
         try {
-            $product = $this->getProduct($keyword);
+            $product = $this->getProduct($keyword, use_cache: !($options[self::OPTION_NO_CACHE] ?? false));
             return [$this->getPartDetail($product)];
         } catch (\Throwable $e) {
             return [];
         }
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         // Detail endpoint is /products/{code}/
-        $response = $this->getProduct($id);
+        //By default use cache for details, but allow bypassing cache with option (e.g. for refresh)
+        $response = $this->getProduct($id, use_cache: !($options[self::OPTION_NO_CACHE] ?? false));
 
         return $this->getPartDetail($response);
     }
@@ -588,10 +596,11 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
     }
 
     /**
-     * @param string[] $keywords
+     * @param  array  $keywords
+     * @param  array  $options
      * @return array<string, SearchResultDTO[]>
      */
-    public function searchByKeywordsBatch(array $keywords): array
+    public function searchByKeywordsBatch(array $keywords, array $options = []): array
     {
         /** @var array<string, SearchResultDTO[]> $results */
         $results = [];
@@ -643,27 +652,27 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
 
     public function getIDFromURL(string $url): ?string
     {
-        //Inputs: 
-        //https://www.buerklin.com/de/p/bkl-electronic/niedervoltsteckverbinder/072341-l/40F1332/ 
+        //Inputs:
+        //https://www.buerklin.com/de/p/bkl-electronic/niedervoltsteckverbinder/072341-l/40F1332/
         //https://www.buerklin.com/de/p/40F1332/
         //https://www.buerklin.com/en/p/bkl-electronic/dc-connectors/072341-l/40F1332/
         //https://www.buerklin.com/en/p/40F1332/
         //The ID is the last part after the manufacturer/category/mpn segment and before the final slash
         //https://www.buerklin.com/de/p/bkl-electronic/niedervoltsteckverbinder/072341-l/40F1332/#download should also work
-        
+
         $path = parse_url($url, PHP_URL_PATH);
-    
+
         if (!$path) {
             return null;
         }
-    
+
         // Ensure it's actually a product URL
         if (strpos($path, '/p/') === false) {
             return null;
         }
-    
+
         $id = basename(rtrim($path, '/'));
-    
+
         return $id !== '' && $id !== 'p' ? $id : null;
     }
 

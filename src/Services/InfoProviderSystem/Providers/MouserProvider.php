@@ -76,7 +76,7 @@ class MouserProvider implements InfoProviderInterface
         return $this->settings->apiKey !== '' && $this->settings->apiKey !== null;
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         /*
         SearchByKeywordRequest description:
@@ -144,7 +144,7 @@ class MouserProvider implements InfoProviderInterface
         return $this->responseToDTOArray($response);
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         /*
             SearchByPartRequest description:

@@ -46,6 +46,9 @@ enum ProviderCapabilities
     /** Provider can provide GTIN for a part */
     case GTIN;
 
+    /** Provider can provide parameters/specifications for a part */
+    case PARAMETERS;
+
     /**
      * Get the order index for displaying capabilities in a stable order.
      * @return int
@@ -59,6 +62,7 @@ enum ProviderCapabilities
             self::PRICE => 4,
             self::FOOTPRINT => 5,
             self::GTIN => 6,
+            self::PARAMETERS => 7,
         };
     }
 
@@ -71,6 +75,7 @@ enum ProviderCapabilities
                 self::DATASHEET => 'datasheet',
                 self::PRICE => 'price',
                 self::GTIN => 'gtin',
+                self::PARAMETERS => 'parameters',
             };
     }
 
@@ -83,6 +88,7 @@ enum ProviderCapabilities
                 self::DATASHEET => 'fa-file-alt',
                 self::PRICE => 'fa-money-bill-wave',
                 self::GTIN => 'fa-barcode',
+                self::PARAMETERS => 'fa-list-ul',
             };
     }
 }

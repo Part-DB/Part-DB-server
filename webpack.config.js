@@ -24,8 +24,6 @@ var Encore = require('@symfony/webpack-encore');
 const zlib = require('zlib');
 const CompressionPlugin = require("compression-webpack-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const { CKEditorTranslationsPlugin } = require( '@ckeditor/ckeditor5-dev-translations' );
-const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -123,13 +121,6 @@ Encore
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
 
-    .addPlugin( new CKEditorTranslationsPlugin( {
-        // See https://ckeditor.com/docs/ckeditor5/latest/features/ui-language.html
-        language: 'en',
-        addMainLanguageTranslationsToAllAssets: true,
-        additionalLanguages: 'all',
-        outputDirectory: 'ckeditor_translations'
-    } ) )
 
     // Use raw-loader for CKEditor 5 SVG files.
     .addRule( {
@@ -142,19 +133,6 @@ Encore
         loader.exclude = /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/;
     } )
 
-    // Configure PostCSS loader.
-    .addLoader({
-        test: /ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css$/,
-        loader: 'postcss-loader',
-        options: {
-            postcssOptions: styles.getPostCssConfig( {
-                themeImporter: {
-                    themePath: require.resolve( '@ckeditor/ckeditor5-theme-lark' )
-                },
-                minify: true
-            } )
-        }
-    } )
 
 ;
 

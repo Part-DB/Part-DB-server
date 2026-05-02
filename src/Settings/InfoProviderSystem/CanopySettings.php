@@ -72,7 +72,7 @@ class CanopySettings
     /**
      * @var string The domain used internally for the API requests. This is not necessarily the same as the domain shown to the user, which is determined by the keys of the ALLOWED_DOMAINS constant
      */
-    #[SettingsParameter(label: new TM("settings.ips.tme.country"), formType: ChoiceType::class, formOptions: ["choices" => self::ALLOWED_DOMAINS])]
+    #[SettingsParameter(label: new TM("settings.ips.tme.country"), formType: ChoiceType::class, formOptions: ["choices" => self::ALLOWED_DOMAINS, 'translation_domain' => false])]
     public string $domain = "DE";
 
     /**

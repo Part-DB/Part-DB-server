@@ -111,7 +111,7 @@ class CanopyProvider implements InfoProviderInterface
         return null;
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         $response = $this->httpClient->request('GET', self::SEARCH_API_URL, [
             'query' => [
@@ -177,15 +177,17 @@ class CanopyProvider implements InfoProviderInterface
         return new PurchaseInfoDTO(self::DISTRIBUTOR_NAME, order_number: $asin, prices: $priceDtos, product_url: $this->productPageFromASIN($asin));
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         //Check that the id is a valid ASIN (10 characters, letters and numbers)
         if (!preg_match('/^[A-Z0-9]{10}$/', $id)) {
             throw new \InvalidArgumentException("The id must be a valid ASIN (10 characters, letters and numbers)");
         }
 
+        $do_not_cache = ($options[self::OPTION_NO_CACHE] ?? false) || $this->settings->alwaysGetDetails;
+
         //Use cached details if available and the settings allow it, to avoid unnecessary API requests, since the search results already contain most of the details
-        if(!$this->settings->alwaysGetDetails && ($cached = $this->getFromCache($id)) !== null) {
+        if(!$do_not_cache && ($cached = $this->getFromCache($id)) !== null) {
             return $cached;
         }
 

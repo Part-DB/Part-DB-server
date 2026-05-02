@@ -47,6 +47,7 @@ It is installed on a web server and so can be accessed with any browser without 
 * Easy migration from an existing PartKeepr instance (see [here]({%link partkeepr_migration.md %}))
 * Use cloud providers (like Octopart, Digikey, Farnell, Mouser, or TME) to automatically get part information, datasheets, and
   prices for parts (see [here]({% link usage/information_provider_system.md %}))
+* Retrieve part information from arbitrary shop websites, using either conventional data extraction from structured metadata, or AI based data extraction
 * API to access Part-DB from other applications/scripts
 * [Integration with KiCad]({%link usage/eda_integration.md %}): Use Part-DB as the central datasource for your
   KiCad and see available parts from Part-DB directly inside KiCad.
