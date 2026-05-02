@@ -33,6 +33,7 @@ use App\Settings\InfoProviderSystem\AIExtractorSettings;
 use Brick\Schema\SchemaReader;
 use Jkphl\Micrometa;
 use League\HTMLToMarkdown\HtmlConverter;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
 use Symfony\Component\DomCrawler\Crawler;
@@ -43,11 +44,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use function Symfony\Component\String\u;
 
 
-final class AIInfoExtractor implements InfoProviderInterface
+final class AIWebProvider implements InfoProviderInterface
 {
     use FixAndValidateUrlTrait;
 
-    private const DISTRIBUTOR_NAME = 'AI Extracted';
+    private const DISTRIBUTOR_NAME = 'Website';
 
     private readonly HttpClientInterface $httpClient;
 
@@ -56,6 +57,7 @@ final class AIInfoExtractor implements InfoProviderInterface
         private readonly AIExtractorSettings $settings,
         private readonly AIPlatformRegistry $AIPlatformRegistry,
         private readonly DTOJsonSchemaConverter $jsonSchemaConverter,
+        private readonly CacheItemPoolInterface $partInfoCache
     ) {
         //Use NoPrivateNetworkHttpClient to prevent SSRF vulnerabilities, and RandomizeUseragentHttpClient to make it harder for servers to block us
         $this->httpClient = (new RandomizeUseragentHttpClient(new NoPrivateNetworkHttpClient($httpClient)))->withOptions(
@@ -68,17 +70,17 @@ final class AIInfoExtractor implements InfoProviderInterface
     public function getProviderInfo(): array
     {
         return [
-            'name' => 'AI Information Extractor',
-            'description' => 'Extract part info from any URL using OpenRouter LLM',
+            'name' => 'AI Web Extractor',
+            'description' => 'Extract part info from any URL using LLM',
             //'url' => 'https://openrouter.ai',
-            'disabled_help' => 'Configure OpenRouter API key in settings',
+            'disabled_help' => 'Configure AI settings',
             'settings_class' => AIExtractorSettings::class,
         ];
     }
 
     public function getProviderKey(): string
     {
-        return 'ai_extractor';
+        return 'ai_web';
     }
 
     public function isActive(): bool
@@ -90,7 +92,7 @@ final class AIInfoExtractor implements InfoProviderInterface
     {
         try {
             return [
-                $this->getDetails($keyword)
+                $this->getDetails($keyword, $options)
             ]; } catch (ProviderIDNotSupportedException $e) {
             return [];
         }
@@ -100,15 +102,23 @@ final class AIInfoExtractor implements InfoProviderInterface
     {
         $url = $this->fixAndValidateURL($id);
 
+        //Check if we have a cached result for this URL, to avoid unnecessary LLM calls, which can be slow and costly.
+        $cacheKey = 'ai_web_'.hash('xxh3', $url);
+
+        //If ignore cache option is set, skip cache and fetch fresh data
+        if ($options[self::OPTION_NO_CACHE] ?? false) {
+            $this->partInfoCache->deleteItem($cacheKey);
+        }
+
+        //Return cached result if available
+        $cacheItem = $this->partInfoCache->getItem($cacheKey);
+        if ($cacheItem->isHit()) {
+            return $cacheItem->get();
+        }
+
         // Fetch HTML content
         $response = $this->httpClient->request('GET', $url);
         $html = $response->getContent();
-
-        // Clean HTML
-        /*$cleanedHtml = $this->cleanHTML($html);
-
-        // Truncate to max content length
-        $truncatedHtml = $this->truncateHTML($cleanedHtml, $this->settings->maxContentLength);*/
 
         //Convert html to markdown, to provide a cleaner input to the LLM.
         $markdown = $this->htmlToMarkdown($html);
@@ -123,6 +133,11 @@ final class AIInfoExtractor implements InfoProviderInterface
 
         // Build and return PartDetailDTO
         $result = $this->jsonSchemaConverter->jsonToDTO($llmResponse, $this->getProviderKey(), $url, $url, self::DISTRIBUTOR_NAME);
+
+        // Cache the result for future use, to improve performance and reduce costs.
+        $cacheItem->set($result);
+        $cacheItem->expiresAfter(3600 * 2); //Cache for 2 hours, as web content can change frequently, but we still want to benefit from caching for repeated accesses.
+        $this->partInfoCache->save($cacheItem);
 
         return $result;
     }
