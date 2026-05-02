@@ -29,6 +29,7 @@ use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 interface InfoProviderInterface
 {
     public const OPTION_NO_CACHE = 'no_cache'; // if set to true, the provider should not use any cache and retrieve fresh data from the source
+    public const OPTION_SKIP_DELEGATION = 'skip_delegation'; // if set to true, the provider should not delegate the request to other providers, even if it supports delegation.
 
     /**
      * Get information about this provider

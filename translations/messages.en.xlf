@@ -13181,5 +13181,11 @@ Buerklin-API Authentication server:
         <target>Ignore cache / Force fresh info retrieval</target>
       </segment>
     </unit>
+    <unit id="302Jgvm" name="info_providers.from_url.skip_delegation">
+      <segment>
+        <source>info_providers.from_url.skip_delegation</source>
+        <target>Do not delegate to specialized info providers</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

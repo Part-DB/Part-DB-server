@@ -75,6 +75,11 @@ class FromURLFormType extends AbstractType
             'required' => false,
         ]);
 
+        $builder->add('skip_delegation', CheckboxType::class, [
+            'label' => 'info_providers.from_url.skip_delegation',
+            'required' => false,
+        ]);
+
         $builder->add('submit', SubmitType::class, [
             'label' => 'info_providers.search.submit',
         ]);

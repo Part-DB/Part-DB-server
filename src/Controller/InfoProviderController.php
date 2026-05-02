@@ -240,12 +240,16 @@ class InfoProviderController extends  AbstractController
 
             $method = $form->get('method')->getData();
             $no_cache = $form->get('no_cache')->getData();
+            $skip_delegation = $form->get('skip_delegation')->getData();
 
             try {
                 //It's okay if we use the cached results here, as its just for convenience
                 $searchResult = $this->infoRetriever->searchByKeyword(
                     keyword: $url,
                     providers: [$method],
+                    options: [
+                        InfoProviderInterface::OPTION_SKIP_DELEGATION => $skip_delegation,
+                    ]
                 );
 
                 if (count($searchResult) === 0) {
@@ -257,6 +261,7 @@ class InfoProviderController extends  AbstractController
                         'providerKey' => $searchResult->provider_key,
                         'providerId' => $searchResult->provider_id,
                         'no_cache' => $no_cache ? 1 : null,
+                        'skip_delegation' => $skip_delegation ? 1 : null,
                     ]);
                 }
             } catch (ExceptionInterface $e) {

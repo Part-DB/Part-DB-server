@@ -27,6 +27,7 @@ namespace App\Services\InfoProviderSystem\Providers;
 use App\Exceptions\ProviderIDNotSupportedException;
 use App\Helpers\RandomizeUseragentHttpClient;
 use App\Services\AI\AIPlatformRegistry;
+use App\Services\InfoProviderSystem\CreateFromUrlHelper;
 use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Settings\InfoProviderSystem\AIExtractorSettings;
@@ -57,7 +58,8 @@ final class AIWebProvider implements InfoProviderInterface
         private readonly AIExtractorSettings $settings,
         private readonly AIPlatformRegistry $AIPlatformRegistry,
         private readonly DTOJsonSchemaConverter $jsonSchemaConverter,
-        private readonly CacheItemPoolInterface $partInfoCache
+        private readonly CacheItemPoolInterface $partInfoCache,
+        private readonly CreateFromUrlHelper $createFromUrlHelper,
     ) {
         //Use NoPrivateNetworkHttpClient to prevent SSRF vulnerabilities, and RandomizeUseragentHttpClient to make it harder for servers to block us
         $this->httpClient = (new RandomizeUseragentHttpClient(new NoPrivateNetworkHttpClient($httpClient)))->withOptions(
@@ -90,9 +92,23 @@ final class AIWebProvider implements InfoProviderInterface
 
     public function searchByKeyword(string $keyword, array $options = []): array
     {
+        $url = $this->fixAndValidateURL($keyword);
+
+        if (!($options[self::OPTION_SKIP_DELEGATION] ?? false)) {
+            //Before loading the page, try to delegate to another provider
+            $delegatedPart = $this->createFromUrlHelper->delegateToOtherProvider($url, $this);
+            if ($delegatedPart !== null) {
+                return [$delegatedPart];
+            }
+        }
+
         try {
+
+            $new_options = $options;
+            $new_options[self::OPTION_SKIP_DELEGATION] = true; //Skip delegation for the getDetails call to prevent infinite loops
+
             return [
-                $this->getDetails($keyword, $options)
+                $this->getDetails($keyword, $new_options)
             ]; } catch (ProviderIDNotSupportedException $e) {
             return [];
         }
@@ -101,6 +117,14 @@ final class AIWebProvider implements InfoProviderInterface
     public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         $url = $this->fixAndValidateURL($id);
+
+        if (!($options[self::OPTION_SKIP_DELEGATION] ?? false)) {
+            //Before loading the page, try to delegate to another provider
+            $delegatedPart = $this->createFromUrlHelper->delegateToOtherProviderDetails($url, $this);
+            if ($delegatedPart !== null) {
+                return $delegatedPart;
+            }
+        }
 
         //Check if we have a cached result for this URL, to avoid unnecessary LLM calls, which can be slow and costly.
         $cacheKey = 'ai_web_'.hash('xxh3', $url);

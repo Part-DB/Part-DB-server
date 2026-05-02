@@ -24,11 +24,18 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem;
 
 use App\Entity\UserSystem\User;
+use App\Exceptions\ProviderIDNotSupportedException;
+use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 
 final readonly class CreateFromUrlHelper
 {
-    public function __construct(private Security $security, private ProviderRegistry $providerRegistry)
+    public function __construct(private Security $security,
+        private ProviderRegistry $providerRegistry,
+        private PartInfoRetriever $infoRetriever,
+    )
     {
     }
 
@@ -48,5 +55,55 @@ final readonly class CreateFromUrlHelper
         $aiWebProvider = $this->providerRegistry->getProviderByKey('ai_web');
 
         return $genericWebProvider->isActive() || $aiWebProvider->isActive();
+    }
+
+    /**
+     * Delegates the URL to another provider if possible, otherwise return null
+     * @param  string  $url
+     * @return SearchResultDTO|null
+     */
+    public function delegateToOtherProvider(string $url, InfoProviderInterface $callingInfoProvider): ?SearchResultDTO
+    {
+        //Extract domain from url:
+        $host = parse_url($url, PHP_URL_HOST);
+        if ($host === false || $host === null) {
+            return null;
+        }
+
+        $provider = $this->providerRegistry->getProviderHandlingDomain($host);
+
+        if ($provider !== null && $provider->isActive() && $provider->getProviderKey() !== $callingInfoProvider->getProviderKey()) {
+            try {
+                $id = $provider->getIDFromURL($url);
+                if ($id !== null) {
+                    $results = $this->infoRetriever->searchByKeyword($id, [$provider]);
+                    if (count($results) > 0) {
+                        return $results[0];
+                    }
+                }
+                return null;
+            } catch (ProviderIDNotSupportedException $e) {
+                //Ignore and continue
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Delegates the URL to another provider if possible and returns the details, otherwise return null
+     * @param  string  $url
+     * @param  InfoProviderInterface  $callingInfoProvider
+     * @return PartDetailDTO|null
+     */
+    public function delegateToOtherProviderDetails(string $url, InfoProviderInterface $callingInfoProvider): ?PartDetailDTO
+    {
+        $delegatedResult = $this->delegateToOtherProvider($url, $callingInfoProvider);
+        if ($delegatedResult !== null) {
+            return $this->infoRetriever->getDetailsForSearchResult($delegatedResult);
+        }
+
+        return null;
     }
 }
