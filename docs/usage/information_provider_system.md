@@ -111,6 +111,19 @@ may have privacy and security implications.
 Following env configuration options are available:
 * `PROVIDER_GENERIC_WEB_ENABLED`: Set this to `1` to enable the Generic Web URL Provider (optional, default: `0`)
 
+### AI Web Extractor
+The AI web extractor provider can extract part information from any webpage using AI-based techniques. It is designed to handle unstructured data and can extract relevant information even from websites that do not use structured data formats like Schema.org. 
+This provider can be particularly useful for extracting information from websites that have complex layouts or do not follow standard e-commerce practices.
+It also potentially extracts more detailed information than the Generic Web URL Provider, as it is not limited to the fields defined in the Schema.org format.
+
+To use the AI Web Extractor, you need to setup an AI platform, in the AI settings tab, and chose a model, which support structured output.
+For many use cases a small and cheap model like `google/gemini-2.5-flash-lite` will be sufficient, coming down to costs like 0.003$ per request.
+For more complex websites, or if you wanna use the LLM for translation purposes too, you should consider a more powerful model.
+
+You can add some additional instructions for the model, which gets added to the system prompt, to tweak the output of the model.
+
+The provider will download the HTML of the given URL, convert it to markdown and send it to the LLM toghether with structured data extracted from the webpage via conventional methods.
+
 ### Octopart
 
 The Octopart provider uses the [Octopart / Nexar API](https://nexar.com/api) to search for parts and get information.
