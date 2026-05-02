@@ -55,7 +55,7 @@ class TestProvider implements InfoProviderInterface
         return true;
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         return [
             new SearchResultDTO(provider_key: $this->getProviderKey(), provider_id: 'element1', name: 'Element 1', description: 'fd'),
@@ -72,7 +72,7 @@ class TestProvider implements InfoProviderInterface
         ];
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         return new PartDetailDTO(
             provider_key: $this->getProviderKey(),

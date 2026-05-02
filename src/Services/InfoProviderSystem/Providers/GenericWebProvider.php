@@ -25,6 +25,7 @@ namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Exceptions\ProviderIDNotSupportedException;
 use App\Helpers\RandomizeUseragentHttpClient;
+use App\Services\InfoProviderSystem\CreateFromUrlHelper;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
@@ -48,12 +49,14 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class GenericWebProvider implements InfoProviderInterface
 {
 
+    use FixAndValidateUrlTrait;
+
     public const DISTRIBUTOR_NAME = 'Website';
 
     private readonly HttpClientInterface $httpClient;
 
     public function __construct(HttpClientInterface $httpClient, private readonly GenericWebProviderSettings $settings,
-        private readonly ProviderRegistry $providerRegistry, private readonly PartInfoRetriever $infoRetriever,
+        private readonly CreateFromUrlHelper $createFromUrlHelper,
     )
     {
         //Use NoPrivateNetworkHttpClient to prevent SSRF vulnerabilities, and RandomizeUseragentHttpClient to make it harder for servers to block us
@@ -85,19 +88,23 @@ class GenericWebProvider implements InfoProviderInterface
         return $this->settings->enabled;
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         $url = $this->fixAndValidateURL($keyword);
 
-        //Before loading the page, try to delegate to another provider
-        $delegatedPart = $this->delegateToOtherProvider($url);
-        if ($delegatedPart !== null) {
-            return [$delegatedPart];
+        if (!($options[self::OPTION_SKIP_DELEGATION] ?? false)) {
+            //Before loading the page, try to delegate to another provider
+            $delegatedPart = $this->createFromUrlHelper->delegateToOtherProvider($url, $this);
+            if ($delegatedPart !== null) {
+                return [$delegatedPart];
+            }
         }
 
         try {
+            $new_options = $options;
+            $new_options[self::OPTION_SKIP_DELEGATION] = true; //Skip delegation for the getDetails call to prevent infinite loops
             return [
-                $this->getDetails($keyword, false) //We already tried delegation
+                $this->getDetails($keyword, $new_options)
             ]; } catch (ProviderIDNotSupportedException $e) {
             return [];
         }
@@ -274,78 +281,16 @@ class GenericWebProvider implements InfoProviderInterface
         return null;
     }
 
-    /**
-     * Delegates the URL to another provider if possible, otherwise return null
-     * @param  string  $url
-     * @return SearchResultDTO|null
-     */
-    private function delegateToOtherProvider(string $url): ?SearchResultDTO
-    {
-        //Extract domain from url:
-        $host = parse_url($url, PHP_URL_HOST);
-        if ($host === false || $host === null) {
-            return null;
-        }
 
-        $provider = $this->providerRegistry->getProviderHandlingDomain($host);
-
-        if ($provider !== null && $provider->isActive() && $provider->getProviderKey() !== $this->getProviderKey()) {
-            try {
-                $id = $provider->getIDFromURL($url);
-                if ($id !== null) {
-                    $results = $this->infoRetriever->searchByKeyword($id, [$provider]);
-                    if (count($results) > 0) {
-                        return $results[0];
-                    }
-                }
-                return null;
-            } catch (ProviderIDNotSupportedException $e) {
-                //Ignore and continue
-                return null;
-            }
-        }
-
-        return null;
-    }
-
-    private function fixAndValidateURL(string $url): string
-    {
-        $originalUrl = $url;
-
-        //Add scheme if missing
-        if (!preg_match('/^https?:\/\//', $url)) {
-            //Remove any leading slashes
-            $url = ltrim($url, '/');
-
-            //If the URL starts with https:/ or http:/, add the missing slash
-            //Traefik removes the double slash as secruity measure, so we want to be forgiving and add it back if needed
-            //See https://github.com/Part-DB/Part-DB-server/issues/1296
-            if (preg_match('/^https?:\/[^\/]/', $url)) {
-                $url = preg_replace('/^(https?:)\/([^\/])/', '$1//$2', $url);
-            } else {
-                $url = 'https://'.$url;
-            }
-        }
-
-        //If this is not a valid URL with host, domain and path, throw an exception
-        if (filter_var($url, FILTER_VALIDATE_URL) === false ||
-            parse_url($url, PHP_URL_HOST) === null ||
-            parse_url($url, PHP_URL_PATH) === null) {
-            throw new ProviderIDNotSupportedException("The given ID is not a valid URL: ".$originalUrl);
-        }
-
-        return $url;
-    }
-
-    public function getDetails(string $id, bool $check_for_delegation = true): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         $url = $this->fixAndValidateURL($id);
 
-        if ($check_for_delegation) {
+        if (!($options[self::OPTION_SKIP_DELEGATION] ?? false)) {
             //Before loading the page, try to delegate to another provider
-            $delegatedPart = $this->delegateToOtherProvider($url);
+            $delegatedPart = $this->createFromUrlHelper->delegateToOtherProviderDetails($url, $this);
             if ($delegatedPart !== null) {
-                return $this->infoRetriever->getDetailsForSearchResult($delegatedPart);
+                return $delegatedPart;
             }
         }
 

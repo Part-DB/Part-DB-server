@@ -1,0 +1,4 @@
+ai:
+    platform:
+        openrouter:
+            api_key: '%env(string:settings:ai_openrouter:apiKey)%'

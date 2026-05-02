@@ -62,6 +62,7 @@ for the first time.
 * Automatic thumbnail generation for pictures
 * Use cloud providers (like Octopart, Digikey, Farnell, LCSC or TME) to automatically get part information, datasheets, and
   prices for parts
+* Retrieve part information from arbitrary shop websites, using either conventional data extraction from structured metadata, or AI based data extraction
 * API to access Part-DB from other applications/scripts
 * [Integration with KiCad](https://docs.part-db.de/usage/eda_integration.html): Use Part-DB as the central datasource for your
   KiCad and see available parts from Part-DB directly inside KiCad.
