@@ -13187,5 +13187,29 @@ Buerklin-API Authentication server:
         <target>Do not delegate to specialized info providers</target>
       </segment>
     </unit>
+    <unit id="pruvlK8" name="settings.ips.ai_extractor">
+      <segment>
+        <source>settings.ips.ai_extractor</source>
+        <target>AI Web Extractor</target>
+      </segment>
+    </unit>
+    <unit id="wILs7pS" name="settings.ips.ai_extractor.description">
+      <segment>
+        <source>settings.ips.ai_extractor.description</source>
+        <target>This info provider uses an large language model (LLM) to extract detailed part information from arbitary shop URLs.</target>
+      </segment>
+    </unit>
+    <unit id="1ShZ.1i" name="settings.ai.openrouter.help">
+      <segment>
+        <source>settings.ai.openrouter.help</source>
+        <target>Access to many AI models via openrouter.ai</target>
+      </segment>
+    </unit>
+    <unit id="kRcgIf0" name="settings.ai.lmstudio.hosturl">
+      <segment>
+        <source>settings.ai.lmstudio.hosturl</source>
+        <target>Host URL</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

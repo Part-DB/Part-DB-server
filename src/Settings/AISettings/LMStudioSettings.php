@@ -31,6 +31,7 @@ use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Translation\StaticMessage;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
 #[Settings(name: 'ai_lmstudio', label: new TM("settings.ai.lmstudio"))]
@@ -41,6 +42,7 @@ class LMStudioSettings implements AIPlatformSettingsInterface
 
     #[SettingsParameter(label: new TM("settings.ai.lmstudio.hosturl"),
         formType: UrlType::class,
+        formOptions: ["attr" => ["placeholder" =>  new StaticMessage("http://localhost:1234")]],
         envVar: "AI_LMSTUDIO_HOSTURL", envVarMode: EnvVarMode::OVERWRITE)]
     public ?string $hostURL = null;
 
