@@ -75,6 +75,20 @@
                                     <span class="badge bg-secondary">{{ status.installation.type_name }}</span>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <th scope="row">{% trans %}update_manager.web_updates_allowed{% endtrans %}</th>
+                                <td>{{ helper.boolean_badge(not web_updates_disabled) }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{% trans %}update_manager.backup_restore_allowed{% endtrans %}</th>
+                                <td>{{ helper.boolean_badge(not backup_restore_disabled) }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{% trans %}update_manager.backup_download_allowed{% endtrans %}</th>
+                                <td>{{ helper.boolean_badge(not backup_download_disabled) }}</td>
+                            </tr>
+
                             {% if status.git.is_git_install %}
                                 <tr>
                                     <th scope="row">{% trans %}update_manager.git_branch{% endtrans %}</th>
