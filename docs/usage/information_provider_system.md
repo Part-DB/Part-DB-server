@@ -117,7 +117,7 @@ This provider can be particularly useful for extracting information from website
 It also potentially extracts more detailed information than the Generic Web URL Provider, as it is not limited to the fields defined in the Schema.org format.
 
 To use the AI Web Extractor, you need to setup an AI platform, in the AI settings tab, and chose a model, which support structured output.
-For many use cases a small and cheap model like `google/gemini-2.5-flash-lite` will be sufficient, coming down to costs like 0.003$ per request.
+For many use cases a small and cheap model like `google/gemini-2.5-flash-lite` will be sufficient, coming down to costs like 0.001$ per request.
 For more complex websites, or if you wanna use the LLM for translation purposes too, you should consider a more powerful model.
 
 You can add some additional instructions for the model, which gets added to the system prompt, to tweak the output of the model.

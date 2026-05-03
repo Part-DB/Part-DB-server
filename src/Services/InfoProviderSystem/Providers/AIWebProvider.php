@@ -32,6 +32,7 @@ use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Settings\InfoProviderSystem\AIExtractorSettings;
 use Brick\Schema\SchemaReader;
+use Imagine\Image\Format;
 use Jkphl\Micrometa;
 use League\HTMLToMarkdown\HtmlConverter;
 use Psr\Cache\CacheItemPoolInterface;
@@ -174,7 +175,8 @@ final class AIWebProvider implements InfoProviderInterface
      */
     private function extractStructuredData(string $html, string $url): string
     {
-        $micrometa = new Micrometa\Ports\Parser();
+        //Only parse microdata, json-ld and rdfa, as they are the most common formats for structured data on product pages. Links and microformat only create clutter for the LLM
+        $micrometa = new Micrometa\Ports\Parser(Micrometa\Ports\Format::JSON_LD | Micrometa\Ports\Format::MICRODATA | Micrometa\Ports\Format::RDFA_LITE);
         $items = $micrometa($url, $html);
 
         return json_encode($items->toObject(), JSON_THROW_ON_ERROR);
@@ -264,6 +266,9 @@ Rules:
 - If information is not found, use null
 - Try to avoid duplicating parameters, if the same parameter is mentioned multiple times, or if it is already used in another field.
 - Include only the 1 to 3 most relevant images, such as the main product image or important diagrams. Ignore decorative images, logos, or icons.
+- Extract GTIN / EAN if available, as it can be useful for matching parts across different sources, even if the part number is different.
+- Include detailed product description into notes field, as it can contain important information that doesn't fit into other fields, such as features, applications, or unique selling points.
+
 PROMPT;
 
         if ($this->settings->outputLanguage === null) {
