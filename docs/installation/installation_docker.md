@@ -255,8 +255,6 @@ services:
       - WATCHTOWER_HTTP_API_TOKEN=your-secret-token
       - WATCHTOWER_LABEL_ENABLE=true
       - WATCHTOWER_CLEANUP=true
-    ports:
-      - '8081:8080'
 ```
 
 {: .important }
