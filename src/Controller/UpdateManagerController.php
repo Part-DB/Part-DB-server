@@ -28,6 +28,7 @@ use App\Services\System\BackupManager;
 use App\Services\System\InstallationTypeDetector;
 use App\Services\System\UpdateChecker;
 use App\Services\System\UpdateExecutor;
+use App\Services\System\WatchtowerClient;
 use Shivas\VersioningBundle\Service\VersionManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -56,6 +57,7 @@ class UpdateManagerController extends AbstractController
         private readonly BackupManager $backupManager,
         private readonly InstallationTypeDetector $installationTypeDetector,
         private readonly UserPasswordHasherInterface $passwordHasher,
+        private readonly WatchtowerClient $watchtowerClient,
         #[Autowire(env: 'bool:DISABLE_WEB_UPDATES')]
         private readonly bool $webUpdatesDisabled = false,
         #[Autowire(env: 'bool:DISABLE_BACKUP_RESTORE')]
@@ -503,5 +505,101 @@ class UpdateManagerController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_update_manager');
+    }
+
+    /**
+     * Start a Docker update via Watchtower.
+     */
+    #[Route('/start-docker', name: 'admin_update_manager_start_docker', methods: ['POST'])]
+    public function startDockerUpdate(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('@system.manage_updates');
+        $this->denyIfWebUpdatesDisabled();
+
+        // Validate CSRF token
+        if (!$this->isCsrfTokenValid('update_manager_start_docker', $request->request->get('_token'))) {
+            $this->addFlash('error', 'Invalid CSRF token');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        // Check if Watchtower is configured and available
+        if (!$this->watchtowerClient->isConfigured()) {
+            $this->addFlash('error', 'Watchtower is not configured. Please set WATCHTOWER_API_URL and WATCHTOWER_API_TOKEN.');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        if (!$this->watchtowerClient->isAvailable()) {
+            $this->addFlash('error', 'Watchtower is not reachable. Please check that the Watchtower container is running and accessible.');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        // Create backup if requested
+        $createBackup = $request->request->getBoolean('backup', true);
+        if ($createBackup) {
+            try {
+                $this->backupManager->createBackup();
+            } catch (\Throwable $e) {
+                $this->addFlash('error', 'Failed to create backup before update: ' . $e->getMessage());
+                return $this->redirectToRoute('admin_update_manager');
+            }
+        }
+
+        // Trigger Watchtower update
+        $success = $this->watchtowerClient->triggerUpdate();
+
+        if (!$success) {
+            $this->addFlash('error', 'Failed to trigger Watchtower update. Check the logs for details.');
+            return $this->redirectToRoute('admin_update_manager');
+        }
+
+        $currentVersion = $this->versionManager->getVersion()->toString();
+
+        // Redirect to Docker progress page
+        return $this->redirectToRoute('admin_update_manager_docker_progress', [
+            'previous_version' => $currentVersion,
+        ]);
+    }
+
+    /**
+     * Docker update progress page.
+     * This page contains client-side JavaScript that polls until the container restarts.
+     */
+    #[Route('/progress/docker', name: 'admin_update_manager_docker_progress', methods: ['GET'])]
+    public function dockerProgress(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('@system.manage_updates');
+
+        $previousVersion = $request->query->get('previous_version', 'unknown');
+
+        return $this->render('admin/update_manager/docker_progress.html.twig', [
+            'previous_version' => $previousVersion,
+        ]);
+    }
+
+    /**
+     * Lightweight health check endpoint used by Docker update progress page.
+     * Returns current version so the client-side JS can detect when the container restarts with a new version.
+     *
+     * Intentionally unauthenticated: after a Docker container restart, the user's session may not survive
+     * (depends on session storage backend). The version string is non-sensitive public information.
+     * This endpoint is also whitelisted in MaintenanceModeSubscriber.
+     */
+    #[Route('/health', name: 'admin_update_manager_health', methods: ['GET'])]
+    public function healthCheck(): JsonResponse
+    {
+        //Only show version if user is logged in and has permission
+
+        $response = [
+            'status' => 'ok',
+        ];
+
+        if ($this->isGranted('@system.show_updates')) {
+            $response['version'] = $this->versionManager->getVersion()->toString();
+        } else {
+            $response['version'] = "not authorized";
+        }
+
+        return $this->json($response);
     }
 }

@@ -46,7 +46,7 @@ enum InstallationType: string
     {
         return match ($this) {
             self::GIT => true,
-            self::DOCKER => false,
+            self::DOCKER => true,
             // ZIP_RELEASE auto-update not yet implemented
             self::ZIP_RELEASE => false,
             self::UNKNOWN => false,
@@ -57,7 +57,7 @@ enum InstallationType: string
     {
         return match ($this) {
             self::GIT => 'Run: php bin/console partdb:update',
-            self::DOCKER => 'Pull the new Docker image and recreate the container: docker-compose pull && docker-compose up -d',
+            self::DOCKER => 'Configure Watchtower for one-click updates, or manually: docker-compose pull && docker-compose up -d',
             self::ZIP_RELEASE => 'Download the new release ZIP from GitHub, extract it over your installation, and run: php bin/console doctrine:migrations:migrate && php bin/console cache:clear',
             self::UNKNOWN => 'Unable to determine installation type. Please update manually.',
         };

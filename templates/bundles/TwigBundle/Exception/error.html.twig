@@ -17,7 +17,7 @@
             Consider yourself lucky. You found some rare error code. <br> You should maybe inform your administrator about it...
         {% endblock %}
     </h3>
-    {% block further_actions %}<p class="help_text">You can try to <a href="javascript:history.back()">Go Back</a> or <a href="{{ path('homepage') }}">Visit the homepage</a>.</p>{% endblock %}
+    {% block further_actions %}<p class="help_text">You can try to <a href="#" onclick="history.back();return false;">Go Back</a> or <a href="{{ path('homepage') }}">Visit the homepage</a>.</p>{% endblock %}
     {% block admin_contact %}<p class="help_text">If this error persists, please contact your
         {% if error_page_admin_email is not empty %}
             <a href="mailto:{{ error_page_admin_email }}">administrator.</a>

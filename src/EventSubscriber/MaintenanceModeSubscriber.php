@@ -62,8 +62,8 @@ readonly class MaintenanceModeSubscriber implements EventSubscriberInterface
             return;
         }
 
-        //Allow to view the progress page
-        if (preg_match('#^/\w{2}/system/update-manager/progress#', $event->getRequest()->getPathInfo())) {
+        //Allow to view the progress page and health check endpoint
+        if (preg_match('#^/[a-z]{2}(?:_[A-Z]{2})?/system/update-manager/(progress|health)#', $event->getRequest()->getPathInfo())) {
             return;
         }
 
