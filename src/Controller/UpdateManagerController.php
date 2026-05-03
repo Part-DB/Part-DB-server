@@ -588,9 +588,16 @@ class UpdateManagerController extends AbstractController
     #[Route('/health', name: 'admin_update_manager_health', methods: ['GET'])]
     public function healthCheck(): JsonResponse
     {
-        return $this->json([
+        //Only show version if user is logged in and has permission
+
+        $response = [
             'status' => 'ok',
-            'version' => $this->versionManager->getVersion()->toString(),
-        ]);
+        ];
+
+        if ($this->isGranted('@system.show_updates')) {
+            $response['version'] = $this->versionManager->getVersion()->toString();
+        }
+
+        return $this->json($response);
     }
 }
