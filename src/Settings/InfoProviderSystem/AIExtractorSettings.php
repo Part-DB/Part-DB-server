@@ -34,6 +34,7 @@ use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\AI\Platform\Capability;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Translation\StaticMessage;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 use Symfony\Component\Validator\Constraints\Language;
 
@@ -51,7 +52,11 @@ class AIExtractorSettings
     public ?AIPlatforms $platform = null;
 
     #[SettingsParameter(label: new TM("settings.ips.ai_extractor.model"), description: new TM("settings.ips.ai_extractor.model.help"),
-        formType: AiModelsType::class, formOptions: ['platform_selector' => self::MODEL_SELECTOR_LABEL, 'filter_capability' => Capability::OUTPUT_STRUCTURED],
+        formType: AiModelsType::class, formOptions: [
+            'platform_selector' => self::MODEL_SELECTOR_LABEL, 'filter_capability' => Capability::OUTPUT_STRUCTURED,
+            'attr' => ['placeholder' => new StaticMessage('google/gemini-2.5-flash-lite')]
+        ],
+
     )]
     public ?string $model = null;
 
