@@ -596,6 +596,8 @@ class UpdateManagerController extends AbstractController
 
         if ($this->isGranted('@system.show_updates')) {
             $response['version'] = $this->versionManager->getVersion()->toString();
+        } else {
+            $response['version'] = "not authorized";
         }
 
         return $this->json($response);
