@@ -11103,91 +11103,91 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Update Part</target>
       </segment>
     </unit>
-    <unit id="back_to_jobs_btn" name="info_providers.bulk_import.back_to_jobs">
+    <unit id="_sWGLGs" name="info_providers.bulk_import.back_to_jobs">
       <segment state="translated">
         <source>info_providers.bulk_import.back_to_jobs</source>
         <target>Back to Jobs</target>
       </segment>
     </unit>
-    <unit id="back_to_parts_btn" name="info_providers.bulk_import.back_to_parts">
+    <unit id="2DCRx_T" name="info_providers.bulk_import.back_to_parts">
       <segment state="translated">
         <source>info_providers.bulk_import.back_to_parts</source>
         <target>Back to Parts</target>
       </segment>
     </unit>
-    <unit id="job_completed_msg" name="info_providers.bulk_import.job_completed">
+    <unit id="9OAohXg" name="info_providers.bulk_import.job_completed">
       <segment state="translated">
         <source>info_providers.bulk_import.job_completed</source>
         <target>Job completed!</target>
       </segment>
     </unit>
-    <unit id="job_completed_desc" name="info_providers.bulk_import.job_completed.description">
+    <unit id="hwkbU38" name="info_providers.bulk_import.job_completed.description">
       <segment state="translated">
         <source>info_providers.bulk_import.job_completed.description</source>
         <target>All parts have been processed. You can review the results below or navigate back to the parts list.</target>
       </segment>
     </unit>
-    <unit id="recommended_badge" name="info_providers.bulk_import.recommended">
+    <unit id="ahbWfwA" name="info_providers.bulk_import.recommended">
       <segment state="translated">
         <source>info_providers.bulk_import.recommended</source>
         <target>Top</target>
       </segment>
     </unit>
-    <unit id="exact_match_badge" name="info_providers.bulk_import.exact_match">
+    <unit id="tFJOMYX" name="info_providers.bulk_import.exact_match">
       <segment state="translated">
         <source>info_providers.bulk_import.exact_match</source>
         <target>Exact name match</target>
       </segment>
     </unit>
-    <unit id="mpn_match_badge" name="info_providers.bulk_import.mpn_match">
+    <unit id="mBAxdTx" name="info_providers.bulk_import.mpn_match">
       <segment state="translated">
         <source>info_providers.bulk_import.mpn_match</source>
         <target>MPN matches</target>
       </segment>
     </unit>
-    <unit id="active_jobs_header" name="info_providers.bulk_import.active_jobs">
+    <unit id="W1HbYWX" name="info_providers.bulk_import.active_jobs">
       <segment state="translated">
         <source>info_providers.bulk_import.active_jobs</source>
         <target>Active Jobs</target>
       </segment>
     </unit>
-    <unit id="finished_jobs_header" name="info_providers.bulk_import.finished_jobs">
+    <unit id="tZSOzU1" name="info_providers.bulk_import.finished_jobs">
       <segment state="translated">
         <source>info_providers.bulk_import.finished_jobs</source>
         <target>History</target>
       </segment>
     </unit>
-    <unit id="spn_match_badge" name="info_providers.bulk_import.spn_match">
+    <unit id="noEU4s7" name="info_providers.bulk_import.spn_match">
       <segment state="translated">
         <source>info_providers.bulk_import.spn_match</source>
         <target>SPN matches</target>
       </segment>
     </unit>
-    <unit id="match_badge" name="info_providers.bulk_import.match">
+    <unit id="RiHOuLh" name="info_providers.bulk_import.match">
       <segment state="translated">
         <source>info_providers.bulk_import.match</source>
         <target>Match</target>
       </segment>
     </unit>
-    <unit id="quick_apply_btn" name="info_providers.bulk_import.quick_apply">
+    <unit id="UCKGkQ3" name="info_providers.bulk_import.quick_apply">
       <segment state="translated">
         <source>info_providers.bulk_import.quick_apply</source>
         <target>Quick Apply</target>
       </segment>
     </unit>
-    <unit id="quick_apply_tooltip" name="info_providers.bulk_import.quick_apply.tooltip">
+    <unit id="4uMgGbn" name="info_providers.bulk_import.quick_apply.tooltip">
       <segment state="translated">
         <source>info_providers.bulk_import.quick_apply.tooltip</source>
         <target>Apply this provider result to the part without opening the edit form</target>
       </segment>
     </unit>
-    <unit id="quick_apply_all_btn" name="info_providers.bulk_import.quick_apply_all">
+    <unit id="a8kwuvb" name="info_providers.bulk_import.quick_apply_all">
       <segment state="translated">
         <source>info_providers.bulk_import.quick_apply_all</source>
         <target>Apply All (Top Results)</target>
       </segment>
     </unit>
-    <unit id="quick_apply_all_tooltip" name="info_providers.bulk_import.quick_apply_all.tooltip">
+    <unit id=".iZc63I" name="info_providers.bulk_import.quick_apply_all.tooltip">
       <segment state="translated">
         <source>info_providers.bulk_import.quick_apply_all.tooltip</source>
         <target>Apply the top-ranked search result to all pending parts without individual review</target>
