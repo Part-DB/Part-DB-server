@@ -36,6 +36,7 @@ use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\ORMInvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -539,6 +540,7 @@ class BulkInfoProviderImportController extends AbstractController
             return $this->createErrorResponse('Job not found or access denied', 404, ['job_id' => $jobId]);
         }
 
+        /** @var Part $part */
         $part = $this->entityManager->getRepository(Part::class)->find($partId);
         if (!$part) {
             return $this->createErrorResponse('Part not found', 404, ['part_id' => $partId]);
@@ -574,13 +576,23 @@ class BulkInfoProviderImportController extends AbstractController
             $providerPart = $infoRetriever->dtoToPart($dto);
             $partMerger->merge($part, $providerPart);
 
-            $this->entityManager->flush();
+            try {
+                $this->entityManager->flush();
+            } catch (ORMInvalidArgumentException $exception) {
+                if (str_contains($exception->getMessage(), 'not configured to cascade persist operations')) {
+                    throw new \RuntimeException('Failed to persist merged part, as it would create new datastructures! Review the provider data by yourself.');
+                }
+
+                throw $exception; // Re-throw if it's a different ORM error
+            }
 
             $job->markPartAsCompleted($partId);
             if ($job->isAllPartsCompleted() && !$job->isCompleted()) {
                 $job->markAsCompleted();
             }
+
             $this->entityManager->flush();
+
 
             return $this->json([
                 'success' => true,
@@ -594,6 +606,8 @@ class BulkInfoProviderImportController extends AbstractController
                 'job_completed' => $job->isCompleted(),
             ]);
         } catch (\Exception $e) {
+            $this->logger->error($e);
+
             return $this->createErrorResponse(
                 'Quick apply failed: ' . $e->getMessage(),
                 500,
