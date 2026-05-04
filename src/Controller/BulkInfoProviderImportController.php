@@ -547,7 +547,7 @@ class BulkInfoProviderImportController extends AbstractController
         $this->denyAccessUnlessGranted('edit', $part);
 
         // Get provider key/id from request body, or fall back to top search result
-        $body = json_decode($request->getContent(), true) ?? [];
+        $body = $request->toArray();
         $providerKey = $body['providerKey'] ?? null;
         $providerId = $body['providerId'] ?? null;
 
