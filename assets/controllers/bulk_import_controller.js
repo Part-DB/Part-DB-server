@@ -3,14 +3,16 @@ import { generateCsrfHeaders } from "./csrf_protection_controller"
 
 export default class extends Controller {
     static targets = ["progressBar", "progressText"]
-    static values = { 
+    static values = {
         jobId: Number,
         partId: Number,
         researchUrl: String,
         researchAllUrl: String,
         markCompletedUrl: String,
         markSkippedUrl: String,
-        markPendingUrl: String
+        markPendingUrl: String,
+        quickApplyUrl: String,
+        quickApplyAllUrl: String
     }
 
     connect() {
@@ -119,13 +121,11 @@ export default class extends Controller {
 
     async markSkipped(event) {
         const partId = event.currentTarget.dataset.partId
-        const reason = prompt('Reason for skipping (optional):') || ''
-        
+
         try {
             const url = this.markSkippedUrlValue.replace('__PART_ID__', partId)
             const data = await this.fetchWithErrorHandling(url, {
-                method: 'POST',
-                body: JSON.stringify({ reason })
+                method: 'POST'
             })
             
             if (data.success) {
@@ -318,6 +318,94 @@ export default class extends Controller {
                 spinner.style.display = 'none'
             }
             button.disabled = false
+        }
+    }
+
+    async quickApply(event) {
+        event.preventDefault()
+        event.stopPropagation()
+
+        const partId = event.currentTarget.dataset.partId
+        const providerKey = event.currentTarget.dataset.providerKey
+        const providerId = event.currentTarget.dataset.providerId
+        const button = event.currentTarget
+        const originalHtml = button.innerHTML
+
+        button.disabled = true
+        button.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Applying...'
+
+        try {
+            const url = this.quickApplyUrlValue.replace('__PART_ID__', partId)
+            const data = await this.fetchWithErrorHandling(url, {
+                method: 'POST',
+                body: JSON.stringify({ providerKey, providerId })
+            }, 60000)
+
+            if (data.success) {
+                this.updateProgressDisplay(data)
+                this.showSuccessMessage(data.message || 'Part updated successfully')
+                sessionStorage.setItem('bulkImportScrollPosition', window.scrollY.toString())
+                window.location.reload()
+            } else {
+                this.showErrorMessage(data.error || 'Quick apply failed')
+                button.innerHTML = originalHtml
+                button.disabled = false
+            }
+        } catch (error) {
+            console.error('Error in quick apply:', error)
+            this.showErrorMessage(error.message || 'Quick apply failed')
+            button.innerHTML = originalHtml
+            button.disabled = false
+        }
+    }
+
+    async quickApplyAll(event) {
+        event.preventDefault()
+        event.stopPropagation()
+
+        if (!confirm('This will apply the top search result to all pending parts without individual review. Continue?')) {
+            return
+        }
+
+        const button = event.currentTarget
+        const spinner = document.getElementById('quick-apply-all-spinner')
+        const originalHtml = button.innerHTML
+
+        button.disabled = true
+        if (spinner) {
+            spinner.style.display = 'inline-block'
+        }
+
+        try {
+            const data = await this.fetchWithErrorHandling(this.quickApplyAllUrlValue, {
+                method: 'POST'
+            }, 300000)
+
+            if (data.success) {
+                this.updateProgressDisplay(data)
+
+                let message = data.message || 'Bulk apply completed'
+                if (data.errors && data.errors.length > 0) {
+                    message += '\nErrors:\n' + data.errors.join('\n')
+                }
+
+                this.showSuccessMessage(message)
+                sessionStorage.setItem('bulkImportScrollPosition', window.scrollY.toString())
+                window.location.reload()
+            } else {
+                this.showErrorMessage(data.error || 'Bulk apply failed')
+                button.innerHTML = originalHtml
+                button.disabled = false
+            }
+        } catch (error) {
+            console.error('Error in quick apply all:', error)
+            this.showErrorMessage(error.message || 'Bulk apply failed')
+            button.innerHTML = originalHtml
+            button.disabled = false
+        } finally {
+            if (spinner) {
+                spinner.style.display = 'none'
+            }
         }
     }
 
