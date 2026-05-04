@@ -1,4 +1,4 @@
-# Generated on Mon Apr 13 05:19:27 UTC 2026
+# Generated on Mon May  4 05:40:05 UTC 2026
 # This file contains all footprints available in the offical KiCAD library
 Audio_Module:Reverb_BTDR-1H
 Audio_Module:Reverb_BTDR-1V
@@ -8366,6 +8366,7 @@ Converter_DCDC:Converter_DCDC_TRACO_TMR-1SM_SMD
 Converter_DCDC:Converter_DCDC_TRACO_TMR10-24xxWIR_48xxWIR_72xxWIR_THT
 Converter_DCDC:Converter_DCDC_TRACO_TMR2-xxxxWI_THT
 Converter_DCDC:Converter_DCDC_TRACO_TMR4-xxxxWI_THT
+Converter_DCDC:Converter_DCDC_TRACO_TMR8-xxxxWI_THT
 Converter_DCDC:Converter_DCDC_TRACO_TMU3-05xx_12xx_THT
 Converter_DCDC:Converter_DCDC_TRACO_TMU3-24xx_THT
 Converter_DCDC:Converter_DCDC_TRACO_TMV-051xD_121xD_Dual_THT
@@ -11978,6 +11979,8 @@ Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.2x4.2mm
 Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP4.2x4.2mm_ThermalVias
 Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm
 Package_DFN_QFN:VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm_ThermalVias
+Package_DFN_QFN:VQFN-52-1EP_6x6mm_P0.4mm_EP4.7x4.7mm
+Package_DFN_QFN:VQFN-52-1EP_6x6mm_P0.4mm_EP4.7x4.7mm_ThermalVias
 Package_DFN_QFN:VQFN-56-1EP_8x8mm_P0.5mm_EP5.1x4.96mm
 Package_DFN_QFN:VQFN-56-1EP_8x8mm_P0.5mm_EP5.1x4.96mm_ThermalVias
 Package_DFN_QFN:VQFN-56-1EP_8x8mm_P0.5mm_EP5.5x5.06mm
@@ -12028,6 +12031,8 @@ Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm
 Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.45x2.45mm_ThermalVias
 Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm
 Package_DFN_QFN:WQFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm_ThermalVias
+Package_DFN_QFN:WQFN-28-1EP_3.5x5.5mm_P0.5mm_EP2.05x4.05mm
+Package_DFN_QFN:WQFN-28-1EP_3.5x5.5mm_P0.5mm_EP2.05x4.05mm_ThermalVias
 Package_DFN_QFN:WQFN-28-1EP_4x4mm_P0.4mm_EP2.7x2.7mm
 Package_DFN_QFN:WQFN-28-1EP_4x4mm_P0.4mm_EP2.7x2.7mm_ThermalVias
 Package_DFN_QFN:WQFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm
