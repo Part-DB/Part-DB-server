@@ -229,24 +229,37 @@ class DBPlatformConvertCommand extends Command
 
         if ($platform instanceof PostgreSQLPlatform) {
             $connection->executeStatement(
-            //From: https://wiki.postgresql.org/wiki/Fixing_Sequences
+            //See https://github.com/Part-DB/Part-DB-server/issues/1362
                 <<<SQL
-                SELECT 'SELECT SETVAL(' ||
-                    quote_literal(quote_ident(PGT.schemaname) || '.' || quote_ident(S.relname)) ||
-                    ', COALESCE(MAX(' ||quote_ident(C.attname)|| '), 1) ) FROM ' ||
-                    quote_ident(PGT.schemaname)|| '.'||quote_ident(T.relname)|| ';'
-                FROM pg_class AS S,
-                     pg_depend AS D,
-                     pg_class AS T,
-                     pg_attribute AS C,
-                     pg_tables AS PGT
-                WHERE S.relkind = 'S'
-                    AND S.oid = D.objid
-                    AND D.refobjid = T.oid
-                    AND D.refobjid = C.attrelid
-                    AND D.refobjsubid = C.attnum
-                    AND T.relname = PGT.tablename
-                ORDER BY S.relname;
+                DO $$
+                DECLARE
+                    rec    RECORD;
+                    max_id BIGINT;
+                    seq    TEXT;
+                BEGIN
+                    FOR rec IN
+                        SELECT c.table_name
+                        FROM information_schema.columns c
+                        JOIN pg_tables t
+                          ON t.tablename = c.table_name AND t.schemaname = 'public'
+                        WHERE c.column_name = 'id'
+                          AND c.table_schema = 'public'
+                    LOOP
+                        BEGIN
+                            seq := pg_get_serial_sequence(rec.table_name, 'id');
+                            IF seq IS NOT NULL THEN
+                                EXECUTE format('SELECT MAX(id) FROM %I', rec.table_name) INTO max_id;
+                                IF max_id IS NOT NULL THEN
+                                    PERFORM setval(seq, max_id);
+                                    RAISE NOTICE 'Reset: %.id → %', rec.table_name, max_id;
+                                END IF;
+                            END IF;
+                        EXCEPTION WHEN OTHERS THEN
+                            RAISE NOTICE 'Skipped %: %', rec.table_name, SQLERRM;
+                        END;
+                    END LOOP;
+                END;
+                $$;
                 SQL);
         }
     }
