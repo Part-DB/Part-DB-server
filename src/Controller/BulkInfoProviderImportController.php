@@ -576,6 +576,13 @@ class BulkInfoProviderImportController extends AbstractController
             $providerPart = $infoRetriever->dtoToPart($dto);
             $partMerger->merge($part, $providerPart);
 
+            //Persist part manufacturer and supplier if they are new, to avoid issues with detached entities during merge
+            //Do not footprints here, as it might pollute the database with unwanted formatting footprints from the provider,
+            $this->entityManager->persist($part->getManufacturer());
+            foreach ($part->getOrderdetails() as $orderdetail) {
+                $this->entityManager->persist($orderdetail->getSupplier());
+            }
+
             try {
                 $this->entityManager->flush();
             } catch (ORMInvalidArgumentException $exception) {
