@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
-  <file id="messages.de">
+  <file id="messages.en">
     <unit id="x_wTSQS" name="attachment_type.caption">
       <segment state="translated">
         <source>attachment_type.caption</source>
@@ -2779,7 +2779,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Name</target>
       </segment>
     </unit>
-    <unit id="sIvAlUe" name="part.table.si_value">
+    <unit id="A1bHPnR" name="part.table.si_value">
       <segment state="translated">
         <source>part.table.si_value</source>
         <target>SI-Wert</target>
@@ -7217,13 +7217,13 @@ Element 1 -&gt; Element 1.2</target>
         <target>Unterprojekte</target>
       </segment>
     </unit>
-    <unit id="prjTtlBP" name="project.info.total_build_price">
+    <unit id="_NstC62" name="project.info.total_build_price">
       <segment state="translated">
         <source>project.info.total_build_price</source>
         <target>Gesamterstellpreis</target>
       </segment>
     </unit>
-    <unit id="prjUntBP" name="project.info.per_unit_price">
+    <unit id="Oof1G0D" name="project.info.per_unit_price">
       <segment state="translated">
         <source>project.info.per_unit_price</source>
         <target>pro Einheit</target>
@@ -7253,7 +7253,7 @@ Element 1 -&gt; Element 1.2</target>
         <target>Preis</target>
       </segment>
     </unit>
-    <unit id="bomExPrc" name="project.bom.ext_price">
+    <unit id="gLWQ4cF" name="project.bom.ext_price">
       <segment state="translated">
         <source>project.bom.ext_price</source>
         <target>Gesamtpreis</target>
@@ -10052,85 +10052,85 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Wenn aktiviert, verlinkt das Datenblatt-Feld in KiCad auf die tatsächliche PDF-Datei (sofern gefunden). Wenn deaktiviert, führt es stattdessen zur Part-DB-Seite. Der Link zur Part-DB-Seite ist immer als separates "Part-DB URL"-Feld verfügbar.</target>
       </segment>
     </unit>
-    <unit id="e2e7mR1" name="settings.misc.kicad_eda.editor.title">
+    <unit id="h2ChJ6Y" name="settings.misc.kicad_eda.editor.title">
       <segment state="translated">
         <source>settings.misc.kicad_eda.editor.title</source>
         <target>KiCad Autovervollständigungslisten</target>
       </segment>
     </unit>
-    <unit id="qjv1VVx" name="settings.misc.kicad_eda.editor.link">
+    <unit id="C97hNXL" name="settings.misc.kicad_eda.editor.link">
       <segment state="translated">
         <source>settings.misc.kicad_eda.editor.link</source>
         <target>Autovervollständigungseinstellungen</target>
       </segment>
     </unit>
-    <unit id="f0qkcqg" name="settings.misc.kicad_eda.editor.description">
+    <unit id="pJeX5wZ" name="settings.misc.kicad_eda.editor.description">
       <segment state="translated">
         <source>settings.misc.kicad_eda.editor.description</source>
         <target>Konfigurieren Sie, ob KiCad Autovervollständigung die automatisch generierten Standardlisten oder Ihre benutzerdefinierten Überschreibungsdateien verwendet. Die benutzerdefinierten Dateien sind hier bearbeitbar, während die Standarddateien nur lesbar zur Referenz angezeigt werden.</target>
       </segment>
     </unit>
-    <unit id="AS3yDlb" name="settings.misc.kicad_eda.editor.footprints">
+    <unit id="mumlQUV" name="settings.misc.kicad_eda.editor.footprints">
       <segment state="translated">
         <source>settings.misc.kicad_eda.editor.footprints</source>
         <target>Footprint-Liste</target>
       </segment>
     </unit>
-    <unit id="Jj_YR7n" name="settings.misc.kicad_eda.editor.footprints.help">
+    <unit id="6VCC6T8" name="settings.misc.kicad_eda.editor.footprints.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.editor.footprints.help</source>
         <target>Ein Eintrag pro Zeile. Wird als Autovervollständigungsvorschlag für KiCad-Footprintfelder verwendet.</target>
       </segment>
     </unit>
-    <unit id="ELd3KQK" name="settings.misc.kicad_eda.editor.symbols">
+    <unit id="3EPsJaG" name="settings.misc.kicad_eda.editor.symbols">
       <segment state="translated">
         <source>settings.misc.kicad_eda.editor.symbols</source>
         <target>Symbolliste</target>
       </segment>
     </unit>
-    <unit id="A9TOJgM" name="settings.misc.kicad_eda.editor.symbols.help">
+    <unit id="8JyqD1f" name="settings.misc.kicad_eda.editor.symbols.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.editor.symbols.help</source>
         <target>Ein Eintrag pro Zeile. Wird als Autovervollständigungsvorschlag für KiCad-Symbolfelder verwendet.</target>
       </segment>
     </unit>
-    <unit id="tWYlL0u" name="settings.misc.kicad_eda.use_custom_list">
+    <unit id="Ops1y13" name="settings.misc.kicad_eda.use_custom_list">
       <segment state="translated">
         <source>settings.misc.kicad_eda.use_custom_list</source>
         <target>Benutzerdefinierte Autovervollständigungslisten verwenden</target>
       </segment>
     </unit>
-    <unit id="v0LK7n6" name="settings.misc.kicad_eda.use_custom_list.help">
+    <unit id="AjQJzDB" name="settings.misc.kicad_eda.use_custom_list.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.use_custom_list.help</source>
         <target>Wenn aktiviert, verwendet die KiCad Autovervollständigung public/kicad/footprints_custom.txt und public/kicad/symbols_custom.txt anstelle der automatisch generierten Standarddateien.</target>
       </segment>
     </unit>
-    <unit id="Yl_fqfV" name="settings.misc.kicad_eda.editor.custom_footprints">
+    <unit id="TfJvNLm" name="settings.misc.kicad_eda.editor.custom_footprints">
       <segment state="translated">
         <source>settings.misc.kicad_eda.editor.custom_footprints</source>
         <target>Benutzerdefinierte Footprint-Liste</target>
       </segment>
     </unit>
-    <unit id="GuD2JcQ" name="settings.misc.kicad_eda.editor.custom_symbols">
+    <unit id="6nsnYiB" name="settings.misc.kicad_eda.editor.custom_symbols">
       <segment state="translated">
         <source>settings.misc.kicad_eda.editor.custom_symbols</source>
         <target>Benutzerdefinierte Symbolliste</target>
       </segment>
     </unit>
-    <unit id="k6m9b5F" name="settings.misc.kicad_eda.editor.default_footprints">
+    <unit id="bABze6_" name="settings.misc.kicad_eda.editor.default_footprints">
       <segment state="translated">
         <source>settings.misc.kicad_eda.editor.default_footprints</source>
         <target>Standard Footprint-Liste</target>
       </segment>
     </unit>
-    <unit id="bKkF8mM" name="settings.misc.kicad_eda.editor.default_symbols">
+    <unit id="3Ycxg5M" name="settings.misc.kicad_eda.editor.default_symbols">
       <segment state="translated">
         <source>settings.misc.kicad_eda.editor.default_symbols</source>
         <target>Standardsymboliste</target>
       </segment>
     </unit>
-    <unit id="mIj_i4E" name="settings.misc.kicad_eda.editor.default_files_help">
+    <unit id="ADK3.8x" name="settings.misc.kicad_eda.editor.default_files_help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.editor.default_files_help</source>
         <target>Automatisch generierte Datei wird nur zur Referenz angezeigt. Änderungen müssen in der benutzerdefinierten Liste vorgenommen werden.</target>
@@ -13053,6 +13053,312 @@ Buerklin-API-Authentication-Server:
         <target>Backup-Download erlaubt</target>
       </segment>
     </unit>
+    <unit id="Ld698rE" name="update_manager.docker.setup_title">
+      <segment state="translated">
+        <source>update_manager.docker.setup_title</source>
+        <target>Aktivieren Sie Docker-Updates mit einem Klick über Watchtower</target>
+      </segment>
+    </unit>
+    <unit id="A_UDLkn" name="update_manager.docker.setup_description">
+      <segment state="translated">
+        <source>update_manager.docker.setup_description</source>
+        <target>Part-DB kann Ihre Docker-Container automatisch mit Watchtower aktualisieren, einem Open-Source-Container-Updater. Fügen Sie Watchtower als Begleitcontainer hinzu und konfigurieren Sie die Verbindung unten.</target>
+      </segment>
+    </unit>
+    <unit id="p092aHv" name="update_manager.docker.setup_step1">
+      <segment state="translated">
+        <source>update_manager.docker.setup_step1</source>
+        <target>1. Fügen Sie Watchtower zu Ihrer docker-compose.yml hinzu:</target>
+      </segment>
+    </unit>
+    <unit id="VVejRLi" name="update_manager.docker.setup_step2">
+      <segment state="translated">
+        <source>update_manager.docker.setup_step2</source>
+        <target>2. Fügen Sie diese Umgebungsvariablen zu Ihrem Part-DB Container hinzu:</target>
+      </segment>
+    </unit>
+    <unit id="3tlczB." name="update_manager.docker.setup_network_hint">
+      <segment state="translated">
+        <source>update_manager.docker.setup_network_hint</source>
+        <target>Stellen Sie sicher, dass Part-DB und Watchtower im selben Docker-Netzwerk sind. Wenn Sie label-basierte Filterung in Watchtower verwenden (WATCHTOWER_LABEL_ENABLE=true), fügen Sie dem Part-DB Container das Label "com.centurylinklabs.watchtower.enable=true" hinzu.</target>
+      </segment>
+    </unit>
+    <unit id="5ZI3hh9" name="update_manager.docker.watchtower_unreachable_title">
+      <segment state="translated">
+        <source>update_manager.docker.watchtower_unreachable_title</source>
+        <target>Watchtower nicht erreichbar</target>
+      </segment>
+    </unit>
+    <unit id=".0wFRZ." name="update_manager.docker.watchtower_unreachable_description">
+      <segment state="translated">
+        <source>update_manager.docker.watchtower_unreachable_description</source>
+        <target>Watchtower ist konfiguriert, kann aber nicht erreicht werden. Bitte prüfen Sie, ob der Watchtower-Container läuft und ob URL und Token korrekt sind.</target>
+      </segment>
+    </unit>
+    <unit id="PXadA3E" name="update_manager.docker.confirm_update">
+      <segment state="translated">
+        <source>update_manager.docker.confirm_update</source>
+        <target>Sind Sie sicher, dass Sie Part-DB über Watchtower aktualisieren möchten? Der Container wird mit dem neuen Image neu gestartet. Im Gegensatz zu Git-Updates können Docker-Updates nicht automatisch zurückgesetzt werden.</target>
+      </segment>
+    </unit>
+    <unit id="zVnBU_y" name="update_manager.docker.update_via_watchtower">
+      <segment state="translated">
+        <source>update_manager.docker.update_via_watchtower</source>
+        <target>Update über Watchtower zu</target>
+      </segment>
+    </unit>
+    <unit id="rygIXG_" name="update_manager.docker.no_rollback_warning">
+      <segment state="translated">
+        <source>update_manager.docker.no_rollback_warning</source>
+        <target>Docker-Updates können nicht automatisch zurückgesetzt werden. Vor dem Update wird eine Datenbanksicherung erstellt, damit Sie Ihre Daten bei Bedarf wiederherstellen können.</target>
+      </segment>
+    </unit>
+    <unit id="6YSYc7u" name="update_manager.docker.progress_title">
+      <segment state="translated">
+        <source>update_manager.docker.progress_title</source>
+        <target>Docker-Update läuft</target>
+      </segment>
+    </unit>
+    <unit id="4zjA6Z2" name="update_manager.docker.waiting_for_watchtower">
+      <segment state="translated">
+        <source>update_manager.docker.waiting_for_watchtower</source>
+        <target>Warte darauf, dass Watchtower das neue Image zieht...</target>
+      </segment>
+    </unit>
+    <unit id="N4ayoEp" name="update_manager.docker.elapsed">
+      <segment state="translated">
+        <source>update_manager.docker.elapsed</source>
+        <target>Verstrichen</target>
+      </segment>
+    </unit>
+    <unit id="B2piu_D" name="update_manager.docker.waiting_title">
+      <segment state="translated">
+        <source>update_manager.docker.waiting_title</source>
+        <target>Update gestartet</target>
+      </segment>
+    </unit>
+    <unit id="K7uq04F" name="update_manager.docker.waiting_description">
+      <segment state="translated">
+        <source>update_manager.docker.waiting_description</source>
+        <target>Watchtower wurde benachrichtigt. Es wird das neueste Docker-Image ziehen und den Part-DB-Container neu starten.</target>
+      </segment>
+    </unit>
+    <unit id="nYC4Dw9" name="update_manager.docker.watchtower_working">
+      <segment state="translated">
+        <source>update_manager.docker.watchtower_working</source>
+        <target>Watchtower verarbeitet das Update...</target>
+      </segment>
+    </unit>
+    <unit id="IPd5mwk" name="update_manager.docker.watchtower_working_hint">
+      <segment state="translated">
+        <source>update_manager.docker.watchtower_working_hint</source>
+        <target>Je nach Internetgeschwindigkeit und Imagegröße kann dies einige Minuten dauern.</target>
+      </segment>
+    </unit>
+    <unit id="Q_XPcbn" name="update_manager.docker.restarting_title">
+      <segment state="translated">
+        <source>update_manager.docker.restarting_title</source>
+        <target>Container wird neu gestartet</target>
+      </segment>
+    </unit>
+    <unit id="fxJe7Uc" name="update_manager.docker.restarting_description">
+      <segment state="translated">
+        <source>update_manager.docker.restarting_description</source>
+        <target>Watchtower hat das neue Image gezogen und startet den Part-DB-Container neu.</target>
+      </segment>
+    </unit>
+    <unit id="fgtq0OK" name="update_manager.docker.restarting_hint">
+      <segment state="translated">
+        <source>update_manager.docker.restarting_hint</source>
+        <target>Die Seite erkennt automatisch, wenn der Server wieder online ist. Dies dauert normalerweise 10-30 Sekunden.</target>
+      </segment>
+    </unit>
+    <unit id="ZskYT6q" name="update_manager.docker.success_title">
+      <segment state="translated">
+        <source>update_manager.docker.success_title</source>
+        <target>Update abgeschlossen!</target>
+      </segment>
+    </unit>
+    <unit id="lIi.I9w" name="update_manager.docker.success_message">
+      <segment state="translated">
+        <source>update_manager.docker.success_message</source>
+        <target>Part-DB wurde erfolgreich über Watchtower aktualisiert.</target>
+      </segment>
+    </unit>
+    <unit id="RqtjuI7" name="update_manager.docker.previous_version">
+      <segment state="translated">
+        <source>update_manager.docker.previous_version</source>
+        <target>Vorherige Version</target>
+      </segment>
+    </unit>
+    <unit id="KLNv9FX" name="update_manager.docker.new_version">
+      <segment state="translated">
+        <source>update_manager.docker.new_version</source>
+        <target>Neue Version</target>
+      </segment>
+    </unit>
+    <unit id="EyK.Bvs" name="update_manager.docker.back_to_update_manager">
+      <segment state="translated">
+        <source>update_manager.docker.back_to_update_manager</source>
+        <target>Zurück zum Update-Manager</target>
+      </segment>
+    </unit>
+    <unit id="qXEyzbC" name="update_manager.docker.go_to_homepage">
+      <segment state="translated">
+        <source>update_manager.docker.go_to_homepage</source>
+        <target>Zur Startseite</target>
+      </segment>
+    </unit>
+    <unit id="zLbfHFP" name="update_manager.docker.timeout_title">
+      <segment state="translated">
+        <source>update_manager.docker.timeout_title</source>
+        <target>Update dauert länger als erwartet</target>
+      </segment>
+    </unit>
+    <unit id="fbpbM4e" name="update_manager.docker.timeout_message">
+      <segment state="translated">
+        <source>update_manager.docker.timeout_message</source>
+        <target>Das Update dauert länger als erwartet. Prüfen Sie die Watchtower-Container-Logs für Details. Das Update kann noch laufen.</target>
+      </segment>
+    </unit>
+    <unit id="eTDf1ym" name="update_manager.docker.retry">
+      <segment state="translated">
+        <source>update_manager.docker.retry</source>
+        <target>Erneut versuchen</target>
+      </segment>
+    </unit>
+    <unit id="BTQH5SL" name="update_manager.docker.warning">
+      <segment state="translated">
+        <source>update_manager.docker.warning</source>
+        <target>Warnung</target>
+      </segment>
+    </unit>
+    <unit id="5A6K7gA" name="update_manager.docker.do_not_close">
+      <segment state="translated">
+        <source>update_manager.docker.do_not_close</source>
+        <target>Schließen Sie diese Seite nicht. Sie erkennt automatisch, wenn das Update abgeschlossen ist.</target>
+      </segment>
+    </unit>
+    <unit id="JOGLw48" name="update_manager.docker.updating_via_watchtower">
+      <segment state="translated">
+        <source>update_manager.docker.updating_via_watchtower</source>
+        <target>Update über Watchtower wird durchgeführt</target>
+      </segment>
+    </unit>
+    <unit id="L1aNTz2" name="update_manager.docker.step_waiting">
+      <segment state="translated">
+        <source>update_manager.docker.step_waiting</source>
+        <target>Image wird gezogen</target>
+      </segment>
+    </unit>
+    <unit id="K8G9Omp" name="update_manager.docker.steps">
+      <segment state="translated">
+        <source>update_manager.docker.steps</source>
+        <target>Update-Schritte</target>
+      </segment>
+    </unit>
+    <unit id="rwPMohr" name="update_manager.docker.step_trigger">
+      <segment state="translated">
+        <source>update_manager.docker.step_trigger</source>
+        <target>Update auslösen</target>
+      </segment>
+    </unit>
+    <unit id="C6T6dki" name="update_manager.docker.step_trigger_desc">
+      <segment state="translated">
+        <source>update_manager.docker.step_trigger_desc</source>
+        <target>Watchtower wurde benachrichtigt, nach Updates zu suchen</target>
+      </segment>
+    </unit>
+    <unit id="sHx0nZN" name="update_manager.docker.step_pull">
+      <segment state="translated">
+        <source>update_manager.docker.step_pull</source>
+        <target>Neues Image ziehen</target>
+      </segment>
+    </unit>
+    <unit id="VC7sifr" name="update_manager.docker.step_pull_desc">
+      <segment state="translated">
+        <source>update_manager.docker.step_pull_desc</source>
+        <target>Lade das neueste Docker-Image aus dem Register</target>
+      </segment>
+    </unit>
+    <unit id="H5.XUFa" name="update_manager.docker.step_restart">
+      <segment state="translated">
+        <source>update_manager.docker.step_restart</source>
+        <target>Container neu starten</target>
+      </segment>
+    </unit>
+    <unit id="KRNQZKS" name="update_manager.docker.step_restart_desc">
+      <segment state="translated">
+        <source>update_manager.docker.step_restart_desc</source>
+        <target>Alten Container stoppen und neuen starten</target>
+      </segment>
+    </unit>
+    <unit id="y5ibGqB" name="update_manager.docker.step_verify">
+      <segment state="translated">
+        <source>update_manager.docker.step_verify</source>
+        <target>Verifizieren</target>
+      </segment>
+    </unit>
+    <unit id=".D286hQ" name="update_manager.docker.step_verify_desc">
+      <segment state="translated">
+        <source>update_manager.docker.step_verify_desc</source>
+        <target>Bestätige, dass Part-DB mit der neuen Version läuft</target>
+      </segment>
+    </unit>
+    <unit id="s72BGA8" name="update_manager.docker.watchtower_status">
+      <segment state="translated">
+        <source>update_manager.docker.watchtower_status</source>
+        <target>Watchtower</target>
+      </segment>
+    </unit>
+    <unit id="HRw317s" name="update_manager.docker.watchtower_connected">
+      <segment state="translated">
+        <source>update_manager.docker.watchtower_connected</source>
+        <target>Verbunden</target>
+      </segment>
+    </unit>
+    <unit id="HcEk0Mh" name="update_manager.docker.watchtower_unreachable_short">
+      <segment state="translated">
+        <source>update_manager.docker.watchtower_unreachable_short</source>
+        <target>Nicht erreichbar</target>
+      </segment>
+    </unit>
+    <unit id="lMwRNf9" name="update_manager.docker.watchtower_not_configured">
+      <segment state="translated">
+        <source>update_manager.docker.watchtower_not_configured</source>
+        <target>Nicht konfiguriert</target>
+      </segment>
+    </unit>
+    <unit id="IceG9y3" name="update_manager.docker.step_stop">
+      <segment state="translated">
+        <source>update_manager.docker.step_stop</source>
+        <target>Container stoppen</target>
+      </segment>
+    </unit>
+    <unit id="0sq_TgW" name="update_manager.docker.step_stop_desc">
+      <segment state="translated">
+        <source>update_manager.docker.step_stop_desc</source>
+        <target>Aktuellen Container vor der Neuerstellung ordentlich stoppen</target>
+      </segment>
+    </unit>
+    <unit id="et8F1eO" name="update_manager.docker.step_health">
+      <segment state="translated">
+        <source>update_manager.docker.step_health</source>
+        <target>Health Check</target>
+      </segment>
+    </unit>
+    <unit id="v5tHPJK" name="update_manager.docker.step_health_desc">
+      <segment state="translated">
+        <source>update_manager.docker.step_health_desc</source>
+        <target>Warte darauf, dass der neue Container den Health Check besteht</target>
+      </segment>
+    </unit>
+    <unit id="ZLRHnm_" name="update_manager.docker.updating">
+      <segment state="translated">
+        <source>update_manager.docker.updating</source>
+        <target>Part-DB wird über Docker aktualisiert...</target>
+      </segment>
+    </unit>
     <unit id="b8JxfcX" name="part.create_from_info_provider.lot_filled_from_barcode">
       <segment state="translated">
         <source>part.create_from_info_provider.lot_filled_from_barcode</source>
@@ -13063,6 +13369,150 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>project.bom_import.field_mapping.error.check_delimiter</source>
         <target>Zuordnungsfehler: Bitte prüfen Sie, ob Sie das richtige Trennzeichen ausgewählt haben!</target>
+      </segment>
+    </unit>
+    <unit id="zl1XJq0" name="settings.ai">
+      <segment state="translated">
+        <source>settings.ai</source>
+        <target>KI</target>
+      </segment>
+    </unit>
+    <unit id="NqxqdyX" name="settings.ai.openrouter">
+      <segment state="translated">
+        <source>settings.ai.openrouter</source>
+        <target>OpenRouter</target>
+      </segment>
+    </unit>
+    <unit id="tWtvoDT" name="settings.ai.lmstudio">
+      <segment state="translated">
+        <source>settings.ai.lmstudio</source>
+        <target>LMStudio</target>
+      </segment>
+    </unit>
+    <unit id="foBzBG2" name="settings.ips.ai_extractor.model">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.model</source>
+        <target>KI-Modell</target>
+      </segment>
+    </unit>
+    <unit id="PbXBTZO" name="settings.ips.ai_extractor.ai_platform">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.ai_platform</source>
+        <target>KI-Plattform</target>
+      </segment>
+    </unit>
+    <unit id="axA7_TL" name="settings.ips.ai_extractor.model.help">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.model.help</source>
+        <target>Das KI-Modell, das für die Extraktion verwendet werden soll. Muss strukturierte Ausgaben unterstützen.</target>
+      </segment>
+    </unit>
+    <unit id="H1SYgGs" name="settings.ips.ai_extractor.max_content_length">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.max_content_length</source>
+        <target>Maximale Webseitentextlänge</target>
+      </segment>
+    </unit>
+    <unit id="SZWiZE3" name="settings.ips.ai_extractor.max_content_length.description">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.max_content_length.description</source>
+        <target>Die maximale Anzahl an Zeichen der Webseite, die an den KI-Dienst gesendet werden.</target>
+      </segment>
+    </unit>
+    <unit id="pCsAHOv" name="settings.ips.ai_extractor.output_language">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.output_language</source>
+        <target>Ausgabesprache</target>
+      </segment>
+    </unit>
+    <unit id="NVHHgpD" name="settings.ips.ai_extractor.output_language.description">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.output_language.description</source>
+        <target>Standardmäßig liefern die Anbieter Informationen in der gleichen Sprache wie die Webseite. Mit dieser Option können Sie die KI bitten, für Sie zu übersetzen. Funktioniert möglicherweise nur mit bestimmten Modellen.</target>
+      </segment>
+    </unit>
+    <unit id="CAeeZlL" name="settings.ips.ai_extractor.additional_instructions">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.additional_instructions</source>
+        <target>Zusätzliche Anweisungen</target>
+      </segment>
+    </unit>
+    <unit id=".UaUMk1" name="settings.ips.ai_extractor.additional_instructions.description">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.additional_instructions.description</source>
+        <target>Die zusätzlichen Anweisungen werden an den System-Prompt angehängt.</target>
+      </segment>
+    </unit>
+    <unit id="Ycfssj2" name="info_providers.search.advanced_options">
+      <segment state="translated">
+        <source>info_providers.search.advanced_options</source>
+        <target>Erweiterte Optionen</target>
+      </segment>
+    </unit>
+    <unit id="xfxZrXn" name="info_providers.no_cache_search">
+      <segment state="translated">
+        <source>info_providers.no_cache_search</source>
+        <target>Suchergebnisse nicht zwischenspeichern / Neue Suche erzwingen</target>
+      </segment>
+    </unit>
+    <unit id="b_oc3T1" name="info_providers.no_cache_details">
+      <segment state="translated">
+        <source>info_providers.no_cache_details</source>
+        <target>Ergebnisdetails nicht zwischenspeichern / Neue Detailabfrage erzwingen</target>
+      </segment>
+    </unit>
+    <unit id="Ja8CCDb" name="info_providers.from_url.method.generic_web">
+      <segment state="translated">
+        <source>info_providers.from_url.method.generic_web</source>
+        <target>Klassischer Web-Scraper</target>
+      </segment>
+    </unit>
+    <unit id="s0kUzFW" name="info_providers.from_url.method.ai_web">
+      <segment state="translated">
+        <source>info_providers.from_url.method.ai_web</source>
+        <target>KI Web-Scraper</target>
+      </segment>
+    </unit>
+    <unit id="HEFB1OC" name="info_providers.from_url.method">
+      <segment state="translated">
+        <source>info_providers.from_url.method</source>
+        <target>Methode</target>
+      </segment>
+    </unit>
+    <unit id="9pG0VtU" name="info_providers.from_url.no_cache">
+      <segment state="translated">
+        <source>info_providers.from_url.no_cache</source>
+        <target>Cache ignorieren / Neue Infoabfrage erzwingen</target>
+      </segment>
+    </unit>
+    <unit id="302Jgvm" name="info_providers.from_url.skip_delegation">
+      <segment state="translated">
+        <source>info_providers.from_url.skip_delegation</source>
+        <target>Nicht an spezialisierte Infoanbieter delegieren</target>
+      </segment>
+    </unit>
+    <unit id="pruvlK8" name="settings.ips.ai_extractor">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor</source>
+        <target>KI Web Extraktor</target>
+      </segment>
+    </unit>
+    <unit id="wILs7pS" name="settings.ips.ai_extractor.description">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.description</source>
+        <target>Dieser Infoanbieter verwendet ein großes Sprachmodell (LLM), um detaillierte Teileinformationen von beliebigen Shop-URLs zu extrahieren.</target>
+      </segment>
+    </unit>
+    <unit id="1ShZ.1i" name="settings.ai.openrouter.help">
+      <segment state="translated">
+        <source>settings.ai.openrouter.help</source>
+        <target>Zugriff auf viele KI-Modelle über openrouter.ai</target>
+      </segment>
+    </unit>
+    <unit id="kRcgIf0" name="settings.ai.lmstudio.hosturl">
+      <segment state="translated">
+        <source>settings.ai.lmstudio.hosturl</source>
+        <target>Host-URL</target>
       </segment>
     </unit>
   </file>
