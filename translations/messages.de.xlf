@@ -11210,6 +11210,96 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Bauteil aktualisieren</target>
       </segment>
     </unit>
+    <unit id="_sWGLGs" name="info_providers.bulk_import.back_to_jobs">
+      <segment state="translated">
+        <source>info_providers.bulk_import.back_to_jobs</source>
+        <target>Zurück zu Jobs</target>
+      </segment>
+    </unit>
+    <unit id="2DCRx_T" name="info_providers.bulk_import.back_to_parts">
+      <segment state="translated">
+        <source>info_providers.bulk_import.back_to_parts</source>
+        <target>Zurück zu Bauteilen</target>
+      </segment>
+    </unit>
+    <unit id="9OAohXg" name="info_providers.bulk_import.job_completed">
+      <segment state="translated">
+        <source>info_providers.bulk_import.job_completed</source>
+        <target>Auftrag abgeschlossen!</target>
+      </segment>
+    </unit>
+    <unit id="hwkbU38" name="info_providers.bulk_import.job_completed.description">
+      <segment state="translated">
+        <source>info_providers.bulk_import.job_completed.description</source>
+        <target>Alle Bauteile wurden verarbeitet. Sie können die Ergebnisse unten überprüfen oder zur Bauteileliste zurückkehren.</target>
+      </segment>
+    </unit>
+    <unit id="ahbWfwA" name="info_providers.bulk_import.recommended">
+      <segment state="translated">
+        <source>info_providers.bulk_import.recommended</source>
+        <target>Top</target>
+      </segment>
+    </unit>
+    <unit id="tFJOMYX" name="info_providers.bulk_import.exact_match">
+      <segment state="translated">
+        <source>info_providers.bulk_import.exact_match</source>
+        <target>Exakte Namensübereinstimmung</target>
+      </segment>
+    </unit>
+    <unit id="mBAxdTx" name="info_providers.bulk_import.mpn_match">
+      <segment state="translated">
+        <source>info_providers.bulk_import.mpn_match</source>
+        <target>MPN-Übereinstimmungen</target>
+      </segment>
+    </unit>
+    <unit id="W1HbYWX" name="info_providers.bulk_import.active_jobs">
+      <segment state="translated">
+        <source>info_providers.bulk_import.active_jobs</source>
+        <target>Aktive Jobs</target>
+      </segment>
+    </unit>
+    <unit id="tZSOzU1" name="info_providers.bulk_import.finished_jobs">
+      <segment state="translated">
+        <source>info_providers.bulk_import.finished_jobs</source>
+        <target>Verlauf</target>
+      </segment>
+    </unit>
+    <unit id="noEU4s7" name="info_providers.bulk_import.spn_match">
+      <segment state="translated">
+        <source>info_providers.bulk_import.spn_match</source>
+        <target>SPN-Übereinstimmungen</target>
+      </segment>
+    </unit>
+    <unit id="RiHOuLh" name="info_providers.bulk_import.match">
+      <segment state="translated">
+        <source>info_providers.bulk_import.match</source>
+        <target>Übereinstimmung</target>
+      </segment>
+    </unit>
+    <unit id="UCKGkQ3" name="info_providers.bulk_import.quick_apply">
+      <segment state="translated">
+        <source>info_providers.bulk_import.quick_apply</source>
+        <target>Schnellanwendung</target>
+      </segment>
+    </unit>
+    <unit id="4uMgGbn" name="info_providers.bulk_import.quick_apply.tooltip">
+      <segment state="translated">
+        <source>info_providers.bulk_import.quick_apply.tooltip</source>
+        <target>Dieses Anbietergebnis auf das Bauteil anwenden, ohne das Bearbeitungsformular zu öffnen</target>
+      </segment>
+    </unit>
+    <unit id="a8kwuvb" name="info_providers.bulk_import.quick_apply_all">
+      <segment state="translated">
+        <source>info_providers.bulk_import.quick_apply_all</source>
+        <target>Alle anwenden (Top Ergebnisse)</target>
+      </segment>
+    </unit>
+    <unit id=".iZc63I" name="info_providers.bulk_import.quick_apply_all.tooltip">
+      <segment state="translated">
+        <source>info_providers.bulk_import.quick_apply_all.tooltip</source>
+        <target>Das bestplatzierte Suchergebnis auf alle ausstehenden Teile ohne einzelne Überprüfung anwenden</target>
+      </segment>
+    </unit>
     <unit id="e_DDQ2u" name="info_providers.bulk_import.prefetch_details">
       <segment state="translated">
         <source>info_providers.bulk_import.prefetch_details</source>
