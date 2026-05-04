@@ -208,6 +208,15 @@ class Category extends AbstractPartsContainingDBElement
         $this->eda_info = new EDACategoryInfo();
     }
 
+    public function __clone()
+    {
+        if ($this->id) {
+            //Clone EDA info to prevent changes to the original EDA info when changing the cloned category
+            $this->eda_info = clone $this->eda_info;
+        }
+        parent::__clone();
+    }
+
     public function getPartnameHint(): string
     {
         return $this->partname_hint;
