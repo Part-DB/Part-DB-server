@@ -35,27 +35,7 @@
                     <i class="fas fa-tasks me-1"></i> {% trans %}info_providers.bulk_import.active_jobs{% endtrans %}
                     <span class="badge bg-primary">{{ active_jobs|length }}</span>
                 </h5>
-                <div class="table-responsive mb-4">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>{% trans %}info_providers.bulk_import.job_name{% endtrans %}</th>
-                            <th>{% trans %}info_providers.bulk_import.parts_count{% endtrans %}</th>
-                            <th>{% trans %}info_providers.bulk_import.results_count{% endtrans %}</th>
-                            <th>{% trans %}info_providers.bulk_import.progress{% endtrans %}</th>
-                            <th>{% trans %}info_providers.bulk_import.status{% endtrans %}</th>
-                            <th>{% trans %}info_providers.bulk_import.created_by{% endtrans %}</th>
-                            <th>{% trans %}info_providers.bulk_import.created_at{% endtrans %}</th>
-                            <th>{% trans %}info_providers.bulk_import.action.label{% endtrans %}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for job in active_jobs %}
-                            {{ _self.job_row(job) }}
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+                {{ _self.job_table(active_jobs, false) }}
             {% endif %}
 
             {# Finished Jobs (History) #}
@@ -64,34 +44,40 @@
                     <i class="fas fa-history me-1"></i> {% trans %}info_providers.bulk_import.finished_jobs{% endtrans %}
                     <span class="badge bg-secondary">{{ finished_jobs|length }}</span>
                 </h5>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>{% trans %}info_providers.bulk_import.job_name{% endtrans %}</th>
-                            <th>{% trans %}info_providers.bulk_import.parts_count{% endtrans %}</th>
-                            <th>{% trans %}info_providers.bulk_import.results_count{% endtrans %}</th>
-                            <th>{% trans %}info_providers.bulk_import.progress{% endtrans %}</th>
-                            <th>{% trans %}info_providers.bulk_import.status{% endtrans %}</th>
-                            <th>{% trans %}info_providers.bulk_import.created_by{% endtrans %}</th>
-                            <th>{% trans %}info_providers.bulk_import.created_at{% endtrans %}</th>
-                            <th>{% trans %}info_providers.bulk_import.completed_at{% endtrans %}</th>
-                            <th>{% trans %}info_providers.bulk_import.action.label{% endtrans %}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for job in finished_jobs %}
-                            {{ _self.job_row(job, true) }}
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+                {{ _self.job_table(finished_jobs, true) }}
             {% endif %}
         {% endif %}
 
     </div>
 
 {% endblock %}
+
+{% macro job_table(jobs, showCompletedAt) %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{% trans %}info_providers.bulk_import.job_name{% endtrans %}</th>
+                <th>{% trans %}info_providers.bulk_import.parts_count{% endtrans %}</th>
+                <th>{% trans %}info_providers.bulk_import.results_count{% endtrans %}</th>
+                <th>{% trans %}info_providers.bulk_import.progress{% endtrans %}</th>
+                <th>{% trans %}info_providers.bulk_import.status{% endtrans %}</th>
+                <th>{% trans %}info_providers.bulk_import.created_by{% endtrans %}</th>
+                <th>{% trans %}info_providers.bulk_import.created_at{% endtrans %}</th>
+                {% if showCompletedAt %}
+                    <th>{% trans %}info_providers.bulk_import.completed_at{% endtrans %}</th>
+                {% endif %}
+                <th>{% trans %}info_providers.bulk_import.action.label{% endtrans %}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for job in jobs %}
+                {{ _self.job_row(job, showCompletedAt) }}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endmacro %}
 
 {% macro job_row(job, showCompletedAt) %}
     {% set showCompletedAt = showCompletedAt|default(false) %}
