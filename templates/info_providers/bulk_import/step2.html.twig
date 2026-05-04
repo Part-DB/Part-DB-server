@@ -266,7 +266,7 @@
                                         <td>
                                             <div class="btn-group-vertical btn-group-sm" role="group">
                                                 {% if not isCompleted %}
-                                                    <button type="button" class="btn btn-success{% if not isTopResult %} btn-outline-success{% endif %}"
+                                                    <button type="button" class="btn {% if not isTopResult %} btn-outline-success{% else %}btn-success{% endif %}"
                                                             data-action="click->bulk-import#quickApply"
                                                             data-part-id="{{ part.id }}"
                                                             data-provider-key="{{ dto.provider_key }}"
