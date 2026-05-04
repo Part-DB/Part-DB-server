@@ -34,6 +34,7 @@ use App\Entity\Base\PartsContainingRepositoryInterface;
 use App\Entity\LabelSystem\LabelProcessMode;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parameters\AbstractParameter;
+use App\Entity\UserSystem\User;
 use App\Exceptions\AttachmentDownloadException;
 use App\Exceptions\TwigModeException;
 use App\Form\AdminPages\ImportType;
@@ -196,7 +197,9 @@ abstract class BaseAdminController extends AbstractController
                 $this->commentHelper->setMessage($form['log_comment']->getData());
 
                 //In principle, the form should be disabled, if the edit permission is not granted, but for good measure, we also check it here, before saving changes.
-                $this->denyAccessUnlessGranted('edit', $entity);
+                if (!$entity instanceof User) { //Users entities does not have a simple edit permission, so we skip the check for them
+                    $this->denyAccessUnlessGranted('edit', $entity);
+                }
                 $em->persist($entity);
                 $em->flush();
                 $this->addFlash('success', 'entity.edit_flash');
