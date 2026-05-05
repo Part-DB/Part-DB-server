@@ -296,17 +296,21 @@
                         <p>{% trans %}update_manager.docker.setup_description{% endtrans %}</p>
 
                         <h6>{% trans %}update_manager.docker.setup_step1{% endtrans %}</h6>
-                        <pre class="bg-dark text-light p-3 rounded"><code>services:
-  watchtower:
-    image: containrrr/watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - WATCHTOWER_HTTP_API_UPDATE=true
-      - WATCHTOWER_HTTP_API_TOKEN=your-secret-token
-      - WATCHTOWER_LABEL_ENABLE=true
-    ports:
-      - "8080:8080"</code></pre>
+                        <pre class="bg-dark text-light p-3 rounded"><code>
+                                # See documentation for full example: https://docs.part-db.de/installation/installation_docker.html
+                                services:
+                                  watchtower:
+                                    image: ghcr.io/nicholas-fedor/watchtower:latest
+                                    container_name: watchtower
+                                    restart: unless-stopped
+                                    volumes:
+                                      - /var/run/docker.sock:/var/run/docker.sock
+                                    environment:
+                                      - WATCHTOWER_HTTP_API_UPDATE=true
+                                      - WATCHTOWER_HTTP_API_TOKEN=your-secret-token
+                                      - WATCHTOWER_LABEL_ENABLE=true
+                                      - WATCHTOWER_CLEANUP=true
+                            </code></pre>
 
                         <h6>{% trans %}update_manager.docker.setup_step2{% endtrans %}</h6>
                         <pre class="bg-dark text-light p-3 rounded"><code>WATCHTOWER_API_URL=http://watchtower:8080
