@@ -585,6 +585,9 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+    "symfony/mcp-bundle": {
+        "version": "v0.8.0"
+    },
     "symfony/mime": {
         "version": "v4.3.1"
     },
