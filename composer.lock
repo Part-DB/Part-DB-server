@@ -4085,6 +4085,7 @@
         },
         {
             "name": "doctrine/orm",
+<<<<<<< HEAD
             "version": "3.6.7",
             "source": {
                 "type": "git",
@@ -4095,6 +4096,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/orm/zipball/bc217c0e19c3a9eadfa67697143b87c9ba01272c",
                 "reference": "bc217c0e19c3a9eadfa67697143b87c9ba01272c",
+=======
+            "version": "3.6.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/orm.git",
+                "reference": "156f3b5a984e7eaa72d440bb6de1d3b6f8d2d6fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/156f3b5a984e7eaa72d440bb6de1d3b6f8d2d6fd",
+                "reference": "156f3b5a984e7eaa72d440bb6de1d3b6f8d2d6fd",
+>>>>>>> 3f10a123 (updated dependencies)
                 "shasum": ""
             },
             "require": {
@@ -4167,9 +4180,15 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/orm/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/doctrine/orm/tree/3.6.7"
             },
             "time": "2026-05-25T16:45:47+00:00"
+=======
+                "source": "https://github.com/doctrine/orm/tree/3.6.4"
+            },
+            "time": "2026-05-07T07:04:34+00:00"
+>>>>>>> 3f10a123 (updated dependencies)
         },
         {
             "name": "doctrine/persistence",
@@ -20269,6 +20288,7 @@
         },
         {
             "name": "phpstan/phpstan-symfony",
+<<<<<<< HEAD
             "version": "2.0.18",
             "source": {
                 "type": "git",
@@ -20279,6 +20299,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/a12176b639dec54e8bfd0a5ebf5fc36ffe003b5d",
                 "reference": "a12176b639dec54e8bfd0a5ebf5fc36ffe003b5d",
+=======
+            "version": "2.0.17",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan-symfony.git",
+                "reference": "fdd0cb5f08d1980c612d6f259d825ea644ed03f4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/fdd0cb5f08d1980c612d6f259d825ea644ed03f4",
+                "reference": "fdd0cb5f08d1980c612d6f259d825ea644ed03f4",
+>>>>>>> 3f10a123 (updated dependencies)
                 "shasum": ""
             },
             "require": {
@@ -20337,9 +20369,15 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-symfony/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/phpstan/phpstan-symfony/tree/2.0.18"
             },
             "time": "2026-05-18T14:51:49+00:00"
+=======
+                "source": "https://github.com/phpstan/phpstan-symfony/tree/2.0.17"
+            },
+            "time": "2026-05-10T08:14:07+00:00"
+>>>>>>> 3f10a123 (updated dependencies)
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -20865,6 +20903,7 @@
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
 <<<<<<< HEAD
+<<<<<<< HEAD
                 "reference": "f9f1a88a11437cacd4d26b4953416af5c5425389"
             },
             "dist": {
@@ -20879,6 +20918,14 @@
                 "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/de95f6d567110e037eddcefa3d0d8f22d75d4053",
                 "reference": "de95f6d567110e037eddcefa3d0d8f22d75d4053",
 >>>>>>> dc5b8184 (Fixed mcp compatibility)
+=======
+                "reference": "5a7fa9fd3ce6eefbc9b982d6c78d0aa15d328d6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/5a7fa9fd3ce6eefbc9b982d6c78d0aa15d328d6c",
+                "reference": "5a7fa9fd3ce6eefbc9b982d6c78d0aa15d328d6c",
+>>>>>>> 3f10a123 (updated dependencies)
                 "shasum": ""
             },
             "conflict": {
@@ -21402,7 +21449,10 @@
                 "miraheze/ts-portal": "<=33",
                 "mittwald/typo3_forum": "<1.2.1",
                 "mix/mix": ">=2,<=2.2.17",
+<<<<<<< HEAD
                 "mmc/ceselector": "<3.0.3|>=4,<4.0.2|>=5,<5.0.1|>=6,<6.0.1",
+=======
+>>>>>>> 3f10a123 (updated dependencies)
                 "mobiledetect/mobiledetectlib": "<2.8.32",
                 "modx/revolution": "<=3.1",
                 "mojo42/jirafeau": "<4.4",
@@ -21968,10 +22018,14 @@
                 }
             ],
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2026-05-24T20:23:40+00:00"
 =======
             "time": "2026-05-06T21:27:25+00:00"
 >>>>>>> dc5b8184 (Fixed mcp compatibility)
+=======
+            "time": "2026-05-08T23:22:52+00:00"
+>>>>>>> 3f10a123 (updated dependencies)
         },
         {
             "name": "sebastian/cli-parser",
