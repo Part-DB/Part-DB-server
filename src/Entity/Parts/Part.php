@@ -32,6 +32,8 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\McpTool;
+use ApiPlatform\Metadata\McpToolCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
@@ -39,6 +41,7 @@ use App\ApiPlatform\Filter\EntityFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\ApiPlatform\Filter\PartStoragelocationFilter;
 use App\ApiPlatform\Filter\TagFilter;
+use App\DataTables\Filters\PartSearchFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\PartAttachment;
@@ -55,7 +58,10 @@ use App\Entity\Parts\PartTraits\ManufacturerTrait;
 use App\Entity\Parts\PartTraits\OrderTrait;
 use App\Entity\Parts\PartTraits\ProjectTrait;
 use App\EntityListeners\TreeCacheInvalidationListener;
+use App\Mcp\DTO\ElementByIdInput;
 use App\Repository\PartRepository;
+use App\State\Mcp\GetPartByIdProcessor;
+use App\State\Mcp\SearchPartsProcessor;
 use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -104,6 +110,23 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
     ],
     normalizationContext: ['groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['part:write', 'api:basic:write', 'eda_info:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
+    mcp: [
+        'search_parts' => new McpToolCollection(
+            title: "Search parts by keyword",
+            description: 'Search for parts',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            input: PartSearchFilter::class,
+            processor: SearchPartsProcessor::class,
+        ),
+        'get_part_details' => new McpTool(
+            title: 'Get part details by ID',
+            description: 'Get detailed information about a specific part by its database ID',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read']],
+            input: ElementByIdInput::class,
+            processor: GetPartByIdProcessor::class
+        ),
+    ],
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(EntityFilter::class, properties: ["category", "footprint", "manufacturer", "partUnit", "partCustomState"])]
