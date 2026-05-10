@@ -86,7 +86,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Index(columns: ['datetime_added', 'name', 'last_modified', 'id', 'needs_review'], name: 'parts_idx_datet_name_last_id_needs')]
 #[ORM\Index(columns: ['name'], name: 'parts_idx_name')]
 #[ORM\Index(columns: ['ipn'], name: 'parts_idx_ipn')]
-#[ORM\Index(columns: ['gtin'], name: 'parts_idx_gtin')]
+#[ORM\Index(name: 'parts_idx_gtin', columns: ['gtin'])]
 #[ApiResource(
     operations: [
         new Get(normalizationContext: [
@@ -122,8 +122,12 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
             title: 'Get part details by ID',
             description: 'Get detailed information about a specific part by its database ID',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
-            normalizationContext: ['groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read']],
+            normalizationContext: [
+                'groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
+                'item_uri_template' => '/api/parts/{id}',
+            ],
             input: ElementByIdInput::class,
+            validate: true,
             processor: GetPartByIdProcessor::class
         ),
     ],
