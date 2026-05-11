@@ -24,52 +24,54 @@ namespace App\Tests\Validator\Constraints;
 
 use App\Validator\Constraints\ValidGTIN;
 use App\Validator\Constraints\ValidGTINValidator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 final class ValidGTINValidatorTest extends ConstraintValidatorTestCase
 {
-
-    public function testAllowNull(): void
-    {
-        $this->validator->validate(null, new ValidGTIN());
-        $this->assertNoViolation();
-    }
-
-    public function testValidGTIN8(): void
-    {
-        $this->validator->validate('12345670', new ValidGTIN());
-        $this->assertNoViolation();
-    }
-
-    public function testValidGTIN12(): void
-    {
-        $this->validator->validate('123456789012', new ValidGTIN());
-        $this->assertNoViolation();
-    }
-
-    public function testValidGTIN13(): void
-    {
-        $this->validator->validate('1234567890128', new ValidGTIN());
-        $this->assertNoViolation();
-    }
-
-    public function testValidGTIN14(): void
-    {
-        $this->validator->validate('12345678901231', new ValidGTIN());
-        $this->assertNoViolation();
-    }
-
-    public function testInvalidGTIN(): void
-    {
-        $this->validator->validate('1234567890123', new ValidGTIN());
-        $this->buildViolation('validator.invalid_gtin')
-            ->assertRaised();
-    }
-
     protected function createValidator(): ConstraintValidatorInterface
     {
         return new ValidGTINValidator();
+    }
+
+    // --- values that must produce no violation ---
+
+    public static function validValuesProvider(): \Generator
+    {
+        yield 'null is skipped'         => [null];
+        yield 'empty string is skipped' => [''];
+        yield 'valid GTIN-8'            => ['12345670'];
+        yield 'valid GTIN-12'           => ['123456789012'];
+        yield 'valid GTIN-13'           => ['1234567890128'];
+        yield 'valid GTIN-14'           => ['12345678901231'];
+    }
+
+    #[DataProvider('validValuesProvider')]
+    public function testValidValue(mixed $value): void
+    {
+        $this->validator->validate($value, new ValidGTIN());
+        $this->assertNoViolation();
+    }
+
+    // --- values that must produce a violation ---
+
+    public static function invalidValuesProvider(): \Generator
+    {
+        yield 'wrong check digit (GTIN-13)' => ['1234567890123'];
+        yield 'non-numeric string'          => ['ABCDEFGHIJKLM'];
+        yield 'wrong length — 9 digits'     => ['123456789'];
+        yield 'wrong length — 11 digits'    => ['12345678901'];
+        yield 'leading whitespace'          => [' 1234567890128'];
+        yield 'trailing whitespace'         => ['1234567890128 '];
+    }
+
+    #[DataProvider('invalidValuesProvider')]
+    public function testInvalidValue(string $value): void
+    {
+        $this->validator->validate($value, new ValidGTIN());
+        $this->buildViolation('validator.invalid_gtin')
+            ->assertRaised();
     }
 }

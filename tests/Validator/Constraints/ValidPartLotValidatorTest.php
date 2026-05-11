@@ -83,4 +83,41 @@ final class ValidPartLotValidatorTest extends WebTestCase
         $this->expectException(\Symfony\Component\Form\Exception\UnexpectedTypeException::class);
         self::$validator->validate('not a part lot', new ValidPartLot());
     }
+
+    public function testPartLotWithFullLocationRaisesNamedViolation(): void
+    {
+        $lot = new PartLot();
+        $lot->setPart(new Part());
+
+        $location = new StorageLocation();
+        $location->setIsFull(true);
+        $lot->setStorageLocation($location);
+
+        $violations = self::$validator->validate($lot, new ValidPartLot());
+        // Expect exactly one violation on the storage_location path
+        $this->assertCount(1, $violations);
+        $this->assertSame('storage_location', $violations[0]->getPropertyPath());
+        $this->assertStringContainsString('location_full', $violations[0]->getMessageTemplate());
+    }
+
+    public function testLimitToExistingPartsWithNewLotRaisesViolation(): void
+    {
+        $lot = new PartLot();
+        $lot->setPart(new Part());
+
+        $location = new StorageLocation();
+        $location->setLimitToExistingParts(true);
+        $lot->setStorageLocation($location);
+
+        // New lot (no ID) → parts collection is empty → part is not in the list → violation
+        $violations = self::$validator->validate($lot, new ValidPartLot());
+        $this->assertCount(1, $violations);
+        $this->assertSame('storage_location', $violations[0]->getPropertyPath());
+        $this->assertSame('validator.part_lot.only_existing', $violations[0]->getMessageTemplate());
+    }
+
+    // NOTE: The 'location_full.no_increase' violation (raised when a lot's amount
+    // is increased while its storage location is marked full) requires the entity to
+    // carry a real Doctrine originalEntityData snapshot, which is only set after an
+    // actual persist+flush. Testing that path belongs in a database integration test.
 }
