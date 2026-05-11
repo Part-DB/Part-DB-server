@@ -1,4 +1,3 @@
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Part-DB/Part-DB-symfony/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Part-DB/Part-DB-symfony/?branch=master)
 ![PHPUnit Tests](https://github.com/Part-DB/Part-DB-symfony/workflows/PHPUnit%20Tests/badge.svg)
 ![Static analysis](https://github.com/Part-DB/Part-DB-symfony/workflows/Static%20analysis/badge.svg)
 [![codecov](https://codecov.io/gh/Part-DB/Part-DB-server/branch/master/graph/badge.svg)](https://codecov.io/gh/Part-DB/Part-DB-server)
