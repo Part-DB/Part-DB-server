@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\Parts;
 
+use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
@@ -167,6 +168,223 @@ final class PartLotWithdrawAddHelperTest extends WebTestCase
         $this->service->stocktake($this->partLot2, 0, "Test");
         $this->assertEqualsWithDelta(0.0, $this->partLot2->getAmount(), PHP_FLOAT_EPSILON);
         $this->assertFalse($this->partLot2->isInstockUnknown()); //Instock unknown should be cleared
+    }
 
+    // --- withdraw() error paths ---
+
+    public function testWithdrawZeroAmountThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->service->withdraw($this->partLot1, 0, "Test");
+    }
+
+    public function testWithdrawNegativeAmountThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->service->withdraw($this->partLot1, -5, "Test");
+    }
+
+    public function testWithdrawMoreThanStockThrows(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->service->withdraw($this->partLot1, 999, "Test");
+    }
+
+    public function testWithdrawFromUnknownInstockLotThrows(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->service->withdraw($this->lotWithUnknownInstock, 1, "Test");
+    }
+
+    // --- add() error paths ---
+
+    public function testAddZeroAmountThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->service->add($this->partLot1, 0, "Test");
+    }
+
+    public function testAddNegativeAmountThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->service->add($this->partLot1, -3, "Test");
+    }
+
+    public function testAddToFullLotThrows(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->service->add($this->fullLot, 1, "Test");
+    }
+
+    public function testAddToUnknownInstockLotThrows(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->service->add($this->lotWithUnknownInstock, 1, "Test");
+    }
+
+    // --- move() error paths ---
+
+    public function testMoveZeroAmountThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->service->move($this->partLot1, $this->partLot2, 0, "Test");
+    }
+
+    public function testMoveBetweenDifferentPartsThrows(): void
+    {
+        $otherPart = new Part();
+        $otherLot = new TestPartLot();
+        $otherLot->setPart($otherPart);
+        $otherLot->setAmount(5);
+
+        $this->expectException(\RuntimeException::class);
+        $this->service->move($this->partLot1, $otherLot, 5, "Test");
+    }
+
+    public function testMoveMoreThanOriginStockThrows(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->service->move($this->partLot1, $this->partLot2, 999, "Test");
+    }
+
+    public function testMoveFromUnwithdrawableLotThrows(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->service->move($this->lotWithUnknownInstock, $this->partLot2, 1, "Test");
+    }
+
+    public function testMoveToUnavailableLotThrows(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->service->move($this->partLot1, $this->fullLot, 1, "Test");
+    }
+
+    // --- stocktake() error paths ---
+
+    public function testStocktakeNegativeAmountThrows(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->service->stocktake($this->partLot1, -1, "Test");
+    }
+
+    // --- integer-rounding (useFloatAmount() = false, no unit set) ---
+
+    public function testWithdrawRoundsAmountForIntegerPart(): void
+    {
+        // No unit → useFloatAmount() = false → fractional amounts are rounded
+        $this->assertFalse($this->part->useFloatAmount());
+
+        $this->service->withdraw($this->partLot1, 1.7, "Test"); // rounds to 2
+        $this->assertEqualsWithDelta(8.0, $this->partLot1->getAmount(), PHP_FLOAT_EPSILON);
+    }
+
+    public function testAddRoundsAmountForIntegerPart(): void
+    {
+        $this->assertFalse($this->part->useFloatAmount());
+
+        $this->service->add($this->partLot3, 1.7, "Test"); // rounds to 2
+        $this->assertEqualsWithDelta(2.0, $this->partLot3->getAmount(), PHP_FLOAT_EPSILON);
+    }
+
+    public function testStocktakeRoundsAmountForIntegerPart(): void
+    {
+        $this->assertFalse($this->part->useFloatAmount());
+
+        $this->service->stocktake($this->partLot1, 7.6, "Test"); // rounds to 8
+        $this->assertEqualsWithDelta(8.0, $this->partLot1->getAmount(), PHP_FLOAT_EPSILON);
+    }
+
+    // --- float amounts are preserved when the unit allows floats ---
+
+    public function testAddPreservesFloatAmountForFloatUnit(): void
+    {
+        $unit = new MeasurementUnit();
+        $unit->setIsInteger(false);
+
+        $floatPart = new Part();
+        $floatPart->setPartUnit($unit);
+        $this->assertTrue($floatPart->useFloatAmount());
+
+        $lot = new TestPartLot();
+        $lot->setPart($floatPart);
+        $lot->setAmount(1.0);
+
+        $this->service->add($lot, 1.3, "Test");
+        $this->assertEqualsWithDelta(2.3, $lot->getAmount(), PHP_FLOAT_EPSILON);
+    }
+
+    public function testWithdrawPreservesFloatAmountForFloatUnit(): void
+    {
+        $unit = new MeasurementUnit();
+        $unit->setIsInteger(false);
+
+        $floatPart = new Part();
+        $floatPart->setPartUnit($unit);
+
+        $lot = new TestPartLot();
+        $lot->setPart($floatPart);
+        $lot->setAmount(5.0);
+
+        $this->service->withdraw($lot, 1.3, "Test");
+        $this->assertEqualsWithDelta(3.7, $lot->getAmount(), PHP_FLOAT_EPSILON);
+    }
+
+    // --- delete_lot_if_empty ---
+
+    /**
+     * Creates a PartLot that looks like a managed, persisted entity to Doctrine:
+     * - has a non-null ID (required by AbstractLogEntry when creating stock-change log entries)
+     * - is registered in the UnitOfWork as managed (required so EntityManager::remove() accepts it)
+     */
+    private function makeManagedLot(float $amount, int $fakeId = 42): PartLot
+    {
+        $lot = new PartLot();
+        $lot->setPart($this->part);
+        $lot->setAmount($amount);
+
+        $ref = new \ReflectionProperty($lot, 'id');
+        $ref->setValue($lot, $fakeId);
+
+        $em = self::getContainer()->get('doctrine.orm.entity_manager');
+        $em->getUnitOfWork()->registerManaged($lot, ['id' => $fakeId], []);
+
+        return $lot;
+    }
+
+    public function testWithdrawDeletesLotWhenEmptyAndFlagSet(): void
+    {
+        $lot = $this->makeManagedLot(10);
+
+        $this->service->withdraw($lot, 10, "Test", null, true);
+        $this->assertEqualsWithDelta(0.0, $lot->getAmount(), PHP_FLOAT_EPSILON);
+
+        $em = self::getContainer()->get('doctrine.orm.entity_manager');
+        $scheduled = $em->getUnitOfWork()->getScheduledEntityDeletions();
+        $this->assertContains($lot, $scheduled);
+    }
+
+    public function testWithdrawDoesNotDeleteLotWhenNotEmptyAndFlagSet(): void
+    {
+        $lot = $this->makeManagedLot(10);
+
+        $this->service->withdraw($lot, 5, "Test", null, true);
+        $this->assertEqualsWithDelta(5.0, $lot->getAmount(), PHP_FLOAT_EPSILON);
+
+        $em = self::getContainer()->get('doctrine.orm.entity_manager');
+        $scheduled = $em->getUnitOfWork()->getScheduledEntityDeletions();
+        $this->assertNotContains($lot, $scheduled);
+    }
+
+    public function testMoveDeletesOriginLotWhenEmptyAndFlagSet(): void
+    {
+        $origin = $this->makeManagedLot(10, 43);
+        $target = $this->makeManagedLot(0, 44);
+
+        $this->service->move($origin, $target, 10, "Test", null, true);
+        $this->assertEqualsWithDelta(0.0, $origin->getAmount(), PHP_FLOAT_EPSILON);
+
+        $em = self::getContainer()->get('doctrine.orm.entity_manager');
+        $scheduled = $em->getUnitOfWork()->getScheduledEntityDeletions();
+        $this->assertContains($origin, $scheduled);
     }
 }

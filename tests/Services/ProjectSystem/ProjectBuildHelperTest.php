@@ -240,6 +240,132 @@ final class ProjectBuildHelperTest extends WebTestCase
         $this->assertTrue(BigDecimal::of('0.01')->isEqualTo($result));
     }
 
+    // --- unknown-instock lots are excluded from buildable count ---
+
+    public function testGetMaximumBuildableCountForBOMEntryExcludesUnknownInstockLots(): void
+    {
+        $part = new Part();
+        $lot = new PartLot();
+        $lot->setAmount(100);
+        $lot->setInstockUnknown(true); // this lot should be ignored
+        $part->addPartLot($lot);
+
+        $entry = (new ProjectBOMEntry())->setPart($part)->setQuantity(10);
+
+        // All stock is in an unknown-instock lot → effective amount = 0 → 0 builds
+        $this->assertSame(0, $this->service->getMaximumBuildableCountForBOMEntry($entry));
+    }
+
+    public function testGetMaximumBuildableCountMixedKnownAndUnknownLots(): void
+    {
+        $part = new Part();
+
+        $knownLot = new PartLot();
+        $knownLot->setAmount(30);
+
+        $unknownLot = new PartLot();
+        $unknownLot->setAmount(999);
+        $unknownLot->setInstockUnknown(true);
+
+        $part->addPartLot($knownLot);
+        $part->addPartLot($unknownLot);
+
+        $entry = (new ProjectBOMEntry())->setPart($part)->setQuantity(10);
+
+        // Only the 30 known parts count → floor(30/10) = 3
+        $this->assertSame(3, $this->service->getMaximumBuildableCountForBOMEntry($entry));
+    }
+
+    // --- project with only non-part BOM entries ---
+
+    public function testGetMaximumBuildableCountOnlyNonPartEntriesReturnsIntMax(): void
+    {
+        $project = new Project();
+        $project->addBomEntry((new ProjectBOMEntry())->setName('Solder')->setQuantity(1));
+        $project->addBomEntry((new ProjectBOMEntry())->setName('Wire')->setQuantity(2));
+
+        // No part entries → nothing constrains the count → PHP_INT_MAX
+        $this->assertSame(PHP_INT_MAX, $this->service->getMaximumBuildableCount($project));
+    }
+
+    public function testGetMaximumBuildableCountAsStringOnlyNonPartEntries(): void
+    {
+        $project = new Project();
+        $project->addBomEntry((new ProjectBOMEntry())->setName('Solder')->setQuantity(1));
+
+        $this->assertSame('∞', $this->service->getMaximumBuildableCountAsString($project));
+    }
+
+    // --- isProjectBuildable ---
+
+    public function testIsProjectBuildable(): void
+    {
+        $project = new Project();
+        $part = new Part();
+        $lot = new PartLot();
+        $lot->setAmount(15);
+        $part->addPartLot($lot);
+        $project->addBomEntry((new ProjectBOMEntry())->setPart($part)->setQuantity(5));
+
+        $this->assertTrue($this->service->isProjectBuildable($project, 3));  // 15/5 = 3 ✓
+        $this->assertFalse($this->service->isProjectBuildable($project, 4)); // 4 > 3 ✗
+    }
+
+    // --- isBOMEntryBuildable ---
+
+    public function testIsBOMEntryBuildable(): void
+    {
+        $part = new Part();
+        $lot = new PartLot();
+        $lot->setAmount(20);
+        $part->addPartLot($lot);
+
+        $entry = (new ProjectBOMEntry())->setPart($part)->setQuantity(10);
+
+        $this->assertTrue($this->service->isBOMEntryBuildable($entry, 2));  // 20/10 = 2 ✓
+        $this->assertFalse($this->service->isBOMEntryBuildable($entry, 3)); // 3 > 2 ✗
+    }
+
+    // --- getNonBuildableProjectBomEntries ---
+
+    public function testGetNonBuildableProjectBomEntriesReturnsShortEntries(): void
+    {
+        $project = new Project();
+
+        $abundantPart = new Part();
+        $lot1 = new PartLot();
+        $lot1->setAmount(100);
+        $abundantPart->addPartLot($lot1);
+        $project->addBomEntry((new ProjectBOMEntry())->setPart($abundantPart)->setQuantity(5));
+
+        $scarcePart = new Part();
+        $lot2 = new PartLot();
+        $lot2->setAmount(3);
+        $scarcePart->addPartLot($lot2);
+        $scarceEntry = (new ProjectBOMEntry())->setPart($scarcePart)->setQuantity(10);
+        $project->addBomEntry($scarceEntry);
+
+        // For 1 build: abundantPart OK (100 >= 5), scarcePart not (3 < 10)
+        $nonBuildable = $this->service->getNonBuildableProjectBomEntries($project, 1);
+        $this->assertCount(1, $nonBuildable);
+        $this->assertSame($scarceEntry, $nonBuildable[0]);
+    }
+
+    public function testGetNonBuildableProjectBomEntriesSkipsNonPartEntries(): void
+    {
+        $project = new Project();
+        $project->addBomEntry((new ProjectBOMEntry())->setName('Wire')->setQuantity(5));
+
+        // Non-part entries are ignored → no non-buildable entries
+        $this->assertCount(0, $this->service->getNonBuildableProjectBomEntries($project, 1));
+    }
+
+    public function testGetNonBuildableProjectBomEntriesThrowsOnZeroBuilds(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->service->getNonBuildableProjectBomEntries(new Project(), 0);
+    }
+
     public function testCalculateTotalBuildPriceMixedEntries(): void
     {
         $project = new Project();
