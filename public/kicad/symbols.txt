@@ -1,4 +1,4 @@
-# Generated on Mon May  4 05:40:43 UTC 2026
+# Generated on Mon May 11 06:04:42 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -7545,6 +7545,7 @@ Driver_FET:ZXGD3003E6
 Driver_FET:ZXGD3004E6
 Driver_FET:ZXGD3006E6
 Driver_FET:ZXGD3009E6
+Driver_LED:AL5819W6
 Driver_LED:AL8860MP
 Driver_LED:AL8860WT
 Driver_LED:AP3019AKTR
