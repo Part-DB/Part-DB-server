@@ -13607,12 +13607,6 @@ Buerklin-API Authentication server:
         <target>Host URL</target>
       </segment>
     </unit>
-    <unit id="mL.rY_F" name="browser_plugin.session_expired">
-      <segment state="translated">
-        <source>browser_plugin.session_expired</source>
-        <target>The browser plugin session has expired. Please submit the page from your browser extension again.</target>
-      </segment>
-    </unit>
     <unit id="kuDv.So" name="browser_plugin.recent_pages.title">
       <segment state="translated">
         <source>browser_plugin.recent_pages.title</source>
