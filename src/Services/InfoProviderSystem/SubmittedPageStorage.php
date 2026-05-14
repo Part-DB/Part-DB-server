@@ -63,7 +63,7 @@ class SubmittedPageStorage
             $session->get(self::SESSION_KEY, []),
             static fn(string $u): bool => $u !== $page->token,
         ));
-        array_unshift($tokens, $page->url);
+        array_unshift($tokens, $page->token);
         $session->set(self::SESSION_KEY, array_slice($tokens, 0, self::MAX_RECENT));
 
         return $page->token;
