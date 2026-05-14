@@ -13619,5 +13619,23 @@ Buerklin-API Authentication server:
         <target>Pages recently submitted from your browser extension. Click to create a part using the captured HTML.</target>
       </segment>
     </unit>
+    <unit id="lVUU9s7" name="settings.ips.browser_plugin">
+      <segment>
+        <source>settings.ips.browser_plugin</source>
+        <target>Browser plugin</target>
+      </segment>
+    </unit>
+    <unit id="IrJs3fI" name="settings.ips.browser_plugin.description">
+      <segment>
+        <source>settings.ips.browser_plugin.description</source>
+        <target>The browser plugin allows to submit pages to Part-DB directly from a browser to create new parts. HTML content is submitted, so that extraction even works on DDOS protected pages, or pages requiring javascript for correct rendering. The Generic Web or AI Web extractor needs to be enabled to be useful.</target>
+      </segment>
+    </unit>
+    <unit id="_8UrMCB" name="settings.ips.browser_plugin.enabled.help">
+      <segment>
+        <source>settings.ips.browser_plugin.enabled.help</source>
+        <target>When enabled users with the info provider permission can submit pages to Part-DB and retrieve them later.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

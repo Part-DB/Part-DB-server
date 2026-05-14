@@ -26,12 +26,15 @@ use App\Entity\UserSystem\User;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Services\InfoProviderSystem\SubmittedPageStorage;
 use App\Services\InfoProviderSystem\DTOs\BrowserSubmittedPage;
+use App\Settings\InfoProviderSystem\BrowserPluginSettings;
 use App\Settings\SystemSettings\CustomizationSettings;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -48,6 +51,7 @@ class BrowserPluginController extends AbstractController
         private readonly SubmittedPageStorage $browserHtmlStorage,
         private readonly ProviderRegistry $providerRegistry,
         private readonly CustomizationSettings $customizationSettings,
+        private readonly BrowserPluginSettings $browserPluginSettings,
     ) {
     }
 
@@ -62,6 +66,7 @@ class BrowserPluginController extends AbstractController
     public function getInfo(): JsonResponse
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
+        $this->throwIfDisabled();
 
         $activeProviders = $this->providerRegistry->getActiveProviders();
 
@@ -105,6 +110,7 @@ class BrowserPluginController extends AbstractController
     ): JsonResponse
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
+        $this->throwIfDisabled();
 
         $payload = $request->getPayload();
 
@@ -124,5 +130,12 @@ class BrowserPluginController extends AbstractController
         return new JsonResponse([
             'redirect_url' => $redirectUrl ?? null,
         ]);
+    }
+
+    public function throwIfDisabled(): void
+    {
+        if (!$this->browserPluginSettings->enabled) {
+            throw HttpException::fromStatusCode(451, "Browser plugin feature is disabled by the administrator, ask him to enable it in system settings.");
+        }
     }
 }
