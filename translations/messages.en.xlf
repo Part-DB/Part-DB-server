@@ -13607,5 +13607,35 @@ Buerklin-API Authentication server:
         <target>Host URL</target>
       </segment>
     </unit>
+    <unit id="kuDv.So" name="browser_plugin.recent_pages.title">
+      <segment state="translated">
+        <source>browser_plugin.recent_pages.title</source>
+        <target>Recent browser submissions</target>
+      </segment>
+    </unit>
+    <unit id="AjNj8wk" name="browser_plugin.recent_pages.help">
+      <segment state="translated">
+        <source>browser_plugin.recent_pages.help</source>
+        <target>Pages recently submitted from your browser extension. Click to create a part using the captured HTML.</target>
+      </segment>
+    </unit>
+    <unit id="lVUU9s7" name="settings.ips.browser_plugin">
+      <segment state="translated">
+        <source>settings.ips.browser_plugin</source>
+        <target>Browser plugin</target>
+      </segment>
+    </unit>
+    <unit id="IrJs3fI" name="settings.ips.browser_plugin.description">
+      <segment state="translated">
+        <source>settings.ips.browser_plugin.description</source>
+        <target>The browser plugin allows to submit pages to Part-DB directly from a browser to create new parts. HTML content is submitted, so that extraction even works on DDOS protected pages, or pages requiring javascript for correct rendering. The Generic Web or AI Web extractor needs to be enabled to be useful.</target>
+      </segment>
+    </unit>
+    <unit id="_8UrMCB" name="settings.ips.browser_plugin.enabled.help">
+      <segment state="translated">
+        <source>settings.ips.browser_plugin.enabled.help</source>
+        <target>When enabled users with the info provider permission can submit pages to Part-DB and retrieve them later.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
