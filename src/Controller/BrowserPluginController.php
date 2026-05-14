@@ -22,8 +22,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\UserSystem\User;
+use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Services\InfoProviderSystem\SubmittedPageStorage;
 use App\Services\InfoProviderSystem\DTOs\BrowserSubmittedPage;
+use App\Settings\SystemSettings\CustomizationSettings;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,8 +44,49 @@ class BrowserPluginController extends AbstractController
 {
     private const MAX_HTML_SIZE = 5 * 1024 * 1024; // 5 MB
 
-    public function __construct(private readonly SubmittedPageStorage $browserHtmlStorage)
+    public function __construct(
+        private readonly SubmittedPageStorage $browserHtmlStorage,
+        private readonly ProviderRegistry $providerRegistry,
+        private readonly CustomizationSettings $customizationSettings,
+    ) {
+    }
+
+    private const URL_PROVIDER_KEYS = ['generic_web', 'ai_web'];
+
+    /**
+     * Returns instance info for the browser extension: logged-in username, instance name, and active URL providers.
+     *
+     * Response: { "username": "admin", "instance_name": "Part-DB", "url_providers": [{"id": "generic_web", "label": "Generic Web URL"}] }
+     */
+    #[Route('/browser_info', name: 'browser_plugin_info', methods: ['GET'])]
+    public function getInfo(): JsonResponse
     {
+        $this->denyAccessUnlessGranted('@info_providers.create_parts');
+
+        $activeProviders = $this->providerRegistry->getActiveProviders();
+
+        $urlProviders = [];
+        foreach (self::URL_PROVIDER_KEYS as $key) {
+            if (isset($activeProviders[$key])) {
+                $urlProviders[] = [
+                    'id' => $key,
+                    'label' => $activeProviders[$key]->getProviderInfo()['name'],
+                ];
+            }
+        }
+
+        $user = $this->getUser();
+        if ($user instanceof User) {
+            $username = $user->getFullName(true);
+        } else {
+            $username = $user ? $user->getUserIdentifier() : "unknown";
+        }
+
+        return new JsonResponse([
+            'username' => $username,
+            'instance_name' => $this->customizationSettings->instanceName,
+            'url_providers' => $urlProviders,
+        ]);
     }
 
     /**
