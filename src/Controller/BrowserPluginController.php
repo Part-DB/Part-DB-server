@@ -45,8 +45,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 #[Route('/tools/info_providers')]
 class BrowserPluginController extends AbstractController
 {
-    private const MAX_HTML_SIZE = 5 * 1024 * 1024; // 5 MB
-
     public function __construct(
         private readonly SubmittedPageStorage $browserHtmlStorage,
         private readonly ProviderRegistry $providerRegistry,
