@@ -328,10 +328,12 @@ final class PartController extends AbstractController
         //Force info providers to not use cache, when retrieving part details for creating a new part, because otherwise we might end up with outdated information
         $no_cache = $request->query->getBoolean('no_cache', false);
         $skip_delegation = $request->query->getBoolean('skip_delegation', false);
+        $submitted_page_token = $request->query->getString('submitted_page_token');
 
         $dto = $infoRetriever->getDetails($providerKey, $providerId, [
             InfoProviderInterface::OPTION_NO_CACHE => $no_cache,
             InfoProviderInterface::OPTION_SKIP_DELEGATION => $skip_delegation,
+            InfoProviderInterface::OPTION_SUBMITTED_PAGE_TOKEN => $submitted_page_token,
         ]);
         $new_part = $infoRetriever->dtoToPart($dto);
 
