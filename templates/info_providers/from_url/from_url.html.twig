@@ -33,5 +33,31 @@
     </div>
 
     {{ form_row(form.submit) }}
+
+    {% if recentBrowserPages is not empty %}
+        <hr class="{{ offset_label }} mt-4">
+
+        <div class="row mb-1">
+            <label class="col-form-label {{ col_label }}">
+                {% trans %}browser_plugin.recent_pages.title{% endtrans %}
+            </label>
+            <div class="{{ col_input }}">
+                <p class="text-muted small mb-2">{% trans %}browser_plugin.recent_pages.help{% endtrans %}</p>
+                <div class="list-group list-group-numbered">
+                    {% for page in recentBrowserPages %}
+                        <button type="submit" name="submitted_page_token" value="{{ page.token }}" formnovalidate
+                                class="list-group-item d-flex justify-content-between align-items-start text-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">{{ page.title|u.truncate(160) }}</div>
+                                <small class="text-muted">{{ page.url|u.truncate(160) }}</small>
+                            </div>
+                            <span class="badge text-bg-primary rounded-pill">{{ page.submittedAt|format_time("short") }}</span>
+                        </button>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
     {{ form_end(form) }}
 {% endblock %}
