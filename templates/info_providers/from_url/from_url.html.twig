@@ -48,8 +48,8 @@
                         <button type="submit" name="submitted_page_token" value="{{ page.token }}" formnovalidate
                                 class="list-group-item d-flex justify-content-between align-items-start text-start">
                             <div class="ms-2 me-auto">
-                                <div class="fw-bold">{{ page.title }}</div>
-                                <small class="text-muted">{{ page.url }}</small>
+                                <div class="fw-bold">{{ page.title|u.truncate(160) }}</div>
+                                <small class="text-muted">{{ page.url|u.truncate(160) }}</small>
                             </div>
                             <span class="badge text-bg-primary rounded-pill">{{ page.submittedAt|format_time("short") }}</span>
                         </button>
