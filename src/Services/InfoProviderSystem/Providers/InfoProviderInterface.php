@@ -30,6 +30,7 @@ interface InfoProviderInterface
 {
     public const OPTION_NO_CACHE = 'no_cache'; // if set to true, the provider should not use any cache and retrieve fresh data from the source
     public const OPTION_SKIP_DELEGATION = 'skip_delegation'; // if set to true, the provider should not delegate the request to other providers, even if it supports delegation.
+    public const OPTION_SUBMITTED_PAGE_TOKEN = 'submitted_page_token'; // if set to a non-empty string, the provider should use the browser-submitted page with the given token (and retrieve it from BrowserHtmlSessionStorage)
 
     /**
      * Get information about this provider
