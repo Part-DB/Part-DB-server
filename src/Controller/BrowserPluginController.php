@@ -106,17 +106,23 @@ class BrowserPluginController extends AbstractController
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
-        $provider = (string) ($data['provider'] ?? 'generic_web');
+        $payload = $request->getPayload();
+
+        $provider = $payload->get('provider', null);
 
         // The maprequestpayload already validates the URL and HTML content:
         $token = $this->browserHtmlStorage->store($page);
 
-        $redirectUrl = $this->generateUrl('info_providers_create_part', [
-            'providerKey' => $provider,
-            'providerId' => $page->url,
-            'submitted_page_token' => $token,
-        ], UrlGeneratorInterface::ABSOLUTE_URL);
+        if ($provider !== null) {
+            $redirectUrl = $this->generateUrl('info_providers_create_part', [
+                'providerKey' => $provider,
+                'providerId' => $page->url,
+                'submitted_page_token' => $token,
+            ], UrlGeneratorInterface::ABSOLUTE_URL);
+        }
 
-        return new JsonResponse(['redirect_url' => $redirectUrl]);
+        return new JsonResponse([
+            'redirect_url' => $redirectUrl ?? null,
+        ]);
     }
 }
