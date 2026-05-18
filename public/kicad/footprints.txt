@@ -1,4 +1,4 @@
-# Generated on Mon May 11 06:04:02 UTC 2026
+# Generated on Mon May 18 06:20:11 UTC 2026
 # This file contains all footprints available in the offical KiCAD library
 Audio_Module:Reverb_BTDR-1H
 Audio_Module:Reverb_BTDR-1V
@@ -11883,6 +11883,8 @@ Package_DFN_QFN:Texas_VQFN-HR-20_3x2.5mm_P0.5mm_RQQ0011A
 Package_DFN_QFN:Texas_VQFN-RHL-20
 Package_DFN_QFN:Texas_VQFN-RHL-20_ThermalVias
 Package_DFN_QFN:Texas_VQFN-RNR0011A-11
+Package_DFN_QFN:Texas_WQFN-40-1EP_3x6mm_P0.4mm_EP1.7x4.5mm
+Package_DFN_QFN:Texas_WQFN-40-1EP_3x6mm_P0.4mm_EP1.7x4.5mm_ThermalVias
 Package_DFN_QFN:Texas_WQFN-MR-100_3x3-DapStencil
 Package_DFN_QFN:Texas_WQFN-MR-100_ThermalVias_3x3-DapStencil
 Package_DFN_QFN:Texas_X2QFN-12_1.6x1.6mm_P0.4mm
@@ -12956,6 +12958,7 @@ Package_SON:MPS_VSON-6_1x1.5mm_P0.5mm
 Package_SON:MicroCrystal_C7_SON-8_1.5x3.2mm_P0.9mm
 Package_SON:Microchip_USON-10-1EP_3x3mm_P0.5mm_EP1.8x2.5mm
 Package_SON:Microchip_USON-10-1EP_3x3mm_P0.5mm_EP1.8x2.5mm_ThermalVias
+Package_SON:NXP_LSON-16-1EP_3.5x4.5mm_P0.5mm_EP2x3.8mm
 Package_SON:NXP_XSON-16
 Package_SON:Nexperia_HUSON-12_USON-12-1EP_1.35x2.5mm_P0.4mm_EP0.4x2mm
 Package_SON:Nexperia_HUSON-16_USON-16-1EP_1.35x3.3mm_P0.4mm_EP0.4x2.8mm
