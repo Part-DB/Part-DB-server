@@ -75,6 +75,15 @@ the parts you want to update. In the bulk actions dropdown select "Bulk info pro
 You will be redirected to a page, where you can select how part fields should be mapped to info provider fields, and the 
 results will be shown.
 
+## Browser plugin
+There is a browser plugin available for [Chrome](https://chromewebstore.google.com/detail/part-db-page-submitter/bckkfkpidiiibmjdhjakleoagjmepioi) and [Firefox](https://addons.mozilla.org/de/firefox/addon/part-db-page-submitter/)
+that allows to submit a website from your browser with one click to Part-DB, which then utilizes the Generic Web URL or the AI Web Provider to extract the part information from the page and pre-fill the part creation form.
+The advantage is that it also works for pages behind logins, CAPTCHAs, or bot-blocking sites, as the plugin sends the already loaded page HTML to Part-DB.
+The plugin is open source and available on [GitHub](https://github.com/Part-DB/browser-plugin).
+
+To use it install it in your browser, enable one or more of the web page providers in Part-DB and allow the plugin support
+in Part-DB settings. After that you can submit any product page to Part-DB with one click and the part creation form will be pre-filled with the information from the page.
+
 ## Data providers
 
 The system tries to be as flexible as possible, so many different information sources can be used.
