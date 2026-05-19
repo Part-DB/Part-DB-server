@@ -17,7 +17,7 @@
         "api-platform/json-api": "^4.0.0",
         "api-platform/symfony": "^4.0.0",
         "beberlei/doctrineextensions": "^1.2",
-        "brick/math": "^0.14.8",
+        "brick/math": "^0.17.0",
         "brick/schema": "^0.2.0",
         "composer/ca-bundle": "^1.5",
         "composer/package-versions-deprecated": "^1.11.99.5",

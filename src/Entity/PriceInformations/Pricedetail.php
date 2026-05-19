@@ -195,10 +195,10 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     #[SerializedName('price_per_unit')]
     public function getPricePerUnit(float|string|BigDecimal $multiplier = 1.0): BigDecimal
     {
-        $tmp = BigDecimal::of($multiplier);
+        $tmp = is_float($multiplier) ? BigDecimal::fromFloatShortest($multiplier) : BigDecimal::of($multiplier);
         $tmp = $tmp->multipliedBy($this->price);
 
-        return $tmp->dividedBy($this->price_related_quantity, static::PRICE_PRECISION, RoundingMode::HALF_UP);
+        return $tmp->dividedBy(BigDecimal::fromFloatShortest($this->price_related_quantity), static::PRICE_PRECISION, RoundingMode::HalfUp);
     }
 
     /**
@@ -317,7 +317,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      */
     public function setPrice(BigDecimal $new_price): self
     {
-        $tmp = $new_price->toScale(self::PRICE_PRECISION, RoundingMode::HALF_UP);
+        $tmp = $new_price->toScale(self::PRICE_PRECISION, RoundingMode::HalfUp);
         //Only change the object, if the value changes, so that doctrine does not detect it as changed.
         if ((string) $tmp !== (string) $this->price) {
             $this->price = $tmp;

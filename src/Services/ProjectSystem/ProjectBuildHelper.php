@@ -190,7 +190,7 @@ final readonly class ProjectBuildHelper
                 continue;
             }
             $has_price = true;
-            $total = $total->plus($unit_price->multipliedBy($entry->getQuantity())->multipliedBy($number_of_builds));
+            $total = $total->plus($unit_price->multipliedBy(BigDecimal::fromFloatShortest($entry->getQuantity()))->multipliedBy($number_of_builds));
         }
 
         return $has_price ? $total : null;
@@ -206,7 +206,7 @@ final readonly class ProjectBuildHelper
         if ($total === null) {
             return null;
         }
-        return $total->dividedBy($number_of_builds, 10, RoundingMode::HALF_UP);
+        return $total->dividedBy($number_of_builds, 10, RoundingMode::HalfUp);
     }
 
     /**
@@ -215,7 +215,7 @@ final readonly class ProjectBuildHelper
     public function roundedTotalBuildPrice(Project $project, int $number_of_builds = 1, ?Currency $currency = null): ?BigDecimal
     {
         return $this->calculateTotalBuildPrice($project, $number_of_builds, $currency)
-            ?->toScale(2, RoundingMode::UP);
+            ?->toScale(2, RoundingMode::Up);
     }
 
     /**
@@ -224,7 +224,7 @@ final readonly class ProjectBuildHelper
     public function roundedUnitBuildPrice(Project $project, int $number_of_builds = 1, ?Currency $currency = null): ?BigDecimal
     {
         return $this->calculateUnitBuildPrice($project, $number_of_builds, $currency)
-            ?->toScale(2, RoundingMode::UP);
+            ?->toScale(2, RoundingMode::Up);
     }
 
     /**
