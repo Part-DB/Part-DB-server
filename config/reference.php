@@ -2823,6 +2823,13 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             region?: scalar|Param|null, // The region for OpenAI API (EU, US, or null for default) // Default: null
  *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
  *         },
+ *         openresponses?: array<string, array{ // Default: []
+ *             base_url?: string|Param,
+ *             api_key?: string|Param,
+ *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
+ *             model_catalog?: string|Param, // Service ID of the model catalog to use
+ *             responses_path?: string|Param, // Default: "/v1/responses"
+ *         }>,
  *         openrouter?: array{
  *             api_key?: string|Param,
  *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
@@ -2957,6 +2964,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             endpoint?: string|Param,
  *             api_key?: string|Param,
  *             index_name?: string|Param,
+ *             http_client?: string|Param, // Default: "http_client"
  *             embedder?: string|Param, // Default: "default"
  *             vector_field?: string|Param, // Default: "_vectors"
  *             dimensions?: int|Param, // Default: 1536
@@ -3019,6 +3027,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             table_name?: string|Param,
  *             vector_field?: string|Param, // Default: "embedding"
  *             distance?: "cosine"|"inner_product"|"l1"|"l2"|Param, // Distance metric to use for vector similarity search // Default: "l2"
+ *             lang?: string|Param, // Default: "english"
  *             dbal_connection?: string|Param,
  *             setup_options?: array{
  *                 vector_type?: string|Param, // Default: "vector"
