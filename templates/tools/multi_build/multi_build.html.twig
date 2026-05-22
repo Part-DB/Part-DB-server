@@ -1,0 +1,28 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}Multi Build{% endblock %}
+
+
+{% block card_title %}<i class="fas fa-chart-bar fa-fw"></i>
+    Multi Build{% endblock %}
+
+{% block card_body %}
+
+    <div class="alert {% if can_build %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+        {% if not can_build %}
+            <h5><i class="fa-solid fa-circle-exclamation fa-fw"></i> {% trans %}project.builds.build_not_possible{% endtrans %}</h5>
+            <ul>
+                {% for bom_entry in needs_ordering %}
+                    <li>
+                     <b><a href="{{ entity_url(bom_entry.part) }}">{{ bom_entry.part.name }}</a></b>
+                     {{ bom_entry.needed }} Needed.
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+
+{{ form(form) }}
+
+{% endblock %}

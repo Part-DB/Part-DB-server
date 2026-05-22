@@ -31,9 +31,14 @@ use App\Services\System\GitVersionInfoProvider;
 use App\Services\System\UpdateAvailableFacade;
 use App\Settings\AppSettings;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Runtime\SymfonyRuntime;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\ProjectSystem\Project;
+use App\Form\ProjectSystem\ProjectMultiBuildType;
+use Psr\Log\LoggerInterface;
 
 #[Route(path: '/tools')]
 class ToolsController extends AbstractController
@@ -119,6 +124,66 @@ class ToolsController extends AbstractController
 
         return $this->render('tools/builtin_footprints_viewer/builtin_footprints_viewer.html.twig', [
             'grouped_footprints' => $grouped_footprints,
+        ]);
+    }
+
+    #[Route(path: '/multi_build', name: 'tools_multi_build')]
+    public function multiBuild(LoggerInterface $logger, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        //$this->denyAccessUnlessGranted('@tools.multi_build');
+        $all_projects = $entityManager->getRepository(Project::class)->findAll();
+
+        $form = $this->createForm(ProjectMultiBuildType::class, [], ['projects'=>$all_projects]);
+
+        $form->handleRequest($request);
+        $combined_bom=[];
+        $needs_ordering = [];
+        $can_build = true;
+        if ($form->isSubmitted()) 
+        {            
+            if ($form->isValid()) 
+            {
+                $submitted = "YES";                
+                foreach($all_projects as $p)
+                {
+                    $count_for_project = $form->get($p->getID() . "_project")->getData() + 0;
+                    $logger->Info("QTY", ['count_for_project'=>$count_for_project, 'name'=>$p->getName()]);
+                    if ($count_for_project > 0)
+                    {
+                        $logger->Info("BOMSIZE", ['bomsize'=>count($p->getBomEntries())]);
+                        foreach ($p->getBomEntries() as $bom_entry) 
+                        {
+                            $part_id = $bom_entry->getPart()->getID();
+                            $logger->Info("ISAPART", ['q'=>$bom_entry->getQuantity(), 'name'=>$bom_entry->getPart()->getName()]);
+                            if (array_key_exists($part_id, $combined_bom))
+                            {
+                                $combined_bom[$part_id]['quantity'] += $bom_entry->getQuantity() * $count_for_project;
+                            }
+                            else
+                            {
+                                $combined_bom[$part_id] = array('quantity'=>$bom_entry->getQuantity() * $count_for_project, 'part'=>$bom_entry->getPart());
+                            }
+                        }
+                    }                    
+                }   
+                
+                foreach($combined_bom as $cb)
+                {
+                    $total_instock = $cb['part']->getAmountSum();
+                    $logger->Info("COMBINED BOM", ['total_instock'=>$total_instock, 'needed'=>$cb['quantity']]);
+                    if ($total_instock < $cb['quantity'])
+                    {
+                        $needs_ordering[] = array('needed'=>($cb['quantity']-$total_instock), 'part'=>$cb['part']);
+                        $can_build = false;
+                    }
+                }
+            }
+        }
+
+        return $this->render('tools/multi_build/multi_build.html.twig', [
+            'form'=>$form,
+            'needs_ordering'=>$needs_ordering,
+            'can_build'=>$can_build
         ]);
     }
 
