@@ -150,14 +150,17 @@ class ToolsController extends AbstractController
                     {
                         foreach ($p->getBomEntries() as $bom_entry) 
                         {
-                            $part_id = $bom_entry->getPart()->getID();
-                            if (array_key_exists($part_id, $combined_bom))
+                            if ($bom_entry->getPart())
                             {
-                                $combined_bom[$part_id]['quantity'] += $bom_entry->getQuantity() * $count_for_project;
-                            }
-                            else
-                            {
-                                $combined_bom[$part_id] = array('quantity'=>$bom_entry->getQuantity() * $count_for_project, 'part'=>$bom_entry->getPart());
+                                $part_id = $bom_entry->getPart()->getID();
+                                if (array_key_exists($part_id, $combined_bom))
+                                {
+                                    $combined_bom[$part_id]['quantity'] += $bom_entry->getQuantity() * $count_for_project;
+                                }
+                                else
+                                {
+                                    $combined_bom[$part_id] = array('quantity'=>$bom_entry->getQuantity() * $count_for_project, 'part'=>$bom_entry->getPart());
+                                }
                             }
                         }
                     }                    
