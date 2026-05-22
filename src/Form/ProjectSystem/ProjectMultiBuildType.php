@@ -25,26 +25,16 @@ namespace App\Form\ProjectSystem;
 
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use App\Entity\ProjectSystem\Project;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Psr\Log\LoggerInterface;
 
 class ProjectMultiBuildType extends AbstractType
 {
-    private LoggerInterface $logger;
-    public function __construct(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $this->logger->info("LEN {len}", ['len'=>count($options['projects'])]);
         foreach($options['projects'] as $p)
         {
             $builder->add($p->getID() . '_project', NumberType::class, [

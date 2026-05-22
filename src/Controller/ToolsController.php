@@ -128,7 +128,7 @@ class ToolsController extends AbstractController
     }
 
     #[Route(path: '/multi_build', name: 'tools_multi_build')]
-    public function multiBuild(LoggerInterface $logger, EntityManagerInterface $entityManager, Request $request): Response
+    public function multiBuild(EntityManagerInterface $entityManager, Request $request): Response
     {
         //$this->denyAccessUnlessGranted('@tools.multi_build');
         $all_projects = $entityManager->getRepository(Project::class)->findAll();
@@ -142,19 +142,15 @@ class ToolsController extends AbstractController
         if ($form->isSubmitted()) 
         {            
             if ($form->isValid()) 
-            {
-                $submitted = "YES";                
+            { 
                 foreach($all_projects as $p)
                 {
                     $count_for_project = $form->get($p->getID() . "_project")->getData() + 0;
-                    $logger->Info("QTY", ['count_for_project'=>$count_for_project, 'name'=>$p->getName()]);
                     if ($count_for_project > 0)
                     {
-                        $logger->Info("BOMSIZE", ['bomsize'=>count($p->getBomEntries())]);
                         foreach ($p->getBomEntries() as $bom_entry) 
                         {
                             $part_id = $bom_entry->getPart()->getID();
-                            $logger->Info("ISAPART", ['q'=>$bom_entry->getQuantity(), 'name'=>$bom_entry->getPart()->getName()]);
                             if (array_key_exists($part_id, $combined_bom))
                             {
                                 $combined_bom[$part_id]['quantity'] += $bom_entry->getQuantity() * $count_for_project;
@@ -170,7 +166,6 @@ class ToolsController extends AbstractController
                 foreach($combined_bom as $cb)
                 {
                     $total_instock = $cb['part']->getAmountSum();
-                    $logger->Info("COMBINED BOM", ['total_instock'=>$total_instock, 'needed'=>$cb['quantity']]);
                     if ($total_instock < $cb['quantity'])
                     {
                         $needs_ordering[] = array('needed'=>($cb['quantity']-$total_instock), 'part'=>$cb['part']);
