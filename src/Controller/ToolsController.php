@@ -139,6 +139,7 @@ class ToolsController extends AbstractController
         $combined_bom=[];
         $needs_ordering = [];
         $can_build = true;
+        $orders_per_supplier = null;
         if ($form->isSubmitted()) 
         {            
             if ($form->isValid()) 
@@ -165,14 +166,39 @@ class ToolsController extends AbstractController
                         }
                     }                    
                 }   
+
+                $orders_per_supplier=[];
                 
                 foreach($combined_bom as $cb)
                 {
                     $total_instock = $cb['part']->getAmountSum();
                     if ($total_instock < $cb['quantity'])
                     {
-                        $needs_ordering[] = array('needed'=>($cb['quantity']-$total_instock), 'part'=>$cb['part']);
                         $can_build = false;
+                        $suppliers = $cb['part']->getOrderDetails();
+                        if ($suppliers && count($suppliers) > 0)
+                        {
+                            $mid = $suppliers[0]->getSupplier()->getID();
+                            $orderable_part=array(
+                                    'part'=>$cb['part'], 
+                                    'pn'=>$suppliers[0]->getSupplierPartNr(),
+                                    'needed'=>($cb['quantity']-$total_instock),
+                                    'link'=>$suppliers[0]->getSupplierProductURL());
+                            if (array_key_exists($mid, $orders_per_supplier))
+                            {
+                                $orders_per_supplier[$mid]['items'][] = $orderable_part;
+                            }
+                            else
+                            {
+                                $orders_per_supplier[$mid] = array(
+                                    'supplier'=>$suppliers[0]->getSupplier()->getName(), 
+                                    'items'=>array($orderable_part));
+                            }
+                        }
+                        else
+                        {
+                            $needs_ordering[] = array('needed'=>($cb['quantity']-$total_instock), 'part'=>$cb['part']);
+                        }
                     }
                 }
             }
@@ -181,7 +207,8 @@ class ToolsController extends AbstractController
         return $this->render('tools/multi_build/multi_build.html.twig', [
             'form'=>$form,
             'needs_ordering'=>$needs_ordering,
-            'can_build'=>$can_build
+            'can_build'=>$can_build,
+            'orders_per_supplier'=>$orders_per_supplier
         ]);
     }
 
