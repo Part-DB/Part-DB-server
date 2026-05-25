@@ -1,4 +1,4 @@
-# Generated on Mon May 18 06:20:41 UTC 2026
+# Generated on Mon May 25 06:42:27 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -19324,6 +19324,9 @@ Regulator_Switching:MAX15062C
 Regulator_Switching:MAX1522
 Regulator_Switching:MAX1523
 Regulator_Switching:MAX1524
+Regulator_Switching:MAX15462A
+Regulator_Switching:MAX15462B
+Regulator_Switching:MAX15462C
 Regulator_Switching:MAX17501AxTB
 Regulator_Switching:MAX17501BxTB
 Regulator_Switching:MAX17501ExTB
