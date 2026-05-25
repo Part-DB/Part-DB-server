@@ -1034,6 +1034,18 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Bearbeite Bauteileinformationen von</target>
       </segment>
     </unit>
+    <unit id="aznOqRU" name="form.dirty_form.unsaved_changes.title">
+      <segment state="translated">
+        <source>form.dirty_form.unsaved_changes.title</source>
+        <target>Ungespeicherte Änderungen</target>
+      </segment>
+    </unit>
+    <unit id="dfzAYsv" name="form.dirty_form.unsaved_changes.message">
+      <segment state="translated">
+        <source>form.dirty_form.unsaved_changes.message</source>
+        <target>Sie haben ungespeicherte Änderungen vorgenommen, die verloren gehen, wenn Sie diese Seite verlassen. Möchten Sie wirklich fortfahren?</target>
+      </segment>
+    </unit>
     <unit id="EwY218_" name="part.edit.tab.common">
       <segment state="translated">
         <source>part.edit.tab.common</source>
@@ -13603,6 +13615,36 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>settings.ai.lmstudio.hosturl</source>
         <target>Host-URL</target>
+      </segment>
+    </unit>
+    <unit id="kuDv.So" name="browser_plugin.recent_pages.title">
+      <segment state="translated">
+        <source>browser_plugin.recent_pages.title</source>
+        <target>Zuletzt besuchte Seiten</target>
+      </segment>
+    </unit>
+    <unit id="AjNj8wk" name="browser_plugin.recent_pages.help">
+      <segment state="translated">
+        <source>browser_plugin.recent_pages.help</source>
+        <target>Hier werden die zuletzt besuchten Seiten angezeigt.</target>
+      </segment>
+    </unit>
+    <unit id="lVUU9s7" name="settings.ips.browser_plugin">
+      <segment state="translated">
+        <source>settings.ips.browser_plugin</source>
+        <target>Browser-Plugin</target>
+      </segment>
+    </unit>
+    <unit id="IrJs3fI" name="settings.ips.browser_plugin.description">
+      <segment state="translated">
+        <source>settings.ips.browser_plugin.description</source>
+        <target>Einstellungen für das Browser-Plugin</target>
+      </segment>
+    </unit>
+    <unit id="_8UrMCB" name="settings.ips.browser_plugin.enabled.help">
+      <segment state="translated">
+        <source>settings.ips.browser_plugin.enabled.help</source>
+        <target>Aktiviert das Browser-Plugin für diese Instanz.</target>
       </segment>
     </unit>
   </file>
