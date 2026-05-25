@@ -4,6 +4,9 @@ import "tom-select/dist/css/tom-select.bootstrap5.css";
 import '../../css/components/tom-select_extensions.css';
 import TomSelect from "tom-select";
 import {marked} from "marked";
+import TomSelect_form_reset_handler from '../../tomselect/form_reset_handler/form_reset_handler'
+
+TomSelect.define('form_reset_handler', TomSelect_form_reset_handler)
 
 export default class extends Controller {
     _tomSelect;
@@ -18,7 +21,7 @@ export default class extends Controller {
 
         let settings = {
             allowEmptyOption: true,
-            plugins: ['dropdown_input', this.element.required ? null : 'clear_button'],
+            plugins: ['dropdown_input', this.element.required ? null : 'clear_button', 'form_reset_handler'],
             searchField: ["name", "description", "category", "footprint"],
             valueField: "id",
             labelField: "name",

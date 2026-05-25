@@ -1035,6 +1035,18 @@ Sub elements will be moved upwards.</target>
         <target>Edit [part]</target>
       </segment>
     </unit>
+    <unit id="aznOqRU" name="form.dirty_form.unsaved_changes.title">
+      <segment state="translated">
+        <source>form.dirty_form.unsaved_changes.title</source>
+        <target>Unsaved Changes</target>
+      </segment>
+    </unit>
+    <unit id="dfzAYsv" name="form.dirty_form.unsaved_changes.message">
+      <segment state="translated">
+        <source>form.dirty_form.unsaved_changes.message</source>
+        <target>You have unsaved changes that will be lost if you leave this page. Are you sure you want to continue?</target>
+      </segment>
+    </unit>
     <unit id="EwY218_" name="part.edit.tab.common">
       <segment state="translated">
         <source>part.edit.tab.common</source>

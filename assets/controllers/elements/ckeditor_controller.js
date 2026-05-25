@@ -91,6 +91,9 @@ export default class extends Controller {
             config.translations = [window.CKEDITOR_TRANSLATIONS, translations];
         }
 
+        //Apply the default value of the source element as data attribute, so that dirty-form-controller can detect changes
+        this.element.dataset.defaultValue = this.element.defaultValue;
+
         const watchdog = new EditorWatchdog();
         watchdog.setCreator((elementOrData, editorConfig) => {
             return EDITOR_TYPE.create(elementOrData, editorConfig)
@@ -111,9 +114,20 @@ export default class extends Controller {
                         editor.updateSourceElement();
 
                         // Dispatch the input event for further treatment
-                        const event = new Event("input");
-                        this.element.dispatchEvent(event);
+                        this.element.dispatchEvent(new Event("input", { bubbles: true }));
                     });
+
+                    //Set an reset listener to update the editor if the source element is reset (e.g. by a reset button)
+                    if (this.element.form && this.element.name) {
+                        this.element.form.addEventListener("reset", () => {
+                            if (editor.isReadOnly) {
+                                return;
+                            }
+                            if (this.element.dataset.defaultValue !== undefined) {
+                                editor.setData(this.element.dataset.defaultValue);
+                            }
+                        });
+                    }
 
                     //This return is important! Otherwise we get mysterious errors in the console
                     //See: https://github.com/ckeditor/ckeditor5/issues/5897#issuecomment-628471302

@@ -23,9 +23,11 @@ import TomSelect from "tom-select";
 import {Controller} from "@hotwired/stimulus";
 
 import {trans} from '../../translator.js'
-
 import TomSelect_autoselect_typed from '../../tomselect/autoselect_typed/autoselect_typed'
+import TomSelect_form_reset_handler from '../../tomselect/form_reset_handler/form_reset_handler'
+
 TomSelect.define('autoselect_typed', TomSelect_autoselect_typed)
+TomSelect.define('form_reset_handler', TomSelect_form_reset_handler)
 
 export default class extends Controller {
     _tomSelect;
@@ -96,6 +98,7 @@ export default class extends Controller {
 
             plugins: {
                 "autoselect_typed": {},
+                "form_reset_handler": {},
             }
         };
 
@@ -105,6 +108,7 @@ export default class extends Controller {
         }
 
         this._tomSelect = new TomSelect(this.element, settings);
+
         //Do not do a sync here as this breaks the initial rendering of the empty option
         //this._tomSelect.sync();
     }
