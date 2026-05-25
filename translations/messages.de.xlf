@@ -4,7 +4,7 @@
     <unit id="x_wTSQS" name="attachment_type.caption">
       <segment state="translated">
         <source>attachment_type.caption</source>
-        <target>Bezeichnung</target>
+        <target>Dateitypen für Anhänge</target>
       </segment>
     </unit>
     <unit id="f_CALXB" name="attachment_type.edit">
@@ -13,7 +13,7 @@
       </notes>
       <segment state="translated">
         <source>attachment_type.edit</source>
-        <target>Anhangstyp bearbeiten</target>
+        <target>Bearbeite [Attachment_type]</target>
       </segment>
     </unit>
     <unit id="wyou6GD" name="attachment_type.new">
@@ -22,7 +22,7 @@
       </notes>
       <segment state="translated">
         <source>attachment_type.new</source>
-        <target>Neuer Anhangstyp</target>
+        <target>Neuer [Attachment_type]</target>
       </segment>
     </unit>
     <unit id="JHaxw0a" name="category.labelp">
@@ -49,7 +49,7 @@
       </notes>
       <segment state="translated">
         <source>category.edit</source>
-        <target>Kategorie bearbeiten</target>
+        <target>Bearbeite [Category]</target>
       </segment>
     </unit>
     <unit id="6.rAXsX" name="category.new">
@@ -70,7 +70,7 @@
     <unit id="UqMuNZQ" name="currency.symbol.caption">
       <segment state="translated">
         <source>currency.symbol.caption</source>
-        <target>Symbol</target>
+        <target>Währungssymbol</target>
       </segment>
     </unit>
     <unit id="Sy.k7b9" name="currency.edit">
@@ -79,7 +79,7 @@
       </notes>
       <segment state="translated">
         <source>currency.edit</source>
-        <target>Währung bearbeiten</target>
+        <target>Bearbeite [Currency]</target>
       </segment>
     </unit>
     <unit id="aTtTsUc" name="currency.new">
@@ -97,7 +97,7 @@
       </notes>
       <segment state="translated">
         <source>project.edit</source>
-        <target>Projekt bearbeiten</target>
+        <target>Bearbeite [Project]</target>
       </segment>
     </unit>
     <unit id="sYgrSg9" name="project.new">
@@ -112,7 +112,7 @@
     <unit id="eLrezdb" name="search.placeholder">
       <segment state="translated">
         <source>search.placeholder</source>
-        <target>Suchen…</target>
+        <target>Suche</target>
       </segment>
     </unit>
     <unit id="UpbILh8" name="expandAll">
@@ -130,13 +130,13 @@
     <unit id="8Ee7DGE" name="part.info.timetravel_hint">
       <segment state="translated">
         <source>part.info.timetravel_hint</source>
-        <target>Sie sehen eine ältere Version dieses Bauteils.</target>
+        <target>So sah das Bauteil vor %timestamp% aus. &lt;i&gt;Beachten Sie, dass dieses Feature experimentell ist und die angezeigten Infos daher nicht unbedingt korrekt sind.&lt;/i&gt;</target>
       </segment>
     </unit>
     <unit id="3exvSpl" name="standard.label">
       <segment state="translated">
         <source>standard.label</source>
-        <target>Standard</target>
+        <target>Eigenschaften</target>
       </segment>
     </unit>
     <unit id="BNTdPsY" name="infos.label">
@@ -151,7 +151,7 @@
       </notes>
       <segment state="translated">
         <source>history.label</source>
-        <target>Verlauf</target>
+        <target>Historie</target>
       </segment>
     </unit>
     <unit id=".Cxetbs" name="export.label">
@@ -163,13 +163,13 @@
     <unit id="A5GUXTq" name="import_export.label">
       <segment state="translated">
         <source>import_export.label</source>
-        <target>Import/Export</target>
+        <target>Import / Export</target>
       </segment>
     </unit>
     <unit id="tAWaLUV" name="mass_creation.label">
       <segment state="translated">
         <source>mass_creation.label</source>
-        <target>Massenerstellung</target>
+        <target>Masseneingabe</target>
       </segment>
     </unit>
     <unit id="lslBqdc" name="admin.common">
@@ -181,7 +181,7 @@
     <unit id="fn26FXc" name="admin.attachments">
       <segment state="translated">
         <source>admin.attachments</source>
-        <target>Anhänge</target>
+        <target>Dateianhänge</target>
       </segment>
     </unit>
     <unit id="J2N5fY5" name="admin.parameters">
@@ -199,19 +199,19 @@
     <unit id="M.rXmnA" name="mass_creation.help">
       <segment state="translated">
         <source>mass_creation.help</source>
-        <target>Geben Sie hier die Namen der neuen Einträge ein, einen pro Zeile.</target>
+        <target>Jede Zeile wird als Name für ein neues Element interpretiert und angelegt.</target>
       </segment>
     </unit>
     <unit id="qrStlDi" name="edit.caption">
       <segment state="translated">
         <source>edit.caption</source>
-        <target>Bezeichnung</target>
+        <target>Bearbeite Element "%name"</target>
       </segment>
     </unit>
     <unit id="EXxjeUX" name="new.caption">
       <segment state="translated">
         <source>new.caption</source>
-        <target>Bezeichnung</target>
+        <target>Neues Element</target>
       </segment>
     </unit>
     <unit id="Ljw4Zne" name="footprint.labelp">
@@ -226,7 +226,7 @@
       </notes>
       <segment state="translated">
         <source>footprint.edit</source>
-        <target>Footprint bearbeiten</target>
+        <target>Bearbeite [Footprint]</target>
       </segment>
     </unit>
     <unit id="9RgpRoK" name="footprint.new">
@@ -235,7 +235,7 @@
       </notes>
       <segment state="translated">
         <source>footprint.new</source>
-        <target>Neuer [Footprint]</target>
+        <target>Neuer Footprint</target>
       </segment>
     </unit>
     <unit id="m27aWeR" name="user.edit.permissions">
@@ -250,7 +250,7 @@
       </notes>
       <segment state="translated">
         <source>group.edit</source>
-        <target>Gruppe bearbeiten</target>
+        <target>Bearbeite [Group]</target>
       </segment>
     </unit>
     <unit id="_RN3Wph" name="group.new">
@@ -271,7 +271,7 @@
     <unit id="R05WZHC" name="label_profile.comment">
       <segment state="translated">
         <source>label_profile.comment</source>
-        <target>Kommentar</target>
+        <target>Notizen</target>
       </segment>
     </unit>
     <unit id="SNldM_8" name="label_profile.edit">
@@ -280,7 +280,7 @@
       </notes>
       <segment state="translated">
         <source>label_profile.edit</source>
-        <target>Etikettenvorlage bearbeiten</target>
+        <target>Bearbeite [Label_profile]</target>
       </segment>
     </unit>
     <unit id="WkNFJjx" name="label_profile.new">
@@ -289,7 +289,7 @@
       </notes>
       <segment state="translated">
         <source>label_profile.new</source>
-        <target>Neue Etikettenvorlage</target>
+        <target>Neues [Label_profile]</target>
       </segment>
     </unit>
     <unit id="AVQBOWW" name="manufacturer.edit">
@@ -298,7 +298,7 @@
       </notes>
       <segment state="translated">
         <source>manufacturer.edit</source>
-        <target>Hersteller bearbeiten</target>
+        <target>Bearbeite [Manufacturer]</target>
       </segment>
     </unit>
     <unit id="dRX_cvD" name="manufacturer.new">
@@ -322,7 +322,7 @@
       </notes>
       <segment state="translated">
         <source>storelocation.edit</source>
-        <target>Lagerort bearbeiten</target>
+        <target>Bearbeite [Storage_location]</target>
       </segment>
     </unit>
     <unit id="am0iTCO" name="storelocation.new">
