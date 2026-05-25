@@ -27,12 +27,11 @@ namespace App\Services\InfoProviderSystem\Providers;
 use App\Exceptions\ProviderIDNotSupportedException;
 use App\Helpers\RandomizeUseragentHttpClient;
 use App\Services\AI\AIPlatformRegistry;
+use App\Services\InfoProviderSystem\SubmittedPageStorage;
 use App\Services\InfoProviderSystem\CreateFromUrlHelper;
 use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Settings\InfoProviderSystem\AIExtractorSettings;
-use Brick\Schema\SchemaReader;
-use Imagine\Image\Format;
 use Jkphl\Micrometa;
 use League\HTMLToMarkdown\HtmlConverter;
 use Psr\Cache\CacheItemPoolInterface;
@@ -62,6 +61,7 @@ final class AIWebProvider implements InfoProviderInterface
         private readonly DTOJsonSchemaConverter $jsonSchemaConverter,
         private readonly CacheItemPoolInterface $partInfoCache,
         private readonly CreateFromUrlHelper $createFromUrlHelper,
+        private readonly SubmittedPageStorage $browserHtmlStorage,
     ) {
         //Use NoPrivateNetworkHttpClient to prevent SSRF vulnerabilities, and RandomizeUseragentHttpClient to make it harder for servers to block us
         $this->httpClient = (new RandomizeUseragentHttpClient(new NoPrivateNetworkHttpClient($httpClient)))->withOptions(
@@ -142,9 +142,17 @@ final class AIWebProvider implements InfoProviderInterface
             return $cacheItem->get();
         }
 
-        // Fetch HTML content
-        $response = $this->httpClient->request('GET', $url);
-        $html = $response->getContent();
+        // Use pre-fetched browser HTML if the option is set and a stored page is available for this URL
+        $html = null;
+        if (($token = ($options[self::OPTION_SUBMITTED_PAGE_TOKEN] ?? '')) !== '') {
+            $html = $this->browserHtmlStorage->retrieve($token)?->html;
+        }
+
+        //Otherwise fetch it ourselves.
+        if ($html === null) {
+            $response = $this->httpClient->request('GET', $url);
+            $html = $response->getContent();
+        }
 
         //Convert html to markdown, to provide a cleaner input to the LLM.
         $markdown = $this->htmlToMarkdown($html, $url);
@@ -176,9 +184,20 @@ final class AIWebProvider implements InfoProviderInterface
      */
     private function extractStructuredData(string $html, string $url): string
     {
-        //Only parse microdata, json-ld and rdfa, as they are the most common formats for structured data on product pages. Links and microformat only create clutter for the LLM
-        $micrometa = new Micrometa\Ports\Parser(Micrometa\Ports\Format::JSON_LD | Micrometa\Ports\Format::MICRODATA | Micrometa\Ports\Format::RDFA_LITE);
-        $items = $micrometa($url, $html);
+        try {
+            //Only parse microdata, json-ld and rdfa, as they are the most common formats for structured data on product pages. Links and microformat only create clutter for the LLM
+            $micrometa = new Micrometa\Ports\Parser(Micrometa\Ports\Format::JSON_LD | Micrometa\Ports\Format::MICRODATA | Micrometa\Ports\Format::RDFA_LITE);
+            $items = $micrometa($url, $html);
+        } catch (\RuntimeException $exception) {
+            //If parsing fails, try again without rdfa, as it seems to cause problems on pages like ebay
+            try {
+                $micrometa = new Micrometa\Ports\Parser(Micrometa\Ports\Format::JSON_LD | Micrometa\Ports\Format::MICRODATA);
+                $items = $micrometa($url, $html);
+            } catch (\RuntimeException $exception) {
+                //If it still fails, return empty structured data
+                return '{}';
+            }
+        }
 
         return json_encode($items->toObject(), JSON_THROW_ON_ERROR);
     }

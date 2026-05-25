@@ -59,6 +59,16 @@ class BigDecimalMoneyType extends AbstractType implements DataTransformerInterfa
             return null;
         }
 
-        return BigDecimal::of($value);
+        if ($value instanceof BigDecimal) {
+            return $value;
+        }
+        if (is_float($value)) {
+            return BigDecimal::fromFloatShortest($value);
+        }
+        if (is_string($value)) {
+            return BigDecimal::of($value);
+        }
+
+        throw new \InvalidArgumentException(sprintf('Expected a string, float or BigDecimal, got %s', get_debug_type($value)));
     }
 }

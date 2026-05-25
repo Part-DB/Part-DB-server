@@ -59,6 +59,10 @@ class UserAdminForm extends AbstractType
         $resolver->setDefault('parameter_class', false);
 
         $resolver->setDefault('validation_groups', ['Default', 'permissions:edit']);
+
+        $resolver->setDefaults([
+            'warn_on_unsaved_changes' => true,
+        ]);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

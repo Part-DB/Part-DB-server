@@ -59,10 +59,10 @@ class SIFormatter
         $prefixes_neg = ['', 'm', 'μ', 'n', 'p', 'f', 'a', 'z', 'y'];
 
         if ($magnitude >= 0) {
-            $nearest = (int) floor(abs($magnitude) / 3);
+            $nearest = min((int) floor(abs($magnitude) / 3), count($prefixes_pos) - 1);
             $symbol = $prefixes_pos[$nearest];
         } else {
-            $nearest = (int) round(abs($magnitude) / 3);
+            $nearest = min((int) round(abs($magnitude) / 3), count($prefixes_neg) - 1);
             $symbol = $prefixes_neg[$nearest];
         }
 

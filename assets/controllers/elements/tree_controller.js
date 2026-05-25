@@ -102,7 +102,18 @@ export default class extends Controller {
             onNodeSelected: (event) => {
                 const node = event.detail.node;
                 if (node.href) {
-                    window.Turbo.visit(node.href, {action: "advance", frame: this._frame});
+                    const url = node.href;
+                    // Turbo.visit with a frame target bypasses turbo:before-visit, so dispatch it
+                    // manually so that dirty-form guards can intercept it.
+                    const beforeVisitEvent = new CustomEvent('turbo:before-visit', {
+                        bubbles: true,
+                        cancelable: true,
+                        detail: { url, frame: this._frame },
+                    });
+                    document.dispatchEvent(beforeVisitEvent);
+                    if (!beforeVisitEvent.defaultPrevented) {
+                        window.Turbo.visit(url, {action: "advance", frame: this._frame});
+                    }
                 }
             },
         }, [BS5Theme, BS53Theme, FAIconTheme]);

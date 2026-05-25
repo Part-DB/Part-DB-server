@@ -62,6 +62,9 @@ final readonly class GitVersionInfoProvider
     {
         if (is_file($this->getGitDirectory() . '/HEAD')) {
             $git = file($this->getGitDirectory() . '/HEAD');
+            if ($git === false) {
+                return null;
+            }
             $head = explode('/', $git[0], 3);
 
             if (!isset($head[2])) {

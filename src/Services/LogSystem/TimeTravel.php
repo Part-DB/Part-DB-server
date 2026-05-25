@@ -222,7 +222,7 @@ class TimeTravel
             if (isset($metadata->fieldMappings[$field])) {
                 //We need to convert the string to a BigDecimal first
                 if (!$data instanceof BigDecimal && ('big_decimal' === $metadata->getFieldMapping($field)->type)) {
-                    $data = BigDecimal::of($data);
+                    $data = is_float($data) ? BigDecimal::fromFloatShortest($data) : BigDecimal::of($data);
                 }
 
                 if (!$data instanceof \DateTimeInterface

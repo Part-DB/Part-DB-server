@@ -38,6 +38,9 @@ class InfoProviderSettings
     public ?InfoProviderGeneralSettings $general = null;
 
     #[EmbeddedSettings]
+    public ?BrowserPluginSettings $browserPlugin = null;
+
+    #[EmbeddedSettings]
     public ?GenericWebProviderSettings $genericWebProvider = null;
 
     #[EmbeddedSettings]

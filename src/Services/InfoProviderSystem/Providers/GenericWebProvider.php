@@ -25,6 +25,7 @@ namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Exceptions\ProviderIDNotSupportedException;
 use App\Helpers\RandomizeUseragentHttpClient;
+use App\Services\InfoProviderSystem\SubmittedPageStorage;
 use App\Services\InfoProviderSystem\CreateFromUrlHelper;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
@@ -57,6 +58,7 @@ class GenericWebProvider implements InfoProviderInterface
 
     public function __construct(HttpClientInterface $httpClient, private readonly GenericWebProviderSettings $settings,
         private readonly CreateFromUrlHelper $createFromUrlHelper,
+        private readonly SubmittedPageStorage $browserHtmlStorage,
     )
     {
         //Use NoPrivateNetworkHttpClient to prevent SSRF vulnerabilities, and RandomizeUseragentHttpClient to make it harder for servers to block us
@@ -294,9 +296,17 @@ class GenericWebProvider implements InfoProviderInterface
             }
         }
 
-        //Try to get the webpage content
-        $response = $this->httpClient->request('GET', $url);
-        $content = $response->getContent();
+        // Use pre-fetched browser HTML if the option is set and a stored page is available for this URL
+        $content = null;
+        if (($token = ($options[self::OPTION_SUBMITTED_PAGE_TOKEN] ?? '')) !== '') {
+            $content = $this->browserHtmlStorage->retrieve($token)?->html;
+        }
+
+        //Otherwise, fetch the page content ourselves
+        if ($content === null) {
+            $response = $this->httpClient->request('GET', $url);
+            $content = $response->getContent();
+        }
 
         $dom = new Crawler($content);
 

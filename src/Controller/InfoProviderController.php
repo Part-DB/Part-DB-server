@@ -28,6 +28,7 @@ use App\Entity\Parts\Part;
 use App\Exceptions\OAuthReconnectRequiredException;
 use App\Form\InfoProviderSystem\FromURLFormType;
 use App\Form\InfoProviderSystem\PartSearchType;
+use App\Services\InfoProviderSystem\SubmittedPageStorage;
 use App\Services\InfoProviderSystem\ExistingPartFinder;
 use App\Services\InfoProviderSystem\CreateFromUrlHelper;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
@@ -62,7 +63,8 @@ class InfoProviderController extends  AbstractController
         private readonly PartInfoRetriever $infoRetriever,
         private readonly ExistingPartFinder $existingPartFinder,
         private readonly SettingsManagerInterface $settingsManager,
-        private readonly SettingsFormFactoryInterface $settingsFormFactory
+        private readonly SettingsFormFactoryInterface $settingsFormFactory,
+        private readonly SubmittedPageStorage $browserHtmlStorage,
     )
     {
 
@@ -221,7 +223,7 @@ class InfoProviderController extends  AbstractController
     }
 
     #[Route('/from_url', name: 'info_providers_from_url')]
-    public function fromURL(Request $request, GenericWebProvider $provider, CreateFromUrlHelper $fromUrlHelper): Response
+    public function fromURL(Request $request, CreateFromUrlHelper $fromUrlHelper): Response
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
@@ -242,6 +244,12 @@ class InfoProviderController extends  AbstractController
             $no_cache = $form->get('no_cache')->getData();
             $skip_delegation = $form->get('skip_delegation')->getData();
 
+            $submittedPageToken = $request->request->get('submitted_page_token', null);
+            if ($submittedPageToken !== null && $submittedPageToken !== '') {
+                $url = $this->browserHtmlStorage->retrieve($submittedPageToken)->url;
+            }
+
+
             try {
                 //It's okay if we use the cached results here, as its just for convenience
                 $searchResult = $this->infoRetriever->searchByKeyword(
@@ -249,6 +257,7 @@ class InfoProviderController extends  AbstractController
                     providers: [$method],
                     options: [
                         InfoProviderInterface::OPTION_SKIP_DELEGATION => $skip_delegation,
+                        InfoProviderInterface::OPTION_SUBMITTED_PAGE_TOKEN => $submittedPageToken,
                     ]
                 );
 
@@ -262,6 +271,7 @@ class InfoProviderController extends  AbstractController
                         'providerId' => $searchResult->provider_id,
                         'no_cache' => $no_cache ? 1 : null,
                         'skip_delegation' => $skip_delegation ? 1 : null,
+                        'submitted_page_token' => $submittedPageToken ?: null,
                     ]);
                 }
             } catch (ExceptionInterface $e) {
@@ -272,6 +282,7 @@ class InfoProviderController extends  AbstractController
         return $this->render('info_providers/from_url/from_url.html.twig', [
             'form' => $form,
             'partDetail' => $partDetail,
+            'recentBrowserPages' => $this->browserHtmlStorage->getRecentPages(),
         ]);
 
     }

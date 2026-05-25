@@ -175,15 +175,15 @@ final class PartInfoRetriever
      */
     public function dtoToPart(PartDetailDTO $search_result): Part
     {
-        return $this->createPart($search_result->provider_key, $search_result->provider_id);
+        return $this->dto_to_entity_converter->convertPart($search_result);
     }
 
     /**
      * Use the given details to create a part entity
      */
-    public function createPart(string $provider_key, string $part_id): Part
+    public function createPart(string $provider_key, string $part_id, array $options): Part
     {
-        $details = $this->getDetails($provider_key, $part_id);
+        $details = $this->getDetails($provider_key, $part_id, $options);
 
         return $this->dto_to_entity_converter->convertPart($details);
     }

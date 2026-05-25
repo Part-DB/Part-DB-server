@@ -25,9 +25,11 @@ import "katex/dist/katex.css";
 
 import TomSelect_click_to_edit from '../../tomselect/click_to_edit/click_to_edit'
 import TomSelect_autoselect_typed from '../../tomselect/autoselect_typed/autoselect_typed'
+import TomSelect_form_reset_handler from '../../tomselect/form_reset_handler/form_reset_handler'
 
 TomSelect.define('click_to_edit', TomSelect_click_to_edit)
 TomSelect.define('autoselect_typed', TomSelect_autoselect_typed)
+TomSelect.define('form_reset_handler', TomSelect_form_reset_handler)
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller
@@ -63,7 +65,8 @@ export default class extends Controller
                 'autoselect_typed': {},
                 'click_to_edit': {},
                 'clear_button': {},
-                'restore_on_backspace': {}
+                'restore_on_backspace': {},
+                'form_reset_handler': {}
             },
             persistent: false,
             maxItems: 1,

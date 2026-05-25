@@ -44,15 +44,15 @@ class ExchangeRateUpdater
         try {
             //Try it in the direction QUOTE/BASE first, as most providers provide rates in this direction
             $rate = $this->swap->latest($currency->getIsoCode().'/'.$this->localizationSettings->baseCurrency);
-            $effective_rate = BigDecimal::of($rate->getValue());
+            $effective_rate = BigDecimal::fromFloatShortest($rate->getValue());
         } catch (UnsupportedCurrencyPairException|UnsupportedExchangeQueryException $exception) {
             //Otherwise try to get it inverse and calculate it ourselfes, from the format "BASE/QUOTE"
             $rate = $this->swap->latest($this->localizationSettings->baseCurrency.'/'.$currency->getIsoCode());
             //The rate says how many quote units are worth one base unit
             //So we need to invert it to get the exchange rate
 
-            $rate_bd = BigDecimal::of($rate->getValue());
-            $effective_rate = BigDecimal::one()->dividedBy($rate_bd, Currency::PRICE_SCALE, RoundingMode::HALF_UP);
+            $rate_bd = BigDecimal::fromFloatShortest($rate->getValue());
+            $effective_rate = BigDecimal::one()->dividedBy($rate_bd, Currency::PRICE_SCALE, RoundingMode::HalfUp);
         }
 
         $currency->setExchangeRate($effective_rate);

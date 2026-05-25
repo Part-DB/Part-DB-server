@@ -37,6 +37,7 @@ use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
 use App\Services\Formatters\MoneyFormatter;
 use App\Services\ProjectSystem\ProjectBuildHelper;
+use Brick\Math\BigDecimal;
 use Brick\Math\RoundingMode;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Query;
@@ -93,14 +94,14 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                     return htmlspecialchars($this->amountFormatter->format($context->getQuantity(), $context->getPart()->getPartUnit()));
                 },
             ])
-			->add('partId', TextColumn::class, [
-				'label' => $this->translator->trans('project.bom.part_id'),
-				'visible' => true,
-				'orderField' => 'part.id',
-				'render' => function ($value, ProjectBOMEntry $context) {
-					return $context->getPart() instanceof Part ? (string) $context->getPart()->getId() : '';
-				},
-			])
+            ->add('partId', TextColumn::class, [
+                'label' => $this->translator->trans('project.bom.part_id'),
+                'visible' => true,
+                'orderField' => 'part.id',
+                'render' => function ($value, ProjectBOMEntry $context) {
+                    return $context->getPart() instanceof Part ? (string) $context->getPart()->getId() : '';
+                },
+            ])
             ->add('name', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.name'),
                 'orderField' => 'NATSORT(part.name)',
@@ -161,7 +162,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.manufacturingStatus'),
                 'data' => static fn(ProjectBOMEntry $context): ?ManufacturingStatus => $context->getPart()?->getManufacturingStatus(),
                 'orderField' => 'part.manufacturing_status',
-               	'class' => ManufacturingStatus::class,
+                'class' => ManufacturingStatus::class,
                 'render' => function (?ManufacturingStatus $status, ProjectBOMEntry $context): string {
                     if ($status === null) {
                         return '';
@@ -212,7 +213,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'visible' => false,
                 'render' => function ($value, ProjectBOMEntry $context) {
                     $price = $this->projectBuildHelper->getEntryUnitPrice($context);
-                    return $this->moneyFormatter->format($price->toScale(2, RoundingMode::UP)->toFloat(), null, 2, true);
+                    return $this->moneyFormatter->format($price->toScale(2, RoundingMode::Up)->toFloat(), null, 2, true);
                 },
             ])
             ->add('ext_price', TextColumn::class, [
@@ -221,7 +222,8 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'render' => function ($value, ProjectBOMEntry $context) {
                     $price = $this->projectBuildHelper->getEntryUnitPrice($context);
                     return $this->moneyFormatter->format(
-                        $price->multipliedBy($context->getQuantity())->toScale(2, RoundingMode::UP)->toFloat(),
+                        $price->multipliedBy(BigDecimal::fromFloatShortest($context->getQuantity()))
+                            ->toScale(2, RoundingMode::Up)->toFloat(),
                         null,
                         2,
                         true

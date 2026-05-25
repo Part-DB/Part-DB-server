@@ -87,4 +87,32 @@ final class EventCommentHelperTest extends WebTestCase
         $this->service->clearMessage();
         $this->assertFalse($this->service->isMessageSet());
     }
+
+    public function testEmptyStringTreatedAsNotSet(): void
+    {
+        // Empty string is falsy in PHP, so setMessage('') stores null internally
+        $this->service->setMessage('');
+        $this->assertFalse($this->service->isMessageSet());
+        $this->assertNull($this->service->getMessage());
+    }
+
+    public function testSetMessageNullClearsMessage(): void
+    {
+        $this->service->setMessage('Hello');
+        $this->service->setMessage(null);
+        $this->assertFalse($this->service->isMessageSet());
+        $this->assertNull($this->service->getMessage());
+    }
+
+    public function testLongMessageIsTruncated(): void
+    {
+        // MAX_MESSAGE_LENGTH is 255; a longer string should be truncated with '...' suffix
+        $long = str_repeat('a', 300);
+        $this->service->setMessage($long);
+
+        $stored = $this->service->getMessage();
+        $this->assertNotNull($stored);
+        $this->assertLessThanOrEqual(255, mb_strlen($stored));
+        $this->assertStringEndsWith('...', $stored);
+    }
 }

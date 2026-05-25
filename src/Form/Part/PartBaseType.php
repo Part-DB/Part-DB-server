@@ -353,6 +353,7 @@ class PartBaseType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Part::class,
             'info_provider_dto' => null,
+            'warn_on_unsaved_changes' => true,
         ]);
 
         $resolver->setAllowedTypes('info_provider_dto', [PartDetailDTO::class, 'null']);

@@ -286,7 +286,7 @@ class PKPartImporter
                 //Partkeepr stores the price per item, we need to convert it to the price per packaging unit
                 $price_per_item = BigDecimal::of($partdistributor['price']);
                 $packaging_unit = (float) ($partdistributor['packagingUnit'] ?? 1);
-                $pricedetail->setPrice($price_per_item->multipliedBy($packaging_unit));
+                $pricedetail->setPrice($price_per_item->multipliedBy(BigDecimal::fromFloatShortest($packaging_unit)));
                 $pricedetail->setPriceRelatedQuantity($packaging_unit);
                 //We have to set the minimum discount quantity to the packaging unit (PartKeepr does not know this concept)
                 //But in Part-DB the minimum discount qty have to be unique across a orderdetail

@@ -204,7 +204,7 @@ class Currency extends AbstractStructuralDBElement
             return null;
         }
 
-        return BigDecimal::one()->dividedBy($tmp, $tmp->getScale(), RoundingMode::HALF_UP);
+        return BigDecimal::one()->dividedBy($tmp, $tmp->getScale(), RoundingMode::HalfUp);
     }
 
     /**
