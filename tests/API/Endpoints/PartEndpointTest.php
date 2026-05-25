@@ -70,7 +70,7 @@ final class PartEndpointTest extends CrudEndpointTestCase
         $this->_testDeleteItem(1);
     }
 
-    public function testAttachmentPatchWithIRI(): void
+    public function testMasterPictureAttachmentPatchWithIRI(): void
     {
         $client = static::createAuthenticatedClient();
 
@@ -88,6 +88,30 @@ final class PartEndpointTest extends CrudEndpointTestCase
         // Now PATCH Part 1 to set master_picture_attachment
         $client->request('PATCH', '/api/parts/1', [
             'json' => ['master_picture_attachment' => $attachmentIri],
+            'headers' => ['Content-Type' => 'application/merge-patch+json'],
+        ]);
+        self::assertResponseIsSuccessful();
+        self::assertJsonContains(['master_picture_attachment' => ['@id' => $attachmentIri]]);
+    }
+
+    public function testMasterPictureAttachmentPatchWithArray(): void
+    {
+        $client = static::createAuthenticatedClient();
+
+        // Create a new attachment with a picture URL for Part 1
+        $response = $client->request('POST', '/api/attachments', ['json' => [
+            'name' => 'Test Picture',
+            'url' => 'http://example.com/test.jpg',
+            '_type' => 'Part',
+            'element' => '/api/parts/1',
+            'attachment_type' => '/api/attachment_types/1',
+        ]]);
+        self::assertResponseIsSuccessful();
+        $attachmentIri = $response->toArray()['@id'];
+
+        // Now PATCH Part 1 to set master_picture_attachment
+        $client->request('PATCH', '/api/parts/1', [
+            'json' => ['master_picture_attachment' => ['@id' => $attachmentIri, '_type' => 'Part']],
             'headers' => ['Content-Type' => 'application/merge-patch+json'],
         ]);
         self::assertResponseIsSuccessful();

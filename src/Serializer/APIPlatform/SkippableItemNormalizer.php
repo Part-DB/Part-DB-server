@@ -63,9 +63,15 @@ class SkippableItemNormalizer implements NormalizerInterface, DenormalizerInterf
         // check (line 271). For abstract resource classes with a discriminator map (e.g. Attachment), this
         // fails because the array has no _type key. Fix by resolving IRI strings directly.
         // See: https://github.com/Part-DB/Part-DB-server/issues/1370
-        if (is_string($data)) {
+        if (is_string($data) || (is_array($data) && isset($data['@id']) && is_string($data['@id']))) {
+            if (is_array($data)) {
+                $iri = $data['@id'];
+            } else {
+                $iri = $data;
+            }
+
             try {
-                return $this->iriConverter->getResourceFromIri($data, $context + ['fetch_data' => true]);
+                return $this->iriConverter->getResourceFromIri($iri, $context + ['fetch_data' => true]);
             } catch (ItemNotFoundException $e) {
                 if (false === ($context['denormalize_throw_on_relation_not_found'] ?? true)) {
                     return null;
@@ -76,7 +82,7 @@ class SkippableItemNormalizer implements NormalizerInterface, DenormalizerInterf
                 throw NotNormalizableValueException::createForUnexpectedDataType($e->getMessage(), $data, [$type], $context['deserialization_path'] ?? null, true, $e->getCode(), $e);
             } catch (InvalidArgumentException $e) {
                 if (!isset($context['not_normalizable_value_exceptions'])) {
-                    throw new UnexpectedValueException(sprintf('Invalid IRI "%s".', $data), $e->getCode(), $e);
+                    throw new UnexpectedValueException(sprintf('Invalid IRI "%s".', $iri), $e->getCode(), $e);
                 }
                 throw NotNormalizableValueException::createForUnexpectedDataType(sprintf('Invalid IRI "%s".', $data), $data, [$type], $context['deserialization_path'] ?? null, true, $e->getCode(), $e);
             }
