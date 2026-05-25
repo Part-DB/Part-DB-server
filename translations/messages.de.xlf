@@ -235,7 +235,7 @@
       </notes>
       <segment state="translated">
         <source>footprint.new</source>
-        <target>Neuer Footprint</target>
+        <target>Neuer [Footprint]</target>
       </segment>
     </unit>
     <unit id="m27aWeR" name="user.edit.permissions">
