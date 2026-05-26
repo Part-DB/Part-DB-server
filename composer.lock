@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "d6bda397c505e1e6d540c814a2368fbb",
-=======
-    "content-hash": "79f9618efcdf9891b62843fb5c3fb8de",
->>>>>>> dc5b8184 (Fixed mcp compatibility)
+    "content-hash": "9171608b0a2f6caa65f4eca3b66ae351",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1632,16 +1628,16 @@
         },
         {
             "name": "api-platform/mcp",
-            "version": "4.3.x-dev",
+            "version": "v4.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/mcp.git",
-                "reference": "407c1039e8e022f7baed7d2cfbf63f5f09957f6b"
+                "reference": "35177126b8beb69169e7a33a325e00dbbdbbd7bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/mcp/zipball/407c1039e8e022f7baed7d2cfbf63f5f09957f6b",
-                "reference": "407c1039e8e022f7baed7d2cfbf63f5f09957f6b",
+                "url": "https://api.github.com/repos/api-platform/mcp/zipball/35177126b8beb69169e7a33a325e00dbbdbbd7bf",
+                "reference": "35177126b8beb69169e7a33a325e00dbbdbbd7bf",
                 "shasum": ""
             },
             "require": {
@@ -1703,14 +1699,13 @@
             ],
             "support": {
                 "issues": "https://github.com/api-platform/mcp/issues",
-                "source": "https://github.com/api-platform/mcp/tree/4.3"
+                "source": "https://github.com/api-platform/mcp/tree/v4.3.6"
             },
-            "time": "2026-05-06T12:07:59+00:00"
+            "time": "2026-05-11T06:02:06+00:00"
         },
         {
             "name": "api-platform/metadata",
-<<<<<<< HEAD
-            "version": "v4.3.6",
+            "version": "4.3.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/metadata.git",
@@ -1720,18 +1715,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/api-platform/metadata/zipball/e9e8a7b85d2d513edff3b108072f8ab23a9d6344",
                 "reference": "e9e8a7b85d2d513edff3b108072f8ab23a9d6344",
-=======
-            "version": "4.3.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/api-platform/metadata.git",
-                "reference": "52b367f046c5d202629e9441aece39b0e6b37838"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/metadata/zipball/52b367f046c5d202629e9441aece39b0e6b37838",
-                "reference": "52b367f046c5d202629e9441aece39b0e6b37838",
->>>>>>> dc5b8184 (Fixed mcp compatibility)
                 "shasum": ""
             },
             "require": {
@@ -1814,15 +1797,9 @@
                 "swagger"
             ],
             "support": {
-<<<<<<< HEAD
-                "source": "https://github.com/api-platform/metadata/tree/v4.3.6"
-            },
-            "time": "2026-05-22T12:00:17+00:00"
-=======
                 "source": "https://github.com/api-platform/metadata/tree/4.3"
             },
-            "time": "2026-05-06T12:07:59+00:00"
->>>>>>> dc5b8184 (Fixed mcp compatibility)
+            "time": "2026-05-22T12:00:17+00:00"
         },
         {
             "name": "api-platform/openapi",
@@ -2442,16 +2419,16 @@
         },
         {
             "name": "brick/math",
-            "version": "0.17.1",
+            "version": "0.17.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brick/math.git",
-                "reference": "6aef71a9fbbd1ee7be0e313cd627f8e6f7125a5b"
+                "reference": "8189e751995f9e15729c1aa2f89fa8f166ffe818"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brick/math/zipball/6aef71a9fbbd1ee7be0e313cd627f8e6f7125a5b",
-                "reference": "6aef71a9fbbd1ee7be0e313cd627f8e6f7125a5b",
+                "url": "https://api.github.com/repos/brick/math/zipball/8189e751995f9e15729c1aa2f89fa8f166ffe818",
+                "reference": "8189e751995f9e15729c1aa2f89fa8f166ffe818",
                 "shasum": ""
             },
             "require": {
@@ -2489,7 +2466,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brick/math/issues",
-                "source": "https://github.com/brick/math/tree/0.17.1"
+                "source": "https://github.com/brick/math/tree/0.17.2"
             },
             "funding": [
                 {
@@ -2497,7 +2474,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-19T20:55:20+00:00"
+            "time": "2026-05-25T20:34:43+00:00"
         },
         {
             "name": "brick/schema",
@@ -4085,7 +4062,6 @@
         },
         {
             "name": "doctrine/orm",
-<<<<<<< HEAD
             "version": "3.6.7",
             "source": {
                 "type": "git",
@@ -4096,18 +4072,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/orm/zipball/bc217c0e19c3a9eadfa67697143b87c9ba01272c",
                 "reference": "bc217c0e19c3a9eadfa67697143b87c9ba01272c",
-=======
-            "version": "3.6.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/orm.git",
-                "reference": "156f3b5a984e7eaa72d440bb6de1d3b6f8d2d6fd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/orm/zipball/156f3b5a984e7eaa72d440bb6de1d3b6f8d2d6fd",
-                "reference": "156f3b5a984e7eaa72d440bb6de1d3b6f8d2d6fd",
->>>>>>> 3f10a123 (updated dependencies)
                 "shasum": ""
             },
             "require": {
@@ -4180,15 +4144,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/orm/issues",
-<<<<<<< HEAD
                 "source": "https://github.com/doctrine/orm/tree/3.6.7"
             },
             "time": "2026-05-25T16:45:47+00:00"
-=======
-                "source": "https://github.com/doctrine/orm/tree/3.6.4"
-            },
-            "time": "2026-05-07T07:04:34+00:00"
->>>>>>> 3f10a123 (updated dependencies)
         },
         {
             "name": "doctrine/persistence",
@@ -4965,16 +4923,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.10.1",
+            "version": "2.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "73ab136360b5dfd858006eae9795e8fe43c80361"
+                "reference": "a1bbdc172f32a25fe999965b65b6e71fd87da9ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/73ab136360b5dfd858006eae9795e8fe43c80361",
-                "reference": "73ab136360b5dfd858006eae9795e8fe43c80361",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/a1bbdc172f32a25fe999965b65b6e71fd87da9ed",
+                "reference": "a1bbdc172f32a25fe999965b65b6e71fd87da9ed",
                 "shasum": ""
             },
             "require": {
@@ -5062,7 +5020,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.10.1"
+                "source": "https://github.com/guzzle/psr7/tree/2.10.2"
             },
             "funding": [
                 {
@@ -5078,7 +5036,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-20T09:27:36+00:00"
+            "time": "2026-05-25T22:58:15+00:00"
         },
         {
             "name": "hshn/base64-encoded-file",
@@ -14154,24 +14112,25 @@
         },
         {
             "name": "symfony/mcp-bundle",
-            "version": "v0.8.0",
+            "version": "v0.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mcp-bundle.git",
-                "reference": "b8db100e64fcb2d651e3bfd6c6ab70ad3599833d"
+                "reference": "654f639e94f4d7694771e6628380a9ff04c9d9c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mcp-bundle/zipball/b8db100e64fcb2d651e3bfd6c6ab70ad3599833d",
-                "reference": "b8db100e64fcb2d651e3bfd6c6ab70ad3599833d",
+                "url": "https://api.github.com/repos/symfony/mcp-bundle/zipball/654f639e94f4d7694771e6628380a9ff04c9d9c1",
+                "reference": "654f639e94f4d7694771e6628380a9ff04c9d9c1",
                 "shasum": ""
             },
             "require": {
-                "mcp/sdk": "^0.4",
+                "mcp/sdk": "^0.5",
                 "php-http/discovery": "^1.20",
                 "symfony/config": "^7.3|^8.0",
                 "symfony/console": "^7.3|^8.0",
                 "symfony/dependency-injection": "^7.3|^8.0",
+                "symfony/finder": "^7.3|^8.0",
                 "symfony/framework-bundle": "^7.3|^8.0",
                 "symfony/http-foundation": "^7.3|^8.0",
                 "symfony/http-kernel": "^7.3|^8.0",
@@ -14214,7 +14173,7 @@
             ],
             "description": "Symfony integration bundle for Model Context Protocol (via official mcp/sdk)",
             "support": {
-                "source": "https://github.com/symfony/mcp-bundle/tree/v0.8.0"
+                "source": "https://github.com/symfony/mcp-bundle/tree/v0.9.0"
             },
             "funding": [
                 {
@@ -14234,7 +14193,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-12T00:28:34+00:00"
+            "time": "2026-05-15T23:41:17+00:00"
         },
         {
             "name": "symfony/mime",
@@ -14792,16 +14751,16 @@
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
-            "version": "v1.38.0",
+            "version": "v1.38.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-grapheme.git",
-                "reference": "9c862df890f7c833b1101ac5578ec4dcf199efb5"
+                "reference": "e9247d281d694a5120554d9afaf54e070e88a603"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-grapheme/zipball/9c862df890f7c833b1101ac5578ec4dcf199efb5",
-                "reference": "9c862df890f7c833b1101ac5578ec4dcf199efb5",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-grapheme/zipball/e9247d281d694a5120554d9afaf54e070e88a603",
+                "reference": "e9247d281d694a5120554d9afaf54e070e88a603",
                 "shasum": ""
             },
             "require": {
@@ -14850,7 +14809,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-grapheme/tree/v1.38.0"
+                "source": "https://github.com/symfony/polyfill-intl-grapheme/tree/v1.38.1"
             },
             "funding": [
                 {
@@ -14870,7 +14829,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-25T12:39:52+00:00"
+            "time": "2026-05-26T05:58:03+00:00"
         },
         {
             "name": "symfony/polyfill-intl-icu",
@@ -14962,16 +14921,16 @@
         },
         {
             "name": "symfony/polyfill-intl-idn",
-            "version": "v1.37.0",
+            "version": "v1.38.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-intl-idn.git",
-                "reference": "9614ac4d8061dc257ecc64cba1b140873dce8ad3"
+                "reference": "dc21118016c039a66235cf93d96b435ffb282412"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/9614ac4d8061dc257ecc64cba1b140873dce8ad3",
-                "reference": "9614ac4d8061dc257ecc64cba1b140873dce8ad3",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/dc21118016c039a66235cf93d96b435ffb282412",
+                "reference": "dc21118016c039a66235cf93d96b435ffb282412",
                 "shasum": ""
             },
             "require": {
@@ -15025,7 +14984,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.37.0"
+                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.38.1"
             },
             "funding": [
                 {
@@ -15045,7 +15004,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-10T14:38:51+00:00"
+            "time": "2026-05-25T15:22:23+00:00"
         },
         {
             "name": "symfony/polyfill-intl-normalizer",
@@ -15134,16 +15093,16 @@
         },
         {
             "name": "symfony/polyfill-php83",
-            "version": "v1.38.0",
+            "version": "v1.38.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php83.git",
-                "reference": "c4406e07046227db8844a25f89d111da078aaa9c"
+                "reference": "8339098cae28673c15cce00d80734af0453054e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php83/zipball/c4406e07046227db8844a25f89d111da078aaa9c",
-                "reference": "c4406e07046227db8844a25f89d111da078aaa9c",
+                "url": "https://api.github.com/repos/symfony/polyfill-php83/zipball/8339098cae28673c15cce00d80734af0453054e2",
+                "reference": "8339098cae28673c15cce00d80734af0453054e2",
                 "shasum": ""
             },
             "require": {
@@ -15190,7 +15149,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php83/tree/v1.38.0"
+                "source": "https://github.com/symfony/polyfill-php83/tree/v1.38.1"
             },
             "funding": [
                 {
@@ -15210,20 +15169,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-25T12:39:52+00:00"
+            "time": "2026-05-26T12:51:13+00:00"
         },
         {
             "name": "symfony/polyfill-php84",
-            "version": "v1.38.0",
+            "version": "v1.38.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php84.git",
-                "reference": "a0e0aca0368801ec79f8791dea9a7c12af527c93"
+                "reference": "f4e1dfaee5b74aba5964fe1fd4dfc7ba5e3085fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php84/zipball/a0e0aca0368801ec79f8791dea9a7c12af527c93",
-                "reference": "a0e0aca0368801ec79f8791dea9a7c12af527c93",
+                "url": "https://api.github.com/repos/symfony/polyfill-php84/zipball/f4e1dfaee5b74aba5964fe1fd4dfc7ba5e3085fa",
+                "reference": "f4e1dfaee5b74aba5964fe1fd4dfc7ba5e3085fa",
                 "shasum": ""
             },
             "require": {
@@ -15270,7 +15229,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php84/tree/v1.38.0"
+                "source": "https://github.com/symfony/polyfill-php84/tree/v1.38.1"
             },
             "funding": [
                 {
@@ -15290,20 +15249,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-25T12:12:52+00:00"
+            "time": "2026-05-26T12:51:13+00:00"
         },
         {
             "name": "symfony/polyfill-php85",
-            "version": "v1.38.0",
+            "version": "v1.38.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php85.git",
-                "reference": "3e851ffb42624b64b3b9ec234a0e2074b0f880e3"
+                "reference": "ba2ba04f3352cfa2dcbbcb90aee13ed967f505b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php85/zipball/3e851ffb42624b64b3b9ec234a0e2074b0f880e3",
-                "reference": "3e851ffb42624b64b3b9ec234a0e2074b0f880e3",
+                "url": "https://api.github.com/repos/symfony/polyfill-php85/zipball/ba2ba04f3352cfa2dcbbcb90aee13ed967f505b1",
+                "reference": "ba2ba04f3352cfa2dcbbcb90aee13ed967f505b1",
                 "shasum": ""
             },
             "require": {
@@ -15350,7 +15309,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php85/tree/v1.38.0"
+                "source": "https://github.com/symfony/polyfill-php85/tree/v1.38.1"
             },
             "funding": [
                 {
@@ -15370,7 +15329,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-25T11:50:50+00:00"
+            "time": "2026-05-26T02:25:22+00:00"
         },
         {
             "name": "symfony/polyfill-uuid",
@@ -17981,7 +17940,6 @@
         },
         {
             "name": "symfony/yaml",
-<<<<<<< HEAD
             "version": "v7.4.12",
             "source": {
                 "type": "git",
@@ -17992,18 +17950,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/yaml/zipball/8b6952b56ca6417f25f7a65758cadd0ce02edc51",
                 "reference": "8b6952b56ca6417f25f7a65758cadd0ce02edc51",
-=======
-            "version": "v7.4.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/yaml.git",
-                "reference": "c660d6538545a3e8e65a5621ee3d7a6d352892c7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/c660d6538545a3e8e65a5621ee3d7a6d352892c7",
-                "reference": "c660d6538545a3e8e65a5621ee3d7a6d352892c7",
->>>>>>> dc5b8184 (Fixed mcp compatibility)
                 "shasum": ""
             },
             "require": {
@@ -18046,11 +17992,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-<<<<<<< HEAD
                 "source": "https://github.com/symfony/yaml/tree/v7.4.12"
-=======
-                "source": "https://github.com/symfony/yaml/tree/v7.4.10"
->>>>>>> dc5b8184 (Fixed mcp compatibility)
             },
             "funding": [
                 {
@@ -18070,11 +18012,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
             "time": "2026-05-20T07:20:23+00:00"
-=======
-            "time": "2026-05-05T08:01:55+00:00"
->>>>>>> dc5b8184 (Fixed mcp compatibility)
         },
         {
             "name": "symplify/easy-coding-standard",
@@ -20107,11 +20045,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.55",
+            "version": "2.1.56",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9eaac3826ed5e9b8427350a43cac825eeca3f566",
-                "reference": "9eaac3826ed5e9b8427350a43cac825eeca3f566",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/93a603c9fc3be8c3c93bbc8d22170ad766685537",
+                "reference": "93a603c9fc3be8c3c93bbc8d22170ad766685537",
                 "shasum": ""
             },
             "require": {
@@ -20156,7 +20094,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-05-18T11:57:34+00:00"
+            "time": "2026-05-26T17:04:57+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
@@ -20288,7 +20226,6 @@
         },
         {
             "name": "phpstan/phpstan-symfony",
-<<<<<<< HEAD
             "version": "2.0.18",
             "source": {
                 "type": "git",
@@ -20299,18 +20236,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/a12176b639dec54e8bfd0a5ebf5fc36ffe003b5d",
                 "reference": "a12176b639dec54e8bfd0a5ebf5fc36ffe003b5d",
-=======
-            "version": "2.0.17",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpstan/phpstan-symfony.git",
-                "reference": "fdd0cb5f08d1980c612d6f259d825ea644ed03f4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-symfony/zipball/fdd0cb5f08d1980c612d6f259d825ea644ed03f4",
-                "reference": "fdd0cb5f08d1980c612d6f259d825ea644ed03f4",
->>>>>>> 3f10a123 (updated dependencies)
                 "shasum": ""
             },
             "require": {
@@ -20369,15 +20294,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-symfony/issues",
-<<<<<<< HEAD
                 "source": "https://github.com/phpstan/phpstan-symfony/tree/2.0.18"
             },
             "time": "2026-05-18T14:51:49+00:00"
-=======
-                "source": "https://github.com/phpstan/phpstan-symfony/tree/2.0.17"
-            },
-            "time": "2026-05-10T08:14:07+00:00"
->>>>>>> 3f10a123 (updated dependencies)
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -20902,30 +20821,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-<<<<<<< HEAD
-<<<<<<< HEAD
-                "reference": "f9f1a88a11437cacd4d26b4953416af5c5425389"
+                "reference": "11be66e3adc8bf2c9805209a598ad4b42ee3c0d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/f9f1a88a11437cacd4d26b4953416af5c5425389",
-                "reference": "f9f1a88a11437cacd4d26b4953416af5c5425389",
-=======
-                "reference": "de95f6d567110e037eddcefa3d0d8f22d75d4053"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/de95f6d567110e037eddcefa3d0d8f22d75d4053",
-                "reference": "de95f6d567110e037eddcefa3d0d8f22d75d4053",
->>>>>>> dc5b8184 (Fixed mcp compatibility)
-=======
-                "reference": "5a7fa9fd3ce6eefbc9b982d6c78d0aa15d328d6c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/5a7fa9fd3ce6eefbc9b982d6c78d0aa15d328d6c",
-                "reference": "5a7fa9fd3ce6eefbc9b982d6c78d0aa15d328d6c",
->>>>>>> 3f10a123 (updated dependencies)
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/11be66e3adc8bf2c9805209a598ad4b42ee3c0d6",
+                "reference": "11be66e3adc8bf2c9805209a598ad4b42ee3c0d6",
                 "shasum": ""
             },
             "conflict": {
@@ -21248,11 +21149,7 @@
                 "georgringer/news": "<11.4.4|>=12,<12.3.2|>=13,<13.0.2|>=14,<14.0.3",
                 "geshi/geshi": "<=1.0.9.1",
                 "getformwork/formwork": "<=2.3.3",
-<<<<<<< HEAD
                 "getgrav/grav": "<=2.0.0.0-RC1",
-=======
-                "getgrav/grav": "<2.0.0.0-beta4",
->>>>>>> dc5b8184 (Fixed mcp compatibility)
                 "getgrav/grav-plugin-api": "<1.0.0.0-beta15",
                 "getgrav/grav-plugin-form": "<9.1",
                 "getkirby/cms": "<4.9|>=5,<5.4",
@@ -21449,10 +21346,7 @@
                 "miraheze/ts-portal": "<=33",
                 "mittwald/typo3_forum": "<1.2.1",
                 "mix/mix": ">=2,<=2.2.17",
-<<<<<<< HEAD
                 "mmc/ceselector": "<3.0.3|>=4,<4.0.2|>=5,<5.0.1|>=6,<6.0.1",
-=======
->>>>>>> 3f10a123 (updated dependencies)
                 "mobiledetect/mobiledetectlib": "<2.8.32",
                 "modx/revolution": "<=3.1",
                 "mojo42/jirafeau": "<4.4",
@@ -21556,11 +21450,7 @@
                 "phpmailer/phpmailer": "<6.5",
                 "phpmussel/phpmussel": ">=1,<1.6",
                 "phpmyadmin/phpmyadmin": "<5.2.2",
-<<<<<<< HEAD
                 "phpmyfaq/phpmyfaq": "<4.1.3",
-=======
-                "phpmyfaq/phpmyfaq": "<=4.1.1",
->>>>>>> dc5b8184 (Fixed mcp compatibility)
                 "phpoffice/common": "<0.2.9",
                 "phpoffice/math": "<=0.2",
                 "phpoffice/phpexcel": "<=1.8.2",
@@ -21608,7 +21498,7 @@
                 "propel/propel": ">=2.0.0.0-alpha1,<=2.0.0.0-alpha7",
                 "propel/propel1": ">=1,<=1.7.1",
                 "psy/psysh": "<=0.11.22|>=0.12,<=0.12.18",
-                "pterodactyl/panel": "<1.12.1",
+                "pterodactyl/panel": "<1.12.3",
                 "ptheofan/yii2-statemachine": ">=2.0.0.0-RC1-dev,<=2",
                 "ptrofimov/beanstalk_console": "<1.7.14",
                 "pubnub/pubnub": "<6.1",
@@ -21720,11 +21610,7 @@
                 "starcitizentools/short-description": ">=4,<4.0.1",
                 "starcitizentools/tabber-neue": ">=1.9.1,<2.7.2|>=3,<3.1.1",
                 "starcitizenwiki/embedvideo": "<=4",
-<<<<<<< HEAD
                 "statamic/cms": "<5.73.22|>=6,<6.18.1",
-=======
-                "statamic/cms": "<5.73.21|>=6,<6.15",
->>>>>>> dc5b8184 (Fixed mcp compatibility)
                 "stormpath/sdk": "<9.9.99",
                 "studio-42/elfinder": "<=2.1.67",
                 "studiomitte/friendlycaptcha": "<0.1.4",
@@ -21769,7 +21655,8 @@
                 "symfony/mime": ">=2,<5.4.52|>=6,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
                 "symfony/monolog-bridge": ">=2,<5.4.52|>=6,<6.4.40|>=7,<7.4.12|>=8,<8.0.12",
                 "symfony/phpunit-bridge": ">=2.8,<2.8.50|>=3,<3.4.26|>=4,<4.1.12|>=4.2,<4.2.7",
-                "symfony/polyfill": ">=1,<1.10",
+                "symfony/polyfill": ">=1,<1.10|>=1.17.1,<1.38.1",
+                "symfony/polyfill-intl-idn": ">=1.17.1,<1.38.1",
                 "symfony/polyfill-php55": ">=1,<1.10",
                 "symfony/process": "<5.4.51|>=6,<6.4.33|>=7,<7.1.7|>=7.3,<7.3.11|>=7.4,<7.4.5|>=8,<8.0.5",
                 "symfony/proxy-manager-bridge": ">=2.7,<2.7.51|>=2.8,<2.8.50|>=3,<3.4.26|>=4,<4.1.12|>=4.2,<4.2.7",
@@ -21807,11 +21694,7 @@
                 "thelia/thelia": ">=2.1,<2.1.3",
                 "theonedemon/phpwhois": "<=4.2.5",
                 "thinkcmf/thinkcmf": "<6.0.8",
-<<<<<<< HEAD
                 "thorsten/phpmyfaq": "<4.1.3",
-=======
-                "thorsten/phpmyfaq": "<=4.1.1",
->>>>>>> dc5b8184 (Fixed mcp compatibility)
                 "tikiwiki/tiki-manager": "<=17.1",
                 "timber/timber": ">=0.16.6,<1.23.1|>=1.24,<1.24.1|>=2,<2.1",
                 "tinymce/tinymce": "<7.2",
@@ -22017,15 +21900,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-<<<<<<< HEAD
-            "time": "2026-05-24T20:23:40+00:00"
-=======
-            "time": "2026-05-06T21:27:25+00:00"
->>>>>>> dc5b8184 (Fixed mcp compatibility)
-=======
-            "time": "2026-05-08T23:22:52+00:00"
->>>>>>> 3f10a123 (updated dependencies)
+            "time": "2026-05-26T19:41:38+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -23540,17 +23415,9 @@
             "time": "2025-11-17T20:03:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "package": "mcp/sdk",
-            "version": "0.5.0.0",
-            "alias": "0.4.0",
-            "alias_normalized": "0.4.0.0"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "api-platform/mcp": 20,
         "api-platform/metadata": 20,
         "roave/security-advisories": 20
     },
