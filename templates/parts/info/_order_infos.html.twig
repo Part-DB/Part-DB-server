@@ -46,8 +46,9 @@
                                         {{ detail.MinDiscountQuantity | format_amount(part.partUnit) }}
                                     </td>
                                     <td>
-                                        {{ detail.price | format_money(detail.currency) }} / {{ detail.PriceRelatedQuantity | format_amount(part.partUnit) }}
-                                        {% set tmp = pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency, app.user.currency ?? null) %}
+                                        {% set total = detail.PricePerUnit(detail.MinDiscountQuantity) %}
+                                        {{ total | format_money(detail.currency) }} / {{ detail.MinDiscountQuantity | format_amount(part.partUnit) }}
+                                        {% set tmp = pricedetail_helper.convertMoneyToCurrency(total, detail.currency, app.user.currency ?? null) %}
                                         {% if detail.currency != (app.user.currency ?? null) and tmp is not null and tmp.GreaterThan(0) %}
                                             <span class="text-muted">({{ tmp | format_money(app.user.currency ?? null) }})</span>
                                         {% endif %}
