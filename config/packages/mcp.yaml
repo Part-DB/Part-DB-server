@@ -1,4 +1,12 @@
 mcp:
+    app: "Part-DB"
+    version: "0.1.0"
+    description: "Part-DB is a inventory management database for electronic parts."
+    instructions: |
+        This server provides inventory information for your current user. It is mostly used for electronic parts,
+        but can be used for any kind of inventory. The stored objects are called parts.
+        If you miss some information from an search endpoint, try to retrieve more details using the ID of an entity.
+
     client_transports:
         http: true
         stdio: false
