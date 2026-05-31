@@ -10035,6 +10035,24 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Server settings</target>
       </segment>
     </unit>
+    <unit id="ZDiR5ya" name="settings.misc.mcp">
+      <segment state="translated">
+        <source>settings.misc.mcp</source>
+        <target>MCP (Model Context Protocol) Server</target>
+      </segment>
+    </unit>
+    <unit id="CdFWDgN" name="settings.misc.mcp.enabled">
+      <segment state="translated">
+        <source>settings.misc.mcp.enabled</source>
+        <target>Enable MCP endpoint</target>
+      </segment>
+    </unit>
+    <unit id="Gyos.5e" name="settings.misc.mcp.enabled.help">
+      <segment state="translated">
+        <source>settings.misc.mcp.enabled.help</source>
+        <target>Enable the MCP (Model Context Protocol) endpoint at /mcp, which allows AI assistants to interact with Part-DB.</target>
+      </segment>
+    </unit>
     <unit id="xtw_ol7" name="settings.misc.kicad_eda">
       <segment state="translated">
         <source>settings.misc.kicad_eda</source>

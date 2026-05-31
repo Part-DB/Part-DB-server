@@ -36,6 +36,9 @@ class AISettings
     use SettingsTrait;
 
     #[EmbeddedSettings]
+    public ?McpSettings $mcp = null;
+
+    #[EmbeddedSettings]
     public ?OpenRouterSettings $openRouter = null;
 
     #[EmbeddedSettings]
