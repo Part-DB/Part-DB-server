@@ -50,7 +50,7 @@ class InfoProviderReference
     /**
      * @var string|null The url of this part inside the provider system or null if this info is not existing
      */
-    #[Column(type: Types::STRING, nullable: true)]
+    #[Column(type: Types::STRING, length: 2048, nullable: true)]
     #[Groups(['provider_reference:read', 'full'])]
     private ?string $provider_url = null;
 

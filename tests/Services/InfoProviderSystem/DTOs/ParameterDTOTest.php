@@ -26,7 +26,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use PHPUnit\Framework\TestCase;
 
-class ParameterDTOTest extends TestCase
+final class ParameterDTOTest extends TestCase
 {
 
     public static function parseValueFieldDataProvider(): \Generator

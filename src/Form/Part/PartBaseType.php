@@ -30,6 +30,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Form\AttachmentFormType;
 use App\Form\ParameterType;
@@ -41,6 +42,8 @@ use App\Form\Type\StructuralEntityType;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use App\Services\LogSystem\EventCommentType;
+use App\Settings\MiscSettings\IpnSuggestSettings;
+use App\Settings\SystemSettings\LocalizationSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -57,8 +60,13 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PartBaseType extends AbstractType
 {
-    public function __construct(protected Security $security, protected UrlGeneratorInterface $urlGenerator, protected EventCommentNeededHelper $event_comment_needed_helper)
-    {
+    public function __construct(
+        protected Security $security,
+        protected UrlGeneratorInterface $urlGenerator,
+        protected EventCommentNeededHelper $event_comment_needed_helper,
+        protected IpnSuggestSettings $ipnSuggestSettings,
+        private readonly LocalizationSettings $localizationSettings,
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -70,6 +78,39 @@ class PartBaseType extends AbstractType
         /** @var PartDetailDTO|null $dto */
         $dto = $options['info_provider_dto'];
 
+        $descriptionAttr = [
+            'placeholder' => 'part.edit.description.placeholder',
+            'rows' => 2,
+        ];
+
+        if ($this->ipnSuggestSettings->useDuplicateDescription) {
+            // Only add attribute when duplicate description feature is enabled
+            $descriptionAttr['data-ipn-suggestion'] = 'descriptionField';
+        }
+
+        $ipnAttr =  [
+            'class' => 'ipn-suggestion-field',
+            'data-elements--ipn-suggestion-target' => 'input',
+            'autocomplete' => 'off',
+        ];
+
+        if ($this->ipnSuggestSettings->regex !== null && $this->ipnSuggestSettings->regex !== '') {
+            $ipnAttr['pattern'] = $this->ipnSuggestSettings->regex;
+            $ipnAttr['placeholder'] = $this->ipnSuggestSettings->regex;
+            $ipnAttr['title'] = $this->ipnSuggestSettings->regexHelp;
+        }
+
+        $ipnOptions = [
+            'required' => false,
+            'empty_data' => null,
+            'label' => 'part.edit.ipn',
+            'attr' => $ipnAttr,
+        ];
+
+        if (isset($ipnAttr['pattern']) && $this->ipnSuggestSettings->regexHelp !== null && $this->ipnSuggestSettings->regexHelp !== '') {
+            $ipnOptions['help'] = $this->ipnSuggestSettings->regexHelp;
+        }
+
         //Common section
         $builder
             ->add('name', TextType::class, [
@@ -77,6 +118,7 @@ class PartBaseType extends AbstractType
                 'label' => 'part.edit.name',
                 'attr' => [
                     'placeholder' => 'part.edit.name.placeholder',
+                    'autofocus' => $new_part,
                 ],
             ])
             ->add('description', RichTextEditorType::class, [
@@ -84,10 +126,7 @@ class PartBaseType extends AbstractType
                 'empty_data' => '',
                 'label' => 'part.edit.description',
                 'mode' => 'markdown-single_line',
-                'attr' => [
-                    'placeholder' => 'part.edit.description.placeholder',
-                    'rows' => 2,
-                ],
+                'attr' => $descriptionAttr,
             ])
             ->add('minAmount', SIUnitType::class, [
                 'attr' => [
@@ -120,6 +159,9 @@ class PartBaseType extends AbstractType
                 'disable_not_selectable' => true,
                 //Do not require category for new parts, so that the user must select the category by hand and cannot forget it (the requirement is handled by the constraint in the entity)
                 'required' => !$new_part,
+                'attr' => [
+                    'data-ipn-suggestion' => 'categoryField',
+                ]
             ])
             ->add('footprint', StructuralEntityType::class, [
                 'class' => Footprint::class,
@@ -187,11 +229,19 @@ class PartBaseType extends AbstractType
                 'disable_not_selectable' => true,
                 'label' => 'part.edit.partUnit',
             ])
-            ->add('ipn', TextType::class, [
+            ->add('partCustomState', StructuralEntityType::class, [
+                'class' => PartCustomState::class,
+                'required' => false,
+                'disable_not_selectable' => true,
+                'label' => 'part.edit.partCustomState',
+            ])
+            ->add('ipn', TextType::class, $ipnOptions)
+            ->add('gtin', TextType::class, [
                 'required' => false,
                 'empty_data' => null,
-                'label' => 'part.edit.ipn',
-            ]);
+                'label' => 'part.gtin',
+            ])
+            ;
 
         //Comment section
         $builder->add('comment', RichTextEditorType::class, [
@@ -236,6 +286,9 @@ class PartBaseType extends AbstractType
             'entity' => $part,
         ]);
 
+        $orderdetailPrototype = new Orderdetail();
+        $orderdetailPrototype->setPricesIncludesVAT($this->localizationSettings->pricesIncludeTaxByDefault);
+
         //Orderdetails section
         $builder->add('orderdetails', CollectionType::class, [
             'entry_type' => OrderdetailType::class,
@@ -244,7 +297,7 @@ class PartBaseType extends AbstractType
             'allow_delete' => true,
             'label' => false,
             'by_reference' => false,
-            'prototype_data' => new Orderdetail(),
+            'prototype_data' => $orderdetailPrototype,
             'entry_options' => [
                 'measurement_unit' => $part->getPartUnit(),
             ],
@@ -316,6 +369,7 @@ class PartBaseType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Part::class,
             'info_provider_dto' => null,
+            'warn_on_unsaved_changes' => true,
         ]);
 
         $resolver->setAllowedTypes('info_provider_dto', [PartDetailDTO::class, 'null']);

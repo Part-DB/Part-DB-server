@@ -22,15 +22,52 @@ declare(strict_types=1);
  */
 namespace App\Tests\Services\InfoProviderSystem\DTOs;
 
+use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use PHPUnit\Framework\TestCase;
 
-class PurchaseInfoDTOTest extends TestCase
+final class PurchaseInfoDTOTest extends TestCase
 {
     public function testThrowOnInvalidType(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('The prices array must only contain PriceDTO instances');
         new PurchaseInfoDTO('test', 'test', [new \stdClass()]);
+    }
+
+    public function testPricesIncludesVATHandling(): void
+    {
+        $pricesTrue = [
+            new PriceDTO(minimum_discount_amount: 1, price: '10.00', currency_iso_code: 'USD', includes_tax: true),
+            new PriceDTO(minimum_discount_amount: 5, price: '9.00', currency_iso_code: 'USD', includes_tax: true),
+        ];
+        $pricesFalse = [
+            new PriceDTO(minimum_discount_amount: 1, price: '10.00', currency_iso_code: 'USD', includes_tax: false),
+            new PriceDTO(minimum_discount_amount: 5, price: '9.00', currency_iso_code: 'USD', includes_tax: false),
+        ];
+        $pricesMixed = [
+            new PriceDTO(minimum_discount_amount: 1, price: '10.00', currency_iso_code: 'USD', includes_tax: true),
+            new PriceDTO(minimum_discount_amount: 5, price: '9.00', currency_iso_code: 'USD', includes_tax: false),
+        ];
+        $pricesNull = [
+            new PriceDTO(minimum_discount_amount: 1, price: '10.00', currency_iso_code: 'USD', includes_tax: null),
+            new PriceDTO(minimum_discount_amount: 5, price: '9.00', currency_iso_code: 'USD', includes_tax: null),
+        ];
+
+        //If the prices_include_vat parameter is given, use it:
+        $dto = new PurchaseInfoDTO('test', 'test', $pricesMixed, prices_include_vat: true);
+        $this->assertTrue($dto->prices_include_vat);
+        $dto = new PurchaseInfoDTO('test', 'test', $pricesMixed, prices_include_vat: false);
+        $this->assertFalse($dto->prices_include_vat);
+
+        //If the prices_include_vat parameter is not given, try to deduct it from the prices:
+        $dto = new PurchaseInfoDTO('test', 'test', $pricesTrue);
+        $this->assertTrue($dto->prices_include_vat);
+        $dto = new PurchaseInfoDTO('test', 'test', $pricesFalse);
+        $this->assertFalse($dto->prices_include_vat);
+        $dto = new PurchaseInfoDTO('test', 'test', $pricesMixed);
+        $this->assertNull($dto->prices_include_vat);
+        $dto = new PurchaseInfoDTO('test', 'test', $pricesNull);
+        $this->assertNull($dto->prices_include_vat);
     }
 }

@@ -134,6 +134,17 @@ class AttachmentType extends AbstractStructuralDBElement
     #[ORM\OneToMany(mappedBy: 'attachment_type', targetEntity: Attachment::class)]
     protected Collection $attachments_with_type;
 
+    /**
+     * @var string[]|null A list of allowed targets where this attachment type can be assigned to, as a list of portable names
+     */
+    #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true)]
+    protected ?array $allowed_targets = null;
+
+    /**
+     * @var class-string<Attachment>[]|null
+     */
+    protected ?array $allowed_targets_parsed_cache = null;
+
     #[Groups(['attachment_type:read'])]
     protected ?\DateTimeImmutable $addedDate = null;
     #[Groups(['attachment_type:read'])]
@@ -183,5 +194,82 @@ class AttachmentType extends AbstractStructuralDBElement
         $this->filetype_filter = $filetype_filter;
 
         return $this;
+    }
+
+    /**
+     * Returns a list of allowed targets as class names (e.g. PartAttachment::class), where this attachment type can be assigned to. If null, there are no restrictions.
+     * @return class-string<Attachment>[]|null
+     */
+    public function getAllowedTargets(): ?array
+    {
+        //Use cached value if available
+        if ($this->allowed_targets_parsed_cache !== null) {
+            return $this->allowed_targets_parsed_cache;
+        }
+
+        if (empty($this->allowed_targets)) {
+            return null;
+        }
+
+        $tmp = [];
+        foreach ($this->allowed_targets as $target) {
+            if (isset(Attachment::ORM_DISCRIMINATOR_MAP[$target])) {
+                $tmp[] = Attachment::ORM_DISCRIMINATOR_MAP[$target];
+            }
+            //Otherwise ignore the entry, as it is invalid
+        }
+
+        //Cache the parsed value
+        $this->allowed_targets_parsed_cache = $tmp;
+        return $tmp;
+    }
+
+    /**
+     * Sets the allowed targets for this attachment type. Allowed targets are specified as a list of class names (e.g. PartAttachment::class). If null is passed, there are no restrictions.
+     * @param  class-string<Attachment>[]|null  $allowed_targets
+     * @return $this
+     */
+    public function setAllowedTargets(?array $allowed_targets): self
+    {
+        if ($allowed_targets === null) {
+            $this->allowed_targets = null;
+        } else {
+            $tmp = [];
+            foreach ($allowed_targets as $target) {
+                $discriminator = array_search($target, Attachment::ORM_DISCRIMINATOR_MAP, true);
+                if ($discriminator !== false) {
+                    $tmp[] = $discriminator;
+                } else {
+                    throw new \InvalidArgumentException("Invalid allowed target: $target. Allowed targets must be a class name of an Attachment subclass.");
+                }
+            }
+            $this->allowed_targets = $tmp;
+        }
+
+        //Reset the cache
+        $this->allowed_targets_parsed_cache = null;
+        return $this;
+    }
+
+    /**
+     * Checks if this attachment type is allowed for the given attachment target.
+     * @param  Attachment|string  $attachment
+     * @return bool
+     */
+    public function isAllowedForTarget(Attachment|string $attachment): bool
+    {
+        //If no restrictions are set, allow all targets
+        if ($this->getAllowedTargets() === null) {
+            return true;
+        }
+
+        //Iterate over all allowed targets and check if the attachment is an instance of any of them
+        foreach ($this->getAllowedTargets() as $allowed_target) {
+            if (is_a($attachment, $allowed_target, true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -36,7 +36,7 @@
             {{ form_row(form.options.supported_element) }}
             <div class="mb-2 row">
                 {{ form_label(form.options.width) }}
-                <div class="col-sm-9">
+                <div class="{{ col_input }}">
                     <div class="input-group">
                         {{ form_widget(form.options.width) }}
 
@@ -59,8 +59,8 @@
 
         <div class="tab-pane" id="profiles" role="tabpanel" aria-labelledby="profiles-tab">
             <div class="form-group row">
-                <label class="col-sm-3 col-form-label">{% trans %}label_generator.selected_profile{% endtrans %}</label>
-                <div class="col-sm-9">
+                <label class="{{ col_label }} col-form-label">{% trans %}label_generator.selected_profile{% endtrans %}</label>
+                <div class="{{ col_input }}">
                     <span class="form-control-plaintext">{{ profile.name ?? '-' }}
                         {% if profile and is_granted("edit", profile) %}
                             <a href="{{ entity_url(profile, 'edit') }}" title="{% trans %}label_generator.edit_profile{% endtrans %}"
@@ -71,7 +71,7 @@
             </div>
 
             <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
+                <div class="{{ offset_label }} {{ col_input }}">
                     <div class="dropdown">
                         <button class="btn btn-info dropdown-toggle" type="button" id="loadProfilesButton"
                                 {% if not is_granted("@labels.create_labels") %}disabled{% endif %}
@@ -97,7 +97,7 @@
 
             {% if is_granted("@labels.read_profiles") %}
                 <div class="form-group row">
-                    <div class="offset-sm-3 col-sm-9">
+                    <div class="{{ offset_label }} {{ col_input }}">
                         <a class="btn btn-link" href="{{ path('label_profile_new') }}">{% trans %}label_generator.edit_profiles{% endtrans %}</a>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
             {% endif %}
 
             <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
+                <div class="{{ offset_label }} {{ col_input }}">
                     <div class="input-group">
                         {{ form_widget(form.save_profile_name) }}
                         {{ form_widget(form.save_profile) }}
@@ -124,7 +124,7 @@
     {{ form_end(form) }}
     {% if pdf_data %}
         <div class="row">
-            <div class="col-sm-9 offset-sm-3">
+            <div class="{{ col_input }} {{ offset_label }}">
                 <a data-turbo="false" class="btn btn-secondary" href="#" {{ stimulus_controller('pages/label_download_btn')}} {{ stimulus_action('pages/label_download_btn', 'download')}} download="{{ filename ?? '' }}">
                     {% trans %}label_generator.download{% endtrans %}
                 </a>
@@ -135,8 +135,8 @@
 
 {% block additional_content %}
     {% if pdf_data %}
-        <div class="card mt-2 p-1 border-secondary" style="resize: vertical; overflow: scroll; height: 250px">
-            <object id="pdf_preview"  data="{{ pdf_data | data_uri(mime='application/pdf') }}"style="height: inherit">
+        <div class="card mt-2 p-1 border-secondary" style="resize: vertical; overflow: scroll; height: 280px">
+            <object id="pdf_preview"  data="{{ pdf_data | data_uri(mime='application/pdf') }}" style="height: inherit">
             </object>
         </div>
     {% endif %}

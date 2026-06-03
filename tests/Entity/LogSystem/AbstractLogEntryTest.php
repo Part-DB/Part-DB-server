@@ -58,7 +58,7 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use PHPUnit\Framework\TestCase;
 
-class AbstractLogEntryTest extends TestCase
+final class AbstractLogEntryTest extends TestCase
 {
     public function testSetGetTarget(): void
     {

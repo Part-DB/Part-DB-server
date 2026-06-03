@@ -28,10 +28,8 @@ use App\Services\Attachments\AttachmentPathResolver;
 use const DIRECTORY_SEPARATOR;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class AttachmentPathResolverTest extends WebTestCase
+final class AttachmentPathResolverTest extends WebTestCase
 {
-    protected string $media_path;
-    protected string $footprint_path;
     protected $projectDir_orig;
     protected $projectDir;
     /**
@@ -46,8 +44,8 @@ class AttachmentPathResolverTest extends WebTestCase
 
         $this->projectDir_orig = realpath(self::$kernel->getProjectDir());
         $this->projectDir = str_replace('\\', '/', $this->projectDir_orig);
-        $this->media_path = $this->projectDir.'/public/media';
-        $this->footprint_path = $this->projectDir.'/public/img/footprints';
+        $media_path = $this->projectDir.'/public/media';
+        $footprint_path = $this->projectDir.'/public/img/footprints';
 
         $this->service = self::getContainer()->get(AttachmentPathResolver::class);
     }

@@ -121,6 +121,11 @@ class ImportPartKeeprCommand extends Command
         $count = $this->datastructureImporter->importPartUnits($data);
         $io->success('Imported '.$count.' measurement units.');
 
+        //Import the custom states
+        $io->info('Importing custom states...');
+        $count = $this->datastructureImporter->importPartCustomStates($data);
+        $io->success('Imported '.$count.' custom states.');
+
         //Import manufacturers
         $io->info('Importing manufacturers...');
         $count = $this->datastructureImporter->importManufacturers($data);

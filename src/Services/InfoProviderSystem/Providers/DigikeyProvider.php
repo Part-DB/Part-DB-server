@@ -106,7 +106,7 @@ class DigikeyProvider implements InfoProviderInterface
         return $this->settings->clientId !== null && $this->settings->clientId !== '' && $this->authTokenManager->hasToken(self::OAUTH_APP_NAME);
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         $request = [
             'Keywords' => $keyword,
@@ -159,7 +159,7 @@ class DigikeyProvider implements InfoProviderInterface
         return $result;
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         try {
             $response = $this->digikeyClient->request('GET', '/products/v4/search/' . urlencode($id) . '/productdetails', [
@@ -310,6 +310,14 @@ class DigikeyProvider implements InfoProviderInterface
         $response = $this->digikeyClient->request('GET', '/products/v4/search/' . urlencode($id) . '/media', [
             'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
         ]);
+
+        if ($response->getStatusCode() === 404) {
+            //No media found
+            return [
+                'datasheets' => [],
+                'images' => [],
+            ];
+        }
 
         $media_array = $response->toArray();
 

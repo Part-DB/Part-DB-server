@@ -6,11 +6,11 @@ nav_order: 5
 
 # Configuration
 
-Part-DBs behavior can be configured to your needs. There are different kinds of configuration options: Options, which are
+Part-DB's behavior can be configured to your needs. There are different kinds of configuration options: Options that are
 user-changeable (changeable dynamically via frontend), options that can be configured by environment variables, and
 options that are only configurable via Symfony config files.
 
-## User configruation
+## User configuration
 
 The following things can be changed for every user and a user can change it for himself (if he has the correct permission
 for it). Configuration is either possible via the user's own settings page (where you can also change the password) or via
@@ -40,10 +40,10 @@ The following configuration options can only be changed by the server administra
 variables, changing the `.env.local` file or setting env for your docker container. Here are just the most important
 options listed, see `.env` file for the full list of possible env variables.
 
-Environment variables allow to overwrite settings in the web interface. This is useful, if you want to enforce certain
-settings to be unchangable by users, or if you want to configure settings in a central place in a deployed environment.
+Environment variables allow you to overwrite settings in the web interface. This is useful if you want to enforce certain
+settings to be unchangeable by users, or if you want to configure settings in a central place in a deployed environment.
 On the settings page, you can hover over a setting to see, which environment variable can be used to overwrite it, it 
-is shown as tooltip. API keys or similar sensitve data which is overwritten by env variables, are redacted on the web
+is shown as tooltip. API keys or similar sensitive data which is overwritten by env variables, are redacted on the web
 interface, so that even administrators cannot see them (only the last 2 characters and the length).
 
 For technical and security reasons some settings can only be configured via environment variables and not via the web
@@ -86,6 +86,10 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
 * `ATTACHMENT_DOWNLOAD_BY_DEFAULT`: When this is set to 1, the "download external file" checkbox is checked by default
   when adding a new attachment. Otherwise, it is unchecked by default. Use this if you wanna download all attachments
   locally by default. Attachment download is only possible, when `ALLOW_ATTACHMENT_DOWNLOADS` is set to 1.
+* `ALLOW_ATTACHMENT_DOWNLOADS_FROM_LOCALNETWORK` (default `0`): When this is set to 1, users can make Part-DB directly download a file specified as a URL from the local network and create it as a local file. This allows users access to all resources available in the local network, which could be a security risk, so use this only if you trust your users and have a secure local network.
+* `ATTACHMENT_SHOW_HTML_FILES`: When enabled, user uploaded HTML attachments can be viewed directly in the browser. 
+  Many potential malicious functions are restricted, still this is a potential security risk and should only be enabled,
+  if you trust the users who can upload files. When set to 0, HTML files are rendered as plain text.
 * `USE_GRAVATAR`: Set to `1` to use [gravatar.com](https://gravatar.com/) images for user avatars (as long as they have
   not set their own picture). The users browsers have to download the pictures from a third-party (gravatar) server, so
   this might be a privacy risk.
@@ -105,17 +109,29 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
     * `part_delete`: Delete operation of an existing part
     * `part_create`: Creation of a new part
     * `part_stock_operation`: Stock operation on a part (therefore withdraw, add or move stock)
-    * `datastructure_edit`: Edit operation of an existing datastructure (e.g. category, manufacturer, ...)
-    * `datastructure_delete`: Delete operation of a existing datastructure (e.g. category, manufacturer, ...)
-    * `datastructure_create`: Creation of a new datastructure (e.g. category, manufacturer, ...)
-* `CHECK_FOR_UPDATES` (default `1`): Set this to 0, if you do not want Part-DB to connect to GitHub to check for new
-  versions, or if your server can not connect to the internet.
+    * `datastructure_edit`: Edit operation of an existing data structure (e.g. category, manufacturer, ...)
+    * `datastructure_delete`: Delete operation of an existing data structure (e.g. category, manufacturer, ...)
+    * `datastructure_create`: Creation of a new data structure (e.g. category, manufacturer, ...)
+* `CHECK_FOR_UPDATES` (default `1`): Set this to 0 if you do not want Part-DB to connect to GitHub to check for new
+  versions, or if your server cannot connect to the internet.
 * `APP_SECRET` (env only): This variable is a configuration parameter used for various security-related purposes,
   particularly for securing and protecting various aspects of your application. It's a secret key that is used for
   cryptographic operations and security measures (session management, CSRF protection, etc..). Therefore this
   value should be handled as confidential data and not shared publicly.
 * `SHOW_PART_IMAGE_OVERLAY`: Set to 0 to disable the part image overlay, which appears if you hover over an image in the
   part image gallery
+* `IPN_SUGGEST_REGEX`: A global regular expression, that part IPNs have to fulfill. Enforce your own format for your users.
+* `IPN_SUGGEST_REGEX_HELP`: Define your own user help text for the Regex format specification.
+* `IPN_AUTO_APPEND_SUFFIX`: When enabled, an incremental suffix will be added to the user input when entering an existing 
+* IPN again upon saving.
+* `IPN_SUGGEST_PART_DIGITS`: Defines the fixed number of digits used as the increment at the end of an IPN (Internal Part Number). 
+  IPN prefixes, maintained within part categories and their hierarchy, form the foundation for suggesting complete IPNs. 
+  These suggestions become accessible during IPN input of a part. The constant specifies the digits used to calculate and assign 
+  unique increments for parts within a category hierarchy, ensuring consistency and uniqueness in IPN generation.
+* `IPN_USE_DUPLICATE_DESCRIPTION`: When enabled, the part’s description is used to find existing parts with the same 
+  description and to determine the next available IPN by incrementing their numeric suffix for the suggestion list.
+* `KEYBINDINGS_SPECIAL_CHARS_ENABLED`: Set this to 0 to disable the special character keybindings (Alt + key) for inserting special characters. This can be useful if
+  they conflict with your keyboard layout or system shortcuts.
 
 ### E-Mail settings (all env only)
 
@@ -129,6 +145,18 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
 * `ALLOW_EMAIL_PW_RESET`: Set this value to true, if you want to allow users to reset their password via an email
   notification. You have to configure the mail provider first before via the MAILER_DSN setting.
 
+### Update manager settings
+* `DISABLE_WEB_UPDATES` (default `1`): Set this to 0 to enable web-based updates. When enabled, you can perform updates
+  via the web interface in the update manager. This is disabled by default for security reasons, as it can be a risk if
+  not used carefully. You can still use the CLI commands to perform updates, even when web updates are disabled.
+* `DISABLE_BACKUP_RESTORE` (default `1`): Set this to 0 to enable backup restore via the web interface. When enabled, you can
+  restore backups via the web interface in the update manager. This is disabled by default for security reasons, as it can
+  be a risk if not used carefully. You can still use the CLI commands to perform backup restores, even when web-based
+  backup restore is disabled.
+* `DISABLE_BACKUP_DOWNLOAD` (default `1`): Set this to 0 to enable backup download via the web interface. When enabled, you can download backups via the web interface
+  in the update manager. This is disabled by default for security reasons, as it can be a risk if not used carefully, as
+  the downloads contain sensitive data like password hashes or secrets.
+
 ### Table related settings
 
 * `TABLE_DEFAULT_PAGE_SIZE`: The default page size for tables. This is the number of rows which are shown per page. Set
@@ -136,7 +164,7 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
 * `TABLE_PARTS_DEFAULT_COLUMNS`: The columns in parts tables, which are visible by default (when loading table for first
   time).
   Also specify the default order of the columns. This is a comma separated list of column names. Available columns
-  are: `name`, `id`, `ipn`, `description`, `category`, `footprint`, `manufacturer`, `storage_location`, `amount`, `minamount`, `partUnit`, `addedDate`, `lastModified`, `needs_review`, `favorite`, `manufacturing_status`, `manufacturer_product_number`, `mass`, `tags`, `attachments`, `edit`.
+  are: `name`, `id`, `ipn`, `description`, `category`, `footprint`, `manufacturer`, `storage_location`, `amount`, `minamount`, `partUnit`, `partCustomState`, `addedDate`, `lastModified`, `needs_review`, `favorite`, `manufacturing_status`, `manufacturer_product_number`, `mass`, `tags`, `attachments`, `edit`.
 
 ### History/Eventlog-related settings
 
@@ -252,10 +280,10 @@ markdown (and even some subset of HTML) syntax to format the text.
 
 ## parameters.yaml
 
-You can also configure some options via the `config/parameters.yaml` file. This should normally not need,
-and you should know what you are doing, when you change something here. You should expect, that you will have to do some
-manual merge, when you have changed something here and update to a newer version of Part-DB. It is possible that
-configuration options here will change or be  completely removed in future versions of Part-DB.
+You can also configure some options via the `config/parameters.yaml` file. This should normally not be needed,
+and you should know what you are doing when you change something here. You should expect that you will have to do some
+manual merges when you have changed something here and update to a newer version of Part-DB. It is possible that
+configuration options here will change or be completely removed in future versions of Part-DB.
 
 If you change something here, you have to clear the cache, before the changes will take effect with the
 command `bin/console cache:clear`.

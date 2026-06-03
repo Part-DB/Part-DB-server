@@ -21,6 +21,7 @@ import {Controller} from "@hotwired/stimulus";
 
 import * as bootbox from "bootbox";
 import "../../css/components/bootbox_extensions.css";
+import accept from "attr-accept";
 
 export default class extends Controller {
     static values = {
@@ -73,15 +74,33 @@ export default class extends Controller {
         const newElementStr = this.htmlDecode(prototype.replace(regex, this.generateUID()));
 
 
+        let ret = null;
+
         //Insert new html after the last child element
         //If the table has a tbody, insert it there
         //Afterwards return the newly created row
         if(targetTable.tBodies[0]) {
             targetTable.tBodies[0].insertAdjacentHTML('beforeend', newElementStr);
-            return targetTable.tBodies[0].lastElementChild;
+            ret = targetTable.tBodies[0].lastElementChild;
         } else { //Otherwise just insert it
             targetTable.insertAdjacentHTML('beforeend', newElementStr);
-            return targetTable.lastElementChild;
+            ret = targetTable.lastElementChild;
+        }
+
+        //Trigger an event to notify other components that a new element has been created, so they can for example initialize select2 on it
+        targetTable.dispatchEvent(new CustomEvent("collection:elementAdded", {bubbles: true}));
+
+        this.focusNumberInput(ret);
+
+        return ret;
+
+    }
+
+    focusNumberInput(element) {
+        const fields = element.querySelectorAll("input[type=number]");
+        //Focus the first available number input field to open the numeric keyboard on mobile devices
+        if(fields.length > 0) {
+            fields[0].focus();
         }
     }
 
@@ -112,6 +131,33 @@ export default class extends Controller {
                 dataTransfer.items.add(file);
 
                 rowInput.files = dataTransfer.files;
+
+                //Check the file extension and find the corresponding attachment type based on the data-filetype_filter attribute
+                const attachmentTypeSelect = newElement.querySelector("select");
+                if (attachmentTypeSelect) {
+                    let foundMatch = false;
+                    for (let j = 0; j < attachmentTypeSelect.options.length; j++) {
+                        const option = attachmentTypeSelect.options[j];
+                        //skip disabled options
+                        if (option.disabled) {
+                            continue;
+                        }
+
+                        const filter = option.getAttribute('data-filetype_filter');
+                        if (filter) {
+                            if (accept({name: file.name, type: file.type}, filter)) {
+                                attachmentTypeSelect.value = option.value;
+                                foundMatch = true;
+                                break;
+                            }
+                        } else { //If no filter is set, chose this option until we find a better match
+                            if (!foundMatch) {
+                                attachmentTypeSelect.value = option.value;
+                                foundMatch = true;
+                            }
+                        }
+                    }
+                }
             }
 
         });

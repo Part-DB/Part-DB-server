@@ -27,7 +27,7 @@ use App\Validator\Constraints\UrlOrBuiltinValidator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-class UrlOrBuiltinValidatorTest extends ConstraintValidatorTestCase
+final class UrlOrBuiltinValidatorTest extends ConstraintValidatorTestCase
 {
 
     protected function createValidator(): UrlOrBuiltinValidator

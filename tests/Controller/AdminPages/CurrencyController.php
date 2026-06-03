@@ -28,7 +28,7 @@ use App\Entity\Parts\Manufacturer;
 
 #[Group('slow')]
 #[Group('DB')]
-class CurrencyController extends AbstractAdminController
+final class CurrencyController extends AbstractAdminController
 {
     protected static string $base_path = '/en/currency';
     protected static string $entity_class = Currency::class;

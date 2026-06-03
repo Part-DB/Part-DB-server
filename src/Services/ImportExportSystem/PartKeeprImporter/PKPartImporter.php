@@ -91,6 +91,11 @@ class PKPartImporter
                     $this->setAssociationField($entity, 'partUnit', MeasurementUnit::class, $part['partUnit_id']);
                 }
 
+                if (isset($part['partCustomState_id'])) {
+                    $this->setAssociationField($entity, 'partCustomState', MeasurementUnit::class,
+                        $part['partCustomState_id']);
+                }
+
                 //Create a part lot to store the stock level and location
                 $lot = new PartLot();
                 $lot->setAmount((float) ($part['stockLevel'] ?? 0));
@@ -281,7 +286,7 @@ class PKPartImporter
                 //Partkeepr stores the price per item, we need to convert it to the price per packaging unit
                 $price_per_item = BigDecimal::of($partdistributor['price']);
                 $packaging_unit = (float) ($partdistributor['packagingUnit'] ?? 1);
-                $pricedetail->setPrice($price_per_item->multipliedBy($packaging_unit));
+                $pricedetail->setPrice($price_per_item->multipliedBy(BigDecimal::fromFloatShortest($packaging_unit)));
                 $pricedetail->setPriceRelatedQuantity($packaging_unit);
                 //We have to set the minimum discount quantity to the packaging unit (PartKeepr does not know this concept)
                 //But in Part-DB the minimum discount qty have to be unique across a orderdetail

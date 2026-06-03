@@ -26,7 +26,7 @@ use App\Twig\TwigCoreExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class TwigCoreExtensionTest extends WebTestCase
+final class TwigCoreExtensionTest extends WebTestCase
 {
     /** @var TwigCoreExtension */
     protected $service;

@@ -61,9 +61,11 @@
                     {{ form_row(filterForm.favorite) }}
                     {{ form_row(filterForm.needsReview) }}
                     {{ form_row(filterForm.measurementUnit) }}
+                    {{ form_row(filterForm.partCustomState) }}
                     {{ form_row(filterForm.mass) }}
                     {{ form_row(filterForm.dbId) }}
                     {{ form_row(filterForm.ipn) }}
+                    {{ form_row(filterForm.gtin) }}
                     {{ form_row(filterForm.lastModified) }}
                     {{ form_row(filterForm.addedDate) }}
                 </div>
@@ -148,7 +150,7 @@
             {{ form_row(filterForm.discard) }}
 
             <div class="row mb-3">
-                <div class="col-sm-9 offset-sm-3">
+                <div class="{{ col_input }} {{ offset_label }}">
                     <button type="button" class="btn btn-danger" {{ stimulus_action('helpers/form_cleanup', 'clearAll') }}>{% trans %}filter.clear_filters{% endtrans %}</button>
                 </div>
             </div>

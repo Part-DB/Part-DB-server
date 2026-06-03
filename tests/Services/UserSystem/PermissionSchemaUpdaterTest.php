@@ -39,7 +39,7 @@ class TestPermissionHolder implements HasPermissionsInterface
     }
 }
 
-class PermissionSchemaUpdaterTest extends WebTestCase
+final class PermissionSchemaUpdaterTest extends WebTestCase
 {
     /**
      * @var PermissionSchemaUpdater

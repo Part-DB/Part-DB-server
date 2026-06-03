@@ -23,19 +23,14 @@ declare(strict_types=1);
 namespace App\Twig;
 
 use Com\Tecnick\Barcode\Barcode;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
+use Twig\Attribute\AsTwigFunction;
 
-final class BarcodeExtension extends AbstractExtension
+final class BarcodeExtension
 {
-    public function getFunctions(): array
-    {
-        return [
-            /* Generates a barcode with the given Type and Data and returns it as an SVG represenation */
-            new TwigFunction('barcode_svg', fn(string $content, string $type = 'QRCODE'): string => $this->barcodeSVG($content, $type)),
-        ];
-    }
-
+    /**
+     * Generates a barcode in SVG format for the given content and type.
+     */
+    #[AsTwigFunction('barcode_svg')]
     public function barcodeSVG(string $content, string $type = 'QRCODE'): string
     {
         $barcodeFactory = new Barcode();

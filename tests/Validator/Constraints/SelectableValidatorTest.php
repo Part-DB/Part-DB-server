@@ -29,7 +29,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-class SelectableValidatorTest extends ConstraintValidatorTestCase
+final class SelectableValidatorTest extends ConstraintValidatorTestCase
 {
     protected function createValidator(): SelectableValidator
     {

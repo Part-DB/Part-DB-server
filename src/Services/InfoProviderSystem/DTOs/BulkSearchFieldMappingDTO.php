@@ -22,24 +22,41 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\DTOs;
 
+use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
+
 /**
  * Represents a mapping between a part field and the info providers that should search in that field.
  */
 readonly class BulkSearchFieldMappingDTO
 {
+    /** @var string[] $providers Array of provider keys to search with (e.g., ['digikey', 'farnell']) */
+    public array $providers;
+
     /**
      * @param string $field The field to search in (e.g., 'mpn', 'name', or supplier-specific fields like 'digikey_spn')
-     * @param string[] $providers Array of provider keys to search with (e.g., ['digikey', 'farnell'])
+     * @param string[]|InfoProviderInterface[] $providers Array of provider keys to search with (e.g., ['digikey', 'farnell'])
      * @param int $priority Priority for this field mapping (1-10, lower numbers = higher priority)
      */
     public function __construct(
         public string $field,
-        public array $providers,
+        array $providers = [],
         public int $priority = 1
     ) {
         if ($priority < 1 || $priority > 10) {
             throw new \InvalidArgumentException('Priority must be between 1 and 10');
         }
+
+        //Ensure that providers are provided as keys
+        foreach ($providers as &$provider) {
+            if ($provider instanceof InfoProviderInterface) {
+                $provider = $provider->getProviderKey();
+            }
+            if (!is_string($provider)) {
+                throw new \InvalidArgumentException('Providers must be provided as strings or InfoProviderInterface instances');
+            }
+        }
+        unset($provider);
+        $this->providers = $providers;
     }
 
     /**

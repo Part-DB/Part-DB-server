@@ -102,6 +102,7 @@ class PermissionPresetsHelper
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'attachment_types', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'currencies', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'measurement_units', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'part_custom_states', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'suppliers', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'projects', PermissionData::ALLOW);
 
@@ -110,8 +111,9 @@ class PermissionPresetsHelper
 
         //Allow to manage Oauth tokens
         $this->permissionResolver->setPermission($perm_holder, 'system', 'manage_oauth_tokens', PermissionData::ALLOW);
-        //Allow to show updates
+        //Allow to show and manage updates
         $this->permissionResolver->setPermission($perm_holder, 'system', 'show_updates', PermissionData::ALLOW);
+        $this->permissionResolver->setPermission($perm_holder, 'system', 'manage_updates', PermissionData::ALLOW);
 
     }
 
@@ -131,6 +133,7 @@ class PermissionPresetsHelper
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'attachment_types', PermissionData::ALLOW, ['import']);
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'currencies', PermissionData::ALLOW, ['import']);
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'measurement_units', PermissionData::ALLOW, ['import']);
+        $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'part_custom_states', PermissionData::ALLOW, ['import']);
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'suppliers', PermissionData::ALLOW, ['import']);
         $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'projects', PermissionData::ALLOW, ['import']);
 

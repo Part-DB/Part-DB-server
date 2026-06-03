@@ -57,6 +57,10 @@ class BaseEntityAdminForm extends AbstractType
         $resolver->setRequired('attachment_class');
         $resolver->setRequired('parameter_class');
         $resolver->setAllowedTypes('parameter_class', ['string', 'null']);
+
+        $resolver->setDefaults([
+            'warn_on_unsaved_changes' => true,
+        ]);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -71,6 +75,7 @@ class BaseEntityAdminForm extends AbstractType
                 'label' => 'name.label',
                 'attr' => [
                     'placeholder' => 'part.name.placeholder',
+                    'autofocus' => $is_new,
                 ],
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             ]);
@@ -120,6 +125,7 @@ class BaseEntityAdminForm extends AbstractType
                 'label' => 'entity.edit.alternative_names.label',
                 'help' => 'entity.edit.alternative_names.help',
                 'empty_data' => null,
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
                 'attr' => [
                     'class' => 'tagsinput',
                     'data-controller' => 'elements--tagsinput',

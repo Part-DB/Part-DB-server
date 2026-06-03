@@ -27,7 +27,7 @@ use App\Entity\Attachments\AttachmentType;
 
 #[Group('slow')]
 #[Group('DB')]
-class AttachmentTypeController extends AbstractAdminController
+final class AttachmentTypeController extends AbstractAdminController
 {
     protected static string $base_path = '/en/attachment_type';
     protected static string $entity_class = AttachmentType::class;

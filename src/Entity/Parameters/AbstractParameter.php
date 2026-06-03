@@ -73,7 +73,8 @@ use function sprintf;
 #[ORM\DiscriminatorMap([0 => CategoryParameter::class, 1 => CurrencyParameter::class, 2 => ProjectParameter::class,
     3 => FootprintParameter::class, 4 => GroupParameter::class, 5 => ManufacturerParameter::class,
     6 => MeasurementUnitParameter::class, 7 => PartParameter::class, 8 => StorageLocationParameter::class,
-    9 => SupplierParameter::class, 10 => AttachmentTypeParameter::class])]
+    9 => SupplierParameter::class, 10 => AttachmentTypeParameter::class,
+    12 => PartCustomStateParameter::class])]
 #[ORM\Table('parameters')]
 #[ORM\Index(columns: ['name'], name: 'parameter_name_idx')]
 #[ORM\Index(columns: ['param_group'], name: 'parameter_group_idx')]
@@ -105,7 +106,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
         "AttachmentType" => AttachmentTypeParameter::class, "Category" => CategoryParameter::class, "Currency" => CurrencyParameter::class,
         "Project" => ProjectParameter::class, "Footprint" => FootprintParameter::class, "Group" => GroupParameter::class,
         "Manufacturer" => ManufacturerParameter::class, "MeasurementUnit" => MeasurementUnitParameter::class,
-        "StorageLocation" => StorageLocationParameter::class, "Supplier" => SupplierParameter::class];
+        "StorageLocation" => StorageLocationParameter::class, "Supplier" => SupplierParameter::class, "PartCustomState" => PartCustomStateParameter::class];
 
     /**
      * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
@@ -123,7 +124,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     /**
      * @var float|null the guaranteed minimum value of this property
      */
-    #[Assert\Type(['float', null])]
+    #[Assert\Type(['float', 'null'])]
     #[Assert\LessThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.min_lesser_typical')]
     #[Assert\LessThan(propertyPath: 'value_max', message: 'parameters.validator.min_lesser_max')]
     #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
@@ -133,7 +134,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     /**
      * @var float|null the typical value of this property
      */
-    #[Assert\Type([null, 'float'])]
+    #[Assert\Type(['null', 'float'])]
     #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
     protected ?float $value_typical = null;
@@ -141,7 +142,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     /**
      * @var float|null the maximum value of this property
      */
-    #[Assert\Type(['float', null])]
+    #[Assert\Type(['float', 'null'])]
     #[Assert\GreaterThanOrEqual(propertyPath: 'value_typical', message: 'parameters.validator.max_greater_typical')]
     #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::FLOAT, nullable: true)]
@@ -170,6 +171,13 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     #[ORM\Column(name: 'param_group', type: Types::STRING)]
     #[Assert\Length(max: 255)]
     protected string $group = '';
+
+    /**
+     * @var bool|null Whether this parameter should be exported as a field in the EDA HTTP library API. Null means use system default.
+     */
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true, options: ['default' => null])]
+    protected ?bool $eda_visibility = null;
 
     /**
      * Mapping is done in subclasses.
@@ -460,7 +468,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
 
         return $str;
     }
-    
+
     /**
      * Returns the class of the element that is allowed to be associated with this attachment.
      * @return string
@@ -468,6 +476,21 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     public function getElementClass(): string
     {
         return static::ALLOWED_ELEMENT_CLASS;
+    }
+
+    public function isEdaVisibility(): ?bool
+    {
+        return $this->eda_visibility;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setEdaVisibility(?bool $eda_visibility): self
+    {
+        $this->eda_visibility = $eda_visibility;
+
+        return $this;
     }
 
     public function getComparableFields(): array

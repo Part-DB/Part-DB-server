@@ -125,3 +125,25 @@ Classes for Datatables export
 .export-helper{
     display: none;
 }
+
+/**********************************************************
+* Table row highlighting tools
+***********************************************************/
+
+.row-highlight {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.20); /* Adds depth */
+    position: relative;
+    z-index: 1; /* Ensures the shadow overlaps other rows */
+    border-left: 5px solid var(--bs-primary); /* Adds a vertical accent bar */
+}
+
+@keyframes pulse-highlight {
+    0% { outline: 2px solid transparent; }
+    50% { outline: 2px solid var(--bs-primary); }
+    100% { outline: 2px solid transparent; }
+}
+
+.row-pulse {
+    animation: pulse-highlight 1s ease-in-out;
+    animation-iteration-count: 3;
+}

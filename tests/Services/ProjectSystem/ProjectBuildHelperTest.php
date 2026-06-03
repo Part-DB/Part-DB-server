@@ -26,13 +26,15 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use App\Entity\PriceInformations\Orderdetail;
+use App\Entity\PriceInformations\Pricedetail;
 use App\Services\ProjectSystem\ProjectBuildHelper;
+use Brick\Math\BigDecimal;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ProjectBuildHelperTest extends WebTestCase
+final class ProjectBuildHelperTest extends WebTestCase
 {
-    /** @var ProjectBuildHelper */
-    protected $service;
+    protected ProjectBuildHelper $service;
 
     protected function setUp(): void
     {
@@ -130,6 +132,306 @@ class ProjectBuildHelperTest extends WebTestCase
         $project->addBomEntry($bom_entry1);
 
         $this->assertSame('∞', $this->service->getMaximumBuildableCountAsString($project));
+    }
 
+    // --- Build price tests ---
+
+    private function makePartWithPrice(float $pricePerPiece, float $minQty = 1.0): Part
+    {
+        $part = new Part();
+        $orderdetail = new Orderdetail();
+        $pricedetail = (new Pricedetail())
+            ->setMinDiscountQuantity($minQty)
+            ->setPrice(BigDecimal::of((string) $pricePerPiece));
+        $orderdetail->addPricedetail($pricedetail);
+        $part->addOrderdetail($orderdetail);
+        return $part;
+    }
+
+    public function testCalculateTotalBuildPriceEmptyProject(): void
+    {
+        $project = new Project();
+        $this->assertNull($this->service->calculateTotalBuildPrice($project));
+    }
+
+    public function testCalculateTotalBuildPriceNoPricingData(): void
+    {
+        $project = new Project();
+        // Part with no orderdetails — no pricing
+        $entry = (new ProjectBOMEntry())->setPart(new Part())->setQuantity(2);
+        $project->addBomEntry($entry);
+
+        $this->assertNull($this->service->calculateTotalBuildPrice($project));
+    }
+
+    public function testCalculateTotalBuildPriceNonPartEntry(): void
+    {
+        $project = new Project();
+        $entry = new ProjectBOMEntry();
+        $entry->setName('Custom wire');
+        $entry->setQuantity(3);
+        $entry->setPrice(BigDecimal::of('2.00'));
+        $project->addBomEntry($entry);
+
+        // 3 × 2.00 = 6.00 for 1 build
+        $result = $this->service->calculateTotalBuildPrice($project, 1);
+        $this->assertNotNull($result);
+        $this->assertTrue(BigDecimal::of('6.00')->isEqualTo($result));
+    }
+
+    public function testCalculateTotalBuildPriceNonPartEntryMultipleBuilds(): void
+    {
+        $project = new Project();
+        $entry = new ProjectBOMEntry();
+        $entry->setName('Custom wire');
+        $entry->setQuantity(3);
+        $entry->setPrice(BigDecimal::of('2.00'));
+        $project->addBomEntry($entry);
+
+        // 3 × 2.00 × 5 = 30.00 for 5 builds
+        $result = $this->service->calculateTotalBuildPrice($project, 5);
+        $this->assertNotNull($result);
+        $this->assertTrue(BigDecimal::of('30.00')->isEqualTo($result));
+    }
+
+    public function testCalculateTotalBuildPriceWithPart(): void
+    {
+        $project = new Project();
+        $entry = new ProjectBOMEntry();
+        $entry->setPart($this->makePartWithPrice(1.50));
+        $entry->setQuantity(4);
+        $project->addBomEntry($entry);
+
+        // 4 × 1.50 = 6.00 for 1 build
+        $result = $this->service->calculateTotalBuildPrice($project, 1);
+        $this->assertNotNull($result);
+        $this->assertTrue(BigDecimal::of('6.00')->isEqualTo($result));
+    }
+
+    public function testCalculateUnitBuildPriceEqualsTotal(): void
+    {
+        $project = new Project();
+        $entry = new ProjectBOMEntry();
+        $entry->setName('Screw');
+        $entry->setQuantity(10);
+        $entry->setPrice(BigDecimal::of('0.10'));
+        $project->addBomEntry($entry);
+
+        // unit = 10 × 0.10 = 1.00; total for 3 builds = 3.00
+        $unit = $this->service->calculateUnitBuildPrice($project, 3);
+        $total = $this->service->calculateTotalBuildPrice($project, 3);
+        $this->assertNotNull($unit);
+        $this->assertNotNull($total);
+        $this->assertTrue($total->isEqualTo($unit->multipliedBy(3)));
+    }
+
+    public function testRoundedTotalBuildPriceRoundsUp(): void
+    {
+        $project = new Project();
+        $entry = new ProjectBOMEntry();
+        $entry->setName('Tiny part');
+        $entry->setQuantity(1);
+        $entry->setPrice(BigDecimal::of('0.001'));
+        $project->addBomEntry($entry);
+
+        // 0.001 rounded up to 2dp = 0.01
+        $result = $this->service->roundedTotalBuildPrice($project, 1);
+        $this->assertNotNull($result);
+        $this->assertTrue(BigDecimal::of('0.01')->isEqualTo($result));
+    }
+
+    // --- unknown-instock lots are excluded from buildable count ---
+
+    public function testGetMaximumBuildableCountForBOMEntryExcludesUnknownInstockLots(): void
+    {
+        $part = new Part();
+        $lot = new PartLot();
+        $lot->setAmount(100);
+        $lot->setInstockUnknown(true); // this lot should be ignored
+        $part->addPartLot($lot);
+
+        $entry = (new ProjectBOMEntry())->setPart($part)->setQuantity(10);
+
+        // All stock is in an unknown-instock lot → effective amount = 0 → 0 builds
+        $this->assertSame(0, $this->service->getMaximumBuildableCountForBOMEntry($entry));
+    }
+
+    public function testGetMaximumBuildableCountMixedKnownAndUnknownLots(): void
+    {
+        $part = new Part();
+
+        $knownLot = new PartLot();
+        $knownLot->setAmount(30);
+
+        $unknownLot = new PartLot();
+        $unknownLot->setAmount(999);
+        $unknownLot->setInstockUnknown(true);
+
+        $part->addPartLot($knownLot);
+        $part->addPartLot($unknownLot);
+
+        $entry = (new ProjectBOMEntry())->setPart($part)->setQuantity(10);
+
+        // Only the 30 known parts count → floor(30/10) = 3
+        $this->assertSame(3, $this->service->getMaximumBuildableCountForBOMEntry($entry));
+    }
+
+    // --- project with only non-part BOM entries ---
+
+    public function testGetMaximumBuildableCountOnlyNonPartEntriesReturnsIntMax(): void
+    {
+        $project = new Project();
+        $project->addBomEntry((new ProjectBOMEntry())->setName('Solder')->setQuantity(1));
+        $project->addBomEntry((new ProjectBOMEntry())->setName('Wire')->setQuantity(2));
+
+        // No part entries → nothing constrains the count → PHP_INT_MAX
+        $this->assertSame(PHP_INT_MAX, $this->service->getMaximumBuildableCount($project));
+    }
+
+    public function testGetMaximumBuildableCountAsStringOnlyNonPartEntries(): void
+    {
+        $project = new Project();
+        $project->addBomEntry((new ProjectBOMEntry())->setName('Solder')->setQuantity(1));
+
+        $this->assertSame('∞', $this->service->getMaximumBuildableCountAsString($project));
+    }
+
+    // --- isProjectBuildable ---
+
+    public function testIsProjectBuildable(): void
+    {
+        $project = new Project();
+        $part = new Part();
+        $lot = new PartLot();
+        $lot->setAmount(15);
+        $part->addPartLot($lot);
+        $project->addBomEntry((new ProjectBOMEntry())->setPart($part)->setQuantity(5));
+
+        $this->assertTrue($this->service->isProjectBuildable($project, 3));  // 15/5 = 3 ✓
+        $this->assertFalse($this->service->isProjectBuildable($project, 4)); // 4 > 3 ✗
+    }
+
+    // --- isBOMEntryBuildable ---
+
+    public function testIsBOMEntryBuildable(): void
+    {
+        $part = new Part();
+        $lot = new PartLot();
+        $lot->setAmount(20);
+        $part->addPartLot($lot);
+
+        $entry = (new ProjectBOMEntry())->setPart($part)->setQuantity(10);
+
+        $this->assertTrue($this->service->isBOMEntryBuildable($entry, 2));  // 20/10 = 2 ✓
+        $this->assertFalse($this->service->isBOMEntryBuildable($entry, 3)); // 3 > 2 ✗
+    }
+
+    // --- getNonBuildableProjectBomEntries ---
+
+    public function testGetNonBuildableProjectBomEntriesReturnsShortEntries(): void
+    {
+        $project = new Project();
+
+        $abundantPart = new Part();
+        $lot1 = new PartLot();
+        $lot1->setAmount(100);
+        $abundantPart->addPartLot($lot1);
+        $project->addBomEntry((new ProjectBOMEntry())->setPart($abundantPart)->setQuantity(5));
+
+        $scarcePart = new Part();
+        $lot2 = new PartLot();
+        $lot2->setAmount(3);
+        $scarcePart->addPartLot($lot2);
+        $scarceEntry = (new ProjectBOMEntry())->setPart($scarcePart)->setQuantity(10);
+        $project->addBomEntry($scarceEntry);
+
+        // For 1 build: abundantPart OK (100 >= 5), scarcePart not (3 < 10)
+        $nonBuildable = $this->service->getNonBuildableProjectBomEntries($project, 1);
+        $this->assertCount(1, $nonBuildable);
+        $this->assertSame($scarceEntry, $nonBuildable[0]);
+    }
+
+    public function testGetNonBuildableProjectBomEntriesSkipsNonPartEntries(): void
+    {
+        $project = new Project();
+        $project->addBomEntry((new ProjectBOMEntry())->setName('Wire')->setQuantity(5));
+
+        // Non-part entries are ignored → no non-buildable entries
+        $this->assertCount(0, $this->service->getNonBuildableProjectBomEntries($project, 1));
+    }
+
+    public function testGetNonBuildableProjectBomEntriesThrowsOnZeroBuilds(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->service->getNonBuildableProjectBomEntries(new Project(), 0);
+    }
+
+    public function testCalculateTotalBuildPriceMixedEntries(): void
+    {
+        $project = new Project();
+
+        // Part entry: 2 × 3.00 = 6.00
+        $partEntry = new ProjectBOMEntry();
+        $partEntry->setPart($this->makePartWithPrice(3.00));
+        $partEntry->setQuantity(2);
+        $project->addBomEntry($partEntry);
+
+        // Non-part entry with price: 5 × 1.00 = 5.00
+        $nonPartEntry = new ProjectBOMEntry();
+        $nonPartEntry->setName('Solder');
+        $nonPartEntry->setQuantity(5);
+        $nonPartEntry->setPrice(BigDecimal::of('1.00'));
+        $project->addBomEntry($nonPartEntry);
+
+        // Total = 11.00
+        $result = $this->service->calculateTotalBuildPrice($project, 1);
+        $this->assertNotNull($result);
+        $this->assertTrue(BigDecimal::of('11.00')->isEqualTo($result));
+    }
+
+    public function testGetEntryUnitPriceReturnsZeroForNoPricingData(): void
+    {
+        $entry = new ProjectBOMEntry();
+        $entry->setPart(new Part()); // part with no orderdetails
+        $entry->setQuantity(5);
+
+        $result = $this->service->getEntryUnitPrice($entry);
+        $this->assertTrue(BigDecimal::zero()->isEqualTo($result));
+    }
+
+    public function testGetEntryUnitPriceNonPartEntry(): void
+    {
+        $entry = new ProjectBOMEntry();
+        $entry->setName('Wire');
+        $entry->setQuantity(2);
+        $entry->setPrice(BigDecimal::of('1.25'));
+
+        $result = $this->service->getEntryUnitPrice($entry);
+        $this->assertTrue(BigDecimal::of('1.25')->isEqualTo($result));
+    }
+
+    public function testGetEntryUnitPriceWithPart(): void
+    {
+        $entry = new ProjectBOMEntry();
+        $entry->setPart($this->makePartWithPrice(2.00));
+        $entry->setQuantity(3);
+
+        $result = $this->service->getEntryUnitPrice($entry);
+        $this->assertTrue(BigDecimal::of('2.00')->isEqualTo($result));
+    }
+
+    public function testCalculateTotalBuildPriceRespectsMinOrderAmount(): void
+    {
+        $project = new Project();
+        // Part has a minimum order quantity of 10 at 0.50/piece
+        $entry = new ProjectBOMEntry();
+        $entry->setPart($this->makePartWithPrice(0.50, 10.0));
+        $entry->setQuantity(1); // BOM only needs 1, but MOQ is 10
+        $project->addBomEntry($entry);
+
+        // Price lookup uses qty=10 (MOQ), returns 0.50. Cost = 1 × 0.50 = 0.50
+        $result = $this->service->calculateTotalBuildPrice($project, 1);
+        $this->assertNotNull($result);
+        $this->assertTrue(BigDecimal::of('0.50')->isEqualTo($result));
     }
 }

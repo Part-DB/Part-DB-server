@@ -25,7 +25,7 @@ namespace App\Tests\Services\InfoProviderSystem\DTOs;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use PHPUnit\Framework\TestCase;
 
-class SearchResultDTOTest extends TestCase
+final class SearchResultDTOTest extends TestCase
 {
     public function testPreviewImageURL(): void
     {

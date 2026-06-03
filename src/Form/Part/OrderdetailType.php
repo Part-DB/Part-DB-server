@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form\Part;
 
+use App\Form\Type\TriStateCheckboxType;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Supplier;
@@ -71,6 +72,16 @@ class OrderdetailType extends AbstractType
         $builder->add('obsolete', CheckboxType::class, [
             'required' => false,
             'label' => 'orderdetails.edit.obsolete',
+        ]);
+
+        $builder->add('pricesIncludesVAT', TriStateCheckboxType::class, [
+            'required' => false,
+            'label' => 'orderdetails.edit.prices_includes_vat',
+        ]);
+
+        $builder->add('eda_visibility', TriStateCheckboxType::class, [
+            'required' => false,
+            'label' => 'orderdetails.edit.eda_visibility',
         ]);
 
         //Add pricedetails after we know the data, so we can set the default currency

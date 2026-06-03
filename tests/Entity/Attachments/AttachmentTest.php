@@ -29,6 +29,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Attachments\CurrencyAttachment;
+use App\Entity\Attachments\PartCustomStateAttachment;
 use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Attachments\GroupAttachment;
@@ -38,6 +39,7 @@ use App\Entity\Attachments\PartAttachment;
 use App\Entity\Attachments\StorageLocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -53,7 +55,7 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
-class AttachmentTest extends TestCase
+final class AttachmentTest extends TestCase
 {
     public function testEmptyState(): void
     {
@@ -86,6 +88,7 @@ class AttachmentTest extends TestCase
         yield [ManufacturerAttachment::class, Manufacturer::class];
         yield [MeasurementUnitAttachment::class, MeasurementUnit::class];
         yield [PartAttachment::class, Part::class];
+        yield [PartCustomStateAttachment::class, PartCustomState::class];
         yield [StorageLocationAttachment::class, StorageLocation::class];
         yield [SupplierAttachment::class, Supplier::class];
         yield [UserAttachment::class, User::class];
@@ -275,5 +278,33 @@ class AttachmentTest extends TestCase
         $reflection_property = $reflection->getProperty($property);
         $reflection_property->setAccessible(true);
         $reflection_property->setValue($object, $value);
+    }
+
+    public function testIsLocalHTMLFile(): void
+    {
+        $attachment = new PartAttachment();
+
+        $attachment->setExternalPath('https://google.de');
+        $this->assertFalse($attachment->isLocalHTMLFile());
+
+        $attachment->setExternalPath('https://google.de/test.html');
+        $this->assertFalse($attachment->isLocalHTMLFile());
+
+        $attachment->setInternalPath('%MEDIA%/test.html');
+        $this->assertTrue($attachment->isLocalHTMLFile());
+
+        $attachment->setInternalPath('%MEDIA%/test.htm');
+        $this->assertTrue($attachment->isLocalHTMLFile());
+
+        $attachment->setInternalPath('%MEDIA%/test.txt');
+        $this->assertFalse($attachment->isLocalHTMLFile());
+
+        //It works however, if the file is stored as txt, and the internal filename ends with .html
+        $attachment->setInternalPath('%MEDIA%/test.txt');
+        $this->setProtectedProperty($attachment, 'original_filename', 'test.html');
+        $this->assertTrue($attachment->isLocalHTMLFile());
+
+        $this->setProtectedProperty($attachment, 'original_filename', 'test.htm');
+        $this->assertTrue($attachment->isLocalHTMLFile());
     }
 }

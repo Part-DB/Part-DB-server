@@ -7,7 +7,7 @@ nav_order: 10
 
 # Nginx
 
-You can also use [nginx](https://www.nginx.com/) as webserver for Part-DB. Setup Part-DB with apache is a bit easier, so
+You can also use [nginx](https://www.nginx.com/) as webserver for Part-DB. Setting up Part-DB with Apache is a bit easier, so
 this is the method shown in the guides. This guide assumes that you already have a working nginx installation with PHP
 configured.
 

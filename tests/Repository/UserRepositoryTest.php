@@ -27,7 +27,7 @@ use App\Repository\UserRepository;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class UserRepositoryTest extends WebTestCase
+final class UserRepositoryTest extends WebTestCase
 {
 
     /**

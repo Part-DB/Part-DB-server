@@ -25,7 +25,7 @@ namespace App\Tests\API\Endpoints;
 
 use App\Tests\API\AuthenticatedApiTestCase;
 
-class ApiTokenEnpointTest extends AuthenticatedApiTestCase
+final class ApiTokenEnpointTest extends AuthenticatedApiTestCase
 {
     public function testGetCurrentToken(): void
     {

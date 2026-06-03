@@ -201,6 +201,10 @@ class BackupCommand extends Command
         $config_dir = $this->project_dir.'/config';
         $zip->addFile($config_dir.'/parameters.yaml', 'config/parameters.yaml');
         $zip->addFile($config_dir.'/banner.md', 'config/banner.md');
+
+        //Add kicad custom footprints and symbols files
+        $zip->addFile($this->project_dir . '/public/kicad/footprints_custom.txt', 'public/kicad/footprints_custom.txt');
+        $zip->addFile($this->project_dir . '/public/kicad/symbols_custom.txt', 'public/kicad/symbols_custom.txt');
     }
 
     protected function backupAttachments(ZipFile $zip, SymfonyStyle $io): void

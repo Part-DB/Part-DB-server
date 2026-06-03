@@ -1,0 +1,46 @@
+{% if add_lot_form is not null %}
+{% form_theme add_lot_form 'form/extended_bootstrap_layout.html.twig' %}
+
+<div class="modal fade" id="add-lot-modal" tabindex="-1" aria-labelledby="add-lot-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            {{ form_start(add_lot_form) }}
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="add-lot-modal-title">
+                    <i class="fas fa-plus-square fa-fw"></i>
+                    {% trans %}part_lot.create{% endtrans %}
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ form_row(add_lot_form.description) }}
+                {{ form_row(add_lot_form.storage_location) }}
+                {{ form_row(add_lot_form.amount) }}
+                {{ form_row(add_lot_form.instock_unknown) }}
+                {{ form_row(add_lot_form.needs_refill) }}
+                {{ form_row(add_lot_form.expiration_date) }}
+
+                <div>
+                    <a class="btn btn-link btn-sm {{ offset_label }}" data-bs-toggle="collapse" href="#add-lot-advanced" role="button" aria-expanded="false" aria-controls="add-lot-advanced">
+                        {% trans %}part_lot.edit.advanced{% endtrans %}
+                    </a>
+                    <div class="collapse" id="add-lot-advanced">
+                        {{ form_row(add_lot_form.comment) }}
+                        {{ form_row(add_lot_form.owner) }}
+                        {{ form_row(add_lot_form.user_barcode) }}
+                        {{ form_row(add_lot_form.last_stocktake_at) }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans %}modal.close{% endtrans %}</button>
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-plus-square fa-fw"></i>
+                    {% trans %}part_lot.create{% endtrans %}
+                </button>
+            </div>
+            {{ form_end(add_lot_form) }}
+        </div>
+    </div>
+</div>
+{% endif %}

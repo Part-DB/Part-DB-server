@@ -48,7 +48,7 @@ use App\Entity\Parts\StorageLocation;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class BarcodeContentGeneratorTest extends KernelTestCase
+final class BarcodeContentGeneratorTest extends KernelTestCase
 {
     private ?object $service = null;
 

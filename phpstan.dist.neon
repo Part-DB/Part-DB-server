@@ -1,3 +1,6 @@
+includes:
+    - phpstan.banned_code.neon
+
 parameters:
 
     level: 5
@@ -56,8 +59,20 @@ parameters:
         - '#expects .*PartParameter, .*AbstractParameter given.#'
         - '#Part::getParameters\(\) should return .*AbstractParameter#'
 
+        # Fix some weird issue with how covariance with collections is solved
+        - '#Method App\\Entity\\Base\\AbstractStructuralDBElement::getParameters\(\) should return Doctrine\\Common\\Collections\\Collection<int, App\\Entity\\Parameters\\AbstractParameter> but returns#'
+
         # Ignore doctrine type mapping mismatch
         - '#Property .* type mapping mismatch: property can contain .* but database expects .*#'
 
         # Ignore error of unused WithPermPresetsTrait, as it is used in the migrations which are not analyzed by Phpstan
         - '#Trait App\\Migration\\WithPermPresetsTrait is used zero times and is not analysed#'
+        -
+            message: '#Should not use function "shell_exec"#'
+            path: src/Services/System/UpdateExecutor.php
+
+        - message: '#Access to an undefined property Brick\\Schema\\Interfaces\\#'
+          path: src/Services/InfoProviderSystem/Providers/GenericWebProvider.php
+
+        -
+            identifier: nullCoalesce.property

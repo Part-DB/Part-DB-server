@@ -170,7 +170,7 @@ class PricedetailHelper
             return null;
         }
 
-        return $avg->dividedBy($count, Pricedetail::PRICE_PRECISION, RoundingMode::HALF_UP);
+        return $avg->dividedBy($count, Pricedetail::PRICE_PRECISION, RoundingMode::HalfUp);
     }
 
     /**
@@ -213,6 +213,6 @@ class PricedetailHelper
             $val_target = $val_base->multipliedBy($targetCurrency->getInverseExchangeRate());
         }
 
-        return $val_target->toScale(Pricedetail::PRICE_PRECISION, RoundingMode::HALF_UP);
+        return $val_target->toScale(Pricedetail::PRICE_PRECISION, RoundingMode::HalfUp);
     }
 }

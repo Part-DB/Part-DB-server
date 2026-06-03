@@ -26,7 +26,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\Misc\FAIconGenerator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class FAIconGeneratorTest extends WebTestCase
+final class FAIconGeneratorTest extends WebTestCase
 {
     /**
      * @var FAIconGenerator

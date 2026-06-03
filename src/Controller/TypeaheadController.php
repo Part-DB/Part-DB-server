@@ -22,37 +22,43 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Parameters\AbstractParameter;
-use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Attachments\Attachment;
-use App\Entity\Parts\Category;
-use App\Entity\Parts\Footprint;
+use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\AttachmentTypeParameter;
 use App\Entity\Parameters\CategoryParameter;
-use App\Entity\Parameters\ProjectParameter;
 use App\Entity\Parameters\FootprintParameter;
 use App\Entity\Parameters\GroupParameter;
 use App\Entity\Parameters\ManufacturerParameter;
 use App\Entity\Parameters\MeasurementUnitParameter;
 use App\Entity\Parameters\PartParameter;
+use App\Entity\Parameters\ProjectParameter;
 use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\Parameters\SupplierParameter;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Currency;
 use App\Repository\ParameterRepository;
+use App\Services\AI\AIPlatformRegistry;
+use App\Services\AI\AIPlatforms;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\Tools\TagFinder;
+use App\Settings\MiscSettings\IpnSuggestSettings;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\AI\Platform\Capability;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 /**
  * In this controller the endpoints for the typeaheads are collected.
@@ -60,14 +66,20 @@ use Symfony\Component\Serializer\Serializer;
 #[Route(path: '/typeahead')]
 class TypeaheadController extends AbstractController
 {
-    public function __construct(protected AttachmentURLGenerator $urlGenerator, protected Packages $assets)
-    {
+    public function __construct(
+        protected AttachmentURLGenerator $urlGenerator,
+        protected Packages $assets,
+        protected IpnSuggestSettings $ipnSuggestSettings,
+    ) {
     }
 
     #[Route(path: '/builtInResources/search', name: 'typeahead_builtInRessources')]
     public function builtInResources(Request $request, BuiltinAttachmentsFinder $finder): JsonResponse
     {
-        $query = $request->get('query');
+        //Ensure that the user can access Part-DB at all
+        $this->denyAccessUnlessGranted('HAS_ACCESS_PERMISSIONS');
+
+        $query = $request->query->getString('query');
         $array = $finder->find($query);
 
         $result = [];
@@ -114,9 +126,12 @@ class TypeaheadController extends AbstractController
     }
 
     #[Route(path: '/parts/search/{query}', name: 'typeahead_parts')]
-    public function parts(EntityManagerInterface $entityManager, PartPreviewGenerator $previewGenerator,
-    AttachmentURLGenerator $attachmentURLGenerator, string $query = ""): JsonResponse
-    {
+    public function parts(
+        EntityManagerInterface $entityManager,
+        PartPreviewGenerator $previewGenerator,
+        AttachmentURLGenerator $attachmentURLGenerator,
+        string $query = ""
+    ): JsonResponse {
         $this->denyAccessUnlessGranted('@parts.read');
 
         $repo = $entityManager->getRepository(Part::class);
@@ -127,7 +142,7 @@ class TypeaheadController extends AbstractController
         foreach ($parts as $part) {
             //Determine the picture to show:
             $preview_attachment = $previewGenerator->getTablePreviewAttachment($part);
-            if($preview_attachment instanceof Attachment) {
+            if ($preview_attachment instanceof Attachment) {
                 $preview_url = $attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_sm');
             } else {
                 $preview_url = '';
@@ -141,7 +156,7 @@ class TypeaheadController extends AbstractController
                 'footprint' => $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getName() : '',
                 'description' => mb_strimwidth($part->getDescription(), 0, 127, '...'),
                 'image' => $preview_url,
-                ];
+            ];
         }
 
         return new JsonResponse($data);
@@ -182,5 +197,66 @@ class TypeaheadController extends AbstractController
         $data = $serializer->serialize($array, 'json');
 
         return new JsonResponse($data, Response::HTTP_OK, [], true);
+    }
+
+    #[Route(path: '/parts/ipn-suggestions', name: 'ipn_suggestions', methods: ['GET'])]
+    public function ipnSuggestions(
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): JsonResponse {
+        $partId = $request->query->get('partId');
+        if ($partId === '0' || $partId === 'undefined' || $partId === 'null') {
+            $partId = null;
+        }
+        $categoryId = $request->query->getInt('categoryId');
+        $description = base64_decode($request->query->getString('description'), true);
+
+        /** @var Part $part */
+        $part = $partId !== null ? $entityManager->getRepository(Part::class)->find($partId) : new Part();
+        /** @var Category|null $category */
+        $category = $entityManager->getRepository(Category::class)->find($categoryId);
+
+        //Ensure the user has access to both the part and the category
+        $this->denyAccessUnlessGranted('read', $part);
+        if ($category !== null) {
+            $this->denyAccessUnlessGranted('read', $category);
+        }
+
+        $clonedPart = clone $part;
+        $clonedPart->setCategory($category);
+
+
+        $partRepository = $entityManager->getRepository(Part::class);
+        $ipnSuggestions = $partRepository->autoCompleteIpn($clonedPart, $description,
+            $this->ipnSuggestSettings->suggestPartDigits);
+
+        return new JsonResponse($ipnSuggestions);
+    }
+
+    #[Route(path: '/ai/{platform}/models', name: 'typeahead_ai_models', requirements: ['platform' => '.+'])]
+    public function aiModels(
+        AIPlatforms $platform,
+        Request $request,
+        AIPlatformRegistry $platformRegistry,
+        CacheInterface $cache,
+    ): JsonResponse {
+        $this->denyAccessUnlessGranted('@config.change_system_settings');
+
+        $capability_filter = $request->query->getEnum('capability', Capability::class);
+
+        $models = $cache->get('ai_models_'.$platform->value.'_'.($capability_filter->value ?? 'all'),
+            function (ItemInterface $item) use ($platformRegistry, $platform, $capability_filter) {
+                $item->expiresAfter(3600); //Cache for 1 hour
+                if ($capability_filter === null) {
+                    return $platformRegistry->getPlatform($platform)->getModelCatalog()->getModels();
+                }
+
+                //Otherwise filter the models by the capability
+                return array_filter($platformRegistry->getPlatform($platform)->getModelCatalog()->getModels(),
+                    static fn(array $model) => in_array($capability_filter, $model['capabilities'], true)
+                );
+            });
+
+        return new JsonResponse($models);
     }
 }

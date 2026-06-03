@@ -58,6 +58,12 @@
     object-fit: contain;
 }
 
+@media (max-width: 768px) {
+    .part-info-image {
+        max-height: 100px;
+    }
+}
+
 .object-fit-cover {
     object-fit: cover;
 }

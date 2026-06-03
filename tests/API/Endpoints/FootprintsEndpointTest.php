@@ -25,7 +25,7 @@ namespace App\Tests\API\Endpoints;
 
 use App\Tests\API\Endpoints\CrudEndpointTestCase;
 
-class FootprintsEndpointTest extends CrudEndpointTestCase
+final class FootprintsEndpointTest extends CrudEndpointTestCase
 {
 
     protected function getBasePath(): string

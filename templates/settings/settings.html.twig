@@ -36,19 +36,28 @@
                     {% for section_widget in tab_widget %}
                         {% set settings_object = section_widget.vars.value %}
 
-                        {% if section_widget.vars.compound ?? false %}
+                        {% if section_widget.vars.embedded_settings_metadata is defined %} {# Check if we have nested embedded settings or not #}
                             <fieldset>
-                                <legend class="offset-3">
+                                <legend class="{{ offset_label }}">
                                     <i class="fa-solid {{ settings_icon(settings_object)|default('fa-sliders') }} fa-fw"></i>
                                     {{ (section_widget.vars.label ?? section_widget.vars.name|humanize)|trans }}
                                 </legend>
                                 <div class="row">
-                                    <div class="offset-sm-3 col mb-3 ps-2">
+                                    <div class="{{ offset_label }} col mb-3 ps-2">
                                         <b>{{ form_help(section_widget) }}</b>
                                         {{ form_errors(section_widget) }}
                                     </div>
                                 </div>
                                 {{ form_widget(section_widget) }}
+                                {% if section_widget.vars.name == 'kicadEDA' %}
+                                    <div class="row">
+                                        <div class="{{ offset_label }} col mt-2 ps-2">
+                                            <a href="{{ path('settings_kicad_lists') }}" class="btn btn-outline-secondary btn-sm">
+                                                <i class="fa-solid fa-pen-to-square fa-fw"></i> {% trans %}settings.misc.kicad_eda.editor.link{% endtrans %}
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </fieldset>
                             {% if not loop.last %}
                                 <hr class="mx-0 mb-2 mt-2">

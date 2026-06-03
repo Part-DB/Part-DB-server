@@ -31,7 +31,7 @@ use PHPUnit\Framework\TestCase;
  * Test StructuralDBElement entities.
  * Note: Because StructuralDBElement is abstract we use AttachmentType here as a placeholder.
  */
-class AbstractStructuralDBElementTest extends TestCase
+final class AbstractStructuralDBElementTest extends TestCase
 {
     protected AttachmentType $root;
     protected AttachmentType $child1;

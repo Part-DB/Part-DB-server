@@ -1,5 +1,6 @@
-import { localeFallbacks } from '../var/translations/configuration';
-import { trans, getLocale, setLocale, setLocaleFallbacks } from '@symfony/ux-translator';
+import { createTranslator } from '@symfony/ux-translator';
+import { messages, localeFallbacks } from '../var/translations/index.js';
+
 /*
  * This file is part of the Symfony UX Translator package.
  *
@@ -9,8 +10,12 @@ import { trans, getLocale, setLocale, setLocaleFallbacks } from '@symfony/ux-tra
  * If you use TypeScript, you can rename this file to "translator.ts" to take advantage of types checking.
  */
 
-setLocaleFallbacks(localeFallbacks);
+const translator = createTranslator({
+    messages,
+    localeFallbacks,
+});
 
-export { trans };
-
-export * from '../var/translations';
+// Wrapper function with default domain set to 'frontend'
+export const trans = (id, parameters = {}, domain = 'frontend', locale = null) => {
+    return translator.trans(id, parameters, domain, locale);
+};

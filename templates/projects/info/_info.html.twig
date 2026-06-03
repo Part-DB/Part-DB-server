@@ -55,6 +55,32 @@
                 </span>
             </h6>
         </div>
+        {% set n = number_of_builds ?? 1 %}
+        {% set total_build_price = buildHelper.roundedTotalBuildPrice(project, n, app.user.currency ?? null) %}
+        {% set unit_build_price = buildHelper.roundedUnitBuildPrice(project, n, app.user.currency ?? null) %}
+        {% if total_build_price is not null %}
+            <div class="mt-1">
+                <h6>
+                    <span class="badge badge-primary bg-success">
+                        <i class="fa-solid fa-money-bill-wave fa-fw"></i>
+                        {% trans %}project.info.total_build_price{% endtrans %}:
+                        {{ total_build_price | format_money(app.user.currency ?? null, 2) }}
+                        {% if n > 1 and unit_build_price is not null %}
+                            <span class="ms-1">
+                                ({% trans %}project.info.per_unit_price{% endtrans %}: {{ unit_build_price | format_money(app.user.currency ?? null, 2) }})
+                            </span>
+                        {% endif %}
+                    </span>
+                </h6>
+            </div>
+        {% endif %}
+        <form method="get" action="{{ path('project_info', {'id': project.id}) }}" class="mt-2">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text">{% trans %}project.builds.number_of_builds{% endtrans %}</span>
+                <input type="number" min="1" class="form-control" name="n" required value="{{ n }}">
+                <button class="btn btn-outline-secondary" type="submit">{% trans %}project.build.btn_build{% endtrans %}</button>
+            </div>
+        </form>
         {% if project.children is not empty %}
             <div class="mt-1">
                 <h6>
@@ -69,9 +95,9 @@
     </div>
 
     {% if project.comment is not empty %}
-        <p>
-        <h5>{% trans %}comment.label{% endtrans %}:</h5>
-        {{ project.comment|format_markdown }}
-        </p>
+        <div class="col-12 mt-2">
+            <h5>{% trans %}comment.label{% endtrans %}:</h5>
+            {{ project.comment|format_markdown }}
+        </div>
     {% endif %}
 </div>

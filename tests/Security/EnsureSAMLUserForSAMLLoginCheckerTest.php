@@ -30,7 +30,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 
-class EnsureSAMLUserForSAMLLoginCheckerTest extends WebTestCase
+final class EnsureSAMLUserForSAMLLoginCheckerTest extends WebTestCase
 {
     /** @var EnsureSAMLUserForSAMLLoginChecker */
     protected $service;

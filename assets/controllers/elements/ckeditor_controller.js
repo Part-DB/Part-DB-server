@@ -29,7 +29,7 @@ import "ckeditor5/ckeditor5.css";;
 import "../../css/components/ckeditor.css";
 
 const translationContext = require.context(
-    'ckeditor5/translations',
+    'ckeditor5-translations', //Alias defined in webpack.config.js
     false,
     //Only load the translation files we will really need
     /(de|it|fr|ru|ja|cs|da|zh|pl|hu)\.js$/
@@ -91,6 +91,9 @@ export default class extends Controller {
             config.translations = [window.CKEDITOR_TRANSLATIONS, translations];
         }
 
+        //Apply the default value of the source element as data attribute, so that dirty-form-controller can detect changes
+        this.element.dataset.defaultValue = this.element.defaultValue;
+
         const watchdog = new EditorWatchdog();
         watchdog.setCreator((elementOrData, editorConfig) => {
             return EDITOR_TYPE.create(elementOrData, editorConfig)
@@ -104,6 +107,26 @@ export default class extends Controller {
                     const new_classes = this.element.dataset.ckClass;
                     if (editor_div && new_classes) {
                         editor_div.classList.add(...new_classes.split(","));
+                    }
+
+                    // Automatic synchronization of source input
+                    editor.model.document.on("change:data", () => {
+                        editor.updateSourceElement();
+
+                        // Dispatch the input event for further treatment
+                        this.element.dispatchEvent(new Event("input", { bubbles: true }));
+                    });
+
+                    //Set an reset listener to update the editor if the source element is reset (e.g. by a reset button)
+                    if (this.element.form && this.element.name) {
+                        this.element.form.addEventListener("reset", () => {
+                            if (editor.isReadOnly) {
+                                return;
+                            }
+                            if (this.element.dataset.defaultValue !== undefined) {
+                                editor.setData(this.element.dataset.defaultValue);
+                            }
+                        });
                     }
 
                     //This return is important! Otherwise we get mysterious errors in the console

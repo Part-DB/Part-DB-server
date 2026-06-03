@@ -27,7 +27,7 @@ use App\Security\UserChecker;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 
-class UserCheckerTest extends WebTestCase
+final class UserCheckerTest extends WebTestCase
 {
     protected $service;
 

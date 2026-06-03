@@ -29,6 +29,9 @@ namespace App\Services\InfoProviderSystem\DTOs;
  */
 readonly class PurchaseInfoDTO
 {
+    /** @var bool|null If the prices contain VAT or not. Null if state is unknown. */
+    public ?bool $prices_include_vat;
+
     public function __construct(
         public string $distributor_name,
         public string $order_number,
@@ -36,6 +39,7 @@ readonly class PurchaseInfoDTO
         public array $prices,
         /** @var string|null An url to the product page of the vendor */
         public ?string $product_url = null,
+        ?bool $prices_include_vat = null,
     )
     {
         //Ensure that the prices are PriceDTO instances
@@ -43,6 +47,18 @@ readonly class PurchaseInfoDTO
             if (!$price instanceof PriceDTO) {
                 throw new \InvalidArgumentException('The prices array must only contain PriceDTO instances');
             }
+        }
+
+        //If no prices_include_vat information is given, try to deduct it from the prices
+        if ($prices_include_vat === null) {
+            $vatValues = array_unique(array_map(fn(PriceDTO $price) => $price->includes_tax, $this->prices));
+            if (count($vatValues) === 1) {
+                $this->prices_include_vat = $vatValues[0]; //Use the value of the prices if they are all the same
+            } else {
+                $this->prices_include_vat = null; //If there are different values for the prices, we cannot determine if the prices include VAT or not
+            }
+        } else {
+            $this->prices_include_vat = $prices_include_vat;
         }
     }
 }

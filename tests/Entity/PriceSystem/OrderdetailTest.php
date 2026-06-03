@@ -27,7 +27,7 @@ use App\Entity\PriceInformations\Pricedetail;
 use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 
-class OrderdetailTest extends TestCase
+final class OrderdetailTest extends TestCase
 {
     public function testAddRemovePricdetails(): void
     {
@@ -60,5 +60,19 @@ class OrderdetailTest extends TestCase
         $this->assertSame($price1, $orderdetail->findPriceForQty(1.5));
         $this->assertSame($price5, $orderdetail->findPriceForQty(5.3));
         $this->assertSame($price5, $orderdetail->findPriceForQty(10000));
+    }
+
+    public function testGetSetPricesIncludesVAT(): void
+    {
+        $orderdetail = new Orderdetail();
+
+        //By default, the pricesIncludesVAT property should be null for empty orderdetails
+        $this->assertNull($orderdetail->getPricesIncludesVAT());
+
+        $orderdetail->setPricesIncludesVAT(true);
+        $this->assertTrue($orderdetail->getPricesIncludesVAT());
+
+        $orderdetail->setPricesIncludesVAT(false);
+        $this->assertFalse($orderdetail->getPricesIncludesVAT());
     }
 }

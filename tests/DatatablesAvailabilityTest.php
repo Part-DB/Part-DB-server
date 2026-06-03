@@ -44,7 +44,7 @@ namespace App\Tests;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DatatablesAvailabilityTest extends WebTestCase
+final class DatatablesAvailabilityTest extends WebTestCase
 {
     #[DataProvider('urlProvider')]
     public function testDataTable(string $url, ?array $ordering = null): void

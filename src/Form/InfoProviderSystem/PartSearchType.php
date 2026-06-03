@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Form\InfoProviderSystem;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -38,6 +39,15 @@ class PartSearchType extends AbstractType
         $builder->add('providers', ProviderSelectType::class, [
             'label' => 'info_providers.search.providers',
             'help' => 'info_providers.search.providers.help',
+        ]);
+
+        $builder->add('no_cache_search', CheckboxType::class, [
+            'label' => 'info_providers.no_cache_search',
+            'required' => false,
+        ]);
+        $builder->add('no_cache_details', CheckboxType::class, [
+            'label' => 'info_providers.no_cache_details',
+            'required' => false,
         ]);
 
         $builder->add('submit', SubmitType::class, [

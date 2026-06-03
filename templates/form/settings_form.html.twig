@@ -3,7 +3,7 @@
 {% block form_label %}
     {# If parameter_envvar exists on form then show it as tooltip #}
     {% if parameter_envvar is defined and parameter_envvar is not null %}
-        {%- set label_attr = label_attr|merge({title: 'settings.tooltip.overrideable_by_env'|trans(arguments = {'%env%': (parameter_envvar)|trim})}) -%}
+        {%- set label_attr = label_attr|merge({title: t('settings.tooltip.overrideable_by_env', {'%env%': (parameter_envvar)|trim})}) -%}
     {% endif %}
     {{- parent() -}}
 {% endblock %}
@@ -11,7 +11,7 @@
 {% block checkbox_radio_label %}
     {# If parameter_envvar exists on form then show it as tooltip #}
     {% if parameter_envvar is defined and parameter_envvar is not null %}
-        {%- set label_attr = label_attr|merge({title: 'settings.tooltip.overrideable_by_env'|trans(arguments = {'%env%': (parameter_envvar)|trim})}) -%}
+        {%- set label_attr = label_attr|merge({title: t('settings.tooltip.overrideable_by_env', {'%env%': (parameter_envvar)|trim})}) -%}
     {% endif %}
     {{- parent() -}}
 {% endblock %}
@@ -19,7 +19,7 @@
 {% block tristate_label %}
     {# If parameter_envvar exists on form then show it as tooltip #}
     {% if parameter_envvar is defined and parameter_envvar is not null %}
-        {%- set label_attr = label_attr|merge({title: 'settings.tooltip.overrideable_by_env'|trans(arguments = {'%env%': (parameter_envvar)|trim})}) -%}
+        {%- set label_attr = label_attr|merge({title: t('settings.tooltip.overrideable_by_env', {'%env%': (parameter_envvar)|trim})}) -%}
     {% endif %}
     {{- parent() -}}
 {% endblock %}

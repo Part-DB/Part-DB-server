@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace App\Tests\API\Endpoints;
 
-class UsersEndpointTest extends CrudEndpointTestCase
+final class UsersEndpointTest extends CrudEndpointTestCase
 {
 
     protected function getBasePath(): string

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Form\Type\AttachmentTypeType;
 use App\Settings\SystemSettings\AttachmentsSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Attachments\Attachment;
@@ -67,10 +68,10 @@ class AttachmentFormType extends AbstractType
                 'required' => false,
                 'empty_data' => '',
             ])
-            ->add('attachment_type', StructuralEntityType::class, [
+            ->add('attachment_type', AttachmentTypeType::class, [
                 'label' => 'attachment.edit.attachment_type',
-                'class' => AttachmentType::class,
                 'disable_not_selectable' => true,
+                'attachment_filter_class' => $options['data_class'] ?? null,
                 'allow_add' => $this->security->isGranted('@attachment_types.create'),
             ]);
 
@@ -121,9 +122,7 @@ class AttachmentFormType extends AbstractType
             ],
             'constraints' => [
                 //new AllowedFileExtension(),
-                new File([
-                    'maxSize' => $options['max_file_size'],
-                ]),
+                new File(maxSize: $options['max_file_size']),
             ],
         ]);
 

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\DTOs;
 
+use Doctrine\ORM\Exception\ORMException;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\EntityManagerInterface;
 use Traversable;
@@ -176,7 +177,7 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess, \IteratorAggregate
      * @param  array  $data
      * @param  EntityManagerInterface  $entityManager
      * @return BulkSearchResponseDTO
-     * @throws \Doctrine\ORM\Exception\ORMException
+     * @throws ORMException
      */
     public static function fromSerializableRepresentation(array $data, EntityManagerInterface $entityManager): BulkSearchResponseDTO
     {

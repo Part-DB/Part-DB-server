@@ -1,7 +1,7 @@
 {% extends "admin/base_admin.html.twig" %}
 
 {% block card_title %}
-    <i class="fas fa-users fa-fw"></i> {% trans %}group.edit.caption{% endtrans %}
+    <i class="fas fa-users fa-fw"></i> {{ type_label_p(entity) }}
 {% endblock %}
 
 

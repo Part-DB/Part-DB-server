@@ -41,4 +41,7 @@ class BehaviorSettings
 
     #[EmbeddedSettings]
     public ?PartInfoSettings $partInfo = null;
+
+    #[EmbeddedSettings]
+    public ?KeybindingsSettings $keybindings = null;
 }

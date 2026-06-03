@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Settings\AppSettings;
 use Jbtronics\SettingsBundle\Form\SettingsFormFactoryInterface;
@@ -44,12 +45,15 @@ class SettingsController extends AbstractController
     public function systemSettings(Request $request, TagAwareCacheInterface $cache): Response
     {
         $this->denyAccessUnlessGranted('@config.change_system_settings');
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         //Create a clone of the settings object
         $settings = $this->settingsManager->createTemporaryCopy(AppSettings::class);
 
         //Create a form builder for the settings object
-        $builder = $this->settingsFormFactory->createSettingsFormBuilder($settings);
+        $builder = $this->settingsFormFactory->createSettingsFormBuilder($settings, formOptions: [
+            'warn_on_unsaved_changes' => true,
+        ]);
 
         //Add a submit button to the form
         $builder->add('submit', SubmitType::class, ['label' => 'save']);
@@ -64,7 +68,7 @@ class SettingsController extends AbstractController
             $this->settingsManager->save($settings);
 
             //It might be possible, that the tree settings have changed, so clear the cache
-            $cache->invalidateTags(['tree_treeview', 'sidebar_tree_update']);
+            $cache->invalidateTags(['tree_tools', 'tree_treeview', 'sidebar_tree_update', 'synonyms']);
 
             $this->addFlash('success', t('settings.flash.saved'));
         }

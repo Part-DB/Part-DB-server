@@ -26,7 +26,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use App\DataTables\Filters\Constraints\FilterTrait;
 use PHPUnit\Framework\TestCase;
 
-class FilterTraitTest extends TestCase
+final class FilterTraitTest extends TestCase
 {
     use FilterTrait;
 

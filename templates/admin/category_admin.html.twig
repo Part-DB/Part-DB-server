@@ -1,7 +1,7 @@
 {% extends "admin/base_admin.html.twig" %}
 
 {% block card_title %}
-    <i class="fas fa-tags fa-fw"></i> {% trans %}category.labelp{% endtrans %}
+    <i class="fas fa-tags fa-fw"></i> {{ type_label_p(entity) }}
 {% endblock %}
 
 {% block additional_pills %}
@@ -31,6 +31,7 @@
         <hr>
         {{ form_row(form.partname_regex) }}
         {{ form_row(form.partname_hint) }}
+        {{ form_row(form.part_ipn_prefix) }}
         <hr>
         {{ form_row(form.default_description) }}
         {{ form_row(form.default_comment) }}
@@ -39,14 +40,12 @@
     <div class="tab-pane" id="eda">
         {{ form_row(form.eda_info.reference_prefix) }}
 
-        <div class="row">
-            <div class="col-sm-9 offset-sm-3">
-                {{ form_row(form.eda_info.visibility) }}
-            </div>
-        </div>
+
+        {{ form_row(form.eda_info.visibility) }}
+        
 
         <div class="row mb-2">
-            <div class="col-sm-9 offset-sm-3">
+            <div class="{{ col_input }} {{ offset_label }}">
                 {{ form_widget(form.eda_info.exclude_from_bom) }}
                 {{ form_widget(form.eda_info.exclude_from_board) }}
                 {{ form_widget(form.eda_info.exclude_from_sim) }}
@@ -54,7 +53,7 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-9 offset-sm-3">
+            <div class="{{ col_input }} {{ offset_label }}">
                 <h6>{% trans %}eda_info.kicad_section.title{% endtrans %}:</h6>
             </div>
         </div>

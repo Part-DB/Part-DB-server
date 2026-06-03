@@ -20,7 +20,7 @@ Part-DB. Data can also be exported from Part-DB into various formats.
 > individually in the permissions settings.
 
 If you want to import data from PartKeepr you might want to look into the [PartKeepr migration guide]({% link
-upgrade/upgrade_legacy.md %}).
+partkeepr_migration.md %}).
 
 ### Import parts
 
@@ -47,9 +47,9 @@ You can upload the file that should be imported here and choose various options 
   the import file (or the export will error, if no category is specified).
 * **Mark all imported parts as "Needs review"**: If this is selected, all imported parts will be marked as "Needs
   review" after the import. This can be useful if you want to review all imported parts before using them.
-* **Create unknown data structures**: If this is selected Part-DB will create new data structures (like categories,
-  manufacturers, etc.) if no data structure(s) with the same name and path already exists. If this is not selected, only
-  existing data structures will be used and if no matching data strucure is found, the imported parts field will be empty.
+* **Create unknown data structures**: If this is selected, Part-DB will create new data structures (like categories,
+  manufacturers, etc.) if no data structure(s) with the same name and path already exist. If this is not selected, only
+  existing data structures will be used, and if no matching data structure is found, the imported parts field will be empty.
 * **Path delimiter**: Part-DB allows you to create/select nested data structures (like categories, manufacturers, etc.)
   by using a path (e.g. `Category 1->Category 1.1`, which will select/create the `Category 1.1` whose parent
   is `Category 1`). This path is separated by the path delimiter. If you want to use a different path delimiter than the

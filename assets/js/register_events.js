@@ -27,7 +27,12 @@ class RegisterEventHelper {
     constructor() {
         this.registerTooltips();
         this.configureDropdowns();
-        this.registerSpecialCharInput();
+        
+        // Only register special character input if enabled in configuration
+        const keybindingsEnabled = document.body.dataset.keybindingsSpecialCharacters !== 'false';
+        if (keybindingsEnabled) {
+            this.registerSpecialCharInput();
+        }
 
         //Initialize ClipboardJS
         this.registerLoadHandler(() => {

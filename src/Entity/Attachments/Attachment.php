@@ -97,7 +97,7 @@ use function in_array;
 #[DiscriminatorMap(typeProperty: '_type', mapping: self::API_DISCRIMINATOR_MAP)]
 abstract class Attachment extends AbstractNamedDBElement
 {
-    private const ORM_DISCRIMINATOR_MAP = ['Part' => PartAttachment::class, 'Device' => ProjectAttachment::class,
+    final public const ORM_DISCRIMINATOR_MAP = ['Part' => PartAttachment::class, 'PartCustomState' => PartCustomStateAttachment::class, 'Device' => ProjectAttachment::class,
         'AttachmentType' => AttachmentTypeAttachment::class,
         'Category' => CategoryAttachment::class, 'Footprint' => FootprintAttachment::class, 'Manufacturer' => ManufacturerAttachment::class,
         'Currency' => CurrencyAttachment::class, 'Group' => GroupAttachment::class, 'MeasurementUnit' => MeasurementUnitAttachment::class,
@@ -107,7 +107,8 @@ abstract class Attachment extends AbstractNamedDBElement
     /*
      * The discriminator map used for API platform. The key should be the same as the api platform short type (the @type JSONLD field).
      */
-    private const API_DISCRIMINATOR_MAP = ["Part" => PartAttachment::class, "Project" => ProjectAttachment::class, "AttachmentType" => AttachmentTypeAttachment::class,
+    private const API_DISCRIMINATOR_MAP = ["Part" => PartAttachment::class, "PartCustomState" => PartCustomStateAttachment::class, "Project" => ProjectAttachment::class,
+        "AttachmentType" => AttachmentTypeAttachment::class,
         "Category" => CategoryAttachment::class, "Footprint" => FootprintAttachment::class, "Manufacturer" => ManufacturerAttachment::class,
         "Currency" => CurrencyAttachment::class, "Group" => GroupAttachment::class, "MeasurementUnit" => MeasurementUnitAttachment::class,
         "StorageLocation" => StorageLocationAttachment::class, "Supplier" => SupplierAttachment::class, "User" => UserAttachment::class, "LabelProfile" => LabelAttachment::class];
@@ -135,7 +136,7 @@ abstract class Attachment extends AbstractNamedDBElement
      * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
      * @phpstan-var class-string<T>
      */
-    protected const ALLOWED_ELEMENT_CLASS = AttachmentContainingDBElement::class;
+    public const ALLOWED_ELEMENT_CLASS = AttachmentContainingDBElement::class;
 
     /**
      * @var AttachmentUpload|null The options used for uploading a file to this attachment or modify it.
@@ -165,9 +166,10 @@ abstract class Attachment extends AbstractNamedDBElement
      * @var string|null The path to the external source if the file is stored externally or was downloaded from an
      * external source. Null if there is no external source.
      */
-    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 2048,  nullable: true)]
     #[Groups(['attachment:read'])]
     #[ApiProperty(example: 'http://example.com/image.jpg')]
+    #[Assert\Length(max: 2048)]
     protected ?string $external_path = null;
 
     /**
@@ -292,6 +294,22 @@ abstract class Attachment extends AbstractNamedDBElement
         $extension = pathinfo($this->getInternalPath(), PATHINFO_EXTENSION);
 
         return in_array(strtolower($extension), static::MODEL_EXTS, true);
+    }
+
+    /**
+     * Returns true if this is a locally stored HTML file, which can be shown by the sandbox viewer.
+     * This is the case if we have an internal path with a html extension.
+     * @return bool
+     */
+    public function isLocalHTMLFile(): bool
+    {
+        if($this->hasInternal()){
+
+            $extension = pathinfo($this->getFilename(), PATHINFO_EXTENSION);
+
+            return in_array(strtolower($extension), ['html', 'htm'], true);
+        }
+        return false;
     }
 
     /**
@@ -550,8 +568,8 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     #[Groups(['attachment:write'])]
     #[SerializedName('url')]
-    #[ApiProperty(description: 'Set the path of the attachment here. 
-    Provide either an external URL, a path to a builtin file (like %FOOTPRINTS%/Active/ICs/IC_DFS.png) or an empty 
+    #[ApiProperty(description: 'Set the path of the attachment here.
+    Provide either an external URL, a path to a builtin file (like %FOOTPRINTS%/Active/ICs/IC_DFS.png) or an empty
     string if the attachment has an internal file associated and you\'d like to reset the external source.
     If you set a new (nonempty) file path any associated internal file will be removed!')]
     public function setURL(?string $url): self

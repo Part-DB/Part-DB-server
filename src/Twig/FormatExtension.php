@@ -29,35 +29,28 @@ use App\Services\Formatters\MarkdownParser;
 use App\Services\Formatters\MoneyFormatter;
 use App\Services\Formatters\SIFormatter;
 use Brick\Math\BigDecimal;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
+use Twig\Attribute\AsTwigFilter;
 
-final class FormatExtension extends AbstractExtension
+final readonly class FormatExtension
 {
-    public function __construct(protected MarkdownParser $markdownParser, protected MoneyFormatter $moneyFormatter, protected SIFormatter $siformatter, protected AmountFormatter $amountFormatter)
+    public function __construct(private MarkdownParser $markdownParser, private MoneyFormatter $moneyFormatter, private SIFormatter $siformatter, private AmountFormatter $amountFormatter)
     {
     }
 
-    public function getFilters(): array
+    /**
+     * Mark the given text as markdown, which will be rendered in the browser
+     */
+    #[AsTwigFilter("format_markdown", isSafe: ['html'], preEscape: 'html')]
+    public function formatMarkdown(string $markdown, bool $inline_mode = false): string
     {
-        return [
-            /* Mark the given text as markdown, which will be rendered in the browser */
-            new TwigFilter('format_markdown', fn(string $markdown, bool $inline_mode = false): string => $this->markdownParser->markForRendering($markdown, $inline_mode), [
-                'pre_escape' => 'html',
-                'is_safe' => ['html'],
-            ]),
-            /* Format the given amount as money, using a given currency */
-            new TwigFilter('format_money', fn($amount, ?Currency $currency = null, int $decimals = 5): string => $this->formatCurrency($amount, $currency, $decimals)),
-            /* Format the given number using SI prefixes and the given unit (string) */
-            new TwigFilter('format_si', fn($value, $unit, $decimals = 2, bool $show_all_digits = false): string => $this->siFormat($value, $unit, $decimals, $show_all_digits)),
-            /** Format the given amount using the given MeasurementUnit */
-            new TwigFilter('format_amount', fn($value, ?MeasurementUnit $unit, array $options = []): string => $this->amountFormat($value, $unit, $options)),
-            /** Format the given number of bytes as human-readable number */
-            new TwigFilter('format_bytes', fn(int $bytes, int $precision = 2): string => $this->formatBytes($bytes, $precision)),
-        ];
+        return $this->markdownParser->markForRendering($markdown, $inline_mode);
     }
 
-    public function formatCurrency($amount, ?Currency $currency = null, int $decimals = 5): string
+    /**
+     * Format the given amount as money, using a given currency
+     */
+    #[AsTwigFilter("format_money")]
+    public function formatMoney(BigDecimal|float|string $amount, ?Currency $currency = null, int $decimals = 5): string
     {
         if ($amount instanceof BigDecimal) {
             $amount = (string) $amount;
@@ -66,19 +59,22 @@ final class FormatExtension extends AbstractExtension
         return $this->moneyFormatter->format($amount, $currency, $decimals);
     }
 
-    public function siFormat($value, $unit, $decimals = 2, bool $show_all_digits = false): string
+    /**
+     * Format the given number using SI prefixes and the given unit (string)
+     */
+    #[AsTwigFilter("format_si")]
+    public function siFormat(float $value, string $unit, int $decimals = 2, bool $show_all_digits = false): string
     {
         return $this->siformatter->format($value, $unit, $decimals);
     }
 
-    public function amountFormat($value, ?MeasurementUnit $unit, array $options = []): string
+    #[AsTwigFilter("format_amount")]
+    public function amountFormat(float|int|string $value, ?MeasurementUnit $unit, array $options = []): string
     {
         return $this->amountFormatter->format($value, $unit, $options);
     }
 
-    /**
-     * @param $bytes
-     */
+    #[AsTwigFilter("format_bytes")]
     public function formatBytes(int $bytes, int $precision = 2): string
     {
         $size = ['B','kB','MB','GB','TB','PB','EB','ZB','YB'];

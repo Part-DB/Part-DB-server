@@ -33,7 +33,7 @@ use App\Settings\InfoProviderSystem\LCSCSettings;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class LCSCProvider implements BatchInfoProviderInterface
+class LCSCProvider implements BatchInfoProviderInterface, URLHandlerInfoProviderInterface
 {
 
     private const ENDPOINT_URL = 'https://wmsc.lcsc.com/ftps/wm';
@@ -349,17 +349,18 @@ class LCSCProvider implements BatchInfoProviderInterface
         return $result;
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         return $this->queryByTerm($keyword, true); // Use lightweight mode for search
     }
 
     /**
      * Batch search multiple keywords asynchronously (like JavaScript Promise.all)
-     * @param array $keywords Array of keywords to search
+     * @param  array  $keywords
+     * @param  array  $options
      * @return array Results indexed by keyword
      */
-    public function searchByKeywordsBatch(array $keywords): array
+    public function searchByKeywordsBatch(array $keywords, array $options = []): array
     {
         if (empty($keywords)) {
             return [];
@@ -396,6 +397,7 @@ class LCSCProvider implements BatchInfoProviderInterface
         // Now collect all results (like .then() in JavaScript)
         foreach ($responses as $keyword => $response) {
             try {
+                $keyword = (string) $keyword;
                 $arr = $response->toArray(); // This waits for the response
                 $results[$keyword] = $this->processSearchResponse($arr, $keyword);
             } catch (\Exception $e) {
@@ -428,7 +430,7 @@ class LCSCProvider implements BatchInfoProviderInterface
         return $result;
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         $tmp = $this->queryByTerm($id, false);
         if (count($tmp) === 0) {
@@ -451,5 +453,22 @@ class LCSCProvider implements BatchInfoProviderInterface
             ProviderCapabilities::PRICE,
             ProviderCapabilities::FOOTPRINT,
         ];
+    }
+
+    public function getHandledDomains(): array
+    {
+        return ['lcsc.com'];
+    }
+
+    public function getIDFromURL(string $url): ?string
+    {
+        //Input example: https://www.lcsc.com/product-detail/C258144.html?s_z=n_BC547
+        //The part between the "C" and the ".html" is the unique ID
+
+        $matches = [];
+        if (preg_match("#/product-detail/(\w+)\.html#", $url, $matches) > 0) {
+            return $matches[1];
+        }
+        return null;
     }
 }

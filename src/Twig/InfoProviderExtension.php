@@ -23,31 +23,25 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
+use Twig\Attribute\AsTwigFunction;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class InfoProviderExtension extends AbstractExtension
+final readonly class InfoProviderExtension
 {
     public function __construct(
-        private readonly ProviderRegistry $providerRegistry
+        private ProviderRegistry $providerRegistry
     ) {}
-
-    public function getFunctions(): array
-    {
-        return [
-            new TwigFunction('info_provider', $this->getInfoProvider(...)),
-            new TwigFunction('info_provider_label', $this->getInfoProviderName(...))
-        ];
-    }
 
     /**
      * Gets the info provider with the given key. Returns null, if the provider does not exist.
      * @param  string  $key
      * @return InfoProviderInterface|null
      */
-    private function getInfoProvider(string $key): ?InfoProviderInterface
+    #[AsTwigFunction(name: 'info_provider')]
+    public function getInfoProvider(string $key): ?InfoProviderInterface
     {
         try {
             return $this->providerRegistry->getProviderByKey($key);
@@ -61,7 +55,8 @@ class InfoProviderExtension extends AbstractExtension
      * @param  string  $key
      * @return string|null
      */
-    private function getInfoProviderName(string $key): ?string
+    #[AsTwigFunction(name: 'info_provider_label')]
+    public function getInfoProviderName(string $key): ?string
     {
         try {
             return $this->providerRegistry->getProviderByKey($key)->getProviderInfo()['name'];

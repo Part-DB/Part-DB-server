@@ -25,7 +25,7 @@ namespace App\Tests\Entity\LogSystem;
 use App\Entity\LogSystem\LogLevel;
 use PHPUnit\Framework\TestCase;
 
-class LogLevelTest extends TestCase
+final class LogLevelTest extends TestCase
 {
 
     public function testToPSR3LevelString(): void

@@ -54,7 +54,7 @@ class EmptyProvider implements InfoProviderInterface
         return true;
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         return [
 
@@ -69,7 +69,7 @@ class EmptyProvider implements InfoProviderInterface
         ];
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         throw new \RuntimeException('No part details available');
     }

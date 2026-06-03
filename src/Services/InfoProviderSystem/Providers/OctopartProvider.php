@@ -326,7 +326,7 @@ class OctopartProvider implements InfoProviderInterface
         );
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         $graphQL = sprintf(<<<'GRAPHQL'
             query partSearch($keyword: String, $limit: Int, $currency: String!, $country: String!, $authorizedOnly: Boolean!) {
@@ -367,11 +367,13 @@ class OctopartProvider implements InfoProviderInterface
         return $tmp;
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
+        $no_cache = $options[self::OPTION_NO_CACHE] ?? false;
+
         //Check if we have the part cached
         $cached = $this->getFromCache($id);
-        if ($cached !== null) {
+        if (!$no_cache && $cached !== null) {
             return $cached;
         }
 

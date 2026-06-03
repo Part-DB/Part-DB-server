@@ -32,7 +32,7 @@ use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\TMESettings;
 
-class TMEProvider implements InfoProviderInterface
+class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {
 
     private const VENDOR_NAME = 'TME';
@@ -69,7 +69,7 @@ class TMEProvider implements InfoProviderInterface
         return $this->tmeClient->isUsable();
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         $response = $this->tmeClient->makeRequest('Products/Search', [
             'Country' => $this->settings->country,
@@ -99,7 +99,7 @@ class TMEProvider implements InfoProviderInterface
         return $result;
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         $response = $this->tmeClient->makeRequest('Products/GetProducts', [
             'Country' => $this->settings->country,
@@ -280,8 +280,12 @@ class TMEProvider implements InfoProviderInterface
     {
         //If a URL starts with // we assume that it is a relative URL and we add the protocol
         if (str_starts_with($url, '//')) {
-            return 'https:' . $url;
+            $url = 'https:' . $url;
         }
+
+        //Encode bare % signs that are not already part of a valid percent-encoded sequence
+        //Fixes part numbers with % in them e.g. SMD0603-5K1-1%
+        $url = preg_replace('/%(?![0-9A-Fa-f]{2})/', '%25', $url);
 
         return $url;
     }
@@ -295,5 +299,23 @@ class TMEProvider implements InfoProviderInterface
             ProviderCapabilities::DATASHEET,
             ProviderCapabilities::PRICE,
         ];
+    }
+
+    public function getHandledDomains(): array
+    {
+        return ['tme.eu'];
+    }
+
+    public function getIDFromURL(string $url): ?string
+    {
+        //Input: https://www.tme.eu/de/details/fi321_se/kuhler/alutronic/
+        //The ID is the part after the details segment and before the next slash
+
+        $matches = [];
+        if (preg_match('#/details/([^/]+)/#', $url, $matches) === 1) {
+            return $matches[1];
+        }
+
+        return null;
     }
 }

@@ -25,7 +25,7 @@ namespace App\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ScanControllerTest extends WebTestCase
+final class ScanControllerTest extends WebTestCase
 {
 
     private ?KernelBrowser $client = null;

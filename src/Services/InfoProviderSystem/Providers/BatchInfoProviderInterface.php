@@ -34,7 +34,8 @@ interface BatchInfoProviderInterface extends InfoProviderInterface
      * Search for multiple keywords in a single batch operation and return the results, ordered by the keywords.
      * This allows for a more efficient search compared to running multiple single searches.
      * @param  string[]  $keywords
+     * @param  array<string, mixed>  $options An associative array of options which can be used to modify the search behavior. The supported options depend on the provider and should be documented in the provider's documentation.
      * @return array<string, SearchResultDTO[]> An associative array where the key is the keyword and the value is the search results for that keyword
      */
-    public function searchByKeywordsBatch(array $keywords): array;
+    public function searchByKeywordsBatch(array $keywords, array $options = []): array;
 }

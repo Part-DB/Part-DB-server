@@ -22,10 +22,9 @@
 var Encore = require('@symfony/webpack-encore');
 
 const zlib = require('zlib');
+const path = require('path')
 const CompressionPlugin = require("compression-webpack-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const { CKEditorTranslationsPlugin } = require( '@ckeditor/ckeditor5-dev-translations' );
-const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -71,7 +70,7 @@ Encore
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 
-    // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
+    // enables the Symfony UX Stimulus bridge (used in assets/stimulus_bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
 
     // will require an extra script tag for runtime.js
@@ -123,13 +122,6 @@ Encore
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
 
-    .addPlugin( new CKEditorTranslationsPlugin( {
-        // See https://ckeditor.com/docs/ckeditor5/latest/features/ui-language.html
-        language: 'en',
-        addMainLanguageTranslationsToAllAssets: true,
-        additionalLanguages: 'all',
-        outputDirectory: 'ckeditor_translations'
-    } ) )
 
     // Use raw-loader for CKEditor 5 SVG files.
     .addRule( {
@@ -142,19 +134,10 @@ Encore
         loader.exclude = /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/;
     } )
 
-    // Configure PostCSS loader.
-    .addLoader({
-        test: /ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css$/,
-        loader: 'postcss-loader',
-        options: {
-            postcssOptions: styles.getPostCssConfig( {
-                themeImporter: {
-                    themePath: require.resolve( '@ckeditor/ckeditor5-theme-lark' )
-                },
-                minify: true
-            } )
-        }
-    } )
+    .addAliases({
+        'ckeditor5-translations': path.resolve(__dirname, 'node_modules/ckeditor5/dist/translations')
+    })
+
 
 ;
 
@@ -169,22 +152,25 @@ for (const theme of AVAILABLE_THEMES) {
 
 
 if (Encore.isProduction()) {
-    Encore.addPlugin(new CompressionPlugin({
-        filename: '[path][base].br',
-        algorithm: 'brotliCompress',
-        test: /\.(js|css|html|svg)$/,
-        compressionOptions: {
-            // zlib’s `level` option matches Brotli’s `BROTLI_PARAM_QUALITY` option.
-            level: 11,
-        },
-        //threshold: 10240,
-        minRatio: 0.8,
-        deleteOriginalAssets: false,
-    }))
+    Encore
+        .addPlugin(new CompressionPlugin({
+            filename: '[path][base].br',
+            algorithm: 'brotliCompress',
+            test: /\.(js|css|html|svg)$/,
+            compressionOptions: {
+                // zlib’s `level` option matches Brotli’s `BROTLI_PARAM_QUALITY` option.
+                level: 11,
+            },
+            threshold: 10240,
+            minRatio: 0.8,
+            deleteOriginalAssets: false,
+        }))
 
         .addPlugin(new CompressionPlugin({
             filename: '[path][base].gz',
             algorithm: 'gzip',
+            threshold: 10240,
+            minRatio: 0.8,
             test: /\.(js|css|html|svg)$/,
             deleteOriginalAssets: false,
         }))

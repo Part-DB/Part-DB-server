@@ -29,7 +29,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class TimeTravelTest extends KernelTestCase
+final class TimeTravelTest extends KernelTestCase
 {
 
     private TimeTravel $service;

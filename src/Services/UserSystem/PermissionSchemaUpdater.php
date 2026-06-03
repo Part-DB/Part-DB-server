@@ -157,4 +157,20 @@ class PermissionSchemaUpdater
             $permissions->setPermissionValue('system', 'show_updates', $new_value);
         }
     }
+
+    private function upgradeSchemaToVersion4(HasPermissionsInterface $holder): void //@phpstan-ignore-line This is called via reflection
+    {
+        $permissions = $holder->getPermissions();
+
+        //If the reports.generate permission is not defined yet, set it to the value of reports.read
+        if (!$permissions->isPermissionSet('parts_stock', 'stocktake')) {
+            //Set the new permission to true only if both add and withdraw are allowed
+            $new_value = TrinaryLogicHelper::and(
+                $permissions->getPermissionValue('parts_stock', 'withdraw'),
+                $permissions->getPermissionValue('parts_stock', 'add')
+            );
+
+            $permissions->setPermissionValue('parts_stock', 'stocktake', $new_value);
+        }
+    }
 }

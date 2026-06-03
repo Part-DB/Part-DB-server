@@ -46,7 +46,6 @@ final class BulkInfoProviderService
         }
 
         $partResults = [];
-        $hasAnyResults = false;
 
         // Group providers by batch capability
         $batchProviders = [];
@@ -88,7 +87,6 @@ final class BulkInfoProviderService
             );
 
             if (!empty($allResults)) {
-                $hasAnyResults = true;
                 $searchResults = $this->formatSearchResults($allResults);
             }
 
@@ -97,10 +95,6 @@ final class BulkInfoProviderService
                 searchResults: $searchResults,
                 errors: []
             );
-        }
-
-        if (!$hasAnyResults) {
-            throw new \RuntimeException('No search results found for any of the selected parts');
         }
 
         $response = new BulkSearchResponseDTO($partResults);

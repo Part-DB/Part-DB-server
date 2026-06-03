@@ -23,14 +23,14 @@ each other so that it does not matter which one of your 1000 things of Part you 
 A part entity has many fields, which can be used to describe it better. Most of the fields are optional:
 
 * **Name** (Required): The name of the part or how you want to call it. This could be a manufacturer-provided name, or a
-  name you thought of yourself. Each name needs to be unique and must exist in a single category.
+  name you thought of yourself. Each name needs to be unique and must exist in a single category only.
 * **Description**: A short (single-line) description of what this part is/does. For longer information, you should use
   the comment field or the specifications
 * **Category** (Required): The category (see there) to which this part belongs to.
 * **Tags**: The list of tags this part belongs to. Tags can be used to group parts logically (similar to the category),
-  but tags are much less strict and formal (they don't have to be defined forehands) and you can assign multiple tags to
+  but tags are much less strict and formal (they don't have to be defined beforehand) and you can assign multiple tags to
   a part. When clicking on a tag, a list with all parts which have the same tag, is shown.
-* **Min Instock**: *Not really implemented yet*. Parts where the total instock is below this value, will show up for
+* **Min Instock**: *Not fully implemented yet*. Parts where the total instock is below this value will show up for
   ordering.
 * **Footprint**: See there. Useful especially for electronic parts, which have one of the common electronic footprints (
   like DIP8, SMD0805 or similar). If a part has no explicitly defined preview picture, the preview picture of its
@@ -48,9 +48,9 @@ A part entity has many fields, which can be used to describe it better. Most of 
   completely trustworthy.
 * **Favorite**: Parts with this flag are highlighted in parts lists
 * **Mass**: The mass of a single piece of this part (so of a single transistor). Given in grams.
-* **Internal Part number** (IPN): Each part is automatically assigned a numerical ID that identifies a part in the
-  database. This ID depends on when a part was created and can not be changed. If you want to assign your own unique
-  identifiers, or sync parts identifiers with the identifiers of another database you can use this field.
+* **Internal Part Number** (IPN): Each part is automatically assigned a numerical ID that identifies a part in the
+  database. This ID depends on when a part was created and cannot be changed. If you want to assign your own unique
+  identifiers, or sync parts identifiers with the identifiers of another database, you can use this field.
 
 ### Stock / Part lot
 
@@ -99,12 +99,12 @@ possible category tree could look like this:
 
 ### Supplier
 
-A Supplier is a vendor/distributor where you can buy/order parts. Price information of parts is associated with a
+A supplier is a vendor/distributor where you can buy/order parts. Price information of parts is associated with a
 supplier.
 
 ### Manufacturer
 
-A manufacturer represents the company that manufacturers/builds various parts (not necessarily sell them). If the
+A manufacturer represents the company that manufactures/builds various parts (not necessarily sells them). If the
 manufacturer also sells the parts, you have to create a supplier for that.
 
 ### Storage location

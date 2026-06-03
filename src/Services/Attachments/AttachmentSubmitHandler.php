@@ -30,6 +30,7 @@ use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Attachments\CurrencyAttachment;
 use App\Entity\Attachments\LabelAttachment;
+use App\Entity\Attachments\PartCustomStateAttachment;
 use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Attachments\GroupAttachment;
@@ -43,6 +44,8 @@ use App\Exceptions\AttachmentDownloadException;
 use App\Settings\SystemSettings\AttachmentsSettings;
 use Hshn\Base64EncodedFile\HttpFoundation\File\Base64EncodedFile;
 use Hshn\Base64EncodedFile\HttpFoundation\File\UploadedBase64EncodedFile;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\HttpClient\NoPrivateNetworkHttpClient;
 use const DIRECTORY_SEPARATOR;
 use InvalidArgumentException;
 use RuntimeException;
@@ -75,11 +78,14 @@ class AttachmentSubmitHandler
         protected FileTypeFilterTools $filterTools,
         protected AttachmentsSettings $settings,
         protected readonly SVGSanitizer $SVGSanitizer,
+        #[Autowire(env: "bool:ALLOW_ATTACHMENT_DOWNLOADS_FROM_LOCALNETWORK")]
+        private readonly bool $allow_local_network_downloads = false,
     )
     {
         //The mapping used to determine which folder will be used for an attachment type
         $this->folder_mapping = [
             PartAttachment::class => 'part',
+            PartCustomStateAttachment::class => 'part_custom_state',
             AttachmentTypeAttachment::class => 'attachment_type',
             CategoryAttachment::class => 'category',
             CurrencyAttachment::class => 'currency',
@@ -93,6 +99,10 @@ class AttachmentSubmitHandler
             UserAttachment::class => 'user',
             LabelAttachment::class => 'label_profile',
         ];
+
+        if (!$this->allow_local_network_downloads) {
+            $this->httpClient = new NoPrivateNetworkHttpClient($this->httpClient);
+        }
     }
 
     /**
@@ -135,7 +145,10 @@ class AttachmentSubmitHandler
             $attachment->getName()
         );
 
-        return $safeName.'-'.uniqid('', false).'.'.$extension;
+        // Generate a 12-character URL-safe random string, which should avoid collisions and prevent from guessing file paths.
+        $random = str_replace(['+', '/', '='], ['0', '1', '2'], base64_encode(random_bytes(9)));
+
+        return $safeName.'-'.$random.'.'.$extension;
     }
 
     /**
@@ -368,6 +381,7 @@ class AttachmentSubmitHandler
                 ],
 
             ];
+
             $response = $this->httpClient->request('GET', $url, $opts);
             //Digikey wants TLSv1.3, so try again with that if we get a 403
             if ($response->getStatusCode() === 403) {
@@ -429,8 +443,8 @@ class AttachmentSubmitHandler
             $new_path = $this->pathResolver->realPathToPlaceholder($new_path);
             //Save the path to the attachment
             $attachment->setInternalPath($new_path);
-        } catch (TransportExceptionInterface) {
-            throw new AttachmentDownloadException('Transport error!');
+        } catch (TransportExceptionInterface $exception) {
+            throw new AttachmentDownloadException('Transport error: '.$exception->getMessage());
         }
 
         return $attachment;

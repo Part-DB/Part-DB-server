@@ -32,7 +32,7 @@ class LogDiffFormatter
      * @param $old_data
      * @param $new_data
      */
-    public function formatDiff($old_data, $new_data): string
+    public function formatDiff(mixed $old_data, mixed $new_data): string
     {
         if (is_string($old_data) && is_string($new_data)) {
             return $this->diffString($old_data, $new_data);

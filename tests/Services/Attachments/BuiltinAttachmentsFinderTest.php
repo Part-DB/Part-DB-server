@@ -26,7 +26,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class BuiltinAttachmentsFinderTest extends WebTestCase
+final class BuiltinAttachmentsFinderTest extends WebTestCase
 {
     protected static array $mock_list = [
         '%FOOTPRINTS%/test/test.jpg', '%FOOTPRINTS%/test/test.png', '%FOOTPRINTS%/123.jpg', '%FOOTPRINTS%/123.jpeg',

@@ -34,6 +34,7 @@ use App\Entity\Base\PartsContainingRepositoryInterface;
 use App\Entity\LabelSystem\LabelProcessMode;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parameters\AbstractParameter;
+use App\Entity\UserSystem\User;
 use App\Exceptions\AttachmentDownloadException;
 use App\Exceptions\TwigModeException;
 use App\Form\AdminPages\ImportType;
@@ -195,6 +196,10 @@ abstract class BaseAdminController extends AbstractController
 
                 $this->commentHelper->setMessage($form['log_comment']->getData());
 
+                //In principle, the form should be disabled, if the edit permission is not granted, but for good measure, we also check it here, before saving changes.
+                if (!$entity instanceof User) { //Users entities does not have a simple edit permission, so we skip the check for them
+                    $this->denyAccessUnlessGranted('edit', $entity);
+                }
                 $em->persist($entity);
                 $em->flush();
                 $this->addFlash('success', 'entity.edit_flash');
@@ -232,6 +237,7 @@ abstract class BaseAdminController extends AbstractController
             'timeTravel' => $timeTravel_timestamp,
             'repo' => $repo,
             'partsContainingElement' => $repo instanceof PartsContainingRepositoryInterface,
+            'showParameters' => !($this instanceof PartCustomStateController),
         ]);
     }
 
@@ -365,6 +371,14 @@ abstract class BaseAdminController extends AbstractController
                 }
             }
 
+            //Count how many actual new entities were created (id is null until persisted)
+            $created_count = 0;
+            foreach ($results as $result) {
+                if (null === $result->getID()) {
+                    $created_count++;
+                }
+            }
+
             //Persist valid entities to DB
             foreach ($results as $result) {
                 $em->persist($result);
@@ -372,8 +386,14 @@ abstract class BaseAdminController extends AbstractController
             $em->flush();
 
             if (count($results) > 0) {
-                $this->addFlash('success', t('entity.mass_creation_flash', ['%COUNT%' => count($results)]));
+                $this->addFlash('success', t('entity.mass_creation_flash', ['%COUNT%' => $created_count]));
             }
+
+            if (count($errors)) {
+                //Recreate mass creation form, so we get the updated parent list and empty lines
+                $mass_creation_form = $this->createForm(MassCreationForm::class, ['entity_class' => $this->entity_class]);
+            }
+
         }
 
         return $this->render($this->twig_template, [
@@ -382,6 +402,7 @@ abstract class BaseAdminController extends AbstractController
             'import_form' => $import_form,
             'mass_creation_form' => $mass_creation_form,
             'route_base' => $this->route_base,
+            'showParameters' => !($this instanceof PartCustomStateController),
         ]);
     }
 

@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Doctrine\Middleware;
 
+use App\Doctrine\Functions\SiValueSort;
 use App\Exceptions\InvalidRegexException;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Driver\Middleware\AbstractDriverMiddleware;
@@ -51,6 +52,9 @@ class SQLiteRegexExtensionMiddlewareDriver extends AbstractDriverMiddleware
 
                 //Create a new collation for natural sorting
                 $native_connection->sqliteCreateCollation('NATURAL_CMP', strnatcmp(...));
+
+                //Create a function for SI prefix value sorting
+                $native_connection->sqliteCreateFunction('SI_VALUE', SiValueSort::sqliteSiValue(...), 1, \PDO::SQLITE_DETERMINISTIC);
             }
         }
 

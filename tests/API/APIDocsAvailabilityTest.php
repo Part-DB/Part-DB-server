@@ -28,7 +28,7 @@ use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class APIDocsAvailabilityTest extends WebTestCase
+final class APIDocsAvailabilityTest extends WebTestCase
 {
     #[DataProvider('urlProvider')]
     public function testDocAvailabilityForLoggedInUser(string $url): void

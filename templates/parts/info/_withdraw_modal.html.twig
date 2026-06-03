@@ -18,17 +18,17 @@
                     <input type="hidden" name="_redirect" value="{{  uri_without_host(app.request) }}">
 
                     <div class="row mb-2">
-                        <label class="col-form-label col-sm-3">
+                        <label class="col-form-label {{ col_label }}">
                             {% trans %}part.info.withdraw_modal.amount{% endtrans %}
                         </label>
-                        <div class="col-sm-9">
+                        <div class="{{ col_input }}">
                             <input type="number" required class="form-control" min="0" step="{{ (part.partUnit and not part.partUnit.integer) ? 'any' : '1' }}" name="amount" value="">
                         </div>
                     </div>
 
                     <div class="row mb-2 d-none" id="withdraw-modal-move-to">
-                        <label class="col-form-label col-sm-3">{% trans %}part.info.withdraw_modal.move_to{% endtrans %}</label>
-                        <div class="col-sm-9">
+                        <label class="col-form-label {{ col_label }}">{% trans %}part.info.withdraw_modal.move_to{% endtrans %}</label>
+                        <div class="{{ col_input }}">
                             {% for lots in part.partLots|filter(l => l.instockUnknown == false) %}
 
                                 <div class="form-check">
@@ -42,20 +42,20 @@
                     </div>
 
                     <div class="row mb-2">
-                        <label class="col-form-label col-sm-3">
+                        <label class="col-form-label {{ col_label }}">
                             {% trans %}part.info.withdraw_modal.comment{% endtrans %}
                         </label>
-                        <div class="col-sm-9">
+                        <div class="{{ col_input }}">
                             <input type="text" class="form-control" name="comment" value="" {% if event_comment_needed('part_stock_operation') %}required{% endif %}>
                             <div id="emailHelp" class="form-text">{% trans %}part.info.withdraw_modal.comment.hint{% endtrans %}</div>
                         </div>
                     </div>
 
                     <div class="row mb-2">
-                        <label class="col-form-label col-sm-3">
+                        <label class="col-form-label {{ col_label }}">
                             {% trans %}part.info.withdraw_modal.timestamp{% endtrans %}
                         </label>
-                        <div class="col-sm-9">
+                        <div class="{{ col_input }}">
                             {# The timestamp must be between a year ago and 1 hour in the future #}
                             <input type="datetime-local" class="form-control" name="timestamp" value=""
                                    max="{{ "+10mins"|date('Y-m-d\\TH:i') }}" min="{{ "-1year"|date('Y-m-d\\TH:i') }}">
@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="row mb-2">
-                        <div class="col-sm-9 offset-sm-3">
+                        <div class="{{ col_input }} {{ offset_label }}">
                             {# The timestamp must be between a year ago and 1 hour in the future #}
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="delete_lot_if_empty" value="true" id="withdraw_modal_delete_if_empty">

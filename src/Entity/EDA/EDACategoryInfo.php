@@ -58,7 +58,7 @@ class EDACategoryInfo
     /** @var bool|null If this is set to true, then this part will be excluded in the simulation */
     #[Column(type: Types::BOOLEAN, nullable: true)]
     #[Groups(['full', 'category:read', 'category:write', 'import'])]
-    private ?bool $exclude_from_sim = true;
+    private ?bool $exclude_from_sim = null;
 
     /** @var string|null The KiCAD schematic symbol, which should be used (the path to the library) */
     #[Column(type: Types::STRING, nullable: true)]

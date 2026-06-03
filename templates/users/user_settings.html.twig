@@ -28,7 +28,7 @@
             {{ form_row(settings_form.showEmailOnProfile) }}
             {{ form_row(settings_form.avatar_file) }}
             <div class="mb-3 row {% if user.masterPictureAttachment is null %}d-none{% endif %}">
-                <div class="offset-sm-3 col-sm-9">
+                <div class="{{ offset_label }} {{ col_input }}">
                     {% if user.masterPictureAttachment %}
                         <img src="{{ attachment_thumbnail(user.masterPictureAttachment, 'thumbnail_md') }}" alt="avatar" class="rounded" style="height: 75px;">
                     {% endif %}

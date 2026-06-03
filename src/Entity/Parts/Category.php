@@ -119,6 +119,13 @@ class Category extends AbstractPartsContainingDBElement
     protected string $partname_regex = '';
 
     /**
+     * @var string The prefix for ipn generation for created parts in this category.
+     */
+    #[Groups(['full', 'import', 'category:read', 'category:write'])]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: false, options: ['default' => ''])]
+    protected string $part_ipn_prefix = '';
+
+    /**
      * @var bool Set to true, if the footprints should be disabled for parts this category (not implemented yet).
      */
     #[Groups(['full', 'import', 'category:read', 'category:write'])]
@@ -201,6 +208,15 @@ class Category extends AbstractPartsContainingDBElement
         $this->eda_info = new EDACategoryInfo();
     }
 
+    public function __clone()
+    {
+        if ($this->id) {
+            //Clone EDA info to prevent changes to the original EDA info when changing the cloned category
+            $this->eda_info = clone $this->eda_info;
+        }
+        parent::__clone();
+    }
+
     public function getPartnameHint(): string
     {
         return $this->partname_hint;
@@ -223,6 +239,16 @@ class Category extends AbstractPartsContainingDBElement
         $this->partname_regex = $partname_regex;
 
         return $this;
+    }
+
+    public function getPartIpnPrefix(): string
+    {
+        return $this->part_ipn_prefix;
+    }
+
+    public function setPartIpnPrefix(string $part_ipn_prefix): void
+    {
+        $this->part_ipn_prefix = $part_ipn_prefix;
     }
 
     public function isDisableFootprints(): bool

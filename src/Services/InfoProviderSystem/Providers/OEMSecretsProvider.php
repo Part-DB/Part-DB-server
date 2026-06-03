@@ -278,12 +278,13 @@ class OEMSecretsProvider implements InfoProviderInterface
      * and debugging with local JSON files. The results are processed, cached, and then sorted based
      * on the keyword and specified criteria.
      *
-     * @param  string  $keyword The part number to search for
+     * @param  string  $keyword
+     * @param  array  $options
      * @return array An array of processed product details, sorted by relevance and additional criteria.
      *
      * @throws \Exception If the JSON file used for debugging is not found or contains errors.
      */
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         /*
         oemsecrets Part Search API  3.0.1
@@ -397,13 +398,13 @@ class OEMSecretsProvider implements InfoProviderInterface
      * Generates a cache key for storing part details based on the provided provider ID.
      *
      * This method creates a unique cache key by prefixing the provider ID with 'part_details_'
-     * and hashing the provider ID using MD5 to ensure a consistent and compact key format.
+     * and hashing the provider ID using XXH3 to ensure a consistent and compact key format.
      *
      * @param string $provider_id The unique identifier of the provider or part.
      * @return string The generated cache key.
      */
     private function getCacheKey(string $provider_id): string {
-        return 'oemsecrets_part_' . md5($provider_id);
+        return 'oemsecrets_part_' . hash('xxh3', $provider_id);
     }
 
 
@@ -414,14 +415,20 @@ class OEMSecretsProvider implements InfoProviderInterface
      * found in the cache, they are returned. If not, an exception is thrown indicating that
      * the details could not be found.
      *
-     * @param string $id The unique identifier of the provider or part.
+     * @param  string  $id
+     * @param  array  $options
      * @return PartDetailDTO The detailed information about the part.
      *
      * @throws \Exception If no details are found for the given provider ID.
      */
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         $cacheKey = $this->getCacheKey($id);
+
+        if ($options[self::OPTION_NO_CACHE] ?? false) {
+            $this->partInfoCache->deleteItem($cacheKey);
+        }
+
         $cacheItem = $this->partInfoCache->getItem($cacheKey);
 
         if ($cacheItem->isHit()) {
@@ -680,7 +687,7 @@ class OEMSecretsProvider implements InfoProviderInterface
         if (is_array($prices)) {
             // Step 1: Check if prices exist in the preferred currency
             if (isset($prices[$this->settings->currency]) && is_array($prices[$this->settings->currency])) {
-                $priceDetails = $prices[$this->$this->settings->currency];
+                $priceDetails = $prices[$this->settings->currency];
                 foreach ($priceDetails as $priceDetail) {
                     if (
                         is_array($priceDetail) &&

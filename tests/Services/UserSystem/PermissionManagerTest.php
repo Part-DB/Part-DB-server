@@ -30,7 +30,7 @@ use App\Services\UserSystem\PermissionManager;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class PermissionManagerTest extends WebTestCase
+final class PermissionManagerTest extends WebTestCase
 {
     protected ?User $user_withoutGroup = null;
 

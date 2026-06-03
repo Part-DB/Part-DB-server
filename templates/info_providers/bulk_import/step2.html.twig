@@ -9,10 +9,28 @@
 
 {% block card_title %}
     <i class="fas fa-search"></i> {% trans %}info_providers.bulk_import.step2.title{% endtrans %}
-    <span class="badge bg-secondary">{{ job.displayNameKey|trans(job.displayNameParams) }} - {{ job.formattedTimestamp }}</span>
+    <span class="badge bg-secondary">#{{ job.id }} - {{ job.displayNameKey|trans(job.displayNameParams) }}</span>
 {% endblock %}
 
 {% block card_content %}
+
+    <!-- Navigation -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a href="{{ path('bulk_info_provider_manage') }}" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-arrow-left"></i> {% trans %}info_providers.bulk_import.back_to_jobs{% endtrans %}
+        </a>
+        <a href="{{ path('parts_show_all') }}" class="btn btn-outline-primary btn-sm">
+            <i class="fas fa-list"></i> {% trans %}info_providers.bulk_import.back_to_parts{% endtrans %}
+        </a>
+    </div>
+
+    {% if job.isCompleted %}
+        <div class="alert alert-success mb-3" role="alert">
+            <i class="fas fa-check-circle"></i>
+            <strong>{% trans %}info_providers.bulk_import.job_completed{% endtrans %}</strong>
+            {% trans %}info_providers.bulk_import.job_completed.description{% endtrans %}
+        </div>
+    {% endif %}
 
 <div {{ stimulus_controller('bulk-import', {
     'jobId': job.id,
@@ -20,11 +38,13 @@
     'researchAllUrl': path('bulk_info_provider_research_all', {'jobId': job.id}),
     'markCompletedUrl': path('bulk_info_provider_mark_completed', {'jobId': job.id, 'partId': '__PART_ID__'}),
     'markSkippedUrl': path('bulk_info_provider_mark_skipped', {'jobId': job.id, 'partId': '__PART_ID__'}),
-    'markPendingUrl': path('bulk_info_provider_mark_pending', {'jobId': job.id, 'partId': '__PART_ID__'})
+    'markPendingUrl': path('bulk_info_provider_mark_pending', {'jobId': job.id, 'partId': '__PART_ID__'}),
+    'quickApplyUrl': path('bulk_info_provider_quick_apply', {'jobId': job.id, 'partId': '__PART_ID__'}),
+    'quickApplyAllUrl': path('bulk_info_provider_quick_apply_all', {'jobId': job.id})
 }) }}>
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
-            <h5 class="mb-1">{{ job.displayNameKey|trans(job.displayNameParams) }} - {{ job.formattedTimestamp }}</h5>
+            <h5 class="mb-1">#{{ job.id }} - {{ job.displayNameKey|trans(job.displayNameParams) }}</h5>
             <small class="text-muted">
                 {{ job.partCount }} {% trans %}info_providers.bulk_import.parts{% endtrans %} •
                 {{ job.resultCount }} {% trans %}info_providers.bulk_import.results{% endtrans %} •
@@ -94,6 +114,13 @@
                             id="research-all-btn">
                         <span class="spinner-border spinner-border-sm me-1" style="display: none;" id="research-all-spinner"></span>
                         <i class="fas fa-search"></i> {% trans %}info_providers.bulk_import.research.all_pending{% endtrans %}
+                    </button>
+                    <button type="button" class="btn btn-success btn-sm"
+                            data-action="click->bulk-import#quickApplyAll"
+                            id="quick-apply-all-btn"
+                            title="{% trans %}info_providers.bulk_import.quick_apply_all.tooltip{% endtrans %}">
+                        <span class="spinner-border spinner-border-sm me-1" style="display: none;" id="quick-apply-all-spinner"></span>
+                        <i class="fas fa-bolt"></i> {% trans %}info_providers.bulk_import.quick_apply_all{% endtrans %}
                     </button>
                 </div>
             </div>
@@ -181,39 +208,74 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for result in part_result.searchResults %}
+                                {% set sortedResults = part_result.resultsSortedByPriority %}
+                                {% for result in sortedResults %}
                                     {# @var result \App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultDTO #}
                                     {% set dto = result.searchResult %}
                                     {% set localPart = result.localPart %}
-                                    <tr>
+                                    {% set isTopResult = loop.first %}
+                                    <tr{% if isTopResult and not isCompleted %} class="table-success"{% endif %}>
                                         <td>
-                                            <img src="{{ dto.preview_image_url }}" data-thumbnail="{{ dto.preview_image_url }}"
-                                                 class="hoverpic" style="max-width: 35px;" {{ stimulus_controller('elements/hoverpic') }}>
+                                            {% if dto.preview_image_url %}
+                                                <img src="{{ dto.preview_image_url }}" data-thumbnail="{{ dto.preview_image_url }}"
+                                                     class="hoverpic" style="max-width: 35px;" {{ stimulus_controller('elements/hoverpic') }}
+                                                     onerror="this.style.display='none'">
+                                            {% endif %}
                                         </td>
                                         <td>
+                                            {# Check for matches against source keyword (what was searched) #}
+                                            {% set sourceKw = result.sourceKeyword|default('')|lower %}
+                                            {% set nameMatch = sourceKw is not empty and dto.name is not null and dto.name|lower == sourceKw %}
+                                            {% set mpnMatch = sourceKw is not empty and dto.mpn is not null and dto.mpn|lower == sourceKw %}
+                                            {% set spnMatch = sourceKw is not empty and dto.provider_id is not null and dto.provider_id|lower == sourceKw %}
+                                            {% set anyMatch = nameMatch or mpnMatch or spnMatch %}
                                             {% if dto.provider_url is not null %}
-                                                <a href="{{ dto.provider_url }}" target="_blank" rel="noopener">{{ dto.name }}</a>
+                                                <a href="{{ dto.provider_url }}" target="_blank" rel="noopener"{% if nameMatch %} class="fw-bold"{% endif %}>{{ dto.name }}</a>
                                             {% else %}
-                                                {{ dto.name }}
+                                                <span{% if nameMatch %} class="fw-bold"{% endif %}>{{ dto.name }}</span>
+                                            {% endif %}
+                                            {% if nameMatch %}
+                                                <span class="badge bg-success ms-1" title="{% trans %}info_providers.bulk_import.exact_match{% endtrans %}"><i class="fas fa-check-circle"></i></span>
                                             {% endif %}
                                             {% if dto.mpn is not null %}
-                                                <br><small class="text-muted">{{ dto.mpn }}</small>
+                                                <br><small{% if mpnMatch %} class="fw-bold text-success"{% endif %}>{{ dto.mpn }}</small>
+                                                {% if mpnMatch %}
+                                                    <span class="badge bg-success ms-1" style="font-size: 0.65em;" title="{% trans %}info_providers.bulk_import.mpn_match{% endtrans %}">MPN <i class="fas fa-check-circle"></i></span>
+                                                {% endif %}
                                             {% endif %}
                                         </td>
                                         <td>{{ dto.description }}</td>
                                         <td>{{ dto.manufacturer ?? '' }}</td>
                                         <td>
                                             {{ info_provider_label(dto.provider_key)|default(dto.provider_key) }}
-                                            <br><small class="text-muted">{{ dto.provider_id }}</small>
+                                            <br><small{% if spnMatch %} class="fw-bold text-success"{% endif %}>{{ dto.provider_id }}</small>
+                                            {% if spnMatch %}
+                                                <span class="badge bg-success ms-1" style="font-size: 0.65em;" title="{% trans %}info_providers.bulk_import.spn_match{% endtrans %}">SPN <i class="fas fa-check-circle"></i></span>
+                                            {% endif %}
                                         </td>
                                         <td>
-                                            <span class="badge bg-info">{{ result.sourceField ?? 'unknown' }}</span>
+                                            {% if anyMatch %}
+                                                <span class="badge bg-success">{% trans %}info_providers.bulk_import.match{% endtrans %}</span>
+                                            {% else %}
+                                                <span class="badge bg-info">{{ result.sourceField ?? 'unknown' }}</span>
+                                            {% endif %}
                                             {% if result.sourceKeyword %}
-                                                <br><small class="text-muted">{{ result.sourceKeyword }}</small>
-                            {% endif %}
+                                                <br><small{% if anyMatch %} class="fw-bold text-success"{% endif %}>{{ result.sourceKeyword }}</small>
+                                            {% endif %}
                                         </td>
                                         <td>
                                             <div class="btn-group-vertical btn-group-sm" role="group">
+                                                {% if not isCompleted %}
+                                                    <button type="button" class="btn {% if not isTopResult %} btn-outline-success{% else %}btn-success{% endif %}"
+                                                            data-action="click->bulk-import#quickApply"
+                                                            data-part-id="{{ part.id }}"
+                                                            data-provider-key="{{ dto.provider_key }}"
+                                                            data-provider-id="{{ dto.provider_id }}"
+                                                            title="{% trans %}info_providers.bulk_import.quick_apply.tooltip{% endtrans %}">
+                                                        <i class="fas fa-bolt"></i> {% trans %}info_providers.bulk_import.quick_apply{% endtrans %}
+                                                        {% if isTopResult %}<span class="badge bg-light text-success ms-1">{% trans %}info_providers.bulk_import.recommended{% endtrans %}</span>{% endif %}
+                                                    </button>
+                                                {% endif %}
                                                 {% set updateHref = path('info_providers_update_part',
                                                     {'id': part.id, 'providerKey': dto.provider_key, 'providerId': dto.provider_id}) ~ '?jobId=' ~ job.id %}
                                                 <a class="btn btn-primary{% if isCompleted %} disabled{% endif %}" href="{% if not isCompleted %}{{ updateHref }}{% else %}#{% endif %}"{% if isCompleted %} aria-disabled="true"{% endif %}>

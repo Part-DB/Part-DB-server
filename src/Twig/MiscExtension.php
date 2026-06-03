@@ -22,6 +22,8 @@ declare(strict_types=1);
  */
 namespace App\Twig;
 
+use App\Services\InfoProviderSystem\CreateFromUrlHelper;
+use Twig\Attribute\AsTwigFunction;
 use App\Settings\SettingsIcon;
 use Symfony\Component\HttpFoundation\Request;
 use App\Services\LogSystem\EventCommentType;
@@ -31,23 +33,14 @@ use Twig\TwigFunction;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use Twig\Extension\AbstractExtension;
 
-final class MiscExtension extends AbstractExtension
+final readonly class MiscExtension
 {
-    public function __construct(private readonly EventCommentNeededHelper $eventCommentNeededHelper)
+    public function __construct(private EventCommentNeededHelper $eventCommentNeededHelper, private CreateFromUrlHelper $fromUrlHelper)
     {
     }
 
-    public function getFunctions(): array
-    {
-        return [
-            new TwigFunction('event_comment_needed', $this->evenCommentNeeded(...)),
-
-            new TwigFunction('settings_icon', $this->settingsIcon(...)),
-            new TwigFunction('uri_without_host', $this->uri_without_host(...))
-        ];
-    }
-
-    private function evenCommentNeeded(string|EventCommentType $operation_type): bool
+    #[AsTwigFunction(name: 'event_comment_needed')]
+    public function evenCommentNeeded(string|EventCommentType $operation_type): bool
     {
         if (is_string($operation_type)) {
             $operation_type = EventCommentType::from($operation_type);
@@ -63,7 +56,8 @@ final class MiscExtension extends AbstractExtension
      * @return string|null
      * @throws \ReflectionException
      */
-    private function settingsIcon(string|object $objectOrClass): ?string
+    #[AsTwigFunction(name: 'settings_icon')]
+    public function settingsIcon(string|object $objectOrClass): ?string
     {
         //If the given object is a proxy, then get the real object
         if (is_a($objectOrClass, SettingsProxyInterface::class)) {
@@ -82,6 +76,7 @@ final class MiscExtension extends AbstractExtension
      * @param  Request  $request
      * @return string
      */
+    #[AsTwigFunction(name: 'uri_without_host')]
     public function uri_without_host(Request $request): string
     {
         if (null !== $qs = $request->getQueryString()) {
@@ -89,5 +84,15 @@ final class MiscExtension extends AbstractExtension
         }
 
         return $request->getBaseUrl().$request->getPathInfo().$qs;
+    }
+
+    /**
+     * Returns true if the from url provider is active, false otherwise.
+     * @return bool
+     */
+    #[AsTwigFunction(name: 'create_from_url_active')]
+    public function create_from_url_active(): bool
+    {
+        return $this->fromUrlHelper->canCreateFromUrl();
     }
 }

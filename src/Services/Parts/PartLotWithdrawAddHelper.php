@@ -197,4 +197,45 @@ final class PartLotWithdrawAddHelper
             $this->entityManager->remove($origin);
         }
     }
+
+    /**
+     * Perform a stocktake for the given part lot, setting the amount to the given actual amount.
+     * Please note that the changes are not flushed to DB yet, you have to do this yourself
+     * @param  PartLot  $lot
+     * @param  float  $actualAmount
+     * @param  string|null  $comment
+     * @param  \DateTimeInterface|null  $action_timestamp
+     * @return void
+     */
+    public function stocktake(PartLot $lot, float $actualAmount, ?string $comment = null, ?\DateTimeInterface $action_timestamp = null): void
+    {
+        if ($actualAmount < 0) {
+            throw new \InvalidArgumentException('Actual amount must be non-negative');
+        }
+
+        $part = $lot->getPart();
+
+        //Check whether we have to round the amount
+        if (!$part->useFloatAmount()) {
+            $actualAmount = round($actualAmount);
+        }
+
+        $oldAmount = $lot->getAmount();
+        //Clear any unknown status when doing a stocktake, as we now have a known amount
+        $lot->setInstockUnknown(false);
+        $lot->setAmount($actualAmount);
+        if ($action_timestamp) {
+            $lot->setLastStocktakeAt(\DateTimeImmutable::createFromInterface($action_timestamp));
+        } else {
+            $lot->setLastStocktakeAt(new \DateTimeImmutable()); //Use now if no timestamp is given
+        }
+
+        $event = PartStockChangedLogEntry::stocktake($lot, $oldAmount, $lot->getAmount(), $part->getAmountSum() , $comment, $action_timestamp);
+        $this->eventLogger->log($event);
+
+        //Apply the comment also to global events, so it gets associated with the elementChanged log entry
+        if (!$this->eventCommentHelper->isMessageSet() && ($comment !== null && $comment !== '')) {
+            $this->eventCommentHelper->setMessage($comment);
+        }
+    }
 }

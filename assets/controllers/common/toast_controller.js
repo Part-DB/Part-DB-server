@@ -20,6 +20,10 @@
 import { Controller } from '@hotwired/stimulus';
 import { Toast } from 'bootstrap';
 
+/**
+ * The purpose of this controller, is to show all containers.
+ * They should already be added via turbo-streams, but have to be called for to show them.
+ */
 export default class extends Controller {
     connect() {
         //Move all toasts from the page into our toast container and show them

@@ -26,7 +26,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\Attachments\FileTypeFilterTools;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class FileTypeFilterToolsTest extends WebTestCase
+final class FileTypeFilterToolsTest extends WebTestCase
 {
     protected static $service;
 

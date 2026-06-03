@@ -41,7 +41,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 #[Group('DB')]
-class EntityImporterTest extends WebTestCase
+final class EntityImporterTest extends WebTestCase
 {
     /**
      * @var EntityImporter

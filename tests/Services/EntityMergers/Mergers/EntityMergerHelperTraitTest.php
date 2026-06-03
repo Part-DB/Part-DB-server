@@ -28,7 +28,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
-class EntityMergerHelperTraitTest extends KernelTestCase
+final class EntityMergerHelperTraitTest extends KernelTestCase
 {
     use EntityMergerHelperTrait;
 

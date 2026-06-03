@@ -33,7 +33,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\Uid\Uuid;
 use Webauthn\TrustPath\EmptyTrustPath;
 
-class PasswordChangeNeededSubscriberTest extends TestCase
+final class PasswordChangeNeededSubscriberTest extends TestCase
 {
     public function testTFARedirectNeeded(): void
     {

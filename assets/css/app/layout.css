@@ -133,7 +133,7 @@ showing the sidebar (on devices with md or higher)
  */
 #sidebar-toggle-button {
     position: fixed;
-    left: 3px;
+    left: 2px;
     bottom: 50%;
 }
 

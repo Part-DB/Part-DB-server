@@ -42,6 +42,11 @@
         <td>{{ part.ipn ?? 'part.ipn.not_defined'|trans }}</td>
     </tr>
 
+    <tr>
+        <td>{% trans %}part.gtin{% endtrans %}</td>
+        <td>{{ part.gtin ?? '' }}</td>
+    </tr>
+
     <tr> {# Favorite status #}
         <td>{% trans %}part.isFavorite{% endtrans %}</td>
         <td>{{ helper.boolean_badge(part.favorite) }}</td>

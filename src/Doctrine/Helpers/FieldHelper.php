@@ -104,7 +104,7 @@ final class FieldHelper
     {
         $db_platform = $qb->getEntityManager()->getConnection()->getDatabasePlatform();
 
-        $key = 'field2_' . md5($field_expr);
+        $key = 'field2_' . hash('xxh3', $field_expr);
 
         //If we are on MySQL, we can just use the FIELD function
         if ($db_platform instanceof AbstractMySQLPlatform) {

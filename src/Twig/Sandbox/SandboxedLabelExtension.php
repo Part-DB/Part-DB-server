@@ -23,14 +23,18 @@ declare(strict_types=1);
 
 namespace App\Twig\Sandbox;
 
+use App\Entity\Base\AbstractPartsContainingDBElement;
+use App\Entity\Parts\Part;
+use App\Repository\AbstractPartsContainingRepository;
 use App\Services\LabelSystem\LabelTextReplacer;
+use Doctrine\ORM\EntityManagerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class SandboxedLabelExtension extends AbstractExtension
 {
-    public function __construct(private readonly LabelTextReplacer $labelTextReplacer)
+    public function __construct(private readonly LabelTextReplacer $labelTextReplacer, private readonly EntityManagerInterface $em)
     {
 
     }
@@ -39,6 +43,11 @@ class SandboxedLabelExtension extends AbstractExtension
     {
         return [
             new TwigFunction('placeholder', fn(string $text, object $label_target) => $this->labelTextReplacer->handlePlaceholderOrReturnNull($text, $label_target)),
+
+            new TwigFunction("associated_parts", $this->associatedParts(...)),
+            new TwigFunction("associated_parts_count", $this->associatedPartsCount(...)),
+            new TwigFunction("associated_parts_r", $this->associatedPartsRecursive(...)),
+            new TwigFunction("associated_parts_count_r", $this->associatedPartsCountRecursive(...)),
         ];
     }
 
@@ -47,5 +56,38 @@ class SandboxedLabelExtension extends AbstractExtension
         return [
             new TwigFilter('placeholders', fn(string $text, object $label_target) => $this->labelTextReplacer->replace($text, $label_target)),
         ];
+    }
+
+    /**
+     * Returns all parts associated with the given element.
+     * @param  AbstractPartsContainingDBElement  $element
+     * @return Part[]
+     */
+    public function associatedParts(AbstractPartsContainingDBElement $element): array
+    {
+        /** @var AbstractPartsContainingRepository<AbstractPartsContainingDBElement> $repo */
+        $repo = $this->em->getRepository($element::class);
+        return $repo->getParts($element);
+    }
+
+    public function associatedPartsCount(AbstractPartsContainingDBElement $element): int
+    {
+        /** @var AbstractPartsContainingRepository<AbstractPartsContainingDBElement> $repo */
+        $repo = $this->em->getRepository($element::class);
+        return $repo->getPartsCount($element);
+    }
+
+    public function associatedPartsRecursive(AbstractPartsContainingDBElement $element): array
+    {
+        /** @var AbstractPartsContainingRepository<AbstractPartsContainingDBElement> $repo */
+        $repo = $this->em->getRepository($element::class);
+        return $repo->getPartsRecursive($element);
+    }
+
+    public function associatedPartsCountRecursive(AbstractPartsContainingDBElement $element): int
+    {
+        /** @var AbstractPartsContainingRepository<AbstractPartsContainingDBElement> $repo */
+        $repo = $this->em->getRepository($element::class);
+        return $repo->getPartsCountRecursive($element);
     }
 }

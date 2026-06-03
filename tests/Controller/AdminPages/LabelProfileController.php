@@ -46,7 +46,7 @@ use PHPUnit\Framework\Attributes\Group;
 use App\Entity\LabelSystem\LabelProfile;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class LabelProfileController extends AbstractAdminController
+final class LabelProfileController extends AbstractAdminController
 {
     protected static string $base_path = '/en/label_profile';
     protected static string $entity_class = LabelProfile::class;

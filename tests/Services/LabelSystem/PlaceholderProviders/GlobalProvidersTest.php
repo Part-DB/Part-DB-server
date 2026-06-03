@@ -46,7 +46,7 @@ use App\Entity\Parts\Part;
 use App\Services\LabelSystem\PlaceholderProviders\GlobalProviders;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class GlobalProvidersTest extends WebTestCase
+final class GlobalProvidersTest extends WebTestCase
 {
     /**
      * @var GlobalProviders

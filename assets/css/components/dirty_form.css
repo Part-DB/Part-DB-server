@@ -1,0 +1,61 @@
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ *  Copyright (C) 2019 - 2025 Jan Böhmer (https://github.com/jbtronics)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/* Standard Bootstrap form controls */
+.form-control[data-dirty],
+.form-select[data-dirty],
+input[data-dirty] + .form-control,
+select[data-dirty] + .form-select
+{
+    border-color: var(--bs-info);
+    border-width: 2px;
+}
+
+.form-control[data-dirty]:focus,
+.form-select[data-dirty]:focus,
+input[data-dirty] + .form-control:focus,
+select[data-dirty] + .form-select:focus
+{
+    border-color: var(--bs-info);
+    border-width: 2px;
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-info-rgb), 0.25);
+}
+
+/* Checkboxes and radios */
+.form-check-input[data-dirty] {
+    border-color: var(--bs-info);
+    border-width: 2px;
+}
+
+.form-check-input[data-dirty]:checked {
+    background-color: var(--bs-info);
+    border-color: var(--bs-info);
+    border-width: 2px;
+}
+
+/* CKEditor: the editable sits after the hidden source textarea in the DOM */
+textarea[data-dirty] ~ .ck.ck-editor .ck-editor__editable:not(.ck-focused) {
+    border-color: var(--bs-info) !important;
+    border-width: 2px !important;
+}
+
+textarea[data-dirty] ~ .ck.ck-editor .ck-editor__editable.ck-focused {
+    border-width: 2px !important;
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-info-rgb), 0.25) !important;
+}

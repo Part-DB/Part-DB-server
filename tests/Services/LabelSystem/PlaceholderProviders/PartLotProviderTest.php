@@ -49,7 +49,7 @@ use App\Entity\UserSystem\User;
 use App\Services\LabelSystem\PlaceholderProviders\PartLotProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class PartLotProviderTest extends WebTestCase
+final class PartLotProviderTest extends WebTestCase
 {
     /**
      * @var PartLotProvider

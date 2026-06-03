@@ -208,6 +208,7 @@ class LogDataTable implements DataTableTypeInterface
 
         $dataTable->add('extra', LogEntryExtraColumn::class, [
             'label' => 'log.extra',
+            'orderable' => false, //Sorting the JSON column makes no sense: MySQL/Sqlite does it via the string representation, PostgreSQL errors out
         ]);
 
         $dataTable->add('timeTravel', IconLinkColumn::class, [

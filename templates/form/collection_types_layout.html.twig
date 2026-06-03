@@ -63,8 +63,8 @@
             <div class="">
                 {{ form_row(form.mountnames) }}
                 <div class="row mb-2">
-                    <label class="col-form-label col-sm-3">{% trans %}project.bom.price{% endtrans %}</label>
-                    <div class="col-sm-9">
+                    <label class="col-form-label {{ col_label }}">{% trans %}project.bom.price{% endtrans %}</label>
+                    <div class="{{ col_input }}">
                         <div class="input-group">
                             {{ form_widget(form.price) }}
                             {{ form_widget(form.priceCurrency) }}

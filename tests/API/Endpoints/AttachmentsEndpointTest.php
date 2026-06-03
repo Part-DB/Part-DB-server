@@ -25,7 +25,7 @@ namespace App\Tests\API\Endpoints;
 
 use App\Tests\API\AuthenticatedApiTestCase;
 
-class AttachmentsEndpointTest extends AuthenticatedApiTestCase
+final class AttachmentsEndpointTest extends AuthenticatedApiTestCase
 {
     public function testGetCollection(): void
     {

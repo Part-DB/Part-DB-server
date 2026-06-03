@@ -22,6 +22,8 @@ declare(strict_types=1);
  */
 namespace App\Services\ImportExportSystem;
 
+use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
@@ -134,7 +136,7 @@ class BOMImporter
 
     private function parseKiCADPCB(string $data): array
     {
-        $csv = Reader::createFromString($data);
+        $csv = Reader::fromString($data);
         $csv->setDelimiter(';');
         $csv->setHeaderOffset(0);
 
@@ -175,7 +177,7 @@ class BOMImporter
      */
     private function validateKiCADPCB(string $data): array
     {
-        $csv = Reader::createFromString($data);
+        $csv = Reader::fromString($data);
         $csv->setDelimiter(';');
         $csv->setHeaderOffset(0);
 
@@ -202,7 +204,7 @@ class BOMImporter
         // Handle potential BOM (Byte Order Mark) at the beginning
         $data = preg_replace('/^\xEF\xBB\xBF/', '', $data);
 
-        $csv = Reader::createFromString($data);
+        $csv = Reader::fromString($data);
         $csv->setDelimiter($delimiter);
         $csv->setHeaderOffset(0);
 
@@ -262,7 +264,7 @@ class BOMImporter
         // Handle potential BOM (Byte Order Mark) at the beginning
         $data = preg_replace('/^\xEF\xBB\xBF/', '', $data);
 
-        $csv = Reader::createFromString($data);
+        $csv = Reader::fromString($data);
         $csv->setDelimiter($delimiter);
         $csv->setHeaderOffset(0);
 
@@ -273,6 +275,16 @@ class BOMImporter
         $bom_entries = [];
         $entries_by_key = []; // Track entries by name+part combination
         $mapped_entries = []; // Collect all mapped entries for validation
+
+        // Fetch suppliers once for efficiency
+        $suppliers = $this->entityManager->getRepository(Supplier::class)->findAll();
+        $supplierSPNKeys = [];
+        $suppliersByName = []; // Map supplier names to supplier objects
+        foreach ($suppliers as $supplier) {
+            $supplierName = $supplier->getName();
+            $supplierSPNKeys[] = $supplierName . ' SPN';
+            $suppliersByName[$supplierName] = $supplier;
+        }
 
         foreach ($csv->getRecords() as $offset => $entry) {
             // Apply field mapping to translate column names
@@ -349,10 +361,49 @@ class BOMImporter
                 }
             }
 
-            // Create unique key for this entry (name + part ID)
-            $entry_key = $name . '|' . ($part ? $part->getID() : 'null');
+            // Try to link existing part based on supplier part number if no Part-DB ID is given
+            if ($part === null) {
+                // Check all available supplier SPN fields
+                foreach ($suppliersByName as $supplierName => $supplier) {
+                    $supplier_spn = null;
 
-            // Check if we already have an entry with the same name and part
+                    if (isset($mapped_entry[$supplierName . ' SPN']) && !empty(trim($mapped_entry[$supplierName . ' SPN']))) {
+                        $supplier_spn = trim($mapped_entry[$supplierName . ' SPN']);
+                    }
+
+                    if ($supplier_spn !== null) {
+                        // Query for orderdetails with matching supplier and SPN
+                        $orderdetail = $this->entityManager->getRepository(Orderdetail::class)
+                            ->findOneBy([
+                                'supplier' => $supplier,
+                                'supplierpartnr' => $supplier_spn,
+                            ]);
+
+                        if ($orderdetail !== null && $orderdetail->getPart() !== null) {
+                            $part = $orderdetail->getPart();
+                            $name = $part->getName(); // Update name with actual part name
+
+                            $this->logger->info('Linked BOM entry to existing part via supplier SPN', [
+                                'supplier' => $supplierName,
+                                'supplier_spn' => $supplier_spn,
+                                'part_id' => $part->getID(),
+                                'part_name' => $part->getName(),
+                            ]);
+
+                            break; // Stop searching once a match is found
+                        }
+                    }
+                }
+            }
+
+            // Create unique key for this entry.
+            // When linked to a Part-DB part, use the part ID as key (merges footprint variants).
+            // Otherwise, use name (which includes package) to avoid merging unrelated components.
+            $entry_key = $part !== null
+                ? 'part:' . $part->getID()
+                : 'name:' . $name;
+
+            // Check if we already have an entry with the same key
             if (isset($entries_by_key[$entry_key])) {
                 // Merge with existing entry
                 $existing_entry = $entries_by_key[$entry_key];
@@ -366,14 +417,22 @@ class BOMImporter
                 $existing_quantity = $existing_entry->getQuantity();
                 $existing_entry->setQuantity($existing_quantity + $quantity);
 
+                // Track footprint variants in comment when merging entries with different packages
+                $currentPackage = trim($mapped_entry['Package'] ?? '');
+                if ($currentPackage !== '' && !str_contains($existing_entry->getComment(), $currentPackage)) {
+                    $comment = $existing_entry->getComment();
+                    $existing_entry->setComment($comment . ', Footprint variant: ' . $currentPackage);
+                }
+
                 $this->logger->info('Merged duplicate BOM entry', [
                     'name' => $name,
-                    'part_id' => $part ? $part->getID() : null,
+                    'part_id' => $part?->getID(),
                     'original_quantity' => $existing_quantity,
                     'added_quantity' => $quantity,
                     'new_quantity' => $existing_quantity + $quantity,
                     'original_mountnames' => $existing_mountnames,
                     'added_mountnames' => $designator,
+                    'package' => $currentPackage,
                 ]);
 
                 continue; // Skip creating new entry
@@ -400,9 +459,14 @@ class BOMImporter
             if (isset($mapped_entry['Manufacturer'])) {
                 $comment_parts[] = 'Manf: ' . $mapped_entry['Manufacturer'];
             }
-            if (isset($mapped_entry['LCSC'])) {
-                $comment_parts[] = 'LCSC: ' . $mapped_entry['LCSC'];
+
+            // Add supplier part numbers dynamically
+            foreach ($supplierSPNKeys as $spnKey) {
+                if (isset($mapped_entry[$spnKey]) && !empty($mapped_entry[$spnKey])) {
+                    $comment_parts[] = $spnKey . ': ' . $mapped_entry[$spnKey];
+                }
             }
+
             if (isset($mapped_entry['Supplier and ref'])) {
                 $comment_parts[] = $mapped_entry['Supplier and ref'];
             }
@@ -485,7 +549,7 @@ class BOMImporter
         ];
 
         // Add dynamic supplier fields based on available suppliers in the database
-        $suppliers = $this->entityManager->getRepository(\App\Entity\Parts\Supplier::class)->findAll();
+        $suppliers = $this->entityManager->getRepository(Supplier::class)->findAll();
         foreach ($suppliers as $supplier) {
             $supplierName = $supplier->getName();
             $targets[$supplierName . ' SPN'] = [
@@ -520,7 +584,7 @@ class BOMImporter
         ];
 
         // Add supplier-specific patterns
-        $suppliers = $this->entityManager->getRepository(\App\Entity\Parts\Supplier::class)->findAll();
+        $suppliers = $this->entityManager->getRepository(Supplier::class)->findAll();
         foreach ($suppliers as $supplier) {
             $supplierName = $supplier->getName();
             $supplierLower = strtolower($supplierName);
@@ -658,25 +722,35 @@ class BOMImporter
     }
 
     /**
+     * Try to detect the separator used in the CSV data by analyzing the first line and counting occurrences of common delimiters.
+     * @param  string  $data
+     * @return string
+     */
+    public function detectDelimiter(string $data): string
+    {
+        $delimiters = [',', ';', "\t"];
+        $lines = explode("\n", $data, 2);
+        $header_line = $lines[0] ?? '';
+        $delimiter_counts = [];
+        foreach ($delimiters as $delim) {
+            $delimiter_counts[$delim] = substr_count($header_line, $delim);
+        }
+        // Choose the delimiter with the highest count, default to comma if all are zero
+        $max_count = max($delimiter_counts);
+        $delimiter = array_search($max_count, $delimiter_counts, true);
+        if ($max_count === 0 || $delimiter === false) {
+            $delimiter = ',';
+        }
+        return $delimiter;
+    }
+
+    /**
      * Detect available fields in CSV data for field mapping UI
      */
     public function detectFields(string $data, ?string $delimiter = null): array
     {
         if ($delimiter === null) {
-            // Detect delimiter by counting occurrences in the first row (header)
-            $delimiters = [',', ';', "\t"];
-            $lines = explode("\n", $data, 2);
-            $header_line = $lines[0] ?? '';
-            $delimiter_counts = [];
-            foreach ($delimiters as $delim) {
-                $delimiter_counts[$delim] = substr_count($header_line, $delim);
-            }
-            // Choose the delimiter with the highest count, default to comma if all are zero
-            $max_count = max($delimiter_counts);
-            $delimiter = array_search($max_count, $delimiter_counts, true);
-            if ($max_count === 0 || $delimiter === false) {
-                $delimiter = ',';
-            }
+            $delimiter = $this->detectDelimiter($data);
         }
         // Handle potential BOM (Byte Order Mark) at the beginning
         $data = preg_replace('/^\xEF\xBB\xBF/', '', $data);

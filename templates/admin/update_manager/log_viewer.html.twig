@@ -1,0 +1,40 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{{ filename }} - {% trans %}update_manager.log_viewer{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-file-code"></i> {{ filename }}
+{% endblock %}
+
+{% block card_content %}
+<div class="mb-4">
+    <a href="{{ path('admin_update_manager') }}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-1"></i> {% trans %}update_manager.back_to_update_manager{% endtrans %}
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span>
+            <i class="fas fa-terminal me-2"></i>{% trans %}update_manager.update_log{% endtrans %}
+        </span>
+        <span class="badge bg-secondary">{{ content|length }} {% trans %}update_manager.bytes{% endtrans %}</span>
+    </div>
+    <div class="card-body p-0">
+        <pre class="bg-dark text-light p-3 mb-0" style="max-height: 600px; overflow-y: auto; white-space: pre-wrap; word-break: break-all;"><code>{{ content }}</code></pre>
+    </div>
+</div>
+
+<style>
+    pre code {
+        font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    /* Highlight different log levels */
+    pre code {
+        color: #e0e0e0;
+    }
+</style>
+{% endblock %}

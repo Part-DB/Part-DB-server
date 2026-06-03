@@ -84,6 +84,17 @@ class CategoryAdminForm extends BaseEntityAdminForm
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
+        $builder->add('part_ipn_prefix', TextType::class, [
+            'required' => false,
+            'empty_data' => '',
+            'label' => 'category.edit.part_ipn_prefix',
+            'help' => 'category.edit.part_ipn_prefix.help',
+            'attr' => [
+                'placeholder' => 'category.edit.part_ipn_prefix.placeholder',
+            ],
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
+
         $builder->add('default_description', RichTextEditorType::class, [
             'required' => false,
             'empty_data' => '',

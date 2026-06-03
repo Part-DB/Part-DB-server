@@ -56,13 +56,16 @@ class LoadFixturesCommand extends Command
         }
 
         $factory = new ResetAutoIncrementPurgerFactory();
-        $purger = $factory->createForEntityManager(null, $this->entityManager);
+
+        //Use truncate purging to fix compatibility with postgresql
+        $purger = $factory->createForEntityManager(null, $this->entityManager, purgeWithTruncate: true);
 
         $purger->purge();
 
         //Afterwards run the load fixtures command as normal, but with the --append option
         $new_input = new ArrayInput([
             'command' => 'doctrine:fixtures:load',
+            '--purge-with-truncate' => true,
             '--append' => true,
         ]);
 

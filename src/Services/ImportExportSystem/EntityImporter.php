@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\ImportExportSystem;
 
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parts\Category;
@@ -167,7 +168,7 @@ class EntityImporter
         }
 
         //Only return objects once
-        return array_values(array_unique($valid_entities));
+        return array_values(array_unique($valid_entities, SORT_REGULAR));
     }
 
     /**
@@ -216,11 +217,6 @@ class EntityImporter
         //Ensure we have an array of entity elements.
         if (!is_array($entities)) {
             $entities = [$entities];
-        }
-
-        //The serializer has only set the children attributes. We also have to change the parent value (the real value in DB)
-        if ($entities[0] instanceof AbstractStructuralDBElement) {
-            $this->correctParentEntites($entities, null);
         }
 
         //Set the parent of the imported elements to the given options
@@ -296,6 +292,14 @@ class EntityImporter
         return $resolver;
     }
 
+    private function persistRecursively(AbstractStructuralDBElement $entity): void
+    {
+        $this->em->persist($entity);
+        foreach ($entity->getChildren() as $child) {
+            $this->persistRecursively($child);
+        }
+    }
+
     /**
      * This method deserializes the given file and writes the entities to the database (and flush the db).
      * The imported elements will be checked (validated) before written to database.
@@ -321,7 +325,11 @@ class EntityImporter
 
         //Iterate over each $entity write it to DB (the invalid entities were already filtered out).
         foreach ($entities as $entity) {
-            $this->em->persist($entity);
+            if ($entity instanceof AbstractStructuralDBElement) {
+                $this->persistRecursively($entity);
+            } else {
+                $this->em->persist($entity);
+            }
         }
 
         //Save changes to database, when no error happened, or we should continue on error.
@@ -399,7 +407,7 @@ class EntityImporter
      *
      * @param File   $file      The Excel file to convert
      * @param string $delimiter The CSV delimiter to use
-     * 
+     *
      * @return string The CSV data as string
      */
     protected function convertExcelToCsv(File $file, string $delimiter = ';'): string
@@ -419,18 +427,18 @@ class EntityImporter
                 'worksheet_title' => $worksheet->getTitle()
             ]);
 
-            $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
-            
+            $highestColumnIndex = Coordinate::columnIndexFromString($highestColumn);
+
             for ($row = 1; $row <= $highestRow; $row++) {
                 $rowData = [];
 
                 // Read all columns using numeric index
                 for ($colIndex = 1; $colIndex <= $highestColumnIndex; $colIndex++) {
-                    $col = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex);
+                    $col = Coordinate::stringFromColumnIndex($colIndex);
                     try {
                         $cellValue = $worksheet->getCell("{$col}{$row}")->getCalculatedValue();
                         $rowData[] = $cellValue ?? '';
-                        
+
                     } catch (\Exception $e) {
                         $this->logger->warning('Error reading cell value', [
                             'cell' => "{$col}{$row}",
@@ -481,23 +489,6 @@ class EntityImporter
                 'trace' => $e->getTraceAsString()
             ]);
             throw $e;
-        }
-    }
-
-
-    /**
-     * This functions corrects the parent setting based on the children value of the parent.
-     *
-     * @param iterable                         $entities the list of entities that should be fixed
-     * @param  AbstractStructuralDBElement|null  $parent   the parent, to which the entity should be set
-     */
-    protected function correctParentEntites(iterable $entities, ?AbstractStructuralDBElement $parent = null): void
-    {
-        foreach ($entities as $entity) {
-            /** @var AbstractStructuralDBElement $entity */
-            $entity->setParent($parent);
-            //Do the same for the children of entity
-            $this->correctParentEntites($entity->getChildren(), $entity);
         }
     }
 }

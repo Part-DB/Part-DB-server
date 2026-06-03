@@ -80,7 +80,11 @@ services:
       #- BANNER=This is a test banner<br>with a line break
     
       # If you use a reverse proxy in front of Part-DB, you must configure the trusted proxies IP addresses here (see reverse proxy documentation for more information):
-      # - TRUSTED_PROXIES=127.0.0.0/8,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16  
+      # - TRUSTED_PROXIES=127.0.0.0/8,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+      
+      # If you need to install additional composer packages (e.g., for specific mailer transports), you can specify them here:
+      # The packages will be installed automatically when the container starts
+      # - COMPOSER_EXTRA_PACKAGES=symfony/mailgun-mailer symfony/sendgrid-mailer
 ```
 
 4. Customize the settings by changing the environment variables (or adding new ones). See [Configuration]({% link
@@ -90,6 +94,11 @@ services:
 ```bash
    docker-compose up -d
 ```    
+
+{: .warning }
+> If you run a root console inside the docker container, and wanna execute commands on the webserver behalf, be sure to use `sudo -E` command (with the `-E` flag) to preserve env variables from the current shell.
+> Otherwise Part-DB console might use the wrong configuration to execute commands.
+
 
 6. Create the initial database with
 
@@ -136,19 +145,22 @@ services:
       # In docker env logs will be redirected to stderr
       - APP_ENV=docker
 
-       # Uncomment this, if you want to use the automatic database migration feature. With this you have you do not have to
+       # Uncomment this, if you want to use the automatic database migration feature. With this you do not have to
        # run the doctrine:migrations:migrate commands on installation or upgrade. A database backup is written to the uploads/
        # folder (under .automigration-backup), so you can restore it, if the migration fails.
        # This feature is currently experimental, so use it at your own risk!
        # - DB_AUTOMIGRATE=true
 
       # You can configure Part-DB using the webUI or environment variables
-      # However you can add add any other environment configuration you want here
+      # However you can add any other environment configuration you want here
       # See .env file for all available options or https://docs.part-db.de/configuration.html
 
-      # Override value if you want to show to show a given text on homepage.
-      # When this is outcommented the webUI can be used to configure the banner
+      # Override value if you want to show a given text on homepage.
+      # When this is commented out the webUI can be used to configure the banner
       #- BANNER=This is a test banner<br>with a line break
+      
+      # If you need to install additional composer packages (e.g., for specific mailer transports), you can specify them here:
+      # - COMPOSER_EXTRA_PACKAGES=symfony/mailgun-mailer symfony/sendgrid-mailer
 
   database:
     container_name: partdb_database
@@ -169,6 +181,38 @@ services:
 
 ```
 
+### Installing additional composer packages
+
+If you need to use specific mailer transports or other functionality that requires additional composer packages, you can 
+install them automatically at container startup using the `COMPOSER_EXTRA_PACKAGES` environment variable.
+
+For example, if you want to use Mailgun as your email provider, you need to install the `symfony/mailgun-mailer` package.
+Add the following to your docker-compose.yaml environment section:
+
+```yaml
+environment:
+  - COMPOSER_EXTRA_PACKAGES=symfony/mailgun-mailer
+  - MAILER_DSN=mailgun+api://API_KEY:DOMAIN@default
+```
+
+You can specify multiple packages by separating them with spaces:
+
+```yaml
+environment:
+  - COMPOSER_EXTRA_PACKAGES=symfony/mailgun-mailer symfony/sendgrid-mailer
+```
+
+{: .info }
+> The packages will be installed when the container starts. This may increase the container startup time on the first run.
+> The installed packages will persist in the container until it is recreated.
+
+Common mailer packages you might need:
+- `symfony/mailgun-mailer` - For Mailgun email service
+- `symfony/sendgrid-mailer` - For SendGrid email service  
+- `symfony/brevo-mailer` - For Brevo (formerly Sendinblue) email service
+- `symfony/amazon-mailer` - For Amazon SES email service
+- `symfony/postmark-mailer` - For Postmark email service
+
 ### Update Part-DB
 
 You can update Part-DB by pulling the latest image and restarting the container.
@@ -179,6 +223,52 @@ docker-compose pull
 docker-compose up -d
 docker exec --user=www-data partdb php bin/console doctrine:migrations:migrate
 ```
+
+### Automatic updates via Watchtower (Web UI)
+
+Part-DB supports triggering Docker container updates directly from the web interface using [Watchtower](https://github.com/nicholas-fedor/watchtower).
+When configured, administrators can check for and apply updates from the **System > Update Manager** page.
+
+{: .info }
+> The original `containrrr/watchtower` project is no longer maintained (last release November 2023). These docs use the actively maintained community fork at [`nicholas-fedor/watchtower`](https://github.com/nicholas-fedor/watchtower), which is drop-in compatible with the original HTTP API.
+
+To enable this feature, add a Watchtower service to your `docker-compose.yaml` and configure the connection:
+
+```yaml
+services:
+  partdb:
+    container_name: partdb
+    image: jbtronics/part-db1:latest
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    environment:
+      # ... your existing environment variables ...
+
+      # Watchtower integration for web-based updates
+      - WATCHTOWER_API_URL=http://watchtower:8080
+      - WATCHTOWER_API_TOKEN=your-secret-token
+    # ... your existing ports/volumes ...
+
+  watchtower:
+    image: ghcr.io/nicholas-fedor/watchtower:latest
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_HTTP_API_UPDATE=true
+      - WATCHTOWER_HTTP_API_TOKEN=your-secret-token
+      - WATCHTOWER_LABEL_ENABLE=true
+      - WATCHTOWER_CLEANUP=true
+```
+
+{: .important }
+> Replace `your-secret-token` with a strong, unique token. The same token must be set in both the Part-DB (`WATCHTOWER_API_TOKEN`) and Watchtower (`WATCHTOWER_HTTP_API_TOKEN`) environment variables.
+
+{: .info }
+> `WATCHTOWER_LABEL_ENABLE=true` ensures Watchtower only manages containers with the `com.centurylinklabs.watchtower.enable=true` label, preventing it from updating other containers on the same host.
+
+Once configured, the Update Manager page will show the Watchtower connection status and provide an **Update via Watchtower** button when a new version is available. Clicking it triggers Watchtower to pull the latest image and recreate the Part-DB container automatically.
 
 ## Direct use of docker image
 

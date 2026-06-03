@@ -25,7 +25,7 @@ namespace API\Endpoints;
 
 use App\Tests\API\AuthenticatedApiTestCase;
 
-class InfoEndpointTest extends AuthenticatedApiTestCase
+final class InfoEndpointTest extends AuthenticatedApiTestCase
 {
     public function testGetInfo(): void
     {

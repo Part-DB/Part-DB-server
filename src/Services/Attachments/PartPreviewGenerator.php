@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Services\Attachments;
 
 use App\Entity\Parts\Footprint;
+use App\Entity\Parts\PartCustomState;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\StorageLocation;

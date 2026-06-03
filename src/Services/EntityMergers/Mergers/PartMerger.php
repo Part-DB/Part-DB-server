@@ -59,12 +59,14 @@ class PartMerger implements EntityMergerInterface
         $this->useOtherValueIfNotEmtpy($target, $other, 'manufacturer_product_number');
         $this->useOtherValueIfNotEmtpy($target, $other, 'mass');
         $this->useOtherValueIfNotEmtpy($target, $other, 'ipn');
+        $this->useOtherValueIfNotEmtpy($target, $other, 'gtin');
 
         //Merge relations to other entities
         $this->useOtherValueIfNotNull($target, $other, 'manufacturer');
         $this->useOtherValueIfNotNull($target, $other, 'footprint');
         $this->useOtherValueIfNotNull($target, $other, 'category');
         $this->useOtherValueIfNotNull($target, $other, 'partUnit');
+        $this->useOtherValueIfNotNull($target, $other, 'partCustomState');
 
         //We assume that the higher value is the correct one for minimum instock
         $this->useLargerValue($target, $other, 'minamount');
