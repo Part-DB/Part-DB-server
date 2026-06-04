@@ -169,8 +169,8 @@ class LogEntryExtraFormatter
             $array['log.collection_deleted.deleted'] = sprintf(
                 '%s: %s (%s)',
                 $this->elementTypeNameGenerator->getLocalizedTypeLabel($context->getDeletedElementClass()),
-                $context->getOldName() ?? (string) $context->getDeletedElementID(),
-                $context->getCollectionName()
+                htmlspecialchars($context->getOldName() ?? (string) $context->getDeletedElementID()),
+                htmlspecialchars($context->getCollectionName())
             );
         }
 
