@@ -1,4 +1,4 @@
-# Generated on Mon May 25 06:42:27 UTC 2026
+# Generated on Mon Jun  1 07:08:24 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -2255,11 +2255,11 @@ Battery_Management:BQ76200PW
 Battery_Management:BQ76920PW
 Battery_Management:BQ76930DBT
 Battery_Management:BQ76940DBT
-Battery_Management:BQ7695201PFBR
-Battery_Management:BQ7695202PFBR
-Battery_Management:BQ7695203PFBR
-Battery_Management:BQ7695204PFBR
-Battery_Management:BQ76952PFBR
+Battery_Management:BQ7695201PFB
+Battery_Management:BQ7695202PFB
+Battery_Management:BQ7695203PFB
+Battery_Management:BQ7695204PFB
+Battery_Management:BQ76952PFB
 Battery_Management:BQ78350DBT
 Battery_Management:BQ78350DBT-R1
 Battery_Management:CN3063
@@ -16037,6 +16037,7 @@ Power_Supervisor:TPS3831
 Power_Supervisor:TPS3839DBZ
 Power_Supervisor:TPS3839DQN
 RF:0900PC15J0013
+RF:AD8302xRU
 RF:ADC-10-1R
 RF:ADCH-80
 RF:ADCH-80A
