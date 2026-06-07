@@ -33,6 +33,7 @@ final readonly class AppSecretChecker
     public const INSECURE_SECRETS = [
         'a03498528f5a5fc089273ec9ae5b2849', // default in .env
         '318b5d659e07a0b3f96d9b3a83b254ca', // default in .env.dev
+        'CHANGE_ME' //example secret used in documentation and error messages
     ];
 
     public function __construct(

@@ -114,10 +114,21 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
     * `datastructure_create`: Creation of a new data structure (e.g. category, manufacturer, ...)
 * `CHECK_FOR_UPDATES` (default `1`): Set this to 0 if you do not want Part-DB to connect to GitHub to check for new
   versions, or if your server cannot connect to the internet.
-* `APP_SECRET` (env only): This variable is a configuration parameter used for various security-related purposes,
-  particularly for securing and protecting various aspects of your application. It's a secret key that is used for
-  cryptographic operations and security measures (session management, CSRF protection, etc..). Therefore this
-  value should be handled as confidential data and not shared publicly.
+* `APP_SECRET` (env only): A secret key used by Symfony for cryptographic operations — signing cookies, generating
+  CSRF tokens, and other security-sensitive tasks. **You must change this from the default value before exposing
+  Part-DB to any network.** The default value shipped with Part-DB is publicly known; leaving it in place would allow
+  an attacker to forge signed cookies and bypass CSRF protection.
+
+  Generate a secure value and add it to `.env.local`:
+  ```bash
+  echo "APP_SECRET=$(openssl rand -hex 32)" >> .env.local
+  ```
+  For Docker, pass it in the `environment` section of your `docker-compose.yaml`:
+  ```yaml
+  environment:
+    - APP_SECRET=<output of: openssl rand -hex 32>
+  ```
+  Part-DB displays a warning on the homepage (visible to administrators only) as long as the default value is in use.
 * `SHOW_PART_IMAGE_OVERLAY`: Set to 0 to disable the part image overlay, which appears if you hover over an image in the
   part image gallery
 * `IPN_SUGGEST_REGEX`: A global regular expression, that part IPNs have to fulfill. Enforce your own format for your users.
