@@ -51,5 +51,9 @@
 	# Disable Topics tracking if not enabled explicitly: https://github.com/jkarlin/topics
 	header ?Permissions-Policy "browsing-topics=()"
 
+	# Prevent PHP execution in the media upload directory
+	@php_in_media path_regexp (?i)^/media/.*\.(php[3-8]?|phar|phtml|pht|phps)$
+	respond @php_in_media 403
+
 	php_server
 }

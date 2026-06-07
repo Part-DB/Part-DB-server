@@ -52,6 +52,11 @@ server {
     location ~ \.php$ {
         return 404;
     }
+
+    # Prevent PHP execution in the media upload directory
+    location ~* ^/media/.*\.(php[3-8]?|phar|phtml|pht|phps)$ {
+        return 403;
+    }
     
     # Set Content-Security-Policy for svg files, to block embedded javascript in there
     location ~* \.svg$ {
