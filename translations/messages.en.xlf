@@ -13658,7 +13658,7 @@ Buerklin-API Authentication server:
     <unit id="XSSYWTJ" name="system.app_secret.insecure.message">
       <segment state="translated">
         <source>system.app_secret.insecure.message</source>
-        <target>APP_SECRET is set to the default value shipped with Part-DB. This is a security risk! Set it to a new random value in your .env.local or docker-compose.yaml file.</target>
+        <target>The &lt;code&gt;APP_SECRET&lt;/code&gt; environment variable is set to the default value shipped with Part-DB. This is a security risk! Set it to a new random value in your &lt;code&gt;.env.local&lt;/code&gt; or &lt;code&gt;docker-compose.yaml&lt;/code&gt; file.</target>
       </segment>
     </unit>
     <unit id="e7.f3m0" name="system.app_secret.insecure.suggestion">
