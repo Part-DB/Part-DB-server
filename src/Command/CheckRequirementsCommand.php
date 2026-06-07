@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Command;
 
+use App\Services\System\AppSecretChecker;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -33,7 +34,9 @@ use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 #[AsCommand('partdb:check-requirements', 'Checks if the requirements Part-DB needs or recommends are fulfilled.')]
 class CheckRequirementsCommand extends Command
 {
-    public function __construct(protected ContainerBagInterface $params)
+    public function __construct(protected ContainerBagInterface $params, AppSecretChecker $secretChecker,
+        private readonly AppSecretChecker $appSecretChecker
+    )
     {
         parent::__construct();
     }
@@ -119,6 +122,16 @@ class CheckRequirementsCommand extends Command
             $io->warning('You have activated debug mode, this is will leak informations in a production environment.');
         } elseif (!$only_issues) {
             $io->success('Debug mode disabled.');
+        }
+
+        //Check if APP_SECRET has been changed from the default
+        if ($io->isVerbose()) {
+            $io->comment('Checking APP_SECRET...');
+        }
+        if ($this->appSecretChecker->isInsecureSecret()) {
+            $io->warning('APP_SECRET is set to the default value shipped with Part-DB. This is a security risk! Generate a new secret (e.g. using "openssl rand -hex 32") and set it as APP_SECRET in your .env.local file.');
+        } elseif (!$only_issues) {
+            $io->success('APP_SECRET has been changed from the default value.');
         }
 
     }
