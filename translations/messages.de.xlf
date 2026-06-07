@@ -13647,5 +13647,23 @@ Buerklin-API-Authentication-Server:
         <target>Aktiviert das Browser-Plugin für diese Instanz.</target>
       </segment>
     </unit>
+    <unit id="JqcvhX_" name="system.app_secret.insecure.title">
+      <segment state="translated">
+        <source>system.app_secret.insecure.title</source>
+        <target>Unsicheres APP_SECRET</target>
+      </segment>
+    </unit>
+    <unit id="XSSYWTJ" name="system.app_secret.insecure.message">
+      <segment state="translated">
+        <source>system.app_secret.insecure.message</source>
+        <target>Die Umgebungsvariable &lt;code&gt;APP_SECRET&lt;/code&gt; ist auf den Standardwert gesetzt, der mit Part-DB ausgeliefert wird. Dies stellt ein Sicherheitsrisiko dar! Setzen Sie sie in Ihrer Datei &lt;code&gt;.env.local&lt;/code&gt; oder &lt;code&gt;docker-compose.yaml&lt;/code&gt; auf einen neuen Zufallswert.</target>
+      </segment>
+    </unit>
+    <unit id="e7.f3m0" name="system.app_secret.insecure.suggestion">
+      <segment state="translated">
+        <source>system.app_secret.insecure.suggestion</source>
+        <target>Sie können diesen zufällig generierten Wert verwenden (geben Sie ihn niemandem weiter):</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
