@@ -90,7 +90,7 @@ class PartImportExportController extends AbstractController
                 goto ret;
             }
 
-            if (!isset($errors) || $errors) {
+            if (!isset($errors) || $errors) { //@phpstan-ignore-line
                 $this->addFlash('error', 'parts.import.flash.error');
             } else {
                 $this->addFlash('success', 'parts.import.flash.success');
