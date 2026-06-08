@@ -51,7 +51,7 @@ export default class extends Controller {
 
         //Make the state persistent over reloads
         if(localStorage.getItem(STORAGE_KEY) === 'true') {
-            sidebarHide();
+            this.hideSidebar();
         }
     }
 
