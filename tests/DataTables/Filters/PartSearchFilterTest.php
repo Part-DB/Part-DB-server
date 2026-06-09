@@ -47,18 +47,21 @@ final class PartSearchFilterTest extends TestCase
         return $settings;
     }
 
-    public function testApplyReturnsEarlyWhenKeywordEmpty(): void
+    public function testApplyEnforcesNoResultsWhenKeywordEmpty(): void
     {
         $filter = new PartSearchFilter('', $this->makeSearchSettings());
 
         $qb = $this->createMock(QueryBuilder::class);
+        $qb->expects($this->once())
+            ->method('add')
+            ->with('where', '1 = 0');
         $qb->expects($this->never())->method('andWhere');
-        $qb->expects($this->never())->method('setParameter');
+        $qb->expects($this->never())->method('setParameters');
 
         $filter->apply($qb);
     }
 
-    public function testApplyReturnsEarlyWhenNothingToSearchForAndNoExactIdSearch(): void
+    public function testApplyEnforcesNoResultsWhenNothingToSearchForAndNoExactIdSearch(): void
     {
         $filter = (new PartSearchFilter('foo', $this->makeSearchSettings()))
             ->setName(false)
@@ -76,8 +79,11 @@ final class PartSearchFilterTest extends TestCase
             ->setDbId(false);
 
         $qb = $this->createMock(QueryBuilder::class);
+        $qb->expects($this->once())
+            ->method('add')
+            ->with('where', '1 = 0');
         $qb->expects($this->never())->method('andWhere');
-        $qb->expects($this->never())->method('setParameter');
+        $qb->expects($this->never())->method('setParameters');
 
         $filter->apply($qb);
     }
@@ -101,8 +107,9 @@ final class PartSearchFilterTest extends TestCase
                 $this->assertInstanceOf(\Doctrine\Common\Collections\ArrayCollection::class, $params);
 
                 /** @var \Doctrine\ORM\Query\Parameter|null $p */
-                $p = $params->get('search_query');
+                $p = $params->get(0);
                 $this->assertNotNull($p);
+                $this->assertSame('search_query', $p->getName());
                 $this->assertSame('foo.*bar', $p->getValue());
 
                 return true;
@@ -125,9 +132,21 @@ final class PartSearchFilterTest extends TestCase
         $qb = $this->createMock(QueryBuilder::class);
         $qb->method('expr')->willReturn($expr);
 
+        $qb->expects($this->never())->method('setParameter');
+
         $qb->expects($this->once())
-            ->method('setParameter')
-            ->with('search_query', '%10\%\_off%');
+            ->method('setParameters')
+            ->with($this->callback(function ($params): bool {
+                $this->assertInstanceOf(ArrayCollection::class, $params);
+
+                /** @var Parameter|null $p */
+                $p = $params->get(0);
+                $this->assertNotNull($p);
+                $this->assertSame('search_query0', $p->getName());
+                $this->assertSame('%10\\%\\_off%', $p->getValue());
+
+                return true;
+            }));
 
         $qb->expects($this->once())
             ->method('andWhere')
@@ -152,13 +171,38 @@ final class PartSearchFilterTest extends TestCase
         $qb = $this->createMock(QueryBuilder::class);
         $qb->method('expr')->willReturn($expr);
 
+        $qb->expects($this->never())->method('setParameter');
+
+        // New structure: LIKE token search is added via andWhere(...), exact ID match via orWhere(...),
+        // and all parameters are passed in one consolidated setParameters() call.
         $qb->expects($this->once())
-            ->method('setParameter')
-            ->with('id_exact', 123, ParameterType::INTEGER);
+            ->method('setParameters')
+            ->with($this->callback(function ($params): bool {
+                $this->assertInstanceOf(ArrayCollection::class, $params);
+
+                /** @var Parameter|null $p0 */
+                $p0 = $params->get(0);
+                $this->assertNotNull($p0);
+                $this->assertSame('search_query0', $p0->getName());
+                $this->assertSame('%123%', $p0->getValue());
+
+                /** @var Parameter|null $p1 */
+                $p1 = $params->get(1);
+                $this->assertNotNull($p1);
+                $this->assertSame('id_exact', $p1->getName());
+                $this->assertSame(123, $p1->getValue());
+                $this->assertSame(ParameterType::INTEGER, $p1->getType());
+
+                return true;
+            }));
 
         $qb->expects($this->once())
             ->method('andWhere')
             ->with($this->isInstanceOf(Orx::class));
+
+        $qb->expects($this->once())
+            ->method('orWhere')
+            ->with($this->isInstanceOf(Comparison::class));
 
         $filter->apply($qb);
     }
@@ -175,10 +219,21 @@ final class PartSearchFilterTest extends TestCase
         $qb = $this->createMock(QueryBuilder::class);
         $qb->method('expr')->willReturn($expr);
 
-        // It should still set the search_query parameter for LIKE (default regex=false)
+        $qb->expects($this->never())->method('setParameter');
+
         $qb->expects($this->once())
-            ->method('setParameter')
-            ->with('search_query', '%123abc%');
+            ->method('setParameters')
+            ->with($this->callback(function ($params): bool {
+                $this->assertInstanceOf(ArrayCollection::class, $params);
+
+                /** @var Parameter|null $p */
+                $p = $params->get(0);
+                $this->assertNotNull($p);
+                $this->assertSame('search_query0', $p->getName());
+                $this->assertSame('%123abc%', $p->getValue());
+
+                return true;
+            }));
 
         $qb->expects($this->once())->method('andWhere');
 
