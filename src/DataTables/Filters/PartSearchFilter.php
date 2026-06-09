@@ -131,19 +131,13 @@ class PartSearchFilter implements FilterInterface
 
     public function apply(QueryBuilder $queryBuilder): void
     {
-        //Early return if there is no keyword
-        if ($this->keyword === '')
-            return;
-
         $fields_to_search = $this->getFieldsToSearch();
-        $tokens = [];
-
-        // Detect if the keyword is purely numeric
-        $is_numeric = preg_match('/^\d+$/', $this->keyword) === 1;
+        $is_numeric = preg_match('/^\d+$/', trim($this->keyword)) === 1;
 
         // Add exact ID match only when the keyword is numeric
         $search_dbId = $is_numeric && (bool)$this->dbId;
 
+        $tokens = [];
         if ($this->searchSettings->enableAdvancedSearch) {
             //Transform keyword and trim excess spaces
             $this->keyword = trim(str_replace('+', ' ', $this->keyword));
@@ -158,27 +152,26 @@ class PartSearchFilter implements FilterInterface
             $tokens[] = $this->keyword;
         }
 
-        $params = [];
-        $expressions = [];
-
-         //If we have nothing to search for, do nothing
-        if ($fields_to_search === [] && !$search_dbId) {
+        //If we have nothing to search for...
+        if (($fields_to_search === [] && !$search_dbId) || $this->keyword === '' || empty($tokens)) {
+            // ...enforce returning no results
+            $queryBuilder->add('where','1 = 0');
             return;
-        } else {
+        }
+
+        $expressions = [];
+        $expressions2 = [];
+        $params = [];
+
+        //Search in selected fields, either based on regex or on tokenized keyword
+        if ($fields_to_search !== []) {
             //For regex, we pass the query as is
             if ($this->regex) {
                 //Convert the fields to search to a list of expressions
-                $expressions = array_map(function (string $field): string {
+                $expressions = array_merge($expressions, array_map(function (string $field): string {
                         return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
-                }, $fields_to_search);
+                }, $fields_to_search));
                 $params[] = new Parameter('search_query', $this->keyword);
-                //Guard condition
-                if (!empty($expressions)) {
-                    //Add Or concatenation of the expressions to our query
-                    $queryBuilder->andWhere(
-                        $queryBuilder->expr()->orX(...$expressions)
-                    );
-               }
             } else {
                 //Add a new expression and parameter set to the query for each token
                 foreach ($tokens as $i => $token) {
@@ -188,31 +181,38 @@ class PartSearchFilter implements FilterInterface
 
                     //Convert the fields to search to a list of expressions
                     $tmp = array_fill_keys($fields_to_search, $i);
-                    $expressions = array_map(function (string $field, int $idx): string {
+                    $expressions2 = array_map(function (string $field, int $idx): string {
                         return sprintf("ILIKE(%s, :search_query%u) = TRUE", $field, $idx);
                     }, array_keys($tmp), array_values($tmp));
 
-                    //Aggregate the parameters for consolidated commission
+                    //Aggregate the parameters for consolidated commission at the end
                     //For like, we add % to the start and end as wildcards
                     $params[] = new Parameter('search_query' . $i, '%' . $token . '%');
-                    //Use equal expression to search for exact numeric matches
-                    if ($search_dbId && preg_match('/^\d+$/', $token) === 1) {
-                        $expressions[] = $queryBuilder->expr()->eq('part.id', ':id_exact' . $i);
-                        $params[] = new Parameter('id_exact' . $i,
-                            (int) $token, ParameterType::INTEGER);
-                    }
 
                     //Guard condition
-                    if (!empty($expressions)) {
+                    if (!empty($expressions2)) {
                         //Add Or concatenation of the expressions to our query
                         $queryBuilder->andWhere(
-                            $queryBuilder->expr()->orX(...$expressions)
+                            $queryBuilder->expr()->orX(...$expressions2)
                         );
                     }
                 }
             }
         }
 
+        //Guard condition
+        if (!empty($expressions)) {
+            //Add Or concatenation of the expressions to our query
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->orX(...$expressions)
+            );
+       }
+        //Use equal expression to search for exact numeric matches
+        if ($search_dbId) {
+            $queryBuilder->orWhere($queryBuilder->expr()->eq('part.id', ':id_exact'));
+            $params[] = new Parameter('id_exact', (int)$this->keyword,
+                ParameterType::INTEGER);
+        }
         $queryBuilder->setParameters(
             new ArrayCollection($params)
         );
