@@ -58,7 +58,7 @@
         </tr>
         <tr>
             <td>{% trans %}log.target{% endtrans %}</td>
-            <td>{{ target_html|raw }}</td>
+            <td>{{ target_html|sanitize_html }}</td>
         </tr>
     </table>
 
@@ -111,7 +111,7 @@
         {%  elseif log_entry is instanceof('App\\Entity\\LogSystem\\CollectionElementDeleted') %}
                 {% include "log_system/details/_extra_collection_element_deleted.html.twig" %}
         {% else %}
-            {{ extra_html | raw }}
+            {{ extra_html | sanitize_html }}
         {% endif %}
     </div>
 {% endblock %}
