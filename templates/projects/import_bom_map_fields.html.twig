@@ -132,8 +132,8 @@
     <script nonce="{{ csp_nonce('script') }}">
         // Function to initialize the field mapping page
         function initializeFieldMapping() {
-            const suggestions = {{ suggested_mapping|json_encode|raw }};
-            const fieldNameMapping = {{ field_name_mapping|json_encode|raw }};
+            const suggestions = JSON.parse("{{ suggested_mapping|json_encode|escape('js')}}");
+            const fieldNameMapping = JSON.parse("{{ field_name_mapping|json_encode|escape('js') }}");
 
             Object.keys(suggestions).forEach(function(field) {
                 // Use the sanitized field name from the server-side mapping
