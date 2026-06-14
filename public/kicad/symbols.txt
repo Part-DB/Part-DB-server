@@ -1,4 +1,4 @@
-# Generated on Mon Jun  1 07:08:24 UTC 2026
+# Generated on Mon Jun  8 06:52:04 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -15115,6 +15115,7 @@ Memory_Flash:AM29F400Bx-xxEx
 Memory_Flash:AM29F400Bx-xxSx
 Memory_Flash:AM29PDL128G
 Memory_Flash:AT25DF041x-UxN-x
+Memory_Flash:AT25SF041B-SSHD-X
 Memory_Flash:AT25SF081-SSHD-X
 Memory_Flash:AT25SF081-SSHF-X
 Memory_Flash:AT25SF081-XMHD-X
@@ -16480,6 +16481,7 @@ RF_Module:DWM3000
 RF_Module:E18-MS1-PCB
 RF_Module:E73-2G4M04S-52810
 RF_Module:E73-2G4M04S-52832
+RF_Module:ESP-01
 RF_Module:ESP-07
 RF_Module:ESP-12E
 RF_Module:ESP-12F
