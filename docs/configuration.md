@@ -279,9 +279,13 @@ See the [information providers]({% link usage/information_provider_system.md %})
 * `BANNER`: You can configure the text that should be shown as the banner on the homepage. Useful especially for docker
   containers. In all other applications you can just change the `config/banner.md` file.
 * `DISABLE_YEAR2038_BUG_CHECK` (env only): If set to `1`, the year 2038 bug check is disabled on 32-bit systems, and dates after
-2038 are no longer forbidden. However this will lead to 500 error messages when rendering dates after 2038 as all current
+2038 are no longer forbidden. However, this will lead to 500 error messages when rendering dates after 2038 as all current
 32-bit PHP versions can not format these dates correctly. This setting is for the case that future PHP versions will
 handle this correctly on 32-bit systems. 64-bit systems are not affected by this bug, and the check is always disabled.
+* `DEPRECATION_LOG_LEVEL` (default `emergency`) (env only): In the `prod` and `docker` environments, PHP/Symfony
+  deprecation notices are written to their own `var/log/<env>_deprecations.log` file. This option sets the minimum log 
+  level a deprecation notice must have to be written there. Since deprecation notices are logged with level `info`, 
+  the default value of `emergency` effectively disables this dedicated deprecation log. Set it to `debug` to enable it.
 
 ## Banner
 
