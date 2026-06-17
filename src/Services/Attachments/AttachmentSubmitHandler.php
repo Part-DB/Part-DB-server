@@ -543,8 +543,10 @@ class AttachmentSubmitHandler
             return $attachment;
         }
 
+        $guessed_mime_type = $this->mimeTypes->guessMimeType($path);
+
         //Check if the file is an SVG
-        if ($attachment->getExtension() === "svg") {
+        if ($guessed_mime_type === "image/svg+xml" || $attachment->getExtension() === "svg") {
             $this->SVGSanitizer->sanitizeFile($path);
         }
 
