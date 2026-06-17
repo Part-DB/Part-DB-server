@@ -13667,5 +13667,300 @@ Buerklin-API Authentication server:
         <target>You can use this randomly generated value (share it with nobody):</target>
       </segment>
     </unit>
+
+    <unit id="ord.001" name="order.label">
+      <segment state="translated">
+        <source>order.label</source>
+        <target>Order</target>
+      </segment>
+    </unit>
+    <unit id="ord.002" name="order.labelp">
+      <segment state="translated">
+        <source>order.labelp</source>
+        <target>Orders</target>
+      </segment>
+    </unit>
+    <unit id="ord.003" name="order.name">
+      <segment state="translated">
+        <source>order.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="ord.004" name="order.notes">
+      <segment state="translated">
+        <source>order.notes</source>
+        <target>Notes</target>
+      </segment>
+    </unit>
+    <unit id="ord.005" name="order.new">
+      <segment state="translated">
+        <source>order.new</source>
+        <target>New Order</target>
+      </segment>
+    </unit>
+    <unit id="ord.006" name="order.list.title">
+      <segment state="translated">
+        <source>order.list.title</source>
+        <target>Orders</target>
+      </segment>
+    </unit>
+    <unit id="ord.007" name="order.list.empty">
+      <segment state="translated">
+        <source>order.list.empty</source>
+        <target>No orders found. Create one using the Ordering Helper tool.</target>
+      </segment>
+    </unit>
+    <unit id="ord.008" name="order.list.item_count">
+      <segment state="translated">
+        <source>order.list.item_count</source>
+        <target>Items</target>
+      </segment>
+    </unit>
+    <unit id="ord.009" name="order.list.created">
+      <segment state="translated">
+        <source>order.list.created</source>
+        <target>Created</target>
+      </segment>
+    </unit>
+    <unit id="ord.010" name="order.list.actions">
+      <segment state="translated">
+        <source>order.list.actions</source>
+        <target>Actions</target>
+      </segment>
+    </unit>
+    <unit id="ord.011" name="order.show.title">
+      <segment state="translated">
+        <source>order.show.title</source>
+        <target>Order</target>
+      </segment>
+    </unit>
+    <unit id="ord.012" name="order.items">
+      <segment state="translated">
+        <source>order.items</source>
+        <target>Items</target>
+      </segment>
+    </unit>
+    <unit id="ord.013" name="order.item.name">
+      <segment state="translated">
+        <source>order.item.name</source>
+        <target>Part Name</target>
+      </segment>
+    </unit>
+    <unit id="ord.014" name="order.item.quantity">
+      <segment state="translated">
+        <source>order.item.quantity</source>
+        <target>Quantity</target>
+      </segment>
+    </unit>
+    <unit id="ord.015" name="order.item.supplier">
+      <segment state="translated">
+        <source>order.item.supplier</source>
+        <target>Supplier</target>
+      </segment>
+    </unit>
+    <unit id="ord.016" name="order.item.supplier_part_nr">
+      <segment state="translated">
+        <source>order.item.supplier_part_nr</source>
+        <target>SKU</target>
+      </segment>
+    </unit>
+    <unit id="ord.017" name="order.item.part">
+      <segment state="translated">
+        <source>order.item.part</source>
+        <target>Part</target>
+      </segment>
+    </unit>
+    <unit id="ord.018" name="order.item.add">
+      <segment state="translated">
+        <source>order.item.add</source>
+        <target>Add item</target>
+      </segment>
+    </unit>
+    <unit id="ord.019" name="order.supplier_references">
+      <segment state="translated">
+        <source>order.supplier_references</source>
+        <target>Supplier Order Numbers</target>
+      </segment>
+    </unit>
+    <unit id="ord.020" name="order.supplier_reference.supplier">
+      <segment state="translated">
+        <source>order.supplier_reference.supplier</source>
+        <target>Supplier</target>
+      </segment>
+    </unit>
+    <unit id="ord.021" name="order.supplier_reference.order_number">
+      <segment state="translated">
+        <source>order.supplier_reference.order_number</source>
+        <target>Order Number</target>
+      </segment>
+    </unit>
+    <unit id="ord.022" name="order.supplier_reference.add">
+      <segment state="translated">
+        <source>order.supplier_reference.add</source>
+        <target>Add order number</target>
+      </segment>
+    </unit>
+    <unit id="ord.023" name="order.export_csv">
+      <segment state="translated">
+        <source>order.export_csv</source>
+        <target>Export CSV</target>
+      </segment>
+    </unit>
+    <unit id="ord.024" name="order.receive.button">
+      <segment state="translated">
+        <source>order.receive.button</source>
+        <target>Receive Order</target>
+      </segment>
+    </unit>
+    <unit id="ord.025" name="order.receive.title">
+      <segment state="translated">
+        <source>order.receive.title</source>
+        <target>Receive Order</target>
+      </segment>
+    </unit>
+    <unit id="ord.026" name="order.receive.help">
+      <segment state="translated">
+        <source>order.receive.help</source>
+        <target>Adjust the received quantities below, then click Receive to update stock. Quantities are pre-filled from the order.</target>
+      </segment>
+    </unit>
+    <unit id="ord.027" name="order.receive.ordered">
+      <segment state="translated">
+        <source>order.receive.ordered</source>
+        <target>ordered</target>
+      </segment>
+    </unit>
+    <unit id="ord.028" name="order.receive.quantity_received">
+      <segment state="translated">
+        <source>order.receive.quantity_received</source>
+        <target>Received</target>
+      </segment>
+    </unit>
+    <unit id="ord.029" name="order.receive.submit">
+      <segment state="translated">
+        <source>order.receive.submit</source>
+        <target>Add to stock</target>
+      </segment>
+    </unit>
+    <unit id="ord.030" name="order.receive.flash.success">
+      <segment state="translated">
+        <source>order.receive.flash.success</source>
+        <target>Stock updated successfully from order.</target>
+      </segment>
+    </unit>
+    <unit id="ord.031" name="order.flash.created">
+      <segment state="translated">
+        <source>order.flash.created</source>
+        <target>Order created successfully.</target>
+      </segment>
+    </unit>
+    <unit id="ord.032" name="order.flash.saved">
+      <segment state="translated">
+        <source>order.flash.saved</source>
+        <target>Order saved successfully.</target>
+      </segment>
+    </unit>
+    <unit id="ord.033" name="order.flash.deleted">
+      <segment state="translated">
+        <source>order.flash.deleted</source>
+        <target>Order deleted.</target>
+      </segment>
+    </unit>
+    <unit id="ord.034" name="order.delete.confirm.title">
+      <segment state="translated">
+        <source>order.delete.confirm.title</source>
+        <target>Delete Order</target>
+      </segment>
+    </unit>
+    <unit id="ord.035" name="order.delete.confirm.message">
+      <segment state="translated">
+        <source>order.delete.confirm.message</source>
+        <target>Are you sure you want to delete the order "%name%"? This cannot be undone.</target>
+      </segment>
+    </unit>
+    <unit id="ord.036" name="order.ordering_helper.title">
+      <segment state="translated">
+        <source>order.ordering_helper.title</source>
+        <target>Ordering Helper</target>
+      </segment>
+    </unit>
+    <unit id="ord.037" name="order.ordering_helper.help">
+      <segment state="translated">
+        <source>order.ordering_helper.help</source>
+        <target>Select the projects you want to build and how many of each. The helper will compute which parts you need to order based on your current stock.</target>
+      </segment>
+    </unit>
+    <unit id="ord.038" name="order.ordering_helper.projects">
+      <segment state="translated">
+        <source>order.ordering_helper.projects</source>
+        <target>Projects to build</target>
+      </segment>
+    </unit>
+    <unit id="ord.039" name="order.ordering_helper.build_count">
+      <segment state="translated">
+        <source>order.ordering_helper.build_count</source>
+        <target>Build count</target>
+      </segment>
+    </unit>
+    <unit id="ord.040" name="order.ordering_helper.add_project">
+      <segment state="translated">
+        <source>order.ordering_helper.add_project</source>
+        <target>Add project</target>
+      </segment>
+    </unit>
+    <unit id="ord.041" name="order.ordering_helper.compute">
+      <segment state="translated">
+        <source>order.ordering_helper.compute</source>
+        <target>Compute needed parts</target>
+      </segment>
+    </unit>
+    <unit id="ord.042" name="order.ordering_helper.preview">
+      <segment state="translated">
+        <source>order.ordering_helper.preview</source>
+        <target>Parts to order</target>
+      </segment>
+    </unit>
+    <unit id="ord.043" name="order.ordering_helper.all_in_stock">
+      <segment state="translated">
+        <source>order.ordering_helper.all_in_stock</source>
+        <target>All parts are sufficiently in stock. Nothing to order!</target>
+      </segment>
+    </unit>
+    <unit id="ord.044" name="order.ordering_helper.save_as_order">
+      <segment state="translated">
+        <source>order.ordering_helper.save_as_order</source>
+        <target>Save as Order</target>
+      </segment>
+    </unit>
+    <unit id="ord.045" name="order.ordering_helper.name_placeholder">
+      <segment state="translated">
+        <source>order.ordering_helper.name_placeholder</source>
+        <target>Auto-generated if left blank</target>
+      </segment>
+    </unit>
+    <unit id="ord.046" name="order.ordering_helper.no_projects_selected">
+      <segment state="translated">
+        <source>order.ordering_helper.no_projects_selected</source>
+        <target>Please select at least one project.</target>
+      </segment>
+    </unit>
+    <unit id="ord.047" name="perm.orders.receive">
+      <segment state="translated">
+        <source>perm.orders.receive</source>
+        <target>Receive orders (update stock)</target>
+      </segment>
+    </unit>
+    <unit id="ord.048" name="cancel">
+      <segment state="translated">
+        <source>cancel</source>
+        <target>Cancel</target>
+      </segment>
+    </unit>
+    <unit id="ord.049" name="delete">
+      <segment state="translated">
+        <source>delete</source>
+        <target>Delete</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

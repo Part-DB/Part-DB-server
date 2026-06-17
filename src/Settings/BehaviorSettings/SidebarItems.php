@@ -35,6 +35,7 @@ enum SidebarItems: string implements TranslatableInterface
     case MANUFACTURERS = "manufacturers";
     case SUPPLIERS = "suppliers";
     case PROJECTS = "projects";
+    case ORDERS = "orders";
 
     public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
@@ -46,6 +47,7 @@ enum SidebarItems: string implements TranslatableInterface
             self::MANUFACTURERS => 'manufacturer.labelp',
             self::SUPPLIERS => 'supplier.labelp',
             self::PROJECTS => 'project.labelp',
+            self::ORDERS => 'order.labelp',
         };
 
         return $translator->trans($key, locale: $locale);

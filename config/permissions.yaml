@@ -385,3 +385,27 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.api.manage_tokens"
         alsoSet: ['access_api']
         apiTokenRole: ROLE_API_FULL
+
+  orders:
+    group: "data"
+    label: "order.labelp"
+    operations:
+      read:
+        label: "perm.read"
+        apiTokenRole: ROLE_API_READ_ONLY
+      edit:
+        label: "perm.edit"
+        alsoSet: ['read']
+        apiTokenRole: ROLE_API_EDIT
+      create:
+        label: "perm.create"
+        alsoSet: ['read', 'edit']
+        apiTokenRole: ROLE_API_EDIT
+      delete:
+        label: "perm.delete"
+        alsoSet: ['read', 'edit']
+        apiTokenRole: ROLE_API_EDIT
+      receive:
+        label: "perm.orders.receive"
+        alsoSet: ['read']
+        apiTokenRole: ROLE_API_EDIT

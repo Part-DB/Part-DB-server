@@ -1,0 +1,151 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}order.show.title{% endtrans %}: {{ order.name }}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-cart-shopping fa-fw"></i>
+    {% trans %}order.show.title{% endtrans %}: <b>{{ order.name }}</b>
+{% endblock %}
+
+{% block card_content %}
+    {# Action bar #}
+    <div class="mb-3 d-flex gap-2 flex-wrap">
+        {% if is_granted('read', order) %}
+            <a href="{{ path('order_export_csv', {'id': order.id}) }}" class="btn btn-sm btn-outline-secondary">
+                <i class="fa-solid fa-file-csv fa-fw"></i>
+                {% trans %}order.export_csv{% endtrans %}
+            </a>
+        {% endif %}
+        {% if is_granted('receive', order) %}
+            <a href="{{ path('order_receive', {'id': order.id}) }}" class="btn btn-sm btn-outline-success">
+                <i class="fa-solid fa-boxes-packing fa-fw"></i>
+                {% trans %}order.receive.button{% endtrans %}
+            </a>
+        {% endif %}
+        {% if is_granted('delete', order) %}
+            <button type="button" class="btn btn-sm btn-outline-danger ms-auto"
+                    data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <i class="fa-solid fa-trash fa-fw"></i>
+                {% trans %}delete{% endtrans %}
+            </button>
+        {% endif %}
+    </div>
+
+    {{ form_start(form) }}
+
+    {# Metadata section #}
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.notes) }}
+        </div>
+    </div>
+
+    {# Supplier references #}
+    <h5><i class="fa-solid fa-hashtag fa-fw"></i> {% trans %}order.supplier_references{% endtrans %}</h5>
+    <div id="supplier-references-container" data-controller="elements/collection"
+         data-elements--collection-add-label-value="{% trans %}order.supplier_reference.add{% endtrans %}">
+        {% for refForm in form.supplierReferences %}
+            <div class="row g-2 align-items-center mb-2 collection-item">
+                <div class="col-md-4">{{ form_row(refForm.supplier) }}</div>
+                <div class="col-md-6">{{ form_row(refForm.orderNumber) }}</div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-sm btn-outline-danger collection-remove">
+                        <i class="fa-solid fa-times fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {{ form_widget(form.supplierReferences) }}
+
+    <hr>
+
+    {# Items table #}
+    <h5><i class="fa-solid fa-list fa-fw"></i> {% trans %}order.items{% endtrans %}
+        <span class="badge bg-secondary">{{ order.items | length }}</span>
+    </h5>
+
+    <div class="table-responsive">
+        <table class="table table-sm table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>{% trans %}order.item.name{% endtrans %}</th>
+                    <th>{% trans %}order.item.quantity{% endtrans %}</th>
+                    <th>{% trans %}order.item.supplier{% endtrans %}</th>
+                    <th>{% trans %}order.item.supplier_part_nr{% endtrans %}</th>
+                    {% if is_granted('edit', order) %}<th></th>{% endif %}
+                </tr>
+            </thead>
+            <tbody id="order-items-container">
+                {% for itemForm in form.items %}
+                    <tr class="collection-item">
+                        <td>
+                            {% if itemForm.vars.data.part is not null %}
+                                <a href="{{ entity_url(itemForm.vars.data.part, 'info') }}" target="_blank">
+                                    {{ form_widget(itemForm.name) }}
+                                </a>
+                            {% else %}
+                                {{ form_widget(itemForm.name) }}
+                            {% endif %}
+                            {{ form_widget(itemForm.part, {'attr': {'class': 'd-none'}}) }}
+                        </td>
+                        <td>{{ form_widget(itemForm.quantity, {'attr': {'style': 'width:100px'}}) }}</td>
+                        <td>{{ form_widget(itemForm.supplier) }}</td>
+                        <td>{{ form_widget(itemForm.supplierPartNr) }}</td>
+                        {% if is_granted('edit', order) %}
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-danger collection-remove">
+                                    <i class="fa-solid fa-times fa-fw"></i>
+                                </button>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if is_granted('edit', order) %}
+        {{ form_widget(form.items) }}
+        <button type="button" class="btn btn-sm btn-outline-secondary mb-3 collection-add" data-collection-target="order-items-container">
+            <i class="fa-solid fa-plus fa-fw"></i>
+            {% trans %}order.item.add{% endtrans %}
+        </button>
+    {% endif %}
+
+    {% if is_granted('edit', order) %}
+        <div class="mt-3">
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+            <a href="{{ path('order_list') }}" class="btn btn-secondary ms-2">{% trans %}cancel{% endtrans %}</a>
+        </div>
+    {% endif %}
+
+    {{ form_end(form) }}
+
+    {# Delete modal #}
+    {% if is_granted('delete', order) %}
+        <div class="modal fade" id="deleteModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{% trans %}order.delete.confirm.title{% endtrans %}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        {% trans with {'%name%': order.name} %}order.delete.confirm.message{% endtrans %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans %}cancel{% endtrans %}</button>
+                        <form method="post" action="{{ path('order_delete', {'id': order.id}) }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete_order_' ~ order.id) }}">
+                            <button type="submit" class="btn btn-danger">{% trans %}delete{% endtrans %}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

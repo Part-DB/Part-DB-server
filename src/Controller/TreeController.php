@@ -24,14 +24,17 @@ namespace App\Controller;
 
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Response;
+use App\Entity\OrderSystem\Order;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
+use App\Helpers\Trees\TreeViewNode;
 use App\Services\Trees\ToolsTreeBuilder;
 use App\Services\Trees\TreeViewGenerator;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
@@ -42,7 +45,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route(path: '/tree')]
 class TreeController extends AbstractController
 {
-    public function __construct(protected TreeViewGenerator $treeGenerator)
+    public function __construct(protected TreeViewGenerator $treeGenerator, private readonly EntityManagerInterface $entityManager)
     {
     }
 
@@ -129,5 +132,34 @@ class TreeController extends AbstractController
         }
 
         return new JsonResponse($tree);
+    }
+
+    #[Route(path: '/orders', name: 'tree_orders')]
+    public function ordersTree(): JsonResponse
+    {
+        if (!$this->isGranted('@orders.read')) {
+            return new JsonResponse("Access denied", Response::HTTP_FORBIDDEN);
+        }
+
+        $orders = $this->entityManager->getRepository(Order::class)->findAllSortedByDate();
+
+        $nodes = array_map(function (Order $order): TreeViewNode {
+            return (new TreeViewNode(
+                $order->getName(),
+                $this->generateUrl('order_show', ['id' => $order->getId()])
+            ))
+                ->setId($order->getId())
+                ->setIcon('fa-fw fa-solid fa-cart-shopping');
+        }, $orders);
+
+        // Add a "new order" node at the top
+        if ($this->isGranted('@orders.create')) {
+            array_unshift($nodes, (new TreeViewNode(
+                '+ New Order',
+                $this->generateUrl('order_new')
+            ))->setIcon('fa-fw fa-solid fa-plus'));
+        }
+
+        return new JsonResponse($nodes);
     }
 }

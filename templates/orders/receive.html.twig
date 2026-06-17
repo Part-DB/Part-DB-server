@@ -1,0 +1,61 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}order.receive.title{% endtrans %}: {{ order.name }}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-boxes-packing fa-fw"></i>
+    {% trans %}order.receive.title{% endtrans %}: <b>{{ order.name }}</b>
+{% endblock %}
+
+{% block card_content %}
+    <div class="alert alert-info">
+        <i class="fa-solid fa-circle-info fa-fw"></i>
+        {% trans %}order.receive.help{% endtrans %}
+    </div>
+
+    {{ form_start(form) }}
+
+    <div class="table-responsive">
+        <table class="table table-sm table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>{% trans %}order.item.name{% endtrans %}</th>
+                    <th>{% trans %}order.item.supplier{% endtrans %}</th>
+                    <th>{% trans %}order.item.supplier_part_nr{% endtrans %}</th>
+                    <th>{% trans %}order.item.quantity{% endtrans %} ({% trans %}order.receive.ordered{% endtrans %})</th>
+                    <th>{% trans %}order.receive.quantity_received{% endtrans %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order.items %}
+                    <tr>
+                        <td>
+                            {% if item.part is not null %}
+                                <a href="{{ entity_url(item.part, 'info') }}" target="_blank">{{ item.name }}</a>
+                            {% else %}
+                                {{ item.name }}
+                            {% endif %}
+                        </td>
+                        <td>{{ item.supplier ? item.supplier.name : '—' }}</td>
+                        <td><code>{{ item.effectiveSupplierPartNr ?? '—' }}</code></td>
+                        <td class="text-muted">{{ item.quantity }}</td>
+                        <td style="width: 140px;">
+                            {% if item.id is not null %}
+                                {{ form_widget(form['item_' ~ item.id], {'attr': {'class': 'form-control form-control-sm', 'style': 'width: 120px'}}) }}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-3 d-flex gap-2">
+        {{ form_widget(form.receive, {'attr': {'class': 'btn btn-success'}}) }}
+        <a href="{{ path('order_show', {'id': order.id}) }}" class="btn btn-secondary">{% trans %}cancel{% endtrans %}</a>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}

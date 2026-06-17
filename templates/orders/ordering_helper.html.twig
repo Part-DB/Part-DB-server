@@ -1,0 +1,104 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}order.ordering_helper.title{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-cart-plus fa-fw"></i>
+    {% trans %}order.ordering_helper.title{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+    <p class="text-muted">{% trans %}order.ordering_helper.help{% endtrans %}</p>
+
+    {{ form_start(form) }}
+
+    {# Project rows #}
+    <h5>{% trans %}order.ordering_helper.projects{% endtrans %}</h5>
+    <div id="project-rows-container">
+        {% for entryForm in form.projects %}
+            <div class="row g-2 align-items-end mb-2 collection-item">
+                <div class="col-md-8">
+                    {{ form_row(entryForm.project) }}
+                </div>
+                <div class="col-md-3">
+                    {{ form_row(entryForm.build_count) }}
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-sm btn-outline-danger mb-3 collection-remove">
+                        <i class="fa-solid fa-times fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {{ form_widget(form.projects) }}
+
+    <button type="button" class="btn btn-sm btn-outline-secondary mb-3 collection-add" data-collection-target="project-rows-container">
+        <i class="fa-solid fa-plus fa-fw"></i>
+        {% trans %}order.ordering_helper.add_project{% endtrans %}
+    </button>
+
+    <hr>
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-8">
+            {{ form_row(form.order_name) }}
+        </div>
+    </div>
+
+    <div class="d-flex gap-2">
+        {{ form_widget(form.compute, {'attr': {'class': 'btn btn-primary'}}) }}
+        {% if preview_items is not null and preview_items is not empty %}
+            {{ form_widget(form.save_order, {'attr': {'class': 'btn btn-success'}}) }}
+        {% endif %}
+    </div>
+
+    {{ form_end(form) }}
+
+    {# Preview results (shown after form submission) #}
+    {% if preview_items is not null %}
+        <hr>
+        <h5>
+            <i class="fa-solid fa-list-check fa-fw"></i>
+            {% trans %}order.ordering_helper.preview{% endtrans %}
+            <span class="badge bg-secondary">{{ preview_items | length }}</span>
+        </h5>
+
+        {% if preview_items is empty %}
+            <div class="alert alert-success">
+                <i class="fa-solid fa-circle-check fa-fw"></i>
+                {% trans %}order.ordering_helper.all_in_stock{% endtrans %}
+            </div>
+        {% else %}
+            <div class="table-responsive mb-3">
+                <table class="table table-sm table-striped table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>{% trans %}order.item.name{% endtrans %}</th>
+                            <th>{% trans %}order.item.quantity{% endtrans %}</th>
+                            <th>{% trans %}order.item.supplier{% endtrans %}</th>
+                            <th>{% trans %}order.item.supplier_part_nr{% endtrans %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in preview_items %}
+                            <tr>
+                                <td>
+                                    {% if item.part is not null %}
+                                        <a href="{{ entity_url(item.part, 'info') }}" target="_blank">{{ item.name }}</a>
+                                    {% else %}
+                                        {{ item.name }}
+                                    {% endif %}
+                                </td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ item.supplier ? item.supplier.name : '—' }}</td>
+                                <td><code>{{ item.effectiveSupplierPartNr ?? '—' }}</code></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

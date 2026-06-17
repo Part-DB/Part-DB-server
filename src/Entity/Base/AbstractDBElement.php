@@ -53,6 +53,9 @@ use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\PartLot;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\Parts\MeasurementUnit;
+use App\Entity\OrderSystem\Order;
+use App\Entity\OrderSystem\OrderItem;
+use App\Entity\OrderSystem\OrderSupplierReference;
 use App\Entity\Parts\Supplier;
 use App\Entity\UserSystem\User;
 use App\Repository\DBElementRepository;
@@ -103,7 +106,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
     'measurement_unit' => MeasurementUnit::class,
     'parameter' => AbstractParameter::class,
     'supplier' => Supplier::class,
-    'user' => User::class]
+    'user' => User::class,
+    'order' => Order::class,
+    'order_item' => OrderItem::class,
+    'order_supplier_reference' => OrderSupplierReference::class]
 )]
 #[ORM\MappedSuperclass(repositoryClass: DBElementRepository::class)]
 abstract class AbstractDBElement implements JsonSerializable

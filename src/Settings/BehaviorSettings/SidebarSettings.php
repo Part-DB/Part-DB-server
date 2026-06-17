@@ -51,7 +51,7 @@ class SidebarSettings
     )]
     #[Assert\NotBlank()]
     #[Assert\Unique()]
-    public array $items = [SidebarItems::CATEGORIES, SidebarItems::PROJECTS, SidebarItems::TOOLS];
+    public array $items = [SidebarItems::CATEGORIES, SidebarItems::PROJECTS, SidebarItems::ORDERS, SidebarItems::TOOLS];
 
     /**
      * @var bool Whether categories, etc. should be grouped under a root node or put directly into the sidebar trees.

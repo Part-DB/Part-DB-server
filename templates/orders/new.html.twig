@@ -1,0 +1,20 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}order.new{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-cart-plus fa-fw"></i>
+    {% trans %}order.new{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.notes) }}
+
+        <div class="d-flex gap-2 mt-3">
+            {{ form_widget(form.save, {'label': 'order.new', 'attr': {'class': 'btn btn-primary'}}) }}
+            <a href="{{ path('order_list') }}" class="btn btn-secondary">{% trans %}cancel{% endtrans %}</a>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

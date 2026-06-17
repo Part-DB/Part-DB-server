@@ -1,0 +1,93 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}order.list.title{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-cart-shopping fa-fw"></i>
+    {% trans %}order.list.title{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+    <div class="mb-3">
+        {% if is_granted('@orders.create') %}
+            <a href="{{ path('order_new') }}" class="btn btn-primary btn-sm">
+                <i class="fa-solid fa-plus fa-fw"></i>
+                {% trans %}order.new{% endtrans %}
+            </a>
+            <a href="{{ path('order_ordering_helper') }}" class="btn btn-secondary btn-sm">
+                <i class="fa-solid fa-cart-plus fa-fw"></i>
+                {% trans %}order.ordering_helper.title{% endtrans %}
+            </a>
+        {% endif %}
+    </div>
+
+    {% if orders is empty %}
+        <div class="alert alert-info">
+            <i class="fa-solid fa-circle-info fa-fw"></i>
+            {% trans %}order.list.empty{% endtrans %}
+        </div>
+    {% else %}
+        <table class="table table-striped table-hover table-sm">
+            <thead>
+                <tr>
+                    <th>{% trans %}order.name{% endtrans %}</th>
+                    <th>{% trans %}order.list.item_count{% endtrans %}</th>
+                    <th>{% trans %}order.list.created{% endtrans %}</th>
+                    <th>{% trans %}order.list.actions{% endtrans %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('order_show', {'id': order.id}) }}">{{ order.name }}</a>
+                        </td>
+                        <td>{{ order.items | length }}</td>
+                        <td>{{ order.addedDate ? order.addedDate | format_datetime('short', 'short') : '—' }}</td>
+                        <td>
+                            <a href="{{ path('order_show', {'id': order.id}) }}" class="btn btn-sm btn-outline-primary">
+                                <i class="fa-solid fa-eye fa-fw"></i>
+                            </a>
+                            {% if is_granted('delete', order) %}
+                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                        data-bs-toggle="modal" data-bs-target="#deleteModal{{ order.id }}">
+                                    <i class="fa-solid fa-trash fa-fw"></i>
+                                </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {# Delete confirmation modals #}
+        {% for order in orders %}
+            {% if is_granted('delete', order) %}
+                <div class="modal fade" id="deleteModal{{ order.id }}" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">{% trans %}order.delete.confirm.title{% endtrans %}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                {% trans with {'%name%': order.name} %}order.delete.confirm.message{% endtrans %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    {% trans %}cancel{% endtrans %}
+                                </button>
+                                <form method="post" action="{{ path('order_delete', {'id': order.id}) }}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete_order_' ~ order.id) }}">
+                                    <button type="submit" class="btn btn-danger">
+                                        {% trans %}delete{% endtrans %}
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

@@ -163,6 +163,13 @@ class ToolsTreeBuilder
             ))->setIcon('fa-treeview fa-fw fa-solid fa-tasks');
         }
 
+        if ($this->security->isGranted('@orders.read')) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('order.ordering_helper.title'),
+                $this->urlGenerator->generate('order_ordering_helper')
+            ))->setIcon('fa-treeview fa-fw fa-solid fa-cart-plus');
+        }
+
         return $nodes;
     }
 
