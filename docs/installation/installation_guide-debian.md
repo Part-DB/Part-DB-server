@@ -232,7 +232,7 @@ sudo ln -s /etc/apache2/sites-available/partdb.conf /etc/apache2/sites-enabled/p
 Configure apache to show pretty URL paths for Part-DB (`/label/dialog` instead of `/index.php/label/dialog`):
 
 ```bash
-sudo a2enmod rewrite
+sudo a2enmod rewrite headers
 ```
 
 If you want to access Part-DB via the IP-Address of the server, instead of the domain name, you have to remove the
