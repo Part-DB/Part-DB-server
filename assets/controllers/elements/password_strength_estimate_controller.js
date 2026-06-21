@@ -61,7 +61,8 @@ export default class extends Controller {
             dictionary: {
                 ...zxcvbnCommonPackage.dictionary,
                 // We could use the english dictionary here too, but it is very big. So we just use the common words
-                //...zxcvbnEnPackage.dictionary,
+                ...zxcvbnEnPackage.dictionary,
+                ...zxcvbnDePackage.dictionary,
             },
             translations: this._getTranslations(),
         };
