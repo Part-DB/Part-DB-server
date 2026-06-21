@@ -13,7 +13,7 @@
         "bootstrap": "^5.1.3",
         "core-js": "^3.38.0",
         "intl-messageformat": "^10.5.11",
-        "jquery": "^3.5.1",
+        "jquery": "^4.0.0",
         "popper.js": "^1.14.7",
         "regenerator-runtime": "^0.14.1",
         "webpack": "^5.74.0",
@@ -76,6 +76,6 @@
         "typescript": "^6.0.2"
     },
     "resolutions": {
-        "jquery": "^3.5.1"
+        "jquery": "^4.0.0"
     }
 }

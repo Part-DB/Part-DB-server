@@ -30,21 +30,21 @@ import '../css/app/images.css';
 // start the Stimulus application
 import '../stimulus_bootstrap';
 
-// Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-const $ = require('jquery');
+import $ from 'jquery';
 
 //Only include javascript
 import '@fortawesome/fontawesome-free/css/all.css'
 
-require('bootstrap');
+import 'bootstrap';
 
 import "./error_handler";
 import "./tab_remember";
 import "./register_events";
 import "./tristate_checkboxes";
 
-//Define jquery globally
-global.$ = global.jQuery = require("jquery");
+// Expose jQuery globally so legacy plugins and Bootstrap's jQuery integration
+// can find it on window at runtime.
+global.$ = global.jQuery = $;
 
 //Use the local WASM file for the ZXing library
 import {
