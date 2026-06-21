@@ -25,6 +25,8 @@ import * as zxcvbnEnPackage from '@zxcvbn-ts/language-en';
 import * as zxcvbnDePackage from '@zxcvbn-ts/language-de';
 import * as zxcvbnFrPackage from '@zxcvbn-ts/language-fr';
 import * as zxcvbnJaPackage from '@zxcvbn-ts/language-ja';
+import * as zxcvbnItPackage from '@zxcvbn-ts/language-it';
+import * as zxcvbnPlPackage from '@zxcvbn-ts/language-pl';
 import {trans} from '../../translator.js';
 
 /* stimulusFetch: 'lazy' */
@@ -45,6 +47,10 @@ export default class extends Controller {
             return zxcvbnFrPackage.translations;
         } else if (locale.includes('ja')) {
             return zxcvbnJaPackage.translations;
+        } else if (locale.includes('it')) {
+            return zxcvbnItPackage.translations;
+        } else if (locale.includes('pl')) {
+            return zxcvbnPlPackage.translations;
         }
 
         //Fallback to english
@@ -58,11 +64,14 @@ export default class extends Controller {
         //Configure zxcvbn
         const options = {
             graphs: zxcvbnCommonPackage.adjacencyGraphs,
+            useLevenshtein: true,
             dictionary: {
                 ...zxcvbnCommonPackage.dictionary,
                 // We could use the english dictionary here too, but it is very big. So we just use the common words
                 ...zxcvbnEnPackage.dictionary,
                 ...zxcvbnDePackage.dictionary,
+
+                "partdb": ['part-db', 'partdb', 'part_db', 'part-db-symfony', 'partdb-symfony', 'part_db_symfony'],
             },
             translations: this._getTranslations(),
         };
@@ -79,7 +88,6 @@ export default class extends Controller {
 
         //Estimate the password strength
         const result = await this._zxcvbnFactory.checkAsync(password);
-        console.log(result);
 
         //Update the badge
         this.badgeTarget.parentElement.classList.remove("d-none");

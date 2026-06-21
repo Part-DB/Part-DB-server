@@ -2111,10 +2111,24 @@
   dependencies:
     "@zxcvbn-ts/dictionary-compression" "^3.0.1"
 
+"@zxcvbn-ts/language-it@^4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-it/-/language-it-4.1.1.tgz#b6fda40099e85a4fc1c5d14d75c9de8a304dd061"
+  integrity sha512-YxKCBO1rKuCMPYRyOxfUZA+3ju8OO8W9Qx8h/vHrHvuGIavK7L+fgXTUrhjHU8M+zE0pQZxS4wOdfgLFZaP57w==
+  dependencies:
+    "@zxcvbn-ts/dictionary-compression" "^3.0.1"
+
 "@zxcvbn-ts/language-ja@^4.1.1":
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-ja/-/language-ja-4.1.1.tgz#acd36abe4f6083dceda22771148d0948e0e421d9"
   integrity sha512-ZDFUZfm7hlmuiHOMLq7p85wE3Pa7s1WXixU6X+POTuRTjGwXi4LMtiS9wli7zXTEvxSUMdVWBx5ZgyIF6D0S8A==
+  dependencies:
+    "@zxcvbn-ts/dictionary-compression" "^3.0.1"
+
+"@zxcvbn-ts/language-pl@^4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-pl/-/language-pl-4.1.1.tgz#627d4c365a69e3f78d3e2b6e9667d1b57b6cc1ff"
+  integrity sha512-hF6Qu9cyHx7sSEzNOQrJQntq8geoincsGvlOC0wkD43LnUVSTR49MKxdsifsemlQgtxR7aUKDgK/e/RFHOljoQ==
   dependencies:
     "@zxcvbn-ts/dictionary-compression" "^3.0.1"
 

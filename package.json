@@ -44,6 +44,8 @@
         "@zxcvbn-ts/language-en": "^4.1.1",
         "@zxcvbn-ts/language-fr": "^4.1.1",
         "@zxcvbn-ts/language-ja": "^4.1.1",
+        "@zxcvbn-ts/language-it": "^4.1.1",
+        "@zxcvbn-ts/language-pl": "^4.1.1",
         "attr-accept": "^2.2.5",
         "barcode-detector": "^3.0.5",
         "bootbox": "^6.0.0",
