@@ -19,8 +19,7 @@
 
 import {Controller} from "@hotwired/stimulus";
 import {visit} from "@hotwired/turbo";
-import * as bootbox from "bootbox";
-import "../../css/components/bootbox_extensions.css";
+import {ConfirmSwal} from "../../helpers/swal";
 import "../../css/components/dirty_form.css";
 
 /**
@@ -207,11 +206,10 @@ export default class extends Controller {
     }
 
     _confirmNavigation(onConfirm) {
-        bootbox.confirm({
-            title: this.confirmTitleValue,
-            message: this.confirmMessageValue,
-            callback: (result) => { if (result) onConfirm(); }
-        });
+        ConfirmSwal.fire({
+            titleText: this.confirmTitleValue,
+            text: this.confirmMessageValue,
+        }).then(({isConfirmed}) => { if (isConfirmed) onConfirm(); });
     }
 
     _handleLinkClick(event) {

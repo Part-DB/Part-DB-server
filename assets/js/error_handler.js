@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as bootbox from "bootbox";
+import Swal from "../helpers/swal";
 
 /**
  * If this class is imported the user is shown an error dialog if he calls an page via Turbo and an error is responded.
@@ -99,33 +99,26 @@ class ErrorHandlerHelper {
 
         const short_location = trimString(location, 50);
 
-        const alert = bootbox.alert(
-            {
-                size: 'large',
-                message: function() {
-                    let url = location;
-                    let msg = `Error calling <a href="${url}">${short_location}</a>.<br>`;
-                    msg += '<b>Try to reload the page or contact the administrator if this error persists.</b>';
+        let url = location;
+        let msg = `Error calling <a href="${url}">${short_location}</a>.<br>`;
+        msg += '<b>Try to reload the page or contact the administrator if this error persists.</b>';
+        msg += '<br><br><a class="btn btn-outline-secondary mb-2" data-bs-toggle="collapse" href="#iframe_div">View details</a>';
+        msg += "<div class=\"collapse\" id='iframe_div'><iframe height='512' width='100%' id='error-iframe'></iframe></div>";
 
-                    msg += '<br><br><a class=\"btn btn-outline-secondary mb-2\" data-bs-toggle=\"collapse\" href=\"#iframe_div\" >' + 'View details' + "</a>";
-                    msg += "<div class=\" collapse\" id='iframe_div'><iframe height='512' width='100%' id='error-iframe'></iframe></div>";
-
-                    return msg;
-                },
-                title: title,
-                callback: function () {
-                    //Remove blur
-                    $('#content').removeClass('loading-content');
-                }
-
-            });
-
-        alert.init(function (){
-            var dstFrame = document.getElementById('error-iframe');
-            //@ts-ignore
-            var dstDoc = dstFrame.contentDocument || dstFrame.contentWindow.document;
-            dstDoc.write(responseHTML)
-            dstDoc.close();
+        Swal.fire({
+            title: title,
+            html: msg,
+            width: '800px',
+            didOpen: () => {
+                var dstFrame = document.getElementById('error-iframe');
+                //@ts-ignore
+                var dstDoc = dstFrame.contentDocument || dstFrame.contentWindow.document;
+                dstDoc.write(responseHTML);
+                dstDoc.close();
+            },
+        }).then(() => {
+            //Remove blur
+            $('#content').removeClass('loading-content');
         });
     }
 

@@ -490,7 +490,7 @@ The user will have to set up all two-factor authentication methods again and pri
     <unit id="BtSvnI0" name="entity.delete.confirm_title">
       <segment state="translated">
         <source>entity.delete.confirm_title</source>
-        <target>You really want to delete %name%?</target>
+        <target>Do you really want to delete %name%?</target>
       </segment>
     </unit>
     <unit id="WR9DNyZ" name="entity.delete.message">

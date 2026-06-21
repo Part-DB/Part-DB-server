@@ -19,8 +19,7 @@
 
 import {Controller} from "@hotwired/stimulus";
 
-import * as bootbox from "bootbox";
-import "../../css/components/bootbox_extensions.css";
+import {ConfirmSwal} from "../../helpers/swal";
 
 export default class extends Controller
 {
@@ -53,19 +52,18 @@ export default class extends Controller
 
         const that = this;
 
-        bootbox.confirm({
-            title: this.titleValue,
-            message: this.messageValue,
-            callback: (result) => {
-                if (result) {
-                    //Set a flag to prevent the dialog from popping up again and allowing turbo to submit the form
-                    that._confirmed = true;
+        ConfirmSwal.fire({
+            titleText: this.titleValue,
+            text: this.messageValue,
+        }).then(({isConfirmed}) => {
+            if (isConfirmed) {
+                //Set a flag to prevent the dialog from popping up again and allowing turbo to submit the form
+                that._confirmed = true;
 
-                    //Click the link
-                    that.element.click();
-                } else {
-                    that._confirmed = false;
-                }
+                //Click the link
+                that.element.click();
+            } else {
+                that._confirmed = false;
             }
         });
     }

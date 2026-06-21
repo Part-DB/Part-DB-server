@@ -17,30 +17,25 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-.modal-body > .bootbox-close-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.5rem 0.75rem;
-    z-index: 1;
-}
-.modal .bootbox-close-button {
-    font-weight: 100;
-}
+import Swal from 'sweetalert2';
+import 'sweetalert2/themes/bootstrap-5.css';
+import '../css/components/swal.css'
 
-button.bootbox-close-button {
-    padding: 0;
-    background-color: transparent;
-    border: 0;
-    -webkit-appearance: none;
-}
 
-.bootbox-close-button {
-    /* float: right; */
-    font-size: 1.40625rem;
-    font-weight: 600;
-    line-height: 1;
-    color: #000;
-    text-shadow: none;
-    opacity: .5;
-}
+const BaseSwal = Swal.mixin({
+    position: "top",
+    theme: "bootstrap-5",
+});
+
+const ConfirmSwal = BaseSwal.mixin({
+    showCancelButton: true,
+    showCloseButton: true,
+    icon: "warning",
+});
+
+const AlertSwal = BaseSwal.mixin({
+    showCloseButton: true,
+    icon: "info",
+});
+
+export { ConfirmSwal, AlertSwal, BaseSwal, BaseSwal as default,};
