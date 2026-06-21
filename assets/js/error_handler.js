@@ -125,7 +125,7 @@ class ErrorHandlerHelper {
                 dstDoc.close();
             },
         }).then((result) => {
-            $('#content').removeClass('loading-content');
+            document.getElementById('content').classList.remove('loading-content');
             if (result.isConfirmed) {
                 window.location.reload();
             }
