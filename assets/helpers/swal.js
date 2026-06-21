@@ -20,11 +20,14 @@
 import Swal from 'sweetalert2';
 import 'sweetalert2/themes/bootstrap-5.css';
 import '../css/components/swal.css'
-
+import { trans } from '../translator';
 
 const BaseSwal = Swal.mixin({
     position: "top",
     theme: "bootstrap-5",
+    confirmButtonText: trans('dialog.btn.ok'),
+    cancelButtonText: trans('dialog.btn.cancel'),
+    denyButtonText: trans('dialog.btn.deny'),
 });
 
 const ConfirmSwal = BaseSwal.mixin({
