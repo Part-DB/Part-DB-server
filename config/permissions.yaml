@@ -163,6 +163,8 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "tools.builtin_footprints_viewer.title"
       ic_logos:
         label: "perm.tools.ic_logos"
+      multi_build:
+        label: "tools.multi_build.title"
 
   info_providers:
     label: "perm.part.info_providers"
