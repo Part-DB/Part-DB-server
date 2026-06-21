@@ -56,10 +56,10 @@
       </segment>
     </unit>
     <unit id="8d38e7538" name="user.password_strength.crack_time">
-        <segment state="translated">
-            <source>user.password_strength.crack_time</source>
-            <target>Estimated time to crack: %time%</target>
-        </segment>
-     </unit>
+      <segment state="translated">
+        <source>user.password_strength.crack_time</source>
+        <target>Estimated time to crack: %time%</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
