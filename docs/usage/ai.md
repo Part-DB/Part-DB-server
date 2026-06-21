@@ -25,3 +25,10 @@ You need to supply an API key for OpenRouter to use it as an AI platform in Part
 
 [LMStudio](https://lmstudio.ai/) is a local LLM hosting solution that allows you to run LLMs on your own hardware. You can use LMStudio to host your own LLM and connect it to Part-DB for AI features.
 Currently only LMStudio without any authentication is supported. Supply your LMStudio instance URL (including the port) to use it as an AI platform in Part-DB.
+You have to set a model by hand, as suggestions currently do not work yet. Ensure the context length is suitable for your application.
+
+### Ollama
+
+[Ollama](https://ollama.com/) is another local LLM hosting solution that allows you to run LLMs on your own hardware. You can use Ollama to host your own LLM and connect it to Part-DB for AI features.
+Supply your Ollama instance URL (including the port) and an optional API key for authentication to use it as an AI platform in Part-DB. The model selector should give you suggestions about available models.
+Ensure the context length is suitable for your application.

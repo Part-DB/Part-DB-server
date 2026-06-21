@@ -40,4 +40,7 @@ class AISettings
 
     #[EmbeddedSettings]
     public ?LMStudioSettings $lmstudio = null;
+
+    #[EmbeddedSettings]
+    public ?OllamaSettings $ollama = null;
 }

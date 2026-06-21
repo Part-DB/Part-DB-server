@@ -1,0 +1,5 @@
+ai:
+    platform:
+        ollama:
+            endpoint: '%env(string:settings:ai_ollama:endpoint)%'
+            api_key: '%env(string:settings:ai_ollama:apiKey)%'

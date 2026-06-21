@@ -411,6 +411,18 @@
             "config/packages/ai_lm_studio_platform.yaml"
         ]
     },
+    "symfony/ai-ollama-platform": {
+        "version": "0.10",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "0.1",
+            "ref": "2f0ac0a8bc59c4e46b47a962a3ad7fe8104457d6"
+        },
+        "files": [
+            "config/packages/ai_ollama_platform.yaml"
+        ]
+    },
     "symfony/ai-open-router-platform": {
         "version": "0.8",
         "recipe": {
