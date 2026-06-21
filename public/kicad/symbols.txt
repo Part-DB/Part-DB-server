@@ -1,4 +1,4 @@
-# Generated on Mon Jun  8 06:52:04 UTC 2026
+# Generated on Mon Jun 15 07:28:38 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -5300,21 +5300,39 @@ Converter_DCDC:TMR-4812
 Converter_DCDC:TMR-4821
 Converter_DCDC:TMR-4822
 Converter_DCDC:TMR-4823
+Converter_DCDC:TMR10-1211WI
+Converter_DCDC:TMR10-1212WI
+Converter_DCDC:TMR10-1213WI
+Converter_DCDC:TMR10-1215WI
+Converter_DCDC:TMR10-1222WI
+Converter_DCDC:TMR10-1223WI
 Converter_DCDC:TMR10-2410WIR
+Converter_DCDC:TMR10-2411WI
 Converter_DCDC:TMR10-2411WIR
+Converter_DCDC:TMR10-2412WI
 Converter_DCDC:TMR10-2412WIR
+Converter_DCDC:TMR10-2413WI
 Converter_DCDC:TMR10-2413WIR
+Converter_DCDC:TMR10-2415WI
 Converter_DCDC:TMR10-2415WIR
 Converter_DCDC:TMR10-2421WIR
+Converter_DCDC:TMR10-2422WI
 Converter_DCDC:TMR10-2422WIR
+Converter_DCDC:TMR10-2423WI
 Converter_DCDC:TMR10-2423WIR
 Converter_DCDC:TMR10-4810WIR
+Converter_DCDC:TMR10-4811WI
 Converter_DCDC:TMR10-4811WIR
+Converter_DCDC:TMR10-4812WI
 Converter_DCDC:TMR10-4812WIR
+Converter_DCDC:TMR10-4813WI
 Converter_DCDC:TMR10-4813WIR
+Converter_DCDC:TMR10-4815WI
 Converter_DCDC:TMR10-4815WIR
 Converter_DCDC:TMR10-4821WIR
+Converter_DCDC:TMR10-4822WI
 Converter_DCDC:TMR10-4822WIR
+Converter_DCDC:TMR10-4823WI
 Converter_DCDC:TMR10-4823WIR
 Converter_DCDC:TMR10-7210WIR
 Converter_DCDC:TMR10-7211WIR
@@ -14593,6 +14611,8 @@ MCU_Texas:LM4F111C4QR
 MCU_Texas:LM4F111E5QR
 MCU_Texas:LM4F111H5QR
 MCU_Texas:MSP432E401Y
+MCU_Texas:MSPM0C110xSDDF
+MCU_Texas:MSPM0C110xSDSG
 MCU_Texas:TM4C1230C3PM
 MCU_Texas:TM4C1230D5PM
 MCU_Texas:TM4C1230E6PM
@@ -15671,6 +15691,7 @@ Power_Management:LM5069MM-1
 Power_Management:LM5069MM-2
 Power_Management:LM66100DCK
 Power_Management:LM74700
+Power_Management:LM74701-Q1
 Power_Management:LMG3410
 Power_Management:LMG5200
 Power_Management:LT1641-1
@@ -15772,6 +15793,7 @@ Power_Management:TPS22810DBV
 Power_Management:TPS22810DRV
 Power_Management:TPS22917DBV
 Power_Management:TPS22917LDBV
+Power_Management:TPS22919DCK
 Power_Management:TPS22929D
 Power_Management:TPS22993
 Power_Management:TPS2412D
@@ -16683,6 +16705,19 @@ Reference_Voltage:LM4040LP-4.1
 Reference_Voltage:LM4040LP-5
 Reference_Voltage:LM4040LP-8.2
 Reference_Voltage:LM4041LP-ADJ
+Reference_Voltage:LM4050xEM3-2.1
+Reference_Voltage:LM4050xEM3-2.5
+Reference_Voltage:LM4050xEM3-3.0
+Reference_Voltage:LM4050xEM3-3.3
+Reference_Voltage:LM4050xEM3-4.1
+Reference_Voltage:LM4050xEM3-5.0
+Reference_Voltage:LM4050xEX3-2.1
+Reference_Voltage:LM4050xEX3-2.5
+Reference_Voltage:LM4050xEX3-3.3
+Reference_Voltage:LM4050xEX3-4.1
+Reference_Voltage:LM4050xEX3-5.0
+Reference_Voltage:LM4051xEM3-1.2
+Reference_Voltage:LM4051xEX3-1.2
 Reference_Voltage:LM4125AIM5-2.5
 Reference_Voltage:LM4125IM5-2.0
 Reference_Voltage:LM4125IM5-2.5
@@ -16830,7 +16865,6 @@ Reference_Voltage:MCP1501-25xCH
 Reference_Voltage:MCP1501-25xRW
 Reference_Voltage:MCP1501-25xSN
 Reference_Voltage:MCP1501-30xCH
-Reference_Voltage:MCP1501-30xRW
 Reference_Voltage:MCP1501-30xSN
 Reference_Voltage:MCP1501-33xCH
 Reference_Voltage:MCP1501-33xRW
@@ -20991,6 +21025,7 @@ Sensor_Temperature:MCP9501
 Sensor_Temperature:MCP9502
 Sensor_Temperature:MCP9503
 Sensor_Temperature:MCP9504
+Sensor_Temperature:MCP96xx01x-x-MX
 Sensor_Temperature:MCP9700Ax-ELT
 Sensor_Temperature:MCP9700Ax-ETT
 Sensor_Temperature:MCP9700Ax-HLT
