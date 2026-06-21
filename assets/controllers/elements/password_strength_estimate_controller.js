@@ -19,7 +19,7 @@
 
 
 import {Controller} from "@hotwired/stimulus";
-import { zxcvbn, zxcvbnOptions } from '@zxcvbn-ts/core';
+import { ZxcvbnFactory } from '@zxcvbn-ts/core';
 import * as zxcvbnCommonPackage from '@zxcvbn-ts/language-common';
 import * as zxcvbnEnPackage from '@zxcvbn-ts/language-en';
 import * as zxcvbnDePackage from '@zxcvbn-ts/language-de';
@@ -33,6 +33,8 @@ export default class extends Controller {
     _passwordInput;
 
     static targets = ["badge", "warning"]
+
+    _zxcvbnFactory;
 
     _getTranslations() {
         //Get the current locale
@@ -63,27 +65,29 @@ export default class extends Controller {
             },
             translations: this._getTranslations(),
         };
-        zxcvbnOptions.setOptions(options);
+
+        this._zxcvbnFactory = new ZxcvbnFactory(options);
 
         //Add event listener to the password input field
         this._passwordInput.addEventListener('input', this._onPasswordInput.bind(this));
     }
 
-    _onPasswordInput() {
+    async _onPasswordInput() {
         //Retrieve the password
         const password = this._passwordInput.value;
 
         //Estimate the password strength
-        const result = zxcvbn(password);
+        const result = await this._zxcvbnFactory.checkAsync(password);
+        console.log(result);
 
         //Update the badge
         this.badgeTarget.parentElement.classList.remove("d-none");
-        this._setBadgeToLevel(result.score);
+        this._setBadgeToLevel(result.score, result.crackTimes.onlineNoThrottlingXPerSecond.display);
 
         this.warningTarget.innerHTML = result.feedback.warning;
     }
 
-    _setBadgeToLevel(level) {
+    _setBadgeToLevel(level, time = null) {
         let text, classes;
 
         switch (level) {
@@ -118,5 +122,11 @@ export default class extends Controller {
         //Re-add the classes
         this.badgeTarget.classList.add("badge");
         this.badgeTarget.classList.add(...classes.split(" "));
+
+        if (time) {
+            this.badgeTarget.setAttribute("title", trans("user.password_strength.crack_time", {"%time%": time}));
+        } else {
+            this.badgeTarget.removeAttribute("title");
+        }
     }
 }

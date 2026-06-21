@@ -2071,37 +2071,52 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@zxcvbn-ts/core@^3.0.2":
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/core/-/core-3.0.4.tgz#c5bde72235eb6c273cec78b672bb47c0d7045cad"
-  integrity sha512-aQeiT0F09FuJaAqNrxynlAwZ2mW/1MdXakKWNmGM1Qp/VaY6CnB/GfnMS2T8gB2231Esp1/maCWd8vTG4OuShw==
+"@zxcvbn-ts/core@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/core/-/core-4.1.2.tgz#2d280f3d1a558201cf34080c4d7de335afd4cc4a"
+  integrity sha512-RQmxWB3AMI+HGQErQdUv6Aq32aQhp6xOxrfgCP0+T9MsLZoP3xtLHuT8O8VojsUxdmQVZfJlYkYb1A0wOwIS+Q==
   dependencies:
     fastest-levenshtein "1.0.16"
 
-"@zxcvbn-ts/language-common@^3.0.3":
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-common/-/language-common-3.0.4.tgz#fa1d2a42f8c8a589555859795da90d6b8027b7c4"
-  integrity sha512-viSNNnRYtc7ULXzxrQIVUNwHAPSXRtoIwy/Tq4XQQdIknBzw4vz36lQLF6mvhMlTIlpjoN/Z1GFu/fwiAlUSsw==
+"@zxcvbn-ts/dictionary-compression@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/dictionary-compression/-/dictionary-compression-3.0.1.tgz#f357ad46e08fff8ba92f6f163d6b38b9533fc849"
+  integrity sha512-p3KyPzxGc3vWSap5hHA6SllbUCmh7s+NtpGyC3qEWrxYJT9t9TUAzjPm48Okipo+UUyPQfDlIvTcs9JRShBFiQ==
 
-"@zxcvbn-ts/language-de@^3.0.1":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-de/-/language-de-3.0.2.tgz#fbd0d1be9454e308bbd63bf5487d4c17670094f0"
-  integrity sha512-CPl2314qWtnJl4EkeEqFbL4unP6yEAHO976ER+df8CQcKsF4FxdZYEahkleWU66dhNI2VKnmJKNMzq8QtHQKcw==
+"@zxcvbn-ts/language-common@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-common/-/language-common-4.1.2.tgz#c38c52500865d3a2ab7fa1193d747dafc4f2b995"
+  integrity sha512-uJlBzhC9/KjPImqdnc1/lPxmdn4xKbkruN5p1mASWkXA0gli+GZ5LrVL+dqscA8Pcf4OfudE56TtCWeHljJOvA==
+  dependencies:
+    "@zxcvbn-ts/dictionary-compression" "^3.0.1"
 
-"@zxcvbn-ts/language-en@^3.0.1":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-en/-/language-en-3.0.2.tgz#162ada6b2b556444efd5a7700e70845cfde6d6ec"
-  integrity sha512-Zp+zL+I6Un2Bj0tRXNs6VUBq3Djt+hwTwUz4dkt2qgsQz47U0/XthZ4ULrT/RxjwJRl5LwiaKOOZeOtmixHnjg==
+"@zxcvbn-ts/language-de@^4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-de/-/language-de-4.1.1.tgz#c6a91f43119fdedefe35b7049c8e4f7af9dd88fa"
+  integrity sha512-ig4zeCxg4yp5VU4/Iuq5CCHLJtbmHjczK87HKw/K2jYkpk1s7C4jRi+n3XgcPNRP71nvTxGhpPWWlsziCnm5xA==
+  dependencies:
+    "@zxcvbn-ts/dictionary-compression" "^3.0.1"
 
-"@zxcvbn-ts/language-fr@^3.0.1":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-fr/-/language-fr-3.0.2.tgz#79c5f0475fd388502f04f5560456db37dc0dde35"
-  integrity sha512-Tj9jS/Z8mNBAD21pn8Mp4O86CPrwImysO1fM3DG+fsfk8W79/MDzqpFDBHiqpu69Uo3LPPctMHEEteakFWt4Qg==
+"@zxcvbn-ts/language-en@^4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-en/-/language-en-4.1.1.tgz#20ca499affb4d6972d777ec04bb0c786d33add73"
+  integrity sha512-6UdzuBd3Uex8TKubohcn+uXRVAH34Zjs2eCfT4hQVo9zeTy7AkQRQfdV4OnHR5hQfW/XBrK/AGTZk7VBWh7wwQ==
+  dependencies:
+    "@zxcvbn-ts/dictionary-compression" "^3.0.1"
 
-"@zxcvbn-ts/language-ja@^3.0.1":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-ja/-/language-ja-3.0.2.tgz#299bb6f5465f99405577491b1b31352058540c76"
-  integrity sha512-YjQyt+eMe3EdpeJiSt81AMF8HfEXXCary/VRoG+0erZBzRjfJ1U3JdSiu9wFFxiEF8Cb5FEmTQ6nQPyraezH6Q==
+"@zxcvbn-ts/language-fr@^4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-fr/-/language-fr-4.1.1.tgz#7d1eccaad7b4dbfe31efe018e9239893bdc33bc8"
+  integrity sha512-5LW8KMiXLWKG6fTv/BdQbe76sa2EjYmvd59sM3Re+hZMGYEPOdjnAT5qFChQ2Zj8WIaU3P197Y6A0X8OgfoiqQ==
+  dependencies:
+    "@zxcvbn-ts/dictionary-compression" "^3.0.1"
+
+"@zxcvbn-ts/language-ja@^4.1.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@zxcvbn-ts/language-ja/-/language-ja-4.1.1.tgz#acd36abe4f6083dceda22771148d0948e0e421d9"
+  integrity sha512-ZDFUZfm7hlmuiHOMLq7p85wE3Pa7s1WXixU6X+POTuRTjGwXi4LMtiS9wli7zXTEvxSUMdVWBx5ZgyIF6D0S8A==
+  dependencies:
+    "@zxcvbn-ts/dictionary-compression" "^3.0.1"
 
 acorn-import-phases@^1.0.3:
   version "1.0.4"
