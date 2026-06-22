@@ -1,4 +1,4 @@
-# Generated on Mon Jun 15 07:28:38 UTC 2026
+# Generated on Mon Jun 22 07:32:26 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -4954,6 +4954,7 @@ Converter_DCDC:RPMH15-1.5
 Converter_DCDC:RPMH24-1.5
 Converter_DCDC:RPMH3.3-1.5
 Converter_DCDC:RPMH5.0-1.5
+Converter_DCDC:SMU02L-24N
 Converter_DCDC:TBA1-0310
 Converter_DCDC:TBA1-0311
 Converter_DCDC:TBA1-0510
@@ -6142,6 +6143,7 @@ Device:SparkGap
 Device:Speaker
 Device:Speaker_Crystal
 Device:Speaker_Ultrasound
+Device:Thermal_Jumper
 Device:Thermistor
 Device:Thermistor_NTC
 Device:Thermistor_NTC_3Wire
@@ -19297,6 +19299,7 @@ Regulator_Switching:LT1373HVCN8
 Regulator_Switching:LT1373HVCS8
 Regulator_Switching:LT1377CN8
 Regulator_Switching:LT1377CS8
+Regulator_Switching:LT1931
 Regulator_Switching:LT1945
 Regulator_Switching:LT3430
 Regulator_Switching:LT3430-1
@@ -22516,6 +22519,7 @@ Transistor_FET_Other:Q_NMOS_Depletion_GDS
 Transistor_FET_Other:Q_NMOS_Depletion_GSD
 Transistor_FET_Other:Q_NMOS_Depletion_SDG
 Transistor_FET_Other:Q_NMOS_Depletion_SGD
+Transistor_FET_Other:SP010N70T8
 Transistor_FET_Other:VNB35N07xx-E
 Transistor_FET_Other:VNP10N07
 Transistor_FET_Other:VNP35N07xx-E
