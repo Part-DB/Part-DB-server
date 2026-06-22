@@ -53,6 +53,28 @@ services:
 
 
     ####################################################################################################################
+    # AI provider HTTP clients (with configurable timeouts)
+    ####################################################################################################################
+
+    app.http_client.ai_ollama:
+        class: Symfony\Contracts\HttpClient\HttpClientInterface
+        factory: ['@http_client', 'withOptions']
+        arguments:
+            - { timeout: '%env(int:settings:ai_ollama:timeout)%' }
+
+    app.http_client.ai_lmstudio:
+        class: Symfony\Contracts\HttpClient\HttpClientInterface
+        factory: ['@http_client', 'withOptions']
+        arguments:
+            - { timeout: '%env(int:settings:ai_lmstudio:timeout)%' }
+
+    app.http_client.ai_openrouter:
+        class: Symfony\Contracts\HttpClient\HttpClientInterface
+        factory: ['@http_client', 'withOptions']
+        arguments:
+            - { timeout: '%env(int:settings:ai_openrouter:timeout)%' }
+
+    ####################################################################################################################
     # Email
     ####################################################################################################################
 

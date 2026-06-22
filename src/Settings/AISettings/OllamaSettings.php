@@ -30,9 +30,11 @@ use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Translation\StaticMessage;
 use Symfony\Component\Translation\TranslatableMessage as TM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Settings(name: 'ai_ollama', label: new TM("settings.ai.ollama"))]
 #[SettingsIcon("fa-robot")]
@@ -50,6 +52,14 @@ class OllamaSettings implements AIPlatformSettingsInterface
         formType: APIKeyType::class,
         envVar: "AI_OLLAMA_API_KEY", envVarMode: EnvVarMode::OVERWRITE)]
     public ?string $apiKey = null;
+
+    #[SettingsParameter(label: new TM("settings.ai.timeout"),
+        description: new TM("settings.ai.timeout.help"),
+        formType: NumberType::class,
+        formOptions: ["scale" => 0, "attr" => ["min" => 1]]
+    )]
+    #[Assert\Range(min: 1, max: AISettings::TIMEOUT_LIMIT)]
+    public int $timeout = 180;
 
     public function isAIPlatformEnabled(): bool
     {

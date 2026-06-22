@@ -282,6 +282,10 @@ final class AIWebProvider implements InfoProviderInterface
         try {
             $aiPlatform = $this->AIPlatformRegistry->getPlatform($this->settings->platform ?? throw new \RuntimeException('No AI platform selected') );
 
+            // AI inference can take much longer than PHP's default max_execution_time (typically 30s).
+            // The HTTP client timeout already enforces the configured limit; disable PHP's constraint here.
+            set_time_limit(0);
+
             //'openai/gpt-5-mini'
             $result = $aiPlatform->invoke($this->settings->model ?? throw new \RuntimeException('No model selected'), $input, [
                 'response_format' => [

@@ -35,6 +35,8 @@ class AISettings
 {
     use SettingsTrait;
 
+    public const TIMEOUT_LIMIT = 600;
+
     #[EmbeddedSettings]
     public ?OpenRouterSettings $openRouter = null;
 

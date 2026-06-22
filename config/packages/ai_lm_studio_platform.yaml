@@ -2,3 +2,4 @@ ai:
     platform:
         lmstudio:
             host_url: '%env(string:settings:ai_lmstudio:hostURL)%'
+            http_client: 'app.http_client.ai_lmstudio'
