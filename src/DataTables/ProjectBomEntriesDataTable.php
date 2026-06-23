@@ -159,6 +159,27 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
                 'label' => $this->translator->trans('part.table.manufacturer'),
                 'orderField' => 'NATSORT(manufacturer.name)'
             ])
+            ->add('supplier', TextColumn::class, [
+                'label' => $this->translator->trans('supplier.label'),
+                'visible' => false,
+                // Use an aggregate because a part can have multiple supplier orderdetails.
+                'orderField' => 'NATSORT(MIN(_suppliers.name))',
+                'data' => function (ProjectBOMEntry $context): string {
+                    if (!$context->getPart() instanceof Part) {
+                        return '';
+                    }
+
+                    $supplierNames = [];
+                    foreach ($context->getPart()->getOrderdetails(true) as $orderdetail) {
+                        $supplierName = trim((string) $orderdetail->getSupplier()->getName());
+                        if ($supplierName !== '') {
+                            $supplierNames[$supplierName] = true;
+                        }
+                    }
+
+                    return implode(', ', array_keys($supplierNames));
+                },
+            ])
 
             ->add('manufacturing_status', EnumColumn::class, [
                 'label' => $this->translator->trans('part.table.manufacturingStatus'),
@@ -296,6 +317,8 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ->leftJoin('_partLots.storage_location', '_storelocations')
             ->leftJoin('part.footprint', 'footprint')
             ->leftJoin('part.manufacturer', 'manufacturer')
+            ->leftJoin('part.orderdetails', '_orderdetails')
+            ->leftJoin('_orderdetails.supplier', '_suppliers')
             ->leftJoin('part.partCustomState', 'partCustomState')
             ->where('bom_entry.project = :project')
             ->setParameter('project', $options['project'])
@@ -323,6 +346,8 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ->addSelect('storelocations')
             ->addSelect('footprint')
             ->addSelect('manufacturer')
+            ->addSelect('orderdetails')
+            ->addSelect('suppliers')
             ->addSelect('partCustomState')
             ->from(ProjectBOMEntry::class, 'bom_entry')
             ->leftJoin('bom_entry.part', 'part')
@@ -331,6 +356,8 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ->leftJoin('partLots.storage_location', 'storelocations')
             ->leftJoin('part.footprint', 'footprint')
             ->leftJoin('part.manufacturer', 'manufacturer')
+            ->leftJoin('part.orderdetails', 'orderdetails')
+            ->leftJoin('orderdetails.supplier', 'suppliers')
             ->leftJoin('part.partCustomState', 'partCustomState')
             ->where('bom_entry.id IN (:ids)')
             ->setParameter('ids', $ids)
@@ -341,6 +368,8 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ->addGroupBy('storelocations')
             ->addGroupBy('footprint')
             ->addGroupBy('manufacturer')
+            ->addGroupBy('orderdetails')
+            ->addGroupBy('suppliers')
             ->addGroupBy('partCustomState')
 
             ->setHint(Query::HINT_READ_ONLY, true)
