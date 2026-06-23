@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\DataTables;
 
+use App\DataTables\Column\HTMLColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\PrettyBoolColumn;
 use App\DataTables\Column\RowClassColumn;
@@ -40,14 +41,19 @@ use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class AttachmentDataTable implements DataTableTypeInterface
+final readonly class AttachmentDataTable implements DataTableTypeInterface
 {
-    public function __construct(private readonly TranslatorInterface $translator, private readonly EntityURLGenerator $entityURLGenerator, private readonly AttachmentManager $attachmentHelper, private readonly AttachmentURLGenerator $attachmentURLGenerator, private readonly ElementTypeNameGenerator $elementTypeNameGenerator)
+    public function __construct(private TranslatorInterface $translator, private EntityURLGenerator $entityURLGenerator, private AttachmentManager $attachmentHelper, private AttachmentURLGenerator $attachmentURLGenerator, private ElementTypeNameGenerator $elementTypeNameGenerator)
     {
     }
 
     public function configure(DataTable $dataTable, array $options): void
     {
+        /*************************************************************************************************************
+         * Avoid using render, as it has no escaping, and is a potential security risk. Use data on TextColumn or the
+         * HTMLColumn, if necessary
+         ************************************************************************************************************/
+
         $dataTable->add('dont_matter', RowClassColumn::class, [
             'render' => function ($value, Attachment $context): string {
                 //Mark attachments yellow which have an internal file linked that doesn't exist
@@ -59,10 +65,10 @@ final class AttachmentDataTable implements DataTableTypeInterface
             },
         ]);
 
-        $dataTable->add('picture', TextColumn::class, [
+        $dataTable->add('picture', HTMLColumn::class, [
             'label' => '',
             'className' => 'no-colvis',
-            'render' => function ($value, Attachment $context): string {
+            'data' => function (Attachment $context): string {
                 if ($context->isPicture()
                     && $this->attachmentHelper->isInternalFileExisting($context)) {
 
@@ -95,65 +101,65 @@ final class AttachmentDataTable implements DataTableTypeInterface
             'orderField' => 'NATSORT(attachment.name)',
         ]);
 
-        $dataTable->add('attachment_type', TextColumn::class, [
+        $dataTable->add('attachment_type', HTMLColumn::class, [
             'label' => 'attachment.table.type',
             'field' => 'attachment_type.name',
             'orderField' => 'NATSORT(attachment_type.name)',
-            'render' => fn($value, Attachment $context): string => sprintf(
+            'data' => fn(Attachment $context, $value): string => sprintf(
                 '<a href="%s">%s</a>',
                 $this->entityURLGenerator->editURL($context->getAttachmentType()),
                 htmlspecialchars((string) $value)
             ),
         ]);
 
-        $dataTable->add('element', TextColumn::class, [
+        $dataTable->add('element', HTMLColumn::class, [
             'label' => 'attachment.table.element',
             //'propertyPath' => 'element.name',
-            'render' => fn($value, Attachment $context): string => sprintf(
+            'data' => fn(Attachment $context): string => sprintf(
                 '<a href="%s">%s</a>',
                 $this->entityURLGenerator->infoURL($context->getElement()),
                 $this->elementTypeNameGenerator->getTypeNameCombination($context->getElement(), true)
             ),
         ]);
 
-        $dataTable->add('internal_link', TextColumn::class, [
+        $dataTable->add('internal_link', HTMLColumn::class, [
             'label' => 'attachment.table.internal_file',
             'propertyPath' => 'filename',
             'orderField' => 'NATSORT(attachment.original_filename)',
-            'render' => function ($value, Attachment $context) {
+            'data' => function (Attachment $context, $value) {
                 if ($this->attachmentHelper->isInternalFileExisting($context)) {
                     return sprintf(
                         '<a href="%s" target="_blank" data-no-ajax>%s</a>',
                         $this->entityURLGenerator->viewURL($context),
-                        htmlspecialchars($value)
+                        htmlspecialchars((string) $value)
                     );
                 }
 
-                return $value;
-            }
+                return htmlspecialchars((string) $value);
+            },
         ]);
 
-        $dataTable->add('external_link', TextColumn::class, [
+        $dataTable->add('external_link', HTMLColumn::class, [
             'label' => 'attachment.table.external_link',
             'propertyPath' => 'host',
             'orderField' => 'attachment.external_path',
-            'render' => function ($value, Attachment $context) {
+            'data' => function (Attachment $context, $value) {
                 if ($context->hasExternal()) {
                     return sprintf(
                         '<a href="%s" class="link-external" title="%s" target="_blank" rel="noopener">%s</a>',
                         htmlspecialchars((string) $context->getExternalPath()),
                         htmlspecialchars((string) $context->getExternalPath()),
-                        htmlspecialchars($value),
+                        htmlspecialchars((string) $value),
                     );
                 }
 
-                return $value;
-            }
+                return htmlspecialchars((string) $value);
+            },
         ]);
 
-        $dataTable->add('filesize', TextColumn::class, [
+        $dataTable->add('filesize', HTMLColumn::class, [
             'label' => $this->translator->trans('attachment.table.filesize'),
-            'render' => function ($value, Attachment $context) {
+            'data' => function (Attachment $context) {
                 if (!$context->hasInternal()) {
                     return sprintf(
                         '<span class="badge bg-primary">
@@ -168,7 +174,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
                         '<span class="badge bg-secondary">
                         <i class="fas fa-hdd fa-fw"></i> %s
                     </span>',
-                        $this->attachmentHelper->getHumanFileSize($context)
+                        htmlspecialchars($this->attachmentHelper->getHumanFileSize($context))
                     );
                 }
 

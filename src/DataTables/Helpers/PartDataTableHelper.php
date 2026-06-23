@@ -62,7 +62,7 @@ class PartDataTableHelper
         }
         if ($context->getBuiltProject() instanceof Project) {
             $icon = sprintf('<i class="fa-solid fa-box-archive fa-fw me-1" title="%s"></i>',
-                $this->translator->trans('part.info.projectBuildPart.hint').': '.$context->getBuiltProject()->getName());
+                $this->translator->trans('part.info.projectBuildPart.hint').': '.htmlspecialchars($context->getBuiltProject()->getName()));
         }
 
 

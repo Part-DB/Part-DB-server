@@ -119,9 +119,14 @@ DirectoryIndex index.php
     </IfModule>
 </IfModule>
 
-# Set Content-Security-Policy for svg files (and compressed variants), to block embedded javascript in there
 <IfModule mod_headers.c>
+    # Set a strict CSP for all static assets not handled by PHP.
+    # PHP responses already carry their own CSP via NelmioSecurityBundle, so setifempty leaves those untouched.
+    Header always setifempty Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; sandbox;"
+    Header always setifempty X-Content-Type-Options "nosniff"
+
+    # SVG files get a slightly different CSP because they can embed resources and must not be framed.
     <FilesMatch "\.(svg|svg\.gz|svg\.br)$">
-        Header set Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none';"
+        Header always set Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none'; sandbox;"
     </FilesMatch>
 </IfModule>

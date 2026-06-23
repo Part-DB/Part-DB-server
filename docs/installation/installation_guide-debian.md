@@ -136,6 +136,15 @@ cp .env .env.local
 In your `.env.local` you can configure Part-DB according to your wishes and overwrite web interface settings.
 A full list of configuration options can be  found [here](../configuration.md).
 
+{: .important }
+> **Change `APP_SECRET` before going live.** The default value shipped with Part-DB is publicly known and must not be
+> used in production — it would allow an attacker to forge signed cookies and bypass CSRF protection.
+> Generate a new value and add it to your `.env.local`:
+> ```bash
+> echo "APP_SECRET=$(openssl rand -hex 32)" >> .env.local
+> ```
+> or edit the file with a text editor and add a new value for `APP_SECRET` (you can generate a random value with `openssl rand -hex 32`).
+
 Please check that the configured base currency matches your mainly used currency, as
 this can not be changed after creating price information.
 
@@ -223,7 +232,7 @@ sudo ln -s /etc/apache2/sites-available/partdb.conf /etc/apache2/sites-enabled/p
 Configure apache to show pretty URL paths for Part-DB (`/label/dialog` instead of `/index.php/label/dialog`):
 
 ```bash
-sudo a2enmod rewrite
+sudo a2enmod rewrite headers
 ```
 
 If you want to access Part-DB via the IP-Address of the server, instead of the domain name, you have to remove the

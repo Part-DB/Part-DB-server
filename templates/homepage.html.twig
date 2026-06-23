@@ -85,6 +85,16 @@
 
 {% block content %}
 
+    {% if insecure_app_secret and is_granted('@system.server_infos') %}
+        <div class="alert alert-warning" role="alert">
+            <h5><i class="fa-solid fa-triangle-exclamation fa-fw"></i> {% trans %}system.app_secret.insecure.title{% endtrans %}</h5>
+            <p class="mb-1">{% trans %}system.app_secret.insecure.message{% endtrans %}</p>
+            <p class="mb-0">{% trans %}system.app_secret.insecure.suggestion{% endtrans %}
+                <br><code>APP_SECRET={{ suggested_app_secret }}</code></p>
+            <small>{% trans %}update_manager.new_version_available.only_administrators_can_see{% endtrans %}</small>
+        </div>
+    {% endif %}
+
     {% if is_granted('@system.show_updates') %}
         {{ nv.new_version_alert(new_version_available, new_version, new_version_url) }}
     {% endif %}

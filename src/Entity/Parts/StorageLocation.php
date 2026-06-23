@@ -80,7 +80,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         )
     ],
     uriVariables: [
-        'id' => new Link(fromProperty: 'children', fromClass: Manufacturer::class)
+        'id' => new Link(fromProperty: 'children', fromClass: StorageLocation::class)
     ],
     normalizationContext: ['groups' => ['location:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]

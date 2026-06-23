@@ -51,6 +51,7 @@ when@prod:
                 type: stream
                 channels: [deprecation]
                 path: "%kernel.logs_dir%/%kernel.environment%_deprecations.log"
+                level: "%env(DEPRECATION_LOG_LEVEL)%"
 
 when@docker:
     monolog:
@@ -75,3 +76,4 @@ when@docker:
                 type: stream
                 channels: [deprecation]
                 path: "%kernel.logs_dir%/%kernel.environment%_deprecations.log"
+                level: "%env(DEPRECATION_LOG_LEVEL)%"

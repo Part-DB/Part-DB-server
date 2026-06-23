@@ -24,6 +24,7 @@ namespace App\Controller;
 
 use App\DataTables\LogDataTable;
 use App\Entity\Parts\Part;
+use App\Services\System\AppSecretChecker;
 use App\Services\System\BannerHelper;
 use App\Services\System\GitVersionInfoProvider;
 use App\Services\System\UpdateAvailableFacade;
@@ -36,8 +37,11 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class HomepageController extends AbstractController
 {
-    public function __construct(private readonly DataTableFactory $dataTable, private readonly BannerHelper $bannerHelper)
-    {
+    public function __construct(
+        private readonly DataTableFactory $dataTable,
+        private readonly BannerHelper $bannerHelper,
+        private readonly AppSecretChecker $appSecretChecker,
+    ) {
     }
 
 
@@ -84,6 +88,8 @@ class HomepageController extends AbstractController
             'new_version_available' => $updateAvailableManager->isUpdateAvailable(),
             'new_version' => $updateAvailableManager->getLatestVersionString(),
             'new_version_url' => $updateAvailableManager->getLatestVersionUrl(),
+            'insecure_app_secret' => $this->appSecretChecker->isInsecureSecret(),
+            'suggested_app_secret' => $this->appSecretChecker->isInsecureSecret() ? $this->appSecretChecker->generateSecret() : null,
         ]);
     }
 }

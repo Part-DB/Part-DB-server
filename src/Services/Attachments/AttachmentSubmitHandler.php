@@ -69,7 +69,7 @@ class AttachmentSubmitHandler
 
     protected const BLACKLISTED_EXTENSIONS = ['php', 'phtml', 'php3', 'ph3', 'php4', 'ph4', 'php5', 'ph5', 'phtm', 'sh',
         'asp', 'cgi', 'py', 'pl', 'exe', 'aspx', 'js', 'mjs', 'jsp', 'css', 'jar', 'html', 'htm', 'shtm', 'shtml', 'htaccess',
-        'htpasswd', ''];
+        'htpasswd', 'phar', 'phps', ''];
 
     public function __construct(
         protected AttachmentPathResolver $pathResolver,
@@ -543,8 +543,10 @@ class AttachmentSubmitHandler
             return $attachment;
         }
 
+        $guessed_mime_type = $this->mimeTypes->guessMimeType($path);
+
         //Check if the file is an SVG
-        if ($attachment->getExtension() === "svg") {
+        if ($guessed_mime_type === "image/svg+xml" || $attachment->getExtension() === "svg") {
             $this->SVGSanitizer->sanitizeFile($path);
         }
 
