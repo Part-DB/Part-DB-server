@@ -102,7 +102,7 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ])
             ->add('partId', TextColumn::class, [
                 'label' => $this->translator->trans('project.bom.part_id'),
-                'visible' => true,
+                'visible' => false,
                 'orderField' => 'part.id',
                 'data' => function (ProjectBOMEntry $context) {
                     return $context->getPart() instanceof Part ? (string) $context->getPart()->getId() : '';
@@ -150,6 +150,7 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ])
             ->add('footprint', EntityColumn::class, [
                 'property' => 'part.footprint',
+                'visible' => false,
                 'label' => $this->translator->trans('part.table.footprint'),
                 'orderField' => 'NATSORT(footprint.name)'
             ])
@@ -209,6 +210,7 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
 
             ->add('mountnames', HTMLColumn::class, [
                 'label' => 'project.bom.mountnames',
+                'visible' => false,
                 'data' => function (ProjectBOMEntry $context) {
                     $html = '';
 
