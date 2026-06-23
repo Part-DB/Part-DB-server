@@ -161,7 +161,7 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ])
             ->add('supplier', HTMLColumn::class, [
                 'label' => $this->translator->trans('supplier.label'),
-                'visible' => false,
+                'visible' => true,
                 // Use an aggregate because a part can have multiple supplier orderdetails.
                 'orderField' => 'NATSORT(MIN(_suppliers.name))',
                 'data' => function (ProjectBOMEntry $context): string {
@@ -221,7 +221,7 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
 
             ->add('instockAmount', HTMLColumn::class, [
                 'label' => 'project.bom.instockAmount',
-                'visible' => false,
+                'visible' => true,
                 'data' => function (ProjectBOMEntry $context) {
                     if ($context->getPart() !== null) {
                         return $this->partDataTableHelper->renderAmount($context->getPart());
@@ -232,7 +232,7 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ])
             ->add('minAmount', HTMLColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
-                'visible' => false,
+                'visible' => true,
                 'orderField' => 'part.minamount',
                 'data' => function (ProjectBOMEntry $context): string {
                     if (!$context->getPart() instanceof Part) {
@@ -244,7 +244,7 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ])
             ->add('orderAmount', HTMLColumn::class, [
                 'label' => $this->translator->trans('part.table.orderamount'),
-                'visible' => false,
+                'visible' => true,
                 'orderField' => 'part.orderamount',
                 'data' => function (ProjectBOMEntry $context): string {
                     if (!$context->getPart() instanceof Part) {
