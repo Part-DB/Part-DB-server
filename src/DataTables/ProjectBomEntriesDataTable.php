@@ -195,6 +195,30 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                     return '';
                 }
             ])
+            ->add('minAmount', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.minamount'),
+                'visible' => false,
+                'orderField' => 'part.minamount',
+                'render' => function ($value, ProjectBOMEntry $context): string {
+                    if (!$context->getPart() instanceof Part) {
+                        return '';
+                    }
+
+                    return htmlspecialchars($this->amountFormatter->format($context->getPart()->getMinAmount(), $context->getPart()->getPartUnit()));
+                },
+            ])
+            ->add('orderAmount', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.orderamount'),
+                'visible' => false,
+                'orderField' => 'part.orderamount',
+                'render' => function ($value, ProjectBOMEntry $context): string {
+                    if (!$context->getPart() instanceof Part) {
+                        return '';
+                    }
+
+                    return htmlspecialchars($this->amountFormatter->format($context->getPart()->getOrderAmount(), $context->getPart()->getPartUnit()));
+                },
+            ])
             ->add('storelocation', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.storeLocations'),
                 //We need to use a aggregate function to get the first store location, as we have a one-to-many relation
