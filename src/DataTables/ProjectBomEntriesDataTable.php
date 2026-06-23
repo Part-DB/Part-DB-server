@@ -159,7 +159,7 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
                 'label' => $this->translator->trans('part.table.manufacturer'),
                 'orderField' => 'NATSORT(manufacturer.name)'
             ])
-            ->add('supplier', TextColumn::class, [
+            ->add('supplier', HTMLColumn::class, [
                 'label' => $this->translator->trans('supplier.label'),
                 'visible' => false,
                 // Use an aggregate because a part can have multiple supplier orderdetails.
@@ -169,15 +169,27 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
                         return '';
                     }
 
-                    $supplierNames = [];
+                    $supplierLinks = [];
                     foreach ($context->getPart()->getOrderdetails(true) as $orderdetail) {
-                        $supplierName = trim((string) $orderdetail->getSupplier()->getName());
-                        if ($supplierName !== '') {
-                            $supplierNames[$supplierName] = true;
+                        $supplier = $orderdetail->getSupplier();
+                        $supplierName = trim((string) $supplier->getName());
+                        if ($supplierName === '') {
+                            continue;
                         }
+
+                        $supplierId = $supplier->getId();
+                        if (isset($supplierLinks[$supplierId])) {
+                            continue;
+                        }
+
+                        $supplierLinks[$supplierId] = sprintf(
+                            '<a href="%s">%s</a>',
+                            htmlspecialchars($this->entityURLGenerator->listPartsURL($supplier)),
+                            htmlspecialchars($supplierName)
+                        );
                     }
 
-                    return implode(', ', array_keys($supplierNames));
+                    return implode(', ', $supplierLinks);
                 },
             ])
 
