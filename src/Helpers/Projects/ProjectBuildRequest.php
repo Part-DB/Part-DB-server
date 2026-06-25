@@ -84,8 +84,10 @@ final class ProjectBuildRequest
             $remaining_amount = $this->getNeededAmountForBOMEntry($bom_entry);
             foreach($this->getPartLotsForBOMEntry($bom_entry) as $lot) {
                 //If the lot has instock use it for the build
-                $this->withdraw_amounts[$lot->getID()] = min($remaining_amount, $lot->getAmount());
-                $remaining_amount -= max(0, $this->withdraw_amounts[$lot->getID()]);
+                $id = $lot->getID() ?? throw new \RuntimeException("Part lot needs to have an ID!");
+
+                $this->withdraw_amounts[$id] = min($remaining_amount, $lot->getAmount());
+                $remaining_amount -= max(0, $this->withdraw_amounts[$id]);
             }
         }
     }
@@ -176,6 +178,10 @@ final class ProjectBuildRequest
     {
         $lot_id = $lot instanceof PartLot ? $lot->getID() : $lot;
 
+        if ($lot_id === null) {
+            throw new \InvalidArgumentException('The given lot must have an ID!');
+        }
+
         if (! array_key_exists($lot_id, $this->withdraw_amounts)) {
             throw new \InvalidArgumentException('The given lot is not in the withdraw amounts array!');
         }
@@ -192,10 +198,12 @@ final class ProjectBuildRequest
     {
         if ($lot instanceof PartLot) {
             $lot_id = $lot->getID();
-        } elseif (is_int($lot)) {
-            $lot_id = $lot;
         } else {
-            throw new \InvalidArgumentException('The given lot must be an instance of PartLot or an ID of a PartLot!');
+            $lot_id = $lot;
+        }
+
+        if ($lot_id === null) {
+            throw new \InvalidArgumentException('The given lot must have an ID!');
         }
 
         $this->withdraw_amounts[$lot_id] = $amount;
@@ -296,7 +304,7 @@ final class ProjectBuildRequest
      * @param  bool  $dont_check_quantity
      * @return $this
      */
-    public function setDontCheckQuantity(bool $dont_check_quantity): ProjectBuildRequest
+    public function setDontCheckQuantity(bool $dont_check_quantity): self
     {
         $this->dont_check_quantity = $dont_check_quantity;
         return $this;
