@@ -71,22 +71,15 @@ use Symfony\Component\Validator\Constraints\Length;
         new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
+        new GetCollection(
+            uriTemplate: '/measurement_units/{id}/children.{_format}',
+            uriVariables: ['id' => new Link(fromProperty: 'children', fromClass: MeasurementUnit::class)],
+            openapi: new Operation(summary: 'Retrieves the children elements of a MeasurementUnit.'),
+            security: 'is_granted("@measurement_units.read")'
+        ),
     ],
     normalizationContext: ['groups' => ['measurement_unit:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['measurement_unit:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
-)]
-#[ApiResource(
-    uriTemplate: '/measurement_units/{id}/children.{_format}',
-    operations: [
-        new GetCollection(
-            openapi: new Operation(summary: 'Retrieves the children elements of a MeasurementUnit.'),
-            security: 'is_granted("@measurement_units.read")'
-        )
-    ],
-    uriVariables: [
-        'id' => new Link(fromProperty: 'children', fromClass: MeasurementUnit::class)
-    ],
-    normalizationContext: ['groups' => ['measurement_unit:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment", "unit"])]
