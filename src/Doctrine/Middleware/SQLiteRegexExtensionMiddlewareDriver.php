@@ -48,7 +48,7 @@ class SQLiteRegexExtensionMiddlewareDriver extends AbstractDriverMiddleware
             if($native_connection instanceof \PDO) {
 
                 //Use the new PDO::createFunction and PDO::createCollation methods if available (PHP 8.4+)
-                if (is_a($native_connection, \PDO\Sqlite::class)) { #TODO: Remove this check when PHP 8.4 is the minimum requirement
+                if (is_a($native_connection, Sqlite::class)) { #TODO: Remove this check when PHP 8.4 is the minimum requirement
                     $native_connection->createFunction('REGEXP', self::regexp(...), 2, Sqlite::DETERMINISTIC);
                     $native_connection->createFunction('FIELD', self::field(...), -1, Sqlite::DETERMINISTIC);
                     $native_connection->createFunction('FIELD2', self::field2(...), 2, Sqlite::DETERMINISTIC);
