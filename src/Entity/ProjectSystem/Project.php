@@ -117,7 +117,7 @@ class Project extends AbstractStructuralDBElement
     /**
      * @var string|null The current status of the project
      */
-    #[Assert\Choice(['draft', 'planning', 'in_production', 'finished', 'archived'])]
+    #[Assert\Choice(choices: ['draft', 'planning', 'in_production', 'finished', 'archived'])]
     #[Groups(['extended', 'full', 'project:read', 'project:write', 'import'])]
     #[ORM\Column(type: Types::STRING, length: 64, nullable: true)]
     protected ?string $status = null;
