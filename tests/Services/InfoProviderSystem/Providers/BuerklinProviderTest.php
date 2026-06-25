@@ -77,7 +77,6 @@ final class BuerklinProviderTest extends TestCase
     public function testAttributesToParametersParsesUnitsAndValues(): void
     {
         $method = new \ReflectionMethod(BuerklinProvider::class, 'attributesToParameters');
-        $method->setAccessible(true);
 
         $features = [
             [
@@ -127,7 +126,6 @@ final class BuerklinProviderTest extends TestCase
     public function testComplianceParameters(): void
     {
         $method = new \ReflectionMethod(BuerklinProvider::class, 'complianceToParameters');
-        $method->setAccessible(true);
 
         $product = [
             'labelRoHS' => 'Yes',
@@ -158,7 +156,6 @@ final class BuerklinProviderTest extends TestCase
     public function testImageSelectionPrefersZoomAndDeduplicates(): void
     {
         $method = new \ReflectionMethod(BuerklinProvider::class, 'getProductImages');
-        $method->setAccessible(true);
 
         $images = [
             ['format' => 'product', 'url' => '/img/a.webp'],
@@ -176,7 +173,6 @@ final class BuerklinProviderTest extends TestCase
     public function testFootprintExtraction(): void
     {
         $method = new \ReflectionMethod(BuerklinProvider::class, 'getPartDetail');
-        $method->setAccessible(true);
 
         $product = [
             'code' => 'TEST1',
@@ -212,7 +208,6 @@ final class BuerklinProviderTest extends TestCase
         ];
 
         $method = new \ReflectionMethod(BuerklinProvider::class, 'pricesToVendorInfo');
-        $method->setAccessible(true);
 
         $vendorInfo = $method->invoke($this->provider, 'SKU1', 'https://x', $detailPrice);
 
@@ -260,7 +255,6 @@ final class BuerklinProviderTest extends TestCase
         );
 
         $method = new \ReflectionMethod(BuerklinProvider::class, 'convertPartDetailToSearchResult');
-        $method->setAccessible(true);
 
         $dto = $method->invoke($this->provider, $detail);
 
@@ -273,13 +267,13 @@ final class BuerklinProviderTest extends TestCase
     {
         $this->assertSame(['buerklin.com'], $this->provider->getHandledDomains());
     }
-    
+
     #[DataProvider('buerklinIdFromUrlProvider')]
     public function testGetIDFromURLExtractsId(string $url, ?string $expected): void
     {
         $this->assertSame($expected, $this->provider->getIDFromURL($url));
     }
-    
+
     public static function buerklinIdFromUrlProvider(): \Iterator
     {
         yield 'de long path' => [

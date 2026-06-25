@@ -367,7 +367,6 @@ final class LCSCProviderTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->provider);
         $method = $reflection->getMethod('sanitizeField');
-        $method->setAccessible(true);
 
         $this->assertNull($method->invokeArgs($this->provider, [null]));
         $this->assertEquals('Clean text', $method->invokeArgs($this->provider, ['Clean text']));
@@ -378,7 +377,6 @@ final class LCSCProviderTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->provider);
         $method = $reflection->getMethod('getUsedCurrency');
-        $method->setAccessible(true);
 
         $this->assertEquals('USD', $method->invokeArgs($this->provider, ['US$']));
         $this->assertEquals('USD', $method->invokeArgs($this->provider, ['$']));
@@ -391,7 +389,6 @@ final class LCSCProviderTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->provider);
         $method = $reflection->getMethod('getProductShortURL');
-        $method->setAccessible(true);
 
         $result = $method->invokeArgs($this->provider, ['C123456']);
         $this->assertEquals('https://www.lcsc.com/product-detail/C123456.html', $result);
@@ -401,7 +398,6 @@ final class LCSCProviderTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->provider);
         $method = $reflection->getMethod('getProductDatasheets');
-        $method->setAccessible(true);
 
         $result = $method->invokeArgs($this->provider, [null]);
         $this->assertIsArray($result);
@@ -417,7 +413,6 @@ final class LCSCProviderTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->provider);
         $method = $reflection->getMethod('getProductImages');
-        $method->setAccessible(true);
 
         $result = $method->invokeArgs($this->provider, [null]);
         $this->assertIsArray($result);
@@ -434,7 +429,6 @@ final class LCSCProviderTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->provider);
         $method = $reflection->getMethod('attributesToParameters');
-        $method->setAccessible(true);
 
         $attributes = [
             ['paramNameEn' => 'Resistance', 'paramValueEn' => '1kΩ'],
@@ -454,7 +448,6 @@ final class LCSCProviderTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->provider);
         $method = $reflection->getMethod('pricesToVendorInfo');
-        $method->setAccessible(true);
 
         $prices = [
             ['ladder' => 1, 'productPrice' => '0.10', 'currencySymbol' => 'US$'],
