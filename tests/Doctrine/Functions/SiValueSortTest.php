@@ -26,6 +26,7 @@ use App\Doctrine\Functions\SiValueSort;
 use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Platforms\SQLitePlatform;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 final class SiValueSortTest extends AbstractDoctrineFunctionTestCase
 {
@@ -71,9 +72,7 @@ final class SiValueSortTest extends AbstractDoctrineFunctionTestCase
         $this->assertSame('SI_VALUE(part_name)', $sql);
     }
 
-    /**
-     * @dataProvider sqliteSiValueProvider
-     */
+    #[DataProvider('sqliteSiValueProvider')]
     public function testSqliteSiValue(?string $input, ?float $expected): void
     {
         $result = SiValueSort::sqliteSiValue($input);
