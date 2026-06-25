@@ -88,9 +88,9 @@ class PartMerger implements EntityMergerInterface
             return $t;
         }, $target, $other, 'manufacturing_status');
 
-        //Merge provider reference
+        //Merge provider reference - always use the most recent provider if set
         $this->useCallback(function (InfoProviderReference $t, InfoProviderReference $o): InfoProviderReference {
-            if (!$t->isProviderCreated() && $o->isProviderCreated()) {
+            if ($o->isProviderCreated()) {
                 return $o;
             }
             return $t;
