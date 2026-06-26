@@ -81,6 +81,34 @@ class LabelOptionsType extends AbstractType
             ],
         ]);
 
+        $builder->add('xcount', NumberType::class, [
+            'label' => 'label_options.page_nup.grid',
+            'html5' => true,
+            'attr' => [
+                'placeholder' => 'label_options.page_nup.xcount',
+                'min' => 1,
+                'step' => 1,
+            ],
+        ]);
+        $builder->add('ycount', NumberType::class, [
+            'label' => false,
+            'html5' => true,
+            'attr' => [
+                'placeholder' => 'label_options.page_nup.ycount',
+                'min' => 1,
+                'step' => 1,
+            ],
+        ]);
+        $builder->add('skipcount', NumberType::class, [
+            'label' => '//',
+            'html5' => true,
+            'attr' => [
+                'placeholder' => 'label_options.page_nup.skipcount',
+                'min' => 0,
+                'step' => 1,
+            ],
+        ]);
+
         $builder->add('supported_element', EnumType::class, [
             'label' => 'label_options.supported_elements.label',
             'class' => LabelSupportedElement::class,
