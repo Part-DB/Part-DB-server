@@ -44,7 +44,4 @@ class BehaviorSettings
 
     #[EmbeddedSettings]
     public ?KeybindingsSettings $keybindings = null;
-
-    #[EmbeddedSettings]
-    public ?SearchSettings $search = null;
 }

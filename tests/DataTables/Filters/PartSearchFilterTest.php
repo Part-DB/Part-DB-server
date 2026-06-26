@@ -22,7 +22,6 @@
 namespace App\Tests\DataTables\Filters;
 
 use App\DataTables\Filters\PartSearchFilter;
-use App\Settings\BehaviorSettings\SearchSettings;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\ORM\Query\Expr;
@@ -34,22 +33,10 @@ use PHPUnit\Framework\TestCase;
 
 final class PartSearchFilterTest extends TestCase
 {
-    private function makeSearchSettings(
-        bool $enableAdvancedSearch = false,
-        int $searchTokenLimit = 3,
-        bool $escapeSQLWildcards = true,
-    ): SearchSettings {
-        $settings = $this->createMock(SearchSettings::class);
-        $settings->enableAdvancedSearch = $enableAdvancedSearch;
-        $settings->searchTokenLimit = $searchTokenLimit;
-        $settings->escapeSQLWildcards = $escapeSQLWildcards;
-
-        return $settings;
-    }
 
     public function testApplyEnforcesNoResultsWhenKeywordEmpty(): void
     {
-        $filter = new PartSearchFilter('', $this->makeSearchSettings());
+        $filter = new PartSearchFilter('');
 
         $qb = $this->createMock(QueryBuilder::class);
         $qb->expects($this->once())
@@ -63,7 +50,7 @@ final class PartSearchFilterTest extends TestCase
 
     public function testApplyEnforcesNoResultsWhenNothingToSearchForAndNoExactIdSearch(): void
     {
-        $filter = (new PartSearchFilter('foo', $this->makeSearchSettings()))
+        $filter = (new PartSearchFilter('foo'))
             ->setName(false)
             ->setCategory(false)
             ->setDescription(false)
@@ -90,7 +77,7 @@ final class PartSearchFilterTest extends TestCase
 
     public function testApplyUsesRegexExpressionAndRawParameterWhenRegexEnabled(): void
     {
-        $filter = (new PartSearchFilter('foo.*bar', $this->makeSearchSettings()))
+        $filter = (new PartSearchFilter('foo.*bar'))
             ->setRegex(true);
 
         $expr = $this->createStub(Expr::class);
@@ -123,9 +110,7 @@ final class PartSearchFilterTest extends TestCase
 
     public function testApplyEscapesSqlWildcardsAndWrapsLikeParameterWhenRegexDisabled(): void
     {
-        $filter = (new PartSearchFilter('10%_off', $this->makeSearchSettings(escapeSQLWildcards: true)))
-            ->setRegex(false);
-
+        $filter = (new PartSearchFilter('10%_off'));
         $expr = $this->createMock(Expr::class);
         $expr->method('orX')->willReturn(new Orx());
 
@@ -157,7 +142,7 @@ final class PartSearchFilterTest extends TestCase
 
     public function testApplyAddsExactIdExpressionWhenDbIdSearchEnabledAndKeywordNumeric(): void
     {
-        $filter = (new PartSearchFilter('123', $this->makeSearchSettings()))
+        $filter = (new PartSearchFilter('123'))
             ->setDbId(true);
 
         $expr = $this->createMock(Expr::class);
@@ -209,7 +194,7 @@ final class PartSearchFilterTest extends TestCase
 
     public function testApplyDoesNotAddExactIdExpressionWhenKeywordNotNumeric(): void
     {
-        $filter = (new PartSearchFilter('123abc', $this->makeSearchSettings()))
+        $filter = (new PartSearchFilter('123abc'))
             ->setDbId(true);
 
         $expr = $this->createMock(Expr::class);

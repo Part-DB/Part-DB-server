@@ -37,7 +37,6 @@ use App\Form\Filters\PartFilterType;
 use App\Services\Parts\PartsTableActionHandler;
 use App\Services\Trees\NodesListBuilder;
 use App\Settings\BehaviorSettings\SidebarSettings;
-use App\Settings\BehaviorSettings\SearchSettings;
 use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
@@ -60,7 +59,6 @@ class PartListsController extends AbstractController
         private readonly TranslatorInterface $translator,
         private readonly TableSettings $tableSettings,
         private readonly SidebarSettings $sidebarSettings,
-        private readonly SearchSettings $searchSettings,
     )
     {
     }
@@ -317,7 +315,7 @@ class PartListsController extends AbstractController
 
     private function searchRequestToFilter(Request $request): PartSearchFilter
     {
-        $filter = new PartSearchFilter($request->query->get('keyword', ''), $this->searchSettings);
+        $filter = new PartSearchFilter($request->query->get('keyword', ''));
 
         //As an unchecked checkbox is not set in the query, the default value for all bools have to be false (which is the default argument value)!
         $filter->setName($request->query->getBoolean('name'));
@@ -336,6 +334,8 @@ class PartListsController extends AbstractController
 
 
         $filter->setRegex($request->query->getBoolean('regex'));
+        $filter->setExtensive($request->query->getBoolean('extensive'));
+        $filter->setWildcard($request->query->getBoolean('wildcard'));
 
         return $filter;
     }

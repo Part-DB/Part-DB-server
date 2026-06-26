@@ -26,13 +26,18 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Parameter;
 use Doctrine\DBAL\ParameterType;
-use App\Settings\BehaviorSettings\SearchSettings;
 
 class PartSearchFilter implements FilterInterface
 {
 
     /** @var boolean Whether to use regex for searching */
     protected bool $regex = false;
+    
+    /** @var boolean Whether to use extensive matching for searching */
+    protected bool $extensive = false;
+    
+    /** @var boolean Whether to use wildcards for searching */
+    protected bool $wildcard = false;
 
     /** @var bool Use name field for searching */
     protected bool $name = true;
@@ -78,9 +83,7 @@ class PartSearchFilter implements FilterInterface
 
     public function __construct(
         /** @var string The string to query for */
-        protected string $keyword,
-        /** @var SearchSettings The settings that control how the search operates */
-        private readonly SearchSettings $searchSettings,
+        protected string $keyword
     ) {
 
     }
@@ -138,11 +141,11 @@ class PartSearchFilter implements FilterInterface
         $search_dbId = $is_numeric && (bool)$this->dbId;
 
         $tokens = [];
-        if ($this->searchSettings->enableAdvancedSearch) {
+        if ($this->extensive) {
             //Transform keyword and trim excess spaces
             $this->keyword = trim(str_replace('+', ' ', $this->keyword));
-            //Split keyword on spaces, but limit token count (default is 3)
-            $tokens = explode(' ', $this->keyword, $this->searchSettings->searchTokenLimit);
+            //Split keyword on spaces, but limit token count to 5
+            $tokens = explode(' ', $this->keyword, 5);
             //Throw away array elements which are null or have zero length
             $tokens = array_filter($tokens, fn($x) => (strlen($x) > 0));
         }
@@ -176,7 +179,7 @@ class PartSearchFilter implements FilterInterface
                 //Add a new expression and parameter set to the query for each token
                 foreach ($tokens as $i => $token) {
                     //Conditionally escape % and _ characters
-                    if ($this->searchSettings->escapeSQLWildcards)
+                    if (!$this->wildcard)
                         $token = str_replace(['%', '_'], ['\%', '\_'], $token);
 
                     //Convert the fields to search to a list of expressions
@@ -239,6 +242,30 @@ class PartSearchFilter implements FilterInterface
         $this->regex = $regex;
         return $this;
     }
+
+    public function isExtensive(): bool
+    {
+        return $this->extensive;
+    }
+
+    public function setExtensive(bool $extensive): PartSearchFilter
+    {
+        $this->extensive = $extensive;
+        return $this;
+    }
+
+
+    public function isWildcard(): bool
+    {
+        return $this->wildcard;
+    }
+
+    public function setWildcard(bool $wildcard): PartSearchFilter
+    {
+        $this->wildcard = $wildcard;
+        return $this;
+    }
+
 
     public function isName(): bool
     {
