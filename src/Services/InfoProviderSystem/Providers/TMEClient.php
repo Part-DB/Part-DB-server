@@ -31,18 +31,68 @@ class TMEClient
 {
     public const BASE_URI = 'https://api.tme.eu';
 
+    private ?string $accessToken = null;
+    private ?string $refreshToken = null;
+    private int $tokenExpiry = 0;
+
     public function __construct(private readonly HttpClientInterface $tmeClient, private readonly TMESettings $settings)
     {
-
     }
 
-    public function makeRequest(string $action, array $parameters): ResponseInterface
+    private function getAccessToken(): string
     {
-        $parameters['Token'] = $this->settings->apiToken;
-        $parameters['ApiSignature'] = $this->getSignature($action, $parameters, $this->settings->apiSecret);
+        // Return cached token if still valid (30-second safety margin before expiry)
+        if ($this->accessToken !== null && time() < $this->tokenExpiry - 30) {
+            return $this->accessToken;
+        }
 
-        return $this->tmeClient->request('POST', $this->getUrlForAction($action), [
-            'body' => $parameters,
+        // Try refreshing before falling back to a full client_credentials flow
+        if ($this->refreshToken !== null) {
+            try {
+                $this->fetchToken('refresh_token', ['refresh_token' => $this->refreshToken]);
+                return $this->accessToken;
+            } catch (\Throwable) {
+                $this->refreshToken = null;
+            }
+        }
+
+        $this->fetchToken('client_credentials');
+        return $this->accessToken;
+    }
+
+    private function fetchToken(string $grantType, array $extraParams = []): void
+    {
+        $credentials = base64_encode($this->settings->apiToken . ':' . $this->settings->apiSecret);
+
+        $response = $this->tmeClient->request('POST', self::BASE_URI . '/auth/token', [
+            'headers' => [
+                'Authorization' => 'Basic ' . $credentials,
+            ],
+            'body' => array_merge(['grant_type' => $grantType], $extraParams),
+        ]);
+
+        $data = $response->toArray();
+        $this->accessToken = $data['access_token'];
+        $this->tokenExpiry = time() + (int) $data['expires_in'];
+        $this->refreshToken = $data['refresh_token'] ?? null;
+    }
+
+    /**
+     * Makes an authenticated GET request to the given v2 endpoint.
+     *
+     * @param string $endpoint  Path relative to BASE_URI, e.g. 'products/search'
+     * @param array  $queryParams  Query parameters; arrays are serialised as PHP-style brackets by Symfony's HTTP client
+     */
+    public function makeRequest(string $endpoint, array $queryParams = []): ResponseInterface
+    {
+        $token = $this->getAccessToken();
+
+        return $this->tmeClient->request('GET', self::BASE_URI . '/' . $endpoint, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $token,
+                'Accept-Language' => $this->settings->language,
+            ],
+            'query' => $queryParams,
         ]);
     }
 
@@ -52,46 +102,11 @@ class TMEClient
     }
 
     /**
-     * Returns true if the client is using a private (account related token) instead of a deprecated anonymous token
-     * to authenticate with TME.
-     * @return bool
+     * In API v2 all tokens are private (50-char token + 20-char secret); kept for
+     * backwards-compatibility with code that checks this flag.
      */
     public function isUsingPrivateToken(): bool
     {
-        //Private tokens are longer than anonymous ones (50 instead of 45 characters)
-        return strlen($this->settings->apiToken ?? '') > 45;
-    }
-
-    /**
-     * Generates the signature for the given action and parameters.
-     * Taken from https://github.com/tme-dev/TME-API/blob/master/PHP/basic/using_curl.php
-     */
-    public function getSignature(string $action, array $parameters, string $appSecret): string
-    {
-        $parameters = $this->sortSignatureParams($parameters);
-
-        $queryString = http_build_query($parameters, '', '&', PHP_QUERY_RFC3986);
-        $signatureBase = strtoupper('POST') .
-            '&' . rawurlencode($this->getUrlForAction($action)) . '&' . rawurlencode($queryString);
-
-        return base64_encode(hash_hmac('sha1', $signatureBase, $appSecret, true));
-    }
-
-    private function getUrlForAction(string $action): string
-    {
-        return self::BASE_URI . '/' . $action . '.json';
-    }
-
-    private function sortSignatureParams(array $params): array
-    {
-        ksort($params);
-
-        foreach ($params as &$value) {
-            if (is_array($value)) {
-                $value = $this->sortSignatureParams($value);
-            }
-        }
-
-        return $params;
+        return strlen($this->settings->apiToken ?? '') >= 50;
     }
 }

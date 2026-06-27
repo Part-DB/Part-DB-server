@@ -32,6 +32,9 @@ use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\TMESettings;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+use function PhpCsFixer\Fixer\PhpUnit\configurePostNormalisation;
 
 class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {
@@ -39,15 +42,9 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
 
     private const VENDOR_NAME = 'TME';
 
-    private readonly bool $get_gross_prices;
-    public function __construct(private readonly TMEClient $tmeClient, private readonly TMESettings $settings)
+    public function __construct(private readonly TMEClient $tmeClient, private readonly TMESettings $settings,
+        private readonly HttpClientInterface $httpClient)
     {
-        //If we have a private token, set get_gross_prices to false, as it is automatically determined by the account type then
-        if ($this->tmeClient->isUsingPrivateToken()) {
-            $this->get_gross_prices = false;
-        } else {
-            $this->get_gross_prices = $this->settings->grossPrices;
-        }
     }
 
     public function getProviderInfo(): ProviderInfoDTO
@@ -75,30 +72,66 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
         return $this->tmeClient->isUsable();
     }
 
-    public function searchByKeyword(string $keyword, array $options = []): array
+    /**
+     * Converts a product id to a product URL
+     * @param  string  $productId
+     * @return string
+     */
+    private function productIDToProductURL(string $productId, bool $tryResolve = false): string
     {
-        $response = $this->tmeClient->makeRequest('Products/Search', [
-            'Country' => $this->settings->country,
-            'Language' => $this->settings->language,
-            'SearchPlain' => $keyword,
+        $tmp =  'https://www.tme.eu/' . strtolower($this->settings->country) . '/' . strtolower($this->settings->language) . '/details/' . $productId . '/';
+
+        if (!$tryResolve) {
+            return $tmp;
+        }
+
+        //Otherwise try to resolve the product URL by making a request to the product page and see where it redirects to.
+        $response = $this->httpClient->request('GET', $tmp, [
+            'max_redirects' => 0,
+            'http_version' => '2.0',
         ]);
 
-        $data = $response->toArray()['Data'];
+        //If the response is a redirect, we can get the location header and return it
+        if ($response->getStatusCode() >= 300 && $response->getStatusCode() < 400) {
+            $location = $response->getHeaders(false)['location'][0] ?? null;
+            if ($location !== null) {
+                return $location;
+            }
+        }
+
+        //Otherwise just return the original URL
+        return $tmp;
+    }
+
+    public function searchByKeyword(string $keyword, array $options = []): array
+    {
+        $response = $this->tmeClient->makeRequest('products/search', [
+            'country' => $this->settings->country,
+            'phrase' => $keyword,
+            'sort' => [
+                'property' => 'ACCURACY',
+                'direction' => 'desc',
+            ],
+            'scope' => ['products'],
+        ]);
+
+        $data = $response->toArray()['data'];
 
         $result = [];
 
-        foreach($data['ProductList'] as $product) {
+        foreach ($data['products']['elements'] as $product) {
             $result[] = new SearchResultDTO(
                 provider_key: self::PROVIDER_KEY,
-                provider_id: $product['Symbol'],
-                name: empty($product['OriginalSymbol']) ? $product['Symbol'] : $product['OriginalSymbol'],
-                description: $product['Description'],
-                category: $product['Category'],
-                manufacturer: $product['Producer'],
-                mpn: $product['OriginalSymbol'] ?? null,
-                preview_image_url: $this->normalizeURL($product['Photo']),
-                manufacturing_status: $this->productStatusArrayToManufacturingStatus($product['ProductStatusList']),
-                provider_url: $this->normalizeURL($product['ProductInformationPage']),
+                provider_id: $product['symbol'],
+                name: $product['manufacturer_symbols'][0] ?? $product['symbol'],
+                description: $product['description'],
+                category: $product['category']['name'],
+                manufacturer: $product['manufacturer']['name'] ?? null,
+                mpn: $product['manufacturer_symbols'][0] ?? null,
+                preview_image_url: $this->normalizeURL($product['assets']['primary_photo']['prime'] ?? null),
+                manufacturing_status: $this->productStatusArrayToManufacturingStatus($product['product_status'] ?? []),
+                provider_url: $this->productIDToProductURL($product['symbol']),
+                gtin: !empty($product['ean']) ? $product['ean'] : null
             );
         }
 
@@ -107,16 +140,14 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
 
     public function getDetails(string $id, array $options = []): PartDetailDTO
     {
-        $response = $this->tmeClient->makeRequest('Products/GetProducts', [
-            'Country' => $this->settings->country,
-            'Language' => $this->settings->language,
-            'SymbolList' => [$id],
+        $response = $this->tmeClient->makeRequest('products', [
+            'country' => $this->settings->country,
+            'symbols' => [$id],
         ]);
 
-        $product = $response->toArray()['Data']['ProductList'][0];
+        $product = $response->toArray()['data']['elements'][0];
 
-        //Add a explicit https:// to the url if it is missing
-        $productInfoPage = $this->normalizeURL($product['ProductInformationPage']);
+        $productInfoPage = $this->productIDToProductURL($product['symbol'], true);
 
         $files = $this->getFiles($id);
 
@@ -126,21 +157,22 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
 
         return new PartDetailDTO(
             provider_key: self::PROVIDER_KEY,
-            provider_id: $product['Symbol'],
-            name:  empty($product['OriginalSymbol']) ? $product['Symbol'] : $product['OriginalSymbol'],
-            description: $product['Description'],
-            category: $product['Category'],
-            manufacturer: $product['Producer'],
-            mpn: $product['OriginalSymbol'] ?? null,
-            preview_image_url: $this->normalizeURL($product['Photo']),
-            manufacturing_status: $this->productStatusArrayToManufacturingStatus($product['ProductStatusList']),
-            provider_url: $productInfoPage,
+            provider_id: $product['symbol'],
+            name: $product['manufacturer_symbols'][0] ?? $product['symbol'],
+            description: $product['description'],
+            category: $product['category']['name'],
+            manufacturer: $product['manufacturer']['name'] ?? null,
+            mpn: $product['manufacturer_symbols'][0] ?? null,
+            preview_image_url: $this->normalizeURL($product['assets']['primary_photo']['prime'] ?? null),
+            manufacturing_status: $this->productStatusArrayToManufacturingStatus($product['product_status'] ?? []),
+            provider_url: $this->productIDToProductURL($product['symbol']),
             footprint: $footprint,
+            gtin: !empty($product['ean']) ? $product['ean'] : null,
             datasheets: $files['datasheets'],
             images: $files['images'],
             parameters: $parameters,
             vendor_infos: [$this->getVendorInfo($id, $productInfoPage)],
-            mass: $product['WeightUnit'] === 'g' ? $product['Weight'] : null,
+            mass: ($product['weight']['unit'] ?? null) === 'g' ? ($product['weight']['value'] ?? null) : null,
         );
     }
 
@@ -152,33 +184,26 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
      */
     public function getFiles(string $id): array
     {
-        $response = $this->tmeClient->makeRequest('Products/GetProductsFiles', [
-            'Country' => $this->settings->country,
-            'Language' => $this->settings->language,
-            'SymbolList' => [$id],
+        $response = $this->tmeClient->makeRequest('products/files', [
+            'country' => $this->settings->country,
+            'symbols' => [$id],
         ]);
 
-        $data = $response->toArray()['Data'];
-        $files = $data['ProductList'][0]['Files'];
+        $element = $response->toArray()['data']['elements'][0];
 
-        //Extract datasheets
-        $documentList = $files['DocumentList'];
         $datasheets = [];
-        foreach($documentList as $document) {
+        foreach ($element['documents']['elements'] ?? [] as $document) {
             $datasheets[] = new FileDTO(
-                url: $this->normalizeURL($document['DocumentUrl']),
+                url: $this->normalizeURL($document['url']),
             );
         }
 
-        //Extract images
-        $imageList = $files['AdditionalPhotoList'];
         $images = [];
-        foreach($imageList as $image) {
+        foreach ($element['assets']['additional']['elements'] ?? [] as $photo) {
             $images[] = new FileDTO(
-                url: $this->normalizeURL($image['HighResolutionPhoto']),
+                url: $this->normalizeURL($photo['prime']),
             );
         }
-
 
         return [
             'datasheets' => $datasheets,
@@ -194,28 +219,27 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
      */
     public function getVendorInfo(string $id, ?string $productURL = null): PurchaseInfoDTO
     {
-        $response = $this->tmeClient->makeRequest('Products/GetPricesAndStocks', [
-            'Country' => $this->settings->country,
-            'Language' => $this->settings->language,
-            'Currency' => $this->settings->currency,
-            'GrossPrices' => $this->get_gross_prices,
-            'SymbolList' => [$id],
+        $response = $this->tmeClient->makeRequest('products/data', [
+            'country' => $this->settings->country,
+            'currency' => $this->settings->currency,
+            'scope' => ['prices'],
+            'symbols' => [$id],
         ]);
 
-        $data = $response->toArray()['Data'];
-        $currency = $data['Currency'];
-        $include_tax = $data['PriceType'] === 'GROSS';
+        $product = $response->toArray()['data']['elements'][0];
+        $priceData = $product['prices'];
+        $currency = $priceData['currency'];
+        $include_tax = strtoupper($priceData['type'] ?? '') === 'GROSS';
 
 
-        $product = $response->toArray()['Data']['ProductList'][0];
-        $vendor_order_number = $product['Symbol'];
-        $priceList = $product['PriceList'];
+        $vendor_order_number = $product['symbol'];
+        $priceList = $priceData['elements'] ?? [];
 
         $prices = [];
         foreach ($priceList as $price) {
             $prices[] = new PriceDTO(
-                minimum_discount_amount: $price['Amount'],
-                price: (string) $price['PriceValue'],
+                minimum_discount_amount: $price['amount'],
+                price: (string) $price['price'],
                 currency_iso_code: $currency,
                 includes_tax: $include_tax,
             );
@@ -237,24 +261,38 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
      */
     public function getParameters(string $id, string|null &$footprint_name = null): array
     {
-        $response = $this->tmeClient->makeRequest('Products/GetParameters', [
-            'Country' => $this->settings->country,
-            'Language' => $this->settings->language,
-            'SymbolList' => [$id],
+        $response = $this->tmeClient->makeRequest('products/parameters', [
+            'country' => $this->settings->country,
+            'symbols' => [$id],
         ]);
 
-        $data = $response->toArray()['Data']['ProductList'][0];
+        $element = $response->toArray()['data']['elements'][0]['parameters'];
 
         $result = [];
 
         $footprint_name = null;
 
-        foreach($data['ParameterList'] as $parameter) {
-            $result[] = ParameterDTO::parseValueIncludingUnit($parameter['ParameterName'], $parameter['ParameterValue']);
-
+        foreach ($element['elements'] as $parameter) {
             //Check if the parameter is the case/footprint
-            if ($parameter['ParameterId'] === 35) {
-                $footprint_name = $parameter['ParameterValue'];
+            if ($parameter['id'] === 35) {
+                $footprint_name = $parameter['values'][0]['value'];
+            }
+
+            //Skip related items parameter
+            if ($parameter['id'] === 1605) {
+                continue;
+            }
+
+            if (count($parameter['values']) > 1) {
+                //Concatenate all values with a comma, if there are multiple values for the same parameter
+                $value = implode(', ', array_map(fn($v) => $v['value'], $parameter['values']));
+                $result[] = new ParameterDTO(
+                    name: $parameter['name'],
+                    value_text: $value,
+                );
+            } else if (count($parameter['values']) === 1) {
+                $result[] = ParameterDTO::parseValueIncludingUnit($parameter['name'], $parameter['values'][0]['value']);
+
             }
         }
 
@@ -276,14 +314,22 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
             return ManufacturingStatus::DISCONTINUED;
         }
 
+        if (in_array('NOT_IN_OFFER', $statusArray, true)) {
+            return ManufacturingStatus::DISCONTINUED;
+        }
+
         //By default we assume that the part is active
         return ManufacturingStatus::ACTIVE;
     }
 
 
 
-    private function normalizeURL(string $url): string
+    private function normalizeURL(?string $url): ?string
     {
+        if ($url === null) {
+            return null;
+        }
+
         //If a URL starts with // we assume that it is a relative URL and we add the protocol
         if (str_starts_with($url, '//')) {
             $url = 'https:' . $url;
