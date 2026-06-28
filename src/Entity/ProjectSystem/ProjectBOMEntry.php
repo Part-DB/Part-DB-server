@@ -63,22 +63,15 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
         new Post(uriTemplate: '/project_bom_entries.{_format}', securityPostDenormalize: 'is_granted("create", object)',),
         new Patch(uriTemplate: '/project_bom_entries/{id}.{_format}', security: 'is_granted("edit", object)',),
         new Delete(uriTemplate: '/project_bom_entries/{id}.{_format}', security: 'is_granted("delete", object)',),
+        new GetCollection(
+            uriTemplate: '/projects/{id}/bom.{_format}',
+            uriVariables: ['id' => new Link(fromProperty: 'bom_entries', fromClass: Project::class)],
+            openapi: new Operation(summary: 'Retrieves the BOM entries of the given project.'),
+            security: 'is_granted("@projects.read")'
+        ),
     ],
     normalizationContext: ['groups' => ['bom_entry:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['bom_entry:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
-)]
-#[ApiResource(
-    uriTemplate: '/projects/{id}/bom.{_format}',
-    operations: [
-        new GetCollection(
-            openapi: new Operation(summary: 'Retrieves the BOM entries of the given project.'),
-            security: 'is_granted("@projects.read")'
-        )
-    ],
-    uriVariables: [
-        'id' => new Link(fromProperty: 'bom_entries', fromClass: Project::class)
-    ],
-    normalizationContext: ['groups' => ['bom_entry:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment", 'mountnames'])]

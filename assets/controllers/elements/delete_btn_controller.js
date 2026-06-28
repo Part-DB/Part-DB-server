@@ -19,8 +19,7 @@
 
 import {Controller} from "@hotwired/stimulus";
 
-import * as bootbox from "bootbox";
-import "../../css/components/bootbox_extensions.css";
+import {ConfirmSwal} from "../../helpers/swal";
 
 export default class extends Controller
 {
@@ -48,31 +47,32 @@ export default class extends Controller
         const submitter = event.submitter;
         const that = this;
 
-        const confirm = bootbox.confirm({
-            message: message, title: title, callback: function (result) {
-                //If the dialog was confirmed, then submit the form.
-                if (result) {
-                    //Set a flag to prevent the dialog from popping up again and allowing turbo to submit the form
-                    that._confirmed = true;
+        ConfirmSwal.fire({
+            titleText: title,
+            html: message, //Message contains a <br> tag and no user injectable HTML
+        }).then(({isConfirmed}) => {
+            //If the dialog was confirmed, then submit the form.
+            if (isConfirmed) {
+                //Set a flag to prevent the dialog from popping up again and allowing turbo to submit the form
+                that._confirmed = true;
 
-                    //Create a submit button in the form and click it to submit the form
-                    //Before a submit event was dispatched, but this caused weird issues on Firefox causing the delete request being posted twice (and the second time was returning 404). See https://github.com/Part-DB/Part-DB-server/issues/273
-                    const submit_btn = document.createElement('button');
-                    submit_btn.type = 'submit';
-                    submit_btn.style.display = 'none';
+                //Create a submit button in the form and click it to submit the form
+                //Before a submit event was dispatched, but this caused weird issues on Firefox causing the delete request being posted twice (and the second time was returning 404). See https://github.com/Part-DB/Part-DB-server/issues/273
+                const submit_btn = document.createElement('button');
+                submit_btn.type = 'submit';
+                submit_btn.style.display = 'none';
 
-                    //If the clicked button has a value, set it on the submit button
-                    if (submitter.value) {
-                        submit_btn.value = submitter.value;
-                    }
-                    if (submitter.name) {
-                        submit_btn.name = submitter.name;
-                    }
-                    form.appendChild(submit_btn);
-                    submit_btn.click();
-                } else {
-                    that._confirmed = false;
+                //If the clicked button has a value, set it on the submit button
+                if (submitter.value) {
+                    submit_btn.value = submitter.value;
                 }
+                if (submitter.name) {
+                    submit_btn.name = submitter.name;
+                }
+                form.appendChild(submit_btn);
+                submit_btn.click();
+            } else {
+                that._confirmed = false;
             }
         });
     }

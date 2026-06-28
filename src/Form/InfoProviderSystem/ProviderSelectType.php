@@ -31,12 +31,12 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\StaticMessage;
+use Symfony\Component\Translation\TranslatableMessage;
 
 class ProviderSelectType extends AbstractType
 {
     public function __construct(private readonly ProviderRegistry $providerRegistry)
     {
-
     }
 
     public function getParent(): string
@@ -46,17 +46,22 @@ class ProviderSelectType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $providers = $this->providerRegistry->getActiveProviders();
-
         $resolver->setDefault('input', 'object');
         $resolver->setAllowedTypes('input', 'string');
         //Either the form returns the provider objects or their keys
         $resolver->setAllowedValues('input', ['object', 'string']);
         $resolver->setDefault('multiple', true);
 
-        $resolver->setDefault('choices', function (Options $options) use ($providers) {
+        //Only show active providers in the list, or also inactive ones
+        $resolver->setDefault('only_active', true);
+        $resolver->setAllowedTypes('only_active', 'bool');
+
+
+        $resolver->setDefault('choices', function (Options $options) {
+            $providers = $options['only_active'] ? $this->providerRegistry->getActiveProviders() : $this->providerRegistry->getProviders();
+
             if ('object' === $options['input']) {
-                return $this->providerRegistry->getActiveProviders();
+                return $providers;
             }
 
             $tmp = [];
@@ -69,19 +74,34 @@ class ProviderSelectType extends AbstractType
         });
 
         //The choice_label and choice_value only needs to be set if we want the objects
-        $resolver->setDefault('choice_label', function (Options $options){
+        $resolver->setDefault('choice_label', function (Options $options) {
             if ('object' === $options['input']) {
-                return ChoiceList::label($this, static fn (?InfoProviderInterface $choice) => new StaticMessage($choice?->getProviderInfo()['name']));
+                return ChoiceList::label($this, static fn(?InfoProviderInterface $choice
+                ) => new StaticMessage($choice?->getProviderInfo()['name']));
             }
 
-            return static fn ($choice, $key, $value) => new StaticMessage($key);
+            return static fn($choice, $key, $value) => new StaticMessage($key);
         });
         $resolver->setDefault('choice_value', function (Options $options) {
             if ('object' === $options['input']) {
-                return ChoiceList::value($this, static fn(?InfoProviderInterface $choice) => $choice?->getProviderKey());
+                return ChoiceList::value($this,
+                    static fn(?InfoProviderInterface $choice) => $choice?->getProviderKey());
             }
 
             return null;
+        });
+        $resolver->setDefault('group_by', function (Options $options) {
+            //Do not show groups when only active providers are shown, because then all providers are active and the group would be useless
+            if ($options['only_active']) {
+                return null;
+            }
+
+            return function ($choice, $key, string $value) {
+                if ($this->providerRegistry->getProviderByKey($value)->isActive()) {
+                    return new TranslatableMessage('info_providers.providers_list.active');
+                }
+                return new TranslatableMessage('info_providers.providers_list.disabled');
+            };
         });
     }
 

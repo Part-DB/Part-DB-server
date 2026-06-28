@@ -158,7 +158,6 @@ class DBElementRepository extends EntityRepository
     {
         $reflection = new ReflectionClass($element::class);
         $property = $reflection->getProperty($field);
-        $property->setAccessible(true);
         $property->setValue($element, $new_value);
     }
 }

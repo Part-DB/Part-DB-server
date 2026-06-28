@@ -65,20 +65,15 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
+        new GetCollection(
+            uriTemplate: '/attachment_types/{id}/children.{_format}',
+            uriVariables: ['id' => new Link(fromProperty: 'children', fromClass: AttachmentType::class)],
+            openapi: new Operation(summary: 'Retrieves the children elements of an attachment type.'),
+            security: 'is_granted("@attachment_types.read")'
+        ),
     ],
     normalizationContext: ['groups' => ['attachment_type:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['attachment_type:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
-)]
-#[ApiResource(
-    uriTemplate: '/attachment_types/{id}/children.{_format}',
-    operations: [
-        new GetCollection(openapi: new Operation(summary: 'Retrieves the children elements of an attachment type.'),
-            security: 'is_granted("@attachment_types.read")')
-    ],
-    uriVariables: [
-        'id' => new Link(fromProperty: 'children', fromClass: AttachmentType::class)
-    ],
-    normalizationContext: ['groups' => ['attachment_type:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]

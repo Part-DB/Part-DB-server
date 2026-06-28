@@ -18,7 +18,7 @@
  */
 
 import {Controller} from "@hotwired/stimulus";
-import * as bootbox from "bootbox";
+import {AlertSwal} from "../../helpers/swal";
 
 export default class extends Controller {
 
@@ -35,12 +35,12 @@ export default class extends Controller {
         const part_distance = document.getElementById('reel_part_distance').value;
 
         if (dia_inner == "" || dia_outer == "" || tape_thickness == "") {
-            bootbox.alert(this.errorMissingValuesValue);
+            AlertSwal.fire({title: this.errorMissingValuesValue});
             return;
         }
 
         if (dia_outer**dia_outer < dia_inner**dia_inner) {
-            bootbox.alert(this.errorOuterGreaterInnerValue);
+            AlertSwal.fire({title: this.errorOuterGreaterInnerValue});
             return;
         }
 
@@ -61,12 +61,12 @@ export default class extends Controller {
             return;
         }
 
-        var parts_per_meter = 1 / (part_distance / 1000);
+        const parts_per_meter = 1 / (part_distance / 1000);
 
         document.getElementById('result_parts_per_meter').textContent = parts_per_meter.toFixed(2) + ' 1/m';
 
-        var parts_amount = (length/1000) * parts_per_meter;
+        const parts_amount = (length / 1000) * parts_per_meter;
 
-        document.getElementById('result_amount').textContent = Math.floor(parts_amount);
+        document.getElementById('result_amount').textContent = Math.floor(parts_amount).toString();
     }
 }

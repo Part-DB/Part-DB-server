@@ -75,6 +75,7 @@ trait AdvancedPropertyTrait
      */
     #[ORM\Embedded(class: InfoProviderReference::class, columnPrefix: 'provider_reference_')]
     #[Groups(['full', 'part:read'])]
+    #[Assert\Valid()]
     protected InfoProviderReference $providerReference;
 
     /**

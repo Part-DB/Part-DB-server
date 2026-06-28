@@ -38,9 +38,7 @@ import 'datatables.net-colreorder-bs5';
 import 'datatables.net-responsive-bs5';
 import '../../../js/lib/datatables';
 
-//import 'datatables.net-select-bs5';
-//Use the local version containing the fix for the select extension
-import '../../../js/lib/dataTables.select.mjs';
+import 'datatables.net-select-bs5';
 
 
 const EVENT_DT_LOADED = 'dt:loaded';

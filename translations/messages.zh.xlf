@@ -149,7 +149,7 @@
       <notes>
         <note priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>history.label</source>
         <target>历史</target>
       </segment>
@@ -1999,7 +1999,7 @@
     <unit id="vTPnPv." name="tfa_backup.codes.page_generated_on">
       <segment state="translated">
         <source>tfa_backup.codes.page_generated_on</source>
-        <target>页面生成于 %date%</target>
+        <target>页面生成于 %date% </target>
       </segment>
     </unit>
     <unit id="RwKNQsk" name="tfa_backup.codes.print">
@@ -2330,7 +2330,7 @@
     <unit id="NGi8Y2i" name="ui.toggle_darkmode">
       <segment state="translated">
         <source>ui.toggle_darkmode</source>
-        <target>暗色模式</target>
+        <target> </target>
       </segment>
     </unit>
     <unit id="M9HeRcF" name="user.language_select">
@@ -2475,7 +2475,7 @@
       <notes>
         <note priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>log.undo.element_undelete_success</source>
         <target>已成功取消删除元素。</target>
       </segment>
@@ -2687,13 +2687,13 @@
     <unit id="9BKWueL" name="true">
       <segment state="translated">
         <source>true</source>
-        <target>TRUE</target>
+        <target>true</target>
       </segment>
     </unit>
     <unit id="T5psnCt" name="false">
       <segment state="translated">
         <source>false</source>
-        <target>FALSE</target>
+        <target>false</target>
       </segment>
     </unit>
     <unit id="2J1kPwq" name="log.target_deleted">
@@ -2715,7 +2715,7 @@
       <notes>
         <note priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>log.undo.undo</source>
         <target>撤消更改</target>
       </segment>
@@ -3636,7 +3636,7 @@
       <notes>
         <note priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>log.element_deleted.old_name.unknown</source>
         <target>未知</target>
       </segment>
@@ -3777,7 +3777,7 @@
       <notes>
         <note priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>tree.tools.show.statistics</source>
         <target>统计</target>
       </segment>
@@ -3798,7 +3798,7 @@
       <notes>
         <note priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>tree.tools.system.event_log</source>
         <target>事件日志</target>
       </segment>
@@ -3850,7 +3850,7 @@
         <note priority="1">new</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>log.user_login.ip</source>
         <target>IP</target>
       </segment>
@@ -3860,7 +3860,7 @@
         <note priority="1">new</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>log.undo_mode.undo</source>
         <target>撤销更改</target>
       </segment>
@@ -3910,7 +3910,7 @@
         <note priority="1">new</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>log.instock_changed.comment</source>
         <target>备注</target>
       </segment>
@@ -5820,7 +5820,7 @@ Element1-&gt;Element1.2</target>
         <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>log.type.user_login</source>
         <target>用户登录</target>
       </segment>
@@ -5840,7 +5840,7 @@ Element1-&gt;Element1.2</target>
         <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>log.type.unknown</source>
         <target>未知</target>
       </segment>
@@ -5850,7 +5850,7 @@ Element1-&gt;Element1.2</target>
         <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>log.type.element_created</source>
         <target>元素已创建</target>
       </segment>
@@ -5860,7 +5860,7 @@ Element1-&gt;Element1.2</target>
         <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>log.type.element_edited</source>
         <target>元素已编辑</target>
       </segment>
@@ -5870,7 +5870,7 @@ Element1-&gt;Element1.2</target>
         <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>log.type.element_deleted</source>
         <target>元素已删除</target>
       </segment>
@@ -5880,7 +5880,7 @@ Element1-&gt;Element1.2</target>
         <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>log.type.database_updated</source>
         <target>数据库已更新</target>
       </segment>

@@ -1,4 +1,4 @@
-# Generated on Mon Jun 15 07:28:00 UTC 2026
+# Generated on Mon Jun 22 07:31:48 UTC 2026
 # This file contains all footprints available in the offical KiCAD library
 Audio_Module:Reverb_BTDR-1H
 Audio_Module:Reverb_BTDR-1V
@@ -8293,6 +8293,7 @@ Converter_DCDC:Converter_DCDC_Hamamatsu_C11204-1_THT
 Converter_DCDC:Converter_DCDC_MeanWell_NID30_THT
 Converter_DCDC:Converter_DCDC_MeanWell_NID60_THT
 Converter_DCDC:Converter_DCDC_MeanWell_NSD10_THT
+Converter_DCDC:Converter_DCDC_MeanWell_SMU02x-xxN_THT
 Converter_DCDC:Converter_DCDC_Murata_CRE1xxxxxx3C_THT
 Converter_DCDC:Converter_DCDC_Murata_CRE1xxxxxxDC_THT
 Converter_DCDC:Converter_DCDC_Murata_CRE1xxxxxxSC_THT
@@ -13030,8 +13031,6 @@ Package_SON:WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm
 Package_SON:WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm_ThermalVias
 Package_SON:WSON-6-1EP_3x3mm_P0.95mm
 Package_SON:WSON-6_1.5x1.5mm_P0.5mm
-Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm
-Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias
 Package_SON:WSON-8-1EP_3x2.5mm_P0.5mm_EP1.2x1.5mm_PullBack
 Package_SON:WSON-8-1EP_3x2.5mm_P0.5mm_EP1.2x1.5mm_PullBack_ThermalVias
 Package_SON:WSON-8-1EP_3x3mm_P0.5mm_EP1.2x2mm

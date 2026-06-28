@@ -30,7 +30,9 @@ use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Translation\TranslatableMessage as TM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Settings(name: 'ai_openrouter', label: new TM("settings.ai.openrouter"), description: "settings.ai.openrouter.help")]
 #[SettingsIcon("fa-robot")]
@@ -42,6 +44,14 @@ class OpenRouterSettings implements AIPlatformSettingsInterface
         formType: APIKeyType::class,
         formOptions: ["help_html" => true], envVar: "AI_OPENROUTER_KEY", envVarMode: EnvVarMode::OVERWRITE)]
     public ?string $apiKey = null;
+
+    #[SettingsParameter(label: new TM("settings.ai.timeout"),
+        description: new TM("settings.ai.timeout.help"),
+        formType: NumberType::class,
+        formOptions: ["scale" => 0, "attr" => ["min" => 1]],
+        envVar: "int:AI_OPENROUTER_TIMEOUT", envVarMode: EnvVarMode::OVERWRITE)]
+    #[Assert\Range(min: 1, max: AISettings::TIMEOUT_LIMIT)]
+    public int $timeout = 90;
 
     public function isAIPlatformEnabled(): bool
     {

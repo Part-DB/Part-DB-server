@@ -15,3 +15,24 @@
 {{ form_row(form.partUnit) }}
 {{ form_row(form.partCustomState) }}
 {{ form_row(form.gtin) }}
+
+<div class="{{ offset_label }} {{ col_input }} ps-1">
+    <div class="accordion" id="accordionProviderReference">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProviderReference" aria-expanded="true" aria-controls="collapseProviderReference">
+                    <span>{% trans %}part.edit.provider_reference{% endtrans %}</span>
+                </button>
+            </h2>
+            <div id="collapseProviderReference" class="accordion-collapse collapse" data-bs-parent="#accordionProviderReference">
+                <div class="accordion-body">
+                    <div class="alert alert-warning">
+                        {% trans %}part.edit.provider_reference.warning{% endtrans %}
+                    </div>
+
+                    {{ form_widget(form.providerReference) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

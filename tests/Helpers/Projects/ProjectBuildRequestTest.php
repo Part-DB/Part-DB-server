@@ -82,7 +82,12 @@ final class ProjectBuildRequestTest extends TestCase
 
         $part2->setName('Part 2');
         $part2->setPartUnit($float_unit);
-        $this->lot2 = new PartLot();
+        $this->lot2 = new class extends PartLot {
+            public function getID(): ?int
+            {
+                return 3;
+            }
+        };;
         $part2->addPartLot($this->lot2);
         $this->lot2->setAmount(2.5);
         $this->lot2->setDescription('Lot 2');

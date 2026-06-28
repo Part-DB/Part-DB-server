@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Services\AI;
 
 use App\Settings\AISettings\LMStudioSettings;
+use App\Settings\AISettings\OllamaSettings;
 use App\Settings\AISettings\OpenRouterSettings;
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -32,6 +33,7 @@ enum AIPlatforms: string implements TranslatableInterface
 {
     case OPENROUTER = 'openrouter';
     case LMSTUDIO = 'lmstudio';
+    case OLLAMA = 'ollama';
 
     /**
      * Returns the name attribute of the service tag for this platform, which is used to register the platform in the AIPlatformRegistry
@@ -52,6 +54,7 @@ enum AIPlatforms: string implements TranslatableInterface
         return match ($this) {
             self::LMSTUDIO => LMStudioSettings::class,
             self::OPENROUTER => OpenRouterSettings::class,
+            self::OLLAMA => OllamaSettings::class,
         };
     }
 

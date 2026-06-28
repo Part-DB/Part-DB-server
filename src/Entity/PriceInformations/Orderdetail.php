@@ -71,22 +71,16 @@ use Symfony\Component\Validator\Constraints\Length;
         new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
+        new GetCollection(
+            uriTemplate: '/parts/{id}/orderdetails.{_format}',
+            uriVariables: ['id' => new Link(toProperty: 'part', fromClass: Part::class)],
+            normalizationContext: ['groups' => ['orderdetail:read', 'pricedetail:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
+            openapi: new Operation(summary: 'Retrieves the orderdetails of a part.'),
+            security: 'is_granted("@parts.read")'
+        ),
     ],
     normalizationContext: ['groups' => ['orderdetail:read', 'orderdetail:read:standalone',  'api:basic:read', 'pricedetail:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['orderdetail:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
-)]
-#[ApiResource(
-    uriTemplate: '/parts/{id}/orderdetails.{_format}',
-    operations: [
-        new GetCollection(
-            openapi: new Operation(summary: 'Retrieves the orderdetails of a part.'),
-            security: 'is_granted("@parts.read")'
-        )
-    ],
-    uriVariables: [
-        'id' => new Link(toProperty: 'part', fromClass: Part::class)
-    ],
-    normalizationContext: ['groups' => ['orderdetail:read', 'pricedetail:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(PropertyFilter::class)]

@@ -119,7 +119,14 @@ Encore
     // requires WebpackEncoreBundle 1.4 or higher
     .enableIntegrityHashes(Encore.isProduction())
 
-    // uncomment if you're having problems with a jQuery plugin
+    // Force all jquery imports to the UMD build so webpack always receives the
+    // jQuery function directly instead of an ESM namespace object. Without this,
+    // webpack's ESM interop wraps jquery.module.js in a namespace
+    // { default, jQuery, $ } which has no .fn, crashing Bootstrap's
+    // defineJQueryPlugin when it tries to access $.fn.alert.
+    .addAliases({
+        'jquery': path.resolve(__dirname, 'node_modules/jquery/dist/jquery.js')
+    })
     .autoProvidejQuery()
 
 
@@ -142,7 +149,7 @@ Encore
 ;
 
 //These are all the themes that are available in bootswatch
-const AVAILABLE_THEMES = ['bootstrap', 'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal',
+const AVAILABLE_THEMES = ['bootstrap', 'brite',  'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal',
     'litera', 'lumen', 'lux', 'materia', 'minty', 'morph', 'pulse', 'quartz', 'sandstone', 'simplex', 'sketchy', 'slate', 'solar',
     'spacelab', 'superhero', 'united', 'vapor', 'yeti', 'zephyr'];
 
