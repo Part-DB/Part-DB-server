@@ -28,6 +28,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Embeddable;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * This class represents a reference to an info provider inside a part.
@@ -159,7 +161,14 @@ class InfoProviderReference
         return $ref;
     }
 
-
+    /**
+     * Creates a reference to an info provider based on the given parameters.
+     * @param  string|null  $provider_key
+     * @param  string|null  $provider_id
+     * @param  string|null  $provider_url
+     * @param  \DateTimeImmutable|null  $last_updated
+     * @return self
+     */
     public static function create(?string $provider_key, ?string $provider_id, ?string $provider_url, ?\DateTimeImmutable $last_updated): self
     {
         $ref = new InfoProviderReference();
@@ -168,5 +177,27 @@ class InfoProviderReference
         $ref->provider_url = $provider_url;
         $ref->last_updated = $last_updated;
         return $ref;
+    }
+
+    #[Assert\Callback()]
+    public function validate(ExecutionContextInterface $context, mixed $payload): void
+    {
+        if ($this->provider_key === null && $this->provider_id !== null) {
+            $context->buildViolation('info_providers.validation.provider_id_without_key')
+                ->atPath('provider_key')
+                ->addViolation();
+        }
+
+        if ($this->provider_key === null && $this->provider_url !== null) {
+            $context->buildViolation('info_providers.validation.provider_url_without_key')
+                ->atPath('provider_url')
+                ->addViolation();
+        }
+
+        if ($this->provider_key !== null && $this->provider_id === null) {
+            $context->buildViolation('info_providers.validation.provider_key_without_id')
+                ->atPath('provider_id')
+                ->addViolation();
+        }
     }
 }

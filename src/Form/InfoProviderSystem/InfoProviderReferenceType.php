@@ -100,6 +100,13 @@ class InfoProviderReferenceType extends AbstractType implements DataMapperInterf
         }
 
         $oldDate = $viewData->getLastUpdated();
+
+        //If all fields are empty, we set the view data to a new instance without provider information
+        if ($providerKey === null && $providerId === null && $providerUrl === null) {
+            $viewData = InfoProviderReference::noProvider();
+            return;
+        }
+
         $viewData = InfoProviderReference::create($providerKey, $providerId, $providerUrl, $oldDate);
 
     }
