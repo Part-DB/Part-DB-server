@@ -13617,6 +13617,36 @@ Buerklin-API-Authentication-Server:
         <target>Host-URL</target>
       </segment>
     </unit>
+    <unit id="UeFbCNh" name="settings.ai.ollama">
+      <segment state="translated">
+        <source>settings.ai.ollama</source>
+        <target>Ollama</target>
+      </segment>
+    </unit>
+    <unit id="9nfJ_vr" name="settings.ai.ollama.endpoint">
+      <segment state="translated">
+        <source>settings.ai.ollama.endpoint</source>
+        <target>Endpoint URL</target>
+      </segment>
+    </unit>
+    <unit id="67dSwE5" name="settings.ai.ollama.apiKey">
+      <segment state="translated">
+        <source>settings.ai.ollama.apiKey</source>
+        <target>API Key</target>
+      </segment>
+    </unit>
+    <unit id="VxXEQUD" name="settings.ai.timeout">
+      <segment state="translated">
+        <source>settings.ai.timeout</source>
+        <target>Timeout</target>
+      </segment>
+    </unit>
+    <unit id="vRgtpoJ" name="settings.ai.timeout.help">
+      <segment state="translated">
+        <source>settings.ai.timeout.help</source>
+        <target>Maximale Wartezeit in Sekunden auf eine Antwort. Die lokale KI-Inferenz kann mehrere Minuten dauern, die Inferenz in der Cloud ist in der Regel schneller.</target>
+      </segment>
+    </unit>
     <unit id="kuDv.So" name="browser_plugin.recent_pages.title">
       <segment state="translated">
         <source>browser_plugin.recent_pages.title</source>
@@ -13663,6 +13693,54 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>system.app_secret.insecure.suggestion</source>
         <target>Sie können diesen zufällig generierten Wert verwenden (geben Sie ihn niemandem weiter):</target>
+      </segment>
+    </unit>
+    <unit id="cEwxoSj" name="info_providers.provider_key">
+      <segment state="translated">
+        <source>info_providers.provider_key</source>
+        <target>Informationsquelle</target>
+      </segment>
+    </unit>
+    <unit id="0sjPRNV" name="info_providers.provider_id">
+      <segment state="translated">
+        <source>info_providers.provider_id</source>
+        <target>Provider ID</target>
+      </segment>
+    </unit>
+    <unit id="2DzzAxZ" name="info_providers.provider_url">
+      <segment state="translated">
+        <source>info_providers.provider_url</source>
+        <target>Provider URL</target>
+      </segment>
+    </unit>
+    <unit id="4v3QmF6" name="part.edit.provider_reference">
+      <segment state="translated">
+        <source>part.edit.provider_reference</source>
+        <target>Referenz auf Informationsquelle</target>
+      </segment>
+    </unit>
+    <unit id="9X2qEi7" name="log.element_edited.changed_fields.providerReference.provider_key">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.providerReference.provider_key</source>
+        <target>Informationsquelle</target>
+      </segment>
+    </unit>
+    <unit id="MWXgWDb" name="log.element_edited.changed_fields.providerReference.provider_id">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.providerReference.provider_id</source>
+        <target>Provider ID</target>
+      </segment>
+    </unit>
+    <unit id="83fSFvo" name="part.info_provider_reference.updated_never">
+      <segment state="translated">
+        <source>part.info_provider_reference.updated_never</source>
+        <target>Niemals aktualisiert</target>
+      </segment>
+    </unit>
+    <unit id="yIK_Wtj" name="part.edit.provider_reference.warning">
+      <segment state="translated">
+        <source>part.edit.provider_reference.warning</source>
+        <target>Warnung: Das Ändern der Werte an dieser Stelle kann den Mechanismus zum Abrufen von Informationen beeinträchtigen! Sie sollten nach Möglichkeit die Funktion „Von Informationsquelle aktualisieren“ verwenden.</target>
       </segment>
     </unit>
   </file>
