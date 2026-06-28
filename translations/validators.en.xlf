@@ -253,5 +253,23 @@
         <target>This is not an valid GTIN / EAN!</target>
       </segment>
     </unit>
+    <unit id="vnpejmb" name="info_providers.validation.provider_id_without_key">
+      <segment state="translated">
+        <source>info_providers.validation.provider_id_without_key</source>
+        <target>If you specify an provider ID, you also need to specify an info provider or remove both.</target>
+      </segment>
+    </unit>
+    <unit id="yFlA5OA" name="info_providers.validation.provider_url_without_key">
+      <segment state="translated">
+        <source>info_providers.validation.provider_url_without_key</source>
+        <target>If you specify  an provider URL, you also need  to specify an info provider.</target>
+      </segment>
+    </unit>
+    <unit id="gUHUXoV" name="info_providers.validation.provider_key_without_id">
+      <segment state="translated">
+        <source>info_providers.validation.provider_key_without_id</source>
+        <target>If you specify an info provider, you  also need to provide an provider id, or remove both.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
