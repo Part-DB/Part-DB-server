@@ -13697,5 +13697,53 @@ Buerklin-API Authentication server:
         <target>You can use this randomly generated value (share it with nobody):</target>
       </segment>
     </unit>
+    <unit id="cEwxoSj" name="info_providers.provider_key">
+      <segment state="translated">
+        <source>info_providers.provider_key</source>
+        <target>Info provider</target>
+      </segment>
+    </unit>
+    <unit id="0sjPRNV" name="info_providers.provider_id">
+      <segment state="translated">
+        <source>info_providers.provider_id</source>
+        <target>Provider ID</target>
+      </segment>
+    </unit>
+    <unit id="2DzzAxZ" name="info_providers.provider_url">
+      <segment state="translated">
+        <source>info_providers.provider_url</source>
+        <target>Provider URL</target>
+      </segment>
+    </unit>
+    <unit id="4v3QmF6" name="part.edit.provider_reference">
+      <segment state="translated">
+        <source>part.edit.provider_reference</source>
+        <target>Info provider reference</target>
+      </segment>
+    </unit>
+    <unit id="9X2qEi7" name="log.element_edited.changed_fields.providerReference.provider_key">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.providerReference.provider_key</source>
+        <target>Information provider</target>
+      </segment>
+    </unit>
+    <unit id="MWXgWDb" name="log.element_edited.changed_fields.providerReference.provider_id">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.providerReference.provider_id</source>
+        <target>Provider ID</target>
+      </segment>
+    </unit>
+    <unit id="83fSFvo" name="part.info_provider_reference.updated_never">
+      <segment state="translated">
+        <source>part.info_provider_reference.updated_never</source>
+        <target>Never updated</target>
+      </segment>
+    </unit>
+    <unit id="yIK_Wtj" name="part.edit.provider_reference.warning">
+      <segment state="translated">
+        <source>part.edit.provider_reference.warning</source>
+        <target>Warning: Changing values here can break the  info retrieval mechanism! You should use the "update from  info provider" functionality whenever possible.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
