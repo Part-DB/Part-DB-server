@@ -30,7 +30,7 @@ use Doctrine\ORM\Mapping\Embeddable;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * This class represents a reference to a info provider inside a part.
+ * This class represents a reference to an info provider inside a part.
  * @see \App\Tests\Entity\Parts\InfoProviderReferenceTest
  */
 #[Embeddable]
@@ -131,6 +131,7 @@ class InfoProviderReference
      * @param  string  $provider_key
      * @param  string  $provider_id
      * @param  string|null  $provider_url
+     * @param  \DateTimeImmutable|null  $last_updated
      * @return self
      */
     public static function providerReference(string $provider_key, string $provider_id, ?string $provider_url = null): self
@@ -155,6 +156,17 @@ class InfoProviderReference
         $ref->provider_id = $dto->provider_id;
         $ref->provider_url = $dto->provider_url;
         $ref->last_updated = new \DateTimeImmutable();
+        return $ref;
+    }
+
+
+    public static function create(?string $provider_key, ?string $provider_id, ?string $provider_url, ?\DateTimeImmutable $last_updated): self
+    {
+        $ref = new InfoProviderReference();
+        $ref->provider_key = $provider_key;
+        $ref->provider_id = $provider_id;
+        $ref->provider_url = $provider_url;
+        $ref->last_updated = $last_updated;
         return $ref;
     }
 }
