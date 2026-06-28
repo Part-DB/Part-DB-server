@@ -55,6 +55,12 @@
         <target>Los!</target>
       </segment>
     </unit>
+    <unit id="8d38e7538" name="user.password_strength.crack_time">
+      <segment state="translated">
+        <source>user.password_strength.crack_time</source>
+        <target>Geschätzte Zeit bis zum Knacken: %time%</target>
+      </segment>
+    </unit>
     <unit id="dBtnOk01" name="dialog.btn.ok">
       <segment state="translated">
         <source>dialog.btn.ok</source>

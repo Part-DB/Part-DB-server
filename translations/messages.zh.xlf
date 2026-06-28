@@ -385,7 +385,7 @@
     <unit id="CPPZnUs" name="tfa_backup.generation_date">
       <segment state="translated">
         <source>tfa_backup.generation_date</source>
-        <target>备份代码的生成日期</target>
+        <target>备份生成日期</target>
       </segment>
     </unit>
     <unit id="BrMV4pc" name="user.edit.tfa.disabled">
@@ -911,7 +911,7 @@
       </segment>
     </unit>
     <unit id="melYYg5" name="log.list.title">
-      <segment state="final">
+      <segment state="translated">
         <source>log.list.title</source>
         <target>系统日志</target>
       </segment>
@@ -2697,7 +2697,7 @@
       </segment>
     </unit>
     <unit id="2J1kPwq" name="log.target_deleted">
-      <segment state="final">
+      <segment state="translated">
         <source>log.target_deleted</source>
         <target>已删除</target>
       </segment>
@@ -2742,7 +2742,7 @@
       </segment>
     </unit>
     <unit id="i_eRuZ4" name="log.type">
-      <segment state="final">
+      <segment state="translated">
         <source>log.type</source>
         <target>事件</target>
       </segment>
@@ -2760,13 +2760,13 @@
       </segment>
     </unit>
     <unit id="cDlFI_K" name="log.target_type">
-      <segment state="final">
+      <segment state="translated">
         <source>log.target_type</source>
         <target>目标类型</target>
       </segment>
     </unit>
     <unit id="kRqoWSM" name="log.target">
-      <segment state="final">
+      <segment state="translated">
         <source>log.target</source>
         <target>目标</target>
       </segment>
@@ -7640,7 +7640,7 @@ Element1-&gt;Element1.2</target>
     <unit id="MJoZl4f" name="homepage.forum.text">
       <segment state="translated">
         <source>homepage.forum.text</source>
-        <target>有关Part-DB的问题，请使用 &lt;a href="%href%"class="link-external"target="_blank"&gt;讨论论坛&lt;/a&gt; </target>
+        <target>有关Part-DB的问题，请使用 &lt;a href="%href%"class="link-external"target="_blank"&gt;讨论论坛&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="YsukbnK" name="log.element_edited.changed_fields.category">

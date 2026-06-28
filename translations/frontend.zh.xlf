@@ -56,11 +56,11 @@
       </segment>
     </unit>
     <unit id="8d38e7538" name="user.password_strength.crack_time">
-        <segment state="translated">
-            <source>user.password_strength.crack_time</source>
-            <target>预计破解时间：%time%</target>
-        </segment>
-     </unit>
+      <segment state="translated">
+        <source>user.password_strength.crack_time</source>
+        <target>预计破解时间：%time%</target>
+      </segment>
+    </unit>
     <unit id="dBtnOk01" name="dialog.btn.ok">
       <segment state="translated">
         <source>dialog.btn.ok</source>
