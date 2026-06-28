@@ -133,7 +133,6 @@ class InfoProviderReference
      * @param  string  $provider_key
      * @param  string  $provider_id
      * @param  string|null  $provider_url
-     * @param  \DateTimeImmutable|null  $last_updated
      * @return self
      */
     public static function providerReference(string $provider_key, string $provider_id, ?string $provider_url = null): self
