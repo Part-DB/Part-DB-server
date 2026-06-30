@@ -675,7 +675,7 @@ Sub elements will be moved upwards.</target>
     <unit id="maYlJO8" name="part_list.loading.message">
       <segment state="translated">
         <source>part_list.loading.message</source>
-        <target>This can take a moment. If this message do not disappear, try to reload the page.</target>
+        <target>This can take a moment. If this message does not disappear, try to reload the page.</target>
       </segment>
     </unit>
     <unit id="wKzcAZd" name="vendor.base.javascript_hint">
@@ -960,7 +960,7 @@ Sub elements will be moved upwards.</target>
     <unit id="I6zehgT" name="email.pw_reset.message">
       <segment state="translated">
         <source>email.pw_reset.message</source>
-        <target>somebody (hopefully you) requested a reset of your password. If this request was not made by you, ignore this mail.</target>
+        <target>Somebody (hopefully you) requested a reset of your password. If this request was not made by you, ignore this mail.</target>
       </segment>
     </unit>
     <unit id="P8NjvoC" name="email.pw_reset.button">
@@ -2143,7 +2143,7 @@ Also note that without two-factor authentication, your account is no longer as w
     <unit id="h3376Kl" name="tfa_google.step.download">
       <segment state="translated">
         <source>tfa_google.step.download</source>
-        <target>Download an authenticator app (e.g. &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"&gt;Google Authenticator&lt;/a&gt; oder &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp"&gt;FreeOTP Authenticator&lt;/a&gt;)</target>
+        <target>Download an authenticator app (e.g. &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"&gt;Google Authenticator&lt;/a&gt; or &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp"&gt;FreeOTP Authenticator&lt;/a&gt;)</target>
       </segment>
     </unit>
     <unit id="eriwJoR" name="tfa_google.step.scan">
@@ -4208,7 +4208,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>validator.noLockout</source>
-        <target>You can not withdraw yourself the "change permission" permission, to prevent that you lockout yourself accidentally.</target>
+        <target>You can not withdraw yourself the "change permission" permission, to prevent that you lock yourself out accidentally.</target>
       </segment>
     </unit>
     <unit id="tS2P7Jn" name="attachment_type.edit.filetype_filter">
@@ -4703,7 +4703,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>storelocation.edit.is_full.label</source>
-        <target>Storelocation full</target>
+        <target>Storage location full</target>
       </segment>
     </unit>
     <unit id="XF4C7ZG" name="storelocation.edit.is_full.help">
@@ -4713,7 +4713,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>storelocation.edit.is_full.help</source>
-        <target>If this option is selected, it is neither possible to add new [[part]] to this storelocation or to increase the amount of existing [[part]].</target>
+        <target>If this option is selected, it is neither possible to add new [[part]] to this storage location or to increase the amount of existing [[part]].</target>
       </segment>
     </unit>
     <unit id="V1su4ac" name="storelocation.limit_to_existing.label">
@@ -4733,7 +4733,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>storelocation.limit_to_existing.help</source>
-        <target>If this option is activated, it is not possible to add new [[part]] to this storelocation, but the amount of existing [[part]] can be increased.</target>
+        <target>If this option is activated, it is not possible to add new [[part]] to this storage location, but the amount of existing [[part]] can be increased.</target>
       </segment>
     </unit>
     <unit id="tGVVeof" name="storelocation.only_single_part.label">
@@ -5988,7 +5988,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>log.type.security.trusted_device_reset</source>
-        <target>Trusted devices resetted</target>
+        <target>Trusted devices reset</target>
       </segment>
     </unit>
     <unit id="a.Le1i0" name="log.type.collection_element_deleted">
@@ -6123,7 +6123,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="uxw7_77" name="group.edit.enforce_2fa.help">
       <segment state="translated">
         <source>group.edit.enforce_2fa.help</source>
-        <target>If this option is enabled, every direct member of this group, has to configure at least one second-factor for authentication. Recommended for administrative groups with much permissions.</target>
+        <target>If this option is enabled, every direct member of this group, has to configure at least one second-factor for authentication. Recommended for administrative groups with many permissions.</target>
       </segment>
     </unit>
     <unit id="NwsYm0P" name="selectpicker.nothing_selected">
@@ -6363,7 +6363,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="CdphPiM" name="tools.reel_calc.explanation">
       <segment state="translated">
         <source>tools.reel_calc.explanation</source>
-        <target>This calculator gives you an estimation, how many parts are remaining on an SMD reel. Measure the noted the dimensions on the reel (or use some of the presets) and click "Update" to get an result.</target>
+        <target>This calculator gives you an estimation, how many parts are remaining on an SMD reel. Measure the noted the dimensions on the reel (or use the presets) and click "Update" to get a result.</target>
       </segment>
     </unit>
     <unit id="21dEh63" name="perm.tools.reel_calculator">
@@ -7893,7 +7893,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="h9kfyaE" name="log.element_edited.changed_fields.is_full">
       <segment state="translated">
         <source>log.element_edited.changed_fields.is_full</source>
-        <target>Storelocation full</target>
+        <target>Storage location full</target>
       </segment>
     </unit>
     <unit id="K754HtO" name="log.element_edited.changed_fields.limit_to_existing_parts">
@@ -8289,13 +8289,13 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="gt2SlQN" name="import.create_unknown_datastructures">
       <segment state="translated">
         <source>import.create_unknown_datastructures</source>
-        <target>Create unknown datastructures</target>
+        <target>Create unknown data structures</target>
       </segment>
     </unit>
     <unit id=".TjGPnB" name="import.create_unknown_datastructures.help">
       <segment state="translated">
         <source>import.create_unknown_datastructures.help</source>
-        <target>If this is selected, datastructures (like categories, footprints, etc.) which does not exist in the database yet, will be automatically created. If this is not selected, only existing data structures will be used, and if no matching data structure is found, the part will get assigned nothing</target>
+        <target>If this is selected, data structures (like categories, footprints, etc.) which does not exist in the database yet, will be automatically created. If this is not selected, only existing data structures will be used, and if no matching data structure is found, the part will get assigned nothing</target>
       </segment>
     </unit>
     <unit id="y_rsaV8" name="import.path_delimiter">
@@ -8307,7 +8307,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="AOG.hXc" name="import.path_delimiter.help">
       <segment state="translated">
         <source>import.path_delimiter.help</source>
-        <target>The delimiter used to mark different levels in data structure pathes like category, footprint, etc.</target>
+        <target>The delimiter used to mark different levels in data structure paths like category, footprint, etc.</target>
       </segment>
     </unit>
     <unit id="p_IxB9K" name="parts.import.help_documentation">
@@ -8367,7 +8367,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="tNnYa0u" name="project.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>project.bom_import.type.kicad_pcbnew</source>
-        <target>KiCAD Pcbnew BOM (CSV file)</target>
+        <target>KiCad Pcbnew BOM (CSV file)</target>
       </segment>
     </unit>
     <unit id="AtW_ooO" name="project.bom_import.clear_existing_bom">
@@ -8535,7 +8535,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="sg8NMZk" name="log.user_login.ip_anonymize_hint">
       <segment state="translated">
         <source>log.user_login.ip_anonymize_hint</source>
-        <target>If the last digits of the IP address are missing, then the GDPR mode is enabled, in which IP addresses are anynomized.</target>
+        <target>If the last digits of the IP address are missing, then the GDPR mode is enabled, in which IP addresses are anonymized.</target>
       </segment>
     </unit>
     <unit id="K_LOvwj" name="log.user_not_allowed.unauthorized_access_attempt_to">
@@ -8571,7 +8571,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="YQafwyc" name="error_table.error">
       <segment state="translated">
         <source>error_table.error</source>
-        <target>An error occured during your request.</target>
+        <target>An error occurred during your request.</target>
       </segment>
     </unit>
     <unit id="SgZGiGG" name="part.table.invalid_regex">
@@ -9347,7 +9347,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="Y8bGSEj" name="permission.legend.dependency_note">
       <segment state="translated">
         <source>permission.legend.dependency_note</source>
-        <target>Please note that some permission operations depend on each other. If you encounter a warning that missing permissions were corrected and a permission was set to allow again, you have to set the dependent operation to forbid too. The dependents can normally found right of an operation.</target>
+        <target>Please note that some permission operations depend on each other. If you encounter a warning that missing permissions were corrected and a permission was set to allow again, you have to set the dependent operation to forbid too. The dependents can normally be found right of an operation.</target>
       </segment>
     </unit>
     <unit id="zWj5h2X" name="log.part_stock_changed.timestamp">
