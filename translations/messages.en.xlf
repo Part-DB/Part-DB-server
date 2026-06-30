@@ -3065,7 +3065,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     <unit id="AdYtBQG" name="attachment.edit.url.help">
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>You can specify an URL to an external file here, or input an keyword which is used to search in built-in resources (e.g. footprints)</target>
+        <target>You can specify a URL to an external file here, or input a keyword which is used to search in built-in resources (e.g. footprints)</target>
       </segment>
     </unit>
     <unit id="jXplbqd" name="attachment.edit.name">
@@ -12152,7 +12152,7 @@ Buerklin-API Authentication server:
     <unit id="RFhwYWd" name="info_providers.search.error.transport_exception">
       <segment state="translated">
         <source>info_providers.search.error.transport_exception</source>
-        <target>Transport error while retrieving information from the providers. Check that your server has internet accesss. See server logs for more info.</target>
+        <target>Transport error while retrieving information from the providers. Check that your server has internet access. See server logs for more info.</target>
       </segment>
     </unit>
     <unit id="PExOL_J" name="update_manager.title">
