@@ -1,4 +1,4 @@
-{% macro settings_drodown(show_label_instead_icon = true) %}
+{% macro settings_dropdown(show_label_instead_icon = true) %}
 
     <div class="dropdown">
         <button class="btn dropdown-toggle my-2" type="button" id="navbar-search-options" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-auto-close="true">
@@ -67,8 +67,16 @@
                 {% endif %}
                 <hr>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="regex" name="regex" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                    <input type="checkbox" class="form-check-input" id="regex" name="regex" value="1" {{ stimulus_controller('elements/localStorage_checkbox elements/search_config') }}>
                     <label for="regex" class="form-check-label justify-content-start">{% trans %}search.regexmatching{% endtrans %}</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="extensive" name="extensive" value="0" {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                    <label for="extensive" class="form-check-label justify-content-start">{% trans %}search.extensivematching{% endtrans %}</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="wildcard" name="wildcard" value="0" {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                    <label for="wildcard" class="form-check-label justify-content-start">{% trans %}search.permitwildcards{% endtrans %}</label>
                 </div>
             </div>
         </div>
@@ -85,7 +93,7 @@
 
         {# Show the options left in navbar #}
         {% if is_navbar %}
-            {{ _self.settings_drodown(is_navbar) }}
+            {{ _self.settings_dropdown(is_navbar) }}
         {% endif %}
 
         <div {{ stimulus_controller('elements/part_search') }}
@@ -103,7 +111,7 @@
 
         {# And right in the standalone mode #}
         {% if not is_navbar %}
-            {{ _self.settings_drodown(is_navbar) }}
+            {{ _self.settings_dropdown(is_navbar) }}
         {% endif %}
     </form>
 {% endmacro %}

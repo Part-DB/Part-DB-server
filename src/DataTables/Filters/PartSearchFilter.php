@@ -22,7 +22,9 @@ declare(strict_types=1);
  */
 namespace App\DataTables\Filters;
 use App\DataTables\Filters\Constraints\AbstractConstraint;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query\Parameter;
 use Doctrine\DBAL\ParameterType;
 
 class PartSearchFilter implements FilterInterface
@@ -30,6 +32,12 @@ class PartSearchFilter implements FilterInterface
 
     /** @var boolean Whether to use regex for searching */
     protected bool $regex = false;
+    
+    /** @var boolean Whether to use extensive matching for searching */
+    protected bool $extensive = false;
+    
+    /** @var boolean Whether to use wildcards for searching */
+    protected bool $wildcard = false;
 
     /** @var bool Use name field for searching */
     protected bool $name = true;
@@ -70,11 +78,14 @@ class PartSearchFilter implements FilterInterface
     /** @var bool Use Internal Part number for searching */
     protected bool $ipn = true;
 
+    /** @var int array_map iteration helper variable */
+    protected int $it = 0;
+
     public function __construct(
         /** @var string The string to query for */
         protected string $keyword
-    )
-    {
+    ) {
+
     }
 
     protected function getFieldsToSearch(): array
@@ -124,43 +135,72 @@ class PartSearchFilter implements FilterInterface
     public function apply(QueryBuilder $queryBuilder): void
     {
         $fields_to_search = $this->getFieldsToSearch();
-        $is_numeric = preg_match('/^\d+$/', $this->keyword) === 1;
+        $is_numeric = preg_match('/^\d+$/', trim($this->keyword)) === 1;
 
         // Add exact ID match only when the keyword is numeric
         $search_dbId = $is_numeric && (bool)$this->dbId;
 
-        //If we have nothing to search for, do nothing
-        if (($fields_to_search === [] && !$search_dbId) || $this->keyword === '') {
+        $tokens = [];
+        if ($this->extensive) {
+            //Transform keyword and trim excess spaces
+            $this->keyword = trim(str_replace('+', ' ', $this->keyword));
+            //Split keyword on spaces, but limit token count to 5
+            $tokens = explode(' ', $this->keyword, 5);
+            //Throw away array elements which are null or have zero length
+            $tokens = array_filter($tokens, fn($x) => (strlen($x) > 0));
+        }
+        else {
+            //Pass the whole keyword into the (empty) tokens array as is,
+            //retaining the original search behavior
+            $tokens[] = $this->keyword;
+        }
+
+        //If we have nothing to search for...
+        if (($fields_to_search === [] && !$search_dbId) || $this->keyword === '' || empty($tokens)) {
+            // ...enforce returning no results
+            $queryBuilder->add('where','1 = 0');
             return;
         }
 
         $expressions = [];
-        
-        if($fields_to_search !== []) {
-            //Convert the fields to search to a list of expressions
-            $expressions = array_map(function (string $field): string {
-                if ($this->regex) {
-                    return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
-                }
+        $expressions2 = [];
+        $params = [];
 
-                return sprintf("ILIKE(%s, :search_query) = TRUE", $field);
-            }, $fields_to_search);
-            
-            //For regex, we pass the query as is, for like we add % to the start and end as wildcards
+        //Search in selected fields, either based on regex or on tokenized keyword
+        if ($fields_to_search !== []) {
+            //For regex, we pass the query as is
             if ($this->regex) {
-                $queryBuilder->setParameter('search_query', $this->keyword);
+                //Convert the fields to search to a list of expressions
+                $expressions = array_merge($expressions, array_map(function (string $field): string {
+                        return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
+                }, $fields_to_search));
+                $params[] = new Parameter('search_query', $this->keyword);
             } else {
-                //Escape % and _ characters in the keyword
-                $this->keyword = str_replace(['%', '_'], ['\%', '\_'], $this->keyword);
-                $queryBuilder->setParameter('search_query', '%' . $this->keyword . '%');
-            }
-        }
+                //Add a new expression and parameter set to the query for each token
+                foreach ($tokens as $i => $token) {
+                    //Conditionally escape % and _ characters
+                    if (!$this->wildcard)
+                        $token = str_replace(['%', '_'], ['\%', '\_'], $token);
 
-        //Use equal expression to just search for exact numeric matches
-        if ($search_dbId) {
-            $expressions[] = $queryBuilder->expr()->eq('part.id', ':id_exact');
-            $queryBuilder->setParameter('id_exact', (int) $this->keyword,
-                ParameterType::INTEGER);
+                    //Convert the fields to search to a list of expressions
+                    $tmp = array_fill_keys($fields_to_search, $i);
+                    $expressions2 = array_map(function (string $field, int $idx): string {
+                        return sprintf("ILIKE(%s, :search_query%u) = TRUE", $field, $idx);
+                    }, array_keys($tmp), array_values($tmp));
+
+                    //Aggregate the parameters for consolidated commission at the end
+                    //For like, we add % to the start and end as wildcards
+                    $params[] = new Parameter('search_query' . $i, '%' . $token . '%');
+
+                    //Guard condition
+                    if (!empty($expressions2)) {
+                        //Add Or concatenation of the expressions to our query
+                        $queryBuilder->andWhere(
+                            $queryBuilder->expr()->orX(...$expressions2)
+                        );
+                    }
+                }
+            }
         }
 
         //Guard condition
@@ -169,7 +209,16 @@ class PartSearchFilter implements FilterInterface
             $queryBuilder->andWhere(
                 $queryBuilder->expr()->orX(...$expressions)
             );
+       }
+        //Use equal expression to search for exact numeric matches
+        if ($search_dbId) {
+            $queryBuilder->orWhere($queryBuilder->expr()->eq('part.id', ':id_exact'));
+            $params[] = new Parameter('id_exact', (int)$this->keyword,
+                ParameterType::INTEGER);
         }
+        $queryBuilder->setParameters(
+            new ArrayCollection($params)
+        );
     }
 
     public function getKeyword(): string
@@ -193,6 +242,30 @@ class PartSearchFilter implements FilterInterface
         $this->regex = $regex;
         return $this;
     }
+
+    public function isExtensive(): bool
+    {
+        return $this->extensive;
+    }
+
+    public function setExtensive(bool $extensive): PartSearchFilter
+    {
+        $this->extensive = $extensive;
+        return $this;
+    }
+
+
+    public function isWildcard(): bool
+    {
+        return $this->wildcard;
+    }
+
+    public function setWildcard(bool $wildcard): PartSearchFilter
+    {
+        $this->wildcard = $wildcard;
+        return $this;
+    }
+
 
     public function isName(): bool
     {
