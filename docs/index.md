@@ -27,6 +27,8 @@ It is installed on a web server and so can be accessed with any browser without 
 * Inventory management of your electronic parts. Each part can be assigned to a category, footprint, manufacturer,
   and multiple store locations and price information. Parts can be grouped using tags. You can associate various files
   like datasheets or pictures with the parts.
+* Automatic Internal Part Number (IPN) generation with customizable prefixes and numbering schemes (see [IPN documentation]({% link usage/ipn_generation.md %}))
+* Synonym system to customize terminology throughout the application (see [Synonyms documentation]({% link usage/synonyms.md %}))
 * Multi-language support (currently German, English, Russian, Japanese, French, Czech, Danish, and Chinese)
 * Barcodes/Labels generator for parts and storage locations, scan barcodes via webcam using the built-in barcode scanner
 * User system with groups and detailed (fine-grained) permissions.
