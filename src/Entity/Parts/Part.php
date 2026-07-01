@@ -61,6 +61,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -111,9 +112,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment", "description", "ipn", "manufacturer_product_number"])]
 #[ApiFilter(TagFilter::class, properties: ["tags"])]
 #[ApiFilter(BooleanFilter::class, properties: ["favorite", "needs_review"])]
-#[ApiFilter(RangeFilter::class, properties: ["mass", "minamount"])]
+#[ApiFilter(RangeFilter::class, properties: ["mass", "minamount", "orderamount"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
-#[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
+#[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'orderDelivery', 'addedDate', 'lastModified'])]
 class Part extends AttachmentContainingDBElement
 {
     use AdvancedPropertyTrait;
