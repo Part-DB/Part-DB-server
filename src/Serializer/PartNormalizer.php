@@ -63,7 +63,9 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Norm
         'eda_exclude_bom' => 'eda_exclude_from_bom',
         'eda_exclude_board' => 'eda_exclude_from_board',
         'eda_exclude_sim' => 'eda_exclude_from_sim',
-        'eda_invisible' => 'eda_visibility',
+        //NOTE: "eda_invisible" is intentionally NOT mapped here: it is the *inverse* of
+        //"eda_visibility", so a plain key rename would store the wrong value. It is handled
+        //(and inverted) explicitly in applyEdaFields().
     ];
 
     public function __construct(
@@ -235,6 +237,9 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Norm
         }
         if (isset($data['eda_visibility']) && $data['eda_visibility'] !== '') {
             $edaInfo->setVisibility(filter_var($data['eda_visibility'], FILTER_VALIDATE_BOOLEAN));
+        } elseif (isset($data['eda_invisible']) && $data['eda_invisible'] !== '') {
+            //"eda_invisible" is the inverse convenience alias of "eda_visibility"
+            $edaInfo->setVisibility(!filter_var($data['eda_invisible'], FILTER_VALIDATE_BOOLEAN));
         }
     }
 
