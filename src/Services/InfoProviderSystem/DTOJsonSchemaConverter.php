@@ -42,7 +42,7 @@ final class DTOJsonSchemaConverter
     public function getJSONSchema(): array
     {
         return [
-            'name' => 'clock',
+            'name' => 'part_detail',
             'strict' => true,
             'schema' => [
                 'type' => 'object',

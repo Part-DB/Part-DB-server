@@ -1,8 +1,7 @@
-<?php
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2025 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -18,18 +17,28 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-declare(strict_types=1);
+import Swal from 'sweetalert2';
+import 'sweetalert2/themes/bootstrap-5.css';
+import '../css/components/swal.css'
+import { trans } from '../translator';
 
-/**
- * This file enables native lazy objects on PHP 8.4+.
- * We have to do this in a PHP file, because the yaml file does not support conditionals on PHP version.
- *
- * TODO: Remove this file when we drop support for PHP < 8.4
- */
+const BaseSwal = Swal.mixin({
+    position: "top",
+    theme: "bootstrap-5",
+    confirmButtonText: trans('dialog.btn.ok'),
+    cancelButtonText: trans('dialog.btn.cancel'),
+    denyButtonText: trans('dialog.btn.deny'),
+});
 
-// On PHP 8.4+ we can use native lazy objects, which are much more efficient than proxies.
-if (PHP_VERSION_ID >= 80400) {
-    return ['doctrine' => ['orm' => ['enable_native_lazy_objects' => true]]];
-}
+const ConfirmSwal = BaseSwal.mixin({
+    showCancelButton: true,
+    showCloseButton: true,
+    icon: "warning",
+});
 
-return [];
+const AlertSwal = BaseSwal.mixin({
+    showCloseButton: true,
+    icon: "info",
+});
+
+export { ConfirmSwal, AlertSwal, BaseSwal, BaseSwal as default,};

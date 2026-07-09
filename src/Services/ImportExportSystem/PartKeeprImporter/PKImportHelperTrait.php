@@ -233,7 +233,6 @@ trait PKImportHelperTrait
 
         $reflectionClass = new \ReflectionClass($entity);
         $property = $reflectionClass->getProperty('addedDate');
-        $property->setAccessible(true);
         $property->setValue($entity, $date);
     }
 

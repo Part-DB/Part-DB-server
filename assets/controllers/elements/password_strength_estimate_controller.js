@@ -19,12 +19,14 @@
 
 
 import {Controller} from "@hotwired/stimulus";
-import { zxcvbn, zxcvbnOptions } from '@zxcvbn-ts/core';
+import { ZxcvbnFactory } from '@zxcvbn-ts/core';
 import * as zxcvbnCommonPackage from '@zxcvbn-ts/language-common';
 import * as zxcvbnEnPackage from '@zxcvbn-ts/language-en';
 import * as zxcvbnDePackage from '@zxcvbn-ts/language-de';
 import * as zxcvbnFrPackage from '@zxcvbn-ts/language-fr';
 import * as zxcvbnJaPackage from '@zxcvbn-ts/language-ja';
+import * as zxcvbnItPackage from '@zxcvbn-ts/language-it';
+import * as zxcvbnPlPackage from '@zxcvbn-ts/language-pl';
 import {trans} from '../../translator.js';
 
 /* stimulusFetch: 'lazy' */
@@ -33,6 +35,8 @@ export default class extends Controller {
     _passwordInput;
 
     static targets = ["badge", "warning"]
+
+    _zxcvbnFactory;
 
     _getTranslations() {
         //Get the current locale
@@ -43,6 +47,10 @@ export default class extends Controller {
             return zxcvbnFrPackage.translations;
         } else if (locale.includes('ja')) {
             return zxcvbnJaPackage.translations;
+        } else if (locale.includes('it')) {
+            return zxcvbnItPackage.translations;
+        } else if (locale.includes('pl')) {
+            return zxcvbnPlPackage.translations;
         }
 
         //Fallback to english
@@ -56,34 +64,39 @@ export default class extends Controller {
         //Configure zxcvbn
         const options = {
             graphs: zxcvbnCommonPackage.adjacencyGraphs,
+            useLevenshtein: true,
             dictionary: {
                 ...zxcvbnCommonPackage.dictionary,
                 // We could use the english dictionary here too, but it is very big. So we just use the common words
-                //...zxcvbnEnPackage.dictionary,
+                ...zxcvbnEnPackage.dictionary,
+                ...zxcvbnDePackage.dictionary,
+
+                "partdb": ['part-db', 'partdb', 'part_db', 'part-db-symfony', 'partdb-symfony', 'part_db_symfony'],
             },
             translations: this._getTranslations(),
         };
-        zxcvbnOptions.setOptions(options);
+
+        this._zxcvbnFactory = new ZxcvbnFactory(options);
 
         //Add event listener to the password input field
         this._passwordInput.addEventListener('input', this._onPasswordInput.bind(this));
     }
 
-    _onPasswordInput() {
+    async _onPasswordInput() {
         //Retrieve the password
         const password = this._passwordInput.value;
 
         //Estimate the password strength
-        const result = zxcvbn(password);
+        const result = await this._zxcvbnFactory.checkAsync(password);
 
         //Update the badge
         this.badgeTarget.parentElement.classList.remove("d-none");
-        this._setBadgeToLevel(result.score);
+        this._setBadgeToLevel(result.score, result.crackTimes.onlineNoThrottlingXPerSecond.display);
 
         this.warningTarget.innerHTML = result.feedback.warning;
     }
 
-    _setBadgeToLevel(level) {
+    _setBadgeToLevel(level, time = null) {
         let text, classes;
 
         switch (level) {
@@ -118,5 +131,11 @@ export default class extends Controller {
         //Re-add the classes
         this.badgeTarget.classList.add("badge");
         this.badgeTarget.classList.add(...classes.split(" "));
+
+        if (time) {
+            this.badgeTarget.setAttribute("title", trans("user.password_strength.crack_time", {"%time%": time}));
+        } else {
+            this.badgeTarget.removeAttribute("title");
+        }
     }
 }

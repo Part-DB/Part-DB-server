@@ -19,8 +19,7 @@
 
 import {Controller} from "@hotwired/stimulus";
 
-import * as bootbox from "bootbox";
-import "../../css/components/bootbox_extensions.css";
+import {AlertSwal, ConfirmSwal} from "../../helpers/swal";
 import accept from "attr-accept";
 
 export default class extends Controller {
@@ -62,7 +61,7 @@ export default class extends Controller {
 
         if(!prototype) {
             console.warn("Prototype is not set, we cannot create a new element. This is most likely due to missing permissions.");
-            bootbox.alert("You do not have the permissions to create a new element. (No protoype element is set)");
+            AlertSwal.fire({"text": "You do not have the permissions to create a new element. (No protoype element is set)"});
             return;
         }
 
@@ -226,8 +225,10 @@ export default class extends Controller {
         }
 
         if(this.deleteMessageValue) {
-            bootbox.confirm(this.deleteMessageValue, (result) => {
-                if (result) {
+            ConfirmSwal.fire({
+                text: this.deleteMessageValue,
+            }).then(({isConfirmed}) => {
+                if (isConfirmed) {
                     del();
                 }
             });

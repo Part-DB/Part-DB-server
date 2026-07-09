@@ -115,8 +115,10 @@ class PartLotType extends AbstractType
         $builder->add('last_stocktake_at', DateTimeType::class, [
             'label' => 'part_lot.edit.last_stocktake_at',
             'widget' => 'single_text',
+            'model_timezone' => 'UTC', // The database stores the datetime in UTC, so we need to set the model timezone to UTC
             'disabled' => !$this->security->isGranted('@parts_stock.stocktake'),
             'required' => false,
+            'with_seconds' => true,
         ]);
     }
 

@@ -490,7 +490,7 @@ The user will have to set up all two-factor authentication methods again and pri
     <unit id="BtSvnI0" name="entity.delete.confirm_title">
       <segment state="translated">
         <source>entity.delete.confirm_title</source>
-        <target>You really want to delete %name%?</target>
+        <target>Do you really want to delete %name%?</target>
       </segment>
     </unit>
     <unit id="WR9DNyZ" name="entity.delete.message">
@@ -13649,6 +13649,36 @@ Buerklin-API Authentication server:
         <target>Host URL</target>
       </segment>
     </unit>
+    <unit id="UeFbCNh" name="settings.ai.ollama">
+      <segment state="translated">
+        <source>settings.ai.ollama</source>
+        <target>Ollama</target>
+      </segment>
+    </unit>
+    <unit id="9nfJ_vr" name="settings.ai.ollama.endpoint">
+      <segment state="translated">
+        <source>settings.ai.ollama.endpoint</source>
+        <target>Endpoint URL</target>
+      </segment>
+    </unit>
+    <unit id="67dSwE5" name="settings.ai.ollama.apiKey">
+      <segment state="translated">
+        <source>settings.ai.ollama.apiKey</source>
+        <target>API Key</target>
+      </segment>
+    </unit>
+    <unit id="VxXEQUD" name="settings.ai.timeout">
+      <segment state="translated">
+        <source>settings.ai.timeout</source>
+        <target>Timeout</target>
+      </segment>
+    </unit>
+    <unit id="vRgtpoJ" name="settings.ai.timeout.help">
+      <segment state="translated">
+        <source>settings.ai.timeout.help</source>
+        <target>Maximum time in seconds to wait for a response. Local AI inference might take multiple minutes, cloud inference is normally faster.</target>
+      </segment>
+    </unit>
     <unit id="kuDv.So" name="browser_plugin.recent_pages.title">
       <segment state="translated">
         <source>browser_plugin.recent_pages.title</source>
@@ -13695,6 +13725,54 @@ Buerklin-API Authentication server:
       <segment state="translated">
         <source>system.app_secret.insecure.suggestion</source>
         <target>You can use this randomly generated value (share it with nobody):</target>
+      </segment>
+    </unit>
+    <unit id="cEwxoSj" name="info_providers.provider_key">
+      <segment state="translated">
+        <source>info_providers.provider_key</source>
+        <target>Info provider</target>
+      </segment>
+    </unit>
+    <unit id="0sjPRNV" name="info_providers.provider_id">
+      <segment state="translated">
+        <source>info_providers.provider_id</source>
+        <target>Provider ID</target>
+      </segment>
+    </unit>
+    <unit id="2DzzAxZ" name="info_providers.provider_url">
+      <segment state="translated">
+        <source>info_providers.provider_url</source>
+        <target>Provider URL</target>
+      </segment>
+    </unit>
+    <unit id="4v3QmF6" name="part.edit.provider_reference">
+      <segment state="translated">
+        <source>part.edit.provider_reference</source>
+        <target>Info provider reference</target>
+      </segment>
+    </unit>
+    <unit id="9X2qEi7" name="log.element_edited.changed_fields.providerReference.provider_key">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.providerReference.provider_key</source>
+        <target>Information provider</target>
+      </segment>
+    </unit>
+    <unit id="MWXgWDb" name="log.element_edited.changed_fields.providerReference.provider_id">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.providerReference.provider_id</source>
+        <target>Provider ID</target>
+      </segment>
+    </unit>
+    <unit id="83fSFvo" name="part.info_provider_reference.updated_never">
+      <segment state="translated">
+        <source>part.info_provider_reference.updated_never</source>
+        <target>Never updated</target>
+      </segment>
+    </unit>
+    <unit id="yIK_Wtj" name="part.edit.provider_reference.warning">
+      <segment state="translated">
+        <source>part.edit.provider_reference.warning</source>
+        <target>Warning: Changing values here can break the  info retrieval mechanism! You should use the "update from  info provider" functionality whenever possible.</target>
       </segment>
     </unit>
   </file>

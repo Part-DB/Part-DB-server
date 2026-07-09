@@ -23,16 +23,17 @@ declare(strict_types=1);
 
 namespace App\Settings\AISettings;
 
-use App\Form\Type\APIKeyType;
 use App\Services\AI\AIPlatformSettingsInterface;
 use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Translation\StaticMessage;
 use Symfony\Component\Translation\TranslatableMessage as TM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Settings(name: 'ai_lmstudio', label: new TM("settings.ai.lmstudio"))]
 #[SettingsIcon("fa-robot")]
@@ -45,6 +46,14 @@ class LMStudioSettings implements AIPlatformSettingsInterface
         formOptions: ["attr" => ["placeholder" =>  new StaticMessage("http://localhost:1234")]],
         envVar: "AI_LMSTUDIO_HOSTURL", envVarMode: EnvVarMode::OVERWRITE)]
     public ?string $hostURL = null;
+
+    #[SettingsParameter(label: new TM("settings.ai.timeout"),
+        description: new TM("settings.ai.timeout.help"),
+        formType: NumberType::class,
+        formOptions: ["scale" => 0, "attr" => ["min" => 1]],
+    )]
+    #[Assert\Range(min: 1, max: AISettings::TIMEOUT_LIMIT)]
+    public int $timeout = 180;
 
     public function isAIPlatformEnabled(): bool
     {

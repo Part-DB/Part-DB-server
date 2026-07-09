@@ -53,6 +53,7 @@ parameters:
   # Themes commented here by default, are not really usable, because of display problems. Enable them at your own risk!
   partdb.available_themes:
     - bootstrap
+    - brite
     - cerulean
     - cosmo
     - cyborg

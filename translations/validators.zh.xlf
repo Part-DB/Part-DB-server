@@ -4,31 +4,31 @@
     <unit id="cRbk.cm" name="part.master_attachment.must_be_picture">
       <segment state="translated">
         <source>part.master_attachment.must_be_picture</source>
-        <target>预览附件必须是有效的图片</target>
+        <target>预览附件必须是有效的图片！</target>
       </segment>
     </unit>
     <unit id="v8HkcJB" name="structural.entity.unique_name">
       <segment state="translated">
         <source>structural.entity.unique_name</source>
-        <target>相同层下已存在同名元素</target>
+        <target>当前层级已存在同名元素！</target>
       </segment>
     </unit>
     <unit id="dW7b2B_" name="parameters.validator.min_lesser_typical">
       <segment state="translated">
         <source>parameters.validator.min_lesser_typical</source>
-        <target>值必须小于或等于标称值 ({{compare_value}})。</target>
+        <target>值必须小于或等于标称值（{{ compared_value }}）。</target>
       </segment>
     </unit>
     <unit id="Yfp2uC5" name="parameters.validator.min_lesser_max">
       <segment state="translated">
         <source>parameters.validator.min_lesser_max</source>
-        <target>值必须小于最大值 ({{compare_value}})。</target>
+        <target>值必须小于最大值（{{ compared_value }}）。</target>
       </segment>
     </unit>
     <unit id="P6b.8Ou" name="parameters.validator.max_greater_typical">
       <segment state="translated">
         <source>parameters.validator.max_greater_typical</source>
-        <target>值必须大于或等于标称值 ({{compare_value}})。</target>
+        <target>值必须大于或等于标称值（{{ compared_value }}）。</target>
       </segment>
     </unit>
     <unit id="P41193Y" name="validator.user.username_already_used">
@@ -40,7 +40,7 @@
     <unit id="EKPQiyf" name="user.invalid_username">
       <segment state="translated">
         <source>user.invalid_username</source>
-        <target>用户名只能包含字母、数字、下划线、点、加号或减号。</target>
+        <target>用户名只能包含字母、数字、下划线、点、加号或减号，且不能以@开头！</target>
       </segment>
     </unit>
     <unit id="_v.DMg." name="validator.noneofitschild.self">
@@ -49,7 +49,7 @@
       </notes>
       <segment state="translated">
         <source>validator.noneofitschild.self</source>
-        <target>一个元素不能是它自己的父元素。</target>
+        <target>元素不能成为自生的父级！</target>
       </segment>
     </unit>
     <unit id="W90LyFQ" name="validator.noneofitschild.children">
@@ -58,199 +58,199 @@
       </notes>
       <segment state="translated">
         <source>validator.noneofitschild.children</source>
-        <target>不能将子元素指定为父元素（会导致循环）。</target>
+        <target>不能将子元素指定为自身父级，这会导致循环引用！</target>
       </segment>
     </unit>
     <unit id="GAUS.LK" name="validator.select_valid_category">
       <segment state="translated">
         <source>validator.select_valid_category</source>
-        <target>请选择一个有效的类别。</target>
+        <target>请选择有效的分类！</target>
       </segment>
     </unit>
     <unit id="h6qELde" name="validator.part_lot.only_existing">
       <segment state="translated">
         <source>validator.part_lot.only_existing</source>
-        <target>无法将新部件添加到此位置，因为它被标记为 "仅现有"</target>
+        <target>无法向此位置增加新物料，因为它被标记为"仅限已有物料"</target>
       </segment>
     </unit>
     <unit id="Prriyy0" name="validator.part_lot.location_full.no_increase">
       <segment state="translated">
         <source>validator.part_lot.location_full.no_increase</source>
-        <target>位置已满。数量无法增加（增加值必须小于 {{ old_amount }}）。</target>
+        <target>位置已满。数量无法增加（要求必须小于 {{ old_amount }}）。</target>
       </segment>
     </unit>
     <unit id="eeEjB4s" name="validator.part_lot.location_full">
       <segment state="translated">
         <source>validator.part_lot.location_full</source>
-        <target>位置已满。无法添加新部件。</target>
+        <target>位置已满。无法向其中增加新物料。</target>
       </segment>
     </unit>
     <unit id="2yWi8eP" name="validator.part_lot.single_part">
       <segment state="translated">
         <source>validator.part_lot.single_part</source>
-        <target>该位置只能储存一个部件。</target>
+        <target>此位置只能包含单个物料并且已满！</target>
       </segment>
     </unit>
     <unit id="A.TFhbb" name="validator.attachment.must_not_be_null">
       <segment state="translated">
         <source>validator.attachment.must_not_be_null</source>
-        <target>必须选择附件类型。</target>
+        <target>必须选择附件类型！</target>
       </segment>
     </unit>
     <unit id=".lqKoij" name="validator.orderdetail.supplier_must_not_be_null">
       <segment state="translated">
         <source>validator.orderdetail.supplier_must_not_be_null</source>
-        <target>必须选择供应商。</target>
+        <target>必须选择供应商！</target>
       </segment>
     </unit>
     <unit id="bcNZzK." name="validator.measurement_unit.use_si_prefix_needs_unit">
       <segment state="translated">
         <source>validator.measurement_unit.use_si_prefix_needs_unit</source>
-        <target>要启用 SI 前缀，必须设置单位符号。</target>
+        <target>要启用SI前缀，必须设置单位符号！</target>
       </segment>
     </unit>
     <unit id="gZ5FFL1" name="part.ipn.must_be_unique">
       <segment state="translated">
         <source>part.ipn.must_be_unique</source>
-        <target>内部部件号是唯一的。{{ value }} 已被使用！</target>
+        <target>内部物料号必须唯一。{{ value }} 已被使用！</target>
       </segment>
     </unit>
     <unit id="P31Yg.d" name="validator.project.bom_entry.name_or_part_needed">
       <segment state="translated">
         <source>validator.project.bom_entry.name_or_part_needed</source>
-        <target>您必须为 BOM 条目选择部件，或为非部件 BOM 条目设置名称。</target>
+        <target>必须为[物料BOM条目]选择一个物料，或为[非物料BOM条目]设定名称。</target>
       </segment>
     </unit>
     <unit id="5CEup_N" name="project.bom_entry.name_already_in_bom">
       <segment state="translated">
         <source>project.bom_entry.name_already_in_bom</source>
-        <target>已存在具有该名称的 BOM 条目。</target>
+        <target>已存在同名BOM条目！</target>
       </segment>
     </unit>
     <unit id="jB3B50E" name="project.bom_entry.part_already_in_bom">
       <segment state="translated">
         <source>project.bom_entry.part_already_in_bom</source>
-        <target>该部件已存在于 BOM 中。</target>
+        <target>此物料已存在于BOM中！</target>
       </segment>
     </unit>
     <unit id="NdkzP1n" name="project.bom_entry.mountnames_quantity_mismatch">
       <segment state="translated">
         <source>project.bom_entry.mountnames_quantity_mismatch</source>
-        <target>挂载名称的数量必须与 BOM 数量匹配。</target>
+        <target>装配名称数量必须与BOM数量匹配！</target>
       </segment>
     </unit>
     <unit id="8teRCgR" name="project.bom_entry.can_not_add_own_builds_part">
       <segment state="translated">
         <source>project.bom_entry.can_not_add_own_builds_part</source>
-        <target>您无法将项目自己的生产映射部件添加到 BOM 中。</target>
+        <target>不能将[项目自身]的[组装输出物料]增加到BOM中。</target>
       </segment>
     </unit>
     <unit id="asBxPxe" name="project.bom_has_to_include_all_subelement_parts">
       <segment state="translated">
         <source>project.bom_has_to_include_all_subelement_parts</source>
-        <target>项目 BOM 必须包括所有子项目生产的部件。项目 %project_name% 的 %part_name% 部件丢失。</target>
+        <target>项目BOM必须包含所有子项目的组装物料。缺少项目 %project_name% 的物料 %part_name%！</target>
       </segment>
     </unit>
     <unit id="uxaE9Ct" name="project.bom_entry.price_not_allowed_on_parts">
       <segment state="translated">
         <source>project.bom_entry.price_not_allowed_on_parts</source>
-        <target>与部件关联的 BOM 条目上不允许有价格。请在部件上定义价格。</target>
+        <target>与物料关联的BOM条目不允许设置价格。请在物料上定义价格。</target>
       </segment>
     </unit>
     <unit id="xZ68Nzl" name="validator.project_build.lot_bigger_than_needed">
       <segment state="translated">
         <source>validator.project_build.lot_bigger_than_needed</source>
-        <target>选择的提取数量超出所需数量。</target>
+        <target>选择的数量超过所需数量！请减少到所需数量。</target>
       </segment>
     </unit>
     <unit id="68_.V_X" name="validator.project_build.lot_smaller_than_needed">
       <segment state="translated">
         <source>validator.project_build.lot_smaller_than_needed</source>
-        <target>选择的提取数量少于所需数量。</target>
+        <target>选择的数量少于所需数量！请增加到所需数量。</target>
       </segment>
     </unit>
     <unit id="yZGS8uZ" name="part.name.must_match_category_regex">
       <segment state="translated">
         <source>part.name.must_match_category_regex</source>
-        <target>部件名称与类别指定的正则表达式不匹配：%regex%</target>
+        <target>物料名称与分类指定的正则表达式不匹配：%regex%</target>
       </segment>
     </unit>
     <unit id="Q8wP5Jd" name="validator.attachment.name_not_blank">
       <segment state="translated">
         <source>validator.attachment.name_not_blank</source>
-        <target>手动设置值，或上传文件使用其文件名作为附件的名称。</target>
+        <target>在此处设置值，或上传文件后自动使用其文件名作为附件名称。</target>
       </segment>
     </unit>
     <unit id="DH0IkNR" name="validator.part_lot.owner_must_match_storage_location_owner">
       <segment state="translated">
         <source>validator.part_lot.owner_must_match_storage_location_owner</source>
-        <target>该 批次的所有者 必须与 所选存储位置的所有者(%owner_name%) 匹配！</target>
+        <target>此物料批号的所有者必须与所选存储位置的所有者（%owner_name%）匹配！</target>
       </segment>
     </unit>
     <unit id="TzySicw" name="validator.part_lot.owner_must_not_be_anonymous">
       <segment state="translated">
         <source>validator.part_lot.owner_must_not_be_anonymous</source>
-        <target>批次所有者不能是匿名用户。</target>
+        <target>物料批号所有者不能是匿名用户！</target>
       </segment>
     </unit>
     <unit id="GthNWUb" name="validator.part_association.must_set_an_value_if_type_is_other">
       <segment state="translated">
         <source>validator.part_association.must_set_an_value_if_type_is_other</source>
-        <target>如果将类型设置为 "other" 则必须为其设置一个描述性值。</target>
+        <target>当类型设置为"其他"时必须为其设定描述性值！</target>
       </segment>
     </unit>
     <unit id="Be4Im81" name="validator.part_association.part_cannot_be_associated_with_itself">
       <segment state="translated">
         <source>validator.part_association.part_cannot_be_associated_with_itself</source>
-        <target>部件不能与自己关联。</target>
+        <target>物料不能与自身关联！</target>
       </segment>
     </unit>
     <unit id="q5Ej6Xm" name="validator.part_association.already_exists">
       <segment state="translated">
         <source>validator.part_association.already_exists</source>
-        <target>与此部件的关联已存在。</target>
+        <target>与此物料的关联已存在！</target>
       </segment>
     </unit>
     <unit id="HbI5bga" name="validator.part_lot.vendor_barcode_must_be_unique">
       <segment state="translated">
         <source>validator.part_lot.vendor_barcode_must_be_unique</source>
-        <target>该供应商条码已在另一批次中使用。条形码必须是唯一的</target>
+        <target>此供应商条码值已在另一物料批号中使用。条码必须唯一！</target>
       </segment>
     </unit>
     <unit id="ufQJh7E" name="validator.year_2038_bug_on_32bit">
       <segment state="translated">
         <source>validator.year_2038_bug_on_32bit</source>
-        <target>由于技术限制，在32位系统中无法选择2038年1月19日之后的日期！</target>
+        <target>由于技术限制，在32位系统上无法选择2038-01-19之后的日期！</target>
       </segment>
     </unit>
     <unit id="iM9yb_p" name="validator.fileSize.invalidFormat">
       <segment state="translated">
         <source>validator.fileSize.invalidFormat</source>
-        <target>文件大小格式无效。请使用整数并以 K、M 或 G 作为后缀，分别代表 KB、MB 或 GB。</target>
+        <target>无效的文件大小格式。请使用整数后加 K（KByte）、M（MByte）、G（GByte）的后缀。</target>
       </segment>
     </unit>
     <unit id="ZFxQ0BZ" name="validator.invalid_range">
       <segment state="translated">
         <source>validator.invalid_range</source>
-        <target>给定的范围无效</target>
+        <target>指定的范围无效！</target>
       </segment>
     </unit>
     <unit id="m4gp2P_" name="validator.google_code.wrong_code">
       <segment state="translated">
         <source>validator.google_code.wrong_code</source>
-        <target>验证码无效。请检查验证器应用设置是否正确，并确保服务器与认证设备的时间均已同步。</target>
+        <target>验证码无效。请检查验证器应用是否正确设置，并且切薄服务器和验证设备的时间均正确。</target>
       </segment>
     </unit>
     <unit id="I330cr5" name="settings.synonyms.type_synonyms.collection_type.duplicate">
       <segment state="translated">
         <source>settings.synonyms.type_synonyms.collection_type.duplicate</source>
-        <target>该类型在此语言下已存在翻译定义!</target>
+        <target>已为此类型和语言定义了翻译！</target>
       </segment>
     </unit>
     <unit id="zT_j_oQ" name="validator.invalid_gtin">
       <segment state="translated">
         <source>validator.invalid_gtin</source>
-        <target>无效的GTIN / EAN 码。</target>
+        <target>这不是有效的GTIN/EAN！</target>
       </segment>
     </unit>
   </file>

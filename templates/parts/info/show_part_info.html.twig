@@ -22,7 +22,7 @@
             <i>({{ timeTravel | format_datetime('short') }})</i>
         {% endif %}
         {% if part.projectBuildPart %}
-            (<i>{{ entity_type_label(part.builtProject) }}</i>: <a class="text-white" href="{{ entity_url(part.builtProject) }}">{{ part.builtProject.name }}</a>)
+            (<i>{{ type_label(part.builtProject) }}</i>: <a class="text-white" href="{{ entity_url(part.builtProject) }}">{{ part.builtProject.name }}</a>)
         {% endif %}
     </span>
     <span class="float-end">

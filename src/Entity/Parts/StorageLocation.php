@@ -67,22 +67,15 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
+        new GetCollection(
+            uriTemplate: '/storage_locations/{id}/children.{_format}',
+            uriVariables: ['id' => new Link(fromProperty: 'children', fromClass: StorageLocation::class)],
+            openapi: new Operation(summary: 'Retrieves the children elements of a storage location.'),
+            security: 'is_granted("@storelocations.read")'
+        ),
     ],
     normalizationContext: ['groups' => ['location:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['location:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
-)]
-#[ApiResource(
-    uriTemplate: '/storage_locations/{id}/children.{_format}',
-    operations: [
-        new GetCollection(
-            openapi: new Operation(summary: 'Retrieves the children elements of a storage location.'),
-            security: 'is_granted("@storelocations.read")'
-        )
-    ],
-    uriVariables: [
-        'id' => new Link(fromProperty: 'children', fromClass: StorageLocation::class)
-    ],
-    normalizationContext: ['groups' => ['location:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]
