@@ -28,6 +28,7 @@ use App\DataTables\Column\EnumColumn;
 use App\DataTables\Column\HTMLColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
+use App\DataTables\Column\TagsColumn;
 use App\DataTables\Helpers\PartDataTableHelper;
 use App\Doctrine\Helpers\FieldHelper;
 use App\Entity\Parts\ManufacturingStatus;
@@ -209,6 +210,7 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ])
             ->add('tags', TagsColumn::class, [
                 'label' => $this->translator->trans('part.table.tags'),
+                'data' => static fn (ProjectBOMEntry $context): string => $context->getPart()?->getTags() ?? '',
             ])
 
             ->add('mountnames', HTMLColumn::class, [
