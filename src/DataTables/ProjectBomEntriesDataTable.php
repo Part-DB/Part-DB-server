@@ -207,6 +207,9 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
                     return $this->translator->trans($status->toTranslationKey());
                 },
             ])
+            ->add('tags', TagsColumn::class, [
+                'label' => $this->translator->trans('part.table.tags'),
+            ])
 
             ->add('mountnames', HTMLColumn::class, [
                 'label' => 'project.bom.mountnames',
