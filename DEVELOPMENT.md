@@ -246,6 +246,34 @@ docker compose -f compose.dev.yaml run --rm assets yarn build
 
 ---
 
+# Testing
+
+To run phpunit testing:
+
+```bash
+docker compose -f compose.dev.yaml run --rm partdb php bin/phpunit <test file>
+```
+
+
+To run code coverage test:
+
+```bash
+docker compose -f compose.dev.yaml run --rm \
+    -e XDEBUG_MODE=coverage \
+    partdb \
+    php bin/phpunit \
+    --coverage-text \
+    <test file>
+```
+
+Examples:
+
+```bash
+
+```
+
+---
+
 # Database
 
 The development environment uses SQLite.
