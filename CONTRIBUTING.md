@@ -28,7 +28,10 @@ Interesting folders are:
 * `tests/`: Tests that can be run by PHPUnit.
 
 ## Development environment
-For setting up a development environment, you will need to install PHP, Composer, a database server (MySQL or MariaDB) and yarn (which needs a Node.js environment).
+For contributors who prefer a Docker-based development environment, see
+[DEVELOPMENT.md](DEVELOPMENT.md).
+
+For setting up a native PHP development environment, you will need to install PHP, Composer, a database server (MySQL or MariaDB) and yarn (which needs a Node.js environment).
 * Copy `.env` to `.env.local` and change `APP_ENV` to `APP_ENV=dev`. That way you will get development tools (Symfony profiler) and other features that
 will simplify development.
 * Run `composer install` (without -o) to install PHP dependencies and `yarn install` to install frontend dependencies.
