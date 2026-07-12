@@ -46,6 +46,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\Helpers\FilenameSanatizer;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\Serializer\SerializerInterface;
+use App\Services\ImportExportSystem\ProjectBomExporter;
 
 use function Symfony\Component\Translation\t;
 
@@ -126,6 +130,148 @@ class ProjectController extends AbstractController
             'number_of_builds' => $number_of_builds,
             'form' => $form,
         ]);
+    }
+
+    #[Route(
+        path: '/{id}/bom/export',
+        name: 'project_bom_export',
+        requirements: ['id' => '\d+'],
+        methods: ['POST']
+    )]
+    public function exportBOM(
+        Project $project,
+        Request $request,
+        ProjectBomExporter $projectBomExporter,
+        SerializerInterface $serializer,
+    ): Response {
+        $this->denyAccessUnlessGranted('read', $project);
+
+        /*
+         * First run the normal BOM DataTable callback. This applies exactly the
+         * same project restriction, search criteria and active column ordering
+         * as the displayed table.
+         *
+         * We only use its hidden ID column. Rendered cell contents are discarded.
+         */
+        $table = $this->dataTableFactory->createFromType(
+            ProjectBomEntriesDataTable::class,
+            ['project' => $project],
+        );
+
+        $request->request->set('_dt', $table->getName());
+        /*
+         * Export every row matching the current search/filter.
+         * Ignore the page currently displayed in the browser.
+         */
+        $request->request->set('start', 0);
+        $request->request->set('length', -1);
+
+        $table->handleRequest($request);
+
+        if (!$table->isCallback()) {
+            throw new \RuntimeException(
+                'The BOM export request was not recognised as a DataTable callback.'
+            );
+        }
+
+        $tableResponse = $table->getResponse();
+
+        /** @var array{
+         *     data?: list<array<string, mixed>>
+         * } $payload
+         */
+        $payload = json_decode(
+            $tableResponse->getContent() ?: '{}',
+            true,
+            512,
+            JSON_THROW_ON_ERROR,
+        );
+
+        /*
+         * The DataTable already contains a hidden ID column. Collect those IDs in
+         * their returned order. That order is the currently selected table order.
+         */
+        $orderedIds = [];
+
+        foreach ($payload['data'] ?? [] as $tableRow) {
+            $id = filter_var(
+                $tableRow['id'] ?? null,
+                FILTER_VALIDATE_INT,
+            );
+
+            if ($id !== false) {
+                $orderedIds[] = $id;
+            }
+        }
+
+        $columns = array_values(
+            array_filter(
+                $request->request->all('exportColumns'),
+                static fn(mixed $column): bool => is_string($column),
+            )
+        );
+
+        $labels = array_values(
+            array_filter(
+                $request->request->all('exportLabels'),
+                static fn(mixed $label): bool => is_string($label),
+            )
+        );
+
+        if ($columns === []) {
+            throw new \InvalidArgumentException(
+                'No columns were specified for BOM export.'
+            );
+        }
+
+        /*
+         * Reload raw entities from Doctrine. The exporter verifies that every
+         * entry belongs to this project and restores the DataTable's ID order.
+         */
+        $entries = $projectBomExporter->getOrderedEntries(
+            $project,
+            $orderedIds,
+        );
+
+        $rows = [];
+
+        foreach ($entries as $entry) {
+            $rows[] = $projectBomExporter->createRow(
+                $entry,
+                $columns,
+                $labels,
+            );
+        }
+
+        $csv = $serializer->serialize($rows, 'csv', [
+            'as_collection' => true,
+            'csv_delimiter' => ';',
+        ]);
+
+        $filename = FilenameSanatizer::sanitizeFilename(
+            sprintf(
+                'project_%s_bom.csv',
+                $project->getName(),
+            )
+        );
+
+        $response = new Response($csv);
+
+        $response->headers->set(
+            'Content-Type',
+            'text/csv; charset=UTF-8',
+        );
+
+        $response->headers->set(
+            'Content-Disposition',
+            $response->headers->makeDisposition(
+                ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+                $filename,
+                'project_bom.csv',
+            )
+        );
+
+        return $response;
     }
 
     #[Route(path: '/{id}/import_bom', name: 'project_import_bom', requirements: ['id' => '\d+'])]
