@@ -259,17 +259,19 @@ To run code coverage test:
 
 ```bash
 docker compose -f compose.dev.yaml run --rm \
-    -e XDEBUG_MODE=coverage \
-    partdb \
-    php bin/phpunit \
-    --coverage-text \
+    -e XDEBUG_MODE=coverage partdb php bin/phpunit --coverage-text \
     <test file>
 ```
 
 Examples:
 
 ```bash
+docker compose -f compose.dev.yaml run --rm partdb php bin/phpunit \
+  tests/Services/ImportExportSystem/BOMImporterTest.php
 
+docker compose -f compose.dev.yaml run --rm -e XDEBUG_MODE=coverage \
+    partdb php bin/phpunit --coverage-text \
+    tests/Services/ImportExportSystem/BOMImporterTest.php
 ```
 
 ---
