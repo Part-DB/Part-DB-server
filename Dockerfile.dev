@@ -14,6 +14,7 @@ RUN apt-get update \
         git \
         gosu \
         passwd \
+        php8.4-xdebug \
     && curl -fsSL "https://deb.nodesource.com/setup_${NODE_VERSION}.x" \
         | bash - \
     && apt-get install -y --no-install-recommends nodejs \
