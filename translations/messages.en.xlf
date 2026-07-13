@@ -13745,5 +13745,131 @@ Buerklin-API Authentication server:
         <target>Warning: Changing values here can break the  info retrieval mechanism! You should use the "update from  info provider" functionality whenever possible.</target>
       </segment>
     </unit>
+    <unit id="niimbotThTitle" name="label_generator.thermal.title">
+      <segment state="translated">
+        <source>label_generator.thermal.title</source>
+        <target>Thermal printer (Niimbot)</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThHint" name="label_generator.thermal.hint">
+      <segment state="translated">
+        <source>label_generator.thermal.hint</source>
+        <target>Print this label directly to a Niimbot thermal printer over Bluetooth. Requires a Chromium based browser (e.g. Chrome or Edge) and a secure connection (HTTPS or localhost).</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThPrint" name="label_generator.thermal.print">
+      <segment state="translated">
+        <source>label_generator.thermal.print</source>
+        <target>Print to Niimbot</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThCopies" name="label_generator.thermal.copies">
+      <segment state="translated">
+        <source>label_generator.thermal.copies</source>
+        <target>Copies</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThDensity" name="label_generator.thermal.density">
+      <segment state="translated">
+        <source>label_generator.thermal.density</source>
+        <target>Density</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThDensityAuto" name="label_generator.thermal.density_auto">
+      <segment state="translated">
+        <source>label_generator.thermal.density_auto</source>
+        <target>Auto</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThLabelType" name="label_generator.thermal.label_type">
+      <segment state="translated">
+        <source>label_generator.thermal.label_type</source>
+        <target>Label type</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThLabelTypeGaps" name="label_generator.thermal.label_type_gaps">
+      <segment state="translated">
+        <source>label_generator.thermal.label_type_gaps</source>
+        <target>With gaps (die-cut)</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThLabelTypeContinuous" name="label_generator.thermal.label_type_continuous">
+      <segment state="translated">
+        <source>label_generator.thermal.label_type_continuous</source>
+        <target>Continuous</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThLabelTypeBlack" name="label_generator.thermal.label_type_black">
+      <segment state="translated">
+        <source>label_generator.thermal.label_type_black</source>
+        <target>Black mark</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThRotation" name="label_generator.thermal.rotation">
+      <segment state="translated">
+        <source>label_generator.thermal.rotation</source>
+        <target>Rotation</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThThreshold" name="label_generator.thermal.threshold">
+      <segment state="translated">
+        <source>label_generator.thermal.threshold</source>
+        <target>B/W threshold</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThNoBluetooth" name="label_generator.thermal.no_bluetooth">
+      <segment state="translated">
+        <source>label_generator.thermal.no_bluetooth</source>
+        <target>Web Bluetooth is not available in this browser. Use a Chromium based browser (Chrome/Edge) over HTTPS or localhost.</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThNoLabel" name="label_generator.thermal.no_label">
+      <segment state="translated">
+        <source>label_generator.thermal.no_label</source>
+        <target>No label to print. Please generate the label first.</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThConnecting" name="label_generator.thermal.connecting">
+      <segment state="translated">
+        <source>label_generator.thermal.connecting</source>
+        <target>Connecting to printer…</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThConnected" name="label_generator.thermal.connected">
+      <segment state="translated">
+        <source>label_generator.thermal.connected</source>
+        <target>Connected to %model%.</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThRendering" name="label_generator.thermal.rendering">
+      <segment state="translated">
+        <source>label_generator.thermal.rendering</source>
+        <target>Rendering page %page% of %total%…</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThPrinting" name="label_generator.thermal.printing">
+      <segment state="translated">
+        <source>label_generator.thermal.printing</source>
+        <target>Printing page %page% of %total%…</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThDone" name="label_generator.thermal.done">
+      <segment state="translated">
+        <source>label_generator.thermal.done</source>
+        <target>Done. Sent %count% label(s) to the printer.</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThTooWide" name="label_generator.thermal.too_wide">
+      <segment state="translated">
+        <source>label_generator.thermal.too_wide</source>
+        <target>Warning: the label is %width% px wide but the printer supports only %max% px. It may be clipped — try rotating it or reducing the label width.</target>
+      </segment>
+    </unit>
+    <unit id="niimbotThError" name="label_generator.thermal.error">
+      <segment state="translated">
+        <source>label_generator.thermal.error</source>
+        <target>Error: %message%</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -130,6 +130,77 @@
                 </a>
             </div>
         </div>
+
+        {% if niimbot_enabled %}
+        <div class="row mt-3" {{ stimulus_controller('pages/niimbot_print', {
+            messages: {
+                no_bluetooth: 'label_generator.thermal.no_bluetooth'|trans,
+                no_label: 'label_generator.thermal.no_label'|trans,
+                connecting: 'label_generator.thermal.connecting'|trans,
+                connected: 'label_generator.thermal.connected'|trans,
+                rendering: 'label_generator.thermal.rendering'|trans,
+                printing: 'label_generator.thermal.printing'|trans,
+                done: 'label_generator.thermal.done'|trans,
+                too_wide: 'label_generator.thermal.too_wide'|trans,
+                error: 'label_generator.thermal.error'|trans
+            }
+        }) }}>
+            <div class="{{ col_input }} {{ offset_label }}">
+                <div class="card border-secondary">
+                    <div class="card-body">
+                        <h6 class="card-title mb-1">
+                            <i class="fas fa-print fa-fw"></i> {% trans %}label_generator.thermal.title{% endtrans %}
+                        </h6>
+                        <p class="text-muted small mb-2">{% trans %}label_generator.thermal.hint{% endtrans %}</p>
+                        <div class="row g-2 align-items-end">
+                            <div class="col-6 col-md-3">
+                                <label class="form-label small mb-0" for="niimbot_copies">{% trans %}label_generator.thermal.copies{% endtrans %}</label>
+                                <input type="number" min="1" value="1" class="form-control form-control-sm" id="niimbot_copies" {{ stimulus_target('pages/niimbot_print', 'copies') }}>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label class="form-label small mb-0" for="niimbot_density">{% trans %}label_generator.thermal.density{% endtrans %}</label>
+                                <select class="form-select form-select-sm" id="niimbot_density" {{ stimulus_target('pages/niimbot_print', 'density') }}>
+                                    <option value="">{% trans %}label_generator.thermal.density_auto{% endtrans %}</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label class="form-label small mb-0" for="niimbot_labeltype">{% trans %}label_generator.thermal.label_type{% endtrans %}</label>
+                                <select class="form-select form-select-sm" id="niimbot_labeltype" {{ stimulus_target('pages/niimbot_print', 'labelType') }}>
+                                    <option value="1">{% trans %}label_generator.thermal.label_type_gaps{% endtrans %}</option>
+                                    <option value="3">{% trans %}label_generator.thermal.label_type_continuous{% endtrans %}</option>
+                                    <option value="2">{% trans %}label_generator.thermal.label_type_black{% endtrans %}</option>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label class="form-label small mb-0" for="niimbot_rotation">{% trans %}label_generator.thermal.rotation{% endtrans %}</label>
+                                <select class="form-select form-select-sm" id="niimbot_rotation" {{ stimulus_target('pages/niimbot_print', 'rotation') }}>
+                                    <option value="0">0°</option>
+                                    <option value="90">90°</option>
+                                    <option value="180">180°</option>
+                                    <option value="270">270°</option>
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label class="form-label small mb-0" for="niimbot_threshold">{% trans %}label_generator.thermal.threshold{% endtrans %}</label>
+                                <input type="number" min="1" max="254" value="128" class="form-control form-control-sm" id="niimbot_threshold" {{ stimulus_target('pages/niimbot_print', 'threshold') }}>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <button type="button" class="btn btn-primary btn-sm" {{ stimulus_target('pages/niimbot_print', 'button') }} {{ stimulus_action('pages/niimbot_print', 'print') }}>
+                                <i class="fas fa-print fa-fw"></i> {% trans %}label_generator.thermal.print{% endtrans %}
+                            </button>
+                        </div>
+                        <div class="mt-2 small text-muted" {{ stimulus_target('pages/niimbot_print', 'status') }}></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     {% endif %}
 {% endblock %}
 
