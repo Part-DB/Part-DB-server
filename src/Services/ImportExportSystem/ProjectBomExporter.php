@@ -134,9 +134,9 @@ final readonly class ProjectBomExporter
                 ? $part->getDescription()
                 : $entry->getComment(),
 
-            'category' => $part?->getCategory()?->getFullPath() ?? '',
+            'category' => $part?->getCategory()?->getName() ?? '',
 
-            'footprint' => $part?->getFootprint()?->getFullPath() ?? '',
+            'footprint' => $part?->getFootprint()?->getName() ?? '',
 
             'manufacturer' => $part?->getManufacturer()?->getName() ?? '',
 
@@ -185,15 +185,21 @@ final readonly class ProjectBomExporter
             return trim((string) $entry->getName());
         }
 
-        $values = [$part->getName()];
+        $partName = trim($part->getName());
+        $entryName = trim((string) $entry->getName());
+
+        $values = [$partName];
 
         /*
-         * The DataTable displays the optional BOM entry name beneath the
-         * linked part's name. Preserve that information with a separating
-         * space in CSV.
+         * The DataTable displays the optional BOM entry name beneath the linked
+         * part's name. Preserve that information in the CSV, but avoid exporting
+         * duplicate names.
          */
-        if ($entry->getName() !== null && $entry->getName() !== '') {
-            $values[] = $entry->getName();
+        if (
+            $entryName !== ''
+            && $entryName !== $partName
+        ) {
+            $values[] = $entryName;
         }
 
         return implode(' ', $values);
@@ -275,7 +281,7 @@ final readonly class ProjectBomExporter
             }
 
             $locations[$storageLocation->getID()] =
-                $storageLocation->getFullPath();
+                $storageLocation->getName();
         }
 
         return implode(', ', array_values($locations));

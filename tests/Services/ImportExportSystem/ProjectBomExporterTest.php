@@ -281,7 +281,7 @@ final class ProjectBomExporterTest extends WebTestCase
         );
         $this->assertSame('TEST-IPN-001', $row['IPN']);
         $this->assertSame('10k ohm resistor', $row['Description']);
-        $this->assertSame($category->getFullPath(), $row['Category']);
+        $this->assertSame($category->getName(), $row['Category']);
         $this->assertSame('', $row['Footprint']);
         $this->assertSame('', $row['Manufacturer']);
         $this->assertSame('', $row['Manufacturing status']);
