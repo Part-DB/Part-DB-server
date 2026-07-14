@@ -83,6 +83,9 @@
         {% if form.eda_visibility is defined %}
         <td class="text-center">{{ form_widget(form.eda_visibility) }}</td>
         {% endif %}
+        {% if form.eda_symbol_visibility is defined %}
+        <td class="text-center">{{ form_widget(form.eda_symbol_visibility) }}</td>
+        {% endif %}
         <td>
             <button type="button" class="btn btn-danger btn-sm order_btn_delete position-relative {% if form.parent.vars.allow_delete is defined and  not form.parent.vars.allow_delete %}disabled{% endif %}"
                     {{ collection.delete_btn() }} title="{% trans %}orderdetail.delete{% endtrans %}">

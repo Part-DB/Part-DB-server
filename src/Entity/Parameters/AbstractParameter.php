@@ -180,6 +180,14 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     protected ?bool $eda_visibility = null;
 
     /**
+     * @var bool|null Whether the exported EDA field should be visible in the schematic symbol
+     *                (sets the KiCad field's "visible" flag). Null means use system default.
+     */
+    #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true, options: ['default' => null])]
+    protected ?bool $eda_symbol_visibility = null;
+
+    /**
      * Mapping is done in subclasses.
      *
      * @var AbstractDBElement|null the element to which this parameter belongs to
@@ -489,6 +497,21 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     public function setEdaVisibility(?bool $eda_visibility): self
     {
         $this->eda_visibility = $eda_visibility;
+
+        return $this;
+    }
+
+    public function isEdaSymbolVisibility(): ?bool
+    {
+        return $this->eda_symbol_visibility;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setEdaSymbolVisibility(?bool $eda_symbol_visibility): self
+    {
+        $this->eda_symbol_visibility = $eda_symbol_visibility;
 
         return $this;
     }
