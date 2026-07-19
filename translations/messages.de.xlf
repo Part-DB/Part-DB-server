@@ -13695,6 +13695,24 @@ Buerklin-API-Authentication-Server:
         <target>Sie können diesen zufällig generierten Wert verwenden (geben Sie ihn niemandem weiter):</target>
       </segment>
     </unit>
+    <unit id="OP7MacF" name="system.trusted_hosts.unconfigured.title">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.title</source>
+        <target>TRUSTED_HOSTS nicht konfiguriert</target>
+      </segment>
+    </unit>
+    <unit id="88NkHLV" name="system.trusted_hosts.unconfigured.message">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.message</source>
+        <target>Die Umgebungsvariable &lt;code&gt;TRUSTED_HOSTS&lt;/code&gt; ist nicht gesetzt. Das bedeutet, dass Part-DB Anfragen für jeden beliebigen Hostnamen akzeptiert, was ein Sicherheitsrisiko darstellen kann (z. B. HTTP-Host-Header-Injection). Es wird empfohlen, dies auf die Hostnamen zu beschränken, unter denen Part-DB tatsächlich erreichbar ist.</target>
+      </segment>
+    </unit>
+    <unit id="qZ_kgWT" name="system.trusted_hosts.unconfigured.suggestion">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.suggestion</source>
+        <target>Legen Sie einen regulären Ausdruck fest, der alle Hostnamen abdeckt, unter denen Part-DB erreichbar sein soll, z. B. basierend auf dem Hostnamen, den Sie für den Zugriff auf diese Seite verwendet haben. Dies ist möglich in Ihrer Datei &lt;code&gt;.env.local&lt;/code&gt; oder &lt;code&gt;docker-compose.yaml&lt;/code&gt;:</target>
+      </segment>
+    </unit>
     <unit id="cEwxoSj" name="info_providers.provider_key">
       <segment state="translated">
         <source>info_providers.provider_key</source>
