@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="ko">
+  <file id="security.en">
+    <unit id="GrLNa9P" name="user.login_error.user_disabled">
+      <segment state="translated">
+        <source>user.login_error.user_disabled</source>
+        <target>계정이 비활성화되어 있습니다! 오류라고 생각되면 관리자에게 문의하세요.</target>
+      </segment>
+    </unit>
+    <unit id="IFQ5XrG" name="saml.error.cannot_login_local_user_per_saml">
+      <segment state="translated">
+        <source>saml.error.cannot_login_local_user_per_saml</source>
+        <target>로컬 사용자는 SSO로 로그인할 수 없습니다! 로컬 사용자 비밀번호를 사용하세요.</target>
+      </segment>
+    </unit>
+    <unit id="wOYPZmb" name="saml.error.cannot_login_saml_user_locally">
+      <segment state="translated">
+        <source>saml.error.cannot_login_saml_user_locally</source>
+        <target>SAML 사용자는 로컬 인증으로 로그인할 수 없습니다! SSO 로그인을 사용하세요.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>
