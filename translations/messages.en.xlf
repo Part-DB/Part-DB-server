@@ -13697,6 +13697,24 @@ Buerklin-API Authentication server:
         <target>You can use this randomly generated value (share it with nobody):</target>
       </segment>
     </unit>
+    <unit id="OP7MacF" name="system.trusted_hosts.unconfigured.title">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.title</source>
+        <target>TRUSTED_HOSTS not configured</target>
+      </segment>
+    </unit>
+    <unit id="88NkHLV" name="system.trusted_hosts.unconfigured.message">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.message</source>
+        <target>The &lt;code&gt;TRUSTED_HOSTS&lt;/code&gt; environment variable is not set. This means Part-DB will accept requests for any host name, which can be a security risk (e.g. HTTP Host header injection). It is recommended to restrict this to the host names Part-DB is actually reachable under.</target>
+      </segment>
+    </unit>
+    <unit id="qZ_kgWT" name="system.trusted_hosts.unconfigured.suggestion">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.suggestion</source>
+        <target>Set it to a regular expression matching all host names Part-DB should be reachable under in your &lt;code&gt;.env.local&lt;/code&gt; or &lt;code&gt;docker-compose.yaml&lt;/code&gt; file, e.g. based on the host name you used to access this page:</target>
+      </segment>
+    </unit>
     <unit id="cEwxoSj" name="info_providers.provider_key">
       <segment state="translated">
         <source>info_providers.provider_key</source>
