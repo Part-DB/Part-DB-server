@@ -1,5 +1,18 @@
 {% import "components/attachments.macro.html.twig" as attachments %}
 
-{{ form_row(form.master_picture_attachment) }}
+{% if part.id is not null and is_granted('@tools.component_image_generator') %}
+    <div class="mb-3">
+        {% include "tools/value_calculator/_generate_button.html.twig" %}
+        <small class="text-muted ms-2">{% trans %}tools.value_calc.attach.generate_hint{% endtrans %}</small>
+    </div>
+    {# The modal itself is rendered outside the part form (in edit_part_info.html.twig) so its
+       named radio inputs are not submitted with the form. #}
+{% endif %}
 
-{{ attachments.attachment_edit_list(form.attachments) }}
+{# Wrapped in a Turbo frame (no src -> inert during normal editing) so the value-calculator can
+   refresh just this list after attaching a generated image, without a full-page reload. #}
+<turbo-frame id="part-attachments-frame">
+    {{ form_row(form.master_picture_attachment) }}
+
+    {{ attachments.attachment_edit_list(form.attachments) }}
+</turbo-frame>

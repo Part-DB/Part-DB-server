@@ -22,7 +22,9 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
+use App\Entity\Parts\Part;
 use App\Services\Attachments\AttachmentSubmitHandler;
+use App\Services\Tools\ComponentValueGuesser;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\Doctrine\DBInfoHelper;
@@ -30,7 +32,9 @@ use App\Services\Doctrine\NatsortDebugHelper;
 use App\Services\System\GitVersionInfoProvider;
 use App\Services\System\UpdateAvailableFacade;
 use App\Settings\AppSettings;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Runtime\SymfonyRuntime;
@@ -141,5 +145,144 @@ class ToolsController extends AbstractController
         $this->denyAccessUnlessGranted('@tools.ic_logos');
 
         return $this->render('tools/ic_logos/ic_logos.html.twig');
+    }
+
+    #[Route(path: '/component_image_generator', name: 'tools_component_image_generator')]
+    public function valueCalculator(Request $request, EntityManagerInterface $em, ComponentValueGuesser $guesser): Response
+    {
+        $this->denyAccessUnlessGranted('@tools.component_image_generator');
+
+        //Optionally the calculator can be opened in the context of a part, to attach the generated image to it.
+        $part = null;
+        $partId = $request->query->getInt('part');
+        if ($partId > 0) {
+            $part = $em->find(Part::class, $partId);
+            if ($part !== null) {
+                $this->denyAccessUnlessGranted('edit', $part);
+            }
+        }
+
+        $prefillOhms = null;
+        $prefillFarads = null;
+        if ($part !== null) {
+            [$prefillOhms, $prefillFarads] = $guesser->extractValue($part);
+        }
+
+        return $this->render('tools/value_calculator/value_calculator.html.twig', [
+            'part' => $part,
+            'prefill_ohms' => $prefillOhms,
+            'prefill_farads' => $prefillFarads,
+            //When embedded in the part-page modal, render only the calculator inside a Turbo frame.
+            'modalMode' => $request->query->getBoolean('modal'),
+        ]);
+    }
+
+    /**
+     * Landing page for the "Generate component images" bulk action: classifies the selected parts
+     * (skipping ones that already have a picture or can't be classified) and lets the user review,
+     * then generate + attach pictures. Reached from the parts table action bar with ?ids=1,2,3.
+     */
+    #[Route(path: '/bulk_generate_images', name: 'tools_bulk_generate')]
+    public function bulkGenerate(Request $request, EntityManagerInterface $em, ComponentValueGuesser $guesser): Response
+    {
+        $this->denyAccessUnlessGranted('@tools.component_image_generator');
+
+        $candidates = [];
+        $skipped = 0;
+        $withPicture = 0;
+        //When set, parts that already have a picture are included too (their preview gets overwritten).
+        $overwrite = $request->query->getBoolean('overwrite');
+        $idsParam = (string) $request->query->get('ids', '');
+        $ids = array_values(array_filter(
+            array_map('intval', explode(',', $idsParam)),
+            static fn (int $id): bool => $id > 0
+        ));
+
+        if ($ids !== []) {
+            foreach ($em->getRepository(Part::class)->findBy(['id' => $ids]) as $part) {
+                if (!$this->isGranted('edit', $part)) {
+                    continue;
+                }
+                $hasPicture = $part->getMasterPictureAttachment() !== null;
+                //By default only illustrate parts without a picture; in overwrite mode include all.
+                if ($hasPicture && !$overwrite) {
+                    //Offer a re-generate action only for the ones we could actually classify.
+                    if ($guesser->guess($part) !== null) {
+                        $withPicture++;
+                    } else {
+                        $skipped++;
+                    }
+                    continue;
+                }
+                $guess = $guesser->guess($part);
+                if ($guess === null) {
+                    $skipped++;
+                    continue;
+                }
+                $eda = $guesser->edaSuggestion($guess);
+                $candidates[] = [
+                    'part' => $part,
+                    'type' => $guess['type'],
+                    'subtype' => $guess['subtype'] ?? null,
+                    'marking' => $guess['marking'] ?? null,
+                    'value' => $guess['value'],
+                    'package' => $guess['package'],
+                    'voltage' => $guess['voltage'],
+                    'tolerance' => $guess['tolerance'],
+                    'pitch' => $guess['pitch'],
+                    'diameter' => $guess['diameter'],
+                    'power' => $guess['power'],
+                    'ppm' => $guess['ppm'],
+                    'color' => $guess['color'],
+                    'has_picture' => $hasPicture,
+                    'kicad_symbol' => $eda['symbol'],
+                    'reference_prefix' => $eda['reference'],
+                    'kicad_footprint' => $eda['footprint'],
+                ];
+            }
+        }
+
+        $hasCaps = false;
+        $hasThtResistors = false;
+        $hasSmdResistors = false;
+        $hasInductors = false;
+        $hasSmdInductors = false;
+        $hasSmdCapacitors = false;
+        $hasDiodes = false;
+        foreach ($candidates as $candidate) {
+            if ($candidate['type'] === 'capacitor') {
+                $hasCaps = true;
+            } elseif ($candidate['type'] === 'resistor') {
+                //Power and temperature-coefficient bands only apply to through-hole resistors;
+                //SMD chips just carry the printed value code (sized by their package).
+                $hasThtResistors = true;
+            } elseif ($candidate['type'] === 'smd_resistor') {
+                $hasSmdResistors = true;
+            } elseif ($candidate['type'] === 'inductor') {
+                $hasInductors = true;
+            } elseif ($candidate['type'] === 'smd_inductor') {
+                $hasSmdInductors = true;
+            } elseif ($candidate['type'] === 'smd_capacitor') {
+                $hasSmdCapacitors = true;
+            } elseif ($candidate['type'] === 'diode') {
+                $hasDiodes = true;
+            }
+        }
+
+        return $this->render('tools/value_calculator/bulk_generate.html.twig', [
+            'candidates' => $candidates,
+            'skipped' => $skipped,
+            'selected_count' => count($ids),
+            'has_caps' => $hasCaps,
+            'has_tht_resistors' => $hasThtResistors,
+            'has_smd_resistors' => $hasSmdResistors,
+            'has_inductors' => $hasInductors,
+            'has_smd_inductors' => $hasSmdInductors,
+            'has_smd_capacitors' => $hasSmdCapacitors,
+            'has_diodes' => $hasDiodes,
+            'with_picture' => $withPicture,
+            'overwrite' => $overwrite,
+            'ids_param' => $idsParam,
+        ]);
     }
 }
