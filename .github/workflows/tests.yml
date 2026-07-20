@@ -104,7 +104,7 @@ jobs:
         run: composer install --prefer-dist --no-progress
 
       - name: Setup node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
 
