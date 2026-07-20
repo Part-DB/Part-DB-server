@@ -55,6 +55,126 @@
         <target>Go!</target>
       </segment>
     </unit>
+    <unit id="vcalc_band" name="tools.value_calc.band">
+      <segment state="translated">
+        <source>tools.value_calc.band</source>
+        <target>band</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_band_digit" name="tools.value_calc.resistor.band_digit">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.band_digit</source>
+        <target>Digit</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_band_multiplier" name="tools.value_calc.resistor.band_multiplier">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.band_multiplier</source>
+        <target>Multiplier</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_band_tolerance" name="tools.value_calc.resistor.band_tolerance">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.band_tolerance</source>
+        <target>Tolerance</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_band_temp" name="tools.value_calc.resistor.band_temp">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.band_temp</source>
+        <target>Temp. coeff.</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_color_black" name="tools.value_calc.color.black">
+      <segment state="translated">
+        <source>tools.value_calc.color.black</source>
+        <target>Black</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_color_brown" name="tools.value_calc.color.brown">
+      <segment state="translated">
+        <source>tools.value_calc.color.brown</source>
+        <target>Brown</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_color_red" name="tools.value_calc.color.red">
+      <segment state="translated">
+        <source>tools.value_calc.color.red</source>
+        <target>Red</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_color_orange" name="tools.value_calc.color.orange">
+      <segment state="translated">
+        <source>tools.value_calc.color.orange</source>
+        <target>Orange</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_color_yellow" name="tools.value_calc.color.yellow">
+      <segment state="translated">
+        <source>tools.value_calc.color.yellow</source>
+        <target>Yellow</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_color_green" name="tools.value_calc.color.green">
+      <segment state="translated">
+        <source>tools.value_calc.color.green</source>
+        <target>Green</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_color_blue" name="tools.value_calc.color.blue">
+      <segment state="translated">
+        <source>tools.value_calc.color.blue</source>
+        <target>Blue</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_color_violet" name="tools.value_calc.color.violet">
+      <segment state="translated">
+        <source>tools.value_calc.color.violet</source>
+        <target>Violet</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_color_grey" name="tools.value_calc.color.grey">
+      <segment state="translated">
+        <source>tools.value_calc.color.grey</source>
+        <target>Grey</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_color_white" name="tools.value_calc.color.white">
+      <segment state="translated">
+        <source>tools.value_calc.color.white</source>
+        <target>White</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_color_gold" name="tools.value_calc.color.gold">
+      <segment state="translated">
+        <source>tools.value_calc.color.gold</source>
+        <target>Gold</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_color_silver" name="tools.value_calc.color.silver">
+      <segment state="translated">
+        <source>tools.value_calc.color.silver</source>
+        <target>Silver</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_invalid" name="tools.value_calc.invalid_input">
+      <segment state="translated">
+        <source>tools.value_calc.invalid_input</source>
+        <target>Invalid input</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_tol" name="tools.value_calc.tolerance">
+      <segment state="translated">
+        <source>tools.value_calc.tolerance</source>
+        <target>Tolerance</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_attach_nothing" name="tools.value_calc.attach.nothing">
+      <segment state="translated">
+        <source>tools.value_calc.attach.nothing</source>
+        <target>Please generate an image first.</target>
+      </segment>
+    </unit>
     <unit id="8d38e7538" name="user.password_strength.crack_time">
       <segment state="translated">
         <source>user.password_strength.crack_time</source>

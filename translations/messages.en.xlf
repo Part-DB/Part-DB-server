@@ -12995,6 +12995,684 @@ Buerklin-API Authentication server:
         <target>Last stocktake</target>
       </segment>
     </unit>
+    <unit id="vcalc_perm" name="perm.tools.component_image_generator">
+      <segment state="translated">
+        <source>perm.tools.component_image_generator</source>
+        <target>Component image generator</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_title" name="tools.value_calc.title">
+      <segment state="translated">
+        <source>tools.value_calc.title</source>
+        <target>Component image generator</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_title" name="tools.bulk_gen.title">
+      <segment state="translated">
+        <source>tools.bulk_gen.title</source>
+        <target>Bulk generate component images</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_intro" name="tools.bulk_gen.intro">
+      <segment state="translated">
+        <source>tools.bulk_gen.intro</source>
+        <target>Selected parts that have no picture yet and look like a resistor, SMD resistor or capacitor are listed below. Review the auto-detected type and value, then generate and attach pictures in one go.</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_pick" name="tools.bulk_gen.pick_location">
+      <segment state="translated">
+        <source>tools.bulk_gen.pick_location</source>
+        <target>— Select a storage location —</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_load" name="tools.bulk_gen.load">
+      <segment state="translated">
+        <source>tools.bulk_gen.load</source>
+        <target>Load parts</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_none" name="tools.bulk_gen.none">
+      <segment state="translated">
+        <source>tools.bulk_gen.none</source>
+        <target>None of the %count% selected part(s) could be classified as a resistor, SMD resistor or capacitor without an existing picture.</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_found" name="tools.bulk_gen.found">
+      <segment state="translated">
+        <source>tools.bulk_gen.found</source>
+        <target>part(s) ready to illustrate.</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_part" name="tools.bulk_gen.part">
+      <segment state="translated">
+        <source>tools.bulk_gen.part</source>
+        <target>Part</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_type" name="tools.bulk_gen.type">
+      <segment state="translated">
+        <source>tools.bulk_gen.type</source>
+        <target>Detected type</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_value" name="tools.bulk_gen.value">
+      <segment state="translated">
+        <source>tools.bulk_gen.value</source>
+        <target>Value</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_wip" name="tools.bulk_gen.wip">
+      <segment state="translated">
+        <source>tools.bulk_gen.wip</source>
+        <target>Review the detected types and values here — generating and attaching the pictures is the next step.</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_nosel" name="tools.bulk_gen.no_selection">
+      <segment state="translated">
+        <source>tools.bulk_gen.no_selection</source>
+        <target>No parts were selected. Select parts in a list and choose the "Generate component images" action.</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_skipped" name="tools.bulk_gen.skipped">
+      <segment state="translated">
+        <source>tools.bulk_gen.skipped</source>
+        <target>skipped: already have a picture or not classifiable</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_preview" name="tools.bulk_gen.preview">
+      <segment state="translated">
+        <source>tools.bulk_gen.preview</source>
+        <target>Preview</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_appearance" name="tools.bulk_gen.appearance">
+      <segment state="translated">
+        <source>tools.bulk_gen.appearance</source>
+        <target>Picture appearance</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_apply_all" name="tools.bulk_gen.apply_all">
+      <segment state="translated">
+        <source>tools.bulk_gen.apply_all</source>
+        <target>Apply to all rows</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_back" name="tools.bulk_gen.back">
+      <segment state="translated">
+        <source>tools.bulk_gen.back</source>
+        <target>Back to parts</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_with_picture" name="tools.bulk_gen.with_picture">
+      <segment state="translated">
+        <source>tools.bulk_gen.with_picture</source>
+        <target>%count% selected part(s) already have a picture and were not listed.</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_regenerate" name="tools.bulk_gen.regenerate">
+      <segment state="translated">
+        <source>tools.bulk_gen.regenerate</source>
+        <target>Re-generate / overwrite those %count%</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_overwrite_mode" name="tools.bulk_gen.overwrite_mode">
+      <segment state="translated">
+        <source>tools.bulk_gen.overwrite_mode</source>
+        <target>Overwrite mode: parts that already have a picture are included (marked "has picture"). Generating replaces an earlier generated image and becomes the preview — manually uploaded pictures are kept.</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_has_picture_hint" name="tools.bulk_gen.has_picture_hint">
+      <segment state="translated">
+        <source>tools.bulk_gen.has_picture_hint</source>
+        <target>This part already has a picture. Generating sets the new image as the preview and replaces any earlier generated image; uploaded photos are kept.</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_overwrite_exit" name="tools.bulk_gen.overwrite_exit">
+      <segment state="translated">
+        <source>tools.bulk_gen.overwrite_exit</source>
+        <target>Only parts without a picture</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_has_picture" name="tools.bulk_gen.has_picture">
+      <segment state="translated">
+        <source>tools.bulk_gen.has_picture</source>
+        <target>has picture</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_help_title" name="tools.bulk_gen.help.title">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.title</source>
+        <target>How to get the most auto-filled — what to put in a part's details</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_help_intro" name="tools.bulk_gen.help.intro">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.intro</source>
+        <target>Each field is read from the part's parameters first, then from its name and description. Add any of the below to improve detection. A part is only listed here if it has no picture yet and its value can be read.</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_help_col_field" name="tools.bulk_gen.help.col_field">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.col_field</source>
+        <target>Field</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_help_col_param" name="tools.bulk_gen.help.col_param">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.col_param</source>
+        <target>Add a parameter named…</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_help_col_text" name="tools.bulk_gen.help.col_text">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.col_text</source>
+        <target>…or write in the name / description</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_help_value" name="tools.bulk_gen.help.value">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.value</source>
+        <target>Value (required to classify)</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_help_voltage" name="tools.bulk_gen.help.voltage">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.voltage</source>
+        <target>Rated voltage (capacitors)</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_help_tolerance" name="tools.bulk_gen.help.tolerance">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.tolerance</source>
+        <target>Tolerance</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_help_pitch" name="tools.bulk_gen.help.pitch">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.pitch</source>
+        <target>Lead pitch (capacitors)</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_help_diameter" name="tools.bulk_gen.help.diameter">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.diameter</source>
+        <target>Body diameter (capacitors)</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_help_smd" name="tools.bulk_gen.help.smd">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.smd</source>
+        <target>SMD size (resistors → footprint)</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_help_footprint_col" name="tools.bulk_gen.help.footprint_col">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.footprint_col</source>
+        <target>the assigned footprint</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_kicad" name="tools.bulk_gen.kicad">
+      <segment state="translated">
+        <source>tools.bulk_gen.kicad</source>
+        <target>KiCad</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_write_eda" name="tools.bulk_gen.write_eda">
+      <segment state="translated">
+        <source>tools.bulk_gen.write_eda</source>
+        <target>Write KiCad settings to checked parts</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_eda_written" name="tools.bulk_gen.eda_written">
+      <segment state="translated">
+        <source>tools.bulk_gen.eda_written</source>
+        <target>EDA settings written</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_footprint_ph" name="tools.bulk_gen.footprint_ph">
+      <segment state="translated">
+        <source>tools.bulk_gen.footprint_ph</source>
+        <target>Footprint (optional)</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_reference" name="tools.bulk_gen.reference">
+      <segment state="translated">
+        <source>tools.bulk_gen.reference</source>
+        <target>Reference prefix</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_kicad_hint" name="tools.bulk_gen.kicad_hint">
+      <segment state="translated">
+        <source>tools.bulk_gen.kicad_hint</source>
+        <target>Suggested values — edit any field before writing.</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_genattach" name="tools.bulk_gen.generate_attach">
+      <segment state="translated">
+        <source>tools.bulk_gen.generate_attach</source>
+        <target>Attach pictures to the checked parts</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_attached" name="tools.bulk_gen.attached">
+      <segment state="translated">
+        <source>tools.bulk_gen.attached</source>
+        <target>attached</target>
+      </segment>
+    </unit>
+    <unit id="bulkgen_failed" name="tools.bulk_gen.failed">
+      <segment state="translated">
+        <source>tools.bulk_gen.failed</source>
+        <target>failed</target>
+      </segment>
+    </unit>
+    <unit id="plaction_group_images" name="part_list.action.group.images">
+      <segment state="translated">
+        <source>part_list.action.group.images</source>
+        <target>Images</target>
+      </segment>
+    </unit>
+    <unit id="plaction_gen_images" name="part_list.action.generate_images">
+      <segment state="translated">
+        <source>part_list.action.generate_images</source>
+        <target>Generate component images</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_explanation" name="tools.value_calc.explanation">
+      <segment state="translated">
+        <source>tools.value_calc.explanation</source>
+        <target>Decode and visualize the value of common components — colour bands (resistors, inductors), capacitor codes and SMD chip markings. Read a part by picking its bands/code, or enter a value to generate the matching bands/code and a picture you can attach to the part.</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_bodycolor" name="tools.value_calc.body_color">
+      <segment state="translated">
+        <source>tools.value_calc.body_color</source>
+        <target>Body color</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_appearance" name="tools.value_calc.appearance">
+      <segment state="translated">
+        <source>tools.value_calc.appearance</source>
+        <target>Picture appearance (for the generated image)</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_body_beige" name="tools.value_calc.body.beige">
+      <segment state="translated">
+        <source>tools.value_calc.body.beige</source>
+        <target>Beige</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_body_blue" name="tools.value_calc.body.blue">
+      <segment state="translated">
+        <source>tools.value_calc.body.blue</source>
+        <target>Blue</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_body_green" name="tools.value_calc.body.green">
+      <segment state="translated">
+        <source>tools.value_calc.body.green</source>
+        <target>Green</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_body_lightblue" name="tools.value_calc.body.lightblue">
+      <segment state="translated">
+        <source>tools.value_calc.body.lightblue</source>
+        <target>Light blue</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_body_tan" name="tools.value_calc.body.tan">
+      <segment state="translated">
+        <source>tools.value_calc.body.tan</source>
+        <target>Tan</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_body_red" name="tools.value_calc.body.red">
+      <segment state="translated">
+        <source>tools.value_calc.body.red</source>
+        <target>Red</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_body_purple" name="tools.value_calc.body.purple">
+      <segment state="translated">
+        <source>tools.value_calc.body.purple</source>
+        <target>Purple</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_body_black" name="tools.value_calc.body.black">
+      <segment state="translated">
+        <source>tools.value_calc.body.black</source>
+        <target>Black</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_body_grey" name="tools.value_calc.body.grey">
+      <segment state="translated">
+        <source>tools.value_calc.body.grey</source>
+        <target>Grey</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_body_white" name="tools.value_calc.body.white">
+      <segment state="translated">
+        <source>tools.value_calc.body.white</source>
+        <target>White</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_r_title" name="tools.value_calc.resistor.title">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.title</source>
+        <target>Resistor</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_l_title" name="tools.value_calc.inductor.title">
+      <segment state="translated">
+        <source>tools.value_calc.inductor.title</source>
+        <target>Inductor</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_l_result" name="tools.value_calc.inductor.result">
+      <segment state="translated">
+        <source>tools.value_calc.inductor.result</source>
+        <target>Inductance</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_l_intro" name="tools.value_calc.inductor.intro">
+      <segment state="translated">
+        <source>tools.value_calc.inductor.intro</source>
+        <target>Molded axial inductors use the same colour-band code as resistors, but the value is read in microhenries (µH). Pick the band colours, or type a value to set them.</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_l_from_value" name="tools.value_calc.inductor.from_value">
+      <segment state="translated">
+        <source>tools.value_calc.inductor.from_value</source>
+        <target>Set from value</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_l_from_value_help" name="tools.value_calc.inductor.from_value_help">
+      <segment state="translated">
+        <source>tools.value_calc.inductor.from_value_help</source>
+        <target>Enter an inductance to colour the bands automatically. A bare number is read as µH (e.g. 100 = 100µH); you can also write 100µH, 10mH or 470nH.</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_d_title" name="tools.value_calc.diode.title">
+      <segment state="translated">
+        <source>tools.value_calc.diode.title</source>
+        <target>Diode</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_smdind_title" name="tools.value_calc.smd_inductor.title">
+      <segment state="translated">
+        <source>tools.value_calc.smd_inductor.title</source>
+        <target>SMD inductor</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_smdind_intro" name="tools.value_calc.smd_inductor.intro">
+      <segment state="translated">
+        <source>tools.value_calc.smd_inductor.intro</source>
+        <target>Molded/shielded SMD power inductor — enter the inductance (e.g. 100µH, 10mH) to see its printed µH code.</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_smdcap_title" name="tools.value_calc.smd_capacitor.title">
+      <segment state="translated">
+        <source>tools.value_calc.smd_capacitor.title</source>
+        <target>SMD capacitor</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_smdcap_intro" name="tools.value_calc.smd_capacitor.intro">
+      <segment state="translated">
+        <source>tools.value_calc.smd_capacitor.intro</source>
+        <target>Surface-mount MLCC capacitors are almost always unmarked, so there's nothing to decode — just enter the value and package to generate a picture you can attach to the part.</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_body_brown" name="tools.value_calc.body.brown">
+      <segment state="translated">
+        <source>tools.value_calc.body.brown</source>
+        <target>Brown</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_c_title" name="tools.value_calc.capacitor.title">
+      <segment state="translated">
+        <source>tools.value_calc.capacitor.title</source>
+        <target>Capacitor</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_s_title" name="tools.value_calc.smd.title">
+      <segment state="translated">
+        <source>tools.value_calc.smd.title</source>
+        <target>SMD resistor</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_r_bands" name="tools.value_calc.resistor.bands">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.bands</source>
+        <target>Number of bands</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_r_bands4" name="tools.value_calc.resistor.bands_4">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.bands_4</source>
+        <target>4 bands</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_r_bands5" name="tools.value_calc.resistor.bands_5">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.bands_5</source>
+        <target>5 bands</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_r_bands6" name="tools.value_calc.resistor.bands_6">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.bands_6</source>
+        <target>6 bands</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_attach_context" name="tools.value_calc.attach.context">
+      <segment state="translated">
+        <source>tools.value_calc.attach.context</source>
+        <target>The generated image can be attached to part "%part%". Pick a component below and click "Attach to part".</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_attach_preview" name="tools.value_calc.attach.as_preview">
+      <segment state="translated">
+        <source>tools.value_calc.attach.as_preview</source>
+        <target>Use as preview image</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_attach_button" name="tools.value_calc.attach.button">
+      <segment state="translated">
+        <source>tools.value_calc.attach.button</source>
+        <target>Attach to part</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_attach_generate" name="tools.value_calc.attach.generate_button">
+      <segment state="translated">
+        <source>tools.value_calc.attach.generate_button</source>
+        <target>Generate component image</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_attach_generate_hint" name="tools.value_calc.attach.generate_hint">
+      <segment state="translated">
+        <source>tools.value_calc.attach.generate_hint</source>
+        <target>Generate a resistor, capacitor or SMD picture and attach it to this part.</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_gen_flash_success" name="part.generate_image.flash.success">
+      <segment state="translated">
+        <source>part.generate_image.flash.success</source>
+        <target>Generated image was attached to the part.</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_gen_flash_invalid" name="part.generate_image.flash.invalid">
+      <segment state="translated">
+        <source>part.generate_image.flash.invalid</source>
+        <target>No valid image was generated. Please try again.</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_size" name="tools.value_calc.size">
+      <segment state="translated">
+        <source>tools.value_calc.size</source>
+        <target>Size</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_r_power" name="tools.value_calc.resistor.power">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.power</source>
+        <target>Power rating</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_smd_package" name="tools.value_calc.smd.package">
+      <segment state="translated">
+        <source>tools.value_calc.smd.package</source>
+        <target>Package size</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_cap_diameter" name="tools.value_calc.cap.diameter">
+      <segment state="translated">
+        <source>tools.value_calc.cap.diameter</source>
+        <target>Diameter</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_cap_pitch" name="tools.value_calc.cap.pitch">
+      <segment state="translated">
+        <source>tools.value_calc.cap.pitch</source>
+        <target>Pitch</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_cap_voltage" name="tools.value_calc.cap.voltage">
+      <segment state="translated">
+        <source>tools.value_calc.cap.voltage</source>
+        <target>Voltage</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_cap_shape" name="tools.value_calc.cap.shape">
+      <segment state="translated">
+        <source>tools.value_calc.cap.shape</source>
+        <target>Shape</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_cap_shape_disc" name="tools.value_calc.cap.shape.disc">
+      <segment state="translated">
+        <source>tools.value_calc.cap.shape.disc</source>
+        <target>Disc</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_cap_shape_blob" name="tools.value_calc.cap.shape.blob">
+      <segment state="translated">
+        <source>tools.value_calc.cap.shape.blob</source>
+        <target>Blob (MLCC)</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_cap_lead" name="tools.value_calc.cap.lead">
+      <segment state="translated">
+        <source>tools.value_calc.cap.lead</source>
+        <target>Leads</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_cap_lead_short" name="tools.value_calc.cap.lead.short">
+      <segment state="translated">
+        <source>tools.value_calc.cap.lead.short</source>
+        <target>Short</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_cap_lead_medium" name="tools.value_calc.cap.lead.medium">
+      <segment state="translated">
+        <source>tools.value_calc.cap.lead.medium</source>
+        <target>Medium</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_cap_lead_long" name="tools.value_calc.cap.lead.long">
+      <segment state="translated">
+        <source>tools.value_calc.cap.lead.long</source>
+        <target>Long</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_r_result" name="tools.value_calc.resistor.result">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.result</source>
+        <target>Resistance</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_r_fromvalhelp" name="tools.value_calc.resistor.from_value_help">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.from_value_help</source>
+        <target>Enter a resistance value to generate the color bands. You can use suffixes like k, M and the RKM notation (e.g. 4k7).</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_r_fromval" name="tools.value_calc.resistor.from_value">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.from_value</source>
+        <target>Value to color code</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_r_apply" name="tools.value_calc.resistor.apply_value">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.apply_value</source>
+        <target>Generate bands</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_c_intro" name="tools.value_calc.capacitor.intro">
+      <segment state="translated">
+        <source>tools.value_calc.capacitor.intro</source>
+        <target>Works for the printed number codes on ceramic (MLCC), film and similar capacitors. Small caps below 100 pF are usually printed directly (e.g. 47 or 4R7), larger ones use the 3-digit code (e.g. 104 = 100 nF).</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_s_onchiphelp" name="tools.value_calc.smd.on_chip_help">
+      <segment state="translated">
+        <source>tools.value_calc.smd.on_chip_help</source>
+        <target>Edit any field to update the others. Use the radio to pick which code is printed on the chip.</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_f_value" name="tools.value_calc.field.value">
+      <segment state="translated">
+        <source>tools.value_calc.field.value</source>
+        <target>Value</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_f_code" name="tools.value_calc.field.code">
+      <segment state="translated">
+        <source>tools.value_calc.field.code</source>
+        <target>Code</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_f_tol" name="tools.value_calc.field.tolerance">
+      <segment state="translated">
+        <source>tools.value_calc.field.tolerance</source>
+        <target>Tolerance</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_f_power" name="tools.value_calc.field.power">
+      <segment state="translated">
+        <source>tools.value_calc.field.power</source>
+        <target>Power</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_f_ppm" name="tools.value_calc.field.ppm">
+      <segment state="translated">
+        <source>tools.value_calc.field.ppm</source>
+        <target>Temp. coeff. (ppm/K)</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_f_code3" name="tools.value_calc.field.code3">
+      <segment state="translated">
+        <source>tools.value_calc.field.code3</source>
+        <target>3-digit</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_f_code4" name="tools.value_calc.field.code4">
+      <segment state="translated">
+        <source>tools.value_calc.field.code4</source>
+        <target>4-digit</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_f_eia96" name="tools.value_calc.field.eia96">
+      <segment state="translated">
+        <source>tools.value_calc.field.eia96</source>
+        <target>EIA-96</target>
+      </segment>
+    </unit>
+    <unit id="vcalc_f_onchip" name="tools.value_calc.field.on_chip">
+      <segment state="translated">
+        <source>tools.value_calc.field.on_chip</source>
+        <target>Printed on the chip</target>
+      </segment>
+    </unit>
     <unit id="GNWhoTW" name="part.table.eda_reference">
       <segment state="translated">
         <source>part.table.eda_reference</source>

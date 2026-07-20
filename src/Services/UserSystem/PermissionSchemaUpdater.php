@@ -173,4 +173,20 @@ class PermissionSchemaUpdater
             $permissions->setPermissionValue('parts_stock', 'stocktake', $new_value);
         }
     }
+
+    private function upgradeSchemaToVersion5(HasPermissionsInterface $holder): void //@phpstan-ignore-line This is called via reflection
+    {
+        $permissions = $holder->getPermissions();
+
+        //The "value_calculator" tools permission was renamed to "component_image_generator" (the tool is
+        //now the "Component image generator"). Carry the old grant over so existing users keep access.
+        if ($permissions->isPermissionSet('tools', 'value_calculator')
+            && !$permissions->isPermissionSet('tools', 'component_image_generator')) {
+            $permissions->setPermissionValue(
+                'tools',
+                'component_image_generator',
+                $permissions->getPermissionValue('tools', 'value_calculator')
+            );
+        }
+    }
 }
