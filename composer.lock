@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c31eed5ac91b2ca3b7e87bd245ab2e2",
+    "content-hash": "d6329811b6e5a29717a34b5084129bf3",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1628,22 +1628,22 @@
         },
         {
             "name": "api-platform/mcp",
-            "version": "v4.3.13",
+            "version": "v4.3.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/mcp.git",
-                "reference": "0a351f21438b5c7fd16a05fdcd67bdd44e1aa20b"
+                "reference": "97eaecbf7b30fe5cf05a0278251c421d39be047a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/mcp/zipball/0a351f21438b5c7fd16a05fdcd67bdd44e1aa20b",
-                "reference": "0a351f21438b5c7fd16a05fdcd67bdd44e1aa20b",
+                "url": "https://api.github.com/repos/api-platform/mcp/zipball/97eaecbf7b30fe5cf05a0278251c421d39be047a",
+                "reference": "97eaecbf7b30fe5cf05a0278251c421d39be047a",
                 "shasum": ""
             },
             "require": {
                 "api-platform/json-schema": "^4.3",
                 "api-platform/metadata": "^4.3",
-                "mcp/sdk": ">=0.4 <1.0",
+                "mcp/sdk": "^0.6",
                 "php": ">=8.2",
                 "symfony/object-mapper": "^7.4 || ^8.0",
                 "symfony/polyfill-php85": "^1.32"
@@ -1699,13 +1699,13 @@
             ],
             "support": {
                 "issues": "https://github.com/api-platform/mcp/issues",
-                "source": "https://github.com/api-platform/mcp/tree/v4.3.13"
+                "source": "https://github.com/api-platform/mcp/tree/v4.3.17"
             },
-            "time": "2026-06-10T14:43:58+00:00"
+            "time": "2026-07-03T04:48:00+00:00"
         },
         {
             "name": "api-platform/metadata",
-            "version": "4.3.x-dev",
+            "version": "v4.3.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/metadata.git",
@@ -1797,7 +1797,7 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/metadata/tree/4.3"
+                "source": "https://github.com/api-platform/metadata/tree/v4.3.17"
             },
             "time": "2026-07-03T06:30:28+00:00"
         },
@@ -7153,16 +7153,16 @@
         },
         {
             "name": "mcp/sdk",
-            "version": "v0.7.0",
+            "version": "v0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/modelcontextprotocol/php-sdk.git",
-                "reference": "a6f415578fa789783d010274d11c922e97659a8a"
+                "reference": "433c84b58af346dd32f15f9909679e96a46ebe23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/modelcontextprotocol/php-sdk/zipball/a6f415578fa789783d010274d11c922e97659a8a",
-                "reference": "a6f415578fa789783d010274d11c922e97659a8a",
+                "url": "https://api.github.com/repos/modelcontextprotocol/php-sdk/zipball/433c84b58af346dd32f15f9909679e96a46ebe23",
+                "reference": "433c84b58af346dd32f15f9909679e96a46ebe23",
                 "shasum": ""
             },
             "require": {
@@ -7231,9 +7231,9 @@
             "description": "Model Context Protocol SDK for Client and Server applications in PHP",
             "support": {
                 "issues": "https://github.com/modelcontextprotocol/php-sdk/issues",
-                "source": "https://github.com/modelcontextprotocol/php-sdk/tree/v0.7.0"
+                "source": "https://github.com/modelcontextprotocol/php-sdk/tree/v0.6.0"
             },
-            "time": "2026-07-14T22:58:00+00:00"
+            "time": "2026-06-02T15:47:04+00:00"
         },
         {
             "name": "mf2/mf2",
@@ -23612,7 +23612,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "api-platform/metadata": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
