@@ -25,6 +25,8 @@ namespace App\Services\InfoProviderSystem\DTOs;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\McpTool;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\OpenApi\Model\Operation;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Mcp\DTO\InfoProviderPartDetailsInput;
 use App\State\Mcp\GetInfoProviderPartDetailsProcessor;
@@ -34,7 +36,16 @@ use App\State\Mcp\GetInfoProviderPartDetailsProcessor;
  */
 #[ApiResource(
     description: 'Detailed information about a part from an external info provider (e.g. a distributor or manufacturer catalog), including datasheets, images, parameters and purchase information.',
-    operations: [],
+    operations: [
+        new Post(
+            uriTemplate: '/info_providers/details',
+            security: 'is_granted("@info_providers.create_parts")',
+            input: InfoProviderPartDetailsInput::class,
+            validate: true,
+            processor: GetInfoProviderPartDetailsProcessor::class,
+            openapi: new Operation(summary: 'Get full detailed information about a specific part from an external info provider.'),
+        ),
+    ],
     mcp: [
         'get_info_provider_part_details' => new McpTool(
             title: 'Get part details from an info provider',

@@ -23,7 +23,9 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\DTOs;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\McpToolCollection;
+use ApiPlatform\OpenApi\Model\Operation;
 use App\Mcp\DTO\ListInfoProvidersInput;
 use App\State\Mcp\ListInfoProvidersProcessor;
 
@@ -32,8 +34,16 @@ use App\State\Mcp\ListInfoProvidersProcessor;
  * searched via search_info_providers / get_info_provider_part_details).
  */
 #[ApiResource(
+    uriTemplate: '/info_providers',
     description: 'An info provider which can be used to search for parts and retrieve part details.',
-    operations: [],
+    operations: [
+        new GetCollection(
+            security: 'is_granted("@info_providers.create_parts")',
+            provider: ListInfoProvidersProcessor::class,
+            openapi: new Operation(summary: 'List the info providers which are currently active and can be used for searching parts.'),
+        ),
+    ],
+    paginationEnabled: false,
     mcp: [
         'list_info_providers' => new McpToolCollection(
             title: 'List available info providers',

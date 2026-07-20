@@ -25,6 +25,8 @@ namespace App\Services\InfoProviderSystem\DTOs;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\McpToolCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\OpenApi\Model\Operation;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Mcp\DTO\InfoProviderSearchInput;
 use App\State\Mcp\SearchInfoProvidersProcessor;
@@ -35,7 +37,16 @@ use App\State\Mcp\SearchInfoProvidersProcessor;
  */
 #[ApiResource(
     description: 'A search result for a part from an external info provider (e.g. a distributor or manufacturer catalog).',
-    operations: [],
+    operations: [
+        new Post(
+            uriTemplate: '/info_providers/search',
+            security: 'is_granted("@info_providers.create_parts")',
+            input: InfoProviderSearchInput::class,
+            validate: true,
+            processor: SearchInfoProvidersProcessor::class,
+            openapi: new Operation(summary: 'Search external info providers (e.g. distributors like Digikey, Mouser, LCSC) for parts matching a keyword.'),
+        ),
+    ],
     mcp: [
         'search_info_providers' => new McpToolCollection(
             title: 'Search external info providers',

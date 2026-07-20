@@ -24,10 +24,15 @@ namespace App\State\Mcp;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
+use ApiPlatform\State\ProviderInterface;
 use App\Services\InfoProviderSystem\DTOs\InfoProviderDTO;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 
-class ListInfoProvidersProcessor implements ProcessorInterface
+/**
+ * Used both as the state processor for the MCP list_info_providers tool and as the state provider for the
+ * REST GET /api/info_providers collection endpoint.
+ */
+class ListInfoProvidersProcessor implements ProcessorInterface, ProviderInterface
 {
     public function __construct(
         private readonly ProviderRegistry $providerRegistry,
@@ -37,7 +42,23 @@ class ListInfoProvidersProcessor implements ProcessorInterface
     /**
      * @return InfoProviderDTO[]
      */
+    public function provide(Operation $operation, array $uriVariables = [], array $context = []): array
+    {
+        return $this->listActiveProviders();
+    }
+
+    /**
+     * @return InfoProviderDTO[]
+     */
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): array
+    {
+        return $this->listActiveProviders();
+    }
+
+    /**
+     * @return InfoProviderDTO[]
+     */
+    private function listActiveProviders(): array
     {
         $result = [];
 
