@@ -66,22 +66,15 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
         new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
+        new GetCollection(
+            uriTemplate: '/projects/{id}/children.{_format}',
+            uriVariables: ['id' => new Link(fromProperty: 'children', fromClass: Project::class)],
+            openapi: new Operation(summary: 'Retrieves the children elements of a project.'),
+            security: 'is_granted("@projects.read")'
+        ),
     ],
     normalizationContext: ['groups' => ['project:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['project:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
-)]
-#[ApiResource(
-    uriTemplate: '/projects/{id}/children.{_format}',
-    operations: [
-        new GetCollection(
-            openapi: new Operation(summary: 'Retrieves the children elements of a project.'),
-            security: 'is_granted("@projects.read")'
-        )
-    ],
-    uriVariables: [
-        'id' => new Link(fromProperty: 'children', fromClass: Project::class)
-    ],
-    normalizationContext: ['groups' => ['project:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]
@@ -117,7 +110,7 @@ class Project extends AbstractStructuralDBElement
     /**
      * @var string|null The current status of the project
      */
-    #[Assert\Choice(['draft', 'planning', 'in_production', 'finished', 'archived'])]
+    #[Assert\Choice(choices: ['draft', 'planning', 'in_production', 'finished', 'archived'])]
     #[Groups(['extended', 'full', 'project:read', 'project:write', 'import'])]
     #[ORM\Column(type: Types::STRING, length: 64, nullable: true)]
     protected ?string $status = null;

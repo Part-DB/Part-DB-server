@@ -1,7 +1,7 @@
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2026 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -17,30 +17,4 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-.modal-body > .bootbox-close-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.5rem 0.75rem;
-    z-index: 1;
-}
-.modal .bootbox-close-button {
-    font-weight: 100;
-}
-
-button.bootbox-close-button {
-    padding: 0;
-    background-color: transparent;
-    border: 0;
-    -webkit-appearance: none;
-}
-
-.bootbox-close-button {
-    /* float: right; */
-    font-size: 1.40625rem;
-    font-weight: 600;
-    line-height: 1;
-    color: #000;
-    text-shadow: none;
-    opacity: .5;
-}
+import "bootswatch/dist/brite/bootstrap.css";

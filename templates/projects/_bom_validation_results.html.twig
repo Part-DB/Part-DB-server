@@ -68,7 +68,7 @@
             <p class="mb-2">{% trans %}project.bom_import.validation.errors.description{% endtrans %}</p>
             <ul class="mb-0">
                 {% for error in validation_result.errors %}
-                    <li>{{ error|raw }}</li>
+                    <li>{{ error }}</li>
                 {% endfor %}
             </ul>
         </div>
@@ -80,7 +80,7 @@
             <p class="mb-2">{% trans %}project.bom_import.validation.warnings.description{% endtrans %}</p>
             <ul class="mb-0">
                 {% for warning in validation_result.warnings %}
-                    <li>{{ warning|raw }}</li>
+                    <li>{{ warning }}</li>
                 {% endfor %}
             </ul>
         </div>
@@ -91,7 +91,7 @@
             <h4><i class="fa-solid fa-info-circle fa-fw"></i> {% trans %}project.bom_import.validation.info.title{% endtrans %}</h4>
             <ul class="mb-0">
                 {% for info in validation_result.info %}
-                    <li>{{ info|raw }}</li>
+                    <li>{{ info }}</li>
                 {% endfor %}
             </ul>
         </div>
@@ -139,21 +139,21 @@
                                         {% if line_result.errors is not empty %}
                                             <div class="text-danger">
                                                 {% for error in line_result.errors %}
-                                                    <div><i class="fa-solid fa-exclamation-triangle fa-fw"></i> {{ error|raw }}</div>
+                                                    <div><i class="fa-solid fa-exclamation-triangle fa-fw"></i> {{ error }}</div>
                                                 {% endfor %}
                                             </div>
                                         {% endif %}
                                         {% if line_result.warnings is not empty %}
                                             <div class="text-warning">
                                                 {% for warning in line_result.warnings %}
-                                                    <div><i class="fa-solid fa-exclamation-circle fa-fw"></i> {{ warning|raw }}</div>
+                                                    <div><i class="fa-solid fa-exclamation-circle fa-fw"></i> {{ warning }}</div>
                                                 {% endfor %}
                                             </div>
                                         {% endif %}
                                         {% if line_result.info is not empty %}
                                             <div class="text-info">
                                                 {% for info in line_result.info %}
-                                                    <div><i class="fa-solid fa-info-circle fa-fw"></i> {{ info|raw }}</div>
+                                                    <div><i class="fa-solid fa-info-circle fa-fw"></i> {{ info }}</div>
                                                 {% endfor %}
                                             </div>
                                         {% endif %}

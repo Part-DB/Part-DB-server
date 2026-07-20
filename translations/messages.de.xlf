@@ -64,7 +64,7 @@
     <unit id="KSFhj_3" name="currency.iso_code.caption">
       <segment state="translated">
         <source>currency.iso_code.caption</source>
-        <target>ISO Code</target>
+        <target>ISO-Code</target>
       </segment>
     </unit>
     <unit id="UqMuNZQ" name="currency.symbol.caption">
@@ -13635,6 +13635,36 @@ Buerklin-API-Authentication-Server:
         <target>Host-URL</target>
       </segment>
     </unit>
+    <unit id="UeFbCNh" name="settings.ai.ollama">
+      <segment state="translated">
+        <source>settings.ai.ollama</source>
+        <target>Ollama</target>
+      </segment>
+    </unit>
+    <unit id="9nfJ_vr" name="settings.ai.ollama.endpoint">
+      <segment state="translated">
+        <source>settings.ai.ollama.endpoint</source>
+        <target>Endpoint URL</target>
+      </segment>
+    </unit>
+    <unit id="67dSwE5" name="settings.ai.ollama.apiKey">
+      <segment state="translated">
+        <source>settings.ai.ollama.apiKey</source>
+        <target>API Key</target>
+      </segment>
+    </unit>
+    <unit id="VxXEQUD" name="settings.ai.timeout">
+      <segment state="translated">
+        <source>settings.ai.timeout</source>
+        <target>Timeout</target>
+      </segment>
+    </unit>
+    <unit id="vRgtpoJ" name="settings.ai.timeout.help">
+      <segment state="translated">
+        <source>settings.ai.timeout.help</source>
+        <target>Maximale Wartezeit in Sekunden auf eine Antwort. Die lokale KI-Inferenz kann mehrere Minuten dauern, die Inferenz in der Cloud ist in der Regel schneller.</target>
+      </segment>
+    </unit>
     <unit id="kuDv.So" name="browser_plugin.recent_pages.title">
       <segment state="translated">
         <source>browser_plugin.recent_pages.title</source>
@@ -13663,6 +13693,90 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>settings.ips.browser_plugin.enabled.help</source>
         <target>Aktiviert das Browser-Plugin für diese Instanz.</target>
+      </segment>
+    </unit>
+    <unit id="JqcvhX_" name="system.app_secret.insecure.title">
+      <segment state="translated">
+        <source>system.app_secret.insecure.title</source>
+        <target>Unsicheres APP_SECRET</target>
+      </segment>
+    </unit>
+    <unit id="XSSYWTJ" name="system.app_secret.insecure.message">
+      <segment state="translated">
+        <source>system.app_secret.insecure.message</source>
+        <target>Die Umgebungsvariable &lt;code&gt;APP_SECRET&lt;/code&gt; ist auf den Standardwert gesetzt, der mit Part-DB ausgeliefert wird. Dies stellt ein Sicherheitsrisiko dar! Setzen Sie sie in Ihrer Datei &lt;code&gt;.env.local&lt;/code&gt; oder &lt;code&gt;docker-compose.yaml&lt;/code&gt; auf einen neuen Zufallswert.</target>
+      </segment>
+    </unit>
+    <unit id="e7.f3m0" name="system.app_secret.insecure.suggestion">
+      <segment state="translated">
+        <source>system.app_secret.insecure.suggestion</source>
+        <target>Sie können diesen zufällig generierten Wert verwenden (geben Sie ihn niemandem weiter):</target>
+      </segment>
+    </unit>
+    <unit id="OP7MacF" name="system.trusted_hosts.unconfigured.title">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.title</source>
+        <target>TRUSTED_HOSTS nicht konfiguriert</target>
+      </segment>
+    </unit>
+    <unit id="88NkHLV" name="system.trusted_hosts.unconfigured.message">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.message</source>
+        <target>Die Umgebungsvariable &lt;code&gt;TRUSTED_HOSTS&lt;/code&gt; ist nicht gesetzt. Das bedeutet, dass Part-DB Anfragen für jeden beliebigen Hostnamen akzeptiert, was ein Sicherheitsrisiko darstellen kann (z. B. HTTP-Host-Header-Injection). Es wird empfohlen, dies auf die Hostnamen zu beschränken, unter denen Part-DB tatsächlich erreichbar ist.</target>
+      </segment>
+    </unit>
+    <unit id="qZ_kgWT" name="system.trusted_hosts.unconfigured.suggestion">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.suggestion</source>
+        <target>Legen Sie einen regulären Ausdruck fest, der alle Hostnamen abdeckt, unter denen Part-DB erreichbar sein soll, z. B. basierend auf dem Hostnamen, den Sie für den Zugriff auf diese Seite verwendet haben. Dies ist möglich in Ihrer Datei &lt;code&gt;.env.local&lt;/code&gt; oder &lt;code&gt;docker-compose.yaml&lt;/code&gt;:</target>
+      </segment>
+    </unit>
+    <unit id="cEwxoSj" name="info_providers.provider_key">
+      <segment state="translated">
+        <source>info_providers.provider_key</source>
+        <target>Informationsquelle</target>
+      </segment>
+    </unit>
+    <unit id="0sjPRNV" name="info_providers.provider_id">
+      <segment state="translated">
+        <source>info_providers.provider_id</source>
+        <target>Provider ID</target>
+      </segment>
+    </unit>
+    <unit id="2DzzAxZ" name="info_providers.provider_url">
+      <segment state="translated">
+        <source>info_providers.provider_url</source>
+        <target>Provider URL</target>
+      </segment>
+    </unit>
+    <unit id="4v3QmF6" name="part.edit.provider_reference">
+      <segment state="translated">
+        <source>part.edit.provider_reference</source>
+        <target>Referenz auf Informationsquelle</target>
+      </segment>
+    </unit>
+    <unit id="9X2qEi7" name="log.element_edited.changed_fields.providerReference.provider_key">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.providerReference.provider_key</source>
+        <target>Informationsquelle</target>
+      </segment>
+    </unit>
+    <unit id="MWXgWDb" name="log.element_edited.changed_fields.providerReference.provider_id">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.providerReference.provider_id</source>
+        <target>Provider ID</target>
+      </segment>
+    </unit>
+    <unit id="83fSFvo" name="part.info_provider_reference.updated_never">
+      <segment state="translated">
+        <source>part.info_provider_reference.updated_never</source>
+        <target>Niemals aktualisiert</target>
+      </segment>
+    </unit>
+    <unit id="yIK_Wtj" name="part.edit.provider_reference.warning">
+      <segment state="translated">
+        <source>part.edit.provider_reference.warning</source>
+        <target>Warnung: Das Ändern der Werte an dieser Stelle kann den Mechanismus zum Abrufen von Informationen beeinträchtigen! Sie sollten nach Möglichkeit die Funktion „Von Informationsquelle aktualisieren“ verwenden.</target>
       </segment>
     </unit>
   </file>

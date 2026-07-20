@@ -19,15 +19,14 @@
 
 'use strict';
 
-import {Dropdown} from "bootstrap";
+import {Dropdown, Modal, Tooltip} from "bootstrap";
 import ClipboardJS from "clipboard";
-import {Modal} from "bootstrap";
 
 class RegisterEventHelper {
     constructor() {
         this.registerTooltips();
         this.configureDropdowns();
-        
+
         // Only register special character input if enabled in configuration
         const keybindingsEnabled = document.body.dataset.keybindingsSpecialCharacters !== 'false';
         if (keybindingsEnabled) {
@@ -40,8 +39,6 @@ class RegisterEventHelper {
         });
 
         this.registerModalDropRemovalOnFormSubmit();
-
-
     }
 
     registerModalDropRemovalOnFormSubmit() {
@@ -83,11 +80,17 @@ class RegisterEventHelper {
 
     registerTooltips() {
         const handler = () => {
-            $(".tooltip").remove();
+            document.querySelectorAll('.tooltip').forEach(el => el.remove());
+
             //Exclude dropdown buttons from tooltips, otherwise we run into endless errors from bootstrap (bootstrap.esm.js:614 Bootstrap doesn't allow more than one instance per element. Bound instance: bs.dropdown.)
-            $('a[title], label[title], button[title]:not([data-bs-toggle="dropdown"]), p[title], span[title], h6[title], h3[title], i[title], small[title]')
-                //@ts-ignore
-                .tooltip("hide").tooltip({container: "body", placement: "auto", boundary: 'window'});
+            const tooltipSelector = 'a[title], label[title], button[title]:not([data-bs-toggle="dropdown"]), p[title], span[title], h6[title], h3[title], i[title], small[title]';
+            document.querySelectorAll(tooltipSelector).forEach(el => {
+                const existing = Tooltip.getInstance(el);
+                if (existing) {
+                    existing.dispose();
+                }
+                new Tooltip(el, {container: 'body', placement: 'auto', boundary: 'window'});
+            });
         };
 
         this.registerLoadHandler(handler);
@@ -95,241 +98,239 @@ class RegisterEventHelper {
     }
 
     registerSpecialCharInput() {
-        this.registerLoadHandler(() => {
-            //@ts-ignore
-            $("input[type=text], input[type=search]").unbind("keydown").keydown(function (event) {
-                let use_special_char = event.altKey;
+        const keydownHandler = function(event) {
+            let use_special_char = event.altKey;
 
-                let greek_char = "";
-                if (use_special_char){
-                    //Use the key property to determine the greek letter (as it is independent of the keyboard layout)
-                    switch(event.key) {
-                        //Greek letters
-                        case "a": //Alpha (lowercase)
-                            greek_char = "\u03B1";
-                            break;
-                        case "A": //Alpha (uppercase)
-                            greek_char = "\u0391";
-                            break;
-                        case "b": //Beta (lowercase)
-                            greek_char = "\u03B2";
-                            break;
-                        case "B": //Beta (uppercase)
-                            greek_char = "\u0392";
-                            break;
-                        case "g": //Gamma (lowercase)
-                            greek_char = "\u03B3";
-                            break;
-                        case "G": //Gamma (uppercase)
-                            greek_char = "\u0393";
-                            break;
-                        case "d": //Delta (lowercase)
-                            greek_char = "\u03B4";
-                            break;
-                        case "D": //Delta (uppercase)
-                            greek_char = "\u0394";
-                            break;
-                        case "e": //Epsilon (lowercase)
-                            greek_char = "\u03B5";
-                            break;
-                        case "E": //Epsilon (uppercase)
-                            greek_char = "\u0395";
-                            break;
-                        case "z": //Zeta (lowercase)
-                            greek_char = "\u03B6";
-                            break;
-                        case "Z": //Zeta (uppercase)
-                            greek_char = "\u0396";
-                            break;
-                        case "h": //Eta (lowercase)
-                            greek_char = "\u03B7";
-                            break;
-                        case "H": //Eta (uppercase)
-                            greek_char = "\u0397";
-                            break;
-                        case "q": //Theta (lowercase)
-                            greek_char = "\u03B8";
-                            break;
-                        case "Q": //Theta (uppercase)
-                            greek_char = "\u0398";
-                            break;
-                        case "i": //Iota (lowercase)
-                            greek_char = "\u03B9";
-                            break;
-                        case "I": //Iota (uppercase)
-                            greek_char = "\u0399";
-                            break;
-                        case "k": //Kappa (lowercase)
-                            greek_char = "\u03BA";
-                            break;
-                        case "K": //Kappa (uppercase)
-                            greek_char = "\u039A";
-                            break;
-                        case "l": //Lambda (lowercase)
-                            greek_char = "\u03BB";
-                            break;
-                        case "L": //Lambda (uppercase)
-                            greek_char = "\u039B";
-                            break;
-                        case "m": //Mu (lowercase)
-                            greek_char = "\u03BC";
-                            break;
-                        case "M": //Mu (uppercase)
-                            greek_char = "\u039C";
-                            break;
-                        case "n": //Nu (lowercase)
-                            greek_char = "\u03BD";
-                            break;
-                        case "N": //Nu (uppercase)
-                            greek_char = "\u039D";
-                            break;
-                        case "x": //Xi (lowercase)
-                            greek_char = "\u03BE";
-                            break;
-                        case "X": //Xi (uppercase)
-                            greek_char = "\u039E";
-                            break;
-                        case "o": //Omicron (lowercase)
-                            greek_char = "\u03BF";
-                            break;
-                        case "O": //Omicron (uppercase)
-                            greek_char = "\u039F";
-                            break;
-                        case "p": //Pi (lowercase)
-                            greek_char = "\u03C0";
-                            break;
-                        case "P": //Pi (uppercase)
-                            greek_char = "\u03A0";
-                            break;
-                        case "r": //Rho (lowercase)
-                            greek_char = "\u03C1";
-                            break;
-                        case "R": //Rho (uppercase)
-                            greek_char = "\u03A1";
-                            break;
-                        case "s": //Sigma (lowercase)
-                            greek_char = "\u03C3";
-                            break;
-                        case "S": //Sigma (uppercase)
-                            greek_char = "\u03A3";
-                            break;
-                        case "t": //Tau (lowercase)
-                            greek_char = "\u03C4";
-                            break;
-                        case "T": //Tau (uppercase)
-                            greek_char = "\u03A4";
-                            break;
-                        case "u": //Upsilon (lowercase)
-                            greek_char = "\u03C5";
-                            break;
-                        case "U": //Upsilon (uppercase)
-                            greek_char = "\u03A5";
-                            break;
-                        case "f": //Phi (lowercase)
-                            greek_char = "\u03C6";
-                            break;
-                        case "F": //Phi (uppercase)
-                            greek_char = "\u03A6";
-                            break;
-                        case "c": //Chi (lowercase)
-                            greek_char = "\u03C7";
-                            break;
-                        case "C": //Chi (uppercase)
-                            greek_char = "\u03A7";
-                            break;
-                        case "y": //Psi (lowercase)
-                            greek_char = "\u03C8";
-                            break;
-                        case "Y": //Psi (uppercase)
-                            greek_char = "\u03A8";
-                            break;
-                        case "w": //Omega (lowercase)
-                            greek_char = "\u03C9";
-                            break;
-                        case "W": //Omega (uppercase)
-                            greek_char = "\u03A9";
-                            break;
-                    }
-
-                    //Use keycodes for special characters as the shift char on the number keys are layout dependent
-                    switch (event.keyCode) {
-                        case 49: //1 key
-                            //Product symbol on shift, sum on no shift
-                            greek_char = event.shiftKey ? "\u220F" : "\u2211";
-                            break;
-                        case 50: //2 key
-                            //Integral on no shift, partial derivative on shift
-                            greek_char = event.shiftKey ?  "\u2202" : "\u222B";
-                            break;
-                        case 51: //3 key
-                            //Less than or equal on no shift, greater than or equal on shift
-                            greek_char = event.shiftKey ? "\u2265" : "\u2264";
-                            break;
-                        case 52: //4 key
-                            //Empty set on shift, infinity on no shift
-                            greek_char = event.shiftKey ? "\u2205" : "\u221E";
-                            break;
-                        case 53: //5 key
-                            //Not equal on shift, approx equal on no shift
-                            greek_char = event.shiftKey ? "\u2260" : "\u2248";
-                            break;
-                        case 54: //6 key
-                            //Element of on no shift, not element of on shift
-                            greek_char = event.shiftKey ? "\u2209" : "\u2208";
-                            break;
-                        case 55: //7 key
-                            //And on shift, or on no shift
-                            greek_char = event.shiftKey ? "\u2227" : "\u2228";
-                            break;
-                        case 56: //8 key
-                            //Proportional to on shift, angle on no shift
-                            greek_char = event.shiftKey ? "\u221D" : "\u2220";
-                            break;
-                        case 57: //9 key
-                            //Cube root on shift, square root on no shift
-                            greek_char = event.shiftKey ? "\u221B" : "\u221A";
-                            break;
-                        case 48: //0 key
-                            //Minus-Plus on shift, plus-minus on no shift
-                            greek_char = event.shiftKey ? "\u2213" : "\u00B1";
-                            break;
-
-                        //Special characters
-                        case 219: //hyphen (or ß on german layout)
-                            //Copyright on no shift, TM on shift
-                            greek_char = event.shiftKey ? "\u2122" : "\u00A9";
-                            break;
-                        case 191: //forward slash (or # on german layout)
-                            //Generic currency on no shift, paragraph on shift
-                            greek_char = event.shiftKey ? "\u00B6" : "\u00A4";
-                            break;
-
-                        //Currency symbols
-                        case 192: //: or (ö on german layout)
-                            //Euro on no shift, pound on shift
-                            greek_char = event.shiftKey ? "\u00A3" : "\u20AC";
-                            break;
-                        case 221: //; or (ä on german layout)
-                            //Yen on no shift,  dollar on shift
-                            greek_char = event.shiftKey ? "\u0024" : "\u00A5";
-                            break;
-
-
-                    }
-
-                    if(greek_char=="") return;
-
-                    let $txt = $(this);
-                    //@ts-ignore
-                    let caretPos = $txt[0].selectionStart;
-                    let textAreaTxt = $txt.val().toString();
-                    $txt.val(textAreaTxt.substring(0, caretPos) + greek_char + textAreaTxt.substring(caretPos) );
-
+            let greek_char = "";
+            if (use_special_char){
+                //Use the key property to determine the greek letter (as it is independent of the keyboard layout)
+                switch(event.key) {
+                    //Greek letters
+                    case "a": //Alpha (lowercase)
+                        greek_char = "α";
+                        break;
+                    case "A": //Alpha (uppercase)
+                        greek_char = "Α";
+                        break;
+                    case "b": //Beta (lowercase)
+                        greek_char = "β";
+                        break;
+                    case "B": //Beta (uppercase)
+                        greek_char = "Β";
+                        break;
+                    case "g": //Gamma (lowercase)
+                        greek_char = "γ";
+                        break;
+                    case "G": //Gamma (uppercase)
+                        greek_char = "Γ";
+                        break;
+                    case "d": //Delta (lowercase)
+                        greek_char = "δ";
+                        break;
+                    case "D": //Delta (uppercase)
+                        greek_char = "Δ";
+                        break;
+                    case "e": //Epsilon (lowercase)
+                        greek_char = "ε";
+                        break;
+                    case "E": //Epsilon (uppercase)
+                        greek_char = "Ε";
+                        break;
+                    case "z": //Zeta (lowercase)
+                        greek_char = "ζ";
+                        break;
+                    case "Z": //Zeta (uppercase)
+                        greek_char = "Ζ";
+                        break;
+                    case "h": //Eta (lowercase)
+                        greek_char = "η";
+                        break;
+                    case "H": //Eta (uppercase)
+                        greek_char = "Η";
+                        break;
+                    case "q": //Theta (lowercase)
+                        greek_char = "θ";
+                        break;
+                    case "Q": //Theta (uppercase)
+                        greek_char = "Θ";
+                        break;
+                    case "i": //Iota (lowercase)
+                        greek_char = "ι";
+                        break;
+                    case "I": //Iota (uppercase)
+                        greek_char = "Ι";
+                        break;
+                    case "k": //Kappa (lowercase)
+                        greek_char = "κ";
+                        break;
+                    case "K": //Kappa (uppercase)
+                        greek_char = "Κ";
+                        break;
+                    case "l": //Lambda (lowercase)
+                        greek_char = "λ";
+                        break;
+                    case "L": //Lambda (uppercase)
+                        greek_char = "Λ";
+                        break;
+                    case "m": //Mu (lowercase)
+                        greek_char = "μ";
+                        break;
+                    case "M": //Mu (uppercase)
+                        greek_char = "Μ";
+                        break;
+                    case "n": //Nu (lowercase)
+                        greek_char = "ν";
+                        break;
+                    case "N": //Nu (uppercase)
+                        greek_char = "Ν";
+                        break;
+                    case "x": //Xi (lowercase)
+                        greek_char = "ξ";
+                        break;
+                    case "X": //Xi (uppercase)
+                        greek_char = "Ξ";
+                        break;
+                    case "o": //Omicron (lowercase)
+                        greek_char = "ο";
+                        break;
+                    case "O": //Omicron (uppercase)
+                        greek_char = "Ο";
+                        break;
+                    case "p": //Pi (lowercase)
+                        greek_char = "π";
+                        break;
+                    case "P": //Pi (uppercase)
+                        greek_char = "Π";
+                        break;
+                    case "r": //Rho (lowercase)
+                        greek_char = "ρ";
+                        break;
+                    case "R": //Rho (uppercase)
+                        greek_char = "Ρ";
+                        break;
+                    case "s": //Sigma (lowercase)
+                        greek_char = "σ";
+                        break;
+                    case "S": //Sigma (uppercase)
+                        greek_char = "Σ";
+                        break;
+                    case "t": //Tau (lowercase)
+                        greek_char = "τ";
+                        break;
+                    case "T": //Tau (uppercase)
+                        greek_char = "Τ";
+                        break;
+                    case "u": //Upsilon (lowercase)
+                        greek_char = "υ";
+                        break;
+                    case "U": //Upsilon (uppercase)
+                        greek_char = "Υ";
+                        break;
+                    case "f": //Phi (lowercase)
+                        greek_char = "φ";
+                        break;
+                    case "F": //Phi (uppercase)
+                        greek_char = "Φ";
+                        break;
+                    case "c": //Chi (lowercase)
+                        greek_char = "χ";
+                        break;
+                    case "C": //Chi (uppercase)
+                        greek_char = "Χ";
+                        break;
+                    case "y": //Psi (lowercase)
+                        greek_char = "ψ";
+                        break;
+                    case "Y": //Psi (uppercase)
+                        greek_char = "Ψ";
+                        break;
+                    case "w": //Omega (lowercase)
+                        greek_char = "ω";
+                        break;
+                    case "W": //Omega (uppercase)
+                        greek_char = "Ω";
+                        break;
                 }
+
+                //Use keycodes for special characters as the shift char on the number keys are layout dependent
+                switch (event.keyCode) {
+                    case 49: //1 key
+                        //Product symbol on shift, sum on no shift
+                        greek_char = event.shiftKey ? "∏" : "∑";
+                        break;
+                    case 50: //2 key
+                        //Integral on no shift, partial derivative on shift
+                        greek_char = event.shiftKey ?  "∂" : "∫";
+                        break;
+                    case 51: //3 key
+                        //Less than or equal on no shift, greater than or equal on shift
+                        greek_char = event.shiftKey ? "≥" : "≤";
+                        break;
+                    case 52: //4 key
+                        //Empty set on shift, infinity on no shift
+                        greek_char = event.shiftKey ? "∅" : "∞";
+                        break;
+                    case 53: //5 key
+                        //Not equal on shift, approx equal on no shift
+                        greek_char = event.shiftKey ? "≠" : "≈";
+                        break;
+                    case 54: //6 key
+                        //Element of on no shift, not element of on shift
+                        greek_char = event.shiftKey ? "∉" : "∈";
+                        break;
+                    case 55: //7 key
+                        //And on shift, or on no shift
+                        greek_char = event.shiftKey ? "∧" : "∨";
+                        break;
+                    case 56: //8 key
+                        //Proportional to on shift, angle on no shift
+                        greek_char = event.shiftKey ? "∝" : "∠";
+                        break;
+                    case 57: //9 key
+                        //Cube root on shift, square root on no shift
+                        greek_char = event.shiftKey ? "∛" : "√";
+                        break;
+                    case 48: //0 key
+                        //Minus-Plus on shift, plus-minus on no shift
+                        greek_char = event.shiftKey ? "∓" : "±";
+                        break;
+
+                    //Special characters
+                    case 219: //hyphen (or ß on german layout)
+                        //Copyright on no shift, TM on shift
+                        greek_char = event.shiftKey ? "™" : "©";
+                        break;
+                    case 191: //forward slash (or # on german layout)
+                        //Generic currency on no shift, paragraph on shift
+                        greek_char = event.shiftKey ? "¶" : "¤";
+                        break;
+
+                    //Currency symbols
+                    case 192: //: or (ö on german layout)
+                        //Euro on no shift, pound on shift
+                        greek_char = event.shiftKey ? "£" : "€";
+                        break;
+                    case 221: //; or (ä on german layout)
+                        //Yen on no shift,  dollar on shift
+                        greek_char = event.shiftKey ? "$" : "¥";
+                        break;
+                }
+
+                if(greek_char=="") return;
+
+                const txt = event.currentTarget;
+                const caretPos = txt.selectionStart;
+                const textAreaTxt = txt.value;
+                txt.value = textAreaTxt.substring(0, caretPos) + greek_char + textAreaTxt.substring(caretPos);
+            }
+        };
+
+        this.registerLoadHandler(() => {
+            document.querySelectorAll('input[type=text], input[type=search]').forEach(input => {
+                input.removeEventListener('keydown', keydownHandler);
+                input.addEventListener('keydown', keydownHandler);
             });
-            //@ts-ignore
-            this.greek_once = true;
-        })
+        });
     }
 }
 

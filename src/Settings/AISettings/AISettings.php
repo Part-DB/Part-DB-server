@@ -35,6 +35,8 @@ class AISettings
 {
     use SettingsTrait;
 
+    public const TIMEOUT_LIMIT = 600;
+
     #[EmbeddedSettings]
     public ?McpSettings $mcp = null;
 
@@ -43,4 +45,7 @@ class AISettings
 
     #[EmbeddedSettings]
     public ?LMStudioSettings $lmstudio = null;
+
+    #[EmbeddedSettings]
+    public ?OllamaSettings $ollama = null;
 }

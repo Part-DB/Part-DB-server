@@ -71,22 +71,15 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
+        new GetCollection(
+            uriTemplate: '/currencies/{id}/children.{_format}',
+            uriVariables: ['id' => new Link(fromProperty: 'children', fromClass: Currency::class)],
+            openapi: new Operation(summary: 'Retrieves the children elements of a currency.'),
+            security: 'is_granted("@currencies.read")'
+        ),
     ],
     normalizationContext: ['groups' => ['currency:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['currency:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
-)]
-#[ApiResource(
-    uriTemplate: '/currencies/{id}/children.{_format}',
-    operations: [
-        new GetCollection(
-            openapi: new Operation(summary: 'Retrieves the children elements of a currency.'),
-            security: 'is_granted("@currencies.read")'
-        )
-    ],
-    uriVariables: [
-        'id' => new Link(fromProperty: 'children', fromClass: Currency::class)
-    ],
-    normalizationContext: ['groups' => ['currency:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment", "iso_code"])]

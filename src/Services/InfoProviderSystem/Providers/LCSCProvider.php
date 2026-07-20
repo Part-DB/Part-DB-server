@@ -136,7 +136,9 @@ class LCSCProvider implements BatchInfoProviderInterface, URLHandlerInfoProvider
             }
         }
 
-        $response = $this->lcscClient->request('POST', self::ENDPOINT_URL . "/search/v2/global", [
+        //First we try the search v3 endpoint, which seems to give better results including pictures, but it only works
+        //on quite exact mpn matches
+        $response = $this->lcscClient->request('POST', self::ENDPOINT_URL . "/search/v3/global", [
             'headers' => [
                 'Cookie' => new Cookie('currencyCode', $this->settings->currency)
             ],
@@ -147,19 +149,28 @@ class LCSCProvider implements BatchInfoProviderInterface, URLHandlerInfoProvider
 
         $arr = $response->toArray();
 
-        // Get products list
-        $products = $arr['result']['productSearchResultVO']['productList'] ?? [];
-        // Get product tip
-        $tipProductCode = $arr['result']['tipProductDetailUrlVO']['productCode'] ?? null;
+        //If we get exact matches, use them
+        if (!empty($arr['result']['exactMatchResult'])) {
+            $products = $arr['result']['exactMatchResult'];
+        } else { //Otherwise fallback onto the third search endpoint, which has a worse data quality but is more likely to return results for vague search terms
+            $response = $this->lcscClient->request('POST', self::ENDPOINT_URL."/search/third", [
+                'headers' => [
+                    'Cookie' => new Cookie('currencyCode', $this->settings->currency)
+                ],
+                'json' => [
+                    'keyword' => $term,
+                    'currentPage' => 1,
+                    'pageSize' => 10,
+                ],
+            ]);
+
+            $arr = $response->toArray();
+
+            // Get products list
+            $products = $arr['result']['productList'] ?? [];
+        }
 
         $result = [];
-
-        // LCSC does not display LCSC codes in the search, instead taking you directly to the
-        // detailed product listing. It does so utilizing a product tip field.
-        // If product tip exists and there are no products in the product list try a detail query
-        if (count($products) === 0 && $tipProductCode !== null) {
-            $result[] = $this->queryDetail($tipProductCode, $lightweight);
-        }
 
         foreach ($products as $product) {
             $result[] = $this->getPartDetail($product, $lightweight);
@@ -219,7 +230,7 @@ class LCSCProvider implements BatchInfoProviderInterface, URLHandlerInfoProvider
             provider_key: $this->getProviderKey(),
             provider_id: $product['productCode'],
             name: $product['productModel'],
-            description: $this->sanitizeField($product['productIntroEn']),
+            description: $this->sanitizeField($product['productIntroEn']) ?? '',
             category: $this->sanitizeField($category ?? null),
             manufacturer: $this->sanitizeField($product['brandNameEn'] ?? null),
             mpn: $this->sanitizeField($product['productModel'] ?? null),
@@ -383,7 +394,7 @@ class LCSCProvider implements BatchInfoProviderInterface, URLHandlerInfoProvider
                 ]);
             } else {
                 // Search API call for other terms
-                $responses[$keyword] = $this->lcscClient->request('POST', self::ENDPOINT_URL . "/search/v2/global", [
+                $responses[$keyword] = $this->lcscClient->request('POST', self::ENDPOINT_URL . "/search/v3/global", [
                     'headers' => [
                         'Cookie' => new Cookie('currencyCode', $this->settings->currency)
                     ],

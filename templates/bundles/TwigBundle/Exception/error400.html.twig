@@ -1,0 +1,39 @@
+{% extends "bundles/TwigBundle/Exception/error.html.twig" %}
+
+{% set untrusted_host = exception.message starts with 'Untrusted Host' or exception.message starts with 'Invalid Host' %}
+{% set seen_host = untrusted_host ? (exception.message|split('"'))[1]|default(null) : null %}
+
+{% block status_comment %}
+    {% if untrusted_host %}
+        Part-DB was accessed using a host name that is not marked as trusted.<br>
+        {% if seen_host %}
+            The host name Part-DB saw was: <code>{{ seen_host }}</code>
+        {% else %}
+            <code>{{ exception.message }}</code>
+        {% endif %}
+    {% else %}
+        Your browser sent a request that the server could not understand.
+    {% endif %}
+{% endblock %}
+
+{% block admin_info %}
+    {% if untrusted_host %}
+        <b><i>Untrusted host name.</i></b><br>
+        <p>For security reasons (to prevent HTTP Host header attacks), Part-DB only responds to requests using host names that were explicitly marked as trusted, once more than one host name is used to access it (e.g. behind a reverse proxy).</p>
+        <p>Try following things:</p>
+        <ul>
+            <li>Ensure that you are using the correct URL to access Part-DB.</li>
+            <li>Set the <code>TRUSTED_HOSTS</code> environment variable in your <code>.env.local</code> file (or your docker-compose environment) to a regular expression matching all host names Part-DB should be reachable under, e.g.
+                {% if seen_host %}
+                    <code>TRUSTED_HOSTS='^({{ seen_host|replace({'.': '\\.'}) }})$'</code> (if <code>{{ seen_host }}</code> is a host name you trust)
+                {% else %}
+                    <code>TRUSTED_HOSTS='^(localhost|example\.com)$'</code>
+                {% endif %}
+            </li>
+            <li>If Part-DB is running behind a reverse proxy, also make sure that <code>TRUSTED_PROXIES</code> is configured correctly, so the original host name is forwarded properly.</li>
+            <li>Run <kbd>php bin/console cache:clear</kbd> after changing the configuration.</li>
+        </ul>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

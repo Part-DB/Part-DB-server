@@ -69,7 +69,7 @@ class AttachmentSubmitHandler
 
     protected const BLACKLISTED_EXTENSIONS = ['php', 'phtml', 'php3', 'ph3', 'php4', 'ph4', 'php5', 'ph5', 'phtm', 'sh',
         'asp', 'cgi', 'py', 'pl', 'exe', 'aspx', 'js', 'mjs', 'jsp', 'css', 'jar', 'html', 'htm', 'shtm', 'shtml', 'htaccess',
-        'htpasswd', ''];
+        'htpasswd', 'phar', 'phps', ''];
 
     public function __construct(
         protected AttachmentPathResolver $pathResolver,
@@ -217,6 +217,14 @@ class AttachmentSubmitHandler
 
         //If no file was uploaded, but we have base64 encoded data, create a file from it
         if (!$file && $upload->data !== null) {
+            if (strlen($upload->data) > $this->getMaximumUserConfiguredUploadSize() * 4 / 3) { //Base64 encoding increases the size of the data by 4/3, so we have to check for that
+                throw new RuntimeException(
+                    sprintf(
+                        'The given base64 data is too big! Maximum size is %.1f MB!',
+                        $this->getMaximumUserConfiguredUploadSize() / 1000 / 1000
+                    ));
+            }
+
             $file = new UploadedBase64EncodedFile(new Base64EncodedFile($upload->data), $upload->filename ?? 'base64');
         }
 
@@ -225,6 +233,15 @@ class AttachmentSubmitHandler
 
         //When a file is given then upload it, otherwise check if we need to download the URL
         if ($file instanceof UploadedFile) {
+            //Check the file size, to avoid uploading too big files.
+            //The file is not necessarily validated as it can also come from an Base64 source
+            if ($file->getSize() > $this->getMaximumUserConfiguredUploadSize()) {
+                throw new RuntimeException(
+                    sprintf(
+                        'The uploaded file is too big! Maximum size is %.1f MB!',
+                        $this->getMaximumUserConfiguredUploadSize() / 1000 / 1000
+                    ));
+            }
 
             $this->upload($attachment, $file, $secure_attachment);
         } elseif ($upload->downloadUrl && $attachment->hasExternal()) {
@@ -399,9 +416,30 @@ class AttachmentSubmitHandler
             //Open a temporary file in the attachment folder
             $fs->mkdir($attachment_folder);
             $fileHandler = fopen($tmp_path, 'wb');
+
+            $bytesDownloaded = 0;
+            $maxSize = $this->getMaximumUserConfiguredUploadSize(); //We use the maximum user configured size here, PHPs limits dont apply
+
             //Write the downloaded data to file
             foreach ($this->httpClient->stream($response) as $chunk) {
-                fwrite($fileHandler, $chunk->getContent());
+                $content = $chunk->getContent();
+                $bytesDownloaded += strlen($content);
+
+                //Ensure the size does not get too large to avoid filling up the disk easily.
+                //If the file is too big, cancel the download and delete the temporary file.
+                if ($bytesDownloaded > $maxSize) {
+                    $response->cancel();
+                    fclose($fileHandler);
+                    unlink($tmp_path); //Delete the temporary file, because it is too big
+
+                    throw new AttachmentDownloadException(
+                        sprintf(
+                            'The downloaded file is too big! Maximum size is %.1f MB!',
+                            $maxSize / 1000 / 1000
+                        ));
+                }
+
+                fwrite($fileHandler, $content);
             }
             fclose($fileHandler);
 
@@ -505,10 +543,10 @@ class AttachmentSubmitHandler
     }
 
     /*
-     * Returns the maximum allowed upload size in bytes.
+     * Returns the maximum effective upload size in bytes.
      * This is the minimum value of Part-DB max_file_size, and php.ini's post_max_size and upload_max_filesize.
      */
-    public function getMaximumAllowedUploadSize(): int
+    public function getMaximumEffectiveUploadSize(): int
     {
         if ($this->max_upload_size_bytes) {
             return $this->max_upload_size_bytes;
@@ -521,6 +559,15 @@ class AttachmentSubmitHandler
         );
 
         return $this->max_upload_size_bytes;
+    }
+
+    /**
+     * Returns the maximum user configured upload size in bytes.
+     * @return int
+     */
+   public function getMaximumUserConfiguredUploadSize(): int
+    {
+        return $this->parseFileSizeString($this->settings->maxFileSize);
     }
 
     /**
@@ -543,8 +590,10 @@ class AttachmentSubmitHandler
             return $attachment;
         }
 
+        $guessed_mime_type = $this->mimeTypes->guessMimeType($path);
+
         //Check if the file is an SVG
-        if ($attachment->getExtension() === "svg") {
+        if ($guessed_mime_type === "image/svg+xml" || $attachment->getExtension() === "svg") {
             $this->SVGSanitizer->sanitizeFile($path);
         }
 

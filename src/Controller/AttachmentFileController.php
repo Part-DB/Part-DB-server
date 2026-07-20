@@ -93,6 +93,8 @@ class AttachmentFileController extends AbstractController
         //Set header content disposition, so that the file will be downloaded
         $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $attachment->getFilename());
 
+        $this->setAttachmentCSPHeaders($response);
+
         return $response;
     }
 
@@ -111,6 +113,16 @@ class AttachmentFileController extends AbstractController
 
         //Set header content disposition, so that the file will be downloaded
         $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE, $attachment->getFilename());
+
+        $this->setAttachmentCSPHeaders($response);
+
+        return $response;
+    }
+
+    private function setAttachmentCSPHeaders(Response $response): Response
+    {
+        //Set an CSP that disallow to run any scripts, styles or images from the attachment render page, as it is not used anywhere else for now and can be a security risk if used without proper precautions, so it should be opt-in
+        $response->headers->set('Content-Security-Policy', "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; sandbox;");
 
         return $response;
     }

@@ -19,5 +19,23 @@
             <target>検索</target>
           </segment>
         </unit>
+    <unit id="dBtnOk01" name="dialog.btn.ok">
+      <segment state="translated">
+        <source>dialog.btn.ok</source>
+        <target>OK</target>
+      </segment>
+    </unit>
+    <unit id="dBtnCcl1" name="dialog.btn.cancel">
+      <segment state="translated">
+        <source>dialog.btn.cancel</source>
+        <target>キャンセル</target>
+      </segment>
+    </unit>
+    <unit id="dBtnDny1" name="dialog.btn.deny">
+      <segment state="translated">
+        <source>dialog.btn.deny</source>
+        <target>いいえ</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

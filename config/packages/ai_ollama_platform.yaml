@@ -1,0 +1,6 @@
+ai:
+    platform:
+        ollama:
+            endpoint: '%env(string:settings:ai_ollama:endpoint)%'
+            api_key: '%env(string:settings:ai_ollama:apiKey)%'
+            http_client: 'app.http_client.ai_ollama'

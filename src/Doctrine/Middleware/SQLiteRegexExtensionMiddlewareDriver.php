@@ -27,6 +27,7 @@ use App\Doctrine\Functions\SiValueSort;
 use App\Exceptions\InvalidRegexException;
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Driver\Middleware\AbstractDriverMiddleware;
+use Pdo\Sqlite;
 
 /**
  * This middleware is used to add the regexp operator to the SQLite platform.
@@ -44,17 +45,30 @@ class SQLiteRegexExtensionMiddlewareDriver extends AbstractDriverMiddleware
         if ($params['driver'] === 'pdo_sqlite') {
             $native_connection = $connection->getNativeConnection();
 
-            //Ensure that the function really exists on the connection, as it is marked as experimental according to PHP documentation
             if($native_connection instanceof \PDO) {
-                $native_connection->sqliteCreateFunction('REGEXP', self::regexp(...), 2, \PDO::SQLITE_DETERMINISTIC);
-                $native_connection->sqliteCreateFunction('FIELD', self::field(...), -1, \PDO::SQLITE_DETERMINISTIC);
-                $native_connection->sqliteCreateFunction('FIELD2', self::field2(...), 2, \PDO::SQLITE_DETERMINISTIC);
 
-                //Create a new collation for natural sorting
-                $native_connection->sqliteCreateCollation('NATURAL_CMP', strnatcmp(...));
+                //Use the new PDO::createFunction and PDO::createCollation methods if available (PHP 8.4+)
+                if (is_a($native_connection, Sqlite::class)) { #TODO: Remove this check when PHP 8.4 is the minimum requirement
+                    $native_connection->createFunction('REGEXP', self::regexp(...), 2, Sqlite::DETERMINISTIC);
+                    $native_connection->createFunction('FIELD', self::field(...), -1, Sqlite::DETERMINISTIC);
+                    $native_connection->createFunction('FIELD2', self::field2(...), 2, Sqlite::DETERMINISTIC);
 
-                //Create a function for SI prefix value sorting
-                $native_connection->sqliteCreateFunction('SI_VALUE', SiValueSort::sqliteSiValue(...), 1, \PDO::SQLITE_DETERMINISTIC);
+                    //Create a new collation for natural sorting
+                    $native_connection->createCollation('NATURAL_CMP', strnatcmp(...));
+
+                    //Create a function for SI prefix value sorting
+                    $native_connection->createFunction('SI_VALUE', SiValueSort::sqliteSiValue(...), 1, Sqlite::DETERMINISTIC);
+                } else {
+                    $native_connection->sqliteCreateFunction('REGEXP', self::regexp(...), 2, \PDO::SQLITE_DETERMINISTIC);
+                    $native_connection->sqliteCreateFunction('FIELD', self::field(...), -1, \PDO::SQLITE_DETERMINISTIC);
+                    $native_connection->sqliteCreateFunction('FIELD2', self::field2(...), 2, \PDO::SQLITE_DETERMINISTIC);
+
+                    //Create a new collation for natural sorting
+                    $native_connection->sqliteCreateCollation('NATURAL_CMP', strnatcmp(...));
+
+                    //Create a function for SI prefix value sorting
+                    $native_connection->sqliteCreateFunction('SI_VALUE', SiValueSort::sqliteSiValue(...), 1, \PDO::SQLITE_DETERMINISTIC);
+                }
             }
         }
 

@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as bootbox from "bootbox";
+import Swal from "../helpers/swal";
 
 /**
  * If this class is imported the user is shown an error dialog if he calls an page via Turbo and an error is responded.
@@ -40,21 +40,6 @@ class ErrorHandlerHelper {
     _showAlert(statusText, statusCode, location, responseHTML)
     {
         const httpStatusToText = {
-            '200': 'OK',
-            '201': 'Created',
-            '202': 'Accepted',
-            '203': 'Non-Authoritative Information',
-            '204': 'No Content',
-            '205': 'Reset Content',
-            '206': 'Partial Content',
-            '300': 'Multiple Choices',
-            '301': 'Moved Permanently',
-            '302': 'Found',
-            '303': 'See Other',
-            '304': 'Not Modified',
-            '305': 'Use Proxy',
-            '306': 'Unused',
-            '307': 'Temporary Redirect',
             '400': 'Bad Request',
             '401': 'Unauthorized',
             '402': 'Payment Required',
@@ -83,49 +68,67 @@ class ErrorHandlerHelper {
             '505': 'HTTP Version Not Supported',
         };
 
-        //If the statusText is empty, we use the status code as text
-        if (!statusText) {
-            statusText = httpStatusToText[statusCode];
-        }
-
-        //Create error text
-        const title = statusText + ' (Status ' + statusCode + ')';
-
-        let trimString = function (string, length) {
-            return string.length > length ?
-                string.substring(0, length) + '...' :
-                string;
+        const userFriendlyMessages = {
+            '400': 'The request was invalid or malformed.',
+            '401': 'You need to log in to access this resource.',
+            '403': 'You don\'t have permission to access this resource.',
+            '404': 'The requested page or resource could not be found.',
+            '408': 'The request timed out. Please check your connection and try again.',
+            '409': 'There was a conflict with the current state of the resource.',
+            '429': 'Too many requests sent. Please wait a moment and try again.',
+            '500': 'An internal server error occurred. This is not your fault.',
+            '502': 'The server received an invalid response from an upstream service.',
+            '503': 'The service is temporarily unavailable. Please try again later.',
+            '504': 'The server did not respond in time. Please try again later.',
         };
 
-        const short_location = trimString(location, 50);
+        if (!statusText) {
+            statusText = httpStatusToText[String(statusCode)] ?? 'Unknown Error';
+        }
 
-        const alert = bootbox.alert(
-            {
-                size: 'large',
-                message: function() {
-                    let url = location;
-                    let msg = `Error calling <a href="${url}">${short_location}</a>.<br>`;
-                    msg += '<b>Try to reload the page or contact the administrator if this error persists.</b>';
+        const title = `${statusText} <small class="text-muted fs-6">(HTTP ${statusCode})</small>`;
+        const friendlyMsg = userFriendlyMessages[String(statusCode)]
+            ?? 'An unexpected error occurred. Please try again or contact the administrator.';
 
-                    msg += '<br><br><a class=\"btn btn-outline-secondary mb-2\" data-bs-toggle=\"collapse\" href=\"#iframe_div\" >' + 'View details' + "</a>";
-                    msg += "<div class=\" collapse\" id='iframe_div'><iframe height='512' width='100%' id='error-iframe'></iframe></div>";
+        const short_location = location.length > 80
+            ? location.substring(0, 80) + '…'
+            : location;
 
-                    return msg;
-                },
-                title: title,
-                callback: function () {
-                    //Remove blur
-                    $('#content').removeClass('loading-content');
-                }
+        const msg = `
+            <p class="mb-3">${friendlyMsg}</p>
+            <p class="text-muted small mb-3">If this error keeps happening, please contact your administrator.</p>
+            <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#swal-error-details" aria-expanded="false">
+                <i class="fas fa-code me-1"></i>Technical details
+            </button>
+            <div class="collapse mt-2" id="swal-error-details">
+                <iframe height="400" width="100%" id="error-iframe" style="border:1px solid var(--bs-border-color);border-radius:var(--bs-border-radius);"></iframe>
+            </div>`;
 
-            });
+        const footer = `<span class="text-muted small">Error while loading: <a href="${location}" class="text-muted text-decoration-none" style="opacity:0.7;">${short_location}</a></span>`;
 
-        alert.init(function (){
-            var dstFrame = document.getElementById('error-iframe');
-            //@ts-ignore
-            var dstDoc = dstFrame.contentDocument || dstFrame.contentWindow.document;
-            dstDoc.write(responseHTML)
-            dstDoc.close();
+        Swal.fire({
+            icon: 'error',
+            title: title,
+            html: msg,
+            footer: footer,
+            width: '90%',
+            confirmButtonText: '<i class="fas fa-rotate-right me-1"></i>Reload page',
+            showCancelButton: true,
+            cancelButtonText: 'Close',
+            showCloseButton: true,
+            reverseButtons: true,
+            didOpen: () => {
+                const dstFrame = document.getElementById('error-iframe');
+                //@ts-ignore
+                const dstDoc = dstFrame.contentDocument || dstFrame.contentWindow.document;
+                dstDoc.write(responseHTML);
+                dstDoc.close();
+            },
+        }).then((result) => {
+            document.getElementById('content').classList.remove('loading-content');
+            if (result.isConfirmed) {
+                window.location.reload();
+            }
         });
     }
 

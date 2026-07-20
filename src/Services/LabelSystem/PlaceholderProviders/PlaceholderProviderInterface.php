@@ -46,6 +46,7 @@ interface PlaceholderProviderInterface
     /**
      * Determines the real value of this placeholder.
      * If the placeholder is not supported, null must be returned.
+     * The placeholder provider has to handle HTML escaping, as the output of this function will be used directly in the label template.
      *
      * @param string $placeholder  The placeholder (e.g. "%%PLACEHOLDER%%") that should be replaced
      * @param object $label_target The object that is targeted by the label

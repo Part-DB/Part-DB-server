@@ -38,7 +38,7 @@ class AttachmentTypeType extends AbstractType
         return StructuralEntityType::class;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->define('attachment_filter_class')->allowedTypes('null', 'string')->default(null);
 

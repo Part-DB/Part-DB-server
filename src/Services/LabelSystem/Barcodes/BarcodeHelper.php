@@ -67,8 +67,8 @@ class BarcodeHelper
     {
         $svg = $this->barcodeAsSVG($content, $type);
         $base64 = $this->dataUri($svg, 'image/svg+xml');
-        $alt_text ??= $content;
-        
+        $alt_text ??= htmlspecialchars($content);
+
         return '<img src="'.$base64.'" width="'.$width.'" style="min-height: 25px;" alt="'.$alt_text.'"/>';
     }
 

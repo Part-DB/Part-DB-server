@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
@@ -55,7 +56,7 @@ class TreeController extends AbstractController
 
     #[Route(path: '/category/{id}', name: 'tree_category')]
     #[Route(path: '/categories', name: 'tree_category_root')]
-    public function categoryTree(?Category $category = null): JsonResponse
+    public function categoryTree(#[MapEntity(id: 'id')] ?Category $category = null): JsonResponse
     {
         if ($this->isGranted('@parts.read') && $this->isGranted('@categories.read')) {
             $tree = $this->treeGenerator->getTreeView(Category::class, $category, 'list_parts_root');
@@ -68,7 +69,7 @@ class TreeController extends AbstractController
 
     #[Route(path: '/footprint/{id}', name: 'tree_footprint')]
     #[Route(path: '/footprints', name: 'tree_footprint_root')]
-    public function footprintTree(?Footprint $footprint = null): JsonResponse
+    public function footprintTree(#[MapEntity(id: 'id')] ?Footprint $footprint = null): JsonResponse
     {
         if ($this->isGranted('@parts.read') && $this->isGranted('@footprints.read')) {
             $tree = $this->treeGenerator->getTreeView(Footprint::class, $footprint, 'list_parts_root');
@@ -80,7 +81,7 @@ class TreeController extends AbstractController
 
     #[Route(path: '/location/{id}', name: 'tree_location')]
     #[Route(path: '/locations', name: 'tree_location_root')]
-    public function locationTree(?StorageLocation $location = null): JsonResponse
+    public function locationTree(#[MapEntity(id: 'id')] ?StorageLocation $location = null): JsonResponse
     {
         if ($this->isGranted('@parts.read') && $this->isGranted('@storelocations.read')) {
             $tree = $this->treeGenerator->getTreeView(StorageLocation::class, $location, 'list_parts_root');
@@ -93,7 +94,7 @@ class TreeController extends AbstractController
 
     #[Route(path: '/manufacturer/{id}', name: 'tree_manufacturer')]
     #[Route(path: '/manufacturers', name: 'tree_manufacturer_root')]
-    public function manufacturerTree(?Manufacturer $manufacturer = null): JsonResponse
+    public function manufacturerTree(#[MapEntity(id: 'id')] ?Manufacturer $manufacturer = null): JsonResponse
     {
         if ($this->isGranted('@parts.read') && $this->isGranted('@manufacturers.read')) {
             $tree = $this->treeGenerator->getTreeView(Manufacturer::class, $manufacturer, 'list_parts_root');
@@ -106,7 +107,7 @@ class TreeController extends AbstractController
 
     #[Route(path: '/supplier/{id}', name: 'tree_supplier')]
     #[Route(path: '/suppliers', name: 'tree_supplier_root')]
-    public function supplierTree(?Supplier $supplier = null): JsonResponse
+    public function supplierTree(#[MapEntity(id: 'id')] ?Supplier $supplier = null): JsonResponse
     {
         if ($this->isGranted('@parts.read') && $this->isGranted('@suppliers.read')) {
             $tree = $this->treeGenerator->getTreeView(Supplier::class, $supplier, 'list_parts_root');
@@ -119,7 +120,7 @@ class TreeController extends AbstractController
 
     #[Route(path: '/device/{id}', name: 'tree_device')]
     #[Route(path: '/devices', name: 'tree_device_root')]
-    public function deviceTree(?Project $device = null): JsonResponse
+    public function deviceTree(#[MapEntity(id: 'id')] ?Project $device = null): JsonResponse
     {
         if ($this->isGranted('@projects.read')) {
             $tree = $this->treeGenerator->getTreeView(Project::class, $device, 'devices');

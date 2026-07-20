@@ -29,13 +29,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Service for validating BOM import data with comprehensive validation rules
- * and user-friendly error messages.
+ * and user-friendly error messages. The results are not HTML safe, and must be escaped before display!
  */
-class BOMValidationService
+readonly class BOMValidationService
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
-        private readonly TranslatorInterface $translator
+        private EntityManagerInterface $entityManager,
+        private TranslatorInterface $translator
     ) {
     }
 

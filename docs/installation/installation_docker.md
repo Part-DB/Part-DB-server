@@ -47,7 +47,10 @@ services:
       - DATABASE_URL=sqlite:///%kernel.project_dir%/var/db/app.db
       # In docker env logs will be redirected to stderr
       - APP_ENV=docker
-      
+      # Secret key used to sign cookies and CSRF tokens. MUST be changed to a unique random value before going live!
+      # Generate one with: openssl rand -hex 32
+      - APP_SECRET=CHANGE_ME
+
       # Uncomment this, if you want to use the automatic database migration feature. With this you have you do not have to
       # run the doctrine:migrations:migrate commands on installation or upgrade. A database backup is written to the uploads/
       # folder (under .automigration-backup), so you can restore it, if the migration fails.
@@ -81,7 +84,11 @@ services:
     
       # If you use a reverse proxy in front of Part-DB, you must configure the trusted proxies IP addresses here (see reverse proxy documentation for more information):
       # - TRUSTED_PROXIES=127.0.0.0/8,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
-      
+
+      # To prevent HTTP Host header attacks, set this to a regex matching all host names Part-DB should be reachable under.
+      # By default (unset) Part-DB accepts requests for any host name, which is not recommended for production use.
+      # - TRUSTED_HOSTS=^(part-db\.example\.invalid)$
+
       # If you need to install additional composer packages (e.g., for specific mailer transports), you can specify them here:
       # The packages will be installed automatically when the container starts
       # - COMPOSER_EXTRA_PACKAGES=symfony/mailgun-mailer symfony/sendgrid-mailer
@@ -89,7 +96,14 @@ services:
 
 4. Customize the settings by changing the environment variables (or adding new ones). See [Configuration]({% link
    configuration.md %}) for more information.
-5. Inside the folder, run
+5. Make sure to change the `APP_SECRET` variable to a unique random value (32 characters). You can generate one with the following command:
+```bash
+openssl rand -hex 32
+```
+6. Uncomment and set the `TRUSTED_HOSTS` variable to a regex matching the host name(s) Part-DB should be reachable under
+   (e.g. `^(part-db\.example\.invalid)$`), to prevent HTTP Host header attacks. See [Configuration]({% link configuration.md %})
+   for more information.
+7. Inside the folder, run
 
 ```bash
    docker-compose up -d
@@ -100,7 +114,7 @@ services:
 > Otherwise Part-DB console might use the wrong configuration to execute commands.
 
 
-6. Create the initial database with
+8. Create the initial database with
 
  ```bash
 docker exec --user=www-data partdb php bin/console doctrine:migrations:migrate
@@ -108,7 +122,7 @@ docker exec --user=www-data partdb php bin/console doctrine:migrations:migrate
 
 and watch for the password output
 
-6. Part-DB is available under `http://localhost:8080` and you can log in with the username `admin` and the password shown
+9. Part-DB is available under `http://localhost:8080` and you can log in with the username `admin` and the password shown
    before
 
 The docker image uses a SQLite database and all data (database, uploads, and other media) is put into folders relative to
@@ -121,6 +135,7 @@ If you want to use MySQL as a database, you can use the following docker-compose
 {: .warning }
 > You have to replace the values for MYSQL_ROOT_PASSWORD and MYSQL_PASSWORD with your own passwords!!
 > You have to change MYSQL_PASSWORD in the database section and for the DATABASE_URL in the partdb section.
+> Generate a random string for APP_SECRET.
 
 ```yaml
 version: '3.3'
@@ -142,14 +157,19 @@ services:
     environment:
       # Replace SECRET_USER_PASSWORD with the value of MYSQL_PASSWORD from below
       - DATABASE_URL=mysql://partdb:SECRET_USER_PASSWORD@database:3306/partdb
+
+      # Secret key used to sign cookies. MUST be changed to a unique random value before going live!
+      # Generate one with: openssl rand -hex 32
+      - APP_SECRET=CHANGE_ME
+    
       # In docker env logs will be redirected to stderr
       - APP_ENV=docker
-
-       # Uncomment this, if you want to use the automatic database migration feature. With this you do not have to
-       # run the doctrine:migrations:migrate commands on installation or upgrade. A database backup is written to the uploads/
-       # folder (under .automigration-backup), so you can restore it, if the migration fails.
-       # This feature is currently experimental, so use it at your own risk!
-       # - DB_AUTOMIGRATE=true
+      
+      # Uncomment this, if you want to use the automatic database migration feature. With this you do not have to
+      # run the doctrine:migrations:migrate commands on installation or upgrade. A database backup is written to the uploads/
+      # folder (under .automigration-backup), so you can restore it, if the migration fails.
+      # This feature is currently experimental, so use it at your own risk!
+      # - DB_AUTOMIGRATE=true
 
       # You can configure Part-DB using the webUI or environment variables
       # However you can add any other environment configuration you want here
@@ -158,7 +178,11 @@ services:
       # Override value if you want to show a given text on homepage.
       # When this is commented out the webUI can be used to configure the banner
       #- BANNER=This is a test banner<br>with a line break
-      
+
+      # To prevent HTTP Host header attacks, set this to a regex matching all host names Part-DB should be reachable under.
+      # By default (unset) Part-DB accepts requests for any host name, which is not recommended for production use.
+      # - TRUSTED_HOSTS=^(part-db\.example\.invalid)$
+
       # If you need to install additional composer packages (e.g., for specific mailer transports), you can specify them here:
       # - COMPOSER_EXTRA_PACKAGES=symfony/mailgun-mailer symfony/sendgrid-mailer
 
