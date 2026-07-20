@@ -3219,8 +3219,12 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         scan_dirs?: list<scalar|Param|null>,
  *         exclude_dirs?: list<scalar|Param|null>,
  *     },
+ *     apps?: array{ // MCP Apps support (interactive HTML UI resources). Apps are registered with the #[AsMcpApp] attribute.
+ *         enabled?: bool|Param|null, // Default: null
+ *     },
  *     http?: array{
  *         path?: scalar|Param|null, // Default: "/_mcp"
+ *         allowed_hosts?: mixed, // DNS rebinding protection hosts (without port). Leave unset to keep the SDK default (localhost only), set an array of hostnames to expose a public MCP server, or false to disable the protection entirely. // Default: null
  *         session?: array{
  *             store?: "file"|"memory"|"cache"|"framework"|Param, // Default: "file"
  *             directory?: scalar|Param|null, // Default: "%kernel.cache_dir%/mcp-sessions"

@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "9171608b0a2f6caa65f4eca3b66ae351",
-=======
-    "content-hash": "71f989737d92309c38cbbf0e4e6e0e6e",
->>>>>>> master
+    "content-hash": "7c31eed5ac91b2ca3b7e87bd245ab2e2",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1631,22 +1627,17 @@
             "time": "2026-06-13T05:11:46+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "api-platform/mcp",
-            "version": "v4.3.6",
-=======
-            "name": "api-platform/metadata",
-            "version": "v4.3.17",
->>>>>>> master
+            "version": "v4.3.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/mcp.git",
-                "reference": "35177126b8beb69169e7a33a325e00dbbdbbd7bf"
+                "reference": "0a351f21438b5c7fd16a05fdcd67bdd44e1aa20b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/mcp/zipball/35177126b8beb69169e7a33a325e00dbbdbbd7bf",
-                "reference": "35177126b8beb69169e7a33a325e00dbbdbbd7bf",
+                "url": "https://api.github.com/repos/api-platform/mcp/zipball/0a351f21438b5c7fd16a05fdcd67bdd44e1aa20b",
+                "reference": "0a351f21438b5c7fd16a05fdcd67bdd44e1aa20b",
                 "shasum": ""
             },
             "require": {
@@ -1708,9 +1699,9 @@
             ],
             "support": {
                 "issues": "https://github.com/api-platform/mcp/issues",
-                "source": "https://github.com/api-platform/mcp/tree/v4.3.6"
+                "source": "https://github.com/api-platform/mcp/tree/v4.3.13"
             },
-            "time": "2026-05-11T06:02:06+00:00"
+            "time": "2026-06-10T14:43:58+00:00"
         },
         {
             "name": "api-platform/metadata",
@@ -1806,11 +1797,7 @@
                 "swagger"
             ],
             "support": {
-<<<<<<< HEAD
                 "source": "https://github.com/api-platform/metadata/tree/4.3"
-=======
-                "source": "https://github.com/api-platform/metadata/tree/v4.3.17"
->>>>>>> master
             },
             "time": "2026-07-03T06:30:28+00:00"
         },
@@ -4311,16 +4298,16 @@
         },
         {
             "name": "dompdf/dompdf",
-            "version": "v3.1.5",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "f11ead23a8a76d0ff9bbc6c7c8fd7e05ca328496"
+                "reference": "6d4b4eb8500f7a786da8868ba463a71b725a4005"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/f11ead23a8a76d0ff9bbc6c7c8fd7e05ca328496",
-                "reference": "f11ead23a8a76d0ff9bbc6c7c8fd7e05ca328496",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/6d4b4eb8500f7a786da8868ba463a71b725a4005",
+                "reference": "6d4b4eb8500f7a786da8868ba463a71b725a4005",
                 "shasum": ""
             },
             "require": {
@@ -4369,9 +4356,9 @@
             "homepage": "https://github.com/dompdf/dompdf",
             "support": {
                 "issues": "https://github.com/dompdf/dompdf/issues",
-                "source": "https://github.com/dompdf/dompdf/tree/v3.1.5"
+                "source": "https://github.com/dompdf/dompdf/tree/v3.1.6"
             },
-            "time": "2026-03-03T13:54:37+00:00"
+            "time": "2026-07-20T12:29:38+00:00"
         },
         {
             "name": "dompdf/php-font-lib",
@@ -4940,18 +4927,6 @@
         },
         {
             "name": "guzzlehttp/psr7",
-<<<<<<< HEAD
-            "version": "2.10.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/guzzle/psr7.git",
-                "reference": "a1bbdc172f32a25fe999965b65b6e71fd87da9ed"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/a1bbdc172f32a25fe999965b65b6e71fd87da9ed",
-                "reference": "a1bbdc172f32a25fe999965b65b6e71fd87da9ed",
-=======
             "version": "2.13.0",
             "source": {
                 "type": "git",
@@ -4962,7 +4937,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/guzzle/psr7/zipball/dad89620b7a6edb60c15858442eb2e408b45d8f4",
                 "reference": "dad89620b7a6edb60c15858442eb2e408b45d8f4",
->>>>>>> master
                 "shasum": ""
             },
             "require": {
@@ -5052,11 +5026,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-<<<<<<< HEAD
-                "source": "https://github.com/guzzle/psr7/tree/2.10.2"
-=======
                 "source": "https://github.com/guzzle/psr7/tree/2.13.0"
->>>>>>> master
             },
             "funding": [
                 {
@@ -5072,11 +5042,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2026-05-25T22:58:15+00:00"
-=======
             "time": "2026-07-16T22:23:49+00:00"
->>>>>>> master
         },
         {
             "name": "hshn/base64-encoded-file",
@@ -7187,16 +7153,16 @@
         },
         {
             "name": "mcp/sdk",
-            "version": "v0.5.0",
+            "version": "v0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/modelcontextprotocol/php-sdk.git",
-                "reference": "fb2c8c2ee4ab2791239c5f534bb07bfb7589d4e8"
+                "reference": "a6f415578fa789783d010274d11c922e97659a8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/modelcontextprotocol/php-sdk/zipball/fb2c8c2ee4ab2791239c5f534bb07bfb7589d4e8",
-                "reference": "fb2c8c2ee4ab2791239c5f534bb07bfb7589d4e8",
+                "url": "https://api.github.com/repos/modelcontextprotocol/php-sdk/zipball/a6f415578fa789783d010274d11c922e97659a8a",
+                "reference": "a6f415578fa789783d010274d11c922e97659a8a",
                 "shasum": ""
             },
             "require": {
@@ -7265,9 +7231,9 @@
             "description": "Model Context Protocol SDK for Client and Server applications in PHP",
             "support": {
                 "issues": "https://github.com/modelcontextprotocol/php-sdk/issues",
-                "source": "https://github.com/modelcontextprotocol/php-sdk/tree/v0.5.0"
+                "source": "https://github.com/modelcontextprotocol/php-sdk/tree/v0.7.0"
             },
-            "time": "2026-04-26T13:37:40+00:00"
+            "time": "2026-07-14T22:58:00+00:00"
         },
         {
             "name": "mf2/mf2",
@@ -14314,20 +14280,20 @@
         },
         {
             "name": "symfony/mcp-bundle",
-            "version": "v0.9.0",
+            "version": "v0.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mcp-bundle.git",
-                "reference": "654f639e94f4d7694771e6628380a9ff04c9d9c1"
+                "reference": "f973cf4f146674d362da3258ba35629ad447ecb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mcp-bundle/zipball/654f639e94f4d7694771e6628380a9ff04c9d9c1",
-                "reference": "654f639e94f4d7694771e6628380a9ff04c9d9c1",
+                "url": "https://api.github.com/repos/symfony/mcp-bundle/zipball/f973cf4f146674d362da3258ba35629ad447ecb1",
+                "reference": "f973cf4f146674d362da3258ba35629ad447ecb1",
                 "shasum": ""
             },
             "require": {
-                "mcp/sdk": "^0.5",
+                "mcp/sdk": "^0.6|^0.7",
                 "php-http/discovery": "^1.20",
                 "symfony/config": "^7.3|^8.0",
                 "symfony/console": "^7.3|^8.0",
@@ -14341,11 +14307,13 @@
                 "symfony/service-contracts": "^2.5|^3"
             },
             "require-dev": {
+                "nyholm/psr7": "^1.8",
                 "phpstan/phpstan": "^2.1",
                 "phpstan/phpstan-phpunit": "^2.0",
                 "phpstan/phpstan-strict-rules": "^2.0",
                 "phpunit/phpunit": "^11.5.53",
-                "symfony/monolog-bundle": "^3.10 || ^4.0"
+                "symfony/monolog-bundle": "^3.10 || ^4.0",
+                "symfony/twig-bundle": "^7.3|^8.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -14375,7 +14343,7 @@
             ],
             "description": "Symfony integration bundle for Model Context Protocol (via official mcp/sdk)",
             "support": {
-                "source": "https://github.com/symfony/mcp-bundle/tree/v0.9.0"
+                "source": "https://github.com/symfony/mcp-bundle/tree/v0.11.0"
             },
             "funding": [
                 {
@@ -14395,7 +14363,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-15T23:41:17+00:00"
+            "time": "2026-07-15T00:43:00+00:00"
         },
         {
             "name": "symfony/mime",
@@ -14650,16 +14618,16 @@
         },
         {
             "name": "symfony/object-mapper",
-            "version": "v7.4.9",
+            "version": "v7.4.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/object-mapper.git",
-                "reference": "4f3f4973993b70e88e58dbcc3e332135d593f70d"
+                "reference": "ce13a5bce3c8ddf5cf17f0f557e294f7e0532add"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/object-mapper/zipball/4f3f4973993b70e88e58dbcc3e332135d593f70d",
-                "reference": "4f3f4973993b70e88e58dbcc3e332135d593f70d",
+                "url": "https://api.github.com/repos/symfony/object-mapper/zipball/ce13a5bce3c8ddf5cf17f0f557e294f7e0532add",
+                "reference": "ce13a5bce3c8ddf5cf17f0f557e294f7e0532add",
                 "shasum": ""
             },
             "require": {
@@ -14699,7 +14667,7 @@
             "description": "Provides a way to map an object to another object",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/object-mapper/tree/v7.4.9"
+                "source": "https://github.com/symfony/object-mapper/tree/v7.4.14"
             },
             "funding": [
                 {
@@ -14719,7 +14687,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-22T15:21:55+00:00"
+            "time": "2026-06-16T15:47:47+00:00"
         },
         {
             "name": "symfony/options-resolver",
@@ -15295,18 +15263,6 @@
         },
         {
             "name": "symfony/polyfill-php83",
-<<<<<<< HEAD
-            "version": "v1.38.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/polyfill-php83.git",
-                "reference": "8339098cae28673c15cce00d80734af0453054e2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php83/zipball/8339098cae28673c15cce00d80734af0453054e2",
-                "reference": "8339098cae28673c15cce00d80734af0453054e2",
-=======
             "version": "v1.38.2",
             "source": {
                 "type": "git",
@@ -15317,7 +15273,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-php83/zipball/796a26abb75ce49f3a84433cd81bf1009d73d5f8",
                 "reference": "796a26abb75ce49f3a84433cd81bf1009d73d5f8",
->>>>>>> master
                 "shasum": ""
             },
             "require": {
@@ -15364,11 +15319,7 @@
                 "shim"
             ],
             "support": {
-<<<<<<< HEAD
-                "source": "https://github.com/symfony/polyfill-php83/tree/v1.38.1"
-=======
                 "source": "https://github.com/symfony/polyfill-php83/tree/v1.38.2"
->>>>>>> master
             },
             "funding": [
                 {
@@ -15388,11 +15339,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2026-05-26T12:51:13+00:00"
-=======
             "time": "2026-05-27T06:51:48+00:00"
->>>>>>> master
         },
         {
             "name": "symfony/polyfill-php84",
@@ -18240,16 +18187,16 @@
         },
         {
             "name": "symplify/easy-coding-standard",
-            "version": "13.2.9",
+            "version": "13.2.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ecsphp/ecs.git",
-                "reference": "f4730d9fde79bf27993e31d9fd7f9df00da0d1aa"
+                "reference": "6d28a6dfef3e18ddc013ba68b121487cad2cf14c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ecsphp/ecs/zipball/f4730d9fde79bf27993e31d9fd7f9df00da0d1aa",
-                "reference": "f4730d9fde79bf27993e31d9fd7f9df00da0d1aa",
+                "url": "https://api.github.com/repos/ecsphp/ecs/zipball/6d28a6dfef3e18ddc013ba68b121487cad2cf14c",
+                "reference": "6d28a6dfef3e18ddc013ba68b121487cad2cf14c",
                 "shasum": ""
             },
             "require": {
@@ -18284,9 +18231,9 @@
                 "static analysis"
             ],
             "support": {
-                "source": "https://github.com/ecsphp/ecs/tree/13.2.9"
+                "source": "https://github.com/ecsphp/ecs/tree/13.2.13"
             },
-            "time": "2026-07-17T15:05:23+00:00"
+            "time": "2026-07-20T11:00:52+00:00"
         },
         {
             "name": "tecnickcom/tc-lib-barcode",
@@ -20263,19 +20210,11 @@
         },
         {
             "name": "phpstan/phpstan",
-<<<<<<< HEAD
-            "version": "2.1.56",
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/93a603c9fc3be8c3c93bbc8d22170ad766685537",
-                "reference": "93a603c9fc3be8c3c93bbc8d22170ad766685537",
-=======
             "version": "2.2.5",
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/phpstan/phpstan/zipball/909c1e5fef7989ac0d0c1c5c42e32a5c4f6198a0",
                 "reference": "909c1e5fef7989ac0d0c1c5c42e32a5c4f6198a0",
->>>>>>> master
                 "shasum": ""
             },
             "require": {
@@ -20331,11 +20270,7 @@
                     "type": "github"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2026-05-26T17:04:57+00:00"
-=======
             "time": "2026-07-05T06:31:06+00:00"
->>>>>>> master
         },
         {
             "name": "phpstan/phpstan-doctrine",
@@ -21047,21 +20982,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-<<<<<<< HEAD
-                "reference": "11be66e3adc8bf2c9805209a598ad4b42ee3c0d6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/11be66e3adc8bf2c9805209a598ad4b42ee3c0d6",
-                "reference": "11be66e3adc8bf2c9805209a598ad4b42ee3c0d6",
-=======
                 "reference": "4fac0729c45b6dba8d6171a94eccb1d5d9514bf9"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/4fac0729c45b6dba8d6171a94eccb1d5d9514bf9",
                 "reference": "4fac0729c45b6dba8d6171a94eccb1d5d9514bf9",
->>>>>>> master
                 "shasum": ""
             },
             "conflict": {
@@ -22170,11 +22096,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2026-05-26T19:41:38+00:00"
-=======
             "time": "2026-07-17T19:07:03+00:00"
->>>>>>> master
         },
         {
             "name": "sebastian/cli-parser",
