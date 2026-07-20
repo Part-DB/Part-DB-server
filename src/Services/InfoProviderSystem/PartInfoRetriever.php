@@ -126,6 +126,7 @@ final class PartInfoRetriever
      * @param array<string, mixed>  $options An associative array of options which can be used to modify the search behavior. The supported options depend on the provider and should be documented in the provider's documentation.
      * @return PartDetailDTO
      * @throws InfoProviderNotActiveException if the the given providers is not active
+     * @throws \InvalidArgumentException if the given provider key does not match any registered provider
      */
     public function getDetails(string $provider_key, string $part_id, array $options = []): PartDetailDTO
     {

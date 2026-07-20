@@ -23,11 +23,30 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\DTOs;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\McpTool;
 use App\Entity\Parts\ManufacturingStatus;
+use App\Mcp\DTO\InfoProviderPartDetailsInput;
+use App\State\Mcp\GetInfoProviderPartDetailsProcessor;
 
 /**
  * This DTO represents a part with all its details.
  */
+#[ApiResource(
+    description: 'Detailed information about a part from an external info provider (e.g. a distributor or manufacturer catalog), including datasheets, images, parameters and purchase information.',
+    operations: [],
+    mcp: [
+        'get_info_provider_part_details' => new McpTool(
+            title: 'Get part details from an info provider',
+            description: 'Get full detailed information (datasheets, images, parameters, prices, ...) about a specific part from an external info provider, identified by the provider key and the provider-specific part ID (both returned by search_info_providers).',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => true],
+            input: InfoProviderPartDetailsInput::class,
+            security: 'is_granted("@info_providers.create_parts")',
+            validate: true,
+            processor: GetInfoProviderPartDetailsProcessor::class,
+        ),
+    ],
+)]
 class PartDetailDTO extends SearchResultDTO
 {
     public function __construct(
