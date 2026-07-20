@@ -1,4 +1,4 @@
-# Generated on Mon Jul 13 05:44:30 UTC 2026
+# Generated on Mon Jul 20 05:46:23 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -951,6 +951,8 @@ Amplifier_Current:INA201D
 Amplifier_Current:INA201DGK
 Amplifier_Current:INA202D
 Amplifier_Current:INA202DGK
+Amplifier_Current:INA2180AxxDGK
+Amplifier_Current:INA2180AxxDSG
 Amplifier_Current:INA225
 Amplifier_Current:INA240A1D
 Amplifier_Current:INA240A1PW
@@ -7680,6 +7682,7 @@ Driver_LED:IS31FL3218-GR
 Driver_LED:IS31FL3218-QF
 Driver_LED:IS31FL3236-TQ
 Driver_LED:IS31FL3236A-TQ
+Driver_LED:IS31FL3242
 Driver_LED:IS31FL3731-QF
 Driver_LED:IS31FL3731-SA
 Driver_LED:IS31FL3733-QF
@@ -8271,6 +8274,10 @@ Filter:MAX7422xUA
 Filter:MAX7423xUA
 Filter:MAX7424xUA
 Filter:MAX7425xUA
+Filter:MAX7426xPA
+Filter:MAX7426xUA
+Filter:MAX7427xPA
+Filter:MAX7427xUA
 Filter:MAX7480xPA
 Filter:MAX7480xSA
 Filter:P300PL104M275xC222
@@ -9659,7 +9666,6 @@ Logic_Programmable:PAL20L10xxNS
 Logic_Programmable:PAL20L8
 Logic_Programmable:PAL20R8xx-P
 Logic_Programmable:PAL20RS10
-Logic_Programmable:PAL24
 Logic_Programmable:PALCE16V8
 Logic_Programmable:PEEL22CV10AP
 Logic_Programmable:PEEL22CV10AS
