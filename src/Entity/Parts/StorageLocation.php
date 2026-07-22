@@ -33,13 +33,20 @@ use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\McpTool;
+use ApiPlatform\Metadata\McpToolCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Mcp\DTO\ElementByIdInput;
+use App\Mcp\DTO\StructuralElementOverview;
+use App\Mcp\DTO\StructuralElementSearchInput;
 use App\Repository\Parts\StorelocationRepository;
+use App\State\Mcp\GetStructuralElementDetailsProcessor;
+use App\State\Mcp\ListStructuralElementsProcessor;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\StorageLocationAttachment;
@@ -76,6 +83,28 @@ use Symfony\Component\Validator\Constraints as Assert;
     ],
     normalizationContext: ['groups' => ['location:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['location:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
+    mcp: [
+        'list_storage_locations' => new McpToolCollection(
+            title: 'List/search storage locations',
+            description: 'List all storage locations, optionally filtered by a keyword matched against the name and comment. Storage locations describe where parts are physically stored.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            output: StructuralElementOverview::class,
+            normalizationContext: ['groups' => ['mcp_structural_overview:read']],
+            input: StructuralElementSearchInput::class,
+            security: 'is_granted("@storelocations.read")',
+            processor: ListStructuralElementsProcessor::class,
+        ),
+        'get_storage_location_details' => new McpTool(
+            title: 'Get storage location details by ID',
+            description: 'Get detailed information about a specific storage location by its database ID.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['location:read', 'api:basic:read']],
+            input: ElementByIdInput::class,
+            security: 'is_granted("@storelocations.read")',
+            validate: true,
+            processor: GetStructuralElementDetailsProcessor::class,
+        ),
+    ],
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]

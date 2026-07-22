@@ -33,6 +33,8 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\McpTool;
+use ApiPlatform\Metadata\McpToolCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
@@ -40,7 +42,12 @@ use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\PartCustomStateParameter;
+use App\Mcp\DTO\ElementByIdInput;
+use App\Mcp\DTO\StructuralElementOverview;
+use App\Mcp\DTO\StructuralElementSearchInput;
 use App\Repository\Parts\PartCustomStateRepository;
+use App\State\Mcp\GetStructuralElementDetailsProcessor;
+use App\State\Mcp\ListStructuralElementsProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
@@ -67,6 +74,28 @@ use Symfony\Component\Validator\Constraints as Assert;
     ],
     normalizationContext: ['groups' => ['part_custom_state:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['part_custom_state:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+    mcp: [
+        'list_part_custom_states' => new McpToolCollection(
+            title: 'List/search part custom states',
+            description: 'List all part custom states, optionally filtered by a keyword matched against the name and comment. Custom states are used to mark parts with a custom status (e.g. "obsolete", "needs review").',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            output: StructuralElementOverview::class,
+            normalizationContext: ['groups' => ['mcp_structural_overview:read']],
+            input: StructuralElementSearchInput::class,
+            security: 'is_granted("@part_custom_states.read")',
+            processor: ListStructuralElementsProcessor::class,
+        ),
+        'get_part_custom_state_details' => new McpTool(
+            title: 'Get part custom state details by ID',
+            description: 'Get detailed information about a specific part custom state by its database ID.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['part_custom_state:read', 'api:basic:read']],
+            input: ElementByIdInput::class,
+            security: 'is_granted("@part_custom_states.read")',
+            validate: true,
+            processor: GetStructuralElementDetailsProcessor::class,
+        ),
+    ],
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name"])]
