@@ -87,6 +87,7 @@ services:
 
       # To prevent HTTP Host header attacks, set this to a regex matching all host names Part-DB should be reachable under.
       # By default (unset) Part-DB accepts requests for any host name, which is not recommended for production use.
+      # IMPORTANT: Unlike in .env files, the value here must NOT be wrapped in quotes.
       # - TRUSTED_HOSTS=^(part-db\.example\.invalid)$
 
       # If you need to install additional composer packages (e.g., for specific mailer transports), you can specify them here:
@@ -101,7 +102,8 @@ services:
 openssl rand -hex 32
 ```
 6. Uncomment and set the `TRUSTED_HOSTS` variable to a regex matching the host name(s) Part-DB should be reachable under
-   (e.g. `^(part-db\.example\.invalid)$`), to prevent HTTP Host header attacks. See [Configuration]({% link configuration.md %})
+   (e.g. `^(part-db\.example\.invalid)$`), to prevent HTTP Host header attacks. Note that, unlike in `.env` files, the
+   value must **not** be quoted in `docker-compose.yaml`. See [Configuration]({% link configuration.md %})
    for more information.
 7. Inside the folder, run
 
@@ -181,6 +183,7 @@ services:
 
       # To prevent HTTP Host header attacks, set this to a regex matching all host names Part-DB should be reachable under.
       # By default (unset) Part-DB accepts requests for any host name, which is not recommended for production use.
+      # IMPORTANT: Unlike in .env files, the value here must NOT be wrapped in quotes.
       # - TRUSTED_HOSTS=^(part-db\.example\.invalid)$
 
       # If you need to install additional composer packages (e.g., for specific mailer transports), you can specify them here:

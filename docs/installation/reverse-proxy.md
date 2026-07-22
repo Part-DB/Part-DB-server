@@ -24,10 +24,16 @@ the reverse proxy).
 
 You should also set the `TRUSTED_HOSTS` environment variable to a regex matching the host name(s) Part-DB is reachable
 under via the reverse proxy, to prevent `HTTP Host header attacks`. For example, if Part-DB is reachable via
-`part-db.example.invalid`, set:
+`part-db.example.invalid`, set the following in your `.env.local` file (the value must be wrapped in single quotes here):
 
 ```
 TRUSTED_HOSTS='^(part-db\.example\.invalid)$'
+```
+
+If you set `TRUSTED_HOSTS` in your `docker-compose.yaml` instead, the value must **not** be quoted:
+
+```
+TRUSTED_HOSTS=^(part-db\.example\.invalid)$
 ```
 
 See the [configuration options](../configuration.md) page for more information about `TRUSTED_HOSTS`.

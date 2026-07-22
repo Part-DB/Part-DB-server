@@ -13728,7 +13728,19 @@ Buerklin-API-Authentication-Server:
     <unit id="qZ_kgWT" name="system.trusted_hosts.unconfigured.suggestion">
       <segment state="translated">
         <source>system.trusted_hosts.unconfigured.suggestion</source>
-        <target>Legen Sie einen regulären Ausdruck fest, der alle Hostnamen abdeckt, unter denen Part-DB erreichbar sein soll, z. B. basierend auf dem Hostnamen, den Sie für den Zugriff auf diese Seite verwendet haben. Dies ist möglich in Ihrer Datei &lt;code&gt;.env.local&lt;/code&gt; oder &lt;code&gt;docker-compose.yaml&lt;/code&gt;:</target>
+        <target>Legen Sie einen regulären Ausdruck fest, der alle Hostnamen abdeckt, unter denen Part-DB erreichbar sein soll, z. B. basierend auf dem Hostnamen, den Sie für den Zugriff auf diese Seite verwendet haben. Beachten Sie, dass die erforderliche Anführungszeichen-Schreibweise davon abhängt, wo Sie den Wert setzen:</target>
+      </segment>
+    </unit>
+    <unit id="ie4thSr" name="system.trusted_hosts.unconfigured.env_example">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.env_example</source>
+        <target>In Ihrer Datei &lt;code&gt;.env.local&lt;/code&gt; muss der Wert in einfache Anführungszeichen eingeschlossen werden:</target>
+      </segment>
+    </unit>
+    <unit id="ni3hSTN" name="system.trusted_hosts.unconfigured.docker_example">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.docker_example</source>
+        <target>In &lt;code&gt;docker-compose.yaml&lt;/code&gt; darf der Wert NICHT in Anführungszeichen stehen:</target>
       </segment>
     </unit>
     <unit id="cEwxoSj" name="info_providers.provider_key">

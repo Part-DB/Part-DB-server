@@ -13730,7 +13730,19 @@ Buerklin-API Authentication server:
     <unit id="qZ_kgWT" name="system.trusted_hosts.unconfigured.suggestion">
       <segment state="translated">
         <source>system.trusted_hosts.unconfigured.suggestion</source>
-        <target>Set it to a regular expression matching all host names Part-DB should be reachable under in your &lt;code&gt;.env.local&lt;/code&gt; or &lt;code&gt;docker-compose.yaml&lt;/code&gt; file, e.g. based on the host name you used to access this page:</target>
+        <target>Set it to a regular expression matching all host names Part-DB should be reachable under, e.g. based on the host name you used to access this page. Note that the required quoting differs depending on where you set it:</target>
+      </segment>
+    </unit>
+    <unit id="ie4thSr" name="system.trusted_hosts.unconfigured.env_example">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.env_example</source>
+        <target>In your &lt;code&gt;.env.local&lt;/code&gt; file, the value must be wrapped in single quotes:</target>
+      </segment>
+    </unit>
+    <unit id="ni3hSTN" name="system.trusted_hosts.unconfigured.docker_example">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.docker_example</source>
+        <target>In &lt;code&gt;docker-compose.yaml&lt;/code&gt;, the value must NOT be quoted:</target>
       </segment>
     </unit>
     <unit id="cEwxoSj" name="info_providers.provider_key">

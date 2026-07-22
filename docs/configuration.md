@@ -265,9 +265,15 @@ See the [information providers]({% link usage/information_provider_system.md %})
   should be accessible. If accessed via a hostname not matching the regex, an error page will be shown instead. By default this
   is empty, meaning Part-DB accepts requests for any host name, which is not recommended for production use.
 
-  For example, if Part-DB should only be reachable under `part-db.example.invalid`, set:
+  For example, if Part-DB should only be reachable under `part-db.example.invalid`, set the following in your
+  `.env.local` file (the value must be wrapped in single quotes here):
   ```
   TRUSTED_HOSTS='^(part-db\.example\.invalid)$'
+  ```
+  If you set `TRUSTED_HOSTS` as an environment variable in your `docker-compose.yaml` instead, the value must
+  **not** be quoted:
+  ```
+  TRUSTED_HOSTS=^(part-db\.example\.invalid)$
   ```
   You can specify multiple host names separated by `|`, e.g. `^(localhost|part-db\.example\.invalid)$`.
   Part-DB displays a warning on the homepage (visible to administrators only) as long as this value is not set.

@@ -23,12 +23,16 @@
         <p>Try following things:</p>
         <ul>
             <li>Ensure that you are using the correct URL to access Part-DB.</li>
-            <li>Set the <code>TRUSTED_HOSTS</code> environment variable in your <code>.env.local</code> file (or your docker-compose environment) to a regular expression matching all host names Part-DB should be reachable under, e.g.
-                {% if seen_host %}
-                    <code>TRUSTED_HOSTS='^({{ seen_host|replace({'.': '\\.'}) }})$'</code> (if <code>{{ seen_host }}</code> is a host name you trust)
-                {% else %}
-                    <code>TRUSTED_HOSTS='^(localhost|example\.com)$'</code>
-                {% endif %}
+            <li>Set the <code>TRUSTED_HOSTS</code> environment variable to a regular expression matching all host names Part-DB should be reachable under. Note that the required quoting differs depending on where you set it:
+                <ul>
+                    {% if seen_host %}
+                        <li>In your <code>.env.local</code> file, the value must be wrapped in single quotes: <code>TRUSTED_HOSTS='^({{ seen_host|replace({'.': '\\.'}) }})$'</code> (if <code>{{ seen_host }}</code> is a host name you trust)</li>
+                        <li>In <code>docker-compose.yaml</code>, the value must NOT be quoted: <code>TRUSTED_HOSTS=^({{ seen_host|replace({'.': '\\.'}) }})$</code> (if <code>{{ seen_host }}</code> is a host name you trust)</li>
+                    {% else %}
+                        <li>In your <code>.env.local</code> file, the value must be wrapped in single quotes: <code>TRUSTED_HOSTS='^(localhost|example\.com)$'</code></li>
+                        <li>In <code>docker-compose.yaml</code>, the value must NOT be quoted: <code>TRUSTED_HOSTS=^(localhost|example\.com)$</code></li>
+                    {% endif %}
+                </ul>
             </li>
             <li>If Part-DB is running behind a reverse proxy, also make sure that <code>TRUSTED_PROXIES</code> is configured correctly, so the original host name is forwarded properly.</li>
             <li>Run <kbd>php bin/console cache:clear</kbd> after changing the configuration.</li>

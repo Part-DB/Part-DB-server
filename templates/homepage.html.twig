@@ -98,9 +98,12 @@
     {% if trusted_hosts_unconfigured and is_granted('@system.server_infos') %}
         <div class="alert alert-warning" role="alert">
             <h5><i class="fa-solid fa-triangle-exclamation fa-fw"></i> {% trans %}system.trusted_hosts.unconfigured.title{% endtrans %}</h5>
-            <p class="mb-1">{% trans %}system.trusted_hosts.unconfigured.message{% endtrans %}</p>
-            <p class="mb-0">{% trans %}system.trusted_hosts.unconfigured.suggestion{% endtrans %}
-                <br><code>TRUSTED_HOSTS='^({{ app.request.host|replace({'.': '\\.'}) }})$'</code></p>
+            <p class="mb-1">{% trans %}system.trusted_hosts.unconfigured.message{% endtrans %}
+                {% trans %}system.trusted_hosts.unconfigured.suggestion{% endtrans %}</p>
+            <p class="mb-0">{% trans %}system.trusted_hosts.unconfigured.env_example{% endtrans %}
+                <code>TRUSTED_HOSTS='^({{ app.request.host|replace({'.': '\\.'}) }})$'</code></p>
+            <p class="mb-0">{% trans %}system.trusted_hosts.unconfigured.docker_example{% endtrans %}
+                <code>TRUSTED_HOSTS=^({{ app.request.host|replace({'.': '\\.'}) }})$</code></p>
             <small>{% trans %}update_manager.new_version_available.only_administrators_can_see{% endtrans %}</small>
         </div>
     {% endif %}
