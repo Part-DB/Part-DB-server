@@ -81,9 +81,10 @@ class StructuralElementProcessorsTest extends WebTestCase
         self::assertGreaterThanOrEqual(7, count($result));
         foreach ($result as $overview) {
             self::assertInstanceOf(StructuralElementOverview::class, $overview);
-            //The list tool is a lean id+name overview only
+            //The list tool is a lean id+name+full_path overview only
             self::assertIsInt($overview->id);
             self::assertIsString($overview->name);
+            self::assertIsString($overview->full_path);
         }
     }
 
@@ -96,6 +97,8 @@ class StructuralElementProcessorsTest extends WebTestCase
 
         self::assertCount(1, $result);
         self::assertSame('Node 3', $result[0]->name);
+        //Node 3 is a root node, so its full path is just its own name
+        self::assertSame('Node 3', $result[0]->full_path);
 
         $node3 = $this->em->getRepository(Category::class)->findOneBy(['name' => 'Node 3']);
         self::assertSame($node3->getID(), $result[0]->id);
@@ -111,6 +114,47 @@ class StructuralElementProcessorsTest extends WebTestCase
         self::assertCount(1, $result);
         self::assertInstanceOf(StructuralElementOverview::class, $result[0]);
         self::assertSame('Node 3', $result[0]->name);
+    }
+
+    public function testListIncludesFullPathForNestedElements(): void
+    {
+        $result = $this->listProcessor->process(
+            new StructuralElementSearchInput(keyword: 'Node 1.1.1'),
+            $this->getOperationForClass(Category::class)
+        );
+
+        self::assertCount(1, $result);
+        self::assertSame('Node 1.1.1', $result[0]->name);
+        self::assertSame('Node 1 → Node 1.1 → Node 1.1.1', $result[0]->full_path);
+    }
+
+    public function testListIsSortedByFullPathSoParentsPrecedeTheirChildren(): void
+    {
+        $result = $this->listProcessor->process(new StructuralElementSearchInput(), $this->getOperationForClass(Category::class));
+
+        $fullPaths = array_map(static fn (StructuralElementOverview $overview): string => $overview->full_path, $result);
+
+        //The list must be sorted by full_path itself, not e.g. by name
+        $sorted = $fullPaths;
+        sort($sorted, SORT_NATURAL | SORT_FLAG_CASE);
+        self::assertSame($sorted, $fullPaths);
+
+        //Since parent paths are always a prefix of their children's paths, sorting by full_path means
+        //"Node 1" is immediately followed by all of its descendants ("Node 1 → ...") before any sibling
+        //root node that sorts after "Node 1" (e.g. "Node 2") appears.
+        $node1Index = array_search('Node 1', $fullPaths, true);
+        $node11Index = array_search('Node 1 → Node 1.1', $fullPaths, true);
+        $node111Index = array_search('Node 1 → Node 1.1 → Node 1.1.1', $fullPaths, true);
+        $node2Index = array_search('Node 2', $fullPaths, true);
+
+        self::assertNotFalse($node1Index);
+        self::assertNotFalse($node11Index);
+        self::assertNotFalse($node111Index);
+        self::assertNotFalse($node2Index);
+
+        self::assertLessThan($node11Index, $node1Index);
+        self::assertLessThan($node111Index, $node11Index);
+        self::assertLessThan($node2Index, $node111Index);
     }
 
     public function testListRejectsNonStructuralResourceClass(): void
@@ -183,7 +227,7 @@ class StructuralElementProcessorsTest extends WebTestCase
         self::assertNotNull($operation, sprintf('mcp tool "%s" not found on %s', $toolName, $entityClass));
 
         $serializer = self::getContainer()->get(SerializerInterface::class);
-        $overview = new StructuralElementOverview(id: 123, name: 'Regression test node');
+        $overview = new StructuralElementOverview(id: 123, name: 'Regression test node', full_path: 'Parent → Regression test node');
 
         $result = $serializer->serialize([$overview], 'jsonld', [
             'groups' => $operation->getNormalizationContext()['groups'] ?? null,
@@ -195,7 +239,8 @@ class StructuralElementProcessorsTest extends WebTestCase
         self::assertArrayHasKey('hydra:member', $decoded);
         self::assertSame(123, $decoded['hydra:member'][0]['id'] ?? null);
         self::assertSame('Regression test node', $decoded['hydra:member'][0]['name'] ?? null);
-        //The list_X tools are a lean id+name overview - no JSON-LD "@id"/"@type" clutter per item
+        self::assertSame('Parent → Regression test node', $decoded['hydra:member'][0]['full_path'] ?? null);
+        //The list_X tools are a lean overview - no JSON-LD "@id"/"@type" clutter per item
         self::assertArrayNotHasKey('@id', $decoded['hydra:member'][0]);
         self::assertArrayNotHasKey('@type', $decoded['hydra:member'][0]);
     }

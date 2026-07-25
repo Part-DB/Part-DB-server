@@ -86,7 +86,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     mcp: [
         'list_storage_locations' => new McpToolCollection(
             title: 'List/search storage locations',
-            description: 'List all storage locations, optionally filtered by a keyword matched against the name and comment. Storage locations describe where parts are physically stored.',
+            description: 'List all storage locations, optionally filtered by a keyword matched against the name and comment. Storage locations describe where parts are physically stored. Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
             output: StructuralElementOverview::class,
             normalizationContext: ['groups' => ['mcp_structural_overview:read']],

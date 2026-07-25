@@ -42,6 +42,9 @@ readonly class StructuralElementOverview
         /** @var string The name of the element */
         #[Groups(['mcp_structural_overview:read'])]
         public string $name,
+        /** @var string The full path of the element (including the names of all its parent elements, e.g. "Parent → Child") */
+        #[Groups(['mcp_structural_overview:read'])]
+        public string $full_path,
     ) {
     }
 }

@@ -27,18 +27,20 @@ use ApiPlatform\State\ProcessorInterface;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Mcp\DTO\StructuralElementOverview;
 use App\Mcp\DTO\StructuralElementSearchInput;
+use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Generic list/search processor shared by all structural "master data" entities (categories, footprints,
  * manufacturers, storage locations, suppliers, measurement units, part custom states). The concrete entity
  * class is determined from the operation, so this single processor can be reused for all of them.
- * Returns a lean id+name overview only; use the corresponding get_X_details tool for full details.
+ * Returns a lean id+name+full_path overview only; use the corresponding get_X_details tool for full details.
  */
-class ListStructuralElementsProcessor implements ProcessorInterface
+readonly class ListStructuralElementsProcessor implements ProcessorInterface
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
+        private EntityManagerInterface $entityManager,
+        private NodesListBuilder $nodesListBuilder,
     ) {
     }
 
@@ -56,23 +58,41 @@ class ListStructuralElementsProcessor implements ProcessorInterface
             throw new \LogicException(sprintf('%s can only be used for resources extending %s', self::class, AbstractStructuralDBElement::class));
         }
 
-        $qb = $this->entityManager->getRepository($class)->createQueryBuilder('element');
-        $qb->select('element.id AS id', 'element.name AS name');
+        if ($data->keyword === null || $data->keyword === '') {
+            //Without a filter, use the (cached) NodesListBuilder, which already returns the elements in
+            //correct hierarchical tree order (parents immediately followed by their own children), instead
+            //of fetching everything and re-sorting it ourselves.
+            /** @var AbstractStructuralDBElement[] $elements */
+            $elements = $this->nodesListBuilder->typeToNodesList($class);
 
-        if ($data->keyword !== null && $data->keyword !== '') {
-            //Escape % and _ characters in the keyword, like PartSearchFilter does
-            $keyword = str_replace(['%', '_'], ['\%', '\_'], $data->keyword);
-            $qb->andWhere('ILIKE(element.name, :keyword) = TRUE OR ILIKE(element.comment, :keyword) = TRUE')
-                ->setParameter('keyword', '%'.$keyword.'%');
+            return array_map($this->toOverview(...), $elements);
         }
 
-        $qb->orderBy('element.name', 'ASC');
+        $qb = $this->entityManager->getRepository($class)->createQueryBuilder('element');
 
-        $rows = $qb->getQuery()->getArrayResult();
+        //Escape % and _ characters in the keyword, like PartSearchFilter does
+        $keyword = str_replace(['%', '_'], ['\%', '\_'], $data->keyword);
+        $qb->andWhere('ILIKE(element.name, :keyword) = TRUE OR ILIKE(element.comment, :keyword) = TRUE')
+            ->setParameter('keyword', '%'.$keyword.'%');
 
-        return array_map(
-            static fn (array $row): StructuralElementOverview => new StructuralElementOverview(id: $row['id'], name: $row['name']),
-            $rows
+        /** @var AbstractStructuralDBElement[] $elements */
+        $elements = $qb->getQuery()->getResult();
+
+        $overviews = array_map($this->toOverview(...), $elements);
+
+        //Sort by full path (rather than the DB query), so that parents are always immediately followed by
+        //their own children, allowing clients to derive the hierarchical structure from a flat list.
+        usort($overviews, static fn (StructuralElementOverview $a, StructuralElementOverview $b): int => strnatcasecmp($a->full_path, $b->full_path));
+
+        return $overviews;
+    }
+
+    private function toOverview(AbstractStructuralDBElement $element): StructuralElementOverview
+    {
+        return new StructuralElementOverview(
+            id: $element->getID(),
+            name: $element->getName(),
+            full_path: $element->getFullPath(),
         );
     }
 }

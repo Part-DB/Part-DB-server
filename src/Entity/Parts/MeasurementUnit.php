@@ -90,7 +90,7 @@ use Symfony\Component\Validator\Constraints\Length;
     mcp: [
         'list_measurement_units' => new McpToolCollection(
             title: 'List/search measurement units',
-            description: 'List all measurement units, optionally filtered by a keyword matched against the name and comment. Measurement units describe how the amount of a part is measured (e.g. pieces, meters, grams).',
+            description: 'List all measurement units, optionally filtered by a keyword matched against the name and comment. Measurement units describe how the amount of a part is measured (e.g. pieces, meters, grams). Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
             output: StructuralElementOverview::class,
             normalizationContext: ['groups' => ['mcp_structural_overview:read']],

@@ -38,15 +38,18 @@ final class StructuralElementOverviewNormalizerTest extends TestCase
 
     public function testNormalize(): void
     {
-        $overview = new StructuralElementOverview(id: 42, name: 'Test Node');
+        $overview = new StructuralElementOverview(id: 42, name: 'Test Node', full_path: 'Parent → Test Node');
 
-        //Must be a plain array with exactly id+name, no JSON-LD "@id"/"@type" clutter
-        $this->assertSame(['id' => 42, 'name' => 'Test Node'], $this->service->normalize($overview));
+        //Must be a plain array with exactly id+name+full_path, no JSON-LD "@id"/"@type" clutter
+        $this->assertSame(
+            ['id' => 42, 'name' => 'Test Node', 'full_path' => 'Parent → Test Node'],
+            $this->service->normalize($overview)
+        );
     }
 
     public function testSupportsNormalization(): void
     {
         $this->assertFalse($this->service->supportsNormalization(new \stdClass()));
-        $this->assertTrue($this->service->supportsNormalization(new StructuralElementOverview(id: 1, name: 'X')));
+        $this->assertTrue($this->service->supportsNormalization(new StructuralElementOverview(id: 1, name: 'X', full_path: 'X')));
     }
 }

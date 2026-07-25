@@ -27,10 +27,10 @@ use App\Mcp\DTO\StructuralElementOverview;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
- * Normalizes StructuralElementOverview as a plain {id, name} object, without the JSON-LD "@id"/"@type"
- * metadata that ApiPlatform\JsonLd\Serializer\ItemNormalizer would otherwise add (as a blank/genid node,
- * since this DTO is intentionally not an API resource). That metadata is useless clutter for the list_X
- * MCP tools, whose whole point is a lean id+name overview.
+ * Normalizes StructuralElementOverview as a plain {id, name, full_path} object, without the JSON-LD
+ * "@id"/"@type" metadata that ApiPlatform\JsonLd\Serializer\ItemNormalizer would otherwise add (as a
+ * blank/genid node, since this DTO is intentionally not an API resource). That metadata is useless
+ * clutter for the list_X MCP tools, whose whole point is a lean overview.
  *
  * @see \App\Tests\Serializer\StructuralElementOverviewNormalizerTest
  */
@@ -42,7 +42,7 @@ class StructuralElementOverviewNormalizer implements NormalizerInterface
     }
 
     /**
-     * @return array{id: int, name: string}
+     * @return array{id: int, name: string, full_path: string}
      */
     public function normalize($object, ?string $format = null, array $context = []): array
     {
@@ -53,6 +53,7 @@ class StructuralElementOverviewNormalizer implements NormalizerInterface
         return [
             'id' => $object->id,
             'name' => $object->name,
+            'full_path' => $object->full_path,
         ];
     }
 

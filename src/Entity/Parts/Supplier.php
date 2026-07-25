@@ -90,7 +90,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     mcp: [
         'list_suppliers' => new McpToolCollection(
             title: 'List/search suppliers',
-            description: 'List all suppliers, optionally filtered by a keyword matched against the name and comment.',
+            description: 'List all suppliers, optionally filtered by a keyword matched against the name and comment. Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
             output: StructuralElementOverview::class,
             normalizationContext: ['groups' => ['mcp_structural_overview:read']],

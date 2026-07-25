@@ -77,7 +77,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     mcp: [
         'list_part_custom_states' => new McpToolCollection(
             title: 'List/search part custom states',
-            description: 'List all part custom states, optionally filtered by a keyword matched against the name and comment. Custom states are used to mark parts with a custom status (e.g. "obsolete", "needs review").',
+            description: 'List all part custom states, optionally filtered by a keyword matched against the name and comment. Custom states are used to mark parts with a custom status (e.g. "obsolete", "needs review"). Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
             output: StructuralElementOverview::class,
             normalizationContext: ['groups' => ['mcp_structural_overview:read']],
