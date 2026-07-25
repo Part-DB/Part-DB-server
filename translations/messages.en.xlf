@@ -13799,5 +13799,11 @@ Buerklin-API Authentication server:
         <target>Use MCP tools (for AI agents)</target>
       </segment>
     </unit>
+    <unit id="ced_8yl" name="api.api_endpoints.mcp_url">
+      <segment>
+        <source>api.api_endpoints.mcp_url</source>
+        <target>MCP endpoint</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
