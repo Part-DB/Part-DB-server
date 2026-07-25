@@ -3215,10 +3215,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         stdio?: bool|Param, // Default: false
  *         http?: bool|Param, // Default: false
  *     },
- *     discovery?: array{
- *         scan_dirs?: list<scalar|Param|null>,
- *         exclude_dirs?: list<scalar|Param|null>,
- *     },
  *     apps?: array{ // MCP Apps support (interactive HTML UI resources). Apps are registered with the #[AsMcpApp] attribute.
  *         enabled?: bool|Param|null, // Default: null
  *     },
