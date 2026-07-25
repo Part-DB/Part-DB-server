@@ -34,7 +34,9 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\UserSystem\User;
+use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Mcp\DTO\ElementByIdInput;
 use App\Mcp\DTO\StructuralElementOverview;
 use App\Mcp\DTO\StructuralElementSearchInput;
@@ -202,6 +204,68 @@ class StructuralElementProcessorsTest extends WebTestCase
     }
 
     /**
+     * get_project_details is the only get_X_details tool whose entity (Project) has a substantial nested
+     * collection (bom_entries) worth exposing. Since bom_entries -> part is a relation to the (very large)
+     * Part entity, the mcp_project_details:read group deliberately does NOT pull in the "full"/"part:read"
+     * groups on Part, so that each bom entry's part reference stays a lean id+name reference instead of
+     * exploding into the part's whole object graph (category, storage locations, lots, ...).
+     */
+    public function testGetProjectDetailsSerializesBomEntriesWithLeanPartReference(): void
+    {
+        $project = $this->em->getRepository(Project::class)->findOneBy(['name' => 'Node 1']);
+        self::assertNotNull($project);
+
+        $part = $this->em->getRepository(Part::class)->findOneBy([]);
+        self::assertNotNull($part);
+
+        $bomEntry = (new ProjectBOMEntry())->setPart($part)->setQuantity(3)->setMountnames('R1,R2,R3');
+        $project->addBomEntry($bomEntry);
+        $this->em->persist($bomEntry);
+        $this->em->flush();
+
+        $resourceMetadataCollectionFactory = self::getContainer()->get(ResourceMetadataCollectionFactoryInterface::class);
+        $metadata = $resourceMetadataCollectionFactory->create(Project::class);
+
+        $operation = null;
+        foreach ($metadata as $resource) {
+            foreach ($resource->getMcp() ?? [] as $mcp) {
+                if ($mcp instanceof McpTool && $mcp->getName() === 'get_project_details') {
+                    $operation = $mcp;
+                }
+            }
+        }
+        self::assertNotNull($operation);
+
+        $result = $this->getProcessor->process(new ElementByIdInput($project->getID()), $operation);
+
+        $serializer = self::getContainer()->get(SerializerInterface::class);
+        $json = $serializer->serialize($result, 'jsonld', [
+            'groups' => $operation->getNormalizationContext()['groups'] ?? null,
+            'resource_class' => Project::class,
+            'operation' => $operation,
+        ]);
+        $decoded = json_decode($json, true, flags: \JSON_THROW_ON_ERROR);
+
+        self::assertArrayHasKey('bom_entries', $decoded);
+        $entry = null;
+        foreach ($decoded['bom_entries'] as $candidate) {
+            if ($candidate['id'] === $bomEntry->getId()) {
+                $entry = $candidate;
+            }
+        }
+        self::assertNotNull($entry, 'Newly added bom entry not found in serialized output');
+
+        self::assertEquals(3.0, $entry['quantity']);
+        self::assertSame('R1,R2,R3', $entry['mountnames']);
+        self::assertArrayHasKey('part', $entry);
+        self::assertSame($part->getID(), $entry['part']['id']);
+        self::assertSame($part->getName(), $entry['part']['name']);
+        //The part reference must stay lean (id+name only) - it must NOT explode into the part's full object graph
+        self::assertArrayNotHasKey('category', $entry['part']);
+        self::assertArrayNotHasKey('partLots', $entry['part']);
+    }
+
+    /**
      * Regression test: a list_X tool's output must actually serialize id+name through the real
      * pipeline (JSON-LD normalizer with the operation's own normalizationContext), not just when the
      * processor is called directly. Previously, list_X operations had no normalizationContext of their
@@ -257,5 +321,6 @@ class StructuralElementProcessorsTest extends WebTestCase
         yield 'suppliers' => [Supplier::class, 'list_suppliers'];
         yield 'measurement_units' => [MeasurementUnit::class, 'list_measurement_units'];
         yield 'part_custom_states' => [PartCustomState::class, 'list_part_custom_states'];
+        yield 'projects' => [Project::class, 'list_projects'];
     }
 }
