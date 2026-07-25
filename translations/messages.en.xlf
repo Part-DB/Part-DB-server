@@ -13793,5 +13793,11 @@ Buerklin-API Authentication server:
         <target>Warning: Changing values here can break the  info retrieval mechanism! You should use the "update from  info provider" functionality whenever possible.</target>
       </segment>
     </unit>
+    <unit id="bNrxe9i" name="perm.api.use_mcp">
+      <segment>
+        <source>perm.api.use_mcp</source>
+        <target>Use MCP tools (for AI agents)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
