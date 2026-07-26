@@ -1,12 +1,13 @@
 ## OAuth2 authorization server used for API/MCP app auto-provisioning (see docs/api/authentication.md).
 #
-# The bundle's own persistence layer (its Client/AccessToken/RefreshToken/AuthCode Doctrine entities) is
-# NOT used - "persistence: in_memory" here just satisfies the bundle's config schema (it registers a set
-# of trivial in-memory managers that some of the bundle's console commands/services still need to exist,
-# even though we never use them). The actual League\OAuth2\Server\Repositories\* interfaces are overridden
-# in config/services.yaml to point at our own Doctrine-backed repositories (App\Security\OAuth\Repository),
-# which make an OAuth2 access token just be a regular App\Entity\UserSystem\ApiToken row - see
-# App\Security\OAuth\Repository\AccessTokenRepository for why.
+# Uses the bundle's own Doctrine persistence (its Client/AccessToken/RefreshToken/AuthorizationCode
+# entities, tables prefixed "oauth2_") rather than custom entities/repositories, so upstream bundle
+# upgrades keep this working without us having to touch repository code every time (as happened going
+# from league/oauth2-server 8.5 to 9.2). OAuth-issued tokens are therefore a distinct credential type
+# from App\Entity\UserSystem\ApiToken (Personal Access Tokens) - see App\Security\OAuth\OAuthBearerAuthenticator
+# for how incoming requests are routed to the right validator, and role_prefix below for how OAuth scopes
+# end up granting the exact same ROLE_API_* roles the existing permission system (config/permissions.yaml)
+# already understands.
 league_oauth2_server:
     authorization_server:
         private_key: '%kernel.project_dir%/var/oauth2/private.key'
@@ -26,18 +27,24 @@ league_oauth2_server:
         enable_refresh_token_grant: true
         require_code_challenge_for_public_clients: true
         revoke_refresh_tokens: true
-        response_type_class: App\Security\OAuth\OpaqueBearerTokenResponse
+        # No response_type_class override: access tokens are real JWTs (the bundle's default). Clients
+        # only ever treat access_token as an opaque string per the OAuth2 spec, so this is not a
+        # compatibility concern - and it means the RSA keypair below is actually used, unlike the earlier
+        # custom-repository design.
     resource_server:
-        # Unused: we protect /api and /mcp with our own App\Security\ApiTokenAuthenticator, not the
-        # bundle's resource-server/security integration. Still required by the bundle's config schema.
         public_key: '%kernel.project_dir%/var/oauth2/public.key'
     scopes:
-        # Scopes are just the existing App\Entity\UserSystem\ApiTokenLevel enum - see App\Security\OAuth\OAuthScope.
+        # Scopes map 1:1 onto the existing App\Entity\UserSystem\ApiTokenLevel enum names. Combined with
+        # role_prefix below, an OAuth token scoped "edit" ends up with role ROLE_API_EDIT - the exact same
+        # role App\Entity\UserSystem\ApiTokenLevel::EDIT grants a Personal Access Token, so
+        # config/permissions.yaml's apiTokenRole mappings apply unchanged to both credential types (see
+        # App\Services\UserSystem\VoterHelper for the permission-ceiling check both types go through).
         available: ['read_only', 'edit', 'admin', 'full']
         default: ['read_only']
     persistence:
-        in_memory: ~
+        doctrine:
+            table_prefix: 'oauth2_'
     client:
-        # Irrelevant to us (we bypass the bundle's own client model entirely - see the top comment),
-        # set to false just to silence the bundle's deprecation notice for the true default.
         allow_plaintext_secrets: false
+    # Roles end up as ROLE_API_<SCOPE>, e.g. ROLE_API_READ_ONLY - see the "scopes" comment above.
+    role_prefix: 'ROLE_API_'

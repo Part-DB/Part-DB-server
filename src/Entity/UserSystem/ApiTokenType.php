@@ -32,13 +32,6 @@ enum ApiTokenType: string
     case PERSONAL_ACCESS_TOKEN = 'tcp';
 
     /**
-     * A token issued through the OAuth2 authorization code flow (see src/Security/OAuth), rather than
-     * created manually by a user. Functionally just an ApiToken like any other; the prefix only exists
-     * so the UI can tell them apart.
-     */
-    case OAUTH_ACCESS_TOKEN = 'oat';
-
-    /**
      * Get the prefix of the token including the underscore
      * @return string
      */
@@ -59,5 +52,21 @@ enum ApiTokenType: string
             throw new \InvalidArgumentException('Invalid token format');
         }
         return self::from($parts[0]);
+    }
+
+    /**
+     * Checks if the given string looks like one of our own tokens (i.e. has a recognized prefix),
+     * without throwing. Used by App\Security\ApiTokenAuthenticator and
+     * App\Security\OAuth\OAuthBearerAuthenticator to decide, up front, which of the two authenticators
+     * should even attempt to handle a given bearer credential.
+     */
+    public static function isRecognizedToken(string $token): bool
+    {
+        try {
+            self::getTypeFromToken($token);
+            return true;
+        } catch (\InvalidArgumentException|\ValueError) {
+            return false;
+        }
     }
 }

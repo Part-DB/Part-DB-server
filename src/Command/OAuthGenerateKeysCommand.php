@@ -34,10 +34,10 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
  * Generates the RSA keypair required by league/oauth2-server-bundle's AuthorizationServer (for API/MCP
- * app auto-provisioning, see config/packages/league_oauth2_server.yaml). This keypair is only used by
- * the underlying library's (unused, in our setup) JWT-signing code path - see
- * App\Security\OAuth\OpaqueBearerTokenResponse - so its content is not otherwise security-critical, but
- * the library still requires a syntactically valid keypair to exist at the configured paths.
+ * app auto-provisioning, see config/packages/league_oauth2_server.yaml). Unlike an inert placeholder,
+ * this keypair actually signs the JWT access tokens handed to OAuth clients - keep the private key
+ * secret and do not regenerate it while tokens signed with the old one are still outstanding (they
+ * would fail validation against the new public key).
  */
 #[AsCommand('partdb:oauth:generate-keys', 'Generates the RSA keypair used by the OAuth2 authorization server (for API/MCP app auto-provisioning)')]
 class OAuthGenerateKeysCommand extends Command
@@ -61,7 +61,7 @@ class OAuthGenerateKeysCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         if (!$input->getOption('force') && (is_file($this->privateKeyPath) || is_file($this->publicKeyPath))) {
-            $io->error('A keypair already exists. Use --force to overwrite it (this invalidates nothing, since the keypair is not used to sign anything a client relies on - see OpaqueBearerTokenResponse).');
+            $io->error('A keypair already exists. Use --force to overwrite it - note this invalidates every outstanding OAuth2 access token, since they are JWTs signed with the old private key.');
 
             return Command::FAILURE;
         }
