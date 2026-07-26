@@ -75,6 +75,8 @@ class Element14Provider implements InfoProviderInterface, URLHandlerInfoProvider
                 ProviderCapabilities::BASIC,
                 ProviderCapabilities::PICTURE,
                 ProviderCapabilities::DATASHEET,
+                ProviderCapabilities::PRICE,
+                ProviderCapabilities::PARAMETERS,
             ],
         );
     }

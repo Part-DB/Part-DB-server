@@ -62,6 +62,7 @@ class LCSCProvider implements BatchInfoProviderInterface, URLHandlerInfoProvider
                 ProviderCapabilities::DATASHEET,
                 ProviderCapabilities::PRICE,
                 ProviderCapabilities::FOOTPRINT,
+                ProviderCapabilities::PARAMETERS
             ],
         );
     }

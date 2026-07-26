@@ -69,6 +69,7 @@ readonly class ConradProvider implements InfoProviderInterface, URLHandlerInfoPr
                 ProviderCapabilities::PRICE,
                 ProviderCapabilities::FOOTPRINT,
                 ProviderCapabilities::GTIN,
+                ProviderCapabilities::PARAMETERS
             ],
         );
     }

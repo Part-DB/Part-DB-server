@@ -182,6 +182,7 @@ class OctopartProvider implements InfoProviderInterface
                 ProviderCapabilities::PICTURE,
                 ProviderCapabilities::DATASHEET,
                 ProviderCapabilities::PRICE,
+                ProviderCapabilities::PARAMETERS
             ],
             expensive: true,
         );

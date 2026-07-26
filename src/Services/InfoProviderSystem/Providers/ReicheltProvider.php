@@ -65,6 +65,7 @@ class ReicheltProvider implements InfoProviderInterface
                 ProviderCapabilities::DATASHEET,
                 ProviderCapabilities::PRICE,
                 ProviderCapabilities::GTIN,
+                ProviderCapabilities::PARAMETERS
             ],
         );
     }

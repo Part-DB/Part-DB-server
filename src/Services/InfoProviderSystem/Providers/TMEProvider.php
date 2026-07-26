@@ -65,6 +65,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
                 ProviderCapabilities::PICTURE,
                 ProviderCapabilities::DATASHEET,
                 ProviderCapabilities::PRICE,
+                ProviderCapabilities::PARAMETERS
             ],
         );
     }

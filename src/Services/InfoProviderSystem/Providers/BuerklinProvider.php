@@ -192,6 +192,7 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
                 //ProviderCapabilities::DATASHEET, // currently not implemented
                 ProviderCapabilities::PRICE,
                 ProviderCapabilities::FOOTPRINT,
+                ProviderCapabilities::PARAMETERS
             ],
         );
     }
