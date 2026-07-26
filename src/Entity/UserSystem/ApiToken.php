@@ -30,6 +30,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Contracts\TimeStampableInterface;
+use App\Entity\UserSystem\OAuth\OAuthClient;
 use App\Repository\UserSystem\ApiTokenRepository;
 use App\State\CurrentApiTokenProvider;
 use App\Validator\Constraints\Year2038BugWorkaround;
@@ -90,6 +91,15 @@ class ApiToken implements TimeStampableInterface
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     #[Groups('token:read')]
     private ?\DateTimeImmutable $last_time_used = null;
+
+    /**
+     * The OAuth2 client this token was issued to, if it originates from the OAuth authorization code
+     * flow (see src/Security/OAuth) rather than being manually created by the user.
+     */
+    #[ORM\ManyToOne(targetEntity: OAuthClient::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
+    #[Groups('token:read')]
+    private ?OAuthClient $oauthClient = null;
 
     public function __construct(ApiTokenType $tokenType = ApiTokenType::PERSONAL_ACCESS_TOKEN)
     {
@@ -195,5 +205,15 @@ class ApiToken implements TimeStampableInterface
         return substr($this->token, -4);
     }
 
+    public function getOauthClient(): ?OAuthClient
+    {
+        return $this->oauthClient;
+    }
+
+    public function setOauthClient(?OAuthClient $oauthClient): self
+    {
+        $this->oauthClient = $oauthClient;
+        return $this;
+    }
 
 }

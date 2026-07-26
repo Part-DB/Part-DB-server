@@ -140,6 +140,22 @@ services:
             $update_group_on_login: '%env(bool:SAML_UPDATE_GROUP_ON_LOGIN)%'
 
 
+    ####################################################################################################################
+    # OAuth2 authorization server (auto-provisioning of API/MCP tokens, see docs/api/authentication.md)
+    #
+    # league/oauth2-server-bundle provides the /authorize and /token routes/controllers and builds the
+    # League\OAuth2\Server\AuthorizationServer service from config/packages/league_oauth2_server.yaml, but
+    # its own persistence layer is not used (see that file's top comment) - these overrides point the
+    # core league/oauth2-server repository interfaces at our own Doctrine-backed implementations instead
+    # of the bundle's, so an OAuth2 access token stays a plain App\Entity\UserSystem\ApiToken row.
+    ####################################################################################################################
+
+    League\OAuth2\Server\Repositories\ClientRepositoryInterface: '@App\Security\OAuth\Repository\ClientRepository'
+    League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface: '@App\Security\OAuth\Repository\AccessTokenRepository'
+    League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface: '@App\Security\OAuth\Repository\RefreshTokenRepository'
+    League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface: '@App\Security\OAuth\Repository\AuthCodeRepository'
+    League\OAuth2\Server\Repositories\ScopeRepositoryInterface: '@App\Security\OAuth\Repository\ScopeRepository'
+
     security.access_token_extractor.header.token:
         class: Symfony\Component\Security\Http\AccessToken\HeaderAccessTokenExtractor
         arguments:

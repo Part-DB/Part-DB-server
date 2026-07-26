@@ -32,6 +32,13 @@ enum ApiTokenType: string
     case PERSONAL_ACCESS_TOKEN = 'tcp';
 
     /**
+     * A token issued through the OAuth2 authorization code flow (see src/Security/OAuth), rather than
+     * created manually by a user. Functionally just an ApiToken like any other; the prefix only exists
+     * so the UI can tell them apart.
+     */
+    case OAUTH_ACCESS_TOKEN = 'oat';
+
+    /**
      * Get the prefix of the token including the underscore
      * @return string
      */

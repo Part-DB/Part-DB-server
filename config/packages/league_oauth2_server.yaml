@@ -1,0 +1,43 @@
+## OAuth2 authorization server used for API/MCP app auto-provisioning (see docs/api/authentication.md).
+#
+# The bundle's own persistence layer (its Client/AccessToken/RefreshToken/AuthCode Doctrine entities) is
+# NOT used - "persistence: in_memory" here just satisfies the bundle's config schema (it registers a set
+# of trivial in-memory managers that some of the bundle's console commands/services still need to exist,
+# even though we never use them). The actual League\OAuth2\Server\Repositories\* interfaces are overridden
+# in config/services.yaml to point at our own Doctrine-backed repositories (App\Security\OAuth\Repository),
+# which make an OAuth2 access token just be a regular App\Entity\UserSystem\ApiToken row - see
+# App\Security\OAuth\Repository\AccessTokenRepository for why.
+league_oauth2_server:
+    authorization_server:
+        private_key: '%kernel.project_dir%/var/oauth2/private.key'
+        private_key_passphrase: null
+        encryption_key: '%env(OAUTH2_ENCRYPTION_KEY)%'
+        encryption_key_type: 'defuse'
+        access_token_ttl: 'PT1H'
+        refresh_token_ttl: 'P30D'
+        auth_code_ttl: 'PT10M'
+        # Only Authorization Code (+ PKCE) and Refresh Token are supported - no client secrets, no
+        # password grant, no implicit grant, no device code.
+        enable_client_credentials_grant: false
+        enable_password_grant: false
+        enable_implicit_grant: false
+        enable_device_code_grant: false
+        enable_auth_code_grant: true
+        enable_refresh_token_grant: true
+        require_code_challenge_for_public_clients: true
+        revoke_refresh_tokens: true
+        response_type_class: App\Security\OAuth\OpaqueBearerTokenResponse
+    resource_server:
+        # Unused: we protect /api and /mcp with our own App\Security\ApiTokenAuthenticator, not the
+        # bundle's resource-server/security integration. Still required by the bundle's config schema.
+        public_key: '%kernel.project_dir%/var/oauth2/public.key'
+    scopes:
+        # Scopes are just the existing App\Entity\UserSystem\ApiTokenLevel enum - see App\Security\OAuth\OAuthScope.
+        available: ['read_only', 'edit', 'admin', 'full']
+        default: ['read_only']
+    persistence:
+        in_memory: ~
+    client:
+        # Irrelevant to us (we bypass the bundle's own client model entirely - see the top comment),
+        # set to false just to silence the bundle's deprecation notice for the true default.
+        allow_plaintext_secrets: false
