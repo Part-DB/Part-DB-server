@@ -11,12 +11,12 @@
                                 {% if provider.providerInfo.url is not empty %}
                                     <a href="{{ provider.providerInfo.url }}" target="_blank">{{ provider.providerInfo.name }}</a>
                                 {% else %}
-                                    {{ provider.providerInfo.name | trans }}
+                                    {{ provider.providerInfo.name }}
                                 {% endif %}
                             </h5>
                             <div>
                                 {% if provider.providerInfo.description is not null %}
-                                    {{ provider.providerInfo.description | trans }}
+                                    {{ provider.providerInfo.description }}
                                 {% endif %}
                             </div>
 
@@ -26,6 +26,12 @@
                                 <a href="{{ path('info_providers_provider_settings', {'provider': provider.providerInfo.key}) }}" class="btn btn-primary btn-sm {% if not is_granted('@config.change_system_settings') %}disabled{% endif %}"
                                    title="{% trans %}info_providers.settings.title{% endtrans %}"
                                 ><i class="fa-solid fa-cog"></i></a>
+                            {% endif %}
+                            {% if provider.providerInfo.expensive %}
+                                <span class="badge bg-warning" title="{% trans %}info_providers.expensive.tooltip{% endtrans %}">
+                                    <i class="fa-fw fa-solid fa-euro-sign"></i>
+                                    {% trans %}info_providers.expensive{% endtrans %}
+                                </span>
                             {% endif %}
                             {% for capability in provider.providerInfo.capabilities|sort((a, b) => a.orderIndex <=> b.orderIndex) %}
                                 {# @var capability \App\Services\InfoProviderSystem\Providers\ProviderCapabilities #}
@@ -46,7 +52,7 @@
                                 <i class="fa-solid fa-circle-exclamation"></i> <b>{% trans %}info_providers.providers_list.disabled{% endtrans %}</b>
                                 {% if provider.providerInfo.disabledHelp is not empty %}
                                     <br>
-                                    <span class="text-muted">{{ provider.providerInfo.disabledHelp|trans }}</span>
+                                    <span class="text-muted">{{ provider.providerInfo.disabledHelp }}</span>
                                 {% endif %}
                             </div>
                         </div>

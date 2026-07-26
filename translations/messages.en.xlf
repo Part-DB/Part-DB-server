@@ -13805,5 +13805,23 @@ Buerklin-API Authentication server:
         <target>MCP endpoint</target>
       </segment>
     </unit>
+    <unit id="a1wK4h_" name="info_providers.capabilities.parameters">
+      <segment>
+        <source>info_providers.capabilities.parameters</source>
+        <target>Parameters</target>
+      </segment>
+    </unit>
+    <unit id="QivC_me" name="info_providers.expensive">
+      <segment>
+        <source>info_providers.expensive</source>
+        <target>Expensive</target>
+      </segment>
+    </unit>
+    <unit id="Hiw406i" name="info_providers.expensive.tooltip">
+      <segment>
+        <source>info_providers.expensive.tooltip</source>
+        <target>Using this info provider can cause additional costs, or has very strict rate limits.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
