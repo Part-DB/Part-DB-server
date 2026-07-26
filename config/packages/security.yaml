@@ -70,6 +70,11 @@ security:
         # We get into trouble with the U2F authentication, if the calls to the trees trigger an 2FA login
         # This settings should not do much harm, because a read only access to show available data structures is not really critical
         - { path: "^/\\w{2}/tree", role: PUBLIC_ACCESS }
+        # The OAuth2 consent screen (see App\EventListener\OAuth\AuthorizationConsentListener) needs a
+        # fully logged-in user - AuthorizationRequestResolveEventFactory throws otherwise. Requiring full
+        # authentication here (rather than relying on is_authenticated()) triggers Symfony's normal
+        # redirect-to-login-then-back flow for anonymous requests, same as the user settings pages.
+        - { path: ^/authorize, role: IS_AUTHENTICATED_FULLY }
         # Restrict access to API to users, which has the API access permission
         - { path: "^/api", allow_if: 'is_granted("@api.access_api") and is_authenticated()' }
         # Restrict access to KICAD to users, which has API access permission

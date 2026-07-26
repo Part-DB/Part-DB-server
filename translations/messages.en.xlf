@@ -13823,5 +13823,41 @@ Buerklin-API Authentication server:
         <target>Using this info provider can cause additional costs, or has very strict rate limits.</target>
       </segment>
     </unit>
+    <unit id="oaAuth01" name="oauth.authorize.title">
+      <segment>
+        <source>oauth.authorize.title</source>
+        <target>Authorize application</target>
+      </segment>
+    </unit>
+    <unit id="oaAuth02" name="oauth.authorize.description">
+      <segment>
+        <source>oauth.authorize.description</source>
+        <target>The application &quot;%client%&quot; wants to access your Part-DB account.</target>
+      </segment>
+    </unit>
+    <unit id="oaAuth03" name="oauth.authorize.scopes_intro">
+      <segment>
+        <source>oauth.authorize.scopes_intro</source>
+        <target>It is requesting the following level of access:</target>
+      </segment>
+    </unit>
+    <unit id="oaAuth04" name="oauth.authorize.revoke_hint">
+      <segment>
+        <source>oauth.authorize.revoke_hint</source>
+        <target>You can revoke this access at any time from your user settings.</target>
+      </segment>
+    </unit>
+    <unit id="oaAuth05" name="oauth.authorize.approve">
+      <segment>
+        <source>oauth.authorize.approve</source>
+        <target>Approve</target>
+      </segment>
+    </unit>
+    <unit id="oaAuth06" name="oauth.authorize.deny">
+      <segment>
+        <source>oauth.authorize.deny</source>
+        <target>Deny</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

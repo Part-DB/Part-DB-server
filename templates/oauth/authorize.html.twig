@@ -1,0 +1,35 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}oauth.authorize.title{% endtrans %}{% endblock %}
+
+{% block card_title %}<h5>
+    <i class="fa-solid fa-key fa-fw" aria-hidden="true"></i>
+    {% trans %}oauth.authorize.title{% endtrans %}
+    </h5>
+{% endblock %}
+
+{% block card_content %}
+    <p>{% trans with {'%client%': client.name} %}oauth.authorize.description{% endtrans %}</p>
+
+    {% if levels is not empty %}
+        <p>{% trans %}oauth.authorize.scopes_intro{% endtrans %}</p>
+        <ul>
+            {% for level in levels %}
+                <li>{{ (level.translationKey)|trans }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <p class="text-muted">{% trans %}oauth.authorize.revoke_hint{% endtrans %}</p>
+
+    <form method="post" action="{{ app.request.requestUri }}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token(csrf_token_id) }}">
+
+        <button type="submit" name="oauth_decision" value="deny" class="btn btn-secondary">
+            {% trans %}oauth.authorize.deny{% endtrans %}
+        </button>
+        <button type="submit" name="oauth_decision" value="approve" class="btn btn-primary">
+            {% trans %}oauth.authorize.approve{% endtrans %}
+        </button>
+    </form>
+{% endblock %}
