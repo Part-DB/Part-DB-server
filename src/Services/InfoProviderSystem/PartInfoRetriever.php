@@ -103,7 +103,7 @@ final class PartInfoRetriever
         //Generate a hash for the options, to ensure that different options result in different cache entries
         $options_hash = hash('xxh3', json_encode($options_without_cache, JSON_THROW_ON_ERROR));
 
-        $cache_key = "search_{$provider->getProviderKey()}_{$escaped_keyword}_{$options_hash}";
+        $cache_key = "search_{$provider->getProviderInfo()->key}_{$escaped_keyword}_{$options_hash}";
 
         //If no_cache is set, bypass the cache and get fresh results from the provider
         if ($no_cache) {

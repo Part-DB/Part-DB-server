@@ -29,6 +29,7 @@ use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\PollinSettings;
@@ -38,6 +39,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class PollinProvider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {
+    public const PROVIDER_KEY = 'pollin';
 
     public function __construct(private readonly HttpClientInterface $client,
         private readonly PollinSettings $settings,
@@ -45,20 +47,22 @@ class PollinProvider implements InfoProviderInterface, URLHandlerInfoProviderInt
     {
     }
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'Pollin',
-            'description' => 'Webscraping from pollin.de to get part information',
-            'url' => 'https://www.pollin.de/',
-            'disabled_help' => 'Enable the provider in provider settings',
-            'settings_class' => PollinSettings::class,
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'pollin';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'Pollin',
+            description: 'Webscraping from pollin.de to get part information',
+            url: 'https://www.pollin.de/',
+            disabledHelp: 'Enable the provider in provider settings',
+            settingsClass: PollinSettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::PRICE,
+                ProviderCapabilities::DATASHEET,
+            ],
+        );
     }
 
     public function isActive(): bool
@@ -88,7 +92,7 @@ class PollinProvider implements InfoProviderInterface, URLHandlerInfoProviderInt
         //Iterate over each div.product-box
         $dom->filter('div.product-box')->each(function (Crawler $node) use (&$results) {
             $results[] = new SearchResultDTO(
-                provider_key: $this->getProviderKey(),
+                provider_key: self::PROVIDER_KEY,
                 provider_id: $node->filter('meta[itemprop="productID"]')->attr('content'),
                 name: $node->filter('a.product-name')->text(),
                 description: '',
@@ -156,7 +160,7 @@ class PollinProvider implements InfoProviderInterface, URLHandlerInfoProviderInt
         $purchaseInfo = new PurchaseInfoDTO('Pollin', $orderId, $this->parsePrices($dom), $productPageUrl);
 
         return new PartDetailDTO(
-            provider_key: $this->getProviderKey(),
+            provider_key: self::PROVIDER_KEY,
             provider_id: $orderId,
             name: trim($dom->filter('meta[property="og:title"]')->attr('content')),
             description: $dom->filter('meta[property="og:description"]')->attr('content'),
@@ -241,16 +245,6 @@ class PollinProvider implements InfoProviderInterface, URLHandlerInfoProviderInt
 
         return [
             new PriceDTO(1.0, $price, $currency)
-        ];
-    }
-
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::PRICE,
-            ProviderCapabilities::DATASHEET
         ];
     }
 

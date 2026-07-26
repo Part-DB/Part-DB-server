@@ -24,6 +24,7 @@ namespace App\Tests\Services\InfoProviderSystem\DTOs;
 
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use PHPUnit\Framework\TestCase;
 
 final class BulkSearchFieldMappingDTOTest extends TestCase
@@ -32,7 +33,7 @@ final class BulkSearchFieldMappingDTOTest extends TestCase
     public function testProviderInstanceNormalization(): void
     {
         $mockProvider = $this->createMock(InfoProviderInterface::class);
-        $mockProvider->method('getProviderKey')->willReturn('mock_provider');
+        $mockProvider->method('getProviderInfo')->willReturn(new ProviderInfoDTO(key: 'mock_provider', name: 'mock_provider'));
 
         $fieldMapping = new BulkSearchFieldMappingDTO(field: 'mpn', providers: ['provider1', $mockProvider], priority: 5);
         $this->assertSame(['provider1', 'mock_provider'], $fieldMapping->providers);

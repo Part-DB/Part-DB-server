@@ -25,6 +25,7 @@ namespace App\Tests\State\Mcp;
 
 use ApiPlatform\Metadata\Get;
 use App\Mcp\DTO\InfoProviderSearchInput;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\DTOtoEntityConverter;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
@@ -69,8 +70,8 @@ final class SearchInfoProvidersProcessorTest extends TestCase
     private function getMockProvider(string $key, bool $active = true): InfoProviderInterface
     {
         $mock = $this->createMock(InfoProviderInterface::class);
-        $mock->method('getProviderKey')->willReturn($key);
         $mock->method('isActive')->willReturn($active);
+        $mock->method('getProviderInfo')->willReturn(new ProviderInfoDTO(key: $key, name: $key));
         $mock->method('searchByKeyword')->willReturn([
             new SearchResultDTO(provider_key: $key, provider_id: '1', name: 'Element 1', description: 'desc'),
         ]);

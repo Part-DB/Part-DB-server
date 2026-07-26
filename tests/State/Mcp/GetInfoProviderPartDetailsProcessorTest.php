@@ -26,6 +26,7 @@ namespace App\Tests\State\Mcp;
 use ApiPlatform\Metadata\Get;
 use App\Mcp\DTO\InfoProviderPartDetailsInput;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOtoEntityConverter;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
@@ -45,14 +46,14 @@ final class GetInfoProviderPartDetailsProcessorTest extends TestCase
     protected function setUp(): void
     {
         $activeProvider = $this->createMock(InfoProviderInterface::class);
-        $activeProvider->method('getProviderKey')->willReturn('test1');
+        $activeProvider->method('getProviderInfo')->willReturn(new ProviderInfoDTO(key: 'test1', name: 'test1'));
         $activeProvider->method('isActive')->willReturn(true);
         $activeProvider->method('getDetails')->willReturn(
             new PartDetailDTO(provider_key: 'test1', provider_id: '42', name: 'Element 42', description: 'desc')
         );
 
         $inactiveProvider = $this->createMock(InfoProviderInterface::class);
-        $inactiveProvider->method('getProviderKey')->willReturn('test2');
+        $inactiveProvider->method('getProviderInfo')->willReturn(new ProviderInfoDTO(key: 'test2', name: 'test2'));
         $inactiveProvider->method('isActive')->willReturn(false);
 
         $providerRegistry = new ProviderRegistry([$activeProvider, $inactiveProvider]);

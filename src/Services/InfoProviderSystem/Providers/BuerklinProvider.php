@@ -28,6 +28,7 @@ use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\BuerklinSettings;
@@ -40,6 +41,7 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
     private const ENDPOINT_URL = 'https://www.buerklin.com/buerklinws/v2/buerklin';
 
     public const DISTRIBUTOR_NAME = 'Buerklin';
+    public const PROVIDER_KEY = 'buerklin';
 
     private const CACHE_TTL = 600;
     /**
@@ -175,20 +177,23 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
     }
 
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'Buerklin',
-            'description' => 'This provider uses the Buerklin API to search for parts.',
-            'url' => 'https://www.buerklin.com/',
-            'disabled_help' => 'Configure the API Client ID, Secret, Username and Password provided by Buerklin in the provider settings to enable.',
-            'settings_class' => BuerklinSettings::class
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'buerklin';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'Buerklin',
+            description: 'This provider uses the Buerklin API to search for parts.',
+            url: 'https://www.buerklin.com/',
+            disabledHelp: 'Configure the API Client ID, Secret, Username and Password provided by Buerklin in the provider settings to enable.',
+            settingsClass: BuerklinSettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::PICTURE,
+                //ProviderCapabilities::DATASHEET, // currently not implemented
+                ProviderCapabilities::PRICE,
+                ProviderCapabilities::FOOTPRINT,
+            ],
+        );
     }
 
     // This provider is considered active if settings are present
@@ -283,7 +288,7 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
         }
 
         return new PartDetailDTO(
-            provider_key: $this->getProviderKey(),
+            provider_key: self::PROVIDER_KEY,
             provider_id: (string) ($product['code'] ?? $code),
 
             name: (string) ($product['manufacturerProductId'] ?? $code),
@@ -507,17 +512,6 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
         $response = $this->getProduct($id, use_cache: !($options[self::OPTION_NO_CACHE] ?? false));
 
         return $this->getPartDetail($response);
-    }
-
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::PICTURE,
-                //ProviderCapabilities::DATASHEET, // currently not implemented
-            ProviderCapabilities::PRICE,
-            ProviderCapabilities::FOOTPRINT,
-        ];
     }
 
     private function complianceToParameters(array $product, ?string $group = 'Compliance'): array

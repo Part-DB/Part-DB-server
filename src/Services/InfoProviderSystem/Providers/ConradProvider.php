@@ -27,6 +27,7 @@ use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\ConradSettings;
@@ -38,6 +39,7 @@ readonly class ConradProvider implements InfoProviderInterface, URLHandlerInfoPr
 
     private const SEARCH_ENDPOINT = '/search/1/v3/facetSearch';
     public const DISTRIBUTOR_NAME = 'Conrad';
+    public const PROVIDER_KEY = 'conrad';
 
     private HttpClientInterface $httpClient;
 
@@ -51,20 +53,24 @@ readonly class ConradProvider implements InfoProviderInterface, URLHandlerInfoPr
         ]);
     }
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'Conrad',
-            'description' => 'Retrieves part information from conrad.de',
-            'url' => 'https://www.conrad.de/',
-            'disabled_help' => 'Set API key in settings',
-            'settings_class' => ConradSettings::class,
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'conrad';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'Conrad',
+            description: 'Retrieves part information from conrad.de',
+            url: 'https://www.conrad.de/',
+            disabledHelp: 'Set API key in settings',
+            settingsClass: ConradSettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::DATASHEET,
+                ProviderCapabilities::PRICE,
+                ProviderCapabilities::FOOTPRINT,
+                ProviderCapabilities::GTIN,
+            ],
+        );
     }
 
     public function isActive(): bool
@@ -111,7 +117,7 @@ readonly class ConradProvider implements InfoProviderInterface, URLHandlerInfoPr
         foreach($results['hits'] as $result) {
 
             $out[] = new SearchResultDTO(
-                provider_key: $this->getProviderKey(),
+                provider_key: self::PROVIDER_KEY,
                 provider_id: $result['productId'],
                 name: $result['manufacturerId'] ?? $result['productId'],
                 description: $result['title'] ?? '',
@@ -293,7 +299,7 @@ readonly class ConradProvider implements InfoProviderInterface, URLHandlerInfoPr
         $data = $response->toArray();
 
         return new PartDetailDTO(
-            provider_key: $this->getProviderKey(),
+            provider_key: self::PROVIDER_KEY,
             provider_id: $data['shortProductNumber'],
             name: $data['productFullInformation']['manufacturer']['name'] ?? $data['productFullInformation']['manufacturer']['id']  ?? $data['shortProductNumber'],
             description: $data['productShortInformation']['title'] ?? '',
@@ -309,18 +315,6 @@ readonly class ConradProvider implements InfoProviderInterface, URLHandlerInfoPr
             parameters: $this->technicalAttributesToParameters($data['productFullInformation']['technicalAttributes'] ?? []),
             vendor_infos: [$this->queryPrices($data['shortProductNumber'])]
         );
-    }
-
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::DATASHEET,
-            ProviderCapabilities::PRICE,
-            ProviderCapabilities::FOOTPRINT,
-            ProviderCapabilities::GTIN,
-        ];
     }
 
     public function getHandledDomains(): array

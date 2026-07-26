@@ -28,6 +28,7 @@ use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\OAuth\OAuthTokenManager;
 use App\Settings\InfoProviderSystem\OctopartSettings;
@@ -43,6 +44,8 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  */
 class OctopartProvider implements InfoProviderInterface
 {
+    public const PROVIDER_KEY = 'octopart';
+
     private const OAUTH_APP_NAME = 'ip_octopart_oauth';
 
     /**
@@ -164,20 +167,23 @@ class OctopartProvider implements InfoProviderInterface
         return $response->toArray(true);
     }
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'Octopart',
-            'description' => 'This provider uses the Nexar/Octopart API to search for parts on Octopart.',
-            'url' => 'https://www.octopart.com/',
-            'disabled_help' => 'Set the Client ID and Secret in provider settings.',
-            'settings_class' => OctopartSettings::class
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'octopart';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'Octopart',
+            description: 'This provider uses the Nexar/Octopart API to search for parts on Octopart.',
+            url: 'https://www.octopart.com/',
+            disabledHelp: 'Set the Client ID and Secret in provider settings.',
+            settingsClass: OctopartSettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::FOOTPRINT,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::DATASHEET,
+                ProviderCapabilities::PRICE,
+            ],
+        );
     }
 
     public function isActive(): bool
@@ -307,7 +313,7 @@ class OctopartProvider implements InfoProviderInterface
         }
 
         return new PartDetailDTO(
-            provider_key: $this->getProviderKey(),
+            provider_key: self::PROVIDER_KEY,
             provider_id: $part['id'],
             name: $part['mpn'],
             description: $part['shortDescription'] ?? null,
@@ -397,14 +403,4 @@ class OctopartProvider implements InfoProviderInterface
         return $tmp;
     }
 
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::FOOTPRINT,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::DATASHEET,
-            ProviderCapabilities::PRICE,
-        ];
-    }
 }

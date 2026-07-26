@@ -28,6 +28,7 @@ use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\ReicheltSettings;
@@ -38,6 +39,7 @@ class ReicheltProvider implements InfoProviderInterface
 {
 
     public const DISTRIBUTOR_NAME = "Reichelt";
+    public const PROVIDER_KEY = 'reichelt';
 
     private readonly HttpClientInterface $client;
 
@@ -48,20 +50,23 @@ class ReicheltProvider implements InfoProviderInterface
         $this->client = new RandomizeUseragentHttpClient($client);
     }
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'Reichelt',
-            'description' => 'Webscraping from reichelt.com to get part information',
-            'url' => 'https://www.reichelt.com/',
-            'disabled_help' => 'Enable provider in provider settings.',
-            'settings_class' => ReicheltSettings::class,
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'reichelt';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'Reichelt',
+            description: 'Webscraping from reichelt.com to get part information',
+            url: 'https://www.reichelt.com/',
+            disabledHelp: 'Enable provider in provider settings.',
+            settingsClass: ReicheltSettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::DATASHEET,
+                ProviderCapabilities::PRICE,
+                ProviderCapabilities::GTIN,
+            ],
+        );
     }
 
     public function isActive(): bool
@@ -93,7 +98,7 @@ class ReicheltProvider implements InfoProviderInterface
             $pictureURL = $element->filter("div.al_artlogo img")->attr('src');
 
             $results[] = new SearchResultDTO(
-                provider_key: $this->getProviderKey(),
+                provider_key: self::PROVIDER_KEY,
                 provider_id: $artId,
                 name: $productID,
                 description: $name,
@@ -173,7 +178,7 @@ class ReicheltProvider implements InfoProviderInterface
 
         //Create part object
         return new PartDetailDTO(
-            provider_key: $this->getProviderKey(),
+            provider_key: self::PROVIDER_KEY,
             provider_id: $id,
             name: $json[0]['article_artnr'],
             description: $json[0]['article_besch'],
@@ -282,14 +287,4 @@ class ReicheltProvider implements InfoProviderInterface
         return 'https://www.reichelt.com/' . strtolower($this->settings->country) . '/' . strtolower($this->settings->language);
     }
 
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::DATASHEET,
-            ProviderCapabilities::PRICE,
-            ProviderCapabilities::GTIN,
-        ];
-    }
 }

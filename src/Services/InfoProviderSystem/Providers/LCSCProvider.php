@@ -28,6 +28,7 @@ use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Settings\InfoProviderSystem\LCSCSettings;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -39,26 +40,30 @@ class LCSCProvider implements BatchInfoProviderInterface, URLHandlerInfoProvider
     private const ENDPOINT_URL = 'https://wmsc.lcsc.com/ftps/wm';
 
     public const DISTRIBUTOR_NAME = 'LCSC';
+    public const PROVIDER_KEY = 'lcsc';
 
     public function __construct(private readonly HttpClientInterface $lcscClient, private readonly LCSCSettings $settings)
     {
 
     }
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'LCSC',
-            'description' => 'This provider uses the (unofficial) LCSC API to search for parts.',
-            'url' => 'https://www.lcsc.com/',
-            'disabled_help' => 'Enable this provider in the provider settings.',
-            'settings_class' => LCSCSettings::class,
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'lcsc';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'LCSC',
+            description: 'This provider uses the (unofficial) LCSC API to search for parts.',
+            url: 'https://www.lcsc.com/',
+            disabledHelp: 'Enable this provider in the provider settings.',
+            settingsClass: LCSCSettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::DATASHEET,
+                ProviderCapabilities::PRICE,
+                ProviderCapabilities::FOOTPRINT,
+            ],
+        );
     }
 
     // This provider is always active
@@ -227,7 +232,7 @@ class LCSCProvider implements BatchInfoProviderInterface, URLHandlerInfoProvider
         }
 
         return new PartDetailDTO(
-            provider_key: $this->getProviderKey(),
+            provider_key: self::PROVIDER_KEY,
             provider_id: $product['productCode'],
             name: $product['productModel'],
             description: $this->sanitizeField($product['productIntroEn']) ?? '',
@@ -453,17 +458,6 @@ class LCSCProvider implements BatchInfoProviderInterface, URLHandlerInfoProvider
         }
 
         return $tmp[0];
-    }
-
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::DATASHEET,
-            ProviderCapabilities::PRICE,
-            ProviderCapabilities::FOOTPRINT,
-        ];
     }
 
     public function getHandledDomains(): array

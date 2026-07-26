@@ -66,8 +66,8 @@ class ProviderSelectType extends AbstractType
 
             $tmp = [];
             foreach ($providers as $provider) {
-                $name = $provider->getProviderInfo()['name'];
-                $tmp[$name] = $provider->getProviderKey();
+                $info = $provider->getProviderInfo();
+                $tmp[$info->name] = $info->key;
             }
 
             return $tmp;
@@ -77,7 +77,7 @@ class ProviderSelectType extends AbstractType
         $resolver->setDefault('choice_label', function (Options $options) {
             if ('object' === $options['input']) {
                 return ChoiceList::label($this, static fn(?InfoProviderInterface $choice
-                ) => new StaticMessage($choice?->getProviderInfo()['name']));
+                ) => new StaticMessage($choice?->getProviderInfo()->name));
             }
 
             return static fn($choice, $key, $value) => new StaticMessage($key);
@@ -85,7 +85,7 @@ class ProviderSelectType extends AbstractType
         $resolver->setDefault('choice_value', function (Options $options) {
             if ('object' === $options['input']) {
                 return ChoiceList::value($this,
-                    static fn(?InfoProviderInterface $choice) => $choice?->getProviderKey());
+                    static fn(?InfoProviderInterface $choice) => $choice?->getProviderInfo()->key);
             }
 
             return null;

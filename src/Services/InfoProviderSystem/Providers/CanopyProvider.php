@@ -26,6 +26,7 @@ namespace App\Services\InfoProviderSystem\Providers;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\BuerklinSettings;
@@ -39,6 +40,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  */
 class CanopyProvider implements InfoProviderInterface
 {
+    public const PROVIDER_KEY = 'canopy';
 
     public const BASE_URL = "https://rest.canopyapi.co/api";
     public const SEARCH_API_URL = self::BASE_URL . "/amazon/search";
@@ -52,20 +54,21 @@ class CanopyProvider implements InfoProviderInterface
 
     }
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'Amazon (Canopy)',
-            'description' => 'Retrieves part infos from Amazon using the Canopy API',
-            'url' => 'https://canopyapi.co',
-            'disabled_help' => 'Set Canopy API key in the provider configuration to enable this provider',
-            'settings_class' => CanopySettings::class
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'canopy';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'Amazon (Canopy)',
+            description: 'Retrieves part infos from Amazon using the Canopy API',
+            url: 'https://canopyapi.co',
+            disabledHelp: 'Set Canopy API key in the provider configuration to enable this provider',
+            settingsClass: CanopySettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::PRICE,
+            ],
+        );
     }
 
     public function isActive(): bool
@@ -131,7 +134,7 @@ class CanopyProvider implements InfoProviderInterface
 
 
             $dto = new PartDetailDTO(
-                provider_key: $this->getProviderKey(),
+                provider_key: self::PROVIDER_KEY,
                 provider_id: $result['asin'],
                 name: $result["title"],
                 description: "",
@@ -209,7 +212,7 @@ class CanopyProvider implements InfoProviderInterface
         }
 
         return new PartDetailDTO(
-            provider_key: $this->getProviderKey(),
+            provider_key: self::PROVIDER_KEY,
             provider_id: $product['asin'],
             name: $product['title'],
             description: '',
@@ -222,12 +225,4 @@ class CanopyProvider implements InfoProviderInterface
         );
     }
 
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::PRICE,
-        ];
-    }
 }

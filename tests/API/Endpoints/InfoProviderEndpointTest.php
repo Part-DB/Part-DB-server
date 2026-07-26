@@ -39,6 +39,16 @@ class InfoProviderEndpointTest extends AuthenticatedApiTestCase
 
         $keys = array_column($json['hydra:member'], 'key');
         self::assertContains('test', $keys);
+
+        //The 'test' provider has a disabledHelp set internally, but it must not leak into the API response
+        $testProvider = $json['hydra:member'][array_search('test', $keys, true)];
+        self::assertArrayHasKey('capabilities', $testProvider);
+        self::assertArrayNotHasKey('disabledHelp', $testProvider);
+        self::assertArrayNotHasKey('oauthAppName', $testProvider);
+        self::assertArrayNotHasKey('settingsClass', $testProvider);
+
+        //Capabilities must serialize as plain enum-name strings, not objects
+        self::assertSame(['BASIC', 'FOOTPRINT'], $testProvider['capabilities']);
     }
 
     public function testListInfoProvidersRequiresAuthentication(): void

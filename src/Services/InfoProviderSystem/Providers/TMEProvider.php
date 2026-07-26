@@ -28,12 +28,14 @@ use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\TMESettings;
 
 class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {
+    public const PROVIDER_KEY = 'tme';
 
     private const VENDOR_NAME = 'TME';
 
@@ -48,20 +50,23 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
         }
     }
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'TME',
-            'description' => 'This provider uses the API of TME (Transfer Multipart).',
-            'url' => 'https://tme.eu/',
-            'disabled_help' => 'Configure the API Token and secret in provider settings to use this provider.',
-            'settings_class' => TMESettings::class
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'tme';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'TME',
+            description: 'This provider uses the API of TME (Transfer Multipart).',
+            url: 'https://tme.eu/',
+            disabledHelp: 'Configure the API Token and secret in provider settings to use this provider.',
+            settingsClass: TMESettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::FOOTPRINT,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::DATASHEET,
+                ProviderCapabilities::PRICE,
+            ],
+        );
     }
 
     public function isActive(): bool
@@ -83,7 +88,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
 
         foreach($data['ProductList'] as $product) {
             $result[] = new SearchResultDTO(
-                provider_key: $this->getProviderKey(),
+                provider_key: self::PROVIDER_KEY,
                 provider_id: $product['Symbol'],
                 name: empty($product['OriginalSymbol']) ? $product['Symbol'] : $product['OriginalSymbol'],
                 description: $product['Description'],
@@ -119,7 +124,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
         $parameters = $this->getParameters($id, $footprint);
 
         return new PartDetailDTO(
-            provider_key: $this->getProviderKey(),
+            provider_key: self::PROVIDER_KEY,
             provider_id: $product['Symbol'],
             name:  empty($product['OriginalSymbol']) ? $product['Symbol'] : $product['OriginalSymbol'],
             description: $product['Description'],
@@ -288,17 +293,6 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
         $url = preg_replace('/%(?![0-9A-Fa-f]{2})/', '%25', $url);
 
         return $url;
-    }
-
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::FOOTPRINT,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::DATASHEET,
-            ProviderCapabilities::PRICE,
-        ];
     }
 
     public function getHandledDomains(): array

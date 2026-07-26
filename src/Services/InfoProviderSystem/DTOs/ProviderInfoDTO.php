@@ -27,11 +27,17 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\McpToolCollection;
 use ApiPlatform\OpenApi\Model\Operation;
 use App\Mcp\DTO\ListInfoProvidersInput;
+use App\Services\InfoProviderSystem\Providers\ProviderCapabilities;
 use App\State\Mcp\ListInfoProvidersProcessor;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * This DTO represents an available info provider (a distributor or manufacturer catalog which can be
- * searched via search_info_providers / get_info_provider_part_details).
+ * Immutable, structured description of an info provider, returned by InfoProviderInterface::getProviderInfo()
+ * and (via the 'info_provider:read' group) exposed as the REST GET /api/info_providers collection and the
+ * list_info_providers MCP tool.
+ *
+ * disabledHelp, oauthAppName and settingsClass are internal-only (used by the settings UI) and deliberately
+ * not tagged with the 'info_provider:read' group, so they never appear in the API/MCP output.
  */
 #[ApiResource(
     uriTemplate: '/info_providers',
@@ -44,6 +50,7 @@ use App\State\Mcp\ListInfoProvidersProcessor;
         ),
     ],
     paginationEnabled: false,
+    normalizationContext: ['groups' => ['info_provider:read']],
     mcp: [
         'list_info_providers' => new McpToolCollection(
             title: 'List available info providers',
@@ -52,21 +59,38 @@ use App\State\Mcp\ListInfoProvidersProcessor;
             input: ListInfoProvidersInput::class,
             security: 'is_granted("@info_providers.create_parts")',
             processor: ListInfoProvidersProcessor::class,
+            normalizationContext: ['groups' => ['info_provider:read']],
         ),
     ],
 )]
-readonly class InfoProviderDTO
+readonly class ProviderInfoDTO
 {
     public function __construct(
-        /** @var string The unique key of the provider, to be used as provider_key in the other info provider tools */
+        /** @var string A unique key for this provider (e.g. "digikey"), which is saved into the database and used to identify the provider */
+        #[Groups(['info_provider:read'])]
         public string $key,
-        /** @var string The (user friendly) name of the provider (e.g. "Digikey") */
+        /** @var string The (user friendly) name of the provider (e.g. "Digikey"), will be translated */
+        #[Groups(['info_provider:read'])]
         public string $name,
-        /** @var string|null A short description of the provider */
+        /** @var string|null A short description of the provider (e.g. "Digikey is a ..."), will be translated */
+        #[Groups(['info_provider:read'])]
         public ?string $description = null,
         /** @var string|null The url of the provider (e.g. "https://www.digikey.com") */
+        #[Groups(['info_provider:read'])]
         public ?string $url = null,
-        /** @var string[] The kinds of data this provider can supply (e.g. "PRICE", "DATASHEET", "PICTURE") */
+        /** @var string|null A help text which is shown when the provider is disabled, explaining how to enable it */
+        public ?string $disabledHelp = null,
+        /** @var string|null The name of the OAuth app which is used for authentication (e.g. "ip_digikey_oauth"). If this is set a connect button will be shown */
+        public ?string $oauthAppName = null,
+        /** @var class-string|null The class name of the settings class which contains the settings for this provider (e.g. "App\Settings\InfoProviderSettings\DigikeySettings"). If this is set a link to the settings will be shown */
+        public ?string $settingsClass = null,
+        /**
+         * A list of capabilities this provider supports (which kind of data it can provide).
+         * Not every part have to contain all of these data, but the provider should be able to provide them in general.
+         * Currently, this list is purely informational and not used in functional checks.
+         * @var ProviderCapabilities[]
+         */
+        #[Groups(['info_provider:read'])]
         public array $capabilities = [],
     ) {
     }

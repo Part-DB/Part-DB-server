@@ -25,7 +25,7 @@ namespace App\Tests\State\Mcp;
 
 use ApiPlatform\Metadata\Get;
 use App\Mcp\DTO\ListInfoProvidersInput;
-use App\Services\InfoProviderSystem\DTOs\InfoProviderDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use App\Services\InfoProviderSystem\Providers\ProviderCapabilities;
 use App\Services\InfoProviderSystem\ProviderRegistry;
@@ -37,20 +37,18 @@ final class ListInfoProvidersProcessorTest extends TestCase
     public function testOnlyActiveProvidersAreListed(): void
     {
         $active = $this->createMock(InfoProviderInterface::class);
-        $active->method('getProviderKey')->willReturn('active_provider');
         $active->method('isActive')->willReturn(true);
-        $active->method('getProviderInfo')->willReturn([
-            'name' => 'Active Provider',
-            'description' => 'A provider that is active',
-            'url' => 'https://example.com',
-        ]);
-        $active->method('getCapabilities')->willReturn([ProviderCapabilities::BASIC, ProviderCapabilities::PRICE]);
+        $active->method('getProviderInfo')->willReturn(new ProviderInfoDTO(
+            key: 'active_provider',
+            name: 'Active Provider',
+            description: 'A provider that is active',
+            url: 'https://example.com',
+            capabilities: [ProviderCapabilities::BASIC, ProviderCapabilities::PRICE],
+        ));
 
         $disabled = $this->createMock(InfoProviderInterface::class);
-        $disabled->method('getProviderKey')->willReturn('disabled_provider');
         $disabled->method('isActive')->willReturn(false);
-        $disabled->method('getProviderInfo')->willReturn(['name' => 'Disabled Provider']);
-        $disabled->method('getCapabilities')->willReturn([]);
+        $disabled->method('getProviderInfo')->willReturn(new ProviderInfoDTO(key: 'disabled_provider', name: 'Disabled Provider'));
 
         $registry = new ProviderRegistry([$active, $disabled]);
         $processor = new ListInfoProvidersProcessor($registry);
@@ -58,11 +56,11 @@ final class ListInfoProvidersProcessorTest extends TestCase
         $result = $processor->process(new ListInfoProvidersInput(), new Get());
 
         $this->assertCount(1, $result);
-        $this->assertInstanceOf(InfoProviderDTO::class, $result[0]);
+        $this->assertInstanceOf(ProviderInfoDTO::class, $result[0]);
         $this->assertSame('active_provider', $result[0]->key);
         $this->assertSame('Active Provider', $result[0]->name);
         $this->assertSame('A provider that is active', $result[0]->description);
         $this->assertSame('https://example.com', $result[0]->url);
-        $this->assertSame(['BASIC', 'PRICE'], $result[0]->capabilities);
+        $this->assertSame([ProviderCapabilities::BASIC, ProviderCapabilities::PRICE], $result[0]->capabilities);
     }
 }

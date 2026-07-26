@@ -25,7 +25,7 @@ namespace App\State\Mcp;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use ApiPlatform\State\ProviderInterface;
-use App\Services\InfoProviderSystem\DTOs\InfoProviderDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 
 /**
@@ -40,7 +40,7 @@ class ListInfoProvidersProcessor implements ProcessorInterface, ProviderInterfac
     }
 
     /**
-     * @return InfoProviderDTO[]
+     * @return ProviderInfoDTO[]
      */
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): array
     {
@@ -48,7 +48,7 @@ class ListInfoProvidersProcessor implements ProcessorInterface, ProviderInterfac
     }
 
     /**
-     * @return InfoProviderDTO[]
+     * @return ProviderInfoDTO[]
      */
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): array
     {
@@ -56,22 +56,14 @@ class ListInfoProvidersProcessor implements ProcessorInterface, ProviderInterfac
     }
 
     /**
-     * @return InfoProviderDTO[]
+     * @return ProviderInfoDTO[]
      */
     private function listActiveProviders(): array
     {
         $result = [];
 
         foreach ($this->providerRegistry->getActiveProviders() as $provider) {
-            $info = $provider->getProviderInfo();
-
-            $result[] = new InfoProviderDTO(
-                key: $provider->getProviderKey(),
-                name: $info['name'],
-                description: $info['description'] ?? null,
-                url: $info['url'] ?? null,
-                capabilities: array_map(static fn ($capability) => $capability->name, $provider->getCapabilities()),
-            );
+            $result[] = $provider->getProviderInfo();
         }
 
         return $result;
