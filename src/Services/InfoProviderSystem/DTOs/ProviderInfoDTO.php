@@ -44,22 +44,22 @@ use Symfony\Component\Serializer\Annotation\Groups;
     description: 'An info provider which can be used to search for parts and retrieve part details.',
     operations: [
         new GetCollection(
+            openapi: new Operation(summary: 'List the info providers which are currently active and can be used for searching parts.'),
             security: 'is_granted("@info_providers.create_parts")',
             provider: ListInfoProvidersProcessor::class,
-            openapi: new Operation(summary: 'List the info providers which are currently active and can be used for searching parts.'),
         ),
     ],
-    paginationEnabled: false,
     normalizationContext: ['groups' => ['info_provider:read']],
+    paginationEnabled: false,
     mcp: [
         'list_info_providers' => new McpToolCollection(
             title: 'List available info providers',
-            description: 'List the info providers (e.g. distributors like Digikey, Mouser, LCSC) which are currently active and can be used with search_info_providers and get_info_provider_part_details.',
+            description: 'List the info providers (e.g. distributors like Digikey, Mouser, LCSC) which are currently active and can be used with search_info_providers and get_info_provider_part_details. Ask for the user\'s confirmation before using expensive providers (e.g. distributors with strict rate limits or which cost money to use).',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
-            input: ListInfoProvidersInput::class,
-            security: 'is_granted("@info_providers.create_parts")',
-            processor: ListInfoProvidersProcessor::class,
             normalizationContext: ['groups' => ['info_provider:read']],
+            security: 'is_granted("@info_providers.create_parts")',
+            input: ListInfoProvidersInput::class,
+            processor: ListInfoProvidersProcessor::class,
         ),
     ],
 )]
@@ -92,6 +92,13 @@ readonly class ProviderInfoDTO
          */
         #[Groups(['info_provider:read'])]
         public array $capabilities = [],
+        /**
+         * @var bool True if this provider is considered "expensive" (e.g. it has a strict rate limit or costs money to use), false otherwise.
+         * Users should be asked for confirmation before using an expensive provider, when making multiple requests (e.g. when searching for multiple parts at once),
+         * and more careful caching should be used for expensive providers.
+         */
+        #[Groups(['info_provider:read'])]
+        public bool $expensive = false,
     ) {
     }
 }

@@ -68,6 +68,7 @@ class CanopyProvider implements InfoProviderInterface
                 ProviderCapabilities::PICTURE,
                 ProviderCapabilities::PRICE,
             ],
+            expensive: true,
         );
     }
 
