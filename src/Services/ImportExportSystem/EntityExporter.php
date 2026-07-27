@@ -569,9 +569,10 @@ class EntityExporter
      *
      * @param Assembly $assembly The assembly being processed.
      * @param int $depth The current depth in the hierarchy.
+     * @param string|null $type The type of the entity being processed.
      * @return array Processed BOM entries and aggregated parts rows.
      */
-    private function processBomEntriesWithAggregatedParts(Assembly $assembly, int $depth): array
+    private function processBomEntriesWithAggregatedParts(Assembly $assembly, int $depth, ?string $type = null): array
     {
         $rows = [];
 
@@ -581,7 +582,7 @@ class EntityExporter
             $rows[] = [
                 'Id' => $assembly->getId(),
                 'ParentId' => '',
-                'Type' => 'assembly_bom_entry',
+                'Type' => $type ?? 'assembly_bom_entry',
                 'AssemblyIpn' => $assembly->getIpn(),
                 'AssemblyStatus' => $bomEntry->getReferencedAssembly() ? $assembly->getStatus() : '-',
                 'AssemblyNameHierarchical' => str_repeat('--', $depth) . '> ' . $assembly->getName(),
@@ -608,38 +609,8 @@ class EntityExporter
             if ($bomEntry->getReferencedAssembly() instanceof Assembly) {
                 $referencedAssembly = $bomEntry->getReferencedAssembly();
 
-                // Get aggregated parts for the referenced assembly
-                $aggregatedParts = $this->assemblyPartAggregator->getAggregatedParts($referencedAssembly, $bomEntry->getQuantity());;
-
-                foreach ($aggregatedParts as $partData) {
-                    $partAssembly = $partData['assembly'] ?? null;
-
-                    $rows[] = [
-                        'Id' => $assembly->getId(),
-                        'ParentId' => '',
-                        'Type' => 'subassembly_part_list',
-                        'AssemblyIpn' => $partAssembly ? $partAssembly->getIpn() : '',
-                        'AssemblyStatus' => $partAssembly ? $partAssembly->getStatus() : '-',
-                        'AssemblyNameHierarchical' => '',
-                        'AssemblyName' => $partAssembly ? $partAssembly->getName() : '',
-                        'AssemblyFullName' => $this->getFullName($partAssembly),
-
-                        //BOM relevant attributes
-                        'Quantity' => $partData['quantity'],
-                        'PartId' => $partData['part']?->getId(),
-                        'PartName' => $partData['part']?->getName(),
-                        'Ipn' => $partData['part']?->getIpn(),
-                        'Manufacturer' => $partData['part']?->getManufacturer()?->getName() ?? '-',
-                        'Mpn' => $partData['part']?->getManufacturerProductNumber(),
-                        'Name' => $partData['name'] ?? '',
-                        'Designator' => $partData['designator'],
-                        'Description' => $partData['part']?->getDescription(),
-                        'ReferencedAssemblyId' => '-',
-                        'ReferencedAssemblyIpn' => '-',
-                        'ReferencedAssemblyStatus' => '-',
-                        'ReferencedAssemblyFullName' => '-',
-                    ];
-                }
+                $subAssemblyRows = $this->processBomEntriesWithAggregatedParts($referencedAssembly, $depth + 1, 'subassembly_part_list');
+                $rows = array_merge($rows, $subAssemblyRows);
             }
         }
 

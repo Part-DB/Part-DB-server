@@ -36,65 +36,6 @@ class AssemblyPartAggregator
     }
 
     /**
-     * Aggregate the required parts and their total quantities for an assembly.
-     *
-     * @param Assembly $assembly The assembly to process.
-     * @param float $multiplier The quantity multiplier from the parent assembly.
-     * @return array Array of parts with their aggregated quantities, keyed by Part ID.
-     */
-    public function getAggregatedParts(Assembly $assembly, float $multiplier): array
-    {
-        $aggregatedParts = [];
-
-        // Start processing the assembly recursively
-        $this->processAssembly($assembly, $multiplier, $aggregatedParts);
-
-        // Return the final aggregated list of parts
-        return $aggregatedParts;
-    }
-
-    /**
-     * Recursive helper to process an assembly and all its BOM entries.
-     *
-     * @param Assembly $assembly The current assembly to process.
-     * @param float $multiplier The quantity multiplier from the parent assembly.
-     * @param array &$aggregatedParts The array to accumulate parts and their quantities.
-     */
-    private function processAssembly(Assembly $assembly, float $multiplier, array &$aggregatedParts): void
-    {
-        /** @var AssemblyBOMEntry $bomEntry */
-        foreach ($assembly->getBomEntries() as $bomEntry) {
-            // If the BOM entry refers to a part, add its quantity
-            if ($bomEntry->getPart() instanceof Part) {
-                $part = $bomEntry->getPart();
-
-                if (!isset($aggregatedParts[$part->getId()])) {
-                    $aggregatedParts[$part->getId()] = [
-                        'part' => $part,
-                        'assembly' => $assembly,
-                        'name' => $bomEntry->getName(),
-                        'designator' => $bomEntry->getDesignator(),
-                        'quantity' => $bomEntry->getQuantity(),
-                        'multiplier' => $multiplier,
-                    ];
-                }
-            } elseif ($bomEntry->getReferencedAssembly() instanceof Assembly) {
-                // If the BOM entry refers to another assembly, process it recursively
-                $this->processAssembly($bomEntry->getReferencedAssembly(), $bomEntry->getQuantity(), $aggregatedParts);
-            } else {
-                $aggregatedParts[] = [
-                    'part' => null,
-                    'assembly' => $assembly,
-                    'name' => $bomEntry->getName(),
-                    'designator' => $bomEntry->getDesignator(),
-                    'quantity' => $bomEntry->getQuantity(),
-                    'multiplier' => $multiplier,
-                ];
-            }
-        }
-    }
-
-    /**
      * Exports a hierarchical Bill of Materials (BOM) for assemblies and parts in a readable format,
      * including the multiplier for each part and assembly.
      *
