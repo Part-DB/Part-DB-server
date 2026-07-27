@@ -88,7 +88,7 @@ class InfoProviderController extends  AbstractController
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
         $providerInstance = $this->providerRegistry->getProviderByKey($provider);
-        $settingsClass = $providerInstance->getProviderInfo()['settings_class'] ?? throw new \LogicException('Provider ' . $provider . ' does not have a settings class defined');
+        $settingsClass = $providerInstance->getProviderInfo()->settingsClass ?? throw new \LogicException('Provider ' . $provider . ' does not have a settings class defined');
 
         //Create a clone of the settings object
         $settings = $this->settingsManager->createTemporaryCopy($settingsClass);

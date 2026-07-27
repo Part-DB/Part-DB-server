@@ -27,6 +27,7 @@ use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\Providers\LCSCProvider;
 use App\Services\InfoProviderSystem\Providers\ProviderCapabilities;
@@ -56,18 +57,10 @@ final class LCSCProviderTest extends TestCase
     {
         $info = $this->provider->getProviderInfo();
 
-        $this->assertIsArray($info);
-        $this->assertArrayHasKey('name', $info);
-        $this->assertArrayHasKey('description', $info);
-        $this->assertArrayHasKey('url', $info);
-        $this->assertArrayHasKey('disabled_help', $info);
-        $this->assertEquals('LCSC', $info['name']);
-        $this->assertEquals('https://www.lcsc.com/', $info['url']);
-    }
-
-    public function testGetProviderKey(): void
-    {
-        $this->assertSame('lcsc', $this->provider->getProviderKey());
+        $this->assertInstanceOf(ProviderInfoDTO::class, $info);
+        $this->assertSame('lcsc', $info->key);
+        $this->assertEquals('LCSC', $info->name);
+        $this->assertEquals('https://www.lcsc.com/', $info->url);
     }
 
     public function testIsActiveWhenEnabled(): void
@@ -86,7 +79,7 @@ final class LCSCProviderTest extends TestCase
 
     public function testGetCapabilities(): void
     {
-        $capabilities = $this->provider->getCapabilities();
+        $capabilities = $this->provider->getProviderInfo()->capabilities;
 
         $this->assertIsArray($capabilities);
         $this->assertContains(ProviderCapabilities::BASIC, $capabilities);

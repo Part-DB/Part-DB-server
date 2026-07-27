@@ -38,3 +38,7 @@ api_platform:
   serializer:
     # Change this to false later, to remove the hydra prefix on the API
     hydra_prefix: true
+
+  mcp:
+    enabled: true # default: true
+    format: jsonld # default: 'jsonld'

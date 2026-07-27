@@ -8,35 +8,41 @@
                     <div class="row">
                         <div class="col-6">
                             <h5>
-                                {% if provider.providerInfo.url is defined and provider.providerInfo.url is not empty %}
+                                {% if provider.providerInfo.url is not empty %}
                                     <a href="{{ provider.providerInfo.url }}" target="_blank">{{ provider.providerInfo.name }}</a>
                                 {% else %}
-                                    {{ provider.providerInfo.name | trans }}
+                                    {{ provider.providerInfo.name }}
                                 {% endif %}
                             </h5>
                             <div>
-                                {% if provider.providerInfo.description is defined and provider.providerInfo.description is not null %}
-                                    {{ provider.providerInfo.description | trans }}
+                                {% if provider.providerInfo.description is not null %}
+                                    {{ provider.providerInfo.description }}
                                 {% endif %}
                             </div>
 
                         </div>
                         <div class="col-6">
-                            {% if provider.providerInfo.settings_class is defined %}
-                                <a href="{{ path('info_providers_provider_settings', {'provider': provider.providerKey}) }}" class="btn btn-primary btn-sm {% if not is_granted('@config.change_system_settings') %}disabled{% endif %}"
+                            {% if provider.providerInfo.settingsClass is not null %}
+                                <a href="{{ path('info_providers_provider_settings', {'provider': provider.providerInfo.key}) }}" class="btn btn-primary btn-sm {% if not is_granted('@config.change_system_settings') %}disabled{% endif %}"
                                    title="{% trans %}info_providers.settings.title{% endtrans %}"
                                 ><i class="fa-solid fa-cog"></i></a>
                             {% endif %}
-                            {% for capability in provider.capabilities|sort((a, b) => a.orderIndex <=> b.orderIndex) %}
+                            {% if provider.providerInfo.expensive %}
+                                <span class="badge bg-warning" title="{% trans %}info_providers.expensive.tooltip{% endtrans %}">
+                                    <i class="fa-fw fa-solid fa-euro-sign"></i>
+                                    {% trans %}info_providers.expensive{% endtrans %}
+                                </span>
+                            {% endif %}
+                            {% for capability in provider.providerInfo.capabilities|sort((a, b) => a.orderIndex <=> b.orderIndex) %}
                                 {# @var capability \App\Services\InfoProviderSystem\Providers\ProviderCapabilities #}
                                 <span class="badge text-bg-secondary">
                                     <i class="{{ capability.fAIconClass }} fa-fw"></i>
                                     {{ capability.translationKey|trans }}
                                 </span>
                             {% endfor %}
-                            {% if provider.providerInfo.oauth_app_name is defined and provider.providerInfo.oauth_app_name is not empty %}
+                            {% if provider.providerInfo.oauthAppName is not empty %}
                                 <br>
-                                <a href="{{ path('oauth_client_connect', {'name': provider.providerInfo.oauth_app_name}) }}" target="_blank" class="btn btn-outline-secondary btn-sm mt-2">{% trans %}oauth_client.connect.btn{% endtrans %}</a>
+                                <a href="{{ path('oauth_client_connect', {'name': provider.providerInfo.oauthAppName}) }}" target="_blank" class="btn btn-outline-secondary btn-sm mt-2">{% trans %}oauth_client.connect.btn{% endtrans %}</a>
                             {% endif %}
                         </div>
                     </div>
@@ -44,9 +50,9 @@
                         <div class="row">
                             <div class="col text-danger">
                                 <i class="fa-solid fa-circle-exclamation"></i> <b>{% trans %}info_providers.providers_list.disabled{% endtrans %}</b>
-                                {% if provider.providerInfo.disabled_help is defined and provider.providerInfo.disabled_help is not empty %}
+                                {% if provider.providerInfo.disabledHelp is not empty %}
                                     <br>
-                                    <span class="text-muted">{{ provider.providerInfo.disabled_help|trans }}</span>
+                                    <span class="text-muted">{{ provider.providerInfo.disabledHelp }}</span>
                                 {% endif %}
                             </div>
                         </div>

@@ -31,13 +31,20 @@ use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\McpTool;
+use ApiPlatform\Metadata\McpToolCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Mcp\DTO\ElementByIdInput;
+use App\Mcp\DTO\StructuralElementOverview;
+use App\Mcp\DTO\StructuralElementSearchInput;
 use App\Repository\Parts\DeviceRepository;
+use App\State\Mcp\GetStructuralElementDetailsProcessor;
+use App\State\Mcp\ListStructuralElementsProcessor;
 use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\ProjectAttachment;
@@ -75,6 +82,28 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
     ],
     normalizationContext: ['groups' => ['project:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['project:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
+    mcp: [
+        'list_projects' => new McpToolCollection(
+            title: 'List/search projects',
+            description: 'List all projects, optionally filtered by a keyword matched against the name and comment. Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list. Use get_project_details for a specific project to retrieve its BOM entries, status and other details.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            output: StructuralElementOverview::class,
+            normalizationContext: ['groups' => ['mcp_structural_overview:read']],
+            input: StructuralElementSearchInput::class,
+            security: 'is_granted("@projects.read")',
+            processor: ListStructuralElementsProcessor::class,
+        ),
+        'get_project_details' => new McpTool(
+            title: 'Get project details by ID',
+            description: 'Get detailed information about a specific project by its database ID, including its BOM entries, status, description and associated build part.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['project:read', 'api:basic:read', 'mcp_project_details:read']],
+            input: ElementByIdInput::class,
+            security: 'is_granted("@projects.read")',
+            validate: true,
+            processor: GetStructuralElementDetailsProcessor::class,
+        ),
+    ],
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]
@@ -98,7 +127,7 @@ class Project extends AbstractStructuralDBElement
      * @var Collection<int, ProjectBOMEntry>
      */
     #[Assert\Valid]
-    #[Groups(['extended', 'full', 'import'])]
+    #[Groups(['extended', 'full', 'import', 'mcp_project_details:read'])]
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: ProjectBOMEntry::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[UniqueObjectCollection(message: 'project.bom_entry.part_already_in_bom', fields: ['part'])]
     #[UniqueObjectCollection(message: 'project.bom_entry.name_already_in_bom', fields: ['name'])]

@@ -49,7 +49,7 @@ readonly class BulkSearchFieldMappingDTO
         //Ensure that providers are provided as keys
         foreach ($providers as &$provider) {
             if ($provider instanceof InfoProviderInterface) {
-                $provider = $provider->getProviderKey();
+                $provider = $provider->getProviderInfo()->key;
             }
             if (!is_string($provider)) {
                 throw new \InvalidArgumentException('Providers must be provided as strings or InfoProviderInterface instances');

@@ -73,7 +73,7 @@ class BrowserPluginController extends AbstractController
             if (isset($activeProviders[$key])) {
                 $urlProviders[] = [
                     'id' => $key,
-                    'label' => $activeProviders[$key]->getProviderInfo()['name'],
+                    'label' => $activeProviders[$key]->getProviderInfo()->name,
                 ];
             }
         }
