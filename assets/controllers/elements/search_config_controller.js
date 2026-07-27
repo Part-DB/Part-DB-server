@@ -19,18 +19,25 @@
 
 import {Controller} from "@hotwired/stimulus";
 
+
+/**
+ * Used to disable the extensive and wildcard search options, when Regex search is enabled.
+ */
 export default class extends Controller
 {
+    static targets = ["regex", "extensive", "wildcard"]
+
     connect() {
-        this.element.addEventListener('change', () => {
+
+        this.regexTarget.addEventListener('change', () => {
             this.updateOthers()
         });
     }
 
     updateOthers() {
-        let value = this.element.checked
-        let ext = document.getElementById('extensive')
-        let wild = document.getElementById('wildcard')
+        let value = this.regexTarget.checked;
+        let ext = this.extensiveTarget;
+        let wild = this.wildcardTarget;
         if (value === null) {
             return;
         }

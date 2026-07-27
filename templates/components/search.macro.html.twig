@@ -5,7 +5,7 @@
             {% if show_label_instead_icon %}{% trans %}search.options.label{% endtrans %}{% else %}<i class="fa-solid fa-gear"></i>{% endif %}
             <span class="caret"></span>
         </button>
-        <div class="dropdown-menu" aria-labelledby="navbar-search-options">
+        <div class="dropdown-menu" aria-labelledby="navbar-search-options" {{ stimulus_controller('elements/search_config') }}>
             <div class="px-2" style="width: max-content;">
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="search_name" name="name" value="1" checked {{ stimulus_controller('elements/localStorage_checkbox') }}>
@@ -67,15 +67,15 @@
                 {% endif %}
                 <hr>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="regex" name="regex" value="1" {{ stimulus_controller('elements/localStorage_checkbox elements/search_config') }}>
+                    <input type="checkbox" class="form-check-input" id="regex" name="regex" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }} {{ stimulus_target('elements/search_config', 'regex') }}>
                     <label for="regex" class="form-check-label justify-content-start">{% trans %}search.regexmatching{% endtrans %}</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="extensive" name="extensive" value="0" {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                    <input type="checkbox" class="form-check-input" id="extensive" name="extensive" value="0" {{ stimulus_controller('elements/localStorage_checkbox') }} {{ stimulus_target('elements/search_config', 'extensive') }}>
                     <label for="extensive" class="form-check-label justify-content-start">{% trans %}search.extensive_matching{% endtrans %}</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="wildcard" name="wildcard" value="0" {{ stimulus_controller('elements/localStorage_checkbox') }}>
+                    <input type="checkbox" class="form-check-input" id="wildcard" name="wildcard" value="0" {{ stimulus_controller('elements/localStorage_checkbox') }} {{ stimulus_target('elements/search_config', 'wildcard') }}>
                     <label for="wildcard" class="form-check-label justify-content-start">{% trans %}search.permit_wildcards{% endtrans %}</label>
                 </div>
             </div>
