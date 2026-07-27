@@ -13743,6 +13743,8 @@ Buerklin-API Authentication server:
       <segment>
         <source>search.permit_wildcards.help</source>
         <target>If enabled, _ is treated as a wildcard for one character and % is treated as a wildcard for zero or more characters.</target>
+        </segment>
+    </unit>
     <unit id="OP7MacF" name="system.trusted_hosts.unconfigured.title">
       <segment state="translated">
         <source>system.trusted_hosts.unconfigured.title</source>
