@@ -215,17 +215,18 @@ final class ProjectBuildHelperTest extends WebTestCase
         $entry->setPart($this->makePartWithPrice(1.50));
         $entry->setQuantity(4);
         $project->addBomEntry($entry);
-        
+
         $subproject = new Project();
         $subentry = new ProjectBOMEntry();
         $subentry->setPart($this->makePartWithPrice(3.5));
         $subentry->setQuantity(2);
-        
+        $subproject->addBomEntry($subentry);
+
         $part = new Part();
         $entry2 = new ProjectBOMEntry();
-        $part->setBuiltProject($subproject);
         $entry2->setPart($part);
         $entry2->setQuantity(2);
+        $part->setBuiltProject($subproject);
         $project->addBomEntry($entry2);
 
         // 4 × 1.50 + 2 x (2 x 3.5) = 20.00 for 1 build
