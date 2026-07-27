@@ -244,7 +244,7 @@ final readonly class ProjectBuildHelper
     private function getBomEntryUnitPrice(ProjectBOMEntry $entry, int $number_of_builds, ?Currency $currency): ?BigDecimal
     {        
         if ($entry->getPart() && $entry->getPart()->getBuiltProject() instanceof Project){
-            return $this->calculateTotalBuildPrice($entry->getPart()->getBuiltProject(), intval($entry->getQuantity()), $entry->getPriceCurrency());
+            return $this->calculateTotalBuildPrice($entry->getPart()->getBuiltProject(), 1, $entry->getPriceCurrency());
         }
         
         if ($entry->getPart() instanceof Part) {
