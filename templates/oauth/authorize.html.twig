@@ -22,7 +22,7 @@
 
     <p class="text-muted">{% trans %}oauth.authorize.revoke_hint{% endtrans %}</p>
 
-    <form method="post" action="{{ app.request.requestUri }}">
+    <form method="post" action="{{ app.request.requestUri }}" data-turbo="false" data-turbo-frame="_top">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token(csrf_token_id) }}">
 
         <button type="submit" name="oauth_decision" value="deny" class="btn btn-secondary">
