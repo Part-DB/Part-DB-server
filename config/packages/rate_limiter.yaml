@@ -1,0 +1,10 @@
+framework:
+    rate_limiter:
+        # Guards the open RFC 7591 Dynamic Client Registration endpoint (App\Controller\OAuth\ClientRegistrationController)
+        # against abuse (mass client creation) - registration itself requires no authentication by design
+        # (any client may self-register; the real gate is the per-user consent screen at /authorize), so
+        # this is the only throttle standing between it and the internet.
+        oauth_client_registration:
+            policy: 'sliding_window'
+            limit: 20
+            interval: '1 hour'

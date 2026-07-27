@@ -75,6 +75,12 @@ security:
         # authentication here (rather than relying on is_authenticated()) triggers Symfony's normal
         # redirect-to-login-then-back flow for anonymous requests, same as the user settings pages.
         - { path: ^/authorize, role: IS_AUTHENTICATED_FULLY }
+        # RFC 7591 Dynamic Client Registration (App\Controller\OAuth\ClientRegistrationController) is
+        # deliberately open/unauthenticated - see that class's docblock. Rate-limited, not access-controlled.
+        - { path: ^/oauth/register, role: PUBLIC_ACCESS }
+        # Note: RFC 8414/9728 discovery metadata under /.well-known/ needs no entry here - the "dev"
+        # firewall above already matches ^/\.well-known/ with security:false (fully public, no
+        # AccessListener at all), which is where those requests actually get handled.
         # Restrict access to API to users, which has the API access permission
         - { path: "^/api", allow_if: 'is_granted("@api.access_api") and is_authenticated()' }
         # Restrict access to KICAD to users, which has API access permission

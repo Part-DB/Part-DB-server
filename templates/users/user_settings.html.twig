@@ -79,5 +79,6 @@
 
     {% if is_granted("@api.access_api") %}
         {% include "users/_api_tokens.html.twig" %}
+        {% include "users/_oauth_connected_apps.html.twig" %}
     {% endif %}
 {% endblock %}
