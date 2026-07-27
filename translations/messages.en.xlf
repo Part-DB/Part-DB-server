@@ -10035,6 +10035,24 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Server settings</target>
       </segment>
     </unit>
+    <unit id="ZDiR5ya" name="settings.misc.mcp">
+      <segment state="translated">
+        <source>settings.misc.mcp</source>
+        <target>MCP (Model Context Protocol) Server</target>
+      </segment>
+    </unit>
+    <unit id="CdFWDgN" name="settings.misc.mcp.enabled">
+      <segment state="translated">
+        <source>settings.misc.mcp.enabled</source>
+        <target>Enable MCP endpoint</target>
+      </segment>
+    </unit>
+    <unit id="Gyos.5e" name="settings.misc.mcp.enabled.help">
+      <segment state="translated">
+        <source>settings.misc.mcp.enabled.help</source>
+        <target>Enable the MCP (Model Context Protocol) endpoint at /mcp, which allows AI assistants to interact with Part-DB.</target>
+      </segment>
+    </unit>
     <unit id="xtw_ol7" name="settings.misc.kicad_eda">
       <segment state="translated">
         <source>settings.misc.kicad_eda</source>
@@ -13773,6 +13791,36 @@ Buerklin-API Authentication server:
       <segment state="translated">
         <source>part.edit.provider_reference.warning</source>
         <target>Warning: Changing values here can break the  info retrieval mechanism! You should use the "update from  info provider" functionality whenever possible.</target>
+      </segment>
+    </unit>
+    <unit id="bNrxe9i" name="perm.api.use_mcp">
+      <segment state="translated">
+        <source>perm.api.use_mcp</source>
+        <target>Use MCP tools (for AI agents)</target>
+      </segment>
+    </unit>
+    <unit id="ced_8yl" name="api.api_endpoints.mcp_url">
+      <segment state="translated">
+        <source>api.api_endpoints.mcp_url</source>
+        <target>MCP endpoint</target>
+      </segment>
+    </unit>
+    <unit id="a1wK4h_" name="info_providers.capabilities.parameters">
+      <segment state="translated">
+        <source>info_providers.capabilities.parameters</source>
+        <target>Parameters</target>
+      </segment>
+    </unit>
+    <unit id="QivC_me" name="info_providers.expensive">
+      <segment state="translated">
+        <source>info_providers.expensive</source>
+        <target>Expensive</target>
+      </segment>
+    </unit>
+    <unit id="Hiw406i" name="info_providers.expensive.tooltip">
+      <segment state="translated">
+        <source>info_providers.expensive.tooltip</source>
+        <target>Using this info provider can cause additional costs, or has very strict rate limits.</target>
       </segment>
     </unit>
   </file>
