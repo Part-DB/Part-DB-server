@@ -242,7 +242,11 @@ final readonly class ProjectBuildHelper
      * taking bulk pricing into account for N builds.
      */
     private function getBomEntryUnitPrice(ProjectBOMEntry $entry, int $number_of_builds, ?Currency $currency): ?BigDecimal
-    {
+    {        
+        if ($entry->getPart() && $entry->getPart()->getBuiltProject() instanceof Project){
+            return $this->calculateTotalBuildPrice($entry->getPart()->getBuiltProject(), 1, $entry->getPriceCurrency());
+        }
+        
         if ($entry->getPart() instanceof Part) {
             $total_qty = $entry->getQuantity() * $number_of_builds;
             $min_order = $this->pricedetailHelper->getMinOrderAmount($entry->getPart());
