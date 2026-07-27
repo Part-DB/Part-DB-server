@@ -208,6 +208,32 @@ final class ProjectBuildHelperTest extends WebTestCase
         $this->assertTrue(BigDecimal::of('6.00')->isEqualTo($result));
     }
 
+    public function testCalculateTotalBuildPriceWithBuildPartFromSubproject(): void
+    {
+        $project = new Project();
+        $entry = new ProjectBOMEntry();
+        $entry->setPart($this->makePartWithPrice(1.50));
+        $entry->setQuantity(4);
+        $project->addBomEntry($entry);
+        
+        $subproject = new Project();
+        $subproject->setParent($project);
+        $subentry = new ProjectBOMEntry();
+        $subentry->setPart($this->makePartWithPrice(3.5));
+        $subentry->setQuantity(2);
+        
+        $entry2 = new ProjectBOMEntry();
+        $entry2->setPart(new Part());
+        $entry2->setQuantity(2);
+        $subproject->setBuildPart($entry2);
+        $project->addBomEntry($entry2);
+
+        // 4 × 1.50 + 2 x (2 x 3.5) = 20.00 for 1 build
+        $result = $this->service->calculateTotalBuildPrice($project, 1);
+        $this->assertNotNull($result);
+        $this->assertTrue(BigDecimal::of('20.00')->isEqualTo($result));
+    }
+    
     public function testCalculateUnitBuildPriceEqualsTotal(): void
     {
         $project = new Project();
