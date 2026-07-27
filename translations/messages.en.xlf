@@ -648,6 +648,12 @@ Sub elements will be moved upwards.</target>
         <target>Export this parameter as an EDA field</target>
       </segment>
     </unit>
+    <unit id="Nx6h9XW" name="specifications.eda_symbol_visibility.help">
+      <segment state="translated">
+        <source>specifications.eda_symbol_visibility.help</source>
+        <target>Make this parameter field visible in the schematic symbol</target>
+      </segment>
+    </unit>
     <unit id="XclPxI9" name="specification.create">
       <segment state="translated">
         <source>specification.create</source>
@@ -13041,6 +13047,18 @@ Buerklin-API Authentication server:
       <segment state="translated">
         <source>settings.misc.kicad_eda.default_parameter_visibility.help</source>
         <target>EDA visibility for all [part] parameters who does not have an explicit visibility set. When enabled all parameters will be visible in the EDA software by default.</target>
+      </segment>
+    </unit>
+    <unit id="XchzDpI" name="settings.misc.kicad_eda.default_parameter_symbol_visibility">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_symbol_visibility</source>
+        <target>Default symbol visibility of parameters</target>
+      </segment>
+    </unit>
+    <unit id="zLHkPCx" name="settings.misc.kicad_eda.default_parameter_symbol_visibility.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_symbol_visibility.help</source>
+        <target>Whether exported [part] parameter fields that do not have an explicit symbol visibility set are shown in the schematic symbol (the KiCad field's "visible" flag). Only affects parameters that are already exported as EDA fields.</target>
       </segment>
     </unit>
     <unit id="J6pYnaC" name="settings.misc.kicad_eda.default_orderdetails_visibility">
