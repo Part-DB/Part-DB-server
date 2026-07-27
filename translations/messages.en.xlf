@@ -13667,5 +13667,17 @@ Buerklin-API Authentication server:
         <target>You can use this randomly generated value (share it with nobody):</target>
       </segment>
     </unit>
+    <unit id="pJfdMQU" name="search.extensive_matching">
+      <segment>
+        <source>search.extensive_matching</source>
+        <target>Extensive Matching</target>
+      </segment>
+    </unit>
+    <unit id="YO2ZB66" name="search.permit_wildcards">
+      <segment>
+        <source>search.permit_wildcards</source>
+        <target>Treat &lt;code&gt;%&lt;/code&gt; and &lt;code&gt;_&lt;/code&gt; as wildcards</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
