@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
-  <file id="messages.en">
+  <file id="messages.de">
     <unit id="x_wTSQS" name="attachment_type.caption">
       <segment state="translated">
         <source>attachment_type.caption</source>
@@ -10034,6 +10034,24 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Servereinstellungen</target>
       </segment>
     </unit>
+    <unit id="ZDiR5ya" name="settings.misc.mcp">
+      <segment state="translated">
+        <source>settings.misc.mcp</source>
+        <target>MCP (Model Context Protocol) Server</target>
+      </segment>
+    </unit>
+    <unit id="CdFWDgN" name="settings.misc.mcp.enabled">
+      <segment state="translated">
+        <source>settings.misc.mcp.enabled</source>
+        <target>MCP-Endpunkt aktivieren</target>
+      </segment>
+    </unit>
+    <unit id="Gyos.5e" name="settings.misc.mcp.enabled.help">
+      <segment state="translated">
+        <source>settings.misc.mcp.enabled.help</source>
+        <target>Aktiviert den MCP-Endpunkt (Model Context Protocol) unter /mcp, der es KI-Assistenten ermöglicht, mit Part-DB zu interagieren.</target>
+      </segment>
+    </unit>
     <unit id="xtw_ol7" name="settings.misc.kicad_eda">
       <segment state="translated">
         <source>settings.misc.kicad_eda</source>
@@ -13617,6 +13635,36 @@ Buerklin-API-Authentication-Server:
         <target>Host-URL</target>
       </segment>
     </unit>
+    <unit id="UeFbCNh" name="settings.ai.ollama">
+      <segment state="translated">
+        <source>settings.ai.ollama</source>
+        <target>Ollama</target>
+      </segment>
+    </unit>
+    <unit id="9nfJ_vr" name="settings.ai.ollama.endpoint">
+      <segment state="translated">
+        <source>settings.ai.ollama.endpoint</source>
+        <target>Endpoint URL</target>
+      </segment>
+    </unit>
+    <unit id="67dSwE5" name="settings.ai.ollama.apiKey">
+      <segment state="translated">
+        <source>settings.ai.ollama.apiKey</source>
+        <target>API Key</target>
+      </segment>
+    </unit>
+    <unit id="VxXEQUD" name="settings.ai.timeout">
+      <segment state="translated">
+        <source>settings.ai.timeout</source>
+        <target>Timeout</target>
+      </segment>
+    </unit>
+    <unit id="vRgtpoJ" name="settings.ai.timeout.help">
+      <segment state="translated">
+        <source>settings.ai.timeout.help</source>
+        <target>Maximale Wartezeit in Sekunden auf eine Antwort. Die lokale KI-Inferenz kann mehrere Minuten dauern, die Inferenz in der Cloud ist in der Regel schneller.</target>
+      </segment>
+    </unit>
     <unit id="kuDv.So" name="browser_plugin.recent_pages.title">
       <segment state="translated">
         <source>browser_plugin.recent_pages.title</source>
@@ -13663,6 +13711,84 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>system.app_secret.insecure.suggestion</source>
         <target>Sie können diesen zufällig generierten Wert verwenden (geben Sie ihn niemandem weiter):</target>
+      </segment>
+    </unit>
+    <unit id="OP7MacF" name="system.trusted_hosts.unconfigured.title">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.title</source>
+        <target>TRUSTED_HOSTS nicht konfiguriert</target>
+      </segment>
+    </unit>
+    <unit id="88NkHLV" name="system.trusted_hosts.unconfigured.message">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.message</source>
+        <target>Die Umgebungsvariable &lt;code&gt;TRUSTED_HOSTS&lt;/code&gt; ist nicht gesetzt. Das bedeutet, dass Part-DB Anfragen für jeden beliebigen Hostnamen akzeptiert, was ein Sicherheitsrisiko darstellen kann (z. B. HTTP-Host-Header-Injection). Es wird empfohlen, dies auf die Hostnamen zu beschränken, unter denen Part-DB tatsächlich erreichbar ist.</target>
+      </segment>
+    </unit>
+    <unit id="qZ_kgWT" name="system.trusted_hosts.unconfigured.suggestion">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.suggestion</source>
+        <target>Legen Sie einen regulären Ausdruck fest, der alle Hostnamen abdeckt, unter denen Part-DB erreichbar sein soll, z. B. basierend auf dem Hostnamen, den Sie für den Zugriff auf diese Seite verwendet haben. Beachten Sie, dass die erforderliche Anführungszeichen-Schreibweise davon abhängt, wo Sie den Wert setzen:</target>
+      </segment>
+    </unit>
+    <unit id="ie4thSr" name="system.trusted_hosts.unconfigured.env_example">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.env_example</source>
+        <target>In Ihrer Datei &lt;code&gt;.env.local&lt;/code&gt; muss der Wert in einfache Anführungszeichen eingeschlossen werden:</target>
+      </segment>
+    </unit>
+    <unit id="ni3hSTN" name="system.trusted_hosts.unconfigured.docker_example">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.docker_example</source>
+        <target>In &lt;code&gt;docker-compose.yaml&lt;/code&gt; darf der Wert NICHT in Anführungszeichen stehen:</target>
+      </segment>
+    </unit>
+    <unit id="cEwxoSj" name="info_providers.provider_key">
+      <segment state="translated">
+        <source>info_providers.provider_key</source>
+        <target>Informationsquelle</target>
+      </segment>
+    </unit>
+    <unit id="0sjPRNV" name="info_providers.provider_id">
+      <segment state="translated">
+        <source>info_providers.provider_id</source>
+        <target>Provider ID</target>
+      </segment>
+    </unit>
+    <unit id="2DzzAxZ" name="info_providers.provider_url">
+      <segment state="translated">
+        <source>info_providers.provider_url</source>
+        <target>Provider URL</target>
+      </segment>
+    </unit>
+    <unit id="4v3QmF6" name="part.edit.provider_reference">
+      <segment state="translated">
+        <source>part.edit.provider_reference</source>
+        <target>Referenz auf Informationsquelle</target>
+      </segment>
+    </unit>
+    <unit id="9X2qEi7" name="log.element_edited.changed_fields.providerReference.provider_key">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.providerReference.provider_key</source>
+        <target>Informationsquelle</target>
+      </segment>
+    </unit>
+    <unit id="MWXgWDb" name="log.element_edited.changed_fields.providerReference.provider_id">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.providerReference.provider_id</source>
+        <target>Provider ID</target>
+      </segment>
+    </unit>
+    <unit id="83fSFvo" name="part.info_provider_reference.updated_never">
+      <segment state="translated">
+        <source>part.info_provider_reference.updated_never</source>
+        <target>Niemals aktualisiert</target>
+      </segment>
+    </unit>
+    <unit id="yIK_Wtj" name="part.edit.provider_reference.warning">
+      <segment state="translated">
+        <source>part.edit.provider_reference.warning</source>
+        <target>Warnung: Das Ändern der Werte an dieser Stelle kann den Mechanismus zum Abrufen von Informationen beeinträchtigen! Sie sollten nach Möglichkeit die Funktion „Von Informationsquelle aktualisieren“ verwenden.</target>
       </segment>
     </unit>
   </file>

@@ -101,6 +101,28 @@ final class EntityExporterTest extends WebTestCase
         unlink($tempFile);
     }
 
+    public function testExportExcelFormulaInjectionPrevention(): void
+    {
+        // Values starting with formula characters must be stored as plain strings, not evaluated formulas
+        $entity = (new Category())->setName('=1+1')->setComment('@SUM(A1)');
+
+        $xlsxData = $this->service->exportEntities([$entity], ['format' => 'xlsx', 'level' => 'simple']);
+        $this->assertNotEmpty($xlsxData);
+
+        $tempFile = tempnam(sys_get_temp_dir(), 'test_formula') . '.xlsx';
+        file_put_contents($tempFile, $xlsxData);
+
+        $spreadsheet = IOFactory::load($tempFile);
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        // The formula-prefixed name must be stored as a plain string, not a formula
+        $cell = $worksheet->getCell('A2');
+        $this->assertSame(\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING, $cell->getDataType());
+        $this->assertSame('=1+1', $cell->getValue());
+
+        unlink($tempFile);
+    }
+
     public function testExportExcelFromRequest(): void
     {
         $entities = $this->getEntities();

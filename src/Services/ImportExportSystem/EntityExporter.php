@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Services\ImportExportSystem;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Helpers\FilenameSanatizer;
@@ -179,7 +180,11 @@ class EntityExporter
 
             foreach ($columns as $column) {
                 $cellCoordinate = Coordinate::stringFromColumnIndex($colIndex) . $rowIndex;
-                $worksheet->setCellValue($cellCoordinate, $column);
+                if (is_numeric(trim($column, '"'))) { // Check if the column value is numeric after trimming quotes, as values are surrounded by quotes in CSV
+                    $worksheet->setCellValueExplicit($cellCoordinate, $column, DataType::TYPE_NUMERIC);
+                } else {
+                    $worksheet->setCellValueExplicit($cellCoordinate, $column, DataType::TYPE_STRING);
+                }
                 $colIndex++;
             }
             $rowIndex++;
@@ -268,7 +273,7 @@ class EntityExporter
 
             //Remove percent for fallback
             $fallback = str_replace("%", "_", $filename);
-            
+
             // Create the disposition of the file
             $disposition = $response->headers->makeDisposition(
                 ResponseHeaderBag::DISPOSITION_ATTACHMENT,

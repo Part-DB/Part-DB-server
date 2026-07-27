@@ -55,5 +55,23 @@
         <target>Почати!</target>
       </segment>
     </unit>
+    <unit id="dBtnOk01" name="dialog.btn.ok">
+      <segment state="translated">
+        <source>dialog.btn.ok</source>
+        <target>ОК</target>
+      </segment>
+    </unit>
+    <unit id="dBtnCcl1" name="dialog.btn.cancel">
+      <segment state="translated">
+        <source>dialog.btn.cancel</source>
+        <target>Скасувати</target>
+      </segment>
+    </unit>
+    <unit id="dBtnDny1" name="dialog.btn.deny">
+      <segment state="translated">
+        <source>dialog.btn.deny</source>
+        <target>Ні</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

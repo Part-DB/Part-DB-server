@@ -20,16 +20,16 @@
 
 declare(strict_types=1);
 
-use Symfony\Config\DoctrineConfig;
-
 /**
- * This class extends the default doctrine ORM configuration to enable native lazy objects on PHP 8.4+.
+ * This file enables native lazy objects on PHP 8.4+.
  * We have to do this in a PHP file, because the yaml file does not support conditionals on PHP version.
+ *
+ * TODO: Remove this file when we drop support for PHP < 8.4
  */
 
-return static function(DoctrineConfig $doctrine) {
-    //On PHP 8.4+ we can use native lazy objects, which are much more efficient than proxies.
-    if (PHP_VERSION_ID >= 80400) {
-        $doctrine->orm()->enableNativeLazyObjects(true);
-    }
-};
+// On PHP 8.4+ we can use native lazy objects, which are much more efficient than proxies.
+if (PHP_VERSION_ID >= 80400) {
+    return ['doctrine' => ['orm' => ['enable_native_lazy_objects' => true]]];
+}
+
+return [];

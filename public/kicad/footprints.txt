@@ -1,4 +1,4 @@
-# Generated on Mon Jun  1 07:07:44 UTC 2026
+# Generated on Mon Jul 27 05:55:56 UTC 2026
 # This file contains all footprints available in the offical KiCAD library
 Audio_Module:Reverb_BTDR-1H
 Audio_Module:Reverb_BTDR-1V
@@ -7732,6 +7732,15 @@ Connector_TE-Connectivity:TE_Micro-MaTch_2-215079-0_2x10_P1.27mm_Vertical
 Connector_TE-Connectivity:TE_Micro-MaTch_215079-4_2x02_P1.27mm_Vertical
 Connector_TE-Connectivity:TE_Micro-MaTch_215079-6_2x03_P1.27mm_Vertical
 Connector_TE-Connectivity:TE_Micro-MaTch_215079-8_2x04_P1.27mm_Vertical
+Connector_TE-Connectivity:TE_Micro-MaTch_7-188275-4_2x02_P1.27mm_Vertical
+Connector_TE-Connectivity:TE_Micro-MaTch_7-188275-6_2x03_P1.27mm_Vertical
+Connector_TE-Connectivity:TE_Micro-MaTch_7-188275-8_2x04_P1.27mm_Vertical
+Connector_TE-Connectivity:TE_Micro-MaTch_8-188275-0_2x05_P1.27mm_Vertical
+Connector_TE-Connectivity:TE_Micro-MaTch_8-188275-2_2x06_P1.27mm_Vertical
+Connector_TE-Connectivity:TE_Micro-MaTch_8-188275-4_2x07_P1.27mm_Vertical
+Connector_TE-Connectivity:TE_Micro-MaTch_8-188275-6_2x08_P1.27mm_Vertical
+Connector_TE-Connectivity:TE_Micro-MaTch_8-188275-8_2x09_P1.27mm_Vertical
+Connector_TE-Connectivity:TE_Micro-MaTch_9-188275-0_2x10_P1.27mm_Vertical
 Connector_TE-Connectivity:TE_T4041037031-000_M8_03_Socket_Straight
 Connector_TE-Connectivity:TE_T4041037041-000_M8_04_Socket_Straight
 Connector_USB:USB3_A_Molex_48393-001
@@ -8293,6 +8302,7 @@ Converter_DCDC:Converter_DCDC_Hamamatsu_C11204-1_THT
 Converter_DCDC:Converter_DCDC_MeanWell_NID30_THT
 Converter_DCDC:Converter_DCDC_MeanWell_NID60_THT
 Converter_DCDC:Converter_DCDC_MeanWell_NSD10_THT
+Converter_DCDC:Converter_DCDC_MeanWell_SMU02x-xxN_THT
 Converter_DCDC:Converter_DCDC_Murata_CRE1xxxxxx3C_THT
 Converter_DCDC:Converter_DCDC_Murata_CRE1xxxxxxDC_THT
 Converter_DCDC:Converter_DCDC_Murata_CRE1xxxxxxSC_THT
@@ -9149,6 +9159,7 @@ Inductor_SMD:L_APV_APH1770
 Inductor_SMD:L_APV_APH2213
 Inductor_SMD:L_AVX_LMLP07A7
 Inductor_SMD:L_Abracon_ASPI-0425
+Inductor_SMD:L_Abracon_ASPI-0628
 Inductor_SMD:L_Abracon_ASPI-0630LR
 Inductor_SMD:L_Abracon_ASPI-3012S
 Inductor_SMD:L_Abracon_ASPI-4030S
@@ -12012,7 +12023,6 @@ Package_DFN_QFN:WDFN-8-1EP_4x3mm_P0.65mm_EP2.4x1.8mm_ThermalVias
 Package_DFN_QFN:WDFN-8-1EP_6x5mm_P1.27mm_EP3.4x4mm
 Package_DFN_QFN:WDFN-8-1EP_8x6mm_P1.27mm_EP6x4.8mm
 Package_DFN_QFN:WDFN-8-1EP_8x6mm_P1.27mm_EP6x4.8mm_ThermalVias
-Package_DFN_QFN:WDFN-8_2x2mm_P0.5mm
 Package_DFN_QFN:WFDFPN-8-1EP_3x2mm_P0.5mm_EP1.25x1.35mm
 Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm
 Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm_ThermalVias
@@ -12358,7 +12368,6 @@ Package_DirectFET:DirectFET_SQ
 Package_DirectFET:DirectFET_ST
 Package_LCC:Analog_LCC-8_5x5mm_P1.27mm
 Package_LCC:MO047AD_PLCC-52_19.1x19.1mm_P1.27mm
-Package_LCC:PLCC-20
 Package_LCC:PLCC-20_9.0x9.0mm_P1.27mm
 Package_LCC:PLCC-20_SMD-Socket
 Package_LCC:PLCC-20_THT-Socket
@@ -12566,6 +12575,8 @@ Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm
 Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.46x2.31mm_ThermalVias
 Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.66x2.46mm
 Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.66x2.46mm_ThermalVias
+Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.78x3.37mm
+Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.78x3.37mm_ThermalVias
 Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask3x3mm_ThermalVias
 Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3x3mm
 Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP2.74x3.86mm
@@ -12920,6 +12931,8 @@ Package_SO:Texas_DYY0016A_TSOT-23-16_2x4.2mm_P0.5mm
 Package_SO:Texas_HSOP-8-1EP_3.9x4.9mm_P1.27mm
 Package_SO:Texas_HSOP-8-1EP_3.9x4.9mm_P1.27mm_ThermalVias
 Package_SO:Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.95x4.9mm_Mask2.4x3.1mm_ThermalVias
+Package_SO:Texas_HTSSOP-14-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.94x3.34mm
+Package_SO:Texas_HTSSOP-14-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.94x3.34mm_ThermalVias
 Package_SO:Texas_HTSSOP-14-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask3.155x3.255mm
 Package_SO:Texas_HTSSOP-14-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask3.155x3.255mm_ThermalVias
 Package_SO:Texas_PW0020A_TSSOP-20_4.4x6.5mm_P0.65mm
@@ -13032,8 +13045,6 @@ Package_SON:WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm
 Package_SON:WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm_ThermalVias
 Package_SON:WSON-6-1EP_3x3mm_P0.95mm
 Package_SON:WSON-6_1.5x1.5mm_P0.5mm
-Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm
-Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias
 Package_SON:WSON-8-1EP_3x2.5mm_P0.5mm_EP1.2x1.5mm_PullBack
 Package_SON:WSON-8-1EP_3x2.5mm_P0.5mm_EP1.2x1.5mm_PullBack_ThermalVias
 Package_SON:WSON-8-1EP_3x3mm_P0.5mm_EP1.2x2mm

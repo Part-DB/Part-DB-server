@@ -51,6 +51,15 @@
 	# Disable Topics tracking if not enabled explicitly: https://github.com/jkarlin/topics
 	header ?Permissions-Policy "browsing-topics=()"
 
+	# Set a strict CSP and nosniff for all static assets not handled by PHP.
+	# ? means "set only if not already present", so PHP responses carrying a Nelmio CSP are left untouched.
+	header ?Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; sandbox;"
+	header ?X-Content-Type-Options "nosniff"
+
+	# SVG files get a slightly different CSP because they can embed resources and must not be framed.
+	@svg path *.svg *.svg.gz *.svg.br
+	header @svg Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none'; sandbox;"
+
 	# Prevent PHP execution in the media upload directory
 	@php_in_media path_regexp (?i)^/media/.*\.(php[3-8]?|phar|phtml|pht|phps)$
 	respond @php_in_media 403

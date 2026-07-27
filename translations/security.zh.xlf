@@ -4,19 +4,19 @@
     <unit id="GrLNa9P" name="user.login_error.user_disabled">
       <segment state="translated">
         <source>user.login_error.user_disabled</source>
-        <target>账户已被禁用。请联系管理员</target>
+        <target>此账户已被禁用！如果这是个错误请联系管理员。</target>
       </segment>
     </unit>
     <unit id="IFQ5XrG" name="saml.error.cannot_login_local_user_per_saml">
       <segment state="translated">
         <source>saml.error.cannot_login_local_user_per_saml</source>
-        <target>无法通过 SSO 以本地用户身份登录。请使用本地用户密码</target>
+        <target>无法通过SSO以本地用户身份登录！请使用本地用户和密码登录。</target>
       </segment>
     </unit>
     <unit id="wOYPZmb" name="saml.error.cannot_login_saml_user_locally">
       <segment state="translated">
         <source>saml.error.cannot_login_saml_user_locally</source>
-        <target>无法使用本地身份验证器以SAML用户身份登录！请改用SSO登录</target>
+        <target>禁止使用本地认证以SAML用户身份登录！请使用SSO登录。</target>
       </segment>
     </unit>
   </file>

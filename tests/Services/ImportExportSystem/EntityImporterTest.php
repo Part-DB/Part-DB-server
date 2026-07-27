@@ -350,6 +350,84 @@ EOT;
         $this->assertSame('test,test2', $results[0]->getTags());
     }
 
+    public function testImportAcceptsNestedEdaInfoColumns(): void
+    {
+        //The API / JSON export writes EDA columns as "eda_info.kicad_symbol"; re-importing such a
+        //file must fill the EDA fields (previously these columns were silently dropped).
+        $input = "name;eda_info.kicad_symbol;eda_info.kicad_footprint;eda_info.reference_prefix;eda_info.value\n"
+            ."Nested EDA part;Device:L;Inductor_THT:L_Axial_0307;L;100uH";
+
+        $category = new Category();
+        $category->setName('Test EDA category');
+
+        $errors = [];
+        $results = $this->service->importString($input, [
+            'class' => Part::class,
+            'format' => 'csv',
+            'csv_delimiter' => ';',
+            'create_unknown_datastructures' => true,
+            'part_category' => $category,
+        ], $errors);
+
+        $this->assertCount(1, $results);
+        $this->assertEmpty($errors);
+        $eda = $results[0]->getEdaInfo();
+        $this->assertSame('Device:L', $eda->getKicadSymbol());
+        $this->assertSame('Inductor_THT:L_Axial_0307', $eda->getKicadFootprint());
+        $this->assertSame('L', $eda->getReferencePrefix());
+        $this->assertSame('100uH', $eda->getValue());
+    }
+
+    public function testImportAcceptsFlatEdaColumns(): void
+    {
+        //The documented flat form (and its short aliases) must keep working.
+        $input = "name;eda_kicad_symbol;kicad_footprint;kicad_reference\n"
+            ."Flat EDA part;Device:R;Resistor_SMD:R_0805_2012Metric;R";
+
+        $category = new Category();
+        $category->setName('Test EDA category');
+
+        $errors = [];
+        $results = $this->service->importString($input, [
+            'class' => Part::class,
+            'format' => 'csv',
+            'csv_delimiter' => ';',
+            'create_unknown_datastructures' => true,
+            'part_category' => $category,
+        ], $errors);
+
+        $this->assertCount(1, $results);
+        $this->assertEmpty($errors);
+        $eda = $results[0]->getEdaInfo();
+        $this->assertSame('Device:R', $eda->getKicadSymbol());
+        $this->assertSame('Resistor_SMD:R_0805_2012Metric', $eda->getKicadFootprint());
+        $this->assertSame('R', $eda->getReferencePrefix());
+    }
+
+    public function testImportInvisibleAliasInvertsVisibility(): void
+    {
+        //"eda_invisible" is the inverse convenience alias of "eda_visibility": eda_invisible=1
+        //must make the part NOT visible to the EDA tool (visibility=false), not visible.
+        $input = "name;eda_invisible\n"
+            ."Hidden EDA part;1";
+
+        $category = new Category();
+        $category->setName('Test EDA category');
+
+        $errors = [];
+        $results = $this->service->importString($input, [
+            'class' => Part::class,
+            'format' => 'csv',
+            'csv_delimiter' => ';',
+            'create_unknown_datastructures' => true,
+            'part_category' => $category,
+        ], $errors);
+
+        $this->assertCount(1, $results);
+        $this->assertEmpty($errors);
+        $this->assertFalse($results[0]->getEdaInfo()->getVisibility());
+    }
+
     public function testImportExcelFileProjects(): void
     {
         $spreadsheet = new Spreadsheet();

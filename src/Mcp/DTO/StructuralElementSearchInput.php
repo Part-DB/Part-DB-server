@@ -1,7 +1,8 @@
+<?php
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- *  Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
+ *  Copyright (C) 2019 - 2026 Jan Böhmer (https://github.com/jbtronics)
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -17,30 +18,19 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-.modal-body > .bootbox-close-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.5rem 0.75rem;
-    z-index: 1;
-}
-.modal .bootbox-close-button {
-    font-weight: 100;
-}
+declare(strict_types=1);
 
-button.bootbox-close-button {
-    padding: 0;
-    background-color: transparent;
-    border: 0;
-    -webkit-appearance: none;
-}
+namespace App\Mcp\DTO;
 
-.bootbox-close-button {
-    /* float: right; */
-    font-size: 1.40625rem;
-    font-weight: 600;
-    line-height: 1;
-    color: #000;
-    text-shadow: none;
-    opacity: .5;
+/**
+ * Generic input for listing/searching one of the structural "master data" entities (categories, footprints,
+ * manufacturers, storage locations, suppliers, measurement units, part custom states).
+ */
+readonly class StructuralElementSearchInput
+{
+    public function __construct(
+        /** @var string|null Optional keyword to filter by name or comment (case-insensitive substring match). If omitted, all elements are returned. */
+        public ?string $keyword = null,
+    ) {
+    }
 }

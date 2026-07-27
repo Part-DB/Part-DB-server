@@ -103,7 +103,7 @@ final class PartInfoRetriever
         //Generate a hash for the options, to ensure that different options result in different cache entries
         $options_hash = hash('xxh3', json_encode($options_without_cache, JSON_THROW_ON_ERROR));
 
-        $cache_key = "search_{$provider->getProviderKey()}_{$escaped_keyword}_{$options_hash}";
+        $cache_key = "search_{$provider->getProviderInfo()->key}_{$escaped_keyword}_{$options_hash}";
 
         //If no_cache is set, bypass the cache and get fresh results from the provider
         if ($no_cache) {
@@ -126,6 +126,7 @@ final class PartInfoRetriever
      * @param array<string, mixed>  $options An associative array of options which can be used to modify the search behavior. The supported options depend on the provider and should be documented in the provider's documentation.
      * @return PartDetailDTO
      * @throws InfoProviderNotActiveException if the the given providers is not active
+     * @throws \InvalidArgumentException if the given provider key does not match any registered provider
      */
     public function getDetails(string $provider_key, string $part_id, array $options = []): PartDetailDTO
     {

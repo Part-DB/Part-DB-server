@@ -253,5 +253,23 @@
         <target>Dies ist keine gültige GTIN / EAN!</target>
       </segment>
     </unit>
+    <unit id="vnpejmb" name="info_providers.validation.provider_id_without_key">
+      <segment state="translated">
+        <source>info_providers.validation.provider_id_without_key</source>
+        <target>Wenn Sie eine Anbieter-ID angeben, müssen Sie auch einen Info-Anbieter angeben oder beide entfernen.</target>
+      </segment>
+    </unit>
+    <unit id="yFlA5OA" name="info_providers.validation.provider_url_without_key">
+      <segment state="translated">
+        <source>info_providers.validation.provider_url_without_key</source>
+        <target>Wenn Sie eine Anbieter-URL angeben, müssen Sie auch einen Info-Anbieter angeben.</target>
+      </segment>
+    </unit>
+    <unit id="gUHUXoV" name="info_providers.validation.provider_key_without_id">
+      <segment state="translated">
+        <source>info_providers.validation.provider_key_without_id</source>
+        <target>Wenn Sie einen Info-Anbieter angeben, müssen Sie auch eine Anbieter-ID angeben oder beides entfernen.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

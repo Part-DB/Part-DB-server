@@ -78,7 +78,7 @@ class EntityColumn extends AbstractColumn
                     );
                 }
 
-                return sprintf('<i>%s</i>', $value);
+                return sprintf('<i>%s</i>', htmlspecialchars($value));
             }
 
             return '';

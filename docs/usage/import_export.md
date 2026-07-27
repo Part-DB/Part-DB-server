@@ -109,6 +109,21 @@ supplier is not specified, the price and supplier product number fields will be 
 * **`supplier_product_number`** or **`supplier_part_number`** or * **`spn`**: The supplier product number of the part.
 * **`price`**: The price of the part in the base currency of the database (by default euro).
 
+The following fields set the EDA / KiCad metadata of the part (see [EDA / KiCad integration](eda_integration.md)).
+These can be given either as the flat column names below, or in the nested `eda_info.*` form used by the
+CSV/JSON export and the [example file](#example-data) (e.g. `eda_info.kicad_symbol`), so a file exported from
+Part-DB can be re-imported without renaming its headers:
+
+* **`eda_kicad_symbol`** or **`kicad_symbol`**: The KiCad symbol of the part, e.g. `Device:R`.
+* **`eda_kicad_footprint`** or **`kicad_footprint`**: The KiCad footprint, e.g. `Resistor_SMD:R_0805_2012Metric`.
+* **`eda_reference_prefix`** or **`kicad_reference`**: The schematic reference prefix, e.g. `R`, `C`, `L`.
+* **`eda_value`** or **`kicad_value`**: The value shown in the EDA tool, e.g. `10k`.
+* **`eda_exclude_from_bom`** (or **`eda_exclude_bom`**), **`eda_exclude_from_board`** (or **`eda_exclude_board`**),
+  **`eda_exclude_from_sim`** (or **`eda_exclude_sim`**): Booleans (`1`/`0`) to exclude the part from the BOM, board
+  or simulation.
+* **`eda_visibility`**: Boolean (`1`/`0`) controlling whether the part is exposed to the EDA tool. The inverse
+  convenience alias **`eda_invisible`** is also accepted (so `eda_invisible=1` hides the part).
+
 #### Example data
 
 Here you can find some example data for the import of parts, you can use it as a template for your own import (

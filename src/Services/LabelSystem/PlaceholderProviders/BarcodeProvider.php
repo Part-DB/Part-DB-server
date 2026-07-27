@@ -31,11 +31,11 @@ use App\Services\LabelSystem\LabelBarcodeGenerator;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 use Com\Tecnick\Barcode\Exception;
 
-final class BarcodeProvider implements PlaceholderProviderInterface
+final readonly class BarcodeProvider implements PlaceholderProviderInterface
 {
-    public function __construct(private readonly LabelBarcodeGenerator $barcodeGenerator,
-        private readonly BarcodeContentGenerator $barcodeContentGenerator,
-        private readonly BarcodeHelper $barcodeHelper)
+    public function __construct(private LabelBarcodeGenerator $barcodeGenerator,
+        private BarcodeContentGenerator $barcodeContentGenerator,
+        private BarcodeHelper $barcodeHelper)
     {
     }
 

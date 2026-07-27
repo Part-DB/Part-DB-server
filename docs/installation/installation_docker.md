@@ -84,7 +84,12 @@ services:
     
       # If you use a reverse proxy in front of Part-DB, you must configure the trusted proxies IP addresses here (see reverse proxy documentation for more information):
       # - TRUSTED_PROXIES=127.0.0.0/8,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
-      
+
+      # To prevent HTTP Host header attacks, set this to a regex matching all host names Part-DB should be reachable under.
+      # By default (unset) Part-DB accepts requests for any host name, which is not recommended for production use.
+      # IMPORTANT: Unlike in .env files, the value here must NOT be wrapped in quotes.
+      # - TRUSTED_HOSTS=^(part-db\.example\.invalid)$
+
       # If you need to install additional composer packages (e.g., for specific mailer transports), you can specify them here:
       # The packages will be installed automatically when the container starts
       # - COMPOSER_EXTRA_PACKAGES=symfony/mailgun-mailer symfony/sendgrid-mailer
@@ -96,7 +101,11 @@ services:
 ```bash
 openssl rand -hex 32
 ```
-6. Inside the folder, run
+6. Uncomment and set the `TRUSTED_HOSTS` variable to a regex matching the host name(s) Part-DB should be reachable under
+   (e.g. `^(part-db\.example\.invalid)$`), to prevent HTTP Host header attacks. Note that, unlike in `.env` files, the
+   value must **not** be quoted in `docker-compose.yaml`. See [Configuration]({% link configuration.md %})
+   for more information.
+7. Inside the folder, run
 
 ```bash
    docker-compose up -d
@@ -107,7 +116,7 @@ openssl rand -hex 32
 > Otherwise Part-DB console might use the wrong configuration to execute commands.
 
 
-7. Create the initial database with
+8. Create the initial database with
 
  ```bash
 docker exec --user=www-data partdb php bin/console doctrine:migrations:migrate
@@ -115,7 +124,7 @@ docker exec --user=www-data partdb php bin/console doctrine:migrations:migrate
 
 and watch for the password output
 
-8. Part-DB is available under `http://localhost:8080` and you can log in with the username `admin` and the password shown
+9. Part-DB is available under `http://localhost:8080` and you can log in with the username `admin` and the password shown
    before
 
 The docker image uses a SQLite database and all data (database, uploads, and other media) is put into folders relative to
@@ -171,7 +180,12 @@ services:
       # Override value if you want to show a given text on homepage.
       # When this is commented out the webUI can be used to configure the banner
       #- BANNER=This is a test banner<br>with a line break
-      
+
+      # To prevent HTTP Host header attacks, set this to a regex matching all host names Part-DB should be reachable under.
+      # By default (unset) Part-DB accepts requests for any host name, which is not recommended for production use.
+      # IMPORTANT: Unlike in .env files, the value here must NOT be wrapped in quotes.
+      # - TRUSTED_HOSTS=^(part-db\.example\.invalid)$
+
       # If you need to install additional composer packages (e.g., for specific mailer transports), you can specify them here:
       # - COMPOSER_EXTRA_PACKAGES=symfony/mailgun-mailer symfony/sendgrid-mailer
 

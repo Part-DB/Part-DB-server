@@ -28,6 +28,7 @@ use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Settings\InfoProviderSystem\Element14Settings;
 use Composer\CaBundle\CaBundle;
@@ -35,6 +36,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Element14Provider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {
+    public const PROVIDER_KEY = 'element14';
 
     private const ENDPOINT_URL = 'https://api.element14.com/catalog/products';
     private const API_VERSION_NUMBER = '1.4';
@@ -60,20 +62,23 @@ class Element14Provider implements InfoProviderInterface, URLHandlerInfoProvider
         ]);
     }
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'Farnell element14',
-            'description' => 'This provider uses the Farnell element14 API to search for parts.',
-            'url' => 'https://www.element14.com/',
-            'disabled_help' => 'Configure the API key in the provider settings to enable.',
-            'settings_class' => Element14Settings::class,
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'element14';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'Farnell element14',
+            description: 'This provider uses the Farnell element14 API to search for parts.',
+            url: 'https://www.element14.com/',
+            disabledHelp: 'Configure the API key in the provider settings to enable.',
+            settingsClass: Element14Settings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::DATASHEET,
+                ProviderCapabilities::PRICE,
+                ProviderCapabilities::PARAMETERS,
+            ],
+        );
     }
 
     public function isActive(): bool
@@ -113,7 +118,7 @@ class Element14Provider implements InfoProviderInterface, URLHandlerInfoProvider
 
         foreach ($products as $product) {
             $result[] = new PartDetailDTO(
-                provider_key: $this->getProviderKey(), provider_id: $product['sku'],
+                provider_key: self::PROVIDER_KEY, provider_id: $product['sku'],
                 name: $product['translatedManufacturerPartNumber'],
                 description: $this->displayNameToDescription($product['displayName'], $product['translatedManufacturerPartNumber']),
                 manufacturer: $product['vendorName'] ?? $product['brandName'] ?? null,
@@ -299,15 +304,6 @@ class Element14Provider implements InfoProviderInterface, URLHandlerInfoProvider
         }
 
         return $tmp[0];
-    }
-
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::DATASHEET,
-        ];
     }
 
     public function getHandledDomains(): array

@@ -10,7 +10,7 @@
     <unit id="R4hoCqe" name="part.labelp">
       <segment state="translated">
         <source>part.labelp</source>
-        <target>部件</target>
+        <target>物料</target>
       </segment>
     </unit>
     <unit id="S4CxO.T" name="entity.select.group.new_not_added_to_DB">
@@ -34,7 +34,7 @@
     <unit id="c44gN8b" name="user.password_strength.medium">
       <segment state="translated">
         <source>user.password_strength.medium</source>
-        <target>中</target>
+        <target>中等</target>
       </segment>
     </unit>
     <unit id="NwiBLHc" name="user.password_strength.strong">
@@ -52,7 +52,31 @@
     <unit id="U5IhkwB" name="search.submit">
       <segment state="translated">
         <source>search.submit</source>
-        <target>GO!</target>
+        <target>搜索</target>
+      </segment>
+    </unit>
+    <unit id="8d38e7538" name="user.password_strength.crack_time">
+      <segment state="translated">
+        <source>user.password_strength.crack_time</source>
+        <target>预计破解时间：%time%</target>
+      </segment>
+    </unit>
+    <unit id="dBtnOk01" name="dialog.btn.ok">
+      <segment state="translated">
+        <source>dialog.btn.ok</source>
+        <target>确定</target>
+      </segment>
+    </unit>
+    <unit id="dBtnCcl1" name="dialog.btn.cancel">
+      <segment state="translated">
+        <source>dialog.btn.cancel</source>
+        <target>取消</target>
+      </segment>
+    </unit>
+    <unit id="dBtnDny1" name="dialog.btn.deny">
+      <segment state="translated">
+        <source>dialog.btn.deny</source>
+        <target>否</target>
       </segment>
     </unit>
   </file>

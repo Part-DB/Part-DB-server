@@ -121,7 +121,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  * }
  * @psalm-type ServicesConfig = array{
  *     _defaults?: DefaultsType,
- *     _instanceof?: InstanceofType,
+ *     _instanceof?: array<class-string, InstanceofType>,
  *     ...<string, DefinitionType|AliasType|PrototypeType|StackType|ArgumentsType|null>
  * }
  * @psalm-type ExtensionType = array<string, mixed>
@@ -653,7 +653,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         time_based_uuid_node?: scalar|Param|null,
  *     },
  *     html_sanitizer?: bool|array{ // HtmlSanitizer configuration
- *         enabled?: bool|Param, // Default: false
+ *         enabled?: bool|Param, // Default: true
  *         sanitizers?: array<string, array{ // Default: []
  *             allow_safe_elements?: bool|Param, // Allows "safe" elements and attributes. // Default: false
  *             allow_static_elements?: bool|Param, // Allows all static elements and attributes from the W3C Sanitizer API standard. // Default: false
@@ -718,7 +718,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             servicename?: scalar|Param|null, // Overrules dbname parameter if given and used as SERVICE_NAME or SID connection parameter for Oracle depending on the service parameter.
  *             sessionMode?: scalar|Param|null, // The session mode to use for the oci8 driver
  *             server?: scalar|Param|null, // The name of a running database server to connect to for SQL Anywhere.
- *             default_dbname?: scalar|Param|null, // Override the default database (postgres) to connect to for PostgreSQL connexion.
+ *             default_dbname?: scalar|Param|null, // Override the default database (postgres) to connect to for PostgreSQL connection.
  *             sslmode?: scalar|Param|null, // Determines whether or with what priority a SSL TCP/IP connection will be negotiated with the server for PostgreSQL.
  *             sslrootcert?: scalar|Param|null, // The name of a file containing SSL certificate authority (CA) certificate(s). If the file exists, the server's certificate will be verified to be signed by one of these authorities.
  *             sslcert?: scalar|Param|null, // The path to the SSL client certificate file for PostgreSQL.
@@ -769,7 +769,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *                 servicename?: scalar|Param|null, // Overrules dbname parameter if given and used as SERVICE_NAME or SID connection parameter for Oracle depending on the service parameter.
  *                 sessionMode?: scalar|Param|null, // The session mode to use for the oci8 driver
  *                 server?: scalar|Param|null, // The name of a running database server to connect to for SQL Anywhere.
- *                 default_dbname?: scalar|Param|null, // Override the default database (postgres) to connect to for PostgreSQL connexion.
+ *                 default_dbname?: scalar|Param|null, // Override the default database (postgres) to connect to for PostgreSQL connection.
  *                 sslmode?: scalar|Param|null, // Determines whether or with what priority a SSL TCP/IP connection will be negotiated with the server for PostgreSQL.
  *                 sslrootcert?: scalar|Param|null, // The name of a file containing SSL certificate authority (CA) certificate(s). If the file exists, the server's certificate will be verified to be signed by one of these authorities.
  *                 sslcert?: scalar|Param|null, // The path to the SSL client certificate file for PostgreSQL.
@@ -801,7 +801,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *                 servicename?: scalar|Param|null, // Overrules dbname parameter if given and used as SERVICE_NAME or SID connection parameter for Oracle depending on the service parameter.
  *                 sessionMode?: scalar|Param|null, // The session mode to use for the oci8 driver
  *                 server?: scalar|Param|null, // The name of a running database server to connect to for SQL Anywhere.
- *                 default_dbname?: scalar|Param|null, // Override the default database (postgres) to connect to for PostgreSQL connexion.
+ *                 default_dbname?: scalar|Param|null, // Override the default database (postgres) to connect to for PostgreSQL connection.
  *                 sslmode?: scalar|Param|null, // Determines whether or with what priority a SSL TCP/IP connection will be negotiated with the server for PostgreSQL.
  *                 sslrootcert?: scalar|Param|null, // The name of a file containing SSL certificate authority (CA) certificate(s). If the file exists, the server's certificate will be verified to be signed by one of these authorities.
  *                 sslcert?: scalar|Param|null, // The path to the SSL client certificate file for PostgreSQL.
@@ -2770,6 +2770,11 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             host?: string|Param, // Default: "https://api.decart.ai/v1"
  *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
  *         },
+ *         deepgram?: array{
+ *             api_key?: string|Param,
+ *             endpoint?: string|Param, // Deepgram REST API endpoint // Default: "https://api.deepgram.com/v1/"
+ *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
  *         deepseek?: array{
  *             api_key?: string|Param,
  *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
@@ -2808,6 +2813,11 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         },
  *         lmstudio?: array{
  *             host_url?: string|Param, // Default: "http://127.0.0.1:1234"
+ *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *         minimax?: array{
+ *             endpoint?: string|Param, // Default: "https://api.minimax.io/v1"
+ *             api_key?: string|Param,
  *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
  *         },
  *         mistral?: array{
@@ -2874,8 +2884,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             enable_translation?: bool|Param, // Enable translation for the system prompt // Default: false
  *             translation_domain?: string|Param, // The translation domain for the system prompt // Default: null
  *         },
- *         tools?: bool|array{
- *             enabled?: bool|Param, // Default: true
+ *         tools?: bool|array{ // Tools are opt-in: set to true to inject all services tagged with "ai.tool", or configure an explicit list of tools. When the option is omitted (or set to null or false), no tools are registered.
+ *             enabled?: bool|Param, // Default: false
  *             services?: list<string|array{ // Default: []
  *                 service?: string|Param,
  *                 agent?: string|Param,
@@ -2886,6 +2896,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         },
  *         keep_tool_messages?: bool|Param, // Keep tool messages in the conversation history // Default: false
  *         include_sources?: bool|Param, // Include sources exposed by tools as part of the tool result metadata // Default: false
+ *         max_tool_calls?: scalar|Param|null, // Maximum number of tool calls per agent call, null to disable // Default: 50
  *         fault_tolerant_toolbox?: bool|Param, // Continue the agent run even if a tool call fails // Default: true
  *         speech?: bool|array{ // Speech (TTS/STT) decorator configuration
  *             enabled?: bool|Param, // Default: true
@@ -2930,6 +2941,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             account_id?: string|Param,
  *             api_key?: string|Param,
  *             index_name?: string|Param,
+ *             http_client?: string|Param, // Default: "http_client"
  *             dimensions?: int|Param, // Default: 1536
  *             metric?: string|Param, // Default: "cosine"
  *             endpoint?: string|Param,
@@ -3086,6 +3098,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             namespace?: string|Param,
  *             database?: string|Param,
  *             table?: string|Param,
+ *             http_client?: string|Param, // Default: "http_client"
  *             vector_field?: string|Param, // Default: "_vectors"
  *             strategy?: string|Param, // Default: "cosine"
  *             dimensions?: int|Param, // Default: 1536
@@ -3095,6 +3108,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             endpoint?: string|Param,
  *             api_key?: string|Param,
  *             collection?: string|Param,
+ *             http_client?: string|Param, // Default: "http_client"
  *             vector_field?: string|Param, // Default: "_vectors"
  *             dimensions?: int|Param, // Default: 1536
  *         }>,
@@ -3185,6 +3199,37 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         store?: string|Param, // Service name of store // Default: "Symfony\\AI\\Store\\StoreInterface"
  *     }>,
  * }
+ * @psalm-type McpConfig = array{
+ *     app?: scalar|Param|null, // Default: "app"
+ *     version?: scalar|Param|null, // Default: "0.0.1"
+ *     description?: scalar|Param|null, // Default: null
+ *     icons?: list<array{ // Default: []
+ *         src?: scalar|Param|null,
+ *         mime_type?: scalar|Param|null, // Default: null
+ *         sizes?: list<scalar|Param|null>,
+ *     }>,
+ *     website_url?: scalar|Param|null, // Default: null
+ *     pagination_limit?: int|Param, // Default: 50
+ *     instructions?: scalar|Param|null, // Default: null
+ *     client_transports?: array{
+ *         stdio?: bool|Param, // Default: false
+ *         http?: bool|Param, // Default: false
+ *     },
+ *     apps?: array{ // MCP Apps support (interactive HTML UI resources). Apps are registered with the #[AsMcpApp] attribute.
+ *         enabled?: bool|Param|null, // Default: null
+ *     },
+ *     http?: array{
+ *         path?: scalar|Param|null, // Default: "/_mcp"
+ *         allowed_hosts?: mixed, // DNS rebinding protection hosts (without port). Leave unset to keep the SDK default (localhost only), set an array of hostnames to expose a public MCP server, or false to disable the protection entirely. // Default: null
+ *         session?: array{
+ *             store?: "file"|"memory"|"cache"|"framework"|Param, // Default: "file"
+ *             directory?: scalar|Param|null, // Default: "%kernel.cache_dir%/mcp-sessions"
+ *             cache_pool?: scalar|Param|null, // Default: "cache.mcp.sessions"
+ *             prefix?: scalar|Param|null, // Default: "mcp-"
+ *             ttl?: int|Param, // Default: 3600
+ *         },
+ *     },
+ * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
  *     parameters?: ParametersConfig,
@@ -3215,6 +3260,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     jbtronics_settings?: JbtronicsSettingsConfig,
  *     api_platform?: ApiPlatformConfig,
  *     ai?: AiConfig,
+ *     mcp?: McpConfig,
  *     "when@dev"?: array{
  *         imports?: ImportsConfig,
  *         parameters?: ParametersConfig,
@@ -3249,6 +3295,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         jbtronics_translation_editor?: JbtronicsTranslationEditorConfig,
  *         api_platform?: ApiPlatformConfig,
  *         ai?: AiConfig,
+ *         mcp?: McpConfig,
  *     },
  *     "when@docker"?: array{
  *         imports?: ImportsConfig,
@@ -3280,6 +3327,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         jbtronics_settings?: JbtronicsSettingsConfig,
  *         api_platform?: ApiPlatformConfig,
  *         ai?: AiConfig,
+ *         mcp?: McpConfig,
  *     },
  *     "when@prod"?: array{
  *         imports?: ImportsConfig,
@@ -3311,6 +3359,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         jbtronics_settings?: JbtronicsSettingsConfig,
  *         api_platform?: ApiPlatformConfig,
  *         ai?: AiConfig,
+ *         mcp?: McpConfig,
  *     },
  *     "when@test"?: array{
  *         imports?: ImportsConfig,
@@ -3345,6 +3394,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         jbtronics_settings?: JbtronicsSettingsConfig,
  *         api_platform?: ApiPlatformConfig,
  *         ai?: AiConfig,
+ *         mcp?: McpConfig,
  *     },
  *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
  *         imports?: ImportsConfig,

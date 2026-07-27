@@ -381,7 +381,12 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       access_api:
         label: "perm.api.access_api"
         apiTokenRole: ROLE_API_READ_ONLY
+      use_mcp:
+          label: "perm.api.use_mcp"
+          alsoSet: [ 'access_api' ]
+          apiTokenRole: ROLE_API_READ_ONLY
       manage_tokens:
         label: "perm.api.manage_tokens"
         alsoSet: ['access_api']
         apiTokenRole: ROLE_API_FULL
+

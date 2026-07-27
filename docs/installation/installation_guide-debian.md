@@ -1,13 +1,13 @@
 ---
-title: Direct Installation on Debian 12
+title: Direct Installation on Debian 13
 layout: default
 parent: Installation
 nav_order: 4
 ---
 
-# Part-DB installation guide for Debian 12 (Bookworm)
+# Part-DB installation guide for Debian 13 (Trixie)
 
-This guide shows you how to install Part-DB directly on Debian 12 using apache2 and SQLite. This guide should work with
+This guide shows you how to install Part-DB directly on Debian 13 using apache2 and SQLite. This guide should work with
 recent Ubuntu and other Debian-based distributions with little to no changes.
 Depending on what you want to do, using the prebuilt docker images may be a better choice, as you don't need to install
 this many dependencies. See [here]({% link installation/installation_docker.md %}) for more information on the docker
@@ -45,10 +45,10 @@ compatibility.
 Install PHP with required extensions and apache2:
 
 ```bash
-sudo apt install apache2 php8.2 libapache2-mod-php8.2 \
-  php8.2-opcache php8.2-curl php8.2-gd php8.2-mbstring \
-  php8.2-xml php8.2-bcmath php8.2-intl php8.2-zip php8.2-xsl \
-  php8.2-sqlite3 php8.2-mysql
+sudo apt install apache2 php8.4 libapache2-mod-php8.4 \
+  php8.4-opcache php8.4-curl php8.4-gd php8.4-mbstring \
+  php8.4-xml php8.4-bcmath php8.4-intl php8.4-zip php8.4-xsl \
+  php8.4-sqlite3 php8.4-mysql
 ```
 
 ### Install composer
@@ -145,6 +145,16 @@ A full list of configuration options can be  found [here](../configuration.md).
 > ```
 > or edit the file with a text editor and add a new value for `APP_SECRET` (you can generate a random value with `openssl rand -hex 32`).
 
+{: .important }
+> **Set `TRUSTED_HOSTS` before going live.** By default Part-DB accepts requests for any host name, which makes it
+> vulnerable to `HTTP Host header attacks`. Edit your `.env.local` with a text editor and set `TRUSTED_HOSTS` to a
+> regex matching all host names Part-DB should be reachable under, e.g. if Part-DB should only be reachable via
+> `part-db.example.invalid`:
+> ```
+> TRUSTED_HOSTS='^(part-db\.example\.invalid)$'
+> ```
+> See the [configuration options](../configuration.md) page for more information about `TRUSTED_HOSTS`.
+
 Please check that the configured base currency matches your mainly used currency, as
 this can not be changed after creating price information.
 
@@ -232,7 +242,7 @@ sudo ln -s /etc/apache2/sites-available/partdb.conf /etc/apache2/sites-enabled/p
 Configure apache to show pretty URL paths for Part-DB (`/label/dialog` instead of `/index.php/label/dialog`):
 
 ```bash
-sudo a2enmod rewrite
+sudo a2enmod rewrite headers
 ```
 
 If you want to access Part-DB via the IP-Address of the server, instead of the domain name, you have to remove the
@@ -291,7 +301,7 @@ sudo -u www-data php bin/console cache:clear
 ## MySQL/MariaDB database
 
 To use a MySQL database, follow the steps from above (except the creation of the database, we will do this later).
-Debian 12 does not ship MySQL in its repositories anymore, so we use the compatible MariaDB instead:
+Debian does not ship MySQL in its repositories anymore, so we use the compatible MariaDB instead:
 
 1. Install maria-db with:
 

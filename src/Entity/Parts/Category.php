@@ -33,6 +33,8 @@ use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\McpTool;
+use ApiPlatform\Metadata\McpToolCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model\Operation;
@@ -40,7 +42,12 @@ use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\EDA\EDACategoryInfo;
+use App\Mcp\DTO\ElementByIdInput;
+use App\Mcp\DTO\StructuralElementOverview;
+use App\Mcp\DTO\StructuralElementSearchInput;
 use App\Repository\Parts\CategoryRepository;
+use App\State\Mcp\GetStructuralElementDetailsProcessor;
+use App\State\Mcp\ListStructuralElementsProcessor;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\CategoryAttachment;
@@ -68,22 +75,37 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
+        new GetCollection(
+            uriTemplate: '/categories/{id}/children.{_format}',
+            uriVariables: ['id' => new Link(fromProperty: 'children', fromClass: Category::class)],
+            openapi: new Operation(summary: 'Retrieves the children elements of a category.'),
+            security: 'is_granted("@categories.read")'
+        ),
     ],
     normalizationContext: ['groups' => ['category:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['category:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
-)]
-#[ApiResource(
-    uriTemplate: '/categories/{id}/children.{_format}',
-    operations: [
-        new GetCollection(
-            openapi: new Operation(summary: 'Retrieves the children elements of a category.'),
-            security: 'is_granted("@categories.read")'
-        )
+    mcp: [
+        'list_categories' => new McpToolCollection(
+            title: 'List/search categories',
+            description: 'List all part categories, optionally filtered by a keyword matched against the name and comment. Categories are used to group parts by their function. Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            output: StructuralElementOverview::class,
+            normalizationContext: ['groups' => ['mcp_structural_overview:read']],
+            input: StructuralElementSearchInput::class,
+            security: 'is_granted("@categories.read")',
+            processor: ListStructuralElementsProcessor::class,
+        ),
+        'get_category_details' => new McpTool(
+            title: 'Get category details by ID',
+            description: 'Get detailed information about a specific part category by its database ID.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['category:read', 'api:basic:read']],
+            input: ElementByIdInput::class,
+            security: 'is_granted("@categories.read")',
+            validate: true,
+            processor: GetStructuralElementDetailsProcessor::class,
+        ),
     ],
-    uriVariables: [
-        'id' => new Link(fromProperty: 'children', fromClass: Category::class)
-    ],
-    normalizationContext: ['groups' => ['category:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]

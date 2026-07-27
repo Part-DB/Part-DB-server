@@ -36,6 +36,10 @@ server {
     root /var/www/partdb/public;
 
     location / {
+        # Headers are set here for static assets. PHP responses are served via the index.php location
+        # below and inherit neither of these headers, so Nelmio's PHP-side CSP is unaffected.
+        add_header Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; sandbox;" always;
+        add_header X-Content-Type-Options "nosniff" always;
         try_files $uri /index.php$is_args$args;
     }
 
@@ -57,10 +61,12 @@ server {
     location ~* ^/media/.*\.(php[3-8]?|phar|phtml|pht|phps)$ {
         return 403;
     }
-    
-    # Set Content-Security-Policy for svg files, to block embedded javascript in there
+
+    # SVG files get a slightly different CSP because they can embed resources and must not be framed.
+    # This regex location takes precedence over location /, so headers must be repeated here.
     location ~* \.svg$ {
-        add_header Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none';";
+        add_header Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none'; sandbox;" always;
+        add_header X-Content-Type-Options "nosniff" always;
     }
 
     error_log /var/log/nginx/parts.error.log;

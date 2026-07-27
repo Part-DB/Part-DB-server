@@ -33,13 +33,20 @@ use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\McpTool;
+use ApiPlatform\Metadata\McpToolCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Mcp\DTO\ElementByIdInput;
+use App\Mcp\DTO\StructuralElementOverview;
+use App\Mcp\DTO\StructuralElementSearchInput;
 use App\Repository\Parts\ManufacturerRepository;
+use App\State\Mcp\GetStructuralElementDetailsProcessor;
+use App\State\Mcp\ListStructuralElementsProcessor;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\ManufacturerAttachment;
@@ -66,22 +73,37 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
+        new GetCollection(
+            uriTemplate: '/manufacturers/{id}/children.{_format}',
+            uriVariables: ['id' => new Link(fromProperty: 'children', fromClass: Manufacturer::class)],
+            openapi: new Operation(summary: 'Retrieves the children elements of a manufacturer.'),
+            security: 'is_granted("@manufacturers.read")'
+        ),
     ],
     normalizationContext: ['groups' => ['manufacturer:read', 'company:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['manufacturer:write', 'company:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
-)]
-#[ApiResource(
-    uriTemplate: '/manufacturers/{id}/children.{_format}',
-    operations: [
-        new GetCollection(
-            openapi: new Operation(summary: 'Retrieves the children elements of a manufacturer.'),
-            security: 'is_granted("@manufacturers.read")'
-        )
+    mcp: [
+        'list_manufacturers' => new McpToolCollection(
+            title: 'List/search manufacturers',
+            description: 'List all manufacturers, optionally filtered by a keyword matched against the name and comment. Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            output: StructuralElementOverview::class,
+            normalizationContext: ['groups' => ['mcp_structural_overview:read']],
+            input: StructuralElementSearchInput::class,
+            security: 'is_granted("@manufacturers.read")',
+            processor: ListStructuralElementsProcessor::class,
+        ),
+        'get_manufacturer_details' => new McpTool(
+            title: 'Get manufacturer details by ID',
+            description: 'Get detailed information about a specific manufacturer by its database ID.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['manufacturer:read', 'company:read', 'api:basic:read']],
+            input: ElementByIdInput::class,
+            security: 'is_granted("@manufacturers.read")',
+            validate: true,
+            processor: GetStructuralElementDetailsProcessor::class,
+        ),
     ],
-    uriVariables: [
-        'id' => new Link(fromProperty: 'children', fromClass: Manufacturer::class)
-    ],
-    normalizationContext: ['groups' => ['manufacturer:read', 'company:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]

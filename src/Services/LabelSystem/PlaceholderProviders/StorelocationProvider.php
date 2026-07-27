@@ -31,11 +31,11 @@ class StorelocationProvider implements PlaceholderProviderInterface
     {
         if ($label_target instanceof StorageLocation) {
             if ('[[OWNER]]' === $placeholder) {
-                return $label_target->getOwner() instanceof User ? $label_target->getOwner()->getFullName() : '';
+                return $label_target->getOwner() instanceof User ? htmlspecialchars($label_target->getOwner()->getFullName()) : '';
             }
 
             if ('[[OWNER_USERNAME]]' === $placeholder) {
-                return $label_target->getOwner() instanceof User ? $label_target->getOwner()->getUsername() : '';
+                return $label_target->getOwner() instanceof User ? htmlspecialchars($label_target->getOwner()->getUsername()) : '';
             }
         }
 

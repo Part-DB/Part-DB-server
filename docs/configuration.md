@@ -262,7 +262,21 @@ See the [information providers]({% link usage/information_provider_system.md %})
 * `TRUSTED_PROXIES` (env only): Set the IP addresses (or IP blocks) of trusted reverse proxies here. This is needed to get correct
   IP information (see [here](https://symfony.com/doc/current/deployment/proxies.html) for more info).
 * `TRUSTED_HOSTS` (env only): To prevent `HTTP Host header attacks` you can set a regex containing all host names via which Part-DB
-  should be accessible. If accessed via the wrong hostname, an error will be shown.
+  should be accessible. If accessed via a hostname not matching the regex, an error page will be shown instead. By default this
+  is empty, meaning Part-DB accepts requests for any host name, which is not recommended for production use.
+
+  For example, if Part-DB should only be reachable under `part-db.example.invalid`, set the following in your
+  `.env.local` file (the value must be wrapped in single quotes here):
+  ```
+  TRUSTED_HOSTS='^(part-db\.example\.invalid)$'
+  ```
+  If you set `TRUSTED_HOSTS` as an environment variable in your `docker-compose.yaml` instead, the value must
+  **not** be quoted:
+  ```
+  TRUSTED_HOSTS=^(part-db\.example\.invalid)$
+  ```
+  You can specify multiple host names separated by `|`, e.g. `^(localhost|part-db\.example\.invalid)$`.
+  Part-DB displays a warning on the homepage (visible to administrators only) as long as this value is not set.
 * `DEMO_MODE` (env only): Set Part-DB into demo mode, which forbids users to change their passwords and settings. Used for the demo
   instance. This should not be needed for normal installations.
 * `NO_URL_REWRITE_AVAILABLE` (allowed values `true` or `false`) (env only): Set this value to true, if your webserver does not
@@ -279,9 +293,13 @@ See the [information providers]({% link usage/information_provider_system.md %})
 * `BANNER`: You can configure the text that should be shown as the banner on the homepage. Useful especially for docker
   containers. In all other applications you can just change the `config/banner.md` file.
 * `DISABLE_YEAR2038_BUG_CHECK` (env only): If set to `1`, the year 2038 bug check is disabled on 32-bit systems, and dates after
-2038 are no longer forbidden. However this will lead to 500 error messages when rendering dates after 2038 as all current
+2038 are no longer forbidden. However, this will lead to 500 error messages when rendering dates after 2038 as all current
 32-bit PHP versions can not format these dates correctly. This setting is for the case that future PHP versions will
 handle this correctly on 32-bit systems. 64-bit systems are not affected by this bug, and the check is always disabled.
+* `DEPRECATION_LOG_LEVEL` (default `emergency`) (env only): In the `prod` and `docker` environments, PHP/Symfony
+  deprecation notices are written to their own `var/log/<env>_deprecations.log` file. This option sets the minimum log 
+  level a deprecation notice must have to be written there. Since deprecation notices are logged with level `info`, 
+  the default value of `emergency` effectively disables this dedicated deprecation log. Set it to `debug` to enable it.
 
 ## Banner
 

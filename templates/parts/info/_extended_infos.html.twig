@@ -76,7 +76,7 @@
                     <a href="{{ part.providerReference.providerUrl }}" rel="noopener">
                 {% endif %}
                 <span title="{{ part.providerReference.providerKey }}">{{ info_provider_label(part.providerReference.providerKey)|default(part.providerReference.providerKey) }}</span>: {{ part.providerReference.providerId }}
-                <span> ({{ part.providerReference.lastUpdated | format_datetime() }})</span>
+                <span> ({{ part.providerReference.lastUpdated ? (part.providerReference.lastUpdated  | format_datetime()) : ("part.info_provider_reference.updated_never"|trans) }})</span>
                 {% if part.providerReference.providerUrl %}
                     </a>
                 {% endif %}

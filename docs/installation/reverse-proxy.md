@@ -22,6 +22,22 @@ TRUSTED_PROXIES=192.168.2.10
 Set the `DEFAULT_URI` environment variable to the URL of your Part-DB installation, available from the outside (so via
 the reverse proxy).
 
+You should also set the `TRUSTED_HOSTS` environment variable to a regex matching the host name(s) Part-DB is reachable
+under via the reverse proxy, to prevent `HTTP Host header attacks`. For example, if Part-DB is reachable via
+`part-db.example.invalid`, set the following in your `.env.local` file (the value must be wrapped in single quotes here):
+
+```
+TRUSTED_HOSTS='^(part-db\.example\.invalid)$'
+```
+
+If you set `TRUSTED_HOSTS` in your `docker-compose.yaml` instead, the value must **not** be quoted:
+
+```
+TRUSTED_HOSTS=^(part-db\.example\.invalid)$
+```
+
+See the [configuration options](../configuration.md) page for more information about `TRUSTED_HOSTS`.
+
 ## Part-DB in a subpath via reverse proxy
 
 If you put Part-DB into a subpath via the reverse proxy, you have to configure your webserver to include `X-Forwarded-Prefix` in the request headers.
