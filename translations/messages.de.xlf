@@ -818,7 +818,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="bVL1K4d" name="homepage.help.text">
       <segment state="translated">
         <source>homepage.help.text</source>
-        <target>Hilfe und Tipps finden sie im &lt;a class="link-external" rel="noopener" target="_blank" href="%href%"&gt;Wiki&lt;/a&gt; der GitHub Seite.</target>
+        <target>Hilfe und Tipps finden Sie im &lt;a class="link-external" rel="noopener" target="_blank" href="%href%"&gt;Wiki&lt;/a&gt; der GitHub Seite.</target>
       </segment>
     </unit>
     <unit id="dnirx4v" name="homepage.forum.caption">
@@ -2136,7 +2136,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <segment state="translated">
         <source>tfa_google.disable.confirm_message</source>
         <target>Wenn Sie die Authenticator App deaktivieren, werden alle Backupcodes gelöscht, daher müssen Sie sie evtl. neu ausdrucken.&lt;br&gt;
-Beachten Sie außerdem, dass ihr Account ohne Zwei-Faktor-Authentifizierung nicht mehr so gut gegen Angreifer geschützt ist!</target>
+Beachten Sie außerdem, dass Ihr Account ohne Zwei-Faktor-Authentifizierung nicht mehr so gut gegen Angreifer geschützt ist!</target>
       </segment>
     </unit>
     <unit id="yu9MSt5" name="tfa_google.disabled_message">
@@ -2533,7 +2533,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>log.undo.do_undelete_before</source>
-        <target>Sie müssen das Element zuerst wiederherstellen bevor sie diese Änderung rückgängig machen können!</target>
+        <target>Sie müssen das Element zuerst wiederherstellen bevor Sie diese Änderung rückgängig machen können!</target>
       </segment>
     </unit>
     <unit id="joq2rah" name="log.undo.log_type_invalid">
@@ -2644,7 +2644,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="JXsEzjd" name="tfa_u2f.u2f_delete.access_denied">
       <segment state="translated">
         <source>tfa_u2f.u2f_delete.access_denied</source>
-        <target>Sie können nur ihre eigenen Sicherheitsschlüssel löschen!</target>
+        <target>Sie können nur Ihre eigenen Sicherheitsschlüssel löschen!</target>
       </segment>
     </unit>
     <unit id="IHQWMw5" name="tfa.u2f.u2f_delete.success">
@@ -7502,7 +7502,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="iuSpPbg" name="project.builds.check_project_status">
       <segment state="translated">
         <source>project.builds.check_project_status</source>
-        <target>Der aktuelle Projektstatus ist &lt;b&gt;"%project_status%"&lt;/b&gt;. Sie sollten überprüfen, ob sie das Projekt mit diesem Status wirklich bauen wollen!</target>
+        <target>Der aktuelle Projektstatus ist &lt;b&gt;"%project_status%"&lt;/b&gt;. Sie sollten überprüfen, ob Sie das Projekt mit diesem Status wirklich bauen wollen!</target>
       </segment>
     </unit>
     <unit id="Y7vSSxi" name="project.builds.following_bom_entries_miss_instock_n">
@@ -12630,7 +12630,7 @@ Buerklin-API-Authentication-Server:
     <unit id="b.ubGIM" name="update_manager.progress.do_not_close">
       <segment state="translated">
         <source>update_manager.progress.do_not_close</source>
-        <target>Bitte schließen Sie die Seite nicht, während das Update läuft. Das Update wird fortgeführt sogar wenn Sie diese Seite schließen, aber Sie werden nicht inn der Lage sein, den Fortschritt zu beobachten.</target>
+        <target>Bitte schließen Sie die Seite nicht, während das Update läuft. Das Update wird fortgeführt sogar wenn Sie diese Seite schließen, aber Sie werden nicht in der Lage sein, den Fortschritt zu beobachten.</target>
       </segment>
     </unit>
     <unit id="SQxsQbQ" name="update_manager.progress.auto_refresh">
@@ -12672,13 +12672,13 @@ Buerklin-API-Authentication-Server:
     <unit id="quoDXGW" name="update_manager.progress.downgrade_do_not_close">
       <segment state="translated">
         <source>update_manager.progress.downgrade_do_not_close</source>
-        <target>Bitte schließen Sie die Seite nicht, während das Downgrade läuft. Das Update wird fortgeführt sogar wenn Sie diese Seite schließen, aber Sie werden nicht inn der Lage sein, den Fortschritt zu beobachten.</target>
+        <target>Bitte schließen Sie die Seite nicht, während das Downgrade läuft. Das Update wird fortgeführt sogar wenn Sie diese Seite schließen, aber Sie werden nicht in der Lage sein, den Fortschritt zu beobachten.</target>
       </segment>
     </unit>
     <unit id="k056kqg" name="update_manager.confirm_downgrade">
       <segment state="translated">
         <source>update_manager.confirm_downgrade</source>
-        <target>Sind Sie sicher, dass sie Part-DB downgraden wollen? Dies wird auf eine ältere Version zurück gesetzt. Es wird ein Backup vor dem Downgrade erstellt.</target>
+        <target>Sind Sie sicher, dass Sie Part-DB downgraden wollen? Dies wird auf eine ältere Version zurück gesetzt. Es wird ein Backup vor dem Downgrade erstellt.</target>
       </segment>
     </unit>
     <unit id="FqMFu60" name="update_manager.downgrade_removes_update_manager">
@@ -12702,13 +12702,13 @@ Buerklin-API-Authentication-Server:
     <unit id="sKf8kah" name="update_manager.restore_confirm_message">
       <segment state="translated">
         <source>update_manager.restore_confirm_message</source>
-        <target>Sind Sie sicher dass die ihre Datenbank von diesem Backup wiederherstellen möchten?</target>
+        <target>Sind Sie sicher, dass Sie Ihre Datenbank von diesem Backup wiederherstellen möchten?</target>
       </segment>
     </unit>
     <unit id="iCc3vNw" name="update_manager.restore_confirm_warning">
       <segment state="translated">
         <source>update_manager.restore_confirm_warning</source>
-        <target>WARNUNG: Dies wird ihre aktuelle Datenbank überschreiben. Diese Aktion kann nicht rückgängig gemacht werden! Stellen Sie sicher dass sie ein aktuelles Backup haben, bevor Sie fortfahren.</target>
+        <target>WARNUNG: Dies wird Ihre aktuelle Datenbank überschreiben. Diese Aktion kann nicht rückgängig gemacht werden! Stellen Sie sicher, dass Sie ein aktuelles Backup haben, bevor Sie fortfahren.</target>
       </segment>
     </unit>
     <unit id="Tsaqpw6" name="update_manager.web_updates_disabled">
