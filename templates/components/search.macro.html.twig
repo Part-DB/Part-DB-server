@@ -66,16 +66,16 @@
                     </div>
                 {% endif %}
                 <hr>
-                <div class="form-check">
+                <div class="form-check" title="{% trans %}search.regexmatching.help{% endtrans %}">
                     <input type="checkbox" class="form-check-input" id="regex" name="regex" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }} {{ stimulus_target('elements/search_config', 'regex') }}>
                     <label for="regex" class="form-check-label justify-content-start">{% trans %}search.regexmatching{% endtrans %}</label>
                 </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="extensive" name="extensive" value="0" {{ stimulus_controller('elements/localStorage_checkbox') }} {{ stimulus_target('elements/search_config', 'extensive') }}>
+                <div class="form-check" title="{% trans %}search.extensive_matching.help{% endtrans %}">
+                    <input type="checkbox" class="form-check-input" id="extensive" name="extensive" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }} {{ stimulus_target('elements/search_config', 'extensive') }}>
                     <label for="extensive" class="form-check-label justify-content-start">{% trans %}search.extensive_matching{% endtrans %}</label>
                 </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="wildcard" name="wildcard" value="0" {{ stimulus_controller('elements/localStorage_checkbox') }} {{ stimulus_target('elements/search_config', 'wildcard') }}>
+                <div class="form-check" title="{% trans %}search.permit_wildcards.help{% endtrans %}">
+                    <input type="checkbox" class="form-check-input" id="wildcard" name="wildcard" value="1" {{ stimulus_controller('elements/localStorage_checkbox') }} {{ stimulus_target('elements/search_config', 'wildcard') }}>
                     <label for="wildcard" class="form-check-label justify-content-start">{% trans %}search.permit_wildcards{% endtrans %}</label>
                 </div>
             </div>

@@ -27,7 +27,7 @@ class RegisterEventHelper {
     constructor() {
         this.registerTooltips();
         this.configureDropdowns();
-        
+
         // Only register special character input if enabled in configuration
         const keybindingsEnabled = document.body.dataset.keybindingsSpecialCharacters !== 'false';
         if (keybindingsEnabled) {
@@ -85,7 +85,7 @@ class RegisterEventHelper {
         const handler = () => {
             $(".tooltip").remove();
             //Exclude dropdown buttons from tooltips, otherwise we run into endless errors from bootstrap (bootstrap.esm.js:614 Bootstrap doesn't allow more than one instance per element. Bound instance: bs.dropdown.)
-            $('a[title], label[title], button[title]:not([data-bs-toggle="dropdown"]), p[title], span[title], h6[title], h3[title], i[title], small[title]')
+            $('a[title], label[title], button[title]:not([data-bs-toggle="dropdown"]), p[title], span[title], h6[title], h3[title], i[title], small[title], div[title]')
                 //@ts-ignore
                 .tooltip("hide").tooltip({container: "body", placement: "auto", boundary: 'window'});
         };
