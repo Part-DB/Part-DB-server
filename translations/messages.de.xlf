@@ -647,6 +647,12 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Diesen Parameter als EDA Feld exportieren</target>
       </segment>
     </unit>
+    <unit id="Nx6h9XW" name="specifications.eda_symbol_visibility.help">
+      <segment state="translated">
+        <source>specifications.eda_symbol_visibility.help</source>
+        <target>Diesen Parameter im Schaltplansymbol sichtbar machen</target>
+      </segment>
+    </unit>
     <unit id="XclPxI9" name="specification.create">
       <segment state="translated">
         <source>specification.create</source>
@@ -7247,6 +7253,12 @@ Element 1 -&gt; Element 1.2</target>
         <target>BOM-Einträge hinzufügen</target>
       </segment>
     </unit>
+    <unit id=".kp4e.H" name="project.bom.export_csv">
+      <segment state="translated">
+        <source>project.bom.export_csv</source>
+        <target>Als CSV exportieren</target>
+      </segment>
+    </unit>
     <unit id="mo8KjGV" name="project.info.info.label">
       <segment state="translated">
         <source>project.info.info.label</source>
@@ -13035,6 +13047,18 @@ Buerklin-API-Authentication-Server:
         <target>EDA-Sichtbarkeit für alle [Part]-Parameter, die keine explizite Sichtbarkeit gesetzt haben. Wenn aktiviert, sind alle Parameter standardmäßig in der EDA-Software sichtbar.</target>
       </segment>
     </unit>
+    <unit id="XchzDpI" name="settings.misc.kicad_eda.default_parameter_symbol_visibility">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_symbol_visibility</source>
+        <target>Standard-Symbolsichtbarkeit für Parameter</target>
+      </segment>
+    </unit>
+    <unit id="zLHkPCx" name="settings.misc.kicad_eda.default_parameter_symbol_visibility.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_symbol_visibility.help</source>
+        <target>Legt fest, ob exportierte [Part]-Parameterfelder, für die keine explizite Symbol-Sichtbarkeit gesetzt wurde, im Schaltplansymbol angezeigt werden (das „visible“-Flag des KiCad-Feldes). Betrifft nur Parameter, die bereits als EDA-Felder exportiert werden.</target>
+      </segment>
+    </unit>
     <unit id="J6pYnaC" name="settings.misc.kicad_eda.default_orderdetails_visibility">
       <segment state="translated">
         <source>settings.misc.kicad_eda.default_orderdetails_visibility</source>
@@ -13713,6 +13737,36 @@ Buerklin-API-Authentication-Server:
         <target>Sie können diesen zufällig generierten Wert verwenden (geben Sie ihn niemandem weiter):</target>
       </segment>
     </unit>
+    <unit id="pJfdMQU" name="search.extensive_matching">
+      <segment state="translated">
+        <source>search.extensive_matching</source>
+        <target>Erweiterte Übereinstimmung</target>
+      </segment>
+    </unit>
+    <unit id="YO2ZB66" name="search.permit_wildcards">
+      <segment state="translated">
+        <source>search.permit_wildcards</source>
+        <target>&lt;code&gt;%&lt;/code&gt; und &lt;code&gt;_&lt;/code&gt; als Platzhalter behandeln</target>
+      </segment>
+    </unit>
+    <unit id="_nxvnMn" name="search.regexmatching.help">
+      <segment state="translated">
+        <source>search.regexmatching.help</source>
+        <target>Verwenden Sie reguläre Ausdrücke wie "^\w{3,5}", um nach Teilen zu suchen. Umschließende Schrägstriche sind nicht erforderlich.</target>
+      </segment>
+    </unit>
+    <unit id="mry8ytG" name="search.extensive_matching.help">
+      <segment state="translated">
+        <source>search.extensive_matching.help</source>
+        <target>Der Suchbegriff wird in Teile zerlegt, und ein Treffer liegt vor, wenn jeder Teil in irgendeinem Feld enthalten ist. Ohne diesen Modus muss der vollständige Suchbegriff in einem einzigen Feld enthalten sein.</target>
+      </segment>
+    </unit>
+    <unit id="zLnKtwP" name="search.permit_wildcards.help">
+      <segment state="translated">
+        <source>search.permit_wildcards.help</source>
+        <target>Wenn aktiviert, wird _ als Platzhalter für ein Zeichen behandelt und % als Platzhalter für null oder mehr Zeichen.</target>
+      </segment>
+    </unit>
     <unit id="OP7MacF" name="system.trusted_hosts.unconfigured.title">
       <segment state="translated">
         <source>system.trusted_hosts.unconfigured.title</source>
@@ -13789,6 +13843,36 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>part.edit.provider_reference.warning</source>
         <target>Warnung: Das Ändern der Werte an dieser Stelle kann den Mechanismus zum Abrufen von Informationen beeinträchtigen! Sie sollten nach Möglichkeit die Funktion „Von Informationsquelle aktualisieren“ verwenden.</target>
+      </segment>
+    </unit>
+    <unit id="bNrxe9i" name="perm.api.use_mcp">
+      <segment state="translated">
+        <source>perm.api.use_mcp</source>
+        <target>MCP-Tools verwenden (für KI-Agenten)</target>
+      </segment>
+    </unit>
+    <unit id="ced_8yl" name="api.api_endpoints.mcp_url">
+      <segment state="translated">
+        <source>api.api_endpoints.mcp_url</source>
+        <target>MCP-Endpunkt</target>
+      </segment>
+    </unit>
+    <unit id="a1wK4h_" name="info_providers.capabilities.parameters">
+      <segment state="translated">
+        <source>info_providers.capabilities.parameters</source>
+        <target>Parameter</target>
+      </segment>
+    </unit>
+    <unit id="QivC_me" name="info_providers.expensive">
+      <segment state="translated">
+        <source>info_providers.expensive</source>
+        <target>Kostenintensiv</target>
+      </segment>
+    </unit>
+    <unit id="Hiw406i" name="info_providers.expensive.tooltip">
+      <segment state="translated">
+        <source>info_providers.expensive.tooltip</source>
+        <target>Die Verwendung dieses Informationsanbieters kann zusätzliche Kosten verursachen oder unterliegt sehr strengen Ratenlimits.</target>
       </segment>
     </unit>
   </file>
