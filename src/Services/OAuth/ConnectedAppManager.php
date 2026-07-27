@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\OAuth;
 
+use App\Entity\UserSystem\ApiTokenLevel;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Manager\ClientManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Model\AccessToken;
@@ -42,11 +43,12 @@ class ConnectedAppManager
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly ClientManagerInterface $clientManager,
+        private readonly OAuthClientGrantPreferenceManager $grantPreferences,
     ) {
     }
 
     /**
-     * @return list<array{client: ClientInterface, expiry: \DateTimeInterface}>
+     * @return list<array{client: ClientInterface, expiry: \DateTimeInterface, friendlyName: ?string, scopeLevel: ?ApiTokenLevel, lastUsedAt: ?\DateTimeImmutable}>
      */
     public function listConnectedClients(string $userIdentifier): array
     {
@@ -93,7 +95,14 @@ class ConnectedAppManager
             if (null === $client) {
                 continue;
             }
-            $result[] = ['client' => $client, 'expiry' => $expiry];
+            $preference = $this->grantPreferences->find($userIdentifier, $clientId);
+            $result[] = [
+                'client' => $client,
+                'expiry' => $expiry,
+                'friendlyName' => $preference?->getFriendlyName(),
+                'scopeLevel' => $preference?->getScopeLevel(),
+                'lastUsedAt' => $preference?->getLastUsedAt(),
+            ];
         }
 
         return $result;

@@ -22,7 +22,9 @@ declare(strict_types=1);
 
 namespace App\Tests\EventListener\OAuth;
 
+use App\Entity\UserSystem\ApiTokenLevel;
 use App\Entity\UserSystem\User;
+use App\Services\OAuth\OAuthClientGrantPreferenceManager;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Manager\ClientManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Model\Client;
@@ -39,12 +41,15 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 final class AuthorizationConsentListenerTest extends WebTestCase
 {
-    private function createTestClient(\Symfony\Bundle\FrameworkBundle\KernelBrowser $httpClient, string $redirectUri): Client
+    /**
+     * @param string[] $scopes
+     */
+    private function createTestClient(\Symfony\Bundle\FrameworkBundle\KernelBrowser $httpClient, string $redirectUri, array $scopes = ['read_only']): Client
     {
         $client = new Client('Test Client', 'test-client-'.bin2hex(random_bytes(8)), null);
         $client->setRedirectUris(new RedirectUri($redirectUri));
         $client->setGrants(new Grant('authorization_code'), new Grant('refresh_token'));
-        $client->setScopes(new Scope('read_only'));
+        $client->setScopes(...array_map(static fn (string $s) => new Scope($s), $scopes));
         $client->setActive(true);
 
         static::getContainer()->get(ClientManagerInterface::class)->save($client);
@@ -52,7 +57,10 @@ final class AuthorizationConsentListenerTest extends WebTestCase
         return $client;
     }
 
-    private function authorizeUrl(Client $client, string $redirectUri): string
+    /**
+     * @param string[] $scopes
+     */
+    private function authorizeUrl(Client $client, string $redirectUri, array $scopes = ['read_only']): string
     {
         $verifier = rtrim(strtr(base64_encode(random_bytes(40)), '+/', '-_'), '=');
         $challenge = rtrim(strtr(base64_encode(hash('sha256', $verifier, true)), '+/', '-_'), '=');
@@ -63,7 +71,7 @@ final class AuthorizationConsentListenerTest extends WebTestCase
             'redirect_uri' => $redirectUri,
             'code_challenge' => $challenge,
             'code_challenge_method' => 'S256',
-            'scope' => 'read_only',
+            'scope' => implode(' ', $scopes),
         ]);
     }
 
@@ -149,5 +157,121 @@ final class AuthorizationConsentListenerTest extends WebTestCase
 
         $httpClient->request('POST', $url, ['oauth_decision' => 'approve', '_csrf_token' => 'invalid']);
         self::assertResponseStatusCodeSame(403);
+    }
+
+    public function testNarrowerScopeLevelFriendlyNameAndTtlArePersisted(): void
+    {
+        $httpClient = static::createClient();
+        $entityManager = static::getContainer()->get(EntityManagerInterface::class);
+        $admin = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        self::assertInstanceOf(User::class, $admin);
+        $httpClient->loginUser($admin);
+
+        $redirectUri = 'https://client.example.invalid/callback';
+        $client = $this->createTestClient($httpClient, $redirectUri, ['read_only', 'edit', 'full']);
+
+        $crawler = $httpClient->request('GET', $this->authorizeUrl($client, $redirectUri, ['read_only', 'edit', 'full']));
+        self::assertResponseIsSuccessful();
+
+        // Cumulative choices up to the highest requested level (full) are offered - read_only, edit,
+        // admin, full - even though "admin" itself wasn't individually requested (see
+        // App\EventListener\OAuth\AuthorizationConsentListener's cumulative-level design).
+        self::assertCount(4, $crawler->filter('input[name="oauth_scope_level"]'));
+
+        $form = $crawler->selectButton('Approve')->form([
+            'oauth_scope_level' => 'edit',
+            'oauth_friendly_name' => 'My Laptop',
+            'oauth_ttl_days' => '7',
+        ]);
+        $httpClient->submit($form);
+
+        self::assertResponseRedirects();
+
+        $preferences = static::getContainer()->get(OAuthClientGrantPreferenceManager::class);
+        $preference = $preferences->find($admin->getUserIdentifier(), $client->getIdentifier());
+        self::assertNotNull($preference);
+        self::assertSame(ApiTokenLevel::EDIT, $preference->getScopeLevel());
+        self::assertSame('My Laptop', $preference->getFriendlyName());
+        self::assertSame(7, $preference->getRefreshTokenTtlDays());
+    }
+
+    public function testConsentScreenPrefillsPreviouslySavedPreference(): void
+    {
+        $httpClient = static::createClient();
+        $entityManager = static::getContainer()->get(EntityManagerInterface::class);
+        $admin = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        self::assertInstanceOf(User::class, $admin);
+        $httpClient->loginUser($admin);
+
+        $redirectUri = 'https://client.example.invalid/callback';
+        $client = $this->createTestClient($httpClient, $redirectUri, ['read_only', 'edit']);
+
+        static::getContainer()->get(OAuthClientGrantPreferenceManager::class)->save(
+            $admin->getUserIdentifier(),
+            $client->getIdentifier(),
+            ApiTokenLevel::READ_ONLY,
+            'Existing Name',
+            30,
+        );
+
+        $crawler = $httpClient->request('GET', $this->authorizeUrl($client, $redirectUri, ['read_only', 'edit']));
+        self::assertResponseIsSuccessful();
+
+        self::assertSame('Existing Name', $crawler->filter('input[name="oauth_friendly_name"]')->attr('value'));
+        self::assertCount(1, $crawler->filter('input[name="oauth_scope_level"][value="read_only"][checked]'));
+        self::assertCount(1, $crawler->filter('select[name="oauth_ttl_days"] option[value="30"][selected]'));
+    }
+
+    public function testTamperedScopeLevelIsRejected(): void
+    {
+        $httpClient = static::createClient();
+        $entityManager = static::getContainer()->get(EntityManagerInterface::class);
+        $admin = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        self::assertInstanceOf(User::class, $admin);
+        $httpClient->loginUser($admin);
+
+        $redirectUri = 'https://client.example.invalid/callback';
+        // Client only registered/requested "read_only" - "full" must not be an acceptable choice.
+        $client = $this->createTestClient($httpClient, $redirectUri, ['read_only']);
+        $url = $this->authorizeUrl($client, $redirectUri, ['read_only']);
+
+        $crawler = $httpClient->request('GET', $url);
+        self::assertResponseIsSuccessful();
+        $token = $crawler->filter('input[name="_csrf_token"]')->attr('value');
+
+        $httpClient->request('POST', $url, [
+            'oauth_decision' => 'approve',
+            '_csrf_token' => $token,
+            'oauth_scope_level' => 'full',
+            'oauth_friendly_name' => '',
+            'oauth_ttl_days' => '',
+        ]);
+        self::assertResponseStatusCodeSame(400);
+    }
+
+    public function testTamperedTtlIsRejected(): void
+    {
+        $httpClient = static::createClient();
+        $entityManager = static::getContainer()->get(EntityManagerInterface::class);
+        $admin = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        self::assertInstanceOf(User::class, $admin);
+        $httpClient->loginUser($admin);
+
+        $redirectUri = 'https://client.example.invalid/callback';
+        $client = $this->createTestClient($httpClient, $redirectUri, ['read_only']);
+        $url = $this->authorizeUrl($client, $redirectUri, ['read_only']);
+
+        $crawler = $httpClient->request('GET', $url);
+        self::assertResponseIsSuccessful();
+        $token = $crawler->filter('input[name="_csrf_token"]')->attr('value');
+
+        $httpClient->request('POST', $url, [
+            'oauth_decision' => 'approve',
+            '_csrf_token' => $token,
+            'oauth_scope_level' => 'read_only',
+            'oauth_friendly_name' => '',
+            'oauth_ttl_days' => '5000',
+        ]);
+        self::assertResponseStatusCodeSame(400);
     }
 }

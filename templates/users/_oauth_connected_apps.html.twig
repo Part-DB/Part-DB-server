@@ -1,5 +1,5 @@
 {# @var user \App\Entity\UserSystem\User #}
-{# @var connected_apps array<array{client: \League\Bundle\OAuth2ServerBundle\Model\ClientInterface, expiry: \DateTimeInterface}> #}
+{# @var connected_apps array<array{client: \League\Bundle\OAuth2ServerBundle\Model\ClientInterface, expiry: \DateTimeInterface, friendlyName: ?string, scopeLevel: ?\App\Entity\UserSystem\ApiTokenLevel, lastUsedAt: ?\DateTimeImmutable}> #}
 
 {% import "helper.twig" as helper %}
 
@@ -26,6 +26,8 @@
                     <thead>
                     <tr>
                         <th>{% trans %}user.settings.oauth_connected_apps.app_name{% endtrans %}</th>
+                        <th>{% trans %}user.settings.oauth_connected_apps.scope_level{% endtrans %}</th>
+                        <th>{% trans %}user.settings.oauth_connected_apps.last_used{% endtrans %}</th>
                         <th>{% trans %}user.settings.oauth_connected_apps.access_until{% endtrans %}</th>
                         <th></th>
                     </tr>
@@ -34,7 +36,14 @@
                     <tbody>
                     {% for connected_app in connected_apps %}
                         <tr>
-                            <td>{{ connected_app.client.name }}</td>
+                            <td>
+                                {{ connected_app.friendlyName ?? connected_app.client.name }}
+                                {% if connected_app.friendlyName is not empty %}
+                                    <br><span class="text-muted small">{{ connected_app.client.name }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ connected_app.scopeLevel ? connected_app.scopeLevel.translationKey|trans : '-' }}</td>
+                            <td>{{ connected_app.lastUsedAt ? helper.format_date_nullable(connected_app.lastUsedAt) : '-' }}</td>
                             <td>{{ helper.format_date_nullable(connected_app.expiry) }}</td>
                             <td>
                                 <button type="submit" class="btn btn-danger btn-sm" name="client_id"

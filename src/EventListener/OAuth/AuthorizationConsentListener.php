@@ -23,12 +23,14 @@ declare(strict_types=1);
 namespace App\EventListener\OAuth;
 
 use App\Entity\UserSystem\ApiTokenLevel;
+use App\Services\OAuth\OAuthClientGrantPreferenceManager;
 use League\Bundle\OAuth2ServerBundle\Event\AuthorizationRequestResolveEvent;
 use League\Bundle\OAuth2ServerBundle\OAuth2Events;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Twig\Environment;
@@ -46,22 +48,47 @@ use Twig\Environment;
  * The consent form resubmits to the exact same URL (same query string, so
  * league/oauth2-server re-derives an identical AuthorizationRequest - it only reads request params from
  * the query string, never the POST body), with the actual decision + a CSRF token in the POST body.
+ *
+ * The user also picks a scope level, an optional friendly name, and a refresh token TTL, all persisted
+ * via App\Services\OAuth\OAuthClientGrantPreferenceManager - see App\EventListener\OAuth\OAuthScopeResolveListener
+ * (which is what actually narrows the granted scope, at token-issuance time - not this listener; the
+ * league/oauth2-server-bundle 1.2 AuthorizationRequestResolveEvent has no way to mutate the underlying
+ * AuthorizationRequest's scopes) and App\Doctrine\OAuth\RefreshTokenTtlRepositoryDecorator (which applies
+ * the chosen TTL).
  */
 #[AsEventListener(event: OAuth2Events::AUTHORIZATION_REQUEST_RESOLVE)]
 class AuthorizationConsentListener
 {
     public const CSRF_TOKEN_ID = 'oauth_authorize';
 
+    /**
+     * Preset choices offered on the consent screen for the refresh token TTL, in days. `null` means
+     * "use the server default" (league_oauth2_server.yaml's authorization_server.refresh_token_ttl).
+     *
+     * @var list<int|null>
+     */
+    public const TTL_PRESETS_DAYS = [null, 1, 7, 30, 90, 365];
+
     public function __construct(
         private readonly RequestStack $requestStack,
         private readonly Environment $twig,
         private readonly CsrfTokenManagerInterface $csrfTokenManager,
+        private readonly OAuthClientGrantPreferenceManager $grantPreferences,
     ) {
     }
 
     public function __invoke(AuthorizationRequestResolveEvent $event): void
     {
         $request = $this->requestStack->getMainRequest();
+        $userIdentifier = $event->getUser()->getUserIdentifier();
+        $clientIdentifier = $event->getClient()->getIdentifier();
+
+        $requestedLevels = $this->scopesToLevels($event->getScopes());
+        $maxLevel = $this->highestLevel($requestedLevels) ?? ApiTokenLevel::READ_ONLY;
+        $availableLevels = array_values(array_filter(
+            ApiTokenLevel::cases(),
+            static fn (ApiTokenLevel $level) => $level->value <= $maxLevel->value
+        ));
 
         if ($request?->isMethod('POST') && $request->request->has('oauth_decision')) {
             $token = new CsrfToken(self::CSRF_TOKEN_ID, (string) $request->request->get('_csrf_token'));
@@ -69,18 +96,92 @@ class AuthorizationConsentListener
                 throw new AccessDeniedHttpException('Invalid CSRF token.');
             }
 
-            $event->resolveAuthorization('approve' === $request->request->get('oauth_decision'));
+            $approved = 'approve' === $request->request->get('oauth_decision');
+
+            if ($approved) {
+                $selectedLevel = $this->parseSelectedLevel($request->request->get('oauth_scope_level'), $availableLevels);
+                $friendlyName = $this->parseFriendlyName($request->request->get('oauth_friendly_name'));
+                $ttlDays = $this->parseTtlDays($request->request->get('oauth_ttl_days'));
+
+                $this->grantPreferences->save($userIdentifier, $clientIdentifier, $selectedLevel, $friendlyName, $ttlDays);
+            }
+
+            $event->resolveAuthorization($approved);
 
             return;
         }
 
+        $existingPreference = $this->grantPreferences->find($userIdentifier, $clientIdentifier);
+
+        // Stashed for App\EventListener\OAuth\OAuthAuthorizeFormActionCspListener (kernel.response), which
+        // needs the already-validated redirect_uri to scope-exempt this one response's CSP form-action
+        // directive (nelmio_security.yaml's csp has no form-action, so it falls back to default-src
+        // 'self', which would otherwise block the browser from following the post-decision redirect to
+        // this client's external redirect_uri).
+        $request?->attributes->set('oauth_authorize_redirect_uri', $event->getRedirectUri());
+
         $response = new Response($this->twig->render('oauth/authorize.html.twig', [
             'client' => $event->getClient(),
-            'levels' => $this->scopesToLevels($event->getScopes()),
+            'levels' => $requestedLevels,
+            'available_levels' => $availableLevels,
+            'selected_level' => $existingPreference?->getScopeLevel() ?? $maxLevel,
+            'friendly_name' => $existingPreference?->getFriendlyName(),
+            'ttl_presets_days' => self::TTL_PRESETS_DAYS,
+            'selected_ttl_days' => $existingPreference?->getRefreshTokenTtlDays(),
             'csrf_token_id' => self::CSRF_TOKEN_ID,
         ]));
 
         $event->setResponse($response);
+    }
+
+    /**
+     * @param ApiTokenLevel[] $availableLevels
+     */
+    private function parseSelectedLevel(mixed $rawLevel, array $availableLevels): ApiTokenLevel
+    {
+        if (!\is_string($rawLevel)) {
+            throw new BadRequestHttpException('Missing scope level.');
+        }
+
+        foreach ($availableLevels as $level) {
+            if (strtolower($level->name) === $rawLevel) {
+                return $level;
+            }
+        }
+
+        throw new BadRequestHttpException('Invalid scope level.');
+    }
+
+    private function parseFriendlyName(mixed $rawName): ?string
+    {
+        if (!\is_string($rawName)) {
+            return null;
+        }
+
+        $trimmed = trim($rawName);
+        if ('' === $trimmed) {
+            return null;
+        }
+
+        return mb_substr($trimmed, 0, 255);
+    }
+
+    private function parseTtlDays(mixed $rawTtlDays): ?int
+    {
+        if (!\is_string($rawTtlDays) || '' === $rawTtlDays) {
+            return null;
+        }
+
+        if (!ctype_digit($rawTtlDays)) {
+            throw new BadRequestHttpException('Invalid refresh token TTL.');
+        }
+
+        $days = (int) $rawTtlDays;
+        if (!\in_array($days, self::TTL_PRESETS_DAYS, true)) {
+            throw new BadRequestHttpException('Invalid refresh token TTL.');
+        }
+
+        return $days;
     }
 
     /**
@@ -99,5 +200,19 @@ class AuthorizationConsentListener
             ApiTokenLevel::cases(),
             static fn (ApiTokenLevel $level) => \in_array(strtolower($level->name), $requested, true)
         ));
+    }
+
+    /**
+     * @param ApiTokenLevel[] $levels
+     */
+    private function highestLevel(array $levels): ?ApiTokenLevel
+    {
+        if ([] === $levels) {
+            return null;
+        }
+
+        usort($levels, static fn (ApiTokenLevel $a, ApiTokenLevel $b) => $b->value <=> $a->value);
+
+        return $levels[0];
     }
 }

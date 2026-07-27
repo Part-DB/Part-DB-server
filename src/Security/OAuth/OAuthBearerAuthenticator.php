@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Security\OAuth;
 
 use App\Entity\UserSystem\ApiTokenType;
+use App\Services\OAuth\OAuthClientGrantPreferenceManager;
 use League\Bundle\OAuth2ServerBundle\Security\Authentication\Token\OAuth2Token;
 use League\Bundle\OAuth2ServerBundle\Security\Exception\OAuth2AuthenticationException;
 use League\Bundle\OAuth2ServerBundle\Security\Exception\OAuth2AuthenticationFailedException;
@@ -72,6 +73,7 @@ class OAuthBearerAuthenticator implements AuthenticatorInterface, Authentication
         private readonly ResourceServer $resourceServer,
         #[Autowire(service: 'security.user.provider.concrete.app_user_provider')]
         private readonly UserProviderInterface $userProvider,
+        private readonly OAuthClientGrantPreferenceManager $grantPreferences,
     ) {
     }
 
@@ -144,6 +146,20 @@ class OAuthBearerAuthenticator implements AuthenticatorInterface, Authentication
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        if (!$token instanceof OAuth2Token) {
+            return null;
+        }
+
+        $userIdentifier = $token->getUserIdentifier();
+        $clientId = $token->getOAuthClientId();
+
+        // Skip the (currently unreachable, since enable_client_credentials_grant is false)
+        // ClientCredentialsUser case - see authenticate()'s $userLoader - there's no real end user to
+        // record a per-user preference/last-used timestamp for.
+        if ($userIdentifier !== $clientId) {
+            $this->grantPreferences->recordUsage($userIdentifier, $clientId, $token->getScopes());
+        }
+
         return null;
     }
 

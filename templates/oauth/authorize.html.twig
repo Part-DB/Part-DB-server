@@ -2,10 +2,9 @@
 
 {% block title %}{% trans %}oauth.authorize.title{% endtrans %}{% endblock %}
 
-{% block card_title %}<h5>
+{% block card_title %}
     <i class="fa-solid fa-key fa-fw" aria-hidden="true"></i>
-    {% trans %}oauth.authorize.title{% endtrans %}
-    </h5>
+    {% trans %}oauth.authorize.title{% endtrans %}: <i>{{ client.name }}</i>
 {% endblock %}
 
 {% block card_content %}
@@ -24,6 +23,48 @@
 
     <form method="post" action="{{ app.request.requestUri }}" data-turbo="false" data-turbo-frame="_top">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token(csrf_token_id) }}">
+
+        {% if available_levels|length > 1 %}
+            <div class="mb-3">
+                <label class="form-label">{% trans %}oauth.authorize.scope_level.label{% endtrans %}</label>
+                <div class="form-text mb-1">{% trans %}oauth.authorize.scope_level.help{% endtrans %}</div>
+                {% for level in available_levels %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="oauth_scope_level"
+                               id="oauth_scope_level_{{ level.name|lower }}" value="{{ level.name|lower }}"
+                               {% if level == selected_level %}checked{% endif %}>
+                        <label class="form-check-label" for="oauth_scope_level_{{ level.name|lower }}">
+                            {{ level.translationKey|trans }}
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <input type="hidden" name="oauth_scope_level" value="{{ available_levels[0].name|lower }}">
+        {% endif %}
+
+        <div class="mb-3">
+            <label class="form-label" for="oauth_friendly_name">{% trans %}oauth.authorize.friendly_name.label{% endtrans %}</label>
+            <input type="text" class="form-control" id="oauth_friendly_name" name="oauth_friendly_name"
+                   maxlength="255" placeholder="{{ client.name }}" value="{{ friendly_name }}">
+            <div class="form-text">{% trans %}oauth.authorize.friendly_name.help{% endtrans %}</div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="oauth_ttl_days">{% trans %}oauth.authorize.ttl.label{% endtrans %}</label>
+            <select class="form-select" id="oauth_ttl_days" name="oauth_ttl_days">
+                {% for days in ttl_presets_days %}
+                    <option value="{{ days }}" {% if days == selected_ttl_days %}selected{% endif %}>
+                        {% if days is null %}
+                            {% trans %}oauth.authorize.ttl.default{% endtrans %}
+                        {% else %}
+                            {% trans with {'%days%': days} %}oauth.authorize.ttl.days{% endtrans %}
+                        {% endif %}
+                    </option>
+                {% endfor %}
+            </select>
+            <div class="form-text">{% trans %}oauth.authorize.ttl.help{% endtrans %}</div>
+        </div>
 
         <button type="submit" name="oauth_decision" value="deny" class="btn btn-secondary">
             {% trans %}oauth.authorize.deny{% endtrans %}

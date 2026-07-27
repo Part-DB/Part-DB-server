@@ -13859,6 +13859,54 @@ Buerklin-API Authentication server:
         <target>Deny</target>
       </segment>
     </unit>
+    <unit id="oaAuth07" name="oauth.authorize.scope_level.label">
+      <segment>
+        <source>oauth.authorize.scope_level.label</source>
+        <target>Access level to grant</target>
+      </segment>
+    </unit>
+    <unit id="oaAuth08" name="oauth.authorize.scope_level.help">
+      <segment>
+        <source>oauth.authorize.scope_level.help</source>
+        <target>You can grant a more restrictive access level than the application requested.</target>
+      </segment>
+    </unit>
+    <unit id="oaAuth09" name="oauth.authorize.friendly_name.label">
+      <segment>
+        <source>oauth.authorize.friendly_name.label</source>
+        <target>Friendly name (optional)</target>
+      </segment>
+    </unit>
+    <unit id="oaAuth10" name="oauth.authorize.friendly_name.help">
+      <segment>
+        <source>oauth.authorize.friendly_name.help</source>
+        <target>Give this connection a name to tell it apart from other devices using the same application.</target>
+      </segment>
+    </unit>
+    <unit id="oaAuth11" name="oauth.authorize.ttl.label">
+      <segment>
+        <source>oauth.authorize.ttl.label</source>
+        <target>Stay signed in for</target>
+      </segment>
+    </unit>
+    <unit id="oaAuth12" name="oauth.authorize.ttl.default">
+      <segment>
+        <source>oauth.authorize.ttl.default</source>
+        <target>Default</target>
+      </segment>
+    </unit>
+    <unit id="oaAuth13" name="oauth.authorize.ttl.days">
+      <segment>
+        <source>oauth.authorize.ttl.days</source>
+        <target>%days% days</target>
+      </segment>
+    </unit>
+    <unit id="oaAuth14" name="oauth.authorize.ttl.help">
+      <segment>
+        <source>oauth.authorize.ttl.help</source>
+        <target>After this period, the application will need you to sign in again.</target>
+      </segment>
+    </unit>
     <unit id="oaConn01" name="user.settings.oauth_connected_apps">
       <segment>
         <source>user.settings.oauth_connected_apps</source>
@@ -13911,6 +13959,18 @@ Buerklin-API Authentication server:
       <segment>
         <source>user.settings.oauth_connected_apps.revoked</source>
         <target>Access revoked successfully!</target>
+      </segment>
+    </unit>
+    <unit id="oaConn10" name="user.settings.oauth_connected_apps.scope_level">
+      <segment>
+        <source>user.settings.oauth_connected_apps.scope_level</source>
+        <target>Access level</target>
+      </segment>
+    </unit>
+    <unit id="oaConn11" name="user.settings.oauth_connected_apps.last_used">
+      <segment>
+        <source>user.settings.oauth_connected_apps.last_used</source>
+        <target>Last used</target>
       </segment>
     </unit>
     <unit id="oaAdm001" name="perm.system.manage_oauth_clients">
