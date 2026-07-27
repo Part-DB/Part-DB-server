@@ -100,7 +100,7 @@
     <unit id=".lqKoij" name="validator.orderdetail.supplier_must_not_be_null">
       <segment state="translated">
         <source>validator.orderdetail.supplier_must_not_be_null</source>
-        <target>You must select an supplier!</target>
+        <target>You must select a supplier!</target>
       </segment>
     </unit>
     <unit id="bcNZzK." name="validator.measurement_unit.use_si_prefix_needs_unit">
@@ -124,7 +124,7 @@
     <unit id="5CEup_N" name="project.bom_entry.name_already_in_bom">
       <segment state="translated">
         <source>project.bom_entry.name_already_in_bom</source>
-        <target>There is already an BOM entry with this name!</target>
+        <target>There is already a BOM entry with this name!</target>
       </segment>
     </unit>
     <unit id="jB3B50E" name="project.bom_entry.part_already_in_bom">
@@ -136,19 +136,19 @@
     <unit id="NdkzP1n" name="project.bom_entry.mountnames_quantity_mismatch">
       <segment state="translated">
         <source>project.bom_entry.mountnames_quantity_mismatch</source>
-        <target>The number of mountnames has to match the BOMs quantity!</target>
+        <target>The number of mountnames has to match the BOM's quantity!</target>
       </segment>
     </unit>
     <unit id="8teRCgR" name="project.bom_entry.can_not_add_own_builds_part">
       <segment state="translated">
         <source>project.bom_entry.can_not_add_own_builds_part</source>
-        <target>You can not add a project's own builds part to the BOM.</target>
+        <target>You can not add a project's own build part to the BOM.</target>
       </segment>
     </unit>
     <unit id="asBxPxe" name="project.bom_has_to_include_all_subelement_parts">
       <segment state="translated">
         <source>project.bom_has_to_include_all_subelement_parts</source>
-        <target>The project BOM has to include all subprojects builds parts. Part %part_name% of project %project_name% missing!</target>
+        <target>The project BOM has to include all subprojects' build parts. Part %part_name% of project %project_name% missing!</target>
       </segment>
     </unit>
     <unit id="uxaE9Ct" name="project.bom_entry.price_not_allowed_on_parts">
@@ -220,7 +220,7 @@
     <unit id="ufQJh7E" name="validator.year_2038_bug_on_32bit">
       <segment state="translated">
         <source>validator.year_2038_bug_on_32bit</source>
-        <target>Due to technical limitations, it is not possible to select dates after the 2038-01-19 on 32-bit systems!</target>
+        <target>Due to technical limitations, it is not possible to select dates after 2038-01-19 on 32-bit systems!</target>
       </segment>
     </unit>
     <unit id="iM9yb_p" name="validator.fileSize.invalidFormat">
@@ -238,7 +238,7 @@
     <unit id="m4gp2P_" name="validator.google_code.wrong_code">
       <segment state="translated">
         <source>validator.google_code.wrong_code</source>
-        <target>Invalid code. Check that your authenticator app is set up correctly and that both the server and authentication device has the time set correctly.</target>
+        <target>Invalid code. Check that your authenticator app is set up correctly and that both the server and authentication device have the time set correctly.</target>
       </segment>
     </unit>
     <unit id="I330cr5" name="settings.synonyms.type_synonyms.collection_type.duplicate">
@@ -250,25 +250,25 @@
     <unit id="zT_j_oQ" name="validator.invalid_gtin">
       <segment state="translated">
         <source>validator.invalid_gtin</source>
-        <target>This is not an valid GTIN / EAN!</target>
+        <target>This is not a valid GTIN / EAN!</target>
       </segment>
     </unit>
     <unit id="vnpejmb" name="info_providers.validation.provider_id_without_key">
       <segment state="translated">
         <source>info_providers.validation.provider_id_without_key</source>
-        <target>If you specify an provider ID, you also need to specify an info provider or remove both.</target>
+        <target>If you specify a provider ID, you also need to specify an info provider or remove both.</target>
       </segment>
     </unit>
     <unit id="yFlA5OA" name="info_providers.validation.provider_url_without_key">
       <segment state="translated">
         <source>info_providers.validation.provider_url_without_key</source>
-        <target>If you specify  an provider URL, you also need  to specify an info provider.</target>
+        <target>If you specify a provider URL, you also need to specify an info provider.</target>
       </segment>
     </unit>
     <unit id="gUHUXoV" name="info_providers.validation.provider_key_without_id">
       <segment state="translated">
         <source>info_providers.validation.provider_key_without_id</source>
-        <target>If you specify an info provider, you  also need to provide an provider id, or remove both.</target>
+        <target>If you specify an info provider, you also need to provide a provider ID, or remove both.</target>
       </segment>
     </unit>
   </file>
