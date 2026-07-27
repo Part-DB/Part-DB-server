@@ -7248,7 +7248,7 @@ Element 1 -&gt; Element 1.2</target>
         <target>Add BOM entries</target>
       </segment>
     </unit>
-    <unit id="75hz323" name="project.bom.export_csv">
+    <unit id=".kp4e.H" name="project.bom.export_csv">
       <segment state="translated">
         <source>project.bom.export_csv</source>
         <target>Export as CSV</target>
