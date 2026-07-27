@@ -1,8 +1,7 @@
 {% import "components/datatables.macro.html.twig" as datatables %}
 
 <div class="d-flex align-items-center gap-2"
-     data-controller="project-bom-export"
-     data-project-bom-export-url-value="{{ path('project_bom_export', {id: project.id}) }}">
+     {{ stimulus_controller('pages/project_bom_export', {url: path('project_bom_export', {id: project.id})}) }}>
 
     <div class="btn-group mb-2 mt-2">
         <a class="btn btn-success" {% if not is_granted('@projects.edit') %}disabled{% endif %}
@@ -23,7 +22,8 @@
         </ul>
     </div>
 
-    <button type="button" class="btn btn-secondary" data-action="click->project-bom-export#export">
+    <button type="button" class="btn btn-secondary"
+            {{ stimulus_action('pages/project_bom_export', 'export', 'click') }}>
         <i class="fa-solid fa-file-csv fa-fw"></i>
         {% trans %}project.bom.export_csv{% endtrans %}
     </button>
