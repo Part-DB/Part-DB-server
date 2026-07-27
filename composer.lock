@@ -5172,16 +5172,16 @@
         },
         {
             "name": "jbtronics/2fa-webauthn",
-            "version": "v3.0.0",
+            "version": "v3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/2fa-webauthn.git",
-                "reference": "542424bcc51f06932cbecfd7b75afbb5e107c9ce"
+                "reference": "9881f3ea8d3ba7a8d1afa9adc0339d92c90aff22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/2fa-webauthn/zipball/542424bcc51f06932cbecfd7b75afbb5e107c9ce",
-                "reference": "542424bcc51f06932cbecfd7b75afbb5e107c9ce",
+                "url": "https://api.github.com/repos/jbtronics/2fa-webauthn/zipball/9881f3ea8d3ba7a8d1afa9adc0339d92c90aff22",
+                "reference": "9881f3ea8d3ba7a8d1afa9adc0339d92c90aff22",
                 "shasum": ""
             },
             "require": {
@@ -5226,9 +5226,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/2fa-webauthn/issues",
-                "source": "https://github.com/jbtronics/2fa-webauthn/tree/v3.0.0"
+                "source": "https://github.com/jbtronics/2fa-webauthn/tree/v3.0.2"
             },
-            "time": "2025-08-14T15:12:48+00:00"
+            "time": "2026-07-27T20:24:28+00:00"
         },
         {
             "name": "jbtronics/dompdf-font-loader-bundle",
