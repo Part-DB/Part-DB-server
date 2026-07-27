@@ -410,8 +410,8 @@
       <segment state="translated">
         <source>user.edit.tfa.disable_tfa_message</source>
         <target>Dies wird &lt;b&gt;alle aktiven Zwei-Faktor-Authentifizierungsmethoden des Nutzers deaktivieren&lt;/b&gt; und die &lt;b&gt;Backupcodes löschen&lt;/b&gt;! &lt;br&gt;
-Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müssen und neue Backupcodes ausdrucken müssen! &lt;br&gt;&lt;br&gt;
-&lt;b&gt;Führen sie dies nur durch, wenn Sie über die Identität des (um Hilfe suchenden) Benutzers absolut sicher sind, da ansonsten eine Kompromittierung des Accounts durch einen Angreifer erfolgen könnte!&lt;/b&gt;</target>
+Der Benutzer wird alle Zwei-Faktor-Authentifizierungsmethoden neu einrichten müssen und neue Backupcodes ausdrucken müssen! &lt;br&gt;&lt;br&gt;
+&lt;b&gt;Führen Sie dies nur durch, wenn Sie über die Identität des (um Hilfe suchenden) Benutzers absolut sicher sind, da ansonsten eine Kompromittierung des Accounts durch einen Angreifer erfolgen könnte!&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="APsHYu0" name="user.edit.tfa.disable_tfa.btn">
@@ -489,7 +489,7 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
     <unit id="BtSvnI0" name="entity.delete.confirm_title">
       <segment state="translated">
         <source>entity.delete.confirm_title</source>
-        <target>Wollen sie das Element %name% wirklich löschen?</target>
+        <target>Wollen Sie das Element %name% wirklich löschen?</target>
       </segment>
     </unit>
     <unit id="WR9DNyZ" name="entity.delete.message">
@@ -647,6 +647,12 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Diesen Parameter als EDA Feld exportieren</target>
       </segment>
     </unit>
+    <unit id="Nx6h9XW" name="specifications.eda_symbol_visibility.help">
+      <segment state="translated">
+        <source>specifications.eda_symbol_visibility.help</source>
+        <target>Diesen Parameter im Schaltplansymbol sichtbar machen</target>
+      </segment>
+    </unit>
     <unit id="XclPxI9" name="specification.create">
       <segment state="translated">
         <source>specification.create</source>
@@ -674,7 +680,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="maYlJO8" name="part_list.loading.message">
       <segment state="translated">
         <source>part_list.loading.message</source>
-        <target>Dies kann einen Moment dauern. Wenn diese Nachricht längere Zeit bestehen bleibt, versuchen sie die Seite erneut zu laden.</target>
+        <target>Dies kann einen Moment dauern. Wenn diese Nachricht längere Zeit bestehen bleibt, versuchen Sie die Seite erneut zu laden.</target>
       </segment>
     </unit>
     <unit id="wKzcAZd" name="vendor.base.javascript_hint">
@@ -698,7 +704,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="LN0dVIE" name="loading.message">
       <segment state="translated">
         <source>loading.message</source>
-        <target>Dies kann einen Moment dauern. Sollte diese Nachricht bestehen bleiben, dann laden sie die Seite erneut.</target>
+        <target>Dies kann einen Moment dauern. Sollte diese Nachricht bestehen bleiben, dann laden Sie die Seite erneut.</target>
       </segment>
     </unit>
     <unit id="8I0Kqhw" name="loading.bar">
@@ -1073,7 +1079,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="7.yHB9w" name="part.edit.tab.advanced.ipn.partIncrementHeader">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
-        <target>Vorschläge mit numerischen Teil-Inkrement</target>
+        <target>Vorschläge mit numerischem Teil-Inkrement</target>
       </segment>
     </unit>
     <unit id="H1o.JFb" name="part.edit.tab.advanced.ipn.prefix.description.current-increment">
@@ -1115,13 +1121,13 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="a6_204L" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
-        <target>IPN-Präfixe mit hierarchischer Kategorienreihenfolge der Elternpräfixe und ein teilsspezifisches Inkrement</target>
+        <target>IPN-Präfixe mit hierarchischer Kategorienreihenfolge der Elternpräfixe und ein teilspezifisches Inkrement</target>
       </segment>
     </unit>
     <unit id="VS8w2qp" name="part.edit.tab.advanced.ipn.prefix.not_saved">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
-        <target>Bitte erstellen Sie zuerst ein Bauteil und weisen Sie dieses einer Kategorie zu: mit vorhandenen Kategorien und derene eigenen IPN-Präfix kann die IPN-Angabe für das jeweilige Teil automatisch vorgeschlagen werden</target>
+        <target>Bitte erstellen Sie zuerst ein Bauteil und weisen Sie dieses einer Kategorie zu: mit vorhandenen Kategorien und deren eigenem IPN-Präfix kann die IPN-Angabe für das jeweilige Teil automatisch vorgeschlagen werden</target>
       </segment>
     </unit>
     <unit id="c3S4jwK" name="part.edit.tab.part_lots">
@@ -1673,7 +1679,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="2LvyOme" name="tfa.check.code.help">
       <segment state="translated">
         <source>tfa.check.code.help</source>
-        <target>Geben Sie hier den 6-stelligen Code aus ihrer Authenticator App ein oder einen ihrer Backupcodes, wenn der Authenticator nicht verfügbar ist.</target>
+        <target>Geben Sie hier den 6-stelligen Code aus Ihrer Authenticator App ein oder einen Ihrer Backupcodes, wenn der Authenticator nicht verfügbar ist.</target>
       </segment>
     </unit>
     <unit id="cynL4Ju" name="login.title">
@@ -1991,7 +1997,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="MhULnmd" name="tfa_backup.codes.help">
       <segment state="translated">
         <source>tfa_backup.codes.help</source>
-        <target>Wenn Sie keinen Zugriff auf ihr Gerät mit der Authenticator App mehr haben sollten (Smartphone verloren, Datenverlust, etc.) können Sie einen dieser Codes benutzen, um Zugriff auf ihren Account zu erhalten und evtl. eine neue Authenticator App einzurichten. Jeder dieser Codes lässt sich einmal einsetzen, es empfiehlt sich benutzte Codes zu streichen. Jeder mit Zugriff auf diese Codes kann potentiell auf ihren Account zugreifen, daher bewahren Sie sie an einem sicheren Ort auf.</target>
+        <target>Wenn Sie keinen Zugriff auf Ihr Gerät mit der Authenticator App mehr haben sollten (Smartphone verloren, Datenverlust, etc.) können Sie einen dieser Codes benutzen, um Zugriff auf Ihren Account zu erhalten und evtl. eine neue Authenticator App einzurichten. Jeder dieser Codes lässt sich einmal einsetzen, es empfiehlt sich benutzte Codes zu streichen. Jeder mit Zugriff auf diese Codes kann potentiell auf Ihren Account zugreifen, daher bewahren Sie sie an einem sicheren Ort auf.</target>
       </segment>
     </unit>
     <unit id="Bb1CfFr" name="tfa_backup.username">
@@ -2057,7 +2063,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="YUvPIMf" name="group.label">
       <segment state="translated">
         <source>group.label</source>
-        <target>Group</target>
+        <target>Gruppe</target>
       </segment>
     </unit>
     <unit id="6KVtnw_" name="user.permissions">
@@ -2129,7 +2135,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="d1qp0Zo" name="tfa_google.disable.confirm_message">
       <segment state="translated">
         <source>tfa_google.disable.confirm_message</source>
-        <target>Wenn Sie die Authenticator App deaktivieren, werden alle Backupcodes gelöscht, daher sie müssen sie evtl. neu ausdrucken.&lt;br&gt;
+        <target>Wenn Sie die Authenticator App deaktivieren, werden alle Backupcodes gelöscht, daher müssen Sie sie evtl. neu ausdrucken.&lt;br&gt;
 Beachten Sie außerdem, dass ihr Account ohne Zwei-Faktor-Authentifizierung nicht mehr so gut gegen Angreifer geschützt ist!</target>
       </segment>
     </unit>
@@ -2160,7 +2166,7 @@ Beachten Sie außerdem, dass ihr Account ohne Zwei-Faktor-Authentifizierung nich
     <unit id="3fS0adj" name="tfa_google.step.download_backup">
       <segment state="translated">
         <source>tfa_google.step.download_backup</source>
-        <target>Drucken Sie ihre Backupcodes aus und lagern sie an einem sicheren Ort</target>
+        <target>Drucken Sie Ihre Backupcodes aus und lagern Sie sie an einem sicheren Ort</target>
       </segment>
     </unit>
     <unit id="GwP5l.J" name="tfa_google.manual_setup">
@@ -2208,7 +2214,7 @@ Beachten Sie außerdem, dass ihr Account ohne Zwei-Faktor-Authentifizierung nich
     <unit id="JfAWdYn" name="tfa_backup.explanation">
       <segment state="translated">
         <source>tfa_backup.explanation</source>
-        <target>Mithilfe dieser Backupcodes können Sie auf ihren Account zugreifen, selbst wenn Sie das Gerät mit der Authenticator App verlieren sollten. Drucken Sie die Codes aus und bewahren Sie sie an einem sicheren Ort auf.</target>
+        <target>Mithilfe dieser Backupcodes können Sie auf Ihren Account zugreifen, selbst wenn Sie das Gerät mit der Authenticator App verlieren sollten. Drucken Sie die Codes aus und bewahren Sie sie an einem sicheren Ort auf.</target>
       </segment>
     </unit>
     <unit id="rL_dWDY" name="tfa_backup.reset_codes.confirm_title">
@@ -2299,7 +2305,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="YJL675Z" name="tfa_trustedDevices.invalidate.confirm_message">
       <segment state="translated">
         <source>tfa_trustedDevices.invalidate.confirm_message</source>
-        <target>Sie werden auf allen Rechnern erneut eine Zwei-Faktor-Authentifizierung durchführen müssen. Achten Sie darauf, dass Sie ihr Zwei-Faktor-Gerät zur Hand haben.</target>
+        <target>Sie werden auf allen Rechnern erneut eine Zwei-Faktor-Authentifizierung durchführen müssen. Achten Sie darauf, dass Sie Ihr Zwei-Faktor-Gerät zur Hand haben.</target>
       </segment>
     </unit>
     <unit id="pXHUh_h" name="tfa_trustedDevices.invalidate.btn">
@@ -2425,7 +2431,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="_cDBy1s" name="entity.edit_flash.invalid">
       <segment state="translated">
         <source>entity.edit_flash.invalid</source>
-        <target>Änderungen konnten nicht gespeichert werden! Prüfen Sie ihre Eingaben!</target>
+        <target>Änderungen konnten nicht gespeichert werden! Prüfen Sie Ihre Eingaben!</target>
       </segment>
     </unit>
     <unit id="vJr16w7" name="entity.created_flash">
@@ -2437,7 +2443,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="_H9ego6" name="entity.created_flash.invalid">
       <segment state="translated">
         <source>entity.created_flash.invalid</source>
-        <target>Element konnte nicht angelegt werden! Prüfen Sie ihre Eingaben!</target>
+        <target>Element konnte nicht angelegt werden! Prüfen Sie Ihre Eingaben!</target>
       </segment>
     </unit>
     <unit id="pzsUrS4" name="attachment_type.deleted">
@@ -2560,7 +2566,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="YhbpKMM" name="part.created_flash.invalid">
       <segment state="translated">
         <source>part.created_flash.invalid</source>
-        <target>Fehler beim Anlegen: Überprüfen Sie ihre Eingaben!</target>
+        <target>Fehler beim Anlegen: Überprüfen Sie Ihre Eingaben!</target>
       </segment>
     </unit>
     <unit id="b4W9LjP" name="scan.qr_not_found">
@@ -2608,7 +2614,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="dT3xOQw" name="pw_reset.new_pw.error">
       <segment state="translated">
         <source>pw_reset.new_pw.error</source>
-        <target>Benutzername oder Token ungültig! Überprüfen Sie ihre Eingaben.</target>
+        <target>Benutzername oder Token ungültig! Überprüfen Sie Ihre Eingaben.</target>
       </segment>
     </unit>
     <unit id="oXWCfpb" name="pw_reset.new_pw.success">
@@ -2956,13 +2962,13 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="Q_myBuD" name="eda.status.symbol_set">
       <segment state="translated">
         <source>eda.status.symbol_set</source>
-        <target>KiCad Symbol gesetzt</target>
+        <target>KiCad-Symbol gesetzt</target>
       </segment>
     </unit>
     <unit id="QGLfvit" name="eda.status.footprint_set">
       <segment state="translated">
         <source>eda.status.footprint_set</source>
-        <target>KiCad Footprint gesetzt</target>
+        <target>KiCad-Footprint gesetzt</target>
       </segment>
     </unit>
     <unit id="hkze9M." name="eda.status.reference_set">
@@ -2974,13 +2980,13 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="OTXbAfL" name="eda.status.complete">
       <segment state="translated">
         <source>eda.status.complete</source>
-        <target>EDA Felder vollständig (Symbol, Footprint, Referenz)</target>
+        <target>EDA-Felder vollständig (Symbol, Footprint, Referenz)</target>
       </segment>
     </unit>
     <unit id="z9E5RB." name="eda.status.partial">
       <segment state="translated">
         <source>eda.status.partial</source>
-        <target>EDA Felder teilweise gesetzt</target>
+        <target>EDA-Felder teilweise gesetzt</target>
       </segment>
     </unit>
     <unit id="bMkafCp" name="flash.login_successful">
@@ -3172,7 +3178,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="JxoUNuJ" name="label_options.lines_mode.help">
       <segment state="translated">
         <source>label_options.lines_mode.help</source>
-        <target>Wenn Sie hier Twig auswählen, wird das Contentfeld als Twig-Template interpretiert. Weitere Hilfe gibt es in der &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;Twig Dokumentation&lt;/a&gt; und dem &lt;a href="https://docs.part-db.de/usage/labels.html#twig-mode"&gt;Wiki&lt;/a&gt;.</target>
+        <target>Wenn Sie hier Twig auswählen, wird das Contentfeld als Twig-Template interpretiert. Weitere Hilfe gibt es in der &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;Twig-Dokumentation&lt;/a&gt; und dem &lt;a href="https://docs.part-db.de/usage/labels.html#twig-mode"&gt;Wiki&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="isvxbiX" name="label_options.page_size.label">
@@ -3649,7 +3655,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="jcKsYZ0" name="markdown.loading">
       <segment state="translated">
         <source>markdown.loading</source>
-        <target>Lade Markdown. Wenn diese längere Zeit bestehen bleibt, versuchen sie die Website erneut zu laden!</target>
+        <target>Lade Markdown. Wenn diese längere Zeit bestehen bleibt, versuchen Sie die Website erneut zu laden!</target>
       </segment>
     </unit>
     <unit id="GU0AvHP" name="pw_reset.email.subject">
@@ -4317,7 +4323,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>category.edit.disable_footprints.help</source>
-        <target>Wenn diese Option aktiviert ist, ist die Footprint-Eigenschaft für alle Bauteile in dieser Kategorie, deaktiviert.</target>
+        <target>Wenn diese Option aktiviert ist, ist die Footprint-Eigenschaft für alle Bauteile in dieser Kategorie deaktiviert.</target>
       </segment>
     </unit>
     <unit id="JWHe4Hi" name="category.edit.disable_manufacturers">
@@ -4337,7 +4343,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>category.edit.disable_manufacturers.help</source>
-        <target>Wenn diese Option aktiviert ist, ist die Hersteller Eigenschaft für alle Bauteile in dieser Kategorie, deaktiviert.</target>
+        <target>Wenn diese Option aktiviert ist, ist die Hersteller-Eigenschaft für alle Bauteile in dieser Kategorie deaktiviert.</target>
       </segment>
     </unit>
     <unit id="g_gRbhu" name="category.edit.disable_autodatasheets">
@@ -4544,7 +4550,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>company.edit.auto_product_url</source>
-        <target>Produkt URL</target>
+        <target>Produkt-URL</target>
       </segment>
     </unit>
     <unit id="GgV7KA6" name="company.edit.auto_product_url.help">
@@ -4574,7 +4580,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>currency.edit.iso_code</source>
-        <target>ISO Code</target>
+        <target>ISO-Code</target>
       </segment>
     </unit>
     <unit id="riG2jA5" name="currency.edit.exchange_rate">
@@ -4662,7 +4668,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>measurement_unit.edit.use_si_prefix</source>
-        <target>Benutze SI Prefixe</target>
+        <target>Benutze SI-Prefixe</target>
       </segment>
     </unit>
     <unit id="vvnrMJA" name="measurement_unit.edit.use_si_prefix.help">
@@ -4672,7 +4678,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>measurement_unit.edit.use_si_prefix.help</source>
-        <target>Wenn diese Option aktiviert ist, werden bei Ausgabe der Zahlen SI Prefixe benutzt (z.B. 1,2kg anstatt 1200g)</target>
+        <target>Wenn diese Option aktiviert ist, werden bei Ausgabe der Zahlen SI-Prefixe benutzt (z.B. 1,2kg anstatt 1200g)</target>
       </segment>
     </unit>
     <unit id="gPCdcst" name="measurement_unit.edit.unit_symbol">
@@ -6596,7 +6602,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="lv4PVt2" name="filter.bulk_import_job.status.stopped">
       <segment state="translated">
         <source>filter.bulk_import_job.status.stopped</source>
-        <target>Stopped</target>
+        <target>Gestoppt</target>
       </segment>
     </unit>
     <unit id="0qKD5hC" name="filter.bulk_import_job.status.failed">
@@ -6728,7 +6734,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="FCRoT6l" name="filter.parameter_value_constraint.operator.GREATER_EQUAL_RANGE">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.GREATER_EQUAL_RANGE</source>
-        <target>Größer gleich der Wertebereich</target>
+        <target>Größer gleich dem Wertebereich</target>
       </segment>
     </unit>
     <unit id="6T0tThe" name="filter.parameter_value_constraint.operator.LESS_THAN_RANGE">
@@ -6740,7 +6746,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="4ZMf_IM" name="filter.parameter_value_constraint.operator.LESS_EQUAL_RANGE">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.LESS_EQUAL_RANGE</source>
-        <target>Kleiner gleich der Wertebereich</target>
+        <target>Kleiner gleich dem Wertebereich</target>
       </segment>
     </unit>
     <unit id="Xo4sRNx" name="filter.parameter_value_constraint.operator.RANGE_IN_RANGE">
@@ -6962,7 +6968,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="y43.78W" name="permission.preset.editor.desc">
       <segment state="translated">
         <source>permission.preset.editor.desc</source>
-        <target>Erlauben Bauteile und Datenstrukturen zu bearbeiten</target>
+        <target>Bearbeiten von Bauteilen und Datenstrukturen erlauben</target>
       </segment>
     </unit>
     <unit id="4b.u_RZ" name="permission.preset.admin">
@@ -6998,7 +7004,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="jnDXhpi" name="user.edit.permission_success">
       <segment state="translated">
         <source>user.edit.permission_success</source>
-        <target>Berechtigungsvorlage erfolgreich angewendet. Prüfen Sie, dass die neuen Berechtigungen ihrer Erwartung entsprechen.</target>
+        <target>Berechtigungsvorlage erfolgreich angewendet. Prüfen Sie, dass die neuen Berechtigungen Ihrer Erwartung entsprechen.</target>
       </segment>
     </unit>
     <unit id="Yia.nsG" name="perm.group.data">
@@ -7118,7 +7124,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="uok31Te" name="project.bom.delete.confirm">
       <segment state="translated">
         <source>project.bom.delete.confirm</source>
-        <target>Wollen sie diesen BOM-Eintrag wirklich löschen?</target>
+        <target>Wollen Sie diesen BOM-Eintrag wirklich löschen?</target>
       </segment>
     </unit>
     <unit id="hpPkHYF" name="project.add_parts_to_project">
@@ -7245,6 +7251,12 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>project.info.bom_add_parts</source>
         <target>BOM-Einträge hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id=".kp4e.H" name="project.bom.export_csv">
+      <segment state="translated">
+        <source>project.bom.export_csv</source>
+        <target>Als CSV exportieren</target>
       </segment>
     </unit>
     <unit id="mo8KjGV" name="project.info.info.label">
@@ -7802,7 +7814,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="lLXp.Sn" name="log.element_edited.changed_fields.disable_autodatasheets">
       <segment state="translated">
         <source>log.element_edited.changed_fields.disable_autodatasheets</source>
-        <target>Deaktiviere Automatische Datenblatt-Links</target>
+        <target>Deaktiviere automatische Datenblatt-Links</target>
       </segment>
     </unit>
     <unit id="fCDSKXJ" name="log.element_edited.changed_fields.disable_properties">
@@ -7934,7 +7946,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="YcyvkgJ" name="log.element_edited.changed_fields.iso_code">
       <segment state="translated">
         <source>log.element_edited.changed_fields.iso_code</source>
-        <target>ISO Code</target>
+        <target>ISO-Code</target>
       </segment>
     </unit>
     <unit id="wFzQD92" name="log.element_edited.changed_fields.unit">
@@ -8252,7 +8264,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="J0_jYnW" name="parts.import.flash.error">
       <segment state="translated">
         <source>parts.import.flash.error</source>
-        <target>Es sind Fehler während des Exports aufgetreten. Dies ist vermutlich durch fehlerhafte Daten verursacht.</target>
+        <target>Es sind Fehler während des Imports aufgetreten. Dies ist vermutlich durch fehlerhafte Daten verursacht.</target>
       </segment>
     </unit>
     <unit id="07X4Us1" name="parts.import.format.auto">
@@ -8270,7 +8282,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="Wp1kHtK" name="parts.import.flash.error.invalid_file">
       <segment state="translated">
         <source>parts.import.flash.error.invalid_file</source>
-        <target>Datei fehlerhaft / falsch formatiert. Überprüfen Sie, dass sie das richtige Format gewählt haben.</target>
+        <target>Datei fehlerhaft / falsch formatiert. Überprüfen Sie, dass Sie das richtige Format gewählt haben.</target>
       </segment>
     </unit>
     <unit id="5qhQXjJ" name="parts.import.part_category.label">
@@ -10034,6 +10046,24 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Servereinstellungen</target>
       </segment>
     </unit>
+    <unit id="ZDiR5ya" name="settings.misc.mcp">
+      <segment state="translated">
+        <source>settings.misc.mcp</source>
+        <target>MCP (Model Context Protocol) Server</target>
+      </segment>
+    </unit>
+    <unit id="CdFWDgN" name="settings.misc.mcp.enabled">
+      <segment state="translated">
+        <source>settings.misc.mcp.enabled</source>
+        <target>MCP-Endpunkt aktivieren</target>
+      </segment>
+    </unit>
+    <unit id="Gyos.5e" name="settings.misc.mcp.enabled.help">
+      <segment state="translated">
+        <source>settings.misc.mcp.enabled.help</source>
+        <target>Aktiviert den MCP-Endpunkt (Model Context Protocol) unter /mcp, der es KI-Assistenten ermöglicht, mit Part-DB zu interagieren.</target>
+      </segment>
+    </unit>
     <unit id="xtw_ol7" name="settings.misc.kicad_eda">
       <segment state="translated">
         <source>settings.misc.kicad_eda</source>
@@ -10055,7 +10085,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="X5.rQdO" name="settings.misc.kicad_eda.datasheet_link">
       <segment state="translated">
         <source>settings.misc.kicad_eda.datasheet_link</source>
-        <target>Datasheet Feld verlinkt auf PDF</target>
+        <target>Datenblatt-Feld verlinkt auf PDF</target>
       </segment>
     </unit>
     <unit id="Fm1QTCs" name="settings.misc.kicad_eda.datasheet_link.help">
@@ -10133,13 +10163,13 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="bABze6_" name="settings.misc.kicad_eda.editor.default_footprints">
       <segment state="translated">
         <source>settings.misc.kicad_eda.editor.default_footprints</source>
-        <target>Standard Footprint-Liste</target>
+        <target>Standard-Footprint-Liste</target>
       </segment>
     </unit>
     <unit id="3Ycxg5M" name="settings.misc.kicad_eda.editor.default_symbols">
       <segment state="translated">
         <source>settings.misc.kicad_eda.editor.default_symbols</source>
-        <target>Standardsymboliste</target>
+        <target>Standardsymbolliste</target>
       </segment>
     </unit>
     <unit id="ADK3.8x" name="settings.misc.kicad_eda.editor.default_files_help">
@@ -11633,7 +11663,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="SNkUbfh" name="info_providers.bulk_import.confirm_stop_job">
       <segment state="translated">
         <source>info_providers.bulk_import.confirm_stop_job</source>
-        <target>Sind sie sicher, dass sie diesen Auftrag anhalten wollen?</target>
+        <target>Sind Sie sicher, dass Sie diesen Auftrag anhalten wollen?</target>
       </segment>
     </unit>
     <unit id="dlO_h_K" name="part.filter.in_bulk_import_job">
@@ -11837,7 +11867,7 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="xIZ_mEX" name="project.builds.no_bom_entries">
       <segment state="translated">
         <source>project.builds.no_bom_entries</source>
-        <target>Das Projekt hat keine BOM Einträge</target>
+        <target>Das Projekt hat keine BOM-Einträge</target>
       </segment>
     </unit>
     <unit id="pCKgjIr" name="settings.behavior.sidebar.data_structure_nodes_table_include_children">
@@ -11855,8 +11885,8 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
     <unit id="Gdlnmav" name="info_providers.search.error.oauth_reconnect">
       <segment state="translated">
         <source>info_providers.search.error.oauth_reconnect</source>
-        <target>Folgende Informationsquelle benötigt eine OAuth Neu-Verbindung: %provider%
-Dies ist auf der Informationsquellen Übersichtsseite möglich.</target>
+        <target>Folgende Informationsquelle benötigt eine erneute OAuth-Verbindung: %provider%
+Dies ist auf der Informationsquellen-Übersichtsseite möglich.</target>
       </segment>
     </unit>
     <unit id="L4nq52R" name="settings.misc.ipn_suggest.useDuplicateDescription.help">
@@ -12150,7 +12180,7 @@ Buerklin-API-Authentication-Server:
     <unit id="RFhwYWd" name="info_providers.search.error.transport_exception">
       <segment state="translated">
         <source>info_providers.search.error.transport_exception</source>
-        <target>Transportfehler beim Abrufen von Informationen von den Anbietern. Überprüfen Sie, ob Ihr Server über einen Internetzugang verfügt. Weitere Informationen finden Sie in den Serverprotokollen. Transportfehler beim Abrufen von Informationen von den Anbietern. Überprüfen Sie, ob Ihr Server über einen Internetzugang verfügt. Weitere Informationen finden Sie in den Serverprotokollen.</target>
+        <target>Transportfehler beim Abrufen von Informationen von den Anbietern. Überprüfen Sie, ob Ihr Server über einen Internetzugang verfügt. Weitere Informationen finden Sie in den Serverprotokollen.</target>
       </segment>
     </unit>
     <unit id="PExOL_J" name="update_manager.title">
@@ -12288,7 +12318,7 @@ Buerklin-API-Authentication-Server:
     <unit id="jQSkEnc" name="update_manager.update_to_latest">
       <segment state="translated">
         <source>update_manager.update_to_latest</source>
-        <target>Update to latest version</target>
+        <target>Auf neueste Version aktualisieren</target>
       </segment>
     </unit>
     <unit id="BLqqNYf" name="update_manager.update_to_specific">
@@ -12306,7 +12336,7 @@ Buerklin-API-Authentication-Server:
     <unit id="cTzUzRc" name="update_manager.up_to_date">
       <segment state="translated">
         <source>update_manager.up_to_date</source>
-        <target>Up to date</target>
+        <target>Aktuell</target>
       </segment>
     </unit>
     <unit id="4twG2aT" name="update_manager.newer">
@@ -13017,6 +13047,18 @@ Buerklin-API-Authentication-Server:
         <target>EDA-Sichtbarkeit für alle [Part]-Parameter, die keine explizite Sichtbarkeit gesetzt haben. Wenn aktiviert, sind alle Parameter standardmäßig in der EDA-Software sichtbar.</target>
       </segment>
     </unit>
+    <unit id="XchzDpI" name="settings.misc.kicad_eda.default_parameter_symbol_visibility">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_symbol_visibility</source>
+        <target>Standard-Symbolsichtbarkeit für Parameter</target>
+      </segment>
+    </unit>
+    <unit id="zLHkPCx" name="settings.misc.kicad_eda.default_parameter_symbol_visibility.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_symbol_visibility.help</source>
+        <target>Legt fest, ob exportierte [Part]-Parameterfelder, für die keine explizite Symbol-Sichtbarkeit gesetzt wurde, im Schaltplansymbol angezeigt werden (das „visible“-Flag des KiCad-Feldes). Betrifft nur Parameter, die bereits als EDA-Felder exportiert werden.</target>
+      </segment>
+    </unit>
     <unit id="J6pYnaC" name="settings.misc.kicad_eda.default_orderdetails_visibility">
       <segment state="translated">
         <source>settings.misc.kicad_eda.default_orderdetails_visibility</source>
@@ -13695,6 +13737,36 @@ Buerklin-API-Authentication-Server:
         <target>Sie können diesen zufällig generierten Wert verwenden (geben Sie ihn niemandem weiter):</target>
       </segment>
     </unit>
+    <unit id="pJfdMQU" name="search.extensive_matching">
+      <segment state="translated">
+        <source>search.extensive_matching</source>
+        <target>Erweiterte Übereinstimmung</target>
+      </segment>
+    </unit>
+    <unit id="YO2ZB66" name="search.permit_wildcards">
+      <segment state="translated">
+        <source>search.permit_wildcards</source>
+        <target>&lt;code&gt;%&lt;/code&gt; und &lt;code&gt;_&lt;/code&gt; als Platzhalter behandeln</target>
+      </segment>
+    </unit>
+    <unit id="_nxvnMn" name="search.regexmatching.help">
+      <segment state="translated">
+        <source>search.regexmatching.help</source>
+        <target>Verwenden Sie reguläre Ausdrücke wie "^\w{3,5}", um nach Teilen zu suchen. Umschließende Schrägstriche sind nicht erforderlich.</target>
+      </segment>
+    </unit>
+    <unit id="mry8ytG" name="search.extensive_matching.help">
+      <segment state="translated">
+        <source>search.extensive_matching.help</source>
+        <target>Der Suchbegriff wird in Teile zerlegt, und ein Treffer liegt vor, wenn jeder Teil in irgendeinem Feld enthalten ist. Ohne diesen Modus muss der vollständige Suchbegriff in einem einzigen Feld enthalten sein.</target>
+      </segment>
+    </unit>
+    <unit id="zLnKtwP" name="search.permit_wildcards.help">
+      <segment state="translated">
+        <source>search.permit_wildcards.help</source>
+        <target>Wenn aktiviert, wird _ als Platzhalter für ein Zeichen behandelt und % als Platzhalter für null oder mehr Zeichen.</target>
+      </segment>
+    </unit>
     <unit id="OP7MacF" name="system.trusted_hosts.unconfigured.title">
       <segment state="translated">
         <source>system.trusted_hosts.unconfigured.title</source>
@@ -13771,6 +13843,36 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>part.edit.provider_reference.warning</source>
         <target>Warnung: Das Ändern der Werte an dieser Stelle kann den Mechanismus zum Abrufen von Informationen beeinträchtigen! Sie sollten nach Möglichkeit die Funktion „Von Informationsquelle aktualisieren“ verwenden.</target>
+      </segment>
+    </unit>
+    <unit id="bNrxe9i" name="perm.api.use_mcp">
+      <segment state="translated">
+        <source>perm.api.use_mcp</source>
+        <target>MCP-Tools verwenden (für KI-Agenten)</target>
+      </segment>
+    </unit>
+    <unit id="ced_8yl" name="api.api_endpoints.mcp_url">
+      <segment state="translated">
+        <source>api.api_endpoints.mcp_url</source>
+        <target>MCP-Endpunkt</target>
+      </segment>
+    </unit>
+    <unit id="a1wK4h_" name="info_providers.capabilities.parameters">
+      <segment state="translated">
+        <source>info_providers.capabilities.parameters</source>
+        <target>Parameter</target>
+      </segment>
+    </unit>
+    <unit id="QivC_me" name="info_providers.expensive">
+      <segment state="translated">
+        <source>info_providers.expensive</source>
+        <target>Kostenintensiv</target>
+      </segment>
+    </unit>
+    <unit id="Hiw406i" name="info_providers.expensive.tooltip">
+      <segment state="translated">
+        <source>info_providers.expensive.tooltip</source>
+        <target>Die Verwendung dieses Informationsanbieters kann zusätzliche Kosten verursachen oder unterliegt sehr strengen Ratenlimits.</target>
       </segment>
     </unit>
   </file>
