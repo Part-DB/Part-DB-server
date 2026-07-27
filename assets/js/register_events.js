@@ -83,7 +83,7 @@ class RegisterEventHelper {
             document.querySelectorAll('.tooltip').forEach(el => el.remove());
 
             //Exclude dropdown buttons from tooltips, otherwise we run into endless errors from bootstrap (bootstrap.esm.js:614 Bootstrap doesn't allow more than one instance per element. Bound instance: bs.dropdown.)
-            const tooltipSelector = 'a[title], label[title], button[title]:not([data-bs-toggle="dropdown"]), p[title], span[title], h6[title], h3[title], i[title], small[title]';
+            const tooltipSelector = 'a[title], label[title], button[title]:not([data-bs-toggle="dropdown"]), p[title], span[title], h6[title], h3[title], i[title], small[title], div[title]';
             document.querySelectorAll(tooltipSelector).forEach(el => {
                 const existing = Tooltip.getInstance(el);
                 if (existing) {

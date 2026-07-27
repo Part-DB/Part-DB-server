@@ -334,6 +334,8 @@ class PartListsController extends AbstractController
 
 
         $filter->setRegex($request->query->getBoolean('regex'));
+        $filter->setExtensive($request->query->getBoolean('extensive'));
+        $filter->setWildcard($request->query->getBoolean('wildcard'));
 
         return $filter;
     }
