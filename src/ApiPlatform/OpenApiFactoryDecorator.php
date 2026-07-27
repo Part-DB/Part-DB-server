@@ -24,15 +24,20 @@ declare(strict_types=1);
 namespace App\ApiPlatform;
 
 use ApiPlatform\OpenApi\Factory\OpenApiFactoryInterface;
+use ApiPlatform\OpenApi\Model\OAuthFlow;
+use ApiPlatform\OpenApi\Model\OAuthFlows;
 use ApiPlatform\OpenApi\Model\SecurityScheme;
 use ApiPlatform\OpenApi\OpenApi;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[AsDecorator('api_platform.openapi.factory')]
 class OpenApiFactoryDecorator implements OpenApiFactoryInterface
 {
-    public function __construct(private readonly OpenApiFactoryInterface $decorated)
-    {
+    public function __construct(
+        private readonly OpenApiFactoryInterface $decorated,
+        private readonly UrlGeneratorInterface $urlGenerator,
+    ) {
     }
 
     public function __invoke(array $context = []): OpenApi
@@ -45,6 +50,31 @@ class OpenApiFactoryDecorator implements OpenApiFactoryInterface
             name: 'Authorization',
             scheme: 'bearer',
         );
+
+        // Advertises the OAuth2 authorization code (+ PKCE) flow (see config/packages/league_oauth2_server.yaml
+        // and docs/api/authentication.md) so API clients (and MCP clients doing OpenAPI-based discovery) can
+        // find /authorize + /token without hardcoding them, and self-register a client via RFC 7591 DCR
+        // (POST /oauth/register, mentioned in the description since OpenAPI's OAuthFlow model has no
+        // dedicated registrationEndpoint field) instead of requiring a manually created personal API token.
+        $securitySchemes['oauth2'] = new SecurityScheme(
+            type: 'oauth2',
+            description: 'Authenticate as an OAuth2 client (authorization code + PKCE). Clients can self-register '
+                .'via Dynamic Client Registration at POST /oauth/register (RFC 7591), or use the discovery '
+                .'documents at /.well-known/oauth-authorization-server and /.well-known/oauth-protected-resource.',
+            flows: new OAuthFlows(
+                authorizationCode: new OAuthFlow(
+                    authorizationUrl: $this->urlGenerator->generate('oauth2_authorize', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                    tokenUrl: $this->urlGenerator->generate('oauth2_token', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                    scopes: new \ArrayObject([
+                        'read_only' => 'Read (non-sensitive) data',
+                        'edit' => 'Read and edit (non-sensitive) data',
+                        'admin' => 'Some administrative tasks (e.g. viewing all log entries)',
+                        'full' => 'Everything the user can do',
+                    ]),
+                ),
+            ),
+        );
+
         return $openApi;
     }
 }
