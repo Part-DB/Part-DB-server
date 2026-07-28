@@ -1,14 +1,29 @@
 # Development
 
+Two methods are available for setting up a development environment.
+1. [Direct PHP environment](#direct-php-environment-setup)
+2. [Docker based environment](#docker-based-environment-setup)
+
+
+# Direct PHP Environment Setup
+
+
+For setting up a native PHP development environment, you will need to install PHP, Composer, a database server (MySQL or MariaDB) and yarn (which needs a Node.js environment).
+* Copy `.env` to `.env.local` and change `APP_ENV` to `APP_ENV=dev`. That way you will get development tools (Symfony profiler) and other features that
+  will simplify development.
+* Run `composer install` (without -o) to install PHP dependencies and `yarn install` to install frontend dependencies.
+* Run `yarn watch`. The program will run in the background and compile the frontend files whenever you change something in the CSS or TypeScript files.
+* For running Part-DB, it is recommended to use [Symfony CLI](https://symfony.com/download).
+  That way you can run a correctly configured webserver with `symfony serve`.
+
+
+# Docker Based Environment Setup
+
+
 This document describes how to set up a complete Docker-based development environment for Part-DB.
 
-> **Note**
->
-> The standard native PHP development workflow is documented in `CONTRIBUTING.md`. This document provides an alternative Docker-based workflow that requires only Docker and Docker Compose.
 
----
-
-# Requirements
+## Requirements
 
 The following software is required:
 
@@ -20,7 +35,7 @@ No local installation of PHP, Composer, Node.js, Yarn or a database server is re
 
 ---
 
-# Development Environment
+## Development Environment
 
 The development environment consists of two Docker images:
 
@@ -43,7 +58,7 @@ All application source code remains on the host machine.
 
 ---
 
-# Initial Setup
+## Initial Setup
 
 Clone the repository:
 
@@ -139,7 +154,7 @@ http://localhost:8080/
 
 ---
 
-# Daily Development Workflow
+## Daily Development Workflow
 
 Start the development environment:
 
@@ -179,7 +194,7 @@ docker compose -f compose.dev.yaml down
 
 ---
 
-# Composer
+## Composer
 
 Install or update PHP dependencies:
 
@@ -206,7 +221,7 @@ docker compose -f compose.dev.yaml run --rm partdb \
 
 ---
 
-# Symfony Console
+## Symfony Console
 
 Run any Symfony command:
 
@@ -227,7 +242,7 @@ docker compose -f compose.dev.yaml run --rm partdb \
 
 ---
 
-# Frontend Development
+## Frontend Development
 
 The `assets` service runs `yarn watch` and automatically rebuilds frontend assets 
 whenever CSS or TypeScript files change.
@@ -246,7 +261,7 @@ docker compose -f compose.dev.yaml run --rm assets yarn build
 
 ---
 
-# Testing
+## Testing
 
 To run phpunit testing:
 
@@ -276,7 +291,7 @@ docker compose -f compose.dev.yaml run --rm -e XDEBUG_MODE=coverage \
 
 ---
 
-# Database
+## Database
 
 The development environment uses SQLite.
 
@@ -303,7 +318,7 @@ docker compose -f compose.dev.yaml run --rm partdb \
 
 ---
 
-# Logs
+## Logs
 
 Application logs:
 
@@ -319,11 +334,11 @@ docker compose -f compose.dev.yaml logs -f assets
 
 ---
 
-# Docker Images
+## Docker Images
 
 The development environment uses two images.
 
-## Base image
+### Base image
 
 Built from the upstream Dockerfile:
 
@@ -337,7 +352,7 @@ This image only needs rebuilding when:
 * PHP packages change
 * system packages change
 
-## Development image
+### Development image
 
 Built from `Dockerfile.dev`:
 
@@ -353,16 +368,16 @@ Rebuild this image after changing:
 
 ---
 
-# Troubleshooting
+## Troubleshooting
 
-## Rebuild the development image
+### Rebuild the development image
 
 ```bash
 docker compose -f compose.dev.yaml build
 docker compose -f compose.dev.yaml up -d --force-recreate
 ```
 
-## View container logs
+### View container logs
 
 ```bash
 docker compose -f compose.dev.yaml logs -f partdb
@@ -370,13 +385,13 @@ docker compose -f compose.dev.yaml logs -f partdb
 docker compose -f compose.dev.yaml logs -f assets
 ```
 
-## Remove containers
+### Remove containers
 
 ```bash
 docker compose -f compose.dev.yaml down
 ```
 
-## Clean generated files
+### Clean generated files
 
 ```bash
 rm -rf \
@@ -394,7 +409,7 @@ The tracked files under `uploads/` and `public/media/` should not be removed.
 
 ---
 
-# Notes
+## Notes
 
 The Docker development environment intentionally differs from the native development workflow described in `CONTRIBUTING.md`.
 
