@@ -101,4 +101,118 @@ final class OAuthClientAdminControllerTest extends WebTestCase
         $httpClient->request('GET', '/en/tools/oauth_clients');
         self::assertResponseStatusCodeSame(403);
     }
+
+    public function testManualRegistrationCreatesPublicClient(): void
+    {
+        [$httpClient, ] = $this->loginAsAdmin();
+
+        $crawler = $httpClient->request('GET', '/en/tools/oauth_clients');
+        $form = $crawler->selectButton('Register client')->form([
+            'name' => 'Manually Registered App',
+            'redirect_uris' => "https://client.example.invalid/callback\nhttps://client.example.invalid/other",
+            'scopes' => ['read_only', 'edit'],
+        ]);
+        $httpClient->submit($form);
+
+        self::assertResponseRedirects('/en/tools/oauth_clients');
+        $crawler = $httpClient->followRedirect();
+        self::assertStringContainsString('Manually Registered App', $crawler->filter('body')->text());
+
+        $clientManager = $httpClient->getContainer()->get(ClientManagerInterface::class);
+        $clients = $clientManager->list(null);
+        $created = null;
+        foreach ($clients as $client) {
+            if ('Manually Registered App' === $client->getName()) {
+                $created = $client;
+            }
+        }
+        self::assertNotNull($created);
+        self::assertNull($created->getSecret());
+        self::assertFalse($created->isConfidential());
+        self::assertTrue($created->isActive());
+
+        $scopeNames = array_map(static fn (Scope $s) => (string) $s, $created->getScopes());
+        sort($scopeNames);
+        self::assertSame(['edit', 'read_only'], $scopeNames);
+
+        $grantNames = array_map(static fn (Grant $g) => (string) $g, $created->getGrants());
+        sort($grantNames);
+        self::assertSame(['authorization_code', 'refresh_token'], $grantNames);
+
+        $redirectUris = array_map(static fn (RedirectUri $r) => (string) $r, $created->getRedirectUris());
+        self::assertSame(
+            ['https://client.example.invalid/callback', 'https://client.example.invalid/other'],
+            $redirectUris,
+        );
+    }
+
+    public function testManualRegistrationRejectsMissingName(): void
+    {
+        [$httpClient, ] = $this->loginAsAdmin();
+        $before = \count($httpClient->getContainer()->get(ClientManagerInterface::class)->list(null));
+
+        $crawler = $httpClient->request('GET', '/en/tools/oauth_clients');
+        $form = $crawler->selectButton('Register client')->form([
+            'name' => '',
+            'redirect_uris' => 'https://client.example.invalid/callback',
+            'scopes' => ['read_only'],
+        ]);
+        $httpClient->submit($form);
+
+        self::assertResponseRedirects('/en/tools/oauth_clients');
+        $after = \count($httpClient->getContainer()->get(ClientManagerInterface::class)->list(null));
+        self::assertSame($before, $after);
+    }
+
+    public function testManualRegistrationRejectsInvalidRedirectUri(): void
+    {
+        [$httpClient, ] = $this->loginAsAdmin();
+        $before = \count($httpClient->getContainer()->get(ClientManagerInterface::class)->list(null));
+
+        $crawler = $httpClient->request('GET', '/en/tools/oauth_clients');
+        $form = $crawler->selectButton('Register client')->form([
+            'name' => 'Bad Redirect App',
+            'redirect_uris' => 'http://evil.example.invalid/callback',
+            'scopes' => ['read_only'],
+        ]);
+        $httpClient->submit($form);
+
+        self::assertResponseRedirects('/en/tools/oauth_clients');
+        $after = \count($httpClient->getContainer()->get(ClientManagerInterface::class)->list(null));
+        self::assertSame($before, $after);
+    }
+
+    public function testManualRegistrationRejectsNoScopesSelected(): void
+    {
+        [$httpClient, ] = $this->loginAsAdmin();
+        $before = \count($httpClient->getContainer()->get(ClientManagerInterface::class)->list(null));
+
+        $crawler = $httpClient->request('GET', '/en/tools/oauth_clients');
+        $form = $crawler->selectButton('Register client')->form([
+            'name' => 'No Scopes App',
+            'redirect_uris' => 'https://client.example.invalid/callback',
+        ]);
+        $httpClient->submit($form);
+
+        self::assertResponseRedirects('/en/tools/oauth_clients');
+        $after = \count($httpClient->getContainer()->get(ClientManagerInterface::class)->list(null));
+        self::assertSame($before, $after);
+    }
+
+    public function testManualRegistrationRejectsInvalidCsrfToken(): void
+    {
+        [$httpClient, ] = $this->loginAsAdmin();
+        $before = \count($httpClient->getContainer()->get(ClientManagerInterface::class)->list(null));
+
+        $httpClient->request('POST', '/en/tools/oauth_clients/create', [
+            '_token' => 'invalid',
+            'name' => 'Csrf Bypass App',
+            'redirect_uris' => 'https://client.example.invalid/callback',
+            'scopes' => ['read_only'],
+        ]);
+
+        self::assertResponseRedirects('/en/tools/oauth_clients');
+        $after = \count($httpClient->getContainer()->get(ClientManagerInterface::class)->list(null));
+        self::assertSame($before, $after);
+    }
 }

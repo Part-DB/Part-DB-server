@@ -39,6 +39,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -59,8 +60,13 @@ use Symfony\Component\Validator\Constraints\Length;
 #[Route(path: '/user')]
 class UserSettingsController extends AbstractController
 {
-    public function __construct(protected bool $demo_mode, protected EventDispatcherInterface $eventDispatcher, private readonly ConnectedAppManager $connectedAppManager)
-    {
+    public function __construct(
+        protected bool $demo_mode,
+        protected EventDispatcherInterface $eventDispatcher,
+        private readonly ConnectedAppManager $connectedAppManager,
+        #[Autowire('%partdb.oauth_server.enabled%')]
+        private readonly bool $oauth_server_enabled,
+    ) {
     }
 
     #[Route(path: '/2fa_backup_codes', name: 'show_backup_codes')]
@@ -381,7 +387,8 @@ class UserSettingsController extends AbstractController
             'settings_form' => $form,
             'pw_form' => $pw_form,
             'global_reload_needed' => $page_need_reload,
-            'connected_apps' => $this->connectedAppManager->listConnectedClients($user->getUserIdentifier()),
+            'oauth_server_enabled' => $this->oauth_server_enabled,
+            'connected_apps' => $this->oauth_server_enabled ? $this->connectedAppManager->listConnectedClients($user->getUserIdentifier()) : [],
 
             'google_form' => $google_form,
             'backup_form' => $backup_form,

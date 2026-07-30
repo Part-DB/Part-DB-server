@@ -24,11 +24,16 @@ namespace App\Services\OAuth;
 
 use Doctrine\ORM\EntityManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Manager\ClientManagerInterface;
+use League\Bundle\OAuth2ServerBundle\Manager\ScopeManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Model\AbstractClient;
 use League\Bundle\OAuth2ServerBundle\Model\AccessToken;
 use League\Bundle\OAuth2ServerBundle\Model\AuthorizationCode;
+use League\Bundle\OAuth2ServerBundle\Model\Client;
 use League\Bundle\OAuth2ServerBundle\Model\ClientInterface;
 use League\Bundle\OAuth2ServerBundle\Model\RefreshToken;
+use League\Bundle\OAuth2ServerBundle\ValueObject\Grant;
+use League\Bundle\OAuth2ServerBundle\ValueObject\RedirectUri;
+use League\Bundle\OAuth2ServerBundle\ValueObject\Scope;
 
 /**
  * Backs the admin OAuth2 client overview (App\Controller\OAuthClientAdminController) - listing every
@@ -48,10 +53,65 @@ use League\Bundle\OAuth2ServerBundle\Model\RefreshToken;
  */
 class OAuthClientAdminManager
 {
+    private const MAX_CLIENT_NAME_LENGTH = 128;
+
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly ClientManagerInterface $clientManager,
+        private readonly ScopeManagerInterface $scopeManager,
+        private readonly OAuthRedirectUriValidator $redirectUriValidator,
     ) {
+    }
+
+    /**
+     * Manually registers a public (secret-less) client with a fixed authorization_code + refresh_token
+     * grant set - the same shape App\Controller\OAuth\ClientRegistrationController's RFC 7591 endpoint
+     * produces, just created directly by an admin instead of by the client itself. Useful when Dynamic
+     * Client Registration is disabled (OAUTH_DCR_ENABLED) or simply not desired for a particular app.
+     *
+     * @param list<string> $redirectUris
+     * @param list<string> $scopeNames
+     *
+     * @throws \InvalidArgumentException if $name, $redirectUris or $scopeNames are invalid - the message
+     *                                    is safe to show directly to the (admin-only) user of this form
+     */
+    public function createClient(string $name, array $redirectUris, array $scopeNames): ClientInterface
+    {
+        $name = trim($name);
+        if ('' === $name) {
+            throw new \InvalidArgumentException('Name must not be empty.');
+        }
+        $name = mb_substr($name, 0, self::MAX_CLIENT_NAME_LENGTH);
+
+        if ([] === $redirectUris) {
+            throw new \InvalidArgumentException('At least one redirect URI is required.');
+        }
+        foreach ($redirectUris as $uri) {
+            if (!$this->redirectUriValidator->isAllowed($uri)) {
+                throw new \InvalidArgumentException(\sprintf('"%s" is not an allowed redirect URI.', $uri));
+            }
+        }
+
+        if ([] === $scopeNames) {
+            throw new \InvalidArgumentException('At least one scope is required.');
+        }
+        foreach ($scopeNames as $scopeName) {
+            if (null === $this->scopeManager->find($scopeName)) {
+                throw new \InvalidArgumentException(\sprintf('Unknown scope "%s".', $scopeName));
+            }
+        }
+
+        $identifier = bin2hex(random_bytes(16));
+
+        $client = new Client($name, $identifier, null);
+        $client->setRedirectUris(...array_map(static fn (string $uri): RedirectUri => new RedirectUri($uri), $redirectUris));
+        $client->setGrants(new Grant('authorization_code'), new Grant('refresh_token'));
+        $client->setScopes(...array_map(static fn (string $scope): Scope => new Scope($scope), $scopeNames));
+        $client->setActive(true);
+
+        $this->clientManager->save($client);
+
+        return $client;
     }
 
     /**

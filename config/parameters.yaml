@@ -43,6 +43,12 @@ parameters:
   ######################################################################################################################
   partdb.saml.enabled: '%env(bool:SAML_ENABLED)%'              # If this is set to true, SAML authentication is enabled
 
+  ######################################################################################################################
+  # OAuth2 authorization server (API/MCP client auto-provisioning)
+  ######################################################################################################################
+  partdb.oauth_server.enabled: '%env(bool:OAUTH_SERVER_ENABLED)%'     # If set to true, enables the OAuth2 authorization server (/authorize, /token, admin client overview, OAuth2 bearer token auth)
+  partdb.oauth_server.dcr_enabled: '%env(bool:OAUTH_DCR_ENABLED)%'    # If set to true (and partdb.oauth_server.enabled is also true), enables open Dynamic Client Registration (RFC 7591, POST /oauth/register)
+
 
   ######################################################################################################################
   # Miscellaneous
@@ -91,6 +97,9 @@ parameters:
   env(ERROR_PAGE_SHOW_HELP): 1
 
   env(DEMO_MODE): 0
+
+  env(OAUTH_SERVER_ENABLED): 0
+  env(OAUTH_DCR_ENABLED): 0
 
 
   env(EMAIL_SENDER_EMAIL): 'noreply@partdb.changeme'

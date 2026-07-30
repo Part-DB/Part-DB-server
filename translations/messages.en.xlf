@@ -14069,5 +14069,47 @@ Buerklin-API Authentication server:
         <target>OAuth2 client deleted successfully!</target>
       </segment>
     </unit>
+    <unit id="oaAdm017" name="oauth_clients.create.title">
+      <segment>
+        <source>oauth_clients.create.title</source>
+        <target>Register a new client manually</target>
+      </segment>
+    </unit>
+    <unit id="oaAdm018" name="oauth_clients.create.name">
+      <segment>
+        <source>oauth_clients.create.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="oaAdm019" name="oauth_clients.create.redirect_uris">
+      <segment>
+        <source>oauth_clients.create.redirect_uris</source>
+        <target>Redirect URIs</target>
+      </segment>
+    </unit>
+    <unit id="oaAdm020" name="oauth_clients.create.redirect_uris.help">
+      <segment>
+        <source>oauth_clients.create.redirect_uris.help</source>
+        <target>One URI per line. Must be https://, a loopback http:// address (127.0.0.1/localhost), or a private-use URI scheme (e.g. com.example.app:/callback).</target>
+      </segment>
+    </unit>
+    <unit id="oaAdm021" name="oauth_clients.create.scopes">
+      <segment>
+        <source>oauth_clients.create.scopes</source>
+        <target>Allowed access levels</target>
+      </segment>
+    </unit>
+    <unit id="oaAdm022" name="oauth_clients.create.submit">
+      <segment>
+        <source>oauth_clients.create.submit</source>
+        <target>Register client</target>
+      </segment>
+    </unit>
+    <unit id="oaAdm023" name="oauth_clients.created">
+      <segment>
+        <source>oauth_clients.created</source>
+        <target>OAuth2 client registered successfully! Client ID: %client_id%</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

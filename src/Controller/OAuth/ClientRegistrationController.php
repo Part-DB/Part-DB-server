@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller\OAuth;
 
+use App\Services\OAuth\OAuthRedirectUriValidator;
 use League\Bundle\OAuth2ServerBundle\Manager\ClientManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Manager\ScopeManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Model\Client;
@@ -45,6 +46,10 @@ use Symfony\Component\Routing\Attribute\Route;
  *
  * Rate-limited per client IP (config/packages/rate_limiter.yaml, "oauth_client_registration") since this
  * endpoint has no other gate protecting it from mass-registration abuse.
+ *
+ * Only reachable if both the OAuth2 server and Dynamic Client Registration specifically are enabled
+ * (OAUTH_SERVER_ENABLED and OAUTH_DCR_ENABLED, both disabled by default) - see the route condition below.
+ * Clients can still be registered manually by an admin via /tools/oauth_clients regardless of this flag.
  */
 #[Route('/oauth')]
 class ClientRegistrationController extends AbstractController
@@ -66,6 +71,7 @@ class ClientRegistrationController extends AbstractController
     public function __construct(
         private readonly ClientManagerInterface $clientManager,
         private readonly ScopeManagerInterface $scopeManager,
+        private readonly OAuthRedirectUriValidator $redirectUriValidator,
         #[Autowire(service: 'limiter.oauth_client_registration')]
         private readonly RateLimiterFactory $registrationLimiter,
         #[Autowire('%league.oauth2_server.scopes.default%')]
@@ -73,7 +79,7 @@ class ClientRegistrationController extends AbstractController
     ) {
     }
 
-    #[Route('/register', name: 'oauth2_client_register', methods: ['POST'])]
+    #[Route('/register', name: 'oauth2_client_register', methods: ['POST'], condition: "(env('OAUTH_SERVER_ENABLED') == '1' or env('OAUTH_SERVER_ENABLED') == 'true') and (env('OAUTH_DCR_ENABLED') == '1' or env('OAUTH_DCR_ENABLED') == 'true')")]
     public function register(Request $request): JsonResponse
     {
         $limit = $this->registrationLimiter->create($request->getClientIp() ?? 'unknown')->consume();
@@ -161,43 +167,13 @@ class ClientRegistrationController extends AbstractController
 
         $redirectUris = [];
         foreach ($redirectUrisRaw as $uri) {
-            if (!\is_string($uri) || \strlen($uri) > self::MAX_REDIRECT_URI_LENGTH || !$this->isAllowedRedirectUri($uri)) {
+            if (!\is_string($uri) || \strlen($uri) > self::MAX_REDIRECT_URI_LENGTH || !$this->redirectUriValidator->isAllowed($uri)) {
                 return $this->error('invalid_redirect_uri', \sprintf('"%s" is not an allowed redirect URI.', \is_string($uri) ? $uri : get_debug_type($uri)));
             }
             $redirectUris[] = $uri;
         }
 
         return $redirectUris;
-    }
-
-    /**
-     * Accepts https:// URIs, loopback http:// URIs (127.0.0.1/localhost/[::1], any port), and private-use
-     * URI schemes containing a dot (e.g. "com.example.app:/callback") - the three redirect URI shapes
-     * RFC 8252 recommends for native/CLI apps like MCP clients. Plain http:// to a non-loopback host is
-     * rejected (token/code leakage over an insecure channel), as is any URI carrying a fragment.
-     */
-    private function isAllowedRedirectUri(string $uri): bool
-    {
-        $parts = parse_url($uri);
-        if (false === $parts || !isset($parts['scheme']) || isset($parts['fragment'])) {
-            return false;
-        }
-
-        $scheme = strtolower($parts['scheme']);
-
-        if ('https' === $scheme) {
-            return isset($parts['host']) && '' !== $parts['host'];
-        }
-
-        if ('http' === $scheme) {
-            $host = strtolower($parts['host'] ?? '');
-
-            return \in_array($host, ['127.0.0.1', 'localhost', '::1', '[::1]'], true);
-        }
-
-        // Private-use URI scheme (RFC 8252 §7.1): require a dot to match the recommended reverse-DNS
-        // style (e.g. "com.example.app"), reducing collisions with generic/likely-preregistered schemes.
-        return 1 === preg_match('/^[a-z][a-z0-9+.-]*\.[a-z0-9+.-]*[a-z0-9]$/', $scheme);
     }
 
     /**

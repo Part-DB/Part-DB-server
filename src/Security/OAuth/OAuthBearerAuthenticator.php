@@ -59,6 +59,11 @@ use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface
  * authentication with a 401. Restricting each authenticator to the token shapes it actually owns
  * (ApiTokenAuthenticator: our own "tcp_..." Personal Access Tokens; this class: everything else, i.e.
  * OAuth2-issued JWTs) avoids that collision entirely. See App\Entity\UserSystem\ApiTokenType::isRecognizedToken().
+ *
+ * Also refuses to authenticate anything at all while the OAuth2 server is disabled (OAUTH_SERVER_ENABLED,
+ * disabled by default) - so any previously-issued OAuth2 token immediately stops working the moment the
+ * server is turned off, the same way its own /authorize, /token etc. routes stop being reachable (see
+ * config/routes/league_oauth2_server.yaml's route condition).
  */
 class OAuthBearerAuthenticator implements AuthenticatorInterface, AuthenticationEntryPointInterface
 {
@@ -74,11 +79,17 @@ class OAuthBearerAuthenticator implements AuthenticatorInterface, Authentication
         #[Autowire(service: 'security.user.provider.concrete.app_user_provider')]
         private readonly UserProviderInterface $userProvider,
         private readonly OAuthClientGrantPreferenceManager $grantPreferences,
+        #[Autowire('%partdb.oauth_server.enabled%')]
+        private readonly bool $oauth_server_enabled,
     ) {
     }
 
     public function supports(Request $request): bool
     {
+        if (!$this->oauth_server_enabled) {
+            return false;
+        }
+
         $header = $request->headers->get('Authorization', '');
         if (!str_starts_with((string) $header, 'Bearer ')) {
             return false;

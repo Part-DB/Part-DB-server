@@ -9,6 +9,44 @@
 {% block card_content %}
     <p class="text-muted">{% trans %}oauth_clients.description{% endtrans %}</p>
 
+    <div class="card mb-4">
+        <div class="card-header">{% trans %}oauth_clients.create.title{% endtrans %}</div>
+        <div class="card-body">
+            <form action="{{ path('oauth_clients_create') }}" method="post">
+                <input type="hidden" name="_token" value="{{ csrf_token('oauth_client_create') }}">
+
+                <div class="mb-3">
+                    <label class="form-label" for="oauth_client_create_name">{% trans %}oauth_clients.create.name{% endtrans %}</label>
+                    <input type="text" class="form-control" id="oauth_client_create_name" name="name" maxlength="128" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="oauth_client_create_redirect_uris">{% trans %}oauth_clients.create.redirect_uris{% endtrans %}</label>
+                    <textarea class="form-control" id="oauth_client_create_redirect_uris" name="redirect_uris" rows="3" required
+                              placeholder="https://client.example.com/callback"></textarea>
+                    <div class="form-text">{% trans %}oauth_clients.create.redirect_uris.help{% endtrans %}</div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">{% trans %}oauth_clients.create.scopes{% endtrans %}</label>
+                    {% for level in scope_levels %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="scopes[]"
+                                   id="oauth_client_create_scope_{{ level.name|lower }}" value="{{ level.name|lower }}">
+                            <label class="form-check-label" for="oauth_client_create_scope_{{ level.name|lower }}">
+                                {{ level.translationKey|trans }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-plus fa-fw" aria-hidden="true"></i> {% trans %}oauth_clients.create.submit{% endtrans %}
+                </button>
+            </form>
+        </div>
+    </div>
+
     {% if clients is empty %}
         <b>{% trans %}oauth_clients.none_yet{% endtrans %}</b>
     {% else %}
