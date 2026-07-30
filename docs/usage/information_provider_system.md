@@ -54,9 +54,11 @@ can define multiple alternative names for an element (on their editing page).
 For example, if you define a manufacturer "Example Corp" with the alternative names "Example Corp.", "Example Corp", "Example
 Corp. Inc." and "Example Corporation",
 then the provider can return any of these names and Part-DB will still automatically select the right element.
+If the alternative name you want to use contains a comma, e.g. "Example, Inc.", you cannot enter it because the indiviual
+names are separated by commas internally. Instead use any placeholder character like this: "Example# Inc.".
 
-If Part-DB finds no matching element, it will automatically create a new one, when you do not change the value before
-saving.
+If Part-DB finds no matching element, it will automatically create a new one when you do not change the value before
+saving. This does not apply to categories.
 
 ## Attachment types
 
