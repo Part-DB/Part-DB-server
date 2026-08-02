@@ -33,6 +33,7 @@ use App\Services\InfoProviderSystem\Providers\TMEProvider;
 use App\Settings\InfoProviderSystem\TMESettings;
 use App\Tests\SettingsTestHelper;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 
@@ -51,7 +52,7 @@ final class TMEProviderTest extends TestCase
         $this->settings->currency = 'EUR';
         $this->settings->language = 'en';
         $this->settings->country = 'DE';
-        $this->provider = new TMEProvider(new TMEClient($this->httpClient, $this->settings), $this->settings);
+        $this->provider = new TMEProvider(new TMEClient($this->httpClient, $this->settings, new ArrayAdapter()), $this->settings, $this->httpClient);
     }
 
     // --- Mock response helpers ---
@@ -258,7 +259,7 @@ final class TMEProviderTest extends TestCase
     public function testIsActiveWithoutCredentials(): void
     {
         $this->settings->apiToken = null;
-        $provider = new TMEProvider(new TMEClient($this->httpClient, $this->settings), $this->settings);
+        $provider = new TMEProvider(new TMEClient($this->httpClient, $this->settings, new ArrayAdapter()), $this->settings, $this->httpClient);
         $this->assertFalse($provider->isActive());
     }
 
@@ -284,6 +285,59 @@ final class TMEProviderTest extends TestCase
         $this->assertSame('fi321_se', $this->provider->getIDFromURL('https://www.tme.eu/de/details/fi321_se/kuhler/alutronic/'));
         $this->assertSame('smd0603-5k1-1%25', $this->provider->getIDFromURL('https://www.tme.eu/en/details/smd0603-5k1-1%25/smd-resistors/royalohm/0603saf5101t5e/'));
         $this->assertNull($this->provider->getIDFromURL('https://www.tme.eu/en/'));
+    }
+
+    public function testAccessTokenIsCachedAcrossClientInstances(): void
+    {
+        // A single ArrayAdapter shared between two independent TMEClient instances simulates
+        // the token cache surviving across separate requests (each request builds a fresh client).
+        $cache = new ArrayAdapter();
+
+        // First client has to fetch a token before making its API call
+        $client1 = new TMEClient($this->httpClient, $this->settings, $cache);
+        $this->httpClient->setResponseFactory([
+            $this->mockTokenResponse(),
+            $this->smd0603SearchResults(),
+        ]);
+        $client1->makeRequest('products/search', ['phrase' => 'SMD0603-5K1-1%']);
+
+        // Second client is a fresh instance, but shares the cache pool, so no token request should be made
+        $client2 = new TMEClient($this->httpClient, $this->settings, $cache);
+        $this->httpClient->setResponseFactory([
+            $this->smd0603SearchResults(),
+        ]);
+        $response = $client2->makeRequest('products/search', ['phrase' => 'SMD0603-5K1-1%']);
+
+        $this->assertSame('OK', $response->toArray()['status']);
+    }
+
+    public function testAccessTokenIsRefetchedAfterExpiryEvenWithSharedCache(): void
+    {
+        $cache = new ArrayAdapter();
+
+        $client1 = new TMEClient($this->httpClient, $this->settings, $cache);
+        $this->httpClient->setResponseFactory([
+            new MockResponse(json_encode([
+                'access_token'  => 'mock_access_token',
+                'token_type'    => 'Bearer',
+                'expires_in'    => -1, // already expired
+                'refresh_token' => 'mock_refresh_token',
+            ])),
+            $this->smd0603SearchResults(),
+        ]);
+        $client1->makeRequest('products/search', ['phrase' => 'SMD0603-5K1-1%']);
+
+        // The cached token is expired, and the refresh_token grant fails (no mock queued for it beyond
+        // the token response below), so a fresh client_credentials token must be fetched.
+        $client2 = new TMEClient($this->httpClient, $this->settings, $cache);
+        $this->httpClient->setResponseFactory([
+            new MockResponse('', ['http_code' => 400]), // refresh_token grant fails
+            $this->mockTokenResponse(), // fallback client_credentials grant
+            $this->smd0603SearchResults(),
+        ]);
+        $response = $client2->makeRequest('products/search', ['phrase' => 'SMD0603-5K1-1%']);
+
+        $this->assertSame('OK', $response->toArray()['status']);
     }
 
     public function testSearchByKeyword(): void
