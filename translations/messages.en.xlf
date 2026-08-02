@@ -13877,5 +13877,11 @@ Buerklin-API Authentication server:
         <target>Using this info provider can cause additional costs, or has very strict rate limits.</target>
       </segment>
     </unit>
+    <unit id="XMqiyE0" name="settings.ips.tme.preferMetricFootprint">
+      <segment>
+        <source>settings.ips.tme.preferMetricFootprint</source>
+        <target>Prefer metric footprint when both metric and imperial are available</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
