@@ -68,4 +68,7 @@ class TMESettings
         envVar: "PROVIDER_TME_COUNTRY", envVarMode: EnvVarMode::OVERWRITE)]
     #[Assert\Country]
     public string $country = "DE";
+
+    #[SettingsParameter(label: new TM("settings.ips.tme.preferMetricFootprint"))]
+    public bool $preferMetricFootprint = false;
 }

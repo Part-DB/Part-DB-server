@@ -252,12 +252,22 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
 
         $result = [];
 
-        $footprint_name = null;
+        $footprint = null;
+        $footprint_imperial = null;
+        $footprint_metric = null;
 
         foreach ($element['elements'] as $parameter) {
-            //Check if the parameter is the case/footprint
-            if ($parameter['id'] === 35) {
-                $footprint_name = $parameter['values'][0]['value'];
+            $id = $parameter['id'];
+            $value = $parameter['values'][0]['value'] ?? null;
+
+            // Check if the parameter is the case/footprint
+            // id 35 is Case, id 2932 is Case-inch, id 2931 is Case-mm
+            if ($id === 35) {
+                $footprint = $value;
+            } else if ($id === 2932) {
+                $footprint_imperial = $value;
+            } else if ($id === 2931) {
+                $footprint_metric = $value;
             }
 
             //Skip related items parameter
@@ -274,9 +284,13 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
                 );
             } else if (count($parameter['values']) === 1) {
                 $result[] = ParameterDTO::parseValueIncludingUnit($parameter['name'], $parameter['values'][0]['value']);
-
             }
         }
+
+        //Assign the footprint name based on the user preference and available values
+        $footprint_name = $this->settings->preferMetricFootprint ?
+            ($footprint_metric ?? $footprint ?? $footprint_imperial) :
+            ($footprint_imperial ?? $footprint ?? $footprint_metric);
 
         return $result;
     }
