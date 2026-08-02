@@ -13740,31 +13740,31 @@ Buerklin-API Authentication server:
       </segment>
     </unit>
     <unit id="pJfdMQU" name="search.extensive_matching">
-      <segment>
+      <segment state="translated">
         <source>search.extensive_matching</source>
         <target>Extensive Matching</target>
       </segment>
     </unit>
     <unit id="YO2ZB66" name="search.permit_wildcards">
-      <segment>
+      <segment state="translated">
         <source>search.permit_wildcards</source>
         <target>Treat &lt;code&gt;%&lt;/code&gt; and &lt;code&gt;_&lt;/code&gt; as wildcards</target>
       </segment>
     </unit>
     <unit id="_nxvnMn" name="search.regexmatching.help">
-      <segment>
+      <segment state="translated">
         <source>search.regexmatching.help</source>
         <target>Use regular expressions like "^\w{3,5}" to search for parts. Does not require slashes padding.</target>
       </segment>
     </unit>
     <unit id="mry8ytG" name="search.extensive_matching.help">
-      <segment>
+      <segment state="translated">
         <source>search.extensive_matching.help</source>
         <target>The search term is split up into parts, and a result is found, when each part is contained in any field. Without this mode the full search term has to be contained in a single field.</target>
       </segment>
     </unit>
     <unit id="zLnKtwP" name="search.permit_wildcards.help">
-      <segment>
+      <segment state="translated">
         <source>search.permit_wildcards.help</source>
         <target>If enabled, _ is treated as a wildcard for one character and % is treated as a wildcard for zero or more characters.</target>
       </segment>
@@ -13848,31 +13848,31 @@ Buerklin-API Authentication server:
       </segment>
     </unit>
     <unit id="bNrxe9i" name="perm.api.use_mcp">
-      <segment>
+      <segment state="translated">
         <source>perm.api.use_mcp</source>
         <target>Use MCP tools (for AI agents)</target>
       </segment>
     </unit>
     <unit id="ced_8yl" name="api.api_endpoints.mcp_url">
-      <segment>
+      <segment state="translated">
         <source>api.api_endpoints.mcp_url</source>
         <target>MCP endpoint</target>
       </segment>
     </unit>
     <unit id="a1wK4h_" name="info_providers.capabilities.parameters">
-      <segment>
+      <segment state="translated">
         <source>info_providers.capabilities.parameters</source>
         <target>Parameters</target>
       </segment>
     </unit>
     <unit id="QivC_me" name="info_providers.expensive">
-      <segment>
+      <segment state="translated">
         <source>info_providers.expensive</source>
         <target>Expensive</target>
       </segment>
     </unit>
     <unit id="Hiw406i" name="info_providers.expensive.tooltip">
-      <segment>
+      <segment state="translated">
         <source>info_providers.expensive.tooltip</source>
         <target>Using this info provider can cause additional costs, or has very strict rate limits.</target>
       </segment>
