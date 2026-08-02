@@ -197,8 +197,8 @@ again, to establish a new connection.
 The TME provider uses the API of [TME](https://www.tme.eu/) to search for parts and get shopping information from
 them.
 To use it you have to create an account at TME and get an API key on the [TME API page](https://developers.tme.eu/en/).
-You have to generate a new anonymous key there and enter the key and secret in the Part-DB env configuration (see
-below).
+You have to generate a new application and new private key there  and enter the key and secret in the Part-DB env configuration (see
+below). Follow the instructions of [TME](https://developers.tme.eu/en/how-to-start/download) for more informations
 
 The following env configuration options are available:
 
@@ -208,8 +208,6 @@ The following env configuration options are available:
 * `PROVIDER_TME_LANGUAGE`: The language you want to get the descriptions in (`en`, `de` and `pl`) (optional,
   default: `en`)
 * `PROVIDER_TME_COUNTRY`: The country you want to get the prices for (optional, default: `DE`)
-* `PROVIDER_TME_GET_GROSS_PRICES`: If this is set to `1` the prices will be gross prices (including tax), otherwise net
-  prices (optional, default: `0`)
 
 ### Farnell / Element14 / Newark
 
