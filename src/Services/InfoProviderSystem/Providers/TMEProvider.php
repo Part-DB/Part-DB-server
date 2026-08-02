@@ -104,7 +104,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
                 provider_id: $product['symbol'],
                 name: $product['manufacturer_symbols'][0] ?? $product['symbol'],
                 description: $product['description'],
-                category: $product['category']['name'],
+                category: $product['category']['name'] ?? null,
                 manufacturer: $product['manufacturer']['name'] ?? null,
                 mpn: $product['manufacturer_symbols'][0] ?? null,
                 preview_image_url: $this->normalizeURL($product['assets']['primary_photo']['prime'] ?? null),
@@ -139,7 +139,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
             provider_id: $product['symbol'],
             name: $product['manufacturer_symbols'][0] ?? $product['symbol'],
             description: $product['description'],
-            category: $product['category']['name'],
+            category: $product['category']['name'] ?? null,
             manufacturer: $product['manufacturer']['name'] ?? null,
             mpn: $product['manufacturer_symbols'][0] ?? null,
             preview_image_url: $this->normalizeURL($product['assets']['primary_photo']['prime'] ?? null),
@@ -183,7 +183,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
         $images = [];
         foreach ($element['assets']['additional']['elements'] ?? [] as $photo) {
             $images[] = new FileDTO(
-                url: $this->normalizeURL($image['high_resolution'] ?? $photo['prime']),
+                url: $this->normalizeURL($photo['high_resolution'] ?? $photo['prime']),
             );
         }
 

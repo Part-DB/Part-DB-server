@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Tests\Services\InfoProviderSystem\Providers;
 
 use App\Entity\Parts\ManufacturingStatus;
+use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
@@ -53,6 +54,11 @@ final class TMEProviderTest extends TestCase
         $this->settings->language = 'en';
         $this->settings->country = 'DE';
         $this->provider = new TMEProvider(new TMEClient($this->httpClient, $this->settings, new ArrayAdapter()), $this->settings, $this->httpClient);
+    }
+
+    private function newProvider(): TMEProvider
+    {
+        return new TMEProvider(new TMEClient($this->httpClient, $this->settings, new ArrayAdapter()), $this->settings, $this->httpClient);
     }
 
     // --- Mock response helpers ---
@@ -88,31 +94,27 @@ final class TMEProviderTest extends TestCase
         ]));
     }
 
-    private function mockFilesList(array $products): MockResponse
+    private function mockFilesList(array $elements): MockResponse
     {
         return new MockResponse(json_encode([
             'status' => 'OK',
-            'data'   => ['elements' => $products],
+            'data'   => ['elements' => $elements],
         ]));
     }
 
-    private function mockParametersList(array $products): MockResponse
+    private function mockParametersList(array $elements): MockResponse
     {
         return new MockResponse(json_encode([
             'status' => 'OK',
-            'data'   => ['elements' => $products],
+            'data'   => ['elements' => $elements],
         ]));
     }
 
-    private function mockPricesData(string $currency, string $priceType, array $products): MockResponse
+    private function mockPrices(string $currency, string $priceType, array $elements): MockResponse
     {
         return new MockResponse(json_encode([
             'status' => 'OK',
-            'data'   => [
-                'currency'   => $currency,
-                'price_type' => $priceType,
-                'elements'   => $products,
-            ],
+            'data'   => ['elements' => $elements],
         ]));
     }
 
@@ -121,16 +123,17 @@ final class TMEProviderTest extends TestCase
     private function smd0603Product(): array
     {
         return [
-            'symbol'                  => 'SMD0603-5K1-1%',
-            'original_symbol'         => '0603SAF5101T5E',
-            'producer'                => 'ROYALOHM',
-            'description'             => 'Resistor: thick film; SMD; 0603; 5.1kΩ; 0.1W; ±1%; 50V; -55÷155°C',
-            'category'                => 'SMD resistors',
-            'photo'                   => '//ce8dc832c.cloudimg.io/v7/_cdn_/E9/C2/B0/00/0/732318_1.jpg',
-            'statuses'                => [],
-            'product_information_page' => '//www.tme.eu/en/details/smd0603-5k1-1%/smd-resistors/royalohm/0603saf5101t5e/',
-            'weight'                  => 0.021,
-            'weight_unit'             => 'g',
+            'symbol'               => 'SMD0603-5K1-1%',
+            'ean'                  => '978020137962',
+            'category'             => ['name' => 'SMD resistors'],
+            'manufacturer_symbols' => ['0603SAF5101T5E', 'another_symbol'],
+            'manufacturer'         => ['name' => 'ROYALOHM'],
+            'description'          => 'Resistor: thick film; SMD; 0603; 5.1kΩ; 0.1W; ±1%; 50V; -55÷155°C',
+            'assets'               => [
+                'primary_photo' => ['prime' => '//ce8dc832c.cloudimg.io/v7/_cdn_/E9/C2/B0/00/0/732318_1.jpg'],
+            ],
+            'weight'               => ['value' => 0.021, 'unit' => 'g'],
+            'product_status'       => [],
         ];
     }
 
@@ -148,10 +151,16 @@ final class TMEProviderTest extends TestCase
     {
         return $this->mockFilesList([[
             'symbol'    => 'SMD0603-5K1-1%',
-            'photos'    => [],
             'documents' => [
-                ['url' => '//www.tme.eu/Document/b315665a56acbc42df513c99b390ad98/ROYALOHM-THICKFILM.pdf'],
-                ['url' => '//www.tme.eu/Document/c283990e907c122bb808207d1578ac7f/POWER_RATING-DTE.pdf'],
+                'elements' => [
+                    ['url' => '//www.tme.eu/Document/b315665a56acbc42df513c99b390ad98/ROYALOHM-THICKFILM.pdf', 'type' => 'DTE', 'file_name' => 'ROYALOHM-THICKFILM.pdf'],
+                    ['url' => '//www.tme.eu/Document/c283990e907c122bb808207d1578ac7f/POWER_RATING-DTE.pdf', 'type' => 'DTE', 'file_name' => 'POWER_RATING-DTE.pdf'],
+                    // Firmware document, must be filtered out as it is not a valid document type
+                    ['url' => '//www.tme.eu/Document/some_firmware.bin', 'type' => 'SFT', 'file_name' => 'firmware.bin'],
+                ],
+            ],
+            'assets' => [
+                'additional' => ['elements' => []],
             ],
         ]]);
     }
@@ -161,23 +170,29 @@ final class TMEProviderTest extends TestCase
         return $this->mockParametersList([[
             'symbol'     => 'SMD0603-5K1-1%',
             'parameters' => [
-                ['id' => 34,  'name' => 'Type of resistor',  'value' => 'thick film'],
-                ['id' => 35,  'name' => 'Case - mm',         'value' => '1608'],
-                ['id' => 38,  'name' => 'Resistance',        'value' => '5.1kΩ'],
-                ['id' => 39,  'name' => 'Tolerance',         'value' => '±1%'],
-                ['id' => 120, 'name' => 'Operating voltage', 'value' => '50V'],
+                'elements' => [
+                    ['id' => 34,  'name' => 'Type of resistor',  'values' => [['value' => 'thick film']]],
+                    ['id' => 35,  'name' => 'Case - mm',         'values' => [['value' => '1608']]],
+                    ['id' => 38,  'name' => 'Resistance',        'values' => [['value' => '5.1kΩ']]],
+                    ['id' => 39,  'name' => 'Tolerance',         'values' => [['value' => '±1%']]],
+                    ['id' => 120, 'name' => 'Operating voltage', 'values' => [['value' => '50V']]],
+                ],
             ],
         ]]);
     }
 
     private function smd0603Prices(): MockResponse
     {
-        return $this->mockPricesData('EUR', 'NET', [[
-            'symbol'     => 'SMD0603-5K1-1%',
-            'price_list' => [
-                ['amount' => 100,  'price_value' => 0.01077],
-                ['amount' => 1000, 'price_value' => 0.00291],
-                ['amount' => 5000, 'price_value' => 0.00150],
+        return $this->mockPrices('EUR', 'NET', [[
+            'symbol' => 'SMD0603-5K1-1%',
+            'prices' => [
+                'currency' => 'EUR',
+                'type'     => 'NET',
+                'elements' => [
+                    ['amount' => 100,  'price' => 0.01077],
+                    ['amount' => 1000, 'price' => 0.00291],
+                    ['amount' => 5000, 'price' => 0.00150],
+                ],
             ],
         ]]);
     }
@@ -185,16 +200,16 @@ final class TMEProviderTest extends TestCase
     private function etqp3mProduct(): array
     {
         return [
-            'symbol'                  => 'ETQP3M6R8KVP',
-            'original_symbol'         => 'ETQP3M6R8KVP',
-            'producer'                => 'PANASONIC',
-            'description'             => 'Inductor: wire; SMD; 6.8uH; 2.9A; R: 65.7mΩ; ±20%; ETQP3M; 5.5x5x3mm',
-            'category'                => 'Inductors',
-            'photo'                   => '//ce8dc832c.cloudimg.io/v7/_cdn_/9E/27/A0/00/0/684777_1.jpg',
-            'statuses'                => [],
-            'product_information_page' => '//www.tme.eu/en/details/etqp3m6r8kvp/inductors/panasonic/',
-            'weight'                  => 0.44,
-            'weight_unit'             => 'g',
+            'symbol'               => 'ETQP3M6R8KVP',
+            'category'             => ['name' => 'Inductors'],
+            'manufacturer_symbols' => ['ETQP3M6R8KVP'],
+            'manufacturer'         => ['name' => 'PANASONIC'],
+            'description'          => 'Inductor: wire; SMD; 6.8uH; 2.9A; R: 65.7mΩ; ±20%; ETQP3M; 5.5x5x3mm',
+            'assets'               => [
+                'primary_photo' => ['prime' => '//ce8dc832c.cloudimg.io/v7/_cdn_/9E/27/A0/00/0/684777_1.jpg'],
+            ],
+            'weight'               => ['value' => 0.44, 'unit' => 'g'],
+            'product_status'       => [],
         ];
     }
 
@@ -207,10 +222,21 @@ final class TMEProviderTest extends TestCase
     {
         return $this->mockFilesList([[
             'symbol'    => 'ETQP3M6R8KVP',
-            'photos'    => [],
             'documents' => [
-                ['url' => '//www.tme.eu/Document/50a845881f09d8a2248350946e11df38/AGL0000C63.pdf'],
-                ['url' => '//www.tme.eu/Document/8480690a42fa577214e35e33d3fc8d77/ETQP3M100KVN-LNK.txt'],
+                'elements' => [
+                    ['url' => '//www.tme.eu/Document/50a845881f09d8a2248350946e11df38/AGL0000C63.pdf', 'type' => 'DTE', 'file_name' => 'AGL0000C63.pdf'],
+                    ['url' => '//www.tme.eu/Document/8480690a42fa577214e35e33d3fc8d77/ETQP3M100KVN-LNK.txt', 'type' => 'KCH', 'file_name' => 'ETQP3M100KVN-LNK.txt'],
+                ],
+            ],
+            'assets' => [
+                'additional' => [
+                    'elements' => [
+                        // Only a low-res "prime" image available -> that one must be used
+                        ['prime' => '//ce8dc832c.cloudimg.io/v7/_cdn_/additional1_prime.jpg'],
+                        // Both available -> the high-resolution one must be preferred
+                        ['prime' => '//ce8dc832c.cloudimg.io/v7/_cdn_/additional2_prime.jpg', 'high_resolution' => '//ce8dc832c.cloudimg.io/v7/_cdn_/additional2_high_res.jpg'],
+                    ],
+                ],
             ],
         ]]);
     }
@@ -220,21 +246,27 @@ final class TMEProviderTest extends TestCase
         return $this->mockParametersList([[
             'symbol'     => 'ETQP3M6R8KVP',
             'parameters' => [
-                ['id' => 566, 'name' => 'Inductance',        'value' => '6.8µH'],
-                ['id' => 370, 'name' => 'Operating current', 'value' => '2.9A'],
-                ['id' => 39,  'name' => 'Tolerance',         'value' => '±20%'],
+                'elements' => [
+                    ['id' => 566, 'name' => 'Inductance',        'values' => [['value' => '6.8µH']]],
+                    ['id' => 370, 'name' => 'Operating current', 'values' => [['value' => '2.9A']]],
+                    ['id' => 39,  'name' => 'Tolerance',         'values' => [['value' => '±20%']]],
+                ],
             ],
         ]]);
     }
 
     private function etqp3mPrices(): MockResponse
     {
-        return $this->mockPricesData('EUR', 'NET', [[
-            'symbol'     => 'ETQP3M6R8KVP',
-            'price_list' => [
-                ['amount' => 1,  'price_value' => 0.589],
-                ['amount' => 5,  'price_value' => 0.429],
-                ['amount' => 10, 'price_value' => 0.399],
+        return $this->mockPrices('EUR', 'NET', [[
+            'symbol' => 'ETQP3M6R8KVP',
+            'prices' => [
+                'currency' => 'EUR',
+                'type'     => 'NET',
+                'elements' => [
+                    ['amount' => 1,  'price' => 0.589],
+                    ['amount' => 5,  'price' => 0.429],
+                    ['amount' => 10, 'price' => 0.399],
+                ],
             ],
         ]]);
     }
@@ -259,7 +291,7 @@ final class TMEProviderTest extends TestCase
     public function testIsActiveWithoutCredentials(): void
     {
         $this->settings->apiToken = null;
-        $provider = new TMEProvider(new TMEClient($this->httpClient, $this->settings, new ArrayAdapter()), $this->settings, $this->httpClient);
+        $provider = $this->newProvider();
         $this->assertFalse($provider->isActive());
     }
 
@@ -353,15 +385,45 @@ final class TMEProviderTest extends TestCase
         $this->assertIsArray($results);
         $this->assertCount(1, $results);
         $this->assertInstanceOf(SearchResultDTO::class, $results[0]);
+        $this->assertSame('tme', $results[0]->provider_key);
         $this->assertSame('SMD0603-5K1-1%', $results[0]->provider_id);
         $this->assertSame('0603SAF5101T5E', $results[0]->name);
         $this->assertSame('ROYALOHM', $results[0]->manufacturer);
         $this->assertSame('SMD resistors', $results[0]->category);
+        $this->assertSame('0603SAF5101T5E', $results[0]->mpn);
+        $this->assertSame('978020137962', $results[0]->gtin);
+        $this->assertSame('https://ce8dc832c.cloudimg.io/v7/_cdn_/E9/C2/B0/00/0/732318_1.jpg', $results[0]->preview_image_url);
         $this->assertSame(ManufacturingStatus::ACTIVE, $results[0]->manufacturing_status);
-        $this->assertSame(
-            'https://www.tme.eu/en/details/smd0603-5k1-1%25/smd-resistors/royalohm/0603saf5101t5e/',
-            $results[0]->provider_url
-        );
+        $this->assertSame('https://www.tme.eu/de/en/details/SMD0603-5K1-1%/', $results[0]->provider_url);
+    }
+
+    /**
+     * Products can be missing most optional fields (category, manufacturer, symbols, images, EAN, ...).
+     * The provider must not crash on these and just return null for the corresponding DTO fields.
+     */
+    public function testSearchByKeywordWithNullableFields(): void
+    {
+        $this->httpClient->setResponseFactory([
+            $this->mockTokenResponse(),
+            $this->mockSearchResults([[
+                'symbol'         => 'FAKE_PRODUCT',
+                'description'    => 'High-Quality bleeding edge fake product',
+                'product_status' => ['INVALID'],
+            ]]),
+        ]);
+
+        $results = $this->provider->searchByKeyword('FAKE_PRODUCT');
+
+        $this->assertCount(1, $results);
+        $this->assertSame('FAKE_PRODUCT', $results[0]->provider_id);
+        $this->assertSame('FAKE_PRODUCT', $results[0]->name);
+        $this->assertSame('High-Quality bleeding edge fake product', $results[0]->description);
+        $this->assertNull($results[0]->category);
+        $this->assertNull($results[0]->manufacturer);
+        $this->assertNull($results[0]->mpn);
+        $this->assertNull($results[0]->preview_image_url);
+        $this->assertNull($results[0]->gtin);
+        $this->assertSame(ManufacturingStatus::DISCONTINUED, $results[0]->manufacturing_status);
     }
 
     public function testGetDetailsWithPercentInPartNumber(): void
@@ -385,16 +447,17 @@ final class TMEProviderTest extends TestCase
         $this->assertSame('ROYALOHM', $result->manufacturer);
         $this->assertSame('0603SAF5101T5E', $result->mpn);
         $this->assertSame('SMD resistors', $result->category);
+        $this->assertSame('978020137962', $result->gtin);
         $this->assertSame(ManufacturingStatus::ACTIVE, $result->manufacturing_status);
         $this->assertSame(0.021, $result->mass);
         $this->assertSame('1608', $result->footprint);
-        $this->assertSame(
-            'https://www.tme.eu/en/details/smd0603-5k1-1%25/smd-resistors/royalohm/0603saf5101t5e/',
-            $result->provider_url
-        );
+        $this->assertSame('https://www.tme.eu/de/en/details/SMD0603-5K1-1%/', $result->provider_url);
 
+        // The firmware document (type SFT) must be filtered out, only the 2 DTE documents remain
         $this->assertCount(2, $result->datasheets);
+        $this->assertInstanceOf(FileDTO::class, $result->datasheets[0]);
         $this->assertSame('https://www.tme.eu/Document/b315665a56acbc42df513c99b390ad98/ROYALOHM-THICKFILM.pdf', $result->datasheets[0]->url);
+        $this->assertSame('ROYALOHM-THICKFILM.pdf', $result->datasheets[0]->name);
         $this->assertCount(0, $result->images);
 
         $this->assertCount(1, $result->vendor_infos);
@@ -402,10 +465,7 @@ final class TMEProviderTest extends TestCase
         $this->assertInstanceOf(PurchaseInfoDTO::class, $vendorInfo);
         $this->assertSame('TME', $vendorInfo->distributor_name);
         $this->assertSame('SMD0603-5K1-1%', $vendorInfo->order_number);
-        $this->assertSame(
-            'https://www.tme.eu/en/details/smd0603-5k1-1%25/smd-resistors/royalohm/0603saf5101t5e/',
-            $vendorInfo->product_url
-        );
+        $this->assertSame('https://www.tme.eu/de/en/details/SMD0603-5K1-1%/', $vendorInfo->product_url);
         $this->assertCount(3, $vendorInfo->prices);
         $this->assertSame(100.0, $vendorInfo->prices[0]->minimum_discount_amount);
         $this->assertSame('0.01077', $vendorInfo->prices[0]->price);
@@ -436,20 +496,25 @@ final class TMEProviderTest extends TestCase
         $this->assertSame('PANASONIC', $result->manufacturer);
         $this->assertSame('ETQP3M6R8KVP', $result->mpn);
         $this->assertSame('Inductors', $result->category);
+        $this->assertNull($result->gtin);
         $this->assertSame(ManufacturingStatus::ACTIVE, $result->manufacturing_status);
         $this->assertSame(0.44, $result->mass);
         $this->assertNull($result->footprint);
-        $this->assertSame('https://www.tme.eu/en/details/etqp3m6r8kvp/inductors/panasonic/', $result->provider_url);
+        $this->assertSame('https://www.tme.eu/de/en/details/ETQP3M6R8KVP/', $result->provider_url);
 
         $this->assertCount(2, $result->datasheets);
         $this->assertSame('https://www.tme.eu/Document/50a845881f09d8a2248350946e11df38/AGL0000C63.pdf', $result->datasheets[0]->url);
-        $this->assertCount(0, $result->images);
+
+        // The additional image with a high_resolution variant must prefer it over "prime"
+        $this->assertCount(2, $result->images);
+        $this->assertSame('https://ce8dc832c.cloudimg.io/v7/_cdn_/additional1_prime.jpg', $result->images[0]->url);
+        $this->assertSame('https://ce8dc832c.cloudimg.io/v7/_cdn_/additional2_high_res.jpg', $result->images[1]->url);
 
         $this->assertCount(1, $result->vendor_infos);
         $vendorInfo = $result->vendor_infos[0];
         $this->assertSame('TME', $vendorInfo->distributor_name);
         $this->assertSame('ETQP3M6R8KVP', $vendorInfo->order_number);
-        $this->assertSame('https://www.tme.eu/en/details/etqp3m6r8kvp/inductors/panasonic/', $vendorInfo->product_url);
+        $this->assertSame('https://www.tme.eu/de/en/details/ETQP3M6R8KVP/', $vendorInfo->product_url);
         $this->assertCount(3, $vendorInfo->prices);
         $this->assertSame(1.0, $vendorInfo->prices[0]->minimum_discount_amount);
         $this->assertSame('0.589', $vendorInfo->prices[0]->price);
@@ -457,6 +522,67 @@ final class TMEProviderTest extends TestCase
         $this->assertFalse($vendorInfo->prices[0]->includes_tax);
 
         $this->assertCount(3, $result->parameters);
+    }
+
+    private function footprintTestFixture(): array
+    {
+        return [
+            $this->mockTokenResponse(),
+            $this->mockProductsList([[
+                'symbol'         => 'FAKE_PRODUCT',
+                'description'    => 'Really nice fake product',
+                'product_status' => [],
+            ]]),
+            $this->mockFilesList([[
+                'symbol'    => 'FAKE_PRODUCT',
+                'documents' => ['elements' => []],
+                'assets'    => ['additional' => ['elements' => []]],
+            ]]),
+            $this->mockParametersList([[
+                'symbol'     => 'FAKE_PRODUCT',
+                'parameters' => [
+                    'elements' => [
+                        ['id' => 2932, 'name' => 'Case - inch', 'values' => [['value' => 'footprint_imperial']]],
+                        ['id' => 2931, 'name' => 'Case - mm',   'values' => [['value' => 'footprint_metric']]],
+                    ],
+                ],
+            ]]),
+            $this->mockPrices('EUR', 'NET', [[
+                'symbol' => 'FAKE_PRODUCT',
+                'prices' => ['currency' => 'EUR', 'type' => 'NET', 'elements' => []],
+            ]]),
+        ];
+    }
+
+    public function testGetDetailsPrefersImperialFootprintWhenConfigured(): void
+    {
+        $this->httpClient->setResponseFactory($this->footprintTestFixture());
+        $this->settings->preferMetricFootprint = false;
+
+        $result = $this->provider->getDetails('FAKE_PRODUCT');
+
+        $this->assertSame('footprint_imperial', $result->footprint);
+    }
+
+    public function testGetDetailsPrefersMetricFootprintWhenConfigured(): void
+    {
+        $this->httpClient->setResponseFactory($this->footprintTestFixture());
+        $this->settings->preferMetricFootprint = true;
+
+        $result = $this->provider->getDetails('FAKE_PRODUCT');
+
+        $this->assertSame('footprint_metric', $result->footprint);
+    }
+
+    public function testProductStatusArrayToManufacturingStatus(): void
+    {
+        $method = (new \ReflectionClass($this->provider))->getMethod('productStatusArrayToManufacturingStatus');
+
+        $this->assertSame(ManufacturingStatus::ACTIVE, $method->invoke($this->provider, []));
+        $this->assertSame(ManufacturingStatus::DISCONTINUED, $method->invoke($this->provider, ['INVALID']));
+        $this->assertSame(ManufacturingStatus::DISCONTINUED, $method->invoke($this->provider, ['PRODUCT_BLOCKED']));
+        $this->assertSame(ManufacturingStatus::DISCONTINUED, $method->invoke($this->provider, ['NOT_IN_OFFER']));
+        $this->assertSame(ManufacturingStatus::EOL, $method->invoke($this->provider, ['AVAILABLE_WHILE_STOCKS_LAST']));
     }
 
     public function testNormalizeURLEncodesBarePctSign(): void
