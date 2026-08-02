@@ -39,6 +39,14 @@
     </a>
 {% endif %}
 
+{% if is_granted('edit', part) %}
+    <br>
+    <a class="btn btn-info mt-2" href="{{ entity_url(part, 'delivered') }}">
+        <i class="fas fa-cloud-arrow-down"></i>
+        {% trans %}part.delivered.btn{% endtrans %}
+    </a>
+{% endif %}
+
 
 <form method="post" class="mt-2" action="{{ entity_url(part, 'delete') }}"
         {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
