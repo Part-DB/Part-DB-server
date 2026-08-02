@@ -296,7 +296,8 @@ class Element14Provider implements InfoProviderInterface, URLHandlerInfoProvider
     {
         $tmp = $this->queryByTerm('id:' . $id);
         if (count($tmp) === 0) {
-            throw new \RuntimeException('No part found with ID ' . $id);
+            //Try to search by MPN, as some parts are not found by ID, but by MPN
+            $tmp = $this->queryByTerm('any:' . $id);
         }
 
         if (count($tmp) > 1) {
