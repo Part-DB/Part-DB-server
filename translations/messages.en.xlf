@@ -13878,7 +13878,7 @@ Buerklin-API Authentication server:
       </segment>
     </unit>
     <unit id="XMqiyE0" name="settings.ips.tme.preferMetricFootprint">
-      <segment>
+      <segment state="translated">
         <source>settings.ips.tme.preferMetricFootprint</source>
         <target>Prefer metric footprint when both metric and imperial are available</target>
       </segment>

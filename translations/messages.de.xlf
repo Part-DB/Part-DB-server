@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
-  <file id="messages.de">
+  <file id="messages.en">
     <unit id="x_wTSQS" name="attachment_type.caption">
       <segment state="translated">
         <source>attachment_type.caption</source>
@@ -13873,6 +13873,12 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>info_providers.expensive.tooltip</source>
         <target>Die Verwendung dieses Informationsanbieters kann zusätzliche Kosten verursachen oder unterliegt sehr strengen Ratenlimits.</target>
+      </segment>
+    </unit>
+    <unit id="XMqiyE0" name="settings.ips.tme.preferMetricFootprint">
+      <segment state="translated">
+        <source>settings.ips.tme.preferMetricFootprint</source>
+        <target>Bevorzuge metrisches Footprint, wenn metrische und zöllige Angaben existieren</target>
       </segment>
     </unit>
   </file>
