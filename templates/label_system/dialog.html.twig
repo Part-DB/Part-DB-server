@@ -86,7 +86,7 @@
                                         <h6 class="dropdown-header">{{ (type.value~'.label') | trans }}</h6>
                                     {% endif %}
                                     {% for profile in profiles %}
-                                        <a class="dropdown-item" href="{{ path('label_dialog_profile', {'profile': profile.id }) }}">{{ profile.name }}</a>
+                                        <a class="dropdown-item" href="{{ path('label_dialog_profile', {'profile': profile.id, 'target_id': form.target_id.vars.value }) }}">{{ profile.name }}</a>
                                     {% endfor %}
                                 {% endfor %}
                             {% endif %}
