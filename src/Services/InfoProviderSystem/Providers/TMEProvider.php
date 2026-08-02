@@ -292,11 +292,10 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
             return ManufacturingStatus::EOL;
         }
 
-        if (in_array('INVALID', $statusArray, true)) {
-            return ManufacturingStatus::DISCONTINUED;
-        }
-
-        if (in_array('NOT_IN_OFFER', $statusArray, true)) {
+        if (in_array('INVALID', $statusArray, true) ||
+            in_array('PRODUCT_BLOCKED', $statusArray, true) ||
+            in_array('NOT_IN_OFFER', $statusArray, true)
+        ) {
             return ManufacturingStatus::DISCONTINUED;
         }
 
