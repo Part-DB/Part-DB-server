@@ -115,8 +115,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
             title: "Search parts by keyword",
             description: 'Search for parts',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            security: 'is_granted("@parts.read")',
             input: PartSearchFilter::class,
-            processor: SearchPartsProcessor::class,
+            processor: SearchPartsProcessor::class
         ),
         'get_part_details' => new McpTool(
             title: 'Get part details by ID',
@@ -126,6 +127,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
                 'groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
                 'item_uri_template' => '/api/parts/{id}',
             ],
+            security: 'is_granted("edit", object)',
             input: ElementByIdInput::class,
             validate: true,
             processor: GetPartByIdProcessor::class
