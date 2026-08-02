@@ -42,8 +42,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
 
     private const VALID_DOCUMENT_TYPES = ['INS', 'DTE', 'KCH', 'GWA', 'INB', 'PRE'];
 
-    public function __construct(private readonly TMEClient $tmeClient, private readonly TMESettings $settings,
-        private readonly HttpClientInterface $httpClient)
+    public function __construct(private readonly TMEClient $tmeClient, private readonly TMESettings $settings)
     {
     }
 
