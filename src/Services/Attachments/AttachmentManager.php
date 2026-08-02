@@ -155,9 +155,9 @@ class AttachmentManager
         //Format filesize for human reading
         //Taken from: https://www.php.net/manual/de/function.filesize.php#106569 and slightly modified
 
-        $sz = 'BKMGTP';
+        $sz = 'BkMGTP';
         $factor = min((int) floor((strlen((string) $bytes) - 1) / 3), strlen($sz) - 1);
-        //Use real (10 based) SI prefixes
-        return sprintf("%.{$decimals}f", $bytes / 1000 ** $factor).$sz[$factor];
+        //Use real (10 based) SI prefixes, and add a non-breaking space between the number and the unit, so that the unit is not separated from the number when wrapping text.
+        return sprintf("%.{$decimals}f\u{00A0}", $bytes / 1000 ** $factor).$sz[$factor] . 'B';
     }
 }
