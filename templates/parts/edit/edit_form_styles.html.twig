@@ -189,8 +189,9 @@
                         </div>
                     {% endif %}
 
-                    {% if attach.secure and not is_granted('show_private', attach) %}
-                        {# Leave blank #}
+                    {% if attach.secure and (not is_granted('show_private', attach) or attach.id is null) %}
+                        {# Leave blank: either the user is not allowed to see private attachments, or the attachment
+                           (e.g. from a cloned part) has not been saved yet, so no view URL can be generated for it #}
                     {% elseif attach.picture %}
                         <a href="{{ entity_url(attach, 'file_view') }}" rel="noopener" target="_blank" data-turbo="false">
                             <img class="img-fluid img-thumbnail thumbnail-sm" src="{{ attachment_thumbnail(attach, 'thumbnail_md') }}" alt="{% trans %}attachment.preview.alt{% endtrans %}" />
