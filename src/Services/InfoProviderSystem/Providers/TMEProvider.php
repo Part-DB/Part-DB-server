@@ -34,13 +34,13 @@ use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\TMESettings;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-use function PhpCsFixer\Fixer\PhpUnit\configurePostNormalisation;
-
 class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {
     public const PROVIDER_KEY = 'tme';
 
     private const VENDOR_NAME = 'TME';
+
+    private const VALID_DOCUMENT_TYPES = ['INS', 'DTE', 'KCH', 'GWA', 'INB', 'PRE'];
 
     public function __construct(private readonly TMEClient $tmeClient, private readonly TMESettings $settings,
         private readonly HttpClientInterface $httpClient)
@@ -77,30 +77,9 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
      * @param  string  $productId
      * @return string
      */
-    private function productIDToProductURL(string $productId, bool $tryResolve = false): string
+    private function productIDToProductURL(string $productId): string
     {
-        $tmp =  'https://www.tme.eu/' . strtolower($this->settings->country) . '/' . strtolower($this->settings->language) . '/details/' . $productId . '/';
-
-        if (!$tryResolve) {
-            return $tmp;
-        }
-
-        //Otherwise try to resolve the product URL by making a request to the product page and see where it redirects to.
-        $response = $this->httpClient->request('GET', $tmp, [
-            'max_redirects' => 0,
-            'http_version' => '2.0',
-        ]);
-
-        //If the response is a redirect, we can get the location header and return it
-        if ($response->getStatusCode() >= 300 && $response->getStatusCode() < 400) {
-            $location = $response->getHeaders(false)['location'][0] ?? null;
-            if ($location !== null) {
-                return $location;
-            }
-        }
-
-        //Otherwise just return the original URL
-        return $tmp;
+        return 'https://www.tme.eu/' . strtolower($this->settings->country) . '/' . strtolower($this->settings->language) . '/details/' . $productId . '/';
     }
 
     public function searchByKeyword(string $keyword, array $options = []): array
@@ -131,7 +110,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
                 preview_image_url: $this->normalizeURL($product['assets']['primary_photo']['prime'] ?? null),
                 manufacturing_status: $this->productStatusArrayToManufacturingStatus($product['product_status'] ?? []),
                 provider_url: $this->productIDToProductURL($product['symbol']),
-                gtin: !empty($product['ean']) ? $product['ean'] : null
+                gtin: $product['ean'] ?? null
             );
         }
 
@@ -147,7 +126,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
 
         $product = $response->toArray()['data']['elements'][0];
 
-        $productInfoPage = $this->productIDToProductURL($product['symbol'], true);
+        $productInfoPage = $this->productIDToProductURL($product['symbol']);
 
         $files = $this->getFiles($id);
 
@@ -167,7 +146,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
             manufacturing_status: $this->productStatusArrayToManufacturingStatus($product['product_status'] ?? []),
             provider_url: $this->productIDToProductURL($product['symbol']),
             footprint: $footprint,
-            gtin: !empty($product['ean']) ? $product['ean'] : null,
+            gtin: $product['ean'] ?? null,
             datasheets: $files['datasheets'],
             images: $files['images'],
             parameters: $parameters,
@@ -193,15 +172,18 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
 
         $datasheets = [];
         foreach ($element['documents']['elements'] ?? [] as $document) {
-            $datasheets[] = new FileDTO(
-                url: $this->normalizeURL($document['url']),
-            );
+            if (in_array($document['type'], self::VALID_DOCUMENT_TYPES, true)) {
+                $datasheets[] = new FileDTO(
+                    url: $this->normalizeURL($document['url']),
+                    name: $document['file_name'] ?? null,
+                );
+            }
         }
 
         $images = [];
         foreach ($element['assets']['additional']['elements'] ?? [] as $photo) {
             $images[] = new FileDTO(
-                url: $this->normalizeURL($photo['prime']),
+                url: $this->normalizeURL($image['high_resolution'] ?? $photo['prime']),
             );
         }
 
