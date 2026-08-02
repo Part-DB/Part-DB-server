@@ -88,6 +88,7 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Settings\InfoProviderSystem\OEMSecretsSettings;
 use App\Settings\InfoProviderSystem\OEMSecretsSortMode;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -96,6 +97,7 @@ use Psr\Cache\CacheItemPoolInterface;
 
 class OEMSecretsProvider implements InfoProviderInterface
 {
+    public const PROVIDER_KEY = 'oemsecrets';
 
     private const ENDPOINT_URL = 'https://oemsecretsapi.com/partsearch';
 
@@ -227,37 +229,23 @@ class OEMSecretsProvider implements InfoProviderInterface
     private array $distributorCountryCodes = [];
     private array $countryCodeToRegionMap = [];
 
-    /**
-     * Get information about this provider
-     *
-     * @return array An associative array with the following keys (? means optional):
-     * - name: The (user friendly) name of the provider (e.g. "Digikey"), will be translated
-     * - description?: A short description of the provider (e.g. "Digikey is a ..."), will be translated
-     * - logo?: The logo of the provider (e.g. "digikey.png")
-     * - url?: The url of the provider (e.g. "https://www.digikey.com")
-     * - disabled_help?: A help text which is shown when the provider is disabled, explaining how to enable it
-     * - oauth_app_name?: The name of the OAuth app which is used for authentication (e.g. "ip_digikey_oauth"). If this is set a connect button will be shown
-     *
-     * @phpstan-return array{ name: string, description?: string, logo?: string, url?: string, disabled_help?: string, oauth_app_name?: string }
-     */
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'OEMSecrets',
-            'description' => 'This provider uses the OEMSecrets API to search for parts.',
-            'url' => 'https://www.oemsecrets.com/',
-            'disabled_help' => 'Configure the API key in the provider settings to enable.',
-            'settings_class' => OEMSecretsSettings::class
-        ];
-    }
-    /**
-     * Returns a unique key for this provider, which will be saved into the database
-     * and used to identify the provider
-     * @return string A unique key for this provider (e.g. "digikey")
-     */
-    public function getProviderKey(): string
-    {
-        return 'oemsecrets';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'OEMSecrets',
+            description: 'This provider uses the OEMSecrets API to search for parts.',
+            url: 'https://www.oemsecrets.com/',
+            disabledHelp: 'Configure the API key in the provider settings to enable.',
+            settingsClass: OEMSecretsSettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::DATASHEET,
+                ProviderCapabilities::PRICE,
+                ProviderCapabilities::PARAMETERS
+            ],
+        );
     }
 
     /**
@@ -456,17 +444,6 @@ class OEMSecretsProvider implements InfoProviderInterface
      * Currently, this list is purely informational and not used in functional checks.
      * @return ProviderCapabilities[]
      */
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::DATASHEET,
-            ProviderCapabilities::PRICE,
-        ];
-    }
-
-
     /**
      * Processes a single product and updates arrays for basic information, datasheets, images, parameters,
      * and purchase information. Aggregates and organizes data received for a specific `part_number` and `manufacturer_id`.
@@ -896,7 +873,7 @@ class OEMSecretsProvider implements InfoProviderInterface
         // If there is no existing basic info array, we create a new one
         if (is_null($existingBasicInfo)) {
             return [
-                'provider_key' => $this->getProviderKey(),
+                'provider_key' => self::PROVIDER_KEY,
                 'provider_id' => $provider_id,
                 'name' => $product['part_number'],
                 'description' => $description,
@@ -916,7 +893,7 @@ class OEMSecretsProvider implements InfoProviderInterface
 
         // Update fields only if empty or undefined, with additional check for preview_image_url
         return [
-            'provider_key' => $existingBasicInfo['provider_key'] ?? $this->getProviderKey(),
+            'provider_key' => $existingBasicInfo['provider_key'] ?? self::PROVIDER_KEY,
             'provider_id' => $existingBasicInfo['provider_id'] ?? $provider_id,
             'name' => $existingBasicInfo['name'] ?? $product['part_number'],
             // Update description if it's null/empty
@@ -1270,7 +1247,7 @@ class OEMSecretsProvider implements InfoProviderInterface
      */
     private function generateInquiryUrl(string $partNumber, string $oemInquiry = 'compare/'): string
     {
-        $baseUrl = rtrim($this->getProviderInfo()['url'], '/') . '/';
+        $baseUrl = rtrim($this->getProviderInfo()->url, '/') . '/';
         $inquiryPath = trim($oemInquiry, '/') . '/';
         $encodedPartNumber = urlencode(trim($partNumber));
         return $baseUrl . $inquiryPath . $encodedPartNumber;

@@ -58,7 +58,7 @@
         </tr>
         <tr>
             <td>{% trans %}log.target{% endtrans %}</td>
-            <td>{{ target_html|sanitize_html }}</td>
+            <td>{{ target_html|raw }}</td>
         </tr>
     </table>
 

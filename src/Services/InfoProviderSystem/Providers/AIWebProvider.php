@@ -31,6 +31,7 @@ use App\Services\InfoProviderSystem\SubmittedPageStorage;
 use App\Services\InfoProviderSystem\CreateFromUrlHelper;
 use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Settings\InfoProviderSystem\AIExtractorSettings;
 use Jkphl\Micrometa;
 use League\HTMLToMarkdown\HtmlConverter;
@@ -49,6 +50,8 @@ use function Symfony\Component\String\u;
 final class AIWebProvider implements InfoProviderInterface
 {
     use FixAndValidateUrlTrait;
+
+    public const PROVIDER_KEY = 'ai_web';
 
     private const DISTRIBUTOR_NAME = 'Website';
 
@@ -71,20 +74,23 @@ final class AIWebProvider implements InfoProviderInterface
         );
     }
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'AI Web Extractor',
-            'description' => 'Extract part info from any URL using LLM',
-            //'url' => 'https://openrouter.ai',
-            'disabled_help' => 'Configure AI settings',
-            'settings_class' => AIExtractorSettings::class,
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'ai_web';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'AI Web Extractor',
+            description: 'Extract part info from any URL using LLM',
+            disabledHelp: 'Configure AI settings',
+            settingsClass: AIExtractorSettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::DATASHEET,
+                ProviderCapabilities::PRICE,
+                ProviderCapabilities::PARAMETERS,
+            ],
+            expensive: true,
+        );
     }
 
     public function isActive(): bool
@@ -166,7 +172,7 @@ final class AIWebProvider implements InfoProviderInterface
         $llmResponse = $this->callLLM($markdown, $url, $structuredData);
 
         // Build and return PartDetailDTO
-        $result = $this->jsonSchemaConverter->jsonToDTO($llmResponse, $this->getProviderKey(), $url, $url, self::DISTRIBUTOR_NAME);
+        $result = $this->jsonSchemaConverter->jsonToDTO($llmResponse, self::PROVIDER_KEY, $url, $url, self::DISTRIBUTOR_NAME);
 
         // Cache the result for future use, to improve performance and reduce costs.
         $cacheItem->set($result);
@@ -254,17 +260,6 @@ final class AIWebProvider implements InfoProviderInterface
         ]);
 
         return $converter->convert($htmlToConvert);
-    }
-
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::DATASHEET,
-            ProviderCapabilities::PRICE,
-            ProviderCapabilities::PARAMETERS,
-        ];
     }
 
     private function callLLM(string $htmlContent, string $url, ?string $structuredData = null): array

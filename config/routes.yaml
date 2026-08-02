@@ -18,6 +18,11 @@ csp_report:
     methods: [POST]
     defaults: { _controller: nelmio_security.csp_reporter_controller::indexAction }
 
+mcp:
+    resource: .
+    type: mcp
+
+
 # Must be last as it matches everything
 redirector:
     path: /{url}
@@ -26,3 +31,4 @@ redirector:
     controller: App\Controller\RedirectController::addLocalePart
     # Dont match localized routes (no redirection loop, if no root with that name exists) or API prefixed routes
     condition: "not (request.getPathInfo() matches '/^\\\\/([a-z]{2}(_[A-Z]{2})?|api)\\\\//')"
+

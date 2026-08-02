@@ -24,6 +24,7 @@ namespace App\Tests\Services\InfoProviderSystem\Providers;
 
 use App\Entity\Parts\ManufacturingStatus;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\Providers\ProviderCapabilities;
@@ -212,17 +213,10 @@ final class TMEProviderTest extends TestCase
     {
         $info = $this->provider->getProviderInfo();
 
-        $this->assertIsArray($info);
-        $this->assertArrayHasKey('name', $info);
-        $this->assertArrayHasKey('description', $info);
-        $this->assertArrayHasKey('url', $info);
-        $this->assertEquals('TME', $info['name']);
-        $this->assertEquals('https://tme.eu/', $info['url']);
-    }
-
-    public function testGetProviderKey(): void
-    {
-        $this->assertSame('tme', $this->provider->getProviderKey());
+        $this->assertInstanceOf(ProviderInfoDTO::class, $info);
+        $this->assertSame('tme', $info->key);
+        $this->assertEquals('TME', $info->name);
+        $this->assertEquals('https://tme.eu/', $info->url);
     }
 
     public function testIsActiveWithCredentials(): void
@@ -239,7 +233,7 @@ final class TMEProviderTest extends TestCase
 
     public function testGetCapabilities(): void
     {
-        $capabilities = $this->provider->getCapabilities();
+        $capabilities = $this->provider->getProviderInfo()->capabilities;
 
         $this->assertIsArray($capabilities);
         $this->assertContains(ProviderCapabilities::BASIC, $capabilities);

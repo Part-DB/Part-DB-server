@@ -24,12 +24,14 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\DTOs;
 
 use Brick\Math\BigDecimal;
+use Symfony\Component\Serializer\Attribute\Ignore;
 
 /**
  * This DTO represents a price for a single unit in a certain discount range
  */
 readonly class PriceDTO
 {
+    #[Ignore]
     private BigDecimal $price_as_big_decimal;
 
     public function __construct(
@@ -54,6 +56,7 @@ readonly class PriceDTO
      * Gets the price as BigDecimal
      * @return BigDecimal
      */
+    #[Ignore]
     public function getPriceAsBigDecimal(): BigDecimal
     {
         return $this->price_as_big_decimal;

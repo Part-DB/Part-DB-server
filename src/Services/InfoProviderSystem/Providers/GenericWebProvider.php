@@ -30,6 +30,7 @@ use App\Services\InfoProviderSystem\CreateFromUrlHelper;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
@@ -53,6 +54,7 @@ class GenericWebProvider implements InfoProviderInterface
     use FixAndValidateUrlTrait;
 
     public const DISTRIBUTOR_NAME = 'Website';
+    public const PROVIDER_KEY = 'generic_web';
 
     private readonly HttpClientInterface $httpClient;
 
@@ -69,20 +71,21 @@ class GenericWebProvider implements InfoProviderInterface
         );
     }
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'Generic Web URL',
-            'description' => 'Tries to extract a part from a given product webpage URL using common metadata standards like JSON-LD and OpenGraph.',
-            //'url' => 'https://example.com',
-            'disabled_help' => 'Enable in settings to use this provider',
-            'settings_class' => GenericWebProviderSettings::class,
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'generic_web';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'Generic Web URL',
+            description: 'Tries to extract a part from a given product webpage URL using common metadata standards like JSON-LD and OpenGraph.',
+            disabledHelp: 'Enable in settings to use this provider',
+            settingsClass: GenericWebProviderSettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::PRICE,
+                ProviderCapabilities::GTIN,
+            ],
+        );
     }
 
     public function isActive(): bool
@@ -227,7 +230,7 @@ class GenericWebProvider implements InfoProviderInterface
         }
 
         return new PartDetailDTO(
-            provider_key: $this->getProviderKey(),
+            provider_key: self::PROVIDER_KEY,
             provider_id: $url,
             name: $product->name?->toString() ?? $product->alternateName?->toString() ?? $product->mpn?->toString() ?? 'Unknown Name',
             description: $this->getMetaContent($dom, 'og:description') ?? $this->getMetaContent($dom, 'description') ?? '',
@@ -376,7 +379,7 @@ class GenericWebProvider implements InfoProviderInterface
         )];
 
         return new PartDetailDTO(
-            provider_key: $this->getProviderKey(),
+            provider_key: self::PROVIDER_KEY,
             provider_id: $canonicalURL,
             name: $this->getMetaContent($dom, 'og:title') ?? $pageTitle,
             description: $this->getMetaContent($dom, 'og:description') ?? $this->getMetaContent($dom, 'description') ?? '',
@@ -387,13 +390,4 @@ class GenericWebProvider implements InfoProviderInterface
         );
     }
 
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::PRICE,
-            ProviderCapabilities::GTIN,
-        ];
-    }
 }

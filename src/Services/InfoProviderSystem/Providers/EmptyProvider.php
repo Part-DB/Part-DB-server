@@ -25,6 +25,7 @@ namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
@@ -34,19 +35,20 @@ use Symfony\Component\DependencyInjection\Attribute\When;
 #[When(env: 'test')]
 class EmptyProvider implements InfoProviderInterface
 {
-    public function getProviderInfo(): array
-    {
-        return [
-            'name' => 'Empty Provider',
-            'description' => 'This is a test provider',
-            //'url' => 'https://example.com',
-            'disabled_help' => 'This provider is disabled for testing purposes'
-        ];
-    }
+    public const PROVIDER_KEY = 'empty';
 
-    public function getProviderKey(): string
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return 'empty';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'Empty Provider',
+            description: 'This is a test provider',
+            disabledHelp: 'This provider is disabled for testing purposes',
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::FOOTPRINT,
+            ],
+        );
     }
 
     public function isActive(): bool
@@ -58,14 +60,6 @@ class EmptyProvider implements InfoProviderInterface
     {
         return [
 
-        ];
-    }
-
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::FOOTPRINT,
         ];
     }
 

@@ -73,3 +73,6 @@ security:
         - { path: "^/api", allow_if: 'is_granted("@api.access_api") and is_authenticated()' }
         # Restrict access to KICAD to users, which has API access permission
         - { path: "^/kicad-api", allow_if: 'is_granted("@api.access_api") and is_authenticated()' }
+
+        # Restrict MCP access to users, which has the MCP access permission
+        - { path: "^/mcp", allow_if: 'is_granted("@api.use_mcp") and is_authenticated()' }

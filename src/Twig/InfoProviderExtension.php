@@ -59,7 +59,7 @@ final readonly class InfoProviderExtension
     public function getInfoProviderName(string $key): ?string
     {
         try {
-            return $this->providerRegistry->getProviderByKey($key)->getProviderInfo()['name'];
+            return $this->providerRegistry->getProviderByKey($key)->getProviderInfo()->name;
         }  catch (\InvalidArgumentException) {
             return null;
         }

@@ -72,7 +72,7 @@ final class ProviderRegistry
     private function initStructures(): void
     {
         foreach ($this->providers as $provider) {
-            $key = $provider->getProviderKey();
+            $key = $provider->getProviderInfo()->key;
 
             if (isset($this->providers_by_name[$key])) {
                 throw new \LogicException("Provider with key $key already registered");
