@@ -16,6 +16,7 @@ twig:
         avatar_helper: '@App\Services\UserSystem\UserAvatarHelper'
         available_themes: '%partdb.available_themes%'
         saml_enabled: '%partdb.saml.enabled%'
+        niimbot_enabled: '%partdb.label.niimbot_enabled%'
         part_preview_generator: '@App\Services\Attachments\PartPreviewGenerator'
 
         # Bootstrap grid classes used for horizontal form layouts

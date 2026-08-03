@@ -33,6 +33,11 @@ parameters:
   partdb.attachments.dir.secure: 'uploads/'                                       # The folder where secured attachment files are saved (must not be in public/)
 
   ######################################################################################################################
+  # Label system
+  ######################################################################################################################
+  partdb.label.niimbot_enabled: '%env(bool:NIIMBOT_ENABLED)%'                     # If true, the "Print to Niimbot" thermal printing panel is shown in the label generator
+
+  ######################################################################################################################
   # Error pages
   ######################################################################################################################
   partdb.error_pages.admin_email: '%env(trim:string:ERROR_PAGE_ADMIN_EMAIL)%'     # You can set an email address here, which is shown on an error page, how to contact an administrator
@@ -107,6 +112,8 @@ parameters:
   env(DATABASE_EMULATE_NATURAL_SORT): 0
 
   env(ALLOW_ATTACHMENT_DOWNLOADS_FROM_LOCALNETWORK): 0
+
+  env(NIIMBOT_ENABLED): 0
 
   ######################################################################################################################
   # Bulk Info Provider Import Configuration
