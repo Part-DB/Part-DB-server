@@ -137,6 +137,16 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
             );
         }
 
+        if ($action === 'generate_images') {
+            $ids = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
+            return new RedirectResponse(
+                $this->urlGenerator->generate('tools_bulk_generate', [
+                    'ids' => $ids,
+                    '_redirect' => $redirect_url
+                ])
+            );
+        }
+
         //Iterate over the parts and apply the action to it:
         foreach ($selected_parts as $part) {
             if (!$part instanceof Part) {

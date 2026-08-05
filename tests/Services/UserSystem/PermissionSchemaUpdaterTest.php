@@ -123,4 +123,16 @@ final class PermissionSchemaUpdaterTest extends WebTestCase
         self::assertTrue($this->service->upgradeSchema($user, 3));
         self::assertSame(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('system', 'show_updates'));
     }
+
+    public function testUpgradeSchemaToVersion5(): void
+    {
+        $perm_data = new PermissionData();
+        $perm_data->setSchemaVersion(4);
+        $perm_data->setPermissionValue('tools', 'value_calculator', PermissionData::ALLOW);
+        $user = new TestPermissionHolder($perm_data);
+
+        //After the upgrade the renamed "component_image_generator" permission should carry the old value.
+        self::assertTrue($this->service->upgradeSchema($user, 5));
+        self::assertSame(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('tools', 'component_image_generator'));
+    }
 }
