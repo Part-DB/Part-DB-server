@@ -131,6 +131,12 @@ class ToolsTreeBuilder
                 $this->urlGenerator->generate('tools_builtin_footprints_viewer')
             ))->setIcon('fa-treeview fa-fw fa-solid fa-images');
         }
+        if ($this->security->isGranted('@tools.multi_build')) {
+            $nodes[] = (new TreeViewNode(
+                "Multi Build",
+                $this->urlGenerator->generate('tools_multi_build')
+            ))->setIcon('fa-treeview fa-fw fa-solid fa-images');
+        }
         if ($this->security->isGranted('@tools.ic_logos')) {
             $nodes[] = (new TreeViewNode(
                 $this->translator->trans('perm.tools.ic_logos'),

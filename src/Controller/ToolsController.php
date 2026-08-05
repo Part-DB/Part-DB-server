@@ -31,9 +31,14 @@ use App\Services\System\GitVersionInfoProvider;
 use App\Services\System\UpdateAvailableFacade;
 use App\Settings\AppSettings;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Runtime\SymfonyRuntime;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\ProjectSystem\Project;
+use App\Form\ProjectSystem\ProjectMultiBuildType;
+use Psr\Log\LoggerInterface;
 
 #[Route(path: '/tools')]
 class ToolsController extends AbstractController
@@ -119,6 +124,91 @@ class ToolsController extends AbstractController
 
         return $this->render('tools/builtin_footprints_viewer/builtin_footprints_viewer.html.twig', [
             'grouped_footprints' => $grouped_footprints,
+        ]);
+    }
+
+    #[Route(path: '/multi_build', name: 'tools_multi_build')]
+    public function multiBuild(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        //$this->denyAccessUnlessGranted('@tools.multi_build');
+        $all_projects = $entityManager->getRepository(Project::class)->findAll();
+
+        $form = $this->createForm(ProjectMultiBuildType::class, [], ['projects'=>$all_projects]);
+
+        $form->handleRequest($request);
+        $combined_bom=[];
+        $needs_ordering = [];
+        $can_build = true;
+        $orders_per_supplier = null;
+        if ($form->isSubmitted()) 
+        {            
+            if ($form->isValid()) 
+            { 
+                foreach($all_projects as $p)
+                {
+                    $count_for_project = $form->get($p->getID() . "_project")->getData() + 0;
+                    if ($count_for_project > 0)
+                    {
+                        foreach ($p->getBomEntries() as $bom_entry) 
+                        {
+                            if ($bom_entry->getPart())
+                            {
+                                $part_id = $bom_entry->getPart()->getID();
+                                if (array_key_exists($part_id, $combined_bom))
+                                {
+                                    $combined_bom[$part_id]['quantity'] += $bom_entry->getQuantity() * $count_for_project;
+                                }
+                                else
+                                {
+                                    $combined_bom[$part_id] = array('quantity'=>$bom_entry->getQuantity() * $count_for_project, 'part'=>$bom_entry->getPart());
+                                }
+                            }
+                        }
+                    }                    
+                }   
+
+                $orders_per_supplier=[];
+                
+                foreach($combined_bom as $cb)
+                {
+                    $total_instock = $cb['part']->getAmountSum();
+                    if ($total_instock < $cb['quantity'])
+                    {
+                        $can_build = false;
+                        $suppliers = $cb['part']->getOrderDetails();
+                        if ($suppliers && count($suppliers) > 0)
+                        {
+                            $mid = $suppliers[0]->getSupplier()->getID();
+                            $orderable_part=array(
+                                    'part'=>$cb['part'], 
+                                    'pn'=>$suppliers[0]->getSupplierPartNr(),
+                                    'needed'=>($cb['quantity']-$total_instock),
+                                    'link'=>$suppliers[0]->getSupplierProductURL());
+                            if (array_key_exists($mid, $orders_per_supplier))
+                            {
+                                $orders_per_supplier[$mid]['items'][] = $orderable_part;
+                            }
+                            else
+                            {
+                                $orders_per_supplier[$mid] = array(
+                                    'supplier'=>$suppliers[0]->getSupplier()->getName(), 
+                                    'items'=>array($orderable_part));
+                            }
+                        }
+                        else
+                        {
+                            $needs_ordering[] = array('needed'=>($cb['quantity']-$total_instock), 'part'=>$cb['part']);
+                        }
+                    }
+                }
+            }
+        }
+
+        return $this->render('tools/multi_build/multi_build.html.twig', [
+            'form'=>$form,
+            'needs_ordering'=>$needs_ordering,
+            'can_build'=>$can_build,
+            'orders_per_supplier'=>$orders_per_supplier
         ]);
     }
 
