@@ -355,7 +355,7 @@ final readonly class BarcodeScanResultHandler
             ];
         }
 
-        // Element14: can use supplierPartNumber directly
+        // Element14: can use supplierPartNumber directly, as the Element14Provider will try to resolve it to a SKU number if necessary
         if ($vendor === 'element14') {
             return [
                 'providerKey' => 'element14',

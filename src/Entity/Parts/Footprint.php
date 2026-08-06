@@ -122,7 +122,7 @@ class Footprint extends AbstractPartsContainingDBElement
     #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
-    #[Groups(['footprint:read', 'footprint:write'])]
+    #[Groups(['footprint:read', 'footprint:write', "import"])]
     protected string $comment = '';
 
     /**
@@ -162,7 +162,7 @@ class Footprint extends AbstractPartsContainingDBElement
 
     #[Assert\Valid]
     #[ORM\Embedded(class: EDAFootprintInfo::class)]
-    #[Groups(['full', 'footprint:read', 'footprint:write'])]
+    #[Groups(['full', 'footprint:read', 'footprint:write', "import"])]
     protected EDAFootprintInfo $eda_info;
 
     public function __construct()

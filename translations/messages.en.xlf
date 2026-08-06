@@ -648,6 +648,12 @@ Sub elements will be moved upwards.</target>
         <target>Export this parameter as an EDA field</target>
       </segment>
     </unit>
+    <unit id="Nx6h9XW" name="specifications.eda_symbol_visibility.help">
+      <segment state="translated">
+        <source>specifications.eda_symbol_visibility.help</source>
+        <target>Make this parameter field visible in the schematic symbol</target>
+      </segment>
+    </unit>
     <unit id="XclPxI9" name="specification.create">
       <segment state="translated">
         <source>specification.create</source>
@@ -699,7 +705,7 @@ Sub elements will be moved upwards.</target>
     <unit id="LN0dVIE" name="loading.message">
       <segment state="translated">
         <source>loading.message</source>
-        <target>This can take a while. If this messages stays for a long time, try to reload the page.</target>
+        <target>This can take a while. If this message stays for a long time, try to reload the page.</target>
       </segment>
     </unit>
     <unit id="8I0Kqhw" name="loading.bar">
@@ -813,7 +819,7 @@ Sub elements will be moved upwards.</target>
     <unit id="bVL1K4d" name="homepage.help.text">
       <segment state="translated">
         <source>homepage.help.text</source>
-        <target>Help and tips can be found in Wiki the &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub page&lt;/a&gt;</target>
+        <target>Help and tips can be found in the Wiki on the &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub page&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="dnirx4v" name="homepage.forum.caption">
@@ -2420,13 +2426,13 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     <unit id="kgA0kPC" name="entity.edit_flash">
       <segment state="translated">
         <source>entity.edit_flash</source>
-        <target>Changes saved successful.</target>
+        <target>Changes saved successfully.</target>
       </segment>
     </unit>
     <unit id="_cDBy1s" name="entity.edit_flash.invalid">
       <segment state="translated">
         <source>entity.edit_flash.invalid</source>
-        <target>Can not save changed. Please check your input!</target>
+        <target>Can not save changes. Please check your input!</target>
       </segment>
     </unit>
     <unit id="vJr16w7" name="entity.created_flash">
@@ -2450,7 +2456,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     <unit id="vlktMB1" name="csfr_invalid">
       <segment state="translated">
         <source>csfr_invalid</source>
-        <target>CSFR Token invalid. Please reload this page or contact an administrator if this message stays.</target>
+        <target>CSRF Token invalid. Please reload this page or contact an administrator if this message stays.</target>
       </segment>
     </unit>
     <unit id="GFvuxVv" name="label_generator.no_entities_found">
@@ -2549,7 +2555,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     <unit id="XFmvSsv" name="part.deleted">
       <segment state="translated">
         <source>part.deleted</source>
-        <target>Part deleted successful.</target>
+        <target>Part deleted successfully.</target>
       </segment>
     </unit>
     <unit id="iKciX31" name="part.created_flash">
@@ -4048,7 +4054,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>validator.noneofitschild.self</source>
-        <target>A element can not be its own parent.</target>
+        <target>An element can not be its own parent.</target>
       </segment>
     </unit>
     <unit id="W90LyFQ" name="validator.noneofitschild.children">
@@ -6123,7 +6129,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="uxw7_77" name="group.edit.enforce_2fa.help">
       <segment state="translated">
         <source>group.edit.enforce_2fa.help</source>
-        <target>If this option is enabled, every direct member of this group, has to configure at least one second-factor for authentication. Recommended for administrative groups with many permissions.</target>
+        <target>If this option is enabled, every direct member of this group has to configure at least one second-factor for authentication. Recommended for administrative groups with many permissions.</target>
       </segment>
     </unit>
     <unit id="NwsYm0P" name="selectpicker.nothing_selected">
@@ -6363,7 +6369,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="CdphPiM" name="tools.reel_calc.explanation">
       <segment state="translated">
         <source>tools.reel_calc.explanation</source>
-        <target>This calculator gives you an estimation, how many parts are remaining on an SMD reel. Measure the noted the dimensions on the reel (or use the presets) and click "Update" to get a result.</target>
+        <target>This calculator gives you an estimation, how many parts are remaining on an SMD reel. Measure the noted dimensions on the reel (or use the presets) and click "Update" to get a result.</target>
       </segment>
     </unit>
     <unit id="21dEh63" name="perm.tools.reel_calculator">
@@ -7248,6 +7254,12 @@ Element 1 -&gt; Element 1.2</target>
         <target>Add BOM entries</target>
       </segment>
     </unit>
+    <unit id=".kp4e.H" name="project.bom.export_csv">
+      <segment state="translated">
+        <source>project.bom.export_csv</source>
+        <target>Export as CSV</target>
+      </segment>
+    </unit>
     <unit id="mo8KjGV" name="project.info.info.label">
       <segment state="translated">
         <source>project.info.info.label</source>
@@ -7593,7 +7605,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="DL.TreI" name="category.edit.partname_regex.help">
       <segment state="translated">
         <source>category.edit.partname_regex.help</source>
-        <target>A PCRE-compatible regular expression, which a part name have to match.</target>
+        <target>A PCRE-compatible regular expression, which a part name has to match.</target>
       </segment>
     </unit>
     <unit id="f3gkGc9" name="category.edit.part_ipn_prefix.help">
@@ -8295,7 +8307,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id=".TjGPnB" name="import.create_unknown_datastructures.help">
       <segment state="translated">
         <source>import.create_unknown_datastructures.help</source>
-        <target>If this is selected, data structures (like categories, footprints, etc.) which does not exist in the database yet, will be automatically created. If this is not selected, only existing data structures will be used, and if no matching data structure is found, the part will get assigned nothing</target>
+        <target>If this is selected, data structures (like categories, footprints, etc.) which do not exist in the database yet, will be automatically created. If this is not selected, only existing data structures will be used, and if no matching data structure is found, the part will get assigned nothing</target>
       </segment>
     </unit>
     <unit id="y_rsaV8" name="import.path_delimiter">
@@ -9245,7 +9257,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="22Y3GfL" name="part_lot.edit.vendor_barcode.help">
       <segment state="translated">
         <source>part_lot.edit.vendor_barcode.help</source>
-        <target>If this lot already have a barcode (e.g. put there by the vendor), you can input its content here, to easily scan it.</target>
+        <target>If this lot already has a barcode (e.g. put there by the vendor), you can input its content here, to easily scan it.</target>
       </segment>
     </unit>
     <unit id="tFAtJBM" name="scan_dialog.mode.vendor">
@@ -10068,7 +10080,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="w07P3Dt" name="settings.misc.kicad_eda.category_depth.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.category_depth.help</source>
-        <target>This value determines the depth of the category tree, that is visible inside KiCad. 0 means that only the top level categories are visible. Set to a value &gt; 0 to show more levels. Set to -1, to show all parts of Part-DB inside a sigle cnategory in KiCad.</target>
+        <target>This value determines the depth of the category tree, that is visible inside KiCad. 0 means that only the top level categories are visible. Set to a value &gt; 0 to show more levels. Set to -1, to show all parts of Part-DB inside a single category in KiCad.</target>
       </segment>
     </unit>
     <unit id="X5.rQdO" name="settings.misc.kicad_eda.datasheet_link">
@@ -12122,7 +12134,7 @@ Please note that this system is currently experimental, and the synonyms defined
     <unit id="Akh9iFg" name="settings.misc.ipn_suggest.globalPrefix.help">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.globalPrefix.help</source>
-        <target>If enabled, an option for to generate IPN with this global prefix, shared across parts in all categories.</target>
+        <target>If enabled, an option to generate IPN with this global prefix, shared across parts in all categories.</target>
       </segment>
     </unit>
     <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
@@ -12860,7 +12872,7 @@ Buerklin-API Authentication server:
     <unit id="Pu8juaH" name="settings.ips.generic_web_provider.enabled.help">
       <segment state="translated">
         <source>settings.ips.generic_web_provider.enabled.help</source>
-        <target>When the provider is enabled, users can make requests to arbitary websites on behalf of the Part-DB server. Only enable this, if you are aware of the potential consequences.</target>
+        <target>When the provider is enabled, users can make requests to arbitrary websites on behalf of the Part-DB server. Only enable this, if you are aware of the potential consequences.</target>
       </segment>
     </unit>
     <unit id="IvIOYcn" name="info_providers.from_url.title">
@@ -13034,7 +13046,19 @@ Buerklin-API Authentication server:
     <unit id="Z78QunV" name="settings.misc.kicad_eda.default_parameter_visibility.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.default_parameter_visibility.help</source>
-        <target>EDA visibility for all [part] parameters who does not have an explicit visibility set. When enabled all parameters will be visible in the EDA software by default.</target>
+        <target>EDA visibility for all [part] parameters that do not have an explicit visibility set. When enabled all parameters will be visible in the EDA software by default.</target>
+      </segment>
+    </unit>
+    <unit id="XchzDpI" name="settings.misc.kicad_eda.default_parameter_symbol_visibility">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_symbol_visibility</source>
+        <target>Default symbol visibility of parameters</target>
+      </segment>
+    </unit>
+    <unit id="zLHkPCx" name="settings.misc.kicad_eda.default_parameter_symbol_visibility.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_symbol_visibility.help</source>
+        <target>Whether exported [part] parameter fields that do not have an explicit symbol visibility set are shown in the schematic symbol (the KiCad field's "visible" flag). Only affects parameters that are already exported as EDA fields.</target>
       </segment>
     </unit>
     <unit id="J6pYnaC" name="settings.misc.kicad_eda.default_orderdetails_visibility">
@@ -13046,7 +13070,7 @@ Buerklin-API Authentication server:
     <unit id="Hiye4C." name="settings.misc.kicad_eda.default_orderdetails_visibility.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.default_orderdetails_visibility.help</source>
-        <target>EDA visibility for all purchase infos who does not have an explicit visibility set. When enabled all purchase infos will be visible in the EDA software by default.</target>
+        <target>EDA visibility for all purchase infos that do not have an explicit visibility set. When enabled all purchase infos will be visible in the EDA software by default.</target>
       </segment>
     </unit>
     <unit id="aEgd0if" name="label_scanner.open">
@@ -13622,7 +13646,7 @@ Buerklin-API Authentication server:
     <unit id="wILs7pS" name="settings.ips.ai_extractor.description">
       <segment state="translated">
         <source>settings.ips.ai_extractor.description</source>
-        <target>This info provider uses an large language model (LLM) to extract detailed part information from arbitary shop URLs.</target>
+        <target>This info provider uses a large language model (LLM) to extract detailed part information from arbitrary shop URLs.</target>
       </segment>
     </unit>
     <unit id="1ShZ.1i" name="settings.ai.openrouter.help">
@@ -13715,6 +13739,36 @@ Buerklin-API Authentication server:
         <target>You can use this randomly generated value (share it with nobody):</target>
       </segment>
     </unit>
+    <unit id="pJfdMQU" name="search.extensive_matching">
+      <segment state="translated">
+        <source>search.extensive_matching</source>
+        <target>Extensive Matching</target>
+      </segment>
+    </unit>
+    <unit id="YO2ZB66" name="search.permit_wildcards">
+      <segment state="translated">
+        <source>search.permit_wildcards</source>
+        <target>Treat &lt;code&gt;%&lt;/code&gt; and &lt;code&gt;_&lt;/code&gt; as wildcards</target>
+      </segment>
+    </unit>
+    <unit id="_nxvnMn" name="search.regexmatching.help">
+      <segment state="translated">
+        <source>search.regexmatching.help</source>
+        <target>Use regular expressions like "^\w{3,5}" to search for parts. Does not require slashes padding.</target>
+      </segment>
+    </unit>
+    <unit id="mry8ytG" name="search.extensive_matching.help">
+      <segment state="translated">
+        <source>search.extensive_matching.help</source>
+        <target>The search term is split up into parts, and a result is found, when each part is contained in any field. Without this mode the full search term has to be contained in a single field.</target>
+      </segment>
+    </unit>
+    <unit id="zLnKtwP" name="search.permit_wildcards.help">
+      <segment state="translated">
+        <source>search.permit_wildcards.help</source>
+        <target>If enabled, _ is treated as a wildcard for one character and % is treated as a wildcard for zero or more characters.</target>
+      </segment>
+    </unit>
     <unit id="OP7MacF" name="system.trusted_hosts.unconfigured.title">
       <segment state="translated">
         <source>system.trusted_hosts.unconfigured.title</source>
@@ -13790,37 +13844,43 @@ Buerklin-API Authentication server:
     <unit id="yIK_Wtj" name="part.edit.provider_reference.warning">
       <segment state="translated">
         <source>part.edit.provider_reference.warning</source>
-        <target>Warning: Changing values here can break the  info retrieval mechanism! You should use the "update from  info provider" functionality whenever possible.</target>
+        <target>Warning: Changing values here can break the info retrieval mechanism! You should use the "update from info provider" functionality whenever possible.</target>
       </segment>
     </unit>
     <unit id="bNrxe9i" name="perm.api.use_mcp">
-      <segment>
+      <segment state="translated">
         <source>perm.api.use_mcp</source>
         <target>Use MCP tools (for AI agents)</target>
       </segment>
     </unit>
     <unit id="ced_8yl" name="api.api_endpoints.mcp_url">
-      <segment>
+      <segment state="translated">
         <source>api.api_endpoints.mcp_url</source>
         <target>MCP endpoint</target>
       </segment>
     </unit>
     <unit id="a1wK4h_" name="info_providers.capabilities.parameters">
-      <segment>
+      <segment state="translated">
         <source>info_providers.capabilities.parameters</source>
         <target>Parameters</target>
       </segment>
     </unit>
     <unit id="QivC_me" name="info_providers.expensive">
-      <segment>
+      <segment state="translated">
         <source>info_providers.expensive</source>
         <target>Expensive</target>
       </segment>
     </unit>
     <unit id="Hiw406i" name="info_providers.expensive.tooltip">
-      <segment>
+      <segment state="translated">
         <source>info_providers.expensive.tooltip</source>
         <target>Using this info provider can cause additional costs, or has very strict rate limits.</target>
+      </segment>
+    </unit>
+    <unit id="XMqiyE0" name="settings.ips.tme.preferMetricFootprint">
+      <segment state="translated">
+        <source>settings.ips.tme.preferMetricFootprint</source>
+        <target>Prefer metric footprint when both metric and imperial are available</target>
       </segment>
     </unit>
     <unit id="oaAuth01" name="oauth.authorize.title">
