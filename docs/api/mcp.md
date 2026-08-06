@@ -2,7 +2,7 @@
 title: MCP Server
 layout: default
 parent: API
-nav_order: 3
+nav_order: 4
 ---
 
 # MCP Server
@@ -45,8 +45,8 @@ Users which should be allowed to use the MCP tools additionally need the **Use M
 (under the **API** permission group). Granting it automatically also grants the base **Access API** permission.
 
 Like the REST API, authentication against the MCP endpoint is done using an [API token]({% link
-api/authentication.md %}). A token with the **Read-Only** scope is enough to use all currently available MCP tools,
-as they only read data.
+api/authentication.md %}) or an [OAuth2 access token]({% link api/oauth.md %}). Either way, a **Read-Only** scope
+is enough to use all currently available MCP tools, as they only read data.
 
 ## Connecting an AI client
 
@@ -57,7 +57,9 @@ To connect an AI client to Part-DB, you need two things:
   copy-to-clipboard button.
 * An **API token**. Create one on the same **API** panel of your user settings page (see
   [Authentication]({% link api/authentication.md %}) for details about tokens and scopes). A token with the
-  **Read-Only** scope is sufficient.
+  **Read-Only** scope is sufficient. If the MCP client itself supports OAuth2 (many do, since it lets the client
+  provision its own credentials interactively), you can instead let it connect via [OAuth2]({% link
+  api/oauth.md %}) and skip creating an API token manually.
 
 The client has to send this token as a bearer token in the `Authorization` header of every request:
 `Authorization: Bearer tcp_<your-token>`. How exactly you configure this depends on the AI client you use; some

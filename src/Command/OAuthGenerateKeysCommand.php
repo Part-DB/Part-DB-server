@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use Defuse\Crypto\Key;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -94,8 +93,7 @@ class OAuthGenerateKeysCommand extends Command
         $io->success(sprintf('Generated a new OAuth2 server RSA keypair at "%s" / "%s".', $this->privateKeyPath, $this->publicKeyPath));
 
         if (empty($_ENV['OAUTH2_ENCRYPTION_KEY'])) {
-            $io->warning('OAUTH2_ENCRYPTION_KEY is not set. Add the following to your .env.local (keep it secret, do not change it later):');
-            $io->writeln('OAUTH2_ENCRYPTION_KEY='.Key::createNewRandomKey()->saveToAsciiSafeString());
+            $io->warning('OAUTH2_ENCRYPTION_KEY is not set. Generate one with: bin/console partdb:oauth:generate-secret');
         }
 
         return Command::SUCCESS;
