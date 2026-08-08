@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\OAuth;
 
 use App\Entity\UserSystem\ApiTokenLevel;
 use App\Services\OAuth\OAuthClientAdminManager;

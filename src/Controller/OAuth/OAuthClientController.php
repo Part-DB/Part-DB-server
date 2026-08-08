@@ -21,12 +21,11 @@
 declare(strict_types=1);
 
 
-namespace App\Controller;
+namespace App\Controller\OAuth;
 
 use App\Services\OAuth\OAuthTokenManager;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
