@@ -48,7 +48,7 @@ class ConnectedAppManager
     }
 
     /**
-     * @return list<array{client: ClientInterface, expiry: \DateTimeInterface, friendlyName: ?string, scopeLevel: ?ApiTokenLevel, lastUsedAt: ?\DateTimeImmutable}>
+     * @return list<array{client: ClientInterface, expiry: \DateTimeInterface, friendlyName: ?string, scopeLevel: ?ApiTokenLevel, lastUsedAt: ?\DateTimeImmutable, connectedAt: ?\DateTimeImmutable}>
      */
     public function listConnectedClients(string $userIdentifier): array
     {
@@ -102,6 +102,7 @@ class ConnectedAppManager
                 'friendlyName' => $preference?->getFriendlyName(),
                 'scopeLevel' => $preference?->getScopeLevel(),
                 'lastUsedAt' => $preference?->getLastUsedAt(),
+                'connectedAt' => $preference?->getCreatedAt(),
             ];
         }
 

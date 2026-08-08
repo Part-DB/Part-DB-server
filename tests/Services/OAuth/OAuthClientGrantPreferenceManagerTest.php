@@ -45,6 +45,7 @@ final class OAuthClientGrantPreferenceManagerTest extends KernelTestCase
         self::assertSame(ApiTokenLevel::EDIT, $preference->getScopeLevel());
         self::assertSame('First Name', $preference->getFriendlyName());
         self::assertSame(7, $preference->getRefreshTokenTtlDays());
+        self::assertNotNull($preference->getCreatedAt());
 
         // A second save() for the same (user, client) pair must update the existing row, not create
         // a second one.
@@ -55,6 +56,8 @@ final class OAuthClientGrantPreferenceManagerTest extends KernelTestCase
         self::assertSame(ApiTokenLevel::READ_ONLY, $updated->getScopeLevel());
         self::assertNull($updated->getFriendlyName());
         self::assertNull($updated->getRefreshTokenTtlDays());
+        // createdAt must not change on a re-save of an existing preference.
+        self::assertEquals($preference->getCreatedAt(), $updated->getCreatedAt());
     }
 
     public function testRecordUsageSetsLastUsedAndSelfHealsMissingPreference(): void

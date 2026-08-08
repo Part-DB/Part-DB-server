@@ -14045,6 +14045,12 @@ Buerklin-API Authentication server:
         <target>Last used</target>
       </segment>
     </unit>
+    <unit id="1LsyrkP" name="user.settings.oauth_connected_apps.connected_since">
+      <segment>
+        <source>user.settings.oauth_connected_apps.connected_since</source>
+        <target>Connected since</target>
+      </segment>
+    </unit>
     <unit id="F3PROlR" name="perm.system.manage_oauth_clients">
       <segment>
         <source>perm.system.manage_oauth_clients</source>

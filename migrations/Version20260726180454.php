@@ -76,6 +76,7 @@ final class Version20260726180454 extends AbstractMultiPlatformMigration
               friendly_name VARCHAR(255) DEFAULT NULL,
               refresh_token_ttl_days INT DEFAULT NULL,
               last_used_at DATETIME DEFAULT NULL,
+              created_at DATETIME NOT NULL,
               UNIQUE INDEX oauth_client_grant_pref_user_client (user_identifier, client_identifier),
               PRIMARY KEY (id)
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci`
@@ -168,7 +169,8 @@ final class Version20260726180454 extends AbstractMultiPlatformMigration
               scope_level SMALLINT NOT NULL,
               friendly_name VARCHAR(255) DEFAULT NULL,
               refresh_token_ttl_days INTEGER DEFAULT NULL,
-              last_used_at DATETIME DEFAULT NULL
+              last_used_at DATETIME DEFAULT NULL,
+              created_at DATETIME NOT NULL
             )
         SQL);
         $this->addSql('CREATE UNIQUE INDEX oauth_client_grant_pref_user_client ON oauth_client_grant_preferences (user_identifier, client_identifier)');
@@ -255,6 +257,7 @@ final class Version20260726180454 extends AbstractMultiPlatformMigration
               friendly_name VARCHAR(255) DEFAULT NULL,
               refresh_token_ttl_days INT DEFAULT NULL,
               last_used_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL,
+              created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
               PRIMARY KEY (id)
             )
         SQL);

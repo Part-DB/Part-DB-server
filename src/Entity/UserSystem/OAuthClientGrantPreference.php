@@ -76,11 +76,21 @@ class OAuthClientGrantPreference
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $lastUsedAt = null;
 
+    /**
+     * The date this user first granted this client access - set once in the constructor and never
+     * updated afterward, even if the user later changes their scope level or friendly name via
+     * App\Services\OAuth\OAuthClientGrantPreferenceManager::save() (mirrors how
+     * App\Entity\UserSystem\DynamicallyRegisteredOAuthClient::$registeredAt is set once and left alone).
+     */
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, name: 'created_at')]
+    private \DateTimeImmutable $createdAt;
+
     public function __construct(string $userIdentifier, string $clientIdentifier, ApiTokenLevel $scopeLevel)
     {
         $this->userIdentifier = $userIdentifier;
         $this->clientIdentifier = $clientIdentifier;
         $this->scopeLevel = $scopeLevel;
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): int
@@ -140,5 +150,10 @@ class OAuthClientGrantPreference
     {
         $this->lastUsedAt = $lastUsedAt;
         return $this;
+    }
+
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
     }
 }

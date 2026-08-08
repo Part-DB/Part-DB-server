@@ -97,6 +97,9 @@ final class ConnectedAppManagerTest extends KernelTestCase
         $connected = $manager->listConnectedClients($userIdentifier);
         self::assertCount(1, $connected);
         self::assertSame($client->getIdentifier(), $connected[0]['client']->getIdentifier());
+        // No App\Services\OAuth\OAuthClientGrantPreferenceManager preference was ever saved for this
+        // user+client pair, so there's no registration date to report.
+        self::assertNull($connected[0]['connectedAt']);
 
         $manager->revokeForUserAndClient($userIdentifier, $client->getIdentifier());
 
