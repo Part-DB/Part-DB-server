@@ -44,7 +44,7 @@ use function Symfony\Component\Translation\t;
  * Only reachable if the OAuth2 server itself is enabled (OAUTH_SERVER_ENABLED, disabled by default).
  */
 #[Route(path: '/tools/oauth_clients', condition: "env('OAUTH_SERVER_ENABLED') == '1' or env('OAUTH_SERVER_ENABLED') == 'true'")]
-class OAuthClientAdminController extends AbstractController
+class OAuthServerClientsAdminController extends AbstractController
 {
     public function __construct(private readonly OAuthClientAdminManager $manager)
     {

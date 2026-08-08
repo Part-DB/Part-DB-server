@@ -31,8 +31,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 use function Symfony\Component\Translation\t;
 
+/**
+ * This controller handles requests where Part-DB itself is the OAuth2 client and wants to connect to an external
+ * Oauth server.
+ */
 #[Route('/oauth/client')]
-class OAuthClientController extends AbstractController
+class OAuthClientHandlerController extends AbstractController
 {
     public function __construct(private readonly ClientRegistry $clientRegistry, private readonly OAuthTokenManager $tokenManager)
     {

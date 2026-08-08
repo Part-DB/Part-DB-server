@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\OAuth;
+namespace App\Controller\OAuth\NonLocalized;
 
 use App\Entity\UserSystem\ApiTokenLevel;
 use App\Entity\UserSystem\DynamicallyRegisteredOAuthClient;
