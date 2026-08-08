@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller\OAuth;
 
+use App\Entity\UserSystem\ApiTokenLevel;
 use App\Services\OAuth\OAuthRedirectUriValidator;
 use League\Bundle\OAuth2ServerBundle\Manager\ClientManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Manager\ScopeManagerInterface;
@@ -50,6 +51,9 @@ use Symfony\Component\Routing\Attribute\Route;
  * Only reachable if both the OAuth2 server and Dynamic Client Registration specifically are enabled
  * (OAUTH_SERVER_ENABLED and OAUTH_DCR_ENABLED, both disabled by default) - see the route condition below.
  * Clients can still be registered manually by an admin via /tools/oauth_clients regardless of this flag.
+ *
+ * Self-registered clients (e.g. auto-provisioning MCP apps) may request at most the "edit" scope - see
+ * validateScopes(). Requesting "admin" or "full" requires an administrator to register the client by hand.
  */
 #[Route('/oauth')]
 class ClientRegistrationController extends AbstractController
@@ -198,9 +202,31 @@ class ClientRegistrationController extends AbstractController
             if (null === $this->scopeManager->find($scope)) {
                 return $this->error('invalid_client_metadata', \sprintf('Unknown scope "%s".', $scope));
             }
+
+            $level = $this->levelForScope($scope);
+            if ($level instanceof ApiTokenLevel && $level->value > ApiTokenLevel::EDIT->value) {
+                // Self-registration is unattended - nobody reviews these requests before the client
+                // exists, unlike manual registration via OAuthClientAdminController. The actual access
+                // grant still requires a user to approve it on the consent screen (and a user can never
+                // grant more than what the client requested here), but letting a script request
+                // admin/full up front would make that consent screen's own scope cap meaningless as a
+                // safety net. Admin/full clients must be registered by hand by an administrator instead.
+                return $this->error('invalid_scope', \sprintf('Dynamically registered clients may request at most the "%s" scope; "%s" requires an administrator to register the client manually.', strtolower(ApiTokenLevel::EDIT->name), $scope));
+            }
         }
 
         return $scopes;
+    }
+
+    private function levelForScope(string $scope): ?ApiTokenLevel
+    {
+        foreach (ApiTokenLevel::cases() as $level) {
+            if (strtolower($level->name) === $scope) {
+                return $level;
+            }
+        }
+
+        return null;
     }
 
     private function error(string $error, string $description): JsonResponse

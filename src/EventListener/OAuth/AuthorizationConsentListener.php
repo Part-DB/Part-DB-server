@@ -129,6 +129,11 @@ class AuthorizationConsentListener
             'ttl_presets_days' => self::TTL_PRESETS_DAYS,
             'selected_ttl_days' => $existingPreference?->getRefreshTokenTtlDays(),
             'csrf_token_id' => self::CSRF_TOKEN_ID,
+            // "edit" (read + write of ordinary, non-sensitive data) is the normal ceiling for an app to
+            // ask for; admin/full go beyond that (e.g. viewing all users' log entries, or acting as the
+            // user entirely), so the template calls those out with an extra warning.
+            'edit_level_value' => ApiTokenLevel::EDIT->value,
+            'elevated_scope_requested' => $maxLevel->value > ApiTokenLevel::EDIT->value,
         ]));
 
         $event->setResponse($response);

@@ -65,7 +65,7 @@ final class ClientRegistrationControllerTest extends WebTestCase
             'grant_types' => ['authorization_code'],
             'response_types' => ['code'],
             'token_endpoint_auth_method' => 'none',
-            'scope' => 'edit full',
+            'scope' => 'read_only edit',
         ]);
 
         self::assertResponseStatusCodeSame(201);
@@ -73,13 +73,43 @@ final class ClientRegistrationControllerTest extends WebTestCase
 
         self::assertSame('My MCP Client', $data['client_name']);
         self::assertSame(['authorization_code'], $data['grant_types']);
-        self::assertSame('edit full', $data['scope']);
+        self::assertSame('read_only edit', $data['scope']);
 
         $client = $httpClient->getContainer()->get(ClientManagerInterface::class)->find($data['client_id']);
         self::assertNotNull($client);
         self::assertSame('My MCP Client', $client->getName());
         self::assertCount(2, $client->getRedirectUris());
         self::assertCount(2, $client->getScopes());
+    }
+
+    /**
+     * Self-registration is unattended (no administrator reviews it before the client exists), so it must
+     * not be able to reach for "admin"/"full" scope on its own - only a manually-registered client can.
+     */
+    public function testElevatedScopeIsRejected(): void
+    {
+        $httpClient = static::createClient();
+        $httpClient->jsonRequest('POST', '/oauth/register', [
+            'redirect_uris' => ['https://client.example.invalid/callback'],
+            'scope' => 'edit admin',
+        ]);
+
+        self::assertResponseStatusCodeSame(400);
+        $data = json_decode((string) $httpClient->getResponse()->getContent(), true);
+        self::assertSame('invalid_scope', $data['error']);
+    }
+
+    public function testFullScopeIsRejected(): void
+    {
+        $httpClient = static::createClient();
+        $httpClient->jsonRequest('POST', '/oauth/register', [
+            'redirect_uris' => ['https://client.example.invalid/callback'],
+            'scope' => 'full',
+        ]);
+
+        self::assertResponseStatusCodeSame(400);
+        $data = json_decode((string) $httpClient->getResponse()->getContent(), true);
+        self::assertSame('invalid_scope', $data['error']);
     }
 
     public function testLoopbackHttpRedirectUriIsAllowed(): void

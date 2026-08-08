@@ -33,11 +33,15 @@
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="scopes[]"
                                    id="oauth_client_create_scope_{{ level.name|lower }}" value="{{ level.name|lower }}">
-                            <label class="form-check-label" for="oauth_client_create_scope_{{ level.name|lower }}">
+                            <label class="form-check-label {% if level.value > edit_level_value %}text-danger fw-bold{% endif %}" for="oauth_client_create_scope_{{ level.name|lower }}">
                                 {{ level.translationKey|trans }}
+                                {% if level.value > edit_level_value %}
+                                    <i class="fa-solid fa-triangle-exclamation fa-fw" aria-hidden="true"></i>
+                                {% endif %}
                             </label>
                         </div>
                     {% endfor %}
+                    <div class="form-text">{% trans %}oauth_clients.create.scopes.elevated_help{% endtrans %}</div>
                 </div>
 
                 <button type="submit" class="btn btn-primary">

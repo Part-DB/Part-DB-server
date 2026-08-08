@@ -56,6 +56,7 @@ class OAuthClientAdminController extends AbstractController
         return $this->render('tools/oauth_clients/oauth_clients.html.twig', [
             'clients' => $this->manager->listClientsWithLiveTokenCounts(),
             'scope_levels' => ApiTokenLevel::cases(),
+            'edit_level_value' => ApiTokenLevel::EDIT->value,
         ]);
     }
 

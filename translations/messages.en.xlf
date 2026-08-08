@@ -13967,6 +13967,18 @@ Buerklin-API Authentication server:
         <target>After this period, the application will need you to sign in again.</target>
       </segment>
     </unit>
+    <unit id="oaAuth15" name="oauth.authorize.elevated_warning">
+      <segment>
+        <source>oauth.authorize.elevated_warning</source>
+        <target>This application is requesting administrative or full account access, well beyond normal read/edit access. Only approve this if you fully trust the application.</target>
+      </segment>
+    </unit>
+    <unit id="oaAuth16" name="oauth.authorize.elevated_badge">
+      <segment>
+        <source>oauth.authorize.elevated_badge</source>
+        <target>Elevated access</target>
+      </segment>
+    </unit>
     <unit id="oaConn01" name="user.settings.oauth_connected_apps">
       <segment>
         <source>user.settings.oauth_connected_apps</source>
@@ -14157,6 +14169,12 @@ Buerklin-API Authentication server:
       <segment>
         <source>oauth_clients.create.scopes</source>
         <target>Allowed access levels</target>
+      </segment>
+    </unit>
+    <unit id="oaAdm024" name="oauth_clients.create.scopes.elevated_help">
+      <segment>
+        <source>oauth_clients.create.scopes.elevated_help</source>
+        <target>Only allow "Admin" or "Full" for clients you fully trust and control - self-registered clients (e.g. auto-provisioning MCP apps) can never request these levels themselves.</target>
       </segment>
     </unit>
     <unit id="oaAdm022" name="oauth_clients.create.submit">
