@@ -87,7 +87,7 @@ final class OAuthScopeNarrowingAndTtlTest extends ApiTestCase
 
         [$verifier, $challenge] = $this->generatePkcePair();
 
-        $authorizeRequest = $psr17->createServerRequest('GET', 'https://part-db.test/authorize?'.http_build_query([
+        $authorizeRequest = $psr17->createServerRequest('GET', 'https://part-db.test/oauth/authorize?'.http_build_query([
             'response_type' => 'code',
             'client_id' => $oauthClient->getIdentifier(),
             'redirect_uri' => $redirectUri,
@@ -106,7 +106,7 @@ final class OAuthScopeNarrowingAndTtlTest extends ApiTestCase
         parse_str((string) parse_url($redirectResponse->getHeaderLine('Location'), PHP_URL_QUERY), $query);
         self::assertArrayHasKey('code', $query, 'Expected an authorization code in the redirect.');
 
-        $tokenRequest = $psr17->createServerRequest('POST', 'https://part-db.test/token')
+        $tokenRequest = $psr17->createServerRequest('POST', 'https://part-db.test/oauth/token')
             ->withParsedBody([
                 'grant_type' => 'authorization_code',
                 'client_id' => $oauthClient->getIdentifier(),

@@ -34,7 +34,7 @@ use League\Bundle\OAuth2ServerBundle\ValueObject\Scope;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
- * Drives the real GET/POST /authorize HTTP flow (routes/controller provided by
+ * Drives the real GET/POST /oauth/authorize HTTP flow (routes/controller provided by
  * league/oauth2-server-bundle, consent screen provided by
  * App\EventListener\OAuth\AuthorizationConsentListener), rather than calling AuthorizationServer
  * directly - this is the only test covering the actual consent screen and its CSRF handling.
@@ -65,7 +65,7 @@ final class AuthorizationConsentListenerTest extends WebTestCase
         $verifier = rtrim(strtr(base64_encode(random_bytes(40)), '+/', '-_'), '=');
         $challenge = rtrim(strtr(base64_encode(hash('sha256', $verifier, true)), '+/', '-_'), '=');
 
-        return '/authorize?'.http_build_query([
+        return '/oauth/authorize?'.http_build_query([
             'response_type' => 'code',
             'client_id' => $client->getIdentifier(),
             'redirect_uri' => $redirectUri,
@@ -79,7 +79,7 @@ final class AuthorizationConsentListenerTest extends WebTestCase
     {
         // Note: config/packages/test/security.yaml overrides the "main" firewall's entry_point to
         // "http_basic" for the whole test environment, so unauthenticated requests to any
-        // IS_AUTHENTICATED_FULLY-protected route (including /authorize) get a 401 "Basic realm"
+        // IS_AUTHENTICATED_FULLY-protected route (including /oauth/authorize) get a 401 "Basic realm"
         // challenge here, not the production redirect-to-/login behaviour of
         // App\Security\AuthenticationEntryPoint. Same convention as
         // App\Tests\Controller\AuthorizationTest::testUnauthenticatedIsUnauthorizedOnWriteRoutes.

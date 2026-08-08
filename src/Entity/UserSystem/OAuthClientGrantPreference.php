@@ -27,7 +27,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * A single user's preferences for one OAuth2 client (League\Bundle\OAuth2ServerBundle) they have
- * authorized at /authorize - the scope level they granted, an optional friendly name to tell apart
+ * authorized at /oauth/authorize - the scope level they granted, an optional friendly name to tell apart
  * multiple connections to the same self-registered (RFC 7591) client, and how long the resulting
  * refresh token should stay valid before requiring re-authorization.
  *

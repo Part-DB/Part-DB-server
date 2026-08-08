@@ -43,9 +43,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  * resolve dynamically per request - no cached/dumped container value takes precedence) to verify the
  * *disabled* paths, restoring them in a finally block so no other test observes the override.
  *
- * Unauthenticated requests to /authorize always get a 401 from the firewall's own access_control
- * (^/authorize requires IS_AUTHENTICATED_FULLY) *before* routing ever gets a chance to 404 the disabled
- * route - so tests that need to see the true disabled-routing behavior for /authorize log in first and
+ * Unauthenticated requests to /oauth/authorize always get a 401 from the firewall's own access_control
+ * (^/oauth/authorize requires IS_AUTHENTICATED_FULLY) *before* routing ever gets a chance to 404 the disabled
+ * route - so tests that need to see the true disabled-routing behavior for /oauth/authorize log in first and
  * follow redirects (the route falls through to the app's locale-redirect catch-all, then 404s).
  */
 final class OAuthServerFeatureFlagTest extends WebTestCase
@@ -82,7 +82,7 @@ final class OAuthServerFeatureFlagTest extends WebTestCase
             $httpClient->followRedirects();
 
             // Public endpoints - no login needed to see the true routing behavior.
-            $httpClient->request('POST', '/token');
+            $httpClient->request('POST', '/oauth/token');
             self::assertResponseStatusCodeSame(404);
 
             $httpClient->request('POST', '/oauth/register', ['json' => []]);
@@ -94,13 +94,13 @@ final class OAuthServerFeatureFlagTest extends WebTestCase
             $httpClient->request('GET', '/.well-known/oauth-protected-resource');
             self::assertResponseStatusCodeSame(404);
 
-            // /authorize requires login before routing gets a chance to reject it (access_control matches
-            // on path, independent of whether the route beneath it actually exists).
+            // /oauth/authorize requires login before routing gets a chance to reject it (access_control
+            // matches on path, independent of whether the route beneath it actually exists).
             $entityManager = static::getContainer()->get(EntityManagerInterface::class);
             $admin = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
             self::assertInstanceOf(User::class, $admin);
             $httpClient->loginUser($admin);
-            $httpClient->request('GET', '/authorize');
+            $httpClient->request('GET', '/oauth/authorize');
             self::assertResponseStatusCodeSame(404);
 
             $httpClient->request('GET', '/en/tools/oauth_clients');
@@ -176,7 +176,7 @@ final class OAuthServerFeatureFlagTest extends WebTestCase
         $verifier = rtrim(strtr(base64_encode(random_bytes(40)), '+/', '-_'), '=');
         $challenge = rtrim(strtr(base64_encode(hash('sha256', $verifier, true)), '+/', '-_'), '=');
 
-        $authorizeRequest = $psr17->createServerRequest('GET', 'https://part-db.test/authorize?'.http_build_query([
+        $authorizeRequest = $psr17->createServerRequest('GET', 'https://part-db.test/oauth/authorize?'.http_build_query([
             'response_type' => 'code',
             'client_id' => $oauthClient->getIdentifier(),
             'redirect_uri' => $redirectUri,
@@ -192,7 +192,7 @@ final class OAuthServerFeatureFlagTest extends WebTestCase
         $redirectResponse = $authServer->completeAuthorizationRequest($authRequest, $psr17->createResponse());
         parse_str((string) parse_url($redirectResponse->getHeaderLine('Location'), PHP_URL_QUERY), $query);
 
-        $tokenRequest = $psr17->createServerRequest('POST', 'https://part-db.test/token')->withParsedBody([
+        $tokenRequest = $psr17->createServerRequest('POST', 'https://part-db.test/oauth/token')->withParsedBody([
             'grant_type' => 'authorization_code',
             'client_id' => $oauthClient->getIdentifier(),
             'redirect_uri' => $redirectUri,

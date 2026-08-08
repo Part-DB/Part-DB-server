@@ -27,7 +27,7 @@ use App\Entity\UserSystem\OAuthClientGrantPreference;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * Manages the per (user, OAuth2 client) preferences recorded on the /authorize consent screen
+ * Manages the per (user, OAuth2 client) preferences recorded on the /oauth/authorize consent screen
  * (App\EventListener\OAuth\AuthorizationConsentListener): the granted scope level, an optional friendly
  * name, and a refresh token TTL - plus last-use tracking used by App\Security\OAuth\OAuthBearerAuthenticator
  * (the OAuth equivalent of App\Entity\UserSystem\ApiToken::$last_time_used).

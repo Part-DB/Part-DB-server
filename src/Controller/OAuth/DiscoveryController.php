@@ -32,7 +32,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * RFC 8414 (OAuth 2.0 Authorization Server Metadata) and RFC 9728 (OAuth 2.0 Protected Resource Metadata)
- * discovery endpoints, so OAuth/MCP clients can locate /authorize, /token and the RFC 7591 registration
+ * discovery endpoints, so OAuth/MCP clients can locate /oauth/authorize, /oauth/token and the RFC 7591 registration
  * endpoint (App\Controller\OAuth\ClientRegistrationController) without any hardcoded configuration.
  *
  * Lives at the fixed /.well-known/... paths both RFCs mandate - unprefixed by locale (see

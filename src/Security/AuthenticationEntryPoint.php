@@ -46,7 +46,7 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
 {
     /**
      * Paths of OAuth2-protected resources that must advertise their RFC 9728 protected-resource metadata
-     * document, so OAuth/MCP clients (e.g. MCP Inspector) can discover /authorize + /token via the
+     * document, so OAuth/MCP clients (e.g. MCP Inspector) can discover /oauth/authorize + /oauth/token via the
      * standard 401 + WWW-Authenticate handshake instead of having to already know the .well-known URLs.
      */
     private const OAUTH_PROTECTED_PATHS = ['/mcp', '/api', '/kicad-api'];

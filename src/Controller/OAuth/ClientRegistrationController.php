@@ -43,7 +43,7 @@ use Symfony\Component\Routing\Attribute\Route;
 /**
  * RFC 7591 Dynamic Client Registration. Deliberately open/unauthenticated - any client may self-register
  * a public (secret-less) OAuth2 client, since the actual access-control gate for the whole OAuth server
- * is the per-user consent screen at /authorize (see App\EventListener\OAuth\AuthorizationConsentListener),
+ * is the per-user consent screen at /oauth/authorize (see App\EventListener\OAuth\AuthorizationConsentListener),
  * not client registration. Only Authorization Code + PKCE / refresh_token are ever issued to registered
  * clients (config/packages/league_oauth2_server.yaml), so registering a client grants no access by itself.
  *

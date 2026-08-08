@@ -43,7 +43,7 @@ use Twig\Environment;
  * league/oauth2-server-bundle 1.2 has no built-in consent UI or listener for this event at all (unlike
  * some other OAuth2 bundles) - the "user" on the event is resolved directly from the current Symfony
  * security session by AuthorizationRequestResolveEventFactory, which throws if nobody is logged in; the
- * /authorize access_control entry (IS_AUTHENTICATED_FULLY) makes sure a login happens first.
+ * /oauth/authorize access_control entry (IS_AUTHENTICATED_FULLY) makes sure a login happens first.
  *
  * The consent form resubmits to the exact same URL (same query string, so
  * league/oauth2-server re-derives an identical AuthorizationRequest - it only reads request params from

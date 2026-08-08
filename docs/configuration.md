@@ -228,7 +228,7 @@ access token via a login-and-consent flow instead of a manually created API toke
   ```
   and add the printed line to `.env.local`. Keep it secret, and do **not** change it again once the OAuth2 server
   is in use — doing so invalidates all outstanding refresh tokens and any authorization codes currently in flight.
-* `OAUTH_SERVER_ENABLED` (default `0`): Enables the OAuth2 authorization server (`/authorize`, `/token`, the
+* `OAUTH_SERVER_ENABLED` (default `0`): Enables the OAuth2 authorization server (`/oauth/authorize`, `/oauth/token`, the
   `/tools/oauth_clients` admin overview, the `/.well-known/` discovery endpoints, and OAuth2 bearer token
   authentication in general). Disabled by default; while disabled these are all unreachable.
 * `OAUTH_DCR_ENABLED` (default `0`): Enables open, unauthenticated Dynamic Client Registration (RFC 7591,

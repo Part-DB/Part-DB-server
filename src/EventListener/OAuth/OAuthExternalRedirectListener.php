@@ -27,7 +27,7 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 /**
- * Exempts the OAuth2 /authorize and /token redirect responses (league/oauth2-server-bundle) from
+ * Exempts the OAuth2 /oauth/authorize and /oauth/token redirect responses (league/oauth2-server-bundle) from
  * NelmioSecurityBundle's generic external-redirect protection (config/packages/nelmio_security.yaml's
  * external_redirects, which 403s any redirect to a host not on its fixed allow_list).
  *
@@ -43,7 +43,7 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 #[AsEventListener(event: 'kernel.response', priority: 32)]
 class OAuthExternalRedirectListener
 {
-    private const OAUTH_REDIRECT_PATHS = ['/authorize', '/token'];
+    private const OAUTH_REDIRECT_ROUTES = ['oauth2_authorize', 'oauth2_token'];
 
     public function __invoke(ResponseEvent $event): void
     {
@@ -51,7 +51,7 @@ class OAuthExternalRedirectListener
             return;
         }
 
-        if (!\in_array($event->getRequest()->getPathInfo(), self::OAUTH_REDIRECT_PATHS, true)) {
+        if (!\in_array($event->getRequest()->attributes->get('_route'), self::OAUTH_REDIRECT_ROUTES, true)) {
             return;
         }
 

@@ -89,7 +89,7 @@ final class OAuthBearerAuthenticationTest extends ApiTestCase
 
         [$verifier, $challenge] = $this->generatePkcePair();
 
-        $authorizeRequest = $psr17->createServerRequest('GET', 'https://part-db.test/authorize?'.http_build_query([
+        $authorizeRequest = $psr17->createServerRequest('GET', 'https://part-db.test/oauth/authorize?'.http_build_query([
             'response_type' => 'code',
             'client_id' => $oauthClient->getIdentifier(),
             'redirect_uri' => $redirectUri,
@@ -108,7 +108,7 @@ final class OAuthBearerAuthenticationTest extends ApiTestCase
         parse_str((string) parse_url($redirectResponse->getHeaderLine('Location'), PHP_URL_QUERY), $query);
         self::assertArrayHasKey('code', $query, 'Expected an authorization code in the redirect.');
 
-        $tokenRequest = $psr17->createServerRequest('POST', 'https://part-db.test/token')
+        $tokenRequest = $psr17->createServerRequest('POST', 'https://part-db.test/oauth/token')
             ->withParsedBody([
                 'grant_type' => 'authorization_code',
                 'client_id' => $oauthClient->getIdentifier(),
@@ -173,7 +173,7 @@ final class OAuthBearerAuthenticationTest extends ApiTestCase
 
         [, $challenge] = $this->generatePkcePair();
 
-        $authorizeRequest = $psr17->createServerRequest('GET', 'https://part-db.test/authorize?'.http_build_query([
+        $authorizeRequest = $psr17->createServerRequest('GET', 'https://part-db.test/oauth/authorize?'.http_build_query([
             'response_type' => 'code',
             'client_id' => $oauthClient->getIdentifier(),
             'redirect_uri' => $redirectUri,
@@ -191,7 +191,7 @@ final class OAuthBearerAuthenticationTest extends ApiTestCase
         $redirectResponse = $authServer->completeAuthorizationRequest($authRequest, $psr17->createResponse());
         parse_str((string) parse_url($redirectResponse->getHeaderLine('Location'), PHP_URL_QUERY), $query);
 
-        $tokenRequest = $psr17->createServerRequest('POST', 'https://part-db.test/token')
+        $tokenRequest = $psr17->createServerRequest('POST', 'https://part-db.test/oauth/token')
             ->withParsedBody([
                 'grant_type' => 'authorization_code',
                 'client_id' => $oauthClient->getIdentifier(),
@@ -215,7 +215,7 @@ final class OAuthBearerAuthenticationTest extends ApiTestCase
         $authServer = $httpClient->getContainer()->get(AuthorizationServer::class);
         $psr17 = new Psr17Factory();
 
-        $refreshRequest = $psr17->createServerRequest('POST', 'https://part-db.test/token')
+        $refreshRequest = $psr17->createServerRequest('POST', 'https://part-db.test/oauth/token')
             ->withParsedBody([
                 'grant_type' => 'refresh_token',
                 'client_id' => $oauthClient->getIdentifier(),

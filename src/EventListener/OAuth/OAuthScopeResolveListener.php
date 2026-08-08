@@ -35,7 +35,7 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
  * granting everything the client requested.
  *
  * This is the *only* place that can actually narrow scopes: league/oauth2-server-bundle 1.2's
- * AuthorizationRequestResolveEvent (dispatched at /authorize) has no setter to feed narrowed scopes back
+ * AuthorizationRequestResolveEvent (dispatched at /oauth/authorize) has no setter to feed narrowed scopes back
  * into the underlying League\OAuth2\Server\RequestTypes\AuthorizationRequest, and its controller
  * (League\Bundle\OAuth2ServerBundle\Controller\AuthorizationController::indexAction()) only ever reads
  * setUser()/setAuthorizationApproved() off it afterwards - so the authorization code itself always carries

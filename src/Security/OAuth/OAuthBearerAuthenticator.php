@@ -62,7 +62,7 @@ use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface
  *
  * Also refuses to authenticate anything at all while the OAuth2 server is disabled (OAUTH_SERVER_ENABLED,
  * disabled by default) - so any previously-issued OAuth2 token immediately stops working the moment the
- * server is turned off, the same way its own /authorize, /token etc. routes stop being reachable (see
+ * server is turned off, the same way its own /oauth/authorize, /oauth/token etc. routes stop being reachable (see
  * config/routes/league_oauth2_server.yaml's route condition).
  */
 class OAuthBearerAuthenticator implements AuthenticatorInterface, AuthenticationEntryPointInterface

@@ -26,13 +26,13 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 /**
- * Scope-exempts the /authorize consent screen's CSP header so the browser is allowed to follow the
+ * Scope-exempts the /oauth/authorize consent screen's CSP header so the browser is allowed to follow the
  * post-decision redirect to the OAuth client's (already-validated) redirect_uri.
  *
  * config/packages/nelmio_security.yaml's csp.enforce has no form-action directive, so browsers fall back
  * to default-src 'self' for it - which blocks the consent form (App\EventListener\OAuth\AuthorizationConsentListener,
  * templates/oauth/authorize.html.twig) from ever navigating anywhere but this app's own host, even though
- * the form itself posts back to /authorize (same-origin) and it's only the *server-side* redirect that
+ * the form itself posts back to /oauth/authorize (same-origin) and it's only the *server-side* redirect that
  * follows (to the client's redirect_uri) that needs to leave the site. form-action is evaluated against
  * the CSP delivered with the document containing the <form> (this GET response), not the response that
  * performs the redirect - and per spec/browser behaviour, it also covers the eventual redirect target, not
@@ -58,7 +58,7 @@ class OAuthAuthorizeFormActionCspListener
             return;
         }
 
-        if ('/authorize' !== $event->getRequest()->getPathInfo()) {
+        if ('oauth2_authorize' !== $event->getRequest()->attributes->get('_route')) {
             return;
         }
 

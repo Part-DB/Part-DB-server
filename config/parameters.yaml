@@ -46,7 +46,7 @@ parameters:
   ######################################################################################################################
   # OAuth2 authorization server (API/MCP client auto-provisioning)
   ######################################################################################################################
-  partdb.oauth_server.enabled: '%env(bool:OAUTH_SERVER_ENABLED)%'     # If set to true, enables the OAuth2 authorization server (/authorize, /token, admin client overview, OAuth2 bearer token auth)
+  partdb.oauth_server.enabled: '%env(bool:OAUTH_SERVER_ENABLED)%'     # If set to true, enables the OAuth2 authorization server (/oauth/authorize, /oauth/token, admin client overview, OAuth2 bearer token auth)
   partdb.oauth_server.dcr_enabled: '%env(bool:OAUTH_DCR_ENABLED)%'    # If set to true (and partdb.oauth_server.enabled is also true), enables open Dynamic Client Registration (RFC 7591, POST /oauth/register)
 
 

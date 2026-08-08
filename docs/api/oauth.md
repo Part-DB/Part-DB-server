@@ -39,7 +39,7 @@ The OAuth2 server is controlled by environment variables in your `.env`/`.env.lo
   > that are currently in flight.
 
 * **`OAUTH_SERVER_ENABLED`** (default `0`): The master switch for the whole feature. Set it to `1` to enable the
-  `/authorize` and `/token` endpoints, the `/tools/oauth_clients` admin overview, the OAuth discovery endpoints
+  `/oauth/authorize` and `/oauth/token` endpoints, the `/tools/oauth_clients` admin overview, the OAuth discovery endpoints
   under `/.well-known/`, and OAuth2 bearer token authentication in general. While disabled, all of these are
   unreachable and Part-DB behaves as if the feature didn't exist.
 
@@ -115,7 +115,7 @@ curl -X POST https://your-part-db.local/oauth/register \
 ```
 
 This endpoint is rate-limited to 20 requests per hour per IP address to prevent abuse. Since registering a client
-grants it no access by itself (a user still has to explicitly log in and consent on `/authorize` before any token
+grants it no access by itself (a user still has to explicitly log in and consent on `/oauth/authorize` before any token
 is issued), this is considered safe to expose publicly. Registered clients — whether self-registered or created by
 an admin — still show up on the `/tools/oauth_clients` admin page and can be deleted there at any time.
 
@@ -133,18 +133,18 @@ reachable when `OAUTH_SERVER_ENABLED=1`):
 ## Login and consent
 
 Once a client is registered, it can start the standard OAuth2 Authorization Code flow by redirecting the user's
-browser to `/authorize` with the usual query parameters (`client_id`, `redirect_uri`, `response_type=code`,
+browser to `/oauth/authorize` with the usual query parameters (`client_id`, `redirect_uri`, `response_type=code`,
 `code_challenge`, `code_challenge_method=S256`, optionally `scope` and `state`).
 
 * If the user isn't logged in yet, they are sent through the normal login (and two-factor, if enabled) flow first,
-  then redirected back to `/authorize`.
+  then redirected back to `/oauth/authorize`.
 * The user is then shown a consent screen where they choose:
   * the **scope** to grant the application (see below), defaulting to the client's requested scope but never
     higher than what the requesting user is themselves allowed to do,
   * an optional **friendly name** for the connection, to recognize it later,
   * how long the resulting **refresh token** should stay valid (never / 1 / 7 / 30 / 90 / 365 days).
 * After the user approves, Part-DB redirects back to the client's `redirect_uri` with an authorization code, which
-  the client then exchanges for an access token (and, if granted, a refresh token) at `/token`.
+  the client then exchanges for an access token (and, if granted, a refresh token) at `/oauth/token`.
 
 ## Scopes and permissions
 
