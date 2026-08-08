@@ -64,6 +64,8 @@ class OAuthClientAdminController extends AbstractController
     public function create(Request $request): Response
     {
         $this->denyAccessUnlessGranted('@system.manage_oauth_clients');
+        //Enforce full login for this action, because it is a high-risk action that can be used to create a client that can impersonate any user.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         if (!$this->isCsrfTokenValid('oauth_client_create', $request->request->get('_token'))) {
             $this->addFlash('error', 'csfr_invalid');
