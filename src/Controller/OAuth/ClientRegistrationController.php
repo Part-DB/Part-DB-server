@@ -90,7 +90,7 @@ class ClientRegistrationController extends AbstractController
     ) {
     }
 
-    #[Route('/register', name: 'oauth2_client_register', methods: ['POST'], condition: "(env(bool:'OAUTH_SERVER_ENABLED') == true and (env('bool:OAUTH_DCR_ENABLED') == true")]
+    #[Route('/register', name: 'oauth2_client_register', methods: ['POST'], condition: "env('bool:OAUTH_SERVER_ENABLED') == true and env('bool:OAUTH_DCR_ENABLED') == true")]
     public function register(Request $request): JsonResponse
     {
         $limit = $this->registrationLimiter->create($request->getClientIp() ?? 'unknown')->consume();
@@ -109,7 +109,11 @@ class ClientRegistrationController extends AbstractController
             return $this->error('invalid_client_metadata', 'Request body is too large.');
         }
 
-        $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+        try {
+            $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException) {
+            return $this->error('invalid_client_metadata', 'Request body is not valid JSON.');
+        }
         if (!\is_array($data)) {
             return $this->error('invalid_client_metadata', 'Request body must be a JSON object.');
         }
