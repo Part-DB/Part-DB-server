@@ -5,7 +5,7 @@ controllers:
     type: attribute
     prefix: '{_locale}'
     # OAuth2 protocol endpoints (client registration, discovery metadata) must live at fixed,
-    # spec-mandated paths with no locale prefix - see config/routes/oauth_server_controllers.yaml.
+    # non-localized paths, so we exclude them from the locale prefix.
     exclude: '../../src/Controller/OAuth/*'
 
     defaults:

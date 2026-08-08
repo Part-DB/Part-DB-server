@@ -3,4 +3,4 @@ oauth2_server:
     type: php
     # Only load the OAuth2 authorization server's own routes (/authorize, /token, /device-code) if the
     # OAuth2 server is enabled - disabled by default, see .env's OAUTH_SERVER_ENABLED.
-    condition: "env('OAUTH_SERVER_ENABLED') == '1' or env('OAUTH_SERVER_ENABLED') == 'true'"
+    condition: "env('bool:OAUTH_SERVER_ENABLED') == true"

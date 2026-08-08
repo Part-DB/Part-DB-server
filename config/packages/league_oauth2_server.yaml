@@ -27,10 +27,7 @@ league_oauth2_server:
         enable_refresh_token_grant: true
         require_code_challenge_for_public_clients: true
         revoke_refresh_tokens: true
-        # No response_type_class override: access tokens are real JWTs (the bundle's default). Clients
-        # only ever treat access_token as an opaque string per the OAuth2 spec, so this is not a
-        # compatibility concern - and it means the RSA keypair below is actually used, unlike the earlier
-        # custom-repository design.
+
     resource_server:
         public_key: '%kernel.project_dir%/var/oauth2/public.key'
     scopes:
