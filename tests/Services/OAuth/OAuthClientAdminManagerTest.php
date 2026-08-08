@@ -22,7 +22,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\OAuth;
 
+use App\Entity\UserSystem\DynamicallyRegisteredOAuthClient;
 use App\Services\OAuth\OAuthClientAdminManager;
+use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Manager\AccessTokenManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Manager\ClientManagerInterface;
@@ -64,6 +66,7 @@ final class OAuthClientAdminManagerTest extends KernelTestCase
         $row = self::findRowForClient($rows, $client->getIdentifier());
         self::assertNotNull($row);
         self::assertSame(1, $row['liveTokenCount']);
+        self::assertFalse($row['dynamicallyRegistered']);
 
         self::assertTrue($manager->deleteClient($client->getIdentifier()));
         self::assertNull($clientManager->find($client->getIdentifier()));
@@ -78,8 +81,49 @@ final class OAuthClientAdminManagerTest extends KernelTestCase
     }
 
     /**
-     * @param list<array{client: \League\Bundle\OAuth2ServerBundle\Model\ClientInterface, liveTokenCount: int}> $rows
-     * @return array{client: \League\Bundle\OAuth2ServerBundle\Model\ClientInterface, liveTokenCount: int}|null
+     * The marker row has no application-level cleanup code (see OAuthClientAdminManager::deleteClient) -
+     * it must be removed purely by the database's ON DELETE CASCADE FK to oauth2_client.identifier. Only
+     * meaningfully testable where FK enforcement is guaranteed: SQLite does not enforce declared FKs
+     * (including this one) unless "PRAGMA foreign_keys = ON" is set on the connection, which this app does
+     * not do (see OAuthClientAdminManager's class docblock for the same caveat on the bundle's own
+     * oauth2_access_token/oauth2_authorization_code/oauth2_refresh_token tables) - so on SQLite the marker
+     * row is simply left behind as a harmless orphan (never reused: identifiers are random, and it carries
+     * no security-sensitive data), which this test does not assert against.
+     */
+    public function testDeletingClientCascadesToDynamicRegistrationMarker(): void
+    {
+        self::bootKernel();
+        $container = static::getContainer();
+
+        $entityManager = $container->get(EntityManagerInterface::class);
+        if ($entityManager->getConnection()->getDatabasePlatform() instanceof SQLitePlatform) {
+            self::markTestSkipped('SQLite does not enforce FK constraints (and therefore ON DELETE CASCADE) by default.');
+        }
+
+        $clientManager = $container->get(ClientManagerInterface::class);
+        $manager = $container->get(OAuthClientAdminManager::class);
+
+        $client = new Client('Cascade Test App', 'test-cascade-'.bin2hex(random_bytes(8)), null);
+        $client->setRedirectUris(new RedirectUri('https://client.example.invalid/callback'));
+        $client->setGrants(new Grant('authorization_code'), new Grant('refresh_token'));
+        $client->setScopes(new Scope('read_only'));
+        $client->setActive(true);
+        $clientManager->save($client);
+
+        $entityManager->persist(new DynamicallyRegisteredOAuthClient($client));
+        $entityManager->flush();
+
+        self::assertNotNull($entityManager->find(DynamicallyRegisteredOAuthClient::class, $client->getIdentifier()));
+
+        self::assertTrue($manager->deleteClient($client->getIdentifier()));
+
+        $entityManager->clear();
+        self::assertNull($entityManager->find(DynamicallyRegisteredOAuthClient::class, $client->getIdentifier()));
+    }
+
+    /**
+     * @param list<array{client: \League\Bundle\OAuth2ServerBundle\Model\ClientInterface, liveTokenCount: int, dynamicallyRegistered: bool}> $rows
+     * @return array{client: \League\Bundle\OAuth2ServerBundle\Model\ClientInterface, liveTokenCount: int, dynamicallyRegistered: bool}|null
      */
     private static function findRowForClient(array $rows, string $identifier): ?array
     {

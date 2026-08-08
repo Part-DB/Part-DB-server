@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use App\Entity\UserSystem\DynamicallyRegisteredOAuthClient;
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Manager\ClientManagerInterface;
@@ -72,6 +73,36 @@ final class OAuthClientAdminControllerTest extends WebTestCase
         self::assertResponseIsSuccessful();
         self::assertStringContainsString('Admin-visible Test App', $crawler->filter('body')->text());
         self::assertStringContainsString($client->getIdentifier(), $crawler->filter('body')->text());
+    }
+
+    public function testDynamicallyRegisteredClientIsMarkedInListButManualOneIsNot(): void
+    {
+        [$httpClient, ] = $this->loginAsAdmin();
+        $manualClient = $this->registerTestClient($httpClient);
+
+        $dynamicClient = new Client('Self-registered Test App', 'test-dynamic-'.bin2hex(random_bytes(8)), null);
+        $dynamicClient->setRedirectUris(new RedirectUri('https://client.example.invalid/callback'));
+        $dynamicClient->setGrants(new Grant('authorization_code'), new Grant('refresh_token'));
+        $dynamicClient->setScopes(new Scope('read_only'));
+        $dynamicClient->setActive(true);
+        $httpClient->getContainer()->get(ClientManagerInterface::class)->save($dynamicClient);
+
+        $entityManager = $httpClient->getContainer()->get(EntityManagerInterface::class);
+        $entityManager->persist(new DynamicallyRegisteredOAuthClient($dynamicClient));
+        $entityManager->flush();
+
+        $crawler = $httpClient->request('GET', '/en/tools/oauth_clients');
+        self::assertResponseIsSuccessful();
+
+        $manualRow = $crawler->filter('td')->reduce(
+            static fn ($node) => str_contains($node->text(), $manualClient->getName())
+        )->closest('tr');
+        self::assertStringNotContainsString('Auto-registered', $manualRow->text());
+
+        $dynamicRow = $crawler->filter('td')->reduce(
+            static fn ($node) => str_contains($node->text(), $dynamicClient->getName())
+        )->closest('tr');
+        self::assertStringContainsString('Auto-registered', $dynamicRow->text());
     }
 
     public function testDeleteRemovesClient(): void

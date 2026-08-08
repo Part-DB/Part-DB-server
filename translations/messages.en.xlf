@@ -14111,6 +14111,18 @@ Buerklin-API Authentication server:
         <target>Inactive</target>
       </segment>
     </unit>
+    <unit id="Nx7ARw2" name="oauth_clients.dynamically_registered">
+      <segment>
+        <source>oauth_clients.dynamically_registered</source>
+        <target>Auto-registered</target>
+      </segment>
+    </unit>
+    <unit id="Bq3FVpH" name="oauth_clients.dynamically_registered.help">
+      <segment>
+        <source>oauth_clients.dynamically_registered.help</source>
+        <target>This client registered itself automatically via Dynamic Client Registration (RFC 7591), rather than being created by an administrator.</target>
+      </segment>
+    </unit>
     <unit id="Pa66ymI" name="oauth_clients.live_tokens">
       <segment>
         <source>oauth_clients.live_tokens</source>

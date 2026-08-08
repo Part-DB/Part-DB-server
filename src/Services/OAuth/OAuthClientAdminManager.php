@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\OAuth;
 
+use App\Entity\UserSystem\DynamicallyRegisteredOAuthClient;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Manager\ClientManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Manager\ScopeManagerInterface;
@@ -115,7 +116,7 @@ class OAuthClientAdminManager
     }
 
     /**
-     * @return list<array{client: ClientInterface, liveTokenCount: int}>
+     * @return list<array{client: ClientInterface, liveTokenCount: int, dynamicallyRegistered: bool}>
      */
     public function listClientsWithLiveTokenCounts(): array
     {
@@ -137,9 +138,16 @@ class OAuthClientAdminManager
             $countByClientId[$row['clientId']] = (int) $row['tokenCount'];
         }
 
+        $dynamicIdentifiers = array_flip($this->entityManager->createQueryBuilder()
+            ->select('IDENTITY(m.client) as clientId')
+            ->from(DynamicallyRegisteredOAuthClient::class, 'm')
+            ->getQuery()
+            ->getSingleColumnResult());
+
         return array_map(static fn (ClientInterface $client): array => [
             'client' => $client,
             'liveTokenCount' => $countByClientId[$client->getIdentifier()] ?? 0,
+            'dynamicallyRegistered' => isset($dynamicIdentifiers[$client->getIdentifier()]),
         ], $clients);
     }
 
@@ -155,6 +163,8 @@ class OAuthClientAdminManager
 
         $this->deleteAllCredentialsForClient($identifier);
         $this->clientManager->remove($client);
+        // Any App\Entity\UserSystem\DynamicallyRegisteredOAuthClient row for this client is removed by the
+        // database itself (ON DELETE CASCADE FK to oauth2_client.identifier) - no cleanup needed here.
 
         return true;
     }

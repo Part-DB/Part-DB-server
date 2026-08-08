@@ -70,7 +70,14 @@
             {% for row in clients %}
                 {% set client = row.client %}
                 <tr>
-                    <td>{{ client.name }}</td>
+                    <td>
+                        {{ client.name }}
+                        {% if row.dynamicallyRegistered %}
+                            <span class="badge badge-info bg-info" title="{% trans %}oauth_clients.dynamically_registered.help{% endtrans %}">
+                                <i class="fa-solid fa-robot fa-fw" aria-hidden="true"></i> {% trans %}oauth_clients.dynamically_registered{% endtrans %}
+                            </span>
+                        {% endif %}
+                    </td>
                     <td><code>{{ client.identifier }}</code></td>
                     <td>{{ client.scopes|join(', ') }}</td>
                     <td>{{ client.redirectUris|join(', ') }}</td>

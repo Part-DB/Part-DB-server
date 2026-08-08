@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\OAuth;
 
+use App\Entity\UserSystem\DynamicallyRegisteredOAuthClient;
+use Doctrine\ORM\EntityManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Manager\ClientManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
@@ -54,6 +56,10 @@ final class ClientRegistrationControllerTest extends WebTestCase
         self::assertNotNull($client);
         self::assertNull($client->getSecret());
         self::assertTrue($client->isActive());
+
+        $marker = $httpClient->getContainer()->get(EntityManagerInterface::class)
+            ->find(DynamicallyRegisteredOAuthClient::class, $data['client_id']);
+        self::assertNotNull($marker, 'Self-registered clients must be marked as dynamically registered.');
     }
 
     public function testFullRegistrationHonoursRequestedFields(): void

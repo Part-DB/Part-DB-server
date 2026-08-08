@@ -23,7 +23,9 @@ declare(strict_types=1);
 namespace App\Controller\OAuth;
 
 use App\Entity\UserSystem\ApiTokenLevel;
+use App\Entity\UserSystem\DynamicallyRegisteredOAuthClient;
 use App\Services\OAuth\OAuthRedirectUriValidator;
+use Doctrine\ORM\EntityManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Manager\ClientManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Manager\ScopeManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Model\Client;
@@ -54,6 +56,10 @@ use Symfony\Component\Routing\Attribute\Route;
  *
  * Self-registered clients (e.g. auto-provisioning MCP apps) may request at most the "edit" scope - see
  * validateScopes(). Requesting "admin" or "full" requires an administrator to register the client by hand.
+ *
+ * Every client created here also gets an App\Entity\UserSystem\DynamicallyRegisteredOAuthClient marker row,
+ * so the admin overview (App\Controller\OAuthClientAdminController) can flag it as self-registered - see
+ * that entity's docblock for why this isn't just a field on the bundle's own Client model.
  */
 #[Route('/oauth')]
 class ClientRegistrationController extends AbstractController
@@ -76,6 +82,7 @@ class ClientRegistrationController extends AbstractController
         private readonly ClientManagerInterface $clientManager,
         private readonly ScopeManagerInterface $scopeManager,
         private readonly OAuthRedirectUriValidator $redirectUriValidator,
+        private readonly EntityManagerInterface $entityManager,
         #[Autowire(service: 'limiter.oauth_client_registration')]
         private readonly RateLimiterFactory $registrationLimiter,
         #[Autowire('%league.oauth2_server.scopes.default%')]
@@ -147,6 +154,9 @@ class ClientRegistrationController extends AbstractController
         $client->setActive(true);
 
         $this->clientManager->save($client);
+
+        $this->entityManager->persist(new DynamicallyRegisteredOAuthClient($client));
+        $this->entityManager->flush();
 
         return new JsonResponse([
             'client_id' => $identifier,
