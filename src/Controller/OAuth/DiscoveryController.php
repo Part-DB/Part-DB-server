@@ -46,7 +46,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  * Only reachable at all if the OAuth2 server itself is enabled (OAUTH_SERVER_ENABLED, disabled by
  * default) - see the class-level route condition below.
  */
-#[Route('/.well-known', condition: "env('OAUTH_SERVER_ENABLED') == '1' or env('OAUTH_SERVER_ENABLED') == 'true'")]
+#[Route('/.well-known', condition: "env('bool:OAUTH_SERVER_ENABLED') == true")]
 class DiscoveryController extends AbstractController
 {
     public function __construct(

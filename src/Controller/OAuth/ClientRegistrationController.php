@@ -90,7 +90,7 @@ class ClientRegistrationController extends AbstractController
     ) {
     }
 
-    #[Route('/register', name: 'oauth2_client_register', methods: ['POST'], condition: "(env('OAUTH_SERVER_ENABLED') == '1' or env('OAUTH_SERVER_ENABLED') == 'true') and (env('OAUTH_DCR_ENABLED') == '1' or env('OAUTH_DCR_ENABLED') == 'true')")]
+    #[Route('/register', name: 'oauth2_client_register', methods: ['POST'], condition: "(env(bool:'OAUTH_SERVER_ENABLED') == true and (env('bool:OAUTH_DCR_ENABLED') == true")]
     public function register(Request $request): JsonResponse
     {
         $limit = $this->registrationLimiter->create($request->getClientIp() ?? 'unknown')->consume();
@@ -109,7 +109,7 @@ class ClientRegistrationController extends AbstractController
             return $this->error('invalid_client_metadata', 'Request body is too large.');
         }
 
-        $data = json_decode($content, true);
+        $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
         if (!\is_array($data)) {
             return $this->error('invalid_client_metadata', 'Request body must be a JSON object.');
         }
@@ -155,6 +155,7 @@ class ClientRegistrationController extends AbstractController
 
         $this->clientManager->save($client);
 
+        //Also create a marker row in DynamicallyRegisteredOAuthClient so the admin overview can flag it as self-registered.
         $this->entityManager->persist(new DynamicallyRegisteredOAuthClient($client));
         $this->entityManager->flush();
 

@@ -116,6 +116,7 @@ class OAuthClientAdminManager
     }
 
     /**
+     * List every registered client, with how many currently-live access tokens each one holds and whether it was dynamically registered (RFC 7591) or manually created by an admin.
      * @return list<array{client: ClientInterface, liveTokenCount: int, dynamicallyRegistered: bool}>
      */
     public function listClientsWithLiveTokenCounts(): array
