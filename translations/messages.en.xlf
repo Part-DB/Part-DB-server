@@ -13883,307 +13883,307 @@ Buerklin-API Authentication server:
         <target>Prefer metric footprint when both metric and imperial are available</target>
       </segment>
     </unit>
-    <unit id="oaAuth01" name="oauth.authorize.title">
+    <unit id="APD.vym" name="oauth.authorize.title">
       <segment>
         <source>oauth.authorize.title</source>
         <target>Authorize application</target>
       </segment>
     </unit>
-    <unit id="oaAuth02" name="oauth.authorize.description">
+    <unit id="n4Olw59" name="oauth.authorize.description">
       <segment>
         <source>oauth.authorize.description</source>
-        <target>The application &quot;%client%&quot; wants to access your Part-DB account.</target>
+        <target>The application "%client%" wants to access your Part-DB account.</target>
       </segment>
     </unit>
-    <unit id="oaAuth03" name="oauth.authorize.scopes_intro">
+    <unit id="AkIKt6J" name="oauth.authorize.scopes_intro">
       <segment>
         <source>oauth.authorize.scopes_intro</source>
         <target>It is requesting the following level of access:</target>
       </segment>
     </unit>
-    <unit id="oaAuth04" name="oauth.authorize.revoke_hint">
+    <unit id="d0cDOn1" name="oauth.authorize.revoke_hint">
       <segment>
         <source>oauth.authorize.revoke_hint</source>
         <target>You can revoke this access at any time from your user settings.</target>
       </segment>
     </unit>
-    <unit id="oaAuth05" name="oauth.authorize.approve">
+    <unit id="qfC3t6R" name="oauth.authorize.approve">
       <segment>
         <source>oauth.authorize.approve</source>
         <target>Approve</target>
       </segment>
     </unit>
-    <unit id="oaAuth06" name="oauth.authorize.deny">
+    <unit id="i6N1wqE" name="oauth.authorize.deny">
       <segment>
         <source>oauth.authorize.deny</source>
         <target>Deny</target>
       </segment>
     </unit>
-    <unit id="oaAuth07" name="oauth.authorize.scope_level.label">
+    <unit id="9fKg3GS" name="oauth.authorize.scope_level.label">
       <segment>
         <source>oauth.authorize.scope_level.label</source>
         <target>Access level to grant</target>
       </segment>
     </unit>
-    <unit id="oaAuth08" name="oauth.authorize.scope_level.help">
+    <unit id="whHHRxz" name="oauth.authorize.scope_level.help">
       <segment>
         <source>oauth.authorize.scope_level.help</source>
         <target>You can grant a more restrictive access level than the application requested.</target>
       </segment>
     </unit>
-    <unit id="oaAuth09" name="oauth.authorize.friendly_name.label">
+    <unit id="jQbm4mO" name="oauth.authorize.friendly_name.label">
       <segment>
         <source>oauth.authorize.friendly_name.label</source>
         <target>Friendly name (optional)</target>
       </segment>
     </unit>
-    <unit id="oaAuth10" name="oauth.authorize.friendly_name.help">
+    <unit id="MPk5zZ9" name="oauth.authorize.friendly_name.help">
       <segment>
         <source>oauth.authorize.friendly_name.help</source>
         <target>Give this connection a name to tell it apart from other devices using the same application.</target>
       </segment>
     </unit>
-    <unit id="oaAuth11" name="oauth.authorize.ttl.label">
+    <unit id="rPyrHS2" name="oauth.authorize.ttl.label">
       <segment>
         <source>oauth.authorize.ttl.label</source>
         <target>Stay signed in for</target>
       </segment>
     </unit>
-    <unit id="oaAuth12" name="oauth.authorize.ttl.default">
+    <unit id="Z.S5.x2" name="oauth.authorize.ttl.default">
       <segment>
         <source>oauth.authorize.ttl.default</source>
         <target>Default</target>
       </segment>
     </unit>
-    <unit id="oaAuth13" name="oauth.authorize.ttl.days">
+    <unit id="yJyRFXa" name="oauth.authorize.ttl.days">
       <segment>
         <source>oauth.authorize.ttl.days</source>
         <target>%days% days</target>
       </segment>
     </unit>
-    <unit id="oaAuth14" name="oauth.authorize.ttl.help">
+    <unit id="2wcqLve" name="oauth.authorize.ttl.help">
       <segment>
         <source>oauth.authorize.ttl.help</source>
         <target>After this period, the application will need you to sign in again.</target>
       </segment>
     </unit>
-    <unit id="oaAuth15" name="oauth.authorize.elevated_warning">
+    <unit id="8gH7qHS" name="oauth.authorize.elevated_warning">
       <segment>
         <source>oauth.authorize.elevated_warning</source>
         <target>This application is requesting administrative or full account access, well beyond normal read/edit access. Only approve this if you fully trust the application.</target>
       </segment>
     </unit>
-    <unit id="oaAuth16" name="oauth.authorize.elevated_badge">
+    <unit id="DYZhxF6" name="oauth.authorize.elevated_badge">
       <segment>
         <source>oauth.authorize.elevated_badge</source>
         <target>Elevated access</target>
       </segment>
     </unit>
-    <unit id="oaConn01" name="user.settings.oauth_connected_apps">
+    <unit id="0SCwv63" name="user.settings.oauth_connected_apps">
       <segment>
         <source>user.settings.oauth_connected_apps</source>
         <target>Connected apps</target>
       </segment>
     </unit>
-    <unit id="oaConn02" name="user.settings.oauth_connected_apps.description">
+    <unit id="tb_dGmL" name="user.settings.oauth_connected_apps.description">
       <segment>
         <source>user.settings.oauth_connected_apps.description</source>
         <target>These applications signed in through the Part-DB OAuth login and were granted access to your account. Revoking an application here immediately ends its access; it will need to go through the login/consent screen again to reconnect.</target>
       </segment>
     </unit>
-    <unit id="oaConn03" name="user.settings.oauth_connected_apps.none_yet">
+    <unit id="uxc7X_D" name="user.settings.oauth_connected_apps.none_yet">
       <segment>
         <source>user.settings.oauth_connected_apps.none_yet</source>
         <target>No connected apps yet.</target>
       </segment>
     </unit>
-    <unit id="oaConn04" name="user.settings.oauth_connected_apps.app_name">
+    <unit id="MDTWYod" name="user.settings.oauth_connected_apps.app_name">
       <segment>
         <source>user.settings.oauth_connected_apps.app_name</source>
         <target>Application</target>
       </segment>
     </unit>
-    <unit id="oaConn05" name="user.settings.oauth_connected_apps.access_until">
+    <unit id="3.pFaZG" name="user.settings.oauth_connected_apps.access_until">
       <segment>
         <source>user.settings.oauth_connected_apps.access_until</source>
         <target>Access valid until</target>
       </segment>
     </unit>
-    <unit id="oaConn06" name="user.settings.oauth_connected_apps.revoke">
+    <unit id="cOG4vDe" name="user.settings.oauth_connected_apps.revoke">
       <segment>
         <source>user.settings.oauth_connected_apps.revoke</source>
         <target>Revoke</target>
       </segment>
     </unit>
-    <unit id="oaConn07" name="user.settings.oauth_connected_apps.revoke.title">
+    <unit id="0ecnHaq" name="user.settings.oauth_connected_apps.revoke.title">
       <segment>
         <source>user.settings.oauth_connected_apps.revoke.title</source>
         <target>Do you really want to revoke access for this application?</target>
       </segment>
     </unit>
-    <unit id="oaConn08" name="user.settings.oauth_connected_apps.revoke.message">
+    <unit id="WfLqvJ6" name="user.settings.oauth_connected_apps.revoke.message">
       <segment>
         <source>user.settings.oauth_connected_apps.revoke.message</source>
         <target>The application will immediately lose access to Part-DB and will have to go through the login/consent screen again to reconnect. This action can not be undone!</target>
       </segment>
     </unit>
-    <unit id="oaConn09" name="user.settings.oauth_connected_apps.revoked">
+    <unit id="rSf25Vc" name="user.settings.oauth_connected_apps.revoked">
       <segment>
         <source>user.settings.oauth_connected_apps.revoked</source>
         <target>Access revoked successfully!</target>
       </segment>
     </unit>
-    <unit id="oaConn10" name="user.settings.oauth_connected_apps.scope_level">
+    <unit id="mgk6ZSv" name="user.settings.oauth_connected_apps.scope_level">
       <segment>
         <source>user.settings.oauth_connected_apps.scope_level</source>
         <target>Access level</target>
       </segment>
     </unit>
-    <unit id="oaConn11" name="user.settings.oauth_connected_apps.last_used">
+    <unit id="Irn2ps." name="user.settings.oauth_connected_apps.last_used">
       <segment>
         <source>user.settings.oauth_connected_apps.last_used</source>
         <target>Last used</target>
       </segment>
     </unit>
-    <unit id="oaAdm001" name="perm.system.manage_oauth_clients">
+    <unit id="F3PROlR" name="perm.system.manage_oauth_clients">
       <segment>
         <source>perm.system.manage_oauth_clients</source>
         <target>Manage OAuth2 clients</target>
       </segment>
     </unit>
-    <unit id="oaAdm002" name="oauth_clients.title">
+    <unit id="TCKm90l" name="oauth_clients.title">
       <segment>
         <source>oauth_clients.title</source>
         <target>OAuth2 clients</target>
       </segment>
     </unit>
-    <unit id="oaAdm003" name="oauth_clients.description">
+    <unit id="GbvDqBV" name="oauth_clients.description">
       <segment>
         <source>oauth_clients.description</source>
         <target>Applications registered with Part-DB's OAuth2 server (usually through open Dynamic Client Registration, RFC 7591 - any application can self-register, so the real access control gate is the per-user consent screen a user sees before granting one of these access to their account). Deleting a client here immediately revokes all access it was ever granted and prevents it from being used again.</target>
       </segment>
     </unit>
-    <unit id="oaAdm004" name="oauth_clients.none_yet">
+    <unit id="6DTnzEE" name="oauth_clients.none_yet">
       <segment>
         <source>oauth_clients.none_yet</source>
         <target>No OAuth2 clients registered yet.</target>
       </segment>
     </unit>
-    <unit id="oaAdm005" name="oauth_clients.name">
+    <unit id="x.F3MN4" name="oauth_clients.name">
       <segment>
         <source>oauth_clients.name</source>
         <target>Name</target>
       </segment>
     </unit>
-    <unit id="oaAdm006" name="oauth_clients.client_id">
+    <unit id="ss2tun8" name="oauth_clients.client_id">
       <segment>
         <source>oauth_clients.client_id</source>
         <target>Client ID</target>
       </segment>
     </unit>
-    <unit id="oaAdm007" name="oauth_clients.scopes">
+    <unit id="azV0sIv" name="oauth_clients.scopes">
       <segment>
         <source>oauth_clients.scopes</source>
         <target>Scopes</target>
       </segment>
     </unit>
-    <unit id="oaAdm008" name="oauth_clients.redirect_uris">
+    <unit id="1dbGJ7H" name="oauth_clients.redirect_uris">
       <segment>
         <source>oauth_clients.redirect_uris</source>
         <target>Redirect URIs</target>
       </segment>
     </unit>
-    <unit id="oaAdm009" name="oauth_clients.status">
+    <unit id=".axlZHX" name="oauth_clients.status">
       <segment>
         <source>oauth_clients.status</source>
         <target>Status</target>
       </segment>
     </unit>
-    <unit id="oaAdm010" name="oauth_clients.active">
+    <unit id="U4vNBxV" name="oauth_clients.active">
       <segment>
         <source>oauth_clients.active</source>
         <target>Active</target>
       </segment>
     </unit>
-    <unit id="oaAdm011" name="oauth_clients.inactive">
+    <unit id="qte22mM" name="oauth_clients.inactive">
       <segment>
         <source>oauth_clients.inactive</source>
         <target>Inactive</target>
       </segment>
     </unit>
-    <unit id="oaAdm012" name="oauth_clients.live_tokens">
+    <unit id="Pa66ymI" name="oauth_clients.live_tokens">
       <segment>
         <source>oauth_clients.live_tokens</source>
         <target>Live access tokens</target>
       </segment>
     </unit>
-    <unit id="oaAdm013" name="oauth_clients.delete">
+    <unit id="CjdVrcW" name="oauth_clients.delete">
       <segment>
         <source>oauth_clients.delete</source>
         <target>Delete</target>
       </segment>
     </unit>
-    <unit id="oaAdm014" name="oauth_clients.delete.title">
+    <unit id="LOD0h3Q" name="oauth_clients.delete.title">
       <segment>
         <source>oauth_clients.delete.title</source>
         <target>Do you really want to delete this OAuth2 client?</target>
       </segment>
     </unit>
-    <unit id="oaAdm015" name="oauth_clients.delete.message">
+    <unit id="XipnUiR" name="oauth_clients.delete.message">
       <segment>
         <source>oauth_clients.delete.message</source>
         <target>This immediately revokes all access this application was ever granted, for every user. This action can not be undone; the application would have to register again to reconnect.</target>
       </segment>
     </unit>
-    <unit id="oaAdm016" name="oauth_clients.deleted">
+    <unit id="tbHDOBp" name="oauth_clients.deleted">
       <segment>
         <source>oauth_clients.deleted</source>
         <target>OAuth2 client deleted successfully!</target>
       </segment>
     </unit>
-    <unit id="oaAdm017" name="oauth_clients.create.title">
+    <unit id="7vdBsoN" name="oauth_clients.create.title">
       <segment>
         <source>oauth_clients.create.title</source>
         <target>Register a new client manually</target>
       </segment>
     </unit>
-    <unit id="oaAdm018" name="oauth_clients.create.name">
+    <unit id="7XHDbAc" name="oauth_clients.create.name">
       <segment>
         <source>oauth_clients.create.name</source>
         <target>Name</target>
       </segment>
     </unit>
-    <unit id="oaAdm019" name="oauth_clients.create.redirect_uris">
+    <unit id="Id1.iuI" name="oauth_clients.create.redirect_uris">
       <segment>
         <source>oauth_clients.create.redirect_uris</source>
         <target>Redirect URIs</target>
       </segment>
     </unit>
-    <unit id="oaAdm020" name="oauth_clients.create.redirect_uris.help">
+    <unit id="wyfhoYU" name="oauth_clients.create.redirect_uris.help">
       <segment>
         <source>oauth_clients.create.redirect_uris.help</source>
         <target>One URI per line. Must be https://, a loopback http:// address (127.0.0.1/localhost), or a private-use URI scheme (e.g. com.example.app:/callback).</target>
       </segment>
     </unit>
-    <unit id="oaAdm021" name="oauth_clients.create.scopes">
+    <unit id="mF.lZGT" name="oauth_clients.create.scopes">
       <segment>
         <source>oauth_clients.create.scopes</source>
         <target>Allowed access levels</target>
       </segment>
     </unit>
-    <unit id="oaAdm024" name="oauth_clients.create.scopes.elevated_help">
+    <unit id="FQP97Iy" name="oauth_clients.create.scopes.elevated_help">
       <segment>
         <source>oauth_clients.create.scopes.elevated_help</source>
         <target>Only allow "Admin" or "Full" for clients you fully trust and control - self-registered clients (e.g. auto-provisioning MCP apps) can never request these levels themselves.</target>
       </segment>
     </unit>
-    <unit id="oaAdm022" name="oauth_clients.create.submit">
+    <unit id="PPgniXW" name="oauth_clients.create.submit">
       <segment>
         <source>oauth_clients.create.submit</source>
         <target>Register client</target>
       </segment>
     </unit>
-    <unit id="oaAdm023" name="oauth_clients.created">
+    <unit id="lUKK..z" name="oauth_clients.created">
       <segment>
         <source>oauth_clients.created</source>
         <target>OAuth2 client registered successfully! Client ID: %client_id%</target>
