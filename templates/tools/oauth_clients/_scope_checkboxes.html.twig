@@ -1,0 +1,31 @@
+{# Expects "form" - the OAuthClientType-backed form whose "scopes" field should be rendered. Shared
+   between oauth_client_new.html.twig and oauth_client_edit.html.twig so the elevated-scope warning icon
+   markup only has to be maintained in one place.
+
+   form_widget(scope_choice) already renders the complete, correctly-classed
+   "<div class="form-check"><input class="form-check-input">.. <label class="form-check-label">.."
+   markup for each checkbox on its own (that's how App\Form\OAuth\OAuthClientType's "choice_label" text
+   ends up on the page) - it must NOT be wrapped in another manually-built form-check/label, that produces
+   nested duplicate labels. The elevated-scope styling is applied by wrapping that already-complete output
+   in a colored/bold container instead, which the label text simply inherits. That wrapper needs
+   "d-flex align-items-center" - ".form-check" is a block element, so without it the icon (an inline
+   element placed after that block) would be pushed onto its own line instead of sitting next to it. #}
+<fieldset class="mb-3">
+    <div class="row">
+        {{ form_label(form.scopes) }}
+        <div class="col-sm-10">
+            {% for scope_choice in form.scopes %}
+                {% if scope_choice.vars.attr['data-elevated'] == '1' %}
+                    <div class="text-danger fw-bold d-flex align-items-center gap-1">
+                        {{ form_widget(scope_choice) }}
+                        <i class="fa-solid fa-triangle-exclamation fa-fw" aria-hidden="true"></i>
+                    </div>
+                {% else %}
+                    {{ form_widget(scope_choice) }}
+                {% endif %}
+            {% endfor %}
+            {{ form_help(form.scopes) }}
+            {{ form_errors(form.scopes) }}
+        </div>
+    </div>
+</fieldset>

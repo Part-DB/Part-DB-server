@@ -1,0 +1,30 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}oauth_clients.edit.title{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-plug-circle-bolt fa-fw" aria-hidden="true"></i> {% trans %}oauth_clients.edit.title{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+    <p>
+        <span class="text-muted">{% trans %}oauth_clients.client_id{% endtrans %}:</span> <code>{{ client.identifier }}</code>
+    </p>
+
+    {{ form_start(edit_form) }}
+        {{ form_row(edit_form.name) }}
+        {{ form_row(edit_form.redirect_uris) }}
+
+        {% include "tools/oauth_clients/_scope_checkboxes.html.twig" with {'form': edit_form} only %}
+
+        {{ form_row(edit_form.active) }}
+
+        {{ form_errors(edit_form) }}
+
+        {{ form_row(edit_form.submit) }}
+    {{ form_end(edit_form) }}
+
+    <a href="{{ path('oauth_clients_list') }}" class="btn btn-secondary mt-2 offset-sm-2">
+        <i class="fa-solid fa-arrow-left fa-fw" aria-hidden="true"></i> {% trans %}oauth_clients.edit.back{% endtrans %}
+    </a>
+{% endblock %}

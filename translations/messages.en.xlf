@@ -14111,13 +14111,13 @@ Buerklin-API Authentication server:
         <target>Inactive</target>
       </segment>
     </unit>
-    <unit id="Nx7ARw2" name="oauth_clients.dynamically_registered">
+    <unit id="ux5P.d3" name="oauth_clients.dynamically_registered">
       <segment>
         <source>oauth_clients.dynamically_registered</source>
         <target>Auto-registered</target>
       </segment>
     </unit>
-    <unit id="Bq3FVpH" name="oauth_clients.dynamically_registered.help">
+    <unit id="oo744Uz" name="oauth_clients.dynamically_registered.help">
       <segment>
         <source>oauth_clients.dynamically_registered.help</source>
         <target>This client registered itself automatically via Dynamic Client Registration (RFC 7591), rather than being created by an administrator.</target>
@@ -14157,6 +14157,12 @@ Buerklin-API Authentication server:
       <segment>
         <source>oauth_clients.create.title</source>
         <target>Register a new client manually</target>
+      </segment>
+    </unit>
+    <unit id="NxxzyP." name="oauth_clients.new_button">
+      <segment>
+        <source>oauth_clients.new_button</source>
+        <target>Register new client</target>
       </segment>
     </unit>
     <unit id="7XHDbAc" name="oauth_clients.create.name">
@@ -14199,6 +14205,48 @@ Buerklin-API Authentication server:
       <segment>
         <source>oauth_clients.created</source>
         <target>OAuth2 client registered successfully! Client ID: %client_id%</target>
+      </segment>
+    </unit>
+    <unit id="TPIdHxC" name="oauth_clients.edit">
+      <segment>
+        <source>oauth_clients.edit</source>
+        <target>Edit</target>
+      </segment>
+    </unit>
+    <unit id="tSop1t3" name="oauth_clients.edit.title">
+      <segment>
+        <source>oauth_clients.edit.title</source>
+        <target>Edit OAuth2 client</target>
+      </segment>
+    </unit>
+    <unit id="VaBQ9jX" name="oauth_clients.edit.active">
+      <segment>
+        <source>oauth_clients.edit.active</source>
+        <target>Active</target>
+      </segment>
+    </unit>
+    <unit id="6CH6SAh" name="oauth_clients.edit.active.help">
+      <segment>
+        <source>oauth_clients.edit.active.help</source>
+        <target>Inactive clients can no longer be used to request or refresh access tokens, but their existing registration and live tokens are kept until they are deleted.</target>
+      </segment>
+    </unit>
+    <unit id="hbA0R.U" name="oauth_clients.edit.submit">
+      <segment>
+        <source>oauth_clients.edit.submit</source>
+        <target>Save changes</target>
+      </segment>
+    </unit>
+    <unit id="1WsHABD" name="oauth_clients.edit.back">
+      <segment>
+        <source>oauth_clients.edit.back</source>
+        <target>Back to overview</target>
+      </segment>
+    </unit>
+    <unit id="E5sueue" name="oauth_clients.updated">
+      <segment>
+        <source>oauth_clients.updated</source>
+        <target>OAuth2 client updated successfully!</target>
       </segment>
     </unit>
   </file>

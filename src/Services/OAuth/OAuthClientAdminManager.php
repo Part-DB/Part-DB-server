@@ -78,29 +78,9 @@ class OAuthClientAdminManager
      */
     public function createClient(string $name, array $redirectUris, array $scopeNames): ClientInterface
     {
-        $name = trim($name);
-        if ('' === $name) {
-            throw new \InvalidArgumentException('Name must not be empty.');
-        }
-        $name = mb_substr($name, 0, self::MAX_CLIENT_NAME_LENGTH);
-
-        if ([] === $redirectUris) {
-            throw new \InvalidArgumentException('At least one redirect URI is required.');
-        }
-        foreach ($redirectUris as $uri) {
-            if (!$this->redirectUriValidator->isAllowed($uri)) {
-                throw new \InvalidArgumentException(\sprintf('"%s" is not an allowed redirect URI.', $uri));
-            }
-        }
-
-        if ([] === $scopeNames) {
-            throw new \InvalidArgumentException('At least one scope is required.');
-        }
-        foreach ($scopeNames as $scopeName) {
-            if (null === $this->scopeManager->find($scopeName)) {
-                throw new \InvalidArgumentException(\sprintf('Unknown scope "%s".', $scopeName));
-            }
-        }
+        $name = $this->validateName($name);
+        $this->validateRedirectUris($redirectUris);
+        $this->validateScopes($scopeNames);
 
         $identifier = bin2hex(random_bytes(16));
 
@@ -113,6 +93,92 @@ class OAuthClientAdminManager
         $this->clientManager->save($client);
 
         return $client;
+    }
+
+    /**
+     * Updates the name, redirect URIs, allowed scopes and active state of an already-registered client -
+     * used by the admin "edit client" form. Grants are deliberately left untouched (both self-registered
+     * and manually-created clients always get authorization_code + refresh_token, see createClient()) and
+     * the client secret/identifier can not be changed here either.
+     *
+     * @param list<string> $redirectUris
+     * @param list<string> $scopeNames
+     *
+     * @throws \InvalidArgumentException if $name, $redirectUris or $scopeNames are invalid - same rules as
+     *                                    createClient(), the message is safe to show directly to the
+     *                                    (admin-only) user of this form
+     *
+     * @return ClientInterface|null null if no client with that identifier exists
+     */
+    public function updateClient(string $identifier, string $name, array $redirectUris, array $scopeNames, bool $active): ?ClientInterface
+    {
+        $client = $this->clientManager->find($identifier);
+        // AbstractClient (not just the ClientInterface every League client implements) is required here
+        // because setName() is deliberately left off of ClientInterface itself - same as deleteClient().
+        if (!$client instanceof AbstractClient) {
+            return null;
+        }
+
+        $name = $this->validateName($name);
+        $this->validateRedirectUris($redirectUris);
+        $this->validateScopes($scopeNames);
+
+        $client->setName($name);
+        $client->setRedirectUris(...array_map(static fn (string $uri): RedirectUri => new RedirectUri($uri), $redirectUris));
+        $client->setScopes(...array_map(static fn (string $scope): Scope => new Scope($scope), $scopeNames));
+        $client->setActive($active);
+
+        $this->clientManager->save($client);
+
+        return $client;
+    }
+
+    /**
+     * @return ClientInterface|null null if no client with that identifier exists
+     */
+    public function findClient(string $identifier): ?ClientInterface
+    {
+        return $this->clientManager->find($identifier);
+    }
+
+    private function validateName(string $name): string
+    {
+        $name = trim($name);
+        if ('' === $name) {
+            throw new \InvalidArgumentException('Name must not be empty.');
+        }
+
+        return mb_substr($name, 0, self::MAX_CLIENT_NAME_LENGTH);
+    }
+
+    /**
+     * @param list<string> $redirectUris
+     */
+    private function validateRedirectUris(array $redirectUris): void
+    {
+        if ([] === $redirectUris) {
+            throw new \InvalidArgumentException('At least one redirect URI is required.');
+        }
+        foreach ($redirectUris as $uri) {
+            if (!$this->redirectUriValidator->isAllowed($uri)) {
+                throw new \InvalidArgumentException(\sprintf('"%s" is not an allowed redirect URI.', $uri));
+            }
+        }
+    }
+
+    /**
+     * @param list<string> $scopeNames
+     */
+    private function validateScopes(array $scopeNames): void
+    {
+        if ([] === $scopeNames) {
+            throw new \InvalidArgumentException('At least one scope is required.');
+        }
+        foreach ($scopeNames as $scopeName) {
+            if (null === $this->scopeManager->find($scopeName)) {
+                throw new \InvalidArgumentException(\sprintf('Unknown scope "%s".', $scopeName));
+            }
+        }
     }
 
     /**

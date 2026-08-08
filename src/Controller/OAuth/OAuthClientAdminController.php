@@ -22,9 +22,11 @@ declare(strict_types=1);
 
 namespace App\Controller\OAuth;
 
-use App\Entity\UserSystem\ApiTokenLevel;
+use App\Form\OAuth\OAuthClientData;
+use App\Form\OAuth\OAuthClientType;
 use App\Services\OAuth\OAuthClientAdminManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -55,39 +57,74 @@ class OAuthClientAdminController extends AbstractController
 
         return $this->render('tools/oauth_clients/oauth_clients.html.twig', [
             'clients' => $this->manager->listClientsWithLiveTokenCounts(),
-            'scope_levels' => ApiTokenLevel::cases(),
-            'edit_level_value' => ApiTokenLevel::EDIT->value,
         ]);
     }
 
-    #[Route(path: '/create', name: 'oauth_clients_create', methods: ['POST'])]
-    public function create(Request $request): Response
+    #[Route(path: '/new', name: 'oauth_clients_new', methods: ['GET', 'POST'])]
+    public function new(Request $request): Response
     {
         $this->denyAccessUnlessGranted('@system.manage_oauth_clients');
         //Enforce full login for this action, because it is a high-risk action that can be used to create a client that can impersonate any user.
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        if (!$this->isCsrfTokenValid('oauth_client_create', $request->request->get('_token'))) {
-            $this->addFlash('error', 'csfr_invalid');
-            return $this->redirectToRoute('oauth_clients_list');
+        $data = new OAuthClientData();
+        $form = $this->createForm(OAuthClientType::class, $data, [
+            'action' => $this->generateUrl('oauth_clients_new'),
+            'csrf_token_id' => 'oauth_client_new',
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $client = $this->manager->createClient($data->name, $data->getRedirectUriList(), $data->scopes);
+                $this->addFlash('success', t('oauth_clients.created', ['%client_id%' => $client->getIdentifier()]));
+
+                return $this->redirectToRoute('oauth_clients_list');
+            } catch (\InvalidArgumentException $e) {
+                $form->addError(new FormError($e->getMessage()));
+            }
         }
 
-        $name = $request->request->getString('name');
-        $redirectUris = array_values(array_filter(array_map(
-            trim(...),
-            explode("\n", $request->request->getString('redirect_uris')),
-        ), static fn (string $uri): bool => '' !== $uri));
-        $scopes = array_values(array_filter($request->request->all('scopes'), \is_string(...)));
+        return $this->render('tools/oauth_clients/oauth_client_new.html.twig', [
+            'create_form' => $form,
+        ]);
+    }
 
-        try {
-            $client = $this->manager->createClient($name, $redirectUris, $scopes);
-        } catch (\InvalidArgumentException $e) {
-            $this->addFlash('error', $e->getMessage());
-            return $this->redirectToRoute('oauth_clients_list');
+    #[Route(path: '/{identifier}/edit', name: 'oauth_clients_edit', methods: ['GET', 'POST'])]
+    public function edit(string $identifier, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('@system.manage_oauth_clients');
+        //Same reasoning as create(): editing a client's redirect URIs/scopes is just as high-risk as creating one.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $client = $this->manager->findClient($identifier);
+        if (null === $client) {
+            throw $this->createNotFoundException();
         }
 
-        $this->addFlash('success', t('oauth_clients.created', ['%client_id%' => $client->getIdentifier()]));
-        return $this->redirectToRoute('oauth_clients_list');
+        $data = OAuthClientData::fromClient($client);
+        $form = $this->createForm(OAuthClientType::class, $data, [
+            'is_edit' => true,
+            'action' => $this->generateUrl('oauth_clients_edit', ['identifier' => $identifier]),
+            'csrf_token_id' => 'oauth_client_edit'.$identifier,
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $this->manager->updateClient($identifier, $data->name, $data->getRedirectUriList(), $data->scopes, $data->active);
+                $this->addFlash('success', 'oauth_clients.updated');
+
+                return $this->redirectToRoute('oauth_clients_list');
+            } catch (\InvalidArgumentException $e) {
+                $form->addError(new FormError($e->getMessage()));
+            }
+        }
+
+        return $this->render('tools/oauth_clients/oauth_client_edit.html.twig', [
+            'client' => $client,
+            'edit_form' => $form,
+        ]);
     }
 
     #[Route(path: '/{identifier}/delete', name: 'oauth_clients_delete', methods: ['DELETE'])]

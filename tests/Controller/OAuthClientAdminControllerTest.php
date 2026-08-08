@@ -133,11 +133,23 @@ final class OAuthClientAdminControllerTest extends WebTestCase
         self::assertResponseStatusCodeSame(403);
     }
 
-    public function testManualRegistrationCreatesPublicClient(): void
+    public function testNewClientButtonLinksToRegistrationPage(): void
     {
         [$httpClient, ] = $this->loginAsAdmin();
 
         $crawler = $httpClient->request('GET', '/en/tools/oauth_clients');
+        self::assertResponseIsSuccessful();
+
+        $httpClient->click($crawler->selectLink('Register new client')->link());
+        self::assertResponseIsSuccessful();
+        self::assertStringContainsString('Register a new client manually', $httpClient->getResponse()->getContent());
+    }
+
+    public function testManualRegistrationCreatesPublicClient(): void
+    {
+        [$httpClient, ] = $this->loginAsAdmin();
+
+        $crawler = $httpClient->request('GET', '/en/tools/oauth_clients/new');
         $form = $crawler->selectButton('Register client')->form([
             'name' => 'Manually Registered App',
             'redirect_uris' => "https://client.example.invalid/callback\nhttps://client.example.invalid/other",
@@ -182,7 +194,7 @@ final class OAuthClientAdminControllerTest extends WebTestCase
         [$httpClient, ] = $this->loginAsAdmin();
         $before = \count($httpClient->getContainer()->get(ClientManagerInterface::class)->list(null));
 
-        $crawler = $httpClient->request('GET', '/en/tools/oauth_clients');
+        $crawler = $httpClient->request('GET', '/en/tools/oauth_clients/new');
         $form = $crawler->selectButton('Register client')->form([
             'name' => '',
             'redirect_uris' => 'https://client.example.invalid/callback',
@@ -190,7 +202,9 @@ final class OAuthClientAdminControllerTest extends WebTestCase
         ]);
         $httpClient->submit($form);
 
-        self::assertResponseRedirects('/en/tools/oauth_clients');
+        // Invalid submissions re-render the list page (with the create form and its errors) instead of
+        // redirecting, so the submitted values aren't silently lost.
+        self::assertResponseIsUnprocessable();
         $after = \count($httpClient->getContainer()->get(ClientManagerInterface::class)->list(null));
         self::assertSame($before, $after);
     }
@@ -200,7 +214,7 @@ final class OAuthClientAdminControllerTest extends WebTestCase
         [$httpClient, ] = $this->loginAsAdmin();
         $before = \count($httpClient->getContainer()->get(ClientManagerInterface::class)->list(null));
 
-        $crawler = $httpClient->request('GET', '/en/tools/oauth_clients');
+        $crawler = $httpClient->request('GET', '/en/tools/oauth_clients/new');
         $form = $crawler->selectButton('Register client')->form([
             'name' => 'Bad Redirect App',
             'redirect_uris' => 'http://evil.example.invalid/callback',
@@ -208,7 +222,7 @@ final class OAuthClientAdminControllerTest extends WebTestCase
         ]);
         $httpClient->submit($form);
 
-        self::assertResponseRedirects('/en/tools/oauth_clients');
+        self::assertResponseIsUnprocessable();
         $after = \count($httpClient->getContainer()->get(ClientManagerInterface::class)->list(null));
         self::assertSame($before, $after);
     }
@@ -218,14 +232,14 @@ final class OAuthClientAdminControllerTest extends WebTestCase
         [$httpClient, ] = $this->loginAsAdmin();
         $before = \count($httpClient->getContainer()->get(ClientManagerInterface::class)->list(null));
 
-        $crawler = $httpClient->request('GET', '/en/tools/oauth_clients');
+        $crawler = $httpClient->request('GET', '/en/tools/oauth_clients/new');
         $form = $crawler->selectButton('Register client')->form([
             'name' => 'No Scopes App',
             'redirect_uris' => 'https://client.example.invalid/callback',
         ]);
         $httpClient->submit($form);
 
-        self::assertResponseRedirects('/en/tools/oauth_clients');
+        self::assertResponseIsUnprocessable();
         $after = \count($httpClient->getContainer()->get(ClientManagerInterface::class)->list(null));
         self::assertSame($before, $after);
     }
@@ -235,15 +249,102 @@ final class OAuthClientAdminControllerTest extends WebTestCase
         [$httpClient, ] = $this->loginAsAdmin();
         $before = \count($httpClient->getContainer()->get(ClientManagerInterface::class)->list(null));
 
-        $httpClient->request('POST', '/en/tools/oauth_clients/create', [
+        $httpClient->request('POST', '/en/tools/oauth_clients/new', [
             '_token' => 'invalid',
             'name' => 'Csrf Bypass App',
             'redirect_uris' => 'https://client.example.invalid/callback',
             'scopes' => ['read_only'],
         ]);
 
-        self::assertResponseRedirects('/en/tools/oauth_clients');
+        self::assertResponseIsUnprocessable();
         $after = \count($httpClient->getContainer()->get(ClientManagerInterface::class)->list(null));
         self::assertSame($before, $after);
+    }
+
+    public function testEditUpdatesNameRedirectUrisScopesAndActiveState(): void
+    {
+        [$httpClient, ] = $this->loginAsAdmin();
+        $client = $this->registerTestClient($httpClient);
+        $identifier = $client->getIdentifier();
+
+        $crawler = $httpClient->request('GET', '/en/tools/oauth_clients/'.$identifier.'/edit');
+        self::assertResponseIsSuccessful();
+
+        // DomCrawler tracks repeated same-name checkboxes (name="scopes[]") as positionally-indexed
+        // fields rather than a real value-keyed group, so bulk-assigning ->form(['scopes' => [...]])
+        // only actually works when the given values happen to match DOM order value-for-value. Toggling
+        // the "checked" attribute directly avoids relying on that.
+        $crawler->filter('input[name="scopes[]"][value="read_only"]')->getNode(0)->removeAttribute('checked');
+        $crawler->filter('input[name="scopes[]"][value="edit"]')->getNode(0)->setAttribute('checked', 'checked');
+
+        $form = $crawler->selectButton('Save changes')->form([
+            'name' => 'Renamed App',
+            'redirect_uris' => "https://client.example.invalid/callback\nhttps://client.example.invalid/other",
+            'active' => false,
+        ]);
+        $httpClient->submit($form);
+
+        self::assertResponseRedirects('/en/tools/oauth_clients');
+
+        $clientManager = $httpClient->getContainer()->get(ClientManagerInterface::class);
+        $updated = $clientManager->find($identifier);
+        self::assertNotNull($updated);
+        self::assertSame('Renamed App', $updated->getName());
+        self::assertFalse($updated->isActive());
+
+        $scopeNames = array_map(static fn (Scope $s) => (string) $s, $updated->getScopes());
+        self::assertSame(['edit'], $scopeNames);
+
+        $redirectUris = array_map(static fn (RedirectUri $r) => (string) $r, $updated->getRedirectUris());
+        self::assertSame(
+            ['https://client.example.invalid/callback', 'https://client.example.invalid/other'],
+            $redirectUris,
+        );
+    }
+
+    public function testEditRejectsInvalidRedirectUriAndKeepsClientUnchanged(): void
+    {
+        [$httpClient, ] = $this->loginAsAdmin();
+        $client = $this->registerTestClient($httpClient);
+        $identifier = $client->getIdentifier();
+
+        $crawler = $httpClient->request('GET', '/en/tools/oauth_clients/'.$identifier.'/edit');
+        $form = $crawler->selectButton('Save changes')->form([
+            'name' => 'Should Not Stick',
+            'redirect_uris' => 'http://evil.example.invalid/callback',
+            'scopes' => ['read_only'],
+        ]);
+        $httpClient->submit($form);
+
+        self::assertResponseIsUnprocessable();
+
+        $clientManager = $httpClient->getContainer()->get(ClientManagerInterface::class);
+        $unchanged = $clientManager->find($identifier);
+        self::assertNotNull($unchanged);
+        self::assertSame('Admin-visible Test App', $unchanged->getName());
+    }
+
+    public function testEditOfUnknownClientReturns404(): void
+    {
+        [$httpClient, ] = $this->loginAsAdmin();
+
+        $httpClient->request('GET', '/en/tools/oauth_clients/does-not-exist/edit');
+        self::assertResponseStatusCodeSame(404);
+    }
+
+    public function testEditNonAdminUserIsDenied(): void
+    {
+        [$httpClient, ] = $this->loginAsAdmin();
+        $client = $this->registerTestClient($httpClient);
+
+        // Reuse the same client/kernel and just switch the logged-in user - WebTestCase only supports
+        // booting one kernel (i.e. one static::createClient() call) per test.
+        $entityManager = $httpClient->getContainer()->get(EntityManagerInterface::class);
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'user']);
+        self::assertInstanceOf(User::class, $user);
+        $httpClient->loginUser($user);
+
+        $httpClient->request('GET', '/en/tools/oauth_clients/'.$client->getIdentifier().'/edit');
+        self::assertResponseStatusCodeSame(403);
     }
 }
