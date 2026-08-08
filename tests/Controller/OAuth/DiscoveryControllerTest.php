@@ -43,7 +43,7 @@ final class DiscoveryControllerTest extends WebTestCase
         self::assertStringEndsWith('/token', $data['token_endpoint']);
         self::assertStringEndsWith('/oauth/register', $data['registration_endpoint']);
         self::assertSame($data['issuer'], parse_url($data['authorization_endpoint'], PHP_URL_SCHEME).'://'.parse_url($data['authorization_endpoint'], PHP_URL_HOST));
-        self::assertSame(['read_only', 'edit', 'admin', 'full'], $data['scopes_supported']);
+        self::assertSame(['read_only', 'edit'], $data['scopes_supported']);
         self::assertSame(['code'], $data['response_types_supported']);
         self::assertSame(['authorization_code', 'refresh_token'], $data['grant_types_supported']);
         self::assertSame(['none'], $data['token_endpoint_auth_methods_supported']);
@@ -60,7 +60,7 @@ final class DiscoveryControllerTest extends WebTestCase
 
         self::assertSame([$data['resource']], $data['authorization_servers']);
         self::assertSame(['header'], $data['bearer_methods_supported']);
-        self::assertSame(['read_only', 'edit', 'admin', 'full'], $data['scopes_supported']);
+        self::assertSame(['read_only', 'edit'], $data['scopes_supported']);
     }
 
     public function testDiscoveryEndpointsRequireNoAuthentication(): void

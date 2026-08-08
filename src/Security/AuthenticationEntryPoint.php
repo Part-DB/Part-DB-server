@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace App\Security;
 
+use App\Entity\UserSystem\ApiTokenLevel;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,8 +44,17 @@ use function Symfony\Component\Translation\t;
  */
 class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
 {
+    /**
+     * Paths of OAuth2-protected resources that must advertise their RFC 9728 protected-resource metadata
+     * document, so OAuth/MCP clients (e.g. MCP Inspector) can discover /authorize + /token via the
+     * standard 401 + WWW-Authenticate handshake instead of having to already know the .well-known URLs.
+     */
+    private const OAUTH_PROTECTED_PATHS = ['/mcp', '/api', '/kicad-api'];
+
     public function __construct(
         private readonly UrlGeneratorInterface $urlGenerator,
+        #[Autowire('%partdb.oauth_server.enabled%')]
+        private readonly bool $oauthServerEnabled,
     ) {
     }
 
@@ -55,7 +66,7 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
             return new JsonResponse([
                 'title' => 'Unauthorized',
                 'detail' => 'Authentication is required. Please pass a valid API token in the Authorization header.',
-            ], Response::HTTP_UNAUTHORIZED);
+            ], Response::HTTP_UNAUTHORIZED, $this->getWwwAuthenticateHeaders($request));
         }
 
         //Otherwise we redirect to the login page
@@ -66,6 +77,34 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
         }
 
         return new RedirectResponse($this->urlGenerator->generate('login'));
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private function getWwwAuthenticateHeaders(Request $request): array
+    {
+        if (!$this->oauthServerEnabled) {
+            return [];
+        }
+
+        $path = $request->getPathInfo();
+        $isOAuthProtected = false;
+        foreach (self::OAUTH_PROTECTED_PATHS as $protectedPath) {
+            if (str_starts_with($path, $protectedPath)) {
+                $isOAuthProtected = true;
+                break;
+            }
+        }
+
+        if (!$isOAuthProtected) {
+            return [];
+        }
+
+        $resourceMetadataUrl = $this->urlGenerator->generate('oauth2_discovery_protected_resource', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $scope = implode(' ', ApiTokenLevel::advertisedScopes());
+
+        return ['WWW-Authenticate' => sprintf('Bearer resource_metadata="%s", scope="%s"', $resourceMetadataUrl, $scope)];
     }
 
     private function isJSONRequest(Request $request): bool

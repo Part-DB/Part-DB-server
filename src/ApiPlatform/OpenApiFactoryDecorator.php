@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\ApiPlatform;
 
+use App\Entity\UserSystem\ApiTokenLevel;
 use ApiPlatform\OpenApi\Factory\OpenApiFactoryInterface;
 use ApiPlatform\OpenApi\Model\OAuthFlow;
 use ApiPlatform\OpenApi\Model\OAuthFlows;
@@ -65,12 +66,16 @@ class OpenApiFactoryDecorator implements OpenApiFactoryInterface
                 authorizationCode: new OAuthFlow(
                     authorizationUrl: $this->urlGenerator->generate('oauth2_authorize', [], UrlGeneratorInterface::ABSOLUTE_URL),
                     tokenUrl: $this->urlGenerator->generate('oauth2_token', [], UrlGeneratorInterface::ABSOLUTE_URL),
-                    scopes: new \ArrayObject([
+                    // "admin"/"full" are intentionally left out here (see ApiTokenLevel::advertisedScopes())
+                    // - self-registered (DCR) clients are capped at "edit" server-side anyway, so
+                    // advertising the elevated scopes here would just invite clients to request access
+                    // they can't obtain.
+                    scopes: new \ArrayObject(array_intersect_key([
                         'read_only' => 'Read (non-sensitive) data',
                         'edit' => 'Read and edit (non-sensitive) data',
                         'admin' => 'Some administrative tasks (e.g. viewing all log entries)',
                         'full' => 'Everything the user can do',
-                    ]),
+                    ], array_flip(ApiTokenLevel::advertisedScopes()))),
                 ),
             ),
         );

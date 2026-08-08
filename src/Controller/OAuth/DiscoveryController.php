@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller\OAuth;
 
+use App\Entity\UserSystem\ApiTokenLevel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -98,9 +99,6 @@ class DiscoveryController extends AbstractController
      */
     private static function availableScopes(): array
     {
-        // Kept in sync with config/packages/league_oauth2_server.yaml's scopes.available - the bundle
-        // does not expose the configured "available" scope list as a service/parameter (only "default" is,
-        // via league.oauth2_server.scopes.default), so this one list is hand-maintained.
-        return ['read_only', 'edit', 'admin', 'full'];
+        return ApiTokenLevel::advertisedScopes();
     }
 }
