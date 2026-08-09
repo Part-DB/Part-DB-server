@@ -217,10 +217,9 @@ Part-DB can act as an OAuth2 authorization server, letting external applications
 access token via a login-and-consent flow instead of a manually created API token. See the
 [OAuth2]({% link api/oauth.md %}) page for details.
 
-* `OAUTH2_ENCRYPTION_KEY`: A secret key used to encrypt OAuth2 authorization codes and refresh tokens.
-  **You must change this from the default value before enabling the OAuth2 server in production.** The value
-  shipped in Part-DB's default `.env` file is the same for every installation and is publicly known; leaving it in
-  place would let an attacker decrypt authorization codes and refresh tokens issued by your instance.
+* `OAUTH2_ENCRYPTION_KEY`: A secret key used to encrypt OAuth2 authorization codes and refresh tokens. Not set by
+  default, so it must be generated before enabling the OAuth2 server in production - `/oauth/authorize` and
+  `/oauth/token` fail with a 500 error until you do.
 
   Generate a secure value with:
   ```bash

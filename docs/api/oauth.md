@@ -24,19 +24,15 @@ application. This is especially useful for MCP clients and other apps that can a
 
 The OAuth2 server is controlled by environment variables in your `.env`/`.env.local` file:
 
-* **`OAUTH2_ENCRYPTION_KEY`**: A secret key used to encrypt authorization codes and refresh tokens.
-  {: .important }
-  > **Change `OAUTH2_ENCRYPTION_KEY` before enabling the OAuth2 server in production.** The value shipped in
-  > Part-DB's default `.env` file is the same for every installation and is publicly known, so leaving it in place
-  > would let anyone decrypt authorization codes and refresh tokens issued by your instance.
-  >
-  > Generate your own value with:
-  > ```bash
-  > bin/console partdb:oauth:generate-secret
-  > ```
-  > and add the printed line to your `.env.local`. Once you start using the OAuth2 server, keep the key secret and
-  > do **not** change it again — doing so invalidates all outstanding refresh tokens and any authorization codes
-  > that are currently in flight.
+* **`OAUTH2_ENCRYPTION_KEY`**: A secret key used to encrypt authorization codes and refresh tokens. Not set by
+  default - you must generate your own before enabling the OAuth2 server, with:
+  ```bash
+  bin/console partdb:oauth:generate-secret
+  ```
+  and add the printed line to your `.env.local`. Once you start using the OAuth2 server, keep the key secret and
+  do **not** change it again — doing so invalidates all outstanding refresh tokens and any authorization codes
+  that are currently in flight. If `OAUTH_SERVER_ENABLED` is on and this key is missing, `/oauth/authorize` and
+  `/oauth/token` fail with a 500 error rather than falling back to an insecure default.
 
 * **`OAUTH_SERVER_ENABLED`** (default `0`): The master switch for the whole feature. Set it to `1` to enable the
   `/oauth/authorize` and `/oauth/token` endpoints, the `/tools/oauth_clients` admin overview, the OAuth discovery endpoints
