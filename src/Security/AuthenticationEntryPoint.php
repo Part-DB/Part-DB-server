@@ -42,19 +42,12 @@ use function Symfony\Component\Translation\t;
  * For browser requests, the user is redirected to the login page, for API requests, a 401 response with a JSON encoded
  * message is returned.
  */
-class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
+readonly class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
 {
-    /**
-     * Paths of OAuth2-protected resources that must advertise their RFC 9728 protected-resource metadata
-     * document, so OAuth/MCP clients (e.g. MCP Inspector) can discover /oauth/authorize + /oauth/token via the
-     * standard 401 + WWW-Authenticate handshake instead of having to already know the .well-known URLs.
-     */
-    private const OAUTH_PROTECTED_PATHS = ['/mcp', '/api', '/kicad-api'];
-
     public function __construct(
-        private readonly UrlGeneratorInterface $urlGenerator,
+        private UrlGeneratorInterface $urlGenerator,
         #[Autowire('%partdb.oauth_server.enabled%')]
-        private readonly bool $oauthServerEnabled,
+        private bool $oauthServerEnabled,
     ) {
     }
 
@@ -66,7 +59,7 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
             return new JsonResponse([
                 'title' => 'Unauthorized',
                 'detail' => 'Authentication is required. Please pass a valid API token in the Authorization header.',
-            ], Response::HTTP_UNAUTHORIZED, $this->getWwwAuthenticateHeaders($request));
+            ], Response::HTTP_UNAUTHORIZED, $this->getWwwAuthenticateHeaders());
         }
 
         //Otherwise we redirect to the login page
@@ -82,22 +75,9 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
     /**
      * @return array<string, string>
      */
-    private function getWwwAuthenticateHeaders(Request $request): array
+    private function getWwwAuthenticateHeaders(): array
     {
         if (!$this->oauthServerEnabled) {
-            return [];
-        }
-
-        $path = $request->getPathInfo();
-        $isOAuthProtected = false;
-        foreach (self::OAUTH_PROTECTED_PATHS as $protectedPath) {
-            if (str_starts_with($path, $protectedPath)) {
-                $isOAuthProtected = true;
-                break;
-            }
-        }
-
-        if (!$isOAuthProtected) {
             return [];
         }
 
