@@ -638,12 +638,12 @@
         "version": "v5.3.8"
     },
     "symfony/phpunit-bridge": {
-        "version": "7.3",
+        "version": "7.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "7.3",
-            "ref": "dc13fec96bd527bd399c3c01f0aab915c67fd544"
+            "ref": "56f87409c45ff6654b0bf07c5cc359aebf6016ab"
         },
         "files": []
     },
