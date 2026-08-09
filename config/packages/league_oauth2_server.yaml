@@ -10,7 +10,7 @@
 # already understands.
 league_oauth2_server:
     authorization_server:
-        private_key: '%kernel.project_dir%/var/oauth2/private.key'
+        private_key: '%kernel.project_dir%/uploads/oauth_private.key'
         private_key_passphrase: null
         encryption_key: '%env(OAUTH2_ENCRYPTION_KEY)%'
         encryption_key_type: 'defuse'
@@ -29,7 +29,7 @@ league_oauth2_server:
         revoke_refresh_tokens: true
 
     resource_server:
-        public_key: '%kernel.project_dir%/var/oauth2/public.key'
+        public_key: '%kernel.project_dir%/uploads/oauth_public.key'
     scopes:
         # Scopes map 1:1 onto the existing App\Entity\UserSystem\ApiTokenLevel enum names. Combined with
         # role_prefix below, an OAuth token scoped "edit" ends up with role ROLE_API_EDIT - the exact same

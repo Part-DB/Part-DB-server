@@ -65,7 +65,7 @@ use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface
  * onAuthenticationSuccess() additionally records per-user/client grant preferences, which the bundle's
  * version (a no-op) knows nothing about.
  *
- * ResourceServer is injected #[Lazy]: its constructor eagerly reads and parses var/oauth2/public.key
+ * ResourceServer is injected #[Lazy]: its constructor eagerly reads and parses uploads/oauth_public.key
  * (League\OAuth2\Server\CryptKey throws if that file doesn't exist yet, e.g. before
  * partdb:oauth:generate-keys has ever been run). Since this authenticator - and therefore its
  * ResourceServer dependency - gets instantiated for every request that reaches the firewall regardless

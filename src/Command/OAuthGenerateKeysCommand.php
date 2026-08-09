@@ -42,9 +42,9 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 class OAuthGenerateKeysCommand extends Command
 {
     public function __construct(
-        #[Autowire('%kernel.project_dir%/var/oauth2/private.key')]
+        #[Autowire('%kernel.project_dir%/uploads/oauth_private.key')]
         private readonly string $privateKeyPath,
-        #[Autowire('%kernel.project_dir%/var/oauth2/public.key')]
+        #[Autowire('%kernel.project_dir%/uploads/oauth_public.key')]
         private readonly string $publicKeyPath,
     ) {
         parent::__construct();

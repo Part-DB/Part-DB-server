@@ -54,7 +54,7 @@ sign access tokens, by running:
 bin/console partdb:oauth:generate-keys
 ```
 
-This creates `var/oauth2/private.key` and `var/oauth2/public.key`. The command will warn you if
+This creates `uploads/oauth_private.key` and `uploads/oauth_public.key`. The command will warn you if
 `OAUTH2_ENCRYPTION_KEY` is not set. Use `--force` to overwrite an existing keypair (this invalidates all existing
 OAuth tokens).
 
