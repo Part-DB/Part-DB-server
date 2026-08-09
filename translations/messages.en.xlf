@@ -13952,7 +13952,7 @@ Buerklin-API Authentication server:
     <unit id="Z.S5.x2" name="oauth.authorize.ttl.default">
       <segment>
         <source>oauth.authorize.ttl.default</source>
-        <target>Default</target>
+        <target>Default (%days% days)</target>
       </segment>
     </unit>
     <unit id="yJyRFXa" name="oauth.authorize.ttl.days">

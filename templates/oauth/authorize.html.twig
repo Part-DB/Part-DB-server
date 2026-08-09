@@ -71,7 +71,7 @@
                 {% for days in ttl_presets_days %}
                     <option value="{{ days }}" {% if days == selected_ttl_days %}selected{% endif %}>
                         {% if days is null %}
-                            {% trans %}oauth.authorize.ttl.default{% endtrans %}
+                            {% trans with {'%days%': default_ttl_days} %}oauth.authorize.ttl.default{% endtrans %}
                         {% else %}
                             {% trans with {'%days%': days} %}oauth.authorize.ttl.days{% endtrans %}
                         {% endif %}

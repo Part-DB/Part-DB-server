@@ -26,6 +26,7 @@ use App\Entity\UserSystem\ApiTokenLevel;
 use App\Services\OAuth\OAuthClientGrantPreferenceManager;
 use League\Bundle\OAuth2ServerBundle\Event\AuthorizationRequestResolveEvent;
 use League\Bundle\OAuth2ServerBundle\OAuth2Events;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
@@ -74,7 +75,21 @@ class AuthorizationConsentListener
         private readonly Environment $twig,
         private readonly CsrfTokenManagerInterface $csrfTokenManager,
         private readonly OAuthClientGrantPreferenceManager $grantPreferences,
+        #[Autowire('%league.oauth2_server.refresh_token_ttl.default%')]
+        private readonly string $defaultRefreshTokenTtl,
     ) {
+    }
+
+    /**
+     * Resolves league_oauth2_server.yaml's authorization_server.refresh_token_ttl (an ISO 8601 duration,
+     * e.g. "P30D") to a whole number of days, so the consent screen can tell the user what "Default"
+     * actually means instead of leaving it a mystery.
+     */
+    private function defaultTtlDays(): int
+    {
+        $now = new \DateTimeImmutable();
+
+        return $now->diff($now->add(new \DateInterval($this->defaultRefreshTokenTtl)))->days;
     }
 
     public function __invoke(AuthorizationRequestResolveEvent $event): void
@@ -128,6 +143,7 @@ class AuthorizationConsentListener
             'friendly_name' => $existingPreference?->getFriendlyName(),
             'ttl_presets_days' => self::TTL_PRESETS_DAYS,
             'selected_ttl_days' => $existingPreference?->getRefreshTokenTtlDays(),
+            'default_ttl_days' => $this->defaultTtlDays(),
             'csrf_token_id' => self::CSRF_TOKEN_ID,
             // "edit" (read + write of ordinary, non-sensitive data) is the normal ceiling for an app to
             // ask for; admin/full go beyond that (e.g. viewing all users' log entries, or acting as the
