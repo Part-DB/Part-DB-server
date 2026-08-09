@@ -2079,10 +2079,10 @@ ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-attr-accept@^2.2.5:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/attr-accept/-/attr-accept-2.2.5.tgz#d7061d958e6d4f97bf8665c68b75851a0713ab5e"
-  integrity sha512-0bDNnY/u6pPwHDMoF0FieU354oBi0a8rD9FcsLwzcGWbc8KS8KPIi7y+s13OlVY+gMWc/9xEMUgNE6Qm8ZllYQ==
+attr-accept@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/attr-accept/-/attr-accept-4.0.0.tgz#e038002c875830b2b98774918abfd4bdeb7d9c97"
+  integrity sha512-hmCnJClmeKNKlsBHgbM8yLZRiQZ4/20UXbLJb6OUT16eWcM5/xNZerr80a/zCYob768KIGq++aLrQNTuwPsIOQ==
 
 babel-loader@^10.0.0:
   version "10.1.1"
@@ -3164,10 +3164,10 @@ jszip@^3.2.0:
     readable-stream "~2.3.6"
     setimmediate "^1.0.5"
 
-katex@^0.17.0:
-  version "0.17.0"
-  resolved "https://registry.yarnpkg.com/katex/-/katex-0.17.0.tgz#536e25874ec9ac8728e3b4b7bf7fec6557b7dbf4"
-  integrity sha512-Vdw0ATsQ9V+LuegM/BTwQqV/6cTl5lbGcIrU+BCgLxyf6bo38ybOr372tuSIxir3CN720flu1meYR6XzNMwQnw==
+katex@^0.18.0:
+  version "0.18.3"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.18.3.tgz#c365812a5ce82d4c3899b6c833dc58ca5a6306f5"
+  integrity sha512-6kbPr8KiYZpRfNNIw+8Td33njnFzK/ELcw6bI9FzIHysYPatAUdepQimfCX1vG2VCD/5Lv+Gu6P5YA58k8HHmw==
   dependencies:
     commander "^8.3.0"
 
@@ -4257,10 +4257,10 @@ stackframe@^1.3.4:
   resolved "https://registry.yarnpkg.com/stackframe/-/stackframe-1.3.4.tgz#b881a004c8c149a5e8efef37d51b16e412943310"
   integrity sha512-oeVtt7eWQS+Na6F//S4kJ2K2VbRlS9D43mAlMyVpVWovy9o+jfgH8O9agzANzaiLjclA0oYzUXEM4PurhSUChw==
 
-stimulus-use@^0.52.0:
-  version "0.52.3"
-  resolved "https://registry.yarnpkg.com/stimulus-use/-/stimulus-use-0.52.3.tgz#d6f35fa93277274957a2ed98a7b04b4d702cb1d6"
-  integrity sha512-stZ5dID6FUrGCR/ChWUa0FT5Z8iqkzT6lputOAb50eF+Ayg7RzJj4U/HoRlp2NV333QfvoRidru9HLbom4hZVw==
+stimulus-use@^0.53.0:
+  version "0.53.0"
+  resolved "https://registry.yarnpkg.com/stimulus-use/-/stimulus-use-0.53.0.tgz#a6ac5c208c1efdac264a0e66947f4318a7bb3823"
+  integrity sha512-wTDmbLhqpaNEtvGZloFF6E6tzcZevS4ZOjLbxazjAfXqSjL55tvrlFtSlwf9GoR+nCD6czS9rz+jqIal7f65TQ==
 
 string-width@^4.2.3:
   version "4.2.3"
