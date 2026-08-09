@@ -62,6 +62,25 @@
         <td>{{ helper.boolean_badge(saml_enabled) }}</td>
     </tr>
     <tr class="table-info">
+        <td colspan="2"><b>OAuth2</b></td>
+    </tr>
+    <tr>
+        <td>OAuth2 authorization server enabled</td>
+        <td>{{ helper.boolean_badge(oauth_server_enabled) }}</td>
+    </tr>
+    <tr>
+        <td>OAuth2 authorization server fully configured (keypair &amp; encryption key present)</td>
+        <td>{{ helper.boolean_badge(oauth_server_fully_configured) }}</td>
+    </tr>
+    <tr>
+        <td>Dynamic Client Registration (DCR) enabled</td>
+        <td>{{ helper.boolean_badge(oauth_dcr_enabled) }}</td>
+    </tr>
+    <tr>
+        <td>Dynamic Client Registration (DCR) fully configured</td>
+        <td>{{ helper.boolean_badge(oauth_dcr_fully_configured) }}</td>
+    </tr>
+    <tr class="table-info">
         <td colspan="2"><b>Email</b></td>
     </tr>
     <tr>

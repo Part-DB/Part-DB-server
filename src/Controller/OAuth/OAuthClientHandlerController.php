@@ -21,19 +21,22 @@
 declare(strict_types=1);
 
 
-namespace App\Controller;
+namespace App\Controller\OAuth;
 
 use App\Services\OAuth\OAuthTokenManager;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 use function Symfony\Component\Translation\t;
 
+/**
+ * This controller handles requests where Part-DB itself is the OAuth2 client and wants to connect to an external
+ * Oauth server.
+ */
 #[Route('/oauth/client')]
-class OAuthClientController extends AbstractController
+class OAuthClientHandlerController extends AbstractController
 {
     public function __construct(private readonly ClientRegistry $clientRegistry, private readonly OAuthTokenManager $tokenManager)
     {

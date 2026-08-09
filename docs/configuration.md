@@ -211,6 +211,35 @@ then `HISTORY_SAVE_CHANGED_FIELDS`, `HISTORY_SAVE_CHANGED_DATA` and `HISTORY_SAV
    All parts in the selected category and all subcategories are shown in KiCad. Set this to a higher value, if you want to show more categories in KiCad.
    When you set this value to -1, all parts are shown inside a single category in KiCad.
 
+### OAuth2 authorization server settings (all env only)
+
+Part-DB can act as an OAuth2 authorization server, letting external applications and AI agents obtain their own
+access token via a login-and-consent flow instead of a manually created API token. See the
+[OAuth2]({% link api/oauth.md %}) page for details.
+
+* `OAUTH2_ENCRYPTION_KEY`: A secret key used to encrypt OAuth2 authorization codes and refresh tokens. Not set by
+  default, so it must be generated before enabling the OAuth2 server in production - `/oauth/authorize` and
+  `/oauth/token` fail with a 500 error until you do.
+
+  Generate a secure value with:
+  ```bash
+  bin/console partdb:oauth:generate-secret
+  ```
+  and add the printed line to `.env.local`. Keep it secret, and do **not** change it again once the OAuth2 server
+  is in use — doing so invalidates all outstanding refresh tokens and any authorization codes currently in flight.
+* `OAUTH_SERVER_ENABLED` (default `0`): Enables the OAuth2 authorization server (`/oauth/authorize`, `/oauth/token`, the
+  `/tools/oauth_clients` admin overview, the `/.well-known/` discovery endpoints, and OAuth2 bearer token
+  authentication in general). Disabled by default; while disabled these are all unreachable.
+* `OAUTH_DCR_ENABLED` (default `0`): Enables open, unauthenticated Dynamic Client Registration (RFC 7591,
+  `POST /oauth/register`) on top of the OAuth2 server. Has no effect unless `OAUTH_SERVER_ENABLED` is also set to
+  `1`. Clients can always be registered manually by an administrator regardless of this setting.
+
+### MCP settings
+
+* `MCP_ENABLED` (default `0`): Enables the [MCP server]({% link api/mcp.md %}) under the `/mcp` path, which lets
+  AI assistants and agents interact with your Part-DB inventory (read-only). Can also be toggled via the system
+  settings **AI** tab.
+
 ### SAML SSO settings (all env only)
 
 The following settings can be used to enable and configure Single-Sign on via SAML. This allows users to log in to

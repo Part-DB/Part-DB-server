@@ -32,12 +32,14 @@ use App\Events\SecurityEvent;
 use App\Events\SecurityEvents;
 use App\Form\TFAGoogleSettingsType;
 use App\Form\UserSettingsType;
+use App\Services\OAuth\ConnectedAppManager;
 use App\Services\UserSystem\TFA\BackupCodeManager;
 use App\Services\UserSystem\UserAvatarHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -58,8 +60,13 @@ use Symfony\Component\Validator\Constraints\Length;
 #[Route(path: '/user')]
 class UserSettingsController extends AbstractController
 {
-    public function __construct(protected bool $demo_mode, protected EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        protected bool $demo_mode,
+        protected EventDispatcherInterface $eventDispatcher,
+        private readonly ConnectedAppManager $connectedAppManager,
+        #[Autowire('%partdb.oauth_server.enabled%')]
+        private readonly bool $oauth_server_enabled,
+    ) {
     }
 
     #[Route(path: '/2fa_backup_codes', name: 'show_backup_codes')]
@@ -380,6 +387,8 @@ class UserSettingsController extends AbstractController
             'settings_form' => $form,
             'pw_form' => $pw_form,
             'global_reload_needed' => $page_need_reload,
+            'oauth_server_enabled' => $this->oauth_server_enabled,
+            'connected_apps' => $this->oauth_server_enabled ? $this->connectedAppManager->listConnectedClients($user->getUserIdentifier()) : [],
 
             'google_form' => $google_form,
             'backup_form' => $backup_form,
@@ -484,6 +493,37 @@ class UserSettingsController extends AbstractController
         $entityManager->flush();
 
         $this->addFlash('success', 'api_tokens.deleted');
+        return $this->redirectToRoute('user_settings');
+    }
+
+    #[Route(path: '/oauth_connected_apps/revoke', name: 'user_oauth_connected_apps_revoke', methods: ['DELETE'])]
+    public function revokeConnectedApp(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('@api.manage_tokens');
+        //When user change its settings, he should be logged  in fully.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            throw new RuntimeException('This controller only works only for Part-DB User objects!');
+        }
+
+        if (!$this->isCsrfTokenValid('delete'.$user->getID(), $request->request->get('_token'))) {
+            $this->addFlash('error', 'csfr_invalid');
+            return $this->redirectToRoute('user_settings');
+        }
+
+        $clientId = $request->request->getString('client_id');
+        if ('' === $clientId) {
+            $this->addFlash('error', 'tfa_u2f.u2f_delete.not_existing');
+            return $this->redirectToRoute('user_settings');
+        }
+
+        //Scoped to this user's own tokens by userIdentifier, so there is nothing to revoke (and no harm
+        //done) if $clientId does not actually belong to one of this user's connected apps.
+        $this->connectedAppManager->revokeForUserAndClient($user->getUserIdentifier(), $clientId);
+
+        $this->addFlash('success', 'user.settings.oauth_connected_apps.revoked');
         return $this->redirectToRoute('user_settings');
     }
 }

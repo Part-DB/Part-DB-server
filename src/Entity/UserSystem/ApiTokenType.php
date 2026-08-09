@@ -45,12 +45,28 @@ enum ApiTokenType: string
      * @param  string  $api_token
      * @return ApiTokenType
      */
-    public static function getTypeFromToken(string $api_token): ApiTokenType
+    public static function getTypeFromToken(string $api_token): self
     {
         $parts = explode('_', $api_token);
         if (count($parts) !== 2) {
             throw new \InvalidArgumentException('Invalid token format');
         }
         return self::from($parts[0]);
+    }
+
+    /**
+     * Checks if the given string looks like one of our own tokens (i.e. has a recognized prefix),
+     * without throwing. Used by App\Security\ApiTokenAuthenticator and
+     * App\Security\OAuth\OAuthBearerAuthenticator to decide, up front, which of the two authenticators
+     * should even attempt to handle a given bearer credential.
+     */
+    public static function isRecognizedToken(string $token): bool
+    {
+        try {
+            self::getTypeFromToken($token);
+            return true;
+        } catch (\InvalidArgumentException|\ValueError) {
+            return false;
+        }
     }
 }

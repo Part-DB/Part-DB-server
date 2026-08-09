@@ -195,5 +195,4 @@ class ApiToken implements TimeStampableInterface
         return substr($this->token, -4);
     }
 
-
 }
