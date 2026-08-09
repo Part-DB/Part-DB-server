@@ -45,7 +45,7 @@ enum ApiTokenType: string
      * @param  string  $api_token
      * @return ApiTokenType
      */
-    public static function getTypeFromToken(string $api_token): ApiTokenType
+    public static function getTypeFromToken(string $api_token): self
     {
         $parts = explode('_', $api_token);
         if (count($parts) !== 2) {

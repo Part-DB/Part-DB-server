@@ -25,11 +25,7 @@ namespace App\Security\OAuth;
 use App\Entity\UserSystem\ApiTokenType;
 use App\Services\OAuth\OAuthClientGrantPreferenceManager;
 use League\Bundle\OAuth2ServerBundle\Security\Authentication\Token\OAuth2Token;
-use League\Bundle\OAuth2ServerBundle\Security\Exception\OAuth2AuthenticationException;
-use League\Bundle\OAuth2ServerBundle\Security\Exception\OAuth2AuthenticationFailedException;
-use League\Bundle\OAuth2ServerBundle\Security\Passport\Badge\ScopeBadge;
-use League\Bundle\OAuth2ServerBundle\Security\User\ClientCredentialsUser;
-use League\OAuth2\Server\Exception\OAuthServerException;
+use League\Bundle\OAuth2ServerBundle\Security\Authenticator\OAuth2Authenticator;
 use League\OAuth2\Server\ResourceServer;
 use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -37,33 +33,36 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
-use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 
 /**
  * Validates OAuth2-issued Bearer tokens (auto-provisioned API/MCP app credentials, see
  * config/packages/league_oauth2_server.yaml) against the bundle's own ResourceServer/token storage.
  *
- * This is functionally almost identical to the bundle's own
- * League\Bundle\OAuth2ServerBundle\Security\Authenticator\OAuth2Authenticator - reimplemented here
- * (rather than reused) for one reason: supports() must be mutually exclusive with
- * App\Security\ApiTokenAuthenticator. Symfony's AuthenticatorManager runs *every* authenticator whose
- * supports() matches a request, not just the first one that succeeds - so if both authenticators
- * claimed every "Authorization: Bearer ..." request, whichever one runs second would immediately
- * re-validate (and fail on) a token meant for the other, overwriting an already-successful
- * authentication with a 401. Restricting each authenticator to the token shapes it actually owns
- * (ApiTokenAuthenticator: our own "tcp_..." Personal Access Tokens; this class: everything else, i.e.
- * OAuth2-issued JWTs) avoids that collision entirely. See App\Entity\UserSystem\ApiTokenType::isRecognizedToken().
+ * Wraps (rather than extends, since it's final) the bundle's own
+ * League\Bundle\OAuth2ServerBundle\Security\Authenticator\OAuth2Authenticator and delegates start(),
+ * authenticate(), createToken() and onAuthenticationFailure() to it - those are identical to the
+ * bundle's behavior. Only supports() and onAuthenticationSuccess() are genuinely different:
+ *
+ * supports() must be mutually exclusive with App\Security\ApiTokenAuthenticator. Symfony's
+ * AuthenticatorManager runs *every* authenticator whose supports() matches a request, not just the
+ * first one that succeeds - so if both authenticators claimed every "Authorization: Bearer ..."
+ * request, whichever one runs second would immediately re-validate (and fail on) a token meant for the
+ * other, overwriting an already-successful authentication with a 401. Restricting each authenticator to
+ * the token shapes it actually owns (ApiTokenAuthenticator: our own "tcp_..." Personal Access Tokens;
+ * this class: everything else, i.e. OAuth2-issued JWTs) avoids that collision entirely. See
+ * App\Entity\UserSystem\ApiTokenType::isRecognizedToken().
  *
  * Also refuses to authenticate anything at all while the OAuth2 server is disabled (OAUTH_SERVER_ENABLED,
  * disabled by default) - so any previously-issued OAuth2 token immediately stops working the moment the
  * server is turned off, the same way its own /oauth/authorize, /oauth/token etc. routes stop being reachable (see
  * config/routes/league_oauth2_server.yaml's route condition).
+ *
+ * onAuthenticationSuccess() additionally records per-user/client grant preferences, which the bundle's
+ * version (a no-op) knows nothing about.
  */
 class OAuthBearerAuthenticator implements AuthenticatorInterface, AuthenticationEntryPointInterface
 {
@@ -72,16 +71,19 @@ class OAuthBearerAuthenticator implements AuthenticatorInterface, Authentication
      */
     private const ROLE_PREFIX = 'ROLE_API_';
 
+    private readonly OAuth2Authenticator $inner;
+
     public function __construct(
         #[Autowire(service: 'league.oauth2_server.factory.psr_http')]
-        private readonly HttpMessageFactoryInterface $httpMessageFactory,
-        private readonly ResourceServer $resourceServer,
+        HttpMessageFactoryInterface $httpMessageFactory,
+        ResourceServer $resourceServer,
         #[Autowire(service: 'security.user.provider.concrete.app_user_provider')]
-        private readonly UserProviderInterface $userProvider,
+        UserProviderInterface $userProvider,
         private readonly OAuthClientGrantPreferenceManager $grantPreferences,
         #[Autowire('%partdb.oauth_server.enabled%')]
         private readonly bool $oauth_server_enabled,
     ) {
+        $this->inner = new OAuth2Authenticator($httpMessageFactory, $resourceServer, $userProvider, self::ROLE_PREFIX);
     }
 
     public function supports(Request $request): bool
@@ -100,59 +102,17 @@ class OAuthBearerAuthenticator implements AuthenticatorInterface, Authentication
 
     public function start(Request $request, ?AuthenticationException $authException = null): Response
     {
-        return new Response($authException?->getMessage() ?? 'Authentication required', Response::HTTP_UNAUTHORIZED, ['WWW-Authenticate' => 'Bearer']);
+        return $this->inner->start($request, $authException);
     }
 
     public function authenticate(Request $request): Passport
     {
-        try {
-            $psr7Request = $this->resourceServer->validateAuthenticatedRequest($this->httpMessageFactory->createRequest($request));
-        } catch (OAuthServerException $e) {
-            throw OAuth2AuthenticationFailedException::create('The resource server rejected the request.', $e);
-        }
-
-        /** @var string $userIdentifier */
-        $userIdentifier = $psr7Request->getAttribute('oauth_user_id', '');
-
-        /** @var string $accessTokenId */
-        $accessTokenId = $psr7Request->getAttribute('oauth_access_token_id');
-
-        /** @var list<string> $scopes */
-        $scopes = $psr7Request->getAttribute('oauth_scopes', []);
-
-        /** @var non-empty-string $oauthClientId */
-        $oauthClientId = $psr7Request->getAttribute('oauth_client_id', '');
-
-        $userLoader = function (string $userIdentifier) use ($oauthClientId): UserInterface {
-            if ($oauthClientId === $userIdentifier) {
-                return new ClientCredentialsUser($oauthClientId);
-            }
-
-            return $this->userProvider->loadUserByIdentifier($userIdentifier);
-        };
-
-        $passport = new SelfValidatingPassport(new UserBadge($userIdentifier, $userLoader), [
-            new ScopeBadge($scopes),
-        ]);
-
-        $passport->setAttribute('accessTokenId', $accessTokenId);
-        $passport->setAttribute('oauthClientId', $oauthClientId);
-
-        return $passport;
+        return $this->inner->authenticate($request);
     }
 
     public function createToken(Passport $passport, string $firewallName): TokenInterface
     {
-        /** @var string $accessTokenId */
-        $accessTokenId = $passport->getAttribute('accessTokenId');
-
-        /** @var ScopeBadge $scopeBadge */
-        $scopeBadge = $passport->getBadge(ScopeBadge::class);
-
-        /** @var string $oauthClientId */
-        $oauthClientId = $passport->getAttribute('oauthClientId', '');
-
-        return new OAuth2Token($passport->getUser(), $accessTokenId, $oauthClientId, $scopeBadge->getScopes(), self::ROLE_PREFIX);
+        return $this->inner->createToken($passport, $firewallName);
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
@@ -176,10 +136,6 @@ class OAuthBearerAuthenticator implements AuthenticatorInterface, Authentication
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
-        if ($exception instanceof OAuth2AuthenticationException) {
-            return new Response($exception->getMessage(), $exception->getStatusCode(), $exception->getHeaders());
-        }
-
-        throw $exception;
+        return $this->inner->onAuthenticationFailure($request, $exception);
     }
 }

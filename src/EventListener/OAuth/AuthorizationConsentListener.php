@@ -114,6 +114,9 @@ class AuthorizationConsentListener
             $approved = 'approve' === $request->request->get('oauth_decision');
 
             if ($approved) {
+                //Store an OAuthClientGrantPreference for this user+client pair, so the user's choice of scope level, friendly name,
+                // and refresh token TTL is remembered for future grants (and so App\EventListener\OAuth\OAuthScopeResolveListener can narrow the granted scopes to that level).
+
                 $selectedLevel = $this->parseSelectedLevel($request->request->get('oauth_scope_level'), $availableLevels);
                 $friendlyName = $this->parseFriendlyName($request->request->get('oauth_friendly_name'));
                 $ttlDays = $this->parseTtlDays($request->request->get('oauth_ttl_days'));
