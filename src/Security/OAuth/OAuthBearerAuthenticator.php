@@ -29,6 +29,7 @@ use League\Bundle\OAuth2ServerBundle\Security\Authenticator\OAuth2Authenticator;
 use League\OAuth2\Server\ResourceServer;
 use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\DependencyInjection\Attribute\Lazy;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -63,6 +64,15 @@ use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface
  *
  * onAuthenticationSuccess() additionally records per-user/client grant preferences, which the bundle's
  * version (a no-op) knows nothing about.
+ *
+ * ResourceServer is injected #[Lazy]: its constructor eagerly reads and parses var/oauth2/public.key
+ * (League\OAuth2\Server\CryptKey throws if that file doesn't exist yet, e.g. before
+ * partdb:oauth:generate-keys has ever been run). Since this authenticator - and therefore its
+ * ResourceServer dependency - gets instantiated for every request that reaches the firewall regardless
+ * of whether OAuth2 is even enabled or the request carries a Bearer token, an eager ResourceServer would
+ * make the entire app unusable without a keypair already in place. The lazy proxy defers that read until
+ * authenticate()/start() actually touch it, i.e. only once supports() has already confirmed this is a
+ * real (enabled) OAuth2 bearer-token request.
  */
 class OAuthBearerAuthenticator implements AuthenticatorInterface, AuthenticationEntryPointInterface
 {
@@ -76,6 +86,7 @@ class OAuthBearerAuthenticator implements AuthenticatorInterface, Authentication
     public function __construct(
         #[Autowire(service: 'league.oauth2_server.factory.psr_http')]
         HttpMessageFactoryInterface $httpMessageFactory,
+        #[Lazy]
         ResourceServer $resourceServer,
         #[Autowire(service: 'security.user.provider.concrete.app_user_provider')]
         UserProviderInterface $userProvider,

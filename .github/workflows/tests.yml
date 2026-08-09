@@ -118,6 +118,11 @@ jobs:
         run: php bin/console --env test doctrine:database:create --if-not-exists -n
         if: matrix.db-type == 'mysql' || matrix.db-type == 'postgres'
 
+      # .env.test enables the OAuth2 server (OAUTH_SERVER_ENABLED=1), and its tests actually sign/verify
+      # JWTs, so - unlike a real deployment, which works fine without this - CI needs a real keypair.
+      - name: Generate OAuth2 keys
+        run: php bin/console --env test partdb:oauth:generate-keys -n
+
       - name: Do migrations
         run: php bin/console --env test doctrine:migrations:migrate -n
 
