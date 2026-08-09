@@ -46,10 +46,10 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
  * so narrowing here applies consistently for the life of the grant, not just once.
  */
 #[AsEventListener(event: OAuth2Events::SCOPE_RESOLVE)]
-class OAuthScopeResolveListener
+readonly class OAuthScopeResolveListener
 {
     public function __construct(
-        private readonly OAuthClientGrantPreferenceManager $grantPreferences,
+        private OAuthClientGrantPreferenceManager $grantPreferences,
     ) {
     }
 
@@ -59,14 +59,21 @@ class OAuthScopeResolveListener
         if (null === $userIdentifier) {
             // e.g. a client_credentials-style grant with no end user - not used by this app
             // (enable_client_credentials_grant is false), but guard against it regardless.
-            return;
+            throw new \RuntimeException(sprintf(
+                'OAuthScopeResolveListener: no user identifier present for client "%s" - cannot narrow scopes',
+                $event->getClient()->getIdentifier()
+            ));
         }
 
         $preference = $this->grantPreferences->find((string) $userIdentifier, $event->getClient()->getIdentifier());
         if (null === $preference) {
-            // No consent-time preference recorded (e.g. a grant made before this feature existed) -
-            // leave the client's originally-requested scopes untouched rather than silently reducing them.
-            return;
+            // No consent-time preference recorded (e.g. a grant made before this feature existed)
+            throw new \RuntimeException(sprintf(
+                'OAuthScopeResolveListener: no grant preference found for user "%s" and client "%s" - cannot narrow scopes',
+                $userIdentifier,
+                $event->getClient()->getIdentifier()
+            ));
+
         }
 
         $allowedScopeNames = array_map(

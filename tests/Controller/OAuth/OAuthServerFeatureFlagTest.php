@@ -22,7 +22,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\OAuth;
 
+use App\Entity\UserSystem\ApiTokenLevel;
 use App\Entity\UserSystem\User;
+use App\Services\OAuth\OAuthClientGrantPreferenceManager;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Entity\User as LeagueUser;
 use League\Bundle\OAuth2ServerBundle\Manager\ClientManagerInterface;
@@ -170,6 +172,17 @@ final class OAuthServerFeatureFlagTest extends WebTestCase
         $httpClient = static::createClient();
         $redirectUri = 'https://client.example.invalid/callback';
         $oauthClient = $this->createTestClient($httpClient, $redirectUri);
+
+        // OAuthScopeResolveListener now rejects token issuance for a (user, client) pair with no
+        // consent-time grant preference on file - this test isn't concerned with scope narrowing, so
+        // just satisfy the precondition.
+        $httpClient->getContainer()->get(OAuthClientGrantPreferenceManager::class)->save(
+            'admin',
+            $oauthClient->getIdentifier(),
+            ApiTokenLevel::READ_ONLY,
+            null,
+            null,
+        );
 
         $authServer = $httpClient->getContainer()->get(AuthorizationServer::class);
         $psr17 = new Psr17Factory();

@@ -42,7 +42,9 @@ use Nyholm\Psr7\Factory\Psr17Factory;
  * Covers the two things that only take effect at token-issuance time, below the consent screen already
  * covered by App\Tests\EventListener\OAuth\AuthorizationConsentListenerTest:
  *  - App\EventListener\OAuth\OAuthScopeResolveListener actually narrowing the granted scope to whatever
- *    App\Services\OAuth\OAuthClientGrantPreferenceManager has on file for the (user, client) pair, and
+ *    App\Services\OAuth\OAuthClientGrantPreferenceManager has on file for the (user, client) pair, rejecting
+ *    the grant outright rather than falling back to the client's full requested scope when no preference
+ *    is on file, and
  *  - App\Doctrine\OAuth\RefreshTokenTtlRepositoryDecorator actually applying a configured refresh token TTL.
  *
  * Drives AuthorizationServer directly (bypassing the consent-screen UI, like
@@ -181,19 +183,16 @@ final class OAuthScopeNarrowingAndTtlTest extends ApiTestCase
         self::assertSame(['edit', 'read_only'], $scopeNames);
     }
 
-    public function testNoPreferenceLeavesFullRequestedScopeGranted(): void
+    public function testNoPreferenceIsRejectedRatherThanGrantingFullScope(): void
     {
         $httpClient = static::createClient();
         $redirectUri = 'https://client.example.invalid/callback';
         $oauthClient = $this->createTestClient($httpClient, $redirectUri, ['read_only', 'edit']);
 
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('no grant preference found');
+
         $this->issueTokenForScopes($httpClient, $oauthClient, $redirectUri, ['read_only', 'edit']);
-
-        $accessToken = $this->findAccessTokenForClient($httpClient, $oauthClient);
-        $scopeNames = array_map(static fn (Scope $s) => (string) $s, $accessToken->getScopes());
-        sort($scopeNames);
-
-        self::assertSame(['edit', 'read_only'], $scopeNames);
     }
 
     public function testTtlPreferenceOverridesRefreshTokenExpiry(): void
@@ -218,11 +217,19 @@ final class OAuthScopeNarrowingAndTtlTest extends ApiTestCase
         self::assertEqualsWithDelta($expectedExpiry->getTimestamp(), $refreshToken->getExpiry()->getTimestamp(), 120);
     }
 
-    public function testDefaultRefreshTokenTtlIsUnaffectedWithoutPreference(): void
+    public function testDefaultRefreshTokenTtlAppliesWhenPreferenceHasNoTtlOverride(): void
     {
         $httpClient = static::createClient();
         $redirectUri = 'https://client.example.invalid/callback';
         $oauthClient = $this->createTestClient($httpClient, $redirectUri, ['read_only']);
+
+        $httpClient->getContainer()->get(OAuthClientGrantPreferenceManager::class)->save(
+            'admin',
+            $oauthClient->getIdentifier(),
+            ApiTokenLevel::READ_ONLY,
+            null,
+            null,
+        );
 
         $this->issueTokenForScopes($httpClient, $oauthClient, $redirectUri, ['read_only']);
 

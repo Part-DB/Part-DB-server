@@ -24,6 +24,8 @@ namespace App\Tests\Security\OAuth;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use ApiPlatform\Symfony\Bundle\Test\Client;
+use App\Entity\UserSystem\ApiTokenLevel;
+use App\Services\OAuth\OAuthClientGrantPreferenceManager;
 use League\Bundle\OAuth2ServerBundle\Entity\User as LeagueUser;
 use League\Bundle\OAuth2ServerBundle\Manager\ClientManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Model\Client as OAuthClientModel;
@@ -61,6 +63,22 @@ final class OAuthBearerAuthenticationTest extends ApiTestCase
         $client->getContainer()->get(ClientManagerInterface::class)->save($oauthClient);
 
         return $oauthClient;
+    }
+
+    /**
+     * OAuthScopeResolveListener rejects any token issuance for a (user, client) pair with no
+     * consent-time grant preference on file, so every test in this class - which is concerned with
+     * bearer-auth/PKCE/refresh-rotation behavior, not scope-narrowing itself - needs one set up first.
+     */
+    private function saveGrantPreference(Client $client, OAuthClientModel $oauthClient, ApiTokenLevel $level): void
+    {
+        $client->getContainer()->get(OAuthClientGrantPreferenceManager::class)->save(
+            'admin',
+            $oauthClient->getIdentifier(),
+            $level,
+            null,
+            null,
+        );
     }
 
     /**
@@ -132,6 +150,7 @@ final class OAuthBearerAuthenticationTest extends ApiTestCase
         $httpClient = static::createClient();
         $redirectUri = 'https://client.example.invalid/callback';
         $oauthClient = $this->createTestClient($httpClient, $redirectUri, ['read_only']);
+        $this->saveGrantPreference($httpClient, $oauthClient, ApiTokenLevel::READ_ONLY);
         $data = $this->issueTokenForScopes($httpClient, $oauthClient, $redirectUri, ['read_only']);
 
         self::assertArrayHasKey('access_token', $data);
@@ -153,6 +172,7 @@ final class OAuthBearerAuthenticationTest extends ApiTestCase
         //App\Entity\UserSystem\ApiTokenLevel::getAdditionalRoles()); OAuth2 scopes are not cumulative,
         //so the client/token must request every level it needs explicitly.
         $oauthClient = $this->createTestClient($httpClient, $redirectUri, ['read_only', 'edit', 'admin', 'full']);
+        $this->saveGrantPreference($httpClient, $oauthClient, ApiTokenLevel::FULL);
         $data = $this->issueTokenForScopes($httpClient, $oauthClient, $redirectUri, ['read_only', 'edit', 'admin', 'full']);
 
         $httpClient->request('GET', '/api/parts', $this->bearer($data['access_token']));
@@ -167,6 +187,7 @@ final class OAuthBearerAuthenticationTest extends ApiTestCase
         $httpClient = static::createClient();
         $redirectUri = 'https://client.example.invalid/callback';
         $oauthClient = $this->createTestClient($httpClient, $redirectUri, ['read_only']);
+        $this->saveGrantPreference($httpClient, $oauthClient, ApiTokenLevel::READ_ONLY);
 
         $authServer = $httpClient->getContainer()->get(AuthorizationServer::class);
         $psr17 = new Psr17Factory();
@@ -210,6 +231,7 @@ final class OAuthBearerAuthenticationTest extends ApiTestCase
         $httpClient = static::createClient();
         $redirectUri = 'https://client.example.invalid/callback';
         $oauthClient = $this->createTestClient($httpClient, $redirectUri, ['read_only']);
+        $this->saveGrantPreference($httpClient, $oauthClient, ApiTokenLevel::READ_ONLY);
         $first = $this->issueTokenForScopes($httpClient, $oauthClient, $redirectUri, ['read_only']);
 
         $authServer = $httpClient->getContainer()->get(AuthorizationServer::class);
