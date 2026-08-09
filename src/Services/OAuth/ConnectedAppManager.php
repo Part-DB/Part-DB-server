@@ -38,16 +38,19 @@ use League\Bundle\OAuth2ServerBundle\Model\RefreshToken;
  * token for that user; a client the user approved but whose grant has since fully expired or been revoked
  * no longer shows up here (there's nothing left for the user to revoke).
  */
-class ConnectedAppManager
+readonly class ConnectedAppManager
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
-        private readonly ClientManagerInterface $clientManager,
-        private readonly OAuthClientGrantPreferenceManager $grantPreferences,
+        private EntityManagerInterface $entityManager,
+        private ClientManagerInterface $clientManager,
+        private OAuthClientGrantPreferenceManager $grantPreferences,
     ) {
     }
 
     /**
+     * Returns a list of all OAuth2 clients for a specific user that currently hold a live (non-revoked, non-expired) access token or refresh token for that user,
+     * along with the expiry date of the latest token, the user's friendly name for that client (if any), the scope level granted, and the last used and connected timestamps.
+     * Uses at the user settings page
      * @return list<array{client: ClientInterface, expiry: \DateTimeInterface, friendlyName: ?string, scopeLevel: ?ApiTokenLevel, lastUsedAt: ?\DateTimeImmutable, connectedAt: ?\DateTimeImmutable}>
      */
     public function listConnectedClients(string $userIdentifier): array
@@ -117,6 +120,7 @@ class ConnectedAppManager
      */
     public function revokeForUserAndClient(string $userIdentifier, string $clientIdentifier): void
     {
+        // Revoke all access tokens for this user+client pair
         $this->entityManager->createQueryBuilder()
             ->update(AccessToken::class, 'at')
             ->set('at.revoked', ':revoked')

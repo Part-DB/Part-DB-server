@@ -32,10 +32,10 @@ use Doctrine\ORM\EntityManagerInterface;
  * name, and a refresh token TTL - plus last-use tracking used by App\Security\OAuth\OAuthBearerAuthenticator
  * (the OAuth equivalent of App\Entity\UserSystem\ApiToken::$last_time_used).
  */
-class OAuthClientGrantPreferenceManager
+readonly class OAuthClientGrantPreferenceManager
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
+        private EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -45,6 +45,11 @@ class OAuthClientGrantPreferenceManager
             ->findOneBy(['userIdentifier' => $userIdentifier, 'clientIdentifier' => $clientIdentifier]);
     }
 
+    /*
+     * Creates or updates a user's preference for a given OAuth2 client, including the granted scope level,
+     * optional friendly name, and refresh token TTL. Returns the saved preference entity.
+     * If no existing preference exists, a new one is created; if one exists, it is updated with the new values.
+     */
     public function save(
         string $userIdentifier,
         string $clientIdentifier,
