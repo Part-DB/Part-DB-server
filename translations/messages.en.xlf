@@ -13928,7 +13928,7 @@ Buerklin-API Authentication server:
     <unit id="whHHRxz" name="oauth.authorize.scope_level.help">
       <segment>
         <source>oauth.authorize.scope_level.help</source>
-        <target>You can grant a more restrictive access level than the application requested.</target>
+        <target>You can grant a more restrictive access level than the application requested, but it might break compatibility with the application.</target>
       </segment>
     </unit>
     <unit id="jQbm4mO" name="oauth.authorize.friendly_name.label">
