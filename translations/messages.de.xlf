@@ -12522,7 +12522,7 @@ Buerklin-API-Authentication-Server:
     <unit id="Gt.91s_" name="perm.system.manage_updates">
       <segment state="translated">
         <source>perm.system.manage_updates</source>
-        <target>Part-DB Updated verwalten</target>
+        <target>Part-DB Updates verwalten</target>
       </segment>
     </unit>
     <unit id="Mw2sya4" name="update_manager.create_backup">
