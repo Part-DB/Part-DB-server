@@ -105,13 +105,26 @@ Claude Desktop's configuration file (**Settings → Developer → Edit Config**)
         "mcp-remote",
         "https://your-part-db.local/mcp",
         "--header",
-        "Authorization: Bearer tcp_<your-token>"
-      ]
+        "Authorization:${AUTH_HEADER}"
+      ],
+      "env": {
+        "AUTH_HEADER": "Bearer tcp_<your-token>"
+      }
     }
   }
 }
 ```
 
+{: .note }
+> The header is split into `--header "Authorization:${AUTH_HEADER}"` plus an `env` entry, instead of the more obvious
+> `--header "Authorization: Bearer tcp_<your-token>"`, to avoid a
+> [known `mcp-remote`/Claude Desktop bug on Windows](https://github.com/Part-DB/Part-DB-server/issues/1480): Claude
+> Desktop passes `args` to `npx.cmd` via `cmd /C`, which mishandles quoting when an argument contains a space. Since
+> `npx` on Windows resolves to a `.cmd` file, this breaks whenever Node.js is installed at its default location
+> (`C:\Program Files\nodejs`), because that path also contains a space. Keeping every argument space-free avoids the
+> bug; `${AUTH_HEADER}` is expanded by `mcp-remote` itself from the `env` block, not by the shell, and the missing
+> space after `Authorization:` is intentional — `mcp-remote` re-adds it when parsing the header. This form also works
+> unchanged on macOS and Linux.
 
 ### Claude.ai (remote connector)
 
