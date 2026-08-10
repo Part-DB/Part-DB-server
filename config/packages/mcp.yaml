@@ -12,6 +12,11 @@ mcp:
         stdio: false
     http:
         path: "/mcp"
+        # The MCP SDK's own DNS-rebinding protection only allows "localhost" by default, which would reject the
+        # Host header of any real deployment. We disable it here and rely on framework.trusted_hosts (configured via
+        # the TRUSTED_HOSTS env var, see config/packages/framework.yaml) instead, which already validates the Host
+        # header for every request, MCP included.
+        allowed_hosts: false
         session:
             store: "file"
             directory: "%kernel.cache_dir%/mcp"

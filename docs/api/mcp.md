@@ -39,6 +39,11 @@ Once enabled, the MCP server is reachable under the `/mcp` path of your Part-DB 
 `https://your-part-db.local/mcp`). Unlike most other Part-DB pages, this path is **not** locale-prefixed (so it is
 `/mcp`, not `/en/mcp`).
 
+{: .note }
+> If your MCP client gets a `Forbidden: Invalid Host header` response, set the `TRUSTED_HOSTS` environment variable
+> (see the comments in `.env`) to include your Part-DB domain name. The MCP endpoint validates the `Host` header
+> against this setting, just like the rest of Part-DB.
+
 ## Permissions
 
 Users which should be allowed to use the MCP tools additionally need the **Use MCP tools (for AI agents)** permission
