@@ -111,8 +111,9 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
     /**
      * @var Project|null
      */
+    #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'bom_entries')]
-    #[ORM\JoinColumn(name: 'id_device')]
+    #[ORM\JoinColumn(name: 'id_device', nullable: false, onDelete: 'CASCADE')]
     #[Groups(['bom_entry:read', 'bom_entry:write', ])]
     protected ?Project $project = null;
 

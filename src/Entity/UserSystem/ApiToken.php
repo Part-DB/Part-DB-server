@@ -37,6 +37,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -71,7 +72,9 @@ class ApiToken implements TimeStampableInterface
     #[Groups('token:read')]
     protected string $name = '';
 
+    #[Assert\NotNull]
     #[ORM\ManyToOne(inversedBy: 'api_tokens')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     #[Groups('token:read')]
     private ?User $user = null;
 
