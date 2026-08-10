@@ -66,6 +66,7 @@ A browser plugin allows to quickly submit parts from any website to your Part-DB
 * API to access Part-DB from other applications/scripts
 * [Integration with KiCad](https://docs.part-db.de/usage/eda_integration.html): Use Part-DB as the central datasource for your
   KiCad and see available parts from Part-DB directly inside KiCad.
+* MCP Server for letting AI agents and chats access your Part-DB instance to allow them to answer questions about your inventory
 
 With these features, Part-DB is useful to hobbyists, who want to keep track of their private electronic parts inventory,
 or maker spaces, where many users should have (controlled) access to the shared inventory.
