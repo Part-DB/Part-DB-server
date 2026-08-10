@@ -25,6 +25,7 @@
                 <th>{% trans %}oauth_clients.redirect_uris{% endtrans %}</th>
                 <th>{% trans %}oauth_clients.status{% endtrans %}</th>
                 <th>{% trans %}oauth_clients.live_tokens{% endtrans %}</th>
+                <th>{% trans %}oauth_clients.live_refresh_tokens{% endtrans %}</th>
                 <th></th>
             </tr>
             </thead>
@@ -51,6 +52,7 @@
                         {% endif %}
                     </td>
                     <td>{{ row.liveTokenCount }}</td>
+                    <td>{{ row.liveRefreshTokenCount }}</td>
                     <td class="text-nowrap">
                         <a href="{{ path('oauth_clients_edit', {'identifier': client.identifier}) }}" class="btn btn-secondary btn-sm">
                             <i class="fa-solid fa-pen fa-fw" aria-hidden="true"></i> {% trans %}oauth_clients.edit{% endtrans %}

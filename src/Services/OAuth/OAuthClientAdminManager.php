@@ -39,8 +39,8 @@ use League\Bundle\OAuth2ServerBundle\ValueObject\Scope;
 /**
  * Backs the admin OAuth2 client overview (App\Controller\OAuthClientAdminController) - listing every
  * registered client (almost always RFC 7591 self-registered, see that controller's docblock) with how
- * many currently-live access tokens each one holds, and permanently removing a client plus everything it
- * was ever granted.
+ * many currently-live access and refresh tokens each one holds, and permanently removing a client plus
+ * everything it was ever granted.
  *
  * Deliberately does NOT use League\Bundle\OAuth2ServerBundle\Service\CredentialsRevokerInterface's
  * DoctrineCredentialsRevoker: it unconditionally also issues an UPDATE against the DeviceCode model/table,
@@ -182,12 +182,14 @@ class OAuthClientAdminManager
     }
 
     /**
-     * List every registered client, with how many currently-live access tokens each one holds and whether it was dynamically registered (RFC 7591) or manually created by an admin.
-     * @return list<array{client: ClientInterface, liveTokenCount: int, dynamicallyRegistered: bool}>
+     * List every registered client, with how many currently-live access and refresh tokens each one holds
+     * and whether it was dynamically registered (RFC 7591) or manually created by an admin.
+     * @return list<array{client: ClientInterface, liveTokenCount: int, liveRefreshTokenCount: int, dynamicallyRegistered: bool}>
      */
     public function listClientsWithLiveTokenCounts(): array
     {
         $clients = $this->clientManager->list(null);
+        $now = new \DateTimeImmutable();
 
         $rows = $this->entityManager->createQueryBuilder()
             ->select('IDENTITY(at.client) as clientId', 'COUNT(at.identifier) as tokenCount')
@@ -195,7 +197,7 @@ class OAuthClientAdminManager
             ->where('at.revoked = false')
             ->andWhere('at.expiry > :now')
             ->groupBy('at.client')
-            ->setParameter('now', new \DateTimeImmutable())
+            ->setParameter('now', $now)
             ->getQuery()
             ->getResult();
 
@@ -203,6 +205,25 @@ class OAuthClientAdminManager
         $countByClientId = [];
         foreach ($rows as $row) {
             $countByClientId[$row['clientId']] = (int) $row['tokenCount'];
+        }
+
+        // Refresh tokens reference an access token (not the client directly), so the client has to be
+        // reached via that access token - see deleteAllCredentialsForClient() for the same relationship.
+        $refreshRows = $this->entityManager->createQueryBuilder()
+            ->select('IDENTITY(at.client) as clientId', 'COUNT(rt.identifier) as tokenCount')
+            ->from(RefreshToken::class, 'rt')
+            ->join(AccessToken::class, 'at', 'WITH', 'at.identifier = IDENTITY(rt.accessToken)')
+            ->where('rt.revoked = false')
+            ->andWhere('rt.expiry > :now')
+            ->groupBy('at.client')
+            ->setParameter('now', $now)
+            ->getQuery()
+            ->getResult();
+
+        /** @var array<string, int> $refreshCountByClientId */
+        $refreshCountByClientId = [];
+        foreach ($refreshRows as $row) {
+            $refreshCountByClientId[$row['clientId']] = (int) $row['tokenCount'];
         }
 
         $dynamicIdentifiers = array_flip($this->entityManager->createQueryBuilder()
@@ -214,6 +235,7 @@ class OAuthClientAdminManager
         return array_map(static fn (ClientInterface $client): array => [
             'client' => $client,
             'liveTokenCount' => $countByClientId[$client->getIdentifier()] ?? 0,
+            'liveRefreshTokenCount' => $refreshCountByClientId[$client->getIdentifier()] ?? 0,
             'dynamicallyRegistered' => isset($dynamicIdentifiers[$client->getIdentifier()]),
         ], $clients);
     }

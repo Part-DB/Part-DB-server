@@ -14133,6 +14133,12 @@ Buerklin-API-Authentication-Server:
         <target>Aktive Zugriffstoken</target>
       </segment>
     </unit>
+    <unit id="FxxYm5n" name="oauth_clients.live_refresh_tokens">
+      <segment state="translated">
+        <source>oauth_clients.live_refresh_tokens</source>
+        <target>Aktive Refresh-Token</target>
+      </segment>
+    </unit>
     <unit id="CjdVrcW" name="oauth_clients.delete">
       <segment state="translated">
         <source>oauth_clients.delete</source>

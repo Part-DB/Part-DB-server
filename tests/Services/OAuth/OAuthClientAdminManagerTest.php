@@ -28,8 +28,10 @@ use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Manager\AccessTokenManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Manager\ClientManagerInterface;
+use League\Bundle\OAuth2ServerBundle\Manager\RefreshTokenManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Model\AccessToken;
 use League\Bundle\OAuth2ServerBundle\Model\Client;
+use League\Bundle\OAuth2ServerBundle\Model\RefreshToken;
 use League\Bundle\OAuth2ServerBundle\ValueObject\Grant;
 use League\Bundle\OAuth2ServerBundle\ValueObject\RedirectUri;
 use League\Bundle\OAuth2ServerBundle\ValueObject\Scope;
@@ -44,6 +46,7 @@ final class OAuthClientAdminManagerTest extends KernelTestCase
 
         $clientManager = $container->get(ClientManagerInterface::class);
         $accessTokenManager = $container->get(AccessTokenManagerInterface::class);
+        $refreshTokenManager = $container->get(RefreshTokenManagerInterface::class);
         $manager = $container->get(OAuthClientAdminManager::class);
 
         $client = new Client('Admin Manager Test App', 'test-admin-mgr-'.bin2hex(random_bytes(8)), null);
@@ -62,10 +65,18 @@ final class OAuthClientAdminManagerTest extends KernelTestCase
         );
         $accessTokenManager->save($accessToken);
 
+        $refreshToken = new RefreshToken(
+            'rt-'.bin2hex(random_bytes(16)),
+            new \DateTimeImmutable('+1 hour'),
+            $accessToken,
+        );
+        $refreshTokenManager->save($refreshToken);
+
         $rows = $manager->listClientsWithLiveTokenCounts();
         $row = self::findRowForClient($rows, $client->getIdentifier());
         self::assertNotNull($row);
         self::assertSame(1, $row['liveTokenCount']);
+        self::assertSame(1, $row['liveRefreshTokenCount']);
         self::assertFalse($row['dynamicallyRegistered']);
 
         self::assertTrue($manager->deleteClient($client->getIdentifier()));
@@ -122,8 +133,8 @@ final class OAuthClientAdminManagerTest extends KernelTestCase
     }
 
     /**
-     * @param list<array{client: \League\Bundle\OAuth2ServerBundle\Model\ClientInterface, liveTokenCount: int, dynamicallyRegistered: bool}> $rows
-     * @return array{client: \League\Bundle\OAuth2ServerBundle\Model\ClientInterface, liveTokenCount: int, dynamicallyRegistered: bool}|null
+     * @param list<array{client: \League\Bundle\OAuth2ServerBundle\Model\ClientInterface, liveTokenCount: int, liveRefreshTokenCount: int, dynamicallyRegistered: bool}> $rows
+     * @return array{client: \League\Bundle\OAuth2ServerBundle\Model\ClientInterface, liveTokenCount: int, liveRefreshTokenCount: int, dynamicallyRegistered: bool}|null
      */
     private static function findRowForClient(array $rows, string $identifier): ?array
     {
