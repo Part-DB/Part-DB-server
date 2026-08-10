@@ -26,7 +26,9 @@ namespace App\Services\InfoProviderSystem\Providers;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
+#[AutoconfigureTag('app.info_provider')]
 interface InfoProviderInterface
 {
     public const OPTION_NO_CACHE = 'no_cache'; // if set to true, the provider should not use any cache and retrieve fresh data from the source

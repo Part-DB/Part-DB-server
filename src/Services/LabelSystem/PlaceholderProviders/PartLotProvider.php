@@ -48,10 +48,13 @@ use App\Services\Formatters\AmountFormatter;
 use App\Services\LabelSystem\LabelTextReplacer;
 use IntlDateFormatter;
 use Locale;
+use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
 
 /**
  * @see \App\Tests\Services\LabelSystem\PlaceholderProviders\PartLotProviderTest
  */
+// Must be invoked before all other providers, so it can override %%NAME%% placeholder
+#[AsTaggedItem(priority: 10)]
 final readonly class PartLotProvider implements PlaceholderProviderInterface
 {
     public function __construct(private LabelTextReplacer $labelTextReplacer, private AmountFormatter $amountFormatter)

@@ -28,12 +28,14 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Cache\UserCacheKeyGenerator;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
 use Doctrine\ORM\Event\PostPersistEventArgs;
 use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
+#[AsEntityListener]
 class TreeCacheInvalidationListener
 {
     public function __construct(

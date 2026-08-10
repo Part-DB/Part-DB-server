@@ -25,7 +25,10 @@ namespace App\DataTables\Helpers;
 
 use Omines\DataTablesBundle\DataTable;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
+// Service has a state so not share it between different tables
+#[Autoconfigure(shared: false)]
 class ColumnSortHelper
 {
     private array $columns = [];

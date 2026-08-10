@@ -26,7 +26,9 @@ use Doctrine\Bundle\FixturesBundle\Purger\PurgerFactory;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\Common\DataFixtures\Purger\PurgerInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
+#[Autoconfigure(tags: [['name' => 'doctrine.fixtures.purger_factory', 'alias' => 'reset_autoincrement_purger']])]
 class ResetAutoIncrementPurgerFactory implements PurgerFactory
 {
 

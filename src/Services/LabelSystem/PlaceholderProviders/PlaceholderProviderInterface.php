@@ -41,6 +41,9 @@ declare(strict_types=1);
 
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
+
+#[AutoconfigureTag('app.label_placeholder_provider')]
 interface PlaceholderProviderInterface
 {
     /**

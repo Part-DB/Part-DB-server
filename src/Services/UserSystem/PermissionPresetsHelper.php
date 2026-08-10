@@ -24,7 +24,10 @@ namespace App\Services\UserSystem;
 
 use App\Entity\UserSystem\PermissionData;
 use App\Security\Interfaces\HasPermissionsInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
+// We are needing this service inside a migration, where only the container is injected. So we need to define it as public, to access it from the container.
+#[Autoconfigure(public: true)]
 class PermissionPresetsHelper
 {
     final public const PRESET_ALL_INHERIT = 'all_inherit';

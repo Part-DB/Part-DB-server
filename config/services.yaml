@@ -16,13 +16,6 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-    _instanceof:
-        App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface:
-            tags: ['app.label_placeholder_provider']
-
-        App\Services\InfoProviderSystem\Providers\InfoProviderInterface:
-            tags: ['app.info_provider']
-
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -70,22 +63,11 @@ services:
             - { timeout: '%env(int:settings:ai_openrouter:timeout)%' }
 
     ####################################################################################################################
-    # Email
-    ####################################################################################################################
-
-    App\EventSubscriber\SetMailFromSubscriber:
-        tags: ['kernel.event_subscriber']
-
-    ####################################################################################################################
     # Attachment system
     ####################################################################################################################
 
     Liip\ImagineBundle\Service\FilterService:
         alias: 'liip_imagine.service.filter'
-
-    App\EntityListeners\AttachmentDeleteListener:
-        tags:
-            - name: doctrine.orm.entity_listener
 
     ####################################################################################################################
     # Security
@@ -108,36 +90,6 @@ services:
                 - '@security.access_token_extractor.header.token'
 
     ####################################################################################################################
-    # Cache
-    ####################################################################################################################
-
-    App\EntityListeners\TreeCacheInvalidationListener:
-        tags:
-            - { name: doctrine.orm.entity_listener }
-
-    ###################################################################################################################
-    # User system
-    ####################################################################################################################
-    App\Services\TranslationExtractor\PermissionExtractor:
-        tags:
-            - { name: 'translation.extractor', alias: 'permissionExtractor'}
-
-    ####################################################################################################################
-    # Table settings
-    ####################################################################################################################
-
-    App\DataTables\Helpers\ColumnSortHelper:
-        shared: false   # Service has a state so not share it between different tables
-
-    ####################################################################################################################
-    # Label system
-    ####################################################################################################################
-    # PartLotProvider must be invoked before all other providers, so it can override %%NAME%% placeholder
-    App\Services\LabelSystem\PlaceholderProviders\PartLotProvider:
-        tags:
-            - { name: 'app.label_placeholder_provider', priority: 10}
-
-    ####################################################################################################################
     # Symfony overrides
     ####################################################################################################################
 
@@ -156,21 +108,6 @@ services:
 
 
     ####################################################################################################################
-    # Miscellaneous
-    ####################################################################################################################
-    App\Repository\PartRepository:
-        tags: ['doctrine.repository_service']
-
-    App\EventSubscriber\UserSystem\PartUniqueIpnSubscriber:
-        tags:
-            - { name: doctrine.event_listener, event: onFlush, connection: default }
-
-
-    # We are needing this service inside a migration, where only the container is injected. So we need to define it as public, to access it from the container.
-    App\Services\UserSystem\PermissionPresetsHelper:
-        public: true
-
-    ####################################################################################################################
     # Monolog
     ####################################################################################################################
     # Add various monolog processors to log more information
@@ -186,10 +123,6 @@ services:
         autowire: true
         tags:
             - { name: monolog.processor }
-
-    App\Doctrine\Purger\ResetAutoIncrementPurgerFactory:
-        tags:
-            - { name: 'doctrine.fixtures.purger_factory', alias: 'reset_autoincrement_purger' }
 
 when@test: &test
     services:

@@ -6,10 +6,12 @@ namespace App\EventSubscriber\UserSystem;
 
 use App\Entity\Parts\Part;
 use App\Settings\MiscSettings\IpnSuggestSettings;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 
+#[AsDoctrineListener(event: Events::onFlush, connection: 'default')]
 class PartUniqueIpnSubscriber implements EventSubscriber
 {
     public function __construct(
