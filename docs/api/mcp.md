@@ -113,6 +113,50 @@ Claude Desktop's configuration file (**Settings → Developer → Edit Config**)
 ```
 
 
+### Claude.ai (remote connector)
+
+Unlike Claude Desktop's local-only config file (see above), Claude.ai (the web app, and the Claude mobile/desktop
+apps once signed in) can add Part-DB directly as a **remote connector** over Streamable HTTP, with no `mcp-remote`
+proxy and no manually created API token. Instead, Claude authenticates via [OAuth2]({% link api/oauth.md %}), so
+this method requires the OAuth2 server to be enabled (`OAUTH_SERVER_ENABLED=1`).
+
+{: .note }
+> Custom connectors are only available on paid Claude plans (Pro, Max, Team or Enterprise), not the free plan.
+
+1. In Claude, go to **Settings → Connectors → Add custom connector**.
+2. Enter your Part-DB MCP endpoint URL, e.g. `https://your-part-db.local/mcp`, and confirm.
+3. Claude redirects you to Part-DB's `/oauth/authorize` login-and-consent screen. If Dynamic Client Registration
+   (`OAUTH_DCR_ENABLED=1`) is enabled, Claude registers itself as an OAuth client on the fly; otherwise an
+   administrator first needs to register Claude as a client by hand on the `/tools/oauth_clients` admin page, using
+   the redirect URI Claude shows at this step.
+4. Log in (if you aren't already) and approve the requested scope — **Read-Only** is enough. Claude then obtains and
+   manages its own access and refresh tokens, so there is nothing further to configure.
+
+### ChatGPT (remote connector)
+
+Similar to Claude.ai, ChatGPT can add Part-DB as a remote connector over Streamable HTTP, authenticating via
+[OAuth2]({% link api/oauth.md %}) instead of a manually pasted token. Full, unrestricted tool access currently
+requires enabling ChatGPT's **Developer mode**, since ChatGPT's regular built-in connectors restrict custom MCP
+servers to search/fetch-style actions.
+
+{: .note }
+> Custom connectors require a paid ChatGPT plan (Plus, Pro, Team, Enterprise or Edu) and are not available on the
+> free plan.
+
+1. In ChatGPT, go to **Settings → Connectors**, open **Advanced settings**, and enable **Developer mode** (needed to
+   use the full set of Part-DB's MCP tools, rather than only the restricted search/fetch actions regular connectors
+   get).
+2. Back on the **Connectors** page, choose **Create** and enter your Part-DB MCP endpoint URL, e.g.
+   `https://your-part-db.local/mcp`, together with a name for the connector.
+3. Select **OAuth** as the authentication method and save. ChatGPT redirects you to Part-DB's `/oauth/authorize`
+   login-and-consent screen. As with Claude.ai, this requires the OAuth2 server to be enabled
+   (`OAUTH_SERVER_ENABLED=1`); if Dynamic Client Registration (`OAUTH_DCR_ENABLED=1`) is off, an administrator first
+   needs to register ChatGPT as a client by hand on the `/tools/oauth_clients` admin page, using the redirect URI
+   ChatGPT shows at this step.
+4. Log in (if you aren't already) and approve the requested scope — **Read-Only** is enough. ChatGPT then obtains
+   and manages its own access and refresh tokens.
+5. Enable the Part-DB connector for a chat via the tools/**+** menu to start using it.
+
 ### Google Antigravity
 
 Open **Manage MCP Servers** and add the server via its JSON configuration:
