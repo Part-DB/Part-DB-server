@@ -1,4 +1,4 @@
-# Generated on Mon Jul 27 05:55:56 UTC 2026
+# Generated on Mon Aug 10 04:01:24 UTC 2026
 # This file contains all footprints available in the offical KiCAD library
 Audio_Module:Reverb_BTDR-1H
 Audio_Module:Reverb_BTDR-1V
@@ -8280,6 +8280,7 @@ Converter_ACDC:Converter_ACDC_TRACO_TMG_151xx_THT
 Converter_ACDC:Converter_ACDC_TRACO_TMLM-04_THT
 Converter_ACDC:Converter_ACDC_TRACO_TMLM-05_THT
 Converter_ACDC:Converter_ACDC_TRACO_TMLM-10-20_THT
+Converter_ACDC:Converter_ACDC_TRACO_TMPS03-1xx_THT
 Converter_ACDC:Converter_ACDC_TRACO_TMPW10_1xx_THT
 Converter_ACDC:Converter_ACDC_TRACO_TMPW25_1xx_THT
 Converter_ACDC:Converter_ACDC_TRACO_TMPW5-1xx_THT
