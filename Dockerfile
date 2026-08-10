@@ -37,7 +37,7 @@ COPY src ./src
 COPY translations ./translations
 COPY public ./public
 COPY assets ./assets
-COPY webpack.config.js ./
+COPY webpack.config.mjs ./
 
 # Generate autoloader
 RUN composer dump-autoload
