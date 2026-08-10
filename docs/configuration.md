@@ -67,6 +67,11 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
 * `DATABASE_EMULATE_NATURAL_SORT` (default 0) (env only): If set to 1, Part-DB will emulate natural sorting, even if the database 
   does not support it natively. However this is much slower than the native sorting, and contain bugs or quirks, so use
   it only, if you have to.
+* `DATABASE_SQLITE_ENFORCE_FOREIGN_KEYS` (default 0) (env only): If set to 1 and a SQLite database is used, foreign key
+  constraints are enforced (`PRAGMA foreign_keys = ON`). SQLite does not enforce them by default. Disabled by default for
+  backwards compatibility with existing installations that may contain data which is not strictly foreign-key-consistent.
+  Before enabling this on an existing installation, run `bin/console partdb:database:check-sqlite-foreign-keys` to check
+  whether any existing rows would already violate a foreign key constraint.
 * `DEFAULT_LANG`: The default language to use server-wide (when no language is explicitly specified by a user or via
   language chooser). Must be something like `en`, `de`, `fr`, etc.
 * `DEFAULT_TIMEZONE`: The default timezone to use globally, when a user has no timezone specified. Must be something

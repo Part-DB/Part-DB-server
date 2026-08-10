@@ -45,6 +45,11 @@ services:
     environment:
       # Put SQLite database in our mapped folder. You can configure some other kind of database here too.
       - DATABASE_URL=sqlite:///%kernel.project_dir%/var/db/app.db
+      # Recommended for new instances: enforce foreign key constraints on the SQLite database (PRAGMA foreign_keys = ON).
+      # SQLite does not enforce them by default. Only enable this on a fresh database - if you are reusing an existing
+      # SQLite database file, first run "partdb:database:check-sqlite-foreign-keys" to check it does not already
+      # contain rows that would violate a foreign key constraint. See the configuration documentation for details.
+      - DATABASE_SQLITE_ENFORCE_FOREIGN_KEYS=1
       # In docker env logs will be redirected to stderr
       - APP_ENV=docker
       # Secret key used to sign cookies and CSRF tokens. MUST be changed to a unique random value before going live!

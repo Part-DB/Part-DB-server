@@ -155,6 +155,17 @@ A full list of configuration options can be  found [here](../configuration.md).
 > ```
 > See the [configuration options](../configuration.md) page for more information about `TRUSTED_HOSTS`.
 
+{: .note }
+> **If you are using the default SQLite database, it is recommended to enable `DATABASE_SQLITE_ENFORCE_FOREIGN_KEYS`
+> for a new installation.** SQLite does not enforce foreign key constraints by default. Add this to your
+> `.env.local`:
+> ```
+> DATABASE_SQLITE_ENFORCE_FOREIGN_KEYS=1
+> ```
+> Only do this for a fresh database. If you are reusing an existing SQLite database file, first run
+> `php bin/console partdb:database:check-sqlite-foreign-keys` to check it does not already contain rows that would
+> violate a foreign key constraint. See [Configuration](../configuration.md) for details.
+
 Please check that the configured base currency matches your mainly used currency, as
 this can not be changed after creating price information.
 
