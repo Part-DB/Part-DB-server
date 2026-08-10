@@ -117,6 +117,8 @@ parameters:
 
   env(ALLOW_ATTACHMENT_DOWNLOADS_FROM_LOCALNETWORK): 0
 
+  env(DATABASE_SQLITE_ENFORCE_FOREIGN_KEYS): 0
+
   ######################################################################################################################
   # Bulk Info Provider Import Configuration
   ######################################################################################################################
