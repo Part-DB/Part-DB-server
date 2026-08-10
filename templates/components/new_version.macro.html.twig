@@ -3,6 +3,9 @@
         <div class="alert alert-success" role="alert">
             <h5><i class="fa-solid fa-champagne-glasses"></i> {% trans %}update_manager.new_version_available.title{% endtrans %}</h5>
             {% trans %}update_manager.new_version_available.text{% endtrans %}: <b><a href="{{ new_version_url }}" class="alert-link link-external" target="_blank">{% trans %}version.caption{% endtrans %} {{ new_version }}</a></b>
+            {% if is_granted('@system.show_updates') %}
+                <br><a href="{{ path('admin_update_manager') }}" class="alert-link">{% trans %}update_manager.title{% endtrans %}</a>
+            {% endif %}
             <br><small>{% trans %}update_manager.new_version_available.only_administrators_can_see{% endtrans %}</small>
         </div>
     {% endif %}
