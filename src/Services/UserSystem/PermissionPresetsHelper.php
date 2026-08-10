@@ -111,6 +111,9 @@ class PermissionPresetsHelper
 
         //Allow to manage Oauth tokens
         $this->permissionResolver->setPermission($perm_holder, 'system', 'manage_oauth_tokens', PermissionData::ALLOW);
+        //And oauth clients
+        $this->permissionResolver->setPermission($perm_holder, 'system', 'manage_oauth_clients', PermissionData::ALLOW);
+
         //Allow to show and manage updates
         $this->permissionResolver->setPermission($perm_holder, 'system', 'show_updates', PermissionData::ALLOW);
         $this->permissionResolver->setPermission($perm_holder, 'system', 'manage_updates', PermissionData::ALLOW);
