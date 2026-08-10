@@ -122,8 +122,7 @@ need to specify the path manually. In the example the database will be created a
 {: .note }
 > By default, SQLite does not enforce foreign key constraints, so it will happily accept some operations that would
 > corrupt data integrity (e.g. leave a row pointing at a deleted parent row). For a new installation, it is recommended
-> to set `DATABASE_SQLITE_ENFORCE_FOREIGN_KEYS=1` to have SQLite enforce them (see [Configuration]({% link
-> ../configuration.md %}) for details). Do not enable this on an existing installation without first running
+> to set `DATABASE_SQLITE_ENFORCE_FOREIGN_KEYS=1` to have SQLite enforce them (see [Configuration]({% link configuration.md %}) for details). Do not enable this on an existing installation without first running
 > `php bin/console partdb:database:check-sqlite-foreign-keys` to check whether the database already contains rows
 > that would violate a foreign key constraint.
 
