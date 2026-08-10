@@ -27,6 +27,7 @@ use App\Settings\SystemSettings\LocalizationSettings;
 use function function_exists;
 use function in_array;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -36,7 +37,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class RedirectController extends AbstractController
 {
-    public function __construct(private readonly LocalizationSettings $localizationSettings, protected TranslatorInterface $translator, protected bool $enforce_index_php)
+    public function __construct(
+        private readonly LocalizationSettings $localizationSettings,
+        protected TranslatorInterface $translator,
+        #[Autowire(env: 'bool:NO_URL_REWRITE_AVAILABLE')]
+        protected bool $enforce_index_php,
+    )
     {
     }
 

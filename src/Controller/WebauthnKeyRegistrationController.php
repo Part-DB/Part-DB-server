@@ -28,6 +28,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Jbtronics\TFAWebauthn\Services\TFAWebauthnRegistrationHelper;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -36,7 +37,10 @@ use function Symfony\Component\Translation\t;
 
 class WebauthnKeyRegistrationController extends AbstractController
 {
-    public function __construct(private readonly bool $demo_mode)
+    public function __construct(
+        #[Autowire('%partdb.demo_mode%')]
+        private readonly bool $demo_mode,
+    )
     {
     }
 

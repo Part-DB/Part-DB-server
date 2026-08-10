@@ -25,6 +25,7 @@ namespace App\Services\InfoProviderSystem;
 
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use App\Services\InfoProviderSystem\Providers\URLHandlerInfoProviderInterface;
+use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 /**
  * This class keeps track of all registered info providers and allows to find them by their key
@@ -58,7 +59,10 @@ final class ProviderRegistry
     /**
      * @param  iterable<InfoProviderInterface>  $providers
      */
-    public function __construct(private readonly iterable $providers)
+    public function __construct(
+        #[AutowireIterator('app.info_provider')]
+        private readonly iterable $providers,
+    )
     {
         //We do not initialize the structures here, because we do not want to do unnecessary work
         //We do this lazy on the first call to getProviders()

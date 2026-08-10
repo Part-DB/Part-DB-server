@@ -27,6 +27,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use App\Entity\LogSystem\UserLogoutLogEntry;
 use App\Entity\UserSystem\User;
 use App\Services\LogSystem\EventLogger;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Security\Http\Event\LogoutEvent;
 
 /**
@@ -34,7 +35,11 @@ use Symfony\Component\Security\Http\Event\LogoutEvent;
  */
 final class LogLogoutEventSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly EventLogger $logger, private readonly bool $gdpr_compliance)
+    public function __construct(
+        private readonly EventLogger $logger,
+        #[Autowire('%partdb.gdpr_compliance%')]
+        private readonly bool $gdpr_compliance,
+    )
     {
     }
 

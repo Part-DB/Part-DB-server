@@ -31,6 +31,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -49,7 +50,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends AbstractController
 {
-    public function __construct(protected TranslatorInterface $translator, protected bool $allow_email_pw_reset)
+    public function __construct(
+        protected TranslatorInterface $translator,
+        #[Autowire(param: 'partdb.users.email_pw_reset')]
+        protected bool $allow_email_pw_reset,
+    )
     {
     }
 

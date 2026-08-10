@@ -61,6 +61,7 @@ use Symfony\Component\Validator\Constraints\Length;
 class UserSettingsController extends AbstractController
 {
     public function __construct(
+        #[Autowire('%partdb.demo_mode%')]
         protected bool $demo_mode,
         protected EventDispatcherInterface $eventDispatcher,
         private readonly ConnectedAppManager $connectedAppManager,

@@ -46,6 +46,7 @@ use Symfony\Component\Validator\Constraints\File;
 class UserSettingsType extends AbstractType
 {
     public function __construct(protected Security $security,
+        #[Autowire(param: 'partdb.demo_mode')]
         protected bool $demo_mode,
         )
     {
