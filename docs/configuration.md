@@ -71,7 +71,8 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
   constraints are enforced (`PRAGMA foreign_keys = ON`). SQLite does not enforce them by default. Disabled by default for
   backwards compatibility with existing installations that may contain data which is not strictly foreign-key-consistent.
   Before enabling this on an existing installation, run `bin/console partdb:database:check-sqlite-foreign-keys` to check
-  whether any existing rows would already violate a foreign key constraint.
+  whether any existing rows would already violate a foreign key constraint (add `--fix` to try to resolve them
+  automatically). See the [console commands documentation](usage/console_commands.md) for details.
 * `DEFAULT_LANG`: The default language to use server-wide (when no language is explicitly specified by a user or via
   language chooser). Must be something like `en`, `de`, `fr`, etc.
 * `DEFAULT_TIMEZONE`: The default timezone to use globally, when a user has no timezone specified. Must be something

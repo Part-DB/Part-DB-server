@@ -88,7 +88,13 @@ The value of the environment variable is copied to the settings database, so the
   [configuration documentation](../configuration.md)), so such inconsistent rows can otherwise accumulate silently.
   Run this command before enabling that setting on an existing installation, to find out whether doing so would
   immediately start rejecting operations on data that is already inconsistent. The command exits with a non-zero
-  status code if any violations were found, so it can be used in scripts.
+  status code if any violations were found, so it can be used in scripts. Use the `--fix` option to try to
+  automatically resolve the found violations: rows referenced by a foreign key declared `ON DELETE CASCADE` are
+  deleted (retroactively applying the cascade that would have happened had enforcement been on when the now-missing
+  parent row was deleted), other rows with a nullable foreign key column have that column set to `NULL`. Rows that
+  are neither (a `NOT NULL` foreign key column without `ON DELETE CASCADE`) cannot be fixed automatically and are
+  reported separately for manual handling. The command shows exactly what it is about to change and asks for
+  confirmation before applying anything. **Make sure you have a backup of your database before using `--fix`.**
 
 ## Attachment commands
 
