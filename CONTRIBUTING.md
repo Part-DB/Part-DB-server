@@ -27,14 +27,8 @@ Interesting folders are:
 * `templates`: The templates (HTML) that are used by Twig to render the different pages. Email templates are also saved here.
 * `tests/`: Tests that can be run by PHPUnit.
 
-## Development environment
-For setting up a development environment, you will need to install PHP, Composer, a database server (MySQL or MariaDB) and yarn (which needs a Node.js environment).
-* Copy `.env` to `.env.local` and change `APP_ENV` to `APP_ENV=dev`. That way you will get development tools (Symfony profiler) and other features that
-will simplify development.
-* Run `composer install` (without -o) to install PHP dependencies and `yarn install` to install frontend dependencies.
-* Run `yarn watch`. The program will run in the background and compile the frontend files whenever you change something in the CSS or TypeScript files.
-* For running Part-DB, it is recommended to use [Symfony CLI](https://symfony.com/download). 
-That way you can run a correctly configured webserver with `symfony serve`.
+# Development environment
+See [DEVELOPMENT.md](DEVELOPMENT.md) for setting up a development environment.
 
 ## Coding style
 Code should follow the [PSR-12 Standard](https://www.php-fig.org/psr/psr-12/) and Symfony's [coding standards](https://symfony.com/doc/current/contributing/code/standards.html).
