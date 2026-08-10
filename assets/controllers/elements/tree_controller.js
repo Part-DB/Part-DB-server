@@ -141,14 +141,26 @@ export default class extends Controller {
     }
 
     collapseAll() {
+        //These actions can be triggered (button click / search input) before the tree data has
+        //finished loading asynchronously, at which point this._tree is still null.
+        if (!this._isInitialized()) {
+            return;
+        }
         this._tree.collapseAll({silent: true});
     }
 
     expandAll() {
+        if (!this._isInitialized()) {
+            return;
+        }
         this._tree.expandAll({silent: true});
     }
 
     searchInput(event) {
+        if (!this._isInitialized()) {
+            return;
+        }
+
         const data = event.target.value;
         //Do nothing if no data was passed
 
