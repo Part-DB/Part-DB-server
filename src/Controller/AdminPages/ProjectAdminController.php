@@ -25,6 +25,8 @@ namespace App\Controller\AdminPages;
 use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parameters\ProjectParameter;
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Form\AdminPages\ProjectAdminForm;
 use App\Services\ImportExportSystem\EntityExporter;
 use App\Services\ImportExportSystem\EntityImporter;
@@ -44,6 +46,18 @@ class ProjectAdminController extends BaseAdminController
     protected string $route_base = 'project';
     protected string $attachment_class = ProjectAttachment::class;
     protected ?string $parameter_class = ProjectParameter::class;
+
+    /**
+     * Project BOM history remains available on individual BOM entries. Do not
+     * expand it while rendering project metadata, as that would create an
+     * unbounded log query for large projects.
+     *
+     * @return AbstractDBElement[]
+     */
+    protected function getHistoryElements(AbstractNamedDBElement $entity): array
+    {
+        return $this->historyHelper->getAssociatedElements($entity, false);
+    }
 
     #[Route(path: '/{id}', name: 'project_delete', methods: ['DELETE'])]
     public function delete(Request $request, Project $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse

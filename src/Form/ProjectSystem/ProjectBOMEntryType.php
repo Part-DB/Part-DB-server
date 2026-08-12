@@ -10,6 +10,8 @@ use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\PartSelectType;
 use App\Form\Type\RichTextEditorType;
 use App\Form\Type\SIUnitType;
+use App\Services\LogSystem\EventCommentNeededHelper;
+use App\Services\LogSystem\EventCommentType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PreSetDataEvent;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,6 +21,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProjectBOMEntryType extends AbstractType
 {
+
+    public function __construct(private readonly EventCommentNeededHelper $eventCommentNeededHelper)
+    {
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -81,12 +87,24 @@ class ProjectBOMEntryType extends AbstractType
 
         ;
 
+        if ($options['include_log_comment']) {
+            $builder->add('log_comment', TextType::class, [
+                'label' => 'edit.log_comment',
+                'mapped' => false,
+                'required' => $this->eventCommentNeededHelper->isCommentNeeded(EventCommentType::DATASTRUCTURE_EDIT),
+                'empty_data' => null,
+            ]);
+        }
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => ProjectBOMEntry::class,
+            'include_log_comment' => false,
         ]);
+
+        $resolver->setAllowedTypes('include_log_comment', 'bool');
     }
 }

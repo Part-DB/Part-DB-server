@@ -6,9 +6,12 @@ namespace App\Tests\Controller;
 
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use App\Services\ImportExportSystem\BOMImporter;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\File\File;
 use App\Entity\UserSystem\User;
 
 final class ProjectControllerTest extends WebTestCase
@@ -374,6 +377,107 @@ final class ProjectControllerTest extends WebTestCase
                     'regex' => false,
                 ],
             ]
+        );
+    }
+
+    #[DataProvider('projectBOMCsvProvider')]
+    public function testProjectMetadataEditDoesNotRenderTheCompleteBOM(string $filename, int $expectedEntries): void
+    {
+        $project = $this->createProject(sprintf('Large project metadata edit test %d', $expectedEntries));
+        $importer = self::getContainer()->get(BOMImporter::class);
+
+        $entries = $importer->importFileIntoProject(
+            new File(dirname(__DIR__) . '/assets/project_bom/issue_911/' . $filename),
+            $project,
+            ['type' => 'kicad_pcbnew']
+        );
+
+        $this->entityManager->flush();
+        $this->assertCount($expectedEntries, $entries);
+
+        $crawler = $this->client->request(
+            'GET',
+            sprintf('/en/project/%d/edit', $project->getID())
+        );
+
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $this->assertSame(
+            0,
+            $crawler->filter('[name^="project_admin_form[bom_entries]"]')->count(),
+            'Project metadata editing must not render every BOM entry.'
+        );
+
+        $form = $crawler->filter('form[name="project_admin_form"]')->form([
+            'project_admin_form[name]' => sprintf('Large project metadata edit test %d renamed', $expectedEntries),
+        ]);
+        $this->client->submit($form);
+
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $updatedProject = $this->entityManager->getRepository(Project::class)->find($project->getID());
+        $this->assertInstanceOf(Project::class, $updatedProject);
+        $this->assertSame(sprintf('Large project metadata edit test %d renamed', $expectedEntries), $updatedProject->getName());
+    }
+
+    /**
+     * @return iterable<string, array{string, int}>
+     */
+    public static function projectBOMCsvProvider(): iterable
+    {
+        yield '100 BOM entries' => ['Parts_0100.csv', 100];
+        yield '200 BOM entries' => ['Parts_0200.csv', 200];
+        yield '500 BOM entries' => ['Parts_0500.csv', 500];
+        yield '1000 BOM entries' => ['Parts_1000.csv', 1000];
+        yield '1400 BOM entries' => ['Parts_1400.csv', 1400];
+        yield '1500 BOM entries' => ['Parts_1500.csv', 1500];
+    }
+
+    public function testBOMEntriesCanBeEditedSeparately(): void
+    {
+        $project = $this->createProject('Separate BOM edit test');
+        $entry = $this->createBOMEntry($project, 'Original BOM entry', 'R1', 1.0, '');
+        $this->entityManager->flush();
+
+        $crawler = $this->client->request(
+            'GET',
+            sprintf('/en/project/%d/bom/%d/edit', $project->getID(), $entry->getID())
+        );
+
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $formCrawler = $crawler->filterXPath('//form[.//input[@name="project_bom_entry[name]"]]');
+        $this->assertCount(1, $formCrawler);
+        $form = $formCrawler->form();
+        $nameField = $formCrawler->filter('input[name$="[name]"]')->first()->attr('name');
+        $this->assertIsString($nameField);
+        $form->setValues([
+            $nameField => 'Changed BOM entry',
+        ]);
+        $this->client->submit($form);
+
+        $this->assertTrue($this->client->getResponse()->isRedirect());
+        $updatedEntry = $this->entityManager->getRepository(ProjectBOMEntry::class)->find($entry->getID());
+        $this->assertInstanceOf(ProjectBOMEntry::class, $updatedEntry);
+        $this->assertSame('Changed BOM entry', $updatedEntry->getName());
+    }
+
+    public function testBOMEntriesCanBeDeletedSeparately(): void
+    {
+        $project = $this->createProject('Separate BOM delete test');
+        $entry = $this->createBOMEntry($project, 'BOM entry to delete', 'R1', 1.0, '');
+        $this->entityManager->flush();
+
+        $crawler = $this->client->request(
+            'GET',
+            sprintf('/en/project/%d/bom/%d/edit', $project->getID(), $entry->getID())
+        );
+
+        $this->client->submit($crawler->filter('form')->last()->form());
+
+        $this->assertTrue($this->client->getResponse()->isRedirect());
+        $this->assertSame(
+            0,
+            (int) $this->entityManager->createQuery(
+                'SELECT COUNT(bom_entry.id) FROM App\\Entity\\ProjectSystem\\ProjectBOMEntry bom_entry WHERE bom_entry.id = :id'
+            )->setParameter('id', $entry->getID())->getSingleScalarResult()
         );
     }
 

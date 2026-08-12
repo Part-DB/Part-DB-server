@@ -27,6 +27,7 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
+use App\Entity\ProjectSystem\Project;
 use App\Repository\StructuralDBElementRepository;
 use App\Serializer\APIPlatform\SkippableItemNormalizer;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -149,7 +150,11 @@ class EntityImporter
 
             //Validate entity
             foreach ($entities as $entity) {
-                $tmp = $this->validator->validate($entity);
+                $tmp = $this->validator->validate(
+                    $entity,
+                    null,
+                    $entity instanceof Project ? ['Default', 'project_bom'] : null
+                );
                 //If no error occured, write entry to DB:
                 if (0 === count($tmp)) {
                     $valid_entities[] = $entity;
@@ -245,7 +250,11 @@ class EntityImporter
             }
 
             //Validate entity
-            $tmp = $this->validator->validate($entity);
+            $tmp = $this->validator->validate(
+                $entity,
+                null,
+                $entity instanceof Project ? ['Default', 'project_bom'] : null
+            );
 
             if (count($tmp) > 0) { //Log validation errors to global log.
                 $name = $entity instanceof AbstractStructuralDBElement ? $entity->getFullPath() : $entity->getName();

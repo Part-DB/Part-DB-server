@@ -126,11 +126,11 @@ class Project extends AbstractStructuralDBElement
     /**
      * @var Collection<int, ProjectBOMEntry>
      */
-    #[Assert\Valid]
+    #[Assert\Valid(groups: ['project_bom'])]
     #[Groups(['extended', 'full', 'import', 'mcp_project_details:read'])]
-    #[ORM\OneToMany(mappedBy: 'project', targetEntity: ProjectBOMEntry::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[UniqueObjectCollection(message: 'project.bom_entry.part_already_in_bom', fields: ['part'])]
-    #[UniqueObjectCollection(message: 'project.bom_entry.name_already_in_bom', fields: ['name'])]
+    #[ORM\OneToMany(mappedBy: 'project', targetEntity: ProjectBOMEntry::class, cascade: ['persist', 'remove'], orphanRemoval: true, fetch: 'EXTRA_LAZY')]
+    #[UniqueObjectCollection(message: 'project.bom_entry.part_already_in_bom', fields: ['part'], groups: ['project_bom'])]
+    #[UniqueObjectCollection(message: 'project.bom_entry.name_already_in_bom', fields: ['name'], groups: ['project_bom'])]
     protected Collection $bom_entries;
 
     #[ORM\Column(type: Types::INTEGER)]
@@ -358,14 +358,11 @@ class Project extends AbstractStructuralDBElement
             if (!$child->getBuildPart() instanceof Part) {
                 continue;
             }
-            //We have to search all bom entries for the build part
-            $found = false;
-            foreach ($this->getBomEntries() as $bom_entry) {
-                if ($bom_entry->getPart() === $child->getBuildPart()) {
-                    $found = true;
-                    break;
-                }
-            }
+            //Use the extra-lazy collection so validating project metadata does
+            //not initialize the complete BOM.
+            $found = !$this->getBomEntries()->matching(
+                Criteria::create()->where(Criteria::expr()->eq('part', $child->getBuildPart()))
+            )->isEmpty();
 
             //When the build part is not found, we have to add an error
             if (!$found) {
