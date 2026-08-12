@@ -26,7 +26,7 @@ for everybody.
 If you want to test Part-DB without installing it, you can use [this](https://demo.part-db.de/) Heroku instance.
 (Or this link for the [German Version](https://demo.part-db.de/de/)).
 
-You can log in with username: *user* and password: *user*.
+You can log in with username: *user* and password: *partdb-demo*.
 
 Every change to the master branch gets automatically deployed, so it represents the current development progress and
 may not be completely stable. Please mind, that the free Heroku instance is used, so it can take some time when loading
