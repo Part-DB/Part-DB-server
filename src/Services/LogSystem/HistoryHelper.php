@@ -59,7 +59,7 @@ class HistoryHelper
      *
      * @return AbstractDBElement[]
      */
-    public function getAssociatedElements(AbstractDBElement $element): array
+    public function getAssociatedElements(AbstractDBElement $element, bool $includeProjectBomEntries = true): array
     {
         $array = [$element];
         if ($element instanceof AttachmentContainingDBElement) {
@@ -81,7 +81,7 @@ class HistoryHelper
             $array = array_merge($array, $element->getParameters()->toArray());
         }
 
-        if ($element instanceof Project) {
+        if ($includeProjectBomEntries && $element instanceof Project) {
             $array = array_merge($array, $element->getBomEntries()->toArray());
         }
 
