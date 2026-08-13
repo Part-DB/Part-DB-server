@@ -11,7 +11,23 @@
         <div class="form-group row">
             <div class="{{ offset_label }} {{ col_input }}">
                 <div class="img-thumbnail" style="max-width: 600px;">
-                    <div id="reader-box" {{ stimulus_controller('pages/barcode_scan') }}></div>
+                    <div {{ stimulus_controller('pages/barcode_scan') }}>
+                        <div class="d-none mb-3" {{ stimulus_target('pages/barcode_scan', 'nfcControls') }}>
+                            <button type="button" class="btn btn-outline-primary"
+                                    {{ stimulus_target('pages/barcode_scan', 'nfcButton') }}
+                                    {{ stimulus_action('pages/barcode_scan', 'startNfcScan') }}>
+                                <i class="fa-solid fa-wifi fa-rotate-90 fa-fw"></i>
+                                {% trans %}label_scanner.nfc.scan{% endtrans %}
+                            </button>
+                            <div class="small text-muted mt-2" {{ stimulus_target('pages/barcode_scan', 'nfcStatus') }}
+                                 data-waiting="{{ 'label_scanner.nfc.waiting'|trans }}"
+                                 data-read-error="{{ 'label_scanner.nfc.read_error'|trans }}"
+                                 data-unsupported-record="{{ 'label_scanner.nfc.unsupported_record'|trans }}"
+                                 data-permission-denied="{{ 'label_scanner.nfc.permission_denied'|trans }}"
+                                 data-failed="{{ 'label_scanner.nfc.failed'|trans }}"></div>
+                        </div>
+                        <div id="reader-box" {{ stimulus_target('pages/barcode_scan', 'reader') }}></div>
+                    </div>
                 </div>
             </div>
         </div>

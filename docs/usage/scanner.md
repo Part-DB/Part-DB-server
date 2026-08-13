@@ -1,10 +1,10 @@
 ---
-title: Barcode Scanner
+title: Barcode and NFC Scanner
 layout: default
 parent: Usage
 ---
 
-# Barcode scanner
+# Barcode and NFC scanner
 
 When the user has the correct permission there will be a barcode scanner button in the navbar.
 On this page you can either input a barcode code by hand, use an external barcode scanner, or use your devices camera to
@@ -49,3 +49,15 @@ of the scanned barcode, Part-DB will automatically scan the barcode that comes a
 and redirects you to the corresponding page.
 This allows you to quickly scan a barcode from anywhere in Part-DB without the need to first open the scanner page.
 If an input field is focused, the barcode will be entered into the field as usual and no redirection will happen.
+
+## Using NFC stickers
+
+On devices with Web NFC support, the scanner page also shows a **Scan NFC tag** button. NFC access requires an NFC-capable
+Android device, a supporting browser, HTTPS, and permission from the user. Part-DB reads URL and text records from NDEF tags
+and processes their content in exactly the same way as a camera or external barcode scan. Camera and manual input remain
+available on devices without Web NFC.
+
+Users with permission to create labels can enroll a sticker for a saved part from the part's **Tools** tab. **Write NFC tag**
+writes the same Part-DB URL used by an internal QR label. The first write protects existing tag contents; if the tag is already
+programmed, Part-DB asks for confirmation and requires the tag to be tapped again before overwriting it. Tags remain writable,
+and Part-DB does not store their hardware identifiers or enrollment state.

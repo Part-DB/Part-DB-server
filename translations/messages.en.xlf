@@ -14261,5 +14261,50 @@ Buerklin-API Authentication server:
         <target>OAuth2 client updated successfully!</target>
       </segment>
     </unit>
+    <unit id="nfcScanButton" name="label_scanner.nfc.scan">
+      <segment state="translated"><source>label_scanner.nfc.scan</source><target>Scan NFC tag</target></segment>
+    </unit>
+    <unit id="nfcScanWaiting" name="label_scanner.nfc.waiting">
+      <segment state="translated"><source>label_scanner.nfc.waiting</source><target>Hold an NFC tag near your device…</target></segment>
+    </unit>
+    <unit id="nfcScanReadError" name="label_scanner.nfc.read_error">
+      <segment state="translated"><source>label_scanner.nfc.read_error</source><target>The NFC tag could not be read. Try again.</target></segment>
+    </unit>
+    <unit id="nfcScanUnsupportedRecord" name="label_scanner.nfc.unsupported_record">
+      <segment state="translated"><source>label_scanner.nfc.unsupported_record</source><target>The tag contains no supported URL or text record.</target></segment>
+    </unit>
+    <unit id="nfcScanPermissionDenied" name="label_scanner.nfc.permission_denied">
+      <segment state="translated"><source>label_scanner.nfc.permission_denied</source><target>NFC permission was denied.</target></segment>
+    </unit>
+    <unit id="nfcScanFailed" name="label_scanner.nfc.failed">
+      <segment state="translated"><source>label_scanner.nfc.failed</source><target>NFC scanning could not be started. Check that NFC is enabled.</target></segment>
+    </unit>
+    <unit id="nfcWriteButton" name="nfc.write.button">
+      <segment state="translated"><source>nfc.write.button</source><target>Write NFC tag</target></segment>
+    </unit>
+    <unit id="nfcWriteOverwriteButton" name="nfc.write.overwrite_button">
+      <segment state="translated"><source>nfc.write.overwrite_button</source><target>Confirm overwrite</target></segment>
+    </unit>
+    <unit id="nfcWriteWaiting" name="nfc.write.waiting">
+      <segment state="translated"><source>nfc.write.waiting</source><target>Hold the sticker near your device until writing completes…</target></segment>
+    </unit>
+    <unit id="nfcWriteSuccess" name="nfc.write.success">
+      <segment state="translated"><source>nfc.write.success</source><target>The NFC sticker was enrolled successfully.</target></segment>
+    </unit>
+    <unit id="nfcWriteOverwriteWarning" name="nfc.write.overwrite_warning">
+      <segment state="translated"><source>nfc.write.overwrite_warning</source><target>This tag already contains data. Confirm overwrite, then tap the tag again.</target></segment>
+    </unit>
+    <unit id="nfcWritePermissionDenied" name="nfc.write.permission_denied">
+      <segment state="translated"><source>nfc.write.permission_denied</source><target>NFC permission was denied.</target></segment>
+    </unit>
+    <unit id="nfcWriteUnsupportedTag" name="nfc.write.unsupported_tag">
+      <segment state="translated"><source>nfc.write.unsupported_tag</source><target>This tag is read-only or does not support writable NDEF data.</target></segment>
+    </unit>
+    <unit id="nfcWriteFailed" name="nfc.write.failed">
+      <segment state="translated"><source>nfc.write.failed</source><target>The tag could not be written. Check its capacity and try again.</target></segment>
+    </unit>
+    <unit id="nfcWriteCancelled" name="nfc.write.cancelled">
+      <segment state="translated"><source>nfc.write.cancelled</source><target>NFC writing was cancelled.</target></segment>
+    </unit>
   </file>
 </xliff>

@@ -57,6 +57,8 @@ final class PartControllerTest extends WebTestCase
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->assertSelectorExists('[data-controller~="pages--nfc-write"]');
+        $this->assertSelectorExists('[data-pages--nfc-write-url-value$="/scan/part/' . $part->getId() . '"]');
     }
 
     public function testShowPartWithTimestamp(): void

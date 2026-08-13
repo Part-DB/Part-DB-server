@@ -21,7 +21,7 @@ import {Controller} from "@hotwired/stimulus";
 //import * as ZXing from "@zxing/library";
 
 import {Html5QrcodeScanner, Html5Qrcode} from "@part-db/html5-qrcode";
-import { generateCsrfToken, generateCsrfHeaders } from "../csrf_protection_controller";
+import {decodeNdefMessage, isWebNfcAvailable, setScanInputAndSubmit} from "./nfc_helpers";
 
 /* stimulusFetch: 'lazy' */
 
@@ -30,6 +30,9 @@ export default class extends Controller {
     _submitting = false;
     _lastDecodedText = "";
     _onInfoChange = null;
+    _nfcAbortController = null;
+
+    static targets = ["reader", "nfcControls", "nfcButton", "nfcStatus"];
 
     connect() {
 
@@ -63,7 +66,7 @@ export default class extends Controller {
             document.getElementById("scanner-warning")?.classList.remove("d-none");
         });
 
-        this._scanner = new Html5QrcodeScanner(this.element.id, {
+        this._scanner = new Html5QrcodeScanner(this.readerTarget.id, {
             fps: 10,
             qrbox: qrboxFunction,
             // Key change: shrink preview height on mobile
@@ -75,6 +78,10 @@ export default class extends Controller {
         }, false);
 
         this._scanner.render(this.onScanSuccess.bind(this));
+
+        if (isWebNfcAvailable() && this.hasNfcControlsTarget) {
+            this.nfcControlsTarget.classList.remove("d-none");
+        }
     }
 
     disconnect() {
@@ -83,6 +90,8 @@ export default class extends Controller {
         const scanner = this._scanner;
         this._scanner = null;
         this._lastDecodedText = "";
+        this._nfcAbortController?.abort();
+        this._nfcAbortController = null;
 
         // Unbind info-mode change handler (always do this, even if scanner is null)
         const info = document.getElementById("scan_dialog_info_mode");
@@ -114,12 +123,41 @@ export default class extends Controller {
         // Mark as handled immediately (prevents spam even if callback fires repeatedly)
         this._lastDecodedText = normalized;
 
-        const input = document.getElementById('scan_dialog_input');
-        input.value = decodedText;
-        //Trigger nonprintable char input controller to update the hidden input value
-        input.dispatchEvent(new Event('input', { bubbles: true }));
+        setScanInputAndSubmit(decodedText);
+    }
 
-        //Submit form
-        document.getElementById('scan_dialog_form').requestSubmit();
+    async startNfcScan() {
+        if (!isWebNfcAvailable() || this._nfcAbortController) return;
+
+        this._nfcAbortController = new AbortController();
+        this.nfcButtonTarget.disabled = true;
+        this.nfcStatusTarget.textContent = this.nfcStatusTarget.dataset.waiting;
+
+        try {
+            const reader = new NDEFReader();
+            await reader.scan({signal: this._nfcAbortController.signal});
+            reader.addEventListener("readingerror", () => {
+                this.nfcStatusTarget.textContent = this.nfcStatusTarget.dataset.readError;
+            });
+            reader.addEventListener("reading", ({message}) => {
+                const value = decodeNdefMessage(message);
+                if (!value) {
+                    this.nfcStatusTarget.textContent = this.nfcStatusTarget.dataset.unsupportedRecord;
+                    return;
+                }
+
+                this._nfcAbortController?.abort();
+                this._nfcAbortController = null;
+                setScanInputAndSubmit(value);
+            });
+        } catch (error) {
+            if (error.name !== "AbortError") {
+                this.nfcStatusTarget.textContent = error.name === "NotAllowedError"
+                    ? this.nfcStatusTarget.dataset.permissionDenied
+                    : this.nfcStatusTarget.dataset.failed;
+            }
+            this._nfcAbortController = null;
+            this.nfcButtonTarget.disabled = false;
+        }
     }
 }

@@ -68,6 +68,32 @@
 
 {{ dropdown.profile_dropdown('part', part.id) }}
 
+{% if nfc_url is not null and is_granted('@labels.create_labels') %}
+    <div class="d-none mt-2" {{ stimulus_controller('pages/nfc_write', {url: nfc_url}) }}>
+        <button type="button" class="btn btn-secondary"
+                data-overwrite="false"
+                {{ stimulus_target('pages/nfc_write', 'button') }}
+                {{ stimulus_action('pages/nfc_write', 'write') }}>
+            <i class="fa-solid fa-wifi fa-rotate-90 fa-fw"></i>
+            {% trans %}nfc.write.button{% endtrans %}
+        </button>
+        <button type="button" class="btn btn-danger d-none"
+                data-overwrite="true"
+                {{ stimulus_target('pages/nfc_write', 'overwriteButton') }}
+                {{ stimulus_action('pages/nfc_write', 'write') }}>
+            {% trans %}nfc.write.overwrite_button{% endtrans %}
+        </button>
+        <div class="small text-muted mt-2" {{ stimulus_target('pages/nfc_write', 'status') }}
+             data-waiting="{{ 'nfc.write.waiting'|trans }}"
+             data-success="{{ 'nfc.write.success'|trans }}"
+             data-overwrite-warning="{{ 'nfc.write.overwrite_warning'|trans }}"
+             data-permission-denied="{{ 'nfc.write.permission_denied'|trans }}"
+             data-unsupported-tag="{{ 'nfc.write.unsupported_tag'|trans }}"
+             data-write-failed="{{ 'nfc.write.failed'|trans }}"
+             data-cancelled="{{ 'nfc.write.cancelled'|trans }}"></div>
+    </div>
+{% endif %}
+
 <a class="btn btn-success mt-2" {% if not is_granted('@projects.edit') %}disabled{% endif %}
    href="{{ path('project_add_parts_no_id', {"parts": part.id, "_redirect":  uri_without_host(app.request)}) }}">
     <i class="fa-solid fa-magnifying-glass-plus fa-fw"></i>

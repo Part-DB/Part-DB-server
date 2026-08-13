@@ -51,4 +51,13 @@ final class ScanControllerTest extends WebTestCase
         $this->client->request('GET', '/scan/part/1');
         $this->assertResponseRedirects('/en/part/1');
     }
+
+    public function testScanDialogContainsProgressiveNfcControls(): void
+    {
+        $this->client->request('GET', '/en/scan');
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorExists('[data-pages--barcode-scan-target~="nfcControls"]');
+        $this->assertSelectorTextContains('[data-pages--barcode-scan-target~="nfcControls"]', 'Scan NFC tag');
+    }
 }
