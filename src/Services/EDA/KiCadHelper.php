@@ -148,7 +148,7 @@ class KiCadHelper
     {
         $cacheKey = 'kicad_category_parts_'.($category?->getID() ?? 0) . '_' . $this->category_depth . ($minimal ? '_min' : '');
         return $this->kicadCache->get($cacheKey,
-            function (ItemInterface $item) use ($category) {
+            function (ItemInterface $item) use ($category, $minimal) {
                 $item->tag([
                     $this->tagGenerator->getElementTypeCacheTag(Category::class),
                     $this->tagGenerator->getElementTypeCacheTag(Part::class),
@@ -182,11 +182,21 @@ class KiCadHelper
                         continue;
                     }
 
-                    $result[] = [
-                        'id' => (string)$part->getId(),
-                        'name' => $part->getName(),
-                        'description' => $part->getDescription(),
-                    ];
+                    //A minimal listing carries just enough to populate the chooser's
+                    //name column. Otherwise inline the same record the per-part
+                    //endpoint returns: KiCad skips its follow-up request for every
+                    //part whose listing entry already carries a "fields" object
+                    //(see HTTP_LIB_CONNECTION::SelectAll), which turns a cold library
+                    //open from one request per part into one request per category.
+                    if ($minimal) {
+                        $result[] = [
+                            'id' => (string)$part->getId(),
+                            'name' => $part->getName(),
+                            'description' => $part->getDescription(),
+                        ];
+                    } else {
+                        $result[] = $this->getKiCADPart($part);
+                    }
                 }
 
                 return $result;
