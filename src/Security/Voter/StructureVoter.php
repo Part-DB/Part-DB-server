@@ -24,6 +24,7 @@ namespace App\Security\Voter;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\PartCustomState;
+use App\Entity\Parameters\ParameterDefinition;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -40,7 +41,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use function is_object;
 
 /**
- * @phpstan-extends Voter<non-empty-string, AttachmentType|Category|Project|Footprint|Manufacturer|StorageLocation|Supplier|Currency|MeasurementUnit|class-string>
+ * @phpstan-extends Voter<non-empty-string, AttachmentType|Category|Project|Footprint|Manufacturer|StorageLocation|Supplier|Currency|MeasurementUnit|ParameterDefinition|class-string>
  */
 final class StructureVoter extends Voter
 {
@@ -55,6 +56,7 @@ final class StructureVoter extends Voter
         Currency::class => 'currencies',
         MeasurementUnit::class => 'measurement_units',
         PartCustomState::class => 'part_custom_states',
+        ParameterDefinition::class => 'parameter_definitions',
     ];
 
     public function __construct(private readonly VoterHelper $helper)

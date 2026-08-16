@@ -271,5 +271,8 @@
         <target>If you specify an info provider, you also need to provide a provider ID, or remove both.</target>
       </segment>
     </unit>
+    <unit id="parameter_definition_name_unique" name="parameter_definition.name_unique">
+      <segment state="translated"><source>parameter_definition.name_unique</source><target>A parameter definition with this name already exists.</target></segment>
+    </unit>
   </file>
 </xliff>

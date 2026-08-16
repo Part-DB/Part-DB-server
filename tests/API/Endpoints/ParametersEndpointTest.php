@@ -23,6 +23,11 @@ declare(strict_types=1);
 
 namespace App\Tests\API\Endpoints;
 
+use App\Entity\Parameters\ParameterDefinition;
+use App\Entity\UserSystem\User;
+use App\Services\UserSystem\PermissionSchemaUpdater;
+use Doctrine\ORM\EntityManagerInterface;
+
 final class ParametersEndpointTest extends CrudEndpointTestCase
 {
 
@@ -58,5 +63,55 @@ final class ParametersEndpointTest extends CrudEndpointTestCase
 
         //Check if we can delete the item
         $this->_testDeleteItem($id);
+    }
+
+    public function testEffectiveDefinitionMetadataIsExposedWithoutDuplicatedWritableFields(): void
+    {
+        $client = self::createAuthenticatedClient();
+        $definition = (new ParameterDefinition())
+            ->setName('API parameter dielectric')
+            ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
+            ->setChoices(['C0G', 'X7R']);
+        $entity_manager = self::getContainer()->get(EntityManagerInterface::class);
+        $admin = $entity_manager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        self::assertInstanceOf(User::class, $admin);
+        self::getContainer()->get(PermissionSchemaUpdater::class)->userUpgradeSchemaRecursively($admin);
+        $entity_manager->flush();
+        $entity_manager->persist($definition);
+        $entity_manager->flush();
+        $definition_id = $definition->getID();
+        self::assertNotNull($definition_id);
+
+        $response = $client->request('POST', $this->getBasePath(), [
+            'json' => [
+                'name' => 'API parameter dielectric',
+                'element' => '/api/parts/1',
+                'definition' => '/api/parameter_definitions/'.$definition_id,
+                'value_text' => 'X7R',
+            ],
+        ]);
+        self::assertResponseIsSuccessful();
+
+        self::assertJsonContains([
+            'definition' => '/api/parameter_definitions/'.$definition_id,
+            'input_type' => ParameterDefinition::INPUT_TYPE_CHOICE,
+            'choices' => ['C0G', 'X7R'],
+            'value_text' => 'X7R',
+        ]);
+    }
+
+    public function testParameterWithoutDefinitionRemainsFreeText(): void
+    {
+        $response = $this->_testPostItem([
+            'name' => 'API free text parameter',
+            'element' => '/api/parts/1',
+            'value_text' => 'arbitrary value',
+        ]);
+
+        self::assertJsonContains([
+            'input_type' => ParameterDefinition::INPUT_TYPE_TEXT,
+            'choices' => [],
+            'value_text' => 'arbitrary value',
+        ]);
     }
 }

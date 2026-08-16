@@ -50,33 +50,53 @@ use App\Entity\Parameters\FootprintParameter;
 use App\Entity\Parameters\GroupParameter;
 use App\Entity\Parameters\ManufacturerParameter;
 use App\Entity\Parameters\PartParameter;
+use App\Entity\Parameters\ParameterDefinition;
 use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\Parameters\SupplierParameter;
 use App\Entity\Parts\MeasurementUnit;
 use App\Form\Type\ExponentialNumberType;
 use App\Form\Type\TriStateCheckboxType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Event\PreSetDataEvent;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ParameterType extends AbstractType
 {
+    public function __construct(private readonly EntityManagerInterface $entity_manager)
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('name', TextType::class, [
+        $parameter = $builder->getData();
+        $linked_part_parameter = $parameter instanceof PartParameter
+            && $parameter->getDefinition() instanceof ParameterDefinition;
+
+        $name_options = [
             'label' => false,
             'empty_data' => '',
             'attr' => [
                 'placeholder' => 'parameters.name.placeholder',
                 'class' => 'form-control-sm',
             ],
-        ]);
-        $builder->add('symbol', TextType::class, [
+        ];
+        if ($linked_part_parameter) {
+            $name_options['data'] = $parameter->getEffectiveName();
+        }
+        $builder->add('name', TextType::class, $name_options);
+
+        $symbol_options = [
             'label' => false,
             'required' => false,
             'empty_data' => '',
@@ -85,16 +105,25 @@ class ParameterType extends AbstractType
                 'class' => 'form-control-sm',
                 'style' => 'max-width: 12ch;',
             ],
-        ]);
-        $builder->add('value_text', TextType::class, [
-            'label' => false,
-            'required' => false,
-            'empty_data' => '',
-            'attr' => [
-                'placeholder' => 'parameters.text.placeholder',
-                'class' => 'form-control-sm',
-            ],
-        ]);
+        ];
+        if ($linked_part_parameter) {
+            $symbol_options['data'] = $parameter->getEffectiveSymbol();
+        }
+        $builder->add('symbol', TextType::class, $symbol_options);
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (PreSetDataEvent $event): void {
+                $parameter = $event->getData();
+                $this->addValueTextField(
+                    $event->getForm(),
+                    $parameter instanceof PartParameter
+                        ? $parameter->getEffectiveInputType()
+                        : ParameterDefinition::INPUT_TYPE_TEXT,
+                    $parameter instanceof PartParameter ? $parameter->getEffectiveChoices() : [],
+                );
+            }
+        );
 
         $builder->add('value_max', ExponentialNumberType::class, [
             'label' => false,
@@ -129,7 +158,7 @@ class ParameterType extends AbstractType
                 'style' => 'max-width: 25ch;',
             ],
         ]);
-        $builder->add('unit', TextType::class, [
+        $unit_options = [
             'label' => false,
             'required' => false,
             'empty_data' => '',
@@ -138,7 +167,11 @@ class ParameterType extends AbstractType
                 'class' => 'form-control-sm',
                 'style' => 'max-width: 8ch;',
             ],
-        ]);
+        ];
+        if ($linked_part_parameter) {
+            $unit_options['data'] = $parameter->getEffectiveUnit();
+        }
+        $builder->add('unit', TextType::class, $unit_options);
 
         $builder->add('group', TextType::class, [
             'label' => false,
@@ -149,9 +182,49 @@ class ParameterType extends AbstractType
                 'class' => 'form-control-sm',
             ],
         ]);
-
         // Only show the EDA visibility field for part parameters, as it has no function for other entities
         if ($options['data_class'] === PartParameter::class) {
+            $builder->add('definition', EntityType::class, [
+                'class' => ParameterDefinition::class,
+                'choice_label' => 'name',
+                'choice_lazy' => true,
+                'label' => false,
+                'required' => false,
+                'placeholder' => '',
+                'attr' => [
+                    'class' => 'd-none',
+                ],
+            ]);
+
+            $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
+                $submitted_data = $event->getData();
+                $definition = null;
+
+                if (is_array($submitted_data)) {
+                    $definition_id = filter_var(
+                        $submitted_data['definition'] ?? null,
+                        FILTER_VALIDATE_INT,
+                        ['options' => ['min_range' => 1]],
+                    );
+                    if (false !== $definition_id) {
+                        $definition = $this->entity_manager->find(ParameterDefinition::class, $definition_id);
+                    }
+                }
+
+                $this->addValueTextField(
+                    $event->getForm(),
+                    $definition?->getInputType() ?? ParameterDefinition::INPUT_TYPE_TEXT,
+                    $definition?->getChoices() ?? [],
+                );
+            });
+
+            $builder->addEventListener(FormEvents::SUBMIT, static function (FormEvent $event): void {
+                $parameter = $event->getData();
+                if ($parameter instanceof PartParameter && $parameter->getDefinition() instanceof ParameterDefinition) {
+                    $parameter->refreshSnapshotFromDefinition();
+                }
+            });
+
             $builder->add('eda_visibility', TriStateCheckboxType::class, [
                 'label' => false,
                 'required' => false,
@@ -161,6 +234,7 @@ class ParameterType extends AbstractType
                 'label' => false,
                 'required' => false,
             ]);
+
         }
     }
 
@@ -194,6 +268,39 @@ class ParameterType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => AbstractParameter::class,
+        ]);
+    }
+
+    /** @param list<string> $choices */
+    private function addValueTextField(FormInterface $form, string $input_type, array $choices): void
+    {
+        if (ParameterDefinition::INPUT_TYPE_CHOICE === $input_type) {
+            $choice_map = [];
+            foreach ($choices as $choice) {
+                $choice_map[$choice] = $choice;
+            }
+
+            $form->add('value_text', ChoiceType::class, [
+                'label' => false,
+                'required' => false,
+                'placeholder' => '',
+                'choices' => $choice_map,
+                'attr' => [
+                    'class' => 'form-select-sm',
+                ],
+            ]);
+
+            return;
+        }
+
+        $form->add('value_text', TextType::class, [
+            'label' => false,
+            'required' => false,
+            'empty_data' => '',
+            'attr' => [
+                'placeholder' => 'parameters.text.placeholder',
+                'class' => 'form-control-sm',
+            ],
         ]);
     }
 }

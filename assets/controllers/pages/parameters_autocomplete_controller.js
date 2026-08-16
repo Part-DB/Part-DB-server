@@ -38,9 +38,10 @@ export default class extends Controller
         url: String,
     }
 
-    static targets = ["name", "symbol", "unit"]
+    static targets = ["name", "symbol", "unit", "valueText", "definition"]
 
     _tomSelect;
+    _initialized = false;
 
     onItemAdd(value, item) {
         //Retrieve the unit and symbol from the item
@@ -57,6 +58,91 @@ export default class extends Controller
             //Trigger input event to update the preview
             this.unitTarget.dispatchEvent(new Event('input'));
         }
+
+        // TomSelect emits onItemAdd for the value already present while initializing an existing row. The server has
+        // rendered that row from its persisted definition, so only an explicit user selection may change the link.
+        if (!this._initialized || !this.hasDefinitionTarget || !this.hasValueTextTarget) {
+            return;
+        }
+
+        const definitionId = item.dataset.definitionId;
+        if (definitionId === undefined || !/^\d+$/.test(definitionId) || Number(definitionId) < 1) {
+            this.setDefinition(null);
+            this.applyInputDefinition('text', []);
+
+            return;
+        }
+
+        let choices = [];
+        if (item.dataset.choices) {
+            try {
+                choices = JSON.parse(item.dataset.choices);
+            } catch (_) {
+                choices = [];
+            }
+        }
+
+        this.setDefinition(definitionId, item.dataset.definitionName ?? value);
+        this.applyInputDefinition(item.dataset.inputType ?? 'text', choices);
+    }
+
+    onItemRemove() {
+        if (!this._initialized || !this.hasDefinitionTarget || !this.hasValueTextTarget) {
+            return;
+        }
+
+        this.setDefinition(null);
+        this.applyInputDefinition('text', []);
+    }
+
+    setDefinition(definitionId, name = '') {
+        this.definitionTarget.replaceChildren();
+
+        const emptyOption = new Option('', '');
+        this.definitionTarget.add(emptyOption);
+
+        if (definitionId !== null) {
+            const option = new Option(name, definitionId, true, true);
+            this.definitionTarget.add(option);
+            this.definitionTarget.value = definitionId;
+        } else {
+            this.definitionTarget.value = '';
+        }
+
+        this.definitionTarget.dispatchEvent(new Event('change', {bubbles: true}));
+    }
+
+    applyInputDefinition(inputType, choices) {
+        const oldElement = this.valueTextTarget;
+        const currentValue = oldElement.value;
+        const useChoice = inputType === 'choice' && Array.isArray(choices);
+        const newElement = document.createElement(useChoice ? 'select' : 'input');
+
+        for (const attribute of oldElement.attributes) {
+            if (attribute.name !== 'type') {
+                newElement.setAttribute(attribute.name, attribute.value);
+            }
+        }
+
+        if (useChoice) {
+            newElement.classList.remove('form-control', 'form-control-sm');
+            newElement.classList.add('form-select', 'form-select-sm');
+            newElement.add(new Option('', ''));
+
+            for (const choice of choices) {
+                newElement.add(new Option(choice, choice));
+            }
+
+            newElement.value = choices.includes(currentValue) ? currentValue : '';
+        } else {
+            newElement.type = 'text';
+            newElement.classList.remove('form-select', 'form-select-sm');
+            newElement.classList.add('form-control', 'form-control-sm');
+            newElement.value = currentValue;
+        }
+
+        oldElement.replaceWith(newElement);
+        newElement.dispatchEvent(new Event('change', {bubbles: true}));
     }
 
     connect() {
@@ -80,6 +166,10 @@ export default class extends Controller
             valueField: "name",
             clearAfterSelect: true,
             onItemAdd: this.onItemAdd.bind(this),
+            onItemRemove: this.onItemRemove.bind(this),
+            onInitialize: () => {
+                this._initialized = true;
+            },
             render: {
                 option: (data, escape) => {
                     let tmp = '<div>'
@@ -110,6 +200,16 @@ export default class extends Controller
                     if (data.symbol !== undefined) {
                         element.dataset.symbol = data.symbol;
                     }
+                    if (data.definition_id !== undefined) {
+                        element.dataset.definitionId = data.definition_id;
+                        element.dataset.definitionName = data.name;
+                    }
+                    if (data.input_type !== undefined) {
+                        element.dataset.inputType = data.input_type;
+                    }
+                    if (data.choices !== undefined) {
+                        element.dataset.choices = JSON.stringify(data.choices);
+                    }
 
                     return element.outerHTML;
                 }
@@ -138,6 +238,6 @@ export default class extends Controller
     disconnect() {
         super.disconnect();
         //Destroy the TomSelect instance
-        this._tomSelect.destroy();
+        this._tomSelect?.destroy();
     }
 }

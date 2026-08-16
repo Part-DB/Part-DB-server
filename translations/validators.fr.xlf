@@ -253,5 +253,8 @@
         <target>Cela n'est pas un GTIN / EAN valide !</target>
       </segment>
     </unit>
+    <unit id="parameter_definition_name_unique" name="parameter_definition.name_unique">
+      <segment state="translated"><source>parameter_definition.name_unique</source><target>Une définition de paramètre portant ce nom existe déjà.</target></segment>
+    </unit>
   </file>
 </xliff>
