@@ -1,4 +1,4 @@
-# Generated on Mon Aug 10 04:02:03 UTC 2026
+# Generated on Mon Aug 17 03:05:42 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -15273,6 +15273,7 @@ Memory_Flash:AT45DB161B-RC-2.5
 Memory_Flash:AT45DB161B-TC
 Memory_Flash:AT45DB161B-TC-2.5
 Memory_Flash:AT45DB161D-SU
+Memory_Flash:EPC2Lx20
 Memory_Flash:EPCQ16ASI8N
 Memory_Flash:EPCQ32ASI8N
 Memory_Flash:GD25D05CT
