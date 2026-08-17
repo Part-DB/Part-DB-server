@@ -148,4 +148,38 @@ final class TimeTravelTest extends KernelTestCase
         self::assertSame('Historical snapshot name', $parameter->getSnapshotName());
         self::assertSame('Previous definition', $parameter->getEffectiveName());
     }
+
+    public function testMissingHistoricalDefinitionFallsBackToSnapshots(): void
+    {
+        $deleted_definition = (new ParameterDefinition())->setName('Deleted historical definition');
+        $this->em->persist($deleted_definition);
+        $this->em->flush();
+        $deleted_definition_id = $deleted_definition->getID();
+        self::assertNotNull($deleted_definition_id);
+        $this->em->remove($deleted_definition);
+        $this->em->flush();
+
+        $parameter = (new PartParameter())
+            ->setName('Current snapshot')
+            ->setSymbol('S')
+            ->setUnit('V');
+        (new \ReflectionClass($parameter))->getProperty('id')->setValue($parameter, 1004);
+
+        $log_entry = new ElementEditedLogEntry($parameter);
+        $log_entry->setOldData([
+            'definition' => ['@id' => $deleted_definition_id],
+            'name' => 'Historical dielectric',
+            'symbol' => 'D',
+            'unit' => 'grade',
+        ]);
+
+        $this->service->applyEntry($parameter, $log_entry);
+
+        self::assertNull($parameter->getDefinition());
+        self::assertSame('Historical dielectric', $parameter->getEffectiveName());
+        self::assertSame('D', $parameter->getEffectiveSymbol());
+        self::assertSame('grade', $parameter->getEffectiveUnit());
+        self::assertSame(ParameterDefinition::INPUT_TYPE_TEXT, $parameter->getEffectiveInputType());
+        self::assertSame([], $parameter->getEffectiveChoices());
+    }
 }

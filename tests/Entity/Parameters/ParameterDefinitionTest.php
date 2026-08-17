@@ -52,6 +52,16 @@ final class ParameterDefinitionTest extends TestCase
         (new ParameterDefinition())->setInputType('unsupported');
     }
 
+    public function testOverlongChoiceIsCanonicalizedWithoutDomainException(): void
+    {
+        $choice = str_repeat('X', ParameterDefinition::MAX_CHOICE_LENGTH + 1);
+        $definition = (new ParameterDefinition())
+            ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
+            ->setChoices([$choice]);
+
+        self::assertSame([$choice], $definition->getChoices());
+    }
+
     public function testNameIsTrimmedAndNormalized(): void
     {
         $definition = (new ParameterDefinition())->setName('  DiElEcTrIc  ');

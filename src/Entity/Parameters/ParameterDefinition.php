@@ -267,14 +267,15 @@ class ParameterDefinition extends AbstractNamedDBElement
     public function validateChoices(ExecutionContextInterface $context): void
     {
         if (self::INPUT_TYPE_TEXT === $this->input_type && [] !== $this->getChoices()) {
-            $context->buildViolation('A text parameter definition must not contain choices.')
+            $context->buildViolation('parameter_definition.validator.text_has_choices')
                 ->atPath('choices')
                 ->addViolation();
         }
 
         foreach ($this->getChoices() as $choice) {
             if (mb_strlen($choice) > self::MAX_CHOICE_LENGTH) {
-                $context->buildViolation(sprintf('A parameter choice must not exceed %d characters.', self::MAX_CHOICE_LENGTH))
+                $context->buildViolation('parameter_definition.validator.choice_too_long')
+                    ->setParameter('{{ limit }}', (string) self::MAX_CHOICE_LENGTH)
                     ->atPath('choices')
                     ->addViolation();
             }
@@ -299,10 +300,6 @@ class ParameterDefinition extends AbstractNamedDBElement
             if ('' === $choice) {
                 continue;
             }
-            if (mb_strlen($choice) > self::MAX_CHOICE_LENGTH) {
-                throw new InvalidArgumentException(sprintf('A parameter choice must not exceed %d characters.', self::MAX_CHOICE_LENGTH));
-            }
-
             $normalized_choice = self::normalize($choice);
             if (isset($seen_choices[$normalized_choice])) {
                 continue;

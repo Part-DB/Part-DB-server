@@ -177,6 +177,12 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     protected ?ParameterDefinition $definition = null;
 
     /**
+     * A choice explicitly requested from the Part editor. This is deliberately not persisted: the definition is
+     * updated only after the complete Part form has passed validation.
+     */
+    private ?string $pending_definition_choice = null;
+
+    /**
      * @var string the group this parameter belongs to
      */
     #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
@@ -573,8 +579,10 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
      *
      * @return $this
      */
-    public function setValueText(string $value_text): self
+    public function setValueText(?string $value_text): self
     {
+        $value_text ??= '';
+
         if ($this->definition instanceof ParameterDefinition
             && ParameterDefinition::INPUT_TYPE_CHOICE === $this->definition->getInputType()
             && '' !== $value_text) {
@@ -585,6 +593,26 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
         }
 
         $this->value_text = $value_text;
+
+        return $this;
+    }
+
+    public function requestPendingDefinitionChoice(?string $choice): self
+    {
+        $choice = null === $choice ? '' : trim($choice);
+        $this->pending_definition_choice = '' === $choice ? null : $choice;
+
+        return $this;
+    }
+
+    public function getPendingDefinitionChoice(): ?string
+    {
+        return $this->pending_definition_choice;
+    }
+
+    public function clearPendingDefinitionChoice(): self
+    {
+        $this->pending_definition_choice = null;
 
         return $this;
     }
@@ -693,7 +721,11 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
 
         $canonical_choice = $this->definition->findCanonicalChoice($this->value_text);
         if (null === $canonical_choice) {
-            $context->buildViolation('The selected value is not part of the linked parameter definition.')
+            if ($this->pending_definition_choice === $this->value_text) {
+                return;
+            }
+
+            $context->buildViolation('parameter.validator.value_not_allowed')
                 ->atPath('value_text')
                 ->addViolation();
 
@@ -701,7 +733,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
         }
 
         if ($canonical_choice !== $this->value_text) {
-            $context->buildViolation('The selected value does not use the canonical spelling from the linked parameter definition.')
+            $context->buildViolation('parameter.validator.value_not_canonical')
                 ->atPath('value_text')
                 ->addViolation();
         }

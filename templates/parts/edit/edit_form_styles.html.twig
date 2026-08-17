@@ -71,7 +71,9 @@
 
 {% block parameter_widget %}
     {% import 'components/collection_type.macro.html.twig' as collection %}
-    <tr {{ stimulus_controller('pages/parameters_autocomplete', {"url": path('typeahead_parameters', {"query": "__QUERY__", "type": form.vars["type"]})}) }}>
+    <tr {{ stimulus_controller('pages/parameters_autocomplete', {
+        "url": path('typeahead_parameters', {"query": "__QUERY__", "type": form.vars["type"]})
+    }) }}>
         <td>{{ form_widget(form.name, {"attr": {"data-pages--parameters-autocomplete-target": "name"}}) }}{{ form_errors(form.name) }}</td>
         <td {{ stimulus_controller('pages/latex_preview') }}>{{ form_widget(form.symbol, {"attr": {"data-pages--parameters-autocomplete-target": "symbol", "data-pages--latex-preview-target": "input"}}) }}{{ form_errors(form.symbol) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
         <td>{{ form_widget(form.value_min) }}{{ form_errors(form.value_min) }}</td>
@@ -85,6 +87,8 @@
             {% if form.definition is defined %}
                 {{ form_widget(form.definition, {"attr": {"data-pages--parameters-autocomplete-target": "definition"}}) }}
                 {{ form_errors(form.definition) }}
+                {{ form_widget(form.new_choice_value, {"attr": {"data-pages--parameters-autocomplete-target": "newChoiceValue"}}) }}
+                {{ form_errors(form.new_choice_value) }}
             {% endif %}
 
         </td>

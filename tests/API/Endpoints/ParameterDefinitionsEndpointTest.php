@@ -80,6 +80,26 @@ final class ParameterDefinitionsEndpointTest extends AuthenticatedApiTestCase
         self::assertResponseStatusCodeSame(403);
     }
 
+    public function testOverlongChoiceReturnsValidationErrorInsteadOfServerError(): void
+    {
+        $client = $this->createDefinitionClient();
+        $client->request('POST', self::BASE_PATH, [
+            'json' => [
+                'name' => 'API overlong choice definition',
+                'input_type' => ParameterDefinition::INPUT_TYPE_CHOICE,
+                'choices' => [str_repeat('X', ParameterDefinition::MAX_CHOICE_LENGTH + 1)],
+            ],
+        ]);
+
+        self::assertResponseStatusCodeSame(422);
+        self::assertJsonContains([
+            'violations' => [[
+                'propertyPath' => 'choices',
+                'message' => 'A parameter choice must not exceed 255 characters.',
+            ]],
+        ]);
+    }
+
     public function testUsedDefinitionCannotBeDeletedThroughApi(): void
     {
         $client = $this->createDefinitionClient();

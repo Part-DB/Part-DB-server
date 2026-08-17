@@ -248,8 +248,10 @@ class TimeTravel
                     if (null === $data) {
                         $element->restoreDefinitionReference(null);
                     } elseif (is_array($data) && isset($data['@id'])) {
-                        $definition = $this->em->getReference(ParameterDefinition::class, $data['@id']);
-                        $element->restoreDefinitionReference($definition);
+                        $definition = $this->em->find(ParameterDefinition::class, $data['@id']);
+                        $element->restoreDefinitionReference(
+                            $definition instanceof ParameterDefinition ? $definition : null
+                        );
                     }
 
                     continue;
