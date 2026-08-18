@@ -19,12 +19,12 @@
  *
  */
 
-var Encore = require('@symfony/webpack-encore');
+import Encore from '@symfony/webpack-encore';
 
-const zlib = require('zlib');
-const path = require('path')
-const CompressionPlugin = require("compression-webpack-plugin");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+import zlib from 'zlib';
+import path from 'path';
+import CompressionPlugin from "compression-webpack-plugin";
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -96,15 +96,17 @@ Encore
 
 
 
-    // configure Babel
-    // .configureBabel((config) => {
-    //     config.plugins.push('@babel/a-babel-plugin');
+    // Configure JS and CSS minimizers
+    // .configureJsMinimizerPlugin((options, MinimizerPlugin) => {
+    //     options.minify = MinimizerPlugin.esbuildMinify
+    // })
+    // .configureCssMinimizerPlugin((options, MinimizerPlugin) => {
+    //     options.minify = MinimizerPlugin.lightningCssMinify;
     // })
 
-    // enables and configure @babel/preset-env polyfills
-    .configureBabelPresetEnv((config) => {
-        config.useBuiltIns = 'usage';
-        config.corejs = '3.38';
+    // configure Babel
+    .configureBabel((config) => {
+        config.plugins.push(['polyfill-corejs3', { method: 'usage-global', version: '3.49' }]);
     })
     // enables Sass/SCSS support
     //.enableSassLoader()
@@ -125,7 +127,7 @@ Encore
     // { default, jQuery, $ } which has no .fn, crashing Bootstrap's
     // defineJQueryPlugin when it tries to access $.fn.alert.
     .addAliases({
-        'jquery': path.resolve(__dirname, 'node_modules/jquery/dist/jquery.js')
+        'jquery': path.resolve(import.meta.dirname, 'node_modules/jquery/dist/jquery.js')
     })
     .autoProvidejQuery()
 
@@ -142,7 +144,7 @@ Encore
     } )
 
     .addAliases({
-        'ckeditor5-translations': path.resolve(__dirname, 'node_modules/ckeditor5/dist/translations')
+        'ckeditor5-translations': path.resolve(import.meta.dirname, 'node_modules/ckeditor5/dist/translations')
     })
 
 
@@ -189,12 +191,24 @@ if (Encore.isDev()) {
 }
 
 
-module.exports = Encore.getWebpackConfig();
+let config = await Encore.getWebpackConfig();
 
 //Enable webassembly support
-module.exports.experiments = module.exports.experiments || {};
-module.exports.experiments.asyncWebAssembly = true;
+config.experiments = config.experiments || {};
+config.experiments.asyncWebAssembly = true;
 
 //Enable webpack auto public path
 //We do it here to supress a warning caused by webpack Encore
-module.exports.output.publicPath = 'auto';
+config.output.publicPath = 'auto';
+
+//Our own source files are plain scripts without file extensions on relative imports (e.g. "./error_handler").
+//Since package.json declares "type": "module", webpack's resolver otherwise requires those imports to be
+//fully specified (like native ESM does). Relax that requirement for our own JS/TS sources.
+config.module.rules.push({
+    test: /\.(js|mjs|ts)$/,
+    resolve: {
+        fullySpecified: false,
+    },
+});
+
+export default config;

@@ -146,7 +146,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     #[Assert\NotNull(message: 'validator.orderdetail.supplier_must_not_be_null')]
     #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
     #[ORM\ManyToOne(targetEntity: Supplier::class, inversedBy: 'orderdetails')]
-    #[ORM\JoinColumn(name: 'id_supplier')]
+    #[ORM\JoinColumn(name: 'id_supplier', nullable: false)]
     protected ?Supplier $supplier = null;
 
     /**

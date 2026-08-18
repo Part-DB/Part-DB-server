@@ -27,6 +27,7 @@ use Doctrine\Common\DataFixtures\Purger\PurgerInterface;
 use Doctrine\Common\DataFixtures\Sorter\TopologicalSorter;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\DBAL\Schema\Identifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -156,6 +157,8 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
         //Disable foreign key checks
         if($platform instanceof AbstractMySQLPlatform) {
             $connection->executeQuery('SET foreign_key_checks = 0;');
+        } elseif ($platform instanceof SQLitePlatform) {
+            $connection->executeQuery('PRAGMA foreign_keys = OFF;');
         }
 
         foreach ($orderedTables as $tbl) {
@@ -194,6 +197,8 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
         //Reenable foreign key checks
         if($platform instanceof AbstractMySQLPlatform) {
             $connection->executeQuery('SET foreign_key_checks = 1;');
+        } elseif ($platform instanceof SQLitePlatform) {
+            $connection->executeQuery('PRAGMA foreign_keys = ON;');
         }
     }
 

@@ -156,6 +156,11 @@ class ParameterType extends AbstractType
                 'label' => false,
                 'required' => false,
             ]);
+
+            $builder->add('eda_symbol_visibility', TriStateCheckboxType::class, [
+                'label' => false,
+                'required' => false,
+            ]);
         }
     }
 

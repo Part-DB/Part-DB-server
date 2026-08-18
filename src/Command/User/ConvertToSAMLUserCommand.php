@@ -27,6 +27,7 @@ use App\Entity\UserSystem\User;
 use App\Security\SamlUserFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -36,7 +37,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[AsCommand('partdb:user:convert-to-saml-user|partdb:users:convert-to-saml-user', 'Converts a local user to a SAML user (and vice versa)')]
 class ConvertToSAMLUserCommand extends Command
 {
-    public function __construct(protected EntityManagerInterface $entityManager, protected bool $saml_enabled)
+    public function __construct(
+        protected EntityManagerInterface $entityManager,
+        #[Autowire(param: 'partdb.saml.enabled')]
+        protected bool $saml_enabled,
+    )
     {
         parent::__construct();
     }

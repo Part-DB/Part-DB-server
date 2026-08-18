@@ -16,6 +16,7 @@ use PhpZip\ZipFile;
 use Spatie\DbDumper\Databases\MySql;
 use Spatie\DbDumper\DbDumper;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -25,7 +26,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[AsCommand('partdb:backup', 'Backup the files and the database of Part-DB')]
 class BackupCommand extends Command
 {
-    public function __construct(private readonly string $project_dir, private readonly EntityManagerInterface $entityManager)
+    public function __construct(
+        #[Autowire(param: 'kernel.project_dir')]
+        private readonly string $project_dir,
+        private readonly EntityManagerInterface $entityManager,
+    )
     {
         parent::__construct();
     }

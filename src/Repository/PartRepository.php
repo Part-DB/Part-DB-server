@@ -29,12 +29,14 @@ use App\Settings\MiscSettings\IpnSuggestSettings;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @extends NamedDBElementRepository<Part>
  */
+#[Autoconfigure(tags: ['doctrine.repository_service'])]
 class PartRepository extends NamedDBElementRepository
 {
     private TranslatorInterface $translator;

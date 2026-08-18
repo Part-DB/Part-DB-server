@@ -65,18 +65,4 @@ class AttachmentsSettings
         envVar: "bool:ATTACHMENT_SHOW_HTML_FILES", envVarMode: EnvVarMode::OVERWRITE
     )]
     public bool $showHTMLAttachments = false;
-
-    public function getMaxFileSizeInMegabytes(): int
-    {
-        $size = $this->maxFileSize;
-        $unit = strtoupper(substr($size, -1));
-        $value = (int) rtrim($size, 'KMG');
-
-        return match ($unit) {
-            'K' => (int) ceil($value / 1024),
-            'M' => $value,
-            'G' => $value * 1024,
-            default => $value, // No unit specified, assume megabytes
-        };
-    }
 }

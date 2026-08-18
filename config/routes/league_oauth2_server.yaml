@@ -1,0 +1,11 @@
+oauth2_server:
+    resource: '@LeagueOAuth2ServerBundle/config/routes.php'
+    type: php
+    # Grouped under /oauth alongside the other OAuth2 server endpoints (client registration at
+    # /oauth/register, external client connect/check at /oauth/client/*) - see
+    # src/Controller/OAuth/ and config/routes/attributes.yaml's oauth_server_controllers import.
+    prefix: '/oauth'
+    # Only load the OAuth2 authorization server's own routes (/oauth/authorize, /oauth/token,
+    # /oauth/device-code) if the OAuth2 server is enabled - disabled by default, see .env's
+    # OAUTH_SERVER_ENABLED.
+    condition: "env('bool:OAUTH_SERVER_ENABLED') == true"

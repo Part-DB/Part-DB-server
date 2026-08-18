@@ -24,8 +24,11 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
+#[AutoconfigureTag('app.info_provider')]
 interface InfoProviderInterface
 {
     public const OPTION_NO_CACHE = 'no_cache'; // if set to true, the provider should not use any cache and retrieve fresh data from the source
@@ -34,26 +37,8 @@ interface InfoProviderInterface
 
     /**
      * Get information about this provider
-     *
-     * @return array An associative array with the following keys (? means optional):
-     * - name: The (user friendly) name of the provider (e.g. "Digikey"), will be translated
-     * - description?: A short description of the provider (e.g. "Digikey is a ..."), will be translated
-     * - logo?: The logo of the provider (e.g. "digikey.png")
-     * - url?: The url of the provider (e.g. "https://www.digikey.com")
-     * - disabled_help?: A help text which is shown when the provider is disabled, explaining how to enable it
-     * - oauth_app_name?: The name of the OAuth app which is used for authentication (e.g. "ip_digikey_oauth"). If this is set a connect button will be shown
-     * - settings_class?: The class name of the settings class which contains the settings for this provider (e.g. "App\Settings\InfoProviderSettings\DigikeySettings"). If this is set a link to the settings will be shown
-     *
-     * @phpstan-return array{ name: string, description?: string, logo?: string, url?: string, disabled_help?: string, oauth_app_name?: string, settings_class?: class-string }
      */
-    public function getProviderInfo(): array;
-
-    /**
-     * Returns a unique key for this provider, which will be saved into the database
-     * and used to identify the provider
-     * @return string A unique key for this provider (e.g. "digikey")
-     */
-    public function getProviderKey(): string;
+    public function getProviderInfo(): ProviderInfoDTO;
 
     /**
      * Checks if this provider is enabled or not (meaning that it can be used for searching)
@@ -76,12 +61,4 @@ interface InfoProviderInterface
      * @return PartDetailDTO
      */
     public function getDetails(string $id, array $options = []): PartDetailDTO;
-
-    /**
-     * A list of capabilities this provider supports (which kind of data it can provide).
-     * Not every part have to contain all of these data, but the provider should be able to provide them in general.
-     * Currently, this list is purely informational and not used in functional checks.
-     * @return ProviderCapabilities[]
-     */
-    public function getCapabilities(): array;
 }

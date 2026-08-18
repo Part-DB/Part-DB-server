@@ -14,7 +14,10 @@ applications is acting on behalf of a
 specific user. This user limits the permissions of the application so that it can only access data, which the user is
 allowed to access.
 
-The only method currently available for authentication is to use API tokens:
+There are two methods available for authentication: API tokens, which you create and manage yourself, and
+[OAuth2]({% link api/oauth.md %}), where an application obtains its own token for you via a login-and-consent
+flow (if your administrator has enabled it). Both result in a bearer token with the same kind of scope, and can be
+used interchangeably with the [REST API]({% link api/intro.md %}) and the [MCP server]({% link api/mcp.md %}).
 
 ## API tokens
 

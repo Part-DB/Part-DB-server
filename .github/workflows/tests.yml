@@ -80,8 +80,8 @@ jobs:
       - name: Get Composer Cache Directory
         id: composer-cache
         run: |
-          echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - uses: actions/cache@v5
+          echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v6
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
@@ -90,9 +90,9 @@ jobs:
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "dir=$(yarn cache dir)" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/cache@v5
+      - uses: actions/cache@v6
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -104,7 +104,7 @@ jobs:
         run: composer install --prefer-dist --no-progress
 
       - name: Setup node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: '22'
 
@@ -117,6 +117,11 @@ jobs:
       - name: Create DB
         run: php bin/console --env test doctrine:database:create --if-not-exists -n
         if: matrix.db-type == 'mysql' || matrix.db-type == 'postgres'
+
+      # .env.test enables the OAuth2 server (OAUTH_SERVER_ENABLED=1), and its tests actually sign/verify
+      # JWTs, so - unlike a real deployment, which works fine without this - CI needs a real keypair.
+      - name: Generate OAuth2 keys
+        run: php bin/console --env test partdb:oauth:generate-keys -n
 
       - name: Do migrations
         run: php bin/console --env test doctrine:migrations:migrate -n

@@ -38,6 +38,9 @@ class AISettings
     public const TIMEOUT_LIMIT = 600;
 
     #[EmbeddedSettings]
+    public ?McpSettings $mcp = null;
+
+    #[EmbeddedSettings]
     public ?OpenRouterSettings $openRouter = null;
 
     #[EmbeddedSettings]

@@ -4,12 +4,21 @@ controllers:
         namespace: App\Controller
     type: attribute
     prefix: '{_locale}'
+    # OAuth2 protocol endpoints (client registration, discovery metadata) must live at fixed,
+    # non-localized paths, so we exclude them from the locale prefix.
+    exclude: '../../src/Controller/OAuth/NonLocalized/*'
 
     defaults:
         _locale: '%kernel.default_locale%'
     requirements:
         # Match only locales like de_DE or de
         _locale: "^[a-z]{2}(_[A-Z]{2})?$"
+
+oauth_server_controllers:
+    resource:
+        path: ../../src/Controller/OAuth/NonLocalized/
+        namespace: App\Controller\OAuth\NonLocalized
+    type: attribute
 
 kernel:
     resource: ../../src/Kernel.php

@@ -83,14 +83,14 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
 
     #[Assert\Positive]
     #[ORM\Column(name: 'quantity', type: Types::FLOAT)]
-    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full'])]
+    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full', 'mcp_project_details:read'])]
     protected float $quantity = 1.0;
 
     /**
      * @var string A comma separated list of the names, where this parts should be placed
      */
     #[ORM\Column(name: 'mountnames', type: Types::TEXT)]
-    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full'])]
+    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full', 'mcp_project_details:read'])]
     protected string $mountnames = '';
 
     /**
@@ -98,21 +98,22 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
      */
     #[Assert\Expression('this.getPart() !== null or this.getName() !== null', message: 'validator.project.bom_entry.name_or_part_needed')]
     #[ORM\Column(type: Types::STRING, nullable: true)]
-    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full'])]
+    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full', 'mcp_project_details:read'])]
     protected ?string $name = null;
 
     /**
      * @var string An optional comment for this BOM entry
      */
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'extended', 'full'])]
+    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'extended', 'full', 'mcp_project_details:read'])]
     protected string $comment = '';
 
     /**
      * @var Project|null
      */
+    #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'bom_entries')]
-    #[ORM\JoinColumn(name: 'id_device')]
+    #[ORM\JoinColumn(name: 'id_device', nullable: false, onDelete: 'CASCADE')]
     #[Groups(['bom_entry:read', 'bom_entry:write', ])]
     protected ?Project $project = null;
 
@@ -121,7 +122,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
      */
     #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'project_bom_entries')]
     #[ORM\JoinColumn(name: 'id_part')]
-    #[Groups(['bom_entry:read', 'bom_entry:write', 'full'])]
+    #[Groups(['bom_entry:read', 'bom_entry:write', 'full', 'mcp_project_details:read'])]
     protected ?Part $part = null;
 
     /**
@@ -129,7 +130,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
      */
     #[Assert\AtLeastOneOf([new BigDecimalPositive(), new Assert\IsNull()])]
     #[ORM\Column(type: 'big_decimal', precision: 11, scale: 5, nullable: true)]
-    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'extended', 'full'])]
+    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'extended', 'full', 'mcp_project_details:read'])]
     protected ?BigDecimal $price = null;
 
     /**

@@ -341,7 +341,9 @@ class KiCadHelper
                 $fieldName = $parameter->getName();
                 //Don't overwrite hardcoded fields
                 if (!isset($result['fields'][$fieldName])) {
-                    $result['fields'][$fieldName] = $this->createField($parameter->getFormattedValue());
+                    //Whether the field should be visible in the schematic symbol (explicit, or system default when null)
+                    $symbolVisibility = $parameter->isEdaSymbolVisibility() ?? $this->kiCadEDASettings->defaultParameterSymbolVisibility;
+                    $result['fields'][$fieldName] = $this->createField($parameter->getFormattedValue(), $symbolVisibility);
                 }
             }
         }

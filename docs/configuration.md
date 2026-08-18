@@ -67,6 +67,12 @@ bundled with Part-DB. Set `DATABASE_MYSQL_SSL_VERIFY_CERT` if you want to accept
 * `DATABASE_EMULATE_NATURAL_SORT` (default 0) (env only): If set to 1, Part-DB will emulate natural sorting, even if the database 
   does not support it natively. However this is much slower than the native sorting, and contain bugs or quirks, so use
   it only, if you have to.
+* `DATABASE_SQLITE_ENFORCE_FOREIGN_KEYS` (default 0) (env only): If set to 1 and a SQLite database is used, foreign key
+  constraints are enforced (`PRAGMA foreign_keys = ON`). SQLite does not enforce them by default. Disabled by default for
+  backwards compatibility with existing installations that may contain data which is not strictly foreign-key-consistent.
+  Before enabling this on an existing installation, run `bin/console partdb:database:check-sqlite-foreign-keys` to check
+  whether any existing rows would already violate a foreign key constraint (add `--fix` to try to resolve them
+  automatically). See the [console commands documentation](usage/console_commands.md) for details.
 * `DEFAULT_LANG`: The default language to use server-wide (when no language is explicitly specified by a user or via
   language chooser). Must be something like `en`, `de`, `fr`, etc.
 * `DEFAULT_TIMEZONE`: The default timezone to use globally, when a user has no timezone specified. Must be something
@@ -211,6 +217,35 @@ then `HISTORY_SAVE_CHANGED_FIELDS`, `HISTORY_SAVE_CHANGED_DATA` and `HISTORY_SAV
    All parts in the selected category and all subcategories are shown in KiCad. Set this to a higher value, if you want to show more categories in KiCad.
    When you set this value to -1, all parts are shown inside a single category in KiCad.
 
+### OAuth2 authorization server settings (all env only)
+
+Part-DB can act as an OAuth2 authorization server, letting external applications and AI agents obtain their own
+access token via a login-and-consent flow instead of a manually created API token. See the
+[OAuth2]({% link api/oauth.md %}) page for details.
+
+* `OAUTH2_ENCRYPTION_KEY`: A secret key used to encrypt OAuth2 authorization codes and refresh tokens. Not set by
+  default, so it must be generated before enabling the OAuth2 server in production - `/oauth/authorize` and
+  `/oauth/token` fail with a 500 error until you do.
+
+  Generate a secure value with:
+  ```bash
+  bin/console partdb:oauth:generate-secret
+  ```
+  and add the printed line to `.env.local`. Keep it secret, and do **not** change it again once the OAuth2 server
+  is in use — doing so invalidates all outstanding refresh tokens and any authorization codes currently in flight.
+* `OAUTH_SERVER_ENABLED` (default `0`): Enables the OAuth2 authorization server (`/oauth/authorize`, `/oauth/token`, the
+  `/tools/oauth_clients` admin overview, the `/.well-known/` discovery endpoints, and OAuth2 bearer token
+  authentication in general). Disabled by default; while disabled these are all unreachable.
+* `OAUTH_DCR_ENABLED` (default `0`): Enables open, unauthenticated Dynamic Client Registration (RFC 7591,
+  `POST /oauth/register`) on top of the OAuth2 server. Has no effect unless `OAUTH_SERVER_ENABLED` is also set to
+  `1`. Clients can always be registered manually by an administrator regardless of this setting.
+
+### MCP settings
+
+* `MCP_ENABLED` (default `0`): Enables the [MCP server]({% link api/mcp.md %}) under the `/mcp` path, which lets
+  AI assistants and agents interact with your Part-DB inventory (read-only). Can also be toggled via the system
+  settings **AI** tab.
+
 ### SAML SSO settings (all env only)
 
 The following settings can be used to enable and configure Single-Sign on via SAML. This allows users to log in to
@@ -262,7 +297,21 @@ See the [information providers]({% link usage/information_provider_system.md %})
 * `TRUSTED_PROXIES` (env only): Set the IP addresses (or IP blocks) of trusted reverse proxies here. This is needed to get correct
   IP information (see [here](https://symfony.com/doc/current/deployment/proxies.html) for more info).
 * `TRUSTED_HOSTS` (env only): To prevent `HTTP Host header attacks` you can set a regex containing all host names via which Part-DB
-  should be accessible. If accessed via the wrong hostname, an error will be shown.
+  should be accessible. If accessed via a hostname not matching the regex, an error page will be shown instead. By default this
+  is empty, meaning Part-DB accepts requests for any host name, which is not recommended for production use.
+
+  For example, if Part-DB should only be reachable under `part-db.example.invalid`, set the following in your
+  `.env.local` file (the value must be wrapped in single quotes here):
+  ```
+  TRUSTED_HOSTS='^(part-db\.example\.invalid)$'
+  ```
+  If you set `TRUSTED_HOSTS` as an environment variable in your `docker-compose.yaml` instead, the value must
+  **not** be quoted:
+  ```
+  TRUSTED_HOSTS=^(part-db\.example\.invalid)$
+  ```
+  You can specify multiple host names separated by `|`, e.g. `^(localhost|part-db\.example\.invalid)$`.
+  Part-DB displays a warning on the homepage (visible to administrators only) as long as this value is not set.
 * `DEMO_MODE` (env only): Set Part-DB into demo mode, which forbids users to change their passwords and settings. Used for the demo
   instance. This should not be needed for normal installations.
 * `NIIMBOT_ENABLED` (default `0`) (env only): If set to `1`, a "Print to Niimbot" panel is shown in the label generator, which

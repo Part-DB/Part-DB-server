@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Tests\Services\InfoProviderSystem;
 
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use App\Services\InfoProviderSystem\Providers\URLHandlerInfoProviderInterface;
@@ -46,7 +47,7 @@ final class ProviderRegistryTest extends TestCase
     public function getMockProvider(string $key, bool $active = true): InfoProviderInterface
     {
         $mock = $this->createMockForIntersectionOfInterfaces([InfoProviderInterface::class, URLHandlerInfoProviderInterface::class]);
-        $mock->method('getProviderKey')->willReturn($key);
+        $mock->method('getProviderInfo')->willReturn(new ProviderInfoDTO(key: $key, name: $key));
         $mock->method('isActive')->willReturn($active);
         $mock->method('getHandledDomains')->willReturn(["$key.com", "test.$key.de"]);
 

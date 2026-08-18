@@ -43,6 +43,7 @@ class InfoProviderNotActiveException extends \RuntimeException
      */
     public static function fromProvider(InfoProviderInterface $provider): self
     {
-        return new self($provider->getProviderKey(), $provider->getProviderInfo()['name'] ?? '???');
+        $info = $provider->getProviderInfo();
+        return new self($info->key, $info->name);
     }
 }

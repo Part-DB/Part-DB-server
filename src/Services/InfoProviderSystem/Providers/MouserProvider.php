@@ -36,6 +36,7 @@ use App\Entity\Parts\ManufacturingStatus;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Settings\InfoProviderSystem\MouserSettings;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -48,6 +49,7 @@ class MouserProvider implements InfoProviderInterface
     private const ENDPOINT_URL = 'https://api.mouser.com/api/v2/search';
 
     public const DISTRIBUTOR_NAME = 'Mouser';
+    public const PROVIDER_KEY = 'mouser';
 
     public function __construct(
         private readonly HttpClientInterface $mouserClient,
@@ -55,20 +57,22 @@ class MouserProvider implements InfoProviderInterface
     ) {
     }
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'Mouser',
-            'description' => 'This provider uses the Mouser API to search for parts.',
-            'url' => 'https://www.mouser.com/',
-            'disabled_help' => 'Configure the API key in the provider settings to enable.',
-            'settings_class' => MouserSettings::class
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'mouser';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'Mouser',
+            description: 'This provider uses the Mouser API to search for parts.',
+            url: 'https://www.mouser.com/',
+            disabledHelp: 'Configure the API key in the provider settings to enable.',
+            settingsClass: MouserSettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::DATASHEET,
+                ProviderCapabilities::PRICE,
+            ],
+        );
     }
 
     public function isActive(): bool
@@ -207,17 +211,6 @@ class MouserProvider implements InfoProviderInterface
         return reset($tmp);
     }
 
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::DATASHEET,
-            ProviderCapabilities::PRICE,
-        ];
-    }
-
-
     /**
      * @param  ResponseInterface  $response
      * @return PartDetailDTO[]
@@ -251,7 +244,7 @@ class MouserProvider implements InfoProviderInterface
 
 
             $result[] = new PartDetailDTO(
-                provider_key: $this->getProviderKey(),
+                provider_key: self::PROVIDER_KEY,
                 provider_id: $product['MouserPartNumber'],
                 name: $product['ManufacturerPartNumber'],
                 description: $product['Description'],

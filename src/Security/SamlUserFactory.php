@@ -27,6 +27,7 @@ use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Nbgrp\OneloginSamlBundle\Security\Http\Authenticator\Token\SamlToken;
 use Nbgrp\OneloginSamlBundle\Security\User\SamlUserFactoryInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -38,7 +39,13 @@ class SamlUserFactory implements SamlUserFactoryInterface, EventSubscriberInterf
 {
     private readonly array $saml_role_mapping;
 
-    public function __construct(private readonly EntityManagerInterface $em, ?array $saml_role_mapping, private readonly bool $update_group_on_login)
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        #[Autowire(env: 'json:SAML_ROLE_MAPPING')]
+        ?array $saml_role_mapping,
+        #[Autowire(env: 'bool:SAML_UPDATE_GROUP_ON_LOGIN')]
+        private readonly bool $update_group_on_login,
+    )
     {
         $this->saml_role_mapping = $saml_role_mapping ?: [];
     }

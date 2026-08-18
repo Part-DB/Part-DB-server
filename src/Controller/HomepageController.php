@@ -27,6 +27,7 @@ use App\Entity\Parts\Part;
 use App\Services\System\AppSecretChecker;
 use App\Services\System\BannerHelper;
 use App\Services\System\GitVersionInfoProvider;
+use App\Services\System\TrustedHostsChecker;
 use App\Services\System\UpdateAvailableFacade;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -41,6 +42,7 @@ class HomepageController extends AbstractController
         private readonly DataTableFactory $dataTable,
         private readonly BannerHelper $bannerHelper,
         private readonly AppSecretChecker $appSecretChecker,
+        private readonly TrustedHostsChecker $trustedHostsChecker,
     ) {
     }
 
@@ -90,6 +92,7 @@ class HomepageController extends AbstractController
             'new_version_url' => $updateAvailableManager->getLatestVersionUrl(),
             'insecure_app_secret' => $this->appSecretChecker->isInsecureSecret(),
             'suggested_app_secret' => $this->appSecretChecker->isInsecureSecret() ? $this->appSecretChecker->generateSecret() : null,
+            'trusted_hosts_unconfigured' => $this->trustedHostsChecker->isTrustedHostsUnconfigured(),
         ]);
     }
 }

@@ -27,6 +27,7 @@ use App\Entity\UserSystem\User;
 use App\Repository\UserRepository;
 use App\Security\ApiTokenAuthenticatedToken;
 use Doctrine\ORM\EntityManagerInterface;
+use League\Bundle\OAuth2ServerBundle\Security\Authentication\Token\OAuth2Token;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -88,8 +89,13 @@ final class VoterHelper
             $user = $this->resolveUser($token);
         }
 
-        //If the token is a APITokenAuthenticated
-        if ($token instanceof ApiTokenAuthenticatedToken) {
+        //If the token is a APITokenAuthenticated token (Personal Access Token) or an OAuth2Token (an
+        //OAuth2-issued token, see App\Security\OAuth\OAuthBearerAuthenticator), the token can only ever
+        //grant a *subset* of what the user could already do - apply the same API-level ceiling check to
+        //both, keyed off the token's own role list (ROLE_API_* either way - see
+        //App\Entity\UserSystem\ApiTokenLevel::getAdditionalRoles() and
+        //config/packages/league_oauth2_server.yaml's role_prefix/scopes).
+        if ($token instanceof ApiTokenAuthenticatedToken || $token instanceof OAuth2Token) {
             //Use the special API token checker
             return $this->permissionManager->inheritWithAPILevel($user, $token->getRoleNames(), $permission, $operation);
         }

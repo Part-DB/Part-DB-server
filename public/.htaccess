@@ -120,12 +120,23 @@ DirectoryIndex index.php
 </IfModule>
 
 <IfModule mod_headers.c>
-    # Set a strict CSP for all static assets not handled by PHP.
-    # PHP responses already carry their own CSP via NelmioSecurityBundle, so setifempty leaves those untouched.
-    Header always setifempty Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; sandbox;"
-    Header always setifempty X-Content-Type-Options "nosniff"
+    # Set a strict CSP for everything Apache serves, except the front controller (index.php),
+    # whose response CSP is set by NelmioSecurityBundle in PHP. Excluding it via a negative
+    # FilesMatch (rather than a blanket rule relying on "setifempty" to skip PHP responses)
+    # avoids depending on mod_headers detecting the PHP-set header at the right time: on a
+    # real Apache 2.4/mod_php install, "setifempty" did not reliably suppress the static policy,
+    # so BOTH Content-Security-Policy headers ended up on the same PHP response, and browsers
+    # enforce the intersection of all CSP headers on a response - so "script-src 'none';
+    # sandbox" silently disabled all scripts/styles site-wide. mod_rewrite's internal redirect
+    # to index.php re-runs directory-scoped matching against the new target, so this FilesMatch
+    # reliably excludes it regardless of the originally requested URL.
+    <FilesMatch "^(?!index\.php$).+$">
+        Header always set Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; sandbox;"
+        Header always set X-Content-Type-Options "nosniff"
+    </FilesMatch>
 
     # SVG files get a slightly different CSP because they can embed resources and must not be framed.
+    # (Declared after the general rule above so its more specific "set" wins for SVG files.)
     <FilesMatch "\.(svg|svg\.gz|svg\.br)$">
         Header always set Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none'; sandbox;"
     </FilesMatch>

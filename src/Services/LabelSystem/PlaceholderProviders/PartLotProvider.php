@@ -48,13 +48,16 @@ use App\Services\Formatters\AmountFormatter;
 use App\Services\LabelSystem\LabelTextReplacer;
 use IntlDateFormatter;
 use Locale;
+use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
 
 /**
  * @see \App\Tests\Services\LabelSystem\PlaceholderProviders\PartLotProviderTest
  */
-final class PartLotProvider implements PlaceholderProviderInterface
+// Must be invoked before all other providers, so it can override %%NAME%% placeholder
+#[AsTaggedItem(priority: 10)]
+final readonly class PartLotProvider implements PlaceholderProviderInterface
 {
-    public function __construct(private readonly LabelTextReplacer $labelTextReplacer, private readonly AmountFormatter $amountFormatter)
+    public function __construct(private LabelTextReplacer $labelTextReplacer, private AmountFormatter $amountFormatter)
     {
     }
 
@@ -66,11 +69,11 @@ final class PartLotProvider implements PlaceholderProviderInterface
             }
 
             if ('[[LOT_NAME]]' === $placeholder) {
-                return $label_target->getName();
+                return htmlspecialchars($label_target->getName());
             }
 
             if ('[[LOT_COMMENT]]' === $placeholder) {
-                return $label_target->getComment();
+                return htmlspecialchars($label_target->getComment());
             }
 
             if ('[[EXPIRATION_DATE]]' === $placeholder) {
@@ -95,19 +98,19 @@ final class PartLotProvider implements PlaceholderProviderInterface
             }
 
             if ('[[LOCATION]]' === $placeholder) {
-                return $label_target->getStorageLocation() instanceof StorageLocation ? $label_target->getStorageLocation()->getName() : '';
+                return $label_target->getStorageLocation() instanceof StorageLocation ? htmlspecialchars($label_target->getStorageLocation()->getName()) : '';
             }
 
             if ('[[LOCATION_FULL]]' === $placeholder) {
-                return $label_target->getStorageLocation() instanceof StorageLocation ? $label_target->getStorageLocation()->getFullPath() : '';
+                return $label_target->getStorageLocation() instanceof StorageLocation ? htmlspecialchars($label_target->getStorageLocation()->getFullPath()) : '';
             }
 
             if ('[[OWNER]]' === $placeholder) {
-                return $label_target->getOwner() instanceof User ? $label_target->getOwner()->getFullName() : '';
+                return $label_target->getOwner() instanceof User ? htmlspecialchars($label_target->getOwner()->getFullName()) : '';
             }
 
             if ('[[OWNER_USERNAME]]' === $placeholder) {
-                return $label_target->getOwner() instanceof User ? $label_target->getOwner()->getUsername() : '';
+                return $label_target->getOwner() instanceof User ? htmlspecialchars($label_target->getOwner()->getUsername()) : '';
             }
 
             return $this->labelTextReplacer->handlePlaceholder($placeholder, $label_target->getPart());

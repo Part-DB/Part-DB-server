@@ -648,6 +648,12 @@ Sub elements will be moved upwards.</target>
         <target>Export this parameter as an EDA field</target>
       </segment>
     </unit>
+    <unit id="Nx6h9XW" name="specifications.eda_symbol_visibility.help">
+      <segment state="translated">
+        <source>specifications.eda_symbol_visibility.help</source>
+        <target>Make this parameter field visible in the schematic symbol</target>
+      </segment>
+    </unit>
     <unit id="XclPxI9" name="specification.create">
       <segment state="translated">
         <source>specification.create</source>
@@ -675,7 +681,7 @@ Sub elements will be moved upwards.</target>
     <unit id="maYlJO8" name="part_list.loading.message">
       <segment state="translated">
         <source>part_list.loading.message</source>
-        <target>This can take a moment. If this message do not disappear, try to reload the page.</target>
+        <target>This can take a moment. If this message does not disappear, try to reload the page.</target>
       </segment>
     </unit>
     <unit id="wKzcAZd" name="vendor.base.javascript_hint">
@@ -699,7 +705,7 @@ Sub elements will be moved upwards.</target>
     <unit id="LN0dVIE" name="loading.message">
       <segment state="translated">
         <source>loading.message</source>
-        <target>This can take a while. If this messages stays for a long time, try to reload the page.</target>
+        <target>This can take a while. If this message stays for a long time, try to reload the page.</target>
       </segment>
     </unit>
     <unit id="8I0Kqhw" name="loading.bar">
@@ -813,7 +819,7 @@ Sub elements will be moved upwards.</target>
     <unit id="bVL1K4d" name="homepage.help.text">
       <segment state="translated">
         <source>homepage.help.text</source>
-        <target>Help and tips can be found in Wiki the &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub page&lt;/a&gt;</target>
+        <target>Help and tips can be found in the Wiki on the &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub page&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="dnirx4v" name="homepage.forum.caption">
@@ -960,7 +966,7 @@ Sub elements will be moved upwards.</target>
     <unit id="I6zehgT" name="email.pw_reset.message">
       <segment state="translated">
         <source>email.pw_reset.message</source>
-        <target>somebody (hopefully you) requested a reset of your password. If this request was not made by you, ignore this mail.</target>
+        <target>Somebody (hopefully you) requested a reset of your password. If this request was not made by you, ignore this mail.</target>
       </segment>
     </unit>
     <unit id="P8NjvoC" name="email.pw_reset.button">
@@ -2143,7 +2149,7 @@ Also note that without two-factor authentication, your account is no longer as w
     <unit id="h3376Kl" name="tfa_google.step.download">
       <segment state="translated">
         <source>tfa_google.step.download</source>
-        <target>Download an authenticator app (e.g. &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"&gt;Google Authenticator&lt;/a&gt; oder &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp"&gt;FreeOTP Authenticator&lt;/a&gt;)</target>
+        <target>Download an authenticator app (e.g. &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"&gt;Google Authenticator&lt;/a&gt; or &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp"&gt;FreeOTP Authenticator&lt;/a&gt;)</target>
       </segment>
     </unit>
     <unit id="eriwJoR" name="tfa_google.step.scan">
@@ -2420,13 +2426,13 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     <unit id="kgA0kPC" name="entity.edit_flash">
       <segment state="translated">
         <source>entity.edit_flash</source>
-        <target>Changes saved successful.</target>
+        <target>Changes saved successfully.</target>
       </segment>
     </unit>
     <unit id="_cDBy1s" name="entity.edit_flash.invalid">
       <segment state="translated">
         <source>entity.edit_flash.invalid</source>
-        <target>Can not save changed. Please check your input!</target>
+        <target>Can not save changes. Please check your input!</target>
       </segment>
     </unit>
     <unit id="vJr16w7" name="entity.created_flash">
@@ -2450,7 +2456,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     <unit id="vlktMB1" name="csfr_invalid">
       <segment state="translated">
         <source>csfr_invalid</source>
-        <target>CSFR Token invalid. Please reload this page or contact an administrator if this message stays.</target>
+        <target>CSRF Token invalid. Please reload this page or contact an administrator if this message stays.</target>
       </segment>
     </unit>
     <unit id="GFvuxVv" name="label_generator.no_entities_found">
@@ -2549,7 +2555,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     <unit id="XFmvSsv" name="part.deleted">
       <segment state="translated">
         <source>part.deleted</source>
-        <target>Part deleted successful.</target>
+        <target>Part deleted successfully.</target>
       </segment>
     </unit>
     <unit id="iKciX31" name="part.created_flash">
@@ -3065,7 +3071,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     <unit id="AdYtBQG" name="attachment.edit.url.help">
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>You can specify an URL to an external file here, or input an keyword which is used to search in built-in resources (e.g. footprints)</target>
+        <target>You can specify a URL to an external file here, or input a keyword which is used to search in built-in resources (e.g. footprints)</target>
       </segment>
     </unit>
     <unit id="jXplbqd" name="attachment.edit.name">
@@ -4048,7 +4054,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>validator.noneofitschild.self</source>
-        <target>A element can not be its own parent.</target>
+        <target>An element can not be its own parent.</target>
       </segment>
     </unit>
     <unit id="W90LyFQ" name="validator.noneofitschild.children">
@@ -4208,7 +4214,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>validator.noLockout</source>
-        <target>You can not withdraw yourself the "change permission" permission, to prevent that you lockout yourself accidentally.</target>
+        <target>You can not withdraw yourself the "change permission" permission, to prevent that you lock yourself out accidentally.</target>
       </segment>
     </unit>
     <unit id="tS2P7Jn" name="attachment_type.edit.filetype_filter">
@@ -4703,7 +4709,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>storelocation.edit.is_full.label</source>
-        <target>Storelocation full</target>
+        <target>Storage location full</target>
       </segment>
     </unit>
     <unit id="XF4C7ZG" name="storelocation.edit.is_full.help">
@@ -4713,7 +4719,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>storelocation.edit.is_full.help</source>
-        <target>If this option is selected, it is neither possible to add new [[part]] to this storelocation or to increase the amount of existing [[part]].</target>
+        <target>If this option is selected, it is neither possible to add new [[part]] to this storage location or to increase the amount of existing [[part]].</target>
       </segment>
     </unit>
     <unit id="V1su4ac" name="storelocation.limit_to_existing.label">
@@ -4733,7 +4739,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>storelocation.limit_to_existing.help</source>
-        <target>If this option is activated, it is not possible to add new [[part]] to this storelocation, but the amount of existing [[part]] can be increased.</target>
+        <target>If this option is activated, it is not possible to add new [[part]] to this storage location, but the amount of existing [[part]] can be increased.</target>
       </segment>
     </unit>
     <unit id="tGVVeof" name="storelocation.only_single_part.label">
@@ -5988,7 +5994,7 @@ Element 1 -&gt; Element 1.2</target>
       </notes>
       <segment state="translated">
         <source>log.type.security.trusted_device_reset</source>
-        <target>Trusted devices resetted</target>
+        <target>Trusted devices reset</target>
       </segment>
     </unit>
     <unit id="a.Le1i0" name="log.type.collection_element_deleted">
@@ -6123,7 +6129,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="uxw7_77" name="group.edit.enforce_2fa.help">
       <segment state="translated">
         <source>group.edit.enforce_2fa.help</source>
-        <target>If this option is enabled, every direct member of this group, has to configure at least one second-factor for authentication. Recommended for administrative groups with much permissions.</target>
+        <target>If this option is enabled, every direct member of this group has to configure at least one second-factor for authentication. Recommended for administrative groups with many permissions.</target>
       </segment>
     </unit>
     <unit id="NwsYm0P" name="selectpicker.nothing_selected">
@@ -6363,7 +6369,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="CdphPiM" name="tools.reel_calc.explanation">
       <segment state="translated">
         <source>tools.reel_calc.explanation</source>
-        <target>This calculator gives you an estimation, how many parts are remaining on an SMD reel. Measure the noted the dimensions on the reel (or use some of the presets) and click "Update" to get an result.</target>
+        <target>This calculator gives you an estimation, how many parts are remaining on an SMD reel. Measure the noted dimensions on the reel (or use the presets) and click "Update" to get a result.</target>
       </segment>
     </unit>
     <unit id="21dEh63" name="perm.tools.reel_calculator">
@@ -7248,6 +7254,12 @@ Element 1 -&gt; Element 1.2</target>
         <target>Add BOM entries</target>
       </segment>
     </unit>
+    <unit id=".kp4e.H" name="project.bom.export_csv">
+      <segment state="translated">
+        <source>project.bom.export_csv</source>
+        <target>Export as CSV</target>
+      </segment>
+    </unit>
     <unit id="mo8KjGV" name="project.info.info.label">
       <segment state="translated">
         <source>project.info.info.label</source>
@@ -7593,7 +7605,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="DL.TreI" name="category.edit.partname_regex.help">
       <segment state="translated">
         <source>category.edit.partname_regex.help</source>
-        <target>A PCRE-compatible regular expression, which a part name have to match.</target>
+        <target>A PCRE-compatible regular expression, which a part name has to match.</target>
       </segment>
     </unit>
     <unit id="f3gkGc9" name="category.edit.part_ipn_prefix.help">
@@ -7893,7 +7905,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="h9kfyaE" name="log.element_edited.changed_fields.is_full">
       <segment state="translated">
         <source>log.element_edited.changed_fields.is_full</source>
-        <target>Storelocation full</target>
+        <target>Storage location full</target>
       </segment>
     </unit>
     <unit id="K754HtO" name="log.element_edited.changed_fields.limit_to_existing_parts">
@@ -8289,13 +8301,13 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="gt2SlQN" name="import.create_unknown_datastructures">
       <segment state="translated">
         <source>import.create_unknown_datastructures</source>
-        <target>Create unknown datastructures</target>
+        <target>Create unknown data structures</target>
       </segment>
     </unit>
     <unit id=".TjGPnB" name="import.create_unknown_datastructures.help">
       <segment state="translated">
         <source>import.create_unknown_datastructures.help</source>
-        <target>If this is selected, datastructures (like categories, footprints, etc.) which does not exist in the database yet, will be automatically created. If this is not selected, only existing data structures will be used, and if no matching data structure is found, the part will get assigned nothing</target>
+        <target>If this is selected, data structures (like categories, footprints, etc.) which do not exist in the database yet, will be automatically created. If this is not selected, only existing data structures will be used, and if no matching data structure is found, the part will get assigned nothing</target>
       </segment>
     </unit>
     <unit id="y_rsaV8" name="import.path_delimiter">
@@ -8307,7 +8319,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="AOG.hXc" name="import.path_delimiter.help">
       <segment state="translated">
         <source>import.path_delimiter.help</source>
-        <target>The delimiter used to mark different levels in data structure pathes like category, footprint, etc.</target>
+        <target>The delimiter used to mark different levels in data structure paths like category, footprint, etc.</target>
       </segment>
     </unit>
     <unit id="p_IxB9K" name="parts.import.help_documentation">
@@ -8367,7 +8379,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="tNnYa0u" name="project.bom_import.type.kicad_pcbnew">
       <segment state="translated">
         <source>project.bom_import.type.kicad_pcbnew</source>
-        <target>KiCAD Pcbnew BOM (CSV file)</target>
+        <target>KiCad Pcbnew BOM (CSV file)</target>
       </segment>
     </unit>
     <unit id="AtW_ooO" name="project.bom_import.clear_existing_bom">
@@ -8535,7 +8547,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="sg8NMZk" name="log.user_login.ip_anonymize_hint">
       <segment state="translated">
         <source>log.user_login.ip_anonymize_hint</source>
-        <target>If the last digits of the IP address are missing, then the GDPR mode is enabled, in which IP addresses are anynomized.</target>
+        <target>If the last digits of the IP address are missing, then the GDPR mode is enabled, in which IP addresses are anonymized.</target>
       </segment>
     </unit>
     <unit id="K_LOvwj" name="log.user_not_allowed.unauthorized_access_attempt_to">
@@ -8571,7 +8583,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="YQafwyc" name="error_table.error">
       <segment state="translated">
         <source>error_table.error</source>
-        <target>An error occured during your request.</target>
+        <target>An error occurred during your request.</target>
       </segment>
     </unit>
     <unit id="SgZGiGG" name="part.table.invalid_regex">
@@ -9245,7 +9257,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="22Y3GfL" name="part_lot.edit.vendor_barcode.help">
       <segment state="translated">
         <source>part_lot.edit.vendor_barcode.help</source>
-        <target>If this lot already have a barcode (e.g. put there by the vendor), you can input its content here, to easily scan it.</target>
+        <target>If this lot already has a barcode (e.g. put there by the vendor), you can input its content here, to easily scan it.</target>
       </segment>
     </unit>
     <unit id="tFAtJBM" name="scan_dialog.mode.vendor">
@@ -9347,7 +9359,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="Y8bGSEj" name="permission.legend.dependency_note">
       <segment state="translated">
         <source>permission.legend.dependency_note</source>
-        <target>Please note that some permission operations depend on each other. If you encounter a warning that missing permissions were corrected and a permission was set to allow again, you have to set the dependent operation to forbid too. The dependents can normally found right of an operation.</target>
+        <target>Please note that some permission operations depend on each other. If you encounter a warning that missing permissions were corrected and a permission was set to allow again, you have to set the dependent operation to forbid too. The dependents can normally be found right of an operation.</target>
       </segment>
     </unit>
     <unit id="zWj5h2X" name="log.part_stock_changed.timestamp">
@@ -10035,6 +10047,24 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Server settings</target>
       </segment>
     </unit>
+    <unit id="ZDiR5ya" name="settings.misc.mcp">
+      <segment state="translated">
+        <source>settings.misc.mcp</source>
+        <target>MCP (Model Context Protocol) Server</target>
+      </segment>
+    </unit>
+    <unit id="CdFWDgN" name="settings.misc.mcp.enabled">
+      <segment state="translated">
+        <source>settings.misc.mcp.enabled</source>
+        <target>Enable MCP endpoint</target>
+      </segment>
+    </unit>
+    <unit id="Gyos.5e" name="settings.misc.mcp.enabled.help">
+      <segment state="translated">
+        <source>settings.misc.mcp.enabled.help</source>
+        <target>Enable the MCP (Model Context Protocol) endpoint at /mcp, which allows AI assistants to interact with Part-DB.</target>
+      </segment>
+    </unit>
     <unit id="xtw_ol7" name="settings.misc.kicad_eda">
       <segment state="translated">
         <source>settings.misc.kicad_eda</source>
@@ -10050,7 +10080,7 @@ Please note, that you can not impersonate a disabled user. If you try you will g
     <unit id="w07P3Dt" name="settings.misc.kicad_eda.category_depth.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.category_depth.help</source>
-        <target>This value determines the depth of the category tree, that is visible inside KiCad. 0 means that only the top level categories are visible. Set to a value &gt; 0 to show more levels. Set to -1, to show all parts of Part-DB inside a sigle cnategory in KiCad.</target>
+        <target>This value determines the depth of the category tree, that is visible inside KiCad. 0 means that only the top level categories are visible. Set to a value &gt; 0 to show more levels. Set to -1, to show all parts of Part-DB inside a single category in KiCad.</target>
       </segment>
     </unit>
     <unit id="X5.rQdO" name="settings.misc.kicad_eda.datasheet_link">
@@ -12104,7 +12134,7 @@ Please note that this system is currently experimental, and the synonyms defined
     <unit id="Akh9iFg" name="settings.misc.ipn_suggest.globalPrefix.help">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.globalPrefix.help</source>
-        <target>If enabled, an option for to generate IPN with this global prefix, shared across parts in all categories.</target>
+        <target>If enabled, an option to generate IPN with this global prefix, shared across parts in all categories.</target>
       </segment>
     </unit>
     <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
@@ -12152,7 +12182,7 @@ Buerklin-API Authentication server:
     <unit id="RFhwYWd" name="info_providers.search.error.transport_exception">
       <segment state="translated">
         <source>info_providers.search.error.transport_exception</source>
-        <target>Transport error while retrieving information from the providers. Check that your server has internet accesss. See server logs for more info.</target>
+        <target>Transport error while retrieving information from the providers. Check that your server has internet access. See server logs for more info.</target>
       </segment>
     </unit>
     <unit id="PExOL_J" name="update_manager.title">
@@ -12842,7 +12872,7 @@ Buerklin-API Authentication server:
     <unit id="Pu8juaH" name="settings.ips.generic_web_provider.enabled.help">
       <segment state="translated">
         <source>settings.ips.generic_web_provider.enabled.help</source>
-        <target>When the provider is enabled, users can make requests to arbitary websites on behalf of the Part-DB server. Only enable this, if you are aware of the potential consequences.</target>
+        <target>When the provider is enabled, users can make requests to arbitrary websites on behalf of the Part-DB server. Only enable this, if you are aware of the potential consequences.</target>
       </segment>
     </unit>
     <unit id="IvIOYcn" name="info_providers.from_url.title">
@@ -13016,7 +13046,19 @@ Buerklin-API Authentication server:
     <unit id="Z78QunV" name="settings.misc.kicad_eda.default_parameter_visibility.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.default_parameter_visibility.help</source>
-        <target>EDA visibility for all [part] parameters who does not have an explicit visibility set. When enabled all parameters will be visible in the EDA software by default.</target>
+        <target>EDA visibility for all [part] parameters that do not have an explicit visibility set. When enabled all parameters will be visible in the EDA software by default.</target>
+      </segment>
+    </unit>
+    <unit id="XchzDpI" name="settings.misc.kicad_eda.default_parameter_symbol_visibility">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_symbol_visibility</source>
+        <target>Default symbol visibility of parameters</target>
+      </segment>
+    </unit>
+    <unit id="zLHkPCx" name="settings.misc.kicad_eda.default_parameter_symbol_visibility.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_symbol_visibility.help</source>
+        <target>Whether exported [part] parameter fields that do not have an explicit symbol visibility set are shown in the schematic symbol (the KiCad field's "visible" flag). Only affects parameters that are already exported as EDA fields.</target>
       </segment>
     </unit>
     <unit id="J6pYnaC" name="settings.misc.kicad_eda.default_orderdetails_visibility">
@@ -13028,7 +13070,7 @@ Buerklin-API Authentication server:
     <unit id="Hiye4C." name="settings.misc.kicad_eda.default_orderdetails_visibility.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.default_orderdetails_visibility.help</source>
-        <target>EDA visibility for all purchase infos who does not have an explicit visibility set. When enabled all purchase infos will be visible in the EDA software by default.</target>
+        <target>EDA visibility for all purchase infos that do not have an explicit visibility set. When enabled all purchase infos will be visible in the EDA software by default.</target>
       </segment>
     </unit>
     <unit id="aEgd0if" name="label_scanner.open">
@@ -13604,7 +13646,7 @@ Buerklin-API Authentication server:
     <unit id="wILs7pS" name="settings.ips.ai_extractor.description">
       <segment state="translated">
         <source>settings.ips.ai_extractor.description</source>
-        <target>This info provider uses an large language model (LLM) to extract detailed part information from arbitary shop URLs.</target>
+        <target>This info provider uses a large language model (LLM) to extract detailed part information from arbitrary shop URLs.</target>
       </segment>
     </unit>
     <unit id="1ShZ.1i" name="settings.ai.openrouter.help">
@@ -13697,6 +13739,66 @@ Buerklin-API Authentication server:
         <target>You can use this randomly generated value (share it with nobody):</target>
       </segment>
     </unit>
+    <unit id="pJfdMQU" name="search.extensive_matching">
+      <segment state="translated">
+        <source>search.extensive_matching</source>
+        <target>Extensive Matching</target>
+      </segment>
+    </unit>
+    <unit id="YO2ZB66" name="search.permit_wildcards">
+      <segment state="translated">
+        <source>search.permit_wildcards</source>
+        <target>Treat &lt;code&gt;%&lt;/code&gt; and &lt;code&gt;_&lt;/code&gt; as wildcards</target>
+      </segment>
+    </unit>
+    <unit id="_nxvnMn" name="search.regexmatching.help">
+      <segment state="translated">
+        <source>search.regexmatching.help</source>
+        <target>Use regular expressions like "^\w{3,5}" to search for parts. Does not require slashes padding.</target>
+      </segment>
+    </unit>
+    <unit id="mry8ytG" name="search.extensive_matching.help">
+      <segment state="translated">
+        <source>search.extensive_matching.help</source>
+        <target>The search term is split up into parts, and a result is found, when each part is contained in any field. Without this mode the full search term has to be contained in a single field.</target>
+      </segment>
+    </unit>
+    <unit id="zLnKtwP" name="search.permit_wildcards.help">
+      <segment state="translated">
+        <source>search.permit_wildcards.help</source>
+        <target>If enabled, _ is treated as a wildcard for one character and % is treated as a wildcard for zero or more characters.</target>
+      </segment>
+    </unit>
+    <unit id="OP7MacF" name="system.trusted_hosts.unconfigured.title">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.title</source>
+        <target>TRUSTED_HOSTS not configured</target>
+      </segment>
+    </unit>
+    <unit id="88NkHLV" name="system.trusted_hosts.unconfigured.message">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.message</source>
+        <target>The &lt;code&gt;TRUSTED_HOSTS&lt;/code&gt; environment variable is not set. This means Part-DB will accept requests for any host name, which can be a security risk (e.g. HTTP Host header injection). It is recommended to restrict this to the host names Part-DB is actually reachable under.</target>
+      </segment>
+    </unit>
+    <unit id="qZ_kgWT" name="system.trusted_hosts.unconfigured.suggestion">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.suggestion</source>
+        <target>Set it to a regular expression matching all host names Part-DB should be reachable under, e.g. based on the host name you used to access this page. Note that the required quoting differs depending on where you set it:</target>
+      </segment>
+    </unit>
+    <unit id="ie4thSr" name="system.trusted_hosts.unconfigured.env_example">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.env_example</source>
+        <target>In your &lt;code&gt;.env.local&lt;/code&gt; file, the value must be wrapped in single quotes:</target>
+      </segment>
+    </unit>
+    <unit id="ni3hSTN" name="system.trusted_hosts.unconfigured.docker_example">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.docker_example</source>
+        <target>In &lt;code&gt;docker-compose.yaml&lt;/code&gt;, the value must NOT be quoted:</target>
+      </segment>
+    </unit>
     <unit id="cEwxoSj" name="info_providers.provider_key">
       <segment state="translated">
         <source>info_providers.provider_key</source>
@@ -13742,7 +13844,421 @@ Buerklin-API Authentication server:
     <unit id="yIK_Wtj" name="part.edit.provider_reference.warning">
       <segment state="translated">
         <source>part.edit.provider_reference.warning</source>
-        <target>Warning: Changing values here can break the  info retrieval mechanism! You should use the "update from  info provider" functionality whenever possible.</target>
+        <target>Warning: Changing values here can break the info retrieval mechanism! You should use the "update from info provider" functionality whenever possible.</target>
+      </segment>
+    </unit>
+    <unit id="bNrxe9i" name="perm.api.use_mcp">
+      <segment state="translated">
+        <source>perm.api.use_mcp</source>
+        <target>Use MCP tools (for AI agents)</target>
+      </segment>
+    </unit>
+    <unit id="ced_8yl" name="api.api_endpoints.mcp_url">
+      <segment state="translated">
+        <source>api.api_endpoints.mcp_url</source>
+        <target>MCP endpoint</target>
+      </segment>
+    </unit>
+    <unit id="a1wK4h_" name="info_providers.capabilities.parameters">
+      <segment state="translated">
+        <source>info_providers.capabilities.parameters</source>
+        <target>Parameters</target>
+      </segment>
+    </unit>
+    <unit id="QivC_me" name="info_providers.expensive">
+      <segment state="translated">
+        <source>info_providers.expensive</source>
+        <target>Expensive</target>
+      </segment>
+    </unit>
+    <unit id="Hiw406i" name="info_providers.expensive.tooltip">
+      <segment state="translated">
+        <source>info_providers.expensive.tooltip</source>
+        <target>Using this info provider can cause additional costs, or has very strict rate limits.</target>
+      </segment>
+    </unit>
+    <unit id="XMqiyE0" name="settings.ips.tme.preferMetricFootprint">
+      <segment state="translated">
+        <source>settings.ips.tme.preferMetricFootprint</source>
+        <target>Prefer metric footprint when both metric and imperial are available</target>
+      </segment>
+    </unit>
+    <unit id="APD.vym" name="oauth.authorize.title">
+      <segment state="translated">
+        <source>oauth.authorize.title</source>
+        <target>Authorize application</target>
+      </segment>
+    </unit>
+    <unit id="n4Olw59" name="oauth.authorize.description">
+      <segment state="translated">
+        <source>oauth.authorize.description</source>
+        <target>The application "%client%" wants to access your Part-DB account.</target>
+      </segment>
+    </unit>
+    <unit id="AkIKt6J" name="oauth.authorize.scopes_intro">
+      <segment state="translated">
+        <source>oauth.authorize.scopes_intro</source>
+        <target>It is requesting the following level of access:</target>
+      </segment>
+    </unit>
+    <unit id="d0cDOn1" name="oauth.authorize.revoke_hint">
+      <segment state="translated">
+        <source>oauth.authorize.revoke_hint</source>
+        <target>You can revoke this access at any time from your user settings.</target>
+      </segment>
+    </unit>
+    <unit id="qfC3t6R" name="oauth.authorize.approve">
+      <segment state="translated">
+        <source>oauth.authorize.approve</source>
+        <target>Approve</target>
+      </segment>
+    </unit>
+    <unit id="i6N1wqE" name="oauth.authorize.deny">
+      <segment state="translated">
+        <source>oauth.authorize.deny</source>
+        <target>Deny</target>
+      </segment>
+    </unit>
+    <unit id="9fKg3GS" name="oauth.authorize.scope_level.label">
+      <segment state="translated">
+        <source>oauth.authorize.scope_level.label</source>
+        <target>Access level to grant</target>
+      </segment>
+    </unit>
+    <unit id="whHHRxz" name="oauth.authorize.scope_level.help">
+      <segment state="translated">
+        <source>oauth.authorize.scope_level.help</source>
+        <target>You can grant a more restrictive access level than the application requested, but it might break compatibility with the application.</target>
+      </segment>
+    </unit>
+    <unit id="jQbm4mO" name="oauth.authorize.friendly_name.label">
+      <segment state="translated">
+        <source>oauth.authorize.friendly_name.label</source>
+        <target>Friendly name (optional)</target>
+      </segment>
+    </unit>
+    <unit id="MPk5zZ9" name="oauth.authorize.friendly_name.help">
+      <segment state="translated">
+        <source>oauth.authorize.friendly_name.help</source>
+        <target>Give this connection a name to tell it apart from other devices using the same application.</target>
+      </segment>
+    </unit>
+    <unit id="rPyrHS2" name="oauth.authorize.ttl.label">
+      <segment state="translated">
+        <source>oauth.authorize.ttl.label</source>
+        <target>Stay signed in for</target>
+      </segment>
+    </unit>
+    <unit id="Z.S5.x2" name="oauth.authorize.ttl.default">
+      <segment state="translated">
+        <source>oauth.authorize.ttl.default</source>
+        <target>Default (%days% days)</target>
+      </segment>
+    </unit>
+    <unit id="yJyRFXa" name="oauth.authorize.ttl.days">
+      <segment state="translated">
+        <source>oauth.authorize.ttl.days</source>
+        <target>%days% days</target>
+      </segment>
+    </unit>
+    <unit id="2wcqLve" name="oauth.authorize.ttl.help">
+      <segment state="translated">
+        <source>oauth.authorize.ttl.help</source>
+        <target>After this period, the application will need you to sign in again.</target>
+      </segment>
+    </unit>
+    <unit id="8gH7qHS" name="oauth.authorize.elevated_warning">
+      <segment state="translated">
+        <source>oauth.authorize.elevated_warning</source>
+        <target>This application is requesting administrative or full account access, well beyond normal read/edit access. Only approve this if you fully trust the application.</target>
+      </segment>
+    </unit>
+    <unit id="DYZhxF6" name="oauth.authorize.elevated_badge">
+      <segment state="translated">
+        <source>oauth.authorize.elevated_badge</source>
+        <target>Elevated access</target>
+      </segment>
+    </unit>
+    <unit id="0SCwv63" name="user.settings.oauth_connected_apps">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps</source>
+        <target>Connected apps</target>
+      </segment>
+    </unit>
+    <unit id="tb_dGmL" name="user.settings.oauth_connected_apps.description">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.description</source>
+        <target>These applications signed in through the Part-DB OAuth login and were granted access to your account. Revoking an application here immediately ends its access; it will need to go through the login/consent screen again to reconnect.</target>
+      </segment>
+    </unit>
+    <unit id="uxc7X_D" name="user.settings.oauth_connected_apps.none_yet">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.none_yet</source>
+        <target>No connected apps yet.</target>
+      </segment>
+    </unit>
+    <unit id="MDTWYod" name="user.settings.oauth_connected_apps.app_name">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.app_name</source>
+        <target>Application</target>
+      </segment>
+    </unit>
+    <unit id="3.pFaZG" name="user.settings.oauth_connected_apps.access_until">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.access_until</source>
+        <target>Access valid until</target>
+      </segment>
+    </unit>
+    <unit id="cOG4vDe" name="user.settings.oauth_connected_apps.revoke">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.revoke</source>
+        <target>Revoke</target>
+      </segment>
+    </unit>
+    <unit id="0ecnHaq" name="user.settings.oauth_connected_apps.revoke.title">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.revoke.title</source>
+        <target>Do you really want to revoke access for this application?</target>
+      </segment>
+    </unit>
+    <unit id="WfLqvJ6" name="user.settings.oauth_connected_apps.revoke.message">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.revoke.message</source>
+        <target>The application will immediately lose access to Part-DB and will have to go through the login/consent screen again to reconnect. This action can not be undone!</target>
+      </segment>
+    </unit>
+    <unit id="rSf25Vc" name="user.settings.oauth_connected_apps.revoked">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.revoked</source>
+        <target>Access revoked successfully!</target>
+      </segment>
+    </unit>
+    <unit id="mgk6ZSv" name="user.settings.oauth_connected_apps.scope_level">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.scope_level</source>
+        <target>Access level</target>
+      </segment>
+    </unit>
+    <unit id="Irn2ps." name="user.settings.oauth_connected_apps.last_used">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.last_used</source>
+        <target>Last used</target>
+      </segment>
+    </unit>
+    <unit id="1LsyrkP" name="user.settings.oauth_connected_apps.connected_since">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.connected_since</source>
+        <target>Connected since</target>
+      </segment>
+    </unit>
+    <unit id="F3PROlR" name="perm.system.manage_oauth_clients">
+      <segment state="translated">
+        <source>perm.system.manage_oauth_clients</source>
+        <target>Manage OAuth2 clients</target>
+      </segment>
+    </unit>
+    <unit id="TCKm90l" name="oauth_clients.title">
+      <segment state="translated">
+        <source>oauth_clients.title</source>
+        <target>OAuth2 clients</target>
+      </segment>
+    </unit>
+    <unit id="GbvDqBV" name="oauth_clients.description">
+      <segment state="translated">
+        <source>oauth_clients.description</source>
+        <target>Applications registered with Part-DB's OAuth2 server (usually through open Dynamic Client Registration, RFC 7591 - any application can self-register, so the real access control gate is the per-user consent screen a user sees before granting one of these access to their account). Deleting a client here immediately revokes all access it was ever granted and prevents it from being used again.</target>
+      </segment>
+    </unit>
+    <unit id="6DTnzEE" name="oauth_clients.none_yet">
+      <segment state="translated">
+        <source>oauth_clients.none_yet</source>
+        <target>No OAuth2 clients registered yet.</target>
+      </segment>
+    </unit>
+    <unit id="x.F3MN4" name="oauth_clients.name">
+      <segment state="translated">
+        <source>oauth_clients.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="ss2tun8" name="oauth_clients.client_id">
+      <segment state="translated">
+        <source>oauth_clients.client_id</source>
+        <target>Client ID</target>
+      </segment>
+    </unit>
+    <unit id="azV0sIv" name="oauth_clients.scopes">
+      <segment state="translated">
+        <source>oauth_clients.scopes</source>
+        <target>Scopes</target>
+      </segment>
+    </unit>
+    <unit id="1dbGJ7H" name="oauth_clients.redirect_uris">
+      <segment state="translated">
+        <source>oauth_clients.redirect_uris</source>
+        <target>Redirect URIs</target>
+      </segment>
+    </unit>
+    <unit id=".axlZHX" name="oauth_clients.status">
+      <segment state="translated">
+        <source>oauth_clients.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="U4vNBxV" name="oauth_clients.active">
+      <segment state="translated">
+        <source>oauth_clients.active</source>
+        <target>Active</target>
+      </segment>
+    </unit>
+    <unit id="qte22mM" name="oauth_clients.inactive">
+      <segment state="translated">
+        <source>oauth_clients.inactive</source>
+        <target>Inactive</target>
+      </segment>
+    </unit>
+    <unit id="ux5P.d3" name="oauth_clients.dynamically_registered">
+      <segment state="translated">
+        <source>oauth_clients.dynamically_registered</source>
+        <target>Auto-registered</target>
+      </segment>
+    </unit>
+    <unit id="oo744Uz" name="oauth_clients.dynamically_registered.help">
+      <segment state="translated">
+        <source>oauth_clients.dynamically_registered.help</source>
+        <target>This client registered itself automatically via Dynamic Client Registration (RFC 7591), rather than being created by an administrator.</target>
+      </segment>
+    </unit>
+    <unit id="Pa66ymI" name="oauth_clients.live_tokens">
+      <segment state="translated">
+        <source>oauth_clients.live_tokens</source>
+        <target>Live access tokens</target>
+      </segment>
+    </unit>
+    <unit id="FxxYm5n" name="oauth_clients.live_refresh_tokens">
+      <segment state="translated">
+        <source>oauth_clients.live_refresh_tokens</source>
+        <target>Live refresh tokens</target>
+      </segment>
+    </unit>
+    <unit id="CjdVrcW" name="oauth_clients.delete">
+      <segment state="translated">
+        <source>oauth_clients.delete</source>
+        <target>Delete</target>
+      </segment>
+    </unit>
+    <unit id="LOD0h3Q" name="oauth_clients.delete.title">
+      <segment state="translated">
+        <source>oauth_clients.delete.title</source>
+        <target>Do you really want to delete this OAuth2 client?</target>
+      </segment>
+    </unit>
+    <unit id="XipnUiR" name="oauth_clients.delete.message">
+      <segment state="translated">
+        <source>oauth_clients.delete.message</source>
+        <target>This immediately revokes all access this application was ever granted, for every user. This action can not be undone; the application would have to register again to reconnect.</target>
+      </segment>
+    </unit>
+    <unit id="tbHDOBp" name="oauth_clients.deleted">
+      <segment state="translated">
+        <source>oauth_clients.deleted</source>
+        <target>OAuth2 client deleted successfully!</target>
+      </segment>
+    </unit>
+    <unit id="7vdBsoN" name="oauth_clients.create.title">
+      <segment state="translated">
+        <source>oauth_clients.create.title</source>
+        <target>Register a new client manually</target>
+      </segment>
+    </unit>
+    <unit id="NxxzyP." name="oauth_clients.new_button">
+      <segment state="translated">
+        <source>oauth_clients.new_button</source>
+        <target>Register new client</target>
+      </segment>
+    </unit>
+    <unit id="7XHDbAc" name="oauth_clients.create.name">
+      <segment state="translated">
+        <source>oauth_clients.create.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="Id1.iuI" name="oauth_clients.create.redirect_uris">
+      <segment state="translated">
+        <source>oauth_clients.create.redirect_uris</source>
+        <target>Redirect URIs</target>
+      </segment>
+    </unit>
+    <unit id="wyfhoYU" name="oauth_clients.create.redirect_uris.help">
+      <segment state="translated">
+        <source>oauth_clients.create.redirect_uris.help</source>
+        <target>One URI per line. Must be https://, a loopback http:// address (127.0.0.1/localhost), or a private-use URI scheme (e.g. com.example.app:/callback).</target>
+      </segment>
+    </unit>
+    <unit id="mF.lZGT" name="oauth_clients.create.scopes">
+      <segment state="translated">
+        <source>oauth_clients.create.scopes</source>
+        <target>Allowed access levels</target>
+      </segment>
+    </unit>
+    <unit id="FQP97Iy" name="oauth_clients.create.scopes.elevated_help">
+      <segment state="translated">
+        <source>oauth_clients.create.scopes.elevated_help</source>
+        <target>Only allow "Admin" or "Full" for clients you fully trust and control - self-registered clients (e.g. auto-provisioning MCP apps) can never request these levels themselves.</target>
+      </segment>
+    </unit>
+    <unit id="PPgniXW" name="oauth_clients.create.submit">
+      <segment state="translated">
+        <source>oauth_clients.create.submit</source>
+        <target>Register client</target>
+      </segment>
+    </unit>
+    <unit id="lUKK..z" name="oauth_clients.created">
+      <segment state="translated">
+        <source>oauth_clients.created</source>
+        <target>OAuth2 client registered successfully! Client ID: %client_id%</target>
+      </segment>
+    </unit>
+    <unit id="TPIdHxC" name="oauth_clients.edit">
+      <segment state="translated">
+        <source>oauth_clients.edit</source>
+        <target>Edit</target>
+      </segment>
+    </unit>
+    <unit id="tSop1t3" name="oauth_clients.edit.title">
+      <segment state="translated">
+        <source>oauth_clients.edit.title</source>
+        <target>Edit OAuth2 client</target>
+      </segment>
+    </unit>
+    <unit id="VaBQ9jX" name="oauth_clients.edit.active">
+      <segment state="translated">
+        <source>oauth_clients.edit.active</source>
+        <target>Active</target>
+      </segment>
+    </unit>
+    <unit id="6CH6SAh" name="oauth_clients.edit.active.help">
+      <segment state="translated">
+        <source>oauth_clients.edit.active.help</source>
+        <target>Inactive clients can no longer be used to request or refresh access tokens, but their existing registration and live tokens are kept until they are deleted.</target>
+      </segment>
+    </unit>
+    <unit id="hbA0R.U" name="oauth_clients.edit.submit">
+      <segment state="translated">
+        <source>oauth_clients.edit.submit</source>
+        <target>Save changes</target>
+      </segment>
+    </unit>
+    <unit id="1WsHABD" name="oauth_clients.edit.back">
+      <segment state="translated">
+        <source>oauth_clients.edit.back</source>
+        <target>Back to overview</target>
+      </segment>
+    </unit>
+    <unit id="E5sueue" name="oauth_clients.updated">
+      <segment state="translated">
+        <source>oauth_clients.updated</source>
+        <target>OAuth2 client updated successfully!</target>
       </segment>
     </unit>
     <unit id="niimbotThTitle" name="label_generator.thermal.title">

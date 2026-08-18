@@ -37,7 +37,18 @@ class EventLogger
 {
     protected LogLevel $minimum_log_level;
 
-    public function __construct(int $minimum_log_level, protected array $blacklist, protected array $whitelist, protected EntityManagerInterface $em, protected Security $security, protected ConsoleInfoHelper $console_info_helper)
+    public function __construct(
+        protected EntityManagerInterface $em,
+        protected Security $security,
+        protected ConsoleInfoHelper $console_info_helper,
+        // By default only log events which has minimum info level (debug levels are not logged)
+        // 7 is lowest level (debug), 0 highest (emergency)
+        int $minimum_log_level = 6,
+        // Event classes specified here are not saved to DB
+        protected array $blacklist = [],
+        // Only the event classes specified here are saved to DB (set to []) to log all events
+        protected array $whitelist = [],
+    )
     {
         $this->minimum_log_level = LogLevel::tryFrom($minimum_log_level);
     }

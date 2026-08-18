@@ -119,6 +119,13 @@ Here you just need to configure the path to the SQLite file, which is created by
 The `%kernel.project_dir%` is a placeholder for the path to the project directory, which is replaced by the actual path by Symfony, so that you do not
 need to specify the path manually. In the example the database will be created as `app.db` in the `var` directory of your Part-DB installation folder.
 
+{: .note }
+> By default, SQLite does not enforce foreign key constraints, so it will happily accept some operations that would
+> corrupt data integrity (e.g. leave a row pointing at a deleted parent row). For a new installation, it is recommended
+> to set `DATABASE_SQLITE_ENFORCE_FOREIGN_KEYS=1` to have SQLite enforce them (see [Configuration]({% link configuration.md %}) for details). Do not enable this on an existing installation without first running
+> `php bin/console partdb:database:check-sqlite-foreign-keys` to check whether the database already contains rows
+> that would violate a foreign key constraint.
+
 ### MySQL/MariaDB
 
 ```shell

@@ -70,4 +70,24 @@ enum ApiTokenLevel: int
     {
         return 'api_token.level.' . strtolower($this->name);
     }
+
+    /**
+     * The OAuth2 scope strings that are advertised to clients as generally requestable/discoverable -
+     * i.e. excluding ADMIN/FULL, which grant elevated access and are intentionally not advertised
+     * (self-registered OAuth/MCP clients are capped at EDIT server-side; only a manually registered
+     * client can be granted them - see App\Controller\OAuth\ClientRegistrationController::validateScopes()).
+     *
+     * Single source of truth for App\Controller\OAuth\DiscoveryController::availableScopes(),
+     * App\ApiPlatform\OpenApiFactoryDecorator's OAuth2 security scheme, and the "scope" hint on
+     * App\Security\AuthenticationEntryPoint's WWW-Authenticate challenge.
+     *
+     * @return list<string>
+     */
+    public static function advertisedScopes(): array
+    {
+        return array_map(
+            static fn (self $level): string => strtolower($level->name),
+            [self::READ_ONLY, self::EDIT],
+        );
+    }
 }

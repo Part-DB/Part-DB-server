@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Services\Attachments;
 
 use const DIRECTORY_SEPARATOR;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
@@ -51,7 +52,16 @@ class AttachmentPathResolver
      *                                     Set to null if this ressource should be disabled.
      * @param string|null $models_path     set to null if this ressource should be disabled
      */
-    public function __construct(protected string $project_dir, string $media_path, string $secure_path, ?string $footprints_path, ?string $models_path)
+    public function __construct(
+        #[Autowire(param: 'kernel.project_dir')]
+        protected string $project_dir,
+        #[Autowire(param: 'partdb.attachments.dir.media')]
+        string $media_path,
+        #[Autowire(param: 'partdb.attachments.dir.secure')]
+        string $secure_path,
+        ?string $footprints_path = 'public/img/footprints',
+        ?string $models_path = null,
+    )
     {
         //Determine the path for our resources
         $this->media_path = $this->parameterToAbsolutePath($media_path) ?? throw new \InvalidArgumentException('The media path must be set and valid!');

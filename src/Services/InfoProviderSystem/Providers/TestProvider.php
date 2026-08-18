@@ -25,6 +25,7 @@ namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
@@ -34,20 +35,20 @@ use Symfony\Component\DependencyInjection\Attribute\When;
 #[When(env: 'test')]
 class TestProvider implements InfoProviderInterface
 {
+    public const PROVIDER_KEY = 'test';
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'Test Provider',
-            'description' => 'This is a test provider',
-            //'url' => 'https://example.com',
-            'disabled_help' => 'This provider is disabled for testing purposes'
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'test';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'Test Provider',
+            description: 'This is a test provider',
+            disabledHelp: 'This provider is disabled for testing purposes',
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::FOOTPRINT,
+            ],
+        );
     }
 
     public function isActive(): bool
@@ -58,24 +59,16 @@ class TestProvider implements InfoProviderInterface
     public function searchByKeyword(string $keyword, array $options = []): array
     {
         return [
-            new SearchResultDTO(provider_key: $this->getProviderKey(), provider_id: 'element1', name: 'Element 1', description: 'fd'),
-            new SearchResultDTO(provider_key: $this->getProviderKey(), provider_id: 'element2', name: 'Element 2', description: 'fd'),
-            new SearchResultDTO(provider_key: $this->getProviderKey(), provider_id: 'element3', name: 'Element 3', description: 'fd'),
-        ];
-    }
-
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::FOOTPRINT,
+            new SearchResultDTO(provider_key: self::PROVIDER_KEY, provider_id: 'element1', name: 'Element 1', description: 'fd'),
+            new SearchResultDTO(provider_key: self::PROVIDER_KEY, provider_id: 'element2', name: 'Element 2', description: 'fd'),
+            new SearchResultDTO(provider_key: self::PROVIDER_KEY, provider_id: 'element3', name: 'Element 3', description: 'fd'),
         ];
     }
 
     public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         return new PartDetailDTO(
-            provider_key: $this->getProviderKey(),
+            provider_key: self::PROVIDER_KEY,
             provider_id: $id,
             name: 'Test Element',
             description: 'fd',

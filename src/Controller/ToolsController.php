@@ -53,6 +53,15 @@ class ToolsController extends AbstractController
     {
         $this->denyAccessUnlessGranted('@system.server_infos');
 
+        $oauth_server_enabled = $this->getParameter('partdb.oauth_server.enabled');
+        $oauth_dcr_enabled = $this->getParameter('partdb.oauth_server.dcr_enabled');
+        //The keypair is required for the OAuth2 server to actually work (see OAuthGenerateKeysCommand);
+        //without it OAUTH_SERVER_ENABLED=1 alone does not mean the server is usable.
+        $oauth_keypair_exists = is_file($this->getParameter('kernel.project_dir').'/uploads/oauth_private.key')
+            && is_file($this->getParameter('kernel.project_dir').'/uploads/oauth_public.key');
+        $oauth_encryption_key_set = !empty($_ENV['OAUTH2_ENCRYPTION_KEY']);
+        $oauth_fully_configured = $oauth_server_enabled && $oauth_keypair_exists && $oauth_encryption_key_set;
+
         return $this->render('tools/server_infos/server_infos.html.twig', [
             //Part-DB section
             'git_branch' => $versionInfo->getBranchName(),
@@ -74,8 +83,12 @@ class ToolsController extends AbstractController
             'detailed_error_pages' => $this->getParameter('partdb.error_pages.show_help'),
             'error_page_admin_email' => $this->getParameter('partdb.error_pages.admin_email'),
             'configured_max_file_size' => $settings->system->attachments->maxFileSize,
-            'effective_max_file_size' => $attachmentSubmitHandler->getMaximumAllowedUploadSize(),
+            'effective_max_file_size' => $attachmentSubmitHandler->getMaximumEffectiveUploadSize(),
             'saml_enabled' => $this->getParameter('partdb.saml.enabled'),
+            'oauth_server_enabled' => $oauth_server_enabled,
+            'oauth_server_fully_configured' => $oauth_fully_configured,
+            'oauth_dcr_enabled' => $oauth_dcr_enabled,
+            'oauth_dcr_fully_configured' => $oauth_dcr_enabled && $oauth_fully_configured,
 
             //PHP section
             'php_version' => PHP_VERSION,

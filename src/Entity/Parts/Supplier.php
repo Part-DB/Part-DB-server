@@ -33,13 +33,20 @@ use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\McpTool;
+use ApiPlatform\Metadata\McpToolCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Mcp\DTO\ElementByIdInput;
+use App\Mcp\DTO\StructuralElementOverview;
+use App\Mcp\DTO\StructuralElementSearchInput;
 use App\Repository\Parts\SupplierRepository;
+use App\State\Mcp\GetStructuralElementDetailsProcessor;
+use App\State\Mcp\ListStructuralElementsProcessor;
 use App\Entity\PriceInformations\Orderdetail;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\SupplierAttachment;
@@ -80,6 +87,28 @@ use Symfony\Component\Validator\Constraints as Assert;
     ],
     normalizationContext: ['groups' => ['supplier:read', 'company:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['supplier:write', 'company:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
+    mcp: [
+        'list_suppliers' => new McpToolCollection(
+            title: 'List/search suppliers',
+            description: 'List all suppliers, optionally filtered by a keyword matched against the name and comment. Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            output: StructuralElementOverview::class,
+            normalizationContext: ['groups' => ['mcp_structural_overview:read']],
+            input: StructuralElementSearchInput::class,
+            security: 'is_granted("@suppliers.read")',
+            processor: ListStructuralElementsProcessor::class,
+        ),
+        'get_supplier_details' => new McpTool(
+            title: 'Get supplier details by ID',
+            description: 'Get detailed information about a specific supplier by its database ID.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['supplier:read', 'company:read', 'api:basic:read']],
+            input: ElementByIdInput::class,
+            security: 'is_granted("@suppliers.read")',
+            validate: true,
+            processor: GetStructuralElementDetailsProcessor::class,
+        ),
+    ],
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]
