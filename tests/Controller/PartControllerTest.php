@@ -30,6 +30,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\UserSystem\PermissionData;
 use App\Entity\UserSystem\User;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use PHPUnit\Framework\Attributes\Group;
@@ -59,6 +60,26 @@ final class PartControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertSelectorExists('[data-controller~="pages--nfc-write"]');
         $this->assertSelectorExists('[data-pages--nfc-write-url-value$="/scan/part/' . $part->getId() . '"]');
+    }
+
+    public function testShowPartDoesNotOfferNfcWritingWithoutLabelPermission(): void
+    {
+        $client = static::createClient();
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $user = $entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $part = $entityManager->getRepository(Part::class)->find(1);
+
+        if (!$user || !$part) {
+            $this->markTestSkipped('Required test fixtures not found');
+        }
+
+        $user->getPermissions()->setPermissionValue('labels', 'create_labels', PermissionData::DISALLOW);
+        $client->loginUser($user);
+        $client->request('GET', '/en/part/' . $part->getId());
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->assertSelectorNotExists('[data-controller~="pages--nfc-write"]');
     }
 
     public function testShowPartWithTimestamp(): void

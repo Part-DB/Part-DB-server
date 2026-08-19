@@ -155,7 +155,9 @@ final class PartController extends AbstractController
                 'withdraw_add_helper' => $withdrawAddHelper,
                 'highlightLotId' => $request->query->getInt('highlightLot', 0),
                 'add_lot_form' => $addLotForm,
-                'nfc_url' => $timeTravel_timestamp === null ? $barcodeContentGenerator->getURLContent($part) : null,
+                'nfc_url' => $timeTravel_timestamp === null && $this->isGranted('@labels.create_labels')
+                    ? $barcodeContentGenerator->getURLContent($part)
+                    : null,
             ]
         );
     }

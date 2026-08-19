@@ -68,7 +68,7 @@
 
 {{ dropdown.profile_dropdown('part', part.id) }}
 
-{% if nfc_url is not null and is_granted('@labels.create_labels') %}
+{% if nfc_url is not null %}
     <div class="d-none mt-2" {{ stimulus_controller('pages/nfc_write', {url: nfc_url}) }}>
         <button type="button" class="btn btn-secondary"
                 data-overwrite="false"
