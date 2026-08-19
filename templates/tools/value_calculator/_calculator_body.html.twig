@@ -1,0 +1,550 @@
+    <style>
+        /* Keep every preview the same footprint so the panel doesn't jump between tabs. */
+        .vc-pic { display: flex; align-items: center; justify-content: center; min-height: 14rem; }
+        .vc-pic svg { max-height: 15rem; max-width: 100%; width: auto; height: auto; }
+        /* Every tab reserves the same height and lays out as a column, so the row can grow to fill it
+           and the "Appearance" toggle always pins to the very bottom of the frame — identical on each
+           tab whether or not the tab has an intro line above its controls. */
+        .tab-content > .tab-pane { min-height: 24rem; }
+        .tab-content > .tab-pane.active { display: flex; flex-direction: column; }
+        /* The "Appearance" disclosure is pinned to the bottom of its column. On wide screens it
+           opens *upward* as a floating popover, so toggling it never resizes the tab or nudges the
+           picture — every tab keeps the exact same frame whether it's open or closed. */
+        .vc-appearance { position: relative; }
+        @media (min-width: 992px) {
+            .vc-appearance[open] > .vc-appearance-panel {
+                position: absolute;
+                bottom: calc(100% + 0.4rem);
+                left: 0;
+                right: 0;
+                z-index: 20;
+                max-height: 22rem;
+                overflow-y: auto;
+                box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.25);
+            }
+        }
+    </style>
+    <div class="alert alert-info d-flex align-items-start gap-2">
+        <i class="fas fa-circle-info mt-1"></i>
+        <div>{% trans %}tools.value_calc.explanation{% endtrans %}</div>
+    </div>
+
+    <div {{ stimulus_controller('pages/valueCalculator', part is not null ? {
+        endpoint: path('part_generate_image', {id: part.id}),
+        csrf: csrf_token('generate_image' ~ part.id),
+        prefillOhms: prefill_ohms|default(0),
+        prefillFarads: prefill_farads|default(0),
+    } : {}) }}>
+        {% if part is not null %}
+            <div class="alert alert-info d-flex flex-wrap align-items-center gap-3">
+                <div>
+                    <i class="fas fa-link"></i>
+                    {% trans with {'%part%': part.name} %}tools.value_calc.attach.context{% endtrans %}
+                </div>
+                <div class="form-check ms-auto">
+                    <input class="form-check-input" type="checkbox" id="vc-attach-preview" checked
+                           {{ stimulus_target('pages/valueCalculator', 'previewInput') }}>
+                    <label class="form-check-label" for="vc-attach-preview">{% trans %}tools.value_calc.attach.as_preview{% endtrans %}</label>
+                </div>
+            </div>
+        {% endif %}
+
+        <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="vc-resistor-tab" data-bs-toggle="tab" data-bs-target="#vc-resistor"
+                        type="button" role="tab">{% trans %}tools.value_calc.resistor.title{% endtrans %}</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="vc-capacitor-tab" data-bs-toggle="tab" data-bs-target="#vc-capacitor"
+                        type="button" role="tab">{% trans %}tools.value_calc.capacitor.title{% endtrans %}</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="vc-smd-tab" data-bs-toggle="tab" data-bs-target="#vc-smd"
+                        type="button" role="tab">{% trans %}tools.value_calc.smd.title{% endtrans %}</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="vc-inductor-tab" data-bs-toggle="tab" data-bs-target="#vc-inductor"
+                        type="button" role="tab">{% trans %}tools.value_calc.inductor.title{% endtrans %}</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="vc-smdind-tab" data-bs-toggle="tab" data-bs-target="#vc-smdind"
+                        type="button" role="tab">{% trans %}tools.value_calc.smd_inductor.title{% endtrans %}</button>
+            </li>
+        </ul>
+
+        {# min-height keeps the card the same size on every tab, so switching tabs doesn't resize the panel #}
+        <div class="tab-content">
+            {# ---------------- Resistor color code ---------------- #}
+            <div class="tab-pane fade show active" id="vc-resistor" role="tabpanel" data-vc-name="{% trans %}tools.value_calc.resistor.title{% endtrans %}">
+                <div class="row g-4 flex-grow-1">
+                    <div class="col-lg-7 d-flex flex-column">
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label">{% trans %}tools.value_calc.resistor.bands{% endtrans %}</label>
+                            <div class="col-sm-9">
+                                <div class="btn-group" role="group">
+                                    <input type="radio" class="btn-check" name="vc-band-count" id="vc-band-4" value="4"
+                                           autocomplete="off" {{ stimulus_action('pages/valueCalculator', 'changeBandCount', 'change') }}>
+                                    <label class="btn btn-outline-primary" for="vc-band-4">{% trans %}tools.value_calc.resistor.bands_4{% endtrans %}</label>
+
+                                    <input type="radio" class="btn-check" name="vc-band-count" id="vc-band-5" value="5"
+                                           autocomplete="off" checked {{ stimulus_action('pages/valueCalculator', 'changeBandCount', 'change') }}>
+                                    <label class="btn btn-outline-primary" for="vc-band-5">{% trans %}tools.value_calc.resistor.bands_5{% endtrans %}</label>
+
+                                    <input type="radio" class="btn-check" name="vc-band-count" id="vc-band-6" value="6"
+                                           autocomplete="off" {{ stimulus_action('pages/valueCalculator', 'changeBandCount', 'change') }}>
+                                    <label class="btn btn-outline-primary" for="vc-band-6">{% trans %}tools.value_calc.resistor.bands_6{% endtrans %}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        {# Band color selects are rendered by the Stimulus controller #}
+                        <div class="row mb-3" {{ stimulus_target('pages/valueCalculator', 'bandSelects') }}></div>
+
+                        <div class="row mb-3">
+                            <label for="vc-resistor-value" class="col-sm-3 col-form-label">{% trans %}tools.value_calc.resistor.from_value{% endtrans %}</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="vc-resistor-value" placeholder="4k7"
+                                           {{ stimulus_target('pages/valueCalculator', 'resistorValueInput') }}
+                                           {{ stimulus_action('pages/valueCalculator', 'applyResistorValue', 'keyup.enter') }}>
+                                    <button class="btn btn-primary" type="button"
+                                            {{ stimulus_action('pages/valueCalculator', 'applyResistorValue') }}>{% trans %}tools.value_calc.resistor.apply_value{% endtrans %}</button>
+                                </div>
+                                <div class="form-text">{% trans %}tools.value_calc.resistor.from_value_help{% endtrans %}</div>
+                            </div>
+                        </div>
+
+                        <details class="vc-appearance mt-auto pt-2 border-top">
+                            <summary class="text-primary small" style="cursor: pointer;"><i class="fas fa-palette"></i> {% trans %}tools.value_calc.appearance{% endtrans %}</summary>
+                            <div class="vc-appearance-panel card card-body bg-body-tertiary mt-2 py-2">
+                                <div class="row mb-2">
+                                    <label for="vc-resistor-power" class="col-sm-3 col-form-label">{% trans %}tools.value_calc.resistor.power{% endtrans %}</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-select" id="vc-resistor-power" style="max-width: 12rem;"
+                                                {{ stimulus_target('pages/valueCalculator', 'resistorPower') }}
+                                                {{ stimulus_action('pages/valueCalculator', 'updateResistor', 'change') }}>
+                                            <option value="0.125">1/8 W</option>
+                                            <option value="0.25" selected>1/4 W</option>
+                                            <option value="0.5">1/2 W</option>
+                                            <option value="1">1 W</option>
+                                            <option value="2">2 W</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label for="vc-resistor-body" class="col-sm-3 col-form-label">{% trans %}tools.value_calc.body_color{% endtrans %}</label>
+                                    <div class="col-sm-9 d-flex align-items-center flex-wrap gap-2">
+                                        <input type="color" class="form-control form-control-color" id="vc-resistor-body" value="#d8c7a0"
+                                               title="{% trans %}tools.value_calc.body_color{% endtrans %}"
+                                               {{ stimulus_target('pages/valueCalculator', 'resistorBodyColor') }}
+                                               {{ stimulus_action('pages/valueCalculator', 'updateResistor', 'input') }}>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#d8c7a0"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applyResistorBodyColor') }}>{% trans %}tools.value_calc.body.beige{% endtrans %}</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#9fc6e0"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applyResistorBodyColor') }}>{% trans %}tools.value_calc.body.lightblue{% endtrans %}</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#3f6fb0"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applyResistorBodyColor') }}>{% trans %}tools.value_calc.body.blue{% endtrans %}</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#3f7d4f"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applyResistorBodyColor') }}>{% trans %}tools.value_calc.body.green{% endtrans %}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="position-sticky" style="top: 1rem;">
+                            <div class="svg-container vc-pic text-center bg-light rounded p-2 mx-auto" style="max-width: 480px;">{{ '' }}
+                                <div {{ stimulus_target('pages/valueCalculator', 'resistorSvg') }}></div>
+                            </div>
+                            <div class="text-center text-muted small mt-2" {{ stimulus_target('pages/valueCalculator', 'resistorSpec') }}></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# ---------------- Capacitor code ---------------- #}
+            <div class="tab-pane fade" id="vc-capacitor" role="tabpanel" data-vc-name="{% trans %}tools.value_calc.capacitor.title{% endtrans %}">
+                <p class="text-muted">{% trans %}tools.value_calc.capacitor.intro{% endtrans %}</p>
+                <div class="row g-4 flex-grow-1">
+                    <div class="col-lg-7 d-flex flex-column">
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-4">
+                                <label class="form-label small mb-1" for="vc-cap-value">{% trans %}tools.value_calc.field.value{% endtrans %}</label>
+                                <input type="text" class="form-control" id="vc-cap-value" placeholder="100nF" data-field="value"
+                                       {{ stimulus_target('pages/valueCalculator', 'capValueInput') }}
+                                       {{ stimulus_action('pages/valueCalculator', 'syncCap', 'input') }}>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label small mb-1" for="vc-cap-code">{% trans %}tools.value_calc.field.code{% endtrans %}</label>
+                                <input type="text" class="form-control border-primary border-2" id="vc-cap-code" placeholder="104" data-field="code"
+                                       {{ stimulus_target('pages/valueCalculator', 'capCodeInput') }}
+                                       {{ stimulus_action('pages/valueCalculator', 'syncCap', 'input') }}>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-label small mb-1" for="vc-cap-tol">{% trans %}tools.value_calc.field.tolerance{% endtrans %}</label>
+                                <select class="form-select" id="vc-cap-tol"
+                                        {{ stimulus_target('pages/valueCalculator', 'capTolerance') }}
+                                        {{ stimulus_action('pages/valueCalculator', 'redrawCap', 'change') }}>
+                                    <option value="">—</option>
+                                    <option value="F">±1% (F)</option>
+                                    <option value="G">±2% (G)</option>
+                                    <option value="J">±5% (J)</option>
+                                    <option value="K">±10% (K)</option>
+                                    <option value="M">±20% (M)</option>
+                                    <option value="C">±0.25 pF (C)</option>
+                                    <option value="D">±0.5 pF (D)</option>
+                                    <option value="Z">+80% / -20% (Z)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <details class="vc-appearance mt-auto pt-2 border-top">
+                            <summary class="text-primary small" style="cursor: pointer;"><i class="fas fa-palette"></i> {% trans %}tools.value_calc.appearance{% endtrans %}</summary>
+                            <div class="vc-appearance-panel card card-body bg-body-tertiary mt-2 py-2">
+                                <div class="row mb-2">
+                                    <label for="vc-cap-body" class="col-sm-3 col-form-label">{% trans %}tools.value_calc.body_color{% endtrans %}</label>
+                                    <div class="col-sm-9 d-flex align-items-center flex-wrap gap-2">
+                                        <input type="color" class="form-control form-control-color" id="vc-cap-body" value="#e0a63a"
+                                               title="{% trans %}tools.value_calc.body_color{% endtrans %}"
+                                               {{ stimulus_target('pages/valueCalculator', 'capBodyColor') }}
+                                               {{ stimulus_action('pages/valueCalculator', 'updateCapacitorColor', 'input') }}>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#e0a63a"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applyCapBodyColor') }}>{% trans %}tools.value_calc.body.tan{% endtrans %}</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#2f6db0"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applyCapBodyColor') }}>{% trans %}tools.value_calc.body.blue{% endtrans %}</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#b34a2f"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applyCapBodyColor') }}>{% trans %}tools.value_calc.body.red{% endtrans %}</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#7b4fb0"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applyCapBodyColor') }}>{% trans %}tools.value_calc.body.purple{% endtrans %}</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#303030"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applyCapBodyColor') }}>{% trans %}tools.value_calc.body.black{% endtrans %}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-2 align-items-center">
+                                    <label for="vc-cap-shape" class="col-sm-3 col-form-label">{% trans %}tools.value_calc.cap.shape{% endtrans %}</label>
+                                    <div class="col-sm-9 d-flex align-items-center flex-wrap gap-3">
+                                        <div class="input-group input-group-sm" style="width: auto;">
+                                            <span class="input-group-text">{% trans %}tools.value_calc.cap.shape{% endtrans %}</span>
+                                            <select class="form-select" id="vc-cap-shape" style="width: 9rem;"
+                                                    {{ stimulus_target('pages/valueCalculator', 'capShape') }}
+                                                    {{ stimulus_action('pages/valueCalculator', 'updateCapDimensions', 'change') }}>
+                                                <option value="disc" selected>{% trans %}tools.value_calc.cap.shape.disc{% endtrans %}</option>
+                                                <option value="blob">{% trans %}tools.value_calc.cap.shape.blob{% endtrans %}</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group input-group-sm" style="width: auto;">
+                                            <span class="input-group-text">{% trans %}tools.value_calc.cap.lead{% endtrans %}</span>
+                                            <select class="form-select" id="vc-cap-lead" style="width: 8rem;"
+                                                    {{ stimulus_target('pages/valueCalculator', 'capLead') }}
+                                                    {{ stimulus_action('pages/valueCalculator', 'updateCapDimensions', 'change') }}>
+                                                <option value="short">{% trans %}tools.value_calc.cap.lead.short{% endtrans %}</option>
+                                                <option value="medium" selected>{% trans %}tools.value_calc.cap.lead.medium{% endtrans %}</option>
+                                                <option value="long">{% trans %}tools.value_calc.cap.lead.long{% endtrans %}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row align-items-center">
+                                    <label for="vc-cap-diameter" class="col-sm-3 col-form-label">{% trans %}tools.value_calc.size{% endtrans %}</label>
+                                    <div class="col-sm-9 d-flex align-items-center flex-wrap gap-3">
+                                        <div class="input-group input-group-sm" style="width: auto;">
+                                            <span class="input-group-text">{% trans %}tools.value_calc.cap.diameter{% endtrans %}</span>
+                                            <input type="number" class="form-control" id="vc-cap-diameter" value="5" min="1" step="0.5" style="width: 6rem;"
+                                                   list="vc-cap-diams"
+                                                   {{ stimulus_target('pages/valueCalculator', 'capDiameter') }}
+                                                   {{ stimulus_action('pages/valueCalculator', 'updateCapDimensions', 'input') }}>
+                                            <span class="input-group-text">mm</span>
+                                            <datalist id="vc-cap-diams">
+                                                <option value="3"></option><option value="4"></option><option value="5"></option>
+                                                <option value="6"></option><option value="8"></option><option value="10"></option>
+                                                <option value="12"></option><option value="15"></option>
+                                            </datalist>
+                                        </div>
+                                        <div class="input-group input-group-sm" style="width: auto;">
+                                            <span class="input-group-text">{% trans %}tools.value_calc.cap.pitch{% endtrans %}</span>
+                                            <select class="form-select" id="vc-cap-pitch" style="width: 9rem;"
+                                                    {{ stimulus_target('pages/valueCalculator', 'capPitch') }}
+                                                    {{ stimulus_action('pages/valueCalculator', 'updateCapDimensions', 'change') }}>
+                                                <option value="2.54">2.54 mm (0.1")</option>
+                                                <option value="5.08" selected>5.08 mm (0.2")</option>
+                                                <option value="7.5">7.5 mm</option>
+                                                <option value="10">10 mm</option>
+                                                <option value="15">15 mm</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group input-group-sm" style="width: auto;">
+                                            <span class="input-group-text">{% trans %}tools.value_calc.cap.voltage{% endtrans %}</span>
+                                            <input type="number" class="form-control" id="vc-cap-voltage" placeholder="50" min="1" step="1" style="width: 6rem;"
+                                                   list="vc-cap-volts"
+                                                   {{ stimulus_target('pages/valueCalculator', 'capVoltage') }}
+                                                   {{ stimulus_action('pages/valueCalculator', 'updateCapDimensions', 'input') }}>
+                                            <span class="input-group-text">V</span>
+                                            <datalist id="vc-cap-volts">
+                                                <option value="16"></option><option value="25"></option><option value="50"></option>
+                                                <option value="63"></option><option value="100"></option><option value="250"></option>
+                                                <option value="500"></option><option value="630"></option><option value="1000"></option>
+                                                <option value="2000"></option><option value="3000"></option>
+                                            </datalist>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="position-sticky" style="top: 1rem;">
+                            <div class="vc-pic text-center bg-light rounded p-2 mx-auto" style="max-width: 480px;" {{ stimulus_target('pages/valueCalculator', 'capSvg') }}></div>
+                            <div class="text-center text-muted small mt-2" {{ stimulus_target('pages/valueCalculator', 'capSpec') }}></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# ---------------- SMD resistor code ---------------- #}
+            <div class="tab-pane fade" id="vc-smd" role="tabpanel" data-vc-name="{% trans %}tools.value_calc.smd.title{% endtrans %}">
+                <div class="row g-4 flex-grow-1">
+                    <div class="col-lg-7 d-flex flex-column">
+                        <div class="form-text mb-1">{% trans %}tools.value_calc.smd.on_chip_help{% endtrans %}</div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-6 col-xl-3">
+                                <label class="form-label small mb-1" for="vc-smd-value">{% trans %}tools.value_calc.field.value{% endtrans %}</label>
+                                <input type="text" class="form-control" id="vc-smd-value" placeholder="4k7" data-field="value"
+                                       {{ stimulus_target('pages/valueCalculator', 'smdValueInput') }}
+                                       {{ stimulus_action('pages/valueCalculator', 'syncSmd', 'input') }}>
+                            </div>
+                            <div class="col-6 col-xl-3">
+                                <label class="form-label small mb-1 d-flex align-items-center gap-2" for="vc-smd-code3">
+                                    <input class="form-check-input mt-0" type="radio" name="vc-smd-mark" data-mark="code3" checked
+                                           title="{% trans %}tools.value_calc.field.on_chip{% endtrans %}"
+                                           {{ stimulus_action('pages/valueCalculator', 'pickSmdMarking', 'change') }}>
+                                    {% trans %}tools.value_calc.field.code3{% endtrans %}
+                                </label>
+                                <input type="text" class="form-control" id="vc-smd-code3" placeholder="472" data-field="code3"
+                                       {{ stimulus_target('pages/valueCalculator', 'smdCode3') }}
+                                       {{ stimulus_action('pages/valueCalculator', 'syncSmd', 'input') }}>
+                            </div>
+                            <div class="col-6 col-xl-3">
+                                <label class="form-label small mb-1 d-flex align-items-center gap-2" for="vc-smd-code4">
+                                    <input class="form-check-input mt-0" type="radio" name="vc-smd-mark" data-mark="code4"
+                                           title="{% trans %}tools.value_calc.field.on_chip{% endtrans %}"
+                                           {{ stimulus_action('pages/valueCalculator', 'pickSmdMarking', 'change') }}>
+                                    {% trans %}tools.value_calc.field.code4{% endtrans %}
+                                </label>
+                                <input type="text" class="form-control" id="vc-smd-code4" placeholder="4701" data-field="code4"
+                                       {{ stimulus_target('pages/valueCalculator', 'smdCode4') }}
+                                       {{ stimulus_action('pages/valueCalculator', 'syncSmd', 'input') }}>
+                            </div>
+                            <div class="col-6 col-xl-3">
+                                <label class="form-label small mb-1 d-flex align-items-center gap-2" for="vc-smd-eia96">
+                                    <input class="form-check-input mt-0" type="radio" name="vc-smd-mark" data-mark="eia96"
+                                           title="{% trans %}tools.value_calc.field.on_chip{% endtrans %}"
+                                           {{ stimulus_action('pages/valueCalculator', 'pickSmdMarking', 'change') }}>
+                                    {% trans %}tools.value_calc.field.eia96{% endtrans %}
+                                </label>
+                                <input type="text" class="form-control" id="vc-smd-eia96" placeholder="—" data-field="eia96"
+                                       {{ stimulus_target('pages/valueCalculator', 'smdEia96') }}
+                                       {{ stimulus_action('pages/valueCalculator', 'syncSmd', 'input') }}>
+                            </div>
+                        </div>
+
+                        <details class="vc-appearance mt-auto pt-2 border-top">
+                            <summary class="text-primary small" style="cursor: pointer;"><i class="fas fa-palette"></i> {% trans %}tools.value_calc.appearance{% endtrans %}</summary>
+                            <div class="vc-appearance-panel card card-body bg-body-tertiary mt-2 py-2">
+                                <div class="row mb-2">
+                                    <label for="vc-smd-package" class="col-sm-3 col-form-label">{% trans %}tools.value_calc.smd.package{% endtrans %}</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-select" id="vc-smd-package" style="max-width: 18rem;"
+                                                {{ stimulus_target('pages/valueCalculator', 'smdPackage') }}
+                                                {{ stimulus_action('pages/valueCalculator', 'updateSmd', 'change') }}>
+                                            <option value="0201">0201 (0603 metric)</option>
+                                            <option value="0402">0402 (1005 metric)</option>
+                                            <option value="0603">0603 (1608 metric)</option>
+                                            <option value="0805" selected>0805 (2012 metric)</option>
+                                            <option value="1206">1206 (3216 metric)</option>
+                                            <option value="1210">1210 (3225 metric)</option>
+                                            <option value="2010">2010 (5025 metric)</option>
+                                            <option value="2512">2512 (6332 metric)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label for="vc-smd-body" class="col-sm-3 col-form-label">{% trans %}tools.value_calc.body_color{% endtrans %}</label>
+                                    <div class="col-sm-9 d-flex align-items-center flex-wrap gap-2">
+                                        <input type="color" class="form-control form-control-color" id="vc-smd-body" value="#262626"
+                                               title="{% trans %}tools.value_calc.body_color{% endtrans %}"
+                                               {{ stimulus_target('pages/valueCalculator', 'smdBodyColor') }}
+                                               {{ stimulus_action('pages/valueCalculator', 'updateSmdColor', 'input') }}>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#262626"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applySmdBodyColor') }}>{% trans %}tools.value_calc.body.black{% endtrans %}</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#4a4a4a"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applySmdBodyColor') }}>{% trans %}tools.value_calc.body.grey{% endtrans %}</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#e8e8e8"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applySmdBodyColor') }}>{% trans %}tools.value_calc.body.white{% endtrans %}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="position-sticky" style="top: 1rem;">
+                            <div class="vc-pic text-center bg-light rounded p-2 mx-auto" style="max-width: 480px;" {{ stimulus_target('pages/valueCalculator', 'smdSvg') }}></div>
+                            <div class="text-center text-muted small mt-2" {{ stimulus_target('pages/valueCalculator', 'smdSpec') }}></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# ---------------- THT inductor colour code ---------------- #}
+            <div class="tab-pane fade" id="vc-inductor" role="tabpanel" data-vc-name="{% trans %}tools.value_calc.inductor.title{% endtrans %}">
+                <p class="text-muted">{% trans %}tools.value_calc.inductor.intro{% endtrans %}</p>
+                <div class="row g-4 flex-grow-1">
+                    <div class="col-lg-7 d-flex flex-column">
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label">{% trans %}tools.value_calc.resistor.bands{% endtrans %}</label>
+                            <div class="col-sm-9">
+                                <div class="btn-group" role="group">
+                                    <input type="radio" class="btn-check" name="vc-ind-band-count" id="vc-ind-band-4" value="4"
+                                           autocomplete="off" checked {{ stimulus_action('pages/valueCalculator', 'changeIndBandCount', 'change') }}>
+                                    <label class="btn btn-outline-primary" for="vc-ind-band-4">{% trans %}tools.value_calc.resistor.bands_4{% endtrans %}</label>
+
+                                    <input type="radio" class="btn-check" name="vc-ind-band-count" id="vc-ind-band-5" value="5"
+                                           autocomplete="off" {{ stimulus_action('pages/valueCalculator', 'changeIndBandCount', 'change') }}>
+                                    <label class="btn btn-outline-primary" for="vc-ind-band-5">{% trans %}tools.value_calc.resistor.bands_5{% endtrans %}</label>
+                                </div>
+                            </div>
+                        </div>
+                        {# Band colour selects are rendered by the Stimulus controller #}
+                        <div class="row mb-3" {{ stimulus_target('pages/valueCalculator', 'indBandSelects') }}></div>
+
+                        <div class="row mb-3">
+                            <label for="vc-ind-value" class="col-sm-3 col-form-label">{% trans %}tools.value_calc.inductor.from_value{% endtrans %}</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="vc-ind-value" placeholder="100µH"
+                                           {{ stimulus_target('pages/valueCalculator', 'indValueInput') }}
+                                           {{ stimulus_action('pages/valueCalculator', 'applyInductorValue', 'keyup.enter') }}>
+                                    <button class="btn btn-primary" type="button"
+                                            {{ stimulus_action('pages/valueCalculator', 'applyInductorValue') }}>{% trans %}tools.value_calc.resistor.apply_value{% endtrans %}</button>
+                                </div>
+                                <div class="form-text">{% trans %}tools.value_calc.inductor.from_value_help{% endtrans %}</div>
+                            </div>
+                        </div>
+
+                        <details class="vc-appearance mt-auto pt-2 border-top">
+                            <summary class="text-primary small" style="cursor: pointer;"><i class="fas fa-palette"></i> {% trans %}tools.value_calc.appearance{% endtrans %}</summary>
+                            <div class="vc-appearance-panel card card-body bg-body-tertiary mt-2 py-2">
+                                <div class="row">
+                                    <label for="vc-ind-body" class="col-sm-3 col-form-label">{% trans %}tools.value_calc.body_color{% endtrans %}</label>
+                                    <div class="col-sm-9 d-flex align-items-center flex-wrap gap-2">
+                                        <input type="color" class="form-control form-control-color" id="vc-ind-body" value="#2f6f4c"
+                                               title="{% trans %}tools.value_calc.body_color{% endtrans %}"
+                                               {{ stimulus_target('pages/valueCalculator', 'indBodyColor') }}
+                                               {{ stimulus_action('pages/valueCalculator', 'updateInductor', 'input') }}>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#2f6f4c"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applyIndBodyColor') }}>{% trans %}tools.value_calc.body.green{% endtrans %}</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#3f6fb0"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applyIndBodyColor') }}>{% trans %}tools.value_calc.body.blue{% endtrans %}</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#8a5a2b"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applyIndBodyColor') }}>{% trans %}tools.value_calc.body.beige{% endtrans %}</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#20242a"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applyIndBodyColor') }}>{% trans %}tools.value_calc.body.black{% endtrans %}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="position-sticky" style="top: 1rem;">
+                            <div class="svg-container vc-pic text-center bg-light rounded p-2 mx-auto" style="max-width: 480px;">{{ '' }}
+                                <div {{ stimulus_target('pages/valueCalculator', 'indSvg') }}></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# ---------------- SMD inductor code ---------------- #}
+            <div class="tab-pane fade" id="vc-smdind" role="tabpanel" data-vc-name="{% trans %}tools.value_calc.inductor.title{% endtrans %}">
+                <p class="text-muted">{% trans %}tools.value_calc.smd_inductor.intro{% endtrans %}</p>
+                <div class="row g-4 flex-grow-1">
+                    <div class="col-lg-7 d-flex flex-column">
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label small mb-1" for="vc-smdind-value">{% trans %}tools.value_calc.field.value{% endtrans %}</label>
+                                <input type="text" class="form-control" id="vc-smdind-value" value="100µH" placeholder="100µH" data-field="value"
+                                       {{ stimulus_target('pages/valueCalculator', 'smdIndValueInput') }}
+                                       {{ stimulus_action('pages/valueCalculator', 'syncSmdInductor', 'input') }}>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label small mb-1" for="vc-smdind-code">{% trans %}tools.value_calc.field.code{% endtrans %}</label>
+                                <input type="text" class="form-control font-monospace" id="vc-smdind-code" placeholder="101" data-field="code"
+                                       {{ stimulus_target('pages/valueCalculator', 'smdIndCode') }}
+                                       {{ stimulus_action('pages/valueCalculator', 'syncSmdInductor', 'input') }}>
+                            </div>
+                        </div>
+
+                        <details class="vc-appearance mt-auto pt-2 border-top">
+                            <summary class="text-primary small" style="cursor: pointer;"><i class="fas fa-palette"></i> {% trans %}tools.value_calc.appearance{% endtrans %}</summary>
+                            <div class="vc-appearance-panel card card-body bg-body-tertiary mt-2 py-2">
+                                <div class="row mb-2">
+                                    <label for="vc-smdind-package" class="col-sm-3 col-form-label">{% trans %}tools.value_calc.smd.package{% endtrans %}</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-select" id="vc-smdind-package" style="max-width: 18rem;" autocomplete="off"
+                                                {{ stimulus_target('pages/valueCalculator', 'smdIndPackage') }}
+                                                {{ stimulus_action('pages/valueCalculator', 'syncSmdInductor', 'change') }}>
+                                            <option value="0402">0402 (1005 metric)</option>
+                                            <option value="0603">0603 (1608 metric)</option>
+                                            <option value="0805">0805 (2012 metric)</option>
+                                            <option value="1206">1206 (3216 metric)</option>
+                                            <option value="1210" selected>1210 (3225 metric)</option>
+                                            <option value="2010">2010 (5025 metric)</option>
+                                            <option value="2512">2512 (6332 metric)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label for="vc-smdind-body" class="col-sm-3 col-form-label">{% trans %}tools.value_calc.body_color{% endtrans %}</label>
+                                    <div class="col-sm-9 d-flex align-items-center flex-wrap gap-2">
+                                        <input type="color" class="form-control form-control-color" id="vc-smdind-body" value="#38332e"
+                                               title="{% trans %}tools.value_calc.body_color{% endtrans %}"
+                                               {{ stimulus_target('pages/valueCalculator', 'smdIndBodyColor') }}
+                                               {{ stimulus_action('pages/valueCalculator', 'syncSmdInductor', 'input') }}>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#38332e"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applySmdIndBodyColor') }}>{% trans %}tools.value_calc.body.black{% endtrans %}</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#4a4a4a"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applySmdIndBodyColor') }}>{% trans %}tools.value_calc.body.grey{% endtrans %}</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-color="#1c3a5e"
+                                                    {{ stimulus_action('pages/valueCalculator', 'applySmdIndBodyColor') }}>{% trans %}tools.value_calc.body.blue{% endtrans %}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="position-sticky" style="top: 1rem;">
+                            <div class="vc-pic text-center bg-light rounded p-2 mx-auto" style="max-width: 480px;" {{ stimulus_target('pages/valueCalculator', 'smdIndSvg') }}></div>
+                            <div class="text-center text-muted small mt-2" {{ stimulus_target('pages/valueCalculator', 'smdIndSpec') }}></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if part is not null %}
+            <div class="text-center mt-3 pt-3 border-top">
+                <button type="button" class="btn btn-success" {{ stimulus_action('pages/valueCalculator', 'attachToPart') }}>
+                    <i class="fas fa-paperclip"></i> {% trans %}tools.value_calc.attach.button{% endtrans %}
+                </button>
+            </div>
+        {% endif %}
+    </div>
