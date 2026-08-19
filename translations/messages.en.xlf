@@ -921,6 +921,42 @@ Sub elements will be moved upwards.</target>
         <target>Select source</target>
       </segment>
     </unit>
+    <unit id="mbvcsWz" name="label_scanner.nfc.scan">
+      <segment state="translated">
+        <source>label_scanner.nfc.scan</source>
+        <target>Scan NFC tag</target>
+      </segment>
+    </unit>
+    <unit id="H7U.MIF" name="label_scanner.nfc.waiting">
+      <segment state="translated">
+        <source>label_scanner.nfc.waiting</source>
+        <target>Hold an NFC tag near your device…</target>
+      </segment>
+    </unit>
+    <unit id="dLiwEQc" name="label_scanner.nfc.read_error">
+      <segment state="translated">
+        <source>label_scanner.nfc.read_error</source>
+        <target>The NFC tag could not be read. Try again.</target>
+      </segment>
+    </unit>
+    <unit id="uZF5m.B" name="label_scanner.nfc.unsupported_record">
+      <segment state="translated">
+        <source>label_scanner.nfc.unsupported_record</source>
+        <target>The tag contains no supported URL or text record.</target>
+      </segment>
+    </unit>
+    <unit id="03ArgJn" name="label_scanner.nfc.permission_denied">
+      <segment state="translated">
+        <source>label_scanner.nfc.permission_denied</source>
+        <target>NFC permission was denied.</target>
+      </segment>
+    </unit>
+    <unit id="426q2AX" name="label_scanner.nfc.failed">
+      <segment state="translated">
+        <source>label_scanner.nfc.failed</source>
+        <target>NFC scanning could not be started. Check that NFC is enabled.</target>
+      </segment>
+    </unit>
     <unit id="melYYg5" name="log.list.title">
       <segment state="final">
         <source>log.list.title</source>
@@ -7138,6 +7174,66 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>part.info.add_part_to_project</source>
         <target>Add this [part] to a [project]</target>
+      </segment>
+    </unit>
+    <unit id="394UMjt" name="part.info.nfc.write.button">
+      <segment state="translated">
+        <source>part.info.nfc.write.button</source>
+        <target>Write NFC tag</target>
+      </segment>
+    </unit>
+    <unit id="6vBfGQ5" name="part.info.nfc.write.overwrite_button">
+      <segment state="translated">
+        <source>part.info.nfc.write.overwrite_button</source>
+        <target>Retry and allow overwrite</target>
+      </segment>
+    </unit>
+    <unit id="b4fnJiH" name="part.info.nfc.write.waiting">
+      <segment state="translated">
+        <source>part.info.nfc.write.waiting</source>
+        <target>Hold the sticker near your device until writing completes…</target>
+      </segment>
+    </unit>
+    <unit id="_1MIW9x" name="part.info.nfc.write.success">
+      <segment state="translated">
+        <source>part.info.nfc.write.success</source>
+        <target>The NFC sticker was enrolled successfully.</target>
+      </segment>
+    </unit>
+    <unit id="EhUFVRB" name="part.info.nfc.write.overwrite_confirmation">
+      <segment state="translated">
+        <source>part.info.nfc.write.overwrite_confirmation</source>
+        <target>Writing without overwriting was not allowed. The tag may already contain data. Continuing may replace its contents.</target>
+      </segment>
+    </unit>
+    <unit id="5Co0Lnr" name="part.info.nfc.write.permission_denied">
+      <segment state="translated">
+        <source>part.info.nfc.write.permission_denied</source>
+        <target>NFC permission was denied.</target>
+      </segment>
+    </unit>
+    <unit id="NxeBStS" name="part.info.nfc.write.not_allowed">
+      <segment state="translated">
+        <source>part.info.nfc.write.not_allowed</source>
+        <target>NFC writing was not allowed. Check browser permission and whether the tag is writable.</target>
+      </segment>
+    </unit>
+    <unit id="rxgFlUR" name="part.info.nfc.write.unsupported_tag">
+      <segment state="translated">
+        <source>part.info.nfc.write.unsupported_tag</source>
+        <target>This tag is read-only or does not support writable NDEF data.</target>
+      </segment>
+    </unit>
+    <unit id="hB.qnnu" name="part.info.nfc.write.failed">
+      <segment state="translated">
+        <source>part.info.nfc.write.failed</source>
+        <target>The tag could not be written. Check its capacity and try again.</target>
+      </segment>
+    </unit>
+    <unit id="RdSRZLP" name="part.info.nfc.write.cancelled">
+      <segment state="translated">
+        <source>part.info.nfc.write.cancelled</source>
+        <target>NFC writing was cancelled.</target>
       </segment>
     </unit>
     <unit id="5r.n1zf" name="project_bom_entry.label">
