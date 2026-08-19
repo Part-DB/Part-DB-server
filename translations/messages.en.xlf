@@ -7185,7 +7185,7 @@ Element 1 -&gt; Element 1.2</target>
     <unit id="6vBfGQ5" name="part.info.nfc.write.overwrite_button">
       <segment state="translated">
         <source>part.info.nfc.write.overwrite_button</source>
-        <target>Confirm overwrite</target>
+        <target>Retry and allow overwrite</target>
       </segment>
     </unit>
     <unit id="b4fnJiH" name="part.info.nfc.write.waiting">
@@ -7200,16 +7200,22 @@ Element 1 -&gt; Element 1.2</target>
         <target>The NFC sticker was enrolled successfully.</target>
       </segment>
     </unit>
-    <unit id="6ThBXeA" name="part.info.nfc.write.overwrite_warning">
+    <unit id="EhUFVRB" name="part.info.nfc.write.overwrite_confirmation">
       <segment state="translated">
-        <source>part.info.nfc.write.overwrite_warning</source>
-        <target>This tag already contains data. Confirm overwrite, then tap the tag again.</target>
+        <source>part.info.nfc.write.overwrite_confirmation</source>
+        <target>Writing without overwriting was not allowed. The tag may already contain data. Continuing may replace its contents.</target>
       </segment>
     </unit>
     <unit id="5Co0Lnr" name="part.info.nfc.write.permission_denied">
       <segment state="translated">
         <source>part.info.nfc.write.permission_denied</source>
         <target>NFC permission was denied.</target>
+      </segment>
+    </unit>
+    <unit id="NxeBStS" name="part.info.nfc.write.not_allowed">
+      <segment state="translated">
+        <source>part.info.nfc.write.not_allowed</source>
+        <target>NFC writing was not allowed. Check browser permission and whether the tag is writable.</target>
       </segment>
     </unit>
     <unit id="rxgFlUR" name="part.info.nfc.write.unsupported_tag">

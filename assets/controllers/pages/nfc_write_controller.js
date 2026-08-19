@@ -57,7 +57,7 @@ export default class extends Controller {
 
         if (error.name === "NotAllowedError" && !overwrite) {
             try {
-                const permission = await navigator.permissions.query({name: "nfc"});
+                const permission = await navigator.permissions?.query({name: "nfc"});
                 if (permission.state === "denied") {
                     this.statusTarget.textContent = this.statusTarget.dataset.permissionDenied;
                     return;
@@ -66,14 +66,14 @@ export default class extends Controller {
                 // The NFC permission descriptor is not exposed by every supporting browser.
             }
 
-            this.statusTarget.textContent = this.statusTarget.dataset.overwriteWarning;
+            this.statusTarget.textContent = this.statusTarget.dataset.overwriteConfirmation;
             this.overwriteButtonTarget.classList.remove("d-none");
             this.overwriteButtonTarget.disabled = false;
             return;
         }
 
         const messageKey = {
-            NotAllowedError: "permissionDenied",
+            NotAllowedError: "notAllowed",
             NotSupportedError: "unsupportedTag",
             NetworkError: "writeFailed",
             AbortError: "cancelled",
