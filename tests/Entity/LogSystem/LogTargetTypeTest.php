@@ -25,6 +25,7 @@ namespace App\Tests\Entity\LogSystem;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\LogSystem\LogTargetType;
+use App\Entity\Parameters\ParameterDefinition;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Category;
 use App\Entity\UserSystem\User;
@@ -54,6 +55,7 @@ final class LogTargetTypeTest extends TestCase
         //Test creation from subclass
         $this->assertSame(LogTargetType::ATTACHMENT, LogTargetType::fromElementClass(new PartAttachment()));
         $this->assertSame(LogTargetType::PARAMETER, LogTargetType::fromElementClass(new PartParameter()));
+        $this->assertSame(LogTargetType::PARAMETER_DEFINITION, LogTargetType::fromElementClass(new ParameterDefinition()));
     }
 
     public function testFromElementClassInvalid(): void

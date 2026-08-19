@@ -23,6 +23,9 @@ declare(strict_types=1);
 namespace App\Tests\Services\ImportExportSystem;
 
 use App\Entity\Parts\Category;
+use App\Entity\Parameters\ParameterDefinition;
+use App\Entity\Parameters\PartParameter;
+use App\Entity\Parts\Part;
 use App\Services\ImportExportSystem\EntityExporter;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,6 +65,33 @@ final class EntityExporterTest extends WebTestCase
             ['format' => 'json', 'level' => 'simple', 'include_children' => true]);
         $this->assertJsonStringEqualsJsonString('[{"children":[{"children":[],"name":"Entity 1.1","type":"category","full_name":"Entity%1->Entity 1.1"}],"name":"Entity%1","type":"category","full_name":"Entity%1"},{"children":[],"name":"Entity 1.1","type":"category","full_name":"Entity%1->Entity 1.1"},{"children":[],"name":"Entity 2","type":"category","full_name":"Entity 2"}]',
             $json_with_children);
+    }
+
+    public function testFullPartExportDoesNotDuplicateDefinitionMetadataIntoParameters(): void
+    {
+        $definition = (new ParameterDefinition())
+            ->setName('Export dielectric')
+            ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
+            ->setChoices(['C0G', 'X7R']);
+        $parameter = (new PartParameter())
+            ->setDefinition($definition)
+            ->setValueText('X7R');
+        $part = (new Part())
+            ->setName('Export definition part')
+            ->setCategory((new Category())->setName('Export definition category'))
+            ->addParameter($parameter);
+
+        $data = json_decode(
+            $this->service->exportEntities($part, ['format' => 'json', 'level' => 'full']),
+            true,
+            flags: JSON_THROW_ON_ERROR,
+        );
+        $exported_parameter = $data[0]['parameters'][0];
+
+        self::assertSame('X7R', $exported_parameter['value_text']);
+        self::assertArrayNotHasKey('definition', $exported_parameter);
+        self::assertArrayNotHasKey('input_type', $exported_parameter);
+        self::assertArrayNotHasKey('choices', $exported_parameter);
     }
 
     public function testExportEntityFromRequest(): void

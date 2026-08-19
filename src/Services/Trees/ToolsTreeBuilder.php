@@ -32,6 +32,7 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\Parameters\ParameterDefinition;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\UserSystem\Group;
@@ -231,6 +232,12 @@ class ToolsTreeBuilder
                 $this->elementTypeNameGenerator->typeLabelPlural(MeasurementUnit::class),
                 $this->urlGenerator->generate('measurement_unit_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-balance-scale');
+        }
+        if ($this->security->isGranted('read', new ParameterDefinition())) {
+            $nodes[] = (new TreeViewNode(
+                $this->elementTypeNameGenerator->typeLabelPlural(ParameterDefinition::class),
+                $this->urlGenerator->generate('parameter_definition_new')
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-list-check');
         }
         if ($this->security->isGranted('read', new LabelProfile())) {
             $nodes[] = (new TreeViewNode(

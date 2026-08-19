@@ -23,6 +23,8 @@ declare(strict_types=1);
 namespace App\Tests\Services\LogSystem;
 
 use App\Entity\LogSystem\ElementEditedLogEntry;
+use App\Entity\Parameters\ParameterDefinition;
+use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Category;
 use App\Services\LogSystem\TimeTravel;
 use Doctrine\ORM\EntityManagerInterface;
@@ -78,5 +80,106 @@ final class TimeTravelTest extends KernelTestCase
 
         //The category with 1 should have the name 'Test' at this timestamp
         $this->assertEquals('Test', $category->getName());
+    }
+
+    public function testApplyingHistoricalParameterDataRestoresVisibleSnapshotsButKeepsCurrentEffectiveDefinition(): void
+    {
+        $definition = (new ParameterDefinition())
+            ->setName('Dielectric type')
+            ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
+            ->setChoices(['C0G', 'X7R', 'X5R']);
+        $parameter = (new PartParameter())->setDefinition($definition);
+        (new \ReflectionClass($parameter))->getProperty('id')->setValue($parameter, 1001);
+
+        $log_entry = new ElementEditedLogEntry($parameter);
+        $log_entry->setOldData([
+            'name' => 'Dielectric',
+        ]);
+
+        $this->service->applyEntry($parameter, $log_entry);
+
+        self::assertSame('Dielectric', $parameter->getSnapshotName());
+        self::assertSame('Dielectric type', $parameter->getEffectiveName());
+        self::assertSame(ParameterDefinition::INPUT_TYPE_CHOICE, $parameter->getEffectiveInputType());
+        self::assertSame(['C0G', 'X7R', 'X5R'], $parameter->getEffectiveChoices());
+    }
+
+    public function testApplyingHistoricalParameterDataRestoresNullDefinitionReference(): void
+    {
+        $definition = (new ParameterDefinition())->setName('Current definition');
+        $parameter = (new PartParameter())->setDefinition($definition);
+        (new \ReflectionClass($parameter))->getProperty('id')->setValue($parameter, 1002);
+
+        $log_entry = new ElementEditedLogEntry($parameter);
+        $log_entry->setOldData([
+            'definition' => null,
+            'name' => 'Historical ad hoc parameter',
+        ]);
+
+        $this->service->applyEntry($parameter, $log_entry);
+
+        self::assertNull($parameter->getDefinition());
+        self::assertFalse($definition->getParameterUsages()->contains($parameter));
+        self::assertSame('Historical ad hoc parameter', $parameter->getSnapshotName());
+        self::assertSame('Historical ad hoc parameter', $parameter->getEffectiveName());
+    }
+
+    public function testApplyingHistoricalParameterDataRestoresPreviousDefinitionReference(): void
+    {
+        $previous_definition = (new ParameterDefinition())->setName('Previous definition');
+        $current_definition = (new ParameterDefinition())->setName('Current replacement definition');
+        $this->em->persist($previous_definition);
+        $this->em->persist($current_definition);
+        $this->em->flush();
+
+        $parameter = (new PartParameter())->setDefinition($current_definition);
+        (new \ReflectionClass($parameter))->getProperty('id')->setValue($parameter, 1003);
+        $log_entry = new ElementEditedLogEntry($parameter);
+        $log_entry->setOldData([
+            'definition' => ['@id' => $previous_definition->getID()],
+            'name' => 'Historical snapshot name',
+        ]);
+
+        $this->service->applyEntry($parameter, $log_entry);
+
+        self::assertSame($previous_definition, $parameter->getDefinition());
+        self::assertTrue($previous_definition->getParameterUsages()->contains($parameter));
+        self::assertFalse($current_definition->getParameterUsages()->contains($parameter));
+        self::assertSame('Historical snapshot name', $parameter->getSnapshotName());
+        self::assertSame('Previous definition', $parameter->getEffectiveName());
+    }
+
+    public function testMissingHistoricalDefinitionFallsBackToSnapshots(): void
+    {
+        $deleted_definition = (new ParameterDefinition())->setName('Deleted historical definition');
+        $this->em->persist($deleted_definition);
+        $this->em->flush();
+        $deleted_definition_id = $deleted_definition->getID();
+        self::assertNotNull($deleted_definition_id);
+        $this->em->remove($deleted_definition);
+        $this->em->flush();
+
+        $parameter = (new PartParameter())
+            ->setName('Current snapshot')
+            ->setSymbol('S')
+            ->setUnit('V');
+        (new \ReflectionClass($parameter))->getProperty('id')->setValue($parameter, 1004);
+
+        $log_entry = new ElementEditedLogEntry($parameter);
+        $log_entry->setOldData([
+            'definition' => ['@id' => $deleted_definition_id],
+            'name' => 'Historical dielectric',
+            'symbol' => 'D',
+            'unit' => 'grade',
+        ]);
+
+        $this->service->applyEntry($parameter, $log_entry);
+
+        self::assertNull($parameter->getDefinition());
+        self::assertSame('Historical dielectric', $parameter->getEffectiveName());
+        self::assertSame('D', $parameter->getEffectiveSymbol());
+        self::assertSame('grade', $parameter->getEffectiveUnit());
+        self::assertSame(ParameterDefinition::INPUT_TYPE_TEXT, $parameter->getEffectiveInputType());
+        self::assertSame([], $parameter->getEffectiveChoices());
     }
 }

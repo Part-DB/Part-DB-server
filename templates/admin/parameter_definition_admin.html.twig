@@ -1,0 +1,24 @@
+{% extends "admin/base_admin.html.twig" %}
+
+{% block card_title %}
+    <i class="fa-solid fa-list-check"></i> {{ type_label_p(entity) }}
+{% endblock %}
+
+{% block edit_title %}
+    {% trans %}parameter_definition.edit{% endtrans %}: {{ entity.name }}
+{% endblock %}
+
+{% block new_title %}
+    {% trans %}parameter_definition.new{% endtrans %}
+{% endblock %}
+
+{% block preview_picture %}{% endblock %}
+
+{% block additional_controls %}
+    {{ form_row(form.symbol) }}
+    {{ form_row(form.unit) }}
+    {{ form_row(form.input_type) }}
+    {{ form_row(form.choices_text) }}
+{% endblock %}
+
+{% block comment %}{% endblock %}

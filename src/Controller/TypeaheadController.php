@@ -30,6 +30,7 @@ use App\Entity\Parameters\FootprintParameter;
 use App\Entity\Parameters\GroupParameter;
 use App\Entity\Parameters\ManufacturerParameter;
 use App\Entity\Parameters\MeasurementUnitParameter;
+use App\Entity\Parameters\ParameterDefinition;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parameters\ProjectParameter;
 use App\Entity\Parameters\StorageLocationParameter;
@@ -176,7 +177,57 @@ class TypeaheadController extends AbstractController
 
         $data = $repository->autocompleteParamName($query);
 
+        if (PartParameter::class === $class) {
+            $definition_repository = $entityManager->getRepository(ParameterDefinition::class);
+            $data = $this->mergeParameterDefinitionSuggestions(
+                $definition_repository->autocompleteForParameterEditor($query),
+                $data,
+            );
+        }
+
         return new JsonResponse($data);
+    }
+
+    /**
+     * Global definitions take precedence over legacy parameter suggestions with the same case-insensitive name.
+     *
+     * @param list<array{
+     *     definition_id: int,
+     *     name: string,
+     *     symbol: string,
+     *     unit: string,
+     *     input_type: string,
+     *     choices: list<string>|null
+     * }> $definitions
+     * @param array<array{name: string, symbol: string, unit: string}> $legacy_parameters
+     * @return list<array<string, mixed>>
+     */
+    private function mergeParameterDefinitionSuggestions(array $definitions, array $legacy_parameters): array
+    {
+        $result = [];
+        $known_names = [];
+
+        foreach ($definitions as $definition) {
+            $definition['choices'] ??= [];
+            $result[] = $definition;
+            $known_names[mb_strtolower(trim($definition['name']))] = true;
+        }
+
+        foreach ($legacy_parameters as $legacy_parameter) {
+            if (50 <= count($result)) {
+                break;
+            }
+
+            $normalized_name = mb_strtolower(trim($legacy_parameter['name']));
+            if (isset($known_names[$normalized_name])) {
+                continue;
+            }
+
+            $result[] = $legacy_parameter;
+            $known_names[$normalized_name] = true;
+        }
+
+        return array_slice($result, 0, 50);
     }
 
     #[Route(path: '/tags/search/{query}', name: 'typeahead_tags', requirements: ['query' => '.+'])]

@@ -30,6 +30,8 @@ use App\Entity\Contracts\TimeTravelInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementEditedLogEntry;
+use App\Entity\Parameters\AbstractParameter;
+use App\Entity\Parameters\ParameterDefinition;
 use App\Repository\LogEntryRepository;
 use Brick\Math\BigDecimal;
 use DateTime;
@@ -135,6 +137,9 @@ class TimeTravel
             if (
                 ($element instanceof AbstractStructuralDBElement && ('parts' === $field || 'children' === $field))
                 || ($element instanceof AttachmentType && 'attachments' === $field)
+                //applyEntry() restores the parameter's historical definition reference. Only skip recursively
+                //reverting the shared global definition object itself; historical metadata comes from snapshots.
+                || ($element instanceof AbstractParameter && 'definition' === $field)
             ) {
                 continue;
             }
@@ -239,6 +244,19 @@ class TimeTravel
                 $this->setField($element, $field, $data);
             }
             if ($metadata->hasAssociation($field)) {
+                if ($element instanceof AbstractParameter && 'definition' === $field) {
+                    if (null === $data) {
+                        $element->restoreDefinitionReference(null);
+                    } elseif (is_array($data) && isset($data['@id'])) {
+                        $definition = $this->em->find(ParameterDefinition::class, $data['@id']);
+                        $element->restoreDefinitionReference(
+                            $definition instanceof ParameterDefinition ? $definition : null
+                        );
+                    }
+
+                    continue;
+                }
+
                 $mapping = $metadata->getAssociationMapping($field);
                 $target_class = $mapping['targetEntity'];
                 //Try to extract the old ID:

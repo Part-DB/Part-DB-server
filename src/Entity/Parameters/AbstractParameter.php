@@ -46,6 +46,7 @@ use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -64,6 +65,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Serializer\Attribute\DiscriminatorMap;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 use function sprintf;
 
@@ -79,6 +81,7 @@ use function sprintf;
 #[ORM\Index(columns: ['name'], name: 'parameter_name_idx')]
 #[ORM\Index(columns: ['param_group'], name: 'parameter_group_idx')]
 #[ORM\Index(columns: ['type', 'element_id'], name: 'parameter_type_element_idx')]
+#[ORM\Index(columns: ['definition_id', 'value_text', 'type', 'element_id'], name: 'parameter_definition_value_idx')]
 #[ApiResource(
     shortName: 'Parameter',
     operations: [
@@ -98,7 +101,6 @@ use function sprintf;
 #[DiscriminatorMap(typeProperty: '_type', mapping: self::API_DISCRIMINATOR_MAP)]
 abstract class AbstractParameter extends AbstractNamedDBElement implements UniqueValidatableInterface
 {
-
     /*
      * The discriminator map used for API platform. The key should be the same as the api platform short type (the @type JSONLD field).
      */
@@ -165,6 +167,22 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     protected string $value_text = '';
 
     /**
+     * Optional global definition. Name, symbol and unit remain persisted snapshots for historical views, while
+     * input type and choices are always read from the linked definition.
+     */
+    #[ApiProperty(readableLink: false, writableLink: false)]
+    #[Groups(['parameter:read', 'parameter:write'])]
+    #[ORM\ManyToOne(targetEntity: ParameterDefinition::class, inversedBy: 'parameter_usages')]
+    #[ORM\JoinColumn(name: 'definition_id', nullable: true, onDelete: 'RESTRICT')]
+    protected ?ParameterDefinition $definition = null;
+
+    /**
+     * A choice explicitly requested from the Part editor. This is deliberately not persisted: the definition is
+     * updated only after the complete Part form has passed validation.
+     */
+    private ?string $pending_definition_choice = null;
+
+    /**
      * @var string the group this parameter belongs to
      */
     #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
@@ -219,12 +237,105 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     }
 
     /**
+     * Returns the optional global definition linked to this parameter.
+     */
+    public function getDefinition(): ?ParameterDefinition
+    {
+        return $this->definition;
+    }
+
+    /**
+     * Links a definition and captures its current name, symbol and unit as historical snapshots.
+     */
+    public function setDefinition(?ParameterDefinition $definition): self
+    {
+        $this->synchronizeDefinitionReference($definition);
+        if ($definition instanceof ParameterDefinition) {
+            $this->refreshSnapshotFromDefinition();
+
+            if (ParameterDefinition::INPUT_TYPE_CHOICE === $definition->getInputType() && '' !== $this->value_text) {
+                $canonical_choice = $definition->findCanonicalChoice($this->value_text);
+                if (null !== $canonical_choice) {
+                    $this->value_text = $canonical_choice;
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Restores only the historical association without replacing the independently persisted metadata snapshots.
+     * This is intended for the TimeTravel infrastructure.
+     */
+    public function restoreDefinitionReference(?ParameterDefinition $definition): self
+    {
+        $this->synchronizeDefinitionReference($definition);
+
+        return $this;
+    }
+
+    private function synchronizeDefinitionReference(?ParameterDefinition $definition): void
+    {
+        if ($this->definition === $definition) {
+            $definition?->addParameterUsage($this);
+
+            return;
+        }
+
+        $previous_definition = $this->definition;
+        $this->definition = $definition;
+
+        $previous_definition?->removeParameterUsage($this);
+        $definition?->addParameterUsage($this);
+    }
+
+    /**
+     * Explicitly refreshes the persisted name, symbol and unit snapshots from the linked definition.
+     */
+    public function refreshSnapshotFromDefinition(): self
+    {
+        if (!$this->definition instanceof ParameterDefinition) {
+            return $this;
+        }
+
+        $this->name = $this->definition->getName();
+        $this->symbol = $this->definition->getSymbol();
+        $this->unit = $this->definition->getUnit();
+
+        return $this;
+    }
+
+    public function getSnapshotName(): string
+    {
+        return $this->name;
+    }
+
+    public function getEffectiveName(): string
+    {
+        return $this->definition?->getName() ?? $this->name;
+    }
+
+    /**
      * Return a formatted string version of the values of the string.
      * Based on the set values it can return something like this: 34 V (12 V ... 50 V) [Text].
      */
     #[Groups(['parameter:read', 'full'])]
     #[SerializedName('formatted')]
     public function getFormattedValue(bool $latex_formatted = false): string
+    {
+        return $this->formatValue($this->unit, $latex_formatted);
+    }
+
+    /**
+     * Formats the current value using metadata from the linked definition when available.
+     */
+    public function getEffectiveFormattedValue(bool $latex_formatted = false): string
+    {
+        return $this->formatValue($this->getEffectiveUnit(), $latex_formatted);
+    }
+
+    private function formatValue(string $unit, bool $latex_formatted): string
     {
         //If we just only have text value, return early
         if (null === $this->value_typical && null === $this->value_min && null === $this->value_max) {
@@ -234,7 +345,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
         $str = '';
         $bracket_opened = false;
         if ($this->value_typical !== null) {
-            $str .= $this->getValueTypicalWithUnit($latex_formatted);
+            $str .= $this->formatWithExplicitUnit($this->value_typical, $unit, with_latex: $latex_formatted);
             if ($this->value_min || $this->value_max) {
                 $bracket_opened = true;
                 $str .= ' (';
@@ -242,11 +353,12 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
         }
 
         if ($this->value_max !== null && $this->value_min !== null) {
-            $str .= $this->getValueMinWithUnit($latex_formatted).' ... '.$this->getValueMaxWithUnit($latex_formatted);
+            $str .= $this->formatWithExplicitUnit($this->value_min, $unit, with_latex: $latex_formatted).' ... '
+                .$this->formatWithExplicitUnit($this->value_max, $unit, with_latex: $latex_formatted);
         } elseif ($this->value_max !== null) {
-            $str .= 'max. '.$this->getValueMaxWithUnit($latex_formatted);
+            $str .= 'max. '.$this->formatWithExplicitUnit($this->value_max, $unit, with_latex: $latex_formatted);
         } elseif ($this->value_min !== null) {
-            $str .= 'min. '.$this->getValueMinWithUnit($latex_formatted);
+            $str .= 'min. '.$this->formatWithExplicitUnit($this->value_min, $unit, with_latex: $latex_formatted);
         }
 
         //Add closing bracket
@@ -315,6 +427,16 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     public function getSymbol(): string
     {
         return $this->symbol;
+    }
+
+    public function getSnapshotSymbol(): string
+    {
+        return $this->symbol;
+    }
+
+    public function getEffectiveSymbol(): string
+    {
+        return $this->definition?->getSymbol() ?? $this->symbol;
     }
 
     /**
@@ -422,6 +544,16 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
         return $this->unit;
     }
 
+    public function getSnapshotUnit(): string
+    {
+        return $this->unit;
+    }
+
+    public function getEffectiveUnit(): string
+    {
+        return $this->definition?->getUnit() ?? $this->unit;
+    }
+
     /**
      * Sets the unit used by the value.
      *
@@ -447,11 +579,68 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
      *
      * @return $this
      */
-    public function setValueText(string $value_text): self
+    public function setValueText(?string $value_text): self
     {
+        $value_text ??= '';
+
+        if ($this->definition instanceof ParameterDefinition
+            && ParameterDefinition::INPUT_TYPE_CHOICE === $this->definition->getInputType()
+            && '' !== $value_text) {
+            $canonical_choice = $this->definition->findCanonicalChoice($value_text);
+            if (null !== $canonical_choice) {
+                $value_text = $canonical_choice;
+            }
+        }
+
         $this->value_text = $value_text;
 
         return $this;
+    }
+
+    public function requestPendingDefinitionChoice(?string $choice): self
+    {
+        $choice = null === $choice ? '' : trim($choice);
+        $this->pending_definition_choice = '' === $choice ? null : $choice;
+
+        return $this;
+    }
+
+    public function getPendingDefinitionChoice(): ?string
+    {
+        return $this->pending_definition_choice;
+    }
+
+    public function clearPendingDefinitionChoice(): self
+    {
+        $this->pending_definition_choice = null;
+
+        return $this;
+    }
+
+    #[Groups(['parameter:read'])]
+    #[SerializedName('input_type')]
+    public function getEffectiveInputType(): string
+    {
+        return $this->definition?->getInputType() ?? ParameterDefinition::INPUT_TYPE_TEXT;
+    }
+
+    /** @return list<string> */
+    #[Groups(['parameter:read'])]
+    #[SerializedName('choices')]
+    public function getEffectiveChoices(): array
+    {
+        return $this->definition?->getChoices() ?? [];
+    }
+
+    public function hasEffectiveChoices(): bool
+    {
+        return ParameterDefinition::INPUT_TYPE_CHOICE === $this->getEffectiveInputType()
+            && [] !== $this->getEffectiveChoices();
+    }
+
+    public function getEffectiveChoicesText(): string
+    {
+        return implode("\n", $this->getEffectiveChoices());
     }
 
     /**
@@ -459,19 +648,24 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
      */
     protected function formatWithUnit(float $value, string $format = '%g', bool $with_latex = false): string
     {
+        return $this->formatWithExplicitUnit($value, $this->unit, $format, $with_latex);
+    }
+
+    private function formatWithExplicitUnit(float $value, string $unit, string $format = '%g', bool $with_latex = false): string
+    {
         $str = sprintf($format, $value);
-        if ($this->unit !== '') {
+        if ('' !== $unit) {
 
             if (!$with_latex) {
-                $unit = $this->unit;
+                $formatted_unit = $unit;
             } else {
                 //Escape the percentage sign for convenience (as latex uses it as comment and it is often used in units)
-                $escaped = preg_replace('/\\\\?%/', "\\\\%", $this->unit);
+                $escaped = preg_replace('/\\\\?%/', "\\\\%", $unit);
 
-                $unit = '$\mathrm{'.$escaped.'}$';
+                $formatted_unit = '$\mathrm{'.$escaped.'}$';
             }
 
-            return $str.' '.$unit;
+            return $str.' '.$formatted_unit;
         }
 
         return $str;
@@ -516,8 +710,37 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
         return $this;
     }
 
+    #[Assert\Callback]
+    public function validateDefinitionUsage(ExecutionContextInterface $context): void
+    {
+        if (!$this->definition instanceof ParameterDefinition
+            || ParameterDefinition::INPUT_TYPE_CHOICE !== $this->definition->getInputType()
+            || '' === $this->value_text) {
+            return;
+        }
+
+        $canonical_choice = $this->definition->findCanonicalChoice($this->value_text);
+        if (null === $canonical_choice) {
+            if ($this->pending_definition_choice === $this->value_text) {
+                return;
+            }
+
+            $context->buildViolation('parameter.validator.value_not_allowed')
+                ->atPath('value_text')
+                ->addViolation();
+
+            return;
+        }
+
+        if ($canonical_choice !== $this->value_text) {
+            $context->buildViolation('parameter.validator.value_not_canonical')
+                ->atPath('value_text')
+                ->addViolation();
+        }
+    }
+
     public function getComparableFields(): array
     {
-        return ['name' => $this->name, 'group' => $this->group, 'element' => $this->element?->getId()];
+        return ['name' => $this->getEffectiveName(), 'group' => $this->group, 'element' => $this->element?->getId()];
     }
 }

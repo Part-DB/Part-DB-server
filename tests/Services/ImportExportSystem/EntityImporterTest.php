@@ -29,6 +29,8 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
+use App\Entity\Parameters\ParameterDefinition;
+use App\Entity\Parameters\PartParameter;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\UserSystem\User;
 use App\Services\ImportExportSystem\EntityImporter;
@@ -348,6 +350,30 @@ EOT;
         $this->assertSame('Test 1 manufacturer', $results[0]->getManufacturer()->getName());
         $this->assertSame($category, $results[0]->getCategory());
         $this->assertSame('test,test2', $results[0]->getTags());
+    }
+
+    public function testImportedParameterWithoutDefinitionRemainsFreeText(): void
+    {
+        $category = (new Category())->setName('Imported parameter category');
+        $errors = [];
+        $results = $this->service->importString(
+            '[{"name":"Imported parameter part","parameters":[{"_type":"Part","name":"Dielectric","value_text":"X7R"}]}]',
+            [
+                'class' => Part::class,
+                'format' => 'json',
+                'part_category' => $category,
+            ],
+            $errors,
+        );
+
+        self::assertEmpty($errors);
+        self::assertCount(1, $results);
+        $parameter = $results[0]->getParameters()->first();
+        self::assertInstanceOf(PartParameter::class, $parameter);
+        self::assertNull($parameter->getDefinition());
+        self::assertSame(ParameterDefinition::INPUT_TYPE_TEXT, $parameter->getEffectiveInputType());
+        self::assertSame([], $parameter->getEffectiveChoices());
+        self::assertSame('X7R', $parameter->getValueText());
     }
 
     public function testImportAcceptsNestedEdaInfoColumns(): void
