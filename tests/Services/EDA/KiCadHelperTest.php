@@ -632,4 +632,57 @@ final class KiCadHelperTest extends KernelTestCase
         // Empty-named parameter should not appear
         self::assertArrayNotHasKey('', $result['fields']);
     }
+
+    /**
+     * Category 1 (from fixtures) has a KiCad symbol set, so its parts are visible to the EDA.
+     * The listing must carry the fields, so KiCad does not have to request each part separately.
+     */
+    public function testCategoryPartsListingContainsFields(): void
+    {
+        $category = $this->em->find(Category::class, 1);
+
+        $result = $this->helper->getCategoryParts($category);
+
+        self::assertNotEmpty($result);
+        foreach ($result as $part) {
+            self::assertArrayHasKey('fields', $part);
+            self::assertIsArray($part['fields']);
+            //Every part gets at least these, either from itself or from its category
+            self::assertArrayHasKey('reference', $part['fields']);
+            self::assertArrayHasKey('value', $part['fields']);
+            self::assertArrayHasKey('footprint', $part['fields']);
+            self::assertArrayHasKey('symbolIdStr', $part);
+        }
+    }
+
+    /**
+     * The minimal listing stays minimal: id, name and description only.
+     */
+    public function testMinimalCategoryPartsListingContainsNoFields(): void
+    {
+        $category = $this->em->find(Category::class, 1);
+
+        $result = $this->helper->getCategoryParts($category, true);
+
+        self::assertNotEmpty($result);
+        foreach ($result as $part) {
+            self::assertSame(['id', 'name', 'description'], array_keys($part));
+        }
+    }
+
+    /**
+     * The minimal and the full listing must describe the same parts, in the same order.
+     */
+    public function testMinimalAndFullCategoryPartsListingsAgreeOnParts(): void
+    {
+        $category = $this->em->find(Category::class, 1);
+
+        $minimal = $this->helper->getCategoryParts($category, true);
+        $full = $this->helper->getCategoryParts($category);
+
+        self::assertSame(
+            array_column($minimal, 'id'),
+            array_column($full, 'id')
+        );
+    }
 }
