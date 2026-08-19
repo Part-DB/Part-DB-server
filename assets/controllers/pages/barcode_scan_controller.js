@@ -21,6 +21,7 @@ import {Controller} from "@hotwired/stimulus";
 //import * as ZXing from "@zxing/library";
 
 import {Html5QrcodeScanner, Html5Qrcode} from "@part-db/html5-qrcode";
+import { generateCsrfToken, generateCsrfHeaders } from "../csrf_protection_controller";
 import {decodeNdefMessage, isWebNfcAvailable, setScanInputAndSubmit} from "./nfc_helpers";
 
 /* stimulusFetch: 'lazy' */
