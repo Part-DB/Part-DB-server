@@ -295,3 +295,44 @@ There is the [Noto](https://www.google.com/get/noto/) font family from Google, w
 available in different styles (regular, bold, italic, bold-italic).
 For example, you can use [Noto CJK](https://github.com/notofonts/noto-cjk) for more beautiful Chinese, Japanese,
 and Korean characters.
+
+## Thermal label printing (Niimbot)
+
+Besides generating a PDF (which you print via your operating system's print dialog), Part-DB can send a label
+**directly to a [Niimbot](https://www.niimbot.com/) thermal label printer** (e.g. the B1, B21, D110, …) over
+Bluetooth, without any driver installation. This uses the [niimbluelib](https://github.com/MultiMote/niimbluelib)
+library and the browser's [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API).
+
+{: .important }
+> Thermal printing is **disabled by default**, as it is only useful if you own a Niimbot printer. An administrator must
+> enable it by setting the environment variable `NIIMBOT_ENABLED=1` (see [Configuration]({% link configuration.md %})).
+
+After you enable it and generate a label in the label generator, a **"Thermal printer (Niimbot)"** panel appears below the preview.
+Set the number of copies, print density, label type and rotation, then click **"Print to Niimbot"** and select your
+printer from the browser's Bluetooth device chooser. The same PDF that is shown in the preview is rasterized in your
+browser at the printer's native resolution (203 dpi for the B1), converted to a black/white bitmap and sent to the
+printer.
+
+### Requirements and limitations
+
+Because Web Bluetooth runs in the browser, a few conditions must be met:
+
+* **The feature must be enabled** by an administrator via `NIIMBOT_ENABLED=1` (off by default).
+* **A Chromium based browser is required** – Chrome, Edge, Opera or Chrome for Android. Firefox and Safari/iOS do
+  **not** support Web Bluetooth.
+* **A secure context is required** – the page must be served over **HTTPS**, or accessed via `localhost`. Many
+  Part-DB installations run over plain HTTP on the local network; in that case put Part-DB behind a reverse proxy
+  with TLS, otherwise the browser will not expose the Bluetooth API and the button is disabled.
+* The printer must be **turned on and paired-able** (not already connected to the phone app).
+
+### Tips
+
+* **Rotation** – the B1 has a 384 pixel (48 mm) wide print head. If your label is wider than that (e.g. a 50 mm wide
+  label = 400 px), rotate it by 90° so the shorter side runs across the print head, otherwise it may be clipped.
+  A warning is shown if the rendered bitmap is wider than the print head.
+* **Density** – higher density gives darker prints but may bleed. Leave it on *Auto* to use the printer's default,
+  or tune it (1–5 on the B1) for your label material.
+* **B/W threshold** – the label is converted to pure black/white using this luminance threshold (0–254). Increase it
+  if thin lines/text disappear, decrease it if the print is too heavy.
+* **Multiple labels** – if you generate labels for several elements at once (e.g. IDs `1,2,5-10`), every page of the
+  resulting document is printed in sequence.

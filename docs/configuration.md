@@ -314,6 +314,10 @@ See the [information providers]({% link usage/information_provider_system.md %})
   Part-DB displays a warning on the homepage (visible to administrators only) as long as this value is not set.
 * `DEMO_MODE` (env only): Set Part-DB into demo mode, which forbids users to change their passwords and settings. Used for the demo
   instance. This should not be needed for normal installations.
+* `NIIMBOT_ENABLED` (default `0`) (env only): If set to `1`, a "Print to Niimbot" panel is shown in the label generator, which
+  allows printing labels directly to a Niimbot thermal printer (e.g. B1) via the browser's Web Bluetooth API. Disabled by
+  default, as it is only useful if you own such a printer. Requires a Chromium based browser and a secure context (HTTPS or
+  localhost). See the [labels page]({% link usage/labels.md %}) for details.
 * `NO_URL_REWRITE_AVAILABLE` (allowed values `true` or `false`) (env only): Set this value to true, if your webserver does not
   support rewrite. In this case, all URL paths will contain index.php/, which is needed then. Normally this setting does
   not need to be changed.
