@@ -19,7 +19,8 @@
                                 <i class="fa-solid fa-wifi fa-rotate-90 fa-fw"></i>
                                 {% trans %}label_scanner.nfc.scan{% endtrans %}
                             </button>
-                            <div class="small text-muted mt-2" {{ stimulus_target('pages/barcode_scan', 'nfcStatus') }}
+                            <div class="small text-muted mt-2" role="status" aria-live="polite"
+                                 {{ stimulus_target('pages/barcode_scan', 'nfcStatus') }}
                                  data-waiting="{{ 'label_scanner.nfc.waiting'|trans }}"
                                  data-read-error="{{ 'label_scanner.nfc.read_error'|trans }}"
                                  data-unsupported-record="{{ 'label_scanner.nfc.unsupported_record'|trans }}"

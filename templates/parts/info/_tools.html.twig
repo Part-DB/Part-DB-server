@@ -83,7 +83,8 @@
                 {{ stimulus_action('pages/nfc_write', 'write') }}>
             {% trans %}part.info.nfc.write.overwrite_button{% endtrans %}
         </button>
-        <div class="small text-muted mt-2" {{ stimulus_target('pages/nfc_write', 'status') }}
+        <div class="small text-muted mt-2" role="status" aria-live="polite"
+             {{ stimulus_target('pages/nfc_write', 'status') }}
              data-waiting="{{ 'part.info.nfc.write.waiting'|trans }}"
              data-success="{{ 'part.info.nfc.write.success'|trans }}"
              data-overwrite-warning="{{ 'part.info.nfc.write.overwrite_warning'|trans }}"
