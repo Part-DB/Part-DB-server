@@ -1,0 +1,44 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}BOM: {{ project.name }}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-list-check fa-fw"></i> BOM: {{ project.name }}
+{% endblock %}
+
+{% block card_content %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_row(form.quantity) }}
+    {{ form_row(form.part) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.mountnames) }}
+    {{ form_row(form.comment) }}
+    <div class="row">
+        <div class="col">{{ form_row(form.price) }}</div>
+        <div class="col">{{ form_row(form.priceCurrency) }}</div>
+    </div>
+    {{ form_row(form.log_comment) }}
+    <div class="btn-group">
+        <button class="btn btn-primary" type="submit">{% trans %}entity.edit.save{% endtrans %}</button>
+        <a class="btn btn-outline-secondary" href="{{ path('project_info', {'id': project.id}) }}#bom-tab-pane">{% trans %}cancel{% endtrans %}</a>
+    </div>
+    {{ form_end(form) }}
+
+    <form method="post" action="{{ path('project_bom_entry_delete', {'id': project.id, 'bomEntry': bom_entry.id}) }}" class="mt-3" {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', 'submit', 'submit') }}
+          data-delete-title="{% trans with {'%name%': bom_entry.name|default(bom_entry.id)|escape} %}entity.delete.confirm_title{% endtrans %}"
+          data-delete-message="{% trans %}entity.delete.message{% endtrans %}">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ bom_entry.id) }}">
+        <div class="btn-group">
+            <button class="btn btn-danger" type="submit">{% trans %}entity.delete{% endtrans %}</button>
+            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <div class="dropdown-menu p-2">
+                <label for="delete_log_comment">{% trans %}edit.log_comment{% endtrans %}</label>
+                <input type="text" id="delete_log_comment" name="log_comment" class="form-control">
+            </div>
+        </div>
+    </form>
+{% endblock %}

@@ -26,6 +26,7 @@ use App\DataTables\Adapters\TwoStepORMAdapter;
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\EnumColumn;
 use App\DataTables\Column\HTMLColumn;
+use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
 use App\DataTables\Helpers\PartDataTableHelper;
@@ -47,6 +48,8 @@ use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterface
@@ -58,6 +61,8 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
         protected PartDataTableHelper $partDataTableHelper,
         protected ProjectBuildHelper $projectBuildHelper,
         protected MoneyFormatter $moneyFormatter,
+        protected Security $security,
+        protected UrlGeneratorInterface $urlGenerator,
     ) {
     }
 
@@ -86,7 +91,6 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
                 'label' => $this->translator->trans('part.table.id'),
                 'visible' => false,
             ])
-
             ->add('quantity', TextColumn::class, [
                 'label' => $this->translator->trans('project.bom.quantity'),
                 'className' => 'text-center',
@@ -240,6 +244,16 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ->add('lastModified', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.lastModified'),
                 'visible' => false,
+            ])
+            ->add('edit', IconLinkColumn::class, [
+                'label' => $this->translator->trans('part.table.edit'),
+                'className' => 'no-colvis no-export',
+                'href' => fn(mixed $value, ProjectBOMEntry $context): string => $this->urlGenerator->generate(
+                    'project_bom_entry_edit',
+                    ['id' => $options['project']->getId(), 'bomEntry' => $context->getId()]
+                ),
+                'disabled' => fn(mixed $value, ProjectBOMEntry $context): bool => !$this->security->isGranted('edit', $context->getProject()),
+                'title' => $this->translator->trans('part.table.edit.title'),
             ])
         ;
 

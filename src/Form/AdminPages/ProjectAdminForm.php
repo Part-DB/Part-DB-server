@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
-use App\Form\ProjectSystem\ProjectBOMEntryCollectionType;
 use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -42,8 +41,6 @@ class ProjectAdminForm extends BaseEntityAdminForm
                 'rows' => 2,
             ],
         ]);
-
-        $builder->add('bom_entries', ProjectBOMEntryCollectionType::class);
 
         $builder->add('status', ChoiceType::class, [
             'attr' => [
