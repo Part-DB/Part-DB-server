@@ -75,22 +75,22 @@
                 {{ stimulus_target('pages/nfc_write', 'button') }}
                 {{ stimulus_action('pages/nfc_write', 'write') }}>
             <i class="fa-solid fa-wifi fa-rotate-90 fa-fw"></i>
-            {% trans %}nfc.write.button{% endtrans %}
+            {% trans %}part.info.nfc.write.button{% endtrans %}
         </button>
         <button type="button" class="btn btn-danger d-none"
                 data-overwrite="true"
                 {{ stimulus_target('pages/nfc_write', 'overwriteButton') }}
                 {{ stimulus_action('pages/nfc_write', 'write') }}>
-            {% trans %}nfc.write.overwrite_button{% endtrans %}
+            {% trans %}part.info.nfc.write.overwrite_button{% endtrans %}
         </button>
         <div class="small text-muted mt-2" {{ stimulus_target('pages/nfc_write', 'status') }}
-             data-waiting="{{ 'nfc.write.waiting'|trans }}"
-             data-success="{{ 'nfc.write.success'|trans }}"
-             data-overwrite-warning="{{ 'nfc.write.overwrite_warning'|trans }}"
-             data-permission-denied="{{ 'nfc.write.permission_denied'|trans }}"
-             data-unsupported-tag="{{ 'nfc.write.unsupported_tag'|trans }}"
-             data-write-failed="{{ 'nfc.write.failed'|trans }}"
-             data-cancelled="{{ 'nfc.write.cancelled'|trans }}"></div>
+             data-waiting="{{ 'part.info.nfc.write.waiting'|trans }}"
+             data-success="{{ 'part.info.nfc.write.success'|trans }}"
+             data-overwrite-warning="{{ 'part.info.nfc.write.overwrite_warning'|trans }}"
+             data-permission-denied="{{ 'part.info.nfc.write.permission_denied'|trans }}"
+             data-unsupported-tag="{{ 'part.info.nfc.write.unsupported_tag'|trans }}"
+             data-write-failed="{{ 'part.info.nfc.write.failed'|trans }}"
+             data-cancelled="{{ 'part.info.nfc.write.cancelled'|trans }}"></div>
     </div>
 {% endif %}
 
