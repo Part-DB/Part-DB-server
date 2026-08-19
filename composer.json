@@ -74,7 +74,7 @@
         "league/oauth2-server-bundle": "^1.2.1",
         "liip/imagine-bundle": "^2.2",
         "maennchen/zipstream-php": "2.4.0.1",
-        "mcp/sdk": "v0.7.0 as v0.6.0",
+        "mcp/sdk": "v0.7.1 as v0.6.0",
         "nbgrp/onelogin-saml-bundle": "^v2.0.2",
         "nelexa/zip": "^4.0",
         "nelmio/cors-bundle": "^2.3",
