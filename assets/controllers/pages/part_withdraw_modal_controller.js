@@ -6,6 +6,10 @@ export default class extends Controller
     connect() {
         this.element.addEventListener('show.bs.modal', event => this._handleModalOpen(event));
         this.element.addEventListener('shown.bs.modal', event => this._handleModalShown(event));
+        const newLotRadio = this.element.querySelector('input[name="target_id"][value="new"]');
+        if (newLotRadio) {
+            newLotRadio.addEventListener('change', () => this._toggleNewLotLocation(newLotRadio));
+        }
     }
 
     _handleModalOpen(event) {
@@ -39,6 +43,7 @@ export default class extends Controller
 
         //Hide the move to lot select, if the action is not move (and unhide it, if it is)
         const moveToLotSelect = this.element.querySelector('#withdraw-modal-move-to');
+        const newLotRadio = this.element.querySelector('input[name="target_id"][value="new"]');
         if (action === 'move') {
             moveToLotSelect.classList.remove('d-none');
         } else {
@@ -51,9 +56,14 @@ export default class extends Controller
         moveToLotOptions.forEach(option => {
             if (option.getAttribute('value') === lotID) {
                 option.parentElement.classList.add('d-none');
-                option.selected = false;
+                option.checked = false;
             }
         });
+
+        if (newLotRadio) {
+            newLotRadio.checked = false;
+            this._toggleNewLotLocation(newLotRadio);
+        }
 
         //For adding parts there is no limit on the amount to add
         if (action == 'add') {
@@ -65,5 +75,18 @@ export default class extends Controller
 
     _handleModalShown(event) {
         this.element.querySelector('input[name="amount"]').focus();
+    }
+
+    _toggleNewLotLocation(newLotRadio) {
+        const newLotLocation = this.element.querySelector('#withdraw-modal-new-lot-location');
+        if (!newLotLocation) {
+            return;
+        }
+
+        newLotLocation.classList.toggle('d-none', !newLotRadio.checked);
+        const locationInput = newLotLocation.querySelector('select, input');
+        if (locationInput) {
+            locationInput.required = newLotRadio.checked;
+        }
     }
 }
