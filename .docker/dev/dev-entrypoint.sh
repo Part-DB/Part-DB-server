@@ -24,7 +24,8 @@ prepare_runtime()
         "$APP_DIR/uploads" \
         "$APP_DIR/public/media" \
         "$APP_DIR/public/build" \
-        "$APP_DIR/public/bundles"
+        "$APP_DIR/public/bundles" \
+        "$APP_DIR/public/kicad"
 
     chown -R www-data:www-data "$DEV_HOME"
 
@@ -39,7 +40,8 @@ prepare_runtime()
         "$APP_DIR/uploads" \
         "$APP_DIR/public/media" \
         "$APP_DIR/public/build" \
-        "$APP_DIR/public/bundles"
+        "$APP_DIR/public/bundles" \
+        "$APP_DIR/public/kicad"
 
     export HOME="$DEV_HOME"
     export COMPOSER_HOME="$DEV_HOME/.composer"
