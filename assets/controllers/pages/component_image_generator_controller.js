@@ -20,6 +20,7 @@
 import {Controller} from "@hotwired/stimulus";
 import {AlertSwal} from "../../helpers/swal";
 import {trans} from "../../translator.js";
+import '../../css/components/component_image_generator.css';
 
 /**
  * Color definitions for the resistor color code.
