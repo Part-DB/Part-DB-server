@@ -13511,7 +13511,7 @@ Buerklin-API Authentication server:
         <target>Attach to part</target>
       </segment>
     </unit>
-    <unit id="v4d1SvgD" name="tools.value_calc.download.button">
+    <unit id="xdeSZDX" name="tools.value_calc.download.button">
       <segment state="translated">
         <source>tools.value_calc.download.button</source>
         <target>Download SVG</target>
