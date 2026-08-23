@@ -13023,6 +13023,690 @@ Buerklin-API-Authentication-Server:
         <target>Letzte Inventur</target>
       </segment>
     </unit>
+    <unit id="_cV3WJ." name="perm.tools.component_image_generator">
+      <segment state="translated">
+        <source>perm.tools.component_image_generator</source>
+        <target>Bauteilbild-Generator</target>
+      </segment>
+    </unit>
+    <unit id="w4Qd7_v" name="tools.value_calc.title">
+      <segment state="translated">
+        <source>tools.value_calc.title</source>
+        <target>Bauteilbild-Generator</target>
+      </segment>
+    </unit>
+    <unit id="UVNkQz9" name="tools.bulk_gen.title">
+      <segment state="translated">
+        <source>tools.bulk_gen.title</source>
+        <target>Bauteilbilder im Stapel generieren</target>
+      </segment>
+    </unit>
+    <unit id="2kWHU2t" name="tools.bulk_gen.intro">
+      <segment state="translated">
+        <source>tools.bulk_gen.intro</source>
+        <target>Ausgewählte Bauteile, die noch kein Bild haben und wie ein Widerstand, SMD-Widerstand oder Kondensator aussehen, werden unten aufgelistet. Überprüfen Sie den automatisch erkannten Typ und Wert und generieren und hängen Sie dann die Bilder in einem Schritt an.</target>
+      </segment>
+    </unit>
+    <unit id="o7Hhf0y" name="tools.bulk_gen.pick_location">
+      <segment state="translated">
+        <source>tools.bulk_gen.pick_location</source>
+        <target>— Lagerort auswählen —</target>
+      </segment>
+    </unit>
+    <unit id="4.7quoQ" name="tools.bulk_gen.load">
+      <segment state="translated">
+        <source>tools.bulk_gen.load</source>
+        <target>Bauteile laden</target>
+      </segment>
+    </unit>
+    <unit id="O.MYXkR" name="tools.bulk_gen.none">
+      <segment state="translated">
+        <source>tools.bulk_gen.none</source>
+        <target>Keines der %count% ausgewählten Bauteile konnte als Widerstand, SMD-Widerstand oder Kondensator ohne vorhandenes Bild erkannt werden.</target>
+      </segment>
+    </unit>
+    <unit id="x7s9G8d" name="tools.bulk_gen.found">
+      <segment state="translated">
+        <source>tools.bulk_gen.found</source>
+        <target>Bauteil(e) bereit zur Bildgenerierung.</target>
+      </segment>
+    </unit>
+    <unit id="zZ5O3AO" name="tools.bulk_gen.part">
+      <segment state="translated">
+        <source>tools.bulk_gen.part</source>
+        <target>Bauteil</target>
+      </segment>
+    </unit>
+    <unit id="lIH6iys" name="tools.bulk_gen.type">
+      <segment state="translated">
+        <source>tools.bulk_gen.type</source>
+        <target>Erkannter Typ</target>
+      </segment>
+    </unit>
+    <unit id="QIHaCTI" name="tools.bulk_gen.value">
+      <segment state="translated">
+        <source>tools.bulk_gen.value</source>
+        <target>Wert</target>
+      </segment>
+    </unit>
+    <unit id="DEZRBBp" name="tools.bulk_gen.wip">
+      <segment state="translated">
+        <source>tools.bulk_gen.wip</source>
+        <target>Überprüfen Sie hier die erkannten Typen und Werte — das Generieren und Anhängen der Bilder ist der nächste Schritt.</target>
+      </segment>
+    </unit>
+    <unit id="drnXOiF" name="tools.bulk_gen.no_selection">
+      <segment state="translated">
+        <source>tools.bulk_gen.no_selection</source>
+        <target>Es wurden keine Bauteile ausgewählt. Wählen Sie Bauteile in einer Liste aus und wählen Sie die Aktion "Bauteilbilder generieren".</target>
+      </segment>
+    </unit>
+    <unit id="1PrfW.0" name="tools.bulk_gen.skipped">
+      <segment state="translated">
+        <source>tools.bulk_gen.skipped</source>
+        <target>übersprungen: haben bereits ein Bild oder sind nicht klassifizierbar</target>
+      </segment>
+    </unit>
+    <unit id="p41pCTH" name="tools.bulk_gen.preview">
+      <segment state="translated">
+        <source>tools.bulk_gen.preview</source>
+        <target>Vorschau</target>
+      </segment>
+    </unit>
+    <unit id="NRuvA_w" name="tools.bulk_gen.appearance">
+      <segment state="translated">
+        <source>tools.bulk_gen.appearance</source>
+        <target>Bild-Einstellungen</target>
+      </segment>
+    </unit>
+    <unit id="P5fnLRL" name="tools.bulk_gen.apply_all">
+      <segment state="translated">
+        <source>tools.bulk_gen.apply_all</source>
+        <target>Auf alle Zeilen anwenden</target>
+      </segment>
+    </unit>
+    <unit id="pldOZDv" name="tools.bulk_gen.back">
+      <segment state="translated">
+        <source>tools.bulk_gen.back</source>
+        <target>Zurück zu den Bauteilen</target>
+      </segment>
+    </unit>
+    <unit id="85.3bGE" name="tools.bulk_gen.with_picture">
+      <segment state="translated">
+        <source>tools.bulk_gen.with_picture</source>
+        <target>%count% ausgewählte(s) Bauteil(e) haben bereits ein Bild und wurden nicht aufgelistet.</target>
+      </segment>
+    </unit>
+    <unit id="8Hv3Fih" name="tools.bulk_gen.regenerate">
+      <segment state="translated">
+        <source>tools.bulk_gen.regenerate</source>
+        <target>Diese %count% neu generieren / überschreiben</target>
+      </segment>
+    </unit>
+    <unit id="O6LlTDp" name="tools.bulk_gen.overwrite_mode">
+      <segment state="translated">
+        <source>tools.bulk_gen.overwrite_mode</source>
+        <target>Überschreibmodus: Bauteile, die bereits ein Bild haben, werden einbezogen (markiert mit "hat Bild"). Das Generieren ersetzt ein zuvor generiertes Bild und wird zur Vorschau — manuell hochgeladene Bilder bleiben erhalten.</target>
+      </segment>
+    </unit>
+    <unit id="CRmDeDn" name="tools.bulk_gen.has_picture_hint">
+      <segment state="translated">
+        <source>tools.bulk_gen.has_picture_hint</source>
+        <target>Dieses Bauteil hat bereits ein Bild. Das Generieren setzt das neue Bild als Vorschau und ersetzt ein zuvor generiertes Bild; hochgeladene Fotos bleiben erhalten.</target>
+      </segment>
+    </unit>
+    <unit id="V.Z95Ya" name="tools.bulk_gen.overwrite_exit">
+      <segment state="translated">
+        <source>tools.bulk_gen.overwrite_exit</source>
+        <target>Nur Bauteile ohne Bild</target>
+      </segment>
+    </unit>
+    <unit id="hpMtwLE" name="tools.bulk_gen.has_picture">
+      <segment state="translated">
+        <source>tools.bulk_gen.has_picture</source>
+        <target>hat Bild</target>
+      </segment>
+    </unit>
+    <unit id="0QW7sAE" name="tools.bulk_gen.help.title">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.title</source>
+        <target>So erhalten Sie die beste automatische Erkennung — was in die Details eines Bauteils gehört</target>
+      </segment>
+    </unit>
+    <unit id="TnVBe2o" name="tools.bulk_gen.help.intro">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.intro</source>
+        <target>Jedes Feld wird zuerst aus den Parametern des Bauteils gelesen, dann aus seinem Namen und der Beschreibung. Fügen Sie eines der unten genannten hinzu, um die Erkennung zu verbessern. Ein Bauteil wird hier nur aufgelistet, wenn es noch kein Bild hat und sein Wert gelesen werden kann.</target>
+      </segment>
+    </unit>
+    <unit id="QQZe5y0" name="tools.bulk_gen.help.col_field">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.col_field</source>
+        <target>Feld</target>
+      </segment>
+    </unit>
+    <unit id="1QowDug" name="tools.bulk_gen.help.col_param">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.col_param</source>
+        <target>Parameter mit dem Namen hinzufügen…</target>
+      </segment>
+    </unit>
+    <unit id="CqB4_7l" name="tools.bulk_gen.help.col_text">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.col_text</source>
+        <target>…oder im Namen / der Beschreibung angeben</target>
+      </segment>
+    </unit>
+    <unit id="TzOhtVs" name="tools.bulk_gen.help.value">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.value</source>
+        <target>Wert (zur Klassifizierung erforderlich)</target>
+      </segment>
+    </unit>
+    <unit id="q1oFve4" name="tools.bulk_gen.help.voltage">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.voltage</source>
+        <target>Nennspannung (Kondensatoren)</target>
+      </segment>
+    </unit>
+    <unit id="m.ukxwY" name="tools.bulk_gen.help.tolerance">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.tolerance</source>
+        <target>Toleranz</target>
+      </segment>
+    </unit>
+    <unit id="9JuLf7_" name="tools.bulk_gen.help.pitch">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.pitch</source>
+        <target>Anschlussabstand (Kondensatoren)</target>
+      </segment>
+    </unit>
+    <unit id="Mm5XjTE" name="tools.bulk_gen.help.diameter">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.diameter</source>
+        <target>Gehäusedurchmesser (Kondensatoren)</target>
+      </segment>
+    </unit>
+    <unit id="_go1VH3" name="tools.bulk_gen.help.smd">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.smd</source>
+        <target>SMD-Größe (Widerstände → Footprint)</target>
+      </segment>
+    </unit>
+    <unit id="F_rt.V0" name="tools.bulk_gen.help.footprint_col">
+      <segment state="translated">
+        <source>tools.bulk_gen.help.footprint_col</source>
+        <target>der zugewiesene Footprint</target>
+      </segment>
+    </unit>
+    <unit id="BzfGAkJ" name="tools.bulk_gen.kicad">
+      <segment state="translated">
+        <source>tools.bulk_gen.kicad</source>
+        <target>KiCad</target>
+      </segment>
+    </unit>
+    <unit id="6p_Fewa" name="tools.bulk_gen.write_eda">
+      <segment state="translated">
+        <source>tools.bulk_gen.write_eda</source>
+        <target>KiCad-Einstellungen für ausgewählte Bauteile schreiben</target>
+      </segment>
+    </unit>
+    <unit id="2fjEIWv" name="tools.bulk_gen.eda_written">
+      <segment state="translated">
+        <source>tools.bulk_gen.eda_written</source>
+        <target>EDA-Einstellungen geschrieben</target>
+      </segment>
+    </unit>
+    <unit id="ls7Uqra" name="tools.bulk_gen.footprint_ph">
+      <segment state="translated">
+        <source>tools.bulk_gen.footprint_ph</source>
+        <target>Footprint (optional)</target>
+      </segment>
+    </unit>
+    <unit id="oAIk8i7" name="tools.bulk_gen.reference">
+      <segment state="translated">
+        <source>tools.bulk_gen.reference</source>
+        <target>Referenzpräfix</target>
+      </segment>
+    </unit>
+    <unit id="muj74qD" name="tools.bulk_gen.kicad_hint">
+      <segment state="translated">
+        <source>tools.bulk_gen.kicad_hint</source>
+        <target>Vorgeschlagene Werte — bearbeiten Sie jedes Feld vor dem Schreiben.</target>
+      </segment>
+    </unit>
+    <unit id="Br89uCs" name="tools.bulk_gen.generate_attach">
+      <segment state="translated">
+        <source>tools.bulk_gen.generate_attach</source>
+        <target>Bilder an ausgewählte Bauteile anhängen</target>
+      </segment>
+    </unit>
+    <unit id="kSqlKsg" name="tools.bulk_gen.attached">
+      <segment state="translated">
+        <source>tools.bulk_gen.attached</source>
+        <target>angehängt</target>
+      </segment>
+    </unit>
+    <unit id="xelX1D." name="tools.bulk_gen.failed">
+      <segment state="translated">
+        <source>tools.bulk_gen.failed</source>
+        <target>fehlgeschlagen</target>
+      </segment>
+    </unit>
+    <unit id="khBAB32" name="part_list.action.group.images">
+      <segment state="translated">
+        <source>part_list.action.group.images</source>
+        <target>Bilder</target>
+      </segment>
+    </unit>
+    <unit id="DWEWX5m" name="part_list.action.generate_images">
+      <segment state="translated">
+        <source>part_list.action.generate_images</source>
+        <target>Bauteilbilder generieren</target>
+      </segment>
+    </unit>
+    <unit id="9rk9901" name="tools.value_calc.explanation">
+      <segment state="translated">
+        <source>tools.value_calc.explanation</source>
+        <target>Entschlüsseln und visualisieren Sie den Wert gängiger Bauteile — Farbringe (Widerstände, Induktivitäten), Kondensatorcodes und SMD-Chip-Beschriftungen. Lesen Sie ein Bauteil, indem Sie seine Ringe/seinen Code auswählen, oder geben Sie einen Wert ein, um die passenden Ringe/den Code sowie ein Bild zu erzeugen, das Sie an das Bauteil anhängen können.</target>
+      </segment>
+    </unit>
+    <unit id="Wutg3Q." name="tools.value_calc.body_color">
+      <segment state="translated">
+        <source>tools.value_calc.body_color</source>
+        <target>Gehäusefarbe</target>
+      </segment>
+    </unit>
+    <unit id="NjxMj8i" name="tools.value_calc.appearance">
+      <segment state="translated">
+        <source>tools.value_calc.appearance</source>
+        <target>Bild-Einstellungen (für das generierte Bild)</target>
+      </segment>
+    </unit>
+    <unit id="6QjyC_T" name="tools.value_calc.body.beige">
+      <segment state="translated">
+        <source>tools.value_calc.body.beige</source>
+        <target>Beige</target>
+      </segment>
+    </unit>
+    <unit id="6s2.Buz" name="tools.value_calc.body.blue">
+      <segment state="translated">
+        <source>tools.value_calc.body.blue</source>
+        <target>Blau</target>
+      </segment>
+    </unit>
+    <unit id="cyKVndH" name="tools.value_calc.body.green">
+      <segment state="translated">
+        <source>tools.value_calc.body.green</source>
+        <target>Grün</target>
+      </segment>
+    </unit>
+    <unit id="LYm1abo" name="tools.value_calc.body.lightblue">
+      <segment state="translated">
+        <source>tools.value_calc.body.lightblue</source>
+        <target>Hellblau</target>
+      </segment>
+    </unit>
+    <unit id="OdU12Px" name="tools.value_calc.body.tan">
+      <segment state="translated">
+        <source>tools.value_calc.body.tan</source>
+        <target>Hautfarben</target>
+      </segment>
+    </unit>
+    <unit id="QWAQSny" name="tools.value_calc.body.red">
+      <segment state="translated">
+        <source>tools.value_calc.body.red</source>
+        <target>Rot</target>
+      </segment>
+    </unit>
+    <unit id="lKLExIa" name="tools.value_calc.body.purple">
+      <segment state="translated">
+        <source>tools.value_calc.body.purple</source>
+        <target>Lila</target>
+      </segment>
+    </unit>
+    <unit id="MCCipeP" name="tools.value_calc.body.black">
+      <segment state="translated">
+        <source>tools.value_calc.body.black</source>
+        <target>Schwarz</target>
+      </segment>
+    </unit>
+    <unit id="_kEot4_" name="tools.value_calc.body.grey">
+      <segment state="translated">
+        <source>tools.value_calc.body.grey</source>
+        <target>Grau</target>
+      </segment>
+    </unit>
+    <unit id="SmT12PC" name="tools.value_calc.body.white">
+      <segment state="translated">
+        <source>tools.value_calc.body.white</source>
+        <target>Weiß</target>
+      </segment>
+    </unit>
+    <unit id="LwrLuvE" name="tools.value_calc.resistor.title">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.title</source>
+        <target>Widerstand</target>
+      </segment>
+    </unit>
+    <unit id="MRvw3fS" name="tools.value_calc.inductor.title">
+      <segment state="translated">
+        <source>tools.value_calc.inductor.title</source>
+        <target>Induktivität</target>
+      </segment>
+    </unit>
+    <unit id="7tiQ2kD" name="tools.value_calc.inductor.result">
+      <segment state="translated">
+        <source>tools.value_calc.inductor.result</source>
+        <target>Induktivität</target>
+      </segment>
+    </unit>
+    <unit id="rdDekSe" name="tools.value_calc.inductor.intro">
+      <segment state="translated">
+        <source>tools.value_calc.inductor.intro</source>
+        <target>Bedrahtete axiale Induktivitäten verwenden denselben Farbring-Code wie Widerstände, aber der Wert wird in Mikrohenry (µH) angegeben. Wählen Sie die Ringfarben oder geben Sie einen Wert ein, um sie automatisch zu setzen.</target>
+      </segment>
+    </unit>
+    <unit id="01aeaTL" name="tools.value_calc.inductor.from_value">
+      <segment state="translated">
+        <source>tools.value_calc.inductor.from_value</source>
+        <target>Aus Wert setzen</target>
+      </segment>
+    </unit>
+    <unit id="plveEuM" name="tools.value_calc.inductor.from_value_help">
+      <segment state="translated">
+        <source>tools.value_calc.inductor.from_value_help</source>
+        <target>Geben Sie eine Induktivität ein, um die Ringe automatisch einzufärben. Eine reine Zahl wird als µH gelesen (z.B. 100 = 100µH); Sie können auch 100µH, 10mH oder 470nH schreiben.</target>
+      </segment>
+    </unit>
+    <unit id="I.9reWF" name="tools.value_calc.diode.title">
+      <segment state="translated">
+        <source>tools.value_calc.diode.title</source>
+        <target>Diode</target>
+      </segment>
+    </unit>
+    <unit id="zcMjEwC" name="tools.value_calc.smd_inductor.title">
+      <segment state="translated">
+        <source>tools.value_calc.smd_inductor.title</source>
+        <target>SMD-Induktivität</target>
+      </segment>
+    </unit>
+    <unit id="pnSYOlL" name="tools.value_calc.smd_inductor.intro">
+      <segment state="translated">
+        <source>tools.value_calc.smd_inductor.intro</source>
+        <target>Umspritzte/abgeschirmte SMD-Leistungsinduktivität — geben Sie die Induktivität ein (z.B. 100µH, 10mH), um ihren aufgedruckten µH-Code zu sehen.</target>
+      </segment>
+    </unit>
+    <unit id="T0eIUAR" name="tools.value_calc.smd_capacitor.title">
+      <segment state="translated">
+        <source>tools.value_calc.smd_capacitor.title</source>
+        <target>SMD-Kondensator</target>
+      </segment>
+    </unit>
+    <unit id="klrs9fw" name="tools.value_calc.smd_capacitor.intro">
+      <segment state="translated">
+        <source>tools.value_calc.smd_capacitor.intro</source>
+        <target>Oberflächenmontierte MLCC-Kondensatoren sind fast immer unbeschriftet, es gibt also nichts zu entschlüsseln — geben Sie einfach Wert und Gehäuse ein, um ein Bild zu erzeugen, das Sie an das Bauteil anhängen können.</target>
+      </segment>
+    </unit>
+    <unit id="sQ75HQp" name="tools.value_calc.body.brown">
+      <segment state="translated">
+        <source>tools.value_calc.body.brown</source>
+        <target>Braun</target>
+      </segment>
+    </unit>
+    <unit id="BIzIMMQ" name="tools.value_calc.capacitor.title">
+      <segment state="translated">
+        <source>tools.value_calc.capacitor.title</source>
+        <target>Kondensator</target>
+      </segment>
+    </unit>
+    <unit id="b03881." name="tools.value_calc.smd.title">
+      <segment state="translated">
+        <source>tools.value_calc.smd.title</source>
+        <target>SMD-Widerstand</target>
+      </segment>
+    </unit>
+    <unit id="_sL6o2y" name="tools.value_calc.resistor.bands">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.bands</source>
+        <target>Anzahl der Ringe</target>
+      </segment>
+    </unit>
+    <unit id="xs6fVOi" name="tools.value_calc.resistor.bands_4">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.bands_4</source>
+        <target>4 Ringe</target>
+      </segment>
+    </unit>
+    <unit id="30PFCzm" name="tools.value_calc.resistor.bands_5">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.bands_5</source>
+        <target>5 Ringe</target>
+      </segment>
+    </unit>
+    <unit id="DX1HXAI" name="tools.value_calc.resistor.bands_6">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.bands_6</source>
+        <target>6 Ringe</target>
+      </segment>
+    </unit>
+    <unit id="purYVqq" name="tools.value_calc.attach.context">
+      <segment state="translated">
+        <source>tools.value_calc.attach.context</source>
+        <target>Das generierte Bild kann an das Bauteil "%part%" angehängt werden. Wählen Sie unten ein Bauteil aus und klicken Sie auf "An Bauteil anhängen".</target>
+      </segment>
+    </unit>
+    <unit id="MJwP_g9" name="tools.value_calc.attach.as_preview">
+      <segment state="translated">
+        <source>tools.value_calc.attach.as_preview</source>
+        <target>Als Vorschaubild verwenden</target>
+      </segment>
+    </unit>
+    <unit id="oWqgBTd" name="tools.value_calc.attach.button">
+      <segment state="translated">
+        <source>tools.value_calc.attach.button</source>
+        <target>An Bauteil anhängen</target>
+      </segment>
+    </unit>
+    <unit id="xdeSZDX" name="tools.value_calc.download.button">
+      <segment state="translated">
+        <source>tools.value_calc.download.button</source>
+        <target>SVG herunterladen</target>
+      </segment>
+    </unit>
+    <unit id="28wuv9g" name="tools.value_calc.attach.generate_button">
+      <segment state="translated">
+        <source>tools.value_calc.attach.generate_button</source>
+        <target>Bauteilbild generieren</target>
+      </segment>
+    </unit>
+    <unit id="L3lHryR" name="tools.value_calc.attach.generate_hint">
+      <segment state="translated">
+        <source>tools.value_calc.attach.generate_hint</source>
+        <target>Generieren Sie ein Bild für Widerstand, Kondensator oder SMD und hängen Sie es an dieses Bauteil an.</target>
+      </segment>
+    </unit>
+    <unit id="X7XTymp" name="part.generate_image.flash.success">
+      <segment state="translated">
+        <source>part.generate_image.flash.success</source>
+        <target>Das generierte Bild wurde an das Bauteil angehängt.</target>
+      </segment>
+    </unit>
+    <unit id="M1lbZ9t" name="part.generate_image.flash.invalid">
+      <segment state="translated">
+        <source>part.generate_image.flash.invalid</source>
+        <target>Es wurde kein gültiges Bild generiert. Bitte versuchen Sie es erneut.</target>
+      </segment>
+    </unit>
+    <unit id="QffBG3D" name="tools.value_calc.size">
+      <segment state="translated">
+        <source>tools.value_calc.size</source>
+        <target>Größe</target>
+      </segment>
+    </unit>
+    <unit id="L13hRpG" name="tools.value_calc.resistor.power">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.power</source>
+        <target>Leistung</target>
+      </segment>
+    </unit>
+    <unit id="MqEycmJ" name="tools.value_calc.smd.package">
+      <segment state="translated">
+        <source>tools.value_calc.smd.package</source>
+        <target>Gehäusegröße</target>
+      </segment>
+    </unit>
+    <unit id="olHJ0vl" name="tools.value_calc.cap.diameter">
+      <segment state="translated">
+        <source>tools.value_calc.cap.diameter</source>
+        <target>Durchmesser</target>
+      </segment>
+    </unit>
+    <unit id="E1cOfqy" name="tools.value_calc.cap.pitch">
+      <segment state="translated">
+        <source>tools.value_calc.cap.pitch</source>
+        <target>Anschlussabstand</target>
+      </segment>
+    </unit>
+    <unit id="FKWp7U5" name="tools.value_calc.cap.voltage">
+      <segment state="translated">
+        <source>tools.value_calc.cap.voltage</source>
+        <target>Spannung</target>
+      </segment>
+    </unit>
+    <unit id="raUtT.R" name="tools.value_calc.cap.shape">
+      <segment state="translated">
+        <source>tools.value_calc.cap.shape</source>
+        <target>Form</target>
+      </segment>
+    </unit>
+    <unit id="oN0_C8R" name="tools.value_calc.cap.shape.disc">
+      <segment state="translated">
+        <source>tools.value_calc.cap.shape.disc</source>
+        <target>Scheibe</target>
+      </segment>
+    </unit>
+    <unit id="MHhPBPX" name="tools.value_calc.cap.shape.blob">
+      <segment state="translated">
+        <source>tools.value_calc.cap.shape.blob</source>
+        <target>Tropfen (MLCC)</target>
+      </segment>
+    </unit>
+    <unit id="06VXi9x" name="tools.value_calc.cap.lead">
+      <segment state="translated">
+        <source>tools.value_calc.cap.lead</source>
+        <target>Anschlussdrähte</target>
+      </segment>
+    </unit>
+    <unit id="L.llZTh" name="tools.value_calc.cap.lead.short">
+      <segment state="translated">
+        <source>tools.value_calc.cap.lead.short</source>
+        <target>Kurz</target>
+      </segment>
+    </unit>
+    <unit id="_3P0Qam" name="tools.value_calc.cap.lead.medium">
+      <segment state="translated">
+        <source>tools.value_calc.cap.lead.medium</source>
+        <target>Mittel</target>
+      </segment>
+    </unit>
+    <unit id="ZQTcKZx" name="tools.value_calc.cap.lead.long">
+      <segment state="translated">
+        <source>tools.value_calc.cap.lead.long</source>
+        <target>Lang</target>
+      </segment>
+    </unit>
+    <unit id="FqXdnRc" name="tools.value_calc.resistor.result">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.result</source>
+        <target>Widerstand</target>
+      </segment>
+    </unit>
+    <unit id="OTTkN3o" name="tools.value_calc.resistor.from_value_help">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.from_value_help</source>
+        <target>Geben Sie einen Widerstandswert ein, um die Farbringe zu erzeugen. Sie können Suffixe wie k, M und die RKM-Notation verwenden (z.B. 4k7).</target>
+      </segment>
+    </unit>
+    <unit id="Xi31jNl" name="tools.value_calc.resistor.from_value">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.from_value</source>
+        <target>Wert für Farbcode</target>
+      </segment>
+    </unit>
+    <unit id="KHum5f2" name="tools.value_calc.resistor.apply_value">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.apply_value</source>
+        <target>Ringe generieren</target>
+      </segment>
+    </unit>
+    <unit id="WZBCUvc" name="tools.value_calc.capacitor.intro">
+      <segment state="translated">
+        <source>tools.value_calc.capacitor.intro</source>
+        <target>Funktioniert für die aufgedruckten Zahlencodes auf Keramik- (MLCC), Folien- und ähnlichen Kondensatoren. Kleine Kondensatoren unter 100 pF sind meist direkt aufgedruckt (z.B. 47 oder 4R7), größere verwenden den 3-stelligen Code (z.B. 104 = 100 nF).</target>
+      </segment>
+    </unit>
+    <unit id="qO0YTDd" name="tools.value_calc.smd.on_chip_help">
+      <segment state="translated">
+        <source>tools.value_calc.smd.on_chip_help</source>
+        <target>Bearbeiten Sie ein beliebiges Feld, um die anderen zu aktualisieren. Verwenden Sie die Radiobuttons, um auszuwählen, welcher Code auf dem Chip aufgedruckt ist.</target>
+      </segment>
+    </unit>
+    <unit id="CDm8Xm1" name="tools.value_calc.field.value">
+      <segment state="translated">
+        <source>tools.value_calc.field.value</source>
+        <target>Wert</target>
+      </segment>
+    </unit>
+    <unit id="DuH5wvO" name="tools.value_calc.field.code">
+      <segment state="translated">
+        <source>tools.value_calc.field.code</source>
+        <target>Code</target>
+      </segment>
+    </unit>
+    <unit id="SUNNhdN" name="tools.value_calc.field.tolerance">
+      <segment state="translated">
+        <source>tools.value_calc.field.tolerance</source>
+        <target>Toleranz</target>
+      </segment>
+    </unit>
+    <unit id="WlwMSHx" name="tools.value_calc.field.power">
+      <segment state="translated">
+        <source>tools.value_calc.field.power</source>
+        <target>Leistung</target>
+      </segment>
+    </unit>
+    <unit id="Ymg5mvK" name="tools.value_calc.field.ppm">
+      <segment state="translated">
+        <source>tools.value_calc.field.ppm</source>
+        <target>Temp.-Koeffizient (ppm/K)</target>
+      </segment>
+    </unit>
+    <unit id="evfc3t0" name="tools.value_calc.field.code3">
+      <segment state="translated">
+        <source>tools.value_calc.field.code3</source>
+        <target>3-stellig</target>
+      </segment>
+    </unit>
+    <unit id="LQJWL5p" name="tools.value_calc.field.code4">
+      <segment state="translated">
+        <source>tools.value_calc.field.code4</source>
+        <target>4-stellig</target>
+      </segment>
+    </unit>
+    <unit id="69hYjGC" name="tools.value_calc.field.eia96">
+      <segment state="translated">
+        <source>tools.value_calc.field.eia96</source>
+        <target>EIA-96</target>
+      </segment>
+    </unit>
+    <unit id="iCZnz4i" name="tools.value_calc.field.on_chip">
+      <segment state="translated">
+        <source>tools.value_calc.field.on_chip</source>
+        <target>Auf dem Chip aufgedruckt</target>
+      </segment>
+    </unit>
     <unit id="GNWhoTW" name="part.table.eda_reference">
       <segment state="translated">
         <source>part.table.eda_reference</source>
