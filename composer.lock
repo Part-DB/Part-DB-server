@@ -8945,40 +8945,37 @@
         },
         {
             "name": "part-db/exchanger",
-            "version": "v3.1.0",
+            "version": "v3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Part-DB/exchanger.git",
-                "reference": "a43fe79a082e331ec2b24f3579e4fba153743757"
+                "reference": "6a6a0b93311c614448c34f42076ad73ebfb195a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Part-DB/exchanger/zipball/a43fe79a082e331ec2b24f3579e4fba153743757",
-                "reference": "a43fe79a082e331ec2b24f3579e4fba153743757",
+                "url": "https://api.github.com/repos/Part-DB/exchanger/zipball/6a6a0b93311c614448c34f42076ad73ebfb195a4",
+                "reference": "6a6a0b93311c614448c34f42076ad73ebfb195a4",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-libxml": "*",
                 "ext-simplexml": "*",
-                "php": "^7.1.3 || ^8.0",
+                "php": "^8.2",
                 "php-http/client-implementation": "^1.0",
-                "php-http/discovery": "^1.6",
+                "php-http/discovery": "^1.19",
                 "php-http/httplug": "^1.0 || ^2.0",
                 "psr/http-factory": "^1.0.2",
                 "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
             },
             "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.95",
                 "nyholm/psr7": "^1.0",
                 "php-http/message": "^1.7",
-                "php-http/message-factory": "^1.1",
                 "php-http/mock-client": "^1.0",
-                "phpunit/phpunit": "^7 || ^8 || ^9.4 || ^10.5",
-                "symfony/http-client": "^5.4 || ^6.4 || ^7.0"
-            },
-            "suggest": {
-                "php-http/guzzle6-adapter": "Required to use Guzzle for sending HTTP requests",
-                "php-http/message": "Required to use Guzzle for sending HTTP requests"
+                "phpunit/phpunit": "^11.0 || ^12.0",
+                "roave/backward-compatibility-check": "^8.9",
+                "vimeo/psalm": "^6.0"
             },
             "type": "library",
             "extra": {
@@ -9007,7 +9004,7 @@
                 }
             ],
             "description": "Fork of florianv/exchanger, a library to convert currencies using different exchange rate providers. Modernized to be compatible with Part-DB.",
-            "homepage": "https://github.com/Part-DB/exchanger",
+            "homepage": "https://github.com/florianv/exchanger",
             "keywords": [
                 "Rate",
                 "conversion",
@@ -9016,9 +9013,9 @@
                 "money"
             ],
             "support": {
-                "source": "https://github.com/Part-DB/exchanger/tree/v3.1.0"
+                "source": "https://github.com/Part-DB/exchanger/tree/v3.2.0"
             },
-            "time": "2025-09-05T19:48:23+00:00"
+            "time": "2026-08-23T12:10:36+00:00"
         },
         {
             "name": "part-db/label-fonts",
@@ -9060,33 +9057,35 @@
         },
         {
             "name": "part-db/swap",
-            "version": "v5.0.0",
+            "version": "v5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Part-DB/swap.git",
-                "reference": "4fa57dec2eb1cbe0f6b8c92a2c250ecbe80688fe"
+                "reference": "54f1a8676161c1417b92952fabf685aefc40c15d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Part-DB/swap/zipball/4fa57dec2eb1cbe0f6b8c92a2c250ecbe80688fe",
-                "reference": "4fa57dec2eb1cbe0f6b8c92a2c250ecbe80688fe",
+                "url": "https://api.github.com/repos/Part-DB/swap/zipball/54f1a8676161c1417b92952fabf685aefc40c15d",
+                "reference": "54f1a8676161c1417b92952fabf685aefc40c15d",
                 "shasum": ""
             },
             "require": {
                 "part-db/exchanger": "^3.0",
-                "php": "^7.1.3 || ^8.0",
-                "php-http/message-factory": "^1.1"
+                "php": "^8.2",
+                "php-http/discovery": "^1.0"
             },
             "require-dev": {
                 "nyholm/psr7": "^1.0",
-                "php-http/discovery": "^1.0",
                 "php-http/message": "^1.7",
                 "php-http/mock-client": "^1.0",
-                "phpunit/phpunit": "^7 || ^8 || ^9",
-                "symfony/http-client": "^5.4||^6.0||^7.0"
+                "phpunit/phpunit": "^11.0 || ^12.0",
+                "roave/backward-compatibility-check": "^8.9",
+                "vimeo/psalm": "^6.0"
             },
             "suggest": {
-                "php-http/discovery": "If you are not using `useHttpClient` but instead want to auto-discover HttpClient"
+                "nyholm/psr7": "PSR-17 HTTP factory implementation",
+                "php-http/discovery": "Auto-discover PSR-18 HTTP client and PSR-17 request factory",
+                "symfony/http-client": "PSR-18 HTTP client implementation"
             },
             "type": "library",
             "extra": {
@@ -9119,42 +9118,47 @@
                 "Rate",
                 "conversion",
                 "currency",
+                "currency conversion",
+                "currency conversion library",
+                "exchange rate api",
                 "exchange rates",
-                "money"
+                "forex",
+                "forex api",
+                "money",
+                "php currency conversion"
             ],
             "support": {
-                "source": "https://github.com/Part-DB/swap/tree/v5.0.0"
+                "source": "https://github.com/Part-DB/swap/tree/v5.1.0"
             },
-            "time": "2025-09-05T17:10:01+00:00"
+            "time": "2026-08-23T12:20:44+00:00"
         },
         {
             "name": "part-db/swap-bundle",
-            "version": "v6.1.0",
+            "version": "v6.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Part-DB/symfony-swap.git",
-                "reference": "fd78ebfbd762b1d76b4d71f713f39add63dec62b"
+                "reference": "1af11feea7f8d1c75242bddb59c982790a2d3de1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Part-DB/symfony-swap/zipball/fd78ebfbd762b1d76b4d71f713f39add63dec62b",
-                "reference": "fd78ebfbd762b1d76b4d71f713f39add63dec62b",
+                "url": "https://api.github.com/repos/Part-DB/symfony-swap/zipball/1af11feea7f8d1c75242bddb59c982790a2d3de1",
+                "reference": "1af11feea7f8d1c75242bddb59c982790a2d3de1",
                 "shasum": ""
             },
             "require": {
-                "part-db/exchanger": "^3.1.0",
-                "part-db/swap": "^5.0",
-                "php": "^7.1.3|^8.0",
-                "psr/http-client": "^1.0",
-                "symfony/framework-bundle": "~3.0|~4.0|~5.0|~6.0|~7.0"
+                "part-db/swap": "^v5.0.0",
+                "php": "^8.2",
+                "symfony/framework-bundle": "^6.4|^7.0|^8.0"
             },
             "require-dev": {
                 "nyholm/psr7": "^1.1",
-                "php-http/guzzle6-adapter": "^1.0",
+                "php-http/guzzle7-adapter": "^1.0",
                 "php-http/message": "^1.7",
-                "phpunit/phpunit": "~5.7|~6.0|~7.0|~8.0|~9.0",
-                "symfony/cache": "~3.0|~4.0|~5.0|~6.0|~7.0",
-                "symfony/http-client": "~7.0|~6.0|~5.0"
+                "phpunit/phpunit": "^11.0|^12.0",
+                "roave/backward-compatibility-check": "^8.9",
+                "symfony/cache": "^6.4|^7.0|^8.0",
+                "vimeo/psalm": "^6.0"
             },
             "suggest": {
                 "symfony/cache": "For caching"
@@ -9197,9 +9201,9 @@
                 "symfony"
             ],
             "support": {
-                "source": "https://github.com/Part-DB/symfony-swap/tree/v6.1.0"
+                "source": "https://github.com/Part-DB/symfony-swap/tree/v6.2.0"
             },
-            "time": "2025-09-05T19:52:56+00:00"
+            "time": "2026-08-23T12:31:52+00:00"
         },
         {
             "name": "php-http/discovery",
@@ -9336,61 +9340,6 @@
                 "source": "https://github.com/php-http/httplug/tree/2.4.1"
             },
             "time": "2024-09-23T11:39:58+00:00"
-        },
-        {
-            "name": "php-http/message-factory",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-http/message-factory.git",
-                "reference": "4d8778e1c7d405cbb471574821c1ff5b68cc8f57"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-http/message-factory/zipball/4d8778e1c7d405cbb471574821c1ff5b68cc8f57",
-                "reference": "4d8778e1c7d405cbb471574821c1ff5b68cc8f57",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4",
-                "psr/http-message": "^1.0 || ^2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Http\\Message\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Márk Sági-Kazár",
-                    "email": "mark.sagikazar@gmail.com"
-                }
-            ],
-            "description": "Factory interfaces for PSR-7 HTTP Message",
-            "homepage": "http://php-http.org",
-            "keywords": [
-                "factory",
-                "http",
-                "message",
-                "stream",
-                "uri"
-            ],
-            "support": {
-                "issues": "https://github.com/php-http/message-factory/issues",
-                "source": "https://github.com/php-http/message-factory/tree/1.1.0"
-            },
-            "abandoned": "psr/http-factory",
-            "time": "2023-04-14T14:16:17+00:00"
         },
         {
             "name": "php-http/promise",

@@ -259,7 +259,7 @@
         ]
     },
     "part-db/swap-bundle": {
-        "version": "v6.0.0"
+        "version": "v6.2.0"
     },
     "php-http/discovery": {
         "version": "1.18",
@@ -275,9 +275,6 @@
     },
     "php-http/httplug": {
         "version": "v2.0.0"
-    },
-    "php-http/message-factory": {
-        "version": "v1.0.2"
     },
     "php-http/promise": {
         "version": "v1.0.0"
