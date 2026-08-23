@@ -146,11 +146,11 @@
                         <select class="form-select" style="width: 6rem;"
                                 {{ stimulus_target('pages/bulk_image_generator', 'batchPitch') }}
                                 {{ stimulus_action('pages/bulk_image_generator', 'applyPitch', 'change') }}>
-                            <option value="2.54">2.54</option>
-                            <option value="5.08" selected>5.08</option>
-                            <option value="7.5">7.5</option>
-                            <option value="10">10</option>
-                            <option value="15">15</option>
+                            <option value="2.54">2.54 mm</option>
+                            <option value="5.08" selected>5.08 mm</option>
+                            <option value="7.5">7.5 mm</option>
+                            <option value="10">10 mm</option>
+                            <option value="15">15 mm</option>
                         </select>
                     </div>
                     {% endif %}
@@ -371,11 +371,11 @@
                                         {% set rp = c.pitch ?: 5.08 %}
                                         <select class="form-select form-select-sm mb-1" data-row-pitch title="{% trans %}tools.value_calc.cap.pitch{% endtrans %}"
                                                 {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'change') }}>
-                                            <option value="2.54" {{ rp == 2.54 ? 'selected' }}>2.54</option>
-                                            <option value="5.08" {{ rp not in [2.54, 7.5, 10, 15] ? 'selected' }}>5.08</option>
-                                            <option value="7.5" {{ rp == 7.5 ? 'selected' }}>7.5</option>
-                                            <option value="10" {{ rp == 10 ? 'selected' }}>10</option>
-                                            <option value="15" {{ rp == 15 ? 'selected' }}>15</option>
+                                            <option value="2.54" {{ rp == 2.54 ? 'selected' }}>2.54 mm</option>
+                                            <option value="5.08" {{ rp not in [2.54, 7.5, 10, 15] ? 'selected' }}>5.08 mm</option>
+                                            <option value="7.5" {{ rp == 7.5 ? 'selected' }}>7.5 mm</option>
+                                            <option value="10" {{ rp == 10 ? 'selected' }}>10 mm</option>
+                                            <option value="15" {{ rp == 15 ? 'selected' }}>15 mm</option>
                                         </select>
                                     {% elseif c.type == 'resistor' %}
                                         {% set rpow = c.power ?: 0.25 %}
@@ -391,12 +391,12 @@
                                             <select class="form-select" data-row-ppm title="{% trans %}tools.value_calc.field.ppm{% endtrans %}"
                                                     {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'change') }}>
                                                 <option value="" {{ not c.ppm ? 'selected' }}>—</option>
-                                                <option value="100" {{ c.ppm == 100 ? 'selected' }}>100</option>
-                                                <option value="50" {{ c.ppm == 50 ? 'selected' }}>50</option>
-                                                <option value="25" {{ c.ppm == 25 ? 'selected' }}>25</option>
-                                                <option value="15" {{ c.ppm == 15 ? 'selected' }}>15</option>
-                                                <option value="10" {{ c.ppm == 10 ? 'selected' }}>10</option>
-                                                <option value="5" {{ c.ppm == 5 ? 'selected' }}>5</option>
+                                                <option value="100" {{ c.ppm == 100 ? 'selected' }}>100 ppm</option>
+                                                <option value="50" {{ c.ppm == 50 ? 'selected' }}>50 ppm</option>
+                                                <option value="25" {{ c.ppm == 25 ? 'selected' }}>25 ppm</option>
+                                                <option value="15" {{ c.ppm == 15 ? 'selected' }}>15 ppm</option>
+                                                <option value="10" {{ c.ppm == 10 ? 'selected' }}>10 ppm</option>
+                                                <option value="5" {{ c.ppm == 5 ? 'selected' }}>5 ppm</option>
                                             </select>
                                         </div>
                                     {% elseif c.type in ['smd_resistor', 'smd_inductor', 'smd_capacitor'] %}
