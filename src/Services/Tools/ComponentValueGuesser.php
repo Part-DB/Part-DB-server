@@ -30,7 +30,7 @@ use App\Entity\Parts\Part;
  * electrical value, from its parameters, footprint, category and name. Used by the value calculator
  * (to pre-fill) and the bulk image generator (to classify a whole assortment).
  */
-class ComponentValueGuesser
+final readonly class ComponentValueGuesser
 {
     /** Imperial SMD chip package codes that mark a part as surface-mount. */
     private const SMD_PACKAGES = ['01005', '0201', '0402', '0603', '0805', '1206', '1210', '2010', '2512'];
@@ -181,7 +181,7 @@ class ComponentValueGuesser
      */
     public function guess(Part $part): ?array
     {
-        //Unambiguous diode part numbers (1N4148, BAT54, BZX…) are recognised first: their "1N…" style
+        //Unambiguous diode part numbers (1N4148, BAT54, BZX…) are recognized first: their "1N…" style
         //would otherwise be misread as an RKM value (e.g. "1N4148" -> 1.4148 nF).
         $text = mb_strtolower($part->getName().' '.$part->getDescription());
         $pnSubtype = $this->detectDiodePartNumber($text);

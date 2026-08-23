@@ -33,13 +33,13 @@ use Doctrine\ORM\EntityManagerInterface;
  * Creates attachments from SVG markup that was generated client-side (e.g. by the
  * resistor/capacitor value calculator) and attaches them to a part.
  */
-class GeneratedImageAttachmentHelper
+final readonly class GeneratedImageAttachmentHelper
 {
     private const ATTACHMENT_TYPE_NAME = 'Generated image';
 
     public function __construct(
-        private readonly EntityManagerInterface $em,
-        private readonly AttachmentSubmitHandler $submitHandler,
+        private EntityManagerInterface $em,
+        private AttachmentSubmitHandler $submitHandler,
     ) {
     }
 
@@ -54,13 +54,6 @@ class GeneratedImageAttachmentHelper
      */
     public function attachSvgToPart(Part $part, string $svg, string $name, bool $setAsPreview = true, bool $overwrite = false): PartAttachment
     {
-        //handleUpload() does not enforce the upload-size limit, so guard it here. The SVG is
-        //stored roughly 1:1 (base64 is only the transport encoding), so its byte length is a
-        //good proxy for the resulting file size.
-        if (strlen($svg) > $this->submitHandler->getMaximumEffectiveUploadSize()) {
-            throw new \RuntimeException('The generated image exceeds the maximum allowed upload size.');
-        }
-
         $type = $this->getGeneratedImageType();
 
         //In overwrite mode, drop previously generated images so re-generating replaces them
