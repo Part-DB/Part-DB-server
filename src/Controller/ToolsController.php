@@ -148,7 +148,7 @@ class ToolsController extends AbstractController
     }
 
     #[Route(path: '/component_image_generator', name: 'tools_component_image_generator')]
-    public function valueCalculator(Request $request, EntityManagerInterface $em, ComponentValueGuesser $guesser): Response
+    public function componentImageGenerator(Request $request, EntityManagerInterface $em, ComponentValueGuesser $guesser): Response
     {
         $this->denyAccessUnlessGranted('@tools.component_image_generator');
 
@@ -165,7 +165,7 @@ class ToolsController extends AbstractController
         $prefillOhms = null;
         $prefillFarads = null;
         if ($part !== null) {
-            [$prefillOhms, $prefillFarads] = $guesser->extractValue($part);
+            [$prefillOhms, $prefillFarads,] = $guesser->extractValue($part);
         }
 
         return $this->render('tools/value_calculator/value_calculator.html.twig', [
@@ -194,7 +194,7 @@ class ToolsController extends AbstractController
         $overwrite = $request->query->getBoolean('overwrite');
         $idsParam = (string) $request->query->get('ids', '');
         $ids = array_values(array_filter(
-            array_map('intval', explode(',', $idsParam)),
+            array_map(intval(...), explode(',', $idsParam)),
             static fn (int $id): bool => $id > 0
         ));
 
