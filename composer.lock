@@ -20122,16 +20122,16 @@
         },
         {
             "name": "jbtronics/translation-editor-bundle",
-            "version": "v1.1.3",
+            "version": "v1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/translation-editor-bundle.git",
-                "reference": "36bfb256e11d231d185bc2491323b041ba731257"
+                "reference": "0d9b0e8baabd62a1eba0147a50b6ef38e013e67a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/translation-editor-bundle/zipball/36bfb256e11d231d185bc2491323b041ba731257",
-                "reference": "36bfb256e11d231d185bc2491323b041ba731257",
+                "url": "https://api.github.com/repos/jbtronics/translation-editor-bundle/zipball/0d9b0e8baabd62a1eba0147a50b6ef38e013e67a",
+                "reference": "0d9b0e8baabd62a1eba0147a50b6ef38e013e67a",
                 "shasum": ""
             },
             "require": {
@@ -20145,11 +20145,16 @@
                 "symfony/web-profiler-bundle": "^7.0|^6.4|^8.0"
             },
             "require-dev": {
-                "ekino/phpstan-banned-code": "^1.0",
-                "phpstan/extension-installer": "^1.3",
-                "phpstan/phpstan": "^1.10",
-                "phpstan/phpstan-strict-rules": "^1.5",
-                "roave/security-advisories": "dev-latest"
+                "ekino/phpstan-banned-code": "^v3.2.0",
+                "phpstan/extension-installer": "^1.4.3",
+                "phpstan/phpstan": "^2.2",
+                "phpstan/phpstan-strict-rules": "^2.0.0",
+                "phpunit/phpunit": "^10.5",
+                "roave/security-advisories": "dev-latest",
+                "symfony/console": "^6.4|^7.0|^8.0"
+            },
+            "suggest": {
+                "symfony/console": "To use the jbtronics:translation-editor:update-message-ids console command"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -20176,7 +20181,7 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/translation-editor-bundle/issues",
-                "source": "https://github.com/jbtronics/translation-editor-bundle/tree/v1.1.3"
+                "source": "https://github.com/jbtronics/translation-editor-bundle/tree/v1.2.2"
             },
             "funding": [
                 {
@@ -20188,7 +20193,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-11-30T22:23:47+00:00"
+            "time": "2026-08-23T17:11:04+00:00"
         },
         {
             "name": "myclabs/deep-copy",
