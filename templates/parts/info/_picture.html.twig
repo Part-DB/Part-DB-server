@@ -40,9 +40,15 @@
     </div>
 
 {% else %}
-    <img src="{{ asset('img/part_placeholder.svg') }}" class="img-fluid img-thumbnail bg-light mb-2" alt="Part main image" height="300" width="300">
-    {# No picture yet: offer to generate one right here. #}
-    <div class="text-center mb-2">
-        {% include "tools/value_calculator/_generate_button.html.twig" %}
+    <div class="position-relative d-inline-block mb-2 part-image-placeholder">
+        <img src="{{ asset('img/part_placeholder.svg') }}" class="img-fluid img-thumbnail bg-light" alt="Part main image" height="300" width="300">
+        {# No picture yet: offer to generate one right here #}
+        {% if part.id is not null and is_granted('edit', part) and is_granted('@tools.component_image_generator') %}
+            <div class="position-absolute bottom-0 end-0 m-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#vcGenerateModal" title="{% trans %}tools.value_calc.attach.generate_button{% endtrans %}">
+                    <i class="fas fa-palette"></i>
+                </button>
+            </div>
+        {% endif %}
     </div>
 {% endif %}
