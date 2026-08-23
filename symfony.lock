@@ -354,9 +354,6 @@
     "psr/simple-cache": {
         "version": "1.0.1"
     },
-    "roave/security-advisories": {
-        "version": "dev-master"
-    },
     "s9e/regexp-builder": {
         "version": "1.4.3"
     },
