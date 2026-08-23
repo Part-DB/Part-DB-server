@@ -168,7 +168,7 @@ class ToolsController extends AbstractController
             [$prefillOhms, $prefillFarads,] = $guesser->extractValue($part);
         }
 
-        return $this->render('tools/value_calculator/value_calculator.html.twig', [
+        return $this->render('tools/component_image_generator/image_generator.html.twig', [
             'part' => $part,
             'prefill_ohms' => $prefillOhms,
             'prefill_farads' => $prefillFarads,
@@ -269,7 +269,7 @@ class ToolsController extends AbstractController
             }
         }
 
-        return $this->render('tools/value_calculator/bulk_generate.html.twig', [
+        return $this->render('tools/component_image_generator/bulk_generate.html.twig', [
             'candidates' => $candidates,
             'skipped' => $skipped,
             'selected_count' => count($ids),

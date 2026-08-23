@@ -1,4 +1,4 @@
-{% extends modalMode|default(false) ? 'tools/value_calculator/_bare.html.twig' : 'main_card.html.twig' %}
+{% extends modalMode|default(false) ? 'tools/component_image_generator/_bare.html.twig' : 'main_card.html.twig' %}
 
 {% block title %}{% trans %}tools.value_calc.title{% endtrans %}{% endblock %}
 
@@ -7,5 +7,5 @@
 {% endblock %}
 
 {% block card_content %}
-    {% include 'tools/value_calculator/_calculator_body.html.twig' %}
+    {% include 'tools/component_image_generator/_calculator_body.html.twig' %}
 {% endblock %}
