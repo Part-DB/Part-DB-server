@@ -540,11 +540,14 @@
             </div>
         </div>
 
-        {% if part is not null %}
-            <div class="text-center mt-3 pt-3 border-top">
+        <div class="text-center mt-3 pt-3 border-top d-flex justify-content-center flex-wrap gap-2">
+            <button type="button" class="btn btn-outline-secondary" {{ stimulus_action('pages/valueCalculator', 'downloadSvg') }}>
+                <i class="fas fa-download"></i> {% trans %}tools.value_calc.download.button{% endtrans %}
+            </button>
+            {% if part is not null %}
                 <button type="button" class="btn btn-success" {{ stimulus_action('pages/valueCalculator', 'attachToPart') }}>
                     <i class="fas fa-paperclip"></i> {% trans %}tools.value_calc.attach.button{% endtrans %}
                 </button>
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>

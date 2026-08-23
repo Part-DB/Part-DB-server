@@ -357,9 +357,15 @@ export default class extends Controller {
      * would otherwise trigger the browser's "unsaved changes" prompt and lose the edit form).
      */
     attachToPart(event) {
+        const {svg, name} = this.activeSvgAndName();
+        this.doAttach(svg, name, event.currentTarget);
+    }
+
+    /** Reads the SVG markup and label of the currently active tab's preview picture. */
+    activeSvgAndName() {
         const active = this.element.querySelector(".tab-pane.active");
         if (!active) {
-            return;
+            return {svg: "", name: ""};
         }
         const containers = {
             "vc-resistor": this.hasResistorSvgTarget ? this.resistorSvgTarget : null,
@@ -372,7 +378,29 @@ export default class extends Controller {
         const container = containers[active.id];
         const svg = container ? container.innerHTML.trim() : "";
         const name = active.dataset.vcName || "Generated image";
-        this.doAttach(svg, name, event.currentTarget);
+        return {svg, name};
+    }
+
+    /** Downloads the SVG shown in the currently active tab as a standalone .svg file. */
+    downloadSvg() {
+        const {svg, name} = this.activeSvgAndName();
+        if (!svg.includes("<svg")) {
+            AlertSwal.fire({title: trans("tools.value_calc.attach.nothing")});
+            return;
+        }
+
+        const withHeader = svg.startsWith("<?xml") ? svg : `<?xml version="1.0" encoding="UTF-8"?>\n${svg}`;
+        const blob = new Blob([withHeader], {type: "image/svg+xml"});
+        const url = URL.createObjectURL(blob);
+        const filename = `${(name || "component").toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "") || "component"}.svg`;
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
     }
 
     /** Sends one SVG to the server to be attached to the part (background request, no navigation). */

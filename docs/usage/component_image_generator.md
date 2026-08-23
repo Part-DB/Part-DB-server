@@ -40,6 +40,10 @@ When a part has no picture, its info page shows a **Generate image** button in t
 This opens the calculator in a dialog, pre-filled from the part's value. Click **Attach** and the
 drawing is saved as the part's picture without leaving the page.
 
+Every tab also has a **Download SVG** button, which saves the currently shown picture as a standalone
+`.svg` file — useful if you just want the image itself (for a datasheet, label, or other document)
+without attaching it to a part.
+
 ## Bulk "Generate component images"
 
 To illustrate many parts at once, select them in any parts table and choose
