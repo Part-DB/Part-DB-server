@@ -88,7 +88,7 @@
             <i class="fas fa-arrow-left"></i> {% trans %}tools.bulk_gen.back{% endtrans %}
         </a>
     {% else %}
-        <div {{ stimulus_controller('pages/bulkGenerate') }}>
+        <div {{ stimulus_controller('pages/bulk_image_generator') }}>
             {# One hidden value-calculator, reused to render every preview below. #}
             <div class="d-none" aria-hidden="true">
                 {% set part = null %}
@@ -100,7 +100,7 @@
                     <strong>{{ candidates|length }}</strong> {% trans %}tools.bulk_gen.found{% endtrans %}
                     {%- if skipped > 0 %} <span class="text-muted">({{ skipped }} {% trans %}tools.bulk_gen.skipped{% endtrans %})</span>{% endif %}
                 </p>
-                <a href="{{ path('homepage') }}" class="btn btn-sm btn-outline-secondary" {{ stimulus_action('pages/bulkGenerate', 'goBack') }}>
+                <a href="{{ path('homepage') }}" class="btn btn-sm btn-outline-secondary" {{ stimulus_action('pages/bulk_image_generator', 'goBack') }}>
                     <i class="fas fa-arrow-left"></i> {% trans %}tools.bulk_gen.back{% endtrans %}
                 </a>
             </div>
@@ -114,8 +114,8 @@
                     <div class="input-group input-group-sm" style="width: auto;">
                         <span class="input-group-text">{% trans %}tools.value_calc.cap.shape{% endtrans %}</span>
                         <select class="form-select" style="width: 8rem;"
-                                {{ stimulus_target('pages/bulkGenerate', 'batchShape') }}
-                                {{ stimulus_action('pages/bulkGenerate', 'regenerate', 'change') }}>
+                                {{ stimulus_target('pages/bulk_image_generator', 'batchShape') }}
+                                {{ stimulus_action('pages/bulk_image_generator', 'regenerate', 'change') }}>
                             <option value="disc" selected>{% trans %}tools.value_calc.cap.shape.disc{% endtrans %}</option>
                             <option value="blob">{% trans %}tools.value_calc.cap.shape.blob{% endtrans %}</option>
                         </select>
@@ -125,8 +125,8 @@
                     <div class="input-group input-group-sm" style="width: auto;">
                         <span class="input-group-text">{% trans %}tools.value_calc.cap.lead{% endtrans %}</span>
                         <select class="form-select" style="width: 7rem;"
-                                {{ stimulus_target('pages/bulkGenerate', 'batchLead') }}
-                                {{ stimulus_action('pages/bulkGenerate', 'regenerate', 'change') }}>
+                                {{ stimulus_target('pages/bulk_image_generator', 'batchLead') }}
+                                {{ stimulus_action('pages/bulk_image_generator', 'regenerate', 'change') }}>
                             <option value="short">{% trans %}tools.value_calc.cap.lead.short{% endtrans %}</option>
                             <option value="medium" selected>{% trans %}tools.value_calc.cap.lead.medium{% endtrans %}</option>
                             <option value="long">{% trans %}tools.value_calc.cap.lead.long{% endtrans %}</option>
@@ -137,15 +137,15 @@
                     <div class="input-group input-group-sm" style="width: auto;">
                         <span class="input-group-text">{% trans %}tools.value_calc.cap.diameter{% endtrans %}</span>
                         <input type="number" class="form-control" value="5" min="1" step="0.5" style="width: 4.5rem;"
-                               {{ stimulus_target('pages/bulkGenerate', 'batchDiameter') }}
-                               {{ stimulus_action('pages/bulkGenerate', 'applyDiameter', 'input') }}>
+                               {{ stimulus_target('pages/bulk_image_generator', 'batchDiameter') }}
+                               {{ stimulus_action('pages/bulk_image_generator', 'applyDiameter', 'input') }}>
                         <span class="input-group-text">mm</span>
                     </div>
                     <div class="input-group input-group-sm" style="width: auto;">
                         <span class="input-group-text">{% trans %}tools.value_calc.cap.pitch{% endtrans %}</span>
                         <select class="form-select" style="width: 6rem;"
-                                {{ stimulus_target('pages/bulkGenerate', 'batchPitch') }}
-                                {{ stimulus_action('pages/bulkGenerate', 'applyPitch', 'change') }}>
+                                {{ stimulus_target('pages/bulk_image_generator', 'batchPitch') }}
+                                {{ stimulus_action('pages/bulk_image_generator', 'applyPitch', 'change') }}>
                             <option value="2.54">2.54</option>
                             <option value="5.08" selected>5.08</option>
                             <option value="7.5">7.5</option>
@@ -158,8 +158,8 @@
                     <div class="input-group input-group-sm" style="width: auto;">
                         <span class="input-group-text">{% trans %}tools.value_calc.field.power{% endtrans %}</span>
                         <select class="form-select" style="width: 6rem;"
-                                {{ stimulus_target('pages/bulkGenerate', 'batchPower') }}
-                                {{ stimulus_action('pages/bulkGenerate', 'applyPower', 'change') }}>
+                                {{ stimulus_target('pages/bulk_image_generator', 'batchPower') }}
+                                {{ stimulus_action('pages/bulk_image_generator', 'applyPower', 'change') }}>
                             <option value="0.125">1/8 W</option>
                             <option value="0.25" selected>1/4 W</option>
                             <option value="0.5">1/2 W</option>
@@ -170,8 +170,8 @@
                     <div class="input-group input-group-sm" style="width: auto;">
                         <span class="input-group-text">{% trans %}tools.value_calc.field.ppm{% endtrans %}</span>
                         <select class="form-select" style="width: 7rem;"
-                                {{ stimulus_target('pages/bulkGenerate', 'batchPpm') }}
-                                {{ stimulus_action('pages/bulkGenerate', 'applyPpm', 'change') }}>
+                                {{ stimulus_target('pages/bulk_image_generator', 'batchPpm') }}
+                                {{ stimulus_action('pages/bulk_image_generator', 'applyPpm', 'change') }}>
                             <option value="" selected>—</option>
                             <option value="100">100 ppm</option>
                             <option value="50">50 ppm</option>
@@ -186,8 +186,8 @@
                     <div class="input-group input-group-sm" style="width: auto;">
                         <span class="input-group-text">{% trans %}tools.value_calc.smd.package{% endtrans %}</span>
                         <select class="form-select" style="width: 6rem;"
-                                {{ stimulus_target('pages/bulkGenerate', 'batchPackage') }}
-                                {{ stimulus_action('pages/bulkGenerate', 'applyPackage', 'change') }}>
+                                {{ stimulus_target('pages/bulk_image_generator', 'batchPackage') }}
+                                {{ stimulus_action('pages/bulk_image_generator', 'applyPackage', 'change') }}>
                             <option value="0201">0201</option>
                             <option value="0402">0402</option>
                             <option value="0603">0603</option>
@@ -202,15 +202,15 @@
                     <div class="input-group input-group-sm" style="width: auto;">
                         <span class="input-group-text">{% trans %}tools.value_calc.cap.voltage{% endtrans %}</span>
                         <input type="number" class="form-control" placeholder="—" min="1" style="width: 4.5rem;"
-                               {{ stimulus_target('pages/bulkGenerate', 'batchVoltage') }}
-                               {{ stimulus_action('pages/bulkGenerate', 'applyVoltage', 'input') }}>
+                               {{ stimulus_target('pages/bulk_image_generator', 'batchVoltage') }}
+                               {{ stimulus_action('pages/bulk_image_generator', 'applyVoltage', 'input') }}>
                         <span class="input-group-text">V</span>
                     </div>
                     <div class="input-group input-group-sm" style="width: auto;">
                         <span class="input-group-text">{% trans %}tools.value_calc.field.tolerance{% endtrans %}</span>
                         <select class="form-select" style="width: 6.5rem;"
-                                {{ stimulus_target('pages/bulkGenerate', 'batchTolerance') }}
-                                {{ stimulus_action('pages/bulkGenerate', 'applyTolerance', 'change') }}>
+                                {{ stimulus_target('pages/bulk_image_generator', 'batchTolerance') }}
+                                {{ stimulus_action('pages/bulk_image_generator', 'applyTolerance', 'change') }}>
                             <option value="">—</option>
                             <option value="0.05">±0.05% (W)</option>
                             <option value="0.1">±0.1 (B)</option>
@@ -226,15 +226,15 @@
                     <div class="d-flex align-items-center gap-2">
                         <input type="color" class="form-control form-control-color form-control-sm" value="{{ batch_color }}"
                                title="{% trans %}tools.value_calc.body_color{% endtrans %}"
-                               {{ stimulus_target('pages/bulkGenerate', 'batchColor') }}
-                               {{ stimulus_action('pages/bulkGenerate', 'applyColor', 'input') }}>
+                               {{ stimulus_target('pages/bulk_image_generator', 'batchColor') }}
+                               {{ stimulus_action('pages/bulk_image_generator', 'applyColor', 'input') }}>
                         <div class="btn-group btn-group-sm">
-                            <button type="button" class="btn btn-outline-secondary" data-color="#e8d9b5" {{ stimulus_action('pages/bulkGenerate', 'pickColor') }}>{% trans %}tools.value_calc.body.beige{% endtrans %}</button>
-                            <button type="button" class="btn btn-outline-secondary" data-color="#9fc6e0" {{ stimulus_action('pages/bulkGenerate', 'pickColor') }}>{% trans %}tools.value_calc.body.lightblue{% endtrans %}</button>
-                            <button type="button" class="btn btn-outline-secondary" data-color="#2f6db0" {{ stimulus_action('pages/bulkGenerate', 'pickColor') }}>{% trans %}tools.value_calc.body.blue{% endtrans %}</button>
-                            <button type="button" class="btn btn-outline-secondary" data-color="#b34a2f" {{ stimulus_action('pages/bulkGenerate', 'pickColor') }}>{% trans %}tools.value_calc.body.red{% endtrans %}</button>
-                            <button type="button" class="btn btn-outline-secondary" data-color="#7b4fb0" {{ stimulus_action('pages/bulkGenerate', 'pickColor') }}>{% trans %}tools.value_calc.body.purple{% endtrans %}</button>
-                            <button type="button" class="btn btn-outline-secondary" data-color="#303030" {{ stimulus_action('pages/bulkGenerate', 'pickColor') }}>{% trans %}tools.value_calc.body.black{% endtrans %}</button>
+                            <button type="button" class="btn btn-outline-secondary" data-color="#e8d9b5" {{ stimulus_action('pages/bulk_image_generator', 'pickColor') }}>{% trans %}tools.value_calc.body.beige{% endtrans %}</button>
+                            <button type="button" class="btn btn-outline-secondary" data-color="#9fc6e0" {{ stimulus_action('pages/bulk_image_generator', 'pickColor') }}>{% trans %}tools.value_calc.body.lightblue{% endtrans %}</button>
+                            <button type="button" class="btn btn-outline-secondary" data-color="#2f6db0" {{ stimulus_action('pages/bulk_image_generator', 'pickColor') }}>{% trans %}tools.value_calc.body.blue{% endtrans %}</button>
+                            <button type="button" class="btn btn-outline-secondary" data-color="#b34a2f" {{ stimulus_action('pages/bulk_image_generator', 'pickColor') }}>{% trans %}tools.value_calc.body.red{% endtrans %}</button>
+                            <button type="button" class="btn btn-outline-secondary" data-color="#7b4fb0" {{ stimulus_action('pages/bulk_image_generator', 'pickColor') }}>{% trans %}tools.value_calc.body.purple{% endtrans %}</button>
+                            <button type="button" class="btn btn-outline-secondary" data-color="#303030" {{ stimulus_action('pages/bulk_image_generator', 'pickColor') }}>{% trans %}tools.value_calc.body.black{% endtrans %}</button>
                         </div>
                     </div>
                 </div>
@@ -286,7 +286,7 @@
                 <table class="table table-sm table-striped align-middle">
                     <thead>
                         <tr>
-                            <th style="width: 2rem;"><input class="form-check-input" type="checkbox" checked {{ stimulus_action('pages/bulkGenerate', 'toggleAll') }}></th>
+                            <th style="width: 2rem;"><input class="form-check-input" type="checkbox" checked {{ stimulus_action('pages/bulk_image_generator', 'toggleAll') }}></th>
                             <th>{% trans %}tools.bulk_gen.part{% endtrans %}</th>
                             <th>{% trans %}tools.bulk_gen.type{% endtrans %}</th>
                             <th>{% trans %}tools.bulk_gen.value{% endtrans %}</th>
@@ -307,7 +307,7 @@
                                 'diode': 'tools.value_calc.diode.title',
                             } %}
                             {% set name_key = name_keys[c.type]|default('tools.value_calc.smd.title') %}
-                            <tr {{ stimulus_target('pages/bulkGenerate', 'row') }}
+                            <tr {{ stimulus_target('pages/bulk_image_generator', 'row') }}
                                 data-type="{{ c.type }}"
                                 data-subtype="{{ c.subtype }}"
                                 data-marking="{{ c.marking }}"
@@ -360,17 +360,17 @@
                                     <div class="d-flex align-items-center gap-1 mb-1">
                                         <input type="color" class="form-control form-control-color form-control-sm" value="{{ rowcolor }}"
                                                data-row-color title="{% trans %}tools.value_calc.body_color{% endtrans %}"
-                                               {{ stimulus_action('pages/bulkGenerate', 'regenerateRow', 'input') }}>
+                                               {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'input') }}>
                                         {% if c.type == 'capacitor' %}
                                             <input type="number" class="form-control form-control-sm" value="{{ c.diameter ?: 5 }}" min="1" step="0.5" style="width: 4rem;"
                                                    data-row-diameter title="{% trans %}tools.value_calc.cap.diameter{% endtrans %} (mm)"
-                                                   {{ stimulus_action('pages/bulkGenerate', 'regenerateRow', 'input') }}>
+                                                   {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'input') }}>
                                         {% endif %}
                                     </div>
                                     {% if c.type == 'capacitor' %}
                                         {% set rp = c.pitch ?: 5.08 %}
                                         <select class="form-select form-select-sm mb-1" data-row-pitch title="{% trans %}tools.value_calc.cap.pitch{% endtrans %}"
-                                                {{ stimulus_action('pages/bulkGenerate', 'regenerateRow', 'change') }}>
+                                                {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'change') }}>
                                             <option value="2.54" {{ rp == 2.54 ? 'selected' }}>2.54</option>
                                             <option value="5.08" {{ rp not in [2.54, 7.5, 10, 15] ? 'selected' }}>5.08</option>
                                             <option value="7.5" {{ rp == 7.5 ? 'selected' }}>7.5</option>
@@ -381,7 +381,7 @@
                                         {% set rpow = c.power ?: 0.25 %}
                                         <div class="input-group input-group-sm">
                                             <select class="form-select" data-row-power title="{% trans %}tools.value_calc.field.power{% endtrans %}"
-                                                    {{ stimulus_action('pages/bulkGenerate', 'regenerateRow', 'change') }}>
+                                                    {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'change') }}>
                                                 <option value="0.125" {{ rpow == 0.125 ? 'selected' }}>1/8 W</option>
                                                 <option value="0.25" {{ rpow not in [0.125, 0.5, 1, 2] ? 'selected' }}>1/4 W</option>
                                                 <option value="0.5" {{ rpow == 0.5 ? 'selected' }}>1/2 W</option>
@@ -389,7 +389,7 @@
                                                 <option value="2" {{ rpow == 2 ? 'selected' }}>2 W</option>
                                             </select>
                                             <select class="form-select" data-row-ppm title="{% trans %}tools.value_calc.field.ppm{% endtrans %}"
-                                                    {{ stimulus_action('pages/bulkGenerate', 'regenerateRow', 'change') }}>
+                                                    {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'change') }}>
                                                 <option value="" {{ not c.ppm ? 'selected' }}>—</option>
                                                 <option value="100" {{ c.ppm == 100 ? 'selected' }}>100</option>
                                                 <option value="50" {{ c.ppm == 50 ? 'selected' }}>50</option>
@@ -402,7 +402,7 @@
                                     {% elseif c.type in ['smd_resistor', 'smd_inductor', 'smd_capacitor'] %}
                                         {% set rpkg = c.package ?: (c.type == 'smd_inductor' ? '1210' : '0805') %}
                                         <select class="form-select form-select-sm mb-1" data-row-package title="{% trans %}tools.value_calc.smd.package{% endtrans %}"
-                                                {{ stimulus_action('pages/bulkGenerate', 'regenerateRow', 'change') }}>
+                                                {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'change') }}>
                                             {% for pkg in ['0201', '0402', '0603', '0805', '1206', '1210', '2010', '2512'] %}
                                                 <option value="{{ pkg }}" {{ rpkg == pkg ? 'selected' }}>{{ pkg }}</option>
                                             {% endfor %}
@@ -413,7 +413,7 @@
                                         <div class="input-group input-group-sm">
                                             <input type="number" class="form-control" value="{{ c.voltage }}" placeholder="V" min="1"
                                                    data-row-voltage title="{% trans %}tools.value_calc.cap.voltage{% endtrans %}"
-                                                   {{ stimulus_action('pages/bulkGenerate', 'regenerateRow', 'input') }}>
+                                                   {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'input') }}>
                                             <span class="input-group-text">V</span>
                                         </div>
                                     {% endif %}
@@ -424,7 +424,7 @@
                                     {% else %}
                                         {% set rtol = c.tolerance ? c.tolerance|replace({'±': '', '%': '', ' ': '', 'pF': '', 'PF': ''})|trim : '' %}
                                         <select class="form-select form-select-sm" data-row-tolerance style="min-width: 7.5rem;"
-                                                {{ stimulus_action('pages/bulkGenerate', 'regenerateRow', 'change') }}>
+                                                {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'change') }}>
                                             <option value="" {{ rtol == '' ? 'selected' }}>—</option>
                                             {% if c.type == 'capacitor' %}
                                                 <option value="0.1" {{ rtol == '0.1' ? 'selected' }}>±0.1pF (B)</option>
@@ -466,16 +466,16 @@
             </div>
 
             <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
-                <button type="button" class="btn btn-success" {{ stimulus_target('pages/bulkGenerate', 'attachBtn') }} {{ stimulus_action('pages/bulkGenerate', 'attachSelected') }}>
+                <button type="button" class="btn btn-success" {{ stimulus_target('pages/bulk_image_generator', 'attachBtn') }} {{ stimulus_action('pages/bulk_image_generator', 'attachSelected') }}>
                     <i class="fas fa-paperclip"></i> {% trans %}tools.bulk_gen.generate_attach{% endtrans %}
                 </button>
-                <button type="button" class="btn btn-primary" {{ stimulus_target('pages/bulkGenerate', 'edaBtn') }} {{ stimulus_action('pages/bulkGenerate', 'writeEda') }}>
+                <button type="button" class="btn btn-primary" {{ stimulus_target('pages/bulk_image_generator', 'edaBtn') }} {{ stimulus_action('pages/bulk_image_generator', 'writeEda') }}>
                     <i class="fas fa-microchip"></i> {% trans %}tools.bulk_gen.write_eda{% endtrans %}
                 </button>
-                <div class="progress flex-grow-1 d-none" style="height: 1.5rem; min-width: 12rem;" {{ stimulus_target('pages/bulkGenerate', 'progress') }}>
-                    <div class="progress-bar" role="progressbar" style="width: 0" {{ stimulus_target('pages/bulkGenerate', 'progressBar') }}>0/0</div>
+                <div class="progress flex-grow-1 d-none" style="height: 1.5rem; min-width: 12rem;" {{ stimulus_target('pages/bulk_image_generator', 'progress') }}>
+                    <div class="progress-bar" role="progressbar" style="width: 0" {{ stimulus_target('pages/bulk_image_generator', 'progressBar') }}>0/0</div>
                 </div>
-                <a href="{{ path('homepage') }}" class="btn btn-outline-secondary ms-auto" {{ stimulus_action('pages/bulkGenerate', 'goBack') }}>
+                <a href="{{ path('homepage') }}" class="btn btn-outline-secondary ms-auto" {{ stimulus_action('pages/bulk_image_generator', 'goBack') }}>
                     <i class="fas fa-arrow-left"></i> {% trans %}tools.bulk_gen.back{% endtrans %}
                 </a>
             </div>

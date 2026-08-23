@@ -22,8 +22,8 @@ import {AlertSwal} from "../../helpers/swal";
 import {trans} from "../../translator.js";
 
 /**
- * Drives the hidden value-calculator to render a preview for every candidate row, then attaches the
- * checked ones to their parts via the per-part generate-image endpoint (with a progress bar).
+ * Drives the hidden component image generator to render a preview for every candidate row, then attaches
+ * the checked ones to their parts via the per-part generate-image endpoint (with a progress bar).
  */
 export default class extends Controller {
     static targets = ["row", "progress", "progressBar", "attachBtn", "edaBtn",
@@ -34,17 +34,15 @@ export default class extends Controller {
         this.tryRenderPreviews(0);
     }
 
-    /** The value-calculator controller instance (retries briefly, since it may connect after us). */
+    /** The component image generator controller instance (retries briefly, since it may connect after us). */
     calcController() {
-        const el = this.element.querySelector('[data-controller*="alueCalculator"], [data-controller*="alue-calculator"]');
+        const el = this.element.querySelector('[data-controller*="omponent-image-generator"]');
         if (!el) {
             return null;
         }
-        for (const id of ["pages--valueCalculator", "pages--value-calculator"]) {
-            const c = this.application.getControllerForElementAndIdentifier(el, id);
-            if (c && typeof c.generateSvg === "function") {
-                return c;
-            }
+        const c = this.application.getControllerForElementAndIdentifier(el, "pages--component-image-generator");
+        if (c && typeof c.generateSvg === "function") {
+            return c;
         }
         return null;
     }
