@@ -245,10 +245,17 @@ trait EntityMergerHelperTrait
      */
     protected function mergeAttachments(AttachmentContainingDBElement $target, AttachmentContainingDBElement $other): object
     {
-        return $this->mergeCollections($target, $other, 'attachments', fn(Attachment $t, Attachment $o): bool => $t->getName() === $o->getName()
-            && $t->getAttachmentType() === $o->getAttachmentType()
-            && $t->getExternalPath() === $o->getExternalPath()
-            && $t->getInternalPath() === $o->getInternalPath());
+        return $this->mergeCollections($target, $other, 'attachments', function (Attachment $t, Attachment $o) {
+            if ($t->getName() === $o->getName() && $t->getAttachmentType() === $o->getAttachmentType()) {
+                //An external source is authoritative. Ignore generated internal paths.
+                if ($t->hasExternal() || $o->hasExternal()) {
+                    return $t->getExternalPath() === $o->getExternalPath();
+                }
+                //Only for local attachments, compare the internal path.
+                return $t->getInternalPath() === $o->getInternalPath();
+            }
+            return false;
+        });
     }
 
     /**

@@ -22,6 +22,8 @@ declare(strict_types=1);
  */
 namespace App\Tests\Services\EntityMergers\Mergers;
 
+use App\Entity\Attachments\AttachmentType;
+use App\Entity\Attachments\PartAttachment;
 use App\Entity\Parts\AssociationType;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -187,6 +189,80 @@ final class PartMergerTest extends KernelTestCase
         $this->assertInstanceOf(PartLot::class, $clone4);
         $this->assertSame($merged, $clone4->getPart());
 
+    }
+    
+    public function testMergeOfAttachmentsWithExternalPath(): void
+    {
+        $attachmentType = new AttachmentType();
+
+        $existingExternalAttachment = (new PartAttachment())
+            ->setName('datasheet')
+            ->setAttachmentType($attachmentType)
+            ->setExternalPath('https://example.invalid/datasheet.pdf')
+            // Simulate the generated local path of a downloaded attachment.
+            ->setInternalPath('%MEDIA%/part/1/datasheet-old-random.pdf');
+
+        $existingLocalAttachment = (new PartAttachment())
+            ->setName('local-file')
+            ->setAttachmentType($attachmentType)
+            ->setInternalPath('%MEDIA%/part/1/local-file.pdf');
+
+        $part1 = (new Part())
+            ->addAttachment($existingExternalAttachment)
+            ->addAttachment($existingLocalAttachment);
+
+        $updatedExternalAttachment = (new PartAttachment())
+            ->setName('datasheet')
+            ->setAttachmentType($attachmentType)
+            ->setExternalPath('https://example.invalid/datasheet.pdf')
+            // A different generated path must not create a duplicate.
+            ->setInternalPath('%MEDIA%/part/1/datasheet-new-random.pdf');
+
+        $sameLocalAttachment = (new PartAttachment())
+            ->setName('local-file')
+            ->setAttachmentType($attachmentType)
+            ->setInternalPath('%MEDIA%/part/1/local-file.pdf');
+
+        $differentLocalAttachment = (new PartAttachment())
+            ->setName('different-local-file')
+            ->setAttachmentType($attachmentType)
+            ->setInternalPath('%MEDIA%/part/1/different-local-file.pdf');
+
+        $differentNameAttachment = (new PartAttachment())
+            ->setName('manual')
+            ->setAttachmentType($attachmentType)
+            ->setExternalPath('https://example.invalid/datasheet.pdf')
+            ->setInternalPath('%MEDIA%/part/1/manual-random.pdf');
+
+        $part2 = (new Part())
+            ->addAttachment($updatedExternalAttachment)
+            ->addAttachment($sameLocalAttachment)
+            ->addAttachment($differentLocalAttachment)
+            ->addAttachment($differentNameAttachment);
+
+        $merged = $this->merger->merge($part1, $part2);
+
+        // The matching external and local attachments must not be duplicated.
+        $this->assertCount(4, $merged->getAttachments());
+
+        $this->assertSame(
+            $existingExternalAttachment,
+            $merged->getAttachments()->get(0)
+        );
+        $this->assertSame(
+            $existingLocalAttachment,
+            $merged->getAttachments()->get(1)
+        );
+
+        // Non-matching attachments must still be added.
+        $this->assertSame(
+            $differentLocalAttachment->getInternalPath(),
+            $merged->getAttachments()->get(2)->getInternalPath()
+        );
+        $this->assertSame(
+            $differentNameAttachment->getExternalPath(),
+            $merged->getAttachments()->get(3)->getExternalPath()
+        );
     }
 
     public function testSupports()
