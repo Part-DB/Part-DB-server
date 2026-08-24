@@ -242,6 +242,10 @@ The following MCP tools are currently available. All of them are read-only.
   category, database ID), and an optional regex mode.
 * **get_part_details** – Get full details about a specific part by its database ID, including stock, prices,
   order details, attachments, parameters and EDA info.
+* **get_part_preview_image** – Get the preview/thumbnail picture for a part by its database ID. Uses the same
+  fallback logic as the part list in the web UI: the part's own master picture if set, otherwise the picture of its
+  footprint, and otherwise the picture of the project it is built from. Returns a short text message instead of an
+  image if no preview picture is available.
 
 ### Master data
 
@@ -266,6 +270,14 @@ database `id` and returns its full details.
 * **list_projects** / **get_project_details** – Same behavior as the master data tools above.
   `get_project_details` additionally returns the project's BOM entries, status, description and associated build
   part.
+
+### Attachments
+
+* **get_attachment_content** – Retrieve the actual file content of an attachment (e.g. a datasheet or picture) by its
+  database `id`, as returned in the `attachments` field of `get_part_details` and the other `get_*_details` tools.
+  Pictures are returned as an image, other files as a text or binary resource depending on their mime type. Only
+  works for attachments whose file is stored internally (not for attachments that only reference an external URL),
+  and files larger than 10 MB are rejected.
 
 ### Info Provider System
 
