@@ -38,24 +38,24 @@ use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class KiCadHelper
+final readonly class KiCadHelper
 {
 
     /** @var int The maximum level of the shown categories. 0 Means only the top level categories are shown. -1 means only a single one containing */
-    private readonly int $category_depth;
+    private int $category_depth;
 
     /** @var bool Whether to resolve actual datasheet PDF URLs (true) or use Part-DB page links (false) */
-    private readonly bool $datasheetAsPdf;
+    private bool $datasheetAsPdf;
 
     public function __construct(
-        private readonly NodesListBuilder $nodesListBuilder,
-        private readonly TagAwareCacheInterface $kicadCache,
-        private readonly EntityManagerInterface $em,
-        private readonly ElementCacheTagGenerator $tagGenerator,
-        private readonly UrlGeneratorInterface $urlGenerator,
-        private readonly EntityURLGenerator $entityURLGenerator,
-        private readonly TranslatorInterface $translator,
-        private readonly KiCadEDASettings $kiCadEDASettings,
+        private NodesListBuilder $nodesListBuilder,
+        private TagAwareCacheInterface $kicadCache,
+        private EntityManagerInterface $em,
+        private ElementCacheTagGenerator $tagGenerator,
+        private UrlGeneratorInterface $urlGenerator,
+        private EntityURLGenerator $entityURLGenerator,
+        private TranslatorInterface $translator,
+        private KiCadEDASettings $kiCadEDASettings,
     ) {
         $this->category_depth = $kiCadEDASettings->categoryDepth;
         $this->datasheetAsPdf = $kiCadEDASettings->datasheetAsPdf ?? true;
@@ -141,12 +141,11 @@ class KiCadHelper
      * Returns an array of objects containing all parts for the given category in the format required by KiCAD.
      * The result is cached for performance and invalidated on category or part changes.
      * @param  Category|null  $category
-     * @param  bool  $minimal  If true, only return id and name (faster for symbol chooser listing)
      * @return array
      */
-    public function getCategoryParts(?Category $category, bool $minimal = false): array
+    public function getCategoryParts(?Category $category): array
     {
-        $cacheKey = 'kicad_category_parts_'.($category?->getID() ?? 0) . '_' . $this->category_depth . ($minimal ? '_min' : '');
+        $cacheKey = 'kicad_category_parts_'.($category?->getID() ?? 0) . '_' . $this->category_depth;
         return $this->kicadCache->get($cacheKey,
             function (ItemInterface $item) use ($category) {
                 $item->tag([
@@ -182,11 +181,16 @@ class KiCadHelper
                         continue;
                     }
 
-                    $result[] = [
-                        'id' => (string)$part->getId(),
-                        'name' => $part->getName(),
-                        'description' => $part->getDescription(),
-                    ];
+                    /*
+                     * Despite the documentation, the KiCAD API can handle the full part details at this point already
+                     * This prevents the need for a second request to get the part details, which would require hundreds
+                     * of very slow requests. Returning it here massively improves the performance of the symbol choser,
+                     * and KiCAD will reload individual part information, when its internal cache is expired, so it
+                     * will also stay up to date with the latest information.
+                     * This might increase the KiCAD API response size for a category, but overall perfomance boost is
+                     * massive
+                    */
+                    $result[] = $this->getKiCADPart($part);
                 }
 
                 return $result;
