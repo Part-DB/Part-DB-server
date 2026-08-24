@@ -50,12 +50,52 @@
 
 {% block parameter_constraint_widget %}
     {% import 'components/collection_type.macro.html.twig' as collection %}
-    <tr {{ stimulus_controller('pages/parameters_autocomplete', {"url": path('typeahead_parameters', {"query": "__QUERY__", "type": "part"}) }) }} >
-        <td class="col-sm-2">{{ form_widget(form.name, {"attr": {"data-pages--parameters-autocomplete-target": "name"}}) }}</td>
-        <td {{ stimulus_controller('pages/latex_preview') }}>{{ form_widget(form.symbol, {"attr": {"data-pages--parameters-autocomplete-target": "symbol", "data-pages--latex-preview-target": "input"}}) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
-        <td>{{ form_widget(form.value) }}</td>
-        <td {{ stimulus_controller('pages/latex_preview', {"unit": true}) }}>{{ form_widget(form.unit, {"attr": {"data-pages--parameters-autocomplete-target": "unit", "data-pages--latex-preview-target": "input"}}) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
-        <td>{{ form_widget(form.value_text) }}</td>
+    {% set definition = form.definition.vars.data %}
+    {% set initial_input_type = definition ? definition.inputType : 'text' %}
+    <tr {{ stimulus_controller('filters/parameter_constraint', {
+        "url": path('typeahead_parameters', {"query": "__QUERY__", "type": "part"}),
+        "initialInputType": initial_input_type,
+        "initialChoices": definition ? definition.choices : []
+    }) }}>
+        <td class="col-sm-2">
+            {{ form_widget(form.name, {"attr": {"data-filters--parameter-constraint-target": "name"}}) }}
+            {{ form_widget(form.definition, {"attr": {
+                "class": "d-none",
+                "data-controller": "",
+                "data-filters--parameter-constraint-target": "definition"
+            }}) }}
+            {{ form_errors(form.definition) }}
+        </td>
+        <td data-filters--parameter-constraint-target="symbolContainer" {{ stimulus_controller('pages/latex_preview') }}>
+            {{ form_widget(form.symbol, {"attr": {
+                "data-filters--parameter-constraint-target": "symbol",
+                "data-pages--latex-preview-target": "input"
+            }}) }}
+            <span {{ stimulus_target('pages/latex_preview', 'preview') }}></span>
+        </td>
+        <td data-filters--parameter-constraint-target="numericContainer">{{ form_widget(form.value) }}</td>
+        <td data-filters--parameter-constraint-target="unitContainer" {{ stimulus_controller('pages/latex_preview', {"unit": true}) }}>
+            {{ form_widget(form.unit, {"attr": {
+                "data-filters--parameter-constraint-target": "unit",
+                "data-pages--latex-preview-target": "input"
+            }}) }}
+            <span {{ stimulus_target('pages/latex_preview', 'preview') }}></span>
+        </td>
+        <td>
+            <div class="input-group">
+                {{ form_widget(form.value_text.operator, {"attr": {
+                    "class": initial_input_type == 'choice' ? 'd-none' : '',
+                    "data-controller": "",
+                    "data-filters--parameter-constraint-target": "valueOperator"
+                }}) }}
+                {{ form_widget(form.value_text.value, {"attr": {
+                    "data-controller": "",
+                    "data-filters--parameter-constraint-target": "valueText"
+                }}) }}
+            </div>
+            {{ form_errors(form.value_text.operator) }}
+            {{ form_errors(form.value_text.value) }}
+        </td>
         <td>
             <button type="button" class="btn btn-danger btn-sm" {{ collection.delete_btn() }} title="{% trans %}orderdetail.delete{% endtrans %}">
                 <i class="fas fa-trash-alt fa-fw"></i>
