@@ -14586,7 +14586,7 @@ Buerklin-API-Authentication-Server:
     <unit id="OdU12Px" name="tools.value_calc.body.tan">
       <segment state="translated">
         <source>tools.value_calc.body.tan</source>
-        <target>Hautfarben</target>
+        <target>Hellbraun</target>
       </segment>
     </unit>
     <unit id="QWAQSny" name="tools.value_calc.body.red">
