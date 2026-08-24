@@ -48,7 +48,9 @@ To connect KiCad with Part-DB do the following steps:
         "type": "REST_API",
         "api_version": "v1",
         "root_url": "http://kicad-instance.invalid/en/kicad-api/",
-        "token": "THE_GENERATED_API_TOKEN"
+        "token": "THE_GENERATED_API_TOKEN",
+        "timeout_parts_seconds": 60,
+        "timeout_categories_seconds": 600
     }
 }    
 ```
@@ -57,6 +59,11 @@ To connect KiCad with Part-DB do the following steps:
 6. Open KiCad and add this created file as a HTTP library in the KiCad symbol table under (Preferences --> Manage Symbol Libraries)
 
 If you then place a new part, the library dialog opens, and you should be able to see the categories and parts from Part-DB.
+
+The `timeout_parts_seconds` and `timeout_categories_seconds` values define how long KiCad will cache the parts and categories from Part-DB.
+If you change parts in Part-DB, you need to wait this times until KiCad notices. If you want to see the changes quicker, you can set these values to a lower value (like 5 seconds), 
+but this will increase the load on your Part-DB server, and make KiCad feel slower, as it has to fetch the data more often.
+The `timeout_parts_seconds` is required until detail changes to a single part is seen, the `timeout_categories_seconds` is required until changes to the categories (like new parts, or new categories) are seen.
 
 ### How to associate footprints and symbols with parts
 
