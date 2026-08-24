@@ -61,6 +61,7 @@ use App\EntityListeners\TreeCacheInvalidationListener;
 use App\Mcp\DTO\ElementByIdInput;
 use App\Repository\PartRepository;
 use App\State\Mcp\GetPartByIdProcessor;
+use App\State\Mcp\GetPartPreviewImageProcessor;
 use App\State\Mcp\SearchPartsProcessor;
 use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -131,6 +132,19 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
             input: ElementByIdInput::class,
             validate: true,
             processor: GetPartByIdProcessor::class
+        ),
+        'get_part_preview_image' => new McpTool(
+            title: 'Get preview image for a part',
+            description: 'Get the preview/thumbnail picture for a part by its database ID. Reuses the same fallback logic as the part list in the web UI: the part\'s own master picture is used if set, otherwise the picture of its footprint, and otherwise the picture of the project it is built from. Returns a short text message instead of an image if no preview picture is available.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            security: 'is_granted("@parts.read")',
+            input: ElementByIdInput::class,
+            //The processor returns raw MCP content blocks (image/text) via a CallToolResult, not a normalized
+            //representation of the Part resource, so no output schema must be advertised (otherwise MCP clients
+            //reject the response for declaring a schema but returning no structuredContent).
+            structuredContent: false,
+            validate: true,
+            processor: GetPartPreviewImageProcessor::class
         ),
     ],
 )]
