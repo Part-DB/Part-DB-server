@@ -1,4 +1,4 @@
-# Generated on Mon Aug 10 04:01:24 UTC 2026
+# Generated on Mon Aug 24 03:09:14 UTC 2026
 # This file contains all footprints available in the offical KiCAD library
 Audio_Module:Reverb_BTDR-1H
 Audio_Module:Reverb_BTDR-1V
@@ -14415,7 +14415,9 @@ Symbol:Symbol_HighVoltage_NoTriangle_2x5mm_Copper
 Symbol:Symbol_HighVoltage_NoTriangle_6x15mm_Copper
 Symbol:Symbol_HighVoltage_Triangle_17x15mm_Copper
 Symbol:Symbol_HighVoltage_Triangle_6x6mm_Copper
+Symbol:Symbol_HighVoltage_Triangle_6x6mm_SilkScreen
 Symbol:Symbol_HighVoltage_Triangle_8x7mm_Copper
+Symbol:Symbol_HighVoltage_Triangle_8x7mm_SilkScreen
 Symbol:UKCA-Logo_12x12mm_SilkScreen
 Symbol:UKCA-Logo_20x20mm_SilkScreen
 Symbol:UKCA-Logo_30x30mm_SilkScreen

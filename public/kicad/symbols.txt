@@ -1,4 +1,4 @@
-# Generated on Mon Aug 10 04:02:03 UTC 2026
+# Generated on Mon Aug 24 03:09:56 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -1375,6 +1375,9 @@ Amplifier_Operational:OPA1692xD
 Amplifier_Operational:OPA1692xDGK
 Amplifier_Operational:OPA188xxD
 Amplifier_Operational:OPA188xxDBV
+Amplifier_Operational:OPA189xD
+Amplifier_Operational:OPA189xDBV
+Amplifier_Operational:OPA189xDGK
 Amplifier_Operational:OPA196xD
 Amplifier_Operational:OPA196xDBV
 Amplifier_Operational:OPA196xDGK
@@ -1384,6 +1387,8 @@ Amplifier_Operational:OPA197xDGK
 Amplifier_Operational:OPA2134
 Amplifier_Operational:OPA2156xD
 Amplifier_Operational:OPA2156xDGK
+Amplifier_Operational:OPA2189xD
+Amplifier_Operational:OPA2189xDGK
 Amplifier_Operational:OPA2196xD
 Amplifier_Operational:OPA2196xDGK
 Amplifier_Operational:OPA2197xD
@@ -1432,6 +1437,8 @@ Amplifier_Operational:OPA376xxD
 Amplifier_Operational:OPA376xxDBV
 Amplifier_Operational:OPA376xxDCK
 Amplifier_Operational:OPA4134
+Amplifier_Operational:OPA4189xD
+Amplifier_Operational:OPA4189xPW
 Amplifier_Operational:OPA4196xD
 Amplifier_Operational:OPA4196xPW
 Amplifier_Operational:OPA4197xD
@@ -4360,6 +4367,12 @@ Converter_ACDC:TMLM20105
 Converter_ACDC:TMLM20112
 Converter_ACDC:TMLM20115
 Converter_ACDC:TMLM20124
+Converter_ACDC:TMPS03-103
+Converter_ACDC:TMPS03-105
+Converter_ACDC:TMPS03-109
+Converter_ACDC:TMPS03-112
+Converter_ACDC:TMPS03-115
+Converter_ACDC:TMPS03-124
 Converter_ACDC:TMPW10-105
 Converter_ACDC:TMPW10-112
 Converter_ACDC:TMPW10-115
@@ -5272,6 +5285,16 @@ Converter_DCDC_Isolated:TEN6-11015WIRH
 Converter_DCDC_Isolated:TEN6-11021WIRH
 Converter_DCDC_Isolated:TEN6-11022WIRH
 Converter_DCDC_Isolated:TEN6-11023WIRH
+Converter_DCDC_Isolated:TEN80-2412WI
+Converter_DCDC_Isolated:TEN80-2413WI
+Converter_DCDC_Isolated:TEN80-2415WI
+Converter_DCDC_Isolated:TEN80-2422WI
+Converter_DCDC_Isolated:TEN80-2423WI
+Converter_DCDC_Isolated:TEN80-4812WI
+Converter_DCDC_Isolated:TEN80-4813WI
+Converter_DCDC_Isolated:TEN80-4815WI
+Converter_DCDC_Isolated:TEN80-4822WI
+Converter_DCDC_Isolated:TEN80-4823WI
 Converter_DCDC_Isolated:TEP150-7211UIR
 Converter_DCDC_Isolated:TEP150-7212UIR
 Converter_DCDC_Isolated:TEP150-7213UIR
@@ -8992,6 +9015,7 @@ Interface_USB:CP2102N-Axx-xQFN20
 Interface_USB:CP2102N-Axx-xQFN24
 Interface_USB:CP2102N-Axx-xQFN28
 Interface_USB:CP2104
+Interface_USB:CP2105-F01-GM
 Interface_USB:CP2108-xxx-xM
 Interface_USB:CP2112
 Interface_USB:CP2615-xx-xM
@@ -9138,6 +9162,8 @@ Isolator:ADuM1201WU
 Isolator:ADuM120N
 Isolator:ADuM121N
 Isolator:ADuM1250
+Isolator:ADuM1255ASA+
+Isolator:ADuM1255AWA+
 Isolator:ADuM1281
 Isolator:ADuM1300xRW
 Isolator:ADuM1400xRW
@@ -9657,7 +9683,6 @@ Logic_LevelTranslator:TXB0101DBV
 Logic_LevelTranslator:TXB0101DCK
 Logic_LevelTranslator:TXB0101DRL
 Logic_LevelTranslator:TXB0101YZP
-Logic_LevelTranslator:TXB0102DCT
 Logic_LevelTranslator:TXB0102DCU
 Logic_LevelTranslator:TXB0102YZP
 Logic_LevelTranslator:TXB0104BQA
@@ -9695,7 +9720,7 @@ Logic_Programmable:PAL16RP8A_Programming
 Logic_Programmable:PAL20L10xxNS
 Logic_Programmable:PAL20L8
 Logic_Programmable:PAL20R8xx-P
-Logic_Programmable:PAL20RS10
+Logic_Programmable:PAL20RS10xNS
 Logic_Programmable:PAL22V10-xxP
 Logic_Programmable:PALCE16V8
 Logic_Programmable:PALCE22V10x-xxP
@@ -15273,6 +15298,7 @@ Memory_Flash:AT45DB161B-RC-2.5
 Memory_Flash:AT45DB161B-TC
 Memory_Flash:AT45DB161B-TC-2.5
 Memory_Flash:AT45DB161D-SU
+Memory_Flash:EPC2Lx20
 Memory_Flash:EPCQ16ASI8N
 Memory_Flash:EPCQ32ASI8N
 Memory_Flash:GD25D05CT
@@ -18881,6 +18907,10 @@ Regulator_Linear:TPS7A90
 Regulator_Linear:TPS7A91
 Regulator_Linear:TPS7B8133DRV
 Regulator_Linear:TPS7B8150DRV
+Regulator_Linear:TPS7E8101DBV
+Regulator_Linear:TPS7E8125DBV
+Regulator_Linear:TPS7E8133DBV
+Regulator_Linear:TPS7E8150DBV
 Regulator_Linear:UA78M05QDCYRQ1
 Regulator_Linear:UA78M08QDCYRQ1
 Regulator_Linear:UA78M10QDCYRQ1
@@ -21255,6 +21285,7 @@ Switch:SW_SP3T_NR01103
 Switch:SW_SP4T_NR01104
 Switch:SW_SP5T_NR01105
 Switch:SW_SPDT
+Switch:SW_SPDT_201
 Switch:SW_SPDT_312
 Switch:SW_SPDT_321
 Switch:SW_SPDT_MSM
