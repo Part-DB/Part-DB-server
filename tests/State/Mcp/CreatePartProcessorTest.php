@@ -100,6 +100,26 @@ class CreatePartProcessorTest extends WebTestCase
         self::assertSame('MCP Test Part Minimal', $result->getName());
     }
 
+    public function testCreatesPartLinkedToInfoProvider(): void
+    {
+        $category = $this->em->getRepository(Category::class)->findOneBy(['name' => 'Node 1']);
+        self::assertNotNull($category);
+
+        $input = $this->buildInput([
+            'name' => 'MCP Test Part From Provider',
+            'categoryId' => $category->getID(),
+            'providerKey' => 'digikey',
+            'providerId' => 'ABC123',
+            'providerUrl' => 'https://example.com/abc123',
+        ]);
+
+        $result = $this->processor->process($input, $this->getOperation());
+
+        self::assertTrue($result->getProviderReference()->isProviderCreated());
+        self::assertSame('digikey', $result->getProviderReference()->getProviderKey());
+        self::assertSame('ABC123', $result->getProviderReference()->getProviderId());
+    }
+
     public function testOmittingRequiredCategoryFailsValidation(): void
     {
         $input = $this->buildInput(['name' => 'MCP Test Part Without Category']);

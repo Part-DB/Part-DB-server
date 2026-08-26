@@ -25,6 +25,7 @@ namespace App\Tests\State\Mcp;
 
 use ApiPlatform\Metadata\Patch;
 use App\Entity\Parts\Category;
+use App\Entity\Parts\InfoProviderReference;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
@@ -175,6 +176,61 @@ class UpdatePartProcessorTest extends WebTestCase
         $result = $this->processor->process($input, $this->getOperation());
 
         self::assertSame(ManufacturingStatus::NOT_SET, $result->getManufacturingStatus());
+    }
+
+    public function testLinksPartToInfoProvider(): void
+    {
+        $input = $this->buildInput([
+            'id' => $this->part->getID(),
+            'providerKey' => 'digikey',
+            'providerId' => 'ABC123',
+            'providerUrl' => 'https://example.com/abc123',
+        ]);
+
+        $result = $this->processor->process($input, $this->getOperation());
+
+        self::assertTrue($result->getProviderReference()->isProviderCreated());
+        self::assertSame('digikey', $result->getProviderReference()->getProviderKey());
+        self::assertSame('ABC123', $result->getProviderReference()->getProviderId());
+        self::assertSame('https://example.com/abc123', $result->getProviderReference()->getProviderUrl());
+        self::assertNotNull($result->getProviderReference()->getLastUpdated());
+    }
+
+    public function testUnlinksPartFromInfoProvider(): void
+    {
+        $this->part->setProviderReference(InfoProviderReference::providerReference('digikey', 'ABC123'));
+        $this->em->flush();
+
+        $input = $this->buildInput(['id' => $this->part->getID(), 'providerKey' => null, 'providerId' => null]);
+
+        $result = $this->processor->process($input, $this->getOperation());
+
+        self::assertFalse($result->getProviderReference()->isProviderCreated());
+        self::assertNull($result->getProviderReference()->getProviderKey());
+        self::assertNull($result->getProviderReference()->getProviderId());
+    }
+
+    public function testMismatchedProviderKeyAndIdFailsValidation(): void
+    {
+        //providerId without providerKey is an invalid combination (InfoProviderReference::validate())
+        $input = $this->buildInput(['id' => $this->part->getID(), 'providerId' => 'ABC123']);
+
+        $result = $this->processor->process($input, $this->getOperation());
+
+        $this->assertErrorResult($result, 'provider_key');
+    }
+
+    public function testOmittingProviderFieldsLeavesReferenceUntouched(): void
+    {
+        $this->part->setProviderReference(InfoProviderReference::providerReference('digikey', 'ABC123'));
+        $this->em->flush();
+
+        $input = $this->buildInput(['id' => $this->part->getID(), 'name' => 'Renamed but still linked']);
+
+        $result = $this->processor->process($input, $this->getOperation());
+
+        self::assertTrue($result->getProviderReference()->isProviderCreated());
+        self::assertSame('digikey', $result->getProviderReference()->getProviderKey());
     }
 
     public function testThrowsNotFoundForUnknownPartId(): void

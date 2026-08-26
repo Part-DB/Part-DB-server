@@ -62,6 +62,9 @@ final readonly class UpdatePartInput extends AbstractPartWriteInput
         array $orderdetails,
         array $associatedPartsAsOwner,
         ?EdaInfoInput $edaInfo,
+        ?string $providerKey,
+        ?string $providerId,
+        ?string $providerUrl,
         ?string $logComment,
         array $providedFields,
     ) {
@@ -89,6 +92,9 @@ final readonly class UpdatePartInput extends AbstractPartWriteInput
             orderdetails: $orderdetails,
             associatedPartsAsOwner: $associatedPartsAsOwner,
             edaInfo: $edaInfo,
+            providerKey: $providerKey,
+            providerId: $providerId,
+            providerUrl: $providerUrl,
             logComment: $logComment,
             providedFields: $providedFields,
         );

@@ -253,13 +253,14 @@ token/OAuth2 grant (see [Permissions](#permissions) above) and the corresponding
   footprint, and otherwise the picture of the project it is built from. Returns a short text message instead of an
   image if no preview picture is available.
 * **create_part** *(write)* – Create a new part. Only the name is required; every other field (category, footprint,
-  manufacturer, stock lots, parameters, orderdetails with price breaks, associated parts, EDA info, ...) is optional.
-  Attachment file uploads are not supported here - use the web UI or REST API to attach files to a part after
-  creating it.
+  manufacturer, stock lots, parameters, orderdetails with price breaks, associated parts, EDA info, the external
+  info provider it was sourced from, ...) is optional. Attachment file uploads are not supported here - use the
+  web UI or REST API to attach files to a part after creating it.
 * **update_part** *(write)* – Update an existing part by its database ID. Only the fields you actually provide are
   changed; anything you omit - including nested collections like stock lots or parameters - is left untouched.
   Stock amounts can only be set here when adding a brand-new lot; to change an *existing* lot's amount, use one of
-  the stock-adjustment tools below instead.
+  the stock-adjustment tools below instead. `providerKey`/`providerId` link or unlink the part to an external info
+  provider (e.g. Digikey) - set both to link it, both to null to unlink; they must be changed together.
 * **withdraw_part_stock** / **add_part_stock** / **stocktake_part_lot** *(write)* – Adjust the stock of a part lot
   by its database ID: remove or add a given amount, or set a lot's stock to a known actual amount (a
   stocktake/inventory count). These mirror the same withdraw/add/stocktake actions available in the web UI,

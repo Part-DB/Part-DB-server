@@ -28,6 +28,7 @@ use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\AssociationType;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
+use App\Entity\Parts\InfoProviderReference;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
@@ -154,6 +155,17 @@ abstract class AbstractPartMutationProcessor
         if ($data->wasProvided('edaInfo') && $data->edaInfo !== null) {
             $this->applyEdaInfo($part, $data->edaInfo);
         }
+        if ($data->wasProvided('providerKey') || $data->wasProvided('providerId') || $data->wasProvided('providerUrl')) {
+            $this->applyProviderReference(
+                $part,
+                $data->providerKey,
+                $data->wasProvided('providerKey'),
+                $data->providerId,
+                $data->wasProvided('providerId'),
+                $data->providerUrl,
+                $data->wasProvided('providerUrl'),
+            );
+        }
     }
 
     /**
@@ -260,6 +272,46 @@ abstract class AbstractPartMutationProcessor
         } catch (\ValueError) {
             throw new BadRequestHttpException(sprintf('"%s" is not a valid manufacturing status.', $status));
         }
+    }
+
+    /**
+     * Rebuilds the part's InfoProviderReference from whichever of providerKey/providerId/providerUrl were
+     * actually provided, keeping the current value for any that weren't. InfoProviderReference has no setters of
+     * its own (only static factories), so it must always be replaced wholesale, not mutated field-by-field.
+     *
+     * A resulting key+id pair links the part to that provider (and stamps a fresh "last updated" timestamp, via
+     * InfoProviderReference::providerReference()); both null unlinks it entirely; a mismatched pair (one set,
+     * the other not) is deliberately passed through as-is so Part-level validation reports it clearly, rather
+     * than silently guessing what the caller meant.
+     */
+    protected function applyProviderReference(
+        Part $part,
+        ?string $providerKey,
+        bool $providerKeyProvided,
+        ?string $providerId,
+        bool $providerIdProvided,
+        ?string $providerUrl,
+        bool $providerUrlProvided,
+    ): void {
+        $current = $part->getProviderReference();
+        $newKey = $providerKeyProvided ? $providerKey : $current->getProviderKey();
+        $newId = $providerIdProvided ? $providerId : $current->getProviderId();
+        $newUrl = $providerUrlProvided ? $providerUrl : $current->getProviderUrl();
+
+        if ($newKey === null && $newId === null) {
+            $part->setProviderReference(InfoProviderReference::noProvider());
+
+            return;
+        }
+
+        if ($newKey !== null && $newId !== null) {
+            $part->setProviderReference(InfoProviderReference::providerReference($newKey, $newId, $newUrl));
+
+            return;
+        }
+
+        //Mismatched key/id (only one set) - keep the existing timestamp and let Part-level validation reject it
+        $part->setProviderReference(InfoProviderReference::create($newKey, $newId, $newUrl, $current->getLastUpdated()));
     }
 
     protected function applyEdaInfo(Part $part, EdaInfoInput $input): void

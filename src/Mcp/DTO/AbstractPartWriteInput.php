@@ -67,6 +67,9 @@ abstract readonly class AbstractPartWriteInput
      * @param array<int, array<string, mixed>> $orderdetails           Raw nested items, converted via OrderdetailInput::fromArray(). Omitting this key leaves the whole collection untouched; an explicit empty array removes every existing orderdetail.
      * @param array<int, array<string, mixed>> $associatedPartsAsOwner Raw nested items, converted via AssociatedPartInput::fromArray(). Omitting this key leaves the whole collection untouched; an explicit empty array removes every existing association.
      * @param EdaInfoInput|null $edaInfo                Pass null to clear every EDA info field. When provided, wholesale-replaces all of them rather than merging field-by-field.
+     * @param string|null $providerKey                 The key of the external info provider (e.g. "digikey", "mouser", "lcsc") this part was imported from. Must be set together with providerId - pass null on both to unlink the part from any provider.
+     * @param string|null $providerId                  The part's ID within the external provider's system. Must be set together with providerKey.
+     * @param string|null $providerUrl                 Optional URL to the part's page on the provider's website. Only meaningful together with providerKey/providerId.
      * @param string|null $logComment                  Optional message for the audit log; not a part field itself.
      * @param array<string, bool>              $providedFields         Which top-level keys were actually present in the raw MCP arguments
      */
@@ -94,6 +97,9 @@ abstract readonly class AbstractPartWriteInput
         public array $orderdetails,
         public array $associatedPartsAsOwner,
         public ?EdaInfoInput $edaInfo,
+        public ?string $providerKey,
+        public ?string $providerId,
+        public ?string $providerUrl,
         public ?string $logComment,
         private array $providedFields,
     ) {
@@ -135,6 +141,9 @@ abstract readonly class AbstractPartWriteInput
      *     orderdetails: array<int, array<string, mixed>>,
      *     associatedPartsAsOwner: array<int, array<string, mixed>>,
      *     edaInfo: EdaInfoInput|null,
+     *     providerKey: string|null,
+     *     providerId: string|null,
+     *     providerUrl: string|null,
      *     logComment: string|null,
      * }
      */
@@ -164,6 +173,9 @@ abstract readonly class AbstractPartWriteInput
             'orderdetails' => PartInputHelpers::arr($data, 'orderdetails'),
             'associatedPartsAsOwner' => PartInputHelpers::arr($data, 'associatedPartsAsOwner'),
             'edaInfo' => is_array($data['edaInfo'] ?? null) ? EdaInfoInput::fromArray($data['edaInfo']) : null,
+            'providerKey' => PartInputHelpers::str($data, 'providerKey'),
+            'providerId' => PartInputHelpers::str($data, 'providerId'),
+            'providerUrl' => PartInputHelpers::str($data, 'providerUrl'),
             'logComment' => PartInputHelpers::str($data, 'logComment'),
         ];
     }

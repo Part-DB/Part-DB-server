@@ -160,7 +160,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
         ),
         'create_part' => new McpTool(
             title: 'Create a new part',
-            description: 'Create a new part in the inventory. Only "name" is required; every other field is optional and, if omitted, the part is created with its normal default value for that field. Supports nested stock lots, parameters, orderdetails (with price breaks), associated parts and EDA info in a single call. Attachment file uploads are not supported here (MCP has no good way to transport binary file data) - use the web UI or REST API to upload attachments to a part after creating it.',
+            description: 'Create a new part in the inventory. Only "name" is required; every other field is optional and, if omitted, the part is created with its normal default value for that field. Supports nested stock lots, parameters, orderdetails (with price breaks), associated parts, EDA info, and linking the part to the external info provider (providerKey/providerId/providerUrl) it was sourced from in a single call. Attachment file uploads are not supported here (MCP has no good way to transport binary file data) - use the web UI or REST API to upload attachments to a part after creating it.',
             annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
             security: 'is_granted("@parts.create")', // Not enforced by the MCP call pipeline (see notes on CreatePartProcessor) - the real check is manual, inside the processor. Kept for documentation/forward-compat.
             normalizationContext: [
@@ -174,7 +174,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
         ),
         'update_part' => new McpTool(
             title: 'Update an existing part',
-            description: 'Update an existing part by its database ID. Only the fields you actually provide are changed; any field you omit is left completely untouched, including nested collections (partLots, parameters, orderdetails, associatedPartsAsOwner) - provide an item\'s "id" to update it, omit "id" to create a new one, and omit a previously-existing item entirely to remove it. To change a lot\'s stock amount use the withdraw_part_stock/add_part_stock/stocktake_part_lot tools instead - "amount" may only be set here when creating a brand-new lot.',
+            description: 'Update an existing part by its database ID. Only the fields you actually provide are changed; any field you omit is left completely untouched, including nested collections (partLots, parameters, orderdetails, associatedPartsAsOwner) - provide an item\'s "id" to update it, omit "id" to create a new one, and omit a previously-existing item entirely to remove it. To change a lot\'s stock amount use the withdraw_part_stock/add_part_stock/stocktake_part_lot tools instead - "amount" may only be set here when creating a brand-new lot. providerKey/providerId can be used to link or unlink the part to an external info provider (set both to link, both to null to unlink - they must be changed together).',
             annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
             security: 'is_granted("edit", object)', // Not enforced by the MCP call pipeline - see create_part's note; the real check is manual, inside UpdatePartProcessor.
             normalizationContext: [
