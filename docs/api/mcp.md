@@ -12,19 +12,20 @@ nav_order: 4
 
 Part-DB ships a [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server, which allows AI assistants and
 agents (like Claude, ChatGPT, or AI-powered coding tools) to directly interact with your Part-DB inventory: they can
-search for parts, look up categories, footprints, manufacturers, storage locations, suppliers, and projects, and even
-query external info providers like Digikey, Mouser or LCSC, all using natural language, without you having to write
-any code against the [REST API]({% link api/intro.md %}).
+search for parts, look up categories, footprints, manufacturers, storage locations, suppliers, and projects, query
+external info providers like Digikey, Mouser or LCSC, and create or edit parts and their stock levels, all using
+natural language, without you having to write any code against the [REST API]({% link api/intro.md %}).
 
 MCP is a standardized, widely supported protocol, so once your Part-DB MCP endpoint is set up, you can connect it to
 many different AI clients and applications.
 
 {: .warning }
-> The MCP integration is currently **read-only**: an AI assistant can look up data, but it can not create, change or
-> delete anything in your Part-DB instance via MCP.
-> Still, giving an AI assistant access to your inventory means it can read everything the connected user account is
-> allowed to see, so only connect trusted AI clients and keep your API token secret, just like you would for the
-> [REST API]({% link api/authentication.md %}).
+> Giving an AI assistant access to your inventory means it can read everything the connected user account is allowed
+> to see, and - for the tools listed under "Parts" below - create and change parts and stock levels on your behalf.
+> Only connect trusted AI clients and keep your API token secret, just like you would for the
+> [REST API]({% link api/authentication.md %}). If you only want an assistant to look things up, connect it with a
+> **Read-Only** scoped token or OAuth2 grant (see [Permissions](#permissions) below) - this blocks it from calling any
+> of the create/edit/stock-adjustment tools, regardless of what it is asked to do.
 
 ## Enabling the MCP server
 
@@ -50,8 +51,10 @@ Users which should be allowed to use the MCP tools additionally need the **Use M
 (under the **API** permission group). Granting it automatically also grants the base **Access API** permission.
 
 Like the REST API, authentication against the MCP endpoint is done using an [API token]({% link
-api/authentication.md %}) or an [OAuth2 access token]({% link api/oauth.md %}). Either way, a **Read-Only** scope
-is enough to use all currently available MCP tools, as they only read data.
+api/authentication.md %}) or an [OAuth2 access token]({% link api/oauth.md %}). A **Read-Only** scope is enough for
+every tool that only looks up data. The part-creation, part-editing and stock-adjustment tools listed under "Parts"
+below additionally require an **Edit** scope (or higher) - with a Read-Only token or grant, those tool calls are
+rejected regardless of the underlying user account's own permissions.
 
 ## Connecting an AI client
 
@@ -233,7 +236,10 @@ just need to provide:
 
 ## Available tools
 
-The following MCP tools are currently available. All of them are read-only.
+The following MCP tools are currently available. Unless noted otherwise, a tool only reads data; the part-creation,
+part-editing and stock-adjustment tools below are the exception and require both an **Edit**-scoped API
+token/OAuth2 grant (see [Permissions](#permissions) above) and the corresponding permission (`parts.create`,
+`parts.edit`, or `parts_stock.withdraw`/`add`/`move`/`stocktake`) on the underlying user account.
 
 ### Parts
 
@@ -246,6 +252,18 @@ The following MCP tools are currently available. All of them are read-only.
   fallback logic as the part list in the web UI: the part's own master picture if set, otherwise the picture of its
   footprint, and otherwise the picture of the project it is built from. Returns a short text message instead of an
   image if no preview picture is available.
+* **create_part** *(write)* – Create a new part. Only the name is required; every other field (category, footprint,
+  manufacturer, stock lots, parameters, orderdetails with price breaks, associated parts, EDA info, ...) is optional.
+  Attachment file uploads are not supported here - use the web UI or REST API to attach files to a part after
+  creating it.
+* **update_part** *(write)* – Update an existing part by its database ID. Only the fields you actually provide are
+  changed; anything you omit - including nested collections like stock lots or parameters - is left untouched.
+  Stock amounts can only be set here when adding a brand-new lot; to change an *existing* lot's amount, use one of
+  the stock-adjustment tools below instead.
+* **withdraw_part_stock** / **add_part_stock** / **stocktake_part_lot** *(write)* – Adjust the stock of a part lot
+  by its database ID: remove or add a given amount, or set a lot's stock to a known actual amount (a
+  stocktake/inventory count). These mirror the same withdraw/add/stocktake actions available in the web UI,
+  including their logging and lot-ownership checks.
 
 ### Master data
 

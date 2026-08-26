@@ -58,11 +58,23 @@ use App\Entity\Parts\PartTraits\ManufacturerTrait;
 use App\Entity\Parts\PartTraits\OrderTrait;
 use App\Entity\Parts\PartTraits\ProjectTrait;
 use App\EntityListeners\TreeCacheInvalidationListener;
+use App\Mcp\DTO\AddPartStockInput;
+use App\Mcp\DTO\CreatePartInput;
 use App\Mcp\DTO\ElementByIdInput;
+use App\Mcp\DTO\StocktakePartLotInput;
+use App\Mcp\DTO\UpdatePartInput;
+use App\Mcp\DTO\WithdrawPartStockInput;
 use App\Repository\PartRepository;
+use App\State\Mcp\AddPartStockProcessor;
+use App\State\Mcp\CreatePartInputProvider;
+use App\State\Mcp\CreatePartProcessor;
 use App\State\Mcp\GetPartByIdProcessor;
 use App\State\Mcp\GetPartPreviewImageProcessor;
 use App\State\Mcp\SearchPartsProcessor;
+use App\State\Mcp\StocktakePartLotProcessor;
+use App\State\Mcp\UpdatePartInputProvider;
+use App\State\Mcp\UpdatePartProcessor;
+use App\State\Mcp\WithdrawPartStockProcessor;
 use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -145,6 +157,73 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
             structuredContent: false,
             validate: true,
             processor: GetPartPreviewImageProcessor::class
+        ),
+        'create_part' => new McpTool(
+            title: 'Create a new part',
+            description: 'Create a new part in the inventory. Only "name" is required; every other field is optional and, if omitted, the part is created with its normal default value for that field. Supports nested stock lots, parameters, orderdetails (with price breaks), associated parts and EDA info in a single call. Attachment file uploads are not supported here (MCP has no good way to transport binary file data) - use the web UI or REST API to upload attachments to a part after creating it.',
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
+            security: 'is_granted("@parts.create")', // Not enforced by the MCP call pipeline (see notes on CreatePartProcessor) - the real check is manual, inside the processor. Kept for documentation/forward-compat.
+            normalizationContext: [
+                'groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
+                'item_uri_template' => '/api/parts/{id}',
+            ],
+            input: CreatePartInput::class,
+            provider: CreatePartInputProvider::class,
+            validate: false, // Entity validation is done manually in CreatePartProcessor, not on the (barely-constrained) input DTO
+            processor: CreatePartProcessor::class
+        ),
+        'update_part' => new McpTool(
+            title: 'Update an existing part',
+            description: 'Update an existing part by its database ID. Only the fields you actually provide are changed; any field you omit is left completely untouched, including nested collections (partLots, parameters, orderdetails, associatedPartsAsOwner) - provide an item\'s "id" to update it, omit "id" to create a new one, and omit a previously-existing item entirely to remove it. To change a lot\'s stock amount use the withdraw_part_stock/add_part_stock/stocktake_part_lot tools instead - "amount" may only be set here when creating a brand-new lot.',
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
+            security: 'is_granted("edit", object)', // Not enforced by the MCP call pipeline - see create_part's note; the real check is manual, inside UpdatePartProcessor.
+            normalizationContext: [
+                'groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
+                'item_uri_template' => '/api/parts/{id}',
+            ],
+            input: UpdatePartInput::class,
+            provider: UpdatePartInputProvider::class,
+            validate: false, // Entity validation is done manually in UpdatePartProcessor, not on the (barely-constrained) input DTO
+            processor: UpdatePartProcessor::class
+        ),
+        'withdraw_part_stock' => new McpTool(
+            title: 'Withdraw stock from a part lot',
+            description: 'Withdraw (remove) a given amount of stock from a part lot by its database ID, e.g. because parts were used up. Returns the updated part.',
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => false, 'openWorldHint' => false],
+            security: 'is_granted("@parts_stock.withdraw")',
+            normalizationContext: [
+                'groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
+                'item_uri_template' => '/api/parts/{id}',
+            ],
+            input: WithdrawPartStockInput::class,
+            validate: true,
+            processor: WithdrawPartStockProcessor::class
+        ),
+        'add_part_stock' => new McpTool(
+            title: 'Add stock to a part lot',
+            description: 'Add a given amount of stock to a part lot by its database ID, e.g. because new parts arrived. Returns the updated part.',
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
+            security: 'is_granted("@parts_stock.add")',
+            normalizationContext: [
+                'groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
+                'item_uri_template' => '/api/parts/{id}',
+            ],
+            input: AddPartStockInput::class,
+            validate: true,
+            processor: AddPartStockProcessor::class
+        ),
+        'stocktake_part_lot' => new McpTool(
+            title: 'Perform a stocktake on a part lot',
+            description: 'Set a part lot\'s stock to a known actual amount (a "stocktake"/inventory count), clearing its unknown-instock flag if set. Returns the updated part.',
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => true, 'openWorldHint' => false],
+            security: 'is_granted("@parts_stock.stocktake")',
+            normalizationContext: [
+                'groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
+                'item_uri_template' => '/api/parts/{id}',
+            ],
+            input: StocktakePartLotInput::class,
+            validate: true,
+            processor: StocktakePartLotProcessor::class
         ),
     ],
 )]
