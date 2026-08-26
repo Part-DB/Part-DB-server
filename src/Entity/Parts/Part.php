@@ -60,6 +60,7 @@ use App\Entity\Parts\PartTraits\ProjectTrait;
 use App\EntityListeners\TreeCacheInvalidationListener;
 use App\Mcp\DTO\AddPartStockInput;
 use App\Mcp\DTO\CreatePartInput;
+use App\Mcp\DTO\DeletePartInput;
 use App\Mcp\DTO\ElementByIdInput;
 use App\Mcp\DTO\StocktakePartLotInput;
 use App\Mcp\DTO\UpdatePartInput;
@@ -68,6 +69,7 @@ use App\Repository\PartRepository;
 use App\State\Mcp\AddPartStockProcessor;
 use App\State\Mcp\CreatePartInputProvider;
 use App\State\Mcp\CreatePartProcessor;
+use App\State\Mcp\DeletePartProcessor;
 use App\State\Mcp\GetPartByIdProcessor;
 use App\State\Mcp\GetPartPreviewImageProcessor;
 use App\State\Mcp\SearchPartsProcessor;
@@ -185,6 +187,16 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
             provider: UpdatePartInputProvider::class,
             validate: false, // Entity validation is done manually in UpdatePartProcessor, not on the (barely-constrained) input DTO
             processor: UpdatePartProcessor::class
+        ),
+        'delete_part' => new McpTool(
+            title: 'Delete a part',
+            description: 'Permanently delete a part by its database ID, including its stock lots, parameters, orderdetails and associations. This cannot be undone - there is no confirmation step, so make sure this is really the part the user wants deleted before calling this tool.',
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => true, 'openWorldHint' => false],
+            security: 'is_granted("delete", object)', // Not enforced by the MCP call pipeline - see create_part's note; the real check is manual, inside DeletePartProcessor.
+            structuredContent: false, // The processor returns a plain text confirmation via CallToolResult, not a normalized Part (which no longer exists)
+            input: DeletePartInput::class,
+            validate: true,
+            processor: DeletePartProcessor::class
         ),
         'withdraw_part_stock' => new McpTool(
             title: 'Withdraw stock from a part lot',

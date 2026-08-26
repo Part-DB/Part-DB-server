@@ -52,9 +52,9 @@ Users which should be allowed to use the MCP tools additionally need the **Use M
 
 Like the REST API, authentication against the MCP endpoint is done using an [API token]({% link
 api/authentication.md %}) or an [OAuth2 access token]({% link api/oauth.md %}). A **Read-Only** scope is enough for
-every tool that only looks up data. The part-creation, part-editing and stock-adjustment tools listed under "Parts"
-below additionally require an **Edit** scope (or higher) - with a Read-Only token or grant, those tool calls are
-rejected regardless of the underlying user account's own permissions.
+every tool that only looks up data. The part-creation, part-editing, part-deletion and stock-adjustment tools listed
+under "Parts" below additionally require an **Edit** scope (or higher) - with a Read-Only token or grant, those tool
+calls are rejected regardless of the underlying user account's own permissions.
 
 ## Connecting an AI client
 
@@ -237,9 +237,9 @@ just need to provide:
 ## Available tools
 
 The following MCP tools are currently available. Unless noted otherwise, a tool only reads data; the part-creation,
-part-editing and stock-adjustment tools below are the exception and require both an **Edit**-scoped API
-token/OAuth2 grant (see [Permissions](#permissions) above) and the corresponding permission (`parts.create`,
-`parts.edit`, or `parts_stock.withdraw`/`add`/`move`/`stocktake`) on the underlying user account.
+part-editing, part-deletion and stock-adjustment tools below are the exception and require both an **Edit**-scoped
+API token/OAuth2 grant (see [Permissions](#permissions) above) and the corresponding permission (`parts.create`,
+`parts.edit`, `parts.delete`, or `parts_stock.withdraw`/`add`/`stocktake`) on the underlying user account.
 
 ### Parts
 
@@ -261,6 +261,8 @@ token/OAuth2 grant (see [Permissions](#permissions) above) and the corresponding
   Stock amounts can only be set here when adding a brand-new lot; to change an *existing* lot's amount, use one of
   the stock-adjustment tools below instead. `providerKey`/`providerId` link or unlink the part to an external info
   provider (e.g. Digikey) - set both to link it, both to null to unlink; they must be changed together.
+* **delete_part** *(write)* – Permanently delete a part by its database ID, including its stock lots, parameters,
+  orderdetails and associations. This cannot be undone and there is no confirmation step.
 * **withdraw_part_stock** / **add_part_stock** / **stocktake_part_lot** *(write)* – Adjust the stock of a part lot
   by its database ID: remove or add a given amount, or set a lot's stock to a known actual amount (a
   stocktake/inventory count). These mirror the same withdraw/add/stocktake actions available in the web UI,
