@@ -269,21 +269,31 @@ final class PartControllerTest extends WebTestCase
 
         // Create two test parts
         $targetPart = new Part();
-        $targetPart->setName('Target Part');
+        $targetPart->setName('Same <Target>');
         $targetPart->setCategory($category);
 
         $otherPart = new Part();
-        $otherPart->setName('Other Part');
+        $otherPart->setName('Same <Other>');
         $otherPart->setCategory($category);
 
         $entityManager->persist($targetPart);
         $entityManager->persist($otherPart);
         $entityManager->flush();
 
-        $client->request('GET', "/en/part/{$targetPart->getId()}/merge/{$otherPart->getId()}");
+        $crawler = $client->request('GET', "/en/part/{$targetPart->getId()}/merge/{$otherPart->getId()}");
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertSelectorExists('form[name="part_base"]');
+
+        $mergeController = $crawler->filter('[data-delete-title-html="true"]');
+        self::assertCount(1, $mergeController);
+
+        $confirmationTitle = (string) $mergeController->attr('data-delete-title');
+        self::assertStringContainsString('<b>Same &lt;Other&gt; (ID: ' . $otherPart->getId() . ')</b>', $confirmationTitle);
+        self::assertStringContainsString('<b>Same &lt;Target&gt; (ID: ' . $targetPart->getId() . ')</b>', $confirmationTitle);
+
+        $confirmationMessage = (string) $mergeController->attr('data-delete-message');
+        self::assertStringContainsString('<b>Same &lt;Other&gt; (ID: ' . $otherPart->getId() . ')</b>', $confirmationMessage);
 
         // Clean up
         $entityManager->remove($targetPart);

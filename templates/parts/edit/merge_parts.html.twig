@@ -18,9 +18,12 @@
 {% endblock %}
 
 {% block card_content %}
+{% set merge_other_label = merge_other.name ~ ' (ID: ' ~ merge_other.id ~ ')' %}
+{% set merge_target_label = merge_old_name ~ ' (ID: ' ~ part.id ~ ')' %}
 <div {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
-        data-delete-title="{% trans with {'%target%': merge_old_name|escape, '%other%': merge_other.name }%}part.merge.confirm.title{% endtrans %}"
-        data-delete-message="{% trans with {'%other%': merge_other.name } %}part.merge.confirm.message{% endtrans %}">
+        data-delete-title-html="true"
+        data-delete-title="{% trans with {'%target%': merge_target_label|escape, '%other%': merge_other_label|escape }%}part.merge.confirm.title{% endtrans %}"
+        data-delete-message="{% trans with {'%other%': merge_other_label|escape } %}part.merge.confirm.message{% endtrans %}">
     {{ parent() }}
 </div>
 
