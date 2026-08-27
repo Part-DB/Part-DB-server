@@ -107,6 +107,12 @@ class LabelGenerationProcessor implements ProcessorInterface
             throw new NotFoundHttpException('No elements found with the provided IDs.');
         }
 
+        foreach ($elements as $element) {
+            if (!$this->security->isGranted('read', $element)) {
+                throw new AccessDeniedHttpException('You do not have permission to read one or more of the requested elements.');
+            }
+        }
+
         // Generate the PDF
         try {
             $pdfContent = $this->labelGenerator->generateLabel($options, $elements);
