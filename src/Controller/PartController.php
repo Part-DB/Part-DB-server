@@ -132,13 +132,24 @@ final class PartController extends AbstractController
 
         // Build the add-lot form for the INFO page modal (only when not in time-travel mode)
         $addLotForm = null;
-        if ($timeTravel_timestamp === null && $this->isGranted('edit', $part)) {
+        $moveNewLotForm = null;
+        if ($timeTravel_timestamp === null) {
             $newLot = new PartLot();
             $newLot->setPart($part);
-            $addLotForm = $this->createForm(PartLotType::class, $newLot, [
-                'measurement_unit' => $part->getPartUnit(),
-                'action' => $this->generateUrl('part_lot_add', ['id' => $part->getID()]),
-            ]);
+            if ($this->isGranted('edit', $part)) {
+                $addLotForm = $this->createForm(PartLotType::class, $newLot, [
+                    'measurement_unit' => $part->getPartUnit(),
+                    'action' => $this->generateUrl('part_lot_add', ['id' => $part->getID()]),
+                ]);
+            }
+
+            if ($this->isGranted('create', $newLot) && $this->isGranted('move', $newLot)) {
+                $moveNewLotForm = $this->createForm(PartLotType::class, $newLot, [
+                    'measurement_unit' => $part->getPartUnit(),
+                    //CSRF is already covered by the outer withdraw/move form's token
+                    'csrf_protection' => false,
+                ]);
+            }
         }
 
         return $this->render(
@@ -154,6 +165,7 @@ final class PartController extends AbstractController
                 'withdraw_add_helper' => $withdrawAddHelper,
                 'highlightLotId' => $request->query->getInt('highlightLot', 0),
                 'add_lot_form' => $addLotForm,
+                'move_new_lot_form' => $moveNewLotForm,
             ]
         );
     }
@@ -734,7 +746,26 @@ final class PartController extends AbstractController
                         break;
                     case "move":
                         $this->denyAccessUnlessGranted('move', $partLot);
-                        $this->denyAccessUnlessGranted('move', $targetLot);
+                        if ($targetId === 'new') {
+                            $targetLot = new PartLot();
+                            $targetLot->setPart($part);
+                            $this->denyAccessUnlessGranted('create', $targetLot);
+
+                            $newLotForm = $this->createForm(PartLotType::class, $targetLot, [
+                                'measurement_unit' => $part->getPartUnit(),
+                                //CSRF is already covered by the outer withdraw/move form's token
+                                'csrf_protection' => false,
+                            ]);
+                            $newLotForm->handleRequest($request);
+                            if (!$newLotForm->isSubmitted() || !$newLotForm->isValid() || !$targetLot->getStorageLocation()) {
+                                $this->addFlash('error', 'part.created_flash.invalid');
+                                goto err;
+                            }
+
+                            $em->persist($targetLot);
+                        } else {
+                            $this->denyAccessUnlessGranted('move', $targetLot);
+                        }
                         $withdrawAddHelper->move($partLot, $targetLot, $amount, $comment, $timestamp, $delete_lot_if_empty);
                         break;
                     default:
