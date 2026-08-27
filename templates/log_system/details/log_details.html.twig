@@ -60,6 +60,21 @@
             <td>{% trans %}log.target{% endtrans %}</td>
             <td>{{ target_html|raw }}</td>
         </tr>
+        {% if log_entry.accessMethod is not null %}
+        <tr>
+            <td>{% trans %}log.access_method{% endtrans %}</td>
+            <td>
+                <i class="fa-solid fa-fw {{ log_entry.accessMethod.iconClass }}"></i>
+                {{ log_entry.accessMethod|trans }}
+            </td>
+        </tr>
+        {% endif %}
+        {% if log_entry.requestId is not null %}
+        <tr>
+            <td>{% trans %}log.request_id{% endtrans %}</td>
+            <td><code>{{ log_entry.requestId }}</code></td>
+        </tr>
+        {% endif %}
     </table>
 
     <div class="card-body">

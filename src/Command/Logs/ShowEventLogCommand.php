@@ -106,10 +106,10 @@ class ShowEventLogCommand extends Command
 
         $table = new Table($output);
         $table->setHeaderTitle("Page $page / $max_page");
-        $headers = ['ID', 'Timestamp', 'Type', 'User', 'Target Type', 'Target'];
+        $headers = ['ID', 'Timestamp', 'Type', 'User', 'Target Type', 'Target', 'Access Method'];
         if ($showExtra) {
             $headers[] = 'Extra data';
-            $table->setColumnMaxWidth(6, 50);
+            $table->setColumnMaxWidth(7, 50);
         }
         $table->setHeaders($headers);
 
@@ -146,6 +146,8 @@ class ShowEventLogCommand extends Command
             $user = $entry->getUsername() . ' [deleted]';
         }
 
+        $accessMethod = $entry->getAccessMethod()?->trans($this->translator) ?? '';
+
         $row = [
             $entry->getID(),
             $entry->getTimestamp()->format('Y-m-d H:i:s'),
@@ -153,6 +155,7 @@ class ShowEventLogCommand extends Command
             $user,
             $target_class,
             $target_name,
+            $accessMethod,
         ];
 
         if ($showExtra) {

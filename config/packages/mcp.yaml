@@ -1,6 +1,6 @@
 mcp:
     app: "Part-DB"
-    version: "0.1.0"
+    version: "0.2.0"
     description: "Part-DB is a inventory management database for electronic parts."
     instructions: |
         This server provides inventory information for your current user. It is mostly used for electronic parts,

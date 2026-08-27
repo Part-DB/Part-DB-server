@@ -44,6 +44,7 @@ namespace App\Tests\Entity\LogSystem;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
+use App\Entity\LogSystem\AccessMethod;
 use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
@@ -57,6 +58,7 @@ use App\Entity\Parts\Supplier;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Uid\Uuid;
 
 final class AbstractLogEntryTest extends TestCase
 {
@@ -96,5 +98,40 @@ final class AbstractLogEntryTest extends TestCase
 
         //Normal user must be null now
         $this->assertNull($log->getUser());
+
+        //Setting a CLI username must also flip the access method to CLI
+        $this->assertSame(AccessMethod::CLI, $log->getAccessMethod());
+    }
+
+    public function testAccessMethod(): void
+    {
+        $log = new UserLoginLogEntry('1.1.1.1');
+
+        $this->assertNull($log->getAccessMethod());
+
+        $log->setAccessMethod(AccessMethod::API);
+        $this->assertSame(AccessMethod::API, $log->getAccessMethod());
+    }
+
+    public function testRequestId(): void
+    {
+        $log = new UserLoginLogEntry('1.1.1.1');
+
+        $this->assertNull($log->getRequestId());
+
+        $uuid = Uuid::v7();
+        $log->setRequestId($uuid);
+        $this->assertSame($uuid, $log->getRequestId());
+    }
+
+    public function testTransactionId(): void
+    {
+        $log = new UserLoginLogEntry('1.1.1.1');
+
+        $this->assertNull($log->getTransactionId());
+
+        $uuid = Uuid::v7();
+        $log->setTransactionId($uuid);
+        $this->assertSame($uuid, $log->getTransactionId());
     }
 }

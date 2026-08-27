@@ -12,19 +12,20 @@ nav_order: 4
 
 Part-DB ships a [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server, which allows AI assistants and
 agents (like Claude, ChatGPT, or AI-powered coding tools) to directly interact with your Part-DB inventory: they can
-search for parts, look up categories, footprints, manufacturers, storage locations, suppliers, and projects, and even
-query external info providers like Digikey, Mouser or LCSC, all using natural language, without you having to write
-any code against the [REST API]({% link api/intro.md %}).
+search for parts, look up categories, footprints, manufacturers, storage locations, suppliers, and projects, query
+external info providers like Digikey, Mouser or LCSC, and create or edit parts and their stock levels, all using
+natural language, without you having to write any code against the [REST API]({% link api/intro.md %}).
 
 MCP is a standardized, widely supported protocol, so once your Part-DB MCP endpoint is set up, you can connect it to
 many different AI clients and applications.
 
 {: .warning }
-> The MCP integration is currently **read-only**: an AI assistant can look up data, but it can not create, change or
-> delete anything in your Part-DB instance via MCP.
-> Still, giving an AI assistant access to your inventory means it can read everything the connected user account is
-> allowed to see, so only connect trusted AI clients and keep your API token secret, just like you would for the
-> [REST API]({% link api/authentication.md %}).
+> Giving an AI assistant access to your inventory means it can read everything the connected user account is allowed
+> to see, and - for the tools listed under "Parts" below - create and change parts and stock levels on your behalf.
+> Only connect trusted AI clients and keep your API token secret, just like you would for the
+> [REST API]({% link api/authentication.md %}). If you only want an assistant to look things up, connect it with a
+> **Read-Only** scoped token or OAuth2 grant (see [Permissions](#permissions) below) - this blocks it from calling any
+> of the create/edit/stock-adjustment tools, regardless of what it is asked to do.
 
 ## Enabling the MCP server
 
@@ -39,6 +40,15 @@ Once enabled, the MCP server is reachable under the `/mcp` path of your Part-DB 
 `https://your-part-db.local/mcp`). Unlike most other Part-DB pages, this path is **not** locale-prefixed (so it is
 `/mcp`, not `/en/mcp`).
 
+{: .warning }
+> All write tools (parts, master data like categories/footprints/manufacturers/storage locations/suppliers, and
+> stock adjustments) are additionally gated by their own **Enable part-editing MCP tools** switch, right below
+> **Enable MCP endpoint** in the same settings section (env var `MCP_EDITING_ENABLED`). It is **off by default**,
+> even after enabling the MCP endpoint itself: with it off, every write tool call is rejected for every user,
+> regardless of their permissions or the connected token's scope - the MCP server behaves as if only the
+> read-only tools existed. Turn it on only once you're comfortable letting connected AI assistants create, edit
+> and delete data on your behalf.
+
 {: .note }
 > If your MCP client gets a `Forbidden: Invalid Host header` response, set the `TRUSTED_HOSTS` environment variable
 > (see the comments in `.env`) to include your Part-DB domain name. The MCP endpoint validates the `Host` header
@@ -50,8 +60,10 @@ Users which should be allowed to use the MCP tools additionally need the **Use M
 (under the **API** permission group). Granting it automatically also grants the base **Access API** permission.
 
 Like the REST API, authentication against the MCP endpoint is done using an [API token]({% link
-api/authentication.md %}) or an [OAuth2 access token]({% link api/oauth.md %}). Either way, a **Read-Only** scope
-is enough to use all currently available MCP tools, as they only read data.
+api/authentication.md %}) or an [OAuth2 access token]({% link api/oauth.md %}). A **Read-Only** scope is enough for
+every tool that only looks up data. All write tools - parts, master data, and stock adjustments - additionally
+require an **Edit** scope (or higher) - with a Read-Only token or grant, those tool calls are rejected regardless
+of the underlying user account's own permissions.
 
 ## Connecting an AI client
 
@@ -233,7 +245,10 @@ just need to provide:
 
 ## Available tools
 
-The following MCP tools are currently available. All of them are read-only.
+The following MCP tools are currently available. Unless noted otherwise, a tool only reads data; the part-creation,
+part-editing, part-deletion and stock-adjustment tools below are the exception and require both an **Edit**-scoped
+API token/OAuth2 grant (see [Permissions](#permissions) above) and the corresponding permission (`parts.create`,
+`parts.edit`, `parts.delete`, or `parts_stock.withdraw`/`add`/`stocktake`) on the underlying user account.
 
 ### Parts
 
@@ -246,11 +261,26 @@ The following MCP tools are currently available. All of them are read-only.
   fallback logic as the part list in the web UI: the part's own master picture if set, otherwise the picture of its
   footprint, and otherwise the picture of the project it is built from. Returns a short text message instead of an
   image if no preview picture is available.
+* **create_part** *(write)* – Create a new part. Only the name is required; every other field (category, footprint,
+  manufacturer, stock lots, parameters, orderdetails with price breaks, associated parts, EDA info, the external
+  info provider it was sourced from, ...) is optional. Attachment file uploads are not supported here - use the
+  web UI or REST API to attach files to a part after creating it.
+* **update_part** *(write)* – Update an existing part by its database ID. Only the fields you actually provide are
+  changed; anything you omit - including nested collections like stock lots or parameters - is left untouched.
+  Stock amounts can only be set here when adding a brand-new lot; to change an *existing* lot's amount, use one of
+  the stock-adjustment tools below instead. `providerKey`/`providerId` link or unlink the part to an external info
+  provider (e.g. Digikey) - set both to link it, both to null to unlink; they must be changed together.
+* **delete_part** *(write)* – Permanently delete a part by its database ID, including its stock lots, parameters,
+  orderdetails and associations. This cannot be undone and there is no confirmation step.
+* **withdraw_part_stock** / **add_part_stock** / **stocktake_part_lot** *(write)* – Adjust the stock of a part lot
+  by its database ID: remove or add a given amount, or set a lot's stock to a known actual amount (a
+  stocktake/inventory count). These mirror the same withdraw/add/stocktake actions available in the web UI,
+  including their logging and lot-ownership checks.
 
 ### Master data
 
 Categories, footprints, manufacturers, storage locations, measurement units, suppliers and part custom states all
-expose the same pair of tools:
+expose the same pair of read-only tools:
 
 * **list_categories** / **get_category_details**
 * **list_footprints** / **get_footprint_details**
@@ -264,6 +294,15 @@ Each `list_*` tool accepts an optional `keyword`, matched against the name and c
 elements are returned in hierarchical tree order; with a keyword, matching results are sorted by their full path, so
 parent/child relationships can still be derived from the flat list. Each `get_*_details` tool takes the element's
 database `id` and returns its full details.
+
+Categories, footprints, manufacturers, storage locations and suppliers additionally expose a `create_*`/`update_*`/
+`delete_*` triple *(write)* - e.g. **create_category** / **update_category** / **delete_category**, and likewise for
+`footprint`/`manufacturer`/`storage_location`/`supplier`. These cover the fields every such element shares: `name`,
+`comment`, `notSelectable`, `parentId` (its position in the tree), and `alternativeNames` (a comma-separated list
+used for searching, e.g. by the info provider system) - entity-specific fields (like a category's part-name regex,
+or a manufacturer's address) aren't editable via MCP yet. `delete_*` fails if the element still directly contains
+parts, and moves any child elements up to the deleted element's own parent rather than deleting them too.
+Measurement units and part custom states don't have write tools yet.
 
 ### Projects
 
