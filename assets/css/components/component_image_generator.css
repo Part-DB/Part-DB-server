@@ -22,9 +22,12 @@
 .vc-pic svg { max-height: 15rem; max-width: 100%; width: auto; height: auto; }
 /* Every tab reserves the same height and lays out as a column, so the row can grow to fill it
    and the "Appearance" toggle always pins to the very bottom of the frame — identical on each
-   tab whether or not the tab has an intro line above its controls. */
-.tab-content > .tab-pane { min-height: 24rem; }
-.tab-content > .tab-pane.active { display: flex; flex-direction: column; }
+   tab whether or not the tab has an intro line above its controls.
+   Scoped to this controller's root so it doesn't leak into unrelated Bootstrap tabs elsewhere
+   on the page (e.g. the part info page tabs), since this CSS stays loaded for the rest of the
+   Turbo session once the calculator has been opened once. */
+[data-controller~="pages--component-image-generator"] .tab-content > .tab-pane { min-height: 24rem; }
+[data-controller~="pages--component-image-generator"] .tab-content > .tab-pane.active { display: flex; flex-direction: column; }
 /* The "Appearance" disclosure is pinned to the bottom of its column. On wide screens it
    opens *upward* as a floating popover, so toggling it never resizes the tab or nudges the
    picture — every tab keeps the exact same frame whether it's open or closed. */
