@@ -14,6 +14,10 @@
     {% trans %}project.new{% endtrans %}
 {% endblock %}
 
+{% block additional_pills %}
+    <li class="nav-item"><a data-bs-toggle="tab" class="nav-link link-anchor" href="#bom">BOM</a></li>
+{% endblock %}
+
 {% block quick_links %}
     <div class="btn-toolbar" style="display: inline-block;">
         <div class="btn-group">
@@ -43,4 +47,31 @@
         </div>
     {% endif %}
 
+{% endblock %}
+
+{% block additional_panes %}
+    <div class="tab-pane" id="bom">
+
+        {% if entity.requiresPerformanceMode %}
+            <div class="alert alert-warning">
+                <i class="fa-solid fa-triangle-exclamation fa-fw"></i>
+                {% trans with {'%count%': entity.getBomEntriesCount} %}project.edit.bom.performance_mode_warning{% endtrans %}
+                <br>
+                <a class="alert-link" href="{{ path('project_info', {'id': entity.id ?? 0}) }}#bom-tab-pane" title="BOM">{% trans %}project.edit.bom.performance_mode_warning.link{% endtrans %}</a>
+            </div>
+        {% endif %}
+
+        {% if form.bom_entries is defined %}
+            {% form_theme form.bom_entries with ['form/collection_types_layout.html.twig'] %}
+            {{ form_errors(form.bom_entries) }}
+            {{ form_widget(form.bom_entries) }}
+        {% endif %}
+        {% if entity.id %}
+            <a href="{{ path('project_import_bom', {'id': entity.id}) }}" class="btn btn-secondary mb-2"
+               {% if not is_granted('edit', entity) %}disabled="disabled"{% endif %}>
+                <i class="fa-solid fa-file-import fa-fw"></i>
+                {% trans %}project.edit.bom.import_bom{% endtrans %}
+            </a>
+        {% endif %}
+    </div>
 {% endblock %}

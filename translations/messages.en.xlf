@@ -15011,5 +15011,17 @@ Buerklin-API Authentication server:
         <target>OAuth2 client updated successfully!</target>
       </segment>
     </unit>
+    <unit id="QCg5KCx" name="project.edit.bom.performance_mode_warning">
+      <segment>
+        <source>project.edit.bom.performance_mode_warning</source>
+        <target>This project contains %count% BOM entries. It is too big to be edited here.</target>
+      </segment>
+    </unit>
+    <unit id="LEreMQo" name="project.edit.bom.performance_mode_warning.link">
+      <segment>
+        <source>project.edit.bom.performance_mode_warning.link</source>
+        <target>Edit BOM entries via the BOM table view instead.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

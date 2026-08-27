@@ -23,9 +23,13 @@ declare(strict_types=1);
 namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\ProjectSystem\Project;
+use App\Form\ProjectSystem\ProjectBOMEntryCollectionType;
 use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProjectAdminForm extends BaseEntityAdminForm
 {
@@ -42,6 +46,10 @@ class ProjectAdminForm extends BaseEntityAdminForm
             ],
         ]);
 
+        if ($entity instanceof Project && !$entity->requiresPerformanceMode()) {
+            $builder->add('bom_entries', ProjectBOMEntryCollectionType::class);
+        }
+
         $builder->add('status', ChoiceType::class, [
             'attr' => [
                 'class' => 'form-select',
@@ -56,6 +64,22 @@ class ProjectAdminForm extends BaseEntityAdminForm
                 'project.status.finished' => 'finished',
                 'project.status.archived' => 'archived',
             ],
+        ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        parent::configureOptions($resolver);
+
+        $resolver->setDefaults([
+           //Only validate the project bom  if the project bom form is present
+            'validation_groups' => function (FormInterface $form): array {
+                $validationGroups = ['Default'];
+                if ($form->has('bom_entries')) {
+                    $validationGroups[] = 'project_bom';
+                }
+                return $validationGroups;
+            }
         ]);
     }
 }

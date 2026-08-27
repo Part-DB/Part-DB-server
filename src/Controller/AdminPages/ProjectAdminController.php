@@ -56,7 +56,7 @@ class ProjectAdminController extends BaseAdminController
      */
     protected function getHistoryElements(AbstractNamedDBElement $entity): array
     {
-        return $this->historyHelper->getAssociatedElements($entity, false);
+        return $this->historyHelper->getAssociatedElements($entity);
     }
 
     #[Route(path: '/{id}', name: 'project_delete', methods: ['DELETE'])]
