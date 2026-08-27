@@ -15023,5 +15023,17 @@ Buerklin-API Authentication server:
         <target>Edit BOM entries via the BOM table view instead.</target>
       </segment>
     </unit>
+    <unit id="OMOXH6o" name="project.bom_entry.edit.back_to_bom">
+      <segment>
+        <source>project.bom_entry.edit.back_to_bom</source>
+        <target>Back to project BOM</target>
+      </segment>
+    </unit>
+    <unit id="M1leSpV" name="project.bom_entry.edit.title">
+      <segment>
+        <source>project.bom_entry.edit.title</source>
+        <target>Edit BOM entry #%id% of project</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

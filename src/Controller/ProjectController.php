@@ -26,6 +26,7 @@ use App\DataTables\ProjectBomEntriesDataTable;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use App\Form\ProjectSystem\BOMEntryEditType;
 use App\Form\ProjectSystem\ProjectAddPartsType;
 use App\Form\ProjectSystem\ProjectBOMEntryType;
 use App\Form\ProjectSystem\ProjectBuildType;
@@ -43,6 +44,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -101,13 +103,11 @@ class ProjectController extends AbstractController
 
         $this->denyAccessUnlessGranted('edit', $project);
 
-        $form = $this->createForm(ProjectBOMEntryType::class, $bomEntry, [
-            'include_log_comment' => true,
-            'constraints' => [
-                new UniqueEntity(fields: ['part', 'project'], message: 'project.bom_entry.part_already_in_bom', entityClass: ProjectBOMEntry::class),
-                new UniqueEntity(fields: ['name', 'project'], message: 'project.bom_entry.name_already_in_bom', entityClass: ProjectBOMEntry::class, ignoreNull: true),
-            ],
+
+        $form = $this->createForm(BOMEntryEditType::class, [
+            'bom_entry' => $bomEntry,
         ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
