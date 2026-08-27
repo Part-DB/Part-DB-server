@@ -8,7 +8,10 @@ export default class extends Controller
         this.element.addEventListener('shown.bs.modal', event => this._handleModalShown(event));
         const newLotRadio = this.element.querySelector('input[name="target_id"][value="new"]');
         if (newLotRadio) {
-            newLotRadio.addEventListener('change', () => this._toggleNewLotLocation(newLotRadio));
+            //Any radio in the group can toggle the "new" radio off, so listen on all of them
+            this.element.querySelectorAll('input[name="target_id"]').forEach(radio => {
+                radio.addEventListener('change', () => this._toggleNewLotLocation(newLotRadio));
+            });
         }
     }
 
