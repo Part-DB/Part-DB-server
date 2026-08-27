@@ -110,6 +110,16 @@ class CheckRequirementsCommand extends Command
         } elseif (!$only_issues) {
             $io->success('Opcache configuration is already performance optimized.');
         }
+
+        //Check if max_input_vars is set to a high enough value
+        if ($io->isVerbose()) {
+            $io->comment('Checking max_input_vars...');
+        }
+        if (ini_get('max_input_vars') < 5000) {
+            $io->warning('max_input_vars is set to '. ini_get('max_input_vars') .'. This can cause problems with large forms. Set max_input_vars to at least 5000 in your php.ini.');
+        } elseif (!$only_issues) {
+            $io->success('max_input_vars is set to a sufficient value.');
+        }
     }
 
     protected function checkPartDBConfig(SymfonyStyle $io, bool $only_issues = false): void
