@@ -168,9 +168,10 @@ final readonly class LogDataTable implements DataTableTypeInterface
                 //If user was deleted, show the info from the username field
                 if (!$user instanceof User) {
                     if ($context->isCLIEntry()) {
-                        return sprintf('%s [%s]',
+                        return sprintf('<i class="fa-solid fa-fw %s"></i> %s [%s]',
+                            AccessMethod::CLI->getIconClass(),
                             htmlspecialchars((string) $context->getCLIUsername()),
-                            $this->translator->trans('log.cli_user')
+                            $this->translator->trans('log.cli_user'),
                         );
                     }
 
@@ -194,6 +195,16 @@ final readonly class LogDataTable implements DataTableTypeInterface
             },
         ]);
 
+
+        $dataTable->add('access_method', EnumColumn::class, [
+            'label' => 'log.access_method',
+            'class' => AccessMethod::class,
+            'visible' => 'element_history' !== $options['mode'],
+            'render' => fn(?AccessMethod $value) => $value instanceof AccessMethod
+                ? sprintf('<i class="fa-solid fa-fw %s" title="%s"></i> %s', $value->getIconClass(), htmlspecialchars($value->trans($this->translator)), htmlspecialchars($value->trans($this->translator)))
+                : '',
+        ]);
+
         $dataTable->add('target_type', EnumColumn::class, [
             'label' => 'log.target_type',
             'visible' => false,
@@ -208,17 +219,11 @@ final readonly class LogDataTable implements DataTableTypeInterface
             },
         ]);
 
+
+
         $dataTable->add('target', LogEntryTargetColumn::class, [
             'label' => 'log.target',
             'show_associated' => 'element_history' !== $options['mode'],
-        ]);
-
-        $dataTable->add('access_method', EnumColumn::class, [
-            'label' => 'log.access_method',
-            'class' => AccessMethod::class,
-            'render' => fn(?AccessMethod $value) => $value instanceof AccessMethod
-                ? $value->trans($this->translator)
-                : '',
         ]);
 
         $dataTable->add('request_id', TextColumn::class, [

@@ -144,6 +144,7 @@ class LogFilterType extends AbstractType
         $builder->add('accessMethod', EnumConstraintType::class, [
             'label' => 'log.access_method',
             'enum_class' => AccessMethod::class,
+            'choice_label' => static fn(AccessMethod $m): AccessMethod => $m,
         ]);
 
         $builder->add('submit', SubmitType::class, [
