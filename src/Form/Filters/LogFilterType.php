@@ -42,6 +42,7 @@ use App\Form\Filters\Constraints\EnumConstraintType;
 use App\Form\Filters\Constraints\InstanceOfConstraintType;
 use App\Form\Filters\Constraints\NumberConstraintType;
 use App\Form\Filters\Constraints\UserEntityConstraintType;
+use App\Form\Filters\Constraints\UuidConstraintType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -145,6 +146,10 @@ class LogFilterType extends AbstractType
             'label' => 'log.access_method',
             'enum_class' => AccessMethod::class,
             'choice_label' => static fn(AccessMethod $m): AccessMethod => $m,
+        ]);
+
+        $builder->add('requestId', UuidConstraintType::class, [
+            'label' => 'log.request_id',
         ]);
 
         $builder->add('submit', SubmitType::class, [

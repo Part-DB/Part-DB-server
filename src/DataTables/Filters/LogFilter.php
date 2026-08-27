@@ -28,6 +28,7 @@ use App\DataTables\Filters\Constraints\DateTimeConstraint;
 use App\DataTables\Filters\Constraints\EntityConstraint;
 use App\DataTables\Filters\Constraints\InstanceOfConstraint;
 use App\DataTables\Filters\Constraints\IntConstraint;
+use App\DataTables\Filters\Constraints\UuidConstraint;
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\QueryBuilder;
 
@@ -43,6 +44,7 @@ class LogFilter implements FilterInterface
     public readonly IntConstraint $targetId;
     public readonly EntityConstraint $user;
     public readonly ChoiceConstraint $accessMethod;
+    public readonly UuidConstraint $requestId;
 
     public function __construct()
     {
@@ -58,6 +60,7 @@ class LogFilter implements FilterInterface
         $this->targetType = new ChoiceConstraint('log.target_type');
         $this->targetId = new IntConstraint('log.target_id');
         $this->accessMethod = new ChoiceConstraint('log.access_method');
+        $this->requestId = new UuidConstraint('log.request_id');
     }
 
     public function apply(QueryBuilder $queryBuilder): void
