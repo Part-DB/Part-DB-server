@@ -43,6 +43,7 @@ use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\EntityMergers\Mergers\PartMerger;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
+use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
@@ -99,6 +100,7 @@ final class PartController extends AbstractController
         DataTableFactory $dataTable,
         ParameterExtractor $parameterExtractor,
         PartLotWithdrawAddHelper $withdrawAddHelper,
+        BarcodeContentGenerator $barcodeContentGenerator,
         ?string $timestamp = null
     ): Response {
         $this->denyAccessUnlessGranted('read', $part);
@@ -154,6 +156,9 @@ final class PartController extends AbstractController
                 'withdraw_add_helper' => $withdrawAddHelper,
                 'highlightLotId' => $request->query->getInt('highlightLot', 0),
                 'add_lot_form' => $addLotForm,
+                'nfc_url' => $timeTravel_timestamp === null && $this->isGranted('@labels.create_labels')
+                    ? $barcodeContentGenerator->getURLContent($part)
+                    : null,
             ]
         );
     }
