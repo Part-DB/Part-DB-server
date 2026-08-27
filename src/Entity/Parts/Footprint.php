@@ -42,12 +42,20 @@ use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\EDA\EDAFootprintInfo;
+use App\Mcp\DTO\CreateStructuralElementInput;
+use App\Mcp\DTO\DeleteStructuralElementInput;
 use App\Mcp\DTO\ElementByIdInput;
 use App\Mcp\DTO\StructuralElementOverview;
 use App\Mcp\DTO\StructuralElementSearchInput;
+use App\Mcp\DTO\UpdateStructuralElementInput;
 use App\Repository\Parts\FootprintRepository;
+use App\State\Mcp\CreateStructuralElementInputProvider;
+use App\State\Mcp\CreateStructuralElementProcessor;
+use App\State\Mcp\DeleteStructuralElementProcessor;
 use App\State\Mcp\GetStructuralElementDetailsProcessor;
 use App\State\Mcp\ListStructuralElementsProcessor;
+use App\State\Mcp\UpdateStructuralElementInputProvider;
+use App\State\Mcp\UpdateStructuralElementProcessor;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\FootprintAttachment;
@@ -103,6 +111,38 @@ use Symfony\Component\Validator\Constraints as Assert;
             security: 'is_granted("@footprints.read")',
             validate: true,
             processor: GetStructuralElementDetailsProcessor::class,
+        ),
+        'create_footprint' => new McpTool(
+            title: 'Create a new footprint',
+            description: 'Create a new footprint. Only "name" is required; every other field is optional and, if omitted, the footprint is created with its normal default value for that field.',
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
+            security: 'is_granted("@footprints.create")', // Not enforced by the MCP call pipeline (see notes on Part.php's create_part) - the real check is manual, inside the processor.
+            normalizationContext: ['groups' => ['footprint:read', 'api:basic:read']],
+            input: CreateStructuralElementInput::class,
+            provider: CreateStructuralElementInputProvider::class,
+            validate: false, // Entity validation is done manually in the processor, not on the (barely-constrained) input DTO
+            processor: CreateStructuralElementProcessor::class,
+        ),
+        'update_footprint' => new McpTool(
+            title: 'Update an existing footprint',
+            description: 'Update an existing footprint by its database ID. Only the fields you actually provide are changed; any field you omit is left completely untouched.',
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
+            security: 'is_granted("edit", object)', // Not enforced by the MCP call pipeline - the real check is manual, inside the processor.
+            normalizationContext: ['groups' => ['footprint:read', 'api:basic:read']],
+            input: UpdateStructuralElementInput::class,
+            provider: UpdateStructuralElementInputProvider::class,
+            validate: false, // Entity validation is done manually in the processor, not on the (barely-constrained) input DTO
+            processor: UpdateStructuralElementProcessor::class,
+        ),
+        'delete_footprint' => new McpTool(
+            title: 'Delete a footprint',
+            description: 'Permanently delete a footprint by its database ID. Fails if the footprint still directly contains parts. Child footprints are moved up to the deleted footprint\'s own parent, not deleted themselves.',
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => true, 'openWorldHint' => false],
+            security: 'is_granted("delete", object)', // Not enforced by the MCP call pipeline - the real check is manual, inside the processor.
+            structuredContent: false, // The processor returns a plain text confirmation via CallToolResult, not a normalized element
+            input: DeleteStructuralElementInput::class,
+            validate: true,
+            processor: DeleteStructuralElementProcessor::class,
         ),
     ],
 )]

@@ -41,12 +41,13 @@ Once enabled, the MCP server is reachable under the `/mcp` path of your Part-DB 
 `/mcp`, not `/en/mcp`).
 
 {: .warning }
-> The part-creation, part-editing, part-deletion and stock-adjustment tools are additionally gated by their own
-> **Enable part-editing MCP tools** switch, right below **Enable MCP endpoint** in the same settings section (env
-> var `MCP_EDITING_ENABLED`). It is **off by default**, even after enabling the MCP endpoint itself: with it off,
-> every write tool call is rejected for every user, regardless of their permissions or the connected token's
-> scope - the MCP server behaves as if only the read-only tools existed. Turn it on only once you're comfortable
-> letting connected AI assistants create, edit and delete parts and adjust stock levels.
+> All write tools (parts, master data like categories/footprints/manufacturers/storage locations/suppliers, and
+> stock adjustments) are additionally gated by their own **Enable part-editing MCP tools** switch, right below
+> **Enable MCP endpoint** in the same settings section (env var `MCP_EDITING_ENABLED`). It is **off by default**,
+> even after enabling the MCP endpoint itself: with it off, every write tool call is rejected for every user,
+> regardless of their permissions or the connected token's scope - the MCP server behaves as if only the
+> read-only tools existed. Turn it on only once you're comfortable letting connected AI assistants create, edit
+> and delete data on your behalf.
 
 {: .note }
 > If your MCP client gets a `Forbidden: Invalid Host header` response, set the `TRUSTED_HOSTS` environment variable
@@ -60,9 +61,9 @@ Users which should be allowed to use the MCP tools additionally need the **Use M
 
 Like the REST API, authentication against the MCP endpoint is done using an [API token]({% link
 api/authentication.md %}) or an [OAuth2 access token]({% link api/oauth.md %}). A **Read-Only** scope is enough for
-every tool that only looks up data. The part-creation, part-editing, part-deletion and stock-adjustment tools listed
-under "Parts" below additionally require an **Edit** scope (or higher) - with a Read-Only token or grant, those tool
-calls are rejected regardless of the underlying user account's own permissions.
+every tool that only looks up data. All write tools - parts, master data, and stock adjustments - additionally
+require an **Edit** scope (or higher) - with a Read-Only token or grant, those tool calls are rejected regardless
+of the underlying user account's own permissions.
 
 ## Connecting an AI client
 
@@ -279,7 +280,7 @@ API token/OAuth2 grant (see [Permissions](#permissions) above) and the correspon
 ### Master data
 
 Categories, footprints, manufacturers, storage locations, measurement units, suppliers and part custom states all
-expose the same pair of tools:
+expose the same pair of read-only tools:
 
 * **list_categories** / **get_category_details**
 * **list_footprints** / **get_footprint_details**
@@ -293,6 +294,15 @@ Each `list_*` tool accepts an optional `keyword`, matched against the name and c
 elements are returned in hierarchical tree order; with a keyword, matching results are sorted by their full path, so
 parent/child relationships can still be derived from the flat list. Each `get_*_details` tool takes the element's
 database `id` and returns its full details.
+
+Categories, footprints, manufacturers, storage locations and suppliers additionally expose a `create_*`/`update_*`/
+`delete_*` triple *(write)* - e.g. **create_category** / **update_category** / **delete_category**, and likewise for
+`footprint`/`manufacturer`/`storage_location`/`supplier`. These cover the fields every such element shares: `name`,
+`comment`, `notSelectable`, `parentId` (its position in the tree), and `alternativeNames` (a comma-separated list
+used for searching, e.g. by the info provider system) - entity-specific fields (like a category's part-name regex,
+or a manufacturer's address) aren't editable via MCP yet. `delete_*` fails if the element still directly contains
+parts, and moves any child elements up to the deleted element's own parent rather than deleting them too.
+Measurement units and part custom states don't have write tools yet.
 
 ### Projects
 
