@@ -42,11 +42,13 @@ declare(strict_types=1);
 namespace App\Tests\Services\LogSystem;
 
 use App\Entity\LogSystem\AbstractLogEntry;
+use App\Entity\LogSystem\AccessMethod;
 use App\Entity\LogSystem\LogLevel;
 use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\LogSystem\UserLogoutLogEntry;
 use App\Services\LogSystem\EventLogger;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Uid\Uuid;
 
 final class EventLoggerTest extends WebTestCase
 {
@@ -84,5 +86,24 @@ final class EventLoggerTest extends WebTestCase
         //Test whitelist
         $this->assertFalse($this->service->shouldBeAdded($event1, LogLevel::DEBUG, [], [UserLogoutLogEntry::class]));
         $this->assertTrue($this->service->shouldBeAdded($event2, LogLevel::DEBUG, [], [UserLogoutLogEntry::class]));
+    }
+
+    public function testLogSetsAccessMethodAndRequestId(): void
+    {
+        //PHPUnit itself always runs as CLI (PHP_SAPI === 'cli'), so the real ConsoleInfoHelper/RequestContextHelper
+        //genuinely detect a CLI context here. The WEB/API/MCP branches are covered by RequestContextHelperTest instead.
+        $event = new UserLoginLogEntry('127.0.0.1');
+        $this->assertNull($event->getAccessMethod());
+        $this->assertNull($event->getRequestId());
+
+        $this->service->log($event);
+
+        $this->assertSame(AccessMethod::CLI, $event->getAccessMethod());
+        $this->assertInstanceOf(Uuid::class, $event->getRequestId());
+
+        //A second log entry logged in the same process must share the same request ID
+        $event2 = new UserLogoutLogEntry('127.0.0.1');
+        $this->service->log($event2);
+        $this->assertTrue($event->getRequestId()->equals($event2->getRequestId()));
     }
 }

@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Form\Filters;
 
 use App\DataTables\Filters\LogFilter;
+use App\Entity\LogSystem\AccessMethod;
 use App\Entity\LogSystem\LogLevel;
 use App\Entity\LogSystem\LogTargetType;
 use App\Entity\LogSystem\PartStockChangedLogEntry;
@@ -138,6 +139,11 @@ class LogFilterType extends AbstractType
             'label' => 'log.target_id',
             'min' => 1,
             'step' => 1,
+        ]);
+
+        $builder->add('accessMethod', EnumConstraintType::class, [
+            'label' => 'log.access_method',
+            'enum_class' => AccessMethod::class,
         ]);
 
         $builder->add('submit', SubmitType::class, [

@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\DataTables;
 
 use App\DataTables\Column\EnumColumn;
+use App\Entity\LogSystem\AccessMethod;
 use App\Entity\LogSystem\LogTargetType;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\DataTables\Column\HTMLColumn;
@@ -210,6 +211,19 @@ final readonly class LogDataTable implements DataTableTypeInterface
         $dataTable->add('target', LogEntryTargetColumn::class, [
             'label' => 'log.target',
             'show_associated' => 'element_history' !== $options['mode'],
+        ]);
+
+        $dataTable->add('access_method', EnumColumn::class, [
+            'label' => 'log.access_method',
+            'class' => AccessMethod::class,
+            'render' => fn(?AccessMethod $value) => $value instanceof AccessMethod
+                ? $value->trans($this->translator)
+                : '',
+        ]);
+
+        $dataTable->add('request_id', TextColumn::class, [
+            'label' => 'log.request_id',
+            'visible' => false,
         ]);
 
         $dataTable->add('extra', LogEntryExtraColumn::class, [

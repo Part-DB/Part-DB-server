@@ -24,6 +24,8 @@ doctrine:
                 class: App\Doctrine\Types\BigDecimalType
             tinyint:
                 class: App\Doctrine\Types\TinyIntType
+            uuid:
+                class: Symfony\Bridge\Doctrine\Types\UuidType
 
         schema_filter: ~^(?!internal)~
         # Only enable this when needed

@@ -42,6 +42,7 @@ class LogFilter implements FilterInterface
     public readonly ChoiceConstraint $targetType;
     public readonly IntConstraint $targetId;
     public readonly EntityConstraint $user;
+    public readonly ChoiceConstraint $accessMethod;
 
     public function __construct()
     {
@@ -56,6 +57,7 @@ class LogFilter implements FilterInterface
 
         $this->targetType = new ChoiceConstraint('log.target_type');
         $this->targetId = new IntConstraint('log.target_id');
+        $this->accessMethod = new ChoiceConstraint('log.access_method');
     }
 
     public function apply(QueryBuilder $queryBuilder): void

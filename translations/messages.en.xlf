@@ -2792,6 +2792,60 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Extra</target>
       </segment>
     </unit>
+    <unit id="A.jmuYn" name="log.access_method">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="final">
+        <source>log.access_method</source>
+        <target>Access method</target>
+      </segment>
+    </unit>
+    <unit id="1HJ94q3" name="log.access_method.web">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="final">
+        <source>log.access_method.web</source>
+        <target>Web UI</target>
+      </segment>
+    </unit>
+    <unit id="Nkv7mDF" name="log.access_method.cli">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="final">
+        <source>log.access_method.cli</source>
+        <target>CLI</target>
+      </segment>
+    </unit>
+    <unit id="RrNwi2T" name="log.access_method.api">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="final">
+        <source>log.access_method.api</source>
+        <target>REST API</target>
+      </segment>
+    </unit>
+    <unit id="3xmQSNB" name="log.access_method.mcp">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="final">
+        <source>log.access_method.mcp</source>
+        <target>MCP</target>
+      </segment>
+    </unit>
+    <unit id="Ne1j4YH" name="log.request_id">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="final">
+        <source>log.request_id</source>
+        <target>Request ID</target>
+      </segment>
+    </unit>
     <unit id="EU6XNV5" name="part.table.name">
       <segment state="translated">
         <source>part.table.name</source>
@@ -10065,13 +10119,13 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Enable the MCP (Model Context Protocol) endpoint at /mcp, which allows AI assistants to interact with Part-DB.</target>
       </segment>
     </unit>
-    <unit id="McpEd1t7" name="settings.misc.mcp.editing_enabled">
+    <unit id="Q7J0OKP" name="settings.misc.mcp.editing_enabled">
       <segment state="translated">
         <source>settings.misc.mcp.editing_enabled</source>
         <target>Enable part-editing MCP tools</target>
       </segment>
     </unit>
-    <unit id="McpEd1h7" name="settings.misc.mcp.editing_enabled.help">
+    <unit id="wolnNE7" name="settings.misc.mcp.editing_enabled.help">
       <segment state="translated">
         <source>settings.misc.mcp.editing_enabled.help</source>
         <target>Allow AI assistants to create, edit and delete parts and adjust stock levels via MCP tools. When disabled, all MCP tools remain read-only, regardless of the connected token's scope or the user's own permissions.</target>
