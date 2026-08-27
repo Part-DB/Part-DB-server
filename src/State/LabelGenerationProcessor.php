@@ -40,14 +40,14 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class LabelGenerationProcessor implements ProcessorInterface
+readonly class LabelGenerationProcessor implements ProcessorInterface
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
-        private readonly LabelGenerator $labelGenerator,
-        private readonly RangeParser $rangeParser,
-        private readonly ElementTypeNameGenerator $elementTypeNameGenerator,
-        private readonly Security $security,
+        private EntityManagerInterface $entityManager,
+        private LabelGenerator $labelGenerator,
+        private RangeParser $rangeParser,
+        private ElementTypeNameGenerator $elementTypeNameGenerator,
+        private Security $security,
     ) {
     }
 
