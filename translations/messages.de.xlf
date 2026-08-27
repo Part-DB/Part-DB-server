@@ -2791,6 +2791,60 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Extra</target>
       </segment>
     </unit>
+    <unit id="qAm2Xk9" name="log.access_method">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.access_method</source>
+        <target>Zugriffsmethode</target>
+      </segment>
+    </unit>
+    <unit id="rTz8Fv3" name="log.access_method.web">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.access_method.web</source>
+        <target>Web-Oberfläche</target>
+      </segment>
+    </unit>
+    <unit id="hLp4Wc7" name="log.access_method.cli">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.access_method.cli</source>
+        <target>CLI</target>
+      </segment>
+    </unit>
+    <unit id="mNb6Yd2" name="log.access_method.api">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.access_method.api</source>
+        <target>REST-API</target>
+      </segment>
+    </unit>
+    <unit id="vQx1Rf5" name="log.access_method.mcp">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.access_method.mcp</source>
+        <target>MCP</target>
+      </segment>
+    </unit>
+    <unit id="wJk3Tn8" name="log.request_id">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.request_id</source>
+        <target>Anfrage-ID</target>
+      </segment>
+    </unit>
     <unit id="EU6XNV5" name="part.table.name">
       <segment state="translated">
         <source>part.table.name</source>
