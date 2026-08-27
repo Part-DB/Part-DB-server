@@ -22,26 +22,45 @@ declare(strict_types=1);
 
 namespace App\State\Mcp;
 
+use ApiPlatform\Metadata\Operation;
+use ApiPlatform\State\ProcessorInterface;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
+use App\Settings\AISettings\McpSettings;
 use Doctrine\ORM\EntityManagerInterface;
+use Mcp\Schema\Result\CallToolResult;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
- * Shared by the withdraw/add/stocktake part-lot stock-adjustment MCP processors: resolving the lot by id, the
- * manual permission check, parsing+validating the optional timestamp, and resolving the lot's part. Each
- * subclass still calls PartLotWithdrawAddHelper itself, since the actual helper method and its argument list
- * differs per operation - only the surrounding wiring is shared here.
+ * Shared by the withdraw/add/stocktake part-lot stock-adjustment MCP processors. Owns the process() method as a
+ * template: the global editing-enabled guard and expected-error-to-CallToolResult wrapping (McpToolErrorHandling)
+ * happen exactly once, here, so no subclass can forget them - each subclass only implements adjustStock() with
+ * its own PartLotWithdrawAddHelper call, since the actual helper method and its argument list differs per
+ * operation. Also provides the shared lot resolution, manual permission check, and timestamp parsing/validation.
  */
-abstract class AbstractPartLotStockProcessor
+abstract class AbstractPartLotStockProcessor implements ProcessorInterface
 {
+    use McpToolErrorHandling;
+
     public function __construct(
         protected readonly EntityManagerInterface $entityManager,
         protected readonly AuthorizationCheckerInterface $authorizationChecker,
+        protected readonly McpSettings $mcpSettings,
     ) {
     }
+
+    final public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): Part|CallToolResult
+    {
+        return $this->runCatchingExpectedErrors(function () use ($data) {
+            $this->mcpSettings->assertEditingEnabled();
+
+            return $this->adjustStock($data);
+        });
+    }
+
+    abstract protected function adjustStock(mixed $data): Part;
 
     protected function resolveLot(int $id): PartLot
     {

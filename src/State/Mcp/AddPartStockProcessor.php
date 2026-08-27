@@ -22,38 +22,30 @@ declare(strict_types=1);
 
 namespace App\State\Mcp;
 
-use ApiPlatform\Metadata\Operation;
-use ApiPlatform\State\ProcessorInterface;
 use App\Entity\Parts\Part;
 use App\Mcp\DTO\AddPartStockInput;
 use App\Services\Parts\PartLotWithdrawAddHelper;
+use App\Settings\AISettings\McpSettings;
 use Doctrine\ORM\EntityManagerInterface;
-use Mcp\Schema\Result\CallToolResult;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Adds stock to a part lot, mirroring PartController::withdrawAddHandler()'s 'add' action. All stock math,
- * rounding and logging is delegated to PartLotWithdrawAddHelper; lot resolution, authorization, and timestamp
- * handling are shared with the other stock tools via AbstractPartLotStockProcessor.
+ * rounding and logging is delegated to PartLotWithdrawAddHelper; lot resolution, authorization, timestamp
+ * handling, the editing-enabled guard and process()/error-wrapping are all inherited - see AbstractPartLotStockProcessor.
  */
-final class AddPartStockProcessor extends AbstractPartLotStockProcessor implements ProcessorInterface
+final class AddPartStockProcessor extends AbstractPartLotStockProcessor
 {
-    use McpToolErrorHandling;
-
     public function __construct(
         EntityManagerInterface $entityManager,
         AuthorizationCheckerInterface $authorizationChecker,
+        McpSettings $mcpSettings,
         private readonly PartLotWithdrawAddHelper $withdrawAddHelper,
     ) {
-        parent::__construct($entityManager, $authorizationChecker);
+        parent::__construct($entityManager, $authorizationChecker, $mcpSettings);
     }
 
-    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): Part|CallToolResult
-    {
-        return $this->runCatchingExpectedErrors(fn () => $this->addStock($data));
-    }
-
-    private function addStock(mixed $data): Part
+    protected function adjustStock(mixed $data): Part
     {
         if (!$data instanceof AddPartStockInput) {
             throw new \InvalidArgumentException('Expected AddPartStockInput');

@@ -243,8 +243,13 @@ access token via a login-and-consent flow instead of a manually created API toke
 ### MCP settings
 
 * `MCP_ENABLED` (default `0`): Enables the [MCP server]({% link api/mcp.md %}) under the `/mcp` path, which lets
-  AI assistants and agents interact with your Part-DB inventory (read-only). Can also be toggled via the system
-  settings **AI** tab.
+  AI assistants and agents interact with your Part-DB inventory. Can also be toggled via the system settings **AI**
+  tab.
+* `MCP_EDITING_ENABLED` (default `0`): Additionally enables the part-creation, part-editing, part-deletion and
+  stock-adjustment MCP tools. Has no effect unless `MCP_ENABLED` is also set to `1`. While disabled (the default,
+  even with `MCP_ENABLED=1`), every write tool call is rejected for every user, regardless of their permissions or
+  the connected API token's scope - only the read-only tools work. Can also be toggled via the system settings
+  **AI** tab.
 
 ### SAML SSO settings (all env only)
 

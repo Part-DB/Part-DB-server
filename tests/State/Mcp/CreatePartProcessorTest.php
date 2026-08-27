@@ -32,6 +32,7 @@ use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\UserSystem\User;
 use App\Mcp\DTO\CreatePartInput;
+use App\Settings\AISettings\McpSettings;
 use App\State\Mcp\CreatePartProcessor;
 use Doctrine\ORM\EntityManagerInterface;
 use Mcp\Schema\Content\TextContent;
@@ -44,6 +45,7 @@ class CreatePartProcessorTest extends WebTestCase
     private KernelBrowser $client;
     private EntityManagerInterface $em;
     private CreatePartProcessor $processor;
+    private McpSettings $mcpSettings;
 
     protected function setUp(): void
     {
@@ -55,6 +57,11 @@ class CreatePartProcessorTest extends WebTestCase
 
         $this->em = self::getContainer()->get(EntityManagerInterface::class);
         $this->processor = self::getContainer()->get(CreatePartProcessor::class);
+
+        //Editing MCP tools is disabled by default (McpSettings::$editingEnabled) - enable it for these tests,
+        //which exercise the tool's actual behavior; testDeniesAccessWhenEditingToolsDisabled() covers the guard itself.
+        $this->mcpSettings = self::getContainer()->get(McpSettings::class);
+        $this->mcpSettings->editingEnabled = true;
     }
 
     private function getOperation(): Post
@@ -227,5 +234,16 @@ class CreatePartProcessorTest extends WebTestCase
         $result = $this->processor->process($input, $this->getOperation());
 
         $this->assertErrorResult($result, 'not allowed to create parts');
+    }
+
+    public function testDeniesAccessWhenEditingToolsDisabled(): void
+    {
+        $this->mcpSettings->editingEnabled = false;
+
+        $input = $this->buildInput(['name' => 'Should not be created']);
+
+        $result = $this->processor->process($input, $this->getOperation());
+
+        $this->assertErrorResult($result, 'Editing via MCP tools is disabled');
     }
 }

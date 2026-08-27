@@ -10065,6 +10065,18 @@ Please note, that you can not impersonate a disabled user. If you try you will g
         <target>Enable the MCP (Model Context Protocol) endpoint at /mcp, which allows AI assistants to interact with Part-DB.</target>
       </segment>
     </unit>
+    <unit id="McpEd1t7" name="settings.misc.mcp.editing_enabled">
+      <segment state="translated">
+        <source>settings.misc.mcp.editing_enabled</source>
+        <target>Enable part-editing MCP tools</target>
+      </segment>
+    </unit>
+    <unit id="McpEd1h7" name="settings.misc.mcp.editing_enabled.help">
+      <segment state="translated">
+        <source>settings.misc.mcp.editing_enabled.help</source>
+        <target>Allow AI assistants to create, edit and delete parts and adjust stock levels via MCP tools. When disabled, all MCP tools remain read-only, regardless of the connected token's scope or the user's own permissions.</target>
+      </segment>
+    </unit>
     <unit id="xtw_ol7" name="settings.misc.kicad_eda">
       <segment state="translated">
         <source>settings.misc.kicad_eda</source>

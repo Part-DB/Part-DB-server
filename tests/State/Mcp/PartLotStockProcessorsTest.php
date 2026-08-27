@@ -31,6 +31,7 @@ use App\Entity\UserSystem\User;
 use App\Mcp\DTO\AddPartStockInput;
 use App\Mcp\DTO\StocktakePartLotInput;
 use App\Mcp\DTO\WithdrawPartStockInput;
+use App\Settings\AISettings\McpSettings;
 use App\State\Mcp\AddPartStockProcessor;
 use App\State\Mcp\StocktakePartLotProcessor;
 use App\State\Mcp\WithdrawPartStockProcessor;
@@ -49,6 +50,7 @@ class PartLotStockProcessorsTest extends WebTestCase
 {
     private KernelBrowser $client;
     private EntityManagerInterface $em;
+    private McpSettings $mcpSettings;
     private Part $part;
 
     protected function setUp(): void
@@ -60,6 +62,11 @@ class PartLotStockProcessorsTest extends WebTestCase
         $this->client->loginUser($admin);
 
         $this->em = self::getContainer()->get(EntityManagerInterface::class);
+
+        //Editing MCP tools is disabled by default (McpSettings::$editingEnabled) - enable it for these tests,
+        //which exercise the tools' actual behavior; testDeniesAccessWhenEditingToolsDisabled() covers the guard itself.
+        $this->mcpSettings = self::getContainer()->get(McpSettings::class);
+        $this->mcpSettings->editingEnabled = true;
 
         $category = $this->em->getRepository(Category::class)->findOneBy(['name' => 'Node 1']);
         self::assertNotNull($category);
@@ -174,5 +181,18 @@ class PartLotStockProcessorsTest extends WebTestCase
         $result = $processor->process(new WithdrawPartStockInput(lotId: $lot->getID(), amount: 1.0), new Post());
 
         $this->assertErrorResult($result, 'Access denied');
+    }
+
+    public function testDeniesAccessWhenEditingToolsDisabled(): void
+    {
+        $this->mcpSettings->editingEnabled = false;
+        $lot = $this->createLot(10.0);
+
+        /** @var WithdrawPartStockProcessor $processor */
+        $processor = self::getContainer()->get(WithdrawPartStockProcessor::class);
+
+        $result = $processor->process(new WithdrawPartStockInput(lotId: $lot->getID(), amount: 1.0), new Post());
+
+        $this->assertErrorResult($result, 'Editing via MCP tools is disabled');
     }
 }

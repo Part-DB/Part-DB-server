@@ -32,6 +32,7 @@ use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\UserSystem\User;
 use App\Mcp\DTO\UpdatePartInput;
+use App\Settings\AISettings\McpSettings;
 use App\State\Mcp\UpdatePartProcessor;
 use Doctrine\ORM\EntityManagerInterface;
 use Mcp\Schema\Content\TextContent;
@@ -44,6 +45,7 @@ class UpdatePartProcessorTest extends WebTestCase
     private KernelBrowser $client;
     private EntityManagerInterface $em;
     private UpdatePartProcessor $processor;
+    private McpSettings $mcpSettings;
     private Part $part;
 
     protected function setUp(): void
@@ -56,6 +58,11 @@ class UpdatePartProcessorTest extends WebTestCase
 
         $this->em = self::getContainer()->get(EntityManagerInterface::class);
         $this->processor = self::getContainer()->get(UpdatePartProcessor::class);
+
+        //Editing MCP tools is disabled by default (McpSettings::$editingEnabled) - enable it for these tests,
+        //which exercise the tool's actual behavior; testDeniesAccessWhenEditingToolsDisabled() covers the guard itself.
+        $this->mcpSettings = self::getContainer()->get(McpSettings::class);
+        $this->mcpSettings->editingEnabled = true;
 
         $category = $this->em->getRepository(Category::class)->findOneBy(['name' => 'Node 1']);
         self::assertNotNull($category);
@@ -251,5 +258,15 @@ class UpdatePartProcessorTest extends WebTestCase
         $result = $this->processor->process($input, $this->getOperation());
 
         $this->assertErrorResult($result, 'Access denied');
+    }
+
+    public function testDeniesAccessWhenEditingToolsDisabled(): void
+    {
+        $this->mcpSettings->editingEnabled = false;
+
+        $input = $this->buildInput(['id' => $this->part->getID(), 'name' => 'Should not change']);
+        $result = $this->processor->process($input, $this->getOperation());
+
+        $this->assertErrorResult($result, 'Editing via MCP tools is disabled');
     }
 }

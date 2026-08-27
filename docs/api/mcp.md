@@ -40,6 +40,14 @@ Once enabled, the MCP server is reachable under the `/mcp` path of your Part-DB 
 `https://your-part-db.local/mcp`). Unlike most other Part-DB pages, this path is **not** locale-prefixed (so it is
 `/mcp`, not `/en/mcp`).
 
+{: .warning }
+> The part-creation, part-editing, part-deletion and stock-adjustment tools are additionally gated by their own
+> **Enable part-editing MCP tools** switch, right below **Enable MCP endpoint** in the same settings section (env
+> var `MCP_EDITING_ENABLED`). It is **off by default**, even after enabling the MCP endpoint itself: with it off,
+> every write tool call is rejected for every user, regardless of their permissions or the connected token's
+> scope - the MCP server behaves as if only the read-only tools existed. Turn it on only once you're comfortable
+> letting connected AI assistants create, edit and delete parts and adjust stock levels.
+
 {: .note }
 > If your MCP client gets a `Forbidden: Invalid Host header` response, set the `TRUSTED_HOSTS` environment variable
 > (see the comments in `.env`) to include your Part-DB domain name. The MCP endpoint validates the `Host` header

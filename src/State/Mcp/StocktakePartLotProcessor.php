@@ -22,38 +22,31 @@ declare(strict_types=1);
 
 namespace App\State\Mcp;
 
-use ApiPlatform\Metadata\Operation;
-use ApiPlatform\State\ProcessorInterface;
 use App\Entity\Parts\Part;
 use App\Mcp\DTO\StocktakePartLotInput;
 use App\Services\Parts\PartLotWithdrawAddHelper;
+use App\Settings\AISettings\McpSettings;
 use Doctrine\ORM\EntityManagerInterface;
-use Mcp\Schema\Result\CallToolResult;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Performs a stocktake on a part lot, setting its amount to the given actual value, mirroring
  * PartController::stocktakeHandler(). All logging is delegated to PartLotWithdrawAddHelper; lot resolution,
- * authorization, and timestamp handling are shared with the other stock tools via AbstractPartLotStockProcessor.
+ * authorization, timestamp handling, the editing-enabled guard and process()/error-wrapping are all inherited -
+ * see AbstractPartLotStockProcessor.
  */
-final class StocktakePartLotProcessor extends AbstractPartLotStockProcessor implements ProcessorInterface
+final class StocktakePartLotProcessor extends AbstractPartLotStockProcessor
 {
-    use McpToolErrorHandling;
-
     public function __construct(
         EntityManagerInterface $entityManager,
         AuthorizationCheckerInterface $authorizationChecker,
+        McpSettings $mcpSettings,
         private readonly PartLotWithdrawAddHelper $withdrawAddHelper,
     ) {
-        parent::__construct($entityManager, $authorizationChecker);
+        parent::__construct($entityManager, $authorizationChecker, $mcpSettings);
     }
 
-    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): Part|CallToolResult
-    {
-        return $this->runCatchingExpectedErrors(fn () => $this->stocktakeLot($data));
-    }
-
-    private function stocktakeLot(mixed $data): Part
+    protected function adjustStock(mixed $data): Part
     {
         if (!$data instanceof StocktakePartLotInput) {
             throw new \InvalidArgumentException('Expected StocktakePartLotInput');

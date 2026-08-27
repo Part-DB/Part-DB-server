@@ -28,6 +28,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Entity\UserSystem\User;
 use App\Mcp\DTO\DeletePartInput;
+use App\Settings\AISettings\McpSettings;
 use App\State\Mcp\DeletePartProcessor;
 use Doctrine\ORM\EntityManagerInterface;
 use Mcp\Schema\Content\TextContent;
@@ -40,6 +41,7 @@ class DeletePartProcessorTest extends WebTestCase
     private KernelBrowser $client;
     private EntityManagerInterface $em;
     private DeletePartProcessor $processor;
+    private McpSettings $mcpSettings;
     private Part $part;
 
     protected function setUp(): void
@@ -52,6 +54,11 @@ class DeletePartProcessorTest extends WebTestCase
 
         $this->em = self::getContainer()->get(EntityManagerInterface::class);
         $this->processor = self::getContainer()->get(DeletePartProcessor::class);
+
+        //Editing MCP tools is disabled by default (McpSettings::$editingEnabled) - enable it for these tests,
+        //which exercise the tool's actual behavior; testDeniesAccessWhenEditingToolsDisabled() covers the guard itself.
+        $this->mcpSettings = self::getContainer()->get(McpSettings::class);
+        $this->mcpSettings->editingEnabled = true;
 
         $category = $this->em->getRepository(Category::class)->findOneBy(['name' => 'Node 1']);
         self::assertNotNull($category);
@@ -117,6 +124,19 @@ class DeletePartProcessorTest extends WebTestCase
         $this->assertErrorResult($result, 'Access denied');
 
         //The part must still exist after a denied delete attempt
+        self::assertNotNull($this->em->getRepository(Part::class)->find($id));
+    }
+
+    public function testDeniesAccessWhenEditingToolsDisabled(): void
+    {
+        $this->mcpSettings->editingEnabled = false;
+
+        $id = $this->part->getID();
+        self::assertNotNull($id);
+
+        $result = $this->processor->process(new DeletePartInput(id: $id), $this->getOperation());
+
+        $this->assertErrorResult($result, 'Editing via MCP tools is disabled');
         self::assertNotNull($this->em->getRepository(Part::class)->find($id));
     }
 }

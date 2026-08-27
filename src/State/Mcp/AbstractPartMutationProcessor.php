@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\State\Mcp;
 
+use ApiPlatform\Metadata\Operation;
+use ApiPlatform\State\ProcessorInterface;
 use ApiPlatform\Validator\ValidatorInterface;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parameters\PartParameter;
@@ -50,25 +52,44 @@ use App\Mcp\DTO\ParameterInput;
 use App\Mcp\DTO\PartLotInput;
 use App\Mcp\DTO\PricedetailInput;
 use App\Services\LogSystem\EventCommentHelper;
+use App\Settings\AISettings\McpSettings;
 use Brick\Math\BigDecimal;
 use Doctrine\ORM\EntityManagerInterface;
+use Mcp\Schema\Result\CallToolResult;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Shared helpers used by CreatePartProcessor and UpdatePartProcessor: resolving related entities by ID (mirrors
- * GetPartByIdProcessor's manual find()-or-404 idiom), and reconciling the nested collection inputs
- * (partLots/parameters/orderdetails/pricedetails/associatedPartsAsOwner) onto the corresponding Doctrine
- * collections via the entity's own adder/remover methods.
+ * Shared by CreatePartProcessor and UpdatePartProcessor. Owns the process() method as a template: the global
+ * editing-enabled guard and expected-error-to-CallToolResult wrapping (McpToolErrorHandling) happen exactly once,
+ * here, so neither subclass can forget them - each subclass only implements mutatePart() with its own
+ * entity-resolution/permission-check/field-application logic. Also provides the shared helpers for resolving
+ * related entities by ID (mirrors GetPartByIdProcessor's manual find()-or-404 idiom) and reconciling the nested
+ * collection inputs (partLots/parameters/orderdetails/pricedetails/associatedPartsAsOwner) onto the corresponding
+ * Doctrine collections via the entity's own adder/remover methods.
  */
-abstract class AbstractPartMutationProcessor
+abstract class AbstractPartMutationProcessor implements ProcessorInterface
 {
+    use McpToolErrorHandling;
+
     public function __construct(
         protected readonly EntityManagerInterface $entityManager,
         protected readonly ValidatorInterface $validator,
         protected readonly EventCommentHelper $eventCommentHelper,
+        protected readonly McpSettings $mcpSettings,
     ) {
     }
+
+    final public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): Part|CallToolResult
+    {
+        return $this->runCatchingExpectedErrors(function () use ($data) {
+            $this->mcpSettings->assertEditingEnabled();
+
+            return $this->mutatePart($data);
+        });
+    }
+
+    abstract protected function mutatePart(mixed $data): Part;
 
     /**
      * Applies every field AbstractPartWriteInput declares (i.e. everything both create_part and update_part

@@ -27,6 +27,7 @@ use ApiPlatform\State\ProcessorInterface;
 use App\Entity\Parts\Part;
 use App\Mcp\DTO\DeletePartInput;
 use App\Services\LogSystem\EventCommentHelper;
+use App\Settings\AISettings\McpSettings;
 use Doctrine\ORM\EntityManagerInterface;
 use Mcp\Schema\Content\TextContent;
 use Mcp\Schema\Result\CallToolResult;
@@ -47,12 +48,17 @@ final class DeletePartProcessor implements ProcessorInterface
         private readonly EntityManagerInterface $entityManager,
         private readonly AuthorizationCheckerInterface $authorizationChecker,
         private readonly EventCommentHelper $eventCommentHelper,
+        private readonly McpSettings $mcpSettings,
     ) {
     }
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): CallToolResult
     {
-        return $this->runCatchingExpectedErrors(fn () => $this->deletePart($data));
+        return $this->runCatchingExpectedErrors(function () use ($data) {
+            $this->mcpSettings->assertEditingEnabled();
+
+            return $this->deletePart($data);
+        });
     }
 
     private function deletePart(mixed $data): CallToolResult

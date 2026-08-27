@@ -22,14 +22,12 @@ declare(strict_types=1);
 
 namespace App\State\Mcp;
 
-use ApiPlatform\Metadata\Operation;
-use ApiPlatform\State\ProcessorInterface;
 use ApiPlatform\Validator\ValidatorInterface;
 use App\Entity\Parts\Part;
 use App\Mcp\DTO\CreatePartInput;
 use App\Services\LogSystem\EventCommentHelper;
+use App\Settings\AISettings\McpSettings;
 use Doctrine\ORM\EntityManagerInterface;
-use Mcp\Schema\Result\CallToolResult;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -39,27 +37,22 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  * AbstractPartMutationProcessor's docblock and the create_part McpTool entry on Part.php for the full rationale.
  *
  * Field application itself is shared with UpdatePartProcessor via AbstractPartMutationProcessor::applyProvidedFields() -
- * a brand-new Part being built here is, field-application-wise, just an update against a still-empty entity.
+ * a brand-new Part being built here is, field-application-wise, just an update against a still-empty entity. The
+ * editing-enabled guard and process()/error-wrapping are also inherited - see AbstractPartMutationProcessor.
  */
-final class CreatePartProcessor extends AbstractPartMutationProcessor implements ProcessorInterface
+final class CreatePartProcessor extends AbstractPartMutationProcessor
 {
-    use McpToolErrorHandling;
-
     public function __construct(
         EntityManagerInterface $entityManager,
         ValidatorInterface $validator,
         EventCommentHelper $eventCommentHelper,
+        McpSettings $mcpSettings,
         private readonly AuthorizationCheckerInterface $authorizationChecker,
     ) {
-        parent::__construct($entityManager, $validator, $eventCommentHelper);
+        parent::__construct($entityManager, $validator, $eventCommentHelper, $mcpSettings);
     }
 
-    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): Part|CallToolResult
-    {
-        return $this->runCatchingExpectedErrors(fn () => $this->createPart($data));
-    }
-
-    private function createPart(mixed $data): Part
+    protected function mutatePart(mixed $data): Part
     {
         if (!$data instanceof CreatePartInput) {
             throw new \InvalidArgumentException('Expected CreatePartInput');
