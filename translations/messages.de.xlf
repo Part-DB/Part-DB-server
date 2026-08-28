@@ -14997,5 +14997,29 @@ Buerklin-API-Authentication-Server:
         <target>Auf dem Chip aufgedruckt</target>
       </segment>
     </unit>
+    <unit id="QCg5KCx" name="project.edit.bom.performance_mode_warning">
+      <segment state="translated">
+        <source>project.edit.bom.performance_mode_warning</source>
+        <target>Dieses Projekt enthält %count% BOM-Einträge. Es ist zu groß, um hier bearbeitet zu werden.</target>
+      </segment>
+    </unit>
+    <unit id="LEreMQo" name="project.edit.bom.performance_mode_warning.link">
+      <segment state="translated">
+        <source>project.edit.bom.performance_mode_warning.link</source>
+        <target>Bearbeiten Sie die BOM-Einträge stattdessen über die BOM-Tabellenansicht.</target>
+      </segment>
+    </unit>
+    <unit id="OMOXH6o" name="project.bom_entry.edit.back_to_bom">
+      <segment state="translated">
+        <source>project.bom_entry.edit.back_to_bom</source>
+        <target>Zurück zur Projekt-BOM</target>
+      </segment>
+    </unit>
+    <unit id="M1leSpV" name="project.bom_entry.edit.title">
+      <segment state="translated">
+        <source>project.bom_entry.edit.title</source>
+        <target>BOM-Eintrag #%id% des Projekts bearbeiten</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
