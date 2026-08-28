@@ -30,6 +30,8 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\ProjectSystem\Project;
+use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Entity\UserSystem\User;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use PHPUnit\Framework\Attributes\Group;
@@ -304,6 +306,150 @@ final class PartControllerTest extends WebTestCase
 
 
 
+
+    public function testMergePartsWithProjectBomEntriesSubmitsWithoutError(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $categoryRepository = $entityManager->getRepository(Category::class);
+        $category = $categoryRepository->find(1);
+
+        if (!$category) {
+            $this->markTestSkipped('Test category with ID 1 not found in fixtures');
+        }
+
+        $targetPart = new Part();
+        $targetPart->setName('BOM Merge Target');
+        $targetPart->setCategory($category);
+
+        $otherPart = new Part();
+        $otherPart->setName('BOM Merge Other');
+        $otherPart->setCategory($category);
+
+        $entityManager->persist($targetPart);
+        $entityManager->persist($otherPart);
+
+        $projectB = new Project();
+        $projectB->setName('BOM Merge Project B');
+        $projectC = new Project();
+        $projectC->setName('BOM Merge Project C');
+        $entityManager->persist($projectB);
+        $entityManager->persist($projectC);
+
+        $entryB = (new ProjectBOMEntry())->setQuantity(3.0);
+        $projectB->addBomEntry($entryB);
+        $otherPart->addProjectBomEntry($entryB);
+        $entityManager->persist($entryB);
+
+        $entryC = (new ProjectBOMEntry())->setQuantity(5.0);
+        $projectC->addBomEntry($entryC);
+        $otherPart->addProjectBomEntry($entryC);
+        $entityManager->persist($entryC);
+
+        $entityManager->flush();
+
+        $targetId = $targetPart->getId();
+        $otherId = $otherPart->getId();
+        $projectBId = $projectB->getId();
+        $projectCId = $projectC->getId();
+
+        $crawler = $client->request('GET', "/en/part/{$targetId}/merge/{$otherId}");
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        $form = $crawler->filter('button[name="part_base[save]"]')->form();
+        $client->submit($form);
+
+        //The submission must succeed (redirect to the edited part), not throw a DB integrity exception
+        $this->assertResponseRedirects();
+
+        //Requesting the client may reset the entity manager, so fetch a fresh reference for the assertions/cleanup
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+
+        $this->assertNull($entityManager->getRepository(Part::class)->find($otherId));
+
+        $mergedPart = $entityManager->getRepository(Part::class)->find($targetId);
+        self::assertNotNull($mergedPart);
+        self::assertCount(2, $mergedPart->getProjectBomEntries());
+
+        // Clean up
+        $entityManager->remove($mergedPart);
+        $entityManager->remove($entityManager->getRepository(Project::class)->find($projectBId));
+        $entityManager->remove($entityManager->getRepository(Project::class)->find($projectCId));
+        $entityManager->flush();
+    }
+
+    public function testMergePartsUsedInSameProjectSubmitsWithoutError(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $categoryRepository = $entityManager->getRepository(Category::class);
+        $category = $categoryRepository->find(1);
+
+        if (!$category) {
+            $this->markTestSkipped('Test category with ID 1 not found in fixtures');
+        }
+
+        $targetPart = new Part();
+        $targetPart->setName('BOM Merge Target Same Project');
+        $targetPart->setCategory($category);
+
+        $otherPart = new Part();
+        $otherPart->setName('BOM Merge Other Same Project');
+        $otherPart->setCategory($category);
+
+        $entityManager->persist($targetPart);
+        $entityManager->persist($otherPart);
+
+        $project = new Project();
+        $project->setName('BOM Merge Shared Project');
+        $entityManager->persist($project);
+
+        $entry1 = (new ProjectBOMEntry())->setQuantity(2.0);
+        $project->addBomEntry($entry1);
+        $targetPart->addProjectBomEntry($entry1);
+        $entityManager->persist($entry1);
+
+        $entry2 = (new ProjectBOMEntry())->setQuantity(4.0);
+        $project->addBomEntry($entry2);
+        $otherPart->addProjectBomEntry($entry2);
+        $entityManager->persist($entry2);
+
+        $entityManager->flush();
+
+        $targetId = $targetPart->getId();
+        $otherId = $otherPart->getId();
+        $projectId = $project->getId();
+        $entry2Id = $entry2->getId();
+
+        $crawler = $client->request('GET', "/en/part/{$targetId}/merge/{$otherId}");
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        $form = $crawler->filter('button[name="part_base[save]"]')->form();
+        $client->submit($form);
+
+        //The submission must succeed (redirect to the edited part), not throw a DB integrity exception
+        $this->assertResponseRedirects();
+
+        //Requesting the client may reset the entity manager, so fetch a fresh reference for the assertions/cleanup
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+
+        $this->assertNull($entityManager->getRepository(Part::class)->find($otherId));
+        $this->assertNull($entityManager->getRepository(ProjectBOMEntry::class)->find($entry2Id));
+
+        $mergedPart = $entityManager->getRepository(Part::class)->find($targetId);
+        self::assertNotNull($mergedPart);
+        self::assertCount(1, $mergedPart->getProjectBomEntries());
+        self::assertSame(6.0, $mergedPart->getProjectBomEntries()->first()->getQuantity());
+
+        // Clean up
+        $entityManager->remove($mergedPart);
+        $entityManager->remove($entityManager->getRepository(Project::class)->find($projectId));
+        $entityManager->flush();
+    }
 
     public function testAccessControlForUnauthorizedUser(): void
     {

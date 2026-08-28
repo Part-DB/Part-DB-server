@@ -34,6 +34,8 @@ use App\Entity\Parts\PartAssociation;
 use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\PartLot;
 use App\Entity\PriceInformations\Orderdetail;
+use App\Entity\ProjectSystem\Project;
+use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Services\EntityMergers\Mergers\PartMerger;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -191,6 +193,90 @@ final class PartMergerTest extends KernelTestCase
 
     }
     
+    public function testMergeOfProjectBomEntries(): void
+    {
+        $projectA = (new Project())->setName('Project A');
+        $projectB = (new Project())->setName('Project B');
+        $projectC = (new Project())->setName('Project C');
+
+        $part1 = (new Part())->setName('Part 1');
+        $part2 = (new Part())->setName('Part 2');
+
+        //Part 1 is used in project A
+        $entryA = (new ProjectBOMEntry())->setQuantity(2.0);
+        $projectA->addBomEntry($entryA);
+        $part1->addProjectBomEntry($entryA);
+
+        //Part 2 is used in project B and project C
+        $entryB = (new ProjectBOMEntry())->setQuantity(3.0);
+        $entryC = (new ProjectBOMEntry())->setQuantity(5.0);
+        $projectB->addBomEntry($entryB);
+        $projectC->addBomEntry($entryC);
+        $part2->addProjectBomEntry($entryB);
+        $part2->addProjectBomEntry($entryC);
+
+        $merged = $this->merger->merge($part1, $part2);
+        $this->assertSame($merged, $part1);
+
+        //The merged part should now be used in all 3 projects
+        $this->assertCount(3, $merged->getProjectBomEntries());
+        //Project A was already using the target part, so its entry is untouched
+        $this->assertSame($entryA, $merged->getProjectBomEntries()->get(0));
+        $this->assertCount(1, $projectA->getBomEntries());
+        $this->assertSame($entryA, $projectA->getBomEntries()->first());
+
+        //The project B/C BOM entries are not cloned, they are just re-pointed to the target part in place
+        $this->assertSame($entryB, $merged->getProjectBomEntries()->get(1));
+        $this->assertSame($entryC, $merged->getProjectBomEntries()->get(2));
+        $this->assertSame($projectB, $entryB->getProject());
+        $this->assertSame($projectC, $entryC->getProject());
+        $this->assertSame($merged, $entryB->getPart());
+        $this->assertSame($merged, $entryC->getPart());
+
+        //The projects' BOM entry collections are untouched, since the entry itself now just points to the new part
+        $this->assertCount(1, $projectB->getBomEntries());
+        $this->assertSame($entryB, $projectB->getBomEntries()->first());
+
+        $this->assertCount(1, $projectC->getBomEntries());
+        $this->assertSame($entryC, $projectC->getBomEntries()->first());
+
+        //The other part must no longer reference the migrated entries in memory, so a subsequent deletion of it
+        //(via the part-deletion listener) doesn't unlink/rename them again
+        $this->assertCount(0, $part2->getProjectBomEntries());
+    }
+
+    public function testMergeOfProjectBomEntriesSameProjectQuantitiesAreSummed(): void
+    {
+        $project = (new Project())->setName('Shared project');
+
+        $part1 = (new Part())->setName('Part 1');
+        $part2 = (new Part())->setName('Part 2');
+
+        $entry1 = (new ProjectBOMEntry())->setQuantity(2.0)
+            ->setName('name1')->setMountnames('U1,U2')->setComment('comment1');
+        $entry2 = (new ProjectBOMEntry())->setQuantity(4.0)
+            ->setName('name2')->setMountnames('U3,U4')->setComment('comment2');
+        $project->addBomEntry($entry1);
+        $project->addBomEntry($entry2);
+        $part1->addProjectBomEntry($entry1);
+        $part2->addProjectBomEntry($entry2);
+
+        $merged = $this->merger->merge($part1, $part2);
+
+        //The old, now-redundant BOM entry should have been removed from the project
+        $this->assertCount(1, $project->getBomEntries());
+        $this->assertSame($entry1, $project->getBomEntries()->first());
+
+        //Both entries reference the same project, so they should be merged into a single entry with summed quantity
+        $this->assertCount(1, $merged->getProjectBomEntries());
+        $mergedEntry = $merged->getProjectBomEntries()->get(0);
+        $this->assertSame(6.0, $mergedEntry->getQuantity());
+        //The names, mountnames and comments should be merged too, so no information is lost
+        $this->assertSame('name1 / name2', $mergedEntry->getName());
+        $this->assertSame('U1,U2,U3,U4', $mergedEntry->getMountnames());
+        $this->assertSame("comment1 / comment2", $mergedEntry->getComment());
+    }
+
     public function testMergeOfAttachmentsWithExternalPath(): void
     {
         $attachmentType = new AttachmentType();
