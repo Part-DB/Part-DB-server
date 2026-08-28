@@ -48,7 +48,7 @@
         "api-platform/metadata": "^v4.3.17",
         "api-platform/symfony": "^4.0.0",
         "beberlei/doctrineextensions": "^1.2",
-        "brick/math": "^0.17.0",
+        "brick/math": "^0.19.0",
         "brick/schema": "^0.2.0",
         "composer/ca-bundle": "^1.5",
         "composer/package-versions-deprecated": "^1.11.99.5",
