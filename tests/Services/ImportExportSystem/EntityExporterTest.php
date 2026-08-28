@@ -94,6 +94,24 @@ final class EntityExporterTest extends WebTestCase
         self::assertArrayNotHasKey('choices', $exported_parameter);
     }
 
+    public function testFullParameterDefinitionExportPreservesDeprecatedChoices(): void
+    {
+        $definition = (new ParameterDefinition())
+            ->setName('Export retired dielectric')
+            ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
+            ->setChoices(['C0G', 'X5R'])
+            ->setDeprecatedChoices(['X7R']);
+
+        $data = json_decode(
+            $this->service->exportEntities($definition, ['format' => 'json', 'level' => 'full']),
+            true,
+            flags: JSON_THROW_ON_ERROR,
+        );
+
+        self::assertSame(['C0G', 'X5R'], $data[0]['choices']);
+        self::assertSame(['X7R'], $data[0]['deprecated_choices']);
+    }
+
     public function testExportEntityFromRequest(): void
     {
         $entities = $this->getEntities();

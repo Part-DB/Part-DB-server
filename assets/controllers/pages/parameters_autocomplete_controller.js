@@ -122,7 +122,7 @@ export default class extends Controller
         this.definitionTarget.dispatchEvent(new Event('change', {bubbles: true}));
     }
 
-    applyInputDefinition(inputType, choices, restoredValue = undefined) {
+    applyInputDefinition(inputType, choices, restoredValue = undefined, deprecatedChoices = []) {
         this.destroyValueTomSelect();
         const oldElement = this.valueTextTarget;
         const currentValue = restoredValue ?? oldElement.value;
@@ -144,7 +144,16 @@ export default class extends Controller
                 newElement.add(new Option(choice, choice));
             }
 
-            newElement.value = choices.includes(currentValue) ? currentValue : '';
+            for (const choice of deprecatedChoices) {
+                const option = new Option(
+                    trans('parameter_definition.choice.deprecated_label', {'%choice%': choice}),
+                    choice,
+                );
+                option.dataset.deprecatedChoice = 'true';
+                newElement.add(option);
+            }
+
+            newElement.value = [...choices, ...deprecatedChoices].includes(currentValue) ? currentValue : '';
         } else {
             newElement.type = 'text';
             newElement.classList.remove('form-select', 'form-select-sm');
@@ -281,7 +290,14 @@ export default class extends Controller
             definitionName: selectedDefinition?.text ?? this.nameTarget.value,
             inputType: isChoice ? 'choice' : 'text',
             choices: isChoice
-                ? Array.from(valueElement.options).filter(option => option.value !== '').map(option => option.value)
+                ? Array.from(valueElement.options)
+                    .filter(option => option.value !== '' && option.dataset.deprecatedChoice !== 'true')
+                    .map(option => option.value)
+                : [],
+            deprecatedChoices: isChoice
+                ? Array.from(valueElement.options)
+                    .filter(option => option.value !== '' && option.dataset.deprecatedChoice === 'true')
+                    .map(option => option.value)
                 : [],
             value: valueElement.value,
         };
@@ -329,7 +345,12 @@ export default class extends Controller
                 state.definitionName
             );
         }
-        this.applyInputDefinition(state.inputType, state.choices, state.value);
+        this.applyInputDefinition(
+            state.inputType,
+            state.choices,
+            state.value,
+            state.deprecatedChoices,
+        );
         this.setLinkedFieldState(state.definitionId !== '');
         this._resetting = false;
     }

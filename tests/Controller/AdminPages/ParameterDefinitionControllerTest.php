@@ -171,6 +171,50 @@ final class ParameterDefinitionControllerTest extends WebTestCase
         ));
     }
 
+    public function testRemovingUsedChoiceThroughAdminDeprecatesItAndShowsReadOnlyList(): void
+    {
+        $client = $this->createAuthenticatedClient();
+        $definition = (new ParameterDefinition())
+            ->setName('Controller retired dielectric')
+            ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
+            ->setChoices(['C0G', 'X7R', 'X5R']);
+        $parameter = (new PartParameter())->setDefinition($definition)->setValueText('X7R');
+        $category = (new Category())->setName('Controller retired category');
+        $part = (new Part())
+            ->setName('Controller retired part')
+            ->setCategory($category)
+            ->addParameter($parameter);
+        $em = $this->entityManager();
+        $em->persist($definition);
+        $em->persist($category);
+        $em->persist($part);
+        $em->flush();
+        $definition_id = $definition->getID();
+        $parameter_id = $parameter->getID();
+        self::assertNotNull($definition_id);
+        self::assertNotNull($parameter_id);
+
+        $crawler = $client->request('GET', '/en/parameter_definition/'.$definition_id.'/edit');
+        self::assertResponseIsSuccessful();
+        $crawler = $this->submitDefinitionForm($client, $crawler, [
+            'name' => 'Controller retired dielectric',
+            'input_type' => ParameterDefinition::INPUT_TYPE_CHOICE,
+            'choices_text' => "C0G\nX5R",
+        ]);
+
+        self::assertResponseIsSuccessful();
+        self::assertStringContainsString('Deprecated choices', $crawler->filter('body')->text());
+        self::assertStringContainsString('X7R', $crawler->filter('body')->text());
+        $em->clear();
+        $reloaded_definition = $em->find(ParameterDefinition::class, $definition_id);
+        $reloaded_parameter = $em->find(PartParameter::class, $parameter_id);
+        self::assertInstanceOf(ParameterDefinition::class, $reloaded_definition);
+        self::assertInstanceOf(PartParameter::class, $reloaded_parameter);
+        self::assertSame(['C0G', 'X5R'], $reloaded_definition->getChoices());
+        self::assertSame(['X7R'], $reloaded_definition->getDeprecatedChoices());
+        self::assertSame('X7R', $reloaded_parameter->getValueText());
+    }
+
     public function testCaseInsensitiveDuplicateNameIsAFormError(): void
     {
         $client = $this->createAuthenticatedClient();

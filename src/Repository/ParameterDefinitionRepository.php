@@ -29,7 +29,8 @@ class ParameterDefinitionRepository extends NamedDBElementRepository
      *     symbol: string,
      *     unit: string,
      *     input_type: string,
-     *     choices: list<string>|null
+     *     choices: list<string>|null,
+     *     deprecated_choices: list<string>|null
      * }>
      */
     public function autocompleteForParameterEditor(string $name, int $max_results = 50): array
@@ -40,7 +41,8 @@ class ParameterDefinitionRepository extends NamedDBElementRepository
          *     symbol: string,
          *     unit: string,
          *     input_type: string,
-         *     choices: list<string>|null
+         *     choices: list<string>|null,
+         *     deprecated_choices: list<string>|null
          * }> $result
          */
         $result = $this->createQueryBuilder('definition')
@@ -50,6 +52,7 @@ class ParameterDefinitionRepository extends NamedDBElementRepository
             ->addSelect('definition.unit AS unit')
             ->addSelect('definition.input_type AS input_type')
             ->addSelect('definition.choices AS choices')
+            ->addSelect('definition.deprecated_choices AS deprecated_choices')
             ->where('ILIKE(definition.name, :name) = TRUE')
             ->setParameter('name', '%'.$name.'%')
             ->orderBy('definition.name', 'ASC')

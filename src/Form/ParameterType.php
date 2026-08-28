@@ -73,12 +73,14 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ParameterType extends AbstractType
 {
     public function __construct(
         private readonly EntityManagerInterface $entity_manager,
         private readonly Security $security,
+        private readonly TranslatorInterface $translator,
     ) {
     }
 
@@ -121,12 +123,16 @@ class ParameterType extends AbstractType
             FormEvents::PRE_SET_DATA,
             function (PreSetDataEvent $event): void {
                 $parameter = $event->getData();
+                $definition = $parameter instanceof PartParameter ? $parameter->getDefinition() : null;
                 $this->addValueTextField(
                     $event->getForm(),
                     $parameter instanceof PartParameter
                         ? $parameter->getEffectiveInputType()
                         : ParameterDefinition::INPUT_TYPE_TEXT,
                     $parameter instanceof PartParameter ? $parameter->getEffectiveChoices() : [],
+                    $definition?->findCanonicalDeprecatedChoice(
+                        $parameter instanceof PartParameter ? $parameter->getValueText() : '',
+                    ),
                 );
             }
         );
@@ -211,8 +217,10 @@ class ParameterType extends AbstractType
 
             $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
                 $submitted_data = $event->getData();
+                $original_parameter = $event->getForm()->getData();
                 $definition = null;
                 $pending_choice = '';
+                $current_deprecated_choice = null;
 
                 if (is_array($submitted_data)) {
                     $definition_id = filter_var(
@@ -229,9 +237,24 @@ class ParameterType extends AbstractType
                         $submitted_value = trim((string) ($submitted_data['value_text'] ?? ''));
                         $pending_choice = trim((string) ($submitted_data['new_choice_value'] ?? ''));
                         $canonical_choice = $definition->findCanonicalChoice($submitted_value);
+                        $original_definition = $original_parameter instanceof PartParameter
+                            ? $original_parameter->getDefinition()
+                            : null;
+                        if ($original_definition instanceof ParameterDefinition
+                            && $original_definition->getID() === $definition->getID()) {
+                            $current_deprecated_choice = $definition->findCanonicalDeprecatedChoice(
+                                $original_parameter->getValueText(),
+                            );
+                        }
+                        $submitted_deprecated_choice = $definition->findCanonicalDeprecatedChoice($submitted_value);
 
                         if (null !== $canonical_choice) {
                             $submitted_data['value_text'] = $canonical_choice;
+                            $submitted_data['new_choice_value'] = '';
+                            $pending_choice = '';
+                        } elseif (null !== $current_deprecated_choice
+                            && $submitted_deprecated_choice === $current_deprecated_choice) {
+                            $submitted_data['value_text'] = $current_deprecated_choice;
                             $submitted_data['new_choice_value'] = '';
                             $pending_choice = '';
                         } elseif ('' === $submitted_value) {
@@ -254,6 +277,9 @@ class ParameterType extends AbstractType
                 }
 
                 $choices = $definition?->getChoices() ?? [];
+                if (null !== $current_deprecated_choice && !in_array($current_deprecated_choice, $choices, true)) {
+                    $choices[] = $current_deprecated_choice;
+                }
                 if ('' !== $pending_choice && !in_array($pending_choice, $choices, true)) {
                     $choices[] = $pending_choice;
                 }
@@ -261,6 +287,7 @@ class ParameterType extends AbstractType
                     $event->getForm(),
                     $definition?->getInputType() ?? ParameterDefinition::INPUT_TYPE_TEXT,
                     $choices,
+                    $current_deprecated_choice,
                 );
             });
 
@@ -355,14 +382,28 @@ class ParameterType extends AbstractType
     }
 
     /** @param list<string> $choices */
-    private function addValueTextField(FormInterface $form, string $input_type, array $choices): void
+    private function addValueTextField(
+        FormInterface $form,
+        string $input_type,
+        array $choices,
+        ?string $current_deprecated_choice = null,
+    ): void
     {
         $can_add_choice = $this->security->isGranted('edit', ParameterDefinition::class) ? 'true' : 'false';
 
         if (ParameterDefinition::INPUT_TYPE_CHOICE === $input_type) {
+            if (null !== $current_deprecated_choice && !in_array($current_deprecated_choice, $choices, true)) {
+                $choices[] = $current_deprecated_choice;
+            }
             $choice_map = [];
             foreach ($choices as $choice) {
-                $choice_map[$choice] = $choice;
+                $label = $choice === $current_deprecated_choice
+                    ? $this->translator->trans(
+                        'parameter_definition.choice.deprecated_label',
+                        ['%choice%' => $choice],
+                    )
+                    : $choice;
+                $choice_map[$label] = $choice;
             }
 
             $form->add('value_text', ChoiceType::class, [
@@ -371,6 +412,10 @@ class ParameterType extends AbstractType
                 'placeholder' => '',
                 'empty_data' => '',
                 'choices' => $choice_map,
+                'choice_translation_domain' => false,
+                'choice_attr' => static fn (string $choice): array => $choice === $current_deprecated_choice
+                    ? ['data-deprecated-choice' => 'true']
+                    : [],
                 'translation_domain' => 'validators',
                 'attr' => [
                     'class' => 'form-select-sm',

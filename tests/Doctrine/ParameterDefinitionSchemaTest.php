@@ -23,6 +23,7 @@ final class ParameterDefinitionSchemaTest extends KernelTestCase
         self::assertTrue($definition_table->hasColumn('normalized_name'));
         self::assertTrue($definition_table->hasColumn('input_type'));
         self::assertTrue($definition_table->hasColumn('choices'));
+        self::assertTrue($definition_table->hasColumn('deprecated_choices'));
         self::assertTrue($definition_table->hasIndex('parameter_definition_normalized_name_unique'));
         self::assertTrue($definition_table->getIndex('parameter_definition_normalized_name_unique')->isUnique());
 

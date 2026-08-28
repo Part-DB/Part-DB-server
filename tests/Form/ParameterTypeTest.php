@@ -169,6 +169,104 @@ final class ParameterTypeTest extends KernelTestCase
         self::assertSame('X7R', $reopened_form->createView()['value_text']->vars['value']);
     }
 
+    /** CHOICE-DEPRECATION-005, CHOICE-DEPRECATION-013 */
+    public function testExistingDeprecatedChoiceIsRenderedAndSurvivesUnchangedSubmit(): void
+    {
+        [$definition, $_part, $parameter] = $this->createPersistedChoiceParameter(
+            'Form deprecated dielectric',
+            'X7R',
+        );
+        $definition->setChoices(['X5R']);
+        $this->entity_manager->flush();
+        $parameter_id = $parameter->getID();
+        self::assertNotNull($parameter_id);
+        $this->entity_manager->clear();
+
+        $reloaded = $this->entity_manager->find(PartParameter::class, $parameter_id);
+        self::assertInstanceOf(PartParameter::class, $reloaded);
+        self::assertSame('X7R', $reloaded->getValueText());
+        self::assertSame(['X7R'], $reloaded->getDefinition()?->getDeprecatedChoices());
+        $form = $this->createParameterForm($reloaded);
+        self::assertSame(
+            ['X5R' => 'X5R', 'X7R (deprecated)' => 'X7R'],
+            $form->get('value_text')->getConfig()->getOption('choices'),
+        );
+
+        $form->submit($this->submission($definition, 'X7R'));
+
+        self::assertTrue($form->isValid(), (string) $form->getErrors(true));
+        self::assertSame('X7R', $reloaded->getValueText());
+        self::assertCount(0, $this->validator->validate($reloaded));
+    }
+
+    /** CHOICE-DEPRECATION-006, CHOICE-DEPRECATION-011, CHOICE-DEPRECATION-014 */
+    public function testNewParameterDoesNotOfferDeprecatedChoices(): void
+    {
+        $definition = $this->createDefinition(
+            'Form new row deprecated dielectric',
+            ParameterDefinition::INPUT_TYPE_CHOICE,
+            ['C0G', 'X5R'],
+        )->setDeprecatedChoices(['X7R']);
+        $parameter = new PartParameter();
+        $form = $this->createParameterForm($parameter);
+
+        $form->submit($this->submission($definition, ''));
+
+        self::assertTrue($form->isValid(), (string) $form->getErrors(true));
+        self::assertSame('', $parameter->getValueText());
+        self::assertSame(
+            ['C0G' => 'C0G', 'X5R' => 'X5R'],
+            $form->get('value_text')->getConfig()->getOption('choices'),
+        );
+    }
+
+    /** CHOICE-DEPRECATION-007 */
+    public function testDeprecatedChoiceCanBeChangedToActiveOrNotDefined(): void
+    {
+        $definition = $this->createDefinition(
+            'Form change deprecated dielectric',
+            ParameterDefinition::INPUT_TYPE_CHOICE,
+            ['C0G', 'X5R'],
+        )->setDeprecatedChoices(['X7R']);
+        $parameter = (new PartParameter())->setDefinition($definition)->setValueText('X7R');
+        $form = $this->createParameterForm($parameter);
+
+        $form->submit($this->submission($definition, 'X5R'));
+
+        self::assertTrue($form->isValid(), (string) $form->getErrors(true));
+        self::assertSame('X5R', $parameter->getValueText());
+        self::assertArrayNotHasKey(
+            'X7R (deprecated)',
+            $this->createParameterForm($parameter)->get('value_text')->getConfig()->getOption('choices'),
+        );
+
+        $empty_parameter = (new PartParameter())->setDefinition($definition)->setValueText('X7R');
+        $empty_form = $this->createParameterForm($empty_parameter);
+        $empty_form->submit($this->submission($definition, ''));
+
+        self::assertTrue($empty_form->isValid(), (string) $empty_form->getErrors(true));
+        self::assertSame('', $empty_parameter->getValueText());
+    }
+
+    /** CHOICE-DEPRECATION-008, CHOICE-DEPRECATION-015 */
+    public function testForgedDeprecatedChoiceIsRejectedUnlessItIsCurrentValue(): void
+    {
+        $definition = $this->createDefinition(
+            'Form forged deprecated dielectric',
+            ParameterDefinition::INPUT_TYPE_CHOICE,
+            ['C0G', 'X5R'],
+        )->setDeprecatedChoices(['X7R']);
+
+        $new_form = $this->createParameterForm(new PartParameter());
+        $new_form->submit($this->submission($definition, 'X7R'));
+        self::assertFalse($new_form->isValid());
+
+        $existing_parameter = (new PartParameter())->setDefinition($definition)->setValueText('C0G');
+        $existing_form = $this->createParameterForm($existing_parameter);
+        $existing_form->submit($this->submission($definition, 'X7R'));
+        self::assertFalse($existing_form->isValid());
+    }
+
     public function testEmptyChoiceCanBeSubmittedAndReopenedWithoutChangingDefinition(): void
     {
         $this->loginAs('admin');

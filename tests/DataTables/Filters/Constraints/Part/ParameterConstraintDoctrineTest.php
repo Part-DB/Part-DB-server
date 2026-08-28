@@ -43,6 +43,29 @@ final class ParameterConstraintDoctrineTest extends KernelTestCase
         );
     }
 
+    /** CHOICE-DEPRECATION-009 */
+    public function testDeprecatedChoiceRemainsSearchableByExactDefinitionIdentity(): void
+    {
+        $definition = $this->createChoiceDefinition('Query deprecated dielectric', ['C0G', 'X7R', 'X5R']);
+        $parameter = (new PartParameter())->setDefinition($definition)->setValueText('X7R');
+        $matching_part = $this->createPart('Query deprecated matching part', $parameter);
+        $wrong_part = $this->createPart(
+            'Query deprecated wrong part',
+            (new PartParameter())->setDefinition($definition)->setValueText('X5R'),
+        );
+        $this->entityManager()->flush();
+
+        $definition->setChoices(['C0G', 'X5R']);
+        $this->entityManager()->flush();
+
+        self::assertSame(['X7R'], $definition->getDeprecatedChoices());
+        self::assertSame('X7R', $parameter->getValueText());
+        self::assertSame(
+            [$matching_part->getID()],
+            $this->findMatchingPartIds([$this->choiceConstraint($definition, 'X7R')], [$matching_part, $wrong_part]),
+        );
+    }
+
     public function testChoiceDefinitionWithNonEqualityOperatorIsInactive(): void
     {
         $definition = $this->createChoiceDefinition('Query operator dielectric', ['X7R']);

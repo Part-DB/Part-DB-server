@@ -14300,6 +14300,15 @@ Buerklin-API Authentication server:
     <unit id="parameter_definition_choices_help" name="parameter_definition.choices.help">
       <segment state="translated"><source>parameter_definition.choices.help</source><target>Enter one choice per line. This field is ignored and cleared when the input type is Text.</target></segment>
     </unit>
+    <unit id="parameter_definition_deprecated_choices" name="parameter_definition.deprecated_choices">
+      <segment state="translated"><source>parameter_definition.deprecated_choices</source><target>Deprecated choices</target></segment>
+    </unit>
+    <unit id="parameter_definition_deprecated_choices_help" name="parameter_definition.deprecated_choices.help">
+      <segment state="translated"><source>parameter_definition.deprecated_choices.help</source><target>These values were previously active. They are preserved as permanent historical vocabulary but are no longer offered for new selections.</target></segment>
+    </unit>
+    <unit id="parameter_definition_choice_deprecated_label" name="parameter_definition.choice.deprecated_label">
+      <segment state="translated"><source>parameter_definition.choice.deprecated_label</source><target>%choice% (deprecated)</target></segment>
+    </unit>
     <unit id="parameter_definition_delete_in_use" name="parameter_definition.delete.in_use">
       <segment state="translated"><source>parameter_definition.delete.in_use</source><target>This parameter definition is still in use and cannot be deleted.</target></segment>
     </unit>

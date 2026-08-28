@@ -133,7 +133,8 @@ final class TypeaheadControllerTest extends WebTestCase
             ->setSymbol('D')
             ->setUnit('grade')
             ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
-            ->setChoices(['X7R', 'X5R', 'C0G']);
+            ->setChoices(['X7R', 'X5R', 'C0G'])
+            ->setDeprecatedChoices(['Y5V']);
         $em = static::getContainer()->get(EntityManagerInterface::class);
         $em->persist($definition);
         $em->flush();
@@ -150,6 +151,7 @@ final class TypeaheadControllerTest extends WebTestCase
         self::assertSame('grade', $suggestion['unit']);
         self::assertSame(ParameterDefinition::INPUT_TYPE_CHOICE, $suggestion['input_type']);
         self::assertSame(['X7R', 'X5R', 'C0G'], $suggestion['choices']);
+        self::assertSame(['Y5V'], $suggestion['deprecated_choices']);
     }
 
     public function testPartParameterAutocompleteExposesTextDefinitionWithoutChoices(): void
@@ -171,6 +173,7 @@ final class TypeaheadControllerTest extends WebTestCase
         self::assertIsArray($suggestion);
         self::assertSame(ParameterDefinition::INPUT_TYPE_TEXT, $suggestion['input_type']);
         self::assertSame([], $suggestion['choices']);
+        self::assertSame([], $suggestion['deprecated_choices']);
     }
 
     // -----------------------------------------------------------------------

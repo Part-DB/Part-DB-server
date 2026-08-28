@@ -22,14 +22,19 @@ declare(strict_types=1);
  */
 namespace App\Tests\Services\LogSystem;
 
+use App\Entity\LogSystem\AbstractLogEntry;
+use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\Parameters\ParameterDefinition;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Category;
+use App\Entity\Parts\Part;
+use App\Repository\LogEntryRepository;
 use App\Services\LogSystem\TimeTravel;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class TimeTravelTest extends KernelTestCase
 {
@@ -181,5 +186,103 @@ final class TimeTravelTest extends KernelTestCase
         self::assertSame('grade', $parameter->getEffectiveUnit());
         self::assertSame(ParameterDefinition::INPUT_TYPE_TEXT, $parameter->getEffectiveInputType());
         self::assertSame([], $parameter->getEffectiveChoices());
+    }
+
+    /** CHOICE-DEPRECATION-021 */
+    public function testHistoricalPartRevertRestoresDeprecatedChoiceWithoutReactivatingIt(): void
+    {
+        $definition = (new ParameterDefinition())
+            ->setName('TimeTravel dielectric')
+            ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
+            ->setChoices(['X7R', 'X5R']);
+        $category = (new Category())->setName('TimeTravel deprecated category');
+        $target_parameter = (new PartParameter())->setDefinition($definition)->setValueText('X7R');
+        $target_part = (new Part())
+            ->setName('TimeTravel target part')
+            ->setCategory($category)
+            ->addParameter($target_parameter);
+        $this->em->persist($definition);
+        $this->em->persist($category);
+        $this->em->persist($target_part);
+        $this->em->flush();
+        $definition_id = $definition->getID();
+        $part_id = $target_part->getID();
+        $parameter_id = $target_parameter->getID();
+        self::assertNotNull($definition_id);
+        self::assertNotNull($part_id);
+        self::assertNotNull($parameter_id);
+
+        $log_repository = $this->em->getRepository(AbstractLogEntry::class);
+        self::assertInstanceOf(LogEntryRepository::class, $log_repository);
+        $creation_entries = array_values(array_filter(
+            $log_repository->getElementHistory($target_parameter),
+            static fn (AbstractLogEntry $entry): bool => $entry instanceof ElementCreatedLogEntry,
+        ));
+        self::assertCount(1, $creation_entries);
+        $creation_entries[0]->setTimestamp(new \DateTimeImmutable('2026-01-01 00:00:00'));
+        $this->em->flush();
+
+        // T0 genuinely exists in the database.
+        $this->em->clear();
+        $target_parameter = $this->em->find(PartParameter::class, $parameter_id);
+        self::assertInstanceOf(PartParameter::class, $target_parameter);
+        self::assertSame('X7R', $target_parameter->getValueText());
+        self::assertSame($definition_id, $target_parameter->getDefinition()?->getID());
+
+        // T1 genuinely persists X5R and lets the production logger create the historical X7R revision.
+        $target_parameter->setValueText('X5R');
+        $this->em->flush();
+        $this->em->clear();
+        $target_parameter = $this->em->find(PartParameter::class, $parameter_id);
+        self::assertInstanceOf(PartParameter::class, $target_parameter);
+        self::assertSame('X5R', $target_parameter->getValueText());
+
+        $log_repository = $this->em->getRepository(AbstractLogEntry::class);
+        self::assertInstanceOf(LogEntryRepository::class, $log_repository);
+        $historical_entries = array_values(array_filter(
+            $log_repository->getElementHistory($target_parameter),
+            static fn (AbstractLogEntry $entry): bool => $entry instanceof ElementEditedLogEntry
+                && 'X7R' === ($entry->getOldData()['value_text'] ?? null),
+        ));
+        self::assertCount(1, $historical_entries);
+        $historical_entry = $historical_entries[0];
+        self::assertInstanceOf(ElementEditedLogEntry::class, $historical_entry);
+        $historical_entry->setTimestamp(new \DateTimeImmutable('2026-01-02 00:00:00'));
+        $this->em->flush();
+
+        // T2 retires X7R without changing either current parameter value.
+        $definition = $this->em->find(ParameterDefinition::class, $definition_id);
+        self::assertInstanceOf(ParameterDefinition::class, $definition);
+        $definition->setChoices(['X5R']);
+        $this->em->flush();
+        $this->em->clear();
+        $definition = $this->em->find(ParameterDefinition::class, $definition_id);
+        $target_part = $this->em->find(Part::class, $part_id);
+        self::assertInstanceOf(ParameterDefinition::class, $definition);
+        self::assertInstanceOf(Part::class, $target_part);
+        self::assertSame(['X5R'], $definition->getChoices());
+        self::assertSame(['X7R'], $definition->getDeprecatedChoices());
+
+        // T3 follows the production whole-Part TimeTravel path, then persists the effective revert as LogController does.
+        $this->service->revertEntityToTimestamp(
+            $target_part,
+            new \DateTimeImmutable('2026-01-01 12:00:00'),
+        );
+        $this->em->flush();
+
+        $restored_parameter = null;
+        foreach ($target_part->getParameters() as $parameter) {
+            if ($parameter->getID() === $parameter_id) {
+                $restored_parameter = $parameter;
+                break;
+            }
+        }
+        self::assertInstanceOf(PartParameter::class, $restored_parameter);
+        self::assertSame('X7R', $restored_parameter->getValueText());
+        self::assertSame($definition_id, $restored_parameter->getDefinition()?->getID());
+        self::assertSame(['X5R'], $definition->getChoices());
+        self::assertSame(['X7R'], $definition->getDeprecatedChoices());
+        self::assertNotContains('X7R', $definition->getChoices());
+        self::assertCount(0, self::getContainer()->get(ValidatorInterface::class)->validate($restored_parameter));
     }
 }

@@ -197,7 +197,8 @@ class TypeaheadController extends AbstractController
      *     symbol: string,
      *     unit: string,
      *     input_type: string,
-     *     choices: list<string>|null
+     *     choices: list<string>|null,
+     *     deprecated_choices: list<string>|null
      * }> $definitions
      * @param array<array{name: string, symbol: string, unit: string}> $legacy_parameters
      * @return list<array<string, mixed>>
@@ -209,6 +210,7 @@ class TypeaheadController extends AbstractController
 
         foreach ($definitions as $definition) {
             $definition['choices'] ??= [];
+            $definition['deprecated_choices'] ??= [];
             $result[] = $definition;
             $known_names[mb_strtolower(trim($definition['name']))] = true;
         }

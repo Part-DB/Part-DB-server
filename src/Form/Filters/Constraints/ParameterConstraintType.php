@@ -138,6 +138,7 @@ class ParameterConstraintType extends AbstractType
             && ParameterDefinition::INPUT_TYPE_CHOICE === $definition->getInputType()) {
             $form->add('value_text', ParameterChoiceConstraintType::class, [
                 'parameter_choices' => $definition->getChoices(),
+                'parameter_deprecated_choices' => $definition->getDeprecatedChoices(),
             ]);
 
             return;

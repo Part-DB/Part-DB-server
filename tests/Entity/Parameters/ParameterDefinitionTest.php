@@ -34,14 +34,102 @@ final class ParameterDefinitionTest extends TestCase
         self::assertSame(['X7R', 'X5R'], $definition->getChoices());
     }
 
+    /** CHOICE-DEPRECATION-001 */
+    public function testRemovingUsedChoiceDeprecatesItWithoutChangingParameterValue(): void
+    {
+        $definition = (new ParameterDefinition())
+            ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
+            ->setChoices(['C0G', 'X7R', 'X5R']);
+        $parameter = (new PartParameter())->setDefinition($definition)->setValueText('X7R');
+
+        $definition->setChoices(['C0G', 'X5R']);
+
+        self::assertSame(['C0G', 'X5R'], $definition->getChoices());
+        self::assertSame(['X7R'], $definition->getDeprecatedChoices());
+        self::assertSame('X7R', $parameter->getValueText());
+    }
+
+    /** CHOICE-DEPRECATION-002 */
+    public function testRemovingChoiceUsedByMultipleParametersDeprecatesItOnlyOnce(): void
+    {
+        $definition = (new ParameterDefinition())
+            ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
+            ->setChoices(['C0G', 'X7R', 'X5R']);
+        $first = (new PartParameter())->setDefinition($definition)->setValueText('X7R');
+        $second = (new PartParameter())->setDefinition($definition)->setValueText('x7r');
+
+        $definition->setChoices(['C0G', 'X5R']);
+
+        self::assertSame(['X7R'], $definition->getDeprecatedChoices());
+        self::assertSame('X7R', $first->getValueText());
+        self::assertSame('X7R', $second->getValueText());
+    }
+
+    /** CHOICE-DEPRECATION-003 */
+    public function testRemovingUnusedChoiceMovesItToPermanentDeprecatedVocabulary(): void
+    {
+        $definition = (new ParameterDefinition())
+            ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
+            ->setChoices(['C0G', 'X7R', 'X5R']);
+
+        $definition->setChoices(['C0G', 'X5R']);
+
+        self::assertSame(['C0G', 'X5R'], $definition->getChoices());
+        self::assertSame(['X7R'], $definition->getDeprecatedChoices());
+    }
+
+    public function testRemovingSeveralChoicesPreservesExistingDeprecatedVocabularyWithoutDuplicates(): void
+    {
+        $definition = (new ParameterDefinition())
+            ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
+            ->setChoices(['C0G', 'X7R', 'X5R'])
+            ->setDeprecatedChoices(['Y5V']);
+
+        $definition->setChoices(['C0G']);
+        $definition->setChoices(['C0G']);
+
+        self::assertSame(['C0G'], $definition->getChoices());
+        self::assertSame(['Y5V', 'X7R', 'X5R'], $definition->getDeprecatedChoices());
+    }
+
+    /** CHOICE-DEPRECATION-004 */
+    public function testReactivatingDeprecatedChoiceIsCaseInsensitiveAndPreservesCanonicalSpelling(): void
+    {
+        $definition = (new ParameterDefinition())
+            ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
+            ->setChoices(['C0G', 'X5R'])
+            ->setDeprecatedChoices([' X7R ', 'x7r', '', 'Y5V']);
+
+        $definition->setChoices(['C0G', 'X5R', 'x7r']);
+
+        self::assertSame(['C0G', 'X5R', 'X7R'], $definition->getChoices());
+        self::assertSame(['Y5V'], $definition->getDeprecatedChoices());
+        self::assertSame('X7R', $definition->findCanonicalKnownChoice(' x7r '));
+    }
+
+    /** CHOICE-DEPRECATION-011 */
+    public function testActiveAndDeprecatedChoicesRemainCanonicalAndDisjoint(): void
+    {
+        $definition = (new ParameterDefinition())
+            ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
+            ->setChoices(['C0G', 'X5R', ''])
+            ->setDeprecatedChoices([' x7r ', 'X7R', '', 'x5r']);
+
+        self::assertSame(['C0G', 'X5R'], $definition->getChoices());
+        self::assertSame(['x7r'], $definition->getDeprecatedChoices());
+        self::assertNotContains('', $definition->getKnownChoices());
+    }
+
     public function testTextDefinitionsDoNotKeepChoices(): void
     {
         $definition = (new ParameterDefinition())
             ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
             ->setChoices(['X7R'])
+            ->setDeprecatedChoices(['Y5V'])
             ->setInputType(ParameterDefinition::INPUT_TYPE_TEXT);
 
         self::assertSame([], $definition->getChoices());
+        self::assertSame([], $definition->getDeprecatedChoices());
         $this->expectException(LogicException::class);
         $definition->addChoice('X5R');
     }

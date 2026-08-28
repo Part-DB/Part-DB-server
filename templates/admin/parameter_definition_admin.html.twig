@@ -19,6 +19,17 @@
     {{ form_row(form.unit) }}
     {{ form_row(form.input_type) }}
     {{ form_row(form.choices_text) }}
+    {% if entity.deprecatedChoices is not empty %}
+        <div class="mb-3">
+            <label class="form-label">{% trans %}parameter_definition.deprecated_choices{% endtrans %}</label>
+            <ul class="mb-1">
+                {% for choice in entity.deprecatedChoices %}
+                    <li>{{ choice }}</li>
+                {% endfor %}
+            </ul>
+            <div class="form-text">{% trans %}parameter_definition.deprecated_choices.help{% endtrans %}</div>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block comment %}{% endblock %}

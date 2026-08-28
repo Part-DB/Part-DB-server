@@ -55,7 +55,11 @@
     <tr {{ stimulus_controller('filters/parameter_constraint', {
         "url": path('typeahead_parameters', {"query": "__QUERY__", "type": "part"}),
         "initialInputType": initial_input_type,
-        "initialChoices": definition ? definition.choices : []
+        "initialChoices": definition ? definition.choices : [],
+        "initialDeprecatedChoices": definition ? definition.deprecatedChoices : [],
+        "deprecatedChoiceLabel": 'parameter_definition.choice.deprecated_label'|trans({
+            '%choice%': '__PARAMETER_CHOICE__'
+        })
     }) }}>
         <td class="col-sm-2">
             {{ form_widget(form.name, {"attr": {"data-filters--parameter-constraint-target": "name"}}) }}

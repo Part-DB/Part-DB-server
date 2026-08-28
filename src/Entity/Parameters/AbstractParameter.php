@@ -70,6 +70,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use function sprintf;
 
 #[ORM\Entity(repositoryClass: ParameterRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'smallint')]
 #[ORM\DiscriminatorMap([0 => CategoryParameter::class, 1 => CurrencyParameter::class, 2 => ProjectParameter::class,
@@ -183,6 +184,16 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     private ?string $pending_definition_choice = null;
 
     /**
+     * Persisted assignment snapshot used to distinguish preserving a historical deprecated value from assigning one.
+     * These fields are deliberately transient and are populated only by Doctrine lifecycle callbacks.
+     */
+    private bool $has_persisted_choice_assignment = false;
+
+    private ?int $persisted_definition_id = null;
+
+    private string $persisted_value_text = '';
+
+    /**
      * @var string the group this parameter belongs to
      */
     #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
@@ -218,6 +229,24 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
         if ('' === static::ALLOWED_ELEMENT_CLASS) {
             throw new LogicException('An *Attachment class must override the ALLOWED_ELEMENT_CLASS const!');
         }
+    }
+
+    public function __clone()
+    {
+        parent::__clone();
+        $this->has_persisted_choice_assignment = false;
+        $this->persisted_definition_id = null;
+        $this->persisted_value_text = '';
+    }
+
+    #[ORM\PostLoad]
+    #[ORM\PostPersist]
+    #[ORM\PostUpdate]
+    public function capturePersistedChoiceAssignment(): void
+    {
+        $this->has_persisted_choice_assignment = true;
+        $this->persisted_definition_id = $this->definition?->getID();
+        $this->persisted_value_text = $this->value_text;
     }
 
     public function updateTimestamps(): void
@@ -720,23 +749,37 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
         }
 
         $canonical_choice = $this->definition->findCanonicalChoice($this->value_text);
-        if (null === $canonical_choice) {
-            if ($this->pending_definition_choice === $this->value_text) {
-                return;
+        if (null !== $canonical_choice) {
+            if ($canonical_choice !== $this->value_text) {
+                $context->buildViolation('parameter.validator.value_not_canonical')
+                    ->atPath('value_text')
+                    ->addViolation();
             }
-
-            $context->buildViolation('parameter.validator.value_not_allowed')
-                ->atPath('value_text')
-                ->addViolation();
 
             return;
         }
 
-        if ($canonical_choice !== $this->value_text) {
-            $context->buildViolation('parameter.validator.value_not_canonical')
+        $deprecated_choice = $this->definition->findCanonicalDeprecatedChoice($this->value_text);
+        if (null !== $deprecated_choice && $this->isPreservingPersistedDeprecatedChoice($deprecated_choice)) {
+            return;
+        }
+
+        if ($this->pending_definition_choice !== $this->value_text) {
+            $context->buildViolation('parameter.validator.value_not_allowed')
                 ->atPath('value_text')
                 ->addViolation();
         }
+    }
+
+    private function isPreservingPersistedDeprecatedChoice(string $deprecated_choice): bool
+    {
+        if (!$this->has_persisted_choice_assignment
+            || null === $this->persisted_definition_id
+            || $this->persisted_definition_id !== $this->definition?->getID()) {
+            return false;
+        }
+
+        return $deprecated_choice === $this->definition->findCanonicalDeprecatedChoice($this->persisted_value_text);
     }
 
     public function getComparableFields(): array

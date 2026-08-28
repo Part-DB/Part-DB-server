@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Twig\Environment;
 
 #[Group('DB')]
 #[Group('slow')]
@@ -162,6 +163,57 @@ final class ParameterConstraintTypeTest extends KernelTestCase
         self::assertSame('', (string) $constraint->getValueText()->getValue());
         self::assertSame('=', $constraint->getValueText()->getOperator());
         self::assertFalse($constraint->isEnabled());
+    }
+
+    public function testDeprecatedChoiceIsLabelledSearchableAndSurvivesGetRoundTrip(): void
+    {
+        $definition = $this->createDefinition(
+            'Search form deprecated dielectric',
+            ParameterDefinition::INPUT_TYPE_CHOICE,
+            ['C0G', 'X5R'],
+        )->setDeprecatedChoices(['X7R']);
+        $query = http_build_query([
+            'parameter' => $this->submission($definition, 'X7R'),
+        ], '', '&', PHP_QUERY_RFC3986);
+        $constraint = new ParameterConstraint();
+        $form = $this->formFactory()->createNamed('parameter', ParameterConstraintType::class, $constraint, [
+            'csrf_protection' => false,
+            'method' => 'GET',
+        ]);
+
+        $form->handleRequest(Request::create('/parts?'.$query, 'GET'));
+
+        self::assertTrue($form->isSubmitted());
+        self::assertTrue($form->isValid(), (string) $form->getErrors(true));
+        self::assertSame($definition, $constraint->getDefinition());
+        self::assertSame('X7R', $constraint->getValueText()->getValue());
+        self::assertSame('=', $constraint->getValueText()->getOperator());
+        self::assertSame(
+            ['C0G' => 'C0G', 'X5R' => 'X5R', 'X7R (deprecated)' => 'X7R'],
+            $form->get('value_text')->get('value')->getConfig()->getOption('choices'),
+        );
+    }
+
+    public function testDeprecatedChoiceLabelTemplateIsTranslatedForDynamicEditor(): void
+    {
+        $definition = $this->createDefinition(
+            'Search form dynamic deprecated dielectric',
+            ParameterDefinition::INPUT_TYPE_CHOICE,
+            ['C0G', 'X5R'],
+        )->setDeprecatedChoices(['X7R']);
+        $constraint = (new ParameterConstraint())->setDefinition($definition);
+        $form = $this->createConstraintForm($constraint);
+        $twig = self::getContainer()->get(Environment::class);
+
+        $html = $twig->createTemplate('{{ form_widget(form) }}')->render([
+            'form' => $form->createView(),
+        ]);
+
+        self::assertStringContainsString(
+            'data-filters--parameter-constraint-deprecated-choice-label-value="__PARAMETER_CHOICE__ (deprecated)"',
+            $html,
+        );
+        self::assertStringNotContainsString('parameter_definition.choice.deprecated_label', $html);
     }
 
     public function testForgedChoiceIsInvalid(): void

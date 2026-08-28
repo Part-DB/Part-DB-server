@@ -83,6 +83,15 @@ class ParameterDefinition extends AbstractNamedDBElement
     #[Groups(['full', 'import', 'parameter_definition:read', 'parameter_definition:write'])]
     private ?array $choices = null;
 
+    /** @var list<string>|null */
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    #[Groups(['full', 'import', 'parameter_definition:read'])]
+    private ?array $deprecated_choices = null;
+
+    private bool $choices_contain_invalid_values = false;
+
+    private bool $deprecated_choices_contain_invalid_values = false;
+
     #[ORM\Column(type: Types::STRING, length: 20)]
     #[Assert\Length(max: 20)]
     #[Groups(['full', 'import', 'parameter_definition:read', 'parameter_definition:write'])]
@@ -137,6 +146,9 @@ class ParameterDefinition extends AbstractNamedDBElement
         $this->input_type = $input_type;
         if (self::INPUT_TYPE_TEXT === $input_type) {
             $this->choices = null;
+            $this->deprecated_choices = null;
+            $this->choices_contain_invalid_values = false;
+            $this->deprecated_choices_contain_invalid_values = false;
         }
 
         return $this;
@@ -151,10 +163,84 @@ class ParameterDefinition extends AbstractNamedDBElement
     /** @param list<string>|null $choices */
     public function setChoices(?array $choices): self
     {
-        $canonical_choices = self::canonicalizeChoices($choices ?? []);
+        $canonical_choices = self::canonicalizeChoices(
+            $choices ?? [],
+            $this->choices_contain_invalid_values,
+        );
+
+        // Reactivating a deprecated value preserves its historical canonical spelling.
+        foreach ($canonical_choices as $index => $choice) {
+            $deprecated_choice = $this->findCanonicalDeprecatedChoice($choice);
+            if (null !== $deprecated_choice) {
+                $canonical_choices[$index] = $deprecated_choice;
+            }
+        }
+
+        $active_normalized = [];
+        foreach ($canonical_choices as $choice) {
+            $active_normalized[self::normalize($choice)] = true;
+        }
+
+        $deprecated_choices = array_values(array_filter(
+            $this->getDeprecatedChoices(),
+            static fn (string $choice): bool => !isset($active_normalized[self::normalize($choice)]),
+        ));
+        $deprecated_normalized = [];
+        foreach ($deprecated_choices as $choice) {
+            $deprecated_normalized[self::normalize($choice)] = true;
+        }
+
+        foreach ($this->getChoices() as $previous_choice) {
+            $normalized_choice = self::normalize($previous_choice);
+            if (isset($active_normalized[$normalized_choice])
+                || isset($deprecated_normalized[$normalized_choice])) {
+                continue;
+            }
+
+            $deprecated_choices[] = $previous_choice;
+            $deprecated_normalized[$normalized_choice] = true;
+        }
+
         $this->choices = [] === $canonical_choices ? null : $canonical_choices;
+        $this->deprecated_choices = [] === $deprecated_choices ? null : $deprecated_choices;
 
         return $this;
+    }
+
+    /** @return list<string> */
+    public function getDeprecatedChoices(): array
+    {
+        return $this->deprecated_choices ?? [];
+    }
+
+    /**
+     * Used by import and historical restoration. API clients cannot write this field directly.
+     *
+     * @param list<string>|null $deprecated_choices
+     */
+    public function setDeprecatedChoices(?array $deprecated_choices): self
+    {
+        $active_normalized = [];
+        foreach ($this->getChoices() as $choice) {
+            $active_normalized[self::normalize($choice)] = true;
+        }
+
+        $canonical_choices = array_values(array_filter(
+            self::canonicalizeChoices(
+                $deprecated_choices ?? [],
+                $this->deprecated_choices_contain_invalid_values,
+            ),
+            static fn (string $choice): bool => !isset($active_normalized[self::normalize($choice)]),
+        ));
+        $this->deprecated_choices = [] === $canonical_choices ? null : $canonical_choices;
+
+        return $this;
+    }
+
+    /** @return list<string> */
+    public function getKnownChoices(): array
+    {
+        return [...$this->getChoices(), ...$this->getDeprecatedChoices()];
     }
 
     public function getChoicesText(): string
@@ -190,6 +276,21 @@ class ParameterDefinition extends AbstractNamedDBElement
             return $canonical_choice;
         }
 
+        $deprecated_choice = $this->findCanonicalDeprecatedChoice($choice);
+        if (null !== $deprecated_choice) {
+            $choices = $this->getChoices();
+            $choices[] = $deprecated_choice;
+            $this->choices = $choices;
+            $normalized_choice = self::normalize($deprecated_choice);
+            $deprecated_choices = array_values(array_filter(
+                $this->getDeprecatedChoices(),
+                static fn (string $candidate): bool => self::normalize($candidate) !== $normalized_choice,
+            ));
+            $this->deprecated_choices = [] === $deprecated_choices ? null : $deprecated_choices;
+
+            return $deprecated_choice;
+        }
+
         $choices = $this->getChoices();
         $choices[] = $choice;
         $this->choices = $choices;
@@ -199,14 +300,17 @@ class ParameterDefinition extends AbstractNamedDBElement
 
     public function findCanonicalChoice(string $choice): ?string
     {
-        $normalized_choice = self::normalize($choice);
-        foreach ($this->getChoices() as $canonical_choice) {
-            if (self::normalize($canonical_choice) === $normalized_choice) {
-                return $canonical_choice;
-            }
-        }
+        return self::findCanonicalInChoices($choice, $this->getChoices());
+    }
 
-        return null;
+    public function findCanonicalDeprecatedChoice(string $choice): ?string
+    {
+        return self::findCanonicalInChoices($choice, $this->getDeprecatedChoices());
+    }
+
+    public function findCanonicalKnownChoice(string $choice): ?string
+    {
+        return $this->findCanonicalChoice($choice) ?? $this->findCanonicalDeprecatedChoice($choice);
     }
 
     public function getSymbol(): string
@@ -266,34 +370,50 @@ class ParameterDefinition extends AbstractNamedDBElement
     #[Assert\Callback]
     public function validateChoices(ExecutionContextInterface $context): void
     {
-        if (self::INPUT_TYPE_TEXT === $this->input_type && [] !== $this->getChoices()) {
+        if ($this->choices_contain_invalid_values) {
+            $context->buildViolation('parameter_definition.validator.choice_not_string')
+                ->atPath('choices')
+                ->addViolation();
+        }
+        if ($this->deprecated_choices_contain_invalid_values) {
+            $context->buildViolation('parameter_definition.validator.choice_not_string')
+                ->atPath('deprecated_choices')
+                ->addViolation();
+        }
+
+        if (self::INPUT_TYPE_TEXT === $this->input_type
+            && ([] !== $this->getChoices() || [] !== $this->getDeprecatedChoices())) {
             $context->buildViolation('parameter_definition.validator.text_has_choices')
                 ->atPath('choices')
                 ->addViolation();
         }
 
-        foreach ($this->getChoices() as $choice) {
-            if (mb_strlen($choice) > self::MAX_CHOICE_LENGTH) {
-                $context->buildViolation('parameter_definition.validator.choice_too_long')
-                    ->setParameter('{{ limit }}', (string) self::MAX_CHOICE_LENGTH)
-                    ->atPath('choices')
-                    ->addViolation();
+        foreach (['choices' => $this->getChoices(), 'deprecated_choices' => $this->getDeprecatedChoices()] as $path => $choices) {
+            foreach ($choices as $choice) {
+                if (mb_strlen($choice) > self::MAX_CHOICE_LENGTH) {
+                    $context->buildViolation('parameter_definition.validator.choice_too_long')
+                        ->setParameter('{{ limit }}', (string) self::MAX_CHOICE_LENGTH)
+                        ->atPath($path)
+                        ->addViolation();
+                }
             }
         }
     }
 
     /**
-     * @param list<string> $choices
+     * @param array<mixed> $choices
      * @return list<string>
      */
-    private static function canonicalizeChoices(array $choices): array
+    private static function canonicalizeChoices(array $choices, bool &$contains_invalid_values = false): array
     {
         $canonical_choices = [];
         $seen_choices = [];
+        $contains_invalid_values = false;
 
         foreach ($choices as $choice) {
             if (!is_string($choice)) {
-                throw new InvalidArgumentException('Parameter choices must be strings.');
+                $contains_invalid_values = true;
+                continue;
             }
 
             $choice = trim($choice);
@@ -310,6 +430,21 @@ class ParameterDefinition extends AbstractNamedDBElement
         }
 
         return $canonical_choices;
+    }
+
+    /**
+     * @param list<string> $choices
+     */
+    private static function findCanonicalInChoices(string $choice, array $choices): ?string
+    {
+        $normalized_choice = self::normalize($choice);
+        foreach ($choices as $canonical_choice) {
+            if (self::normalize($canonical_choice) === $normalized_choice) {
+                return $canonical_choice;
+            }
+        }
+
+        return null;
     }
 
     private static function normalize(string $value): string

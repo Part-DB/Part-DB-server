@@ -376,6 +376,25 @@ EOT;
         self::assertSame('X7R', $parameter->getValueText());
     }
 
+    public function testImportPreservesDeprecatedParameterDefinitionChoices(): void
+    {
+        $errors = [];
+        $results = $this->service->importString(
+            '[{"name":"Imported retired dielectric","input_type":"choice","choices":["C0G","X5R"],"deprecated_choices":["X7R"]}]',
+            [
+                'class' => ParameterDefinition::class,
+                'format' => 'json',
+            ],
+            $errors,
+        );
+
+        self::assertEmpty($errors);
+        self::assertCount(1, $results);
+        self::assertInstanceOf(ParameterDefinition::class, $results[0]);
+        self::assertSame(['C0G', 'X5R'], $results[0]->getChoices());
+        self::assertSame(['X7R'], $results[0]->getDeprecatedChoices());
+    }
+
     public function testImportAcceptsNestedEdaInfoColumns(): void
     {
         //The API / JSON export writes EDA columns as "eda_info.kicad_symbol"; re-importing such a

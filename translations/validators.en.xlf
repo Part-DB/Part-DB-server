@@ -295,5 +295,8 @@
     <unit id="parameter_definition_choice_length" name="parameter_definition.validator.choice_too_long">
       <segment state="translated"><source>parameter_definition.validator.choice_too_long</source><target>A parameter choice must not exceed {{ limit }} characters.</target></segment>
     </unit>
+    <unit id="parameter_definition_choice_not_string" name="parameter_definition.validator.choice_not_string">
+      <segment state="translated"><source>parameter_definition.validator.choice_not_string</source><target>Parameter choices must be strings.</target></segment>
+    </unit>
   </file>
 </xliff>

@@ -22,13 +22,20 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class ParameterChoiceConstraintType extends AbstractType
 {
+    public function __construct(private readonly TranslatorInterface $translator)
+    {
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired('parameter_choices');
         $resolver->setAllowedTypes('parameter_choices', 'array');
+        $resolver->setDefault('parameter_deprecated_choices', []);
+        $resolver->setAllowedTypes('parameter_deprecated_choices', 'array');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -36,6 +43,12 @@ final class ParameterChoiceConstraintType extends AbstractType
         $choices = [];
         foreach ($options['parameter_choices'] as $choice) {
             $choices[$choice] = $choice;
+        }
+        foreach ($options['parameter_deprecated_choices'] as $choice) {
+            $choices[$this->translator->trans(
+                'parameter_definition.choice.deprecated_label',
+                ['%choice%' => $choice],
+            )] = $choice;
         }
 
         $builder->add('value', ChoiceType::class, [

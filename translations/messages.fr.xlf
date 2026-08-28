@@ -12993,6 +12993,15 @@ Serveur d'authentification Buerklin-API : 10 requêtes/min par adresse IP</targe
     <unit id="parameter_definition_choices_help" name="parameter_definition.choices.help">
       <segment state="translated"><source>parameter_definition.choices.help</source><target>Saisissez un choix par ligne. Ce champ est ignoré et vidé lorsque le type de saisie est Texte.</target></segment>
     </unit>
+    <unit id="parameter_definition_deprecated_choices" name="parameter_definition.deprecated_choices">
+      <segment state="translated"><source>parameter_definition.deprecated_choices</source><target>Choix dépréciés</target></segment>
+    </unit>
+    <unit id="parameter_definition_deprecated_choices_help" name="parameter_definition.deprecated_choices.help">
+      <segment state="translated"><source>parameter_definition.deprecated_choices.help</source><target>Ces valeurs étaient auparavant actives. Elles sont conservées comme vocabulaire historique permanent mais ne sont plus proposées pour les nouvelles sélections.</target></segment>
+    </unit>
+    <unit id="parameter_definition_choice_deprecated_label" name="parameter_definition.choice.deprecated_label">
+      <segment state="translated"><source>parameter_definition.choice.deprecated_label</source><target>%choice% (déprécié)</target></segment>
+    </unit>
     <unit id="parameter_definition_delete_in_use" name="parameter_definition.delete.in_use">
       <segment state="translated"><source>parameter_definition.delete.in_use</source><target>Cette définition de paramètre est encore utilisée et ne peut pas être supprimée.</target></segment>
     </unit>

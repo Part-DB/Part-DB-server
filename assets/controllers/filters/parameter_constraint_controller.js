@@ -21,6 +21,8 @@ export default class extends Controller {
         url: String,
         initialInputType: String,
         initialChoices: Array,
+        initialDeprecatedChoices: Array,
+        deprecatedChoiceLabel: String,
     };
 
     static targets = [
@@ -119,6 +121,9 @@ export default class extends Controller {
                 name: suggestion.name ?? value,
                 inputType: suggestion.input_type === 'choice' ? 'choice' : 'text',
                 choices: Array.isArray(suggestion.choices) ? suggestion.choices : [],
+                deprecatedChoices: Array.isArray(suggestion.deprecated_choices)
+                    ? suggestion.deprecated_choices
+                    : [],
             });
             return;
         }
@@ -137,13 +142,19 @@ export default class extends Controller {
     enterDefinitionMode(definition) {
         this.setDefinition(definition.id, definition.name);
         this.setAdHocFieldState(true, true);
-        this.replaceValueEditor(definition.inputType, definition.choices, '', '');
+        this.replaceValueEditor(
+            definition.inputType,
+            definition.choices,
+            definition.deprecatedChoices,
+            '',
+            '',
+        );
     }
 
     enterAdHocMode(suggestion = {}) {
         this.setDefinition(null);
         this.setAdHocFieldState(false, true);
-        this.replaceValueEditor('text', [], '', '');
+        this.replaceValueEditor('text', [], [], '', '');
 
         this.symbolTarget.value = suggestion.symbol ?? '';
         this.unitTarget.value = suggestion.unit ?? '';
@@ -211,7 +222,7 @@ export default class extends Controller {
         }
     }
 
-    replaceValueEditor(inputType, choices, value, operator) {
+    replaceValueEditor(inputType, choices, deprecatedChoices, value, operator) {
         this.destroyValueTomSelect();
         const oldElement = this.valueTextTarget;
         const choiceMode = inputType === 'choice';
@@ -230,7 +241,13 @@ export default class extends Controller {
             for (const choice of choices) {
                 newElement.add(new Option(choice, choice));
             }
-            newElement.value = choices.includes(value) ? value : '';
+            for (const choice of deprecatedChoices) {
+                newElement.add(new Option(
+                    this.deprecatedChoiceLabelValue.replace('__PARAMETER_CHOICE__', () => choice),
+                    choice,
+                ));
+            }
+            newElement.value = [...choices, ...deprecatedChoices].includes(value) ? value : '';
         } else {
             newElement.type = 'search';
             newElement.className = 'form-control';
@@ -273,6 +290,7 @@ export default class extends Controller {
             definitionName: this.definitionTarget.selectedOptions[0]?.text ?? this.nameTarget.value,
             inputType: this.initialInputTypeValue,
             choices: [...this.initialChoicesValue],
+            deprecatedChoices: [...this.initialDeprecatedChoicesValue],
             symbol: this.symbolTarget.value,
             unit: this.unitTarget.value,
             numeric: Array.from(this.numericContainerTarget.querySelectorAll('input, select')).map(field => field.value),
@@ -310,7 +328,13 @@ export default class extends Controller {
             field.tomselect?.sync();
         });
 
-        this.replaceValueEditor(state.inputType, state.choices, state.value, state.operator);
+        this.replaceValueEditor(
+            state.inputType,
+            state.choices,
+            state.deprecatedChoices,
+            state.value,
+            state.operator,
+        );
         const linked = state.definitionId !== '';
         this.setAdHocFieldState(linked, linked);
         this._restoring = false;

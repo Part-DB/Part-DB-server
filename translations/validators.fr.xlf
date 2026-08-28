@@ -277,5 +277,8 @@
     <unit id="parameter_definition_choice_length" name="parameter_definition.validator.choice_too_long">
       <segment state="translated"><source>parameter_definition.validator.choice_too_long</source><target>Un choix de paramètre ne doit pas dépasser {{ limit }} caractères.</target></segment>
     </unit>
+    <unit id="parameter_definition_choice_not_string" name="parameter_definition.validator.choice_not_string">
+      <segment state="translated"><source>parameter_definition.validator.choice_not_string</source><target>Les choix de paramètre doivent être des chaînes de caractères.</target></segment>
+    </unit>
   </file>
 </xliff>
