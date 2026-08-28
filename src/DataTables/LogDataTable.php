@@ -229,6 +229,24 @@ final readonly class LogDataTable implements DataTableTypeInterface
         $dataTable->add('request_id', TextColumn::class, [
             'label' => 'log.request_id',
             'visible' => false,
+            'render' => function (?string $value, AbstractLogEntry $context): string {
+                $requestId = $context->getRequestId();
+                if (null === $requestId) {
+                    return '';
+                }
+
+                $requestIdStr = (string) $requestId;
+                $shortRequestId = substr($requestIdStr, -8);
+
+                return sprintf('<a href="%s" title="%s"><code>&hellip;%s</code></a>',
+                    $this->urlGenerator->generate('log_view', [
+                        'log_filter[requestId][value]' => $requestIdStr,
+                        'log_filter[requestId][operator]' => '=',
+                    ]),
+                    htmlspecialchars($requestIdStr.' - '.$this->translator->trans('log.request_id.filter_by')),
+                    htmlspecialchars($shortRequestId)
+                );
+            },
         ]);
 
         $dataTable->add('extra', LogEntryExtraColumn::class, [

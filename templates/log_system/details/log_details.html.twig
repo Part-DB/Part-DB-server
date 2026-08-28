@@ -72,7 +72,11 @@
         {% if log_entry.requestId is not null %}
         <tr>
             <td>{% trans %}log.request_id{% endtrans %}</td>
-            <td><code>{{ log_entry.requestId }}</code></td>
+            <td>
+                <a href="{{ path('log_view', {'log_filter[requestId][value]': log_entry.requestId, 'log_filter[requestId][operator]': '='}) }}" title="{% trans %}log.request_id.filter_by{% endtrans %}">
+                    <code>{{ log_entry.requestId }}</code>
+                </a>
+            </td>
         </tr>
         {% endif %}
     </table>
