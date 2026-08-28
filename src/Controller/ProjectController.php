@@ -101,7 +101,7 @@ class ProjectController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        $this->denyAccessUnlessGranted('edit', $project);
+        $this->denyAccessUnlessGranted('edit', $bomEntry);
 
 
         $form = $this->createForm(BOMEntryEditType::class, [
@@ -141,7 +141,7 @@ class ProjectController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        $this->denyAccessUnlessGranted('edit', $project);
+        $this->denyAccessUnlessGranted('delete', $bomEntry);
 
         if ($this->isCsrfTokenValid('delete' . $bomEntry->getId(), $request->request->get('_token'))) {
             $commentHelper->setMessage($request->request->get('log_comment'));

@@ -252,7 +252,7 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
                     'project_bom_entry_edit',
                     ['id' => $options['project']->getId(), 'bomEntry' => $context->getId()]
                 ),
-                'disabled' => fn(mixed $value, ProjectBOMEntry $context): bool => !$this->security->isGranted('edit', $context->getProject()),
+                'disabled' => fn(mixed $value, ProjectBOMEntry $context): bool => !$this->security->isGranted('edit', $context),
                 'title' => $this->translator->trans('part.table.edit.title'),
             ])
         ;
