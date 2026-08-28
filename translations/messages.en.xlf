@@ -2846,6 +2846,15 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Request ID</target>
       </segment>
     </unit>
+    <unit id="DvJdiEx" name="log.request_id.filter_by">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="final">
+        <source>log.request_id.filter_by</source>
+        <target>Show all log entries with this request ID</target>
+      </segment>
+    </unit>
     <unit id="EU6XNV5" name="part.table.name">
       <segment state="translated">
         <source>part.table.name</source>
