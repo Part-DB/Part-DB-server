@@ -81,7 +81,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
 {
     use TimestampTrait;
 
-    #[Assert\Positive]
+    #[Assert\Positive(groups: ['Default', 'project_bom'])]
     #[ORM\Column(name: 'quantity', type: Types::FLOAT)]
     #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full', 'mcp_project_details:read'])]
     protected float $quantity = 1.0;
@@ -96,7 +96,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
     /**
      * @var string|null An optional name describing this BOM entry (useful for non-part entries)
      */
-    #[Assert\Expression('this.getPart() !== null or this.getName() !== null', message: 'validator.project.bom_entry.name_or_part_needed')]
+    #[Assert\Expression('this.getPart() !== null or this.getName() !== null', message: 'validator.project.bom_entry.name_or_part_needed', groups: ['Default', 'project_bom'])]
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full', 'mcp_project_details:read'])]
     protected ?string $name = null;
@@ -128,7 +128,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
     /**
      * @var BigDecimal|null The price of this non-part BOM entry
      */
-    #[Assert\AtLeastOneOf([new BigDecimalPositive(), new Assert\IsNull()])]
+    #[Assert\AtLeastOneOf([new BigDecimalPositive(), new Assert\IsNull()], groups: ['Default', 'project_bom'])]
     #[ORM\Column(type: 'big_decimal', precision: 11, scale: 5, nullable: true)]
     #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'extended', 'full', 'mcp_project_details:read'])]
     protected ?BigDecimal $price = null;
@@ -138,7 +138,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
      */
     #[ORM\ManyToOne(targetEntity: Currency::class)]
     #[ORM\JoinColumn]
-    #[Selectable]
+    #[Selectable(groups: ['Default', 'project_bom'])]
     protected ?Currency $price_currency = null;
 
     public function __construct()
@@ -256,7 +256,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
         return $this->part instanceof Part;
     }
 
-    #[Assert\Callback]
+    #[Assert\Callback(groups: ['Default', 'project_bom'])]
     public function validate(ExecutionContextInterface $context, $payload): void
     {
         //Round quantity to whole numbers, if the part is not a decimal part

@@ -110,6 +110,13 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class Project extends AbstractStructuralDBElement
 {
+    /**
+     * If the number of BOM entries exceed this limit, the project will be considered to be in "performance mode", which
+     * means that certain operations will be limited in the name of performance.
+     * For example, the BOM history will not be expanded when rendering project metadata, as that would create an unbounded log query for large projects.
+     */
+    public const PERFORMANCE_MODE_LIMIT = 99;
+
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
     #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
@@ -126,11 +133,11 @@ class Project extends AbstractStructuralDBElement
     /**
      * @var Collection<int, ProjectBOMEntry>
      */
-    #[Assert\Valid]
+    #[Assert\Valid(groups: ['project_bom'])]
     #[Groups(['extended', 'full', 'import', 'mcp_project_details:read'])]
-    #[ORM\OneToMany(mappedBy: 'project', targetEntity: ProjectBOMEntry::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[UniqueObjectCollection(message: 'project.bom_entry.part_already_in_bom', fields: ['part'])]
-    #[UniqueObjectCollection(message: 'project.bom_entry.name_already_in_bom', fields: ['name'])]
+    #[ORM\OneToMany(mappedBy: 'project', targetEntity: ProjectBOMEntry::class, cascade: ['persist', 'remove'], orphanRemoval: true, fetch: 'EXTRA_LAZY')]
+    #[UniqueObjectCollection(message: 'project.bom_entry.part_already_in_bom', fields: ['part'], groups: ['project_bom'])]
+    #[UniqueObjectCollection(message: 'project.bom_entry.name_already_in_bom', fields: ['name'], groups: ['project_bom'])]
     protected Collection $bom_entries;
 
     #[ORM\Column(type: Types::INTEGER)]
@@ -272,9 +279,28 @@ class Project extends AbstractStructuralDBElement
         return $this;
     }
 
+    /**
+     * Returns true if the project has too many BOM entries, and therefore is in performance mode, which means that certain
+     * operations will be limited in the name of performance.
+     * @return bool
+     */
+    public function requiresPerformanceMode(): bool
+    {
+        return $this->bom_entries->count() > self::PERFORMANCE_MODE_LIMIT;
+    }
+
     public function getBomEntries(): Collection
     {
         return $this->bom_entries;
+    }
+
+    /**
+     * Returns the number of BOM entries in this project.
+     * @return int
+     */
+    public function getBomEntriesCount(): int
+    {
+        return $this->bom_entries->count();
     }
 
     /**
@@ -358,14 +384,11 @@ class Project extends AbstractStructuralDBElement
             if (!$child->getBuildPart() instanceof Part) {
                 continue;
             }
-            //We have to search all bom entries for the build part
-            $found = false;
-            foreach ($this->getBomEntries() as $bom_entry) {
-                if ($bom_entry->getPart() === $child->getBuildPart()) {
-                    $found = true;
-                    break;
-                }
-            }
+            //Use the extra-lazy collection so validating project metadata does
+            //not initialize the complete BOM.
+            $found = !$this->getBomEntries()->matching(
+                Criteria::create()->where(Criteria::expr()->eq('part', $child->getBuildPart()))
+            )->isEmpty();
 
             //When the build part is not found, we have to add an error
             if (!$found) {
