@@ -124,6 +124,13 @@ services:
         tags:
             - { name: monolog.processor }
 
+
+    webauthn.cose.algorithm.RS1:
+        class: Cose\Algorithm\Signature\RSA\RS1
+        arguments:
+            $acknowledgeInsecureAlgorithm: true
+
+
 when@test: &test
     services:
         # Decorate the doctrine fixtures load command to use our custom purger by default
