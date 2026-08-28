@@ -36,6 +36,32 @@ trait ProjectTrait
     }
 
     /**
+     * Adds the given BOM entry to the list of BOM entries this part is used in.
+     * The BOM entry is assigned to this part.
+     *
+     * @return $this
+     */
+    public function addProjectBomEntry(ProjectBOMEntry $entry): self
+    {
+        $entry->setPart($this);
+        $this->project_bom_entries->add($entry);
+
+        return $this;
+    }
+
+    /**
+     * Removes the given BOM entry from the list of BOM entries this part is used in.
+     *
+     * @return $this
+     */
+    public function removeProjectBomEntry(ProjectBOMEntry $entry): self
+    {
+        $this->project_bom_entries->removeElement($entry);
+
+        return $this;
+    }
+
+    /**
      * Checks whether this part represents the builds of a project
      * @return bool True if it represents the builds, false if not
      */

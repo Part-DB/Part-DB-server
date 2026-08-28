@@ -1,0 +1,28 @@
+{
+    "name": "Part-DB Development",
+    "initializeCommand": "docker build --file Dockerfile --tag partdb-local-dev-base . && docker compose --file compose.dev.yaml build partdb",
+    "dockerComposeFile": [
+        "../compose.dev.yaml",
+        "compose.devcontainer.yaml"
+    ],
+    "service": "partdb",
+    "runServices": [
+        "partdb",
+        "assets"
+    ],
+    "workspaceFolder": "/var/www/html",
+    "remoteUser": "vscode",
+    "updateRemoteUserUID": true,
+    "overrideCommand": false,
+    "shutdownAction": "stopCompose",
+    "portsAttributes": {
+        "80": {
+            "label": "Part-DB HTTP",
+            "onAutoForward": "ignore"
+        },
+        "443": {
+            "label": "Part-DB HTTPS",
+            "onAutoForward": "ignore"
+        }
+    }
+}

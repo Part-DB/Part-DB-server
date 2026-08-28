@@ -93,7 +93,7 @@
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#withdraw-modal"
                                 data-action="move" data-lot-id="{{ lot.id }}" data-lot-amount="{{ lot.amount }}"
                                 title="{% trans %}part.info.withdraw_modal.title.move{% endtrans %}"
-                                {% if not is_granted('move', lot) or not withdraw_add_helper.canWithdraw(lot) or part.partLots.count == 1 %}disabled{% endif %}
+                                {% if not is_granted('move', lot) or not withdraw_add_helper.canWithdraw(lot) %}disabled{% endif %}
                         >
                             <i class="fa-solid fa-right-left fa-fw"></i>
                         </button>

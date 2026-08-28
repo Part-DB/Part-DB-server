@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Form\Filters;
 
 use App\DataTables\Filters\LogFilter;
+use App\Entity\LogSystem\AccessMethod;
 use App\Entity\LogSystem\LogLevel;
 use App\Entity\LogSystem\LogTargetType;
 use App\Entity\LogSystem\PartStockChangedLogEntry;
@@ -41,6 +42,7 @@ use App\Form\Filters\Constraints\EnumConstraintType;
 use App\Form\Filters\Constraints\InstanceOfConstraintType;
 use App\Form\Filters\Constraints\NumberConstraintType;
 use App\Form\Filters\Constraints\UserEntityConstraintType;
+use App\Form\Filters\Constraints\UuidConstraintType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -139,6 +141,16 @@ class LogFilterType extends AbstractType
             'label' => 'log.target_id',
             'min' => 1,
             'step' => 1,
+        ]);
+
+        $builder->add('accessMethod', EnumConstraintType::class, [
+            'label' => 'log.access_method',
+            'enum_class' => AccessMethod::class,
+            'choice_label' => static fn(AccessMethod $m): AccessMethod => $m,
+        ]);
+
+        $builder->add('requestId', UuidConstraintType::class, [
+            'label' => 'log.request_id',
         ]);
 
         $builder->add('submit', SubmitType::class, [

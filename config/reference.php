@@ -2433,6 +2433,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     translations_path?: scalar|Param|null, // Default: "%translator.default_path%"
  *     format?: scalar|Param|null, // Default: "xlf"
  *     xliff_version?: scalar|Param|null, // Default: "2.0"
+ *     default_locale?: scalar|Param|null, // Default: "%kernel.default_locale%"
  *     use_intl_icu_format?: bool|Param, // Default: false
  *     writer_options?: list<scalar|Param|null>,
  * }

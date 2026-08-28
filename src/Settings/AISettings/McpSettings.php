@@ -27,6 +27,7 @@ use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
 #[Settings(label: new TM("settings.misc.mcp"))]
@@ -42,4 +43,24 @@ class McpSettings
         envVarMode: EnvVarMode::OVERWRITE,
     )]
     public bool $enabled = false;
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.mcp.editing_enabled"),
+        description: new TM("settings.misc.mcp.editing_enabled.help"),
+        envVar: "bool:MCP_EDITING_ENABLED",
+        envVarMode: EnvVarMode::OVERWRITE,
+    )]
+    public bool $editingEnabled = false;
+
+    /**
+     * Global admin kill-switch for the write MCP tools (create_part, update_part, delete_part, and the
+     * stock-adjustment tools), independent of any individual user's permissions or API token scope. Every write
+     * processor calls this first, before doing anything else, so a disabled setting fails fast and uniformly.
+     */
+    public function assertEditingEnabled(): void
+    {
+        if (!$this->editingEnabled) {
+            throw new AccessDeniedException('Editing via MCP tools is disabled. An administrator must enable "Enable part-editing MCP tools" in the system settings (AI tab) first.');
+        }
+    }
 }

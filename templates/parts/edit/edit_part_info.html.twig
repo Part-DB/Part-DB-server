@@ -163,4 +163,8 @@
     {{ form_row(form.reset) }}
     {{ form_errors(form) }}
     {{ form_end(form) }}
+
+    {# The generator modal must live OUTSIDE the part form: its calculator has named radio
+       inputs (band count, SMD marking) that would otherwise be submitted with the part form. #}
+    {% include "tools/component_image_generator/_generate_modal.html.twig" %}
 {% endblock %}

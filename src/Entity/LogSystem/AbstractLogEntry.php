@@ -28,6 +28,7 @@ use App\Entity\UserSystem\User;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\LogEntryRepository;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * This entity describes an entry in the event log.
@@ -41,6 +42,9 @@ use App\Repository\LogEntryRepository;
 #[ORM\Index(columns: ['type'], name: 'log_idx_type')]
 #[ORM\Index(columns: ['type', 'target_type', 'target_id'], name: 'log_idx_type_target')]
 #[ORM\Index(columns: ['datetime'], name: 'log_idx_datetime')]
+#[ORM\Index(columns: ['access_method'], name: 'log_idx_access_method')]
+#[ORM\Index(columns: ['request_id'], name: 'log_idx_request_id')]
+#[ORM\Index(columns: ['transaction_id'], name: 'log_idx_transaction_id')]
 abstract class AbstractLogEntry extends AbstractDBElement
 {
     /** @var User|null The user which has caused this log entry
@@ -76,6 +80,23 @@ abstract class AbstractLogEntry extends AbstractDBElement
      */
     #[ORM\Column(name: 'target_type', type: Types::SMALLINT, enumType: LogTargetType::class)]
     protected LogTargetType $target_type = LogTargetType::NONE;
+
+    /** @var AccessMethod|null The access method (WebUI/CLI/REST API/MCP) that was used to make this change
+     */
+    #[ORM\Column(name: 'access_method', type: Types::SMALLINT, enumType: AccessMethod::class, nullable: true)]
+    protected ?AccessMethod $access_method = null;
+
+    /** @var Uuid|null The ID of the request or console command execution that caused this log entry.
+     * All log entries created during the same request/command share the same request ID.
+     */
+    #[ORM\Column(name: 'request_id', type: 'uuid', nullable: true)]
+    protected ?Uuid $request_id = null;
+
+    /** @var Uuid|null A user-assignable ID that can be used to group changes of multiple requests together.
+     * Currently not populated automatically; reserved for future use.
+     */
+    #[ORM\Column(name: 'transaction_id', type: 'uuid', nullable: true)]
+    protected ?Uuid $transaction_id = null;
 
     /** @var string The type of this log entry, aka the description what has happened.
      * The mapping between the log entry class and the discriminator column is done by doctrine.
@@ -124,7 +145,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
      */
     public function isCLIEntry(): bool
     {
-        return str_starts_with($this->username, '!!!CLI ');
+        return $this->access_method === AccessMethod::CLI;
     }
 
     /**
@@ -136,7 +157,8 @@ abstract class AbstractLogEntry extends AbstractDBElement
     public function setCLIUsername(string $cli_username): self
     {
         $this->user = null;
-        $this->username = '!!!CLI ' . $cli_username;
+        $this->username = $cli_username;
+        $this->access_method = AccessMethod::CLI;
         return $this;
     }
 
@@ -147,9 +169,67 @@ abstract class AbstractLogEntry extends AbstractDBElement
     public function getCLIUsername(): ?string
     {
         if ($this->isCLIEntry()) {
-            return substr($this->username, 7);
+            return $this->username;
         }
         return null;
+    }
+
+    /**
+     * Returns the access method (WebUI/CLI/REST API/MCP) that was used to make this change.
+     */
+    public function getAccessMethod(): ?AccessMethod
+    {
+        return $this->access_method;
+    }
+
+    /**
+     * Sets the access method that was used to make this change.
+     *
+     * @return $this
+     */
+    public function setAccessMethod(AccessMethod $access_method): self
+    {
+        $this->access_method = $access_method;
+        return $this;
+    }
+
+    /**
+     * Returns the ID of the request or console command execution that caused this log entry.
+     */
+    public function getRequestId(): ?Uuid
+    {
+        return $this->request_id;
+    }
+
+    /**
+     * Sets the ID of the request or console command execution that caused this log entry.
+     *
+     * @return $this
+     */
+    public function setRequestId(Uuid $request_id): self
+    {
+        $this->request_id = $request_id;
+        return $this;
+    }
+
+    /**
+     * Returns the transaction ID, which can be used to group changes of multiple requests together.
+     * Currently not populated automatically; reserved for future use.
+     */
+    public function getTransactionId(): ?Uuid
+    {
+        return $this->transaction_id;
+    }
+
+    /**
+     * Sets the transaction ID, which can be used to group changes of multiple requests together.
+     *
+     * @return $this
+     */
+    public function setTransactionId(Uuid $transaction_id): self
+    {
+        $this->transaction_id = $transaction_id;
+        return $this;
     }
 
     /**

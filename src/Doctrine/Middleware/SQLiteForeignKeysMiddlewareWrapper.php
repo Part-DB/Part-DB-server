@@ -23,14 +23,25 @@ declare(strict_types=1);
 
 namespace App\Doctrine\Middleware;
 
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsMiddleware;
 use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\Driver\Middleware;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
+/**
+ * Doctrine wraps middlewares in the order they are registered, so the first one applied ends up innermost
+ * (closest to the raw connection) and therefore runs first. DAMA\DoctrineTestBundle registers its own
+ * middleware with priority 100 and, being a static connection, opens a transaction immediately after
+ * connecting. This middleware must run with a higher priority than that (i.e. be innermost) so the
+ * "PRAGMA foreign_keys = ON" statement in SQLiteForeignKeysMiddlewareDriver is executed before DAMA's
+ * transaction begins - SQLite silently ignores that pragma when set inside an already open transaction,
+ * which would otherwise make DATABASE_SQLITE_ENFORCE_FOREIGN_KEYS a no-op in the test suite.
+ */
+#[AsMiddleware(priority: 200)]
 class SQLiteForeignKeysMiddlewareWrapper implements Middleware
 {
     public function __construct(
-        #[Autowire(env: 'bool:DATABASE_SQLITE_ENFORCE_FOREIGN_KEYS')]
+        #[Autowire(param: 'partdb.db.sqlite_enforce_foreign_keys')]
         private readonly bool $enabled,
     ) {
     }

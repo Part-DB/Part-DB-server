@@ -107,9 +107,6 @@ final class OAuthClientAdminManagerTest extends KernelTestCase
         $container = static::getContainer();
 
         $entityManager = $container->get(EntityManagerInterface::class);
-        if ($entityManager->getConnection()->getDatabasePlatform() instanceof SQLitePlatform) {
-            self::markTestSkipped('SQLite does not enforce FK constraints (and therefore ON DELETE CASCADE) by default.');
-        }
 
         $clientManager = $container->get(ClientManagerInterface::class);
         $manager = $container->get(OAuthClientAdminManager::class);

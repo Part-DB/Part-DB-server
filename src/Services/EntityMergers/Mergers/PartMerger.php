@@ -109,6 +109,63 @@ class PartMerger implements EntityMergerInterface
             && $t->getTypeTranslationKey() === $o->getTypeTranslationKey();
     }
 
+    /**
+     * Merges the project BOM entries of the other part into the target part, so the usage of the other part
+     * in projects is not lost.
+     * If a project does not use the target part yet, the existing entry is simply re-pointed to the target part
+     * (instead of deleting it and creating a new one for the target part - this also means we never introduce a
+     * new, unpersisted entity here, so we don't need to cascade-persist anything).
+     * If a project already uses the target part, the quantity/name/mountnames/comment/price of the other part's
+     * entry are merged into that existing entry, and the now-redundant other entry is removed from the project.
+     */
+    private function mergeProjectBomEntries(Part $target, Part $other): void
+    {
+        foreach ($other->getProjectBomEntries()->toArray() as $entry) {
+            $project = $entry->getProject();
+
+            //Check if the target part is already used in the same project
+            $existing = null;
+            foreach ($target->getProjectBomEntries() as $targetEntry) {
+                if ($targetEntry->getProject() === $project) {
+                    $existing = $targetEntry;
+                    break;
+                }
+            }
+
+            if ($existing !== null) {
+                //Merge the quantity, name, mountnames, comment and price into the existing entry
+                $existing->setQuantity($existing->getQuantity() + $entry->getQuantity());
+                $this->useCallback(function (?string $tn, ?string $on): ?string {
+                    if ($tn === null || trim($tn) === '') {
+                        return $on;
+                    }
+                    if ($on === null || trim($on) === '') {
+                        return $tn;
+                    }
+                    if ($this->areStringsEqual($tn, $on)) {
+                        return $tn;
+                    }
+                    return trim($tn) . ' / ' . trim($on);
+                }, $existing, $entry, 'name');
+                $this->mergeTags($existing, $entry, 'mountnames');
+                $this->mergeTextWithSeparator($existing, $entry, 'comment');
+                //Prices are only set on non-part BOM entries, but merge them defensively too, in case that ever changes
+                $this->useOtherValueIfNotNull($existing, $entry, 'price');
+                $this->useOtherValueIfNotNull($existing, $entry, 'price_currency');
+                //The other entry is now redundant, so remove it from its project
+                $project?->removeBomEntry($entry);
+            } else {
+                //No entry for this project yet, so just re-point this entry to the target part
+                $target->addProjectBomEntry($entry);
+            }
+
+            //Detach it from the other part's in-memory collection in any case, so that the part-deletion listener
+            //(which unlinks/renames the entries still on the removed part) does not touch an entry that has
+            //already been re-pointed to the target part or merged away.
+            $other->removeProjectBomEntry($entry);
+        }
+    }
+
     private function mergeCollectionFields(Part $target, Part $other, array $context): void
     {
         /********************************************************************************
@@ -119,6 +176,9 @@ class PartMerger implements EntityMergerInterface
         $this->mergeCollections($target, $other, 'partLots');
         $this->mergeAttachments($target, $other);
         $this->mergeParameters($target, $other);
+
+        // Merge the project BOM entries, so the usage of the other part in projects is not lost.
+        $this->mergeProjectBomEntries($target, $other);
 
         //Merge the associations
         $this->mergeCollections($target, $other, 'associated_parts_as_owner', $this->comparePartAssociations(...));

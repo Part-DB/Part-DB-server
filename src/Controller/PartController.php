@@ -38,6 +38,7 @@ use App\Exceptions\AttachmentDownloadException;
 use App\Form\Part\PartBaseType;
 use App\Form\Part\PartLotType;
 use App\Services\Attachments\AttachmentSubmitHandler;
+use App\Services\Attachments\GeneratedImageAttachmentHelper;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\EntityMergers\Mergers\PartMerger;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
@@ -133,13 +134,24 @@ final class PartController extends AbstractController
 
         // Build the add-lot form for the INFO page modal (only when not in time-travel mode)
         $addLotForm = null;
-        if ($timeTravel_timestamp === null && $this->isGranted('edit', $part)) {
+        $moveNewLotForm = null;
+        if ($timeTravel_timestamp === null) {
             $newLot = new PartLot();
             $newLot->setPart($part);
-            $addLotForm = $this->createForm(PartLotType::class, $newLot, [
-                'measurement_unit' => $part->getPartUnit(),
-                'action' => $this->generateUrl('part_lot_add', ['id' => $part->getID()]),
-            ]);
+            if ($this->isGranted('edit', $part)) {
+                $addLotForm = $this->createForm(PartLotType::class, $newLot, [
+                    'measurement_unit' => $part->getPartUnit(),
+                    'action' => $this->generateUrl('part_lot_add', ['id' => $part->getID()]),
+                ]);
+            }
+
+            if ($this->isGranted('create', $newLot) && $this->isGranted('move', $newLot)) {
+                $moveNewLotForm = $this->createForm(PartLotType::class, $newLot, [
+                    'measurement_unit' => $part->getPartUnit(),
+                    //CSRF is already covered by the outer withdraw/move form's token
+                    'csrf_protection' => false,
+                ]);
+            }
         }
 
         return $this->render(
@@ -155,6 +167,7 @@ final class PartController extends AbstractController
                 'withdraw_add_helper' => $withdrawAddHelper,
                 'highlightLotId' => $request->query->getInt('highlightLot', 0),
                 'add_lot_form' => $addLotForm,
+                'move_new_lot_form' => $moveNewLotForm,
             ]
         );
     }
@@ -206,6 +219,96 @@ final class PartController extends AbstractController
         return $this->renderPartForm('edit', $request, $part, [], [
             'bulk_job' => $bulkJob
         ]);
+    }
+
+    #[Route(path: '/{id}/generate_image', name: 'part_generate_image', methods: ['POST'])]
+    public function generateImage(Part $part, Request $request, GeneratedImageAttachmentHelper $helper): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $part);
+
+        if (!$this->isCsrfTokenValid('generate_image' . $part->getID(), $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token');
+        }
+
+        $ajax = $request->isXmlHttpRequest();
+
+        $svg = (string) $request->request->get('svg', '');
+        //Basic guard: the payload must look like an SVG image (it is sanitized again on storage)
+        if ($svg === '' || !str_contains($svg, '<svg')) {
+            return $this->generateImageResult($part, false, 'part.generate_image.flash.invalid', $ajax);
+        }
+
+        $name = trim((string) $request->request->get('name', ''));
+        $setAsPreview = $request->request->getBoolean('preview', true);
+        $overwrite = $request->request->getBoolean('overwrite', false);
+
+        //Guard the persistence so a storage/validation failure shows a flash instead of a 500.
+        try {
+            $helper->attachSvgToPart($part, $svg, $name !== '' ? $name : 'Generated image', $setAsPreview, $overwrite);
+            $this->commentHelper->setMessage('Generated component image');
+            $this->em->flush();
+        } catch (\Throwable) {
+            return $this->generateImageResult($part, false, 'part.generate_image.flash.invalid', $ajax);
+        }
+
+        return $this->generateImageResult($part, true, 'part.generate_image.flash.success', $ajax);
+    }
+
+    /**
+     * Writes the KiCad/EDA fields (symbol, footprint, reference prefix) of a part. Used by the bulk
+     * image generator to assign EDA settings to a whole assortment at once.
+     */
+    #[Route(path: '/{id}/set_eda', name: 'part_set_eda', methods: ['POST'])]
+    public function setEda(Part $part, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $part);
+
+        if (!$this->isCsrfTokenValid('set_eda' . $part->getID(), $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token');
+        }
+
+        $eda = $part->getEdaInfo();
+        if ($request->request->has('kicad_symbol')) {
+            $eda->setKicadSymbol(trim((string) $request->request->get('kicad_symbol')) ?: null);
+        }
+        if ($request->request->has('reference_prefix')) {
+            $eda->setReferencePrefix(trim((string) $request->request->get('reference_prefix')) ?: null);
+        }
+        if ($request->request->has('kicad_footprint')) {
+            $eda->setKicadFootprint(trim((string) $request->request->get('kicad_footprint')) ?: null);
+        }
+
+        $ajax = $request->isXmlHttpRequest();
+        try {
+            $this->commentHelper->setMessage('Bulk EDA settings');
+            $this->em->flush();
+        } catch (\Throwable) {
+            return $ajax
+                ? $this->json(['success' => false], Response::HTTP_UNPROCESSABLE_ENTITY)
+                : $this->redirectToRoute('part_info', ['id' => $part->getID()]);
+        }
+
+        return $ajax
+            ? $this->json(['success' => true])
+            : $this->redirectToRoute('part_info', ['id' => $part->getID()]);
+    }
+
+    /**
+     * Returns the outcome of a generate-image request as JSON (for the modal/AJAX flow) or as a
+     * flash + redirect (for a normal form submit).
+     */
+    private function generateImageResult(Part $part, bool $success, string $messageKey, bool $ajax): Response
+    {
+        if ($ajax) {
+            return $this->json([
+                'success' => $success,
+                'message' => $this->translator->trans($messageKey),
+            ], $success ? Response::HTTP_OK : Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $this->addFlash($success ? 'success' : 'error', $messageKey);
+
+        return $this->redirectToRoute('part_info', ['id' => $part->getID()]);
     }
 
     #[Route(path: '/{id}/bulk-import-complete/{jobId}', name: 'part_bulk_import_complete', methods: ['POST'])]
@@ -649,7 +752,26 @@ final class PartController extends AbstractController
                         break;
                     case "move":
                         $this->denyAccessUnlessGranted('move', $partLot);
-                        $this->denyAccessUnlessGranted('move', $targetLot);
+                        if ($targetId === 'new') {
+                            $targetLot = new PartLot();
+                            $targetLot->setPart($part);
+                            $this->denyAccessUnlessGranted('create', $targetLot);
+
+                            $newLotForm = $this->createForm(PartLotType::class, $targetLot, [
+                                'measurement_unit' => $part->getPartUnit(),
+                                //CSRF is already covered by the outer withdraw/move form's token
+                                'csrf_protection' => false,
+                            ]);
+                            $newLotForm->handleRequest($request);
+                            if (!$newLotForm->isSubmitted() || !$newLotForm->isValid() || !$targetLot->getStorageLocation()) {
+                                $this->addFlash('error', 'part.created_flash.invalid');
+                                goto err;
+                            }
+
+                            $em->persist($targetLot);
+                        } else {
+                            $this->denyAccessUnlessGranted('move', $targetLot);
+                        }
                         $withdrawAddHelper->move($partLot, $targetLot, $amount, $comment, $timestamp, $delete_lot_if_empty);
                         break;
                     default:

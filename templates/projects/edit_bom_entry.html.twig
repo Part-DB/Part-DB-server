@@ -1,0 +1,82 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans with {'%id%': bom_entry.id} %}project.bom_entry.edit.title{% endtrans%} {{ project.name }} (#{{ bom_entry.id }}){% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-list-check fa-fw"></i> {% trans with {'%id%': bom_entry.id} %}project.bom_entry.edit.title{% endtrans%} <b>{{ project.name }}</b>
+{% endblock %}
+
+{% block card_content %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.bom_entry.quantity) }}
+    {{ form_row(form.bom_entry.part) }}
+    {{ form_row(form.bom_entry.name) }}
+    {{ form_row(form.bom_entry.mountnames) }}
+
+    <div class="row mb-2">
+        <label class="col-form-label {{ col_label }}">{% trans %}project.bom.price{% endtrans %}</label>
+        <div class="{{ col_input }}">
+            <div class="input-group">
+                {{ form_widget(form.bom_entry.price) }}
+                {{ form_widget(form.bom_entry.priceCurrency) }}
+            </div>
+            {{ form_errors(form.bom_entry.price) }}
+            {{ form_errors(form.bom_entry.priceCurrency) }}
+        </div>
+    </div>
+    {{ form_row(form.bom_entry.comment) }}
+
+    <div class="form-group row">
+        <div class="{{ col_input }} {{ offset_label }}">
+            <div class="btn-group">
+                {{ form_widget(form.save) }}
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="visually-hidden">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                    <div class="px-2">
+                        <label class="form-label">{% trans %}edit.log_comment{% endtrans %}</label>
+                        {{ form_widget(form.log_comment)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_row(form.reset) }}
+
+    <div class="{{ col_input}} {{ offset_label }} ps-1">
+
+        <a class="btn btn-info" href="{{ path('project_info', {'id': project.id}) }}#bom-tab-pane">
+            <i class="fa-solid fa-arrow-left"></i>
+            {% trans %}project.bom_entry.edit.back_to_bom{% endtrans %}
+        </a>
+    </div>
+
+    {{ form_end(form) }}
+
+    <hr>
+    <div class="{{ col_input}} {{ offset_label }} ps-1">
+
+        <form method="post" action="{{ path('project_bom_entry_delete', {'id': project.id, 'bomEntry': bom_entry.id}) }}" class="mt-3" {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', 'submit', 'submit') }}
+              data-delete-title="{% trans with {'%name%': bom_entry.name|default(bom_entry.id)|escape} %}entity.delete.confirm_title{% endtrans %}"
+              data-delete-message="{% trans %}entity.delete.message{% endtrans %}">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ bom_entry.id) }}">
+            <div class="btn-group">
+                <button class="btn btn-danger" type="submit">{% trans %}entity.delete{% endtrans %}</button>
+                <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {% if not is_granted('delete', bom_entry) %}disabled{% endif %}>
+                    <span class="visually-hidden">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu p-2">
+                    <label for="delete_log_comment">{% trans %}edit.log_comment{% endtrans %}</label>
+                    <input type="text" id="delete_log_comment" name="log_comment" class="form-control">
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+{% endblock %}

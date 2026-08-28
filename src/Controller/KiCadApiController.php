@@ -75,8 +75,7 @@ class KiCadApiController extends AbstractController
         }
         $this->denyAccessUnlessGranted('@parts.read');
 
-        $minimal = $request->query->getBoolean('minimal', false);
-        $data = $this->kiCADHelper->getCategoryParts($category, $minimal);
+        $data = $this->kiCADHelper->getCategoryParts($category);
         return $this->createCacheableJsonResponse($request, $data, 300);
     }
 
@@ -96,7 +95,7 @@ class KiCadApiController extends AbstractController
     private function createCacheableJsonResponse(Request $request, array $data, int $maxAge): Response
     {
         $response = new JsonResponse($data);
-        $response->setEtag(md5(json_encode($data)));
+        $response->setEtag(md5(json_encode($data, JSON_THROW_ON_ERROR)));
         $response->headers->set('Cache-Control', 'private, max-age=' . $maxAge);
         $response->isNotModified($request);
 

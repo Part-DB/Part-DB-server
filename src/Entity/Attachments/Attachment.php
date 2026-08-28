@@ -31,6 +31,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\McpTool;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\ApiPlatform\DocumentedAPIProperties\DocumentedAPIProperty;
@@ -39,7 +40,9 @@ use App\ApiPlatform\Filter\LikeFilter;
 use App\ApiPlatform\HandleAttachmentsUploadsProcessor;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\EntityListeners\AttachmentDeleteListener;
+use App\Mcp\DTO\ElementByIdInput;
 use App\Repository\AttachmentRepository;
+use App\State\Mcp\GetAttachmentContentProcessor;
 use App\Validator\Constraints\Selectable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -78,6 +81,21 @@ use function in_array;
     normalizationContext: ['groups' => ['attachment:read', 'attachment:read:standalone',  'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['attachment:write', 'attachment:write:standalone', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
     processor: HandleAttachmentsUploadsProcessor::class,
+    mcp: [
+        'get_attachment_content' => new McpTool(
+            title: 'Get attachment content by ID',
+            description: 'Retrieve the actual file content of an attachment (e.g. a datasheet or picture) by its database ID, as returned in the "attachments" field of get_part_details and the other get_X_details tools. Only works for attachments whose file is stored internally (see the "private"/hasInternal-like fields on the attachment); for attachments that only reference an external URL, fetch that URL directly instead. The file is rejected if it is larger than 10 MB.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            security: 'is_granted("@attachments.list_attachments")',
+            input: ElementByIdInput::class,
+            //The processor returns raw MCP content blocks (image/embedded resource) via a CallToolResult, not a
+            //normalized representation of the Attachment resource, so no output schema must be advertised (otherwise
+            //MCP clients reject the response for declaring a schema but returning no structuredContent).
+            structuredContent: false,
+            validate: true,
+            processor: GetAttachmentContentProcessor::class,
+        ),
+    ],
 )]
 //This property is added by the denormalizer in order to resolve the placeholder
 #[DocumentedAPIProperty(

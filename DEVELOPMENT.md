@@ -67,6 +67,28 @@ git clone https://github.com/Part-DB/Part-DB-server.git
 cd Part-DB-server
 ```
 
+### Visual Studio Code Dev Container
+
+The first setup can take several minutes. When it finishes, open either:
+
+```
+http://localhost:8080/
+https://localhost:8443/
+```
+
+The HTTPS endpoint uses a self-signed development certificate. Your browser will show a certificate warning until you explicitly accept the certificate or add it to your local trust store. The command-line Docker setup only exposes HTTP.
+
+During the first database migration an administrator account is created. To retrieve its generated password, open a local terminal and inspect the setup service logs:
+
+```bash
+docker compose -f compose.dev.yaml \
+    -f .devcontainer/compose.devcontainer.yaml logs setup
+```
+
+The automatic setup runs again when the Dev Container is rebuilt. Docker, Composer, and Yarn reuse their caches, and database migrations only apply migrations that have not already run.
+
+### Command-line Setup
+
 Build the upstream production base image:
 
 ```bash
