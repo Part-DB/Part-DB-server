@@ -30,7 +30,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 class SQLiteForeignKeysMiddlewareWrapper implements Middleware
 {
     public function __construct(
-        #[Autowire(env: 'bool:DATABASE_SQLITE_ENFORCE_FOREIGN_KEYS')]
+        #[Autowire(param: 'partdb.db.sqlite_enforce_foreign_keys')]
         private readonly bool $enabled,
     ) {
     }

@@ -116,6 +116,7 @@ class ToolsController extends AbstractController
             'db_user' => $DBInfoHelper->getDatabaseUsername() ?? 'Unknown',
             'db_natsort_method' => $natsortDebugHelper->getNaturalSortMethod(),
             'db_natsort_slow_allowed' => $natsortDebugHelper->isSlowNaturalSortAllowed(),
+            'db_sqlite_enforce_foreign_keys' => $this->getParameter('partdb.db.sqlite_enforce_foreign_keys'),
 
             //New version section
             'new_version_available' => $updateAvailableManager->isUpdateAvailable(),

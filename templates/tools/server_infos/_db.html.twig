@@ -29,5 +29,11 @@
         <td>Slow natural sort allowed</td>
         <td>{{ helper.boolean_badge(db_natsort_slow_allowed) }}</td>
     </tr>
+    {% if db_type == 'sqlite' %}
+    <tr>
+        <td>SQLite foreign keys enforced</td>
+        <td>{{ helper.boolean_badge(db_sqlite_enforce_foreign_keys) }}</td>
+    </tr>
+    {% endif %}
     </tbody>
 </table>
