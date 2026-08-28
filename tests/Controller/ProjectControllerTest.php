@@ -443,7 +443,7 @@ final class ProjectControllerTest extends WebTestCase
         );
 
         $this->assertTrue($this->client->getResponse()->isSuccessful());
-        $formCrawler = $crawler->filterXPath('//form[.//input[@name="project_bom_entry[name]"]]');
+        $formCrawler = $crawler->filterXPath('//form[.//input[@name="bom_entry_edit[bom_entry][name]"]]');
         $this->assertCount(1, $formCrawler);
         $form = $formCrawler->form();
         $nameField = $formCrawler->filter('input[name$="[name]"]')->first()->attr('name');

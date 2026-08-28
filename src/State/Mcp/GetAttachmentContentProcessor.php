@@ -44,7 +44,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  * depending on the file's mime type) — both understood natively by MCP clients, so we return CallToolResult
  * directly rather than going through the normal output/normalizationContext serialization path.
  */
-readonly class GetAttachmentContentProcessor implements ProcessorInterface
+class GetAttachmentContentProcessor implements ProcessorInterface
 {
     /** Files larger than this are rejected, to avoid flooding the AI's context with a huge base64 blob. */
     protected const MAX_FILE_SIZE = 10 * 1024 * 1024;
