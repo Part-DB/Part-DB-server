@@ -495,6 +495,8 @@ final class PartControllerTest extends WebTestCase
             'target_id' => 'new',
             'amount' => '4',
             'action' => 'move',
+            //The real form always submits this field (even when empty), so mirror that here
+            'comment' => '',
             'part_lot' => [
                 'storage_location' => $storageLocation->getId(),
             ],
