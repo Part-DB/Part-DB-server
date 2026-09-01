@@ -38,7 +38,6 @@ use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 #[Group("slow")]
 #[Group("DB")]
@@ -485,14 +484,19 @@ final class PartControllerTest extends WebTestCase
         $partId = $part->getId();
         $sourceLotId = $sourceLot->getId();
 
-        $csrfTokenManager = $client->getContainer()->get(CsrfTokenManagerInterface::class);
-        $token = $csrfTokenManager->getToken('part_withraw' . $partId)->getValue();
+        // Load the part page first, both to start a session (the CSRF token storage needs one)
+        // and to grab the real CSRF token the withdraw/move form would submit.
+        $crawler = $client->request('GET', "/en/part/{$partId}");
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $token = (string) $crawler->filter('input[name="_csfr"]')->first()->attr('value');
 
         $client->request('POST', "/en/part/{$partId}/add_withdraw", [
             'lot_id' => $sourceLotId,
             'target_id' => 'new',
             'amount' => '4',
             'action' => 'move',
+            //The real form always submits this field (even when empty), so mirror that here
+            'comment' => '',
             'part_lot' => [
                 'storage_location' => $storageLocation->getId(),
             ],
