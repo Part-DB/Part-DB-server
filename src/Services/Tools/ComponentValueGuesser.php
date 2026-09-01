@@ -193,7 +193,7 @@ final readonly class ComponentValueGuesser
         $tolerance = $this->detectTolerance($part);
         $color = $this->detectBodyColor($part);
 
-        if ($ohms !== null && $ohms > 0) {
+        if ($ohms !== null && $ohms >= 0) {
             $package = $this->detectSmdPackage($part);
 
             return [
@@ -626,7 +626,8 @@ final readonly class ComponentValueGuesser
             }
 
             $num = $param->getValueTypical();
-            if ($num === null || $num <= 0) {
+            //0 Ω is a real value (a "jumper" resistor); 0 F / 0 H are not, so only resistors allow it.
+            if ($num === null || $num < 0 || ($num === 0.0 && !$isRes)) {
                 continue;
             }
 

@@ -53,6 +53,12 @@ export default class extends Controller
             moveToLotSelect.classList.add('d-none');
         }
 
+        //The target_id radios are only relevant (and must only be required) when the move-to section is shown,
+        //otherwise a hidden but unchecked required radio group can block form submission
+        moveToLotSelect.querySelectorAll('input[name="target_id"]').forEach(radio => {
+            radio.required = action === 'move';
+        });
+
         //First unhide all move to lot options and then hide the currently selected lot
         const moveToLotOptions = moveToLotSelect.querySelectorAll('input[type="radio"]');
         moveToLotOptions.forEach(option => option.parentElement.classList.remove('d-none'));
