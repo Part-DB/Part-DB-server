@@ -81,6 +81,16 @@ final class ParameterDTOTest extends TestCase
             'test'
         ];
 
+        //Test inverse AWG range
+        yield [
+            new ParameterDTO('test', value_min: 14, value_max: 22, unit: 'AWG', symbol: 'm', group: 'test'),
+            'test',
+            '22..14',
+            'AWG',
+            'm',
+            'test'
+        ];
+
         //Test ranges with tilde
         yield [
             new ParameterDTO('test', value_min: -1.0, value_max: 2.0, unit: 'kg', symbol: 'm', group: 'test'),
