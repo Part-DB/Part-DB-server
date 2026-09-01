@@ -72,6 +72,7 @@ const RESISTOR_POWERS = {
     "0.5": {label: "1/2 W", len: 9.0, dia: 3.2, pitch: 12.7, pitchIn: "0.5\""},
     "1": {label: "1 W", len: 11.5, dia: 4.5, pitch: 15.24, pitchIn: "0.6\""},
     "2": {label: "2 W", len: 15.5, dia: 5.0, pitch: 20.32, pitchIn: "0.8\""},
+    "5": {label: "5 W", len: 32.0, dia: 9.5, pitch: 40.0, pitchIn: "1.6\""},
 };
 
 // Standard SMD (chip) packages: imperial code -> metric code, size (mm), power (W).
@@ -495,7 +496,7 @@ export default class extends Controller {
         const current = this.computeResistance();
         this.bandCount = parseInt(event.target.value, 10);
         this.renderBandSelects();
-        if (current && current.ohms > 0) {
+        if (current && current.ohms >= 0) {
             this.setBandsFromValue(current.ohms, current.tolerance);
         }
         this.updateResistor();
@@ -651,17 +652,24 @@ export default class extends Controller {
      * them into the selects.
      */
     setBandsFromValue(value, tolerance, target = this.bandSelectsTarget, count = this.bandCount) {
-        if (!(value > 0)) {
+        if (!(value >= 0)) {
             return false;
         }
         const numDigits = count === 4 ? 2 : 3;
 
-        // Normalize the value into <numDigits> significant figures + power of ten
-        let exp = Math.floor(Math.log10(value)) - (numDigits - 1);
-        let digits = Math.round(value / Math.pow(10, exp));
-        if (digits >= Math.pow(10, numDigits)) {
-            digits = Math.round(digits / 10);
-            exp += 1;
+        let exp, digits;
+        if (value === 0) {
+            // 0 Ω "jumper" resistor: every digit band and the multiplier band are black.
+            exp = 0;
+            digits = 0;
+        } else {
+            // Normalize the value into <numDigits> significant figures + power of ten
+            exp = Math.floor(Math.log10(value)) - (numDigits - 1);
+            digits = Math.round(value / Math.pow(10, exp));
+            if (digits >= Math.pow(10, numDigits)) {
+                digits = Math.round(digits / 10);
+                exp += 1;
+            }
         }
         const multiplier = Math.pow(10, exp);
 
@@ -750,7 +758,7 @@ export default class extends Controller {
     applyResistorValue() {
         const raw = this.resistorValueInputTarget.value;
         const ohms = this.parseValue(raw, "R");
-        if (ohms === null || !(ohms > 0)) {
+        if (ohms === null || !(ohms >= 0)) {
             this.resistorValueInputTarget.classList.add("is-invalid");
             return;
         }
@@ -1766,7 +1774,7 @@ export default class extends Controller {
         const field = event.currentTarget.dataset.field;
         const raw = event.currentTarget.value;
         const ohms = field === "value" ? this.parseValue(raw, "R") : this.smdCodeToOhms(raw);
-        if (ohms === null || !(ohms > 0)) {
+        if (ohms === null || !(ohms >= 0)) {
             event.currentTarget.classList.add("is-invalid");
             this.smdOhms = null;
             if (this.hasSmdResultTarget) {
@@ -1809,7 +1817,7 @@ export default class extends Controller {
 
     /** Draws the SMD chip using the marking currently selected as "printed on the part". */
     redrawSmd() {
-        if (this.smdOhms === null || this.smdOhms === undefined || !(this.smdOhms > 0)) {
+        if (this.smdOhms === null || this.smdOhms === undefined || !(this.smdOhms >= 0)) {
             return;
         }
         const codes = {
@@ -1877,8 +1885,12 @@ export default class extends Controller {
 
     /** ohms -> 4-digit precision code (3 significant figures), R-notation below 100 Ω. */
     ohmsTo4Digit(ohms) {
-        if (!(ohms > 0)) {
+        if (!(ohms >= 0)) {
             return null;
+        }
+        if (ohms === 0) {
+            // Standard "0 Ω jumper" marking.
+            return "0000";
         }
         if (ohms < 100) {
             let s = parseFloat(ohms.toPrecision(3)).toString();
@@ -1901,7 +1913,7 @@ export default class extends Controller {
 
     /** ohms -> EIA-96 code (value code + multiplier letter) for E96 values, else null. */
     ohmsToEia96(ohms) {
-        if (!(ohms > 0)) {
+        if (!(ohms >= 0)) {
             return null;
         }
         const order = ["A", "B", "C", "D", "E", "F", "X", "S", "Y", "R", "Z"];
@@ -1938,8 +1950,12 @@ export default class extends Controller {
      * Returns null when the value is out of the representable range.
      */
     ohmsToSmdCode(ohms) {
-        if (!(ohms > 0)) {
+        if (!(ohms >= 0)) {
             return null;
+        }
+        if (ohms === 0) {
+            // Standard "0 Ω jumper" marking.
+            return "000";
         }
         if (ohms < 10) {
             let s = parseFloat(ohms.toFixed(2)).toString();
@@ -2000,7 +2016,7 @@ export default class extends Controller {
             + this.dimV(bodyY, bodyBottom, bodyX + bodyW + 16, `W ${this.formatMm(pkg.w)}`, bodyX + bodyW);
 
         //The chip itself shows the printed code; print the decoded value (+ tolerance) as a caption below.
-        const valueLabel = this.smdOhms > 0 ? this.formatOhms(this.smdOhms) + this.specSuffix(spec) : "";
+        const valueLabel = this.smdOhms >= 0 ? this.formatOhms(this.smdOhms) + this.specSuffix(spec) : "";
         const h = bodyBottom + 54;
         const valueCaption = valueLabel
             ? `<text x="${cx}" y="${h - 12}" text-anchor="middle" font-family="monospace" font-size="16" font-weight="700" fill="#3a4149">${valueLabel}</text>`
