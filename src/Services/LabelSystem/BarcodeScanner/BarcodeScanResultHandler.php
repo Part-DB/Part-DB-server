@@ -348,7 +348,7 @@ final readonly class BarcodeScanResultHandler
         if ($vendor === 'digikey') {
             return [
                 'providerKey' => 'digikey',
-                'providerId' => $scanResult->supplierPartNumber ?? throw new \RuntimeException('Digikey barcode does not contain required supplier part number'),
+                'providerId' => $scanResult->digikeyPartNumber ?? $scanResult->supplierPartNumber ?? throw new \RuntimeException('Digikey barcode does not contain required supplier part number'),
                 'lotAmount' => $scanResult->quantity,
                 'lotName' => $scanResult->digikeyInvoiceNumber ?? $scanResult->digikeySalesOrderNumber ?? $scanResult->customerPO,
                 'lotUserBarcode' => $scanResult->rawInput,
