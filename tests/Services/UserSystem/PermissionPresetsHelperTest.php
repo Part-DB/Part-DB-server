@@ -78,6 +78,7 @@ final class PermissionPresetsHelperTest extends WebTestCase
         self::$service->applyPreset($user, PermissionPresetsHelper::PRESET_READ_ONLY);
 
         $this->assertTrue(self::$permissionManager->dontInherit($user, 'parts', 'read'));
+        $this->assertTrue(self::$permissionManager->dontInherit($user, 'parameter_definitions', 'read'));
     }
 
     public function testReadOnlyPresetDoesNotAllowPartsCreate(): void
@@ -94,6 +95,27 @@ final class PermissionPresetsHelperTest extends WebTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         self::$service->applyPreset($this->createUser(), 'non_existent_preset');
+    }
+
+    public function testEditorCanReadButCannotManageParameterDefinitions(): void
+    {
+        $user = $this->createUser();
+        self::$service->applyPreset($user, PermissionPresetsHelper::PRESET_EDITOR);
+
+        $this->assertTrue(self::$permissionManager->dontInherit($user, 'parameter_definitions', 'read'));
+        $this->assertNotTrue(self::$permissionManager->dontInherit($user, 'parameter_definitions', 'edit'));
+        $this->assertNotTrue(self::$permissionManager->dontInherit($user, 'parameter_definitions', 'create'));
+    }
+
+    public function testAdminCanManageParameterDefinitions(): void
+    {
+        $user = $this->createUser();
+        self::$service->applyPreset($user, PermissionPresetsHelper::PRESET_ADMIN);
+
+        $this->assertTrue(self::$permissionManager->dontInherit($user, 'parameter_definitions', 'read'));
+        $this->assertTrue(self::$permissionManager->dontInherit($user, 'parameter_definitions', 'edit'));
+        $this->assertTrue(self::$permissionManager->dontInherit($user, 'parameter_definitions', 'create'));
+        $this->assertTrue(self::$permissionManager->dontInherit($user, 'parameter_definitions', 'delete'));
     }
 
     public function testApplyPresetReturnsTheSameUser(): void

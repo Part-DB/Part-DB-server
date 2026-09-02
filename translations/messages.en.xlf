@@ -3701,6 +3701,12 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Parameter</target>
       </segment>
     </unit>
+    <unit id="parameter_definition_label" name="parameter_definition.label">
+      <segment state="translated">
+        <source>parameter_definition.label</source>
+        <target>Parameter definition</target>
+      </segment>
+    </unit>
     <unit id="2iSHbcY" name="label_profile.label">
       <segment state="translated">
         <source>label_profile.label</source>
@@ -15020,6 +15026,52 @@ Buerklin-API Authentication server:
         <target>OAuth2 client updated successfully!</target>
       </segment>
     </unit>
+    <unit id="parameter_definition_labelp" name="parameter_definition.labelp">
+      <segment state="translated">
+        <source>parameter_definition.labelp</source>
+        <target>Parameters</target>
+      </segment>
+    </unit>
+    <unit id="parameter_definition_edit" name="parameter_definition.edit">
+      <segment state="translated"><source>parameter_definition.edit</source><target>Edit parameter definition</target></segment>
+    </unit>
+    <unit id="parameter_definition_new" name="parameter_definition.new">
+      <segment state="translated"><source>parameter_definition.new</source><target>New parameter definition</target></segment>
+    </unit>
+    <unit id="parameter_definition_symbol" name="parameter_definition.symbol">
+      <segment state="translated"><source>parameter_definition.symbol</source><target>Symbol</target></segment>
+    </unit>
+    <unit id="parameter_definition_unit" name="parameter_definition.unit">
+      <segment state="translated"><source>parameter_definition.unit</source><target>Unit</target></segment>
+    </unit>
+    <unit id="parameter_definition_input_type" name="parameter_definition.input_type">
+      <segment state="translated"><source>parameter_definition.input_type</source><target>Input type</target></segment>
+    </unit>
+    <unit id="parameter_definition_input_type_text" name="parameter_definition.input_type.text">
+      <segment state="translated"><source>parameter_definition.input_type.text</source><target>Text</target></segment>
+    </unit>
+    <unit id="parameter_definition_input_type_choice" name="parameter_definition.input_type.choice">
+      <segment state="translated"><source>parameter_definition.input_type.choice</source><target>Choice</target></segment>
+    </unit>
+    <unit id="parameter_definition_choices" name="parameter_definition.choices">
+      <segment state="translated"><source>parameter_definition.choices</source><target>Choices</target></segment>
+    </unit>
+    <unit id="parameter_definition_choices_help" name="parameter_definition.choices.help">
+      <segment state="translated"><source>parameter_definition.choices.help</source><target>Enter one choice per line. This field is ignored and cleared when the input type is Text.</target></segment>
+    </unit>
+    <unit id="parameter_definition_deprecated_choices" name="parameter_definition.deprecated_choices">
+      <segment state="translated"><source>parameter_definition.deprecated_choices</source><target>Deprecated choices</target></segment>
+    </unit>
+    <unit id="parameter_definition_deprecated_choices_help" name="parameter_definition.deprecated_choices.help">
+      <segment state="translated"><source>parameter_definition.deprecated_choices.help</source><target>These values were previously active. They are preserved as permanent historical vocabulary but are no longer offered for new selections.</target></segment>
+    </unit>
+    <unit id="parameter_definition_choice_deprecated_label" name="parameter_definition.choice.deprecated_label">
+      <segment state="translated"><source>parameter_definition.choice.deprecated_label</source><target>%choice% (deprecated)</target></segment>
+    </unit>
+    <unit id="parameter_definition_delete_in_use" name="parameter_definition.delete.in_use">
+      <segment state="translated"><source>parameter_definition.delete.in_use</source><target>This parameter definition is still in use and cannot be deleted.</target></segment>
+    </unit>
+
     <unit id="QCg5KCx" name="project.edit.bom.performance_mode_warning">
       <segment>
         <source>project.edit.bom.performance_mode_warning</source>

@@ -128,6 +128,7 @@ class LogFilterType extends AbstractType
                 LogTargetType::PRICEDETAIL => 'pricedetail.label',
                 LogTargetType::MEASUREMENT_UNIT => 'measurement_unit.label',
                 LogTargetType::PARAMETER => 'parameter.label',
+                LogTargetType::PARAMETER_DEFINITION => 'parameter_definition.label',
                 LogTargetType::LABEL_PROFILE => 'label_profile.label',
                 LogTargetType::PART_ASSOCIATION => 'part_association.label',
                 LogTargetType::BULK_INFO_PROVIDER_IMPORT_JOB => 'bulk_info_provider_import_job.label',

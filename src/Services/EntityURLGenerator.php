@@ -27,6 +27,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parameters\PartParameter;
+use App\Entity\Parameters\ParameterDefinition;
 use App\Entity\Parts\PartCustomState;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
@@ -109,6 +110,7 @@ class EntityURLGenerator
             Group::class => 'group_edit',
             LabelProfile::class => 'label_profile_edit',
             PartCustomState::class => 'part_custom_state_edit',
+            ParameterDefinition::class => 'parameter_definition_edit',
         ];
 
         try {
@@ -216,6 +218,7 @@ class EntityURLGenerator
             Group::class => 'group_edit',
             LabelProfile::class => 'label_profile_edit',
             PartCustomState::class => 'part_custom_state_edit',
+            ParameterDefinition::class => 'parameter_definition_edit',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -247,6 +250,7 @@ class EntityURLGenerator
             Group::class => 'group_edit',
             LabelProfile::class => 'label_profile_edit',
             PartCustomState::class => 'part_custom_state_edit',
+            ParameterDefinition::class => 'parameter_definition_edit',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -279,6 +283,7 @@ class EntityURLGenerator
             Group::class => 'group_new',
             LabelProfile::class => 'label_profile_new',
             PartCustomState::class => 'part_custom_state_new',
+            ParameterDefinition::class => 'parameter_definition_new',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity));
@@ -311,6 +316,7 @@ class EntityURLGenerator
             Group::class => 'group_clone',
             LabelProfile::class => 'label_profile_clone',
             PartCustomState::class => 'part_custom_state_clone',
+            ParameterDefinition::class => 'parameter_definition_clone',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -357,6 +363,7 @@ class EntityURLGenerator
             Group::class => 'group_delete',
             LabelProfile::class => 'label_profile_delete',
             PartCustomState::class => 'part_custom_state_delete',
+            ParameterDefinition::class => 'parameter_definition_delete',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);

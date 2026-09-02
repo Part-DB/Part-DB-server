@@ -199,5 +199,14 @@
         <target>No</target>
       </segment>
     </unit>
+    <unit id="parameter_choice_add_new" name="parameter.choice.add_new">
+      <segment state="translated"><source>parameter.choice.add_new</source><target>Add "%value%"</target></segment>
+    </unit>
+    <unit id="parameter_choice_new" name="parameter.choice.new">
+      <segment state="translated"><source>parameter.choice.new</source><target>NEW</target></segment>
+    </unit>
+    <unit id="parameter_choice_nothing" name="parameter.choice.nothing_selected">
+      <segment state="translated"><source>parameter.choice.nothing_selected</source><target>Nothing selected</target></segment>
+    </unit>
   </file>
 </xliff>

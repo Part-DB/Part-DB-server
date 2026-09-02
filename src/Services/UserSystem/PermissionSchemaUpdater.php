@@ -173,4 +173,24 @@ class PermissionSchemaUpdater
             $permissions->setPermissionValue('parts_stock', 'stocktake', $new_value);
         }
     }
+
+    private function upgradeSchemaToVersion5(HasPermissionsInterface $holder): void //@phpstan-ignore-line This is called via reflection
+    {
+        $permissions = $holder->getPermissions();
+
+        if (!$permissions->isAnyOperationOfPermissionSet('parameter_definitions')) {
+            // Definitions are required for displaying and using parameters, but managing
+            // the global library remains restricted to existing system administrators.
+            $permissions->setPermissionValue(
+                'parameter_definitions',
+                'read',
+                $permissions->getPermissionValue('parts', 'read')
+            );
+
+            $management_value = $permissions->getPermissionValue('config', 'change_system_settings');
+            foreach (['edit', 'create', 'delete', 'show_history', 'revert_element', 'import'] as $operation) {
+                $permissions->setPermissionValue('parameter_definitions', $operation, $management_value);
+            }
+        }
+    }
 }

@@ -88,8 +88,8 @@ abstract class BaseAdminController extends AbstractController
             throw new InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
         }
 
-        if ('' === $this->attachment_class || !is_a($this->attachment_class, Attachment::class, true)) {
-            throw new InvalidArgumentException('You have to override the $attachment_class value with a valid Attachment class in your subclass!');
+        if ('' !== $this->attachment_class && !is_a($this->attachment_class, Attachment::class, true)) {
+            throw new InvalidArgumentException('The $attachment_class value must be empty or a valid Attachment class!');
         }
 
         if ('' === $this->parameter_class || ($this->parameter_class && !is_a($this->parameter_class, AbstractParameter::class, true))) {
@@ -179,21 +179,23 @@ abstract class BaseAdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ($this->additionalActionEdit($form, $entity)) {
                 //Upload passed files
-                $attachments = $form['attachments'];
-                foreach ($attachments as $attachment) {
-                    /** @var FormInterface $attachment */
-                    try {
-                        $this->attachmentSubmitHandler->handleUpload(
-                            $attachment->getData(),
-                            AttachmentUpload::fromAttachmentForm($attachment)
-                        );
-                    } catch (AttachmentDownloadException $attachmentDownloadException) {
-                        $this->addFlash(
-                            'error',
-                            $this->translator->trans(
-                                'attachment.download_failed'
-                            ).' '.$attachmentDownloadException->getMessage()
-                        );
+                if ($form->has('attachments')) {
+                    $attachments = $form['attachments'];
+                    foreach ($attachments as $attachment) {
+                        /** @var FormInterface $attachment */
+                        try {
+                            $this->attachmentSubmitHandler->handleUpload(
+                                $attachment->getData(),
+                                AttachmentUpload::fromAttachmentForm($attachment)
+                            );
+                        } catch (AttachmentDownloadException $attachmentDownloadException) {
+                            $this->addFlash(
+                                'error',
+                                $this->translator->trans(
+                                    'attachment.download_failed'
+                                ).' '.$attachmentDownloadException->getMessage()
+                            );
+                        }
                     }
                 }
 
@@ -276,22 +278,24 @@ abstract class BaseAdminController extends AbstractController
         //Perform additional actions
         if ($form->isSubmitted() && $form->isValid() && $this->additionalActionNew($form, $new_entity)) {
             //Upload passed files
-            $attachments = $form['attachments'];
-            foreach ($attachments as $attachment) {
-                /** @var FormInterface $attachment */
+            if ($form->has('attachments')) {
+                $attachments = $form['attachments'];
+                foreach ($attachments as $attachment) {
+                    /** @var FormInterface $attachment */
 
-                try {
-                    $this->attachmentSubmitHandler->handleUpload(
-                        $attachment->getData(),
-                        AttachmentUpload::fromAttachmentForm($attachment)
-                    );
-                } catch (AttachmentDownloadException $attachmentDownloadException) {
-                    $this->addFlash(
-                        'error',
-                        $this->translator->trans(
-                            'attachment.download_failed'
-                        ).' '.$attachmentDownloadException->getMessage()
-                    );
+                    try {
+                        $this->attachmentSubmitHandler->handleUpload(
+                            $attachment->getData(),
+                            AttachmentUpload::fromAttachmentForm($attachment)
+                        );
+                    } catch (AttachmentDownloadException $attachmentDownloadException) {
+                        $this->addFlash(
+                            'error',
+                            $this->translator->trans(
+                                'attachment.download_failed'
+                            ).' '.$attachmentDownloadException->getMessage()
+                        );
+                    }
                 }
             }
 

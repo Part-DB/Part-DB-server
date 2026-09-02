@@ -50,33 +50,60 @@ use App\Entity\Parameters\FootprintParameter;
 use App\Entity\Parameters\GroupParameter;
 use App\Entity\Parameters\ManufacturerParameter;
 use App\Entity\Parameters\PartParameter;
+use App\Entity\Parameters\ParameterDefinition;
 use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\Parameters\SupplierParameter;
 use App\Entity\Parts\MeasurementUnit;
 use App\Form\Type\ExponentialNumberType;
 use App\Form\Type\TriStateCheckboxType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Event\PreSetDataEvent;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ParameterType extends AbstractType
 {
+    public function __construct(
+        private readonly EntityManagerInterface $entity_manager,
+        private readonly Security $security,
+        private readonly TranslatorInterface $translator,
+    ) {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('name', TextType::class, [
+        $parameter = $builder->getData();
+        $linked_part_parameter = $parameter instanceof PartParameter
+            && $parameter->getDefinition() instanceof ParameterDefinition;
+
+        $name_options = [
             'label' => false,
             'empty_data' => '',
             'attr' => [
                 'placeholder' => 'parameters.name.placeholder',
                 'class' => 'form-control-sm',
             ],
-        ]);
-        $builder->add('symbol', TextType::class, [
+        ];
+        if ($linked_part_parameter) {
+            $name_options['data'] = $parameter->getEffectiveName();
+        }
+        $builder->add('name', TextType::class, $name_options);
+
+        $symbol_options = [
             'label' => false,
             'required' => false,
             'empty_data' => '',
@@ -85,16 +112,30 @@ class ParameterType extends AbstractType
                 'class' => 'form-control-sm',
                 'style' => 'max-width: 12ch;',
             ],
-        ]);
-        $builder->add('value_text', TextType::class, [
-            'label' => false,
-            'required' => false,
-            'empty_data' => '',
-            'attr' => [
-                'placeholder' => 'parameters.text.placeholder',
-                'class' => 'form-control-sm',
-            ],
-        ]);
+        ];
+        if ($linked_part_parameter) {
+            $symbol_options['data'] = $parameter->getEffectiveSymbol();
+            $symbol_options['attr']['readonly'] = true;
+        }
+        $builder->add('symbol', TextType::class, $symbol_options);
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (PreSetDataEvent $event): void {
+                $parameter = $event->getData();
+                $definition = $parameter instanceof PartParameter ? $parameter->getDefinition() : null;
+                $this->addValueTextField(
+                    $event->getForm(),
+                    $parameter instanceof PartParameter
+                        ? $parameter->getEffectiveInputType()
+                        : ParameterDefinition::INPUT_TYPE_TEXT,
+                    $parameter instanceof PartParameter ? $parameter->getEffectiveChoices() : [],
+                    $definition?->findCanonicalDeprecatedChoice(
+                        $parameter instanceof PartParameter ? $parameter->getValueText() : '',
+                    ),
+                );
+            }
+        );
 
         $builder->add('value_max', ExponentialNumberType::class, [
             'label' => false,
@@ -129,7 +170,7 @@ class ParameterType extends AbstractType
                 'style' => 'max-width: 25ch;',
             ],
         ]);
-        $builder->add('unit', TextType::class, [
+        $unit_options = [
             'label' => false,
             'required' => false,
             'empty_data' => '',
@@ -138,7 +179,12 @@ class ParameterType extends AbstractType
                 'class' => 'form-control-sm',
                 'style' => 'max-width: 8ch;',
             ],
-        ]);
+        ];
+        if ($linked_part_parameter) {
+            $unit_options['data'] = $parameter->getEffectiveUnit();
+            $unit_options['attr']['readonly'] = true;
+        }
+        $builder->add('unit', TextType::class, $unit_options);
 
         $builder->add('group', TextType::class, [
             'label' => false,
@@ -149,9 +195,146 @@ class ParameterType extends AbstractType
                 'class' => 'form-control-sm',
             ],
         ]);
-
         // Only show the EDA visibility field for part parameters, as it has no function for other entities
         if ($options['data_class'] === PartParameter::class) {
+            $builder->add('definition', EntityType::class, [
+                'class' => ParameterDefinition::class,
+                'choice_label' => 'name',
+                'choice_lazy' => true,
+                'label' => false,
+                'required' => false,
+                'placeholder' => '',
+                'attr' => [
+                    'class' => 'd-none',
+                ],
+            ]);
+
+            $builder->add('new_choice_value', HiddenType::class, [
+                'mapped' => false,
+                'required' => false,
+                'empty_data' => '',
+            ]);
+
+            $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event): void {
+                $submitted_data = $event->getData();
+                $original_parameter = $event->getForm()->getData();
+                $definition = null;
+                $pending_choice = '';
+                $current_deprecated_choice = null;
+
+                if (is_array($submitted_data)) {
+                    $definition_id = filter_var(
+                        $submitted_data['definition'] ?? null,
+                        FILTER_VALIDATE_INT,
+                        ['options' => ['min_range' => 1]],
+                    );
+                    if (false !== $definition_id) {
+                        $definition = $this->entity_manager->find(ParameterDefinition::class, $definition_id);
+                    }
+
+                    if ($definition instanceof ParameterDefinition
+                        && ParameterDefinition::INPUT_TYPE_CHOICE === $definition->getInputType()) {
+                        $submitted_value = trim((string) ($submitted_data['value_text'] ?? ''));
+                        $pending_choice = trim((string) ($submitted_data['new_choice_value'] ?? ''));
+                        $canonical_choice = $definition->findCanonicalChoice($submitted_value);
+                        $original_definition = $original_parameter instanceof PartParameter
+                            ? $original_parameter->getDefinition()
+                            : null;
+                        if ($original_definition instanceof ParameterDefinition
+                            && $original_definition->getID() === $definition->getID()) {
+                            $current_deprecated_choice = $definition->findCanonicalDeprecatedChoice(
+                                $original_parameter->getValueText(),
+                            );
+                        }
+                        $submitted_deprecated_choice = $definition->findCanonicalDeprecatedChoice($submitted_value);
+
+                        if (null !== $canonical_choice) {
+                            $submitted_data['value_text'] = $canonical_choice;
+                            $submitted_data['new_choice_value'] = '';
+                            $pending_choice = '';
+                        } elseif (null !== $current_deprecated_choice
+                            && $submitted_deprecated_choice === $current_deprecated_choice) {
+                            $submitted_data['value_text'] = $current_deprecated_choice;
+                            $submitted_data['new_choice_value'] = '';
+                            $pending_choice = '';
+                        } elseif ('' === $submitted_value) {
+                            $submitted_data['value_text'] = '';
+                            $submitted_data['new_choice_value'] = '';
+                            $pending_choice = '';
+                        } elseif ('' !== $pending_choice) {
+                            $submitted_data['value_text'] = $submitted_value;
+                            if (mb_strtolower($pending_choice) === mb_strtolower($submitted_value)) {
+                                $pending_choice = $submitted_value;
+                                $submitted_data['new_choice_value'] = $pending_choice;
+                            } else {
+                                $submitted_data['new_choice_value'] = '';
+                                $pending_choice = '';
+                            }
+                        }
+
+                        $event->setData($submitted_data);
+                    }
+                }
+
+                $choices = $definition?->getChoices() ?? [];
+                if (null !== $current_deprecated_choice && !in_array($current_deprecated_choice, $choices, true)) {
+                    $choices[] = $current_deprecated_choice;
+                }
+                if ('' !== $pending_choice && !in_array($pending_choice, $choices, true)) {
+                    $choices[] = $pending_choice;
+                }
+                $this->addValueTextField(
+                    $event->getForm(),
+                    $definition?->getInputType() ?? ParameterDefinition::INPUT_TYPE_TEXT,
+                    $choices,
+                    $current_deprecated_choice,
+                );
+            });
+
+            $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event): void {
+                $parameter = $event->getData();
+                if (!$parameter instanceof PartParameter) {
+                    return;
+                }
+
+                $parameter->clearPendingDefinitionChoice();
+                $definition = $parameter->getDefinition();
+                $pending_choice = trim((string) $event->getForm()->get('new_choice_value')->getData());
+
+                if ('' !== $pending_choice) {
+                    $error = null;
+                    $visible_value = trim($parameter->getValueText());
+                    $canonical_choice = $definition?->findCanonicalChoice($visible_value);
+
+                    if (!$definition instanceof ParameterDefinition
+                        || ParameterDefinition::INPUT_TYPE_CHOICE !== $definition->getInputType()) {
+                        $error = 'parameter.validator.new_choice_requires_choice_definition';
+                    } elseif (null !== $canonical_choice) {
+                        $parameter->setValueText($canonical_choice);
+                    } elseif ($pending_choice !== $visible_value) {
+                        $error = 'parameter.validator.new_choice_value_mismatch';
+                    } elseif (mb_strlen($pending_choice) > ParameterDefinition::MAX_CHOICE_LENGTH) {
+                        $error = 'parameter_definition.validator.choice_too_long';
+                    } elseif (!$this->security->isGranted('edit', $definition)) {
+                        $error = 'parameter.validator.new_choice_forbidden';
+                    } else {
+                        $parameter->requestPendingDefinitionChoice($pending_choice);
+                    }
+
+                    if (null !== $error) {
+                        $event->getForm()->get('value_text')->addError(new FormError(
+                            $error,
+                            $error,
+                            ['{{ limit }}' => (string) ParameterDefinition::MAX_CHOICE_LENGTH],
+                        ));
+                    }
+                }
+
+                if ($definition instanceof ParameterDefinition) {
+                    $parameter->refreshSnapshotFromDefinition();
+                }
+            });
+
             $builder->add('eda_visibility', TriStateCheckboxType::class, [
                 'label' => false,
                 'required' => false,
@@ -161,6 +344,7 @@ class ParameterType extends AbstractType
                 'label' => false,
                 'required' => false,
             ]);
+
         }
     }
 
@@ -194,6 +378,66 @@ class ParameterType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => AbstractParameter::class,
+        ]);
+    }
+
+    /** @param list<string> $choices */
+    private function addValueTextField(
+        FormInterface $form,
+        string $input_type,
+        array $choices,
+        ?string $current_deprecated_choice = null,
+    ): void
+    {
+        $can_add_choice = $this->security->isGranted('edit', ParameterDefinition::class) ? 'true' : 'false';
+
+        if (ParameterDefinition::INPUT_TYPE_CHOICE === $input_type) {
+            if (null !== $current_deprecated_choice && !in_array($current_deprecated_choice, $choices, true)) {
+                $choices[] = $current_deprecated_choice;
+            }
+            $choice_map = [];
+            foreach ($choices as $choice) {
+                $label = $choice === $current_deprecated_choice
+                    ? $this->translator->trans(
+                        'parameter_definition.choice.deprecated_label',
+                        ['%choice%' => $choice],
+                    )
+                    : $choice;
+                $choice_map[$label] = $choice;
+            }
+
+            $form->add('value_text', ChoiceType::class, [
+                'label' => false,
+                'required' => false,
+                'placeholder' => '',
+                'empty_data' => '',
+                'choices' => $choice_map,
+                'choice_translation_domain' => false,
+                'choice_attr' => static fn (string $choice): array => $choice === $current_deprecated_choice
+                    ? ['data-deprecated-choice' => 'true']
+                    : [],
+                'translation_domain' => 'validators',
+                'attr' => [
+                    'class' => 'form-select-sm',
+                    // The parameter autocomplete controller owns this TomSelect instance. Defining an empty
+                    // controller prevents the global choice_widget theme from initializing elements--select first.
+                    'data-controller' => '',
+                    'data-can-add-choice' => $can_add_choice,
+                ],
+            ]);
+
+            return;
+        }
+
+        $form->add('value_text', TextType::class, [
+            'label' => false,
+            'required' => false,
+            'empty_data' => '',
+            'attr' => [
+                'placeholder' => 'parameters.text.placeholder',
+                'class' => 'form-control-sm',
+                'data-can-add-choice' => $can_add_choice,
+            ],
         ]);
     }
 }
