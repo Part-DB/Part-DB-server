@@ -14513,7 +14513,7 @@ Buerklin-API Authentication server:
     <unit id="_nxvnMn" name="search.regexmatching.help">
       <segment state="translated">
         <source>search.regexmatching.help</source>
-        <target>Use regular expressions like "^\w{3,5}" to search for parts. Does not require slashes padding.</target>
+        <target>Use regular expressions (without pattern delimiters) e.g. %regex% to search for parts.</target>
       </segment>
     </unit>
     <unit id="mry8ytG" name="search.extensive_matching.help">
