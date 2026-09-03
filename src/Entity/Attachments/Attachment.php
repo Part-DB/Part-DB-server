@@ -289,10 +289,43 @@ abstract class Attachment extends AbstractNamedDBElement
             //Check if we can extract a file extension from the URL
             $extension = pathinfo(parse_url($this->getExternalPath(), PHP_URL_PATH) ?? '', PATHINFO_EXTENSION);
 
-            //If no extension is found or it is known picture extension, we assume that this is a picture extension
-            return $extension === '' || in_array(strtolower($extension), static::PICTURE_EXTS, true);
+            if (in_array(strtolower($extension), static::PICTURE_EXTS, true)) {
+                return true;
+            }
+
+            //If no extension is found (e.g. for URLs which redirect to the actual file), we can only guess. We assume
+            //that it is a picture, unless the attachment type rules pictures out (like the "Datasheet" type, which only
+            //allows PDFs), as we would show a broken image otherwise.
+            return $extension === '' && $this->attachmentTypeAllowsPictures();
         }
         //File doesn't have an internal, nor an external copy. This shouldn't happen, but it certainly isn't a picture...
+        return false;
+    }
+
+    /**
+     * Checks whether the filetype filter of the attachment type allows pictures.
+     * If no attachment type is set, or it does not restrict the filetypes, true is returned, as we can not tell.
+     */
+    private function attachmentTypeAllowsPictures(): bool
+    {
+        $filter = trim($this->getAttachmentType()?->getFiletypeFilter() ?? '');
+
+        if ($filter === '') {
+            return true;
+        }
+
+        foreach (explode(',', $filter) as $allowed) {
+            $allowed = trim(strtolower($allowed));
+
+            if ($allowed === '*' || $allowed === '*/*' || str_starts_with($allowed, 'image/')) {
+                return true;
+            }
+
+            if (in_array(ltrim($allowed, '.'), static::PICTURE_EXTS, true)) {
+                return true;
+            }
+        }
+
         return false;
     }
 
