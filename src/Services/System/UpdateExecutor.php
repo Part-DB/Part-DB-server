@@ -58,7 +58,7 @@ class UpdateExecutor
         private readonly UpdateChecker $updateChecker,
         private readonly BackupManager $backupManager,
         private readonly CommandRunHelper $commandRunHelper,
-        #[Autowire(param: 'app.debug_mode')]
+        #[Autowire(param: 'kernel.debug')]
         private readonly bool $debugMode = false,
     ) {
     }
