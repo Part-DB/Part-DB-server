@@ -2912,7 +2912,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *                 method?: string|Param,
  *             }>,
  *         },
- *         keep_tool_messages?: bool|Param, // Keep tool messages in the conversation history // Default: false
+ *         exclude_tool_messages?: bool|Param, // Exclude tool messages from the conversation history // Default: false
  *         include_sources?: bool|Param, // Include sources exposed by tools as part of the tool result metadata // Default: false
  *         max_tool_calls?: scalar|Param|null, // Maximum number of tool calls per agent call, null to disable // Default: 50
  *         fault_tolerant_toolbox?: bool|Param, // Continue the agent run even if a tool call fails // Default: true
@@ -2948,6 +2948,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         chromadb?: array<string, array{ // Default: []
  *             client?: string|Param, // Default: "Codewithkyrian\\ChromaDB\\Client"
  *             collection?: string|Param,
+ *             embedding_function?: string|Param, // Service id of a Codewithkyrian\ChromaDB\Embeddings\EmbeddingFunction, required to query the store with a TextQuery.
  *         }>,
  *         clickhouse?: array<string, array{ // Default: []
  *             dsn?: string|Param,
