@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27b1c8307c3c3a26f5875371c74f73b5",
+    "content-hash": "0ef989e275240d5afb8fa48cf8b277f0",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1628,22 +1628,22 @@
         },
         {
             "name": "api-platform/mcp",
-            "version": "v4.3.17",
+            "version": "v4.3.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/mcp.git",
-                "reference": "97eaecbf7b30fe5cf05a0278251c421d39be047a"
+                "reference": "cb51e2b2559de5409bfb19286a72ccf3cac9376a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/mcp/zipball/97eaecbf7b30fe5cf05a0278251c421d39be047a",
-                "reference": "97eaecbf7b30fe5cf05a0278251c421d39be047a",
+                "url": "https://api.github.com/repos/api-platform/mcp/zipball/cb51e2b2559de5409bfb19286a72ccf3cac9376a",
+                "reference": "cb51e2b2559de5409bfb19286a72ccf3cac9376a",
                 "shasum": ""
             },
             "require": {
                 "api-platform/json-schema": "^4.3",
                 "api-platform/metadata": "^4.3",
-                "mcp/sdk": "^0.6",
+                "mcp/sdk": "^0.8",
                 "php": ">=8.2",
                 "symfony/object-mapper": "^7.4 || ^8.0",
                 "symfony/polyfill-php85": "^1.32"
@@ -1699,9 +1699,9 @@
             ],
             "support": {
                 "issues": "https://github.com/api-platform/mcp/issues",
-                "source": "https://github.com/api-platform/mcp/tree/v4.3.17"
+                "source": "https://github.com/api-platform/mcp/tree/v4.3.18"
             },
-            "time": "2026-07-03T04:48:00+00:00"
+            "time": "2026-09-02T20:01:30+00:00"
         },
         {
             "name": "api-platform/metadata",
@@ -7422,16 +7422,16 @@
         },
         {
             "name": "mcp/sdk",
-            "version": "v0.7.1",
+            "version": "v0.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/modelcontextprotocol/php-sdk.git",
-                "reference": "785fc3b9b7006ecc8a73322c939d96a4a7154345"
+                "reference": "c5dbfb64e5a2a30872ec3927b4cf13a2eb05e10e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/modelcontextprotocol/php-sdk/zipball/785fc3b9b7006ecc8a73322c939d96a4a7154345",
-                "reference": "785fc3b9b7006ecc8a73322c939d96a4a7154345",
+                "url": "https://api.github.com/repos/modelcontextprotocol/php-sdk/zipball/c5dbfb64e5a2a30872ec3927b4cf13a2eb05e10e",
+                "reference": "c5dbfb64e5a2a30872ec3927b4cf13a2eb05e10e",
                 "shasum": ""
             },
             "require": {
@@ -7449,6 +7449,7 @@
                 "psr/http-server-handler": "^1.0",
                 "psr/http-server-middleware": "^1.0",
                 "psr/log": "^1.0 || ^2.0 || ^3.0",
+                "symfony/deprecation-contracts": "^2.5 || ^3.0",
                 "symfony/uid": "^5.4 || ^6.4 || ^7.3 || ^8.0"
             },
             "require-dev": {
@@ -7500,9 +7501,9 @@
             "description": "Model Context Protocol SDK for Client and Server applications in PHP",
             "support": {
                 "issues": "https://github.com/modelcontextprotocol/php-sdk/issues",
-                "source": "https://github.com/modelcontextprotocol/php-sdk/tree/v0.7.1"
+                "source": "https://github.com/modelcontextprotocol/php-sdk/tree/v0.8.1"
             },
-            "time": "2026-08-10T20:09:23+00:00"
+            "time": "2026-08-29T23:10:56+00:00"
         },
         {
             "name": "mf2/mf2",
@@ -14547,20 +14548,20 @@
         },
         {
             "name": "symfony/mcp-bundle",
-            "version": "v0.12.0",
+            "version": "v0.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mcp-bundle.git",
-                "reference": "7ffd7bfab9d315a52a8224e35b32bd0db1765d44"
+                "reference": "a0d4443ff899803a4030ae24fbb1dfb961f0b6fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mcp-bundle/zipball/7ffd7bfab9d315a52a8224e35b32bd0db1765d44",
-                "reference": "7ffd7bfab9d315a52a8224e35b32bd0db1765d44",
+                "url": "https://api.github.com/repos/symfony/mcp-bundle/zipball/a0d4443ff899803a4030ae24fbb1dfb961f0b6fa",
+                "reference": "a0d4443ff899803a4030ae24fbb1dfb961f0b6fa",
                 "shasum": ""
             },
             "require": {
-                "mcp/sdk": "^0.7",
+                "mcp/sdk": "^0.8.1",
                 "php-http/discovery": "^1.20",
                 "symfony/config": "^7.3|^8.0",
                 "symfony/console": "^7.3|^8.0",
@@ -14610,7 +14611,7 @@
             ],
             "description": "Symfony integration bundle for Model Context Protocol (via official mcp/sdk)",
             "support": {
-                "source": "https://github.com/symfony/mcp-bundle/tree/v0.12.0"
+                "source": "https://github.com/symfony/mcp-bundle/tree/v0.13.0"
             },
             "funding": [
                 {
@@ -14630,7 +14631,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-21T01:04:45+00:00"
+            "time": "2026-08-30T00:16:19+00:00"
         },
         {
             "name": "symfony/mime",
@@ -22807,14 +22808,7 @@
             "time": "2025-11-17T20:03:58+00:00"
         }
     ],
-    "aliases": [
-        {
-            "package": "mcp/sdk",
-            "version": "0.7.1.0",
-            "alias": "v0.6.99",
-            "alias_normalized": "0.6.99.0"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {},
     "prefer-stable": false,

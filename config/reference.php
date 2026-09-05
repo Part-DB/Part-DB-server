@@ -3218,35 +3218,93 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     }>,
  * }
  * @psalm-type McpConfig = array{
- *     app?: scalar|Param|null, // Default: "app"
- *     version?: scalar|Param|null, // Default: "0.0.1"
- *     description?: scalar|Param|null, // Default: null
- *     icons?: list<array{ // Default: []
- *         src?: scalar|Param|null,
- *         mime_type?: scalar|Param|null, // Default: null
- *         sizes?: list<scalar|Param|null>,
- *     }>,
- *     website_url?: scalar|Param|null, // Default: null
- *     pagination_limit?: int|Param, // Default: 50
- *     instructions?: scalar|Param|null, // Default: null
- *     client_transports?: array{
- *         stdio?: bool|Param, // Default: false
- *         http?: bool|Param, // Default: false
- *     },
- *     apps?: array{ // MCP Apps support (interactive HTML UI resources). Apps are registered with the #[AsMcpApp] attribute.
- *         enabled?: bool|Param|null, // Default: null
- *     },
- *     http?: array{
- *         path?: scalar|Param|null, // Default: "/_mcp"
- *         allowed_hosts?: mixed, // DNS rebinding protection hosts (without port). Leave unset to keep the SDK default (localhost only), set an array of hostnames to expose a public MCP server, or false to disable the protection entirely. // Default: null
- *         session?: array{
+ *     servers?: list<array{ // Default: []
+ *         name?: string|Param, // Name advertised to clients. Defaults to the configuration key. // Default: null
+ *         version?: string|Param, // Default: "0.0.1"
+ *         description?: string|Param, // Default: null
+ *         icons?: list<array{ // Default: []
+ *             src?: string|Param,
+ *             mime_type?: string|Param, // Default: null
+ *             sizes?: list<scalar|Param|null>,
+ *         }>,
+ *         website_url?: string|Param, // Default: null
+ *         pagination_limit?: int|Param, // Default: 50
+ *         instructions?: string|Param, // Default: null
+ *         transports?: array{
+ *             stdio?: bool|Param, // Expose the server over STDIO via the "mcp:server" command. // Default: false
+ *             http?: bool|Param, // Expose the server over HTTP via a controller and route. // Default: true
+ *         },
+ *         http?: array{
+ *             path?: string|Param, // HTTP endpoint path. Defaults to "/mcp/<name>". // Default: null
+ *             allowed_hosts?: mixed, // DNS rebinding protection hosts (without port). Leave unset to keep the SDK default (localhost only), set an array of hostnames to expose a public MCP server, or false to disable the protection entirely. // Default: null
+ *         },
+ *         protocol_versions?: Param|string|list<"2024-11-05"|"2025-03-26"|"2025-06-18"|"2025-11-25"|"2026-07-28"|Param>,
+ *         request_state?: array{ // Signs the state a multi-round-trip answer carries through the client, which has no session to keep progress in. Required for a modern-era server whose handlers return an InputRequiredResult, and for one whose handlers call ClientGateway::elicit() more than once: the second ask has to carry the first answer to the next round.
+ *             key?: string|Param, // HMAC key, at least 32 bytes. The same value must reach every process that might serve the retry. // Default: null
+ *             ttl?: int|Param, // Seconds a minted state stays valid. // Default: 600
+ *         },
+ *         cache?: array{ // Cache hints the modern-era leg puts on its answers. The spec requires them on server/discover, the list methods and resources/read.
+ *             ttl_ms?: int|Param, // Default freshness in milliseconds. 0 refuses caching. // Default: 0
+ *             scope?: "private"|"public"|Param, // Default: "private"
+ *             methods?: array<string, array{ // Default: []
+ *                 ttl_ms?: int|Param,
+ *                 scope?: "private"|"public"|Param, // Default: "private"
+ *             }>,
+ *         },
+ *         subscriptions?: array{ // Delivery for "subscriptions/listen" streams, which replace the HTTP GET stream in 2026-07-28.
+ *             bus?: "none"|"memory"|"cache"|Param, // Default: "none"
+ *             cache_pool?: string|Param, // PSR-16 service for the "cache" bus. Under PHP-FPM the publisher and the stream are different workers, so "memory" cannot reach them. // Default: "cache.mcp.notifications"
+ *             lifetime?: float|Param, // Seconds a stream is held before the server closes it gracefully. 0 means until the client or the runtime ends it. // Default: 30.0
+ *         },
+ *         session?: array{ // Session storage. Every server needs its own store: session ids are not namespaced by server, so a shared store makes a session minted on one server valid on the others.
  *             store?: "file"|"memory"|"cache"|"framework"|Param, // Default: "file"
- *             directory?: scalar|Param|null, // Default: "%kernel.cache_dir%/mcp-sessions"
- *             cache_pool?: scalar|Param|null, // Default: "cache.mcp.sessions"
- *             prefix?: scalar|Param|null, // Default: "mcp-"
+ *             directory?: string|Param, // Directory for the "file" store. Defaults to "%kernel.cache_dir%/mcp-sessions/<name>". // Default: null
+ *             cache_pool?: string|Param, // PSR-16 cache service for the "cache" store. // Default: "cache.mcp.sessions"
+ *             prefix?: string|Param, // Key prefix for the "cache" and "framework" stores. Defaults to "mcp-<name>-". // Default: null
  *             ttl?: int|Param, // Default: 3600
  *         },
- *     },
+ *         registry?: array{ // The elements this server exposes, either as one list covering every kind or as a map narrowing each kind.
+ *             tools?: Param|string|list<scalar|Param|null>,
+ *             prompts?: Param|string|list<scalar|Param|null>,
+ *             resources?: Param|string|list<scalar|Param|null>,
+ *             resource_templates?: Param|string|list<scalar|Param|null>,
+ *             apps?: Param|string|list<scalar|Param|null>,
+ *             ...<string, mixed>
+ *         },
+ *     }>,
+ *     clients?: list<array{ // Default: []
+ *         client_info?: array{ // Identity advertised to every remote server of this client during the initialize handshake.
+ *             name?: string|Param, // Defaults to the configuration key. // Default: null
+ *             version?: string|Param, // Default: "0.0.1"
+ *             description?: string|Param, // Default: null
+ *         },
+ *         protocol_version?: "2024-11-05"|"2025-03-26"|"2025-06-18"|"2025-11-25"|"2026-07-28"|Param, // MCP protocol version to negotiate. Leave unset to keep the SDK default. // Default: null
+ *         capabilities?: array{ // Client capabilities advertised during the handshake. "roots", "sampling" and "elicitation" are derived from the handlers configured below.
+ *             roots_list_changed?: bool|Param, // Default: false
+ *         },
+ *         roots?: string|Param, // Service id implementing Mcp\Client\Handler\Request\RootsCallbackInterface. Answers the server's "roots/list" requests. // Default: null
+ *         sampling?: string|Param, // Service id implementing Mcp\Client\Handler\Request\SamplingCallbackInterface. Enables the "sampling" capability. // Default: null
+ *         elicitation?: string|Param, // Service id implementing Mcp\Client\Handler\Request\ElicitationCallbackInterface. Enables the "elicitation" capability. // Default: null
+ *         forward_server_logs?: bool|Param, // Forward logging notifications received from the remote servers to the "mcp" logger channel. // Default: true
+ *         init_timeout?: int|Param, // Default: 30
+ *         request_timeout?: int|Param, // Default: 120
+ *         max_retries?: int|Param, // Default: 3
+ *         servers?: list<array{ // Default: []
+ *             transport?: "stdio"|"http"|Param, // How the server is reached: as a child process (stdio) or over a remote HTTP endpoint (http).
+ *             command?: list<scalar|Param|null>,
+ *             cwd?: string|Param, // Working directory of the stdio child process. // Default: null
+ *             env?: list<scalar|Param|null>,
+ *             inherit_env?: bool|Param, // Merge "env" on top of the current process environment instead of replacing it. // Default: true
+ *             max_buffer_size?: int|Param, // Maximum bytes buffered while waiting for a newline. Defaults to the SDK value. // Default: null
+ *             url?: string|Param, // Endpoint URL of the remote MCP server. // Default: null
+ *             headers?: list<scalar|Param|null>,
+ *             http_client?: string|Param, // Service id of a PSR-18 HTTP client. Defaults to "psr18.http_client" when available. // Default: null
+ *             max_sse_buffer_bytes?: int|Param, // Maximum bytes buffered per SSE event. Defaults to the SDK value. // Default: null
+ *             init_timeout?: int|Param, // Overrides the client-level value. // Default: null
+ *             request_timeout?: int|Param, // Overrides the client-level value. // Default: null
+ *             max_retries?: int|Param, // Overrides the client-level value. // Default: null
+ *         }>,
+ *     }>,
  * }
  * @psalm-type LeagueOauth2ServerConfig = array{
  *     authorization_server?: array{
