@@ -154,6 +154,7 @@
         "phpstan/phpstan-symfony": "^2.0.0",
         "phpunit/phpunit": "^11.5.0",
         "rector/rector": "^2.0.4",
+        "roave/security-advisories": "dev-latest",
         "symfony/browser-kit": "7.4.*",
         "symfony/debug-bundle": "7.4.*",
         "symfony/maker-bundle": "^1.13",
