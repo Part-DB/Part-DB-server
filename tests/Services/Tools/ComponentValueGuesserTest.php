@@ -174,6 +174,41 @@ class ComponentValueGuesserTest extends TestCase
         self::assertNull($this->guesser->guess($this->part('Arduino Uno R3 development board')));
     }
 
+    public function testClassifiesZeroOhmJumperResistor(): void
+    {
+        $guess = $this->guesser->guess($this->part('Resistor 0R jumper'));
+        self::assertNotNull($guess);
+        self::assertSame('resistor', $guess['type']);
+        self::assertSame(0.0, $guess['value']);
+    }
+
+    public function testClassifiesZeroOhmSmdJumperFromPackage(): void
+    {
+        $guess = $this->guesser->guess($this->part('Resistor 0R 0805 jumper SMD'));
+        self::assertNotNull($guess);
+        self::assertSame('smd_resistor', $guess['type']);
+        self::assertSame('0805', $guess['package']);
+        self::assertSame(0.0, $guess['value']);
+    }
+
+    public function testZeroOhmFromResistanceParameter(): void
+    {
+        $part = $this->partWithParameter('Resistance', 0.0, 'Ω');
+        [$ohms, $farads] = $this->guesser->extractValue($part);
+        self::assertNull($farads);
+        self::assertSame(0.0, $ohms);
+    }
+
+    public function testZeroCapacitanceParameterIsIgnored(): void
+    {
+        // Unlike 0 Ω (a real "jumper" resistor), 0 F isn't a real capacitor value, so it
+        // shouldn't be picked up as a classification.
+        $part = $this->partWithParameter('Capacitance', 0.0, 'nF');
+        [$ohms, $farads] = $this->guesser->extractValue($part);
+        self::assertNull($ohms);
+        self::assertNull($farads);
+    }
+
     /**
      * @dataProvider powerProvider
      */

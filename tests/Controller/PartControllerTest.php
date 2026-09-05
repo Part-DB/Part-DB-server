@@ -28,6 +28,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\ProjectSystem\Project;
@@ -448,6 +449,84 @@ final class PartControllerTest extends WebTestCase
         // Clean up
         $entityManager->remove($mergedPart);
         $entityManager->remove($entityManager->getRepository(Project::class)->find($projectId));
+        $entityManager->flush();
+    }
+
+    public function testWithdrawAddMoveToNewLotDoesNotThrow(): void
+    {
+        // Regression test for a bug where moving stock to a newly created lot (target_id=new)
+        // caused a DBAL exception, because "new" was passed straight to EntityManager::find()
+        // instead of being recognized as the "create a new lot" sentinel.
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+
+        $category = $entityManager->getRepository(Category::class)->find(1);
+        $storageLocation = $entityManager->getRepository(StorageLocation::class)->find(1);
+        if (!$category || !$storageLocation) {
+            $this->markTestSkipped('Required test data not found in fixtures');
+        }
+
+        // Create a part with a single lot that we can move stock away from
+        $part = new Part();
+        $part->setName('Move to new lot test part');
+        $part->setCategory($category);
+
+        $sourceLot = new PartLot();
+        $sourceLot->setAmount(10);
+        $sourceLot->setStorageLocation($storageLocation);
+        $part->addPartLot($sourceLot);
+
+        $entityManager->persist($part);
+        $entityManager->flush();
+
+        $partId = $part->getId();
+        $sourceLotId = $sourceLot->getId();
+
+        // Load the part page first, both to start a session (the CSRF token storage needs one)
+        // and to grab the real CSRF token the withdraw/move form would submit.
+        $crawler = $client->request('GET', "/en/part/{$partId}");
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $token = (string) $crawler->filter('input[name="_csfr"]')->first()->attr('value');
+
+        $client->request('POST', "/en/part/{$partId}/add_withdraw", [
+            'lot_id' => $sourceLotId,
+            'target_id' => 'new',
+            'amount' => '4',
+            'action' => 'move',
+            //The real form always submits this field (even when empty), so mirror that here
+            'comment' => '',
+            'part_lot' => [
+                'storage_location' => $storageLocation->getId(),
+            ],
+            '_csfr' => $token,
+        ]);
+
+        // Must not crash with a DB exception (this used to be a 500 error) and instead redirect back to the part page
+        $this->assertResponseRedirects();
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $entityManager->clear();
+
+        $refreshedPart = $entityManager->getRepository(Part::class)->find($partId);
+        self::assertNotNull($refreshedPart);
+        self::assertCount(2, $refreshedPart->getPartLots(), 'A new part lot should have been created');
+
+        $lots = $refreshedPart->getPartLots();
+        $originLot = $lots->filter(static fn (PartLot $lot) => $lot->getId() === $sourceLotId)->first();
+        $newLot = $lots->filter(static fn (PartLot $lot) => $lot->getId() !== $sourceLotId)->first();
+
+        self::assertNotFalse($originLot);
+        self::assertNotFalse($newLot);
+        self::assertSame(6.0, $originLot->getAmount());
+        self::assertSame(4.0, $newLot->getAmount());
+
+        // Clean up
+        foreach ($refreshedPart->getPartLots() as $lot) {
+            $entityManager->remove($lot);
+        }
+        $entityManager->remove($refreshedPart);
         $entityManager->flush();
     }
 
