@@ -33,7 +33,7 @@ use Symfony\Component\Form\Extension\Core\DataTransformer\NumberToLocalizedStrin
 class ExponentialNumberTransformer extends NumberToLocalizedStringTransformer
 {
     public function __construct(
-        private ?int $scale = null,
+        private readonly ?int $scale = null,
         ?bool $grouping = false,
         ?int $roundingMode = \NumberFormatter::ROUND_HALFUP,
         protected ?string $locale = null

@@ -50,9 +50,9 @@ class GetAttachmentContentProcessor implements ProcessorInterface
     protected const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
     public function __construct(
-        private EntityManagerInterface $entityManager,
-        private AuthorizationCheckerInterface $authorizationChecker,
-        private AttachmentManager $attachmentManager,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly AuthorizationCheckerInterface $authorizationChecker,
+        private readonly AttachmentManager $attachmentManager,
     ) {
     }
 

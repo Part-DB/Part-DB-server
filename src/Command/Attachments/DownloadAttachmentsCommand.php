@@ -39,7 +39,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class DownloadAttachmentsCommand extends Command
 {
     public function __construct(private readonly AttachmentSubmitHandler $attachmentSubmitHandler,
-        private EntityManagerInterface $entityManager)
+        private readonly EntityManagerInterface $entityManager)
     {
         parent::__construct();
     }

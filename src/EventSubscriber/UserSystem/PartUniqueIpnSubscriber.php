@@ -15,7 +15,7 @@ use Doctrine\ORM\Event\OnFlushEventArgs;
 class PartUniqueIpnSubscriber implements EventSubscriber
 {
     public function __construct(
-        private IpnSuggestSettings $ipnSuggestSettings
+        private readonly IpnSuggestSettings $ipnSuggestSettings
     ) {
     }
 

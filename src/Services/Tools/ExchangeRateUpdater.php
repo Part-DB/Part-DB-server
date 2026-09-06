@@ -32,7 +32,7 @@ use Swap\Swap;
 
 class ExchangeRateUpdater
 {
-    public function __construct(private LocalizationSettings $localizationSettings, private readonly Swap $swap)
+    public function __construct(private readonly LocalizationSettings $localizationSettings, private readonly Swap $swap)
     {
     }
 
