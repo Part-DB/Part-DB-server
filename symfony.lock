@@ -25,9 +25,6 @@
     "composer/ca-bundle": {
         "version": "1.2.7"
     },
-    "composer/package-versions-deprecated": {
-        "version": "1.11.99.4"
-    },
     "dama/doctrine-test-bundle": {
         "version": "8.3",
         "recipe": {

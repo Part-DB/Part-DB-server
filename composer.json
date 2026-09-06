@@ -51,7 +51,6 @@
         "brick/math": "^0.19.0",
         "brick/schema": "^0.2.0",
         "composer/ca-bundle": "^1.5",
-        "composer/package-versions-deprecated": "^1.11.99.5",
         "defuse/php-encryption": "^2.4",
         "doctrine/data-fixtures": "^2.0.0",
         "doctrine/dbal": "^4.0.0",
@@ -182,7 +181,6 @@
         },
         "sort-packages": true,
         "allow-plugins": {
-            "composer/package-versions-deprecated": true,
             "symfony/flex": true,
             "phpstan/extension-installer": true,
             "symfony/runtime": true,
