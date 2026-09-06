@@ -2791,6 +2791,69 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Extra</target>
       </segment>
     </unit>
+    <unit id="A.jmuYn" name="log.access_method">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.access_method</source>
+        <target>Zugriffsmethode</target>
+      </segment>
+    </unit>
+    <unit id="1HJ94q3" name="log.access_method.web">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.access_method.web</source>
+        <target>Web-Oberfläche</target>
+      </segment>
+    </unit>
+    <unit id="Nkv7mDF" name="log.access_method.cli">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.access_method.cli</source>
+        <target>CLI</target>
+      </segment>
+    </unit>
+    <unit id="RrNwi2T" name="log.access_method.api">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.access_method.api</source>
+        <target>REST-API</target>
+      </segment>
+    </unit>
+    <unit id="3xmQSNB" name="log.access_method.mcp">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.access_method.mcp</source>
+        <target>MCP</target>
+      </segment>
+    </unit>
+    <unit id="Ne1j4YH" name="log.request_id">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.request_id</source>
+        <target>Anfrage-ID</target>
+      </segment>
+    </unit>
+    <unit id="DvJdiEx" name="log.request_id.filter_by">
+      <notes>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.request_id.filter_by</source>
+        <target>Alle Log-Einträge mit dieser Anfrage-ID anzeigen</target>
+      </segment>
+    </unit>
     <unit id="EU6XNV5" name="part.table.name">
       <segment state="translated">
         <source>part.table.name</source>
@@ -10064,6 +10127,18 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Aktiviert den MCP-Endpunkt (Model Context Protocol) unter /mcp, der es KI-Assistenten ermöglicht, mit Part-DB zu interagieren.</target>
       </segment>
     </unit>
+    <unit id="Q7J0OKP" name="settings.misc.mcp.editing_enabled">
+      <segment state="translated">
+        <source>settings.misc.mcp.editing_enabled</source>
+        <target>MCP-Werkzeuge zur Bauteilbearbeitung aktivieren</target>
+      </segment>
+    </unit>
+    <unit id="wolnNE7" name="settings.misc.mcp.editing_enabled.help">
+      <segment state="translated">
+        <source>settings.misc.mcp.editing_enabled.help</source>
+        <target>Erlaubt KI-Assistenten, Bauteile über MCP-Werkzeuge zu erstellen, zu bearbeiten, zu löschen und Lagerbestände anzupassen. Wenn deaktiviert, bleiben alle MCP-Werkzeuge schreibgeschützt, unabhängig vom Berechtigungsumfang des verbundenen Tokens oder den eigenen Berechtigungen des Benutzers.</target>
+      </segment>
+    </unit>
     <unit id="xtw_ol7" name="settings.misc.kicad_eda">
       <segment state="translated">
         <source>settings.misc.kicad_eda</source>
@@ -13821,6 +13896,72 @@ Buerklin-API-Authentication-Server:
         <target>Wenn aktiviert, werden beim Erstellen eines Bauteils mehr Details von canopy abgerufen. Das verursacht eine zusätzliche API-Anfrage, liefert aber Produkt-Bulletpoints und Kategoriedaten.</target>
       </segment>
     </unit>
+    <unit id="KyC_YsX" name="settings.ips.trustedparts">
+      <segment state="translated">
+        <source>settings.ips.trustedparts</source>
+        <target>TrustedParts</target>
+      </segment>
+    </unit>
+    <unit id="iB2.9sg" name="settings.ips.trustedparts.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.help</source>
+        <target>TrustedParts.com ist eine von der ECIA betriebene Suchmaschine für Bauteile, die die Angebote autorisierter Distributoren zusammenfasst. Sie müssen Zugriff auf deren API beantragen, um diesen Anbieter nutzen zu können.</target>
+      </segment>
+    </unit>
+    <unit id="Mhe.lWu" name="settings.ips.trustedparts.companyId">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.companyId</source>
+        <target>Firmen-ID</target>
+      </segment>
+    </unit>
+    <unit id="DvzhYe1" name="settings.ips.trustedparts.companyId.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.companyId.help</source>
+        <target>Die Firmenkennung, die Ihrem TrustedParts.com-Konto zugewiesen wurde. Sie finden diese auf der API-Schlüssel-Seite Ihres Kontos.</target>
+      </segment>
+    </unit>
+    <unit id="AqF7ns9" name="settings.ips.trustedparts.apiKey.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.apiKey.help</source>
+        <target>Der API-Schlüssel, der Ihrem TrustedParts.com-Konto zugewiesen wurde. Sie finden diesen auf der API-Schlüssel-Seite Ihres Kontos.</target>
+      </segment>
+    </unit>
+    <unit id="Gh676P6" name="settings.ips.trustedparts.searchLimit">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.searchLimit</source>
+        <target>Suchlimit</target>
+      </segment>
+    </unit>
+    <unit id="R7oiMLD" name="settings.ips.trustedparts.searchLimit.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.searchLimit.help</source>
+        <target>Die maximale Anzahl an Ergebnissen, die für eine Stichwortsuche angezeigt werden.</target>
+      </segment>
+    </unit>
+    <unit id="DFkCu4n" name="settings.ips.trustedparts.inStockOnly">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.inStockOnly</source>
+        <target>Nur verfügbare Angebote</target>
+      </segment>
+    </unit>
+    <unit id="EF2mFRR" name="settings.ips.trustedparts.inStockOnly.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.inStockOnly.help</source>
+        <target>Wenn aktiviert, werden nur Angebote von Distributoren zurückgegeben, die das Bauteil derzeit auf Lager haben.</target>
+      </segment>
+    </unit>
+    <unit id="r4gkOcR" name="settings.ips.trustedparts.useCachedData">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.useCachedData</source>
+        <target>Zwischengespeicherte Daten verwenden</target>
+      </segment>
+    </unit>
+    <unit id="JNIu4bu" name="settings.ips.trustedparts.useCachedData.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.useCachedData.help</source>
+        <target>Wenn aktiviert, antwortet TrustedParts.com mit zwischengespeicherten Lager- und Preisdaten, anstatt die Distributoren in Echtzeit abzufragen. Dies ist schneller und zählt nicht gegen die Ratenlimits, allerdings können die Daten veraltet sein.</target>
+      </segment>
+    </unit>
     <unit id="D055xh8" name="attachment.sandbox.warning">
       <segment state="translated">
         <source>attachment.sandbox.warning</source>
@@ -14436,7 +14577,7 @@ Buerklin-API-Authentication-Server:
     <unit id="_nxvnMn" name="search.regexmatching.help">
       <segment state="translated">
         <source>search.regexmatching.help</source>
-        <target>Verwenden Sie reguläre Ausdrücke wie "^\w{3,5}", um nach Teilen zu suchen. Umschließende Schrägstriche sind nicht erforderlich.</target>
+        <target>Verwenden Sie reguläre Ausdrücke (ohne Mustertrennzeichen) wie %regex%, um nach Teilen zu suchen.</target>
       </segment>
     </unit>
     <unit id="mry8ytG" name="search.extensive_matching.help">
@@ -14941,6 +15082,30 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>oauth_clients.updated</source>
         <target>OAuth2-Client erfolgreich aktualisiert!</target>
+      </segment>
+    </unit>
+    <unit id="QCg5KCx" name="project.edit.bom.performance_mode_warning">
+      <segment state="translated">
+        <source>project.edit.bom.performance_mode_warning</source>
+        <target>Dieses Projekt enthält %count% BOM-Einträge. Es ist zu groß, um hier bearbeitet zu werden.</target>
+      </segment>
+    </unit>
+    <unit id="LEreMQo" name="project.edit.bom.performance_mode_warning.link">
+      <segment state="translated">
+        <source>project.edit.bom.performance_mode_warning.link</source>
+        <target>Bearbeiten Sie die BOM-Einträge stattdessen über die BOM-Tabellenansicht.</target>
+      </segment>
+    </unit>
+    <unit id="OMOXH6o" name="project.bom_entry.edit.back_to_bom">
+      <segment state="translated">
+        <source>project.bom_entry.edit.back_to_bom</source>
+        <target>Zurück zur Projekt-BOM</target>
+      </segment>
+    </unit>
+    <unit id="M1leSpV" name="project.bom_entry.edit.title">
+      <segment state="translated">
+        <source>project.bom_entry.edit.title</source>
+        <target>BOM-Eintrag #%id% des Projekts bearbeiten</target>
       </segment>
     </unit>
   </file>
