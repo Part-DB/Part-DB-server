@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Entity\Base;
 
 use ApiPlatform\Metadata\ApiProperty;
+use Doctrine\DBAL\Schema\DefaultExpression\CurrentTimestamp;
 use Doctrine\DBAL\Types\Types;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
@@ -38,7 +39,7 @@ trait TimestampTrait
      */
     #[Groups(['extended', 'full'])]
     #[ApiProperty(writable: false)]
-    #[ORM\Column(name: 'last_modified', type: Types::DATETIME_IMMUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(name: 'last_modified', type: Types::DATETIME_IMMUTABLE, options: ['default' => new CurrentTimestamp()])]
     protected ?\DateTimeImmutable $lastModified = null;
 
     /**
@@ -46,7 +47,7 @@ trait TimestampTrait
      */
     #[Groups(['extended', 'full'])]
     #[ApiProperty(writable: false)]
-    #[ORM\Column(name: 'datetime_added', type: Types::DATETIME_IMMUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(name: 'datetime_added', type: Types::DATETIME_IMMUTABLE, options: ['default' => new CurrentTimestamp()])]
     protected ?\DateTimeImmutable $addedDate = null;
 
     /**

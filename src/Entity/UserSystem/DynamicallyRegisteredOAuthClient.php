@@ -51,7 +51,7 @@ class DynamicallyRegisteredOAuthClient
 {
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Client::class)]
-    #[ORM\JoinColumn(name: 'client_identifier', referencedColumnName: 'identifier', nullable: false, onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(name: 'client_identifier', referencedColumnName: 'identifier', onDelete: 'CASCADE')]
     private Client $client;
 
     #[ORM\Column(name: 'registered_at', type: Types::DATETIME_IMMUTABLE)]
