@@ -47,9 +47,13 @@ export default class extends Controller
         const submitter = event.submitter;
         const that = this;
 
+        const titleOption = this.element.dataset.deleteTitleHtml === 'true'
+            ? {title: title}
+            : {titleText: title};
+
         ConfirmSwal.fire({
-            titleText: title,
-            html: message, //Message contains a <br> tag and no user injectable HTML
+            ...titleOption,
+            html: message, //Dynamic values in HTML messages must be escaped by the template
         }).then(({isConfirmed}) => {
             //If the dialog was confirmed, then submit the form.
             if (isConfirmed) {

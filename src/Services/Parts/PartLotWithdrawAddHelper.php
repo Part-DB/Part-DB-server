@@ -14,10 +14,10 @@ use Doctrine\ORM\EntityManagerInterface;
 /**
  * @see \App\Tests\Services\Parts\PartLotWithdrawAddHelperTest
  */
-final class PartLotWithdrawAddHelper
+final readonly class PartLotWithdrawAddHelper
 {
-    public function __construct(private readonly EventLogger $eventLogger,
-        private readonly EventCommentHelper $eventCommentHelper, private readonly EntityManagerInterface $entityManager)
+    public function __construct(private EventLogger $eventLogger,
+        private EventCommentHelper $eventCommentHelper, private EntityManagerInterface $entityManager)
     {
     }
 

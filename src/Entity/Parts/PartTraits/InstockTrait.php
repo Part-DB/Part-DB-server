@@ -22,13 +22,12 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\PartLot;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -42,8 +41,8 @@ trait InstockTrait
      */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
-    #[ORM\OneToMany(mappedBy: 'part', targetEntity: PartLot::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['amount' => Criteria::DESC])]
+    #[ORM\OneToMany(targetEntity: PartLot::class, mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['amount' => 'DESC'])]
     protected Collection $partLots;
 
     /**

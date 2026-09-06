@@ -55,7 +55,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -87,10 +87,10 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
             title: 'List/search projects',
             description: 'List all projects, optionally filtered by a keyword matched against the name and comment. Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list. Use get_project_details for a specific project to retrieve its BOM entries, status and other details.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
-            output: StructuralElementOverview::class,
             normalizationContext: ['groups' => ['mcp_structural_overview:read']],
-            input: StructuralElementSearchInput::class,
             security: 'is_granted("@projects.read")',
+            input: StructuralElementSearchInput::class,
+            output: StructuralElementOverview::class,
             processor: ListStructuralElementsProcessor::class,
         ),
         'get_project_details' => new McpTool(
@@ -98,8 +98,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
             description: 'Get detailed information about a specific project by its database ID, including its BOM entries, status, description and associated build part.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
             normalizationContext: ['groups' => ['project:read', 'api:basic:read', 'mcp_project_details:read']],
-            input: ElementByIdInput::class,
             security: 'is_granted("@projects.read")',
+            input: ElementByIdInput::class,
             validate: true,
             processor: GetStructuralElementDetailsProcessor::class,
         ),
@@ -110,8 +110,15 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class Project extends AbstractStructuralDBElement
 {
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    /**
+     * If the number of BOM entries exceed this limit, the project will be considered to be in "performance mode", which
+     * means that certain operations will be limited in the name of performance.
+     * For example, the BOM history will not be expanded when rendering project metadata, as that would create an unbounded log query for large projects.
+     */
+    public const PERFORMANCE_MODE_LIMIT = 99;
+
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -126,11 +133,11 @@ class Project extends AbstractStructuralDBElement
     /**
      * @var Collection<int, ProjectBOMEntry>
      */
-    #[Assert\Valid]
+    #[Assert\Valid(groups: ['project_bom'])]
     #[Groups(['extended', 'full', 'import', 'mcp_project_details:read'])]
-    #[ORM\OneToMany(mappedBy: 'project', targetEntity: ProjectBOMEntry::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[UniqueObjectCollection(message: 'project.bom_entry.part_already_in_bom', fields: ['part'])]
-    #[UniqueObjectCollection(message: 'project.bom_entry.name_already_in_bom', fields: ['name'])]
+    #[ORM\OneToMany(targetEntity: ProjectBOMEntry::class, mappedBy: 'project', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[UniqueObjectCollection(message: 'project.bom_entry.part_already_in_bom', groups: ['project_bom'], fields: ['part'])]
+    #[UniqueObjectCollection(message: 'project.bom_entry.name_already_in_bom', groups: ['project_bom'], fields: ['name'])]
     protected Collection $bom_entries;
 
     #[ORM\Column(type: Types::INTEGER)]
@@ -148,7 +155,7 @@ class Project extends AbstractStructuralDBElement
     /**
      * @var Part|null The (optional) part that represents the builds of this project in the stock
      */
-    #[ORM\OneToOne(mappedBy: 'built_project', targetEntity: Part::class, cascade: ['persist'], orphanRemoval: true)]
+    #[ORM\OneToOne(targetEntity: Part::class, mappedBy: 'built_project', cascade: ['persist'], orphanRemoval: true)]
     #[Groups(['project:read', 'project:write'])]
     protected ?Part $build_part = null;
 
@@ -162,8 +169,8 @@ class Project extends AbstractStructuralDBElement
     /**
      * @var Collection<int, ProjectAttachment>
      */
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: ProjectAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: ProjectAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['project:read', 'project:write'])]
     protected Collection $attachments;
 
@@ -174,8 +181,8 @@ class Project extends AbstractStructuralDBElement
 
     /** @var Collection<int, ProjectParameter>
      */
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: ProjectParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OneToMany(targetEntity: ProjectParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['project:read', 'project:write'])]
     protected Collection $parameters;
 
@@ -272,9 +279,28 @@ class Project extends AbstractStructuralDBElement
         return $this;
     }
 
+    /**
+     * Returns true if the project has too many BOM entries, and therefore is in performance mode, which means that certain
+     * operations will be limited in the name of performance.
+     * @return bool
+     */
+    public function requiresPerformanceMode(): bool
+    {
+        return $this->bom_entries->count() > self::PERFORMANCE_MODE_LIMIT;
+    }
+
     public function getBomEntries(): Collection
     {
         return $this->bom_entries;
+    }
+
+    /**
+     * Returns the number of BOM entries in this project.
+     * @return int
+     */
+    public function getBomEntriesCount(): int
+    {
+        return $this->bom_entries->count();
     }
 
     /**
@@ -301,7 +327,7 @@ class Project extends AbstractStructuralDBElement
         return $this->description;
     }
 
-    public function setDescription(string $description): Project
+    public function setDescription(string $description): self
     {
         $this->description = $description;
         return $this;
@@ -358,14 +384,11 @@ class Project extends AbstractStructuralDBElement
             if (!$child->getBuildPart() instanceof Part) {
                 continue;
             }
-            //We have to search all bom entries for the build part
-            $found = false;
-            foreach ($this->getBomEntries() as $bom_entry) {
-                if ($bom_entry->getPart() === $child->getBuildPart()) {
-                    $found = true;
-                    break;
-                }
-            }
+            //Use the extra-lazy collection so validating project metadata does
+            //not initialize the complete BOM.
+            $found = !$this->getBomEntries()->matching(
+                Criteria::create()->where(Criteria::expr()->eq('part', $child->getBuildPart()))
+            )->isEmpty();
 
             //When the build part is not found, we have to add an error
             if (!$found) {

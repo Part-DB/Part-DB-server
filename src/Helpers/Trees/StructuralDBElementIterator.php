@@ -43,7 +43,7 @@ final class StructuralDBElementIterator extends ArrayIterator implements Recursi
         return !empty($element->getSubelements());
     }
 
-    public function getChildren(): StructuralDBElementIterator
+    public function getChildren(): self
     {
         /** @var AbstractStructuralDBElement $element */
         $element = $this->current();

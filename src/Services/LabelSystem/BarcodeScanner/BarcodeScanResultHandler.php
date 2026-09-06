@@ -42,7 +42,6 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem\BarcodeScanner;
 
 use App\Entity\LabelSystem\LabelSupportedElement;
-use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
@@ -51,8 +50,6 @@ use App\Repository\Parts\PartRepository;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityNotFoundException;
-use InvalidArgumentException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
@@ -348,7 +345,7 @@ final readonly class BarcodeScanResultHandler
         if ($vendor === 'digikey') {
             return [
                 'providerKey' => 'digikey',
-                'providerId' => $scanResult->supplierPartNumber ?? throw new \RuntimeException('Digikey barcode does not contain required supplier part number'),
+                'providerId' => $scanResult->digikeyPartNumber ?? $scanResult->supplierPartNumber ?? throw new \RuntimeException('Digikey barcode does not contain required supplier part number'),
                 'lotAmount' => $scanResult->quantity,
                 'lotName' => $scanResult->digikeyInvoiceNumber ?? $scanResult->digikeySalesOrderNumber ?? $scanResult->customerPO,
                 'lotUserBarcode' => $scanResult->rawInput,

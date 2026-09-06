@@ -31,6 +31,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\McpTool;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\ApiPlatform\DocumentedAPIProperties\DocumentedAPIProperty;
@@ -39,14 +40,16 @@ use App\ApiPlatform\Filter\LikeFilter;
 use App\ApiPlatform\HandleAttachmentsUploadsProcessor;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\EntityListeners\AttachmentDeleteListener;
+use App\Mcp\DTO\ElementByIdInput;
 use App\Repository\AttachmentRepository;
+use App\State\Mcp\GetAttachmentContentProcessor;
 use App\Validator\Constraints\Selectable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use LogicException;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Serializer\Attribute\DiscriminatorMap;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -63,10 +66,10 @@ use function in_array;
 #[ORM\DiscriminatorMap(self::ORM_DISCRIMINATOR_MAP)]
 #[ORM\EntityListeners([AttachmentDeleteListener::class])]
 #[ORM\Table(name: '`attachments`')]
-#[ORM\Index(columns: ['id', 'element_id', 'class_name'], name: 'attachments_idx_id_element_id_class_name')]
-#[ORM\Index(columns: ['class_name', 'id'], name: 'attachments_idx_class_name_id')]
-#[ORM\Index(columns: ['name'], name: 'attachment_name_idx')]
-#[ORM\Index(columns: ['class_name', 'element_id'], name: 'attachment_element_idx')]
+#[ORM\Index(name: 'attachments_idx_id_element_id_class_name', columns: ['id', 'element_id', 'class_name'])]
+#[ORM\Index(name: 'attachments_idx_class_name_id', columns: ['class_name', 'id'])]
+#[ORM\Index(name: 'attachment_name_idx', columns: ['name'])]
+#[ORM\Index(name: 'attachment_element_idx', columns: ['class_name', 'element_id'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -78,6 +81,21 @@ use function in_array;
     normalizationContext: ['groups' => ['attachment:read', 'attachment:read:standalone',  'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['attachment:write', 'attachment:write:standalone', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
     processor: HandleAttachmentsUploadsProcessor::class,
+    mcp: [
+        'get_attachment_content' => new McpTool(
+            title: 'Get attachment content by ID',
+            description: 'Retrieve the actual file content of an attachment (e.g. a datasheet or picture) by its database ID, as returned in the "attachments" field of get_part_details and the other get_X_details tools. Only works for attachments whose file is stored internally (see the "private"/hasInternal-like fields on the attachment); for attachments that only reference an external URL, fetch that URL directly instead. The file is rejected if it is larger than 10 MB.',
+            structuredContent: false,
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            security: 'is_granted("@attachments.list_attachments")',
+            //The processor returns raw MCP content blocks (image/embedded resource) via a CallToolResult, not a
+            //normalized representation of the Attachment resource, so no output schema must be advertised (otherwise
+            //MCP clients reject the response for declaring a schema but returning no structuredContent).
+            input: ElementByIdInput::class,
+            validate: true,
+            processor: GetAttachmentContentProcessor::class,
+        ),
+    ],
 )]
 //This property is added by the denormalizer in order to resolve the placeholder
 #[DocumentedAPIProperty(
@@ -238,7 +256,7 @@ abstract class Attachment extends AbstractNamedDBElement
      * @param  AttachmentUpload|null  $upload
      * @return $this
      */
-    public function setUpload(?AttachmentUpload $upload): Attachment
+    public function setUpload(?AttachmentUpload $upload): self
     {
         $this->upload = $upload;
         return $this;
@@ -267,13 +285,21 @@ abstract class Attachment extends AbstractNamedDBElement
             return in_array(strtolower($extension), static::PICTURE_EXTS, true);
 
         }
+
         if ($this->hasExternal()) {
             //Check if we can extract a file extension from the URL
             $extension = pathinfo(parse_url($this->getExternalPath(), PHP_URL_PATH) ?? '', PATHINFO_EXTENSION);
 
-            //If no extension is found or it is known picture extension, we assume that this is a picture extension
-            return $extension === '' || in_array(strtolower($extension), static::PICTURE_EXTS, true);
+            if (in_array(strtolower($extension), static::PICTURE_EXTS, true)) {
+                return true;
+            }
+
+            //If no extension is found (e.g. for URLs which redirect to the actual file), we can only guess. We assume
+            //that it is a picture, unless the attachment type rules pictures out (like the "Datasheet" type, which only
+            //allows PDFs), as we would show a broken image otherwise.
+            return $extension === '' && ($this->getAttachmentType()?->allowsPictures() ?? true);
         }
+
         //File doesn't have an internal, nor an external copy. This shouldn't happen, but it certainly isn't a picture...
         return false;
     }

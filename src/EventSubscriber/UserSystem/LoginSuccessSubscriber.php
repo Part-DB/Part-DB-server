@@ -36,14 +36,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * This event listener shows a login successful flash to the user after login and write the login to event log.
  */
-final class LoginSuccessSubscriber implements EventSubscriberInterface
+final readonly class LoginSuccessSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly TranslatorInterface $translator,
-        private readonly RequestStack $requestStack,
-        private readonly EventLogger $eventLogger,
+        private TranslatorInterface $translator,
+        private RequestStack $requestStack,
+        private EventLogger $eventLogger,
         #[Autowire('%partdb.gdpr_compliance%')]
-        private readonly bool $gdpr_compliance,
+        private bool $gdpr_compliance,
     )
     {
     }

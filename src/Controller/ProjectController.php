@@ -26,6 +26,7 @@ use App\DataTables\ProjectBomEntriesDataTable;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use App\Form\ProjectSystem\BOMEntryEditType;
 use App\Form\ProjectSystem\ProjectAddPartsType;
 use App\Form\ProjectSystem\ProjectBuildType;
 use App\Helpers\Projects\ProjectBuildRequest;
@@ -50,6 +51,8 @@ use App\Helpers\FilenameSanatizer;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Serializer\SerializerInterface;
 use App\Services\ImportExportSystem\ProjectBomExporter;
+use App\Services\LogSystem\EventCommentHelper;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 
 use function Symfony\Component\Translation\t;
 
@@ -81,6 +84,70 @@ class ProjectController extends AbstractController
             'project' => $project,
             'number_of_builds' => $number_of_builds,
         ]);
+    }
+
+    #[Route(path: '/{id}/bom/{bomEntry}/edit', name: 'project_bom_entry_edit', requirements: ['id' => '\d+', 'bomEntry' => '\d+'])]
+    public function editBOMEntry(
+        #[MapEntity(id: 'id')] Project $project,
+        #[MapEntity(mapping: ['bomEntry' => 'id'])] ProjectBOMEntry $bomEntry,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        EventCommentHelper $commentHelper,
+    ): Response {
+        if ($bomEntry->getProject()?->getId() !== $project->getId()) {
+            throw $this->createNotFoundException();
+        }
+
+        $this->denyAccessUnlessGranted('edit', $bomEntry);
+
+
+        $form = $this->createForm(BOMEntryEditType::class, [
+            'bom_entry' => $bomEntry,
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commentHelper->setMessage($form->get('log_comment')->getData());
+            $entityManager->flush();
+            $this->addFlash('success', 'entity.edit_flash');
+
+            return $this->redirectToRoute('project_info', ['id' => $project->getId()]);
+        }
+
+        if ($form->isSubmitted()) {
+            $this->addFlash('error', 'entity.edit_flash.invalid');
+        }
+
+        return $this->render('projects/edit_bom_entry.html.twig', [
+            'project' => $project,
+            'bom_entry' => $bomEntry,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route(path: '/{id}/bom/{bomEntry}', name: 'project_bom_entry_delete', requirements: ['id' => '\d+', 'bomEntry' => '\d+'], methods: ['DELETE'])]
+    public function deleteBOMEntry(
+        #[MapEntity(id: 'id')] Project $project,
+        #[MapEntity(mapping: ['bomEntry' => 'id'])] ProjectBOMEntry $bomEntry,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        EventCommentHelper $commentHelper,
+    ): Response {
+        if ($bomEntry->getProject()?->getId() !== $project->getId()) {
+            throw $this->createNotFoundException();
+        }
+
+        $this->denyAccessUnlessGranted('delete', $bomEntry);
+
+        if ($this->isCsrfTokenValid('delete' . $bomEntry->getId(), $request->request->get('_token'))) {
+            $commentHelper->setMessage($request->request->get('log_comment'));
+            $entityManager->remove($bomEntry);
+            $entityManager->flush();
+            $this->addFlash('success', 'attachment_type.deleted');
+        }
+
+        return $this->redirectToRoute('project_info', ['id' => $project->getId()]);
     }
 
     #[Route(path: '/{id}/build', name: 'project_build', requirements: ['id' => '\d+'])]
@@ -343,7 +410,7 @@ class ProjectController extends AbstractController
                 ]);
 
                 // Validate the project entries
-                $errors = $validator->validateProperty($project, 'bom_entries');
+                $errors = $validator->validateProperty($project, 'bom_entries', ['project_bom']);
 
                 // If no validation errors occurred, save the changes and redirect to edit page
                 if (count($errors) === 0) {
@@ -583,7 +650,7 @@ class ProjectController extends AbstractController
                 }
 
                 // Validate the project entries (includes collection constraints)
-                $errors = $validator->validateProperty($project, 'bom_entries');
+                $errors = $validator->validateProperty($project, 'bom_entries', ['project_bom']);
 
                 // If no validation errors occurred, save and redirect
                 if (count($errors) === 0) {
@@ -607,7 +674,7 @@ class ProjectController extends AbstractController
                         'invalid_value' => $error->getInvalidValue(),
                     ]);
                     //And show as flash message
-                    $this->addFlash('error', $error->getMessage(),);
+                    $this->addFlash('error', $error->getMessage());
                 }
 
             } catch (\UnexpectedValueException | SyntaxError $e) {

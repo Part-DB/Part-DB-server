@@ -1,5 +1,5 @@
-{# Renders a editable list of all attachments. form is the Attachment CollectionType #}
-{% macro attachment_edit_list(form, part_mode = false) %}
+{# Renders a editable list of all attachments. form is the Attachment CollectionType, parent is the element that holds the attachments #}
+{% macro attachment_edit_list(form, parent = null, image_generator_btn = false) %}
     {% form_theme form with ['parts/edit/edit_form_styles.html.twig'] %}
 
     {% import 'components/collection_type.macro.html.twig' as collection %}
@@ -13,15 +13,21 @@
         </table>
 
         <div class="mb-2">
-            <button type="button" class="btn btn-success" {{ collection.create_btn() }} {% if part_mode and not is_granted('edit', part) %}disabled{% endif %}>
+            <button type="button" class="btn btn-success" {{ collection.create_btn() }} {% if parent and not is_granted('edit', parent) %}disabled{% endif %}>
                 <i class="fas fa-plus-square fa-fw"></i>
                 {% trans %}attachment.create{% endtrans %}
             </button>
 
-            <button type="button" class="btn btn-outline-success" {{ stimulus_action('elements/collection_type', 'uploadMultipleFiles') }} {% if part_mode and not is_granted('edit', part) %}disabled{% endif %}>
+            <button type="button" class="btn btn-outline-success" {{ stimulus_action('elements/collection_type', 'uploadMultipleFiles') }} {% if parent and not is_granted('edit', parent) %}disabled{% endif %}>
                 <i class="fas fa-upload fa-fw"></i>
                 {% trans %}attachment.upload_multiple_files{% endtrans %}
             </button>
+
+            {% if image_generator_btn and parent and parent.id is not null and is_granted('edit', parent) and is_granted('@tools.component_image_generator') %}
+                <button type="button" class="{{ btn_class|default('btn btn-outline-secondary') }}" data-bs-toggle="modal" data-bs-target="#vcGenerateModal" title="{% trans %}tools.value_calc.attach.generate_hint{% endtrans %}">
+                    <i class="fas fa-palette"></i> {% trans %}tools.value_calc.attach.generate_button{% endtrans %}
+                </button>
+            {% endif %}
         </div>
     </div>
 {% endmacro %}

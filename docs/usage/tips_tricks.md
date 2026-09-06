@@ -15,7 +15,7 @@ data structures directly from the part edit page: Just type the name of the data
 select field on the part edit page and press "Create new ...". The new data structure will be created when you save
 the part changes.
 
-You can create also create nested data structures this way. For example, if you want to create a new category "AVRs",
+You can also create nested data structures this way. For example, if you want to create a new category "AVRs",
 as a subcategory of "MCUs", you can just type "MCUs->AVRs" into the category select field and press "Create new".
 The new category "AVRs" will be created as a subcategory of "MCUs". If the category "MCUs" does not exist, it will
 be created too.

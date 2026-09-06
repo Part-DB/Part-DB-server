@@ -83,6 +83,9 @@ class UserController extends BaseAdminController
     public function edit(User $entity, Request $request, EntityManagerInterface $em,  PermissionPresetsHelper $permissionPresetsHelper,
         PermissionSchemaUpdater $permissionSchemaUpdater, ValidatorInterface $validator, ?string $timestamp = null): Response
     {
+        //Editing users is a high-risk action, so require full authentication (not just remember-me) to view or submit this page.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         //Do an upgrade of the permission schema if needed (so the user can see the permissions a user get on next request (even if it was not done yet)
         $permissionSchemaUpdater->userUpgradeSchemaRecursively($entity);
 
@@ -163,12 +166,18 @@ class UserController extends BaseAdminController
     #[Route(path: '/')]
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?User $entity = null): Response
     {
+        //Creating users is a high-risk action, so require full authentication (not just remember-me) to view or submit this page.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->_new($request, $em, $importer, $entity);
     }
 
     #[Route(path: '/{id}', name: 'user_delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
     public function delete(Request $request, User $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
+        //Deleting users is a high-risk action, so require full authentication (not just remember-me).
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         //Disallow deleting the anonymous user
         if (User::ID_ANONYMOUS === $entity->getID()) {
             throw new \LogicException('You can not delete the anonymous user! It is needed for permission checking without a logged in user');

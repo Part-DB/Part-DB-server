@@ -43,4 +43,31 @@ final class AddSlashEnvVarProcessorTest extends TestCase
         $this->assertEquals('http://example.com/', $this->processor->getEnv('addSlash', 'http://example.com', $getEnv));
         $this->assertEquals('http://example.com/', $this->processor->getEnv('addSlash', 'http://example.com/', $getEnv));
     }
+
+    public function testGetEnvWithMultipleTrailingSlashes(): void
+    {
+        $getEnv = fn ($name) => $name;
+
+        $this->assertEquals('http://example.com/', $this->processor->getEnv('addSlash', 'http://example.com///', $getEnv));
+    }
+
+    public function testGetEnvWithEmptyString(): void
+    {
+        $getEnv = fn ($name) => $name;
+
+        $this->assertEquals('/', $this->processor->getEnv('addSlash', '', $getEnv));
+    }
+
+    public function testGetEnvThrowsForNonString(): void
+    {
+        $getEnv = fn ($name) => 42;
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->processor->getEnv('addSlash', 'SOME_VAR', $getEnv);
+    }
+
+    public function testGetProvidedTypes(): void
+    {
+        $this->assertSame(['addSlash' => 'string'], AddSlashEnvVarProcessor::getProvidedTypes());
+    }
 }

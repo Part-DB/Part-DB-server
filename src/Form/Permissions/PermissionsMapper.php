@@ -32,9 +32,9 @@ use Traversable;
  * This class is a data mapper that maps the permission data from DB (accessed via a PermissionResolver),
  * to TristateCheckboxes and vice versa.
  */
-final class PermissionsMapper implements DataMapperInterface
+final readonly class PermissionsMapper implements DataMapperInterface
 {
-    public function __construct(private readonly PermissionManager $resolver, private readonly bool $inherit = false)
+    public function __construct(private PermissionManager $resolver, private bool $inherit = false)
     {
     }
 

@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -41,12 +40,20 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Mcp\DTO\CreateStructuralElementInput;
+use App\Mcp\DTO\DeleteStructuralElementInput;
 use App\Mcp\DTO\ElementByIdInput;
 use App\Mcp\DTO\StructuralElementOverview;
 use App\Mcp\DTO\StructuralElementSearchInput;
+use App\Mcp\DTO\UpdateStructuralElementInput;
 use App\Repository\Parts\ManufacturerRepository;
+use App\State\Mcp\CreateStructuralElementInputProvider;
+use App\State\Mcp\CreateStructuralElementProcessor;
+use App\State\Mcp\DeleteStructuralElementProcessor;
 use App\State\Mcp\GetStructuralElementDetailsProcessor;
 use App\State\Mcp\ListStructuralElementsProcessor;
+use App\State\Mcp\UpdateStructuralElementInputProvider;
+use App\State\Mcp\UpdateStructuralElementProcessor;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\ManufacturerAttachment;
@@ -54,7 +61,7 @@ use App\Entity\Base\AbstractCompany;
 use App\Entity\Parameters\ManufacturerParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -64,8 +71,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: ManufacturerRepository::class)]
 #[ORM\Table('`manufacturers`')]
-#[ORM\Index(columns: ['name'], name: 'manufacturer_name')]
-#[ORM\Index(columns: ['parent_id', 'name'], name: 'manufacturer_idx_parent_name')]
+#[ORM\Index(name: 'manufacturer_name', columns: ['name'])]
+#[ORM\Index(name: 'manufacturer_idx_parent_name', columns: ['parent_id', 'name'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -87,10 +94,10 @@ use Symfony\Component\Validator\Constraints as Assert;
             title: 'List/search manufacturers',
             description: 'List all manufacturers, optionally filtered by a keyword matched against the name and comment. Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
-            output: StructuralElementOverview::class,
             normalizationContext: ['groups' => ['mcp_structural_overview:read']],
-            input: StructuralElementSearchInput::class,
             security: 'is_granted("@manufacturers.read")',
+            input: StructuralElementSearchInput::class,
+            output: StructuralElementOverview::class,
             processor: ListStructuralElementsProcessor::class,
         ),
         'get_manufacturer_details' => new McpTool(
@@ -98,10 +105,42 @@ use Symfony\Component\Validator\Constraints as Assert;
             description: 'Get detailed information about a specific manufacturer by its database ID.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
             normalizationContext: ['groups' => ['manufacturer:read', 'company:read', 'api:basic:read']],
-            input: ElementByIdInput::class,
             security: 'is_granted("@manufacturers.read")',
+            input: ElementByIdInput::class,
             validate: true,
             processor: GetStructuralElementDetailsProcessor::class,
+        ),
+        'create_manufacturer' => new McpTool(
+            title: 'Create a new manufacturer',
+            description: 'Create a new manufacturer. Only "name" is required; every other field is optional and, if omitted, the manufacturer is created with its normal default value for that field.',
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['manufacturer:read', 'company:read', 'api:basic:read']], // Not enforced by the MCP call pipeline (see notes on Part.php's create_part) - the real check is manual, inside the processor.
+            security: 'is_granted("@manufacturers.create")',
+            input: CreateStructuralElementInput::class,
+            validate: false,
+            provider: CreateStructuralElementInputProvider::class, // Entity validation is done manually in the processor, not on the (barely-constrained) input DTO
+            processor: CreateStructuralElementProcessor::class,
+        ),
+        'update_manufacturer' => new McpTool(
+            title: 'Update an existing manufacturer',
+            description: 'Update an existing manufacturer by its database ID. Only the fields you actually provide are changed; any field you omit is left completely untouched.',
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['manufacturer:read', 'company:read', 'api:basic:read']], // Not enforced by the MCP call pipeline - the real check is manual, inside the processor.
+            security: 'is_granted("edit", object)',
+            input: UpdateStructuralElementInput::class,
+            validate: false,
+            provider: UpdateStructuralElementInputProvider::class, // Entity validation is done manually in the processor, not on the (barely-constrained) input DTO
+            processor: UpdateStructuralElementProcessor::class,
+        ),
+        'delete_manufacturer' => new McpTool(
+            title: 'Delete a manufacturer',
+            description: 'Permanently delete a manufacturer by its database ID. Fails if the manufacturer still directly contains parts. Child manufacturers are moved up to the deleted manufacturer\'s own parent, not deleted themselves.',
+            structuredContent: false,
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => true, 'openWorldHint' => false], // Not enforced by the MCP call pipeline - the real check is manual, inside the processor.
+            security: 'is_granted("delete", object)', // The processor returns a plain text confirmation via CallToolResult, not a normalized element
+            input: DeleteStructuralElementInput::class,
+            validate: true,
+            processor: DeleteStructuralElementProcessor::class,
         ),
     ],
 )]
@@ -117,16 +156,16 @@ class Manufacturer extends AbstractCompany
     #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
 
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     /**
      * @var Collection<int, ManufacturerAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: ManufacturerAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: ManufacturerAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['manufacturer:read', 'manufacturer:write'])]
     #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $attachments;
@@ -140,8 +179,8 @@ class Manufacturer extends AbstractCompany
     /** @var Collection<int, ManufacturerParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: ManufacturerParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OneToMany(targetEntity: ManufacturerParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['manufacturer:read', 'manufacturer:write'])]
     #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $parameters;

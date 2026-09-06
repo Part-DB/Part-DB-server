@@ -39,11 +39,11 @@ use App\State\Mcp\GetInfoProviderPartDetailsProcessor;
     operations: [
         new Post(
             uriTemplate: '/info_providers/details',
+            openapi: new Operation(summary: 'Get full detailed information about a specific part from an external info provider.'),
             security: 'is_granted("@info_providers.create_parts")',
             input: InfoProviderPartDetailsInput::class,
             validate: true,
             processor: GetInfoProviderPartDetailsProcessor::class,
-            openapi: new Operation(summary: 'Get full detailed information about a specific part from an external info provider.'),
         ),
     ],
     mcp: [
@@ -51,8 +51,8 @@ use App\State\Mcp\GetInfoProviderPartDetailsProcessor;
             title: 'Get part details from an info provider',
             description: 'Get full detailed information (datasheets, images, parameters, prices, ...) about a specific part from an external info provider, identified by the provider key and the provider-specific part ID (both returned by search_info_providers).',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => true],
-            input: InfoProviderPartDetailsInput::class,
             security: 'is_granted("@info_providers.create_parts")',
+            input: InfoProviderPartDetailsInput::class,
             validate: true,
             processor: GetInfoProviderPartDetailsProcessor::class,
         ),

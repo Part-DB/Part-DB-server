@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -42,12 +41,20 @@ use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\EDA\EDAFootprintInfo;
+use App\Mcp\DTO\CreateStructuralElementInput;
+use App\Mcp\DTO\DeleteStructuralElementInput;
 use App\Mcp\DTO\ElementByIdInput;
 use App\Mcp\DTO\StructuralElementOverview;
 use App\Mcp\DTO\StructuralElementSearchInput;
+use App\Mcp\DTO\UpdateStructuralElementInput;
 use App\Repository\Parts\FootprintRepository;
+use App\State\Mcp\CreateStructuralElementInputProvider;
+use App\State\Mcp\CreateStructuralElementProcessor;
+use App\State\Mcp\DeleteStructuralElementProcessor;
 use App\State\Mcp\GetStructuralElementDetailsProcessor;
 use App\State\Mcp\ListStructuralElementsProcessor;
+use App\State\Mcp\UpdateStructuralElementInputProvider;
+use App\State\Mcp\UpdateStructuralElementProcessor;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\FootprintAttachment;
@@ -55,7 +62,7 @@ use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Parameters\FootprintParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -65,8 +72,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: FootprintRepository::class)]
 #[ORM\Table('`footprints`')]
-#[ORM\Index(columns: ['name'], name: 'footprint_idx_name')]
-#[ORM\Index(columns: ['parent_id', 'name'], name: 'footprint_idx_parent_name')]
+#[ORM\Index(name: 'footprint_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'footprint_idx_parent_name', columns: ['parent_id', 'name'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -88,10 +95,10 @@ use Symfony\Component\Validator\Constraints as Assert;
             title: 'List/search footprints',
             description: 'List all footprints, optionally filtered by a keyword matched against the name and comment. Footprints describe the physical package/shape of a part. Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
-            output: StructuralElementOverview::class,
             normalizationContext: ['groups' => ['mcp_structural_overview:read']],
-            input: StructuralElementSearchInput::class,
             security: 'is_granted("@footprints.read")',
+            input: StructuralElementSearchInput::class,
+            output: StructuralElementOverview::class,
             processor: ListStructuralElementsProcessor::class,
         ),
         'get_footprint_details' => new McpTool(
@@ -99,10 +106,42 @@ use Symfony\Component\Validator\Constraints as Assert;
             description: 'Get detailed information about a specific footprint by its database ID.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
             normalizationContext: ['groups' => ['footprint:read', 'api:basic:read']],
-            input: ElementByIdInput::class,
             security: 'is_granted("@footprints.read")',
+            input: ElementByIdInput::class,
             validate: true,
             processor: GetStructuralElementDetailsProcessor::class,
+        ),
+        'create_footprint' => new McpTool(
+            title: 'Create a new footprint',
+            description: 'Create a new footprint. Only "name" is required; every other field is optional and, if omitted, the footprint is created with its normal default value for that field.',
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['footprint:read', 'api:basic:read']], // Not enforced by the MCP call pipeline (see notes on Part.php's create_part) - the real check is manual, inside the processor.
+            security: 'is_granted("@footprints.create")',
+            input: CreateStructuralElementInput::class,
+            validate: false,
+            provider: CreateStructuralElementInputProvider::class, // Entity validation is done manually in the processor, not on the (barely-constrained) input DTO
+            processor: CreateStructuralElementProcessor::class,
+        ),
+        'update_footprint' => new McpTool(
+            title: 'Update an existing footprint',
+            description: 'Update an existing footprint by its database ID. Only the fields you actually provide are changed; any field you omit is left completely untouched.',
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['footprint:read', 'api:basic:read']], // Not enforced by the MCP call pipeline - the real check is manual, inside the processor.
+            security: 'is_granted("edit", object)',
+            input: UpdateStructuralElementInput::class,
+            validate: false,
+            provider: UpdateStructuralElementInputProvider::class, // Entity validation is done manually in the processor, not on the (barely-constrained) input DTO
+            processor: UpdateStructuralElementProcessor::class,
+        ),
+        'delete_footprint' => new McpTool(
+            title: 'Delete a footprint',
+            description: 'Permanently delete a footprint by its database ID. Fails if the footprint still directly contains parts. Child footprints are moved up to the deleted footprint\'s own parent, not deleted themselves.',
+            structuredContent: false,
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => true, 'openWorldHint' => false], // Not enforced by the MCP call pipeline - the real check is manual, inside the processor.
+            security: 'is_granted("delete", object)', // The processor returns a plain text confirmation via CallToolResult, not a normalized element
+            input: DeleteStructuralElementInput::class,
+            validate: true,
+            processor: DeleteStructuralElementProcessor::class,
         ),
     ],
 )]
@@ -118,8 +157,8 @@ class Footprint extends AbstractPartsContainingDBElement
     #[ApiProperty(readableLink: false, writableLink: false)]
     protected ?AbstractStructuralDBElement $parent = null;
 
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[Groups(['footprint:read', 'footprint:write', "import"])]
@@ -129,8 +168,8 @@ class Footprint extends AbstractPartsContainingDBElement
      * @var Collection<int, FootprintAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: FootprintAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: FootprintAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['footprint:read', 'footprint:write'])]
     protected Collection $attachments;
 
@@ -150,8 +189,8 @@ class Footprint extends AbstractPartsContainingDBElement
     /** @var Collection<int, FootprintParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: FootprintParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OneToMany(targetEntity: FootprintParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['footprint:read', 'footprint:write'])]
     protected Collection $parameters;
 
@@ -217,7 +256,7 @@ class Footprint extends AbstractPartsContainingDBElement
         return $this->eda_info;
     }
 
-    public function setEdaInfo(EDAFootprintInfo $eda_info): Footprint
+    public function setEdaInfo(EDAFootprintInfo $eda_info): self
     {
         $this->eda_info = $eda_info;
         return $this;

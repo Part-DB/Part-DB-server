@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem;
 
-use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,9 +16,9 @@ use Doctrine\ORM\EntityManagerInterface;
  * DTO and the local part match. This checks also for alternative names of the manufacturer and the part name (as alternative
  * for the MPN).
  */
-final class ExistingPartFinder
+final readonly class ExistingPartFinder
 {
-    public function __construct(private readonly EntityManagerInterface $em)
+    public function __construct(private EntityManagerInterface $em)
     {
 
     }

@@ -32,13 +32,13 @@ use Symfony\Component\Security\Http\HttpUtils;
 /**
  * The purpose of this event listener is (if enabled) to redirect all requests to https.
  */
-final class RedirectToHttpsSubscriber implements EventSubscriberInterface
+final readonly class RedirectToHttpsSubscriber implements EventSubscriberInterface
 {
 
     public function __construct(
         #[Autowire('%env(bool:REDIRECT_TO_HTTPS)%')]
-        private readonly bool $enabled,
-        private readonly HttpUtils $httpUtils)
+        private bool $enabled,
+        private HttpUtils $httpUtils)
     {
     }
 

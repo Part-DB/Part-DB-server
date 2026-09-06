@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
-use Doctrine\Common\Collections\Criteria;
 use App\Entity\Attachments\Attachment;
 use App\Validator\Constraints\NoLockout;
 use Doctrine\DBAL\Types\Types;
@@ -34,7 +33,7 @@ use App\Validator\Constraints\ValidPermission;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -44,13 +43,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity]
 #[ORM\Table('`groups`')]
-#[ORM\Index(columns: ['name'], name: 'group_idx_name')]
-#[ORM\Index(columns: ['parent_id', 'name'], name: 'group_idx_parent_name')]
+#[ORM\Index(name: 'group_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'group_idx_parent_name', columns: ['parent_id', 'name'])]
 #[NoLockout]
 class Group extends AbstractStructuralDBElement implements HasPermissionsInterface
 {
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -60,7 +59,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     /**
      * @var Collection<int, User>
      */
-    #[ORM\OneToMany(mappedBy: 'group', targetEntity: User::class)]
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'group')]
     protected Collection $users;
 
     /**
@@ -74,8 +73,8 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      * @var Collection<int, GroupAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: GroupAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: GroupAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: GroupAttachment::class)]
@@ -91,8 +90,8 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      * @var Collection<int, GroupParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: GroupParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OneToMany(targetEntity: GroupParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     public function __construct()

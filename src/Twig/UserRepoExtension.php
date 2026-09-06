@@ -26,7 +26,6 @@ namespace App\Twig;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\UserSystem\User;
-use App\Repository\LogEntryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Twig\Attribute\AsTwigFunction;
 

@@ -38,12 +38,12 @@ use Symfony\Component\DependencyInjection\Attribute\AutowireDecorated;
  * exchange and every subsequent refresh rotation, since revoke_refresh_tokens is true), not just once.
  */
 #[AsDecorator('league.oauth2_server.repository.refresh_token')]
-class RefreshTokenTtlRepositoryDecorator implements RefreshTokenRepositoryInterface
+readonly class RefreshTokenTtlRepositoryDecorator implements RefreshTokenRepositoryInterface
 {
     public function __construct(
         #[AutowireDecorated]
-        private readonly RefreshTokenRepositoryInterface $decorated,
-        private readonly OAuthClientGrantPreferenceManager $grantPreferences,
+        private RefreshTokenRepositoryInterface $decorated,
+        private OAuthClientGrantPreferenceManager $grantPreferences,
     ) {
     }
 

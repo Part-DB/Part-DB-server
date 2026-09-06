@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\DataTables\Column;
 
-use DateTime;
 use DateTimeInterface;
 use Exception;
 use IntlDateFormatter;

@@ -174,6 +174,7 @@ class PermissionPresetsHelper
         $this->permissionResolver->setPermission($perm_holder, 'tools', 'reel_calculator', PermissionData::ALLOW);
         $this->permissionResolver->setPermission($perm_holder, 'tools', 'builtin_footprints_viewer', PermissionData::ALLOW);
         $this->permissionResolver->setPermission($perm_holder, 'tools', 'ic_logos', PermissionData::ALLOW);
+        $this->permissionResolver->setPermission($perm_holder, 'tools', 'component_image_generator', PermissionData::ALLOW);
 
         //Set attachments permissions
         $this->permissionResolver->setPermission($perm_holder, 'attachments', 'list_attachments', PermissionData::ALLOW);

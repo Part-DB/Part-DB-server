@@ -82,6 +82,6 @@ class HistorySettings
         }
 
         $explode = explode(',', $value);
-        return array_map(fn(string $type) => EventCommentType::from($type), $explode);
+        return array_map(static fn(string $type) => EventCommentType::from($type), $explode);
     }
 }

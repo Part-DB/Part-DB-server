@@ -32,10 +32,10 @@ use App\Services\InfoProviderSystem\ProviderRegistry;
  * Used both as the state processor for the MCP list_info_providers tool and as the state provider for the
  * REST GET /api/info_providers collection endpoint.
  */
-class ListInfoProvidersProcessor implements ProcessorInterface, ProviderInterface
+readonly class ListInfoProvidersProcessor implements ProcessorInterface, ProviderInterface
 {
     public function __construct(
-        private readonly ProviderRegistry $providerRegistry,
+        private ProviderRegistry $providerRegistry,
     ) {
     }
 

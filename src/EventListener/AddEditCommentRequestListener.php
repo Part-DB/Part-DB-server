@@ -28,14 +28,14 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 #[AsEventListener]
-class AddEditCommentRequestListener
+readonly class AddEditCommentRequestListener
 {
-    public function __construct(private readonly EventCommentHelper $helper)
+    public function __construct(private EventCommentHelper $helper)
     {
 
     }
 
-    public function __invoke(RequestEvent $event)
+    public function __invoke(RequestEvent $event): void
     {
         if (!$event->isMainRequest()) {
             return;

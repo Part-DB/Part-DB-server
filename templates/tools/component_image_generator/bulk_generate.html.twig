@@ -1,0 +1,484 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}tools.bulk_gen.title{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-images"></i> {% trans %}tools.bulk_gen.title{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+    <p class="text-muted">{% trans %}tools.bulk_gen.intro{% endtrans %}</p>
+
+    <details class="mb-3">
+        <summary class="text-primary" style="cursor: pointer;">
+            <i class="fas fa-circle-question"></i> {% trans %}tools.bulk_gen.help.title{% endtrans %}
+        </summary>
+        {# Example values as blue "chips", parameter names as grey chips — theme-aware (Bootstrap 5.3 subtle utilities). #}
+        {% set chip = 'badge fw-normal font-monospace bg-primary-subtle text-primary-emphasis border border-primary-subtle' %}
+        {% set pchip = 'badge fw-normal font-monospace bg-secondary-subtle text-secondary-emphasis border border-secondary-subtle' %}
+        <div class="card card-body bg-body-tertiary mt-2">
+            <p class="small text-muted mb-2">{% trans %}tools.bulk_gen.help.intro{% endtrans %}</p>
+            <div class="table-responsive">
+                <table class="table table-sm mb-0 align-middle">
+                    <thead>
+                        <tr class="small text-uppercase text-muted">
+                            <th class="fw-semibold">{% trans %}tools.bulk_gen.help.col_field{% endtrans %}</th>
+                            <th class="fw-semibold">{% trans %}tools.bulk_gen.help.col_param{% endtrans %}</th>
+                            <th class="fw-semibold">{% trans %}tools.bulk_gen.help.col_text{% endtrans %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="fw-medium">{% trans %}tools.bulk_gen.help.value{% endtrans %}</td>
+                            <td><span class="{{ pchip }}">Resistance</span> <span class="{{ pchip }}">Capacitance</span> <span class="text-muted small">Ω / F</span></td>
+                            <td><div class="d-flex flex-wrap gap-1"><span class="{{ chip }}">10nF</span><span class="{{ chip }}">0.1µF</span><span class="{{ chip }}">4n7</span><span class="{{ chip }}">4k7</span><span class="{{ chip }}">470R</span><span class="{{ chip }}">10k</span><span class="{{ chip }}">1M</span></div></td>
+                        </tr>
+                        <tr>
+                            <td class="fw-medium">{% trans %}tools.bulk_gen.help.voltage{% endtrans %}</td>
+                            <td><span class="{{ pchip }}">Voltage</span></td>
+                            <td><div class="d-flex flex-wrap gap-1"><span class="{{ chip }}">50V</span><span class="{{ chip }}">100V</span></div></td>
+                        </tr>
+                        <tr>
+                            <td class="fw-medium">{% trans %}tools.bulk_gen.help.tolerance{% endtrans %}</td>
+                            <td><span class="{{ pchip }}">Tolerance</span></td>
+                            <td><div class="d-flex flex-wrap gap-1"><span class="{{ chip }}">±5%</span><span class="{{ chip }}">10%</span></div></td>
+                        </tr>
+                        <tr>
+                            <td class="fw-medium">{% trans %}tools.bulk_gen.help.pitch{% endtrans %}</td>
+                            <td><span class="{{ pchip }}">Pitch</span> <span class="{{ pchip }}">RM</span> <span class="{{ pchip }}">Lead spacing</span></td>
+                            <td><div class="d-flex flex-wrap gap-1"><span class="{{ chip }}">pitch 5mm</span><span class="{{ chip }}">RM5</span><span class="{{ chip }}">5mm pitch</span></div></td>
+                        </tr>
+                        <tr>
+                            <td class="fw-medium">{% trans %}tools.bulk_gen.help.diameter{% endtrans %}</td>
+                            <td><span class="{{ pchip }}">Diameter</span></td>
+                            <td><div class="d-flex flex-wrap gap-1"><span class="{{ chip }}">⌀5mm</span><span class="{{ chip }}">diameter 5mm</span></div></td>
+                        </tr>
+                        <tr>
+                            <td class="fw-medium">{% trans %}tools.bulk_gen.help.smd{% endtrans %}</td>
+                            <td class="text-muted small">{% trans %}tools.bulk_gen.help.footprint_col{% endtrans %}</td>
+                            <td><div class="d-flex flex-wrap gap-1"><span class="{{ chip }}">0402</span><span class="{{ chip }}">0603</span><span class="{{ chip }}">0805</span><span class="{{ chip }}">1206</span><span class="{{ chip }}">1210</span></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </details>
+
+    {% if with_picture > 0 and not overwrite %}
+        <div class="alert alert-warning d-flex flex-wrap align-items-center justify-content-between gap-2">
+            <span><i class="fas fa-image"></i> {% trans with {'%count%': with_picture} %}tools.bulk_gen.with_picture{% endtrans %}</span>
+            <a href="{{ path('tools_bulk_generate', {ids: ids_param, overwrite: 1}) }}" class="btn btn-sm btn-warning">
+                <i class="fas fa-arrows-rotate"></i> {% trans with {'%count%': with_picture} %}tools.bulk_gen.regenerate{% endtrans %}
+            </a>
+        </div>
+    {% elseif overwrite %}
+        <div class="alert alert-info d-flex flex-wrap align-items-center justify-content-between gap-2">
+            <span><i class="fas fa-triangle-exclamation"></i> {% trans %}tools.bulk_gen.overwrite_mode{% endtrans %}</span>
+            <a href="{{ path('tools_bulk_generate', {ids: ids_param}) }}" class="btn btn-sm btn-outline-secondary">{% trans %}tools.bulk_gen.overwrite_exit{% endtrans %}</a>
+        </div>
+    {% endif %}
+
+    {% if selected_count == 0 or candidates is empty %}
+        {% if selected_count == 0 %}
+            <div class="alert alert-info">{% trans %}tools.bulk_gen.no_selection{% endtrans %}</div>
+        {% elseif with_picture == 0 %}
+            <div class="alert alert-warning">{% trans with {'%count%': selected_count} %}tools.bulk_gen.none{% endtrans %}</div>
+        {% endif %}
+        <a href="{{ path('homepage') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> {% trans %}tools.bulk_gen.back{% endtrans %}
+        </a>
+    {% else %}
+        <div {{ stimulus_controller('pages/bulk_image_generator') }}>
+            {# One hidden value-calculator, reused to render every preview below. #}
+            <div class="d-none" aria-hidden="true">
+                {% set part = null %}
+                {% include 'tools/component_image_generator/_calculator_body.html.twig' %}
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+                <p class="mb-0">
+                    <strong>{{ candidates|length }}</strong> {% trans %}tools.bulk_gen.found{% endtrans %}
+                    {%- if skipped > 0 %} <span class="text-muted">({{ skipped }} {% trans %}tools.bulk_gen.skipped{% endtrans %})</span>{% endif %}
+                </p>
+                <a href="{{ path('homepage') }}" class="btn btn-sm btn-outline-secondary" {{ stimulus_action('pages/bulk_image_generator', 'goBack') }}>
+                    <i class="fas fa-arrow-left"></i> {% trans %}tools.bulk_gen.back{% endtrans %}
+                </a>
+            </div>
+
+            {% set first = candidates|first %}
+            {% set batch_color = first.color ?: (first.type == 'capacitor' ? '#e0a63a' : (first.type == 'resistor' ? '#e8d9b5' : '#20242a')) %}
+            <div class="card card-body bg-body-tertiary py-2 mb-3">
+                <div class="d-flex flex-wrap align-items-center gap-3">
+                    <span class="text-muted small">{% trans %}tools.bulk_gen.apply_all{% endtrans %}:</span>
+                    {% if has_caps %}
+                    <div class="input-group input-group-sm" style="width: auto;">
+                        <span class="input-group-text">{% trans %}tools.value_calc.cap.shape{% endtrans %}</span>
+                        <select class="form-select" style="width: 8rem;"
+                                {{ stimulus_target('pages/bulk_image_generator', 'batchShape') }}
+                                {{ stimulus_action('pages/bulk_image_generator', 'regenerate', 'change') }}>
+                            <option value="disc" selected>{% trans %}tools.value_calc.cap.shape.disc{% endtrans %}</option>
+                            <option value="blob">{% trans %}tools.value_calc.cap.shape.blob{% endtrans %}</option>
+                        </select>
+                    </div>
+                    {% endif %}
+                    {% if has_caps or has_tht_resistors or has_inductors %}
+                    <div class="input-group input-group-sm" style="width: auto;">
+                        <span class="input-group-text">{% trans %}tools.value_calc.cap.lead{% endtrans %}</span>
+                        <select class="form-select" style="width: 7rem;"
+                                {{ stimulus_target('pages/bulk_image_generator', 'batchLead') }}
+                                {{ stimulus_action('pages/bulk_image_generator', 'regenerate', 'change') }}>
+                            <option value="short">{% trans %}tools.value_calc.cap.lead.short{% endtrans %}</option>
+                            <option value="medium" selected>{% trans %}tools.value_calc.cap.lead.medium{% endtrans %}</option>
+                            <option value="long">{% trans %}tools.value_calc.cap.lead.long{% endtrans %}</option>
+                        </select>
+                    </div>
+                    {% endif %}
+                    {% if has_caps %}
+                    <div class="input-group input-group-sm" style="width: auto;">
+                        <span class="input-group-text">{% trans %}tools.value_calc.cap.diameter{% endtrans %}</span>
+                        <input type="number" class="form-control" value="5" min="1" step="0.5" style="width: 4.5rem;"
+                               {{ stimulus_target('pages/bulk_image_generator', 'batchDiameter') }}
+                               {{ stimulus_action('pages/bulk_image_generator', 'applyDiameter', 'input') }}>
+                        <span class="input-group-text">mm</span>
+                    </div>
+                    <div class="input-group input-group-sm" style="width: auto;">
+                        <span class="input-group-text">{% trans %}tools.value_calc.cap.pitch{% endtrans %}</span>
+                        <select class="form-select" style="width: 6rem;"
+                                {{ stimulus_target('pages/bulk_image_generator', 'batchPitch') }}
+                                {{ stimulus_action('pages/bulk_image_generator', 'applyPitch', 'change') }}>
+                            <option value="2.54">2.54 mm</option>
+                            <option value="5.08" selected>5.08 mm</option>
+                            <option value="7.5">7.5 mm</option>
+                            <option value="10">10 mm</option>
+                            <option value="15">15 mm</option>
+                        </select>
+                    </div>
+                    {% endif %}
+                    {% if has_tht_resistors %}
+                    <div class="input-group input-group-sm" style="width: auto;">
+                        <span class="input-group-text">{% trans %}tools.value_calc.field.power{% endtrans %}</span>
+                        <select class="form-select" style="width: 6rem;"
+                                {{ stimulus_target('pages/bulk_image_generator', 'batchPower') }}
+                                {{ stimulus_action('pages/bulk_image_generator', 'applyPower', 'change') }}>
+                            <option value="0.125">1/8 W</option>
+                            <option value="0.25" selected>1/4 W</option>
+                            <option value="0.5">1/2 W</option>
+                            <option value="1">1 W</option>
+                            <option value="2">2 W</option>
+                        </select>
+                    </div>
+                    <div class="input-group input-group-sm" style="width: auto;">
+                        <span class="input-group-text">{% trans %}tools.value_calc.field.ppm{% endtrans %}</span>
+                        <select class="form-select" style="width: 7rem;"
+                                {{ stimulus_target('pages/bulk_image_generator', 'batchPpm') }}
+                                {{ stimulus_action('pages/bulk_image_generator', 'applyPpm', 'change') }}>
+                            <option value="" selected>—</option>
+                            <option value="100">100 ppm</option>
+                            <option value="50">50 ppm</option>
+                            <option value="25">25 ppm</option>
+                            <option value="15">15 ppm</option>
+                            <option value="10">10 ppm</option>
+                            <option value="5">5 ppm</option>
+                        </select>
+                    </div>
+                    {% endif %}
+                    {% if has_smd_resistors or has_smd_inductors or has_smd_capacitors %}
+                    <div class="input-group input-group-sm" style="width: auto;">
+                        <span class="input-group-text">{% trans %}tools.value_calc.smd.package{% endtrans %}</span>
+                        <select class="form-select" style="width: 6rem;"
+                                {{ stimulus_target('pages/bulk_image_generator', 'batchPackage') }}
+                                {{ stimulus_action('pages/bulk_image_generator', 'applyPackage', 'change') }}>
+                            <option value="0201">0201</option>
+                            <option value="0402">0402</option>
+                            <option value="0603">0603</option>
+                            <option value="0805" selected>0805</option>
+                            <option value="1206">1206</option>
+                            <option value="1210">1210</option>
+                            <option value="2010">2010</option>
+                            <option value="2512">2512</option>
+                        </select>
+                    </div>
+                    {% endif %}
+                    <div class="input-group input-group-sm" style="width: auto;">
+                        <span class="input-group-text">{% trans %}tools.value_calc.cap.voltage{% endtrans %}</span>
+                        <input type="number" class="form-control" placeholder="—" min="1" style="width: 4.5rem;"
+                               {{ stimulus_target('pages/bulk_image_generator', 'batchVoltage') }}
+                               {{ stimulus_action('pages/bulk_image_generator', 'applyVoltage', 'input') }}>
+                        <span class="input-group-text">V</span>
+                    </div>
+                    <div class="input-group input-group-sm" style="width: auto;">
+                        <span class="input-group-text">{% trans %}tools.value_calc.field.tolerance{% endtrans %}</span>
+                        <select class="form-select" style="width: 6.5rem;"
+                                {{ stimulus_target('pages/bulk_image_generator', 'batchTolerance') }}
+                                {{ stimulus_action('pages/bulk_image_generator', 'applyTolerance', 'change') }}>
+                            <option value="">—</option>
+                            <option value="0.05">±0.05% (W)</option>
+                            <option value="0.1">±0.1 (B)</option>
+                            <option value="0.25">±0.25 (C)</option>
+                            <option value="0.5">±0.5 (D)</option>
+                            <option value="1">±1% (F)</option>
+                            <option value="2">±2% (G)</option>
+                            <option value="5">±5% (J)</option>
+                            <option value="10">±10% (K)</option>
+                            <option value="20">±20% (M)</option>
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="color" class="form-control form-control-color form-control-sm" value="{{ batch_color }}"
+                               title="{% trans %}tools.value_calc.body_color{% endtrans %}"
+                               {{ stimulus_target('pages/bulk_image_generator', 'batchColor') }}
+                               {{ stimulus_action('pages/bulk_image_generator', 'applyColor', 'input') }}>
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-outline-secondary" data-color="#e8d9b5" {{ stimulus_action('pages/bulk_image_generator', 'pickColor') }}>{% trans %}tools.value_calc.body.beige{% endtrans %}</button>
+                            <button type="button" class="btn btn-outline-secondary" data-color="#9fc6e0" {{ stimulus_action('pages/bulk_image_generator', 'pickColor') }}>{% trans %}tools.value_calc.body.lightblue{% endtrans %}</button>
+                            <button type="button" class="btn btn-outline-secondary" data-color="#2f6db0" {{ stimulus_action('pages/bulk_image_generator', 'pickColor') }}>{% trans %}tools.value_calc.body.blue{% endtrans %}</button>
+                            <button type="button" class="btn btn-outline-secondary" data-color="#b34a2f" {{ stimulus_action('pages/bulk_image_generator', 'pickColor') }}>{% trans %}tools.value_calc.body.red{% endtrans %}</button>
+                            <button type="button" class="btn btn-outline-secondary" data-color="#7b4fb0" {{ stimulus_action('pages/bulk_image_generator', 'pickColor') }}>{% trans %}tools.value_calc.body.purple{% endtrans %}</button>
+                            <button type="button" class="btn btn-outline-secondary" data-color="#303030" {{ stimulus_action('pages/bulk_image_generator', 'pickColor') }}>{% trans %}tools.value_calc.body.black{% endtrans %}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# Editable KiCad column suggestions: pick a common symbol/footprint or type your own. #}
+            <datalist id="bulkgen-symbols">
+                <option value="Device:R"></option>
+                <option value="Device:C"></option>
+                <option value="Device:C_Polarized"></option>
+                <option value="Device:L"></option>
+                <option value="Device:D"></option>
+                <option value="Device:LED"></option>
+            </datalist>
+            <datalist id="bulkgen-footprints">
+                <option value="Resistor_SMD:R_0402_1005Metric"></option>
+                <option value="Resistor_SMD:R_0603_1608Metric"></option>
+                <option value="Resistor_SMD:R_0805_2012Metric"></option>
+                <option value="Resistor_SMD:R_1206_3216Metric"></option>
+                <option value="Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"></option>
+                <option value="Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"></option>
+                <option value="Capacitor_SMD:C_0402_1005Metric"></option>
+                <option value="Capacitor_SMD:C_0603_1608Metric"></option>
+                <option value="Capacitor_SMD:C_0805_2012Metric"></option>
+                <option value="Capacitor_SMD:C_1206_3216Metric"></option>
+                <option value="Capacitor_THT:C_Disc_D3.0mm_W1.6mm_P2.50mm"></option>
+                <option value="Capacitor_THT:C_Disc_D3.8mm_W2.6mm_P2.50mm"></option>
+                <option value="Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm"></option>
+                <option value="Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm"></option>
+                <option value="Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"></option>
+                <option value="Capacitor_THT:C_Disc_D7.5mm_W2.5mm_P5.00mm"></option>
+                <option value="Capacitor_THT:C_Disc_D10.0mm_W2.5mm_P5.00mm"></option>
+                <option value="Capacitor_THT:C_Disc_D7.5mm_W5.0mm_P7.50mm"></option>
+                <option value="Capacitor_THT:C_Disc_D10.5mm_W5.0mm_P7.50mm"></option>
+                <option value="Inductor_SMD:L_0805_2012Metric"></option>
+                <option value="Inductor_SMD:L_1210_3225Metric"></option>
+                <option value="Inductor_THT:L_Axial_L5.3mm_D2.2mm_P10.16mm_Horizontal"></option>
+                <option value="Diode_SMD:D_0805_2012Metric"></option>
+                <option value="Diode_SMD:D_SOD-123"></option>
+                <option value="Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"></option>
+                <option value="Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"></option>
+                <option value="LED_SMD:LED_0805_2012Metric"></option>
+                <option value="LED_THT:LED_D5.0mm"></option>
+                <option value="LED_THT:LED_D3.0mm"></option>
+            </datalist>
+
+            <p class="text-muted small mb-1"><i class="fas fa-info-circle"></i> {% trans %}tools.bulk_gen.kicad_hint{% endtrans %}</p>
+            <div class="table-responsive">
+                <table class="table table-sm table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th style="width: 2rem;"><input class="form-check-input" type="checkbox" checked {{ stimulus_action('pages/bulk_image_generator', 'toggleAll') }}></th>
+                            <th>{% trans %}tools.bulk_gen.part{% endtrans %}</th>
+                            <th>{% trans %}tools.bulk_gen.type{% endtrans %}</th>
+                            <th>{% trans %}tools.bulk_gen.value{% endtrans %}</th>
+                            <th>{% trans %}tools.bulk_gen.appearance{% endtrans %}</th>
+                            <th>{% trans %}tools.value_calc.field.tolerance{% endtrans %}</th>
+                            <th>{% trans %}tools.bulk_gen.kicad{% endtrans %}</th>
+                            <th>{% trans %}tools.bulk_gen.preview{% endtrans %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in candidates %}
+                            {% set name_keys = {
+                                'capacitor': 'tools.value_calc.capacitor.title',
+                                'smd_capacitor': 'tools.value_calc.capacitor.title',
+                                'inductor': 'tools.value_calc.inductor.title',
+                                'smd_inductor': 'tools.value_calc.inductor.title',
+                                'resistor': 'tools.value_calc.resistor.title',
+                                'diode': 'tools.value_calc.diode.title',
+                            } %}
+                            {% set name_key = name_keys[c.type]|default('tools.value_calc.smd.title') %}
+                            <tr {{ stimulus_target('pages/bulk_image_generator', 'row') }}
+                                data-type="{{ c.type }}"
+                                data-subtype="{{ c.subtype }}"
+                                data-marking="{{ c.marking }}"
+                                data-value="{{ c.value }}"
+                                data-voltage="{{ c.voltage }}"
+                                data-tolerance="{{ c.tolerance ? c.tolerance|replace({'±': '', '%': ''})|trim }}"
+                                data-package="{{ c.package }}"
+                                data-pitch="{{ c.pitch }}"
+                                data-diameter="{{ c.diameter }}"
+                                data-power="{{ c.power }}"
+                                data-ppm="{{ c.ppm }}"
+                                data-name="{{ name_key|trans }}"
+                                data-endpoint="{{ path('part_generate_image', {id: c.part.id}) }}"
+                                data-csrf="{{ csrf_token('generate_image' ~ c.part.id) }}"
+                                data-kicad-symbol="{{ c.kicad_symbol }}"
+                                data-reference-prefix="{{ c.reference_prefix }}"
+                                data-kicad-footprint="{{ c.kicad_footprint }}"
+                                data-eda-endpoint="{{ path('part_set_eda', {id: c.part.id}) }}"
+                                data-eda-csrf="{{ csrf_token('set_eda' ~ c.part.id) }}"
+                                data-overwrite="{{ c.has_picture ? '1' : '' }}">
+                                <td><input class="form-check-input" type="checkbox" checked></td>
+                                <td>
+                                    <a href="{{ path('part_info', {id: c.part.id}) }}" target="_blank" rel="noopener">{{ c.part.name }}</a>
+                                    {%- if c.has_picture %} <span class="badge bg-warning text-dark" title="{{ 'tools.bulk_gen.has_picture_hint'|trans }}">{% trans %}tools.bulk_gen.has_picture{% endtrans %}</span>{% endif %}
+                                </td>
+                                <td><span class="badge bg-secondary">{{ c.subtype ?: c.type }}</span></td>
+                                <td>
+                                    {%- if c.type in ['capacitor', 'smd_capacitor'] -%}
+                                        {%- if c.value >= 1e-6 %}{{ (c.value / 1e-6)|round(3) }} µF
+                                        {%- elseif c.value >= 1e-9 %}{{ (c.value / 1e-9)|round(3) }} nF
+                                        {%- else %}{{ (c.value * 1e12)|round(1) }} pF{% endif -%}
+                                    {%- elseif c.type in ['inductor', 'smd_inductor'] -%}
+                                        {%- if c.value >= 1 %}{{ c.value|round(3) }} H
+                                        {%- elseif c.value >= 1e-3 %}{{ (c.value / 1e-3)|round(3) }} mH
+                                        {%- elseif c.value >= 1e-6 %}{{ (c.value / 1e-6)|round(3) }} µH
+                                        {%- else %}{{ (c.value / 1e-9)|round(1) }} nH{% endif -%}
+                                    {%- elseif c.type == 'diode' -%}
+                                        {%- if c.marking %}{{ c.marking }}
+                                        {%- elseif c.voltage %}{{ c.voltage }} V {{ (c.subtype ?: 'diode')|capitalize }}
+                                        {%- else %}{{ (c.subtype ?: 'diode')|capitalize }}{% endif -%}
+                                    {%- else -%}
+                                        {%- if c.value >= 1e6 %}{{ (c.value / 1e6)|round(3) }} MΩ
+                                        {%- elseif c.value >= 1e3 %}{{ (c.value / 1e3)|round(3) }} kΩ
+                                        {%- else %}{{ c.value|round(3) }} Ω{% endif -%}
+                                    {%- endif -%}
+                                    {% if c.package %} · {{ c.package }}{% endif %}
+                                </td>
+                                <td style="min-width: 155px;">
+                                    {% set rowcolor = c.color ?: (c.type == 'capacitor' ? '#e0a63a' : (c.type == 'smd_capacitor' ? '#c8a37a' : (c.type == 'resistor' ? '#e8d9b5' : (c.type == 'inductor' ? '#2f6f4c' : (c.type == 'smd_inductor' ? '#38332e' : '#20242a'))))) %}
+                                    <div class="d-flex align-items-center gap-1 mb-1">
+                                        <input type="color" class="form-control form-control-color form-control-sm" value="{{ rowcolor }}"
+                                               data-row-color title="{% trans %}tools.value_calc.body_color{% endtrans %}"
+                                               {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'input') }}>
+                                        {% if c.type == 'capacitor' %}
+                                            <input type="number" class="form-control form-control-sm" value="{{ c.diameter ?: 5 }}" min="1" step="0.5" style="width: 4rem;"
+                                                   data-row-diameter title="{% trans %}tools.value_calc.cap.diameter{% endtrans %} (mm)"
+                                                   {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'input') }}>
+                                        {% endif %}
+                                    </div>
+                                    {% if c.type == 'capacitor' %}
+                                        {% set rp = c.pitch ?: 5.08 %}
+                                        <select class="form-select form-select-sm mb-1" data-row-pitch title="{% trans %}tools.value_calc.cap.pitch{% endtrans %}"
+                                                {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'change') }}>
+                                            <option value="2.54" {{ rp == 2.54 ? 'selected' }}>2.54 mm</option>
+                                            <option value="5.08" {{ rp not in [2.54, 7.5, 10, 15] ? 'selected' }}>5.08 mm</option>
+                                            <option value="7.5" {{ rp == 7.5 ? 'selected' }}>7.5 mm</option>
+                                            <option value="10" {{ rp == 10 ? 'selected' }}>10 mm</option>
+                                            <option value="15" {{ rp == 15 ? 'selected' }}>15 mm</option>
+                                        </select>
+                                    {% elseif c.type == 'resistor' %}
+                                        {% set rpow = c.power ?: 0.25 %}
+                                        <div class="input-group input-group-sm">
+                                            <select class="form-select" data-row-power title="{% trans %}tools.value_calc.field.power{% endtrans %}"
+                                                    {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'change') }}>
+                                                <option value="0.125" {{ rpow == 0.125 ? 'selected' }}>1/8 W</option>
+                                                <option value="0.25" {{ rpow not in [0.125, 0.5, 1, 2] ? 'selected' }}>1/4 W</option>
+                                                <option value="0.5" {{ rpow == 0.5 ? 'selected' }}>1/2 W</option>
+                                                <option value="1" {{ rpow == 1 ? 'selected' }}>1 W</option>
+                                                <option value="2" {{ rpow == 2 ? 'selected' }}>2 W</option>
+                                            </select>
+                                            <select class="form-select" data-row-ppm title="{% trans %}tools.value_calc.field.ppm{% endtrans %}"
+                                                    {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'change') }}>
+                                                <option value="" {{ not c.ppm ? 'selected' }}>—</option>
+                                                <option value="100" {{ c.ppm == 100 ? 'selected' }}>100 ppm</option>
+                                                <option value="50" {{ c.ppm == 50 ? 'selected' }}>50 ppm</option>
+                                                <option value="25" {{ c.ppm == 25 ? 'selected' }}>25 ppm</option>
+                                                <option value="15" {{ c.ppm == 15 ? 'selected' }}>15 ppm</option>
+                                                <option value="10" {{ c.ppm == 10 ? 'selected' }}>10 ppm</option>
+                                                <option value="5" {{ c.ppm == 5 ? 'selected' }}>5 ppm</option>
+                                            </select>
+                                        </div>
+                                    {% elseif c.type in ['smd_resistor', 'smd_inductor', 'smd_capacitor'] %}
+                                        {% set rpkg = c.package ?: (c.type == 'smd_inductor' ? '1210' : '0805') %}
+                                        <select class="form-select form-select-sm mb-1" data-row-package title="{% trans %}tools.value_calc.smd.package{% endtrans %}"
+                                                {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'change') }}>
+                                            {% for pkg in ['0201', '0402', '0603', '0805', '1206', '1210', '2010', '2512'] %}
+                                                <option value="{{ pkg }}" {{ rpkg == pkg ? 'selected' }}>{{ pkg }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    {% endif %}
+                                    {# Rated voltage — printed on the generated image. Not shown for LEDs (no voltage marking). #}
+                                    {% if not (c.type == 'diode' and c.subtype == 'led') %}
+                                        <div class="input-group input-group-sm">
+                                            <input type="number" class="form-control" value="{{ c.voltage }}" placeholder="V" min="1"
+                                                   data-row-voltage title="{% trans %}tools.value_calc.cap.voltage{% endtrans %}"
+                                                   {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'input') }}>
+                                            <span class="input-group-text">V</span>
+                                        </div>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if c.type in ['diode', 'smd_capacitor'] %}
+                                        <span class="text-muted small">—</span>
+                                    {% else %}
+                                        {% set rtol = c.tolerance ? c.tolerance|replace({'±': '', '%': '', ' ': '', 'pF': '', 'PF': ''})|trim : '' %}
+                                        <select class="form-select form-select-sm" data-row-tolerance style="min-width: 7.5rem;"
+                                                {{ stimulus_action('pages/bulk_image_generator', 'regenerateRow', 'change') }}>
+                                            <option value="" {{ rtol == '' ? 'selected' }}>—</option>
+                                            {% if c.type == 'capacitor' %}
+                                                <option value="0.1" {{ rtol == '0.1' ? 'selected' }}>±0.1pF (B)</option>
+                                                <option value="0.25" {{ rtol == '0.25' ? 'selected' }}>±0.25pF (C)</option>
+                                                <option value="0.5" {{ rtol == '0.5' ? 'selected' }}>±0.5pF (D)</option>
+                                                <option value="1" {{ rtol == '1' ? 'selected' }}>±1% (F)</option>
+                                                <option value="2" {{ rtol == '2' ? 'selected' }}>±2% (G)</option>
+                                                <option value="5" {{ rtol == '5' ? 'selected' }}>±5% (J)</option>
+                                                <option value="10" {{ rtol == '10' ? 'selected' }}>±10% (K)</option>
+                                                <option value="20" {{ rtol == '20' ? 'selected' }}>±20% (M)</option>
+                                            {% else %}
+                                                <option value="0.05" {{ rtol == '0.05' ? 'selected' }}>±0.05% (W)</option>
+                                                <option value="0.1" {{ rtol == '0.1' ? 'selected' }}>±0.1% (B)</option>
+                                                <option value="0.25" {{ rtol == '0.25' ? 'selected' }}>±0.25% (C)</option>
+                                                <option value="0.5" {{ rtol == '0.5' ? 'selected' }}>±0.5% (D)</option>
+                                                <option value="1" {{ rtol == '1' ? 'selected' }}>±1% (F)</option>
+                                                <option value="2" {{ rtol == '2' ? 'selected' }}>±2% (G)</option>
+                                                <option value="5" {{ rtol == '5' ? 'selected' }}>±5% (J)</option>
+                                                <option value="10" {{ rtol == '10' ? 'selected' }}>±10% (K)</option>
+                                            {% endif %}
+                                        </select>
+                                    {% endif %}
+                                </td>
+                                <td class="small" style="min-width: 230px;">
+                                    <input type="text" class="form-control form-control-sm font-monospace mb-1" value="{{ c.kicad_symbol }}"
+                                           data-bulk-eda-symbol list="bulkgen-symbols" placeholder="Device:C">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control font-monospace" value="{{ c.kicad_footprint }}"
+                                               data-bulk-eda-footprint list="bulkgen-footprints" placeholder="{% trans %}tools.bulk_gen.footprint_ph{% endtrans %}">
+                                        <input type="text" class="form-control text-center" style="max-width: 3.5rem;" value="{{ c.reference_prefix }}"
+                                               data-bulk-eda-reference placeholder="Ref" title="{% trans %}tools.bulk_gen.reference{% endtrans %}">
+                                    </div>
+                                </td>
+                                <td><div data-bulk-preview class="bg-light rounded p-1 text-center" style="width: 180px;"></div></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                <button type="button" class="btn btn-success" {{ stimulus_target('pages/bulk_image_generator', 'attachBtn') }} {{ stimulus_action('pages/bulk_image_generator', 'attachSelected') }}>
+                    <i class="fas fa-paperclip"></i> {% trans %}tools.bulk_gen.generate_attach{% endtrans %}
+                </button>
+                <button type="button" class="btn btn-primary" {{ stimulus_target('pages/bulk_image_generator', 'edaBtn') }} {{ stimulus_action('pages/bulk_image_generator', 'writeEda') }}>
+                    <i class="fas fa-microchip"></i> {% trans %}tools.bulk_gen.write_eda{% endtrans %}
+                </button>
+                <div class="progress flex-grow-1 d-none" style="height: 1.5rem; min-width: 12rem;" {{ stimulus_target('pages/bulk_image_generator', 'progress') }}>
+                    <div class="progress-bar" role="progressbar" style="width: 0" {{ stimulus_target('pages/bulk_image_generator', 'progressBar') }}>0/0</div>
+                </div>
+                <a href="{{ path('homepage') }}" class="btn btn-outline-secondary ms-auto" {{ stimulus_action('pages/bulk_image_generator', 'goBack') }}>
+                    <i class="fas fa-arrow-left"></i> {% trans %}tools.bulk_gen.back{% endtrans %}
+                </a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

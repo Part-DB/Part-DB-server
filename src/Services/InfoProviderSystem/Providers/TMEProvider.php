@@ -32,7 +32,6 @@ use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\TMESettings;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {
@@ -276,7 +275,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
 
             if (count($parameter['values']) > 1) {
                 //Concatenate all values with a comma, if there are multiple values for the same parameter
-                $value = implode(', ', array_map(fn($v) => $v['value'], $parameter['values']));
+                $value = implode(', ', array_map(static fn($v) => $v['value'], $parameter['values']));
                 $result[] = new ParameterDTO(
                     name: $parameter['name'],
                     value_text: $value,
@@ -331,9 +330,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
 
         //Encode bare % signs that are not already part of a valid percent-encoded sequence
         //Fixes part numbers with % in them e.g. SMD0603-5K1-1%
-        $url = preg_replace('/%(?![0-9A-Fa-f]{2})/', '%25', $url);
-
-        return $url;
+        return preg_replace('/%(?![0-9A-Fa-f]{2})/', '%25', $url);
     }
 
     public function getHandledDomains(): array

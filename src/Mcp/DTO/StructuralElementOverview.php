@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace App\Mcp\DTO;
 
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 /**
  * A lean overview projection of a structural "master data" element (category, footprint, manufacturer, ...),

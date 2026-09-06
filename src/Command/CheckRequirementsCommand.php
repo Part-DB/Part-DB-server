@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Command;
 
+use App\Services\Doctrine\DBInfoHelper;
 use App\Services\System\AppSecretChecker;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -35,7 +36,8 @@ use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 class CheckRequirementsCommand extends Command
 {
     public function __construct(protected ContainerBagInterface $params,
-        private readonly AppSecretChecker $appSecretChecker
+        private readonly AppSecretChecker $appSecretChecker,
+        private readonly DBInfoHelper $dbInfoHelper,
     )
     {
         parent::__construct();
@@ -110,6 +112,16 @@ class CheckRequirementsCommand extends Command
         } elseif (!$only_issues) {
             $io->success('Opcache configuration is already performance optimized.');
         }
+
+        //Check if max_input_vars is set to a high enough value
+        if ($io->isVerbose()) {
+            $io->comment('Checking max_input_vars...');
+        }
+        if (ini_get('max_input_vars') < 5000) {
+            $io->warning('max_input_vars is set to '. ini_get('max_input_vars') .'. This can cause problems with large forms. Set max_input_vars to at least 5000 in your php.ini.');
+        } elseif (!$only_issues) {
+            $io->success('max_input_vars is set to a sufficient value.');
+        }
     }
 
     protected function checkPartDBConfig(SymfonyStyle $io, bool $only_issues = false): void
@@ -132,6 +144,19 @@ class CheckRequirementsCommand extends Command
             $io->warning('APP_SECRET is set to the default value shipped with Part-DB. This is a security risk! Generate a new secret (e.g. using "openssl rand -hex 32") and set it as APP_SECRET in your .env.local file.');
         } elseif (!$only_issues) {
             $io->success('APP_SECRET has been changed from the default value.');
+        }
+
+        //Check if SQLite foreign key enforcement is enabled, if SQLite is used
+        if ($io->isVerbose()) {
+            $io->comment('Checking SQLite foreign key enforcement...');
+        }
+        if ($this->dbInfoHelper->getDatabaseType() === 'sqlite') {
+            if (!$this->params->get('partdb.db.sqlite_enforce_foreign_keys')) {
+                $io->warning('You are using SQLite without foreign key enforcement enabled. This is fine, but enabling it (DATABASE_SQLITE_ENFORCE_FOREIGN_KEYS=1) is recommended to prevent inconsistent data. '
+                    .'Run "php bin/console partdb:database:check-sqlite-foreign-keys" first to check whether your existing data is already consistent enough to enable it.');
+            } elseif (!$only_issues) {
+                $io->success('SQLite foreign key enforcement is enabled.');
+            }
         }
 
     }

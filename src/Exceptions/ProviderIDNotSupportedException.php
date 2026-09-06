@@ -27,6 +27,6 @@ class ProviderIDNotSupportedException extends \RuntimeException
 {
     public function fromProvider(string $providerKey, string $id): self
     {
-        return new self(sprintf('The given ID %s is not supported by the provider %s.', $id, $providerKey,));
+        return new self(sprintf('The given ID %s is not supported by the provider %s.', $id, $providerKey));
     }
 }

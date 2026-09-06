@@ -48,10 +48,10 @@ class OAuthClientGrantPreference
     #[ORM\GeneratedValue]
     private int $id;
 
-    #[ORM\Column(type: Types::STRING, length: 128, name: 'user_identifier')]
+    #[ORM\Column(name: 'user_identifier', type: Types::STRING, length: 128)]
     private string $userIdentifier;
 
-    #[ORM\Column(type: Types::STRING, length: 32, name: 'client_identifier')]
+    #[ORM\Column(name: 'client_identifier', type: Types::STRING, length: 32)]
     private string $clientIdentifier;
 
     #[ORM\Column(type: Types::SMALLINT, enumType: ApiTokenLevel::class)]
@@ -82,7 +82,7 @@ class OAuthClientGrantPreference
      * App\Services\OAuth\OAuthClientGrantPreferenceManager::save() (mirrors how
      * App\Entity\UserSystem\DynamicallyRegisteredOAuthClient::$registeredAt is set once and left alone).
      */
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, name: 'created_at')]
+    #[ORM\Column(name: 'created_at', type: Types::DATETIME_IMMUTABLE)]
     private \DateTimeImmutable $createdAt;
 
     public function __construct(string $userIdentifier, string $clientIdentifier, ApiTokenLevel $scopeLevel)

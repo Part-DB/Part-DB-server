@@ -35,9 +35,9 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
  * This class decorates the default error handler of API Platform.
  */
 #[AsDecorator('api_platform.state.error_provider')]
-final class ErrorHandler implements ProviderInterface
+final readonly class ErrorHandler implements ProviderInterface
 {
-    public function __construct(private readonly ProviderInterface $decorated, #[Autowire('%kernel.debug%')] private readonly bool $debug)
+    public function __construct(private ProviderInterface $decorated, #[Autowire('%kernel.debug%')] private bool $debug)
     {
 
     }

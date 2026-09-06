@@ -59,7 +59,7 @@ class DigikeyProvider implements InfoProviderInterface
     ];
 
     public function __construct(HttpClientInterface $httpClient, private readonly OAuthTokenManager $authTokenManager,
-        private readonly DigikeySettings $settings,)
+        private readonly DigikeySettings $settings)
     {
         //Create the HTTP client with some default options
         $this->digikeyClient = $httpClient->withOptions([
@@ -157,7 +157,7 @@ class DigikeyProvider implements InfoProviderInterface
     public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         try {
-            $response = $this->digikeyClient->request('GET', '/products/v4/search/' . urlencode($id) . '/productdetails', [
+            $response = $this->digikeyClient->request('GET', '/products/v4/search/' . rawurlencode($id) . '/productdetails', [
                 'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
             ]);
         } catch (\InvalidArgumentException $exception) {
@@ -234,7 +234,7 @@ class DigikeyProvider implements InfoProviderInterface
 
         if ($sub_category) {
             //Replace the  ' - ' category separator with ' -> '
-            $category = $category . ' -> ' . str_replace(' - ', ' -> ', $sub_category["Name"]);
+            $category .= ' -> '.str_replace(' - ', ' -> ', $sub_category["Name"]);
         }
 
         return $category;
@@ -302,7 +302,7 @@ class DigikeyProvider implements InfoProviderInterface
         $datasheets = [];
         $images = [];
 
-        $response = $this->digikeyClient->request('GET', '/products/v4/search/' . urlencode($id) . '/media', [
+        $response = $this->digikeyClient->request('GET', '/products/v4/search/' . rawurlencode($id) . '/media', [
             'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
         ]);
 

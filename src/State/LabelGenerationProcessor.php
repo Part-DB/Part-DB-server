@@ -40,14 +40,14 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class LabelGenerationProcessor implements ProcessorInterface
+readonly class LabelGenerationProcessor implements ProcessorInterface
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
-        private readonly LabelGenerator $labelGenerator,
-        private readonly RangeParser $rangeParser,
-        private readonly ElementTypeNameGenerator $elementTypeNameGenerator,
-        private readonly Security $security,
+        private EntityManagerInterface $entityManager,
+        private LabelGenerator $labelGenerator,
+        private RangeParser $rangeParser,
+        private ElementTypeNameGenerator $elementTypeNameGenerator,
+        private Security $security,
     ) {
     }
 
@@ -105,6 +105,12 @@ class LabelGenerationProcessor implements ProcessorInterface
 
         if (empty($elements)) {
             throw new NotFoundHttpException('No elements found with the provided IDs.');
+        }
+
+        foreach ($elements as $element) {
+            if (!$this->security->isGranted('read', $element)) {
+                throw new AccessDeniedHttpException('You do not have permission to read one or more of the requested elements.');
+            }
         }
 
         // Generate the PDF

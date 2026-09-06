@@ -170,6 +170,7 @@ EOF
 COPY <<EOF /etc/php/${PHP_VERSION}/fpm/conf.d/partdb.ini
 upload_max_filesize=256M
 post_max_size=300M
+max_input_vars=8000
 ;opcache.preload_user=www-data
 ;opcache.preload=/var/www/html/config/preload.php
 log_limit=8096

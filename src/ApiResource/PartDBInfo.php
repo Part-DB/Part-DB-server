@@ -40,27 +40,27 @@ use App\State\PartDBInfoProvider;
     provider: PartDBInfoProvider::class
 )]
 #[ApiFilter(PropertyFilter::class)]
-class PartDBInfo
+readonly class PartDBInfo
 {
     public function __construct(
         /** The installed Part-DB version */
-        public readonly string $version,
+        public string $version,
         /** The Git branch name of the Part-DB version (or null, if not installed via git) */
-        public readonly string|null $git_branch,
+        public string|null $git_branch,
         /** The Git branch commit of the Part-DB version (or null, if not installed via git) */
-        public readonly string|null $git_commit,
+        public string|null $git_commit,
         /** The name of this Part-DB instance */
-        public readonly string $title,
+        public string $title,
         /** The banner, shown on homepage (markdown encoded) */
-        public readonly string $banner,
+        public string $banner,
         /** The configured default URI for Part-DB */
-        public readonly string $default_uri,
+        public string $default_uri,
         /** The global timezone of this Part-DB */
-        public readonly string $global_timezone,
+        public string $global_timezone,
         /** The base currency of Part-DB, used as internal representation of monetary values */
-        public readonly string $base_currency,
+        public string $base_currency,
         /** The configured default language of Part-DB */
-        public readonly string $global_locale,
+        public string $global_locale,
     ) {
 
     }

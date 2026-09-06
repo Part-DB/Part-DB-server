@@ -64,7 +64,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Validator\ConstraintViolationInterface;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function Symfony\Component\Translation\t;
@@ -126,6 +125,14 @@ abstract class BaseAdminController extends AbstractController
         return true;
     }
 
+    /**
+     * @return AbstractDBElement[]
+     */
+    protected function getHistoryElements(AbstractNamedDBElement $entity): array
+    {
+        return $this->historyHelper->getAssociatedElements($entity);
+    }
+
     protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         $this->denyAccessUnlessGranted('read', $entity);
@@ -136,7 +143,7 @@ abstract class BaseAdminController extends AbstractController
             $table = $this->dataTableFactory->createFromType(
                 LogDataTable::class,
                 [
-                    'filter_elements' => $this->historyHelper->getAssociatedElements($entity),
+                    'filter_elements' => $this->getHistoryElements($entity),
                     'mode' => 'element_history',
                 ],
                 ['pageLength' => 10]

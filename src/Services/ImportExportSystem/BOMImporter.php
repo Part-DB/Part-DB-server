@@ -607,7 +607,7 @@ class BOMImporter
             ];
 
             // Remove null values
-            $field_patterns[$supplierName . ' SPN'] = array_filter($field_patterns[$supplierName . ' SPN'], fn($value) => $value !== null);
+            $field_patterns[$supplierName . ' SPN'] = array_filter($field_patterns[$supplierName . ' SPN'], static fn($value) => $value !== null);
         }
 
         foreach ($detected_fields as $field) {
@@ -691,7 +691,7 @@ class BOMImporter
         // Process each target field
         foreach ($field_groups as $target => $field_data) {
             // Sort by priority (lower number = higher priority)
-            usort($field_data, function ($a, $b) {
+            usort($field_data, static function ($a, $b) {
                 return $a['priority'] <=> $b['priority'];
             });
 
@@ -767,7 +767,7 @@ class BOMImporter
         $in_quotes = false;
         $quote_char = '"';
 
-        for ($i = 0; $i < strlen($header_line); $i++) {
+        for ($i = 0, $iMax = strlen($header_line); $i < $iMax; $i++) {
             $char = $header_line[$i];
 
             if ($char === $quote_char && !$in_quotes) {
@@ -794,7 +794,7 @@ class BOMImporter
         }
 
         // Clean up headers - remove quotes and trim whitespace
-        $headers = array_map(function ($header) {
+        $headers = array_map(static function ($header) {
             return trim($header, '"\'');
         }, $fields);
 

@@ -36,11 +36,11 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  * manufacturers, storage locations, suppliers, measurement units, part custom states). The concrete entity
  * class is determined from the operation, so this single processor can be reused for all of them.
  */
-class GetStructuralElementDetailsProcessor implements ProcessorInterface
+readonly class GetStructuralElementDetailsProcessor implements ProcessorInterface
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
-        private readonly AuthorizationCheckerInterface $authorizationChecker,
+        private EntityManagerInterface $entityManager,
+        private AuthorizationCheckerInterface $authorizationChecker,
     ) {
     }
 

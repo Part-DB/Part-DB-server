@@ -235,7 +235,8 @@ class StructuralDBElementRepository extends AttachmentContainingDBElementReposit
         $qb = $this->createQueryBuilder('e');
         //Use lowercase conversion to be case-insensitive
         $qb->where($qb->expr()->like('LOWER(e.alternative_names)', 'LOWER(:name)'));
-        $qb->setParameter('name', '%'.$name.',%');
+        //Replace commas in the name with wildcard to match any placeholder character
+        $qb->setParameter('name', '%'.str_replace(',', '_', $name).',%');
 
         $result = $qb->getQuery()->getResult();
 

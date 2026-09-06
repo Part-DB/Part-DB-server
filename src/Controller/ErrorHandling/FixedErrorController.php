@@ -36,9 +36,9 @@ use Symfony\Component\HttpKernel\Controller\ErrorController;
  * events to show the error in a popup like intended.
  */
 #[AsDecorator("error_controller")]
-class FixedErrorController
+readonly class FixedErrorController
 {
-    public function __construct(private readonly ErrorController $decorated)
+    public function __construct(private ErrorController $decorated)
     {}
 
     public function __invoke(\Throwable $exception): Response

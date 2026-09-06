@@ -32,9 +32,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 /**
  * The purpose of this event listener is to set the timezone to the one preferred by the user.
  */
-final class SetUserTimezoneSubscriber implements EventSubscriberInterface
+final readonly class SetUserTimezoneSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly LocalizationSettings $localizationSettings, private readonly Security $security)
+    public function __construct(private LocalizationSettings $localizationSettings, private Security $security)
     {
     }
 

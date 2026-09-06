@@ -44,7 +44,6 @@ namespace App\Services\LabelSystem\PlaceholderProviders;
 use App\Settings\SystemSettings\CustomizationSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\UserSystem\User;
-use DateTime;
 use IntlDateFormatter;
 use Locale;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

@@ -45,11 +45,9 @@ enum InstallationType: string
     public function supportsAutoUpdate(): bool
     {
         return match ($this) {
-            self::GIT => true,
-            self::DOCKER => true,
+            self::GIT, self::DOCKER => true,
             // ZIP_RELEASE auto-update not yet implemented
-            self::ZIP_RELEASE => false,
-            self::UNKNOWN => false,
+            self::ZIP_RELEASE, self::UNKNOWN => false,
         };
     }
 

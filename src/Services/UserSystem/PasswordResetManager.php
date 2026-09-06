@@ -24,7 +24,6 @@ namespace App\Services\UserSystem;
 
 use App\Entity\UserSystem\User;
 use App\Services\System\TrustedUrlGenerator;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;

@@ -26,7 +26,6 @@ namespace App\Command\Attachments;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentUpload;
 use App\Exceptions\AttachmentDownloadException;
-use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -39,7 +38,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class DownloadAttachmentsCommand extends Command
 {
     public function __construct(private readonly AttachmentSubmitHandler $attachmentSubmitHandler,
-        private EntityManagerInterface $entityManager)
+        private readonly EntityManagerInterface $entityManager)
     {
         parent::__construct();
     }

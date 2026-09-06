@@ -27,7 +27,6 @@ use App\Form\Settings\AiModelsType;
 use App\Form\Settings\AiPlatformChoiceType;
 use App\Services\AI\AIPlatforms;
 use App\Settings\SettingsIcon;
-use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;

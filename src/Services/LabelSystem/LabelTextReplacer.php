@@ -49,11 +49,11 @@ use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
  * It uses the PlaceholderProviders provided by PlaceholderProviderInterface classes.
  * @see \App\Tests\Services\LabelSystem\LabelTextReplacerTest
  */
-final class LabelTextReplacer
+final readonly class LabelTextReplacer
 {
     public function __construct(
         #[AutowireIterator('app.label_placeholder_provider')]
-        private readonly iterable $providers,
+        private iterable $providers,
     )
     {
     }

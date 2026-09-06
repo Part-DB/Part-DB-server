@@ -35,7 +35,7 @@ use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 #[AsDecorator('api_platform.metadata.property.metadata_factory')]
 class PropertyMetadataFactory implements PropertyMetadataFactoryInterface
 {
-    public function __construct(private PropertyMetadataFactoryInterface $decorated)
+    public function __construct(private readonly PropertyMetadataFactoryInterface $decorated)
     {
     }
 

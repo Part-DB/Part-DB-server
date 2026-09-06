@@ -201,7 +201,7 @@ class BulkInfoProviderImportController extends AbstractController
             // Validate part count against configuration limit
             if (count($parts) > $this->bulkImportMaxParts) {
                 $this->addFlash('error', "Too many parts selected. Maximum allowed: {$this->bulkImportMaxParts}");
-                $partIds = array_map(fn($part) => $part->getId(), $parts);
+                $partIds = array_map(static fn($part) => $part->getId(), $parts);
                 return $this->redirectToRoute('bulk_info_provider_step1', ['ids' => implode(',', $partIds)]);
             }
 
@@ -245,7 +245,7 @@ class BulkInfoProviderImportController extends AbstractController
                 $this->entityManager->flush();
 
                 $this->addFlash('error', 'Search failed due to an error: ' . $e->getMessage());
-                $partIds = array_map(fn($part) => $part->getId(), $parts);
+                $partIds = array_map(static fn($part) => $part->getId(), $parts);
                 return $this->redirectToRoute('bulk_info_provider_step1', ['ids' => implode(',', $partIds)]);
             }
         }

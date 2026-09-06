@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace App\DataTables\Adapters;
 
 use Doctrine\ORM\Query\Expr\From;
-use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;

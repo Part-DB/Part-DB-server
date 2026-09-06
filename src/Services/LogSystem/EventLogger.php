@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\LogSystem;
 
+use App\Entity\LogSystem\AccessMethod;
 use App\Entity\LogSystem\LogLevel;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -29,6 +30,7 @@ use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\UserSystem\User;
 use App\Services\Misc\ConsoleInfoHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @see \App\Tests\Services\LogSystem\EventLoggerTest
@@ -41,6 +43,7 @@ class EventLogger
         protected EntityManagerInterface $em,
         protected Security $security,
         protected ConsoleInfoHelper $console_info_helper,
+        protected RequestContextHelper $request_context_helper,
         // By default only log events which has minimum info level (debug levels are not logged)
         // 7 is lowest level (debug), 0 highest (emergency)
         int $minimum_log_level = 6,
@@ -74,6 +77,14 @@ class EventLogger
                 return false;
             }
             $logEntry->setUser($user);
+        }
+
+        //Set the access method and request ID, if not already set explicitly on the log entry
+        if (!$logEntry->getAccessMethod() instanceof AccessMethod) {
+            $logEntry->setAccessMethod($this->request_context_helper->getAccessMethod());
+        }
+        if (!$logEntry->getRequestId() instanceof Uuid) {
+            $logEntry->setRequestId($this->request_context_helper->getRequestId());
         }
 
         //Set the console user info, if the log entry was created in a console command

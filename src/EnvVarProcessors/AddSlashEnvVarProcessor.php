@@ -31,7 +31,7 @@ use Symfony\Component\DependencyInjection\EnvVarProcessorInterface;
 final class AddSlashEnvVarProcessor implements EnvVarProcessorInterface
 {
 
-    public function getEnv(string $prefix, string $name, \Closure $getEnv): mixed
+    public function getEnv(string $prefix, string $name, \Closure $getEnv): string
     {
         $env = $getEnv($name);
         if (!is_string($env)) {

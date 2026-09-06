@@ -25,9 +25,6 @@
     "composer/ca-bundle": {
         "version": "1.2.7"
     },
-    "composer/package-versions-deprecated": {
-        "version": "1.11.99.4"
-    },
     "dama/doctrine-test-bundle": {
         "version": "8.3",
         "recipe": {
@@ -259,7 +256,7 @@
         ]
     },
     "part-db/swap-bundle": {
-        "version": "v6.0.0"
+        "version": "v6.2.0"
     },
     "php-http/discovery": {
         "version": "1.18",
@@ -275,9 +272,6 @@
     },
     "php-http/httplug": {
         "version": "v2.0.0"
-    },
-    "php-http/message-factory": {
-        "version": "v1.0.2"
     },
     "php-http/promise": {
         "version": "v1.0.0"
@@ -353,9 +347,6 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
-    },
-    "roave/security-advisories": {
-        "version": "dev-master"
     },
     "s9e/regexp-builder": {
         "version": "1.4.3"

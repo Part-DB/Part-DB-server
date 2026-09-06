@@ -77,7 +77,7 @@ final class FieldHelper
         $qb->orderBy("array_position(:$key, $field_expr)", $order);
 
         //Convert the values to a literal array, to overcome the problem of passing more than 100 parameters
-        $values = array_map(fn($value) => is_string($value) ? "'$value'" : $value, $values);
+        $values = array_map(static fn($value) => is_string($value) ? "'$value'" : $value, $values);
         $literalArray = '{' . implode(',', $values) . '}';
 
         $qb->setParameter($key, $literalArray);

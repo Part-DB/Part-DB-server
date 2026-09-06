@@ -50,6 +50,28 @@ docker-compose logs -f
 
 Please include the error logs in your issue on GitHub, if you open an issue.
 
+## "CSRF token is invalid" when submitting large forms
+
+If you get a "CSRF token is invalid" error when submitting a large form, especially when saving a project's BOM
+(bill of materials) with many entries, this is usually not an actual CSRF issue, but a sign that PHP's
+`max_input_vars` setting is too low.
+
+**Cause:** Large forms (like a project BOM with many entries) can contain more input fields than PHP allows by
+default (`max_input_vars = 1000`). When this limit is exceeded, PHP silently drops the excess fields, including the
+hidden CSRF token field, which then causes the "CSRF token is invalid" error on submission.
+
+**Solution:** Increase `max_input_vars` in your `php.ini`. A value of `10000` should be safe for even large forms:
+
+```ini
+max_input_vars = 10000
+```
+
+Find the location of the relevant `php.ini` with `php --ini`, edit the value, and restart your webserver/PHP-FPM
+afterward for the change to take effect. If you use one of the official Docker images, this is already configured
+for you.
+You can check the currently configured value under "Server Information" in the tools menu of Part-DB, or by running
+`php bin/console partdb:check-requirements`.
+
 ## KiCad Integration Issues
 
 ### "API responded with error code: 0: Unknown"

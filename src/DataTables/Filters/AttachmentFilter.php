@@ -33,7 +33,6 @@ use App\DataTables\Filters\Constraints\TextConstraint;
 use App\Entity\Attachments\AttachmentType;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\QueryBuilder;
-use Omines\DataTablesBundle\Filter\AbstractFilter;
 
 class AttachmentFilter implements FilterInterface
 {

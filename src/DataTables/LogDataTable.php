@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\DataTables;
 
 use App\DataTables\Column\EnumColumn;
+use App\Entity\LogSystem\AccessMethod;
 use App\Entity\LogSystem\LogTargetType;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\DataTables\Column\HTMLColumn;
@@ -167,9 +168,10 @@ final readonly class LogDataTable implements DataTableTypeInterface
                 //If user was deleted, show the info from the username field
                 if (!$user instanceof User) {
                     if ($context->isCLIEntry()) {
-                        return sprintf('%s [%s]',
+                        return sprintf('<i class="fa-solid fa-fw %s"></i> %s [%s]',
+                            AccessMethod::CLI->getIconClass(),
                             htmlspecialchars((string) $context->getCLIUsername()),
-                            $this->translator->trans('log.cli_user')
+                            $this->translator->trans('log.cli_user'),
                         );
                     }
 
@@ -193,6 +195,16 @@ final readonly class LogDataTable implements DataTableTypeInterface
             },
         ]);
 
+
+        $dataTable->add('access_method', EnumColumn::class, [
+            'label' => 'log.access_method',
+            'class' => AccessMethod::class,
+            'visible' => 'element_history' !== $options['mode'],
+            'render' => fn(?AccessMethod $value) => $value instanceof AccessMethod
+                ? sprintf('<i class="fa-solid fa-fw %s" title="%s"></i> %s', $value->getIconClass(), htmlspecialchars($value->trans($this->translator)), htmlspecialchars($value->trans($this->translator)))
+                : '',
+        ]);
+
         $dataTable->add('target_type', EnumColumn::class, [
             'label' => 'log.target_type',
             'visible' => false,
@@ -207,9 +219,34 @@ final readonly class LogDataTable implements DataTableTypeInterface
             },
         ]);
 
+
+
         $dataTable->add('target', LogEntryTargetColumn::class, [
             'label' => 'log.target',
             'show_associated' => 'element_history' !== $options['mode'],
+        ]);
+
+        $dataTable->add('request_id', TextColumn::class, [
+            'label' => 'log.request_id',
+            'visible' => false,
+            'render' => function (?string $value, AbstractLogEntry $context): string {
+                $requestId = $context->getRequestId();
+                if (null === $requestId) {
+                    return '';
+                }
+
+                $requestIdStr = (string) $requestId;
+                $shortRequestId = substr($requestIdStr, -8);
+
+                return sprintf('<a href="%s" title="%s"><code>&hellip;%s</code></a>',
+                    $this->urlGenerator->generate('log_view', [
+                        'log_filter[requestId][value]' => $requestIdStr,
+                        'log_filter[requestId][operator]' => '=',
+                    ]),
+                    htmlspecialchars($requestIdStr.' - '.$this->translator->trans('log.request_id.filter_by')),
+                    htmlspecialchars($shortRequestId)
+                );
+            },
         ]);
 
         $dataTable->add('extra', LogEntryExtraColumn::class, [

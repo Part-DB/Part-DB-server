@@ -22,10 +22,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\PriceInformations\Orderdetail;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use function count;
 use Doctrine\Common\Collections\Collection;
@@ -41,8 +40,8 @@ trait OrderTrait
      */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
-    #[ORM\OneToMany(mappedBy: 'part', targetEntity: Orderdetail::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['supplierpartnr' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: Orderdetail::class, mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['supplierpartnr' => 'ASC'])]
     protected Collection $orderdetails;
 
     /**

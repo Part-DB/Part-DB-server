@@ -51,6 +51,17 @@ sudo apt install apache2 php8.4 libapache2-mod-php8.4 \
   php8.4-sqlite3 php8.4-mysql
 ```
 
+{: .note }
+> **It is recommended to increase `max_input_vars` to a high value (e.g. 8000).** Part-DB forms (like the ones for
+> parts with many attachments or parameters) can submit a large number of input fields, and PHP's default limit of
+> 1000 can cause data to be silently truncated or lost. Edit your `php.ini` (find its location with
+> `php --ini`, usually `/etc/php/8.4/apache2/php.ini`) and set:
+> ```ini
+> max_input_vars = 8000
+> ```
+> Afterward restart apache2 with `sudo service apache2 restart`. You can check the currently configured value under
+> "Server Information" in the tools menu of Part-DB, or by running `php bin/console partdb:check-requirements`.
+
 ### Install composer
 
 Part-DB uses [composer](https://getcomposer.org/) to install required PHP libraries. Install the latest version manually:

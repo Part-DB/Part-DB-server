@@ -191,7 +191,7 @@ readonly class ConradProvider implements InfoProviderInterface, URLHandlerInfoPr
             }
 
             // fallback implementation
-            $values = implode(", ", array_map(fn($q) =>
+            $values = implode(", ", array_map(static fn($q) =>
             array_key_exists('unit', $q) ?  $q['value']." ". ($q['unit']['name'] ?? $q['unit']) : $q['value']
                 , $p['values']));
             return ParameterDTO::parseValueIncludingUnit(

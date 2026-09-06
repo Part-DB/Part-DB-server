@@ -260,9 +260,10 @@ final class PopulateKicadCommand extends Command
             return null;
         }
 
-        $data = json_decode($content, true);
-        if (!is_array($data)) {
-            $io->error(sprintf('Invalid JSON in mapping file: %s', $path));
+        try {
+            $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
+            $io->error(sprintf('Invalid JSON in mapping file: %s. Error: %s', $path, $e->getMessage()));
             return null;
         }
 

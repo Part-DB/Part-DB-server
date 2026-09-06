@@ -29,9 +29,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Services\LogSystem\EventCommentType;
 use Jbtronics\SettingsBundle\Proxy\SettingsProxyInterface;
 use ReflectionClass;
-use Twig\TwigFunction;
 use App\Services\LogSystem\EventCommentNeededHelper;
-use Twig\Extension\AbstractExtension;
 
 final readonly class MiscExtension
 {

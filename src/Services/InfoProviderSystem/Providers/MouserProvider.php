@@ -200,7 +200,7 @@ class MouserProvider implements InfoProviderInterface
         }
 
         //Manually filter out the part with the correct ID
-        $tmp = array_filter($tmp, fn(PartDetailDTO $part) => $part->provider_id === $id);
+        $tmp = array_filter($tmp, static fn(PartDetailDTO $part) => $part->provider_id === $id);
         if (count($tmp) === 0) {
             throw new \RuntimeException('No part found with ID '.$id);
         }
