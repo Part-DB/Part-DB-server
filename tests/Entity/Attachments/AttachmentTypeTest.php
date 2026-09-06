@@ -26,6 +26,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Attachments\UserAttachment;
 use Doctrine\Common\Collections\Collection;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class AttachmentTypeTest extends TestCase
@@ -82,5 +83,34 @@ final class AttachmentTypeTest extends TestCase
         $attachmentType->setAllowedTargets(null);
         $this->assertTrue($attachmentType->isAllowedForTarget(PartAttachment::class));
         $this->assertTrue($attachmentType->isAllowedForTarget(UserAttachment::class));
+    }
+
+    public static function allowsPictureDataProvider(): array
+    {
+        return [
+            ['', true],
+            ['image/*', true],
+            ['image/png,image/jpeg', true],
+            ['application/pdf', false],
+            ['text/plain', false],
+            ['image/gif,application/pdf', true],
+            ['audio/mpeg', false],
+            ['video/mp4', false],
+            ['image/svg+xml', true],
+            ['application/zip', false],
+            ['image/webp,text/html', true],
+            ['*', true],
+            ['.pdf,.png', true],
+            ['.jpeg,.gif', true],
+            ['.pdf,.xml', false],
+        ];
+    }
+
+    #[DataProvider('allowsPictureDataProvider')]
+    public function testAllowsPicture(string $filetype_filter, bool $expected): void
+    {
+        $attachmentType = new AttachmentType();
+        $attachmentType->setFiletypeFilter($filetype_filter);
+        $this->assertSame($expected, $attachmentType->allowsPictures());
     }
 }

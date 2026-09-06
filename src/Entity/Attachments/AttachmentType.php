@@ -192,6 +192,32 @@ class AttachmentType extends AbstractStructuralDBElement
     }
 
     /**
+     * Checks if this attachment type allows pictures (i.e. if the filetype filter allows image files).
+     * If no filetype filter is set, this method returns true, as it is assumed that all file types are allowed.
+     * @return bool
+     */
+    public function allowsPictures(): bool
+    {
+        if ($this->filetype_filter === '') {
+            return true;
+        }
+
+        foreach (explode(',', $this->filetype_filter) as $allowed) {
+            $allowed = strtolower(trim($allowed));
+
+            if ($allowed === '*' || $allowed === '*/*' || str_starts_with($allowed, 'image/')) {
+                return true;
+            }
+
+            if (in_array(ltrim($allowed, '.'), Attachment::PICTURE_EXTS, true)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Returns a list of allowed targets as class names (e.g. PartAttachment::class), where this attachment type can be assigned to. If null, there are no restrictions.
      * @return class-string<Attachment>[]|null
      */
