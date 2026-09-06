@@ -21,7 +21,6 @@ declare(strict_types=1);
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 namespace App\DataTables\Filters;
-use App\DataTables\Filters\Constraints\AbstractConstraint;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Parameter;
@@ -32,10 +31,10 @@ class PartSearchFilter implements FilterInterface
 
     /** @var boolean Whether to use regex for searching */
     protected bool $regex = false;
-    
+
     /** @var boolean Whether to use extensive matching for searching */
     protected bool $extensive = false;
-    
+
     /** @var boolean Whether to use wildcards for searching */
     protected bool $wildcard = false;
 
@@ -138,7 +137,7 @@ class PartSearchFilter implements FilterInterface
         $is_numeric = preg_match('/^\d+$/', trim($this->keyword)) === 1;
 
         // Add exact ID match only when the keyword is numeric
-        $search_dbId = $is_numeric && (bool)$this->dbId;
+        $search_dbId = $is_numeric && $this->dbId;
 
         $tokens = [];
         if ($this->extensive) {
@@ -147,7 +146,7 @@ class PartSearchFilter implements FilterInterface
             //Split keyword on spaces, but limit token count to 5
             $tokens = explode(' ', $this->keyword, 5);
             //Throw away array elements which are null or have zero length
-            $tokens = array_filter($tokens, fn($x) => (strlen($x) > 0));
+            $tokens = array_filter($tokens, static fn($x) => ((string)$x !== ''));
         }
         else {
             //Pass the whole keyword into the (empty) tokens array as is,
@@ -171,7 +170,7 @@ class PartSearchFilter implements FilterInterface
             //For regex, we pass the query as is
             if ($this->regex) {
                 //Convert the fields to search to a list of expressions
-                $expressions = array_merge($expressions, array_map(function (string $field): string {
+                $expressions = array_merge($expressions, array_map(static function (string $field): string {
                         return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
                 }, $fields_to_search));
                 $params[] = new Parameter('search_query', $this->keyword);
@@ -179,12 +178,13 @@ class PartSearchFilter implements FilterInterface
                 //Add a new expression and parameter set to the query for each token
                 foreach ($tokens as $i => $token) {
                     //Conditionally escape % and _ characters
-                    if (!$this->wildcard)
+                    if (!$this->wildcard) {
                         $token = str_replace(['%', '_'], ['\%', '\_'], $token);
+                    }
 
                     //Convert the fields to search to a list of expressions
                     $tmp = array_fill_keys($fields_to_search, $i);
-                    $expressions2 = array_map(function (string $field, int $idx): string {
+                    $expressions2 = array_map(static function (string $field, int $idx): string {
                         return sprintf("ILIKE(%s, :search_query%u) = TRUE", $field, $idx);
                     }, array_keys($tmp), array_values($tmp));
 
@@ -226,7 +226,7 @@ class PartSearchFilter implements FilterInterface
         return $this->keyword;
     }
 
-    public function setKeyword(string $keyword): PartSearchFilter
+    public function setKeyword(string $keyword): self
     {
         $this->keyword = $keyword;
         return $this;
@@ -237,7 +237,7 @@ class PartSearchFilter implements FilterInterface
         return $this->regex;
     }
 
-    public function setRegex(bool $regex): PartSearchFilter
+    public function setRegex(bool $regex): self
     {
         $this->regex = $regex;
         return $this;
@@ -248,7 +248,7 @@ class PartSearchFilter implements FilterInterface
         return $this->extensive;
     }
 
-    public function setExtensive(bool $extensive): PartSearchFilter
+    public function setExtensive(bool $extensive): self
     {
         $this->extensive = $extensive;
         return $this;
@@ -260,7 +260,7 @@ class PartSearchFilter implements FilterInterface
         return $this->wildcard;
     }
 
-    public function setWildcard(bool $wildcard): PartSearchFilter
+    public function setWildcard(bool $wildcard): self
     {
         $this->wildcard = $wildcard;
         return $this;
@@ -272,7 +272,7 @@ class PartSearchFilter implements FilterInterface
         return $this->name;
     }
 
-    public function setName(bool $name): PartSearchFilter
+    public function setName(bool $name): self
     {
         $this->name = $name;
         return $this;
@@ -283,7 +283,7 @@ class PartSearchFilter implements FilterInterface
         return $this->dbId;
     }
 
-    public function setDbId(bool $dbId): PartSearchFilter
+    public function setDbId(bool $dbId): self
     {
         $this->dbId = $dbId;
         return $this;
@@ -294,7 +294,7 @@ class PartSearchFilter implements FilterInterface
         return $this->category;
     }
 
-    public function setCategory(bool $category): PartSearchFilter
+    public function setCategory(bool $category): self
     {
         $this->category = $category;
         return $this;
@@ -305,7 +305,7 @@ class PartSearchFilter implements FilterInterface
         return $this->description;
     }
 
-    public function setDescription(bool $description): PartSearchFilter
+    public function setDescription(bool $description): self
     {
         $this->description = $description;
         return $this;
@@ -316,7 +316,7 @@ class PartSearchFilter implements FilterInterface
         return $this->tags;
     }
 
-    public function setTags(bool $tags): PartSearchFilter
+    public function setTags(bool $tags): self
     {
         $this->tags = $tags;
         return $this;
@@ -327,7 +327,7 @@ class PartSearchFilter implements FilterInterface
         return $this->storelocation;
     }
 
-    public function setStorelocation(bool $storelocation): PartSearchFilter
+    public function setStorelocation(bool $storelocation): self
     {
         $this->storelocation = $storelocation;
         return $this;
@@ -338,7 +338,7 @@ class PartSearchFilter implements FilterInterface
         return $this->ordernr;
     }
 
-    public function setOrdernr(bool $ordernr): PartSearchFilter
+    public function setOrdernr(bool $ordernr): self
     {
         $this->ordernr = $ordernr;
         return $this;
@@ -349,7 +349,7 @@ class PartSearchFilter implements FilterInterface
         return $this->mpn;
     }
 
-    public function setMpn(bool $mpn): PartSearchFilter
+    public function setMpn(bool $mpn): self
     {
         $this->mpn = $mpn;
         return $this;
@@ -360,7 +360,7 @@ class PartSearchFilter implements FilterInterface
         return $this->ipn;
     }
 
-    public function setIPN(bool $ipn): PartSearchFilter
+    public function setIPN(bool $ipn): self
     {
         $this->ipn = $ipn;
         return $this;
@@ -371,7 +371,7 @@ class PartSearchFilter implements FilterInterface
         return $this->supplier;
     }
 
-    public function setSupplier(bool $supplier): PartSearchFilter
+    public function setSupplier(bool $supplier): self
     {
         $this->supplier = $supplier;
         return $this;
@@ -382,7 +382,7 @@ class PartSearchFilter implements FilterInterface
         return $this->manufacturer;
     }
 
-    public function setManufacturer(bool $manufacturer): PartSearchFilter
+    public function setManufacturer(bool $manufacturer): self
     {
         $this->manufacturer = $manufacturer;
         return $this;
@@ -393,7 +393,7 @@ class PartSearchFilter implements FilterInterface
         return $this->footprint;
     }
 
-    public function setFootprint(bool $footprint): PartSearchFilter
+    public function setFootprint(bool $footprint): self
     {
         $this->footprint = $footprint;
         return $this;
@@ -404,7 +404,7 @@ class PartSearchFilter implements FilterInterface
         return $this->comment;
     }
 
-    public function setComment(bool $comment): PartSearchFilter
+    public function setComment(bool $comment): self
     {
         $this->comment = $comment;
         return $this;
