@@ -52,6 +52,8 @@ use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LabelOptionsType extends AbstractType
@@ -115,15 +117,29 @@ class LabelOptionsType extends AbstractType
             },
         ]);
 
-        $builder->add('lines', RichTextEditorType::class, [
-            'label' => 'label_profile.lines.label',
-            'empty_data' => '',
-            'mode' => 'html-label',
-            'attr' => [
-                'rows' => 4,
-                'data-ck-class' => 'ck-html-label'
-            ],
-        ]);
+        //The "lines" field is added via an event listener instead of directly, because whether the CKEditor
+        //WYSIWYG editor should be initially attached depends on the entity's current process_mode: The editor
+        //treats its content as HTML and therefore escapes characters like <, > and & (e.g. in
+        //"filter(v => v.id > 1)"), which corrupts Twig expressions. So we only auto-attach it in HTML/placeholder
+        //mode. The label_lines_mode Stimulus controller (data-action/data-controller below) takes care of
+        //(de)activating the editor on the fly, when the user switches the mode without reloading the page.
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
+            $data = $event->getData();
+            $processMode = $data instanceof LabelOptions ? $data->getProcessMode() : LabelProcessMode::PLACEHOLDER;
+
+            $event->getForm()->add('lines', RichTextEditorType::class, [
+                'label' => 'label_profile.lines.label',
+                'empty_data' => '',
+                'mode' => 'html-label',
+                'auto_init' => $processMode === LabelProcessMode::PLACEHOLDER,
+                'attr' => [
+                    'rows' => 4,
+                    'data-ck-class' => 'ck-html-label',
+                    'data-controller' => 'pages--label-lines-mode',
+                    'data-action' => 'label-lines-mode:change@document->pages--label-lines-mode#toggle',
+                ],
+            ]);
+        });
 
         $builder->add('additional_css', TextareaType::class, [
             'label' => 'label_options.additional_css.label',
@@ -146,6 +162,8 @@ class LabelOptionsType extends AbstractType
             'expanded' => true,
             'attr' => [
                 'class' => 'pt-2',
+                'data-controller' => 'pages--label-lines-mode',
+                'data-action' => 'change->pages--label-lines-mode#notify',
             ],
             'label_attr' => [
                 'class' => 'radio-custom radio-inline',
