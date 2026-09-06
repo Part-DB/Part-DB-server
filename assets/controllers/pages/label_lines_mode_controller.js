@@ -21,16 +21,17 @@ import {Controller} from "@hotwired/stimulus";
 
 const EVENT_NAME = "label-lines-mode:change";
 const CKEDITOR_CONTROLLER = "elements--ckeditor";
+const CODE_EDITOR_CONTROLLER = "elements--code-editor";
 const IDENTIFIER = "pages--label-lines-mode";
 
 /**
- * This controller is used on the label profile edit/generator forms, to disable the CKEditor WYSIWYG
- * editor on the "lines" textarea whenever the "process_mode" is switched to Twig.
+ * This controller is used on the label profile edit/generator forms, to swap the "lines" field's editor
+ * whenever the "process_mode" is switched between HTML/placeholder and Twig.
  *
- * The rich text editor treats its content as HTML, so it HTML-escapes characters like <, > and &
- * (e.g. "v => v.id > 1") as soon as its data is synchronized, which corrupts Twig expressions.
- * Therefore, we do not run the WYSIWYG editor at all while Twig mode is selected, and just use a
- * plain textarea instead, so the Twig source is never round-tripped through an HTML parser/serializer.
+ * The CKEditor WYSIWYG editor treats its content as HTML, so it HTML-escapes characters like <, > and &
+ * (e.g. "v => v.id > 1") as soon as its data is synchronized, which corrupts Twig expressions. Therefore
+ * we do not run it while Twig mode is selected, and use the plain-text code_editor controller (with Twig
+ * syntax highlighting) instead, so the Twig source is never round-tripped through an HTML parser/serializer.
  */
 export default class extends Controller {
     connect() {
@@ -56,24 +57,31 @@ export default class extends Controller {
         }));
     }
 
-    /** Attached to the "lines" textarea: (de)activates the CKEditor controller based on the mode */
+    /** Attached to the "lines" textarea: swaps the editor controller based on the mode */
     toggle(event) {
         this.apply(event.detail.mode);
     }
 
     apply(mode) {
-        const controllers = (this.element.dataset.controller ?? '').split(/\s+/).filter(Boolean);
-        const hasEditor = controllers.includes(CKEDITOR_CONTROLLER);
-        const shouldHaveEditor = mode !== 'twig';
+        const wanted = mode === 'twig' ? CODE_EDITOR_CONTROLLER : CKEDITOR_CONTROLLER;
+        const unwanted = mode === 'twig' ? CKEDITOR_CONTROLLER : CODE_EDITOR_CONTROLLER;
 
-        if (shouldHaveEditor && !hasEditor) {
-            controllers.push(CKEDITOR_CONTROLLER);
-        } else if (!shouldHaveEditor && hasEditor) {
-            controllers.splice(controllers.indexOf(CKEDITOR_CONTROLLER), 1);
-        } else {
-            return;
+        const controllers = (this.element.dataset.controller ?? '').split(/\s+/).filter(Boolean);
+        let changed = false;
+
+        if (!controllers.includes(wanted)) {
+            controllers.push(wanted);
+            changed = true;
         }
 
-        this.element.dataset.controller = controllers.join(' ');
+        const unwantedIndex = controllers.indexOf(unwanted);
+        if (unwantedIndex !== -1) {
+            controllers.splice(unwantedIndex, 1);
+            changed = true;
+        }
+
+        if (changed) {
+            this.element.dataset.controller = controllers.join(' ');
+        }
     }
 }

@@ -2311,6 +2311,19 @@ clone@^2.1.2:
   resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
   integrity sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==
 
+codejar-linenumbers@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/codejar-linenumbers/-/codejar-linenumbers-1.0.1.tgz#ae82b0a2d5fbf429f10c7f68a39970646411b7a3"
+  integrity sha512-nyJanRPlDUzWHO7HcffKpjRC7f6yU/SNQIHXhWLnZ6NuZlnFwGlo42slBHjjmK6+tcREJ7hVEwIJ3kAiYNq7lQ==
+  dependencies:
+    codejar "^4.1.1"
+    prismjs "^1.29.0"
+
+codejar@^4.1.1, codejar@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/codejar/-/codejar-4.3.0.tgz#16901574fa2114def629ff20bd0408acb1891a12"
+  integrity sha512-A7BlrtD2oHR4xsABs/lLvDNxiPxkx71SuyHhcilBHbPMASpQs4d1AG2XjDSAm7y40RmfXbSGbMBhllGy//CDOA==
+
 color-convert@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-3.1.0.tgz#ce16ebb832f9d7522649ed9e11bc0ccb9433a524"
@@ -2963,6 +2976,11 @@ hastscript@9.0.1, hastscript@^9.0.0:
     hast-util-parse-selector "^4.0.0"
     property-information "^7.0.0"
     space-separated-tokens "^2.0.0"
+
+highlight.js@^11.12.0:
+  version "11.12.0"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-11.12.0.tgz#470d918fd556a76debc40fe5e4b540b6b9cb9890"
+  integrity sha512-nbfWpyRMcMrPMmDwJB+dhX/eiaPKtc2RB+0QZskqJ3WjRA/FDS0e9hZrx8EC/lbEv8gXy98FcDbNa/dspAaJMg==
 
 htm@^3.1.1:
   version "3.1.1"
@@ -3905,6 +3923,11 @@ pretty-error@^4.0.0:
   dependencies:
     lodash "^4.17.20"
     renderkid "^3.0.0"
+
+prismjs@^1.29.0:
+  version "1.30.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.30.0.tgz#d9709969d9d4e16403f6f348c63553b19f0975a9"
+  integrity sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
