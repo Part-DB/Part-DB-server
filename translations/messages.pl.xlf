@@ -4,7 +4,7 @@
     <unit id="x_wTSQS" name="attachment_type.caption">
       <segment state="translated">
         <source>attachment_type.caption</source>
-        <target>Typy plików dla załącznikówRegPrzerwanie w przypadku nieprawidłowych danychport</target>
+        <target>Typy plików dla załączników</target>
       </segment>
     </unit>
     <unit id="f_CALXB" name="attachment_type.edit">
@@ -1071,7 +1071,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
     <unit id="_iVXTDt" name="part.edit.tab.advanced.ipn.commonSectionHeader">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
-        <target>Sugestie bez części przyrostu</target>
+        <target>Sugestie bez przyrostu numeru części</target>
       </segment>
     </unit>
     <unit id="7.yHB9w" name="part.edit.tab.advanced.ipn.partIncrementHeader">
@@ -10340,7 +10340,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="U4aFfJ3" name="settings.ips.oemsecrets.parseParams.help">
       <segment state="translated">
         <source>settings.ips.oemsecrets.parseParams.help</source>
-        <target>Gdy włączone, dostawca próbuje przekonwertować nieustrukturyzowane opisy OEMSecrets na ustrukturyzowane parametry. Każdy parametr w opisie powinien mieć formę "...;nazwa1:wartość1;nazwa2:wartość2" </target>
+        <target>Gdy włączone, dostawca próbuje przekonwertować nieustrukturyzowane opisy OEMSecrets na ustrukturyzowane parametry. Każdy parametr w opisie powinien mieć formę "...;nazwa1:wartość1;nazwa2:wartość2"</target>
       </segment>
     </unit>
     <unit id="YMpgQPU" name="settings.ips.oemsecrets.sortMode">
@@ -13889,6 +13889,72 @@ Serwer autoryzacji Buerklin API:
       <segment state="translated">
         <source>settings.ips.canopy.alwaysGetDetails.help</source>
         <target>Gdy włączone, podczas tworzenia części, z Canopy będzie pobrane więcej szczegółów. Powoduje to dodatkowe żądanie API, ale dostarcza listę informacji o produkcie i kategorii.</target>
+      </segment>
+    </unit>
+    <unit id="KyC_YsX" name="settings.ips.trustedparts">
+      <segment state="translated">
+        <source>settings.ips.trustedparts</source>
+        <target>TrustedParts</target>
+      </segment>
+    </unit>
+    <unit id="iB2.9sg" name="settings.ips.trustedparts.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.help</source>
+        <target>TrustedParts.com to wyszukiwarka części prowadzona przez ECIA, która zbiera oferty autoryzowanych dystrybutorów. Musisz poprosić o dostęp do API TrustedParts, aby móc używać tego dostawcy informacji.</target>
+      </segment>
+    </unit>
+    <unit id="Mhe.lWu" name="settings.ips.trustedparts.companyId">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.companyId</source>
+        <target>ID firmy</target>
+      </segment>
+    </unit>
+    <unit id="DvzhYe1" name="settings.ips.trustedparts.companyId.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.companyId.help</source>
+        <target>Identyfikator firmy, który został przypisany do twojego konta TrustedParts.com. Możesz znaleźć ten identyfikator na stronie klucza API swojego konta.</target>
+      </segment>
+    </unit>
+    <unit id="AqF7ns9" name="settings.ips.trustedparts.apiKey.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.apiKey.help</source>
+        <target>Klucz API, który został przypisany do twojego konta TrustedParts.com. Możesz go znaleźć na stronie klucza API swojego konta.</target>
+      </segment>
+    </unit>
+    <unit id="Gh676P6" name="settings.ips.trustedparts.searchLimit">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.searchLimit</source>
+        <target>Limit wyszukiwania</target>
+      </segment>
+    </unit>
+    <unit id="R7oiMLD" name="settings.ips.trustedparts.searchLimit.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.searchLimit.help</source>
+        <target>Maksymalna liczba wyników wyświetlanych dla wyszukiwania słowa kluczowego.</target>
+      </segment>
+    </unit>
+    <unit id="DFkCu4n" name="settings.ips.trustedparts.inStockOnly">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.inStockOnly</source>
+        <target>Tylko dostępne oferty</target>
+      </segment>
+    </unit>
+    <unit id="EF2mFRR" name="settings.ips.trustedparts.inStockOnly.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.inStockOnly.help</source>
+        <target>Gdy włączone, zwracane są tylko oferty dystrybutorów, którzy mają daną część dostępną w magazynie.</target>
+      </segment>
+    </unit>
+    <unit id="r4gkOcR" name="settings.ips.trustedparts.useCachedData">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.useCachedData</source>
+        <target>Używaj danych z pamięci cache</target>
+      </segment>
+    </unit>
+    <unit id="JNIu4bu" name="settings.ips.trustedparts.useCachedData.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.useCachedData.help</source>
+        <target>Gdy włączone, TrustedParts.com zwraca przechowywane dane o zapasach i cenach, zamiast odpytywać dystrybutorów w czasie rzeczywistym. Jest to szybsze i nie nalicza się do limitu danych, ale dane mogą być przestarzałe.</target>
       </segment>
     </unit>
     <unit id="D055xh8" name="attachment.sandbox.warning">
