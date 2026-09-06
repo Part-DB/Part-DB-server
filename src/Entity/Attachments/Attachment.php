@@ -256,7 +256,7 @@ abstract class Attachment extends AbstractNamedDBElement
      * @param  AttachmentUpload|null  $upload
      * @return $this
      */
-    public function setUpload(?AttachmentUpload $upload): Attachment
+    public function setUpload(?AttachmentUpload $upload): self
     {
         $this->upload = $upload;
         return $this;

@@ -366,7 +366,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Sets the owner of this part lot.
      */
-    public function setOwner(?User $owner): PartLot
+    public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
         return $this;
@@ -392,7 +392,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @param  string|null  $user_barcode
      * @return $this
      */
-    public function setUserBarcode(?string $user_barcode): PartLot
+    public function setUserBarcode(?string $user_barcode): self
     {
         $this->user_barcode = $user_barcode;
         return $this;

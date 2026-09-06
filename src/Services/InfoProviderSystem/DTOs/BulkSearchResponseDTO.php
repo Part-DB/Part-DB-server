@@ -130,7 +130,7 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess, \IteratorAggregate
      * @param  BulkSearchResponseDTO  ...$responses
      * @return BulkSearchResponseDTO
      */
-    public static function merge(BulkSearchResponseDTO ...$responses): BulkSearchResponseDTO
+    public static function merge(self ...$responses): self
     {
         $mergedResults = [];
         foreach ($responses as $response) {
@@ -179,7 +179,7 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess, \IteratorAggregate
      * @return BulkSearchResponseDTO
      * @throws ORMException
      */
-    public static function fromSerializableRepresentation(array $data, EntityManagerInterface $entityManager): BulkSearchResponseDTO
+    public static function fromSerializableRepresentation(array $data, EntityManagerInterface $entityManager): self
     {
         $partResults = [];
         foreach ($data as $partData) {

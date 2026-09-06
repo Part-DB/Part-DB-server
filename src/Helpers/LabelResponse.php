@@ -82,7 +82,7 @@ class LabelResponse extends Response
     /**
      * Automatically sets the Last-Modified header according the file modification date.
      */
-    public function setAutoLastModified(): LabelResponse
+    public function setAutoLastModified(): self
     {
         $this->setLastModified(new \DateTimeImmutable());
 
@@ -92,7 +92,7 @@ class LabelResponse extends Response
     /**
      * Automatically sets the ETag header according to the checksum of the file.
      */
-    public function setAutoEtag(): LabelResponse
+    public function setAutoEtag(): self
     {
         $this->setEtag(base64_encode(hash('sha256', $this->content, true)));
 

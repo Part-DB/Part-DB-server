@@ -310,7 +310,7 @@ class StorageLocation extends AbstractPartsContainingDBElement
     /**
      * Sets the owner of this storage location
      */
-    public function setOwner(?User $owner): StorageLocation
+    public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
         return $this;
@@ -327,7 +327,7 @@ class StorageLocation extends AbstractPartsContainingDBElement
     /**
      * If this is set to true, only parts lots, which are owned by the same user as the store location are allowed to be stored here.
      */
-    public function setPartOwnerMustMatch(bool $part_owner_must_match): StorageLocation
+    public function setPartOwnerMustMatch(bool $part_owner_must_match): self
     {
         $this->part_owner_must_match = $part_owner_must_match;
         return $this;

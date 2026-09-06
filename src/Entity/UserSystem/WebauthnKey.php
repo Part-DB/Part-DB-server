@@ -58,7 +58,7 @@ class WebauthnKey extends BasePublicKeyCredentialSource implements TimeStampable
         return $this->name;
     }
 
-    public function setName(string $name): WebauthnKey
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
@@ -69,7 +69,7 @@ class WebauthnKey extends BasePublicKeyCredentialSource implements TimeStampable
         return $this->user;
     }
 
-    public function setUser(?User $user): WebauthnKey
+    public function setUser(?User $user): self
     {
         $this->user = $user;
         return $this;

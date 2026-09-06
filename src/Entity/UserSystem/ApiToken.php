@@ -113,7 +113,7 @@ class ApiToken implements TimeStampableInterface
         return $this->user;
     }
 
-    public function setUser(?User $user): ApiToken
+    public function setUser(?User $user): self
     {
         $this->user = $user;
         return $this;
@@ -133,7 +133,7 @@ class ApiToken implements TimeStampableInterface
         return $this->valid_until === null || $this->valid_until > new \DateTimeImmutable();
     }
 
-    public function setValidUntil(?\DateTimeImmutable $valid_until): ApiToken
+    public function setValidUntil(?\DateTimeImmutable $valid_until): self
     {
         $this->valid_until = $valid_until;
         return $this;
@@ -154,7 +154,7 @@ class ApiToken implements TimeStampableInterface
         return $this->name;
     }
 
-    public function setName(string $name): ApiToken
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
@@ -172,7 +172,7 @@ class ApiToken implements TimeStampableInterface
      * Sets the last time the token was used to authenticate.
      * @return ApiToken
      */
-    public function setLastTimeUsed(?\DateTimeImmutable $last_time_used): ApiToken
+    public function setLastTimeUsed(?\DateTimeImmutable $last_time_used): self
     {
         $this->last_time_used = $last_time_used;
         return $this;
@@ -183,7 +183,7 @@ class ApiToken implements TimeStampableInterface
         return $this->level;
     }
 
-    public function setLevel(ApiTokenLevel $level): ApiToken
+    public function setLevel(ApiTokenLevel $level): self
     {
         $this->level = $level;
         return $this;

@@ -150,7 +150,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
         return $this->quantity;
     }
 
-    public function setQuantity(float $quantity): ProjectBOMEntry
+    public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
         return $this;
@@ -161,7 +161,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
         return $this->mountnames;
     }
 
-    public function setMountnames(string $mountnames): ProjectBOMEntry
+    public function setMountnames(string $mountnames): self
     {
         $this->mountnames = $mountnames;
         return $this;
@@ -178,7 +178,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
     /**
      * @param  string  $name
      */
-    public function setName(?string $name): ProjectBOMEntry
+    public function setName(?string $name): self
     {
         $this->name = $name;
         return $this;
@@ -189,7 +189,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
         return $this->comment;
     }
 
-    public function setComment(string $comment): ProjectBOMEntry
+    public function setComment(string $comment): self
     {
         $this->comment = $comment;
         return $this;
@@ -200,7 +200,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
         return $this->project;
     }
 
-    public function setProject(?Project $project): ProjectBOMEntry
+    public function setProject(?Project $project): self
     {
         $this->project = $project;
         return $this;
@@ -213,7 +213,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
         return $this->part;
     }
 
-    public function setPart(?Part $part): ProjectBOMEntry
+    public function setPart(?Part $part): self
     {
         $this->part = $part;
         return $this;

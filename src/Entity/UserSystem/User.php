@@ -693,7 +693,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets whether the email address of the user is shown on the public profile page.
      */
-    public function setShowEmailOnProfile(bool $show_email_on_profile): User
+    public function setShowEmailOnProfile(bool $show_email_on_profile): self
     {
         $this->show_email_on_profile = $show_email_on_profile;
         return $this;
@@ -712,7 +712,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Change the about me text of the user.
      */
-    public function setAboutMe(string $aboutMe): User
+    public function setAboutMe(string $aboutMe): self
     {
         $this->aboutMe = $aboutMe;
         return $this;
@@ -986,7 +986,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets the saml_user flag.
      */
-    public function setSamlUser(bool $saml_user): User
+    public function setSamlUser(bool $saml_user): self
     {
         $this->saml_user = $saml_user;
         return $this;

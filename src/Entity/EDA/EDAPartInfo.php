@@ -88,7 +88,7 @@ class EDAPartInfo
         return $this->reference_prefix;
     }
 
-    public function setReferencePrefix(?string $reference_prefix): EDAPartInfo
+    public function setReferencePrefix(?string $reference_prefix): self
     {
         $this->reference_prefix = $reference_prefix;
         return $this;
@@ -99,7 +99,7 @@ class EDAPartInfo
         return $this->value;
     }
 
-    public function setValue(?string $value): EDAPartInfo
+    public function setValue(?string $value): self
     {
         $this->value = $value;
         return $this;
@@ -110,7 +110,7 @@ class EDAPartInfo
         return $this->visibility;
     }
 
-    public function setVisibility(?bool $visibility): EDAPartInfo
+    public function setVisibility(?bool $visibility): self
     {
         $this->visibility = $visibility;
         return $this;
@@ -121,7 +121,7 @@ class EDAPartInfo
         return $this->exclude_from_bom;
     }
 
-    public function setExcludeFromBom(?bool $exclude_from_bom): EDAPartInfo
+    public function setExcludeFromBom(?bool $exclude_from_bom): self
     {
         $this->exclude_from_bom = $exclude_from_bom;
         return $this;
@@ -132,7 +132,7 @@ class EDAPartInfo
         return $this->exclude_from_board;
     }
 
-    public function setExcludeFromBoard(?bool $exclude_from_board): EDAPartInfo
+    public function setExcludeFromBoard(?bool $exclude_from_board): self
     {
         $this->exclude_from_board = $exclude_from_board;
         return $this;
@@ -143,7 +143,7 @@ class EDAPartInfo
         return $this->exclude_from_sim;
     }
 
-    public function setExcludeFromSim(?bool $exclude_from_sim): EDAPartInfo
+    public function setExcludeFromSim(?bool $exclude_from_sim): self
     {
         $this->exclude_from_sim = $exclude_from_sim;
         return $this;
@@ -154,7 +154,7 @@ class EDAPartInfo
         return $this->kicad_symbol;
     }
 
-    public function setKicadSymbol(?string $kicad_symbol): EDAPartInfo
+    public function setKicadSymbol(?string $kicad_symbol): self
     {
         $this->kicad_symbol = $kicad_symbol;
         return $this;
@@ -165,7 +165,7 @@ class EDAPartInfo
         return $this->kicad_footprint;
     }
 
-    public function setKicadFootprint(?string $kicad_footprint): EDAPartInfo
+    public function setKicadFootprint(?string $kicad_footprint): self
     {
         $this->kicad_footprint = $kicad_footprint;
         return $this;

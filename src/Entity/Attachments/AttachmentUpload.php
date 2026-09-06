@@ -61,7 +61,7 @@ readonly class AttachmentUpload
      * @param  FormInterface  $form
      * @return AttachmentUpload
      */
-    public static function fromAttachmentForm(FormInterface $form): AttachmentUpload
+    public static function fromAttachmentForm(FormInterface $form): self
     {
         if (!$form->has('file')) {
             throw new \InvalidArgumentException('The form does not have a file field. Is it an attachment form?');

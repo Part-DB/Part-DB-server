@@ -390,7 +390,7 @@ class Category extends AbstractPartsContainingDBElement
         return $this->eda_info;
     }
 
-    public function setEdaInfo(EDACategoryInfo $eda_info): Category
+    public function setEdaInfo(EDACategoryInfo $eda_info): self
     {
         $this->eda_info = $eda_info;
         return $this;

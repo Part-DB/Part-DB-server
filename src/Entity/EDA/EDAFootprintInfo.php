@@ -43,7 +43,7 @@ class EDAFootprintInfo
         return $this->kicad_footprint;
     }
 
-    public function setKicadFootprint(?string $kicad_footprint): EDAFootprintInfo
+    public function setKicadFootprint(?string $kicad_footprint): self
     {
         $this->kicad_footprint = $kicad_footprint;
         return $this;

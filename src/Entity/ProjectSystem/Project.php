@@ -328,7 +328,7 @@ class Project extends AbstractStructuralDBElement
         return $this->description;
     }
 
-    public function setDescription(string $description): Project
+    public function setDescription(string $description): self
     {
         $this->description = $description;
         return $this;

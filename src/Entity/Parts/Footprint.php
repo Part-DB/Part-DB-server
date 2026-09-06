@@ -258,7 +258,7 @@ class Footprint extends AbstractPartsContainingDBElement
         return $this->eda_info;
     }
 
-    public function setEdaInfo(EDAFootprintInfo $eda_info): Footprint
+    public function setEdaInfo(EDAFootprintInfo $eda_info): self
     {
         $this->eda_info = $eda_info;
         return $this;
