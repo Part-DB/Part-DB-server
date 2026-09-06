@@ -64,13 +64,13 @@ final readonly class PartsDataTable implements DataTableTypeInterface
     public const LENGTH_MENU = [[10, 25, 50, 100, 250, 500, -1], [10, 25, 50, 100, 250, 500, "All"]];
 
     public function __construct(
-        private readonly EntityURLGenerator $urlGenerator,
-        private readonly TranslatorInterface $translator,
-        private readonly AmountFormatter $amountFormatter,
-        private readonly PartDataTableHelper $partDataTableHelper,
-        private readonly Security $security,
-        private readonly ColumnSortHelper $csh,
-        private readonly TableSettings $tableSettings,
+        private EntityURLGenerator $urlGenerator,
+        private TranslatorInterface $translator,
+        private AmountFormatter $amountFormatter,
+        private PartDataTableHelper $partDataTableHelper,
+        private Security $security,
+        private ColumnSortHelper $csh,
+        private TableSettings $tableSettings,
     ) {
     }
 

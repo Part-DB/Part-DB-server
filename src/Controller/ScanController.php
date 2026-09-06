@@ -63,7 +63,7 @@ use App\Services\InfoProviderSystem\ProviderRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Entity\Parts\Part;
-use \App\Entity\Parts\StorageLocation;
+use App\Entity\Parts\StorageLocation;
 use Symfony\UX\Turbo\TurboBundle;
 
 /**

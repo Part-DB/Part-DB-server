@@ -459,7 +459,7 @@ class EntityImporter
 
                 $csvRow = implode($delimiter, array_map(function ($value) use ($delimiter) {
                     $value = (string) $value;
-                    if (strpos($value, $delimiter) !== false || strpos($value, '"') !== false || strpos($value, "\n") !== false) {
+                    if (str_contains($value, $delimiter) || str_contains($value, '"') || str_contains($value, "\n")) {
                         return '"' . str_replace('"', '""', $value) . '"';
                     }
                     return $value;

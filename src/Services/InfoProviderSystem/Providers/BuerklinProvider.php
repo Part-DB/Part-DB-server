@@ -662,7 +662,7 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
         }
 
         // Ensure it's actually a product URL
-        if (strpos($path, '/p/') === false) {
+        if (!str_contains($path, '/p/')) {
             return null;
         }
 
