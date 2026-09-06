@@ -11,6 +11,12 @@ mcp:
                 but can be used for any kind of inventory. The stored objects are called parts.
                 If you miss some information from an search endpoint, try to retrieve more details using the ID of an entity.
 
+            website_url: "%partdb.default_uri%"
+            icons:
+                - src: "%partdb.default_uri%icon/safari-pinned-tab.svg"
+                  mime_type: "image/svg+xml"
+                  sizes: ["any"]
+
             registry: '*'
 
             transports:
