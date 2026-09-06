@@ -1249,7 +1249,7 @@ class OEMSecretsProvider implements InfoProviderInterface
     {
         $baseUrl = rtrim($this->getProviderInfo()->url, '/') . '/';
         $inquiryPath = trim($oemInquiry, '/') . '/';
-        $encodedPartNumber = urlencode(trim($partNumber));
+        $encodedPartNumber = rawurlencode(trim($partNumber));
         return $baseUrl . $inquiryPath . $encodedPartNumber;
     }
 
