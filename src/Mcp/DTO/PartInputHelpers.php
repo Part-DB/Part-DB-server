@@ -80,4 +80,16 @@ final class PartInputHelpers
     {
         return is_array($data[$key] ?? null) ? $data[$key] : [];
     }
+
+    /**
+     * @return string[]
+     */
+    public static function strArray(array $data, string $key): array
+    {
+        if (!is_array($data[$key] ?? null)) {
+            return [];
+        }
+
+        return array_map(static fn ($v): string => (string) $v, $data[$key]);
+    }
 }

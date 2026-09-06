@@ -59,6 +59,7 @@ use App\Entity\Parts\PartTraits\OrderTrait;
 use App\Entity\Parts\PartTraits\ProjectTrait;
 use App\EntityListeners\TreeCacheInvalidationListener;
 use App\Mcp\DTO\AddPartStockInput;
+use App\Mcp\DTO\AdvancedPartSearchInput;
 use App\Mcp\DTO\CreatePartInput;
 use App\Mcp\DTO\DeletePartInput;
 use App\Mcp\DTO\ElementByIdInput;
@@ -67,6 +68,8 @@ use App\Mcp\DTO\UpdatePartInput;
 use App\Mcp\DTO\WithdrawPartStockInput;
 use App\Repository\PartRepository;
 use App\State\Mcp\AddPartStockProcessor;
+use App\State\Mcp\AdvancedPartSearchInputProvider;
+use App\State\Mcp\AdvancedSearchPartsProcessor;
 use App\State\Mcp\CreatePartInputProvider;
 use App\State\Mcp\CreatePartProcessor;
 use App\State\Mcp\DeletePartProcessor;
@@ -133,6 +136,16 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
             security: 'is_granted("@parts.read")',
             input: PartSearchFilter::class,
             processor: SearchPartsProcessor::class
+        ),
+        'advanced_search_parts' => new McpToolCollection(
+            title: 'Advanced part search with structured filters',
+            description: 'Search for parts using precise, structured filter criteria instead of a single free-text keyword (see search_parts for that). Every argument is optional and, if given, narrows the results further (all given constraints are combined with AND). Supports text fields (name, description, comment, ipn, gtin, manufacturer product number/url, stock lot description, attachment name) with operators like CONTAINS/STARTS/ENDS/=/!=; numeric fields (minAmount, mass, total stock amount, lot/orderdetails/attachments/parameters count) with </=/>=/BETWEEN; date fields (lastModified, addedDate, lot expiration date); booleans (favorite, needsReview, obsolete, lessThanDesired, lot needs refill/unknown amount); tags (ANY/ALL/NONE of a given list); manufacturing status (ANY/NONE of announced/active/nrfnd/eol/discontinued); relations by database ID (category, footprint, manufacturer, storage location, supplier, measurement unit, part custom state, attachment type, project), which for hierarchical relations also support INCLUDING_CHILDREN/EXCLUDING_CHILDREN to match an entire subtree; and a list of parameter constraints (each part must have at least one parameter matching all of a given entry\'s name/symbol/unit and numeric/text value comparison). Results can be sorted (orderBy/orderDirection) and are capped at "limit" (default 50, max 200).',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            security: 'is_granted("@parts.read")',
+            input: AdvancedPartSearchInput::class,
+            provider: AdvancedPartSearchInputProvider::class,
+            validate: false, // The nested per-field filter objects are barely-constrained; invalid operators/values are rejected manually inside AdvancedSearchPartsProcessor
+            processor: AdvancedSearchPartsProcessor::class
         ),
         'get_part_details' => new McpTool(
             title: 'Get part details by ID',
