@@ -56,8 +56,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: StructuralDBElementRepository::class)]
 #[ORM\Table(name: '`attachment_types`')]
-#[ORM\Index(columns: ['name'], name: 'attachment_types_idx_name')]
-#[ORM\Index(columns: ['parent_id', 'name'], name: 'attachment_types_idx_parent_name')]
+#[ORM\Index(name: 'attachment_types_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'attachment_types_idx_parent_name', columns: ['parent_id', 'name'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -81,7 +81,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class AttachmentType extends AbstractStructuralDBElement
 {
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: AttachmentType::class, cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: AttachmentType::class, mappedBy: 'parent', cascade: ['persist'])]
     #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
@@ -105,7 +105,7 @@ class AttachmentType extends AbstractStructuralDBElement
      * @var Collection<int, AttachmentTypeAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: AttachmentTypeAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: AttachmentTypeAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => Criteria::ASC])]
     #[Groups(['attachment_type:read', 'attachment_type:write', 'import', 'full'])]
     protected Collection $attachments;
@@ -118,7 +118,7 @@ class AttachmentType extends AbstractStructuralDBElement
     /** @var Collection<int, AttachmentTypeParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: AttachmentTypeParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: AttachmentTypeParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[Groups(['attachment_type:read', 'attachment_type:write', 'import', 'full'])]
     protected Collection $parameters;
@@ -126,7 +126,7 @@ class AttachmentType extends AbstractStructuralDBElement
     /**
      * @var Collection<Attachment>
      */
-    #[ORM\OneToMany(mappedBy: 'attachment_type', targetEntity: Attachment::class)]
+    #[ORM\OneToMany(targetEntity: Attachment::class, mappedBy: 'attachment_type')]
     protected Collection $attachments_with_type;
 
     /**

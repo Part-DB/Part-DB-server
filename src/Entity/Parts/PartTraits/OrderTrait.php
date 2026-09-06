@@ -41,7 +41,7 @@ trait OrderTrait
      */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
-    #[ORM\OneToMany(mappedBy: 'part', targetEntity: Orderdetail::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Orderdetail::class, mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['supplierpartnr' => Criteria::ASC])]
     protected Collection $orderdetails;
 

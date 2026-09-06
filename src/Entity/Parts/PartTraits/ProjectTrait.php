@@ -21,7 +21,7 @@ trait ProjectTrait
     /**
      * @var Project|null If a project is set here, then this part is special and represents the builds of a project.
      */
-    #[ORM\OneToOne(inversedBy: 'build_part', targetEntity: Project::class)]
+    #[ORM\OneToOne(targetEntity: Project::class, inversedBy: 'build_part')]
     #[ORM\JoinColumn]
     protected ?Project $built_project = null;
 

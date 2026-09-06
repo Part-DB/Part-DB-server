@@ -63,7 +63,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: PartCustomStateRepository::class)]
 #[ORM\Table('`part_custom_states`')]
-#[ORM\Index(columns: ['name'], name: 'part_custom_state_name')]
+#[ORM\Index(name: 'part_custom_state_name', columns: ['name'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -79,10 +79,10 @@ use Symfony\Component\Validator\Constraints as Assert;
             title: 'List/search part custom states',
             description: 'List all part custom states, optionally filtered by a keyword matched against the name and comment. Custom states are used to mark parts with a custom status (e.g. "obsolete", "needs review"). Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
-            output: StructuralElementOverview::class,
             normalizationContext: ['groups' => ['mcp_structural_overview:read']],
-            input: StructuralElementSearchInput::class,
             security: 'is_granted("@part_custom_states.read")',
+            input: StructuralElementSearchInput::class,
+            output: StructuralElementOverview::class,
             processor: ListStructuralElementsProcessor::class,
         ),
         'get_part_custom_state_details' => new McpTool(
@@ -90,8 +90,8 @@ use Symfony\Component\Validator\Constraints as Assert;
             description: 'Get detailed information about a specific part custom state by its database ID.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
             normalizationContext: ['groups' => ['part_custom_state:read', 'api:basic:read']],
-            input: ElementByIdInput::class,
             security: 'is_granted("@part_custom_states.read")',
+            input: ElementByIdInput::class,
             validate: true,
             processor: GetStructuralElementDetailsProcessor::class,
         ),
@@ -109,7 +109,7 @@ class PartCustomState extends AbstractPartsContainingDBElement
     #[Groups(['part_custom_state:read', 'part_custom_state:write', 'full', 'import'])]
     protected string $comment = '';
 
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist'])]
     #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
@@ -136,7 +136,7 @@ class PartCustomState extends AbstractPartsContainingDBElement
     /** @var Collection<int, PartCustomStateParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: PartCustomStateParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: PartCustomStateParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['part_custom_state:read', 'part_custom_state:write'])]
     protected Collection $parameters;

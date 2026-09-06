@@ -76,9 +76,9 @@ use function sprintf;
     9 => SupplierParameter::class, 10 => AttachmentTypeParameter::class,
     12 => PartCustomStateParameter::class])]
 #[ORM\Table('parameters')]
-#[ORM\Index(columns: ['name'], name: 'parameter_name_idx')]
-#[ORM\Index(columns: ['param_group'], name: 'parameter_group_idx')]
-#[ORM\Index(columns: ['type', 'element_id'], name: 'parameter_type_element_idx')]
+#[ORM\Index(name: 'parameter_name_idx', columns: ['name'])]
+#[ORM\Index(name: 'parameter_group_idx', columns: ['param_group'])]
+#[ORM\Index(name: 'parameter_type_element_idx', columns: ['type', 'element_id'])]
 #[ApiResource(
     shortName: 'Parameter',
     operations: [

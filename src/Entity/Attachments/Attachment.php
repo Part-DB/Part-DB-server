@@ -66,10 +66,10 @@ use function in_array;
 #[ORM\DiscriminatorMap(self::ORM_DISCRIMINATOR_MAP)]
 #[ORM\EntityListeners([AttachmentDeleteListener::class])]
 #[ORM\Table(name: '`attachments`')]
-#[ORM\Index(columns: ['id', 'element_id', 'class_name'], name: 'attachments_idx_id_element_id_class_name')]
-#[ORM\Index(columns: ['class_name', 'id'], name: 'attachments_idx_class_name_id')]
-#[ORM\Index(columns: ['name'], name: 'attachment_name_idx')]
-#[ORM\Index(columns: ['class_name', 'element_id'], name: 'attachment_element_idx')]
+#[ORM\Index(name: 'attachments_idx_id_element_id_class_name', columns: ['id', 'element_id', 'class_name'])]
+#[ORM\Index(name: 'attachments_idx_class_name_id', columns: ['class_name', 'id'])]
+#[ORM\Index(name: 'attachment_name_idx', columns: ['name'])]
+#[ORM\Index(name: 'attachment_element_idx', columns: ['class_name', 'element_id'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -85,13 +85,13 @@ use function in_array;
         'get_attachment_content' => new McpTool(
             title: 'Get attachment content by ID',
             description: 'Retrieve the actual file content of an attachment (e.g. a datasheet or picture) by its database ID, as returned in the "attachments" field of get_part_details and the other get_X_details tools. Only works for attachments whose file is stored internally (see the "private"/hasInternal-like fields on the attachment); for attachments that only reference an external URL, fetch that URL directly instead. The file is rejected if it is larger than 10 MB.',
+            structuredContent: false,
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
             security: 'is_granted("@attachments.list_attachments")',
-            input: ElementByIdInput::class,
             //The processor returns raw MCP content blocks (image/embedded resource) via a CallToolResult, not a
             //normalized representation of the Attachment resource, so no output schema must be advertised (otherwise
             //MCP clients reject the response for declaring a schema but returning no structuredContent).
-            structuredContent: false,
+            input: ElementByIdInput::class,
             validate: true,
             processor: GetAttachmentContentProcessor::class,
         ),

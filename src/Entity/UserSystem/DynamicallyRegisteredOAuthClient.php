@@ -54,7 +54,7 @@ class DynamicallyRegisteredOAuthClient
     #[ORM\JoinColumn(name: 'client_identifier', referencedColumnName: 'identifier', nullable: false, onDelete: 'CASCADE')]
     private Client $client;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, name: 'registered_at')]
+    #[ORM\Column(name: 'registered_at', type: Types::DATETIME_IMMUTABLE)]
     private \DateTimeImmutable $registeredAt;
 
     public function __construct(Client $client)

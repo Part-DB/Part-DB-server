@@ -67,14 +67,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     operations: [
         new Get(
+            openapi: new Operation(summary: 'Get a label profile by ID'),
             normalizationContext: ['groups' => ['label_profile:read', 'simple']],
-            security: "is_granted('read', object)",
-            openapi: new Operation(summary: 'Get a label profile by ID')
+            security: "is_granted('read', object)"
         ),
         new GetCollection(
+            openapi: new Operation(summary: 'List all available label profiles'),
             normalizationContext: ['groups' => ['label_profile:read', 'simple']],
-            security: "is_granted('@labels.create_labels')",
-            openapi: new Operation(summary: 'List all available label profiles')
+            security: "is_granted('@labels.create_labels')"
         ),
     ],
     paginationEnabled: false,
@@ -89,7 +89,7 @@ class LabelProfile extends AttachmentContainingDBElement
     /**
      * @var Collection<int, LabelAttachment>
      */
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: LabelAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: LabelAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $attachments;
 

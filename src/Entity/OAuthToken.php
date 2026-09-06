@@ -34,7 +34,7 @@ use League\OAuth2\Client\Token\AccessTokenInterface;
 #[ORM\Entity]
 #[ORM\Table(name: 'oauth_tokens')]
 #[ORM\UniqueConstraint(name: 'oauth_tokens_unique_name', columns: ['name'])]
-#[ORM\Index(columns: ['name'], name: 'oauth_tokens_name_idx')]
+#[ORM\Index(name: 'oauth_tokens_name_idx', columns: ['name'])]
 class OAuthToken extends AbstractNamedDBElement implements AccessTokenInterface
 {
     /** @var string|null The short-term usable OAuth2 token */

@@ -44,12 +44,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity]
 #[ORM\Table('`groups`')]
-#[ORM\Index(columns: ['name'], name: 'group_idx_name')]
-#[ORM\Index(columns: ['parent_id', 'name'], name: 'group_idx_parent_name')]
+#[ORM\Index(name: 'group_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'group_idx_parent_name', columns: ['parent_id', 'name'])]
 #[NoLockout]
 class Group extends AbstractStructuralDBElement implements HasPermissionsInterface
 {
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
@@ -60,7 +60,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     /**
      * @var Collection<int, User>
      */
-    #[ORM\OneToMany(mappedBy: 'group', targetEntity: User::class)]
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'group')]
     protected Collection $users;
 
     /**
@@ -74,7 +74,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      * @var Collection<int, GroupAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: GroupAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: GroupAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $attachments;
 
@@ -91,7 +91,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      * @var Collection<int, GroupParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: GroupParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: GroupParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     protected Collection $parameters;
 

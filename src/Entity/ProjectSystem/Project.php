@@ -87,10 +87,10 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
             title: 'List/search projects',
             description: 'List all projects, optionally filtered by a keyword matched against the name and comment. Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list. Use get_project_details for a specific project to retrieve its BOM entries, status and other details.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
-            output: StructuralElementOverview::class,
             normalizationContext: ['groups' => ['mcp_structural_overview:read']],
-            input: StructuralElementSearchInput::class,
             security: 'is_granted("@projects.read")',
+            input: StructuralElementSearchInput::class,
+            output: StructuralElementOverview::class,
             processor: ListStructuralElementsProcessor::class,
         ),
         'get_project_details' => new McpTool(
@@ -98,8 +98,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
             description: 'Get detailed information about a specific project by its database ID, including its BOM entries, status, description and associated build part.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
             normalizationContext: ['groups' => ['project:read', 'api:basic:read', 'mcp_project_details:read']],
-            input: ElementByIdInput::class,
             security: 'is_granted("@projects.read")',
+            input: ElementByIdInput::class,
             validate: true,
             processor: GetStructuralElementDetailsProcessor::class,
         ),
@@ -117,7 +117,7 @@ class Project extends AbstractStructuralDBElement
      */
     public const PERFORMANCE_MODE_LIMIT = 99;
 
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
@@ -135,9 +135,9 @@ class Project extends AbstractStructuralDBElement
      */
     #[Assert\Valid(groups: ['project_bom'])]
     #[Groups(['extended', 'full', 'import', 'mcp_project_details:read'])]
-    #[ORM\OneToMany(mappedBy: 'project', targetEntity: ProjectBOMEntry::class, cascade: ['persist', 'remove'], orphanRemoval: true, fetch: 'EXTRA_LAZY')]
-    #[UniqueObjectCollection(message: 'project.bom_entry.part_already_in_bom', fields: ['part'], groups: ['project_bom'])]
-    #[UniqueObjectCollection(message: 'project.bom_entry.name_already_in_bom', fields: ['name'], groups: ['project_bom'])]
+    #[ORM\OneToMany(targetEntity: ProjectBOMEntry::class, mappedBy: 'project', cascade: ['persist', 'remove'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[UniqueObjectCollection(message: 'project.bom_entry.part_already_in_bom', groups: ['project_bom'], fields: ['part'])]
+    #[UniqueObjectCollection(message: 'project.bom_entry.name_already_in_bom', groups: ['project_bom'], fields: ['name'])]
     protected Collection $bom_entries;
 
     #[ORM\Column(type: Types::INTEGER)]
@@ -155,7 +155,7 @@ class Project extends AbstractStructuralDBElement
     /**
      * @var Part|null The (optional) part that represents the builds of this project in the stock
      */
-    #[ORM\OneToOne(mappedBy: 'built_project', targetEntity: Part::class, cascade: ['persist'], orphanRemoval: true)]
+    #[ORM\OneToOne(targetEntity: Part::class, mappedBy: 'built_project', cascade: ['persist'], orphanRemoval: true)]
     #[Groups(['project:read', 'project:write'])]
     protected ?Part $build_part = null;
 
@@ -169,7 +169,7 @@ class Project extends AbstractStructuralDBElement
     /**
      * @var Collection<int, ProjectAttachment>
      */
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: ProjectAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: ProjectAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => Criteria::ASC])]
     #[Groups(['project:read', 'project:write'])]
     protected Collection $attachments;
@@ -181,7 +181,7 @@ class Project extends AbstractStructuralDBElement
 
     /** @var Collection<int, ProjectParameter>
      */
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: ProjectParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: ProjectParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[Groups(['project:read', 'project:write'])]
     protected Collection $parameters;

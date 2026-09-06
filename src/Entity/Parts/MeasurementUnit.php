@@ -69,8 +69,8 @@ use Symfony\Component\Validator\Constraints\Length;
 #[UniqueEntity('unit')]
 #[ORM\Entity(repositoryClass: MeasurementUnitRepository::class)]
 #[ORM\Table(name: '`measurement_units`')]
-#[ORM\Index(columns: ['name'], name: 'unit_idx_name')]
-#[ORM\Index(columns: ['parent_id', 'name'], name: 'unit_idx_parent_name')]
+#[ORM\Index(name: 'unit_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'unit_idx_parent_name', columns: ['parent_id', 'name'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -92,10 +92,10 @@ use Symfony\Component\Validator\Constraints\Length;
             title: 'List/search measurement units',
             description: 'List all measurement units, optionally filtered by a keyword matched against the name and comment. Measurement units describe how the amount of a part is measured (e.g. pieces, meters, grams). Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
-            output: StructuralElementOverview::class,
             normalizationContext: ['groups' => ['mcp_structural_overview:read']],
-            input: StructuralElementSearchInput::class,
             security: 'is_granted("@measurement_units.read")',
+            input: StructuralElementSearchInput::class,
+            output: StructuralElementOverview::class,
             processor: ListStructuralElementsProcessor::class,
         ),
         'get_measurement_unit_details' => new McpTool(
@@ -103,8 +103,8 @@ use Symfony\Component\Validator\Constraints\Length;
             description: 'Get detailed information about a specific measurement unit by its database ID.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
             normalizationContext: ['groups' => ['measurement_unit:read', 'api:basic:read']],
-            input: ElementByIdInput::class,
             security: 'is_granted("@measurement_units.read")',
+            input: ElementByIdInput::class,
             validate: true,
             processor: GetStructuralElementDetailsProcessor::class,
         ),
@@ -145,7 +145,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     #[ORM\Column(name: 'use_si_prefix', type: Types::BOOLEAN)]
     protected bool $use_si_prefix = false;
 
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist'])]
     #[ORM\OrderBy(['name' => Criteria::ASC])]
     protected Collection $children;
 
@@ -159,7 +159,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      * @var Collection<int, MeasurementUnitAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: MeasurementUnitAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: MeasurementUnitAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => Criteria::ASC])]
     #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     protected Collection $attachments;
@@ -172,7 +172,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     /** @var Collection<int, MeasurementUnitParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: MeasurementUnitParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: MeasurementUnitParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
     #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     protected Collection $parameters;

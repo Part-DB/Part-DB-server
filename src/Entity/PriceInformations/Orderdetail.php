@@ -63,7 +63,7 @@ use Symfony\Component\Validator\Constraints\Length;
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Table('`orderdetails`')]
-#[ORM\Index(columns: ['supplierpartnr'], name: 'orderdetails_supplier_part_nr')]
+#[ORM\Index(name: 'orderdetails_supplier_part_nr', columns: ['supplierpartnr'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -74,8 +74,8 @@ use Symfony\Component\Validator\Constraints\Length;
         new GetCollection(
             uriTemplate: '/parts/{id}/orderdetails.{_format}',
             uriVariables: ['id' => new Link(toProperty: 'part', fromClass: Part::class)],
-            normalizationContext: ['groups' => ['orderdetail:read', 'pricedetail:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
             openapi: new Operation(summary: 'Retrieves the orderdetails of a part.'),
+            normalizationContext: ['groups' => ['orderdetail:read', 'pricedetail:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
             security: 'is_granted("@parts.read")'
         ),
     ],
@@ -97,7 +97,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
-    #[ORM\OneToMany(mappedBy: 'orderdetail', targetEntity: Pricedetail::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Pricedetail::class, mappedBy: 'orderdetail', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['min_discount_quantity' => Criteria::ASC])]
     protected Collection $pricedetails;
 

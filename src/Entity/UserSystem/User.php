@@ -80,7 +80,7 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
 #[ORM\Table('`users`')]
-#[ORM\Index(columns: ['name'], name: 'user_idx_username')]
+#[ORM\Index(name: 'user_idx_username', columns: ['name'])]
 #[ORM\AttributeOverrides([
     new ORM\AttributeOverride(name: 'name', column: new ORM\Column(type: Types::STRING, length: 180, unique: true))
 ])]
@@ -269,7 +269,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var Collection<int, UserAttachment>
      */
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: UserAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: UserAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => Criteria::ASC])]
     #[Groups(['user:read', 'user:write'])]
     protected Collection $attachments;
@@ -287,19 +287,19 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /** @var Collection<int, LegacyU2FKeyInterface>
      */
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: U2FKey::class, cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: U2FKey::class, mappedBy: 'user', cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     protected Collection $u2fKeys;
 
     /**
      * @var Collection<int, WebauthnKey>
      */
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: WebauthnKey::class, cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: WebauthnKey::class, mappedBy: 'user', cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     protected Collection $webauthn_keys;
 
     /**
      * @var Collection<int, ApiToken>
      */
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ApiToken::class, cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: ApiToken::class, mappedBy: 'user', cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $api_tokens;
 
     /**

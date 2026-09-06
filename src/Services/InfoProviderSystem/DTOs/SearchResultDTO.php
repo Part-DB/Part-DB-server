@@ -40,11 +40,11 @@ use App\State\Mcp\SearchInfoProvidersProcessor;
     operations: [
         new Post(
             uriTemplate: '/info_providers/search',
+            openapi: new Operation(summary: 'Search external info providers (e.g. distributors like Digikey, Mouser, LCSC) for parts matching a keyword.'),
             security: 'is_granted("@info_providers.create_parts")',
             input: InfoProviderSearchInput::class,
             validate: true,
             processor: SearchInfoProvidersProcessor::class,
-            openapi: new Operation(summary: 'Search external info providers (e.g. distributors like Digikey, Mouser, LCSC) for parts matching a keyword.'),
         ),
     ],
     mcp: [
@@ -52,8 +52,8 @@ use App\State\Mcp\SearchInfoProvidersProcessor;
             title: 'Search external info providers',
             description: 'Search external info providers (e.g. distributors like Digikey, Mouser, LCSC) for parts matching a keyword. Returns a list of search results, which can be passed to get_info_provider_part_details to retrieve full details for a specific result.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => true],
-            input: InfoProviderSearchInput::class,
             security: 'is_granted("@info_providers.create_parts")',
+            input: InfoProviderSearchInput::class,
             validate: true,
             processor: SearchInfoProvidersProcessor::class,
         ),
