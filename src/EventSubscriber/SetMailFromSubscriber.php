@@ -31,11 +31,11 @@ use Symfony\Component\Mime\Email;
 /**
  * This subscriber set the "From" field for all sent email, based on the global configured sender name and email.
  */
-final class SetMailFromSubscriber implements EventSubscriberInterface
+final readonly class SetMailFromSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        #[Autowire(param: 'partdb.mail.sender_email')] private readonly string $email,
-        #[Autowire(param: 'partdb.mail.sender_name')] private readonly string $name,
+        #[Autowire(param: 'partdb.mail.sender_email')] private string $email,
+        #[Autowire(param: 'partdb.mail.sender_name')] private string $name,
     )
     {
     }

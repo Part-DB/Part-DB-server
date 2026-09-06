@@ -31,10 +31,10 @@ use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-class SwitchUserEventSubscriber implements EventSubscriberInterface
+readonly class SwitchUserEventSubscriber implements EventSubscriberInterface
 {
 
-    public function __construct(private readonly EventDispatcherInterface $eventDispatcher)
+    public function __construct(private EventDispatcherInterface $eventDispatcher)
     {
     }
 

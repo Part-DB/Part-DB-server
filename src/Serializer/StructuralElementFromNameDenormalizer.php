@@ -30,9 +30,9 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 /**
  * @see \App\Tests\Serializer\StructuralElementFromNameDenormalizerTest
  */
-class StructuralElementFromNameDenormalizer implements DenormalizerInterface
+readonly class StructuralElementFromNameDenormalizer implements DenormalizerInterface
 {
-    public function __construct(private readonly EntityManagerInterface $em)
+    public function __construct(private EntityManagerInterface $em)
     {
     }
 

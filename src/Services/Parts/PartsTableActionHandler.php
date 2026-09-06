@@ -38,9 +38,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use function Symfony\Component\Translation\t;
 
-final class PartsTableActionHandler
+final readonly class PartsTableActionHandler
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly Security $security, private readonly UrlGeneratorInterface $urlGenerator)
+    public function __construct(private EntityManagerInterface $entityManager, private Security $security, private UrlGeneratorInterface $urlGenerator)
     {
     }
 

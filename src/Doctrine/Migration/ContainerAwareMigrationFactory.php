@@ -31,14 +31,14 @@ use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Psr\Container\ContainerInterface;
 
 #[AsDecorator("doctrine.migrations.migrations_factory")]
-class ContainerAwareMigrationFactory implements MigrationFactory
+readonly class ContainerAwareMigrationFactory implements MigrationFactory
 {
-    public function __construct(private readonly MigrationFactory $decorated,
+    public function __construct(private MigrationFactory $decorated,
         //List all services that should be available in migrations here
         #[AutowireLocator([
             PermissionPresetsHelper::class
         ])]
-        private readonly ContainerInterface $container)
+        private ContainerInterface $container)
     {
     }
 

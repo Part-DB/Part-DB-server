@@ -33,11 +33,11 @@ use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[AsDecorator('api_platform.openapi.factory')]
-class OpenApiFactoryDecorator implements OpenApiFactoryInterface
+readonly class OpenApiFactoryDecorator implements OpenApiFactoryInterface
 {
     public function __construct(
-        private readonly OpenApiFactoryInterface $decorated,
-        private readonly UrlGeneratorInterface $urlGenerator,
+        private OpenApiFactoryInterface $decorated,
+        private UrlGeneratorInterface $urlGenerator,
     ) {
     }
 

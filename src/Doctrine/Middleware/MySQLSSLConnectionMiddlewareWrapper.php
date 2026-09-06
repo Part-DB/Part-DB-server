@@ -27,13 +27,13 @@ use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\Driver\Middleware;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
-class MySQLSSLConnectionMiddlewareWrapper implements Middleware
+readonly class MySQLSSLConnectionMiddlewareWrapper implements Middleware
 {
     public function __construct(
         #[Autowire(env: 'bool:DATABASE_MYSQL_USE_SSL_CA')]
-        private readonly bool $enabled,
+        private bool $enabled,
         #[Autowire(env: 'bool:DATABASE_MYSQL_SSL_VERIFY_CERT')]
-        private readonly bool $verify = true,
+        private bool $verify = true,
     )
     {
     }

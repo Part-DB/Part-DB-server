@@ -17,9 +17,9 @@ use Doctrine\ORM\EntityManagerInterface;
  * DTO and the local part match. This checks also for alternative names of the manufacturer and the part name (as alternative
  * for the MPN).
  */
-final class ExistingPartFinder
+final readonly class ExistingPartFinder
 {
-    public function __construct(private readonly EntityManagerInterface $em)
+    public function __construct(private EntityManagerInterface $em)
     {
 
     }

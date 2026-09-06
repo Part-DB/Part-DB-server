@@ -50,13 +50,13 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
-final class LabelProfileDropdownHelper
+final readonly class LabelProfileDropdownHelper
 {
     public function __construct(
-        private readonly TagAwareCacheInterface $cache,
-        private readonly EntityManagerInterface $entityManager,
-        private readonly UserCacheKeyGenerator $keyGenerator,
-        private readonly ElementCacheTagGenerator $tagGenerator,
+        private TagAwareCacheInterface $cache,
+        private EntityManagerInterface $entityManager,
+        private UserCacheKeyGenerator $keyGenerator,
+        private ElementCacheTagGenerator $tagGenerator,
     ) {
     }
 
@@ -74,7 +74,7 @@ final class LabelProfileDropdownHelper
 
         $secure_class_name = $this->tagGenerator->getElementTypeCacheTag(LabelProfile::class);
         $key = 'profile_dropdown_'.$this->keyGenerator->generateKey().'_'.$secure_class_name.'_'.$type->value;
-        
+
         $repo = $this->entityManager->getRepository(LabelProfile::class);
 
         return $this->cache->get($key, function (ItemInterface $item) use ($repo, $type, $secure_class_name) {

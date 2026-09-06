@@ -33,9 +33,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @see \App\Tests\Security\EnsureSAMLUserForSAMLLoginCheckerTest
  */
-class EnsureSAMLUserForSAMLLoginChecker implements EventSubscriberInterface
+readonly class EnsureSAMLUserForSAMLLoginChecker implements EventSubscriberInterface
 {
-    public function __construct(private readonly TranslatorInterface $translator)
+    public function __construct(private TranslatorInterface $translator)
     {
     }
 

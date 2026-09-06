@@ -51,9 +51,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 /**
  * Write to event log when a user tries to access a forbidden page and receives an 403 Access Denied message.
  */
-class LogAccessDeniedSubscriber implements EventSubscriberInterface
+readonly class LogAccessDeniedSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly EventLogger $logger)
+    public function __construct(private EventLogger $logger)
     {
     }
 

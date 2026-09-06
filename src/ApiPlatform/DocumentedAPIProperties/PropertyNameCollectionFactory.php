@@ -33,9 +33,9 @@ use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
  * which then get picked up by the openapi schema generator
  */
 #[AsDecorator('api_platform.metadata.property.name_collection_factory')]
-class PropertyNameCollectionFactory implements PropertyNameCollectionFactoryInterface
+readonly class PropertyNameCollectionFactory implements PropertyNameCollectionFactoryInterface
 {
-    public function __construct(private readonly PropertyNameCollectionFactoryInterface $decorated)
+    public function __construct(private PropertyNameCollectionFactoryInterface $decorated)
     {
     }
 

@@ -29,10 +29,10 @@ use App\Mcp\DTO\InfoProviderPartDetailsInput;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-class GetInfoProviderPartDetailsProcessor implements ProcessorInterface
+readonly class GetInfoProviderPartDetailsProcessor implements ProcessorInterface
 {
     public function __construct(
-        private readonly PartInfoRetriever $infoRetriever,
+        private PartInfoRetriever $infoRetriever,
     ) {
     }
 
