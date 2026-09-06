@@ -247,5 +247,29 @@
         <target>Duplikuj</target>
       </segment>
     </unit>
+    <unit id="zT_j_oQ" name="validator.invalid_gtin">
+      <segment state="translated">
+        <source>validator.invalid_gtin</source>
+        <target>To nie jest prawidłowy GTIN / EAN!</target>
+      </segment>
+    </unit>
+    <unit id="vnpejmb" name="info_providers.validation.provider_id_without_key">
+      <segment state="translated">
+        <source>info_providers.validation.provider_id_without_key</source>
+        <target>Jeśli wprowadzisz ID dostawcy, musisz również wprowadzić dostawcę informacji lub usunąć obie wartości.</target>
+      </segment>
+    </unit>
+    <unit id="yFlA5OA" name="info_providers.validation.provider_url_without_key">
+      <segment state="translated">
+        <source>info_providers.validation.provider_url_without_key</source>
+        <target>Jeśli wprowadzisz URL dostawcy, musisz również wprowadzić dostawcę informacji.</target>
+      </segment>
+    </unit>
+    <unit id="gUHUXoV" name="info_providers.validation.provider_key_without_id">
+      <segment state="translated">
+        <source>info_providers.validation.provider_key_without_id</source>
+        <target>Jeśli wprowadzisz dostawcę informacji, musisz również wprowadzić ID dostawcy lub usunąć obie wartości.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
