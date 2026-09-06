@@ -276,7 +276,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
 
             if (count($parameter['values']) > 1) {
                 //Concatenate all values with a comma, if there are multiple values for the same parameter
-                $value = implode(', ', array_map(fn($v) => $v['value'], $parameter['values']));
+                $value = implode(', ', array_map(static fn($v) => $v['value'], $parameter['values']));
                 $result[] = new ParameterDTO(
                     name: $parameter['name'],
                     value_text: $value,

@@ -326,7 +326,7 @@ final class BulkInfoProviderService
     private function formatSearchResults(array $bulkResults): array
     {
         // Sort by priority and remove duplicates
-        usort($bulkResults, fn($a, $b) => $a->priority <=> $b->priority);
+        usort($bulkResults, static fn($a, $b) => $a->priority <=> $b->priority);
 
         $uniqueResults = [];
         $seenKeys = [];

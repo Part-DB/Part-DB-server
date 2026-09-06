@@ -206,7 +206,7 @@ class InfoProviderController extends  AbstractController
             // modify the array to an array of arrays that has a field for a matching local Part
             // the advantage to use that format even when we don't look for local parts is that we
             // always work with the same interface
-            $results = array_map(function ($result) {return ['dto' => $result, 'localPart' => null];}, $dtos);
+            $results = array_map(static function ($result) {return ['dto' => $result, 'localPart' => null];}, $dtos);
             if(!$update_target) {
                 foreach ($results as $index => $result) {
                     $results[$index]['localPart'] = $this->existingPartFinder->findFirstExisting($result['dto']);

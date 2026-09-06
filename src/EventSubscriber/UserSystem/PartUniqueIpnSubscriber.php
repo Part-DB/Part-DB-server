@@ -12,10 +12,10 @@ use Doctrine\ORM\Events;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 
 #[AsDoctrineListener(event: Events::onFlush, connection: 'default')]
-class PartUniqueIpnSubscriber implements EventSubscriber
+readonly class PartUniqueIpnSubscriber implements EventSubscriber
 {
     public function __construct(
-        private readonly IpnSuggestSettings $ipnSuggestSettings
+        private IpnSuggestSettings $ipnSuggestSettings
     ) {
     }
 
@@ -40,7 +40,7 @@ class PartUniqueIpnSubscriber implements EventSubscriber
         $reservedIpns = [];
 
         // Helper to assign a collision-free IPN for a Part entity
-        $ensureUnique = function (Part $part) use ($em, $uow, $meta, &$reservedIpns) {
+        $ensureUnique = static function (Part $part) use ($em, $uow, $meta, &$reservedIpns) {
             $ipn = $part->getIpn();
             if ($ipn === null || $ipn === '') {
                 return;
@@ -51,7 +51,7 @@ class PartUniqueIpnSubscriber implements EventSubscriber
             $candidate = $originalIpn;
             $increment = 1;
 
-            $conflicts = function (string $candidate) use ($em, $part, $reservedIpns) {
+            $conflicts = static function (string $candidate) use ($em, $part, $reservedIpns) {
                 // Collision within the current flush session?
                 if (isset($reservedIpns[$candidate]) && $reservedIpns[$candidate] !== $part) {
                     return true;

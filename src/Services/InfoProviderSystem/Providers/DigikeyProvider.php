@@ -234,7 +234,7 @@ class DigikeyProvider implements InfoProviderInterface
 
         if ($sub_category) {
             //Replace the  ' - ' category separator with ' -> '
-            $category = $category . ' -> ' . str_replace(' - ', ' -> ', $sub_category["Name"]);
+            $category .= ' -> '.str_replace(' - ', ' -> ', $sub_category["Name"]);
         }
 
         return $category;

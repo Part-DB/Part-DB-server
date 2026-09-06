@@ -97,7 +97,7 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess, \IteratorAggregate
      */
     public function getPartsWithResults(): array
     {
-        return array_filter($this->partResults, fn($result) => $result->hasResults());
+        return array_filter($this->partResults, static fn($result) => $result->hasResults());
     }
 
     /**
@@ -106,7 +106,7 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess, \IteratorAggregate
      */
     public function getPartsWithErrors(): array
     {
-        return array_filter($this->partResults, fn($result) => $result->hasErrors());
+        return array_filter($this->partResults, static fn($result) => $result->hasErrors());
     }
 
     /**
@@ -185,7 +185,7 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess, \IteratorAggregate
         foreach ($data as $partData) {
             $partResults[] = new BulkSearchPartResultsDTO(
                 part: $entityManager->getReference(Part::class, $partData['part_id']),
-                searchResults: array_map(fn($result) => new BulkSearchPartResultDTO(
+                searchResults: array_map(static fn($result) => new BulkSearchPartResultDTO(
                     searchResult: SearchResultDTO::fromNormalizedSearchResultArray($result['dto']),
                     sourceField: $result['source_field'] ?? null,
                     sourceKeyword: $result['source_keyword'] ?? null,

@@ -156,7 +156,7 @@ readonly class BOMValidationService
         $mountnames = array_map('trim', explode(',', $designator));
 
         // Remove empty entries
-        $mountnames = array_filter($mountnames, fn($name) => !empty($name));
+        $mountnames = array_filter($mountnames, static fn($name) => !empty($name));
 
         if (empty($mountnames)) {
             $result['errors'][] = $this->translator->trans('project.bom_import.validation.errors.no_valid_designators', [
@@ -229,7 +229,7 @@ readonly class BOMValidationService
         if (isset($entry['Designator'])) {
             $designator = trim($entry['Designator']);
             $mountnames = array_map('trim', explode(',', $designator));
-            $mountnames = array_filter($mountnames, fn($name) => !empty($name));
+            $mountnames = array_filter($mountnames, static fn($name) => !empty($name));
 
             if (count($mountnames) > 0 && $quantity != (int) $quantity) {
                 $result['warnings'][] = $this->translator->trans('project.bom_import.validation.warnings.quantity_not_whole_number', [
@@ -246,7 +246,7 @@ readonly class BOMValidationService
      */
     private function validateDesignatorQuantityMatch(array $entry, array &$result): void
     {
-        if (!isset($entry['Designator']) || !isset($entry['Quantity'])) {
+        if (!isset($entry['Designator'], $entry['Quantity'])) {
             return; // Already handled by required fields validation
         }
 
@@ -258,7 +258,7 @@ readonly class BOMValidationService
         }
 
         $mountnames = array_map('trim', explode(',', $designator));
-        $mountnames = array_filter($mountnames, fn($name) => !empty($name));
+        $mountnames = array_filter($mountnames, static fn($name) => !empty($name));
         $mountnames_count = count($mountnames);
         $quantity = (float) $quantity_str;
 
