@@ -157,7 +157,7 @@ class DigikeyProvider implements InfoProviderInterface
     public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         try {
-            $response = $this->digikeyClient->request('GET', '/products/v4/search/' . urlencode($id) . '/productdetails', [
+            $response = $this->digikeyClient->request('GET', '/products/v4/search/' . rawurlencode($id) . '/productdetails', [
                 'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
             ]);
         } catch (\InvalidArgumentException $exception) {
@@ -302,7 +302,7 @@ class DigikeyProvider implements InfoProviderInterface
         $datasheets = [];
         $images = [];
 
-        $response = $this->digikeyClient->request('GET', '/products/v4/search/' . $id . '/media', [
+        $response = $this->digikeyClient->request('GET', '/products/v4/search/' . rawurlencode($id) . '/media', [
             'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
         ]);
 
