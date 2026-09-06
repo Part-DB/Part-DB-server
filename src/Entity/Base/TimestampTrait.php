@@ -26,7 +26,7 @@ use ApiPlatform\Metadata\ApiProperty;
 use Doctrine\DBAL\Types\Types;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 /**
  * A entity with these trait contains informations about, when it was created and edited last time.

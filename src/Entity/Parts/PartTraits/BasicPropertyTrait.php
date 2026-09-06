@@ -27,7 +27,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 trait BasicPropertyTrait

@@ -42,7 +42,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Length;
 

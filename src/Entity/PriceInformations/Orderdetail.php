@@ -39,6 +39,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
+use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
@@ -51,8 +52,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Length;
 
@@ -98,7 +98,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
     #[ORM\OneToMany(targetEntity: Pricedetail::class, mappedBy: 'orderdetail', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['min_discount_quantity' => Criteria::ASC])]
+    #[ORM\OrderBy(['min_discount_quantity' => 'ASC'])]
     protected Collection $pricedetails;
 
     /**

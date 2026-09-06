@@ -61,8 +61,9 @@ use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Base\AbstractCompany;
 use App\Entity\Parameters\ManufacturerParameter;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -158,7 +159,7 @@ class Manufacturer extends AbstractCompany
     protected ?AbstractStructuralDBElement $parent = null;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     /**
@@ -166,7 +167,7 @@ class Manufacturer extends AbstractCompany
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: ManufacturerAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['manufacturer:read', 'manufacturer:write'])]
     #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $attachments;
@@ -181,7 +182,7 @@ class Manufacturer extends AbstractCompany
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: ManufacturerParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['manufacturer:read', 'manufacturer:write'])]
     #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $parameters;

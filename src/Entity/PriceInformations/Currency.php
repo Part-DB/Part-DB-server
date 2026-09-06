@@ -40,6 +40,7 @@ use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
 use App\Repository\CurrencyRepository;
+use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\CurrencyAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -51,7 +52,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -112,7 +113,7 @@ class Currency extends AbstractStructuralDBElement
     protected string $iso_code = "";
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist'])]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -126,7 +127,7 @@ class Currency extends AbstractStructuralDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: CurrencyAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['currency:read', 'currency:write'])]
     protected Collection $attachments;
 
@@ -139,7 +140,7 @@ class Currency extends AbstractStructuralDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: CurrencyParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['currency:read', 'currency:write'])]
     protected Collection $parameters;
 

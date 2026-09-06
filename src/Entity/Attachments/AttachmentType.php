@@ -39,6 +39,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Repository\StructuralDBElementRepository;
+use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\AttachmentTypeParameter;
@@ -46,7 +47,7 @@ use App\Validator\Constraints\ValidFileFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -82,7 +83,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class AttachmentType extends AbstractStructuralDBElement
 {
     #[ORM\OneToMany(targetEntity: AttachmentType::class, mappedBy: 'parent', cascade: ['persist'])]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'children')]
@@ -106,7 +107,7 @@ class AttachmentType extends AbstractStructuralDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: AttachmentTypeAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['attachment_type:read', 'attachment_type:write', 'import', 'full'])]
     protected Collection $attachments;
 
@@ -119,7 +120,7 @@ class AttachmentType extends AbstractStructuralDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: AttachmentTypeParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['attachment_type:read', 'attachment_type:write', 'import', 'full'])]
     protected Collection $parameters;
 

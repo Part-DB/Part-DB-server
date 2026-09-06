@@ -62,8 +62,9 @@ use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Parameters\FootprintParameter;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -159,7 +160,7 @@ class Footprint extends AbstractPartsContainingDBElement
     protected ?AbstractStructuralDBElement $parent = null;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[Groups(['footprint:read', 'footprint:write', "import"])]
@@ -170,7 +171,7 @@ class Footprint extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: FootprintAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['footprint:read', 'footprint:write'])]
     protected Collection $attachments;
 
@@ -191,7 +192,7 @@ class Footprint extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: FootprintParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['footprint:read', 'footprint:write'])]
     protected Collection $parameters;
 

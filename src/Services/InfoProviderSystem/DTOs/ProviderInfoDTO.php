@@ -29,7 +29,7 @@ use ApiPlatform\OpenApi\Model\Operation;
 use App\Mcp\DTO\ListInfoProvidersInput;
 use App\Services\InfoProviderSystem\Providers\ProviderCapabilities;
 use App\State\Mcp\ListInfoProvidersProcessor;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 /**
  * Immutable, structured description of an info provider, returned by InfoProviderInterface::getProviderInfo()

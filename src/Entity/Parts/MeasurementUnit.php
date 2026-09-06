@@ -47,6 +47,7 @@ use App\Mcp\DTO\StructuralElementSearchInput;
 use App\Repository\Parts\MeasurementUnitRepository;
 use App\State\Mcp\GetStructuralElementDetailsProcessor;
 use App\State\Mcp\ListStructuralElementsProcessor;
+use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -56,7 +57,7 @@ use App\Entity\Parameters\MeasurementUnitParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Length;
 
@@ -146,7 +147,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     protected bool $use_si_prefix = false;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist'])]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -160,7 +161,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: MeasurementUnitAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     protected Collection $attachments;
 
@@ -173,7 +174,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: MeasurementUnitParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     protected Collection $parameters;
 

@@ -84,8 +84,9 @@ use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -279,7 +280,7 @@ class Part extends AttachmentContainingDBElement
     #[Assert\Valid]
     #[Groups(['full', 'part:read', 'part:write', 'import'])]
     #[ORM\OneToMany(targetEntity: PartParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[UniqueObjectCollection(fields: ['name', 'group', 'element'])]
     protected Collection $parameters;
 
@@ -300,7 +301,7 @@ class Part extends AttachmentContainingDBElement
     #[Assert\Valid]
     #[Groups(['full', 'part:read', 'part:write'])]
     #[ORM\OneToMany(targetEntity: PartAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /**

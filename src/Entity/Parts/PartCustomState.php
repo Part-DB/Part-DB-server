@@ -51,8 +51,9 @@ use App\State\Mcp\ListStructuralElementsProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -110,7 +111,7 @@ class PartCustomState extends AbstractPartsContainingDBElement
     protected string $comment = '';
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist'])]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -124,7 +125,7 @@ class PartCustomState extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: PartCustomStateAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['part_custom_state:read', 'part_custom_state:write'])]
     protected Collection $attachments;
 

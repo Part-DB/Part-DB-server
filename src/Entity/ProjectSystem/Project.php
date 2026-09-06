@@ -46,6 +46,7 @@ use App\Repository\Parts\DeviceRepository;
 use App\State\Mcp\GetStructuralElementDetailsProcessor;
 use App\State\Mcp\ListStructuralElementsProcessor;
 use App\Validator\Constraints\UniqueObjectCollection;
+use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -55,7 +56,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -118,7 +119,7 @@ class Project extends AbstractStructuralDBElement
     public const PERFORMANCE_MODE_LIMIT = 99;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -170,7 +171,7 @@ class Project extends AbstractStructuralDBElement
      * @var Collection<int, ProjectAttachment>
      */
     #[ORM\OneToMany(targetEntity: ProjectAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['project:read', 'project:write'])]
     protected Collection $attachments;
 
@@ -182,7 +183,7 @@ class Project extends AbstractStructuralDBElement
     /** @var Collection<int, ProjectParameter>
      */
     #[ORM\OneToMany(targetEntity: ProjectParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['project:read', 'project:write'])]
     protected Collection $parameters;
 

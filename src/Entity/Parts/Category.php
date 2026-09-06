@@ -56,6 +56,7 @@ use App\State\Mcp\GetStructuralElementDetailsProcessor;
 use App\State\Mcp\ListStructuralElementsProcessor;
 use App\State\Mcp\UpdateStructuralElementInputProvider;
 use App\State\Mcp\UpdateStructuralElementProcessor;
+use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\CategoryAttachment;
@@ -64,7 +65,7 @@ use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\CategoryParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -154,7 +155,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Category extends AbstractPartsContainingDBElement
 {
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -248,7 +249,7 @@ class Category extends AbstractPartsContainingDBElement
     #[Assert\Valid]
     #[Groups(['full', 'category:read', 'category:write'])]
     #[ORM\OneToMany(targetEntity: CategoryParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     #[Groups(['category:read'])]

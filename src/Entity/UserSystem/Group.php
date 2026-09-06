@@ -25,6 +25,7 @@ namespace App\Entity\UserSystem;
 use Doctrine\Common\Collections\Criteria;
 use App\Entity\Attachments\Attachment;
 use App\Validator\Constraints\NoLockout;
+use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\GroupAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -34,7 +35,7 @@ use App\Validator\Constraints\ValidPermission;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -50,7 +51,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Group extends AbstractStructuralDBElement implements HasPermissionsInterface
 {
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -75,7 +76,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: GroupAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: GroupAttachment::class)]
@@ -92,7 +93,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: GroupParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     protected Collection $parameters;
 
     public function __construct()

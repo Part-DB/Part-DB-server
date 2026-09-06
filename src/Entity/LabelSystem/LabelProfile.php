@@ -51,6 +51,7 @@ use Doctrine\Common\Collections\Criteria;
 use App\Entity\Attachments\Attachment;
 use App\Repository\LabelProfileRepository;
 use App\EntityListeners\TreeCacheInvalidationListener;
+use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\AttachmentContainingDBElement;
@@ -90,7 +91,7 @@ class LabelProfile extends AttachmentContainingDBElement
      * @var Collection<int, LabelAttachment>
      */
     #[ORM\OneToMany(targetEntity: LabelAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: LabelAttachment::class)]

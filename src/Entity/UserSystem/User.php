@@ -38,6 +38,7 @@ use App\Entity\Attachments\Attachment;
 use App\Repository\UserRepository;
 use App\EntityListeners\TreeCacheInvalidationListener;
 use App\Validator\Constraints\NoLockout;
+use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\UserAttachment;
@@ -50,7 +51,7 @@ use App\Validator\Constraints\ValidTheme;
 use Jbtronics\TFAWebauthn\Model\LegacyU2FKeyInterface;
 use Nbgrp\OneloginSamlBundle\Security\User\SamlUserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\Length;
 use Webauthn\PublicKeyCredentialUserEntity;
 use function count;
@@ -270,7 +271,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var Collection<int, UserAttachment>
      */
     #[ORM\OneToMany(targetEntity: UserAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['user:read', 'user:write'])]
     protected Collection $attachments;
 

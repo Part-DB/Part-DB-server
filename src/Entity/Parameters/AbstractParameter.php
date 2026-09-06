@@ -60,8 +60,8 @@ use App\Entity\Base\AbstractNamedDBElement;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use LogicException;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Serializer\Attribute\DiscriminatorMap;
 use Symfony\Component\Validator\Constraints as Assert;
 

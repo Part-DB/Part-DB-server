@@ -66,8 +66,9 @@ use App\Validator\Constraints\BigDecimal\BigDecimalPositiveOrZero;
 use App\Validator\Constraints\Selectable;
 use Brick\Math\BigDecimal;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -157,7 +158,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Supplier extends AbstractCompany
 {
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -194,7 +195,7 @@ class Supplier extends AbstractCompany
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: SupplierAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['supplier:read', 'supplier:write'])]
     #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $attachments;
@@ -209,7 +210,7 @@ class Supplier extends AbstractCompany
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: SupplierParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['supplier:read', 'supplier:write'])]
     #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $parameters;
