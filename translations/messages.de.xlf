@@ -13815,7 +13815,7 @@ Buerklin-API-Authentication-Server:
     <unit id="_nxvnMn" name="search.regexmatching.help">
       <segment state="translated">
         <source>search.regexmatching.help</source>
-        <target>Verwenden Sie reguläre Ausdrücke wie "^\w{3,5}", um nach Teilen zu suchen. Umschließende Schrägstriche sind nicht erforderlich.</target>
+        <target>Verwenden Sie reguläre Ausdrücke (ohne Mustertrennzeichen) wie %regex%, um nach Teilen zu suchen.</target>
       </segment>
     </unit>
     <unit id="mry8ytG" name="search.extensive_matching.help">
