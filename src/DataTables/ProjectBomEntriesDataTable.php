@@ -29,6 +29,7 @@ use App\DataTables\Column\HTMLColumn;
 use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
+use App\DataTables\Column\TagsColumn;
 use App\DataTables\Helpers\PartDataTableHelper;
 use App\Doctrine\Helpers\FieldHelper;
 use App\Entity\Parts\ManufacturingStatus;
@@ -106,7 +107,7 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ])
             ->add('partId', TextColumn::class, [
                 'label' => $this->translator->trans('project.bom.part_id'),
-                'visible' => true,
+                'visible' => false,
                 'orderField' => 'part.id',
                 'data' => function (ProjectBOMEntry $context) {
                     return $context->getPart() instanceof Part ? (string) $context->getPart()->getId() : '';
@@ -154,6 +155,7 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ])
             ->add('footprint', EntityColumn::class, [
                 'property' => 'part.footprint',
+                'visible' => false,
                 'label' => $this->translator->trans('part.table.footprint'),
                 'orderField' => 'NATSORT(footprint.name)'
             ])
@@ -162,6 +164,39 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
                 'property' => 'part.manufacturer',
                 'label' => $this->translator->trans('part.table.manufacturer'),
                 'orderField' => 'NATSORT(manufacturer.name)'
+            ])
+            ->add('supplier', HTMLColumn::class, [
+                'label' => $this->translator->trans('supplier.label'),
+                'visible' => true,
+                // Use an aggregate because a part can have multiple supplier orderdetails.
+                'orderField' => 'NATSORT(MIN(_suppliers.name))',
+                'data' => function (ProjectBOMEntry $context): string {
+                    if (!$context->getPart() instanceof Part) {
+                        return '';
+                    }
+
+                    $supplierLinks = [];
+                    foreach ($context->getPart()->getOrderdetails(true) as $orderdetail) {
+                        $supplier = $orderdetail->getSupplier();
+                        $supplierName = trim((string) $supplier->getName());
+                        if ($supplierName === '') {
+                            continue;
+                        }
+
+                        $supplierId = $supplier->getId();
+                        if (isset($supplierLinks[$supplierId])) {
+                            continue;
+                        }
+
+                        $supplierLinks[$supplierId] = sprintf(
+                            '<a href="%s">%s</a>',
+                            htmlspecialchars($this->entityURLGenerator->listPartsURL($supplier)),
+                            htmlspecialchars($supplierName)
+                        );
+                    }
+
+                    return implode(', ', $supplierLinks);
+                },
             ])
 
             ->add('manufacturing_status', EnumColumn::class, [
@@ -177,9 +212,14 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
                     return $this->translator->trans($status->toTranslationKey());
                 },
             ])
+            ->add('tags', TagsColumn::class, [
+                'label' => $this->translator->trans('part.table.tags'),
+                'data' => static fn (ProjectBOMEntry $context): string => $context->getPart()?->getTags() ?? '',
+            ])
 
             ->add('mountnames', HTMLColumn::class, [
                 'label' => 'project.bom.mountnames',
+                'visible' => false,
                 'data' => function (ProjectBOMEntry $context) {
                     $html = '';
 
@@ -192,13 +232,37 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
 
             ->add('instockAmount', HTMLColumn::class, [
                 'label' => 'project.bom.instockAmount',
-                'visible' => false,
+                'visible' => true,
                 'data' => function (ProjectBOMEntry $context) {
                     if ($context->getPart() !== null) {
                         return $this->partDataTableHelper->renderAmount($context->getPart());
                     }
 
                     return '';
+                },
+            ])
+            ->add('minAmount', HTMLColumn::class, [
+                'label' => $this->translator->trans('part.table.minamount'),
+                'visible' => true,
+                'orderField' => 'part.minamount',
+                'data' => function (ProjectBOMEntry $context): string {
+                    if (!$context->getPart() instanceof Part) {
+                        return '';
+                    }
+
+                    return $this->amountFormatter->format($context->getPart()->getMinAmount(), $context->getPart()->getPartUnit());
+                },
+            ])
+            ->add('orderAmount', HTMLColumn::class, [
+                'label' => $this->translator->trans('part.table.orderamount'),
+                'visible' => true,
+                'orderField' => 'part.orderamount',
+                'data' => function (ProjectBOMEntry $context): string {
+                    if (!$context->getPart() instanceof Part) {
+                        return '';
+                    }
+
+                    return $this->amountFormatter->format($context->getPart()->getOrderAmount(), $context->getPart()->getPartUnit());
                 },
             ])
             ->add('storelocation', HTMLColumn::class, [
@@ -286,6 +350,8 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ->leftJoin('_partLots.storage_location', '_storelocations')
             ->leftJoin('part.footprint', 'footprint')
             ->leftJoin('part.manufacturer', 'manufacturer')
+            ->leftJoin('part.orderdetails', '_orderdetails')
+            ->leftJoin('_orderdetails.supplier', '_suppliers')
             ->leftJoin('part.partCustomState', 'partCustomState')
             ->where('bom_entry.project = :project')
             ->setParameter('project', $options['project'])
@@ -313,6 +379,8 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ->addSelect('storelocations')
             ->addSelect('footprint')
             ->addSelect('manufacturer')
+            ->addSelect('orderdetails')
+            ->addSelect('suppliers')
             ->addSelect('partCustomState')
             ->from(ProjectBOMEntry::class, 'bom_entry')
             ->leftJoin('bom_entry.part', 'part')
@@ -321,6 +389,8 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ->leftJoin('partLots.storage_location', 'storelocations')
             ->leftJoin('part.footprint', 'footprint')
             ->leftJoin('part.manufacturer', 'manufacturer')
+            ->leftJoin('part.orderdetails', 'orderdetails')
+            ->leftJoin('orderdetails.supplier', 'suppliers')
             ->leftJoin('part.partCustomState', 'partCustomState')
             ->where('bom_entry.id IN (:ids)')
             ->setParameter('ids', $ids)
@@ -331,6 +401,8 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ->addGroupBy('storelocations')
             ->addGroupBy('footprint')
             ->addGroupBy('manufacturer')
+            ->addGroupBy('orderdetails')
+            ->addGroupBy('suppliers')
             ->addGroupBy('partCustomState')
 
             ->setHint(Query::HINT_READ_ONLY, true)
