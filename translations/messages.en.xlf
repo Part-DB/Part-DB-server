@@ -13898,6 +13898,72 @@ Buerklin-API Authentication server:
         <target>When selected, more details will be fetched from canopy when creating a part. This causes an additional API request, but gives product bullet points and category info.</target>
       </segment>
     </unit>
+    <unit id="KyC_YsX" name="settings.ips.trustedparts">
+      <segment state="translated">
+        <source>settings.ips.trustedparts</source>
+        <target>TrustedParts</target>
+      </segment>
+    </unit>
+    <unit id="iB2.9sg" name="settings.ips.trustedparts.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.help</source>
+        <target>TrustedParts.com is a part search engine operated by the ECIA, which aggregates the offers of authorized distributors. You have to request access to their API to use this provider.</target>
+      </segment>
+    </unit>
+    <unit id="Mhe.lWu" name="settings.ips.trustedparts.companyId">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.companyId</source>
+        <target>Company ID</target>
+      </segment>
+    </unit>
+    <unit id="DvzhYe1" name="settings.ips.trustedparts.companyId.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.companyId.help</source>
+        <target>The company identifier which was assigned to your TrustedParts.com account. You can find it on the API key page of your account.</target>
+      </segment>
+    </unit>
+    <unit id="AqF7ns9" name="settings.ips.trustedparts.apiKey.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.apiKey.help</source>
+        <target>The API key which was assigned to your TrustedParts.com account. You can find it on the API key page of your account.</target>
+      </segment>
+    </unit>
+    <unit id="Gh676P6" name="settings.ips.trustedparts.searchLimit">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.searchLimit</source>
+        <target>Search limit</target>
+      </segment>
+    </unit>
+    <unit id="R7oiMLD" name="settings.ips.trustedparts.searchLimit.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.searchLimit.help</source>
+        <target>The maximum number of results which are shown for a keyword search.</target>
+      </segment>
+    </unit>
+    <unit id="DFkCu4n" name="settings.ips.trustedparts.inStockOnly">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.inStockOnly</source>
+        <target>Only offers in stock</target>
+      </segment>
+    </unit>
+    <unit id="EF2mFRR" name="settings.ips.trustedparts.inStockOnly.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.inStockOnly.help</source>
+        <target>If enabled, only the offers of distributors which currently have the part in stock are returned.</target>
+      </segment>
+    </unit>
+    <unit id="r4gkOcR" name="settings.ips.trustedparts.useCachedData">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.useCachedData</source>
+        <target>Use cached data</target>
+      </segment>
+    </unit>
+    <unit id="JNIu4bu" name="settings.ips.trustedparts.useCachedData.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.useCachedData.help</source>
+        <target>If enabled, TrustedParts.com answers with cached stock and price data instead of querying the distributors in real time. This is faster and does not count against the rate limits, but the data can be outdated.</target>
+      </segment>
+    </unit>
     <unit id="D055xh8" name="attachment.sandbox.warning">
       <segment state="translated">
         <source>attachment.sandbox.warning</source>

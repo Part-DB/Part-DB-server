@@ -331,7 +331,43 @@ Once you have the API key, you can configure the Canopy provider in Part-DB usin
 
 * `PROVIDER_CANOPY_API_KEY`: The API key you got from Canopy (mandatory)
 
+### TrustedParts
 
+The TrustedParts provider uses the [TrustedParts.com Inventory API](https://www.trustedparts.com/en/docs/api/trustedparts-api)
+to search for parts. TrustedParts.com is operated by the Electronic Components Industry Association (ECIA) and
+aggregates the offers (stock and prices) of authorized distributors, similar to Octopart. Besides the offers, it also
+provides specifications for many parts, which Part-DB imports as parameters.
+
+Please note that the TrustedParts API does not return any product images, so parts created with this provider have no
+preview image. You can generate one with the built-in component image generator (the button on the image placeholder of
+the part page), which works well with the package information this provider supplies.
+
+The API is free of charge, but you have to
+[request access](https://www.trustedparts.com/en/docs/api/trustedparts-api/credentials) for it: Register an account on
+TrustedParts.com, verify your mail address and request API access on the "Additional Features" tab of your account.
+After your request was approved, you find the company ID and the API key on the "API Key" tab of the "My Account" page.
+
+Please note the [API terms of use](https://www.trustedparts.com/en/docs/api/trustedparts-api/terms-of-use), especially:
+The data may only be used for internal purchasing decisions, must not be published or resold, has to be attributed to
+TrustedParts.com and must not be cached for longer than one week (Part-DB caches the results for four days at most).
+There are also [rate limits](https://www.trustedparts.com/en/docs/api/trustedparts-api/requests), so you should only
+make as many requests as you actually need.
+
+The following env configuration options are available:
+
+* `PROVIDER_TRUSTEDPARTS_COMPANY_ID`: The company ID of your TrustedParts.com account (mandatory)
+* `PROVIDER_TRUSTEDPARTS_API_KEY`: The API key of your TrustedParts.com account (mandatory)
+* `PROVIDER_TRUSTEDPARTS_CURRENCY`: The currency you want to get prices in if available (optional, 3 letter ISO-code,
+  default: `EUR`). Distributors which do not support the requested currency return their prices in their own currency.
+* `PROVIDER_TRUSTEDPARTS_COUNTRY`: The country you want to get the prices for (optional, 2 letter ISO-code, default: `DE`)
+* `PROVIDER_TRUSTEDPARTS_LANGUAGE`: The language the specifications should be translated to. Possible values: `en`,
+  `de`, `es`, `fr`, `it`, `pt`, `ja` (optional, default: `en`)
+* `PROVIDER_TRUSTEDPARTS_SEARCH_LIMIT`: The maximum number of results to return per search (optional, default: `25`)
+* `PROVIDER_TRUSTEDPARTS_IN_STOCK_ONLY`: If set to `1`, only offers of distributors which currently have the part in
+  stock are returned (optional, default: `0`)
+* `PROVIDER_TRUSTEDPARTS_USE_CACHED_DATA`: If set to `1`, TrustedParts.com answers with cached stock and price data
+  instead of querying the distributors in real time. This is faster and does not count against the rate limits, but the
+  data can be outdated (optional, default: `0`)
 
 ### Custom providers
 
