@@ -22,7 +22,6 @@ declare(strict_types=1);
  */
 namespace App\Form\Filters;
 
-use App\DataTables\Filters\Constraints\Part\BulkImportPartStatusConstraint;
 use App\DataTables\Filters\Constraints\Part\ParameterConstraint;
 use App\DataTables\Filters\PartFilter;
 use App\Entity\Attachments\AttachmentType;

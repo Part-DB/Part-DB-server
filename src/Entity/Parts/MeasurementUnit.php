@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -47,7 +46,6 @@ use App\Mcp\DTO\StructuralElementSearchInput;
 use App\Repository\Parts\MeasurementUnitRepository;
 use App\State\Mcp\GetStructuralElementDetailsProcessor;
 use App\State\Mcp\ListStructuralElementsProcessor;
-use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -59,7 +57,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * This unit represents the unit in which the amount of parts in stock are measured.

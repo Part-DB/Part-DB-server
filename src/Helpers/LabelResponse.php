@@ -41,7 +41,6 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
-use DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

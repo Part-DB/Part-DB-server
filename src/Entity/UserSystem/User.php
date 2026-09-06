@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
-use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -38,7 +37,6 @@ use App\Entity\Attachments\Attachment;
 use App\Repository\UserRepository;
 use App\EntityListeners\TreeCacheInvalidationListener;
 use App\Validator\Constraints\NoLockout;
-use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\UserAttachment;
@@ -55,11 +53,9 @@ use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\Length;
 use Webauthn\PublicKeyCredentialUserEntity;
 use function count;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
 use function in_array;
 use Scheb\TwoFactorBundle\Model\BackupCodeInterface;
 use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;

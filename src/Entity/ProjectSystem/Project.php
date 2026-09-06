@@ -46,7 +46,6 @@ use App\Repository\Parts\DeviceRepository;
 use App\State\Mcp\GetStructuralElementDetailsProcessor;
 use App\State\Mcp\ListStructuralElementsProcessor;
 use App\Validator\Constraints\UniqueObjectCollection;
-use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;

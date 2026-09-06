@@ -26,7 +26,6 @@ namespace App\Command\Migrations;
 use App\Entity\UserSystem\User;
 use App\Services\ImportExportSystem\PartKeeprImporter\PKImportHelper;
 use Doctrine\Bundle\DoctrineBundle\ConnectionFactory;
-use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\Migrations\Configuration\EntityManager\ExistingEntityManager;
 use Doctrine\Migrations\Configuration\Migration\ExistingConfiguration;

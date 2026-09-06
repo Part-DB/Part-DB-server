@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -66,7 +65,6 @@ use App\Validator\Constraints\BigDecimal\BigDecimalPositiveOrZero;
 use App\Validator\Constraints\Selectable;
 use Brick\Math\BigDecimal;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;

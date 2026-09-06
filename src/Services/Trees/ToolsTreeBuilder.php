@@ -39,7 +39,6 @@ use App\Entity\UserSystem\User;
 use App\Helpers\Trees\TreeViewNode;
 use App\Services\Cache\UserCacheKeyGenerator;
 use App\Services\ElementTypeNameGenerator;
-use App\Services\InfoProviderSystem\Providers\GenericWebProvider;
 use App\Settings\InfoProviderSystem\GenericWebProviderSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;

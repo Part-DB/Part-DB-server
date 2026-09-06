@@ -23,9 +23,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\UserSystem\User;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\Query\Parameter;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem;
 
-use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use Doctrine\ORM\EntityManagerInterface;

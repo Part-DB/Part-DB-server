@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace App\Services\ImportExportSystem;
 
 use App\Entity\Parts\Part;
-use App\Entity\ProjectSystem\ProjectBOMEntry;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

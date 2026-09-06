@@ -50,7 +50,6 @@ use App\Exceptions\TwigModeException;
 use App\Services\ElementTypeNameGenerator;
 use InvalidArgumentException;
 use Twig\Environment;
-use Twig\Error\Error;
 
 final readonly class LabelHTMLGenerator
 {

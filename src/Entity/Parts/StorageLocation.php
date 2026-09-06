@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -55,7 +54,6 @@ use App\State\Mcp\GetStructuralElementDetailsProcessor;
 use App\State\Mcp\ListStructuralElementsProcessor;
 use App\State\Mcp\UpdateStructuralElementInputProvider;
 use App\State\Mcp\UpdateStructuralElementProcessor;
-use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\StorageLocationAttachment;

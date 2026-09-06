@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace App\DataTables\Filters\Constraints\Part;
 
-use App\DataTables\Filters\Constraints\AbstractConstraint;
 use App\DataTables\Filters\Constraints\ChoiceConstraint;
 use App\Entity\InfoProviderSystem\BulkInfoProviderImportJobPart;
 use Doctrine\ORM\QueryBuilder;

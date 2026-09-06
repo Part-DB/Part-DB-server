@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
-use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -40,7 +39,6 @@ use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
 use App\Repository\CurrencyRepository;
-use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\CurrencyAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;

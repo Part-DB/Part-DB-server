@@ -40,7 +40,6 @@ use App\Services\LogSystem\EventLogger;
 use App\Services\LogSystem\EventUndoHelper;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use App\Settings\SystemSettings\HistorySettings;
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;

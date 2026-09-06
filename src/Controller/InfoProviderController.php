@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Exceptions\OAuthReconnectRequiredException;
 use App\Form\InfoProviderSystem\FromURLFormType;
@@ -33,18 +32,14 @@ use App\Services\InfoProviderSystem\ExistingPartFinder;
 use App\Services\InfoProviderSystem\CreateFromUrlHelper;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
-use App\Services\InfoProviderSystem\Providers\GenericWebProvider;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
-use App\Settings\AppSettings;
 use App\Settings\InfoProviderSystem\InfoProviderGeneralSettings;
-use Doctrine\ORM\EntityManagerInterface;
 use Jbtronics\SettingsBundle\Form\SettingsFormFactoryInterface;
 use Jbtronics\SettingsBundle\Manager\SettingsManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\HttpFoundation\Request;

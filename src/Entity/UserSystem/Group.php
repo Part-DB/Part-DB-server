@@ -22,10 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
-use Doctrine\Common\Collections\Criteria;
 use App\Entity\Attachments\Attachment;
 use App\Validator\Constraints\NoLockout;
-use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Attachments\GroupAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;

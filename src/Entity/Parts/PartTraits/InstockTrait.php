@@ -22,8 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts\PartTraits;
 
-use Doctrine\Common\Collections\Criteria;
-use Doctrine\Common\Collections\Order;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\PartLot;

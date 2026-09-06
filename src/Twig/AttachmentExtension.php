@@ -29,8 +29,6 @@ use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\Misc\FAIconGenerator;
 use Twig\Attribute\AsTwigFunction;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
 
 final readonly class AttachmentExtension
 {

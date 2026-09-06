@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace App\Services\System;
 
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
-use Symfony\Component\Process\Process;
 
 readonly class InstallationTypeDetector
 {

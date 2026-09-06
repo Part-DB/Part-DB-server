@@ -43,14 +43,11 @@ namespace App\Controller;
 
 use App\Exceptions\InfoProviderNotActiveException;
 use App\Form\LabelSystem\ScanDialogType;
-use App\Services\InfoProviderSystem\Providers\LCSCProvider;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeScanResultHandler;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeScanHelper;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeScanResultInterface;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeSourceType;
 use App\Services\LabelSystem\BarcodeScanner\LocalBarcodeScanResult;
-use App\Services\LabelSystem\BarcodeScanner\LCSCBarcodeScanResult;
-use App\Services\LabelSystem\BarcodeScanner\EIGP114BarcodeScanResult;
 use Doctrine\ORM\EntityNotFoundException;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -58,12 +55,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Services\InfoProviderSystem\PartInfoRetriever;
-use App\Services\InfoProviderSystem\ProviderRegistry;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use App\Entity\Parts\Part;
-use App\Entity\Parts\StorageLocation;
 use Symfony\UX\Turbo\TurboBundle;
 
 /**

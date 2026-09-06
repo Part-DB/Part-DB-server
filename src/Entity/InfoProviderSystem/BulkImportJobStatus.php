@@ -22,9 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\InfoProviderSystem;
 
-use Symfony\Contracts\Translation\TranslatableInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
-
 enum BulkImportJobStatus: string
 {
     case PENDING = 'pending';

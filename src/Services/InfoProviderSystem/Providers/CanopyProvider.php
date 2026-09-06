@@ -23,16 +23,12 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\Providers;
 
-use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
-use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
-use App\Settings\InfoProviderSystem\BuerklinSettings;
 use App\Settings\InfoProviderSystem\CanopySettings;
 use Psr\Cache\CacheItemPoolInterface;
-use Symfony\Component\DependencyInjection\Attribute\When;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**

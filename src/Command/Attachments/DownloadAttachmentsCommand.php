@@ -26,7 +26,6 @@ namespace App\Command\Attachments;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentUpload;
 use App\Exceptions\AttachmentDownloadException;
-use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;

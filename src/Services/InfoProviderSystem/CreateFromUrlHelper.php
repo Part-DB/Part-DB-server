@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem;
 
-use App\Entity\UserSystem\User;
 use App\Exceptions\ProviderIDNotSupportedException;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;

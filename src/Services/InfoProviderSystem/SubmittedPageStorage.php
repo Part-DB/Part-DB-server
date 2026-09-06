@@ -24,7 +24,6 @@ namespace App\Services\InfoProviderSystem;
 
 use App\Services\InfoProviderSystem\DTOs\BrowserSubmittedPage;
 use Psr\Cache\CacheItemPoolInterface;
-use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**

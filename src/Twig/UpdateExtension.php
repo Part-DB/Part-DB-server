@@ -26,8 +26,6 @@ namespace App\Twig;
 use Twig\Attribute\AsTwigFunction;
 use App\Services\System\UpdateAvailableFacade;
 use Symfony\Bundle\SecurityBundle\Security;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
 
 /**
  * Twig extension for update-related functions.

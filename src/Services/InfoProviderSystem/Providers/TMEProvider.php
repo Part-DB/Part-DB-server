@@ -32,7 +32,6 @@ use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\TMESettings;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {

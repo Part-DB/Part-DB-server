@@ -44,9 +44,6 @@ use App\Services\Trees\TreeViewGenerator;
 use Twig\Attribute\AsTwigFunction;
 use Twig\Attribute\AsTwigTest;
 use Twig\DeprecatedCallableInfo;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
-use Twig\TwigTest;
 
 /**
  * @see \App\Tests\Twig\EntityExtensionTest

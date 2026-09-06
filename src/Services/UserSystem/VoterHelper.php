@@ -30,7 +30,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Security\Authentication\Token\OAuth2Token;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Vote;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**

@@ -30,7 +30,6 @@ use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Repository\StructuralDBElementRepository;
 use App\Serializer\APIPlatform\SkippableItemNormalizer;
-use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use function count;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,7 +40,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Psr\Log\LoggerInterface;
 
 /**

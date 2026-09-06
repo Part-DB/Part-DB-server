@@ -26,8 +26,6 @@ use App\Entity\LogSystem\AbstractLogEntry;
 use App\Services\LogSystem\LogDataFormatter;
 use App\Services\LogSystem\LogDiffFormatter;
 use Twig\Attribute\AsTwigFunction;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
 
 final readonly class LogExtension
 {

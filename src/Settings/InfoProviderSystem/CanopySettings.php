@@ -30,9 +30,7 @@ use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Translation\TranslatableMessage as TM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[Settings(label: new TM("settings.ips.canopy"))]
 #[SettingsIcon("fa-plug")]

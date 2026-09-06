@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace App\Services\System;
 
 use Psr\Log\LoggerInterface;
-use Shivas\VersioningBundle\Service\VersionManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;

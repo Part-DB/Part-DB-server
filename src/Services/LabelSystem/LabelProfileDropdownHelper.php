@@ -43,7 +43,6 @@ namespace App\Services\LabelSystem;
 
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\LabelSystem\LabelSupportedElement;
-use App\Repository\LabelProfileRepository;
 use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Cache\UserCacheKeyGenerator;
 use Doctrine\ORM\EntityManagerInterface;

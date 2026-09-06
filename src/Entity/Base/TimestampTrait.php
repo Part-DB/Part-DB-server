@@ -25,7 +25,6 @@ namespace App\Entity\Base;
 use ApiPlatform\Metadata\ApiProperty;
 use Doctrine\DBAL\Schema\DefaultExpression\CurrentTimestamp;
 use Doctrine\DBAL\Types\Types;
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
