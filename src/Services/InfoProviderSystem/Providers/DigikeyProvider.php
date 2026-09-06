@@ -59,7 +59,7 @@ class DigikeyProvider implements InfoProviderInterface
     ];
 
     public function __construct(HttpClientInterface $httpClient, private readonly OAuthTokenManager $authTokenManager,
-        private readonly DigikeySettings $settings,)
+        private readonly DigikeySettings $settings)
     {
         //Create the HTTP client with some default options
         $this->digikeyClient = $httpClient->withOptions([

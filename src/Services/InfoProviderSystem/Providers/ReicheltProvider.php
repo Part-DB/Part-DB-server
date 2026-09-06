@@ -253,9 +253,7 @@ class ReicheltProvider implements InfoProviderInterface
             $category .= $element->text() . ' -> ';
         });
         //Remove the trailing ' -> '
-        $category = substr($category, 0, -4);
-
-        return $category;
+        return substr($category, 0, -4);
     }
 
     /**

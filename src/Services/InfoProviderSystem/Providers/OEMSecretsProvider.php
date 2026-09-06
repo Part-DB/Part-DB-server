@@ -1320,6 +1320,7 @@ class OEMSecretsProvider implements InfoProviderInterface
                 return strcasecmp($a->manufacturer, $b->manufacturer);
             }
 
+            throw new \RuntimeException("Invalid sort mode: {$this->settings->sortMode}");
         });
     }
 

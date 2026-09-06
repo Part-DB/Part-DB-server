@@ -331,9 +331,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
 
         //Encode bare % signs that are not already part of a valid percent-encoded sequence
         //Fixes part numbers with % in them e.g. SMD0603-5K1-1%
-        $url = preg_replace('/%(?![0-9A-Fa-f]{2})/', '%25', $url);
-
-        return $url;
+        return preg_replace('/%(?![0-9A-Fa-f]{2})/', '%25', $url);
     }
 
     public function getHandledDomains(): array

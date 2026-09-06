@@ -61,7 +61,7 @@ final class LabelHTMLGenerator
         private readonly LabelBarcodeGenerator $barcodeGenerator,
         private readonly SandboxedTwigFactory $sandboxedTwigProvider,
         private readonly Security $security,
-        private readonly CustomizationSettings $customizationSettings,)
+        private readonly CustomizationSettings $customizationSettings)
     {
     }
 

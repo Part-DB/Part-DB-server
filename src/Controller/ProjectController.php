@@ -677,7 +677,7 @@ class ProjectController extends AbstractController
                         'invalid_value' => $error->getInvalidValue(),
                     ]);
                     //And show as flash message
-                    $this->addFlash('error', $error->getMessage(),);
+                    $this->addFlash('error', $error->getMessage());
                 }
 
             } catch (\UnexpectedValueException | SyntaxError $e) {
