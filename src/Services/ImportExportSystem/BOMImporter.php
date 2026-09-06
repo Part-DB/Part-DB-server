@@ -767,7 +767,7 @@ class BOMImporter
         $in_quotes = false;
         $quote_char = '"';
 
-        for ($i = 0; $i < strlen($header_line); $i++) {
+        for ($i = 0, $iMax = strlen($header_line); $i < $iMax; $i++) {
             $char = $header_line[$i];
 
             if ($char === $quote_char && !$in_quotes) {

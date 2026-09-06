@@ -121,11 +121,7 @@ class PartListsController extends AbstractController
         }
 
         //If the action handler returned a response, we use it, otherwise we redirect back to the previous page.
-        if ($redirectResponse !== null) {
-            return $redirectResponse;
-        }
-
-        return $this->redirect($redirect);
+        return $redirectResponse ?? $this->redirect($redirect);
     }
 
     /**

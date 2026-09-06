@@ -40,7 +40,7 @@ readonly class SearchInfoProvidersProcessor implements ProcessorInterface
     ) {
     }
 
-    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
+    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): array
     {
         if (!$data instanceof InfoProviderSearchInput) {
             throw new BadRequestHttpException('Expected InfoProviderSearchInput');

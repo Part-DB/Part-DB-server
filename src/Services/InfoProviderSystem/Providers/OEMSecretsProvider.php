@@ -1019,7 +1019,6 @@ class OEMSecretsProvider implements InfoProviderInterface
     private function releaseStatusCodeToManufacturingStatus(?string $productStatus, int $availableInStock = 0): ?ManufacturingStatus
     {
         $tmp = match ($productStatus) {
-            null => null,
             "New Product" => ManufacturingStatus::ANNOUNCED,
             "Not Recommended for New Designs" => ManufacturingStatus::NRFND,
             "Factory Special Order", "Obsolete" => ManufacturingStatus::DISCONTINUED,

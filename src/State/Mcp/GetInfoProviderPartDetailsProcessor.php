@@ -26,6 +26,7 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\Exceptions\InfoProviderNotActiveException;
 use App\Mcp\DTO\InfoProviderPartDetailsInput;
+use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -36,7 +37,7 @@ readonly class GetInfoProviderPartDetailsProcessor implements ProcessorInterface
     ) {
     }
 
-    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
+    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): PartDetailDTO
     {
         if (!$data instanceof InfoProviderPartDetailsInput) {
             throw new BadRequestHttpException('Expected InfoProviderPartDetailsInput');

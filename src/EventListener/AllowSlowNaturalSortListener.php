@@ -42,7 +42,7 @@ readonly class AllowSlowNaturalSortListener
     {
     }
 
-    public function __invoke(RequestEvent $event)
+    public function __invoke(RequestEvent $event): void
     {
         Natsort::allowSlowNaturalSort($this->allowNaturalSort);
     }

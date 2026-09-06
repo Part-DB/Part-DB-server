@@ -35,7 +35,7 @@ readonly class AddEditCommentRequestListener
 
     }
 
-    public function __invoke(RequestEvent $event)
+    public function __invoke(RequestEvent $event): void
     {
         if (!$event->isMainRequest()) {
             return;

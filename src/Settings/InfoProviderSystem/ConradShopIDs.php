@@ -113,7 +113,7 @@ enum ConradShopIDs: string implements TranslatableInterface
         return match ($this) {
             self::DE_B2B, self::DE_B2C => 'de',
             self::AT_B2B, self::AT_B2C => 'at',
-            self::CH_B2C_DE => 'ch', self::CH_B2C_FR => 'ch',
+            self::CH_B2C_DE, self::CH_B2C_FR => 'ch',
             self::SE_B2B => 'se',
             self::HU_B2C => 'hu',
             self::CZ_B2B => 'cz',
@@ -133,19 +133,17 @@ enum ConradShopIDs: string implements TranslatableInterface
     public function getLanguage(): string
     {
         return match ($this) {
-            self::DE_B2B, self::DE_B2C, self::AT_B2B, self::AT_B2C => 'de',
-            self::CH_B2C_DE => 'de', self::CH_B2C_FR => 'fr',
+            self::DE_B2B, self::DE_B2C, self::AT_B2B, self::AT_B2C, self::CH_B2C_DE => 'de',
+            self::CH_B2C_FR, self::FR_B2B => 'fr',
             self::SE_B2B => 'sv',
             self::HU_B2C => 'hu',
             self::CZ_B2B => 'cs',
             self::SI_B2B => 'sl',
             self::SK_B2B => 'sk',
-            self::BE_B2B => 'nl',
+            self::BE_B2B, self::NL_B2B, self::NL_B2C => 'nl',
             self::PL_B2B => 'pl',
-            self::NL_B2B, self::NL_B2C => 'nl',
             self::DK_B2B => 'da',
             self::IT_B2B => 'it',
-            self::FR_B2B => 'fr',
             self::COM_B2B => 'en',
             self::HR_B2B => 'hr',
         };

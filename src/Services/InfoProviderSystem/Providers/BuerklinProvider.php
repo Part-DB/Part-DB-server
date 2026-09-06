@@ -171,7 +171,8 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
             throw new \RuntimeException("Buerklin API request failed: " .
                 "Endpoint: " . $endpoint .
                 "Token: [redacted] " .
-                "QueryParams: " . json_encode($queryParams, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . " " .
+                "QueryParams: " .json_encode($queryParams,
+                    JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES). " " .
                 "Exception message: " . $e->getMessage());
         }
     }
