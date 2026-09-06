@@ -285,13 +285,21 @@ abstract class Attachment extends AbstractNamedDBElement
             return in_array(strtolower($extension), static::PICTURE_EXTS, true);
 
         }
+
         if ($this->hasExternal()) {
             //Check if we can extract a file extension from the URL
             $extension = pathinfo(parse_url($this->getExternalPath(), PHP_URL_PATH) ?? '', PATHINFO_EXTENSION);
 
-            //If no extension is found or it is known picture extension, we assume that this is a picture extension
-            return $extension === '' || in_array(strtolower($extension), static::PICTURE_EXTS, true);
+            if (in_array(strtolower($extension), static::PICTURE_EXTS, true)) {
+                return true;
+            }
+
+            //If no extension is found (e.g. for URLs which redirect to the actual file), we can only guess. We assume
+            //that it is a picture, unless the attachment type rules pictures out (like the "Datasheet" type, which only
+            //allows PDFs), as we would show a broken image otherwise.
+            return $extension === '' && ($this->getAttachmentType()?->allowsPictures() ?? true);
         }
+
         //File doesn't have an internal, nor an external copy. This shouldn't happen, but it certainly isn't a picture...
         return false;
     }
