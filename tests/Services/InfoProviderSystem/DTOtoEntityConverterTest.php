@@ -115,6 +115,7 @@ final class DTOtoEntityConverterTest extends WebTestCase
             prices: $prices,
             product_url: 'https://example.com',
             prices_include_vat: true,
+            available_amount: 1234.0,
         );
 
         $entity = $this->service->convertPurchaseInfo($dto);
@@ -123,6 +124,24 @@ final class DTOtoEntityConverterTest extends WebTestCase
         $this->assertSame($dto->order_number, $entity->getSupplierPartNr());
         $this->assertEquals($dto->product_url, $entity->getSupplierProductUrl());
         $this->assertTrue($dto->prices_include_vat);
+        $this->assertSame(1234.0, $entity->getAvailableAmount());
+        //A stock is only meaningful together with its age, so the time it was retrieved at is stamped along with it
+        $this->assertNotNull($entity->getAvailableAmountUpdatedAt());
+    }
+
+    public function testConvertPurchaseInfoWithoutAvailableAmount(): void
+    {
+        $dto = new PurchaseInfoDTO(
+            distributor_name: 'TestDistributor',
+            order_number: 'TestOrderNumber',
+            prices: [],
+        );
+
+        $entity = $this->service->convertPurchaseInfo($dto);
+
+        //If the provider does not know the stock, it must stay null (which is different from a stock of 0)
+        $this->assertNull($entity->getAvailableAmount());
+        $this->assertNull($entity->getAvailableAmountUpdatedAt());
     }
 
     public function testConvertFileWithName(): void
