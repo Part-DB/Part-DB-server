@@ -15122,5 +15122,23 @@ Buerklin-API Authentication server:
         <target>Last updated from the info provider: %datetime%</target>
       </segment>
     </unit>
+    <unit id="Vb2xN7t" name="part_list.action.bulk_info_provider_refresh">
+      <segment state="translated">
+        <source>part_list.action.bulk_info_provider_refresh</source>
+        <target>Refresh from info providers</target>
+      </segment>
+    </unit>
+    <unit id="Jq5rD8w" name="info_providers.bulk_refresh.error.no_provider_reference">
+      <segment state="translated">
+        <source>info_providers.bulk_refresh.error.no_provider_reference</source>
+        <target>This part was not created from an info provider, so it can not be refreshed automatically.</target>
+      </segment>
+    </unit>
+    <unit id="Zt7cV3n" name="info_providers.bulk_refresh.error.provider_unavailable">
+      <segment state="translated">
+        <source>info_providers.bulk_refresh.error.provider_unavailable</source>
+        <target>The info provider this part was created with is not available anymore.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
