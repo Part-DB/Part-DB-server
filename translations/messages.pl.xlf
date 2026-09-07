@@ -10568,7 +10568,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="1RN3Xwz" name="settings.misc.ipn_suggest.suggestPartDigits.help">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.suggestPartDigits.help</source>
-        <target>Gdy włączone, opis części jest używany w celu znalezienia istniejących części z takim samym opisem i ustalenia następnej dostępnej wartości IPN poprzez zwiększenie wartości liczbowych na liście sugestii.</target>
+        <target>Liczba cyfr używana do przyrostowego numerowania części w systemie sugestii IPN (wewnętrznych numerów części).</target>
       </segment>
     </unit>
     <unit id="Ffr5xYM" name="settings.behavior.part_info">
