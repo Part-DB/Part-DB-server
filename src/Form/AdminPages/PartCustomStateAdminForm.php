@@ -22,6 +22,29 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
+use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\Parts\PartCustomState;
+use App\Entity\Parts\PartCustomStateColor;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\FormBuilderInterface;
+
 class PartCustomStateAdminForm extends BaseEntityAdminForm
 {
+    protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
+    {
+        if (!$entity instanceof PartCustomState) {
+            return;
+        }
+
+        $is_new = null === $entity->getID();
+
+        $builder->add('color', EnumType::class, [
+            'class' => PartCustomStateColor::class,
+            'choice_label' => fn (PartCustomStateColor $color) => $color->toTranslationKey(),
+            'required' => false,
+            'label' => 'part_custom_state.color.label',
+            'help' => 'part_custom_state.color.help',
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
+    }
 }
