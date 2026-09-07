@@ -47,4 +47,16 @@ final class FileDTOTest extends TestCase
         $fileDTO = new FileDTO( $input);
         self::assertSame($expected, $fileDTO->url);
     }
+
+    public function testDownloadableDefaultsToTrue(): void
+    {
+        $fileDTO = new FileDTO('https://example.com/datasheet.pdf');
+        self::assertTrue($fileDTO->downloadable);
+    }
+
+    public function testDownloadableCanBeDisabled(): void
+    {
+        $fileDTO = new FileDTO('https://example.com/redirect?id=1234', downloadable: false);
+        self::assertFalse($fileDTO->downloadable);
+    }
 }
