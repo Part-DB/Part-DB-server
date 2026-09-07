@@ -15110,5 +15110,17 @@ Buerklin-API Authentication server:
         <target>Edit BOM entry #%id% of project</target>
       </segment>
     </unit>
+    <unit id="4cBWYO6" name="part.refresh_from_info_provider.btn">
+      <segment state="translated">
+        <source>part.refresh_from_info_provider.btn</source>
+        <target>Refresh from %provider%</target>
+      </segment>
+    </unit>
+    <unit id="0lJr81k" name="part.refresh_from_info_provider.last_updated">
+      <segment state="translated">
+        <source>part.refresh_from_info_provider.last_updated</source>
+        <target>Last updated from the info provider: %datetime%</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

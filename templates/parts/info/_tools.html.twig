@@ -33,6 +33,21 @@
 {# Update part from info provider button #}
 {% if is_granted('edit', part) and is_granted('@info_providers.create_parts') %}
     <br>
+    {# If the part was created by a provider, it can be refreshed directly, without searching for it again #}
+    {% set part_provider = part.providerReference.providerCreated ? info_provider(part.providerReference.providerKey) : null %}
+    {% if part_provider and part_provider.active %}
+        <a class="btn btn-info mt-2" href="{{ path('info_providers_update_part', {
+            'id': part.iD,
+            'providerKey': part.providerReference.providerKey,
+            'providerId': part.providerReference.providerId,
+            'no_cache': 1,
+        }) }}" title="{{ part.providerReference.lastUpdated
+                ? ('part.refresh_from_info_provider.last_updated'|trans({'%datetime%': part.providerReference.lastUpdated|format_datetime}))
+                : ('part.info_provider_reference.updated_never'|trans) }}">
+            <i class="fas fa-rotate"></i>
+            {% trans with {'%provider%': part_provider.providerInfo.name} %}part.refresh_from_info_provider.btn{% endtrans %}
+        </a>
+    {% endif %}
     <a class="btn btn-info mt-2" href="{{ path('info_providers_update_part_search', {'target': part.iD}) }}">
         <i class="fas fa-cloud-arrow-down"></i>
         {% trans %}part.update_part_from_info_provider.btn{% endtrans %}
