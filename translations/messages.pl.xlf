@@ -12940,7 +12940,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="Pu8juaH" name="settings.ips.generic_web_provider.enabled.help">
       <segment state="translated">
         <source>settings.ips.generic_web_provider.enabled.help</source>
-        <target>Jeśli ten dostawca jest włączony, użytkownicy mogą wysyłać żądania to dowolnych stron internetowych poprzez serwer Part-DB. Włącz tylko, jeśli jesteś świadomy potencjalnych konsekwencji.</target>
+        <target>Jeśli ten dostawca jest włączony, użytkownicy mogą wysyłać żądania do dowolnych stron internetowych poprzez serwer Part-DB. Włącz tylko, jeśli jesteś świadomy potencjalnych konsekwencji.</target>
       </segment>
     </unit>
     <unit id="IvIOYcn" name="info_providers.from_url.title">
