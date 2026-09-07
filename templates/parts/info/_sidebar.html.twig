@@ -81,6 +81,21 @@
     </h6>
 </div>
 
+{# External part links #}
+{% set _external_links = external_part_links(part) %}
+{% if _external_links is not empty %}
+    <div class="mt-1">
+        <h6>
+            {% for link in _external_links %}
+                <a class="badge bg-secondary" href="{{ link.url }}"
+                   {% if link.openInNewTab %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                    <i class="{{ link.iconClass }} fa-fw"></i> {{ link.name }}
+                </a>
+            {% endfor %}
+        </h6>
+    </div>
+{% endif %}
+
 {# Show tags #}
 {% if part.tags is not empty %}
     <div class="mt-1">

@@ -16046,5 +16046,137 @@ Buerklin-API Authentication server:
         <target>The information provider (%host%) is temporarily unavailable (HTTP %status%). Please try again later.</target>
       </segment>
     </unit>
+    <unit id="G9i5NMy" name="settings.external_part_links">
+      <segment state="translated">
+        <source>settings.external_part_links</source>
+        <target>External part links</target>
+      </segment>
+    </unit>
+    <unit id=".iW8w38" name="settings.external_part_links.help">
+      <segment state="translated">
+        <source>settings.external_part_links.help</source>
+        <target>Define quick links to external services, shown on the part detail page. A link's URL is either computed from a template with placeholders, or read directly from one of the part's parameters.</target>
+      </segment>
+    </unit>
+    <unit id="YZnItr6" name="settings.external_part_links.links">
+      <segment state="translated">
+        <source>settings.external_part_links.links</source>
+        <target>Links</target>
+      </segment>
+    </unit>
+    <unit id="07OwrPf" name="settings.external_part_links.links.help">
+      <segment state="translated">
+        <source>settings.external_part_links.links.help</source>
+        <target>A link is only shown on a part if its source fully resolves to a valid, allowed URL for that part.</target>
+      </segment>
+    </unit>
+    <unit id="uTYu64n" name="settings.external_part_links.rules.placeholders_hint">
+      <segment state="translated">
+        <source>settings.external_part_links.rules.placeholders_hint</source>
+        <target>Supported template placeholders: {mpn}, {manufacturer}, {ipn}, {name}, {category}, {footprint}, {id}. Only https URLs are allowed.</target>
+      </segment>
+    </unit>
+    <unit id="7tGNrSr" name="external_part_link.name">
+      <segment state="translated">
+        <source>external_part_link.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="2hV2WSY" name="external_part_link.source_type">
+      <segment state="translated">
+        <source>external_part_link.source_type</source>
+        <target>Source</target>
+      </segment>
+    </unit>
+    <unit id="DxFWEf4" name="external_part_link.source_type.template">
+      <segment state="translated">
+        <source>external_part_link.source_type.template</source>
+        <target>URL template</target>
+      </segment>
+    </unit>
+    <unit id="rYaRkRV" name="external_part_link.source_type.parameter">
+      <segment state="translated">
+        <source>external_part_link.source_type.parameter</source>
+        <target>Part parameter</target>
+      </segment>
+    </unit>
+    <unit id="P7TBf.x" name="external_part_link.source">
+      <segment state="translated">
+        <source>external_part_link.source</source>
+        <target>URL template / parameter name</target>
+      </segment>
+    </unit>
+    <unit id="Zvqaz6C" name="external_part_link.icon">
+      <segment state="translated">
+        <source>external_part_link.icon</source>
+        <target>Icon</target>
+      </segment>
+    </unit>
+    <unit id="pBy7pjG" name="external_part_link.icon.external-link">
+      <segment state="translated">
+        <source>external_part_link.icon.external-link</source>
+        <target>External link</target>
+      </segment>
+    </unit>
+    <unit id="Wsg1k76" name="external_part_link.icon.search">
+      <segment state="translated">
+        <source>external_part_link.icon.search</source>
+        <target>Search</target>
+      </segment>
+    </unit>
+    <unit id="pytkKrJ" name="external_part_link.icon.shopping-cart">
+      <segment state="translated">
+        <source>external_part_link.icon.shopping-cart</source>
+        <target>Shopping cart</target>
+      </segment>
+    </unit>
+    <unit id="lp1pL44" name="external_part_link.icon.industry">
+      <segment state="translated">
+        <source>external_part_link.icon.industry</source>
+        <target>Industry</target>
+      </segment>
+    </unit>
+    <unit id="5oa6wzK" name="external_part_link.icon.globe">
+      <segment state="translated">
+        <source>external_part_link.icon.globe</source>
+        <target>Globe</target>
+      </segment>
+    </unit>
+    <unit id="4CZyKCA" name="external_part_link.icon.file">
+      <segment state="translated">
+        <source>external_part_link.icon.file</source>
+        <target>File</target>
+      </segment>
+    </unit>
+    <unit id="Gt1BR.W" name="external_part_link.icon.box">
+      <segment state="translated">
+        <source>external_part_link.icon.box</source>
+        <target>Box</target>
+      </segment>
+    </unit>
+    <unit id="L_uJ2oj" name="external_part_link.icon.info">
+      <segment state="translated">
+        <source>external_part_link.icon.info</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="mCRd7zj" name="external_part_link.open_new_tab">
+      <segment state="translated">
+        <source>external_part_link.open_new_tab</source>
+        <target>Open in new tab</target>
+      </segment>
+    </unit>
+    <unit id=".yaVEiq" name="external_part_link.enabled">
+      <segment state="translated">
+        <source>external_part_link.enabled</source>
+        <target>Enabled</target>
+      </segment>
+    </unit>
+    <unit id="wjFqhk2" name="external_part_link.add_link">
+      <segment state="translated">
+        <source>external_part_link.add_link</source>
+        <target>Add link</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

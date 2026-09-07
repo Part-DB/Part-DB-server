@@ -271,5 +271,17 @@
         <target>If you specify an info provider, you also need to provide a provider ID, or remove both.</target>
       </segment>
     </unit>
+    <unit id="dTHY_Rh" name="settings.external_part_links.rules.unknown_placeholder">
+      <segment state="translated">
+        <source>settings.external_part_links.rules.unknown_placeholder</source>
+        <target>Unknown placeholder "{%placeholder%}". Only {mpn}, {manufacturer}, {ipn}, {name}, {category}, {footprint} and {id} are supported.</target>
+      </segment>
+    </unit>
+    <unit id="wHI1itr" name="settings.external_part_links.rules.invalid_template">
+      <segment state="translated">
+        <source>settings.external_part_links.rules.invalid_template</source>
+        <target>This does not result in a valid https URL once the placeholders are filled in.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
