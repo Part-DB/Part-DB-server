@@ -16046,5 +16046,149 @@ Buerklin-API Authentication server:
         <target>The information provider (%host%) is temporarily unavailable (HTTP %status%). Please try again later.</target>
       </segment>
     </unit>
+    <unit id="Ka6joea" name="tag_style.match_type">
+      <segment state="translated">
+        <source>tag_style.match_type</source>
+        <target>Match type</target>
+      </segment>
+    </unit>
+    <unit id="8RmOr20" name="tag_style.match_type.exact">
+      <segment state="translated">
+        <source>tag_style.match_type.exact</source>
+        <target>Exact tag</target>
+      </segment>
+    </unit>
+    <unit id="Y3EaTJs" name="tag_style.match_type.prefix">
+      <segment state="translated">
+        <source>tag_style.match_type.prefix</source>
+        <target>Tag prefix</target>
+      </segment>
+    </unit>
+    <unit id="Wo2HzbM" name="tag_style.pattern">
+      <segment state="translated">
+        <source>tag_style.pattern</source>
+        <target>Tag or prefix</target>
+      </segment>
+    </unit>
+    <unit id="TL7vC.2" name="tag_style.color">
+      <segment state="translated">
+        <source>tag_style.color</source>
+        <target>Color</target>
+      </segment>
+    </unit>
+    <unit id="yXqZuHo" name="tag_style.color.default">
+      <segment state="translated">
+        <source>tag_style.color.default</source>
+        <target>Default</target>
+      </segment>
+    </unit>
+    <unit id="vKGWYJu" name="tag_style.color.primary">
+      <segment state="translated">
+        <source>tag_style.color.primary</source>
+        <target>Primary</target>
+      </segment>
+    </unit>
+    <unit id="8s1Pktd" name="tag_style.color.secondary">
+      <segment state="translated">
+        <source>tag_style.color.secondary</source>
+        <target>Secondary</target>
+      </segment>
+    </unit>
+    <unit id="EO4SaNw" name="tag_style.color.info">
+      <segment state="translated">
+        <source>tag_style.color.info</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="qSfV7p." name="tag_style.color.success">
+      <segment state="translated">
+        <source>tag_style.color.success</source>
+        <target>Success</target>
+      </segment>
+    </unit>
+    <unit id="HLbn3kc" name="tag_style.color.warning">
+      <segment state="translated">
+        <source>tag_style.color.warning</source>
+        <target>Warning</target>
+      </segment>
+    </unit>
+    <unit id="W4grcuE" name="tag_style.color.danger">
+      <segment state="translated">
+        <source>tag_style.color.danger</source>
+        <target>Danger</target>
+      </segment>
+    </unit>
+    <unit id="X9Vh0pf" name="tag_style.color.light">
+      <segment state="translated">
+        <source>tag_style.color.light</source>
+        <target>Light</target>
+      </segment>
+    </unit>
+    <unit id="lNuL.MW" name="tag_style.color.dark">
+      <segment state="translated">
+        <source>tag_style.color.dark</source>
+        <target>Dark</target>
+      </segment>
+    </unit>
+    <unit id="a0oZ9ay" name="tag_style.preview">
+      <segment state="translated">
+        <source>tag_style.preview</source>
+        <target>Preview</target>
+      </segment>
+    </unit>
+    <unit id="Hfk1YhG" name="tag_style.add_rule">
+      <segment state="translated">
+        <source>tag_style.add_rule</source>
+        <target>Add rule</target>
+      </segment>
+    </unit>
+    <unit id="YOUWmxR" name="settings.tag_styles">
+      <segment state="translated">
+        <source>settings.tag_styles</source>
+        <target>Tag styles</target>
+      </segment>
+    </unit>
+    <unit id="0YcfQEZ" name="settings.tag_styles.help">
+      <segment state="translated">
+        <source>settings.tag_styles.help</source>
+        <target>Define rules to render specific tags or tag prefixes with a semantic color, everywhere tags are shown as badges. Tags without a matching rule keep their previous appearance, and the existing tag filter is unaffected.</target>
+      </segment>
+    </unit>
+    <unit id="zerTVf7" name="settings.tag_styles.rules">
+      <segment state="translated">
+        <source>settings.tag_styles.rules</source>
+        <target>Rules</target>
+      </segment>
+    </unit>
+    <unit id="pDf.C25" name="settings.tag_styles.rules.help">
+      <segment state="translated">
+        <source>settings.tag_styles.rules.help</source>
+        <target>For each tag, at most one rule is applied: an exact match always wins over a prefix match, the longest matching prefix wins among prefix rules, and on a tie the rule listed first wins.</target>
+      </segment>
+    </unit>
+    <unit id="CqSMHDW" name="tag_style.match_type.help">
+      <segment state="translated">
+        <source>tag_style.match_type.help</source>
+        <target>Exact tag: the rule applies to this one tag only. Tag prefix: it applies to every tag which starts with the given text - a prefix of "Risk:" colours Risk:High and Risk:Low alike.</target>
+      </segment>
+    </unit>
+    <unit id="85aF276" name="tag_style.match_type.exact.hint">
+      <segment state="translated">
+        <source>tag_style.match_type.exact.hint</source>
+        <target>Applies to the tag "%pattern%" only.</target>
+      </segment>
+    </unit>
+    <unit id="olc3o6c" name="tag_style.match_type.prefix.hint">
+      <segment state="translated">
+        <source>tag_style.match_type.prefix.hint</source>
+        <target>Applies to every tag which starts with "%pattern%".</target>
+      </segment>
+    </unit>
+    <unit id="LqeriTA" name="tag_style.preview.placeholder">
+      <segment state="translated">
+        <source>tag_style.preview.placeholder</source>
+        <target>Your tag</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

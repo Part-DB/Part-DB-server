@@ -1,0 +1,75 @@
+{% macro renderForm(child) %}
+    {# The preview is kept up to date by the Stimulus controller: the rules only take effect after saving, so
+       without it the row would give no feedback at all while it is being edited. #}
+    <div class="tc-item mt-1 px-2 pb-1 border-bottom"
+         {{ stimulus_controller('pages/tag_style_rule', {
+             placeholder: 'tag_style.preview.placeholder'|trans,
+             exactHint: 'tag_style.match_type.exact.hint'|trans,
+             prefixHint: 'tag_style.match_type.prefix.hint'|trans,
+         }) }}>
+        {% form_theme child "form/vertical_bootstrap_layout.html.twig" %}
+        <div class="row align-items-center">
+            <div class="col">{{ form_row(child.matchType) }}</div>
+            <div class="col">{{ form_row(child.pattern) }}</div>
+            <div class="col">{{ form_row(child.color) }}</div>
+            {# Fixed width, so that a long tag in the preview does not squeeze the columns of its row and break
+               the alignment with the other rows. #}
+            <div class="col-auto tag-style-preview-col">
+                <span class="badge bg-secondary text-truncate align-middle mw-100"
+                      {{ stimulus_target('pages/tag_style_rule', 'badge') }}></span>
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-outline-danger btn-sm tc-remove" {{ stimulus_action('pages/synonyms_collection', 'remove') }}>
+                    <i class="fa fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% block tag_style_rules_collection_widget %}
+    {% set _attrs = attr|default({}) %}
+    {% set _attrs = _attrs|merge({
+        class: (_attrs.class|default('') ~ ' tag_style_rules_collection-widget')|trim
+    }) %}
+
+    {% set has_proto = prototype is defined %}
+    {% if has_proto %}
+        {% set __proto %}
+            {{- _self.renderForm(prototype) -}}
+        {% endset %}
+        {% set _proto_html = __proto|e('html_attr') %}
+        {% set _proto_name = form.vars.prototype_name|default('__name__') %}
+        {% set _index = form|length %}
+    {% endif %}
+
+    <div
+    {{ stimulus_controller('pages/synonyms_collection', {
+        prototype: has_proto ? _proto_html : '',
+        prototypeName: has_proto ? _proto_name : '__name__',
+        index: has_proto ? _index : (form|length)
+    }) }}
+    {{ block('widget_container_attributes')|raw }}{% for k,v in _attrs %} {{ k }}="{{ v }}"{% endfor %}
+    >
+    <div class="row">
+        <div class="col text-center">
+            <strong>{% trans %}tag_style.match_type{% endtrans %}</strong>
+            <i class="fa-solid fa-circle-question text-muted" data-bs-toggle="tooltip"
+               title="{% trans %}tag_style.match_type.help{% endtrans %}"></i>
+        </div>
+        <div class="col text-center"><strong>{% trans %}tag_style.pattern{% endtrans %}</strong></div>
+        <div class="col text-center"><strong>{% trans %}tag_style.color{% endtrans %}</strong></div>
+        <div class="col-auto text-center tag-style-preview-col"><strong>{% trans %}tag_style.preview{% endtrans %}</strong></div>
+        <div class="col-auto"></div>
+    </div>
+
+    <div class="tc-items" {{ stimulus_target('pages/synonyms_collection', 'items') }}>
+        {% for child in form %}
+            {{ _self.renderForm(child) }}
+        {% endfor %}
+    </div>
+    <button type="button" class="btn btn-outline-primary btn-sm mt-2 tc-add" {{ stimulus_action('pages/synonyms_collection', 'add') }}>
+        <i class="fa fa-plus"></i> {% trans %}tag_style.add_rule{% endtrans %}
+    </button>
+    </div>
+{% endblock %}

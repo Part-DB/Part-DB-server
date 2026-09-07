@@ -22,12 +22,13 @@ declare(strict_types=1);
 
 namespace App\DataTables\Column;
 
+use App\Services\Tools\TagStyleResolver;
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class TagsColumn extends AbstractColumn
 {
-    public function __construct(protected UrlGeneratorInterface $urlGenerator)
+    public function __construct(protected UrlGeneratorInterface $urlGenerator, protected TagStyleResolver $tagStyleResolver)
     {
     }
 
@@ -60,8 +61,9 @@ class TagsColumn extends AbstractColumn
                 break;
             }
             $html .= sprintf(
-                '<a href="%s" class="badge bg-primary badge-table">%s</a>',
+                '<a href="%s" class="%s">%s</a>',
                 $this->urlGenerator->generate('part_list_tags', ['tag' => $tag]),
+                htmlspecialchars($this->tagStyleResolver->resolve((string) $tag, 'badge bg-primary badge-table')),
                 htmlspecialchars((string) $tag)
             );
         }
