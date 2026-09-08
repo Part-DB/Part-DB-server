@@ -388,3 +388,31 @@ To reduce the number of API calls against the providers, the results are cached:
 If you need a fresh result, you can clear the cache by running `php .\bin\console cache:pool:clear info_provider.cache`
 on the command line.
 The default `php bin/console cache:clear` also clears the result cache, as it clears all caches.
+
+## Rate limiting
+
+Info providers enforce rate limits per account, usually in short windows (TrustedParts, for example, allows 50
+requests per 10 seconds and 150 per minute), and many of them bill per request. Part-DB can easily produce
+bursts above that: a bulk import or an update of many parts walks through them as fast as the network allows.
+
+Part-DB therefore paces its own requests to each provider. The limits are configured under
+*System settings → Info providers → General*:
+
+* **Max. provider requests per 10 seconds** (default 35)
+* **Max. provider requests per minute** (default 120)
+* **Max. wait for a free slot** (default 30 seconds)
+
+Requests are delayed, not rejected - a bulk operation simply takes a little longer. Only if a single request
+would have to wait longer than the configured maximum does it fail, so that a request started from the user
+interface cannot hang indefinitely. Such a failure answers with HTTP 429 and a `Retry-After` header naming the
+seconds until the next free slot, so an automated caller can tell "too fast, come back shortly" apart from a
+real error. Setting a limit to 0 disables that window.
+
+Each provider is counted separately, since the limits belong to a provider account, and cached responses are not
+counted at all - only requests which really reach the provider.
+
+The defaults deliberately stay below what providers allow. The reason is that the provider counts *your account*,
+not Part-DB: if an external script uses the same API credentials (for example a job which maintains parts
+through the API), its requests and Part-DB's add up, and neither side can see the other's count. The remaining
+headroom is what keeps the two from pushing each other over the limit. If you know that nothing else uses the
+account, you can raise the values.

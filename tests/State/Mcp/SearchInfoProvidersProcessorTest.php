@@ -28,6 +28,7 @@ use App\Mcp\DTO\InfoProviderSearchInput;
 use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\InfoProviderSystem\DTOtoEntityConverter;
+use App\Services\InfoProviderSystem\InfoProviderRateLimiter;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use App\Services\InfoProviderSystem\ProviderRegistry;
@@ -59,10 +60,16 @@ final class SearchInfoProvidersProcessorTest extends TestCase
             SettingsTestHelper::createSettingsDummy(LocalizationSettings::class)
         );
 
+        //These tests do not exercise the provider rate limit, so it is switched off here
+        $rateLimitSettings = SettingsTestHelper::createSettingsDummy(InfoProviderGeneralSettings::class);
+        $rateLimitSettings->rateLimitPer10Seconds = 0;
+        $rateLimitSettings->rateLimitPerMinute = 0;
+
         $this->infoRetriever = new PartInfoRetriever(
             $this->providerRegistry,
             $dtoToEntityConverter,
             new ArrayAdapter(),
+            new InfoProviderRateLimiter(new ArrayAdapter(), $rateLimitSettings),
             debugMode: true
         );
     }
