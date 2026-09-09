@@ -33,6 +33,7 @@ use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Services\EDA\KiCadHelper;
+use App\Settings\MiscSettings\KiCadEDASettings;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -653,5 +654,39 @@ final class KiCadHelperTest extends KernelTestCase
             self::assertArrayHasKey('footprint', $part['fields']);
             self::assertArrayHasKey('symbolIdStr', $part);
         }
+    }
+
+    /**
+     * The category listing is cached and only invalidated by entity changes.
+     * Changing a setting that affects the exported fields must not serve a stale listing.
+     */
+    public function testCategoryPartsCacheIsInvalidatedBySettingsChange(): void
+    {
+        /** @var KiCadEDASettings $settings */
+        $settings = self::getContainer()->get(KiCadEDASettings::class);
+        $category = $this->em->find(Category::class, 1);
+
+        $part = new Part();
+        $part->setName('Part for cache test');
+        $part->setCategory($category);
+        $param = new PartParameter();
+        $param->setName('CacheTestParam');
+        $param->setValueText('42');
+        $param->setEdaVisibility(null);
+        $part->addParameter($param);
+        $this->em->persist($part);
+        $this->em->flush();
+
+        $findFields = fn(array $listing): array => array_values(array_filter($listing, fn($p) => (int) $p['id'] === $part->getId()))[0]['fields'];
+
+        $settings->defaultParameterVisibility = false;
+        $before = $findFields($this->helper->getCategoryParts($category));
+        self::assertArrayNotHasKey('CacheTestParam', $before);
+
+        // No entity changed, only the setting: the cached listing must not be reused
+        $settings->defaultParameterVisibility = true;
+        $after = $findFields($this->helper->getCategoryParts($category));
+        self::assertArrayHasKey('CacheTestParam', $after);
+        self::assertSame('42', $after['CacheTestParam']['value']);
     }
 }
