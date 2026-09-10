@@ -26,6 +26,7 @@ namespace App\Serializer\APIPlatform;
 use ApiPlatform\Metadata\Exception\InvalidArgumentException;
 use ApiPlatform\Metadata\Exception\ItemNotFoundException;
 use ApiPlatform\Metadata\IriConverterInterface;
+use ApiPlatform\Metadata\ResourceClassResolverInterface;
 use ApiPlatform\Serializer\ItemNormalizer;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
@@ -53,6 +54,7 @@ class SkippableItemNormalizer implements NormalizerInterface, DenormalizerInterf
     public function __construct(
         private readonly ItemNormalizer $inner,
         private readonly IriConverterInterface $iriConverter,
+        private readonly ResourceClassResolverInterface $resourceClassResolver,
     ) {
     }
 
@@ -63,7 +65,13 @@ class SkippableItemNormalizer implements NormalizerInterface, DenormalizerInterf
         // check (line 271). For abstract resource classes with a discriminator map (e.g. Attachment), this
         // fails because the array has no _type key. Fix by resolving IRI strings directly.
         // See: https://github.com/Part-DB/Part-DB-server/issues/1370
-        if (is_string($data) || (is_array($data) && isset($data['@id']) && is_string($data['@id']))) {
+        //
+        // $type must actually be an API resource for this to make sense: this normalizer also runs for plain
+        // value objects (e.g. backed enums) nested inside a resource, and a string value there is the enum's
+        // scalar value, not an IRI - treating it as one silently swallows the value instead of letting the
+        // regular (enum) normalizer handle it.
+        if ($this->resourceClassResolver->isResourceClass($type)
+            && (is_string($data) || (is_array($data) && isset($data['@id']) && is_string($data['@id'])))) {
             if (is_array($data)) {
                 $iri = $data['@id'];
             } else {

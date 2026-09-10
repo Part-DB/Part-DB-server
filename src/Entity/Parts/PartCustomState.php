@@ -50,6 +50,7 @@ use App\State\Mcp\GetStructuralElementDetailsProcessor;
 use App\State\Mcp\ListStructuralElementsProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -108,6 +109,14 @@ class PartCustomState extends AbstractPartsContainingDBElement
     #[Groups(['part_custom_state:read', 'part_custom_state:write', 'full', 'import'])]
     protected string $comment = '';
 
+    /**
+     * @var PartCustomStateColor|null The semantic color this state is rendered as a badge with.
+     * Null keeps the default, uncolored appearance Part-DB used before this field existed.
+     */
+    #[ORM\Column(type: Types::STRING, length: 20, nullable: true, enumType: PartCustomStateColor::class)]
+    #[Groups(['part_custom_state:read', 'part_custom_state:write', 'full', 'import'])]
+    protected ?PartCustomStateColor $color = null;
+
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist'])]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
@@ -151,5 +160,27 @@ class PartCustomState extends AbstractPartsContainingDBElement
         $this->children = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+    }
+
+    public function getColor(): ?PartCustomStateColor
+    {
+        return $this->color;
+    }
+
+    public function setColor(?PartCustomStateColor $color): self
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Returns the CSS class this state is rendered as a badge with, everywhere it is shown.
+     * Without a configured color this is the color Part-DB used before the color existed, so an unconfigured
+     * state keeps looking exactly the way it did.
+     */
+    public function getBadgeClass(): string
+    {
+        return $this->color?->toBadgeClass() ?? 'bg-primary';
     }
 }
