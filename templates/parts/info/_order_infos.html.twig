@@ -6,6 +6,7 @@
         <tr>
             <th>{% trans %}part.supplier.name{% endtrans %}</th>
             <th>{% trans %}part.supplier.partnr{% endtrans %}</th>
+            <th>{% trans %}part.supplier.available_amount{% endtrans %}</th>
             <th></th>
             <th></th>
         </tr>
@@ -20,6 +21,21 @@
                         <a href="{{ order.supplierProductUrl }}" rel="noopener" target="_blank" class="link-external">{{ order.supplierPartNr }}</a>
                     {% else %}
                         {{ order.supplierPartNr }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if order.availableAmount is null %}
+                        <span class="text-muted">{% trans %}part.supplier.available_amount.unknown{% endtrans %}</span>
+                    {% else %}
+                        {# A stock is only meaningful together with its age, so always show when it was retrieved #}
+                        <span class="{{ order.availableAmount > 0 ? 'text-success' : 'text-danger' }}"
+                              title="{{ 'part.supplier.available_amount.updated_at'|trans({'%datetime%': order.availableAmountUpdatedAt|format_datetime}) }}">
+                            {% if order.availableAmount > 0 %}
+                                {{ order.availableAmount | format_amount(part.partUnit) }}
+                            {% else %}
+                                {% trans %}part.supplier.available_amount.out_of_stock{% endtrans %}
+                            {% endif %}
+                        </span>
                     {% endif %}
                 </td>
                 <td>

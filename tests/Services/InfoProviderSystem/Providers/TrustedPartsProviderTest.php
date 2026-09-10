@@ -202,12 +202,15 @@ final class TrustedPartsProviderTest extends TestCase
         $this->assertSame(1.0, $orderinfos[0]->prices[0]->minimum_discount_amount);
         $this->assertSame('0.22', $orderinfos[0]->prices[0]->price);
         $this->assertSame('EUR', $orderinfos[0]->prices[0]->currency_iso_code);
+        $this->assertSame(1000.0, $orderinfos[0]->available_amount);
 
         //If a distributor does not provide an own part number, the MPN is used instead
         $this->assertSame('Mouser Electronics', $orderinfos[1]->distributor_name);
         $this->assertSame('LM358DR', $orderinfos[1]->order_number);
         //Offers without pricing information are still shown
         $this->assertSame([], $orderinfos[1]->prices);
+        //A stock of 0 must be kept as 0 and not turned into "unknown"
+        $this->assertSame(0.0, $orderinfos[1]->available_amount);
     }
 
     public function testSearchByKeywordRespectsSearchLimit(): void

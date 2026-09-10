@@ -33,6 +33,7 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\PartAssociation;
 use App\Entity\Parts\PartCustomState;
 use App\Entity\Parts\PartLot;
+use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
@@ -356,5 +357,112 @@ final class PartMergerTest extends KernelTestCase
         $this->assertFalse($this->merger->supports(new \stdClass(), new \stdClass()));
         $this->assertFalse($this->merger->supports(new \stdClass(), new Part()));
         $this->assertTrue($this->merger->supports(new Part(), new Part()));
+    }
+
+    public function testMergeOrderdetailsUpdatesTheAvailableAmount(): void
+    {
+        $supplier = new Supplier();
+        $supplier->setName('TestSupplier');
+
+        $target = new Part();
+        $target_orderdetail = new Orderdetail();
+        $target_orderdetail->setSupplier($supplier);
+        $target_orderdetail->setSupplierpartnr('1234');
+        $target_orderdetail->setAvailableAmount(10.0);
+        $target->addOrderdetail($target_orderdetail);
+
+        $other = new Part();
+        $other_orderdetail = new Orderdetail();
+        $other_orderdetail->setSupplier($supplier);
+        $other_orderdetail->setSupplierpartnr('1234');
+        $other_orderdetail->setAvailableAmount(500.0);
+        $other->addOrderdetail($other_orderdetail);
+
+        $merged = $this->merger->merge($target, $other);
+
+        //The stock is volatile, so the newer value has to win here
+        $this->assertCount(1, $merged->getOrderdetails());
+        $this->assertSame(500.0, $merged->getOrderdetails()->first()->getAvailableAmount());
+    }
+
+    public function testMergeOrderdetailsKeepsAvailableAmountIfUnknown(): void
+    {
+        $supplier = new Supplier();
+        $supplier->setName('TestSupplier');
+
+        $target = new Part();
+        $target_orderdetail = new Orderdetail();
+        $target_orderdetail->setSupplier($supplier);
+        $target_orderdetail->setSupplierpartnr('1234');
+        $target_orderdetail->setAvailableAmount(10.0);
+        $target->addOrderdetail($target_orderdetail);
+
+        $other = new Part();
+        $other_orderdetail = new Orderdetail();
+        $other_orderdetail->setSupplier($supplier);
+        $other_orderdetail->setSupplierpartnr('1234');
+        //The other side does not know the stock
+        $other->addOrderdetail($other_orderdetail);
+
+        $merged = $this->merger->merge($target, $other);
+
+        //An unknown stock must not overwrite a known one
+        $this->assertSame(10.0, $merged->getOrderdetails()->first()->getAvailableAmount());
+    }
+
+    public function testMergeOrderdetailsKeepsTheNewerAvailableAmount(): void
+    {
+        $supplier = new Supplier();
+        $supplier->setName('TestSupplier');
+
+        $now = new \DateTimeImmutable();
+
+        $target = new Part();
+        $target_orderdetail = new Orderdetail();
+        $target_orderdetail->setSupplier($supplier);
+        $target_orderdetail->setSupplierpartnr('1234');
+        $target_orderdetail->setAvailableAmount(10.0, $now);
+        $target->addOrderdetail($target_orderdetail);
+
+        $other = new Part();
+        $other_orderdetail = new Orderdetail();
+        $other_orderdetail->setSupplier($supplier);
+        $other_orderdetail->setSupplierpartnr('1234');
+        //The other side knows a stock, but an older one than the target
+        $other_orderdetail->setAvailableAmount(500.0, $now->modify('-1 day'));
+        $other->addOrderdetail($other_orderdetail);
+
+        $merged = $this->merger->merge($target, $other);
+
+        //An older stock must not overwrite a newer one
+        $this->assertSame(10.0, $merged->getOrderdetails()->first()->getAvailableAmount());
+        $this->assertEquals($now, $merged->getOrderdetails()->first()->getAvailableAmountUpdatedAt());
+    }
+
+    public function testMergeOrderdetailsTakesOverTheTimeOfTheAvailableAmount(): void
+    {
+        $supplier = new Supplier();
+        $supplier->setName('TestSupplier');
+
+        $retrieved_at = new \DateTimeImmutable('2026-09-01 12:00:00');
+
+        $target = new Part();
+        $target_orderdetail = new Orderdetail();
+        $target_orderdetail->setSupplier($supplier);
+        $target_orderdetail->setSupplierpartnr('1234');
+        $target->addOrderdetail($target_orderdetail);
+
+        $other = new Part();
+        $other_orderdetail = new Orderdetail();
+        $other_orderdetail->setSupplier($supplier);
+        $other_orderdetail->setSupplierpartnr('1234');
+        $other_orderdetail->setAvailableAmount(500.0, $retrieved_at);
+        $other->addOrderdetail($other_orderdetail);
+
+        $merged = $this->merger->merge($target, $other);
+
+        //A stock is only meaningful together with its age, so the time has to travel with the value
+        $this->assertSame(500.0, $merged->getOrderdetails()->first()->getAvailableAmount());
+        $this->assertEquals($retrieved_at, $merged->getOrderdetails()->first()->getAvailableAmountUpdatedAt());
     }
 }

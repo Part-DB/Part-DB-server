@@ -40,6 +40,9 @@ readonly class PurchaseInfoDTO
         /** @var string|null An url to the product page of the vendor */
         public ?string $product_url = null,
         ?bool $prices_include_vat = null,
+        /** @var float|null The amount the distributor currently has in stock. Null means that the stock is unknown,
+         * which is something different than a stock of 0. */
+        public ?float $available_amount = null,
     )
     {
         //Ensure that the prices are PriceDTO instances

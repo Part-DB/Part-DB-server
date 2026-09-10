@@ -208,4 +208,45 @@ readonly class PartDataTableHelper
 
         return $ret;
     }
+
+    /**
+     * Renders the best stock any supplier of this part has, as retrieved from the info providers.
+     * Obsolete orderdetails and orderdetails without a known stock are ignored; if no supplier stock is known at all,
+     * nothing is rendered. A stock is only meaningful together with its age, so the time it was retrieved at is
+     * always shown as a tooltip.
+     */
+    public function renderSupplierAvailableAmount(Part $context): string
+    {
+        $best_amount = null;
+        $retrieved_at = null;
+
+        foreach ($context->getOrderdetails(true) as $orderdetail) {
+            $amount = $orderdetail->getAvailableAmount();
+            if ($amount === null) {
+                continue;
+            }
+
+            if ($best_amount === null || $amount > $best_amount) {
+                $best_amount = $amount;
+                $retrieved_at = $orderdetail->getAvailableAmountUpdatedAt();
+            }
+        }
+
+        if ($best_amount === null) {
+            return '';
+        }
+
+        $title = $retrieved_at === null ? '' : $this->translator->trans(
+            'part.supplier.available_amount.updated_at',
+            ['%datetime%' => $retrieved_at->format(\DateTimeInterface::ATOM)]
+        );
+
+        return sprintf('<span class="%s" title="%s">%s</span>',
+            $best_amount > 0 ? 'text-success' : 'text-danger',
+            htmlspecialchars($title),
+            $best_amount > 0
+                ? htmlspecialchars($this->amountFormatter->format($best_amount, $context->getPartUnit()))
+                : htmlspecialchars($this->translator->trans('part.supplier.available_amount.out_of_stock'))
+        );
+    }
 }

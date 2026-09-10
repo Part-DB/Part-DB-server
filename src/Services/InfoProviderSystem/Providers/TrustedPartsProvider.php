@@ -30,6 +30,7 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Settings\InfoProviderSystem\TrustedPartsSettings;
 use Psr\Cache\CacheItemPoolInterface;
 use Shivas\VersioningBundle\Service\VersionManagerInterface;
@@ -348,12 +349,16 @@ class TrustedPartsProvider implements BatchInfoProviderInterface
                     $order_number = $mpn;
                 }
 
+                //QuantityOnHand is null if the distributor does not disclose the exact number
+                $available_amount = $offer['Stock']['QuantityOnHand'] ?? null;
+
                 $orderinfos[] = new PurchaseInfoDTO(
                     distributor_name: $distributor_name,
                     order_number: $order_number,
                     prices: $prices,
                     product_url: $product_url,
                     prices_include_vat: false,
+                    available_amount: $available_amount !== null ? (float) $available_amount : null,
                 );
             }
         }
@@ -436,6 +441,6 @@ class TrustedPartsProvider implements BatchInfoProviderInterface
     private function cacheKey(string $id): string
     {
         //The IDs contain characters which are not allowed in cache keys, so we hash them
-        return 'trustedparts_part_'.hash('xxh3', $id);
+        return 'trustedparts_part_'.PartInfoRetriever::DTO_CACHE_VERSION.'_'.hash('xxh3', $id);
     }
 }
