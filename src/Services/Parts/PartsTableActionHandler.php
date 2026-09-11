@@ -127,6 +127,16 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
             );
         }
 
+        if ($action === 'bulk_info_provider_refresh') {
+            $ids = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
+            return new RedirectResponse(
+                $this->urlGenerator->generate('bulk_info_provider_refresh', [
+                    'ids' => $ids,
+                    '_redirect' => $redirect_url
+                ])
+            );
+        }
+
         if ($action === 'batch_edit_eda') {
             $ids = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
             return new RedirectResponse(

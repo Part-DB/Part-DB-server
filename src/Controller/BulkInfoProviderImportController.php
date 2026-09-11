@@ -31,6 +31,7 @@ use App\Entity\UserSystem\User;
 use App\Form\InfoProviderSystem\GlobalFieldMappingType;
 use App\Services\EntityMergers\Mergers\PartMerger;
 use App\Services\InfoProviderSystem\BulkInfoProviderService;
+use App\Services\InfoProviderSystem\BulkRefreshResultsBuilder;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchFieldMappingDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
@@ -50,6 +51,7 @@ class BulkInfoProviderImportController extends AbstractController
 {
     public function __construct(
         private readonly BulkInfoProviderService $bulkService,
+        private readonly BulkRefreshResultsBuilder $refreshResultsBuilder,
         private readonly EntityManagerInterface $entityManager,
         private readonly LoggerInterface $logger,
         #[Autowire(param: 'partdb.bulk_import.batch_size')]
@@ -261,6 +263,76 @@ class BulkInfoProviderImportController extends AbstractController
             'existing_jobs' => $existingJobs,
             'fieldChoices' => $fieldChoices
         ]);
+    }
+
+    /**
+     * Refreshes a set of parts from the info provider each of them was created with.
+     *
+     * This is the bulk version of the refresh button on a part: no search step is needed, as every part already
+     * knows where it came from, so the job is created with its results filled in and the user lands directly in the
+     * review step, where the parts can be applied one by one or all at once.
+     */
+    #[Route('/refresh', name: 'bulk_info_provider_refresh')]
+    public function refresh(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('@info_providers.create_parts');
+
+        $ids = $request->query->get('ids');
+        if (!$ids) {
+            $this->addFlash('error', 'No parts selected for bulk refresh');
+            return $this->redirectToRoute('homepage');
+        }
+
+        $parts = $this->entityManager->getRepository(Part::class)->getElementsFromIDArray(explode(',', $ids));
+
+        if ($parts === []) {
+            $this->addFlash('error', 'No valid parts found for bulk refresh');
+            return $this->redirectToRoute('homepage');
+        }
+
+        if (count($parts) > $this->bulkImportMaxParts) {
+            $this->addFlash('error', sprintf(
+                'Too many parts selected (%d). Maximum allowed is %d parts per operation.',
+                count($parts),
+                $this->bulkImportMaxParts
+            ));
+            return $this->redirectToRoute('homepage');
+        }
+
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            throw new \RuntimeException('User must be authenticated and of type User');
+        }
+
+        $job = new BulkInfoProviderImportJob();
+        $job->setCreatedBy($user);
+
+        foreach ($parts as $part) {
+            $job->addJobPart(new BulkInfoProviderImportJobPart($job, $part));
+        }
+
+        $this->entityManager->persist($job);
+        $this->entityManager->flush();
+
+        try {
+            $job->setSearchResults($this->refreshResultsBuilder->build($parts));
+            $job->markAsInProgress();
+            $this->entityManager->flush();
+        } catch (\Exception $e) {
+            $this->logger->error('Critical error during bulk refresh', [
+                'job_id' => $job->getId(),
+                'error' => $e->getMessage(),
+                'exception' => $e,
+            ]);
+
+            $this->entityManager->remove($job);
+            $this->entityManager->flush();
+
+            $this->addFlash('error', 'Refresh failed due to an error: ' . $e->getMessage());
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->redirectToRoute('bulk_info_provider_step2', ['jobId' => $job->getId()]);
     }
 
     #[Route('/manage', name: 'bulk_info_provider_manage')]
