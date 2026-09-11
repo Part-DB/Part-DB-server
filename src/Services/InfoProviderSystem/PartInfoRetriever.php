@@ -41,6 +41,14 @@ final class PartInfoRetriever
     private const CACHE_DETAIL_EXPIRATION = 60 * 60 * 24 * 4; // 4 days
     private const CACHE_RESULT_EXPIRATION = 60 * 60 * 24 * 4; // 7 days
 
+    /**
+     * @var string The info provider DTOs are cached as serialized objects, and that cache outlives an update of
+     * Part-DB (it is not stored in the cache directory). Restoring an object of an older version into a class with
+     * new properties fails, as those properties stay uninitialized, so this marker is part of every cache key of a
+     * DTO and has to be increased whenever the structure of the DTOs changes.
+     */
+    public const DTO_CACHE_VERSION = 'v2';
+
     public function __construct(private readonly ProviderRegistry $provider_registry,
         private readonly DTOtoEntityConverter $dto_to_entity_converter, private readonly CacheInterface $partInfoCache,
         #[Autowire(param: "kernel.debug")]
@@ -102,7 +110,7 @@ final class PartInfoRetriever
         //Generate a hash for the options, to ensure that different options result in different cache entries
         $options_hash = hash('xxh3', json_encode($options_without_cache, JSON_THROW_ON_ERROR));
 
-        $cache_key = "search_{$provider->getProviderInfo()->key}_{$escaped_keyword}_{$options_hash}";
+        $cache_key = "search_".self::DTO_CACHE_VERSION."_{$provider->getProviderInfo()->key}_{$escaped_keyword}_{$options_hash}";
 
         //If no_cache is set, bypass the cache and get fresh results from the provider
         if ($no_cache) {
@@ -144,7 +152,7 @@ final class PartInfoRetriever
 
         //Generate key and escape reserved characters from the provider id
         $escaped_part_id = hash('xxh3', $part_id);
-        $cache_key = "details_{$provider_key}_{$escaped_part_id}_{$options_hash}";
+        $cache_key = "details_".self::DTO_CACHE_VERSION."_{$provider_key}_{$escaped_part_id}_{$options_hash}";
 
         //Delete the cache entry if no_cache is set, to ensure that the next get call will fetch fresh data from the provider, instead of returning stale data from the cache.
         if ($options[InfoProviderInterface::OPTION_NO_CACHE] ?? false) {
