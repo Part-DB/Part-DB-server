@@ -149,24 +149,24 @@ class LabelOptions
         return $this;
     }
 
-    public function getColumns(): int
+    public function getGridColumns(): int
     {
         return $this->grid_columns;
     }
 
-    public function setColumns(int $col): self
+    public function setGridColumns(int $col): self
     {
         $this->grid_columns = $col;
 
         return $this;
     }
 
-    public function getRows(): int
+    public function getGridRows(): int
     {
         return $this->grid_rows;
     }
 
-    public function setRows(int $row): self
+    public function setGridRows(int $row): self
     {
         $this->grid_rows = $row;
 
