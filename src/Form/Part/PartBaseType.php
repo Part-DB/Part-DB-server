@@ -265,6 +265,9 @@ class PartBaseType extends AbstractType
             'label' => false,
             'entry_options' => [
                 'data_class' => PartAttachment::class,
+                //Some provider files are only reachable from a browser and can never be downloaded by the server,
+                //so they must not be pre-selected for download (see FileDTO::$downloadable)
+                'non_downloadable_urls' => $dto?->getNonDownloadableFileUrls() ?? [],
             ],
             'by_reference' => false,
         ]);

@@ -315,8 +315,13 @@ class TrustedPartsProvider implements BatchInfoProviderInterface
                     if (strcasecmp((string) ($link['Type'] ?? ''), 'Datasheet') === 0) {
                         //Every distributor links its own copy of the datasheet, so we name them after the
                         //distributor. The URL is used as key to filter out duplicates.
+                        //These are tracking redirects on trustedparts.com itself, not a link to the actual file:
+                        //they only resolve for an actual browser and 403 for anything else (and the API terms of use
+                        //prohibit scraping/downloading from the TrustedParts site anyway), so a local copy can never
+                        //be downloaded.
                         $datasheets[$url] = new FileDTO($url,
-                            $distributor_name === '' ? 'Datasheet' : 'Datasheet ('.$distributor_name.')');
+                            $distributor_name === '' ? 'Datasheet' : 'Datasheet ('.$distributor_name.')',
+                            downloadable: false);
                     } elseif ($product_url === null) {
                         //The link to the offer is either of type "Buy" (orderable) or "View"
                         $product_url = $url;
