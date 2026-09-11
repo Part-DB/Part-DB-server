@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -33,13 +32,20 @@ use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\McpTool;
+use ApiPlatform\Metadata\McpToolCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Mcp\DTO\ElementByIdInput;
+use App\Mcp\DTO\StructuralElementOverview;
+use App\Mcp\DTO\StructuralElementSearchInput;
 use App\Repository\Parts\MeasurementUnitRepository;
+use App\State\Mcp\GetStructuralElementDetailsProcessor;
+use App\State\Mcp\ListStructuralElementsProcessor;
 use Doctrine\DBAL\Types\Types;
 use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -49,9 +55,8 @@ use App\Entity\Parameters\MeasurementUnitParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * This unit represents the unit in which the amount of parts in stock are measured.
@@ -62,8 +67,8 @@ use Symfony\Component\Validator\Constraints\Length;
 #[UniqueEntity('unit')]
 #[ORM\Entity(repositoryClass: MeasurementUnitRepository::class)]
 #[ORM\Table(name: '`measurement_units`')]
-#[ORM\Index(columns: ['name'], name: 'unit_idx_name')]
-#[ORM\Index(columns: ['parent_id', 'name'], name: 'unit_idx_parent_name')]
+#[ORM\Index(name: 'unit_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'unit_idx_parent_name', columns: ['parent_id', 'name'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -71,22 +76,37 @@ use Symfony\Component\Validator\Constraints\Length;
         new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
+        new GetCollection(
+            uriTemplate: '/measurement_units/{id}/children.{_format}',
+            uriVariables: ['id' => new Link(fromProperty: 'children', fromClass: MeasurementUnit::class)],
+            openapi: new Operation(summary: 'Retrieves the children elements of a MeasurementUnit.'),
+            security: 'is_granted("@measurement_units.read")'
+        ),
     ],
     normalizationContext: ['groups' => ['measurement_unit:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['measurement_unit:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
-)]
-#[ApiResource(
-    uriTemplate: '/measurement_units/{id}/children.{_format}',
-    operations: [
-        new GetCollection(
-            openapi: new Operation(summary: 'Retrieves the children elements of a MeasurementUnit.'),
-            security: 'is_granted("@measurement_units.read")'
-        )
+    mcp: [
+        'list_measurement_units' => new McpToolCollection(
+            title: 'List/search measurement units',
+            description: 'List all measurement units, optionally filtered by a keyword matched against the name and comment. Measurement units describe how the amount of a part is measured (e.g. pieces, meters, grams). Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['mcp_structural_overview:read']],
+            security: 'is_granted("@measurement_units.read")',
+            input: StructuralElementSearchInput::class,
+            output: StructuralElementOverview::class,
+            processor: ListStructuralElementsProcessor::class,
+        ),
+        'get_measurement_unit_details' => new McpTool(
+            title: 'Get measurement unit details by ID',
+            description: 'Get detailed information about a specific measurement unit by its database ID.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['measurement_unit:read', 'api:basic:read']],
+            security: 'is_granted("@measurement_units.read")',
+            input: ElementByIdInput::class,
+            validate: true,
+            processor: GetStructuralElementDetailsProcessor::class,
+        ),
     ],
-    uriVariables: [
-        'id' => new Link(fromProperty: 'children', fromClass: MeasurementUnit::class)
-    ],
-    normalizationContext: ['groups' => ['measurement_unit:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment", "unit"])]
@@ -123,8 +143,8 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     #[ORM\Column(name: 'use_si_prefix', type: Types::BOOLEAN)]
     protected bool $use_si_prefix = false;
 
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, cascade: ['persist'])]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist'])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -137,8 +157,8 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      * @var Collection<int, MeasurementUnitAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: MeasurementUnitAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: MeasurementUnitAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     protected Collection $attachments;
 
@@ -150,8 +170,8 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     /** @var Collection<int, MeasurementUnitParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: MeasurementUnitParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OneToMany(targetEntity: MeasurementUnitParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['measurement_unit:read', 'measurement_unit:write'])]
     protected Collection $parameters;
 

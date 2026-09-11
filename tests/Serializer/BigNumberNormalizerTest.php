@@ -29,7 +29,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Brick\Math\BigDecimal;
 use Brick\Math\BigNumber;
 
-class BigNumberNormalizerTest extends WebTestCase
+final class BigNumberNormalizerTest extends WebTestCase
 {
     /** @var BigNumberNormalizer */
     protected $service;

@@ -27,7 +27,7 @@ use App\Services\UserSystem\TFA\BackupCodeGenerator;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class BackupCodeGeneratorTest extends TestCase
+final class BackupCodeGeneratorTest extends TestCase
 {
     /**
      * Test if an exception is thrown if you are using a too high code length.

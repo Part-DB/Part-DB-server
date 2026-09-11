@@ -1,0 +1,28 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}settings.misc.kicad_eda.editor.title{% endtrans %}{% endblock %}
+
+{% block card_title %}<i class="fa-solid fa-pen-to-square fa-fw"></i> {% trans %}settings.misc.kicad_eda.editor.title{% endtrans %}{% endblock %}
+
+{% block card_content %}
+    <p class="text-muted">
+        {% trans %}settings.misc.kicad_eda.editor.description{% endtrans %}
+    </p>
+
+    {{ form_start(form) }}
+    {{ form_row(form.useCustomList) }}
+
+    <div class="row g-3">
+        <div class="col-12 col-xl-6">
+            {{ form_row(form.customFootprints) }}
+            {{ form_row(form.customSymbols) }}
+        </div>
+        <div class="col-12 col-xl-6">
+            {{ form_row(form.defaultFootprints) }}
+            {{ form_row(form.defaultSymbols) }}
+        </div>
+    </div>
+
+    {{ form_row(form.save) }}
+    {{ form_end(form) }}
+{% endblock %}

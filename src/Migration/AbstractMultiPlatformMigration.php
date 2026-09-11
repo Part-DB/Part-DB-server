@@ -97,8 +97,11 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
     public function getInitalAdminPW(): string
     {
         if ($this->admin_pw === '') {
-            if (!empty($_ENV['INITIAL_ADMIN_PW'])) {
-                $this->admin_pw = $_ENV['INITIAL_ADMIN_PW'];
+            //$_ENV/$_SERVER are not always populated with the real environment variables (depends on the
+            //variables_order php.ini setting), so fall back to getenv() in that case.
+            $env_pw = $_ENV['INITIAL_ADMIN_PW'] ?? $_SERVER['INITIAL_ADMIN_PW'] ?? getenv('INITIAL_ADMIN_PW');
+            if (!empty($env_pw)) {
+                $this->admin_pw = $env_pw;
             } else {
                 $this->admin_pw = substr(md5(random_bytes(10)), 0, static::ADMIN_PW_LENGTH);
             }

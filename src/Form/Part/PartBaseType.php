@@ -33,6 +33,7 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\PartCustomState;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Form\AttachmentFormType;
+use App\Form\InfoProviderSystem\InfoProviderReferenceType;
 use App\Form\ParameterType;
 use App\Form\Part\EDA\EDAPartInfoType;
 use App\Form\Type\MasterPictureAttachmentType;
@@ -43,6 +44,7 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use App\Services\LogSystem\EventCommentType;
 use App\Settings\MiscSettings\IpnSuggestSettings;
+use App\Settings\SystemSettings\LocalizationSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -63,6 +65,7 @@ class PartBaseType extends AbstractType
         protected UrlGeneratorInterface $urlGenerator,
         protected EventCommentNeededHelper $event_comment_needed_helper,
         protected IpnSuggestSettings $ipnSuggestSettings,
+        private readonly LocalizationSettings $localizationSettings,
     ) {
     }
 
@@ -115,6 +118,7 @@ class PartBaseType extends AbstractType
                 'label' => 'part.edit.name',
                 'attr' => [
                     'placeholder' => 'part.edit.name.placeholder',
+                    'autofocus' => $new_part,
                 ],
             ])
             ->add('description', RichTextEditorType::class, [
@@ -216,7 +220,17 @@ class PartBaseType extends AbstractType
                 'disable_not_selectable' => true,
                 'label' => 'part.edit.partCustomState',
             ])
-            ->add('ipn', TextType::class, $ipnOptions);
+            ->add('ipn', TextType::class, $ipnOptions)
+            ->add('gtin', TextType::class, [
+                'required' => false,
+                'empty_data' => null,
+                'label' => 'part.gtin',
+            ])
+            ->add('providerReference', InfoProviderReferenceType::class, [
+                'label' => false,
+                'required' => false,
+            ])
+            ;
 
         //Comment section
         $builder->add('comment', RichTextEditorType::class, [
@@ -261,6 +275,9 @@ class PartBaseType extends AbstractType
             'entity' => $part,
         ]);
 
+        $orderdetailPrototype = new Orderdetail();
+        $orderdetailPrototype->setPricesIncludesVAT($this->localizationSettings->pricesIncludeTaxByDefault);
+
         //Orderdetails section
         $builder->add('orderdetails', CollectionType::class, [
             'entry_type' => OrderdetailType::class,
@@ -269,7 +286,7 @@ class PartBaseType extends AbstractType
             'allow_delete' => true,
             'label' => false,
             'by_reference' => false,
-            'prototype_data' => new Orderdetail(),
+            'prototype_data' => $orderdetailPrototype,
             'entry_options' => [
                 'measurement_unit' => $part->getPartUnit(),
             ],
@@ -341,6 +358,7 @@ class PartBaseType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Part::class,
             'info_provider_dto' => null,
+            'warn_on_unsaved_changes' => true,
         ]);
 
         $resolver->setAllowedTypes('info_provider_dto', [PartDetailDTO::class, 'null']);

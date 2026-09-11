@@ -33,7 +33,7 @@
 
         {% if displayTrustedOption %}
             <div class="form-group row mt-3">
-                <div class="offset-3">
+                <div class="{{ offset_label }} {{ col_input }}">
                     <div class="custom-checkbox custom-control ms-2">
                         <input id="_trusted" class="form-check-input" type="checkbox" name="{{ trustedParameterName }}" />
                         <label class="form-check-label" for="_trusted">{% trans %}tfa.code.trusted_pc{% endtrans %}</label>
@@ -48,7 +48,7 @@
 
         {% block submit_btn %}
         <div class="form-group-row">
-            <div class="offset-3">
+            <div class="{{ offset_label }} {{ col_input }}">
                 <button type="submit" class="btn btn-primary" value="{{ "login"|trans({}, 'SchebTwoFactorBundle') }}">{% trans %}login.btn{% endtrans %}</button>
                 <a class="ms-2" href="{{ logoutPath }}">{% trans %}user.logout{% endtrans %}</a>
             </div>

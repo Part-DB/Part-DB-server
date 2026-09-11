@@ -25,7 +25,7 @@ namespace App\Tests\Entity;
 use App\Entity\InfoProviderSystem\BulkImportJobStatus;
 use PHPUnit\Framework\TestCase;
 
-class BulkImportJobStatusTest extends TestCase
+final class BulkImportJobStatusTest extends TestCase
 {
     public function testEnumValues(): void
     {

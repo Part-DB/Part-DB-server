@@ -25,6 +25,7 @@ namespace App\DataTables;
 use App\DataTables\Adapters\TwoStepORMAdapter;
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\EnumColumn;
+use App\DataTables\Column\HTMLColumn;
 use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
@@ -38,6 +39,7 @@ use App\DataTables\Filters\PartFilter;
 use App\DataTables\Filters\PartSearchFilter;
 use App\DataTables\Helpers\ColumnSortHelper;
 use App\DataTables\Helpers\PartDataTableHelper;
+use App\Doctrine\Functions\SiValueSort;
 use App\Doctrine\Helpers\FieldHelper;
 use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
@@ -47,6 +49,7 @@ use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
 use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Column\TextColumn;
@@ -56,18 +59,18 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class PartsDataTable implements DataTableTypeInterface
+final readonly class PartsDataTable implements DataTableTypeInterface
 {
-    const LENGTH_MENU = [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]];
+    public const LENGTH_MENU = [[10, 25, 50, 100, 250, 500, -1], [10, 25, 50, 100, 250, 500, "All"]];
 
     public function __construct(
-        private readonly EntityURLGenerator $urlGenerator,
-        private readonly TranslatorInterface $translator,
-        private readonly AmountFormatter $amountFormatter,
-        private readonly PartDataTableHelper $partDataTableHelper,
-        private readonly Security $security,
-        private readonly ColumnSortHelper $csh,
-        private readonly TableSettings $tableSettings,
+        private EntityURLGenerator $urlGenerator,
+        private TranslatorInterface $translator,
+        private AmountFormatter $amountFormatter,
+        private PartDataTableHelper $partDataTableHelper,
+        private Security $security,
+        private ColumnSortHelper $csh,
+        private TableSettings $tableSettings,
     ) {
     }
 
@@ -88,6 +91,15 @@ final class PartsDataTable implements DataTableTypeInterface
         $this->configureOptions($resolver);
         $options = $resolver->resolve($options);
 
+        /*************************************************************************************************************
+         * When adding columns here, add them also to PartTableColumns enum, to make them configurable in the settings!
+         *************************************************************************************************************/
+
+        /*************************************************************************************************************
+         * Avoid using render, as it has no escaping, and is a potential security risk. Use data on TextColumn or the
+         * HTMLColumn, if necessary
+         ************************************************************************************************************/
+
         $this->csh
             //Color the table rows depending on the review and favorite status
             ->add('row_color', RowClassColumn::class, [
@@ -103,15 +115,27 @@ final class PartsDataTable implements DataTableTypeInterface
                 },
             ], visibility_configurable: false)
             ->add('select', SelectColumn::class, visibility_configurable: false)
-            ->add('picture', TextColumn::class, [
+            ->add('picture', HTMLColumn::class, [
                 'label' => '',
                 'className' => 'no-colvis',
-                'render' => fn($value, Part $context) => $this->partDataTableHelper->renderPicture($context),
+                'data' => fn(Part $context) => $this->partDataTableHelper->renderPicture($context),
             ], visibility_configurable: false)
-            ->add('name', TextColumn::class, [
+            ->add('name', HTMLColumn::class, [
                 'label' => $this->translator->trans('part.table.name'),
-                'render' => fn($value, Part $context) => $this->partDataTableHelper->renderName($context),
+                'data' => fn(Part $context) => $this->partDataTableHelper->renderName($context),
                 'orderField' => 'NATSORT(part.name)'
+            ])
+            ->add('si_value', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.si_value'),
+                'data' => function (Part $context): string {
+                    $siValue = SiValueSort::sqliteSiValue($context->getName());
+                    if ($siValue !== null) {
+                        //Output it as scientific number with a big E
+                        return sprintf('%G', $siValue);
+                    }
+                    return '';
+                },
+                'orderField' => 'SI_VALUE_SORT(part.name)',
             ])
             ->add('id', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.id'),
@@ -138,38 +162,38 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.manufacturer'),
                 'orderField' => 'NATSORT(_manufacturer.name)'
             ])
-            ->add('storelocation', TextColumn::class, [
+            ->add('storelocation', HTMLColumn::class, [
                 'label' => $this->translator->trans('part.table.storeLocations'),
                 //We need to use a aggregate function to get the first store location, as we have a one-to-many relation
                 'orderField' => 'NATSORT(MIN(_storelocations.name))',
-                'render' => fn($value, Part $context) => $this->partDataTableHelper->renderStorageLocations($context),
+                'data' => fn(Part $context) => $this->partDataTableHelper->renderStorageLocations($context),
             ], alias: 'storage_location')
 
-            ->add('amount', TextColumn::class, [
+            ->add('amount', HTMLColumn::class, [
                 'label' => $this->translator->trans('part.table.amount'),
-                'render' => fn($value, Part $context) => $this->partDataTableHelper->renderAmount($context),
+                'data' => fn(Part $context) => $this->partDataTableHelper->renderAmount($context),
                 'orderField' => 'amountSum'
             ])
             ->add('minamount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
-                'render' => fn($value, Part $context): string => htmlspecialchars($this->amountFormatter->format(
+                'data' => fn(Part $context, $value): string => $this->amountFormatter->format(
                     $value,
                     $context->getPartUnit()
-                )),
+                ),
             ])
             ->add('partUnit', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.partUnit'),
                 'orderField' => 'NATSORT(_partUnit.name)',
-                'render' => function ($value, Part $context): string {
+                'data' => function (Part $context): string {
                     $partUnit = $context->getPartUnit();
                     if ($partUnit === null) {
                         return '';
                     }
 
-                    $tmp = htmlspecialchars($partUnit->getName());
+                    $tmp = $partUnit->getName();
 
                     if ($partUnit->getUnit()) {
-                        $tmp .= ' (' . htmlspecialchars($partUnit->getUnit()) . ')';
+                        $tmp .= ' (' . $partUnit->getUnit() . ')';
                     }
                     return $tmp;
                 }
@@ -177,14 +201,14 @@ final class PartsDataTable implements DataTableTypeInterface
             ->add('partCustomState', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.partCustomState'),
                 'orderField' => 'NATSORT(_partCustomState.name)',
-                'render' => function($value, Part $context): string {
+                'data' => function(Part $context): string {
                     $partCustomState = $context->getPartCustomState();
 
                     if ($partCustomState === null) {
                         return '';
                     }
 
-                    return htmlspecialchars($partCustomState->getName());
+                    return $partCustomState->getName();
                 }
             ])
             ->add('addedDate', LocaleDateTimeColumn::class, [
@@ -218,18 +242,37 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.mass'),
                 'unit' => 'g'
             ])
+            ->add('gtin', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.gtin'),
+                'orderField' => 'NATSORT(part.gtin)'
+            ])
             ->add('tags', TagsColumn::class, [
                 'label' => $this->translator->trans('part.table.tags'),
             ])
             ->add('attachments', PartAttachmentsColumn::class, [
                 'label' => $this->translator->trans('part.table.attachments'),
+            ])
+            ->add('eda_reference', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.eda_reference'),
+                'data' => static fn(Part $context) => $context->getEdaInfo()->getReferencePrefix() ?? '',
+                'orderField' => 'NATSORT(part.eda_info.reference_prefix)'
+            ])
+            ->add('eda_value', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.eda_value'),
+                'data' => static fn(Part $context) => $context->getEdaInfo()->getValue() ?? '',
+                'orderField' => 'NATSORT(part.eda_info.value)'
+            ])
+            ->add('eda_status', HTMLColumn::class, [
+                'label' => $this->translator->trans('part.table.eda_status'),
+                'data' => fn(Part $context) => $this->partDataTableHelper->renderEdaStatus($context),
+                'className' => 'text-center',
             ]);
 
         //Add a column to list the projects where the part is used, when the user has the permission to see the projects
         if ($this->security->isGranted('read', Project::class)) {
-            $this->csh->add('projects', TextColumn::class, [
+            $this->csh->add('projects', HTMLColumn::class, [
                 'label' => $this->translator->trans('project.labelp'),
-                'render' => function ($value, Part $context): string {
+                'data' => function (Part $context): string {
                     //Only show the first 5 projects names
                     $projects = $context->getProjects();
                     $tmp = "";
@@ -249,7 +292,7 @@ final class PartsDataTable implements DataTableTypeInterface
                     }
 
                     return $tmp;
-                }
+                },
             ]);
         }
 
@@ -329,6 +372,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addSelect('orderdetails')
             ->addSelect('attachments')
             ->addSelect('storelocations')
+            ->addSelect('projectBomEntries')
             ->from(Part::class, 'part')
             ->leftJoin('part.category', 'category')
             ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
@@ -343,6 +387,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('part.partUnit', 'partUnit')
             ->leftJoin('part.partCustomState', 'partCustomState')
             ->leftJoin('part.parameters', 'parameters')
+            ->leftJoin('part.project_bom_entries', 'projectBomEntries')
             ->where('part.id IN (:ids)')
             ->setParameter('ids', $ids)
 
@@ -360,7 +405,12 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addGroupBy('attachments')
             ->addGroupBy('partUnit')
             ->addGroupBy('partCustomState')
-            ->addGroupBy('parameters');
+            ->addGroupBy('parameters')
+            ->addGroupBy('projectBomEntries')
+
+            ->setHint(Query::HINT_READ_ONLY, true)
+            ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, false)
+        ;
 
         //Get the results in the same order as the IDs were passed
         FieldHelper::addOrderByFieldParam($builder, 'part.id', 'ids');
@@ -451,6 +501,19 @@ final class PartsDataTable implements DataTableTypeInterface
             //Do not group by many-to-* relations, as it would restrict the COUNT having clauses to be maximum 1
             //$builder->addGroupBy('_jobPart');
             //$builder->addGroupBy('_bulkImportJob');
+        }
+
+        //When sorting by SI value, add NATSORT as a secondary sort so that parts without
+        //an SI-prefixed value fall back to natural string ordering seamlessly.
+        $orderByParts = $builder->getDQLPart('orderBy');
+        foreach ($orderByParts as $orderBy) {
+            foreach ($orderBy->getParts() as $part) {
+                if (str_contains($part, 'SI_VALUE_SORT')) {
+                    $direction = str_contains($part, 'DESC') ? 'DESC' : 'ASC';
+                    $builder->addOrderBy('NATSORT(part.name)', $direction);
+                    break 2;
+                }
+            }
         }
 
         return $builder;

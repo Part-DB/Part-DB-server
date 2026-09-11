@@ -26,7 +26,7 @@ use App\Entity\Parts\PartLot;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 
-class PartLotTest extends TestCase
+final class PartLotTest extends TestCase
 {
     public function testIsExpired(): void
     {

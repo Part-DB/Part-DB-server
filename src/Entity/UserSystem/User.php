@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
-use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -50,15 +49,13 @@ use App\Validator\Constraints\ValidTheme;
 use Jbtronics\TFAWebauthn\Model\LegacyU2FKeyInterface;
 use Nbgrp\OneloginSamlBundle\Security\User\SamlUserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\Length;
 use Webauthn\PublicKeyCredentialUserEntity;
 use function count;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
 use function in_array;
 use Scheb\TwoFactorBundle\Model\BackupCodeInterface;
 use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
@@ -80,7 +77,7 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
 #[ORM\Table('`users`')]
-#[ORM\Index(columns: ['name'], name: 'user_idx_username')]
+#[ORM\Index(name: 'user_idx_username', columns: ['name'])]
 #[ORM\AttributeOverrides([
     new ORM\AttributeOverride(name: 'name', column: new ORM\Column(type: Types::STRING, length: 180, unique: true))
 ])]
@@ -269,8 +266,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var Collection<int, UserAttachment>
      */
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: UserAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: UserAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['user:read', 'user:write'])]
     protected Collection $attachments;
 
@@ -287,19 +284,19 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /** @var Collection<int, LegacyU2FKeyInterface>
      */
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: U2FKey::class, cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: U2FKey::class, mappedBy: 'user', cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     protected Collection $u2fKeys;
 
     /**
      * @var Collection<int, WebauthnKey>
      */
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: WebauthnKey::class, cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: WebauthnKey::class, mappedBy: 'user', cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     protected Collection $webauthn_keys;
 
     /**
      * @var Collection<int, ApiToken>
      */
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ApiToken::class, cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: ApiToken::class, mappedBy: 'user', cascade: ['REMOVE'], fetch: 'EXTRA_LAZY', orphanRemoval: true)]
     private Collection $api_tokens;
 
     /**
@@ -692,7 +689,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets whether the email address of the user is shown on the public profile page.
      */
-    public function setShowEmailOnProfile(bool $show_email_on_profile): User
+    public function setShowEmailOnProfile(bool $show_email_on_profile): self
     {
         $this->show_email_on_profile = $show_email_on_profile;
         return $this;
@@ -711,7 +708,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Change the about me text of the user.
      */
-    public function setAboutMe(string $aboutMe): User
+    public function setAboutMe(string $aboutMe): self
     {
         $this->aboutMe = $aboutMe;
         return $this;
@@ -985,7 +982,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets the saml_user flag.
      */
-    public function setSamlUser(bool $saml_user): User
+    public function setSamlUser(bool $saml_user): self
     {
         $this->saml_user = $saml_user;
         return $this;

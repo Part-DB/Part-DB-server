@@ -46,15 +46,21 @@ use App\Entity\LogSystem\SecurityEventLogEntry;
 use App\Events\SecurityEvent;
 use App\Events\SecurityEvents;
 use App\Services\LogSystem\EventLogger;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * This subscriber writes entries to log if a security related event happens (e.g. the user changes its password).
  */
-final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
+final readonly class SecurityEventLoggerSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly RequestStack $requestStack, private readonly EventLogger $eventLogger, private readonly bool $gdpr_compliance)
+    public function __construct(
+        private RequestStack $requestStack,
+        private EventLogger $eventLogger,
+        #[Autowire('%partdb.gdpr_compliance%')]
+        private bool $gdpr_compliance,
+    )
     {
     }
 

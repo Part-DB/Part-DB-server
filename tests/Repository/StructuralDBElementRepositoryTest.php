@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Repository;
 
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Attachments\AttachmentType;
 use App\Helpers\Trees\TreeViewNode;
 use App\Repository\StructuralDBElementRepository;
@@ -30,7 +31,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 /**
  * @Group DB
  */
-class StructuralDBElementRepositoryTest extends WebTestCase
+final class StructuralDBElementRepositoryTest extends WebTestCase
 {
     /**
      * @var StructuralDBElementRepository
@@ -108,6 +109,7 @@ class StructuralDBElementRepositoryTest extends WebTestCase
     {
         //List all nodes that are children to Node 1
         $node1 = $this->repo->find(1);
+        $this->assertInstanceOf(AbstractStructuralDBElement::class, $node1);
         $nodes = $this->repo->getFlatList($node1);
 
         $this->assertCount(3, $nodes);

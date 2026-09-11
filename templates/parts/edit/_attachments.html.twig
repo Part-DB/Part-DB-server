@@ -1,5 +1,11 @@
 {% import "components/attachments.macro.html.twig" as attachments %}
 
-{{ form_row(form.master_picture_attachment) }}
+{# Wrapped in a Turbo frame (no src -> inert during normal editing) so the value-calculator can
+   refresh just this list after attaching a generated image, without a full-page reload. #}
+<turbo-frame id="part-attachments-frame">
+    {{ form_row(form.master_picture_attachment) }}
 
-{{ attachments.attachment_edit_list(form.attachments) }}
+    {{ attachments.attachment_edit_list(form.attachments, part, true) }}
+</turbo-frame>
+
+

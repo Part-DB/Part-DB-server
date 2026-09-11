@@ -26,7 +26,7 @@ use App\Entity\UserSystem\User;
 use App\Services\UserSystem\TFA\BackupCodeManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class BackupCodeManagerTest extends WebTestCase
+final class BackupCodeManagerTest extends WebTestCase
 {
     /**
      * @var BackupCodeManager

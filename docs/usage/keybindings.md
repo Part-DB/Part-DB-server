@@ -8,6 +8,21 @@ parent: Usage
 
 This page lists all the keybindings of Part-DB. Currently, there are only the special character keybindings.
 
+## Disabling keybindings
+
+If you want to disable the special character keybindings (for example, because they conflict with your keyboard layout or system shortcuts), you can do so in two ways:
+
+### Via the System Settings UI (recommended)
+
+1. Navigate to **System Settings** (Tools → System Settings)
+2. Go to **Behavior** → **Keybindings**
+3. Uncheck **Enable special character keybindings**
+4. Save the settings
+
+### Via Environment Variable
+
+Alternatively, you can set the environment variable `KEYBINDINGS_SPECIAL_CHARS_ENABLED=0` in your `.env.local` file or your server environment configuration.
+
 ## Special characters
 
 Using the keybindings below (Alt + key) you can insert special characters into the text fields of Part-DB. This works on

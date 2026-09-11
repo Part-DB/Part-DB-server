@@ -1,0 +1,214 @@
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ *
+ * Copyright (C) 2019 - 2023 Jan Böhmer (https://github.com/jbtronics)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
+ *
+ */
+
+import Encore from '@symfony/webpack-encore';
+
+import zlib from 'zlib';
+import path from 'path';
+import CompressionPlugin from "compression-webpack-plugin";
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+
+// Manually configure the runtime environment if not already configured yet by the "encore" command.
+// It's useful when you use tools that rely on webpack.config.js file.
+if (!Encore.isRuntimeEnvironmentConfigured()) {
+    Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
+}
+
+Encore
+    // directory where compiled assets will be stored
+    .setOutputPath('public/build/')
+    // Do not use a / prefix, here as that would break asset loading when serving Part-DB under a prefix!
+    .setPublicPath('build')
+    // only needed for CDN's or subdirectory deploy (this should not be needeed, as we use auto public path)
+    //.setManifestKeyPrefix('build/')
+
+    //Use build/ as public path inisde the manifest.json (instead of "auto")
+    //Without this all webpack managed stuff which is loaded via the assets() twig function will not work
+    .configureManifestPlugin(options => {
+        options.publicPath = 'build/';
+    })
+
+    /*
+     * ENTRY CONFIG
+     *
+     * Add 1 entry for each "page" of your app
+     * (including one that's included on every page - e.g. "app")
+     *
+     * Each entry will result in one JavaScript file (e.g. app.js)
+     * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
+     */
+    .addEntry('app', './assets/js/app.js')
+    .addEntry('webauthn_tfa', './assets/js/webauthn_tfa.js')
+
+    //Configure to just output the zxing wasm file, without parsing it
+    .addRule({
+        test: /zxing_reader\.wasm$/,
+        type: "asset/resource"
+    })
+
+    //.addEntry('page1', './assets/js/page1.js')
+    //.addEntry('page2', './assets/js/page2.js')
+
+    // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
+    .splitEntryChunks()
+
+    // enables the Symfony UX Stimulus bridge (used in assets/stimulus_bootstrap.js)
+    .enableStimulusBridge('./assets/controllers.json')
+
+    // will require an extra script tag for runtime.js
+    // but, you probably want this, unless you're building a single-page app
+    .enableSingleRuntimeChunk()
+
+    /*
+     * FEATURE CONFIG
+     *
+     * Enable & configure other features below. For a full
+     * list of features, see:
+     * https://symfony.com/doc/current/frontend.html#adding-more-features
+     */
+    .cleanupOutputBeforeBuild()
+
+    // Displays build status system notifications to the user
+    // .enableBuildNotifications()
+
+    .enableSourceMaps(!Encore.isProduction())
+    // enables hashed filenames (e.g. app.abc123.css)
+    //.enableVersioning(Encore.isProduction())
+    .enableVersioning()
+
+
+
+    // Configure JS and CSS minimizers
+    // .configureJsMinimizerPlugin((options, MinimizerPlugin) => {
+    //     options.minify = MinimizerPlugin.esbuildMinify
+    // })
+    // .configureCssMinimizerPlugin((options, MinimizerPlugin) => {
+    //     options.minify = MinimizerPlugin.lightningCssMinify;
+    // })
+
+    // configure Babel
+    .configureBabel((config) => {
+        config.plugins.push(['polyfill-corejs3', { method: 'usage-global', version: '3.49' }]);
+    })
+    // enables Sass/SCSS support
+    //.enableSassLoader()
+
+    // uncomment if you use TypeScript
+    .enableTypeScriptLoader()
+
+    // uncomment if you use React
+    //.enableReactPreset()
+
+    // uncomment to get integrity="..." attributes on your script & link tags
+    // requires WebpackEncoreBundle 1.4 or higher
+    .enableIntegrityHashes(Encore.isProduction())
+
+    // Force all jquery imports to the UMD build so webpack always receives the
+    // jQuery function directly instead of an ESM namespace object. Without this,
+    // webpack's ESM interop wraps jquery.module.js in a namespace
+    // { default, jQuery, $ } which has no .fn, crashing Bootstrap's
+    // defineJQueryPlugin when it tries to access $.fn.alert.
+    .addAliases({
+        'jquery': path.resolve(import.meta.dirname, 'node_modules/jquery/dist/jquery.js')
+    })
+    .autoProvidejQuery()
+
+
+    // Use raw-loader for CKEditor 5 SVG files.
+    .addRule( {
+        test: /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/,
+        loader: 'raw-loader'
+    } )
+
+    // Configure other image loaders to exclude CKEditor 5 SVG files.
+    .configureLoaderRule( 'images', loader => {
+        loader.exclude = /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/;
+    } )
+
+    .addAliases({
+        'ckeditor5-translations': path.resolve(import.meta.dirname, 'node_modules/ckeditor5/dist/translations')
+    })
+
+
+;
+
+//These are all the themes that are available in bootswatch
+const AVAILABLE_THEMES = ['bootstrap', 'brite',  'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal',
+    'litera', 'lumen', 'lux', 'materia', 'minty', 'morph', 'pulse', 'quartz', 'sandstone', 'simplex', 'sketchy', 'slate', 'solar',
+    'spacelab', 'superhero', 'united', 'vapor', 'yeti', 'zephyr'];
+
+for (const theme of AVAILABLE_THEMES) {
+    Encore.addEntry('theme_' + theme, './assets/themes/'+theme+'.js');
+}
+
+
+if (Encore.isProduction()) {
+    Encore
+        .addPlugin(new CompressionPlugin({
+            filename: '[path][base].br',
+            algorithm: 'brotliCompress',
+            test: /\.(js|css|html|svg)$/,
+            compressionOptions: {
+                // zlib’s `level` option matches Brotli’s `BROTLI_PARAM_QUALITY` option.
+                level: 11,
+            },
+            threshold: 10240,
+            minRatio: 0.8,
+            deleteOriginalAssets: false,
+        }))
+
+        .addPlugin(new CompressionPlugin({
+            filename: '[path][base].gz',
+            algorithm: 'gzip',
+            threshold: 10240,
+            minRatio: 0.8,
+            test: /\.(js|css|html|svg)$/,
+            deleteOriginalAssets: false,
+        }))
+}
+
+if (Encore.isDev()) {
+    //Only uncomment if needed, as this cause problems with Github actions (job does not finish)
+    Encore.addPlugin(new BundleAnalyzerPlugin());
+}
+
+
+let config = await Encore.getWebpackConfig();
+
+//Enable webassembly support
+config.experiments = config.experiments || {};
+config.experiments.asyncWebAssembly = true;
+
+//Enable webpack auto public path
+//We do it here to supress a warning caused by webpack Encore
+config.output.publicPath = 'auto';
+
+//Our own source files are plain scripts without file extensions on relative imports (e.g. "./error_handler").
+//Since package.json declares "type": "module", webpack's resolver otherwise requires those imports to be
+//fully specified (like native ESM does). Relax that requirement for our own JS/TS sources.
+config.module.rules.push({
+    test: /\.(js|mjs|ts)$/,
+    resolve: {
+        fullySpecified: false,
+    },
+});
+
+export default config;

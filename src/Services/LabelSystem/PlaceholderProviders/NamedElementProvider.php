@@ -51,7 +51,7 @@ final class NamedElementProvider implements PlaceholderProviderInterface
     public function replace(string $placeholder, object $label_target, array $options = []): ?string
     {
         if ($label_target instanceof NamedElementInterface && '[[NAME]]' === $placeholder) {
-            return $label_target->getName();
+            return htmlspecialchars($label_target->getName());
         }
 
         return null;

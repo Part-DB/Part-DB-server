@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -33,13 +32,28 @@ use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\McpTool;
+use ApiPlatform\Metadata\McpToolCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Attachments\Attachment;
+use App\Mcp\DTO\CreateStructuralElementInput;
+use App\Mcp\DTO\DeleteStructuralElementInput;
+use App\Mcp\DTO\ElementByIdInput;
+use App\Mcp\DTO\StructuralElementOverview;
+use App\Mcp\DTO\StructuralElementSearchInput;
+use App\Mcp\DTO\UpdateStructuralElementInput;
 use App\Repository\Parts\SupplierRepository;
+use App\State\Mcp\CreateStructuralElementInputProvider;
+use App\State\Mcp\CreateStructuralElementProcessor;
+use App\State\Mcp\DeleteStructuralElementProcessor;
+use App\State\Mcp\GetStructuralElementDetailsProcessor;
+use App\State\Mcp\ListStructuralElementsProcessor;
+use App\State\Mcp\UpdateStructuralElementInputProvider;
+use App\State\Mcp\UpdateStructuralElementProcessor;
 use App\Entity\PriceInformations\Orderdetail;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Attachments\SupplierAttachment;
@@ -52,7 +66,7 @@ use App\Validator\Constraints\Selectable;
 use Brick\Math\BigDecimal;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -62,8 +76,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: SupplierRepository::class)]
 #[ORM\Table('`suppliers`')]
-#[ORM\Index(columns: ['name'], name: 'supplier_idx_name')]
-#[ORM\Index(columns: ['parent_id', 'name'], name: 'supplier_idx_parent_name')]
+#[ORM\Index(name: 'supplier_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'supplier_idx_parent_name', columns: ['parent_id', 'name'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -71,20 +85,69 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
+        new GetCollection(
+            uriTemplate: '/suppliers/{id}/children.{_format}',
+            uriVariables: ['id' => new Link(fromProperty: 'children', fromClass: Supplier::class)],
+            openapi: new Operation(summary: 'Retrieves the children elements of a supplier.'),
+            security: 'is_granted("@manufacturers.read")'
+        ),
     ],
     normalizationContext: ['groups' => ['supplier:read', 'company:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['supplier:write', 'company:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
-)]
-#[ApiResource(
-    uriTemplate: '/suppliers/{id}/children.{_format}',
-    operations: [new GetCollection(
-        openapi: new Operation(summary: 'Retrieves the children elements of a supplier.'),
-        security: 'is_granted("@manufacturers.read")'
-    )],
-    uriVariables: [
-        'id' => new Link(fromProperty: 'children', fromClass: Supplier::class)
+    mcp: [
+        'list_suppliers' => new McpToolCollection(
+            title: 'List/search suppliers',
+            description: 'List all suppliers, optionally filtered by a keyword matched against the name and comment. Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['mcp_structural_overview:read']],
+            security: 'is_granted("@suppliers.read")',
+            input: StructuralElementSearchInput::class,
+            output: StructuralElementOverview::class,
+            processor: ListStructuralElementsProcessor::class,
+        ),
+        'get_supplier_details' => new McpTool(
+            title: 'Get supplier details by ID',
+            description: 'Get detailed information about a specific supplier by its database ID.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['supplier:read', 'company:read', 'api:basic:read']],
+            security: 'is_granted("@suppliers.read")',
+            input: ElementByIdInput::class,
+            validate: true,
+            processor: GetStructuralElementDetailsProcessor::class,
+        ),
+        'create_supplier' => new McpTool(
+            title: 'Create a new supplier',
+            description: 'Create a new supplier. Only "name" is required; every other field is optional and, if omitted, the supplier is created with its normal default value for that field.',
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['supplier:read', 'company:read', 'api:basic:read']], // Not enforced by the MCP call pipeline (see notes on Part.php's create_part) - the real check is manual, inside the processor.
+            security: 'is_granted("@suppliers.create")',
+            input: CreateStructuralElementInput::class,
+            validate: false,
+            provider: CreateStructuralElementInputProvider::class, // Entity validation is done manually in the processor, not on the (barely-constrained) input DTO
+            processor: CreateStructuralElementProcessor::class,
+        ),
+        'update_supplier' => new McpTool(
+            title: 'Update an existing supplier',
+            description: 'Update an existing supplier by its database ID. Only the fields you actually provide are changed; any field you omit is left completely untouched.',
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['supplier:read', 'company:read', 'api:basic:read']], // Not enforced by the MCP call pipeline - the real check is manual, inside the processor.
+            security: 'is_granted("edit", object)',
+            input: UpdateStructuralElementInput::class,
+            validate: false,
+            provider: UpdateStructuralElementInputProvider::class, // Entity validation is done manually in the processor, not on the (barely-constrained) input DTO
+            processor: UpdateStructuralElementProcessor::class,
+        ),
+        'delete_supplier' => new McpTool(
+            title: 'Delete a supplier',
+            description: 'Permanently delete a supplier by its database ID. Fails if the supplier still directly contains parts. Child suppliers are moved up to the deleted supplier\'s own parent, not deleted themselves.',
+            structuredContent: false,
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => true, 'openWorldHint' => false], // Not enforced by the MCP call pipeline - the real check is manual, inside the processor.
+            security: 'is_granted("delete", object)', // The processor returns a plain text confirmation via CallToolResult, not a normalized element
+            input: DeleteStructuralElementInput::class,
+            validate: true,
+            processor: DeleteStructuralElementProcessor::class,
+        ),
     ],
-    normalizationContext: ['groups' => ['supplier:read', 'company:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]
@@ -92,8 +155,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class Supplier extends AbstractCompany
 {
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -105,7 +168,7 @@ class Supplier extends AbstractCompany
     /**
      * @var Collection<int, Orderdetail>
      */
-    #[ORM\OneToMany(mappedBy: 'supplier', targetEntity: Orderdetail::class)]
+    #[ORM\OneToMany(targetEntity: Orderdetail::class, mappedBy: 'supplier')]
     protected Collection $orderdetails;
 
     /**
@@ -129,8 +192,8 @@ class Supplier extends AbstractCompany
      * @var Collection<int, SupplierAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: SupplierAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: SupplierAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['supplier:read', 'supplier:write'])]
     #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $attachments;
@@ -144,8 +207,8 @@ class Supplier extends AbstractCompany
     /** @var Collection<int, SupplierParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: SupplierParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OneToMany(targetEntity: SupplierParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['supplier:read', 'supplier:write'])]
     #[ApiProperty(readableLink: false, writableLink: true)]
     protected Collection $parameters;

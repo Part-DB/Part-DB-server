@@ -83,6 +83,8 @@ export default class TristateCheckbox {
 
         //Do a refresh to set the correct styling of the checkbox
         this._refresh();
+        // Anchor the hidden input's default so dirty-form comparisons have a clean baseline.
+        this._hiddenInput.defaultValue = this._hiddenInput.value;
 
         this._element.addEventListener('click', this.click.bind(this));
     }
@@ -202,6 +204,9 @@ export default class TristateCheckbox {
         }
 
         this._refresh();
+        // Notify change listeners (e.g. dirty-form controller) since programmatic
+        // value changes don't fire native change events.
+        this._hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
     }
 
 }

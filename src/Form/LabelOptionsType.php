@@ -47,11 +47,14 @@ use App\Entity\LabelSystem\LabelSupportedElement;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Form\Type\RichTextEditorType;
+use App\Form\Type\TwigCodeEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LabelOptionsType extends AbstractType
@@ -143,15 +146,37 @@ class LabelOptionsType extends AbstractType
             },
         ]);
 
-        $builder->add('lines', RichTextEditorType::class, [
-            'label' => 'label_profile.lines.label',
-            'empty_data' => '',
-            'mode' => 'html-label',
-            'attr' => [
-                'rows' => 4,
-                'data-ck-class' => 'ck-html-label'
-            ],
-        ]);
+        //The "lines" field is added via an event listener instead of directly, because which form type (and
+        //therefore which editor) it should use depends on the entity's current process_mode: The CKEditor
+        //WYSIWYG editor treats its content as HTML and therefore escapes characters like <, > and & (e.g. in
+        //"filter(v => v.id > 1)"), which corrupts Twig expressions. So we only use it in HTML/placeholder mode,
+        //and use TwigCodeEditorType (with Twig syntax highlighting) in Twig mode instead. The
+        //label_lines_mode Stimulus controller (data-action/data-controller below) takes care of swapping the
+        //editor on the fly, when the user switches the mode without reloading the page.
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
+            $data = $event->getData();
+            $processMode = $data instanceof LabelOptions ? $data->getProcessMode() : LabelProcessMode::PLACEHOLDER;
+
+            $fieldOptions = [
+                'label' => 'label_profile.lines.label',
+                'empty_data' => '',
+                'attr' => [
+                    'rows' => 4,
+                    'data-controller' => 'pages--label-lines-mode',
+                    'data-action' => 'label-lines-mode:change@document->pages--label-lines-mode#toggle',
+                ],
+            ];
+
+            if ($processMode === LabelProcessMode::TWIG) {
+                $formType = TwigCodeEditorType::class;
+            } else {
+                $formType = RichTextEditorType::class;
+                $fieldOptions['mode'] = 'html-label';
+                $fieldOptions['attr']['data-ck-class'] = 'ck-html-label';
+            }
+
+            $event->getForm()->add('lines', $formType, $fieldOptions);
+        });
 
         $builder->add('additional_css', TextareaType::class, [
             'label' => 'label_options.additional_css.label',
@@ -174,6 +199,8 @@ class LabelOptionsType extends AbstractType
             'expanded' => true,
             'attr' => [
                 'class' => 'pt-2',
+                'data-controller' => 'pages--label-lines-mode',
+                'data-action' => 'change->pages--label-lines-mode#notify',
             ],
             'label_attr' => [
                 'class' => 'radio-custom radio-inline',

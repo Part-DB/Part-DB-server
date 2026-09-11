@@ -26,13 +26,13 @@ namespace App\Security;
 use App\Entity\UserSystem\ApiToken;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\BadgeInterface;
 
-class ApiTokenBadge implements BadgeInterface
+readonly class ApiTokenBadge implements BadgeInterface
 {
 
     /**
      * @param  ApiToken  $apiToken
      */
-    public function __construct(private readonly ApiToken $apiToken)
+    public function __construct(private ApiToken $apiToken)
     {
     }
 

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mailer\Event\MessageEvent;
 use Symfony\Component\Mime\Address;
@@ -30,9 +31,12 @@ use Symfony\Component\Mime\Email;
 /**
  * This subscriber set the "From" field for all sent email, based on the global configured sender name and email.
  */
-final class SetMailFromSubscriber implements EventSubscriberInterface
+final readonly class SetMailFromSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly string $email, private readonly string $name)
+    public function __construct(
+        #[Autowire(param: 'partdb.mail.sender_email')] private string $email,
+        #[Autowire(param: 'partdb.mail.sender_name')] private string $name,
+    )
     {
     }
 

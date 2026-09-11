@@ -46,7 +46,7 @@ use App\Validator\Constraints\BigDecimal\BigDecimalPositive;
 use App\Validator\Constraints\Selectable;
 use Brick\Math\BigDecimal;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -63,22 +63,15 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
         new Post(uriTemplate: '/project_bom_entries.{_format}', securityPostDenormalize: 'is_granted("create", object)',),
         new Patch(uriTemplate: '/project_bom_entries/{id}.{_format}', security: 'is_granted("edit", object)',),
         new Delete(uriTemplate: '/project_bom_entries/{id}.{_format}', security: 'is_granted("delete", object)',),
+        new GetCollection(
+            uriTemplate: '/projects/{id}/bom.{_format}',
+            uriVariables: ['id' => new Link(fromProperty: 'bom_entries', fromClass: Project::class)],
+            openapi: new Operation(summary: 'Retrieves the BOM entries of the given project.'),
+            security: 'is_granted("@projects.read")'
+        ),
     ],
     normalizationContext: ['groups' => ['bom_entry:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['bom_entry:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
-)]
-#[ApiResource(
-    uriTemplate: '/projects/{id}/bom.{_format}',
-    operations: [
-        new GetCollection(
-            openapi: new Operation(summary: 'Retrieves the BOM entries of the given project.'),
-            security: 'is_granted("@projects.read")'
-        )
-    ],
-    uriVariables: [
-        'id' => new Link(fromProperty: 'bom_entries', fromClass: Project::class)
-    ],
-    normalizationContext: ['groups' => ['bom_entry:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment", 'mountnames'])]
@@ -88,38 +81,39 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
 {
     use TimestampTrait;
 
-    #[Assert\Positive]
+    #[Assert\Positive(groups: ['Default', 'project_bom'])]
     #[ORM\Column(name: 'quantity', type: Types::FLOAT)]
-    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full'])]
+    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full', 'mcp_project_details:read'])]
     protected float $quantity = 1.0;
 
     /**
      * @var string A comma separated list of the names, where this parts should be placed
      */
     #[ORM\Column(name: 'mountnames', type: Types::TEXT)]
-    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full'])]
+    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full', 'mcp_project_details:read'])]
     protected string $mountnames = '';
 
     /**
      * @var string|null An optional name describing this BOM entry (useful for non-part entries)
      */
-    #[Assert\Expression('this.getPart() !== null or this.getName() !== null', message: 'validator.project.bom_entry.name_or_part_needed')]
+    #[Assert\Expression('this.getPart() !== null or this.getName() !== null', message: 'validator.project.bom_entry.name_or_part_needed', groups: ['Default', 'project_bom'])]
     #[ORM\Column(type: Types::STRING, nullable: true)]
-    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full'])]
+    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'simple', 'extended', 'full', 'mcp_project_details:read'])]
     protected ?string $name = null;
 
     /**
      * @var string An optional comment for this BOM entry
      */
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'extended', 'full'])]
+    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'extended', 'full', 'mcp_project_details:read'])]
     protected string $comment = '';
 
     /**
      * @var Project|null
      */
+    #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'bom_entries')]
-    #[ORM\JoinColumn(name: 'id_device')]
+    #[ORM\JoinColumn(name: 'id_device', nullable: false, onDelete: 'CASCADE')]
     #[Groups(['bom_entry:read', 'bom_entry:write', ])]
     protected ?Project $project = null;
 
@@ -128,15 +122,15 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
      */
     #[ORM\ManyToOne(targetEntity: Part::class, inversedBy: 'project_bom_entries')]
     #[ORM\JoinColumn(name: 'id_part')]
-    #[Groups(['bom_entry:read', 'bom_entry:write', 'full'])]
+    #[Groups(['bom_entry:read', 'bom_entry:write', 'full', 'mcp_project_details:read'])]
     protected ?Part $part = null;
 
     /**
      * @var BigDecimal|null The price of this non-part BOM entry
      */
-    #[Assert\AtLeastOneOf([new BigDecimalPositive(), new Assert\IsNull()])]
+    #[Assert\AtLeastOneOf([new BigDecimalPositive(), new Assert\IsNull()], groups: ['Default', 'project_bom'])]
     #[ORM\Column(type: 'big_decimal', precision: 11, scale: 5, nullable: true)]
-    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'extended', 'full'])]
+    #[Groups(['bom_entry:read', 'bom_entry:write', 'import', 'extended', 'full', 'mcp_project_details:read'])]
     protected ?BigDecimal $price = null;
 
     /**
@@ -144,7 +138,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
      */
     #[ORM\ManyToOne(targetEntity: Currency::class)]
     #[ORM\JoinColumn]
-    #[Selectable]
+    #[Selectable(groups: ['Default', 'project_bom'])]
     protected ?Currency $price_currency = null;
 
     public function __construct()
@@ -156,7 +150,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
         return $this->quantity;
     }
 
-    public function setQuantity(float $quantity): ProjectBOMEntry
+    public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
         return $this;
@@ -167,7 +161,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
         return $this->mountnames;
     }
 
-    public function setMountnames(string $mountnames): ProjectBOMEntry
+    public function setMountnames(string $mountnames): self
     {
         $this->mountnames = $mountnames;
         return $this;
@@ -184,7 +178,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
     /**
      * @param  string  $name
      */
-    public function setName(?string $name): ProjectBOMEntry
+    public function setName(?string $name): self
     {
         $this->name = $name;
         return $this;
@@ -195,7 +189,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
         return $this->comment;
     }
 
-    public function setComment(string $comment): ProjectBOMEntry
+    public function setComment(string $comment): self
     {
         $this->comment = $comment;
         return $this;
@@ -206,7 +200,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
         return $this->project;
     }
 
-    public function setProject(?Project $project): ProjectBOMEntry
+    public function setProject(?Project $project): self
     {
         $this->project = $project;
         return $this;
@@ -219,7 +213,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
         return $this->part;
     }
 
-    public function setPart(?Part $part): ProjectBOMEntry
+    public function setPart(?Part $part): self
     {
         $this->part = $part;
         return $this;
@@ -262,7 +256,7 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
         return $this->part instanceof Part;
     }
 
-    #[Assert\Callback]
+    #[Assert\Callback(groups: ['Default', 'project_bom'])]
     public function validate(ExecutionContextInterface $context, $payload): void
     {
         //Round quantity to whole numbers, if the part is not a decimal part

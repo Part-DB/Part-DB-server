@@ -25,11 +25,17 @@ namespace App\Services\LabelSystem;
 use Dompdf\Dompdf;
 use Jbtronics\DompdfFontLoaderBundle\Services\DompdfFactoryInterface;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 #[AsDecorator(decorates: DompdfFactoryInterface::class)]
-class DompdfFactory implements DompdfFactoryInterface
+readonly class DompdfFactory implements DompdfFactoryInterface
 {
-    public function __construct(private readonly string $fontDirectory, private readonly string $tmpDirectory)
+    public function __construct(
+        #[Autowire('%kernel.project_dir%/var/dompdf/fonts/')]
+        private string $fontDirectory,
+        #[Autowire('%kernel.project_dir%/var/dompdf/tmp/')]
+        private string $tmpDirectory,
+    )
     {
         //Create folder if it does not exist
         $this->createDirectoryIfNotExisting($this->fontDirectory);

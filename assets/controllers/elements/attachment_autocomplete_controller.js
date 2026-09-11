@@ -25,9 +25,11 @@ import TomSelect from "tom-select";
 
 import TomSelect_click_to_edit from '../../tomselect/click_to_edit/click_to_edit'
 import TomSelect_autoselect_typed from '../../tomselect/autoselect_typed/autoselect_typed'
+import TomSelect_form_reset_handler from '../../tomselect/form_reset_handler/form_reset_handler'
 
 TomSelect.define('click_to_edit', TomSelect_click_to_edit)
 TomSelect.define('autoselect_typed', TomSelect_autoselect_typed)
+TomSelect.define('form_reset_handler', TomSelect_form_reset_handler)
 
 export default class extends Controller {
     _tomSelect;
@@ -45,6 +47,7 @@ export default class extends Controller {
             maxItems: 1,
             createOnBlur: true,
             selectOnTab: true,
+            clearAfterSelect: true,
             //This a an ugly solution to disable the delimiter parsing of the TomSelect plugin
             delimiter: 'VERY_L0NG_D€LIMITER_WHICH_WILL_NEVER_BE_ENCOUNTERED_IN_A_STRING',
             dropdownParent: dropdownParent,
@@ -63,7 +66,8 @@ export default class extends Controller {
                 'autoselect_typed': {},
                 'click_to_edit': {},
                 'clear_button': {},
-                "restore_on_backspace": {}
+                'restore_on_backspace': {},
+                'form_reset_handler': {}
             }
         };
 

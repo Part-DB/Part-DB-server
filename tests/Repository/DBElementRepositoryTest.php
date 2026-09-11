@@ -33,7 +33,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class DBElementRepositoryTest extends KernelTestCase
+final class DBElementRepositoryTest extends KernelTestCase
 {
 
     private EntityManagerInterface $entityManager;

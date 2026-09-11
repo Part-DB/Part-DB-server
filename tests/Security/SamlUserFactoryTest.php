@@ -26,7 +26,7 @@ use App\Entity\UserSystem\User;
 use App\Security\SamlUserFactory;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class SamlUserFactoryTest extends WebTestCase
+final class SamlUserFactoryTest extends WebTestCase
 {
 
     /** @var SamlUserFactory */

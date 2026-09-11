@@ -51,7 +51,7 @@ use App\Entity\Parts\StorageLocation;
 use App\Services\LabelSystem\LabelGenerator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class LabelGeneratorTest extends WebTestCase
+final class LabelGeneratorTest extends WebTestCase
 {
     /**
      * @var LabelGenerator

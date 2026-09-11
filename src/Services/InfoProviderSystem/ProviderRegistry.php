@@ -24,6 +24,8 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem;
 
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
+use App\Services\InfoProviderSystem\Providers\URLHandlerInfoProviderInterface;
+use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 /**
  * This class keeps track of all registered info providers and allows to find them by their key
@@ -47,6 +49,8 @@ final class ProviderRegistry
      */
     private array $providers_disabled = [];
 
+    private array $providers_by_domain = [];
+
     /**
      * @var bool Whether the registry has been initialized
      */
@@ -55,7 +59,10 @@ final class ProviderRegistry
     /**
      * @param  iterable<InfoProviderInterface>  $providers
      */
-    public function __construct(private readonly iterable $providers)
+    public function __construct(
+        #[AutowireIterator('app.info_provider')]
+        private readonly iterable $providers,
+    )
     {
         //We do not initialize the structures here, because we do not want to do unnecessary work
         //We do this lazy on the first call to getProviders()
@@ -69,7 +76,7 @@ final class ProviderRegistry
     private function initStructures(): void
     {
         foreach ($this->providers as $provider) {
-            $key = $provider->getProviderKey();
+            $key = $provider->getProviderInfo()->key;
 
             if (isset($this->providers_by_name[$key])) {
                 throw new \LogicException("Provider with key $key already registered");
@@ -78,6 +85,14 @@ final class ProviderRegistry
             $this->providers_by_name[$key] = $provider;
             if ($provider->isActive()) {
                 $this->providers_active[$key] = $provider;
+                if ($provider instanceof URLHandlerInfoProviderInterface) {
+                    foreach ($provider->getHandledDomains() as $domain) {
+                        if (isset($this->providers_by_domain[$domain])) {
+                            throw new \LogicException("Domain $domain is already handled by another provider");
+                        }
+                        $this->providers_by_domain[$domain] = $provider;
+                    }
+                }
             } else {
                 $this->providers_disabled[$key] = $provider;
             }
@@ -138,5 +153,30 @@ final class ProviderRegistry
         }
 
         return $this->providers_disabled;
+    }
+
+    public function getProviderHandlingDomain(string $domain): (InfoProviderInterface&URLHandlerInfoProviderInterface)|null
+    {
+        if (!$this->initialized) {
+            $this->initStructures();
+        }
+
+        //Check if the domain is directly existing:
+        if (isset($this->providers_by_domain[$domain])) {
+            return $this->providers_by_domain[$domain];
+        }
+
+        //Otherwise check for subdomains:
+        $parts = explode('.', $domain);
+        while (count($parts) > 2) {
+            array_shift($parts);
+            $check_domain = implode('.', $parts);
+            if (isset($this->providers_by_domain[$check_domain])) {
+                return $this->providers_by_domain[$check_domain];
+            }
+        }
+
+        //If we found nothing, return null
+        return null;
     }
 }

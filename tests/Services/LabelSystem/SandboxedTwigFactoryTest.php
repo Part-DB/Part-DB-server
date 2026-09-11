@@ -52,7 +52,7 @@ use App\Services\LabelSystem\SandboxedTwigFactory;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Twig\Sandbox\SecurityError;
 
-class SandboxedTwigFactoryTest extends WebTestCase
+final class SandboxedTwigFactoryTest extends WebTestCase
 {
     private ?SandboxedTwigFactory $service = null;
 

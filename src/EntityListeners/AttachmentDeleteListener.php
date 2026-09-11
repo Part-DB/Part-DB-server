@@ -27,6 +27,7 @@ use App\Entity\Attachments\Attachment;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentPathResolver;
 use App\Services\Attachments\AttachmentReverseSearch;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PostRemoveEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
@@ -40,6 +41,7 @@ use SplFileInfo;
  * This listener watches for changes on attachments and deletes the files associated with an attachment, that are not
  * used anymore. This can happen after an attachment is deleted or the path is changed.
  */
+#[AsEntityListener]
 class AttachmentDeleteListener
 {
     public function __construct(protected AttachmentReverseSearch $attachmentReverseSearch, protected AttachmentManager $attachmentHelper, protected AttachmentPathResolver $pathResolver)

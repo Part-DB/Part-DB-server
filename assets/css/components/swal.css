@@ -1,0 +1,50 @@
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ *  Copyright (C) 2019 - 2026 Jan Böhmer (https://github.com/jbtronics)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/**
+ * Respect the dark mode of Bootstrap 5 set via data-bs-theme="dark" on the <html> element. This is done by overriding the CSS variables of the bootstrap-5 theme of SweetAlert2.
+ */
+
+html[data-bs-theme="dark"] [data-swal2-theme='bootstrap-5'] {
+    /* POPUP */
+    --swal2-background: #212529;
+    --swal2-color: #fff;
+    --swal2-border: 1px solid #495057;
+
+    /* INPUT */
+    --swal2-input-background: #2b3035;
+    --swal2-input-border: 1px solid #495057;
+    --swal2-input-focus-border: 1px solid #86b7fe;
+    --swal2-input-focus-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+
+    /* VALIDATION MESSAGE */
+    --swal2-validation-message-background: #2c0b0e;
+    --swal2-validation-message-color: #ea868f;
+
+    /* FOOTER */
+    --swal2-footer-border-color: #495057;
+    --swal2-footer-background: #343a40;
+    --swal2-footer-color: #adb5bd;
+
+    /* CLOSE BUTTON */
+    --swal2-close-button-color: #fff;
+
+    /* TOASTS */
+    --swal2-toast-border: 1px solid #495057;
+}

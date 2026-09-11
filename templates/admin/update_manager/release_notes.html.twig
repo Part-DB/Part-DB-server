@@ -1,0 +1,110 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{{ release.name }} - {% trans %}update_manager.release_notes{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-file-alt"></i> {{ release.name }}
+{% endblock %}
+
+{% block card_content %}
+<div class="mb-4">
+    <a href="{{ path('admin_update_manager') }}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-1"></i> {% trans %}update_manager.back_to_update_manager{% endtrans %}
+    </a>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <table class="table table-sm">
+            <tr>
+                <th style="width: 30%">{% trans %}update_manager.version{% endtrans %}</th>
+                <td>
+                    <span class="badge bg-primary fs-6">{{ release.version }}</span>
+                    {% if release.prerelease %}
+                        <span class="badge bg-warning text-dark ms-1">{% trans %}update_manager.prerelease{% endtrans %}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>{% trans %}update_manager.tag{% endtrans %}</th>
+                <td><code>{{ release.tag }}</code></td>
+            </tr>
+            <tr>
+                <th>{% trans %}update_manager.released{% endtrans %}</th>
+                <td>{{ release.published_at|date('Y-m-d H:i') }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}update_manager.status{% endtrans %}</th>
+                <td>
+                    {% if release.version == current_version %}
+                        <span class="badge bg-primary">{% trans %}update_manager.current{% endtrans %}</span>
+                    {% elseif release.version > current_version %}
+                        <span class="badge bg-success">{% trans %}update_manager.newer{% endtrans %}</span>
+                    {% else %}
+                        <span class="badge bg-secondary">{% trans %}update_manager.older{% endtrans %}</span>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-6 text-md-end">
+        <a href="{{ release.url }}" class="btn btn-primary" target="_blank">
+            <i class="fab fa-github me-1"></i> {% trans %}update_manager.view_on_github{% endtrans %}
+        </a>
+        {% if release.zipball_url %}
+            <a href="{{ release.zipball_url }}" class="btn btn-outline-secondary">
+                <i class="fas fa-download me-1"></i> ZIP
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+{% if release.assets is not empty %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-paperclip me-2"></i>{% trans %}update_manager.download_assets{% endtrans %}
+        </div>
+        <div class="card-body">
+            <ul class="list-unstyled mb-0">
+                {% for asset in release.assets %}
+                    <li class="mb-2">
+                        <a href="{{ asset.url }}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-download me-1"></i> {{ asset.name }}
+                        </a>
+                        <span class="text-muted ms-2">({{ (asset.size / 1024 / 1024)|number_format(1) }} MB)</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endif %}
+
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-list-ul me-2"></i>{% trans %}update_manager.changelog{% endtrans %}
+    </div>
+    <div class="card-body">
+        {% if release.body %}
+            <div class="markdown-body">
+                {{ release.body|markdown_to_html }}
+            </div>
+        {% else %}
+            <p class="text-muted mb-0">{% trans %}update_manager.no_release_notes{% endtrans %}</p>
+        {% endif %}
+    </div>
+</div>
+
+{% if release.version > current_version %}
+    <div class="card mt-4 border-success">
+        <div class="card-header bg-success text-white">
+            <i class="fas fa-arrow-up me-2"></i>{% trans %}update_manager.update_to_this_version{% endtrans %}
+        </div>
+        <div class="card-body">
+            <p>{% trans %}update_manager.run_command_to_update{% endtrans %}</p>
+            <div class="bg-dark text-light p-3 rounded">
+                <code class="text-info">php bin/console partdb:update {{ release.tag }}</code>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

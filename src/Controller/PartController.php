@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
 use App\DataTables\LogDataTable;
 use App\Entity\Attachments\AttachmentUpload;
 use App\Entity\Parts\Category;
@@ -35,10 +36,13 @@ use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\ProjectSystem\Project;
 use App\Exceptions\AttachmentDownloadException;
 use App\Form\Part\PartBaseType;
+use App\Form\Part\PartLotType;
 use App\Services\Attachments\AttachmentSubmitHandler;
+use App\Services\Attachments\GeneratedImageAttachmentHelper;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\EntityMergers\Mergers\PartMerger;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
+use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
@@ -54,12 +58,14 @@ use Exception;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function Symfony\Component\Translation\t;
@@ -124,6 +130,28 @@ final class PartController extends AbstractController
             $table = null;
         }
 
+        // Build the add-lot form for the INFO page modal (only when not in time-travel mode)
+        $addLotForm = null;
+        $moveNewLotForm = null;
+        if ($timeTravel_timestamp === null) {
+            $newLot = new PartLot();
+            $newLot->setPart($part);
+            if ($this->isGranted('edit', $part)) {
+                $addLotForm = $this->createForm(PartLotType::class, $newLot, [
+                    'measurement_unit' => $part->getPartUnit(),
+                    'action' => $this->generateUrl('part_lot_add', ['id' => $part->getID()]),
+                ]);
+            }
+
+            if ($this->isGranted('create', $newLot) && $this->isGranted('move', $newLot)) {
+                $moveNewLotForm = $this->createForm(PartLotType::class, $newLot, [
+                    'measurement_unit' => $part->getPartUnit(),
+                    //CSRF is already covered by the outer withdraw/move form's token
+                    'csrf_protection' => false,
+                ]);
+            }
+        }
+
         return $this->render(
             'parts/info/show_part_info.html.twig',
             [
@@ -135,8 +163,39 @@ final class PartController extends AbstractController
                 'description_params' => $this->partInfoSettings->extractParamsFromDescription ? $parameterExtractor->extractParameters($part->getDescription()) : [],
                 'comment_params' => $this->partInfoSettings->extractParamsFromNotes ? $parameterExtractor->extractParameters($part->getComment()) : [],
                 'withdraw_add_helper' => $withdrawAddHelper,
+                'highlightLotId' => $request->query->getInt('highlightLot', 0),
+                'add_lot_form' => $addLotForm,
+                'move_new_lot_form' => $moveNewLotForm,
             ]
         );
+    }
+
+    #[Route(path: '/{id}/add_lot', name: 'part_lot_add', methods: ['POST'])]
+    public function addLot(Part $part, Request $request, EntityManagerInterface $em): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $part);
+
+        $newLot = new PartLot();
+        $newLot->setPart($part);
+
+        $form = $this->createForm(PartLotType::class, $newLot, [
+            'measurement_unit' => $part->getPartUnit(),
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($newLot);
+            $em->flush();
+            $this->addFlash('success', 'part.edited_flash');
+            return $this->redirectToRoute('part_info', [
+                'id' => $part->getID(),
+                'highlightLot' => $newLot->getID(),
+            ]);
+        }
+
+        $this->addFlash('error', 'part.created_flash.invalid');
+        return $this->redirectToRoute('part_info', ['id' => $part->getID()]);
     }
 
     #[Route(path: '/{id}/edit', name: 'part_edit')]
@@ -148,7 +207,7 @@ final class PartController extends AbstractController
         $jobId = $request->query->get('jobId');
         $bulkJob = null;
         if ($jobId) {
-            $bulkJob = $this->em->getRepository(\App\Entity\InfoProviderSystem\BulkInfoProviderImportJob::class)->find($jobId);
+            $bulkJob = $this->em->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
             // Verify user owns this job
             if ($bulkJob && $bulkJob->getCreatedBy() !== $this->getUser()) {
                 $bulkJob = null;
@@ -160,6 +219,96 @@ final class PartController extends AbstractController
         ]);
     }
 
+    #[Route(path: '/{id}/generate_image', name: 'part_generate_image', methods: ['POST'])]
+    public function generateImage(Part $part, Request $request, GeneratedImageAttachmentHelper $helper): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $part);
+
+        if (!$this->isCsrfTokenValid('generate_image' . $part->getID(), $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token');
+        }
+
+        $ajax = $request->isXmlHttpRequest();
+
+        $svg = (string) $request->request->get('svg', '');
+        //Basic guard: the payload must look like an SVG image (it is sanitized again on storage)
+        if ($svg === '' || !str_contains($svg, '<svg')) {
+            return $this->generateImageResult($part, false, 'part.generate_image.flash.invalid', $ajax);
+        }
+
+        $name = trim((string) $request->request->get('name', ''));
+        $setAsPreview = $request->request->getBoolean('preview', true);
+        $overwrite = $request->request->getBoolean('overwrite', false);
+
+        //Guard the persistence so a storage/validation failure shows a flash instead of a 500.
+        try {
+            $helper->attachSvgToPart($part, $svg, $name !== '' ? $name : 'Generated image', $setAsPreview, $overwrite);
+            $this->commentHelper->setMessage('Generated component image');
+            $this->em->flush();
+        } catch (\Throwable) {
+            return $this->generateImageResult($part, false, 'part.generate_image.flash.invalid', $ajax);
+        }
+
+        return $this->generateImageResult($part, true, 'part.generate_image.flash.success', $ajax);
+    }
+
+    /**
+     * Writes the KiCad/EDA fields (symbol, footprint, reference prefix) of a part. Used by the bulk
+     * image generator to assign EDA settings to a whole assortment at once.
+     */
+    #[Route(path: '/{id}/set_eda', name: 'part_set_eda', methods: ['POST'])]
+    public function setEda(Part $part, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $part);
+
+        if (!$this->isCsrfTokenValid('set_eda' . $part->getID(), $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token');
+        }
+
+        $eda = $part->getEdaInfo();
+        if ($request->request->has('kicad_symbol')) {
+            $eda->setKicadSymbol(trim((string) $request->request->get('kicad_symbol')) ?: null);
+        }
+        if ($request->request->has('reference_prefix')) {
+            $eda->setReferencePrefix(trim((string) $request->request->get('reference_prefix')) ?: null);
+        }
+        if ($request->request->has('kicad_footprint')) {
+            $eda->setKicadFootprint(trim((string) $request->request->get('kicad_footprint')) ?: null);
+        }
+
+        $ajax = $request->isXmlHttpRequest();
+        try {
+            $this->commentHelper->setMessage('Bulk EDA settings');
+            $this->em->flush();
+        } catch (\Throwable) {
+            return $ajax
+                ? $this->json(['success' => false], Response::HTTP_UNPROCESSABLE_ENTITY)
+                : $this->redirectToRoute('part_info', ['id' => $part->getID()]);
+        }
+
+        return $ajax
+            ? $this->json(['success' => true])
+            : $this->redirectToRoute('part_info', ['id' => $part->getID()]);
+    }
+
+    /**
+     * Returns the outcome of a generate-image request as JSON (for the modal/AJAX flow) or as a
+     * flash + redirect (for a normal form submit).
+     */
+    private function generateImageResult(Part $part, bool $success, string $messageKey, bool $ajax): Response
+    {
+        if ($ajax) {
+            return $this->json([
+                'success' => $success,
+                'message' => $this->translator->trans($messageKey),
+            ], $success ? Response::HTTP_OK : Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $this->addFlash($success ? 'success' : 'error', $messageKey);
+
+        return $this->redirectToRoute('part_info', ['id' => $part->getID()]);
+    }
+
     #[Route(path: '/{id}/bulk-import-complete/{jobId}', name: 'part_bulk_import_complete', methods: ['POST'])]
     public function markBulkImportComplete(Part $part, int $jobId, Request $request): Response
     {
@@ -169,7 +318,7 @@ final class PartController extends AbstractController
             throw $this->createAccessDeniedException('Invalid CSRF token');
         }
 
-        $bulkJob = $this->em->getRepository(\App\Entity\InfoProviderSystem\BulkInfoProviderImportJob::class)->find($jobId);
+        $bulkJob = $this->em->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
         if (!$bulkJob || $bulkJob->getCreatedBy() !== $this->getUser()) {
             throw $this->createNotFoundException('Bulk import job not found');
         }
@@ -279,12 +428,38 @@ final class PartController extends AbstractController
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
-        $dto = $infoRetriever->getDetails($providerKey, $providerId);
+        //Force info providers to not use cache, when retrieving part details for creating a new part, because otherwise we might end up with outdated information
+        $no_cache = $request->query->getBoolean('no_cache', false);
+        $skip_delegation = $request->query->getBoolean('skip_delegation', false);
+        $submitted_page_token = $request->query->getString('submitted_page_token');
+
+        $dto = $infoRetriever->getDetails($providerKey, $providerId, [
+            InfoProviderInterface::OPTION_NO_CACHE => $no_cache,
+            InfoProviderInterface::OPTION_SKIP_DELEGATION => $skip_delegation,
+            InfoProviderInterface::OPTION_SUBMITTED_PAGE_TOKEN => $submitted_page_token,
+        ]);
         $new_part = $infoRetriever->dtoToPart($dto);
 
         if ($new_part->getCategory() === null || $new_part->getCategory()->getID() === null) {
             $this->addFlash('warning', t("part.create_from_info_provider.no_category_yet"));
         }
+
+        $lotAmount = $request->query->get('lotAmount');
+        $lotName = $request->query->get('lotName');
+        $lotUserBarcode = $request->query->get('lotUserBarcode');
+
+        if ($lotAmount !== null || $lotName !== null || $lotUserBarcode !== null) {
+            $partLot = new PartLot();
+            $partLot->setAmount($lotAmount !== null ? (float)$lotAmount : 0);
+            $partLot->setDescription($lotName !== null ? (string)$lotName : '');
+            $partLot->setUserBarcode($lotUserBarcode !== null ? (string)$lotUserBarcode : '');
+
+            $new_part->addPartLot($partLot);
+
+            $this->addFlash('notice', t('part.create_from_info_provider.lot_filled_from_barcode'));
+
+        }
+
 
         return $this->renderPartForm('new', $request, $new_part, [
             'info_provider_dto' => $dto,
@@ -321,10 +496,13 @@ final class PartController extends AbstractController
         $this->denyAccessUnlessGranted('edit', $part);
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
+        //Force info providers to not use cache, when retrieving part details for creating a new part, because otherwise we might end up with outdated information
+        $no_cache = $request->query->getBoolean('no_cache', false);
+
         //Save the old name of the target part for the template
         $old_name = $part->getName();
 
-        $dto = $infoRetriever->getDetails($providerKey, $providerId);
+        $dto = $infoRetriever->getDetails($providerKey, $providerId, [InfoProviderInterface::OPTION_NO_CACHE => $no_cache]);
         $provider_part = $infoRetriever->dtoToPart($dto);
 
         $part = $partMerger->merge($part, $provider_part);
@@ -335,7 +513,7 @@ final class PartController extends AbstractController
         $jobId = $request->query->get('jobId');
         $bulkJob = null;
         if ($jobId) {
-            $bulkJob = $this->em->getRepository(\App\Entity\InfoProviderSystem\BulkInfoProviderImportJob::class)->find($jobId);
+            $bulkJob = $this->em->getRepository(BulkInfoProviderImportJob::class)->find($jobId);
             // Verify user owns this job
             if ($bulkJob && $bulkJob->getCreatedBy() !== $this->getUser()) {
                 $bulkJob = null;
@@ -462,6 +640,54 @@ final class PartController extends AbstractController
         );
     }
 
+    #[Route(path: '/{id}/stocktake', name: 'part_stocktake', methods: ['POST'])]
+    #[IsCsrfTokenValid(new Expression("'part_stocktake-' ~ args['part'].getid()"), '_token')]
+    public function stocktakeHandler(Part $part, EntityManagerInterface $em, PartLotWithdrawAddHelper $withdrawAddHelper,
+        Request $request,
+    ): Response
+    {
+        $partLot = $em->find(PartLot::class, $request->request->get('lot_id'));
+
+        //Check that the user is allowed to stocktake the partlot
+        $this->denyAccessUnlessGranted('stocktake', $partLot);
+
+        if (!$partLot instanceof PartLot) {
+            throw new \RuntimeException('Part lot not found!');
+        }
+        //Ensure that the partlot belongs to the part
+        if ($partLot->getPart() !== $part) {
+            throw new \RuntimeException("The origin partlot does not belong to the part!");
+        }
+
+        $actualAmount = (float) $request->request->get('actual_amount');
+        $comment = $request->request->get('comment');
+
+        $timestamp = null;
+        $timestamp_str = $request->request->getString('timestamp', '');
+        //Try to parse the timestamp
+        if ($timestamp_str !== '') {
+            $timestamp = new DateTime($timestamp_str);
+        }
+
+        $withdrawAddHelper->stocktake($partLot, $actualAmount, $comment, $timestamp);
+
+        //Ensure that the timestamp is not in the future
+        if ($timestamp !== null && $timestamp > new DateTime("+20min")) {
+            throw new \LogicException("The timestamp must not be in the future!");
+        }
+
+        //Save the changes to the DB
+        $em->flush();
+        $this->addFlash('success', 'part.withdraw.success');
+
+        //If a redirect was passed, then redirect there
+        if ($request->request->get('_redirect')) {
+            return $this->redirect($request->request->get('_redirect'));
+        }
+        //Otherwise just redirect to the part page
+        return $this->redirectToRoute('part_info', ['id' => $part->getID()]);
+    }
+
     #[Route(path: '/{id}/add_withdraw', name: 'part_add_withdraw', methods: ['POST'])]
     public function withdrawAddHandler(Part $part, Request $request, EntityManagerInterface $em, PartLotWithdrawAddHelper $withdrawAddHelper): Response
     {
@@ -478,7 +704,7 @@ final class PartController extends AbstractController
 
             //Try to determine the target lot (used for move actions), if the parameter is existing
             $targetId = $request->request->get('target_id', null);
-            $targetLot = $targetId ? $em->find(PartLot::class, $targetId) : null;
+            $targetLot = ($targetId && $targetId !== 'new') ? $em->find(PartLot::class, $targetId) : null;
             if ($targetLot && $targetLot->getPart() !== $part) {
                 throw new \RuntimeException("The target partlot does not belong to the part!");
             }
@@ -520,7 +746,26 @@ final class PartController extends AbstractController
                         break;
                     case "move":
                         $this->denyAccessUnlessGranted('move', $partLot);
-                        $this->denyAccessUnlessGranted('move', $targetLot);
+                        if ($targetId === 'new') {
+                            $targetLot = new PartLot();
+                            $targetLot->setPart($part);
+                            $this->denyAccessUnlessGranted('create', $targetLot);
+
+                            $newLotForm = $this->createForm(PartLotType::class, $targetLot, [
+                                'measurement_unit' => $part->getPartUnit(),
+                                //CSRF is already covered by the outer withdraw/move form's token
+                                'csrf_protection' => false,
+                            ]);
+                            $newLotForm->handleRequest($request);
+                            if (!$newLotForm->isSubmitted() || !$newLotForm->isValid() || !$targetLot->getStorageLocation()) {
+                                $this->addFlash('error', 'part.created_flash.invalid');
+                                goto err;
+                            }
+
+                            $em->persist($targetLot);
+                        } else {
+                            $this->denyAccessUnlessGranted('move', $targetLot);
+                        }
                         $withdrawAddHelper->move($partLot, $targetLot, $amount, $comment, $timestamp, $delete_lot_if_empty);
                         break;
                     default:

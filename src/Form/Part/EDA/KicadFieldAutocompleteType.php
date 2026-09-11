@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Form\Part\EDA;
 
 use App\Form\Type\StaticFileAutocompleteType;
+use App\Settings\MiscSettings\KiCadEDASettings;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -39,6 +40,13 @@ class KicadFieldAutocompleteType extends AbstractType
     //Do not use a leading slash here! otherwise it will not work under prefixed reverse proxies
     public const FOOTPRINT_PATH = 'kicad/footprints.txt';
     public const SYMBOL_PATH = 'kicad/symbols.txt';
+    public const CUSTOM_FOOTPRINT_PATH = 'kicad/footprints_custom.txt';
+    public const CUSTOM_SYMBOL_PATH = 'kicad/symbols_custom.txt';
+
+    public function __construct(
+        private readonly KiCadEDASettings $kiCadEDASettings,
+    ) {
+    }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -47,8 +55,8 @@ class KicadFieldAutocompleteType extends AbstractType
 
         $resolver->setDefaults([
             'file' => fn(Options $options) => match ($options['type']) {
-                self::TYPE_FOOTPRINT => self::FOOTPRINT_PATH,
-                self::TYPE_SYMBOL => self::SYMBOL_PATH,
+                self::TYPE_FOOTPRINT => $this->kiCadEDASettings->useCustomList ? self::CUSTOM_FOOTPRINT_PATH : self::FOOTPRINT_PATH,
+                self::TYPE_SYMBOL => $this->kiCadEDASettings->useCustomList ? self::CUSTOM_SYMBOL_PATH : self::SYMBOL_PATH,
                 default => throw new \InvalidArgumentException('Invalid type'),
             }
         ]);

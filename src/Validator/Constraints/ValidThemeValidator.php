@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Validator\Constraints;
 
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -31,7 +32,10 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 class ValidThemeValidator extends ConstraintValidator
 {
-    public function __construct(private readonly array $available_themes)
+    public function __construct(
+        #[Autowire(param: 'partdb.available_themes')]
+        private readonly array $available_themes,
+    )
     {
     }
 

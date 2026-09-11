@@ -110,8 +110,10 @@ class StructuralEntityType extends AbstractType
         //If no help text is explicitly set, we use the dto value as help text and show it as html
         $resolver->setDefault('help', fn(Options $options) => $this->dtoText($options['dto_value']));
         $resolver->setDefault('help_html', fn(Options $options) => $options['dto_value'] !== null);
+        
 
-        $resolver->setDefault('attr', function (Options $options) {
+        //Normalize the attr to merge custom attributes
+        $resolver->setNormalizer('attr', function (Options $options, $value) {
             $tmp = [
                 'data-controller' => $options['controller'],
                 'data-allow-add' => $options['allow_add'] ? 'true' : 'false',
@@ -121,7 +123,7 @@ class StructuralEntityType extends AbstractType
                 $tmp['data-empty-message'] = $options['empty_message'];
             }
 
-            return $tmp;
+            return array_merge($tmp, $value);
         });
     }
 

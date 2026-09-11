@@ -22,10 +22,12 @@ import '../../css/components/tom-select_extensions.css';
 import TomSelect from "tom-select";
 import {Controller} from "@hotwired/stimulus";
 
-import {trans, ENTITY_SELECT_GROUP_NEW_NOT_ADDED_TO_DB} from '../../translator.js'
-
+import {trans} from '../../translator.js'
 import TomSelect_autoselect_typed from '../../tomselect/autoselect_typed/autoselect_typed'
+import TomSelect_form_reset_handler from '../../tomselect/form_reset_handler/form_reset_handler'
+
 TomSelect.define('autoselect_typed', TomSelect_autoselect_typed)
+TomSelect.define('form_reset_handler', TomSelect_form_reset_handler)
 
 export default class extends Controller {
     _tomSelect;
@@ -58,6 +60,7 @@ export default class extends Controller {
             delimiter: "$$VERY_LONG_DELIMITER_THAT_SHOULD_NEVER_APPEAR$$",
             splitOn: null,
             dropdownParent: dropdownParent,
+            clearAfterSelect: true,
 
             searchField: [
                 {field: "text", weight : 2},
@@ -95,6 +98,7 @@ export default class extends Controller {
 
             plugins: {
                 "autoselect_typed": {},
+                "form_reset_handler": {},
             }
         };
 
@@ -104,6 +108,7 @@ export default class extends Controller {
         }
 
         this._tomSelect = new TomSelect(this.element, settings);
+
         //Do not do a sync here as this breaks the initial rendering of the empty option
         //this._tomSelect.sync();
     }
@@ -204,7 +209,7 @@ export default class extends Controller {
 
         if (data.not_in_db_yet) {
             //Not yet added items are shown italic and with a badge
-            name += "<i><b>" + escape(data.text) + "</b></i>" + "<span class='ms-3 badge bg-info badge-info'>" + trans(ENTITY_SELECT_GROUP_NEW_NOT_ADDED_TO_DB) + "</span>";
+            name += "<i><b>" + escape(data.text) + "</b></i>" + "<span class='ms-3 badge bg-info badge-info'>" + trans("entity.select.group.new_not_added_to_DB") + "</span>";
         } else {
             name += "<b>" + escape(data.text) + "</b>";
         }

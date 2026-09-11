@@ -31,11 +31,11 @@ use App\Services\LabelSystem\LabelBarcodeGenerator;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 use Com\Tecnick\Barcode\Exception;
 
-final class BarcodeProvider implements PlaceholderProviderInterface
+final readonly class BarcodeProvider implements PlaceholderProviderInterface
 {
-    public function __construct(private readonly LabelBarcodeGenerator $barcodeGenerator,
-        private readonly BarcodeContentGenerator $barcodeContentGenerator,
-        private readonly BarcodeHelper $barcodeHelper)
+    public function __construct(private LabelBarcodeGenerator $barcodeGenerator,
+        private BarcodeContentGenerator $barcodeContentGenerator,
+        private BarcodeHelper $barcodeHelper)
     {
     }
 
@@ -114,10 +114,12 @@ final class BarcodeProvider implements PlaceholderProviderInterface
                 return '<b>IPN Barcode ERROR!</b>: '.$e->getMessage();
             }
         }
-
-
-
-
         return null;
+    }
+
+    public static function getDefaultPriority(): int
+    {
+        //This provider should be checked before all others, so that nothing is delegated for part lots
+        return 1000;
     }
 }

@@ -17,9 +17,6 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import SpecialCharacters from 'ckeditor5';
-import SpecialCharactersEssentials from 'ckeditor5';
-
 import {Plugin} from 'ckeditor5';
 
 export default class SpecialCharactersGreek extends Plugin {

@@ -16,6 +16,7 @@ use PhpZip\ZipFile;
 use Spatie\DbDumper\Databases\MySql;
 use Spatie\DbDumper\DbDumper;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -25,7 +26,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 #[AsCommand('partdb:backup', 'Backup the files and the database of Part-DB')]
 class BackupCommand extends Command
 {
-    public function __construct(private readonly string $project_dir, private readonly EntityManagerInterface $entityManager)
+    public function __construct(
+        #[Autowire(param: 'kernel.project_dir')]
+        private readonly string $project_dir,
+        private readonly EntityManagerInterface $entityManager,
+    )
     {
         parent::__construct();
     }
@@ -201,6 +206,10 @@ class BackupCommand extends Command
         $config_dir = $this->project_dir.'/config';
         $zip->addFile($config_dir.'/parameters.yaml', 'config/parameters.yaml');
         $zip->addFile($config_dir.'/banner.md', 'config/banner.md');
+
+        //Add kicad custom footprints and symbols files
+        $zip->addFile($this->project_dir . '/public/kicad/footprints_custom.txt', 'public/kicad/footprints_custom.txt');
+        $zip->addFile($this->project_dir . '/public/kicad/symbols_custom.txt', 'public/kicad/symbols_custom.txt');
     }
 
     protected function backupAttachments(ZipFile $zip, SymfonyStyle $io): void

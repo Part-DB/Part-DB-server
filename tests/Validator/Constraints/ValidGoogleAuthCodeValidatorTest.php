@@ -34,7 +34,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-class ValidGoogleAuthCodeValidatorTest extends ConstraintValidatorTestCase
+final class ValidGoogleAuthCodeValidatorTest extends ConstraintValidatorTestCase
 {
 
     protected function createValidator(): ConstraintValidatorInterface

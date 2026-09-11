@@ -26,8 +26,6 @@ namespace App\Settings\SystemSettings;
 use Symfony\Contracts\Translation\TranslatableInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-use function Symfony\Component\Translation\t;
-
 enum HomepageItems: string implements TranslatableInterface
 {
     case SEARCH = 'search';

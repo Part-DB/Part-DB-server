@@ -139,7 +139,7 @@ class FileTypeFilterTools
     {
         $filter = trim($filter);
 
-        return $this->cache->get('filter_exts_'.md5($filter), function (ItemInterface $item) use ($filter) {
+        return $this->cache->get('filter_exts_'.hash('xxh3', $filter), function (ItemInterface $item) use ($filter) {
             $elements = explode(',', $filter);
             $extensions = [];
 

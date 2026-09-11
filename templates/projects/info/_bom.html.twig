@@ -1,22 +1,32 @@
 {% import "components/datatables.macro.html.twig" as datatables %}
 
-<div class="btn-group mb-2 mt-2">
-    <a class="btn btn-success" {% if not is_granted('@projects.edit') %}disabled{% endif %}
-       href="{{ path('project_add_parts', {"id": project.id, "_redirect":  uri_without_host(app.request)}) }}">
-        <i class="fa-solid fa-square-plus fa-fw"></i>
-        {% trans %}project.info.bom_add_parts{% endtrans %}
-    </a>
-    <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-        <span class="visually-hidden">Toggle Dropdown</span>
+<div class="d-flex align-items-center gap-2"
+     {{ stimulus_controller('pages/project_bom_export', {url: path('project_bom_export', {id: project.id})}) }}>
+
+    <div class="btn-group mb-2 mt-2">
+        <a class="btn btn-success" {% if not is_granted('@projects.edit') %}disabled{% endif %}
+           href="{{ path('project_add_parts', {"id": project.id, "_redirect":  uri_without_host(app.request)}) }}">
+            <i class="fa-solid fa-square-plus fa-fw"></i>
+            {% trans %}project.info.bom_add_parts{% endtrans %}
+        </a>
+        <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+                <a class="dropdown-item" href="{{ path('project_import_bom', {'id': project.id}) }}" {% if not is_granted('edit', project) %}disabled="disabled"{% endif %}>
+                    <i class="fa-solid fa-file-import fa-fw"></i>
+                    {% trans %}project.edit.bom.import_bom{% endtrans %}
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <button type="button" class="btn btn-secondary"
+            {{ stimulus_action('pages/project_bom_export', 'export', 'click') }}>
+        <i class="fa-solid fa-file-csv fa-fw"></i>
+        {% trans %}project.bom.export_csv{% endtrans %}
     </button>
-    <ul class="dropdown-menu">
-        <li>
-            <a class="dropdown-item" href="{{ path('project_import_bom', {'id': project.id}) }}" {% if not is_granted('edit', project) %}disabled="disabled"{% endif %}>
-                <i class="fa-solid fa-file-import fa-fw"></i>
-                {% trans %}project.edit.bom.import_bom{% endtrans %}
-            </a>
-        </li>
-    </ul>
 </div>
 
 {{ datatables.datatable(datatable, 'elements/datatables/datatables', 'projects') }}

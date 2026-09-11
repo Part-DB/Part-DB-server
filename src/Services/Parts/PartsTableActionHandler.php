@@ -38,9 +38,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use function Symfony\Component\Translation\t;
 
-final class PartsTableActionHandler
+final readonly class PartsTableActionHandler
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly Security $security, private readonly UrlGeneratorInterface $urlGenerator)
+    public function __construct(private EntityManagerInterface $entityManager, private Security $security, private UrlGeneratorInterface $urlGenerator)
     {
     }
 
@@ -127,6 +127,25 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
             );
         }
 
+        if ($action === 'batch_edit_eda') {
+            $ids = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
+            return new RedirectResponse(
+                $this->urlGenerator->generate('batch_eda_edit', [
+                    'ids' => $ids,
+                    '_redirect' => $redirect_url
+                ])
+            );
+        }
+
+        if ($action === 'generate_images') {
+            $ids = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
+            return new RedirectResponse(
+                $this->urlGenerator->generate('tools_bulk_generate', [
+                    'ids' => $ids,
+                    '_redirect' => $redirect_url
+                ])
+            );
+        }
 
         //Iterate over the parts and apply the action to it:
         foreach ($selected_parts as $part) {

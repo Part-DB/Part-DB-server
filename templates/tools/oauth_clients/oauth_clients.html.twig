@@ -1,0 +1,76 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}oauth_clients.title{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-plug-circle-bolt fa-fw" aria-hidden="true"></i> {% trans %}oauth_clients.title{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+    <p class="text-muted">{% trans %}oauth_clients.description{% endtrans %}</p>
+
+    <a href="{{ path('oauth_clients_new') }}" class="btn btn-primary mb-3">
+        <i class="fa-solid fa-plus fa-fw" aria-hidden="true"></i> {% trans %}oauth_clients.new_button{% endtrans %}
+    </a>
+
+    {% if clients is empty %}
+        <br><br><b>{% trans %}oauth_clients.none_yet{% endtrans %}</b>
+    {% else %}
+        <table class="table table-striped table-bordered table-hover table-sm mt-2">
+            <thead>
+            <tr>
+                <th>{% trans %}oauth_clients.name{% endtrans %}</th>
+                <th>{% trans %}oauth_clients.client_id{% endtrans %}</th>
+                <th>{% trans %}oauth_clients.scopes{% endtrans %}</th>
+                <th>{% trans %}oauth_clients.redirect_uris{% endtrans %}</th>
+                <th>{% trans %}oauth_clients.status{% endtrans %}</th>
+                <th>{% trans %}oauth_clients.live_tokens{% endtrans %}</th>
+                <th>{% trans %}oauth_clients.live_refresh_tokens{% endtrans %}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in clients %}
+                {% set client = row.client %}
+                <tr>
+                    <td>
+                        {{ client.name }}
+                        {% if row.dynamicallyRegistered %}
+                            <span class="badge badge-info bg-info" title="{% trans %}oauth_clients.dynamically_registered.help{% endtrans %}">
+                                <i class="fa-solid fa-robot fa-fw" aria-hidden="true"></i> {% trans %}oauth_clients.dynamically_registered{% endtrans %}
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td><code>{{ client.identifier }}</code></td>
+                    <td>{{ client.scopes|join(', ') }}</td>
+                    <td>{{ client.redirectUris|join(', ') }}</td>
+                    <td>
+                        {% if client.active %}
+                            <span class="badge bg-success badge-success">{% trans %}oauth_clients.active{% endtrans %}</span>
+                        {% else %}
+                            <span class="badge bg-secondary badge-secondary">{% trans %}oauth_clients.inactive{% endtrans %}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ row.liveTokenCount }}</td>
+                    <td>{{ row.liveRefreshTokenCount }}</td>
+                    <td class="text-nowrap">
+                        <a href="{{ path('oauth_clients_edit', {'identifier': client.identifier}) }}" class="btn btn-secondary btn-sm">
+                            <i class="fa-solid fa-pen fa-fw" aria-hidden="true"></i> {% trans %}oauth_clients.edit{% endtrans %}
+                        </a>
+                        <form class="d-inline" action="{{ path('oauth_clients_delete', {'identifier': client.identifier}) }}" method="post"
+                                {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
+                              data-delete-title="{% trans %}oauth_clients.delete.title{% endtrans %}"
+                              data-delete-message="{% trans %}oauth_clients.delete.message{% endtrans %}">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('oauth_client_delete' ~ client.identifier) }}">
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash-alt fa-fw"></i> {% trans %}oauth_clients.delete{% endtrans %}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

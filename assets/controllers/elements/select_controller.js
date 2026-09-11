@@ -21,6 +21,9 @@ import {Controller} from "@hotwired/stimulus";
 import "tom-select/dist/css/tom-select.bootstrap5.css";
 import '../../css/components/tom-select_extensions.css';
 import TomSelect from "tom-select";
+import TomSelect_form_reset_handler from '../../tomselect/form_reset_handler/form_reset_handler'
+
+TomSelect.define('form_reset_handler', TomSelect_form_reset_handler)
 
 export default class extends Controller {
 
@@ -44,11 +47,12 @@ export default class extends Controller {
         }
 
         let settings = {
-            plugins: ["clear_button"],
+            plugins: ["clear_button", "form_reset_handler"],
             allowEmptyOption: true,
             selectOnTab: true,
             maxOptions: null,
             dropdownParent: dropdownParent,
+            clearAfterSelect: true,
 
             render: {
                 item: this.renderItem.bind(this),

@@ -62,6 +62,6 @@ export default class extends Controller {
             element.disabled = true;
         }
 
-        form.submit();
+        form.requestSubmit();
     }
 }

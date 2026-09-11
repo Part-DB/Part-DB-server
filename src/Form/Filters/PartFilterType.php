@@ -22,7 +22,6 @@ declare(strict_types=1);
  */
 namespace App\Form\Filters;
 
-use App\DataTables\Filters\Constraints\Part\BulkImportPartStatusConstraint;
 use App\DataTables\Filters\Constraints\Part\ParameterConstraint;
 use App\DataTables\Filters\PartFilter;
 use App\Entity\Attachments\AttachmentType;
@@ -133,6 +132,10 @@ class PartFilterType extends AbstractType
             'label' => 'part.edit.mass',
             'text_suffix' => 'g',
             'min' => 0,
+        ]);
+
+        $builder->add('gtin', TextConstraintType::class, [
+            'label' => 'part.gtin',
         ]);
 
         $builder->add('measurementUnit', StructuralEntityConstraintType::class, [

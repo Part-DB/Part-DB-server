@@ -28,18 +28,20 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\ProjectSystem\Project;
+use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Entity\UserSystem\User;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchResponseDTO;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @group slow
- * @group DB
- */
-class PartControllerTest extends WebTestCase
+#[Group("slow")]
+#[Group("DB")]
+final class PartControllerTest extends WebTestCase
 {
     public function testShowPart(): void
     {
@@ -270,21 +272,31 @@ class PartControllerTest extends WebTestCase
 
         // Create two test parts
         $targetPart = new Part();
-        $targetPart->setName('Target Part');
+        $targetPart->setName('Same <Target>');
         $targetPart->setCategory($category);
 
         $otherPart = new Part();
-        $otherPart->setName('Other Part');
+        $otherPart->setName('Same <Other>');
         $otherPart->setCategory($category);
 
         $entityManager->persist($targetPart);
         $entityManager->persist($otherPart);
         $entityManager->flush();
 
-        $client->request('GET', "/en/part/{$targetPart->getId()}/merge/{$otherPart->getId()}");
+        $crawler = $client->request('GET', "/en/part/{$targetPart->getId()}/merge/{$otherPart->getId()}");
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertSelectorExists('form[name="part_base"]');
+
+        $mergeController = $crawler->filter('[data-delete-title-html="true"]');
+        self::assertCount(1, $mergeController);
+
+        $confirmationTitle = (string) $mergeController->attr('data-delete-title');
+        self::assertStringContainsString('<b>Same &lt;Other&gt; (ID: ' . $otherPart->getId() . ')</b>', $confirmationTitle);
+        self::assertStringContainsString('<b>Same &lt;Target&gt; (ID: ' . $targetPart->getId() . ')</b>', $confirmationTitle);
+
+        $confirmationMessage = (string) $mergeController->attr('data-delete-message');
+        self::assertStringContainsString('<b>Same &lt;Other&gt; (ID: ' . $otherPart->getId() . ')</b>', $confirmationMessage);
 
         // Clean up
         $entityManager->remove($targetPart);
@@ -295,6 +307,228 @@ class PartControllerTest extends WebTestCase
 
 
 
+
+    public function testMergePartsWithProjectBomEntriesSubmitsWithoutError(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $categoryRepository = $entityManager->getRepository(Category::class);
+        $category = $categoryRepository->find(1);
+
+        if (!$category) {
+            $this->markTestSkipped('Test category with ID 1 not found in fixtures');
+        }
+
+        $targetPart = new Part();
+        $targetPart->setName('BOM Merge Target');
+        $targetPart->setCategory($category);
+
+        $otherPart = new Part();
+        $otherPart->setName('BOM Merge Other');
+        $otherPart->setCategory($category);
+
+        $entityManager->persist($targetPart);
+        $entityManager->persist($otherPart);
+
+        $projectB = new Project();
+        $projectB->setName('BOM Merge Project B');
+        $projectC = new Project();
+        $projectC->setName('BOM Merge Project C');
+        $entityManager->persist($projectB);
+        $entityManager->persist($projectC);
+
+        $entryB = (new ProjectBOMEntry())->setQuantity(3.0);
+        $projectB->addBomEntry($entryB);
+        $otherPart->addProjectBomEntry($entryB);
+        $entityManager->persist($entryB);
+
+        $entryC = (new ProjectBOMEntry())->setQuantity(5.0);
+        $projectC->addBomEntry($entryC);
+        $otherPart->addProjectBomEntry($entryC);
+        $entityManager->persist($entryC);
+
+        $entityManager->flush();
+
+        $targetId = $targetPart->getId();
+        $otherId = $otherPart->getId();
+        $projectBId = $projectB->getId();
+        $projectCId = $projectC->getId();
+
+        $crawler = $client->request('GET', "/en/part/{$targetId}/merge/{$otherId}");
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        $form = $crawler->filter('button[name="part_base[save]"]')->form();
+        $client->submit($form);
+
+        //The submission must succeed (redirect to the edited part), not throw a DB integrity exception
+        $this->assertResponseRedirects();
+
+        //Requesting the client may reset the entity manager, so fetch a fresh reference for the assertions/cleanup
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+
+        $this->assertNull($entityManager->getRepository(Part::class)->find($otherId));
+
+        $mergedPart = $entityManager->getRepository(Part::class)->find($targetId);
+        self::assertNotNull($mergedPart);
+        self::assertCount(2, $mergedPart->getProjectBomEntries());
+
+        // Clean up
+        $entityManager->remove($mergedPart);
+        $entityManager->remove($entityManager->getRepository(Project::class)->find($projectBId));
+        $entityManager->remove($entityManager->getRepository(Project::class)->find($projectCId));
+        $entityManager->flush();
+    }
+
+    public function testMergePartsUsedInSameProjectSubmitsWithoutError(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $categoryRepository = $entityManager->getRepository(Category::class);
+        $category = $categoryRepository->find(1);
+
+        if (!$category) {
+            $this->markTestSkipped('Test category with ID 1 not found in fixtures');
+        }
+
+        $targetPart = new Part();
+        $targetPart->setName('BOM Merge Target Same Project');
+        $targetPart->setCategory($category);
+
+        $otherPart = new Part();
+        $otherPart->setName('BOM Merge Other Same Project');
+        $otherPart->setCategory($category);
+
+        $entityManager->persist($targetPart);
+        $entityManager->persist($otherPart);
+
+        $project = new Project();
+        $project->setName('BOM Merge Shared Project');
+        $entityManager->persist($project);
+
+        $entry1 = (new ProjectBOMEntry())->setQuantity(2.0);
+        $project->addBomEntry($entry1);
+        $targetPart->addProjectBomEntry($entry1);
+        $entityManager->persist($entry1);
+
+        $entry2 = (new ProjectBOMEntry())->setQuantity(4.0);
+        $project->addBomEntry($entry2);
+        $otherPart->addProjectBomEntry($entry2);
+        $entityManager->persist($entry2);
+
+        $entityManager->flush();
+
+        $targetId = $targetPart->getId();
+        $otherId = $otherPart->getId();
+        $projectId = $project->getId();
+        $entry2Id = $entry2->getId();
+
+        $crawler = $client->request('GET', "/en/part/{$targetId}/merge/{$otherId}");
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+
+        $form = $crawler->filter('button[name="part_base[save]"]')->form();
+        $client->submit($form);
+
+        //The submission must succeed (redirect to the edited part), not throw a DB integrity exception
+        $this->assertResponseRedirects();
+
+        //Requesting the client may reset the entity manager, so fetch a fresh reference for the assertions/cleanup
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+
+        $this->assertNull($entityManager->getRepository(Part::class)->find($otherId));
+        $this->assertNull($entityManager->getRepository(ProjectBOMEntry::class)->find($entry2Id));
+
+        $mergedPart = $entityManager->getRepository(Part::class)->find($targetId);
+        self::assertNotNull($mergedPart);
+        self::assertCount(1, $mergedPart->getProjectBomEntries());
+        self::assertSame(6.0, $mergedPart->getProjectBomEntries()->first()->getQuantity());
+
+        // Clean up
+        $entityManager->remove($mergedPart);
+        $entityManager->remove($entityManager->getRepository(Project::class)->find($projectId));
+        $entityManager->flush();
+    }
+
+    public function testWithdrawAddMoveToNewLotDoesNotThrow(): void
+    {
+        // Regression test for a bug where moving stock to a newly created lot (target_id=new)
+        // caused a DBAL exception, because "new" was passed straight to EntityManager::find()
+        // instead of being recognized as the "create a new lot" sentinel.
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+
+        $category = $entityManager->getRepository(Category::class)->find(1);
+        $storageLocation = $entityManager->getRepository(StorageLocation::class)->find(1);
+        if (!$category || !$storageLocation) {
+            $this->markTestSkipped('Required test data not found in fixtures');
+        }
+
+        // Create a part with a single lot that we can move stock away from
+        $part = new Part();
+        $part->setName('Move to new lot test part');
+        $part->setCategory($category);
+
+        $sourceLot = new PartLot();
+        $sourceLot->setAmount(10);
+        $sourceLot->setStorageLocation($storageLocation);
+        $part->addPartLot($sourceLot);
+
+        $entityManager->persist($part);
+        $entityManager->flush();
+
+        $partId = $part->getId();
+        $sourceLotId = $sourceLot->getId();
+
+        // Load the part page first, both to start a session (the CSRF token storage needs one)
+        // and to grab the real CSRF token the withdraw/move form would submit.
+        $crawler = $client->request('GET', "/en/part/{$partId}");
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $token = (string) $crawler->filter('input[name="_csfr"]')->first()->attr('value');
+
+        $client->request('POST', "/en/part/{$partId}/add_withdraw", [
+            'lot_id' => $sourceLotId,
+            'target_id' => 'new',
+            'amount' => '4',
+            'action' => 'move',
+            //The real form always submits this field (even when empty), so mirror that here
+            'comment' => '',
+            'part_lot' => [
+                'storage_location' => $storageLocation->getId(),
+            ],
+            '_csfr' => $token,
+        ]);
+
+        // Must not crash with a DB exception (this used to be a 500 error) and instead redirect back to the part page
+        $this->assertResponseRedirects();
+
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $entityManager->clear();
+
+        $refreshedPart = $entityManager->getRepository(Part::class)->find($partId);
+        self::assertNotNull($refreshedPart);
+        self::assertCount(2, $refreshedPart->getPartLots(), 'A new part lot should have been created');
+
+        $lots = $refreshedPart->getPartLots();
+        $originLot = $lots->filter(static fn (PartLot $lot) => $lot->getId() === $sourceLotId)->first();
+        $newLot = $lots->filter(static fn (PartLot $lot) => $lot->getId() !== $sourceLotId)->first();
+
+        self::assertNotFalse($originLot);
+        self::assertNotFalse($newLot);
+        self::assertSame(6.0, $originLot->getAmount());
+        self::assertSame(4.0, $newLot->getAmount());
+
+        // Clean up
+        foreach ($refreshedPart->getPartLots() as $lot) {
+            $entityManager->remove($lot);
+        }
+        $entityManager->remove($refreshedPart);
+        $entityManager->flush();
+    }
 
     public function testAccessControlForUnauthorizedUser(): void
     {

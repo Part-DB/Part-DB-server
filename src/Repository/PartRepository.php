@@ -29,12 +29,14 @@ use App\Settings\MiscSettings\IpnSuggestSettings;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @extends NamedDBElementRepository<Part>
  */
+#[Autoconfigure(tags: ['doctrine.repository_service'])]
 class PartRepository extends NamedDBElementRepository
 {
     private TranslatorInterface $translator;
@@ -132,6 +134,20 @@ class PartRepository extends NamedDBElementRepository
         $category = $part->getCategory();
         $ipnSuggestions = ['commonPrefixes' => [], 'prefixesPartIncrement' => []];
 
+        //Show global prefix first if configured
+        if ($this->ipnSuggestSettings->globalPrefix !== null && $this->ipnSuggestSettings->globalPrefix !== '') {
+            $ipnSuggestions['commonPrefixes'][] = [
+                'title' => $this->ipnSuggestSettings->globalPrefix,
+                'description' => $this->translator->trans('part.edit.tab.advanced.ipn.prefix.global_prefix')
+            ];
+
+            $increment = $this->generateNextPossibleGlobalIncrement();
+            $ipnSuggestions['prefixesPartIncrement'][] = [
+                'title' => $this->ipnSuggestSettings->globalPrefix . $increment,
+                'description' => $this->translator->trans('part.edit.tab.advanced.ipn.prefix.global_prefix')
+            ];
+        }
+
         if (strlen($description) > 150) {
             $description = substr($description, 0, 150);
         }
@@ -160,17 +176,17 @@ class PartRepository extends NamedDBElementRepository
         if ($category instanceof Category) {
             $currentPath = $category->getPartIpnPrefix();
             $directIpnPrefixEmpty = $category->getPartIpnPrefix() === '';
-            $currentPath = $currentPath === '' ? 'n.a.' : $currentPath;
+            $currentPath = $currentPath === '' ? $this->ipnSuggestSettings->fallbackPrefix : $currentPath;
 
             $increment = $this->generateNextPossiblePartIncrement($currentPath, $part, $suggestPartDigits);
 
             $ipnSuggestions['commonPrefixes'][] = [
-                'title' => $currentPath . '-',
+                'title' => $currentPath . $this->ipnSuggestSettings->numberSeparator,
                 'description' => $directIpnPrefixEmpty ? $this->translator->trans('part.edit.tab.advanced.ipn.prefix_empty.direct_category', ['%name%' => $category->getName()]) : $this->translator->trans('part.edit.tab.advanced.ipn.prefix.direct_category')
             ];
 
             $ipnSuggestions['prefixesPartIncrement'][] = [
-                'title' => $currentPath . '-' . $increment,
+                'title' => $currentPath . $this->ipnSuggestSettings->numberSeparator . $increment,
                 'description' => $directIpnPrefixEmpty ? $this->translator->trans('part.edit.tab.advanced.ipn.prefix_empty.direct_category', ['%name%' => $category->getName()]) : $this->translator->trans('part.edit.tab.advanced.ipn.prefix.direct_category.increment')
             ];
 
@@ -179,18 +195,19 @@ class PartRepository extends NamedDBElementRepository
 
             while ($parentCategory instanceof Category) {
                 // Prepend the parent category's prefix to the current path
-                $currentPath = $parentCategory->getPartIpnPrefix() . '-' . $currentPath;
-                $currentPath = $parentCategory->getPartIpnPrefix() === '' ? 'n.a.-' . $currentPath : $currentPath;
+                $effectiveIPNPrefix = $parentCategory->getPartIpnPrefix() === '' ? $this->ipnSuggestSettings->fallbackPrefix : $parentCategory->getPartIpnPrefix();
+
+                $currentPath = $effectiveIPNPrefix .  $this->ipnSuggestSettings->categorySeparator . $currentPath;
 
                 $ipnSuggestions['commonPrefixes'][] = [
-                    'title' => $currentPath . '-',
+                    'title' => $currentPath . $this->ipnSuggestSettings->numberSeparator,
                     'description' => $this->translator->trans('part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment')
                 ];
 
                 $increment = $this->generateNextPossiblePartIncrement($currentPath, $part, $suggestPartDigits);
 
                 $ipnSuggestions['prefixesPartIncrement'][] = [
-                    'title' => $currentPath . '-' . $increment,
+                    'title' => $currentPath . $this->ipnSuggestSettings->numberSeparator . $increment,
                     'description' => $this->translator->trans('part.edit.tab.advanced.ipn.prefix.hierarchical.increment')
                 ];
 
@@ -199,7 +216,7 @@ class PartRepository extends NamedDBElementRepository
             }
         } elseif ($part->getID() === null) {
             $ipnSuggestions['commonPrefixes'][] = [
-                'title' => 'n.a.',
+                'title' => $this->ipnSuggestSettings->fallbackPrefix,
                 'description' => $this->translator->trans('part.edit.tab.advanced.ipn.prefix.not_saved')
             ];
         }
@@ -246,6 +263,33 @@ class PartRepository extends NamedDBElementRepository
         return $this->getNextIpnSuggestion($givenIpnsWithSameDescription);
     }
 
+    private function generateNextPossibleGlobalIncrement(): string
+    {
+        $qb = $this->createQueryBuilder('part');
+
+
+        $qb->select('part.ipn')
+            ->where('REGEXP(part.ipn, :ipnPattern) = TRUE')
+            ->setParameter('ipnPattern', '^' . preg_quote($this->ipnSuggestSettings->globalPrefix, '/') . '\d+$')
+            ->orderBy('NATSORT(part.ipn)', 'DESC')
+            ->setMaxResults(1)
+        ;
+
+        $highestIPN = $qb->getQuery()->getOneOrNullResult();
+        if ($highestIPN !== null) {
+            //Remove the prefix and extract the increment part
+            $incrementPart = substr($highestIPN['ipn'], strlen($this->ipnSuggestSettings->globalPrefix));
+            //Extract a number using regex
+            preg_match('/(\d+)$/', $incrementPart, $matches);
+            $incrementInt = isset($matches[1]) ? (int) $matches[1] + 1 : 0;
+        } else {
+            $incrementInt = 1;
+        }
+
+
+        return str_pad((string) $incrementInt, $this->ipnSuggestSettings->suggestPartDigits, '0', STR_PAD_LEFT);
+    }
+
     /**
      * Generates the next possible increment for a part within a given category, while ensuring uniqueness.
      *
@@ -266,7 +310,7 @@ class PartRepository extends NamedDBElementRepository
     {
         $qb = $this->createQueryBuilder('part');
 
-        $expectedLength = strlen($currentPath) + 1 + $suggestPartDigits; // Path + '-' + $suggestPartDigits digits
+        $expectedLength = strlen($currentPath) + strlen($this->ipnSuggestSettings->categorySeparator) + $suggestPartDigits; // Path + '-' + $suggestPartDigits digits
 
         // Fetch all parts in the given category, sorted by their ID in ascending order
         $qb->select('part')
@@ -347,4 +391,93 @@ class PartRepository extends NamedDBElementRepository
         return $baseIpn . '_' . ($maxSuffix + 1);
     }
 
+    /**
+     * Finds a part based on the provided info provider key and ID, with an option for case sensitivity.
+     * If no part is found with the given provider key and ID, null is returned.
+     * @param  string  $providerID
+     * @param  string|null  $providerKey If null, the provider key will not be included in the search criteria, and only the provider ID will be used for matching.
+     * @param  bool  $caseInsensitive  If true, the provider ID comparison will be case-insensitive. Default is true.
+     * @return Part|null
+     */
+    public function getPartByProviderInfo(string $providerID, ?string $providerKey = null, bool $caseInsensitive = true): ?Part
+    {
+        $qb = $this->createQueryBuilder('part');
+        $qb->select('part');
+
+        if ($providerKey) {
+            $qb->where("part.providerReference.provider_key = :providerKey");
+            $qb->setParameter('providerKey', $providerKey);
+        }
+
+
+        if ($caseInsensitive) {
+            $qb->andWhere("LOWER(part.providerReference.provider_id) = LOWER(:providerID)");
+        } else {
+            $qb->andWhere("part.providerReference.provider_id = :providerID");
+        }
+
+        $qb->setParameter('providerID', $providerID);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * Finds a part based on the provided MPN (Manufacturer Part Number), with an option for case sensitivity.
+     * If no part is found with the given MPN, null is returned.
+     * @param  string  $mpn
+     * @param  string|null  $manufacturerName If provided, the search will also include a match for the manufacturer's name. If null, the manufacturer name will not be included in the search criteria.
+     * @param  bool  $caseInsensitive If true, the MPN comparison will be case-insensitive. Default is true (case-insensitive).
+     * @return Part|null
+     */
+    public function getPartByMPN(string $mpn, ?string $manufacturerName = null, bool $caseInsensitive = true): ?Part
+    {
+        $qb = $this->createQueryBuilder('part');
+        $qb->select('part');
+
+        if ($caseInsensitive) {
+            $qb->where("LOWER(part.manufacturer_product_number) = LOWER(:mpn)");
+        } else {
+            $qb->where("part.manufacturer_product_number = :mpn");
+        }
+
+        if ($manufacturerName !== null) {
+            $qb->leftJoin('part.manufacturer', 'manufacturer');
+
+            if ($caseInsensitive) {
+                $qb->andWhere("LOWER(manufacturer.name) = LOWER(:manufacturerName)");
+            } else {
+                $qb->andWhere("manufacturer.name = :manufacturerName");
+            }
+            $qb->setParameter('manufacturerName', $manufacturerName);
+        }
+
+        $qb->setParameter('mpn', $mpn);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * Finds a part based on the provided SPN (Supplier Part Number), with an option for case sensitivity.
+     * If no part is found with the given SPN, null is returned.
+     * @param  string  $spn
+     * @param  bool  $caseInsensitive
+     * @return Part|null
+     */
+    public function getPartBySPN(string $spn, bool $caseInsensitive = true): ?Part
+    {
+        $qb = $this->createQueryBuilder('part');
+        $qb->select('part');
+
+        $qb->leftJoin('part.orderdetails', 'o');
+
+        if ($caseInsensitive) {
+            $qb->where("LOWER(o.supplierpartnr) = LOWER(:spn)");
+        } else {
+            $qb->where("o.supplierpartnr = :spn");
+        }
+
+        $qb->setParameter('spn', $spn);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }

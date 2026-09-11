@@ -35,12 +35,14 @@
                     {{ form_row(filterForm.level) }}
                     {{ form_row(filterForm.targetType) }}
                     {{ form_row(filterForm.targetId) }}
+                    {{ form_row(filterForm.accessMethod) }}
+                    {{ form_row(filterForm.requestId) }}
 
                     {{ form_row(filterForm.submit) }}
                     {{ form_row(filterForm.discard) }}
 
                     <div class="row mb-3">
-                        <div class="col-sm-9 offset-sm-3">
+                        <div class="{{ col_input }} {{ offset_label }}">
                             <button type="button" class="btn btn-danger" {{ stimulus_action('helpers/form_cleanup', 'clearAll') }}>{% trans %}filter.clear_filters{% endtrans %}</button>
                         </div>
                     </div>

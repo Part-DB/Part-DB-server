@@ -27,7 +27,7 @@ use App\Services\Parts\PartsTableActionHandler;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class PartsTableActionHandlerTest extends WebTestCase
+final class PartsTableActionHandlerTest extends WebTestCase
 {
     private PartsTableActionHandler $service;
 
@@ -43,20 +43,52 @@ class PartsTableActionHandlerTest extends WebTestCase
         $part = $this->createMock(Part::class);
         $part->method('getId')->willReturn(1);
         $part->method('getName')->willReturn('Test Part');
-        
+
         $selected_parts = [$part];
 
         // Test each export format, focusing on our new xlsx format
         $formats = ['json', 'csv', 'xml', 'yaml', 'xlsx'];
-        
+
         foreach ($formats as $format) {
             $action = "export_{$format}";
             $result = $this->service->handleAction($action, $selected_parts, 1, '/test');
-            
+
             $this->assertInstanceOf(RedirectResponse::class, $result);
             $this->assertStringContainsString('parts/export', $result->getTargetUrl());
             $this->assertStringContainsString("format={$format}", $result->getTargetUrl());
         }
     }
 
+    public function testExportUrlContainsPartIds(): void
+    {
+        $part1 = $this->createMock(Part::class);
+        $part1->method('getId')->willReturn(42);
+
+        $part2 = $this->createMock(Part::class);
+        $part2->method('getId')->willReturn(99);
+
+        $result = $this->service->handleAction('export_csv', [$part1, $part2], 1, '/test');
+
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+        // Commas in query-string values are not percent-encoded by Symfony's UrlGenerator
+        $this->assertStringContainsString('ids=42,99', $result->getTargetUrl());
+    }
+
+    public function testExportWithNoPartsProducesEmptyIds(): void
+    {
+        $result = $this->service->handleAction('export_json', [], 1, '/test');
+
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertStringContainsString('parts/export', $result->getTargetUrl());
+        // ids parameter present but empty
+        $this->assertStringContainsString('ids=', $result->getTargetUrl());
+    }
+
+    public function testUnknownActionWithEmptyPartsReturnsNull(): void
+    {
+        // The unknown-action switch only runs inside the foreach loop, so an
+        // empty parts list means the loop body never executes and no exception is thrown.
+        $result = $this->service->handleAction('unknown_action_xyz', [], null, '/test');
+        $this->assertNull($result);
+    }
 }

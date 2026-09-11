@@ -20,7 +20,7 @@ Part-DB. Data can also be exported from Part-DB into various formats.
 > individually in the permissions settings.
 
 If you want to import data from PartKeepr you might want to look into the [PartKeepr migration guide]({% link
-upgrade/upgrade_legacy.md %}).
+partkeepr_migration.md %}).
 
 ### Import parts
 
@@ -47,9 +47,9 @@ You can upload the file that should be imported here and choose various options 
   the import file (or the export will error, if no category is specified).
 * **Mark all imported parts as "Needs review"**: If this is selected, all imported parts will be marked as "Needs
   review" after the import. This can be useful if you want to review all imported parts before using them.
-* **Create unknown data structures**: If this is selected Part-DB will create new data structures (like categories,
-  manufacturers, etc.) if no data structure(s) with the same name and path already exists. If this is not selected, only
-  existing data structures will be used and if no matching data strucure is found, the imported parts field will be empty.
+* **Create unknown data structures**: If this is selected, Part-DB will create new data structures (like categories,
+  manufacturers, etc.) if no data structure(s) with the same name and path already exist. If this is not selected, only
+  existing data structures will be used, and if no matching data structure is found, the imported parts field will be empty.
 * **Path delimiter**: Part-DB allows you to create/select nested data structures (like categories, manufacturers, etc.)
   by using a path (e.g. `Category 1->Category 1.1`, which will select/create the `Category 1.1` whose parent
   is `Category 1`). This path is separated by the path delimiter. If you want to use a different path delimiter than the
@@ -108,6 +108,21 @@ supplier is not specified, the price and supplier product number fields will be 
 * **`supplier`**: The supplier of the part. Can be a path similar to the category field.
 * **`supplier_product_number`** or **`supplier_part_number`** or * **`spn`**: The supplier product number of the part.
 * **`price`**: The price of the part in the base currency of the database (by default euro).
+
+The following fields set the EDA / KiCad metadata of the part (see [EDA / KiCad integration](eda_integration.md)).
+These can be given either as the flat column names below, or in the nested `eda_info.*` form used by the
+CSV/JSON export and the [example file](#example-data) (e.g. `eda_info.kicad_symbol`), so a file exported from
+Part-DB can be re-imported without renaming its headers:
+
+* **`eda_kicad_symbol`** or **`kicad_symbol`**: The KiCad symbol of the part, e.g. `Device:R`.
+* **`eda_kicad_footprint`** or **`kicad_footprint`**: The KiCad footprint, e.g. `Resistor_SMD:R_0805_2012Metric`.
+* **`eda_reference_prefix`** or **`kicad_reference`**: The schematic reference prefix, e.g. `R`, `C`, `L`.
+* **`eda_value`** or **`kicad_value`**: The value shown in the EDA tool, e.g. `10k`.
+* **`eda_exclude_from_bom`** (or **`eda_exclude_bom`**), **`eda_exclude_from_board`** (or **`eda_exclude_board`**),
+  **`eda_exclude_from_sim`** (or **`eda_exclude_sim`**): Booleans (`1`/`0`) to exclude the part from the BOM, board
+  or simulation.
+* **`eda_visibility`**: Boolean (`1`/`0`) controlling whether the part is exposed to the EDA tool. The inverse
+  convenience alias **`eda_invisible`** is also accepted (so `eda_invisible=1` hides the part).
 
 #### Example data
 

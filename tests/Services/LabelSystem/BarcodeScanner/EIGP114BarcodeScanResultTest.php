@@ -25,7 +25,7 @@ namespace App\Tests\Services\LabelSystem\BarcodeScanner;
 use App\Services\LabelSystem\BarcodeScanner\EIGP114BarcodeScanResult;
 use PHPUnit\Framework\TestCase;
 
-class EIGP114BarcodeScanResultTest extends TestCase
+final class EIGP114BarcodeScanResultTest extends TestCase
 {
 
     public function testGuessBarcodeVendor(): void
@@ -93,12 +93,45 @@ class EIGP114BarcodeScanResultTest extends TestCase
 
         //Valid code (digikey, without trailer)
         $this->assertTrue(EIGP114BarcodeScanResult::isFormat06Code("[)>\x1e06\x1dPQ1045-ND\x1d1P364019-01\x1d30PQ1045-ND\x1dK12432 TRAVIS FOSS P\x1d1K85732873\x1d10K103332956\x1d9D231013\x1d1TQJ13P\x1d11K1\x1d4LTW\x1dQ3\x1d11ZPICK\x1d12Z7360988\x1d13Z999999\x1d20Z0000000000000000000000000000000000000000000000000000000000000000000000000000000000000"));
+
+        //Valid code (without record separator)
+        $this->assertTrue(EIGP114BarcodeScanResult::isFormat06Code("[)>06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS\x1E\x04"));
+
+        //Old mouser format
+        $this->assertTrue(EIGP114BarcodeScanResult::isFormat06Code(">[)>06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS\x1E\x04"));
+
     }
 
     public function testParseFormat06CodeInvalid(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         EIGP114BarcodeScanResult::parseFormat06Code('');
+    }
+
+    public function testParseWithoutRecordSeparator(): void
+    {
+        $barcode = EIGP114BarcodeScanResult::parseFormat06Code("[)>06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS\x1E\x04");
+        $this->assertSame([
+            'P' => '596-777A1-ND',
+            '1P' => 'XAF4444',
+            'Q' => '3',
+            '10D' => '1452',
+            '1T' => 'BF1103',
+            '4L' => 'US',
+        ], $barcode->data);
+    }
+
+    public function testParseOldMouserFormat(): void
+    {
+        $barcode = EIGP114BarcodeScanResult::parseFormat06Code(">[)>06\x1DP596-777A1-ND\x1D1PXAF4444\x1DQ3\x1D10D1452\x1D1TBF1103\x1D4LUS\x1E\x04");
+        $this->assertSame([
+            'P' => '596-777A1-ND',
+            '1P' => 'XAF4444',
+            'Q' => '3',
+            '10D' => '1452',
+            '1T' => 'BF1103',
+            '4L' => 'US',
+        ], $barcode->data);
     }
 
     public function testParseFormat06Code(): void

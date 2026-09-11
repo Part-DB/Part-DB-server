@@ -23,12 +23,42 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\DTOs;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\McpToolCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\OpenApi\Model\Operation;
 use App\Entity\Parts\ManufacturingStatus;
+use App\Mcp\DTO\InfoProviderSearchInput;
+use App\State\Mcp\SearchInfoProvidersProcessor;
 
 /**
  * This DTO represents a search result for a part.
  * @see \App\Tests\Services\InfoProviderSystem\DTOs\SearchResultDTOTest
  */
+#[ApiResource(
+    description: 'A search result for a part from an external info provider (e.g. a distributor or manufacturer catalog).',
+    operations: [
+        new Post(
+            uriTemplate: '/info_providers/search',
+            openapi: new Operation(summary: 'Search external info providers (e.g. distributors like Digikey, Mouser, LCSC) for parts matching a keyword.'),
+            security: 'is_granted("@info_providers.create_parts")',
+            input: InfoProviderSearchInput::class,
+            validate: true,
+            processor: SearchInfoProvidersProcessor::class,
+        ),
+    ],
+    mcp: [
+        'search_info_providers' => new McpToolCollection(
+            title: 'Search external info providers',
+            description: 'Search external info providers (e.g. distributors like Digikey, Mouser, LCSC) for parts matching a keyword. Returns a list of search results, which can be passed to get_info_provider_part_details to retrieve full details for a specific result.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => true],
+            security: 'is_granted("@info_providers.create_parts")',
+            input: InfoProviderSearchInput::class,
+            validate: true,
+            processor: SearchInfoProvidersProcessor::class,
+        ),
+    ],
+)]
 class SearchResultDTO
 {
     /** @var string|null An URL to a preview image */
@@ -59,6 +89,8 @@ class SearchResultDTO
         public readonly ?string $provider_url = null,
         /** @var string|null A footprint representation of the providers page */
         public readonly ?string $footprint = null,
+        /** @var string|null The GTIN / EAN of the part */
+        public readonly ?string $gtin = null,
     )
     {
         if ($preview_image_url !== null) {
@@ -90,6 +122,7 @@ class SearchResultDTO
             'manufacturing_status' => $this->manufacturing_status?->value,
             'provider_url' => $this->provider_url,
             'footprint' => $this->footprint,
+            'gtin' => $this->gtin,
         ];
     }
 
@@ -112,6 +145,7 @@ class SearchResultDTO
             manufacturing_status: isset($data['manufacturing_status']) ? ManufacturingStatus::tryFrom($data['manufacturing_status']) : null,
             provider_url: $data['provider_url'] ?? null,
             footprint: $data['footprint'] ?? null,
+            gtin: $data['gtin'] ?? null,
         );
     }
 }

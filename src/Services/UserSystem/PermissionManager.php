@@ -30,6 +30,7 @@ use InvalidArgumentException;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -46,7 +47,12 @@ class PermissionManager
     /**
      * PermissionResolver constructor.
      */
-    public function __construct(protected readonly bool $kernel_debug_enabled, string $kernel_cache_dir)
+    public function __construct(
+        #[Autowire('%kernel.debug%')]
+        protected readonly bool $kernel_debug_enabled,
+        #[Autowire('%kernel.cache_dir%')]
+        string $kernel_cache_dir,
+    )
     {
         $cache_dir = $kernel_cache_dir;
         //Here the cached structure will be saved.

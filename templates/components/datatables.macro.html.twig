@@ -62,6 +62,9 @@
                         <option {% if not is_granted('@projects.read') %}disabled{% endif %} value="add_to_project" data-url="{{  path('select_project')}}">{% trans %}part_list.action.projects.add_to_project{% endtrans %}</option>
                     </optgroup>
 
+                    <optgroup label="{% trans %}part_list.action.group.eda{% endtrans %}">
+                        <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="batch_edit_eda" data-turbo="false">{% trans %}part_list.action.batch_edit_eda{% endtrans %}</option>
+                    </optgroup>
                     <optgroup label="{% trans %}part_list.action.action.delete{% endtrans %}">
                         <option {% if not is_granted('@parts.delete') %}disabled{% endif %} value="delete">{% trans %}part_list.action.action.delete{% endtrans %}</option>
                     </optgroup>
@@ -74,6 +77,9 @@
                     </optgroup>
                     <optgroup label="{% trans %}part_list.action.action.info_provider{% endtrans %}">
                         <option {% if not is_granted('@info_providers.create_parts') %}disabled{% endif %} value="bulk_info_provider_import" data-url="{{  path('bulk_info_provider_step1')}}" data-turbo="false">{% trans %}part_list.action.bulk_info_provider_import{% endtrans %}</option>
+                    </optgroup>
+                    <optgroup label="{% trans %}part_list.action.group.images{% endtrans %}">
+                        <option {% if not is_granted('@tools.component_image_generator') %}disabled{% endif %} value="generate_images" data-turbo="false">{% trans %}part_list.action.generate_images{% endtrans %}</option>
                     </optgroup>
                 </select>
 

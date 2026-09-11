@@ -24,7 +24,7 @@ sections carefully before proceeding to upgrade.
   also more sensitive stuff like database migration works via CLI now, so you should have console access on your server.
 * Markdown/HTML is now used instead of BBCode for rich text in description and command fields.
   It is possible to migrate your existing BBCode to Markdown
-  via `php bin/console php bin/console partdb:migrations:convert-bbcode`.
+  via `php bin/console partdb:migrations:convert-bbcode`.
 * Server exceptions are not logged into event log anymore. For security reasons (exceptions can contain sensitive
   information) exceptions are only logged to server log (by default under './var/log'), so only the server admins can access it.
 * Profile labels are now saved in the database (before they were saved in a separate JSON file). **The profiles of legacy

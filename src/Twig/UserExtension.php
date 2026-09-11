@@ -41,51 +41,24 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
-use App\Entity\Base\AbstractDBElement;
+use Twig\Attribute\AsTwigFilter;
+use Twig\Attribute\AsTwigFunction;
 use App\Entity\UserSystem\User;
-use App\Entity\LogSystem\AbstractLogEntry;
-use App\Repository\LogEntryRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
-use Twig\TwigFunction;
 
 /**
  * @see \App\Tests\Twig\UserExtensionTest
  */
-final class UserExtension extends AbstractExtension
+final readonly class UserExtension
 {
-    private readonly LogEntryRepository $repo;
 
-    public function __construct(EntityManagerInterface $em,
-        private readonly Security $security,
-        private readonly UrlGeneratorInterface $urlGenerator)
+    public function __construct(
+        private Security $security,
+        private UrlGeneratorInterface $urlGenerator)
     {
-        $this->repo = $em->getRepository(AbstractLogEntry::class);
-    }
-
-    public function getFilters(): array
-    {
-        return [
-            new TwigFilter('remove_locale_from_path', fn(string $path): string => $this->removeLocaleFromPath($path)),
-        ];
-    }
-
-    public function getFunctions(): array
-    {
-        return [
-            /* Returns the user which has edited the given entity the last time. */
-            new TwigFunction('last_editing_user', fn(AbstractDBElement $element): ?User => $this->repo->getLastEditingUser($element)),
-            /* Returns the user which has created the given entity. */
-            new TwigFunction('creating_user', fn(AbstractDBElement $element): ?User => $this->repo->getCreatingUser($element)),
-            new TwigFunction('impersonator_user', $this->getImpersonatorUser(...)),
-            new TwigFunction('impersonation_active', $this->isImpersonationActive(...)),
-            new TwigFunction('impersonation_path', $this->getImpersonationPath(...)),
-        ];
     }
 
     /**
@@ -93,6 +66,7 @@ final class UserExtension extends AbstractExtension
      * If the current user is not impersonated, null is returned.
      * @return User|null
      */
+    #[AsTwigFunction(name: 'impersonator_user')]
     public function getImpersonatorUser(): ?User
     {
         $token = $this->security->getToken();
@@ -107,11 +81,13 @@ final class UserExtension extends AbstractExtension
         return null;
     }
 
+    #[AsTwigFunction(name: 'impersonation_active')]
     public function isImpersonationActive(): bool
     {
         return $this->security->isGranted('IS_IMPERSONATOR');
     }
 
+    #[AsTwigFunction(name: 'impersonation_path')]
     public function getImpersonationPath(User $user, string $route_name = 'homepage'): string
     {
         if (! $this->security->isGranted('CAN_SWITCH_USER', $user)) {
@@ -124,6 +100,7 @@ final class UserExtension extends AbstractExtension
     /**
      * This function/filter generates a path.
      */
+    #[AsTwigFilter(name: 'remove_locale_from_path')]
     public function removeLocaleFromPath(string $path): string
     {
         //Ensure the path has the correct format

@@ -17,7 +17,7 @@ This allows external applications to interact with Part-DB, extend it or integra
 > Some features might be missing or not working yet.
 > Also be aware, that there might be security issues in the API, which could allow attackers to access or edit data via
 > the API, which
-> they normally should be able to access. So currently you should only use the API with trusted users and trusted
+> they normally should not be able to access. So currently you should only use the API with trusted users and trusted
 > applications.
 
 Part-DB uses [API Platform](https://api-platform.com/) to provide the API, which allows for easy creation of REST APIs
@@ -46,7 +46,7 @@ See [Authentication chapter]({% link api/authentication.md %}) for more details.
 
 The API is split into different endpoints, which are reachable under the `/api/` path of your Part-DB instance (
 e.g. `https://your-part-db.local/api/`).
-There are various endpoints for each entity type (like `part`, `manufacturer`, etc.), which allow you to read and write data, and some special endpoints like `search` or `statistics`.
+There are various endpoints for each entity type (like `parts`, `manufacturers`, etc.), which allow you to read and write data, and some special endpoints like `search` or `statistics`.
 
 For example, all API endpoints for managing categories are available under `/api/categories/`. Depending on the exact
 path and the HTTP method used, you can read, create, update or delete categories.
@@ -56,7 +56,7 @@ For most entities, there are endpoints like this:
 * **POST**: `/api/categories/` - Create a new category
 * **GET**: `/api/categories/{id}` - Get a specific category by its ID
 * **DELETE**: `/api/categories/{id}` - Delete a specific category by its ID
-* **UPDATE**: `/api/categories/{id}` - Update a specific category by its ID. Only the fields which are sent in the
+* **PATCH**: `/api/categories/{id}` - Update a specific category by its ID. Only the fields which are sent in the
   request are updated, all other fields are left unchanged.
   Be aware that you have to set the [JSON Merge Patch](https://datatracker.ietf.org/doc/html/rfc7386) content type
   header (`Content-Type: application/merge-patch+json`) for this to work.
@@ -106,11 +106,11 @@ This is a great way to test the API and see how it works, without having to writ
 
 By default, all list endpoints are paginated, which means only a certain number of results is returned per request.
 To get another page of the results, you have to use the `page` query parameter, which contains the page number you want
-to get (e.g. `/api/categoues/?page=2`).
+to get (e.g. `/api/categories/?page=2`).
 When using JSONLD, the links to the next page are also included in the `hydra:view` property of the response.
 
 To change the size of the pages (the number of items in a single page) use the `itemsPerPage` query parameter (
-e.g. `/api/categoues/?itemsPerPage=50`).
+e.g. `/api/categories/?itemsPerPage=50`).
 
 See [API Platform docs](https://api-platform.com/docs/core/pagination) for more infos.
 

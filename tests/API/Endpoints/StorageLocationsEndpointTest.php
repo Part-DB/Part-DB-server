@@ -25,7 +25,7 @@ namespace API\Endpoints;
 
 use App\Tests\API\Endpoints\CrudEndpointTestCase;
 
-class StorageLocationsEndpointTest extends CrudEndpointTestCase
+final class StorageLocationsEndpointTest extends CrudEndpointTestCase
 {
 
     protected function getBasePath(): string

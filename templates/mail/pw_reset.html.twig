@@ -6,9 +6,9 @@
         <h4>{% trans with {'%name%': user.fullName|escape } %}email.hi %name%{% endtrans %},</h4>
         {% trans %}email.pw_reset.message{% endtrans %}
         <br>
-        <button class="large expand" href="{{ url('pw_reset_new_pw', {user: user.name, token: token}) }}">{% trans %}email.pw_reset.button{% endtrans %}</button>
+        <button class="large expand" href="{{ reset_url }}">{% trans %}email.pw_reset.button{% endtrans %}</button>
         <br>
-        {% trans with {'%url%': url('pw_reset_new_pw') } %}email.pw_reset.fallback{% endtrans %}:
+        {% trans with {'%url%': reset_url_fallback } %}email.pw_reset.fallback{% endtrans %}:
         <callout class="secondary">
             <row>
                 <columns>

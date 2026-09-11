@@ -28,7 +28,7 @@ use App\Settings\SystemSettings\HistorySettings;
 use App\Tests\SettingsTestHelper;
 use PHPUnit\Framework\TestCase;
 
-class EventCommentNeededHelperTest extends TestCase
+final class EventCommentNeededHelperTest extends TestCase
 {
     public function testIsCommentNeeded(): void
     {

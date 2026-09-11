@@ -20,7 +20,7 @@
 import DatatablesController from "./datatables_controller.js";
 import TomSelect from "tom-select";
 
-import * as bootbox from "bootbox";
+import {ConfirmSwal} from "../../../helpers/swal";
 
 /**
  * This is the datatables controller for parts lists
@@ -146,15 +146,17 @@ export default class extends DatatablesController {
             bubbles: true, //This line is important, otherwise Turbo will not receive the event
         });
 
-        const confirm = bootbox.confirm({
-            message: message, title: title, callback: function (result) {
-                //If the dialog was confirmed, then submit the form.
-                if (result) {
-                    that._confirmed = true;
-                    form.dispatchEvent(that._our_event);
-                } else {
-                    that._confirmed = false;
-                }
+        ConfirmSwal.fire({
+            titleText: title,
+            text: message,
+            icon: "warning"
+        }).then(({isConfirmed}) => {
+            //If the dialog was confirmed, then submit the form.
+            if (isConfirmed) {
+                that._confirmed = true;
+                form.dispatchEvent(that._our_event);
+            } else {
+                that._confirmed = false;
             }
         });
     }

@@ -29,13 +29,13 @@ use Symfony\Component\DependencyInjection\Attribute\AutowireDecorated;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 #[AsDecorator(GoogleAuthenticatorInterface::class)]
-class DecoratedGoogleAuthenticator implements GoogleAuthenticatorInterface
+readonly class DecoratedGoogleAuthenticator implements GoogleAuthenticatorInterface
 {
 
     public function __construct(
         #[AutowireDecorated]
-        private readonly GoogleAuthenticatorInterface $inner,
-        private readonly RequestStack $requestStack)
+        private GoogleAuthenticatorInterface $inner,
+        private RequestStack $requestStack)
     {
 
     }

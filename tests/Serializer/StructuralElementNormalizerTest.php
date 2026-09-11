@@ -30,7 +30,7 @@ use App\Serializer\StructuralElementNormalizer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class StructuralElementNormalizerTest extends WebTestCase
+final class StructuralElementNormalizerTest extends WebTestCase
 {
 
     /** @var StructuralElementNormalizer */

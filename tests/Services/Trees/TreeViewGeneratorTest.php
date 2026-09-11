@@ -31,7 +31,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 #[Group('DB')]
-class TreeViewGeneratorTest extends WebTestCase
+final class TreeViewGeneratorTest extends WebTestCase
 {
     protected $em;
     /**

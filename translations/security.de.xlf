@@ -4,7 +4,7 @@
     <unit id="GrLNa9P" name="user.login_error.user_disabled">
       <segment state="translated">
         <source>user.login_error.user_disabled</source>
-        <target>Ihr Account ist deaktiviert! Kontaktiere einen Administrator, wenn Sie denken, dass dies ein Fehler ist.</target>
+        <target>Ihr Account ist deaktiviert! Kontaktieren Sie einen Administrator, wenn Sie denken, dass dies ein Fehler ist.</target>
       </segment>
     </unit>
     <unit id="IFQ5XrG" name="saml.error.cannot_login_local_user_per_saml">

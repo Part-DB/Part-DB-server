@@ -33,4 +33,7 @@ return [
     Jbtronics\SettingsBundle\JbtronicsSettingsBundle::class => ['all' => true],
     Jbtronics\TranslationEditorBundle\JbtronicsTranslationEditorBundle::class => ['dev' => true],
     ApiPlatform\Symfony\Bundle\ApiPlatformBundle::class => ['all' => true],
+    Symfony\AI\AiBundle\AiBundle::class => ['all' => true],
+    Symfony\AI\McpBundle\McpBundle::class => ['all' => true],
+    League\Bundle\OAuth2ServerBundle\LeagueOAuth2ServerBundle::class => ['all' => true],
 ];

@@ -45,7 +45,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\Misc\RangeParser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class RangeParserTest extends WebTestCase
+final class RangeParserTest extends WebTestCase
 {
     /**
      * @var RangeParser

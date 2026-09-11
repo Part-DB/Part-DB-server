@@ -24,33 +24,21 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
+#[AutoconfigureTag('app.info_provider')]
 interface InfoProviderInterface
 {
+    public const OPTION_NO_CACHE = 'no_cache'; // if set to true, the provider should not use any cache and retrieve fresh data from the source
+    public const OPTION_SKIP_DELEGATION = 'skip_delegation'; // if set to true, the provider should not delegate the request to other providers, even if it supports delegation.
+    public const OPTION_SUBMITTED_PAGE_TOKEN = 'submitted_page_token'; // if set to a non-empty string, the provider should use the browser-submitted page with the given token (and retrieve it from BrowserHtmlSessionStorage)
 
     /**
      * Get information about this provider
-     *
-     * @return array An associative array with the following keys (? means optional):
-     * - name: The (user friendly) name of the provider (e.g. "Digikey"), will be translated
-     * - description?: A short description of the provider (e.g. "Digikey is a ..."), will be translated
-     * - logo?: The logo of the provider (e.g. "digikey.png")
-     * - url?: The url of the provider (e.g. "https://www.digikey.com")
-     * - disabled_help?: A help text which is shown when the provider is disabled, explaining how to enable it
-     * - oauth_app_name?: The name of the OAuth app which is used for authentication (e.g. "ip_digikey_oauth"). If this is set a connect button will be shown
-     * - settings_class?: The class name of the settings class which contains the settings for this provider (e.g. "App\Settings\InfoProviderSettings\DigikeySettings"). If this is set a link to the settings will be shown
-     *
-     * @phpstan-return array{ name: string, description?: string, logo?: string, url?: string, disabled_help?: string, oauth_app_name?: string, settings_class?: class-string }
      */
-    public function getProviderInfo(): array;
-
-    /**
-     * Returns a unique key for this provider, which will be saved into the database
-     * and used to identify the provider
-     * @return string A unique key for this provider (e.g. "digikey")
-     */
-    public function getProviderKey(): string;
+    public function getProviderInfo(): ProviderInfoDTO;
 
     /**
      * Checks if this provider is enabled or not (meaning that it can be used for searching)
@@ -61,22 +49,16 @@ interface InfoProviderInterface
     /**
      * Searches for a keyword and returns a list of search results
      * @param  string  $keyword The keyword to search for
+     * @param  array   $options  An associative array of options for the search, which can be used to pass additional parameters to the provider (e.g. filters, pagination, etc.). The content of this array is provider specific and not defined by the interface
      * @return SearchResultDTO[] A list of search results
      */
-    public function searchByKeyword(string $keyword): array;
+    public function searchByKeyword(string $keyword, array $options = []): array;
 
     /**
      * Returns detailed information about the part with the given id
      * @param  string  $id
+     * @param  array   $options  An associative array of options for the search, which can be used to pass additional parameters to the provider (e.g. filters, pagination, etc.). The content of this array is provider specific and not defined by the interface
      * @return PartDetailDTO
      */
-    public function getDetails(string $id): PartDetailDTO;
-
-    /**
-     * A list of capabilities this provider supports (which kind of data it can provide).
-     * Not every part have to contain all of these data, but the provider should be able to provide them in general.
-     * Currently, this list is purely informational and not used in functional checks.
-     * @return ProviderCapabilities[]
-     */
-    public function getCapabilities(): array;
+    public function getDetails(string $id, array $options = []): PartDetailDTO;
 }

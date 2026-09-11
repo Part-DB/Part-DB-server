@@ -37,11 +37,11 @@
 
                 {{ form_start(google_form, { 'attr': google_form_attr}) }}
                 {% if not tfa_google.enabled %}
-                    <div class="offset-sm-3">
+                    <div class="{{ offset_label }}">
                         <h6>{% trans %}tfa_google.disabled_message{% endtrans %}</h6>
                     </div>
 
-                    <div class="offset-sm-3 row">
+                    <div class="{{ offset_label }} row">
                         <div class="col-sm-3">
                             <img width="100%" class="img-fluid bg-white p-2" alt="{{ tfa_google.qrContent }}" src="{{ barcode_svg(tfa_google.qrContent) | data_uri("image/svg+xml") }}">
                         </div>
@@ -55,7 +55,7 @@
                         </div>
                     </div>
 
-                    <div class="offset-sm-3">
+                    <div class="{{ offset_label }}">
                         <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#manualSetupCollapse" aria-expanded="false" aria-controls="manualSetupCollapse">
                             {% trans %}tfa_google.manual_setup{% endtrans %}
                         </button>
@@ -72,7 +72,7 @@
 
                     {{ form_row(google_form.google_confirmation) }}
                 {% else %}
-                    <div class="offset-sm-3">
+                    <div class="{{ offset_label }}">
                         <h6>{% trans %}tfa_google.enabled_message{% endtrans %}</h6>
                     </div>
                 {% endif %}
@@ -81,7 +81,7 @@
             </div>
             <div class="tab-pane fade" id="tfa-backup" role="tabpanel" aria-labelledby="backup-tab">
                 {% if user.backupCodes is empty %}
-                    <div class="offset-sm-3">
+                    <div class="{{ offset_label }}">
                         <h6>{% trans %}tfa_backup.disabled{% endtrans %}</h6>
                         <span>{% trans %}tfa_backup.explanation{% endtrans %}</span>
                     </div>
@@ -89,19 +89,19 @@
                     {% set backup_form_attr = { 'data-delete-form': true, 'data-controller': 'elements--delete-btn', 'data-action': 'submit->elements--delete-btn#submit',
                         'data-delete-title': 'tfa_backup.reset_codes.confirm_title' | trans, 'data-delete-message': 'tfa_backup.reset_codes.confirm_message' | trans} %}
                     {{ form_start(backup_form, { 'attr': backup_form_attr}) }}
-                    <div class="offset-sm-3">
+                    <div class="{{ offset_label }}">
                         <h6>{% trans %}tfa_backup.enabled{% endtrans %}</h6>
                         <span>{% trans %}tfa_backup.explanation{% endtrans %}</span>
                     </div>
-                    <div class="offset-sm-3 mt-2">
+                    <div class="{{ offset_label }} mt-2">
                         <p class="mb-0"><b>{% trans %}tfa_backup.remaining_tokens{% endtrans %}:</b> {{ user.backupCodes | length }}</p>
                         <p><b>{% trans %}tfa_backup.generation_date{% endtrans %}:</b> {{ user.backupCodesGenerationDate | format_datetime }}</p>
                     </div>
-                    <div class="offset-sm-3">
+                    <div class="{{ offset_label }}">
                         <a href="{{ path('show_backup_codes') }}" target="_blank" data-turbo="false" class="btn btn-primary">{% trans %}tfa_backup.show_codes{% endtrans %}</a>
                     </div>
 
-                    <div class="offset-sm-3 mt-2">
+                    <div class="{{ offset_label }} mt-2">
                         {{ form_widget(backup_form.reset_codes) }}
                     </div>
                     {{ form_end(backup_form) }}

@@ -29,6 +29,7 @@ use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Services\OAuth\OAuthTokenManager;
@@ -37,6 +38,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class DigikeyProvider implements InfoProviderInterface
 {
+    public const PROVIDER_KEY = 'digikey';
 
     private const OAUTH_APP_NAME = 'ip_digikey_oauth';
 
@@ -57,7 +59,7 @@ class DigikeyProvider implements InfoProviderInterface
     ];
 
     public function __construct(HttpClientInterface $httpClient, private readonly OAuthTokenManager $authTokenManager,
-        private readonly DigikeySettings $settings,)
+        private readonly DigikeySettings $settings)
     {
         //Create the HTTP client with some default options
         $this->digikeyClient = $httpClient->withOptions([
@@ -72,32 +74,25 @@ class DigikeyProvider implements InfoProviderInterface
         ]);
     }
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'DigiKey',
-            'description' => 'This provider uses the DigiKey API to search for parts.',
-            'url' => 'https://www.digikey.com/',
-            'oauth_app_name' => self::OAUTH_APP_NAME,
-            'disabled_help' => 'Set the Client ID and Secret in provider settings and connect OAuth to enable.',
-            'settings_class' => DigikeySettings::class,
-        ];
-    }
-
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::FOOTPRINT,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::DATASHEET,
-            ProviderCapabilities::PRICE,
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'digikey';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'DigiKey',
+            description: 'This provider uses the DigiKey API to search for parts.',
+            url: 'https://www.digikey.com/',
+            disabledHelp: 'Set the Client ID and Secret in provider settings and connect OAuth to enable.',
+            oauthAppName: self::OAUTH_APP_NAME,
+            settingsClass: DigikeySettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::FOOTPRINT,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::DATASHEET,
+                ProviderCapabilities::PRICE,
+                ProviderCapabilities::PARAMETERS
+            ],
+        );
     }
 
     public function isActive(): bool
@@ -106,7 +101,7 @@ class DigikeyProvider implements InfoProviderInterface
         return $this->settings->clientId !== null && $this->settings->clientId !== '' && $this->authTokenManager->hasToken(self::OAUTH_APP_NAME);
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         $request = [
             'Keywords' => $keyword,
@@ -128,7 +123,7 @@ class DigikeyProvider implements InfoProviderInterface
         } catch (\InvalidArgumentException $exception) {
             //Check if the exception was caused by an invalid or expired token
             if (str_contains($exception->getMessage(), 'access_token')) {
-                throw OAuthReconnectRequiredException::forProvider($this->getProviderKey());
+                throw OAuthReconnectRequiredException::forProvider(self::PROVIDER_KEY);
             }
 
             throw $exception;
@@ -141,7 +136,7 @@ class DigikeyProvider implements InfoProviderInterface
         foreach ($products as $product) {
             foreach ($product['ProductVariations'] as $variation) {
                 $result[] = new SearchResultDTO(
-                    provider_key: $this->getProviderKey(),
+                    provider_key: self::PROVIDER_KEY,
                     provider_id: $variation['DigiKeyProductNumber'],
                     name: $product['ManufacturerProductNumber'],
                     description: $product['Description']['DetailedDescription'] ?? $product['Description']['ProductDescription'],
@@ -159,16 +154,16 @@ class DigikeyProvider implements InfoProviderInterface
         return $result;
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         try {
-            $response = $this->digikeyClient->request('GET', '/products/v4/search/' . urlencode($id) . '/productdetails', [
+            $response = $this->digikeyClient->request('GET', '/products/v4/search/' . rawurlencode($id) . '/productdetails', [
                 'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
             ]);
         } catch (\InvalidArgumentException $exception) {
             //Check if the exception was caused by an invalid or expired token
             if (str_contains($exception->getMessage(), 'access_token')) {
-                throw OAuthReconnectRequiredException::forProvider($this->getProviderKey());
+                throw OAuthReconnectRequiredException::forProvider(self::PROVIDER_KEY);
             }
 
             throw $exception;
@@ -191,7 +186,7 @@ class DigikeyProvider implements InfoProviderInterface
         }
 
         return new PartDetailDTO(
-            provider_key: $this->getProviderKey(),
+            provider_key: self::PROVIDER_KEY,
             provider_id: $id,
             name: $product['ManufacturerProductNumber'],
             description: $product['Description']['DetailedDescription'] ?? $product['Description']['ProductDescription'],
@@ -239,7 +234,7 @@ class DigikeyProvider implements InfoProviderInterface
 
         if ($sub_category) {
             //Replace the  ' - ' category separator with ' -> '
-            $category = $category . ' -> ' . str_replace(' - ', ' -> ', $sub_category["Name"]);
+            $category .= ' -> '.str_replace(' - ', ' -> ', $sub_category["Name"]);
         }
 
         return $category;
@@ -307,9 +302,17 @@ class DigikeyProvider implements InfoProviderInterface
         $datasheets = [];
         $images = [];
 
-        $response = $this->digikeyClient->request('GET', '/products/v4/search/' . urlencode($id) . '/media', [
+        $response = $this->digikeyClient->request('GET', '/products/v4/search/' . rawurlencode($id) . '/media', [
             'auth_bearer' => $this->authTokenManager->getAlwaysValidTokenString(self::OAUTH_APP_NAME)
         ]);
+
+        if ($response->getStatusCode() === 404) {
+            //No media found
+            return [
+                'datasheets' => [],
+                'images' => [],
+            ];
+        }
 
         $media_array = $response->toArray();
 

@@ -2,13 +2,13 @@
 {% import "label_system/dropdown_macro.html.twig" as dropdown %}
 
 {% block card_title %}
-    <i class="fas fa-cube fa-fw"></i> {% trans %}storelocation.labelp{% endtrans %}
+    <i class="fas fa-cube fa-fw"></i> {{ type_label_p(entity) }}
 {% endblock %}
 
 {% block additional_controls %}
     {% if entity.id %}
         <div class="row form-group">
-            <div class="offset-sm-3 col-sm-9">
+            <div class="{{ offset_label }} {{ col_input }}">
                 {{ dropdown.profile_dropdown('storelocation', entity.id) }}
             </div>
         </div>

@@ -27,7 +27,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Twig\Error\Error;
 
-class TwigModeExceptionTest extends KernelTestCase
+final class TwigModeExceptionTest extends KernelTestCase
 {
 
     private string $projectPath;

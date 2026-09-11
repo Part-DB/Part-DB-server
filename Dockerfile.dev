@@ -1,0 +1,58 @@
+# syntax=docker/dockerfile:1
+
+FROM partdb-local-dev-base
+
+ARG PHP_VERSION=8.4
+ARG NODE_VERSION=22
+
+USER root
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        ca-certificates \
+        curl \
+        git \
+        gosu \
+        passwd \
+        php8.4-xdebug \
+    && curl -fsSL "https://deb.nodesource.com/setup_${NODE_VERSION}.x" \
+        | bash - \
+    && apt-get install -y --no-install-recommends nodejs \
+    && npm install --global yarn@1.22.22 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /var/www/partdb-dev-home \
+    && chown -R www-data:www-data /var/www/partdb-dev-home \
+    && usermod --home /var/www/partdb-dev-home www-data
+
+RUN printf '%s\n' \
+        'display_errors=On' \
+        'display_startup_errors=On' \
+        'error_reporting=E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED' \
+        'opcache.enable=0' \
+        'opcache.enable_cli=0' \
+        'opcache.validate_timestamps=1' \
+        'realpath_cache_ttl=0' \
+        'memory_limit=512M' \
+        'max_execution_time=120' \
+        > "/etc/php/${PHP_VERSION}/fpm/conf.d/99-partdb-development.ini" \
+    && cp \
+        "/etc/php/${PHP_VERSION}/fpm/conf.d/99-partdb-development.ini" \
+        "/etc/php/${PHP_VERSION}/cli/conf.d/99-partdb-development.ini"
+
+COPY .docker/dev/dev-entrypoint.sh /usr/local/bin/partdb-dev-entrypoint
+
+RUN chmod 0755 /usr/local/bin/partdb-dev-entrypoint
+
+ENV PHP_VERSION="${PHP_VERSION}"
+ENV APP_ENV=dev
+ENV APP_DEBUG=1
+ENV NODE_ENV=development
+
+WORKDIR /var/www/html
+
+ENTRYPOINT ["partdb-dev-entrypoint"]
+CMD ["/usr/local/bin/apache2-foreground"]
+
+EXPOSE 80

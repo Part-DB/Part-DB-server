@@ -47,7 +47,7 @@ use App\Entity\Parts\PartLot;
 use App\Services\LabelSystem\LabelTextReplacer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class LabelTextReplacerTest extends WebTestCase
+final class LabelTextReplacerTest extends WebTestCase
 {
     /**
      * @var LabelTextReplacer

@@ -22,11 +22,13 @@ declare(strict_types=1);
  */
 namespace App\Tests\Services\InfoProviderSystem;
 
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
+use App\Services\InfoProviderSystem\Providers\URLHandlerInfoProviderInterface;
 use PHPUnit\Framework\TestCase;
 
-class ProviderRegistryTest extends TestCase
+final class ProviderRegistryTest extends TestCase
 {
 
     /** @var InfoProviderInterface[] */
@@ -44,9 +46,10 @@ class ProviderRegistryTest extends TestCase
 
     public function getMockProvider(string $key, bool $active = true): InfoProviderInterface
     {
-        $mock = $this->createMock(InfoProviderInterface::class);
-        $mock->method('getProviderKey')->willReturn($key);
+        $mock = $this->createMockForIntersectionOfInterfaces([InfoProviderInterface::class, URLHandlerInfoProviderInterface::class]);
+        $mock->method('getProviderInfo')->willReturn(new ProviderInfoDTO(key: $key, name: $key));
         $mock->method('isActive')->willReturn($active);
+        $mock->method('getHandledDomains')->willReturn(["$key.com", "test.$key.de"]);
 
         return $mock;
     }
@@ -109,4 +112,18 @@ class ProviderRegistryTest extends TestCase
 
         $registry->getProviders();
     }
+
+    public function testGetProviderHandlingDomain(): void
+    {
+        $registry = new ProviderRegistry($this->providers);
+
+        $this->assertEquals($this->providers[0], $registry->getProviderHandlingDomain('test1.com'));
+        $this->assertEquals($this->providers[0], $registry->getProviderHandlingDomain('www.test1.com')); //Subdomain should also work
+
+        $this->assertEquals(
+            $this->providers[1],
+            $registry->getProviderHandlingDomain('test.test2.de')
+        );
+    }
+
 }

@@ -30,7 +30,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 /**
  * @Group DB
  */
-class NamedDBElementRepositoryTest extends WebTestCase
+final class NamedDBElementRepositoryTest extends WebTestCase
 {
     /**
      * @var StructuralDBElementRepository

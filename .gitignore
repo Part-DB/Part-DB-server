@@ -25,6 +25,10 @@
 uploads/*
 !uploads/.keep
 
+# Some people use Certbot or similar tools to make SSL certificates.
+# Also see https://www.rfc-editor.org/rfc/rfc5785
+public/.well-known/
+
 # Do not keep cache files
 .php_cs.cache
 .phpcs-cache
@@ -51,3 +55,10 @@ phpstan.neon
 
 .claude/
 CLAUDE.md
+
+.codex
+migrations/.codex
+docker-data/
+scripts/
+db/
+docker-compose.yaml

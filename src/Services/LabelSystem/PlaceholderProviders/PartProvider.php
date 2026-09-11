@@ -54,11 +54,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @see \App\Tests\Services\LabelSystem\PlaceholderProviders\PartProviderTest
  */
-final class PartProvider implements PlaceholderProviderInterface
+final readonly class PartProvider implements PlaceholderProviderInterface
 {
-    private readonly MarkdownConverter $inlineConverter;
+    private MarkdownConverter $inlineConverter;
 
-    public function __construct(private readonly SIFormatter $siFormatter, private readonly TranslatorInterface $translator)
+    public function __construct(private SIFormatter $siFormatter, private TranslatorInterface $translator)
     {
         $environment = new Environment();
         $environment->addExtension(new InlinesOnlyExtension());
@@ -72,27 +72,27 @@ final class PartProvider implements PlaceholderProviderInterface
         }
 
         if ('[[CATEGORY]]' === $placeholder) {
-            return $part->getCategory() instanceof Category ? $part->getCategory()->getName() : '';
+            return $part->getCategory() instanceof Category ? htmlspecialchars($part->getCategory()->getName()) : '';
         }
 
         if ('[[CATEGORY_FULL]]' === $placeholder) {
-            return $part->getCategory() instanceof Category ? $part->getCategory()->getFullPath() : '';
+            return $part->getCategory() instanceof Category ? htmlspecialchars($part->getCategory()->getFullPath()) : '';
         }
 
         if ('[[MANUFACTURER]]' === $placeholder) {
-            return $part->getManufacturer() instanceof Manufacturer ? $part->getManufacturer()->getName() : '';
+            return $part->getManufacturer() instanceof Manufacturer ? htmlspecialchars($part->getManufacturer()->getName()) : '';
         }
 
         if ('[[MANUFACTURER_FULL]]' === $placeholder) {
-            return $part->getManufacturer() instanceof Manufacturer ? $part->getManufacturer()->getFullPath() : '';
+            return $part->getManufacturer() instanceof Manufacturer ? htmlspecialchars($part->getManufacturer()->getFullPath()) : '';
         }
 
         if ('[[FOOTPRINT]]' === $placeholder) {
-            return $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getName() : '';
+            return $part->getFootprint() instanceof Footprint ? htmlspecialchars($part->getFootprint()->getName()) : '';
         }
 
         if ('[[FOOTPRINT_FULL]]' === $placeholder) {
-            return $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getFullPath() : '';
+            return $part->getFootprint() instanceof Footprint ? htmlspecialchars($part->getFootprint()->getFullPath()) : '';
         }
 
         if ('[[MASS]]' === $placeholder) {
@@ -100,15 +100,15 @@ final class PartProvider implements PlaceholderProviderInterface
         }
 
         if ('[[MPN]]' === $placeholder) {
-            return $part->getManufacturerProductNumber();
+            return htmlspecialchars($part->getManufacturerProductNumber());
         }
 
         if ('[[IPN]]' === $placeholder) {
-            return $part->getIpn() ?? '';
+            return $part->getIpn() ? htmlspecialchars($part->getIpn()) : '';
         }
 
         if ('[[TAGS]]' === $placeholder) {
-            return $part->getTags();
+            return htmlspecialchars($part->getTags());
         }
 
         if ('[[M_STATUS]]' === $placeholder) {

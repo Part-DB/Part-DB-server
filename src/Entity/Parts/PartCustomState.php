@@ -33,6 +33,8 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\McpTool;
+use ApiPlatform\Metadata\McpToolCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
@@ -40,12 +42,16 @@ use App\ApiPlatform\Filter\LikeFilter;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\PartCustomStateParameter;
+use App\Mcp\DTO\ElementByIdInput;
+use App\Mcp\DTO\StructuralElementOverview;
+use App\Mcp\DTO\StructuralElementSearchInput;
 use App\Repository\Parts\PartCustomStateRepository;
+use App\State\Mcp\GetStructuralElementDetailsProcessor;
+use App\State\Mcp\ListStructuralElementsProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -56,7 +62,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: PartCustomStateRepository::class)]
 #[ORM\Table('`part_custom_states`')]
-#[ORM\Index(columns: ['name'], name: 'part_custom_state_name')]
+#[ORM\Index(name: 'part_custom_state_name', columns: ['name'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -67,6 +73,28 @@ use Symfony\Component\Validator\Constraints as Assert;
     ],
     normalizationContext: ['groups' => ['part_custom_state:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['part_custom_state:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
+    mcp: [
+        'list_part_custom_states' => new McpToolCollection(
+            title: 'List/search part custom states',
+            description: 'List all part custom states, optionally filtered by a keyword matched against the name and comment. Custom states are used to mark parts with a custom status (e.g. "obsolete", "needs review"). Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['mcp_structural_overview:read']],
+            security: 'is_granted("@part_custom_states.read")',
+            input: StructuralElementSearchInput::class,
+            output: StructuralElementOverview::class,
+            processor: ListStructuralElementsProcessor::class,
+        ),
+        'get_part_custom_state_details' => new McpTool(
+            title: 'Get part custom state details by ID',
+            description: 'Get detailed information about a specific part custom state by its database ID.',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            normalizationContext: ['groups' => ['part_custom_state:read', 'api:basic:read']],
+            security: 'is_granted("@part_custom_states.read")',
+            input: ElementByIdInput::class,
+            validate: true,
+            processor: GetStructuralElementDetailsProcessor::class,
+        ),
+    ],
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name"])]
@@ -80,8 +108,8 @@ class PartCustomState extends AbstractPartsContainingDBElement
     #[Groups(['part_custom_state:read', 'part_custom_state:write', 'full', 'import'])]
     protected string $comment = '';
 
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class, cascade: ['persist'])]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist'])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -95,7 +123,7 @@ class PartCustomState extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: PartCustomStateAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['part_custom_state:read', 'part_custom_state:write'])]
     protected Collection $attachments;
 
@@ -107,7 +135,7 @@ class PartCustomState extends AbstractPartsContainingDBElement
     /** @var Collection<int, PartCustomStateParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: PartCustomStateParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: PartCustomStateParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['part_custom_state:read', 'part_custom_state:write'])]
     protected Collection $parameters;

@@ -1,0 +1,59 @@
+services:
+  setup:
+    image: partdb-devcontainer:local
+    pull_policy: never
+    user: vscode
+    entrypoint: []
+    working_dir: /var/www/html
+    environment:
+      HOME: /home/vscode
+      COMPOSER_HOME: /home/vscode/.composer
+      COMPOSER_CACHE_DIR: /home/vscode/.cache/composer
+      YARN_CACHE_FOLDER: /home/vscode/.cache/yarn
+      APP_ENV: dev
+      APP_DEBUG: "1"
+      DATABASE_URL: "sqlite:///%kernel.project_dir%/var/db/app.db"
+      APP_SECRET: "partdb-development-secret"
+      DEFAULT_LANG: en
+      DEFAULT_TIMEZONE: UTC
+      BASE_CURRENCY: USD
+      INSTANCE_NAME: "Part-DB Development"
+      CHECK_FOR_UPDATES: "0"
+      USE_GRAVATAR: "0"
+      ALLOW_ATTACHMENT_DOWNLOADS: "0"
+    volumes:
+      - .:/var/www/html
+      - ./public/media:/var/www/html/public/media
+      - ./uploads:/var/www/html/uploads
+    command:
+      - sh
+      - -lc
+      - >-
+        composer install
+        && php bin/console about
+        && yarn install --network-timeout 600000
+        && yarn build
+        && php bin/console doctrine:migrations:migrate --no-interaction
+    restart: "no"
+
+  partdb:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    image: partdb-devcontainer:local
+    ports:
+      - "8443:443"
+    volumes:
+      - ./public/media:/var/www/html/public/media
+      - ./uploads:/var/www/html/uploads
+    depends_on:
+      setup:
+        condition: service_completed_successfully
+
+  assets:
+    volumes:
+      - ./public/media:/var/www/html/public/media
+      - ./uploads:/var/www/html/uploads
+    depends_on:
+      setup:
+        condition: service_completed_successfully

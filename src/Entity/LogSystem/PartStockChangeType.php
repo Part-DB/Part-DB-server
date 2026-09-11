@@ -28,6 +28,8 @@ enum PartStockChangeType: string
     case WITHDRAW = "withdraw";
     case MOVE = "move";
 
+    case STOCKTAKE = "stock_take";
+
     /**
      * Converts the type to a short representation usable in the extra field of the log entry.
      * @return string
@@ -38,6 +40,7 @@ enum PartStockChangeType: string
             self::ADD => 'a',
             self::WITHDRAW => 'w',
             self::MOVE => 'm',
+            self::STOCKTAKE => 's',
         };
     }
 
@@ -52,6 +55,7 @@ enum PartStockChangeType: string
             'a' => self::ADD,
             'w' => self::WITHDRAW,
             'm' => self::MOVE,
+            's' => self::STOCKTAKE,
             default => throw new \InvalidArgumentException("Invalid short type: $value"),
         };
     }

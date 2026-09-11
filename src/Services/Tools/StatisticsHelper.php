@@ -55,7 +55,6 @@ use App\Entity\PriceInformations\Currency;
 use App\Repository\AttachmentRepository;
 use App\Repository\PartRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use InvalidArgumentException;

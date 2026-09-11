@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace App\Tests\API\Endpoints;
 
 
-class CurrencyEndpointTest extends CrudEndpointTestCase
+final class CurrencyEndpointTest extends CrudEndpointTestCase
 {
 
     protected function getBasePath(): string

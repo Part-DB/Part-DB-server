@@ -28,7 +28,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
-class EntityExporterTest extends WebTestCase
+final class EntityExporterTest extends WebTestCase
 {
     /**
      * @var EntityExporter
@@ -43,9 +43,9 @@ class EntityExporterTest extends WebTestCase
 
     private function getEntities(): array
     {
-        $entity1 = (new Category())->setName('Enitity 1')->setComment('Test');
-        $entity1_1 = (new Category())->setName('Enitity 1.1')->setParent($entity1);
-        $entity2 = (new Category())->setName('Enitity 2');
+        $entity1 = (new Category())->setName('Entity%1')->setComment('Test');
+        $entity1_1 = (new Category())->setName('Entity 1.1')->setParent($entity1);
+        $entity2 = (new Category())->setName('Entity 2');
 
         return [$entity1, $entity1_1, $entity2];
     }
@@ -55,12 +55,12 @@ class EntityExporterTest extends WebTestCase
         $entities = $this->getEntities();
 
         $json_without_children = $this->service->exportEntities($entities, ['format' => 'json', 'level' => 'simple']);
-        $this->assertJsonStringEqualsJsonString('[{"name":"Enitity 1","type":"category","full_name":"Enitity 1"},{"name":"Enitity 1.1","type":"category","full_name":"Enitity 1->Enitity 1.1"},{"name":"Enitity 2","type":"category","full_name":"Enitity 2"}]',
+        $this->assertJsonStringEqualsJsonString('[{"name":"Entity%1","type":"category","full_name":"Entity%1"},{"name":"Entity 1.1","type":"category","full_name":"Entity%1->Entity 1.1"},{"name":"Entity 2","type":"category","full_name":"Entity 2"}]',
             $json_without_children);
 
         $json_with_children = $this->service->exportEntities($entities,
             ['format' => 'json', 'level' => 'simple', 'include_children' => true]);
-        $this->assertJsonStringEqualsJsonString('[{"children":[{"children":[],"name":"Enitity 1.1","type":"category","full_name":"Enitity 1->Enitity 1.1"}],"name":"Enitity 1","type":"category","full_name":"Enitity 1"},{"children":[],"name":"Enitity 1.1","type":"category","full_name":"Enitity 1->Enitity 1.1"},{"children":[],"name":"Enitity 2","type":"category","full_name":"Enitity 2"}]',
+        $this->assertJsonStringEqualsJsonString('[{"children":[{"children":[],"name":"Entity 1.1","type":"category","full_name":"Entity%1->Entity 1.1"}],"name":"Entity%1","type":"category","full_name":"Entity%1"},{"children":[],"name":"Entity 1.1","type":"category","full_name":"Entity%1->Entity 1.1"},{"children":[],"name":"Entity 2","type":"category","full_name":"Entity 2"}]',
             $json_with_children);
     }
 
@@ -95,9 +95,31 @@ class EntityExporterTest extends WebTestCase
         $this->assertSame('name', $worksheet->getCell('A1')->getValue());
         $this->assertSame('full_name', $worksheet->getCell('B1')->getValue());
         
-        $this->assertSame('Enitity 1', $worksheet->getCell('A2')->getValue());
-        $this->assertSame('Enitity 1', $worksheet->getCell('B2')->getValue());
+        $this->assertSame('Entity%1', $worksheet->getCell('A2')->getValue());
+        $this->assertSame('Entity%1', $worksheet->getCell('B2')->getValue());
         
+        unlink($tempFile);
+    }
+
+    public function testExportExcelFormulaInjectionPrevention(): void
+    {
+        // Values starting with formula characters must be stored as plain strings, not evaluated formulas
+        $entity = (new Category())->setName('=1+1')->setComment('@SUM(A1)');
+
+        $xlsxData = $this->service->exportEntities([$entity], ['format' => 'xlsx', 'level' => 'simple']);
+        $this->assertNotEmpty($xlsxData);
+
+        $tempFile = tempnam(sys_get_temp_dir(), 'test_formula') . '.xlsx';
+        file_put_contents($tempFile, $xlsxData);
+
+        $spreadsheet = IOFactory::load($tempFile);
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        // The formula-prefixed name must be stored as a plain string, not a formula
+        $cell = $worksheet->getCell('A2');
+        $this->assertSame(\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING, $cell->getDataType());
+        $this->assertSame('=1+1', $cell->getValue());
+
         unlink($tempFile);
     }
 
@@ -111,6 +133,6 @@ class EntityExporterTest extends WebTestCase
         $response = $this->service->exportEntityFromRequest($entities, $request);
 
         $this->assertSame('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', $response->headers->get('Content-Type'));
-        $this->assertStringContainsString('export_Category_simple.xlsx', $response->headers->get('Content-Disposition'));
+        $this->assertStringContainsString('export_Category_simple.xlsx', (string) $response->headers->get('Content-Disposition'));
     }
 }

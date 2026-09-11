@@ -46,13 +46,10 @@ use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\UserSystem\User;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPartLot;
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
@@ -64,9 +61,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Table(name: 'part_lots')]
-#[ORM\Index(columns: ['instock_unknown', 'expiration_date', 'id_part'], name: 'part_lots_idx_instock_un_expiration_id_part')]
-#[ORM\Index(columns: ['needs_refill'], name: 'part_lots_idx_needs_refill')]
-#[ORM\Index(columns: ['vendor_barcode'], name: 'part_lots_idx_barcode')]
+#[ORM\Index(name: 'part_lots_idx_instock_un_expiration_id_part', columns: ['instock_unknown', 'expiration_date', 'id_part'])]
+#[ORM\Index(name: 'part_lots_idx_needs_refill', columns: ['needs_refill'])]
+#[ORM\Index(name: 'part_lots_idx_barcode', columns: ['vendor_barcode'], options: ['lengths' => [100]])]
 #[ValidPartLot]
 #[UniqueEntity(['user_barcode'], message: 'validator.part_lot.vendor_barcode_must_be_unique')]
 #[ApiResource(
@@ -81,7 +78,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
     denormalizationContext: ['groups' => ['part_lot:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
 )]
 #[ApiFilter(PropertyFilter::class)]
-#[ApiFilter(LikeFilter::class, properties: ["description", "comment"])]
+#[ApiFilter(LikeFilter::class, properties: ["description", "comment", "user_barcode"])]
 #[ApiFilter(DateFilter::class, strategy: DateFilterInterface::EXCLUDE_NULL)]
 #[ApiFilter(BooleanFilter::class, properties: ['instock_unknown', 'needs_refill'])]
 #[ApiFilter(RangeFilter::class, properties: ['amount'])]
@@ -166,10 +163,17 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * @var string|null The content of the barcode of this part lot (e.g. a barcode on the package put by the vendor)
      */
-    #[ORM\Column(name: "vendor_barcode", type: Types::STRING, nullable: true)]
+    #[ORM\Column(name: "vendor_barcode", type: Types::TEXT, nullable: true)]
     #[Groups(['part_lot:read', 'part_lot:write'])]
-    #[Length(max: 255)]
     protected ?string $user_barcode = null;
+
+    /**
+     * @var \DateTimeImmutable|null The date when the last stocktake was performed for this part lot. Set to null, if no stocktake was performed yet.
+     */
+    #[Groups(['extended', 'full', 'import', 'part_lot:read', 'part_lot:write'])]
+    #[ORM\Column( type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    #[Year2038BugWorkaround]
+    protected ?\DateTimeImmutable $last_stocktake_at = null;
 
     public function __clone()
     {
@@ -359,7 +363,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Sets the owner of this part lot.
      */
-    public function setOwner(?User $owner): PartLot
+    public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
         return $this;
@@ -385,9 +389,29 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @param  string|null  $user_barcode
      * @return $this
      */
-    public function setUserBarcode(?string $user_barcode): PartLot
+    public function setUserBarcode(?string $user_barcode): self
     {
         $this->user_barcode = $user_barcode;
+        return $this;
+    }
+
+    /**
+     * Returns the date when the last stocktake was performed for this part lot. Returns null, if no stocktake was performed yet.
+     * @return \DateTimeImmutable|null
+     */
+    public function getLastStocktakeAt(): ?\DateTimeImmutable
+    {
+        return $this->last_stocktake_at;
+    }
+
+    /**
+     * Sets the date when the last stocktake was performed for this part lot. Set to null, if no stocktake was performed yet.
+     * @param  \DateTimeImmutable|null  $last_stocktake_at
+     * @return $this
+     */
+    public function setLastStocktakeAt(?\DateTimeImmutable $last_stocktake_at): self
+    {
+        $this->last_stocktake_at = $last_stocktake_at;
         return $this;
     }
 

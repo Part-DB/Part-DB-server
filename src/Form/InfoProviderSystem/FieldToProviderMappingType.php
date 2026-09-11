@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Form\InfoProviderSystem;
 
+use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -61,7 +62,7 @@ class FieldToProviderMappingType extends AbstractType
                 'style' => 'width: 80px;'
             ],
             'constraints' => [
-                new \Symfony\Component\Validator\Constraints\Range(['min' => 1, 'max' => 10]),
+                new Range(min: 1, max: 10),
             ],
         ]);
     }

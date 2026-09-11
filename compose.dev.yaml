@@ -1,0 +1,59 @@
+name: partdb-dev
+
+services:
+  partdb:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      args:
+        PHP_VERSION: "8.4"
+        NODE_VERSION: "22"
+
+    image: partdb-dev:local
+    container_name: partdb-dev
+
+    ports:
+      - "8080:80"
+
+    environment:
+      APP_ENV: dev
+      APP_DEBUG: "1"
+
+      DATABASE_URL: "sqlite:///%kernel.project_dir%/var/db/app.db"
+
+      APP_SECRET: "partdb-development-secret"
+
+      DEFAULT_LANG: en
+      DEFAULT_TIMEZONE: UTC
+      BASE_CURRENCY: USD
+      INSTANCE_NAME: "Part-DB Development"
+
+      CHECK_FOR_UPDATES: "0"
+      USE_GRAVATAR: "0"
+      ALLOW_ATTACHMENT_DOWNLOADS: "0"
+
+    volumes:
+      # The complete checked-out working tree, including vendor,
+      # node_modules, generated assets and development data.
+      - .:/var/www/html
+
+    restart: unless-stopped
+
+  assets:
+    image: partdb-dev:local
+    container_name: partdb-assets
+
+    working_dir: /var/www/html
+
+    environment:
+      NODE_ENV: development
+
+    volumes:
+      - .:/var/www/html
+
+    command:
+      - yarn
+      - watch
+
+    init: true
+    restart: unless-stopped

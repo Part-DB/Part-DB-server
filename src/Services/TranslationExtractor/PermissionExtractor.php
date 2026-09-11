@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Services\TranslationExtractor;
 
 use App\Services\UserSystem\PermissionManager;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use Symfony\Component\Translation\Extractor\ExtractorInterface;
 use Symfony\Component\Translation\MessageCatalogue;
 
@@ -30,6 +31,7 @@ use Symfony\Component\Translation\MessageCatalogue;
  * The purpose of this class is to extract label attributes out of our permissions.yaml structure,
  * so they can be translated.
  */
+#[Autoconfigure(tags: [['name' => 'translation.extractor', 'alias' => 'permissionExtractor']])]
 final class PermissionExtractor implements ExtractorInterface
 {
     private readonly array $permission_structure;

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="uk">
+  <file id="security.en">
+    <unit id="GrLNa9P" name="user.login_error.user_disabled">
+      <segment state="translated">
+        <source>user.login_error.user_disabled</source>
+        <target>Ваш обліковий запис вимкнено! Зверніться до адміністратора, якщо вважаєте це помилкою.</target>
+      </segment>
+    </unit>
+    <unit id="IFQ5XrG" name="saml.error.cannot_login_local_user_per_saml">
+      <segment state="translated">
+        <source>saml.error.cannot_login_local_user_per_saml</source>
+        <target>Ви не можете увійти як локальний користувач через SSO! Використовуйте пароль локального користувача.</target>
+      </segment>
+    </unit>
+    <unit id="wOYPZmb" name="saml.error.cannot_login_saml_user_locally">
+      <segment state="translated">
+        <source>saml.error.cannot_login_saml_user_locally</source>
+        <target>Ви не можете використовувати локальну автентифікацію для входу як користувач SAML! Скористайтеся входом через SSO.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

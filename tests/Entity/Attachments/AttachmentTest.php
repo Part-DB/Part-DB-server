@@ -55,7 +55,7 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
-class AttachmentTest extends TestCase
+final class AttachmentTest extends TestCase
 {
     public function testEmptyState(): void
     {
@@ -171,6 +171,31 @@ class AttachmentTest extends TestCase
         $this->assertSame($expected, $attachment->isPicture());
     }
 
+    public static function pictureFiletypeFilterDataProvider(): \Iterator
+    {
+        //An URL without a file extension is only assumed to be a picture, if the attachment type allows pictures
+        yield ['https://invalid.com/redirect?id=1234', '',                  true];
+        yield ['https://invalid.com/redirect?id=1234', 'image/*',           true];
+        yield ['https://invalid.com/redirect?id=1234', '.jpg,.png',         true];
+        yield ['https://invalid.com/redirect?id=1234', 'application/pdf',   false];
+        yield ['https://invalid.com/redirect?id=1234', '.pdf,.txt',         false];
+        //An URL with a picture extension is always a picture, no matter what the attachment type says
+        yield ['https://invalid.com/picture.jpeg',     'application/pdf',   true];
+    }
+
+    #[DataProvider('pictureFiletypeFilterDataProvider')]
+    public function testIsPictureRespectsFiletypeFilter(string $external_path, string $filter, bool $expected): void
+    {
+        $attachment_type = new AttachmentType();
+        $attachment_type->setFiletypeFilter($filter);
+
+        $attachment = new PartAttachment();
+        $attachment->setAttachmentType($attachment_type);
+        $this->setProtectedProperty($attachment, 'external_path', $external_path);
+
+        $this->assertSame($expected, $attachment->isPicture());
+    }
+
     public static function builtinDataProvider(): \Iterator
     {
         yield ['', false];
@@ -276,7 +301,34 @@ class AttachmentTest extends TestCase
     {
         $reflection = new ReflectionClass($object);
         $reflection_property = $reflection->getProperty($property);
-        $reflection_property->setAccessible(true);
         $reflection_property->setValue($object, $value);
+    }
+
+    public function testIsLocalHTMLFile(): void
+    {
+        $attachment = new PartAttachment();
+
+        $attachment->setExternalPath('https://google.de');
+        $this->assertFalse($attachment->isLocalHTMLFile());
+
+        $attachment->setExternalPath('https://google.de/test.html');
+        $this->assertFalse($attachment->isLocalHTMLFile());
+
+        $attachment->setInternalPath('%MEDIA%/test.html');
+        $this->assertTrue($attachment->isLocalHTMLFile());
+
+        $attachment->setInternalPath('%MEDIA%/test.htm');
+        $this->assertTrue($attachment->isLocalHTMLFile());
+
+        $attachment->setInternalPath('%MEDIA%/test.txt');
+        $this->assertFalse($attachment->isLocalHTMLFile());
+
+        //It works however, if the file is stored as txt, and the internal filename ends with .html
+        $attachment->setInternalPath('%MEDIA%/test.txt');
+        $this->setProtectedProperty($attachment, 'original_filename', 'test.html');
+        $this->assertTrue($attachment->isLocalHTMLFile());
+
+        $this->setProtectedProperty($attachment, 'original_filename', 'test.htm');
+        $this->assertTrue($attachment->isLocalHTMLFile());
     }
 }

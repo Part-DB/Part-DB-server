@@ -27,7 +27,7 @@ use App\Entity\Parts\Manufacturer;
 
 #[Group('slow')]
 #[Group('DB')]
-class ManufacturerController extends AbstractAdminController
+final class ManufacturerController extends AbstractAdminController
 {
     protected static string $base_path = '/en/manufacturer';
     protected static string $entity_class = Manufacturer::class;

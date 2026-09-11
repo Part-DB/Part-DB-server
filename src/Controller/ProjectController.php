@@ -26,6 +26,7 @@ use App\DataTables\ProjectBomEntriesDataTable;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use App\Form\ProjectSystem\BOMEntryEditType;
 use App\Form\ProjectSystem\ProjectAddPartsType;
 use App\Form\ProjectSystem\ProjectBuildType;
 use App\Helpers\Projects\ProjectBuildRequest;
@@ -46,6 +47,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\Helpers\FilenameSanatizer;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\Serializer\SerializerInterface;
+use App\Services\ImportExportSystem\ProjectBomExporter;
+use App\Services\LogSystem\EventCommentHelper;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 
 use function Symfony\Component\Translation\t;
 
@@ -69,11 +76,78 @@ class ProjectController extends AbstractController
             return $table->getResponse();
         }
 
+        $number_of_builds = max(1, $request->query->getInt('n', 1));
+
         return $this->render('projects/info/info.html.twig', [
             'buildHelper' => $buildHelper,
             'datatable' => $table,
             'project' => $project,
+            'number_of_builds' => $number_of_builds,
         ]);
+    }
+
+    #[Route(path: '/{id}/bom/{bomEntry}/edit', name: 'project_bom_entry_edit', requirements: ['id' => '\d+', 'bomEntry' => '\d+'])]
+    public function editBOMEntry(
+        #[MapEntity(id: 'id')] Project $project,
+        #[MapEntity(mapping: ['bomEntry' => 'id'])] ProjectBOMEntry $bomEntry,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        EventCommentHelper $commentHelper,
+    ): Response {
+        if ($bomEntry->getProject()?->getId() !== $project->getId()) {
+            throw $this->createNotFoundException();
+        }
+
+        $this->denyAccessUnlessGranted('edit', $bomEntry);
+
+
+        $form = $this->createForm(BOMEntryEditType::class, [
+            'bom_entry' => $bomEntry,
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commentHelper->setMessage($form->get('log_comment')->getData());
+            $entityManager->flush();
+            $this->addFlash('success', 'entity.edit_flash');
+
+            return $this->redirectToRoute('project_info', ['id' => $project->getId()]);
+        }
+
+        if ($form->isSubmitted()) {
+            $this->addFlash('error', 'entity.edit_flash.invalid');
+        }
+
+        return $this->render('projects/edit_bom_entry.html.twig', [
+            'project' => $project,
+            'bom_entry' => $bomEntry,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route(path: '/{id}/bom/{bomEntry}', name: 'project_bom_entry_delete', requirements: ['id' => '\d+', 'bomEntry' => '\d+'], methods: ['DELETE'])]
+    public function deleteBOMEntry(
+        #[MapEntity(id: 'id')] Project $project,
+        #[MapEntity(mapping: ['bomEntry' => 'id'])] ProjectBOMEntry $bomEntry,
+        Request $request,
+        EntityManagerInterface $entityManager,
+        EventCommentHelper $commentHelper,
+    ): Response {
+        if ($bomEntry->getProject()?->getId() !== $project->getId()) {
+            throw $this->createNotFoundException();
+        }
+
+        $this->denyAccessUnlessGranted('delete', $bomEntry);
+
+        if ($this->isCsrfTokenValid('delete' . $bomEntry->getId(), $request->request->get('_token'))) {
+            $commentHelper->setMessage($request->request->get('log_comment'));
+            $entityManager->remove($bomEntry);
+            $entityManager->flush();
+            $this->addFlash('success', 'attachment_type.deleted');
+        }
+
+        return $this->redirectToRoute('project_info', ['id' => $project->getId()]);
     }
 
     #[Route(path: '/{id}/build', name: 'project_build', requirements: ['id' => '\d+'])]
@@ -123,6 +197,148 @@ class ProjectController extends AbstractController
             'number_of_builds' => $number_of_builds,
             'form' => $form,
         ]);
+    }
+
+    #[Route(
+        path: '/{id}/bom/export',
+        name: 'project_bom_export',
+        requirements: ['id' => '\d+'],
+        methods: ['POST']
+    )]
+    public function exportBOM(
+        Project $project,
+        Request $request,
+        ProjectBomExporter $projectBomExporter,
+        SerializerInterface $serializer,
+    ): Response {
+        $this->denyAccessUnlessGranted('read', $project);
+
+        /*
+         * First run the normal BOM DataTable callback. This applies exactly the
+         * same project restriction, search criteria and active column ordering
+         * as the displayed table.
+         *
+         * We only use its hidden ID column. Rendered cell contents are discarded.
+         */
+        $table = $this->dataTableFactory->createFromType(
+            ProjectBomEntriesDataTable::class,
+            ['project' => $project],
+        );
+
+        $request->request->set('_dt', $table->getName());
+        /*
+         * Export every row matching the current search/filter.
+         * Ignore the page currently displayed in the browser.
+         */
+        $request->request->set('start', 0);
+        $request->request->set('length', -1);
+
+        $table->handleRequest($request);
+
+        if (!$table->isCallback()) {
+            throw new \RuntimeException(
+                'The BOM export request was not recognised as a DataTable callback.'
+            );
+        }
+
+        $tableResponse = $table->getResponse();
+
+        /** @var array{
+         *     data?: list<array<string, mixed>>
+         * } $payload
+         */
+        $payload = json_decode(
+            $tableResponse->getContent() ?: '{}',
+            true,
+            512,
+            JSON_THROW_ON_ERROR,
+        );
+
+        /*
+         * The DataTable already contains a hidden ID column. Collect those IDs in
+         * their returned order. That order is the currently selected table order.
+         */
+        $orderedIds = [];
+
+        foreach ($payload['data'] ?? [] as $tableRow) {
+            $id = filter_var(
+                $tableRow['id'] ?? null,
+                FILTER_VALIDATE_INT,
+            );
+
+            if ($id !== false) {
+                $orderedIds[] = $id;
+            }
+        }
+
+        $columns = array_values(
+            array_filter(
+                $request->request->all('exportColumns'),
+                static fn(mixed $column): bool => is_string($column),
+            )
+        );
+
+        $labels = array_values(
+            array_filter(
+                $request->request->all('exportLabels'),
+                static fn(mixed $label): bool => is_string($label),
+            )
+        );
+
+        if ($columns === []) {
+            throw new \InvalidArgumentException(
+                'No columns were specified for BOM export.'
+            );
+        }
+
+        /*
+         * Reload raw entities from Doctrine. The exporter verifies that every
+         * entry belongs to this project and restores the DataTable's ID order.
+         */
+        $entries = $projectBomExporter->getOrderedEntries(
+            $project,
+            $orderedIds,
+        );
+
+        $rows = [];
+
+        foreach ($entries as $entry) {
+            $rows[] = $projectBomExporter->createRow(
+                $entry,
+                $columns,
+                $labels,
+            );
+        }
+
+        $csv = $serializer->serialize($rows, 'csv', [
+            'as_collection' => true,
+            'csv_delimiter' => ';',
+        ]);
+
+        $filename = FilenameSanatizer::sanitizeFilename(
+            sprintf(
+                'project_%s_bom.csv',
+                $project->getName(),
+            )
+        );
+
+        $response = new Response($csv);
+
+        $response->headers->set(
+            'Content-Type',
+            'text/csv; charset=UTF-8',
+        );
+
+        $response->headers->set(
+            'Content-Disposition',
+            $response->headers->makeDisposition(
+                ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+                $filename,
+                'project_bom.csv',
+            )
+        );
+
+        return $response;
     }
 
     #[Route(path: '/{id}/import_bom', name: 'project_import_bom', requirements: ['id' => '\d+'])]
@@ -194,7 +410,7 @@ class ProjectController extends AbstractController
                 ]);
 
                 // Validate the project entries
-                $errors = $validator->validateProperty($project, 'bom_entries');
+                $errors = $validator->validateProperty($project, 'bom_entries', ['project_bom']);
 
                 // If no validation errors occurred, save the changes and redirect to edit page
                 if (count($errors) === 0) {
@@ -240,7 +456,8 @@ class ProjectController extends AbstractController
         }
 
         // Detect fields and get suggestions
-        $detected_fields = $BOMImporter->detectFields($file_content);
+        $detected_delimiter = $BOMImporter->detectDelimiter($file_content);
+        $detected_fields = $BOMImporter->detectFields($file_content, $detected_delimiter);
         $suggested_mapping = $BOMImporter->getSuggestedFieldMapping($detected_fields);
 
         // Create mapping of original field names to sanitized field names for template
@@ -257,7 +474,7 @@ class ProjectController extends AbstractController
         $builder->add('delimiter', ChoiceType::class, [
             'label' => 'project.bom_import.delimiter',
             'required' => true,
-            'data' => ',',
+            'data' => $detected_delimiter,
             'choices' => [
                 'project.bom_import.delimiter.comma' => ',',
                 'project.bom_import.delimiter.semicolon' => ';',
@@ -433,7 +650,7 @@ class ProjectController extends AbstractController
                 }
 
                 // Validate the project entries (includes collection constraints)
-                $errors = $validator->validateProperty($project, 'bom_entries');
+                $errors = $validator->validateProperty($project, 'bom_entries', ['project_bom']);
 
                 // If no validation errors occurred, save and redirect
                 if (count($errors) === 0) {
@@ -457,7 +674,7 @@ class ProjectController extends AbstractController
                         'invalid_value' => $error->getInvalidValue(),
                     ]);
                     //And show as flash message
-                    $this->addFlash('error', $error->getMessage(),);
+                    $this->addFlash('error', $error->getMessage());
                 }
 
             } catch (\UnexpectedValueException | SyntaxError $e) {

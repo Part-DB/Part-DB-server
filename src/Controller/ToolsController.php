@@ -22,15 +22,19 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
+use App\Entity\Parts\Part;
 use App\Services\Attachments\AttachmentSubmitHandler;
+use App\Services\Tools\ComponentValueGuesser;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\Doctrine\DBInfoHelper;
 use App\Services\Doctrine\NatsortDebugHelper;
-use App\Services\Misc\GitVersionInfo;
-use App\Services\System\UpdateAvailableManager;
+use App\Services\System\GitVersionInfoProvider;
+use App\Services\System\UpdateAvailableFacade;
 use App\Settings\AppSettings;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Runtime\SymfonyRuntime;
@@ -47,16 +51,25 @@ class ToolsController extends AbstractController
     }
 
     #[Route(path: '/server_infos', name: 'tools_server_infos')]
-    public function systemInfos(GitVersionInfo $versionInfo, DBInfoHelper $DBInfoHelper, NatsortDebugHelper $natsortDebugHelper,
-        AttachmentSubmitHandler $attachmentSubmitHandler, UpdateAvailableManager $updateAvailableManager,
+    public function systemInfos(GitVersionInfoProvider $versionInfo, DBInfoHelper $DBInfoHelper, NatsortDebugHelper $natsortDebugHelper,
+        AttachmentSubmitHandler $attachmentSubmitHandler, UpdateAvailableFacade $updateAvailableManager,
         AppSettings $settings): Response
     {
         $this->denyAccessUnlessGranted('@system.server_infos');
 
+        $oauth_server_enabled = $this->getParameter('partdb.oauth_server.enabled');
+        $oauth_dcr_enabled = $this->getParameter('partdb.oauth_server.dcr_enabled');
+        //The keypair is required for the OAuth2 server to actually work (see OAuthGenerateKeysCommand);
+        //without it OAUTH_SERVER_ENABLED=1 alone does not mean the server is usable.
+        $oauth_keypair_exists = is_file($this->getParameter('kernel.project_dir').'/uploads/oauth_private.key')
+            && is_file($this->getParameter('kernel.project_dir').'/uploads/oauth_public.key');
+        $oauth_encryption_key_set = !empty($_ENV['OAUTH2_ENCRYPTION_KEY']);
+        $oauth_fully_configured = $oauth_server_enabled && $oauth_keypair_exists && $oauth_encryption_key_set;
+
         return $this->render('tools/server_infos/server_infos.html.twig', [
             //Part-DB section
-            'git_branch' => $versionInfo->getGitBranchName(),
-            'git_commit' => $versionInfo->getGitCommitHash(),
+            'git_branch' => $versionInfo->getBranchName(),
+            'git_commit' => $versionInfo->getCommitHash(),
             'default_locale' => $settings->system->localization->locale,
             'default_timezone' => $settings->system->localization->timezone,
             'default_currency' => $settings->system->localization->baseCurrency,
@@ -74,8 +87,12 @@ class ToolsController extends AbstractController
             'detailed_error_pages' => $this->getParameter('partdb.error_pages.show_help'),
             'error_page_admin_email' => $this->getParameter('partdb.error_pages.admin_email'),
             'configured_max_file_size' => $settings->system->attachments->maxFileSize,
-            'effective_max_file_size' => $attachmentSubmitHandler->getMaximumAllowedUploadSize(),
+            'effective_max_file_size' => $attachmentSubmitHandler->getMaximumEffectiveUploadSize(),
             'saml_enabled' => $this->getParameter('partdb.saml.enabled'),
+            'oauth_server_enabled' => $oauth_server_enabled,
+            'oauth_server_fully_configured' => $oauth_fully_configured,
+            'oauth_dcr_enabled' => $oauth_dcr_enabled,
+            'oauth_dcr_fully_configured' => $oauth_dcr_enabled && $oauth_fully_configured,
 
             //PHP section
             'php_version' => PHP_VERSION,
@@ -86,6 +103,7 @@ class ToolsController extends AbstractController
             'php_opcache_enabled' => ini_get('opcache.enable'),
             'php_upload_max_filesize' => ini_get('upload_max_filesize'),
             'php_post_max_size' => ini_get('post_max_size'),
+            'php_max_input_vars' => ini_get('max_input_vars'),
             'kernel_runtime_environment' => $this->getParameter('kernel.runtime_environment'),
             'kernel_runtime_mode' => $this->getParameter('kernel.runtime_mode'),
             'kernel_runtime' => $_SERVER['APP_RUNTIME'] ?? $_ENV['APP_RUNTIME'] ?? SymfonyRuntime::class,
@@ -98,6 +116,7 @@ class ToolsController extends AbstractController
             'db_user' => $DBInfoHelper->getDatabaseUsername() ?? 'Unknown',
             'db_natsort_method' => $natsortDebugHelper->getNaturalSortMethod(),
             'db_natsort_slow_allowed' => $natsortDebugHelper->isSlowNaturalSortAllowed(),
+            'db_sqlite_enforce_foreign_keys' => $this->getParameter('partdb.db.sqlite_enforce_foreign_keys'),
 
             //New version section
             'new_version_available' => $updateAvailableManager->isUpdateAvailable(),
@@ -128,5 +147,144 @@ class ToolsController extends AbstractController
         $this->denyAccessUnlessGranted('@tools.ic_logos');
 
         return $this->render('tools/ic_logos/ic_logos.html.twig');
+    }
+
+    #[Route(path: '/component_image_generator', name: 'tools_component_image_generator')]
+    public function componentImageGenerator(Request $request, EntityManagerInterface $em, ComponentValueGuesser $guesser): Response
+    {
+        $this->denyAccessUnlessGranted('@tools.component_image_generator');
+
+        //Optionally the calculator can be opened in the context of a part, to attach the generated image to it.
+        $part = null;
+        $partId = $request->query->getInt('part');
+        if ($partId > 0) {
+            $part = $em->find(Part::class, $partId);
+            if ($part !== null) {
+                $this->denyAccessUnlessGranted('edit', $part);
+            }
+        }
+
+        $prefillOhms = null;
+        $prefillFarads = null;
+        if ($part !== null) {
+            [$prefillOhms, $prefillFarads,] = $guesser->extractValue($part);
+        }
+
+        return $this->render('tools/component_image_generator/image_generator.html.twig', [
+            'part' => $part,
+            'prefill_ohms' => $prefillOhms,
+            'prefill_farads' => $prefillFarads,
+            //When embedded in the part-page modal, render only the calculator inside a Turbo frame.
+            'modalMode' => $request->query->getBoolean('modal'),
+        ]);
+    }
+
+    /**
+     * Landing page for the "Generate component images" bulk action: classifies the selected parts
+     * (skipping ones that already have a picture or can't be classified) and lets the user review,
+     * then generate + attach pictures. Reached from the parts table action bar with ?ids=1,2,3.
+     */
+    #[Route(path: '/bulk_generate_images', name: 'tools_bulk_generate')]
+    public function bulkGenerate(Request $request, EntityManagerInterface $em, ComponentValueGuesser $guesser): Response
+    {
+        $this->denyAccessUnlessGranted('@tools.component_image_generator');
+
+        $candidates = [];
+        $skipped = 0;
+        $withPicture = 0;
+        //When set, parts that already have a picture are included too (their preview gets overwritten).
+        $overwrite = $request->query->getBoolean('overwrite');
+        $idsParam = (string) $request->query->get('ids', '');
+        $ids = array_values(array_filter(
+            array_map(intval(...), explode(',', $idsParam)),
+            static fn (int $id): bool => $id > 0
+        ));
+
+        if ($ids !== []) {
+            foreach ($em->getRepository(Part::class)->findBy(['id' => $ids]) as $part) {
+                if (!$this->isGranted('edit', $part)) {
+                    continue;
+                }
+                $hasPicture = $part->getMasterPictureAttachment() !== null;
+                //By default only illustrate parts without a picture; in overwrite mode include all.
+                if ($hasPicture && !$overwrite) {
+                    //Offer a re-generate action only for the ones we could actually classify.
+                    if ($guesser->guess($part) !== null) {
+                        $withPicture++;
+                    } else {
+                        $skipped++;
+                    }
+                    continue;
+                }
+                $guess = $guesser->guess($part);
+                if ($guess === null) {
+                    $skipped++;
+                    continue;
+                }
+                $eda = $guesser->edaSuggestion($guess);
+                $candidates[] = [
+                    'part' => $part,
+                    'type' => $guess['type'],
+                    'subtype' => $guess['subtype'] ?? null,
+                    'marking' => $guess['marking'] ?? null,
+                    'value' => $guess['value'],
+                    'package' => $guess['package'],
+                    'voltage' => $guess['voltage'],
+                    'tolerance' => $guess['tolerance'],
+                    'pitch' => $guess['pitch'],
+                    'diameter' => $guess['diameter'],
+                    'power' => $guess['power'],
+                    'ppm' => $guess['ppm'],
+                    'color' => $guess['color'],
+                    'has_picture' => $hasPicture,
+                    'kicad_symbol' => $eda['symbol'],
+                    'reference_prefix' => $eda['reference'],
+                    'kicad_footprint' => $eda['footprint'],
+                ];
+            }
+        }
+
+        $hasCaps = false;
+        $hasThtResistors = false;
+        $hasSmdResistors = false;
+        $hasInductors = false;
+        $hasSmdInductors = false;
+        $hasSmdCapacitors = false;
+        $hasDiodes = false;
+        foreach ($candidates as $candidate) {
+            if ($candidate['type'] === 'capacitor') {
+                $hasCaps = true;
+            } elseif ($candidate['type'] === 'resistor') {
+                //Power and temperature-coefficient bands only apply to through-hole resistors;
+                //SMD chips just carry the printed value code (sized by their package).
+                $hasThtResistors = true;
+            } elseif ($candidate['type'] === 'smd_resistor') {
+                $hasSmdResistors = true;
+            } elseif ($candidate['type'] === 'inductor') {
+                $hasInductors = true;
+            } elseif ($candidate['type'] === 'smd_inductor') {
+                $hasSmdInductors = true;
+            } elseif ($candidate['type'] === 'smd_capacitor') {
+                $hasSmdCapacitors = true;
+            } elseif ($candidate['type'] === 'diode') {
+                $hasDiodes = true;
+            }
+        }
+
+        return $this->render('tools/component_image_generator/bulk_generate.html.twig', [
+            'candidates' => $candidates,
+            'skipped' => $skipped,
+            'selected_count' => count($ids),
+            'has_caps' => $hasCaps,
+            'has_tht_resistors' => $hasThtResistors,
+            'has_smd_resistors' => $hasSmdResistors,
+            'has_inductors' => $hasInductors,
+            'has_smd_inductors' => $hasSmdInductors,
+            'has_smd_capacitors' => $hasSmdCapacitors,
+            'has_diodes' => $hasDiodes,
+            'with_picture' => $withPicture,
+            'overwrite' => $overwrite,
+            'ids_param' => $idsParam,
+        ]);
     }
 }

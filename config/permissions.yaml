@@ -18,7 +18,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
 
   parts: # e.g. this maps to perms_parts in User/Group database
     group: "data"
-    label: "perm.parts"
+    label: "[[Part]]"
     operations: # Here are all possible operations are listed => the op name is mapped to bit value
       read:
         label: "perm.read"
@@ -68,10 +68,13 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       move:
         label: "perm.parts_stock.move"
         apiTokenRole: ROLE_API_EDIT
+      stocktake:
+        label: "perm.parts_stock.stocktake"
+        apiTokenRole: ROLE_API_EDIT
 
 
   storelocations: &PART_CONTAINING
-    label: "perm.storelocations"
+    label: "[[Storage_location]]"
     group: "data"
     operations:
       read:
@@ -103,39 +106,39 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
 
   footprints:
     <<: *PART_CONTAINING
-    label: "perm.part.footprints"
+    label: "[[Footprint]]"
 
   categories:
     <<: *PART_CONTAINING
-    label: "perm.part.categories"
+    label: "[[Category]]"
 
   suppliers:
     <<: *PART_CONTAINING
-    label: "perm.part.supplier"
+    label: "[[Supplier]]"
 
   manufacturers:
     <<: *PART_CONTAINING
-    label: "perm.part.manufacturers"
+    label: "[[Manufacturer]]"
 
   projects:
     <<: *PART_CONTAINING
-    label: "perm.projects"
+    label: "[[Project]]"
 
   attachment_types:
     <<: *PART_CONTAINING
-    label: "perm.part.attachment_types"
+    label: "[[Attachment_type]]"
 
   currencies:
     <<: *PART_CONTAINING
-    label: "perm.currencies"
+    label: "[[Currency]]"
 
   measurement_units:
     <<: *PART_CONTAINING
-    label: "perm.measurement_units"
+    label: "[[Measurement_unit]]"
 
   part_custom_states:
     <<: *PART_CONTAINING
-    label: "perm.part_custom_states"
+    label: "[[Part_custom_state]]"
 
   tools:
     label: "perm.part.tools"
@@ -160,6 +163,8 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "tools.builtin_footprints_viewer.title"
       ic_logos:
         label: "perm.tools.ic_logos"
+      component_image_generator:
+        label: "perm.tools.component_image_generator"
 
   info_providers:
     label: "perm.part.info_providers"
@@ -294,8 +299,15 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       manage_oauth_tokens:
         label: "Manage OAuth tokens"
         apiTokenRole: ROLE_API_ADMIN
+      manage_oauth_clients:
+        label: "perm.system.manage_oauth_clients"
+        apiTokenRole: ROLE_API_ADMIN
       show_updates:
         label: "perm.system.show_available_updates"
+        apiTokenRole: ROLE_API_ADMIN
+      manage_updates:
+        label: "perm.system.manage_updates"
+        alsoSet: ['show_updates', 'server_infos']
         apiTokenRole: ROLE_API_ADMIN
 
 
@@ -374,7 +386,12 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       access_api:
         label: "perm.api.access_api"
         apiTokenRole: ROLE_API_READ_ONLY
+      use_mcp:
+          label: "perm.api.use_mcp"
+          alsoSet: [ 'access_api' ]
+          apiTokenRole: ROLE_API_READ_ONLY
       manage_tokens:
         label: "perm.api.manage_tokens"
         alsoSet: ['access_api']
         apiTokenRole: ROLE_API_FULL
+

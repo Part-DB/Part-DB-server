@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\DTOs;
 
+use Doctrine\ORM\Exception\ORMException;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\EntityManagerInterface;
 use Traversable;
@@ -96,7 +97,7 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess, \IteratorAggregate
      */
     public function getPartsWithResults(): array
     {
-        return array_filter($this->partResults, fn($result) => $result->hasResults());
+        return array_filter($this->partResults, static fn($result) => $result->hasResults());
     }
 
     /**
@@ -105,7 +106,7 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess, \IteratorAggregate
      */
     public function getPartsWithErrors(): array
     {
-        return array_filter($this->partResults, fn($result) => $result->hasErrors());
+        return array_filter($this->partResults, static fn($result) => $result->hasErrors());
     }
 
     /**
@@ -129,7 +130,7 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess, \IteratorAggregate
      * @param  BulkSearchResponseDTO  ...$responses
      * @return BulkSearchResponseDTO
      */
-    public static function merge(BulkSearchResponseDTO ...$responses): BulkSearchResponseDTO
+    public static function merge(self ...$responses): self
     {
         $mergedResults = [];
         foreach ($responses as $response) {
@@ -176,15 +177,15 @@ readonly class BulkSearchResponseDTO implements \ArrayAccess, \IteratorAggregate
      * @param  array  $data
      * @param  EntityManagerInterface  $entityManager
      * @return BulkSearchResponseDTO
-     * @throws \Doctrine\ORM\Exception\ORMException
+     * @throws ORMException
      */
-    public static function fromSerializableRepresentation(array $data, EntityManagerInterface $entityManager): BulkSearchResponseDTO
+    public static function fromSerializableRepresentation(array $data, EntityManagerInterface $entityManager): self
     {
         $partResults = [];
         foreach ($data as $partData) {
             $partResults[] = new BulkSearchPartResultsDTO(
                 part: $entityManager->getReference(Part::class, $partData['part_id']),
-                searchResults: array_map(fn($result) => new BulkSearchPartResultDTO(
+                searchResults: array_map(static fn($result) => new BulkSearchPartResultDTO(
                     searchResult: SearchResultDTO::fromNormalizedSearchResultArray($result['dto']),
                     sourceField: $result['source_field'] ?? null,
                     sourceKeyword: $result['source_keyword'] ?? null,

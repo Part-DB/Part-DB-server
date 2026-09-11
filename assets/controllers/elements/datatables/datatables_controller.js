@@ -38,9 +38,7 @@ import 'datatables.net-colreorder-bs5';
 import 'datatables.net-responsive-bs5';
 import '../../../js/lib/datatables';
 
-//import 'datatables.net-select-bs5';
-//Use the local version containing the fix for the select extension
-import '../../../js/lib/dataTables.select.mjs';
+import 'datatables.net-select-bs5';
 
 
 const EVENT_DT_LOADED = 'dt:loaded';
@@ -83,8 +81,6 @@ export default class extends Controller {
         if (data) {
             //Do not save the start value (current page), as we want to always start at the first page on a page reload
             delete data.start;
-            //Reset the data length to the default value by deleting the length property
-            delete data.length;
         }
 
         return data;
@@ -108,11 +104,27 @@ export default class extends Controller {
             const raw_order = saved_state.order;
 
             settings.initial_order = raw_order.map((order) => {
+                //Skip if direction is empty, as this is the default, otherwise datatables server is confused when the order is sent in the request, but the initial order is set to an empty direction
+                if (order[1] === '') {
+                    return null;
+                }
+
+                //The saved order index is visual (post-reorder). If colReorder state
+                //exists, map it back to the original column index so the server sorts
+                //the correct column. colReorder[visualIndex] == originalIndex.
+                let columnIndex = order[0];
+                if (saved_state.colReorder) {
+                    columnIndex = saved_state.colReorder[columnIndex];
+                }
+
                 return {
-                    column: order[0],
+                    column: columnIndex,
                     dir: order[1]
                 }
             });
+
+            //Remove null values from the initial_order array
+            settings.initial_order = settings.initial_order.filter(order => order !== null);
         }
 
         let options = {

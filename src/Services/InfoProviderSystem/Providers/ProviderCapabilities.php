@@ -26,22 +26,45 @@ namespace App\Services\InfoProviderSystem\Providers;
 /**
  * This enum contains all capabilities (which data it can provide) a provider can have.
  */
-enum ProviderCapabilities
+enum ProviderCapabilities: string
 {
     /** Basic information about a part, like the name, description, part number, manufacturer etc */
-    case BASIC;
-
-    /** Information about the footprint of a part */
-    case FOOTPRINT;
+    case BASIC = 'BASIC';
 
     /** Provider can provide a picture for a part */
-    case PICTURE;
+    case PICTURE = 'PICTURE';
 
     /** Provider can provide datasheets for a part */
-    case DATASHEET;
+    case DATASHEET = 'DATASHEET';
 
     /** Provider can provide prices for a part */
-    case PRICE;
+    case PRICE = 'PRICE';
+
+    /** Information about the footprint of a part */
+    case FOOTPRINT = 'FOOTPRINT';
+
+    /** Provider can provide GTIN for a part */
+    case GTIN = 'GTIN';
+
+    /** Provider can provide parameters/specifications for a part */
+    case PARAMETERS = 'PARAMETERS';
+
+    /**
+     * Get the order index for displaying capabilities in a stable order.
+     * @return int
+     */
+    public function getOrderIndex(): int
+    {
+        return match($this) {
+            self::BASIC => 1,
+            self::PICTURE => 2,
+            self::DATASHEET => 3,
+            self::PRICE => 4,
+            self::FOOTPRINT => 5,
+            self::GTIN => 6,
+            self::PARAMETERS => 7,
+        };
+    }
 
     public function getTranslationKey(): string
     {
@@ -51,6 +74,8 @@ enum ProviderCapabilities
                 self::PICTURE => 'picture',
                 self::DATASHEET => 'datasheet',
                 self::PRICE => 'price',
+                self::GTIN => 'gtin',
+                self::PARAMETERS => 'parameters',
             };
     }
 
@@ -62,6 +87,8 @@ enum ProviderCapabilities
                 self::PICTURE => 'fa-image',
                 self::DATASHEET => 'fa-file-alt',
                 self::PRICE => 'fa-money-bill-wave',
+                self::GTIN => 'fa-barcode',
+                self::PARAMETERS => 'fa-list-ul',
             };
     }
 }

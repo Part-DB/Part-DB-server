@@ -37,7 +37,6 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
-use App\Repository\Parts\CategoryRepository;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
@@ -94,7 +93,6 @@ final class DTOtoEntityConverter
         $entity->setPrice($dto->getPriceAsBigDecimal());
         $entity->setPriceRelatedQuantity($dto->price_related_quantity);
 
-        //Currency TODO
         if ($dto->currency_iso_code !== null) {
             $entity->setCurrency($this->getCurrency($dto->currency_iso_code));
         } else {
@@ -116,6 +114,8 @@ final class DTOtoEntityConverter
         foreach ($dto->prices as $price) {
             $entity->addPricedetail($this->convertPrice($price));
         }
+
+        $entity->setPricesIncludesVAT($dto->prices_include_vat);
 
         return $entity;
     }
@@ -174,6 +174,8 @@ final class DTOtoEntityConverter
         $entity->setManufacturerProductNumber($dto->mpn ?? '');
         $entity->setManufacturingStatus($dto->manufacturing_status ?? ManufacturingStatus::NOT_SET);
         $entity->setManufacturerProductURL($dto->manufacturer_product_url ?? '');
+
+        $entity->setGtin($dto->gtin);
 
         //Set the provider reference on the part
         $entity->setProviderReference(InfoProviderReference::fromPartDTO($dto));

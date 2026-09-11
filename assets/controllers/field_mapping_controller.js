@@ -70,6 +70,13 @@ export default class extends Controller {
             newFieldSelect.addEventListener('change', this.updateFieldOptions.bind(this))
         }
 
+        // Auto-increment priority based on existing mappings
+        const nextPriority = this.getNextPriority()
+        const priorityInput = newRow.querySelector('input[name*="[priority]"]')
+        if (priorityInput) {
+            priorityInput.value = nextPriority
+        }
+
         this.updateFieldOptions()
         this.updateAddButtonState()
     }
@@ -117,6 +124,18 @@ export default class extends Controller {
                 this.addButtonTarget.title = ''
             }
         }
+    }
+
+    getNextPriority() {
+        const priorityInputs = this.tbodyTarget.querySelectorAll('input[name*="[priority]"]')
+        let maxPriority = 0
+        priorityInputs.forEach(input => {
+            const val = parseInt(input.value, 10)
+            if (!isNaN(val) && val > maxPriority) {
+                maxPriority = val
+            }
+        })
+        return Math.min(maxPriority + 1, 10)
     }
 
     handleFormSubmit(event) {

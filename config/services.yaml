@@ -1,5 +1,8 @@
+# yaml-language-server: $schema=../vendor/symfony/dependency-injection/Loader/schema/services.schema.json
+
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
+# See also https://symfony.com/doc/current/service_container/import.html
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -12,23 +15,14 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        bind:
-            bool $demo_mode: '%partdb.demo_mode%'
-            bool $gdpr_compliance: '%partdb.gdpr_compliance%'
-            bool $kernel_debug_enabled: '%kernel.debug%'
-            string $kernel_cache_dir: '%kernel.cache_dir%'
-
-    _instanceof:
-        App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface:
-            tags: ['app.label_placeholder_provider']
-
-        App\Services\InfoProviderSystem\Providers\InfoProviderInterface:
-            tags: ['app.info_provider']
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
+        exclude:
+            - '../src/Entity/'
+            - '../src/Helpers/'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -47,33 +41,26 @@ services:
 
 
     ####################################################################################################################
-    # Email
+    # AI provider HTTP clients (with configurable timeouts)
     ####################################################################################################################
 
-    App\EventSubscriber\SetMailFromSubscriber:
-        tags: ['kernel.event_subscriber']
+    app.http_client.ai_ollama:
+        class: Symfony\Contracts\HttpClient\HttpClientInterface
+        factory: ['@http_client', 'withOptions']
         arguments:
-            $email: '%partdb.mail.sender_email%'
-            $name: '%partdb.mail.sender_name%'
+            - { timeout: '%env(int:settings:ai_ollama:timeout)%' }
 
-    ####################################################################################################################
-    # Log System
-    ####################################################################################################################
-
-    App\Services\LogSystem\EventLogger:
+    app.http_client.ai_lmstudio:
+        class: Symfony\Contracts\HttpClient\HttpClientInterface
+        factory: ['@http_client', 'withOptions']
         arguments:
-            # By default only log events which has minimum info level (debug levels are not logged)
-            # 7 is lowest level (debug), 0 highest (emergency
-            $minimum_log_level: 6
-            # Event classes specified here are not saved to DB
-            $blacklist: []
-            # Only the event classes specified here are saved to DB (set to []) to log all events
-            $whitelist: []
+            - { timeout: '%env(int:settings:ai_lmstudio:timeout)%' }
 
-    App\Services\Attachments\AttachmentSubmitHandler:
+    app.http_client.ai_openrouter:
+        class: Symfony\Contracts\HttpClient\HttpClientInterface
+        factory: ['@http_client', 'withOptions']
         arguments:
-            $mimeTypes: '@mime_types'
-
+            - { timeout: '%env(int:settings:ai_openrouter:timeout)%' }
 
     ####################################################################################################################
     # Attachment system
@@ -82,22 +69,6 @@ services:
     Liip\ImagineBundle\Service\FilterService:
         alias: 'liip_imagine.service.filter'
 
-    App\EntityListeners\AttachmentDeleteListener:
-        tags:
-            - name: doctrine.orm.entity_listener
-
-    App\Services\Attachments\AttachmentPathResolver:
-        arguments:
-            $project_dir: '%kernel.project_dir%'
-            $media_path: '%partdb.attachments.dir.media%'
-            $secure_path: '%partdb.attachments.dir.secure%'
-            $footprints_path: 'public/img/footprints'
-            $models_path: null
-
-    App\Services\Attachments\FileTypeFilterTools:
-        arguments:
-            $mimeTypes: '@mime_types'
-
     ####################################################################################################################
     # Security
     ####################################################################################################################
@@ -105,12 +76,6 @@ services:
     saml_user_factory:
         alias: App\Security\SamlUserFactory
         public: true
-
-    App\Security\SamlUserFactory:
-        arguments:
-            $saml_role_mapping: '%env(json:SAML_ROLE_MAPPING)%'
-            $update_group_on_login: '%env(bool:SAML_UPDATE_GROUP_ON_LOGIN)%'
-
 
     security.access_token_extractor.header.token:
         class: Symfony\Component\Security\Http\AccessToken\HeaderAccessTokenExtractor
@@ -123,84 +88,6 @@ services:
             $accessTokenExtractors:
                 - '@security.access_token_extractor.header'
                 - '@security.access_token_extractor.header.token'
-
-    ####################################################################################################################
-    # Cache
-    ####################################################################################################################
-
-    App\EntityListeners\TreeCacheInvalidationListener:
-        tags:
-            - { name: doctrine.orm.entity_listener }
-
-    ###################################################################################################################
-    # User system
-    ####################################################################################################################
-    App\Form\UserSettingsType:
-        arguments:
-            $demo_mode: '%partdb.demo_mode%'
-
-    App\Controller\SecurityController:
-        arguments:
-            $allow_email_pw_reset: '%partdb.users.email_pw_reset%'
-
-    App\Services\UserSystem\TFA\BackupCodeGenerator:
-        arguments:
-            $code_length: 8
-            $code_count: 15
-
-    App\Services\TranslationExtractor\PermissionExtractor:
-        tags:
-            - { name: 'translation.extractor', alias: 'permissionExtractor'}
-
-    App\Form\Type\ThemeChoiceType:
-        arguments:
-            $available_themes: '%partdb.available_themes%'
-
-    App\Validator\Constraints\ValidThemeValidator:
-        arguments:
-            $available_themes: '%partdb.available_themes%'
-
-    App\Command\User\ConvertToSAMLUserCommand:
-        arguments:
-            $saml_enabled: '%partdb.saml.enabled%'
-
-    ####################################################################################################################
-    # Table settings
-    ####################################################################################################################
-
-    App\DataTables\Helpers\ColumnSortHelper:
-        shared: false   # Service has a state so not share it between different tables
-
-    ####################################################################################################################
-    # Label system
-    ####################################################################################################################
-    App\Services\LabelSystem\LabelTextReplacer:
-        arguments:
-            $providers: !tagged_iterator 'app.label_placeholder_provider'
-
-    # PartLotProvider must be invoked before all other providers, so it can override %%NAME%% placeholder
-    App\Services\LabelSystem\PlaceholderProviders\PartLotProvider:
-        tags:
-            - { name: 'app.label_placeholder_provider', priority: 10}
-
-    App\Services\LabelSystem\DompdfFactory:
-        arguments:
-            $fontDirectory: '%kernel.project_dir%/var/dompdf/fonts/'
-            $tmpDirectory: '%kernel.project_dir%/var/dompdf/tmp/'
-
-    ####################################################################################################################
-    # Part info provider system
-    ####################################################################################################################
-    App\Services\InfoProviderSystem\ProviderRegistry:
-        arguments:
-            $providers: !tagged_iterator 'app.info_provider'
-
-    ####################################################################################################################
-    # API system
-    ####################################################################################################################
-    App\State\PartDBInfoProvider:
-        arguments:
-            $default_uri: '%partdb.default_uri%'
 
     ####################################################################################################################
     # Symfony overrides
@@ -221,41 +108,6 @@ services:
 
 
     ####################################################################################################################
-    # Miscellaneous
-    ####################################################################################################################
-    App\Controller\RedirectController:
-        arguments:
-            $enforce_index_php: '%env(bool:NO_URL_REWRITE_AVAILABLE)%'
-
-    App\Doctrine\Purger\ResetAutoIncrementPurgerFactory:
-        tags:
-            - { name: 'doctrine.fixtures.purger_factory', alias: 'reset_autoincrement_purger' }
-
-    App\Repository\PartRepository:
-        arguments:
-            $translator: '@translator'
-        tags: ['doctrine.repository_service']
-
-    App\EventSubscriber\UserSystem\PartUniqueIpnSubscriber:
-        tags:
-            - { name: doctrine.event_listener, event: onFlush, connection: default }
-
-
-    # We are needing this service inside a migration, where only the container is injected. So we need to define it as public, to access it from the container.
-    App\Services\UserSystem\PermissionPresetsHelper:
-        public: true
-
-    App\Command\BackupCommand:
-        arguments:
-            $project_dir: '%kernel.project_dir%'
-
-
-    App\Doctrine\Middleware\MySQLSSLConnectionMiddlewareWrapper:
-        arguments:
-            $enabled: '%env(bool:DATABASE_MYSQL_USE_SSL_CA)%'
-            $verify: '%env(bool:DATABASE_MYSQL_SSL_VERIFY_CERT)%'
-
-    ####################################################################################################################
     # Monolog
     ####################################################################################################################
     # Add various monolog processors to log more information
@@ -272,7 +124,14 @@ services:
         tags:
             - { name: monolog.processor }
 
-when@test:
+
+    webauthn.cose.algorithm.RS1:
+        class: Cose\Algorithm\Signature\RSA\RS1
+        arguments:
+            $acknowledgeInsecureAlgorithm: true
+
+
+when@test: &test
     services:
         # Decorate the doctrine fixtures load command to use our custom purger by default
         doctrine.fixtures_load_command.custom:

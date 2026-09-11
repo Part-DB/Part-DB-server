@@ -198,6 +198,7 @@ class WebauthnTFA {
     {
         const resultField = document.getElementById('_auth_code');
         resultField.value = JSON.stringify(data)
+        //requestSubmit() do not work here, probably because the submit is considered invalid. But as we do not use CSFR tokens, it should be fine.
         form.submit();
     }
 

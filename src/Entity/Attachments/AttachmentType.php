@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
-use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -46,7 +45,7 @@ use App\Validator\Constraints\ValidFileFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -56,8 +55,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: StructuralDBElementRepository::class)]
 #[ORM\Table(name: '`attachment_types`')]
-#[ORM\Index(columns: ['name'], name: 'attachment_types_idx_name')]
-#[ORM\Index(columns: ['parent_id', 'name'], name: 'attachment_types_idx_parent_name')]
+#[ORM\Index(name: 'attachment_types_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'attachment_types_idx_parent_name', columns: ['parent_id', 'name'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -65,20 +64,15 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
+        new GetCollection(
+            uriTemplate: '/attachment_types/{id}/children.{_format}',
+            uriVariables: ['id' => new Link(fromProperty: 'children', fromClass: AttachmentType::class)],
+            openapi: new Operation(summary: 'Retrieves the children elements of an attachment type.'),
+            security: 'is_granted("@attachment_types.read")'
+        ),
     ],
     normalizationContext: ['groups' => ['attachment_type:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['attachment_type:write', 'api:basic:write', 'attachment:write', 'parameter:write'], 'openapi_definition_name' => 'Write'],
-)]
-#[ApiResource(
-    uriTemplate: '/attachment_types/{id}/children.{_format}',
-    operations: [
-        new GetCollection(openapi: new Operation(summary: 'Retrieves the children elements of an attachment type.'),
-            security: 'is_granted("@attachment_types.read")')
-    ],
-    uriVariables: [
-        'id' => new Link(fromProperty: 'children', fromClass: AttachmentType::class)
-    ],
-    normalizationContext: ['groups' => ['attachment_type:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(LikeFilter::class, properties: ["name", "comment"])]
@@ -86,8 +80,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class AttachmentType extends AbstractStructuralDBElement
 {
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: AttachmentType::class, cascade: ['persist'])]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: AttachmentType::class, mappedBy: 'parent', cascade: ['persist'])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'children')]
@@ -110,8 +104,8 @@ class AttachmentType extends AbstractStructuralDBElement
      * @var Collection<int, AttachmentTypeAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: AttachmentTypeAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: AttachmentTypeAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['attachment_type:read', 'attachment_type:write', 'import', 'full'])]
     protected Collection $attachments;
 
@@ -123,16 +117,27 @@ class AttachmentType extends AbstractStructuralDBElement
     /** @var Collection<int, AttachmentTypeParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: AttachmentTypeParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OneToMany(targetEntity: AttachmentTypeParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['attachment_type:read', 'attachment_type:write', 'import', 'full'])]
     protected Collection $parameters;
 
     /**
      * @var Collection<Attachment>
      */
-    #[ORM\OneToMany(mappedBy: 'attachment_type', targetEntity: Attachment::class)]
+    #[ORM\OneToMany(targetEntity: Attachment::class, mappedBy: 'attachment_type')]
     protected Collection $attachments_with_type;
+
+    /**
+     * @var string[]|null A list of allowed targets where this attachment type can be assigned to, as a list of portable names
+     */
+    #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true)]
+    protected ?array $allowed_targets = null;
+
+    /**
+     * @var class-string<Attachment>[]|null
+     */
+    protected ?array $allowed_targets_parsed_cache = null;
 
     #[Groups(['attachment_type:read'])]
     protected ?\DateTimeImmutable $addedDate = null;
@@ -183,5 +188,108 @@ class AttachmentType extends AbstractStructuralDBElement
         $this->filetype_filter = $filetype_filter;
 
         return $this;
+    }
+
+    /**
+     * Checks if this attachment type allows pictures (i.e. if the filetype filter allows image files).
+     * If no filetype filter is set, this method returns true, as it is assumed that all file types are allowed.
+     * @return bool
+     */
+    public function allowsPictures(): bool
+    {
+        if ($this->filetype_filter === '') {
+            return true;
+        }
+
+        foreach (explode(',', $this->filetype_filter) as $allowed) {
+            $allowed = strtolower(trim($allowed));
+
+            if ($allowed === '*' || $allowed === '*/*' || str_starts_with($allowed, 'image/')) {
+                return true;
+            }
+
+            if (in_array(ltrim($allowed, '.'), Attachment::PICTURE_EXTS, true)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns a list of allowed targets as class names (e.g. PartAttachment::class), where this attachment type can be assigned to. If null, there are no restrictions.
+     * @return class-string<Attachment>[]|null
+     */
+    public function getAllowedTargets(): ?array
+    {
+        //Use cached value if available
+        if ($this->allowed_targets_parsed_cache !== null) {
+            return $this->allowed_targets_parsed_cache;
+        }
+
+        if (empty($this->allowed_targets)) {
+            return null;
+        }
+
+        $tmp = [];
+        foreach ($this->allowed_targets as $target) {
+            if (isset(Attachment::ORM_DISCRIMINATOR_MAP[$target])) {
+                $tmp[] = Attachment::ORM_DISCRIMINATOR_MAP[$target];
+            }
+            //Otherwise ignore the entry, as it is invalid
+        }
+
+        //Cache the parsed value
+        $this->allowed_targets_parsed_cache = $tmp;
+        return $tmp;
+    }
+
+    /**
+     * Sets the allowed targets for this attachment type. Allowed targets are specified as a list of class names (e.g. PartAttachment::class). If null is passed, there are no restrictions.
+     * @param  class-string<Attachment>[]|null  $allowed_targets
+     * @return $this
+     */
+    public function setAllowedTargets(?array $allowed_targets): self
+    {
+        if ($allowed_targets === null) {
+            $this->allowed_targets = null;
+        } else {
+            $tmp = [];
+            foreach ($allowed_targets as $target) {
+                $discriminator = array_search($target, Attachment::ORM_DISCRIMINATOR_MAP, true);
+                if ($discriminator !== false) {
+                    $tmp[] = $discriminator;
+                } else {
+                    throw new \InvalidArgumentException("Invalid allowed target: $target. Allowed targets must be a class name of an Attachment subclass.");
+                }
+            }
+            $this->allowed_targets = $tmp;
+        }
+
+        //Reset the cache
+        $this->allowed_targets_parsed_cache = null;
+        return $this;
+    }
+
+    /**
+     * Checks if this attachment type is allowed for the given attachment target.
+     * @param  Attachment|string  $attachment
+     * @return bool
+     */
+    public function isAllowedForTarget(Attachment|string $attachment): bool
+    {
+        //If no restrictions are set, allow all targets
+        if ($this->getAllowedTargets() === null) {
+            return true;
+        }
+
+        //Iterate over all allowed targets and check if the attachment is an instance of any of them
+        foreach ($this->getAllowedTargets() as $allowed_target) {
+            if (is_a($attachment, $allowed_target, true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

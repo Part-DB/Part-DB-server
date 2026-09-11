@@ -28,37 +28,43 @@ use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Settings\InfoProviderSystem\LCSCSettings;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class LCSCProvider implements BatchInfoProviderInterface
+class LCSCProvider implements BatchInfoProviderInterface, URLHandlerInfoProviderInterface
 {
 
     private const ENDPOINT_URL = 'https://wmsc.lcsc.com/ftps/wm';
 
     public const DISTRIBUTOR_NAME = 'LCSC';
+    public const PROVIDER_KEY = 'lcsc';
 
     public function __construct(private readonly HttpClientInterface $lcscClient, private readonly LCSCSettings $settings)
     {
 
     }
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'LCSC',
-            'description' => 'This provider uses the (unofficial) LCSC API to search for parts.',
-            'url' => 'https://www.lcsc.com/',
-            'disabled_help' => 'Enable this provider in the provider settings.',
-            'settings_class' => LCSCSettings::class,
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'lcsc';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'LCSC',
+            description: 'This provider uses the (unofficial) LCSC API to search for parts.',
+            url: 'https://www.lcsc.com/',
+            disabledHelp: 'Enable this provider in the provider settings.',
+            settingsClass: LCSCSettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::DATASHEET,
+                ProviderCapabilities::PRICE,
+                ProviderCapabilities::FOOTPRINT,
+                ProviderCapabilities::PARAMETERS
+            ],
+        );
     }
 
     // This provider is always active
@@ -136,7 +142,9 @@ class LCSCProvider implements BatchInfoProviderInterface
             }
         }
 
-        $response = $this->lcscClient->request('POST', self::ENDPOINT_URL . "/search/v2/global", [
+        //First we try the search v3 endpoint, which seems to give better results including pictures, but it only works
+        //on quite exact mpn matches
+        $response = $this->lcscClient->request('POST', self::ENDPOINT_URL . "/search/v3/global", [
             'headers' => [
                 'Cookie' => new Cookie('currencyCode', $this->settings->currency)
             ],
@@ -147,19 +155,28 @@ class LCSCProvider implements BatchInfoProviderInterface
 
         $arr = $response->toArray();
 
-        // Get products list
-        $products = $arr['result']['productSearchResultVO']['productList'] ?? [];
-        // Get product tip
-        $tipProductCode = $arr['result']['tipProductDetailUrlVO']['productCode'] ?? null;
+        //If we get exact matches, use them
+        if (!empty($arr['result']['exactMatchResult'])) {
+            $products = $arr['result']['exactMatchResult'];
+        } else { //Otherwise fallback onto the third search endpoint, which has a worse data quality but is more likely to return results for vague search terms
+            $response = $this->lcscClient->request('POST', self::ENDPOINT_URL."/search/third", [
+                'headers' => [
+                    'Cookie' => new Cookie('currencyCode', $this->settings->currency)
+                ],
+                'json' => [
+                    'keyword' => $term,
+                    'currentPage' => 1,
+                    'pageSize' => 10,
+                ],
+            ]);
+
+            $arr = $response->toArray();
+
+            // Get products list
+            $products = $arr['result']['productList'] ?? [];
+        }
 
         $result = [];
-
-        // LCSC does not display LCSC codes in the search, instead taking you directly to the
-        // detailed product listing. It does so utilizing a product tip field.
-        // If product tip exists and there are no products in the product list try a detail query
-        if (count($products) === 0 && $tipProductCode !== null) {
-            $result[] = $this->queryDetail($tipProductCode, $lightweight);
-        }
 
         foreach ($products as $product) {
             $result[] = $this->getPartDetail($product, $lightweight);
@@ -216,10 +233,10 @@ class LCSCProvider implements BatchInfoProviderInterface
         }
 
         return new PartDetailDTO(
-            provider_key: $this->getProviderKey(),
+            provider_key: self::PROVIDER_KEY,
             provider_id: $product['productCode'],
             name: $product['productModel'],
-            description: $this->sanitizeField($product['productIntroEn']),
+            description: $this->sanitizeField($product['productIntroEn']) ?? '',
             category: $this->sanitizeField($category ?? null),
             manufacturer: $this->sanitizeField($product['brandNameEn'] ?? null),
             mpn: $this->sanitizeField($product['productModel'] ?? null),
@@ -349,17 +366,18 @@ class LCSCProvider implements BatchInfoProviderInterface
         return $result;
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         return $this->queryByTerm($keyword, true); // Use lightweight mode for search
     }
 
     /**
      * Batch search multiple keywords asynchronously (like JavaScript Promise.all)
-     * @param array $keywords Array of keywords to search
+     * @param  array  $keywords
+     * @param  array  $options
      * @return array Results indexed by keyword
      */
-    public function searchByKeywordsBatch(array $keywords): array
+    public function searchByKeywordsBatch(array $keywords, array $options = []): array
     {
         if (empty($keywords)) {
             return [];
@@ -382,7 +400,7 @@ class LCSCProvider implements BatchInfoProviderInterface
                 ]);
             } else {
                 // Search API call for other terms
-                $responses[$keyword] = $this->lcscClient->request('POST', self::ENDPOINT_URL . "/search/v2/global", [
+                $responses[$keyword] = $this->lcscClient->request('POST', self::ENDPOINT_URL . "/search/v3/global", [
                     'headers' => [
                         'Cookie' => new Cookie('currencyCode', $this->settings->currency)
                     ],
@@ -396,6 +414,7 @@ class LCSCProvider implements BatchInfoProviderInterface
         // Now collect all results (like .then() in JavaScript)
         foreach ($responses as $keyword => $response) {
             try {
+                $keyword = (string) $keyword;
                 $arr = $response->toArray(); // This waits for the response
                 $results[$keyword] = $this->processSearchResponse($arr, $keyword);
             } catch (\Exception $e) {
@@ -428,7 +447,7 @@ class LCSCProvider implements BatchInfoProviderInterface
         return $result;
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         $tmp = $this->queryByTerm($id, false);
         if (count($tmp) === 0) {
@@ -442,14 +461,20 @@ class LCSCProvider implements BatchInfoProviderInterface
         return $tmp[0];
     }
 
-    public function getCapabilities(): array
+    public function getHandledDomains(): array
     {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::DATASHEET,
-            ProviderCapabilities::PRICE,
-            ProviderCapabilities::FOOTPRINT,
-        ];
+        return ['lcsc.com'];
+    }
+
+    public function getIDFromURL(string $url): ?string
+    {
+        //Input example: https://www.lcsc.com/product-detail/C258144.html?s_z=n_BC547
+        //The part between the "C" and the ".html" is the unique ID
+
+        $matches = [];
+        if (preg_match("#/product-detail/(\w+)\.html#", $url, $matches) > 0) {
+            return $matches[1];
+        }
+        return null;
     }
 }

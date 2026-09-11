@@ -26,7 +26,7 @@ namespace App\Entity\EDA;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Embeddable;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\Length;
 
 #[Embeddable]
@@ -58,7 +58,7 @@ class EDACategoryInfo
     /** @var bool|null If this is set to true, then this part will be excluded in the simulation */
     #[Column(type: Types::BOOLEAN, nullable: true)]
     #[Groups(['full', 'category:read', 'category:write', 'import'])]
-    private ?bool $exclude_from_sim = true;
+    private ?bool $exclude_from_sim = null;
 
     /** @var string|null The KiCAD schematic symbol, which should be used (the path to the library) */
     #[Column(type: Types::STRING, nullable: true)]
@@ -71,7 +71,7 @@ class EDACategoryInfo
         return $this->reference_prefix;
     }
 
-    public function setReferencePrefix(?string $reference_prefix): EDACategoryInfo
+    public function setReferencePrefix(?string $reference_prefix): self
     {
         $this->reference_prefix = $reference_prefix;
         return $this;
@@ -82,7 +82,7 @@ class EDACategoryInfo
         return $this->visibility;
     }
 
-    public function setVisibility(?bool $visibility): EDACategoryInfo
+    public function setVisibility(?bool $visibility): self
     {
         $this->visibility = $visibility;
         return $this;
@@ -93,7 +93,7 @@ class EDACategoryInfo
         return $this->exclude_from_bom;
     }
 
-    public function setExcludeFromBom(?bool $exclude_from_bom): EDACategoryInfo
+    public function setExcludeFromBom(?bool $exclude_from_bom): self
     {
         $this->exclude_from_bom = $exclude_from_bom;
         return $this;
@@ -104,7 +104,7 @@ class EDACategoryInfo
         return $this->exclude_from_board;
     }
 
-    public function setExcludeFromBoard(?bool $exclude_from_board): EDACategoryInfo
+    public function setExcludeFromBoard(?bool $exclude_from_board): self
     {
         $this->exclude_from_board = $exclude_from_board;
         return $this;
@@ -115,7 +115,7 @@ class EDACategoryInfo
         return $this->exclude_from_sim;
     }
 
-    public function setExcludeFromSim(?bool $exclude_from_sim): EDACategoryInfo
+    public function setExcludeFromSim(?bool $exclude_from_sim): self
     {
         $this->exclude_from_sim = $exclude_from_sim;
         return $this;
@@ -126,7 +126,7 @@ class EDACategoryInfo
         return $this->kicad_symbol;
     }
 
-    public function setKicadSymbol(?string $kicad_symbol): EDACategoryInfo
+    public function setKicadSymbol(?string $kicad_symbol): self
     {
         $this->kicad_symbol = $kicad_symbol;
         return $this;

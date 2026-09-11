@@ -28,7 +28,7 @@ use App\Entity\PriceInformations\Pricedetail;
 use Brick\Math\BigDecimal;
 use PHPUnit\Framework\TestCase;
 
-class PricedetailTest extends TestCase
+final class PricedetailTest extends TestCase
 {
     public function testGetPricePerUnit(): void
     {

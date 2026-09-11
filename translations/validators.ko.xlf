@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="ko">
+  <file id="validators.en">
+    <unit id="cRbk.cm" name="part.master_attachment.must_be_picture">
+      <segment state="translated">
+        <source>part.master_attachment.must_be_picture</source>
+        <target>미리보기 첨부파일은 유효한 사진이어야 합니다!</target>
+      </segment>
+    </unit>
+    <unit id="v8HkcJB" name="structural.entity.unique_name">
+      <segment state="translated">
+        <source>structural.entity.unique_name</source>
+        <target>이 계층에 같은 이름의 요소가 이미 있습니다!</target>
+      </segment>
+    </unit>
+    <unit id="dW7b2B_" name="parameters.validator.min_lesser_typical">
+      <segment state="translated">
+        <source>parameters.validator.min_lesser_typical</source>
+        <target>값은 일반값({{ compared_value }}) 이하여야 합니다.</target>
+      </segment>
+    </unit>
+    <unit id="Yfp2uC5" name="parameters.validator.min_lesser_max">
+      <segment state="translated">
+        <source>parameters.validator.min_lesser_max</source>
+        <target>값은 최대값({{ compared_value }})보다 작아야 합니다.</target>
+      </segment>
+    </unit>
+    <unit id="P6b.8Ou" name="parameters.validator.max_greater_typical">
+      <segment state="translated">
+        <source>parameters.validator.max_greater_typical</source>
+        <target>값은 일반값({{ compared_value }}) 이상이어야 합니다.</target>
+      </segment>
+    </unit>
+    <unit id="P41193Y" name="validator.user.username_already_used">
+      <segment state="translated">
+        <source>validator.user.username_already_used</source>
+        <target>같은 이름의 사용자가 이미 있습니다</target>
+      </segment>
+    </unit>
+    <unit id="EKPQiyf" name="user.invalid_username">
+      <segment state="translated">
+        <source>user.invalid_username</source>
+        <target>사용자 이름은 문자, 숫자, 밑줄, 마침표, 더하기, 빼기만 포함할 수 있으며 @로 시작할 수 없습니다!</target>
+      </segment>
+    </unit>
+    <unit id="_v.DMg." name="validator.noneofitschild.self">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.noneofitschild.self</source>
+        <target>요소는 자기 자신의 상위가 될 수 없습니다!</target>
+      </segment>
+    </unit>
+    <unit id="W90LyFQ" name="validator.noneofitschild.children">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.noneofitschild.children</source>
+        <target>하위 요소를 상위 요소로 지정할 수 없습니다 (순환이 발생합니다)!</target>
+      </segment>
+    </unit>
+    <unit id="GAUS.LK" name="validator.select_valid_category">
+      <segment state="translated">
+        <source>validator.select_valid_category</source>
+        <target>유효한 카테고리를 선택하세요!</target>
+      </segment>
+    </unit>
+    <unit id="h6qELde" name="validator.part_lot.only_existing">
+      <segment state="translated">
+        <source>validator.part_lot.only_existing</source>
+        <target>이 위치는 "기존 항목만"으로 표시되어 새 부품을 추가할 수 없습니다</target>
+      </segment>
+    </unit>
+    <unit id="Prriyy0" name="validator.part_lot.location_full.no_increase">
+      <segment state="translated">
+        <source>validator.part_lot.location_full.no_increase</source>
+        <target>위치가 가득 찼습니다. 수량을 늘릴 수 없습니다 (새 값은 {{ old_amount }}보다 작아야 합니다).</target>
+      </segment>
+    </unit>
+    <unit id="eeEjB4s" name="validator.part_lot.location_full">
+      <segment state="translated">
+        <source>validator.part_lot.location_full</source>
+        <target>위치가 가득 찼습니다. 새 부품을 추가할 수 없습니다.</target>
+      </segment>
+    </unit>
+    <unit id="2yWi8eP" name="validator.part_lot.single_part">
+      <segment state="translated">
+        <source>validator.part_lot.single_part</source>
+        <target>이 위치는 단일 부품만 보관할 수 있으며 이미 가득 찼습니다!</target>
+      </segment>
+    </unit>
+    <unit id="A.TFhbb" name="validator.attachment.must_not_be_null">
+      <segment state="translated">
+        <source>validator.attachment.must_not_be_null</source>
+        <target>첨부파일 형식을 선택해야 합니다!</target>
+      </segment>
+    </unit>
+    <unit id=".lqKoij" name="validator.orderdetail.supplier_must_not_be_null">
+      <segment state="translated">
+        <source>validator.orderdetail.supplier_must_not_be_null</source>
+        <target>판매처를 선택해야 합니다!</target>
+      </segment>
+    </unit>
+    <unit id="bcNZzK." name="validator.measurement_unit.use_si_prefix_needs_unit">
+      <segment state="translated">
+        <source>validator.measurement_unit.use_si_prefix_needs_unit</source>
+        <target>SI 접두사를 사용하려면 단위 기호를 설정해야 합니다!</target>
+      </segment>
+    </unit>
+    <unit id="gZ5FFL1" name="part.ipn.must_be_unique">
+      <segment state="translated">
+        <source>part.ipn.must_be_unique</source>
+        <target>내부 부품 번호는 고유해야 합니다. {{ value }}은(는) 이미 사용 중입니다!</target>
+      </segment>
+    </unit>
+    <unit id="P31Yg.d" name="validator.project.bom_entry.name_or_part_needed">
+      <segment state="translated">
+        <source>validator.project.bom_entry.name_or_part_needed</source>
+        <target>부품 BOM 항목에는 부품을 선택하고, 부품이 아닌 BOM 항목에는 이름을 설정해야 합니다.</target>
+      </segment>
+    </unit>
+    <unit id="5CEup_N" name="project.bom_entry.name_already_in_bom">
+      <segment state="translated">
+        <source>project.bom_entry.name_already_in_bom</source>
+        <target>같은 이름의 BOM 항목이 이미 있습니다!</target>
+      </segment>
+    </unit>
+    <unit id="jB3B50E" name="project.bom_entry.part_already_in_bom">
+      <segment state="translated">
+        <source>project.bom_entry.part_already_in_bom</source>
+        <target>이 부품은 이미 BOM에 있습니다!</target>
+      </segment>
+    </unit>
+    <unit id="NdkzP1n" name="project.bom_entry.mountnames_quantity_mismatch">
+      <segment state="translated">
+        <source>project.bom_entry.mountnames_quantity_mismatch</source>
+        <target>장착 이름의 수는 BOM 수량과 일치해야 합니다!</target>
+      </segment>
+    </unit>
+    <unit id="8teRCgR" name="project.bom_entry.can_not_add_own_builds_part">
+      <segment state="translated">
+        <source>project.bom_entry.can_not_add_own_builds_part</source>
+        <target>프로젝트 자신의 빌드 부품을 BOM에 추가할 수 없습니다.</target>
+      </segment>
+    </unit>
+    <unit id="asBxPxe" name="project.bom_has_to_include_all_subelement_parts">
+      <segment state="translated">
+        <source>project.bom_has_to_include_all_subelement_parts</source>
+        <target>프로젝트 BOM에는 모든 하위 프로젝트의 빌드 부품이 포함되어야 합니다. %project_name% 프로젝트의 %part_name% 부품이 누락되었습니다!</target>
+      </segment>
+    </unit>
+    <unit id="uxaE9Ct" name="project.bom_entry.price_not_allowed_on_parts">
+      <segment state="translated">
+        <source>project.bom_entry.price_not_allowed_on_parts</source>
+        <target>부품과 연결된 BOM 항목에는 가격을 설정할 수 없습니다. 대신 부품에 가격을 정의하세요.</target>
+      </segment>
+    </unit>
+    <unit id="xZ68Nzl" name="validator.project_build.lot_bigger_than_needed">
+      <segment state="translated">
+        <source>validator.project_build.lot_bigger_than_needed</source>
+        <target>필요한 것보다 많은 출고 수량을 선택했습니다! 불필요한 수량을 제거하세요.</target>
+      </segment>
+    </unit>
+    <unit id="68_.V_X" name="validator.project_build.lot_smaller_than_needed">
+      <segment state="translated">
+        <source>validator.project_build.lot_smaller_than_needed</source>
+        <target>제작에 필요한 것보다 적은 출고 수량을 선택했습니다! 수량을 추가하세요.</target>
+      </segment>
+    </unit>
+    <unit id="yZGS8uZ" name="part.name.must_match_category_regex">
+      <segment state="translated">
+        <source>part.name.must_match_category_regex</source>
+        <target>부품 이름이 카테고리에서 지정한 정규 표현식과 일치하지 않습니다: %regex%</target>
+      </segment>
+    </unit>
+    <unit id="Q8wP5Jd" name="validator.attachment.name_not_blank">
+      <segment state="translated">
+        <source>validator.attachment.name_not_blank</source>
+        <target>여기에 값을 설정하거나, 파일을 업로드하여 파일 이름을 첨부파일 이름으로 자동 사용하세요.</target>
+      </segment>
+    </unit>
+    <unit id="DH0IkNR" name="validator.part_lot.owner_must_match_storage_location_owner">
+      <segment state="translated">
+        <source>validator.part_lot.owner_must_match_storage_location_owner</source>
+        <target>이 로트의 소유자는 선택한 보관 위치의 소유자(%owner_name%)와 일치해야 합니다!</target>
+      </segment>
+    </unit>
+    <unit id="TzySicw" name="validator.part_lot.owner_must_not_be_anonymous">
+      <segment state="translated">
+        <source>validator.part_lot.owner_must_not_be_anonymous</source>
+        <target>로트 소유자는 익명 사용자일 수 없습니다!</target>
+      </segment>
+    </unit>
+    <unit id="GthNWUb" name="validator.part_association.must_set_an_value_if_type_is_other">
+      <segment state="translated">
+        <source>validator.part_association.must_set_an_value_if_type_is_other</source>
+        <target>유형을 "기타"로 설정한 경우 이를 설명하는 값을 설정해야 합니다!</target>
+      </segment>
+    </unit>
+    <unit id="Be4Im81" name="validator.part_association.part_cannot_be_associated_with_itself">
+      <segment state="translated">
+        <source>validator.part_association.part_cannot_be_associated_with_itself</source>
+        <target>부품은 자기 자신과 연관될 수 없습니다!</target>
+      </segment>
+    </unit>
+    <unit id="q5Ej6Xm" name="validator.part_association.already_exists">
+      <segment state="translated">
+        <source>validator.part_association.already_exists</source>
+        <target>이 부품과의 연관이 이미 있습니다!</target>
+      </segment>
+    </unit>
+    <unit id="HbI5bga" name="validator.part_lot.vendor_barcode_must_be_unique">
+      <segment state="translated">
+        <source>validator.part_lot.vendor_barcode_must_be_unique</source>
+        <target>이 공급업체 바코드 값은 다른 로트에서 이미 사용되었습니다. 바코드는 고유해야 합니다!</target>
+      </segment>
+    </unit>
+    <unit id="ufQJh7E" name="validator.year_2038_bug_on_32bit">
+      <segment state="translated">
+        <source>validator.year_2038_bug_on_32bit</source>
+        <target>기술적 제약으로 인해 32비트 시스템에서는 2038-01-19 이후의 날짜를 선택할 수 없습니다!</target>
+      </segment>
+    </unit>
+    <unit id="iM9yb_p" name="validator.fileSize.invalidFormat">
+      <segment state="translated">
+        <source>validator.fileSize.invalidFormat</source>
+        <target>유효하지 않은 파일 크기 형식입니다. 정수와 함께 킬로, 메가, 기가바이트를 뜻하는 K, M, G 접미사를 사용하세요.</target>
+      </segment>
+    </unit>
+    <unit id="ZFxQ0BZ" name="validator.invalid_range">
+      <segment state="translated">
+        <source>validator.invalid_range</source>
+        <target>지정한 범위가 유효하지 않습니다!</target>
+      </segment>
+    </unit>
+    <unit id="m4gp2P_" name="validator.google_code.wrong_code">
+      <segment state="translated">
+        <source>validator.google_code.wrong_code</source>
+        <target>유효하지 않은 코드입니다. 인증 앱이 올바르게 설정되어 있는지, 서버와 인증 기기의 시간이 정확한지 확인하세요.</target>
+      </segment>
+    </unit>
+    <unit id="I330cr5" name="settings.synonyms.type_synonyms.collection_type.duplicate">
+      <segment state="translated">
+        <source>settings.synonyms.type_synonyms.collection_type.duplicate</source>
+        <target>이 유형과 언어에 대한 번역이 이미 정의되어 있습니다!</target>
+      </segment>
+    </unit>
+    <unit id="zT_j_oQ" name="validator.invalid_gtin">
+      <segment state="translated">
+        <source>validator.invalid_gtin</source>
+        <target>유효한 GTIN / EAN이 아닙니다!</target>
+      </segment>
+    </unit>
+    <unit id="vnpejmb" name="info_providers.validation.provider_id_without_key">
+      <segment state="translated">
+        <source>info_providers.validation.provider_id_without_key</source>
+        <target>제공자 ID를 지정하려면 정보 제공자도 지정하거나, 둘 다 제거해야 합니다.</target>
+      </segment>
+    </unit>
+    <unit id="yFlA5OA" name="info_providers.validation.provider_url_without_key">
+      <segment state="translated">
+        <source>info_providers.validation.provider_url_without_key</source>
+        <target>제공자 URL을 지정하려면 정보 제공자도 지정해야 합니다.</target>
+      </segment>
+    </unit>
+    <unit id="gUHUXoV" name="info_providers.validation.provider_key_without_id">
+      <segment state="translated">
+        <source>info_providers.validation.provider_key_without_id</source>
+        <target>정보 제공자를 지정하려면 제공자 ID도 지정하거나, 둘 다 제거해야 합니다.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

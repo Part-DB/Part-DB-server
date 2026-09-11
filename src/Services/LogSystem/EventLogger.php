@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\LogSystem;
 
+use App\Entity\LogSystem\AccessMethod;
 use App\Entity\LogSystem\LogLevel;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -29,6 +30,7 @@ use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\UserSystem\User;
 use App\Services\Misc\ConsoleInfoHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @see \App\Tests\Services\LogSystem\EventLoggerTest
@@ -37,7 +39,19 @@ class EventLogger
 {
     protected LogLevel $minimum_log_level;
 
-    public function __construct(int $minimum_log_level, protected array $blacklist, protected array $whitelist, protected EntityManagerInterface $em, protected Security $security, protected ConsoleInfoHelper $console_info_helper)
+    public function __construct(
+        protected EntityManagerInterface $em,
+        protected Security $security,
+        protected ConsoleInfoHelper $console_info_helper,
+        protected RequestContextHelper $request_context_helper,
+        // By default only log events which has minimum info level (debug levels are not logged)
+        // 7 is lowest level (debug), 0 highest (emergency)
+        int $minimum_log_level = 6,
+        // Event classes specified here are not saved to DB
+        protected array $blacklist = [],
+        // Only the event classes specified here are saved to DB (set to []) to log all events
+        protected array $whitelist = [],
+    )
     {
         $this->minimum_log_level = LogLevel::tryFrom($minimum_log_level);
     }
@@ -63,6 +77,14 @@ class EventLogger
                 return false;
             }
             $logEntry->setUser($user);
+        }
+
+        //Set the access method and request ID, if not already set explicitly on the log entry
+        if (!$logEntry->getAccessMethod() instanceof AccessMethod) {
+            $logEntry->setAccessMethod($this->request_context_helper->getAccessMethod());
+        }
+        if (!$logEntry->getRequestId() instanceof Uuid) {
+            $logEntry->setRequestId($this->request_context_helper->getRequestId());
         }
 
         //Set the console user info, if the log entry was created in a console command

@@ -46,7 +46,7 @@ use App\Entity\Base\AbstractDBElement;
 use App\Services\LabelSystem\PlaceholderProviders\AbstractDBElementProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class AbstractElementProviderTest extends WebTestCase
+final class AbstractElementProviderTest extends WebTestCase
 {
     /**
      * @var AbstractDBElementProvider

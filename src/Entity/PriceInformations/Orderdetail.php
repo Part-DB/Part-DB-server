@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
-use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
@@ -51,7 +50,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Length;
 
@@ -62,7 +61,7 @@ use Symfony\Component\Validator\Constraints\Length;
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Table('`orderdetails`')]
-#[ORM\Index(columns: ['supplierpartnr'], name: 'orderdetails_supplier_part_nr')]
+#[ORM\Index(name: 'orderdetails_supplier_part_nr', columns: ['supplierpartnr'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -70,22 +69,16 @@ use Symfony\Component\Validator\Constraints\Length;
         new Post(securityPostDenormalize: 'is_granted("create", object)'),
         new Patch(security: 'is_granted("edit", object)'),
         new Delete(security: 'is_granted("delete", object)'),
+        new GetCollection(
+            uriTemplate: '/parts/{id}/orderdetails.{_format}',
+            uriVariables: ['id' => new Link(toProperty: 'part', fromClass: Part::class)],
+            openapi: new Operation(summary: 'Retrieves the orderdetails of a part.'),
+            normalizationContext: ['groups' => ['orderdetail:read', 'pricedetail:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
+            security: 'is_granted("@parts.read")'
+        ),
     ],
     normalizationContext: ['groups' => ['orderdetail:read', 'orderdetail:read:standalone',  'api:basic:read', 'pricedetail:read'], 'openapi_definition_name' => 'Read'],
     denormalizationContext: ['groups' => ['orderdetail:write', 'api:basic:write'], 'openapi_definition_name' => 'Write'],
-)]
-#[ApiResource(
-    uriTemplate: '/parts/{id}/orderdetails.{_format}',
-    operations: [
-        new GetCollection(
-            openapi: new Operation(summary: 'Retrieves the orderdetails of a part.'),
-            security: 'is_granted("@parts.read")'
-        )
-    ],
-    uriVariables: [
-        'id' => new Link(toProperty: 'part', fromClass: Part::class)
-    ],
-    normalizationContext: ['groups' => ['orderdetail:read', 'pricedetail:read', 'api:basic:read'], 'openapi_definition_name' => 'Read']
 )]
 #[ApiFilter(PropertyFilter::class)]
 #[ApiFilter(PropertyFilter::class)]
@@ -102,8 +95,8 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
-    #[ORM\OneToMany(mappedBy: 'orderdetail', targetEntity: Pricedetail::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['min_discount_quantity' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: Pricedetail::class, mappedBy: 'orderdetail', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['min_discount_quantity' => 'ASC'])]
     protected Collection $pricedetails;
 
     /**
@@ -120,6 +113,13 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
     #[ORM\Column(type: Types::BOOLEAN)]
     protected bool $obsolete = false;
+
+    /**
+     * @var bool|null Whether this orderdetail's supplier part number should be exported as an EDA field. Null means use system default.
+     */
+    #[Groups(['full', 'import', 'orderdetail:read', 'orderdetail:write'])]
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true, options: ['default' => null])]
+    protected ?bool $eda_visibility = null;
 
     /**
      * @var string The URL to the product on the supplier's website
@@ -144,8 +144,15 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     #[Assert\NotNull(message: 'validator.orderdetail.supplier_must_not_be_null')]
     #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
     #[ORM\ManyToOne(targetEntity: Supplier::class, inversedBy: 'orderdetails')]
-    #[ORM\JoinColumn(name: 'id_supplier')]
+    #[ORM\JoinColumn(name: 'id_supplier', nullable: false)]
     protected ?Supplier $supplier = null;
+
+    /**
+     * @var bool|null Whether the prices includes VAT or not. Null means, that it is not specified, if the prices includes VAT or not.
+     */
+    #[ORM\Column(type: Types::BOOLEAN, nullable: true)]
+    #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
+    protected ?bool $prices_includes_vat = null;
 
     public function __construct()
     {
@@ -384,6 +391,43 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
         }
 
         $this->supplier_product_url = $new_url;
+
+        return $this;
+    }
+
+    /**
+     * Checks if the prices of this orderdetail include VAT. Null means, that it is not specified, if the prices includes
+     * VAT or not.
+     * @return bool|null
+     */
+    public function getPricesIncludesVAT(): ?bool
+    {
+        return $this->prices_includes_vat;
+    }
+
+    /**
+     * Sets whether the prices of this orderdetail include VAT.
+     * @param  bool|null  $includesVat
+     * @return $this
+     */
+    public function setPricesIncludesVAT(?bool $includesVat): self
+    {
+        $this->prices_includes_vat = $includesVat;
+
+        return $this;
+    }
+
+    public function isEdaVisibility(): ?bool
+    {
+        return $this->eda_visibility;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setEdaVisibility(?bool $eda_visibility): self
+    {
+        $this->eda_visibility = $eda_visibility;
 
         return $this;
     }

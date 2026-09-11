@@ -1,0 +1,16 @@
+framework:
+    # The default "oauth_client_registration" limiter (config/packages/rate_limiter.yaml) stores its state
+    # in the "cache.rate_limiter" pool, which is filesystem-backed and therefore persists across separate
+    # phpunit invocations (unlike the DB, which DAMADoctrineTestBundle wraps in a rolled-back transaction
+    # per test). Tests hitting POST /oauth/register for real (tests/Controller/OAuth/ClientRegistrationControllerTest.php)
+    # all share the same client IP (127.0.0.1) as the limiter key, so without this override, repeated test
+    # runs within the same hour would eventually start getting real 429s instead of the responses the
+    # tests actually assert on. An array-adapter pool is fresh for every kernel boot, so it never persists
+    # between test runs.
+    cache:
+        pools:
+            test.rate_limiter.cache:
+                adapter: cache.adapter.array
+    rate_limiter:
+        oauth_client_registration:
+            cache_pool: test.rate_limiter.cache

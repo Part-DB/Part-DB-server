@@ -2,166 +2,42 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
   <file id="validators.en">
     <unit id="cRbk.cm" name="part.master_attachment.must_be_picture">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentContainingDBElement.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\LabelSystem\LabelProfile.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Part.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Part.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Parts\Part.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
-      </notes>
       <segment state="translated">
         <source>part.master_attachment.must_be_picture</source>
         <target>The preview attachment must be a valid picture!</target>
       </segment>
     </unit>
     <unit id="v8HkcJB" name="structural.entity.unique_name">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
-        <note priority="1">src\Entity\AttachmentType.php:0</note>
-        <note priority="1">src\Entity\Category.php:0</note>
-        <note priority="1">src\Entity\Company.php:0</note>
-        <note priority="1">src\Entity\Device.php:0</note>
-        <note priority="1">src\Entity\Footprint.php:0</note>
-        <note priority="1">src\Entity\Group.php:0</note>
-        <note priority="1">src\Entity\Manufacturer.php:0</note>
-        <note priority="1">src\Entity\PartsContainingDBElement.php:0</note>
-        <note priority="1">src\Entity\Storelocation.php:0</note>
-        <note priority="1">src\Entity\StructuralDBElement.php:0</note>
-        <note priority="1">src\Entity\Supplier.php:0</note>
-      </notes>
       <segment state="translated">
         <source>structural.entity.unique_name</source>
         <target>An element with this name already exists on this level!</target>
       </segment>
     </unit>
     <unit id="dW7b2B_" name="parameters.validator.min_lesser_typical">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AbstractParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AttachmentTypeParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CategoryParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CurrencyParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\DeviceParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\FootprintParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\GroupParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\ManufacturerParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\MeasurementUnitParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\PartParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\StorelocationParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\SupplierParameter.php:0</note>
-      </notes>
       <segment state="translated">
         <source>parameters.validator.min_lesser_typical</source>
-        <target>Value must be lesser or equal the the typical value ({{ compared_value }}).</target>
+        <target>Value must be less than or equal to the typical value ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="Yfp2uC5" name="parameters.validator.min_lesser_max">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AbstractParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AttachmentTypeParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CategoryParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CurrencyParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\DeviceParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\FootprintParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\GroupParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\ManufacturerParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\MeasurementUnitParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\PartParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\StorelocationParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\SupplierParameter.php:0</note>
-      </notes>
       <segment state="translated">
         <source>parameters.validator.min_lesser_max</source>
-        <target>Value must be lesser than the maximum value ({{ compared_value }}).</target>
+        <target>Value must be less than the maximum value ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="P6b.8Ou" name="parameters.validator.max_greater_typical">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AbstractParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AttachmentTypeParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CategoryParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CurrencyParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\DeviceParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\FootprintParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\GroupParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\ManufacturerParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\MeasurementUnitParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\PartParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\StorelocationParameter.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\SupplierParameter.php:0</note>
-      </notes>
       <segment state="translated">
         <source>parameters.validator.max_greater_typical</source>
-        <target>Value must be greater or equal than the typical value ({{ compared_value }}).</target>
+        <target>Value must be greater than or equal to the typical value ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="P41193Y" name="validator.user.username_already_used">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
-      </notes>
       <segment state="translated">
         <source>validator.user.username_already_used</source>
-        <target>A user with this name is already exisiting</target>
+        <target>A user with this name already exists</target>
       </segment>
     </unit>
     <unit id="EKPQiyf" name="user.invalid_username">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
-      </notes>
       <segment state="translated">
         <source>user.invalid_username</source>
         <target>The username must contain only letters, numbers, underscores, dots, pluses or minuses and must not begin with an @!</target>
@@ -224,7 +100,7 @@
     <unit id=".lqKoij" name="validator.orderdetail.supplier_must_not_be_null">
       <segment state="translated">
         <source>validator.orderdetail.supplier_must_not_be_null</source>
-        <target>You must select an supplier!</target>
+        <target>You must select a supplier!</target>
       </segment>
     </unit>
     <unit id="bcNZzK." name="validator.measurement_unit.use_si_prefix_needs_unit">
@@ -248,7 +124,7 @@
     <unit id="5CEup_N" name="project.bom_entry.name_already_in_bom">
       <segment state="translated">
         <source>project.bom_entry.name_already_in_bom</source>
-        <target>There is already an BOM entry with this name!</target>
+        <target>There is already a BOM entry with this name!</target>
       </segment>
     </unit>
     <unit id="jB3B50E" name="project.bom_entry.part_already_in_bom">
@@ -260,19 +136,19 @@
     <unit id="NdkzP1n" name="project.bom_entry.mountnames_quantity_mismatch">
       <segment state="translated">
         <source>project.bom_entry.mountnames_quantity_mismatch</source>
-        <target>The number of mountnames has to match the BOMs quantity!</target>
+        <target>The number of mountnames has to match the BOM's quantity!</target>
       </segment>
     </unit>
     <unit id="8teRCgR" name="project.bom_entry.can_not_add_own_builds_part">
       <segment state="translated">
         <source>project.bom_entry.can_not_add_own_builds_part</source>
-        <target>You can not add a project's own builds part to the BOM.</target>
+        <target>You can not add a project's own build part to the BOM.</target>
       </segment>
     </unit>
     <unit id="asBxPxe" name="project.bom_has_to_include_all_subelement_parts">
       <segment state="translated">
         <source>project.bom_has_to_include_all_subelement_parts</source>
-        <target>The project BOM has to include all subprojects builds parts. Part %part_name% of project %project_name% missing!</target>
+        <target>The project BOM has to include all subprojects' build parts. Part %part_name% of project %project_name% missing!</target>
       </segment>
     </unit>
     <unit id="uxaE9Ct" name="project.bom_entry.price_not_allowed_on_parts">
@@ -344,16 +220,16 @@
     <unit id="ufQJh7E" name="validator.year_2038_bug_on_32bit">
       <segment state="translated">
         <source>validator.year_2038_bug_on_32bit</source>
-        <target>Due to technical limitations, it is not possible to select dates after the 2038-01-19 on 32-bit systems!</target>
+        <target>Due to technical limitations, it is not possible to select dates after 2038-01-19 on 32-bit systems!</target>
       </segment>
     </unit>
-    <unit id="89nojXY" name="validator.fileSize.invalidFormat">
+    <unit id="iM9yb_p" name="validator.fileSize.invalidFormat">
       <segment state="translated">
         <source>validator.fileSize.invalidFormat</source>
         <target>Invalid file size format. Use an integer number plus K, M, G as suffix for Kilo, Mega or Gigabytes.</target>
       </segment>
     </unit>
-    <unit id="iXcU7ce" name="validator.invalid_range">
+    <unit id="ZFxQ0BZ" name="validator.invalid_range">
       <segment state="translated">
         <source>validator.invalid_range</source>
         <target>The given range is not valid!</target>
@@ -362,7 +238,37 @@
     <unit id="m4gp2P_" name="validator.google_code.wrong_code">
       <segment state="translated">
         <source>validator.google_code.wrong_code</source>
-        <target>Invalid code. Check that your authenticator app is set up correctly and that both the server and authentication device has the time set correctly.</target>
+        <target>Invalid code. Check that your authenticator app is set up correctly and that both the server and authentication device have the time set correctly.</target>
+      </segment>
+    </unit>
+    <unit id="I330cr5" name="settings.synonyms.type_synonyms.collection_type.duplicate">
+      <segment state="translated">
+        <source>settings.synonyms.type_synonyms.collection_type.duplicate</source>
+        <target>There is already a translation defined for this type and language!</target>
+      </segment>
+    </unit>
+    <unit id="zT_j_oQ" name="validator.invalid_gtin">
+      <segment state="translated">
+        <source>validator.invalid_gtin</source>
+        <target>This is not a valid GTIN / EAN!</target>
+      </segment>
+    </unit>
+    <unit id="vnpejmb" name="info_providers.validation.provider_id_without_key">
+      <segment state="translated">
+        <source>info_providers.validation.provider_id_without_key</source>
+        <target>If you specify a provider ID, you also need to specify an info provider or remove both.</target>
+      </segment>
+    </unit>
+    <unit id="yFlA5OA" name="info_providers.validation.provider_url_without_key">
+      <segment state="translated">
+        <source>info_providers.validation.provider_url_without_key</source>
+        <target>If you specify a provider URL, you also need to specify an info provider.</target>
+      </segment>
+    </unit>
+    <unit id="gUHUXoV" name="info_providers.validation.provider_key_without_id">
+      <segment state="translated">
+        <source>info_providers.validation.provider_key_without_id</source>
+        <target>If you specify an info provider, you also need to provide a provider ID, or remove both.</target>
       </segment>
     </unit>
   </file>

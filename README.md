@@ -1,4 +1,3 @@
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Part-DB/Part-DB-symfony/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Part-DB/Part-DB-symfony/?branch=master)
 ![PHPUnit Tests](https://github.com/Part-DB/Part-DB-symfony/workflows/PHPUnit%20Tests/badge.svg)
 ![Static analysis](https://github.com/Part-DB/Part-DB-symfony/workflows/Static%20analysis/badge.svg)
 [![codecov](https://codecov.io/gh/Part-DB/Part-DB-server/branch/master/graph/badge.svg)](https://codecov.io/gh/Part-DB/Part-DB-server)
@@ -27,10 +26,10 @@ for everybody.
 If you want to test Part-DB without installing it, you can use [this](https://demo.part-db.de/) Heroku instance.
 (Or this link for the [German Version](https://demo.part-db.de/de/)).
 
-You can log in with username: *user* and password: *user*.
+You can log in with username: *user* and password: *partdb-demo*.
 
-Every change to the master branch gets automatically deployed, so it represents the current development progress and is
-may not completely stable. Please mind, that the free Heroku instance is used, so it can take some time when loading
+Every change to the master branch gets automatically deployed, so it represents the current development progress and
+may not be completely stable. Please mind, that the free Heroku instance is used, so it can take some time when loading
 the page
 for the first time.
 
@@ -62,9 +61,12 @@ for the first time.
 * Automatic thumbnail generation for pictures
 * Use cloud providers (like Octopart, Digikey, Farnell, LCSC or TME) to automatically get part information, datasheets, and
   prices for parts
+* Retrieve part information from arbitrary shop websites, using either conventional data extraction from structured metadata, or AI based data extraction. 
+A browser plugin allows to quickly submit parts from any website to your Part-DB instance, and even allows to circumvent anti-bot measures on shop websites.
 * API to access Part-DB from other applications/scripts
 * [Integration with KiCad](https://docs.part-db.de/usage/eda_integration.html): Use Part-DB as the central datasource for your
   KiCad and see available parts from Part-DB directly inside KiCad.
+* MCP Server for letting AI agents and chats access your Part-DB instance to allow them to answer questions about your inventory
 
 With these features, Part-DB is useful to hobbyists, who want to keep track of their private electronic parts inventory,
 or maker spaces, where many users should have (controlled) access to the shared inventory.
@@ -74,11 +76,11 @@ Part-DB is also used by small companies and universities for managing their inve
 ## Requirements
 
 * A **web server** (like Apache2 or nginx) that is capable of
-  running [Symfony 6](https://symfony.com/doc/current/reference/requirements.html),
+  running [Symfony 7](https://symfony.com/doc/current/reference/requirements.html),
   this includes a minimum PHP version of **PHP 8.2**
 * A **MySQL** (at least 5.7) /**MariaDB** (at least 10.4) database server, or **PostgreSQL** 10+ if you do not want to use SQLite.
 * Shell access to your server is highly recommended!
-* For building the client-side assets **yarn** and **nodejs** (>= 20.0) is needed.
+* For building the client-side assets **yarn** and **nodejs** (>= 22.0) is needed.
 
 ## Installation
 
@@ -142,7 +144,7 @@ There you will find various methods to support development on a monthly or a one
 
 ## Built with
 
-* [Symfony 5](https://symfony.com/): The main framework used for the serverside PHP
+* [Symfony 6](https://symfony.com/): The main framework used for the serverside PHP
 * [Bootstrap 5](https://getbootstrap.com/) and [Bootswatch](https://bootswatch.com/): Used as website theme
 * [Fontawesome](https://fontawesome.com/): Used as icon set
 * [Hotwire Stimulus](https://stimulus.hotwired.dev/) and [Hotwire Turbo](https://turbo.hotwired.dev/): Frontend

@@ -53,6 +53,9 @@ class GroupController extends BaseAdminController
     #[Route(path: '/{id}/', requirements: ['id' => '\d+'])]
     public function edit(Group $entity, Request $request, EntityManagerInterface $em, PermissionPresetsHelper $permissionPresetsHelper, PermissionSchemaUpdater $permissionSchemaUpdater, ?string $timestamp = null): Response
     {
+        //Editing groups is a high-risk action, so require full authentication (not just remember-me) to view or submit this page.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         //Do an upgrade of the permission schema if needed (so the user can see the permissions a user get on next request (even if it was not done yet)
         $permissionSchemaUpdater->groupUpgradeSchemaRecursively($entity);
 
@@ -83,12 +86,18 @@ class GroupController extends BaseAdminController
     #[Route(path: '/')]
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Group $entity = null): Response
     {
+        //Creating groups is a high-risk action, so require full authentication (not just remember-me) to view or submit this page.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->_new($request, $em, $importer, $entity);
     }
 
     #[Route(path: '/{id}', name: 'group_delete', methods: ['DELETE'])]
     public function delete(Request $request, Group $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
+        //Deleting groups is a high-risk action, so require full authentication (not just remember-me).
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->_delete($request, $entity, $recursionHelper);
     }
 

@@ -34,7 +34,7 @@ use Symfony\Component\Security\Core\Authentication\Token\NullToken;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken;
 
-class VoterHelperTest extends KernelTestCase
+final class VoterHelperTest extends KernelTestCase
 {
 
     protected ?VoterHelper $service = null;

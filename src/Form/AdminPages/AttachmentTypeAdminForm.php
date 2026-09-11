@@ -22,17 +22,23 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\PartAttachment;
+use App\Entity\Attachments\ProjectAttachment;
+use App\Services\ElementTypeNameGenerator;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Services\Attachments\FileTypeFilterTools;
 use App\Services\LogSystem\EventCommentNeededHelper;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Translation\StaticMessage;
 
 class AttachmentTypeAdminForm extends BaseEntityAdminForm
 {
-    public function __construct(Security $security, protected FileTypeFilterTools $filterTools, EventCommentNeededHelper $eventCommentNeededHelper)
+    public function __construct(Security $security, protected FileTypeFilterTools $filterTools, EventCommentNeededHelper $eventCommentNeededHelper, private readonly ElementTypeNameGenerator $elementTypeNameGenerator)
     {
         parent::__construct($security, $eventCommentNeededHelper);
     }
@@ -40,6 +46,25 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
     {
         $is_new = null === $entity->getID();
+
+
+        $choiceLabel = function (string $class) {
+            if (!is_a($class, Attachment::class, true)) {
+                return $class;
+            }
+            return new StaticMessage($this->elementTypeNameGenerator->typeLabelPlural($class::ALLOWED_ELEMENT_CLASS));
+        };
+
+
+        $builder->add('allowed_targets', ChoiceType::class, [
+            'required' => false,
+            'choices' => array_values(Attachment::ORM_DISCRIMINATOR_MAP),
+            'choice_label' => $choiceLabel,
+            'preferred_choices' => [PartAttachment::class, ProjectAttachment::class],
+            'label' => 'attachment_type.edit.allowed_targets',
+            'help' => 'attachment_type.edit.allowed_targets.help',
+            'multiple' => true,
+        ]);
 
         $builder->add('filetype_filter', TextType::class, [
             'required' => false,

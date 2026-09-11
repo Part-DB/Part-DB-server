@@ -1,0 +1,63 @@
+{% extends "main_card.html.twig" %}
+
+{% import "info_providers/providers.macro.html.twig" as providers_macro %}
+{% import "helper.twig" as helper %}
+
+{% block title %}
+    {% trans %}info_providers.from_url.title{% endtrans %}
+{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-book-atlas"></i> {% trans %}info_providers.from_url.title{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+    <p class="text-muted {{ offset_label }}">{% trans %}info_providers.from_url.help{% endtrans %}</p>
+
+    {{ form_start(form) }}
+    {{ form_row(form.url) }}
+
+    {{ form_row(form.method) }}
+
+    <div class="row mb-2">
+        <div class="{{ col_input }} {{ offset_label }}">
+            <a data-bs-toggle="collapse" href="#infoSearchAdvancedPanel">{% trans %}info_providers.search.advanced_options{% endtrans %}</a>
+        </div>
+    </div>
+
+    <div class="collapse" id="infoSearchAdvancedPanel">
+        <div class="card card-body mb-2">
+            {{ form_row(form.no_cache) }}
+            {{ form_row(form.skip_delegation) }}
+        </div>
+    </div>
+
+    {{ form_row(form.submit) }}
+
+    {% if recentBrowserPages is not empty %}
+        <hr class="{{ offset_label }} mt-4">
+
+        <div class="row mb-1">
+            <label class="col-form-label {{ col_label }}">
+                {% trans %}browser_plugin.recent_pages.title{% endtrans %}
+            </label>
+            <div class="{{ col_input }}">
+                <p class="text-muted small mb-2">{% trans %}browser_plugin.recent_pages.help{% endtrans %}</p>
+                <div class="list-group list-group-numbered">
+                    {% for page in recentBrowserPages %}
+                        <button type="submit" name="submitted_page_token" value="{{ page.token }}" formnovalidate
+                                class="list-group-item d-flex justify-content-between align-items-start text-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">{{ page.title|u.truncate(160) }}</div>
+                                <small class="text-muted">{{ page.url|u.truncate(160) }}</small>
+                            </div>
+                            <span class="badge text-bg-primary rounded-pill">{{ page.submittedAt|format_time("short") }}</span>
+                        </button>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {{ form_end(form) }}
+{% endblock %}

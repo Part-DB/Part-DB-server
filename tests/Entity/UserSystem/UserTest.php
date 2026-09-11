@@ -31,7 +31,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Uid\Uuid;
 use Webauthn\TrustPath\EmptyTrustPath;
 
-class UserTest extends TestCase
+final class UserTest extends TestCase
 {
     public function testGetFullName(): void
     {

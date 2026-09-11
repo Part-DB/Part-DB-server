@@ -32,7 +32,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 #[Group('DB')]
 #[Group('slow')]
-class ApplicationAvailabilityFunctionalTest extends WebTestCase
+final class ApplicationAvailabilityFunctionalTest extends WebTestCase
 {
     #[DataProvider('urlProvider')]
     public function testPageIsSuccessful(string $url): void
@@ -60,6 +60,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         //User related things
         yield ['/user/settings'];
         yield ['/user/info'];
+        yield ['/settings/misc/kicad-lists'];
 
         //Login/logout
         yield ['/login'];

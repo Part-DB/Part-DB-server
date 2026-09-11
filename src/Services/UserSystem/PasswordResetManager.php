@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace App\Services\UserSystem;
 
 use App\Entity\UserSystem\User;
-use DateTime;
+use App\Services\System\TrustedUrlGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
@@ -39,7 +39,8 @@ class PasswordResetManager
 
     public function __construct(protected MailerInterface $mailer, protected EntityManagerInterface $em,
                                 protected TranslatorInterface $translator, protected UserPasswordHasherInterface $userPasswordEncoder,
-                                PasswordHasherFactoryInterface $encoderFactory)
+                                PasswordHasherFactoryInterface $encoderFactory,
+                                protected TrustedUrlGenerator $trustedUrlGenerator)
     {
         $this->passwordEncoder = $encoderFactory->getPasswordHasher(User::class);
     }
@@ -63,6 +64,9 @@ class PasswordResetManager
         $user->setPwResetExpires($expiration_date);
 
         if ($user->getEmail() !== null && $user->getEmail() !== '') {
+            $reset_url = $this->trustedUrlGenerator->generate('pw_reset_new_pw', ['user' => $user->getName(), 'token' => $unencrypted_token]);
+            $reset_url_fallback = $this->trustedUrlGenerator->generate('pw_reset_new_pw');
+
             $address = new Address($user->getEmail(), $user->getFullName());
             $mail = new TemplatedEmail();
             $mail->to($address);
@@ -72,6 +76,8 @@ class PasswordResetManager
                 'expiration_date' => $expiration_date,
                 'token' => $unencrypted_token,
                 'user' => $user,
+                'reset_url' => $reset_url,
+                'reset_url_fallback' => $reset_url_fallback,
             ]);
 
             //Send email

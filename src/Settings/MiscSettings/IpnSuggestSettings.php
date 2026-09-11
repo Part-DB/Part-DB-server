@@ -30,11 +30,12 @@ use Jbtronics\SettingsBundle\ParameterTypes\StringType;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Symfony\Component\Translation\StaticMessage;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[Settings(label: new TM("settings.misc.ipn_suggest"))]
-#[SettingsIcon("fa-list")]
+#[SettingsIcon("fa-arrow-up-1-9")]
 class IpnSuggestSettings
 {
     use SettingsTrait;
@@ -43,7 +44,7 @@ class IpnSuggestSettings
         label: new TM("settings.misc.ipn_suggest.regex"),
         description: new TM("settings.misc.ipn_suggest.regex.help"),
         options: ['type' => StringType::class],
-        formOptions: ['attr' => ['placeholder' => '^[A-Za-z0-9]{3,4}(?:-[A-Za-z0-9]{3,4})*-\d{4}$']],
+        formOptions: ['attr' => ['placeholder' => new StaticMessage( '^[A-Za-z0-9]{3,4}(?:-[A-Za-z0-9]{3,4})*-\d{4}$')]],
         envVar: "IPN_SUGGEST_REGEX", envVarMode: EnvVarMode::OVERWRITE,
     )]
     public ?string $regex = null;
@@ -52,7 +53,7 @@ class IpnSuggestSettings
         label: new TM("settings.misc.ipn_suggest.regex_help"),
         description: new TM("settings.misc.ipn_suggest.regex_help_description"),
         options: ['type' => StringType::class],
-        formOptions: ['attr' => ['placeholder' => 'Format: 3–4 alphanumeric segments (any number) separated by "-", followed by "-" and 4 digits, e.g., PCOM-RES-0001']],
+        formOptions: ['attr' => ['placeholder' => new TM('settings.misc.ipn_suggest.regex.help.placeholder')]],
         envVar: "IPN_SUGGEST_REGEX_HELP", envVarMode: EnvVarMode::OVERWRITE,
     )]
     public ?string $regexHelp = null;
@@ -77,4 +78,32 @@ class IpnSuggestSettings
         envVar: "bool:IPN_USE_DUPLICATE_DESCRIPTION", envVarMode: EnvVarMode::OVERWRITE,
     )]
     public bool $useDuplicateDescription = false;
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.ipn_suggest.fallbackPrefix"),
+        description: new TM("settings.misc.ipn_suggest.fallbackPrefix.help"),
+        options: ['type' => StringType::class],
+    )]
+    public string $fallbackPrefix = 'N.A.';
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.ipn_suggest.numberSeparator"),
+        description: new TM("settings.misc.ipn_suggest.numberSeparator.help"),
+        options: ['type' => StringType::class],
+    )]
+    public string $numberSeparator = '-';
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.ipn_suggest.categorySeparator"),
+        description: new TM("settings.misc.ipn_suggest.categorySeparator.help"),
+        options: ['type' => StringType::class],
+    )]
+    public string $categorySeparator = '-';
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.ipn_suggest.globalPrefix"),
+        description: new TM("settings.misc.ipn_suggest.globalPrefix.help"),
+        options: ['type' => StringType::class],
+    )]
+    public ?string $globalPrefix = null;
 }

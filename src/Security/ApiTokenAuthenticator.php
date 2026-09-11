@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Entity\UserSystem\ApiToken;
+use App\Entity\UserSystem\ApiTokenType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,14 +44,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * Authenticator similar to the builtin AccessTokenAuthenticator, but we return a Token here which contains information
  * about the used token.
  */
-class ApiTokenAuthenticator implements AuthenticatorInterface
+readonly class ApiTokenAuthenticator implements AuthenticatorInterface
 {
     public function __construct(
         #[Autowire(service: 'security.access_token_extractor.main')]
-        private readonly AccessTokenExtractorInterface $accessTokenExtractor,
-        private readonly TranslatorInterface $translator,
-        private readonly EntityManagerInterface $entityManager,
-        private readonly string $realm = 'api',
+        private AccessTokenExtractorInterface $accessTokenExtractor,
+        private TranslatorInterface $translator,
+        private EntityManagerInterface $entityManager,
+        private string $realm = 'api',
     ) {
     }
 
@@ -88,7 +89,15 @@ class ApiTokenAuthenticator implements AuthenticatorInterface
 
     public function supports(Request $request): ?bool
     {
-        return null === $this->accessTokenExtractor->extractAccessToken($request) ? false : null;
+        $accessToken = $this->accessTokenExtractor->extractAccessToken($request);
+        if ($accessToken === null) {
+            return false;
+        }
+
+        //Only claim tokens that look like our own (tcp_... Personal Access Tokens); anything else
+        //(e.g. an OAuth2-issued JWT) is left for App\Security\OAuth\OAuthBearerAuthenticator, which is
+        //mutually exclusive with this authenticator for exactly this reason - see that class.
+        return ApiTokenType::isRecognizedToken($accessToken);
     }
 
     public function authenticate(Request $request): Passport

@@ -26,7 +26,7 @@ use App\Entity\Attachments\Attachment;
 use App\Entity\Parameters\AbstractParameter;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use function is_string;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -83,8 +83,8 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      */
     #[Assert\Url(requireTld: false)]
     #[Groups(['full', 'company:read', 'company:write', 'import', 'extended'])]
-    #[ORM\Column(type: Types::STRING)]
-    #[Assert\Length(max: 255)]
+    #[ORM\Column(type: Types::STRING, length: 2048)]
+    #[Assert\Length(max: 2048)]
     protected string $website = '';
 
     #[Groups(['company:read', 'company:write', 'import', 'full', 'extended'])]
@@ -93,8 +93,8 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
     /**
      * @var string The link to the website of an article. Use %PARTNUMBER% as placeholder for the part number.
      */
-    #[ORM\Column(type: Types::STRING)]
-    #[Assert\Length(max: 255)]
+    #[ORM\Column(type: Types::STRING, length: 2048)]
+    #[Assert\Length(max: 2048)]
     #[Groups(['full', 'company:read', 'company:write', 'import', 'extended'])]
     protected string $auto_product_url = '';
 

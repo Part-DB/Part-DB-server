@@ -176,6 +176,12 @@ class LabelController extends AbstractController
 
             $target_id = (string) $form->get('target_id')->getData();
             $targets = $this->findObjects($form_options->getSupportedElement(), $target_id);
+
+            //Check that we have read access to the targets
+            foreach ($targets as $target) {
+                $this->denyAccessUnlessGranted('read', $target);
+            }
+
             if ($targets !== []) {
                 try {
                     $pdf_data = $this->labelGenerator->generateLabel($form_options, $targets);

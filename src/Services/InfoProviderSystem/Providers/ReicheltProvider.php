@@ -23,14 +23,15 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\Providers;
 
+use App\Helpers\RandomizeUseragentHttpClient;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\ReicheltSettings;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -38,27 +39,35 @@ class ReicheltProvider implements InfoProviderInterface
 {
 
     public const DISTRIBUTOR_NAME = "Reichelt";
+    public const PROVIDER_KEY = 'reichelt';
 
-    public function __construct(private readonly HttpClientInterface $client,
+    private readonly HttpClientInterface $client;
+
+    public function __construct(HttpClientInterface $client,
         private readonly ReicheltSettings $settings,
     )
     {
+        $this->client = new RandomizeUseragentHttpClient($client);
     }
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'Reichelt',
-            'description' => 'Webscraping from reichelt.com to get part information',
-            'url' => 'https://www.reichelt.com/',
-            'disabled_help' => 'Enable provider in provider settings.',
-            'settings_class' => ReicheltSettings::class,
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'reichelt';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'Reichelt',
+            description: 'Webscraping from reichelt.com to get part information',
+            url: 'https://www.reichelt.com/',
+            disabledHelp: 'Enable provider in provider settings.',
+            settingsClass: ReicheltSettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::DATASHEET,
+                ProviderCapabilities::PRICE,
+                ProviderCapabilities::GTIN,
+                ProviderCapabilities::PARAMETERS
+            ],
+        );
     }
 
     public function isActive(): bool
@@ -66,7 +75,7 @@ class ReicheltProvider implements InfoProviderInterface
         return $this->settings->enabled;
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         $response = $this->client->request('GET', sprintf($this->getBaseURL() . '/shop/search/%s', $keyword));
         $html = $response->getContent();
@@ -84,25 +93,28 @@ class ReicheltProvider implements InfoProviderInterface
             $name = $element->filter('meta[itemprop="name"]')->attr('content');
             $sku = $element->filter('meta[itemprop="sku"]')->attr('content');
 
+
+
             //Try to extract a picture URL:
             $pictureURL = $element->filter("div.al_artlogo img")->attr('src');
 
             $results[] = new SearchResultDTO(
-                provider_key: $this->getProviderKey(),
+                provider_key: self::PROVIDER_KEY,
                 provider_id: $artId,
                 name: $productID,
                 description: $name,
                 category: null,
                 manufacturer: $sku,
                 preview_image_url: $pictureURL,
-                provider_url: $element->filter('a.al_artinfo_link')->attr('href')
+                provider_url: $element->filter('a.al_artinfo_link')->attr('href'),
+
                 );
         });
 
         return $results;
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         //Check that the ID is a number
         if (!is_numeric($id)) {
@@ -146,6 +158,15 @@ class ReicheltProvider implements InfoProviderInterface
         $priceString = $dom->filter('meta[itemprop="price"]')->attr('content');
         $currency = $dom->filter('meta[itemprop="priceCurrency"]')->attr('content', 'EUR');
 
+        $gtin = null;
+        foreach (['gtin13', 'gtin14', 'gtin12', 'gtin8'] as $gtinType) {
+            if ($dom->filter("[itemprop=\"$gtinType\"]")->count() > 0) {
+                $gtin = $dom->filter("[itemprop=\"$gtinType\"]")->innerText();
+                break;
+            }
+        }
+
+
         //Create purchase info
         $purchaseInfo = new PurchaseInfoDTO(
             distributor_name: self::DISTRIBUTOR_NAME,
@@ -158,7 +179,7 @@ class ReicheltProvider implements InfoProviderInterface
 
         //Create part object
         return new PartDetailDTO(
-            provider_key: $this->getProviderKey(),
+            provider_key: self::PROVIDER_KEY,
             provider_id: $id,
             name: $json[0]['article_artnr'],
             description: $json[0]['article_besch'],
@@ -167,10 +188,11 @@ class ReicheltProvider implements InfoProviderInterface
             mpn: $this->parseMPN($dom),
             preview_image_url: $json[0]['article_picture'],
             provider_url: $productPage,
+            gtin: $gtin,
             notes: $notes,
             datasheets: $datasheets,
             parameters: $this->parseParameters($dom),
-            vendor_infos: [$purchaseInfo]
+            vendor_infos: [$purchaseInfo],
         );
 
     }
@@ -231,9 +253,7 @@ class ReicheltProvider implements InfoProviderInterface
             $category .= $element->text() . ' -> ';
         });
         //Remove the trailing ' -> '
-        $category = substr($category, 0, -4);
-
-        return $category;
+        return substr($category, 0, -4);
     }
 
     /**
@@ -266,13 +286,4 @@ class ReicheltProvider implements InfoProviderInterface
         return 'https://www.reichelt.com/' . strtolower($this->settings->country) . '/' . strtolower($this->settings->language);
     }
 
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::DATASHEET,
-            ProviderCapabilities::PRICE,
-        ];
-    }
 }

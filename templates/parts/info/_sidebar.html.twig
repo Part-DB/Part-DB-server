@@ -27,6 +27,14 @@
     </div>
 {% endif %}
 
+{% if part.gtin %}
+    <div>
+        <h6>
+            <span class="badge text-bg-secondary" title="{% trans %}part.gtin{% endtrans %}"><i class="fa-solid fa-barcode"></i> {{ part.gtin }}</span>
+        </h6>
+    </div>
+{% endif %}
+
 {# Needs Review tag #}
 {% if part.needsReview %}
     <div class="mt-1">

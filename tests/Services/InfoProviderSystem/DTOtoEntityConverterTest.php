@@ -35,7 +35,7 @@ use PhpParser\Node\Param;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DTOtoEntityConverterTest extends WebTestCase
+final class DTOtoEntityConverterTest extends WebTestCase
 {
 
     private ?DTOtoEntityConverter $service = null;
@@ -94,7 +94,6 @@ class DTOtoEntityConverterTest extends WebTestCase
             minimum_discount_amount: 5,
             price: "10.0",
             currency_iso_code: 'EUR',
-            includes_tax: true,
         );
 
         $entity = $this->service->convertPrice($dto);
@@ -115,6 +114,7 @@ class DTOtoEntityConverterTest extends WebTestCase
             order_number: 'TestOrderNumber',
             prices: $prices,
             product_url: 'https://example.com',
+            prices_include_vat: true,
         );
 
         $entity = $this->service->convertPurchaseInfo($dto);
@@ -122,6 +122,7 @@ class DTOtoEntityConverterTest extends WebTestCase
         $this->assertSame($dto->distributor_name, $entity->getSupplier()->getName());
         $this->assertSame($dto->order_number, $entity->getSupplierPartNr());
         $this->assertEquals($dto->product_url, $entity->getSupplierProductUrl());
+        $this->assertTrue($dto->prices_include_vat);
     }
 
     public function testConvertFileWithName(): void
@@ -159,12 +160,13 @@ class DTOtoEntityConverterTest extends WebTestCase
         $shopping_infos = [new  PurchaseInfoDTO('TestDistributor', 'TestOrderNumber', [new PriceDTO(1, "10.0", 'EUR')])];
 
         $dto = new PartDetailDTO(
-            provider_key: 'test_provider', provider_id: 'test_id', provider_url: 'https://invalid.invalid/test_id',
-            name: 'TestPart', description: 'TestDescription', category: 'TestCategory',
-            manufacturer: 'TestManufacturer', mpn: 'TestMPN', manufacturing_status: ManufacturingStatus::EOL,
-            preview_image_url:  'https://invalid.invalid/image.png',
-            footprint: 'DIP8', notes: 'TestNotes', mass: 10.4,
-            parameters: $parameters, datasheets: $datasheets, vendor_infos: $shopping_infos, images: $images
+            provider_key: 'test_provider', provider_id: 'test_id', name: 'TestPart',
+            description: 'TestDescription', category: 'TestCategory', manufacturer: 'TestManufacturer',
+            mpn: 'TestMPN', preview_image_url: 'https://invalid.invalid/image.png',
+            manufacturing_status: ManufacturingStatus::EOL,
+            provider_url: 'https://invalid.invalid/test_id',
+            footprint: 'DIP8', gtin: "1234567890123", notes: 'TestNotes', datasheets: $datasheets,
+            images: $images, parameters: $parameters, vendor_infos: $shopping_infos, mass: 10.4
         );
 
         $entity = $this->service->convertPart($dto);
@@ -179,6 +181,8 @@ class DTOtoEntityConverterTest extends WebTestCase
 
         $this->assertEquals($dto->mass, $entity->getMass());
         $this->assertEquals($dto->footprint, $entity->getFootprint());
+
+        $this->assertEquals($dto->gtin, $entity->getGtin());
 
         //We just check that the lenghts of parameters, datasheets, images and shopping infos are the same
         //The actual content is tested in the corresponding tests

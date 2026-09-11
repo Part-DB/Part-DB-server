@@ -60,8 +60,8 @@ final class PartRepositoryTest extends TestCase
         $classMetadata = new ClassMetadata(Part::class);
         $emMock->method('getClassMetadata')->with(Part::class)->willReturn($classMetadata);
 
-        $translatorMock = $this->createMock(TranslatorInterface::class);
-        $ipnSuggestSettings = $this->createMock(IpnSuggestSettings::class);
+        $translatorMock = $this->createStub(TranslatorInterface::class);
+        $ipnSuggestSettings = $this->createStub(IpnSuggestSettings::class);
 
         $repo = $this->getMockBuilder(PartRepository::class)
             ->setConstructorArgs([$emMock, $translatorMock, $ipnSuggestSettings])
@@ -120,7 +120,7 @@ final class PartRepositoryTest extends TestCase
                 return $id;
             });
 
-        $ipnSuggestSettings = $this->createMock(IpnSuggestSettings::class);
+        $ipnSuggestSettings = $this->createStub(IpnSuggestSettings::class);
 
         $ipnSuggestSettings->suggestPartDigits = 4;
         $ipnSuggestSettings->useDuplicateDescription = false;
@@ -204,7 +204,7 @@ final class PartRepositoryTest extends TestCase
                 return $id;
             });
 
-        $ipnSuggestSettings = $this->createMock(IpnSuggestSettings::class);
+        $ipnSuggestSettings = $this->createStub(IpnSuggestSettings::class);
 
         $ipnSuggestSettings->suggestPartDigits = 4;
         $ipnSuggestSettings->useDuplicateDescription = false;

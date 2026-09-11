@@ -46,6 +46,7 @@ use Symfony\Component\Validator\Constraints\File;
 class UserSettingsType extends AbstractType
 {
     public function __construct(protected Security $security,
+        #[Autowire(param: 'partdb.demo_mode')]
         protected bool $demo_mode,
         )
     {
@@ -92,9 +93,7 @@ class UserSettingsType extends AbstractType
                     'accept' => 'image/*',
                 ],
                 'constraints' => [
-                    new File([
-                        'maxSize' => '5M',
-                    ]),
+                    new File(maxSize: '5M'),
                 ],
             ])
             ->add('aboutMe', RichTextEditorType::class, [

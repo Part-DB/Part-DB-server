@@ -33,7 +33,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class LogEntryRepositoryTest extends KernelTestCase
+final class LogEntryRepositoryTest extends KernelTestCase
 {
 
     private EntityManagerInterface $entityManager;
@@ -75,6 +75,7 @@ class LogEntryRepositoryTest extends KernelTestCase
         //We have a edit log entry for the category with ID 1
         $category = $this->entityManager->find(Category::class, 1);
         $adminUser = $this->entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $this->assertInstanceOf(Category::class, $category);
 
         $user = $this->repo->getLastEditingUser($category);
 
@@ -83,6 +84,7 @@ class LogEntryRepositoryTest extends KernelTestCase
 
         //For the category 2, the user must be null
         $category = $this->entityManager->find(Category::class, 2);
+        $this->assertInstanceOf(Category::class, $category);
         $user = $this->repo->getLastEditingUser($category);
         $this->assertNull($user);
     }
@@ -92,6 +94,7 @@ class LogEntryRepositoryTest extends KernelTestCase
         //We have a edit log entry for the category with ID 1
         $category = $this->entityManager->find(Category::class, 1);
         $adminUser = $this->entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $this->assertInstanceOf(Category::class, $category);
 
         $user = $this->repo->getCreatingUser($category);
 
@@ -100,6 +103,7 @@ class LogEntryRepositoryTest extends KernelTestCase
 
         //For the category 2, the user must be null
         $category = $this->entityManager->find(Category::class, 2);
+        $this->assertInstanceOf(Category::class, $category);
         $user = $this->repo->getCreatingUser($category);
         $this->assertNull($user);
     }
@@ -119,6 +123,7 @@ class LogEntryRepositoryTest extends KernelTestCase
     public function testGetElementExistedAtTimestamp(): void
     {
         $part = $this->entityManager->find(Part::class, 3);
+        $this->assertInstanceOf(Part::class, $part);
 
         //Assume that the part is existing now
         $this->assertTrue($this->repo->getElementExistedAtTimestamp($part, new \DateTimeImmutable()));
@@ -130,6 +135,7 @@ class LogEntryRepositoryTest extends KernelTestCase
     public function testGetElementHistory(): void
     {
         $category = $this->entityManager->find(Category::class, 1);
+        $this->assertInstanceOf(Category::class, $category);
 
         $history = $this->repo->getElementHistory($category);
 
@@ -141,6 +147,7 @@ class LogEntryRepositoryTest extends KernelTestCase
     public function testGetTimetravelDataForElement(): void
     {
         $category = $this->entityManager->find(Category::class, 1);
+        $this->assertInstanceOf(Category::class, $category);
         $data = $this->repo->getTimetravelDataForElement($category, new \DateTimeImmutable('2020-01-01'));
 
         //The data must contain only ElementChangedLogEntry

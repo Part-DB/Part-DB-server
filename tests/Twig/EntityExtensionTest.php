@@ -39,7 +39,7 @@ use App\Entity\UserSystem\User;
 use App\Twig\EntityExtension;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class EntityExtensionTest extends WebTestCase
+final class EntityExtensionTest extends WebTestCase
 {
     /** @var EntityExtension */
     protected $service;
@@ -55,20 +55,20 @@ class EntityExtensionTest extends WebTestCase
 
     public function testGetEntityType(): void
     {
-        $this->assertSame('part', $this->service->getEntityType(new Part()));
-        $this->assertSame('footprint', $this->service->getEntityType(new Footprint()));
-        $this->assertSame('storelocation', $this->service->getEntityType(new StorageLocation()));
-        $this->assertSame('manufacturer', $this->service->getEntityType(new Manufacturer()));
-        $this->assertSame('category', $this->service->getEntityType(new Category()));
-        $this->assertSame('device', $this->service->getEntityType(new Project()));
-        $this->assertSame('attachment', $this->service->getEntityType(new PartAttachment()));
-        $this->assertSame('supplier', $this->service->getEntityType(new Supplier()));
-        $this->assertSame('user', $this->service->getEntityType(new User()));
-        $this->assertSame('group', $this->service->getEntityType(new Group()));
-        $this->assertSame('currency', $this->service->getEntityType(new Currency()));
-        $this->assertSame('measurement_unit', $this->service->getEntityType(new MeasurementUnit()));
-        $this->assertSame('label_profile', $this->service->getEntityType(new LabelProfile()));
-        $this->assertSame('part_custom_state', $this->service->getEntityType(new PartCustomState()));
+        $this->assertSame('part', $this->service->entityType(new Part()));
+        $this->assertSame('footprint', $this->service->entityType(new Footprint()));
+        $this->assertSame('storelocation', $this->service->entityType(new StorageLocation()));
+        $this->assertSame('manufacturer', $this->service->entityType(new Manufacturer()));
+        $this->assertSame('category', $this->service->entityType(new Category()));
+        $this->assertSame('device', $this->service->entityType(new Project()));
+        $this->assertSame('attachment', $this->service->entityType(new PartAttachment()));
+        $this->assertSame('supplier', $this->service->entityType(new Supplier()));
+        $this->assertSame('user', $this->service->entityType(new User()));
+        $this->assertSame('group', $this->service->entityType(new Group()));
+        $this->assertSame('currency', $this->service->entityType(new Currency()));
+        $this->assertSame('measurement_unit', $this->service->entityType(new MeasurementUnit()));
+        $this->assertSame('label_profile', $this->service->entityType(new LabelProfile()));
+        $this->assertSame('part_custom_state', $this->service->entityType(new PartCustomState()));
     }
 
 }

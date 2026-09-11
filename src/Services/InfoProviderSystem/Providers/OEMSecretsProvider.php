@@ -88,6 +88,7 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Settings\InfoProviderSystem\OEMSecretsSettings;
 use App\Settings\InfoProviderSystem\OEMSecretsSortMode;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -96,6 +97,7 @@ use Psr\Cache\CacheItemPoolInterface;
 
 class OEMSecretsProvider implements InfoProviderInterface
 {
+    public const PROVIDER_KEY = 'oemsecrets';
 
     private const ENDPOINT_URL = 'https://oemsecretsapi.com/partsearch';
 
@@ -227,37 +229,23 @@ class OEMSecretsProvider implements InfoProviderInterface
     private array $distributorCountryCodes = [];
     private array $countryCodeToRegionMap = [];
 
-    /**
-     * Get information about this provider
-     *
-     * @return array An associative array with the following keys (? means optional):
-     * - name: The (user friendly) name of the provider (e.g. "Digikey"), will be translated
-     * - description?: A short description of the provider (e.g. "Digikey is a ..."), will be translated
-     * - logo?: The logo of the provider (e.g. "digikey.png")
-     * - url?: The url of the provider (e.g. "https://www.digikey.com")
-     * - disabled_help?: A help text which is shown when the provider is disabled, explaining how to enable it
-     * - oauth_app_name?: The name of the OAuth app which is used for authentication (e.g. "ip_digikey_oauth"). If this is set a connect button will be shown
-     *
-     * @phpstan-return array{ name: string, description?: string, logo?: string, url?: string, disabled_help?: string, oauth_app_name?: string }
-     */
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'OEMSecrets',
-            'description' => 'This provider uses the OEMSecrets API to search for parts.',
-            'url' => 'https://www.oemsecrets.com/',
-            'disabled_help' => 'Configure the API key in the provider settings to enable.',
-            'settings_class' => OEMSecretsSettings::class
-        ];
-    }
-    /**
-     * Returns a unique key for this provider, which will be saved into the database
-     * and used to identify the provider
-     * @return string A unique key for this provider (e.g. "digikey")
-     */
-    public function getProviderKey(): string
-    {
-        return 'oemsecrets';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'OEMSecrets',
+            description: 'This provider uses the OEMSecrets API to search for parts.',
+            url: 'https://www.oemsecrets.com/',
+            disabledHelp: 'Configure the API key in the provider settings to enable.',
+            settingsClass: OEMSecretsSettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::DATASHEET,
+                ProviderCapabilities::PRICE,
+                ProviderCapabilities::PARAMETERS
+            ],
+        );
     }
 
     /**
@@ -278,12 +266,13 @@ class OEMSecretsProvider implements InfoProviderInterface
      * and debugging with local JSON files. The results are processed, cached, and then sorted based
      * on the keyword and specified criteria.
      *
-     * @param  string  $keyword The part number to search for
+     * @param  string  $keyword
+     * @param  array  $options
      * @return array An array of processed product details, sorted by relevance and additional criteria.
      *
      * @throws \Exception If the JSON file used for debugging is not found or contains errors.
      */
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         /*
         oemsecrets Part Search API  3.0.1
@@ -397,13 +386,13 @@ class OEMSecretsProvider implements InfoProviderInterface
      * Generates a cache key for storing part details based on the provided provider ID.
      *
      * This method creates a unique cache key by prefixing the provider ID with 'part_details_'
-     * and hashing the provider ID using MD5 to ensure a consistent and compact key format.
+     * and hashing the provider ID using XXH3 to ensure a consistent and compact key format.
      *
      * @param string $provider_id The unique identifier of the provider or part.
      * @return string The generated cache key.
      */
     private function getCacheKey(string $provider_id): string {
-        return 'oemsecrets_part_' . md5($provider_id);
+        return 'oemsecrets_part_' . hash('xxh3', $provider_id);
     }
 
 
@@ -414,14 +403,20 @@ class OEMSecretsProvider implements InfoProviderInterface
      * found in the cache, they are returned. If not, an exception is thrown indicating that
      * the details could not be found.
      *
-     * @param string $id The unique identifier of the provider or part.
+     * @param  string  $id
+     * @param  array  $options
      * @return PartDetailDTO The detailed information about the part.
      *
      * @throws \Exception If no details are found for the given provider ID.
      */
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         $cacheKey = $this->getCacheKey($id);
+
+        if ($options[self::OPTION_NO_CACHE] ?? false) {
+            $this->partInfoCache->deleteItem($cacheKey);
+        }
+
         $cacheItem = $this->partInfoCache->getItem($cacheKey);
 
         if ($cacheItem->isHit()) {
@@ -449,17 +444,6 @@ class OEMSecretsProvider implements InfoProviderInterface
      * Currently, this list is purely informational and not used in functional checks.
      * @return ProviderCapabilities[]
      */
-    public function getCapabilities(): array
-    {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::DATASHEET,
-            ProviderCapabilities::PRICE,
-        ];
-    }
-
-
     /**
      * Processes a single product and updates arrays for basic information, datasheets, images, parameters,
      * and purchase information. Aggregates and organizes data received for a specific `part_number` and `manufacturer_id`.
@@ -680,7 +664,7 @@ class OEMSecretsProvider implements InfoProviderInterface
         if (is_array($prices)) {
             // Step 1: Check if prices exist in the preferred currency
             if (isset($prices[$this->settings->currency]) && is_array($prices[$this->settings->currency])) {
-                $priceDetails = $prices[$this->$this->settings->currency];
+                $priceDetails = $prices[$this->settings->currency];
                 foreach ($priceDetails as $priceDetail) {
                     if (
                         is_array($priceDetail) &&
@@ -889,7 +873,7 @@ class OEMSecretsProvider implements InfoProviderInterface
         // If there is no existing basic info array, we create a new one
         if (is_null($existingBasicInfo)) {
             return [
-                'provider_key' => $this->getProviderKey(),
+                'provider_key' => self::PROVIDER_KEY,
                 'provider_id' => $provider_id,
                 'name' => $product['part_number'],
                 'description' => $description,
@@ -909,7 +893,7 @@ class OEMSecretsProvider implements InfoProviderInterface
 
         // Update fields only if empty or undefined, with additional check for preview_image_url
         return [
-            'provider_key' => $existingBasicInfo['provider_key'] ?? $this->getProviderKey(),
+            'provider_key' => $existingBasicInfo['provider_key'] ?? self::PROVIDER_KEY,
             'provider_id' => $existingBasicInfo['provider_id'] ?? $provider_id,
             'name' => $existingBasicInfo['name'] ?? $product['part_number'],
             // Update description if it's null/empty
@@ -1035,7 +1019,6 @@ class OEMSecretsProvider implements InfoProviderInterface
     private function releaseStatusCodeToManufacturingStatus(?string $productStatus, int $availableInStock = 0): ?ManufacturingStatus
     {
         $tmp = match ($productStatus) {
-            null => null,
             "New Product" => ManufacturingStatus::ANNOUNCED,
             "Not Recommended for New Designs" => ManufacturingStatus::NRFND,
             "Factory Special Order", "Obsolete" => ManufacturingStatus::DISCONTINUED,
@@ -1263,9 +1246,9 @@ class OEMSecretsProvider implements InfoProviderInterface
      */
     private function generateInquiryUrl(string $partNumber, string $oemInquiry = 'compare/'): string
     {
-        $baseUrl = rtrim($this->getProviderInfo()['url'], '/') . '/';
+        $baseUrl = rtrim($this->getProviderInfo()->url, '/') . '/';
         $inquiryPath = trim($oemInquiry, '/') . '/';
-        $encodedPartNumber = urlencode(trim($partNumber));
+        $encodedPartNumber = rawurlencode(trim($partNumber));
         return $baseUrl . $inquiryPath . $encodedPartNumber;
     }
 
@@ -1336,6 +1319,7 @@ class OEMSecretsProvider implements InfoProviderInterface
                 return strcasecmp($a->manufacturer, $b->manufacturer);
             }
 
+            throw new \RuntimeException("Invalid sort mode: {$this->settings->sortMode->name}");
         });
     }
 

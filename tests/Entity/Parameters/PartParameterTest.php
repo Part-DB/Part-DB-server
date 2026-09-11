@@ -45,7 +45,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\Parameters\PartParameter;
 use PHPUnit\Framework\TestCase;
 
-class PartParameterTest extends TestCase
+final class PartParameterTest extends TestCase
 {
     public static function valueWithUnitDataProvider(): \Iterator
     {

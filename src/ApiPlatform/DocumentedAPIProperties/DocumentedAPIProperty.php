@@ -31,38 +31,38 @@ use ApiPlatform\Metadata\ApiProperty;
  * but get added by a normalizer.
  */
 #[\Attribute(\Attribute::TARGET_CLASS| \Attribute::IS_REPEATABLE)]
-final class DocumentedAPIProperty
+final readonly class DocumentedAPIProperty
 {
     public function __construct(
         /**
          * @param string $schemaName The name of the schema to add the property to (e.g. "Part-Read")
          */
-        public readonly string $schemaName,
+        public string $schemaName,
         /**
          * @var string $property The name of the property to add to the schema
          */
-        public readonly string $property,
-        public readonly string $type = 'string',
-        public readonly bool $nullable = true,
+        public string $property,
+        public string $type = 'string',
+        public bool $nullable = true,
         /**
          * @var string $description The description of the property
          */
-        public readonly ?string $description = null,
+        public ?string $description = null,
         /**
          * @var bool True if the property is readable, false otherwise
          */
-        public readonly bool $readable = true,
+        public bool $readable = true,
         /**
          * @var bool True if the property is writable, false otherwise
          */
-        public readonly bool $writeable = false,
+        public bool $writeable = false,
         /**
          * @var string|null The deprecation reason of the property
          */
-        public readonly ?string $deprecationReason = null,
+        public ?string $deprecationReason = null,
         /** @var mixed The default value of this property */
-        public readonly mixed $default = null,
-        public readonly mixed $example = null,
+        public mixed $default = null,
+        public mixed $example = null,
     )
     {
     }

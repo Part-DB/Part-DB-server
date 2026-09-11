@@ -1,7 +1,7 @@
 {{ form_row(form.name) }}
 {% if part.category is not null and part.category.partnameHint is not empty %}
     <div class="row">
-        <div class="col-sm-9 offset-sm-3">
+        <div class="{{ col_input }} {{ offset_label }}">
             <p class="form-text help-text"><b>{% trans %}part.edit.name.category_hint{% endtrans %}:</b> {{ part.category.partnameHint }}</p>
         </div>
     </div>

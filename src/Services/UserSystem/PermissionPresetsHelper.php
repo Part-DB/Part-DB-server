@@ -24,7 +24,10 @@ namespace App\Services\UserSystem;
 
 use App\Entity\UserSystem\PermissionData;
 use App\Security\Interfaces\HasPermissionsInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
+// We are needing this service inside a migration, where only the container is injected. So we need to define it as public, to access it from the container.
+#[Autoconfigure(public: true)]
 class PermissionPresetsHelper
 {
     final public const PRESET_ALL_INHERIT = 'all_inherit';
@@ -111,8 +114,12 @@ class PermissionPresetsHelper
 
         //Allow to manage Oauth tokens
         $this->permissionResolver->setPermission($perm_holder, 'system', 'manage_oauth_tokens', PermissionData::ALLOW);
-        //Allow to show updates
+        //And oauth clients
+        $this->permissionResolver->setPermission($perm_holder, 'system', 'manage_oauth_clients', PermissionData::ALLOW);
+
+        //Allow to show and manage updates
         $this->permissionResolver->setPermission($perm_holder, 'system', 'show_updates', PermissionData::ALLOW);
+        $this->permissionResolver->setPermission($perm_holder, 'system', 'manage_updates', PermissionData::ALLOW);
 
     }
 
@@ -167,6 +174,7 @@ class PermissionPresetsHelper
         $this->permissionResolver->setPermission($perm_holder, 'tools', 'reel_calculator', PermissionData::ALLOW);
         $this->permissionResolver->setPermission($perm_holder, 'tools', 'builtin_footprints_viewer', PermissionData::ALLOW);
         $this->permissionResolver->setPermission($perm_holder, 'tools', 'ic_logos', PermissionData::ALLOW);
+        $this->permissionResolver->setPermission($perm_holder, 'tools', 'component_image_generator', PermissionData::ALLOW);
 
         //Set attachments permissions
         $this->permissionResolver->setPermission($perm_holder, 'attachments', 'list_attachments', PermissionData::ALLOW);

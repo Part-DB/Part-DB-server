@@ -26,7 +26,7 @@ use App\Entity\PriceInformations\Currency;
 use Brick\Math\BigDecimal;
 use PHPUnit\Framework\TestCase;
 
-class CurrencyTest extends TestCase
+final class CurrencyTest extends TestCase
 {
     public function testGetInverseExchangeRate(): void
     {

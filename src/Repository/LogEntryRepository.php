@@ -162,7 +162,10 @@ class LogEntryRepository extends DBElementRepository
      */
     public function getLogsOrderedByTimestamp(string $order = 'DESC', ?int $limit = null, ?int $offset = null): array
     {
-        return $this->findBy([], ['timestamp' => $order], $limit, $offset);
+        //Order by timestamp first, and use the ID as a tiebreaker, as the timestamp is not guaranteed to be unique
+        //(e.g. multiple log entries created within the same fixture load or request) and the row order for equal
+        //timestamps is not deterministic across all database platforms (e.g. PostgreSQL vs. MySQL/SQLite).
+        return $this->findBy([], ['timestamp' => $order, 'id' => $order], $limit, $offset);
     }
 
     /**

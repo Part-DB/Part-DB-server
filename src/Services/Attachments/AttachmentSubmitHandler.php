@@ -44,6 +44,8 @@ use App\Exceptions\AttachmentDownloadException;
 use App\Settings\SystemSettings\AttachmentsSettings;
 use Hshn\Base64EncodedFile\HttpFoundation\File\Base64EncodedFile;
 use Hshn\Base64EncodedFile\HttpFoundation\File\UploadedBase64EncodedFile;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\HttpClient\NoPrivateNetworkHttpClient;
 use const DIRECTORY_SEPARATOR;
 use InvalidArgumentException;
 use RuntimeException;
@@ -67,7 +69,7 @@ class AttachmentSubmitHandler
 
     protected const BLACKLISTED_EXTENSIONS = ['php', 'phtml', 'php3', 'ph3', 'php4', 'ph4', 'php5', 'ph5', 'phtm', 'sh',
         'asp', 'cgi', 'py', 'pl', 'exe', 'aspx', 'js', 'mjs', 'jsp', 'css', 'jar', 'html', 'htm', 'shtm', 'shtml', 'htaccess',
-        'htpasswd', ''];
+        'htpasswd', 'phar', 'phps', ''];
 
     public function __construct(
         protected AttachmentPathResolver $pathResolver,
@@ -76,6 +78,8 @@ class AttachmentSubmitHandler
         protected FileTypeFilterTools $filterTools,
         protected AttachmentsSettings $settings,
         protected readonly SVGSanitizer $SVGSanitizer,
+        #[Autowire(env: "bool:ALLOW_ATTACHMENT_DOWNLOADS_FROM_LOCALNETWORK")]
+        private readonly bool $allow_local_network_downloads = false,
     )
     {
         //The mapping used to determine which folder will be used for an attachment type
@@ -95,6 +99,10 @@ class AttachmentSubmitHandler
             UserAttachment::class => 'user',
             LabelAttachment::class => 'label_profile',
         ];
+
+        if (!$this->allow_local_network_downloads) {
+            $this->httpClient = new NoPrivateNetworkHttpClient($this->httpClient);
+        }
     }
 
     /**
@@ -137,7 +145,10 @@ class AttachmentSubmitHandler
             $attachment->getName()
         );
 
-        return $safeName.'-'.uniqid('', false).'.'.$extension;
+        // Generate a 12-character URL-safe random string, which should avoid collisions and prevent from guessing file paths.
+        $random = str_replace(['+', '/', '='], ['0', '1', '2'], base64_encode(random_bytes(9)));
+
+        return $safeName.'-'.$random.'.'.$extension;
     }
 
     /**
@@ -206,6 +217,14 @@ class AttachmentSubmitHandler
 
         //If no file was uploaded, but we have base64 encoded data, create a file from it
         if (!$file && $upload->data !== null) {
+            if (strlen($upload->data) > $this->getMaximumUserConfiguredUploadSize() * 4 / 3) { //Base64 encoding increases the size of the data by 4/3, so we have to check for that
+                throw new RuntimeException(
+                    sprintf(
+                        'The given base64 data is too big! Maximum size is %.1f MB!',
+                        $this->getMaximumUserConfiguredUploadSize() / 1000 / 1000
+                    ));
+            }
+
             $file = new UploadedBase64EncodedFile(new Base64EncodedFile($upload->data), $upload->filename ?? 'base64');
         }
 
@@ -214,6 +233,15 @@ class AttachmentSubmitHandler
 
         //When a file is given then upload it, otherwise check if we need to download the URL
         if ($file instanceof UploadedFile) {
+            //Check the file size, to avoid uploading too big files.
+            //The file is not necessarily validated as it can also come from an Base64 source
+            if ($file->getSize() > $this->getMaximumUserConfiguredUploadSize()) {
+                throw new RuntimeException(
+                    sprintf(
+                        'The uploaded file is too big! Maximum size is %.1f MB!',
+                        $this->getMaximumUserConfiguredUploadSize() / 1000 / 1000
+                    ));
+            }
 
             $this->upload($attachment, $file, $secure_attachment);
         } elseif ($upload->downloadUrl && $attachment->hasExternal()) {
@@ -370,6 +398,7 @@ class AttachmentSubmitHandler
                 ],
 
             ];
+
             $response = $this->httpClient->request('GET', $url, $opts);
             //Digikey wants TLSv1.3, so try again with that if we get a 403
             if ($response->getStatusCode() === 403) {
@@ -387,9 +416,30 @@ class AttachmentSubmitHandler
             //Open a temporary file in the attachment folder
             $fs->mkdir($attachment_folder);
             $fileHandler = fopen($tmp_path, 'wb');
+
+            $bytesDownloaded = 0;
+            $maxSize = $this->getMaximumUserConfiguredUploadSize(); //We use the maximum user configured size here, PHPs limits dont apply
+
             //Write the downloaded data to file
             foreach ($this->httpClient->stream($response) as $chunk) {
-                fwrite($fileHandler, $chunk->getContent());
+                $content = $chunk->getContent();
+                $bytesDownloaded += strlen($content);
+
+                //Ensure the size does not get too large to avoid filling up the disk easily.
+                //If the file is too big, cancel the download and delete the temporary file.
+                if ($bytesDownloaded > $maxSize) {
+                    $response->cancel();
+                    fclose($fileHandler);
+                    unlink($tmp_path); //Delete the temporary file, because it is too big
+
+                    throw new AttachmentDownloadException(
+                        sprintf(
+                            'The downloaded file is too big! Maximum size is %.1f MB!',
+                            $maxSize / 1000 / 1000
+                        ));
+                }
+
+                fwrite($fileHandler, $content);
             }
             fclose($fileHandler);
 
@@ -431,8 +481,8 @@ class AttachmentSubmitHandler
             $new_path = $this->pathResolver->realPathToPlaceholder($new_path);
             //Save the path to the attachment
             $attachment->setInternalPath($new_path);
-        } catch (TransportExceptionInterface) {
-            throw new AttachmentDownloadException('Transport error!');
+        } catch (TransportExceptionInterface $exception) {
+            throw new AttachmentDownloadException('Transport error: '.$exception->getMessage());
         }
 
         return $attachment;
@@ -493,10 +543,10 @@ class AttachmentSubmitHandler
     }
 
     /*
-     * Returns the maximum allowed upload size in bytes.
+     * Returns the maximum effective upload size in bytes.
      * This is the minimum value of Part-DB max_file_size, and php.ini's post_max_size and upload_max_filesize.
      */
-    public function getMaximumAllowedUploadSize(): int
+    public function getMaximumEffectiveUploadSize(): int
     {
         if ($this->max_upload_size_bytes) {
             return $this->max_upload_size_bytes;
@@ -509,6 +559,15 @@ class AttachmentSubmitHandler
         );
 
         return $this->max_upload_size_bytes;
+    }
+
+    /**
+     * Returns the maximum user configured upload size in bytes.
+     * @return int
+     */
+   public function getMaximumUserConfiguredUploadSize(): int
+    {
+        return $this->parseFileSizeString($this->settings->maxFileSize);
     }
 
     /**
@@ -531,8 +590,10 @@ class AttachmentSubmitHandler
             return $attachment;
         }
 
+        $guessed_mime_type = $this->mimeTypes->guessMimeType($path);
+
         //Check if the file is an SVG
-        if ($attachment->getExtension() === "svg") {
+        if ($guessed_mime_type === "image/svg+xml" || $attachment->getExtension() === "svg") {
             $this->SVGSanitizer->sanitizeFile($path);
         }
 

@@ -44,7 +44,7 @@ class BigDecimalType extends Type
 
 
 
-        return BigDecimal::of($value);
+        return BigDecimal::of(is_float($value) ? BigDecimal::fromFloatShortest($value) : $value);
     }
 
     /**

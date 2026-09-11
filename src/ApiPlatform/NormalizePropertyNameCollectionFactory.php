@@ -36,9 +36,9 @@ use function Symfony\Component\String\u;
  * the getters too...
  */
 #[AsDecorator('api_platform.metadata.property.name_collection_factory')]
-class NormalizePropertyNameCollectionFactory implements PropertyNameCollectionFactoryInterface
+readonly class NormalizePropertyNameCollectionFactory implements PropertyNameCollectionFactoryInterface
 {
-    public function __construct(private readonly PropertyNameCollectionFactoryInterface $decorated)
+    public function __construct(private PropertyNameCollectionFactoryInterface $decorated)
     {
     }
 

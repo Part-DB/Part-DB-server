@@ -22,9 +22,9 @@ declare(strict_types=1);
 
 namespace App\Services\Attachments;
 
+use App\Settings\SystemSettings\AttachmentsSettings;
 use Imagine\Exception\RuntimeException;
 use App\Entity\Attachments\Attachment;
-use InvalidArgumentException;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Psr\Log\LoggerInterface;
 use function strlen;
@@ -40,7 +40,7 @@ class AttachmentURLGenerator
 
     public function __construct(protected Packages $assets, protected AttachmentPathResolver $pathResolver,
                                 protected UrlGeneratorInterface $urlGenerator, protected AttachmentManager $attachmentHelper,
-        protected CacheManager $thumbnailManager, protected LoggerInterface $logger)
+        protected CacheManager $thumbnailManager, protected LoggerInterface $logger, private readonly AttachmentsSettings $attachmentsSettings)
     {
         //Determine a normalized path to the public folder (assets are relative to this folder)
         $this->public_path = $this->pathResolver->parameterToAbsolutePath('public');
@@ -97,6 +97,10 @@ class AttachmentURLGenerator
         $absolute_path = $this->attachmentHelper->toAbsoluteInternalFilePath($attachment);
         if (null === $absolute_path) {
             return null;
+        }
+
+        if ($this->attachmentsSettings->showHTMLAttachments && $attachment->isLocalHTMLFile()) {
+            return $this->urlGenerator->generate('attachment_html_sandbox', ['id' => $attachment->getID()]);
         }
 
         $asset_path = $this->absolutePathToAssetPath($absolute_path);

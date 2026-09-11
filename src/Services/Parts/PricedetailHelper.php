@@ -25,7 +25,6 @@ namespace App\Services\Parts;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Pricedetail;
-use App\Settings\SystemSettings\LocalizationSettings;
 use Brick\Math\BigDecimal;
 use Brick\Math\RoundingMode;
 use Doctrine\ORM\PersistentCollection;
@@ -170,7 +169,7 @@ class PricedetailHelper
             return null;
         }
 
-        return $avg->dividedBy($count, Pricedetail::PRICE_PRECISION, RoundingMode::HALF_UP);
+        return $avg->dividedBy($count, Pricedetail::PRICE_PRECISION, RoundingMode::HalfUp);
     }
 
     /**
@@ -213,6 +212,6 @@ class PricedetailHelper
             $val_target = $val_base->multipliedBy($targetCurrency->getInverseExchangeRate());
         }
 
-        return $val_target->toScale(Pricedetail::PRICE_PRECISION, RoundingMode::HALF_UP);
+        return $val_target->toScale(Pricedetail::PRICE_PRECISION, RoundingMode::HalfUp);
     }
 }

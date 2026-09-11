@@ -24,6 +24,8 @@ doctrine:
                 class: App\Doctrine\Types\BigDecimalType
             tinyint:
                 class: App\Doctrine\Types\TinyIntType
+            uuid:
+                class: Symfony\Bridge\Doctrine\Types\UuidType
 
         schema_filter: ~^(?!internal)~
         # Only enable this when needed
@@ -56,6 +58,7 @@ doctrine:
                 natsort: App\Doctrine\Functions\Natsort
                 array_position: App\Doctrine\Functions\ArrayPosition
                 ilike: App\Doctrine\Functions\ILike
+                si_value_sort: App\Doctrine\Functions\SiValueSort
 
 when@test:
     doctrine:

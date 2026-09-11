@@ -25,7 +25,6 @@ namespace App\Settings\InfoProviderSystem;
 
 use Jbtronics\SettingsBundle\Settings\EmbeddedSettings;
 use Jbtronics\SettingsBundle\Settings\Settings;
-use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
@@ -36,6 +35,15 @@ class InfoProviderSettings
 
     #[EmbeddedSettings]
     public ?InfoProviderGeneralSettings $general = null;
+
+    #[EmbeddedSettings]
+    public ?BrowserPluginSettings $browserPlugin = null;
+
+    #[EmbeddedSettings]
+    public ?GenericWebProviderSettings $genericWebProvider = null;
+
+    #[EmbeddedSettings]
+    public ?AIExtractorSettings $aiExtractor = null;
 
     #[EmbeddedSettings]
     public ?DigikeySettings $digikey = null;
@@ -63,4 +71,17 @@ class InfoProviderSettings
 
     #[EmbeddedSettings]
     public ?PollinSettings $pollin = null;
+
+    #[EmbeddedSettings]
+    public ?BuerklinSettings $buerklin = null;
+
+    #[EmbeddedSettings]
+    public ?ConradSettings $conrad = null;
+
+    #[EmbeddedSettings]
+    public ?CanopySettings $canopy = null;
+
+    #[EmbeddedSettings]
+    public ?TrustedPartsSettings $trustedparts = null;
+
 }

@@ -42,15 +42,19 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem;
 
 use App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface;
+use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 /**
  * This service replaces the Placeholders of the user provided lines with the proper informations.
  * It uses the PlaceholderProviders provided by PlaceholderProviderInterface classes.
  * @see \App\Tests\Services\LabelSystem\LabelTextReplacerTest
  */
-final class LabelTextReplacer
+final readonly class LabelTextReplacer
 {
-    public function __construct(private readonly iterable $providers)
+    public function __construct(
+        #[AutowireIterator('app.label_placeholder_provider')]
+        private iterable $providers,
+    )
     {
     }
 

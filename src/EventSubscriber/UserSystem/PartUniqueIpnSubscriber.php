@@ -1,14 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\EventSubscriber\UserSystem;
 
 use App\Entity\Parts\Part;
 use App\Settings\MiscSettings\IpnSuggestSettings;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 
-class PartUniqueIpnSubscriber implements EventSubscriber
+#[AsDoctrineListener(event: Events::onFlush, connection: 'default')]
+readonly class PartUniqueIpnSubscriber implements EventSubscriber
 {
     public function __construct(
         private IpnSuggestSettings $ipnSuggestSettings
@@ -36,7 +40,7 @@ class PartUniqueIpnSubscriber implements EventSubscriber
         $reservedIpns = [];
 
         // Helper to assign a collision-free IPN for a Part entity
-        $ensureUnique = function (Part $part) use ($em, $uow, $meta, &$reservedIpns) {
+        $ensureUnique = static function (Part $part) use ($em, $uow, $meta, &$reservedIpns) {
             $ipn = $part->getIpn();
             if ($ipn === null || $ipn === '') {
                 return;
@@ -47,7 +51,7 @@ class PartUniqueIpnSubscriber implements EventSubscriber
             $candidate = $originalIpn;
             $increment = 1;
 
-            $conflicts = function (string $candidate) use ($em, $part, $reservedIpns) {
+            $conflicts = static function (string $candidate) use ($em, $part, $reservedIpns) {
                 // Collision within the current flush session?
                 if (isset($reservedIpns[$candidate]) && $reservedIpns[$candidate] !== $part) {
                     return true;

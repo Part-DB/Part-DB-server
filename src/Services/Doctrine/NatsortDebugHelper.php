@@ -31,9 +31,9 @@ use Doctrine\ORM\EntityManagerInterface;
  * This service allows to debug the natsort function by showing various information about the current state of
  * the natsort function.
  */
-class NatsortDebugHelper
+readonly class NatsortDebugHelper
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager)
     {
         // This is a dummy constructor
     }

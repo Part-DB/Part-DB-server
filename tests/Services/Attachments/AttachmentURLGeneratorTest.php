@@ -26,7 +26,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use App\Services\Attachments\AttachmentURLGenerator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class AttachmentURLGeneratorTest extends WebTestCase
+final class AttachmentURLGeneratorTest extends WebTestCase
 {
     protected const PUBLIC_DIR = '/public';
 

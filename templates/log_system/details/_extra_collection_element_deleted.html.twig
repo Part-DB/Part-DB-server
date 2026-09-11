@@ -4,7 +4,7 @@
 
 <p class="m-0">
     <b>{% trans %}log.collection_deleted.deleted{% endtrans %}</b>:
-    {{ entity_type_label(entry.deletedElementClass) }} #{{ entry.deletedElementID }}
+    {{ type_label(entry.deletedElementClass) }} #{{ entry.deletedElementID }}
     {% if entry.oldName is not empty %}
         ({{ entry.oldName }})
     {% endif %}

@@ -22,7 +22,7 @@
             <i>({{ timeTravel | format_datetime('short') }})</i>
         {% endif %}
         {% if part.projectBuildPart %}
-            (<i>{{ entity_type_label(part.builtProject) }}</i>: <a class="text-white" href="{{ entity_url(part.builtProject) }}">{{ part.builtProject.name }}</a>)
+            (<i>{{ type_label(part.builtProject) }}</i>: <a class="text-white" href="{{ entity_url(part.builtProject) }}">{{ part.builtProject.name }}</a>)
         {% endif %}
     </span>
     <span class="float-end">
@@ -34,6 +34,7 @@
     <div class="row">
         <div class="col col-md-3 mt-auto mb-auto">
             {% include "parts/info/_picture.html.twig" %}
+            {% include "tools/component_image_generator/_generate_modal.html.twig" %}
         </div>
 
         <div class="col-12 col-md-9 col-lg-6">

@@ -22,11 +22,10 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Form\Type\AttachmentTypeType;
 use App\Settings\SystemSettings\AttachmentsSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\AttachmentType;
-use App\Form\Type\StructuralEntityType;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Validator\Constraints\UrlOrBuiltin;
@@ -67,10 +66,10 @@ class AttachmentFormType extends AbstractType
                 'required' => false,
                 'empty_data' => '',
             ])
-            ->add('attachment_type', StructuralEntityType::class, [
+            ->add('attachment_type', AttachmentTypeType::class, [
                 'label' => 'attachment.edit.attachment_type',
-                'class' => AttachmentType::class,
                 'disable_not_selectable' => true,
+                'attachment_filter_class' => $options['data_class'] ?? null,
                 'allow_add' => $this->security->isGranted('@attachment_types.create'),
             ]);
 
@@ -121,9 +120,7 @@ class AttachmentFormType extends AbstractType
             ],
             'constraints' => [
                 //new AllowedFileExtension(),
-                new File([
-                    'maxSize' => $options['max_file_size'],
-                ]),
+                new File(maxSize: $options['max_file_size']),
             ],
         ]);
 
@@ -210,7 +207,7 @@ class AttachmentFormType extends AbstractType
 
     public function finishView(FormView $view, FormInterface $form, array $options): void
     {
-        $view->vars['max_upload_size'] = $this->submitHandler->getMaximumAllowedUploadSize();
+        $view->vars['max_upload_size'] = $this->submitHandler->getMaximumEffectiveUploadSize();
     }
 
     public function getBlockPrefix(): string

@@ -28,15 +28,12 @@ use App\Validator\Constraints\NoneOfItsChildren;
 use App\Validator\Constraints\NoneOfItsChildrenValidator;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-class NoneOfItsChildrenValidatorTest extends ConstraintValidatorTestCase
+final class NoneOfItsChildrenValidatorTest extends ConstraintValidatorTestCase
 {
 
     protected AttachmentType $root_node;
     protected AttachmentType $child1;
-    protected AttachmentType $child2;
-    protected AttachmentType $child3;
     protected AttachmentType $child1_1;
-    protected AttachmentType $child1_2;
 
     protected function setUp(): void
     {
@@ -49,14 +46,14 @@ class NoneOfItsChildrenValidatorTest extends ConstraintValidatorTestCase
         $this->root_node->setName('root')->setParent(null);
         $this->child1 = new AttachmentType();
         $this->child1->setParent($this->root_node)->setName('child1');
-        $this->child2 = new AttachmentType();
-        $this->child2->setName('child2')->setParent($this->root_node);
-        $this->child3 = new AttachmentType();
-        $this->child3->setName('child3')->setParent($this->root_node);
+        $child2 = new AttachmentType();
+        $child2->setName('child2')->setParent($this->root_node);
+        $child3 = new AttachmentType();
+        $child3->setName('child3')->setParent($this->root_node);
         $this->child1_1 = new AttachmentType();
         $this->child1_1->setName('child1_1')->setParent($this->child1);
-        $this->child1_2 = new AttachmentType();
-        $this->child1_2->setName('child1_2')->setParent($this->child1);
+        $child1_2 = new AttachmentType();
+        $child1_2->setName('child1_2')->setParent($this->child1);
     }
 
 

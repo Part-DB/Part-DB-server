@@ -27,6 +27,7 @@ use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\Providers\LCSCProvider;
 use App\Services\InfoProviderSystem\Providers\ProviderCapabilities;
@@ -37,7 +38,7 @@ use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class LCSCProviderTest extends TestCase
+final class LCSCProviderTest extends TestCase
 {
     private LCSCSettings $settings;
     private LCSCProvider $provider;
@@ -56,18 +57,10 @@ class LCSCProviderTest extends TestCase
     {
         $info = $this->provider->getProviderInfo();
 
-        $this->assertIsArray($info);
-        $this->assertArrayHasKey('name', $info);
-        $this->assertArrayHasKey('description', $info);
-        $this->assertArrayHasKey('url', $info);
-        $this->assertArrayHasKey('disabled_help', $info);
-        $this->assertEquals('LCSC', $info['name']);
-        $this->assertEquals('https://www.lcsc.com/', $info['url']);
-    }
-
-    public function testGetProviderKey(): void
-    {
-        $this->assertEquals('lcsc', $this->provider->getProviderKey());
+        $this->assertInstanceOf(ProviderInfoDTO::class, $info);
+        $this->assertSame('lcsc', $info->key);
+        $this->assertEquals('LCSC', $info->name);
+        $this->assertEquals('https://www.lcsc.com/', $info->url);
     }
 
     public function testIsActiveWhenEnabled(): void
@@ -86,7 +79,7 @@ class LCSCProviderTest extends TestCase
 
     public function testGetCapabilities(): void
     {
-        $capabilities = $this->provider->getCapabilities();
+        $capabilities = $this->provider->getProviderInfo()->capabilities;
 
         $this->assertIsArray($capabilities);
         $this->assertContains(ProviderCapabilities::BASIC, $capabilities);
@@ -125,33 +118,29 @@ class LCSCProviderTest extends TestCase
         $this->assertIsArray($results);
         $this->assertCount(1, $results);
         $this->assertInstanceOf(PartDetailDTO::class, $results[0]);
-        $this->assertEquals('C123456', $results[0]->provider_id);
-        $this->assertEquals('Test Component', $results[0]->name);
+        $this->assertSame('C123456', $results[0]->provider_id);
+        $this->assertSame('Test Component', $results[0]->name);
     }
 
     public function testSearchByKeywordWithRegularTerm(): void
     {
         $mockResponse = new MockResponse(json_encode([
             'result' => [
-                'productSearchResultVO' => [
-                    'productList' => [
-                        [
-                            'productCode' => 'C789012',
-                            'productModel' => 'Regular Component',
-                            'productIntroEn' => 'Regular description',
-                            'brandNameEn' => 'Regular Manufacturer',
-                            'encapStandard' => '0805',
-                            'productImageUrl' => 'https://example.com/regular.jpg',
-                            'productImages' => ['https://example.com/regular1.jpg'],
-                            'productPriceList' => [
-                                ['ladder' => 10, 'productPrice' => '0.08', 'currencySymbol' => '€']
-                            ],
-                            'paramVOList' => [],
-                            'pdfUrl' => null,
-                            'weight' => null
-                        ]
-                    ]
-                ]
+                'exactMatchResult' => [[
+                    'productCode' => 'C789012',
+                    'productModel' => 'Regular Component',
+                    'productIntroEn' => 'Regular description',
+                    'brandNameEn' => 'Regular Manufacturer',
+                    'encapStandard' => '0805',
+                    'productImageUrl' => 'https://example.com/regular.jpg',
+                    'productImages' => ['https://example.com/regular1.jpg'],
+                    'productPriceList' => [
+                        ['ladder' => 10, 'productPrice' => '0.08', 'currencySymbol' => '€']
+                    ],
+                    'paramVOList' => [],
+                    'pdfUrl' => null,
+                    'weight' => null
+                ]]
             ]
         ]));
 
@@ -162,49 +151,10 @@ class LCSCProviderTest extends TestCase
         $this->assertIsArray($results);
         $this->assertCount(1, $results);
         $this->assertInstanceOf(PartDetailDTO::class, $results[0]);
-        $this->assertEquals('C789012', $results[0]->provider_id);
-        $this->assertEquals('Regular Component', $results[0]->name);
+        $this->assertSame('C789012', $results[0]->provider_id);
+        $this->assertSame('Regular Component', $results[0]->name);
     }
 
-    public function testSearchByKeywordWithTipProduct(): void
-    {
-        $mockResponse = new MockResponse(json_encode([
-            'result' => [
-                'productSearchResultVO' => [
-                    'productList' => []
-                ],
-                'tipProductDetailUrlVO' => [
-                    'productCode' => 'C555555'
-                ]
-            ]
-        ]));
-
-        $detailResponse = new MockResponse(json_encode([
-            'result' => [
-                'productCode' => 'C555555',
-                'productModel' => 'Tip Component',
-                'productIntroEn' => 'Tip description',
-                'brandNameEn' => 'Tip Manufacturer',
-                'encapStandard' => '1206',
-                'productImageUrl' => null,
-                'productImages' => [],
-                'productPriceList' => [],
-                'paramVOList' => [],
-                'pdfUrl' => null,
-                'weight' => null
-            ]
-        ]));
-
-        $this->httpClient->setResponseFactory([$mockResponse, $detailResponse]);
-
-        $results = $this->provider->searchByKeyword('special');
-
-        $this->assertIsArray($results);
-        $this->assertCount(1, $results);
-        $this->assertInstanceOf(PartDetailDTO::class, $results[0]);
-        $this->assertEquals('C555555', $results[0]->provider_id);
-        $this->assertEquals('Tip Component', $results[0]->name);
-    }
 
     public function testSearchByKeywordsBatch(): void
     {
@@ -288,12 +238,12 @@ class LCSCProviderTest extends TestCase
         $result = $this->provider->getDetails('C123456');
 
         $this->assertInstanceOf(PartDetailDTO::class, $result);
-        $this->assertEquals('C123456', $result->provider_id);
-        $this->assertEquals('Detailed Component', $result->name);
-        $this->assertEquals('Detailed description', $result->description);
-        $this->assertEquals('Detailed Manufacturer', $result->manufacturer);
+        $this->assertSame('C123456', $result->provider_id);
+        $this->assertSame('Detailed Component', $result->name);
+        $this->assertSame('Detailed description', $result->description);
+        $this->assertSame('Detailed Manufacturer', $result->manufacturer);
         $this->assertEquals('0603', $result->footprint);
-        $this->assertEquals('https://www.lcsc.com/product-detail/C123456.html', $result->provider_url);
+        $this->assertSame('https://www.lcsc.com/product-detail/C123456.html', $result->provider_url);
         $this->assertCount(1, $result->images);
         $this->assertCount(2, $result->parameters);
         $this->assertCount(1, $result->vendor_infos);
@@ -310,7 +260,7 @@ class LCSCProviderTest extends TestCase
             ]
         ]));
 
-        $this->httpClient->setResponseFactory([$mockResponse]);
+        $this->httpClient->setResponseFactory([$mockResponse, $mockResponse]);
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('No part found with ID INVALID');
@@ -322,8 +272,7 @@ class LCSCProviderTest extends TestCase
     {
         $mockResponse = new MockResponse(json_encode([
             'result' => [
-                'productSearchResultVO' => [
-                    'productList' => [
+                'exactMatchResult' => [
                         [
                             'productCode' => 'C123456',
                             'productModel' => 'Component 1',
@@ -350,7 +299,6 @@ class LCSCProviderTest extends TestCase
                             'pdfUrl' => null,
                             'weight' => null
                         ]
-                    ]
                 ]
             ]
         ]));
@@ -367,7 +315,6 @@ class LCSCProviderTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->provider);
         $method = $reflection->getMethod('sanitizeField');
-        $method->setAccessible(true);
 
         $this->assertNull($method->invokeArgs($this->provider, [null]));
         $this->assertEquals('Clean text', $method->invokeArgs($this->provider, ['Clean text']));
@@ -378,7 +325,6 @@ class LCSCProviderTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->provider);
         $method = $reflection->getMethod('getUsedCurrency');
-        $method->setAccessible(true);
 
         $this->assertEquals('USD', $method->invokeArgs($this->provider, ['US$']));
         $this->assertEquals('USD', $method->invokeArgs($this->provider, ['$']));
@@ -391,7 +337,6 @@ class LCSCProviderTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->provider);
         $method = $reflection->getMethod('getProductShortURL');
-        $method->setAccessible(true);
 
         $result = $method->invokeArgs($this->provider, ['C123456']);
         $this->assertEquals('https://www.lcsc.com/product-detail/C123456.html', $result);
@@ -401,7 +346,6 @@ class LCSCProviderTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->provider);
         $method = $reflection->getMethod('getProductDatasheets');
-        $method->setAccessible(true);
 
         $result = $method->invokeArgs($this->provider, [null]);
         $this->assertIsArray($result);
@@ -417,7 +361,6 @@ class LCSCProviderTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->provider);
         $method = $reflection->getMethod('getProductImages');
-        $method->setAccessible(true);
 
         $result = $method->invokeArgs($this->provider, [null]);
         $this->assertIsArray($result);
@@ -434,7 +377,6 @@ class LCSCProviderTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->provider);
         $method = $reflection->getMethod('attributesToParameters');
-        $method->setAccessible(true);
 
         $attributes = [
             ['paramNameEn' => 'Resistance', 'paramValueEn' => '1kΩ'],
@@ -454,7 +396,6 @@ class LCSCProviderTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->provider);
         $method = $reflection->getMethod('pricesToVendorInfo');
-        $method->setAccessible(true);
 
         $prices = [
             ['ladder' => 1, 'productPrice' => '0.10', 'currencySymbol' => 'US$'],
@@ -465,8 +406,8 @@ class LCSCProviderTest extends TestCase
         $this->assertIsArray($result);
         $this->assertCount(1, $result);
         $this->assertInstanceOf(PurchaseInfoDTO::class, $result[0]);
-        $this->assertEquals('LCSC', $result[0]->distributor_name);
-        $this->assertEquals('C123456', $result[0]->order_number);
+        $this->assertSame('LCSC', $result[0]->distributor_name);
+        $this->assertSame('C123456', $result[0]->order_number);
         $this->assertCount(2, $result[0]->prices);
     }
 
@@ -493,7 +434,7 @@ class LCSCProviderTest extends TestCase
         $this->httpClient->setResponseFactory([$mockResponse]);
 
         $result = $this->provider->getDetails('C123456');
-        $this->assertEquals('Electronic Components -> Resistors (SMT)', $result->category);
+        $this->assertSame('Electronic Components -> Resistors (SMT)', $result->category);
     }
 
     public function testEmptyFootprintHandling(): void

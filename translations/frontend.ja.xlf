@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="ja">
+  <file id="frontend.ja">
+    <unit id="lQ8QeGr" name="search.placeholder">
+          <segment state="translated">
+            <source>search.placeholder</source>
+            <target>検索</target>
+          </segment>
+        </unit>
+    <unit id="R4hoCqe" name="part.labelp">
+          <segment>
+            <source>part.labelp</source>
+            <target>部品</target>
+          </segment>
+        </unit>
+    <unit id="N66qZeD" name="search.submit">
+          <segment state="translated">
+            <source>search.submit</source>
+            <target>検索</target>
+          </segment>
+        </unit>
+    <unit id="dBtnOk01" name="dialog.btn.ok">
+      <segment state="translated">
+        <source>dialog.btn.ok</source>
+        <target>OK</target>
+      </segment>
+    </unit>
+    <unit id="dBtnCcl1" name="dialog.btn.cancel">
+      <segment state="translated">
+        <source>dialog.btn.cancel</source>
+        <target>キャンセル</target>
+      </segment>
+    </unit>
+    <unit id="dBtnDny1" name="dialog.btn.deny">
+      <segment state="translated">
+        <source>dialog.btn.deny</source>
+        <target>いいえ</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

@@ -30,7 +30,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
-class UniqueObjectCollectionValidatorTest extends ConstraintValidatorTestCase
+final class UniqueObjectCollectionValidatorTest extends ConstraintValidatorTestCase
 {
     protected function createValidator(): UniqueObjectCollectionValidator
     {
@@ -154,6 +154,33 @@ class UniqueObjectCollectionValidatorTest extends ConstraintValidatorTestCase
             ->assertRaised();
     }
 
+    public function testThirdElementDuplicatePointsToIndexTwo(): void
+    {
+        // First two elements are unique; only the third duplicates the first.
+        $this->validator->validate(new ArrayCollection([
+            new DummyUniqueValidatableObject(['a' => 1]),
+            new DummyUniqueValidatableObject(['a' => 2]),
+            new DummyUniqueValidatableObject(['a' => 1]), // duplicate of index 0
+        ]),
+            new UniqueObjectCollection(fields: ['a']));
 
+        $this
+            ->buildViolation('This value is already used.')
+            ->setCode(UniqueObjectCollection::IS_NOT_UNIQUE)
+            ->setParameter('{{ object }}', 'objectString')
+            ->atPath('property.path[2].a')
+            ->assertRaised();
+    }
 
+    public function testAllNullsWithAllowNullProducesNoViolation(): void
+    {
+        $this->validator->validate(new ArrayCollection([
+            new DummyUniqueValidatableObject(['a' => null]),
+            new DummyUniqueValidatableObject(['a' => null]),
+            new DummyUniqueValidatableObject(['a' => null]),
+        ]),
+            new UniqueObjectCollection(fields: ['a'], allowNull: true));
+
+        $this->assertNoViolation();
+    }
 }

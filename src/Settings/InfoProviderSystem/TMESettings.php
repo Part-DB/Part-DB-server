@@ -69,7 +69,6 @@ class TMESettings
     #[Assert\Country]
     public string $country = "DE";
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.grossPrices"),
-        envVar: "bool:PROVIDER_TME_GET_GROSS_PRICES", envVarMode: EnvVarMode::OVERWRITE)]
-    public bool $grossPrices = true;
+    #[SettingsParameter(label: new TM("settings.ips.tme.preferMetricFootprint"))]
+    public bool $preferMetricFootprint = false;
 }

@@ -3,6 +3,7 @@ jbtronics_settings:
 
   cache:
     default_cacheable: true
+    service: 'cache.settings'
 
   orm_storage:
     default_entity_class: App\Entity\SettingsEntry

@@ -21,8 +21,10 @@ declare(strict_types=1);
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 namespace App\DataTables\Filters;
-use App\DataTables\Filters\Constraints\AbstractConstraint;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query\Parameter;
+use Doctrine\DBAL\ParameterType;
 
 class PartSearchFilter implements FilterInterface
 {
@@ -30,8 +32,17 @@ class PartSearchFilter implements FilterInterface
     /** @var boolean Whether to use regex for searching */
     protected bool $regex = false;
 
+    /** @var boolean Whether to use extensive matching for searching */
+    protected bool $extensive = false;
+
+    /** @var boolean Whether to use wildcards for searching */
+    protected bool $wildcard = false;
+
     /** @var bool Use name field for searching */
     protected bool $name = true;
+
+    /** @var bool Use id field for searching */
+    protected bool $dbId = false;
 
     /** @var bool Use category name for searching */
     protected bool $category = true;
@@ -66,11 +77,14 @@ class PartSearchFilter implements FilterInterface
     /** @var bool Use Internal Part number for searching */
     protected bool $ipn = true;
 
+    /** @var int array_map iteration helper variable */
+    protected int $it = 0;
+
     public function __construct(
         /** @var string The string to query for */
         protected string $keyword
-    )
-    {
+    ) {
+
     }
 
     protected function getFieldsToSearch(): array
@@ -120,34 +134,91 @@ class PartSearchFilter implements FilterInterface
     public function apply(QueryBuilder $queryBuilder): void
     {
         $fields_to_search = $this->getFieldsToSearch();
+        $is_numeric = preg_match('/^\d+$/', trim($this->keyword)) === 1;
 
-        //If we have nothing to search for, do nothing
-        if ($fields_to_search === [] || $this->keyword === '') {
+        // Add exact ID match only when the keyword is numeric
+        $search_dbId = $is_numeric && $this->dbId;
+
+        $tokens = [];
+        if ($this->extensive) {
+            //Transform keyword and trim excess spaces
+            $this->keyword = trim(str_replace('+', ' ', $this->keyword));
+            //Split keyword on spaces, but limit token count to 5
+            $tokens = explode(' ', $this->keyword, 5);
+            //Throw away array elements which are null or have zero length
+            $tokens = array_filter($tokens, static fn($x) => ((string)$x !== ''));
+        }
+        else {
+            //Pass the whole keyword into the (empty) tokens array as is,
+            //retaining the original search behavior
+            $tokens[] = $this->keyword;
+        }
+
+        //If we have nothing to search for...
+        if (($fields_to_search === [] && !$search_dbId) || $this->keyword === '' || empty($tokens)) {
+            // ...enforce returning no results
+            $queryBuilder->add('where','1 = 0');
             return;
         }
 
-        //Convert the fields to search to a list of expressions
-        $expressions = array_map(function (string $field): string {
+        $expressions = [];
+        $expressions2 = [];
+        $params = [];
+
+        //Search in selected fields, either based on regex or on tokenized keyword
+        if ($fields_to_search !== []) {
+            //For regex, we pass the query as is
             if ($this->regex) {
-                return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
+                //Convert the fields to search to a list of expressions
+                $expressions = array_merge($expressions, array_map(static function (string $field): string {
+                        return sprintf("REGEXP(%s, :search_query) = TRUE", $field);
+                }, $fields_to_search));
+                $params[] = new Parameter('search_query', $this->keyword);
+            } else {
+                //Add a new expression and parameter set to the query for each token
+                foreach ($tokens as $i => $token) {
+                    //Conditionally escape % and _ characters
+                    if (!$this->wildcard) {
+                        $token = str_replace(['%', '_'], ['\%', '\_'], $token);
+                    }
+
+                    //Convert the fields to search to a list of expressions
+                    $tmp = array_fill_keys($fields_to_search, $i);
+                    $expressions2 = array_map(static function (string $field, int $idx): string {
+                        return sprintf("ILIKE(%s, :search_query%u) = TRUE", $field, $idx);
+                    }, array_keys($tmp), array_values($tmp));
+
+                    //Aggregate the parameters for consolidated commission at the end
+                    //For like, we add % to the start and end as wildcards
+                    $params[] = new Parameter('search_query' . $i, '%' . $token . '%');
+
+                    //Guard condition
+                    if (!empty($expressions2)) {
+                        //Add Or concatenation of the expressions to our query
+                        $queryBuilder->andWhere(
+                            $queryBuilder->expr()->orX(...$expressions2)
+                        );
+                    }
+                }
             }
-
-            return sprintf("ILIKE(%s, :search_query) = TRUE", $field);
-        }, $fields_to_search);
-
-        //Add Or concatenation of the expressions to our query
-        $queryBuilder->andWhere(
-            $queryBuilder->expr()->orX(...$expressions)
-        );
-
-        //For regex, we pass the query as is, for like we add % to the start and end as wildcards
-        if ($this->regex) {
-            $queryBuilder->setParameter('search_query', $this->keyword);
-        } else {
-            //Escape % and _ characters in the keyword
-            $this->keyword = str_replace(['%', '_'], ['\%', '\_'], $this->keyword);
-            $queryBuilder->setParameter('search_query', '%' . $this->keyword . '%');
         }
+
+        //Guard condition
+        if (!empty($expressions)) {
+            //Add Or concatenation of the expressions to our query
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->orX(...$expressions)
+            );
+       }
+        //Use equal expression to search for exact numeric matches
+        if ($search_dbId) {
+            $queryBuilder->orWhere($queryBuilder->expr()->eq('part.id', ':id_exact'));
+            $params[] = new Parameter('id_exact', (int)$this->keyword,
+                ParameterType::INTEGER);
+        }
+        $queryBuilder->setParameters(
+            new ArrayCollection($params)
+        );
     }
 
     public function getKeyword(): string
@@ -155,7 +226,7 @@ class PartSearchFilter implements FilterInterface
         return $this->keyword;
     }
 
-    public function setKeyword(string $keyword): PartSearchFilter
+    public function setKeyword(string $keyword): self
     {
         $this->keyword = $keyword;
         return $this;
@@ -166,20 +237,55 @@ class PartSearchFilter implements FilterInterface
         return $this->regex;
     }
 
-    public function setRegex(bool $regex): PartSearchFilter
+    public function setRegex(bool $regex): self
     {
         $this->regex = $regex;
         return $this;
     }
+
+    public function isExtensive(): bool
+    {
+        return $this->extensive;
+    }
+
+    public function setExtensive(bool $extensive): self
+    {
+        $this->extensive = $extensive;
+        return $this;
+    }
+
+
+    public function isWildcard(): bool
+    {
+        return $this->wildcard;
+    }
+
+    public function setWildcard(bool $wildcard): self
+    {
+        $this->wildcard = $wildcard;
+        return $this;
+    }
+
 
     public function isName(): bool
     {
         return $this->name;
     }
 
-    public function setName(bool $name): PartSearchFilter
+    public function setName(bool $name): self
     {
         $this->name = $name;
+        return $this;
+    }
+
+    public function isDbId(): bool
+    {
+        return $this->dbId;
+    }
+
+    public function setDbId(bool $dbId): self
+    {
+        $this->dbId = $dbId;
         return $this;
     }
 
@@ -188,7 +294,7 @@ class PartSearchFilter implements FilterInterface
         return $this->category;
     }
 
-    public function setCategory(bool $category): PartSearchFilter
+    public function setCategory(bool $category): self
     {
         $this->category = $category;
         return $this;
@@ -199,7 +305,7 @@ class PartSearchFilter implements FilterInterface
         return $this->description;
     }
 
-    public function setDescription(bool $description): PartSearchFilter
+    public function setDescription(bool $description): self
     {
         $this->description = $description;
         return $this;
@@ -210,7 +316,7 @@ class PartSearchFilter implements FilterInterface
         return $this->tags;
     }
 
-    public function setTags(bool $tags): PartSearchFilter
+    public function setTags(bool $tags): self
     {
         $this->tags = $tags;
         return $this;
@@ -221,7 +327,7 @@ class PartSearchFilter implements FilterInterface
         return $this->storelocation;
     }
 
-    public function setStorelocation(bool $storelocation): PartSearchFilter
+    public function setStorelocation(bool $storelocation): self
     {
         $this->storelocation = $storelocation;
         return $this;
@@ -232,7 +338,7 @@ class PartSearchFilter implements FilterInterface
         return $this->ordernr;
     }
 
-    public function setOrdernr(bool $ordernr): PartSearchFilter
+    public function setOrdernr(bool $ordernr): self
     {
         $this->ordernr = $ordernr;
         return $this;
@@ -243,7 +349,7 @@ class PartSearchFilter implements FilterInterface
         return $this->mpn;
     }
 
-    public function setMpn(bool $mpn): PartSearchFilter
+    public function setMpn(bool $mpn): self
     {
         $this->mpn = $mpn;
         return $this;
@@ -254,7 +360,7 @@ class PartSearchFilter implements FilterInterface
         return $this->ipn;
     }
 
-    public function setIPN(bool $ipn): PartSearchFilter
+    public function setIPN(bool $ipn): self
     {
         $this->ipn = $ipn;
         return $this;
@@ -265,7 +371,7 @@ class PartSearchFilter implements FilterInterface
         return $this->supplier;
     }
 
-    public function setSupplier(bool $supplier): PartSearchFilter
+    public function setSupplier(bool $supplier): self
     {
         $this->supplier = $supplier;
         return $this;
@@ -276,7 +382,7 @@ class PartSearchFilter implements FilterInterface
         return $this->manufacturer;
     }
 
-    public function setManufacturer(bool $manufacturer): PartSearchFilter
+    public function setManufacturer(bool $manufacturer): self
     {
         $this->manufacturer = $manufacturer;
         return $this;
@@ -287,7 +393,7 @@ class PartSearchFilter implements FilterInterface
         return $this->footprint;
     }
 
-    public function setFootprint(bool $footprint): PartSearchFilter
+    public function setFootprint(bool $footprint): self
     {
         $this->footprint = $footprint;
         return $this;
@@ -298,7 +404,7 @@ class PartSearchFilter implements FilterInterface
         return $this->comment;
     }
 
-    public function setComment(bool $comment): PartSearchFilter
+    public function setComment(bool $comment): self
     {
         $this->comment = $comment;
         return $this;

@@ -26,7 +26,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use App\Doctrine\Middleware\SQLiteRegexExtensionMiddlewareDriver;
 use PHPUnit\Framework\TestCase;
 
-class SQLiteRegexMiddlewareTest extends TestCase
+final class SQLiteRegexMiddlewareTest extends TestCase
 {
 
     public static function regexpDataProvider(): \Generator

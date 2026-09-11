@@ -28,7 +28,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Length;
 

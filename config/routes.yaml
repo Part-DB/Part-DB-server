@@ -1,3 +1,12 @@
+# yaml-language-server: $schema=../vendor/symfony/routing/Loader/schema/routing.schema.json
+
+# This file is the entry point to configure the routes of your app.
+# Methods with the #[Route] attribute are automatically imported.
+# See also https://symfony.com/doc/current/routing.html
+
+# To list all registered routes, run the following command:
+#   bin/console debug:router
+
 # Redirect every url without an locale to the locale of the user/the global base locale
 
 scan_qr:
@@ -9,6 +18,11 @@ csp_report:
     methods: [POST]
     defaults: { _controller: nelmio_security.csp_reporter_controller::indexAction }
 
+mcp:
+    resource: .
+    type: mcp
+
+
 # Must be last as it matches everything
 redirector:
     path: /{url}
@@ -17,3 +31,4 @@ redirector:
     controller: App\Controller\RedirectController::addLocalePart
     # Dont match localized routes (no redirection loop, if no root with that name exists) or API prefixed routes
     condition: "not (request.getPathInfo() matches '/^\\\\/([a-z]{2}(_[A-Z]{2})?|api)\\\\//')"
+

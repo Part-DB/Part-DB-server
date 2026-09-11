@@ -93,6 +93,22 @@ final class BarcodeScanHelper
             return $this->parseEIGP114Barcode($input);
         }
 
+        if ($type === BarcodeSourceType::GTIN) {
+            return $this->parseGTINBarcode($input);
+        }
+
+        if ($type === BarcodeSourceType::LCSC) {
+	        return $this->parseLCSCBarcode($input);
+	    }
+
+        if ($type === BarcodeSourceType::AMAZON) {
+            return new AmazonBarcodeScanResult($input);
+        }
+
+        if ($type === BarcodeSourceType::TME) {
+            return TMEBarcodeScanResult::parse($input);
+        }
+
         //Null means auto and we try the different formats
         $result = $this->parseInternalBarcode($input);
 
@@ -117,13 +133,44 @@ final class BarcodeScanHelper
             return $result;
         }
 
+        //If the result is a valid GTIN barcode, we can parse it directly
+        if (GTINBarcodeScanResult::isValidGTIN($input)) {
+            return $this->parseGTINBarcode($input);
+        }
+
+        // Try LCSC barcode
+        if (LCSCBarcodeScanResult::isLCSCBarcode($input)) {
+	        return $this->parseLCSCBarcode($input);
+	    }
+
+        //Try amazon barcode
+        if (AmazonBarcodeScanResult::isAmazonBarcode($input)) {
+            return new AmazonBarcodeScanResult($input);
+        }
+
+        // Try TME barcode
+        if (TMEBarcodeScanResult::isTMEBarcode($input)) {
+            return TMEBarcodeScanResult::parse($input);
+        }
+
         throw new InvalidArgumentException('Unknown barcode');
+    }
+
+    private function parseGTINBarcode(string $input): GTINBarcodeScanResult
+    {
+        return new GTINBarcodeScanResult($input);
     }
 
     private function parseEIGP114Barcode(string $input): EIGP114BarcodeScanResult
     {
         return EIGP114BarcodeScanResult::parseFormat06Code($input);
     }
+
+    private function parseLCSCBarcode(string $input): LCSCBarcodeScanResult
+    {
+        return LCSCBarcodeScanResult::parse($input);
+    }
+
 
     private function parseUserDefinedBarcode(string $input): ?LocalBarcodeScanResult
     {

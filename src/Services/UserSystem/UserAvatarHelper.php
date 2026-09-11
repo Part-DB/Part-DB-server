@@ -154,6 +154,7 @@ class UserAvatarHelper
                 $attachment_type = new AttachmentType();
                 $attachment_type->setName('Avatars');
                 $attachment_type->setFiletypeFilter('image/*');
+                $attachment_type->setAllowedTargets([UserAttachment::class]);
                 $this->entityManager->persist($attachment_type);
             }
 

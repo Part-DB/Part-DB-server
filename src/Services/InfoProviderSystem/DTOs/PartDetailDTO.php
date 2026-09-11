@@ -23,11 +23,41 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\DTOs;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\McpTool;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\OpenApi\Model\Operation;
 use App\Entity\Parts\ManufacturingStatus;
+use App\Mcp\DTO\InfoProviderPartDetailsInput;
+use App\State\Mcp\GetInfoProviderPartDetailsProcessor;
 
 /**
  * This DTO represents a part with all its details.
  */
+#[ApiResource(
+    description: 'Detailed information about a part from an external info provider (e.g. a distributor or manufacturer catalog), including datasheets, images, parameters and purchase information.',
+    operations: [
+        new Post(
+            uriTemplate: '/info_providers/details',
+            openapi: new Operation(summary: 'Get full detailed information about a specific part from an external info provider.'),
+            security: 'is_granted("@info_providers.create_parts")',
+            input: InfoProviderPartDetailsInput::class,
+            validate: true,
+            processor: GetInfoProviderPartDetailsProcessor::class,
+        ),
+    ],
+    mcp: [
+        'get_info_provider_part_details' => new McpTool(
+            title: 'Get part details from an info provider',
+            description: 'Get full detailed information (datasheets, images, parameters, prices, ...) about a specific part from an external info provider, identified by the provider key and the provider-specific part ID (both returned by search_info_providers).',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => true],
+            security: 'is_granted("@info_providers.create_parts")',
+            input: InfoProviderPartDetailsInput::class,
+            validate: true,
+            processor: GetInfoProviderPartDetailsProcessor::class,
+        ),
+    ],
+)]
 class PartDetailDTO extends SearchResultDTO
 {
     public function __construct(
@@ -42,6 +72,7 @@ class PartDetailDTO extends SearchResultDTO
         ?ManufacturingStatus $manufacturing_status = null,
         ?string $provider_url = null,
         ?string $footprint = null,
+        ?string $gtin = null,
         public readonly ?string $notes = null,
         /** @var FileDTO[]|null */
         public readonly ?array $datasheets = null,
@@ -68,6 +99,7 @@ class PartDetailDTO extends SearchResultDTO
             manufacturing_status: $manufacturing_status,
             provider_url: $provider_url,
             footprint: $footprint,
+            gtin: $gtin
         );
     }
 }

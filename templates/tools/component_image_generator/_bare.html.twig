@@ -1,0 +1,5 @@
+{# Parent layout used when the calculator is embedded in a modal: it renders only the
+   card_content block, wrapped in the Turbo frame the modal lazy-loads. #}
+<turbo-frame id="vc-modal-frame">
+    {% block card_content %}{% endblock %}
+</turbo-frame>

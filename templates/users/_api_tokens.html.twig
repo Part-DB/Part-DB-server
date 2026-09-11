@@ -94,6 +94,21 @@
             </div>
         </div>
 
+        {% if is_granted("@api.use_mcp") %}
+        <div class="row">
+            <div class="col-sm-2">
+                <b>{% trans %}api.api_endpoints.mcp_url{% endtrans %}:</b>
+            </div>
+            <div class="col-sm-10">
+                <button class="btn btn-outline-dark d-print-none btn-sm" data-clipboard-text="{{ absolute_url('/mcp') }}">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <span>{{ absolute_url('/mcp') }}</span>
+            </div>
+        </div>
+
+        {% endif %}
+
 
     </div>
 </div>

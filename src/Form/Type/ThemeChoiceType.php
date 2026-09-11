@@ -22,13 +22,17 @@ declare(strict_types=1);
  */
 namespace App\Form\Type;
 
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ThemeChoiceType extends AbstractType
 {
-    public function __construct(private readonly array $available_themes)
+    public function __construct(
+        #[Autowire(param: 'partdb.available_themes')]
+        private readonly array $available_themes,
+    )
     {
     }
 

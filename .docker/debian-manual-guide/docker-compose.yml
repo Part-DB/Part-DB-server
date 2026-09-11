@@ -1,0 +1,41 @@
+# Reproduces a Debian 12 install following
+# https://docs.part-db.de/installation/installation_guide-debian.html
+# using the repo checkout two levels up, for debugging.
+#
+# Usage (from this directory):
+#   HOST_UID=$(id -u) HOST_GID=$(id -g) docker compose up --build
+#
+# Then open http://localhost:8080 (login: admin / password printed in the
+# container logs by doctrine:migrations:migrate on first run).
+#
+# vendor/, node_modules/, var/, public/build, public/media and uploads live
+# in named volumes so composer/yarn/console never write into the host's own
+# working copy - only src/, config/, templates/, assets/, migrations/, etc.
+# are shared live for debugging.
+services:
+  partdb:
+    build:
+      context: .
+      args:
+        HOST_UID: ${HOST_UID:-1000}
+        HOST_GID: ${HOST_GID:-1000}
+    container_name: partdb-debian-guide
+    ports:
+      - "8080:80"
+    volumes:
+      - ../..:/var/www/partdb
+      - ./env.local:/var/www/partdb/.env.local:ro
+      - partdb_vendor:/var/www/partdb/vendor
+      - partdb_node_modules:/var/www/partdb/node_modules
+      - partdb_var:/var/www/partdb/var
+      - partdb_public_build:/var/www/partdb/public/build
+      - partdb_public_media:/var/www/partdb/public/media
+      - partdb_uploads:/var/www/partdb/uploads
+
+volumes:
+  partdb_vendor:
+  partdb_node_modules:
+  partdb_var:
+  partdb_public_build:
+  partdb_public_media:
+  partdb_uploads:

@@ -26,9 +26,6 @@ import {marked} from "marked";
 
 import {
     trans,
-    SEARCH_PLACEHOLDER,
-    SEARCH_SUBMIT,
-    STATISTICS_PARTS
 } from '../../translator';
 
 
@@ -82,9 +79,9 @@ export default class extends Controller {
             panelPlacement: this.element.dataset.panelPlacement,
             plugins: [recentSearchesPlugin],
             openOnFocus: true,
-            placeholder: trans(SEARCH_PLACEHOLDER),
+            placeholder: trans("search.placeholder"),
             translations: {
-                submitButtonTitle: trans(SEARCH_SUBMIT)
+                submitButtonTitle: trans("search.submit")
             },
 
             // Use a navigator compatible with turbo:
@@ -153,7 +150,7 @@ export default class extends Controller {
                         },
                         templates: {
                             header({ html }) {
-                                return html`<span class="aa-SourceHeaderTitle">${trans(STATISTICS_PARTS)}</span>
+                                return html`<span class="aa-SourceHeaderTitle">${trans("part.labelp")}</span>
                                     <div class="aa-SourceHeaderLine" />`;
                             },
                             item({item, components, html}) {

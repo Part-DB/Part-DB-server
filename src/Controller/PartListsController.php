@@ -46,7 +46,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function Symfony\Component\Translation\t;
@@ -121,11 +120,7 @@ class PartListsController extends AbstractController
         }
 
         //If the action handler returned a response, we use it, otherwise we redirect back to the previous page.
-        if ($redirectResponse !== null) {
-            return $redirectResponse;
-        }
-
-        return $this->redirect($redirect);
+        return $redirectResponse ?? $this->redirect($redirect);
     }
 
     /**
@@ -319,6 +314,7 @@ class PartListsController extends AbstractController
 
         //As an unchecked checkbox is not set in the query, the default value for all bools have to be false (which is the default argument value)!
         $filter->setName($request->query->getBoolean('name'));
+        $filter->setDbId($request->query->getBoolean('dbid'));
         $filter->setCategory($request->query->getBoolean('category'));
         $filter->setDescription($request->query->getBoolean('description'));
         $filter->setMpn($request->query->getBoolean('mpn'));
@@ -333,6 +329,8 @@ class PartListsController extends AbstractController
 
 
         $filter->setRegex($request->query->getBoolean('regex'));
+        $filter->setExtensive($request->query->getBoolean('extensive'));
+        $filter->setWildcard($request->query->getBoolean('wildcard'));
 
         return $filter;
     }

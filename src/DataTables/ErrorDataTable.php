@@ -22,9 +22,9 @@ declare(strict_types=1);
  */
 namespace App\DataTables;
 
+use App\DataTables\Column\HTMLColumn;
 use App\DataTables\Column\RowClassColumn;
 use Omines\DataTablesBundle\Adapter\ArrayAdapter;
-use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableFactory;
 use Omines\DataTablesBundle\DataTableTypeInterface;
@@ -32,7 +32,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ErrorDataTable implements DataTableTypeInterface
+final readonly class ErrorDataTable implements DataTableTypeInterface
 {
     public function configureOptions(OptionsResolver $optionsResolver): void
     {
@@ -49,6 +49,11 @@ class ErrorDataTable implements DataTableTypeInterface
 
     public function configure(DataTable $dataTable, array $options): void
     {
+        /*************************************************************************************************************
+         * Avoid using render, as it has no escaping, and is a potential security risk. Use data on TextColumn or the
+         * HTMLColumn, if necessary
+         ************************************************************************************************************/
+
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
         $options = $optionsResolver->resolve($options);
@@ -58,9 +63,9 @@ class ErrorDataTable implements DataTableTypeInterface
                 'render' => fn($value, $context): string => 'table-warning',
             ])
 
-            ->add('error', TextColumn::class, [
+            ->add('error', HTMLColumn::class, [
                 'label' => 'error_table.error',
-                'render' => fn($value, $context): string => '<i class="fa-solid fa-triangle-exclamation fa-fw"></i> ' . $value,
+                'data' => fn($context, $value): string => '<i class="fa-solid fa-triangle-exclamation fa-fw"></i> ' . htmlspecialchars((string) $value),
             ])
         ;
 

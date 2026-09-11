@@ -44,7 +44,6 @@ namespace App\Services\LabelSystem\PlaceholderProviders;
 use App\Settings\SystemSettings\CustomizationSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\UserSystem\User;
-use DateTime;
 use IntlDateFormatter;
 use Locale;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -53,11 +52,11 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  * Provides Placeholders for infos about global infos like Installation name or datetimes.
  * @see \App\Tests\Services\LabelSystem\PlaceholderProviders\GlobalProvidersTest
  */
-final class GlobalProviders implements PlaceholderProviderInterface
+final readonly class GlobalProviders implements PlaceholderProviderInterface
 {
     public function __construct(
-        private readonly Security $security,
-        private readonly UrlGeneratorInterface $url_generator,
+        private Security $security,
+        private UrlGeneratorInterface $url_generator,
         private CustomizationSettings $customizationSettings,
     )
     {
@@ -66,13 +65,13 @@ final class GlobalProviders implements PlaceholderProviderInterface
     public function replace(string $placeholder, object $label_target, array $options = []): ?string
     {
         if ('[[INSTALL_NAME]]' === $placeholder) {
-            return $this->customizationSettings->instanceName;
+            return htmlspecialchars($this->customizationSettings->instanceName);
         }
 
         $user = $this->security->getUser();
         if ('[[USERNAME]]' === $placeholder) {
             if ($user instanceof User) {
-                return $user->getName();
+                return htmlspecialchars($user->getName());
             }
 
             return 'anonymous';
@@ -80,7 +79,7 @@ final class GlobalProviders implements PlaceholderProviderInterface
 
         if ('[[USERNAME_FULL]]' === $placeholder) {
             if ($user instanceof User) {
-                return $user->getFullName(true);
+                return htmlspecialchars($user->getFullName(true));
             }
 
             return 'anonymous';

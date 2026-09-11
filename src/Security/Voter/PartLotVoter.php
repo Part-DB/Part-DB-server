@@ -58,13 +58,13 @@ final class PartLotVoter extends Voter
     {
     }
 
-    protected const ALLOWED_PERMS = ['read', 'edit', 'create', 'delete', 'show_history', 'revert_element', 'withdraw', 'add', 'move'];
+    protected const ALLOWED_PERMS = ['read', 'edit', 'create', 'delete', 'show_history', 'revert_element', 'withdraw', 'add', 'move', 'stocktake'];
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         $user = $this->helper->resolveUser($token);
 
-        if (in_array($attribute, ['withdraw', 'add', 'move'], true))
+        if (in_array($attribute, ['withdraw', 'add', 'move', 'stocktake'], true))
         {
             $base_permission = $this->helper->isGranted($token, 'parts_stock', $attribute, $vote);
 

@@ -27,7 +27,7 @@ use App\Twig\UserExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class UserExtensionTest extends WebTestCase
+final class UserExtensionTest extends WebTestCase
 {
     protected $service;
 

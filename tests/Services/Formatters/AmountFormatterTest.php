@@ -27,7 +27,7 @@ use App\Services\Formatters\AmountFormatter;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class AmountFormatterTest extends WebTestCase
+final class AmountFormatterTest extends WebTestCase
 {
     /**
      * @var AmountFormatter

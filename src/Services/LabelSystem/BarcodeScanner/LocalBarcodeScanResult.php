@@ -29,12 +29,12 @@ use App\Entity\LabelSystem\LabelSupportedElement;
  * This class represents the result of a barcode scan of a barcode that uniquely identifies a local entity,
  * like an internally generated barcode or a barcode that was added manually to the system by a user
  */
-class LocalBarcodeScanResult implements BarcodeScanResultInterface
+readonly class LocalBarcodeScanResult implements BarcodeScanResultInterface
 {
     public function __construct(
-        public readonly LabelSupportedElement $target_type,
-        public readonly int $target_id,
-        public readonly BarcodeSourceType $source_type,
+        public LabelSupportedElement $target_type,
+        public int $target_id,
+        public BarcodeSourceType $source_type,
     ) {
     }
 

@@ -41,8 +41,8 @@ use Brick\Math\RoundingMode;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -52,8 +52,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Table('`pricedetails`')]
-#[ORM\Index(columns: ['min_discount_quantity'], name: 'pricedetails_idx_min_discount')]
-#[ORM\Index(columns: ['min_discount_quantity', 'price_related_quantity'], name: 'pricedetails_idx_min_discount_price_qty')]
+#[ORM\Index(name: 'pricedetails_idx_min_discount', columns: ['min_discount_quantity'])]
+#[ORM\Index(name: 'pricedetails_idx_min_discount_price_qty', columns: ['min_discount_quantity', 'price_related_quantity'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -120,6 +120,8 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     #[ORM\JoinColumn(name: 'orderdetails_id', nullable: false, onDelete: 'CASCADE')]
     #[Groups(['pricedetail:read:standalone', 'pricedetail:write'])]
     protected ?Orderdetail $orderdetail = null;
+
+
 
     public function __construct()
     {
@@ -193,10 +195,10 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     #[SerializedName('price_per_unit')]
     public function getPricePerUnit(float|string|BigDecimal $multiplier = 1.0): BigDecimal
     {
-        $tmp = BigDecimal::of($multiplier);
+        $tmp = is_float($multiplier) ? BigDecimal::fromFloatShortest($multiplier) : BigDecimal::of($multiplier);
         $tmp = $tmp->multipliedBy($this->price);
 
-        return $tmp->dividedBy($this->price_related_quantity, static::PRICE_PRECISION, RoundingMode::HALF_UP);
+        return $tmp->dividedBy(BigDecimal::fromFloatShortest($this->price_related_quantity), static::PRICE_PRECISION, RoundingMode::HalfUp);
     }
 
     /**
@@ -264,6 +266,15 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
         return $this->currency?->getIsoCode();
     }
 
+    /**
+     * Returns whether the price includes VAT or not. Null means, that it is not specified, if the price includes VAT or not.
+     * @return bool|null
+     */
+    public function getIncludesVat(): ?bool
+    {
+        return $this->orderdetail?->getPricesIncludesVAT();
+    }
+
     /********************************************************************************
      *
      *   Setters
@@ -306,7 +317,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      */
     public function setPrice(BigDecimal $new_price): self
     {
-        $tmp = $new_price->toScale(self::PRICE_PRECISION, RoundingMode::HALF_UP);
+        $tmp = $new_price->toScale(self::PRICE_PRECISION, RoundingMode::HalfUp);
         //Only change the object, if the value changes, so that doctrine does not detect it as changed.
         if ((string) $tmp !== (string) $this->price) {
             $this->price = $tmp;

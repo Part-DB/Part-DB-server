@@ -27,7 +27,7 @@ use App\Entity\Parts\Category;
 
 #[Group('slow')]
 #[Group('DB')]
-class CategoryController extends AbstractAdminController
+final class CategoryController extends AbstractAdminController
 {
     protected static string $base_path = '/en/category';
     protected static string $entity_class = Category::class;

@@ -24,20 +24,20 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Entity\Parts\ManufacturingStatus;
-use App\Entity\Parts\Part;
 use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\ParameterDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
+use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use App\Settings\InfoProviderSystem\PollinSettings;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class PollinProvider implements InfoProviderInterface
+class PollinProvider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {
+    public const PROVIDER_KEY = 'pollin';
 
     public function __construct(private readonly HttpClientInterface $client,
         private readonly PollinSettings $settings,
@@ -45,20 +45,23 @@ class PollinProvider implements InfoProviderInterface
     {
     }
 
-    public function getProviderInfo(): array
+    public function getProviderInfo(): ProviderInfoDTO
     {
-        return [
-            'name' => 'Pollin',
-            'description' => 'Webscraping from pollin.de to get part information',
-            'url' => 'https://www.pollin.de/',
-            'disabled_help' => 'Enable the provider in provider settings',
-            'settings_class' => PollinSettings::class,
-        ];
-    }
-
-    public function getProviderKey(): string
-    {
-        return 'pollin';
+        return new ProviderInfoDTO(
+            key: self::PROVIDER_KEY,
+            name: 'Pollin',
+            description: 'Webscraping from pollin.de to get part information',
+            url: 'https://www.pollin.de/',
+            disabledHelp: 'Enable the provider in provider settings',
+            settingsClass: PollinSettings::class,
+            capabilities: [
+                ProviderCapabilities::BASIC,
+                ProviderCapabilities::PICTURE,
+                ProviderCapabilities::PRICE,
+                ProviderCapabilities::DATASHEET,
+                ProviderCapabilities::PARAMETERS
+            ],
+        );
     }
 
     public function isActive(): bool
@@ -66,7 +69,7 @@ class PollinProvider implements InfoProviderInterface
         return $this->settings->enabled;
     }
 
-    public function searchByKeyword(string $keyword): array
+    public function searchByKeyword(string $keyword, array $options = []): array
     {
         $response = $this->client->request('GET', 'https://www.pollin.de/search', [
             'query' => [
@@ -88,7 +91,7 @@ class PollinProvider implements InfoProviderInterface
         //Iterate over each div.product-box
         $dom->filter('div.product-box')->each(function (Crawler $node) use (&$results) {
             $results[] = new SearchResultDTO(
-                provider_key: $this->getProviderKey(),
+                provider_key: self::PROVIDER_KEY,
                 provider_id: $node->filter('meta[itemprop="productID"]')->attr('content'),
                 name: $node->filter('a.product-name')->text(),
                 description: '',
@@ -110,7 +113,7 @@ class PollinProvider implements InfoProviderInterface
         };
     }
 
-    public function getDetails(string $id): PartDetailDTO
+    public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         //Ensure that $id is numeric
         if (!is_numeric($id)) {
@@ -141,17 +144,22 @@ class PollinProvider implements InfoProviderInterface
         $orderId = trim($dom->filter('span[itemprop="sku"]')->text()); //Text is important here
 
         //Calculate the mass
-        $massStr = $dom->filter('meta[itemprop="weight"]')->attr('content');
-        //Remove the unit
-        $massStr = str_replace('kg', '', $massStr);
-        //Convert to float and convert to grams
-        $mass = (float) $massStr * 1000;
+        $massDom = $dom->filter('meta[itemprop="weight"]');
+        if ($massDom->count() > 0) {
+            $massStr = $massDom->attr('content');
+            $massStr = str_replace('kg', '', $massStr);
+            //Convert to float and convert to grams
+            $mass = (float) $massStr * 1000;
+        } else {
+            $mass = null;
+        }
+
 
         //Parse purchase info
         $purchaseInfo = new PurchaseInfoDTO('Pollin', $orderId, $this->parsePrices($dom), $productPageUrl);
 
         return new PartDetailDTO(
-            provider_key: $this->getProviderKey(),
+            provider_key: self::PROVIDER_KEY,
             provider_id: $orderId,
             name: trim($dom->filter('meta[property="og:title"]')->attr('content')),
             description: $dom->filter('meta[property="og:description"]')->attr('content'),
@@ -239,13 +247,21 @@ class PollinProvider implements InfoProviderInterface
         ];
     }
 
-    public function getCapabilities(): array
+    public function getHandledDomains(): array
     {
-        return [
-            ProviderCapabilities::BASIC,
-            ProviderCapabilities::PICTURE,
-            ProviderCapabilities::PRICE,
-            ProviderCapabilities::DATASHEET
-        ];
+        return ['pollin.de'];
+    }
+
+    public function getIDFromURL(string $url): ?string
+    {
+        //URL like: https://www.pollin.de/p/shelly-bluetooth-schalter-und-dimmer-blu-zb-button-plug-play-mocha-592325
+
+        //Extract the 6-digit number at the end of the URL
+        $matches = [];
+        if (preg_match('/-(\d{6})(?:\/|$)/', $url, $matches)) {
+            return $matches[1];
+        }
+
+        return null;
     }
 }

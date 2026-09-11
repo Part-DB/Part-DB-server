@@ -41,7 +41,12 @@ declare(strict_types=1);
 
 namespace App\Entity\LabelSystem;
 
-use Doctrine\Common\Collections\Criteria;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\OpenApi\Model\Operation;
 use App\Entity\Attachments\Attachment;
 use App\Repository\LabelProfileRepository;
 use App\EntityListeners\TreeCacheInvalidationListener;
@@ -58,6 +63,22 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @extends AttachmentContainingDBElement<LabelAttachment>
  */
+#[ApiResource(
+    operations: [
+        new Get(
+            openapi: new Operation(summary: 'Get a label profile by ID'),
+            normalizationContext: ['groups' => ['label_profile:read', 'simple']],
+            security: "is_granted('read', object)"
+        ),
+        new GetCollection(
+            openapi: new Operation(summary: 'List all available label profiles'),
+            normalizationContext: ['groups' => ['label_profile:read', 'simple']],
+            security: "is_granted('@labels.create_labels')"
+        ),
+    ],
+    paginationEnabled: false,
+)]
+#[ApiFilter(SearchFilter::class, properties: ['options.supported_element' => 'exact', 'show_in_dropdown' => 'exact'])]
 #[UniqueEntity(['name', 'options.supported_element'])]
 #[ORM\Entity(repositoryClass: LabelProfileRepository::class)]
 #[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
@@ -67,8 +88,8 @@ class LabelProfile extends AttachmentContainingDBElement
     /**
      * @var Collection<int, LabelAttachment>
      */
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: LabelAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: LabelAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: LabelAttachment::class)]
@@ -80,20 +101,21 @@ class LabelProfile extends AttachmentContainingDBElement
      */
     #[Assert\Valid]
     #[ORM\Embedded(class: 'LabelOptions')]
-    #[Groups(["extended", "full", "import"])]
+    #[Groups(["extended", "full", "import", "label_profile:read"])]
     protected LabelOptions $options;
 
     /**
      * @var string The comment info for this element
      */
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(["extended", "full", "import", "label_profile:read"])]
     protected string $comment = '';
 
     /**
      * @var bool determines, if this label profile should be shown in the dropdown quick menu
      */
     #[ORM\Column(type: Types::BOOLEAN)]
-    #[Groups(["extended", "full", "import"])]
+    #[Groups(["extended", "full", "import", "label_profile:read"])]
     protected bool $show_in_dropdown = true;
 
     public function __construct()

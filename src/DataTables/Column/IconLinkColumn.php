@@ -87,9 +87,9 @@ class IconLinkColumn extends AbstractColumn
             return sprintf(
                 '<a class="btn btn-primary btn-sm %s" href="%s" title="%s"><i class="%s"></i></a>',
                 $disabled ? 'disabled' : '',
-                $href,
-                $title,
-                $icon
+                htmlspecialchars($href),
+                htmlspecialchars($title ?? ''),
+                htmlspecialchars($icon ?? '')
             );
         }
 

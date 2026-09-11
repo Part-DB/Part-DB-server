@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Services\ImportExportSystem;
 
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Helpers\FilenameSanatizer;
@@ -37,7 +39,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Serializer\SerializerInterface;
-use function Symfony\Component\String\u;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Writer\Xls;
@@ -177,8 +178,12 @@ class EntityExporter
             $colIndex = 1;
 
             foreach ($columns as $column) {
-                $cellCoordinate = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colIndex) . $rowIndex;
-                $worksheet->setCellValue($cellCoordinate, $column);
+                $cellCoordinate = Coordinate::stringFromColumnIndex($colIndex) . $rowIndex;
+                if (is_numeric(trim($column, '"'))) { // Check if the column value is numeric after trimming quotes, as values are surrounded by quotes in CSV
+                    $worksheet->setCellValueExplicit($cellCoordinate, $column, DataType::TYPE_NUMERIC);
+                } else {
+                    $worksheet->setCellValueExplicit($cellCoordinate, $column, DataType::TYPE_STRING);
+                }
                 $colIndex++;
             }
             $rowIndex++;
@@ -265,11 +270,14 @@ class EntityExporter
             //Sanitize the filename
             $filename = FilenameSanatizer::sanitizeFilename($filename);
 
+            //Remove percent for fallback
+            $fallback = str_replace("%", "_", $filename);
+
             // Create the disposition of the file
             $disposition = $response->headers->makeDisposition(
                 ResponseHeaderBag::DISPOSITION_ATTACHMENT,
                 $filename,
-                u($filename)->ascii()->toString(),
+                $fallback,
             );
             // Set the content disposition
             $response->headers->set('Content-Disposition', $disposition);

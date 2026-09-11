@@ -23,8 +23,10 @@ declare(strict_types=1);
 namespace App\DataTables;
 
 use App\DataTables\Column\EnumColumn;
+use App\Entity\LogSystem\AccessMethod;
 use App\Entity\LogSystem\LogTargetType;
 use Symfony\Bundle\SecurityBundle\Security;
+use App\DataTables\Column\HTMLColumn;
 use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\LogEntryExtraColumn;
@@ -59,7 +61,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class LogDataTable implements DataTableTypeInterface
+final readonly class LogDataTable implements DataTableTypeInterface
 {
     protected LogEntryRepository $logRepo;
 
@@ -95,6 +97,11 @@ class LogDataTable implements DataTableTypeInterface
 
     public function configure(DataTable $dataTable, array $options): void
     {
+        /*************************************************************************************************************
+         * Avoid using render, as it has no escaping, and is a potential security risk. Use data on TextColumn or the
+         * HTMLColumn, if necessary
+         ************************************************************************************************************/
+
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
         $options = $resolver->resolve($options);
@@ -104,10 +111,10 @@ class LogDataTable implements DataTableTypeInterface
             'render' => fn($value, AbstractLogEntry $context) => $this->logLevelHelper->logLevelToTableColorClass($context->getLevelString()),
         ]);
 
-        $dataTable->add('symbol', TextColumn::class, [
+        $dataTable->add('symbol', HTMLColumn::class, [
             'label' => '',
             'className' => 'no-colvis',
-            'render' => fn($value, AbstractLogEntry $context): string => sprintf(
+            'data' => fn(AbstractLogEntry $context): string => sprintf(
                 '<i class="fas fa-fw %s" title="%s"></i>',
                 $this->logLevelHelper->logLevelToIconClass($context->getLevelString()),
                 $context->getLevelString()
@@ -128,10 +135,10 @@ class LogDataTable implements DataTableTypeInterface
             )
         ]);
 
-        $dataTable->add('type', TextColumn::class, [
+        $dataTable->add('type', HTMLColumn::class, [
             'label' => 'log.type',
             'propertyPath' => 'type',
-            'render' => function (string $value, AbstractLogEntry $context) {
+            'data' => function (AbstractLogEntry $context, string $value) {
                 $text = $this->translator->trans('log.type.'.$value);
 
                 if ($context instanceof PartStockChangedLogEntry) {
@@ -149,28 +156,29 @@ class LogDataTable implements DataTableTypeInterface
             'label' => 'log.level',
             'visible' => 'system_log' === $options['mode'],
             'propertyPath' => 'levelString',
-            'render' => fn(string $value, AbstractLogEntry $context) => $this->translator->trans('log.level.'.$value),
+            'data' => fn(AbstractLogEntry $context, string $value) => $this->translator->trans('log.level.'.$value),
         ]);
 
-        $dataTable->add('user', TextColumn::class, [
+        $dataTable->add('user', HTMLColumn::class, [
             'label' => 'log.user',
             'orderField' => 'NATSORT(user.name)',
-            'render' => function ($value, AbstractLogEntry $context): string {
+            'data' => function (AbstractLogEntry $context): string {
                 $user = $context->getUser();
 
                 //If user was deleted, show the info from the username field
                 if (!$user instanceof User) {
                     if ($context->isCLIEntry()) {
-                        return sprintf('%s [%s]',
-                            htmlentities((string) $context->getCLIUsername()),
-                            $this->translator->trans('log.cli_user')
+                        return sprintf('<i class="fa-solid fa-fw %s"></i> %s [%s]',
+                            AccessMethod::CLI->getIconClass(),
+                            htmlspecialchars((string) $context->getCLIUsername()),
+                            $this->translator->trans('log.cli_user'),
                         );
                     }
 
                     //Else we just deal with a deleted user
                     return sprintf(
                         '@%s [%s]',
-                        htmlentities($context->getUsername()),
+                        htmlspecialchars($context->getUsername()),
                         $this->translator->trans('log.target_deleted'),
                     );
                 }
@@ -182,9 +190,19 @@ class LogDataTable implements DataTableTypeInterface
                     $img_url,
                     $this->userAvatarHelper->getAvatarMdURL($user),
                     $this->urlGenerator->generate('user_info', ['id' => $user->getID()]),
-                    htmlentities($user->getFullName(true))
+                    htmlspecialchars($user->getFullName(true))
                 );
             },
+        ]);
+
+
+        $dataTable->add('access_method', EnumColumn::class, [
+            'label' => 'log.access_method',
+            'class' => AccessMethod::class,
+            'visible' => 'element_history' !== $options['mode'],
+            'render' => fn(?AccessMethod $value) => $value instanceof AccessMethod
+                ? sprintf('<i class="fa-solid fa-fw %s" title="%s"></i> %s', $value->getIconClass(), htmlspecialchars($value->trans($this->translator)), htmlspecialchars($value->trans($this->translator)))
+                : '',
         ]);
 
         $dataTable->add('target_type', EnumColumn::class, [
@@ -194,20 +212,46 @@ class LogDataTable implements DataTableTypeInterface
             'render' => function (LogTargetType $value, AbstractLogEntry $context) {
                 $class = $value->toClass();
                 if (null !== $class) {
-                    return $this->elementTypeNameGenerator->getLocalizedTypeLabel($class);
+                    return $this->elementTypeNameGenerator->typeLabel($class);
                 }
 
                 return '';
             },
         ]);
 
+
+
         $dataTable->add('target', LogEntryTargetColumn::class, [
             'label' => 'log.target',
             'show_associated' => 'element_history' !== $options['mode'],
         ]);
 
+        $dataTable->add('request_id', TextColumn::class, [
+            'label' => 'log.request_id',
+            'visible' => false,
+            'render' => function (?string $value, AbstractLogEntry $context): string {
+                $requestId = $context->getRequestId();
+                if (null === $requestId) {
+                    return '';
+                }
+
+                $requestIdStr = (string) $requestId;
+                $shortRequestId = substr($requestIdStr, -8);
+
+                return sprintf('<a href="%s" title="%s"><code>&hellip;%s</code></a>',
+                    $this->urlGenerator->generate('log_view', [
+                        'log_filter[requestId][value]' => $requestIdStr,
+                        'log_filter[requestId][operator]' => '=',
+                    ]),
+                    htmlspecialchars($requestIdStr.' - '.$this->translator->trans('log.request_id.filter_by')),
+                    htmlspecialchars($shortRequestId)
+                );
+            },
+        ]);
+
         $dataTable->add('extra', LogEntryExtraColumn::class, [
             'label' => 'log.extra',
+            'orderable' => false, //Sorting the JSON column makes no sense: MySQL/Sqlite does it via the string representation, PostgreSQL errors out
         ]);
 
         $dataTable->add('timeTravel', IconLinkColumn::class, [
@@ -215,9 +259,9 @@ class LogDataTable implements DataTableTypeInterface
             'icon' => 'fas fa-fw fa-eye',
             'href' => function ($value, AbstractLogEntry $context) {
                 if (
+                    $context instanceof CollectionElementDeleted ||
                     ($context instanceof TimeTravelInterface
                         && $context->hasOldDataInformation())
-                    || $context instanceof CollectionElementDeleted
                 ) {
                     try {
                         $target = $this->logRepo->getTargetElement($context);

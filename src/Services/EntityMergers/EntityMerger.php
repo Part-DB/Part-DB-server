@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace App\Services\EntityMergers;
 
 use App\Services\EntityMergers\Mergers\EntityMergerInterface;
-use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
+use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 
 /**
  * This service is used to merge two entities together.
@@ -32,7 +32,7 @@ use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
  */
 class EntityMerger
 {
-    public function __construct(#[TaggedIterator('app.entity_merger')] protected iterable $mergers)
+    public function __construct(#[AutowireIterator('app.entity_merger')] protected iterable $mergers)
     {
     }
 

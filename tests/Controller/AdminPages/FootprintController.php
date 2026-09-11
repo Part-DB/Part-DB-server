@@ -27,7 +27,7 @@ use App\Entity\Parts\Footprint;
 
 #[Group('slow')]
 #[Group('DB')]
-class FootprintController extends AbstractAdminController
+final class FootprintController extends AbstractAdminController
 {
     protected static string $base_path = '/en/footprint';
     protected static string $entity_class = Footprint::class;

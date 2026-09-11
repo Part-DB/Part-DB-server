@@ -44,9 +44,9 @@ namespace App\Services\LabelSystem\PlaceholderProviders;
 use App\Entity\Base\AbstractDBElement;
 use App\Services\ElementTypeNameGenerator;
 
-final class AbstractDBElementProvider implements PlaceholderProviderInterface
+final readonly class AbstractDBElementProvider implements PlaceholderProviderInterface
 {
-    public function __construct(private readonly ElementTypeNameGenerator $elementTypeNameGenerator)
+    public function __construct(private ElementTypeNameGenerator $elementTypeNameGenerator)
     {
     }
 
@@ -54,7 +54,7 @@ final class AbstractDBElementProvider implements PlaceholderProviderInterface
     {
         if ($label_target instanceof AbstractDBElement) {
             if ('[[TYPE]]' === $placeholder) {
-                return $this->elementTypeNameGenerator->getLocalizedTypeLabel($label_target);
+                return $this->elementTypeNameGenerator->typeLabel($label_target);
             }
 
             if ('[[ID]]' === $placeholder) {

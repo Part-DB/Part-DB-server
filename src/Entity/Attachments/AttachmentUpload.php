@@ -31,28 +31,28 @@ use Symfony\Component\Serializer\Attribute\Groups;
  * This is a DTO representing a file upload for an attachment and which is used to pass data to the Attachment
  * submit handler service.
  */
-class AttachmentUpload
+readonly class AttachmentUpload
 {
     public function __construct(
         /** @var UploadedFile|null The file which was uploaded, or null if the file should not be changed */
-        public readonly ?UploadedFile $file,
+        public ?UploadedFile $file,
         /** @var string|null The base64 encoded data of the file which should be uploaded. */
         #[Groups(['attachment:write'])]
-        public readonly ?string $data = null,
+        public ?string $data = null,
         /** @vaar string|null The original filename of the file passed in data. */
         #[Groups(['attachment:write'])]
-        public readonly ?string $filename = null,
+        public ?string $filename = null,
         /** @var bool True, if the URL in the attachment should be downloaded by Part-DB */
         #[Groups(['attachment:write'])]
-        public readonly bool $downloadUrl = false,
+        public bool $downloadUrl = false,
         /** @var bool If true the file will be moved to private attachment storage,
          * if false it will be moved to public attachment storage. On null file is not moved
          */
         #[Groups(['attachment:write'])]
-        public readonly ?bool $private = null,
+        public ?bool $private = null,
         /** @var bool If true and no preview image was set yet, the new uploaded file will become the preview image */
         #[Groups(['attachment:write'])]
-        public readonly ?bool $becomePreviewIfEmpty = true,
+        public ?bool $becomePreviewIfEmpty = true,
     ) {
     }
 
@@ -61,7 +61,7 @@ class AttachmentUpload
      * @param  FormInterface  $form
      * @return AttachmentUpload
      */
-    public static function fromAttachmentForm(FormInterface $form): AttachmentUpload
+    public static function fromAttachmentForm(FormInterface $form): self
     {
         if (!$form->has('file')) {
             throw new \InvalidArgumentException('The form does not have a file field. Is it an attachment form?');

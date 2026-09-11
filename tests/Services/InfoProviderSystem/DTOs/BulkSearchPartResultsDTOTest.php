@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -17,46 +20,47 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 namespace App\Tests\Services\InfoProviderSystem\DTOs;
 
+use App\Entity\Parts\Part;
+use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultDTO;
 use App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultsDTO;
 use PHPUnit\Framework\TestCase;
 
-class BulkSearchPartResultsDTOTest extends TestCase
+final class BulkSearchPartResultsDTOTest extends TestCase
 {
 
     public function testHasErrors(): void
     {
-        $test = new BulkSearchPartResultsDTO($this->createMock(\App\Entity\Parts\Part::class), [], []);
+        $test = new BulkSearchPartResultsDTO($this->createStub(Part::class), [], []);
         $this->assertFalse($test->hasErrors());
-        $test = new BulkSearchPartResultsDTO($this->createMock(\App\Entity\Parts\Part::class), [], ['error1']);
+        $test = new BulkSearchPartResultsDTO($this->createStub(Part::class), [], ['error1']);
         $this->assertTrue($test->hasErrors());
     }
 
     public function testGetErrorCount(): void
     {
-        $test = new BulkSearchPartResultsDTO($this->createMock(\App\Entity\Parts\Part::class), [], []);
+        $test = new BulkSearchPartResultsDTO($this->createStub(Part::class), [], []);
         $this->assertCount(0, $test->errors);
-        $test = new BulkSearchPartResultsDTO($this->createMock(\App\Entity\Parts\Part::class), [], ['error1', 'error2']);
+        $test = new BulkSearchPartResultsDTO($this->createStub(Part::class), [], ['error1', 'error2']);
         $this->assertCount(2, $test->errors);
     }
 
     public function testHasResults(): void
     {
-        $test = new BulkSearchPartResultsDTO($this->createMock(\App\Entity\Parts\Part::class), [], []);
+        $test = new BulkSearchPartResultsDTO($this->createStub(Part::class), [], []);
         $this->assertFalse($test->hasResults());
-        $test = new BulkSearchPartResultsDTO($this->createMock(\App\Entity\Parts\Part::class), [ $this->createMock(\App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultDTO::class) ], []);
+        $test = new BulkSearchPartResultsDTO($this->createStub(Part::class), [ $this->createStub(BulkSearchPartResultDTO::class) ], []);
         $this->assertTrue($test->hasResults());
     }
 
     public function testGetResultCount(): void
     {
-        $test = new BulkSearchPartResultsDTO($this->createMock(\App\Entity\Parts\Part::class), [], []);
+        $test = new BulkSearchPartResultsDTO($this->createStub(Part::class), [], []);
         $this->assertCount(0, $test->searchResults);
-        $test = new BulkSearchPartResultsDTO($this->createMock(\App\Entity\Parts\Part::class), [
-            $this->createMock(\App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultDTO::class),
-            $this->createMock(\App\Services\InfoProviderSystem\DTOs\BulkSearchPartResultDTO::class)
+        $test = new BulkSearchPartResultsDTO($this->createStub(Part::class), [
+            $this->createStub(BulkSearchPartResultDTO::class),
+            $this->createStub(BulkSearchPartResultDTO::class)
         ], []);
         $this->assertCount(2, $test->searchResults);
     }

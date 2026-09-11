@@ -122,6 +122,11 @@ class PartStockChangedLogEntry extends AbstractLogEntry
         return new self(PartStockChangeType::MOVE, $lot, $old_stock, $new_stock, $new_total_part_instock, $comment, $move_to_target, action_timestamp:  $action_timestamp);
     }
 
+    public static function stocktake(PartLot $lot, float $old_stock, float $new_stock, float $new_total_part_instock, string $comment, ?\DateTimeInterface $action_timestamp = null): self
+    {
+        return new self(PartStockChangeType::STOCKTAKE, $lot, $old_stock, $new_stock, $new_total_part_instock, $comment, action_timestamp:  $action_timestamp);
+    }
+
     /**
      * Returns the instock change type of this entry
      * @return PartStockChangeType

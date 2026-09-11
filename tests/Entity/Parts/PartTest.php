@@ -29,7 +29,7 @@ use DateTime;
 use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 
-class PartTest extends TestCase
+final class PartTest extends TestCase
 {
     public function testAddRemovePartLot(): void
     {

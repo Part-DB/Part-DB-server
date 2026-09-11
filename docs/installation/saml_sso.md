@@ -21,7 +21,7 @@ LDAP or Active Directory server.
 
 {: .warning }
 > This feature is currently in beta. Please report any bugs you find.
-> So far it has only tested with Keycloak, but it should work with any SAML 2.0 compatible identity provider.
+> So far it has only been tested with Keycloak, but it should work with any SAML 2.0 compatible identity provider.
 
 This guide will show you how to configure Part-DB with [Keycloak](https://www.keycloak.org/) as the SAML identity
 provider, but it should work with any SAML 2.0 compatible identity provider.
@@ -75,8 +75,8 @@ the [Keycloak Getting Started Guide](https://www.keycloak.org/docs/latest/gettin
 
 ### Configure Part-DB to use SAML
 
-1. Open the `.env.local` file of Part-DB (or the docker-compose.yaml) for edit
-2. Set the `SAMLP_SP_PRIVATE_KEY` environment variable to the content of the private key file you downloaded in the
+1. Open the `.env.local` file of Part-DB (or the docker-compose.yaml) for editing
+2. Set the `SAML_SP_PRIVATE_KEY` environment variable to the content of the private key file you downloaded in the
    previous step. It should start with `MIEE` and end with `=`.
 3. Set the `SAML_SP_X509_CERT` environment variable to the content of the Certificate field shown in the `Keys` tab of
    the SAML client in Keycloak. It should start with `MIIC` and end with `=`.
