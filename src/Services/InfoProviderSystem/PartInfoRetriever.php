@@ -43,6 +43,7 @@ final class PartInfoRetriever
 
     public function __construct(private readonly ProviderRegistry $provider_registry,
         private readonly DTOtoEntityConverter $dto_to_entity_converter, private readonly CacheInterface $partInfoCache,
+        private readonly InfoProviderRateLimiter $rateLimiter,
         #[Autowire(param: "kernel.debug")]
         private readonly bool $debugMode = false)
     {
@@ -113,6 +114,9 @@ final class PartInfoRetriever
             //Set the expiration time
             $item->expiresAfter(!$this->debugMode ? self::CACHE_RESULT_EXPIRATION : 10);
 
+            //Only requests which really reach the provider are paced - a cache hit never gets here
+            $this->rateLimiter->await($provider->getProviderInfo()->key);
+
             return $provider->searchByKeyword($keyword, $options);
         });
     }
@@ -154,6 +158,9 @@ final class PartInfoRetriever
         return $this->partInfoCache->get($cache_key, function (ItemInterface $item) use ($provider, $part_id, $options) {
             //Set the expiration time
             $item->expiresAfter(!$this->debugMode ? self::CACHE_DETAIL_EXPIRATION : 10);
+
+            //Only requests which really reach the provider are paced - a cache hit never gets here
+            $this->rateLimiter->await($provider->getProviderInfo()->key);
 
             return $provider->getDetails($part_id, $options);
         });

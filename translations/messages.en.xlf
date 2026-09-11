@@ -15110,5 +15110,41 @@ Buerklin-API Authentication server:
         <target>Edit BOM entry #%id% of project</target>
       </segment>
     </unit>
+    <unit id="ipsRlTen" name="settings.ips.rate_limit_per_10s">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_10s</source>
+        <target>Max. provider requests per 10 seconds</target>
+      </segment>
+    </unit>
+    <unit id="ipsRlTenH" name="settings.ips.rate_limit_per_10s.help">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_10s.help</source>
+        <target>Part-DB never sends more than this many requests to the same info provider within 10 seconds, and delays further ones. Keep this below the limit of your provider account, especially if an external script uses the same API credentials - the provider counts both. Set to 0 to disable.</target>
+      </segment>
+    </unit>
+    <unit id="ipsRlMin" name="settings.ips.rate_limit_per_minute">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_minute</source>
+        <target>Max. provider requests per minute</target>
+      </segment>
+    </unit>
+    <unit id="ipsRlMinH" name="settings.ips.rate_limit_per_minute.help">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_minute.help</source>
+        <target>The same, for a one minute window. Set to 0 to disable.</target>
+      </segment>
+    </unit>
+    <unit id="ipsRlWait" name="settings.ips.rate_limit_max_wait">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_max_wait</source>
+        <target>Max. wait for a free slot</target>
+      </segment>
+    </unit>
+    <unit id="ipsRlWaitH" name="settings.ips.rate_limit_max_wait.help">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_max_wait.help</source>
+        <target>How long a single request may be delayed by the limits above before it fails instead, in seconds. Bulk operations simply wait; this keeps a request started from the user interface from hanging.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
