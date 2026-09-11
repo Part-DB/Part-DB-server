@@ -16,24 +16,24 @@
 </head>
 <body>
     {% set start_page %}
-    {# The page div ensures the page breaks, while the page-inner elements restrict the content to the page size. Sine dompdf 3.1.1 we cannot apply the position: absolute; to the page element directly. #}
+    {# The page div ensures the page breaks, while the page-inner elements restrict the content to the page size. Since dompdf 3.1.1 we cannot apply the position: absolute; to the page element directly. #}
     <div class="page">
     <div class="page-inner">
-    <table col="{{ options.xcount }}" row="{{ options.ycount }}"><tr>
+    <table col="{{ options.gridColumns }}" row="{{ options.gridRows }}"><tr>
     {% endset %}
 
     {% set end_page %}
-        </tr></table></div>
+        </tr></table></div><div style="page-break-after:always"></div>
     {% endset %}
 
     {{ start_page }}
-        {% set labels = (0 .. options.skipcount)|merge(elements) %}
+        {% set labels = (0 .. options.skipCount)|merge(elements) %}
         {% for element in labels %}
             {% if loop.first %}
                 {# continue #}
             {% else %}
                 <td>
-                    {% if element <= options.skipcount %}
+                    {% if element <= options.skipCount %}
                     {% elseif options.barcodeType.none %}
                         {% include "label_system/labels/label_page_none.html.twig" %}
                     {% elseif options.barcodeType.is2D() %}
@@ -44,22 +44,25 @@
                 </td>
                 {% if not loop.last %}
                     {# The current row is full. Start a new row #}
-                    {% if (loop.index > 2) and loop.index0 is divisible by(options.xcount) %}
+                    {% if (loop.index > 2) and loop.index0 is divisible by(options.gridColumns) %}
                     </tr><tr>
+                        {{ end_page }}
+                        {{ start_page }}
                     {% endif %}
                     
                     {# The current page is full and there are still labels in the queue. Start a new page #}
-                    {% if loop.index0 is divisible by(options.xcount * options.ycount) %}
+                    {% if loop.index0 is divisible by(options.gridColumns * options.gridRows) %}
                         {{ end_page }}
                         {{ start_page }}
                     {% endif %}
                 {% else %}
                     {# last iteration: fill the row if the generated label count is too small #}
-                    {% for i in (labels|length - 1) .. options.xcount %}
-                        {% if labels|length - 1 < options.xcount and i < options.xcount %}
+                    {% set remainder = options.gridColumns - ((labels|length - 1) % options.gridColumns) %}
+                    {% if remainder < options.gridColumns %}
+                        {% for i in 1 .. remainder %}
                             <td></td>
-                        {% endif %}
-                    {% endfor %}
+                        {% endfor %}
+                    {% endif %}
                 {% endif %}
             {% endif %}
         {% endfor %}

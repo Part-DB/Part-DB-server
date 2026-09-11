@@ -50,13 +50,13 @@
             </div>
             <div class="mb-2 row">
                 {{ form_label(form.options.xcount) }}
-                <div class="col-sm-9">
+                <div class="{{ col_input }}">
                     <div class="input-group">
-                        {{ form_widget(form.options.xcount) }}
+                        {{ form_widget(form.options.grid_columns) }}
                         <span class="input-group-text">x</span>
-                        {{ form_widget(form.options.ycount) }}
-                        <span class="input-group-text">{{ form.options.skipcount.vars.label }}</span>
-                        {{ form_widget(form.options.skipcount) }}
+                        {{ form_widget(form.options.grid_rows) }}
+                        <span class="input-group-text">{{ form.options.skip_count.vars.label }}</span>
+                        {{ form_widget(form.options.skip_count) }}
                     </div>
                 </div>
             </div>

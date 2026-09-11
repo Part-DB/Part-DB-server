@@ -65,11 +65,21 @@ class LabelOptions
     #[Groups(["extended", "full", "import"])]
     protected float $height = 30.0;
 
-    // TODO these have to go into the DB to be persisted.
-    // The default values preserve the current behaviour of the generator (custom css might break though...)
-    public int $xcount = 1;
-    public int $ycount = 1;
-    public int $skipcount = 0;
+    /**
+     * @var int the number of columns in a grid arrangement
+     */
+    #[Assert\Positive]
+    #[ORM\Column(type: Types::SMALLINT)]
+    #[Groups(["extended", "full", "import"])]
+    protected int $grid_columns = 1;
+    
+    /**
+     * @var int the number of columns in a grid arrangement
+     */
+    #[Assert\Positive]
+    #[ORM\Column(type: Types::SMALLINT)]
+    #[Groups(["extended", "full", "import"])]
+    protected int $grid_rows = 1;
 
     /**
      * @var BarcodeType The type of the barcode that should be used in the label (e.g. 'qr')
@@ -109,6 +119,12 @@ class LabelOptions
     #[Groups(["extended", "full", "import"])]
     protected string $lines = '';
 
+    /**
+     * @var int The number of leading empty labels in a grid arrangement
+     * This does not need to be persisted, but can be passed to the label generator as an option
+     */
+    public int $skip_count = 0;
+    
     public function getWidth(): float
     {
         return $this->width;
@@ -129,6 +145,42 @@ class LabelOptions
     public function setHeight(float $height): self
     {
         $this->height = $height;
+
+        return $this;
+    }
+
+    public function getColumns(): int
+    {
+        return $this->grid_columns;
+    }
+
+    public function setColumns(int $col): self
+    {
+        $this->grid_columns = $col;
+
+        return $this;
+    }
+
+    public function getRows(): int
+    {
+        return $this->grid_rows;
+    }
+
+    public function setRows(int $row): self
+    {
+        $this->grid_rows = $row;
+
+        return $this;
+    }
+    
+    public function getSkipCount(): int
+    {
+        return $this->skip_count;
+    }
+
+    public function setSkipCount(int $cnt): self
+    {
+        $this->skip_count = $cnt;
 
         return $this;
     }
