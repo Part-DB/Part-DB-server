@@ -218,7 +218,7 @@ class InfoProviderController extends  AbstractController
     }
 
     #[Route('/from_url', name: 'info_providers_from_url')]
-    public function fromURL(Request $request, CreateFromUrlHelper $fromUrlHelper): Response
+    public function fromURL(Request $request, CreateFromUrlHelper $fromUrlHelper, LoggerInterface $exceptionLogger): Response
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
@@ -271,6 +271,11 @@ class InfoProviderController extends  AbstractController
                 }
             } catch (ExceptionInterface $e) {
                 $this->addFlash('error', t('info_providers.search.error.general_exception', ['%type%' => (new \ReflectionClass($e))->getShortName()]));
+            } catch (\RuntimeException $e) {
+                //Same handling as the search page: a provider which rejects the request (an unknown model or an
+                //exhausted quota, for example) is a normal outcome here and has to be shown, not turned into a 500
+                $this->addFlash('error', t('info_providers.search.error.general_exception', ['%type%' => (new \ReflectionClass($e))->getShortName()]));
+                $exceptionLogger->error('Error while creating a part from an URL: '.$e->getMessage(), ['exception' => $e]);
             }
         }
 
