@@ -39,7 +39,7 @@ final class Version20260911073630 extends AbstractMultiPlatformMigration
 
     public function postgreSQLUp(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE label_profiles ADD options_grid_columns SMALLINT NOT NULL DEFAULT 1, ADD options_grid_columns SMALLINT NOT NULL DEFAULT 1');
+        $this->addSql('ALTER TABLE label_profiles ADD options_grid_columns SMALLINT NOT NULL DEFAULT 1, ADD options_grid_rows SMALLINT NOT NULL DEFAULT 1');
     }
 
     public function postgreSQLDown(Schema $schema): void
