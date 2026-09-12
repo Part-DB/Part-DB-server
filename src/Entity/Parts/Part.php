@@ -154,7 +154,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
                 'groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
                 'item_uri_template' => '/api/parts/{id}',
             ],
-            security: 'is_granted("edit", object)',
+            security: 'is_granted("@parts.read")',
             input: ElementByIdInput::class,
             validate: true,
             processor: GetPartByIdProcessor::class
