@@ -30,6 +30,7 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Settings\InfoProviderSystem\TrustedPartsSettings;
 use Psr\Cache\CacheItemPoolInterface;
 use Shivas\VersioningBundle\Service\VersionManagerInterface;
@@ -436,6 +437,6 @@ class TrustedPartsProvider implements BatchInfoProviderInterface
     private function cacheKey(string $id): string
     {
         //The IDs contain characters which are not allowed in cache keys, so we hash them
-        return 'trustedparts_part_'.hash('xxh3', $id);
+        return 'trustedparts_part_'.PartInfoRetriever::DTO_CACHE_VERSION.'_'.hash('xxh3', $id);
     }
 }
