@@ -1,4 +1,4 @@
-# Generated on Mon Aug 31 08:31:16 UTC 2026
+# Generated on Mon Sep  7 07:13:21 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -2209,9 +2209,27 @@ Audio:WM8731SEDS
 Audio:YM2149
 Audio:YM2612
 Audio:YM3438
+Auxiliary_Items:Antenna_External
+Auxiliary_Items:Antenna_Internal
+Auxiliary_Items:Battery
+Auxiliary_Items:Fuse
 Auxiliary_Items:Generic_Outline
+Auxiliary_Items:Hex_Spacer
 Auxiliary_Items:Jumper_Shunt
-Auxiliary_Items:MountingScrew
+Auxiliary_Items:Label
+Auxiliary_Items:MCU_Module
+Auxiliary_Items:Memory_Module
+Auxiliary_Items:Mounting_Screw
+Auxiliary_Items:PC_Bracket
+Auxiliary_Items:Power_Supply
+Auxiliary_Items:SD_Card
+Auxiliary_Items:SIM_Card
+Auxiliary_Items:Spacer
+Auxiliary_Items:Split_Washer
+Auxiliary_Items:Spring
+Auxiliary_Items:Standoff
+Auxiliary_Items:Sticker
+Auxiliary_Items:Washer
 Battery_Management:ADP5063
 Battery_Management:ADP5090ACP
 Battery_Management:ADP5091

@@ -1,4 +1,4 @@
-# Generated on Mon Aug 31 08:30:27 UTC 2026
+# Generated on Mon Sep  7 07:12:47 UTC 2026
 # This file contains all footprints available in the offical KiCAD library
 Audio_Module:Reverb_BTDR-1H
 Audio_Module:Reverb_BTDR-1V
@@ -8363,6 +8363,7 @@ Converter_DCDC:Converter_DCDC_TRACO_THD_15-xxxxWIN_THT
 Converter_DCDC:Converter_DCDC_TRACO_THL30-xxxxWI_THT
 Converter_DCDC:Converter_DCDC_TRACO_THL40-xxxxWI_THT
 Converter_DCDC:Converter_DCDC_TRACO_THN10-xxxxUIR_THT
+Converter_DCDC:Converter_DCDC_TRACO_THN20-xxxxUIR_THT
 Converter_DCDC:Converter_DCDC_TRACO_THN30-xxxx_THT
 Converter_DCDC:Converter_DCDC_TRACO_THR40-72xxWI_THT
 Converter_DCDC:Converter_DCDC_TRACO_TMA-05xxD_12xxD_Dual_THT
@@ -11429,6 +11430,7 @@ Package_DFN_QFN:MLF-8-1EP_3x3mm_P0.65mm_EP1.55x2.3mm_ThermalVias
 Package_DFN_QFN:MLPQ-16-1EP_4x4mm_P0.65mm_EP2.8x2.8mm
 Package_DFN_QFN:MPS_QFN-12_2x2mm_P0.4mm
 Package_DFN_QFN:MPS_QFN-16_3x3mm_P0.5mm
+Package_DFN_QFN:MPS_QFN-18_2x3mm_P0.4mm
 Package_DFN_QFN:Maxim_FC2QFN-14_2.5x2.5mm_P0.5mm
 Package_DFN_QFN:Maxim_TDFN-10-1EP_3x3mm_P0.5mm_EP1.58x2.35mm
 Package_DFN_QFN:Maxim_TDFN-12-1EP_3x3mm_P0.5mm_EP1.7x2.5mm
