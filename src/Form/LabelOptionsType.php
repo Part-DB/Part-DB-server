@@ -74,6 +74,7 @@ class LabelOptionsType extends AbstractType
                 'step' => 'any',
             ],
         ]);
+
         $builder->add('height', NumberType::class, [
             'label' => false,
             'html5' => true,
@@ -81,6 +82,36 @@ class LabelOptionsType extends AbstractType
                 'placeholder' => 'label_options.height.placeholder',
                 'min' => 0,
                 'step' => 'any',
+            ],
+        ]);
+
+        $builder->add('grid_columns', NumberType::class, [
+            'label' => 'label_options.page_nup.grid',
+            'html5' => true,
+            'attr' => [
+                'placeholder' => 'label_options.page_nup.columns',
+                'min' => 1,
+                'step' => 1,
+            ],
+        ]);
+
+        $builder->add('grid_rows', NumberType::class, [
+            'label' => false,
+            'html5' => true,
+            'attr' => [
+                'placeholder' => 'label_options.page_nup.rows',
+                'min' => 1,
+                'step' => 1,
+            ],
+        ]);
+
+        $builder->add('skip_count', NumberType::class, [
+            'label' => 'label_options.page_nup.skip_label',
+            'html5' => true,
+            'attr' => [
+                'placeholder' => 'label_options.page_nup.skip_placeholder',
+                'min' => 0,
+                'step' => 1,
             ],
         ]);
 

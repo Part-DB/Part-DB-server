@@ -48,6 +48,18 @@
                     </div>
                 </div>
             </div>
+            <div class="mb-2 row">
+                {{ form_label(form.options.xcount) }}
+                <div class="{{ col_input }}">
+                    <div class="input-group">
+                        {{ form_widget(form.options.grid_columns) }}
+                        <span class="input-group-text">x</span>
+                        {{ form_widget(form.options.grid_rows) }}
+                        <span class="input-group-text">{{ form.options.skip_count.vars.label }}</span>
+                        {{ form_widget(form.options.skip_count) }}
+                    </div>
+                </div>
+            </div>
             {{ form_row(form.options.barcode_type) }}
             {{ form_row(form.options.lines) }}
         </div>
