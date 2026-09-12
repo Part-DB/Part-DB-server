@@ -23,6 +23,9 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Parameters\AbstractParameter;
+use App\Entity\Parameters\ParameterDefinition;
+use App\Entity\Parameters\PartParameter;
+use App\Entity\Parts\Part;
 
 /**
  * @template TEntityClass of AbstractParameter
@@ -30,6 +33,39 @@ use App\Entity\Parameters\AbstractParameter;
  */
 class ParameterRepository extends DBElementRepository
 {
+    /**
+     * UniqueEntity runs before Doctrine flushes orphan removals. Ignore a persisted PartParameter only when it has
+     * already been removed from its owning Part's active collection; active database matches remain conflicts.
+     *
+     * @param array<string, mixed> $criteria
+     * @return list<TEntityClass>
+     */
+    public function findActiveForUniqueValidation(array $criteria): array
+    {
+        return array_values(array_filter(
+            $this->findBy($criteria),
+            static function (AbstractParameter $parameter): bool {
+                if (!$parameter instanceof PartParameter) {
+                    return true;
+                }
+
+                $part = $parameter->getElement();
+
+                return !$part instanceof Part || $part->getParameters()->contains($parameter);
+            },
+        ));
+    }
+
+    public function countByDefinition(ParameterDefinition $definition): int
+    {
+        return (int) $this->createQueryBuilder('parameter')
+            ->select('COUNT(parameter.id)')
+            ->where('parameter.definition = :definition')
+            ->setParameter('definition', $definition)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     /**
      * Find parameters using a parameter name
      * @param  string  $name The name to search for

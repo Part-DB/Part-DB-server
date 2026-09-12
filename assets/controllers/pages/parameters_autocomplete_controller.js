@@ -20,6 +20,7 @@
 import {Controller} from "@hotwired/stimulus";
 import TomSelect from "tom-select";
 import katex from "katex";
+import {trans} from "../../translator";
 import "katex/dist/katex.css";
 
 
@@ -38,9 +39,16 @@ export default class extends Controller
         url: String,
     }
 
-    static targets = ["name", "symbol", "unit"]
+    static targets = ["name", "symbol", "unit", "valueText", "definition", "newChoiceValue"]
 
     _tomSelect;
+    _valueTomSelect;
+    _initialized = false;
+    _resetting = false;
+    _initialState;
+    _form;
+    _resetHandler;
+    _resetTimer;
 
     onItemAdd(value, item) {
         //Retrieve the unit and symbol from the item
@@ -57,9 +65,305 @@ export default class extends Controller
             //Trigger input event to update the preview
             this.unitTarget.dispatchEvent(new Event('input'));
         }
+
+        // TomSelect emits onItemAdd for the value already present while initializing an existing row. The server has
+        // rendered that row from its persisted definition, so only an explicit user selection may change the link.
+        if (this._resetting || !this._initialized || !this.hasDefinitionTarget || !this.hasValueTextTarget) {
+            return;
+        }
+
+        const definitionId = item.dataset.definitionId;
+        if (definitionId === undefined || !/^\d+$/.test(definitionId) || Number(definitionId) < 1) {
+            this.setDefinition(null);
+            this.applyInputDefinition('text', []);
+            this.setLinkedFieldState(false);
+
+            return;
+        }
+
+        let choices = [];
+        if (item.dataset.choices) {
+            try {
+                choices = JSON.parse(item.dataset.choices);
+            } catch (_) {
+                choices = [];
+            }
+        }
+
+        this.setDefinition(definitionId, item.dataset.definitionName ?? value);
+        this.applyInputDefinition(item.dataset.inputType ?? 'text', choices);
+        this.setLinkedFieldState(true);
+    }
+
+    onItemRemove() {
+        if (this._resetting || !this._initialized || !this.hasDefinitionTarget || !this.hasValueTextTarget) {
+            return;
+        }
+
+        this.setDefinition(null);
+        this.applyInputDefinition('text', []);
+        this.setLinkedFieldState(false);
+    }
+
+    setDefinition(definitionId, name = '') {
+        this.definitionTarget.replaceChildren();
+
+        const emptyOption = new Option('', '');
+        this.definitionTarget.add(emptyOption);
+
+        if (definitionId !== null) {
+            const option = new Option(name, definitionId, true, true);
+            this.definitionTarget.add(option);
+            this.definitionTarget.value = definitionId;
+        } else {
+            this.definitionTarget.value = '';
+        }
+
+        this.definitionTarget.dispatchEvent(new Event('change', {bubbles: true}));
+    }
+
+    applyInputDefinition(inputType, choices, restoredValue = undefined, deprecatedChoices = []) {
+        this.destroyValueTomSelect();
+        const oldElement = this.valueTextTarget;
+        const currentValue = restoredValue ?? oldElement.value;
+        const useChoice = inputType === 'choice' && Array.isArray(choices);
+        const newElement = document.createElement(useChoice ? 'select' : 'input');
+
+        for (const attribute of oldElement.attributes) {
+            if (attribute.name !== 'type') {
+                newElement.setAttribute(attribute.name, attribute.value);
+            }
+        }
+
+        if (useChoice) {
+            newElement.classList.remove('form-control', 'form-control-sm');
+            newElement.classList.add('form-select', 'form-select-sm');
+            newElement.add(new Option('', ''));
+
+            for (const choice of choices) {
+                newElement.add(new Option(choice, choice));
+            }
+
+            for (const choice of deprecatedChoices) {
+                const option = new Option(
+                    trans('parameter_definition.choice.deprecated_label', {'%choice%': choice}),
+                    choice,
+                );
+                option.dataset.deprecatedChoice = 'true';
+                newElement.add(option);
+            }
+
+            newElement.value = [...choices, ...deprecatedChoices].includes(currentValue) ? currentValue : '';
+        } else {
+            newElement.type = 'text';
+            newElement.classList.remove('form-select', 'form-select-sm');
+            newElement.classList.add('form-control', 'form-control-sm');
+            newElement.value = currentValue;
+        }
+
+        oldElement.replaceWith(newElement);
+        this.clearPendingChoice();
+        if (useChoice) {
+            this.setupValueTomSelect(newElement);
+        }
+        newElement.dispatchEvent(new Event('change', {bubbles: true}));
+    }
+
+    setLinkedFieldState(linked) {
+        if (this.hasSymbolTarget) {
+            this.symbolTarget.readOnly = linked;
+        }
+        if (this.hasUnitTarget) {
+            this.unitTarget.readOnly = linked;
+        }
+    }
+
+    normalizeChoice(value) {
+        return value.trim().toLocaleLowerCase();
+    }
+
+    findCanonicalChoice(value) {
+        const normalized = this.normalizeChoice(value);
+        if (normalized === '' || !this._valueTomSelect) {
+            return null;
+        }
+
+        for (const option of Object.values(this._valueTomSelect.options)) {
+            if (!option.pending_choice && this.normalizeChoice(String(option.value ?? '')) === normalized) {
+                return String(option.value);
+            }
+        }
+
+        return null;
+    }
+
+    clearPendingChoice() {
+        if (this.hasNewChoiceValueTarget) {
+            this.newChoiceValueTarget.value = '';
+        }
+    }
+
+    setupValueTomSelect(element) {
+        const canAddChoice = element.dataset.canAddChoice === 'true';
+        const pendingChoice = this.hasNewChoiceValueTarget ? this.newChoiceValueTarget.value.trim() : '';
+        const options = Array.from(element.options).map(option => ({
+            value: option.value,
+            text: option.text,
+            pending_choice: pendingChoice !== '' && option.value === pendingChoice,
+        }));
+
+        this._valueTomSelect = new TomSelect(element, {
+            plugins: {
+                'clear_button': {},
+                'form_reset_handler': {},
+            },
+            options,
+            items: element.value === '' ? [] : [element.value],
+            valueField: 'value',
+            labelField: 'text',
+            searchField: 'text',
+            maxItems: 1,
+            allowEmptyOption: true,
+            placeholder: trans('parameter.choice.nothing_selected'),
+            createOnBlur: false,
+            selectOnTab: true,
+            createFilter: input => canAddChoice
+                && this.normalizeChoice(input) !== ''
+                && this.findCanonicalChoice(input) === null,
+            create: canAddChoice ? (input, callback) => {
+                const choice = input.trim();
+                if (choice === '' || this.findCanonicalChoice(choice) !== null) {
+                    callback(false);
+                    return;
+                }
+
+                callback({value: choice, text: choice, pending_choice: true});
+            } : false,
+            onType: input => {
+                const canonical = this.findCanonicalChoice(input);
+                if (canonical !== null && canonical !== input) {
+                    this._valueTomSelect.setTextboxValue(canonical);
+                    this._valueTomSelect.refreshOptions(false);
+                }
+            },
+            onItemAdd: value => {
+                // Initial items are added while the TomSelect constructor is still running, before the instance has
+                // been assigned to _valueTomSelect.
+                const option = this._valueTomSelect?.options[value]
+                    ?? options.find(candidate => candidate.value === value);
+                if (this.hasNewChoiceValueTarget) {
+                    this.newChoiceValueTarget.value = option?.pending_choice ? String(option.value) : '';
+                }
+            },
+            onItemRemove: () => this.clearPendingChoice(),
+            render: {
+                option_create: (data, escape) => '<div class="create">'
+                    + escape(trans('parameter.choice.add_new', {'%value%': data.input}))
+                    + ' <span class="badge bg-info">' + escape(trans('parameter.choice.new')) + '</span></div>',
+                item: (data, escape) => '<div>' + escape(data.text)
+                    + (data.pending_choice
+                        ? ' <span class="badge bg-info">' + escape(trans('parameter.choice.new')) + '</span>'
+                        : '')
+                    + '</div>',
+            },
+        });
+    }
+
+    destroyValueTomSelect() {
+        this._valueTomSelect?.destroy();
+        this._valueTomSelect = undefined;
+    }
+
+    captureInitialState() {
+        const valueElement = this.valueTextTarget;
+        const isChoice = valueElement.tagName === 'SELECT';
+        const definitionId = this.hasDefinitionTarget ? this.definitionTarget.value : '';
+        const selectedDefinition = this.hasDefinitionTarget
+            ? this.definitionTarget.options[this.definitionTarget.selectedIndex]
+            : null;
+
+        this._initialState = {
+            name: this.nameTarget.value,
+            symbol: this.hasSymbolTarget ? this.symbolTarget.value : '',
+            unit: this.hasUnitTarget ? this.unitTarget.value : '',
+            definitionId,
+            definitionName: selectedDefinition?.text ?? this.nameTarget.value,
+            inputType: isChoice ? 'choice' : 'text',
+            choices: isChoice
+                ? Array.from(valueElement.options)
+                    .filter(option => option.value !== '' && option.dataset.deprecatedChoice !== 'true')
+                    .map(option => option.value)
+                : [],
+            deprecatedChoices: isChoice
+                ? Array.from(valueElement.options)
+                    .filter(option => option.value !== '' && option.dataset.deprecatedChoice === 'true')
+                    .map(option => option.value)
+                : [],
+            value: valueElement.value,
+        };
+    }
+
+    onFormReset() {
+        this._resetting = true;
+        clearTimeout(this._resetTimer);
+
+        // The browser restores native form controls after the reset event. Rebuild the composite TomSelect state on
+        // the next task, once both the native reset and the individual TomSelect reset handlers have completed.
+        this._resetTimer = setTimeout(() => this.restoreInitialState(), 0);
+    }
+
+    restoreInitialState() {
+        if (!this._initialState || !this.element.isConnected) {
+            this._resetting = false;
+            return;
+        }
+
+        const state = this._initialState;
+        this.clearPendingChoice();
+
+        if (state.name === '') {
+            this._tomSelect.clear(true);
+        } else {
+            if (!this._tomSelect.options[state.name]) {
+                this._tomSelect.addOption({name: state.name});
+            }
+            this._tomSelect.setValue(state.name, true);
+        }
+
+        if (this.hasSymbolTarget) {
+            this.symbolTarget.value = state.symbol;
+            this.symbolTarget.dispatchEvent(new Event('input'));
+        }
+        if (this.hasUnitTarget) {
+            this.unitTarget.value = state.unit;
+            this.unitTarget.dispatchEvent(new Event('input'));
+        }
+
+        if (this.hasDefinitionTarget) {
+            this.setDefinition(
+                state.definitionId === '' ? null : state.definitionId,
+                state.definitionName
+            );
+        }
+        this.applyInputDefinition(
+            state.inputType,
+            state.choices,
+            state.value,
+            state.deprecatedChoices,
+        );
+        this.setLinkedFieldState(state.definitionId !== '');
+        this._resetting = false;
     }
 
     connect() {
+        this.captureInitialState();
+        this._form = this.nameTarget.form;
+        if (this._form) {
+            this._resetHandler = this.onFormReset.bind(this);
+            // Capture phase ensures callbacks emitted by the TomSelect reset plugins see _resetting=true.
+            this._form.addEventListener('reset', this._resetHandler, true);
+        }
+
         const settings = {
             plugins: {
                 'autoselect_typed': {},
@@ -80,6 +384,10 @@ export default class extends Controller
             valueField: "name",
             clearAfterSelect: true,
             onItemAdd: this.onItemAdd.bind(this),
+            onItemRemove: this.onItemRemove.bind(this),
+            onInitialize: () => {
+                this._initialized = true;
+            },
             render: {
                 option: (data, escape) => {
                     let tmp = '<div>'
@@ -110,7 +418,16 @@ export default class extends Controller
                     if (data.symbol !== undefined) {
                         element.dataset.symbol = data.symbol;
                     }
-
+                    if (data.definition_id !== undefined) {
+                        element.dataset.definitionId = data.definition_id;
+                        element.dataset.definitionName = data.name;
+                    }
+                    if (data.input_type !== undefined) {
+                        element.dataset.inputType = data.input_type;
+                    }
+                    if (data.choices !== undefined) {
+                        element.dataset.choices = JSON.stringify(data.choices);
+                    }
                     return element.outerHTML;
                 }
             }
@@ -133,11 +450,20 @@ export default class extends Controller
         }
 
         this._tomSelect = new TomSelect(this.nameTarget, settings);
+        this.setLinkedFieldState(this.hasDefinitionTarget && this.definitionTarget.value !== '');
+        if (this.hasValueTextTarget && this.valueTextTarget.tagName === 'SELECT') {
+            this.setupValueTomSelect(this.valueTextTarget);
+        }
     }
 
     disconnect() {
         super.disconnect();
+        clearTimeout(this._resetTimer);
+        if (this._form && this._resetHandler) {
+            this._form.removeEventListener('reset', this._resetHandler, true);
+        }
         //Destroy the TomSelect instance
-        this._tomSelect.destroy();
+        this._tomSelect?.destroy();
+        this.destroyValueTomSelect();
     }
 }

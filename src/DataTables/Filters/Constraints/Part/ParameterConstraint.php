@@ -24,6 +24,7 @@ namespace App\DataTables\Filters\Constraints\Part;
 
 use App\DataTables\Filters\Constraints\AbstractConstraint;
 use App\DataTables\Filters\Constraints\TextConstraint;
+use App\Entity\Parameters\ParameterDefinition;
 use App\Entity\Parameters\PartParameter;
 use Doctrine\ORM\QueryBuilder;
 
@@ -34,6 +35,8 @@ class ParameterConstraint extends AbstractConstraint
     protected string $symbol = '';
 
     protected string $unit = '';
+
+    protected ?ParameterDefinition $definition = null;
 
     protected TextConstraint $value_text;
     protected ParameterValueConstraint $value;
@@ -54,11 +57,29 @@ class ParameterConstraint extends AbstractConstraint
 
     public function isEnabled(): bool
     {
-        return true;
+        if ($this->definition instanceof ParameterDefinition) {
+            if (ParameterDefinition::INPUT_TYPE_CHOICE === $this->definition->getInputType()) {
+                return $this->value_text->isEnabled()
+                    && '=' === $this->value_text->getOperator()
+                    && '' !== trim((string) $this->value_text->getValue());
+            }
+
+            return $this->value_text->isEnabled() || $this->value->isEnabled();
+        }
+
+        return '' !== trim($this->name)
+            || '' !== trim($this->symbol)
+            || '' !== trim($this->unit)
+            || $this->value_text->isEnabled()
+            || $this->value->isEnabled();
     }
 
     public function apply(QueryBuilder $queryBuilder): void
     {
+        if (!$this->isEnabled()) {
+            return;
+        }
+
         //Create a new qb to build the subquery
         $subqb = new QueryBuilder($queryBuilder->getEntityManager());
 
@@ -68,7 +89,48 @@ class ParameterConstraint extends AbstractConstraint
             ->from(PartParameter::class, $this->alias)
             ->where($this->alias . '.element = part');
 
-        if ($this->name !== '') {
+        $value_text_applied = false;
+        if ($this->definition instanceof ParameterDefinition) {
+            $definition_param = $this->generateParameterIdentifier('params.definition');
+            $definition_name_param = $this->generateParameterIdentifier('params.definition_name');
+
+            if (ParameterDefinition::INPUT_TYPE_CHOICE === $this->definition->getInputType()
+                && '=' === $this->value_text->getOperator()
+                && $this->value_text->isEnabled()) {
+                $value_param = $this->generateParameterIdentifier('params.value_text');
+                $legacy_value_param = $this->generateParameterIdentifier('params.legacy_value_text');
+                $subqb->andWhere(sprintf(
+                    '((%1$s.definition = :%2$s AND %1$s.value_text = :%4$s) OR '
+                    .'(%1$s.definition IS NULL AND ILIKE(TRIM(%1$s.name), :%3$s) = TRUE '
+                    .'AND ILIKE(TRIM(%1$s.value_text), :%5$s) = TRUE))',
+                    $this->alias,
+                    $definition_param,
+                    $definition_name_param,
+                    $value_param,
+                    $legacy_value_param,
+                ));
+                $subqb->setParameter($value_param, $this->value_text->getValue());
+                $subqb->setParameter(
+                    $legacy_value_param,
+                    $this->escapeLikeValue(trim((string) $this->value_text->getValue())),
+                );
+                $value_text_applied = true;
+            } else {
+                $subqb->andWhere(sprintf(
+                    '(%1$s.definition = :%2$s OR '
+                    .'(%1$s.definition IS NULL AND ILIKE(TRIM(%1$s.name), :%3$s) = TRUE))',
+                    $this->alias,
+                    $definition_param,
+                    $definition_name_param,
+                ));
+            }
+
+            $subqb->setParameter($definition_param, $this->definition);
+            $subqb->setParameter(
+                $definition_name_param,
+                $this->escapeLikeValue(trim($this->definition->getName())),
+            );
+        } elseif ($this->name !== '') {
             $paramName = $this->generateParameterIdentifier('params.name');
             $subqb->andWhere($this->alias . '.name = :' . $paramName);
             $queryBuilder->setParameter($paramName,  $this->name);
@@ -87,8 +149,13 @@ class ParameterConstraint extends AbstractConstraint
         }
 
         //Apply all subfilters
-        $this->value_text->apply($subqb);
-        $this->value->apply($subqb);
+        if (!$value_text_applied) {
+            $this->value_text->apply($subqb);
+        }
+        if (!$this->definition instanceof ParameterDefinition
+            || ParameterDefinition::INPUT_TYPE_CHOICE !== $this->definition->getInputType()) {
+            $this->value->apply($subqb);
+        }
 
         //Copy all parameters from the subquery to the main query
         //We can not use setParameters here, as this would override the exiting paramaters in queryBuilder
@@ -130,6 +197,23 @@ class ParameterConstraint extends AbstractConstraint
     {
         $this->unit = $unit;
         return $this;
+    }
+
+    public function getDefinition(): ?ParameterDefinition
+    {
+        return $this->definition;
+    }
+
+    public function setDefinition(?ParameterDefinition $definition): ParameterConstraint
+    {
+        $this->definition = $definition;
+
+        return $this;
+    }
+
+    private function escapeLikeValue(string $value): string
+    {
+        return str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $value);
     }
 
     public function getValueText(): TextConstraint

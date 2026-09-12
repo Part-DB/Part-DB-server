@@ -56,6 +56,7 @@ class BaseEntityAdminForm extends AbstractType
         parent::configureOptions($resolver);
         $resolver->setRequired('attachment_class');
         $resolver->setRequired('parameter_class');
+        $resolver->setAllowedTypes('attachment_class', 'string');
         $resolver->setAllowedTypes('parameter_class', ['string', 'null']);
 
         $resolver->setDefaults([
@@ -135,26 +136,28 @@ class BaseEntityAdminForm extends AbstractType
 
         $this->additionalFormElements($builder, $options, $entity);
 
-        //Attachment section
-        $builder->add('attachments', CollectionType::class, [
-            'entry_type' => AttachmentFormType::class,
-            'allow_add' => true,
-            'allow_delete' => true,
-            'label' => false,
-            'reindex_enable' => true,
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'entry_options' => [
-                'data_class' => $options['attachment_class'],
-            ],
-            'by_reference' => false,
-        ]);
+        if ('' !== $options['attachment_class']) {
+            //Attachment section
+            $builder->add('attachments', CollectionType::class, [
+                'entry_type' => AttachmentFormType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'label' => false,
+                'reindex_enable' => true,
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                'entry_options' => [
+                    'data_class' => $options['attachment_class'],
+                ],
+                'by_reference' => false,
+            ]);
 
-        $builder->add('master_picture_attachment', MasterPictureAttachmentType::class, [
-            'required' => false,
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'label' => 'part.edit.master_attachment',
-            'entity' => $entity,
-        ]);
+            $builder->add('master_picture_attachment', MasterPictureAttachmentType::class, [
+                'required' => false,
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                'label' => 'part.edit.master_attachment',
+                'entity' => $entity,
+            ]);
+        }
 
         $builder->add('log_comment', TextType::class, [
             'label' => 'edit.log_comment',

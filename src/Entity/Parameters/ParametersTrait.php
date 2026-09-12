@@ -87,7 +87,9 @@ trait ParametersTrait
      */
     public function removeParameter(AbstractParameter $parameter): self
     {
-        $this->parameters->removeElement($parameter);
+        if ($this->parameters->removeElement($parameter)) {
+            $parameter->setDefinition(null);
+        }
 
         return $this;
     }
