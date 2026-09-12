@@ -28,6 +28,7 @@ jobs:
         coverage: none
         ini-values: xdebug.max_nesting_level=1000
         extensions: mbstring, intl, gd, xsl, gmp, bcmath, :php-psr
+        tools: symfony-cli
 
     - name: Get Composer Cache Directory
       id: composer-cache
@@ -59,6 +60,9 @@ jobs:
 
     - name: Check doctrine mapping
       run: ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
+
+    - name: Run Symfony LSP check
+      run: symfony lsp:check --format=github
 
     # Use the -d option to raise the max nesting level
     - name: Generate dev container
