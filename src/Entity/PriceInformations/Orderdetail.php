@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
-use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
@@ -51,8 +50,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Length;
 
@@ -63,7 +61,7 @@ use Symfony\Component\Validator\Constraints\Length;
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Table('`orderdetails`')]
-#[ORM\Index(columns: ['supplierpartnr'], name: 'orderdetails_supplier_part_nr')]
+#[ORM\Index(name: 'orderdetails_supplier_part_nr', columns: ['supplierpartnr'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -74,8 +72,8 @@ use Symfony\Component\Validator\Constraints\Length;
         new GetCollection(
             uriTemplate: '/parts/{id}/orderdetails.{_format}',
             uriVariables: ['id' => new Link(toProperty: 'part', fromClass: Part::class)],
-            normalizationContext: ['groups' => ['orderdetail:read', 'pricedetail:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
             openapi: new Operation(summary: 'Retrieves the orderdetails of a part.'),
+            normalizationContext: ['groups' => ['orderdetail:read', 'pricedetail:read', 'api:basic:read'], 'openapi_definition_name' => 'Read'],
             security: 'is_granted("@parts.read")'
         ),
     ],
@@ -97,8 +95,8 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      */
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import', 'orderdetail:read', 'orderdetail:write'])]
-    #[ORM\OneToMany(mappedBy: 'orderdetail', targetEntity: Pricedetail::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['min_discount_quantity' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: Pricedetail::class, mappedBy: 'orderdetail', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['min_discount_quantity' => 'ASC'])]
     protected Collection $pricedetails;
 
     /**

@@ -138,8 +138,19 @@ export default class extends Controller {
                 });
         });
 
+        this.watchdog = watchdog;
         watchdog.create(this.element, config).catch(error => {
             console.error(error);
         });
+    }
+
+    disconnect() {
+        if (this.watchdog) {
+            //Destroying the editor restores visibility of the original source textarea element
+            this.watchdog.destroy().catch(error => {
+                console.error(error);
+            });
+            this.watchdog = null;
+        }
     }
 }

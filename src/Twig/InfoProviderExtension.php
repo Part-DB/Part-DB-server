@@ -26,8 +26,6 @@ namespace App\Twig;
 use Twig\Attribute\AsTwigFunction;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
 
 final readonly class InfoProviderExtension
 {

@@ -23,10 +23,10 @@ declare(strict_types=1);
 namespace App\Entity\Base;
 
 use ApiPlatform\Metadata\ApiProperty;
+use Doctrine\DBAL\Schema\DefaultExpression\CurrentTimestamp;
 use Doctrine\DBAL\Types\Types;
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 /**
  * A entity with these trait contains informations about, when it was created and edited last time.
@@ -38,7 +38,7 @@ trait TimestampTrait
      */
     #[Groups(['extended', 'full'])]
     #[ApiProperty(writable: false)]
-    #[ORM\Column(name: 'last_modified', type: Types::DATETIME_IMMUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(name: 'last_modified', type: Types::DATETIME_IMMUTABLE, options: ['default' => new CurrentTimestamp()])]
     protected ?\DateTimeImmutable $lastModified = null;
 
     /**
@@ -46,7 +46,7 @@ trait TimestampTrait
      */
     #[Groups(['extended', 'full'])]
     #[ApiProperty(writable: false)]
-    #[ORM\Column(name: 'datetime_added', type: Types::DATETIME_IMMUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(name: 'datetime_added', type: Types::DATETIME_IMMUTABLE, options: ['default' => new CurrentTimestamp()])]
     protected ?\DateTimeImmutable $addedDate = null;
 
     /**

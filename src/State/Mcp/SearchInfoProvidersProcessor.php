@@ -31,16 +31,16 @@ use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Settings\InfoProviderSystem\InfoProviderGeneralSettings;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-class SearchInfoProvidersProcessor implements ProcessorInterface
+readonly class SearchInfoProvidersProcessor implements ProcessorInterface
 {
     public function __construct(
-        private readonly PartInfoRetriever $infoRetriever,
-        private readonly ProviderRegistry $providerRegistry,
-        private readonly InfoProviderGeneralSettings $infoProviderSettings,
+        private PartInfoRetriever $infoRetriever,
+        private ProviderRegistry $providerRegistry,
+        private InfoProviderGeneralSettings $infoProviderSettings,
     ) {
     }
 
-    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
+    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): array
     {
         if (!$data instanceof InfoProviderSearchInput) {
             throw new BadRequestHttpException('Expected InfoProviderSearchInput');

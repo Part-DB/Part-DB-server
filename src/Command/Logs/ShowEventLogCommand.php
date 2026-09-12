@@ -135,7 +135,7 @@ class ShowEventLogCommand extends Command
 
         $target_class = '';
         if (null !== $entry->getTargetClass()) {
-            $target_class = $this->elementTypeNameGenerator->getLocalizedTypeLabel($entry->getTargetClass());
+            $target_class = $this->elementTypeNameGenerator->typeLabel($entry->getTargetClass());
         }
 
         if ($entry->getUser() instanceof User) {

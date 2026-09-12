@@ -49,7 +49,7 @@ class ChoiceConstraint extends AbstractConstraint
     /**
      * @param  string[]|int[]  $value
      */
-    public function setValue(array $value): ChoiceConstraint
+    public function setValue(array $value): self
     {
         $this->value = $value;
         return $this;
@@ -60,7 +60,7 @@ class ChoiceConstraint extends AbstractConstraint
         return $this->operator;
     }
 
-    public function setOperator(string $operator): ChoiceConstraint
+    public function setOperator(string $operator): self
     {
         $this->operator = $operator;
         return $this;

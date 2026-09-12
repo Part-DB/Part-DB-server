@@ -37,13 +37,13 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  * request's host can be trusted and is used as usual (which allows the app to be reachable under multiple
  * trusted hostnames).
  */
-final class TrustedUrlGenerator
+final readonly class TrustedUrlGenerator
 {
     public function __construct(
-        private readonly UrlGeneratorInterface $urlGenerator,
-        private readonly TrustedHostsChecker $trustedHostsChecker,
+        private UrlGeneratorInterface $urlGenerator,
+        private TrustedHostsChecker $trustedHostsChecker,
         #[Autowire('%partdb.default_uri%')]
-        private readonly string $defaultUri,
+        private string $defaultUri,
     ) {
     }
 

@@ -32,7 +32,6 @@ use App\Services\Trees\NodesListBuilder;
 use App\Settings\BehaviorSettings\TableSettings;
 use App\Settings\SystemSettings\AttachmentsSettings;
 use Omines\DataTablesBundle\DataTableFactory;
-use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;

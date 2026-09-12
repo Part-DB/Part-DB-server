@@ -33,9 +33,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @see \App\Tests\Security\UserCheckerTest
  */
-final class UserChecker implements UserCheckerInterface
+final readonly class UserChecker implements UserCheckerInterface
 {
-    public function __construct(private readonly TranslatorInterface $translator)
+    public function __construct(private TranslatorInterface $translator)
     {
     }
 

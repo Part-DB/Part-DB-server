@@ -54,9 +54,11 @@ class CallToolResultToolsDeclareNoOutputSchemaTest extends KernelTestCase
         self::bootKernel();
         $container = self::getContainer();
 
-        //Service ids, not autowired by class (see vendor/symfony/mcp-bundle/config/services.php)
-        $container->get('mcp.server.builder')->build();
-        $registry = $container->get('mcp.registry');
+        //Service ids, not autowired by class; per-server since symfony/mcp-bundle 0.13 (see
+        //vendor/symfony/mcp-bundle/src/McpBundle.php:configureServer()). "default" is the server name
+        //configured in config/packages/mcp.yaml.
+        $container->get('mcp.server.default.builder')->build();
+        $registry = $container->get('mcp.server.default.registry');
 
         $tool = $registry->getTool($toolName)->tool;
 

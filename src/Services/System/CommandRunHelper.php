@@ -26,10 +26,10 @@ namespace App\Services\System;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Process\Process;
 
-class CommandRunHelper
+readonly class CommandRunHelper
 {
     public function __construct(
-        #[Autowire(param: 'kernel.project_dir')] private readonly string $project_dir
+        #[Autowire(param: 'kernel.project_dir')] private string $project_dir
     )
     {
     }

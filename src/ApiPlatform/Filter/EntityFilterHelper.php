@@ -28,11 +28,11 @@ use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PropertyInfo\Type;
 
-class EntityFilterHelper
+readonly class EntityFilterHelper
 {
     public function __construct(
-        private readonly NodesListBuilder $nodesListBuilder,
-        private readonly EntityManagerInterface $entityManager)
+        private NodesListBuilder $nodesListBuilder,
+        private EntityManagerInterface $entityManager)
     {
 
     }

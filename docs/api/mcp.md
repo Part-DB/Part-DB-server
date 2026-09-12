@@ -255,6 +255,20 @@ API token/OAuth2 grant (see [Permissions](#permissions) above) and the correspon
 * **search_parts** – Search for parts by a keyword, with toggles to control which fields are searched (name,
   description, comment, tags, storage location, supplier order number, MPN, IPN, supplier, manufacturer, footprint,
   category, database ID), and an optional regex mode.
+* **advanced_search_parts** – Search for parts using precise, structured filter criteria instead of a single
+  free-text keyword, similar to the "Filters" tab of the part table in the web UI. All given constraints are
+  combined with AND: text fields (name, description, comment, IPN, GTIN, manufacturer product number/URL, stock lot
+  description, attachment name) support operators like `CONTAINS`/`STARTS`/`ENDS`/`=`/`!=`/`REGEX`; numeric fields
+  (minimum amount, mass, total stock amount, lot/orderdetails/attachments/parameters count) support
+  `<`/`>`/`<=`/`>=`/`=`/`!=`/`BETWEEN`; date fields (last modified, added date, lot expiration date) use the same
+  operators; booleans (favorite, needs review, obsolete, less-than-desired stock, lot needs refill/has unknown
+  amount) are simple true/false toggles; tags support `ANY`/`ALL`/`NONE` of a given list; manufacturing status
+  supports `ANY`/`NONE` of `announced`/`active`/`nrfnd`/`eol`/`discontinued`; relations (category, footprint,
+  manufacturer, storage location, supplier, measurement unit, part custom state, attachment type, project) are
+  matched by database ID with `=`/`!=`, and additionally `INCLUDING_CHILDREN`/`EXCLUDING_CHILDREN` for the
+  hierarchical ones to match an entire subtree; and a `parameters` list matches parts having at least one parameter
+  satisfying each given name/symbol/unit/value constraint. Results can be sorted (`orderBy`/`orderDirection`) and
+  are capped at `limit` (default 50, max 200).
 * **get_part_details** – Get full details about a specific part by its database ID, including stock, prices,
   order details, attachments, parameters and EDA info.
 * **get_part_preview_image** – Get the preview/thumbnail picture for a part by its database ID. Uses the same

@@ -34,9 +34,10 @@ use League\Bundle\OAuth2ServerBundle\Model\Client;
  * is persisted. One row is written per self-registered client; presence of a row is the marker, there is
  * nothing else to store.
  *
- * Keyed by an identifying ManyToOne to Client itself (mirroring how the bundle's own Driver maps
- * AccessToken/AuthorizationCode to Client - see League\Bundle\OAuth2ServerBundle\Persistence\Mapping\Driver)
- * with ON DELETE CASCADE, so this row is removed automatically by the database whenever the client it
+ * Keyed by an identifying OneToOne to Client itself (mirroring how the bundle's own Driver maps
+ * AccessToken/AuthorizationCode to Client - see League\Bundle\OAuth2ServerBundle\Persistence\Mapping\Driver -
+ * except those are ManyToOne since Client is not their sole identifier) with ON DELETE CASCADE, so this row
+ * is removed automatically by the database whenever the client it
  * refers to is deleted - App\Services\OAuth\OAuthClientAdminManager::deleteClient() does not clean this
  * table up itself, it relies entirely on this FK. On MySQL/PostgreSQL that cascade is always enforced; on
  * SQLite it is only enforced when "PRAGMA foreign_keys = ON" is set on the connection, which this app does
@@ -50,11 +51,11 @@ use League\Bundle\OAuth2ServerBundle\Model\Client;
 class DynamicallyRegisteredOAuthClient
 {
     #[ORM\Id]
-    #[ORM\ManyToOne(targetEntity: Client::class)]
-    #[ORM\JoinColumn(name: 'client_identifier', referencedColumnName: 'identifier', nullable: false, onDelete: 'CASCADE')]
+    #[ORM\OneToOne(targetEntity: Client::class)]
+    #[ORM\JoinColumn(name: 'client_identifier', referencedColumnName: 'identifier', onDelete: 'CASCADE')]
     private Client $client;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, name: 'registered_at')]
+    #[ORM\Column(name: 'registered_at', type: Types::DATETIME_IMMUTABLE)]
     private \DateTimeImmutable $registeredAt;
 
     public function __construct(Client $client)

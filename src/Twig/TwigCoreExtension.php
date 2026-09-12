@@ -24,13 +24,8 @@ namespace App\Twig;
 
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Twig\Attribute\AsTwigFilter;
-use Twig\Attribute\AsTwigFunction;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Twig\Attribute\AsTwigTest;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
-use Twig\TwigFunction;
-use Twig\TwigTest;
 
 /**
  * The functionalities here extend the Twig with some core functions, which are independently of Part-DB.

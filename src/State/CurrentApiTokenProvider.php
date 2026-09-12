@@ -29,10 +29,10 @@ use App\Security\ApiTokenAuthenticatedToken;
 use Symfony\Bundle\SecurityBundle\Security;
 
 
-class CurrentApiTokenProvider implements ProviderInterface
+readonly class CurrentApiTokenProvider implements ProviderInterface
 {
 
-    public function __construct(private readonly Security $security)
+    public function __construct(private Security $security)
     {
 
     }

@@ -59,7 +59,7 @@ trait WithPermPresetsTrait
         $this->permission_presets_helper->applyPreset($user, $preset);
 
         //And return the json data
-        return json_encode($user->getPermissions());
+        return json_encode($user->getPermissions(), JSON_THROW_ON_ERROR);
     }
 
     public function setContainer(?ContainerInterface $container = null): void

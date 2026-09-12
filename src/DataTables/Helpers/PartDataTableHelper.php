@@ -36,14 +36,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * A helper service which contains common code to render columns for part related tables
  */
-class PartDataTableHelper
+readonly class PartDataTableHelper
 {
     public function __construct(
-        private readonly PartPreviewGenerator $previewGenerator,
-        private readonly AttachmentURLGenerator $attachmentURLGenerator,
-        private readonly EntityURLGenerator $entityURLGenerator,
-        private readonly TranslatorInterface $translator,
-        private readonly AmountFormatter $amountFormatter,
+        private PartPreviewGenerator $previewGenerator,
+        private AttachmentURLGenerator $attachmentURLGenerator,
+        private EntityURLGenerator $entityURLGenerator,
+        private TranslatorInterface $translator,
+        private AmountFormatter $amountFormatter,
     ) {
     }
 

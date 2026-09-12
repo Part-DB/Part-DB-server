@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
-use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -46,7 +45,7 @@ use App\Validator\Constraints\ValidFileFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -56,8 +55,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: StructuralDBElementRepository::class)]
 #[ORM\Table(name: '`attachment_types`')]
-#[ORM\Index(columns: ['name'], name: 'attachment_types_idx_name')]
-#[ORM\Index(columns: ['parent_id', 'name'], name: 'attachment_types_idx_parent_name')]
+#[ORM\Index(name: 'attachment_types_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'attachment_types_idx_parent_name', columns: ['parent_id', 'name'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -81,8 +80,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class AttachmentType extends AbstractStructuralDBElement
 {
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: AttachmentType::class, cascade: ['persist'])]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: AttachmentType::class, mappedBy: 'parent', cascade: ['persist'])]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: AttachmentType::class, inversedBy: 'children')]
@@ -105,8 +104,8 @@ class AttachmentType extends AbstractStructuralDBElement
      * @var Collection<int, AttachmentTypeAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: AttachmentTypeAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: AttachmentTypeAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     #[Groups(['attachment_type:read', 'attachment_type:write', 'import', 'full'])]
     protected Collection $attachments;
 
@@ -118,15 +117,15 @@ class AttachmentType extends AbstractStructuralDBElement
     /** @var Collection<int, AttachmentTypeParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: AttachmentTypeParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OneToMany(targetEntity: AttachmentTypeParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['attachment_type:read', 'attachment_type:write', 'import', 'full'])]
     protected Collection $parameters;
 
     /**
      * @var Collection<Attachment>
      */
-    #[ORM\OneToMany(mappedBy: 'attachment_type', targetEntity: Attachment::class)]
+    #[ORM\OneToMany(targetEntity: Attachment::class, mappedBy: 'attachment_type')]
     protected Collection $attachments_with_type;
 
     /**
@@ -189,6 +188,32 @@ class AttachmentType extends AbstractStructuralDBElement
         $this->filetype_filter = $filetype_filter;
 
         return $this;
+    }
+
+    /**
+     * Checks if this attachment type allows pictures (i.e. if the filetype filter allows image files).
+     * If no filetype filter is set, this method returns true, as it is assumed that all file types are allowed.
+     * @return bool
+     */
+    public function allowsPictures(): bool
+    {
+        if ($this->filetype_filter === '') {
+            return true;
+        }
+
+        foreach (explode(',', $this->filetype_filter) as $allowed) {
+            $allowed = strtolower(trim($allowed));
+
+            if ($allowed === '*' || $allowed === '*/*' || str_starts_with($allowed, 'image/')) {
+                return true;
+            }
+
+            if (in_array(ltrim($allowed, '.'), Attachment::PICTURE_EXTS, true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

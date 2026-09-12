@@ -31,11 +31,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class GetPartByIdProcessor implements ProcessorInterface
+readonly class GetPartByIdProcessor implements ProcessorInterface
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
-        private readonly AuthorizationCheckerInterface $authorizationChecker,
+        private EntityManagerInterface $entityManager,
+        private AuthorizationCheckerInterface $authorizationChecker,
     ) {
     }
 

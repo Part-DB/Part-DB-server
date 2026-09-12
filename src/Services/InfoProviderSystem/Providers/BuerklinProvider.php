@@ -171,7 +171,8 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
             throw new \RuntimeException("Buerklin API request failed: " .
                 "Endpoint: " . $endpoint .
                 "Token: [redacted] " .
-                "QueryParams: " . json_encode($queryParams, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . " " .
+                "QueryParams: " .json_encode($queryParams,
+                    JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES). " " .
                 "Exception message: " . $e->getMessage());
         }
     }
@@ -385,13 +386,13 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
         }
 
         // 1) Only real image entries with URL
-        $imgs = array_values(array_filter($images, fn($i) => is_array($i) && !empty($i['url'])));
+        $imgs = array_values(array_filter($images, static fn($i) => is_array($i) && !empty($i['url'])));
 
         // 2) Prefer zoom images
-        $zoom = array_values(array_filter($imgs, fn($i) => ($i['format'] ?? null) === 'zoom'));
+        $zoom = array_values(array_filter($imgs, static fn($i) => ($i['format'] ?? null) === 'zoom'));
         $chosen = count($zoom) > 0
             ? $zoom
-            : array_values(array_filter($imgs, fn($i) => ($i['format'] ?? null) === 'product'));
+            : array_values(array_filter($imgs, static fn($i) => ($i['format'] ?? null) === 'product'));
 
         // 3) If still none, take all
         if (count($chosen) === 0) {
@@ -414,7 +415,7 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
         }
 
         return array_map(
-            fn($url) => new FileDTO($url),
+            static fn($url) => new FileDTO($url),
             array_values($byUrl)
         );
     }
@@ -519,7 +520,7 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
     {
         $params = [];
 
-        $add = function (string $name, $value) use (&$params, $group) {
+        $add = static function (string $name, $value) use (&$params, $group) {
             if ($value === null) {
                 return;
             }
@@ -662,7 +663,7 @@ class BuerklinProvider implements BatchInfoProviderInterface, URLHandlerInfoProv
         }
 
         // Ensure it's actually a product URL
-        if (strpos($path, '/p/') === false) {
+        if (!str_contains($path, '/p/')) {
             return null;
         }
 

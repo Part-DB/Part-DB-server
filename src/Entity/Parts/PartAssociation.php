@@ -42,7 +42,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Length;
 
@@ -133,7 +133,7 @@ class PartAssociation extends AbstractDBElement implements TimeStampableInterfac
      * @param  AssociationType  $type
      * @return $this
      */
-    public function setType(AssociationType $type): PartAssociation
+    public function setType(AssociationType $type): self
     {
         $this->type = $type;
         return $this;
@@ -153,7 +153,7 @@ class PartAssociation extends AbstractDBElement implements TimeStampableInterfac
      * @param  string|null  $comment
      * @return $this
      */
-    public function setComment(?string $comment): PartAssociation
+    public function setComment(?string $comment): self
     {
         $this->comment = $comment;
         return $this;
@@ -173,7 +173,7 @@ class PartAssociation extends AbstractDBElement implements TimeStampableInterfac
      * @param  Part|null  $owner
      * @return $this
      */
-    public function setOwner(?Part $owner): PartAssociation
+    public function setOwner(?Part $owner): self
     {
         $this->owner = $owner;
         return $this;
@@ -193,7 +193,7 @@ class PartAssociation extends AbstractDBElement implements TimeStampableInterfac
      * @param  Part|null  $other
      * @return $this
      */
-    public function setOther(?Part $other): PartAssociation
+    public function setOther(?Part $other): self
     {
         $this->other = $other;
         return $this;
@@ -213,7 +213,7 @@ class PartAssociation extends AbstractDBElement implements TimeStampableInterfac
      * @param  string|null  $other_type
      * @return $this
      */
-    public function setOtherType(?string $other_type): PartAssociation
+    public function setOtherType(?string $other_type): self
     {
         $this->other_type = $other_type;
         return $this;

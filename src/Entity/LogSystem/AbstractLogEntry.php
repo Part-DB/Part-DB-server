@@ -39,12 +39,12 @@ use Symfony\Component\Uid\Uuid;
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'smallint')]
 #[ORM\DiscriminatorMap([1 => 'UserLoginLogEntry', 2 => 'UserLogoutLogEntry', 3 => 'UserNotAllowedLogEntry', 4 => 'ExceptionLogEntry', 5 => 'ElementDeletedLogEntry', 6 => 'ElementCreatedLogEntry', 7 => 'ElementEditedLogEntry', 8 => 'ConfigChangedLogEntry', 9 => 'LegacyInstockChangedLogEntry', 10 => 'DatabaseUpdatedLogEntry', 11 => 'CollectionElementDeleted', 12 => 'SecurityEventLogEntry', 13 => 'PartStockChangedLogEntry'])]
-#[ORM\Index(columns: ['type'], name: 'log_idx_type')]
-#[ORM\Index(columns: ['type', 'target_type', 'target_id'], name: 'log_idx_type_target')]
-#[ORM\Index(columns: ['datetime'], name: 'log_idx_datetime')]
-#[ORM\Index(columns: ['access_method'], name: 'log_idx_access_method')]
-#[ORM\Index(columns: ['request_id'], name: 'log_idx_request_id')]
-#[ORM\Index(columns: ['transaction_id'], name: 'log_idx_transaction_id')]
+#[ORM\Index(name: 'log_idx_type', columns: ['type'])]
+#[ORM\Index(name: 'log_idx_type_target', columns: ['type', 'target_type', 'target_id'])]
+#[ORM\Index(name: 'log_idx_datetime', columns: ['datetime'])]
+#[ORM\Index(name: 'log_idx_access_method', columns: ['access_method'])]
+#[ORM\Index(name: 'log_idx_request_id', columns: ['request_id'])]
+#[ORM\Index(name: 'log_idx_transaction_id', columns: ['transaction_id'])]
 abstract class AbstractLogEntry extends AbstractDBElement
 {
     /** @var User|null The user which has caused this log entry
@@ -83,7 +83,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
 
     /** @var AccessMethod|null The access method (WebUI/CLI/REST API/MCP) that was used to make this change
      */
-    #[ORM\Column(name: 'access_method', type: Types::SMALLINT, enumType: AccessMethod::class, nullable: true)]
+    #[ORM\Column(name: 'access_method', type: Types::SMALLINT, nullable: true, enumType: AccessMethod::class)]
     protected ?AccessMethod $access_method = null;
 
     /** @var Uuid|null The ID of the request or console command execution that caused this log entry.

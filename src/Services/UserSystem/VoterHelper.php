@@ -30,20 +30,19 @@ use Doctrine\ORM\EntityManagerInterface;
 use League\Bundle\OAuth2ServerBundle\Security\Authentication\Token\OAuth2Token;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Vote;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @see \App\Tests\Services\UserSystem\VoterHelperTest
  */
-final class VoterHelper
+final readonly class VoterHelper
 {
-    private readonly UserRepository $userRepository;
-    private readonly array $permissionStructure;
+    private UserRepository $userRepository;
+    private array $permissionStructure;
 
-    public function __construct(private readonly PermissionManager $permissionManager,
-        private readonly TranslatorInterface $translator,
-        private readonly EntityManagerInterface $entityManager)
+    public function __construct(private PermissionManager $permissionManager,
+        private TranslatorInterface $translator,
+        private EntityManagerInterface $entityManager)
     {
         $this->userRepository = $this->entityManager->getRepository(User::class);
         $this->permissionStructure = $this->permissionManager->getPermissionStructure();

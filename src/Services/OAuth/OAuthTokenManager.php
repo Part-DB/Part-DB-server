@@ -28,9 +28,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use League\OAuth2\Client\Token\AccessTokenInterface;
 
-final class OAuthTokenManager
+final readonly class OAuthTokenManager
 {
-    public function __construct(private readonly ClientRegistry $clientRegistry, private readonly EntityManagerInterface $entityManager)
+    public function __construct(private ClientRegistry $clientRegistry, private EntityManagerInterface $entityManager)
     {
 
     }

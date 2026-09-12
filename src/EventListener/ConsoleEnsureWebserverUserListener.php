@@ -36,11 +36,11 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
  * If the console is in non-interactive mode, a warning is shown, but the command is still executed.
  */
 #[AsEventListener(ConsoleEvents::COMMAND)]
-class ConsoleEnsureWebserverUserListener
+readonly class ConsoleEnsureWebserverUserListener
 {
     public function __construct(
         #[Autowire('%kernel.project_dir%')]
-        private readonly string $project_root)
+        private string $project_root)
     {
     }
 

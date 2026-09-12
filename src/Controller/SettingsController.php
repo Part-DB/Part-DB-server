@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Settings\AppSettings;
 use Jbtronics\SettingsBundle\Form\SettingsFormFactoryInterface;

@@ -26,7 +26,7 @@ namespace App\Entity\Parts\PartTraits;
 use App\Entity\Parts\PartAssociation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints\Valid;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -36,7 +36,7 @@ trait AssociationTrait
      * @var Collection<PartAssociation> All associations where this part is the owner
      */
     #[Valid]
-    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: PartAssociation::class,
+    #[ORM\OneToMany(targetEntity: PartAssociation::class, mappedBy: 'owner',
         cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[Groups(['part:read', 'part:write', 'full'])]
     protected Collection $associated_parts_as_owner;
@@ -45,7 +45,7 @@ trait AssociationTrait
      * @var Collection<PartAssociation> All associations where this part is the owned/other part
      */
     #[Valid]
-    #[ORM\OneToMany(mappedBy: 'other', targetEntity: PartAssociation::class,
+    #[ORM\OneToMany(targetEntity: PartAssociation::class, mappedBy: 'other',
         cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[Groups(['part:read'])]
     protected Collection $associated_parts_as_other;

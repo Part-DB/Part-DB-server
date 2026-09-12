@@ -25,7 +25,6 @@ namespace App\Doctrine\Functions;
 
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Driver\AbstractPostgreSQLDriver;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\MariaDBPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;

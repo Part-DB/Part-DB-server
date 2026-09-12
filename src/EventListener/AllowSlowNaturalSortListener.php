@@ -34,15 +34,15 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
  * any NATSORT function is called.
  */
 #[AsEventListener]
-class AllowSlowNaturalSortListener
+readonly class AllowSlowNaturalSortListener
 {
     public function __construct(
         #[Autowire(param: 'partdb.db.emulate_natural_sort')]
-        private readonly bool $allowNaturalSort)
+        private bool $allowNaturalSort)
     {
     }
 
-    public function __invoke(RequestEvent $event)
+    public function __invoke(RequestEvent $event): void
     {
         Natsort::allowSlowNaturalSort($this->allowNaturalSort);
     }

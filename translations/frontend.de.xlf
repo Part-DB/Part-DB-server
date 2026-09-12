@@ -55,25 +55,145 @@
         <target>Los!</target>
       </segment>
     </unit>
-    <unit id="8d38e7538" name="user.password_strength.crack_time">
+    <unit id="8NHrp1B" name="tools.value_calc.band">
+      <segment state="translated">
+        <source>tools.value_calc.band</source>
+        <target>Ring</target>
+      </segment>
+    </unit>
+    <unit id="b1W.ty2" name="tools.value_calc.resistor.band_digit">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.band_digit</source>
+        <target>Ziffer</target>
+      </segment>
+    </unit>
+    <unit id="if36Rhc" name="tools.value_calc.resistor.band_multiplier">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.band_multiplier</source>
+        <target>Multiplikator</target>
+      </segment>
+    </unit>
+    <unit id="uMbFLuC" name="tools.value_calc.resistor.band_tolerance">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.band_tolerance</source>
+        <target>Toleranz</target>
+      </segment>
+    </unit>
+    <unit id="sRmfLCC" name="tools.value_calc.resistor.band_temp">
+      <segment state="translated">
+        <source>tools.value_calc.resistor.band_temp</source>
+        <target>Temp.-Koeffizient</target>
+      </segment>
+    </unit>
+    <unit id="Xb.ilcW" name="tools.value_calc.color.black">
+      <segment state="translated">
+        <source>tools.value_calc.color.black</source>
+        <target>Schwarz</target>
+      </segment>
+    </unit>
+    <unit id="PBKb8pe" name="tools.value_calc.color.brown">
+      <segment state="translated">
+        <source>tools.value_calc.color.brown</source>
+        <target>Braun</target>
+      </segment>
+    </unit>
+    <unit id="6bocMwZ" name="tools.value_calc.color.red">
+      <segment state="translated">
+        <source>tools.value_calc.color.red</source>
+        <target>Rot</target>
+      </segment>
+    </unit>
+    <unit id="n_RBI2U" name="tools.value_calc.color.orange">
+      <segment state="translated">
+        <source>tools.value_calc.color.orange</source>
+        <target>Orange</target>
+      </segment>
+    </unit>
+    <unit id="11z_mb2" name="tools.value_calc.color.yellow">
+      <segment state="translated">
+        <source>tools.value_calc.color.yellow</source>
+        <target>Gelb</target>
+      </segment>
+    </unit>
+    <unit id="2d2CBoM" name="tools.value_calc.color.green">
+      <segment state="translated">
+        <source>tools.value_calc.color.green</source>
+        <target>Grün</target>
+      </segment>
+    </unit>
+    <unit id="Qj05n9A" name="tools.value_calc.color.blue">
+      <segment state="translated">
+        <source>tools.value_calc.color.blue</source>
+        <target>Blau</target>
+      </segment>
+    </unit>
+    <unit id="3S7y1V2" name="tools.value_calc.color.violet">
+      <segment state="translated">
+        <source>tools.value_calc.color.violet</source>
+        <target>Violett</target>
+      </segment>
+    </unit>
+    <unit id="RcWwZ_a" name="tools.value_calc.color.grey">
+      <segment state="translated">
+        <source>tools.value_calc.color.grey</source>
+        <target>Grau</target>
+      </segment>
+    </unit>
+    <unit id="aCr77cX" name="tools.value_calc.color.white">
+      <segment state="translated">
+        <source>tools.value_calc.color.white</source>
+        <target>Weiß</target>
+      </segment>
+    </unit>
+    <unit id="a7mo6Tp" name="tools.value_calc.color.gold">
+      <segment state="translated">
+        <source>tools.value_calc.color.gold</source>
+        <target>Gold</target>
+      </segment>
+    </unit>
+    <unit id="CTnV6gp" name="tools.value_calc.color.silver">
+      <segment state="translated">
+        <source>tools.value_calc.color.silver</source>
+        <target>Silber</target>
+      </segment>
+    </unit>
+    <unit id="xaM85dV" name="tools.value_calc.invalid_input">
+      <segment state="translated">
+        <source>tools.value_calc.invalid_input</source>
+        <target>Ungültige Eingabe</target>
+      </segment>
+    </unit>
+    <unit id="wCt3Hyw" name="tools.value_calc.tolerance">
+      <segment state="translated">
+        <source>tools.value_calc.tolerance</source>
+        <target>Toleranz</target>
+      </segment>
+    </unit>
+    <unit id="lW7.9rL" name="tools.value_calc.attach.nothing">
+      <segment state="translated">
+        <source>tools.value_calc.attach.nothing</source>
+        <target>Bitte generieren Sie zuerst ein Bild.</target>
+      </segment>
+    </unit>
+    <unit id="C8t__3k" name="user.password_strength.crack_time">
       <segment state="translated">
         <source>user.password_strength.crack_time</source>
         <target>Geschätzte Zeit bis zum Knacken: %time%</target>
       </segment>
     </unit>
-    <unit id="dBtnOk01" name="dialog.btn.ok">
+    <unit id="Z28duH9" name="dialog.btn.ok">
       <segment state="translated">
         <source>dialog.btn.ok</source>
         <target>OK</target>
       </segment>
     </unit>
-    <unit id="dBtnCcl1" name="dialog.btn.cancel">
+    <unit id="KZkbUfJ" name="dialog.btn.cancel">
       <segment state="translated">
         <source>dialog.btn.cancel</source>
         <target>Abbrechen</target>
       </segment>
     </unit>
-    <unit id="dBtnDny1" name="dialog.btn.deny">
+    <unit id="WCJ5ZOn" name="dialog.btn.deny">
       <segment state="translated">
         <source>dialog.btn.deny</source>
         <target>Nein</target>

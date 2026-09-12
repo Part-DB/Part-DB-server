@@ -29,9 +29,9 @@ use App\Settings\SystemSettings\HistorySettings;
  * It is configured using the "enforce_change_comments_for" config parameter.
  * @see \App\Tests\Services\LogSystem\EventCommentNeededHelperTest
  */
-final class EventCommentNeededHelper
+final readonly class EventCommentNeededHelper
 {
-    public function __construct(private readonly HistorySettings $settings)
+    public function __construct(private HistorySettings $settings)
     {
 
     }

@@ -61,8 +61,8 @@ use App\Entity\Base\AbstractNamedDBElement;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use LogicException;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Serializer\Attribute\DiscriminatorMap;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -79,10 +79,10 @@ use function sprintf;
     9 => SupplierParameter::class, 10 => AttachmentTypeParameter::class,
     12 => PartCustomStateParameter::class])]
 #[ORM\Table('parameters')]
-#[ORM\Index(columns: ['name'], name: 'parameter_name_idx')]
-#[ORM\Index(columns: ['param_group'], name: 'parameter_group_idx')]
-#[ORM\Index(columns: ['type', 'element_id'], name: 'parameter_type_element_idx')]
-#[ORM\Index(columns: ['definition_id', 'value_text', 'type', 'element_id'], name: 'parameter_definition_value_idx')]
+#[ORM\Index(name: 'parameter_name_idx', columns: ['name'])]
+#[ORM\Index(name: 'parameter_group_idx', columns: ['param_group'])]
+#[ORM\Index(name: 'parameter_type_element_idx', columns: ['type', 'element_id'])]
+#[ORM\Index(name: 'parameter_definition_value_idx', columns: ['definition_id', 'value_text', 'type', 'element_id'])]
 #[ApiResource(
     shortName: 'Parameter',
     operations: [

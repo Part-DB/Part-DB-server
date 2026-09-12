@@ -50,18 +50,17 @@ use App\Exceptions\TwigModeException;
 use App\Services\ElementTypeNameGenerator;
 use InvalidArgumentException;
 use Twig\Environment;
-use Twig\Error\Error;
 
-final class LabelHTMLGenerator
+final readonly class LabelHTMLGenerator
 {
     public function __construct(
-        private readonly ElementTypeNameGenerator $elementTypeNameGenerator,
-        private readonly LabelTextReplacer $replacer,
-        private readonly Environment $twig,
-        private readonly LabelBarcodeGenerator $barcodeGenerator,
-        private readonly SandboxedTwigFactory $sandboxedTwigProvider,
-        private readonly Security $security,
-        private readonly CustomizationSettings $customizationSettings,)
+        private ElementTypeNameGenerator $elementTypeNameGenerator,
+        private LabelTextReplacer $replacer,
+        private Environment $twig,
+        private LabelBarcodeGenerator $barcodeGenerator,
+        private SandboxedTwigFactory $sandboxedTwigProvider,
+        private Security $security,
+        private CustomizationSettings $customizationSettings)
     {
     }
 

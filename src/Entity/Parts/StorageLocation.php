@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -64,7 +63,7 @@ use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\UserSystem\User;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -73,8 +72,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 #[ORM\Entity(repositoryClass: StorelocationRepository::class)]
 #[ORM\Table('`storelocations`')]
-#[ORM\Index(columns: ['name'], name: 'location_idx_name')]
-#[ORM\Index(columns: ['parent_id', 'name'], name: 'location_idx_parent_name')]
+#[ORM\Index(name: 'location_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'location_idx_parent_name', columns: ['parent_id', 'name'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -96,10 +95,10 @@ use Symfony\Component\Validator\Constraints as Assert;
             title: 'List/search storage locations',
             description: 'List all storage locations, optionally filtered by a keyword matched against the name and comment. Storage locations describe where parts are physically stored. Each entry includes its full hierarchical path, and results are sorted by that path so parents are immediately followed by their own children, making it easy to derive the tree structure from the flat list.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
-            output: StructuralElementOverview::class,
             normalizationContext: ['groups' => ['mcp_structural_overview:read']],
-            input: StructuralElementSearchInput::class,
             security: 'is_granted("@storelocations.read")',
+            input: StructuralElementSearchInput::class,
+            output: StructuralElementOverview::class,
             processor: ListStructuralElementsProcessor::class,
         ),
         'get_storage_location_details' => new McpTool(
@@ -107,8 +106,8 @@ use Symfony\Component\Validator\Constraints as Assert;
             description: 'Get detailed information about a specific storage location by its database ID.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
             normalizationContext: ['groups' => ['location:read', 'api:basic:read']],
-            input: ElementByIdInput::class,
             security: 'is_granted("@storelocations.read")',
+            input: ElementByIdInput::class,
             validate: true,
             processor: GetStructuralElementDetailsProcessor::class,
         ),
@@ -116,30 +115,30 @@ use Symfony\Component\Validator\Constraints as Assert;
             title: 'Create a new storage location',
             description: 'Create a new storage location. Only "name" is required; every other field is optional and, if omitted, the storage location is created with its normal default value for that field.',
             annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
-            security: 'is_granted("@storelocations.create")', // Not enforced by the MCP call pipeline (see notes on Part.php's create_part) - the real check is manual, inside the processor.
-            normalizationContext: ['groups' => ['location:read', 'api:basic:read']],
+            normalizationContext: ['groups' => ['location:read', 'api:basic:read']], // Not enforced by the MCP call pipeline (see notes on Part.php's create_part) - the real check is manual, inside the processor.
+            security: 'is_granted("@storelocations.create")',
             input: CreateStructuralElementInput::class,
-            provider: CreateStructuralElementInputProvider::class,
-            validate: false, // Entity validation is done manually in the processor, not on the (barely-constrained) input DTO
+            validate: false,
+            provider: CreateStructuralElementInputProvider::class, // Entity validation is done manually in the processor, not on the (barely-constrained) input DTO
             processor: CreateStructuralElementProcessor::class,
         ),
         'update_storage_location' => new McpTool(
             title: 'Update an existing storage location',
             description: 'Update an existing storage location by its database ID. Only the fields you actually provide are changed; any field you omit is left completely untouched.',
             annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
-            security: 'is_granted("edit", object)', // Not enforced by the MCP call pipeline - the real check is manual, inside the processor.
-            normalizationContext: ['groups' => ['location:read', 'api:basic:read']],
+            normalizationContext: ['groups' => ['location:read', 'api:basic:read']], // Not enforced by the MCP call pipeline - the real check is manual, inside the processor.
+            security: 'is_granted("edit", object)',
             input: UpdateStructuralElementInput::class,
-            provider: UpdateStructuralElementInputProvider::class,
-            validate: false, // Entity validation is done manually in the processor, not on the (barely-constrained) input DTO
+            validate: false,
+            provider: UpdateStructuralElementInputProvider::class, // Entity validation is done manually in the processor, not on the (barely-constrained) input DTO
             processor: UpdateStructuralElementProcessor::class,
         ),
         'delete_storage_location' => new McpTool(
             title: 'Delete a storage location',
             description: 'Permanently delete a storage location by its database ID. Fails if the storage location still directly contains parts. Child storage locations are moved up to the deleted storage location\'s own parent, not deleted themselves.',
-            annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => true, 'openWorldHint' => false],
-            security: 'is_granted("delete", object)', // Not enforced by the MCP call pipeline - the real check is manual, inside the processor.
-            structuredContent: false, // The processor returns a plain text confirmation via CallToolResult, not a normalized element
+            structuredContent: false,
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => true, 'openWorldHint' => false], // Not enforced by the MCP call pipeline - the real check is manual, inside the processor.
+            security: 'is_granted("delete", object)', // The processor returns a plain text confirmation via CallToolResult, not a normalized element
             input: DeleteStructuralElementInput::class,
             validate: true,
             processor: DeleteStructuralElementProcessor::class,
@@ -152,8 +151,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 class StorageLocation extends AbstractPartsContainingDBElement
 {
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -176,8 +175,8 @@ class StorageLocation extends AbstractPartsContainingDBElement
     /** @var Collection<int, StorageLocationParameter>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: StorageLocationParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OneToMany(targetEntity: StorageLocationParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[Groups(['location:read', 'location:write'])]
     protected Collection $parameters;
 
@@ -222,7 +221,7 @@ class StorageLocation extends AbstractPartsContainingDBElement
      * @var Collection<int, StorageLocationAttachment>
      */
     #[Assert\Valid]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: StorageLocationAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: StorageLocationAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[Groups(['location:read', 'location:write'])]
     protected Collection $attachments;
 
@@ -309,7 +308,7 @@ class StorageLocation extends AbstractPartsContainingDBElement
     /**
      * Sets the owner of this storage location
      */
-    public function setOwner(?User $owner): StorageLocation
+    public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
         return $this;
@@ -326,7 +325,7 @@ class StorageLocation extends AbstractPartsContainingDBElement
     /**
      * If this is set to true, only parts lots, which are owned by the same user as the store location are allowed to be stored here.
      */
-    public function setPartOwnerMustMatch(bool $part_owner_must_match): StorageLocation
+    public function setPartOwnerMustMatch(bool $part_owner_must_match): self
     {
         $this->part_owner_must_match = $part_owner_must_match;
         return $this;

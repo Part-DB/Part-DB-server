@@ -30,7 +30,6 @@ use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Repository\StructuralDBElementRepository;
 use App\Serializer\APIPlatform\SkippableItemNormalizer;
-use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use function count;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,7 +40,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -457,9 +455,9 @@ class EntityImporter
                     }
                 }
 
-                $csvRow = implode($delimiter, array_map(function ($value) use ($delimiter) {
+                $csvRow = implode($delimiter, array_map(static function ($value) use ($delimiter) {
                     $value = (string) $value;
-                    if (strpos($value, $delimiter) !== false || strpos($value, '"') !== false || strpos($value, "\n") !== false) {
+                    if (str_contains($value, $delimiter) || str_contains($value, '"') || str_contains($value, "\n")) {
                         return '"' . str_replace('"', '""', $value) . '"';
                     }
                     return $value;

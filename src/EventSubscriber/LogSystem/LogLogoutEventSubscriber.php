@@ -33,12 +33,12 @@ use Symfony\Component\Security\Http\Event\LogoutEvent;
 /**
  * This handler logs to event log, if a user logs out.
  */
-final class LogLogoutEventSubscriber implements EventSubscriberInterface
+final readonly class LogLogoutEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly EventLogger $logger,
+        private EventLogger $logger,
         #[Autowire('%partdb.gdpr_compliance%')]
-        private readonly bool $gdpr_compliance,
+        private bool $gdpr_compliance,
     )
     {
     }

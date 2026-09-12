@@ -1,0 +1,88 @@
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ *  Copyright (C) 2019 - 2026 Jan Böhmer (https://github.com/jbtronics)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.code-editor {
+    display: block;
+    font-family: "DejaVu Sans Mono", monospace;
+    font-size: 12pt;
+    line-height: 1.5;
+    overflow: auto;
+    max-height: 400px;
+
+    --code-editor-tag: #c2185b;
+    --code-editor-punctuation: var(--bs-secondary-color);
+    --code-editor-string: #116329;
+    --code-editor-keyword: #0550ae;
+    --code-editor-number: #b35900;
+    --code-editor-operator: #0e7d87;
+    --code-editor-comment: var(--bs-secondary-color);
+}
+
+[data-bs-theme="dark"] .code-editor {
+    --code-editor-tag: #e06c75;
+    --code-editor-punctuation: var(--bs-secondary-color);
+    --code-editor-string: #98c379;
+    --code-editor-keyword: #61afef;
+    --code-editor-number: #d19a66;
+    --code-editor-operator: #56b6c2;
+    --code-editor-comment: var(--bs-secondary-color);
+}
+
+/* codejar-linenumbers copies the editor's own font/line-height for the gutter, so both stay aligned */
+.codejar-linenumber {
+    font-family: "DejaVu Sans Mono", monospace;
+    font-size: 12pt;
+}
+
+.code-editor .hljs-tag,
+.code-editor .hljs-name,
+.code-editor .hljs-template-tag,
+.code-editor .hljs-template-variable {
+    color: var(--code-editor-tag);
+    font-weight: 600;
+}
+
+.code-editor .hljs-punctuation,
+.code-editor .hljs-symbol {
+    color: var(--code-editor-punctuation);
+}
+
+.code-editor .hljs-string {
+    color: var(--code-editor-string);
+}
+
+.code-editor .hljs-keyword,
+.code-editor .hljs-attr,
+.code-editor .hljs-meta {
+    color: var(--code-editor-keyword);
+    font-weight: 600;
+}
+
+.code-editor .hljs-number {
+    color: var(--code-editor-number);
+}
+
+.code-editor .hljs-built_in {
+    color: var(--code-editor-operator);
+}
+
+.code-editor .hljs-comment {
+    color: var(--code-editor-comment);
+    font-style: italic;
+}

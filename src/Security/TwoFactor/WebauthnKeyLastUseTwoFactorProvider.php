@@ -40,17 +40,17 @@ use Webauthn\PublicKeyCredential;
  * on the used webauthn key, which can be viewed in the user settings.
  */
 #[AsDecorator('jbtronics_webauthn_tfa.two_factor_provider')]
-class WebauthnKeyLastUseTwoFactorProvider implements TwoFactorProviderInterface
+readonly class WebauthnKeyLastUseTwoFactorProvider implements TwoFactorProviderInterface
 {
 
     public function __construct(
         #[AutowireDecorated]
-        private readonly TwoFactorProviderInterface $decorated,
-        private readonly EntityManagerInterface $entityManager,
+        private TwoFactorProviderInterface $decorated,
+        private EntityManagerInterface $entityManager,
         #[Autowire(service: 'jbtronics_webauthn_tfa.user_public_key_source_repo')]
-        private readonly UserPublicKeyCredentialSourceRepository $publicKeyCredentialSourceRepository,
+        private UserPublicKeyCredentialSourceRepository $publicKeyCredentialSourceRepository,
         #[Autowire(service: 'jbtronics_webauthn_tfa.webauthn_provider')]
-        private readonly WebauthnProvider $webauthnProvider,
+        private WebauthnProvider $webauthnProvider,
     )
     {
     }

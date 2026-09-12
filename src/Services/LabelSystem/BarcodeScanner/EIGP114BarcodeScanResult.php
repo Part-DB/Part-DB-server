@@ -187,7 +187,7 @@ readonly class EIGP114BarcodeScanResult implements BarcodeScanResultInterface
      *
      * @param  array<string, string>  $data The fields of the EIGP114 barcode, where the key is the field name and the value is the field content
      */
-    public function __construct(public array $data, public readonly ?string $rawInput = null)
+    public function __construct(public array $data, public ?string $rawInput = null)
     {
         //IDs per EIGP 114.2018
         $this->shipDate = $data['6D'] ?? null;

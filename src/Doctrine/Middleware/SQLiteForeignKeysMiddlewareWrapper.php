@@ -38,11 +38,11 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
  * which would otherwise make DATABASE_SQLITE_ENFORCE_FOREIGN_KEYS a no-op in the test suite.
  */
 #[AsMiddleware(priority: 200)]
-class SQLiteForeignKeysMiddlewareWrapper implements Middleware
+readonly class SQLiteForeignKeysMiddlewareWrapper implements Middleware
 {
     public function __construct(
         #[Autowire(param: 'partdb.db.sqlite_enforce_foreign_keys')]
-        private readonly bool $enabled,
+        private bool $enabled,
     ) {
     }
 

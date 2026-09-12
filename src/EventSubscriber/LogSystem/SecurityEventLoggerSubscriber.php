@@ -53,13 +53,13 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * This subscriber writes entries to log if a security related event happens (e.g. the user changes its password).
  */
-final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
+final readonly class SecurityEventLoggerSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly RequestStack $requestStack,
-        private readonly EventLogger $eventLogger,
+        private RequestStack $requestStack,
+        private EventLogger $eventLogger,
         #[Autowire('%partdb.gdpr_compliance%')]
-        private readonly bool $gdpr_compliance,
+        private bool $gdpr_compliance,
     )
     {
     }

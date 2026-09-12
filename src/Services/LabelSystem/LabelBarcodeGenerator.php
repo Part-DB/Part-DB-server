@@ -51,9 +51,9 @@ use InvalidArgumentException;
 /**
  * @see \App\Tests\Services\LabelSystem\LabelBarcodeGeneratorTest
  */
-final class LabelBarcodeGenerator
+final readonly class LabelBarcodeGenerator
 {
-    public function __construct(private readonly BarcodeContentGenerator $barcodeContentGenerator, private readonly BarcodeHelper $barcodeHelper)
+    public function __construct(private BarcodeContentGenerator $barcodeContentGenerator, private BarcodeHelper $barcodeHelper)
     {
     }
 

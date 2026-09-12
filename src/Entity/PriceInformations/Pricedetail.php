@@ -41,8 +41,8 @@ use Brick\Math\RoundingMode;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -52,8 +52,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Table('`pricedetails`')]
-#[ORM\Index(columns: ['min_discount_quantity'], name: 'pricedetails_idx_min_discount')]
-#[ORM\Index(columns: ['min_discount_quantity', 'price_related_quantity'], name: 'pricedetails_idx_min_discount_price_qty')]
+#[ORM\Index(name: 'pricedetails_idx_min_discount', columns: ['min_discount_quantity'])]
+#[ORM\Index(name: 'pricedetails_idx_min_discount_price_qty', columns: ['min_discount_quantity', 'price_related_quantity'])]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),

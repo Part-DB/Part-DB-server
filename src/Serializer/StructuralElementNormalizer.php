@@ -24,11 +24,9 @@ namespace App\Serializer;
 
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Serializer\APIPlatform\SkippableItemNormalizer;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 /**
  * @see \App\Tests\Serializer\StructuralElementNormalizerTest

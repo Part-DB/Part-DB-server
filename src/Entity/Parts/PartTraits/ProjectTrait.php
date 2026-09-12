@@ -8,7 +8,7 @@ use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 trait ProjectTrait
 {
@@ -21,7 +21,7 @@ trait ProjectTrait
     /**
      * @var Project|null If a project is set here, then this part is special and represents the builds of a project.
      */
-    #[ORM\OneToOne(inversedBy: 'build_part', targetEntity: Project::class)]
+    #[ORM\OneToOne(targetEntity: Project::class, inversedBy: 'build_part')]
     #[ORM\JoinColumn]
     protected ?Project $built_project = null;
 

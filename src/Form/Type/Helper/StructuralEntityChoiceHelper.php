@@ -34,10 +34,10 @@ use Symfony\Component\Intl\Currencies;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class StructuralEntityChoiceHelper
+readonly class StructuralEntityChoiceHelper
 {
 
-    public function __construct(private readonly AttachmentURLGenerator $attachmentURLGenerator, private readonly TranslatorInterface $translator)
+    public function __construct(private AttachmentURLGenerator $attachmentURLGenerator, private TranslatorInterface $translator)
     {
     }
 

@@ -59,6 +59,7 @@ use App\Entity\Parts\PartTraits\OrderTrait;
 use App\Entity\Parts\PartTraits\ProjectTrait;
 use App\EntityListeners\TreeCacheInvalidationListener;
 use App\Mcp\DTO\AddPartStockInput;
+use App\Mcp\DTO\AdvancedPartSearchInput;
 use App\Mcp\DTO\CreatePartInput;
 use App\Mcp\DTO\DeletePartInput;
 use App\Mcp\DTO\ElementByIdInput;
@@ -67,6 +68,8 @@ use App\Mcp\DTO\UpdatePartInput;
 use App\Mcp\DTO\WithdrawPartStockInput;
 use App\Repository\PartRepository;
 use App\State\Mcp\AddPartStockProcessor;
+use App\State\Mcp\AdvancedPartSearchInputProvider;
+use App\State\Mcp\AdvancedSearchPartsProcessor;
 use App\State\Mcp\CreatePartInputProvider;
 use App\State\Mcp\CreatePartProcessor;
 use App\State\Mcp\DeletePartProcessor;
@@ -80,9 +83,8 @@ use App\State\Mcp\WithdrawPartStockProcessor;
 use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -98,9 +100,9 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Entity(repositoryClass: PartRepository::class)]
 #[ORM\EntityListeners([TreeCacheInvalidationListener::class])]
 #[ORM\Table('`parts`')]
-#[ORM\Index(columns: ['datetime_added', 'name', 'last_modified', 'id', 'needs_review'], name: 'parts_idx_datet_name_last_id_needs')]
-#[ORM\Index(columns: ['name'], name: 'parts_idx_name')]
-#[ORM\Index(columns: ['ipn'], name: 'parts_idx_ipn')]
+#[ORM\Index(name: 'parts_idx_datet_name_last_id_needs', columns: ['datetime_added', 'name', 'last_modified', 'id', 'needs_review'])]
+#[ORM\Index(name: 'parts_idx_name', columns: ['name'])]
+#[ORM\Index(name: 'parts_idx_ipn', columns: ['ipn'])]
 #[ORM\Index(name: 'parts_idx_gtin', columns: ['gtin'])]
 #[ApiResource(
     operations: [
@@ -134,6 +136,16 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
             input: PartSearchFilter::class,
             processor: SearchPartsProcessor::class
         ),
+        'advanced_search_parts' => new McpToolCollection(
+            title: 'Advanced part search with structured filters',
+            description: 'Search for parts using precise, structured filter criteria instead of a single free-text keyword (see search_parts for that). Every argument is optional and, if given, narrows the results further (all given constraints are combined with AND). Supports text fields (name, description, comment, ipn, gtin, manufacturer product number/url, stock lot description, attachment name) with operators like CONTAINS/STARTS/ENDS/=/!=; numeric fields (minAmount, mass, total stock amount, lot/orderdetails/attachments/parameters count) with </=/>=/BETWEEN; date fields (lastModified, addedDate, lot expiration date); booleans (favorite, needsReview, obsolete, lessThanDesired, lot needs refill/unknown amount); tags (ANY/ALL/NONE of a given list); manufacturing status (ANY/NONE of announced/active/nrfnd/eol/discontinued); relations by database ID (category, footprint, manufacturer, storage location, supplier, measurement unit, part custom state, attachment type, project), which for hierarchical relations also support INCLUDING_CHILDREN/EXCLUDING_CHILDREN to match an entire subtree; and a list of parameter constraints (each part must have at least one parameter matching all of a given entry\'s name/symbol/unit and numeric/text value comparison). Results can be sorted (orderBy/orderDirection) and are capped at "limit" (default 50, max 200).',
+            annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
+            security: 'is_granted("@parts.read")',
+            input: AdvancedPartSearchInput::class,
+            provider: AdvancedPartSearchInputProvider::class,
+            validate: false, // The nested per-field filter objects are barely-constrained; invalid operators/values are rejected manually inside AdvancedSearchPartsProcessor
+            processor: AdvancedSearchPartsProcessor::class
+        ),
         'get_part_details' => new McpTool(
             title: 'Get part details by ID',
             description: 'Get detailed information about a specific part by its database ID',
@@ -150,13 +162,13 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
         'get_part_preview_image' => new McpTool(
             title: 'Get preview image for a part',
             description: 'Get the preview/thumbnail picture for a part by its database ID. Reuses the same fallback logic as the part list in the web UI: the part\'s own master picture is used if set, otherwise the picture of its footprint, and otherwise the picture of the project it is built from. Returns a short text message instead of an image if no preview picture is available.',
+            structuredContent: false,
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
             security: 'is_granted("@parts.read")',
-            input: ElementByIdInput::class,
             //The processor returns raw MCP content blocks (image/text) via a CallToolResult, not a normalized
             //representation of the Part resource, so no output schema must be advertised (otherwise MCP clients
             //reject the response for declaring a schema but returning no structuredContent).
-            structuredContent: false,
+            input: ElementByIdInput::class,
             validate: true,
             processor: GetPartPreviewImageProcessor::class
         ),
@@ -164,36 +176,36 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
             title: 'Create a new part',
             description: 'Create a new part in the inventory. Only "name" is required; every other field is optional and, if omitted, the part is created with its normal default value for that field. Supports nested stock lots, parameters, orderdetails (with price breaks), associated parts, EDA info, and linking the part to the external info provider (providerKey/providerId/providerUrl) it was sourced from in a single call. Attachment file uploads are not supported here (MCP has no good way to transport binary file data) - use the web UI or REST API to upload attachments to a part after creating it.',
             annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
-            security: 'is_granted("@parts.create")', // Not enforced by the MCP call pipeline (see notes on CreatePartProcessor) - the real check is manual, inside the processor. Kept for documentation/forward-compat.
             normalizationContext: [
                 'groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
                 'item_uri_template' => '/api/parts/{id}',
-            ],
+            ], // Not enforced by the MCP call pipeline (see notes on CreatePartProcessor) - the real check is manual, inside the processor. Kept for documentation/forward-compat.
+            security: 'is_granted("@parts.create")',
             input: CreatePartInput::class,
-            provider: CreatePartInputProvider::class,
-            validate: false, // Entity validation is done manually in CreatePartProcessor, not on the (barely-constrained) input DTO
+            validate: false,
+            provider: CreatePartInputProvider::class, // Entity validation is done manually in CreatePartProcessor, not on the (barely-constrained) input DTO
             processor: CreatePartProcessor::class
         ),
         'update_part' => new McpTool(
             title: 'Update an existing part',
             description: 'Update an existing part by its database ID. Only the fields you actually provide are changed; any field you omit is left completely untouched, including nested collections (partLots, parameters, orderdetails, associatedPartsAsOwner) - provide an item\'s "id" to update it, omit "id" to create a new one, and omit a previously-existing item entirely to remove it. To change a lot\'s stock amount use the withdraw_part_stock/add_part_stock/stocktake_part_lot tools instead - "amount" may only be set here when creating a brand-new lot. providerKey/providerId can be used to link or unlink the part to an external info provider (set both to link, both to null to unlink - they must be changed together).',
             annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
-            security: 'is_granted("edit", object)', // Not enforced by the MCP call pipeline - see create_part's note; the real check is manual, inside UpdatePartProcessor.
             normalizationContext: [
                 'groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
                 'item_uri_template' => '/api/parts/{id}',
-            ],
+            ], // Not enforced by the MCP call pipeline - see create_part's note; the real check is manual, inside UpdatePartProcessor.
+            security: 'is_granted("edit", object)',
             input: UpdatePartInput::class,
-            provider: UpdatePartInputProvider::class,
-            validate: false, // Entity validation is done manually in UpdatePartProcessor, not on the (barely-constrained) input DTO
+            validate: false,
+            provider: UpdatePartInputProvider::class, // Entity validation is done manually in UpdatePartProcessor, not on the (barely-constrained) input DTO
             processor: UpdatePartProcessor::class
         ),
         'delete_part' => new McpTool(
             title: 'Delete a part',
             description: 'Permanently delete a part by its database ID, including its stock lots, parameters, orderdetails and associations. This cannot be undone - there is no confirmation step, so make sure this is really the part the user wants deleted before calling this tool.',
-            annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => true, 'openWorldHint' => false],
-            security: 'is_granted("delete", object)', // Not enforced by the MCP call pipeline - see create_part's note; the real check is manual, inside DeletePartProcessor.
-            structuredContent: false, // The processor returns a plain text confirmation via CallToolResult, not a normalized Part (which no longer exists)
+            structuredContent: false,
+            annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => true, 'openWorldHint' => false], // Not enforced by the MCP call pipeline - see create_part's note; the real check is manual, inside DeletePartProcessor.
+            security: 'is_granted("delete", object)', // The processor returns a plain text confirmation via CallToolResult, not a normalized Part (which no longer exists)
             input: DeletePartInput::class,
             validate: true,
             processor: DeletePartProcessor::class
@@ -202,11 +214,11 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
             title: 'Withdraw stock from a part lot',
             description: 'Withdraw (remove) a given amount of stock from a part lot by its database ID, e.g. because parts were used up. Returns the updated part.',
             annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => false, 'openWorldHint' => false],
-            security: 'is_granted("@parts_stock.withdraw")',
             normalizationContext: [
                 'groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
                 'item_uri_template' => '/api/parts/{id}',
             ],
+            security: 'is_granted("@parts_stock.withdraw")',
             input: WithdrawPartStockInput::class,
             validate: true,
             processor: WithdrawPartStockProcessor::class
@@ -215,11 +227,11 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
             title: 'Add stock to a part lot',
             description: 'Add a given amount of stock to a part lot by its database ID, e.g. because new parts arrived. Returns the updated part.',
             annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
-            security: 'is_granted("@parts_stock.add")',
             normalizationContext: [
                 'groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
                 'item_uri_template' => '/api/parts/{id}',
             ],
+            security: 'is_granted("@parts_stock.add")',
             input: AddPartStockInput::class,
             validate: true,
             processor: AddPartStockProcessor::class
@@ -228,11 +240,11 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
             title: 'Perform a stocktake on a part lot',
             description: 'Set a part lot\'s stock to a known actual amount (a "stocktake"/inventory count), clearing its unknown-instock flag if set. Returns the updated part.',
             annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => true, 'openWorldHint' => false],
-            security: 'is_granted("@parts_stock.stocktake")',
             normalizationContext: [
                 'groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
                 'item_uri_template' => '/api/parts/{id}',
             ],
+            security: 'is_granted("@parts_stock.stocktake")',
             input: StocktakePartLotInput::class,
             validate: true,
             processor: StocktakePartLotProcessor::class
@@ -265,8 +277,8 @@ class Part extends AttachmentContainingDBElement
      */
     #[Assert\Valid]
     #[Groups(['full', 'part:read', 'part:write', 'import'])]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: PartParameter::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => Criteria::ASC, 'name' => 'ASC'])]
+    #[ORM\OneToMany(targetEntity: PartParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
     #[UniqueObjectCollection(fields: ['name', 'group', 'element'])]
     protected Collection $parameters;
 
@@ -286,8 +298,8 @@ class Part extends AttachmentContainingDBElement
      */
     #[Assert\Valid]
     #[Groups(['full', 'part:read', 'part:write'])]
-    #[ORM\OneToMany(mappedBy: 'element', targetEntity: PartAttachment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OneToMany(targetEntity: PartAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $attachments;
 
     /**
@@ -307,7 +319,7 @@ class Part extends AttachmentContainingDBElement
     /**
      * @var Collection<int, BulkInfoProviderImportJobPart>
      */
-    #[ORM\OneToMany(mappedBy: 'part', targetEntity: BulkInfoProviderImportJobPart::class, cascade: ['remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: BulkInfoProviderImportJobPart::class, mappedBy: 'part', cascade: ['remove'], orphanRemoval: true)]
     protected Collection $bulkImportJobParts;
 
 

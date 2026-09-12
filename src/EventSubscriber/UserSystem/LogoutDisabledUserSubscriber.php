@@ -34,9 +34,9 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  * This subscriber is used to log out a disabled user, as soon as he to do a request.
  * It is not possible for him to login again, afterward.
  */
-final class LogoutDisabledUserSubscriber implements EventSubscriberInterface
+final readonly class LogoutDisabledUserSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly Security $security, private readonly UrlGeneratorInterface $urlGenerator)
+    public function __construct(private Security $security, private UrlGeneratorInterface $urlGenerator)
     {
     }
 

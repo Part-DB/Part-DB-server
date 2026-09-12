@@ -171,7 +171,7 @@ class ParameterConstraint extends AbstractConstraint
         return $this->name;
     }
 
-    public function setName(string $name): ParameterConstraint
+    public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
@@ -182,7 +182,7 @@ class ParameterConstraint extends AbstractConstraint
         return $this->symbol;
     }
 
-    public function setSymbol(string $symbol): ParameterConstraint
+    public function setSymbol(string $symbol): self
     {
         $this->symbol = $symbol;
         return $this;
@@ -193,7 +193,7 @@ class ParameterConstraint extends AbstractConstraint
         return $this->unit;
     }
 
-    public function setUnit(string $unit): ParameterConstraint
+    public function setUnit(string $unit): self
     {
         $this->unit = $unit;
         return $this;

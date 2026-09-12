@@ -46,13 +46,10 @@ use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\UserSystem\User;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPartLot;
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Exception;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
@@ -64,8 +61,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 #[ORM\Table(name: 'part_lots')]
-#[ORM\Index(columns: ['instock_unknown', 'expiration_date', 'id_part'], name: 'part_lots_idx_instock_un_expiration_id_part')]
-#[ORM\Index(columns: ['needs_refill'], name: 'part_lots_idx_needs_refill')]
+#[ORM\Index(name: 'part_lots_idx_instock_un_expiration_id_part', columns: ['instock_unknown', 'expiration_date', 'id_part'])]
+#[ORM\Index(name: 'part_lots_idx_needs_refill', columns: ['needs_refill'])]
 #[ORM\Index(name: 'part_lots_idx_barcode', columns: ['vendor_barcode'], options: ['lengths' => [100]])]
 #[ValidPartLot]
 #[UniqueEntity(['user_barcode'], message: 'validator.part_lot.vendor_barcode_must_be_unique')]
@@ -366,7 +363,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Sets the owner of this part lot.
      */
-    public function setOwner(?User $owner): PartLot
+    public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
         return $this;
@@ -392,7 +389,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @param  string|null  $user_barcode
      * @return $this
      */
-    public function setUserBarcode(?string $user_barcode): PartLot
+    public function setUserBarcode(?string $user_barcode): self
     {
         $this->user_barcode = $user_barcode;
         return $this;

@@ -9892,6 +9892,72 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Währung</target>
       </segment>
     </unit>
+    <unit id="KyC_YsX" name="settings.ips.trustedparts">
+      <segment state="translated">
+        <source>settings.ips.trustedparts</source>
+        <target>TrustedParts</target>
+      </segment>
+    </unit>
+    <unit id="iB2.9sg" name="settings.ips.trustedparts.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.help</source>
+        <target>TrustedParts.com ist eine von der ECIA betriebene Suchmaschine für Bauteile, die die Angebote autorisierter Distributoren zusammenfasst. Sie müssen Zugriff auf deren API beantragen, um diesen Anbieter nutzen zu können.</target>
+      </segment>
+    </unit>
+    <unit id="Mhe.lWu" name="settings.ips.trustedparts.companyId">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.companyId</source>
+        <target>Firmen-ID</target>
+      </segment>
+    </unit>
+    <unit id="DvzhYe1" name="settings.ips.trustedparts.companyId.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.companyId.help</source>
+        <target>Die Firmenkennung, die Ihrem TrustedParts.com-Konto zugewiesen wurde. Sie finden diese auf der API-Schlüssel-Seite Ihres Kontos.</target>
+      </segment>
+    </unit>
+    <unit id="AqF7ns9" name="settings.ips.trustedparts.apiKey.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.apiKey.help</source>
+        <target>Der API-Schlüssel, der Ihrem TrustedParts.com-Konto zugewiesen wurde. Sie finden diesen auf der API-Schlüssel-Seite Ihres Kontos.</target>
+      </segment>
+    </unit>
+    <unit id="Gh676P6" name="settings.ips.trustedparts.searchLimit">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.searchLimit</source>
+        <target>Suchlimit</target>
+      </segment>
+    </unit>
+    <unit id="R7oiMLD" name="settings.ips.trustedparts.searchLimit.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.searchLimit.help</source>
+        <target>Die maximale Anzahl an Ergebnissen, die für eine Stichwortsuche angezeigt werden.</target>
+      </segment>
+    </unit>
+    <unit id="DFkCu4n" name="settings.ips.trustedparts.inStockOnly">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.inStockOnly</source>
+        <target>Nur verfügbare Angebote</target>
+      </segment>
+    </unit>
+    <unit id="EF2mFRR" name="settings.ips.trustedparts.inStockOnly.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.inStockOnly.help</source>
+        <target>Wenn aktiviert, werden nur Angebote von Distributoren zurückgegeben, die das Bauteil derzeit auf Lager haben.</target>
+      </segment>
+    </unit>
+    <unit id="r4gkOcR" name="settings.ips.trustedparts.useCachedData">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.useCachedData</source>
+        <target>Zwischengespeicherte Daten verwenden</target>
+      </segment>
+    </unit>
+    <unit id="JNIu4bu" name="settings.ips.trustedparts.useCachedData.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.useCachedData.help</source>
+        <target>Wenn aktiviert, antwortet TrustedParts.com mit zwischengespeicherten Lager- und Preisdaten, anstatt die Distributoren in Echtzeit abzufragen. Dies ist schneller und zählt nicht gegen die Ratenlimits, allerdings können die Daten veraltet sein.</target>
+      </segment>
+    </unit>
     <unit id="kKv0J3." name="settings.system.attachments">
       <segment state="translated">
         <source>settings.system.attachments</source>
@@ -10125,6 +10191,18 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>settings.misc.mcp.enabled.help</source>
         <target>Aktiviert den MCP-Endpunkt (Model Context Protocol) unter /mcp, der es KI-Assistenten ermöglicht, mit Part-DB zu interagieren.</target>
+      </segment>
+    </unit>
+    <unit id="Q7J0OKP" name="settings.misc.mcp.editing_enabled">
+      <segment state="translated">
+        <source>settings.misc.mcp.editing_enabled</source>
+        <target>MCP-Werkzeuge zur Bauteilbearbeitung aktivieren</target>
+      </segment>
+    </unit>
+    <unit id="wolnNE7" name="settings.misc.mcp.editing_enabled.help">
+      <segment state="translated">
+        <source>settings.misc.mcp.editing_enabled.help</source>
+        <target>Erlaubt KI-Assistenten, Bauteile über MCP-Werkzeuge zu erstellen, zu bearbeiten, zu löschen und Lagerbestände anzupassen. Wenn deaktiviert, bleiben alle MCP-Werkzeuge schreibgeschützt, unabhängig vom Berechtigungsumfang des verbundenen Tokens oder den eigenen Berechtigungen des Benutzers.</target>
       </segment>
     </unit>
     <unit id="xtw_ol7" name="settings.misc.kicad_eda">
@@ -13086,1242 +13164,6 @@ Buerklin-API-Authentication-Server:
         <target>Letzte Inventur</target>
       </segment>
     </unit>
-    <unit id="GNWhoTW" name="part.table.eda_reference">
-      <segment state="translated">
-        <source>part.table.eda_reference</source>
-        <target>EDA-Referenz</target>
-      </segment>
-    </unit>
-    <unit id="tW4yCbf" name="part.table.eda_value">
-      <segment state="translated">
-        <source>part.table.eda_value</source>
-        <target>EDA-Wert</target>
-      </segment>
-    </unit>
-    <unit id="s1pgReC" name="settings.misc.kicad_eda.default_parameter_visibility">
-      <segment state="translated">
-        <source>settings.misc.kicad_eda.default_parameter_visibility</source>
-        <target>Standard EDA-Sichtbarkeit für Parameter</target>
-      </segment>
-    </unit>
-    <unit id="Z78QunV" name="settings.misc.kicad_eda.default_parameter_visibility.help">
-      <segment state="translated">
-        <source>settings.misc.kicad_eda.default_parameter_visibility.help</source>
-        <target>EDA-Sichtbarkeit für alle [Part]-Parameter, die keine explizite Sichtbarkeit gesetzt haben. Wenn aktiviert, sind alle Parameter standardmäßig in der EDA-Software sichtbar.</target>
-      </segment>
-    </unit>
-    <unit id="XchzDpI" name="settings.misc.kicad_eda.default_parameter_symbol_visibility">
-      <segment state="translated">
-        <source>settings.misc.kicad_eda.default_parameter_symbol_visibility</source>
-        <target>Standard-Symbolsichtbarkeit für Parameter</target>
-      </segment>
-    </unit>
-    <unit id="zLHkPCx" name="settings.misc.kicad_eda.default_parameter_symbol_visibility.help">
-      <segment state="translated">
-        <source>settings.misc.kicad_eda.default_parameter_symbol_visibility.help</source>
-        <target>Legt fest, ob exportierte [Part]-Parameterfelder, für die keine explizite Symbol-Sichtbarkeit gesetzt wurde, im Schaltplansymbol angezeigt werden (das „visible“-Flag des KiCad-Feldes). Betrifft nur Parameter, die bereits als EDA-Felder exportiert werden.</target>
-      </segment>
-    </unit>
-    <unit id="J6pYnaC" name="settings.misc.kicad_eda.default_orderdetails_visibility">
-      <segment state="translated">
-        <source>settings.misc.kicad_eda.default_orderdetails_visibility</source>
-        <target>Standard EDA-Sichtbarkeit für Einkaufsinformationen</target>
-      </segment>
-    </unit>
-    <unit id="Hiye4C." name="settings.misc.kicad_eda.default_orderdetails_visibility.help">
-      <segment state="translated">
-        <source>settings.misc.kicad_eda.default_orderdetails_visibility.help</source>
-        <target>EDA-Sichtbarkeit für alle Bestellinformationen, die keine explizite Sichtbarkeit gesetzt haben. Bei Aktivierung sind alle Bestellinfos standardmäßig in der EDA-Software sichtbar.</target>
-      </segment>
-    </unit>
-    <unit id="aEgd0if" name="label_scanner.open">
-      <segment state="translated">
-        <source>label_scanner.open</source>
-        <target>Details anzeigen</target>
-      </segment>
-    </unit>
-    <unit id="vw_0Qws" name="label_scanner.db_part_found">
-      <segment state="translated">
-        <source>label_scanner.db_part_found</source>
-        <target>Datenbank-[Part] für Barcode gefunden</target>
-      </segment>
-    </unit>
-    <unit id="zntajcd" name="label_scanner.part_can_be_created">
-      <segment state="translated">
-        <source>label_scanner.part_can_be_created</source>
-        <target>[Part] kann erstellt werden</target>
-      </segment>
-    </unit>
-    <unit id="cLTbd9w" name="label_scanner.part_can_be_created.help">
-      <segment state="translated">
-        <source>label_scanner.part_can_be_created.help</source>
-        <target>Kein passendes [Part] in der Datenbank gefunden, aber Sie können ein neues [Part] basierend auf diesem Barcode erstellen.</target>
-      </segment>
-    </unit>
-    <unit id="FfHA3Yf" name="label_scanner.part_create_btn">
-      <segment state="translated">
-        <source>label_scanner.part_create_btn</source>
-        <target>[Part] aus Barcode erstellen</target>
-      </segment>
-    </unit>
-    <unit id="xH258F." name="parts.create_from_scan.title">
-      <segment state="translated">
-        <source>parts.create_from_scan.title</source>
-        <target>[Part] aus Scan erstellen</target>
-      </segment>
-    </unit>
-    <unit id="8WZYwRJ" name="scan_dialog.mode.amazon">
-      <segment state="translated">
-        <source>scan_dialog.mode.amazon</source>
-        <target>Amazon Barcode</target>
-      </segment>
-    </unit>
-    <unit id="d.V2Pid" name="scan_dialog.mode.tme">
-      <segment state="translated">
-        <source>scan_dialog.mode.tme</source>
-        <target>TME Barcode</target>
-      </segment>
-    </unit>
-    <unit id="BQWuR_G" name="settings.ips.canopy">
-      <segment state="translated">
-        <source>settings.ips.canopy</source>
-        <target>Canopy</target>
-      </segment>
-    </unit>
-    <unit id="44BfYzy" name="settings.ips.canopy.alwaysGetDetails">
-      <segment state="translated">
-        <source>settings.ips.canopy.alwaysGetDetails</source>
-        <target>Details immer abrufen</target>
-      </segment>
-    </unit>
-    <unit id="so_ms3t" name="settings.ips.canopy.alwaysGetDetails.help">
-      <segment state="translated">
-        <source>settings.ips.canopy.alwaysGetDetails.help</source>
-        <target>Wenn aktiviert, werden beim Erstellen eines Bauteils mehr Details von canopy abgerufen. Das verursacht eine zusätzliche API-Anfrage, liefert aber Produkt-Bulletpoints und Kategoriedaten.</target>
-      </segment>
-    </unit>
-    <unit id="D055xh8" name="attachment.sandbox.warning">
-      <segment state="translated">
-        <source>attachment.sandbox.warning</source>
-        <target>WARNUNG: Sie betrachten einen von einem Nutzer hochgeladenen Anhang. Dabei handelt es sich um nicht vertrauenswürdigen Inhalt. Bitte vorsichtig fortfahren.</target>
-      </segment>
-    </unit>
-    <unit id="bRcdnJK" name="attachment.sandbox.back_to_partdb">
-      <segment state="translated">
-        <source>attachment.sandbox.back_to_partdb</source>
-        <target>Zurück zu Part-DB</target>
-      </segment>
-    </unit>
-    <unit id="MzyA7N8" name="settings.system.attachments.showHTMLAttachments">
-      <segment state="translated">
-        <source>settings.system.attachments.showHTMLAttachments</source>
-        <target>Hochgeladene HTML-Dateianhänge anzeigen (sandboxed)</target>
-      </segment>
-    </unit>
-    <unit id="V_LJkRy" name="settings.system.attachments.showHTMLAttachments.help">
-      <segment state="translated">
-        <source>settings.system.attachments.showHTMLAttachments.help</source>
-        <target>⚠️ Wenn aktiviert, können vom Nutzer hochgeladene HTML-Anhänge direkt im Browser angezeigt werden. Viele potenziell schädliche Funktionen sind eingeschränkt, dennoch besteht ein Sicherheitsrisiko und sollte nur aktiviert werden, wenn den hochladenden Nutzern vertraut wird.</target>
-      </segment>
-    </unit>
-    <unit id="BQo2xWi" name="attachment.sandbox.title">
-      <segment state="translated">
-        <source>attachment.sandbox.title</source>
-        <target>HTML [Attachment]</target>
-      </segment>
-    </unit>
-    <unit id="sJ6v9uJ" name="attachment.sandbox.as_plain_text">
-      <segment state="translated">
-        <source>attachment.sandbox.as_plain_text</source>
-        <target>Als Klartext anzeigen</target>
-      </segment>
-    </unit>
-    <unit id="Ehsj93c" name="modal.cancel">
-      <segment state="translated">
-        <source>modal.cancel</source>
-        <target>Abbrechen</target>
-      </segment>
-    </unit>
-    <unit id="jdpoFf2" name="update_manager.web_updates_allowed">
-      <segment state="translated">
-        <source>update_manager.web_updates_allowed</source>
-        <target>Web-Updates erlaubt</target>
-      </segment>
-    </unit>
-    <unit id="bdWa7is" name="update_manager.backup_restore_allowed">
-      <segment state="translated">
-        <source>update_manager.backup_restore_allowed</source>
-        <target>Backup-Wiederherstellung erlaubt</target>
-      </segment>
-    </unit>
-    <unit id="kllGQEN" name="update_manager.backup_download_allowed">
-      <segment state="translated">
-        <source>update_manager.backup_download_allowed</source>
-        <target>Backup-Download erlaubt</target>
-      </segment>
-    </unit>
-    <unit id="Ld698rE" name="update_manager.docker.setup_title">
-      <segment state="translated">
-        <source>update_manager.docker.setup_title</source>
-        <target>Aktivieren Sie Docker-Updates mit einem Klick über Watchtower</target>
-      </segment>
-    </unit>
-    <unit id="A_UDLkn" name="update_manager.docker.setup_description">
-      <segment state="translated">
-        <source>update_manager.docker.setup_description</source>
-        <target>Part-DB kann Ihre Docker-Container automatisch mit Watchtower aktualisieren, einem Open-Source-Container-Updater. Fügen Sie Watchtower als Begleitcontainer hinzu und konfigurieren Sie die Verbindung unten.</target>
-      </segment>
-    </unit>
-    <unit id="p092aHv" name="update_manager.docker.setup_step1">
-      <segment state="translated">
-        <source>update_manager.docker.setup_step1</source>
-        <target>1. Fügen Sie Watchtower zu Ihrer docker-compose.yml hinzu:</target>
-      </segment>
-    </unit>
-    <unit id="VVejRLi" name="update_manager.docker.setup_step2">
-      <segment state="translated">
-        <source>update_manager.docker.setup_step2</source>
-        <target>2. Fügen Sie diese Umgebungsvariablen zu Ihrem Part-DB Container hinzu:</target>
-      </segment>
-    </unit>
-    <unit id="3tlczB." name="update_manager.docker.setup_network_hint">
-      <segment state="translated">
-        <source>update_manager.docker.setup_network_hint</source>
-        <target>Stellen Sie sicher, dass Part-DB und Watchtower im selben Docker-Netzwerk sind. Wenn Sie label-basierte Filterung in Watchtower verwenden (WATCHTOWER_LABEL_ENABLE=true), fügen Sie dem Part-DB Container das Label "com.centurylinklabs.watchtower.enable=true" hinzu.</target>
-      </segment>
-    </unit>
-    <unit id="5ZI3hh9" name="update_manager.docker.watchtower_unreachable_title">
-      <segment state="translated">
-        <source>update_manager.docker.watchtower_unreachable_title</source>
-        <target>Watchtower nicht erreichbar</target>
-      </segment>
-    </unit>
-    <unit id=".0wFRZ." name="update_manager.docker.watchtower_unreachable_description">
-      <segment state="translated">
-        <source>update_manager.docker.watchtower_unreachable_description</source>
-        <target>Watchtower ist konfiguriert, kann aber nicht erreicht werden. Bitte prüfen Sie, ob der Watchtower-Container läuft und ob URL und Token korrekt sind.</target>
-      </segment>
-    </unit>
-    <unit id="PXadA3E" name="update_manager.docker.confirm_update">
-      <segment state="translated">
-        <source>update_manager.docker.confirm_update</source>
-        <target>Sind Sie sicher, dass Sie Part-DB über Watchtower aktualisieren möchten? Der Container wird mit dem neuen Image neu gestartet. Im Gegensatz zu Git-Updates können Docker-Updates nicht automatisch zurückgesetzt werden.</target>
-      </segment>
-    </unit>
-    <unit id="zVnBU_y" name="update_manager.docker.update_via_watchtower">
-      <segment state="translated">
-        <source>update_manager.docker.update_via_watchtower</source>
-        <target>Update über Watchtower zu</target>
-      </segment>
-    </unit>
-    <unit id="rygIXG_" name="update_manager.docker.no_rollback_warning">
-      <segment state="translated">
-        <source>update_manager.docker.no_rollback_warning</source>
-        <target>Docker-Updates können nicht automatisch zurückgesetzt werden. Vor dem Update wird eine Datenbanksicherung erstellt, damit Sie Ihre Daten bei Bedarf wiederherstellen können.</target>
-      </segment>
-    </unit>
-    <unit id="6YSYc7u" name="update_manager.docker.progress_title">
-      <segment state="translated">
-        <source>update_manager.docker.progress_title</source>
-        <target>Docker-Update läuft</target>
-      </segment>
-    </unit>
-    <unit id="4zjA6Z2" name="update_manager.docker.waiting_for_watchtower">
-      <segment state="translated">
-        <source>update_manager.docker.waiting_for_watchtower</source>
-        <target>Warte darauf, dass Watchtower das neue Image zieht...</target>
-      </segment>
-    </unit>
-    <unit id="N4ayoEp" name="update_manager.docker.elapsed">
-      <segment state="translated">
-        <source>update_manager.docker.elapsed</source>
-        <target>Verstrichen</target>
-      </segment>
-    </unit>
-    <unit id="B2piu_D" name="update_manager.docker.waiting_title">
-      <segment state="translated">
-        <source>update_manager.docker.waiting_title</source>
-        <target>Update gestartet</target>
-      </segment>
-    </unit>
-    <unit id="K7uq04F" name="update_manager.docker.waiting_description">
-      <segment state="translated">
-        <source>update_manager.docker.waiting_description</source>
-        <target>Watchtower wurde benachrichtigt. Es wird das neueste Docker-Image ziehen und den Part-DB-Container neu starten.</target>
-      </segment>
-    </unit>
-    <unit id="nYC4Dw9" name="update_manager.docker.watchtower_working">
-      <segment state="translated">
-        <source>update_manager.docker.watchtower_working</source>
-        <target>Watchtower verarbeitet das Update...</target>
-      </segment>
-    </unit>
-    <unit id="IPd5mwk" name="update_manager.docker.watchtower_working_hint">
-      <segment state="translated">
-        <source>update_manager.docker.watchtower_working_hint</source>
-        <target>Je nach Internetgeschwindigkeit und Imagegröße kann dies einige Minuten dauern.</target>
-      </segment>
-    </unit>
-    <unit id="Q_XPcbn" name="update_manager.docker.restarting_title">
-      <segment state="translated">
-        <source>update_manager.docker.restarting_title</source>
-        <target>Container wird neu gestartet</target>
-      </segment>
-    </unit>
-    <unit id="fxJe7Uc" name="update_manager.docker.restarting_description">
-      <segment state="translated">
-        <source>update_manager.docker.restarting_description</source>
-        <target>Watchtower hat das neue Image gezogen und startet den Part-DB-Container neu.</target>
-      </segment>
-    </unit>
-    <unit id="fgtq0OK" name="update_manager.docker.restarting_hint">
-      <segment state="translated">
-        <source>update_manager.docker.restarting_hint</source>
-        <target>Die Seite erkennt automatisch, wenn der Server wieder online ist. Dies dauert normalerweise 10-30 Sekunden.</target>
-      </segment>
-    </unit>
-    <unit id="ZskYT6q" name="update_manager.docker.success_title">
-      <segment state="translated">
-        <source>update_manager.docker.success_title</source>
-        <target>Update abgeschlossen!</target>
-      </segment>
-    </unit>
-    <unit id="lIi.I9w" name="update_manager.docker.success_message">
-      <segment state="translated">
-        <source>update_manager.docker.success_message</source>
-        <target>Part-DB wurde erfolgreich über Watchtower aktualisiert.</target>
-      </segment>
-    </unit>
-    <unit id="RqtjuI7" name="update_manager.docker.previous_version">
-      <segment state="translated">
-        <source>update_manager.docker.previous_version</source>
-        <target>Vorherige Version</target>
-      </segment>
-    </unit>
-    <unit id="KLNv9FX" name="update_manager.docker.new_version">
-      <segment state="translated">
-        <source>update_manager.docker.new_version</source>
-        <target>Neue Version</target>
-      </segment>
-    </unit>
-    <unit id="EyK.Bvs" name="update_manager.docker.back_to_update_manager">
-      <segment state="translated">
-        <source>update_manager.docker.back_to_update_manager</source>
-        <target>Zurück zum Update-Manager</target>
-      </segment>
-    </unit>
-    <unit id="qXEyzbC" name="update_manager.docker.go_to_homepage">
-      <segment state="translated">
-        <source>update_manager.docker.go_to_homepage</source>
-        <target>Zur Startseite</target>
-      </segment>
-    </unit>
-    <unit id="zLbfHFP" name="update_manager.docker.timeout_title">
-      <segment state="translated">
-        <source>update_manager.docker.timeout_title</source>
-        <target>Update dauert länger als erwartet</target>
-      </segment>
-    </unit>
-    <unit id="fbpbM4e" name="update_manager.docker.timeout_message">
-      <segment state="translated">
-        <source>update_manager.docker.timeout_message</source>
-        <target>Das Update dauert länger als erwartet. Prüfen Sie die Watchtower-Container-Logs für Details. Das Update kann noch laufen.</target>
-      </segment>
-    </unit>
-    <unit id="eTDf1ym" name="update_manager.docker.retry">
-      <segment state="translated">
-        <source>update_manager.docker.retry</source>
-        <target>Erneut versuchen</target>
-      </segment>
-    </unit>
-    <unit id="BTQH5SL" name="update_manager.docker.warning">
-      <segment state="translated">
-        <source>update_manager.docker.warning</source>
-        <target>Warnung</target>
-      </segment>
-    </unit>
-    <unit id="5A6K7gA" name="update_manager.docker.do_not_close">
-      <segment state="translated">
-        <source>update_manager.docker.do_not_close</source>
-        <target>Schließen Sie diese Seite nicht. Sie erkennt automatisch, wenn das Update abgeschlossen ist.</target>
-      </segment>
-    </unit>
-    <unit id="JOGLw48" name="update_manager.docker.updating_via_watchtower">
-      <segment state="translated">
-        <source>update_manager.docker.updating_via_watchtower</source>
-        <target>Update über Watchtower wird durchgeführt</target>
-      </segment>
-    </unit>
-    <unit id="L1aNTz2" name="update_manager.docker.step_waiting">
-      <segment state="translated">
-        <source>update_manager.docker.step_waiting</source>
-        <target>Image wird gezogen</target>
-      </segment>
-    </unit>
-    <unit id="K8G9Omp" name="update_manager.docker.steps">
-      <segment state="translated">
-        <source>update_manager.docker.steps</source>
-        <target>Update-Schritte</target>
-      </segment>
-    </unit>
-    <unit id="rwPMohr" name="update_manager.docker.step_trigger">
-      <segment state="translated">
-        <source>update_manager.docker.step_trigger</source>
-        <target>Update auslösen</target>
-      </segment>
-    </unit>
-    <unit id="C6T6dki" name="update_manager.docker.step_trigger_desc">
-      <segment state="translated">
-        <source>update_manager.docker.step_trigger_desc</source>
-        <target>Watchtower wurde benachrichtigt, nach Updates zu suchen</target>
-      </segment>
-    </unit>
-    <unit id="sHx0nZN" name="update_manager.docker.step_pull">
-      <segment state="translated">
-        <source>update_manager.docker.step_pull</source>
-        <target>Neues Image ziehen</target>
-      </segment>
-    </unit>
-    <unit id="VC7sifr" name="update_manager.docker.step_pull_desc">
-      <segment state="translated">
-        <source>update_manager.docker.step_pull_desc</source>
-        <target>Lade das neueste Docker-Image aus dem Register</target>
-      </segment>
-    </unit>
-    <unit id="H5.XUFa" name="update_manager.docker.step_restart">
-      <segment state="translated">
-        <source>update_manager.docker.step_restart</source>
-        <target>Container neu starten</target>
-      </segment>
-    </unit>
-    <unit id="KRNQZKS" name="update_manager.docker.step_restart_desc">
-      <segment state="translated">
-        <source>update_manager.docker.step_restart_desc</source>
-        <target>Alten Container stoppen und neuen starten</target>
-      </segment>
-    </unit>
-    <unit id="y5ibGqB" name="update_manager.docker.step_verify">
-      <segment state="translated">
-        <source>update_manager.docker.step_verify</source>
-        <target>Verifizieren</target>
-      </segment>
-    </unit>
-    <unit id=".D286hQ" name="update_manager.docker.step_verify_desc">
-      <segment state="translated">
-        <source>update_manager.docker.step_verify_desc</source>
-        <target>Bestätige, dass Part-DB mit der neuen Version läuft</target>
-      </segment>
-    </unit>
-    <unit id="s72BGA8" name="update_manager.docker.watchtower_status">
-      <segment state="translated">
-        <source>update_manager.docker.watchtower_status</source>
-        <target>Watchtower</target>
-      </segment>
-    </unit>
-    <unit id="HRw317s" name="update_manager.docker.watchtower_connected">
-      <segment state="translated">
-        <source>update_manager.docker.watchtower_connected</source>
-        <target>Verbunden</target>
-      </segment>
-    </unit>
-    <unit id="HcEk0Mh" name="update_manager.docker.watchtower_unreachable_short">
-      <segment state="translated">
-        <source>update_manager.docker.watchtower_unreachable_short</source>
-        <target>Nicht erreichbar</target>
-      </segment>
-    </unit>
-    <unit id="lMwRNf9" name="update_manager.docker.watchtower_not_configured">
-      <segment state="translated">
-        <source>update_manager.docker.watchtower_not_configured</source>
-        <target>Nicht konfiguriert</target>
-      </segment>
-    </unit>
-    <unit id="IceG9y3" name="update_manager.docker.step_stop">
-      <segment state="translated">
-        <source>update_manager.docker.step_stop</source>
-        <target>Container stoppen</target>
-      </segment>
-    </unit>
-    <unit id="0sq_TgW" name="update_manager.docker.step_stop_desc">
-      <segment state="translated">
-        <source>update_manager.docker.step_stop_desc</source>
-        <target>Aktuellen Container vor der Neuerstellung ordentlich stoppen</target>
-      </segment>
-    </unit>
-    <unit id="et8F1eO" name="update_manager.docker.step_health">
-      <segment state="translated">
-        <source>update_manager.docker.step_health</source>
-        <target>Health Check</target>
-      </segment>
-    </unit>
-    <unit id="v5tHPJK" name="update_manager.docker.step_health_desc">
-      <segment state="translated">
-        <source>update_manager.docker.step_health_desc</source>
-        <target>Warte darauf, dass der neue Container den Health Check besteht</target>
-      </segment>
-    </unit>
-    <unit id="ZLRHnm_" name="update_manager.docker.updating">
-      <segment state="translated">
-        <source>update_manager.docker.updating</source>
-        <target>Part-DB wird über Docker aktualisiert...</target>
-      </segment>
-    </unit>
-    <unit id="b8JxfcX" name="part.create_from_info_provider.lot_filled_from_barcode">
-      <segment state="translated">
-        <source>part.create_from_info_provider.lot_filled_from_barcode</source>
-        <target>[Part_lot] aus Barcode erstellt: Bitte überprüfen Sie, ob die Daten korrekt und gewünscht sind.</target>
-      </segment>
-    </unit>
-    <unit id="F8pQuL9" name="project.bom_import.field_mapping.error.check_delimiter">
-      <segment state="translated">
-        <source>project.bom_import.field_mapping.error.check_delimiter</source>
-        <target>Zuordnungsfehler: Bitte prüfen Sie, ob Sie das richtige Trennzeichen ausgewählt haben!</target>
-      </segment>
-    </unit>
-    <unit id="zl1XJq0" name="settings.ai">
-      <segment state="translated">
-        <source>settings.ai</source>
-        <target>KI</target>
-      </segment>
-    </unit>
-    <unit id="NqxqdyX" name="settings.ai.openrouter">
-      <segment state="translated">
-        <source>settings.ai.openrouter</source>
-        <target>OpenRouter</target>
-      </segment>
-    </unit>
-    <unit id="tWtvoDT" name="settings.ai.lmstudio">
-      <segment state="translated">
-        <source>settings.ai.lmstudio</source>
-        <target>LMStudio</target>
-      </segment>
-    </unit>
-    <unit id="foBzBG2" name="settings.ips.ai_extractor.model">
-      <segment state="translated">
-        <source>settings.ips.ai_extractor.model</source>
-        <target>KI-Modell</target>
-      </segment>
-    </unit>
-    <unit id="PbXBTZO" name="settings.ips.ai_extractor.ai_platform">
-      <segment state="translated">
-        <source>settings.ips.ai_extractor.ai_platform</source>
-        <target>KI-Plattform</target>
-      </segment>
-    </unit>
-    <unit id="axA7_TL" name="settings.ips.ai_extractor.model.help">
-      <segment state="translated">
-        <source>settings.ips.ai_extractor.model.help</source>
-        <target>Das KI-Modell, das für die Extraktion verwendet werden soll. Muss strukturierte Ausgaben unterstützen.</target>
-      </segment>
-    </unit>
-    <unit id="H1SYgGs" name="settings.ips.ai_extractor.max_content_length">
-      <segment state="translated">
-        <source>settings.ips.ai_extractor.max_content_length</source>
-        <target>Maximale Webseitentextlänge</target>
-      </segment>
-    </unit>
-    <unit id="SZWiZE3" name="settings.ips.ai_extractor.max_content_length.description">
-      <segment state="translated">
-        <source>settings.ips.ai_extractor.max_content_length.description</source>
-        <target>Die maximale Anzahl an Zeichen der Webseite, die an den KI-Dienst gesendet werden.</target>
-      </segment>
-    </unit>
-    <unit id="pCsAHOv" name="settings.ips.ai_extractor.output_language">
-      <segment state="translated">
-        <source>settings.ips.ai_extractor.output_language</source>
-        <target>Ausgabesprache</target>
-      </segment>
-    </unit>
-    <unit id="NVHHgpD" name="settings.ips.ai_extractor.output_language.description">
-      <segment state="translated">
-        <source>settings.ips.ai_extractor.output_language.description</source>
-        <target>Standardmäßig liefern die Anbieter Informationen in der gleichen Sprache wie die Webseite. Mit dieser Option können Sie die KI bitten, für Sie zu übersetzen. Funktioniert möglicherweise nur mit bestimmten Modellen.</target>
-      </segment>
-    </unit>
-    <unit id="CAeeZlL" name="settings.ips.ai_extractor.additional_instructions">
-      <segment state="translated">
-        <source>settings.ips.ai_extractor.additional_instructions</source>
-        <target>Zusätzliche Anweisungen</target>
-      </segment>
-    </unit>
-    <unit id=".UaUMk1" name="settings.ips.ai_extractor.additional_instructions.description">
-      <segment state="translated">
-        <source>settings.ips.ai_extractor.additional_instructions.description</source>
-        <target>Die zusätzlichen Anweisungen werden an den System-Prompt angehängt.</target>
-      </segment>
-    </unit>
-    <unit id="Ycfssj2" name="info_providers.search.advanced_options">
-      <segment state="translated">
-        <source>info_providers.search.advanced_options</source>
-        <target>Erweiterte Optionen</target>
-      </segment>
-    </unit>
-    <unit id="xfxZrXn" name="info_providers.no_cache_search">
-      <segment state="translated">
-        <source>info_providers.no_cache_search</source>
-        <target>Suchergebnisse nicht zwischenspeichern / Neue Suche erzwingen</target>
-      </segment>
-    </unit>
-    <unit id="b_oc3T1" name="info_providers.no_cache_details">
-      <segment state="translated">
-        <source>info_providers.no_cache_details</source>
-        <target>Ergebnisdetails nicht zwischenspeichern / Neue Detailabfrage erzwingen</target>
-      </segment>
-    </unit>
-    <unit id="Ja8CCDb" name="info_providers.from_url.method.generic_web">
-      <segment state="translated">
-        <source>info_providers.from_url.method.generic_web</source>
-        <target>Klassischer Web-Scraper</target>
-      </segment>
-    </unit>
-    <unit id="s0kUzFW" name="info_providers.from_url.method.ai_web">
-      <segment state="translated">
-        <source>info_providers.from_url.method.ai_web</source>
-        <target>KI Web-Scraper</target>
-      </segment>
-    </unit>
-    <unit id="HEFB1OC" name="info_providers.from_url.method">
-      <segment state="translated">
-        <source>info_providers.from_url.method</source>
-        <target>Methode</target>
-      </segment>
-    </unit>
-    <unit id="9pG0VtU" name="info_providers.from_url.no_cache">
-      <segment state="translated">
-        <source>info_providers.from_url.no_cache</source>
-        <target>Cache ignorieren / Neue Infoabfrage erzwingen</target>
-      </segment>
-    </unit>
-    <unit id="302Jgvm" name="info_providers.from_url.skip_delegation">
-      <segment state="translated">
-        <source>info_providers.from_url.skip_delegation</source>
-        <target>Nicht an spezialisierte Infoanbieter delegieren</target>
-      </segment>
-    </unit>
-    <unit id="pruvlK8" name="settings.ips.ai_extractor">
-      <segment state="translated">
-        <source>settings.ips.ai_extractor</source>
-        <target>KI Web Extraktor</target>
-      </segment>
-    </unit>
-    <unit id="wILs7pS" name="settings.ips.ai_extractor.description">
-      <segment state="translated">
-        <source>settings.ips.ai_extractor.description</source>
-        <target>Dieser Infoanbieter verwendet ein großes Sprachmodell (LLM), um detaillierte Teileinformationen von beliebigen Shop-URLs zu extrahieren.</target>
-      </segment>
-    </unit>
-    <unit id="1ShZ.1i" name="settings.ai.openrouter.help">
-      <segment state="translated">
-        <source>settings.ai.openrouter.help</source>
-        <target>Zugriff auf viele KI-Modelle über openrouter.ai</target>
-      </segment>
-    </unit>
-    <unit id="kRcgIf0" name="settings.ai.lmstudio.hosturl">
-      <segment state="translated">
-        <source>settings.ai.lmstudio.hosturl</source>
-        <target>Host-URL</target>
-      </segment>
-    </unit>
-    <unit id="UeFbCNh" name="settings.ai.ollama">
-      <segment state="translated">
-        <source>settings.ai.ollama</source>
-        <target>Ollama</target>
-      </segment>
-    </unit>
-    <unit id="9nfJ_vr" name="settings.ai.ollama.endpoint">
-      <segment state="translated">
-        <source>settings.ai.ollama.endpoint</source>
-        <target>Endpoint URL</target>
-      </segment>
-    </unit>
-    <unit id="67dSwE5" name="settings.ai.ollama.apiKey">
-      <segment state="translated">
-        <source>settings.ai.ollama.apiKey</source>
-        <target>API Key</target>
-      </segment>
-    </unit>
-    <unit id="VxXEQUD" name="settings.ai.timeout">
-      <segment state="translated">
-        <source>settings.ai.timeout</source>
-        <target>Timeout</target>
-      </segment>
-    </unit>
-    <unit id="vRgtpoJ" name="settings.ai.timeout.help">
-      <segment state="translated">
-        <source>settings.ai.timeout.help</source>
-        <target>Maximale Wartezeit in Sekunden auf eine Antwort. Die lokale KI-Inferenz kann mehrere Minuten dauern, die Inferenz in der Cloud ist in der Regel schneller.</target>
-      </segment>
-    </unit>
-    <unit id="kuDv.So" name="browser_plugin.recent_pages.title">
-      <segment state="translated">
-        <source>browser_plugin.recent_pages.title</source>
-        <target>Zuletzt besuchte Seiten</target>
-      </segment>
-    </unit>
-    <unit id="AjNj8wk" name="browser_plugin.recent_pages.help">
-      <segment state="translated">
-        <source>browser_plugin.recent_pages.help</source>
-        <target>Hier werden die zuletzt besuchten Seiten angezeigt.</target>
-      </segment>
-    </unit>
-    <unit id="lVUU9s7" name="settings.ips.browser_plugin">
-      <segment state="translated">
-        <source>settings.ips.browser_plugin</source>
-        <target>Browser-Plugin</target>
-      </segment>
-    </unit>
-    <unit id="IrJs3fI" name="settings.ips.browser_plugin.description">
-      <segment state="translated">
-        <source>settings.ips.browser_plugin.description</source>
-        <target>Einstellungen für das Browser-Plugin</target>
-      </segment>
-    </unit>
-    <unit id="_8UrMCB" name="settings.ips.browser_plugin.enabled.help">
-      <segment state="translated">
-        <source>settings.ips.browser_plugin.enabled.help</source>
-        <target>Aktiviert das Browser-Plugin für diese Instanz.</target>
-      </segment>
-    </unit>
-    <unit id="JqcvhX_" name="system.app_secret.insecure.title">
-      <segment state="translated">
-        <source>system.app_secret.insecure.title</source>
-        <target>Unsicheres APP_SECRET</target>
-      </segment>
-    </unit>
-    <unit id="XSSYWTJ" name="system.app_secret.insecure.message">
-      <segment state="translated">
-        <source>system.app_secret.insecure.message</source>
-        <target>Die Umgebungsvariable &lt;code&gt;APP_SECRET&lt;/code&gt; ist auf den Standardwert gesetzt, der mit Part-DB ausgeliefert wird. Dies stellt ein Sicherheitsrisiko dar! Setzen Sie sie in Ihrer Datei &lt;code&gt;.env.local&lt;/code&gt; oder &lt;code&gt;docker-compose.yaml&lt;/code&gt; auf einen neuen Zufallswert.</target>
-      </segment>
-    </unit>
-    <unit id="e7.f3m0" name="system.app_secret.insecure.suggestion">
-      <segment state="translated">
-        <source>system.app_secret.insecure.suggestion</source>
-        <target>Sie können diesen zufällig generierten Wert verwenden (geben Sie ihn niemandem weiter):</target>
-      </segment>
-    </unit>
-    <unit id="pJfdMQU" name="search.extensive_matching">
-      <segment state="translated">
-        <source>search.extensive_matching</source>
-        <target>Erweiterte Übereinstimmung</target>
-      </segment>
-    </unit>
-    <unit id="YO2ZB66" name="search.permit_wildcards">
-      <segment state="translated">
-        <source>search.permit_wildcards</source>
-        <target>&lt;code&gt;%&lt;/code&gt; und &lt;code&gt;_&lt;/code&gt; als Platzhalter behandeln</target>
-      </segment>
-    </unit>
-    <unit id="_nxvnMn" name="search.regexmatching.help">
-      <segment state="translated">
-        <source>search.regexmatching.help</source>
-        <target>Verwenden Sie reguläre Ausdrücke wie "^\w{3,5}", um nach Teilen zu suchen. Umschließende Schrägstriche sind nicht erforderlich.</target>
-      </segment>
-    </unit>
-    <unit id="mry8ytG" name="search.extensive_matching.help">
-      <segment state="translated">
-        <source>search.extensive_matching.help</source>
-        <target>Der Suchbegriff wird in Teile zerlegt, und ein Treffer liegt vor, wenn jeder Teil in irgendeinem Feld enthalten ist. Ohne diesen Modus muss der vollständige Suchbegriff in einem einzigen Feld enthalten sein.</target>
-      </segment>
-    </unit>
-    <unit id="zLnKtwP" name="search.permit_wildcards.help">
-      <segment state="translated">
-        <source>search.permit_wildcards.help</source>
-        <target>Wenn aktiviert, wird _ als Platzhalter für ein Zeichen behandelt und % als Platzhalter für null oder mehr Zeichen.</target>
-      </segment>
-    </unit>
-    <unit id="OP7MacF" name="system.trusted_hosts.unconfigured.title">
-      <segment state="translated">
-        <source>system.trusted_hosts.unconfigured.title</source>
-        <target>TRUSTED_HOSTS nicht konfiguriert</target>
-      </segment>
-    </unit>
-    <unit id="88NkHLV" name="system.trusted_hosts.unconfigured.message">
-      <segment state="translated">
-        <source>system.trusted_hosts.unconfigured.message</source>
-        <target>Die Umgebungsvariable &lt;code&gt;TRUSTED_HOSTS&lt;/code&gt; ist nicht gesetzt. Das bedeutet, dass Part-DB Anfragen für jeden beliebigen Hostnamen akzeptiert, was ein Sicherheitsrisiko darstellen kann (z. B. HTTP-Host-Header-Injection). Es wird empfohlen, dies auf die Hostnamen zu beschränken, unter denen Part-DB tatsächlich erreichbar ist.</target>
-      </segment>
-    </unit>
-    <unit id="qZ_kgWT" name="system.trusted_hosts.unconfigured.suggestion">
-      <segment state="translated">
-        <source>system.trusted_hosts.unconfigured.suggestion</source>
-        <target>Legen Sie einen regulären Ausdruck fest, der alle Hostnamen abdeckt, unter denen Part-DB erreichbar sein soll, z. B. basierend auf dem Hostnamen, den Sie für den Zugriff auf diese Seite verwendet haben. Beachten Sie, dass die erforderliche Anführungszeichen-Schreibweise davon abhängt, wo Sie den Wert setzen:</target>
-      </segment>
-    </unit>
-    <unit id="ie4thSr" name="system.trusted_hosts.unconfigured.env_example">
-      <segment state="translated">
-        <source>system.trusted_hosts.unconfigured.env_example</source>
-        <target>In Ihrer Datei &lt;code&gt;.env.local&lt;/code&gt; muss der Wert in einfache Anführungszeichen eingeschlossen werden:</target>
-      </segment>
-    </unit>
-    <unit id="ni3hSTN" name="system.trusted_hosts.unconfigured.docker_example">
-      <segment state="translated">
-        <source>system.trusted_hosts.unconfigured.docker_example</source>
-        <target>In &lt;code&gt;docker-compose.yaml&lt;/code&gt; darf der Wert NICHT in Anführungszeichen stehen:</target>
-      </segment>
-    </unit>
-    <unit id="cEwxoSj" name="info_providers.provider_key">
-      <segment state="translated">
-        <source>info_providers.provider_key</source>
-        <target>Informationsquelle</target>
-      </segment>
-    </unit>
-    <unit id="0sjPRNV" name="info_providers.provider_id">
-      <segment state="translated">
-        <source>info_providers.provider_id</source>
-        <target>Provider ID</target>
-      </segment>
-    </unit>
-    <unit id="2DzzAxZ" name="info_providers.provider_url">
-      <segment state="translated">
-        <source>info_providers.provider_url</source>
-        <target>Provider URL</target>
-      </segment>
-    </unit>
-    <unit id="4v3QmF6" name="part.edit.provider_reference">
-      <segment state="translated">
-        <source>part.edit.provider_reference</source>
-        <target>Referenz auf Informationsquelle</target>
-      </segment>
-    </unit>
-    <unit id="9X2qEi7" name="log.element_edited.changed_fields.providerReference.provider_key">
-      <segment state="translated">
-        <source>log.element_edited.changed_fields.providerReference.provider_key</source>
-        <target>Informationsquelle</target>
-      </segment>
-    </unit>
-    <unit id="MWXgWDb" name="log.element_edited.changed_fields.providerReference.provider_id">
-      <segment state="translated">
-        <source>log.element_edited.changed_fields.providerReference.provider_id</source>
-        <target>Provider ID</target>
-      </segment>
-    </unit>
-    <unit id="83fSFvo" name="part.info_provider_reference.updated_never">
-      <segment state="translated">
-        <source>part.info_provider_reference.updated_never</source>
-        <target>Niemals aktualisiert</target>
-      </segment>
-    </unit>
-    <unit id="yIK_Wtj" name="part.edit.provider_reference.warning">
-      <segment state="translated">
-        <source>part.edit.provider_reference.warning</source>
-        <target>Warnung: Das Ändern der Werte an dieser Stelle kann den Mechanismus zum Abrufen von Informationen beeinträchtigen! Sie sollten nach Möglichkeit die Funktion „Von Informationsquelle aktualisieren“ verwenden.</target>
-      </segment>
-    </unit>
-    <unit id="bNrxe9i" name="perm.api.use_mcp">
-      <segment state="translated">
-        <source>perm.api.use_mcp</source>
-        <target>MCP-Tools verwenden (für KI-Agenten)</target>
-      </segment>
-    </unit>
-    <unit id="ced_8yl" name="api.api_endpoints.mcp_url">
-      <segment state="translated">
-        <source>api.api_endpoints.mcp_url</source>
-        <target>MCP-Endpunkt</target>
-      </segment>
-    </unit>
-    <unit id="a1wK4h_" name="info_providers.capabilities.parameters">
-      <segment state="translated">
-        <source>info_providers.capabilities.parameters</source>
-        <target>Parameter</target>
-      </segment>
-    </unit>
-    <unit id="QivC_me" name="info_providers.expensive">
-      <segment state="translated">
-        <source>info_providers.expensive</source>
-        <target>Kostenintensiv</target>
-      </segment>
-    </unit>
-    <unit id="Hiw406i" name="info_providers.expensive.tooltip">
-      <segment state="translated">
-        <source>info_providers.expensive.tooltip</source>
-        <target>Die Verwendung dieses Informationsanbieters kann zusätzliche Kosten verursachen oder unterliegt sehr strengen Ratenlimits.</target>
-      </segment>
-    </unit>
-    <unit id="XMqiyE0" name="settings.ips.tme.preferMetricFootprint">
-      <segment state="translated">
-        <source>settings.ips.tme.preferMetricFootprint</source>
-        <target>Bevorzuge metrisches Footprint, wenn metrische und zöllige Angaben existieren</target>
-      </segment>
-    </unit>
-    <unit id="APD.vym" name="oauth.authorize.title">
-      <segment state="translated">
-        <source>oauth.authorize.title</source>
-        <target>Anwendung autorisieren</target>
-      </segment>
-    </unit>
-    <unit id="n4Olw59" name="oauth.authorize.description">
-      <segment state="translated">
-        <source>oauth.authorize.description</source>
-        <target>Die Anwendung "%client%" möchte auf Ihr Part-DB-Konto zugreifen.</target>
-      </segment>
-    </unit>
-    <unit id="AkIKt6J" name="oauth.authorize.scopes_intro">
-      <segment state="translated">
-        <source>oauth.authorize.scopes_intro</source>
-        <target>Sie fordert die folgende Zugriffsebene an:</target>
-      </segment>
-    </unit>
-    <unit id="d0cDOn1" name="oauth.authorize.revoke_hint">
-      <segment state="translated">
-        <source>oauth.authorize.revoke_hint</source>
-        <target>Sie können diesen Zugriff jederzeit in Ihren Benutzereinstellungen widerrufen.</target>
-      </segment>
-    </unit>
-    <unit id="qfC3t6R" name="oauth.authorize.approve">
-      <segment state="translated">
-        <source>oauth.authorize.approve</source>
-        <target>Genehmigen</target>
-      </segment>
-    </unit>
-    <unit id="i6N1wqE" name="oauth.authorize.deny">
-      <segment state="translated">
-        <source>oauth.authorize.deny</source>
-        <target>Ablehnen</target>
-      </segment>
-    </unit>
-    <unit id="9fKg3GS" name="oauth.authorize.scope_level.label">
-      <segment state="translated">
-        <source>oauth.authorize.scope_level.label</source>
-        <target>Zu gewährende Zugriffsebene</target>
-      </segment>
-    </unit>
-    <unit id="whHHRxz" name="oauth.authorize.scope_level.help">
-      <segment state="translated">
-        <source>oauth.authorize.scope_level.help</source>
-        <target>Sie können eine restriktivere Zugriffsebene gewähren als von der Anwendung angefordert, dies könnte allerdings die Kompatibilität mit der Anwendung beeinträchtigen.</target>
-      </segment>
-    </unit>
-    <unit id="jQbm4mO" name="oauth.authorize.friendly_name.label">
-      <segment state="translated">
-        <source>oauth.authorize.friendly_name.label</source>
-        <target>Anzeigename (optional)</target>
-      </segment>
-    </unit>
-    <unit id="MPk5zZ9" name="oauth.authorize.friendly_name.help">
-      <segment state="translated">
-        <source>oauth.authorize.friendly_name.help</source>
-        <target>Geben Sie dieser Verbindung einen Namen, um sie von anderen Anwendung mit dem selben Namen unterscheiden zu können unterscheiden zu können.</target>
-      </segment>
-    </unit>
-    <unit id="rPyrHS2" name="oauth.authorize.ttl.label">
-      <segment state="translated">
-        <source>oauth.authorize.ttl.label</source>
-        <target>Angemeldet bleiben für</target>
-      </segment>
-    </unit>
-    <unit id="Z.S5.x2" name="oauth.authorize.ttl.default">
-      <segment state="translated">
-        <source>oauth.authorize.ttl.default</source>
-        <target>Standard (%days% Tage)</target>
-      </segment>
-    </unit>
-    <unit id="yJyRFXa" name="oauth.authorize.ttl.days">
-      <segment state="translated">
-        <source>oauth.authorize.ttl.days</source>
-        <target>%days% Tage</target>
-      </segment>
-    </unit>
-    <unit id="2wcqLve" name="oauth.authorize.ttl.help">
-      <segment state="translated">
-        <source>oauth.authorize.ttl.help</source>
-        <target>Nach Ablauf dieses Zeitraums muss sich die Anwendung erneut bei Ihnen anmelden.</target>
-      </segment>
-    </unit>
-    <unit id="8gH7qHS" name="oauth.authorize.elevated_warning">
-      <segment state="translated">
-        <source>oauth.authorize.elevated_warning</source>
-        <target>Diese Anwendung fordert administrativen oder vollständigen Kontozugriff an, der weit über den normalen Lese-/Bearbeitungszugriff hinausgeht. Genehmigen Sie dies nur, wenn Sie der Anwendung vollständig vertrauen.</target>
-      </segment>
-    </unit>
-    <unit id="DYZhxF6" name="oauth.authorize.elevated_badge">
-      <segment state="translated">
-        <source>oauth.authorize.elevated_badge</source>
-        <target>Erweiterter Zugriff</target>
-      </segment>
-    </unit>
-    <unit id="0SCwv63" name="user.settings.oauth_connected_apps">
-      <segment state="translated">
-        <source>user.settings.oauth_connected_apps</source>
-        <target>Verbundene Anwendungen</target>
-      </segment>
-    </unit>
-    <unit id="tb_dGmL" name="user.settings.oauth_connected_apps.description">
-      <segment state="translated">
-        <source>user.settings.oauth_connected_apps.description</source>
-        <target>Diese Anwendungen haben sich über die Part-DB-OAuth-Anmeldung angemeldet und wurden mit Zugriff auf Ihr Konto autorisiert. Der Widerruf einer Anwendung hier beendet ihren Zugriff sofort; sie muss den Anmelde-/Zustimmungsbildschirm erneut durchlaufen, um sich wieder zu verbinden.</target>
-      </segment>
-    </unit>
-    <unit id="uxc7X_D" name="user.settings.oauth_connected_apps.none_yet">
-      <segment state="translated">
-        <source>user.settings.oauth_connected_apps.none_yet</source>
-        <target>Noch keine verbundenen Anwendungen.</target>
-      </segment>
-    </unit>
-    <unit id="MDTWYod" name="user.settings.oauth_connected_apps.app_name">
-      <segment state="translated">
-        <source>user.settings.oauth_connected_apps.app_name</source>
-        <target>Anwendung</target>
-      </segment>
-    </unit>
-    <unit id="3.pFaZG" name="user.settings.oauth_connected_apps.access_until">
-      <segment state="translated">
-        <source>user.settings.oauth_connected_apps.access_until</source>
-        <target>Zugriff gültig bis</target>
-      </segment>
-    </unit>
-    <unit id="cOG4vDe" name="user.settings.oauth_connected_apps.revoke">
-      <segment state="translated">
-        <source>user.settings.oauth_connected_apps.revoke</source>
-        <target>Widerrufen</target>
-      </segment>
-    </unit>
-    <unit id="0ecnHaq" name="user.settings.oauth_connected_apps.revoke.title">
-      <segment state="translated">
-        <source>user.settings.oauth_connected_apps.revoke.title</source>
-        <target>Möchten Sie den Zugriff für diese Anwendung wirklich widerrufen?</target>
-      </segment>
-    </unit>
-    <unit id="WfLqvJ6" name="user.settings.oauth_connected_apps.revoke.message">
-      <segment state="translated">
-        <source>user.settings.oauth_connected_apps.revoke.message</source>
-        <target>Die Anwendung verliert sofort den Zugriff auf Part-DB und muss den Anmelde-/Zustimmungsbildschirm erneut durchlaufen, um sich wieder zu verbinden. Diese Aktion kann nicht rückgängig gemacht werden!</target>
-      </segment>
-    </unit>
-    <unit id="rSf25Vc" name="user.settings.oauth_connected_apps.revoked">
-      <segment state="translated">
-        <source>user.settings.oauth_connected_apps.revoked</source>
-        <target>Zugriff erfolgreich widerrufen!</target>
-      </segment>
-    </unit>
-    <unit id="mgk6ZSv" name="user.settings.oauth_connected_apps.scope_level">
-      <segment state="translated">
-        <source>user.settings.oauth_connected_apps.scope_level</source>
-        <target>Zugriffsebene</target>
-      </segment>
-    </unit>
-    <unit id="Irn2ps." name="user.settings.oauth_connected_apps.last_used">
-      <segment state="translated">
-        <source>user.settings.oauth_connected_apps.last_used</source>
-        <target>Zuletzt verwendet</target>
-      </segment>
-    </unit>
-    <unit id="1LsyrkP" name="user.settings.oauth_connected_apps.connected_since">
-      <segment state="translated">
-        <source>user.settings.oauth_connected_apps.connected_since</source>
-        <target>Verbunden seit</target>
-      </segment>
-    </unit>
-    <unit id="F3PROlR" name="perm.system.manage_oauth_clients">
-      <segment state="translated">
-        <source>perm.system.manage_oauth_clients</source>
-        <target>OAuth2-Clients verwalten</target>
-      </segment>
-    </unit>
-    <unit id="TCKm90l" name="oauth_clients.title">
-      <segment state="translated">
-        <source>oauth_clients.title</source>
-        <target>OAuth2-Clients</target>
-      </segment>
-    </unit>
-    <unit id="GbvDqBV" name="oauth_clients.description">
-      <segment state="translated">
-        <source>oauth_clients.description</source>
-        <target>Bei Part-DBs OAuth2-Server registrierte Anwendungen (üblicherweise über die offene Dynamic Client Registration, RFC 7591 - jede Anwendung kann sich selbst registrieren, daher ist der eigentliche Zugriffskontrollpunkt der Zustimmungsbildschirm, den ein Benutzer sieht, bevor er einer dieser Anwendungen Zugriff auf sein Konto gewährt). Das Löschen eines Clients hier widerruft sofort allen jemals gewährten Zugriff und verhindert seine weitere Verwendung.</target>
-      </segment>
-    </unit>
-    <unit id="6DTnzEE" name="oauth_clients.none_yet">
-      <segment state="translated">
-        <source>oauth_clients.none_yet</source>
-        <target>Noch keine OAuth2-Clients registriert.</target>
-      </segment>
-    </unit>
-    <unit id="x.F3MN4" name="oauth_clients.name">
-      <segment state="translated">
-        <source>oauth_clients.name</source>
-        <target>Name</target>
-      </segment>
-    </unit>
-    <unit id="ss2tun8" name="oauth_clients.client_id">
-      <segment state="translated">
-        <source>oauth_clients.client_id</source>
-        <target>Client-ID</target>
-      </segment>
-    </unit>
-    <unit id="azV0sIv" name="oauth_clients.scopes">
-      <segment state="translated">
-        <source>oauth_clients.scopes</source>
-        <target>Berechtigungen</target>
-      </segment>
-    </unit>
-    <unit id="1dbGJ7H" name="oauth_clients.redirect_uris">
-      <segment state="translated">
-        <source>oauth_clients.redirect_uris</source>
-        <target>Weiterleitungs-URIs</target>
-      </segment>
-    </unit>
-    <unit id=".axlZHX" name="oauth_clients.status">
-      <segment state="translated">
-        <source>oauth_clients.status</source>
-        <target>Status</target>
-      </segment>
-    </unit>
-    <unit id="U4vNBxV" name="oauth_clients.active">
-      <segment state="translated">
-        <source>oauth_clients.active</source>
-        <target>Aktiv</target>
-      </segment>
-    </unit>
-    <unit id="qte22mM" name="oauth_clients.inactive">
-      <segment state="translated">
-        <source>oauth_clients.inactive</source>
-        <target>Inaktiv</target>
-      </segment>
-    </unit>
-    <unit id="ux5P.d3" name="oauth_clients.dynamically_registered">
-      <segment state="translated">
-        <source>oauth_clients.dynamically_registered</source>
-        <target>Automatisch registriert</target>
-      </segment>
-    </unit>
-    <unit id="oo744Uz" name="oauth_clients.dynamically_registered.help">
-      <segment state="translated">
-        <source>oauth_clients.dynamically_registered.help</source>
-        <target>Dieser Client hat sich automatisch über Dynamic Client Registration (RFC 7591) selbst registriert, anstatt von einem Administrator angelegt worden zu sein.</target>
-      </segment>
-    </unit>
-    <unit id="Pa66ymI" name="oauth_clients.live_tokens">
-      <segment state="translated">
-        <source>oauth_clients.live_tokens</source>
-        <target>Aktive Zugriffstoken</target>
-      </segment>
-    </unit>
-    <unit id="FxxYm5n" name="oauth_clients.live_refresh_tokens">
-      <segment state="translated">
-        <source>oauth_clients.live_refresh_tokens</source>
-        <target>Aktive Refresh-Token</target>
-      </segment>
-    </unit>
-    <unit id="CjdVrcW" name="oauth_clients.delete">
-      <segment state="translated">
-        <source>oauth_clients.delete</source>
-        <target>Löschen</target>
-      </segment>
-    </unit>
-    <unit id="LOD0h3Q" name="oauth_clients.delete.title">
-      <segment state="translated">
-        <source>oauth_clients.delete.title</source>
-        <target>Möchten Sie diesen OAuth2-Client wirklich löschen?</target>
-      </segment>
-    </unit>
-    <unit id="XipnUiR" name="oauth_clients.delete.message">
-      <segment state="translated">
-        <source>oauth_clients.delete.message</source>
-        <target>Dies widerruft sofort allen jemals gewährten Zugriff dieser Anwendung, für alle Benutzer. Diese Aktion kann nicht rückgängig gemacht werden; die Anwendung müsste sich erneut registrieren, um sich wieder zu verbinden.</target>
-      </segment>
-    </unit>
-    <unit id="tbHDOBp" name="oauth_clients.deleted">
-      <segment state="translated">
-        <source>oauth_clients.deleted</source>
-        <target>OAuth2-Client erfolgreich gelöscht!</target>
-      </segment>
-    </unit>
-    <unit id="7vdBsoN" name="oauth_clients.create.title">
-      <segment state="translated">
-        <source>oauth_clients.create.title</source>
-        <target>Einen neuen Client manuell registrieren</target>
-      </segment>
-    </unit>
-    <unit id="NxxzyP." name="oauth_clients.new_button">
-      <segment state="translated">
-        <source>oauth_clients.new_button</source>
-        <target>Neuen Client registrieren</target>
-      </segment>
-    </unit>
-    <unit id="7XHDbAc" name="oauth_clients.create.name">
-      <segment state="translated">
-        <source>oauth_clients.create.name</source>
-        <target>Name</target>
-      </segment>
-    </unit>
-    <unit id="Id1.iuI" name="oauth_clients.create.redirect_uris">
-      <segment state="translated">
-        <source>oauth_clients.create.redirect_uris</source>
-        <target>Weiterleitungs-URIs</target>
-      </segment>
-    </unit>
-    <unit id="wyfhoYU" name="oauth_clients.create.redirect_uris.help">
-      <segment state="translated">
-        <source>oauth_clients.create.redirect_uris.help</source>
-        <target>Eine URI pro Zeile. Muss https://, eine Loopback-http://-Adresse (127.0.0.1/localhost) oder ein privates URI-Schema sein (z. B. com.example.app:/callback).</target>
-      </segment>
-    </unit>
-    <unit id="mF.lZGT" name="oauth_clients.create.scopes">
-      <segment state="translated">
-        <source>oauth_clients.create.scopes</source>
-        <target>Erlaubte Zugriffsebenen</target>
-      </segment>
-    </unit>
-    <unit id="FQP97Iy" name="oauth_clients.create.scopes.elevated_help">
-      <segment state="translated">
-        <source>oauth_clients.create.scopes.elevated_help</source>
-        <target>Erlauben Sie "Administrator" oder "Vollständig" nur für Clients, denen Sie vollständig vertrauen und die Sie kontrollieren - selbstregistrierte Clients (z. B. sich automatisch bereitstellende MCP-Anwendungen) können diese Ebenen niemals selbst anfordern.</target>
-      </segment>
-    </unit>
-    <unit id="PPgniXW" name="oauth_clients.create.submit">
-      <segment state="translated">
-        <source>oauth_clients.create.submit</source>
-        <target>Client registrieren</target>
-      </segment>
-    </unit>
-    <unit id="lUKK..z" name="oauth_clients.created">
-      <segment state="translated">
-        <source>oauth_clients.created</source>
-        <target>OAuth2-Client erfolgreich registriert! Client-ID: %client_id%</target>
-      </segment>
-    </unit>
-    <unit id="TPIdHxC" name="oauth_clients.edit">
-      <segment state="translated">
-        <source>oauth_clients.edit</source>
-        <target>Bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="tSop1t3" name="oauth_clients.edit.title">
-      <segment state="translated">
-        <source>oauth_clients.edit.title</source>
-        <target>OAuth2-Client bearbeiten</target>
-      </segment>
-    </unit>
-    <unit id="VaBQ9jX" name="oauth_clients.edit.active">
-      <segment state="translated">
-        <source>oauth_clients.edit.active</source>
-        <target>Aktiv</target>
-      </segment>
-    </unit>
-    <unit id="6CH6SAh" name="oauth_clients.edit.active.help">
-      <segment state="translated">
-        <source>oauth_clients.edit.active.help</source>
-        <target>Inaktive Clients können nicht mehr zum Anfordern oder Erneuern von Zugriffstoken verwendet werden, ihre bestehende Registrierung und aktive Token bleiben jedoch bis zur Löschung erhalten.</target>
-      </segment>
-    </unit>
-    <unit id="hbA0R.U" name="oauth_clients.edit.submit">
-      <segment state="translated">
-        <source>oauth_clients.edit.submit</source>
-        <target>Änderungen speichern</target>
-      </segment>
-    </unit>
-    <unit id="1WsHABD" name="oauth_clients.edit.back">
-      <segment state="translated">
-        <source>oauth_clients.edit.back</source>
-        <target>Zurück zur Übersicht</target>
-      </segment>
-    </unit>
-    <unit id="E5sueue" name="oauth_clients.updated">
-      <segment state="translated">
-        <source>oauth_clients.updated</source>
-        <target>OAuth2-Client erfolgreich aktualisiert!</target>
-      </segment>
-    </unit>
     <unit id="_cV3WJ." name="perm.tools.component_image_generator">
       <segment state="translated">
         <source>perm.tools.component_image_generator</source>
@@ -15004,6 +13846,1308 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>tools.value_calc.field.on_chip</source>
         <target>Auf dem Chip aufgedruckt</target>
+      </segment>
+    </unit>
+    <unit id="GNWhoTW" name="part.table.eda_reference">
+      <segment state="translated">
+        <source>part.table.eda_reference</source>
+        <target>EDA-Referenz</target>
+      </segment>
+    </unit>
+    <unit id="tW4yCbf" name="part.table.eda_value">
+      <segment state="translated">
+        <source>part.table.eda_value</source>
+        <target>EDA-Wert</target>
+      </segment>
+    </unit>
+    <unit id="s1pgReC" name="settings.misc.kicad_eda.default_parameter_visibility">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_visibility</source>
+        <target>Standard EDA-Sichtbarkeit für Parameter</target>
+      </segment>
+    </unit>
+    <unit id="Z78QunV" name="settings.misc.kicad_eda.default_parameter_visibility.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_visibility.help</source>
+        <target>EDA-Sichtbarkeit für alle [Part]-Parameter, die keine explizite Sichtbarkeit gesetzt haben. Wenn aktiviert, sind alle Parameter standardmäßig in der EDA-Software sichtbar.</target>
+      </segment>
+    </unit>
+    <unit id="XchzDpI" name="settings.misc.kicad_eda.default_parameter_symbol_visibility">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_symbol_visibility</source>
+        <target>Standard-Symbolsichtbarkeit für Parameter</target>
+      </segment>
+    </unit>
+    <unit id="zLHkPCx" name="settings.misc.kicad_eda.default_parameter_symbol_visibility.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_parameter_symbol_visibility.help</source>
+        <target>Legt fest, ob exportierte [Part]-Parameterfelder, für die keine explizite Symbol-Sichtbarkeit gesetzt wurde, im Schaltplansymbol angezeigt werden (das „visible“-Flag des KiCad-Feldes). Betrifft nur Parameter, die bereits als EDA-Felder exportiert werden.</target>
+      </segment>
+    </unit>
+    <unit id="J6pYnaC" name="settings.misc.kicad_eda.default_orderdetails_visibility">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_orderdetails_visibility</source>
+        <target>Standard EDA-Sichtbarkeit für Einkaufsinformationen</target>
+      </segment>
+    </unit>
+    <unit id="Hiye4C." name="settings.misc.kicad_eda.default_orderdetails_visibility.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.default_orderdetails_visibility.help</source>
+        <target>EDA-Sichtbarkeit für alle Bestellinformationen, die keine explizite Sichtbarkeit gesetzt haben. Bei Aktivierung sind alle Bestellinfos standardmäßig in der EDA-Software sichtbar.</target>
+      </segment>
+    </unit>
+    <unit id="aEgd0if" name="label_scanner.open">
+      <segment state="translated">
+        <source>label_scanner.open</source>
+        <target>Details anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="vw_0Qws" name="label_scanner.db_part_found">
+      <segment state="translated">
+        <source>label_scanner.db_part_found</source>
+        <target>Datenbank-[Part] für Barcode gefunden</target>
+      </segment>
+    </unit>
+    <unit id="zntajcd" name="label_scanner.part_can_be_created">
+      <segment state="translated">
+        <source>label_scanner.part_can_be_created</source>
+        <target>[Part] kann erstellt werden</target>
+      </segment>
+    </unit>
+    <unit id="cLTbd9w" name="label_scanner.part_can_be_created.help">
+      <segment state="translated">
+        <source>label_scanner.part_can_be_created.help</source>
+        <target>Kein passendes [Part] in der Datenbank gefunden, aber Sie können ein neues [Part] basierend auf diesem Barcode erstellen.</target>
+      </segment>
+    </unit>
+    <unit id="FfHA3Yf" name="label_scanner.part_create_btn">
+      <segment state="translated">
+        <source>label_scanner.part_create_btn</source>
+        <target>[Part] aus Barcode erstellen</target>
+      </segment>
+    </unit>
+    <unit id="xH258F." name="parts.create_from_scan.title">
+      <segment state="translated">
+        <source>parts.create_from_scan.title</source>
+        <target>[Part] aus Scan erstellen</target>
+      </segment>
+    </unit>
+    <unit id="8WZYwRJ" name="scan_dialog.mode.amazon">
+      <segment state="translated">
+        <source>scan_dialog.mode.amazon</source>
+        <target>Amazon Barcode</target>
+      </segment>
+    </unit>
+    <unit id="d.V2Pid" name="scan_dialog.mode.tme">
+      <segment state="translated">
+        <source>scan_dialog.mode.tme</source>
+        <target>TME Barcode</target>
+      </segment>
+    </unit>
+    <unit id="BQWuR_G" name="settings.ips.canopy">
+      <segment state="translated">
+        <source>settings.ips.canopy</source>
+        <target>Canopy</target>
+      </segment>
+    </unit>
+    <unit id="44BfYzy" name="settings.ips.canopy.alwaysGetDetails">
+      <segment state="translated">
+        <source>settings.ips.canopy.alwaysGetDetails</source>
+        <target>Details immer abrufen</target>
+      </segment>
+    </unit>
+    <unit id="so_ms3t" name="settings.ips.canopy.alwaysGetDetails.help">
+      <segment state="translated">
+        <source>settings.ips.canopy.alwaysGetDetails.help</source>
+        <target>Wenn aktiviert, werden beim Erstellen eines Bauteils mehr Details von canopy abgerufen. Das verursacht eine zusätzliche API-Anfrage, liefert aber Produkt-Bulletpoints und Kategoriedaten.</target>
+      </segment>
+    </unit>
+    <unit id="KyC_YsX" name="settings.ips.trustedparts">
+      <segment state="translated">
+        <source>settings.ips.trustedparts</source>
+        <target>TrustedParts</target>
+      </segment>
+    </unit>
+    <unit id="iB2.9sg" name="settings.ips.trustedparts.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.help</source>
+        <target>TrustedParts.com ist eine von der ECIA betriebene Suchmaschine für Bauteile, die die Angebote autorisierter Distributoren zusammenfasst. Sie müssen Zugriff auf deren API beantragen, um diesen Anbieter nutzen zu können.</target>
+      </segment>
+    </unit>
+    <unit id="Mhe.lWu" name="settings.ips.trustedparts.companyId">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.companyId</source>
+        <target>Firmen-ID</target>
+      </segment>
+    </unit>
+    <unit id="DvzhYe1" name="settings.ips.trustedparts.companyId.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.companyId.help</source>
+        <target>Die Firmenkennung, die Ihrem TrustedParts.com-Konto zugewiesen wurde. Sie finden diese auf der API-Schlüssel-Seite Ihres Kontos.</target>
+      </segment>
+    </unit>
+    <unit id="AqF7ns9" name="settings.ips.trustedparts.apiKey.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.apiKey.help</source>
+        <target>Der API-Schlüssel, der Ihrem TrustedParts.com-Konto zugewiesen wurde. Sie finden diesen auf der API-Schlüssel-Seite Ihres Kontos.</target>
+      </segment>
+    </unit>
+    <unit id="Gh676P6" name="settings.ips.trustedparts.searchLimit">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.searchLimit</source>
+        <target>Suchlimit</target>
+      </segment>
+    </unit>
+    <unit id="R7oiMLD" name="settings.ips.trustedparts.searchLimit.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.searchLimit.help</source>
+        <target>Die maximale Anzahl an Ergebnissen, die für eine Stichwortsuche angezeigt werden.</target>
+      </segment>
+    </unit>
+    <unit id="DFkCu4n" name="settings.ips.trustedparts.inStockOnly">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.inStockOnly</source>
+        <target>Nur verfügbare Angebote</target>
+      </segment>
+    </unit>
+    <unit id="EF2mFRR" name="settings.ips.trustedparts.inStockOnly.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.inStockOnly.help</source>
+        <target>Wenn aktiviert, werden nur Angebote von Distributoren zurückgegeben, die das Bauteil derzeit auf Lager haben.</target>
+      </segment>
+    </unit>
+    <unit id="r4gkOcR" name="settings.ips.trustedparts.useCachedData">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.useCachedData</source>
+        <target>Zwischengespeicherte Daten verwenden</target>
+      </segment>
+    </unit>
+    <unit id="JNIu4bu" name="settings.ips.trustedparts.useCachedData.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.useCachedData.help</source>
+        <target>Wenn aktiviert, antwortet TrustedParts.com mit zwischengespeicherten Lager- und Preisdaten, anstatt die Distributoren in Echtzeit abzufragen. Dies ist schneller und zählt nicht gegen die Ratenlimits, allerdings können die Daten veraltet sein.</target>
+      </segment>
+    </unit>
+    <unit id="D055xh8" name="attachment.sandbox.warning">
+      <segment state="translated">
+        <source>attachment.sandbox.warning</source>
+        <target>WARNUNG: Sie betrachten einen von einem Nutzer hochgeladenen Anhang. Dabei handelt es sich um nicht vertrauenswürdigen Inhalt. Bitte vorsichtig fortfahren.</target>
+      </segment>
+    </unit>
+    <unit id="bRcdnJK" name="attachment.sandbox.back_to_partdb">
+      <segment state="translated">
+        <source>attachment.sandbox.back_to_partdb</source>
+        <target>Zurück zu Part-DB</target>
+      </segment>
+    </unit>
+    <unit id="MzyA7N8" name="settings.system.attachments.showHTMLAttachments">
+      <segment state="translated">
+        <source>settings.system.attachments.showHTMLAttachments</source>
+        <target>Hochgeladene HTML-Dateianhänge anzeigen (sandboxed)</target>
+      </segment>
+    </unit>
+    <unit id="V_LJkRy" name="settings.system.attachments.showHTMLAttachments.help">
+      <segment state="translated">
+        <source>settings.system.attachments.showHTMLAttachments.help</source>
+        <target>⚠️ Wenn aktiviert, können vom Nutzer hochgeladene HTML-Anhänge direkt im Browser angezeigt werden. Viele potenziell schädliche Funktionen sind eingeschränkt, dennoch besteht ein Sicherheitsrisiko und sollte nur aktiviert werden, wenn den hochladenden Nutzern vertraut wird.</target>
+      </segment>
+    </unit>
+    <unit id="BQo2xWi" name="attachment.sandbox.title">
+      <segment state="translated">
+        <source>attachment.sandbox.title</source>
+        <target>HTML [Attachment]</target>
+      </segment>
+    </unit>
+    <unit id="sJ6v9uJ" name="attachment.sandbox.as_plain_text">
+      <segment state="translated">
+        <source>attachment.sandbox.as_plain_text</source>
+        <target>Als Klartext anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="Ehsj93c" name="modal.cancel">
+      <segment state="translated">
+        <source>modal.cancel</source>
+        <target>Abbrechen</target>
+      </segment>
+    </unit>
+    <unit id="jdpoFf2" name="update_manager.web_updates_allowed">
+      <segment state="translated">
+        <source>update_manager.web_updates_allowed</source>
+        <target>Web-Updates erlaubt</target>
+      </segment>
+    </unit>
+    <unit id="bdWa7is" name="update_manager.backup_restore_allowed">
+      <segment state="translated">
+        <source>update_manager.backup_restore_allowed</source>
+        <target>Backup-Wiederherstellung erlaubt</target>
+      </segment>
+    </unit>
+    <unit id="kllGQEN" name="update_manager.backup_download_allowed">
+      <segment state="translated">
+        <source>update_manager.backup_download_allowed</source>
+        <target>Backup-Download erlaubt</target>
+      </segment>
+    </unit>
+    <unit id="Ld698rE" name="update_manager.docker.setup_title">
+      <segment state="translated">
+        <source>update_manager.docker.setup_title</source>
+        <target>Aktivieren Sie Docker-Updates mit einem Klick über Watchtower</target>
+      </segment>
+    </unit>
+    <unit id="A_UDLkn" name="update_manager.docker.setup_description">
+      <segment state="translated">
+        <source>update_manager.docker.setup_description</source>
+        <target>Part-DB kann Ihre Docker-Container automatisch mit Watchtower aktualisieren, einem Open-Source-Container-Updater. Fügen Sie Watchtower als Begleitcontainer hinzu und konfigurieren Sie die Verbindung unten.</target>
+      </segment>
+    </unit>
+    <unit id="p092aHv" name="update_manager.docker.setup_step1">
+      <segment state="translated">
+        <source>update_manager.docker.setup_step1</source>
+        <target>1. Fügen Sie Watchtower zu Ihrer docker-compose.yml hinzu:</target>
+      </segment>
+    </unit>
+    <unit id="VVejRLi" name="update_manager.docker.setup_step2">
+      <segment state="translated">
+        <source>update_manager.docker.setup_step2</source>
+        <target>2. Fügen Sie diese Umgebungsvariablen zu Ihrem Part-DB Container hinzu:</target>
+      </segment>
+    </unit>
+    <unit id="3tlczB." name="update_manager.docker.setup_network_hint">
+      <segment state="translated">
+        <source>update_manager.docker.setup_network_hint</source>
+        <target>Stellen Sie sicher, dass Part-DB und Watchtower im selben Docker-Netzwerk sind. Wenn Sie label-basierte Filterung in Watchtower verwenden (WATCHTOWER_LABEL_ENABLE=true), fügen Sie dem Part-DB Container das Label "com.centurylinklabs.watchtower.enable=true" hinzu.</target>
+      </segment>
+    </unit>
+    <unit id="5ZI3hh9" name="update_manager.docker.watchtower_unreachable_title">
+      <segment state="translated">
+        <source>update_manager.docker.watchtower_unreachable_title</source>
+        <target>Watchtower nicht erreichbar</target>
+      </segment>
+    </unit>
+    <unit id=".0wFRZ." name="update_manager.docker.watchtower_unreachable_description">
+      <segment state="translated">
+        <source>update_manager.docker.watchtower_unreachable_description</source>
+        <target>Watchtower ist konfiguriert, kann aber nicht erreicht werden. Bitte prüfen Sie, ob der Watchtower-Container läuft und ob URL und Token korrekt sind.</target>
+      </segment>
+    </unit>
+    <unit id="PXadA3E" name="update_manager.docker.confirm_update">
+      <segment state="translated">
+        <source>update_manager.docker.confirm_update</source>
+        <target>Sind Sie sicher, dass Sie Part-DB über Watchtower aktualisieren möchten? Der Container wird mit dem neuen Image neu gestartet. Im Gegensatz zu Git-Updates können Docker-Updates nicht automatisch zurückgesetzt werden.</target>
+      </segment>
+    </unit>
+    <unit id="zVnBU_y" name="update_manager.docker.update_via_watchtower">
+      <segment state="translated">
+        <source>update_manager.docker.update_via_watchtower</source>
+        <target>Update über Watchtower zu</target>
+      </segment>
+    </unit>
+    <unit id="rygIXG_" name="update_manager.docker.no_rollback_warning">
+      <segment state="translated">
+        <source>update_manager.docker.no_rollback_warning</source>
+        <target>Docker-Updates können nicht automatisch zurückgesetzt werden. Vor dem Update wird eine Datenbanksicherung erstellt, damit Sie Ihre Daten bei Bedarf wiederherstellen können.</target>
+      </segment>
+    </unit>
+    <unit id="6YSYc7u" name="update_manager.docker.progress_title">
+      <segment state="translated">
+        <source>update_manager.docker.progress_title</source>
+        <target>Docker-Update läuft</target>
+      </segment>
+    </unit>
+    <unit id="4zjA6Z2" name="update_manager.docker.waiting_for_watchtower">
+      <segment state="translated">
+        <source>update_manager.docker.waiting_for_watchtower</source>
+        <target>Warte darauf, dass Watchtower das neue Image zieht...</target>
+      </segment>
+    </unit>
+    <unit id="N4ayoEp" name="update_manager.docker.elapsed">
+      <segment state="translated">
+        <source>update_manager.docker.elapsed</source>
+        <target>Verstrichen</target>
+      </segment>
+    </unit>
+    <unit id="B2piu_D" name="update_manager.docker.waiting_title">
+      <segment state="translated">
+        <source>update_manager.docker.waiting_title</source>
+        <target>Update gestartet</target>
+      </segment>
+    </unit>
+    <unit id="K7uq04F" name="update_manager.docker.waiting_description">
+      <segment state="translated">
+        <source>update_manager.docker.waiting_description</source>
+        <target>Watchtower wurde benachrichtigt. Es wird das neueste Docker-Image ziehen und den Part-DB-Container neu starten.</target>
+      </segment>
+    </unit>
+    <unit id="nYC4Dw9" name="update_manager.docker.watchtower_working">
+      <segment state="translated">
+        <source>update_manager.docker.watchtower_working</source>
+        <target>Watchtower verarbeitet das Update...</target>
+      </segment>
+    </unit>
+    <unit id="IPd5mwk" name="update_manager.docker.watchtower_working_hint">
+      <segment state="translated">
+        <source>update_manager.docker.watchtower_working_hint</source>
+        <target>Je nach Internetgeschwindigkeit und Imagegröße kann dies einige Minuten dauern.</target>
+      </segment>
+    </unit>
+    <unit id="Q_XPcbn" name="update_manager.docker.restarting_title">
+      <segment state="translated">
+        <source>update_manager.docker.restarting_title</source>
+        <target>Container wird neu gestartet</target>
+      </segment>
+    </unit>
+    <unit id="fxJe7Uc" name="update_manager.docker.restarting_description">
+      <segment state="translated">
+        <source>update_manager.docker.restarting_description</source>
+        <target>Watchtower hat das neue Image gezogen und startet den Part-DB-Container neu.</target>
+      </segment>
+    </unit>
+    <unit id="fgtq0OK" name="update_manager.docker.restarting_hint">
+      <segment state="translated">
+        <source>update_manager.docker.restarting_hint</source>
+        <target>Die Seite erkennt automatisch, wenn der Server wieder online ist. Dies dauert normalerweise 10-30 Sekunden.</target>
+      </segment>
+    </unit>
+    <unit id="ZskYT6q" name="update_manager.docker.success_title">
+      <segment state="translated">
+        <source>update_manager.docker.success_title</source>
+        <target>Update abgeschlossen!</target>
+      </segment>
+    </unit>
+    <unit id="lIi.I9w" name="update_manager.docker.success_message">
+      <segment state="translated">
+        <source>update_manager.docker.success_message</source>
+        <target>Part-DB wurde erfolgreich über Watchtower aktualisiert.</target>
+      </segment>
+    </unit>
+    <unit id="RqtjuI7" name="update_manager.docker.previous_version">
+      <segment state="translated">
+        <source>update_manager.docker.previous_version</source>
+        <target>Vorherige Version</target>
+      </segment>
+    </unit>
+    <unit id="KLNv9FX" name="update_manager.docker.new_version">
+      <segment state="translated">
+        <source>update_manager.docker.new_version</source>
+        <target>Neue Version</target>
+      </segment>
+    </unit>
+    <unit id="EyK.Bvs" name="update_manager.docker.back_to_update_manager">
+      <segment state="translated">
+        <source>update_manager.docker.back_to_update_manager</source>
+        <target>Zurück zum Update-Manager</target>
+      </segment>
+    </unit>
+    <unit id="qXEyzbC" name="update_manager.docker.go_to_homepage">
+      <segment state="translated">
+        <source>update_manager.docker.go_to_homepage</source>
+        <target>Zur Startseite</target>
+      </segment>
+    </unit>
+    <unit id="zLbfHFP" name="update_manager.docker.timeout_title">
+      <segment state="translated">
+        <source>update_manager.docker.timeout_title</source>
+        <target>Update dauert länger als erwartet</target>
+      </segment>
+    </unit>
+    <unit id="fbpbM4e" name="update_manager.docker.timeout_message">
+      <segment state="translated">
+        <source>update_manager.docker.timeout_message</source>
+        <target>Das Update dauert länger als erwartet. Prüfen Sie die Watchtower-Container-Logs für Details. Das Update kann noch laufen.</target>
+      </segment>
+    </unit>
+    <unit id="eTDf1ym" name="update_manager.docker.retry">
+      <segment state="translated">
+        <source>update_manager.docker.retry</source>
+        <target>Erneut versuchen</target>
+      </segment>
+    </unit>
+    <unit id="BTQH5SL" name="update_manager.docker.warning">
+      <segment state="translated">
+        <source>update_manager.docker.warning</source>
+        <target>Warnung</target>
+      </segment>
+    </unit>
+    <unit id="5A6K7gA" name="update_manager.docker.do_not_close">
+      <segment state="translated">
+        <source>update_manager.docker.do_not_close</source>
+        <target>Schließen Sie diese Seite nicht. Sie erkennt automatisch, wenn das Update abgeschlossen ist.</target>
+      </segment>
+    </unit>
+    <unit id="JOGLw48" name="update_manager.docker.updating_via_watchtower">
+      <segment state="translated">
+        <source>update_manager.docker.updating_via_watchtower</source>
+        <target>Update über Watchtower wird durchgeführt</target>
+      </segment>
+    </unit>
+    <unit id="L1aNTz2" name="update_manager.docker.step_waiting">
+      <segment state="translated">
+        <source>update_manager.docker.step_waiting</source>
+        <target>Image wird gezogen</target>
+      </segment>
+    </unit>
+    <unit id="K8G9Omp" name="update_manager.docker.steps">
+      <segment state="translated">
+        <source>update_manager.docker.steps</source>
+        <target>Update-Schritte</target>
+      </segment>
+    </unit>
+    <unit id="rwPMohr" name="update_manager.docker.step_trigger">
+      <segment state="translated">
+        <source>update_manager.docker.step_trigger</source>
+        <target>Update auslösen</target>
+      </segment>
+    </unit>
+    <unit id="C6T6dki" name="update_manager.docker.step_trigger_desc">
+      <segment state="translated">
+        <source>update_manager.docker.step_trigger_desc</source>
+        <target>Watchtower wurde benachrichtigt, nach Updates zu suchen</target>
+      </segment>
+    </unit>
+    <unit id="sHx0nZN" name="update_manager.docker.step_pull">
+      <segment state="translated">
+        <source>update_manager.docker.step_pull</source>
+        <target>Neues Image ziehen</target>
+      </segment>
+    </unit>
+    <unit id="VC7sifr" name="update_manager.docker.step_pull_desc">
+      <segment state="translated">
+        <source>update_manager.docker.step_pull_desc</source>
+        <target>Lade das neueste Docker-Image aus dem Register</target>
+      </segment>
+    </unit>
+    <unit id="H5.XUFa" name="update_manager.docker.step_restart">
+      <segment state="translated">
+        <source>update_manager.docker.step_restart</source>
+        <target>Container neu starten</target>
+      </segment>
+    </unit>
+    <unit id="KRNQZKS" name="update_manager.docker.step_restart_desc">
+      <segment state="translated">
+        <source>update_manager.docker.step_restart_desc</source>
+        <target>Alten Container stoppen und neuen starten</target>
+      </segment>
+    </unit>
+    <unit id="y5ibGqB" name="update_manager.docker.step_verify">
+      <segment state="translated">
+        <source>update_manager.docker.step_verify</source>
+        <target>Verifizieren</target>
+      </segment>
+    </unit>
+    <unit id=".D286hQ" name="update_manager.docker.step_verify_desc">
+      <segment state="translated">
+        <source>update_manager.docker.step_verify_desc</source>
+        <target>Bestätige, dass Part-DB mit der neuen Version läuft</target>
+      </segment>
+    </unit>
+    <unit id="s72BGA8" name="update_manager.docker.watchtower_status">
+      <segment state="translated">
+        <source>update_manager.docker.watchtower_status</source>
+        <target>Watchtower</target>
+      </segment>
+    </unit>
+    <unit id="HRw317s" name="update_manager.docker.watchtower_connected">
+      <segment state="translated">
+        <source>update_manager.docker.watchtower_connected</source>
+        <target>Verbunden</target>
+      </segment>
+    </unit>
+    <unit id="HcEk0Mh" name="update_manager.docker.watchtower_unreachable_short">
+      <segment state="translated">
+        <source>update_manager.docker.watchtower_unreachable_short</source>
+        <target>Nicht erreichbar</target>
+      </segment>
+    </unit>
+    <unit id="lMwRNf9" name="update_manager.docker.watchtower_not_configured">
+      <segment state="translated">
+        <source>update_manager.docker.watchtower_not_configured</source>
+        <target>Nicht konfiguriert</target>
+      </segment>
+    </unit>
+    <unit id="IceG9y3" name="update_manager.docker.step_stop">
+      <segment state="translated">
+        <source>update_manager.docker.step_stop</source>
+        <target>Container stoppen</target>
+      </segment>
+    </unit>
+    <unit id="0sq_TgW" name="update_manager.docker.step_stop_desc">
+      <segment state="translated">
+        <source>update_manager.docker.step_stop_desc</source>
+        <target>Aktuellen Container vor der Neuerstellung ordentlich stoppen</target>
+      </segment>
+    </unit>
+    <unit id="et8F1eO" name="update_manager.docker.step_health">
+      <segment state="translated">
+        <source>update_manager.docker.step_health</source>
+        <target>Health Check</target>
+      </segment>
+    </unit>
+    <unit id="v5tHPJK" name="update_manager.docker.step_health_desc">
+      <segment state="translated">
+        <source>update_manager.docker.step_health_desc</source>
+        <target>Warte darauf, dass der neue Container den Health Check besteht</target>
+      </segment>
+    </unit>
+    <unit id="ZLRHnm_" name="update_manager.docker.updating">
+      <segment state="translated">
+        <source>update_manager.docker.updating</source>
+        <target>Part-DB wird über Docker aktualisiert...</target>
+      </segment>
+    </unit>
+    <unit id="b8JxfcX" name="part.create_from_info_provider.lot_filled_from_barcode">
+      <segment state="translated">
+        <source>part.create_from_info_provider.lot_filled_from_barcode</source>
+        <target>[Part_lot] aus Barcode erstellt: Bitte überprüfen Sie, ob die Daten korrekt und gewünscht sind.</target>
+      </segment>
+    </unit>
+    <unit id="F8pQuL9" name="project.bom_import.field_mapping.error.check_delimiter">
+      <segment state="translated">
+        <source>project.bom_import.field_mapping.error.check_delimiter</source>
+        <target>Zuordnungsfehler: Bitte prüfen Sie, ob Sie das richtige Trennzeichen ausgewählt haben!</target>
+      </segment>
+    </unit>
+    <unit id="zl1XJq0" name="settings.ai">
+      <segment state="translated">
+        <source>settings.ai</source>
+        <target>KI</target>
+      </segment>
+    </unit>
+    <unit id="NqxqdyX" name="settings.ai.openrouter">
+      <segment state="translated">
+        <source>settings.ai.openrouter</source>
+        <target>OpenRouter</target>
+      </segment>
+    </unit>
+    <unit id="tWtvoDT" name="settings.ai.lmstudio">
+      <segment state="translated">
+        <source>settings.ai.lmstudio</source>
+        <target>LMStudio</target>
+      </segment>
+    </unit>
+    <unit id="foBzBG2" name="settings.ips.ai_extractor.model">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.model</source>
+        <target>KI-Modell</target>
+      </segment>
+    </unit>
+    <unit id="PbXBTZO" name="settings.ips.ai_extractor.ai_platform">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.ai_platform</source>
+        <target>KI-Plattform</target>
+      </segment>
+    </unit>
+    <unit id="axA7_TL" name="settings.ips.ai_extractor.model.help">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.model.help</source>
+        <target>Das KI-Modell, das für die Extraktion verwendet werden soll. Muss strukturierte Ausgaben unterstützen.</target>
+      </segment>
+    </unit>
+    <unit id="H1SYgGs" name="settings.ips.ai_extractor.max_content_length">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.max_content_length</source>
+        <target>Maximale Webseitentextlänge</target>
+      </segment>
+    </unit>
+    <unit id="SZWiZE3" name="settings.ips.ai_extractor.max_content_length.description">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.max_content_length.description</source>
+        <target>Die maximale Anzahl an Zeichen der Webseite, die an den KI-Dienst gesendet werden.</target>
+      </segment>
+    </unit>
+    <unit id="pCsAHOv" name="settings.ips.ai_extractor.output_language">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.output_language</source>
+        <target>Ausgabesprache</target>
+      </segment>
+    </unit>
+    <unit id="NVHHgpD" name="settings.ips.ai_extractor.output_language.description">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.output_language.description</source>
+        <target>Standardmäßig liefern die Anbieter Informationen in der gleichen Sprache wie die Webseite. Mit dieser Option können Sie die KI bitten, für Sie zu übersetzen. Funktioniert möglicherweise nur mit bestimmten Modellen.</target>
+      </segment>
+    </unit>
+    <unit id="CAeeZlL" name="settings.ips.ai_extractor.additional_instructions">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.additional_instructions</source>
+        <target>Zusätzliche Anweisungen</target>
+      </segment>
+    </unit>
+    <unit id=".UaUMk1" name="settings.ips.ai_extractor.additional_instructions.description">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.additional_instructions.description</source>
+        <target>Die zusätzlichen Anweisungen werden an den System-Prompt angehängt.</target>
+      </segment>
+    </unit>
+    <unit id="Ycfssj2" name="info_providers.search.advanced_options">
+      <segment state="translated">
+        <source>info_providers.search.advanced_options</source>
+        <target>Erweiterte Optionen</target>
+      </segment>
+    </unit>
+    <unit id="xfxZrXn" name="info_providers.no_cache_search">
+      <segment state="translated">
+        <source>info_providers.no_cache_search</source>
+        <target>Suchergebnisse nicht zwischenspeichern / Neue Suche erzwingen</target>
+      </segment>
+    </unit>
+    <unit id="b_oc3T1" name="info_providers.no_cache_details">
+      <segment state="translated">
+        <source>info_providers.no_cache_details</source>
+        <target>Ergebnisdetails nicht zwischenspeichern / Neue Detailabfrage erzwingen</target>
+      </segment>
+    </unit>
+    <unit id="Ja8CCDb" name="info_providers.from_url.method.generic_web">
+      <segment state="translated">
+        <source>info_providers.from_url.method.generic_web</source>
+        <target>Klassischer Web-Scraper</target>
+      </segment>
+    </unit>
+    <unit id="s0kUzFW" name="info_providers.from_url.method.ai_web">
+      <segment state="translated">
+        <source>info_providers.from_url.method.ai_web</source>
+        <target>KI Web-Scraper</target>
+      </segment>
+    </unit>
+    <unit id="HEFB1OC" name="info_providers.from_url.method">
+      <segment state="translated">
+        <source>info_providers.from_url.method</source>
+        <target>Methode</target>
+      </segment>
+    </unit>
+    <unit id="9pG0VtU" name="info_providers.from_url.no_cache">
+      <segment state="translated">
+        <source>info_providers.from_url.no_cache</source>
+        <target>Cache ignorieren / Neue Infoabfrage erzwingen</target>
+      </segment>
+    </unit>
+    <unit id="302Jgvm" name="info_providers.from_url.skip_delegation">
+      <segment state="translated">
+        <source>info_providers.from_url.skip_delegation</source>
+        <target>Nicht an spezialisierte Infoanbieter delegieren</target>
+      </segment>
+    </unit>
+    <unit id="pruvlK8" name="settings.ips.ai_extractor">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor</source>
+        <target>KI Web Extraktor</target>
+      </segment>
+    </unit>
+    <unit id="wILs7pS" name="settings.ips.ai_extractor.description">
+      <segment state="translated">
+        <source>settings.ips.ai_extractor.description</source>
+        <target>Dieser Infoanbieter verwendet ein großes Sprachmodell (LLM), um detaillierte Teileinformationen von beliebigen Shop-URLs zu extrahieren.</target>
+      </segment>
+    </unit>
+    <unit id="1ShZ.1i" name="settings.ai.openrouter.help">
+      <segment state="translated">
+        <source>settings.ai.openrouter.help</source>
+        <target>Zugriff auf viele KI-Modelle über openrouter.ai</target>
+      </segment>
+    </unit>
+    <unit id="kRcgIf0" name="settings.ai.lmstudio.hosturl">
+      <segment state="translated">
+        <source>settings.ai.lmstudio.hosturl</source>
+        <target>Host-URL</target>
+      </segment>
+    </unit>
+    <unit id="UeFbCNh" name="settings.ai.ollama">
+      <segment state="translated">
+        <source>settings.ai.ollama</source>
+        <target>Ollama</target>
+      </segment>
+    </unit>
+    <unit id="9nfJ_vr" name="settings.ai.ollama.endpoint">
+      <segment state="translated">
+        <source>settings.ai.ollama.endpoint</source>
+        <target>Endpoint URL</target>
+      </segment>
+    </unit>
+    <unit id="67dSwE5" name="settings.ai.ollama.apiKey">
+      <segment state="translated">
+        <source>settings.ai.ollama.apiKey</source>
+        <target>API Key</target>
+      </segment>
+    </unit>
+    <unit id="VxXEQUD" name="settings.ai.timeout">
+      <segment state="translated">
+        <source>settings.ai.timeout</source>
+        <target>Timeout</target>
+      </segment>
+    </unit>
+    <unit id="vRgtpoJ" name="settings.ai.timeout.help">
+      <segment state="translated">
+        <source>settings.ai.timeout.help</source>
+        <target>Maximale Wartezeit in Sekunden auf eine Antwort. Die lokale KI-Inferenz kann mehrere Minuten dauern, die Inferenz in der Cloud ist in der Regel schneller.</target>
+      </segment>
+    </unit>
+    <unit id="kuDv.So" name="browser_plugin.recent_pages.title">
+      <segment state="translated">
+        <source>browser_plugin.recent_pages.title</source>
+        <target>Zuletzt besuchte Seiten</target>
+      </segment>
+    </unit>
+    <unit id="AjNj8wk" name="browser_plugin.recent_pages.help">
+      <segment state="translated">
+        <source>browser_plugin.recent_pages.help</source>
+        <target>Hier werden die zuletzt besuchten Seiten angezeigt.</target>
+      </segment>
+    </unit>
+    <unit id="lVUU9s7" name="settings.ips.browser_plugin">
+      <segment state="translated">
+        <source>settings.ips.browser_plugin</source>
+        <target>Browser-Plugin</target>
+      </segment>
+    </unit>
+    <unit id="IrJs3fI" name="settings.ips.browser_plugin.description">
+      <segment state="translated">
+        <source>settings.ips.browser_plugin.description</source>
+        <target>Einstellungen für das Browser-Plugin</target>
+      </segment>
+    </unit>
+    <unit id="_8UrMCB" name="settings.ips.browser_plugin.enabled.help">
+      <segment state="translated">
+        <source>settings.ips.browser_plugin.enabled.help</source>
+        <target>Aktiviert das Browser-Plugin für diese Instanz.</target>
+      </segment>
+    </unit>
+    <unit id="JqcvhX_" name="system.app_secret.insecure.title">
+      <segment state="translated">
+        <source>system.app_secret.insecure.title</source>
+        <target>Unsicheres APP_SECRET</target>
+      </segment>
+    </unit>
+    <unit id="XSSYWTJ" name="system.app_secret.insecure.message">
+      <segment state="translated">
+        <source>system.app_secret.insecure.message</source>
+        <target>Die Umgebungsvariable &lt;code&gt;APP_SECRET&lt;/code&gt; ist auf den Standardwert gesetzt, der mit Part-DB ausgeliefert wird. Dies stellt ein Sicherheitsrisiko dar! Setzen Sie sie in Ihrer Datei &lt;code&gt;.env.local&lt;/code&gt; oder &lt;code&gt;docker-compose.yaml&lt;/code&gt; auf einen neuen Zufallswert.</target>
+      </segment>
+    </unit>
+    <unit id="e7.f3m0" name="system.app_secret.insecure.suggestion">
+      <segment state="translated">
+        <source>system.app_secret.insecure.suggestion</source>
+        <target>Sie können diesen zufällig generierten Wert verwenden (geben Sie ihn niemandem weiter):</target>
+      </segment>
+    </unit>
+    <unit id="pJfdMQU" name="search.extensive_matching">
+      <segment state="translated">
+        <source>search.extensive_matching</source>
+        <target>Erweiterte Übereinstimmung</target>
+      </segment>
+    </unit>
+    <unit id="YO2ZB66" name="search.permit_wildcards">
+      <segment state="translated">
+        <source>search.permit_wildcards</source>
+        <target>&lt;code&gt;%&lt;/code&gt; und &lt;code&gt;_&lt;/code&gt; als Platzhalter behandeln</target>
+      </segment>
+    </unit>
+    <unit id="_nxvnMn" name="search.regexmatching.help">
+      <segment state="translated">
+        <source>search.regexmatching.help</source>
+        <target>Verwenden Sie reguläre Ausdrücke (ohne Mustertrennzeichen) wie %regex%, um nach Teilen zu suchen.</target>
+      </segment>
+    </unit>
+    <unit id="mry8ytG" name="search.extensive_matching.help">
+      <segment state="translated">
+        <source>search.extensive_matching.help</source>
+        <target>Der Suchbegriff wird in Teile zerlegt, und ein Treffer liegt vor, wenn jeder Teil in irgendeinem Feld enthalten ist. Ohne diesen Modus muss der vollständige Suchbegriff in einem einzigen Feld enthalten sein.</target>
+      </segment>
+    </unit>
+    <unit id="zLnKtwP" name="search.permit_wildcards.help">
+      <segment state="translated">
+        <source>search.permit_wildcards.help</source>
+        <target>Wenn aktiviert, wird _ als Platzhalter für ein Zeichen behandelt und % als Platzhalter für null oder mehr Zeichen.</target>
+      </segment>
+    </unit>
+    <unit id="OP7MacF" name="system.trusted_hosts.unconfigured.title">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.title</source>
+        <target>TRUSTED_HOSTS nicht konfiguriert</target>
+      </segment>
+    </unit>
+    <unit id="88NkHLV" name="system.trusted_hosts.unconfigured.message">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.message</source>
+        <target>Die Umgebungsvariable &lt;code&gt;TRUSTED_HOSTS&lt;/code&gt; ist nicht gesetzt. Das bedeutet, dass Part-DB Anfragen für jeden beliebigen Hostnamen akzeptiert, was ein Sicherheitsrisiko darstellen kann (z. B. HTTP-Host-Header-Injection). Es wird empfohlen, dies auf die Hostnamen zu beschränken, unter denen Part-DB tatsächlich erreichbar ist.</target>
+      </segment>
+    </unit>
+    <unit id="qZ_kgWT" name="system.trusted_hosts.unconfigured.suggestion">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.suggestion</source>
+        <target>Legen Sie einen regulären Ausdruck fest, der alle Hostnamen abdeckt, unter denen Part-DB erreichbar sein soll, z. B. basierend auf dem Hostnamen, den Sie für den Zugriff auf diese Seite verwendet haben. Beachten Sie, dass die erforderliche Anführungszeichen-Schreibweise davon abhängt, wo Sie den Wert setzen:</target>
+      </segment>
+    </unit>
+    <unit id="ie4thSr" name="system.trusted_hosts.unconfigured.env_example">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.env_example</source>
+        <target>In Ihrer Datei &lt;code&gt;.env.local&lt;/code&gt; muss der Wert in einfache Anführungszeichen eingeschlossen werden:</target>
+      </segment>
+    </unit>
+    <unit id="ni3hSTN" name="system.trusted_hosts.unconfigured.docker_example">
+      <segment state="translated">
+        <source>system.trusted_hosts.unconfigured.docker_example</source>
+        <target>In &lt;code&gt;docker-compose.yaml&lt;/code&gt; darf der Wert NICHT in Anführungszeichen stehen:</target>
+      </segment>
+    </unit>
+    <unit id="cEwxoSj" name="info_providers.provider_key">
+      <segment state="translated">
+        <source>info_providers.provider_key</source>
+        <target>Informationsquelle</target>
+      </segment>
+    </unit>
+    <unit id="0sjPRNV" name="info_providers.provider_id">
+      <segment state="translated">
+        <source>info_providers.provider_id</source>
+        <target>Provider ID</target>
+      </segment>
+    </unit>
+    <unit id="2DzzAxZ" name="info_providers.provider_url">
+      <segment state="translated">
+        <source>info_providers.provider_url</source>
+        <target>Provider URL</target>
+      </segment>
+    </unit>
+    <unit id="4v3QmF6" name="part.edit.provider_reference">
+      <segment state="translated">
+        <source>part.edit.provider_reference</source>
+        <target>Referenz auf Informationsquelle</target>
+      </segment>
+    </unit>
+    <unit id="9X2qEi7" name="log.element_edited.changed_fields.providerReference.provider_key">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.providerReference.provider_key</source>
+        <target>Informationsquelle</target>
+      </segment>
+    </unit>
+    <unit id="MWXgWDb" name="log.element_edited.changed_fields.providerReference.provider_id">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.providerReference.provider_id</source>
+        <target>Provider ID</target>
+      </segment>
+    </unit>
+    <unit id="83fSFvo" name="part.info_provider_reference.updated_never">
+      <segment state="translated">
+        <source>part.info_provider_reference.updated_never</source>
+        <target>Niemals aktualisiert</target>
+      </segment>
+    </unit>
+    <unit id="yIK_Wtj" name="part.edit.provider_reference.warning">
+      <segment state="translated">
+        <source>part.edit.provider_reference.warning</source>
+        <target>Warnung: Das Ändern der Werte an dieser Stelle kann den Mechanismus zum Abrufen von Informationen beeinträchtigen! Sie sollten nach Möglichkeit die Funktion „Von Informationsquelle aktualisieren“ verwenden.</target>
+      </segment>
+    </unit>
+    <unit id="bNrxe9i" name="perm.api.use_mcp">
+      <segment state="translated">
+        <source>perm.api.use_mcp</source>
+        <target>MCP-Tools verwenden (für KI-Agenten)</target>
+      </segment>
+    </unit>
+    <unit id="ced_8yl" name="api.api_endpoints.mcp_url">
+      <segment state="translated">
+        <source>api.api_endpoints.mcp_url</source>
+        <target>MCP-Endpunkt</target>
+      </segment>
+    </unit>
+    <unit id="a1wK4h_" name="info_providers.capabilities.parameters">
+      <segment state="translated">
+        <source>info_providers.capabilities.parameters</source>
+        <target>Parameter</target>
+      </segment>
+    </unit>
+    <unit id="QivC_me" name="info_providers.expensive">
+      <segment state="translated">
+        <source>info_providers.expensive</source>
+        <target>Kostenintensiv</target>
+      </segment>
+    </unit>
+    <unit id="Hiw406i" name="info_providers.expensive.tooltip">
+      <segment state="translated">
+        <source>info_providers.expensive.tooltip</source>
+        <target>Die Verwendung dieses Informationsanbieters kann zusätzliche Kosten verursachen oder unterliegt sehr strengen Ratenlimits.</target>
+      </segment>
+    </unit>
+    <unit id="XMqiyE0" name="settings.ips.tme.preferMetricFootprint">
+      <segment state="translated">
+        <source>settings.ips.tme.preferMetricFootprint</source>
+        <target>Bevorzuge metrisches Footprint, wenn metrische und zöllige Angaben existieren</target>
+      </segment>
+    </unit>
+    <unit id="APD.vym" name="oauth.authorize.title">
+      <segment state="translated">
+        <source>oauth.authorize.title</source>
+        <target>Anwendung autorisieren</target>
+      </segment>
+    </unit>
+    <unit id="n4Olw59" name="oauth.authorize.description">
+      <segment state="translated">
+        <source>oauth.authorize.description</source>
+        <target>Die Anwendung "%client%" möchte auf Ihr Part-DB-Konto zugreifen.</target>
+      </segment>
+    </unit>
+    <unit id="AkIKt6J" name="oauth.authorize.scopes_intro">
+      <segment state="translated">
+        <source>oauth.authorize.scopes_intro</source>
+        <target>Sie fordert die folgende Zugriffsebene an:</target>
+      </segment>
+    </unit>
+    <unit id="d0cDOn1" name="oauth.authorize.revoke_hint">
+      <segment state="translated">
+        <source>oauth.authorize.revoke_hint</source>
+        <target>Sie können diesen Zugriff jederzeit in Ihren Benutzereinstellungen widerrufen.</target>
+      </segment>
+    </unit>
+    <unit id="qfC3t6R" name="oauth.authorize.approve">
+      <segment state="translated">
+        <source>oauth.authorize.approve</source>
+        <target>Genehmigen</target>
+      </segment>
+    </unit>
+    <unit id="i6N1wqE" name="oauth.authorize.deny">
+      <segment state="translated">
+        <source>oauth.authorize.deny</source>
+        <target>Ablehnen</target>
+      </segment>
+    </unit>
+    <unit id="9fKg3GS" name="oauth.authorize.scope_level.label">
+      <segment state="translated">
+        <source>oauth.authorize.scope_level.label</source>
+        <target>Zu gewährende Zugriffsebene</target>
+      </segment>
+    </unit>
+    <unit id="whHHRxz" name="oauth.authorize.scope_level.help">
+      <segment state="translated">
+        <source>oauth.authorize.scope_level.help</source>
+        <target>Sie können eine restriktivere Zugriffsebene gewähren als von der Anwendung angefordert, dies könnte allerdings die Kompatibilität mit der Anwendung beeinträchtigen.</target>
+      </segment>
+    </unit>
+    <unit id="jQbm4mO" name="oauth.authorize.friendly_name.label">
+      <segment state="translated">
+        <source>oauth.authorize.friendly_name.label</source>
+        <target>Anzeigename (optional)</target>
+      </segment>
+    </unit>
+    <unit id="MPk5zZ9" name="oauth.authorize.friendly_name.help">
+      <segment state="translated">
+        <source>oauth.authorize.friendly_name.help</source>
+        <target>Geben Sie dieser Verbindung einen Namen, um sie von anderen Anwendung mit dem selben Namen unterscheiden zu können unterscheiden zu können.</target>
+      </segment>
+    </unit>
+    <unit id="rPyrHS2" name="oauth.authorize.ttl.label">
+      <segment state="translated">
+        <source>oauth.authorize.ttl.label</source>
+        <target>Angemeldet bleiben für</target>
+      </segment>
+    </unit>
+    <unit id="Z.S5.x2" name="oauth.authorize.ttl.default">
+      <segment state="translated">
+        <source>oauth.authorize.ttl.default</source>
+        <target>Standard (%days% Tage)</target>
+      </segment>
+    </unit>
+    <unit id="yJyRFXa" name="oauth.authorize.ttl.days">
+      <segment state="translated">
+        <source>oauth.authorize.ttl.days</source>
+        <target>%days% Tage</target>
+      </segment>
+    </unit>
+    <unit id="2wcqLve" name="oauth.authorize.ttl.help">
+      <segment state="translated">
+        <source>oauth.authorize.ttl.help</source>
+        <target>Nach Ablauf dieses Zeitraums muss sich die Anwendung erneut bei Ihnen anmelden.</target>
+      </segment>
+    </unit>
+    <unit id="8gH7qHS" name="oauth.authorize.elevated_warning">
+      <segment state="translated">
+        <source>oauth.authorize.elevated_warning</source>
+        <target>Diese Anwendung fordert administrativen oder vollständigen Kontozugriff an, der weit über den normalen Lese-/Bearbeitungszugriff hinausgeht. Genehmigen Sie dies nur, wenn Sie der Anwendung vollständig vertrauen.</target>
+      </segment>
+    </unit>
+    <unit id="DYZhxF6" name="oauth.authorize.elevated_badge">
+      <segment state="translated">
+        <source>oauth.authorize.elevated_badge</source>
+        <target>Erweiterter Zugriff</target>
+      </segment>
+    </unit>
+    <unit id="0SCwv63" name="user.settings.oauth_connected_apps">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps</source>
+        <target>Verbundene Anwendungen</target>
+      </segment>
+    </unit>
+    <unit id="tb_dGmL" name="user.settings.oauth_connected_apps.description">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.description</source>
+        <target>Diese Anwendungen haben sich über die Part-DB-OAuth-Anmeldung angemeldet und wurden mit Zugriff auf Ihr Konto autorisiert. Der Widerruf einer Anwendung hier beendet ihren Zugriff sofort; sie muss den Anmelde-/Zustimmungsbildschirm erneut durchlaufen, um sich wieder zu verbinden.</target>
+      </segment>
+    </unit>
+    <unit id="uxc7X_D" name="user.settings.oauth_connected_apps.none_yet">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.none_yet</source>
+        <target>Noch keine verbundenen Anwendungen.</target>
+      </segment>
+    </unit>
+    <unit id="MDTWYod" name="user.settings.oauth_connected_apps.app_name">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.app_name</source>
+        <target>Anwendung</target>
+      </segment>
+    </unit>
+    <unit id="3.pFaZG" name="user.settings.oauth_connected_apps.access_until">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.access_until</source>
+        <target>Zugriff gültig bis</target>
+      </segment>
+    </unit>
+    <unit id="cOG4vDe" name="user.settings.oauth_connected_apps.revoke">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.revoke</source>
+        <target>Widerrufen</target>
+      </segment>
+    </unit>
+    <unit id="0ecnHaq" name="user.settings.oauth_connected_apps.revoke.title">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.revoke.title</source>
+        <target>Möchten Sie den Zugriff für diese Anwendung wirklich widerrufen?</target>
+      </segment>
+    </unit>
+    <unit id="WfLqvJ6" name="user.settings.oauth_connected_apps.revoke.message">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.revoke.message</source>
+        <target>Die Anwendung verliert sofort den Zugriff auf Part-DB und muss den Anmelde-/Zustimmungsbildschirm erneut durchlaufen, um sich wieder zu verbinden. Diese Aktion kann nicht rückgängig gemacht werden!</target>
+      </segment>
+    </unit>
+    <unit id="rSf25Vc" name="user.settings.oauth_connected_apps.revoked">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.revoked</source>
+        <target>Zugriff erfolgreich widerrufen!</target>
+      </segment>
+    </unit>
+    <unit id="mgk6ZSv" name="user.settings.oauth_connected_apps.scope_level">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.scope_level</source>
+        <target>Zugriffsebene</target>
+      </segment>
+    </unit>
+    <unit id="Irn2ps." name="user.settings.oauth_connected_apps.last_used">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.last_used</source>
+        <target>Zuletzt verwendet</target>
+      </segment>
+    </unit>
+    <unit id="1LsyrkP" name="user.settings.oauth_connected_apps.connected_since">
+      <segment state="translated">
+        <source>user.settings.oauth_connected_apps.connected_since</source>
+        <target>Verbunden seit</target>
+      </segment>
+    </unit>
+    <unit id="F3PROlR" name="perm.system.manage_oauth_clients">
+      <segment state="translated">
+        <source>perm.system.manage_oauth_clients</source>
+        <target>OAuth2-Clients verwalten</target>
+      </segment>
+    </unit>
+    <unit id="TCKm90l" name="oauth_clients.title">
+      <segment state="translated">
+        <source>oauth_clients.title</source>
+        <target>OAuth2-Clients</target>
+      </segment>
+    </unit>
+    <unit id="GbvDqBV" name="oauth_clients.description">
+      <segment state="translated">
+        <source>oauth_clients.description</source>
+        <target>Bei Part-DBs OAuth2-Server registrierte Anwendungen (üblicherweise über die offene Dynamic Client Registration, RFC 7591 - jede Anwendung kann sich selbst registrieren, daher ist der eigentliche Zugriffskontrollpunkt der Zustimmungsbildschirm, den ein Benutzer sieht, bevor er einer dieser Anwendungen Zugriff auf sein Konto gewährt). Das Löschen eines Clients hier widerruft sofort allen jemals gewährten Zugriff und verhindert seine weitere Verwendung.</target>
+      </segment>
+    </unit>
+    <unit id="6DTnzEE" name="oauth_clients.none_yet">
+      <segment state="translated">
+        <source>oauth_clients.none_yet</source>
+        <target>Noch keine OAuth2-Clients registriert.</target>
+      </segment>
+    </unit>
+    <unit id="x.F3MN4" name="oauth_clients.name">
+      <segment state="translated">
+        <source>oauth_clients.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="ss2tun8" name="oauth_clients.client_id">
+      <segment state="translated">
+        <source>oauth_clients.client_id</source>
+        <target>Client-ID</target>
+      </segment>
+    </unit>
+    <unit id="azV0sIv" name="oauth_clients.scopes">
+      <segment state="translated">
+        <source>oauth_clients.scopes</source>
+        <target>Berechtigungen</target>
+      </segment>
+    </unit>
+    <unit id="1dbGJ7H" name="oauth_clients.redirect_uris">
+      <segment state="translated">
+        <source>oauth_clients.redirect_uris</source>
+        <target>Weiterleitungs-URIs</target>
+      </segment>
+    </unit>
+    <unit id=".axlZHX" name="oauth_clients.status">
+      <segment state="translated">
+        <source>oauth_clients.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="U4vNBxV" name="oauth_clients.active">
+      <segment state="translated">
+        <source>oauth_clients.active</source>
+        <target>Aktiv</target>
+      </segment>
+    </unit>
+    <unit id="qte22mM" name="oauth_clients.inactive">
+      <segment state="translated">
+        <source>oauth_clients.inactive</source>
+        <target>Inaktiv</target>
+      </segment>
+    </unit>
+    <unit id="ux5P.d3" name="oauth_clients.dynamically_registered">
+      <segment state="translated">
+        <source>oauth_clients.dynamically_registered</source>
+        <target>Automatisch registriert</target>
+      </segment>
+    </unit>
+    <unit id="oo744Uz" name="oauth_clients.dynamically_registered.help">
+      <segment state="translated">
+        <source>oauth_clients.dynamically_registered.help</source>
+        <target>Dieser Client hat sich automatisch über Dynamic Client Registration (RFC 7591) selbst registriert, anstatt von einem Administrator angelegt worden zu sein.</target>
+      </segment>
+    </unit>
+    <unit id="Pa66ymI" name="oauth_clients.live_tokens">
+      <segment state="translated">
+        <source>oauth_clients.live_tokens</source>
+        <target>Aktive Zugriffstoken</target>
+      </segment>
+    </unit>
+    <unit id="FxxYm5n" name="oauth_clients.live_refresh_tokens">
+      <segment state="translated">
+        <source>oauth_clients.live_refresh_tokens</source>
+        <target>Aktive Refresh-Token</target>
+      </segment>
+    </unit>
+    <unit id="CjdVrcW" name="oauth_clients.delete">
+      <segment state="translated">
+        <source>oauth_clients.delete</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="LOD0h3Q" name="oauth_clients.delete.title">
+      <segment state="translated">
+        <source>oauth_clients.delete.title</source>
+        <target>Möchten Sie diesen OAuth2-Client wirklich löschen?</target>
+      </segment>
+    </unit>
+    <unit id="XipnUiR" name="oauth_clients.delete.message">
+      <segment state="translated">
+        <source>oauth_clients.delete.message</source>
+        <target>Dies widerruft sofort allen jemals gewährten Zugriff dieser Anwendung, für alle Benutzer. Diese Aktion kann nicht rückgängig gemacht werden; die Anwendung müsste sich erneut registrieren, um sich wieder zu verbinden.</target>
+      </segment>
+    </unit>
+    <unit id="tbHDOBp" name="oauth_clients.deleted">
+      <segment state="translated">
+        <source>oauth_clients.deleted</source>
+        <target>OAuth2-Client erfolgreich gelöscht!</target>
+      </segment>
+    </unit>
+    <unit id="7vdBsoN" name="oauth_clients.create.title">
+      <segment state="translated">
+        <source>oauth_clients.create.title</source>
+        <target>Einen neuen Client manuell registrieren</target>
+      </segment>
+    </unit>
+    <unit id="NxxzyP." name="oauth_clients.new_button">
+      <segment state="translated">
+        <source>oauth_clients.new_button</source>
+        <target>Neuen Client registrieren</target>
+      </segment>
+    </unit>
+    <unit id="7XHDbAc" name="oauth_clients.create.name">
+      <segment state="translated">
+        <source>oauth_clients.create.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="Id1.iuI" name="oauth_clients.create.redirect_uris">
+      <segment state="translated">
+        <source>oauth_clients.create.redirect_uris</source>
+        <target>Weiterleitungs-URIs</target>
+      </segment>
+    </unit>
+    <unit id="wyfhoYU" name="oauth_clients.create.redirect_uris.help">
+      <segment state="translated">
+        <source>oauth_clients.create.redirect_uris.help</source>
+        <target>Eine URI pro Zeile. Muss https://, eine Loopback-http://-Adresse (127.0.0.1/localhost) oder ein privates URI-Schema sein (z. B. com.example.app:/callback).</target>
+      </segment>
+    </unit>
+    <unit id="mF.lZGT" name="oauth_clients.create.scopes">
+      <segment state="translated">
+        <source>oauth_clients.create.scopes</source>
+        <target>Erlaubte Zugriffsebenen</target>
+      </segment>
+    </unit>
+    <unit id="FQP97Iy" name="oauth_clients.create.scopes.elevated_help">
+      <segment state="translated">
+        <source>oauth_clients.create.scopes.elevated_help</source>
+        <target>Erlauben Sie "Administrator" oder "Vollständig" nur für Clients, denen Sie vollständig vertrauen und die Sie kontrollieren - selbstregistrierte Clients (z. B. sich automatisch bereitstellende MCP-Anwendungen) können diese Ebenen niemals selbst anfordern.</target>
+      </segment>
+    </unit>
+    <unit id="PPgniXW" name="oauth_clients.create.submit">
+      <segment state="translated">
+        <source>oauth_clients.create.submit</source>
+        <target>Client registrieren</target>
+      </segment>
+    </unit>
+    <unit id="lUKK..z" name="oauth_clients.created">
+      <segment state="translated">
+        <source>oauth_clients.created</source>
+        <target>OAuth2-Client erfolgreich registriert! Client-ID: %client_id%</target>
+      </segment>
+    </unit>
+    <unit id="TPIdHxC" name="oauth_clients.edit">
+      <segment state="translated">
+        <source>oauth_clients.edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="tSop1t3" name="oauth_clients.edit.title">
+      <segment state="translated">
+        <source>oauth_clients.edit.title</source>
+        <target>OAuth2-Client bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="VaBQ9jX" name="oauth_clients.edit.active">
+      <segment state="translated">
+        <source>oauth_clients.edit.active</source>
+        <target>Aktiv</target>
+      </segment>
+    </unit>
+    <unit id="6CH6SAh" name="oauth_clients.edit.active.help">
+      <segment state="translated">
+        <source>oauth_clients.edit.active.help</source>
+        <target>Inaktive Clients können nicht mehr zum Anfordern oder Erneuern von Zugriffstoken verwendet werden, ihre bestehende Registrierung und aktive Token bleiben jedoch bis zur Löschung erhalten.</target>
+      </segment>
+    </unit>
+    <unit id="hbA0R.U" name="oauth_clients.edit.submit">
+      <segment state="translated">
+        <source>oauth_clients.edit.submit</source>
+        <target>Änderungen speichern</target>
+      </segment>
+    </unit>
+    <unit id="1WsHABD" name="oauth_clients.edit.back">
+      <segment state="translated">
+        <source>oauth_clients.edit.back</source>
+        <target>Zurück zur Übersicht</target>
+      </segment>
+    </unit>
+    <unit id="E5sueue" name="oauth_clients.updated">
+      <segment state="translated">
+        <source>oauth_clients.updated</source>
+        <target>OAuth2-Client erfolgreich aktualisiert!</target>
       </segment>
     </unit>
     <unit id="QCg5KCx" name="project.edit.bom.performance_mode_warning">

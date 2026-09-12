@@ -25,7 +25,6 @@ namespace App\Services\Attachments;
 use App\Settings\SystemSettings\AttachmentsSettings;
 use Imagine\Exception\RuntimeException;
 use App\Entity\Attachments\Attachment;
-use InvalidArgumentException;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Psr\Log\LoggerInterface;
 use function strlen;

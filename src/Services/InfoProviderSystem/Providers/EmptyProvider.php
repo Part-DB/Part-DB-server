@@ -23,10 +23,8 @@ declare(strict_types=1);
 
 namespace App\Services\InfoProviderSystem\Providers;
 
-use App\Services\InfoProviderSystem\DTOs\FileDTO;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
-use App\Services\InfoProviderSystem\DTOs\SearchResultDTO;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
 /**

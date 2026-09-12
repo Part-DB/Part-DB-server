@@ -43,7 +43,6 @@ use Doctrine\ORM\Mapping\MappingException;
 use Exception;
 use InvalidArgumentException;
 use ReflectionClass;
-use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 class TimeTravel
 {

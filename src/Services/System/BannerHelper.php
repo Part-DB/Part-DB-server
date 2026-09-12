@@ -28,9 +28,9 @@ use App\Settings\SystemSettings\CustomizationSettings;
 /**
  * Helper service to retrieve the banner of this Part-DB installation
  */
-class BannerHelper
+readonly class BannerHelper
 {
-    public function __construct(private readonly CustomizationSettings $customizationSettings)
+    public function __construct(private CustomizationSettings $customizationSettings)
     {
 
     }

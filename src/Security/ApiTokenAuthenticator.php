@@ -44,14 +44,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  * Authenticator similar to the builtin AccessTokenAuthenticator, but we return a Token here which contains information
  * about the used token.
  */
-class ApiTokenAuthenticator implements AuthenticatorInterface
+readonly class ApiTokenAuthenticator implements AuthenticatorInterface
 {
     public function __construct(
         #[Autowire(service: 'security.access_token_extractor.main')]
-        private readonly AccessTokenExtractorInterface $accessTokenExtractor,
-        private readonly TranslatorInterface $translator,
-        private readonly EntityManagerInterface $entityManager,
-        private readonly string $realm = 'api',
+        private AccessTokenExtractorInterface $accessTokenExtractor,
+        private TranslatorInterface $translator,
+        private EntityManagerInterface $entityManager,
+        private string $realm = 'api',
     ) {
     }
 

@@ -34,14 +34,14 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
  * This state processor handles the upload property set on the deserialized attachment entity and
  * calls the upload handler service to handle the upload.
  */
-final class HandleAttachmentsUploadsProcessor implements ProcessorInterface
+final readonly class HandleAttachmentsUploadsProcessor implements ProcessorInterface
 {
     public function __construct(
         #[Autowire(service: 'api_platform.doctrine.orm.state.persist_processor')]
-        private readonly ProcessorInterface $persistProcessor,
+        private ProcessorInterface $persistProcessor,
         #[Autowire(service: 'api_platform.doctrine.orm.state.remove_processor')]
-        private readonly ProcessorInterface $removeProcessor,
-        private readonly AttachmentSubmitHandler $attachmentSubmitHandler
+        private ProcessorInterface $removeProcessor,
+        private AttachmentSubmitHandler $attachmentSubmitHandler
     ) {
 
     }

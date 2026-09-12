@@ -1019,7 +1019,6 @@ class OEMSecretsProvider implements InfoProviderInterface
     private function releaseStatusCodeToManufacturingStatus(?string $productStatus, int $availableInStock = 0): ?ManufacturingStatus
     {
         $tmp = match ($productStatus) {
-            null => null,
             "New Product" => ManufacturingStatus::ANNOUNCED,
             "Not Recommended for New Designs" => ManufacturingStatus::NRFND,
             "Factory Special Order", "Obsolete" => ManufacturingStatus::DISCONTINUED,
@@ -1249,7 +1248,7 @@ class OEMSecretsProvider implements InfoProviderInterface
     {
         $baseUrl = rtrim($this->getProviderInfo()->url, '/') . '/';
         $inquiryPath = trim($oemInquiry, '/') . '/';
-        $encodedPartNumber = urlencode(trim($partNumber));
+        $encodedPartNumber = rawurlencode(trim($partNumber));
         return $baseUrl . $inquiryPath . $encodedPartNumber;
     }
 
@@ -1320,6 +1319,7 @@ class OEMSecretsProvider implements InfoProviderInterface
                 return strcasecmp($a->manufacturer, $b->manufacturer);
             }
 
+            throw new \RuntimeException("Invalid sort mode: {$this->settings->sortMode->name}");
         });
     }
 

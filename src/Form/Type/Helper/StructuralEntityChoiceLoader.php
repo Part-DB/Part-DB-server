@@ -154,7 +154,7 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
      * @param  AbstractNamedDBElement|null  $starting_element
      * @return StructuralEntityChoiceLoader
      */
-    public function setStartingElement(?AbstractNamedDBElement $starting_element): StructuralEntityChoiceLoader
+    public function setStartingElement(?AbstractNamedDBElement $starting_element): self
     {
         $this->starting_element = $starting_element;
         return $this;

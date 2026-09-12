@@ -1,4 +1,4 @@
-# Generated on Mon Aug 24 03:09:56 UTC 2026
+# Generated on Mon Aug 31 08:31:16 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -5271,6 +5271,18 @@ Converter_DCDC_Isolated:TEN3-11015WIRH
 Converter_DCDC_Isolated:TEN3-11021WIRH
 Converter_DCDC_Isolated:TEN3-11022WIRH
 Converter_DCDC_Isolated:TEN3-11023WIRH
+Converter_DCDC_Isolated:TEN30-3611UIR
+Converter_DCDC_Isolated:TEN30-3612UIR
+Converter_DCDC_Isolated:TEN30-3613UIR
+Converter_DCDC_Isolated:TEN30-3615UIR
+Converter_DCDC_Isolated:TEN30-3622UIR
+Converter_DCDC_Isolated:TEN30-3623UIR
+Converter_DCDC_Isolated:TEN30-7211UIR
+Converter_DCDC_Isolated:TEN30-7212UIR
+Converter_DCDC_Isolated:TEN30-7213UIR
+Converter_DCDC_Isolated:TEN30-7215UIR
+Converter_DCDC_Isolated:TEN30-7222UIR
+Converter_DCDC_Isolated:TEN30-7223UIR
 Converter_DCDC_Isolated:TEN40-11011WIRH
 Converter_DCDC_Isolated:TEN40-11012WIRH
 Converter_DCDC_Isolated:TEN40-11013WIRH
@@ -9102,6 +9114,7 @@ Interface_USB:TPS2514A
 Interface_USB:TPS2560
 Interface_USB:TPS2561
 Interface_USB:TPS25730D
+Interface_USB:TPS25751D
 Interface_USB:TPS25810RVC
 Interface_USB:TS3USB30EDGSR
 Interface_USB:TS3USB30ERSWR
