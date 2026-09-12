@@ -804,7 +804,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
     <unit id="xO5KNgb" name="homepage.github.text">
       <segment state="translated">
         <source>homepage.github.text</source>
-        <target>Kod źródłowy, pliki do pobrania, raporty o błędach, listę rzeczy do zrobienia itp. można znaleźć na stronie projektu &lt;a class=„link-external” target=„_blank” href=„%href%”&gt;GitHub&lt;/a&gt;</target>
+        <target>Kod źródłowy, pliki do pobrania, raporty o błędach, listę rzeczy do zrobienia itp. można znaleźć na stronie projektu &lt;a class="link-external" target="_blank" href="%href%"&gt;GitHub&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="D5OKsgU" name="homepage.help.caption">
@@ -816,7 +816,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
     <unit id="bVL1K4d" name="homepage.help.text">
       <segment state="translated">
         <source>homepage.help.text</source>
-        <target>Pomoc i wskazówki można znaleźć w Wiki na stronie &lt;a href=„%href%” class=„link-external” target=„_blank”&gt;GitHub&lt;/a&gt;.</target>
+        <target>Pomoc i wskazówki można znaleźć w Wiki na stronie &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="dnirx4v" name="homepage.forum.caption">
@@ -7703,7 +7703,7 @@ Element 3</target>
     <unit id="Q79MOIk" name="homepage.first_steps.create_part">
       <segment state="translated">
         <source>homepage.first_steps.create_part</source>
-        <target>Możesz też bezpośrednio &lt;a href=„%url%”&gt;utworzyć nową część&lt;/a&gt;.</target>
+        <target>Możesz też bezpośrednio &lt;a href="%url%"&gt;utworzyć nową część&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="vplYq4f" name="homepage.first_steps.hide_hint">
@@ -10568,7 +10568,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="1RN3Xwz" name="settings.misc.ipn_suggest.suggestPartDigits.help">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.suggestPartDigits.help</source>
-        <target>Gdy włączone, opis części jest używany w celu znalezienia istniejących części z takim samym opisem i ustalenia następnej dostępnej wartości IPN poprzez zwiększenie wartości liczbowych na liście sugestii.</target>
+        <target>Liczba cyfr używana do przyrostowego numerowania części w systemie sugestii IPN (wewnętrznych numerów części).</target>
       </segment>
     </unit>
     <unit id="Ffr5xYM" name="settings.behavior.part_info">
@@ -12940,7 +12940,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="Pu8juaH" name="settings.ips.generic_web_provider.enabled.help">
       <segment state="translated">
         <source>settings.ips.generic_web_provider.enabled.help</source>
-        <target>Jeśli ten dostawca jest włączony, użytkownicy mogą wysyłać żądania to dowolnych stron internetowych poprzez serwer Part-DB. Włącz tylko, jeśli jesteś świadomy potencjalnych konsekwencji.</target>
+        <target>Jeśli ten dostawca jest włączony, użytkownicy mogą wysyłać żądania do dowolnych stron internetowych poprzez serwer Part-DB. Włącz tylko, jeśli jesteś świadomy potencjalnych konsekwencji.</target>
       </segment>
     </unit>
     <unit id="IvIOYcn" name="info_providers.from_url.title">
