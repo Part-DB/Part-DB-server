@@ -211,7 +211,7 @@ final readonly class KiCadHelper
         ];
 
         $result["fields"]["footprint"] = $this->createField($part->getEdaInfo()->getKicadFootprint() ?? $part->getFootprint()?->getEdaInfo()->getKicadFootprint() ?? "");
-        $result["fields"]["reference"] = $this->createField($part->getEdaInfo()->getReferencePrefix() ?? $part->getCategory()?->getEdaInfo()->getReferencePrefix() ?? 'U', true);
+        $result["fields"]["reference"] = $this->createField($this->getReferencePrefix($part), true);
         $result["fields"]["value"] = $this->createField($part->getEdaInfo()->getValue() ?? $part->getName(), true);
         $result["fields"]["keywords"] = $this->createField($part->getTags());
 
@@ -353,6 +353,36 @@ final readonly class KiCadHelper
         }
 
         return $result;
+    }
+
+    /**
+     * Resolve the reference prefix for the given part.
+     *
+     * A part without its own reference prefix inherits the prefix of the closest category
+     * ancestor that defines one (a category tree can be several levels deep, see issue #1535).
+     * If neither the part nor any category ancestor defines a prefix, 'U' is used as fallback.
+     */
+    private function getReferencePrefix(Part $part): string
+    {
+        $prefix = $part->getEdaInfo()->getReferencePrefix();
+        if ($prefix !== null && $prefix !== '') {
+            return $prefix;
+        }
+
+        //Walk the category tree upwards: the closest ancestor with a prefix wins.
+        $category = $part->getCategory();
+        $depth = 0;
+        while ($category !== null && $depth < 20) {
+            $prefix = $category->getEdaInfo()->getReferencePrefix();
+            if ($prefix !== null && $prefix !== '') {
+                return $prefix;
+            }
+
+            $category = $category->getParent();
+            ++$depth;
+        }
+
+        return 'U';
     }
 
     /**
