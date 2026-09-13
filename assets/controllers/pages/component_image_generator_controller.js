@@ -1260,7 +1260,7 @@ export default class extends Controller {
     syncCap(event) {
         const field = event.currentTarget.dataset.field;
         const raw = event.currentTarget.value;
-        let pf = null;
+        let pf;
         if (field === "value") {
             const farads = this.parseValue(raw, "F");
             pf = farads === null ? null : farads * 1e12;
