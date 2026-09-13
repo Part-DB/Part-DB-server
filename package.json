@@ -2,6 +2,7 @@
     "devDependencies": {
         "@babel/core": "^8.0.0",
         "@babel/preset-env": "^8.0.0",
+        "@eslint/js": "^10.0.1",
         "@fortawesome/fontawesome-free": "^7.0.0",
         "@hotwired/stimulus": "^3.0.0",
         "@hotwired/turbo": "^8.0.1",
@@ -13,6 +14,8 @@
         "babel-plugin-polyfill-corejs3": "^1.0.0",
         "bootstrap": "^5.1.3",
         "core-js": "^3.49.0",
+        "eslint": "^10.10.0",
+        "globals": "^17.12.0",
         "intl-messageformat": "^10.5.11",
         "popper.js": "^1.14.7",
         "regenerator-runtime": "^0.14.1",
@@ -27,7 +30,9 @@
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
-        "build": "encore production --progress"
+        "build": "encore production --progress",
+        "lint": "eslint assets",
+        "lint:fix": "eslint assets --fix"
     },
     "engines": {
         "node": ">=22.0.0"

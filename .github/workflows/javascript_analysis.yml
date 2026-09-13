@@ -1,0 +1,44 @@
+name: JavaScript static analysis
+
+permissions:
+    contents: read
+
+on:
+  push:
+    branches:
+      - '*'
+      - "!l10n_*" # Dont test localization branches
+  pull_request:
+    branches:
+      - '*'
+      - "!l10n_*"
+
+jobs:
+  eslint:
+    name: JavaScript static analysis
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "dir=$(yarn cache dir)" >> "$GITHUB_OUTPUT"
+
+    - uses: actions/cache@v6
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
+    - name: Setup node
+      uses: actions/setup-node@v7
+      with:
+        node-version: '22'
+
+    - name: Install yarn dependencies
+      run: yarn install --frozen-lockfile
+
+    - name: Run ESLint
+      run: yarn lint
