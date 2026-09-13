@@ -24,7 +24,9 @@ import 'datatables.net-bs5/css/dataTables.bootstrap5.css'
 import 'datatables.net-buttons-bs5/css/buttons.bootstrap5.css'
 import 'datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.css'
 import 'datatables.net-responsive-bs5/css/responsive.bootstrap5.css';
-import 'datatables.net-colreorder-bs5/css/colReorder.bootstrap5.css';
+
+//Do not include the colReorder styles, as they are not needed as the border styles are weird, when changing sorting of a column
+//import 'datatables.net-colreorder-bs5/css/colReorder.bootstrap5.css';
 
 //Use our own styles for the select extension which fit the bootstrap theme better
 //import 'datatables.net-select-bs5/css/select.bootstrap5.css';
