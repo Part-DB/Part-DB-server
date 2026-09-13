@@ -14,7 +14,6 @@
         "bootstrap": "^5.1.3",
         "core-js": "^3.49.0",
         "intl-messageformat": "^10.5.11",
-        "jquery": "^4.0.0",
         "popper.js": "^1.14.7",
         "regenerator-runtime": "^0.14.1",
         "webpack": "^5.82",
@@ -78,8 +77,5 @@
         "tom-select": "^2.1.0",
         "ts-loader": "^9.2.6",
         "typescript": "^6.0.2"
-    },
-    "resolutions": {
-        "jquery": "^4.0.0"
     }
 }

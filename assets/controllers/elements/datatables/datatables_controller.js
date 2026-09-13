@@ -37,9 +37,9 @@ import 'datatables.net-buttons/js/buttons.colVis.js';
 import 'datatables.net-fixedheader-bs5';
 import 'datatables.net-colreorder-bs5';
 import 'datatables.net-responsive-bs5';
-import '../../../js/lib/datatables';
-
 import 'datatables.net-select-bs5';
+
+import {initDataTables} from '../../../js/lib/datatables';
 
 
 const EVENT_DT_LOADED = 'dt:loaded';
@@ -88,9 +88,6 @@ export default class extends Controller {
     }
 
     connect() {
-        //$($.fn.DataTable.tables()).DataTable().fixedHeader.disable();
-        //$($.fn.DataTable.tables()).DataTable().destroy();
-
         const settings = JSON.parse(this.element.dataset.dtSettings);
         if(!settings) {
             throw new Error("No settings provided for datatable!");
@@ -132,8 +129,8 @@ export default class extends Controller {
             colReorder: true,
             responsive: true,
             fixedHeader: {
-                header: $(window).width() >= 768, //Only enable fixedHeaders on devices with big screen. Fixes scrolling issues on smartphones.
-                headerOffset: $("#navbar").outerHeight()
+                header: window.innerWidth >= 768, //Only enable fixedHeaders on devices with big screen. Fixes scrolling issues on smartphones.
+                headerOffset: document.getElementById('navbar')?.offsetHeight
             },
             buttons: [{
                 "extend": 'colvis',
@@ -156,8 +153,7 @@ export default class extends Controller {
             };
         }
 
-        //@ts-ignore
-        const promise = $(this.dtTarget).initDataTables(settings, options)
+        const promise = initDataTables(this.dtTarget, settings, options)
             //Register error handler
             .catch(err => {
                 console.error("Error initializing datatables: " + err);
@@ -203,7 +199,7 @@ export default class extends Controller {
 
         promise.then((dt) => {
             //Recalculate the fixed header offset, as the navbar should be rendered now
-            dt.fixedHeader.headerOffset($("#navbar").outerHeight());
+            dt.fixedHeader.headerOffset(document.getElementById('navbar')?.offsetHeight);
         });
 
         //Allow to further configure the datatable
@@ -224,7 +220,7 @@ export default class extends Controller {
 
         //Check if we have a level, then change color of this row
         if (data.$$rowClass) {
-            $(row).addClass(data.$$rowClass);
+            data.$$rowClass.split(' ').filter(Boolean).forEach((cls) => row.classList.add(cls));
         }
     }
 
