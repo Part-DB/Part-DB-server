@@ -1,4 +1,4 @@
-# Generated on Mon Sep  7 07:13:21 UTC 2026
+# Generated on Mon Sep 14 07:47:35 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -2222,6 +2222,7 @@ Auxiliary_Items:Memory_Module
 Auxiliary_Items:Mounting_Screw
 Auxiliary_Items:PC_Bracket
 Auxiliary_Items:Power_Supply
+Auxiliary_Items:QR-Code
 Auxiliary_Items:SD_Card
 Auxiliary_Items:SIM_Card
 Auxiliary_Items:Spacer
@@ -8384,6 +8385,9 @@ Filter:SF14-1575F5UUC1
 GPU:MC6845
 GPU:MC68A45
 GPU:MC68B45
+Graphic:Annotation_Exclamation
+Graphic:Annotation_Number
+Graphic:Annotation_Question
 Graphic:Logo_Open_Hardware_Large
 Graphic:Logo_Open_Hardware_Small
 Graphic:SYM_Arrow45_Large
@@ -9541,6 +9545,7 @@ Isolator:TLP184xSE
 Isolator:TLP185
 Isolator:TLP185xSE
 Isolator:TLP2310
+Isolator:TLP2361
 Isolator:TLP2703
 Isolator:TLP2745
 Isolator:TLP2748
@@ -9742,8 +9747,12 @@ Logic_LevelTranslator:TXS0104ED
 Logic_LevelTranslator:TXS0104EPW
 Logic_LevelTranslator:TXS0108EPW
 Logic_LevelTranslator:TXS02612RTW
+Logic_LevelTranslator:TXU0304BQA
+Logic_LevelTranslator:TXU0304PW
+Logic_LevelTranslator:TXU0304RUT
 Logic_Programmable:ATF16V8Bxx-xxPU
 Logic_Programmable:GAL16V8
+Logic_Programmable:N82S100
 Logic_Programmable:PAL16L8
 Logic_Programmable:PAL16R8
 Logic_Programmable:PAL16RP8A
@@ -11851,6 +11860,7 @@ MCU_Nordic:nRF52833_QDxx
 MCU_Nordic:nRF52833_QIxx
 MCU_Nordic:nRF52840
 MCU_Nordic:nRF5340-QKxx
+MCU_Nordic:nRF9151-LAxx
 MCU_Nordic:nRF9160-SIxA
 MCU_Parallax:P8X32A-D40
 MCU_Parallax:P8X32A-M44
@@ -19655,6 +19665,7 @@ Regulator_Switching:NCP1077STBT
 Regulator_Switching:NCP1077STCT
 Regulator_Switching:NCP1529A
 Regulator_Switching:NCV33063AVD
+Regulator_Switching:NEX40400xDAZ
 Regulator_Switching:NID30S24-05
 Regulator_Switching:NID30S24-12
 Regulator_Switching:NID30S24-15
@@ -20256,6 +20267,7 @@ Relay:JQC-3FF-048-1Z
 Relay:JW2
 Relay:MSxx-1Axx-75
 Relay:MSxx-1Bxx-75
+Relay:MiRelay_SIP-HV1Axx
 Relay:Panasonic_ALFG1PF09
 Relay:Panasonic_ALFG1PF091
 Relay:Panasonic_ALFG1PF12

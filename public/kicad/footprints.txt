@@ -1,4 +1,4 @@
-# Generated on Mon Sep  7 07:12:47 UTC 2026
+# Generated on Mon Sep 14 07:46:57 UTC 2026
 # This file contains all footprints available in the offical KiCAD library
 Audio_Module:Reverb_BTDR-1H
 Audio_Module:Reverb_BTDR-1V
@@ -8385,6 +8385,8 @@ Converter_DCDC:Converter_DCDC_TRACO_TMV-051xD_121xD_Dual_THT
 Converter_DCDC:Converter_DCDC_TRACO_TMV-051xS_121xS_Single_THT
 Converter_DCDC:Converter_DCDC_TRACO_TMV-241xD_Dual_THT
 Converter_DCDC:Converter_DCDC_TRACO_TMV-241xS_Single_THT
+Converter_DCDC:Converter_DCDC_TRACO_TMV-xxxxDEN_Dual_THT
+Converter_DCDC:Converter_DCDC_TRACO_TMV-xxxxEN_Single_THT
 Converter_DCDC:Converter_DCDC_TRACO_TOS06-05SIL_THT
 Converter_DCDC:Converter_DCDC_TRACO_TOS06-12SIL_THT
 Converter_DCDC:Converter_DCDC_TRACO_TRA3-xxxx_THT
@@ -10958,6 +10960,7 @@ Package_BGA:MAPBGA-289_14x14mm_Layout17x17_P0.8mm
 Package_BGA:Maxim_WLP-12
 Package_BGA:Maxim_WLP-12_2.008x1.608mm_Layout4x3_P0.4mm
 Package_BGA:Maxim_WLP-9_1.595x1.415_Layout3x3_P0.4mm_Ball0.27mm_Pad0.25mm_NSMD
+Package_BGA:Microchip_4HB_TFBGA-343_14x14mm_Layout21x21_P0.65mm
 Package_BGA:Microchip_FCG1152_BGA-1152_35x35mm_Layout34x34_P1.0mm
 Package_BGA:Microchip_FCSG325_BGA-325_11x11mm_Layout21x21_P0.5mm
 Package_BGA:Microchip_FCSG536_BGA-536_16x16mm_Layout30x30_P0.5mm
@@ -11450,7 +11453,9 @@ Package_DFN_QFN:Mini-Circuits_DL805
 Package_DFN_QFN:Mini-Circuits_FG873-4_3x3mm
 Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45
 Package_DFN_QFN:NXP_LQFN-48-1EP_7x7mm_P0.5mm_EP3.5x3.5mm_16xMask0.45x0.45_ThermalVias
+Package_DFN_QFN:NXP_SOT1832-1_UQFN-16-1EP_1.6x2.4mm_P0.4mm_EP0.6x1.4mm
 Package_DFN_QFN:NXP_VQFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm
+Package_DFN_QFN:Nisshinbo_DFN-6_1EP_1x1mm_P0.35mm
 Package_DFN_QFN:Nordic_AQFN-73-1EP_7x7mm_P0.5mm
 Package_DFN_QFN:Nordic_AQFN-94-1EP_7x7mm_P0.4mm
 Package_DFN_QFN:OnSemi_DFN-14-1EP_4x4mm_P0.5mm_EP2.7x3.4mm
@@ -13896,6 +13901,7 @@ Relay_THT:Relay_SPST_Hongfa_HF3F-L-xx-1HL1T
 Relay_THT:Relay_SPST_Hongfa_HF3F-L-xx-1HL2T
 Relay_THT:Relay_SPST_Hongfa_HF3F-L-xx-1HL2T-R
 Relay_THT:Relay_SPST_Hongfa_JQC-3FF_0XX-1H
+Relay_THT:Relay_SPST_MiRelay_SIP-HV1Axx
 Relay_THT:Relay_SPST_Omron-G5Q-1A
 Relay_THT:Relay_SPST_Omron_G2RL-1A
 Relay_THT:Relay_SPST_Omron_G2RL-1A-E
