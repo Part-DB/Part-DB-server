@@ -19,53 +19,59 @@
     {# The page div ensures the page breaks, while the page-inner elements restrict the content to the page size. Since dompdf 3.1.1 we cannot apply the position: absolute; to the page element directly. #}
     <div class="page">
     <div class="page-inner">
-    <table col="{{ options.gridColumns }}" row="{{ options.gridRows }}"><tr>
+    <table col="{{ options.gridColumns }}" row="{{ options.gridRows }}">
+    <tr>
     {% endset %}
 
     {% set end_page %}
-        </tr></table></div><div style="page-break-after:always"></div>
+    </tr>
+    </table>
+    </div>
+    </div>
     {% endset %}
 
+    {% set reduced_skip_count = options.skipCount % (options.gridColumns * options.gridRows) %}
+    {% set header = [] %}
+    {% if reduced_skip_count > 0 %}
+        {% for i in (1 .. reduced_skip_count) %}
+            {% set header = header|merge({(-reduced_skip_count + i): null}) %}
+        {% endfor %}
+    {% endif %}
+
+    {% set incomplete_row = (elements|length + header|length) % options.gridColumns %}
+    {% set trailer = [] %}
+    {% if options.gridColumns > 1 and incomplete_row > 0 %}
+        {% for i in (incomplete_row + 1 .. options.gridColumns) %}
+            {% set trailer = trailer|merge({(elements|length + header|length + i): null}) %}
+        {% endfor %}
+    {% endif %}
+    {% set labels = header|merge(elements)|merge(trailer) %}
+
     {{ start_page }}
-        {% set labels = (0 .. options.skipCount)|merge(elements) %}
         {% for element in labels %}
-            {% if loop.first %}
-                {# continue #}
-            {% else %}
-                <td>
-                    {% if element <= options.skipCount %}
-                    {% elseif options.barcodeType.none %}
-                        {% include "label_system/labels/label_page_none.html.twig" %}
-                    {% elseif options.barcodeType.is2D() %}
-                        {% include "label_system/labels/label_page_qr.html.twig" %}
-                    {% elseif options.barcodeType.is1D() %}
-                        {% include "label_system/labels/label_page_1d.html.twig" %}
-                    {% endif %}
-                </td>
-                {% if not loop.last %}
-                    {# The current row is full. Start a new row #}
-                    {% if (loop.index > 2) and loop.index0 is divisible by(options.gridColumns) %}
+            <td>
+            {% if element is null %}
+                {# generate an empty placeholder #}
+            {% elseif options.barcodeType.none %}
+                {% include "label_system/labels/label_page_none.html.twig" %}
+            {% elseif options.barcodeType.is2D() %}
+                {% include "label_system/labels/label_page_qr.html.twig" %}
+            {% elseif options.barcodeType.is1D() %}
+                {% include "label_system/labels/label_page_1d.html.twig" %}
+            {% endif %}
+            </td>
+            {% if not loop.last %}
+                {# The current page is full and there are still labels in the queue. Start a new page #}
+                {% if loop.index is divisible by(options.gridColumns * options.gridRows) %}
+                    {{ end_page }}
+                    {{ start_page }}
+                {# The current row is full. Start a new row #}
+                {% elseif (options.gridRows > 1) and loop.index is divisible by(options.gridColumns) %}
                     </tr><tr>
-                        {{ end_page }}
-                        {{ start_page }}
-                    {% endif %}
-                    
-                    {# The current page is full and there are still labels in the queue. Start a new page #}
-                    {% if loop.index0 is divisible by(options.gridColumns * options.gridRows) %}
-                        {{ end_page }}
-                        {{ start_page }}
-                    {% endif %}
-                {% else %}
-                    {# last iteration: fill the row if the generated label count is too small #}
-                    {% set remainder = options.gridColumns - ((labels|length - 1) % options.gridColumns) %}
-                    {% if remainder < options.gridColumns %}
-                        {% for i in 1 .. remainder %}
-                            <td></td>
-                        {% endfor %}
-                    {% endif %}
                 {% endif %}
             {% endif %}
         {% endfor %}
     {{ end_page }}
 </body>
 </html>
+
