@@ -633,6 +633,78 @@ final class KiCadHelperTest extends KernelTestCase
         self::assertArrayNotHasKey('', $result['fields']);
     }
 
+    public function testReferencePrefixIsInheritedFromAncestorCategory(): void
+    {
+        $part = $this->em->find(Part::class, 1);
+        $part->getEdaInfo()->setReferencePrefix(null);
+
+        $parent = (new Category())->setName('Connectors');
+        $parent->getEdaInfo()->setReferencePrefix('J');
+
+        $child = (new Category())->setName('D-sub');
+        $child->setParent($parent);
+
+        $part->setCategory($child);
+
+        $result = $this->helper->getKiCADPart($part);
+
+        self::assertSame('J', $result['fields']['reference']['value']);
+    }
+
+    public function testNearestCategoryWithPrefixWins(): void
+    {
+        $part = $this->em->find(Part::class, 1);
+        $part->getEdaInfo()->setReferencePrefix(null);
+
+        $parent = (new Category())->setName('Connectors');
+        $parent->getEdaInfo()->setReferencePrefix('J');
+
+        $child = (new Category())->setName('D-sub');
+        $child->getEdaInfo()->setReferencePrefix('X');
+        $child->setParent($parent);
+
+        $part->setCategory($child);
+
+        $result = $this->helper->getKiCADPart($part);
+
+        self::assertSame('X', $result['fields']['reference']['value']);
+    }
+
+    public function testPartReferencePrefixOverridesCategory(): void
+    {
+        $part = $this->em->find(Part::class, 1);
+        $part->getEdaInfo()->setReferencePrefix('C');
+
+        $parent = (new Category())->setName('Connectors');
+        $parent->getEdaInfo()->setReferencePrefix('J');
+
+        $child = (new Category())->setName('D-sub');
+        $child->setParent($parent);
+
+        $part->setCategory($child);
+
+        $result = $this->helper->getKiCADPart($part);
+
+        self::assertSame('C', $result['fields']['reference']['value']);
+    }
+
+    public function testReferencePrefixFallsBackToUWhenNothingIsSet(): void
+    {
+        $part = $this->em->find(Part::class, 1);
+        $part->getEdaInfo()->setReferencePrefix(null);
+
+        $parent = (new Category())->setName('Connectors');
+
+        $child = (new Category())->setName('D-sub');
+        $child->setParent($parent);
+
+        $part->setCategory($child);
+
+        $result = $this->helper->getKiCADPart($part);
+
+        self::assertSame('U', $result['fields']['reference']['value']);
+    }
+
     /**
      * Category 1 (from fixtures) has a KiCad symbol set, so its parts are visible to the EDA.
      * The listing must carry the fields, so KiCad does not have to request each part separately.
