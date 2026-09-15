@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37db4aba278bfe9bf5a79f49538343d7",
+    "content-hash": "7691e53155d54eb4c6f5395b1ab1eccd",
     "packages": [
         {
             "name": "amphp/amp",
@@ -5185,16 +5185,16 @@
         },
         {
             "name": "jbtronics/2fa-webauthn",
-            "version": "v3.0.2",
+            "version": "v3.03",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/2fa-webauthn.git",
-                "reference": "9881f3ea8d3ba7a8d1afa9adc0339d92c90aff22"
+                "reference": "1d7677e6708d93ccc24cd87a08a7d462aefec492"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/2fa-webauthn/zipball/9881f3ea8d3ba7a8d1afa9adc0339d92c90aff22",
-                "reference": "9881f3ea8d3ba7a8d1afa9adc0339d92c90aff22",
+                "url": "https://api.github.com/repos/jbtronics/2fa-webauthn/zipball/1d7677e6708d93ccc24cd87a08a7d462aefec492",
+                "reference": "1d7677e6708d93ccc24cd87a08a7d462aefec492",
                 "shasum": ""
             },
             "require": {
@@ -5239,9 +5239,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/2fa-webauthn/issues",
-                "source": "https://github.com/jbtronics/2fa-webauthn/tree/v3.0.2"
+                "source": "https://github.com/jbtronics/2fa-webauthn/tree/v3.03"
             },
-            "time": "2026-07-27T20:24:28+00:00"
+            "time": "2026-09-15T22:49:27+00:00"
         },
         {
             "name": "jbtronics/dompdf-font-loader-bundle",

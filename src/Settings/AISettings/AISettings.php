@@ -48,4 +48,7 @@ class AISettings
 
     #[EmbeddedSettings]
     public ?OllamaSettings $ollama = null;
+
+    #[EmbeddedSettings]
+    public ?GenericAISettings $generic = null;
 }
