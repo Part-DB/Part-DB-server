@@ -177,6 +177,19 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
                 },
             ])
 
+            ->add('supplier_available_amount', HTMLColumn::class, [
+                'label' => $this->translator->trans('part.table.supplier_available_amount'),
+                //Hidden by default, as the stock of a supplier is only interesting while actually ordering the BOM
+                'visible' => false,
+                //The stock is spread over the orderdetails of the part, so it can not be sorted by in the database
+                'orderable' => false,
+                'data' => function (ProjectBOMEntry $context): string {
+                    $part = $context->getPart();
+
+                    return $part === null ? '' : $this->partDataTableHelper->renderSupplierAvailableAmount($part);
+                },
+            ])
+
             ->add('mountnames', HTMLColumn::class, [
                 'label' => 'project.bom.mountnames',
                 'data' => function (ProjectBOMEntry $context) {
@@ -313,6 +326,7 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ->addSelect('footprint')
             ->addSelect('manufacturer')
             ->addSelect('partCustomState')
+            ->addSelect('orderdetails')
             ->from(ProjectBOMEntry::class, 'bom_entry')
             ->leftJoin('bom_entry.part', 'part')
             ->leftJoin('part.category', 'category')
@@ -321,6 +335,7 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ->leftJoin('part.footprint', 'footprint')
             ->leftJoin('part.manufacturer', 'manufacturer')
             ->leftJoin('part.partCustomState', 'partCustomState')
+            ->leftJoin('part.orderdetails', 'orderdetails')
             ->where('bom_entry.id IN (:ids)')
             ->setParameter('ids', $ids)
             ->addGroupBy('bom_entry')
@@ -331,6 +346,7 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
             ->addGroupBy('footprint')
             ->addGroupBy('manufacturer')
             ->addGroupBy('partCustomState')
+            ->addGroupBy('orderdetails')
 
             ->setHint(Query::HINT_READ_ONLY, true)
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, false)

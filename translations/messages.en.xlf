@@ -15110,5 +15110,35 @@ Buerklin-API Authentication server:
         <target>Edit BOM entry #%id% of project</target>
       </segment>
     </unit>
+    <unit id="C_G6Ebd" name="part.supplier.available_amount">
+      <segment state="translated">
+        <source>part.supplier.available_amount</source>
+        <target>Available</target>
+      </segment>
+    </unit>
+    <unit id="t1bd9yr" name="part.supplier.available_amount.unknown">
+      <segment state="translated">
+        <source>part.supplier.available_amount.unknown</source>
+        <target>Unknown</target>
+      </segment>
+    </unit>
+    <unit id="O33qIEd" name="part.supplier.available_amount.out_of_stock">
+      <segment state="translated">
+        <source>part.supplier.available_amount.out_of_stock</source>
+        <target>Out of stock</target>
+      </segment>
+    </unit>
+    <unit id="Kp4mZ1a" name="part.supplier.available_amount.updated_at">
+      <segment state="translated">
+        <source>part.supplier.available_amount.updated_at</source>
+        <target>Stock retrieved from the info provider at: %datetime%</target>
+      </segment>
+    </unit>
+    <unit id="Rw9tQ6c" name="part.table.supplier_available_amount">
+      <segment state="translated">
+        <source>part.table.supplier_available_amount</source>
+        <target>Available at supplier</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
