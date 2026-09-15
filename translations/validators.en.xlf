@@ -271,5 +271,32 @@
         <target>If you specify an info provider, you also need to provide a provider ID, or remove both.</target>
       </segment>
     </unit>
+    <unit id="parameter_definition_name_unique" name="parameter_definition.name_unique">
+      <segment state="translated"><source>parameter_definition.name_unique</source><target>A parameter definition with this name already exists.</target></segment>
+    </unit>
+    <unit id="parameter_value_not_allowed" name="parameter.validator.value_not_allowed">
+      <segment state="translated"><source>parameter.validator.value_not_allowed</source><target>The selected value is not part of the linked parameter definition.</target></segment>
+    </unit>
+    <unit id="parameter_value_not_canonical" name="parameter.validator.value_not_canonical">
+      <segment state="translated"><source>parameter.validator.value_not_canonical</source><target>The selected value does not use the canonical spelling from the linked parameter definition.</target></segment>
+    </unit>
+    <unit id="parameter_new_choice_definition" name="parameter.validator.new_choice_requires_choice_definition">
+      <segment state="translated"><source>parameter.validator.new_choice_requires_choice_definition</source><target>A new value can only be added to a linked Choice parameter definition.</target></segment>
+    </unit>
+    <unit id="parameter_new_choice_mismatch" name="parameter.validator.new_choice_value_mismatch">
+      <segment state="translated"><source>parameter.validator.new_choice_value_mismatch</source><target>The requested new value does not match the selected parameter value.</target></segment>
+    </unit>
+    <unit id="parameter_new_choice_forbidden" name="parameter.validator.new_choice_forbidden">
+      <segment state="translated"><source>parameter.validator.new_choice_forbidden</source><target>You are not allowed to add a value to this parameter definition.</target></segment>
+    </unit>
+    <unit id="parameter_definition_text_choices" name="parameter_definition.validator.text_has_choices">
+      <segment state="translated"><source>parameter_definition.validator.text_has_choices</source><target>A text parameter definition must not contain choices.</target></segment>
+    </unit>
+    <unit id="parameter_definition_choice_length" name="parameter_definition.validator.choice_too_long">
+      <segment state="translated"><source>parameter_definition.validator.choice_too_long</source><target>A parameter choice must not exceed {{ limit }} characters.</target></segment>
+    </unit>
+    <unit id="parameter_definition_choice_not_string" name="parameter_definition.validator.choice_not_string">
+      <segment state="translated"><source>parameter_definition.validator.choice_not_string</source><target>Parameter choices must be strings.</target></segment>
+    </unit>
   </file>
 </xliff>

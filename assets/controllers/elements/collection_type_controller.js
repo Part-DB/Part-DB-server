@@ -32,6 +32,40 @@ export default class extends Controller {
 
     static targets = ["target"];
 
+    connect() {
+        // Native form reset only restores controls that still exist in the DOM. Keep the initial collection structure
+        // so persisted rows removed by the user can be recreated and rows added from the prototype can be discarded.
+        this._initialTarget = this.targetTarget.cloneNode(true);
+        this._form = this.element.closest('form');
+        if (this._form) {
+            this._resetHandler = this.onFormReset.bind(this);
+            this._form.addEventListener('reset', this._resetHandler);
+        }
+    }
+
+    disconnect() {
+        clearTimeout(this._resetTimer);
+        if (this._form && this._resetHandler) {
+            this._form.removeEventListener('reset', this._resetHandler);
+        }
+    }
+
+    onFormReset() {
+        clearTimeout(this._resetTimer);
+        // Wait until the browser has completed its native value reset before rebuilding the collection structure.
+        this._resetTimer = setTimeout(() => this.restoreInitialStructure(), 0);
+    }
+
+    restoreInitialStructure() {
+        if (!this._initialTarget || !this.element.isConnected) {
+            return;
+        }
+
+        const restoredTarget = this._initialTarget.cloneNode(true);
+        this.targetTarget.replaceChildren(...restoredTarget.childNodes);
+        this.targetTarget.dispatchEvent(new CustomEvent("collection:reset", {bubbles: true}));
+    }
+
     /**
      * Decodes escaped HTML entities
      * @param {string} input

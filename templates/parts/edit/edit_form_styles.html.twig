@@ -71,14 +71,27 @@
 
 {% block parameter_widget %}
     {% import 'components/collection_type.macro.html.twig' as collection %}
-    <tr {{ stimulus_controller('pages/parameters_autocomplete', {"url": path('typeahead_parameters', {"query": "__QUERY__", "type": form.vars["type"]})}) }}>
+    <tr {{ stimulus_controller('pages/parameters_autocomplete', {
+        "url": path('typeahead_parameters', {"query": "__QUERY__", "type": form.vars["type"]})
+    }) }}>
         <td>{{ form_widget(form.name, {"attr": {"data-pages--parameters-autocomplete-target": "name"}}) }}{{ form_errors(form.name) }}</td>
         <td {{ stimulus_controller('pages/latex_preview') }}>{{ form_widget(form.symbol, {"attr": {"data-pages--parameters-autocomplete-target": "symbol", "data-pages--latex-preview-target": "input"}}) }}{{ form_errors(form.symbol) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
         <td>{{ form_widget(form.value_min) }}{{ form_errors(form.value_min) }}</td>
         <td>{{ form_widget(form.value_typical) }}{{ form_errors(form.value_typical) }}</td>
         <td>{{ form_widget(form.value_max) }}{{ form_errors(form.value_max) }}</td>
         <td {{ stimulus_controller('pages/latex_preview', {"unit": true}) }}>{{ form_widget(form.unit, {"attr": {"data-pages--parameters-autocomplete-target": "unit", "data-pages--latex-preview-target": "input"}}) }}{{ form_errors(form.unit) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
-        <td>{{ form_widget(form.value_text) }}{{ form_errors(form.value_text) }}</td>
+        <td>
+            {{ form_widget(form.value_text, {"attr": {"data-pages--parameters-autocomplete-target": "valueText"}}) }}
+            {{ form_errors(form.value_text) }}
+
+            {% if form.definition is defined %}
+                {{ form_widget(form.definition, {"attr": {"data-pages--parameters-autocomplete-target": "definition"}}) }}
+                {{ form_errors(form.definition) }}
+                {{ form_widget(form.new_choice_value, {"attr": {"data-pages--parameters-autocomplete-target": "newChoiceValue"}}) }}
+                {{ form_errors(form.new_choice_value) }}
+            {% endif %}
+
+        </td>
         <td>{{ form_widget(form.group) }}{{ form_errors(form.group) }}</td>
         {% if form.eda_visibility is defined %}
         <td class="text-center">{{ form_widget(form.eda_visibility) }}</td>

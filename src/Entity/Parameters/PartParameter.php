@@ -52,7 +52,7 @@ use Symfony\Component\Serializer\Attribute\Context;
 /**
  * @see \App\Tests\Entity\Parameters\PartParameterTest
  */
-#[UniqueEntity(fields: ['name', 'group', 'element'])]
+#[UniqueEntity(fields: ['name', 'group', 'element'], repositoryMethod: 'findActiveForUniqueValidation')]
 #[ORM\Entity(repositoryClass: ParameterRepository::class)]
 class PartParameter extends AbstractParameter
 {
