@@ -47,10 +47,13 @@ league_oauth2_server:
     role_prefix: 'ROLE_API_'
 
 when@test:
-    league_oauth2_server:
-        persistence:
-            in_memory: null
-
+    # NOTE: the league/oauth2-server-bundle recipe (>=1.2) defaults tests to in-memory persistence, but we
+    # can't use that here: App\Services\OAuth\OAuthClientAdminManager and App\Services\OAuth\ConnectedAppManager
+    # run raw DQL against the bundle's own Model\AccessToken/Model\Client/Model\RefreshToken classes (see the
+    # top-of-file comment on why we rely on the bundle's Doctrine persistence). In-memory persistence skips
+    # registering those classes' Doctrine mapping entirely, so those DQL queries fail with a "class not found
+    # in the chain configured namespaces" MappingException. The oauth2_* tables already exist in the test DB
+    # via migrations, so real Doctrine persistence works fine here.
     services:
         # Use the lowest bcrypt cost to speed up client secret hashing in tests.
         league.oauth2_server.password_hasher:
