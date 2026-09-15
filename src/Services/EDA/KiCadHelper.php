@@ -145,7 +145,10 @@ final readonly class KiCadHelper
      */
     public function getCategoryParts(?Category $category): array
     {
-        $cacheKey = 'kicad_category_parts_'.($category?->getID() ?? 0) . '_' . $this->category_depth;
+        // Settings fingerprint keeps cached responses from surviving settings changes
+        // (tag-based invalidation only fires on part/category/footprint edits)
+        $cacheKey = 'kicad_category_parts_'.($category?->getID() ?? 0) . '_' . $this->category_depth
+            . '_' . $this->edaSettingsFingerprint();
         return $this->kicadCache->get($cacheKey,
             function (ItemInterface $item) use ($category) {
                 $item->tag([
@@ -353,6 +356,19 @@ final readonly class KiCadHelper
         }
 
         return $result;
+    }
+
+    /**
+     * Fingerprint of every setting that changes the content of a serialized part.
+     */
+    private function edaSettingsFingerprint(): string
+    {
+        return md5(json_encode([
+            $this->datasheetAsPdf,
+            $this->kiCadEDASettings->defaultOrderdetailsVisibility,
+            $this->kiCadEDASettings->defaultParameterVisibility,
+            $this->kiCadEDASettings->defaultParameterSymbolVisibility,
+        ], JSON_THROW_ON_ERROR));
     }
 
     /**
