@@ -167,12 +167,12 @@
         "version": "4.8.2"
     },
     "league/oauth2-server-bundle": {
-        "version": "0.8",
+        "version": "1.2",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "0.4",
-            "ref": "7f26963037fce3b69c1b3f6a75a3265edb1e1caa"
+            "version": "1.2",
+            "ref": "374de24b3639ca6802e0b4f000fe2a56428f95a3"
         },
         "files": [
             "config/packages/league_oauth2_server.yaml",

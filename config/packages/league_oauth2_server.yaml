@@ -45,3 +45,15 @@ league_oauth2_server:
         allow_plaintext_secrets: false
     # Roles end up as ROLE_API_<SCOPE>, e.g. ROLE_API_READ_ONLY - see the "scopes" comment above.
     role_prefix: 'ROLE_API_'
+
+when@test:
+    league_oauth2_server:
+        persistence:
+            in_memory: null
+
+    services:
+        # Use the lowest bcrypt cost to speed up client secret hashing in tests.
+        league.oauth2_server.password_hasher:
+            class: Symfony\Component\PasswordHasher\Hasher\NativePasswordHasher
+            arguments:
+                $cost: 4 # Lowest possible value for bcrypt
