@@ -145,7 +145,10 @@ final readonly class KiCadHelper
      */
     public function getCategoryParts(?Category $category): array
     {
-        $cacheKey = 'kicad_category_parts_'.($category?->getID() ?? 0) . '_' . $this->category_depth;
+        // Settings fingerprint keeps cached responses from surviving settings changes
+        // (tag-based invalidation only fires on part/category/footprint edits)
+        $cacheKey = 'kicad_category_parts_'.($category?->getID() ?? 0) . '_' . $this->category_depth
+            . '_' . $this->edaSettingsFingerprint();
         return $this->kicadCache->get($cacheKey,
             function (ItemInterface $item) use ($category) {
                 $item->tag([
@@ -213,7 +216,9 @@ final readonly class KiCadHelper
         $result["fields"]["footprint"] = $this->createField($part->getEdaInfo()->getKicadFootprint() ?? $part->getFootprint()?->getEdaInfo()->getKicadFootprint() ?? "");
         $result["fields"]["reference"] = $this->createField($part->getEdaInfo()->getReferencePrefix() ?? $part->getCategory()?->getEdaInfo()->getReferencePrefix() ?? 'U', true);
         $result["fields"]["value"] = $this->createField($part->getEdaInfo()->getValue() ?? $part->getName(), true);
-        $result["fields"]["keywords"] = $this->createField($part->getTags());
+        if ($this->kiCadEDASettings->exportTagsAsKeywords) {
+            $result["fields"]["keywords"] = $this->createField($part->getTags());
+        }
 
         //Use the part info page as Part-DB link. It must be an absolute URL.
         $partUrl = $this->urlGenerator->generate(
@@ -233,7 +238,7 @@ final readonly class KiCadHelper
 
         //Add basic fields
         $result["fields"]["description"] = $this->createField($part->getDescription());
-        if ($part->getCategory() !== null) {
+        if ($this->kiCadEDASettings->exportPartInfoFields && $part->getCategory() !== null) {
             $result["fields"]["Category"] = $this->createField($part->getCategory()->getFullPath('/'));
         }
         if ($part->getManufacturer() !== null) {
@@ -242,39 +247,40 @@ final readonly class KiCadHelper
         if ($part->getManufacturerProductNumber() !== "") {
             $result['fields']["MPN"] = $this->createField($part->getManufacturerProductNumber());
         }
-        if ($part->getManufacturingStatus() !== null) {
+        if ($this->kiCadEDASettings->exportPartInfoFields && $part->getManufacturingStatus() !== null) {
             $result["fields"]["Manufacturing Status"] = $this->createField(
             //Always use the english translation
                 $this->translator->trans($part->getManufacturingStatus()->toTranslationKey(), locale: 'en')
             );
         }
-        if ($part->getFootprint() !== null) {
+        if ($this->kiCadEDASettings->exportPartInfoFields && $part->getFootprint() !== null) {
             $result["fields"]["Part-DB Footprint"] = $this->createField($part->getFootprint()->getName());
         }
-        if ($part->getPartUnit() !== null) {
+        if ($this->kiCadEDASettings->exportPartInfoFields && $part->getPartUnit() !== null) {
             $unit = $part->getPartUnit()->getName();
             if ($part->getPartUnit()->getUnit() !== "") {
                 $unit .= ' ('.$part->getPartUnit()->getUnit().')';
             }
             $result["fields"]["Part-DB Unit"] = $this->createField($unit);
         }
-        if ($part->getPartCustomState() !== null) {
+        if ($this->kiCadEDASettings->exportPartInfoFields && $part->getPartCustomState() !== null) {
             $customState = $part->getPartCustomState()->getName();
             $result["fields"]["Part-DB Custom state"] = $this->createField($customState);
         }
-        if ($part->getMass()) {
+        if ($this->kiCadEDASettings->exportPartInfoFields && $part->getMass()) {
             $result["fields"]["Mass"] = $this->createField($part->getMass() . ' g');
         }
         $result["fields"]["Part-DB ID"] = $this->createField($part->getId());
-        if ($part->getIpn() !== null && $part->getIpn() !== '' && $part->getIpn() !== '0') {
+        if ($this->kiCadEDASettings->exportPartInfoFields
+            && $part->getIpn() !== null && $part->getIpn() !== '' && $part->getIpn() !== '0') {
             $result["fields"]["Part-DB IPN"] = $this->createField($part->getIpn());
         }
 
         //Add KiCost manufacturer fields (always present, independent of orderdetails)
-        if ($part->getManufacturer() !== null) {
+        if ($this->kiCadEDASettings->exportKicostFields && $part->getManufacturer() !== null) {
             $result["fields"]["manf"] = $this->createField($part->getManufacturer()->getName());
         }
-        if ($part->getManufacturerProductNumber() !== "") {
+        if ($this->kiCadEDASettings->exportKicostFields && $part->getManufacturerProductNumber() !== "") {
             $result['fields']['manf#'] = $this->createField($part->getManufacturerProductNumber());
         }
 
@@ -282,7 +288,8 @@ final readonly class KiCadHelper
         // If any orderdetail has eda_visibility explicitly set to true, only export those;
         // otherwise export all (backward compat when no flags are set)
         $allOrderdetails = $part->getOrderdetails(false);
-        if ($allOrderdetails->count() > 0) {
+        if (($this->kiCadEDASettings->exportSupplierFields || $this->kiCadEDASettings->exportKicostFields)
+            && $allOrderdetails->count() > 0) {
             $hasExplicitEdaVisibility = false;
             foreach ($allOrderdetails as $od) {
                 if ($od->isEdaVisibility() !== null) {
@@ -312,30 +319,36 @@ final readonly class KiCadHelper
                         ? $supplierName . ' ' . $supplierCounts[$supplierName]
                         : $supplierName;
 
-                    $result["fields"][$fieldName] = $this->createField($orderdetail->getSupplierPartNr());
+                    if ($this->kiCadEDASettings->exportSupplierFields) {
+                        $result["fields"][$fieldName] = $this->createField($orderdetail->getSupplierPartNr());
+                    }
 
                     //Also add a KiCost-compatible field (supplier_name# = SPN)
-                    $kicostFieldName = mb_strtolower($orderdetail->getSupplier()->getName()) . '#';
-                    $result["fields"][$kicostFieldName] = $this->createField($orderdetail->getSupplierPartNr());
+                    if ($this->kiCadEDASettings->exportKicostFields) {
+                        $kicostFieldName = mb_strtolower($orderdetail->getSupplier()->getName()) . '#';
+                        $result["fields"][$kicostFieldName] = $this->createField($orderdetail->getSupplierPartNr());
+                    }
                 }
             }
         }
 
         //Add stock quantity and storage locations (only count non-expired lots with known quantity)
-        $totalStock = 0;
-        $locations = [];
-        foreach ($part->getPartLots() as $lot) {
-            $isAvailable = !$lot->isInstockUnknown() && $lot->isExpired() !== true;
-            if ($isAvailable) {
-                $totalStock += $lot->getAmount();
-                if ($lot->getAmount() > 0 && $lot->getStorageLocation() !== null) {
-                    $locations[] = $lot->getStorageLocation()->getName();
+        if ($this->kiCadEDASettings->exportStockFields) {
+            $totalStock = 0;
+            $locations = [];
+            foreach ($part->getPartLots() as $lot) {
+                $isAvailable = !$lot->isInstockUnknown() && $lot->isExpired() !== true;
+                if ($isAvailable) {
+                    $totalStock += $lot->getAmount();
+                    if ($lot->getAmount() > 0 && $lot->getStorageLocation() !== null) {
+                        $locations[] = $lot->getStorageLocation()->getName();
+                    }
                 }
             }
-        }
-        $result['fields']['Stock'] = $this->createField($totalStock);
-        if ($locations !== []) {
-            $result['fields']['Storage Location'] = $this->createField(implode(', ', array_unique($locations)));
+            $result['fields']['Stock'] = $this->createField($totalStock);
+            if ($locations !== []) {
+                $result['fields']['Storage Location'] = $this->createField(implode(', ', array_unique($locations)));
+            }
         }
 
         //Add parameters marked for EDA export (explicit true, or system default when null)
@@ -353,6 +366,24 @@ final readonly class KiCadHelper
         }
 
         return $result;
+    }
+
+    /**
+     * Fingerprint of every setting that changes the content of a serialized part.
+     */
+    private function edaSettingsFingerprint(): string
+    {
+        return md5(json_encode([
+            $this->datasheetAsPdf,
+            $this->kiCadEDASettings->defaultOrderdetailsVisibility,
+            $this->kiCadEDASettings->defaultParameterVisibility,
+            $this->kiCadEDASettings->defaultParameterSymbolVisibility,
+            $this->kiCadEDASettings->exportStockFields,
+            $this->kiCadEDASettings->exportSupplierFields,
+            $this->kiCadEDASettings->exportKicostFields,
+            $this->kiCadEDASettings->exportPartInfoFields,
+            $this->kiCadEDASettings->exportTagsAsKeywords,
+        ], JSON_THROW_ON_ERROR));
     }
 
     /**

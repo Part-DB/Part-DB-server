@@ -75,4 +75,39 @@ class KiCadEDASettings
         description: new TM("settings.misc.kicad_eda.use_custom_list.help"),
     )]
     public bool $useCustomList = false;
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.kicad_eda.export_stock_fields"),
+        description: new TM("settings.misc.kicad_eda.export_stock_fields.help"),
+        envVar: "bool:EDA_KICAD_EXPORT_STOCK_FIELDS", envVarMode: EnvVarMode::OVERWRITE,
+    )]
+    public bool $exportStockFields = true;
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.kicad_eda.export_supplier_fields"),
+        description: new TM("settings.misc.kicad_eda.export_supplier_fields.help"),
+        envVar: "bool:EDA_KICAD_EXPORT_SUPPLIER_FIELDS", envVarMode: EnvVarMode::OVERWRITE,
+    )]
+    public bool $exportSupplierFields = true;
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.kicad_eda.export_kicost_fields"),
+        description: new TM("settings.misc.kicad_eda.export_kicost_fields.help"),
+        envVar: "bool:EDA_KICAD_EXPORT_KICOST_FIELDS", envVarMode: EnvVarMode::OVERWRITE,
+    )]
+    public bool $exportKicostFields = true;
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.kicad_eda.export_part_info_fields"),
+        description: new TM("settings.misc.kicad_eda.export_part_info_fields.help"),
+        envVar: "bool:EDA_KICAD_EXPORT_PART_INFO_FIELDS", envVarMode: EnvVarMode::OVERWRITE,
+    )]
+    public bool $exportPartInfoFields = true;
+
+    #[SettingsParameter(
+        label: new TM("settings.misc.kicad_eda.export_tags_as_keywords"),
+        description: new TM("settings.misc.kicad_eda.export_tags_as_keywords.help"),
+        envVar: "bool:EDA_KICAD_EXPORT_TAGS_AS_KEYWORDS", envVarMode: EnvVarMode::OVERWRITE,
+    )]
+    public bool $exportTagsAsKeywords = true;
 }

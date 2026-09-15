@@ -33,6 +33,7 @@ use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Services\EDA\KiCadHelper;
+use App\Settings\MiscSettings\KiCadEDASettings;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -42,12 +43,14 @@ final class KiCadHelperTest extends KernelTestCase
 {
     private KiCadHelper $helper;
     private EntityManagerInterface $em;
+    private KiCadEDASettings $settings;
 
     protected function setUp(): void
     {
         self::bootKernel();
         $this->helper = self::getContainer()->get(KiCadHelper::class);
         $this->em = self::getContainer()->get(EntityManagerInterface::class);
+        $this->settings = self::getContainer()->get(KiCadEDASettings::class);
     }
 
     /**
@@ -653,5 +656,179 @@ final class KiCadHelperTest extends KernelTestCase
             self::assertArrayHasKey('footprint', $part['fields']);
             self::assertArrayHasKey('symbolIdStr', $part);
         }
+    }
+
+    /**
+     * The category listing is cached and only invalidated by entity changes.
+     * Changing a setting that affects the exported fields must not serve a stale listing.
+     */
+    public function testCategoryPartsCacheIsInvalidatedBySettingsChange(): void
+    {
+        /** @var KiCadEDASettings $settings */
+        $settings = self::getContainer()->get(KiCadEDASettings::class);
+        $category = $this->em->find(Category::class, 1);
+
+        $part = new Part();
+        $part->setName('Part for cache test');
+        $part->setCategory($category);
+        $param = new PartParameter();
+        $param->setName('CacheTestParam');
+        $param->setValueText('42');
+        $param->setEdaVisibility(null);
+        $part->addParameter($param);
+        $this->em->persist($part);
+        $this->em->flush();
+
+        $findFields = fn(array $listing): array => array_values(array_filter($listing, fn($p) => (int) $p['id'] === $part->getId()))[0]['fields'];
+
+        $settings->defaultParameterVisibility = false;
+        $before = $findFields($this->helper->getCategoryParts($category));
+        self::assertArrayNotHasKey('CacheTestParam', $before);
+
+        // No entity changed, only the setting: the cached listing must not be reused
+        $settings->defaultParameterVisibility = true;
+        $after = $findFields($this->helper->getCategoryParts($category));
+        self::assertArrayHasKey('CacheTestParam', $after);
+        self::assertSame('42', $after['CacheTestParam']['value']);
+    }
+
+    /**
+     * Creates a part that has data for every optional field group (stock, supplier, KiCost, part info, tags).
+     */
+    private function createPartWithAllFieldGroups(): Part
+    {
+        $category = $this->em->find(Category::class, 1);
+        $location = $this->em->find(StorageLocation::class, 1);
+
+        $manufacturer = new Manufacturer();
+        $manufacturer->setName('Switch Corp');
+        $this->em->persist($manufacturer);
+
+        $supplier = new Supplier();
+        $supplier->setName('SwitchSupplier');
+        $this->em->persist($supplier);
+
+        $part = new Part();
+        $part->setName('Part with all field groups');
+        $part->setCategory($category);
+        $part->setManufacturer($manufacturer);
+        $part->setManufacturerProductNumber('SW-1234');
+        $part->setTags('tag1,tag2');
+        $part->setMass(1.5);
+
+        $lot = new PartLot();
+        $lot->setAmount(5);
+        $lot->setStorageLocation($location);
+        $part->addPartLot($lot);
+
+        $orderdetail = new Orderdetail();
+        $orderdetail->setSupplier($supplier);
+        $orderdetail->setSupplierpartnr('SUP-999');
+        $part->addOrderdetail($orderdetail);
+
+        $this->em->persist($part);
+        $this->em->flush();
+
+        return $part;
+    }
+
+    /**
+     * With the default settings every field group is exported.
+     */
+    public function testAllFieldGroupsExportedByDefault(): void
+    {
+        $part = $this->createPartWithAllFieldGroups();
+        $fields = $this->helper->getKiCADPart($part)['fields'];
+
+        self::assertArrayHasKey('Stock', $fields);
+        self::assertArrayHasKey('Storage Location', $fields);
+        self::assertArrayHasKey('SwitchSupplier SPN', $fields);
+        self::assertArrayHasKey('manf', $fields);
+        self::assertArrayHasKey('manf#', $fields);
+        self::assertArrayHasKey('switchsupplier#', $fields);
+        self::assertArrayHasKey('Category', $fields);
+        self::assertArrayHasKey('Mass', $fields);
+        self::assertArrayHasKey('keywords', $fields);
+        self::assertSame('tag1,tag2', $fields['keywords']['value']);
+    }
+
+    public function testStockFieldsCanBeDisabled(): void
+    {
+        $this->settings->exportStockFields = false;
+        $part = $this->createPartWithAllFieldGroups();
+        $fields = $this->helper->getKiCADPart($part)['fields'];
+
+        self::assertArrayNotHasKey('Stock', $fields);
+        self::assertArrayNotHasKey('Storage Location', $fields);
+        // Other groups are unaffected
+        self::assertArrayHasKey('SwitchSupplier SPN', $fields);
+        self::assertArrayHasKey('manf#', $fields);
+    }
+
+    public function testSupplierFieldsCanBeDisabledIndependentlyOfKicostFields(): void
+    {
+        $this->settings->exportSupplierFields = false;
+        $part = $this->createPartWithAllFieldGroups();
+        $fields = $this->helper->getKiCADPart($part)['fields'];
+
+        self::assertArrayNotHasKey('SwitchSupplier SPN', $fields);
+        // KiCost supplier field is still exported, as it is controlled by its own switch
+        self::assertArrayHasKey('switchsupplier#', $fields);
+        self::assertSame('SUP-999', $fields['switchsupplier#']['value']);
+    }
+
+    public function testKicostFieldsCanBeDisabledIndependentlyOfSupplierFields(): void
+    {
+        $this->settings->exportKicostFields = false;
+        $part = $this->createPartWithAllFieldGroups();
+        $fields = $this->helper->getKiCADPart($part)['fields'];
+
+        self::assertArrayNotHasKey('manf', $fields);
+        self::assertArrayNotHasKey('manf#', $fields);
+        self::assertArrayNotHasKey('switchsupplier#', $fields);
+        // The regular supplier and manufacturer fields stay
+        self::assertArrayHasKey('SwitchSupplier SPN', $fields);
+        self::assertArrayHasKey('Manufacturer', $fields);
+        self::assertArrayHasKey('MPN', $fields);
+    }
+
+    public function testPartInfoFieldsCanBeDisabled(): void
+    {
+        $this->settings->exportPartInfoFields = false;
+        $part = $this->createPartWithAllFieldGroups();
+        $fields = $this->helper->getKiCADPart($part)['fields'];
+
+        self::assertArrayNotHasKey('Category', $fields);
+        self::assertArrayNotHasKey('Mass', $fields);
+        // Fields needed by KiCad itself and for identification are always present
+        self::assertArrayHasKey('Part-DB ID', $fields);
+        self::assertArrayHasKey('Part-DB URL', $fields);
+        self::assertArrayHasKey('MPN', $fields);
+        self::assertArrayHasKey('description', $fields);
+    }
+
+    public function testTagsAsKeywordsCanBeDisabled(): void
+    {
+        $this->settings->exportTagsAsKeywords = false;
+        $part = $this->createPartWithAllFieldGroups();
+        $fields = $this->helper->getKiCADPart($part)['fields'];
+
+        self::assertArrayNotHasKey('keywords', $fields);
+    }
+
+    /**
+     * The new export switches must also be part of the cache fingerprint.
+     */
+    public function testCategoryPartsCacheIsInvalidatedByExportSettingsChange(): void
+    {
+        $category = $this->em->find(Category::class, 1);
+
+        $before = $this->helper->getCategoryParts($category);
+        self::assertNotEmpty($before);
+        self::assertArrayHasKey('Stock', $before[0]['fields']);
+
+        $this->settings->exportStockFields = false;
+        $after = $this->helper->getCategoryParts($category);
+        self::assertArrayNotHasKey('Stock', $after[0]['fields']);
     }
 }
