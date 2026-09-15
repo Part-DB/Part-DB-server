@@ -203,7 +203,7 @@ export default class extends Controller {
         }
         try {
             btn.click();
-        } catch (e) {
+        } catch {
             /* ignore — the default tab is fine */
         }
     }
@@ -947,6 +947,7 @@ export default class extends Controller {
         const height = 196;
         const cy = 62;
         const bodyY = cy - bodyH / 2;
+        //eslint-disable-next-line no-unused-vars
         const bodyBottom = bodyY + bodyH;
 
         const n = colors.length;

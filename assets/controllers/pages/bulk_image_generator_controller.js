@@ -284,7 +284,7 @@ export default class extends Controller {
                     failed++;
                     row.classList.add("table-danger");
                 }
-            } catch (e) {
+            } catch {
                 failed++;
                 row.classList.add("table-danger");
             }

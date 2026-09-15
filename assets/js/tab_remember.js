@@ -20,7 +20,6 @@
 "use strict";
 
 import {Tab, Dropdown, Collapse} from "bootstrap";
-import tab from "bootstrap/js/src/tab";
 
 /**
  * This listener keeps track of which tab is currently selected (using hash and localstorage) and will try to open

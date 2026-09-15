@@ -358,7 +358,7 @@ initDataTables.exportBtnAction = function(exporterName, settings) {
                 if (typeof File === 'function') {
                     try {
                         blob = new File([this.response], filename, { type: type });
-                    } catch (e) { /* Edge */ }
+                    } catch { /* Edge */ }
                 }
 
                 if (typeof blob === 'undefined') {

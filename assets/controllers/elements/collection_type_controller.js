@@ -188,9 +188,11 @@ export default class extends Controller {
 
         //Our new element is the last child of the table
         const newlyCreatedRow = targetRows[targetRowsCount - 1];
+        //eslint-disable-next-line no-unused-vars
         const [newPriceRelated, newMinDiscount] = extractElementsFromRow(newlyCreatedRow);
 
         const oldRow = targetRows[targetRowsCount - 2];
+        //eslint-disable-next-line no-unused-vars
         const [oldPriceRelated, oldMinDiscount] = extractElementsFromRow(oldRow);
 
         //Use the old PriceRelated value to determine the next 10 decade value for the new row
