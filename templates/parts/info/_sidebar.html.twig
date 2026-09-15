@@ -47,7 +47,7 @@
 {% if part.partCustomState is not null %}
     <div class="mt-1">
         <h6>
-            <span class="badge bg-primary" title="{% trans %}part_custom_state.caption{% endtrans %}"><i class="fas fa-tools fa-fw"></i> {{ part.partCustomState.name }}</span>
+            <span class="badge {{ part.partCustomState.badgeClass }}" title="{% trans %}part_custom_state.caption{% endtrans %}"><i class="fas fa-tools fa-fw"></i> {{ part.partCustomState.name }}</span>
 
             {% if part.partCustomState is not null and part.partCustomState.masterPictureAttachment and attachment_manager.fileExisting(part.partCustomState.masterPictureAttachment) %}
                 <br/>

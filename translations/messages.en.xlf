@@ -15110,5 +15110,65 @@ Buerklin-API Authentication server:
         <target>Edit BOM entry #%id% of project</target>
       </segment>
     </unit>
+    <unit id="hK3vNq1" name="part_custom_state.color.label">
+      <segment state="translated">
+        <source>part_custom_state.color.label</source>
+        <target>Color</target>
+      </segment>
+    </unit>
+    <unit id="Yd8mPz4" name="part_custom_state.color.help">
+      <segment state="translated">
+        <source>part_custom_state.color.help</source>
+        <target>Optional semantic color this custom state is shown with wherever it appears as a badge (e.g. on the part detail page and in part tables). Without a color, the previous default appearance is used.</target>
+      </segment>
+    </unit>
+    <unit id="Qw2fLb7" name="part_custom_state.color.primary">
+      <segment state="translated">
+        <source>part_custom_state.color.primary</source>
+        <target>Primary</target>
+      </segment>
+    </unit>
+    <unit id="Ns5tRc9" name="part_custom_state.color.secondary">
+      <segment state="translated">
+        <source>part_custom_state.color.secondary</source>
+        <target>Secondary</target>
+      </segment>
+    </unit>
+    <unit id="Bx6gHd2" name="part_custom_state.color.info">
+      <segment state="translated">
+        <source>part_custom_state.color.info</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="Tv4jKe8" name="part_custom_state.color.success">
+      <segment state="translated">
+        <source>part_custom_state.color.success</source>
+        <target>Success</target>
+      </segment>
+    </unit>
+    <unit id="Mz9pWf3" name="part_custom_state.color.warning">
+      <segment state="translated">
+        <source>part_custom_state.color.warning</source>
+        <target>Warning</target>
+      </segment>
+    </unit>
+    <unit id="Cr1dXg6" name="part_custom_state.color.danger">
+      <segment state="translated">
+        <source>part_custom_state.color.danger</source>
+        <target>Danger</target>
+      </segment>
+    </unit>
+    <unit id="Lf7hYn5" name="part_custom_state.color.light">
+      <segment state="translated">
+        <source>part_custom_state.color.light</source>
+        <target>Light</target>
+      </segment>
+    </unit>
+    <unit id="Ug3kZm0" name="part_custom_state.color.dark">
+      <segment state="translated">
+        <source>part_custom_state.color.dark</source>
+        <target>Dark</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -177,6 +177,14 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
                 },
             ])
 
+            ->add('partCustomState', HTMLColumn::class, [
+                'label' => $this->translator->trans('part.table.partCustomState'),
+                'orderField' => 'NATSORT(partCustomState.name)',
+                'visible' => false,
+                'data' => fn (ProjectBOMEntry $context): string
+                    => $this->partDataTableHelper->renderPartCustomState($context->getPart()?->getPartCustomState()),
+            ])
+
             ->add('mountnames', HTMLColumn::class, [
                 'label' => 'project.bom.mountnames',
                 'data' => function (ProjectBOMEntry $context) {
