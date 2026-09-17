@@ -363,7 +363,7 @@ final readonly class KiCadHelper
      */
     private function edaSettingsFingerprint(): string
     {
-        return md5(json_encode([
+        return hash("xxh3", json_encode([
             $this->datasheetAsPdf,
             $this->kiCadEDASettings->defaultOrderdetailsVisibility,
             $this->kiCadEDASettings->defaultParameterVisibility,
