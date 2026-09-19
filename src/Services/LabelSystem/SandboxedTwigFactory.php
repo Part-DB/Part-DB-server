@@ -161,6 +161,9 @@ final class SandboxedTwigFactory
     ];
     private const ALLOWED_PROPERTIES = [];
 
+    //Most tests are safe and allowed without this list, so this can be empty. Only add tests here that are not allowed by default.
+    private const ALLOWED_TESTS = ["entity", "enum", "object", "instanceof"];
+
     public function __construct(
         private readonly FormatExtension $formatExtension,
         private readonly BarcodeExtension $barcodeExtension,
@@ -211,7 +214,8 @@ final class SandboxedTwigFactory
             self::ALLOWED_FILTERS,
             self::ALLOWED_METHODS,
             self::ALLOWED_PROPERTIES,
-            self::ALLOWED_FUNCTIONS
+            self::ALLOWED_FUNCTIONS,
+            self::ALLOWED_TESTS
         );
 
         $policy->setStrict(true);
