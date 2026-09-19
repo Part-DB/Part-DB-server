@@ -112,7 +112,7 @@ final class SandboxedTwigFactoryTest extends WebTestCase
         $options->setLines($twig);
         $options->setProcessMode(LabelProcessMode::TWIG);
 
-        $twig = $this->service->createTwig($options);
+        $twig = $this->service->createSandbox($options);
         $str = $twig->render('lines', [
             'part' => new Part(),
             'lot' => new PartLot(),
@@ -132,7 +132,7 @@ final class SandboxedTwigFactoryTest extends WebTestCase
         $options->setLines($twig);
         $options->setProcessMode(LabelProcessMode::TWIG);
 
-        $twig = $this->service->createTwig($options);
+        $twig = $this->service->createSandbox($options);
         $str = $twig->render('lines', [
             'part' => new Part(),
             'lot' => new PartLot(),

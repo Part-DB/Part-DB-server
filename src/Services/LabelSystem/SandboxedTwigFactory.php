@@ -78,6 +78,9 @@ use Twig\Extra\Markdown\MarkdownExtension;
 use Twig\Extra\String\StringExtension;
 use Twig\Loader\ArrayLoader;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
+use Twig\Sandbox\Sandbox;
+use Twig\Sandbox\SandboxInterface;
+use Twig\Sandbox\SecurityPolicy;
 use Twig\Sandbox\SecurityPolicyInterface;
 
 /**
@@ -168,7 +171,7 @@ final class SandboxedTwigFactory
     {
     }
 
-    public function createTwig(LabelOptions $options): Environment
+    public function createSandbox(LabelOptions $options): SandboxInterface
     {
         if (LabelProcessMode::TWIG !== $options->getProcessMode()) {
             throw new InvalidArgumentException('The LabelOptions must explicitly allow twig via lines_mode = "twig"!');
@@ -178,10 +181,6 @@ final class SandboxedTwigFactory
             'lines' => $options->getLines(),
         ]);
         $twig = new Environment($loader);
-
-        //Second argument activate sandbox globally.
-        $sandbox = new SandboxExtension($this->getSecurityPolicy(), true);
-        $twig->addExtension($sandbox);
 
         //Add IntlExtension
         $twig->addExtension(new IntlExtension());
@@ -201,17 +200,21 @@ final class SandboxedTwigFactory
         }
         $twig->addRuntimeLoader(new FactoryRuntimeLoader($dynamicExtensionsMap));
 
-        return $twig;
+
+        return new Sandbox($twig, $this->getSecurityPolicy());
     }
 
     private function getSecurityPolicy(): SecurityPolicyInterface
     {
-        return new InheritanceSecurityPolicy(
+        $policy =  new SecurityPolicy(
             self::ALLOWED_TAGS,
             self::ALLOWED_FILTERS,
             self::ALLOWED_METHODS,
             self::ALLOWED_PROPERTIES,
             self::ALLOWED_FUNCTIONS
         );
+
+        $policy->setStrict(true);
+        return $policy;
     }
 }
