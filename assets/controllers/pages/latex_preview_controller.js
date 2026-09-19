@@ -31,7 +31,7 @@ export default class extends Controller {
 
     updatePreview()
     {
-        let value = "";
+        let value;
         if (this.unitValue) {
             //Escape percentage signs
             value = this.inputTarget.value.replace(/%/g, '\\%');

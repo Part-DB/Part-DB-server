@@ -26,22 +26,22 @@ use ApiPlatform\Metadata\IriConverterInterface;
 use ApiPlatform\Metadata\ResourceClassResolverInterface;
 use ApiPlatform\Serializer\ItemNormalizer;
 use App\Entity\Attachments\Attachment;
-use App\Serializer\APIPlatform\SkippableItemNormalizer;
+use App\Serializer\APIPlatform\AbstractResourceIriNormalizer;
 use PHPUnit\Framework\TestCase;
 
-final class SkippableItemNormalizerTest extends TestCase
+final class AbstractResourceIriNormalizerTest extends TestCase
 {
     private ItemNormalizer&\PHPUnit\Framework\MockObject\MockObject $inner;
     private IriConverterInterface&\PHPUnit\Framework\MockObject\MockObject $iriConverter;
     private ResourceClassResolverInterface&\PHPUnit\Framework\MockObject\MockObject $resourceClassResolver;
-    private SkippableItemNormalizer $normalizer;
+    private AbstractResourceIriNormalizer $normalizer;
 
     protected function setUp(): void
     {
         $this->inner = $this->createMock(ItemNormalizer::class);
         $this->iriConverter = $this->createMock(IriConverterInterface::class);
         $this->resourceClassResolver = $this->createMock(ResourceClassResolverInterface::class);
-        $this->normalizer = new SkippableItemNormalizer($this->inner, $this->iriConverter, $this->resourceClassResolver);
+        $this->normalizer = new AbstractResourceIriNormalizer($this->inner, $this->iriConverter, $this->resourceClassResolver);
     }
 
     public function testStringIsResolvedAsIriForResourceClass(): void

@@ -73,7 +73,7 @@ export default class extends Controller {
         const newElementStr = this.htmlDecode(prototype.replace(regex, this.generateUID()));
 
 
-        let ret = null;
+        let ret;
 
         //Insert new html after the last child element
         //If the table has a tbody, insert it there
@@ -146,7 +146,6 @@ export default class extends Controller {
                         if (filter) {
                             if (accept({name: file.name, type: file.type}, filter)) {
                                 attachmentTypeSelect.value = option.value;
-                                foundMatch = true;
                                 break;
                             }
                         } else { //If no filter is set, chose this option until we find a better match
@@ -189,9 +188,11 @@ export default class extends Controller {
 
         //Our new element is the last child of the table
         const newlyCreatedRow = targetRows[targetRowsCount - 1];
+        //eslint-disable-next-line no-unused-vars
         const [newPriceRelated, newMinDiscount] = extractElementsFromRow(newlyCreatedRow);
 
         const oldRow = targetRows[targetRowsCount - 2];
+        //eslint-disable-next-line no-unused-vars
         const [oldPriceRelated, oldMinDiscount] = extractElementsFromRow(oldRow);
 
         //Use the old PriceRelated value to determine the next 10 decade value for the new row
