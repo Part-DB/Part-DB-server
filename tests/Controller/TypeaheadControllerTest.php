@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use App\Entity\Parameters\ParameterDefinition;
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -124,6 +125,57 @@ final class TypeaheadControllerTest extends WebTestCase
         }
     }
 
+    public function testPartParameterAutocompleteExposesChoiceDefinitionMetadata(): void
+    {
+        $client = $this->loginClient('admin');
+        $definition = (new ParameterDefinition())
+            ->setName('Checkpoint 3 dielectric')
+            ->setSymbol('D')
+            ->setUnit('grade')
+            ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
+            ->setChoices(['X7R', 'X5R', 'C0G'])
+            ->setDeprecatedChoices(['Y5V']);
+        $em = static::getContainer()->get(EntityManagerInterface::class);
+        $em->persist($definition);
+        $em->flush();
+
+        $client->request('GET', '/en/typeahead/parameters/part/search/Checkpoint%203%20dielectric');
+
+        self::assertResponseIsSuccessful();
+        $data = json_decode($client->getResponse()->getContent(), true, flags: JSON_THROW_ON_ERROR);
+        self::assertIsArray($data);
+        $suggestion = $this->findSuggestion($data, 'Checkpoint 3 dielectric');
+        self::assertIsArray($suggestion);
+        self::assertSame($definition->getID(), $suggestion['definition_id']);
+        self::assertSame('D', $suggestion['symbol']);
+        self::assertSame('grade', $suggestion['unit']);
+        self::assertSame(ParameterDefinition::INPUT_TYPE_CHOICE, $suggestion['input_type']);
+        self::assertSame(['X7R', 'X5R', 'C0G'], $suggestion['choices']);
+        self::assertSame(['Y5V'], $suggestion['deprecated_choices']);
+    }
+
+    public function testPartParameterAutocompleteExposesTextDefinitionWithoutChoices(): void
+    {
+        $client = $this->loginClient('admin');
+        $definition = (new ParameterDefinition())
+            ->setName('Checkpoint 3 manufacturer code')
+            ->setInputType(ParameterDefinition::INPUT_TYPE_TEXT);
+        $em = static::getContainer()->get(EntityManagerInterface::class);
+        $em->persist($definition);
+        $em->flush();
+
+        $client->request('GET', '/en/typeahead/parameters/part/search/Checkpoint%203%20manufacturer%20code');
+
+        self::assertResponseIsSuccessful();
+        $data = json_decode($client->getResponse()->getContent(), true, flags: JSON_THROW_ON_ERROR);
+        self::assertIsArray($data);
+        $suggestion = $this->findSuggestion($data, 'Checkpoint 3 manufacturer code');
+        self::assertIsArray($suggestion);
+        self::assertSame(ParameterDefinition::INPUT_TYPE_TEXT, $suggestion['input_type']);
+        self::assertSame([], $suggestion['choices']);
+        self::assertSame([], $suggestion['deprecated_choices']);
+    }
+
     // -----------------------------------------------------------------------
     // Access control
     // -----------------------------------------------------------------------
@@ -158,5 +210,20 @@ final class TypeaheadControllerTest extends WebTestCase
         $client->request('GET', $url);
 
         $this->assertResponseIsSuccessful();
+    }
+
+    /**
+     * @param array<mixed> $suggestions
+     * @return array<string, mixed>|null
+     */
+    private function findSuggestion(array $suggestions, string $name): ?array
+    {
+        foreach ($suggestions as $suggestion) {
+            if (is_array($suggestion) && $name === ($suggestion['name'] ?? null)) {
+                return $suggestion;
+            }
+        }
+
+        return null;
     }
 }
