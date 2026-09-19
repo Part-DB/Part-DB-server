@@ -183,6 +183,8 @@ final class TrustedPartsProviderTest extends TestCase
         $this->assertCount(1, $result->datasheets);
         $this->assertSame('https://www.trustedparts.com/productredirect?id=datasheet', $result->datasheets[0]->url);
         $this->assertSame('Datasheet (DigiKey)', $result->datasheets[0]->name);
+        //The datasheet links are tracking redirects on trustedparts.com, which always reject non-browser requests
+        $this->assertFalse($result->datasheets[0]->downloadable);
 
         $this->assertSame(1, $httpClient->getRequestsCount());
     }

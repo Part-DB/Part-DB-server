@@ -174,7 +174,9 @@ class AttachmentFormType extends AbstractType
         //If the attachment should be downloaded by default (and is download allowed at all), register a listener,
         // which sets the downloadURL checkbox to true for new attachments
         if ($this->settings->downloadByDefault && $this->settings->allowDownloads) {
-            $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event): void {
+            $non_downloadable_urls = $options['non_downloadable_urls'];
+
+            $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) use ($non_downloadable_urls): void {
                 $form = $event->getForm();
                 $attachment = $form->getData();
 
@@ -182,8 +184,10 @@ class AttachmentFormType extends AbstractType
                     return;
                 }
 
-                //If the attachment was not created yet, set the downloadURL checkbox to true
-                if ($attachment === null || $attachment->getId() === null) {
+                //If the attachment was not created yet and is actually downloadable, set the downloadURL checkbox to true
+                if (($attachment === null || $attachment->getId() === null)
+                    && ($attachment === null
+                        || !in_array($attachment->getExternalPath(), $non_downloadable_urls, true))) {
                     $checkbox = $form->get('downloadURL');
                     //Ensure that the checkbox is not disabled
                     if ($checkbox->isDisabled()) {
@@ -202,7 +206,13 @@ class AttachmentFormType extends AbstractType
             'data_class' => Attachment::class,
             'max_file_size' => $this->settings->maxFileSize,
             'allow_builtins' => true,
+            //The external URLs which a local copy can never be downloaded from (e.g. tracking redirects of an info
+            //provider, which reject non-browser requests). Attachments with such an URL are not pre-selected for
+            //download, so the user is not shown a download error on every save. See FileDTO::$downloadable.
+            'non_downloadable_urls' => [],
         ]);
+
+        $resolver->setAllowedTypes('non_downloadable_urls', 'string[]');
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options): void
