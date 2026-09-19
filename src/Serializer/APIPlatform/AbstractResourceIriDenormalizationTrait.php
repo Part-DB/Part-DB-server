@@ -29,8 +29,9 @@ use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 
 /**
  * Shared denormalize()/supportsDenormalization() implementation for AbstractResourceIriNormalizer and
- * AbstractResourceIriDenormalizer. The using class must provide an $inner (de)normalizer and an
- * IriConverterInterface $iriConverter property.
+ * AbstractResourceIriDenormalizer. The using class must provide an $inner (de)normalizer, an
+ * IriConverterInterface $iriConverter property and a ResourceClassResolverInterface $resourceClassResolver
+ * property.
  *
  * It works around a bug in API Platform's AbstractItemNormalizer where IRI strings for abstract resource classes
  * with a discriminator map fail deserialization when objectToPopulate is null (the discriminator is checked before
@@ -40,7 +41,18 @@ trait AbstractResourceIriDenormalizationTrait
 {
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (is_string($data) || (is_array($data) && isset($data['@id']) && is_string($data['@id']))) {
+        // API Platform's AbstractItemNormalizer has a bug: when objectToPopulate is null and data is an IRI
+        // string, it tries to resolve the discriminator class from [$iri_string] before reaching the IRI
+        // check (line 271). For abstract resource classes with a discriminator map (e.g. Attachment), this
+        // fails because the array has no _type key. Fix by resolving IRI strings directly.
+        // See: https://github.com/Part-DB/Part-DB-server/issues/1370
+        //
+        // $type must actually be an API resource for this to make sense: this normalizer also runs for plain
+        // value objects (e.g. backed enums) nested inside a resource, and a string value there is the enum's
+        // scalar value, not an IRI - treating it as one silently swallows the value instead of letting the
+        // regular (enum) normalizer handle it.
+        if ($this->resourceClassResolver->isResourceClass($type)
+            && (is_string($data) || (is_array($data) && isset($data['@id']) && is_string($data['@id'])))) {
             $iri = is_array($data) ? $data['@id'] : $data;
 
             try {

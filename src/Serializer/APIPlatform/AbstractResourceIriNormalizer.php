@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Serializer\APIPlatform;
 
 use ApiPlatform\Metadata\IriConverterInterface;
+use ApiPlatform\Metadata\ResourceClassResolverInterface;
 use ApiPlatform\Serializer\ItemNormalizer;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -52,6 +53,7 @@ class AbstractResourceIriNormalizer implements NormalizerInterface, Denormalizer
     public function __construct(
         private readonly ItemNormalizer $inner,
         private readonly IriConverterInterface $iriConverter,
+        private readonly ResourceClassResolverInterface $resourceClassResolver,
     ) {
     }
 
