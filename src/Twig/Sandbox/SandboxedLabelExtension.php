@@ -48,6 +48,8 @@ class SandboxedLabelExtension extends AbstractExtension
             new TwigFunction("associated_parts_count", $this->associatedPartsCount(...)),
             new TwigFunction("associated_parts_r", $this->associatedPartsRecursive(...)),
             new TwigFunction("associated_parts_count_r", $this->associatedPartsCountRecursive(...)),
+
+            new TwigFunction('debug_vars', $this->debugVars(...), ['needs_context' => true, 'is_safe' => ['html']]),
         ];
     }
 
@@ -89,5 +91,34 @@ class SandboxedLabelExtension extends AbstractExtension
         /** @var AbstractPartsContainingRepository<AbstractPartsContainingDBElement> $repo */
         $repo = $this->em->getRepository($element::class);
         return $repo->getPartsCountRecursive($element);
+    }
+
+    /**
+     * Debug helper for label templates: renders a human-readable list of all variables currently available in
+     * the twig context (e.g. `element`, `page`, `user`, ...), along with their type. For objects, only the class
+     * name is shown, not their content, so it stays consistent with what the sandbox otherwise allows you to see.
+     * Intended to be dropped into a template as `{{ debug_vars() }}` while writing it, and removed afterwards.
+     */
+    public function debugVars(array $context): string
+    {
+        $lines = [];
+        foreach ($context as $name => $value) {
+            $lines[] = sprintf('<b>%s</b>: %s', htmlspecialchars((string) $name), $this->describeValue($value));
+        }
+        sort($lines);
+
+        return implode('<br>', $lines);
+    }
+
+    private function describeValue(mixed $value): string
+    {
+        return match (true) {
+            $value === null => 'null',
+            is_bool($value) => $value ? 'true' : 'false',
+            is_object($value) => htmlspecialchars($value::class),
+            is_array($value) => 'array (' . count($value) . ' items)',
+            is_scalar($value) => htmlspecialchars((string) $value) . ' (' . gettype($value) . ')',
+            default => gettype($value),
+        };
     }
 }

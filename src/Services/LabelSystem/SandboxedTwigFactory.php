@@ -118,6 +118,7 @@ final class SandboxedTwigFactory
         //SandboxedLabelExtension
         'placeholder',
         'associated_parts', 'associated_parts_count', 'associated_parts_r', 'associated_parts_count_r',
+        'debug_vars',
         ];
 
     private const ALLOWED_METHODS = [
