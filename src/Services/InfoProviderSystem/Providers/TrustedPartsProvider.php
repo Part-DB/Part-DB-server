@@ -349,12 +349,16 @@ class TrustedPartsProvider implements BatchInfoProviderInterface
                     $order_number = $mpn;
                 }
 
+                //QuantityOnHand is null if the distributor does not disclose the exact number
+                $available_amount = $offer['Stock']['QuantityOnHand'] ?? null;
+
                 $orderinfos[] = new PurchaseInfoDTO(
                     distributor_name: $distributor_name,
                     order_number: $order_number,
                     prices: $prices,
                     product_url: $product_url,
                     prices_include_vat: false,
+                    available_amount: $available_amount !== null ? (float) $available_amount : null,
                 );
             }
         }
