@@ -21,10 +21,8 @@ import {Controller} from "@hotwired/stimulus";
 //import * as ZXing from "@zxing/library";
 
 import {Html5QrcodeScanner, Html5Qrcode} from "@part-db/html5-qrcode";
-import { generateCsrfToken, generateCsrfHeaders } from "../csrf_protection_controller";
 
 /* stimulusFetch: 'lazy' */
-
 export default class extends Controller {
     _scanner = null;
     _submitting = false;
@@ -96,7 +94,7 @@ export default class extends Controller {
         try {
             const p = scanner.clear?.();
             if (p && typeof p.then === "function") p.catch(() => {});
-        } catch (_) {
+        } catch {
             // ignore
         }
     }

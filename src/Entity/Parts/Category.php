@@ -129,7 +129,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             description: 'Update an existing category by its database ID. Only the fields you actually provide are changed; any field you omit is left completely untouched.',
             annotations: ['readOnlyHint' => false, 'destructiveHint' => false, 'idempotentHint' => false, 'openWorldHint' => false],
             normalizationContext: ['groups' => ['category:read', 'api:basic:read']], // Not enforced by the MCP call pipeline - the real check is manual, inside the processor.
-            security: 'is_granted("edit", object)',
+            security: 'is_granted("@categories.edit")',
             input: UpdateStructuralElementInput::class,
             validate: false,
             provider: UpdateStructuralElementInputProvider::class, // Entity validation is done manually in the processor, not on the (barely-constrained) input DTO
@@ -140,7 +140,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             description: 'Permanently delete a category by its database ID. Fails if the category still directly contains parts. Child categories are moved up to the deleted category\'s own parent, not deleted themselves.',
             structuredContent: false,
             annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => true, 'openWorldHint' => false], // Not enforced by the MCP call pipeline - the real check is manual, inside the processor.
-            security: 'is_granted("delete", object)', // The processor returns a plain text confirmation via CallToolResult, not a normalized element
+            security: 'is_granted("@categories.delete")', // The processor returns a plain text confirmation via CallToolResult, not a normalized element
             input: DeleteStructuralElementInput::class,
             validate: true,
             processor: DeleteStructuralElementProcessor::class,

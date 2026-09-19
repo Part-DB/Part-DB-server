@@ -198,18 +198,11 @@ final readonly class PartsDataTable implements DataTableTypeInterface
                     return $tmp;
                 }
             ])
-            ->add('partCustomState', TextColumn::class, [
+            ->add('partCustomState', HTMLColumn::class, [
                 'label' => $this->translator->trans('part.table.partCustomState'),
                 'orderField' => 'NATSORT(_partCustomState.name)',
-                'data' => function(Part $context): string {
-                    $partCustomState = $context->getPartCustomState();
-
-                    if ($partCustomState === null) {
-                        return '';
-                    }
-
-                    return $partCustomState->getName();
-                }
+                'data' => fn(Part $context): string
+                    => $this->partDataTableHelper->renderPartCustomState($context->getPartCustomState()),
             ])
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),

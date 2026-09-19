@@ -29,7 +29,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Repository\StructuralDBElementRepository;
-use App\Serializer\APIPlatform\SkippableItemNormalizer;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use function count;
 use Doctrine\ORM\EntityManagerInterface;
@@ -45,7 +45,7 @@ use Psr\Log\LoggerInterface;
 /**
  * @see \App\Tests\Services\ImportExportSystem\EntityImporterTest
  */
-class EntityImporter
+final readonly class EntityImporter
 {
 
     /**
@@ -53,8 +53,13 @@ class EntityImporter
      */
     private const ENCODINGS = ["ASCII", "UTF-8", "ISO-8859-1", "ISO-8859-15", "Windows-1252", "UTF-16", "UTF-32"];
 
-    public function __construct(protected SerializerInterface $serializer, protected EntityManagerInterface $em, protected ValidatorInterface $validator, protected LoggerInterface $logger)
-    {
+    public function __construct(
+        #[Autowire(service: 'serializer.import_export')]
+        protected SerializerInterface $serializer,
+        protected EntityManagerInterface $em,
+        protected ValidatorInterface $validator,
+        protected LoggerInterface $logger,
+    ) {
     }
 
     /**
@@ -212,8 +217,6 @@ class EntityImporter
                 'create_unknown_datastructures' => $options['create_unknown_datastructures'],
                 'path_delimiter' => $options['path_delimiter'],
                 'partdb_import' => true,
-                    //Disable API Platform normalizer, as we don't want to use it here
-                SkippableItemNormalizer::DISABLE_ITEM_NORMALIZER => true,
             ]
         );
 

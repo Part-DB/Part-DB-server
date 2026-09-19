@@ -27,6 +27,7 @@ use App\Entity\Parts\StorageLocation;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartCustomState;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\EntityURLGenerator;
@@ -168,6 +169,22 @@ readonly class PartDataTableHelper
         // Wrap in link to EDA settings tab (data-turbo=false to ensure hash is read on page load)
         $editUrl = $this->entityURLGenerator->editURL($context) . '#eda';
         return sprintf('<a href="%s" data-turbo="false">%s</a>', $editUrl, $statusIcon);
+    }
+
+    /**
+     * Renders the custom state of a part as the colored badge it is configured with.
+     * Returns an empty string if the part has no custom state.
+     */
+    public function renderPartCustomState(?PartCustomState $state): string
+    {
+        if ($state === null) {
+            return '';
+        }
+
+        return sprintf('<span class="badge %s">%s</span>',
+            htmlspecialchars($state->getBadgeClass()),
+            htmlspecialchars($state->getName())
+        );
     }
 
     public function renderAmount(Part $context): string

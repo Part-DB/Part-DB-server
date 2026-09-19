@@ -59,7 +59,7 @@ export default class TristateCheckbox {
      */
     constructor(element, options = {})
     {
-        if(!element instanceof HTMLInputElement || !(element.tagName === 'INPUT' && element.type === 'checkbox')) {
+        if(!(element instanceof HTMLInputElement) || !(element.tagName === 'INPUT' && element.type === 'checkbox')) {
             throw new Error("The given element is not an input checkbox");
         }
 
