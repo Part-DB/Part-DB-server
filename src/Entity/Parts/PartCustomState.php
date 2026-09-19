@@ -22,13 +22,11 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use ApiPlatform\Metadata\ApiProperty;
-use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\PartCustomStateAttachment;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -39,9 +37,12 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
+use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\PartCustomStateAttachment;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\PartCustomStateParameter;
+use App\Helpers\BootstrapColor;
 use App\Mcp\DTO\ElementByIdInput;
 use App\Mcp\DTO\StructuralElementOverview;
 use App\Mcp\DTO\StructuralElementSearchInput;
@@ -110,12 +111,12 @@ class PartCustomState extends AbstractPartsContainingDBElement
     protected string $comment = '';
 
     /**
-     * @var PartCustomStateColor|null The semantic color this state is rendered as a badge with.
+     * @var BootstrapColor|null The semantic color this state is rendered as a badge with.
      * Null keeps the default, uncolored appearance Part-DB used before this field existed.
      */
-    #[ORM\Column(type: Types::STRING, length: 20, nullable: true, enumType: PartCustomStateColor::class)]
+    #[ORM\Column(type: Types::STRING, length: 20, nullable: true, enumType: BootstrapColor::class)]
     #[Groups(['part_custom_state:read', 'part_custom_state:write', 'full', 'import'])]
-    protected ?PartCustomStateColor $color = null;
+    protected ?BootstrapColor $color = null;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist'])]
     #[ORM\OrderBy(['name' => 'ASC'])]
@@ -162,12 +163,12 @@ class PartCustomState extends AbstractPartsContainingDBElement
         $this->parameters = new ArrayCollection();
     }
 
-    public function getColor(): ?PartCustomStateColor
+    public function getColor(): ?BootstrapColor
     {
         return $this->color;
     }
 
-    public function setColor(?PartCustomStateColor $color): self
+    public function setColor(?BootstrapColor $color): self
     {
         $this->color = $color;
 

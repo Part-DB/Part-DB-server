@@ -24,7 +24,7 @@ namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Parts\PartCustomState;
-use App\Entity\Parts\PartCustomStateColor;
+use App\Helpers\BootstrapColor;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -39,8 +39,8 @@ class PartCustomStateAdminForm extends BaseEntityAdminForm
         $is_new = null === $entity->getID();
 
         $builder->add('color', EnumType::class, [
-            'class' => PartCustomStateColor::class,
-            'choice_label' => fn (PartCustomStateColor $color) => $color->toTranslationKey(),
+            'class' => BootstrapColor::class,
+            'choice_label' => fn (BootstrapColor $color) => $color->toTranslationKey(),
             'required' => false,
             'label' => 'part_custom_state.color.label',
             'help' => 'part_custom_state.color.help',

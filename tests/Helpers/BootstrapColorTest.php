@@ -1,4 +1,22 @@
 <?php
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ *  Copyright (C) 2019 - 2026 Jan Böhmer (https://github.com/jbtronics)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 declare(strict_types=1);
 
@@ -20,38 +38,38 @@ declare(strict_types=1);
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-namespace App\Tests\Entity\Parts;
+namespace App\Tests\Helpers;
 
 use App\Entity\Parts\PartCustomState;
-use App\Entity\Parts\PartCustomStateColor;
+use App\Helpers\BootstrapColor;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-final class PartCustomStateColorTest extends TestCase
+final class BootstrapColorTest extends TestCase
 {
     public static function colorProvider(): array
     {
         return [
-            [PartCustomStateColor::PRIMARY, 'text-bg-primary'],
-            [PartCustomStateColor::SECONDARY, 'text-bg-secondary'],
-            [PartCustomStateColor::INFO, 'text-bg-info'],
-            [PartCustomStateColor::SUCCESS, 'text-bg-success'],
-            [PartCustomStateColor::WARNING, 'text-bg-warning'],
-            [PartCustomStateColor::DANGER, 'text-bg-danger'],
-            [PartCustomStateColor::LIGHT, 'text-bg-light'],
-            [PartCustomStateColor::DARK, 'text-bg-dark'],
+            [BootstrapColor::PRIMARY, 'text-bg-primary'],
+            [BootstrapColor::SECONDARY, 'text-bg-secondary'],
+            [BootstrapColor::INFO, 'text-bg-info'],
+            [BootstrapColor::SUCCESS, 'text-bg-success'],
+            [BootstrapColor::WARNING, 'text-bg-warning'],
+            [BootstrapColor::DANGER, 'text-bg-danger'],
+            [BootstrapColor::LIGHT, 'text-bg-light'],
+            [BootstrapColor::DARK, 'text-bg-dark'],
         ];
     }
 
     #[DataProvider('colorProvider')]
-    public function testToBadgeClassMapsEveryColorToAFixedClass(PartCustomStateColor $color, string $expectedClass): void
+    public function testToBadgeClassMapsEveryColorToAFixedClass(BootstrapColor $color, string $expectedClass): void
     {
         $this->assertSame($expectedClass, $color->toBadgeClass());
     }
 
     public function testUnknownColorValueIsRejected(): void
     {
-        $this->assertNull(PartCustomStateColor::tryFrom('not-a-real-color'));
+        $this->assertNull(BootstrapColor::tryFrom('not-a-real-color'));
     }
 
     public function testPartCustomStateDefaultsToNoColor(): void
@@ -64,9 +82,9 @@ final class PartCustomStateColorTest extends TestCase
     public function testPartCustomStateColorCanBeSetAndRetrieved(): void
     {
         $state = new PartCustomState();
-        $state->setColor(PartCustomStateColor::WARNING);
+        $state->setColor(BootstrapColor::WARNING);
 
-        $this->assertSame(PartCustomStateColor::WARNING, $state->getColor());
+        $this->assertSame(BootstrapColor::WARNING, $state->getColor());
 
         $state->setColor(null);
         $this->assertNull($state->getColor());
@@ -79,7 +97,7 @@ final class PartCustomStateColorTest extends TestCase
     }
 
     #[DataProvider('colorProvider')]
-    public function testBadgeClassUsesTheConfiguredColor(PartCustomStateColor $color, string $expectedClass): void
+    public function testBadgeClassUsesTheConfiguredColor(BootstrapColor $color, string $expectedClass): void
     {
         $state = (new PartCustomState())->setColor($color);
 

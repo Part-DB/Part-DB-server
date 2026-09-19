@@ -20,13 +20,13 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Parts;
+namespace App\Helpers;
 
 /**
  * The semantic Bootstrap color a PartCustomState can be rendered with.
  * This is a closed whitelist: no free-form CSS classes or colors can be stored.
  */
-enum PartCustomStateColor: string
+enum BootstrapColor: string
 {
     case PRIMARY = 'primary';
     case SECONDARY = 'secondary';
