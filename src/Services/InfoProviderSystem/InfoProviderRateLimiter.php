@@ -25,6 +25,7 @@ namespace App\Services\InfoProviderSystem;
 use App\Exceptions\InfoProviderRateLimitExceededException;
 use App\Settings\InfoProviderSystem\InfoProviderGeneralSettings;
 use Psr\Cache\CacheItemPoolInterface;
+use Symfony\Component\DependencyInjection\Attribute\Lazy;
 use Symfony\Component\RateLimiter\CompoundLimiter;
 use Symfony\Component\RateLimiter\LimiterInterface;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
@@ -51,13 +52,28 @@ use Symfony\Component\RateLimiter\Storage\CacheStorage;
  * PartInfoRetriever inside the cache callbacks, so only requests which really reach the provider are counted.
  * And it does not synchronize its counter updates with a lock, which means parallel processes can slightly
  * under-count; the configured limit should therefore stay below the provider's real one (the defaults do).
+ *
+ * The service is marked lazy: {@see InfoProviderGeneralSettings} is itself a lazy-hydrating settings-bundle
+ * proxy, and the constructor reads it to build the rate limit windows. Without laziness here, merely injecting
+ * this service (e.g. into PartInfoRetriever) would force that settings hydration on every request, even ones
+ * that never end up calling a provider. With it, construction - and the settings read - is deferred until
+ * await() is actually called.
  */
+#[Lazy]
 final class InfoProviderRateLimiter
 {
     /**
      * @var LimiterInterface[] Limiters per provider key, built lazily
      */
     private array $limiters = [];
+
+    private readonly CacheStorage $storage;
+
+    /**
+     * @var RateLimiterFactory[] One factory per configured window, keyed by window name; shared by every provider,
+     *                          since only the counter key passed to create() differs between them
+     */
+    private readonly array $factories;
 
     /**
      * @var float How long to sleep at most in one go, so a changed limit or a freed slot is noticed reasonably fast
@@ -68,6 +84,18 @@ final class InfoProviderRateLimiter
         private readonly CacheItemPoolInterface $cache,
         private readonly InfoProviderGeneralSettings $settings,
     ) {
+        $this->storage = new CacheStorage($this->cache);
+
+        $factories = [];
+        foreach ($this->windows() as $name => [$limit, $interval]) {
+            $factories[$name] = new RateLimiterFactory([
+                'id' => 'info_provider_'.$name,
+                'policy' => 'sliding_window',
+                'limit' => $limit,
+                'interval' => $interval,
+            ], $this->storage);
+        }
+        $this->factories = $factories;
     }
 
     /**
@@ -116,17 +144,9 @@ final class InfoProviderRateLimiter
             return $this->limiters[$provider_key];
         }
 
-        $storage = new CacheStorage($this->cache);
         $limiters = [];
 
-        foreach ($this->windows() as $name => [$limit, $interval]) {
-            $factory = new RateLimiterFactory([
-                'id' => 'info_provider_'.$name,
-                'policy' => 'sliding_window',
-                'limit' => $limit,
-                'interval' => $interval,
-            ], $storage);
-
+        foreach ($this->factories as $factory) {
             $limiters[] = $factory->create($provider_key);
         }
 
