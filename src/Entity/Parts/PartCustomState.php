@@ -22,13 +22,11 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use ApiPlatform\Metadata\ApiProperty;
-use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\PartCustomStateAttachment;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -39,9 +37,12 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Serializer\Filter\PropertyFilter;
 use App\ApiPlatform\Filter\LikeFilter;
+use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\PartCustomStateAttachment;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\PartCustomStateParameter;
+use App\Helpers\BootstrapColor;
 use App\Mcp\DTO\ElementByIdInput;
 use App\Mcp\DTO\StructuralElementOverview;
 use App\Mcp\DTO\StructuralElementSearchInput;
@@ -50,6 +51,7 @@ use App\State\Mcp\GetStructuralElementDetailsProcessor;
 use App\State\Mcp\ListStructuralElementsProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -108,6 +110,14 @@ class PartCustomState extends AbstractPartsContainingDBElement
     #[Groups(['part_custom_state:read', 'part_custom_state:write', 'full', 'import'])]
     protected string $comment = '';
 
+    /**
+     * @var BootstrapColor|null The semantic color this state is rendered as a badge with.
+     * Null keeps the default, uncolored appearance Part-DB used before this field existed.
+     */
+    #[ORM\Column(type: Types::STRING, length: 20, nullable: true, enumType: BootstrapColor::class)]
+    #[Groups(['part_custom_state:read', 'part_custom_state:write', 'full', 'import'])]
+    protected ?BootstrapColor $color = null;
+
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist'])]
     #[ORM\OrderBy(['name' => 'ASC'])]
     protected Collection $children;
@@ -151,5 +161,27 @@ class PartCustomState extends AbstractPartsContainingDBElement
         $this->children = new ArrayCollection();
         $this->attachments = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+    }
+
+    public function getColor(): ?BootstrapColor
+    {
+        return $this->color;
+    }
+
+    public function setColor(?BootstrapColor $color): self
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Returns the CSS class this state is rendered as a badge with, everywhere it is shown.
+     * Without a configured color this is the color Part-DB used before the color existed, so an unconfigured
+     * state keeps looking exactly the way it did.
+     */
+    public function getBadgeClass(): string
+    {
+        return $this->color?->toBadgeClass() ?? 'bg-primary';
     }
 }

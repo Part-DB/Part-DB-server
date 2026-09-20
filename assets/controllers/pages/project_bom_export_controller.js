@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
+import DataTable from 'datatables.net';
 
 export default class extends Controller {
     static values = {
@@ -16,14 +17,11 @@ export default class extends Controller {
             throw new Error('Could not find the project BOM table.');
         }
 
-        if (
-            typeof window.jQuery === 'undefined'
-            || !window.jQuery.fn.DataTable.isDataTable(tableElement)
-        ) {
+        if (!DataTable.isDataTable(tableElement)) {
             throw new Error('The project BOM DataTable is not initialized.');
         }
 
-        const dataTable = window.jQuery(tableElement).DataTable();
+        const dataTable = new DataTable(tableElement);
         const ajaxParameters = dataTable.ajax.params();
 
         const parameters = this.toSearchParameters(ajaxParameters);

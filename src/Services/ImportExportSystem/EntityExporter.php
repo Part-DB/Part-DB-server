@@ -27,7 +27,7 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Helpers\FilenameSanatizer;
-use App\Serializer\APIPlatform\SkippableItemNormalizer;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use InvalidArgumentException;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
@@ -47,10 +47,12 @@ use PhpOffice\PhpSpreadsheet\Writer\Xls;
  * Use this class to export an entity to multiple file formats.
  * @see \App\Tests\Services\ImportExportSystem\EntityExporterTest
  */
-class EntityExporter
+final readonly class EntityExporter
 {
-    public function __construct(protected SerializerInterface $serializer)
-    {
+    public function __construct(
+        #[Autowire(service: 'serializer.import_export')]
+        protected SerializerInterface $serializer,
+    ) {
     }
 
     protected function configureOptions(OptionsResolver $resolver): void
@@ -112,8 +114,6 @@ class EntityExporter
                 'csv_delimiter' => $options['csv_delimiter'],
                 'xml_root_node_name' => 'PartDBExport',
                 'partdb_export' => true,
-                    //Skip the item normalizer, so that we dont get IRIs in the output
-                SkippableItemNormalizer::DISABLE_ITEM_NORMALIZER => true,
                     //Handle circular references
                 AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => $this->handleCircularReference(...),
             ]
@@ -157,7 +157,6 @@ class EntityExporter
                 'as_collection' => true,
                 'csv_delimiter' => $options['csv_delimiter'],
                 'partdb_export' => true,
-                SkippableItemNormalizer::DISABLE_ITEM_NORMALIZER => true,
                 AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => $this->handleCircularReference(...),
             ]
         );

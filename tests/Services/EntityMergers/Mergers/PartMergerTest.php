@@ -351,6 +351,38 @@ final class PartMergerTest extends KernelTestCase
         );
     }
 
+    public function testMergeOfAttachmentWithChangedExternalUrlIsNotDuplicated(): void
+    {
+        //PartAttachment enforces that name + attachment type must be unique per part (see the UniqueEntity
+        //constraint), so two attachments can never coexist once they share both, no matter their content. Some
+        //providers (e.g. TrustedParts) issue a fresh signed/tracking URL for the very same file on every request,
+        //so comparing the external path in addition to name+type would make the merger try to add a second,
+        //colliding attachment on every refresh, which fails to persist.
+        $attachmentType = new AttachmentType();
+
+        $existingAttachment = (new PartAttachment())
+            ->setName('datasheet')
+            ->setAttachmentType($attachmentType)
+            ->setExternalPath('https://trustedparts.com/productredirect?id=old-token');
+
+        $part1 = (new Part())->addAttachment($existingAttachment);
+
+        $refreshedAttachment = (new PartAttachment())
+            ->setName('datasheet')
+            ->setAttachmentType($attachmentType)
+            ->setExternalPath('https://trustedparts.com/productredirect?id=new-token');
+
+        $part2 = (new Part())->addAttachment($refreshedAttachment);
+
+        $merged = $this->merger->merge($part1, $part2);
+
+        //The two attachments must be merged into one, not kept side by side
+        $this->assertCount(1, $merged->getAttachments());
+        $this->assertSame($existingAttachment, $merged->getAttachments()->get(0));
+        //The stale URL must be refreshed to the new one
+        $this->assertSame('https://trustedparts.com/productredirect?id=new-token', $merged->getAttachments()->get(0)->getExternalPath());
+    }
+
     public function testSupports()
     {
         $this->assertFalse($this->merger->supports(new \stdClass(), new \stdClass()));

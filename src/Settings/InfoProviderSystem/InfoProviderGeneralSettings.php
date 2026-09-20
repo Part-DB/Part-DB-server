@@ -30,6 +30,7 @@ use Jbtronics\SettingsBundle\ParameterTypes\StringType;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Symfony\Component\Translation\TranslatableMessage as TM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Settings(label: new TM("settings.ips.general"))]
 #[SettingsIcon("fa-magnifying-glass")]
@@ -42,4 +43,31 @@ class InfoProviderGeneralSettings
         description: new TM("settings.ips.default_providers.help"), options: ['type' => StringType::class],
         formType: ProviderSelectType::class, formOptions: ['input' => 'string', 'required' => false, 'empty_data' => []])]
     public array $defaultSearchProviders = [];
+
+    /**
+     * @var int The maximum number of requests Part-DB sends to a single provider within 10 seconds, or 0 for no
+     * limit. The default leaves headroom below the shortest window the providers typically enforce, so that an
+     * external script sharing the same API account does not push the total over the provider's limit.
+     */
+    #[SettingsParameter(label: new TM("settings.ips.rate_limit_per_10s"),
+        description: new TM("settings.ips.rate_limit_per_10s.help"))]
+    #[Assert\Range(min: 0, max: 10000)]
+    public int $rateLimitPer10Seconds = 35;
+
+    /**
+     * @var int The maximum number of requests Part-DB sends to a single provider within a minute, or 0 for no limit
+     */
+    #[SettingsParameter(label: new TM("settings.ips.rate_limit_per_minute"),
+        description: new TM("settings.ips.rate_limit_per_minute.help"))]
+    #[Assert\Range(min: 0, max: 60000)]
+    public int $rateLimitPerMinute = 120;
+
+    /**
+     * @var int How long a single request may be delayed by the rate limit before it fails instead, in seconds.
+     * Bulk operations are happy to wait; this keeps an interactive request from hanging indefinitely.
+     */
+    #[SettingsParameter(label: new TM("settings.ips.rate_limit_max_wait"),
+        description: new TM("settings.ips.rate_limit_max_wait.help"))]
+    #[Assert\Range(min: 0, max: 600)]
+    public int $rateLimitMaxWait = 30;
 }

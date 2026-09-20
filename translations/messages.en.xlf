@@ -14420,6 +14420,12 @@ Buerklin-API Authentication server:
         <target>LMStudio</target>
       </segment>
     </unit>
+    <unit id="tWV0mhi" name="settings.ai.generic">
+      <segment state="translated">
+        <source>settings.ai.generic</source>
+        <target>Generic (OpenAI compatible)</target>
+      </segment>
+    </unit>
     <unit id="foBzBG2" name="settings.ips.ai_extractor.model">
       <segment state="translated">
         <source>settings.ips.ai_extractor.model</source>
@@ -14562,6 +14568,48 @@ Buerklin-API Authentication server:
       <segment state="translated">
         <source>settings.ai.ollama.apiKey</source>
         <target>API Key</target>
+      </segment>
+    </unit>
+    <unit id="gY_fVAC" name="settings.ai.generic.help">
+      <segment state="translated">
+        <source>settings.ai.generic.help</source>
+        <target>Connect to any OpenAI API compatible endpoint, e.g. a self-hosted LLM gateway/proxy (like LiteLLM or vLLM) or another provider offering an OpenAI-compatible API.</target>
+      </segment>
+    </unit>
+    <unit id="znTTXBF" name="settings.ai.generic.baseUrl">
+      <segment state="translated">
+        <source>settings.ai.generic.baseUrl</source>
+        <target>Base URL</target>
+      </segment>
+    </unit>
+    <unit id="0PBFceB" name="settings.ai.generic.apiKey">
+      <segment state="translated">
+        <source>settings.ai.generic.apiKey</source>
+        <target>API Key</target>
+      </segment>
+    </unit>
+    <unit id="dMXkfW2" name="settings.ai.generic.completionsPath">
+      <segment state="translated">
+        <source>settings.ai.generic.completionsPath</source>
+        <target>Completions Path</target>
+      </segment>
+    </unit>
+    <unit id="ns3mY1a" name="settings.ai.generic.completionsPath.help">
+      <segment state="translated">
+        <source>settings.ai.generic.completionsPath.help</source>
+        <target>The path of the chat completions endpoint, relative to the base URL. Leave empty to use the default "/v1/chat/completions".</target>
+      </segment>
+    </unit>
+    <unit id="0p9nJMr" name="settings.ai.generic.embeddingsPath">
+      <segment state="translated">
+        <source>settings.ai.generic.embeddingsPath</source>
+        <target>Embeddings Path</target>
+      </segment>
+    </unit>
+    <unit id="cA6Hiu5" name="settings.ai.generic.embeddingsPath.help">
+      <segment state="translated">
+        <source>settings.ai.generic.embeddingsPath.help</source>
+        <target>The path of the embeddings endpoint, relative to the base URL. Leave empty to use the default "/v1/embeddings".</target>
       </segment>
     </unit>
     <unit id="VxXEQUD" name="settings.ai.timeout">
@@ -15168,6 +15216,132 @@ Buerklin-API Authentication server:
       <segment state="translated">
         <source>project.bom_entry.edit.title</source>
         <target>Edit BOM entry #%id% of project</target>
+      </segment>
+    </unit>
+    <unit id="j2fYeQD" name="part_custom_state.color.label">
+      <segment state="translated">
+        <source>part_custom_state.color.label</source>
+        <target>Color</target>
+      </segment>
+    </unit>
+    <unit id="BQZ7r4Z" name="part_custom_state.color.help">
+      <segment state="translated">
+        <source>part_custom_state.color.help</source>
+        <target>Optional semantic color this custom state is shown with wherever it appears as a badge (e.g. on the part detail page and in part tables). Without a color, the previous default appearance is used.</target>
+      </segment>
+    </unit>
+    <unit id="YIvmxWY" name="part_custom_state.color.primary">
+      <segment state="translated">
+        <source>part_custom_state.color.primary</source>
+        <target>Primary</target>
+      </segment>
+    </unit>
+    <unit id="wyIJyyZ" name="part_custom_state.color.secondary">
+      <segment state="translated">
+        <source>part_custom_state.color.secondary</source>
+        <target>Secondary</target>
+      </segment>
+    </unit>
+    <unit id="D5LTi6M" name="part_custom_state.color.info">
+      <segment state="translated">
+        <source>part_custom_state.color.info</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="YPy4hrz" name="part_custom_state.color.success">
+      <segment state="translated">
+        <source>part_custom_state.color.success</source>
+        <target>Success</target>
+      </segment>
+    </unit>
+    <unit id="rlX91yG" name="part_custom_state.color.warning">
+      <segment state="translated">
+        <source>part_custom_state.color.warning</source>
+        <target>Warning</target>
+      </segment>
+    </unit>
+    <unit id="aDTRoCA" name="part_custom_state.color.danger">
+      <segment state="translated">
+        <source>part_custom_state.color.danger</source>
+        <target>Danger</target>
+      </segment>
+    </unit>
+    <unit id="NYr6Yel" name="part_custom_state.color.light">
+      <segment state="translated">
+        <source>part_custom_state.color.light</source>
+        <target>Light</target>
+      </segment>
+    </unit>
+    <unit id="3JYrhXR" name="part_custom_state.color.dark">
+      <segment state="translated">
+        <source>part_custom_state.color.dark</source>
+        <target>Dark</target>
+      </segment>
+    </unit>
+    <unit id="OOY08s2" name="settings.ips.rate_limit_per_10s">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_10s</source>
+        <target>Max. provider requests per 10 seconds</target>
+      </segment>
+    </unit>
+    <unit id="RvmisL4" name="settings.ips.rate_limit_per_10s.help">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_10s.help</source>
+        <target>Part-DB never sends more than this many requests to the same info provider within 10 seconds, and delays further ones. Keep this below the limit of your provider account, especially if an external script uses the same API credentials - the provider counts both. Set to 0 to disable.</target>
+      </segment>
+    </unit>
+    <unit id="7yMJvsZ" name="settings.ips.rate_limit_per_minute">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_minute</source>
+        <target>Max. provider requests per minute</target>
+      </segment>
+    </unit>
+    <unit id="mdIG1__" name="settings.ips.rate_limit_per_minute.help">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_minute.help</source>
+        <target>The same, for a one minute window. Set to 0 to disable.</target>
+      </segment>
+    </unit>
+    <unit id="dIENWAf" name="settings.ips.rate_limit_max_wait">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_max_wait</source>
+        <target>Max. wait for a free slot</target>
+      </segment>
+    </unit>
+    <unit id="fs4yEpG" name="settings.ips.rate_limit_max_wait.help">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_max_wait.help</source>
+        <target>How long a single request may be delayed by the limits above before it fails instead, in seconds. Bulk operations simply wait; this keeps a request started from the user interface from hanging.</target>
+      </segment>
+    </unit>
+    <unit id="4cBWYO6" name="part.refresh_from_info_provider.btn">
+      <segment state="translated">
+        <source>part.refresh_from_info_provider.btn</source>
+        <target>Refresh from %provider%</target>
+      </segment>
+    </unit>
+    <unit id="0lJr81k" name="part.refresh_from_info_provider.last_updated">
+      <segment state="translated">
+        <source>part.refresh_from_info_provider.last_updated</source>
+        <target>Last updated from the info provider: %datetime%</target>
+      </segment>
+    </unit>
+    <unit id="GxFIRWg" name="part_list.action.bulk_info_provider_refresh">
+      <segment state="translated">
+        <source>part_list.action.bulk_info_provider_refresh</source>
+        <target>Refresh from info providers</target>
+      </segment>
+    </unit>
+    <unit id="6Q8bhaD" name="info_providers.bulk_refresh.error.no_provider_reference">
+      <segment state="translated">
+        <source>info_providers.bulk_refresh.error.no_provider_reference</source>
+        <target>This part was not created from an info provider, so it can not be refreshed automatically.</target>
+      </segment>
+    </unit>
+    <unit id="oJcitnK" name="info_providers.bulk_refresh.error.provider_unavailable">
+      <segment state="translated">
+        <source>info_providers.bulk_refresh.error.provider_unavailable</source>
+        <target>The info provider this part was created with is not available anymore.</target>
       </segment>
     </unit>
   </file>

@@ -46,13 +46,11 @@ use App\Entity\Parts\Part;
 use App\Repository\ParameterRepository;
 use App\Serializer\APIPlatform\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Context;
 
 /**
  * @see \App\Tests\Entity\Parameters\PartParameterTest
  */
-#[UniqueEntity(fields: ['name', 'group', 'element'])]
 #[ORM\Entity(repositoryClass: ParameterRepository::class)]
 class PartParameter extends AbstractParameter
 {

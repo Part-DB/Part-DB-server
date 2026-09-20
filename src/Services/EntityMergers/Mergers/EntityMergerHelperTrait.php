@@ -249,7 +249,18 @@ trait EntityMergerHelperTrait
             if ($t->getName() === $o->getName() && $t->getAttachmentType() === $o->getAttachmentType()) {
                 //An external source is authoritative. Ignore generated internal paths.
                 if ($t->hasExternal() || $o->hasExternal()) {
-                    return $t->getExternalPath() === $o->getExternalPath();
+                    //Check if the normalized external paths are equal. If so, the attachments are considered equal.
+                    if ($t->getComparableURL() === $o->getComparableURL()) {
+                        //When the normalized version is equal, but the details are different, prefer the new one
+                        //If the external source provides an updated URL (some providers issue a fresh signed/tracking URL for
+                        //the very same file on every request, e.g. TrustedParts), refresh it, so a stale or expired link does
+                        //not linger just because the URL happened to differ from the previous import.
+                        if ($t->getExternalPath() !== $o->getExternalPath()) {
+                            $t->setURL($o->getExternalPath());
+                        }
+                        return true;
+                    }
+                    return false;
                 }
                 //Only for local attachments, compare the internal path.
                 return $t->getInternalPath() === $o->getInternalPath();
