@@ -49,6 +49,9 @@ enum ProviderCapabilities: string
     /** Provider can provide parameters/specifications for a part */
     case PARAMETERS = 'PARAMETERS';
 
+    /** Provider can  */
+    case STOCK_LEVEL = 'STOCK_LEVEL';
+
     /**
      * Get the order index for displaying capabilities in a stable order.
      * @return int
@@ -63,6 +66,7 @@ enum ProviderCapabilities: string
             self::FOOTPRINT => 5,
             self::GTIN => 6,
             self::PARAMETERS => 7,
+            self::STOCK_LEVEL => 8,
         };
     }
 
@@ -76,6 +80,7 @@ enum ProviderCapabilities: string
                 self::PRICE => 'price',
                 self::GTIN => 'gtin',
                 self::PARAMETERS => 'parameters',
+                self::STOCK_LEVEL => 'stock_level',
             };
     }
 
@@ -89,6 +94,7 @@ enum ProviderCapabilities: string
                 self::PRICE => 'fa-money-bill-wave',
                 self::GTIN => 'fa-barcode',
                 self::PARAMETERS => 'fa-list-ul',
+                self::STOCK_LEVEL => 'fa-gauge',
             };
     }
 }

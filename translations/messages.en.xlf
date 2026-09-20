@@ -15344,5 +15344,41 @@ Buerklin-API Authentication server:
         <target>The info provider this part was created with is not available anymore.</target>
       </segment>
     </unit>
+    <unit id="C_G6Ebd" name="part.supplier.available_amount">
+      <segment state="translated">
+        <source>part.supplier.available_amount</source>
+        <target>Available</target>
+      </segment>
+    </unit>
+    <unit id="t1bd9yr" name="part.supplier.available_amount.unknown">
+      <segment state="translated">
+        <source>part.supplier.available_amount.unknown</source>
+        <target>Unknown</target>
+      </segment>
+    </unit>
+    <unit id="O33qIEd" name="part.supplier.available_amount.out_of_stock">
+      <segment state="translated">
+        <source>part.supplier.available_amount.out_of_stock</source>
+        <target>Out of stock</target>
+      </segment>
+    </unit>
+    <unit id="m0QJNRv" name="part.supplier.available_amount.updated_at">
+      <segment state="translated">
+        <source>part.supplier.available_amount.updated_at</source>
+        <target>Stock retrieved from the info provider at: %datetime%</target>
+      </segment>
+    </unit>
+    <unit id="NUw3e9D" name="part.table.supplier_available_amount">
+      <segment state="translated">
+        <source>part.table.supplier_available_amount</source>
+        <target>Available at supplier</target>
+      </segment>
+    </unit>
+    <unit id="S6JX3.E" name="info_providers.capabilities.stock_level">
+      <segment>
+        <source>info_providers.capabilities.stock_level</source>
+        <target>Stock level</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
