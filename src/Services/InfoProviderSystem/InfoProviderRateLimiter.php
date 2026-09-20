@@ -78,7 +78,7 @@ final class InfoProviderRateLimiter
     /**
      * @var float How long to sleep at most in one go, so a changed limit or a freed slot is noticed reasonably fast
      */
-    private const MAX_SLEEP_STEP = 1.0;
+    private const MAX_SLEEP_STEP = 0.02; // 20ms
 
     public function __construct(
         private readonly CacheItemPoolInterface $cache,
