@@ -60,7 +60,7 @@ use Symfony\Component\RateLimiter\Storage\CacheStorage;
  * await() is actually called.
  */
 #[Lazy]
-final class InfoProviderRateLimiter
+class InfoProviderRateLimiter //Must not be final, so the DI proxy can extend it on PHP < 8.4
 {
     /**
      * @var LimiterInterface[] Limiters per provider key, built lazily
