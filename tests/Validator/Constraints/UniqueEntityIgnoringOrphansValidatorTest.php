@@ -28,8 +28,11 @@ use App\Entity\Parameters\CategoryParameter;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
+use App\Validator\Constraints\UniqueEntityIgnoringOrphans;
+use App\Validator\Constraints\UniqueEntityIgnoringOrphansValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -151,5 +154,21 @@ final class UniqueEntityIgnoringOrphansValidatorTest extends KernelTestCase
 
         self::assertNull($this->em->find(PartAttachment::class, $oldId));
         self::assertNotNull($new->getID());
+    }
+
+    public function testOwnerFieldWithoutOrphanRemovalIsRejected(): void
+    {
+        // Category::$children (the inverse side of Category::$parent) is not mapped with orphanRemoval: true,
+        // so applying the constraint there would silently ignore matches that Doctrine will never actually
+        // delete - the constraint must refuse this configuration instead of allowing duplicates to persist.
+        $parent = (new Category())->setName('UniqueEntityIgnoringOrphansValidatorTest Parent Category');
+        $category = (new Category())->setName('UniqueEntityIgnoringOrphansValidatorTest Child Category')->setParent($parent);
+
+        $constraint = new UniqueEntityIgnoringOrphans(fields: ['name', 'parent'], ownerField: 'parent');
+        $validator = new UniqueEntityIgnoringOrphansValidator($this->em);
+
+        $this->expectException(ConstraintDefinitionException::class);
+        $this->expectExceptionMessage('does not have orphanRemoval enabled');
+        $validator->validate($category, $constraint);
     }
 }

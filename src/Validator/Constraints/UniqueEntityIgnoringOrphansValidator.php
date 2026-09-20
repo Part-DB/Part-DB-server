@@ -79,6 +79,13 @@ class UniqueEntityIgnoringOrphansValidator extends ConstraintValidator
         $ownerAssociation = $class->getAssociationMapping($constraint->ownerField);
         $inverseProperty = $ownerAssociation instanceof OwningSideMapping ? $ownerAssociation->inversedBy : null;
 
+        if (null !== $inverseProperty) {
+            $ownerClass = $this->entityManager->getClassMetadata($ownerAssociation->targetEntity);
+            if (!$ownerClass->hasAssociation($inverseProperty) || !$ownerClass->getAssociationMapping($inverseProperty)->orphanRemoval) {
+                throw new ConstraintDefinitionException(\sprintf('The association "%s::$%s" (the inverse side of "%s::$%s") does not have orphanRemoval enabled. %s only makes sense for a collection Doctrine actually schedules a removal for when an entity is taken out of it - use a plain UniqueEntity constraint instead.', $ownerClass->getName(), $inverseProperty, $class->getName(), $constraint->ownerField, UniqueEntityIgnoringOrphans::class));
+            }
+        }
+
         $matches = $this->entityManager->getRepository($value::class)->findBy($criteria);
 
         $conflicts = array_filter(
