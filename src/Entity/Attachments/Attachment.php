@@ -44,6 +44,7 @@ use App\Mcp\DTO\ElementByIdInput;
 use App\Repository\AttachmentRepository;
 use App\State\Mcp\GetAttachmentContentProcessor;
 use App\Validator\Constraints\Selectable;
+use App\Validator\Constraints\UniqueEntityIgnoringOrphans;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
@@ -113,6 +114,7 @@ use function in_array;
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 //This discriminator map is required for API platform to know which class to use for deserialization, when creating a new attachment.
 #[DiscriminatorMap(typeProperty: '_type', mapping: self::API_DISCRIMINATOR_MAP)]
+#[UniqueEntityIgnoringOrphans(fields: ['name', 'attachment_type', 'element'], ownerField: 'element')]
 abstract class Attachment extends AbstractNamedDBElement
 {
     final public const ORM_DISCRIMINATOR_MAP = ['Part' => PartAttachment::class, 'PartCustomState' => PartCustomStateAttachment::class, 'Device' => ProjectAttachment::class,
