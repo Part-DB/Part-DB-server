@@ -38,10 +38,15 @@ readonly class FileDTO
     /**
      * @param  string  $url The URL where to get this file
      * @param  string|null  $name Optionally the name of this file
+     * @param  bool  $downloadable Whether a local copy of this file can be downloaded from the URL. Set this to
+     * false for URLs which are known to never be downloadable by a server (e.g. tracking redirects which reject
+     * non-browser requests), so the file is not pre-selected for automatic download and the user is not shown a
+     * download error on every save.
      */
     public function __construct(
         string $url,
         public ?string $name = null,
+        public bool $downloadable = true,
     ) {
         //Find all occurrences of non URL safe characters and replace them with their URL encoded version.
         //We only want to replace characters which can not have a valid meaning in a URL (what would break the URL).

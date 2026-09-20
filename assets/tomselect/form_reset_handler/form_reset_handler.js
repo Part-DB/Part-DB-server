@@ -37,10 +37,14 @@ export default function form_reset_handler() {
     // leaving data-default-value unset and breaking the dirty check for blank defaults.
     input.dataset.defaultValue = input.value;
 
-    if (input.form) {
-        input.form.addEventListener('reset', () => {
+    const form = input.form;
+    if (form) {
+        const resetHandler = () => {
             input.value = input.dataset.defaultValue ?? '';
             self.sync();
-        });
+        };
+
+        form.addEventListener('reset', resetHandler);
+        self.on('destroy', () => form.removeEventListener('reset', resetHandler));
     }
 }

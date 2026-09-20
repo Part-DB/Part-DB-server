@@ -12,3 +12,7 @@
     {% trans %}part_custom_state.new{% endtrans %}
 {% endblock %}
 
+{% block additional_controls %}
+    {{ form_row(form.color) }}
+{% endblock %}
+

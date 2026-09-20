@@ -46,13 +46,11 @@ use App\Entity\PriceInformations\Currency;
 use App\Repository\ParameterRepository;
 use App\Serializer\APIPlatform\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Context;
 
 /**
  * An attachment attached to a category element.
  */
-#[UniqueEntity(fields: ['name', 'group', 'element'])]
 #[ORM\Entity(repositoryClass: ParameterRepository::class)]
 class CurrencyParameter extends AbstractParameter
 {

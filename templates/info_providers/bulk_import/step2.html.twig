@@ -188,7 +188,8 @@
                     {% for error in part_result.errors %}
                         <div class="alert alert-warning" role="alert">
                             <i class="fas fa-exclamation-triangle"></i>
-                            {{ error }}
+                            {# Errors can either be a translation key or a raw message from a provider #}
+                            {{ error|trans }}
                         </div>
                     {% endfor %}
                 {% endif %}

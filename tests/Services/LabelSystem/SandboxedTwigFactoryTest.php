@@ -93,6 +93,9 @@ final class SandboxedTwigFactoryTest extends WebTestCase
                 {% apply placeholders(part) %}[[NAME]]{% endapply %}</br>
                 {{ placeholder("[[NAME]]", part) }}
             '];
+        yield ['
+                {{ debug_vars() }}
+            '];
     }
 
     public static function twigNotAllowedDataProvider(): \Iterator
@@ -112,7 +115,7 @@ final class SandboxedTwigFactoryTest extends WebTestCase
         $options->setLines($twig);
         $options->setProcessMode(LabelProcessMode::TWIG);
 
-        $twig = $this->service->createTwig($options);
+        $twig = $this->service->createSandbox($options);
         $str = $twig->render('lines', [
             'part' => new Part(),
             'lot' => new PartLot(),
@@ -120,6 +123,25 @@ final class SandboxedTwigFactoryTest extends WebTestCase
         ]);
 
         $this->assertIsString($str);
+    }
+
+    public function testDebugVarsFunction(): void
+    {
+        $options = new LabelOptions();
+        $options->setSupportedElement(LabelSupportedElement::PART);
+        $options->setLines('{{ debug_vars() }}');
+        $options->setProcessMode(LabelProcessMode::TWIG);
+
+        $twig = $this->service->createSandbox($options);
+        $str = $twig->render('lines', [
+            'part' => new Part(),
+            'page' => 1,
+            'install_title' => 'Part-DB',
+        ]);
+
+        $this->assertStringContainsString('part</b>: App\Entity\Parts\Part', $str);
+        $this->assertStringContainsString('page</b>: 1 (integer)', $str);
+        $this->assertStringContainsString('install_title</b>: Part-DB (string)', $str);
     }
 
     #[DataProvider('twigNotAllowedDataProvider')]
@@ -132,7 +154,7 @@ final class SandboxedTwigFactoryTest extends WebTestCase
         $options->setLines($twig);
         $options->setProcessMode(LabelProcessMode::TWIG);
 
-        $twig = $this->service->createTwig($options);
+        $twig = $this->service->createSandbox($options);
         $str = $twig->render('lines', [
             'part' => new Part(),
             'lot' => new PartLot(),

@@ -25,14 +25,12 @@ namespace App\Entity\Attachments;
 use App\Entity\UserSystem\User;
 use App\Serializer\APIPlatform\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Context;
 
 /**
  * An attachment attached to a user element.
  * @extends Attachment<User>
  */
-#[UniqueEntity(['name', 'attachment_type', 'element'])]
 #[ORM\Entity]
 class UserAttachment extends Attachment
 {

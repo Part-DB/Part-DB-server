@@ -100,7 +100,11 @@ export default class extends Controller {
 
         }
 
-        return '<div>' + escape(data.text) + '</div>';
+        if (data.class) {
+            return '<div><span class="' + escape(data.class) + '">' + escape(data.text) + '</span></div>';
+        } else {
+            return '<div>' + escape(data.text) + '</div>';
+        }
     }
 
     renderOption(data, escape) {
@@ -109,7 +113,11 @@ export default class extends Controller {
             return '<div>&nbsp;</div>';
         }
 
-        return '<div>' + escape(data.text) + '</div>';
+        if (data.class) {
+            return '<div><span class="' + escape(data.class) + '">' + escape(data.text) + '</span></div>';
+        } else {
+            return '<div>' + escape(data.text) + '</div>';
+        }
     }
 
     disconnect() {

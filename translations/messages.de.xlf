@@ -10289,6 +10289,66 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
         <target>Wenn aktiviert, verwendet die KiCad Autovervollständigung public/kicad/footprints_custom.txt und public/kicad/symbols_custom.txt anstelle der automatisch generierten Standarddateien.</target>
       </segment>
     </unit>
+    <unit id="s_tUtUZ" name="settings.misc.kicad_eda.export_stock_fields">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_stock_fields</source>
+        <target>Lagerbestandsfelder exportieren (Bestand, Lagerort)</target>
+      </segment>
+    </unit>
+    <unit id="9QK.feT" name="settings.misc.kicad_eda.export_stock_fields.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_stock_fields.help</source>
+        <target>Wenn aktiviert, werden der aktuelle Bestand und die Lagerorte als Symbolfelder exportiert. Deaktivieren Sie dies, wenn Bestandsänderungen die KiCad-Symbole nicht verändern sollen (jede Änderung wird vom KiCad-ERC als Abweichung des Bibliothekssymbols gemeldet).</target>
+      </segment>
+    </unit>
+    <unit id="ZBpX8wi" name="settings.misc.kicad_eda.export_supplier_fields">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_supplier_fields</source>
+        <target>Lieferantenteilenummer-Felder exportieren</target>
+      </segment>
+    </unit>
+    <unit id="AK0phKm" name="settings.misc.kicad_eda.export_supplier_fields.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_supplier_fields.help</source>
+        <target>Wenn aktiviert, wird pro Bestelldetail ein Feld „&lt;Supplier&gt; SPN" exportiert.</target>
+      </segment>
+    </unit>
+    <unit id="q4m0AwA" name="settings.misc.kicad_eda.export_kicost_fields">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_kicost_fields</source>
+        <target>KiCost-Felder exportieren (manf, manf#, &lt;supplier&gt;#)</target>
+      </segment>
+    </unit>
+    <unit id="_i0zoJk" name="settings.misc.kicad_eda.export_kicost_fields.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_kicost_fields.help</source>
+        <target>Wenn aktiviert, werden KiCost-kompatible Kopien des Herstellers, der Herstellerteilenummer und der Lieferantenteilenummern exportiert.</target>
+      </segment>
+    </unit>
+    <unit id="AOHkfzZ" name="settings.misc.kicad_eda.export_part_info_fields">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_part_info_fields</source>
+        <target>Bauteilinfo-Felder exportieren (Kategorie, Fertigungsstatus, Masse, IPN, ...)</target>
+      </segment>
+    </unit>
+    <unit id="SVVQZQJ" name="settings.misc.kicad_eda.export_part_info_fields.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_part_info_fields.help</source>
+        <target>Wenn aktiviert, werden die Felder Kategorie, Fertigungsstatus, Masse, Part-DB-IPN, Part-DB-Footprint, Part-DB-Einheit und Part-DB-Benutzerdefinierter Status exportiert.</target>
+      </segment>
+    </unit>
+    <unit id="Gzbk.xN" name="settings.misc.kicad_eda.export_tags_as_keywords">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_tags_as_keywords</source>
+        <target>Tags als Schlagwörter exportieren</target>
+      </segment>
+    </unit>
+    <unit id="wuq6li_" name="settings.misc.kicad_eda.export_tags_as_keywords.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_tags_as_keywords.help</source>
+        <target>Wenn aktiviert, werden die Bauteil-Tags als KiCad-Symbol-Schlagwörter exportiert. Deaktivieren Sie dies, wenn Tag-Änderungen die KiCad-Symbole nicht verändern sollen.</target>
+      </segment>
+    </unit>
     <unit id="TfJvNLm" name="settings.misc.kicad_eda.editor.custom_footprints">
       <segment state="translated">
         <source>settings.misc.kicad_eda.editor.custom_footprints</source>
@@ -15220,6 +15280,168 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>project.bom_entry.edit.title</source>
         <target>BOM-Eintrag #%id% des Projekts bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="j2fYeQD" name="part_custom_state.color.label">
+      <segment state="translated">
+        <source>part_custom_state.color.label</source>
+        <target>Farbe</target>
+      </segment>
+    </unit>
+    <unit id="BQZ7r4Z" name="part_custom_state.color.help">
+      <segment state="translated">
+        <source>part_custom_state.color.help</source>
+        <target>Optionale semantische Farbe, mit der dieser benutzerdefinierte Status überall dort angezeigt wird, wo er als Badge erscheint (z. B. auf der Bauteil-Detailseite und in Bauteiltabellen). Ohne Farbe wird das bisherige Standarderscheinungsbild verwendet.</target>
+      </segment>
+    </unit>
+    <unit id="YIvmxWY" name="part_custom_state.color.primary">
+      <segment state="translated">
+        <source>part_custom_state.color.primary</source>
+        <target>Primär</target>
+      </segment>
+    </unit>
+    <unit id="wyIJyyZ" name="part_custom_state.color.secondary">
+      <segment state="translated">
+        <source>part_custom_state.color.secondary</source>
+        <target>Sekundär</target>
+      </segment>
+    </unit>
+    <unit id="D5LTi6M" name="part_custom_state.color.info">
+      <segment state="translated">
+        <source>part_custom_state.color.info</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="YPy4hrz" name="part_custom_state.color.success">
+      <segment state="translated">
+        <source>part_custom_state.color.success</source>
+        <target>Erfolg</target>
+      </segment>
+    </unit>
+    <unit id="rlX91yG" name="part_custom_state.color.warning">
+      <segment state="translated">
+        <source>part_custom_state.color.warning</source>
+        <target>Warnung</target>
+      </segment>
+    </unit>
+    <unit id="aDTRoCA" name="part_custom_state.color.danger">
+      <segment state="translated">
+        <source>part_custom_state.color.danger</source>
+        <target>Gefahr</target>
+      </segment>
+    </unit>
+    <unit id="NYr6Yel" name="part_custom_state.color.light">
+      <segment state="translated">
+        <source>part_custom_state.color.light</source>
+        <target>Hell</target>
+      </segment>
+    </unit>
+    <unit id="3JYrhXR" name="part_custom_state.color.dark">
+      <segment state="translated">
+        <source>part_custom_state.color.dark</source>
+        <target>Dunkel</target>
+      </segment>
+    </unit>
+    <unit id="OOY08s2" name="settings.ips.rate_limit_per_10s">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_10s</source>
+        <target>Max. Anfragen an Provider pro 10 Sekunden</target>
+      </segment>
+    </unit>
+    <unit id="RvmisL4" name="settings.ips.rate_limit_per_10s.help">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_10s.help</source>
+        <target>Part-DB sendet nie mehr als diese Anzahl an Anfragen innerhalb von 10 Sekunden an denselben Info-Provider und verzögert weitere Anfragen. Halten Sie diesen Wert unter dem Limit Ihres Provider-Kontos, insbesondere wenn ein externes Skript dieselben API-Zugangsdaten verwendet – der Provider zählt beide zusammen. Setzen Sie den Wert auf 0, um die Begrenzung zu deaktivieren.</target>
+      </segment>
+    </unit>
+    <unit id="7yMJvsZ" name="settings.ips.rate_limit_per_minute">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_minute</source>
+        <target>Max. Anfragen an Provider pro Minute</target>
+      </segment>
+    </unit>
+    <unit id="mdIG1__" name="settings.ips.rate_limit_per_minute.help">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_minute.help</source>
+        <target>Dasselbe, für ein Zeitfenster von einer Minute. Setzen Sie den Wert auf 0, um die Begrenzung zu deaktivieren.</target>
+      </segment>
+    </unit>
+    <unit id="dIENWAf" name="settings.ips.rate_limit_max_wait">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_max_wait</source>
+        <target>Max. Wartezeit auf einen freien Slot</target>
+      </segment>
+    </unit>
+    <unit id="fs4yEpG" name="settings.ips.rate_limit_max_wait.help">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_max_wait.help</source>
+        <target>Wie lange eine einzelne Anfrage durch die obigen Begrenzungen verzögert werden darf, bevor sie stattdessen fehlschlägt, in Sekunden. Massenoperationen warten einfach; dies verhindert, dass eine über die Benutzeroberfläche gestartete Anfrage hängen bleibt.</target>
+      </segment>
+    </unit>
+    <unit id="4cBWYO6" name="part.refresh_from_info_provider.btn">
+      <segment state="translated">
+        <source>part.refresh_from_info_provider.btn</source>
+        <target>Von %provider% aktualisieren</target>
+      </segment>
+    </unit>
+    <unit id="0lJr81k" name="part.refresh_from_info_provider.last_updated">
+      <segment state="translated">
+        <source>part.refresh_from_info_provider.last_updated</source>
+        <target>Zuletzt vom Info-Provider aktualisiert: %datetime%</target>
+      </segment>
+    </unit>
+    <unit id="GxFIRWg" name="part_list.action.bulk_info_provider_refresh">
+      <segment state="translated">
+        <source>part_list.action.bulk_info_provider_refresh</source>
+        <target>Von Info-Providern aktualisieren</target>
+      </segment>
+    </unit>
+    <unit id="6Q8bhaD" name="info_providers.bulk_refresh.error.no_provider_reference">
+      <segment state="translated">
+        <source>info_providers.bulk_refresh.error.no_provider_reference</source>
+        <target>Dieses Bauteil wurde nicht von einem Info-Provider erstellt und kann daher nicht automatisch aktualisiert werden.</target>
+      </segment>
+    </unit>
+    <unit id="oJcitnK" name="info_providers.bulk_refresh.error.provider_unavailable">
+      <segment state="translated">
+        <source>info_providers.bulk_refresh.error.provider_unavailable</source>
+        <target>Der Info-Provider, mit dem dieses Bauteil erstellt wurde, ist nicht mehr verfügbar.</target>
+      </segment>
+    </unit>
+    <unit id="C_G6Ebd" name="part.supplier.available_amount">
+      <segment state="translated">
+        <source>part.supplier.available_amount</source>
+        <target>Verfügbar</target>
+      </segment>
+    </unit>
+    <unit id="t1bd9yr" name="part.supplier.available_amount.unknown">
+      <segment state="translated">
+        <source>part.supplier.available_amount.unknown</source>
+        <target>Unbekannt</target>
+      </segment>
+    </unit>
+    <unit id="O33qIEd" name="part.supplier.available_amount.out_of_stock">
+      <segment state="translated">
+        <source>part.supplier.available_amount.out_of_stock</source>
+        <target>Nicht auf Lager</target>
+      </segment>
+    </unit>
+    <unit id="m0QJNRv" name="part.supplier.available_amount.updated_at">
+      <segment state="translated">
+        <source>part.supplier.available_amount.updated_at</source>
+        <target>Bestand vom Info-Provider abgerufen am: %datetime%</target>
+      </segment>
+    </unit>
+    <unit id="NUw3e9D" name="part.table.supplier_available_amount">
+      <segment state="translated">
+        <source>part.table.supplier_available_amount</source>
+        <target>Verfügbar beim Lieferanten</target>
+      </segment>
+    </unit>
+    <unit id="S6JX3.E" name="info_providers.capabilities.stock_level">
+      <segment state="translated">
+        <source>info_providers.capabilities.stock_level</source>
+        <target>Lagerbestand</target>
       </segment>
     </unit>
   </file>

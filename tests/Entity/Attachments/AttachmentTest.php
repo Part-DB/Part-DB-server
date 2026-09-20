@@ -331,4 +331,25 @@ final class AttachmentTest extends TestCase
         $this->setProtectedProperty($attachment, 'original_filename', 'test.htm');
         $this->assertTrue($attachment->isLocalHTMLFile());
     }
+
+    public static function comparableURLProvider(): \Iterator
+    {
+        yield ['https://google.de/test.txt', 'https://google.de/test.txt'];
+        yield ['https://google.de/test.txt?test=1', 'https://google.de/test.txt'];
+        yield ['https://google.de/test.txt#test', 'https://google.de/test.txt'];
+        yield ['https://google.de/test.txt?test=1#test', 'https://google.de/test.txt'];
+        yield ['https://google.de/test.txt?test=1#test', 'https://google.de/test.txt'];
+        yield ['https://google.de/test.txt?test=1&test2=2', 'https://google.de/test.txt'];
+        yield ['https://google.de/test.txt?test=1&test2=2#test', 'https://google.de/test.txt'];
+        yield ['https://google.de/test.txt?test=1&test2=2#test', 'https://google.de/test.txt'];
+        yield ['https://GOOGLE.de/test.txt?test=1&test2=2#test', 'https://google.de/test.txt'];
+    }
+
+    #[DataProvider('comparableURLProvider')]
+    public function testGetComparableURL(string $input, string $output): void
+    {
+        $attachment = new PartAttachment();
+        $attachment->setExternalPath($input);
+        $this->assertSame($output, $attachment->getComparableURL());
+    }
 }

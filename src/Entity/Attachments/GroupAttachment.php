@@ -25,14 +25,12 @@ namespace App\Entity\Attachments;
 use App\Entity\UserSystem\Group;
 use App\Serializer\APIPlatform\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Context;
 
 /**
  * An attachment attached to a Group element.
  * @extends Attachment<Group>
  */
-#[UniqueEntity(['name', 'attachment_type', 'element'])]
 #[ORM\Entity]
 class GroupAttachment extends Attachment
 {
