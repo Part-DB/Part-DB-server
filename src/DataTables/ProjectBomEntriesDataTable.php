@@ -177,6 +177,14 @@ final readonly class ProjectBomEntriesDataTable implements DataTableTypeInterfac
                 },
             ])
 
+            ->add('partCustomState', HTMLColumn::class, [
+                'label' => $this->translator->trans('part.table.partCustomState'),
+                'orderField' => 'NATSORT(partCustomState.name)',
+                'visible' => false,
+                'data' => fn (ProjectBOMEntry $context): string
+                    => $this->partDataTableHelper->renderPartCustomState($context->getPart()?->getPartCustomState()),
+            ])
+
             ->add('supplier_available_amount', HTMLColumn::class, [
                 'label' => $this->translator->trans('part.table.supplier_available_amount'),
                 //Hidden by default, as the stock of a supplier is only interesting while actually ordering the BOM

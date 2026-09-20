@@ -19,7 +19,7 @@
 
 import {Controller} from "@hotwired/stimulus";
 
-import {BSTreeView, BSTreeViewNode, BS5Theme, FAIconTheme, EVENT_INITIALIZED} from "@jbtronics/bs-treeview";
+import {BSTreeView, BS5Theme, FAIconTheme, EVENT_INITIALIZED} from "@jbtronics/bs-treeview";
 import "@jbtronics/bs-treeview/styles/bs-treeview.css";
 
 export default class extends Controller {
@@ -164,7 +164,6 @@ export default class extends Controller {
         const data = event.target.value;
         //Do nothing if no data was passed
 
-        const tree = this.treeTarget;
         this._tree.collapseAll({silent: true});
         this._tree.search(data);
 

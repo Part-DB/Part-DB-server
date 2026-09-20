@@ -154,7 +154,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
                 'groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
                 'item_uri_template' => '/api/parts/{id}',
             ],
-            security: 'is_granted("edit", object)',
+            security: 'is_granted("@parts.read")',
             input: ElementByIdInput::class,
             validate: true,
             processor: GetPartByIdProcessor::class
@@ -194,7 +194,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
                 'groups' => ['part:read', 'provider_reference:read', 'api:basic:read', 'part_lot:read', 'orderdetail:read', 'pricedetail:read', 'parameter:read', 'attachment:read', 'eda_info:read'],
                 'item_uri_template' => '/api/parts/{id}',
             ], // Not enforced by the MCP call pipeline - see create_part's note; the real check is manual, inside UpdatePartProcessor.
-            security: 'is_granted("edit", object)',
+            security: 'is_granted("@parts.edit")',
             input: UpdatePartInput::class,
             validate: false,
             provider: UpdatePartInputProvider::class, // Entity validation is done manually in UpdatePartProcessor, not on the (barely-constrained) input DTO
@@ -205,7 +205,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
             description: 'Permanently delete a part by its database ID, including its stock lots, parameters, orderdetails and associations. This cannot be undone - there is no confirmation step, so make sure this is really the part the user wants deleted before calling this tool.',
             structuredContent: false,
             annotations: ['readOnlyHint' => false, 'destructiveHint' => true, 'idempotentHint' => true, 'openWorldHint' => false], // Not enforced by the MCP call pipeline - see create_part's note; the real check is manual, inside DeletePartProcessor.
-            security: 'is_granted("delete", object)', // The processor returns a plain text confirmation via CallToolResult, not a normalized Part (which no longer exists)
+            security: 'is_granted("@parts.delete")', // The processor returns a plain text confirmation via CallToolResult, not a normalized Part (which no longer exists)
             input: DeletePartInput::class,
             validate: true,
             processor: DeletePartProcessor::class

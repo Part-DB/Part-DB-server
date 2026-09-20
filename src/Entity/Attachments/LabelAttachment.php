@@ -44,14 +44,12 @@ namespace App\Entity\Attachments;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Serializer\APIPlatform\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Context;
 
 /**
  * A attachment attached to a user element.
  * @extends Attachment<LabelProfile>
  */
-#[UniqueEntity(['name', 'attachment_type', 'element'])]
 #[ORM\Entity]
 class LabelAttachment extends Attachment
 {

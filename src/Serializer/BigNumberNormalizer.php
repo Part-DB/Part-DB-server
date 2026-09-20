@@ -24,12 +24,15 @@ namespace App\Serializer;
 
 use Brick\Math\BigDecimal;
 use Brick\Math\BigNumber;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @see \App\Tests\Serializer\BigNumberNormalizerTest
  */
+// '*' makes this available to every named serializer (default, import_export, ...), not just the default one.
+#[AutoconfigureTag('serializer.normalizer', ['serializer' => ['*']])]
 class BigNumberNormalizer implements NormalizerInterface, DenormalizerInterface
 {
 

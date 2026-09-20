@@ -66,4 +66,22 @@ final class PartCustomStateEndpointTest extends CrudEndpointTestCase
     {
         $this->_testDeleteItem(4);
     }
+
+    public function testColorIsWritableAndReadable(): void
+    {
+        $this->_testPatchItem(5, [
+            'color' => 'warning',
+        ]);
+        self::assertJsonContains([
+            'color' => 'warning',
+        ]);
+
+        //Unsetting the color must be possible again (back to the default, uncolored appearance).
+        //Like every other null-valued field in this API, an unset color is omitted from the response entirely
+        //rather than being serialized as an explicit "color": null (see e.g. InfoProviderEndpointTest).
+        $response = $this->_testPatchItem(5, [
+            'color' => null,
+        ]);
+        self::assertArrayNotHasKey('color', json_decode($response->getContent(), true));
+    }
 }

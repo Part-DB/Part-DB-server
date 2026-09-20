@@ -66,6 +66,8 @@ class ToolsController extends AbstractController
         $oauth_encryption_key_set = !empty($_ENV['OAUTH2_ENCRYPTION_KEY']);
         $oauth_fully_configured = $oauth_server_enabled && $oauth_keypair_exists && $oauth_encryption_key_set;
 
+        $default_uri = $this->getParameter('partdb.default_uri');
+
         return $this->render('tools/server_infos/server_infos.html.twig', [
             //Part-DB section
             'git_branch' => $versionInfo->getBranchName(),
@@ -74,6 +76,8 @@ class ToolsController extends AbstractController
             'default_timezone' => $settings->system->localization->timezone,
             'default_currency' => $settings->system->localization->baseCurrency,
             'default_theme' => $settings->system->customization->theme,
+            'default_uri' => $default_uri,
+            'default_uri_is_default_value' => $default_uri === 'https://partdb.changeme.invalid/',
             'enabled_locales' => $this->getParameter('partdb.locale_menu'),
             'demo_mode' => $this->getParameter('partdb.demo_mode'),
             'use_gravatar' => $settings->system->privacy->useGravatar,

@@ -42,7 +42,8 @@ final class StructuralElementNormalizerTest extends WebTestCase
         self::bootKernel();
         $this->service = self::getContainer()->get(StructuralElementNormalizer::class);
         //Inject the serializer, as the normalizer as this is not handled by the DI container
-        $this->service->setNormalizer(self::getContainer()->get('serializer'));
+        //Use the "import_export" named serializer, as this is what is actually used in production (see EntityExporter)
+        $this->service->setNormalizer(self::getContainer()->get('serializer.import_export'));
 
     }
 

@@ -87,6 +87,7 @@ export default class extends Controller {
      * @param str
      */
     encodeNonPrintableChars(str) {
+        // eslint-disable-next-line no-control-regex -- intentionally matching control characters to encode them
         return str.replace(/[\x00-\x1F\x7F]/g, (char) => {
             const code = char.charCodeAt(0);
             return String.fromCharCode(0x2400 + code);
