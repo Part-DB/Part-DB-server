@@ -153,6 +153,6 @@ readonly class StructuralEntityChoiceHelper
             return $this->translator->trans('entity.select.group.new_not_added_to_DB');
         }
 
-        return null;
+        return ""; //Enforce that all other entities are in the same group, which is distinct from the new
     }
 }
