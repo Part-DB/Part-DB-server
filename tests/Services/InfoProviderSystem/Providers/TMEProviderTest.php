@@ -110,8 +110,12 @@ final class TMEProviderTest extends TestCase
         ]));
     }
 
-    private function mockPrices(string $currency, string $priceType, array $elements): MockResponse
+    private function mockPrices(string $currency, string $priceType, array $elements, ?float $stockQuantity = null): MockResponse
     {
+        if ($stockQuantity !== null) {
+            $elements = array_map(static fn(array $element) => $element + ['stock_quantity' => $stockQuantity], $elements);
+        }
+
         return new MockResponse(json_encode([
             'status' => 'OK',
             'data'   => ['elements' => $elements],
@@ -194,7 +198,7 @@ final class TMEProviderTest extends TestCase
                     ['amount' => 5000, 'price' => 0.00150],
                 ],
             ],
-        ]]);
+        ]], stockQuantity: 12345);
     }
 
     private function etqp3mProduct(): array
@@ -305,6 +309,7 @@ final class TMEProviderTest extends TestCase
         $this->assertContains(ProviderCapabilities::DATASHEET, $capabilities);
         $this->assertContains(ProviderCapabilities::PRICE, $capabilities);
         $this->assertContains(ProviderCapabilities::FOOTPRINT, $capabilities);
+        $this->assertContains(ProviderCapabilities::STOCK_LEVEL, $capabilities);
     }
 
     public function testGetHandledDomains(): void
@@ -471,6 +476,7 @@ final class TMEProviderTest extends TestCase
         $this->assertSame('0.01077', $vendorInfo->prices[0]->price);
         $this->assertSame('EUR', $vendorInfo->prices[0]->currency_iso_code);
         $this->assertFalse($vendorInfo->prices[0]->includes_tax);
+        $this->assertSame(12345.0, $vendorInfo->available_amount);
 
         $this->assertCount(5, $result->parameters);
     }
@@ -520,6 +526,8 @@ final class TMEProviderTest extends TestCase
         $this->assertSame('0.589', $vendorInfo->prices[0]->price);
         $this->assertSame('EUR', $vendorInfo->prices[0]->currency_iso_code);
         $this->assertFalse($vendorInfo->prices[0]->includes_tax);
+        // No stock_quantity is included in the mock response -> available_amount must be null (unknown stock)
+        $this->assertNull($vendorInfo->available_amount);
 
         $this->assertCount(3, $result->parameters);
     }

@@ -60,7 +60,8 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
                 ProviderCapabilities::PICTURE,
                 ProviderCapabilities::DATASHEET,
                 ProviderCapabilities::PRICE,
-                ProviderCapabilities::PARAMETERS
+                ProviderCapabilities::PARAMETERS,
+                ProviderCapabilities::STOCK_LEVEL,
             ],
         );
     }
@@ -202,7 +203,7 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
         $response = $this->tmeClient->makeRequest('products/data', [
             'country' => $this->settings->country,
             'currency' => $this->settings->currency,
-            'scope' => ['prices'],
+            'scope' => ['prices', 'stock'],
             'symbols' => [$id],
         ]);
 
@@ -225,11 +226,14 @@ class TMEProvider implements InfoProviderInterface, URLHandlerInfoProviderInterf
             );
         }
 
+        $available_amount = $product['stock_quantity'] ?? null;
+
         return new PurchaseInfoDTO(
             distributor_name: self::VENDOR_NAME,
             order_number:  $vendor_order_number,
             prices:  $prices,
             product_url: $productURL,
+            available_amount: $available_amount !== null ? (float) $available_amount : null,
         );
     }
 
