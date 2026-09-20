@@ -14424,6 +14424,12 @@ Buerklin-API-Authentication-Server:
         <target>LMStudio</target>
       </segment>
     </unit>
+    <unit id="tWV0mhi" name="settings.ai.generic">
+      <segment state="translated">
+        <source>settings.ai.generic</source>
+        <target>Generisch (OpenAI kompatibel)</target>
+      </segment>
+    </unit>
     <unit id="foBzBG2" name="settings.ips.ai_extractor.model">
       <segment state="translated">
         <source>settings.ips.ai_extractor.model</source>
@@ -14566,6 +14572,48 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>settings.ai.ollama.apiKey</source>
         <target>API Key</target>
+      </segment>
+    </unit>
+    <unit id="gY_fVAC" name="settings.ai.generic.help">
+      <segment state="translated">
+        <source>settings.ai.generic.help</source>
+        <target>Verbindung zu einem beliebigen OpenAI-API-kompatiblen Endpunkt, z.B. einem selbstgehosteten LLM-Gateway/Proxy (wie LiteLLM oder vLLM) oder einem anderen Anbieter mit einer OpenAI-kompatiblen API.</target>
+      </segment>
+    </unit>
+    <unit id="znTTXBF" name="settings.ai.generic.baseUrl">
+      <segment state="translated">
+        <source>settings.ai.generic.baseUrl</source>
+        <target>Basis-URL</target>
+      </segment>
+    </unit>
+    <unit id="0PBFceB" name="settings.ai.generic.apiKey">
+      <segment state="translated">
+        <source>settings.ai.generic.apiKey</source>
+        <target>API Key</target>
+      </segment>
+    </unit>
+    <unit id="dMXkfW2" name="settings.ai.generic.completionsPath">
+      <segment state="translated">
+        <source>settings.ai.generic.completionsPath</source>
+        <target>Completions-Pfad</target>
+      </segment>
+    </unit>
+    <unit id="ns3mY1a" name="settings.ai.generic.completionsPath.help">
+      <segment state="translated">
+        <source>settings.ai.generic.completionsPath.help</source>
+        <target>Der Pfad des Chat-Completions-Endpunkts, relativ zur Basis-URL. Leer lassen, um den Standard "/v1/chat/completions" zu verwenden.</target>
+      </segment>
+    </unit>
+    <unit id="0p9nJMr" name="settings.ai.generic.embeddingsPath">
+      <segment state="translated">
+        <source>settings.ai.generic.embeddingsPath</source>
+        <target>Embeddings-Pfad</target>
+      </segment>
+    </unit>
+    <unit id="cA6Hiu5" name="settings.ai.generic.embeddingsPath.help">
+      <segment state="translated">
+        <source>settings.ai.generic.embeddingsPath.help</source>
+        <target>Der Pfad des Embeddings-Endpunkts, relativ zur Basis-URL. Leer lassen, um den Standard "/v1/embeddings" zu verwenden.</target>
       </segment>
     </unit>
     <unit id="VxXEQUD" name="settings.ai.timeout">

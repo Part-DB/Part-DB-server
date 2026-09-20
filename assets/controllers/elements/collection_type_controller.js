@@ -32,6 +32,40 @@ export default class extends Controller {
 
     static targets = ["target"];
 
+    connect() {
+        // Native form reset only restores controls that still exist in the DOM. Keep the initial collection structure
+        // so persisted rows removed by the user can be recreated and rows added from the prototype can be discarded.
+        this._initialTarget = this.targetTarget.cloneNode(true);
+        this._form = this.element.closest('form');
+        if (this._form) {
+            this._resetHandler = this.onFormReset.bind(this);
+            this._form.addEventListener('reset', this._resetHandler);
+        }
+    }
+
+    disconnect() {
+        clearTimeout(this._resetTimer);
+        if (this._form && this._resetHandler) {
+            this._form.removeEventListener('reset', this._resetHandler);
+        }
+    }
+
+    onFormReset() {
+        clearTimeout(this._resetTimer);
+        // Wait until the browser has completed its native value reset before rebuilding the collection structure.
+        this._resetTimer = setTimeout(() => this.restoreInitialStructure(), 0);
+    }
+
+    restoreInitialStructure() {
+        if (!this._initialTarget || !this.element.isConnected) {
+            return;
+        }
+
+        const restoredTarget = this._initialTarget.cloneNode(true);
+        this.targetTarget.replaceChildren(...restoredTarget.childNodes);
+        this.targetTarget.dispatchEvent(new CustomEvent("collection:reset", {bubbles: true}));
+    }
+
     /**
      * Decodes escaped HTML entities
      * @param {string} input
@@ -73,7 +107,7 @@ export default class extends Controller {
         const newElementStr = this.htmlDecode(prototype.replace(regex, this.generateUID()));
 
 
-        let ret = null;
+        let ret;
 
         //Insert new html after the last child element
         //If the table has a tbody, insert it there
@@ -146,7 +180,6 @@ export default class extends Controller {
                         if (filter) {
                             if (accept({name: file.name, type: file.type}, filter)) {
                                 attachmentTypeSelect.value = option.value;
-                                foundMatch = true;
                                 break;
                             }
                         } else { //If no filter is set, chose this option until we find a better match
@@ -189,9 +222,11 @@ export default class extends Controller {
 
         //Our new element is the last child of the table
         const newlyCreatedRow = targetRows[targetRowsCount - 1];
+        //eslint-disable-next-line no-unused-vars
         const [newPriceRelated, newMinDiscount] = extractElementsFromRow(newlyCreatedRow);
 
         const oldRow = targetRows[targetRowsCount - 2];
+        //eslint-disable-next-line no-unused-vars
         const [oldPriceRelated, oldMinDiscount] = extractElementsFromRow(oldRow);
 
         //Use the old PriceRelated value to determine the next 10 decade value for the new row

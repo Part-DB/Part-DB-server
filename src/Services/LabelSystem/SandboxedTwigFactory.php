@@ -65,19 +65,20 @@ use App\Entity\UserSystem\User;
 use App\Twig\BarcodeExtension;
 use App\Twig\EntityExtension;
 use App\Twig\FormatExtension;
-use App\Twig\Sandbox\InheritanceSecurityPolicy;
 use App\Twig\Sandbox\SandboxedLabelExtension;
 use App\Twig\TwigCoreExtension;
 use InvalidArgumentException;
 use Twig\Environment;
 use Twig\Extension\AttributeExtension;
-use Twig\Extension\SandboxExtension;
 use Twig\Extra\Html\HtmlExtension;
 use Twig\Extra\Intl\IntlExtension;
 use Twig\Extra\Markdown\MarkdownExtension;
 use Twig\Extra\String\StringExtension;
 use Twig\Loader\ArrayLoader;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
+use Twig\Sandbox\Sandbox;
+use Twig\Sandbox\SandboxInterface;
+use Twig\Sandbox\SecurityPolicy;
 use Twig\Sandbox\SecurityPolicyInterface;
 
 /**
@@ -115,6 +116,7 @@ final class SandboxedTwigFactory
         //SandboxedLabelExtension
         'placeholder',
         'associated_parts', 'associated_parts_count', 'associated_parts_r', 'associated_parts_count_r',
+        'debug_vars',
         ];
 
     private const ALLOWED_METHODS = [
@@ -158,6 +160,9 @@ final class SandboxedTwigFactory
     ];
     private const ALLOWED_PROPERTIES = [];
 
+    //Most tests are safe and allowed without this list, so this can be empty. Only add tests here that are not allowed by default.
+    private const ALLOWED_TESTS = ["entity", "enum", "object", "instanceof"];
+
     public function __construct(
         private readonly FormatExtension $formatExtension,
         private readonly BarcodeExtension $barcodeExtension,
@@ -168,7 +173,7 @@ final class SandboxedTwigFactory
     {
     }
 
-    public function createTwig(LabelOptions $options): Environment
+    public function createSandbox(LabelOptions $options): SandboxInterface
     {
         if (LabelProcessMode::TWIG !== $options->getProcessMode()) {
             throw new InvalidArgumentException('The LabelOptions must explicitly allow twig via lines_mode = "twig"!');
@@ -178,10 +183,6 @@ final class SandboxedTwigFactory
             'lines' => $options->getLines(),
         ]);
         $twig = new Environment($loader);
-
-        //Second argument activate sandbox globally.
-        $sandbox = new SandboxExtension($this->getSecurityPolicy(), true);
-        $twig->addExtension($sandbox);
 
         //Add IntlExtension
         $twig->addExtension(new IntlExtension());
@@ -201,17 +202,22 @@ final class SandboxedTwigFactory
         }
         $twig->addRuntimeLoader(new FactoryRuntimeLoader($dynamicExtensionsMap));
 
-        return $twig;
+
+        return new Sandbox($twig, $this->getSecurityPolicy());
     }
 
     private function getSecurityPolicy(): SecurityPolicyInterface
     {
-        return new InheritanceSecurityPolicy(
+        $policy =  new SecurityPolicy(
             self::ALLOWED_TAGS,
             self::ALLOWED_FILTERS,
             self::ALLOWED_METHODS,
             self::ALLOWED_PROPERTIES,
-            self::ALLOWED_FUNCTIONS
+            self::ALLOWED_FUNCTIONS,
+            self::ALLOWED_TESTS
         );
+
+        $policy->setStrict(true);
+        return $policy;
     }
 }

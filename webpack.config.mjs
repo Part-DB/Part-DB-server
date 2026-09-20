@@ -121,17 +121,6 @@ Encore
     // requires WebpackEncoreBundle 1.4 or higher
     .enableIntegrityHashes(Encore.isProduction())
 
-    // Force all jquery imports to the UMD build so webpack always receives the
-    // jQuery function directly instead of an ESM namespace object. Without this,
-    // webpack's ESM interop wraps jquery.module.js in a namespace
-    // { default, jQuery, $ } which has no .fn, crashing Bootstrap's
-    // defineJQueryPlugin when it tries to access $.fn.alert.
-    .addAliases({
-        'jquery': path.resolve(import.meta.dirname, 'node_modules/jquery/dist/jquery.js')
-    })
-    .autoProvidejQuery()
-
-
     // Use raw-loader for CKEditor 5 SVG files.
     .addRule( {
         test: /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/,

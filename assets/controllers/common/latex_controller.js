@@ -21,7 +21,6 @@ import {Controller} from "@hotwired/stimulus";
 
 //import "katex";
 import 'katex/dist/katex.css';
-import {auto} from "@popperjs/core";
 //import renderMathInElement from "katex/dist/contrib/auto-render";
 
 export default class extends Controller {

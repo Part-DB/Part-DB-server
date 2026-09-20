@@ -145,7 +145,10 @@ final readonly class KiCadHelper
      */
     public function getCategoryParts(?Category $category): array
     {
-        $cacheKey = 'kicad_category_parts_'.($category?->getID() ?? 0) . '_' . $this->category_depth;
+        // Settings fingerprint keeps cached responses from surviving settings changes
+        // (tag-based invalidation only fires on part/category/footprint edits)
+        $cacheKey = 'kicad_category_parts_'.($category?->getID() ?? 0) . '_' . $this->category_depth
+            . '_' . $this->edaSettingsFingerprint();
         return $this->kicadCache->get($cacheKey,
             function (ItemInterface $item) use ($category) {
                 $item->tag([
@@ -175,6 +178,9 @@ final readonly class KiCadHelper
                 }
 
                 $result = [];
+                //Shared across all parts of this request, so the reference prefix of a category
+                //(and its ancestors) only has to be resolved once, no matter how many parts use it.
+                $categoryPrefixCache = [];
                 foreach ($parts as $part) {
                     //If the part is invisible, then skip it
                     if (!$this->shouldPartBeVisible($part)) {
@@ -190,14 +196,14 @@ final readonly class KiCadHelper
                      * This might increase the KiCAD API response size for a category, but overall perfomance boost is
                      * massive
                     */
-                    $result[] = $this->getKiCADPart($part);
+                    $result[] = $this->getKiCADPart($part, $categoryPrefixCache);
                 }
 
                 return $result;
             });
     }
 
-    public function getKiCADPart(Part $part): array
+    public function getKiCADPart(Part $part, array &$categoryPrefixCache = []): array
     {
         $result = [
             'id' => (string)$part->getId(),
@@ -211,7 +217,7 @@ final readonly class KiCadHelper
         ];
 
         $result["fields"]["footprint"] = $this->createField($part->getEdaInfo()->getKicadFootprint() ?? $part->getFootprint()?->getEdaInfo()->getKicadFootprint() ?? "");
-        $result["fields"]["reference"] = $this->createField($part->getEdaInfo()->getReferencePrefix() ?? $part->getCategory()?->getEdaInfo()->getReferencePrefix() ?? 'U', true);
+        $result["fields"]["reference"] = $this->createField($this->getReferencePrefix($part, $categoryPrefixCache), true);
         $result["fields"]["value"] = $this->createField($part->getEdaInfo()->getValue() ?? $part->getName(), true);
         $result["fields"]["keywords"] = $this->createField($part->getTags());
 
@@ -349,6 +355,92 @@ final readonly class KiCadHelper
                     $symbolVisibility = $parameter->isEdaSymbolVisibility() ?? $this->kiCadEDASettings->defaultParameterSymbolVisibility;
                     $result['fields'][$fieldName] = $this->createField($parameter->getFormattedValue(), $symbolVisibility);
                 }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Fingerprint of every setting that changes the content of a serialized part.
+     */
+    private function edaSettingsFingerprint(): string
+    {
+        return hash("xxh3", json_encode([
+            $this->datasheetAsPdf,
+            $this->kiCadEDASettings->defaultOrderdetailsVisibility,
+            $this->kiCadEDASettings->defaultParameterVisibility,
+            $this->kiCadEDASettings->defaultParameterSymbolVisibility,
+        ], JSON_THROW_ON_ERROR));
+    }
+
+    /**
+     * Resolve the reference prefix for the given part.
+     *
+     * A part without its own reference prefix inherits the prefix of the closest category
+     * ancestor that defines one (a category tree can be several levels deep, see issue #1535).
+     * If neither the part nor any category ancestor defines a prefix, 'U' is used as fallback.
+     *
+     * @param  Part  $part The part for which to resolve the reference prefix.
+     * @param  array  $cache Reference prefix cache (keyed by category ID) to avoid repeated
+     *                       ancestor lookups for the same category across parts of a request.
+     */
+    private function getReferencePrefix(Part $part, array &$cache = []): string
+    {
+        $prefix = $part->getEdaInfo()->getReferencePrefix();
+        if ($prefix !== null && $prefix !== '') {
+            return $prefix;
+        }
+
+        $category = $part->getCategory();
+        if ($category === null) {
+            return 'U';
+        }
+
+        return $this->resolveCategoryReferencePrefix($category, $cache);
+    }
+
+    /**
+     * Resolves the effective reference prefix of a category: the prefix of the closest ancestor
+     * (including the category itself) that defines one, or 'U' as fallback.
+     *
+     * Every category visited while walking up the tree is memoized in $cache, so subsequent calls
+     * for the same category, or for any of its descendants seen earlier in the same request, are
+     * resolved in O(1) instead of re-walking the ancestor chain.
+     *
+     * @param  array  $cache Reference prefix cache (keyed by category ID), shared across calls.
+     */
+    private function resolveCategoryReferencePrefix(Category $category, array &$cache): string
+    {
+        $visited = [];
+        $current = $category;
+        $depth = 0;
+        $result = 'U';
+
+        while ($current !== null && $depth < 20) {
+            $id = $current->getId();
+            if ($id !== null && isset($cache[$id])) {
+                $result = $cache[$id];
+                break;
+            }
+
+            $visited[] = $current;
+
+            $prefix = $current->getEdaInfo()->getReferencePrefix();
+            if ($prefix !== null && $prefix !== '') {
+                $result = $prefix;
+                break;
+            }
+
+            $current = $current->getParent();
+            ++$depth;
+        }
+
+        //Cache the resolved prefix for every category on the walked path, not just the starting one.
+        foreach ($visited as $visitedCategory) {
+            $id = $visitedCategory->getId();
+            if ($id !== null) {
+                $cache[$id] = $result;
             }
         }
 

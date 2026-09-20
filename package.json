@@ -2,6 +2,7 @@
     "devDependencies": {
         "@babel/core": "^8.0.0",
         "@babel/preset-env": "^8.0.0",
+        "@eslint/js": "^10.0.1",
         "@fortawesome/fontawesome-free": "^7.0.0",
         "@hotwired/stimulus": "^3.0.0",
         "@hotwired/turbo": "^8.0.1",
@@ -13,8 +14,9 @@
         "babel-plugin-polyfill-corejs3": "^1.0.0",
         "bootstrap": "^5.1.3",
         "core-js": "^3.49.0",
+        "eslint": "^10.10.0",
+        "globals": "^17.12.0",
         "intl-messageformat": "^10.5.11",
-        "jquery": "^4.0.0",
         "popper.js": "^1.14.7",
         "regenerator-runtime": "^0.14.1",
         "webpack": "^5.82",
@@ -28,7 +30,9 @@
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
-        "build": "encore production --progress"
+        "build": "encore production --progress",
+        "lint": "eslint assets",
+        "lint:fix": "eslint assets --fix"
     },
     "engines": {
         "node": ">=22.0.0"
@@ -56,13 +60,13 @@
         "codejar": "^4.3.0",
         "codejar-linenumbers": "^1.0.1",
         "compression-webpack-plugin": "^12.0.0",
-        "datatables.net": "^2.0.0",
-        "datatables.net-bs5": "^2.0.0",
-        "datatables.net-buttons-bs5": "^3.0.0",
-        "datatables.net-colreorder-bs5": "^2.0.0",
-        "datatables.net-fixedheader-bs5": "^4.0.0",
-        "datatables.net-responsive-bs5": "^3.0.0",
-        "datatables.net-select-bs5": "^3.0.1",
+        "datatables.net": "^3.0.0",
+        "datatables.net-bs5": "^3.0.0",
+        "datatables.net-buttons-bs5": "^4.0.0",
+        "datatables.net-colreorder-bs5": "^3.0.0",
+        "datatables.net-fixedheader-bs5": "^5.0.0",
+        "datatables.net-responsive-bs5": "^4.0.0",
+        "datatables.net-select-bs5": "^4.0.1",
         "dompurify": "^3.0.3",
         "exports-loader": "^5.0.0",
         "highlight.js": "^11.12.0",
@@ -78,8 +82,5 @@
         "tom-select": "^2.1.0",
         "ts-loader": "^9.2.6",
         "typescript": "^6.0.2"
-    },
-    "resolutions": {
-        "jquery": "^4.0.0"
     }
 }

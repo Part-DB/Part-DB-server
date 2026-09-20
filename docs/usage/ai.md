@@ -32,3 +32,11 @@ You have to set a model by hand, as suggestions currently do not work yet. Ensur
 [Ollama](https://ollama.com/) is another local LLM hosting solution that allows you to run LLMs on your own hardware. You can use Ollama to host your own LLM and connect it to Part-DB for AI features.
 Supply your Ollama instance URL (including the port) and an optional API key for authentication to use it as an AI platform in Part-DB. The model selector should give you suggestions about available models.
 Ensure the context length is suitable for your application.
+
+### Generic (OpenAI compatible)
+
+Many providers and self-hosted LLM gateways/proxies (e.g. [LiteLLM](https://www.litellm.ai/), [vLLM](https://github.com/vllm-project/vllm), or OpenAI itself) expose an API that is compatible with the OpenAI API specification.
+Supply the base URL of the endpoint (e.g. `https://api.openai.com/` or the URL of your gateway) and an API key, which will be sent using the standard `Authorization: Bearer <API_KEY>` header, to use it as an AI platform in Part-DB.
+You have to set a model by hand, as suggestions currently do not work yet.
+
+If your endpoint uses non-standard paths for the chat completions and embeddings endpoints, you can override them. Leave these fields empty to use the defaults (`/v1/chat/completions` and `/v1/embeddings`).

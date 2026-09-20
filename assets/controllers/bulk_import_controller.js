@@ -64,9 +64,9 @@ export default class extends Controller {
             clearTimeout(timeoutId)
             
             if (error.name === 'AbortError') {
-                throw new Error('Request timed out. Please try again.')
+                throw new Error('Request timed out. Please try again.', { cause: error })
             } else if (error.message.includes('Failed to fetch')) {
-                throw new Error('Network error. Please check your connection and try again.')
+                throw new Error('Network error. Please check your connection and try again.', { cause: error })
             } else {
                 throw error
             }

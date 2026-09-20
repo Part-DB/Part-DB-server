@@ -25,10 +25,13 @@ namespace App\Serializer;
 
 use App\Entity\Attachments\Attachment;
 use App\Services\Attachments\AttachmentURLGenerator;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+// '*' makes this available to every named serializer (default, import_export, ...), not just the default one.
+#[AutoconfigureTag('serializer.normalizer', ['serializer' => ['*']])]
 class AttachmentNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
 
