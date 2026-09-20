@@ -90,7 +90,8 @@ class DigikeyProvider implements InfoProviderInterface
                 ProviderCapabilities::PICTURE,
                 ProviderCapabilities::DATASHEET,
                 ProviderCapabilities::PRICE,
-                ProviderCapabilities::PARAMETERS
+                ProviderCapabilities::PARAMETERS,
+                ProviderCapabilities::STOCK_LEVEL,
             ],
         );
     }

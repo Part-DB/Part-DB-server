@@ -15374,5 +15374,11 @@ Buerklin-API Authentication server:
         <target>Available at supplier</target>
       </segment>
     </unit>
+    <unit id="S6JX3.E" name="info_providers.capabilities.stock_level">
+      <segment>
+        <source>info_providers.capabilities.stock_level</source>
+        <target>Stock level</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

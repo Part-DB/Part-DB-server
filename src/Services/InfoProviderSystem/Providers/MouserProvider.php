@@ -71,6 +71,7 @@ class MouserProvider implements InfoProviderInterface
                 ProviderCapabilities::PICTURE,
                 ProviderCapabilities::DATASHEET,
                 ProviderCapabilities::PRICE,
+                ProviderCapabilities::STOCK_LEVEL,
             ],
         );
     }

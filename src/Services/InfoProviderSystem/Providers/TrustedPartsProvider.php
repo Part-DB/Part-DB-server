@@ -87,6 +87,7 @@ class TrustedPartsProvider implements BatchInfoProviderInterface
                 ProviderCapabilities::PRICE,
                 ProviderCapabilities::FOOTPRINT,
                 ProviderCapabilities::PARAMETERS,
+                ProviderCapabilities::STOCK_LEVEL,
             ],
         );
     }
