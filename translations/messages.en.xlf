@@ -15362,13 +15362,13 @@ Buerklin-API Authentication server:
         <target>Out of stock</target>
       </segment>
     </unit>
-    <unit id="Kp4mZ1a" name="part.supplier.available_amount.updated_at">
+    <unit id="m0QJNRv" name="part.supplier.available_amount.updated_at">
       <segment state="translated">
         <source>part.supplier.available_amount.updated_at</source>
         <target>Stock retrieved from the info provider at: %datetime%</target>
       </segment>
     </unit>
-    <unit id="Rw9tQ6c" name="part.table.supplier_available_amount">
+    <unit id="NUw3e9D" name="part.table.supplier_available_amount">
       <segment state="translated">
         <source>part.table.supplier_available_amount</source>
         <target>Available at supplier</target>
