@@ -14353,6 +14353,12 @@ Serwer autoryzacji Buerklin API:
         <target>LMStudio</target>
       </segment>
     </unit>
+    <unit id="tWV0mhi" name="settings.ai.generic">
+      <segment state="translated">
+        <source>settings.ai.generic</source>
+        <target>Inna (kompatybilna z OpenAI)</target>
+      </segment>
+    </unit>
     <unit id="foBzBG2" name="settings.ips.ai_extractor.model">
       <segment state="translated">
         <source>settings.ips.ai_extractor.model</source>
@@ -14495,6 +14501,48 @@ Serwer autoryzacji Buerklin API:
       <segment state="translated">
         <source>settings.ai.ollama.apiKey</source>
         <target>Klucz API</target>
+      </segment>
+    </unit>
+    <unit id="gY_fVAC" name="settings.ai.generic.help">
+      <segment state="translated">
+        <source>settings.ai.generic.help</source>
+        <target>Połączenie z dowolnym API kompatybilnym z OpenAI, np. samodzielnie hostowana brama/proxy LLM (jak np. LiteLLM lub vLLM) lub inny dostawca oferujący API kompatybilne z OpenAI.</target>
+      </segment>
+    </unit>
+    <unit id="znTTXBF" name="settings.ai.generic.baseUrl">
+      <segment state="translated">
+        <source>settings.ai.generic.baseUrl</source>
+        <target>Podstawowy URL</target>
+      </segment>
+    </unit>
+    <unit id="0PBFceB" name="settings.ai.generic.apiKey">
+      <segment state="translated">
+        <source>settings.ai.generic.apiKey</source>
+        <target>Klucz API</target>
+      </segment>
+    </unit>
+    <unit id="dMXkfW2" name="settings.ai.generic.completionsPath">
+      <segment state="translated">
+        <source>settings.ai.generic.completionsPath</source>
+        <target>Ścieżka Chat Completions</target>
+      </segment>
+    </unit>
+    <unit id="ns3mY1a" name="settings.ai.generic.completionsPath.help">
+      <segment state="translated">
+        <source>settings.ai.generic.completionsPath.help</source>
+        <target>Ścieżka do punktu końcowego Chat Completions, względna do podstawowego URL. Pozostaw puste, aby użyć domyślnej "/v1/chat/completions".</target>
+      </segment>
+    </unit>
+    <unit id="0p9nJMr" name="settings.ai.generic.embeddingsPath">
+      <segment state="translated">
+        <source>settings.ai.generic.embeddingsPath</source>
+        <target>Ścieżka Embeddings</target>
+      </segment>
+    </unit>
+    <unit id="cA6Hiu5" name="settings.ai.generic.embeddingsPath.help">
+      <segment state="translated">
+        <source>settings.ai.generic.embeddingsPath.help</source>
+        <target>Ścieżka do punktu końcowego Embeddings, względna do podstawowego URL. Pozostaw puste, aby użyć domyślnej "/v1/embeddings".</target>
       </segment>
     </unit>
     <unit id="VxXEQUD" name="settings.ai.timeout">
@@ -15101,6 +15149,66 @@ Serwer autoryzacji Buerklin API:
       <segment state="translated">
         <source>project.bom_entry.edit.title</source>
         <target>Edytuj wpis BOM #%id% projektu</target>
+      </segment>
+    </unit>
+    <unit id="j2fYeQD" name="part_custom_state.color.label">
+      <segment state="translated">
+        <source>part_custom_state.color.label</source>
+        <target>Kolor</target>
+      </segment>
+    </unit>
+    <unit id="BQZ7r4Z" name="part_custom_state.color.help">
+      <segment state="translated">
+        <source>part_custom_state.color.help</source>
+        <target>Opcjonalny kolor, którego używa ten własny stan, gdy jest wyświetlany jako etykieta (np. na stronie szczegółów części i w tabelach części). Bez koloru używany jest poprzedni domyślny wygląd.</target>
+      </segment>
+    </unit>
+    <unit id="YIvmxWY" name="part_custom_state.color.primary">
+      <segment state="translated">
+        <source>part_custom_state.color.primary</source>
+        <target>Główny</target>
+      </segment>
+    </unit>
+    <unit id="wyIJyyZ" name="part_custom_state.color.secondary">
+      <segment state="translated">
+        <source>part_custom_state.color.secondary</source>
+        <target>Drugorzędny</target>
+      </segment>
+    </unit>
+    <unit id="D5LTi6M" name="part_custom_state.color.info">
+      <segment state="translated">
+        <source>part_custom_state.color.info</source>
+        <target>Informacja</target>
+      </segment>
+    </unit>
+    <unit id="YPy4hrz" name="part_custom_state.color.success">
+      <segment state="translated">
+        <source>part_custom_state.color.success</source>
+        <target>Powodzenie</target>
+      </segment>
+    </unit>
+    <unit id="rlX91yG" name="part_custom_state.color.warning">
+      <segment state="translated">
+        <source>part_custom_state.color.warning</source>
+        <target>Uwaga</target>
+      </segment>
+    </unit>
+    <unit id="aDTRoCA" name="part_custom_state.color.danger">
+      <segment state="translated">
+        <source>part_custom_state.color.danger</source>
+        <target>Niebezpieczeństwo</target>
+      </segment>
+    </unit>
+    <unit id="NYr6Yel" name="part_custom_state.color.light">
+      <segment state="translated">
+        <source>part_custom_state.color.light</source>
+        <target>Jasny</target>
+      </segment>
+    </unit>
+    <unit id="3JYrhXR" name="part_custom_state.color.dark">
+      <segment state="translated">
+        <source>part_custom_state.color.dark</source>
+        <target>Ciemny</target>
       </segment>
     </unit>
   </file>
