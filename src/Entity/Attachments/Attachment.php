@@ -456,6 +456,30 @@ abstract class Attachment extends AbstractNamedDBElement
     }
 
     /**
+     * Similar to getURL(), but returns a normalized URL for comparison purposes.
+     * The URL is stripped of parameters and fragments, and everything is lowercased.
+     * This is useful for comparing two attachments to see if they point to the same resource, even if the URLs are not exactly the same.
+     * @return string|null
+     */
+    public function getComparableURL(): ?string
+    {
+        $url = $this->getURL();
+        if ($url === null) {
+            return null;
+        }
+
+        $parsed_url = parse_url($url);
+        if ($parsed_url === false) {
+            return null;
+        }
+
+        $scheme = isset($parsed_url['scheme']) ? strtolower($parsed_url['scheme']) : 'https';
+        $host = isset($parsed_url['host']) ? strtolower($parsed_url['host']) : '';
+        $path = isset($parsed_url['path']) ? strtolower($parsed_url['path']) : '';
+        return $scheme . '://' . $host . $path;
+    }
+
+    /**
      * Returns the hostname where the external file is stored.
      * Returns null, if there is no external path.
      */
