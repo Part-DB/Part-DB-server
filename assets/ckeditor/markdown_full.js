@@ -3,7 +3,7 @@
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 import {ClassicEditor} from 'ckeditor5';
-import {Alignment} from 'ckeditor5';
+
 import {Autoformat} from 'ckeditor5';
 import {Base64UploadAdapter} from 'ckeditor5';
 import {BlockQuote} from 'ckeditor5';
@@ -14,14 +14,11 @@ import {Essentials} from 'ckeditor5';
 import {FindAndReplace} from 'ckeditor5';
 import {FontBackgroundColor} from 'ckeditor5';
 import {FontColor} from 'ckeditor5';
-import {FontFamily} from 'ckeditor5';
 import {FontSize} from 'ckeditor5';
 import {GeneralHtmlSupport} from 'ckeditor5';
 import {Heading} from 'ckeditor5';
 import {Highlight} from 'ckeditor5';
 import {HorizontalLine} from 'ckeditor5';
-import {HtmlComment} from 'ckeditor5';
-import {HtmlEmbed} from 'ckeditor5';
 import {Image} from 'ckeditor5';
 import {ImageResize} from 'ckeditor5';
 import {ImageStyle} from 'ckeditor5';
@@ -33,10 +30,6 @@ import {Italic} from 'ckeditor5';
 import {Link} from 'ckeditor5';
 import {LinkImage} from 'ckeditor5';
 import {List} from 'ckeditor5';
-import {ListProperties} from 'ckeditor5';
-import {Markdown} from 'ckeditor5';
-import {MediaEmbed} from 'ckeditor5';
-import {MediaEmbedToolbar} from 'ckeditor5';
 import {Paragraph} from 'ckeditor5';
 import {PasteFromOffice} from 'ckeditor5';
 import {RemoveFormat} from 'ckeditor5';
@@ -52,13 +45,9 @@ import {Strikethrough} from 'ckeditor5';
 import {Subscript} from 'ckeditor5';
 import {Superscript} from 'ckeditor5';
 import {Table} from 'ckeditor5';
-import {TableCaption} from 'ckeditor5';
-import {TableCellProperties} from 'ckeditor5';
-import {TableColumnResize} from 'ckeditor5';
 import {TableProperties} from 'ckeditor5';
 import {TableToolbar} from 'ckeditor5';
 import {Underline} from 'ckeditor5';
-import {WordCount} from 'ckeditor5';
 import {EditorWatchdog} from 'ckeditor5';
 import {TodoList} from 'ckeditor5';
 

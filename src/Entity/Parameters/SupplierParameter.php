@@ -46,10 +46,8 @@ use App\Entity\Parts\Supplier;
 use App\Repository\ParameterRepository;
 use App\Serializer\APIPlatform\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Context;
 
-#[UniqueEntity(fields: ['name', 'group', 'element'])]
 #[ORM\Entity(repositoryClass: ParameterRepository::class)]
 class SupplierParameter extends AbstractParameter
 {

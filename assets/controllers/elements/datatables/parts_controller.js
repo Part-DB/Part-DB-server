@@ -18,6 +18,7 @@
  */
 
 import DatatablesController from "./datatables_controller.js";
+// eslint-disable-next-line no-unused-vars
 import TomSelect from "tom-select";
 
 import {ConfirmSwal} from "../../../helpers/swal";

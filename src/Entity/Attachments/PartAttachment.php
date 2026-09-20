@@ -25,14 +25,12 @@ namespace App\Entity\Attachments;
 use App\Entity\Parts\Part;
 use App\Serializer\APIPlatform\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Context;
 
 /**
  * A attachment attached to a part element.
  * @extends Attachment<Part>
  */
-#[UniqueEntity(['name', 'attachment_type', 'element'])]
 #[ORM\Entity]
 class PartAttachment extends Attachment
 {

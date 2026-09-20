@@ -30,6 +30,7 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\OAuth\OAuthTokenManager;
 use App\Settings\InfoProviderSystem\OctopartSettings;
 use Psr\Cache\CacheItemPoolInterface;
@@ -215,7 +216,7 @@ class OctopartProvider implements InfoProviderInterface
      */
     private function saveToCache(PartDetailDTO $part): void
     {
-        $key = 'octopart_part_'.$part->provider_id;
+        $key = 'octopart_part_'.PartInfoRetriever::DTO_CACHE_VERSION.'_'.$part->provider_id;
 
         $item = $this->partInfoCache->getItem($key);
         $item->set($part);
@@ -230,7 +231,7 @@ class OctopartProvider implements InfoProviderInterface
      */
     private function getFromCache(string $id): ?PartDetailDTO
     {
-        $key = 'octopart_part_'.$id;
+        $key = 'octopart_part_'.PartInfoRetriever::DTO_CACHE_VERSION.'_'.$id;
 
         $item = $this->partInfoCache->getItem($key);
         if ($item->isHit()) {
