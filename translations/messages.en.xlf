@@ -14060,6 +14060,18 @@ Buerklin-API Authentication server:
         <target>If enabled, TrustedParts.com answers with cached stock and price data instead of querying the distributors in real time. This is faster and does not count against the rate limits, but the data can be outdated.</target>
       </segment>
     </unit>
+    <unit id="iF2gQaJ" name="settings.ips.trustedparts.riskRatings">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.riskRatings</source>
+        <target>Import risk ratings</target>
+      </segment>
+    </unit>
+    <unit id="ADEQkPe" name="settings.ips.trustedparts.riskRatings.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.riskRatings.help</source>
+        <target>TrustedParts.com rates the lifecycle and supply chain risk of a part and states whether it is affected by tariffs. If enabled, these ratings are imported as parameters of their own group. They come with every answer of the API, so importing them costs no additional request.</target>
+      </segment>
+    </unit>
     <unit id="D055xh8" name="attachment.sandbox.warning">
       <segment state="translated">
         <source>attachment.sandbox.warning</source>

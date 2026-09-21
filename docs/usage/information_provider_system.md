@@ -413,6 +413,16 @@ to search for parts. TrustedParts.com is operated by the Electronic Components I
 aggregates the offers (stock and prices) of authorized distributors, similar to Octopart. Besides the offers, it also
 provides specifications for many parts, which Part-DB imports as parameters.
 
+TrustedParts also rates how risky a part is to source: how far it is through its lifecycle, how reliable its
+supply chain currently is, and whether it is affected by tariffs. These ratings come with every answer of the
+API, so Part-DB imports them as parameters of their own group `TrustedParts` without making an additional
+request. A part which the API cannot rate simply has no such parameter.
+
+The lifecycle rating is deliberately *not* written to the manufacturing status of the part. It is a rating and
+not a fact: a band like `MED-HIGH` can mean an announced end of life just as well as a part which only one
+manufacturer builds. A manufacturing status, once set, is never overwritten by a later import, so a guess
+stored there would outlive the provider which reported an actual status.
+
 Please note that the TrustedParts API does not return any product images, so parts created with this provider have no
 preview image. You can generate one with the built-in component image generator (the button on the image placeholder of
 the part page), which works well with the package information this provider supplies.
@@ -443,6 +453,8 @@ The following env configuration options are available:
 * `PROVIDER_TRUSTEDPARTS_USE_CACHED_DATA`: If set to `1`, TrustedParts.com answers with cached stock and price data
   instead of querying the distributors in real time. This is faster and does not count against the rate limits, but the
   data can be outdated (optional, default: `0`)
+* `PROVIDER_TRUSTEDPARTS_RISK_RATINGS`: If set to `0`, the lifecycle, supply chain and tariff ratings are not
+  imported as parameters (optional, default: `1`)
 
 ### Adafruit
 
