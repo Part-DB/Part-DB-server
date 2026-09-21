@@ -246,26 +246,23 @@ trait EntityMergerHelperTrait
     protected function mergeAttachments(AttachmentContainingDBElement $target, AttachmentContainingDBElement $other): object
     {
         return $this->mergeCollections($target, $other, 'attachments', function (Attachment $t, Attachment $o) {
-            if ($t->getName() === $o->getName() && $t->getAttachmentType() === $o->getAttachmentType()) {
-                //An external source is authoritative. Ignore generated internal paths.
-                if ($t->hasExternal() || $o->hasExternal()) {
-                    //Check if the normalized external paths are equal. If so, the attachments are considered equal.
-                    if ($t->getComparableURL() === $o->getComparableURL()) {
-                        //When the normalized version is equal, but the details are different, prefer the new one
-                        //If the external source provides an updated URL (some providers issue a fresh signed/tracking URL for
-                        //the very same file on every request, e.g. TrustedParts), refresh it, so a stale or expired link does
-                        //not linger just because the URL happened to differ from the previous import.
-                        if ($t->getExternalPath() !== $o->getExternalPath()) {
-                            $t->setURL($o->getExternalPath());
-                        }
-                        return true;
-                    }
-                    return false;
-                }
-                //Only for local attachments, compare the internal path.
-                return $t->getInternalPath() === $o->getInternalPath();
+            //Name and attachment type are the identity of an attachment, because that is what makes it unique
+            //on an element (see the UniqueEntityIgnoringOrphans constraint on Attachment). Whatever else the
+            //two differ in, a second attachment under the same name and type cannot be stored, so comparing
+            //the path as well would only produce an element which can no longer be saved.
+            if ($t->getName() !== $o->getName() || $t->getAttachmentType() !== $o->getAttachmentType()) {
+                return false;
             }
-            return false;
+
+            //An external source is authoritative, so an updated URL for the same file is taken over. Some
+            //providers issue a fresh signed or tracking URL on every request (e.g. TrustedParts), and a
+            //stale or expired link should not linger just because the URL happened to differ from the
+            //previous import. Generated internal paths are ignored here.
+            if ($o->hasExternal() && $t->getExternalPath() !== $o->getExternalPath()) {
+                $t->setURL($o->getExternalPath());
+            }
+
+            return true;
         });
     }
 

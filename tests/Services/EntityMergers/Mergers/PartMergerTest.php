@@ -655,4 +655,29 @@ final class PartMergerTest extends KernelTestCase
         //The group is part of the identity, so the same name in another group is a different parameter
         $this->assertCount(2, $merged->getParameters());
     }
+
+    public function testMergeAttachmentsDoesNotDuplicateAnAttachmentWhichPointsSomewhereElseNow(): void
+    {
+        $attachment_type = new AttachmentType();
+
+        $target = (new Part())->addAttachment((new PartAttachment())
+            ->setName('Datasheet')
+            ->setAttachmentType($attachment_type)
+            ->setExternalPath('https://example.invalid/old/datasheet.pdf'));
+
+        //The provider serves the same document under another path now - not just another query string
+        $other = (new Part())->addAttachment((new PartAttachment())
+            ->setName('Datasheet')
+            ->setAttachmentType($attachment_type)
+            ->setExternalPath('https://example.invalid/new/datasheet.pdf'));
+
+        $merged = $this->merger->merge($target, $other);
+
+        //A name may exist only once per attachment type on an element, so a second one cannot be added -
+        //the part could not be saved afterwards.
+        $this->assertCount(1, $merged->getAttachments());
+        //The provider is authoritative for where the file is, so the link is refreshed
+        $this->assertSame('https://example.invalid/new/datasheet.pdf',
+            $merged->getAttachments()->first()->getExternalPath());
+    }
 }
