@@ -1,4 +1,4 @@
-# Generated on Mon Sep 14 07:46:57 UTC 2026
+# Generated on Mon Sep 21 07:51:17 UTC 2026
 # This file contains all footprints available in the offical KiCAD library
 Audio_Module:Reverb_BTDR-1H
 Audio_Module:Reverb_BTDR-1V
@@ -8284,6 +8284,7 @@ Converter_ACDC:Converter_ACDC_TRACO_TMPS03-1xx_THT
 Converter_ACDC:Converter_ACDC_TRACO_TMPW10_1xx_THT
 Converter_ACDC:Converter_ACDC_TRACO_TMPW25_1xx_THT
 Converter_ACDC:Converter_ACDC_TRACO_TMPW5-1xx_THT
+Converter_ACDC:Converter_ACDC_TRACO_TMPW50-1xx_THT
 Converter_ACDC:Converter_ACDC_TRACO_TPP-15-1xx-D_THT
 Converter_ACDC:Converter_ACDC_Vigortronix_VTX-214-010-1xx_THT
 Converter_ACDC:Converter_ACDC_Vigortronix_VTX-214-010-2xx_THT
@@ -13616,6 +13617,7 @@ Potentiometer_THT:Potentiometer_Vishay_T73XX_Horizontal
 Potentiometer_THT:Potentiometer_Vishay_T73YP_Vertical
 Potentiometer_THT:Potentiometer_Vishay_T93XA_Horizontal
 Potentiometer_THT:Potentiometer_Vishay_T93YA_Vertical
+RF:Skyworks_SKY13351_378LF
 RF:Skyworks_SKY13575_639LF
 RF:Skyworks_SKY65404-31
 RF_Antenna:AVX_M620720

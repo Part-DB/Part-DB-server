@@ -1,4 +1,4 @@
-# Generated on Mon Sep 14 07:47:35 UTC 2026
+# Generated on Mon Sep 21 07:51:55 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -4404,6 +4404,9 @@ Converter_ACDC:TMPW5-103
 Converter_ACDC:TMPW5-105
 Converter_ACDC:TMPW5-112
 Converter_ACDC:TMPW5-124
+Converter_ACDC:TMPW50-112
+Converter_ACDC:TMPW50-115
+Converter_ACDC:TMPW50-124
 Converter_ACDC:TPP-15-103-D
 Converter_ACDC:TPP-15-105-D
 Converter_ACDC:TPP-15-109-D
@@ -16801,6 +16804,7 @@ RF_Switch:MSW-2-20
 RF_Switch:MSW2-50
 RF_Switch:MSWA-2-20
 RF_Switch:MSWA2-50
+RF_Switch:SKY13351-378LF
 RF_Switch:SKY13380-350LF
 RF_Switch:SKY13575-639LF
 RF_WiFi:HF-A11-SMT
