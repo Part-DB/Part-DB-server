@@ -32,6 +32,7 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartAssociation;
 use App\Entity\Parts\PartCustomState;
+use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
@@ -591,5 +592,67 @@ final class PartMergerTest extends KernelTestCase
         $pricedetail = $merged->getOrderdetails()->first()->getPricedetails()->first();
         $this->assertTrue($pricedetail->getPrice()->isEqualTo('2.50'));
         $this->assertSame($usd, $pricedetail->getCurrency());
+    }
+
+    private function parameter(string $name, string $group, string $value_text): PartParameter
+    {
+        $parameter = new PartParameter();
+        $parameter->setName($name);
+        $parameter->setGroup($group);
+        $parameter->setValueText($value_text);
+
+        return $parameter;
+    }
+
+    public function testMergeParametersDoesNotDuplicateAParameterWhoseValueChanged(): void
+    {
+        $target = new Part();
+        $target->addParameter($this->parameter('Voltage', 'Electrical', '5 V'));
+
+        //The provider reports the same parameter, but with another value than the one stored
+        $other = new Part();
+        $other->addParameter($this->parameter('Voltage', 'Electrical', '6 V'));
+
+        $merged = $this->merger->merge($target, $other);
+
+        //A parameter is unique per element by name and group (see the constraint on AbstractParameter), so a
+        //changed value must not produce a second one - the part could not be saved afterwards.
+        $this->assertCount(1, $merged->getParameters());
+        //As everywhere else in the merge, what the target already has wins
+        $this->assertSame('5 V', $merged->getParameters()->first()->getValueText());
+    }
+
+    public function testMergeParametersFillsAValueTheTargetDoesNotHave(): void
+    {
+        $target = new Part();
+        $target->addParameter($this->parameter('Voltage', 'Electrical', ''));
+
+        $other = new Part();
+        $other_parameter = $this->parameter('Voltage', 'Electrical', '6 V');
+        $other_parameter->setValueTypical(6.0);
+        $other_parameter->setUnit('V');
+        $other->addParameter($other_parameter);
+
+        $merged = $this->merger->merge($target, $other);
+
+        $this->assertCount(1, $merged->getParameters());
+        $parameter = $merged->getParameters()->first();
+        $this->assertSame('6 V', $parameter->getValueText());
+        $this->assertSame(6.0, $parameter->getValueTypical());
+        $this->assertSame('V', $parameter->getUnit());
+    }
+
+    public function testMergeParametersKeepsTheSameNameInAnotherGroup(): void
+    {
+        $target = new Part();
+        $target->addParameter($this->parameter('Voltage', 'Electrical', '5 V'));
+
+        $other = new Part();
+        $other->addParameter($this->parameter('Voltage', 'Absolute maximum', '7 V'));
+
+        $merged = $this->merger->merge($target, $other);
+
+        //The group is part of the identity, so the same name in another group is a different parameter
+        $this->assertCount(2, $merged->getParameters());
     }
 }
