@@ -10217,6 +10217,66 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
         <target>Gdy włączone, autouzupełnianie KiCad używa public/kicad/footprints_custom.txt oraz public/kicad/symbols_custom.txt zamiast domyślnych wygenerowanych automatycznie plików.</target>
       </segment>
     </unit>
+    <unit id="s_tUtUZ" name="settings.misc.kicad_eda.export_stock_fields">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_stock_fields</source>
+        <target>Eksportuj pola stanów magazynowych (Zapas, Lokalizacja przechowywania)</target>
+      </segment>
+    </unit>
+    <unit id="9QK.feT" name="settings.misc.kicad_eda.export_stock_fields.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_stock_fields.help</source>
+        <target>Gdy włączone, obecne zapasy i miejsca przechowywania są eksportowane jako pola symboli. Wyłącz, jeśli zmiany stanów magazynowych nie powinny wprowadzać zmian w symbolach KiCad (każda zmiana jest zgłaszana jako niezgodność symbolu z biblioteką w ERC KiCad) </target>
+      </segment>
+    </unit>
+    <unit id="ZBpX8wi" name="settings.misc.kicad_eda.export_supplier_fields">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_supplier_fields</source>
+        <target>Eksportuj pola numerów części dostawców</target>
+      </segment>
+    </unit>
+    <unit id="AK0phKm" name="settings.misc.kicad_eda.export_supplier_fields.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_supplier_fields.help</source>
+        <target>Gdy włączone, eksportowane jest jedno pole "&lt;Dostawca&gt; SPN" na każde informacje o zakupach.</target>
+      </segment>
+    </unit>
+    <unit id="q4m0AwA" name="settings.misc.kicad_eda.export_kicost_fields">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_kicost_fields</source>
+        <target>Eksportuj pola KiCost (manf, manf#, &lt;dostawca&gt;#)</target>
+      </segment>
+    </unit>
+    <unit id="_i0zoJk" name="settings.misc.kicad_eda.export_kicost_fields.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_kicost_fields.help</source>
+        <target>Gdy włączone, eksportowane są kompatybilne z KiCost kopie nazwy producenta, numeru części producenta oraz numeru części dostawcy.</target>
+      </segment>
+    </unit>
+    <unit id="AOHkfzZ" name="settings.misc.kicad_eda.export_part_info_fields">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_part_info_fields</source>
+        <target>Eksportuj pola informacji o części (Kategoria, Status produkcji, Masa, IPN, ...)</target>
+      </segment>
+    </unit>
+    <unit id="SVVQZQJ" name="settings.misc.kicad_eda.export_part_info_fields.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_part_info_fields.help</source>
+        <target>Gdy włączone, eksportowane są pola Kategoria, Status produkcji, Masa, IPN Part-DB, Jednostka Part-DB oraz Własny stan Part-DB.</target>
+      </segment>
+    </unit>
+    <unit id="Gzbk.xN" name="settings.misc.kicad_eda.export_tags_as_keywords">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_tags_as_keywords</source>
+        <target>Eksportuj taki jako słowa kluczowe</target>
+      </segment>
+    </unit>
+    <unit id="wuq6li_" name="settings.misc.kicad_eda.export_tags_as_keywords.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_tags_as_keywords.help</source>
+        <target>Gdy włączone, tagi części eksportowane są jako słowa kluczowe symbolu KiCad. Wyłącz, jeśli zmiany tagów nie powinny modyfikować symboli KiCad.</target>
+      </segment>
+    </unit>
     <unit id="TfJvNLm" name="settings.misc.kicad_eda.editor.custom_footprints">
       <segment state="translated">
         <source>settings.misc.kicad_eda.editor.custom_footprints</source>
@@ -15209,6 +15269,72 @@ Serwer autoryzacji Buerklin API:
       <segment state="translated">
         <source>part_custom_state.color.dark</source>
         <target>Ciemny</target>
+      </segment>
+    </unit>
+    <unit id="OOY08s2" name="settings.ips.rate_limit_per_10s">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_10s</source>
+        <target>Maks. zapytań dostawcy na 10s</target>
+      </segment>
+    </unit>
+    <unit id="RvmisL4" name="settings.ips.rate_limit_per_10s.help">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_10s.help</source>
+        <target>Part-DB nigdy nie wysyła więcej niż tyle zapytań do tego samego dostawcy informacji w ciągu 10 sekund, i opóźnia kolejne zapytania. Ustaw tę wartość na niższą niż limit twojego konta dostawcy, w szczególności, jeśli zewnętrzny skrypt używa tych samych danych uwierzytelniania API - dostawca nalicza oba. Ustaw na 0, aby wyłączyć.</target>
+      </segment>
+    </unit>
+    <unit id="7yMJvsZ" name="settings.ips.rate_limit_per_minute">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_minute</source>
+        <target>Maks. zapytań dostawcy na minutę</target>
+      </segment>
+    </unit>
+    <unit id="mdIG1__" name="settings.ips.rate_limit_per_minute.help">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_minute.help</source>
+        <target>Tak samo, ale w ciągu jednej minuty. Ustaw na 0, aby wyłączyć.</target>
+      </segment>
+    </unit>
+    <unit id="dIENWAf" name="settings.ips.rate_limit_max_wait">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_max_wait</source>
+        <target>Maks. oczekiwanie na wolne okno</target>
+      </segment>
+    </unit>
+    <unit id="fs4yEpG" name="settings.ips.rate_limit_max_wait.help">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_max_wait.help</source>
+        <target>Jak długo pojedyncze zapytanie może być opóźnione przez powyższe limity, zanim zakończy się niepowodzeniem, w sekundach. Masowe operacje tylko czekają; to zabezpiecza zapytanie uruchomione z interfejsu użytkownika przed zawieszeniem się.</target>
+      </segment>
+    </unit>
+    <unit id="4cBWYO6" name="part.refresh_from_info_provider.btn">
+      <segment state="translated">
+        <source>part.refresh_from_info_provider.btn</source>
+        <target>Odśwież z %provider%</target>
+      </segment>
+    </unit>
+    <unit id="0lJr81k" name="part.refresh_from_info_provider.last_updated">
+      <segment state="translated">
+        <source>part.refresh_from_info_provider.last_updated</source>
+        <target>Ostatnio zaktualizowano od dostawcy informacji: %datetime%</target>
+      </segment>
+    </unit>
+    <unit id="GxFIRWg" name="part_list.action.bulk_info_provider_refresh">
+      <segment state="translated">
+        <source>part_list.action.bulk_info_provider_refresh</source>
+        <target>Odśwież informacje od dostawców</target>
+      </segment>
+    </unit>
+    <unit id="6Q8bhaD" name="info_providers.bulk_refresh.error.no_provider_reference">
+      <segment state="translated">
+        <source>info_providers.bulk_refresh.error.no_provider_reference</source>
+        <target>Ta część nie została utworzona przy użyciu informacji od dostawcy, więc nie może zostać automatycznie odświeżona.</target>
+      </segment>
+    </unit>
+    <unit id="oJcitnK" name="info_providers.bulk_refresh.error.provider_unavailable">
+      <segment state="translated">
+        <source>info_providers.bulk_refresh.error.provider_unavailable</source>
+        <target>Dostawca informacji, przy pomocy którego została utworzona ta część, nie jest już dostępny.</target>
       </segment>
     </unit>
   </file>
