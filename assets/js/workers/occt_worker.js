@@ -43,7 +43,8 @@ self.onmessage = async (event) => {
             throw new Error("occt-import-js was not able to read the file");
         }
 
-        self.postMessage({success: true, meshes: result.meshes});
+        //root carries the assembly tree (names and which meshes belong to which component)
+        self.postMessage({success: true, meshes: result.meshes, root: result.root});
     } catch (error) {
         self.postMessage({success: false, error: error?.message ?? String(error)});
     }

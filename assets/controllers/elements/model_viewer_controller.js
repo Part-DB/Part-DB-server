@@ -309,7 +309,7 @@ const defaultMaterial = (useVertexColors = false) => new THREE.MeshStandardMater
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
-    static targets = ["container", "status", "info", "viewButton", "measureButton", "measurement", "measureHint", "metadata"];
+    static targets = ["container", "status", "info", "viewButton", "measureButton", "measurement", "measureHint", "metadata", "parts", "partList", "partsButton"];
     static values = {
         url: String,
         extension: String,
@@ -436,6 +436,97 @@ export default class extends Controller {
         } else {
             this.containerTarget.requestFullscreen();
         }
+    }
+
+    togglePartList() {
+        const hidden = this.partsTarget.classList.toggle("d-none");
+        this.partsButtonTarget.classList.toggle("active", !hidden);
+        this.partsButtonTarget.setAttribute("aria-pressed", hidden ? "false" : "true");
+    }
+
+    showAllParts() {
+        this._setAllParts(true);
+    }
+
+    hideAllParts() {
+        this._setAllParts(false);
+    }
+
+    _setAllParts(visible) {
+        for (const {object, input} of this._parts ?? []) {
+            object.visible = visible;
+            input.checked = visible;
+        }
+    }
+
+    /**
+     * Fills the parts panel with one checkbox per component of the model. A STEP file is frequently an
+     * assembly, and the other formats have a scene graph of their own, so the same list works for both.
+     * With nothing to choose between, the panel and its button stay hidden.
+     */
+    _buildPartList() {
+        const parts = this._findParts();
+        this._parts = [];
+
+        if (parts.length < 2) {
+            return;
+        }
+
+        this.partListTarget.replaceChildren();
+
+        parts.forEach((part, index) => {
+            const wrapper = document.createElement("div");
+            wrapper.className = "form-check";
+
+            const input = document.createElement("input");
+            input.type = "checkbox";
+            input.className = "form-check-input";
+            input.checked = true;
+            input.id = `model-part-${index}`;
+            input.addEventListener("change", () => {
+                part.object.visible = input.checked;
+            });
+
+            const label = document.createElement("label");
+            label.className = "form-check-label text-truncate";
+            label.htmlFor = input.id;
+            //The name comes from the model file, so it is only ever set as text
+            label.textContent = part.name;
+            label.title = part.name;
+
+            wrapper.append(input, label);
+            this.partListTarget.append(wrapper);
+            this._parts.push({object: part.object, input});
+        });
+
+        this.partsButtonTarget.classList.remove("d-none");
+    }
+
+    /**
+     * Finds the level of the scene graph that holds the individual components. Exporters like to wrap
+     * everything in a chain of single child groups, so those are skipped over first.
+     */
+    _findParts() {
+        let node = this.model;
+        while (node.children.length === 1 && !node.children[0].isMesh) {
+            node = node.children[0];
+        }
+
+        return node.children
+            .filter((child) => this._hasGeometry(child))
+            .map((child, index) => ({
+                object: child,
+                name: child.name || trans("attachment.3d_viewer.parts.unnamed", {"%number%": index + 1}),
+            }));
+    }
+
+    _hasGeometry(object) {
+        let found = false;
+        object.traverse((child) => {
+            found ||= Boolean(child.isMesh);
+        });
+
+        return found;
     }
 
     /**
@@ -605,9 +696,22 @@ export default class extends Controller {
         );
 
         this._raycaster.setFromCamera(pointer, this.camera);
-        const [hit] = this._raycaster.intersectObject(this.model, true);
+        //three's raycaster reports hidden objects too, so parts switched off in the panel have to be
+        //skipped here - otherwise they could still be measured through
+        const hit = this._raycaster.intersectObject(this.model, true)
+            .find((candidate) => this._isVisible(candidate.object));
 
         return hit ? this._snapToVertex(hit, event.clientX - rect.left, event.clientY - rect.top) : null;
+    }
+
+    _isVisible(object) {
+        for (let node = object; node && node !== this.scene; node = node.parent) {
+            if (!node.visible) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -814,21 +918,23 @@ export default class extends Controller {
         this._applyTheme();
         this._fitCameraToModel();
         this._showInfo();
+        this._buildPartList();
 
         this.statusTarget.classList.add("d-none");
     }
 
     /**
-     * Tessellates a boundary representation file in a worker and converts the resulting triangle soup
-     * into three.js meshes.
+     * Tessellates a boundary representation file in a worker and converts the result into three.js
+     * meshes, keeping the assembly structure occt reports: a STEP file is often not one solid but a tree
+     * of named components, which the parts panel then lets the user switch on and off.
      */
     async _parseWithOcct(buffer, format) {
         this._worker = new Worker(new URL("../../js/workers/occt_worker.js", import.meta.url));
 
-        const meshes = await new Promise((resolve, reject) => {
+        const {meshes, root} = await new Promise((resolve, reject) => {
             this._worker.onmessage = (event) => {
                 if (event.data.success) {
-                    resolve(event.data.meshes);
+                    resolve(event.data);
                 } else {
                     reject(new Error(event.data.error));
                 }
@@ -841,8 +947,13 @@ export default class extends Controller {
         this._worker.terminate();
         this._worker = null;
 
-        const group = new THREE.Group();
-        for (const mesh of meshes) {
+        const built = new Map();
+        const buildMesh = (index) => {
+            if (built.has(index)) {
+                return built.get(index);
+            }
+
+            const mesh = meshes[index];
             const geometry = new THREE.BufferGeometry();
             geometry.setAttribute("position", new THREE.Float32BufferAttribute(mesh.attributes.position.array, 3));
             if (mesh.attributes.normal) {
@@ -859,8 +970,32 @@ export default class extends Controller {
 
             const threeMesh = new THREE.Mesh(geometry, material);
             threeMesh.name = mesh.name ?? "";
-            group.add(threeMesh);
+            built.set(index, threeMesh);
+
+            return threeMesh;
+        };
+
+        const buildNode = (node) => {
+            const group = new THREE.Group();
+            group.name = node.name ?? "";
+
+            for (const index of node.meshes ?? []) {
+                group.add(buildMesh(index));
+            }
+            for (const child of node.children ?? []) {
+                group.add(buildNode(child));
+            }
+
+            return group;
+        };
+
+        if (root) {
+            return buildNode(root);
         }
+
+        //Older results only carry the flat mesh list, so fall back to putting them all in one group
+        const group = new THREE.Group();
+        meshes.forEach((_mesh, index) => group.add(buildMesh(index)));
 
         return group;
     }

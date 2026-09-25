@@ -397,5 +397,11 @@
         <target>Copyright</target>
       </segment>
     </unit>
+    <unit id="1b7adHJ" name="attachment.3d_viewer.parts.unnamed">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts.unnamed</source>
+        <target>Part %number%</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

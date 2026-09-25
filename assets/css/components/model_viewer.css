@@ -56,6 +56,27 @@
     flex: 0 1 auto;
 }
 
+.model-viewer-parts {
+    position: absolute;
+    /* Below the standard view buttons, which sit in the same corner */
+    top: 3rem;
+    left: .5rem;
+    z-index: 1;
+    width: 15rem;
+    max-width: calc(100% - 4rem);
+    /* A big assembly can have a lot of components, so the list scrolls inside the canvas */
+    max-height: calc(100% - 4rem);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.model-viewer-parts .form-check-label {
+    /* Long component names are common in CAD exports; ellipsise them rather than widening the panel
+       (the full name is on the title attribute) */
+    display: block;
+    max-width: 100%;
+}
+
 .model-viewer-measurement {
     position: absolute;
     z-index: 1;

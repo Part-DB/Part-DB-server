@@ -72,6 +72,13 @@
                             {{ stimulus_action('elements/model_viewer', 'clearMeasurement') }}>
                         <i class="fa-solid fa-eraser fa-fw"></i>
                     </button>
+                    {# Revealed by the controller only when the model actually has several components #}
+                    <button type="button" class="btn btn-sm d-none" aria-pressed="false"
+                            title="{% trans %}attachment.3d_viewer.parts{% endtrans %}"
+                            {{ stimulus_action('elements/model_viewer', 'togglePartList') }}
+                            {{ stimulus_target('elements/model_viewer', 'partsButton') }}>
+                        <i class="fa-solid fa-layer-group fa-fw"></i>
+                    </button>
                     <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.screenshot{% endtrans %}"
                             {{ stimulus_action('elements/model_viewer', 'downloadScreenshot') }}>
                         <i class="fa-solid fa-camera fa-fw"></i>
@@ -84,6 +91,21 @@
                             {{ stimulus_action('elements/model_viewer', 'toggleFullscreen') }}>
                         <i class="fa-solid fa-up-right-and-down-left-from-center fa-fw"></i>
                     </button>
+                </div>
+
+                <div class="model-viewer-parts card shadow-sm d-none" {{ stimulus_target('elements/model_viewer', 'parts') }}>
+                    <div class="card-header d-flex align-items-center gap-2 py-1 px-2">
+                        <span class="small fw-semibold me-auto">{% trans %}attachment.3d_viewer.parts{% endtrans %}</span>
+                        <button type="button" class="btn btn-sm btn-link p-0 small text-decoration-none"
+                                {{ stimulus_action('elements/model_viewer', 'showAllParts') }}>
+                            {% trans %}attachment.3d_viewer.parts.show_all{% endtrans %}
+                        </button>
+                        <button type="button" class="btn btn-sm btn-link p-0 small text-decoration-none"
+                                {{ stimulus_action('elements/model_viewer', 'hideAllParts') }}>
+                            {% trans %}attachment.3d_viewer.parts.hide_all{% endtrans %}
+                        </button>
+                    </div>
+                    <div class="card-body p-2" {{ stimulus_target('elements/model_viewer', 'partList') }}></div>
                 </div>
 
                 {# Floats over the midpoint of the measured line, the controller keeps it positioned #}

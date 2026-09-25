@@ -15464,5 +15464,23 @@ Buerklin-API Authentication server:
         <target>Download screenshot</target>
       </segment>
     </unit>
+    <unit id="DaNck4u" name="attachment.3d_viewer.parts">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts</source>
+        <target>Parts</target>
+      </segment>
+    </unit>
+    <unit id="xX9nKBn" name="attachment.3d_viewer.parts.show_all">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts.show_all</source>
+        <target>All</target>
+      </segment>
+    </unit>
+    <unit id="pK0bzyy" name="attachment.3d_viewer.parts.hide_all">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts.hide_all</source>
+        <target>None</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
