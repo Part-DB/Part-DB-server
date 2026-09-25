@@ -313,6 +313,7 @@ export default class extends Controller {
     static values = {
         url: String,
         extension: String,
+        filename: String,
     };
 
     _abortController = null;
@@ -435,6 +436,96 @@ export default class extends Controller {
         } else {
             this.containerTarget.requestFullscreen();
         }
+    }
+
+    /**
+     * Saves what is currently on the canvas as a PNG. The measurement label is an HTML element floating
+     * over the canvas rather than part of the scene, so it is drawn into the image separately - a
+     * screenshot of a measurement is not much use without the number.
+     */
+    downloadScreenshot() {
+        if (!this.renderer) {
+            return;
+        }
+
+        //A WebGL drawing buffer is cleared once it has been composited, so it can only be read straight
+        //after a render, without yielding in between. Everything up to toBlob() stays synchronous.
+        this.renderer.render(this.scene, this.camera);
+
+        const source = this.renderer.domElement;
+        const canvas = document.createElement("canvas");
+        canvas.width = source.width;
+        canvas.height = source.height;
+
+        const context = canvas.getContext("2d");
+        context.drawImage(source, 0, 0);
+        this._drawMeasurementLabel(context, source.width / this._canvasSize.width);
+
+        canvas.toBlob((blob) => {
+            if (blob) {
+                this._download(blob, `${this._screenshotName()}.png`);
+            }
+        }, "image/png");
+    }
+
+    /**
+     * Paints the distance badge onto the screenshot the way it appears over the canvas.
+     */
+    _drawMeasurementLabel(context, scale) {
+        if (this._measurePoints.length < 2) {
+            return;
+        }
+
+        const middle = new THREE.Vector3()
+            .addVectors(this._measurePoints[0], this._measurePoints[1])
+            .multiplyScalar(0.5);
+        const {x, y} = this._toScreenPosition(middle);
+        const text = this.measurementTarget.textContent;
+
+        context.save();
+        //Work in CSS pixels, so the badge keeps its size on a high DPI screen
+        context.scale(scale, scale);
+        context.font = "600 12px system-ui, -apple-system, sans-serif";
+        context.textAlign = "center";
+        context.textBaseline = "middle";
+
+        const width = context.measureText(text).width + 12;
+        const height = 20;
+        const left = x - width / 2;
+        const top = y - height / 2;
+
+        context.fillStyle = `#${MEASUREMENT_COLOR.toString(16).padStart(6, "0")}`;
+        if (context.roundRect) {
+            context.beginPath();
+            context.roundRect(left, top, width, height, 4);
+            context.fill();
+        } else {
+            context.fillRect(left, top, width, height);
+        }
+
+        context.fillStyle = "#ffffff";
+        context.fillText(text, x, y);
+        context.restore();
+    }
+
+    /**
+     * Names the screenshot after the attachment file, so several of them stay apart in the download folder.
+     */
+    _screenshotName() {
+        const base = (this.filenameValue || "model").replace(/\.[^./\\]+$/, "").replace(/[\\/:*?"<>|]/g, "_");
+
+        return base || "model";
+    }
+
+    _download(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        link.click();
+
+        //Only safe to release once the browser has picked the download up
+        setTimeout(() => URL.revokeObjectURL(url), 0);
     }
 
     /**

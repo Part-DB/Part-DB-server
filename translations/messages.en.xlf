@@ -15458,5 +15458,11 @@ Buerklin-API Authentication server:
         <target>Model information</target>
       </segment>
     </unit>
+    <unit id="kMmJzTW" name="attachment.3d_viewer.screenshot">
+      <segment state="translated">
+        <source>attachment.3d_viewer.screenshot</source>
+        <target>Download screenshot</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

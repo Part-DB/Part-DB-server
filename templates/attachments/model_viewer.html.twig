@@ -5,7 +5,8 @@
 {% block content %}
     <div class="card mt-2 mb-3" {{ stimulus_controller('elements/model_viewer', {
         url: path('attachment_view', {id: attachment.id}),
-        extension: attachment.extension
+        extension: attachment.extension,
+        filename: attachment.filename ?? attachment.name
     }) }}>
         <div class="card-header d-flex flex-wrap align-items-center gap-2">
             <h5 class="mb-0 me-auto text-truncate">
@@ -70,6 +71,10 @@
                     <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.measure.clear{% endtrans %}"
                             {{ stimulus_action('elements/model_viewer', 'clearMeasurement') }}>
                         <i class="fa-solid fa-eraser fa-fw"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.screenshot{% endtrans %}"
+                            {{ stimulus_action('elements/model_viewer', 'downloadScreenshot') }}>
+                        <i class="fa-solid fa-camera fa-fw"></i>
                     </button>
                     <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.metadata{% endtrans %}"
                             data-bs-toggle="modal" data-bs-target="#model-metadata-modal">
