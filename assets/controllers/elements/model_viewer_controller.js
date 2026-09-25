@@ -131,6 +131,34 @@ const VIEW_DIRECTIONS = {
     bottom: [0, -1, 0],
 };
 
+/**
+ * The unit the world coordinates of a model end up in for the formats where that is guaranteed - either
+ * by the file format itself or because the three.js loader normalises it. Every other format is measured
+ * in whatever the file used, which _detectUnit() tries to read back out of it.
+ * @type {Object<string, string>}
+ */
+const FORMAT_UNITS = {
+    //glTF is defined to be in meters
+    gltf: "m",
+    glb: "m",
+    //ColladaLoader applies the file's own unit scale, which leaves the scene in meters
+    dae: "m",
+    //AMFLoader converts every unit it supports to millimeters
+    amf: "mm",
+};
+
+/** The length units a STEP file can declare as an SI unit, by the prefix it uses. */
+const STEP_SI_PREFIXES = {
+    ".MICRO.": "µm",
+    ".MILLI.": "mm",
+    ".CENTI.": "cm",
+    ".DECI.": "dm",
+    ".KILO.": "km",
+};
+
+/** The unit assumed for the formats that do not store one. */
+const FALLBACK_UNIT = "mm";
+
 /** How close (in screen pixels) a corner has to be for a measurement point to snap onto it. */
 const SNAP_DISTANCE_PX = 12;
 
@@ -169,6 +197,7 @@ export default class extends Controller {
     _abortController = null;
     _worker = null;
     _resizeObserver = null;
+    _themeObserver = null;
     _wireframe = false;
     _measuring = false;
     _measurePoints = [];
@@ -200,6 +229,7 @@ export default class extends Controller {
         this._abortController?.abort();
         this._worker?.terminate();
         this._resizeObserver?.disconnect();
+        this._themeObserver?.disconnect();
 
         this.controls?.dispose();
 
@@ -227,6 +257,7 @@ export default class extends Controller {
         this._abortController = null;
         this._worker = null;
         this._resizeObserver = null;
+        this._themeObserver = null;
         this.controls = null;
         this.renderer = null;
         this.model = null;
@@ -345,7 +376,8 @@ export default class extends Controller {
             line.renderOrder = 1000;
             this._measureGroup.add(line);
 
-            this.measurementTarget.textContent = this._formatNumber(this._measurePoints[0].distanceTo(this._measurePoints[1]));
+            const distance = this._measurePoints[0].distanceTo(this._measurePoints[1]);
+            this.measurementTarget.textContent = `${this._formatNumber(distance)} ${this._unit}`;
             this.measurementTarget.classList.remove("d-none");
         }
     }
@@ -465,7 +497,8 @@ export default class extends Controller {
         fillLight.position.set(-2, -1, -2);
         this.scene.add(fillLight);
 
-        this._applyThemeBackground();
+        this._applyTheme();
+        this._watchTheme();
 
         this._resizeObserver = new ResizeObserver(() => this._resize());
         this._resizeObserver.observe(this.containerTarget);
@@ -499,12 +532,32 @@ export default class extends Controller {
     };
 
     /**
-     * Use the background the (bootswatch) theme gives our container, so that the viewer does not show a
-     * bright white box on a dark theme.
+     * Takes the scene colours from the theme, so that the viewer does not show a bright white box on a
+     * dark theme. Both values are read from the container itself, which means they follow whichever
+     * bootswatch theme and light/dark mode is active without us having to know any of them.
      */
-    _applyThemeBackground() {
-        const background = new THREE.Color().setStyle(getComputedStyle(this.containerTarget).backgroundColor);
-        this.renderer.setClearColor(background);
+    _applyTheme() {
+        const style = getComputedStyle(this.containerTarget);
+
+        this.renderer.setClearColor(new THREE.Color().setStyle(style.backgroundColor));
+
+        if (this.grid) {
+            //The body text colour contrasts with the background in either mode
+            this.grid.material.color.setStyle(style.color);
+        }
+    }
+
+    /**
+     * Dark mode is applied by a separate controller writing data-bs-theme onto <html>, which can happen
+     * after this controller has already started, and again whenever the user (or their system) switches
+     * mode. So rather than reading the colours once, follow that attribute.
+     */
+    _watchTheme() {
+        this._themeObserver = new MutationObserver(() => this._applyTheme());
+        this._themeObserver.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ["data-bs-theme"],
+        });
     }
 
     async _loadModel() {
@@ -515,6 +568,9 @@ export default class extends Controller {
             throw new Error(`Could not download the attachment file: ${response.status}`);
         }
         const buffer = await response.arrayBuffer();
+
+        //Must happen before the buffer is transferred to the occt worker, which detaches it
+        this._detectUnit(buffer);
 
         let object;
         if (this.extension in OCCT_FORMATS) {
@@ -534,6 +590,7 @@ export default class extends Controller {
         this.scene.add(object);
 
         this._addGrid();
+        this._applyTheme();
         this._fitCameraToModel();
         this._showInfo();
 
@@ -600,7 +657,11 @@ export default class extends Controller {
         const step = 10 ** Math.round(Math.log10(extent / 10));
         const divisions = Math.max(Math.ceil(extent * 2 / step), 2);
 
-        this.grid = new THREE.GridHelper(divisions * step, divisions, 0x888888, 0x888888);
+        this.grid = new THREE.GridHelper(divisions * step, divisions);
+        //GridHelper bakes its two colours into a vertex attribute; turning that off lets _applyTheme()
+        //drive the whole grid colour from the theme instead of merely tinting the baked grey
+        this.grid.material.vertexColors = false;
+        this.grid.material.needsUpdate = true;
         this.grid.material.opacity = 0.35;
         this.grid.material.transparent = true;
         //Sit the grid right below the model instead of at the world origin, which can be far away
@@ -644,10 +705,56 @@ export default class extends Controller {
         const format = (value) => this._formatNumber(value);
 
         this.infoTarget.textContent = trans("attachment.3d_viewer.info", {
-            "%dimensions%": `${format(size.x)} × ${format(size.y)} × ${format(size.z)}`,
+            "%dimensions%": `${format(size.x)} × ${format(size.y)} × ${format(size.z)} ${this._unit}`,
             "%triangles%": format(Math.round(triangles)),
         });
         this.infoTarget.classList.remove("d-none");
+    }
+
+    /**
+     * Works out which unit the numbers we show are in. STEP files declare their length unit, everything
+     * else either has a unit fixed by its format (FORMAT_UNITS) or none at all, in which case millimeters
+     * are assumed - which is what CAD and 3D printing files without a unit practically always use.
+     */
+    _detectUnit(buffer) {
+        this._unit = FORMAT_UNITS[this.extension] ?? null;
+        this._unitIsAssumed = false;
+
+        if (this._unit === null && (this.extension === "step" || this.extension === "stp")) {
+            this._unit = this._detectStepUnit(decodeText(buffer));
+        }
+
+        if (this._unit === null) {
+            this._unit = FALLBACK_UNIT;
+            this._unitIsAssumed = true;
+        }
+
+        const title = trans(this._unitIsAssumed ? "attachment.3d_viewer.unit.assumed" : "attachment.3d_viewer.unit.from_file");
+        this.infoTarget.title = title;
+        this.measurementTarget.title = title;
+    }
+
+    /**
+     * Reads the length unit out of a STEP file, which declares it as part of its geometric context, e.g.
+     * "( LENGTH_UNIT() NAMED_UNIT(*) SI_UNIT(.MILLI.,.METRE.) )" for millimeters, or as a conversion based
+     * unit named INCH. Returns null if neither can be found.
+     */
+    _detectStepUnit(text) {
+        //A length unit given in metres, optionally with an SI prefix (no prefix means plain metres)
+        const si = text.match(/LENGTH_UNIT\s*\(\s*\)[\s\S]{0,200}?SI_UNIT\s*\(\s*([^,\s]+)\s*,\s*\.METRE\.\s*\)/i)
+            ?? text.match(/SI_UNIT\s*\(\s*([^,\s]+)\s*,\s*\.METRE\.\s*\)[\s\S]{0,200}?LENGTH_UNIT\s*\(\s*\)/i);
+        if (si) {
+            const prefix = si[1].toUpperCase();
+            return prefix === "$" ? "m" : (STEP_SI_PREFIXES[prefix] ?? null);
+        }
+
+        //Imperial files instead convert from an SI unit, naming the result INCH or FOOT
+        const converted = text.match(/CONVERSION_BASED_UNIT\s*\(\s*'\s*(INCH|FOOT)[^']*'/i);
+        if (converted) {
+            return converted[1].toUpperCase() === "INCH" ? "in" : "ft";
+        }
+
+        return null;
     }
 
     _formatNumber(value) {

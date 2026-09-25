@@ -15449,7 +15449,7 @@ Buerklin-API Authentication server:
     <unit id="_9Hel6U" name="attachment.3d_viewer.measure.hint">
       <segment state="translated">
         <source>attachment.3d_viewer.measure.hint</source>
-        <target>Click two points on the model to measure the distance between them. Points snap to a nearby corner. The distance is given in the units of the model file (usually mm).</target>
+        <target>Click two points on the model to measure the distance between them. Points snap to a nearby corner.</target>
       </segment>
     </unit>
   </file>

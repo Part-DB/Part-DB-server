@@ -40,7 +40,7 @@
                      role="group" aria-label="{% trans %}attachment.3d_viewer.view.label{% endtrans %}">
                     {# The controller marks the clicked button active itself, so the view name only needs to be an action parameter #}
                     {% for view in ['isometric', 'front', 'back', 'left', 'right', 'top', 'bottom'] %}
-                        <button type="button" class="btn btn-light"
+                        <button type="button" class="btn"
                                 {{ stimulus_action('elements/model_viewer', 'setView', 'click', {view: view}) }}
                                 {{ stimulus_target('elements/model_viewer', 'viewButton') }}>
                             {{ ('attachment.3d_viewer.view.' ~ view)|trans }}
@@ -49,29 +49,29 @@
                 </div>
 
                 <div class="model-viewer-toolbar btn-group-vertical shadow-sm">
-                    <button type="button" class="btn btn-sm btn-light" title="{% trans %}attachment.3d_viewer.reset_view{% endtrans %}"
+                    <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.reset_view{% endtrans %}"
                             {{ stimulus_action('elements/model_viewer', 'resetView') }}>
                         <i class="fa-solid fa-expand fa-fw"></i>
                     </button>
-                    <button type="button" class="btn btn-sm btn-light" title="{% trans %}attachment.3d_viewer.toggle_wireframe{% endtrans %}"
+                    <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.toggle_wireframe{% endtrans %}"
                             {{ stimulus_action('elements/model_viewer', 'toggleWireframe') }}>
                         <i class="fa-solid fa-draw-polygon fa-fw"></i>
                     </button>
-                    <button type="button" class="btn btn-sm btn-light" title="{% trans %}attachment.3d_viewer.toggle_grid{% endtrans %}"
+                    <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.toggle_grid{% endtrans %}"
                             {{ stimulus_action('elements/model_viewer', 'toggleGrid') }}>
                         <i class="fa-solid fa-border-all fa-fw"></i>
                     </button>
-                    <button type="button" class="btn btn-sm btn-light" aria-pressed="false"
+                    <button type="button" class="btn btn-sm" aria-pressed="false"
                             title="{% trans %}attachment.3d_viewer.measure{% endtrans %}"
                             {{ stimulus_action('elements/model_viewer', 'toggleMeasure') }}
                             {{ stimulus_target('elements/model_viewer', 'measureButton') }}>
                         <i class="fa-solid fa-ruler fa-fw"></i>
                     </button>
-                    <button type="button" class="btn btn-sm btn-light" title="{% trans %}attachment.3d_viewer.measure.clear{% endtrans %}"
+                    <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.measure.clear{% endtrans %}"
                             {{ stimulus_action('elements/model_viewer', 'clearMeasurement') }}>
                         <i class="fa-solid fa-eraser fa-fw"></i>
                     </button>
-                    <button type="button" class="btn btn-sm btn-light" title="{% trans %}attachment.3d_viewer.fullscreen{% endtrans %}"
+                    <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.fullscreen{% endtrans %}"
                             {{ stimulus_action('elements/model_viewer', 'toggleFullscreen') }}>
                         <i class="fa-solid fa-up-right-and-down-left-from-center fa-fw"></i>
                     </button>

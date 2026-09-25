@@ -73,4 +73,26 @@
     z-index: 1;
     font-weight: normal;
     opacity: .85;
+    /* Inverted against the page, so it stays readable on the canvas in both light and dark mode */
+    background-color: var(--bs-emphasis-color);
+    color: var(--bs-body-bg);
+}
+
+/*
+ * The floating controls sit on the canvas rather than on the page, so they cannot use a fixed button
+ * variant - .btn-light would stay white in dark mode. Bootstrap builds its buttons entirely out of these
+ * custom properties, so pointing them at the theme's own colours makes the buttons follow the active
+ * theme and light/dark mode on their own.
+ */
+.model-viewer-views .btn,
+.model-viewer-toolbar .btn {
+    --bs-btn-color: var(--bs-body-color);
+    --bs-btn-bg: var(--bs-body-bg);
+    --bs-btn-border-color: var(--bs-border-color);
+    --bs-btn-hover-color: var(--bs-emphasis-color);
+    --bs-btn-hover-bg: var(--bs-secondary-bg);
+    --bs-btn-hover-border-color: var(--bs-border-color);
+    --bs-btn-active-color: var(--bs-body-bg);
+    --bs-btn-active-bg: var(--bs-emphasis-color);
+    --bs-btn-active-border-color: var(--bs-emphasis-color);
 }

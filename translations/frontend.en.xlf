@@ -223,5 +223,17 @@
         <target>Size: %dimensions% · %triangles% triangles</target>
       </segment>
     </unit>
+    <unit id="uwe4FG4" name="attachment.3d_viewer.unit.from_file">
+      <segment state="translated">
+        <source>attachment.3d_viewer.unit.from_file</source>
+        <target>Unit taken from the model file</target>
+      </segment>
+    </unit>
+    <unit id="2VLzIJ7" name="attachment.3d_viewer.unit.assumed">
+      <segment state="translated">
+        <source>attachment.3d_viewer.unit.assumed</source>
+        <target>This file format does not store a unit, millimeters are assumed</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
