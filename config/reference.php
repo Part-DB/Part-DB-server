@@ -2771,7 +2771,15 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
  *         }>,
  *         bedrock?: array<string, array{ // Default: []
- *             bedrock_runtime_client?: string|Param, // Service ID of the Bedrock runtime client to use // Default: null
+ *             api?: "invoke_model"|"completions"|"responses"|"messages"|Param, // Inference engine and protocol: the SDK-based InvokeModel API, or one of the Bedrock Mantle routes // Default: "invoke_model"
+ *             bedrock_runtime_client?: string|Param, // Service ID of the Bedrock runtime client to use; only valid with "api: invoke_model" // Default: null
+ *             api_key?: string|Param, // Bedrock API key; when omitted, requests are signed with AWS SigV4. Mantle only
+ *             region?: string|Param, // AWS region the Mantle base URL is derived from, defaults to "us-west-2". Mantle only
+ *             credential_provider?: string|Param, // Service ID of the AsyncAws credential provider used for SigV4 signing. Mantle only
+ *             http_client?: string|Param, // Service ID of the HTTP client to use, defaults to "http_client". Mantle only
+ *             path?: string|Param, // Overrides the Mantle request path, for models served on the other path prefix
+ *             cache_retention?: "none"|"short"|"long"|Param, // Anthropic Messages prompt-cache retention, defaults to "short"; only valid with "api: messages"
+ *             workspace?: string|Param, // Bedrock Mantle workspace ID sent with Anthropic Messages requests; only valid with "api: messages"
  *             model_catalog?: string|Param, // Default: null
  *         }>,
  *         cache?: array<string, array{ // Default: []
@@ -2811,6 +2819,10 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             host_url?: string|Param, // Default: "http://127.0.0.1:12434"
  *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
  *         },
+ *         edenai?: array{
+ *             api_key?: string|Param,
+ *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
  *         elevenlabs?: array{
  *             api_key?: string|Param,
  *             endpoint?: string|Param, // Default: "https://api.elevenlabs.io/v1/"
@@ -2820,6 +2832,10 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             platforms?: list<scalar|Param|null>,
  *             rate_limiter?: string|Param,
  *         }>,
+ *         fireworks?: array{
+ *             api_key?: string|Param,
+ *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
  *         gemini?: array{
  *             api_key?: string|Param,
  *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
@@ -2834,6 +2850,13 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             completions_path?: string|Param, // Default: "/v1/chat/completions"
  *             embeddings_path?: string|Param, // Default: "/v1/embeddings"
  *         }>,
+ *         higgsfield?: array{
+ *             api_key?: string|Param,
+ *             api_secret?: string|Param,
+ *             base_url?: string|Param, // Base URL of the Higgsfield API. Defaults to "https://platform.higgsfield.ai" when null.
+ *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
+ *             model_catalog?: string|Param, // Service ID of the model catalog to use
+ *         },
  *         huggingface?: array{
  *             api_key?: string|Param,
  *             provider?: string|Param, // Default: "hf-inference"
@@ -2885,7 +2908,21 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             api_key?: scalar|Param|null,
  *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
  *         },
+ *         together?: array{
+ *             api_key?: string|Param,
+ *             endpoint?: string|Param, // Base endpoint for the Together API. Defaults to "https://api.together.xyz" when null.
+ *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
  *         transformersphp?: array<mixed>,
+ *         typesafe?: array{
+ *             api_key?: string|Param,
+ *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *         venice?: array{
+ *             api_key?: string|Param,
+ *             endpoint?: string|Param, // Default: "https://api.venice.ai/api/v1/"
+ *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
  *         vertexai?: array{
  *             location?: string|Param, // Required for the project-scoped endpoint. Must be set together with "project_id". // Default: null
  *             project_id?: string|Param, // Required for the project-scoped endpoint. Must be set together with "location". // Default: null
@@ -2914,12 +2951,15 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         },
  *         tools?: bool|array{ // Tools are opt-in: set to true to inject all services tagged with "ai.tool", or configure an explicit list of tools. When the option is omitted (or set to null or false), no tools are registered.
  *             enabled?: bool|Param, // Default: false
+ *             execution_strategy?: scalar|Param|null, // The tool execution strategy. Built-in options are "sequential" (default) and "fiber". A custom service ID implementing ToolExecutorInterface can also be provided. // Default: null
  *             services?: list<Param|string|array{ // Default: []
  *                 service?: string|Param,
  *                 agent?: string|Param,
+ *                 mcp_server?: string|Param, // A remote MCP server whose tools are exposed to this agent, as "<client>.<server>" referencing a connection configured under "mcp.clients".
  *                 name?: string|Param,
  *                 description?: string|Param,
  *                 method?: string|Param,
+ *                 prefix?: string|Param, // Only with "mcp_server": prefix put in front of every remote tool name. Defaults to "<server>_".
  *             }>,
  *         },
  *         exclude_tool_messages?: bool|Param, // Exclude tool messages from the conversation history // Default: false
@@ -2981,7 +3021,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             vectors_field?: string|Param, // Default: "_vectors"
  *             dimensions?: int|Param, // Default: 1536
  *             similarity?: string|Param, // Default: "cosine"
- *             http_client?: string|Param, // Default: "http_client"
+ *             http_client?: string|Param,
  *         }>,
  *         manticoresearch?: array<string, array{ // Default: []
  *             endpoint?: string|Param,
@@ -2991,6 +3031,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             similarity?: string|Param, // Default: "cosine"
  *             dimensions?: int|Param, // Default: 1536
  *             quantization?: string|Param,
+ *             http_client?: string|Param,
  *         }>,
  *         mariadb?: array<string, array{ // Default: []
  *             connection?: string|Param,
@@ -3023,6 +3064,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             vector_field?: string|Param, // Default: "_vectors"
  *             dimensions?: int|Param, // Default: 1536
  *             metric_type?: string|Param, // Default: "COSINE"
+ *             http_client?: string|Param,
  *         }>,
  *         mongodb?: array<string, array{ // Default: []
  *             client?: string|Param, // Default: "MongoDB\\Client"
@@ -3046,6 +3088,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             dimensions?: int|Param, // Default: 1536
  *             distance?: string|Param, // Default: "cosine"
  *             quantization?: bool|Param,
+ *             http_client?: string|Param,
  *         }>,
  *         opensearch?: array<string, array{ // Default: []
  *             endpoint?: string|Param,
@@ -3053,7 +3096,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             vectors_field?: string|Param, // Default: "_vectors"
  *             dimensions?: int|Param, // Default: 1536
  *             space_type?: string|Param, // Default: "l2"
- *             http_client?: string|Param, // Default: "http_client"
+ *             http_client?: string|Param,
  *         }>,
  *         pinecone?: array<string, array{ // Default: []
  *             client?: string|Param, // Default: "Probots\\Pinecone\\Client"
@@ -3096,10 +3139,10 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         }>,
  *         s3vectors?: array<string, array{ // Default: []
  *             client?: string|Param, // Service reference to an existing S3VectorsClient
- *             configuration?: array<mixed>,
+ *             configuration?: list<scalar|Param|null>,
  *             vector_bucket_name?: string|Param,
  *             index_name?: string|Param,
- *             filter?: array<mixed>,
+ *             filter?: list<mixed>,
  *             top_k?: int|Param, // Default number of results to return // Default: 3
  *         }>,
  *         sqlite?: array<string, array{ // Default: []
@@ -3112,7 +3155,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             vector_dimension?: int|Param, // Default: 1536
  *         }>,
  *         supabase?: array<string, array{ // Default: []
- *             http_client?: string|Param, // Service ID of the HTTP client to use // Default: "http_client"
+ *             http_client?: string|Param, // Service ID of the HTTP client to use
  *             url?: string|Param,
  *             api_key?: string|Param,
  *             table?: string|Param,
