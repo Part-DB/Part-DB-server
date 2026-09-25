@@ -1,11 +1,12 @@
 {% extends "base.html.twig" %}
 
-{% import "helper.twig" as helper %}
-
 {% block title %}{{ attachment.name }} - {% trans %}attachment.3d_viewer.title{% endtrans %}{% endblock %}
 
 {% block content %}
-    <div class="card mt-2 mb-3">
+    <div class="card mt-2 mb-3" {{ stimulus_controller('elements/model_viewer', {
+        url: path('attachment_view', {id: attachment.id}),
+        extension: attachment.extension
+    }) }}>
         <div class="card-header d-flex flex-wrap align-items-center gap-2">
             <h5 class="mb-0 me-auto text-truncate">
                 <i class="fa-solid fa-cube fa-fw"></i>
@@ -28,14 +29,23 @@
             </a>
         </div>
 
-        <div class="card-body p-0" {{ stimulus_controller('elements/model_viewer', {
-            url: path('attachment_view', {id: attachment.id}),
-            extension: attachment.extension
-        }) }}>
+        <div class="card-body p-0">
             <div class="model-viewer" {{ stimulus_target('elements/model_viewer', 'container') }}>
                 <div class="model-viewer-overlay" {{ stimulus_target('elements/model_viewer', 'status') }}>
                     <div class="spinner-border text-secondary" role="status"></div>
                     <div class="mt-2">{% trans %}attachment.3d_viewer.loading{% endtrans %}</div>
+                </div>
+
+                <div class="model-viewer-views btn-group btn-group-sm shadow-sm"
+                     role="group" aria-label="{% trans %}attachment.3d_viewer.view.label{% endtrans %}">
+                    {# The controller marks the clicked button active itself, so the view name only needs to be an action parameter #}
+                    {% for view in ['isometric', 'front', 'back', 'left', 'right', 'top', 'bottom'] %}
+                        <button type="button" class="btn btn-light"
+                                {{ stimulus_action('elements/model_viewer', 'setView', 'click', {view: view}) }}
+                                {{ stimulus_target('elements/model_viewer', 'viewButton') }}>
+                            {{ ('attachment.3d_viewer.view.' ~ view)|trans }}
+                        </button>
+                    {% endfor %}
                 </div>
 
                 <div class="model-viewer-toolbar btn-group-vertical shadow-sm">
@@ -51,11 +61,25 @@
                             {{ stimulus_action('elements/model_viewer', 'toggleGrid') }}>
                         <i class="fa-solid fa-border-all fa-fw"></i>
                     </button>
+                    <button type="button" class="btn btn-sm btn-light" aria-pressed="false"
+                            title="{% trans %}attachment.3d_viewer.measure{% endtrans %}"
+                            {{ stimulus_action('elements/model_viewer', 'toggleMeasure') }}
+                            {{ stimulus_target('elements/model_viewer', 'measureButton') }}>
+                        <i class="fa-solid fa-ruler fa-fw"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-light" title="{% trans %}attachment.3d_viewer.measure.clear{% endtrans %}"
+                            {{ stimulus_action('elements/model_viewer', 'clearMeasurement') }}>
+                        <i class="fa-solid fa-eraser fa-fw"></i>
+                    </button>
                     <button type="button" class="btn btn-sm btn-light" title="{% trans %}attachment.3d_viewer.fullscreen{% endtrans %}"
                             {{ stimulus_action('elements/model_viewer', 'toggleFullscreen') }}>
                         <i class="fa-solid fa-up-right-and-down-left-from-center fa-fw"></i>
                     </button>
                 </div>
+
+                {# Floats over the midpoint of the measured line, the controller keeps it positioned #}
+                <div class="model-viewer-measurement badge text-bg-danger d-none"
+                     {{ stimulus_target('elements/model_viewer', 'measurement') }}></div>
 
                 <div class="model-viewer-info badge text-bg-dark d-none" {{ stimulus_target('elements/model_viewer', 'info') }}></div>
             </div>
@@ -63,6 +87,9 @@
 
         <div class="card-footer text-muted small">
             <i class="fa-solid fa-circle-info fa-fw"></i> {% trans %}attachment.3d_viewer.controls_hint{% endtrans %}
+            <span class="d-none" {{ stimulus_target('elements/model_viewer', 'measureHint') }}>
+                <br><i class="fa-solid fa-ruler fa-fw"></i> {% trans %}attachment.3d_viewer.measure.hint{% endtrans %}
+            </span>
         </div>
     </div>
 {% endblock %}

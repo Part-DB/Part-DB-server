@@ -37,14 +37,40 @@
     position: absolute;
     top: .5rem;
     right: .5rem;
-    z-index: 3;
+    /* Below the overlay, so the controls stay covered while the model is still loading or failed */
+    z-index: 1;
+}
+
+.model-viewer-views {
+    position: absolute;
+    top: .5rem;
+    left: .5rem;
+    z-index: 1;
+    /* Wrap instead of disappearing under the toolbar on a narrow viewport */
+    flex-wrap: wrap;
+    max-width: calc(100% - 4rem);
+}
+
+.model-viewer-views > .btn {
+    /* Do not stretch the buttons of a wrapped row, but let them shrink so the group still fits */
+    flex: 0 1 auto;
+}
+
+.model-viewer-measurement {
+    position: absolute;
+    z-index: 1;
+    /* The controller positions this on the middle of the measured line, these keep it centred there */
+    transform: translate(-50%, -50%);
+    /* Never swallow a click meant for the model below it */
+    pointer-events: none;
+    font-weight: normal;
 }
 
 .model-viewer-info {
     position: absolute;
     bottom: .5rem;
     left: .5rem;
-    z-index: 3;
+    z-index: 1;
     font-weight: normal;
     opacity: .85;
 }

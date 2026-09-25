@@ -115,6 +115,30 @@ const OCCT_FORMATS = {
  */
 const Z_UP_FORMATS = ["stl", "3mf", "amf", "step", "stp", "iges", "igs", "brep", "brp"];
 
+/**
+ * The camera directions (relative to the model centre) of the preset views. They are given in three.js
+ * world space, where Y is up - which is also the up axis of a model after the Z_UP_FORMATS rotation, so
+ * "top" is the top of the part no matter which format it came from.
+ * @type {Object<string, number[]>}
+ */
+const VIEW_DIRECTIONS = {
+    isometric: [1, 0.8, 1],
+    front: [0, 0, 1],
+    back: [0, 0, -1],
+    left: [-1, 0, 0],
+    right: [1, 0, 0],
+    top: [0, 1, 0],
+    bottom: [0, -1, 0],
+};
+
+/** How close (in screen pixels) a corner has to be for a measurement point to snap onto it. */
+const SNAP_DISTANCE_PX = 12;
+
+/** A pointer that moved further than this between press and release was a drag (orbiting), not a click. */
+const CLICK_TOLERANCE_PX = 4;
+
+const MEASUREMENT_COLOR = 0xdc3545;
+
 const decodeText = (buffer) => new TextDecoder().decode(buffer);
 
 const geometryToObject = (geometry) => {
@@ -136,7 +160,7 @@ const defaultMaterial = (useVertexColors = false) => new THREE.MeshStandardMater
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
-    static targets = ["container", "status", "info"];
+    static targets = ["container", "status", "info", "viewButton", "measureButton", "measurement", "measureHint"];
     static values = {
         url: String,
         extension: String,
@@ -146,6 +170,9 @@ export default class extends Controller {
     _worker = null;
     _resizeObserver = null;
     _wireframe = false;
+    _measuring = false;
+    _measurePoints = [];
+    _pointerDownAt = null;
 
     connect() {
         this.extension = this.extensionValue.toLowerCase();
@@ -176,9 +203,20 @@ export default class extends Controller {
 
         this.controls?.dispose();
 
+        if (this.renderer) {
+            this.renderer.domElement.removeEventListener("pointerdown", this._onPointerDown);
+            this.renderer.domElement.removeEventListener("pointerup", this._onPointerUp);
+        }
+
         if (this.model) {
             this._disposeObject(this.model);
         }
+
+        if (this._measureGroup) {
+            this._disposeObject(this._measureGroup);
+            this._measureGroup = null;
+        }
+        this._measurePoints = [];
 
         if (this.renderer) {
             this.renderer.setAnimationLoop(null);
@@ -201,7 +239,29 @@ export default class extends Controller {
     resetView() {
         if (this.model) {
             this._fitCameraToModel();
+            this._markActiveViewButton(null);
         }
+    }
+
+    /**
+     * Jump to one of the preset views (see VIEW_DIRECTIONS). The distance to the model is kept, so
+     * switching views while zoomed in stays zoomed in - use resetView() to frame the model again.
+     */
+    setView(event) {
+        const direction = VIEW_DIRECTIONS[event.params.view];
+        if (!direction || !this.model) {
+            return;
+        }
+
+        const target = this.controls.target;
+        const distance = this.camera.position.distanceTo(target);
+
+        this.camera.position.copy(target)
+            .add(new THREE.Vector3(...direction).normalize().multiplyScalar(distance));
+        //OrbitControls clamps the polar angle itself, so looking straight down the Y axis is safe here
+        this.controls.update();
+
+        this._markActiveViewButton(event.currentTarget);
     }
 
     toggleWireframe() {
@@ -225,6 +285,150 @@ export default class extends Controller {
         }
     }
 
+    /**
+     * Turns the measurement mode on and off. Orbiting keeps working while it is on, a click (as opposed
+     * to a drag) places a measurement point instead of doing nothing.
+     */
+    toggleMeasure() {
+        this._measuring = !this._measuring;
+
+        this.measureButtonTarget.classList.toggle("active", this._measuring);
+        this.measureButtonTarget.setAttribute("aria-pressed", this._measuring ? "true" : "false");
+        this.measureHintTarget.classList.toggle("d-none", !this._measuring);
+
+        if (this.renderer) {
+            this.renderer.domElement.style.cursor = this._measuring ? "crosshair" : "";
+        }
+    }
+
+    clearMeasurement() {
+        this._measurePoints = [];
+
+        if (this._measureGroup) {
+            this._disposeObject(this._measureGroup);
+            this._measureGroup.clear();
+        }
+
+        this.measurementTarget.classList.add("d-none");
+    }
+
+    /**
+     * Places a measurement point where the click hit the model, snapping to a nearby corner if there is
+     * one. The second point completes a measurement, a further click starts a new one.
+     */
+    _placeMeasurePoint(event) {
+        const point = this._pickPoint(event);
+        if (point === null) {
+            return;
+        }
+
+        if (this._measurePoints.length >= 2) {
+            this.clearMeasurement();
+        }
+
+        this._measurePoints.push(point);
+
+        const marker = new THREE.Mesh(
+            new THREE.SphereGeometry(this._modelRadius * 0.012, 16, 12),
+            //Drawn on top of everything, so a point on a far face is not hidden by the model itself
+            new THREE.MeshBasicMaterial({color: MEASUREMENT_COLOR, depthTest: false})
+        );
+        marker.position.copy(point);
+        marker.renderOrder = 1000;
+        this._measureGroup.add(marker);
+
+        if (this._measurePoints.length === 2) {
+            const line = new THREE.Line(
+                new THREE.BufferGeometry().setFromPoints(this._measurePoints),
+                new THREE.LineBasicMaterial({color: MEASUREMENT_COLOR, depthTest: false})
+            );
+            line.renderOrder = 1000;
+            this._measureGroup.add(line);
+
+            this.measurementTarget.textContent = this._formatNumber(this._measurePoints[0].distanceTo(this._measurePoints[1]));
+            this.measurementTarget.classList.remove("d-none");
+        }
+    }
+
+    /**
+     * Casts a ray through the clicked pixel and returns where it hit the model, or null if it missed.
+     */
+    _pickPoint(event) {
+        const rect = this.renderer.domElement.getBoundingClientRect();
+        const pointer = new THREE.Vector2(
+            ((event.clientX - rect.left) / rect.width) * 2 - 1,
+            -((event.clientY - rect.top) / rect.height) * 2 + 1
+        );
+
+        this._raycaster.setFromCamera(pointer, this.camera);
+        const [hit] = this._raycaster.intersectObject(this.model, true);
+
+        return hit ? this._snapToVertex(hit, event.clientX - rect.left, event.clientY - rect.top) : null;
+    }
+
+    /**
+     * Measuring an edge or a hole is only useful if the points land exactly on the corners, so a hit
+     * close to one of the corners of the hit triangle is pulled onto it.
+     */
+    _snapToVertex(hit, canvasX, canvasY) {
+        if (!hit.face) {
+            return hit.point;
+        }
+
+        const positions = hit.object.geometry.getAttribute("position");
+        let snapped = hit.point;
+        let closest = SNAP_DISTANCE_PX;
+
+        for (const index of [hit.face.a, hit.face.b, hit.face.c]) {
+            const vertex = hit.object.localToWorld(new THREE.Vector3().fromBufferAttribute(positions, index));
+            const {x, y} = this._toScreenPosition(vertex);
+            const distance = Math.hypot(x - canvasX, y - canvasY);
+
+            if (distance < closest) {
+                closest = distance;
+                snapped = vertex;
+            }
+        }
+
+        return snapped;
+    }
+
+    /**
+     * Projects a world position onto the canvas, in pixels relative to its top left corner.
+     */
+    _toScreenPosition(position) {
+        const projected = position.clone().project(this.camera);
+        const {width, height} = this._canvasSize;
+
+        return {
+            x: ((projected.x + 1) / 2) * width,
+            y: ((-projected.y + 1) / 2) * height,
+        };
+    }
+
+    /**
+     * Keeps the distance label on the middle of the measured line while the model is rotated.
+     */
+    _updateMeasurementLabel() {
+        if (this._measurePoints.length < 2) {
+            return;
+        }
+
+        const middle = new THREE.Vector3()
+            .addVectors(this._measurePoints[0], this._measurePoints[1])
+            .multiplyScalar(0.5);
+        const {x, y} = this._toScreenPosition(middle);
+
+        this.measurementTarget.style.left = `${x}px`;
+        this.measurementTarget.style.top = `${y}px`;
+    }
+
+    _markActiveViewButton(button) {
+        for (const viewButton of this.viewButtonTargets) {
+            viewButton.classList.toggle("active", viewButton === button);
+        }
+    }
+
     _initScene() {
         const {clientWidth: width, clientHeight: height} = this.containerTarget;
 
@@ -240,6 +444,14 @@ export default class extends Controller {
 
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.controls.enableDamping = true;
+
+        this._canvasSize = {width, height};
+        this._raycaster = new THREE.Raycaster();
+        this._measureGroup = new THREE.Group();
+        this.scene.add(this._measureGroup);
+
+        this.renderer.domElement.addEventListener("pointerdown", this._onPointerDown);
+        this.renderer.domElement.addEventListener("pointerup", this._onPointerUp);
 
         //A hemisphere light keeps the shaded side readable, the two directional lights give the model
         //enough contrast to make its edges visible from any angle
@@ -260,9 +472,31 @@ export default class extends Controller {
 
         this.renderer.setAnimationLoop(() => {
             this.controls.update();
+            this._updateMeasurementLabel();
             this.renderer.render(this.scene, this.camera);
         });
     }
+
+    /**
+     * Remembers where a drag started, so that orbiting the model is not mistaken for a measurement click.
+     */
+    _onPointerDown = (event) => {
+        //Only the left button measures, the right one is used by OrbitControls to pan
+        this._pointerDownAt = event.button === 0 ? {x: event.clientX, y: event.clientY} : null;
+    };
+
+    _onPointerUp = (event) => {
+        const downAt = this._pointerDownAt;
+        this._pointerDownAt = null;
+
+        if (!this._measuring || !this.model || downAt === null || event.button !== 0) {
+            return;
+        }
+
+        if (Math.hypot(event.clientX - downAt.x, event.clientY - downAt.y) <= CLICK_TOLERANCE_PX) {
+            this._placeMeasurePoint(event);
+        }
+    };
 
     /**
      * Use the background the (bootswatch) theme gives our container, so that the viewer does not show a
@@ -382,6 +616,7 @@ export default class extends Controller {
 
         const center = box.getCenter(new THREE.Vector3());
         const radius = Math.max(box.getBoundingSphere(new THREE.Sphere()).radius, 1e-3);
+        this._modelRadius = radius;
 
         //Distance at which a sphere of this radius fills the (vertical) field of view, with a bit of margin
         const distance = 1.4 * radius / Math.sin(THREE.MathUtils.degToRad(this.camera.fov) / 2);
@@ -406,15 +641,17 @@ export default class extends Controller {
             }
         });
 
-        const format = (value) => value.toLocaleString(document.body.dataset.locale ?? undefined, {
-            maximumFractionDigits: 2,
-        });
+        const format = (value) => this._formatNumber(value);
 
         this.infoTarget.textContent = trans("attachment.3d_viewer.info", {
             "%dimensions%": `${format(size.x)} × ${format(size.y)} × ${format(size.z)}`,
             "%triangles%": format(Math.round(triangles)),
         });
         this.infoTarget.classList.remove("d-none");
+    }
+
+    _formatNumber(value) {
+        return value.toLocaleString(document.body.dataset.locale ?? undefined, {maximumFractionDigits: 2});
     }
 
     _showError(message) {
@@ -437,6 +674,7 @@ export default class extends Controller {
             return;
         }
 
+        this._canvasSize = {width, height};
         this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(width, height);

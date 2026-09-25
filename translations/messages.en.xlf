@@ -15386,5 +15386,71 @@ Buerklin-API Authentication server:
         <target>Drag to rotate, scroll to zoom, right click and drag to pan.</target>
       </segment>
     </unit>
+    <unit id="icPlspg" name="attachment.3d_viewer.view.label">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.label</source>
+        <target>Standard views</target>
+      </segment>
+    </unit>
+    <unit id=".A5xiTp" name="attachment.3d_viewer.view.isometric">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.isometric</source>
+        <target>Isometric</target>
+      </segment>
+    </unit>
+    <unit id="7XggqIr" name="attachment.3d_viewer.view.front">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.front</source>
+        <target>Front</target>
+      </segment>
+    </unit>
+    <unit id="yEeVpLS" name="attachment.3d_viewer.view.back">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.back</source>
+        <target>Back</target>
+      </segment>
+    </unit>
+    <unit id="ke8HbV0" name="attachment.3d_viewer.view.left">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.left</source>
+        <target>Left</target>
+      </segment>
+    </unit>
+    <unit id="aZZZ5T8" name="attachment.3d_viewer.view.right">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.right</source>
+        <target>Right</target>
+      </segment>
+    </unit>
+    <unit id="TBZU8bd" name="attachment.3d_viewer.view.top">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.top</source>
+        <target>Top</target>
+      </segment>
+    </unit>
+    <unit id="BeWse0P" name="attachment.3d_viewer.view.bottom">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.bottom</source>
+        <target>Bottom</target>
+      </segment>
+    </unit>
+    <unit id="5C4xD34" name="attachment.3d_viewer.measure">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure</source>
+        <target>Measure</target>
+      </segment>
+    </unit>
+    <unit id="HZEvQYa" name="attachment.3d_viewer.measure.clear">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure.clear</source>
+        <target>Clear measurement</target>
+      </segment>
+    </unit>
+    <unit id="_9Hel6U" name="attachment.3d_viewer.measure.hint">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure.hint</source>
+        <target>Click two points on the model to measure the distance between them. Points snap to a nearby corner. The distance is given in the units of the model file (usually mm).</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
