@@ -15344,5 +15344,47 @@ Buerklin-API Authentication server:
         <target>The info provider this part was created with is not available anymore.</target>
       </segment>
     </unit>
+    <unit id="ohF6xCL" name="attachment.3d_viewer.title">
+      <segment state="translated">
+        <source>attachment.3d_viewer.title</source>
+        <target>3D model viewer</target>
+      </segment>
+    </unit>
+    <unit id="39GVMHV" name="attachment.3d_viewer.loading">
+      <segment state="translated">
+        <source>attachment.3d_viewer.loading</source>
+        <target>Loading 3D model...</target>
+      </segment>
+    </unit>
+    <unit id="oa1D_l9" name="attachment.3d_viewer.reset_view">
+      <segment state="translated">
+        <source>attachment.3d_viewer.reset_view</source>
+        <target>Reset view</target>
+      </segment>
+    </unit>
+    <unit id="VeqIwvE" name="attachment.3d_viewer.toggle_wireframe">
+      <segment state="translated">
+        <source>attachment.3d_viewer.toggle_wireframe</source>
+        <target>Toggle wireframe</target>
+      </segment>
+    </unit>
+    <unit id="4sP7kBp" name="attachment.3d_viewer.toggle_grid">
+      <segment state="translated">
+        <source>attachment.3d_viewer.toggle_grid</source>
+        <target>Toggle grid</target>
+      </segment>
+    </unit>
+    <unit id="3NnqFah" name="attachment.3d_viewer.fullscreen">
+      <segment state="translated">
+        <source>attachment.3d_viewer.fullscreen</source>
+        <target>Toggle fullscreen</target>
+      </segment>
+    </unit>
+    <unit id="BRg4S0K" name="attachment.3d_viewer.controls_hint">
+      <segment state="translated">
+        <source>attachment.3d_viewer.controls_hint</source>
+        <target>Drag to rotate, scroll to zoom, right click and drag to pan.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

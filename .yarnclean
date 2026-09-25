@@ -12,8 +12,8 @@ images
 assets
 
 # examples
-example
-examples
+# (not pruned: three.js ships its loaders/controls addons in examples/jsm, which the
+# 3D model viewer imports via the "three/addons/*" export)
 
 # code coverage directories
 coverage

@@ -1,0 +1,50 @@
+.model-viewer {
+    position: relative;
+    width: 100%;
+    height: min(70vh, 800px);
+    min-height: 300px;
+    background-color: var(--bs-tertiary-bg);
+    overflow: hidden;
+}
+
+.model-viewer:fullscreen {
+    height: 100%;
+    max-height: none;
+}
+
+.model-viewer canvas {
+    display: block;
+    /* The canvas is sized by the renderer, touch-action prevents the browser from scrolling
+       the page while the user orbits the model on a touch device */
+    touch-action: none;
+}
+
+.model-viewer-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .25rem;
+    padding: 1rem;
+    text-align: center;
+    background-color: var(--bs-tertiary-bg);
+}
+
+.model-viewer-toolbar {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    z-index: 3;
+}
+
+.model-viewer-info {
+    position: absolute;
+    bottom: .5rem;
+    left: .5rem;
+    z-index: 3;
+    font-weight: normal;
+    opacity: .85;
+}

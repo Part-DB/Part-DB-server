@@ -171,6 +171,32 @@ final class AttachmentTest extends TestCase
         $this->assertSame($expected, $attachment->isPicture());
     }
 
+    public static function modelDataProvider(): \Iterator
+    {
+        yield [null,                      'https://test.de/model.stl',  false];
+        yield ['%MEDIA%/foo/bar.stl',     '',                           true];
+        yield ['%MEDIA%/foo/bar.STEP',    '',                           true];
+        yield ['%MEDIA%/foo/bar.stp',     '',                           true];
+        yield ['%MEDIA%/foo/bar.glb',     '',                           true];
+        yield ['%MEDIA%/foo/bar.wrl',     '',                           true];
+        //3D models must be stored internally, an additional external source does not matter
+        yield ['%MEDIA%/foo/bar.3mf',     'https://test.de/model.txt',  true];
+        yield ['%MEDIA%/foo/bar.txt',     '',                           false];
+        yield ['%MEDIA%/foo/bar.jpeg',    '',                           false];
+        //x3d was only supported by the removed x3dom viewer and can not be rendered anymore
+        yield ['%MEDIA%/foo/bar.x3d',     '',                           false];
+        yield ['%MEDIA%/foo',             '',                           false];
+    }
+
+    #[DataProvider('modelDataProvider')]
+    public function testIs3DModel(?string $internal_path, ?string $external_path, bool $expected): void
+    {
+        $attachment = new PartAttachment();
+        $this->setProtectedProperty($attachment, 'internal_path', $internal_path);
+        $this->setProtectedProperty($attachment, 'external_path', $external_path);
+        $this->assertSame($expected, $attachment->is3DModel());
+    }
+
     public static function pictureFiletypeFilterDataProvider(): \Iterator
     {
         //An URL without a file extension is only assumed to be a picture, if the attachment type allows pictures

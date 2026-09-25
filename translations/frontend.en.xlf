@@ -199,5 +199,29 @@
         <target>No</target>
       </segment>
     </unit>
+    <unit id="FmJhI_Z" name="attachment.3d_viewer.load_error">
+      <segment state="translated">
+        <source>attachment.3d_viewer.load_error</source>
+        <target>This 3D model could not be loaded. The file might be damaged or use an unsupported feature.</target>
+      </segment>
+    </unit>
+    <unit id="4xIiJ40" name="attachment.3d_viewer.unsupported_format">
+      <segment state="translated">
+        <source>attachment.3d_viewer.unsupported_format</source>
+        <target>The file format "%format%" can not be shown in the 3D model viewer.</target>
+      </segment>
+    </unit>
+    <unit id="ZhCj4sR" name="attachment.3d_viewer.webgl_unavailable">
+      <segment state="translated">
+        <source>attachment.3d_viewer.webgl_unavailable</source>
+        <target>The 3D model viewer needs WebGL, which is not available in this browser.</target>
+      </segment>
+    </unit>
+    <unit id="avESzTS" name="attachment.3d_viewer.info">
+      <segment state="translated">
+        <source>attachment.3d_viewer.info</source>
+        <target>Size: %dimensions% · %triangles% triangles</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
