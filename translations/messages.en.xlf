@@ -15452,5 +15452,11 @@ Buerklin-API Authentication server:
         <target>Click two points on the model to measure the distance between them. Points snap to a nearby corner.</target>
       </segment>
     </unit>
+    <unit id="PS75Gl4" name="attachment.3d_viewer.metadata">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata</source>
+        <target>Model information</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

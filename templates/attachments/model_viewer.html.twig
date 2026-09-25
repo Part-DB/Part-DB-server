@@ -71,6 +71,10 @@
                             {{ stimulus_action('elements/model_viewer', 'clearMeasurement') }}>
                         <i class="fa-solid fa-eraser fa-fw"></i>
                     </button>
+                    <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.metadata{% endtrans %}"
+                            data-bs-toggle="modal" data-bs-target="#model-metadata-modal">
+                        <i class="fa-solid fa-circle-info fa-fw"></i>
+                    </button>
                     <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.fullscreen{% endtrans %}"
                             {{ stimulus_action('elements/model_viewer', 'toggleFullscreen') }}>
                         <i class="fa-solid fa-up-right-and-down-left-from-center fa-fw"></i>
@@ -82,6 +86,28 @@
                      {{ stimulus_target('elements/model_viewer', 'measurement') }}></div>
 
                 <div class="model-viewer-info badge text-bg-dark d-none" {{ stimulus_target('elements/model_viewer', 'info') }}></div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="model-metadata-modal" tabindex="-1" aria-hidden="true"
+             aria-labelledby="model-metadata-modal-title">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="model-metadata-modal-title">
+                            <i class="fa-solid fa-circle-info fa-fw"></i>
+                            {% trans %}attachment.3d_viewer.metadata{% endtrans %}
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="{% trans %}modal.close{% endtrans %}"></button>
+                    </div>
+                    <div class="modal-body">
+                        {# Filled in by the controller once the model has been read #}
+                        <table class="table table-sm table-striped mb-0">
+                            <tbody {{ stimulus_target('elements/model_viewer', 'metadata') }}></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
