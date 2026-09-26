@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
-  <file id="messages.de">
+  <file id="messages.en">
     <unit id="x_wTSQS" name="attachment_type.caption">
       <segment state="translated">
         <source>attachment_type.caption</source>
@@ -7490,6 +7490,30 @@ Element 1 -&gt; Element 1.2</target>
         <target>Diese Galerie listet alle mitgelieferten Footprint-Bilder auf. Wenn Sie diese in einem Anhang nutzen wollen, tippen Sie den Namen (oder ein Stichwort) in das URL-Feld des Anhangs ein und wählen Sie das gewünschte Bild aus dem Dropdown-Menü aus.</target>
       </segment>
     </unit>
+    <unit id="IJRWM97" name="tools.builtin_footprints_viewer.search.placeholder">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.search.placeholder</source>
+        <target>Nach Name oder Ordner filtern...</target>
+      </segment>
+    </unit>
+    <unit id="uaOZhii" name="tools.builtin_footprints_viewer.no_results">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.no_results</source>
+        <target>Keine Footprint-Bilder entsprechen dem Filter.</target>
+      </segment>
+    </unit>
+    <unit id="glVXV5q" name="tools.builtin_footprints_viewer.copy_path">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.copy_path</source>
+        <target>Pfad zur Verwendung in Anhängen kopieren</target>
+      </segment>
+    </unit>
+    <unit id="AI3UZiM" name="tools.builtin_footprints_viewer.folders">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.folders</source>
+        <target>Ordner</target>
+      </segment>
+    </unit>
     <unit id="EFtEJ2v" name="tools.ic_logos.title">
       <segment state="translated">
         <source>tools.ic_logos.title</source>
@@ -9890,72 +9914,6 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>settings.ips.lcsc.currency</source>
         <target>Währung</target>
-      </segment>
-    </unit>
-    <unit id="KyC_YsX" name="settings.ips.trustedparts">
-      <segment state="translated">
-        <source>settings.ips.trustedparts</source>
-        <target>TrustedParts</target>
-      </segment>
-    </unit>
-    <unit id="iB2.9sg" name="settings.ips.trustedparts.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.help</source>
-        <target>TrustedParts.com ist eine von der ECIA betriebene Suchmaschine für Bauteile, die die Angebote autorisierter Distributoren zusammenfasst. Sie müssen Zugriff auf deren API beantragen, um diesen Anbieter nutzen zu können.</target>
-      </segment>
-    </unit>
-    <unit id="Mhe.lWu" name="settings.ips.trustedparts.companyId">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.companyId</source>
-        <target>Firmen-ID</target>
-      </segment>
-    </unit>
-    <unit id="DvzhYe1" name="settings.ips.trustedparts.companyId.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.companyId.help</source>
-        <target>Die Firmenkennung, die Ihrem TrustedParts.com-Konto zugewiesen wurde. Sie finden diese auf der API-Schlüssel-Seite Ihres Kontos.</target>
-      </segment>
-    </unit>
-    <unit id="AqF7ns9" name="settings.ips.trustedparts.apiKey.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.apiKey.help</source>
-        <target>Der API-Schlüssel, der Ihrem TrustedParts.com-Konto zugewiesen wurde. Sie finden diesen auf der API-Schlüssel-Seite Ihres Kontos.</target>
-      </segment>
-    </unit>
-    <unit id="Gh676P6" name="settings.ips.trustedparts.searchLimit">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.searchLimit</source>
-        <target>Suchlimit</target>
-      </segment>
-    </unit>
-    <unit id="R7oiMLD" name="settings.ips.trustedparts.searchLimit.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.searchLimit.help</source>
-        <target>Die maximale Anzahl an Ergebnissen, die für eine Stichwortsuche angezeigt werden.</target>
-      </segment>
-    </unit>
-    <unit id="DFkCu4n" name="settings.ips.trustedparts.inStockOnly">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.inStockOnly</source>
-        <target>Nur verfügbare Angebote</target>
-      </segment>
-    </unit>
-    <unit id="EF2mFRR" name="settings.ips.trustedparts.inStockOnly.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.inStockOnly.help</source>
-        <target>Wenn aktiviert, werden nur Angebote von Distributoren zurückgegeben, die das Bauteil derzeit auf Lager haben.</target>
-      </segment>
-    </unit>
-    <unit id="r4gkOcR" name="settings.ips.trustedparts.useCachedData">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.useCachedData</source>
-        <target>Zwischengespeicherte Daten verwenden</target>
-      </segment>
-    </unit>
-    <unit id="JNIu4bu" name="settings.ips.trustedparts.useCachedData.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.useCachedData.help</source>
-        <target>Wenn aktiviert, antwortet TrustedParts.com mit zwischengespeicherten Lager- und Preisdaten, anstatt die Distributoren in Echtzeit abzufragen. Dies ist schneller und zählt nicht gegen die Ratenlimits, allerdings können die Daten veraltet sein.</target>
       </segment>
     </unit>
     <unit id="kKv0J3." name="settings.system.attachments">
@@ -15408,40 +15366,142 @@ Buerklin-API-Authentication-Server:
         <target>Der Info-Provider, mit dem dieses Bauteil erstellt wurde, ist nicht mehr verfügbar.</target>
       </segment>
     </unit>
-    <unit id="C_G6Ebd" name="part.supplier.available_amount">
+    <unit id="ohF6xCL" name="attachment.3d_viewer.title">
       <segment state="translated">
-        <source>part.supplier.available_amount</source>
-        <target>Verfügbar</target>
+        <source>attachment.3d_viewer.title</source>
+        <target>3D-Modell-Betrachter</target>
       </segment>
     </unit>
-    <unit id="t1bd9yr" name="part.supplier.available_amount.unknown">
+    <unit id="39GVMHV" name="attachment.3d_viewer.loading">
       <segment state="translated">
-        <source>part.supplier.available_amount.unknown</source>
-        <target>Unbekannt</target>
+        <source>attachment.3d_viewer.loading</source>
+        <target>3D-Modell wird geladen...</target>
       </segment>
     </unit>
-    <unit id="O33qIEd" name="part.supplier.available_amount.out_of_stock">
+    <unit id="oa1D_l9" name="attachment.3d_viewer.reset_view">
       <segment state="translated">
-        <source>part.supplier.available_amount.out_of_stock</source>
-        <target>Nicht auf Lager</target>
+        <source>attachment.3d_viewer.reset_view</source>
+        <target>Ansicht zurücksetzen</target>
       </segment>
     </unit>
-    <unit id="m0QJNRv" name="part.supplier.available_amount.updated_at">
+    <unit id="VeqIwvE" name="attachment.3d_viewer.toggle_wireframe">
       <segment state="translated">
-        <source>part.supplier.available_amount.updated_at</source>
-        <target>Bestand vom Info-Provider abgerufen am: %datetime%</target>
+        <source>attachment.3d_viewer.toggle_wireframe</source>
+        <target>Drahtgitter umschalten</target>
       </segment>
     </unit>
-    <unit id="NUw3e9D" name="part.table.supplier_available_amount">
+    <unit id="4sP7kBp" name="attachment.3d_viewer.toggle_grid">
       <segment state="translated">
-        <source>part.table.supplier_available_amount</source>
-        <target>Verfügbar beim Lieferanten</target>
+        <source>attachment.3d_viewer.toggle_grid</source>
+        <target>Raster umschalten</target>
       </segment>
     </unit>
-    <unit id="S6JX3.E" name="info_providers.capabilities.stock_level">
+    <unit id="3NnqFah" name="attachment.3d_viewer.fullscreen">
       <segment state="translated">
-        <source>info_providers.capabilities.stock_level</source>
-        <target>Lagerbestand</target>
+        <source>attachment.3d_viewer.fullscreen</source>
+        <target>Vollbild umschalten</target>
+      </segment>
+    </unit>
+    <unit id="BRg4S0K" name="attachment.3d_viewer.controls_hint">
+      <segment state="translated">
+        <source>attachment.3d_viewer.controls_hint</source>
+        <target>Ziehen zum Drehen, Scrollen zum Zoomen, mit rechter Maustaste ziehen zum Verschieben.</target>
+      </segment>
+    </unit>
+    <unit id="icPlspg" name="attachment.3d_viewer.view.label">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.label</source>
+        <target>Standardansichten</target>
+      </segment>
+    </unit>
+    <unit id=".A5xiTp" name="attachment.3d_viewer.view.isometric">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.isometric</source>
+        <target>Isometrisch</target>
+      </segment>
+    </unit>
+    <unit id="7XggqIr" name="attachment.3d_viewer.view.front">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.front</source>
+        <target>Vorne</target>
+      </segment>
+    </unit>
+    <unit id="yEeVpLS" name="attachment.3d_viewer.view.back">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.back</source>
+        <target>Hinten</target>
+      </segment>
+    </unit>
+    <unit id="ke8HbV0" name="attachment.3d_viewer.view.left">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.left</source>
+        <target>Links</target>
+      </segment>
+    </unit>
+    <unit id="aZZZ5T8" name="attachment.3d_viewer.view.right">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.right</source>
+        <target>Rechts</target>
+      </segment>
+    </unit>
+    <unit id="TBZU8bd" name="attachment.3d_viewer.view.top">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.top</source>
+        <target>Oben</target>
+      </segment>
+    </unit>
+    <unit id="BeWse0P" name="attachment.3d_viewer.view.bottom">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.bottom</source>
+        <target>Unten</target>
+      </segment>
+    </unit>
+    <unit id="5C4xD34" name="attachment.3d_viewer.measure">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure</source>
+        <target>Messen</target>
+      </segment>
+    </unit>
+    <unit id="HZEvQYa" name="attachment.3d_viewer.measure.clear">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure.clear</source>
+        <target>Messung löschen</target>
+      </segment>
+    </unit>
+    <unit id="_9Hel6U" name="attachment.3d_viewer.measure.hint">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure.hint</source>
+        <target>Klicken Sie auf zwei Punkte des Modells, um den Abstand zwischen ihnen zu messen. Punkte rasten an einer nahen Ecke ein.</target>
+      </segment>
+    </unit>
+    <unit id="PS75Gl4" name="attachment.3d_viewer.metadata">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata</source>
+        <target>Modellinformationen</target>
+      </segment>
+    </unit>
+    <unit id="kMmJzTW" name="attachment.3d_viewer.screenshot">
+      <segment state="translated">
+        <source>attachment.3d_viewer.screenshot</source>
+        <target>Screenshot herunterladen</target>
+      </segment>
+    </unit>
+    <unit id="DaNck4u" name="attachment.3d_viewer.parts">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts</source>
+        <target>Komponenten</target>
+      </segment>
+    </unit>
+    <unit id="xX9nKBn" name="attachment.3d_viewer.parts.show_all">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts.show_all</source>
+        <target>Alle</target>
+      </segment>
+    </unit>
+    <unit id="pK0bzyy" name="attachment.3d_viewer.parts.hide_all">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts.hide_all</source>
+        <target>Keine</target>
       </segment>
     </unit>
   </file>
