@@ -15344,5 +15344,143 @@ Buerklin-API Authentication server:
         <target>The info provider this part was created with is not available anymore.</target>
       </segment>
     </unit>
+    <unit id="ohF6xCL" name="attachment.3d_viewer.title">
+      <segment state="translated">
+        <source>attachment.3d_viewer.title</source>
+        <target>3D model viewer</target>
+      </segment>
+    </unit>
+    <unit id="39GVMHV" name="attachment.3d_viewer.loading">
+      <segment state="translated">
+        <source>attachment.3d_viewer.loading</source>
+        <target>Loading 3D model...</target>
+      </segment>
+    </unit>
+    <unit id="oa1D_l9" name="attachment.3d_viewer.reset_view">
+      <segment state="translated">
+        <source>attachment.3d_viewer.reset_view</source>
+        <target>Reset view</target>
+      </segment>
+    </unit>
+    <unit id="VeqIwvE" name="attachment.3d_viewer.toggle_wireframe">
+      <segment state="translated">
+        <source>attachment.3d_viewer.toggle_wireframe</source>
+        <target>Toggle wireframe</target>
+      </segment>
+    </unit>
+    <unit id="4sP7kBp" name="attachment.3d_viewer.toggle_grid">
+      <segment state="translated">
+        <source>attachment.3d_viewer.toggle_grid</source>
+        <target>Toggle grid</target>
+      </segment>
+    </unit>
+    <unit id="3NnqFah" name="attachment.3d_viewer.fullscreen">
+      <segment state="translated">
+        <source>attachment.3d_viewer.fullscreen</source>
+        <target>Toggle fullscreen</target>
+      </segment>
+    </unit>
+    <unit id="BRg4S0K" name="attachment.3d_viewer.controls_hint">
+      <segment state="translated">
+        <source>attachment.3d_viewer.controls_hint</source>
+        <target>Drag to rotate, scroll to zoom, right click and drag to pan.</target>
+      </segment>
+    </unit>
+    <unit id="icPlspg" name="attachment.3d_viewer.view.label">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.label</source>
+        <target>Standard views</target>
+      </segment>
+    </unit>
+    <unit id=".A5xiTp" name="attachment.3d_viewer.view.isometric">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.isometric</source>
+        <target>Isometric</target>
+      </segment>
+    </unit>
+    <unit id="7XggqIr" name="attachment.3d_viewer.view.front">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.front</source>
+        <target>Front</target>
+      </segment>
+    </unit>
+    <unit id="yEeVpLS" name="attachment.3d_viewer.view.back">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.back</source>
+        <target>Back</target>
+      </segment>
+    </unit>
+    <unit id="ke8HbV0" name="attachment.3d_viewer.view.left">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.left</source>
+        <target>Left</target>
+      </segment>
+    </unit>
+    <unit id="aZZZ5T8" name="attachment.3d_viewer.view.right">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.right</source>
+        <target>Right</target>
+      </segment>
+    </unit>
+    <unit id="TBZU8bd" name="attachment.3d_viewer.view.top">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.top</source>
+        <target>Top</target>
+      </segment>
+    </unit>
+    <unit id="BeWse0P" name="attachment.3d_viewer.view.bottom">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.bottom</source>
+        <target>Bottom</target>
+      </segment>
+    </unit>
+    <unit id="5C4xD34" name="attachment.3d_viewer.measure">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure</source>
+        <target>Measure</target>
+      </segment>
+    </unit>
+    <unit id="HZEvQYa" name="attachment.3d_viewer.measure.clear">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure.clear</source>
+        <target>Clear measurement</target>
+      </segment>
+    </unit>
+    <unit id="_9Hel6U" name="attachment.3d_viewer.measure.hint">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure.hint</source>
+        <target>Click two points on the model to measure the distance between them. Points snap to a nearby corner.</target>
+      </segment>
+    </unit>
+    <unit id="PS75Gl4" name="attachment.3d_viewer.metadata">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata</source>
+        <target>Model information</target>
+      </segment>
+    </unit>
+    <unit id="kMmJzTW" name="attachment.3d_viewer.screenshot">
+      <segment state="translated">
+        <source>attachment.3d_viewer.screenshot</source>
+        <target>Download screenshot</target>
+      </segment>
+    </unit>
+    <unit id="DaNck4u" name="attachment.3d_viewer.parts">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts</source>
+        <target>Parts</target>
+      </segment>
+    </unit>
+    <unit id="xX9nKBn" name="attachment.3d_viewer.parts.show_all">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts.show_all</source>
+        <target>All</target>
+      </segment>
+    </unit>
+    <unit id="pK0bzyy" name="attachment.3d_viewer.parts.hide_all">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts.hide_all</source>
+        <target>None</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -70,6 +70,9 @@ final class FAIconGeneratorTest extends WebTestCase
         yield ['yml', 'fa-file-code'];
         yield ['yaml', 'fa-file-code'];
         yield ['csv', 'fa-file-csv'];
+        yield ['stl', 'fa-cube'];
+        yield ['step', 'fa-cube'];
+        yield ['glb', 'fa-cube'];
         yield ['sql', 'fa-file-code'];
         yield ['sh', 'fa-file-code'];
         yield ['bat', 'fa-file-code'];

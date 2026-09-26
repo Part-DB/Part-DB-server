@@ -143,8 +143,15 @@ abstract class Attachment extends AbstractNamedDBElement
 
     /**
      * A list of extensions that will be treated as a 3D Model that can be shown to user directly in Part-DB.
+     * The mesh formats are rendered by three.js, the boundary representation (CAD) formats are tessellated by
+     * occt-import-js first. Keep this in sync with the loader mapping in the model_viewer stimulus controller.
      */
-    final public const MODEL_EXTS = ['x3d'];
+    final public const MODEL_EXTS = [
+        //Mesh formats
+        'stl', 'obj', 'ply', '3mf', 'gltf', 'glb', 'dae', 'fbx', 'wrl', 'vrml', 'amf', '3ds', 'vtk',
+        //Boundary representation (CAD) formats
+        'step', 'stp', 'iges', 'igs', 'brep', 'brp',
+    ];
 
 
     /**
