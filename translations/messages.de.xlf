@@ -15444,5 +15444,143 @@ Buerklin-API-Authentication-Server:
         <target>Lagerbestand</target>
       </segment>
     </unit>
+    <unit id="ohF6xCL" name="attachment.3d_viewer.title">
+      <segment state="translated">
+        <source>attachment.3d_viewer.title</source>
+        <target>3D-Modell-Betrachter</target>
+      </segment>
+    </unit>
+    <unit id="39GVMHV" name="attachment.3d_viewer.loading">
+      <segment state="translated">
+        <source>attachment.3d_viewer.loading</source>
+        <target>3D-Modell wird geladen...</target>
+      </segment>
+    </unit>
+    <unit id="oa1D_l9" name="attachment.3d_viewer.reset_view">
+      <segment state="translated">
+        <source>attachment.3d_viewer.reset_view</source>
+        <target>Ansicht zurücksetzen</target>
+      </segment>
+    </unit>
+    <unit id="VeqIwvE" name="attachment.3d_viewer.toggle_wireframe">
+      <segment state="translated">
+        <source>attachment.3d_viewer.toggle_wireframe</source>
+        <target>Drahtgitter umschalten</target>
+      </segment>
+    </unit>
+    <unit id="4sP7kBp" name="attachment.3d_viewer.toggle_grid">
+      <segment state="translated">
+        <source>attachment.3d_viewer.toggle_grid</source>
+        <target>Raster umschalten</target>
+      </segment>
+    </unit>
+    <unit id="3NnqFah" name="attachment.3d_viewer.fullscreen">
+      <segment state="translated">
+        <source>attachment.3d_viewer.fullscreen</source>
+        <target>Vollbild umschalten</target>
+      </segment>
+    </unit>
+    <unit id="BRg4S0K" name="attachment.3d_viewer.controls_hint">
+      <segment state="translated">
+        <source>attachment.3d_viewer.controls_hint</source>
+        <target>Ziehen zum Drehen, Scrollen zum Zoomen, mit rechter Maustaste ziehen zum Verschieben.</target>
+      </segment>
+    </unit>
+    <unit id="icPlspg" name="attachment.3d_viewer.view.label">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.label</source>
+        <target>Standardansichten</target>
+      </segment>
+    </unit>
+    <unit id=".A5xiTp" name="attachment.3d_viewer.view.isometric">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.isometric</source>
+        <target>Isometrisch</target>
+      </segment>
+    </unit>
+    <unit id="7XggqIr" name="attachment.3d_viewer.view.front">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.front</source>
+        <target>Vorne</target>
+      </segment>
+    </unit>
+    <unit id="yEeVpLS" name="attachment.3d_viewer.view.back">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.back</source>
+        <target>Hinten</target>
+      </segment>
+    </unit>
+    <unit id="ke8HbV0" name="attachment.3d_viewer.view.left">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.left</source>
+        <target>Links</target>
+      </segment>
+    </unit>
+    <unit id="aZZZ5T8" name="attachment.3d_viewer.view.right">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.right</source>
+        <target>Rechts</target>
+      </segment>
+    </unit>
+    <unit id="TBZU8bd" name="attachment.3d_viewer.view.top">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.top</source>
+        <target>Oben</target>
+      </segment>
+    </unit>
+    <unit id="BeWse0P" name="attachment.3d_viewer.view.bottom">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.bottom</source>
+        <target>Unten</target>
+      </segment>
+    </unit>
+    <unit id="5C4xD34" name="attachment.3d_viewer.measure">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure</source>
+        <target>Messen</target>
+      </segment>
+    </unit>
+    <unit id="HZEvQYa" name="attachment.3d_viewer.measure.clear">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure.clear</source>
+        <target>Messung löschen</target>
+      </segment>
+    </unit>
+    <unit id="_9Hel6U" name="attachment.3d_viewer.measure.hint">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure.hint</source>
+        <target>Klicken Sie auf zwei Punkte des Modells, um den Abstand zwischen ihnen zu messen. Punkte rasten an einer nahen Ecke ein.</target>
+      </segment>
+    </unit>
+    <unit id="PS75Gl4" name="attachment.3d_viewer.metadata">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata</source>
+        <target>Modellinformationen</target>
+      </segment>
+    </unit>
+    <unit id="kMmJzTW" name="attachment.3d_viewer.screenshot">
+      <segment state="translated">
+        <source>attachment.3d_viewer.screenshot</source>
+        <target>Screenshot herunterladen</target>
+      </segment>
+    </unit>
+    <unit id="DaNck4u" name="attachment.3d_viewer.parts">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts</source>
+        <target>Komponenten</target>
+      </segment>
+    </unit>
+    <unit id="xX9nKBn" name="attachment.3d_viewer.parts.show_all">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts.show_all</source>
+        <target>Alle</target>
+      </segment>
+    </unit>
+    <unit id="pK0bzyy" name="attachment.3d_viewer.parts.hide_all">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts.hide_all</source>
+        <target>Keine</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
