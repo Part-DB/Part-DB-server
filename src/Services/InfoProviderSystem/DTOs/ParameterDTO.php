@@ -94,6 +94,13 @@ readonly class ParameterDTO
 
                 //If both parts have the same unit and both values are numerical, we'll save it as range
                 if ($unit === $unit2 && is_numeric($number) && is_numeric($number2)) {
+                    //If the parameter contains AWG in name or unit and min/max order is "wrong", swap it
+                    if (preg_match('/AWG/', $name . $unit) === 1 && $number > $number2) {
+                        $tmp = $number;
+                        $number = $number2;
+                        $number2 = $tmp;
+                    }
+                    
                     return new self(name: $name, value_text: $value_text2, value_min: (float) $number,
                         value_max: (float) $number2, unit: $unit, symbol: $symbol, group: $group);
                 }
