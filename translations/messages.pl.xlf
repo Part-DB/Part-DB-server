@@ -10226,7 +10226,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="9QK.feT" name="settings.misc.kicad_eda.export_stock_fields.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.export_stock_fields.help</source>
-        <target>Gdy włączone, obecne zapasy i miejsca przechowywania są eksportowane jako pola symboli. Wyłącz, jeśli zmiany stanów magazynowych nie powinny wprowadzać zmian w symbolach KiCad (każda zmiana jest zgłaszana jako niezgodność symbolu z biblioteką w ERC KiCad) </target>
+        <target>Gdy włączone, obecne zapasy i miejsca przechowywania są eksportowane jako pola symboli. Wyłącz, jeśli zmiany stanów magazynowych nie powinny wprowadzać zmian w symbolach KiCad (każda zmiana jest zgłaszana jako niezgodność symbolu z biblioteką w ERC KiCad)</target>
       </segment>
     </unit>
     <unit id="ZBpX8wi" name="settings.misc.kicad_eda.export_supplier_fields">
