@@ -7491,6 +7491,24 @@ Element 1 -&gt; Element 1.2</target>
         <target>This gallery lists all available built-in footprint images. If you want to use them in an attachment, type in the name (or a keyword) in the path field of the attachment and select the image from the dropdown select.</target>
       </segment>
     </unit>
+    <unit id="IJRWM97" name="tools.builtin_footprints_viewer.search.placeholder">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.search.placeholder</source>
+        <target>Filter by name or folder...</target>
+      </segment>
+    </unit>
+    <unit id="uaOZhii" name="tools.builtin_footprints_viewer.no_results">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.no_results</source>
+        <target>No footprint images match your filter.</target>
+      </segment>
+    </unit>
+    <unit id="glVXV5q" name="tools.builtin_footprints_viewer.copy_path">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.copy_path</source>
+        <target>Copy path for use in attachments</target>
+      </segment>
+    </unit>
     <unit id="EFtEJ2v" name="tools.ic_logos.title">
       <segment state="translated">
         <source>tools.ic_logos.title</source>

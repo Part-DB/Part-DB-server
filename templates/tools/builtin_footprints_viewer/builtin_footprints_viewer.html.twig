@@ -20,23 +20,46 @@
 {% endblock %}
 
 {% block card_content %}
-
+<div {{ stimulus_controller('pages/footprint_gallery') }}>
     <p class="text-muted">{% trans %}tools.builtin_footprints_viewer.hint{% endtrans %}</p>
 
-    {% for folder, file_array in grouped_footprints %}
-        {{ _self.path_to_breadcrumb(folder) }}
+    <div class="input-group">
+        <span class="input-group-text"><i class="fas fa-search fa-fw"></i></span>
+        <input type="search" class="form-control" autofocus
+               placeholder="{% trans %}tools.builtin_footprints_viewer.search.placeholder{% endtrans %}"
+               {{ stimulus_target('pages/footprint_gallery', 'input') }}
+               {{ stimulus_action('pages/footprint_gallery', 'filter', 'input') }}>
+    </div>
 
-        <div class="row row-cols-2 row-cols-md-6 g-4">
-            {% for file_info in file_array %}
-                <div class="col">
-                    <div class="card text-center">
-                        <img src="{{ asset(file_info.assets_path) }}" class="card-img-top" alt="{{ file_info.filename }}">
-                        <div class="card-body">
-                            <p class="card-text"><b>{{ file_info.filename }}</b></p>
+    <p class="text-muted mt-3 d-none" {{ stimulus_target('pages/footprint_gallery', 'noResults') }}>
+        {% trans %}tools.builtin_footprints_viewer.no_results{% endtrans %}
+    </p>
+
+    {% for folder, file_array in grouped_footprints %}
+        <div {{ stimulus_target('pages/footprint_gallery', 'group') }}>
+            {{ _self.path_to_breadcrumb(folder) }}
+
+            <div class="row row-cols-2 row-cols-md-6 g-4">
+                {% for file_info in file_array %}
+                    <div class="col" {{ stimulus_target('pages/footprint_gallery', 'item') }}
+                         data-search="{{ file_info.placeholder_path|lower }}">
+                        <div class="card text-center h-100">
+                            <img src="{{ asset(file_info.assets_path) }}" class="card-img-top" alt="{{ file_info.filename }}"
+                                 width="320" height="240" loading="lazy" decoding="async" style="height: auto;">
+                            <div class="card-body">
+                                <p class="card-text text-break"><b>{{ file_info.filename }}</b>
+                                    <button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline"
+                                            data-clipboard-text="{{ file_info.placeholder_path }}"
+                                            title="{% trans %}tools.builtin_footprints_viewer.copy_path{% endtrans %}">
+                                        <i class="fas fa-copy fa-fw"></i>
+                                    </button>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     {% endfor %}
+</div>
 {% endblock %}

@@ -7490,6 +7490,24 @@ Element 1 -&gt; Element 1.2</target>
         <target>Diese Galerie listet alle mitgelieferten Footprint-Bilder auf. Wenn Sie diese in einem Anhang nutzen wollen, tippen Sie den Namen (oder ein Stichwort) in das URL-Feld des Anhangs ein und wählen Sie das gewünschte Bild aus dem Dropdown-Menü aus.</target>
       </segment>
     </unit>
+    <unit id="IJRWM97" name="tools.builtin_footprints_viewer.search.placeholder">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.search.placeholder</source>
+        <target>Nach Name oder Ordner filtern...</target>
+      </segment>
+    </unit>
+    <unit id="uaOZhii" name="tools.builtin_footprints_viewer.no_results">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.no_results</source>
+        <target>Keine Footprint-Bilder entsprechen dem Filter.</target>
+      </segment>
+    </unit>
+    <unit id="glVXV5q" name="tools.builtin_footprints_viewer.copy_path">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.copy_path</source>
+        <target>Pfad zur Verwendung in Anhängen kopieren</target>
+      </segment>
+    </unit>
     <unit id="EFtEJ2v" name="tools.ic_logos.title">
       <segment state="translated">
         <source>tools.ic_logos.title</source>

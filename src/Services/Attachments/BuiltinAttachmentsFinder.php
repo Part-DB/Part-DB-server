@@ -48,26 +48,34 @@ class BuiltinAttachmentsFinder
      */
     public function getListOfFootprintsGroupedByFolder(): array
     {
-        $finder = new Finder();
-        //We search only files
-        $finder->files();
-        $finder->in($this->pathResolver->getFootprintsPath());
+        try {
+            return $this->cache->get('attachment_builtin_footprints_grouped', function () {
+                $finder = new Finder();
+                //We search only files
+                $finder->files();
+                $finder->in($this->pathResolver->getFootprintsPath());
+                //Ensure a stable order, independent of the filesystem
+                $finder->sortByName(true);
 
-        $output = [];
+                $output = [];
 
-        foreach($finder as $file) {
-            $folder = $file->getRelativePath();
-            //Normalize path (replace \ with /)
-            $folder = str_replace('\\', '/', (string) $folder);
+                foreach ($finder as $file) {
+                    $folder = $file->getRelativePath();
+                    //Normalize path (replace \ with /)
+                    $folder = str_replace('\\', '/', (string) $folder);
 
-            if(!isset($output[$folder])) {
-                $output[$folder] = [];
-            }
-            //Add file to group
-            $output[$folder][] = $this->pathResolver->realPathToPlaceholder($file->getPathname());
+                    if (!isset($output[$folder])) {
+                        $output[$folder] = [];
+                    }
+                    //Add file to group
+                    $output[$folder][] = $this->pathResolver->realPathToPlaceholder($file->getPathname());
+                }
+
+                return $output;
+            });
+        } catch (InvalidArgumentException) {
+            return [];
         }
-
-        return $output;
     }
 
     /**

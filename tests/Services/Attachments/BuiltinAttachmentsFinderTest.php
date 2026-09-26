@@ -63,4 +63,21 @@ final class BuiltinAttachmentsFinderTest extends WebTestCase
         $this->assertSame([], array_diff($value, $expected), 'Additional');
         $this->assertSame([], array_diff($expected, $value), 'Missing:');
     }
+
+    public function testGetListOfFootprintsGroupedByFolder(): void
+    {
+        $grouped = static::$service->getListOfFootprintsGroupedByFolder();
+
+        $this->assertNotEmpty($grouped);
+        foreach ($grouped as $folder => $files) {
+            $this->assertStringNotContainsString('\\', (string) $folder);
+            foreach ($files as $file) {
+                $this->assertStringStartsWith('%FOOTPRINTS%/'.$folder, $file);
+            }
+            //Files inside a folder must be sorted in natural order
+            $sorted = $files;
+            natsort($sorted);
+            $this->assertSame(array_values($sorted), $files);
+        }
+    }
 }
