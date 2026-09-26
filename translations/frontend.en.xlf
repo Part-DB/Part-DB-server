@@ -199,5 +199,209 @@
         <target>No</target>
       </segment>
     </unit>
+    <unit id="FmJhI_Z" name="attachment.3d_viewer.load_error">
+      <segment state="translated">
+        <source>attachment.3d_viewer.load_error</source>
+        <target>This 3D model could not be loaded. The file might be damaged or use an unsupported feature.</target>
+      </segment>
+    </unit>
+    <unit id="4xIiJ40" name="attachment.3d_viewer.unsupported_format">
+      <segment state="translated">
+        <source>attachment.3d_viewer.unsupported_format</source>
+        <target>The file format "%format%" can not be shown in the 3D model viewer.</target>
+      </segment>
+    </unit>
+    <unit id="ZhCj4sR" name="attachment.3d_viewer.webgl_unavailable">
+      <segment state="translated">
+        <source>attachment.3d_viewer.webgl_unavailable</source>
+        <target>The 3D model viewer needs WebGL, which is not available in this browser.</target>
+      </segment>
+    </unit>
+    <unit id="avESzTS" name="attachment.3d_viewer.info">
+      <segment state="translated">
+        <source>attachment.3d_viewer.info</source>
+        <target>Size: %dimensions% · %triangles% triangles</target>
+      </segment>
+    </unit>
+    <unit id="uwe4FG4" name="attachment.3d_viewer.unit.from_file">
+      <segment state="translated">
+        <source>attachment.3d_viewer.unit.from_file</source>
+        <target>Unit taken from the model file</target>
+      </segment>
+    </unit>
+    <unit id="2VLzIJ7" name="attachment.3d_viewer.unit.assumed">
+      <segment state="translated">
+        <source>attachment.3d_viewer.unit.assumed</source>
+        <target>This file format does not store a unit, millimeters are assumed</target>
+      </segment>
+    </unit>
+    <unit id="XG3.Rnv" name="attachment.3d_viewer.metadata.file">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.file</source>
+        <target>File</target>
+      </segment>
+    </unit>
+    <unit id="ydK7ifK" name="attachment.3d_viewer.metadata.format">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.format</source>
+        <target>Format</target>
+      </segment>
+    </unit>
+    <unit id="HYZb5Sl" name="attachment.3d_viewer.metadata.file_size">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.file_size</source>
+        <target>File size</target>
+      </segment>
+    </unit>
+    <unit id="hMwHd_e" name="attachment.3d_viewer.metadata.unit">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.unit</source>
+        <target>Unit</target>
+      </segment>
+    </unit>
+    <unit id="TPmedyZ" name="attachment.3d_viewer.metadata.geometry">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.geometry</source>
+        <target>Geometry</target>
+      </segment>
+    </unit>
+    <unit id="givcmYb" name="attachment.3d_viewer.metadata.dimensions">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.dimensions</source>
+        <target>Bounding box</target>
+      </segment>
+    </unit>
+    <unit id="UmfpNIz" name="attachment.3d_viewer.metadata.volume">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.volume</source>
+        <target>Volume</target>
+      </segment>
+    </unit>
+    <unit id="Y8pzj71" name="attachment.3d_viewer.metadata.surface_area">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.surface_area</source>
+        <target>Surface area</target>
+      </segment>
+    </unit>
+    <unit id="8e2NNW4" name="attachment.3d_viewer.metadata.triangles">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.triangles</source>
+        <target>Triangles</target>
+      </segment>
+    </unit>
+    <unit id="LzjvwpF" name="attachment.3d_viewer.metadata.vertices">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.vertices</source>
+        <target>Vertices</target>
+      </segment>
+    </unit>
+    <unit id="ugbcSUh" name="attachment.3d_viewer.metadata.objects">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.objects</source>
+        <target>Objects</target>
+      </segment>
+    </unit>
+    <unit id="MVr1Mh6" name="attachment.3d_viewer.metadata.materials">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.materials</source>
+        <target>Materials</target>
+      </segment>
+    </unit>
+    <unit id="bNJumSw" name="attachment.3d_viewer.metadata.approximate">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.approximate</source>
+        <target>only exact for a closed model</target>
+      </segment>
+    </unit>
+    <unit id="iAZnunF" name="attachment.3d_viewer.metadata.source">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.source</source>
+        <target>Origin</target>
+      </segment>
+    </unit>
+    <unit id="7nKrSaL" name="attachment.3d_viewer.metadata.description">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.description</source>
+        <target>Description</target>
+      </segment>
+    </unit>
+    <unit id="70QJSK1" name="attachment.3d_viewer.metadata.name">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.name</source>
+        <target>Name in file</target>
+      </segment>
+    </unit>
+    <unit id="ryvQpKu" name="attachment.3d_viewer.metadata.timestamp">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.timestamp</source>
+        <target>Created</target>
+      </segment>
+    </unit>
+    <unit id="cFIfa.Z" name="attachment.3d_viewer.metadata.author">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.author</source>
+        <target>Author</target>
+      </segment>
+    </unit>
+    <unit id="gECYUC9" name="attachment.3d_viewer.metadata.organization">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.organization</source>
+        <target>Organization</target>
+      </segment>
+    </unit>
+    <unit id="mLwqLVA" name="attachment.3d_viewer.metadata.preprocessor">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.preprocessor</source>
+        <target>Exported with</target>
+      </segment>
+    </unit>
+    <unit id="W9WSUY7" name="attachment.3d_viewer.metadata.originating_system">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.originating_system</source>
+        <target>CAD system</target>
+      </segment>
+    </unit>
+    <unit id="gNUelSp" name="attachment.3d_viewer.metadata.authorisation">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.authorisation</source>
+        <target>Authorization</target>
+      </segment>
+    </unit>
+    <unit id="iFmjRgQ" name="attachment.3d_viewer.metadata.schema">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.schema</source>
+        <target>Schema</target>
+      </segment>
+    </unit>
+    <unit id="8MG4oHq" name="attachment.3d_viewer.metadata.header">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.header</source>
+        <target>File header</target>
+      </segment>
+    </unit>
+    <unit id="WjcOC6A" name="attachment.3d_viewer.metadata.generator">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.generator</source>
+        <target>Generator</target>
+      </segment>
+    </unit>
+    <unit id="8.ITAEx" name="attachment.3d_viewer.metadata.version">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.version</source>
+        <target>Format version</target>
+      </segment>
+    </unit>
+    <unit id="_g9la.b" name="attachment.3d_viewer.metadata.copyright">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata.copyright</source>
+        <target>Copyright</target>
+      </segment>
+    </unit>
+    <unit id="1b7adHJ" name="attachment.3d_viewer.parts.unnamed">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts.unnamed</source>
+        <target>Part %number%</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
