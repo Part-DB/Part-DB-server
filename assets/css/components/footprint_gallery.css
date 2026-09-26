@@ -62,3 +62,92 @@
         opacity: 1;
     }
 }
+
+/* Folder navigation: sticky sidebar on large screens, sticky bar with a collapsible tree on small screens */
+.footprint-gallery-nav {
+    position: sticky;
+    top: 70px;
+    z-index: 10;
+    padding: .5rem 0;
+    background-color: var(--bs-body-bg);
+}
+
+.footprint-gallery-tree-container {
+    margin-top: .5rem;
+    max-height: 60vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    font-size: .875rem;
+}
+
+@media (min-width: 992px) {
+    .footprint-gallery-nav {
+        padding-top: 0;
+    }
+
+    .footprint-gallery-tree-container {
+        max-height: calc(100vh - 140px);
+    }
+}
+
+.footprint-gallery-tree summary {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    cursor: pointer;
+}
+
+.footprint-gallery-tree summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Custom disclosure chevron */
+.footprint-gallery-tree summary::before {
+    content: "";
+    flex: 0 0 auto;
+    width: .4rem;
+    height: .4rem;
+    margin: 0 .45rem 0 .15rem;
+    border-right: 2px solid var(--bs-secondary-color);
+    border-bottom: 2px solid var(--bs-secondary-color);
+    transform: rotate(-45deg);
+    transition: transform .15s ease-in-out;
+}
+
+.footprint-gallery-tree details[open] > summary::before {
+    transform: rotate(45deg);
+}
+
+/* Leaf entries get the same indentation as entries with a chevron */
+.footprint-gallery-tree li > .footprint-gallery-tree-link {
+    margin-left: 1rem;
+}
+
+.footprint-gallery-tree-link {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+    justify-content: space-between;
+    gap: .5rem;
+    padding: .15rem .4rem;
+    border-radius: var(--bs-border-radius-sm);
+    color: var(--bs-body-color);
+    text-decoration: none;
+}
+
+.footprint-gallery-tree-link:hover {
+    background-color: var(--bs-tertiary-bg);
+    color: var(--bs-body-color);
+}
+
+.footprint-gallery-tree-link.active {
+    background-color: var(--bs-primary-bg-subtle);
+    color: var(--bs-primary-text-emphasis);
+    font-weight: 600;
+}
+
+.footprint-gallery-tree-count {
+    flex: 0 0 auto;
+    color: var(--bs-secondary-color);
+    font-size: .75rem;
+}

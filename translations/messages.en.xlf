@@ -7509,6 +7509,12 @@ Element 1 -&gt; Element 1.2</target>
         <target>Copy path for use in attachments</target>
       </segment>
     </unit>
+    <unit id="AI3UZiM" name="tools.builtin_footprints_viewer.folders">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.folders</source>
+        <target>Folders</target>
+      </segment>
+    </unit>
     <unit id="EFtEJ2v" name="tools.ic_logos.title">
       <segment state="translated">
         <source>tools.ic_logos.title</source>

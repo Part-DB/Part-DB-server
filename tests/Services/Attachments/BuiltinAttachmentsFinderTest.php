@@ -80,4 +80,24 @@ final class BuiltinAttachmentsFinderTest extends WebTestCase
             $this->assertSame(array_values($sorted), $files);
         }
     }
+
+    public function testBuildFolderTree(): void
+    {
+        $tree = static::$service->buildFolderTree([
+            'Passive/Resistors/SMD' => ['%FOOTPRINTS%/Passive/Resistors/SMD/a.png', '%FOOTPRINTS%/Passive/Resistors/SMD/b.png'],
+            'Passive/Resistors' => ['%FOOTPRINTS%/Passive/Resistors/c.png'],
+            'Passive/Capacitors' => ['%FOOTPRINTS%/Passive/Capacitors/d.png'],
+            'Active' => ['%FOOTPRINTS%/Active/e.png'],
+        ]);
+
+        $this->assertSame([
+            ['name' => 'Passive', 'path' => 'Passive', 'count' => 4, 'children' => [
+                ['name' => 'Resistors', 'path' => 'Passive/Resistors', 'count' => 3, 'children' => [
+                    ['name' => 'SMD', 'path' => 'Passive/Resistors/SMD', 'count' => 2, 'children' => []],
+                ]],
+                ['name' => 'Capacitors', 'path' => 'Passive/Capacitors', 'count' => 1, 'children' => []],
+            ]],
+            ['name' => 'Active', 'path' => 'Active', 'count' => 1, 'children' => []],
+        ], $tree);
+    }
 }

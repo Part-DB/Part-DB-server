@@ -135,6 +135,7 @@ class ToolsController extends AbstractController
         $this->denyAccessUnlessGranted('@tools.builtin_footprints_viewer');
 
         $grouped_footprints = $builtinAttachmentsFinder->getListOfFootprintsGroupedByFolder();
+        $folder_tree = $builtinAttachmentsFinder->buildFolderTree($grouped_footprints);
         $grouped_footprints = array_map(static fn($group) => array_map(static fn($placeholder_filepath) => [
             'filename' => basename((string) $placeholder_filepath),
             'name' => pathinfo((string) $placeholder_filepath, PATHINFO_FILENAME),
@@ -144,6 +145,7 @@ class ToolsController extends AbstractController
 
         return $this->render('tools/builtin_footprints_viewer/builtin_footprints_viewer.html.twig', [
             'grouped_footprints' => $grouped_footprints,
+            'folder_tree' => $folder_tree,
         ]);
     }
 

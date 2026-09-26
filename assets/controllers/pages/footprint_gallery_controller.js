@@ -18,18 +18,37 @@
  */
 
 import {Controller} from "@hotwired/stimulus";
+import {Collapse} from "bootstrap";
 import "../../css/components/footprint_gallery.css";
 
 /**
- * Filters the builtin footprints gallery by filename or folder path.
+ * Filters the builtin footprints gallery by filename or folder path, and handles the folder tree navigation
+ * (jumping to a folder and highlighting the folder currently visible).
  */
 export default class extends Controller {
-    static targets = ["input", "group", "item", "noResults"];
+    static targets = ["input", "group", "item", "noResults", "treeNode", "treeToggle", "treeContainer"];
+
+    connect() {
+        //Highlight the folder, whose heading is currently at the top of the viewport
+        this._observer = new IntersectionObserver((entries) => {
+            for (const entry of entries) {
+                if (entry.isIntersecting) {
+                    this.setActiveFolder(entry.target.dataset.folder);
+                }
+            }
+        }, {rootMargin: '-80px 0px -70% 0px'});
+
+        this.groupTargets.forEach(group => this._observer.observe(group));
+    }
+
+    disconnect() {
+        this._observer?.disconnect();
+    }
 
     filter() {
         //Split the query into words, all of them must match (in any order)
         const words = this.inputTarget.value.toLowerCase().split(/\s+/).filter(w => w !== '');
-        let anyVisible = false;
+        const visibleFolders = [];
 
         for (const group of this.groupTargets) {
             let groupVisible = false;
@@ -42,9 +61,69 @@ export default class extends Controller {
             }
 
             group.classList.toggle('d-none', !groupVisible);
-            anyVisible ||= groupVisible;
+            if (groupVisible) {
+                visibleFolders.push(group.dataset.folder);
+            }
         }
 
-        this.noResultsTarget.classList.toggle('d-none', anyVisible);
+        //Only show tree nodes, which still contain matching images
+        for (const node of this.treeNodeTargets) {
+            node.classList.toggle('d-none', !visibleFolders.some(f => this._isInFolder(f, node.dataset.folder)));
+        }
+
+        this.noResultsTarget.classList.toggle('d-none', visibleFolders.length > 0);
+    }
+
+    jump(event) {
+        event.preventDefault();
+        const folder = event.currentTarget.dataset.folder;
+
+        //Folders without own images (or whose images are filtered out) jump to their first visible subfolder
+        const group = this.groupTargets.find(g => !g.classList.contains('d-none') && this._isInFolder(g.dataset.folder, folder));
+        if (!group) {
+            return;
+        }
+
+        group.scrollIntoView({behavior: 'smooth', block: 'start'});
+        history.replaceState(history.state, '', '#' + group.firstElementChild.id);
+
+        //On small screens the tree overlays the gallery, so close it after jumping
+        if (this.hasTreeToggleTarget && this.treeToggleTarget.offsetParent !== null) {
+            Collapse.getOrCreateInstance(this.treeContainerTarget, {toggle: false}).hide();
+        }
+    }
+
+    setActiveFolder(folder) {
+        for (const link of this.treeContainerTarget.querySelectorAll('.footprint-gallery-tree-link.active')) {
+            link.classList.remove('active');
+        }
+
+        const link = this.treeContainerTarget.querySelector(`.footprint-gallery-tree-link[data-folder="${CSS.escape(folder)}"]`);
+        if (!link) {
+            return;
+        }
+        link.classList.add('active');
+
+        //Expand the parent folders, so the active entry is visible
+        for (let details = link.closest('details'); details; details = details.parentElement.closest('details')) {
+            //The link of a folder with subfolders lives in the summary, keep that one as it is
+            if (!details.firstElementChild.contains(link)) {
+                details.open = true;
+            }
+        }
+
+        //Scroll the tree (not the page) so the active entry is visible
+        const container = this.treeContainerTarget;
+        if (container.offsetParent !== null && container.scrollHeight > container.clientHeight) {
+            const linkRect = link.getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+            if (linkRect.top < containerRect.top || linkRect.bottom > containerRect.bottom) {
+                container.scrollTop += linkRect.top - containerRect.top - container.clientHeight / 2;
+            }
+        }
+    }
+
+    _isInFolder(folder, parent) {
+        return folder === parent || folder.startsWith(parent + '/');
     }
 }
