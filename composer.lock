@@ -3276,16 +3276,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "4.4.5",
+            "version": "4.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "205fdf552ffafe33c1d12a41a2d6c7217666c32c"
+                "reference": "c435cd7ea33e17d2a89288caf994cf3d4549b879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/205fdf552ffafe33c1d12a41a2d6c7217666c32c",
-                "reference": "205fdf552ffafe33c1d12a41a2d6c7217666c32c",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/c435cd7ea33e17d2a89288caf994cf3d4549b879",
+                "reference": "c435cd7ea33e17d2a89288caf994cf3d4549b879",
                 "shasum": ""
             },
             "require": {
@@ -3362,7 +3362,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/4.4.5"
+                "source": "https://github.com/doctrine/dbal/tree/4.5.0"
             },
             "funding": [
                 {
@@ -3378,7 +3378,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-03T13:05:34+00:00"
+            "time": "2026-09-24T16:11:26+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -18543,16 +18543,16 @@
         },
         {
             "name": "tecnickcom/tc-lib-barcode",
-            "version": "2.16.3",
+            "version": "2.16.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/tc-lib-barcode.git",
-                "reference": "3dea3241fc99463a63a3d9fd3b694bcc716b4d5b"
+                "reference": "e0b07db25cd223cacdfcfc1af728585781bd2bda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/tc-lib-barcode/zipball/3dea3241fc99463a63a3d9fd3b694bcc716b4d5b",
-                "reference": "3dea3241fc99463a63a3d9fd3b694bcc716b4d5b",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-barcode/zipball/e0b07db25cd223cacdfcfc1af728585781bd2bda",
+                "reference": "e0b07db25cd223cacdfcfc1af728585781bd2bda",
                 "shasum": ""
             },
             "require": {
@@ -18563,7 +18563,7 @@
                 "tecnickcom/tc-lib-color": "^3.0"
             },
             "require-dev": {
-                "carthage-software/mago": "1.49.0",
+                "carthage-software/mago": "1.50.0",
                 "pdepend/pdepend": "^2.16",
                 "phpunit/phpunit": "^11.5 || ^12.5 || ^13.3"
             },
@@ -18674,20 +18674,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-21T11:52:00+00:00"
+            "time": "2026-09-26T11:00:50+00:00"
         },
         {
             "name": "tecnickcom/tc-lib-color",
-            "version": "3.0.6",
+            "version": "3.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/tc-lib-color.git",
-                "reference": "8f223ae84d2ea2570f28eae81679075362b7ab1d"
+                "reference": "8455d371882d2e3eb2742d4d6fb82ca5aebb95db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/tc-lib-color/zipball/8f223ae84d2ea2570f28eae81679075362b7ab1d",
-                "reference": "8f223ae84d2ea2570f28eae81679075362b7ab1d",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-color/zipball/8455d371882d2e3eb2742d4d6fb82ca5aebb95db",
+                "reference": "8455d371882d2e3eb2742d4d6fb82ca5aebb95db",
                 "shasum": ""
             },
             "require": {
@@ -18695,7 +18695,7 @@
                 "php": "^8.2"
             },
             "require-dev": {
-                "carthage-software/mago": "1.49.0",
+                "carthage-software/mago": "1.50.0",
                 "pdepend/pdepend": "^2.16",
                 "phpunit/phpunit": "^11.5 || ^12.5 || ^13.3"
             },
@@ -18750,7 +18750,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-21T11:49:03+00:00"
+            "time": "2026-09-26T10:57:37+00:00"
         },
         {
             "name": "tiendanube/gtinvalidation",
