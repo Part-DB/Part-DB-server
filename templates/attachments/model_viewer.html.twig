@@ -15,6 +15,11 @@
                 {% if attachment.filename %}
                     <small class="text-muted">({{ attachment.filename }})</small>
                 {% endif %}
+                <small>
+                    <span class="badge text-bg-secondary badge-sm" title="{{ type_label(attachment.attachmentType) }}">
+                        <i class="fas fa-file-alt fa-fw"></i> {{ attachment.attachmentType.name }}
+                    </span>
+                </small>
             </h5>
 
             {% if attachment.element is not null and is_granted('read', attachment.element) %}
