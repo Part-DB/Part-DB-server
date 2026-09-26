@@ -137,6 +137,7 @@ class ToolsController extends AbstractController
         $grouped_footprints = $builtinAttachmentsFinder->getListOfFootprintsGroupedByFolder();
         $grouped_footprints = array_map(static fn($group) => array_map(static fn($placeholder_filepath) => [
             'filename' => basename((string) $placeholder_filepath),
+            'name' => pathinfo((string) $placeholder_filepath, PATHINFO_FILENAME),
             'placeholder_path' => $placeholder_filepath,
             'assets_path' => $urlGenerator->placeholderPathToAssetPath($placeholder_filepath),
         ], $group), $grouped_footprints);

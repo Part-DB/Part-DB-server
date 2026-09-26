@@ -18,6 +18,7 @@
  */
 
 import {Controller} from "@hotwired/stimulus";
+import "../../css/components/footprint_gallery.css";
 
 /**
  * Filters the builtin footprints gallery by filename or folder path.

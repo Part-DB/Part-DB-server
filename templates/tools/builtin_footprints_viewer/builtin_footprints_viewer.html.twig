@@ -1,16 +1,13 @@
 {% extends "main_card.html.twig" %}
 
-{% macro path_to_breadcrumb(path) %}
-    <nav aria-label="breadcrumb" >
-        <ol class="breadcrumb p-2 bg-info rounded mt-3" id="path-{{ path|replace({'/': '-'}) }}">
-            {% set path_array = path|split("/") %}
-            {% for part in path_array %}
-                <li class="breadcrumb-item {% if loop.last %}active{% endif %}" aria-current="page">
-                    {{ part }}
-                </li>
-            {% endfor %}
-        </ol>
-    </nav>
+{% macro folder_heading(path, count) %}
+    <h6 class="footprint-gallery-heading" id="path-{{ path|replace({'/': '-'}) }}">
+        {% for part in path|split("/") %}
+            {% if not loop.first %}<i class="fas fa-chevron-right fa-xs text-body-tertiary mx-1"></i>{% endif %}
+            <span class="{{ loop.last ? 'text-body' : 'text-body-secondary' }}">{{ part }}</span>
+        {% endfor %}
+        <span class="badge rounded-pill text-bg-secondary ms-2">{{ count }}</span>
+    </h6>
 {% endmacro %}
 
 {% block title %}{% trans %}tools.builtin_footprints_viewer.title{% endtrans %}{% endblock %}
@@ -36,30 +33,32 @@
     </p>
 
     {% for folder, file_array in grouped_footprints %}
-        <div {{ stimulus_target('pages/footprint_gallery', 'group') }}>
-            {{ _self.path_to_breadcrumb(folder) }}
+        <section class="footprint-gallery-group" {{ stimulus_target('pages/footprint_gallery', 'group') }}>
+            {{ _self.folder_heading(folder, file_array|length) }}
 
-            <div class="row row-cols-2 row-cols-md-6 g-4">
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xl-6 g-3">
                 {% for file_info in file_array %}
                     <div class="col" {{ stimulus_target('pages/footprint_gallery', 'item') }}
                          data-search="{{ file_info.placeholder_path|lower }}">
-                        <div class="card text-center h-100">
-                            <img src="{{ asset(file_info.assets_path) }}" class="card-img-top" alt="{{ file_info.filename }}"
-                                 width="320" height="240" loading="lazy" decoding="async" style="height: auto;">
-                            <div class="card-body">
-                                <p class="card-text text-break"><b>{{ file_info.filename }}</b>
-                                    <button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline"
-                                            data-clipboard-text="{{ file_info.placeholder_path }}"
-                                            title="{% trans %}tools.builtin_footprints_viewer.copy_path{% endtrans %}">
-                                        <i class="fas fa-copy fa-fw"></i>
-                                    </button>
-                                </p>
+                        <figure class="footprint-gallery-item" title="{{ file_info.placeholder_path }}">
+                            <div class="footprint-gallery-image">
+                                <img src="{{ asset(file_info.assets_path) }}" alt="{{ file_info.filename }}"
+                                     width="320" height="240" loading="lazy" decoding="async">
                             </div>
-                        </div>
+                            <figcaption>
+                                {#- Allow line breaks after the separators of the (often long) names -#}
+                                <span class="footprint-gallery-name">{{ file_info.name|e|replace({'_': '_<wbr>', '-': '-<wbr>'})|raw }}</span>
+                                <button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline footprint-gallery-copy"
+                                        data-clipboard-text="{{ file_info.placeholder_path }}"
+                                        title="{% trans %}tools.builtin_footprints_viewer.copy_path{% endtrans %}">
+                                    <i class="fas fa-copy fa-fw"></i>
+                                </button>
+                            </figcaption>
+                        </figure>
                     </div>
                 {% endfor %}
             </div>
-        </div>
+        </section>
     {% endfor %}
 </div>
 {% endblock %}
