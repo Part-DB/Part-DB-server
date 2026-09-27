@@ -38,6 +38,7 @@ class ParameterDefinitionRepository extends NamedDBElementRepository
         /** @var list<array{
          *     definition_id: int,
          *     name: string,
+         *     alternative_names: string|null,
          *     symbol: string,
          *     unit: string,
          *     input_type: string,
@@ -48,12 +49,15 @@ class ParameterDefinitionRepository extends NamedDBElementRepository
         $result = $this->createQueryBuilder('definition')
             ->select('definition.id AS definition_id')
             ->addSelect('definition.name AS name')
+            //Exposed so client side widgets (TomSelect) can match the alternative names, too. It is never rendered.
+            ->addSelect('definition.alternative_names AS alternative_names')
             ->addSelect('definition.symbol AS symbol')
             ->addSelect('definition.unit AS unit')
             ->addSelect('definition.input_type AS input_type')
             ->addSelect('definition.choices AS choices')
             ->addSelect('definition.deprecated_choices AS deprecated_choices')
             ->where('ILIKE(definition.name, :name) = TRUE')
+            ->orWhere('ILIKE(definition.alternative_names, :name) = TRUE')
             ->setParameter('name', '%'.$name.'%')
             ->orderBy('definition.name', 'ASC')
             ->setMaxResults($max_results)

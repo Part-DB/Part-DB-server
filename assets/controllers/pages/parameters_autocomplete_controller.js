@@ -379,7 +379,9 @@ export default class extends Controller
             createOnBlur: true,
             selectOnTab: true,
             create: true,
-            searchField: "name",
+            //Alternative names are exposed on the loaded options so they can be matched here, too. They are never
+            //rendered: the option and item renderers below still display the canonical name only.
+            searchField: ["name", "alternative_names"],
             //labelField: "name",
             valueField: "name",
             clearAfterSelect: true,
