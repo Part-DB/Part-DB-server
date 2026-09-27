@@ -120,7 +120,7 @@ export default class extends Controller {
                 let data;
                 try {
                     data = await response.json();
-                } catch (parseError) {
+                } catch {
                     this.schedulePoll();
                     return;
                 }
@@ -155,7 +155,7 @@ export default class extends Controller {
                     this.showPulling();
                 }
             }
-        } catch (e) {
+        } catch {
             // Connection refused = container is down
             if (!this.serverWentDown) {
                 this.serverWentDown = true;

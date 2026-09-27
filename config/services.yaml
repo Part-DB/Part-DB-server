@@ -62,6 +62,12 @@ services:
         arguments:
             - { timeout: '%env(int:settings:ai_openrouter:timeout)%' }
 
+    app.http_client.ai_generic:
+        class: Symfony\Contracts\HttpClient\HttpClientInterface
+        factory: ['@http_client', 'withOptions']
+        arguments:
+            - { timeout: '%env(int:settings:ai_generic:timeout)%' }
+
     ####################################################################################################################
     # Attachment system
     ####################################################################################################################

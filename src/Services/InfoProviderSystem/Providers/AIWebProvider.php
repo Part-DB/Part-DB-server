@@ -37,12 +37,14 @@ use Jkphl\Micrometa;
 use League\HTMLToMarkdown\HtmlConverter;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\AI\Platform\Message\Message;
+use Symfony\AI\Platform\Result\DeferredResult;
 use Symfony\AI\Platform\Message\MessageBag;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\DomCrawler\UriResolver;
 use Symfony\Component\HttpClient\NoPrivateNetworkHttpClient;
 use Symfony\Component\Intl\Languages;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 use function Symfony\Component\String\u;
 
@@ -54,6 +56,9 @@ final class AIWebProvider implements InfoProviderInterface
     public const PROVIDER_KEY = 'ai_web';
 
     private const DISTRIBUTOR_NAME = 'Website';
+
+    /** @var int How much of a failed provider response is quoted in the error message */
+    private const MAX_REPORTED_RESPONSE_LENGTH = 500;
 
     private readonly HttpClientInterface $httpClient;
 
@@ -288,11 +293,54 @@ final class AIWebProvider implements InfoProviderInterface
                     'json_schema' => $this->jsonSchemaConverter->getJSONSchema(),
                 ]
             ]);
+            //The platform returns a deferred result: the request is only really carried out (and the answer
+            //converted) when the result is read. Reading it outside this try would let a provider error - a
+            //rejected model, an exhausted quota, an invalid key - escape as an unhandled exception, which ends
+            //the whole request with a 500 instead of the error message this catch was written for.
+            return $result->getResult()->getContent();
         } catch (\Throwable $e) {
-            throw new \RuntimeException('LLM invocation failed: '.$e->getMessage(), previous: $e);
+            throw new \RuntimeException(
+                'LLM invocation failed: '.$e->getMessage().$this->describeProviderResponse($result ?? null),
+                previous: $e
+            );
+        }
+    }
+
+    /**
+     * Describes what the provider actually answered, for the message of a failed invocation.
+     *
+     * The exceptions of the platform only carry what its converter made of the answer, and that can be as
+     * unhelpful as "Provider returned error" - the wording a gateway like OpenRouter uses when the model
+     * provider behind it refused, with the reason in a field the converter drops. The raw response is still
+     * around at this point, so the status code and the beginning of the body are taken from there: without
+     * them, an administrator has nothing to act on.
+     *
+     * @return string The description, or an empty string if the response is not available
+     */
+    private function describeProviderResponse(?DeferredResult $result): string
+    {
+        if (!$result instanceof DeferredResult) {
+            return '';
         }
 
-        return $result->getResult()->getContent();
+        try {
+            $response = $result->getRawResult()->getObject();
+
+            if (!$response instanceof ResponseInterface) {
+                return '';
+            }
+
+            //false: the body of an error response is wanted here, not another exception
+            $body = trim($response->getContent(false));
+
+            return sprintf(' (provider answered HTTP %d: %s)', $response->getStatusCode(),
+                mb_strlen($body) > self::MAX_REPORTED_RESPONSE_LENGTH
+                    ? mb_substr($body, 0, self::MAX_REPORTED_RESPONSE_LENGTH).'...'
+                    : $body);
+        } catch (\Throwable) {
+            //Whatever went wrong while describing the failure must not replace the failure itself
+            return '';
+        }
     }
 
     private function buildSystemPrompt(): string

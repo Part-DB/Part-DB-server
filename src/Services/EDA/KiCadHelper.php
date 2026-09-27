@@ -145,7 +145,10 @@ final readonly class KiCadHelper
      */
     public function getCategoryParts(?Category $category): array
     {
-        $cacheKey = 'kicad_category_parts_'.($category?->getID() ?? 0) . '_' . $this->category_depth;
+        // Settings fingerprint keeps cached responses from surviving settings changes
+        // (tag-based invalidation only fires on part/category/footprint edits)
+        $cacheKey = 'kicad_category_parts_'.($category?->getID() ?? 0) . '_' . $this->category_depth
+            . '_' . $this->edaSettingsFingerprint();
         return $this->kicadCache->get($cacheKey,
             function (ItemInterface $item) use ($category) {
                 $item->tag([
@@ -175,6 +178,9 @@ final readonly class KiCadHelper
                 }
 
                 $result = [];
+                //Shared across all parts of this request, so the reference prefix of a category
+                //(and its ancestors) only has to be resolved once, no matter how many parts use it.
+                $categoryPrefixCache = [];
                 foreach ($parts as $part) {
                     //If the part is invisible, then skip it
                     if (!$this->shouldPartBeVisible($part)) {
@@ -190,14 +196,14 @@ final readonly class KiCadHelper
                      * This might increase the KiCAD API response size for a category, but overall perfomance boost is
                      * massive
                     */
-                    $result[] = $this->getKiCADPart($part);
+                    $result[] = $this->getKiCADPart($part, $categoryPrefixCache);
                 }
 
                 return $result;
             });
     }
 
-    public function getKiCADPart(Part $part): array
+    public function getKiCADPart(Part $part, array &$categoryPrefixCache = []): array
     {
         $result = [
             'id' => (string)$part->getId(),
@@ -211,9 +217,11 @@ final readonly class KiCadHelper
         ];
 
         $result["fields"]["footprint"] = $this->createField($part->getEdaInfo()->getKicadFootprint() ?? $part->getFootprint()?->getEdaInfo()->getKicadFootprint() ?? "");
-        $result["fields"]["reference"] = $this->createField($part->getEdaInfo()->getReferencePrefix() ?? $part->getCategory()?->getEdaInfo()->getReferencePrefix() ?? 'U', true);
+        $result["fields"]["reference"] = $this->createField($this->getReferencePrefix($part, $categoryPrefixCache), true);
         $result["fields"]["value"] = $this->createField($part->getEdaInfo()->getValue() ?? $part->getName(), true);
-        $result["fields"]["keywords"] = $this->createField($part->getTags());
+        if ($this->kiCadEDASettings->exportTagsAsKeywords) {
+            $result["fields"]["keywords"] = $this->createField($part->getTags());
+        }
 
         //Use the part info page as Part-DB link. It must be an absolute URL.
         $partUrl = $this->urlGenerator->generate(
@@ -233,7 +241,7 @@ final readonly class KiCadHelper
 
         //Add basic fields
         $result["fields"]["description"] = $this->createField($part->getDescription());
-        if ($part->getCategory() !== null) {
+        if ($this->kiCadEDASettings->exportPartInfoFields && $part->getCategory() !== null) {
             $result["fields"]["Category"] = $this->createField($part->getCategory()->getFullPath('/'));
         }
         if ($part->getManufacturer() !== null) {
@@ -242,39 +250,40 @@ final readonly class KiCadHelper
         if ($part->getManufacturerProductNumber() !== "") {
             $result['fields']["MPN"] = $this->createField($part->getManufacturerProductNumber());
         }
-        if ($part->getManufacturingStatus() !== null) {
+        if ($this->kiCadEDASettings->exportPartInfoFields && $part->getManufacturingStatus() !== null) {
             $result["fields"]["Manufacturing Status"] = $this->createField(
             //Always use the english translation
                 $this->translator->trans($part->getManufacturingStatus()->toTranslationKey(), locale: 'en')
             );
         }
-        if ($part->getFootprint() !== null) {
+        if ($this->kiCadEDASettings->exportPartInfoFields && $part->getFootprint() !== null) {
             $result["fields"]["Part-DB Footprint"] = $this->createField($part->getFootprint()->getName());
         }
-        if ($part->getPartUnit() !== null) {
+        if ($this->kiCadEDASettings->exportPartInfoFields && $part->getPartUnit() !== null) {
             $unit = $part->getPartUnit()->getName();
             if ($part->getPartUnit()->getUnit() !== "") {
                 $unit .= ' ('.$part->getPartUnit()->getUnit().')';
             }
             $result["fields"]["Part-DB Unit"] = $this->createField($unit);
         }
-        if ($part->getPartCustomState() !== null) {
+        if ($this->kiCadEDASettings->exportPartInfoFields && $part->getPartCustomState() !== null) {
             $customState = $part->getPartCustomState()->getName();
             $result["fields"]["Part-DB Custom state"] = $this->createField($customState);
         }
-        if ($part->getMass()) {
+        if ($this->kiCadEDASettings->exportPartInfoFields && $part->getMass()) {
             $result["fields"]["Mass"] = $this->createField($part->getMass() . ' g');
         }
         $result["fields"]["Part-DB ID"] = $this->createField($part->getId());
-        if ($part->getIpn() !== null && $part->getIpn() !== '' && $part->getIpn() !== '0') {
+        if ($this->kiCadEDASettings->exportPartInfoFields
+            && $part->getIpn() !== null && $part->getIpn() !== '' && $part->getIpn() !== '0') {
             $result["fields"]["Part-DB IPN"] = $this->createField($part->getIpn());
         }
 
         //Add KiCost manufacturer fields (always present, independent of orderdetails)
-        if ($part->getManufacturer() !== null) {
+        if ($this->kiCadEDASettings->exportKicostFields && $part->getManufacturer() !== null) {
             $result["fields"]["manf"] = $this->createField($part->getManufacturer()->getName());
         }
-        if ($part->getManufacturerProductNumber() !== "") {
+        if ($this->kiCadEDASettings->exportKicostFields && $part->getManufacturerProductNumber() !== "") {
             $result['fields']['manf#'] = $this->createField($part->getManufacturerProductNumber());
         }
 
@@ -282,7 +291,8 @@ final readonly class KiCadHelper
         // If any orderdetail has eda_visibility explicitly set to true, only export those;
         // otherwise export all (backward compat when no flags are set)
         $allOrderdetails = $part->getOrderdetails(false);
-        if ($allOrderdetails->count() > 0) {
+        if (($this->kiCadEDASettings->exportSupplierFields || $this->kiCadEDASettings->exportKicostFields)
+            && $allOrderdetails->count() > 0) {
             $hasExplicitEdaVisibility = false;
             foreach ($allOrderdetails as $od) {
                 if ($od->isEdaVisibility() !== null) {
@@ -312,30 +322,36 @@ final readonly class KiCadHelper
                         ? $supplierName . ' ' . $supplierCounts[$supplierName]
                         : $supplierName;
 
-                    $result["fields"][$fieldName] = $this->createField($orderdetail->getSupplierPartNr());
+                    if ($this->kiCadEDASettings->exportSupplierFields) {
+                        $result["fields"][$fieldName] = $this->createField($orderdetail->getSupplierPartNr());
+                    }
 
                     //Also add a KiCost-compatible field (supplier_name# = SPN)
-                    $kicostFieldName = mb_strtolower($orderdetail->getSupplier()->getName()) . '#';
-                    $result["fields"][$kicostFieldName] = $this->createField($orderdetail->getSupplierPartNr());
+                    if ($this->kiCadEDASettings->exportKicostFields) {
+                        $kicostFieldName = mb_strtolower($orderdetail->getSupplier()->getName()) . '#';
+                        $result["fields"][$kicostFieldName] = $this->createField($orderdetail->getSupplierPartNr());
+                    }
                 }
             }
         }
 
         //Add stock quantity and storage locations (only count non-expired lots with known quantity)
-        $totalStock = 0;
-        $locations = [];
-        foreach ($part->getPartLots() as $lot) {
-            $isAvailable = !$lot->isInstockUnknown() && $lot->isExpired() !== true;
-            if ($isAvailable) {
-                $totalStock += $lot->getAmount();
-                if ($lot->getAmount() > 0 && $lot->getStorageLocation() !== null) {
-                    $locations[] = $lot->getStorageLocation()->getName();
+        if ($this->kiCadEDASettings->exportStockFields) {
+            $totalStock = 0;
+            $locations = [];
+            foreach ($part->getPartLots() as $lot) {
+                $isAvailable = !$lot->isInstockUnknown() && $lot->isExpired() !== true;
+                if ($isAvailable) {
+                    $totalStock += $lot->getAmount();
+                    if ($lot->getAmount() > 0 && $lot->getStorageLocation() !== null) {
+                        $locations[] = $lot->getStorageLocation()->getName();
+                    }
                 }
             }
-        }
-        $result['fields']['Stock'] = $this->createField($totalStock);
-        if ($locations !== []) {
-            $result['fields']['Storage Location'] = $this->createField(implode(', ', array_unique($locations)));
+            $result['fields']['Stock'] = $this->createField($totalStock);
+            if ($locations !== []) {
+                $result['fields']['Storage Location'] = $this->createField(implode(', ', array_unique($locations)));
+            }
         }
 
         //Add parameters marked for EDA export (explicit true, or system default when null)
@@ -349,6 +365,97 @@ final readonly class KiCadHelper
                     $symbolVisibility = $parameter->isEdaSymbolVisibility() ?? $this->kiCadEDASettings->defaultParameterSymbolVisibility;
                     $result['fields'][$fieldName] = $this->createField($parameter->getFormattedValue(), $symbolVisibility);
                 }
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Fingerprint of every setting that changes the content of a serialized part.
+     */
+    private function edaSettingsFingerprint(): string
+    {
+        return hash("xxh3", json_encode([
+            $this->datasheetAsPdf,
+            $this->kiCadEDASettings->defaultOrderdetailsVisibility,
+            $this->kiCadEDASettings->defaultParameterVisibility,
+            $this->kiCadEDASettings->defaultParameterSymbolVisibility,
+            $this->kiCadEDASettings->exportStockFields,
+            $this->kiCadEDASettings->exportSupplierFields,
+            $this->kiCadEDASettings->exportKicostFields,
+            $this->kiCadEDASettings->exportPartInfoFields,
+            $this->kiCadEDASettings->exportTagsAsKeywords,
+        ], JSON_THROW_ON_ERROR));
+    }
+
+    /**
+     * Resolve the reference prefix for the given part.
+     *
+     * A part without its own reference prefix inherits the prefix of the closest category
+     * ancestor that defines one (a category tree can be several levels deep, see issue #1535).
+     * If neither the part nor any category ancestor defines a prefix, 'U' is used as fallback.
+     *
+     * @param  Part  $part The part for which to resolve the reference prefix.
+     * @param  array  $cache Reference prefix cache (keyed by category ID) to avoid repeated
+     *                       ancestor lookups for the same category across parts of a request.
+     */
+    private function getReferencePrefix(Part $part, array &$cache = []): string
+    {
+        $prefix = $part->getEdaInfo()->getReferencePrefix();
+        if ($prefix !== null && $prefix !== '') {
+            return $prefix;
+        }
+
+        $category = $part->getCategory();
+        if ($category === null) {
+            return 'U';
+        }
+
+        return $this->resolveCategoryReferencePrefix($category, $cache);
+    }
+
+    /**
+     * Resolves the effective reference prefix of a category: the prefix of the closest ancestor
+     * (including the category itself) that defines one, or 'U' as fallback.
+     *
+     * Every category visited while walking up the tree is memoized in $cache, so subsequent calls
+     * for the same category, or for any of its descendants seen earlier in the same request, are
+     * resolved in O(1) instead of re-walking the ancestor chain.
+     *
+     * @param  array  $cache Reference prefix cache (keyed by category ID), shared across calls.
+     */
+    private function resolveCategoryReferencePrefix(Category $category, array &$cache): string
+    {
+        $visited = [];
+        $current = $category;
+        $depth = 0;
+        $result = 'U';
+
+        while ($current !== null && $depth < 20) {
+            $id = $current->getId();
+            if ($id !== null && isset($cache[$id])) {
+                $result = $cache[$id];
+                break;
+            }
+
+            $visited[] = $current;
+
+            $prefix = $current->getEdaInfo()->getReferencePrefix();
+            if ($prefix !== null && $prefix !== '') {
+                $result = $prefix;
+                break;
+            }
+
+            $current = $current->getParent();
+            ++$depth;
+        }
+
+        //Cache the resolved prefix for every category on the walked path, not just the starting one.
+        foreach ($visited as $visitedCategory) {
+            $id = $visitedCategory->getId();
+            if ($id !== null) {
+                $cache[$id] = $result;
             }
         }
 

@@ -1,0 +1,153 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ attachment.name }} - {% trans %}attachment.3d_viewer.title{% endtrans %}{% endblock %}
+
+{% block content %}
+    <div class="card mt-2 mb-3" {{ stimulus_controller('elements/model_viewer', {
+        url: path('attachment_view', {id: attachment.id}),
+        extension: attachment.extension,
+        filename: attachment.filename ?? attachment.name
+    }) }}>
+        <div class="card-header d-flex flex-wrap align-items-center gap-2">
+            <h5 class="mb-0 me-auto text-truncate">
+                <i class="fa-solid fa-cube fa-fw"></i>
+                {{ attachment.name }}
+                {% if attachment.filename %}
+                    <small class="text-muted">({{ attachment.filename }})</small>
+                {% endif %}
+                <small>
+                    <span class="badge text-bg-secondary badge-sm" title="{{ type_label(attachment.attachmentType) }}">
+                        <i class="fas fa-file-alt fa-fw"></i> {{ attachment.attachmentType.name }}
+                    </span>
+                </small>
+            </h5>
+
+            {% if attachment.element is not null and is_granted('read', attachment.element) %}
+                <a href="{{ entity_url(attachment.element, 'info') }}" class="btn btn-sm btn-outline-secondary">
+                    <i class="fa-solid fa-arrow-left fa-fw"></i>
+                    {{ attachment.element.name }}
+                </a>
+            {% endif %}
+
+            <a href="{{ entity_url(attachment, 'file_download') }}" data-turbo="false"
+               class="btn btn-sm btn-outline-secondary" title="{% trans %}attachment.download_local{% endtrans %}">
+                <i class="fa-solid fa-download fa-fw"></i>
+            </a>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="model-viewer" {{ stimulus_target('elements/model_viewer', 'container') }}>
+                <div class="model-viewer-overlay" {{ stimulus_target('elements/model_viewer', 'status') }}>
+                    <div class="spinner-border text-secondary" role="status"></div>
+                    <div class="mt-2">{% trans %}attachment.3d_viewer.loading{% endtrans %}</div>
+                </div>
+
+                <div class="model-viewer-views btn-group btn-group-sm shadow-sm"
+                     role="group" aria-label="{% trans %}attachment.3d_viewer.view.label{% endtrans %}">
+                    {# The controller marks the clicked button active itself, so the view name only needs to be an action parameter #}
+                    {% for view in ['isometric', 'front', 'back', 'left', 'right', 'top', 'bottom'] %}
+                        <button type="button" class="btn"
+                                {{ stimulus_action('elements/model_viewer', 'setView', 'click', {view: view}) }}
+                                {{ stimulus_target('elements/model_viewer', 'viewButton') }}>
+                            {{ ('attachment.3d_viewer.view.' ~ view)|trans }}
+                        </button>
+                    {% endfor %}
+                </div>
+
+                <div class="model-viewer-toolbar btn-group-vertical shadow-sm">
+                    <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.reset_view{% endtrans %}"
+                            {{ stimulus_action('elements/model_viewer', 'resetView') }}>
+                        <i class="fa-solid fa-expand fa-fw"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.toggle_wireframe{% endtrans %}"
+                            {{ stimulus_action('elements/model_viewer', 'toggleWireframe') }}>
+                        <i class="fa-solid fa-draw-polygon fa-fw"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.toggle_grid{% endtrans %}"
+                            {{ stimulus_action('elements/model_viewer', 'toggleGrid') }}>
+                        <i class="fa-solid fa-border-all fa-fw"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm" aria-pressed="false"
+                            title="{% trans %}attachment.3d_viewer.measure{% endtrans %}"
+                            {{ stimulus_action('elements/model_viewer', 'toggleMeasure') }}
+                            {{ stimulus_target('elements/model_viewer', 'measureButton') }}>
+                        <i class="fa-solid fa-ruler fa-fw"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.measure.clear{% endtrans %}"
+                            {{ stimulus_action('elements/model_viewer', 'clearMeasurement') }}>
+                        <i class="fa-solid fa-eraser fa-fw"></i>
+                    </button>
+                    {# Revealed by the controller only when the model actually has several components #}
+                    <button type="button" class="btn btn-sm d-none" aria-pressed="false"
+                            title="{% trans %}attachment.3d_viewer.parts{% endtrans %}"
+                            {{ stimulus_action('elements/model_viewer', 'togglePartList') }}
+                            {{ stimulus_target('elements/model_viewer', 'partsButton') }}>
+                        <i class="fa-solid fa-layer-group fa-fw"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.screenshot{% endtrans %}"
+                            {{ stimulus_action('elements/model_viewer', 'downloadScreenshot') }}>
+                        <i class="fa-solid fa-camera fa-fw"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.metadata{% endtrans %}"
+                            data-bs-toggle="modal" data-bs-target="#model-metadata-modal">
+                        <i class="fa-solid fa-circle-info fa-fw"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm" title="{% trans %}attachment.3d_viewer.fullscreen{% endtrans %}"
+                            {{ stimulus_action('elements/model_viewer', 'toggleFullscreen') }}>
+                        <i class="fa-solid fa-up-right-and-down-left-from-center fa-fw"></i>
+                    </button>
+                </div>
+
+                <div class="model-viewer-parts card shadow-sm d-none" {{ stimulus_target('elements/model_viewer', 'parts') }}>
+                    <div class="card-header d-flex align-items-center gap-2 py-1 px-2">
+                        <span class="small fw-semibold me-auto">{% trans %}attachment.3d_viewer.parts{% endtrans %}</span>
+                        <button type="button" class="btn btn-sm btn-link p-0 small text-decoration-none"
+                                {{ stimulus_action('elements/model_viewer', 'showAllParts') }}>
+                            {% trans %}attachment.3d_viewer.parts.show_all{% endtrans %}
+                        </button>
+                        <button type="button" class="btn btn-sm btn-link p-0 small text-decoration-none"
+                                {{ stimulus_action('elements/model_viewer', 'hideAllParts') }}>
+                            {% trans %}attachment.3d_viewer.parts.hide_all{% endtrans %}
+                        </button>
+                    </div>
+                    <div class="card-body p-2" {{ stimulus_target('elements/model_viewer', 'partList') }}></div>
+                </div>
+
+                {# Floats over the midpoint of the measured line, the controller keeps it positioned #}
+                <div class="model-viewer-measurement badge text-bg-danger d-none"
+                     {{ stimulus_target('elements/model_viewer', 'measurement') }}></div>
+
+                <div class="model-viewer-info badge text-bg-dark d-none" {{ stimulus_target('elements/model_viewer', 'info') }}></div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="model-metadata-modal" tabindex="-1" aria-hidden="true"
+             aria-labelledby="model-metadata-modal-title">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="model-metadata-modal-title">
+                            <i class="fa-solid fa-circle-info fa-fw"></i>
+                            {% trans %}attachment.3d_viewer.metadata{% endtrans %}
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="{% trans %}modal.close{% endtrans %}"></button>
+                    </div>
+                    <div class="modal-body">
+                        {# Filled in by the controller once the model has been read #}
+                        <table class="table table-sm table-striped mb-0">
+                            <tbody {{ stimulus_target('elements/model_viewer', 'metadata') }}></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer text-muted small">
+            <i class="fa-solid fa-circle-info fa-fw"></i> {% trans %}attachment.3d_viewer.controls_hint{% endtrans %}
+            <span class="d-none" {{ stimulus_target('elements/model_viewer', 'measureHint') }}>
+                <br><i class="fa-solid fa-ruler fa-fw"></i> {% trans %}attachment.3d_viewer.measure.hint{% endtrans %}
+            </span>
+        </div>
+    </div>
+{% endblock %}

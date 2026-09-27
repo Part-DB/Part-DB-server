@@ -17,7 +17,6 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import {Controller} from "@hotwired/stimulus";
 import {default as TreeController} from "./tree_controller";
 import {EVENT_INITIALIZED} from "@jbtronics/bs-treeview";
 

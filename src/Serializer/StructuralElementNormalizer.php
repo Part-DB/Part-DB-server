@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace App\Serializer;
 
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Serializer\APIPlatform\SkippableItemNormalizer;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -31,6 +31,8 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 /**
  * @see \App\Tests\Serializer\StructuralElementNormalizerTest
  */
+// '*' makes this available to every named serializer (default, import_export, ...), not just the default one.
+#[AutoconfigureTag('serializer.normalizer', ['serializer' => ['*']])]
 class StructuralElementNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
@@ -60,7 +62,6 @@ class StructuralElementNormalizer implements NormalizerInterface, NormalizerAwar
 
         //Avoid infinite recursion by checking if we already handled this object
         $context[self::ALREADY_CALLED] = $context[self::ALREADY_CALLED] ?? [];
-        $context[SkippableItemNormalizer::DISABLE_ITEM_NORMALIZER] = true;
         $context[self::ALREADY_CALLED][] = $object;
 
         $data = $this->normalizer->normalize($object, $format, $context);

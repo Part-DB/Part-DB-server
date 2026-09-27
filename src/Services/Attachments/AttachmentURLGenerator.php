@@ -103,6 +103,11 @@ class AttachmentURLGenerator
             return $this->urlGenerator->generate('attachment_html_sandbox', ['id' => $attachment->getID()]);
         }
 
+        //3D models can not be displayed by the browser itself, so serve the interactive viewer instead
+        if ($attachment->is3DModel()) {
+            return $this->urlGenerator->generate('attachment_3d_viewer', ['id' => $attachment->getID()]);
+        }
+
         $asset_path = $this->absolutePathToAssetPath($absolute_path);
         //If path is not relative to public path or marked as secure, serve it via controller
         if (null === $asset_path || $attachment->isSecure()) {

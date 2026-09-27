@@ -1,4 +1,4 @@
-oauth2_server:
+league_oauth2_server:
     resource: '@LeagueOAuth2ServerBundle/config/routes.php'
     type: php
     # Grouped under /oauth alongside the other OAuth2 server endpoints (client registration at

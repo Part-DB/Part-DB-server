@@ -48,26 +48,75 @@ class BuiltinAttachmentsFinder
      */
     public function getListOfFootprintsGroupedByFolder(): array
     {
-        $finder = new Finder();
-        //We search only files
-        $finder->files();
-        $finder->in($this->pathResolver->getFootprintsPath());
+        try {
+            return $this->cache->get('attachment_builtin_footprints_grouped', function () {
+                $finder = new Finder();
+                //We search only files
+                $finder->files();
+                $finder->in($this->pathResolver->getFootprintsPath());
+                //Ensure a stable order, independent of the filesystem
+                $finder->sortByName(true);
 
-        $output = [];
+                $output = [];
 
-        foreach($finder as $file) {
-            $folder = $file->getRelativePath();
-            //Normalize path (replace \ with /)
-            $folder = str_replace('\\', '/', (string) $folder);
+                foreach ($finder as $file) {
+                    $folder = $file->getRelativePath();
+                    //Normalize path (replace \ with /)
+                    $folder = str_replace('\\', '/', (string) $folder);
 
-            if(!isset($output[$folder])) {
-                $output[$folder] = [];
+                    if (!isset($output[$folder])) {
+                        $output[$folder] = [];
+                    }
+                    //Add file to group
+                    $output[$folder][] = $this->pathResolver->realPathToPlaceholder($file->getPathname());
+                }
+
+                return $output;
+            });
+        } catch (InvalidArgumentException) {
+            return [];
+        }
+    }
+
+    /**
+     * Converts the output of getListOfFootprintsGroupedByFolder() into a nested folder tree.
+     * Each node has the form ['name' => 'SMD', 'path' => 'Passive/Resistors/SMD', 'count' => 12, 'children' => [...]],
+     * where count is the number of files in this folder and all its subfolders.
+     * @param  array<string, string[]>  $grouped
+     * @return array<int, array{name: string, path: string, count: int, children: array}>
+     */
+    public function buildFolderTree(array $grouped): array
+    {
+        //Number of files per folder (including subfolders) and the direct subfolders of each folder, both keyed by path
+        $counts = [];
+        $children = [];
+
+        foreach ($grouped as $folder => $files) {
+            $parent = '';
+            foreach (explode('/', (string) $folder) as $part) {
+                if ($part === '') {
+                    continue;
+                }
+                $path = $parent === '' ? $part : $parent.'/'.$part;
+                if (!isset($counts[$path])) {
+                    $counts[$path] = 0;
+                    $children[$parent][] = $path;
+                }
+                $counts[$path] += count($files);
+                $parent = $path;
             }
-            //Add file to group
-            $output[$folder][] = $this->pathResolver->realPathToPlaceholder($file->getPathname());
         }
 
-        return $output;
+        $build = static function (string $parent) use (&$build, $counts, $children): array {
+            return array_map(static fn(string $path): array => [
+                'name' => basename($path),
+                'path' => $path,
+                'count' => $counts[$path],
+                'children' => $build($path),
+            ], $children[$parent] ?? []);
+        };
+
+        return $build('');
     }
 
     /**

@@ -25,14 +25,12 @@ namespace App\Entity\Attachments;
 use App\Entity\Parts\Category;
 use App\Serializer\APIPlatform\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Context;
 
 /**
  * An attachment attached to a category element.
  * @extends Attachment<Category>
  */
-#[UniqueEntity(['name', 'attachment_type', 'element'])]
 #[ORM\Entity]
 class CategoryAttachment extends Attachment
 {

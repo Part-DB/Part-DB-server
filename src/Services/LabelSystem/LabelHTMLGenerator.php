@@ -73,7 +73,7 @@ final readonly class LabelHTMLGenerator
         $twig_elements = [];
 
         if (LabelProcessMode::TWIG === $options->getProcessMode()) {
-            $sandboxed_twig = $this->sandboxedTwigProvider->createTwig($options);
+            $sandboxed_twig = $this->sandboxedTwigProvider->createSandbox($options);
             $current_user = $this->security->getUser();
         }
 

@@ -41,7 +41,7 @@ final class DTOJsonSchemaConverter
      */
     public function getJSONSchema(): array
     {
-        return [
+        $schema = [
             'name' => 'part_detail',
             'strict' => true,
             'schema' => [
@@ -127,6 +127,39 @@ final class DTOJsonSchemaConverter
                 'required' => ['name', 'description'],
             ]
         ];
+
+        //The schema is written out above for readability; the rules of the strict mode are applied here, so
+        //that they cannot be forgotten when a property is added later
+        $schema['schema'] = $this->applyStrictModeRules($schema['schema']);
+
+        return $schema;
+    }
+
+    /**
+     * Applies the two rules a schema has to follow to be accepted in strict mode.
+     *
+     * Providers of the OpenAI family reject a strict schema unless every object forbids additional properties
+     * and lists all of its properties as required - an optional value is expressed by allowing null in its type
+     * instead, which is what the schema above already does. Without this the whole extraction fails with
+     * "Invalid schema for response_format", and through a gateway that arrives as an unspecific
+     * "Provider returned error".
+     *
+     * @param  array<string, mixed>  $schema
+     * @return array<string, mixed>
+     */
+    private function applyStrictModeRules(array $schema): array
+    {
+        if (($schema['type'] ?? null) === 'object' && isset($schema['properties']) && is_array($schema['properties'])) {
+            $schema['properties'] = array_map($this->applyStrictModeRules(...), $schema['properties']);
+            $schema['additionalProperties'] = false;
+            $schema['required'] = array_keys($schema['properties']);
+        }
+
+        if (isset($schema['items']) && is_array($schema['items'])) {
+            $schema['items'] = $this->applyStrictModeRules($schema['items']);
+        }
+
+        return $schema;
     }
 
     public function jsonToDTO(array $data, string $providerKey, string $providerId, ?string $productUrl = null, string $distributorNameFallback = '???'): PartDetailDTO

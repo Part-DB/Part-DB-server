@@ -30,6 +30,7 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
+use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Settings\InfoProviderSystem\TrustedPartsSettings;
 use Psr\Cache\CacheItemPoolInterface;
 use Shivas\VersioningBundle\Service\VersionManagerInterface;
@@ -86,6 +87,7 @@ class TrustedPartsProvider implements BatchInfoProviderInterface
                 ProviderCapabilities::PRICE,
                 ProviderCapabilities::FOOTPRINT,
                 ProviderCapabilities::PARAMETERS,
+                ProviderCapabilities::STOCK_LEVEL,
             ],
         );
     }
@@ -315,8 +317,13 @@ class TrustedPartsProvider implements BatchInfoProviderInterface
                     if (strcasecmp((string) ($link['Type'] ?? ''), 'Datasheet') === 0) {
                         //Every distributor links its own copy of the datasheet, so we name them after the
                         //distributor. The URL is used as key to filter out duplicates.
+                        //These are tracking redirects on trustedparts.com itself, not a link to the actual file:
+                        //they only resolve for an actual browser and 403 for anything else (and the API terms of use
+                        //prohibit scraping/downloading from the TrustedParts site anyway), so a local copy can never
+                        //be downloaded.
                         $datasheets[$url] = new FileDTO($url,
-                            $distributor_name === '' ? 'Datasheet' : 'Datasheet ('.$distributor_name.')');
+                            $distributor_name === '' ? 'Datasheet' : 'Datasheet ('.$distributor_name.')',
+                            downloadable: false);
                     } elseif ($product_url === null) {
                         //The link to the offer is either of type "Buy" (orderable) or "View"
                         $product_url = $url;
@@ -348,12 +355,16 @@ class TrustedPartsProvider implements BatchInfoProviderInterface
                     $order_number = $mpn;
                 }
 
+                //QuantityOnHand is null if the distributor does not disclose the exact number
+                $available_amount = $offer['Stock']['QuantityOnHand'] ?? null;
+
                 $orderinfos[] = new PurchaseInfoDTO(
                     distributor_name: $distributor_name,
                     order_number: $order_number,
                     prices: $prices,
                     product_url: $product_url,
                     prices_include_vat: false,
+                    available_amount: $available_amount !== null ? (float) $available_amount : null,
                 );
             }
         }
@@ -436,6 +447,6 @@ class TrustedPartsProvider implements BatchInfoProviderInterface
     private function cacheKey(string $id): string
     {
         //The IDs contain characters which are not allowed in cache keys, so we hash them
-        return 'trustedparts_part_'.hash('xxh3', $id);
+        return 'trustedparts_part_'.PartInfoRetriever::DTO_CACHE_VERSION.'_'.hash('xxh3', $id);
     }
 }

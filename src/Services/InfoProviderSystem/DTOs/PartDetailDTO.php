@@ -102,4 +102,22 @@ class PartDetailDTO extends SearchResultDTO
             gtin: $gtin
         );
     }
+
+    /**
+     * Returns the URLs of all files of this part which are known to not be downloadable by the server
+     * (see FileDTO::$downloadable), so the part form can avoid pre-selecting them for download.
+     * @return string[]
+     */
+    public function getNonDownloadableFileUrls(): array
+    {
+        $urls = [];
+
+        foreach ([...($this->datasheets ?? []), ...($this->images ?? [])] as $file) {
+            if ($file instanceof FileDTO && !$file->downloadable) {
+                $urls[] = $file->url;
+            }
+        }
+
+        return array_values(array_unique($urls));
+    }
 }

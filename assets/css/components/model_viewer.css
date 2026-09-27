@@ -1,0 +1,119 @@
+.model-viewer {
+    position: relative;
+    width: 100%;
+    height: min(70vh, 800px);
+    min-height: 300px;
+    background-color: var(--bs-tertiary-bg);
+    overflow: hidden;
+}
+
+.model-viewer:fullscreen {
+    height: 100%;
+    max-height: none;
+}
+
+.model-viewer canvas {
+    display: block;
+    /* The canvas is sized by the renderer, touch-action prevents the browser from scrolling
+       the page while the user orbits the model on a touch device */
+    touch-action: none;
+}
+
+.model-viewer-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .25rem;
+    padding: 1rem;
+    text-align: center;
+    background-color: var(--bs-tertiary-bg);
+}
+
+.model-viewer-toolbar {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    /* Below the overlay, so the controls stay covered while the model is still loading or failed */
+    z-index: 1;
+}
+
+.model-viewer-views {
+    position: absolute;
+    top: .5rem;
+    left: .5rem;
+    z-index: 1;
+    /* Wrap instead of disappearing under the toolbar on a narrow viewport */
+    flex-wrap: wrap;
+    max-width: calc(100% - 4rem);
+}
+
+.model-viewer-views > .btn {
+    /* Do not stretch the buttons of a wrapped row, but let them shrink so the group still fits */
+    flex: 0 1 auto;
+}
+
+.model-viewer-parts {
+    position: absolute;
+    /* Below the standard view buttons, which sit in the same corner */
+    top: 3rem;
+    left: .5rem;
+    z-index: 1;
+    width: 15rem;
+    max-width: calc(100% - 4rem);
+    /* A big assembly can have a lot of components, so the list scrolls inside the canvas */
+    max-height: calc(100% - 4rem);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.model-viewer-parts .form-check-label {
+    /* Long component names are common in CAD exports; ellipsise them rather than widening the panel
+       (the full name is on the title attribute) */
+    display: block;
+    max-width: 100%;
+}
+
+.model-viewer-measurement {
+    position: absolute;
+    z-index: 1;
+    /* The controller positions this on the middle of the measured line, these keep it centred there */
+    transform: translate(-50%, -50%);
+    /* Never swallow a click meant for the model below it */
+    pointer-events: none;
+    font-weight: normal;
+}
+
+.model-viewer-info {
+    position: absolute;
+    bottom: .5rem;
+    left: .5rem;
+    z-index: 1;
+    font-weight: normal;
+    opacity: .85;
+    /* Inverted against the page, so it stays readable on the canvas in both light and dark mode */
+    background-color: var(--bs-emphasis-color);
+    color: var(--bs-body-bg);
+}
+
+/*
+ * The floating controls sit on the canvas rather than on the page, so they cannot use a fixed button
+ * variant - .btn-light would stay white in dark mode. Bootstrap builds its buttons entirely out of these
+ * custom properties, so pointing them at the theme's own colours makes the buttons follow the active
+ * theme and light/dark mode on their own.
+ */
+.model-viewer-views .btn,
+.model-viewer-toolbar .btn {
+    --bs-btn-color: var(--bs-body-color);
+    --bs-btn-bg: var(--bs-body-bg);
+    --bs-btn-border-color: var(--bs-border-color);
+    --bs-btn-hover-color: var(--bs-emphasis-color);
+    --bs-btn-hover-bg: var(--bs-secondary-bg);
+    --bs-btn-hover-border-color: var(--bs-border-color);
+    --bs-btn-active-color: var(--bs-body-bg);
+    --bs-btn-active-bg: var(--bs-emphasis-color);
+    --bs-btn-active-border-color: var(--bs-emphasis-color);
+}

@@ -40,7 +40,8 @@ final class StructuralElementDenormalizerTest extends WebTestCase
         $this->service = self::getContainer()->get(StructuralElementDenormalizer::class);
 
         //We need to inject the serializer into the normalizer, as we use it directly
-        $serializer = self::getContainer()->get('serializer');
+        //Use the "import_export" named serializer, as this is what is actually used in production (see EntityImporter)
+        $serializer = self::getContainer()->get('serializer.import_export');
         $this->service->setDenormalizer($serializer);
     }
 

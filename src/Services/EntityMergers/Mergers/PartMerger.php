@@ -212,6 +212,15 @@ class PartMerger implements EntityMergerInterface
                 if (empty($t->getSupplierProductUrl(false)) && !empty($o->getSupplierProductUrl(false))) {
                     $t->setSupplierProductUrl($o->getSupplierProductUrl(false));
                 }
+                // The available amount is volatile information, so unlike the other fields the newer value wins here.
+                // A value of null means that the stock is unknown, which must not overwrite a known one, and an
+                // older value (e.g. from a part which has not been updated for a while) must not overwrite a newer one.
+                $other_stock_time = $o->getAvailableAmountUpdatedAt();
+                $target_stock_time = $t->getAvailableAmountUpdatedAt();
+                if ($o->getAvailableAmount() !== null && $other_stock_time !== null
+                    && ($target_stock_time === null || $other_stock_time >= $target_stock_time)) {
+                    $t->setAvailableAmount($o->getAvailableAmount(), $other_stock_time);
+                }
                 // Merge price details: add new ones, update empty ones, keep existing non-empty ones
                 foreach ($o->getPricedetails() as $otherPrice) {
                     $found = false;

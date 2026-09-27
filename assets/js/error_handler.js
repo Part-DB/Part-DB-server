@@ -34,7 +34,9 @@ class ErrorHandlerHelper {
         content.addEventListener('turbo:fetch-request-error', (event) => this.handleError(event));
         content.addEventListener('turbo:frame-missing', (event) => this.handleError(event));
 
-        $(document).ajaxError(this.handleJqueryErrror.bind(this));
+        //Fired by our DataTables loader (js/lib/datatables.js) when a fetch request fails,
+        //replacing the global jQuery `ajaxError` hook that used to cover these requests.
+        document.addEventListener('dt:ajaxError', this.handleDataTablesAjaxError.bind(this));
     }
 
     _showAlert(statusText, statusCode, location, responseHTML)
@@ -132,14 +134,16 @@ class ErrorHandlerHelper {
         });
     }
 
-    handleJqueryErrror(event, jqXHR, ajaxSettings, thrownError)
+    handleDataTablesAjaxError(event)
     {
+        const {status, statusText, url, responseText} = event.detail;
+
         //Ignore status 422 as this means a symfony validation error occured and we need to show it to user. This is no (unexpected) error.
-        if (jqXHR.status === 422) {
+        if (status === 422) {
             return;
         }
 
-        this._showAlert(jqXHR.statusText, jqXHR.status, ajaxSettings.url, jqXHR.responseText);
+        this._showAlert(statusText, status, url, responseText);
     }
 
     handleError(event) {

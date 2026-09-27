@@ -77,6 +77,27 @@ class AttachmentFileController extends AbstractController
     }
 
     /**
+     * Show the attachment in an interactive 3D model viewer.
+     */
+    #[Route(path: '/attachment/{id}/3d', name: 'attachment_3d_viewer')]
+    public function modelViewer(Attachment $attachment): Response
+    {
+        $this->checkPermissions($attachment);
+
+        if (!$attachment->hasInternal()) {
+            throw $this->createNotFoundException('The file for this attachment is external and not stored locally!');
+        }
+
+        if (!$attachment->is3DModel()) {
+            throw $this->createNotFoundException('The file associated with this attachment is not a supported 3D model!');
+        }
+
+        return $this->render('attachments/model_viewer.html.twig', [
+            'attachment' => $attachment,
+        ]);
+    }
+
+    /**
      * Download the selected attachment.
      */
     #[Route(path: '/attachment/{id}/download', name: 'attachment_download')]

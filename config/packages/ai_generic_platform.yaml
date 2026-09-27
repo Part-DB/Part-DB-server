@@ -1,5 +1,14 @@
+parameters:
+    app.ai_generic.default_completions_path: !php/const App\Settings\AISettings\GenericAISettings::DEFAULT_COMPLETIONS_PATH
+    app.ai_generic.default_embeddings_path: !php/const App\Settings\AISettings\GenericAISettings::DEFAULT_EMBEDDINGS_PATH
+
 ai:
     platform:
         generic:
             default:
-                base_url: '%env(GENERIC_BASE_URL)%'
+                base_url: '%env(string:settings:ai_generic:baseUrl)%'
+                api_key: '%env(string:settings:ai_generic:apiKey)%'
+                http_client: 'app.http_client.ai_generic'
+                # Fall back to the bridge's own defaults when the user leaves these settings empty
+                completions_path: '%env(default:app.ai_generic.default_completions_path:string:settings:ai_generic:completionsPath)%'
+                embeddings_path: '%env(default:app.ai_generic.default_embeddings_path:string:settings:ai_generic:embeddingsPath)%'

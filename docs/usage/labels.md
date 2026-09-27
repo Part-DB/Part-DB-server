@@ -250,6 +250,7 @@ certain data:
 | `associated_parts_count_r(element)`      | Get the count of associated parts of an element like a storagelocation, footprint, including all sub-entities recursively (e.g. sub-locations)              |
 | `type_label(element)`                     | Get the name of the type of an element (e.g. "Part", "Storage location", etc.)                                                                              |
 | `type_label_p(element)`                    | Get the name of the type of an element in plural form (e.g. "Parts", "Storage locations", etc.)                                                              |
+| `debug_vars()`                            | Debug helper: lists all variables currently available in the template (and their type), so you can drop `{% raw %}{{ debug_vars() }}{% endraw %}` anywhere in your template while writing it to see what you have access to |
 
 ### Filters
 

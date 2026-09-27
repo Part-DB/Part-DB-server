@@ -167,12 +167,12 @@
         "version": "4.8.2"
     },
     "league/oauth2-server-bundle": {
-        "version": "0.8",
+        "version": "1.2",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "0.4",
-            "ref": "7f26963037fce3b69c1b3f6a75a3265edb1e1caa"
+            "version": "1.2",
+            "ref": "374de24b3639ca6802e0b4f000fe2a56428f95a3"
         },
         "files": [
             "config/packages/league_oauth2_server.yaml",
@@ -551,7 +551,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "7.4",
-            "ref": "d5dcd308c8becd725c9d8b91e31aab1ff0bbc30b"
+            "ref": "5ea2ed9cd29ca8fc2cb9bca9cb7b7e0a8d2be1dc"
         },
         "files": [
             ".editorconfig",
@@ -611,12 +611,12 @@
         "version": "v4.4.2"
     },
     "symfony/monolog-bundle": {
-        "version": "3.11",
+        "version": "4.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "3.7",
-            "ref": "1b9efb10c54cb51c713a9391c9300ff8bceda459"
+            "ref": "feb8fd9520b5694c7d0d2ba17fd4b4d33f9dd9cf"
         },
         "files": [
             "config/packages/monolog.yaml"

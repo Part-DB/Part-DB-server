@@ -35,6 +35,15 @@
         <td>{{ default_theme | default('bootstrap') }}</td>
     </tr>
     <tr>
+        <td>Default URL (DEFAULT_URI)</td>
+        <td>
+            {{ default_uri }}
+            {% if default_uri_is_default_value %}
+                <i class="fas fa-exclamation-triangle text-warning fa-fw" title="{% trans %}This is still the default value. Please configure the DEFAULT_URI environment variable to the public URL of this Part-DB instance.{% endtrans %}"></i>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
         <td>Enabled locales</td>
         <td>{{ helper.array_to_tags(enabled_locales | map(l => "#{l|locale_name} (#{l})")) }}</td>
     </tr>

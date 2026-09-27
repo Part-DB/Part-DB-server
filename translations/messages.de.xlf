@@ -7490,6 +7490,30 @@ Element 1 -&gt; Element 1.2</target>
         <target>Diese Galerie listet alle mitgelieferten Footprint-Bilder auf. Wenn Sie diese in einem Anhang nutzen wollen, tippen Sie den Namen (oder ein Stichwort) in das URL-Feld des Anhangs ein und wählen Sie das gewünschte Bild aus dem Dropdown-Menü aus.</target>
       </segment>
     </unit>
+    <unit id="IJRWM97" name="tools.builtin_footprints_viewer.search.placeholder">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.search.placeholder</source>
+        <target>Nach Name oder Ordner filtern...</target>
+      </segment>
+    </unit>
+    <unit id="uaOZhii" name="tools.builtin_footprints_viewer.no_results">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.no_results</source>
+        <target>Keine Footprint-Bilder entsprechen dem Filter.</target>
+      </segment>
+    </unit>
+    <unit id="glVXV5q" name="tools.builtin_footprints_viewer.copy_path">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.copy_path</source>
+        <target>Pfad zur Verwendung in Anhängen kopieren</target>
+      </segment>
+    </unit>
+    <unit id="AI3UZiM" name="tools.builtin_footprints_viewer.folders">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.folders</source>
+        <target>Ordner</target>
+      </segment>
+    </unit>
     <unit id="EFtEJ2v" name="tools.ic_logos.title">
       <segment state="translated">
         <source>tools.ic_logos.title</source>
@@ -10287,6 +10311,66 @@ Bitte beachten Sie, dass Sie sich nicht als deaktivierter Benutzer ausgeben kön
       <segment state="translated">
         <source>settings.misc.kicad_eda.use_custom_list.help</source>
         <target>Wenn aktiviert, verwendet die KiCad Autovervollständigung public/kicad/footprints_custom.txt und public/kicad/symbols_custom.txt anstelle der automatisch generierten Standarddateien.</target>
+      </segment>
+    </unit>
+    <unit id="s_tUtUZ" name="settings.misc.kicad_eda.export_stock_fields">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_stock_fields</source>
+        <target>Lagerbestandsfelder exportieren (Bestand, Lagerort)</target>
+      </segment>
+    </unit>
+    <unit id="9QK.feT" name="settings.misc.kicad_eda.export_stock_fields.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_stock_fields.help</source>
+        <target>Wenn aktiviert, werden der aktuelle Bestand und die Lagerorte als Symbolfelder exportiert. Deaktivieren Sie dies, wenn Bestandsänderungen die KiCad-Symbole nicht verändern sollen (jede Änderung wird vom KiCad-ERC als Abweichung des Bibliothekssymbols gemeldet).</target>
+      </segment>
+    </unit>
+    <unit id="ZBpX8wi" name="settings.misc.kicad_eda.export_supplier_fields">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_supplier_fields</source>
+        <target>Lieferantenteilenummer-Felder exportieren</target>
+      </segment>
+    </unit>
+    <unit id="AK0phKm" name="settings.misc.kicad_eda.export_supplier_fields.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_supplier_fields.help</source>
+        <target>Wenn aktiviert, wird pro Bestelldetail ein Feld „&lt;Supplier&gt; SPN" exportiert.</target>
+      </segment>
+    </unit>
+    <unit id="q4m0AwA" name="settings.misc.kicad_eda.export_kicost_fields">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_kicost_fields</source>
+        <target>KiCost-Felder exportieren (manf, manf#, &lt;supplier&gt;#)</target>
+      </segment>
+    </unit>
+    <unit id="_i0zoJk" name="settings.misc.kicad_eda.export_kicost_fields.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_kicost_fields.help</source>
+        <target>Wenn aktiviert, werden KiCost-kompatible Kopien des Herstellers, der Herstellerteilenummer und der Lieferantenteilenummern exportiert.</target>
+      </segment>
+    </unit>
+    <unit id="AOHkfzZ" name="settings.misc.kicad_eda.export_part_info_fields">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_part_info_fields</source>
+        <target>Bauteilinfo-Felder exportieren (Kategorie, Fertigungsstatus, Masse, IPN, ...)</target>
+      </segment>
+    </unit>
+    <unit id="SVVQZQJ" name="settings.misc.kicad_eda.export_part_info_fields.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_part_info_fields.help</source>
+        <target>Wenn aktiviert, werden die Felder Kategorie, Fertigungsstatus, Masse, Part-DB-IPN, Part-DB-Footprint, Part-DB-Einheit und Part-DB-Benutzerdefinierter Status exportiert.</target>
+      </segment>
+    </unit>
+    <unit id="Gzbk.xN" name="settings.misc.kicad_eda.export_tags_as_keywords">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_tags_as_keywords</source>
+        <target>Tags als Schlagwörter exportieren</target>
+      </segment>
+    </unit>
+    <unit id="wuq6li_" name="settings.misc.kicad_eda.export_tags_as_keywords.help">
+      <segment state="translated">
+        <source>settings.misc.kicad_eda.export_tags_as_keywords.help</source>
+        <target>Wenn aktiviert, werden die Bauteil-Tags als KiCad-Symbol-Schlagwörter exportiert. Deaktivieren Sie dies, wenn Tag-Änderungen die KiCad-Symbole nicht verändern sollen.</target>
       </segment>
     </unit>
     <unit id="TfJvNLm" name="settings.misc.kicad_eda.editor.custom_footprints">
@@ -13962,72 +14046,6 @@ Buerklin-API-Authentication-Server:
         <target>Wenn aktiviert, werden beim Erstellen eines Bauteils mehr Details von canopy abgerufen. Das verursacht eine zusätzliche API-Anfrage, liefert aber Produkt-Bulletpoints und Kategoriedaten.</target>
       </segment>
     </unit>
-    <unit id="KyC_YsX" name="settings.ips.trustedparts">
-      <segment state="translated">
-        <source>settings.ips.trustedparts</source>
-        <target>TrustedParts</target>
-      </segment>
-    </unit>
-    <unit id="iB2.9sg" name="settings.ips.trustedparts.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.help</source>
-        <target>TrustedParts.com ist eine von der ECIA betriebene Suchmaschine für Bauteile, die die Angebote autorisierter Distributoren zusammenfasst. Sie müssen Zugriff auf deren API beantragen, um diesen Anbieter nutzen zu können.</target>
-      </segment>
-    </unit>
-    <unit id="Mhe.lWu" name="settings.ips.trustedparts.companyId">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.companyId</source>
-        <target>Firmen-ID</target>
-      </segment>
-    </unit>
-    <unit id="DvzhYe1" name="settings.ips.trustedparts.companyId.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.companyId.help</source>
-        <target>Die Firmenkennung, die Ihrem TrustedParts.com-Konto zugewiesen wurde. Sie finden diese auf der API-Schlüssel-Seite Ihres Kontos.</target>
-      </segment>
-    </unit>
-    <unit id="AqF7ns9" name="settings.ips.trustedparts.apiKey.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.apiKey.help</source>
-        <target>Der API-Schlüssel, der Ihrem TrustedParts.com-Konto zugewiesen wurde. Sie finden diesen auf der API-Schlüssel-Seite Ihres Kontos.</target>
-      </segment>
-    </unit>
-    <unit id="Gh676P6" name="settings.ips.trustedparts.searchLimit">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.searchLimit</source>
-        <target>Suchlimit</target>
-      </segment>
-    </unit>
-    <unit id="R7oiMLD" name="settings.ips.trustedparts.searchLimit.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.searchLimit.help</source>
-        <target>Die maximale Anzahl an Ergebnissen, die für eine Stichwortsuche angezeigt werden.</target>
-      </segment>
-    </unit>
-    <unit id="DFkCu4n" name="settings.ips.trustedparts.inStockOnly">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.inStockOnly</source>
-        <target>Nur verfügbare Angebote</target>
-      </segment>
-    </unit>
-    <unit id="EF2mFRR" name="settings.ips.trustedparts.inStockOnly.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.inStockOnly.help</source>
-        <target>Wenn aktiviert, werden nur Angebote von Distributoren zurückgegeben, die das Bauteil derzeit auf Lager haben.</target>
-      </segment>
-    </unit>
-    <unit id="r4gkOcR" name="settings.ips.trustedparts.useCachedData">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.useCachedData</source>
-        <target>Zwischengespeicherte Daten verwenden</target>
-      </segment>
-    </unit>
-    <unit id="JNIu4bu" name="settings.ips.trustedparts.useCachedData.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.useCachedData.help</source>
-        <target>Wenn aktiviert, antwortet TrustedParts.com mit zwischengespeicherten Lager- und Preisdaten, anstatt die Distributoren in Echtzeit abzufragen. Dies ist schneller und zählt nicht gegen die Ratenlimits, allerdings können die Daten veraltet sein.</target>
-      </segment>
-    </unit>
     <unit id="D055xh8" name="attachment.sandbox.warning">
       <segment state="translated">
         <source>attachment.sandbox.warning</source>
@@ -14424,6 +14442,12 @@ Buerklin-API-Authentication-Server:
         <target>LMStudio</target>
       </segment>
     </unit>
+    <unit id="tWV0mhi" name="settings.ai.generic">
+      <segment state="translated">
+        <source>settings.ai.generic</source>
+        <target>Generisch (OpenAI kompatibel)</target>
+      </segment>
+    </unit>
     <unit id="foBzBG2" name="settings.ips.ai_extractor.model">
       <segment state="translated">
         <source>settings.ips.ai_extractor.model</source>
@@ -14566,6 +14590,48 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>settings.ai.ollama.apiKey</source>
         <target>API Key</target>
+      </segment>
+    </unit>
+    <unit id="gY_fVAC" name="settings.ai.generic.help">
+      <segment state="translated">
+        <source>settings.ai.generic.help</source>
+        <target>Verbindung zu einem beliebigen OpenAI-API-kompatiblen Endpunkt, z.B. einem selbstgehosteten LLM-Gateway/Proxy (wie LiteLLM oder vLLM) oder einem anderen Anbieter mit einer OpenAI-kompatiblen API.</target>
+      </segment>
+    </unit>
+    <unit id="znTTXBF" name="settings.ai.generic.baseUrl">
+      <segment state="translated">
+        <source>settings.ai.generic.baseUrl</source>
+        <target>Basis-URL</target>
+      </segment>
+    </unit>
+    <unit id="0PBFceB" name="settings.ai.generic.apiKey">
+      <segment state="translated">
+        <source>settings.ai.generic.apiKey</source>
+        <target>API Key</target>
+      </segment>
+    </unit>
+    <unit id="dMXkfW2" name="settings.ai.generic.completionsPath">
+      <segment state="translated">
+        <source>settings.ai.generic.completionsPath</source>
+        <target>Completions-Pfad</target>
+      </segment>
+    </unit>
+    <unit id="ns3mY1a" name="settings.ai.generic.completionsPath.help">
+      <segment state="translated">
+        <source>settings.ai.generic.completionsPath.help</source>
+        <target>Der Pfad des Chat-Completions-Endpunkts, relativ zur Basis-URL. Leer lassen, um den Standard "/v1/chat/completions" zu verwenden.</target>
+      </segment>
+    </unit>
+    <unit id="0p9nJMr" name="settings.ai.generic.embeddingsPath">
+      <segment state="translated">
+        <source>settings.ai.generic.embeddingsPath</source>
+        <target>Embeddings-Pfad</target>
+      </segment>
+    </unit>
+    <unit id="cA6Hiu5" name="settings.ai.generic.embeddingsPath.help">
+      <segment state="translated">
+        <source>settings.ai.generic.embeddingsPath.help</source>
+        <target>Der Pfad des Embeddings-Endpunkts, relativ zur Basis-URL. Leer lassen, um den Standard "/v1/embeddings" zu verwenden.</target>
       </segment>
     </unit>
     <unit id="VxXEQUD" name="settings.ai.timeout">
@@ -15172,6 +15238,306 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>project.bom_entry.edit.title</source>
         <target>BOM-Eintrag #%id% des Projekts bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="j2fYeQD" name="part_custom_state.color.label">
+      <segment state="translated">
+        <source>part_custom_state.color.label</source>
+        <target>Farbe</target>
+      </segment>
+    </unit>
+    <unit id="BQZ7r4Z" name="part_custom_state.color.help">
+      <segment state="translated">
+        <source>part_custom_state.color.help</source>
+        <target>Optionale semantische Farbe, mit der dieser benutzerdefinierte Status überall dort angezeigt wird, wo er als Badge erscheint (z. B. auf der Bauteil-Detailseite und in Bauteiltabellen). Ohne Farbe wird das bisherige Standarderscheinungsbild verwendet.</target>
+      </segment>
+    </unit>
+    <unit id="YIvmxWY" name="part_custom_state.color.primary">
+      <segment state="translated">
+        <source>part_custom_state.color.primary</source>
+        <target>Primär</target>
+      </segment>
+    </unit>
+    <unit id="wyIJyyZ" name="part_custom_state.color.secondary">
+      <segment state="translated">
+        <source>part_custom_state.color.secondary</source>
+        <target>Sekundär</target>
+      </segment>
+    </unit>
+    <unit id="D5LTi6M" name="part_custom_state.color.info">
+      <segment state="translated">
+        <source>part_custom_state.color.info</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="YPy4hrz" name="part_custom_state.color.success">
+      <segment state="translated">
+        <source>part_custom_state.color.success</source>
+        <target>Erfolg</target>
+      </segment>
+    </unit>
+    <unit id="rlX91yG" name="part_custom_state.color.warning">
+      <segment state="translated">
+        <source>part_custom_state.color.warning</source>
+        <target>Warnung</target>
+      </segment>
+    </unit>
+    <unit id="aDTRoCA" name="part_custom_state.color.danger">
+      <segment state="translated">
+        <source>part_custom_state.color.danger</source>
+        <target>Gefahr</target>
+      </segment>
+    </unit>
+    <unit id="NYr6Yel" name="part_custom_state.color.light">
+      <segment state="translated">
+        <source>part_custom_state.color.light</source>
+        <target>Hell</target>
+      </segment>
+    </unit>
+    <unit id="3JYrhXR" name="part_custom_state.color.dark">
+      <segment state="translated">
+        <source>part_custom_state.color.dark</source>
+        <target>Dunkel</target>
+      </segment>
+    </unit>
+    <unit id="OOY08s2" name="settings.ips.rate_limit_per_10s">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_10s</source>
+        <target>Max. Anfragen an Provider pro 10 Sekunden</target>
+      </segment>
+    </unit>
+    <unit id="RvmisL4" name="settings.ips.rate_limit_per_10s.help">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_10s.help</source>
+        <target>Part-DB sendet nie mehr als diese Anzahl an Anfragen innerhalb von 10 Sekunden an denselben Info-Provider und verzögert weitere Anfragen. Halten Sie diesen Wert unter dem Limit Ihres Provider-Kontos, insbesondere wenn ein externes Skript dieselben API-Zugangsdaten verwendet – der Provider zählt beide zusammen. Setzen Sie den Wert auf 0, um die Begrenzung zu deaktivieren.</target>
+      </segment>
+    </unit>
+    <unit id="7yMJvsZ" name="settings.ips.rate_limit_per_minute">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_minute</source>
+        <target>Max. Anfragen an Provider pro Minute</target>
+      </segment>
+    </unit>
+    <unit id="mdIG1__" name="settings.ips.rate_limit_per_minute.help">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_per_minute.help</source>
+        <target>Dasselbe, für ein Zeitfenster von einer Minute. Setzen Sie den Wert auf 0, um die Begrenzung zu deaktivieren.</target>
+      </segment>
+    </unit>
+    <unit id="dIENWAf" name="settings.ips.rate_limit_max_wait">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_max_wait</source>
+        <target>Max. Wartezeit auf einen freien Slot</target>
+      </segment>
+    </unit>
+    <unit id="fs4yEpG" name="settings.ips.rate_limit_max_wait.help">
+      <segment state="translated">
+        <source>settings.ips.rate_limit_max_wait.help</source>
+        <target>Wie lange eine einzelne Anfrage durch die obigen Begrenzungen verzögert werden darf, bevor sie stattdessen fehlschlägt, in Sekunden. Massenoperationen warten einfach; dies verhindert, dass eine über die Benutzeroberfläche gestartete Anfrage hängen bleibt.</target>
+      </segment>
+    </unit>
+    <unit id="4cBWYO6" name="part.refresh_from_info_provider.btn">
+      <segment state="translated">
+        <source>part.refresh_from_info_provider.btn</source>
+        <target>Von %provider% aktualisieren</target>
+      </segment>
+    </unit>
+    <unit id="0lJr81k" name="part.refresh_from_info_provider.last_updated">
+      <segment state="translated">
+        <source>part.refresh_from_info_provider.last_updated</source>
+        <target>Zuletzt vom Info-Provider aktualisiert: %datetime%</target>
+      </segment>
+    </unit>
+    <unit id="GxFIRWg" name="part_list.action.bulk_info_provider_refresh">
+      <segment state="translated">
+        <source>part_list.action.bulk_info_provider_refresh</source>
+        <target>Von Info-Providern aktualisieren</target>
+      </segment>
+    </unit>
+    <unit id="6Q8bhaD" name="info_providers.bulk_refresh.error.no_provider_reference">
+      <segment state="translated">
+        <source>info_providers.bulk_refresh.error.no_provider_reference</source>
+        <target>Dieses Bauteil wurde nicht von einem Info-Provider erstellt und kann daher nicht automatisch aktualisiert werden.</target>
+      </segment>
+    </unit>
+    <unit id="oJcitnK" name="info_providers.bulk_refresh.error.provider_unavailable">
+      <segment state="translated">
+        <source>info_providers.bulk_refresh.error.provider_unavailable</source>
+        <target>Der Info-Provider, mit dem dieses Bauteil erstellt wurde, ist nicht mehr verfügbar.</target>
+      </segment>
+    </unit>
+    <unit id="C_G6Ebd" name="part.supplier.available_amount">
+      <segment state="translated">
+        <source>part.supplier.available_amount</source>
+        <target>Verfügbar</target>
+      </segment>
+    </unit>
+    <unit id="t1bd9yr" name="part.supplier.available_amount.unknown">
+      <segment state="translated">
+        <source>part.supplier.available_amount.unknown</source>
+        <target>Unbekannt</target>
+      </segment>
+    </unit>
+    <unit id="O33qIEd" name="part.supplier.available_amount.out_of_stock">
+      <segment state="translated">
+        <source>part.supplier.available_amount.out_of_stock</source>
+        <target>Nicht auf Lager</target>
+      </segment>
+    </unit>
+    <unit id="m0QJNRv" name="part.supplier.available_amount.updated_at">
+      <segment state="translated">
+        <source>part.supplier.available_amount.updated_at</source>
+        <target>Bestand vom Info-Provider abgerufen am: %datetime%</target>
+      </segment>
+    </unit>
+    <unit id="NUw3e9D" name="part.table.supplier_available_amount">
+      <segment state="translated">
+        <source>part.table.supplier_available_amount</source>
+        <target>Verfügbar beim Lieferanten</target>
+      </segment>
+    </unit>
+    <unit id="S6JX3.E" name="info_providers.capabilities.stock_level">
+      <segment state="translated">
+        <source>info_providers.capabilities.stock_level</source>
+        <target>Lagerbestand</target>
+      </segment>
+    </unit>
+    <unit id="ohF6xCL" name="attachment.3d_viewer.title">
+      <segment state="translated">
+        <source>attachment.3d_viewer.title</source>
+        <target>3D-Modell-Betrachter</target>
+      </segment>
+    </unit>
+    <unit id="39GVMHV" name="attachment.3d_viewer.loading">
+      <segment state="translated">
+        <source>attachment.3d_viewer.loading</source>
+        <target>3D-Modell wird geladen...</target>
+      </segment>
+    </unit>
+    <unit id="oa1D_l9" name="attachment.3d_viewer.reset_view">
+      <segment state="translated">
+        <source>attachment.3d_viewer.reset_view</source>
+        <target>Ansicht zurücksetzen</target>
+      </segment>
+    </unit>
+    <unit id="VeqIwvE" name="attachment.3d_viewer.toggle_wireframe">
+      <segment state="translated">
+        <source>attachment.3d_viewer.toggle_wireframe</source>
+        <target>Drahtgitter umschalten</target>
+      </segment>
+    </unit>
+    <unit id="4sP7kBp" name="attachment.3d_viewer.toggle_grid">
+      <segment state="translated">
+        <source>attachment.3d_viewer.toggle_grid</source>
+        <target>Raster umschalten</target>
+      </segment>
+    </unit>
+    <unit id="3NnqFah" name="attachment.3d_viewer.fullscreen">
+      <segment state="translated">
+        <source>attachment.3d_viewer.fullscreen</source>
+        <target>Vollbild umschalten</target>
+      </segment>
+    </unit>
+    <unit id="BRg4S0K" name="attachment.3d_viewer.controls_hint">
+      <segment state="translated">
+        <source>attachment.3d_viewer.controls_hint</source>
+        <target>Ziehen zum Drehen, Scrollen zum Zoomen, mit rechter Maustaste ziehen zum Verschieben.</target>
+      </segment>
+    </unit>
+    <unit id="icPlspg" name="attachment.3d_viewer.view.label">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.label</source>
+        <target>Standardansichten</target>
+      </segment>
+    </unit>
+    <unit id=".A5xiTp" name="attachment.3d_viewer.view.isometric">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.isometric</source>
+        <target>Isometrisch</target>
+      </segment>
+    </unit>
+    <unit id="7XggqIr" name="attachment.3d_viewer.view.front">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.front</source>
+        <target>Vorne</target>
+      </segment>
+    </unit>
+    <unit id="yEeVpLS" name="attachment.3d_viewer.view.back">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.back</source>
+        <target>Hinten</target>
+      </segment>
+    </unit>
+    <unit id="ke8HbV0" name="attachment.3d_viewer.view.left">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.left</source>
+        <target>Links</target>
+      </segment>
+    </unit>
+    <unit id="aZZZ5T8" name="attachment.3d_viewer.view.right">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.right</source>
+        <target>Rechts</target>
+      </segment>
+    </unit>
+    <unit id="TBZU8bd" name="attachment.3d_viewer.view.top">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.top</source>
+        <target>Oben</target>
+      </segment>
+    </unit>
+    <unit id="BeWse0P" name="attachment.3d_viewer.view.bottom">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.bottom</source>
+        <target>Unten</target>
+      </segment>
+    </unit>
+    <unit id="5C4xD34" name="attachment.3d_viewer.measure">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure</source>
+        <target>Messen</target>
+      </segment>
+    </unit>
+    <unit id="HZEvQYa" name="attachment.3d_viewer.measure.clear">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure.clear</source>
+        <target>Messung löschen</target>
+      </segment>
+    </unit>
+    <unit id="_9Hel6U" name="attachment.3d_viewer.measure.hint">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure.hint</source>
+        <target>Klicken Sie auf zwei Punkte des Modells, um den Abstand zwischen ihnen zu messen. Punkte rasten an einer nahen Ecke ein.</target>
+      </segment>
+    </unit>
+    <unit id="PS75Gl4" name="attachment.3d_viewer.metadata">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata</source>
+        <target>Modellinformationen</target>
+      </segment>
+    </unit>
+    <unit id="kMmJzTW" name="attachment.3d_viewer.screenshot">
+      <segment state="translated">
+        <source>attachment.3d_viewer.screenshot</source>
+        <target>Screenshot herunterladen</target>
+      </segment>
+    </unit>
+    <unit id="DaNck4u" name="attachment.3d_viewer.parts">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts</source>
+        <target>Komponenten</target>
+      </segment>
+    </unit>
+    <unit id="xX9nKBn" name="attachment.3d_viewer.parts.show_all">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts.show_all</source>
+        <target>Alle</target>
+      </segment>
+    </unit>
+    <unit id="pK0bzyy" name="attachment.3d_viewer.parts.hide_all">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts.hide_all</source>
+        <target>Keine</target>
       </segment>
     </unit>
   </file>

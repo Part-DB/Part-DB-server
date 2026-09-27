@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Services\AI;
 
+use App\Settings\AISettings\GenericAISettings;
 use App\Settings\AISettings\LMStudioSettings;
 use App\Settings\AISettings\OllamaSettings;
 use App\Settings\AISettings\OpenRouterSettings;
@@ -34,6 +35,7 @@ enum AIPlatforms: string implements TranslatableInterface
     case OPENROUTER = 'openrouter';
     case LMSTUDIO = 'lmstudio';
     case OLLAMA = 'ollama';
+    case GENERIC = 'generic';
 
     /**
      * Returns the name attribute of the service tag for this platform, which is used to register the platform in the AIPlatformRegistry
@@ -41,7 +43,12 @@ enum AIPlatforms: string implements TranslatableInterface
      */
     public function toServiceTagName(): string
     {
-        return $this->value;
+        return match ($this) {
+            //The generic platform is registered via the symfony/ai-generic-platform bridge under the "default" name,
+            //which tags its service as "generic.default"
+            self::GENERIC => 'generic.default',
+            default => $this->value,
+        };
     }
 
     /**
@@ -55,6 +62,7 @@ enum AIPlatforms: string implements TranslatableInterface
             self::LMSTUDIO => LMStudioSettings::class,
             self::OPENROUTER => OpenRouterSettings::class,
             self::OLLAMA => OllamaSettings::class,
+            self::GENERIC => GenericAISettings::class,
         };
     }
 

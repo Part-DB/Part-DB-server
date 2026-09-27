@@ -25,14 +25,12 @@ namespace App\Entity\Attachments;
 use App\Entity\Parts\MeasurementUnit;
 use App\Serializer\APIPlatform\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Context;
 
 /**
  * An attachment attached to a measurement unit element.
  * @extends Attachment<MeasurementUnit>
  */
-#[UniqueEntity(['name', 'attachment_type', 'element'])]
 #[ORM\Entity]
 class MeasurementUnitAttachment extends Attachment
 {

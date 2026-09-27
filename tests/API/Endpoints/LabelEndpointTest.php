@@ -31,7 +31,7 @@ class LabelEndpointTest extends AuthenticatedApiTestCase
         $response = self::createAuthenticatedClient()->request('GET', '/api/label_profiles');
 
         self::assertResponseIsSuccessful();
-        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertResponseHeaderSame('content-type', 'application/ld+json');
         
         // Check that we get an array of label profiles
         $json = $response->toArray();

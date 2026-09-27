@@ -174,6 +174,13 @@ final readonly class PartsDataTable implements DataTableTypeInterface
                 'data' => fn(Part $context) => $this->partDataTableHelper->renderAmount($context),
                 'orderField' => 'amountSum'
             ])
+            ->add('supplier_available_amount', HTMLColumn::class, [
+                'label' => $this->translator->trans('part.table.supplier_available_amount'),
+                //The stock is not stored in a way we could sort by (it is spread over the orderdetails), so this
+                //column is purely informational
+                'orderable' => false,
+                'data' => fn(Part $context) => $this->partDataTableHelper->renderSupplierAvailableAmount($context),
+            ])
             ->add('minamount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
                 'data' => fn(Part $context, $value): string => $this->amountFormatter->format(
@@ -198,18 +205,11 @@ final readonly class PartsDataTable implements DataTableTypeInterface
                     return $tmp;
                 }
             ])
-            ->add('partCustomState', TextColumn::class, [
+            ->add('partCustomState', HTMLColumn::class, [
                 'label' => $this->translator->trans('part.table.partCustomState'),
                 'orderField' => 'NATSORT(_partCustomState.name)',
-                'data' => function(Part $context): string {
-                    $partCustomState = $context->getPartCustomState();
-
-                    if ($partCustomState === null) {
-                        return '';
-                    }
-
-                    return $partCustomState->getName();
-                }
+                'data' => fn(Part $context): string
+                    => $this->partDataTableHelper->renderPartCustomState($context->getPartCustomState()),
             ])
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),

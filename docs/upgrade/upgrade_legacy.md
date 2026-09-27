@@ -42,7 +42,7 @@ sections carefully before proceeding to upgrade.
 ## Missing features
 
 * No possibility of marking parts for ordering (yet)
-* No support for 3D models of footprints (yet)
+* 3D models can be viewed inside Part-DB, but the old x3d format is not supported anymore. You can use wrl or step files from KiCad directly now.
 * No possibility to disable footprints, manufacturers globally (or per category). This should not have a big impact
   when you forbid users to edit/create them.
 * No resistor calculator or SMD label tools

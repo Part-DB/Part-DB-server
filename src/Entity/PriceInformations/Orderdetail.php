@@ -130,6 +130,25 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     protected string $supplier_product_url = '';
 
     /**
+     * @var float|null The amount of parts the supplier had in stock, when this value was last retrieved from an info
+     * provider. Null means that the stock is unknown, which is something different than a stock of 0.
+     * This value is written by the info provider system only: a stock is volatile and is only meaningful together
+     * with the time it was retrieved at (see $available_amount_updated_at), so it can not be edited by hand.
+     */
+    #[Assert\PositiveOrZero]
+    #[Groups(['extended', 'full', 'orderdetail:read'])]
+    #[ORM\Column(type: Types::FLOAT, nullable: true, options: ['default' => null])]
+    protected ?float $available_amount = null;
+
+    /**
+     * @var \DateTimeImmutable|null The time the available amount was retrieved from the info provider at, or null if
+     * no stock was ever retrieved for this orderdetail. Always set together with $available_amount.
+     */
+    #[Groups(['extended', 'full', 'orderdetail:read'])]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true, options: ['default' => null])]
+    protected ?\DateTimeImmutable $available_amount_updated_at = null;
+
+    /**
      * @var Part|null The part with which this orderdetail is associated
      */
     #[Assert\NotNull]
@@ -373,6 +392,36 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     public function setObsolete(bool $new_obsolete): self
     {
         $this->obsolete = $new_obsolete;
+
+        return $this;
+    }
+
+    /**
+     * Returns the amount of parts the supplier had in stock when it was last retrieved from the info provider,
+     * or null if no stock is known. Use getAvailableAmountUpdatedAt() to find out how old that value is.
+     */
+    public function getAvailableAmount(): ?float
+    {
+        return $this->available_amount;
+    }
+
+    /**
+     * Returns the time the available amount was retrieved at, or null if no stock is known.
+     */
+    public function getAvailableAmountUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->available_amount_updated_at;
+    }
+
+    /**
+     * Sets the amount of parts the supplier has in stock. A stock is only meaningful together with the time it was
+     * retrieved at, so both are always set together: pass the time the value was retrieved from the provider at
+     * (defaults to now), or pass null as amount to state that the stock is unknown again.
+     */
+    public function setAvailableAmount(?float $available_amount, ?\DateTimeImmutable $updated_at = null): self
+    {
+        $this->available_amount = $available_amount;
+        $this->available_amount_updated_at = $available_amount === null ? null : ($updated_at ?? new \DateTimeImmutable());
 
         return $this;
     }

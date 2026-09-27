@@ -116,6 +116,9 @@ final class DTOtoEntityConverter
         }
 
         $entity->setPricesIncludesVAT($dto->prices_include_vat);
+        //The stock is stamped with the current time. The DTO can come from the info provider cache, so the value can
+        //be up to a few days older than that - which is precise enough to tell a fresh stock from a stale one.
+        $entity->setAvailableAmount($dto->available_amount);
 
         return $entity;
     }

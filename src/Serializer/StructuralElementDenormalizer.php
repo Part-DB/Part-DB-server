@@ -24,8 +24,8 @@ namespace App\Serializer;
 
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Repository\StructuralDBElementRepository;
-use App\Serializer\APIPlatform\SkippableItemNormalizer;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -33,6 +33,8 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 /**
  * @see \App\Tests\Serializer\StructuralElementDenormalizerTest
  */
+// '*' makes this available to every named serializer (default, import_export, ...), not just the default one.
+#[AutoconfigureTag('serializer.normalizer', ['serializer' => ['*']])]
 class StructuralElementDenormalizer implements DenormalizerInterface, DenormalizerAwareInterface
 {
 
@@ -80,9 +82,6 @@ class StructuralElementDenormalizer implements DenormalizerInterface, Denormaliz
      */
     public function denormalize($data, string $type, ?string $format = null, array $context = []): ?AbstractStructuralDBElement
     {
-        //Do not use API Platform's denormalizer
-        $context[SkippableItemNormalizer::DISABLE_ITEM_NORMALIZER] = true;
-
         if (!isset($context[self::ALREADY_CALLED])) {
             $context[self::ALREADY_CALLED] = [];
         }

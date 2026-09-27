@@ -30,7 +30,6 @@ import {Link} from 'ckeditor5';
 import {LinkImage} from 'ckeditor5';
 import {List} from 'ckeditor5';
 import {ListProperties} from 'ckeditor5';
-import {Markdown} from 'ckeditor5';
 import {MediaEmbed} from 'ckeditor5';
 import {MediaEmbedToolbar} from 'ckeditor5';
 import {Paragraph} from 'ckeditor5';

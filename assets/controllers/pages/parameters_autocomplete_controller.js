@@ -85,7 +85,7 @@ export default class extends Controller
         if (item.dataset.choices) {
             try {
                 choices = JSON.parse(item.dataset.choices);
-            } catch (_) {
+            } catch {
                 choices = [];
             }
         }

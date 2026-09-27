@@ -35,6 +35,15 @@ framework:
     csrf_protection:
         stateless_token_ids: ['submit', 'authenticate', 'logout']
 
+    serializer:
+        named_serializers:
+            # A serializer instance used for entity import/export (see EntityImporter/EntityExporter), which must
+            # not use any of API Platform's resource-aware normalizers (which turn relations into IRIs and only
+            # understand the API's own JSON-LD/Hydra/JSON:API context). API Platform's services are never tagged
+            # for this named serializer, so they are excluded automatically (and this stays true across API
+            # Platform upgrades, since we don't depend on its internal service names/structure).
+            import_export: {}
+
 when@test:
     framework:
         test: true

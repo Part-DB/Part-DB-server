@@ -22,7 +22,6 @@ import { autocomplete } from '@algolia/autocomplete-js';
 //import "@algolia/autocomplete-theme-classic/dist/theme.css";
 import "../../css/components/autocomplete_bootstrap_theme.css";
 import { createLocalStorageRecentSearchesPlugin } from '@algolia/autocomplete-plugin-recent-searches';
-import {marked} from "marked";
 
 import {
     trans,

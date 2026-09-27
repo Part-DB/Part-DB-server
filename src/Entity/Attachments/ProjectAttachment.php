@@ -25,14 +25,12 @@ namespace App\Entity\Attachments;
 use App\Entity\ProjectSystem\Project;
 use App\Serializer\APIPlatform\OverrideClassDenormalizer;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Context;
 
 /**
  * A attachment attached to a device element.
  * @extends Attachment<Project>
  */
-#[UniqueEntity(['name', 'attachment_type', 'element'])]
 #[ORM\Entity]
 class ProjectAttachment extends Attachment
 {

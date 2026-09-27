@@ -1,0 +1,68 @@
+name: JavaScript static analysis
+
+permissions:
+    contents: read
+
+on:
+  push:
+    branches:
+      - '*'
+      - "!l10n_*" # Dont test localization branches
+  pull_request:
+    branches:
+      - '*'
+      - "!l10n_*"
+
+jobs:
+  eslint:
+    name: JavaScript static analysis
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "dir=$(yarn cache dir)" >> "$GITHUB_OUTPUT"
+
+    - uses: actions/cache@v6
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+          php-version: '8.5'
+          coverage: none
+          ini-values: xdebug.max_nesting_level=1000
+          extensions: mbstring, intl, gd, xsl, gmp, bcmath, :php-psr
+          tools: symfony-cli
+
+    - name: Get Composer Cache Directory
+      id: composer-cache
+      run: |
+          echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
+
+    - uses: actions/cache@v6
+      with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+              ${{ runner.os }}-composer-
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+
+    - name: Setup node
+      uses: actions/setup-node@v7
+      with:
+        node-version: '22'
+
+    - name: Install yarn dependencies
+      run: yarn install --frozen-lockfile
+
+    - name: Run ESLint
+      run: yarn lint

@@ -64,6 +64,21 @@ Encore
         type: "asset/resource"
     })
 
+    //The same for the OpenCascade WASM binary, which the occt worker loads at runtime via its URL
+    .addRule({
+        test: /occt-import-js\.wasm$/,
+        type: "asset/resource"
+    })
+
+    //The emscripten glue of occt-import-js contains a node.js branch requiring node core modules.
+    //That branch is dead in the browser, so resolve those requires to nothing instead of polyfilling them.
+    .addRule({
+        test: /occt-import-js[\\/]dist[\\/]occt-import-js\.js$/,
+        resolve: {
+            fallback: {fs: false, path: false, crypto: false},
+        },
+    })
+
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
@@ -120,17 +135,6 @@ Encore
     // uncomment to get integrity="..." attributes on your script & link tags
     // requires WebpackEncoreBundle 1.4 or higher
     .enableIntegrityHashes(Encore.isProduction())
-
-    // Force all jquery imports to the UMD build so webpack always receives the
-    // jQuery function directly instead of an ESM namespace object. Without this,
-    // webpack's ESM interop wraps jquery.module.js in a namespace
-    // { default, jQuery, $ } which has no .fn, crashing Bootstrap's
-    // defineJQueryPlugin when it tries to access $.fn.alert.
-    .addAliases({
-        'jquery': path.resolve(import.meta.dirname, 'node_modules/jquery/dist/jquery.js')
-    })
-    .autoProvidejQuery()
-
 
     // Use raw-loader for CKEditor 5 SVG files.
     .addRule( {

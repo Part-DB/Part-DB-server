@@ -25,7 +25,7 @@ final class ParameterDefinitionsEndpointTest extends AuthenticatedApiTestCase
         $client->request('GET', self::BASE_PATH);
 
         self::assertResponseIsSuccessful();
-        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertResponseHeaderSame('content-type', 'application/ld+json');
     }
 
     public function testCrudLifecycleAndChoiceCanonicalization(): void

@@ -43,6 +43,7 @@ class FAIconGenerator
         'fa-file-code' => ['php', 'xml', 'html', 'js', 'ts', 'htm', 'c', 'cpp', 'json', 'py', 'css', 'yml', 'yaml',
             'sql', 'sh', 'bat', 'exe', 'dll', 'lib', 'so', 'a', 'o', 'h', 'hpp', 'java', 'class', 'jar', 'rb', 'rbw', 'rake', 'gem',],
         'fa-file-video' => ['webm', 'avi', 'mp4', 'mkv', 'wmv'],
+        'fa-cube' => Attachment::MODEL_EXTS,
     ];
 
     /**

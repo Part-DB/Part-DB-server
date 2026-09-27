@@ -19,7 +19,7 @@
 
 'use strict';
 
-import {Dropdown, Modal, Tooltip} from "bootstrap";
+import {Dropdown, Tooltip} from "bootstrap";
 import ClipboardJS from "clipboard";
 
 class RegisterEventHelper {
@@ -70,7 +70,7 @@ class RegisterEventHelper {
             //Set the dropdown strategy to fixed, so that the dropdowns are not cut off by the overflow: hidden of the body.
             //Solution from: https://github.com/twbs/bootstrap/issues/36560
             const dropdowns = document.querySelectorAll('[data-bs-toggle="dropdown"]');
-            const dropdown = [...dropdowns].map((dropdownToggleEl) => new Dropdown(dropdownToggleEl, {
+            [...dropdowns].map((dropdownToggleEl) => new Dropdown(dropdownToggleEl, {
                 popperConfig(defaultBsPopperConfig) {
                     return { ...defaultBsPopperConfig, strategy: 'fixed' };
                 }

@@ -30,8 +30,6 @@ import '../css/app/images.css';
 // start the Stimulus application
 import '../stimulus_bootstrap';
 
-import $ from 'jquery';
-
 //Only include javascript
 import '@fortawesome/fontawesome-free/css/all.css'
 
@@ -41,10 +39,6 @@ import "./error_handler";
 import "./tab_remember";
 import "./register_events";
 import "./tristate_checkboxes";
-
-// Expose jQuery globally so legacy plugins and Bootstrap's jQuery integration
-// can find it on window at runtime.
-global.$ = global.jQuery = $;
 
 //Use the local WASM file for the ZXing library
 import {

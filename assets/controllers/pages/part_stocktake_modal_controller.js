@@ -1,5 +1,4 @@
 import {Controller} from "@hotwired/stimulus";
-import {Modal} from "bootstrap";
 
 export default class extends Controller
 {
@@ -11,6 +10,7 @@ export default class extends Controller
         // Button that triggered the modal
         const button = event.relatedTarget;
 
+        //eslint-disable-next-line no-unused-vars
         const amountInput = this.element.querySelector('input[name="amount"]');
 
         // Extract info from button attributes

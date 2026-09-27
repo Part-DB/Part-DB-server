@@ -38,6 +38,7 @@ enum PartTableColumns : string implements TranslatableInterface
     case MANUFACTURER = "manufacturer";
     case LOCATION = "storage_location";
     case AMOUNT = "amount";
+    case SUPPLIER_AVAILABLE_AMOUNT = "supplier_available_amount";
     case MIN_AMOUNT = "minamount";
     case PART_UNIT = "partUnit";
     case ADDED_DATE = "addedDate";

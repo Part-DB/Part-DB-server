@@ -1,16 +1,37 @@
 {% extends "main_card.html.twig" %}
 
-{% macro path_to_breadcrumb(path) %}
-    <nav aria-label="breadcrumb" >
-        <ol class="breadcrumb p-2 bg-info rounded mt-3" id="path-{{ path|replace({'/': '-'}) }}">
-            {% set path_array = path|split("/") %}
-            {% for part in path_array %}
-                <li class="breadcrumb-item {% if loop.last %}active{% endif %}" aria-current="page">
-                    {{ part }}
-                </li>
-            {% endfor %}
-        </ol>
-    </nav>
+{% macro folder_heading(path, count) %}
+    <h6 class="footprint-gallery-heading" id="path-{{ path|replace({'/': '-'}) }}">
+        {% for part in path|split("/") %}
+            {% if not loop.first %}<i class="fas fa-chevron-right fa-xs text-body-tertiary mx-1"></i>{% endif %}
+            <span class="{{ loop.last ? 'text-body' : 'text-body-secondary' }}">{{ part }}</span>
+        {% endfor %}
+        <span class="badge rounded-pill text-bg-secondary ms-2">{{ count }}</span>
+    </h6>
+{% endmacro %}
+
+{% macro folder_tree(nodes, depth) %}
+    <ul class="footprint-gallery-tree list-unstyled {{ depth > 0 ? 'ms-2 ps-2 border-start' : 'mb-0' }}">
+        {% for node in nodes %}
+            <li {{ stimulus_target('pages/footprint_gallery', 'treeNode') }} data-folder="{{ node.path }}">
+                {% set link %}
+                    <a href="#path-{{ node.path|replace({'/': '-'}) }}" class="footprint-gallery-tree-link"
+                       {{ stimulus_action('pages/footprint_gallery', 'jump') }} data-folder="{{ node.path }}">
+                        <span class="text-truncate">{{ node.name }}</span>
+                        <span class="footprint-gallery-tree-count">{{ node.count }}</span>
+                    </a>
+                {% endset %}
+                {% if node.children is not empty %}
+                    <details {% if depth == 0 %}open{% endif %}>
+                        <summary>{{ link }}</summary>
+                        {{ _self.folder_tree(node.children, depth + 1) }}
+                    </details>
+                {% else %}
+                    {{ link }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
 {% endmacro %}
 
 {% block title %}{% trans %}tools.builtin_footprints_viewer.title{% endtrans %}{% endblock %}
@@ -20,23 +41,65 @@
 {% endblock %}
 
 {% block card_content %}
-
-    <p class="text-muted">{% trans %}tools.builtin_footprints_viewer.hint{% endtrans %}</p>
-
-    {% for folder, file_array in grouped_footprints %}
-        {{ _self.path_to_breadcrumb(folder) }}
-
-        <div class="row row-cols-2 row-cols-md-6 g-4">
-            {% for file_info in file_array %}
-                <div class="col">
-                    <div class="card text-center">
-                        <img src="{{ asset(file_info.assets_path) }}" class="card-img-top" alt="{{ file_info.filename }}">
-                        <div class="card-body">
-                            <p class="card-text"><b>{{ file_info.filename }}</b></p>
-                        </div>
-                    </div>
+<div class="row" {{ stimulus_controller('pages/footprint_gallery') }}>
+    <div class="col-lg-4 col-xl-3 col-xxl-2">
+        <nav class="footprint-gallery-nav">
+            <div class="d-flex gap-2">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text"><i class="fas fa-search fa-fw"></i></span>
+                    <input type="search" class="form-control" autofocus
+                           placeholder="{% trans %}tools.builtin_footprints_viewer.search.placeholder{% endtrans %}"
+                           {{ stimulus_target('pages/footprint_gallery', 'input') }}
+                           {{ stimulus_action('pages/footprint_gallery', 'filter', 'input') }}>
                 </div>
-            {% endfor %}
-        </div>
-    {% endfor %}
+                <button type="button" class="btn btn-outline-secondary btn-sm d-lg-none text-nowrap"
+                        data-bs-toggle="collapse" data-bs-target="#footprint-gallery-tree" aria-expanded="false"
+                        {{ stimulus_target('pages/footprint_gallery', 'treeToggle') }}>
+                    <i class="fas fa-folder-tree fa-fw"></i> {% trans %}tools.builtin_footprints_viewer.folders{% endtrans %}
+                </button>
+            </div>
+            <div class="collapse d-lg-block footprint-gallery-tree-container" id="footprint-gallery-tree"
+                 {{ stimulus_target('pages/footprint_gallery', 'treeContainer') }}>
+                {{ _self.folder_tree(folder_tree, 0) }}
+            </div>
+        </nav>
+    </div>
+
+    <div class="col-lg-8 col-xl-9 col-xxl-10">
+        <p class="text-muted mb-0">{% trans %}tools.builtin_footprints_viewer.hint{% endtrans %}</p>
+
+        <p class="text-muted mt-3 d-none" {{ stimulus_target('pages/footprint_gallery', 'noResults') }}>
+            {% trans %}tools.builtin_footprints_viewer.no_results{% endtrans %}
+        </p>
+
+        {% for folder, file_array in grouped_footprints %}
+            <section class="footprint-gallery-group" data-folder="{{ folder }}" {{ stimulus_target('pages/footprint_gallery', 'group') }}>
+                {{ _self.folder_heading(folder, file_array|length) }}
+
+                <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-6 g-3">
+                    {% for file_info in file_array %}
+                        <div class="col" {{ stimulus_target('pages/footprint_gallery', 'item') }}
+                             data-search="{{ file_info.placeholder_path|lower }}">
+                            <figure class="footprint-gallery-item" title="{{ file_info.placeholder_path }}">
+                                <div class="footprint-gallery-image">
+                                    <img src="{{ asset(file_info.assets_path) }}" alt="{{ file_info.filename }}"
+                                         width="320" height="240" loading="lazy" decoding="async">
+                                </div>
+                                <figcaption>
+                                    {#- Allow line breaks after the separators of the (often long) names -#}
+                                    <span class="footprint-gallery-name">{{ file_info.name|e|replace({'_': '_<wbr>', '-': '-<wbr>'})|raw }}</span>
+                                    <button type="button" class="btn btn-link btn-sm p-0 ms-1 align-baseline footprint-gallery-copy"
+                                            data-clipboard-text="{{ file_info.placeholder_path }}"
+                                            title="{% trans %}tools.builtin_footprints_viewer.copy_path{% endtrans %}">
+                                        <i class="fas fa-copy fa-fw"></i>
+                                    </button>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

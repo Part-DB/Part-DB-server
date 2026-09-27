@@ -44,6 +44,7 @@ use App\Mcp\DTO\ElementByIdInput;
 use App\Repository\AttachmentRepository;
 use App\State\Mcp\GetAttachmentContentProcessor;
 use App\Validator\Constraints\Selectable;
+use App\Validator\Constraints\UniqueEntityIgnoringOrphans;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
@@ -113,6 +114,7 @@ use function in_array;
 #[ApiFilter(OrderFilter::class, properties: ['name', 'id', 'addedDate', 'lastModified'])]
 //This discriminator map is required for API platform to know which class to use for deserialization, when creating a new attachment.
 #[DiscriminatorMap(typeProperty: '_type', mapping: self::API_DISCRIMINATOR_MAP)]
+#[UniqueEntityIgnoringOrphans(fields: ['name', 'attachment_type', 'element'], ownerField: 'element')]
 abstract class Attachment extends AbstractNamedDBElement
 {
     final public const ORM_DISCRIMINATOR_MAP = ['Part' => PartAttachment::class, 'PartCustomState' => PartCustomStateAttachment::class, 'Device' => ProjectAttachment::class,
@@ -141,8 +143,15 @@ abstract class Attachment extends AbstractNamedDBElement
 
     /**
      * A list of extensions that will be treated as a 3D Model that can be shown to user directly in Part-DB.
+     * The mesh formats are rendered by three.js, the boundary representation (CAD) formats are tessellated by
+     * occt-import-js first. Keep this in sync with the loader mapping in the model_viewer stimulus controller.
      */
-    final public const MODEL_EXTS = ['x3d'];
+    final public const MODEL_EXTS = [
+        //Mesh formats
+        'stl', 'obj', 'ply', '3mf', 'gltf', 'glb', 'dae', 'fbx', 'wrl', 'vrml', 'amf', '3ds', 'vtk',
+        //Boundary representation (CAD) formats
+        'step', 'stp', 'iges', 'igs', 'brep', 'brp',
+    ];
 
 
     /**
@@ -453,6 +462,30 @@ abstract class Attachment extends AbstractNamedDBElement
             return $this->getInternalPath();
         }
         return null;
+    }
+
+    /**
+     * Similar to getURL(), but returns a normalized URL for comparison purposes.
+     * The URL is stripped of parameters and fragments, and everything is lowercased.
+     * This is useful for comparing two attachments to see if they point to the same resource, even if the URLs are not exactly the same.
+     * @return string|null
+     */
+    public function getComparableURL(): ?string
+    {
+        $url = $this->getURL();
+        if ($url === null) {
+            return null;
+        }
+
+        $parsed_url = parse_url($url);
+        if ($parsed_url === false) {
+            return null;
+        }
+
+        $scheme = isset($parsed_url['scheme']) ? strtolower($parsed_url['scheme']) : 'https';
+        $host = isset($parsed_url['host']) ? strtolower($parsed_url['host']) : '';
+        $path = isset($parsed_url['path']) ? strtolower($parsed_url['path']) : '';
+        return $scheme . '://' . $host . $path;
     }
 
     /**

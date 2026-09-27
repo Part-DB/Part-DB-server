@@ -58,7 +58,7 @@ abstract class CrudEndpointTestCase extends AuthenticatedApiTestCase
     {
         $response = self::createAuthenticatedClient()->request('GET', $this->getBasePath());
         self::assertResponseIsSuccessful();
-        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertResponseHeaderSame('content-type', 'application/ld+json');
 
         return $response;
     }
@@ -67,7 +67,7 @@ abstract class CrudEndpointTestCase extends AuthenticatedApiTestCase
     {
         $response = self::createAuthenticatedClient()->request('GET', $this->getItemPath($id) . '/children');
         self::assertResponseIsSuccessful();
-        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertResponseHeaderSame('content-type', 'application/ld+json');
 
         return $response;
     }
@@ -76,7 +76,7 @@ abstract class CrudEndpointTestCase extends AuthenticatedApiTestCase
     {
         $response = self::createAuthenticatedClient()->request('GET', $this->getItemPath($id));
         self::assertResponseIsSuccessful();
-        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertResponseHeaderSame('content-type', 'application/ld+json');
 
         return $response;
     }
@@ -85,7 +85,7 @@ abstract class CrudEndpointTestCase extends AuthenticatedApiTestCase
     {
         $response = self::createAuthenticatedClient()->request('POST', $this->getBasePath(), ['json' => $data]);
         self::assertResponseIsSuccessful();
-        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertResponseHeaderSame('content-type', 'application/ld+json');
 
         return $response;
     }
@@ -97,7 +97,7 @@ abstract class CrudEndpointTestCase extends AuthenticatedApiTestCase
             'headers' => ['Content-Type' => 'application/merge-patch+json']
         ]);
         self::assertResponseIsSuccessful();
-        self::assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+        self::assertResponseHeaderSame('content-type', 'application/ld+json');
 
         return $response;
     }
