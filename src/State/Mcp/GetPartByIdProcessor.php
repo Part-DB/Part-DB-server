@@ -39,7 +39,7 @@ readonly class GetPartByIdProcessor implements ProcessorInterface
     ) {
     }
 
-    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
+    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): Part
     {
         if (!$data instanceof ElementByIdInput) {
             throw new \InvalidArgumentException('Expected PartByIdInput');
