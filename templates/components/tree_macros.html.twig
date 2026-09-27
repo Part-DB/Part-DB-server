@@ -45,7 +45,7 @@
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
             ><span class="sidebar-title" {{ stimulus_target('elements/sidebar_tree', 'sourceText') }}>Loading... / Access Denied</span></button>
             <ul class="dropdown-menu" aria-labelledby="dropdownCat">
-                {{ _self.sidebar_dropdown('tree-categories') }}
+                {{ _self.sidebar_dropdown() }}
             </ul>
             <input type="search" class="form-control bg-body-tertiary border-0" placeholder="{% trans %}search.placeholder{% endtrans %}" {{ stimulus_action('elements/sidebar_tree', 'searchInput') }}>
         </div>
