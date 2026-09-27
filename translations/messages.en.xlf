@@ -15507,13 +15507,13 @@ Buerklin-API Authentication server:
       </segment>
     </unit>
     <unit id="NUw3e9D" name="part.table.supplier_available_amount">
-      <segment>
+      <segment state="translated">
         <source>part.table.supplier_available_amount</source>
         <target>Available at supplier</target>
       </segment>
     </unit>
     <unit id="cVfVQWf" name="perm.group.unknown">
-      <segment>
+      <segment state="translated">
         <source>perm.group.unknown</source>
         <target>Unknown</target>
       </segment>
