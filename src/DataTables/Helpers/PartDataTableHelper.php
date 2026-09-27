@@ -32,6 +32,7 @@ use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\Formatters\AmountFormatter;
+use App\Services\Trees\StructuralElementPathCache;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -45,6 +46,7 @@ readonly class PartDataTableHelper
         private EntityURLGenerator $entityURLGenerator,
         private TranslatorInterface $translator,
         private AmountFormatter $amountFormatter,
+        private StructuralElementPathCache $pathCache,
     ) {
     }
 
@@ -108,7 +110,7 @@ readonly class PartDataTableHelper
             $tmp[] = sprintf(
                 '<a href="%s" title="%s">%s</a>',
                 $this->entityURLGenerator->listPartsURL($lot->getStorageLocation()),
-                htmlspecialchars($lot->getStorageLocation()->getFullPath()),
+                htmlspecialchars($this->pathCache->getFullPath($lot->getStorageLocation())),
                 htmlspecialchars($lot->getStorageLocation()->getName())
             );
         }
