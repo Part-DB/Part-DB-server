@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use Doctrine\Common\Collections\Criteria;
 use ApiPlatform\Doctrine\Common\Filter\DateFilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
@@ -64,6 +63,7 @@ use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\CategoryParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -154,7 +154,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Category extends AbstractPartsContainingDBElement
 {
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => SortDirection::Ascending])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -235,7 +235,7 @@ class Category extends AbstractPartsContainingDBElement
     #[Assert\Valid]
     #[Groups(['full', 'category:read', 'category:write'])]
     #[ORM\OneToMany(targetEntity: CategoryAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => Criteria::ASC])]
+    #[ORM\OrderBy(['name' => SortDirection::Ascending])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: CategoryAttachment::class)]
@@ -248,7 +248,7 @@ class Category extends AbstractPartsContainingDBElement
     #[Assert\Valid]
     #[Groups(['full', 'category:read', 'category:write'])]
     #[ORM\OneToMany(targetEntity: CategoryParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => SortDirection::Ascending, 'name' => SortDirection::Ascending])]
     protected Collection $parameters;
 
     #[Groups(['category:read'])]

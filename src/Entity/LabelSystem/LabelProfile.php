@@ -56,6 +56,7 @@ use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\LabelAttachment;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -89,7 +90,7 @@ class LabelProfile extends AttachmentContainingDBElement
      * @var Collection<int, LabelAttachment>
      */
     #[ORM\OneToMany(targetEntity: LabelAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => SortDirection::Ascending])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: LabelAttachment::class)]

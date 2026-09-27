@@ -33,6 +33,7 @@ use App\Validator\Constraints\ValidPermission;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -49,7 +50,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Group extends AbstractStructuralDBElement implements HasPermissionsInterface
 {
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => SortDirection::Ascending])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -74,7 +75,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: GroupAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => SortDirection::Ascending])]
     protected Collection $attachments;
 
     #[ORM\ManyToOne(targetEntity: GroupAttachment::class)]
@@ -91,7 +92,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: GroupParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => SortDirection::Ascending, 'name' => SortDirection::Ascending])]
     protected Collection $parameters;
 
     public function __construct()

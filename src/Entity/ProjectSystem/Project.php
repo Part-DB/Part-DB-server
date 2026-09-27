@@ -54,6 +54,7 @@ use App\Entity\Parts\Part;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 use InvalidArgumentException;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -118,7 +119,7 @@ class Project extends AbstractStructuralDBElement
     public const PERFORMANCE_MODE_LIMIT = 99;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => SortDirection::Ascending])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -170,7 +171,7 @@ class Project extends AbstractStructuralDBElement
      * @var Collection<int, ProjectAttachment>
      */
     #[ORM\OneToMany(targetEntity: ProjectAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => SortDirection::Ascending])]
     #[Groups(['project:read', 'project:write'])]
     protected Collection $attachments;
 
@@ -182,7 +183,7 @@ class Project extends AbstractStructuralDBElement
     /** @var Collection<int, ProjectParameter>
      */
     #[ORM\OneToMany(targetEntity: ProjectParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => SortDirection::Ascending, 'name' => SortDirection::Ascending])]
     #[Groups(['project:read', 'project:write'])]
     protected Collection $parameters;
 
