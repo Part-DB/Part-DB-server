@@ -44,23 +44,17 @@ class TabRememberHelper {
             return;
         }
 
-        this.revealFirstValidationError();
-    }
-
-    revealFirstValidationError() {
-        // Symfony validation errors can occur on inputs or as standalone error blocks.
+        //Find the first offending element and show it
+        //Symfony validation errors can occur on multiple types
         const inputErrors = document.getElementsByClassName('is-invalid');
         const blockErrors = document.getElementsByClassName('form-error-message');
-        const firstElement = [...inputErrors, ...blockErrors][0] ?? null;
+        const merged = [...inputErrors, ...blockErrors];
 
-        if (!firstElement) {
-            return false;
+        const first_element = merged[0] ?? null;
+        if(first_element) {
+            this.revealElementOnTab(first_element);
+            this.revealElementInCollapse(first_element);
         }
-
-        this.revealElementOnTab(firstElement);
-        this.revealElementInCollapse(firstElement);
-
-        return true;
     }
 
     /**
@@ -107,23 +101,21 @@ class TabRememberHelper {
     }
 
     onLoad(event) {
-        // Validation errors take precedence over the remembered tab after a full-page invalid form response.
-        if (!this.revealFirstValidationError()) {
-            //Determine which tab should be shown (use hash if specified, otherwise use localstorage)
-            let activeTab = null;
-            if (location.hash) {
-                activeTab = document.querySelector('[href=\'' + location.hash + '\']');
-            } else if (localStorage.getItem('activeTab')) {
-                activeTab = document.querySelector('[href="' + localStorage.getItem('activeTab') + '"]');
-            }
+        //Determine which tab should be shown (use hash if specified, otherwise use localstorage)
+        let activeTab = null;
+        if (location.hash) {
+            activeTab = document.querySelector('[href=\'' + location.hash + '\']');
+        } else if (localStorage.getItem('activeTab')) {
+            activeTab = document.querySelector('[href="' + localStorage.getItem('activeTab') + '"]');
+        }
 
-            if (activeTab) {
-                //Reveal our tab selector (needed for nested tabs)
-                this.revealElementOnTab(activeTab);
+        if (activeTab) {
 
-                //Finally show the active tab itself
-                Tab.getOrCreateInstance(activeTab).show();
-            }
+            //Reveal our tab selector (needed for nested tabs)
+            this.revealElementOnTab(activeTab);
+
+            //Finally show the active tab itself
+            Tab.getOrCreateInstance(activeTab).show();
         }
 
         //Register listener for tab change
