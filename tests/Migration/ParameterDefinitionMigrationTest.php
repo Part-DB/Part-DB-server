@@ -10,12 +10,12 @@ use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Platforms\SQLitePlatform;
 use Doctrine\DBAL\Schema\Schema;
-use DoctrineMigrations\Version20260816190000;
+use DoctrineMigrations\Version20260927120000;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
 
-require_once dirname(__DIR__, 2).'/migrations/Version20260816190000.php';
+require_once dirname(__DIR__, 2).'/migrations/Version20260927120000.php';
 
 final class ParameterDefinitionMigrationTest extends TestCase
 {
@@ -64,11 +64,35 @@ final class ParameterDefinitionMigrationTest extends TestCase
         }
     }
 
+    public static function mergedColumnsProvider(): iterable
+    {
+        yield 'mysql' => [new MySQLPlatform(), 'deprecated_choices JSON DEFAULT NULL', 'alternative_names LONGTEXT DEFAULT NULL'];
+        yield 'postgresql' => [new PostgreSQLPlatform(), 'deprecated_choices JSON DEFAULT NULL', 'alternative_names TEXT DEFAULT NULL'];
+        yield 'sqlite' => [new SQLitePlatform(), 'deprecated_choices CLOB DEFAULT NULL', 'alternative_names CLOB DEFAULT NULL'];
+    }
+
+    /**
+     * The former two migrations are merged into a single one: deprecated_choices and alternative_names
+     * must be created together with the table, without any follow-up ALTER statement.
+     */
+    #[DataProvider('mergedColumnsProvider')]
+    public function testMergedMigrationCreatesAllDefinitionColumnsInOneStatement(
+        AbstractPlatform $platform,
+        string $expected_deprecated_choices_sql,
+        string $expected_alternative_names_sql,
+    ): void {
+        $sql = $this->migrationSql($platform, true);
+
+        self::assertStringContainsString($expected_deprecated_choices_sql, $sql);
+        self::assertStringContainsString($expected_alternative_names_sql, $sql);
+        self::assertStringNotContainsString('ALTER TABLE parameter_definitions ADD', $sql);
+    }
+
     private function migrationSql(AbstractPlatform $platform, bool $up): string
     {
         $connection = $this->createMock(Connection::class);
         $connection->method('getDatabasePlatform')->willReturn($platform);
-        $migration = new Version20260816190000($connection, new NullLogger());
+        $migration = new Version20260927120000($connection, new NullLogger());
 
         if ($up) {
             $migration->up(new Schema());

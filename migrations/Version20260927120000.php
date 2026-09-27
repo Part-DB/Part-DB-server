@@ -7,11 +7,11 @@ namespace DoctrineMigrations;
 use App\Migration\AbstractMultiPlatformMigration;
 use Doctrine\DBAL\Schema\Schema;
 
-final class Version20260816190000 extends AbstractMultiPlatformMigration
+final class Version20260927120000 extends AbstractMultiPlatformMigration
 {
     public function getDescription(): string
     {
-        return 'Add global parameter definitions and optional parameter definition references.';
+        return 'Add global parameter definitions (with optional deprecated choices and alternative names) and optional parameter definition references.';
     }
 
     public function mySQLUp(Schema $schema): void
@@ -23,6 +23,8 @@ final class Version20260816190000 extends AbstractMultiPlatformMigration
                 normalized_name VARCHAR(255) NOT NULL,
                 input_type VARCHAR(16) DEFAULT 'text' NOT NULL,
                 choices JSON DEFAULT NULL,
+                deprecated_choices JSON DEFAULT NULL,
+                alternative_names LONGTEXT DEFAULT NULL,
                 symbol VARCHAR(20) NOT NULL,
                 unit VARCHAR(50) NOT NULL,
                 last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -56,6 +58,8 @@ final class Version20260816190000 extends AbstractMultiPlatformMigration
                 normalized_name VARCHAR(255) NOT NULL,
                 input_type VARCHAR(16) DEFAULT 'text' NOT NULL,
                 choices CLOB DEFAULT NULL,
+                deprecated_choices CLOB DEFAULT NULL,
+                alternative_names CLOB DEFAULT NULL,
                 symbol VARCHAR(20) NOT NULL,
                 unit VARCHAR(50) NOT NULL,
                 last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -134,6 +138,8 @@ final class Version20260816190000 extends AbstractMultiPlatformMigration
                 normalized_name VARCHAR(255) NOT NULL,
                 input_type VARCHAR(16) DEFAULT 'text' NOT NULL,
                 choices JSON DEFAULT NULL,
+                deprecated_choices JSON DEFAULT NULL,
+                alternative_names TEXT DEFAULT NULL,
                 symbol VARCHAR(20) NOT NULL,
                 unit VARCHAR(50) NOT NULL,
                 last_modified TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
