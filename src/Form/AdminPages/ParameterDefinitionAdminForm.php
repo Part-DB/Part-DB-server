@@ -48,6 +48,17 @@ final class ParameterDefinitionAdminForm extends BaseEntityAdminForm
                 'label' => 'parameter_definition.unit',
                 'disabled' => $disabled,
             ])
+            ->add('alternative_names', TextType::class, [
+                'required' => false,
+                'label' => 'entity.edit.alternative_names.label',
+                'help' => 'entity.edit.alternative_names.help',
+                'empty_data' => null,
+                'disabled' => $disabled,
+                'attr' => [
+                    'class' => 'tagsinput',
+                    'data-controller' => 'elements--tagsinput',
+                ],
+            ])
             ->add('input_type', ChoiceType::class, [
                 'label' => 'parameter_definition.input_type',
                 'choices' => [

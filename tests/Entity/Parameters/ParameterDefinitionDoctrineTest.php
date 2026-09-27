@@ -9,6 +9,7 @@ use App\Entity\Parameters\ParameterDefinition;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
+use App\Repository\ParameterDefinitionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\PersistentCollection;
@@ -209,5 +210,96 @@ final class ParameterDefinitionDoctrineTest extends KernelTestCase
         $errors = (new SchemaValidator($this->entityManager))->validateMapping();
 
         self::assertSame([], $errors, var_export($errors, true));
+    }
+
+    public function testAlternativeNamesArePersistedWithATrailingComma(): void
+    {
+        $definition = (new ParameterDefinition())
+            ->setName('Alternative names storage')
+            ->setAlternativeNames('Spannung, Voltage Rating');
+        $this->entityManager->persist($definition);
+        $this->entityManager->flush();
+        $definition_id = $definition->getID();
+        self::assertNotNull($definition_id);
+
+        self::assertSame(
+            'Spannung, Voltage Rating,',
+            $this->entityManager->getConnection()->fetchOne(
+                'SELECT alternative_names FROM parameter_definitions WHERE id = ?',
+                [$definition_id],
+            ),
+        );
+
+        $this->entityManager->clear();
+        $reloaded_definition = $this->entityManager->find(ParameterDefinition::class, $definition_id);
+        self::assertInstanceOf(ParameterDefinition::class, $reloaded_definition);
+        self::assertSame('Spannung, Voltage Rating', $reloaded_definition->getAlternativeNames());
+    }
+
+    /**
+     * The property defaults to "" (like AbstractStructuralDBElement), so an untouched definition is
+     * persisted as an empty string rather than as NULL.
+     */
+    public function testUntouchedAlternativeNamesArePersistedAsAnEmptyString(): void
+    {
+        $definition = (new ParameterDefinition())->setName('Untouched alternative names');
+        $this->entityManager->persist($definition);
+        $this->entityManager->flush();
+        $definition_id = $definition->getID();
+        self::assertNotNull($definition_id);
+
+        self::assertSame(
+            '',
+            $this->entityManager->getConnection()->fetchOne(
+                'SELECT alternative_names FROM parameter_definitions WHERE id = ?',
+                [$definition_id],
+            ),
+        );
+    }
+
+    public function testAlternativeNamesCanBePersistedAsNull(): void
+    {
+        $definition = (new ParameterDefinition())
+            ->setName('Null alternative names')
+            ->setAlternativeNames(null);
+        $this->entityManager->persist($definition);
+        $this->entityManager->flush();
+        $definition_id = $definition->getID();
+        self::assertNotNull($definition_id);
+
+        self::assertNull($this->entityManager->getConnection()->fetchOne(
+            'SELECT alternative_names FROM parameter_definitions WHERE id = ?',
+            [$definition_id],
+        ));
+
+        $this->entityManager->clear();
+        $reloaded_definition = $this->entityManager->find(ParameterDefinition::class, $definition_id);
+        self::assertInstanceOf(ParameterDefinition::class, $reloaded_definition);
+        self::assertNull($reloaded_definition->getAlternativeNames());
+    }
+
+    public function testAutocompleteFindsDefinitionsByAlternativeNames(): void
+    {
+        $definition = (new ParameterDefinition())
+            ->setName('Autocomplete dielectric')
+            ->setSymbol('D')
+            ->setUnit('grade')
+            ->setAlternativeNames('Spannungsfestigkeit, Dielectric Class');
+        $unrelated_definition = (new ParameterDefinition())->setName('Autocomplete unrelated');
+        $this->entityManager->persist($definition);
+        $this->entityManager->persist($unrelated_definition);
+        $this->entityManager->flush();
+
+        $repository = $this->entityManager->getRepository(ParameterDefinition::class);
+        self::assertInstanceOf(ParameterDefinitionRepository::class, $repository);
+
+        //The canonical name still matches, and every alias matches case-insensitively (also partially)
+        foreach (['Autocomplete dielectric', 'Spannungsfestigkeit', 'spannungsfestigkeit', 'spannungsf', 'Dielectric Class'] as $query) {
+            $names = array_column($repository->autocompleteForParameterEditor($query), 'name');
+            self::assertContains('Autocomplete dielectric', $names, sprintf('query "%s" should match the definition', $query));
+        }
+
+        //A query that matches neither name nor aliases returns nothing
+        self::assertSame([], $repository->autocompleteForParameterEditor('zzz-no-match-at-all'));
     }
 }

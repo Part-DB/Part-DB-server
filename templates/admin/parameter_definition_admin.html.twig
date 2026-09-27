@@ -17,6 +17,7 @@
 {% block additional_controls %}
     {{ form_row(form.symbol) }}
     {{ form_row(form.unit) }}
+    {{ form_row(form.alternative_names) }}
     {{ form_row(form.input_type) }}
     {{ form_row(form.choices_text) }}
     {% if entity.deprecatedChoices is not empty %}

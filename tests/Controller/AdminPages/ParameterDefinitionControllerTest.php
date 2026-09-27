@@ -282,12 +282,86 @@ final class ParameterDefinitionControllerTest extends WebTestCase
         self::assertInstanceOf(ParameterDefinition::class, $em->find(ParameterDefinition::class, $id));
     }
 
+    public function testDefinitionFormOffersAlternativeNamesWithTagsinput(): void
+    {
+        $client = $this->createAuthenticatedClient();
+        $crawler = $client->request('GET', '/en/parameter_definition/new');
+
+        self::assertResponseIsSuccessful();
+        self::assertSame(1, $crawler->filter('#parameter_definition_admin_form_alternative_names')->count());
+        self::assertSame(
+            1,
+            $crawler->filter('#parameter_definition_admin_form_alternative_names[data-controller="elements--tagsinput"]')->count(),
+        );
+    }
+
+    public function testCreateDefinitionPersistsAlternativeNames(): void
+    {
+        $client = $this->createAuthenticatedClient();
+        $crawler = $client->request('GET', '/en/parameter_definition/new');
+
+        $this->submitDefinitionForm($client, $crawler, [
+            'name' => 'Controller alternative names definition',
+            'input_type' => ParameterDefinition::INPUT_TYPE_TEXT,
+            'alternative_names' => 'Spannung, Voltage Rating',
+        ]);
+
+        self::assertResponseRedirects();
+        $definition = $this->findDefinition('Controller alternative names definition');
+        self::assertSame('Spannung, Voltage Rating', $definition->getAlternativeNames());
+
+        $definition_id = $definition->getID();
+        self::assertNotNull($definition_id);
+        self::assertSame(
+            'Spannung, Voltage Rating,',
+            $this->entityManager()->getConnection()->fetchOne(
+                'SELECT alternative_names FROM parameter_definitions WHERE id = ?',
+                [$definition_id],
+            ),
+        );
+    }
+
+    /**
+     * An empty submission must not be turned into "," by the trailing-comma setter: empty_data => null
+     * makes the setter receive null, which is persisted as NULL.
+     */
+    public function testEmptyAlternativeNamesArePersistedAsNull(): void
+    {
+        $client = $this->createAuthenticatedClient();
+        $crawler = $client->request('GET', '/en/parameter_definition/new');
+
+        $this->submitDefinitionForm($client, $crawler, [
+            'name' => 'Controller empty alternative names',
+            'input_type' => ParameterDefinition::INPUT_TYPE_TEXT,
+            'alternative_names' => '',
+        ]);
+
+        self::assertResponseRedirects();
+        $definition = $this->findDefinition('Controller empty alternative names');
+        self::assertNull($definition->getAlternativeNames());
+
+        $definition_id = $definition->getID();
+        self::assertNotNull($definition_id);
+        self::assertNull($this->entityManager()->getConnection()->fetchOne(
+            'SELECT alternative_names FROM parameter_definitions WHERE id = ?',
+            [$definition_id],
+        ));
+    }
+
     private function createAuthenticatedClient(string $username = 'admin'): KernelBrowser
     {
-        return static::createClient([], [
+        // The kernel has to be booted through createClient(), so the cache is cleared here afterwards.
+        $client = static::createClient([], [
             'PHP_AUTH_USER' => $username,
             'PHP_AUTH_PW' => 'test',
         ]);
+
+        // Parameter definitions created during a test can remain referenced by the cached admin tree
+        // after DAMA rolls the database transaction back. Clear the cache used by TreeViewGenerator
+        // after booting the test kernel to keep the tests independent of their execution order.
+        self::getContainer()->get('cache.app.taggable')->clear();
+
+        return $client;
     }
 
     /** @param array<string, string> $values */

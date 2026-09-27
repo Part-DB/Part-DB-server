@@ -102,6 +102,12 @@ class ParameterDefinition extends AbstractNamedDBElement
     #[Groups(['full', 'import', 'parameter_definition:read', 'parameter_definition:write'])]
     private string $unit = '';
 
+    /**
+     * Alternative names (comma-separated) for this definition, which can be used for searching.
+     */
+    #[ORM\Column(type: Types::TEXT, nullable: true, options: ['default' => null])]
+    private ?string $alternative_names = "";
+
     /** @var Collection<int, AbstractParameter> */
     #[ORM\OneToMany(mappedBy: 'definition', targetEntity: AbstractParameter::class)]
     private Collection $parameter_usages;
@@ -333,6 +339,36 @@ class ParameterDefinition extends AbstractNamedDBElement
     public function setUnit(string $unit): self
     {
         $this->unit = $unit;
+
+        return $this;
+    }
+
+    /**
+     * Returns a comma separated list of alternative names.
+     * @return string|null
+     */
+    public function getAlternativeNames(): ?string
+    {
+        if ($this->alternative_names === null) {
+            return null;
+        }
+
+        //Remove trailing comma
+        return rtrim($this->alternative_names, ',');
+    }
+
+    /**
+     * Sets a comma separated list of alternative names.
+     * @return $this
+     */
+    public function setAlternativeNames(?string $new_value): self
+    {
+        //Add a trailing comma, if not already there (makes it easier to find in the database)
+        if (is_string($new_value) && !str_ends_with($new_value, ',')) {
+            $new_value .= ',';
+        }
+
+        $this->alternative_names = $new_value;
 
         return $this;
     }

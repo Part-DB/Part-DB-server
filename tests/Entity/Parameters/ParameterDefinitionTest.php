@@ -223,4 +223,43 @@ final class ParameterDefinitionTest extends TestCase
         self::assertFalse($second_definition->getParameterUsages()->contains($parameter));
         self::assertNull($parameter->getDefinition());
     }
+
+    /**
+     * AbstractStructuralDBElement initializes $alternative_names to "", so a fresh entity returns an
+     * empty string (and not null) - ParameterDefinition must behave exactly the same.
+     */
+    public function testAlternativeNamesDefaultToAnEmptyString(): void
+    {
+        $definition = new ParameterDefinition();
+
+        self::assertSame('', $definition->getAlternativeNames());
+    }
+
+    public function testAlternativeNamesAreTrimmedOnRead(): void
+    {
+        $definition = (new ParameterDefinition())->setAlternativeNames('A, B');
+
+        self::assertSame('A, B', $definition->getAlternativeNames());
+    }
+
+    public function testAlternativeNamesAreNotGivenATrailingCommaTwice(): void
+    {
+        $definition = (new ParameterDefinition())->setAlternativeNames('A, B,');
+
+        self::assertSame('A, B', $definition->getAlternativeNames());
+    }
+
+    public function testEmptyAlternativeNamesResultInAnEmptyString(): void
+    {
+        $definition = (new ParameterDefinition())->setAlternativeNames('');
+
+        self::assertSame('', $definition->getAlternativeNames());
+    }
+
+    public function testAlternativeNamesCanBeResetToNull(): void
+    {
+        $definition = (new ParameterDefinition())->setAlternativeNames('A, B');
+
+        self::assertNull($definition->setAlternativeNames(null)->getAlternativeNames());
+    }
 }
