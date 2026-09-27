@@ -7484,6 +7484,30 @@ Element 3</target>
         <target>a galeria zawiera listę wszystkich dostarczonych obrazów footprintów. Jeśli chcesz użyć ich w załączniku, wpisz nazwę (lub słowo kluczowe) w polu adresu URL załącznika i wybierz żądany obraz z menu rozwijanego.</target>
       </segment>
     </unit>
+    <unit id="IJRWM97" name="tools.builtin_footprints_viewer.search.placeholder">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.search.placeholder</source>
+        <target>Filtruj według nazwy lub folderu...</target>
+      </segment>
+    </unit>
+    <unit id="uaOZhii" name="tools.builtin_footprints_viewer.no_results">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.no_results</source>
+        <target>Żadne obrazy pól lutowniczych nie pasują do twojego filtra.</target>
+      </segment>
+    </unit>
+    <unit id="glVXV5q" name="tools.builtin_footprints_viewer.copy_path">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.copy_path</source>
+        <target>Skopiuj ścieżkę do użycia w załącznikach</target>
+      </segment>
+    </unit>
+    <unit id="AI3UZiM" name="tools.builtin_footprints_viewer.folders">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.folders</source>
+        <target>Foldery</target>
+      </segment>
+    </unit>
     <unit id="EFtEJ2v" name="tools.ic_logos.title">
       <segment state="translated">
         <source>tools.ic_logos.title</source>
@@ -15335,6 +15359,144 @@ Serwer autoryzacji Buerklin API:
       <segment state="translated">
         <source>info_providers.bulk_refresh.error.provider_unavailable</source>
         <target>Dostawca informacji, przy pomocy którego została utworzona ta część, nie jest już dostępny.</target>
+      </segment>
+    </unit>
+    <unit id="ohF6xCL" name="attachment.3d_viewer.title">
+      <segment state="translated">
+        <source>attachment.3d_viewer.title</source>
+        <target>Przeglądarka modeli 3D</target>
+      </segment>
+    </unit>
+    <unit id="39GVMHV" name="attachment.3d_viewer.loading">
+      <segment state="translated">
+        <source>attachment.3d_viewer.loading</source>
+        <target>Wczytywanie modelu 3D...</target>
+      </segment>
+    </unit>
+    <unit id="oa1D_l9" name="attachment.3d_viewer.reset_view">
+      <segment state="translated">
+        <source>attachment.3d_viewer.reset_view</source>
+        <target>Resetuj widok</target>
+      </segment>
+    </unit>
+    <unit id="VeqIwvE" name="attachment.3d_viewer.toggle_wireframe">
+      <segment state="translated">
+        <source>attachment.3d_viewer.toggle_wireframe</source>
+        <target>Przełącz model siatkowy</target>
+      </segment>
+    </unit>
+    <unit id="4sP7kBp" name="attachment.3d_viewer.toggle_grid">
+      <segment state="translated">
+        <source>attachment.3d_viewer.toggle_grid</source>
+        <target>Przełącz siatkę</target>
+      </segment>
+    </unit>
+    <unit id="3NnqFah" name="attachment.3d_viewer.fullscreen">
+      <segment state="translated">
+        <source>attachment.3d_viewer.fullscreen</source>
+        <target>Przełącz tryb pełnoekranowy</target>
+      </segment>
+    </unit>
+    <unit id="BRg4S0K" name="attachment.3d_viewer.controls_hint">
+      <segment state="translated">
+        <source>attachment.3d_viewer.controls_hint</source>
+        <target>Przeciągnij, aby obrócić, przewiń, aby powiększyć, przytrzymaj prawy przycisk myszy i przeciągnij, aby przesunąć widok.</target>
+      </segment>
+    </unit>
+    <unit id="icPlspg" name="attachment.3d_viewer.view.label">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.label</source>
+        <target>Standardowe widoki</target>
+      </segment>
+    </unit>
+    <unit id=".A5xiTp" name="attachment.3d_viewer.view.isometric">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.isometric</source>
+        <target>Izometryczny</target>
+      </segment>
+    </unit>
+    <unit id="7XggqIr" name="attachment.3d_viewer.view.front">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.front</source>
+        <target>Przód</target>
+      </segment>
+    </unit>
+    <unit id="yEeVpLS" name="attachment.3d_viewer.view.back">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.back</source>
+        <target>Tył</target>
+      </segment>
+    </unit>
+    <unit id="ke8HbV0" name="attachment.3d_viewer.view.left">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.left</source>
+        <target>Lewa strona</target>
+      </segment>
+    </unit>
+    <unit id="aZZZ5T8" name="attachment.3d_viewer.view.right">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.right</source>
+        <target>Prawa strona</target>
+      </segment>
+    </unit>
+    <unit id="TBZU8bd" name="attachment.3d_viewer.view.top">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.top</source>
+        <target>Góra</target>
+      </segment>
+    </unit>
+    <unit id="BeWse0P" name="attachment.3d_viewer.view.bottom">
+      <segment state="translated">
+        <source>attachment.3d_viewer.view.bottom</source>
+        <target>Dół</target>
+      </segment>
+    </unit>
+    <unit id="5C4xD34" name="attachment.3d_viewer.measure">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure</source>
+        <target>Zmierz</target>
+      </segment>
+    </unit>
+    <unit id="HZEvQYa" name="attachment.3d_viewer.measure.clear">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure.clear</source>
+        <target>Wyczyść pomiar</target>
+      </segment>
+    </unit>
+    <unit id="_9Hel6U" name="attachment.3d_viewer.measure.hint">
+      <segment state="translated">
+        <source>attachment.3d_viewer.measure.hint</source>
+        <target>Kliknij dwa punkty na modelu, aby zmierzyć odległość pomiędzy nimi. Punkty są przyciągane do najbliższego narożnika.</target>
+      </segment>
+    </unit>
+    <unit id="PS75Gl4" name="attachment.3d_viewer.metadata">
+      <segment state="translated">
+        <source>attachment.3d_viewer.metadata</source>
+        <target>Informacje o modelu</target>
+      </segment>
+    </unit>
+    <unit id="kMmJzTW" name="attachment.3d_viewer.screenshot">
+      <segment state="translated">
+        <source>attachment.3d_viewer.screenshot</source>
+        <target>Pobierz zrzut ekranu</target>
+      </segment>
+    </unit>
+    <unit id="DaNck4u" name="attachment.3d_viewer.parts">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts</source>
+        <target>Części</target>
+      </segment>
+    </unit>
+    <unit id="xX9nKBn" name="attachment.3d_viewer.parts.show_all">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts.show_all</source>
+        <target>Wszystko</target>
+      </segment>
+    </unit>
+    <unit id="pK0bzyy" name="attachment.3d_viewer.parts.hide_all">
+      <segment state="translated">
+        <source>attachment.3d_viewer.parts.hide_all</source>
+        <target>Nic</target>
       </segment>
     </unit>
   </file>
