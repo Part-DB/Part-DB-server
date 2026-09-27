@@ -39,6 +39,10 @@ api_platform:
     # Change this to false later, to remove the hydra prefix on the API
     hydra_prefix: true
 
+  jsonapi:
+    # Keep the current behavior of using IRIs as JSON:API "id" field (default changes to false in API Platform 5.0)
+    use_iri_as_id: true
+
   mcp:
     enabled: true # default: true
     format: jsonld # default: 'jsonld'
