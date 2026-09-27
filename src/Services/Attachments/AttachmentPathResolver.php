@@ -35,10 +35,11 @@ class AttachmentPathResolver
 {
     protected string $media_path;
     protected string $footprints_path;
+    protected ?string $custom_footprints_path;
     protected ?string $models_path;
     protected ?string $secure_path;
 
-    protected array $placeholders = ['%MEDIA%', '%BASE%/data/media', '%FOOTPRINTS%', '%FOOTPRINTS_3D%', '%SECURE%'];
+    protected array $placeholders = ['%MEDIA%', '%BASE%/data/media', '%FOOTPRINTS%', '%FOOTPRINTS_3D%', '%SECURE%', '%FOOTPRINTS_C%'];
     protected array $pathes;
     protected array $placeholders_regex;
     protected array $pathes_regex;
@@ -51,6 +52,8 @@ class AttachmentPathResolver
      * @param string|null $footprints_path The path where builtin attachments are stored.
      *                                     Set to null if this ressource should be disabled.
      * @param string|null $models_path     set to null if this ressource should be disabled
+     * @param string|null $custom_footprints_path The path where users can put additional footprint images.
+     *                                     The ressource is disabled if the folder does not exist.
      */
     public function __construct(
         #[Autowire(param: 'kernel.project_dir')]
@@ -61,6 +64,7 @@ class AttachmentPathResolver
         string $secure_path,
         ?string $footprints_path = 'public/img/footprints',
         ?string $models_path = null,
+        ?string $custom_footprints_path = 'public/custom/footprints',
     )
     {
         //Determine the path for our resources
@@ -68,7 +72,8 @@ class AttachmentPathResolver
         $this->secure_path = $this->parameterToAbsolutePath($secure_path) ?? throw new \InvalidArgumentException('The secure path must be set and valid!');
         $this->footprints_path = $this->parameterToAbsolutePath($footprints_path) ;
         $this->models_path = $this->parameterToAbsolutePath($models_path);
-        $this->pathes = [$this->media_path, $this->media_path, $this->footprints_path, $this->models_path, $this->secure_path];
+        $this->custom_footprints_path = $this->parameterToAbsolutePath($custom_footprints_path);
+        $this->pathes = [$this->media_path, $this->media_path, $this->footprints_path, $this->models_path, $this->secure_path, $this->custom_footprints_path];
 
         //Remove all disabled placeholders
         foreach ($this->pathes as $key => $path) {
@@ -233,6 +238,16 @@ class AttachmentPathResolver
     public function getFootprintsPath(): ?string
     {
         return $this->footprints_path;
+    }
+
+    /**
+     * The path where users can put additional footprint images (accessible via %FOOTPRINTS_C%).
+     *
+     * @return string|null The absolute path to the additional footprints' folder. Null if the folder does not exist.
+     */
+    public function getCustomFootprintsPath(): ?string
+    {
+        return $this->custom_footprints_path;
     }
 
     /**

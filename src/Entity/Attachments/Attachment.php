@@ -153,11 +153,10 @@ abstract class Attachment extends AbstractNamedDBElement
         'step', 'stp', 'iges', 'igs', 'brep', 'brp',
     ];
 
-
     /**
      * @var array placeholders for attachments which using built in files
      */
-    final public const BUILTIN_PLACEHOLDER = ['%FOOTPRINTS%', '%FOOTPRINTS3D%'];
+    final public const BUILTIN_PLACEHOLDER = ['%FOOTPRINTS%', '%FOOTPRINTS_3D%', '%FOOTPRINTS_C%'];
 
     /**
      * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.

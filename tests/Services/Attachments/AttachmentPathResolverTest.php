@@ -81,6 +81,8 @@ final class AttachmentPathResolverTest extends WebTestCase
         yield ['%MEDIA%/test', $media_path.'/test'];
         yield ['%MEDIA%', $media_path];
         yield ['%FOOTPRINTS%', $footprint_path];
+        yield ['%FOOTPRINTS_C%/test/test.jpg', $projectDir.'/public/custom/footprints/test/test.jpg'];
+        yield ['%FOOTPRINTS_C%/../test.jpg', null];
         //Footprints 3D are disabled
         yield ['%FOOTPRINTS_3D%', null];
         //Check that invalid pathes return null
@@ -109,6 +111,7 @@ final class AttachmentPathResolverTest extends WebTestCase
         yield [$media_path.'/test/img.jpg', '%BASE%/data/media/test/img.jpg', true];
         yield [$footprint_path.'/foo.jpg', '%FOOTPRINTS%/foo.jpg'];
         yield [$footprint_path.'/foo.jpg', '%FOOTPRINTS%/foo.jpg', true];
+        yield [$projectDir.'/public/custom/footprints/test/foo.jpg', '%FOOTPRINTS_C%/test/foo.jpg'];
         //Every kind of absolute path, that is not based with our placeholder dirs must be invald
         yield ['/etc/passwd', null];
         yield ['C:\\not\\existing.txt', null];

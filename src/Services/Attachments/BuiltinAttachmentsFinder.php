@@ -34,8 +34,32 @@ use Symfony\Contracts\Cache\CacheInterface;
  */
 class BuiltinAttachmentsFinder
 {
+    /**
+     * The folder name under which the additional footprints (%FOOTPRINTS_C%) are grouped
+     */
+    public const ADDITIONAL_FOOTPRINTS_GROUP = 'Custom';
+
+    private const CACHE_KEY_GROUPED = 'attachment_builtin_footprints_grouped';
+    private const CACHE_KEY_RESSOURCES = 'attachment_builtin_ressources';
+
+    /**
+     * Regex for files that are never usable ressources and must be ignored (e.g. the Zone.Identifier files, which
+     * Windows creates (as alternate data streams), when files are copied from Windows to a Linux filesystem via WSL)
+     */
+    private const IGNORED_FILES_REGEX = '/:Zone\.Identifier$/';
+
     public function __construct(protected CacheInterface $cache, protected AttachmentPathResolver $pathResolver)
     {
+    }
+
+    /**
+     * Clears the cached lists of builtin ressources, so that changes to the files (e.g. new custom footprints)
+     * become visible.
+     */
+    public function clearCache(): void
+    {
+        $this->cache->delete(self::CACHE_KEY_GROUPED);
+        $this->cache->delete(self::CACHE_KEY_RESSOURCES);
     }
 
     /**
@@ -45,37 +69,60 @@ class BuiltinAttachmentsFinder
      *          '%FOOTPRINTS%/path/to/folder/file1.png',
      *          '%FOOTPRINTS%/path/to/folder/file2.png',
      * ]
+     * The additional footprints (%FOOTPRINTS_C%) are listed first, with their folders prefixed by
+     * ADDITIONAL_FOOTPRINTS_GROUP.
      */
     public function getListOfFootprintsGroupedByFolder(): array
     {
         try {
-            return $this->cache->get('attachment_builtin_footprints_grouped', function () {
-                $finder = new Finder();
-                //We search only files
-                $finder->files();
-                $finder->in($this->pathResolver->getFootprintsPath());
-                //Ensure a stable order, independent of the filesystem
-                $finder->sortByName(true);
-
-                $output = [];
-
-                foreach ($finder as $file) {
-                    $folder = $file->getRelativePath();
-                    //Normalize path (replace \ with /)
-                    $folder = str_replace('\\', '/', (string) $folder);
-
-                    if (!isset($output[$folder])) {
-                        $output[$folder] = [];
-                    }
-                    //Add file to group
-                    $output[$folder][] = $this->pathResolver->realPathToPlaceholder($file->getPathname());
+            return $this->cache->get(self::CACHE_KEY_GROUPED, function () {
+                $additional = [];
+                foreach ($this->groupFilesByFolder($this->pathResolver->getCustomFootprintsPath()) as $folder => $files) {
+                    $additional[rtrim(self::ADDITIONAL_FOOTPRINTS_GROUP.'/'.$folder, '/')] = $files;
                 }
 
-                return $output;
+                return $additional + $this->groupFilesByFolder($this->pathResolver->getFootprintsPath());
             });
         } catch (InvalidArgumentException) {
             return [];
         }
+    }
+
+    /**
+     * Finds all files in the given folder and groups them by their (relative) folder
+     * @return array<string, string[]>
+     */
+    private function groupFilesByFolder(?string $path): array
+    {
+        if ($path === null || !is_dir($path)) {
+            return [];
+        }
+
+        $finder = new Finder();
+        //We search only files
+        $finder->files();
+        $finder->in($path);
+        $finder->notName(self::IGNORED_FILES_REGEX);
+        //The gallery can only show pictures
+        $finder->name('/\.('.implode('|', Attachment::PICTURE_EXTS).')$/i');
+        //Ensure a stable order, independent of the filesystem
+        $finder->sortByName(true);
+
+        $output = [];
+
+        foreach ($finder as $file) {
+            $folder = $file->getRelativePath();
+            //Normalize path (replace \ with /)
+            $folder = str_replace('\\', '/', (string) $folder);
+
+            if (!isset($output[$folder])) {
+                $output[$folder] = [];
+            }
+            //Add file to group
+            $output[$folder][] = $this->pathResolver->realPathToPlaceholder($file->getPathname());
+        }
+
+        return $output;
     }
 
     /**
@@ -129,12 +176,13 @@ class BuiltinAttachmentsFinder
     public function getListOfRessources(): array
     {
         try {
-            return $this->cache->get('attachment_builtin_ressources', function () {
+            return $this->cache->get(self::CACHE_KEY_RESSOURCES, function () {
                 $results = [];
 
                 $finder = new Finder();
                 //We search only files
                 $finder->files();
+                $finder->notName(self::IGNORED_FILES_REGEX);
                 //Add the folder for each placeholder
                 foreach (Attachment::BUILTIN_PLACEHOLDER as $placeholder) {
                     $tmp = $this->pathResolver->placeholderToRealPath($placeholder);
