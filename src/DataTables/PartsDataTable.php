@@ -374,6 +374,12 @@ final readonly class PartsDataTable implements DataTableTypeInterface
             ->addSelect('storelocations')
             ->addSelect('projectBomEntries')
             ->from(Part::class, 'part')
+            
+            //Do not join anything here that is not selected (like the parameters): Every to-many join multiplies the
+            //number of result rows, which all have to be hydrated by doctrine, even if they contain no new data.
+            //Also do not group by anything: Grouping by an entity groups by all of its columns, which is expensive
+            //and with fetch-joined collections would cut off their elements (issue #190).
+
             ->leftJoin('part.category', 'category')
             ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
             ->leftJoin('part.partLots', 'partLots')
@@ -382,31 +388,14 @@ final readonly class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('footprint.master_picture_attachment', 'footprint_attachment')
             ->leftJoin('part.manufacturer', 'manufacturer')
             ->leftJoin('part.orderdetails', 'orderdetails')
-            ->leftJoin('orderdetails.supplier', 'suppliers')
             ->leftJoin('part.attachments', 'attachments')
             ->leftJoin('part.partUnit', 'partUnit')
             ->leftJoin('part.partCustomState', 'partCustomState')
-            ->leftJoin('part.parameters', 'parameters')
             ->leftJoin('part.project_bom_entries', 'projectBomEntries')
             ->where('part.id IN (:ids)')
             ->setParameter('ids', $ids)
 
-            //We have to group by all elements, or only the first sub elements of an association is fetched! (caused issue #190)
-            ->addGroupBy('part')
-            ->addGroupBy('partLots')
-            ->addGroupBy('category')
-            ->addGroupBy('master_picture_attachment')
-            ->addGroupBy('storelocations')
-            ->addGroupBy('footprint')
-            ->addGroupBy('footprint_attachment')
-            ->addGroupBy('manufacturer')
-            ->addGroupBy('orderdetails')
-            ->addGroupBy('suppliers')
-            ->addGroupBy('attachments')
-            ->addGroupBy('partUnit')
-            ->addGroupBy('partCustomState')
-            ->addGroupBy('parameters')
-            ->addGroupBy('projectBomEntries')
+
 
             ->setHint(Query::HINT_READ_ONLY, true)
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, false)
