@@ -84,6 +84,7 @@ use App\Validator\Constraints\UniqueObjectCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -278,7 +279,7 @@ class Part extends AttachmentContainingDBElement
     #[Assert\Valid]
     #[Groups(['full', 'part:read', 'part:write', 'import'])]
     #[ORM\OneToMany(targetEntity: PartParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => SortDirection::Ascending, 'name' => SortDirection::Ascending])]
     #[UniqueObjectCollection(fields: ['name', 'group', 'element'])]
     protected Collection $parameters;
 
@@ -299,7 +300,7 @@ class Part extends AttachmentContainingDBElement
     #[Assert\Valid]
     #[Groups(['full', 'part:read', 'part:write'])]
     #[ORM\OneToMany(targetEntity: PartAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => SortDirection::Ascending])]
     protected Collection $attachments;
 
     /**

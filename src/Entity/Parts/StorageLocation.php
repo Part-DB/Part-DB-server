@@ -63,6 +63,7 @@ use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\UserSystem\User;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -152,7 +153,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class StorageLocation extends AbstractPartsContainingDBElement
 {
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => SortDirection::Ascending])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -176,7 +177,7 @@ class StorageLocation extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: StorageLocationParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => SortDirection::Ascending, 'name' => SortDirection::Ascending])]
     #[Groups(['location:read', 'location:write'])]
     protected Collection $parameters;
 

@@ -56,6 +56,7 @@ use function count;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 use function in_array;
 use Scheb\TwoFactorBundle\Model\BackupCodeInterface;
 use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
@@ -267,7 +268,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var Collection<int, UserAttachment>
      */
     #[ORM\OneToMany(targetEntity: UserAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => SortDirection::Ascending])]
     #[Groups(['user:read', 'user:write'])]
     protected Collection $attachments;
 

@@ -64,6 +64,21 @@ Encore
         type: "asset/resource"
     })
 
+    //The same for the OpenCascade WASM binary, which the occt worker loads at runtime via its URL
+    .addRule({
+        test: /occt-import-js\.wasm$/,
+        type: "asset/resource"
+    })
+
+    //The emscripten glue of occt-import-js contains a node.js branch requiring node core modules.
+    //That branch is dead in the browser, so resolve those requires to nothing instead of polyfilling them.
+    .addRule({
+        test: /occt-import-js[\\/]dist[\\/]occt-import-js\.js$/,
+        resolve: {
+            fallback: {fs: false, path: false, crypto: false},
+        },
+    })
+
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

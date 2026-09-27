@@ -25,6 +25,7 @@ namespace App\DataTables\Column;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Services\EntityURLGenerator;
+use App\Services\Trees\StructuralElementPathCache;
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,7 +33,8 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class EntityColumn extends AbstractColumn
 {
-    public function __construct(protected EntityURLGenerator $urlGenerator, protected PropertyAccessorInterface $accessor)
+    public function __construct(protected EntityURLGenerator $urlGenerator, protected PropertyAccessorInterface $accessor,
+        protected StructuralElementPathCache $pathCache)
     {
     }
 
@@ -73,7 +75,7 @@ class EntityColumn extends AbstractColumn
                     return sprintf(
                         '<a href="%s" title="%s">%s</a>',
                         $this->urlGenerator->listPartsURL($entity),
-                        $entity instanceof AbstractStructuralDBElement ? htmlspecialchars($entity->getFullPath()) : htmlspecialchars($entity->getName()),
+                        $entity instanceof AbstractStructuralDBElement ? htmlspecialchars($this->pathCache->getFullPath($entity)) : htmlspecialchars($entity->getName()),
                         htmlspecialchars($entity->getName())
                     );
                 }

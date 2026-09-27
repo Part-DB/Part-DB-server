@@ -63,4 +63,47 @@ final class BuiltinAttachmentsFinderTest extends WebTestCase
         $this->assertSame([], array_diff($value, $expected), 'Additional');
         $this->assertSame([], array_diff($expected, $value), 'Missing:');
     }
+
+    public function testGetListOfFootprintsGroupedByFolder(): void
+    {
+        $grouped = static::$service->getListOfFootprintsGroupedByFolder();
+
+        $this->assertNotEmpty($grouped);
+        foreach ($grouped as $folder => $files) {
+            $this->assertStringNotContainsString('\\', (string) $folder);
+            foreach ($files as $file) {
+                //Additional footprints are grouped in a folder prefixed with the additional footprints group name
+                $additional_prefix = BuiltinAttachmentsFinder::ADDITIONAL_FOOTPRINTS_GROUP;
+                if (str_starts_with((string) $folder, $additional_prefix)) {
+                    $this->assertStringStartsWith('%FOOTPRINTS_C%/'.ltrim(substr((string) $folder, strlen($additional_prefix)), '/'), $file);
+                } else {
+                    $this->assertStringStartsWith('%FOOTPRINTS%/'.$folder, $file);
+                }
+            }
+            //Files inside a folder must be sorted in natural order
+            $sorted = $files;
+            natsort($sorted);
+            $this->assertSame(array_values($sorted), $files);
+        }
+    }
+
+    public function testBuildFolderTree(): void
+    {
+        $tree = static::$service->buildFolderTree([
+            'Passive/Resistors/SMD' => ['%FOOTPRINTS%/Passive/Resistors/SMD/a.png', '%FOOTPRINTS%/Passive/Resistors/SMD/b.png'],
+            'Passive/Resistors' => ['%FOOTPRINTS%/Passive/Resistors/c.png'],
+            'Passive/Capacitors' => ['%FOOTPRINTS%/Passive/Capacitors/d.png'],
+            'Active' => ['%FOOTPRINTS%/Active/e.png'],
+        ]);
+
+        $this->assertSame([
+            ['name' => 'Passive', 'path' => 'Passive', 'count' => 4, 'children' => [
+                ['name' => 'Resistors', 'path' => 'Passive/Resistors', 'count' => 3, 'children' => [
+                    ['name' => 'SMD', 'path' => 'Passive/Resistors/SMD', 'count' => 2, 'children' => []],
+                ]],
+                ['name' => 'Capacitors', 'path' => 'Passive/Capacitors', 'count' => 1, 'children' => []],
+            ]],
+            ['name' => 'Active', 'path' => 'Active', 'count' => 1, 'children' => []],
+        ], $tree);
+    }
 }

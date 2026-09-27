@@ -49,6 +49,7 @@ use Brick\Math\RoundingMode;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -111,7 +112,7 @@ class Currency extends AbstractStructuralDBElement
     protected string $iso_code = "";
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist'])]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => SortDirection::Ascending])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -125,7 +126,7 @@ class Currency extends AbstractStructuralDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: CurrencyAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => SortDirection::Ascending])]
     #[Groups(['currency:read', 'currency:write'])]
     protected Collection $attachments;
 
@@ -138,7 +139,7 @@ class Currency extends AbstractStructuralDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: CurrencyParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['group' => 'ASC', 'name' => 'ASC'])]
+    #[ORM\OrderBy(['group' => SortDirection::Ascending, 'name' => SortDirection::Ascending])]
     #[Groups(['currency:read', 'currency:write'])]
     protected Collection $parameters;
 

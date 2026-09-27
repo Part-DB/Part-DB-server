@@ -34,8 +34,32 @@ use Symfony\Contracts\Cache\CacheInterface;
  */
 class BuiltinAttachmentsFinder
 {
+    /**
+     * The folder name under which the additional footprints (%FOOTPRINTS_C%) are grouped
+     */
+    public const ADDITIONAL_FOOTPRINTS_GROUP = 'Custom';
+
+    private const CACHE_KEY_GROUPED = 'attachment_builtin_footprints_grouped';
+    private const CACHE_KEY_RESSOURCES = 'attachment_builtin_ressources';
+
+    /**
+     * Regex for files that are never usable ressources and must be ignored (e.g. the Zone.Identifier files, which
+     * Windows creates (as alternate data streams), when files are copied from Windows to a Linux filesystem via WSL)
+     */
+    private const IGNORED_FILES_REGEX = '/:Zone\.Identifier$/';
+
     public function __construct(protected CacheInterface $cache, protected AttachmentPathResolver $pathResolver)
     {
+    }
+
+    /**
+     * Clears the cached lists of builtin ressources, so that changes to the files (e.g. new custom footprints)
+     * become visible.
+     */
+    public function clearCache(): void
+    {
+        $this->cache->delete(self::CACHE_KEY_GROUPED);
+        $this->cache->delete(self::CACHE_KEY_RESSOURCES);
     }
 
     /**
@@ -45,22 +69,53 @@ class BuiltinAttachmentsFinder
      *          '%FOOTPRINTS%/path/to/folder/file1.png',
      *          '%FOOTPRINTS%/path/to/folder/file2.png',
      * ]
+     * The additional footprints (%FOOTPRINTS_C%) are listed first, with their folders prefixed by
+     * ADDITIONAL_FOOTPRINTS_GROUP.
      */
     public function getListOfFootprintsGroupedByFolder(): array
     {
+        try {
+            return $this->cache->get(self::CACHE_KEY_GROUPED, function () {
+                $additional = [];
+                foreach ($this->groupFilesByFolder($this->pathResolver->getCustomFootprintsPath()) as $folder => $files) {
+                    $additional[rtrim(self::ADDITIONAL_FOOTPRINTS_GROUP.'/'.$folder, '/')] = $files;
+                }
+
+                return $additional + $this->groupFilesByFolder($this->pathResolver->getFootprintsPath());
+            });
+        } catch (InvalidArgumentException) {
+            return [];
+        }
+    }
+
+    /**
+     * Finds all files in the given folder and groups them by their (relative) folder
+     * @return array<string, string[]>
+     */
+    private function groupFilesByFolder(?string $path): array
+    {
+        if ($path === null || !is_dir($path)) {
+            return [];
+        }
+
         $finder = new Finder();
         //We search only files
         $finder->files();
-        $finder->in($this->pathResolver->getFootprintsPath());
+        $finder->in($path);
+        $finder->notName(self::IGNORED_FILES_REGEX);
+        //The gallery can only show pictures
+        $finder->name('/\.('.implode('|', Attachment::PICTURE_EXTS).')$/i');
+        //Ensure a stable order, independent of the filesystem
+        $finder->sortByName(true);
 
         $output = [];
 
-        foreach($finder as $file) {
+        foreach ($finder as $file) {
             $folder = $file->getRelativePath();
             //Normalize path (replace \ with /)
             $folder = str_replace('\\', '/', (string) $folder);
 
-            if(!isset($output[$folder])) {
+            if (!isset($output[$folder])) {
                 $output[$folder] = [];
             }
             //Add file to group
@@ -68,6 +123,47 @@ class BuiltinAttachmentsFinder
         }
 
         return $output;
+    }
+
+    /**
+     * Converts the output of getListOfFootprintsGroupedByFolder() into a nested folder tree.
+     * Each node has the form ['name' => 'SMD', 'path' => 'Passive/Resistors/SMD', 'count' => 12, 'children' => [...]],
+     * where count is the number of files in this folder and all its subfolders.
+     * @param  array<string, string[]>  $grouped
+     * @return array<int, array{name: string, path: string, count: int, children: array}>
+     */
+    public function buildFolderTree(array $grouped): array
+    {
+        //Number of files per folder (including subfolders) and the direct subfolders of each folder, both keyed by path
+        $counts = [];
+        $children = [];
+
+        foreach ($grouped as $folder => $files) {
+            $parent = '';
+            foreach (explode('/', (string) $folder) as $part) {
+                if ($part === '') {
+                    continue;
+                }
+                $path = $parent === '' ? $part : $parent.'/'.$part;
+                if (!isset($counts[$path])) {
+                    $counts[$path] = 0;
+                    $children[$parent][] = $path;
+                }
+                $counts[$path] += count($files);
+                $parent = $path;
+            }
+        }
+
+        $build = static function (string $parent) use (&$build, $counts, $children): array {
+            return array_map(static fn(string $path): array => [
+                'name' => basename($path),
+                'path' => $path,
+                'count' => $counts[$path],
+                'children' => $build($path),
+            ], $children[$parent] ?? []);
+        };
+
+        return $build('');
     }
 
     /**
@@ -80,12 +176,13 @@ class BuiltinAttachmentsFinder
     public function getListOfRessources(): array
     {
         try {
-            return $this->cache->get('attachment_builtin_ressources', function () {
+            return $this->cache->get(self::CACHE_KEY_RESSOURCES, function () {
                 $results = [];
 
                 $finder = new Finder();
                 //We search only files
                 $finder->files();
+                $finder->notName(self::IGNORED_FILES_REGEX);
                 //Add the folder for each placeholder
                 foreach (Attachment::BUILTIN_PLACEHOLDER as $placeholder) {
                     $tmp = $this->pathResolver->placeholderToRealPath($placeholder);
