@@ -7481,7 +7481,7 @@ Element 3</target>
     <unit id="WdsaHPv" name="tools.builtin_footprints_viewer.hint">
       <segment state="translated">
         <source>tools.builtin_footprints_viewer.hint</source>
-        <target>a galeria zawiera listę wszystkich dostarczonych obrazów footprintów. Jeśli chcesz użyć ich w załączniku, wpisz nazwę (lub słowo kluczowe) w polu adresu URL załącznika i wybierz żądany obraz z menu rozwijanego.</target>
+        <target>Ta galeria zawiera listę wszystkich dostarczonych obrazów footprintów. Jeśli chcesz użyć ich w załączniku, wpisz nazwę (lub słowo kluczowe) w polu adresu URL załącznika i wybierz żądany obraz z menu rozwijanego.</target>
       </segment>
     </unit>
     <unit id="IJRWM97" name="tools.builtin_footprints_viewer.search.placeholder">
@@ -15497,6 +15497,18 @@ Serwer autoryzacji Buerklin API:
       <segment state="translated">
         <source>attachment.3d_viewer.parts.hide_all</source>
         <target>Nic</target>
+      </segment>
+    </unit>
+    <unit id="NUw3e9D" name="part.table.supplier_available_amount">
+      <segment state="translated">
+        <source>part.table.supplier_available_amount</source>
+        <target>Dostępne u dostawcy</target>
+      </segment>
+    </unit>
+    <unit id="cVfVQWf" name="perm.group.unknown">
+      <segment state="translated">
+        <source>perm.group.unknown</source>
+        <target>Nieznane</target>
       </segment>
     </unit>
   </file>
