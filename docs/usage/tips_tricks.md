@@ -30,6 +30,32 @@ dropdown menu. You can find a gallery of all builtin footprint images and their 
 gallery",
 which you can find in the "Tools" menu (you may need to give your user the permission to access this tool).
 
+### Additional footprint images
+
+You can add your own footprint images, which can then be used like the built-in ones: Put the image files (subfolders
+are allowed) into the `public/custom/footprints/` folder of your Part-DB installation. They are referenced via the
+`%FOOTPRINTS_C%` placeholder (e.g. `%FOOTPRINTS_C%/MyFootprints/SOT-23.png`), are suggested in the URL field of
+attachments and are shown in the builtin footprint image gallery under the "Custom" folder.
+
+The list of footprint images is cached, so new or removed files only show up after clearing the cache:
+
+```bash
+php bin/console cache:pool:clear --all
+```
+
+(For Docker: `docker exec --user=www-data partdb php bin/console cache:pool:clear --all`)
+
+For Docker installations, mount a folder with your images to `/var/www/html/public/custom/footprints`, e.g. by
+adding `- ./custom_footprints:/var/www/html/public/custom/footprints` to the `volumes` section of your
+`docker-compose.yaml`.
+
+Images of the footprints of the KiCad footprint library can be downloaded into the custom footprints folder with the
+following command (the cache is cleared automatically afterward):
+
+```bash
+php bin/console partdb:attachments:download-footprint-images
+```
+
 ## Parametric search
 
 In the "parameters" tab of the filter panel on parts list page, you can define constraints, and which parameter values

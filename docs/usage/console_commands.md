@@ -101,6 +101,9 @@ The value of the environment variable is copied to the settings database, so the
 * `php bin/console partdb:attachments:download`: Download all attachments that are not already downloaded to the
   local filesystem. This is useful to create local backups of the attachments, no matter what happens on the remote, and
   also makes picture thumbnails available for the frontend for them.
+* `php bin/console partdb:attachments:download-footprint-images`: Download the rendered images of the KiCad footprint
+  library into the custom footprints folder (`public/custom/footprints/KiCad`), where they can be used via the
+  `%FOOTPRINTS_C%` placeholder. An existing `KiCad` folder is replaced.
 
 ## EDA integration commands
 * `php bin/console partdb:kicad:populate`: Populate KiCad footprint paths and symbol paths for footprints and categories based on their names. Use `--dry-run` to preview changes without applying them, and `--list` to list current values. See the [EDA integration documentation](eda_integration.md) for more details.

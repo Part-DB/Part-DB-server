@@ -140,4 +140,15 @@ DirectoryIndex index.php
     <FilesMatch "\.(svg|svg\.gz|svg\.br)$">
         Header always set Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none'; sandbox;"
     </FilesMatch>
+
+    # Webpack bundles can be started as web workers (e.g. the occt-import-js worker of the 3D model viewer),
+    # and a worker is governed by the CSP of its own script response, not by the one of the page. So the
+    # bundles must be allowed to load their chunks (importScripts) and compile WASM. 'unsafe-eval' is needed as the
+    # embind glue of occt-import-js generates its C++ call wrappers with new Function(). This only affects workers,
+    # the CSP of the pages themselves (set by Nelmio) still forbids eval.
+    # (<If> sections are merged after <FilesMatch>, so this wins over the general rule above. REQUEST_URI
+    # is the originally requested URL, so this also applies when a precompressed .gz file is served.)
+    <If "%{REQUEST_URI} =~ m#/build/[^/]+\.js$#">
+        Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none';"
+    </If>
 </IfModule>

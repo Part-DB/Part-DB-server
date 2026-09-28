@@ -231,6 +231,7 @@ final class AttachmentTest extends TestCase
         yield ['/', false];
         yield ['https://google.de', false];
         yield ['%FOOTPRINTS%/foo/bar.txt', true];
+        yield ['%FOOTPRINTS_C%/foo/bar.txt', true];
     }
 
     #[DataProvider('builtinDataProvider')]

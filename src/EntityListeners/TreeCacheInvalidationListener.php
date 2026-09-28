@@ -28,6 +28,7 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Services\Cache\ElementCacheTagGenerator;
 use App\Services\Cache\UserCacheKeyGenerator;
+use App\Services\Trees\StructuralElementPathCache;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
 use Doctrine\ORM\Event\PostPersistEventArgs;
 use Doctrine\ORM\Event\PostRemoveEventArgs;
@@ -41,7 +42,8 @@ class TreeCacheInvalidationListener
     public function __construct(
         protected TagAwareCacheInterface $cache,
         protected UserCacheKeyGenerator $keyGenerator,
-        protected ElementCacheTagGenerator $tagGenerator
+        protected ElementCacheTagGenerator $tagGenerator,
+        protected StructuralElementPathCache $pathCache,
     )
     {
     }
@@ -58,6 +60,8 @@ class TreeCacheInvalidationListener
         //For changes on structural elements, we also invalidate the sidebar tree
         if ($element instanceof AbstractStructuralDBElement) {
             $tags[] = 'sidebar_tree_update';
+            //The paths are also kept in memory, so drop them too, to not render outdated paths in this request
+            $this->pathCache->reset();
         }
 
         //For user changes, we invalidate the cache for this user

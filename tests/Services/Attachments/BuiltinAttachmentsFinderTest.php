@@ -72,7 +72,13 @@ final class BuiltinAttachmentsFinderTest extends WebTestCase
         foreach ($grouped as $folder => $files) {
             $this->assertStringNotContainsString('\\', (string) $folder);
             foreach ($files as $file) {
-                $this->assertStringStartsWith('%FOOTPRINTS%/'.$folder, $file);
+                //Additional footprints are grouped in a folder prefixed with the additional footprints group name
+                $additional_prefix = BuiltinAttachmentsFinder::ADDITIONAL_FOOTPRINTS_GROUP;
+                if (str_starts_with((string) $folder, $additional_prefix)) {
+                    $this->assertStringStartsWith('%FOOTPRINTS_C%/'.ltrim(substr((string) $folder, strlen($additional_prefix)), '/'), $file);
+                } else {
+                    $this->assertStringStartsWith('%FOOTPRINTS%/'.$folder, $file);
+                }
             }
             //Files inside a folder must be sorted in natural order
             $sorted = $files;

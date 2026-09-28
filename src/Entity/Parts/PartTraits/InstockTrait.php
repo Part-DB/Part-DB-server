@@ -27,6 +27,7 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\PartLot;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -42,7 +43,7 @@ trait InstockTrait
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\OneToMany(targetEntity: PartLot::class, mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['amount' => 'DESC'])]
+    #[ORM\OrderBy(['amount' => SortDirection::Descending])]
     protected Collection $partLots;
 
     /**

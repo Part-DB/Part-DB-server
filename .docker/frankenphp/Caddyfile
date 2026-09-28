@@ -60,6 +60,14 @@
 	@svg path *.svg *.svg.gz *.svg.br
 	header @svg Content-Security-Policy "default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none'; sandbox;"
 
+	# Webpack bundles can be started as web workers (e.g. the occt-import-js worker of the 3D model viewer),
+	# and a worker is governed by the CSP of its own script response, not by the one of the page. So the
+	# bundles must be allowed to load their chunks (importScripts) and compile WASM. 'unsafe-eval' is needed as the
+	# embind glue of occt-import-js generates its C++ call wrappers with new Function(). This only affects workers,
+	# the CSP of the pages themselves (set by Nelmio) still forbids eval.
+	@build_js path_regexp ^.*/build/[^/]+\.js$
+	header @build_js Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none';"
+
 	# Prevent PHP execution in the media upload directory
 	@php_in_media path_regexp (?i)^/media/.*\.(php[3-8]?|phar|phtml|pht|phps)$
 	respond @php_in_media 403

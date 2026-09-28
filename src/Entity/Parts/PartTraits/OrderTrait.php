@@ -29,6 +29,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use function count;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 
 /**
  * This trait collects all aspects of a part related to orders and priceinformations.
@@ -41,7 +42,7 @@ trait OrderTrait
     #[Assert\Valid]
     #[Groups(['extended', 'full', 'import', 'part:read', 'part:write'])]
     #[ORM\OneToMany(targetEntity: Orderdetail::class, mappedBy: 'part', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['supplierpartnr' => 'ASC'])]
+    #[ORM\OrderBy(['supplierpartnr' => SortDirection::Ascending])]
     protected Collection $orderdetails;
 
     /**

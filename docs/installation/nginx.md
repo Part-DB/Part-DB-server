@@ -69,6 +69,14 @@ server {
         add_header X-Content-Type-Options "nosniff" always;
     }
 
+    # Webpack bundles can be started as web workers (e.g. for the 3D model viewer), and a worker is governed
+    # by the CSP of its own script response. So they must be allowed to load their chunks and compile WASM
+    # (and to use eval, which the embind glue of occt-import-js needs).
+    location ~ ^/build/[^/]+\.js$ {
+        add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none';" always;
+        add_header X-Content-Type-Options "nosniff" always;
+    }
+
     error_log /var/log/nginx/parts.error.log;
     access_log /var/log/nginx/parts.access.log;
 

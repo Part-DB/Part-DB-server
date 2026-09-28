@@ -50,6 +50,7 @@ use App\Mcp\DTO\Filters\TextFilterInput;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use Mcp\Schema\Result\CallToolResult;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -80,7 +81,7 @@ final class AdvancedSearchPartsProcessor implements ProcessorInterface
     ) {
     }
 
-    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
+    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): array|CallToolResult
     {
         return $this->runCatchingExpectedErrors(function () use ($data) {
             if (!$data instanceof AdvancedPartSearchInput) {

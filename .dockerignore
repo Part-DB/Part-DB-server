@@ -6,6 +6,9 @@ docs/
 .git
 
 /public/media/*
+/public/custom/footprints/*
+!/public/custom/footprints/.gitignore
+!/public/custom/footprints/.htaccess
 
 ###> symfony/framework-bundle ###
 /.env.local

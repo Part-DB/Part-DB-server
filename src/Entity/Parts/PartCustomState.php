@@ -53,6 +53,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use SortDirection;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -119,7 +120,7 @@ class PartCustomState extends AbstractPartsContainingDBElement
     protected ?BootstrapColor $color = null;
 
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist'])]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => SortDirection::Ascending])]
     protected Collection $children;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'children')]
@@ -133,7 +134,7 @@ class PartCustomState extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: PartCustomStateAttachment::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => SortDirection::Ascending])]
     #[Groups(['part_custom_state:read', 'part_custom_state:write'])]
     protected Collection $attachments;
 
@@ -146,7 +147,7 @@ class PartCustomState extends AbstractPartsContainingDBElement
      */
     #[Assert\Valid]
     #[ORM\OneToMany(targetEntity: PartCustomStateParameter::class, mappedBy: 'element', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[ORM\OrderBy(['name' => SortDirection::Ascending])]
     #[Groups(['part_custom_state:read', 'part_custom_state:write'])]
     protected Collection $parameters;
 

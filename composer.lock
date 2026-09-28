@@ -9347,20 +9347,25 @@
         },
         {
             "name": "phpdocumentor/reflection-common",
-            "version": "2.2.0",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionCommon.git",
-                "reference": "1d01c49d4ed62f25aa84a747ad35d5a16924662b"
+                "reference": "ee15a5a2022c8383906b225055e9496a6a5e6e3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/1d01c49d4ed62f25aa84a747ad35d5a16924662b",
-                "reference": "1d01c49d4ed62f25aa84a747ad35d5a16924662b",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/ee15a5a2022c8383906b225055e9496a6a5e6e3b",
+                "reference": "ee15a5a2022c8383906b225055e9496a6a5e6e3b",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2 || ^8.0"
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.8",
+                "phpunit/phpunit": "^9.5",
+                "vimeo/psalm": "^4.25"
             },
             "type": "library",
             "extra": {
@@ -9384,7 +9389,7 @@
                 }
             ],
             "description": "Common reflection classes used by phpdocumentor to reflect the code structure",
-            "homepage": "http://www.phpdoc.org",
+            "homepage": "https://www.phpdoc.org",
             "keywords": [
                 "FQSEN",
                 "phpDocumentor",
@@ -9394,9 +9399,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpDocumentor/ReflectionCommon/issues",
-                "source": "https://github.com/phpDocumentor/ReflectionCommon/tree/2.x"
+                "source": "https://github.com/phpDocumentor/ReflectionCommon/tree/2.2.1"
             },
-            "time": "2020-06-27T09:03:43+00:00"
+            "time": "2025-11-10T21:21:55+00:00"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -9634,16 +9639,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "2.3.5",
+            "version": "2.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "148cefffaf0233e4c08cc13db8a195a56dd6dfe9"
+                "reference": "1427af4647235b4a73b13940b1f1258d3584f36e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/148cefffaf0233e4c08cc13db8a195a56dd6dfe9",
-                "reference": "148cefffaf0233e4c08cc13db8a195a56dd6dfe9",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/1427af4647235b4a73b13940b1f1258d3584f36e",
+                "reference": "1427af4647235b4a73b13940b1f1258d3584f36e",
                 "shasum": ""
             },
             "require": {
@@ -9675,9 +9680,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.3.5"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/2.3.6"
             },
-            "time": "2026-08-31T16:05:28+00:00"
+            "time": "2026-09-27T20:07:45+00:00"
         },
         {
             "name": "psr/cache",
@@ -11412,16 +11417,16 @@
         },
         {
             "name": "symfony/ai-bundle",
-            "version": "v0.14.0",
+            "version": "v0.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ai-bundle.git",
-                "reference": "dd3bf7f228452368010dc15253030172e4913b8c"
+                "reference": "015f614161f1d15cc4a21b5471d211422d090225"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ai-bundle/zipball/dd3bf7f228452368010dc15253030172e4913b8c",
-                "reference": "dd3bf7f228452368010dc15253030172e4913b8c",
+                "url": "https://api.github.com/repos/symfony/ai-bundle/zipball/015f614161f1d15cc4a21b5471d211422d090225",
+                "reference": "015f614161f1d15cc4a21b5471d211422d090225",
                 "shasum": ""
             },
             "require": {
@@ -11556,7 +11561,7 @@
             ],
             "description": "Integration bundle for Symfony AI components",
             "support": {
-                "source": "https://github.com/symfony/ai-bundle/tree/v0.14.0"
+                "source": "https://github.com/symfony/ai-bundle/tree/v0.14.1"
             },
             "funding": [
                 {
@@ -11576,7 +11581,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-25T00:21:15+00:00"
+            "time": "2026-09-26T01:36:04+00:00"
         },
         {
             "name": "symfony/ai-generic-platform",
@@ -11925,16 +11930,16 @@
         },
         {
             "name": "symfony/ai-platform",
-            "version": "v0.14.0",
+            "version": "v0.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ai-platform.git",
-                "reference": "37380dbeed8175873934df424e04c67b8400d3c6"
+                "reference": "b455008c751189b05556f0611a4f3690d6d8404b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ai-platform/zipball/37380dbeed8175873934df424e04c67b8400d3c6",
-                "reference": "37380dbeed8175873934df424e04c67b8400d3c6",
+                "url": "https://api.github.com/repos/symfony/ai-platform/zipball/b455008c751189b05556f0611a4f3690d6d8404b",
+                "reference": "b455008c751189b05556f0611a4f3690d6d8404b",
                 "shasum": ""
             },
             "require": {
@@ -12040,7 +12045,7 @@
                 "voyage"
             ],
             "support": {
-                "source": "https://github.com/symfony/ai-platform/tree/v0.14.0"
+                "source": "https://github.com/symfony/ai-platform/tree/v0.14.1"
             },
             "funding": [
                 {
@@ -12060,7 +12065,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-24T22:43:20+00:00"
+            "time": "2026-09-26T01:36:04+00:00"
         },
         {
             "name": "symfony/apache-pack",
@@ -14507,16 +14512,16 @@
         },
         {
             "name": "symfony/mcp-bundle",
-            "version": "v0.14.0",
+            "version": "v0.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mcp-bundle.git",
-                "reference": "92297d11b6b499a20a238b53b234d85e030051cb"
+                "reference": "f9f5be5e16a7b4749ca98d8099042902fe917a74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mcp-bundle/zipball/92297d11b6b499a20a238b53b234d85e030051cb",
-                "reference": "92297d11b6b499a20a238b53b234d85e030051cb",
+                "url": "https://api.github.com/repos/symfony/mcp-bundle/zipball/f9f5be5e16a7b4749ca98d8099042902fe917a74",
+                "reference": "f9f5be5e16a7b4749ca98d8099042902fe917a74",
                 "shasum": ""
             },
             "require": {
@@ -14570,7 +14575,7 @@
             ],
             "description": "Symfony integration bundle for Model Context Protocol (via official mcp/sdk)",
             "support": {
-                "source": "https://github.com/symfony/mcp-bundle/tree/v0.14.0"
+                "source": "https://github.com/symfony/mcp-bundle/tree/v0.14.1"
             },
             "funding": [
                 {
@@ -14590,7 +14595,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-24T22:43:20+00:00"
+            "time": "2026-09-26T01:53:23+00:00"
         },
         {
             "name": "symfony/mime",
