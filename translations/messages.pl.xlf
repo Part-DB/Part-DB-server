@@ -15499,5 +15499,17 @@ Serwer autoryzacji Buerklin API:
         <target>Nic</target>
       </segment>
     </unit>
+    <unit id="NUw3e9D" name="part.table.supplier_available_amount">
+      <segment state="translated">
+        <source>part.table.supplier_available_amount</source>
+        <target>Dostępne u dostawcy</target>
+      </segment>
+    </unit>
+    <unit id="cVfVQWf" name="perm.group.unknown">
+      <segment state="translated">
+        <source>perm.group.unknown</source>
+        <target>Nieznane</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
