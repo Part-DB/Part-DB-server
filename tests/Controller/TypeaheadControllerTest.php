@@ -24,6 +24,9 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use App\Entity\Parameters\ParameterDefinition;
+use App\Entity\Parameters\PartParameter;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Part;
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -202,6 +205,44 @@ final class TypeaheadControllerTest extends WebTestCase
         //The alias is part of the payload so the client side widget can match it, but it is never rendered
         self::assertArrayHasKey('alternative_names', $suggestion);
         self::assertSame('Spannungsfestigkeit,', $suggestion['alternative_names']);
+    }
+
+    public function testPartParameterAutocompletePrefersDefinitionOverAdHocParameterWithSameName(): void
+    {
+        $client = $this->loginClient('admin');
+
+        $definition = (new ParameterDefinition())->setName('Dielectric strength');
+
+        $adHocSameName = (new PartParameter())->setName('dielectric strength');
+        $adHocOtherName = (new PartParameter())->setName('Dielectric loss');
+
+        $category = (new Category())->setName('Typeahead ad hoc category');
+        $part = (new Part())
+            ->setName('Typeahead ad hoc part')
+            ->setCategory($category)
+            ->addParameter($adHocSameName)
+            ->addParameter($adHocOtherName);
+
+        $em = static::getContainer()->get(EntityManagerInterface::class);
+        $em->persist($definition);
+        $em->persist($category);
+        $em->persist($part);
+        $em->flush();
+
+        $client->request('GET', '/en/typeahead/parameters/part/search/dielectric');
+
+        self::assertResponseIsSuccessful();
+        $data = json_decode($client->getResponse()->getContent(), true, flags: JSON_THROW_ON_ERROR);
+        self::assertIsArray($data);
+
+        $suggestion = $this->findSuggestion($data, 'Dielectric strength');
+        self::assertIsArray($suggestion);
+        self::assertSame($definition->getID(), $suggestion['definition_id']);
+        self::assertNull($this->findSuggestion($data, 'dielectric strength'));
+
+        $adHoc = $this->findSuggestion($data, 'Dielectric loss');
+        self::assertIsArray($adHoc);
+        self::assertArrayNotHasKey('definition_id', $adHoc);
     }
 
     // -----------------------------------------------------------------------
