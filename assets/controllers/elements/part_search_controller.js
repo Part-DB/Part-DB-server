@@ -52,6 +52,43 @@ export default class extends Controller {
         return text.replace(regex, (match) => `${HIGHLIGHT_PRE_TAG}${match}${HIGHLIGHT_POST_TAG}`);
     }
 
+    connect() {
+        document.addEventListener('keydown', this._onGlobalKeydown);
+    }
+
+    disconnect() {
+        document.removeEventListener('keydown', this._onGlobalKeydown);
+    }
+
+    /**
+     * Pressing "/" anywhere on the page (outside of text fields) focuses the main search field: the one in the page
+     * content (e.g. on the homepage) if there is one, otherwise the one in the navbar.
+     */
+    _onGlobalKeydown = (event) => {
+        if (event.key !== '/' || event.ctrlKey || event.metaKey || event.altKey || event.defaultPrevented) {
+            return;
+        }
+
+        const active = document.activeElement;
+        if (active && (active.isContentEditable || active.closest('input, textarea, select, [contenteditable]'))) {
+            return;
+        }
+
+        // Every search field has this controller, so only the one owning the main search field handles the key
+        const candidates = [
+            ...document.querySelectorAll('[data-navbar-mode="false"] .aa-Input'),
+            ...document.querySelectorAll('[data-navbar-mode="true"] .aa-Input'),
+        ];
+        const target = candidates.find((input) => input.offsetParent !== null);
+        if (!target || !this.element.contains(target)) {
+            return;
+        }
+
+        event.preventDefault();
+        target.focus();
+        target.select();
+    }
+
     initialize() {
         // The endpoint for searching parts
         const base_url = this.element.dataset.autocomplete;
