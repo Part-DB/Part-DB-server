@@ -174,6 +174,17 @@ final readonly class PartsDataTable implements DataTableTypeInterface
                 'data' => fn(Part $context) => $this->partDataTableHelper->renderAmount($context),
                 'orderField' => 'amountSum'
             ])
+            ->add('reserved_amount', HTMLColumn::class, [
+                'label' => $this->translator->trans('part.table.reserved_amount'),
+                //Reserved amount is spread over the part lots' reservations, so it can not be sorted by in the database
+                'orderable' => false,
+                'data' => fn(Part $context) => $this->partDataTableHelper->renderReservedAmount($context),
+            ])
+            ->add('available_amount', HTMLColumn::class, [
+                'label' => $this->translator->trans('part.table.available_amount'),
+                'orderable' => false,
+                'data' => fn(Part $context) => $this->partDataTableHelper->renderAvailableAmount($context),
+            ])
             ->add('supplier_available_amount', HTMLColumn::class, [
                 'label' => $this->translator->trans('part.table.supplier_available_amount'),
                 //The stock is not stored in a way we could sort by (it is spread over the orderdetails), so this

@@ -28,7 +28,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         apiTokenRole: ROLE_API_READ_ONLY
       edit:
         label: "perm.edit"
-        alsoSet: ['read', 'parts_stock.withdraw', 'parts_stock.add', 'parts_stock.move']
+        alsoSet: ['read', 'parts_stock.withdraw', 'parts_stock.add', 'parts_stock.move', 'parts_stock.reserve', 'parts_stock.release']
         apiTokenRole: ROLE_API_EDIT
       create:
         label: "perm.create"
@@ -70,6 +70,12 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         apiTokenRole: ROLE_API_EDIT
       stocktake:
         label: "perm.parts_stock.stocktake"
+        apiTokenRole: ROLE_API_EDIT
+      reserve:
+        label: "perm.parts_stock.reserve"
+        apiTokenRole: ROLE_API_EDIT
+      release:
+        label: "perm.parts_stock.release"
         apiTokenRole: ROLE_API_EDIT
 
 
@@ -123,6 +129,10 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
   projects:
     <<: *PART_CONTAINING
     label: "[[Project]]"
+
+  planned_projects:
+    <<: *PART_CONTAINING
+    label: "perm.planned_projects"
 
   attachment_types:
     <<: *PART_CONTAINING

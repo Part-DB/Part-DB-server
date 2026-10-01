@@ -42,6 +42,8 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
+use App\Entity\ProjectSystem\PartLotReservation;
+use App\Entity\ProjectSystem\PlannedProject;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Entity\UserSystem\Group;
@@ -75,6 +77,8 @@ enum ElementTypes: string implements TranslatableInterface
     case BULK_INFO_PROVIDER_IMPORT_JOB = "bulk_info_provider_import_job";
     case BULK_INFO_PROVIDER_IMPORT_JOB_PART = "bulk_info_provider_import_job_part";
     case PART_CUSTOM_STATE = "part_custom_state";
+    case PLANNED_PROJECT = "planned_project";
+    case PART_LOT_RESERVATION = "part_lot_reservation";
 
     //Child classes has to become before parent classes
     private const CLASS_MAPPING = [
@@ -101,6 +105,8 @@ enum ElementTypes: string implements TranslatableInterface
         BulkInfoProviderImportJob::class => self::BULK_INFO_PROVIDER_IMPORT_JOB,
         BulkInfoProviderImportJobPart::class => self::BULK_INFO_PROVIDER_IMPORT_JOB_PART,
         PartCustomState::class => self::PART_CUSTOM_STATE,
+        PlannedProject::class => self::PLANNED_PROJECT,
+        PartLotReservation::class => self::PART_LOT_RESERVATION,
     ];
 
     /**
@@ -132,6 +138,8 @@ enum ElementTypes: string implements TranslatableInterface
             self::BULK_INFO_PROVIDER_IMPORT_JOB => 'bulk_info_provider_import_job.label',
             self::BULK_INFO_PROVIDER_IMPORT_JOB_PART => 'bulk_info_provider_import_job_part.label',
             self::PART_CUSTOM_STATE => 'part_custom_state.label',
+            self::PLANNED_PROJECT => 'planned_build.label',
+            self::PART_LOT_RESERVATION => 'part_lot_reservation.label',
         };
     }
 
@@ -161,6 +169,8 @@ enum ElementTypes: string implements TranslatableInterface
             self::BULK_INFO_PROVIDER_IMPORT_JOB => 'bulk_info_provider_import_job.labelp',
             self::BULK_INFO_PROVIDER_IMPORT_JOB_PART => 'bulk_info_provider_import_job_part.labelp',
             self::PART_CUSTOM_STATE => 'part_custom_state.labelp',
+            self::PLANNED_PROJECT => 'planned_build.labelp',
+            self::PART_LOT_RESERVATION => 'part_lot_reservation.labelp',
         };
     }
 

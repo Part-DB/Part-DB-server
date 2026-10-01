@@ -229,6 +229,39 @@ readonly class PartDataTableHelper
     }
 
     /**
+     * Renders the amount of this part that is currently reserved for planned projects (over all part lots).
+     * Returns an empty string if nothing is reserved.
+     */
+    public function renderReservedAmount(Part $context): string
+    {
+        $reserved = $context->getReservedAmountSum();
+        if ($reserved <= 0.0) {
+            return '';
+        }
+
+        return htmlspecialchars($this->amountFormatter->format($reserved, $context->getPartUnit()));
+    }
+
+    /**
+     * Renders the amount of this part that is not reserved for any planned project, i.e. the amount that
+     * could actually be withdrawn or used to build a project right now. Highlighted red if negative (which
+     * can happen if a stocktake reduced the stock below what is still reserved).
+     */
+    public function renderAvailableAmount(Part $context): string
+    {
+        $available = $context->getAvailableAmountSum();
+        $ret = htmlspecialchars($this->amountFormatter->format($available, $context->getPartUnit()));
+
+        if ($available < 0) {
+            $ret = sprintf('<b class="text-danger" title="%s">%s</b>',
+                $this->translator->trans('part_lots.available_amount.negative_hint'),
+                $ret);
+        }
+
+        return $ret;
+    }
+
+    /**
      * Renders the best stock any supplier of this part has, as retrieved from the info providers.
      * Obsolete orderdetails and orderdetails without a known stock are ignored; if no supplier stock is known at all,
      * nothing is rendered. A stock is only meaningful together with its age, so the time it was retrieved at is

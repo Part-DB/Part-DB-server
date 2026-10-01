@@ -45,8 +45,8 @@ final readonly class PartLotWithdrawAddHelper
         if ($partLot->isInstockUnknown()) {
             return false;
         }
-        //Part must contain more than 0 parts
-        return $partLot->getAmount() > 0;
+        //Part must contain more than 0 parts that are not already reserved for a planned project
+        return $partLot->getAvailableAmount() > 0;
     }
 
     /**
@@ -77,8 +77,8 @@ final readonly class PartLotWithdrawAddHelper
             throw new \RuntimeException("Cannot withdraw from this part lot!");
         }
 
-        //Ensure that there is enough stock to withdraw
-        if ($amount > $partLot->getAmount()) {
+        //Ensure that there is enough stock (not already reserved for a planned project) to withdraw
+        if ($amount > $partLot->getAvailableAmount()) {
             throw new \RuntimeException('Not enough stock to withdraw!');
         }
 
@@ -94,7 +94,7 @@ final readonly class PartLotWithdrawAddHelper
             $this->eventCommentHelper->setMessage($comment);
         }
 
-        if ($delete_lot_if_empty && $partLot->getAmount() === 0.0) {
+        if ($delete_lot_if_empty && $partLot->getAmount() === 0.0 && $partLot->getReservedAmount() === 0.0) {
             $this->entityManager->remove($partLot);
         }
     }
@@ -173,8 +173,8 @@ final readonly class PartLotWithdrawAddHelper
             throw new \RuntimeException("Cannot move instock between these part lots!");
         }
 
-        //Ensure that there is enough stock to withdraw
-        if ($amount > $origin->getAmount()) {
+        //Ensure that there is enough stock (not already reserved for a planned project) to withdraw
+        if ($amount > $origin->getAvailableAmount()) {
             throw new \RuntimeException('Not enough stock to withdraw!');
         }
 

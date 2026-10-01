@@ -1437,6 +1437,30 @@ Sub elements will be moved upwards.</target>
         <target>Amount</target>
       </segment>
     </unit>
+    <unit id="pp00045" name="part_lots.reserved_amount">
+      <segment state="translated">
+        <source>part_lots.reserved_amount</source>
+        <target>Reserved</target>
+      </segment>
+    </unit>
+    <unit id="pp00046" name="part_lots.available_amount">
+      <segment state="translated">
+        <source>part_lots.available_amount</source>
+        <target>Available</target>
+      </segment>
+    </unit>
+    <unit id="pp00047" name="part_lots.available_amount.negative_hint">
+      <segment state="translated">
+        <source>part_lots.available_amount.negative_hint</source>
+        <target>More is reserved for planned builds than is physically in stock (e.g. after a stocktake). Check the affected planned builds.</target>
+      </segment>
+    </unit>
+    <unit id="pp00048" name="part_lot.delete.blocked_by_reservations">
+      <segment state="translated">
+        <source>part_lot.delete.blocked_by_reservations</source>
+        <target>This part lot can not be modified or removed, because it still has active reservations for planned builds. Cancel or build the affected planned builds first.</target>
+      </segment>
+    </unit>
     <unit id="uOovMlO" name="part_lots.location_unknown">
       <segment state="translated">
         <source>part_lots.location_unknown</source>
@@ -2913,6 +2937,18 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <segment state="translated">
         <source>part.table.minamount</source>
         <target>Min. Amount</target>
+      </segment>
+    </unit>
+    <unit id="pp00049" name="part.table.reserved_amount">
+      <segment state="translated">
+        <source>part.table.reserved_amount</source>
+        <target>Reserved</target>
+      </segment>
+    </unit>
+    <unit id="pp00050" name="part.table.available_amount">
+      <segment state="translated">
+        <source>part.table.available_amount</source>
+        <target>Available</target>
       </segment>
     </unit>
     <unit id="F6gnPca" name="part.table.partUnit">
@@ -7651,6 +7687,384 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>project.builds.no_stocked_builds</source>
         <target>Number of stocked builds</target>
+      </segment>
+    </unit>
+    <unit id="pp00002" name="project.bom_entry.delete.blocked_by_reservations">
+      <segment state="translated">
+        <source>project.bom_entry.delete.blocked_by_reservations</source>
+        <target>This BOM entry can not be deleted, because it still has active reservations for planned builds. Cancel or build the affected planned builds first.</target>
+      </segment>
+    </unit>
+    <unit id="pp00003" name="project.delete.blocked_by_planned_projects">
+      <segment state="translated">
+        <source>project.delete.blocked_by_planned_projects</source>
+        <target>This [project] can not be deleted, because it still has active planned builds referencing it. Cancel or build them first.</target>
+      </segment>
+    </unit>
+    <unit id="pp00004" name="planned_build.label">
+      <segment state="translated">
+        <source>planned_build.label</source>
+        <target>Planned build</target>
+      </segment>
+    </unit>
+    <unit id="pp00005" name="planned_build.labelp">
+      <segment state="translated">
+        <source>planned_build.labelp</source>
+        <target>Planned builds</target>
+      </segment>
+    </unit>
+    <unit id="pp00055" name="part_lot_reservation.label">
+      <segment state="translated">
+        <source>part_lot_reservation.label</source>
+        <target>Part lot reservation</target>
+      </segment>
+    </unit>
+    <unit id="pp00056" name="part_lot_reservation.labelp">
+      <segment state="translated">
+        <source>part_lot_reservation.labelp</source>
+        <target>Part lot reservations</target>
+      </segment>
+    </unit>
+    <unit id="pp00006" name="planned_build.status.planned">
+      <segment state="translated">
+        <source>planned_build.status.planned</source>
+        <target>Planned</target>
+      </segment>
+    </unit>
+    <unit id="pp00007" name="planned_build.status.built">
+      <segment state="translated">
+        <source>planned_build.status.built</source>
+        <target>Built</target>
+      </segment>
+    </unit>
+    <unit id="pp00008" name="planned_build.status.cancelled">
+      <segment state="translated">
+        <source>planned_build.status.cancelled</source>
+        <target>Cancelled</target>
+      </segment>
+    </unit>
+    <unit id="pp00009" name="planned_build.plan.label">
+      <segment state="translated">
+        <source>planned_build.plan.label</source>
+        <target>Plan build</target>
+      </segment>
+    </unit>
+    <unit id="pp00057" name="planned_build.tab.label">
+      <segment state="translated">
+        <source>planned_build.tab.label</source>
+        <target>Plan build</target>
+      </segment>
+    </unit>
+    <unit id="pp00010" name="planned_build.plan.btn_plan">
+      <segment state="translated">
+        <source>planned_build.plan.btn_plan</source>
+        <target>Plan build</target>
+      </segment>
+    </unit>
+    <unit id="pp00011" name="planned_build.plan.name">
+      <segment state="translated">
+        <source>planned_build.plan.name</source>
+        <target>Plan name</target>
+      </segment>
+    </unit>
+    <unit id="pp00012" name="planned_build.plan.comment">
+      <segment state="translated">
+        <source>planned_build.plan.comment</source>
+        <target>Comment / Notes</target>
+      </segment>
+    </unit>
+    <unit id="pp00013" name="planned_build.plan.comment.hint">
+      <segment state="translated">
+        <source>planned_build.plan.comment.hint</source>
+        <target>Optional notes about this plan, e.g. why it was created or what it is for.</target>
+      </segment>
+    </unit>
+    <unit id="pp00014" name="planned_build.plan.help">
+      <segment state="translated">
+        <source>planned_build.plan.help</source>
+        <target>Choose from which [[part_lot]] the stock for this planned build should be reserved (and in which amount). Reserving stock does not remove it from inventory - it only marks it as unavailable for other withdrawals until the plan is built or cancelled.</target>
+      </segment>
+    </unit>
+    <unit id="pp00015" name="planned_build.plan.possible">
+      <segment state="translated">
+        <source>planned_build.plan.possible</source>
+        <target>Planning possible</target>
+      </segment>
+    </unit>
+    <unit id="pp00016" name="planned_build.plan.not_possible">
+      <segment state="translated">
+        <source>planned_build.plan.not_possible</source>
+        <target>Not enough available (non-reserved) stock to fully cover this plan - it can still be created, but will only partially reserve the required parts</target>
+      </segment>
+    </unit>
+    <unit id="pp00017" name="planned_build.plan.following_bom_entries_miss_available_stock">
+      <segment state="translated">
+        <source>planned_build.plan.following_bom_entries_miss_available_stock</source>
+        <target>You do not have enough available (non-reserved) [[part]] stocked to plan this [project] %number_of_builds% times. The following [[part]] have missing available instock:</target>
+      </segment>
+    </unit>
+    <unit id="pp00018" name="planned_build.plan.available">
+      <segment state="translated">
+        <source>planned_build.plan.available</source>
+        <target>available</target>
+      </segment>
+    </unit>
+    <unit id="pp00019" name="planned_build.plan.flash.success">
+      <segment state="translated">
+        <source>planned_build.plan.flash.success</source>
+        <target>Stock reserved and planned build created successfully.</target>
+      </segment>
+    </unit>
+    <unit id="pp00020" name="planned_build.plan.flash.invalid_input">
+      <segment state="translated">
+        <source>planned_build.plan.flash.invalid_input</source>
+        <target>Can not plan this project. Check input!</target>
+      </segment>
+    </unit>
+    <unit id="pp00021" name="planned_build.build.btn_build">
+      <segment state="translated">
+        <source>planned_build.build.btn_build</source>
+        <target>Build</target>
+      </segment>
+    </unit>
+    <unit id="pp00022" name="planned_build.build.flash.success">
+      <segment state="translated">
+        <source>planned_build.build.flash.success</source>
+        <target>Planned build completed successfully. The reserved stock has been consumed.</target>
+      </segment>
+    </unit>
+    <unit id="pp00023" name="planned_build.build.flash.invalid_input">
+      <segment state="translated">
+        <source>planned_build.build.flash.invalid_input</source>
+        <target>Can not complete this planned build. Check input!</target>
+      </segment>
+    </unit>
+    <unit id="pp00061" name="planned_build.build.flash.not_fully_reserved">
+      <segment state="translated">
+        <source>planned_build.build.flash.not_fully_reserved</source>
+        <target>This planned build can not be completed yet, because there is not enough stock (reserved or otherwise available) to cover the full bill of materials.</target>
+      </segment>
+    </unit>
+    <unit id="pp00024" name="planned_build.cancel.btn">
+      <segment state="translated">
+        <source>planned_build.cancel.btn</source>
+        <target>Cancel plan</target>
+      </segment>
+    </unit>
+    <unit id="pp00025" name="planned_build.cancel.comment">
+      <segment state="translated">
+        <source>planned_build.cancel.comment</source>
+        <target>Comment</target>
+      </segment>
+    </unit>
+    <unit id="pp00026" name="planned_build.cancel.flash.success">
+      <segment state="translated">
+        <source>planned_build.cancel.flash.success</source>
+        <target>Planned build cancelled. Reserved stock has been released back to available.</target>
+      </segment>
+    </unit>
+    <unit id="pp00027" name="planned_build.delete.flash.success">
+      <segment state="translated">
+        <source>planned_build.delete.flash.success</source>
+        <target>Planned build deleted.</target>
+      </segment>
+    </unit>
+    <unit id="pp00028" name="planned_build.info.project">
+      <segment state="translated">
+        <source>planned_build.info.project</source>
+        <target>Source project</target>
+      </segment>
+    </unit>
+    <unit id="pp00029" name="planned_build.info.reserved_amount">
+      <segment state="translated">
+        <source>planned_build.info.reserved_amount</source>
+        <target>Reserved</target>
+      </segment>
+    </unit>
+    <unit id="pp00030" name="planned_build.info.shortage_warning">
+      <segment state="translated">
+        <source>planned_build.info.shortage_warning</source>
+        <target>One or more reserved lots now have less physical stock than is reserved for this plan (e.g. due to a stocktake). Review the highlighted rows below before building.</target>
+      </segment>
+    </unit>
+    <unit id="pp00062" name="planned_build.info.not_fully_reserved">
+      <segment state="translated">
+        <source>planned_build.info.not_fully_reserved</source>
+        <target>This planned build can not be completed yet, because there is not enough stock (reserved or otherwise available) to cover the full bill of materials. The following parts are still missing:</target>
+      </segment>
+    </unit>
+    <unit id="pp00063" name="planned_build.info.planned_at">
+      <segment state="translated">
+        <source>planned_build.info.planned_at</source>
+        <target>Planned</target>
+      </segment>
+    </unit>
+    <unit id="pp00064" name="planned_build.info.built_at">
+      <segment state="translated">
+        <source>planned_build.info.built_at</source>
+        <target>Built</target>
+      </segment>
+    </unit>
+    <unit id="pp00065" name="planned_build.info.cancelled_at">
+      <segment state="translated">
+        <source>planned_build.info.cancelled_at</source>
+        <target>Cancelled</target>
+      </segment>
+    </unit>
+    <unit id="pp00066" name="planned_build.info.needed">
+      <segment state="translated">
+        <source>planned_build.info.needed</source>
+        <target>Needed</target>
+      </segment>
+    </unit>
+    <unit id="pp00067" name="planned_build.info.consumed_amount">
+      <segment state="translated">
+        <source>planned_build.info.consumed_amount</source>
+        <target>Used</target>
+      </segment>
+    </unit>
+    <unit id="pp00068" name="planned_build.info.no_lots">
+      <segment state="translated">
+        <source>planned_build.info.no_lots</source>
+        <target>No stock lot yet</target>
+      </segment>
+    </unit>
+    <unit id="pp00069" name="planned_build.info.part_deleted">
+      <segment state="translated">
+        <source>planned_build.info.part_deleted</source>
+        <target>deleted</target>
+      </segment>
+    </unit>
+    <unit id="pp00070" name="planned_build.info.top_up_hint">
+      <segment state="translated">
+        <source>planned_build.info.top_up_hint</source>
+        <target>Parts that are not (fully) reserved are taken from the stock that is available at the time this planned build is built.</target>
+      </segment>
+    </unit>
+    <unit id="pp00071" name="planned_build.plan.no_lots">
+      <segment state="translated">
+        <source>planned_build.plan.no_lots</source>
+        <target>This part has no stock lot yet, so nothing can be reserved for it right now. It is taken from stock when the planned build is built, as soon as it has enough stock.</target>
+      </segment>
+    </unit>
+    <unit id="pp00072" name="planned_build.flash.not_planned">
+      <segment state="translated">
+        <source>planned_build.flash.not_planned</source>
+        <target>This planned build is not planned anymore, because it was already built or cancelled.</target>
+      </segment>
+    </unit>
+    <unit id="pp00073" name="part.delete.blocked_by_reservations">
+      <segment state="translated">
+        <source>part.delete.blocked_by_reservations</source>
+        <target>This part can not be deleted or merged, because some of its lots still have active reservations for planned builds. Cancel or build the affected planned builds first.</target>
+      </segment>
+    </unit>
+    <unit id="pp00074" name="part.withdraw.not_enough_available">
+      <segment state="translated">
+        <source>part.withdraw.not_enough_available</source>
+        <target>The requested amount is higher than what is available in this lot. Stock that is reserved for planned builds can not be withdrawn or moved.</target>
+      </segment>
+    </unit>
+    <unit id="pp00031" name="planned_build.table.name">
+      <segment state="translated">
+        <source>planned_build.table.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="pp00032" name="planned_build.table.project">
+      <segment state="translated">
+        <source>planned_build.table.project</source>
+        <target>Project</target>
+      </segment>
+    </unit>
+    <unit id="pp00033" name="planned_build.table.number_of_builds">
+      <segment state="translated">
+        <source>planned_build.table.number_of_builds</source>
+        <target>Number of builds</target>
+      </segment>
+    </unit>
+    <unit id="pp00034" name="planned_build.table.status">
+      <segment state="translated">
+        <source>planned_build.table.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="pp00035" name="planned_build.table.added_date">
+      <segment state="translated">
+        <source>planned_build.table.added_date</source>
+        <target>Created</target>
+      </segment>
+    </unit>
+    <unit id="pp00036" name="planned_build.table.info">
+      <segment state="translated">
+        <source>planned_build.table.info</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="pp00037" name="planned_build.table.info.title">
+      <segment state="translated">
+        <source>planned_build.table.info.title</source>
+        <target>Show details</target>
+      </segment>
+    </unit>
+    <unit id="pp00038" name="planned_build.missing_parts.label">
+      <segment state="translated">
+        <source>planned_build.missing_parts.label</source>
+        <target>Missing parts</target>
+      </segment>
+    </unit>
+    <unit id="pp00039" name="planned_build.missing_parts.help">
+      <segment state="translated">
+        <source>planned_build.missing_parts.help</source>
+        <target>Lists the planned builds that can currently not be built, because there is not enough stock for some of their parts. Use the checkboxes to only show certain planned builds.</target>
+      </segment>
+    </unit>
+    <unit id="pp00040" name="planned_build.missing_parts.none">
+      <segment state="translated">
+        <source>planned_build.missing_parts.none</source>
+        <target>All planned builds can currently be built with the stock that is available.</target>
+      </segment>
+    </unit>
+    <unit id="pp00041" name="planned_build.missing_parts.shortfall">
+      <segment state="translated">
+        <source>planned_build.missing_parts.shortfall</source>
+        <target>Shortfall</target>
+      </segment>
+    </unit>
+    <unit id="pp00058" name="planned_build.missing_parts.reason">
+      <segment state="translated">
+        <source>planned_build.missing_parts.reason</source>
+        <target>Reason</target>
+      </segment>
+    </unit>
+    <unit id="pp00059" name="planned_build.missing_parts.reason.partial_reservation">
+      <segment state="translated">
+        <source>planned_build.missing_parts.reason.partial_reservation</source>
+        <target>Not enough stock is reserved or available for the needed amount</target>
+      </segment>
+    </unit>
+    <unit id="pp00060" name="planned_build.missing_parts.reason.lot_overcommitted">
+      <segment state="translated">
+        <source>planned_build.missing_parts.reason.lot_overcommitted</source>
+        <target>The stock of a reserved lot was reduced since planning (e.g. by a stocktake)</target>
+      </segment>
+    </unit>
+    <unit id="pp00042" name="perm.planned_projects">
+      <segment state="translated">
+        <source>perm.planned_projects</source>
+        <target>Planned builds</target>
+      </segment>
+    </unit>
+    <unit id="pp00043" name="perm.parts_stock.reserve">
+      <segment state="translated">
+        <source>perm.parts_stock.reserve</source>
+        <target>Reserve parts for planned builds</target>
+      </segment>
+    </unit>
+    <unit id="pp00044" name="perm.parts_stock.release">
+      <segment state="translated">
+        <source>perm.parts_stock.release</source>
+        <target>Release reservations of planned builds</target>
       </segment>
     </unit>
     <unit id="el6J5sy" name="user.change_avatar.label">

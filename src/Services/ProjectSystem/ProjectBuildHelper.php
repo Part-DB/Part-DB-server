@@ -59,7 +59,7 @@ final readonly class ProjectBuildHelper
             throw new \RuntimeException('The quantity of the BOM entry must be greater than 0!');
         }
 
-        $amount_sum = $part->getAmountSum();
+        $amount_sum = $part->getAvailableAmountSum();
 
         return (int) floor($amount_sum / $projectBOMEntry->getQuantity());
     }
@@ -141,7 +141,7 @@ final readonly class ProjectBuildHelper
                 continue;
             }
 
-            $amount_sum = $part->getAmountSum();
+            $amount_sum = $part->getAvailableAmountSum();
 
             if ($amount_sum < $bomEntry->getQuantity() * $number_of_builds) {
                 $non_buildable_entries[] = $bomEntry;

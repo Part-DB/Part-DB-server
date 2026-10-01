@@ -1,0 +1,56 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{% trans %}planned_build.missing_parts.label{% endtrans %}{% endblock %}
+
+{% block content %}
+    <h1><i class="fa-solid fa-triangle-exclamation fa-fw"></i> {% trans %}planned_build.missing_parts.label{% endtrans %}</h1>
+
+    <p class="text-muted">{% trans %}planned_build.missing_parts.help{% endtrans %}</p>
+
+    <form method="get" class="mb-3">
+        <div class="mb-2">
+            {% for plannedProject in all_planned_projects %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="plan[]" value="{{ plannedProject.id }}"
+                           id="plan_check_{{ plannedProject.id }}"
+                           {% if plannedProject.id in selected_ids %}checked{% endif %}>
+                    <label class="form-check-label" for="plan_check_{{ plannedProject.id }}">
+                        {{ plannedProject.name }}
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-outline-secondary">{% trans %}filter.submit{% endtrans %}</button>
+        <a href="{{ path('planned_project_missing_parts') }}" class="btn btn-outline-secondary">{% trans %}filter.clear_filters{% endtrans %}</a>
+    </form>
+
+    {% if shortages is empty %}
+        <div class="alert alert-success" role="alert">
+            <i class="fa-solid fa-circle-check fa-fw"></i> {% trans %}planned_build.missing_parts.none{% endtrans %}
+        </div>
+    {% else %}
+        {% for shortage in shortages %}
+            <h5>
+                <a href="{{ path('planned_project_info', {'id': shortage.plannedProject.id}) }}">{{ shortage.plannedProject.name }}</a>
+            </h5>
+            <table class="table table-sm table-hover mb-4">
+                <thead>
+                <tr>
+                    <th>{% trans %}part.table.name{% endtrans %}</th>
+                    <th>{% trans %}planned_build.missing_parts.reason{% endtrans %}</th>
+                    <th class="text-end">{% trans %}planned_build.missing_parts.shortfall{% endtrans %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in shortage.rows %}
+                    <tr class="table-danger">
+                        <td><a href="{{ entity_url(row.part) }}">{{ row.part.name }}</a></td>
+                        <td>{{ row.reason|trans }}</td>
+                        <td class="text-end">{{ row.shortfall | format_amount(row.part.partUnit) }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
