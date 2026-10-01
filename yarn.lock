@@ -2,58 +2,58 @@
 # yarn lockfile v1
 
 
-"@algolia/autocomplete-core@1.19.11":
-  version "1.19.11"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-core/-/autocomplete-core-1.19.11.tgz#b41b86edf8e3ae682566ccbf3757ed16079d32ed"
-  integrity sha512-Txje8Sw5yMH4ApvgqR9rAxxWgmVKG+lIgl/e6MEn/IVkQvB/NZu7rV2+2Iy4/p34/D+DWS+hxpZL39w33pJXKA==
+"@algolia/autocomplete-core@1.19.12":
+  version "1.19.12"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-core/-/autocomplete-core-1.19.12.tgz#2ab622109cfe1e6e93e9b1ae8365520ccf2d4d26"
+  integrity sha512-nJU03L3Q0LlfnFsQTE1YppSrNcbP0lBg29mCaGCeYPog841HP9WWk5KtrTvNH2LPX6p5eELPFetSeSO8I1MFPg==
   dependencies:
-    "@algolia/autocomplete-plugin-algolia-insights" "1.19.11"
-    "@algolia/autocomplete-shared" "1.19.11"
+    "@algolia/autocomplete-plugin-algolia-insights" "1.19.12"
+    "@algolia/autocomplete-shared" "1.19.12"
 
-"@algolia/autocomplete-js@1.19.11", "@algolia/autocomplete-js@^1.17.0":
-  version "1.19.11"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-js/-/autocomplete-js-1.19.11.tgz#5ca017cd8989503b655093ef2c5d73744625d9c8"
-  integrity sha512-0xM2gHagaCG8wK1tUE5Cf4OaArXPb9tQgSoXvJrgtssftLKMIDUffoUM5wHouRWjlycHCtymWzZk/dXFtd/7tw==
+"@algolia/autocomplete-js@1.19.12", "@algolia/autocomplete-js@^1.17.0":
+  version "1.19.12"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-js/-/autocomplete-js-1.19.12.tgz#3128ab64d2eba22cda4c66890e42637caf739e1f"
+  integrity sha512-bHu42z7z6/hfqnzkav1/1IpRlHl7a13GzCElap5y2yqJSSRifhbtXPJT46q3dnNtoSTSDEEfHfKiEspcRWs4DQ==
   dependencies:
-    "@algolia/autocomplete-core" "1.19.11"
-    "@algolia/autocomplete-preset-algolia" "1.19.11"
-    "@algolia/autocomplete-shared" "1.19.11"
+    "@algolia/autocomplete-core" "1.19.12"
+    "@algolia/autocomplete-preset-algolia" "1.19.12"
+    "@algolia/autocomplete-shared" "1.19.12"
     htm "^3.1.1"
     preact "^10.13.2"
 
-"@algolia/autocomplete-plugin-algolia-insights@1.19.11":
-  version "1.19.11"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-plugin-algolia-insights/-/autocomplete-plugin-algolia-insights-1.19.11.tgz#b9335adf78ffb466a2d4541e6d7cbe9f11383a2d"
-  integrity sha512-NW7gVJqk1dQQeOEsY9+GqImCJwjL0YZW50gLDdfjI/9zfYNiCCByzpQaUM9YRzVr1QM61FHiVRjT6advLwl9Qw==
+"@algolia/autocomplete-plugin-algolia-insights@1.19.12":
+  version "1.19.12"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-plugin-algolia-insights/-/autocomplete-plugin-algolia-insights-1.19.12.tgz#4e0c65363dda471223401229ee608da0958bc65b"
+  integrity sha512-L3Fvu4Ajb7c9X1DMTHFFD8d1uK898b9bg9ENrjLpkSP8BAzO4vS5/MIsU0ks0FqpOihZ4VDAVYRaU6bhm/CljQ==
   dependencies:
-    "@algolia/autocomplete-shared" "1.19.11"
+    "@algolia/autocomplete-shared" "1.19.12"
 
 "@algolia/autocomplete-plugin-recent-searches@^1.17.0":
-  version "1.19.11"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-plugin-recent-searches/-/autocomplete-plugin-recent-searches-1.19.11.tgz#bb8908572ef33c6d8d3d78a415b567d8e430cd25"
-  integrity sha512-PtGYMQHlRAzchIOx1DGaBY66Y7UJWyGsAxsVcvsHGaUnzwq+o7ALVy3Rkjl2BG1lC7+KcCE26+PuMwYUNgHMUw==
+  version "1.19.12"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-plugin-recent-searches/-/autocomplete-plugin-recent-searches-1.19.12.tgz#43527077920a73aa00be307c2f884ad7213b032c"
+  integrity sha512-cR9qTqSoIkpwmMQd24200MlaM63LO+r5q4YsDJmYYfeshTaJvaMnxKA2AUUmfV3EhMA++NMO1lRVUxc20WqdYQ==
   dependencies:
-    "@algolia/autocomplete-core" "1.19.11"
-    "@algolia/autocomplete-js" "1.19.11"
-    "@algolia/autocomplete-preset-algolia" "1.19.11"
-    "@algolia/autocomplete-shared" "1.19.11"
+    "@algolia/autocomplete-core" "1.19.12"
+    "@algolia/autocomplete-js" "1.19.12"
+    "@algolia/autocomplete-preset-algolia" "1.19.12"
+    "@algolia/autocomplete-shared" "1.19.12"
 
-"@algolia/autocomplete-preset-algolia@1.19.11":
-  version "1.19.11"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-preset-algolia/-/autocomplete-preset-algolia-1.19.11.tgz#94df94cc1d8b06e4b683fe64f6c480c9e9eff4dc"
-  integrity sha512-N5VnODgGow3wNJSEhJzYdKoUvjRtI3b9utmPUWBhebMWIicfYj66nc/xozLiuTFq3mT8ns92zrOqFC69BLjN7A==
+"@algolia/autocomplete-preset-algolia@1.19.12":
+  version "1.19.12"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-preset-algolia/-/autocomplete-preset-algolia-1.19.12.tgz#df5cb0e55068d1a393e35f3a294757266b7b709a"
+  integrity sha512-0NfpAj47g95Dpk7cufSzpamYeOEnmY2/0UQlfJZlMVjch59uOaWAxtNGmcgSPuFwWXu4iidm6xqhVIb0w6mmbA==
   dependencies:
-    "@algolia/autocomplete-shared" "1.19.11"
+    "@algolia/autocomplete-shared" "1.19.12"
 
-"@algolia/autocomplete-shared@1.19.11":
-  version "1.19.11"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-shared/-/autocomplete-shared-1.19.11.tgz#dceb4fdfaa5d9f800e74f714b0e5d7735536dd33"
-  integrity sha512-9oYPEMmMAH+/EDUGKJJ6oX6JI7YNq7tmWTxEbe8r/qmZnM5BoJSzo8C3Wa2Kc/EPyBJjFrjw7qwo7huzqAYW0g==
+"@algolia/autocomplete-shared@1.19.12":
+  version "1.19.12"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-shared/-/autocomplete-shared-1.19.12.tgz#052dd39a96dfed2b97804a8f3ecc481843799017"
+  integrity sha512-goe55oftoEduuOHhTg4viHr58/ZsZvYEtfxkKFy6LdJxZ7+jOdVwp2bZz7qjip9CdFqkIB+34d4esftcaErCzA==
 
 "@algolia/autocomplete-theme-classic@^1.17.0":
-  version "1.19.11"
-  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-theme-classic/-/autocomplete-theme-classic-1.19.11.tgz#c18be84fe6feb085dc279c6cd84ca8dedd5577f6"
-  integrity sha512-l0nwmAVoAihFBri3RnIIBjxrRve0JRg+Zy/NPAgrH2BrippsUrGcF7TjiFxuwnniRGMt8bR9kVTOVx1CUPuRPA==
+  version "1.19.12"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-theme-classic/-/autocomplete-theme-classic-1.19.12.tgz#b9c52ae4f9a6c3c3506db79093c15868f2c5a5e3"
+  integrity sha512-U/HVVI1rGeNH0l9jaB1+VTWMHkxw4MhbHxaNGjM5/XF49AN0hoMAo/dMKi7GvRm6a0D7vscbYnkC6dKGkTRZjw==
 
 "@babel/code-frame@^8.0.0", "@babel/code-frame@^8.0.6":
   version "8.0.6"
@@ -2267,7 +2267,7 @@ base64-js@^1.1.2, base64-js@^1.3.0:
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
   integrity sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==
 
-baseline-browser-mapping@^2.11.25:
+baseline-browser-mapping@^2.11.26:
   version "2.11.26"
   resolved "https://registry.yarnpkg.com/baseline-browser-mapping/-/baseline-browser-mapping-2.11.26.tgz#01bf6774efb3fbb9de20afc6b923ab85c7d230a6"
   integrity sha512-GLQdD3y6UF8iVuMJl5fHgE4jdn/ua7n+toKfLgNlg3BqQtOZjpy68T8Tup8/wGWZCDlm7KMg7tPb4MPn7oN0TQ==
@@ -2319,13 +2319,13 @@ browserify-zlib@^0.2.0:
     pako "~1.0.5"
 
 browserslist@^4.24.0, browserslist@^4.28.1, browserslist@^4.28.7:
-  version "4.29.1"
-  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.29.1.tgz#f723071987a4f094177d94e01f6dc6e7493b972c"
-  integrity sha512-AUdjuRyCNGUYtqpqfTmWyM4fXay8yIQhmLnvYe/THMGfT9B/34X7xQd3ifKxwyNPPpowVBjLb+64BN9Rn1mizw==
+  version "4.29.2"
+  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.29.2.tgz#652374dd6ad03dfcc66d63dad56aaaba9705b075"
+  integrity sha512-/u9r8k8ue4ZhHCw9ovDtltpWdXeXzjhdxCGj6vm1RGLPXb8lu33EMdoCHF5Sx8oYBS+Q/FYYNmAqlHncxR3RmA==
   dependencies:
-    baseline-browser-mapping "^2.11.25"
-    caniuse-lite "^1.0.30001810"
-    electron-to-chromium "^1.5.438"
+    baseline-browser-mapping "^2.11.26"
+    caniuse-lite "^1.0.30001812"
+    electron-to-chromium "^1.5.439"
     node-releases "^2.0.57"
     update-browserslist-db "^1.3.3"
 
@@ -2350,10 +2350,10 @@ cacheable@^2.5.0:
     keyv "^5.6.0"
     qified "^0.10.1"
 
-caniuse-lite@^1.0.30001810:
-  version "1.0.30001812"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001812.tgz#55b32ed819d120b384149a4f9fd59d179ce008f9"
-  integrity sha512-qN+QNNBr93TCmFrmte0bBCjSDMuRvt78VlHT99qIGPszm4QsqCX8lnyWUFkHi8B7ZBAPq8SH+UqyXNy/odMdng==
+caniuse-lite@^1.0.30001812:
+  version "1.0.30001813"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001813.tgz#acc16d52a011b87873b14e3c62040bb273c270eb"
+  integrity sha512-zfjJo4rM0+fUomGDBW/xcDjhIwz/210DGvip2MAMDZ8KHcRPnOHmEgHPZP0UHlZoxr8fYKVJOqcORhYQcG4FKQ==
 
 ccount@^2.0.0:
   version "2.0.1"
@@ -2802,7 +2802,7 @@ domutils@^2.5.2, domutils@^2.8.0:
     domelementtype "^2.2.0"
     domhandler "^4.2.0"
 
-electron-to-chromium@^1.5.438:
+electron-to-chromium@^1.5.439:
   version "1.5.439"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.439.tgz#d14ad21f157ee83b77d1e46fc031776eec9013c9"
   integrity sha512-qu6QIPXhsb+CRcAiTMNjR4A1y/7tCYKkKjr5CZXRVih6qkDf79peZ2BpEU3qoDBNCRrcy3Mra3X9nG5oruuA7Q==
@@ -4361,9 +4361,9 @@ rechoir@^0.8.0:
     resolve "^1.20.0"
 
 regenerate-unicode-properties@^10.2.2:
-  version "10.2.2"
-  resolved "https://registry.yarnpkg.com/regenerate-unicode-properties/-/regenerate-unicode-properties-10.2.2.tgz#aa113812ba899b630658c7623466be71e1f86f66"
-  integrity sha512-m03P+zhBeQd1RGnYxrGyDAPpWX/epKirLrp8e3qevZdVkKtnCrjjWczIbYc8+xd6vcTStVlqfycTx1KR4LOr0g==
+  version "10.3.0"
+  resolved "https://registry.yarnpkg.com/regenerate-unicode-properties/-/regenerate-unicode-properties-10.3.0.tgz#73981205a914f7ce12e9518f6c073119e46f3b7c"
+  integrity sha512-9ns8odR8e9q3otKeHj3DE80jZYKg6zVeZKE+zQmRKXFoVUcuiTGeO6iusDhPRoIQQPVPRvH+SfBhrTud4eczuw==
   dependencies:
     regenerate "^1.4.2"
 

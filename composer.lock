@@ -9470,16 +9470,16 @@
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "327a05bbee54120d4786a0dc67aad30226ad4cf9"
+                "reference": "dbe2133bb23e2e33a6834f4ed417f24a1b167769"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/327a05bbee54120d4786a0dc67aad30226ad4cf9",
-                "reference": "327a05bbee54120d4786a0dc67aad30226ad4cf9",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/dbe2133bb23e2e33a6834f4ed417f24a1b167769",
+                "reference": "dbe2133bb23e2e33a6834f4ed417f24a1b167769",
                 "shasum": ""
             },
             "require": {
@@ -9522,9 +9522,9 @@
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
             "support": {
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
-                "source": "https://github.com/phpDocumentor/TypeResolver/tree/2.0.0"
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/2.1.0"
             },
-            "time": "2026-01-06T21:53:42+00:00"
+            "time": "2026-09-27T19:32:54+00:00"
         },
         {
             "name": "phpoffice/phpspreadsheet",
@@ -10432,16 +10432,16 @@
         },
         {
             "name": "rhukster/dom-sanitizer",
-            "version": "1.0.17",
+            "version": "1.0.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rhukster/dom-sanitizer.git",
-                "reference": "fe182ad4a4df600034dfd07ba127e5c001e44407"
+                "reference": "47888d28e45f5dd13ff8c804f3bb20f543a23842"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rhukster/dom-sanitizer/zipball/fe182ad4a4df600034dfd07ba127e5c001e44407",
-                "reference": "fe182ad4a4df600034dfd07ba127e5c001e44407",
+                "url": "https://api.github.com/repos/rhukster/dom-sanitizer/zipball/47888d28e45f5dd13ff8c804f3bb20f543a23842",
+                "reference": "47888d28e45f5dd13ff8c804f3bb20f543a23842",
                 "shasum": ""
             },
             "require": {
@@ -10471,9 +10471,9 @@
             "description": "A simple but effective DOM/SVG/MathML Sanitizer for PHP 7.4+",
             "support": {
                 "issues": "https://github.com/rhukster/dom-sanitizer/issues",
-                "source": "https://github.com/rhukster/dom-sanitizer/tree/1.0.17"
+                "source": "https://github.com/rhukster/dom-sanitizer/tree/1.0.18"
             },
-            "time": "2026-09-17T21:30:27+00:00"
+            "time": "2026-09-27T23:45:31+00:00"
         },
         {
             "name": "robrichards/xmlseclibs",
