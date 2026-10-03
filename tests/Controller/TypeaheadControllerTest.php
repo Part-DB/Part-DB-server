@@ -23,6 +23,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use App\Entity\Parameters\ParameterDefinition;
+use App\Entity\Parameters\PartParameter;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Part;
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -124,6 +128,123 @@ final class TypeaheadControllerTest extends WebTestCase
         }
     }
 
+    public function testPartParameterAutocompleteExposesChoiceDefinitionMetadata(): void
+    {
+        $client = $this->loginClient('admin');
+        $definition = (new ParameterDefinition())
+            ->setName('Alias dielectric name')
+            ->setSymbol('D')
+            ->setUnit('grade')
+            ->setInputType(ParameterDefinition::INPUT_TYPE_CHOICE)
+            ->setChoices(['X7R', 'X5R', 'C0G'])
+            ->setDeprecatedChoices(['Y5V']);
+        $em = static::getContainer()->get(EntityManagerInterface::class);
+        $em->persist($definition);
+        $em->flush();
+
+        $client->request('GET', '/en/typeahead/parameters/part/search/Alias%20dielectric%20name');
+
+        self::assertResponseIsSuccessful();
+        $data = json_decode($client->getResponse()->getContent(), true, flags: JSON_THROW_ON_ERROR);
+        self::assertIsArray($data);
+        $suggestion = $this->findSuggestion($data, 'Alias dielectric name');
+        self::assertIsArray($suggestion);
+        self::assertSame($definition->getID(), $suggestion['definition_id']);
+        self::assertSame('D', $suggestion['symbol']);
+        self::assertSame('grade', $suggestion['unit']);
+        self::assertSame(ParameterDefinition::INPUT_TYPE_CHOICE, $suggestion['input_type']);
+        self::assertSame(['X7R', 'X5R', 'C0G'], $suggestion['choices']);
+        self::assertSame(['Y5V'], $suggestion['deprecated_choices']);
+    }
+
+    public function testPartParameterAutocompleteExposesTextDefinitionWithoutChoices(): void
+    {
+        $client = $this->loginClient('admin');
+        $definition = (new ParameterDefinition())
+            ->setName('Alias manufacturer code')
+            ->setInputType(ParameterDefinition::INPUT_TYPE_TEXT);
+        $em = static::getContainer()->get(EntityManagerInterface::class);
+        $em->persist($definition);
+        $em->flush();
+
+        $client->request('GET', '/en/typeahead/parameters/part/search/Alias%20manufacturer%20code');
+
+        self::assertResponseIsSuccessful();
+        $data = json_decode($client->getResponse()->getContent(), true, flags: JSON_THROW_ON_ERROR);
+        self::assertIsArray($data);
+        $suggestion = $this->findSuggestion($data, 'Alias manufacturer code');
+        self::assertIsArray($suggestion);
+        self::assertSame(ParameterDefinition::INPUT_TYPE_TEXT, $suggestion['input_type']);
+        self::assertSame([], $suggestion['choices']);
+        self::assertSame([], $suggestion['deprecated_choices']);
+    }
+
+    public function testPartParameterAutocompleteFindsDefinitionByAlternativeName(): void
+    {
+        $client = $this->loginClient('admin');
+        $definition = (new ParameterDefinition())
+            ->setName('Dielectric strength via alias')
+            ->setSymbol('V')
+            ->setUnit('V')
+            ->setInputType(ParameterDefinition::INPUT_TYPE_TEXT)
+            ->setAlternativeNames('Spannungsfestigkeit');
+        $em = static::getContainer()->get(EntityManagerInterface::class);
+        $em->persist($definition);
+        $em->flush();
+
+        //The alternative name is matched (partially) by the autocomplete...
+        $client->request('GET', '/en/typeahead/parameters/part/search/spannungsf');
+
+        self::assertResponseIsSuccessful();
+        $data = json_decode($client->getResponse()->getContent(), true, flags: JSON_THROW_ON_ERROR);
+        self::assertIsArray($data);
+        $suggestion = $this->findSuggestion($data, 'Dielectric strength via alias');
+        self::assertIsArray($suggestion);
+        self::assertSame($definition->getID(), $suggestion['definition_id']);
+
+        //The alias is part of the payload so the client side widget can match it, but it is never rendered
+        self::assertArrayHasKey('alternative_names', $suggestion);
+        self::assertSame('Spannungsfestigkeit,', $suggestion['alternative_names']);
+    }
+
+    public function testPartParameterAutocompletePrefersDefinitionOverAdHocParameterWithSameName(): void
+    {
+        $client = $this->loginClient('admin');
+
+        $definition = (new ParameterDefinition())->setName('Dielectric strength');
+
+        $adHocSameName = (new PartParameter())->setName('dielectric strength');
+        $adHocOtherName = (new PartParameter())->setName('Dielectric loss');
+
+        $category = (new Category())->setName('Typeahead ad hoc category');
+        $part = (new Part())
+            ->setName('Typeahead ad hoc part')
+            ->setCategory($category)
+            ->addParameter($adHocSameName)
+            ->addParameter($adHocOtherName);
+
+        $em = static::getContainer()->get(EntityManagerInterface::class);
+        $em->persist($definition);
+        $em->persist($category);
+        $em->persist($part);
+        $em->flush();
+
+        $client->request('GET', '/en/typeahead/parameters/part/search/dielectric');
+
+        self::assertResponseIsSuccessful();
+        $data = json_decode($client->getResponse()->getContent(), true, flags: JSON_THROW_ON_ERROR);
+        self::assertIsArray($data);
+
+        $suggestion = $this->findSuggestion($data, 'Dielectric strength');
+        self::assertIsArray($suggestion);
+        self::assertSame($definition->getID(), $suggestion['definition_id']);
+        self::assertNull($this->findSuggestion($data, 'dielectric strength'));
+
+        $adHoc = $this->findSuggestion($data, 'Dielectric loss');
+        self::assertIsArray($adHoc);
+        self::assertArrayNotHasKey('definition_id', $adHoc);
+    }
+
     // -----------------------------------------------------------------------
     // Access control
     // -----------------------------------------------------------------------
@@ -158,5 +279,20 @@ final class TypeaheadControllerTest extends WebTestCase
         $client->request('GET', $url);
 
         $this->assertResponseIsSuccessful();
+    }
+
+    /**
+     * @param array<mixed> $suggestions
+     * @return array<string, mixed>|null
+     */
+    private function findSuggestion(array $suggestions, string $name): ?array
+    {
+        foreach ($suggestions as $suggestion) {
+            if (is_array($suggestion) && $name === ($suggestion['name'] ?? null)) {
+                return $suggestion;
+            }
+        }
+
+        return null;
     }
 }

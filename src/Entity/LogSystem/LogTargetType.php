@@ -28,6 +28,7 @@ use App\Entity\InfoProviderSystem\BulkInfoProviderImportJob;
 use App\Entity\InfoProviderSystem\BulkInfoProviderImportJobPart;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parameters\AbstractParameter;
+use App\Entity\Parameters\ParameterDefinition;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -73,6 +74,7 @@ enum LogTargetType: int
     case BULK_INFO_PROVIDER_IMPORT_JOB = 21;
     case BULK_INFO_PROVIDER_IMPORT_JOB_PART = 22;
     case PART_CUSTOM_STATE = 23;
+    case PARAMETER_DEFINITION = 24;
 
     /**
      * Returns the class name of the target type or null if the target type is NONE.
@@ -104,7 +106,8 @@ enum LogTargetType: int
             self::PART_ASSOCIATION => PartAssociation::class,
             self::BULK_INFO_PROVIDER_IMPORT_JOB => BulkInfoProviderImportJob::class,
             self::BULK_INFO_PROVIDER_IMPORT_JOB_PART => BulkInfoProviderImportJobPart::class,
-            self::PART_CUSTOM_STATE => PartCustomState::class
+            self::PART_CUSTOM_STATE => PartCustomState::class,
+            self::PARAMETER_DEFINITION => ParameterDefinition::class,
         };
     }
 
