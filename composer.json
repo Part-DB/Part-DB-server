@@ -62,7 +62,7 @@
         "hshn/base64-encoded-file": "^6.0",
         "jbtronics/2fa-webauthn": "^3.0.0",
         "jbtronics/dompdf-font-loader-bundle": "^1.0.0",
-        "jbtronics/settings-bundle": "^3.0.0",
+        "jbtronics/settings-bundle": "^5.0.0",
         "jfcherng/php-diff": "^6.14",
         "jkphl/micrometa": "^v3.4.0",
         "knpuniversity/oauth2-client-bundle": "^2.15",
