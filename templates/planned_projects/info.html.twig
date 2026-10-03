@@ -1,0 +1,220 @@
+{% extends "main_card.html.twig" %}
+
+{% import "helper.twig" as helper %}
+{% import "components/projects.macro.html.twig" as project_macros %}
+
+{# A column header that sorts the parts list by this column when clicked (and reverses the order when it is already
+   sorted by it). The sorting is done on the server, so it works without any additional JavaScript. #}
+{% macro sort_header(label, column, sort, dir, planned_project) %}
+    {% set is_sorted = sort == column %}
+    <a href="{{ path('planned_project_info', {'id': planned_project.id, 'sort': column, 'dir': (is_sorted and dir == 'asc') ? 'desc' : 'asc'}) }}"
+       class="text-reset text-decoration-none text-nowrap">
+        {{ label }}
+        {% if is_sorted %}
+            <i class="fa-solid fa-sort-{{ dir == 'asc' ? 'up' : 'down' }} fa-fw"></i>
+        {% else %}
+            <i class="fa-solid fa-sort fa-fw text-muted"></i>
+        {% endif %}
+    </a>
+{% endmacro %}
+
+{% set badge_classes = {'planned': 'text-bg-primary', 'built': 'text-bg-success', 'cancelled': 'text-bg-secondary'} %}
+
+{% block title %}{{ planned_project.name }}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-clipboard-list fa-fw me-1"></i>
+    {{ planned_project.name }}
+    <span class="badge rounded-pill {{ badge_classes[planned_project.status.value] }}">{{ planned_project.status.toTranslationKey|trans }}</span>
+{% endblock %}
+
+{% block card_content %}
+    <p>
+        {% if planned_project.project %}
+            <b>{% trans %}planned_build.info.project{% endtrans %}:</b> <a href="{{ entity_url(planned_project.project) }}">{{ planned_project.project.name }}</a><br>
+        {% endif %}
+        <b>{% trans %}planned_build.table.number_of_builds{% endtrans %}:</b> {{ planned_project.numberOfBuilds }}<br>
+        {% if planned_project.comment is not empty %}
+            <b>{% trans %}planned_build.plan.comment{% endtrans %}:</b> {{ planned_project.comment }}<br>
+        {% endif %}
+        <b>{% trans %}planned_build.info.planned_at{% endtrans %}:</b> {{ helper.entity_created_at(planned_project) }}<br>
+        {% if planned_project.status.value == 'built' %}
+            <b>{% trans %}planned_build.info.built_at{% endtrans %}:</b> {{ helper.entity_last_modified(planned_project) }}<br>
+        {% elseif planned_project.status.value == 'cancelled' %}
+            <b>{% trans %}planned_build.info.cancelled_at{% endtrans %}:</b> {{ helper.entity_last_modified(planned_project) }}<br>
+        {% endif %}
+    </p>
+
+    {# A lot showing up as over-committed only matters while this plan is still relying on its reservation -
+       once built, the reservation is a historical record of what was already consumed and is no longer
+       "at risk". #}
+    {% set has_shortage = false %}
+    {% if build_form is not null %}
+        {% for reservation in planned_project.reservations %}
+            {% if reservation.partLot.availableAmount < 0 %}
+                {% set has_shortage = true %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if has_shortage %}
+        <div class="alert alert-warning" role="alert">
+            <i class="fa-solid fa-triangle-exclamation fa-fw"></i> {% trans %}planned_build.info.shortage_warning{% endtrans %}
+        </div>
+    {% endif %}
+
+    {% if build_form is not null and not can_build %}
+        <div class="alert alert-warning" role="alert">
+            <h5><i class="fa-solid fa-triangle-exclamation fa-fw"></i> {% trans %}planned_build.info.not_fully_reserved{% endtrans %}</h5>
+            <ul>
+                {% for bom_entry in missing_bom_entries %}
+                    <li>{{ project_macros.project_bom_entry_with_missing_instock(bom_entry, planned_project.numberOfBuilds) }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% set is_planned = build_form is not null %}
+    {% set is_cancelled = planned_project.status.value == 'cancelled' %}
+
+    <div class="table-responsive">
+        <table class="table table-sm table-striped table-hover">
+            <thead>
+            <tr>
+                <th>{{ _self.sort_header('part.table.name'|trans, 'name', sort, dir, planned_project) }}</th>
+                <th>{{ _self.sort_header('part_lots.storage_location'|trans, 'storage', sort, dir, planned_project) }}</th>
+                <th class="text-end">{{ _self.sort_header('planned_build.info.needed'|trans, 'needed', sort, dir, planned_project) }}</th>
+                {% if not is_cancelled %}
+                    <th class="text-end">{{ _self.sort_header((is_planned ? 'planned_build.info.reserved_amount' : 'planned_build.info.consumed_amount')|trans, 'reserved', sort, dir, planned_project) }}</th>
+                {% endif %}
+                <th class="text-end">{{ _self.sort_header('part_lots.amount'|trans, 'amount', sort, dir, planned_project) }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in rows %}
+                {% set unit = row.part ? row.part.partUnit : null %}
+                <tr class="{% if row.missing %}table-danger{% elseif is_planned and row.reserved < row.needed %}table-warning{% endif %}">
+                    <td>
+                        {% if row.part %}
+                            <a href="{{ entity_url(row.part) }}">{{ row.partName }}</a>
+                        {% else %}
+                            {{ row.partName }} <span class="badge text-bg-secondary">{% trans %}planned_build.info.part_deleted{% endtrans %}</span>
+                        {% endif %}
+                        {% if row.bomEntryName %}<small class="text-muted">({{ row.bomEntryName }})</small>{% endif %}
+                        {% if row.mountnames is not empty %}
+                            <br>
+                            {% for tag in row.mountnames|split(',') %}
+                                <span class="badge bg-secondary badge-secondary">{{ tag | trim }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for lot in row.lots %}
+                            <div>
+                                {% if lot.storage_location %}
+                                    <small>{{ helper.structural_entity_link(lot.storage_location) }}</small>
+                                {% elseif lot.storage_location_name is not empty %}
+                                    <small>{{ lot.storage_location_name }}</small>
+                                {% endif %}
+                                {% if lot.name is not empty %}(<small>{{ lot.name }}</small>){% endif %}
+                                <small class="text-muted">&times; {{ lot.amount | format_amount(unit) }}</small>
+                                {% if lot.over_committed and is_planned %}
+                                    <i class="fa-solid fa-triangle-exclamation fa-fw text-danger" title="{% trans %}part_lots.available_amount.negative_hint{% endtrans %}"></i>
+                                {% endif %}
+                            </div>
+                        {% else %}
+                            {% if row.part and row.part.partLots is empty and not is_cancelled %}
+                                <small class="text-muted">{% trans %}planned_build.info.no_lots{% endtrans %}</small>
+                            {% else %}
+                                <span class="text-muted">-</span>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td class="text-end">{{ row.needed | format_amount(unit) }}</td>
+                    {% if not is_cancelled %}
+                        <td class="text-end">{{ row.reserved | format_amount(unit) }}</td>
+                    {% endif %}
+                    <td class="text-end">{% if row.stock is not null %}{{ row.stock | format_amount(unit) }}{% else %}-{% endif %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if is_planned and can_build and rows|filter(row => row.reserved < row.needed) is not empty %}
+        <p class="text-muted small">
+            <i class="fa-solid fa-circle-info fa-fw"></i> {% trans %}planned_build.info.top_up_hint{% endtrans %}
+        </p>
+    {% endif %}
+
+    {% if build_form is not null %}
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#planned-project-build-modal" {% if not can_build %}disabled{% endif %}>
+            <i class="fa-solid fa-check fa-fw"></i> {% trans %}planned_build.build.btn_build{% endtrans %}
+        </button>
+        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#planned-project-cancel-modal">
+            <i class="fa-solid fa-xmark fa-fw"></i> {% trans %}planned_build.cancel.btn{% endtrans %}
+        </button>
+
+        <div class="modal fade" id="planned-project-build-modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    {{ form_start(build_form, {'action': path('planned_project_build', {'id': planned_project.id})}) }}
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5">{% trans %}planned_build.build.btn_build{% endtrans %}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{ form_row(build_form.comment) }}
+                        {% if build_form.addBuildsToBuildsPart is defined %}
+                            {{ form_row(build_form.addBuildsToBuildsPart) }}
+                        {% endif %}
+                        {% if build_form.buildsPartLot is defined %}
+                            {{ form_row(build_form.buildsPartLot) }}
+                        {% endif %}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans %}modal.close{% endtrans %}</button>
+                        {{ form_widget(build_form.submit) }}
+                    </div>
+                    {{ form_end(build_form) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="planned-project-cancel-modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" action="{{ path('planned_project_cancel', {'id': planned_project.id}) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('cancel' ~ planned_project.id) }}">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">{% trans %}planned_build.cancel.btn{% endtrans %}</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-2">
+                                <label class="form-label">{% trans %}planned_build.cancel.comment{% endtrans %}</label>
+                                <textarea class="form-control" name="comment"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans %}modal.close{% endtrans %}</button>
+                            <button type="submit" class="btn btn-danger">{% trans %}planned_build.cancel.btn{% endtrans %}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <form method="post" action="{{ path('planned_project_delete', {'id': planned_project.id}) }}"
+              {{ stimulus_controller('elements/delete_btn') }}
+              {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
+              data-delete-title="{% trans with {'%name%': planned_project.name|escape} %}entity.delete.confirm_title{% endtrans %}"
+              data-delete-message="{% trans %}entity.delete.message{% endtrans %}">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ planned_project.id) }}">
+            <button type="submit" class="btn btn-outline-danger">
+                <i class="fa-solid fa-trash fa-fw"></i> {% trans %}entity.delete{% endtrans %}
+            </button>
+        </form>
+    {% endif %}
+{% endblock %}

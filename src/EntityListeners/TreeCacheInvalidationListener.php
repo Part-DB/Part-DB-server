@@ -24,6 +24,7 @@ namespace App\EntityListeners;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\ProjectSystem\PlannedProject;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Services\Cache\ElementCacheTagGenerator;
@@ -58,7 +59,9 @@ class TreeCacheInvalidationListener
 
 
         //For changes on structural elements, we also invalidate the sidebar tree
-        if ($element instanceof AbstractStructuralDBElement) {
+        //PlannedProject is not structural, but it is shown as its own section in the sidebar's Projects tree,
+        //so its changes must invalidate that tree too.
+        if ($element instanceof AbstractStructuralDBElement || $element instanceof PlannedProject) {
             $tags[] = 'sidebar_tree_update';
             //The paths are also kept in memory, so drop them too, to not render outdated paths in this request
             $this->pathCache->reset();

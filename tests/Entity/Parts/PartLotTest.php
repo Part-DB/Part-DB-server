@@ -22,7 +22,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Entity\Parts;
 
+use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
+use App\Entity\ProjectSystem\PartLotReservation;
+use App\Entity\ProjectSystem\PlannedProject;
+use App\Entity\ProjectSystem\Project;
+use App\Entity\ProjectSystem\ProjectBOMEntry;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 
@@ -39,5 +44,49 @@ final class PartLotTest extends TestCase
 
         $lot->setExpirationDate(new \DateTimeImmutable('-1 hour'));
         $this->assertTrue($lot->isExpired(), 'Lot with expiration date in the past must be expired!');
+    }
+
+    private function makeReservation(PartLot $lot, float $amount): PartLotReservation
+    {
+        $plannedProject = new PlannedProject();
+        $project = new Project();
+        $bomEntry = new ProjectBOMEntry();
+        $bomEntry->setProject($project);
+
+        return new PartLotReservation($plannedProject, $bomEntry, $lot, $amount);
+    }
+
+    public function testGetReservedAmountIsZeroWithoutReservations(): void
+    {
+        $lot = new PartLot();
+        $lot->setAmount(10);
+
+        $this->assertSame(0.0, $lot->getReservedAmount());
+        $this->assertSame(10.0, $lot->getAvailableAmount());
+    }
+
+    public function testGetReservedAmountSumsAllReservations(): void
+    {
+        $lot = new PartLot();
+        $lot->setPart(new Part());
+        $lot->setAmount(10);
+
+        $lot->addReservation($this->makeReservation($lot, 3.0));
+        $lot->addReservation($this->makeReservation($lot, 2.0));
+
+        $this->assertEqualsWithDelta(5.0, $lot->getReservedAmount(), PHP_FLOAT_EPSILON);
+        $this->assertEqualsWithDelta(5.0, $lot->getAvailableAmount(), PHP_FLOAT_EPSILON);
+    }
+
+    public function testGetAvailableAmountCanBecomeNegativeAfterStocktakeBelowReserved(): void
+    {
+        //A stocktake can legitimately reduce a lot's amount below what is still reserved for a planned project
+        $lot = new PartLot();
+        $lot->setPart(new Part());
+        $lot->setAmount(2);
+
+        $lot->addReservation($this->makeReservation($lot, 5.0));
+
+        $this->assertEqualsWithDelta(-3.0, $lot->getAvailableAmount(), PHP_FLOAT_EPSILON);
     }
 }

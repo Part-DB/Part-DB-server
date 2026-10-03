@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% import "components/datatables.macro.html.twig" as datatables %}
+
+{% block title %}{% trans %}planned_build.labelp{% endtrans %}{% endblock %}
+
+{% block content %}
+    <div class="accordion mb-3" id="listAccordion">
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <button class="accordion-button collapsed py-2" data-bs-toggle="collapse" data-bs-target="#searchInfo">
+                    <i class="fa-solid fa-list-check fa-fw"></i>
+                    {% trans %}planned_build.labelp{% endtrans %}
+                </button>
+            </div>
+            <div id="searchInfo" class="accordion-collapse collapse" data-bs-parent="#listAccordion">
+                <div class="accordion-body">
+                    <a href="{{ path('planned_project_missing_parts') }}" class="btn btn-outline-secondary">
+                        <i class="fa-solid fa-triangle-exclamation fa-fw"></i> {% trans %}planned_build.missing_parts.label{% endtrans %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ datatables.datatable(datatable) }}
+{% endblock %}
