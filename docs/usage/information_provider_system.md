@@ -384,11 +384,18 @@ breaks (in USD) and the stock level. By default the product page is read too, as
 technical details (which are offered as parameters), the category and the links to the learn guides. If you want
 to avoid this second request per part, you can disable it.
 
+To be polite to the website, the provider waits a configurable time between any two requests it sends (catalog
+download, product API and product pages), requests which come too early are delayed, so a lookup can take some time.
+If the website refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour, and
+lookups fail with a message telling until when it is paused. The cached catalog can still be searched in that time.
+
 The following env configuration options are available:
 
 * `PROVIDER_ADAFRUIT_ENABLED`: Set this to `1` to enable the Adafruit provider
 * `PROVIDER_ADAFRUIT_FETCH_PRODUCT_PAGE`: Set this to `0` to only use the product API and not read the product page
   (optional, default: `1`)
+* `PROVIDER_ADAFRUIT_REQUEST_DELAY`: The minimum time in seconds between two requests to adafruit.com (optional,
+  default: `10`)
 
 ### Custom providers
 

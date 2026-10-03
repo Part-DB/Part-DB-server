@@ -33,6 +33,7 @@ use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use App\Services\InfoProviderSystem\Providers\ProviderCapabilities;
 use App\Settings\InfoProviderSystem\AdafruitSettings;
 use App\Tests\SettingsTestHelper;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -43,14 +44,18 @@ final class AdafruitProviderTest extends TestCase
     private AdafruitSettings $settings;
     private AdafruitProvider $provider;
     private MockHttpClient $httpClient;
+    private ArrayAdapter $cache;
 
     protected function setUp(): void
     {
         $this->httpClient = new MockHttpClient();
+        $this->cache = new ArrayAdapter();
         $this->settings = SettingsTestHelper::createSettingsDummy(AdafruitSettings::class);
         $this->settings->enabled = true;
         $this->settings->fetchProductPage = true;
-        $this->provider = new AdafruitProvider($this->httpClient, $this->settings, new ArrayAdapter());
+        //The tests should not wait between the requests
+        $this->settings->requestDelay = 0;
+        $this->provider = new AdafruitProvider($this->httpClient, $this->settings, $this->cache);
     }
 
     private function catalogEntry(string $id, string $name, array $overrides = []): array
@@ -358,6 +363,109 @@ final class AdafruitProviderTest extends TestCase
 
         $this->expectException(\RuntimeException::class);
         $this->provider->getDetails('999999');
+    }
+
+    public function testRequestsAreSpacedOut(): void
+    {
+        $this->settings->requestDelay = 1;
+
+        $times = [];
+        $this->httpClient->setResponseFactory(function (string $method, string $url) use (&$times): MockResponse {
+            $times[] = microtime(true);
+            return match (true) {
+                $url === AdafruitProvider::CATALOG_API_URL => $this->catalogResponse(),
+                str_starts_with($url, AdafruitProvider::PRODUCT_API_URL) => $this->productResponse(),
+                default => new MockResponse($this->productPage()),
+            };
+        });
+
+        $start = microtime(true);
+        //The download of the catalog
+        $this->provider->searchByKeyword('4062');
+        //The request to the product API and the one of the product page
+        $this->provider->getDetails('4062');
+
+        $this->assertCount(3, $times);
+        //The first request does not have to wait
+        $this->assertLessThan(0.5, $times[0] - $start);
+        //All others have to keep the delay to their predecessor, no matter if they go to the API or a product page
+        $this->assertGreaterThanOrEqual(0.95, $times[1] - $times[0]);
+        $this->assertGreaterThanOrEqual(0.95, $times[2] - $times[1]);
+    }
+
+    #[DataProvider('refusedStatusProvider')]
+    public function testPausesAfterWebsiteRefusedRequest(int $status): void
+    {
+        $this->httpClient->setResponseFactory(fn() => new MockResponse('Go away', ['http_code' => $status]));
+
+        try {
+            $this->provider->searchByKeyword('feather');
+            $this->fail('The refused request must throw');
+        } catch (\RuntimeException $e) {
+            $this->assertStringContainsString('HTTP status ' . $status, $e->getMessage());
+            $this->assertStringContainsString('paused until', $e->getMessage());
+        }
+        $this->assertSame(1, $this->httpClient->getRequestsCount());
+
+        //Further lookups must not reach the website anymore, and tell why
+        foreach ([fn() => $this->provider->searchByKeyword('feather'), fn() => $this->provider->getDetails('4062')] as $lookup) {
+            try {
+                $lookup();
+                $this->fail('The provider must refuse to send requests');
+            } catch (\RuntimeException $e) {
+                $this->assertStringContainsString('paused until', $e->getMessage());
+                $this->assertStringContainsString('HTTP status ' . $status, $e->getMessage());
+            }
+        }
+        $this->assertSame(1, $this->httpClient->getRequestsCount());
+    }
+
+    public static function refusedStatusProvider(): \Iterator
+    {
+        yield 'forbidden' => [403];
+        yield 'too many requests' => [429];
+        yield 'unavailable' => [503];
+    }
+
+    public function testNoRequestsWhilePaused(): void
+    {
+        //The pause is kept in the cache, so it also applies if another process has run into it
+        $until = time() + 1800;
+        $item = $this->cache->getItem('adafruit_paused');
+        $item->set(['until' => $until, 'reason' => 'HTTP status 429']);
+        $this->cache->save($item);
+
+        try {
+            $this->provider->getDetails('4062');
+            $this->fail('The provider must refuse to send requests');
+        } catch (\RuntimeException $e) {
+            $this->assertStringContainsString('paused until ' . date('Y-m-d H:i:s T', $until), $e->getMessage());
+            $this->assertStringContainsString('HTTP status 429', $e->getMessage());
+        }
+        $this->assertSame(0, $this->httpClient->getRequestsCount());
+    }
+
+    public function testCachedCatalogIsSearchedWhilePaused(): void
+    {
+        $this->httpClient->setResponseFactory([
+            $this->catalogResponse(),
+            $this->productResponse(),
+            //The refused product page is no error (it is optional), but pauses the provider
+            new MockResponse('Too many requests', ['http_code' => 429]),
+        ]);
+
+        $this->assertNotEmpty($this->provider->searchByKeyword('feather'));
+        $this->assertSame('4062', $this->provider->getDetails('4062')->provider_id);
+        $this->assertSame(3, $this->httpClient->getRequestsCount());
+
+        //The cached catalog can still be searched
+        $this->assertSame('4062', $this->provider->searchByKeyword('4062')[0]->provider_id);
+        $this->assertSame(3, $this->httpClient->getRequestsCount());
+
+        //But everything which needs a request fails
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('paused until');
+        $this->provider->getDetails('4062');
     }
 
     public function testGetHandledDomains(): void

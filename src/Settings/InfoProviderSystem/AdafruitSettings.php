@@ -28,7 +28,9 @@ use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Translation\TranslatableMessage as TM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Settings(label: new TM("settings.ips.adafruit"), description: new TM("settings.ips.adafruit.help"))]
 #[SettingsIcon("fa-plug")]
@@ -47,4 +49,15 @@ class AdafruitSettings
     #[SettingsParameter(label: new TM("settings.ips.adafruit.fetchProductPage"), description: new TM("settings.ips.adafruit.fetchProductPage.help"),
         envVar: "bool:PROVIDER_ADAFRUIT_FETCH_PRODUCT_PAGE", envVarMode: EnvVarMode::OVERWRITE)]
     public bool $fetchProductPage = true;
+
+    /**
+     * @var int The minimum number of seconds between two requests to adafruit.com (0 disables the pacing)
+     */
+    #[SettingsParameter(label: new TM("settings.ips.adafruit.requestDelay"),
+        description: new TM("settings.ips.adafruit.requestDelay.help"),
+        formType: NumberType::class,
+        formOptions: ["scale" => 0, "attr" => ["min" => 0, "max" => 60]],
+        envVar: "int:PROVIDER_ADAFRUIT_REQUEST_DELAY", envVarMode: EnvVarMode::OVERWRITE)]
+    #[Assert\Range(min: 0, max: 60)]
+    public int $requestDelay = 10;
 }

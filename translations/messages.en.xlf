@@ -15542,5 +15542,17 @@ Buerklin-API Authentication server:
         <target>Also read the product page on adafruit.com to get all product images, the technical details, the category and the learn guides. This causes one additional request per part. If disabled, only the product API is used.</target>
       </segment>
     </unit>
+    <unit id="JtHXJcF" name="settings.ips.adafruit.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.adafruit.requestDelay</source>
+        <target>Delay between requests</target>
+      </segment>
+    </unit>
+    <unit id="HaGEpJu" name="settings.ips.adafruit.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.requestDelay.help</source>
+        <target>The minimum time in seconds between two requests to adafruit.com (catalog download, product API and product pages). Requests which come too early are delayed, so a lookup can take a while. If the website refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour. 0 disables the delay.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
