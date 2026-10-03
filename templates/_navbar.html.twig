@@ -60,6 +60,14 @@
                                             </a>
                                         </li>
                                     {% endif %}
+                                    {% if create_from_pdf_active() %}
+                                        <li>
+                                            <a class="dropdown-item" href="{{ path('info_providers_from_pdf') }}">
+                                                <i class="fa-fw fa-solid fa-file-pdf"></i>
+                                                {% trans %}info_providers.from_pdf.title{% endtrans %}
+                                            </a>
+                                        </li>
+                                    {% endif %}
 
                                     {% if is_granted("@tools.label_scanner") %}
                                         <li>

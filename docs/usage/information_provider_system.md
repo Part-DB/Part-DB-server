@@ -133,6 +133,22 @@ You can add some additional instructions for the model, which gets added to the 
 
 The provider will download the HTML of the given URL, convert it to markdown and send it to the LLM toghether with structured data extracted from the webpage via conventional methods.
 
+### AI Document Extractor (Create part from PDF)
+The AI document extractor creates a part from an uploaded PDF document, like a datasheet. You can find it under
+"Create part from PDF (AI)" in the dropdown of the "New part" button, or in the tools tree.
+
+It uses the same AI platform, model, output language and additional instructions as the AI Web Extractor, so it is
+available as soon as the AI Web Extractor is configured.
+
+The text of the PDF document is extracted on the server and sent to the LLM, so it works with every model which
+supports structured output. Only the text layer of the document is used: scanned documents without a text layer are
+not supported. Long documents are truncated to the maximum content length configured in the AI Web Extractor settings,
+which usually is not a problem, as the most relevant information of a datasheet is at its beginning.
+The uploaded document is only kept temporarily (2 hours) and is not attached to the created part automatically.
+
+You can give additional context together with the document, like the exact part number to use, if the datasheet
+covers multiple variants of a part. The model then describes exactly this variant.
+
 ### Octopart
 
 The Octopart provider uses the [Octopart / Nexar API](https://nexar.com/api) to search for parts and get information.

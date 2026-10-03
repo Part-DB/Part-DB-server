@@ -1,0 +1,32 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}
+    {% trans %}info_providers.from_pdf.title{% endtrans %}
+{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-file-pdf"></i> {% trans %}info_providers.from_pdf.title{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+    <p class="text-muted {{ offset_label }}">{% trans %}info_providers.from_pdf.help{% endtrans %}</p>
+
+    {{ form_start(form) }}
+    {{ form_row(form.file) }}
+    {{ form_row(form.context) }}
+
+    <div class="row mb-2">
+        <div class="{{ col_input }} {{ offset_label }}">
+            <a data-bs-toggle="collapse" href="#infoSearchAdvancedPanel">{% trans %}info_providers.search.advanced_options{% endtrans %}</a>
+        </div>
+    </div>
+
+    <div class="collapse" id="infoSearchAdvancedPanel">
+        <div class="card card-body mb-2">
+            {{ form_row(form.no_cache) }}
+        </div>
+    </div>
+
+    {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+{% endblock %}

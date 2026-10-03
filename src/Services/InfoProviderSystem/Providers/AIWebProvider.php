@@ -26,7 +26,7 @@ namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Exceptions\ProviderIDNotSupportedException;
 use App\Helpers\RandomizeUseragentHttpClient;
-use App\Services\AI\AIPlatformRegistry;
+use App\Services\InfoProviderSystem\AIPartInfoExtractor;
 use App\Services\InfoProviderSystem\SubmittedPageStorage;
 use App\Services\InfoProviderSystem\CreateFromUrlHelper;
 use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
@@ -37,14 +37,11 @@ use Jkphl\Micrometa;
 use League\HTMLToMarkdown\HtmlConverter;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\AI\Platform\Message\Message;
-use Symfony\AI\Platform\Result\DeferredResult;
 use Symfony\AI\Platform\Message\MessageBag;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\DomCrawler\UriResolver;
 use Symfony\Component\HttpClient\NoPrivateNetworkHttpClient;
-use Symfony\Component\Intl\Languages;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 use function Symfony\Component\String\u;
 
@@ -57,15 +54,11 @@ final class AIWebProvider implements InfoProviderInterface
 
     private const DISTRIBUTOR_NAME = 'Website';
 
-    /** @var int How much of a failed provider response is quoted in the error message */
-    private const MAX_REPORTED_RESPONSE_LENGTH = 500;
-
     private readonly HttpClientInterface $httpClient;
 
     public function __construct(
         HttpClientInterface $httpClient,
-        private readonly AIExtractorSettings $settings,
-        private readonly AIPlatformRegistry $AIPlatformRegistry,
+        private readonly AIPartInfoExtractor $extractor,
         private readonly DTOJsonSchemaConverter $jsonSchemaConverter,
         private readonly CacheItemPoolInterface $partInfoCache,
         private readonly CreateFromUrlHelper $createFromUrlHelper,
@@ -100,7 +93,7 @@ final class AIWebProvider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return $this->settings->platform !== null && $this->settings->model !== null && $this->settings->model !== '';
+        return $this->extractor->isConfigured();
     }
 
     public function searchByKeyword(string $keyword, array $options = []): array
@@ -168,7 +161,7 @@ final class AIWebProvider implements InfoProviderInterface
         //Convert html to markdown, to provide a cleaner input to the LLM.
         $markdown = $this->htmlToMarkdown($html, $url);
         //Truncate markdown to max content length, if needed
-        $markdown = u($markdown)->truncate($this->settings->maxContentLength, '... [truncated]')->toString();
+        $markdown = u($markdown)->truncate($this->extractor->getMaxContentLength(), '... [truncated]')->toString();
 
         //Extract structured data using traditional methods, to provide additional context to the LLM. This can help improve accuracy, especially for technical specifications that might be in tables or specific formats.
         $structuredData = $this->extractStructuredData($html, $url);
@@ -279,68 +272,7 @@ final class AIWebProvider implements InfoProviderInterface
              Enrich it with the actual website data:\n\n".$structuredData));
         }
 
-        try {
-            $aiPlatform = $this->AIPlatformRegistry->getPlatform($this->settings->platform ?? throw new \RuntimeException('No AI platform selected') );
-
-            // AI inference can take much longer than PHP's default max_execution_time (typically 30s).
-            // The HTTP client timeout already enforces the configured limit; disable PHP's constraint here.
-            set_time_limit(0);
-
-            //'openai/gpt-5-mini'
-            $result = $aiPlatform->invoke($this->settings->model ?? throw new \RuntimeException('No model selected'), $input, [
-                'response_format' => [
-                    'type' => 'json_schema',
-                    'json_schema' => $this->jsonSchemaConverter->getJSONSchema(),
-                ]
-            ]);
-            //The platform returns a deferred result: the request is only really carried out (and the answer
-            //converted) when the result is read. Reading it outside this try would let a provider error - a
-            //rejected model, an exhausted quota, an invalid key - escape as an unhandled exception, which ends
-            //the whole request with a 500 instead of the error message this catch was written for.
-            return $result->getResult()->getContent();
-        } catch (\Throwable $e) {
-            throw new \RuntimeException(
-                'LLM invocation failed: '.$e->getMessage().$this->describeProviderResponse($result ?? null),
-                previous: $e
-            );
-        }
-    }
-
-    /**
-     * Describes what the provider actually answered, for the message of a failed invocation.
-     *
-     * The exceptions of the platform only carry what its converter made of the answer, and that can be as
-     * unhelpful as "Provider returned error" - the wording a gateway like OpenRouter uses when the model
-     * provider behind it refused, with the reason in a field the converter drops. The raw response is still
-     * around at this point, so the status code and the beginning of the body are taken from there: without
-     * them, an administrator has nothing to act on.
-     *
-     * @return string The description, or an empty string if the response is not available
-     */
-    private function describeProviderResponse(?DeferredResult $result): string
-    {
-        if (!$result instanceof DeferredResult) {
-            return '';
-        }
-
-        try {
-            $response = $result->getRawResult()->getObject();
-
-            if (!$response instanceof ResponseInterface) {
-                return '';
-            }
-
-            //false: the body of an error response is wanted here, not another exception
-            $body = trim($response->getContent(false));
-
-            return sprintf(' (provider answered HTTP %d: %s)', $response->getStatusCode(),
-                mb_strlen($body) > self::MAX_REPORTED_RESPONSE_LENGTH
-                    ? mb_substr($body, 0, self::MAX_REPORTED_RESPONSE_LENGTH).'...'
-                    : $body);
-        } catch (\Throwable) {
-            //Whatever went wrong while describing the failure must not replace the failure itself
-            return '';
-        }
+        return $this->extractor->extract($input);
     }
 
     private function buildSystemPrompt(): string
@@ -362,17 +294,7 @@ Rules:
 
 PROMPT;
 
-        if ($this->settings->outputLanguage === null) {
-            $tmp .= "\n\nProvide the response in the same language of the webpage.";
-        } else {
-            $tmp .= "\n\nThe response must be in ". Languages::getName($this->settings->outputLanguage, 'en') ." language. Translate texts if needed.";
-        }
-
-        if ($this->settings->additionalInstructions) {
-            $tmp .= "\n\nAdditional instructions:\n" . $this->settings->additionalInstructions;
-        }
-
-        return $tmp;
+        return $this->extractor->withConfiguredInstructions($tmp, 'webpage');
     }
 
 }

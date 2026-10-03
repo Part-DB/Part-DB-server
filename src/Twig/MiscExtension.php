@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Twig;
 
+use App\Services\InfoProviderSystem\AIPartInfoExtractor;
 use App\Services\InfoProviderSystem\CreateFromUrlHelper;
 use Twig\Attribute\AsTwigFunction;
 use App\Settings\SettingsIcon;
@@ -33,7 +34,8 @@ use App\Services\LogSystem\EventCommentNeededHelper;
 
 final readonly class MiscExtension
 {
-    public function __construct(private EventCommentNeededHelper $eventCommentNeededHelper, private CreateFromUrlHelper $fromUrlHelper)
+    public function __construct(private EventCommentNeededHelper $eventCommentNeededHelper, private CreateFromUrlHelper $fromUrlHelper,
+        private AIPartInfoExtractor $aiPartInfoExtractor)
     {
     }
 
@@ -92,5 +94,15 @@ final readonly class MiscExtension
     public function create_from_url_active(): bool
     {
         return $this->fromUrlHelper->canCreateFromUrl();
+    }
+
+    /**
+     * Returns true if parts can be created from PDF documents (meaning that the AI extractor is configured), false otherwise.
+     * @return bool
+     */
+    #[AsTwigFunction(name: 'create_from_pdf_active')]
+    public function create_from_pdf_active(): bool
+    {
+        return $this->aiPartInfoExtractor->isConfigured();
     }
 }

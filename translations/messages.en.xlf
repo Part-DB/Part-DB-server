@@ -15518,5 +15518,71 @@ Buerklin-API Authentication server:
         <target>Unknown</target>
       </segment>
     </unit>
+    <unit id="ceczhLi" name="info_providers.from_pdf.title">
+      <segment>
+        <source>info_providers.from_pdf.title</source>
+        <target>Create [part] from PDF (AI)</target>
+      </segment>
+    </unit>
+    <unit id="FBTEKry" name="info_providers.from_pdf.help">
+      <segment>
+        <source>info_providers.from_pdf.help</source>
+        <target>Creates a [part] from a PDF document, like a datasheet. The text of the document is extracted and passed to the AI model configured in the AI Web Extractor settings, which tries to extract the [part] information from it.</target>
+      </segment>
+    </unit>
+    <unit id="JuWtmJt" name="info_providers.from_pdf.file.label">
+      <segment>
+        <source>info_providers.from_pdf.file.label</source>
+        <target>PDF document</target>
+      </segment>
+    </unit>
+    <unit id="IrhZSKG" name="info_providers.from_pdf.file.help">
+      <segment>
+        <source>info_providers.from_pdf.file.help</source>
+        <target>Only the text of the document is used. Scanned documents without a text layer are not supported.</target>
+      </segment>
+    </unit>
+    <unit id="Bxxola." name="info_providers.from_pdf.submit">
+      <segment>
+        <source>info_providers.from_pdf.submit</source>
+        <target>Extract [part] information</target>
+      </segment>
+    </unit>
+    <unit id="u7sipNi" name="info_providers.from_pdf.not_active">
+      <segment>
+        <source>info_providers.from_pdf.not_active</source>
+        <target>Creating [parts] from PDF documents requires an AI platform and model to be configured in the AI Web Extractor settings.</target>
+      </segment>
+    </unit>
+    <unit id="U46oO1d" name="info_providers.from_pdf.error.parse">
+      <segment>
+        <source>info_providers.from_pdf.error.parse</source>
+        <target>The PDF document could not be read: %error%</target>
+      </segment>
+    </unit>
+    <unit id="mYhw5Ac" name="info_providers.from_pdf.error.no_text">
+      <segment>
+        <source>info_providers.from_pdf.error.no_text</source>
+        <target>No text could be extracted from the PDF document. Scanned documents without a text layer are not supported.</target>
+      </segment>
+    </unit>
+    <unit id="zAfzj9r" name="info_providers.from_pdf.context.label">
+      <segment>
+        <source>info_providers.from_pdf.context.label</source>
+        <target>Additional context</target>
+      </segment>
+    </unit>
+    <unit id="JqfPYaq" name="info_providers.from_pdf.context.help">
+      <segment>
+        <source>info_providers.from_pdf.context.help</source>
+        <target>Optional hints for the AI, for example the exact part number to use if the document covers multiple variants.</target>
+      </segment>
+    </unit>
+    <unit id="ng1AOsU" name="info_providers.from_pdf.context.placeholder">
+      <segment>
+        <source>info_providers.from_pdf.context.placeholder</source>
+        <target>e.g. Use the variant BC547B in the TO-92 package</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
