@@ -59,7 +59,7 @@
                             {{ stimulus_target('pages/part_picture_fan', 'item') }}
                             {{ stimulus_action('pages/part_picture_fan', 'select', 'click') }}
                             data-index="{{ loop.index0 }}" {% if pic_persist %}data-attachment-id="{{ pic.id }}"{% endif %}>
-                        <img class="img-thumbnail bg-light" src="{{ attachment_thumbnail(pic, 'thumbnail_sm') ?? entity_url(pic, 'file_view') }}" alt="" loading="lazy">
+                        <img class="img-thumbnail bg-light" src="{{ attachment_thumbnail(pic, 'thumbnail_md') ?? entity_url(pic, 'file_view') }}" alt="" loading="lazy">
                     </button>
                 {% endfor %}
             </div>

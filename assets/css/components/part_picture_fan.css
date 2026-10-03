@@ -20,7 +20,7 @@
 /* Picture fan of the part info page: hovering the picture fans all pictures of the part out to its right. */
 
 .part-picture-fan {
-    --part-picture-fan-size: 76px;
+    --part-picture-fan-size: 160px;
     --part-picture-fan-gap: .5rem;
     position: relative;
 }
@@ -50,9 +50,9 @@
         display: flex;
         flex-wrap: wrap;
         gap: var(--part-picture-fan-gap);
-        /* Six pictures per row, further ones wrap onto the next rows. */
+        /* Four pictures per row, further ones wrap onto the next rows. */
         width: max-content;
-        max-width: min(calc(6 * var(--part-picture-fan-size) + 7 * var(--part-picture-fan-gap) + 2px), 60vw);
+        max-width: min(calc(4 * var(--part-picture-fan-size) + 5 * var(--part-picture-fan-gap) + 2px), 60vw);
         max-height: 80vh;
         overflow-y: auto;
         padding: var(--part-picture-fan-gap);
@@ -84,6 +84,12 @@
         width: 100%;
         height: 100%;
         object-fit: contain;
+    }
+
+    /* With the fan next to it, the picture stays as it is: no dark overlay with the caption while hovering. */
+    .part-picture-fan[data-controller] .carousel .mask,
+    .part-picture-fan[data-controller] .carousel .carousel-caption-hover {
+        display: none;
     }
 
     .part-picture-fan:hover .part-picture-fan-strip {
