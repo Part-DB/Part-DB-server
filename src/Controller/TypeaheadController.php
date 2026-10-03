@@ -180,10 +180,47 @@ class TypeaheadController extends AbstractController
                 'footprint' => $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getName() : '',
                 'description' => mb_strimwidth($part->getDescription(), 0, 127, '...'),
                 'image' => $preview_url,
+                //The value the results are ordered by, if it is not shown anyway (like the name and the category)
+                'sort_value' => $this->getSortValue($part, $sort),
             ];
         }
 
         return new JsonResponse($data);
+    }
+
+    /**
+     * Returns the value of the given part, which the search results are ordered by, so it can be shown next to it.
+     * Empty for the orderings whose value is part of every result anyway and for parts without that value.
+     */
+    private function getSortValue(Part $part, ?PartSearchSort $sort): string
+    {
+        switch ($sort) {
+            case PartSearchSort::MANUFACTURER:
+                return $part->getManufacturer()?->getName() ?? '';
+            case PartSearchSort::SUPPLIER:
+                $names = [];
+                foreach ($part->getOrderdetails() as $orderdetail) {
+                    $name = $orderdetail->getSupplier()?->getName();
+                    if ($name !== null && $name !== '') {
+                        $names[$name] = $name;
+                    }
+                }
+                natcasesort($names);
+                return implode(', ', $names);
+            case PartSearchSort::ADDED_DATE:
+                return $part->getAddedDate()?->format('Y-m-d') ?? '';
+            case PartSearchSort::LAST_MODIFIED:
+                return $part->getLastModified()?->format('Y-m-d') ?? '';
+            case PartSearchSort::TOP_CATEGORY:
+                $category = $part->getCategory();
+                //Limit the depth, so a (invalid) loop in the hierarchy can not hang the search
+                for ($level = 0; $level < 100 && $category?->getParent() !== null; $level++) {
+                    $category = $category->getParent();
+                }
+                return $category?->getName() ?? '';
+            default:
+                return '';
+        }
     }
 
     #[Route(path: '/parameters/{type}/search/{query}', name: 'typeahead_parameters', requirements: ['type' => '.+'])]

@@ -511,7 +511,7 @@ body {
     background: var(--bs-body-bg);
     display: inline-flex;
     float: right;
-    gap: 2px;
+    gap: 4px;
     padding: 0 0 0 var(--aa-spacing-half);
     position: relative;
     z-index: 9999;
@@ -523,9 +523,10 @@ body {
     border-radius: 1em;
     color: var(--bs-secondary-color);
     cursor: pointer;
-    font-size: 0.8em;
-    line-height: 1.5;
-    padding: 0 0.4em;
+    font-size: 1em;
+    line-height: 1.6;
+    min-width: 2.2em;
+    padding: 0.1em 0.55em;
     white-space: nowrap;
 }
 .aa-SourceHeaderSortToggle:hover {
@@ -537,6 +538,11 @@ body {
     background: rgba(var(--bs-primary-rgb), 1.0);
     border-color: rgba(var(--bs-primary-rgb), 1.0);
     color: var(--bs-body-bg);
+}
+
+/* The value a result is ordered by (supplier, manufacturer, date, ...) */
+.aa-ItemSortValue {
+    color: rgba(var(--bs-primary-rgb), 1.0);
 }
 
 .aa-SourceFooterSeeAll {

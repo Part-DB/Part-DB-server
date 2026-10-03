@@ -129,6 +129,15 @@ export default class extends Controller {
     }
 
     /**
+     * Returns the icon of the chosen ordering, which marks the value the results are ordered by.
+     * @returns {string}
+     */
+    _getSortIcon() {
+        const sort = this._getSort();
+        return (sort && SORT_OPTIONS.find((option) => option.key === sort.key)?.icon) || 'fa-sort';
+    }
+
+    /**
      * Cycles the given ordering: ascending on the first click, descending on the second and back to the default
      * ordering on the third one. Only one ordering can be active at a time.
      * @param {string} key
@@ -326,6 +335,7 @@ export default class extends Controller {
                                                     ${components.Highlight({hit: item, attribute: 'description'})}
                                                     ${item.category ? html`<p class="m-0"><span class="fa-solid fa-tags fa-fw"></span>${components.Highlight({hit: item, attribute: 'category'})}</p>` : ""}
                                                     ${item.footprint ? html`<p class="m-0"><span class="fa-solid fa-microchip fa-fw"></span>${components.Highlight({hit: item, attribute: 'footprint'})}</p>` : ""}
+                                                    ${item.sort_value ? html`<p class="m-0 aa-ItemSortValue"><span class="fa-solid ${that._getSortIcon()} fa-fw"></span>${item.sort_value}</p>` : ""}
                                                 </div>
                                             </div>
                                         </div>
