@@ -35,6 +35,7 @@ use App\Settings\InfoProviderSystem\BambuLabSettings;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * This provider retrieves the products (filaments, printer parts, accessories) of the Bambu Lab store, using the
@@ -44,6 +45,9 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  * with a spool), which have their own images, prices and (for filaments) codes. The ID used by this provider is
  * therefore either just the URL slug of the product ("petg-translucent"), or the slug followed by the ID of the
  * variant ("petg-translucent/42235108098184"), which corresponds to the ?id= parameter of the store URLs.
+ *
+ * All requests to the store (API and product pages) are spaced by a configurable delay, and after the store has
+ * refused a request, no requests are sent at all for some time.
  */
 class BambuLabProvider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {
@@ -59,6 +63,14 @@ class BambuLabProvider implements InfoProviderInterface, URLHandlerInfoProviderI
     private const MAX_VARIANT_LOOKUPS = 3;
     /** The time (in seconds) the product data is cached */
     private const CACHE_TTL = 3600 * 24;
+
+    /** @var int[] The HTTP status codes with which the store tells us that it does not want our requests (anymore) */
+    private const REFUSED_STATUS_CODES = [403, 429, 503];
+    /** The time (in seconds) no requests are sent to the store, after it has refused one */
+    private const PAUSE_DURATION = 3600;
+
+    private const CACHE_KEY_PAUSED = 'bambulab_paused';
+    private const CACHE_KEY_NEXT_REQUEST = 'bambulab_next_request';
 
     public function __construct(
         private readonly HttpClientInterface $client,
@@ -117,7 +129,8 @@ class BambuLabProvider implements InfoProviderInterface, URLHandlerInfoProviderI
 
             //If the search has matched a certain variant of the product (e.g. because the keyword was a filament code),
             //then list the matching variants instead of the whole product. That requires the details of the product,
-            //so it is only done for the best matches, to not flood the API with requests.
+            //so it is only done for the best matches, to not flood the API with requests (each one has to wait for
+            //the request delay, unless the product is cached).
             if (!empty($record['highlightProductSkuId']) && $position < self::MAX_VARIANT_LOOKUPS) {
                 try {
                     $product = $this->getProduct((string) $record['seoCode'], $no_cache);
@@ -234,7 +247,7 @@ class BambuLabProvider implements InfoProviderInterface, URLHandlerInfoProviderI
             'X-BBL-STORE-REGION' => $region->value,
         ];
 
-        $response = $this->client->request($method, $region->getApiBaseUrl() . $endpoint, $options)->toArray();
+        $response = $this->request($method, $region->getApiBaseUrl() . $endpoint, $options)->toArray();
 
         //The API always answers with HTTP 200 and signals errors via the code field (1 means success)
         if ((int) ($response['code'] ?? 0) !== 1) {
@@ -242,6 +255,67 @@ class BambuLabProvider implements InfoProviderInterface, URLHandlerInfoProviderI
         }
 
         return is_array($response['data'] ?? null) ? $response['data'] : [];
+    }
+
+    /**
+     * Sends a request to the store. Every request of this provider (to the API and to the store website) has to use
+     * this method: It spaces the requests, and once the store has refused a request, it does not send any further
+     * requests for some time.
+     */
+    private function request(string $method, string $url, array $options = []): ResponseInterface
+    {
+        $paused = $this->partInfoCache->getItem(self::CACHE_KEY_PAUSED);
+        if ($paused->isHit() && is_array($paused->get()) && ($paused->get()['until'] ?? 0) > time()) {
+            throw new \RuntimeException(sprintf(
+                'The Bambu Lab provider is paused until %s, because the store refused a request (%s). No requests are sent to the store until then.',
+                date('Y-m-d H:i:s T', (int) $paused->get()['until']), $paused->get()['reason'] ?? 'unknown reason'
+            ));
+        }
+
+        $this->waitForNextRequest();
+
+        $response = $this->client->request($method, $url, $options);
+
+        $status = $response->getStatusCode();
+        if (in_array($status, self::REFUSED_STATUS_CODES, true)) {
+            $until = time() + self::PAUSE_DURATION;
+
+            $paused->set(['until' => $until, 'reason' => 'HTTP status ' . $status]);
+            $paused->expiresAfter(self::PAUSE_DURATION);
+            $this->partInfoCache->save($paused);
+
+            throw new \RuntimeException(sprintf(
+                'The Bambu Lab store refused the request (HTTP status %d). The provider is paused until %s, no requests are sent to the store until then.',
+                $status, date('Y-m-d H:i:s T', $until)
+            ));
+        }
+
+        return $response;
+    }
+
+    /**
+     * Sleeps until the configured delay has passed since the last request to the store. The time of the next
+     * allowed request is stored in the cache, so the delay is kept between different lookups and PHP processes too.
+     */
+    private function waitForNextRequest(): void
+    {
+        $delay = $this->settings->requestDelay;
+        if ($delay <= 0) {
+            return;
+        }
+
+        $item = $this->partInfoCache->getItem(self::CACHE_KEY_NEXT_REQUEST);
+        $now = microtime(true);
+        $slot = $item->isHit() ? max($now, (float) $item->get()) : $now;
+
+        //Reserve the time after our slot before sleeping, so that parallel requests queue up behind us
+        $item->set($slot + $delay);
+        $item->expiresAfter((int) ceil($slot - $now) + $delay);
+        $this->partInfoCache->save($item);
+
+        if ($slot > $now) {
+            usleep((int) (($slot - $now) * 1_000_000));
+        }
     }
 
     /**
@@ -583,12 +657,12 @@ class BambuLabProvider implements InfoProviderInterface, URLHandlerInfoProviderI
     /**
      * Retrieves the product page of the store website. Many documents and the specifications are not part of the
      * API response, but only contained in the description on the product page.
-     * As this info is optional, null is returned if the page could not be retrieved.
+     * As this info is optional, null is returned if the page could not be retrieved (or the provider is paused).
      */
     private function getProductPage(string $url): ?Crawler
     {
         try {
-            $html = $this->client->request('GET', $url, [
+            $html = $this->request('GET', $url, [
                 'headers' => [
                     'Accept' => 'text/html',
                 ],

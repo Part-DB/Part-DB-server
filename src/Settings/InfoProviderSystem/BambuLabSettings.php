@@ -29,7 +29,9 @@ use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Translation\TranslatableMessage as TM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Settings(label: new TM("settings.ips.bambulab"), description: new TM("settings.ips.bambulab.help"))]
 #[SettingsIcon("fa-plug")]
@@ -47,6 +49,17 @@ class BambuLabSettings
         formOptions: ['class' => BambuLabStoreRegion::class],
         envVar: "PROVIDER_BAMBULAB_REGION", envVarMode: EnvVarMode::OVERWRITE, envVarMapper: [self::class, "mapRegionEnvVar"])]
     public BambuLabStoreRegion $region = BambuLabStoreRegion::US;
+
+    /**
+     * @var int The minimum number of seconds between two requests to the Bambu Lab store (0 disables the pacing)
+     */
+    #[SettingsParameter(label: new TM("settings.ips.bambulab.requestDelay"),
+        description: new TM("settings.ips.bambulab.requestDelay.help"),
+        formType: NumberType::class,
+        formOptions: ["scale" => 0, "attr" => ["min" => 0, "max" => 60]],
+        envVar: "int:PROVIDER_BAMBULAB_REQUEST_DELAY", envVarMode: EnvVarMode::OVERWRITE)]
+    #[Assert\Range(min: 0, max: 60)]
+    public int $requestDelay = 10;
 
     public static function mapRegionEnvVar(?string $value): BambuLabStoreRegion
     {

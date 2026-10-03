@@ -31,6 +31,7 @@ use App\Services\InfoProviderSystem\Providers\ProviderCapabilities;
 use App\Settings\InfoProviderSystem\BambuLabSettings;
 use App\Settings\InfoProviderSystem\BambuLabStoreRegion;
 use App\Tests\SettingsTestHelper;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -41,14 +42,18 @@ final class BambuLabProviderTest extends TestCase
     private BambuLabSettings $settings;
     private BambuLabProvider $provider;
     private MockHttpClient $httpClient;
+    private ArrayAdapter $cache;
 
     protected function setUp(): void
     {
         $this->httpClient = new MockHttpClient();
+        $this->cache = new ArrayAdapter();
         $this->settings = SettingsTestHelper::createSettingsDummy(BambuLabSettings::class);
         $this->settings->enabled = true;
         $this->settings->region = BambuLabStoreRegion::US;
-        $this->provider = new BambuLabProvider($this->httpClient, new ArrayAdapter(), $this->settings);
+        //The tests should not wait between the requests
+        $this->settings->requestDelay = 0;
+        $this->provider = new BambuLabProvider($this->httpClient, $this->cache, $this->settings);
     }
 
     private function apiResponse(array $data): MockResponse
@@ -366,6 +371,105 @@ final class BambuLabProviderTest extends TestCase
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('No matching type for code en');
+        $this->provider->searchByKeyword('PETG');
+    }
+
+    public function testRequestsAreSpacedOut(): void
+    {
+        $this->settings->requestDelay = 1;
+
+        $times = [];
+        $this->httpClient->setResponseFactory(function () use (&$times) {
+            $times[] = microtime(true);
+            return count($times) === 2 ? $this->productPage() : $this->apiResponse($this->product());
+        });
+
+        $start = microtime(true);
+        //The API request and the request of the product page
+        $this->provider->getDetails('petg-translucent');
+        //And a request of another lookup
+        $this->provider->getDetails('petg-translucent', [InfoProviderInterface::OPTION_NO_CACHE => true]);
+
+        $this->assertCount(4, $times);
+        //The first request does not have to wait
+        $this->assertLessThan(0.5, $times[0] - $start);
+        //All others have to keep the delay to their predecessor, no matter if they go to the API or the website
+        for ($i = 1; $i < 4; $i++) {
+            $this->assertGreaterThanOrEqual(0.95, $times[$i] - $times[$i - 1]);
+        }
+    }
+
+    #[DataProvider('refusedStatusProvider')]
+    public function testPausesAfterStoreRefusedRequest(int $status): void
+    {
+        $this->httpClient->setResponseFactory(fn() => new MockResponse('Go away', ['http_code' => $status]));
+
+        try {
+            $this->provider->searchByKeyword('PETG');
+            $this->fail('The refused request must throw');
+        } catch (\RuntimeException $e) {
+            $this->assertStringContainsString('HTTP status ' . $status, $e->getMessage());
+            $this->assertStringContainsString('paused until', $e->getMessage());
+        }
+        $this->assertSame(1, $this->httpClient->getRequestsCount());
+
+        //Further lookups must not reach the store anymore, and tell why
+        foreach ([fn() => $this->provider->searchByKeyword('PLA'), fn() => $this->provider->getDetails('petg-translucent')] as $lookup) {
+            try {
+                $lookup();
+                $this->fail('The provider must refuse to send requests');
+            } catch (\RuntimeException $e) {
+                $this->assertStringContainsString('paused until', $e->getMessage());
+                $this->assertStringContainsString('HTTP status ' . $status, $e->getMessage());
+            }
+        }
+        $this->assertSame(1, $this->httpClient->getRequestsCount());
+    }
+
+    public static function refusedStatusProvider(): \Iterator
+    {
+        yield 'forbidden' => [403];
+        yield 'too many requests' => [429];
+        yield 'unavailable' => [503];
+    }
+
+    public function testNoRequestsWhilePaused(): void
+    {
+        //The pause is kept in the cache, so it also applies if another process has run into it
+        $until = time() + 1800;
+        $item = $this->cache->getItem('bambulab_paused');
+        $item->set(['until' => $until, 'reason' => 'HTTP status 429']);
+        $this->cache->save($item);
+
+        try {
+            $this->provider->searchByKeyword('PETG');
+            $this->fail('The provider must refuse to send requests');
+        } catch (\RuntimeException $e) {
+            $this->assertStringContainsString('paused until ' . date('Y-m-d H:i:s T', $until), $e->getMessage());
+            $this->assertStringContainsString('HTTP status 429', $e->getMessage());
+        }
+        $this->assertSame(0, $this->httpClient->getRequestsCount());
+    }
+
+    public function testCachedProductIsServedWhilePaused(): void
+    {
+        $this->httpClient->setResponseFactory([
+            $this->apiResponse($this->product()),
+            //The refused product page is no error (it is optional), but pauses the provider
+            new MockResponse('', ['http_code' => 429]),
+        ]);
+
+        $this->provider->getDetails('petg-translucent');
+        $this->assertSame(2, $this->httpClient->getRequestsCount());
+
+        //The cached product data is still available, just without the info of the product page
+        $details = $this->provider->getDetails('petg-translucent/42479468281992');
+        $this->assertSame('32101', $details->mpn);
+        $this->assertSame(2, $this->httpClient->getRequestsCount());
+
+        //But everything which needs a request fails
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('paused until');
         $this->provider->searchByKeyword('PETG');
     }
 

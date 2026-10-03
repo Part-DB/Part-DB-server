@@ -382,11 +382,19 @@ products as a whole. To get a certain variant, search for its code (like the fil
 on the spool and the box), or use the URL of the selected variant (`.../products/petg-translucent?id=...`) in the
 "Create part from URL" feature. For variants the code is used as manufacturer part number.
 
+To be polite to the store, the provider waits a configurable time between any two requests it sends (to the API and
+to the product pages), requests which come too early are delayed. A search needs one request (plus one per listed
+product if you search for a code), the details of a product need two, so a lookup can take some time. If the store
+refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour, and lookups fail with a
+message telling until when it is paused. Product data which is already cached is still served.
+
 The following env configuration options are available:
 * `PROVIDER_BAMBULAB_ENABLED`: Set this to `1` to enable the Bambu Lab provider
 * `PROVIDER_BAMBULAB_REGION`: The regional store which should be used. This determines the available products, the
   prices and their currency. Possible values: `US`, `CA`, `MX`, `EU`, `UK`, `AU`, `JP`, `KR`, `GLOBAL` (optional,
   default: `US`)
+* `PROVIDER_BAMBULAB_REQUEST_DELAY`: The minimum time in seconds between two requests to the store (optional,
+  default: `10`)
 
 ### Custom providers
 
