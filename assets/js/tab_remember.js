@@ -100,7 +100,10 @@ class TabRememberHelper {
             let tabInvoker = document.querySelector("button[data-content='#" + parent.id + "']")
                 ?? document.querySelector("button[data-bs-target='#" + parent.id + "']")
                 ?? document.querySelector("a[href='#" + parent.id + "']");
-            Tab.getOrCreateInstance(tabInvoker).show();
+            //A pane has no own invoker, if it is shown as part of a combined tab
+            if (tabInvoker) {
+                Tab.getOrCreateInstance(tabInvoker).show();
+            }
 
             parent = parent.parentElement.closest('.tab-pane');
         }

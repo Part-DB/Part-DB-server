@@ -15518,5 +15518,17 @@ Buerklin-API Authentication server:
         <target>Unknown</target>
       </segment>
     </unit>
+    <unit id="8i5dlT4" name="settings.behavior.part_info.combined_tabs">
+      <segment state="translated">
+        <source>settings.behavior.part_info.combined_tabs</source>
+        <target>Tabs shown together</target>
+      </segment>
+    </unit>
+    <unit id="sBDViuA" name="settings.behavior.part_info.combined_tabs.help">
+      <segment state="translated">
+        <source>settings.behavior.part_info.combined_tabs.help</source>
+        <target>The selected tabs are shown together as a single tab on the part info page, one below the other in the selected order. Leave empty to show every tab on its own. Any combination can also be opened via the URL, e.g. #part_lots,specifications</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
