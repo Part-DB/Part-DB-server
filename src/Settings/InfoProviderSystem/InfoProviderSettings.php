@@ -73,6 +73,9 @@ class InfoProviderSettings
     public ?PollinSettings $pollin = null;
 
     #[EmbeddedSettings]
+    public ?PololuSettings $pololu = null;
+
+    #[EmbeddedSettings]
     public ?BuerklinSettings $buerklin = null;
 
     #[EmbeddedSettings]

@@ -15518,5 +15518,29 @@ Buerklin-API Authentication server:
         <target>Unknown</target>
       </segment>
     </unit>
+    <unit id="y2IeHi_" name="settings.ips.pololu">
+      <segment state="translated">
+        <source>settings.ips.pololu</source>
+        <target>Pololu</target>
+      </segment>
+    </unit>
+    <unit id="1HPRmGN" name="settings.ips.pololu.help">
+      <segment state="translated">
+        <source>settings.ips.pololu.help</source>
+        <target>Pololu.com offers no official API, so this info provider webscrapes the website to extract info. It could break at any time, use it at your own risk.</target>
+      </segment>
+    </unit>
+    <unit id="oJkAIro" name="settings.ips.pololu.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.pololu.requestDelay</source>
+        <target>Delay between page requests</target>
+      </segment>
+    </unit>
+    <unit id="co9h0aO" name="settings.ips.pololu.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.pololu.requestDelay.help</source>
+        <target>The minimum time in seconds between two page requests to pololu.com. Getting the details of a product needs up to three page requests.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
