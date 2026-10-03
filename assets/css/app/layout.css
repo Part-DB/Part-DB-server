@@ -135,8 +135,24 @@ The toggle button sits on the right edge of the sidebar and moves with it, so it
 #sidebar-toggle-button {
     position: fixed;
     left: 0;
-    bottom: 50%;
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 1020;
+    /* A tab on the edge of the sidebar: big enough to be seen and hit, rounded on the side facing the content */
+    width: 18px;
+    height: 64px;
+    border-left: 0;
+    border-radius: 0 var(--bs-border-radius) var(--bs-border-radius) 0;
+    color: var(--bs-body-color);
+    background-color: var(--bs-secondary-bg);
+    opacity: 0.85;
+}
+
+#sidebar-toggle-button:hover, #sidebar-toggle-button:focus-visible {
+    opacity: 1;
+    color: #fff;
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
 }
 
 @media (min-width: 768px) {
