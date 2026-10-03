@@ -15518,5 +15518,29 @@ Buerklin-API Authentication server:
         <target>Unknown</target>
       </segment>
     </unit>
+    <unit id="zxX4Woh" name="settings.ips.bambulab">
+      <segment state="translated">
+        <source>settings.ips.bambulab</source>
+        <target>Bambu Lab</target>
+      </segment>
+    </unit>
+    <unit id="zfk.eK." name="settings.ips.bambulab.help">
+      <segment state="translated">
+        <source>settings.ips.bambulab.help</source>
+        <target>The Bambu Lab store offers no official API, so this info provider uses the unofficial API of the store website. It could break at any time, use it at your own risk.</target>
+      </segment>
+    </unit>
+    <unit id="zfH0VbE" name="settings.ips.bambulab.region">
+      <segment state="translated">
+        <source>settings.ips.bambulab.region</source>
+        <target>Store region</target>
+      </segment>
+    </unit>
+    <unit id="4sh8FkX" name="settings.ips.bambulab.region.help">
+      <segment state="translated">
+        <source>settings.ips.bambulab.region.help</source>
+        <target>The regional Bambu Lab store which should be used. This determines the available products, the prices and their currency.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

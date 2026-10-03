@@ -369,6 +369,25 @@ The following env configuration options are available:
   instead of querying the distributors in real time. This is faster and does not count against the rate limits, but the
   data can be outdated (optional, default: `0`)
 
+### Bambu Lab
+
+The Bambu Lab provider uses the API of the [Bambu Lab store](https://store.bambulab.com/) website to search for
+filaments, printer parts and accessories and to retrieve their images, prices, options and documents (like the technical
+and safety data sheets of the filaments). No account or API key is required.
+This is not an official API and could break at any time. So use it at your own risk.
+
+Most products of the store are available in multiple variants (e.g. the colors of a filament, with or without spool),
+which differ in their images, prices and codes. If you search for a product name (like `PETG HF`), you get the
+products as a whole. To get a certain variant, search for its code (like the filament code `32101`, which is printed
+on the spool and the box), or use the URL of the selected variant (`.../products/petg-translucent?id=...`) in the
+"Create part from URL" feature. For variants the code is used as manufacturer part number.
+
+The following env configuration options are available:
+* `PROVIDER_BAMBULAB_ENABLED`: Set this to `1` to enable the Bambu Lab provider
+* `PROVIDER_BAMBULAB_REGION`: The regional store which should be used. This determines the available products, the
+  prices and their currency. Possible values: `US`, `CA`, `MX`, `EU`, `UK`, `AU`, `JP`, `KR`, `GLOBAL` (optional,
+  default: `US`)
+
 ### Custom providers
 
 To create a custom provider, you have to create a new class implementing the `InfoProviderInterface` interface. As long
