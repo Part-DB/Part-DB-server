@@ -1,0 +1,16 @@
+{# Shown on the first view of an Amazon part, while its data is retrieved from Canopy (see CanopyOnViewFetcher) #}
+<div class="alert alert-info d-flex align-items-center py-2" role="status"
+    {{ stimulus_controller('pages/canopy_fetch', {
+        url: path('part_fetch_canopy', {id: part.id}),
+        token: csrf_token('fetch_canopy' ~ part.id),
+        messages: {
+            updated: 'part.info.canopy_fetch.updated'|trans,
+            limit: 'part.info.canopy_fetch.limit'|trans,
+            error: 'part.info.canopy_fetch.error'|trans,
+        },
+    }) }}>
+    <span class="spinner-border spinner-border-sm me-2 flex-shrink-0" aria-hidden="true" {{ stimulus_target('pages/canopy_fetch', 'spinner') }}></span>
+    <i class="fa-solid fa-check fa-fw me-2 d-none" aria-hidden="true" {{ stimulus_target('pages/canopy_fetch', 'done') }}></i>
+    <i class="fa-solid fa-triangle-exclamation fa-fw me-2 d-none" aria-hidden="true" {{ stimulus_target('pages/canopy_fetch', 'failed') }}></i>
+    <span {{ stimulus_target('pages/canopy_fetch', 'message') }}>{% trans %}part.info.canopy_fetch.loading{% endtrans %}</span>
+</div>

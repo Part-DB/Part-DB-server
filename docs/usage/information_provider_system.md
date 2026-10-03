@@ -331,6 +331,14 @@ Once you have the API key, you can configure the Canopy provider in Part-DB usin
 
 * `PROVIDER_CANOPY_API_KEY`: The API key you got from Canopy (mandatory)
 
+As Canopy bills per request, retrieving data for all Amazon parts of a large inventory can be expensive. With the
+*Fetch data when a part is viewed* option in the provider settings, Part-DB only asks Canopy about an Amazon part, when
+somebody opens its info page for the first time: the page shows that the data is being fetched and reloads with the new
+data (picture, manufacturer, notes, price) once it is there. This applies to parts without info provider data, which
+have an orderdetail linking to a product page of the configured Amazon marketplace. Only missing data is filled in,
+existing data is never changed, and the number of requests caused this way is capped by *Max. requests per day when
+viewing parts*.
+
 ### TrustedParts
 
 The TrustedParts provider uses the [TrustedParts.com Inventory API](https://www.trustedparts.com/en/docs/api/trustedparts-api)

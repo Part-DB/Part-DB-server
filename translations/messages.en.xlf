@@ -13982,6 +13982,60 @@ Buerklin-API Authentication server:
         <target>When selected, more details will be fetched from canopy when creating a part. This causes an additional API request, but gives product bullet points and category info.</target>
       </segment>
     </unit>
+    <unit id="cFv0nV1" name="settings.ips.canopy.fetchOnView">
+      <segment state="translated">
+        <source>settings.ips.canopy.fetchOnView</source>
+        <target>Fetch data when a part is viewed</target>
+      </segment>
+    </unit>
+    <unit id="cFv0nV2" name="settings.ips.canopy.fetchOnView.help">
+      <segment state="translated">
+        <source>settings.ips.canopy.fetchOnView.help</source>
+        <target>When selected, an Amazon part without info provider data is filled with data from Canopy the first time its info page is opened. This way only the parts somebody actually looks at cause (billed) API requests. Only missing data is added, existing data of the part is never changed. Everybody who can view a part triggers this.</target>
+      </segment>
+    </unit>
+    <unit id="cFv0nV3" name="settings.ips.canopy.fetchOnViewDailyLimit">
+      <segment state="translated">
+        <source>settings.ips.canopy.fetchOnViewDailyLimit</source>
+        <target>Max. requests per day when viewing parts</target>
+      </segment>
+    </unit>
+    <unit id="cFv0nV4" name="settings.ips.canopy.fetchOnViewDailyLimit.help">
+      <segment state="translated">
+        <source>settings.ips.canopy.fetchOnViewDailyLimit.help</source>
+        <target>The maximum number of Canopy requests which viewing parts may cause within 24 hours. Use 0 for no limit.</target>
+      </segment>
+    </unit>
+    <unit id="cFv0nV5" name="part.info.canopy_fetch.loading">
+      <segment state="translated">
+        <source>part.info.canopy_fetch.loading</source>
+        <target>Fetching product data from Amazon (via Canopy)…</target>
+      </segment>
+    </unit>
+    <unit id="cFv0nV6" name="part.info.canopy_fetch.updated">
+      <segment state="translated">
+        <source>part.info.canopy_fetch.updated</source>
+        <target>Product data received. Loading the updated part…</target>
+      </segment>
+    </unit>
+    <unit id="cFv0nV7" name="part.info.canopy_fetch.limit">
+      <segment state="translated">
+        <source>part.info.canopy_fetch.limit</source>
+        <target>Product data was not fetched from Canopy, because the daily request limit is reached.</target>
+      </segment>
+    </unit>
+    <unit id="cFv0nV8" name="part.info.canopy_fetch.error">
+      <segment state="translated">
+        <source>part.info.canopy_fetch.error</source>
+        <target>Product data could not be fetched from Canopy.</target>
+      </segment>
+    </unit>
+    <unit id="cFv0nV9" name="part.info.canopy_fetch.flash.updated">
+      <segment state="translated">
+        <source>part.info.canopy_fetch.flash.updated</source>
+        <target>This part was filled with product data from Amazon (via Canopy).</target>
+      </segment>
+    </unit>
     <unit id="KyC_YsX" name="settings.ips.trustedparts">
       <segment state="translated">
         <source>settings.ips.trustedparts</source>

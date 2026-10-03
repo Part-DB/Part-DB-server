@@ -31,6 +31,10 @@
 {% endblock %}
 
 {% block card_content %}
+    {% if canopy_fetch_needed %}
+        {% include "parts/info/_canopy_fetch.html.twig" %}
+    {% endif %}
+
     <div class="row">
         <div class="col col-md-3 mt-auto mb-auto">
             {% include "parts/info/_picture.html.twig" %}
