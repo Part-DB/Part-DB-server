@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\DataTables\Helpers;
 
 use App\Entity\Parts\StorageLocation;
+use App\Entity\Parts\Supplier;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
@@ -116,6 +117,61 @@ readonly class PartDataTableHelper
         }
 
         return implode('<br>', $tmp);
+    }
+
+    /**
+     * Renders the names of all suppliers of this part (taken from its orderdetails), linked to their part lists.
+     * Each supplier is only listed once, even if the part has multiple orderdetails for it.
+     */
+    public function renderSuppliers(Part $context): string
+    {
+        $tmp = [];
+        foreach ($context->getOrderdetails() as $orderdetail) {
+            $supplier = $orderdetail->getSupplier();
+            //Ignore orderdetails without supplier
+            if (!$supplier instanceof Supplier) {
+                continue;
+            }
+            $tmp[$supplier->getID()] = sprintf(
+                '<a href="%s" title="%s">%s</a>',
+                $this->entityURLGenerator->listPartsURL($supplier),
+                htmlspecialchars($this->pathCache->getFullPath($supplier)),
+                htmlspecialchars($supplier->getName())
+            );
+        }
+
+        return implode(', ', $tmp);
+    }
+
+    /**
+     * Renders the supplier part numbers of all orderdetails of this part. A number is linked to the product page of
+     * the supplier, if one is known.
+     */
+    public function renderSupplierPartNumbers(Part $context): string
+    {
+        $tmp = [];
+        foreach ($context->getOrderdetails() as $orderdetail) {
+            $number = $orderdetail->getSupplierPartNr();
+            if ($number === '') {
+                continue;
+            }
+
+            $title = $orderdetail->getSupplier()?->getName() ?? '';
+            $url = $orderdetail->getSupplierProductUrl();
+            //The URL can be entered freely by users, so only link to real web addresses
+            if (preg_match('#^https?://#i', $url) === 1) {
+                $tmp[$number] = sprintf(
+                    '<a href="%s" title="%s" target="_blank" rel="noopener">%s</a>',
+                    htmlspecialchars($url),
+                    htmlspecialchars($title),
+                    htmlspecialchars($number)
+                );
+            } else {
+                $tmp[$number] ??= sprintf('<span title="%s">%s</span>', htmlspecialchars($title), htmlspecialchars($number));
+            }
+        }
+
+        return implode(', ', $tmp);
     }
 
     /**

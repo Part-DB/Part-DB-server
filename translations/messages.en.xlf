@@ -15518,5 +15518,17 @@ Buerklin-API Authentication server:
         <target>Unknown</target>
       </segment>
     </unit>
+    <unit id="sUpTb1C" name="part.table.supplier">
+      <segment state="translated">
+        <source>part.table.supplier</source>
+        <target>Supplier</target>
+      </segment>
+    </unit>
+    <unit id="sUpTb2N" name="part.table.supplier_part_number">
+      <segment state="translated">
+        <source>part.table.supplier_part_number</source>
+        <target>Supplier part number</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
