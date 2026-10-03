@@ -20,8 +20,8 @@
 import {Controller} from "@hotwired/stimulus";
 
 /**
- * Shown on the info page of an Amazon part, which was not looked up at Canopy yet (and only if the "fetch on view"
- * setting of the Canopy provider is enabled). It asks the server to retrieve the data, shows that this is in
+ * Shown on the info page of a part, which was not looked up at its info provider yet (and only if "fetch data when a
+ * part is viewed" is enabled for that provider). It asks the server to retrieve the data, shows that this is in
  * progress, and reloads the page once the data is there.
  */
 export default class extends Controller {
@@ -34,8 +34,8 @@ export default class extends Controller {
     };
 
     /** How often to ask again, while another request is retrieving the data of this part */
-    static MAX_ATTEMPTS = 20;
-    static RETRY_DELAY = 3000;
+    static MAX_ATTEMPTS = 60;
+    static RETRY_DELAY = 5000;
 
     connect() {
         //Turbo shows a cached copy of the page while it loads the real one, which will start the request itself

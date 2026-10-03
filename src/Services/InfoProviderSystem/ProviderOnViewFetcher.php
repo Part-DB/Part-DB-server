@@ -26,11 +26,10 @@ namespace App\Services\InfoProviderSystem;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\InfoProviderReference;
+use App\Entity\Parts\ManufacturingStatus;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Orderdetail;
-use App\Services\InfoProviderSystem\Providers\CanopyProvider;
 use App\Services\LogSystem\EventCommentHelper;
-use App\Settings\InfoProviderSystem\CanopySettings;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Log\LoggerInterface;
@@ -38,17 +37,17 @@ use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\RateLimiter\Storage\CacheStorage;
 
 /**
- * Fills an Amazon part with data from Canopy the first time its info page is opened.
+ * Fills a part with data from an info provider the first time its info page is opened.
  *
- * Canopy bills per request, so retrieving data for every Amazon part of a large inventory up front is expensive,
- * while most of these parts are never looked at again. With the "fetch on view" setting of the Canopy provider
- * enabled, a part is only looked up when somebody actually opens its page - and only once: afterwards the part
- * carries a Canopy provider reference, which marks it as done.
+ * Looking up every part of a large inventory up front is expensive (Canopy bills per request) or impolite (many
+ * requests to the website of a store), while most of these parts are never looked at again. For the providers this
+ * is enabled for (see ProviderOnViewMatcher), a part is only looked up when somebody actually opens its page - and
+ * only once: afterwards the part carries a provider reference, which marks it as done.
  *
  * Only missing data is filled in. Nothing the part already has is overwritten or extended, as nobody reviews
  * the result (in contrast to the "update from info provider" form).
  */
-final class CanopyOnViewFetcher
+final class ProviderOnViewFetcher
 {
     public const STATUS_UPDATED = 'updated';
     /** Nothing to do (anymore), e.g. because a parallel request already fetched the data */
@@ -59,14 +58,16 @@ final class CanopyOnViewFetcher
     public const STATUS_LIMIT = 'limit';
     public const STATUS_ERROR = 'error';
 
-    /** @var int Seconds after which a fetch which never finished (e.g. a killed request) does not block new ones anymore */
-    private const LOCK_TTL = 120;
-    /** @var int Seconds before a part whose fetch failed is tried again, so a broken ASIN does not cost a request per page view */
+    /**
+     * @var int Seconds after which a fetch which never finished (e.g. a killed request) does not block new ones anymore.
+     * A fetch can take a while, as some providers wait several seconds between their requests to a store.
+     */
+    private const LOCK_TTL = 300;
+    /** @var int Seconds before a part whose fetch failed is tried again, so a broken product does not cost a request per page view */
     private const FAILURE_TTL = 3600 * 24;
 
     public function __construct(
-        private readonly CanopySettings $settings,
-        private readonly CanopyProvider $provider,
+        private readonly ProviderOnViewMatcher $matcher,
         private readonly PartInfoRetriever $infoRetriever,
         private readonly EntityManagerInterface $em,
         private readonly EventCommentHelper $commentHelper,
@@ -76,22 +77,19 @@ final class CanopyOnViewFetcher
     }
 
     /**
-     * Returns the ASIN of the Amazon product behind this part, or null if it is not (recognizably) an Amazon part.
-     * A part is an Amazon part, if it was created via the Canopy provider or if one of its orderdetails links to
-     * a product page of the Amazon marketplace configured for the Canopy provider (this includes URLs generated
-     * from the supplier's product URL template and the supplier part number).
+     * Returns how the data of the given part would be fetched, or null if there is nothing to fetch: the part has
+     * info provider data already, no enabled provider recognizes it, or fetching it failed recently.
+     * This check is cheap and does not contact a provider, so it can be done on every page view.
      */
-    public function getASIN(Part $part): ?string
+    public function getPendingMatch(Part $part): ?OnViewMatch
     {
-        $reference = $part->getProviderReference();
-        if ($reference->getProviderKey() === CanopyProvider::PROVIDER_KEY && $this->isASIN($reference->getProviderId())) {
-            return $reference->getProviderId();
+        if ($part->getID() === null) {
+            return null;
         }
 
-        foreach ($part->getOrderdetails() as $orderdetail) {
-            $asin = $this->getASINFromURL($orderdetail->getSupplierProductUrl());
-            if ($asin !== null) {
-                return $asin;
+        foreach ($this->matcher->findMatches($part) as $match) {
+            if (!$this->partInfoCache->hasItem($this->failureKey($part, $match))) {
+                return $match;
             }
         }
 
@@ -99,43 +97,32 @@ final class CanopyOnViewFetcher
     }
 
     /**
-     * Checks whether opening the page of this part should trigger a Canopy request.
-     * This check is cheap and does not contact Canopy, so it can be done on every page view.
+     * Checks whether opening the page of this part should trigger a request to an info provider.
      */
     public function isFetchNeeded(Part $part): bool
     {
-        if (!$this->settings->fetchOnView || !$this->provider->isActive() || $part->getID() === null) {
-            return false;
-        }
-
-        //A provider reference means the part data already came from an info provider (Canopy or another one)
-        if ($part->getProviderReference()->isProviderCreated()) {
-            return false;
-        }
-
-        if ($this->getASIN($part) === null) {
-            return false;
-        }
-
-        return !$this->partInfoCache->hasItem($this->failureKey($part));
+        return $this->getPendingMatch($part) !== null;
     }
 
     /**
-     * Retrieves the data for the given part from Canopy and fills in what the part is missing.
+     * Retrieves the data for the given part from the provider which recognizes it, and fills in what the part is
+     * missing. Whatever goes wrong at the provider ends up as STATUS_ERROR, this does not throw.
      * @return string One of the STATUS_* constants
      */
     public function fetch(Part $part): string
     {
-        if (!$this->isFetchNeeded($part)) {
+        $match = $this->getPendingMatch($part);
+        if ($match === null) {
             return self::STATUS_UNCHANGED;
         }
 
-        $lock = $this->partInfoCache->getItem('canopy_on_view_lock_'.$part->getID());
+        $lock_key = 'on_view_lock_'.$part->getID();
+        $lock = $this->partInfoCache->getItem($lock_key);
         if ($lock->isHit()) {
             return self::STATUS_BUSY;
         }
 
-        if (!$this->consumeDailyLimit()) {
+        if (!$this->consumeDailyLimit($match->getProviderKey())) {
             return self::STATUS_LIMIT;
         }
 
@@ -144,36 +131,59 @@ final class CanopyOnViewFetcher
         $this->partInfoCache->save($lock);
 
         try {
-            $dto = $this->infoRetriever->getDetails(CanopyProvider::PROVIDER_KEY, (string) $this->getASIN($part));
-            $this->fillPart($part, $this->infoRetriever->dtoToPart($dto));
+            $dto = $this->infoRetriever->getDetails($match->getProviderKey(), $this->resolveProviderId($match));
+            $this->fillPart($part, $this->infoRetriever->dtoToPart($dto), $match);
 
-            $this->commentHelper->setMessage('Fetched data from Canopy on first page view');
+            $this->commentHelper->setMessage(sprintf('Fetched data from %s on first page view', $match->getProviderName()));
             $this->em->flush();
         } catch (\Throwable $exception) {
-            $this->logger->error('Could not fetch the data of part {id} from Canopy on page view: {message}', [
+            $this->logger->error('Could not fetch the data of part {id} from {provider} on page view: {message}', [
                 'id' => $part->getID(),
+                'provider' => $match->getProviderKey(),
                 'message' => $exception->getMessage(),
                 'exception' => $exception,
             ]);
 
-            //Remember the failure, so we do not pay for the same failing request on every page view
-            $failure = $this->partInfoCache->getItem($this->failureKey($part));
+            //Remember the failure, so the same failing request is not repeated on every page view
+            $failure = $this->partInfoCache->getItem($this->failureKey($part, $match));
             $failure->set(true);
             $failure->expiresAfter(self::FAILURE_TTL);
             $this->partInfoCache->save($failure);
 
             return self::STATUS_ERROR;
         } finally {
-            $this->partInfoCache->deleteItem('canopy_on_view_lock_'.$part->getID());
+            $this->partInfoCache->deleteItem($lock_key);
         }
 
         return self::STATUS_UPDATED;
     }
 
     /**
+     * Returns the ID of the product at the provider. If the part was only recognized by its supplier, the provider
+     * is searched for the supplier part number, and the product must be found with exactly this number.
+     */
+    private function resolveProviderId(OnViewMatch $match): string
+    {
+        if ($match->providerId !== null) {
+            return $match->providerId;
+        }
+
+        $supplier_part_nr = (string) $match->supplierPartNr;
+        $results = $this->infoRetriever->searchByKeyword($supplier_part_nr, [$match->provider]);
+
+        $result = $this->matcher->pickExactResult($match->provider, $supplier_part_nr, $results);
+        if ($result === null) {
+            throw new \RuntimeException(sprintf('%s has no (unambiguous) product with exactly the number "%s" (%d search results)',
+                $match->getProviderName(), $supplier_part_nr, count($results)));
+        }
+
+        return $result->provider_id;
+    }
+
+    /**
      * Copies everything the target part is missing from the part built from the provider data.
      */
-    private function fillPart(Part $target, Part $provider_part): void
+    private function fillPart(Part $target, Part $provider_part, OnViewMatch $match): void
     {
         if ($target->getDescription() === '') {
             $target->setDescription($provider_part->getDescription());
@@ -193,6 +203,10 @@ final class CanopyOnViewFetcher
         if ($target->getMass() === null) {
             $target->setMass($provider_part->getMass());
         }
+        if (in_array($target->getManufacturingStatus(), [null, ManufacturingStatus::NOT_SET], true)
+            && $provider_part->getManufacturingStatus() !== null) {
+            $target->setManufacturingStatus($provider_part->getManufacturingStatus());
+        }
 
         if ($target->getManufacturer() === null && $provider_part->getManufacturer() !== null) {
             //The manufacturer might be newly created for this part, so it has to be persisted explicitly
@@ -202,9 +216,9 @@ final class CanopyOnViewFetcher
 
         $this->fillAttachments($target, $provider_part);
         $this->fillParameters($target, $provider_part);
-        $this->fillOrderdetails($target, $provider_part);
+        $this->fillOrderdetails($target, $provider_part, $match);
 
-        //Mark the part as done, and allow to update it from Canopy via the normal info provider tools later
+        //Mark the part as done, and allow to update it from the provider via the normal info provider tools later
         $reference = $provider_part->getProviderReference();
         $target->setProviderReference(InfoProviderReference::providerReference(
             (string) $reference->getProviderKey(), (string) $reference->getProviderId(), $reference->getProviderUrl()
@@ -258,17 +272,14 @@ final class CanopyOnViewFetcher
         }
     }
 
-    private function fillOrderdetails(Part $target, Part $provider_part): void
+    private function fillOrderdetails(Part $target, Part $provider_part, OnViewMatch $match): void
     {
         /** @var Orderdetail $orderdetail */
         foreach ($provider_part->getOrderdetails()->toArray() as $orderdetail) {
-            $asin = $this->getASINFromURL($orderdetail->getSupplierProductUrl()) ?? $orderdetail->getSupplierPartNr();
-
-            //Find the orderdetail of the target part, which describes the same Amazon product
+            //Find the orderdetail of the target part, which describes the same product at the same supplier
             $existing = null;
             foreach ($target->getOrderdetails() as $target_orderdetail) {
-                if ($target_orderdetail->getSupplierPartNr() === $asin
-                    || $this->getASINFromURL($target_orderdetail->getSupplierProductUrl()) === $asin) {
+                if ($this->isSameOffer($target_orderdetail, $orderdetail, $match)) {
                     $existing = $target_orderdetail;
                     break;
                 }
@@ -292,6 +303,13 @@ final class CanopyOnViewFetcher
                 continue;
             }
 
+            if ($existing->getSupplierPartNr() === '') {
+                $existing->setSupplierpartnr($orderdetail->getSupplierPartNr());
+            }
+            if ($existing->getSupplierProductUrl() === '') {
+                $existing->setSupplierProductUrl($orderdetail->getSupplierProductUrl());
+            }
+
             //Only add the current price if the part has no price for this product yet (e.g. the price it was bought for)
             if ($existing->getPricedetails()->isEmpty()) {
                 foreach ($orderdetail->getPricedetails()->toArray() as $pricedetail) {
@@ -304,17 +322,45 @@ final class CanopyOnViewFetcher
     }
 
     /**
-     * Counts a request against the daily limit and returns false if the limit is used up.
+     * Checks if an orderdetail the part already has and one supplied by the provider are the same offer, so the
+     * part does not end up with two orderdetails for it.
      */
-    private function consumeDailyLimit(): bool
+    private function isSameOffer(Orderdetail $existing, Orderdetail $provided, OnViewMatch $match): bool
     {
-        $limit = $this->settings->fetchOnViewDailyLimit;
+        $existing_supplier = ProviderOnViewMatcher::normalizeName((string) $existing->getSupplier()?->getName());
+        $provided_supplier = ProviderOnViewMatcher::normalizeName((string) $provided->getSupplier()?->getName());
+
+        $provided_id = $this->matcher->getProviderIdFromURL($match->provider, $provided->getSupplierProductUrl());
+
+        //The orderdetail the part was recognized by is the offer of this product at the store of the provider
+        if ($existing === $match->orderdetail && ($provided_id !== null || $existing_supplier === $provided_supplier)) {
+            return true;
+        }
+
+        //Both link to the same product page
+        if ($provided_id !== null
+            && $this->matcher->getProviderIdFromURL($match->provider, $existing->getSupplierProductUrl()) === $provided_id) {
+            return true;
+        }
+
+        //The same order number at the same supplier
+        return $existing_supplier !== '' && $existing_supplier === $provided_supplier
+            && ProviderOnViewMatcher::numbersEqual($existing->getSupplierPartNr(), $provided->getSupplierPartNr(),
+                [(string) $provided->getSupplier()?->getName()]);
+    }
+
+    /**
+     * Counts a lookup against the daily limit of the provider and returns false if the limit is used up.
+     */
+    private function consumeDailyLimit(string $provider_key): bool
+    {
+        $limit = $this->matcher->getDailyLimit($provider_key);
         if ($limit <= 0) {
             return true;
         }
 
         $factory = new RateLimiterFactory([
-            'id' => 'canopy_on_view',
+            'id' => $provider_key.'_on_view',
             'policy' => 'sliding_window',
             'limit' => $limit,
             'interval' => '24 hours',
@@ -323,38 +369,9 @@ final class CanopyOnViewFetcher
         return $factory->create('daily')->consume()->isAccepted();
     }
 
-    private function failureKey(Part $part): string
+    private function failureKey(Part $part, OnViewMatch $match): string
     {
-        return 'canopy_on_view_failed_'.$part->getID();
-    }
-
-    private function isASIN(?string $value): bool
-    {
-        return $value !== null && preg_match('/^[A-Z0-9]{10}$/', $value) === 1;
-    }
-
-    /**
-     * Extracts the ASIN from an Amazon product page URL (like https://www.amazon.com/dp/B00EXAMPLE),
-     * or returns null if the URL is not a product page of the configured Amazon marketplace.
-     */
-    private function getASINFromURL(?string $url): ?string
-    {
-        if ($url === null || $url === '') {
-            return null;
-        }
-
-        //Canopy is queried for the configured Amazon marketplace only, an ASIN of another one would give wrong data
-        $domain = $this->settings->getRealDomain();
-        $host = parse_url($url, PHP_URL_HOST);
-        if (!is_string($host) || (strcasecmp($host, $domain) !== 0 && !str_ends_with(strtolower($host), '.'.$domain))) {
-            return null;
-        }
-
-        $path = (string) parse_url($url, PHP_URL_PATH);
-        if (preg_match('#/(?:dp|gp/product|gp/aw/d|exec/obidos/ASIN)/([A-Z0-9]{10})(?:[/?]|$)#', $path, $matches) === 1) {
-            return $matches[1];
-        }
-
-        return null;
+        //Provider keys are identifiers, but make sure that nothing the cache does not allow in a key gets in
+        return preg_replace('/[^A-Za-z0-9_.]/', '_', $match->getProviderKey()).'_on_view_failed_'.$part->getID();
     }
 }

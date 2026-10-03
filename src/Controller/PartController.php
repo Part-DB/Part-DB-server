@@ -41,8 +41,8 @@ use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\GeneratedImageAttachmentHelper;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\EntityMergers\Mergers\PartMerger;
-use App\Services\InfoProviderSystem\CanopyOnViewFetcher;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
+use App\Services\InfoProviderSystem\ProviderOnViewFetcher;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
@@ -100,7 +100,7 @@ final class PartController extends AbstractController
         DataTableFactory $dataTable,
         ParameterExtractor $parameterExtractor,
         PartLotWithdrawAddHelper $withdrawAddHelper,
-        CanopyOnViewFetcher $canopyOnViewFetcher,
+        ProviderOnViewFetcher $onViewFetcher,
         ?string $timestamp = null
     ): Response {
         $this->denyAccessUnlessGranted('read', $part);
@@ -168,32 +168,41 @@ final class PartController extends AbstractController
                 'highlightLotId' => $request->query->getInt('highlightLot', 0),
                 'add_lot_form' => $addLotForm,
                 'move_new_lot_form' => $moveNewLotForm,
-                //The page itself triggers the (slow and billed) Canopy request afterwards, so rendering is not delayed
-                'canopy_fetch_needed' => $timeTravel_timestamp === null && $canopyOnViewFetcher->isFetchNeeded($part),
+                //The page itself triggers the (slow) request to the info provider afterwards, so rendering is not delayed
+                'fetch_on_view_provider' => $timeTravel_timestamp === null
+                    ? $onViewFetcher->getPendingMatch($part)?->getProviderName() : null,
             ]
         );
     }
 
     /**
-     * Fills an Amazon part with data from Canopy. Called by the part info page, when the "fetch on view" setting
-     * of the Canopy provider is enabled and the part was not looked up yet.
+     * Fills a part with data from the info provider which recognizes it. Called by the part info page, if "fetch
+     * data when a part is viewed" is enabled for that provider and the part was not looked up yet.
      * Being allowed to view the part is enough to trigger this: the administrator opted in to that with the setting,
-     * and only missing data is added. The costs are bounded by the daily limit of the setting.
+     * and only missing data is added. The number of lookups is bounded by the daily limit of the setting.
      */
-    #[Route(path: '/{id}/fetch_canopy', name: 'part_fetch_canopy', requirements: ['id' => '\d+'], methods: ['POST'])]
-    public function fetchCanopy(Part $part, Request $request, CanopyOnViewFetcher $canopyOnViewFetcher): Response
+    #[Route(path: '/{id}/fetch_on_view', name: 'part_fetch_on_view', requirements: ['id' => '\d+'], methods: ['POST'])]
+    public function fetchOnView(Part $part, Request $request, ProviderOnViewFetcher $onViewFetcher): Response
     {
         $this->denyAccessUnlessGranted('read', $part);
 
-        if (!$this->isCsrfTokenValid('fetch_canopy' . $part->getID(), $request->request->get('_token'))) {
+        if (!$this->isCsrfTokenValid('fetch_on_view' . $part->getID(), $request->request->get('_token'))) {
             throw $this->createAccessDeniedException('Invalid CSRF token');
         }
 
-        $status = $canopyOnViewFetcher->fetch($part);
+        $provider_name = $onViewFetcher->getPendingMatch($part)?->getProviderName();
+
+        //A fetch can take a while (some providers pause between their requests to a store). The session is locked
+        //as long as it is open, so close it, to not block all other pages of this user in the meantime.
+        if ($request->hasSession() && $request->getSession()->isStarted()) {
+            $request->getSession()->save();
+        }
+
+        $status = $onViewFetcher->fetch($part);
 
         //The page reloads itself after a successful fetch, so tell the user why the part looks different now
-        if ($status === CanopyOnViewFetcher::STATUS_UPDATED) {
-            $this->addFlash('success', t('part.info.canopy_fetch.flash.updated'));
+        if ($status === ProviderOnViewFetcher::STATUS_UPDATED) {
+            $this->addFlash('success', t('part.info.provider_fetch.flash.updated', ['%provider%' => (string) $provider_name]));
         }
 
         return $this->json(['status' => $status]);

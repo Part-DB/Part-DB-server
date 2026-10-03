@@ -31,8 +31,8 @@
 {% endblock %}
 
 {% block card_content %}
-    {% if canopy_fetch_needed %}
-        {% include "parts/info/_canopy_fetch.html.twig" %}
+    {% if fetch_on_view_provider is not null %}
+        {% include "parts/info/_provider_fetch.html.twig" with {provider_name: fetch_on_view_provider} %}
     {% endif %}
 
     <div class="row">
