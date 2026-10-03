@@ -69,21 +69,52 @@ export default class extends Controller {
         return key;
     }
 
+    /**
+     * Returns true, if the URL of the table requests a certain ordering (e.g. the one chosen in the quick search).
+     * This ordering takes precedence over the saved one and must not replace it.
+     * @returns {boolean}
+     */
+    hasRequestedOrder() {
+        const url = this.element.dataset.dtUrl ?? '';
+        const query = url.includes('?') ? url.substring(url.indexOf('?') + 1) : '';
+
+        return new URLSearchParams(query).has('sort');
+    }
+
     stateSaveCallback(settings, data) {
+        if (this.hasRequestedOrder()) {
+            //Keep the ordering the user has chosen for the tables, instead of saving the one requested by the URL
+            const saved_order = this._loadSavedState()?.order;
+            if (saved_order) {
+                data.order = saved_order;
+            } else {
+                delete data.order;
+            }
+        }
+
         localStorage.setItem( this.getStateSaveKey(), JSON.stringify(data) );
     }
 
-    stateLoadCallback() {
+    _loadSavedState() {
         const json = localStorage.getItem(this.getStateSaveKey());
         if(json === null || json === undefined) {
             return null;
         }
 
-        const data = JSON.parse(json);
+        return JSON.parse(json);
+    }
+
+    stateLoadCallback() {
+        const data = this._loadSavedState();
 
         if (data) {
             //Do not save the start value (current page), as we want to always start at the first page on a page reload
             delete data.start;
+
+            //The ordering requested by the URL takes precedence over the saved one
+            if (this.hasRequestedOrder()) {
+                delete data.order;
+            }
         }
 
         return data;
@@ -100,8 +131,9 @@ export default class extends Controller {
 
         //Add initial_order info to the settings, so that the order on the initial page load is the one saved in the state
         const saved_state = this.stateLoadCallback();
-        if (saved_state !== null) {
-            const raw_order = saved_state.order;
+        if (saved_state !== null && !this.hasRequestedOrder()) {
+            //The state has no order, if it was only saved on a page with an ordering requested by the URL
+            const raw_order = saved_state.order ?? [];
 
             settings.initial_order = raw_order.map((order) => {
                 //Skip if direction is empty, as this is the default, otherwise datatables server is confused when the order is sent in the request, but the initial order is set to an empty direction

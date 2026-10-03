@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\DataTables\Filters\PartSearchFilter;
+use App\DataTables\Filters\PartSearchSort;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\AttachmentTypeParameter;
@@ -143,6 +144,9 @@ class TypeaheadController extends AbstractController
         //If regex or extensive matching is enabled in the search options, search like the search page does
         //(using the selected fields), otherwise use the simple and fast autocomplete search
         $filter = PartSearchFilter::fromRequest($request, $query);
+        //The ordering of the results chosen in the search dropdown (null orders by name)
+        $sort = PartSearchSort::fromRequest($request);
+        $descending = PartSearchSort::isDescending($request);
         if ($filter->isRegex() || $filter->isExtensive()) {
             //A regex is often incomplete while it is typed (e.g. "lm("), so return no results instead of an error
             if ($filter->isRegex() && @preg_match('~' . str_replace('~', '\\~', $query) . '~u', '') === false) {
@@ -150,12 +154,12 @@ class TypeaheadController extends AbstractController
             }
 
             try {
-                $parts = $repo->autocompleteSearchWithFilter($filter, 100);
+                $parts = $repo->autocompleteSearchWithFilter($filter, 100, $sort, $descending);
             } catch (InvalidRegexException|DBALException) {
                 return new JsonResponse([]);
             }
         } else {
-            $parts = $repo->autocompleteSearch($query, 100);
+            $parts = $repo->autocompleteSearch($query, 100, $sort, $descending);
         }
 
         $data = [];

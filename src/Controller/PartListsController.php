@@ -25,6 +25,7 @@ namespace App\Controller;
 use App\DataTables\ErrorDataTable;
 use App\DataTables\Filters\PartFilter;
 use App\DataTables\Filters\PartSearchFilter;
+use App\DataTables\Filters\PartSearchSort;
 use App\DataTables\PartsDataTable;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -40,6 +41,7 @@ use App\Settings\BehaviorSettings\SidebarSettings;
 use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
+use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -313,6 +315,13 @@ class PartListsController extends AbstractController
     {
         $searchFilter = PartSearchFilter::fromRequest($request);
 
+        //If an ordering was chosen in the quick search, show the table sorted by the matching column (if there is one)
+        $order = null;
+        $order_column = PartSearchSort::fromRequest($request)?->getTableColumn();
+        if ($order_column !== null) {
+            $order = [$order_column, PartSearchSort::isDescending($request) ? DataTable::SORT_DESCENDING : DataTable::SORT_ASCENDING];
+        }
+
         return $this->showListWithFilter($request,
             'parts/lists/search_list.html.twig',
             null,
@@ -323,6 +332,7 @@ class PartListsController extends AbstractController
             ],
             [
                 'search' => $searchFilter,
+                'order' => $order,
             ]
         );
     }

@@ -28,13 +28,27 @@ import {
 } from '../../translator';
 
 
+//The key under which the chosen ordering of the results is remembered in the local storage
+const SORT_STORAGE_KEY = 'part_search_sort';
+
+//The orderings which can be chosen in the results dropdown (key as understood by the server and the icon of the toggle)
+const SORT_OPTIONS = [
+    {key: 'name', icon: 'fa-font'},
+    {key: 'manufacturer', icon: 'fa-industry'},
+    {key: 'supplier', icon: 'fa-truck'},
+    {key: 'added', icon: 'fa-calendar-plus'},
+    {key: 'modified', icon: 'fa-pen'},
+    {key: 'top_category', icon: 'fa-sitemap'},
+    {key: 'category', icon: 'fa-tags'},
+];
+
 /**
  * This controller is responsible for the search fields in the navbar and the homepage.
  * It uses the Algolia Autocomplete library to provide a fast and responsive search.
  */
 export default class extends Controller {
 
-    static targets = ["input"];
+    static targets = ["input", "sort", "sortDir"];
 
     _autocomplete;
 
@@ -88,6 +102,92 @@ export default class extends Controller {
         }
 
         return options;
+    }
+
+    /**
+     * Returns the ordering chosen for the results, or null if the default ordering is used.
+     * It is read from the local storage every time, so all search fields on the page share it.
+     * @returns {{key: string, desc: boolean}|null}
+     */
+    _getSort() {
+        let value = null;
+        try {
+            value = localStorage.getItem(SORT_STORAGE_KEY);
+        } catch (e) {
+            // Without local storage the default ordering is used
+        }
+        if (!value) {
+            return null;
+        }
+
+        const [key, direction] = value.split(':');
+        if (!SORT_OPTIONS.some((option) => option.key === key)) {
+            return null;
+        }
+
+        return {key: key, desc: direction === 'desc'};
+    }
+
+    /**
+     * Cycles the given ordering: ascending on the first click, descending on the second and back to the default
+     * ordering on the third one. Only one ordering can be active at a time.
+     * @param {string} key
+     */
+    _toggleSort(key) {
+        const current = this._getSort();
+
+        try {
+            if (!current || current.key !== key) {
+                localStorage.setItem(SORT_STORAGE_KEY, key + ':asc');
+            } else if (!current.desc) {
+                localStorage.setItem(SORT_STORAGE_KEY, key + ':desc');
+            } else {
+                localStorage.removeItem(SORT_STORAGE_KEY);
+            }
+        } catch (e) {
+            return;
+        }
+
+        this._autocomplete.refresh();
+    }
+
+    /**
+     * Put the chosen ordering into the form, so the search page is sorted the same way as the dropdown.
+     */
+    _updateSortInputs() {
+        if (!this.hasSortTarget || !this.hasSortDirTarget) {
+            return;
+        }
+
+        const sort = this._getSort();
+        this.sortTarget.disabled = this.sortDirTarget.disabled = !sort;
+        this.sortTarget.value = sort ? sort.key : '';
+        this.sortDirTarget.value = sort && sort.desc ? 'desc' : 'asc';
+    }
+
+    /**
+     * Renders the small toggles used to choose the ordering of the results.
+     */
+    _renderSortToggles(html) {
+        const sort = this._getSort();
+
+        return html`<span class="aa-SourceHeaderSort" role="group" aria-label="${trans("search.sort.label")}">
+            ${SORT_OPTIONS.map((option) => {
+                const active = sort && sort.key === option.key;
+                const title = trans("search.sort.label") + ': ' + trans("search.sort." + option.key)
+                    + (active ? ' (' + trans(sort.desc ? "search.sort.descending" : "search.sort.ascending") + ')' : '');
+
+                //The mousedown default is prevented, so the search input keeps the focus and the dropdown stays open
+                return html`<button type="button" tabindex="-1" key="${option.key}"
+                        class="aa-SourceHeaderSortToggle ${active ? 'aa-SourceHeaderSortToggle--active' : ''}"
+                        title="${title}" aria-label="${title}" aria-pressed="${active ? 'true' : 'false'}"
+                        onMouseDown="${(event) => event.preventDefault()}"
+                        onClick="${(event) => { event.preventDefault(); this._toggleSort(option.key); }}">
+                    <i class="fa-solid fa-fw ${option.icon}"></i>
+                    ${active ? html`<i class="fa-solid ${sort.desc ? 'fa-arrow-down' : 'fa-arrow-up'}"></i>` : ''}
+                </button>`;
+            })}
+        </span>`;
     }
 
     initialize() {
@@ -153,6 +253,7 @@ export default class extends Controller {
                 }
 
                 input.value = state.query;
+                that._updateSortInputs();
                 input.form.requestSubmit();
             },
 
@@ -167,8 +268,17 @@ export default class extends Controller {
 
                             // Pass the search options, so regex and extensive matching also work in the dropdown
                             const options = that._getSearchOptions();
-                            if (options) {
-                                url += (url.includes('?') ? '&' : '?') + options.toString();
+                            const params = new URLSearchParams(options ?? undefined);
+
+                            // And the chosen ordering of the results
+                            const sort = that._getSort();
+                            if (sort) {
+                                params.set('sort', sort.key);
+                                params.set('sort_dir', sort.desc ? 'desc' : 'asc');
+                            }
+
+                            if (params.toString() !== '') {
+                                url += (url.includes('?') ? '&' : '?') + params.toString();
                             }
 
                             const data = fetch(url)
@@ -194,6 +304,7 @@ export default class extends Controller {
                         templates: {
                             header({ html }) {
                                 return html`<span class="aa-SourceHeaderTitle">${trans("part.labelp")}</span>
+                                    ${that._renderSortToggles(html)}
                                     <div class="aa-SourceHeaderLine" />`;
                             },
                             item({item, components, html}) {

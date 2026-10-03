@@ -107,6 +107,9 @@
                 data-detail-url="{{ path('part_info', {'id': '__ID__'}) }}">
 
             <input type="hidden" name="keyword" required {{ stimulus_target('elements/part_search', 'input') }}>
+            {# The ordering chosen in the results dropdown, only submitted (enabled) if one is active #}
+            <input type="hidden" name="sort" disabled {{ stimulus_target('elements/part_search', 'sort') }}>
+            <input type="hidden" name="sort_dir" disabled {{ stimulus_target('elements/part_search', 'sortDir') }}>
         </div>
 
         {# And right in the standalone mode #}
