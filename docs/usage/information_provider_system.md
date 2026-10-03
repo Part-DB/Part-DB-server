@@ -331,6 +331,19 @@ Once you have the API key, you can configure the Canopy provider in Part-DB usin
 
 * `PROVIDER_CANOPY_API_KEY`: The API key you got from Canopy (mandatory)
 
+### SparkFun
+
+The SparkFun provider retrieves product information from [sparkfun.com](https://www.sparkfun.com/). You can search by
+keyword or by SparkFun SKU (e.g. `DEV-13975` or just `13975`). The provider returns the name, description, category,
+product images, prices (including quantity discounts), weight and the documents linked on the product page
+(schematics, datasheets, hookup guides, Eagle files, etc.). The SKU is used as manufacturer part number.
+
+The data is read from the GraphQL endpoint of the SparkFun shop and from the product page, as SparkFun offers no
+official API for this. It could break at any time, so use it at your own risk.
+
+The following env configuration options are available:
+* `PROVIDER_SPARKFUN_ENABLED`: Set this to `1` to enable the SparkFun provider
+
 ### TrustedParts
 
 The TrustedParts provider uses the [TrustedParts.com Inventory API](https://www.trustedparts.com/en/docs/api/trustedparts-api)

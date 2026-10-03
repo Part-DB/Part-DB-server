@@ -84,4 +84,7 @@ class InfoProviderSettings
     #[EmbeddedSettings]
     public ?TrustedPartsSettings $trustedparts = null;
 
+    #[EmbeddedSettings]
+    public ?SparkFunSettings $sparkfun = null;
+
 }

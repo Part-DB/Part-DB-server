@@ -15518,5 +15518,17 @@ Buerklin-API Authentication server:
         <target>Unknown</target>
       </segment>
     </unit>
+    <unit id="FQ16OqS" name="settings.ips.sparkfun">
+      <segment state="translated">
+        <source>settings.ips.sparkfun</source>
+        <target>SparkFun</target>
+      </segment>
+    </unit>
+    <unit id="iLozj.r" name="settings.ips.sparkfun.help">
+      <segment state="translated">
+        <source>settings.ips.sparkfun.help</source>
+        <target>SparkFun offers no official API, so this info provider reads the GraphQL endpoint and the product pages of the sparkfun.com shop to extract info. It could break at any time, use it at your own risk.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
