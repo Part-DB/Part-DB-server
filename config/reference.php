@@ -680,7 +680,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         message_bus?: scalar|Param|null, // The message bus to use. // Default: "messenger.default_bus"
  *         routing?: array<string, array{ // Default: []
  *             service?: scalar|Param|null,
- *             secret?: scalar|Param|null, // The secret used to verify incoming request signatures. It must be set in production: with an empty value, requests from any sender are accepted. // Default: ""
+ *             secret?: scalar|Param|null, // The secret used to verify incoming request signatures. It must be set in production: with an empty value, depending on the parser, requests from any sender are accepted or every request is rejected. // Default: ""
  *         }>,
  *     },
  *     remote_event?: bool|array{ // RemoteEvent configuration
@@ -1321,9 +1321,9 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             lifetime?: int|Param, // Default: 31536000
  *             path?: scalar|Param|null, // Default: "/"
  *             domain?: scalar|Param|null, // Default: null
- *             secure?: true|false|"auto"|Param, // Default: "auto"
+ *             secure?: true|false|"auto"|Param, // Defaults to the value of "framework.session.cookie_secure", or to "auto".
  *             httponly?: bool|Param, // Default: true
- *             samesite?: null|"lax"|"strict"|"none"|Param, // Default: "lax"
+ *             samesite?: null|"lax"|"strict"|"none"|Param, // Defaults to the value of "framework.session.cookie_samesite", or to "lax".
  *             always_remember_me?: bool|Param, // Default: false
  *             remember_me_parameter?: scalar|Param|null, // Default: "_remember_me"
  *         },
@@ -1642,6 +1642,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         filter_action?: scalar|Param|null, // Default: "Liip\\ImagineBundle\\Controller\\ImagineController::filterAction"
  *         filter_runtime_action?: scalar|Param|null, // Default: "Liip\\ImagineBundle\\Controller\\ImagineController::filterRuntimeAction"
  *         redirect_response_code?: int|Param, // Default: 302
+ *         debug?: bool|Param|null, // Whether to report images that can not be generated as an error. Defaults to the kernel debug mode. When disabled, the default image is served instead, if one is configured. // Default: null
  *     },
  *     filter_sets?: array<string, array{ // Default: []
  *         quality?: scalar|Param|null,
@@ -2425,6 +2426,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     orm_storage?: array{
  *         default_entity_class?: scalar|Param|null, // Default: null
  *         prefetch_all?: bool|Param, // Default: true
+ *         throw_on_connection_error?: bool|Param, // Default: false
  *     },
  *     cache?: array{
  *         metadata_service?: scalar|Param|null, // Default: "cache.system"

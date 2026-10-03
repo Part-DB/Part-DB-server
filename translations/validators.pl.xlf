@@ -22,7 +22,7 @@
     <unit id="Yfp2uC5" name="parameters.validator.min_lesser_max">
       <segment state="translated">
         <source>parameters.validator.min_lesser_max</source>
-        <target>Wartość musi być mniejsza niż wartość maksymalna ({{ compare_value }}).</target>
+        <target>Wartość musi być mniejsza niż wartość maksymalna ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="P6b.8Ou" name="parameters.validator.max_greater_typical">
