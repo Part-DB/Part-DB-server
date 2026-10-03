@@ -341,8 +341,15 @@ product images, prices (including quantity discounts), weight and the documents 
 The data is read from the GraphQL endpoint of the SparkFun shop and from the product page, as SparkFun offers no
 official API for this. It could break at any time, so use it at your own risk.
 
+To be polite to the shop, the provider waits a configurable time between any two requests it sends (to the GraphQL
+endpoint and to the product pages), requests which come too early are delayed. A search needs one request and the
+details of a product need two, so a lookup can take some time. If the shop refuses a request (HTTP 403, 429 or 503),
+the provider sends no requests at all for one hour, and lookups fail with a message telling until when it is paused.
+
 The following env configuration options are available:
 * `PROVIDER_SPARKFUN_ENABLED`: Set this to `1` to enable the SparkFun provider
+* `PROVIDER_SPARKFUN_REQUEST_DELAY`: The minimum time in seconds between two requests to sparkfun.com (optional,
+  default: `10`)
 
 ### TrustedParts
 

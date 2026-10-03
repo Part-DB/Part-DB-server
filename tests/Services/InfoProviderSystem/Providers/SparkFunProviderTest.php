@@ -32,6 +32,7 @@ use App\Settings\InfoProviderSystem\SparkFunSettings;
 use App\Tests\SettingsTestHelper;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 
@@ -40,13 +41,17 @@ final class SparkFunProviderTest extends TestCase
     private SparkFunSettings $settings;
     private SparkFunProvider $provider;
     private MockHttpClient $httpClient;
+    private ArrayAdapter $cache;
 
     protected function setUp(): void
     {
         $this->httpClient = new MockHttpClient();
+        $this->cache = new ArrayAdapter();
         $this->settings = SettingsTestHelper::createSettingsDummy(SparkFunSettings::class);
         $this->settings->enabled = true;
-        $this->provider = new SparkFunProvider($this->httpClient, $this->settings);
+        //The tests should not wait between the requests
+        $this->settings->requestDelay = 0;
+        $this->provider = new SparkFunProvider($this->httpClient, $this->settings, $this->cache);
     }
 
     /**
@@ -310,6 +315,109 @@ final class SparkFunProviderTest extends TestCase
 
         $this->expectException(\RuntimeException::class);
         $this->provider->getDetails('XXX-99999');
+    }
+
+    public function testRequestsAreSpacedOut(): void
+    {
+        $this->settings->requestDelay = 1;
+
+        $times = [];
+        $this->httpClient->setResponseFactory(function (string $method) use (&$times): MockResponse {
+            $times[] = microtime(true);
+            if ($method === 'GET') {
+                return new MockResponse($this->productPage());
+            }
+            return $this->graphQLResponse([
+                'products' => ['items' => [$this->productData()]],
+                'bySku' => ['items' => [$this->productData()]], 'byUrlKey' => ['items' => []],
+            ]);
+        });
+
+        $start = microtime(true);
+        $this->provider->searchByKeyword('BOB-12009');
+        //The GraphQL request and the request of the product page
+        $this->provider->getDetails('BOB-12009');
+
+        $this->assertCount(3, $times);
+        //The first request does not have to wait
+        $this->assertLessThan(0.5, $times[0] - $start);
+        //All others have to keep the delay to their predecessor, no matter if they go to GraphQL or a product page
+        $this->assertGreaterThanOrEqual(0.95, $times[1] - $times[0]);
+        $this->assertGreaterThanOrEqual(0.95, $times[2] - $times[1]);
+    }
+
+    #[DataProvider('refusedStatusProvider')]
+    public function testPausesAfterShopRefusedRequest(int $status): void
+    {
+        $this->httpClient->setResponseFactory(fn() => new MockResponse('Go away', ['http_code' => $status]));
+
+        try {
+            $this->provider->searchByKeyword('level converter');
+            $this->fail('The refused request must throw');
+        } catch (\RuntimeException $e) {
+            $this->assertStringContainsString('HTTP status ' . $status, $e->getMessage());
+            $this->assertStringContainsString('paused until', $e->getMessage());
+        }
+        $this->assertSame(1, $this->httpClient->getRequestsCount());
+
+        //Further lookups must not reach the shop anymore, and tell why
+        foreach ([fn() => $this->provider->searchByKeyword('redboard'), fn() => $this->provider->getDetails('BOB-12009')] as $lookup) {
+            try {
+                $lookup();
+                $this->fail('The provider must refuse to send requests');
+            } catch (\RuntimeException $e) {
+                $this->assertStringContainsString('paused until', $e->getMessage());
+                $this->assertStringContainsString('HTTP status ' . $status, $e->getMessage());
+            }
+        }
+        $this->assertSame(1, $this->httpClient->getRequestsCount());
+    }
+
+    public static function refusedStatusProvider(): \Iterator
+    {
+        yield 'forbidden' => [403];
+        yield 'too many requests' => [429];
+        yield 'unavailable' => [503];
+    }
+
+    public function testNoRequestsWhilePaused(): void
+    {
+        //The pause is kept in the cache, so it also applies if another process has run into it
+        $until = time() + 1800;
+        $item = $this->cache->getItem('sparkfun_paused');
+        $item->set(['until' => $until, 'reason' => 'HTTP status 429']);
+        $this->cache->save($item);
+
+        try {
+            $this->provider->getDetails('BOB-12009');
+            $this->fail('The provider must refuse to send requests');
+        } catch (\RuntimeException $e) {
+            $this->assertStringContainsString('paused until ' . date('Y-m-d H:i:s T', $until), $e->getMessage());
+            $this->assertStringContainsString('HTTP status 429', $e->getMessage());
+        }
+        $this->assertSame(0, $this->httpClient->getRequestsCount());
+    }
+
+    public function testRefusedProductPagePausesProvider(): void
+    {
+        $this->httpClient->setResponseFactory([
+            $this->graphQLResponse(['bySku' => ['items' => [$this->productData()]], 'byUrlKey' => ['items' => []]]),
+            new MockResponse('', ['http_code' => 429]),
+        ]);
+
+        //The product page is optional, so the details are still returned
+        $details = $this->provider->getDetails('BOB-12009');
+        $this->assertSame('BOB-12009', $details->provider_id);
+        $this->assertSame(2, $this->httpClient->getRequestsCount());
+
+        //But the next lookup must not send a request
+        try {
+            $this->provider->searchByKeyword('BOB-12009');
+            $this->fail('The provider must refuse to send requests');
+        } catch (\RuntimeException $e) {
+            $this->assertStringContainsString('paused until', $e->getMessage());
+        }
+        $this->assertSame(2, $this->httpClient->getRequestsCount());
     }
 
     public function testGetHandledDomains(): void
