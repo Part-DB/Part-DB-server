@@ -15518,5 +15518,29 @@ Buerklin-API Authentication server:
         <target>Unknown</target>
       </segment>
     </unit>
+    <unit id="aDf4r1T" name="settings.ips.adafruit">
+      <segment state="translated">
+        <source>settings.ips.adafruit</source>
+        <target>Adafruit</target>
+      </segment>
+    </unit>
+    <unit id="aDf4r2H" name="settings.ips.adafruit.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.help</source>
+        <target>Uses the public product API of adafruit.com (no API key required). The product catalog is downloaded once per day and searched locally. Prices are in USD.</target>
+      </segment>
+    </unit>
+    <unit id="aDf4r3P" name="settings.ips.adafruit.fetchProductPage">
+      <segment state="translated">
+        <source>settings.ips.adafruit.fetchProductPage</source>
+        <target>Retrieve product page</target>
+      </segment>
+    </unit>
+    <unit id="aDf4r4Q" name="settings.ips.adafruit.fetchProductPage.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.fetchProductPage.help</source>
+        <target>Also read the product page on adafruit.com to get all product images, the technical details, the category and the learn guides. This causes one additional request per part. If disabled, only the product API is used.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
