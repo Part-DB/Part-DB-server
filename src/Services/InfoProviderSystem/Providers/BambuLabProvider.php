@@ -132,6 +132,7 @@ class BambuLabProvider implements InfoProviderInterface, URLHandlerInfoProviderI
             //so it is only done for the best matches, to not flood the API with requests (each one has to wait for
             //the request delay, unless the product is cached).
             if (!empty($record['highlightProductSkuId']) && $position < self::MAX_VARIANT_LOOKUPS) {
+                $product = [];
                 try {
                     $product = $this->getProduct((string) $record['seoCode'], $no_cache);
                     $skus = $this->findMatchingSkus($product, $keyword, (string) $record['highlightProductSkuId']);
@@ -575,7 +576,7 @@ class BambuLabProvider implements InfoProviderInterface, URLHandlerInfoProviderI
                 $values = array_filter(array_map(
                     static fn($value) => trim((string) ($value['value'] ?? '')),
                     $property['productPropertyValueList'] ?? []
-                ));
+                ), static fn(string $value) => $value !== '');
                 if ($name !== '' && $values !== []) {
                     $parameters[$name] = new ParameterDTO(name: $name, value_text: implode(', ', $values));
                 }
