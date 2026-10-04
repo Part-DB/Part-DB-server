@@ -42,12 +42,38 @@ export default class extends Controller {
         this._onTransitionEnd = this._onTransitionEnd.bind(this);
         this._container?.addEventListener('transitionend', this._onTransitionEnd);
 
+        this._onKeydown = this._onKeydown.bind(this);
+        document.addEventListener('keydown', this._onKeydown);
+
         //Make the state persistent over reloads
         this._apply(this._readState());
     }
 
     disconnect() {
         this._container?.removeEventListener('transitionend', this._onTransitionEnd);
+        document.removeEventListener('keydown', this._onKeydown);
+    }
+
+    /**
+     * Pressing "[" anywhere on the page (outside of text fields) toggles the sidebar, like the button does.
+     */
+    _onKeydown(event) {
+        if (event.key !== '[' || event.ctrlKey || event.metaKey || event.altKey || event.defaultPrevented) {
+            return;
+        }
+
+        const active = document.activeElement;
+        if (active && (active.isContentEditable || active.closest('input, textarea, select, [contenteditable]'))) {
+            return;
+        }
+
+        //The button is not shown on small screens, where the sidebar is collapsed into the navbar instead
+        if (this.element.offsetParent === null) {
+            return;
+        }
+
+        event.preventDefault();
+        this.toggleSidebar();
     }
 
     get hidden() {
