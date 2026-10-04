@@ -295,7 +295,7 @@ class InfoProviderController extends  AbstractController
     }
 
     #[Route('/from_file', name: 'info_providers_from_file')]
-    public function fromFile(Request $request, FileContentExtractor $pdfTextExtractor, UploadedDocumentStorage $documentStorage,
+    public function fromFile(Request $request, FileContentExtractor $fileContentExtractor, UploadedDocumentStorage $documentStorage,
         AIFileExtractorSettings $fileExtractorSettings, LoggerInterface $exceptionLogger): Response
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
@@ -315,7 +315,7 @@ class InfoProviderController extends  AbstractController
             $context = $form->get('context')->getData();
 
             try {
-                $text = $pdfTextExtractor->extractContent($file, $fileExtractorSettings->maxContentLength);
+                $text = $fileContentExtractor->extractContent($file, $fileExtractorSettings->maxContentLength);
             } catch (\RuntimeException $e) {
                 $this->addFlash('error', t('info_providers.from_file.error.parse', ['%error%' => $e->getMessage()]));
                 return $this->redirectToRoute('info_providers_from_file');
