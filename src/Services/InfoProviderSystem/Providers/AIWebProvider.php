@@ -32,7 +32,7 @@ use App\Services\InfoProviderSystem\CreateFromUrlHelper;
 use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
-use App\Settings\InfoProviderSystem\AIExtractorSettings;
+use App\Settings\InfoProviderSystem\AIWebExtractorSettings;
 use Jkphl\Micrometa;
 use League\HTMLToMarkdown\HtmlConverter;
 use Psr\Cache\CacheItemPoolInterface;
@@ -58,7 +58,7 @@ final class AIWebProvider implements InfoProviderInterface
 
     public function __construct(
         HttpClientInterface $httpClient,
-        private readonly AIExtractorSettings $settings,
+        private readonly AIWebExtractorSettings $settings,
         private readonly AIPartInfoExtractor $extractor,
         private readonly DTOJsonSchemaConverter $jsonSchemaConverter,
         private readonly CacheItemPoolInterface $partInfoCache,
@@ -80,7 +80,7 @@ final class AIWebProvider implements InfoProviderInterface
             name: 'AI Web Extractor',
             description: 'Extract part info from any URL using LLM',
             disabledHelp: 'Configure AI settings',
-            settingsClass: AIExtractorSettings::class,
+            settingsClass: AIWebExtractorSettings::class,
             capabilities: [
                 ProviderCapabilities::BASIC,
                 ProviderCapabilities::PICTURE,

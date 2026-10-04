@@ -26,7 +26,7 @@ use App\Services\AI\AIPlatformRegistry;
 use App\Services\AI\AIPlatforms;
 use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use App\Services\InfoProviderSystem\AIPartInfoExtractor;
-use App\Settings\InfoProviderSystem\AIExtractorSettings;
+use App\Settings\InfoProviderSystem\AIWebExtractorSettings;
 use App\Settings\InfoProviderSystem\AIFileExtractorSettings;
 use App\Tests\SettingsTestHelper;
 use Jbtronics\SettingsBundle\Manager\SettingsManagerInterface;
@@ -111,11 +111,11 @@ final class AIPartInfoExtractorTest extends TestCase
         };
     }
 
-    private AIExtractorSettings $settings;
+    private AIWebExtractorSettings $settings;
 
     protected function setUp(): void
     {
-        $this->settings = SettingsTestHelper::createSettingsDummy(AIExtractorSettings::class);
+        $this->settings = SettingsTestHelper::createSettingsDummy(AIWebExtractorSettings::class);
         $this->settings->platform = AIPlatforms::OPENROUTER;
         $this->settings->model = 'a/model';
     }

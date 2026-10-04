@@ -32,7 +32,7 @@ use App\Services\AI\AIPlatforms;
 use App\Services\InfoProviderSystem\AIPartInfoExtractor;
 use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use App\Services\InfoProviderSystem\UploadedDocumentStorage;
-use App\Settings\InfoProviderSystem\AIExtractorSettings;
+use App\Settings\InfoProviderSystem\AIWebExtractorSettings;
 use App\Settings\InfoProviderSystem\AIFileExtractorSettings;
 use App\Services\InfoProviderSystem\AIFileInputMode;
 use Dompdf\Dompdf;
@@ -204,7 +204,7 @@ final class InfoProviderFromFileTest extends WebTestCase
     public function testWebExtractorSettingsDoNotEnableThePage(): void
     {
         //The file extractor has its own settings, configuring the web extractor must not be enough
-        $settings = static::getContainer()->get(AIExtractorSettings::class);
+        $settings = static::getContainer()->get(AIWebExtractorSettings::class);
         $settings->platform = AIPlatforms::OPENROUTER;
         $settings->model = 'a/model';
 
