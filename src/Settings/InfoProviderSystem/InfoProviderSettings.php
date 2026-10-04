@@ -43,7 +43,10 @@ class InfoProviderSettings
     public ?GenericWebProviderSettings $genericWebProvider = null;
 
     #[EmbeddedSettings]
-    public ?AIExtractorSettings $aiExtractor = null;
+    public ?AIWebExtractorSettings $aiExtractor = null;
+
+    #[EmbeddedSettings]
+    public ?AIFileExtractorSettings $aiFileExtractor = null;
 
     #[EmbeddedSettings]
     public ?DigikeySettings $digikey = null;
@@ -86,5 +89,4 @@ class InfoProviderSettings
 
     #[EmbeddedSettings]
     public ?BambuLabSettings $bambulab = null;
-
 }
