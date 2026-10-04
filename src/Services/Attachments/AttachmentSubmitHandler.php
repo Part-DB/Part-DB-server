@@ -41,6 +41,7 @@ use App\Entity\Attachments\StorageLocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
 use App\Exceptions\AttachmentDownloadException;
+use App\Services\InfoProviderSystem\UploadedDocumentStorage;
 use App\Settings\SystemSettings\AttachmentsSettings;
 use Hshn\Base64EncodedFile\HttpFoundation\File\Base64EncodedFile;
 use Hshn\Base64EncodedFile\HttpFoundation\File\UploadedBase64EncodedFile;
@@ -78,6 +79,7 @@ class AttachmentSubmitHandler
         protected FileTypeFilterTools $filterTools,
         protected AttachmentsSettings $settings,
         protected readonly SVGSanitizer $SVGSanitizer,
+        private readonly UploadedDocumentStorage $uploadedDocumentStorage,
         #[Autowire(env: "bool:ALLOW_ATTACHMENT_DOWNLOADS_FROM_LOCALNETWORK")]
         private readonly bool $allow_local_network_downloads = false,
     )
@@ -226,6 +228,11 @@ class AttachmentSubmitHandler
             }
 
             $file = new UploadedBase64EncodedFile(new Base64EncodedFile($upload->data), $upload->filename ?? 'base64');
+        }
+
+        //If a file uploaded to create a part from is referenced, load it now (it is not loaded earlier, as it can be big)
+        if (!$file && $upload->data === null && $upload->uploadedDocumentToken !== null) {
+            $file = $this->createFileFromUploadedDocument($upload->uploadedDocumentToken, $upload->filename ?? 'file');
         }
 
         //By default we assume a public upload
@@ -515,6 +522,27 @@ class AttachmentSubmitHandler
         $attachment->setFilename($file->getClientOriginalName());
 
         return $attachment;
+    }
+
+    /**
+     * Creates a temporary copy of the file a user uploaded to create a part from.
+     * @throws AttachmentDownloadException If the file is not available (anymore)
+     */
+    private function createFileFromUploadedDocument(string $token, string $filename): UploadedFile
+    {
+        $path = $this->uploadedDocumentStorage->retrieveFilePath($token)
+            ?? throw new AttachmentDownloadException('The uploaded file is not available anymore. Please upload it again.');
+
+        //A copy, as the stored file must stay unchanged (the same upload can be used for another part)
+        $tmpPath = tempnam(sys_get_temp_dir(), 'partdb_uploaded_document');
+        if ($tmpPath === false) {
+            throw new RuntimeException('Could not create a temporary file for the uploaded file!');
+        }
+        (new Filesystem())->copy($path, $tmpPath, true);
+
+        //Test mode, as the file was not uploaded in this request (is_uploaded_file() would reject it). It is moved
+        //away by upload(), so no temporary file is left over.
+        return new UploadedFile($tmpPath, $filename, null, null, true);
     }
 
     /**

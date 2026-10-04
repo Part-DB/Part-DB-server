@@ -15438,142 +15438,166 @@ Buerklin-API-Authentication-Server:
         <target>Keine</target>
       </segment>
     </unit>
-    <unit id="ohF6xCL" name="attachment.3d_viewer.title">
-      <segment state="translated">
-        <source>attachment.3d_viewer.title</source>
-        <target>3D-Modell-Betrachter</target>
+    <unit id="cEeEQ3Q" name="info_providers.from_file.title">
+      <segment>
+        <source>info_providers.from_file.title</source>
+        <target>Erstelle [Part] aus Datei</target>
       </segment>
     </unit>
-    <unit id="39GVMHV" name="attachment.3d_viewer.loading">
-      <segment state="translated">
-        <source>attachment.3d_viewer.loading</source>
-        <target>3D-Modell wird geladen...</target>
+    <unit id="r2wTioF" name="info_providers.from_file.help">
+      <segment>
+        <source>info_providers.from_file.help</source>
+        <target>Erstellt ein [Part] aus einer Datei, z. B. einem Datenblatt. Die Datei wird an das in den Einstellungen des KI Datei Extraktors konfigurierte KI-Modell übergeben, welches versucht, die [Part]informationen daraus zu extrahieren.</target>
       </segment>
     </unit>
-    <unit id="oa1D_l9" name="attachment.3d_viewer.reset_view">
-      <segment state="translated">
-        <source>attachment.3d_viewer.reset_view</source>
-        <target>Ansicht zurücksetzen</target>
+    <unit id="4.gsKDJ" name="info_providers.from_file.file.label">
+      <segment>
+        <source>info_providers.from_file.file.label</source>
+        <target>Datei</target>
       </segment>
     </unit>
-    <unit id="VeqIwvE" name="attachment.3d_viewer.toggle_wireframe">
-      <segment state="translated">
-        <source>attachment.3d_viewer.toggle_wireframe</source>
-        <target>Drahtgitter umschalten</target>
+    <unit id="kTrv0Uj" name="info_providers.from_file.file.help">
+      <segment>
+        <source>info_providers.from_file.file.help</source>
+        <target>Unterstützte Formate: PDF-, Text- und Markdown-Dateien. Es wird nur der Text der Datei verwendet, gescannte Dokumente ohne Textebene werden nicht unterstützt. Um Bilder und gescannte Dokumente zu verwenden, muss das Senden von Dateien an das Modell in den Einstellungen des KI Datei Extraktors erlaubt werden.</target>
       </segment>
     </unit>
-    <unit id="4sP7kBp" name="attachment.3d_viewer.toggle_grid">
-      <segment state="translated">
-        <source>attachment.3d_viewer.toggle_grid</source>
-        <target>Raster umschalten</target>
+    <unit id="qTuMUgu" name="info_providers.from_file.submit">
+      <segment>
+        <source>info_providers.from_file.submit</source>
+        <target>[Part]informationen extrahieren</target>
       </segment>
     </unit>
-    <unit id="3NnqFah" name="attachment.3d_viewer.fullscreen">
-      <segment state="translated">
-        <source>attachment.3d_viewer.fullscreen</source>
-        <target>Vollbild umschalten</target>
+    <unit id="c5hpNDv" name="info_providers.from_file.not_active">
+      <segment>
+        <source>info_providers.from_file.not_active</source>
+        <target>Um [[Part]] aus Dateien zu erstellen, müssen in den Einstellungen des KI Datei Extraktors eine KI-Plattform und ein Modell konfiguriert sein.</target>
       </segment>
     </unit>
-    <unit id="BRg4S0K" name="attachment.3d_viewer.controls_hint">
-      <segment state="translated">
-        <source>attachment.3d_viewer.controls_hint</source>
-        <target>Ziehen zum Drehen, Scrollen zum Zoomen, mit rechter Maustaste ziehen zum Verschieben.</target>
+    <unit id="hcTxnKp" name="info_providers.from_file.error.parse">
+      <segment>
+        <source>info_providers.from_file.error.parse</source>
+        <target>Die Datei konnte nicht gelesen werden: %error%</target>
       </segment>
     </unit>
-    <unit id="icPlspg" name="attachment.3d_viewer.view.label">
-      <segment state="translated">
-        <source>attachment.3d_viewer.view.label</source>
-        <target>Standardansichten</target>
+    <unit id="f7u8XIC" name="info_providers.from_file.error.no_text">
+      <segment>
+        <source>info_providers.from_file.error.no_text</source>
+        <target>Aus der Datei konnte kein Text extrahiert werden. Gescannte Dokumente ohne Textebene können nur verwendet werden, wenn die Datei an das KI-Modell gesendet wird: Wählen Sie den Eingabemodus "Automatisch" oder "Datei an Modell senden" (das Senden von Dateien muss in den Einstellungen des KI Datei Extraktors erlaubt sein).</target>
       </segment>
     </unit>
-    <unit id=".A5xiTp" name="attachment.3d_viewer.view.isometric">
-      <segment state="translated">
-        <source>attachment.3d_viewer.view.isometric</source>
-        <target>Isometrisch</target>
+    <unit id="ciiN9Tw" name="info_providers.from_file.context.label">
+      <segment>
+        <source>info_providers.from_file.context.label</source>
+        <target>Zusätzlicher Kontext</target>
       </segment>
     </unit>
-    <unit id="7XggqIr" name="attachment.3d_viewer.view.front">
-      <segment state="translated">
-        <source>attachment.3d_viewer.view.front</source>
-        <target>Vorne</target>
+    <unit id="E.2coVK" name="info_providers.from_file.context.help">
+      <segment>
+        <source>info_providers.from_file.context.help</source>
+        <target>Optionale Hinweise für die KI, z. B. die genaue Teilenummer, die verwendet werden soll, wenn die Datei mehrere Varianten beschreibt.</target>
       </segment>
     </unit>
-    <unit id="yEeVpLS" name="attachment.3d_viewer.view.back">
-      <segment state="translated">
-        <source>attachment.3d_viewer.view.back</source>
-        <target>Hinten</target>
+    <unit id="9IaRRF7" name="info_providers.from_file.context.placeholder">
+      <segment>
+        <source>info_providers.from_file.context.placeholder</source>
+        <target>z. B. Verwende die Variante BC547B im TO-92-Gehäuse</target>
       </segment>
     </unit>
-    <unit id="ke8HbV0" name="attachment.3d_viewer.view.left">
-      <segment state="translated">
-        <source>attachment.3d_viewer.view.left</source>
-        <target>Links</target>
+    <unit id="s4q5LjE" name="settings.ips.ai_file_extractor">
+      <segment>
+        <source>settings.ips.ai_file_extractor</source>
+        <target>KI Datei Extraktor</target>
       </segment>
     </unit>
-    <unit id="aZZZ5T8" name="attachment.3d_viewer.view.right">
-      <segment state="translated">
-        <source>attachment.3d_viewer.view.right</source>
-        <target>Rechts</target>
+    <unit id="F7kmvAw" name="settings.ips.ai_file_extractor.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.description</source>
+        <target>Dieser Infoanbieter verwendet ein großes Sprachmodell (LLM), um detaillierte [Part]informationen aus hochgeladenen Dateien, wie z. B. PDF-Datenblättern, zu extrahieren. Er wird von der Seite "Erstelle [Part] aus Datei" verwendet.</target>
       </segment>
     </unit>
-    <unit id="TBZU8bd" name="attachment.3d_viewer.view.top">
-      <segment state="translated">
-        <source>attachment.3d_viewer.view.top</source>
-        <target>Oben</target>
+    <unit id="tFv6kbn" name="settings.ips.ai_file_extractor.max_content_length">
+      <segment>
+        <source>settings.ips.ai_file_extractor.max_content_length</source>
+        <target>Max. Länge des Dateiinhalts</target>
       </segment>
     </unit>
-    <unit id="BeWse0P" name="attachment.3d_viewer.view.bottom">
-      <segment state="translated">
-        <source>attachment.3d_viewer.view.bottom</source>
-        <target>Unten</target>
+    <unit id="UyAVUxo" name="settings.ips.ai_file_extractor.max_content_length.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.max_content_length.description</source>
+        <target>Die maximale Anzahl an Zeichen des Dateiinhalts, die an den KI-Dienst gesendet werden. Längere Dateien werden gekürzt.</target>
       </segment>
     </unit>
-    <unit id="5C4xD34" name="attachment.3d_viewer.measure">
-      <segment state="translated">
-        <source>attachment.3d_viewer.measure</source>
-        <target>Messen</target>
+    <unit id="KP.Tx.7" name="settings.ips.ai_file_extractor.output_language.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.output_language.description</source>
+        <target>Standardmäßig liefert der Anbieter Informationen in der gleichen Sprache wie die Datei. Mit dieser Option können Sie die KI bitten, für Sie zu übersetzen. Funktioniert möglicherweise nur mit bestimmten Modellen.</target>
       </segment>
     </unit>
-    <unit id="HZEvQYa" name="attachment.3d_viewer.measure.clear">
-      <segment state="translated">
-        <source>attachment.3d_viewer.measure.clear</source>
-        <target>Messung löschen</target>
+    <unit id="ZYkBycB" name="attachment.uploaded_document.pending">
+      <segment>
+        <source>attachment.uploaded_document.pending</source>
+        <target>Diese Datei wird angehängt, wenn das [Part] gespeichert wird.</target>
       </segment>
     </unit>
-    <unit id="_9Hel6U" name="attachment.3d_viewer.measure.hint">
-      <segment state="translated">
-        <source>attachment.3d_viewer.measure.hint</source>
-        <target>Klicken Sie auf zwei Punkte des Modells, um den Abstand zwischen ihnen zu messen. Punkte rasten an einer nahen Ecke ein.</target>
+    <unit id="P4DIw6c" name="info_providers.from_file.not_attached">
+      <segment>
+        <source>info_providers.from_file.not_attached</source>
+        <target>Die hochgeladene Datei konnte nicht als Anhang hinzugefügt werden, da sie nicht mehr verfügbar oder größer als die maximale Anhangsgröße ist.</target>
       </segment>
     </unit>
-    <unit id="PS75Gl4" name="attachment.3d_viewer.metadata">
-      <segment state="translated">
-        <source>attachment.3d_viewer.metadata</source>
-        <target>Modellinformationen</target>
+    <unit id="GfgpJXr" name="info_providers.from_file.file.help.with_images">
+      <segment>
+        <source>info_providers.from_file.file.help.with_images</source>
+        <target>Unterstützte Formate: PDF, Bilder (PNG, JPEG, WebP, GIF), Text- und Markdown-Dateien. Bilder und Dokumente ohne Text (wie Scans) werden direkt an das KI-Modell gesendet, welches diese Dateitypen unterstützen muss.</target>
       </segment>
     </unit>
-    <unit id="kMmJzTW" name="attachment.3d_viewer.screenshot">
-      <segment state="translated">
-        <source>attachment.3d_viewer.screenshot</source>
-        <target>Screenshot herunterladen</target>
+    <unit id="PsBqA_v" name="settings.ips.ai_file_extractor.allow_file_input">
+      <segment>
+        <source>settings.ips.ai_file_extractor.allow_file_input</source>
+        <target>Senden von Dateien an das Modell erlauben</target>
       </segment>
     </unit>
-    <unit id="DaNck4u" name="attachment.3d_viewer.parts">
-      <segment state="translated">
-        <source>attachment.3d_viewer.parts</source>
-        <target>Komponenten</target>
+    <unit id="uFcvgN8" name="settings.ips.ai_file_extractor.allow_file_input.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.allow_file_input.description</source>
+        <target>Wenn aktiviert, können Benutzer bei jedem Upload wählen, ob die Datei selbst (Bilder und PDF-Dateien) statt nur ihres extrahierten Textes an das KI-Modell gesendet wird. Dies ermöglicht die Verwendung von Bildern und gescannten Dokumenten und lässt das Modell Layout, Tabellen und Diagramme sehen, erfordert aber ein Modell, das Bilder und PDF-Dateien unterstützt (und eine Plattform, die dies unterstützt: Ollama kann nur Bilder, aber keine PDF-Dateien verarbeiten). Außerdem werden mehr Tokens verbraucht, was zu höheren Kosten pro Anfrage führt. Wenn deaktiviert, wird nur der extrahierte Text verwendet.</target>
       </segment>
     </unit>
-    <unit id="xX9nKBn" name="attachment.3d_viewer.parts.show_all">
-      <segment state="translated">
-        <source>attachment.3d_viewer.parts.show_all</source>
-        <target>Alle</target>
+    <unit id="XS0813H" name="info_providers.from_file.input_mode.auto">
+      <segment>
+        <source>info_providers.from_file.input_mode.auto</source>
+        <target>Automatisch (Text extrahieren, Bilder und gescannte Dokumente an das Modell senden)</target>
       </segment>
     </unit>
-    <unit id="pK0bzyy" name="attachment.3d_viewer.parts.hide_all">
-      <segment state="translated">
-        <source>attachment.3d_viewer.parts.hide_all</source>
-        <target>Keine</target>
+    <unit id="3iTQsXk" name="info_providers.from_file.input_mode.text">
+      <segment>
+        <source>info_providers.from_file.input_mode.text</source>
+        <target>Nur Text extrahieren</target>
+      </segment>
+    </unit>
+    <unit id="ledeTyC" name="info_providers.from_file.input_mode.file">
+      <segment>
+        <source>info_providers.from_file.input_mode.file</source>
+        <target>Datei an Modell senden (PDF-Dateien und Bilder)</target>
+      </segment>
+    </unit>
+    <unit id="i97R6_4" name="info_providers.from_file.input_mode.label">
+      <segment>
+        <source>info_providers.from_file.input_mode.label</source>
+        <target>Eingabemodus</target>
+      </segment>
+    </unit>
+    <unit id="SONaFZG" name="info_providers.from_file.input_mode.help">
+      <segment>
+        <source>info_providers.from_file.input_mode.help</source>
+        <target>Wie die Datei an das KI-Modell übergeben wird. "Nur Text extrahieren" funktioniert mit jedem Modell. Das Senden der Datei selbst erfordert ein Modell, das Bilder und PDF-Dateien unterstützt, ermöglicht aber das Lesen gescannter Dokumente sowie das Erfassen von Layout, Tabellen und Diagrammen. Das Senden ganzer Dateien ist teurer als das Senden von reinem Text!</target>
+      </segment>
+    </unit>
+    <unit id="2pXOLo4" name="info_providers.from_file.error.image_in_text_mode">
+      <segment>
+        <source>info_providers.from_file.error.image_in_text_mode</source>
+        <target>Bilder enthalten keinen Text, der extrahiert werden kann. Wählen Sie den Eingabemodus "Automatisch" oder "Datei an Modell senden", um das Bild an das KI-Modell zu senden.</target>
       </segment>
     </unit>
   </file>

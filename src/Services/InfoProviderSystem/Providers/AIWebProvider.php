@@ -26,25 +26,22 @@ namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Exceptions\ProviderIDNotSupportedException;
 use App\Helpers\RandomizeUseragentHttpClient;
-use App\Services\AI\AIPlatformRegistry;
+use App\Services\InfoProviderSystem\AIPartInfoExtractor;
 use App\Services\InfoProviderSystem\SubmittedPageStorage;
 use App\Services\InfoProviderSystem\CreateFromUrlHelper;
 use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
-use App\Settings\InfoProviderSystem\AIExtractorSettings;
+use App\Settings\InfoProviderSystem\AIWebExtractorSettings;
 use Jkphl\Micrometa;
 use League\HTMLToMarkdown\HtmlConverter;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\AI\Platform\Message\Message;
-use Symfony\AI\Platform\Result\DeferredResult;
 use Symfony\AI\Platform\Message\MessageBag;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\DomCrawler\UriResolver;
 use Symfony\Component\HttpClient\NoPrivateNetworkHttpClient;
-use Symfony\Component\Intl\Languages;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 use function Symfony\Component\String\u;
 
@@ -57,15 +54,12 @@ final class AIWebProvider implements InfoProviderInterface
 
     private const DISTRIBUTOR_NAME = 'Website';
 
-    /** @var int How much of a failed provider response is quoted in the error message */
-    private const MAX_REPORTED_RESPONSE_LENGTH = 500;
-
     private readonly HttpClientInterface $httpClient;
 
     public function __construct(
         HttpClientInterface $httpClient,
-        private readonly AIExtractorSettings $settings,
-        private readonly AIPlatformRegistry $AIPlatformRegistry,
+        private readonly AIWebExtractorSettings $settings,
+        private readonly AIPartInfoExtractor $extractor,
         private readonly DTOJsonSchemaConverter $jsonSchemaConverter,
         private readonly CacheItemPoolInterface $partInfoCache,
         private readonly CreateFromUrlHelper $createFromUrlHelper,
@@ -86,7 +80,7 @@ final class AIWebProvider implements InfoProviderInterface
             name: 'AI Web Extractor',
             description: 'Extract part info from any URL using LLM',
             disabledHelp: 'Configure AI settings',
-            settingsClass: AIExtractorSettings::class,
+            settingsClass: AIWebExtractorSettings::class,
             capabilities: [
                 ProviderCapabilities::BASIC,
                 ProviderCapabilities::PICTURE,
@@ -100,7 +94,7 @@ final class AIWebProvider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return $this->settings->platform !== null && $this->settings->model !== null && $this->settings->model !== '';
+        return $this->settings->isConfigured();
     }
 
     public function searchByKeyword(string $keyword, array $options = []): array
@@ -279,68 +273,7 @@ final class AIWebProvider implements InfoProviderInterface
              Enrich it with the actual website data:\n\n".$structuredData));
         }
 
-        try {
-            $aiPlatform = $this->AIPlatformRegistry->getPlatform($this->settings->platform ?? throw new \RuntimeException('No AI platform selected') );
-
-            // AI inference can take much longer than PHP's default max_execution_time (typically 30s).
-            // The HTTP client timeout already enforces the configured limit; disable PHP's constraint here.
-            set_time_limit(0);
-
-            //'openai/gpt-5-mini'
-            $result = $aiPlatform->invoke($this->settings->model ?? throw new \RuntimeException('No model selected'), $input, [
-                'response_format' => [
-                    'type' => 'json_schema',
-                    'json_schema' => $this->jsonSchemaConverter->getJSONSchema(),
-                ]
-            ]);
-            //The platform returns a deferred result: the request is only really carried out (and the answer
-            //converted) when the result is read. Reading it outside this try would let a provider error - a
-            //rejected model, an exhausted quota, an invalid key - escape as an unhandled exception, which ends
-            //the whole request with a 500 instead of the error message this catch was written for.
-            return $result->getResult()->getContent();
-        } catch (\Throwable $e) {
-            throw new \RuntimeException(
-                'LLM invocation failed: '.$e->getMessage().$this->describeProviderResponse($result ?? null),
-                previous: $e
-            );
-        }
-    }
-
-    /**
-     * Describes what the provider actually answered, for the message of a failed invocation.
-     *
-     * The exceptions of the platform only carry what its converter made of the answer, and that can be as
-     * unhelpful as "Provider returned error" - the wording a gateway like OpenRouter uses when the model
-     * provider behind it refused, with the reason in a field the converter drops. The raw response is still
-     * around at this point, so the status code and the beginning of the body are taken from there: without
-     * them, an administrator has nothing to act on.
-     *
-     * @return string The description, or an empty string if the response is not available
-     */
-    private function describeProviderResponse(?DeferredResult $result): string
-    {
-        if (!$result instanceof DeferredResult) {
-            return '';
-        }
-
-        try {
-            $response = $result->getRawResult()->getObject();
-
-            if (!$response instanceof ResponseInterface) {
-                return '';
-            }
-
-            //false: the body of an error response is wanted here, not another exception
-            $body = trim($response->getContent(false));
-
-            return sprintf(' (provider answered HTTP %d: %s)', $response->getStatusCode(),
-                mb_strlen($body) > self::MAX_REPORTED_RESPONSE_LENGTH
-                    ? mb_substr($body, 0, self::MAX_REPORTED_RESPONSE_LENGTH).'...'
-                    : $body);
-        } catch (\Throwable) {
-            //Whatever went wrong while describing the failure must not replace the failure itself
-            return '';
-        }
+        return $this->extractor->extract($input, $this->settings);
     }
 
     private function buildSystemPrompt(): string
@@ -350,29 +283,19 @@ You are an expert at extracting electronic component information from web pages.
 Focus on the main content of the page, such as product descriptions, specifications, and tables. Ignore navigation menus, footers, and sidebars.
 
 Rules:
-- manufacturing_status: Use "active", "obsolete", "nrfnd" (not recommended for new designs), "discontinued", or null
+- manufacturing_status: Use "active", "obsolete", "nrfnd" (not recommended for new designs), "discontinued", or "unknown"
 - parameters: Extract technical specs like voltage, current, temperature, etc. and put them into the fields according to the JSON schema. Include units if available.
 - prices: Extract pricing tiers with minimum_quantity, price, and currency code
 - URLs must be absolute (include https://...)
-- If information is not found, use null
+- If information is not found, use an empty string for texts and null for numbers
 - Try to avoid duplicating parameters, if the same parameter is mentioned multiple times, or if it is already used in another field.
 - Include only the 1 to 3 most relevant images, such as the main product image or important diagrams. Ignore decorative images, logos, or icons.
 - Extract GTIN / EAN if available, as it can be useful for matching parts across different sources, even if the part number is different.
-- Include detailed product description into notes field, as it can contain important information that doesn't fit into other fields, such as features, applications, or unique selling points.
+- Include detailed product description into notes field, as it can contain important information that doesn't fit into other fields, such as features, applications, or unique selling points. The notes field can be formatted with Markdown (e.g. lists, tables, bold text).
 
 PROMPT;
 
-        if ($this->settings->outputLanguage === null) {
-            $tmp .= "\n\nProvide the response in the same language of the webpage.";
-        } else {
-            $tmp .= "\n\nThe response must be in ". Languages::getName($this->settings->outputLanguage, 'en') ." language. Translate texts if needed.";
-        }
-
-        if ($this->settings->additionalInstructions) {
-            $tmp .= "\n\nAdditional instructions:\n" . $this->settings->additionalInstructions;
-        }
-
-        return $tmp;
+        return $this->extractor->withConfiguredInstructions($tmp, 'webpage', $this->settings);
     }
 
 }
