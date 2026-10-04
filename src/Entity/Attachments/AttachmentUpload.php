@@ -53,6 +53,10 @@ readonly class AttachmentUpload
         /** @var bool If true and no preview image was set yet, the new uploaded file will become the preview image */
         #[Groups(['attachment:write'])]
         public ?bool $becomePreviewIfEmpty = true,
+        /** @var string|null The token of a file, which a user uploaded to create a part from (see UploadedDocumentStorage).
+         * The file is only loaded when the upload is handled, as it can be big. Its original filename is given in $filename.
+         * This is deliberately not writable via the API, it is only set by the server. */
+        public ?string $uploadedDocumentToken = null,
     ) {
     }
 
@@ -67,10 +71,20 @@ readonly class AttachmentUpload
             throw new \InvalidArgumentException('The form does not have a file field. Is it an attachment form?');
         }
 
+        $file = $form->get('file')->getData();
+
+        //The server can prepare an attachment with a file (like the file a part was created from), which is used,
+        //unless the user uploaded another file or entered a URL in the form
+        $attachment = $form->getData();
+        $prepared = $attachment instanceof Attachment ? $attachment->getUpload() : null;
+        $usePrepared = $file === null && $prepared?->uploadedDocumentToken !== null && !$attachment->hasExternal();
+
         return new self(
-            file: $form->get('file')->getData(),
+            file: $file,
+            filename: $usePrepared ? $prepared->filename : null,
             downloadUrl: $form->get('downloadURL')->getData(),
-            private: $form->get('secureFile')->getData()
+            private: $form->get('secureFile')->getData(),
+            uploadedDocumentToken: $usePrepared ? $prepared->uploadedDocumentToken : null,
         );
 
     }

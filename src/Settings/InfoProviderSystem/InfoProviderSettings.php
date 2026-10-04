@@ -43,7 +43,10 @@ class InfoProviderSettings
     public ?GenericWebProviderSettings $genericWebProvider = null;
 
     #[EmbeddedSettings]
-    public ?AIExtractorSettings $aiExtractor = null;
+    public ?AIWebExtractorSettings $aiExtractor = null;
+
+    #[EmbeddedSettings]
+    public ?AIFileExtractorSettings $aiFileExtractor = null;
 
     #[EmbeddedSettings]
     public ?DigikeySettings $digikey = null;
@@ -73,9 +76,6 @@ class InfoProviderSettings
     public ?PollinSettings $pollin = null;
 
     #[EmbeddedSettings]
-    public ?PololuSettings $pololu = null;
-
-    #[EmbeddedSettings]
     public ?BuerklinSettings $buerklin = null;
 
     #[EmbeddedSettings]
@@ -87,4 +87,6 @@ class InfoProviderSettings
     #[EmbeddedSettings]
     public ?TrustedPartsSettings $trustedparts = null;
 
+    #[EmbeddedSettings]
+    public ?PololuSettings $pololu = null;
 }
