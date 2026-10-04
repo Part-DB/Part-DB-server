@@ -10,7 +10,12 @@
                     title="{% trans %}sidebar.big.toggle{% endtrans %} ([)" aria-label="{% trans %}sidebar.big.toggle{% endtrans %}"
                     aria-controls="fixed-sidebar" aria-expanded="true"
                 {{ stimulus_controller('common/hide_sidebar') }} {{ stimulus_action('common/hide_sidebar', 'toggleSidebar') }}>
-                <i class="fas fa-table-columns fa-fw" aria-hidden="true"></i>
+                {# A window with a sidebar pane, which is filled while the sidebar is shown (Font Awesome Free has no such icon) #}
+                <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
+                    <path class="sidebar-toggle-pane" stroke="none" fill="currentColor" d="M3.5 2.5H6v11H3.5a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2z"/>
+                    <rect x="1.5" y="2.5" width="13" height="11" rx="2"/>
+                    <path d="M6 2.5v11"/>
+                </svg>
             </button>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#sidebar-container">
                 <span class="visually-hidden">{% trans %}sidebar.toggle{% endtrans %}</span>

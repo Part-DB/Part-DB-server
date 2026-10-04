@@ -148,6 +148,16 @@ The toggle button is part of the navbar, so it does not cover any content and st
     background-color: var(--bs-secondary-bg);
 }
 
+/* The sidebar pane of the icon is filled while the sidebar is shown, and empty while it is hidden */
+.sidebar-toggle-pane {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-hidden .sidebar-toggle-pane {
+    opacity: 0;
+}
+
 @media (min-width: 768px) {
     .fixed-sidebar {
         transition: transform 0.3s ease, visibility 0s linear 0s;
@@ -171,7 +181,7 @@ The toggle button is part of the navbar, so it does not cover any content and st
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .fixed-sidebar, #main {
+    .fixed-sidebar, #main, .sidebar-toggle-pane {
         transition: none !important;
     }
 }
