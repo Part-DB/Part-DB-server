@@ -15614,5 +15614,17 @@ Buerklin-API Authentication server:
         <target>By default, the provider returns information in the same language as the file. With that option you can ask the AI to translate it for you. Might only work with certain models.</target>
       </segment>
     </unit>
+    <unit id="ZYkBycB" name="attachment.uploaded_document.pending">
+      <segment>
+        <source>attachment.uploaded_document.pending</source>
+        <target>This file will be attached when the [part] is saved.</target>
+      </segment>
+    </unit>
+    <unit id="P4DIw6c" name="info_providers.from_file.not_attached">
+      <segment>
+        <source>info_providers.from_file.not_attached</source>
+        <target>The uploaded file could not be added as attachment, because it is not available anymore or bigger than the maximum attachment size.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

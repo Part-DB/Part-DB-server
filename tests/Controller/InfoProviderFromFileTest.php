@@ -23,8 +23,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Parts\Part;
 use App\Entity\UserSystem\User;
 use App\Services\AI\AIPlatformRegistry;
+use App\Services\Attachments\AttachmentPathResolver;
 use App\Services\AI\AIPlatforms;
 use App\Services\InfoProviderSystem\AIPartInfoExtractor;
 use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
@@ -45,6 +48,7 @@ use Symfony\AI\Platform\Result\ResultInterface;
 use Symfony\AI\Platform\ResultConverterInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DomCrawler\Form;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[Group("slow")]
@@ -127,7 +131,10 @@ final class InfoProviderFromFileTest extends WebTestCase
         $dompdf->loadHtml($html);
         $dompdf->render();
 
-        $path = tempnam(sys_get_temp_dir(), 'partdb_test_pdf');
+        //The browser sends the name of the file on disk as the original filename
+        $dir = sys_get_temp_dir().'/partdb_test_'.bin2hex(random_bytes(8));
+        mkdir($dir);
+        $path = $dir.'/datasheet.pdf';
         file_put_contents($path, $dompdf->output());
 
         return new UploadedFile($path, 'datasheet.pdf', 'application/pdf', null, true);
@@ -215,5 +222,108 @@ final class InfoProviderFromFileTest extends WebTestCase
         self::assertResponseRedirects('/en/tools/info_providers/from_file');
         $this->client->followRedirect();
         self::assertSelectorTextContains('body', 'No text could be extracted from the file');
+    }
+
+    /**
+     * Uploads a PDF and opens the part creation form, which the upload redirects to.
+     * @return array{0: Form, 1: string} The part form, and the content of the uploaded PDF
+     */
+    private function openPartFormForUploadedPdf(): array
+    {
+        $this->configureAI(['name' => 'BC547 attachment test', 'description' => 'NPN transistor']);
+
+        //Unique text, as the document is identified by its content, and the extraction result is cached across tests
+        $upload = $this->createPdfUpload('<p>BC547 NPN Transistor '.bin2hex(random_bytes(8)).'</p>');
+        $pdfContent = file_get_contents($upload->getPathname());
+        $this->submitFile($upload);
+        $crawler = $this->client->followRedirect();
+        self::assertResponseIsSuccessful();
+
+        //Created via the save button, so that it counts as clicked on submit
+        $form = $crawler->filter('button[name="part_base[save]"]')->form();
+        $form->disableValidation();
+        //A category is required to save a part
+        $form['part_base[category]'] = '1';
+
+        return [$form, $pdfContent];
+    }
+
+    public function testUploadedFileIsAttachedToTheCreatedPart(): void
+    {
+        [$form, $pdfContent] = $this->openPartFormForUploadedPdf();
+
+        //The attachment is shown in the form, with a hint that the file is stored on saving
+        self::assertSame('datasheet.pdf', $form['part_base[attachments][0][name]']->getValue());
+        self::assertSelectorTextContains('body', 'This file will be attached when the part is saved');
+
+        $this->client->submit($form);
+        self::assertResponseRedirects();
+        preg_match('#/part/(\d+)/edit#', $this->client->getResponse()->headers->get('Location'), $matches);
+
+        $em = static::getContainer()->get('doctrine')->getManager();
+        $em->clear();
+        $part = $em->find(Part::class, (int) $matches[1]);
+        self::assertSame('BC547 attachment test', $part->getName());
+        self::assertCount(1, $part->getAttachments());
+
+        /** @var Attachment $attachment */
+        $attachment = $part->getAttachments()->first();
+        $path = static::getContainer()->get(AttachmentPathResolver::class)->placeholderToRealPath($attachment->getInternalPath());
+        try {
+            self::assertSame('datasheet.pdf', $attachment->getName());
+            self::assertSame('datasheet.pdf', $attachment->getFilename());
+            self::assertSame('Datasheet', $attachment->getAttachmentType()?->getName());
+            self::assertFalse($attachment->hasExternal());
+            //The stored file is the uploaded one
+            self::assertNotNull($path);
+            self::assertFileExists($path);
+            self::assertSame($pdfContent, file_get_contents($path));
+        } finally {
+            //The database is rolled back after the test, but the stored file is not
+            if ($path !== null && is_file($path)) {
+                unlink($path);
+            }
+        }
+    }
+
+    public function testRemovedAttachmentIsNotStored(): void
+    {
+        [$form] = $this->openPartFormForUploadedPdf();
+
+        //The user can remove the attachment in the form like any other one
+        foreach (array_keys($form->all()) as $name) {
+            if (str_starts_with($name, 'part_base[attachments][0]')) {
+                $form->remove($name);
+            }
+        }
+
+        $this->client->submit($form);
+        self::assertResponseRedirects();
+        preg_match('#/part/(\d+)/edit#', $this->client->getResponse()->headers->get('Location'), $matches);
+
+        $em = static::getContainer()->get('doctrine')->getManager();
+        $em->clear();
+        self::assertCount(0, $em->find(Part::class, (int) $matches[1])->getAttachments());
+    }
+
+    public function testExpiredFileIsNotAttached(): void
+    {
+        [$form] = $this->openPartFormForUploadedPdf();
+
+        //The file expires while the form is open (the document itself is still known)
+        preg_match('#/ai_document/([0-9a-f]+)/create#', $this->client->getRequest()->getUri(), $matches);
+        unlink(static::getContainer()->get(UploadedDocumentStorage::class)->retrieveFilePath($matches[1]));
+
+        $this->client->submit($form);
+        self::assertResponseRedirects();
+        preg_match('#/part/(\d+)/edit#', $this->client->getResponse()->headers->get('Location'), $partMatches);
+
+        //The part is still created, without an empty attachment, and the user is told why the file is missing
+        $em = static::getContainer()->get('doctrine')->getManager();
+        $em->clear();
+        self::assertCount(0, $em->find(Part::class, (int) $partMatches[1])->getAttachments());
+
+        $this->client->followRedirect();
+        self::assertSelectorTextContains('body', 'The uploaded file is not available anymore');
     }
 }

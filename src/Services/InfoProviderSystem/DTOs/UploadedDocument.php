@@ -39,6 +39,8 @@ final readonly class UploadedDocument
         public string $textContent,
         /** @var string|null Additional context given by the user, like the exact part number to extract from a datasheet covering multiple parts */
         public ?string $context = null,
+        /** @var int|null The size of the original file in bytes, or null if the original file is not stored (see UploadedDocumentStorage) */
+        public ?int $fileSize = null,
         public \DateTimeImmutable $uploadedAt = new \DateTimeImmutable(),
     ) {
         //The context is part of the token, as the same document with a different context leads to a different result

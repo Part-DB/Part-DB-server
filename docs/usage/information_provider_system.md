@@ -146,7 +146,11 @@ The text of the file is extracted on the server and sent to the LLM, so it works
 supports structured output. Only the text layer of PDF files is used: scanned documents without a text layer are
 not supported. Long documents are truncated to the maximum content length configured in the AI File Extractor settings,
 which usually is not a problem, as the most relevant information of a datasheet is at its beginning.
-The uploaded file is only kept temporarily (2 hours) and is not attached to the created part automatically.
+The uploaded file is added as attachment to the created part (as datasheet, if the datasheet attachment type allows the
+file). It is only stored when the part is saved, and you can remove it in the form like any other attachment. Until then
+it is kept temporarily (2 hours) in `var/share/<env>/uploaded_documents`. Files of uploads, for which no part was
+created, are deleted automatically on the next upload after that time. Files bigger than the maximum attachment size are
+not attached.
 
 You can give additional context together with the file, like the exact part number to use, if the datasheet
 covers multiple variants of a part. The model then describes exactly this variant.

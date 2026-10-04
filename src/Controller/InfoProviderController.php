@@ -326,7 +326,11 @@ class InfoProviderController extends  AbstractController
                 return $this->redirectToRoute('info_providers_from_file');
             }
 
-            $token = $documentStorage->store(new UploadedDocument($file->getClientOriginalName(), $text, $context));
+            //The original file is stored too (moved, not loaded), so that it can be attached to the created part
+            $token = $documentStorage->store(
+                new UploadedDocument($file->getClientOriginalName(), $text, $context, $file->getSize()),
+                $file
+            );
 
             try {
                 //Run the extraction here, so that errors can be shown on this page. The provider caches the result,

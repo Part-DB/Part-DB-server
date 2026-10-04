@@ -98,7 +98,8 @@ final class AIDocumentProviderTest extends TestCase
         $settings->platform = AIPlatforms::OPENROUTER;
         $settings->model = 'a/model';
 
-        $this->storage = new UploadedDocumentStorage(new ArrayAdapter());
+        //No original files are stored in these tests, so the directory is never created
+        $this->storage = new UploadedDocumentStorage(new ArrayAdapter(), sys_get_temp_dir().'/partdb_unused_'.bin2hex(random_bytes(8)));
         $this->provider = new AIDocumentProvider(
             $settings,
             new AIPartInfoExtractor($registry, new DTOJsonSchemaConverter()),

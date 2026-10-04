@@ -147,6 +147,7 @@ Rules:
 - footprint: Use the package name (e.g. "SOT-23", "TQFP-32") if the document mentions it.
 - prices / vendor_infos: Only fill these if the document contains concrete order numbers or prices of a distributor (e.g. an offer or an invoice). Otherwise leave them empty.
 - URLs: Only include URLs that literally appear in the document, never make up URLs. If there are none, leave images and datasheets empty.
+- The document itself is handled elsewhere: it is attached to the part automatically. Do not include it in your response, so do not add it to datasheets or images, also not via a URL printed in the document that points to this same document (like the download link of this datasheet).
 - If information is not found, use an empty string for texts and null for numbers
 - Try to avoid duplicating parameters, if the same parameter is mentioned multiple times, or if it is already used in another field.
 - Include a short summary of the features and applications into the notes field. The notes field can be formatted with Markdown (e.g. lists, tables, bold text).
