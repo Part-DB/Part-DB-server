@@ -217,7 +217,7 @@ class SparkFunProvider implements InfoProviderInterface, URLHandlerInfoProviderI
             ['search' => $keyword, 'pageSize' => self::SEARCH_LIMIT]
         );
 
-        $items = array_values(array_filter($data['products']['items'] ?? []));
+        $items = array_values(array_filter($data['products']['items'] ?? [], is_array(...)));
 
         //The search is fuzzy (a SKU search can list a neighbouring SKU first), so put a product with exactly the searched SKU on top
         usort($items, fn(array $a, array $b): int => $this->skuMatches($b['sku'], $keyword) <=> $this->skuMatches($a['sku'], $keyword));
