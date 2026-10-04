@@ -36,6 +36,10 @@ use App\Settings\InfoProviderSystem\AIFileExtractorSettings;
 use App\Tests\SettingsTestHelper;
 use Jbtronics\SettingsBundle\Manager\SettingsManagerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\AI\Platform\Message\Content\ContentInterface;
+use Symfony\AI\Platform\Message\Content\Document;
+use Symfony\AI\Platform\Message\Content\Image;
+use Symfony\AI\Platform\Message\Content\Text;
 use Symfony\AI\Platform\Message\MessageBag;
 use Symfony\AI\Platform\Model;
 use Symfony\AI\Platform\ModelCatalog\ModelCatalogInterface;
@@ -45,6 +49,8 @@ use Symfony\AI\Platform\Result\InMemoryRawResult;
 use Symfony\AI\Platform\Result\ObjectResult;
 use Symfony\AI\Platform\ResultConverterInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\File;
 
 final class AIDocumentProviderTest extends TestCase
 {
@@ -52,6 +58,7 @@ final class AIDocumentProviderTest extends TestCase
     private array $invocations = [];
 
     private UploadedDocumentStorage $storage;
+    private string $fileDirectory;
     private AIDocumentProvider $provider;
 
     protected function setUp(): void
@@ -98,8 +105,8 @@ final class AIDocumentProviderTest extends TestCase
         $settings->platform = AIPlatforms::OPENROUTER;
         $settings->model = 'a/model';
 
-        //No original files are stored in these tests, so the directory is never created
-        $this->storage = new UploadedDocumentStorage(new ArrayAdapter(), sys_get_temp_dir().'/partdb_unused_'.bin2hex(random_bytes(8)));
+        $this->fileDirectory = sys_get_temp_dir().'/partdb_test_'.bin2hex(random_bytes(8));
+        $this->storage = new UploadedDocumentStorage(new ArrayAdapter(), $this->fileDirectory);
         $this->provider = new AIDocumentProvider(
             $settings,
             new AIPartInfoExtractor($registry, new DTOJsonSchemaConverter()),
@@ -107,6 +114,31 @@ final class AIDocumentProviderTest extends TestCase
             $this->storage,
             new ArrayAdapter(),
         );
+    }
+
+    protected function tearDown(): void
+    {
+        (new Filesystem())->remove($this->fileDirectory);
+    }
+
+    /**
+     * Stores a document without text, whose file has to be sent to the model
+     */
+    private function storeFileDocument(string $filename, string $content, string $mimeType): string
+    {
+        $path = $this->fileDirectory.'_upload';
+        file_put_contents($path, $content);
+
+        return $this->storage->store(new UploadedDocument($filename, '', null, strlen($content), $mimeType, hash('xxh3', $content)), new File($path));
+    }
+
+    /**
+     * @return ContentInterface[] The content of the user message of the first invocation
+     */
+    private function getSentContent(): array
+    {
+        self::assertCount(1, $this->invocations);
+        return $this->invocations[0]->getUserMessage()?->getContent() ?? [];
     }
 
     public function testGetDetails(): void
@@ -126,6 +158,57 @@ final class AIDocumentProviderTest extends TestCase
         $userMessage = $this->invocations[0]->getUserMessage()?->asText() ?? '';
         self::assertStringContainsString('BC547 NPN general purpose transistor', $userMessage);
         self::assertStringContainsString('bc547.pdf', $userMessage);
+    }
+
+    public function testImageIsSentToTheModel(): void
+    {
+        $token = $this->storeFileDocument('photo.png', 'PNG image content', 'image/png');
+
+        self::assertSame('BC547', $this->provider->getDetails($token)->name);
+
+        $content = $this->getSentContent();
+        self::assertCount(2, $content);
+        self::assertInstanceOf(Text::class, $content[0]);
+        self::assertStringContainsString('photo.png', $content[0]->getText());
+        self::assertInstanceOf(Image::class, $content[1]);
+        self::assertSame('image/png', $content[1]->getFormat());
+        self::assertSame('PNG image content', $content[1]->asBinary());
+
+        //The prompt must not talk about extracted text
+        self::assertStringContainsString('from the attached file', $this->invocations[0]->getSystemMessage()?->getContent() ?? '');
+    }
+
+    public function testPdfIsSentAsDocument(): void
+    {
+        $token = $this->storeFileDocument('scan.pdf', '%PDF-1.4 scanned', 'application/pdf');
+
+        $this->provider->getDetails($token);
+
+        $content = $this->getSentContent();
+        self::assertInstanceOf(Document::class, $content[1]);
+        self::assertSame('application/pdf', $content[1]->getFormat());
+        self::assertSame('%PDF-1.4 scanned', $content[1]->asBinary());
+    }
+
+    public function testExtractedTextIsSentWithoutFile(): void
+    {
+        $token = $this->storage->store(new UploadedDocument('bc547.pdf', 'BC547 NPN'));
+
+        $this->provider->getDetails($token);
+
+        $content = $this->getSentContent();
+        self::assertCount(1, $content);
+        self::assertInstanceOf(Text::class, $content[0]);
+        self::assertStringContainsString('from the text extracted from a document', $this->invocations[0]->getSystemMessage()?->getContent() ?? '');
+    }
+
+    public function testMissingFileOfDocumentWithoutText(): void
+    {
+        //No text and no file, there is nothing to send
+        $token = $this->storage->store(new UploadedDocument('scan.pdf', '', fileMimeType: 'application/pdf'));
+
+        $this->expectException(ProviderIDNotSupportedException::class);
+        $this->provider->getDetails($token);
     }
 
     public function testContextIsPassedToTheModel(): void

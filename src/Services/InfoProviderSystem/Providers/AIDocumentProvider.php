@@ -32,8 +32,11 @@ use App\Services\InfoProviderSystem\DTOs\UploadedDocument;
 use App\Services\InfoProviderSystem\UploadedDocumentStorage;
 use App\Settings\InfoProviderSystem\AIFileExtractorSettings;
 use Psr\Cache\CacheItemPoolInterface;
+use Symfony\AI\Platform\Message\Content\Document;
+use Symfony\AI\Platform\Message\Content\Image;
 use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
+use Symfony\AI\Platform\Message\UserMessage;
 
 use function Symfony\Component\String\u;
 
@@ -119,11 +122,9 @@ final class AIDocumentProvider implements InfoProviderInterface
 
     private function callLLM(UploadedDocument $document): array
     {
-        $text = u($document->textContent)->truncate($this->settings->maxContentLength, '... [truncated]')->toString();
-
         $input = new MessageBag(
-            Message::forSystem($this->buildSystemPrompt()),
-            Message::ofUser("Extract part information from the text of this document:\n\nFilename: {$document->filename}\n\n$text")
+            Message::forSystem($this->buildSystemPrompt($document->isFileSentToModel())),
+            $document->isFileSentToModel() ? $this->createFileMessage($document) : $this->createTextMessage($document),
         );
 
         if ($document->context !== null && trim($document->context) !== '') {
@@ -133,11 +134,50 @@ final class AIDocumentProvider implements InfoProviderInterface
         return $this->extractor->extract($input, $this->settings);
     }
 
-    private function buildSystemPrompt(): string
+    private function createTextMessage(UploadedDocument $document): UserMessage
     {
-        $tmp = <<<'PROMPT'
-You are an expert at extracting electronic component information from documents. Extract structured data in JSON format, from the text extracted from a PDF document.
+        $text = u($document->textContent)->truncate($this->settings->maxContentLength, '... [truncated]')->toString();
+
+        return Message::ofUser("Extract part information from the text of this document:\n\nFilename: {$document->filename}\n\n$text");
+    }
+
+    /**
+     * Creates the message containing the file itself, for files without extracted text (like images and scanned documents)
+     */
+    private function createFileMessage(UploadedDocument $document): UserMessage
+    {
+        $path = $this->documentStorage->retrieveFilePath($document->token)
+            ?? throw new ProviderIDNotSupportedException(sprintf('The file of the document with ID %s is not available (anymore). Please upload it again.', $document->token));
+        $mimeType = $document->fileMimeType ?? throw new \RuntimeException('The type of the uploaded file is unknown.');
+
+        //The content is only loaded, when the request is built
+        $data = static fn(): string => file_get_contents($path)
+            ?: throw new \RuntimeException('The uploaded file could not be read.');
+
+        if (str_starts_with($mimeType, 'image/')) {
+            return Message::ofUser("Extract part information from this image:\n\nFilename: {$document->filename}", new Image($data, $mimeType, $path));
+        }
+
+        return Message::ofUser("Extract part information from this document:\n\nFilename: {$document->filename}", new Document($data, $mimeType, $path));
+    }
+
+    /**
+     * @param  bool  $fileSent  Whether the file itself is sent to the model, instead of its extracted text
+     */
+    private function buildSystemPrompt(bool $fileSent): string
+    {
+        $source = $fileSent
+            ? <<<'SOURCE'
+You are an expert at extracting electronic component information from documents. Extract structured data in JSON format, from the attached file.
+The file is usually a datasheet of a part, but could also be a product brief, a catalog page, a distributor offer, a photo of a part or its label, or similar. It might be a scanned document, so read the text from it.
+SOURCE
+            : <<<'SOURCE'
+You are an expert at extracting electronic component information from documents. Extract structured data in JSON format, from the text extracted from a document.
 The document is usually a datasheet of a part, but could also be a product brief, a catalog page, a distributor offer or similar. The text was extracted automatically, so tables might have lost their layout.
+SOURCE;
+
+        $tmp = $source . <<<'PROMPT'
+
 
 Rules:
 - Describe the single part the document is about. If the document covers a family of parts (e.g. multiple variants or package options), describe the first or most generic one and put the differences of the variants into the notes field.

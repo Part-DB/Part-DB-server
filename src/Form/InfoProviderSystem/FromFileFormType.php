@@ -23,13 +23,16 @@ declare(strict_types=1);
 
 namespace App\Form\InfoProviderSystem;
 
+use App\Services\InfoProviderSystem\AIFileInputMode;
 use App\Services\InfoProviderSystem\FileContentExtractor;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotNull;
@@ -38,18 +41,39 @@ class FromFileFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $mimeTypes = FileContentExtractor::ALLOWED_MIME_TYPES;
+        $extensions = '.pdf,.md,.txt';
+        if ($options['allow_file_input']) {
+            $mimeTypes = [...$mimeTypes, ...FileContentExtractor::IMAGE_MIME_TYPES];
+            $extensions .= ',.png,.jpg,.jpeg,.webp,.gif';
+        }
+
         $builder->add('file', FileType::class, [
             'label' => 'info_providers.from_file.file.label',
-            'help' => 'info_providers.from_file.file.help',
+            'help' => $options['allow_file_input'] ? 'info_providers.from_file.file.help.with_images' : 'info_providers.from_file.file.help',
             'required' => true,
             'attr' => [
-                'accept' => '.pdf,.md,.txt',
+                'accept' => $extensions,
             ],
             'constraints' => [
                 new NotNull(),
-                new File(maxSize: '50M', mimeTypes: FileContentExtractor::ALLOWED_MIME_TYPES),
+                new File(maxSize: '50M', mimeTypes: $mimeTypes),
             ],
         ]);
+
+        //Without file input, only the text can be used, so there is nothing to choose
+        if ($options['allow_file_input']) {
+            $builder->add('input_mode', EnumType::class, [
+                'class' => AIFileInputMode::class,
+                'label' => 'info_providers.from_file.input_mode.label',
+                'help' => 'info_providers.from_file.input_mode.help',
+                'data' => AIFileInputMode::AUTO,
+                'expanded' => true,
+                'constraints' => [
+                    new NotNull(),
+                ],
+            ]);
+        }
 
         $builder->add('context', TextareaType::class, [
             'label' => 'info_providers.from_file.context.label',
@@ -73,5 +97,13 @@ class FromFileFormType extends AbstractType
         $builder->add('submit', SubmitType::class, [
             'label' => 'info_providers.from_file.submit',
         ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        //Whether the file itself can be sent to the AI model (see AIFileExtractorSettings::$allowFileInput). Only then
+        //images can be uploaded and the user can choose the input mode.
+        $resolver->setDefault('allow_file_input', false);
+        $resolver->setAllowedTypes('allow_file_input', 'bool');
     }
 }

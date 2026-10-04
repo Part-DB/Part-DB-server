@@ -13,6 +13,9 @@
 
     {{ form_start(form) }}
     {{ form_row(form.file) }}
+    {% if form.input_mode is defined %}
+        {{ form_row(form.input_mode) }}
+    {% endif %}
     {{ form_row(form.context) }}
 
     <div class="row mb-2">

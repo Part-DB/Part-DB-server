@@ -15527,7 +15527,7 @@ Buerklin-API Authentication server:
     <unit id="r2wTioF" name="info_providers.from_file.help">
       <segment>
         <source>info_providers.from_file.help</source>
-        <target>Creates a [part] from a file, like a datasheet. The text of the file is extracted and passed to the AI model configured in the AI File Extractor settings, which tries to extract the [part] information from it.</target>
+        <target>Creates a [part] from a file, like a datasheet. The file is passed to the AI model configured in the AI File Extractor settings, which tries to extract the [part] information from it.</target>
       </segment>
     </unit>
     <unit id="4.gsKDJ" name="info_providers.from_file.file.label">
@@ -15539,7 +15539,7 @@ Buerklin-API Authentication server:
     <unit id="kTrv0Uj" name="info_providers.from_file.file.help">
       <segment>
         <source>info_providers.from_file.file.help</source>
-        <target>Supported formats: PDF. Only the text of the file is used, scanned documents without a text layer are not supported.</target>
+        <target>Supported formats: PDF, text and Markdown files. Only the text of the file is used, scanned documents without a text layer are not supported. To use images and scanned documents, sending files to the model has to be allowed in the AI File Extractor settings.</target>
       </segment>
     </unit>
     <unit id="qTuMUgu" name="info_providers.from_file.submit">
@@ -15563,7 +15563,7 @@ Buerklin-API Authentication server:
     <unit id="f7u8XIC" name="info_providers.from_file.error.no_text">
       <segment>
         <source>info_providers.from_file.error.no_text</source>
-        <target>No text could be extracted from the file. Scanned documents without a text layer are not supported.</target>
+        <target>No text could be extracted from the file. Scanned documents without a text layer can only be used, if the file is sent to the AI model: choose the input mode "Auto" or "Send file to model" (sending files must be allowed in the AI File Extractor settings).</target>
       </segment>
     </unit>
     <unit id="ciiN9Tw" name="info_providers.from_file.context.label">
@@ -15624,6 +15624,60 @@ Buerklin-API Authentication server:
       <segment>
         <source>info_providers.from_file.not_attached</source>
         <target>The uploaded file could not be added as attachment, because it is not available anymore or bigger than the maximum attachment size.</target>
+      </segment>
+    </unit>
+    <unit id="GfgpJXr" name="info_providers.from_file.file.help.with_images">
+      <segment>
+        <source>info_providers.from_file.file.help.with_images</source>
+        <target>Supported formats: PDF, images (PNG, JPEG, WebP, GIF), text and Markdown files. Images and documents without text (like scans) are sent to the AI model directly, which must support these file types.</target>
+      </segment>
+    </unit>
+    <unit id="PsBqA_v" name="settings.ips.ai_file_extractor.allow_file_input">
+      <segment>
+        <source>settings.ips.ai_file_extractor.allow_file_input</source>
+        <target>Allow sending files to the model</target>
+      </segment>
+    </unit>
+    <unit id="uFcvgN8" name="settings.ips.ai_file_extractor.allow_file_input.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.allow_file_input.description</source>
+        <target>If enabled, users can choose for every upload to send the file itself (images and PDF files) to the AI model, instead of only its extracted text. This allows using images and scanned documents, and lets the model see the layout, tables and diagrams, but requires a model supporting images and PDF files (and a platform supporting it: Ollama can only process images, not PDF files). It also uses more tokens, resulting in a higher cost per request. If disabled, only the extracted text is used.</target>
+      </segment>
+    </unit>
+    <unit id="XS0813H" name="info_providers.from_file.input_mode.auto">
+      <segment>
+        <source>info_providers.from_file.input_mode.auto</source>
+        <target>Auto (extract text, send images and scanned documents to the model)</target>
+      </segment>
+    </unit>
+    <unit id="3iTQsXk" name="info_providers.from_file.input_mode.text">
+      <segment>
+        <source>info_providers.from_file.input_mode.text</source>
+        <target>Extract text only</target>
+      </segment>
+    </unit>
+    <unit id="ledeTyC" name="info_providers.from_file.input_mode.file">
+      <segment>
+        <source>info_providers.from_file.input_mode.file</source>
+        <target>Send file to model (PDF files and images)</target>
+      </segment>
+    </unit>
+    <unit id="i97R6_4" name="info_providers.from_file.input_mode.label">
+      <segment>
+        <source>info_providers.from_file.input_mode.label</source>
+        <target>Input mode</target>
+      </segment>
+    </unit>
+    <unit id="SONaFZG" name="info_providers.from_file.input_mode.help">
+      <segment>
+        <source>info_providers.from_file.input_mode.help</source>
+        <target>How the file is passed to the AI model. "Extract text only" works with every model. Sending the file itself requires a model supporting images and PDF files, but lets it read scanned documents and see the layout, tables and diagrams. Sending full files is more expensive than just sending text!</target>
+      </segment>
+    </unit>
+    <unit id="2pXOLo4" name="info_providers.from_file.error.image_in_text_mode">
+      <segment>
+        <source>info_providers.from_file.error.image_in_text_mode</source>
+        <target>Images contain no text to extract. Choose the input mode "Auto" or "Send file to model" to send the image to the AI model.</target>
       </segment>
     </unit>
   </file>

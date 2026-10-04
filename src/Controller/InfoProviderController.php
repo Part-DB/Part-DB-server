@@ -29,6 +29,7 @@ use App\Form\InfoProviderSystem\FromFileFormType;
 use App\Form\InfoProviderSystem\FromURLFormType;
 use App\Form\InfoProviderSystem\PartSearchType;
 use App\Services\InfoProviderSystem\DTOs\UploadedDocument;
+use App\Services\InfoProviderSystem\AIFileInputMode;
 use App\Services\InfoProviderSystem\FileContentExtractor;
 use App\Services\InfoProviderSystem\Providers\AIDocumentProvider;
 use App\Services\InfoProviderSystem\SubmittedPageStorage;
@@ -305,7 +306,10 @@ class InfoProviderController extends  AbstractController
             return $this->redirectToRoute('info_providers_list');
         }
 
-        $form = $this->createForm(FromFileFormType::class);
+        $allowFileInput = $fileExtractorSettings->allowFileInput;
+        $form = $this->createForm(FromFileFormType::class, options: [
+            'allow_file_input' => $allowFileInput,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -313,22 +317,41 @@ class InfoProviderController extends  AbstractController
             $file = $form->get('file')->getData();
             $no_cache = $form->get('no_cache')->getData();
             $context = $form->get('context')->getData();
+            $mimeType = $file->getMimeType();
+            //The user chooses the mode for every upload, if the settings allow sending files at all
+            $inputMode = $allowFileInput ? $form->get('input_mode')->getData() : AIFileInputMode::TEXT;
 
-            try {
-                $text = $fileContentExtractor->extractContent($file, $fileExtractorSettings->maxContentLength);
-            } catch (\RuntimeException $e) {
-                $this->addFlash('error', t('info_providers.from_file.error.parse', ['%error%' => $e->getMessage()]));
+            if ($inputMode === AIFileInputMode::TEXT && $fileContentExtractor->isImage($mimeType)) {
+                $this->addFlash('error', t('info_providers.from_file.error.image_in_text_mode'));
                 return $this->redirectToRoute('info_providers_from_file');
             }
 
-            if ($text === '') {
-                $this->addFlash('error', t('info_providers.from_file.error.no_text'));
-                return $this->redirectToRoute('info_providers_from_file');
+            //Images have no text to extract. In the file mode, PDFs are sent as they are too, so that the model sees
+            //their layout. An empty text means, that the file is sent to the model (see UploadedDocument).
+            $sendFile = $fileContentExtractor->isImage($mimeType)
+                || ($inputMode === AIFileInputMode::FILE && $fileContentExtractor->isPdf($mimeType));
+
+            $text = '';
+            if (!$sendFile) {
+                try {
+                    $text = $fileContentExtractor->extractContent($file, $fileExtractorSettings->maxContentLength);
+                } catch (\RuntimeException $e) {
+                    $this->addFlash('error', t('info_providers.from_file.error.parse', ['%error%' => $e->getMessage()]));
+                    return $this->redirectToRoute('info_providers_from_file');
+                }
+
+                //Scanned documents have no text layer, in the auto mode the model reads them itself
+                if ($text === '' && !($inputMode === AIFileInputMode::AUTO && $fileContentExtractor->isPdf($mimeType))) {
+                    $this->addFlash('error', t('info_providers.from_file.error.no_text'));
+                    return $this->redirectToRoute('info_providers_from_file');
+                }
             }
 
             //The original file is stored too (moved, not loaded), so that it can be attached to the created part
+            //and sent to the model
             $token = $documentStorage->store(
-                new UploadedDocument($file->getClientOriginalName(), $text, $context, $file->getSize()),
+                new UploadedDocument($file->getClientOriginalName(), $text, $context, $file->getSize(),
+                    fileMimeType: $mimeType, fileHash: hash_file('xxh3', $file->getPathname()) ?: null),
                 $file
             );
 

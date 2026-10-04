@@ -34,9 +34,15 @@ use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use App\Services\InfoProviderSystem\UploadedDocumentStorage;
 use App\Settings\InfoProviderSystem\AIExtractorSettings;
 use App\Settings\InfoProviderSystem\AIFileExtractorSettings;
+use App\Services\InfoProviderSystem\AIFileInputMode;
 use Dompdf\Dompdf;
 use Jbtronics\SettingsBundle\Manager\SettingsManagerInterface;
 use PHPUnit\Framework\Attributes\Group;
+use Symfony\AI\Platform\Message\Content\ContentInterface;
+use Symfony\AI\Platform\Message\Content\Document;
+use Symfony\AI\Platform\Message\Content\Image;
+use Symfony\AI\Platform\Message\Content\Text;
+use Symfony\AI\Platform\Message\MessageBag;
 use Symfony\AI\Platform\Model;
 use Symfony\AI\Platform\ModelCatalog\ModelCatalogInterface;
 use Symfony\AI\Platform\PlatformInterface;
@@ -56,6 +62,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 final class InfoProviderFromFileTest extends WebTestCase
 {
     private KernelBrowser $client;
+
+    /** @var MessageBag[] The inputs the fake AI platform was invoked with */
+    private array $invocations = [];
 
     protected function setUp(): void
     {
@@ -96,13 +105,14 @@ final class InfoProviderFromFileTest extends WebTestCase
             }
         };
 
-        $platform = new class($converter) implements PlatformInterface {
-            public function __construct(private readonly ResultConverterInterface $converter)
+        $platform = new class($converter, $this->invocations) implements PlatformInterface {
+            public function __construct(private readonly ResultConverterInterface $converter, private array &$invocations)
             {
             }
 
             public function invoke(string|Model $model, array|string|object $input, array $options = []): DeferredResult
             {
+                $this->invocations[] = $input;
                 return new DeferredResult($this->converter, new InMemoryRawResult([], [], (object) []));
             }
 
@@ -140,7 +150,36 @@ final class InfoProviderFromFileTest extends WebTestCase
         return new UploadedFile($path, 'datasheet.pdf', 'application/pdf', null, true);
     }
 
-    private function submitFile(UploadedFile $file, ?string $context = null): void
+    private function disallowFileInput(): void
+    {
+        static::getContainer()->get(AIFileExtractorSettings::class)->allowFileInput = false;
+    }
+
+    private function createImageUpload(): UploadedFile
+    {
+        //A 1x1 pixel PNG. Followed by random bytes, as the document is identified by its content, and the extraction
+        //result is cached across tests
+        $png = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==')
+            .random_bytes(8);
+
+        $dir = sys_get_temp_dir().'/partdb_test_'.bin2hex(random_bytes(8));
+        mkdir($dir);
+        $path = $dir.'/photo.png';
+        file_put_contents($path, $png);
+
+        return new UploadedFile($path, 'photo.png', 'image/png', null, true);
+    }
+
+    /**
+     * @return ContentInterface[] The content of the message containing the document, sent in the last invocation
+     */
+    private function getSentContent(): array
+    {
+        self::assertNotEmpty($this->invocations, 'The AI model was not invoked');
+        return end($this->invocations)->getUserMessage()?->getContent() ?? [];
+    }
+
+    private function submitFile(UploadedFile $file, ?string $context = null, ?AIFileInputMode $inputMode = null): void
     {
         $crawler = $this->client->request('GET', '/en/tools/info_providers/from_file');
         self::assertResponseIsSuccessful();
@@ -149,6 +188,9 @@ final class InfoProviderFromFileTest extends WebTestCase
         $form['from_file_form[file]']->upload($file->getPathname());
         if ($context !== null) {
             $form['from_file_form[context]'] = $context;
+        }
+        if ($inputMode !== null) {
+            $form['from_file_form[input_mode]'] = $inputMode->value;
         }
         $this->client->submit($form);
     }
@@ -213,15 +255,133 @@ final class InfoProviderFromFileTest extends WebTestCase
         self::assertSame('Use the variant BC547C', $document->context);
     }
 
-    public function testPdfWithoutText(): void
+    private function createScannedPdfUpload(): UploadedFile
+    {
+        //No text, but a unique image, as the document is identified by its content, and the extraction result is cached across tests
+        $color = substr(bin2hex(random_bytes(3)), 0, 6);
+        return $this->createPdfUpload('<div style="width: 10px; height: 10px; background: #'.$color.'"></div>');
+    }
+
+    public function testPdfWithoutTextInTextMode(): void
     {
         $this->configureAI(['name' => 'BC547']);
 
-        $this->submitFile($this->createPdfUpload('<div style="width: 10px; height: 10px; background: black"></div>'));
+        $this->submitFile($this->createScannedPdfUpload(), inputMode: AIFileInputMode::TEXT);
 
         self::assertResponseRedirects('/en/tools/info_providers/from_file');
         $this->client->followRedirect();
         self::assertSelectorTextContains('body', 'No text could be extracted from the file');
+        self::assertSame([], $this->invocations);
+    }
+
+    public function testPdfWithoutTextIsSentToTheModelInAutoMode(): void
+    {
+        $this->configureAI(['name' => 'BC547 scanned']);
+        $upload = $this->createScannedPdfUpload();
+        $pdfContent = file_get_contents($upload->getPathname());
+
+        $this->submitFile($upload);
+
+        self::assertResponseRedirects();
+        self::assertStringContainsString('/part/from_info_provider/ai_document/', $this->client->getResponse()->headers->get('Location'));
+        $content = $this->getSentContent();
+        self::assertInstanceOf(Document::class, $content[1] ?? null);
+        self::assertSame($pdfContent, $content[1]->asBinary());
+
+        $this->client->followRedirect();
+        self::assertInputValueSame('part_base[name]', 'BC547 scanned');
+    }
+
+    public function testPdfWithTextIsSentAsTextInAutoMode(): void
+    {
+        $this->configureAI(['name' => 'BC547']);
+
+        $this->submitFile($this->createPdfUpload('<p>BC547 auto mode '.bin2hex(random_bytes(8)).'</p>'));
+
+        self::assertResponseRedirects();
+        $content = $this->getSentContent();
+        self::assertCount(1, $content);
+        self::assertInstanceOf(Text::class, $content[0]);
+        self::assertStringContainsString('BC547 auto mode', $content[0]->getText());
+    }
+
+    public function testPdfWithTextIsSentAsFileInFileMode(): void
+    {
+        $this->configureAI(['name' => 'BC547']);
+
+        $this->submitFile($this->createPdfUpload('<p>BC547 file mode '.bin2hex(random_bytes(8)).'</p>'), inputMode: AIFileInputMode::FILE);
+
+        self::assertResponseRedirects();
+        self::assertInstanceOf(Document::class, $this->getSentContent()[1] ?? null);
+    }
+
+    public function testImageIsSentToTheModel(): void
+    {
+        $this->configureAI(['name' => 'BC547 photo']);
+        $upload = $this->createImageUpload();
+        $imageContent = file_get_contents($upload->getPathname());
+
+        $this->submitFile($upload);
+
+        self::assertResponseRedirects();
+        $content = $this->getSentContent();
+        self::assertInstanceOf(Image::class, $content[1] ?? null);
+        self::assertSame('image/png', $content[1]->getFormat());
+        self::assertSame($imageContent, $content[1]->asBinary());
+
+        //The image is attached to the part like any other file
+        $this->client->followRedirect();
+        self::assertInputValueSame('part_base[name]', 'BC547 photo');
+        self::assertInputValueSame('part_base[attachments][0][name]', 'photo.png');
+    }
+
+    public function testImagesAreRejectedInTextMode(): void
+    {
+        $this->configureAI(['name' => 'BC547']);
+
+        $this->submitFile($this->createImageUpload(), inputMode: AIFileInputMode::TEXT);
+
+        self::assertResponseRedirects('/en/tools/info_providers/from_file');
+        $this->client->followRedirect();
+        self::assertSelectorTextContains('body', 'Images contain no text to extract');
+        self::assertSame([], $this->invocations);
+    }
+
+    public function testInputModeIsOnlyOfferedIfFileInputIsAllowed(): void
+    {
+        $this->configureAI(['name' => 'BC547']);
+
+        $crawler = $this->client->request('GET', '/en/tools/info_providers/from_file');
+        self::assertSame(1, $crawler->filter('select[name="from_file_form[input_mode]"]')->count());
+        self::assertStringContainsString('.png', $crawler->filter('input[name="from_file_form[file]"]')->attr('accept'));
+
+        $this->disallowFileInput();
+        $crawler = $this->client->request('GET', '/en/tools/info_providers/from_file');
+        self::assertSame(0, $crawler->filter('select[name="from_file_form[input_mode]"]')->count());
+        self::assertStringNotContainsString('.png', $crawler->filter('input[name="from_file_form[file]"]')->attr('accept'));
+    }
+
+    public function testImagesAreRejectedIfFileInputIsNotAllowed(): void
+    {
+        $this->configureAI(['name' => 'BC547']);
+        $this->disallowFileInput();
+
+        $this->submitFile($this->createImageUpload());
+
+        //The form is shown again with the validation error
+        self::assertResponseStatusCodeSame(422);
+        self::assertSame([], $this->invocations);
+    }
+
+    public function testPdfWithoutTextIsNotSentIfFileInputIsNotAllowed(): void
+    {
+        $this->configureAI(['name' => 'BC547']);
+        $this->disallowFileInput();
+
+        $this->submitFile($this->createScannedPdfUpload());
+
+        self::assertResponseRedirects('/en/tools/info_providers/from_file');
+        self::assertSame([], $this->invocations);
     }
 
     /**

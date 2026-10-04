@@ -34,16 +34,35 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 final class FileContentExtractor
 {
-    private const PDF_MIME_TYPES = [
+    public const PDF_MIME_TYPES = [
         'application/pdf',
         'application/x-pdf',
     ];
 
+    /** @var string[] The files, whose text can be extracted */
     public const ALLOWED_MIME_TYPES = [
         ...self::PDF_MIME_TYPES,
         'text/plain',
         'text/markdown',
     ];
+
+    /** @var string[] Images, which have no text to extract, but can be sent to AI models supporting images. These are the formats supported by the common AI APIs. */
+    public const IMAGE_MIME_TYPES = [
+        'image/png',
+        'image/jpeg',
+        'image/webp',
+        'image/gif',
+    ];
+
+    public function isPdf(?string $mimeType): bool
+    {
+        return in_array($mimeType, self::PDF_MIME_TYPES, true);
+    }
+
+    public function isImage(?string $mimeType): bool
+    {
+        return in_array($mimeType, self::IMAGE_MIME_TYPES, true);
+    }
 
     /**
      * Extracts the text of the given file. The type of the file is determined by its content, not its extension.
@@ -56,7 +75,7 @@ final class FileContentExtractor
     {
         $mimeType = $file->getMimeType() ?? throw new \RuntimeException('Unsupported file type: unknown');
 
-        if (in_array($mimeType, self::PDF_MIME_TYPES, true)) {
+        if ($this->isPdf($mimeType)) {
             return $this->extractPDFText($file->getContent(), $maxLength);
         }
 

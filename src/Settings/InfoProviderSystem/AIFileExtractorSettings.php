@@ -63,6 +63,11 @@ class AIFileExtractorSettings implements AIPartExtractorSettingsInterface
     )]
     public ?string $model = null;
 
+    #[SettingsParameter(label: new TM("settings.ips.ai_file_extractor.allow_file_input"),
+        description: new TM("settings.ips.ai_file_extractor.allow_file_input.description"),
+    )]
+    public bool $allowFileInput = false;
+
     #[SettingsParameter(label: new TM("settings.ips.ai_file_extractor.max_content_length"),
         description: new TM("settings.ips.ai_file_extractor.max_content_length.description"),
     )]
