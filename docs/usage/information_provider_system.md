@@ -152,9 +152,9 @@ How the file is passed to the LLM is chosen for every upload with the "Input mod
   layout of tables, diagrams and pictures. Text files are still sent as text. Note that this usually uses much more
   tokens than the extracted text, and that the maximum content length does not apply.
 
-Sending files can be enabled/disabled with the "Allow sending files to the model" option in the AI File Extractor settings
-(enabled by default). Then the input mode can not be chosen, only the extracted text is used and images can not be
-uploaded.
+Sending files has to be enabled with the "Allow sending files to the model" option in the AI File Extractor settings
+(disabled by default). As long as it is disabled, the input mode can not be chosen, only the extracted text is used and
+images can not be uploaded.
 
 Sending files requires a model which supports image and/or PDF input. With OpenRouter, PDF files are also processed
 for models without native PDF support, but then OpenRouter only passes their text on, which does not work for scanned documents. Ollama can only process images, not PDF

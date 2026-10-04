@@ -83,6 +83,8 @@ final class InfoProviderFromFileTest extends WebTestCase
         $settings = static::getContainer()->get(AIFileExtractorSettings::class);
         $settings->platform = AIPlatforms::OPENROUTER;
         $settings->model = 'a/model';
+        //Disabled by default, the tests of the file input modes need it
+        $settings->allowFileInput = true;
 
         $converter = new class($answer) implements ResultConverterInterface {
             public function __construct(private readonly array $answer)
@@ -352,12 +354,12 @@ final class InfoProviderFromFileTest extends WebTestCase
         $this->configureAI(['name' => 'BC547']);
 
         $crawler = $this->client->request('GET', '/en/tools/info_providers/from_file');
-        self::assertSame(1, $crawler->filter('select[name="from_file_form[input_mode]"]')->count());
+        self::assertSame(count(AIFileInputMode::cases()), $crawler->filter('input[type="radio"][name="from_file_form[input_mode]"]')->count());
         self::assertStringContainsString('.png', $crawler->filter('input[name="from_file_form[file]"]')->attr('accept'));
 
         $this->disallowFileInput();
         $crawler = $this->client->request('GET', '/en/tools/info_providers/from_file');
-        self::assertSame(0, $crawler->filter('select[name="from_file_form[input_mode]"]')->count());
+        self::assertSame(0, $crawler->filter('input[type="radio"][name="from_file_form[input_mode]"]')->count());
         self::assertStringNotContainsString('.png', $crawler->filter('input[name="from_file_form[file]"]')->attr('accept'));
     }
 
