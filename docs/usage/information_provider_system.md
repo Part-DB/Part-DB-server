@@ -133,6 +133,44 @@ You can add some additional instructions for the model, which gets added to the 
 
 The provider will download the HTML of the given URL, convert it to markdown and send it to the LLM toghether with structured data extracted from the webpage via conventional methods.
 
+### AI Document Extractor (Create part from file)
+The AI document extractor creates a part from an uploaded file, like a datasheet. You can find it under
+"Create part from file (AI)" in the dropdown of the "New part" button, or in the tools tree.
+PDF files, images (PNG, JPEG, WebP, GIF), text and Markdown files are supported.
+
+It has its own settings ("AI File Extractor" in the info provider settings), independent of the AI Web Extractor.
+To use it, select an AI platform (set up in the AI settings tab) and a model which supports structured output. You can
+also configure the maximum content length, the output language and additional instructions for the model there.
+
+How the file is passed to the LLM is chosen for every upload with the "Input mode" field:
+
+* **Auto** (default): The text of PDF, text and Markdown files is extracted on the server and sent to the LLM. Images
+  and scanned PDF documents (without a text layer) are sent to the LLM as they are.
+* **Extract text only**: Only the extracted text is sent, so it works with every model which supports structured output.
+  Images and scanned documents are not supported.
+* **Send file to model**: PDF files and images are always sent to the LLM as they are, which lets the model see the
+  layout of tables, diagrams and pictures. Text files are still sent as text. Note that this usually uses much more
+  tokens than the extracted text, and that the maximum content length does not apply.
+
+Sending files has to be enabled with the "Allow sending files to the model" option in the AI File Extractor settings
+(disabled by default). As long as it is disabled, the input mode can not be chosen, only the extracted text is used and
+images can not be uploaded.
+
+Sending files requires a model which supports image and/or PDF input. With OpenRouter, PDF files are also processed
+for models without native PDF support, but then OpenRouter only passes their text on, which does not work for scanned documents. Ollama can only process images, not PDF
+files, and LM Studio and other OpenAI compatible servers depend on the model and server.
+
+Extracted text longer than the maximum content length configured in the AI File Extractor settings is truncated,
+which usually is not a problem, as the most relevant information of a datasheet is at its beginning.
+The uploaded file is added as attachment to the created part (as datasheet, if the datasheet attachment type allows the
+file). It is only stored when the part is saved, and you can remove it in the form like any other attachment. Until then
+it is kept temporarily (2 hours) in `var/share/<env>/uploaded_documents`. Files of uploads, for which no part was
+created, are deleted automatically on the next upload after that time. Files bigger than the maximum attachment size are
+not attached.
+
+You can give additional context together with the file, like the exact part number to use, if the datasheet
+covers multiple variants of a part. The model then describes exactly this variant.
+
 ### Octopart
 
 The Octopart provider uses the [Octopart / Nexar API](https://nexar.com/api) to search for parts and get information.
