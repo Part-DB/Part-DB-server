@@ -15680,5 +15680,11 @@ Buerklin-API Authentication server:
         <target>Images contain no text to extract. Choose the input mode "Auto" or "Send file to model" to send the image to the AI model.</target>
       </segment>
     </unit>
+    <unit id="S6JX3.E" name="info_providers.capabilities.stock_level">
+      <segment>
+        <source>info_providers.capabilities.stock_level</source>
+        <target>Available stock</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
