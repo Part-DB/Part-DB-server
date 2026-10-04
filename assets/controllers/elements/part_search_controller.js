@@ -193,7 +193,7 @@ export default class extends Controller {
                         onMouseDown="${(event) => event.preventDefault()}"
                         onClick="${(event) => { event.preventDefault(); this._toggleSort(option.key); }}">
                     <i class="fa-solid fa-fw ${option.icon}"></i>
-                    ${active ? html`<i class="fa-solid ${sort.desc ? 'fa-arrow-down' : 'fa-arrow-up'}"></i>` : ''}
+                    <i class="fa-solid aa-SourceHeaderSortArrow ${active && sort.desc ? 'fa-arrow-down' : 'fa-arrow-up'}"></i>
                 </button>`;
             })}
         </span>`;

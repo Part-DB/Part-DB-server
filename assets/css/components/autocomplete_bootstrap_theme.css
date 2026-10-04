@@ -537,7 +537,17 @@ body {
 .aa-SourceHeaderSortToggle--active:hover {
     background: rgba(var(--bs-primary-rgb), 1.0);
     border-color: rgba(var(--bs-primary-rgb), 1.0);
-    color: var(--bs-body-bg);
+    /* Not the body background: it is dark in dark mode and unreadable on the primary color */
+    color: #fff;
+}
+/* The direction arrow always takes its place, so the toggles do not move when one of them is chosen */
+.aa-SourceHeaderSortArrow {
+    font-size: 0.75em;
+    margin-left: 0.15em;
+    visibility: hidden;
+}
+.aa-SourceHeaderSortToggle--active .aa-SourceHeaderSortArrow {
+    visibility: visible;
 }
 
 /* The value a result is ordered by (supplier, manufacturer, date, ...) */
