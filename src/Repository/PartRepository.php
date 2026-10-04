@@ -234,7 +234,7 @@ class PartRepository extends NamedDBElementRepository
             ->getResult();
 
         //Return the parts in the order of the sorted IDs
-        return array_values(array_filter(array_map(static fn(int $id) => $parts[$id] ?? null, $ids)));
+        return array_values(array_filter(array_map(static fn(int $id) => $parts[$id] ?? null, $ids), static fn(?Part $part) => $part !== null));
     }
 
     /**
