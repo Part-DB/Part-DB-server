@@ -68,7 +68,8 @@ export default class extends Controller {
         }
 
         //The button is not shown on small screens, where the sidebar is collapsed into the navbar instead
-        if (this.element.offsetParent === null) {
+        //(offsetParent can not be used for this check: it is always null for the fixed positioned button)
+        if (this.element.getClientRects().length === 0) {
             return;
         }
 
