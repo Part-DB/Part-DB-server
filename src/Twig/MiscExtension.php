@@ -22,7 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Twig;
 
-use App\Services\InfoProviderSystem\AIPartInfoExtractor;
+use App\Settings\InfoProviderSystem\AIFileExtractorSettings;
 use App\Services\InfoProviderSystem\CreateFromUrlHelper;
 use Twig\Attribute\AsTwigFunction;
 use App\Settings\SettingsIcon;
@@ -35,7 +35,7 @@ use App\Services\LogSystem\EventCommentNeededHelper;
 final readonly class MiscExtension
 {
     public function __construct(private EventCommentNeededHelper $eventCommentNeededHelper, private CreateFromUrlHelper $fromUrlHelper,
-        private AIPartInfoExtractor $aiPartInfoExtractor)
+        private AIFileExtractorSettings $fileExtractorSettings)
     {
     }
 
@@ -97,12 +97,12 @@ final readonly class MiscExtension
     }
 
     /**
-     * Returns true if parts can be created from PDF documents (meaning that the AI extractor is configured), false otherwise.
+     * Returns true if parts can be created from files (meaning that the AI file extractor is configured), false otherwise.
      * @return bool
      */
-    #[AsTwigFunction(name: 'create_from_pdf_active')]
-    public function create_from_pdf_active(): bool
+    #[AsTwigFunction(name: 'create_from_file_active')]
+    public function create_from_file_active(): bool
     {
-        return $this->aiPartInfoExtractor->isConfigured();
+        return $this->fileExtractorSettings->isConfigured();
     }
 }

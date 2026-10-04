@@ -24,16 +24,16 @@ declare(strict_types=1);
 namespace App\Services\InfoProviderSystem;
 
 use App\Services\AI\AIPlatformRegistry;
-use App\Settings\InfoProviderSystem\AIExtractorSettings;
+use App\Settings\InfoProviderSystem\AIPartExtractorSettingsInterface;
 use Symfony\AI\Platform\Message\MessageBag;
 use Symfony\AI\Platform\Result\DeferredResult;
 use Symfony\Component\Intl\Languages;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
- * Lets the configured AI model extract part information as structured data (matching the schema of the
- * DTOJsonSchemaConverter) from some input. Shared by all AI based info providers, so that they use the same
- * platform, model, output language and additional instructions, and report failures the same way.
+ * Lets an AI model extract part information as structured data (matching the schema of the DTOJsonSchemaConverter)
+ * from some input. Shared by all AI based info providers, so that they report failures the same way. Every provider
+ * passes its own settings, which determine the platform, model, output language and additional instructions.
  */
 final class AIPartInfoExtractor
 {
@@ -41,44 +41,28 @@ final class AIPartInfoExtractor
     private const MAX_REPORTED_RESPONSE_LENGTH = 500;
 
     public function __construct(
-        private readonly AIExtractorSettings $settings,
         private readonly AIPlatformRegistry $AIPlatformRegistry,
         private readonly DTOJsonSchemaConverter $jsonSchemaConverter,
     ) {
     }
 
     /**
-     * Checks if an AI platform and a model are configured, so that extract() can be used.
-     */
-    public function isConfigured(): bool
-    {
-        return $this->settings->platform !== null && $this->settings->model !== null && $this->settings->model !== '';
-    }
-
-    /**
-     * Returns the maximum number of characters of content, which should be passed to the model.
-     */
-    public function getMaxContentLength(): int
-    {
-        return $this->settings->maxContentLength;
-    }
-
-    /**
      * Invokes the configured model with the given messages and returns the structured part data it extracted.
      * @param  MessageBag  $input  The messages to send, including the system prompt
+     * @param  AIPartExtractorSettingsInterface  $settings  The settings determining the platform and model to use
      * @return array The extracted data, as described by DTOJsonSchemaConverter::getJSONSchema()
      * @throws \RuntimeException If the invocation failed
      */
-    public function extract(MessageBag $input): array
+    public function extract(MessageBag $input, AIPartExtractorSettingsInterface $settings): array
     {
         try {
-            $aiPlatform = $this->AIPlatformRegistry->getPlatform($this->settings->platform ?? throw new \RuntimeException('No AI platform selected') );
+            $aiPlatform = $this->AIPlatformRegistry->getPlatform($settings->getAIPlatform() ?? throw new \RuntimeException('No AI platform selected') );
 
             // AI inference can take much longer than PHP's default max_execution_time (typically 30s).
             // The HTTP client timeout already enforces the configured limit; disable PHP's constraint here.
             set_time_limit(0);
 
-            $result = $aiPlatform->invoke($this->settings->model ?? throw new \RuntimeException('No model selected'), $input, [
+            $result = $aiPlatform->invoke($settings->getModel() ?? throw new \RuntimeException('No model selected'), $input, [
                 'response_format' => [
                     'type' => 'json_schema',
                     'json_schema' => $this->jsonSchemaConverter->getJSONSchema(),
@@ -102,17 +86,18 @@ final class AIPartInfoExtractor
      * system prompt.
      * @param  string  $systemPrompt  The task specific part of the system prompt
      * @param  string  $sourceName  How the source of the information is called in the prompt (e.g. "webpage")
+     * @param  AIPartExtractorSettingsInterface  $settings  The settings containing the instructions
      */
-    public function withConfiguredInstructions(string $systemPrompt, string $sourceName): string
+    public function withConfiguredInstructions(string $systemPrompt, string $sourceName, AIPartExtractorSettingsInterface $settings): string
     {
-        if ($this->settings->outputLanguage === null) {
+        if ($settings->getOutputLanguage() === null) {
             $systemPrompt .= "\n\nProvide the response in the same language of the $sourceName.";
         } else {
-            $systemPrompt .= "\n\nThe response must be in ". Languages::getName($this->settings->outputLanguage, 'en') ." language. Translate texts if needed.";
+            $systemPrompt .= "\n\nThe response must be in ". Languages::getName($settings->getOutputLanguage(), 'en') ." language. Translate texts if needed.";
         }
 
-        if ($this->settings->additionalInstructions) {
-            $systemPrompt .= "\n\nAdditional instructions:\n" . $this->settings->additionalInstructions;
+        if ($settings->getAdditionalInstructions()) {
+            $systemPrompt .= "\n\nAdditional instructions:\n" . $settings->getAdditionalInstructions();
         }
 
         return $systemPrompt;

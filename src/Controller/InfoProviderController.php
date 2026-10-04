@@ -25,12 +25,11 @@ namespace App\Controller;
 
 use App\Entity\Parts\Part;
 use App\Exceptions\OAuthReconnectRequiredException;
-use App\Form\InfoProviderSystem\FromPdfFormType;
+use App\Form\InfoProviderSystem\FromFileFormType;
 use App\Form\InfoProviderSystem\FromURLFormType;
 use App\Form\InfoProviderSystem\PartSearchType;
-use App\Services\InfoProviderSystem\AIPartInfoExtractor;
 use App\Services\InfoProviderSystem\DTOs\UploadedDocument;
-use App\Services\InfoProviderSystem\PdfTextExtractor;
+use App\Services\InfoProviderSystem\FileContentExtractor;
 use App\Services\InfoProviderSystem\Providers\AIDocumentProvider;
 use App\Services\InfoProviderSystem\SubmittedPageStorage;
 use App\Services\InfoProviderSystem\UploadedDocumentStorage;
@@ -39,6 +38,7 @@ use App\Services\InfoProviderSystem\CreateFromUrlHelper;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderRegistry;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
+use App\Settings\InfoProviderSystem\AIFileExtractorSettings;
 use App\Settings\InfoProviderSystem\InfoProviderGeneralSettings;
 use Jbtronics\SettingsBundle\Form\SettingsFormFactoryInterface;
 use Jbtronics\SettingsBundle\Manager\SettingsManagerInterface;
@@ -294,18 +294,18 @@ class InfoProviderController extends  AbstractController
 
     }
 
-    #[Route('/from_pdf', name: 'info_providers_from_pdf')]
-    public function fromPdf(Request $request, PdfTextExtractor $pdfTextExtractor, UploadedDocumentStorage $documentStorage,
-        AIPartInfoExtractor $aiExtractor, LoggerInterface $exceptionLogger): Response
+    #[Route('/from_file', name: 'info_providers_from_file')]
+    public function fromFile(Request $request, FileContentExtractor $pdfTextExtractor, UploadedDocumentStorage $documentStorage,
+        AIFileExtractorSettings $fileExtractorSettings, LoggerInterface $exceptionLogger): Response
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
         if (!$this->providerRegistry->getProviderByKey(AIDocumentProvider::PROVIDER_KEY)->isActive()) {
-            $this->addFlash('error', t('info_providers.from_pdf.not_active'));
+            $this->addFlash('error', t('info_providers.from_file.not_active'));
             return $this->redirectToRoute('info_providers_list');
         }
 
-        $form = $this->createForm(FromPdfFormType::class);
+        $form = $this->createForm(FromFileFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -315,15 +315,15 @@ class InfoProviderController extends  AbstractController
             $context = $form->get('context')->getData();
 
             try {
-                $text = $pdfTextExtractor->extractText($file->getContent(), $aiExtractor->getMaxContentLength());
+                $text = $pdfTextExtractor->extractContent($file, $fileExtractorSettings->maxContentLength);
             } catch (\RuntimeException $e) {
-                $this->addFlash('error', t('info_providers.from_pdf.error.parse', ['%error%' => $e->getMessage()]));
-                return $this->redirectToRoute('info_providers_from_pdf');
+                $this->addFlash('error', t('info_providers.from_file.error.parse', ['%error%' => $e->getMessage()]));
+                return $this->redirectToRoute('info_providers_from_file');
             }
 
             if ($text === '') {
-                $this->addFlash('error', t('info_providers.from_pdf.error.no_text'));
-                return $this->redirectToRoute('info_providers_from_pdf');
+                $this->addFlash('error', t('info_providers.from_file.error.no_text'));
+                return $this->redirectToRoute('info_providers_from_file');
             }
 
             $token = $documentStorage->store(new UploadedDocument($file->getClientOriginalName(), $text, $context));
@@ -341,11 +341,11 @@ class InfoProviderController extends  AbstractController
                 ]);
             } catch (\RuntimeException $e) {
                 $this->addFlash('error', t('info_providers.search.error.general_exception', ['%type%' => (new \ReflectionClass($e))->getShortName()]));
-                $exceptionLogger->error('Error while creating a part from a PDF: '.$e->getMessage(), ['exception' => $e]);
+                $exceptionLogger->error('Error while creating a part from a file: '.$e->getMessage(), ['exception' => $e]);
             }
         }
 
-        return $this->render('info_providers/from_pdf/from_pdf.html.twig', [
+        return $this->render('info_providers/from_file/from_file.html.twig', [
             'form' => $form,
         ]);
     }

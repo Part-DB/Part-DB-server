@@ -37,11 +37,14 @@ use Symfony\Component\Translation\StaticMessage;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 use Symfony\Component\Validator\Constraints\Language;
 
-#[Settings(name: "ai_extractor", label: new TM("settings.ips.ai_extractor"), description: new TM("settings.ips.ai_extractor.description"))]
-#[SettingsIcon("fa-plug")]
-class AIExtractorSettings implements AIPartExtractorSettingsInterface
+/**
+ * The settings of the AI File Extractor, which creates parts from uploaded files (like PDF datasheets).
+ */
+#[Settings(name: "ai_file_extractor", label: new TM("settings.ips.ai_file_extractor"), description: new TM("settings.ips.ai_file_extractor.description"))]
+#[SettingsIcon("fa-file-lines")]
+class AIFileExtractorSettings implements AIPartExtractorSettingsInterface
 {
-    private const MODEL_SELECTOR_LABEL = 'ai_extractor';
+    private const MODEL_SELECTOR_LABEL = 'ai_file_extractor';
 
     use SettingsTrait;
     use AIPartExtractorSettingsTrait;
@@ -60,18 +63,18 @@ class AIExtractorSettings implements AIPartExtractorSettingsInterface
     )]
     public ?string $model = null;
 
-    #[SettingsParameter(label: new TM("settings.ips.ai_extractor.max_content_length"),
-        description: new TM("settings.ips.ai_extractor.max_content_length.description"),
+    #[SettingsParameter(label: new TM("settings.ips.ai_file_extractor.max_content_length"),
+        description: new TM("settings.ips.ai_file_extractor.max_content_length.description"),
     )]
     public int $maxContentLength = 50000;
 
     #[Language]
-    #[SettingsParameter(label: new TM("settings.ips.ai_extractor.output_language"), description: new TM("settings.ips.ai_extractor.output_language.description"),
+    #[SettingsParameter(label: new TM("settings.ips.ai_extractor.output_language"), description: new TM("settings.ips.ai_file_extractor.output_language.description"),
         formType: LanguageType::class,
     )]
     public ?string $outputLanguage = null;
 
-   #[SettingsParameter(label: new TM("settings.ips.ai_extractor.additional_instructions"), description: new TM("settings.ips.ai_extractor.additional_instructions.description"),
+    #[SettingsParameter(label: new TM("settings.ips.ai_extractor.additional_instructions"), description: new TM("settings.ips.ai_extractor.additional_instructions.description"),
         formType: TextareaType::class,
     )]
     public ?string $additionalInstructions = null;

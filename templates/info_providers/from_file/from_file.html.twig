@@ -1,15 +1,15 @@
 {% extends "main_card.html.twig" %}
 
 {% block title %}
-    {% trans %}info_providers.from_pdf.title{% endtrans %}
+    {% trans %}info_providers.from_file.title{% endtrans %}
 {% endblock %}
 
 {% block card_title %}
-    <i class="fas fa-file-pdf"></i> {% trans %}info_providers.from_pdf.title{% endtrans %}
+    <i class="fas fa-file-lines"></i> {% trans %}info_providers.from_file.title{% endtrans %}
 {% endblock %}
 
 {% block card_content %}
-    <p class="text-muted {{ offset_label }}">{% trans %}info_providers.from_pdf.help{% endtrans %}</p>
+    <p class="text-muted {{ offset_label }}">{% trans %}info_providers.from_file.help{% endtrans %}</p>
 
     {{ form_start(form) }}
     {{ form_row(form.file) }}

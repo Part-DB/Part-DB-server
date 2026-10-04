@@ -58,6 +58,7 @@ final class AIWebProvider implements InfoProviderInterface
 
     public function __construct(
         HttpClientInterface $httpClient,
+        private readonly AIExtractorSettings $settings,
         private readonly AIPartInfoExtractor $extractor,
         private readonly DTOJsonSchemaConverter $jsonSchemaConverter,
         private readonly CacheItemPoolInterface $partInfoCache,
@@ -93,7 +94,7 @@ final class AIWebProvider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return $this->extractor->isConfigured();
+        return $this->settings->isConfigured();
     }
 
     public function searchByKeyword(string $keyword, array $options = []): array
@@ -161,7 +162,7 @@ final class AIWebProvider implements InfoProviderInterface
         //Convert html to markdown, to provide a cleaner input to the LLM.
         $markdown = $this->htmlToMarkdown($html, $url);
         //Truncate markdown to max content length, if needed
-        $markdown = u($markdown)->truncate($this->extractor->getMaxContentLength(), '... [truncated]')->toString();
+        $markdown = u($markdown)->truncate($this->settings->maxContentLength, '... [truncated]')->toString();
 
         //Extract structured data using traditional methods, to provide additional context to the LLM. This can help improve accuracy, especially for technical specifications that might be in tables or specific formats.
         $structuredData = $this->extractStructuredData($html, $url);
@@ -272,7 +273,7 @@ final class AIWebProvider implements InfoProviderInterface
              Enrich it with the actual website data:\n\n".$structuredData));
         }
 
-        return $this->extractor->extract($input);
+        return $this->extractor->extract($input, $this->settings);
     }
 
     private function buildSystemPrompt(): string
@@ -294,7 +295,7 @@ Rules:
 
 PROMPT;
 
-        return $this->extractor->withConfiguredInstructions($tmp, 'webpage');
+        return $this->extractor->withConfiguredInstructions($tmp, 'webpage', $this->settings);
     }
 
 }

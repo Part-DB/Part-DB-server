@@ -32,7 +32,7 @@ use App\Services\InfoProviderSystem\DTOs\UploadedDocument;
 use App\Services\InfoProviderSystem\Providers\AIDocumentProvider;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use App\Services\InfoProviderSystem\UploadedDocumentStorage;
-use App\Settings\InfoProviderSystem\AIExtractorSettings;
+use App\Settings\InfoProviderSystem\AIFileExtractorSettings;
 use App\Tests\SettingsTestHelper;
 use Jbtronics\SettingsBundle\Manager\SettingsManagerInterface;
 use PHPUnit\Framework\TestCase;
@@ -94,13 +94,14 @@ final class AIDocumentProviderTest extends TestCase
         });
         $registry = new AIPlatformRegistry($settingsManager, [AIPlatforms::OPENROUTER->toServiceTagName() => $platform]);
 
-        $settings = SettingsTestHelper::createSettingsDummy(AIExtractorSettings::class);
+        $settings = SettingsTestHelper::createSettingsDummy(AIFileExtractorSettings::class);
         $settings->platform = AIPlatforms::OPENROUTER;
         $settings->model = 'a/model';
 
         $this->storage = new UploadedDocumentStorage(new ArrayAdapter());
         $this->provider = new AIDocumentProvider(
-            new AIPartInfoExtractor($settings, $registry, new DTOJsonSchemaConverter()),
+            $settings,
+            new AIPartInfoExtractor($registry, new DTOJsonSchemaConverter()),
             new DTOJsonSchemaConverter(),
             $this->storage,
             new ArrayAdapter(),

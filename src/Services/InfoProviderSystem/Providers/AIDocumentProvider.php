@@ -30,7 +30,7 @@ use App\Services\InfoProviderSystem\DTOs\PartDetailDTO;
 use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\UploadedDocument;
 use App\Services\InfoProviderSystem\UploadedDocumentStorage;
-use App\Settings\InfoProviderSystem\AIExtractorSettings;
+use App\Settings\InfoProviderSystem\AIFileExtractorSettings;
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
@@ -49,6 +49,7 @@ final class AIDocumentProvider implements InfoProviderInterface
     private const DISTRIBUTOR_NAME = 'Document';
 
     public function __construct(
+        private readonly AIFileExtractorSettings $settings,
         private readonly AIPartInfoExtractor $extractor,
         private readonly DTOJsonSchemaConverter $jsonSchemaConverter,
         private readonly UploadedDocumentStorage $documentStorage,
@@ -60,10 +61,10 @@ final class AIDocumentProvider implements InfoProviderInterface
     {
         return new ProviderInfoDTO(
             key: self::PROVIDER_KEY,
-            name: 'AI Document Extractor',
-            description: 'Extract part info from uploaded PDF documents (like datasheets) using LLM',
-            disabledHelp: 'Configure the AI Web Extractor settings',
-            settingsClass: AIExtractorSettings::class,
+            name: 'AI File Extractor',
+            description: 'Extract part info from uploaded files (like PDF datasheets) using LLM',
+            disabledHelp: 'Configure AI settings',
+            settingsClass: AIFileExtractorSettings::class,
             capabilities: [
                 ProviderCapabilities::BASIC,
                 ProviderCapabilities::FOOTPRINT,
@@ -75,7 +76,7 @@ final class AIDocumentProvider implements InfoProviderInterface
 
     public function isActive(): bool
     {
-        return $this->extractor->isConfigured();
+        return $this->settings->isConfigured();
     }
 
     public function searchByKeyword(string $keyword, array $options = []): array
@@ -118,7 +119,7 @@ final class AIDocumentProvider implements InfoProviderInterface
 
     private function callLLM(UploadedDocument $document): array
     {
-        $text = u($document->text)->truncate($this->extractor->getMaxContentLength(), '... [truncated]')->toString();
+        $text = u($document->textContent)->truncate($this->settings->maxContentLength, '... [truncated]')->toString();
 
         $input = new MessageBag(
             Message::forSystem($this->buildSystemPrompt()),
@@ -129,7 +130,7 @@ final class AIDocumentProvider implements InfoProviderInterface
             $input->add(Message::ofUser("Additional context given by the user, which has priority over the rules above:\n\n".trim($document->context)));
         }
 
-        return $this->extractor->extract($input);
+        return $this->extractor->extract($input, $this->settings);
     }
 
     private function buildSystemPrompt(): string
@@ -152,6 +153,6 @@ Rules:
 
 PROMPT;
 
-        return $this->extractor->withConfiguredInstructions($tmp, 'document');
+        return $this->extractor->withConfiguredInstructions($tmp, 'document', $this->settings);
     }
 }

@@ -30,6 +30,7 @@ use App\Services\InfoProviderSystem\AIPartInfoExtractor;
 use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use App\Services\InfoProviderSystem\UploadedDocumentStorage;
 use App\Settings\InfoProviderSystem\AIExtractorSettings;
+use App\Settings\InfoProviderSystem\AIFileExtractorSettings;
 use Dompdf\Dompdf;
 use Jbtronics\SettingsBundle\Manager\SettingsManagerInterface;
 use PHPUnit\Framework\Attributes\Group;
@@ -48,7 +49,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[Group("slow")]
 #[Group("DB")]
-final class InfoProviderFromPdfTest extends WebTestCase
+final class InfoProviderFromFileTest extends WebTestCase
 {
     private KernelBrowser $client;
 
@@ -66,7 +67,7 @@ final class InfoProviderFromPdfTest extends WebTestCase
      */
     private function configureAI(array $answer): void
     {
-        $settings = static::getContainer()->get(AIExtractorSettings::class);
+        $settings = static::getContainer()->get(AIFileExtractorSettings::class);
         $settings->platform = AIPlatforms::OPENROUTER;
         $settings->model = 'a/model';
 
@@ -115,7 +116,7 @@ final class InfoProviderFromPdfTest extends WebTestCase
             }
         });
 
-        static::getContainer()->set(AIPartInfoExtractor::class, new AIPartInfoExtractor($settings,
+        static::getContainer()->set(AIPartInfoExtractor::class, new AIPartInfoExtractor(
             new AIPlatformRegistry($settingsManager, [AIPlatforms::OPENROUTER->toServiceTagName() => $platform]),
             new DTOJsonSchemaConverter()));
     }
@@ -132,30 +133,55 @@ final class InfoProviderFromPdfTest extends WebTestCase
         return new UploadedFile($path, 'datasheet.pdf', 'application/pdf', null, true);
     }
 
-    private function submitPdf(UploadedFile $file, ?string $context = null): void
+    private function submitFile(UploadedFile $file, ?string $context = null): void
     {
-        $crawler = $this->client->request('GET', '/en/tools/info_providers/from_pdf');
+        $crawler = $this->client->request('GET', '/en/tools/info_providers/from_file');
         self::assertResponseIsSuccessful();
 
-        $form = $crawler->filter('form[name="from_pdf_form"]')->form();
-        $form['from_pdf_form[file]']->upload($file->getPathname());
+        $form = $crawler->filter('form[name="from_file_form"]')->form();
+        $form['from_file_form[file]']->upload($file->getPathname());
         if ($context !== null) {
-            $form['from_pdf_form[context]'] = $context;
+            $form['from_file_form[context]'] = $context;
         }
         $this->client->submit($form);
     }
 
     public function testRedirectsIfAIIsNotConfigured(): void
     {
-        $this->client->request('GET', '/en/tools/info_providers/from_pdf');
+        $this->client->request('GET', '/en/tools/info_providers/from_file');
         self::assertResponseRedirects('/en/tools/info_providers/providers');
     }
 
-    public function testCreatePartFromPdf(): void
+    public function testWebExtractorSettingsDoNotEnableThePage(): void
+    {
+        //The file extractor has its own settings, configuring the web extractor must not be enough
+        $settings = static::getContainer()->get(AIExtractorSettings::class);
+        $settings->platform = AIPlatforms::OPENROUTER;
+        $settings->model = 'a/model';
+
+        $this->client->request('GET', '/en/tools/info_providers/from_file');
+        self::assertResponseRedirects('/en/tools/info_providers/providers');
+    }
+
+    public function testSettingsPagesRender(): void
+    {
+        //The settings of the provider page are the separate AI File Extractor settings
+        $crawler = $this->client->request('GET', '/en/tools/info_providers/provider/ai_document/settings');
+        self::assertResponseIsSuccessful();
+        self::assertSame(1, $crawler->filter('[data-platform-selector-label="ai_file_extractor"]')->count());
+
+        //Both AI extractors are part of the system settings, each with its own platform selector for its model field
+        $crawler = $this->client->request('GET', '/en/settings');
+        self::assertResponseIsSuccessful();
+        self::assertSame(1, $crawler->filter('[data-platform-selector-label="ai_extractor"]')->count());
+        self::assertSame(1, $crawler->filter('[data-platform-selector-label="ai_file_extractor"]')->count());
+    }
+
+    public function testCreatePartFromFile(): void
     {
         $this->configureAI(['name' => 'BC547', 'description' => 'NPN transistor', 'mpn' => 'BC547B']);
 
-        $this->submitPdf($this->createPdfUpload('<p>BC547 NPN Transistor</p>'));
+        $this->submitFile($this->createPdfUpload('<p>BC547 NPN Transistor</p>'));
 
         self::assertResponseRedirects();
         self::assertStringContainsString('/part/from_info_provider/ai_document/', $this->client->getResponse()->headers->get('Location'));
@@ -170,7 +196,7 @@ final class InfoProviderFromPdfTest extends WebTestCase
     {
         $this->configureAI(['name' => 'BC547C']);
 
-        $this->submitPdf($this->createPdfUpload('<p>BC547A BC547B BC547C</p>'), 'Use the variant BC547C');
+        $this->submitFile($this->createPdfUpload('<p>BC547A BC547B BC547C</p>'), 'Use the variant BC547C');
 
         self::assertResponseRedirects();
         //The provider ID is the token of the stored document, which has to carry the context
@@ -184,10 +210,10 @@ final class InfoProviderFromPdfTest extends WebTestCase
     {
         $this->configureAI(['name' => 'BC547']);
 
-        $this->submitPdf($this->createPdfUpload('<div style="width: 10px; height: 10px; background: black"></div>'));
+        $this->submitFile($this->createPdfUpload('<div style="width: 10px; height: 10px; background: black"></div>'));
 
-        self::assertResponseRedirects('/en/tools/info_providers/from_pdf');
+        self::assertResponseRedirects('/en/tools/info_providers/from_file');
         $this->client->followRedirect();
-        self::assertSelectorTextContains('body', 'No text could be extracted from the PDF document');
+        self::assertSelectorTextContains('body', 'No text could be extracted from the file');
     }
 }

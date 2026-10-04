@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Form\InfoProviderSystem;
 
+use App\Services\InfoProviderSystem\FileContentExtractor;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -33,31 +34,31 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotNull;
 
-class FromPdfFormType extends AbstractType
+class FromFileFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('file', FileType::class, [
-            'label' => 'info_providers.from_pdf.file.label',
-            'help' => 'info_providers.from_pdf.file.help',
+            'label' => 'info_providers.from_file.file.label',
+            'help' => 'info_providers.from_file.file.help',
             'required' => true,
             'attr' => [
-                'accept' => '.pdf,application/pdf',
+                'accept' => '.pdf,.md,.txt',
             ],
             'constraints' => [
                 new NotNull(),
-                new File(maxSize: '50M', mimeTypes: ['application/pdf', 'application/x-pdf']),
+                new File(maxSize: '50M', mimeTypes: FileContentExtractor::ALLOWED_MIME_TYPES),
             ],
         ]);
 
         $builder->add('context', TextareaType::class, [
-            'label' => 'info_providers.from_pdf.context.label',
-            'help' => 'info_providers.from_pdf.context.help',
+            'label' => 'info_providers.from_file.context.label',
+            'help' => 'info_providers.from_file.context.help',
             'required' => false,
             'empty_data' => null,
             'attr' => [
                 'rows' => 2,
-                'placeholder' => 'info_providers.from_pdf.context.placeholder',
+                'placeholder' => 'info_providers.from_file.context.placeholder',
             ],
             'constraints' => [
                 new Length(max: 2000),
@@ -70,7 +71,7 @@ class FromPdfFormType extends AbstractType
         ]);
 
         $builder->add('submit', SubmitType::class, [
-            'label' => 'info_providers.from_pdf.submit',
+            'label' => 'info_providers.from_file.submit',
         ]);
     }
 }

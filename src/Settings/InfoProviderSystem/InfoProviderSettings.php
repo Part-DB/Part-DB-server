@@ -46,6 +46,9 @@ class InfoProviderSettings
     public ?AIExtractorSettings $aiExtractor = null;
 
     #[EmbeddedSettings]
+    public ?AIFileExtractorSettings $aiFileExtractor = null;
+
+    #[EmbeddedSettings]
     public ?DigikeySettings $digikey = null;
 
     #[EmbeddedSettings]

@@ -41,7 +41,7 @@ final class UploadedDocumentStorageTest extends TestCase
         $retrieved = $storage->retrieve($token);
         self::assertNotNull($retrieved);
         self::assertSame('datasheet.pdf', $retrieved->filename);
-        self::assertSame('Some text', $retrieved->text);
+        self::assertSame('Some text', $retrieved->textContent);
     }
 
     public function testTokenDependsOnContent(): void

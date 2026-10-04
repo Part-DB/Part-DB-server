@@ -27,6 +27,7 @@ use App\Services\AI\AIPlatforms;
 use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use App\Services\InfoProviderSystem\AIPartInfoExtractor;
 use App\Settings\InfoProviderSystem\AIExtractorSettings;
+use App\Settings\InfoProviderSystem\AIFileExtractorSettings;
 use App\Tests\SettingsTestHelper;
 use Jbtronics\SettingsBundle\Manager\SettingsManagerInterface;
 use PHPUnit\Framework\TestCase;
@@ -110,6 +111,15 @@ final class AIPartInfoExtractorTest extends TestCase
         };
     }
 
+    private AIExtractorSettings $settings;
+
+    protected function setUp(): void
+    {
+        $this->settings = SettingsTestHelper::createSettingsDummy(AIExtractorSettings::class);
+        $this->settings->platform = AIPlatforms::OPENROUTER;
+        $this->settings->model = 'a/model';
+    }
+
     private function extractor(PlatformInterface $platform): AIPartInfoExtractor
     {
         //The registry is final, so it is built for real: one registered platform, reported as enabled
@@ -122,11 +132,7 @@ final class AIPartInfoExtractorTest extends TestCase
         });
         $registry = new AIPlatformRegistry($settingsManager, [AIPlatforms::OPENROUTER->toServiceTagName() => $platform]);
 
-        $settings = SettingsTestHelper::createSettingsDummy(AIExtractorSettings::class);
-        $settings->platform = AIPlatforms::OPENROUTER;
-        $settings->model = 'a/model';
-
-        return new AIPartInfoExtractor($settings, $registry, new DTOJsonSchemaConverter());
+        return new AIPartInfoExtractor($registry, new DTOJsonSchemaConverter());
     }
 
     private function input(): MessageBag
@@ -142,7 +148,7 @@ final class AIPartInfoExtractorTest extends TestCase
         $extractor = $this->extractor($this->platformFailingOnRead(new BadRequestException('Provider returned error')));
 
         try {
-            $extractor->extract($this->input());
+            $extractor->extract($this->input(), $this->settings);
             self::fail('Expected the provider error to be reported');
         } catch (\RuntimeException $e) {
             self::assertStringContainsString('LLM invocation failed', $e->getMessage());
@@ -162,11 +168,29 @@ final class AIPartInfoExtractorTest extends TestCase
         ));
 
         try {
-            $extractor->extract($this->input());
+            $extractor->extract($this->input(), $this->settings);
             self::fail('Expected the provider error to be reported');
         } catch (\RuntimeException $e) {
             self::assertStringContainsString('provider answered HTTP 400', $e->getMessage());
             self::assertStringContainsString('quota exceeded', $e->getMessage());
         }
+    }
+
+    public function testInstructionsAreTakenFromTheGivenSettings(): void
+    {
+        $extractor = $this->extractor($this->platformFailingOnRead(new \LogicException('Not invoked')));
+
+        $prompt = $extractor->withConfiguredInstructions('Base prompt', 'document', $this->settings);
+        self::assertStringStartsWith('Base prompt', $prompt);
+        self::assertStringContainsString('same language of the document', $prompt);
+
+        //Every provider has its own settings, so the instructions must come from the passed ones
+        $fileSettings = SettingsTestHelper::createSettingsDummy(AIFileExtractorSettings::class);
+        $fileSettings->outputLanguage = 'de';
+        $fileSettings->additionalInstructions = 'Use metric units';
+
+        $prompt = $extractor->withConfiguredInstructions('Base prompt', 'document', $fileSettings);
+        self::assertStringContainsString('The response must be in German language', $prompt);
+        self::assertStringContainsString("Additional instructions:\nUse metric units", $prompt);
     }
 }

@@ -15518,70 +15518,100 @@ Buerklin-API Authentication server:
         <target>Unknown</target>
       </segment>
     </unit>
-    <unit id="ceczhLi" name="info_providers.from_pdf.title">
+    <unit id="cEeEQ3Q" name="info_providers.from_file.title">
       <segment>
-        <source>info_providers.from_pdf.title</source>
-        <target>Create [part] from PDF (AI)</target>
+        <source>info_providers.from_file.title</source>
+        <target>Create [part] from file</target>
       </segment>
     </unit>
-    <unit id="FBTEKry" name="info_providers.from_pdf.help">
+    <unit id="r2wTioF" name="info_providers.from_file.help">
       <segment>
-        <source>info_providers.from_pdf.help</source>
-        <target>Creates a [part] from a PDF document, like a datasheet. The text of the document is extracted and passed to the AI model configured in the AI Web Extractor settings, which tries to extract the [part] information from it.</target>
+        <source>info_providers.from_file.help</source>
+        <target>Creates a [part] from a file, like a datasheet. The text of the file is extracted and passed to the AI model configured in the AI File Extractor settings, which tries to extract the [part] information from it.</target>
       </segment>
     </unit>
-    <unit id="JuWtmJt" name="info_providers.from_pdf.file.label">
+    <unit id="4.gsKDJ" name="info_providers.from_file.file.label">
       <segment>
-        <source>info_providers.from_pdf.file.label</source>
-        <target>PDF document</target>
+        <source>info_providers.from_file.file.label</source>
+        <target>File</target>
       </segment>
     </unit>
-    <unit id="IrhZSKG" name="info_providers.from_pdf.file.help">
+    <unit id="kTrv0Uj" name="info_providers.from_file.file.help">
       <segment>
-        <source>info_providers.from_pdf.file.help</source>
-        <target>Only the text of the document is used. Scanned documents without a text layer are not supported.</target>
+        <source>info_providers.from_file.file.help</source>
+        <target>Supported formats: PDF. Only the text of the file is used, scanned documents without a text layer are not supported.</target>
       </segment>
     </unit>
-    <unit id="Bxxola." name="info_providers.from_pdf.submit">
+    <unit id="qTuMUgu" name="info_providers.from_file.submit">
       <segment>
-        <source>info_providers.from_pdf.submit</source>
+        <source>info_providers.from_file.submit</source>
         <target>Extract [part] information</target>
       </segment>
     </unit>
-    <unit id="u7sipNi" name="info_providers.from_pdf.not_active">
+    <unit id="c5hpNDv" name="info_providers.from_file.not_active">
       <segment>
-        <source>info_providers.from_pdf.not_active</source>
-        <target>Creating [parts] from PDF documents requires an AI platform and model to be configured in the AI Web Extractor settings.</target>
+        <source>info_providers.from_file.not_active</source>
+        <target>Creating [parts] from files requires an AI platform and model to be configured in the AI File Extractor settings.</target>
       </segment>
     </unit>
-    <unit id="U46oO1d" name="info_providers.from_pdf.error.parse">
+    <unit id="hcTxnKp" name="info_providers.from_file.error.parse">
       <segment>
-        <source>info_providers.from_pdf.error.parse</source>
-        <target>The PDF document could not be read: %error%</target>
+        <source>info_providers.from_file.error.parse</source>
+        <target>The file could not be read: %error%</target>
       </segment>
     </unit>
-    <unit id="mYhw5Ac" name="info_providers.from_pdf.error.no_text">
+    <unit id="f7u8XIC" name="info_providers.from_file.error.no_text">
       <segment>
-        <source>info_providers.from_pdf.error.no_text</source>
-        <target>No text could be extracted from the PDF document. Scanned documents without a text layer are not supported.</target>
+        <source>info_providers.from_file.error.no_text</source>
+        <target>No text could be extracted from the file. Scanned documents without a text layer are not supported.</target>
       </segment>
     </unit>
-    <unit id="zAfzj9r" name="info_providers.from_pdf.context.label">
+    <unit id="ciiN9Tw" name="info_providers.from_file.context.label">
       <segment>
-        <source>info_providers.from_pdf.context.label</source>
+        <source>info_providers.from_file.context.label</source>
         <target>Additional context</target>
       </segment>
     </unit>
-    <unit id="JqfPYaq" name="info_providers.from_pdf.context.help">
+    <unit id="E.2coVK" name="info_providers.from_file.context.help">
       <segment>
-        <source>info_providers.from_pdf.context.help</source>
-        <target>Optional hints for the AI, for example the exact part number to use if the document covers multiple variants.</target>
+        <source>info_providers.from_file.context.help</source>
+        <target>Optional hints for the AI, for example the exact part number to use if the file covers multiple variants.</target>
       </segment>
     </unit>
-    <unit id="ng1AOsU" name="info_providers.from_pdf.context.placeholder">
+    <unit id="9IaRRF7" name="info_providers.from_file.context.placeholder">
       <segment>
-        <source>info_providers.from_pdf.context.placeholder</source>
+        <source>info_providers.from_file.context.placeholder</source>
         <target>e.g. Use the variant BC547B in the TO-92 package</target>
+      </segment>
+    </unit>
+    <unit id="s4q5LjE" name="settings.ips.ai_file_extractor">
+      <segment>
+        <source>settings.ips.ai_file_extractor</source>
+        <target>AI File Extractor</target>
+      </segment>
+    </unit>
+    <unit id="F7kmvAw" name="settings.ips.ai_file_extractor.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.description</source>
+        <target>This info provider uses a large language model (LLM) to extract detailed [part] information from uploaded files, like PDF datasheets. It is used by the "Create [part] from file" page.</target>
+      </segment>
+    </unit>
+    <unit id="tFv6kbn" name="settings.ips.ai_file_extractor.max_content_length">
+      <segment>
+        <source>settings.ips.ai_file_extractor.max_content_length</source>
+        <target>Max. file content length</target>
+      </segment>
+    </unit>
+    <unit id="UyAVUxo" name="settings.ips.ai_file_extractor.max_content_length.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.max_content_length.description</source>
+        <target>The maximum number of characters of the file content that are sent to the AI service. Longer files are truncated.</target>
+      </segment>
+    </unit>
+    <unit id="KP.Tx.7" name="settings.ips.ai_file_extractor.output_language.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.output_language.description</source>
+        <target>By default, the provider returns information in the same language as the file. With that option you can ask the AI to translate it for you. Might only work with certain models.</target>
       </segment>
     </unit>
   </file>

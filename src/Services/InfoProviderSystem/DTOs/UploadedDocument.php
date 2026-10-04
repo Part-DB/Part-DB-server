@@ -36,12 +36,12 @@ final readonly class UploadedDocument
 
     public function __construct(
         public string $filename,
-        public string $text,
+        public string $textContent,
         /** @var string|null Additional context given by the user, like the exact part number to extract from a datasheet covering multiple parts */
         public ?string $context = null,
         public \DateTimeImmutable $uploadedAt = new \DateTimeImmutable(),
     ) {
         //The context is part of the token, as the same document with a different context leads to a different result
-        $this->token = hash('xxh3', $filename . '|' . $text . '|' . ($context ?? ''));
+        $this->token = hash('xxh3', $filename . '|' . $textContent . '|' . ($context ?? ''));
     }
 }
