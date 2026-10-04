@@ -149,7 +149,7 @@ Rules:
 - URLs: Only include URLs that literally appear in the document, never make up URLs. If there are none, leave images and datasheets empty.
 - If information is not found, use an empty string for texts and null for numbers
 - Try to avoid duplicating parameters, if the same parameter is mentioned multiple times, or if it is already used in another field.
-- Include a short summary of the features and applications into the notes field.
+- Include a short summary of the features and applications into the notes field. The notes field can be formatted with Markdown (e.g. lists, tables, bold text).
 
 PROMPT;
 

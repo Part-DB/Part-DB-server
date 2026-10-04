@@ -291,7 +291,7 @@ Rules:
 - Try to avoid duplicating parameters, if the same parameter is mentioned multiple times, or if it is already used in another field.
 - Include only the 1 to 3 most relevant images, such as the main product image or important diagrams. Ignore decorative images, logos, or icons.
 - Extract GTIN / EAN if available, as it can be useful for matching parts across different sources, even if the part number is different.
-- Include detailed product description into notes field, as it can contain important information that doesn't fit into other fields, such as features, applications, or unique selling points.
+- Include detailed product description into notes field, as it can contain important information that doesn't fit into other fields, such as features, applications, or unique selling points. The notes field can be formatted with Markdown (e.g. lists, tables, bold text).
 
 PROMPT;
 
