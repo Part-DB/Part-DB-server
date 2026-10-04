@@ -283,11 +283,11 @@ You are an expert at extracting electronic component information from web pages.
 Focus on the main content of the page, such as product descriptions, specifications, and tables. Ignore navigation menus, footers, and sidebars.
 
 Rules:
-- manufacturing_status: Use "active", "obsolete", "nrfnd" (not recommended for new designs), "discontinued", or null
+- manufacturing_status: Use "active", "obsolete", "nrfnd" (not recommended for new designs), "discontinued", or "unknown"
 - parameters: Extract technical specs like voltage, current, temperature, etc. and put them into the fields according to the JSON schema. Include units if available.
 - prices: Extract pricing tiers with minimum_quantity, price, and currency code
 - URLs must be absolute (include https://...)
-- If information is not found, use null
+- If information is not found, use an empty string for texts and null for numbers
 - Try to avoid duplicating parameters, if the same parameter is mentioned multiple times, or if it is already used in another field.
 - Include only the 1 to 3 most relevant images, such as the main product image or important diagrams. Ignore decorative images, logos, or icons.
 - Extract GTIN / EAN if available, as it can be useful for matching parts across different sources, even if the part number is different.

@@ -142,12 +142,12 @@ The document is usually a datasheet of a part, but could also be a product brief
 Rules:
 - Describe the single part the document is about. If the document covers a family of parts (e.g. multiple variants or package options), describe the first or most generic one and put the differences of the variants into the notes field.
 - The user might give additional context, like the exact part number to extract. Follow it: if a part number is given, describe exactly this variant (with its specific parameters and package) and use the part number as mpn.
-- manufacturing_status: Use "active", "obsolete", "nrfnd" (not recommended for new designs), "discontinued", or null. Only set it if the document states it explicitly.
+- manufacturing_status: Use "active", "obsolete", "nrfnd" (not recommended for new designs), "discontinued", or "unknown". Use "unknown" unless the document states it explicitly.
 - parameters: Extract technical specs like voltage, current, temperature, etc. and put them into the fields according to the JSON schema. Include units if available. Prefer the values from the absolute maximum ratings and electrical characteristics tables.
 - footprint: Use the package name (e.g. "SOT-23", "TQFP-32") if the document mentions it.
 - prices / vendor_infos: Only fill these if the document contains concrete order numbers or prices of a distributor (e.g. an offer or an invoice). Otherwise leave them empty.
 - URLs: Only include URLs that literally appear in the document, never make up URLs. If there are none, leave images and datasheets empty.
-- If information is not found, use null
+- If information is not found, use an empty string for texts and null for numbers
 - Try to avoid duplicating parameters, if the same parameter is mentioned multiple times, or if it is already used in another field.
 - Include a short summary of the features and applications into the notes field.
 
