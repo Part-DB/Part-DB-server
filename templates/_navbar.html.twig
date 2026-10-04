@@ -5,6 +5,13 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary border-bottom shadow-sm fixed-top py-0" id="navbar">
     <div class="container-fluid">
         <div class="d-flex justify-content-start align-items-center">
+            {# On screens which show the sidebar permanently, it can be slid away with this button #}
+            <button class="btn btn-sm d-none d-md-inline-flex" type="button" id="sidebar-toggle-button"
+                    title="{% trans %}sidebar.big.toggle{% endtrans %} ([)" aria-label="{% trans %}sidebar.big.toggle{% endtrans %}"
+                    aria-controls="fixed-sidebar" aria-expanded="true"
+                {{ stimulus_controller('common/hide_sidebar') }} {{ stimulus_action('common/hide_sidebar', 'toggleSidebar') }}>
+                <i class="fas fa-table-columns fa-fw" aria-hidden="true"></i>
+            </button>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#sidebar-container">
                 <span class="visually-hidden">{% trans %}sidebar.toggle{% endtrans %}</span>
                 <!-- <span class="navbar-toggler-icon"></span> -->

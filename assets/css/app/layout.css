@@ -130,29 +130,22 @@ body {
 /*
 The sidebar can be slid out of view on devices which show it permanently (md or higher). The state is a class on the
 <html> element, so it can be applied before the first paint and survives Turbo navigations.
-The toggle button sits on the right edge of the sidebar and moves with it, so it is always reachable.
+The toggle button is part of the navbar, so it does not cover any content and stays reachable in both states.
  */
 #sidebar-toggle-button {
-    position: fixed;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1020;
-    /* A tab on the edge of the sidebar: big enough to be seen and hit, rounded on the side facing the content */
-    width: 18px;
-    height: 64px;
-    border-left: 0;
-    border-radius: 0 var(--bs-border-radius) var(--bs-border-radius) 0;
-    color: var(--bs-body-color);
-    background-color: var(--bs-secondary-bg);
-    opacity: 0.85;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    margin-right: 0.5rem;
+    border: 0;
+    color: var(--bs-navbar-color);
 }
 
 #sidebar-toggle-button:hover, #sidebar-toggle-button:focus-visible {
-    opacity: 1;
-    color: #fff;
-    background-color: var(--bs-primary);
-    border-color: var(--bs-primary);
+    color: var(--bs-navbar-hover-color);
+    background-color: var(--bs-secondary-bg);
 }
 
 @media (min-width: 768px) {
@@ -162,16 +155,6 @@ The toggle button sits on the right edge of the sidebar and moves with it, so it
 
     #main {
         transition: margin-left 0.3s ease, width 0.3s ease;
-    }
-
-    #sidebar-toggle-button {
-        /* Width of the sidebar (.col-md-3) */
-        left: 25%;
-        transition: left 0.3s ease;
-    }
-
-    #sidebar-toggle-button > i {
-        transition: transform 0.3s ease;
     }
 
     .sidebar-hidden .fixed-sidebar {
@@ -185,32 +168,11 @@ The toggle button sits on the right edge of the sidebar and moves with it, so it
         margin-left: 0;
         width: 100%;
     }
-
-    .sidebar-hidden #sidebar-toggle-button {
-        left: 0;
-    }
-
-    .sidebar-hidden #sidebar-toggle-button > i {
-        transform: rotate(180deg);
-    }
-}
-
-@media (min-width: 992px) {
-    #sidebar-toggle-button {
-        /* Width of the sidebar (.col-lg-2) */
-        left: 16.66666667%;
-    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .fixed-sidebar, #main, #sidebar-toggle-button, #sidebar-toggle-button > i {
+    .fixed-sidebar, #main {
         transition: none !important;
-    }
-}
-
-@media (max-width: 576px) {
-    #sidebar-toggle-button {
-        display: none;
     }
 }
 
