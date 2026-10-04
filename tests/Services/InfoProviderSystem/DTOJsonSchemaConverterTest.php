@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\InfoProviderSystem;
 
+use App\Entity\Parts\ManufacturingStatus;
 use App\Services\InfoProviderSystem\DTOJsonSchemaConverter;
 use PHPUnit\Framework\TestCase;
 
@@ -78,13 +79,134 @@ final class DTOJsonSchemaConverterTest extends TestCase
         }
     }
 
-    public function testOptionalValuesStayExpressibleAsNull(): void
+    public function testOptionalValuesStayExpressible(): void
     {
-        //Making everything required is only acceptable because an optional value says so through its type
+        //Making everything required is only acceptable because an optional value can still be left out: texts as
+        //an empty string, numbers through a nullable type (0 is a real value, so it can not be used for that)
         $schema = (new DTOJsonSchemaConverter())->getJSONSchema();
         $properties = $schema['schema']['properties'];
 
-        self::assertContains('null', (array) $properties['manufacturer']['type']);
-        self::assertContains('null', (array) $properties['mpn']['type']);
+        self::assertSame('string', $properties['manufacturer']['type']);
+        self::assertSame('string', $properties['mpn']['type']);
+        self::assertContains('null', (array) $properties['mass']['type']);
+        self::assertContains('null', (array) $properties['parameters']['items']['properties']['value_typical']['type']);
+    }
+
+    /**
+     * Collects every property of the schema, which allows more than one type (a type array or anyOf).
+     * @return string[] The paths of these properties
+     */
+    private function unionsOf(array $schema, string $path = '$'): array
+    {
+        $unions = (is_array($schema['type'] ?? null) || isset($schema['anyOf'])) ? [$path] : [];
+
+        foreach ($schema['properties'] ?? [] as $name => $property) {
+            $unions = [...$unions, ...$this->unionsOf($property, $path.'.'.$name)];
+        }
+        if (isset($schema['items'])) {
+            $unions = [...$unions, ...$this->unionsOf($schema['items'], $path.'[]')];
+        }
+
+        return $unions;
+    }
+
+    public function testTheNumberOfUnionTypesStaysBelowTheLimitOfAnthropic(): void
+    {
+        //Anthropic rejects a schema with more than 16 union typed properties ("Schemas contains too many parameters
+        //with union types"), which makes the whole extraction fail with every Claude model. Texts are therefore
+        //not nullable, only numbers and booleans are.
+        $unions = $this->unionsOf((new DTOJsonSchemaConverter())->getJSONSchema()['schema']);
+
+        self::assertLessThanOrEqual(16, count($unions), 'Union typed properties: '.implode(', ', $unions));
+    }
+
+    public function testEmptyTextsBecomeNull(): void
+    {
+        $dto = (new DTOJsonSchemaConverter())->jsonToDTO([
+            'name' => 'BC547', 'description' => 'NPN transistor',
+            'manufacturer' => '', 'mpn' => '  ', 'category' => '', 'footprint' => '', 'gtin' => '', 'notes' => '',
+            'manufacturer_product_url' => '',
+            'parameters' => [['name' => 'hFE', 'value_typical' => 200, 'value_min' => null, 'value_max' => null,
+                'value_text' => '', 'symbol' => '', 'group' => '', 'unit' => '']],
+            'vendor_infos' => [['distributor_name' => 'Shop', 'order_number' => '', 'product_url' => '',
+                'prices_include_vat' => null, 'prices' => []]],
+        ], 'test', 'id', 'https://example.com/part');
+
+        //An empty text means "not known", otherwise a manufacturer or footprint without a name would be created
+        self::assertNull($dto->manufacturer);
+        self::assertNull($dto->mpn);
+        self::assertNull($dto->category);
+        self::assertNull($dto->footprint);
+        self::assertNull($dto->gtin);
+        self::assertNull($dto->notes);
+        self::assertNull($dto->manufacturer_product_url);
+
+        $parameter = $dto->parameters[0];
+        self::assertSame(200.0, $parameter->value_typ);
+        self::assertNull($parameter->value_text);
+        self::assertNull($parameter->symbol);
+        self::assertNull($parameter->group);
+        self::assertNull($parameter->unit);
+
+        //Here the empty texts fall back to the same values as missing ones
+        self::assertSame('Unknown', $dto->vendor_infos[0]->order_number);
+        self::assertSame('https://example.com/part', $dto->vendor_infos[0]->product_url);
+    }
+
+    public function testFilledTextsAreKept(): void
+    {
+        $dto = (new DTOJsonSchemaConverter())->jsonToDTO([
+            'name' => 'BC547', 'description' => '', 'manufacturer' => 'Example Semi', 'footprint' => 'TO-92',
+            'parameters' => [['name' => 'I_C', 'value_typical' => 0.1, 'unit' => 'A', 'value_text' => '']],
+        ], 'test', 'id');
+
+        self::assertSame('Example Semi', $dto->manufacturer);
+        self::assertSame('TO-92', $dto->footprint);
+        self::assertSame('A', $dto->parameters[0]->unit);
+    }
+
+    /**
+     * Collects every node of the schema, which restricts its values with an enum.
+     * @return array<string, array> The nodes, indexed by their path in the schema
+     */
+    private function enumsOf(array $schema, string $path = '$'): array
+    {
+        $enums = isset($schema['enum']) ? [$path => $schema] : [];
+
+        foreach ($schema['properties'] ?? [] as $name => $property) {
+            $enums += $this->enumsOf($property, $path.'.'.$name);
+        }
+        if (isset($schema['items'])) {
+            $enums += $this->enumsOf($schema['items'], $path.'[]');
+        }
+
+        return $enums;
+    }
+
+    public function testEnumsHaveASingleType(): void
+    {
+        //Anthropic rejects an enum on a nullable type (["string", "null"]) with "Enum value 'active' does not match
+        //declared type", which makes the whole extraction fail with every Claude model
+        $enums = $this->enumsOf((new DTOJsonSchemaConverter())->getJSONSchema()['schema']);
+        self::assertNotEmpty($enums, 'The schema is expected to contain enums');
+
+        foreach ($enums as $path => $node) {
+            self::assertIsString($node['type'] ?? null, sprintf('%s has to declare exactly one type', $path));
+            foreach ($node['enum'] as $value) {
+                self::assertSame($node['type'], get_debug_type($value),
+                    sprintf('The enum value %s of %s has to match the declared type', var_export($value, true), $path));
+            }
+        }
+    }
+
+    public function testUnknownManufacturingStatusBecomesNull(): void
+    {
+        $converter = new DTOJsonSchemaConverter();
+
+        $dto = $converter->jsonToDTO(['name' => 'BC547', 'description' => '', 'manufacturing_status' => 'unknown'], 'test', 'id');
+        self::assertNull($dto->manufacturing_status);
+
+        $dto = $converter->jsonToDTO(['name' => 'BC547', 'description' => '', 'manufacturing_status' => 'nrfnd'], 'test', 'id');
+        self::assertSame(ManufacturingStatus::NRFND, $dto->manufacturing_status);
     }
 }
