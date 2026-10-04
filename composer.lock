@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "088a578d0c90d262ad240f9693e51046",
+    "content-hash": "35096298c708a98262444eb1499244f4",
     "packages": [
         {
             "name": "amphp/amp",
@@ -5315,29 +5315,30 @@
         },
         {
             "name": "jbtronics/settings-bundle",
-            "version": "v4.0.0",
+            "version": "v5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/settings-bundle.git",
-                "reference": "7f584279f8db8b58c313488c40b6d440e66ebb5d"
+                "reference": "a12d912ecbf034be3c58581abb3ca6719c3d5f00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/settings-bundle/zipball/7f584279f8db8b58c313488c40b6d440e66ebb5d",
-                "reference": "7f584279f8db8b58c313488c40b6d440e66ebb5d",
+                "url": "https://api.github.com/repos/jbtronics/settings-bundle/zipball/a12d912ecbf034be3c58581abb3ca6719c3d5f00",
+                "reference": "a12d912ecbf034be3c58581abb3ca6719c3d5f00",
                 "shasum": ""
             },
             "require": {
                 "ergebnis/classy": "^1.6|^2.0|^3.0",
                 "ext-json": "*",
-                "php": "^8.1",
+                "php": "^8.2",
                 "symfony/deprecation-contracts": "^3.4",
-                "symfony/form": "^6.4|^7.0|^8.0",
-                "symfony/framework-bundle": "^6.4|^7.0|^8.0",
-                "symfony/translation": "^7.0|^6.4|^8.0",
+                "symfony/form": "^7.4|^8.0",
+                "symfony/framework-bundle": "^7.4|^8.0",
+                "symfony/translation": "^7.4|^8.0",
                 "symfony/translation-contracts": "^2.5|^3.0",
-                "symfony/validator": "^6.4|^7.0|^8.0",
-                "symfony/var-exporter": "^6.4|^7.0|^8.0"
+                "symfony/type-info": "^7.4|^8.0",
+                "symfony/validator": "^7.4|^8.0",
+                "symfony/var-exporter": "^7.4|^8.0"
             },
             "require-dev": {
                 "doctrine/doctrine-bundle": "^2.11",
@@ -5350,11 +5351,11 @@
                 "phpstan/phpstan-symfony": "^2.0",
                 "phpunit/phpunit": "^9.5",
                 "roave/security-advisories": "dev-latest",
-                "symfony/console": "^6.4|^7.0|^8.0",
-                "symfony/phpunit-bridge": "^6.4|^7.0|^8.0",
-                "symfony/security-csrf": "^7.0|^6.4|^8.0",
-                "symfony/twig-bridge": "^6.4|^7.0|^8.0",
-                "symfony/yaml": "^6.4|^7.0|^8.0"
+                "symfony/console": "^7.4|^8.0",
+                "symfony/phpunit-bridge": "^7.4|^8.0",
+                "symfony/security-csrf": "^7.4|^8.0",
+                "symfony/twig-bridge": "^7.4|^8.0",
+                "symfony/yaml": "^7.4|^8.0"
             },
             "suggest": {
                 "doctrine/doctrine-bundle": "To use the doctrine ORM storage",
@@ -5397,7 +5398,7 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/settings-bundle/issues",
-                "source": "https://github.com/jbtronics/settings-bundle/tree/v4.0.0"
+                "source": "https://github.com/jbtronics/settings-bundle/tree/v5.0.0"
             },
             "funding": [
                 {
@@ -5409,7 +5410,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-03T16:24:43+00:00"
+            "time": "2026-10-03T22:53:41+00:00"
         },
         {
             "name": "jfcherng/php-color-output",
