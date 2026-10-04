@@ -13982,60 +13982,6 @@ Buerklin-API Authentication server:
         <target>When selected, more details will be fetched from canopy when creating a part. This causes an additional API request, but gives product bullet points and category info.</target>
       </segment>
     </unit>
-    <unit id="cFv0nV1" name="settings.ips.canopy.fetchOnView">
-      <segment state="translated">
-        <source>settings.ips.canopy.fetchOnView</source>
-        <target>Fetch data when a part is viewed</target>
-      </segment>
-    </unit>
-    <unit id="cFv0nV2" name="settings.ips.canopy.fetchOnView.help">
-      <segment state="translated">
-        <source>settings.ips.canopy.fetchOnView.help</source>
-        <target>When selected, an Amazon part without info provider data is filled with data from Canopy the first time its info page is opened. This way only the parts somebody actually looks at cause (billed) API requests. Only missing data is added, existing data of the part is never changed. Everybody who can view a part triggers this.</target>
-      </segment>
-    </unit>
-    <unit id="cFv0nV3" name="settings.ips.canopy.fetchOnViewDailyLimit">
-      <segment state="translated">
-        <source>settings.ips.canopy.fetchOnViewDailyLimit</source>
-        <target>Max. requests per day when viewing parts</target>
-      </segment>
-    </unit>
-    <unit id="cFv0nV4" name="settings.ips.canopy.fetchOnViewDailyLimit.help">
-      <segment state="translated">
-        <source>settings.ips.canopy.fetchOnViewDailyLimit.help</source>
-        <target>The maximum number of Canopy requests which viewing parts may cause within 24 hours. Use 0 for no limit.</target>
-      </segment>
-    </unit>
-    <unit id="pFv0nV5" name="part.info.provider_fetch.loading">
-      <segment state="translated">
-        <source>part.info.provider_fetch.loading</source>
-        <target>Fetching product data from %provider%…</target>
-      </segment>
-    </unit>
-    <unit id="pFv0nV6" name="part.info.provider_fetch.updated">
-      <segment state="translated">
-        <source>part.info.provider_fetch.updated</source>
-        <target>Product data received. Loading the updated part…</target>
-      </segment>
-    </unit>
-    <unit id="pFv0nV7" name="part.info.provider_fetch.limit">
-      <segment state="translated">
-        <source>part.info.provider_fetch.limit</source>
-        <target>Product data was not fetched from %provider%, because the daily request limit is reached.</target>
-      </segment>
-    </unit>
-    <unit id="pFv0nV8" name="part.info.provider_fetch.error">
-      <segment state="translated">
-        <source>part.info.provider_fetch.error</source>
-        <target>Product data could not be fetched from %provider%.</target>
-      </segment>
-    </unit>
-    <unit id="pFv0nV9" name="part.info.provider_fetch.flash.updated">
-      <segment state="translated">
-        <source>part.info.provider_fetch.flash.updated</source>
-        <target>This part was filled with product data from %provider%.</target>
-      </segment>
-    </unit>
     <unit id="KyC_YsX" name="settings.ips.trustedparts">
       <segment state="translated">
         <source>settings.ips.trustedparts</source>
@@ -15392,30 +15338,6 @@ Buerklin-API Authentication server:
         <target>How long a single request may be delayed by the limits above before it fails instead, in seconds. Bulk operations simply wait; this keeps a request started from the user interface from hanging.</target>
       </segment>
     </unit>
-    <unit id="pFv0nV1" name="settings.ips.fetch_on_view_providers">
-      <segment state="translated">
-        <source>settings.ips.fetch_on_view_providers</source>
-        <target>Fetch data when a part is viewed</target>
-      </segment>
-    </unit>
-    <unit id="pFv0nV2" name="settings.ips.fetch_on_view_providers.help">
-      <segment state="translated">
-        <source>settings.ips.fetch_on_view_providers.help</source>
-        <target>A part without info provider data is filled with data from the providers selected here, the first time its info page is opened. A part is recognized by an orderdetail which either links to a product page of the provider, or whose supplier is named like the provider and has a supplier part number the provider knows exactly. Only missing data is added, existing data of the part is never changed. Everybody who can view a part triggers this. Leave empty to never contact a provider when viewing a part.</target>
-      </segment>
-    </unit>
-    <unit id="pFv0nV3" name="settings.ips.fetch_on_view_daily_limit">
-      <segment state="translated">
-        <source>settings.ips.fetch_on_view_daily_limit</source>
-        <target>Max. lookups per day when viewing parts</target>
-      </segment>
-    </unit>
-    <unit id="pFv0nV4" name="settings.ips.fetch_on_view_daily_limit.help">
-      <segment state="translated">
-        <source>settings.ips.fetch_on_view_daily_limit.help</source>
-        <target>The maximum number of parts which viewing them may look up at each of the providers above within 24 hours. Use 0 for no limit. The Canopy provider has its own limit in its settings.</target>
-      </segment>
-    </unit>
     <unit id="4cBWYO6" name="part.refresh_from_info_provider.btn">
       <segment state="translated">
         <source>part.refresh_from_info_provider.btn</source>
@@ -15594,6 +15516,252 @@ Buerklin-API Authentication server:
       <segment state="translated">
         <source>perm.group.unknown</source>
         <target>Unknown</target>
+      </segment>
+    </unit>
+    <unit id="cEeEQ3Q" name="info_providers.from_file.title">
+      <segment>
+        <source>info_providers.from_file.title</source>
+        <target>Create [part] from file</target>
+      </segment>
+    </unit>
+    <unit id="r2wTioF" name="info_providers.from_file.help">
+      <segment>
+        <source>info_providers.from_file.help</source>
+        <target>Creates a [part] from a file, like a datasheet. The file is passed to the AI model configured in the AI File Extractor settings, which tries to extract the [part] information from it.</target>
+      </segment>
+    </unit>
+    <unit id="4.gsKDJ" name="info_providers.from_file.file.label">
+      <segment>
+        <source>info_providers.from_file.file.label</source>
+        <target>File</target>
+      </segment>
+    </unit>
+    <unit id="kTrv0Uj" name="info_providers.from_file.file.help">
+      <segment>
+        <source>info_providers.from_file.file.help</source>
+        <target>Supported formats: PDF, text and Markdown files. Only the text of the file is used, scanned documents without a text layer are not supported. To use images and scanned documents, sending files to the model has to be allowed in the AI File Extractor settings.</target>
+      </segment>
+    </unit>
+    <unit id="qTuMUgu" name="info_providers.from_file.submit">
+      <segment>
+        <source>info_providers.from_file.submit</source>
+        <target>Extract [part] information</target>
+      </segment>
+    </unit>
+    <unit id="c5hpNDv" name="info_providers.from_file.not_active">
+      <segment>
+        <source>info_providers.from_file.not_active</source>
+        <target>Creating [parts] from files requires an AI platform and model to be configured in the AI File Extractor settings.</target>
+      </segment>
+    </unit>
+    <unit id="hcTxnKp" name="info_providers.from_file.error.parse">
+      <segment>
+        <source>info_providers.from_file.error.parse</source>
+        <target>The file could not be read: %error%</target>
+      </segment>
+    </unit>
+    <unit id="f7u8XIC" name="info_providers.from_file.error.no_text">
+      <segment>
+        <source>info_providers.from_file.error.no_text</source>
+        <target>No text could be extracted from the file. Scanned documents without a text layer can only be used, if the file is sent to the AI model: choose the input mode "Auto" or "Send file to model" (sending files must be allowed in the AI File Extractor settings).</target>
+      </segment>
+    </unit>
+    <unit id="ciiN9Tw" name="info_providers.from_file.context.label">
+      <segment>
+        <source>info_providers.from_file.context.label</source>
+        <target>Additional context</target>
+      </segment>
+    </unit>
+    <unit id="E.2coVK" name="info_providers.from_file.context.help">
+      <segment>
+        <source>info_providers.from_file.context.help</source>
+        <target>Optional hints for the AI, for example the exact part number to use if the file covers multiple variants.</target>
+      </segment>
+    </unit>
+    <unit id="9IaRRF7" name="info_providers.from_file.context.placeholder">
+      <segment>
+        <source>info_providers.from_file.context.placeholder</source>
+        <target>e.g. Use the variant BC547B in the TO-92 package</target>
+      </segment>
+    </unit>
+    <unit id="s4q5LjE" name="settings.ips.ai_file_extractor">
+      <segment>
+        <source>settings.ips.ai_file_extractor</source>
+        <target>AI File Extractor</target>
+      </segment>
+    </unit>
+    <unit id="F7kmvAw" name="settings.ips.ai_file_extractor.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.description</source>
+        <target>This info provider uses a large language model (LLM) to extract detailed [part] information from uploaded files, like PDF datasheets. It is used by the "Create [part] from file" page.</target>
+      </segment>
+    </unit>
+    <unit id="tFv6kbn" name="settings.ips.ai_file_extractor.max_content_length">
+      <segment>
+        <source>settings.ips.ai_file_extractor.max_content_length</source>
+        <target>Max. file content length</target>
+      </segment>
+    </unit>
+    <unit id="UyAVUxo" name="settings.ips.ai_file_extractor.max_content_length.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.max_content_length.description</source>
+        <target>The maximum number of characters of the file content that are sent to the AI service. Longer files are truncated.</target>
+      </segment>
+    </unit>
+    <unit id="KP.Tx.7" name="settings.ips.ai_file_extractor.output_language.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.output_language.description</source>
+        <target>By default, the provider returns information in the same language as the file. With that option you can ask the AI to translate it for you. Might only work with certain models.</target>
+      </segment>
+    </unit>
+    <unit id="ZYkBycB" name="attachment.uploaded_document.pending">
+      <segment>
+        <source>attachment.uploaded_document.pending</source>
+        <target>This file will be attached when the [part] is saved.</target>
+      </segment>
+    </unit>
+    <unit id="P4DIw6c" name="info_providers.from_file.not_attached">
+      <segment>
+        <source>info_providers.from_file.not_attached</source>
+        <target>The uploaded file could not be added as attachment, because it is not available anymore or bigger than the maximum attachment size.</target>
+      </segment>
+    </unit>
+    <unit id="GfgpJXr" name="info_providers.from_file.file.help.with_images">
+      <segment>
+        <source>info_providers.from_file.file.help.with_images</source>
+        <target>Supported formats: PDF, images (PNG, JPEG, WebP, GIF), text and Markdown files. Images and documents without text (like scans) are sent to the AI model directly, which must support these file types.</target>
+      </segment>
+    </unit>
+    <unit id="PsBqA_v" name="settings.ips.ai_file_extractor.allow_file_input">
+      <segment>
+        <source>settings.ips.ai_file_extractor.allow_file_input</source>
+        <target>Allow sending files to the model</target>
+      </segment>
+    </unit>
+    <unit id="uFcvgN8" name="settings.ips.ai_file_extractor.allow_file_input.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.allow_file_input.description</source>
+        <target>If enabled, users can choose for every upload to send the file itself (images and PDF files) to the AI model, instead of only its extracted text. This allows using images and scanned documents, and lets the model see the layout, tables and diagrams, but requires a model supporting images and PDF files (and a platform supporting it: Ollama can only process images, not PDF files). It also uses more tokens, resulting in a higher cost per request. If disabled, only the extracted text is used.</target>
+      </segment>
+    </unit>
+    <unit id="XS0813H" name="info_providers.from_file.input_mode.auto">
+      <segment>
+        <source>info_providers.from_file.input_mode.auto</source>
+        <target>Auto (extract text, send images and scanned documents to the model)</target>
+      </segment>
+    </unit>
+    <unit id="3iTQsXk" name="info_providers.from_file.input_mode.text">
+      <segment>
+        <source>info_providers.from_file.input_mode.text</source>
+        <target>Extract text only</target>
+      </segment>
+    </unit>
+    <unit id="ledeTyC" name="info_providers.from_file.input_mode.file">
+      <segment>
+        <source>info_providers.from_file.input_mode.file</source>
+        <target>Send file to model (PDF files and images)</target>
+      </segment>
+    </unit>
+    <unit id="i97R6_4" name="info_providers.from_file.input_mode.label">
+      <segment>
+        <source>info_providers.from_file.input_mode.label</source>
+        <target>Input mode</target>
+      </segment>
+    </unit>
+    <unit id="SONaFZG" name="info_providers.from_file.input_mode.help">
+      <segment>
+        <source>info_providers.from_file.input_mode.help</source>
+        <target>How the file is passed to the AI model. "Extract text only" works with every model. Sending the file itself requires a model supporting images and PDF files, but lets it read scanned documents and see the layout, tables and diagrams. Sending full files is more expensive than just sending text!</target>
+      </segment>
+    </unit>
+    <unit id="2pXOLo4" name="info_providers.from_file.error.image_in_text_mode">
+      <segment>
+        <source>info_providers.from_file.error.image_in_text_mode</source>
+        <target>Images contain no text to extract. Choose the input mode "Auto" or "Send file to model" to send the image to the AI model.</target>
+      </segment>
+    </unit>
+    <unit id="S6JX3.E" name="info_providers.capabilities.stock_level">
+      <segment>
+        <source>info_providers.capabilities.stock_level</source>
+        <target>Available stock</target>
+      </segment>
+    </unit>
+    <unit id="cFv0nV1" name="settings.ips.canopy.fetchOnView">
+      <segment state="translated">
+        <source>settings.ips.canopy.fetchOnView</source>
+        <target>Fetch data when a part is viewed</target>
+      </segment>
+    </unit>
+    <unit id="cFv0nV2" name="settings.ips.canopy.fetchOnView.help">
+      <segment state="translated">
+        <source>settings.ips.canopy.fetchOnView.help</source>
+        <target>When selected, an Amazon part without info provider data is filled with data from Canopy the first time its info page is opened. This way only the parts somebody actually looks at cause (billed) API requests. Only missing data is added, existing data of the part is never changed. Everybody who can view a part triggers this.</target>
+      </segment>
+    </unit>
+    <unit id="cFv0nV3" name="settings.ips.canopy.fetchOnViewDailyLimit">
+      <segment state="translated">
+        <source>settings.ips.canopy.fetchOnViewDailyLimit</source>
+        <target>Max. requests per day when viewing parts</target>
+      </segment>
+    </unit>
+    <unit id="cFv0nV4" name="settings.ips.canopy.fetchOnViewDailyLimit.help">
+      <segment state="translated">
+        <source>settings.ips.canopy.fetchOnViewDailyLimit.help</source>
+        <target>The maximum number of Canopy requests which viewing parts may cause within 24 hours. Use 0 for no limit.</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV5" name="part.info.provider_fetch.loading">
+      <segment state="translated">
+        <source>part.info.provider_fetch.loading</source>
+        <target>Fetching product data from %provider%…</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV6" name="part.info.provider_fetch.updated">
+      <segment state="translated">
+        <source>part.info.provider_fetch.updated</source>
+        <target>Product data received. Loading the updated part…</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV7" name="part.info.provider_fetch.limit">
+      <segment state="translated">
+        <source>part.info.provider_fetch.limit</source>
+        <target>Product data was not fetched from %provider%, because the daily request limit is reached.</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV8" name="part.info.provider_fetch.error">
+      <segment state="translated">
+        <source>part.info.provider_fetch.error</source>
+        <target>Product data could not be fetched from %provider%.</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV9" name="part.info.provider_fetch.flash.updated">
+      <segment state="translated">
+        <source>part.info.provider_fetch.flash.updated</source>
+        <target>This part was filled with product data from %provider%.</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV1" name="settings.ips.fetch_on_view_providers">
+      <segment state="translated">
+        <source>settings.ips.fetch_on_view_providers</source>
+        <target>Fetch data when a part is viewed</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV2" name="settings.ips.fetch_on_view_providers.help">
+      <segment state="translated">
+        <source>settings.ips.fetch_on_view_providers.help</source>
+        <target>A part without info provider data is filled with data from the providers selected here, the first time its info page is opened. A part is recognized by an orderdetail which either links to a product page of the provider, or whose supplier is named like the provider and has a supplier part number the provider knows exactly. Only missing data is added, existing data of the part is never changed. Everybody who can view a part triggers this. Leave empty to never contact a provider when viewing a part.</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV3" name="settings.ips.fetch_on_view_daily_limit">
+      <segment state="translated">
+        <source>settings.ips.fetch_on_view_daily_limit</source>
+        <target>Max. lookups per day when viewing parts</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV4" name="settings.ips.fetch_on_view_daily_limit.help">
+      <segment state="translated">
+        <source>settings.ips.fetch_on_view_daily_limit.help</source>
+        <target>The maximum number of parts which viewing them may look up at each of the providers above within 24 hours. Use 0 for no limit. The Canopy provider has its own limit in its settings.</target>
       </segment>
     </unit>
   </file>

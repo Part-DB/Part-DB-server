@@ -43,6 +43,8 @@ use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\EntityMergers\Mergers\PartMerger;
 use App\Services\InfoProviderSystem\PartInfoRetriever;
 use App\Services\InfoProviderSystem\ProviderOnViewFetcher;
+use App\Services\InfoProviderSystem\Providers\AIDocumentProvider;
+use App\Services\InfoProviderSystem\UploadedDocumentAttachmentHelper;
 use App\Services\InfoProviderSystem\Providers\InfoProviderInterface;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
@@ -462,7 +464,8 @@ final class PartController extends AbstractController
     }
 
     #[Route('/from_info_provider/{providerKey}/{providerId}/create', name: 'info_providers_create_part', requirements: ['providerId' => '.+'])]
-    public function createFromInfoProvider(Request $request, string $providerKey, string $providerId, PartInfoRetriever $infoRetriever): Response
+    public function createFromInfoProvider(Request $request, string $providerKey, string $providerId, PartInfoRetriever $infoRetriever,
+        UploadedDocumentAttachmentHelper $uploadedDocumentAttachmentHelper): Response
     {
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
 
@@ -477,6 +480,13 @@ final class PartController extends AbstractController
             InfoProviderInterface::OPTION_SUBMITTED_PAGE_TOKEN => $submitted_page_token,
         ]);
         $new_part = $infoRetriever->dtoToPart($dto);
+
+        //A part created from an uploaded file gets this file as attachment. The provider ID is the token of the file,
+        //so the attachment is added again when the form is submitted, and its file is only stored on saving.
+        if ($providerKey === AIDocumentProvider::PROVIDER_KEY
+            && $uploadedDocumentAttachmentHelper->attachToPart($new_part, $providerId) === null) {
+            $this->addFlash('warning', t('info_providers.from_file.not_attached'));
+        }
 
         if ($new_part->getCategory() === null || $new_part->getCategory()->getID() === null) {
             $this->addFlash('warning', t("part.create_from_info_provider.no_category_yet"));
@@ -599,6 +609,13 @@ final class PartController extends AbstractController
                         'error',
                         $this->translator->trans('attachment.download_failed') . ' ' . $attachmentDownloadException->getMessage()
                     );
+
+                    //An attachment, which has neither a file nor a URL (like one whose prepared file is not available
+                    //anymore), would be an empty entry, so it is not saved
+                    $failedAttachment = $attachment->getData();
+                    if (!$failedAttachment->hasInternal() && !$failedAttachment->hasExternal()) {
+                        $new_part->removeAttachment($failedAttachment);
+                    }
                 }
             }
 

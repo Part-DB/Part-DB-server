@@ -3494,10 +3494,10 @@ jszip@^3.2.0:
     readable-stream "~2.3.6"
     setimmediate "^1.0.5"
 
-katex@^0.18.0:
-  version "0.18.11"
-  resolved "https://registry.yarnpkg.com/katex/-/katex-0.18.11.tgz#ca4e9e6db78aeff485c3a1dbe46a08bf196defe9"
-  integrity sha512-yvyz/2VMKqoho/35Hat5w37wIEdWJ5ElVMidTAlWrxr5uW4aBGsEpveTmKh18/zw08v/7lGswCPon4OhqmqrTA==
+katex@^0.19.0:
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.19.0.tgz#b69c8cbcfc8c331be3f4f6e606b02b7146501ec7"
+  integrity sha512-v6Tznz3zJ7u3niRCoDTsumM2+HA2XXcCu+WAacCeHD2z3p9A9Ks987o5FzfTGBN0e8A0vjEgIDvLbICrXpdw/Q==
   dependencies:
     commander "^15.0.0"
 
@@ -3602,9 +3602,9 @@ marked@^18.0.0:
   integrity sha512-mBHK6FBHuBAlhgRe88w9F0O1AbwwXJUcQibUbC/QcdTbVGAD7aWza+xt3N6oT/jCZx3/OMeS+8rnuiHZcQ9s7A==
 
 mdast-util-find-and-replace@^3.0.0:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/mdast-util-find-and-replace/-/mdast-util-find-and-replace-3.0.2.tgz#70a3174c894e14df722abf43bc250cbae44b11df"
-  integrity sha512-Tmd1Vg/m3Xz43afeNxDIhWRtFZgM2VLyaf4vSTYwudTyeuTneoL3qtWMA5jeLyz/O1vDJmmV4QuScFCA2tBPwg==
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/mdast-util-find-and-replace/-/mdast-util-find-and-replace-3.0.3.tgz#5c3ab1d8f9827285dfa71f1deba6de6b8b154e5b"
+  integrity sha512-xPgpDNl0/OXHsI7TlaIs22lWnH3KlpvZdXG1ET/m/YT2Hhdkx8lJV4kLphE6l9simyM4KPDFBwas08BgEob6Jw==
   dependencies:
     "@types/mdast" "^4.0.0"
     escape-string-regexp "^5.0.0"
@@ -4368,9 +4368,9 @@ regenerate-unicode-properties@^10.3.0:
     regenerate "^1.4.2"
 
 regenerate@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.4.2.tgz#b9346d8827e8f5a32f7ba29637d398b69014848a"
-  integrity sha512-zrceR/XhGYU/d/opr2EKO7aRHUeiBI8qjtfHqADTwZd6Szfy16la6kqD0MIUs5z5hx6AaKa+PixpPrR289+I0A==
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.5.0.tgz#d84f6e20e9990aa2d381fd28a7674f5d707049a3"
+  integrity sha512-1s+CxXjJ71i7LNVy8nYwg47XV4y6lAnOEhsMtSKq3WpmPfhl9LuKlTqKIn/3yUpE8lBz+W+TT88Bxyhnr0U4yw==
 
 regenerator-runtime@^0.14.1:
   version "0.14.1"
