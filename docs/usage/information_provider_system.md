@@ -386,6 +386,12 @@ Once you have the API key, you can configure the Canopy provider in Part-DB usin
 
 * `PROVIDER_CANOPY_API_KEY`: The API key you got from Canopy (mandatory)
 
+As Canopy bills per request, retrieving data for all Amazon parts of a large inventory can be expensive. With the
+*Fetch data when a part is viewed* option in the provider settings, Part-DB only asks Canopy about an Amazon part, when
+somebody opens its info page for the first time (see [Fetching data when a part is viewed](#fetching-data-when-a-part-is-viewed)).
+This applies to parts which have an orderdetail linking to a product page of the configured Amazon marketplace, and the
+number of requests caused this way is capped by *Max. requests per day when viewing parts* of the provider settings.
+
 ### SparkFun
 
 The SparkFun provider retrieves product information from [sparkfun.com](https://www.sparkfun.com/). You can search by
@@ -508,6 +514,41 @@ Besides some metadata functions, you have to implement the `searchByKeyword()` a
 the actual API requests and return the information to Part-DB.
 See the existing providers for examples.
 If you created a new provider, feel free to create a pull request to add it to the Part-DB core.
+
+## Fetching data when a part is viewed
+
+Parts which were created by hand or by an import have no info provider data. Instead of looking all of them up at once
+(which costs money at providers billing per request, and is a lot of traffic for the website of a small store), Part-DB
+can retrieve the data of such a part when somebody opens its info page for the first time: the page is shown as usual,
+says that data is being fetched from the provider, and reloads with the new data once it is there.
+
+This is off by default. Select the providers which should do this under *Fetch data when a part is viewed* in the
+general info provider settings, or list their keys in the `PROVIDER_FETCH_ON_VIEW` environment variable (comma separated,
+e.g. `PROVIDER_FETCH_ON_VIEW=lcsc,pollin`). Only active providers are used. The Canopy provider additionally has its
+own switch for this in its settings.
+
+A part is only looked up if it has no info provider reference yet and one of its orderdetails leads to one of the
+selected providers, checked in this order:
+
+1. The product URL of the orderdetail is a product page of the provider (this works for the providers which can
+   create a part from an URL, and for Amazon URLs with Canopy). The URL identifies the product.
+2. The supplier of the orderdetail has the same name as the provider (ignoring case, spaces and punctuation) and the
+   orderdetail has a supplier part number. The provider is searched for that number, and the result is only used if
+   its ID, manufacturer part number or order number is exactly the supplier part number (ignoring case and a vendor
+   prefix, so `4062` matches `ADA4062` and `13975` matches `DEV-13975`). Part-DB never picks a merely similar product.
+
+Parts with neither are left alone, and checking this does not contact the provider.
+
+As nobody reviews the result, only missing data is filled in (description, notes, manufacturer, manufacturer part
+number, pictures and datasheets, parameters, and prices if the orderdetail has none); existing data is never changed.
+Afterwards the part carries the info provider reference, so it is not looked up again, and it can be updated from the
+provider with the normal tools later.
+
+The number of parts looked up this way is capped per provider by *Max. lookups per day when viewing parts*
+(`PROVIDER_FETCH_ON_VIEW_DAILY_LIMIT`, default 100, 0 for no limit); when it is reached, the page says so and the part
+is tried again on a later view. If the provider fails, refuses the request, or does not know the supplier part number,
+the page says that the data could not be fetched and the part is not tried again for 24 hours. Everybody who is allowed
+to view a part triggers the lookup.
 
 ## Result caching
 

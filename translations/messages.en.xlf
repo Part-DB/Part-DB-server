@@ -15806,5 +15806,83 @@ Buerklin-API Authentication server:
         <target>The minimum time in seconds between two requests to the Bambu Lab store (API and product pages). Requests which come too early are delayed, so a lookup can take a while. If the store refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour. 0 disables the delay.</target>
       </segment>
     </unit>
+    <unit id="cFv0nV1" name="settings.ips.canopy.fetchOnView">
+      <segment state="translated">
+        <source>settings.ips.canopy.fetchOnView</source>
+        <target>Fetch data when a part is viewed</target>
+      </segment>
+    </unit>
+    <unit id="cFv0nV2" name="settings.ips.canopy.fetchOnView.help">
+      <segment state="translated">
+        <source>settings.ips.canopy.fetchOnView.help</source>
+        <target>When selected, an Amazon part without info provider data is filled with data from Canopy the first time its info page is opened. This way only the parts somebody actually looks at cause (billed) API requests. Only missing data is added, existing data of the part is never changed. Everybody who can view a part triggers this.</target>
+      </segment>
+    </unit>
+    <unit id="cFv0nV3" name="settings.ips.canopy.fetchOnViewDailyLimit">
+      <segment state="translated">
+        <source>settings.ips.canopy.fetchOnViewDailyLimit</source>
+        <target>Max. requests per day when viewing parts</target>
+      </segment>
+    </unit>
+    <unit id="cFv0nV4" name="settings.ips.canopy.fetchOnViewDailyLimit.help">
+      <segment state="translated">
+        <source>settings.ips.canopy.fetchOnViewDailyLimit.help</source>
+        <target>The maximum number of Canopy requests which viewing parts may cause within 24 hours. Use 0 for no limit.</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV5" name="part.info.provider_fetch.loading">
+      <segment state="translated">
+        <source>part.info.provider_fetch.loading</source>
+        <target>Fetching product data from %provider%…</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV6" name="part.info.provider_fetch.updated">
+      <segment state="translated">
+        <source>part.info.provider_fetch.updated</source>
+        <target>Product data received. Loading the updated part…</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV7" name="part.info.provider_fetch.limit">
+      <segment state="translated">
+        <source>part.info.provider_fetch.limit</source>
+        <target>Product data was not fetched from %provider%, because the daily request limit is reached.</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV8" name="part.info.provider_fetch.error">
+      <segment state="translated">
+        <source>part.info.provider_fetch.error</source>
+        <target>Product data could not be fetched from %provider%.</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV9" name="part.info.provider_fetch.flash.updated">
+      <segment state="translated">
+        <source>part.info.provider_fetch.flash.updated</source>
+        <target>This part was filled with product data from %provider%.</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV1" name="settings.ips.fetch_on_view_providers">
+      <segment state="translated">
+        <source>settings.ips.fetch_on_view_providers</source>
+        <target>Fetch data when a part is viewed</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV2" name="settings.ips.fetch_on_view_providers.help">
+      <segment state="translated">
+        <source>settings.ips.fetch_on_view_providers.help</source>
+        <target>A part without info provider data is filled with data from the providers selected here, the first time its info page is opened. A part is recognized by an orderdetail which either links to a product page of the provider, or whose supplier is named like the provider and has a supplier part number the provider knows exactly. Only missing data is added, existing data of the part is never changed. Everybody who can view a part triggers this. Leave empty to never contact a provider when viewing a part.</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV3" name="settings.ips.fetch_on_view_daily_limit">
+      <segment state="translated">
+        <source>settings.ips.fetch_on_view_daily_limit</source>
+        <target>Max. lookups per day when viewing parts</target>
+      </segment>
+    </unit>
+    <unit id="pFv0nV4" name="settings.ips.fetch_on_view_daily_limit.help">
+      <segment state="translated">
+        <source>settings.ips.fetch_on_view_daily_limit.help</source>
+        <target>The maximum number of parts which viewing them may look up at each of the providers above within 24 hours. Use 0 for no limit. The Canopy provider has its own limit in its settings.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
