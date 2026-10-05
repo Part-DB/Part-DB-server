@@ -15686,6 +15686,90 @@ Buerklin-API Authentication server:
         <target>Available stock</target>
       </segment>
     </unit>
+    <unit id="y2IeHi_" name="settings.ips.pololu">
+      <segment state="translated">
+        <source>settings.ips.pololu</source>
+        <target>Pololu</target>
+      </segment>
+    </unit>
+    <unit id="1HPRmGN" name="settings.ips.pololu.help">
+      <segment state="translated">
+        <source>settings.ips.pololu.help</source>
+        <target>Pololu.com offers no official API, so this info provider webscrapes the website to extract info. It could break at any time, use it at your own risk.</target>
+      </segment>
+    </unit>
+    <unit id="oJkAIro" name="settings.ips.pololu.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.pololu.requestDelay</source>
+        <target>Delay between page requests</target>
+      </segment>
+    </unit>
+    <unit id="co9h0aO" name="settings.ips.pololu.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.pololu.requestDelay.help</source>
+        <target>The minimum time in seconds between two page requests to pololu.com. Getting the details of a product needs up to three page requests.</target>
+      </segment>
+    </unit>
+    <unit id="aDf4r1T" name="settings.ips.adafruit">
+      <segment state="translated">
+        <source>settings.ips.adafruit</source>
+        <target>Adafruit</target>
+      </segment>
+    </unit>
+    <unit id="aDf4r2H" name="settings.ips.adafruit.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.help</source>
+        <target>Uses the public product API of adafruit.com (no API key required). The product catalog is downloaded once per day and searched locally. Prices are in USD.</target>
+      </segment>
+    </unit>
+    <unit id="aDf4r3P" name="settings.ips.adafruit.fetchProductPage">
+      <segment state="translated">
+        <source>settings.ips.adafruit.fetchProductPage</source>
+        <target>Retrieve product page</target>
+      </segment>
+    </unit>
+    <unit id="aDf4r4Q" name="settings.ips.adafruit.fetchProductPage.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.fetchProductPage.help</source>
+        <target>Also read the product page on adafruit.com to get all product images, the technical details, the category and the learn guides. This causes one additional request per part. If disabled, only the product API is used.</target>
+      </segment>
+    </unit>
+    <unit id="JtHXJcF" name="settings.ips.adafruit.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.adafruit.requestDelay</source>
+        <target>Delay between requests</target>
+      </segment>
+    </unit>
+    <unit id="HaGEpJu" name="settings.ips.adafruit.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.requestDelay.help</source>
+        <target>The minimum time in seconds between two requests to adafruit.com (catalog download, product API and product pages). Requests which come too early are delayed, so a lookup can take a while. If the website refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour. 0 disables the delay.</target>
+      </segment>
+    </unit>
+    <unit id="FQ16OqS" name="settings.ips.sparkfun">
+      <segment state="translated">
+        <source>settings.ips.sparkfun</source>
+        <target>SparkFun</target>
+      </segment>
+    </unit>
+    <unit id="iLozj.r" name="settings.ips.sparkfun.help">
+      <segment state="translated">
+        <source>settings.ips.sparkfun.help</source>
+        <target>SparkFun offers no official API, so this info provider reads the GraphQL endpoint and the product pages of the sparkfun.com shop to extract info. It could break at any time, use it at your own risk.</target>
+      </segment>
+    </unit>
+    <unit id="f17B5cC" name="settings.ips.sparkfun.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.sparkfun.requestDelay</source>
+        <target>Delay between requests</target>
+      </segment>
+    </unit>
+    <unit id="S9R8oDO" name="settings.ips.sparkfun.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.sparkfun.requestDelay.help</source>
+        <target>The minimum time in seconds between two requests to sparkfun.com (GraphQL endpoint and product pages). Requests which come too early are delayed, so a lookup can take a while. If the shop refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour. 0 disables the delay.</target>
+      </segment>
+    </unit>
     <unit id="zxX4Woh" name="settings.ips.bambulab">
       <segment state="translated">
         <source>settings.ips.bambulab</source>
