@@ -472,6 +472,34 @@ The following env configuration options are available:
 * `PROVIDER_ADAFRUIT_REQUEST_DELAY`: The minimum time in seconds between two requests to adafruit.com (optional,
   default: `5`)
 
+
+### Bambu Lab
+
+The Bambu Lab provider uses the API of the [Bambu Lab store](https://store.bambulab.com/) website to search for
+filaments, printer parts and accessories and to retrieve their images, prices, options and documents (like the technical
+and safety data sheets of the filaments). No account or API key is required.
+This is not an official API and could break at any time. So use it at your own risk.
+
+Most products of the store are available in multiple variants (e.g. the colors of a filament, with or without spool),
+which differ in their images, prices and codes. If you search for a product name (like `PETG HF`), you get the
+products as a whole. To get a certain variant, search for its code (like the filament code `32101`, which is printed
+on the spool and the box), or use the URL of the selected variant (`.../products/petg-translucent?id=...`) in the
+"Create part from URL" feature. For variants the code is used as manufacturer part number.
+
+To be polite to the store, the provider waits a configurable time between any two requests it sends (to the API and
+to the product pages), requests which come too early are delayed. A search needs one request (plus one per listed
+product if you search for a code), the details of a product need two, so a lookup can take some time. If the store
+refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour, and lookups fail with a
+message telling until when it is paused. Product data which is already cached is still served.
+
+The following env configuration options are available:
+* `PROVIDER_BAMBULAB_ENABLED`: Set this to `1` to enable the Bambu Lab provider
+* `PROVIDER_BAMBULAB_REGION`: The regional store which should be used. This determines the available products, the
+  prices and their currency. Possible values: `US`, `CA`, `MX`, `EU`, `UK`, `AU`, `JP`, `KR`, `GLOBAL` (optional,
+  default: `US`)
+* `PROVIDER_BAMBULAB_REQUEST_DELAY`: The minimum time in seconds between two requests to the store (optional,
+  default: `5`)
+
 ### Custom providers
 
 To create a custom provider, you have to create a new class implementing the `InfoProviderInterface` interface. As long
@@ -519,3 +547,7 @@ not Part-DB: if an external script uses the same API credentials (for example a 
 through the API), its requests and Part-DB's add up, and neither side can see the other's count. The remaining
 headroom is what keeps the two from pushing each other over the limit. If you know that nothing else uses the
 account, you can raise the values.
+
+Certain providers (like Adafruit, Pololu) have their own rate limits, configurable in the provider settings. 
+These are enforced in addition to the global limits, and are usually lower than the global limits, as no offical API
+exists and the provider is scraping the website and have to be polite to the shop.

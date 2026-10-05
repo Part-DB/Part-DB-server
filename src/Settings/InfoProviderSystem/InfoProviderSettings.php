@@ -95,4 +95,7 @@ class InfoProviderSettings
     
     #[EmbeddedSettings]
     public ?SparkFunSettings $sparkfun = null;
+    
+    #[EmbeddedSettings]
+    public ?BambuLabSettings $bambulab = null;
 }
