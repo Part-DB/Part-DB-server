@@ -333,6 +333,23 @@ This is not an official API and could break at any time. So use it at your own r
 The following env configuration options are available:
 * `PROVIDER_POLLIN_ENABLED`: Set this to `1` to enable the Pollin provider
 
+### Pololu
+
+The Pololu provider uses webscraping from [pololu.com](https://www.pololu.com/) to get part information.
+This is not an official API and could break at any time. So use it at your own risk.
+
+You can search by keyword or by the Pololu item number (e.g. `2130`). Besides the basic infos, the provider returns
+all product pictures, the price breaks (in USD), the available stock, the files from the "Resources" tab (datasheets,
+dimension diagrams, 3D models, drill guides, ...) and the specifications from the "Specs" tab as parameters.
+
+Getting the details of a product needs up to three page requests (product page, specs and resources). To be polite to
+the shop, the provider waits a configurable time between two page requests, and stops sending requests for some time
+when the website answers with an error indicating that requests are blocked or rate limited (HTTP 403, 429 or 503).
+
+The following env configuration options are available:
+* `PROVIDER_POLOLU_ENABLED`: Set this to `1` to enable the Pololu provider
+* `PROVIDER_POLOLU_REQUEST_DELAY`: The minimum time in seconds between two page requests to pololu.com (optional, default: `1`)
+
 ### Buerklin
 
 The Buerklin provider uses the [Buerklin API](https://www.buerklin.com/en/services/eprocurement/) to search for parts and get information.

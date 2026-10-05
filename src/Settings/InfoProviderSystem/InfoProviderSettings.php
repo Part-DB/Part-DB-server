@@ -87,4 +87,6 @@ class InfoProviderSettings
     #[EmbeddedSettings]
     public ?TrustedPartsSettings $trustedparts = null;
 
+    #[EmbeddedSettings]
+    public ?PololuSettings $pololu = null;
 }
