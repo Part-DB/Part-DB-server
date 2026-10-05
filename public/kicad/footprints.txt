@@ -1,4 +1,4 @@
-# Generated on Mon Sep 28 08:30:57 UTC 2026
+# Generated on Mon Oct  5 08:45:15 UTC 2026
 # This file contains all footprints available in the offical KiCAD library
 Audio_Module:Reverb_BTDR-1H
 Audio_Module:Reverb_BTDR-1V
@@ -4022,6 +4022,10 @@ Connector_PCBEdge:Samtec_MECF-70-02-NP-L-DV-WT_2x70_P1.27mm_Socket_Horizontal
 Connector_PCBEdge:Samtec_MECF-70-02-NP-L-DV_2x70_P1.27mm_Socket_Horizontal
 Connector_PCBEdge:Samtec_MECF-70-0_-L-DV_2x70_P1.27mm_Polarized_Edge
 Connector_PCBEdge:Samtec_MECF-70-0_-NP-L-DV_2x70_P1.27mm_Edge
+Connector_PCBEdge:TE_M.2_A_2x38-1MP_P0.5mm
+Connector_PCBEdge:TE_M.2_B_2x38-1MP_P0.5mm
+Connector_PCBEdge:TE_M.2_E_2x38-1MP_P0.5mm
+Connector_PCBEdge:TE_M.2_M_2x38-1MP_P0.5mm
 Connector_PCBEdge:molex_EDGELOCK_2-CKT
 Connector_PCBEdge:molex_EDGELOCK_4-CKT
 Connector_PCBEdge:molex_EDGELOCK_6-CKT

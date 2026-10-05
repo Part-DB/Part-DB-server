@@ -333,6 +333,23 @@ This is not an official API and could break at any time. So use it at your own r
 The following env configuration options are available:
 * `PROVIDER_POLLIN_ENABLED`: Set this to `1` to enable the Pollin provider
 
+### Pololu
+
+The Pololu provider uses webscraping from [pololu.com](https://www.pololu.com/) to get part information.
+This is not an official API and could break at any time. So use it at your own risk.
+
+You can search by keyword or by the Pololu item number (e.g. `2130`). Besides the basic infos, the provider returns
+all product pictures, the price breaks (in USD), the available stock, the files from the "Resources" tab (datasheets,
+dimension diagrams, 3D models, drill guides, ...) and the specifications from the "Specs" tab as parameters.
+
+Getting the details of a product needs up to three page requests (product page, specs and resources). To be polite to
+the shop, the provider waits a configurable time between two page requests, and stops sending requests for some time
+when the website answers with an error indicating that requests are blocked or rate limited (HTTP 403, 429 or 503).
+
+The following env configuration options are available:
+* `PROVIDER_POLOLU_ENABLED`: Set this to `1` to enable the Pololu provider
+* `PROVIDER_POLOLU_REQUEST_DELAY`: The minimum time in seconds between two page requests to pololu.com (optional, default: `1`)
+
 ### Buerklin
 
 The Buerklin provider uses the [Buerklin API](https://www.buerklin.com/en/services/eprocurement/) to search for parts and get information.
@@ -426,6 +443,34 @@ The following env configuration options are available:
 * `PROVIDER_TRUSTEDPARTS_USE_CACHED_DATA`: If set to `1`, TrustedParts.com answers with cached stock and price data
   instead of querying the distributors in real time. This is faster and does not count against the rate limits, but the
   data can be outdated (optional, default: `0`)
+
+### Adafruit
+
+The Adafruit provider uses the public product API of [adafruit.com](https://www.adafruit.com/) to search for products
+and get information. No API key or account is required.
+
+The API has no search endpoint, it only offers the whole product catalog as one large list. Part-DB therefore
+downloads the catalog once, caches it for one day and searches it locally. You can search by keyword (all words must
+occur in the product name, model or manufacturer) or by the Adafruit product ID (e.g. `4062` or `ADA4062`), which is also used as provider ID.
+Product URLs like `https://www.adafruit.com/product/4062` are recognized too.
+
+When retrieving the details of a product, the product API supplies name, description, manufacturer, prices with quantity
+breaks (in USD) and the stock level. By default the product page is read too, as only it contains all product images, the
+technical details (which are offered as parameters), the category and the links to the learn guides. If you want
+to avoid this second request per part, you can disable it.
+
+To be polite to the website, the provider waits a configurable time between any two requests it sends (catalog
+download, product API and product pages), requests which come too early are delayed, so a lookup can take some time.
+If the website refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour, and
+lookups fail with a message telling until when it is paused. The cached catalog can still be searched in that time.
+
+The following env configuration options are available:
+
+* `PROVIDER_ADAFRUIT_ENABLED`: Set this to `1` to enable the Adafruit provider
+* `PROVIDER_ADAFRUIT_FETCH_PRODUCT_PAGE`: Set this to `0` to only use the product API and not read the product page
+  (optional, default: `1`)
+* `PROVIDER_ADAFRUIT_REQUEST_DELAY`: The minimum time in seconds between two requests to adafruit.com (optional,
+  default: `10`)
 
 ### Custom providers
 
