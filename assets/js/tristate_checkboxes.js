@@ -58,6 +58,8 @@ class TristateHelper {
         document.addEventListener("turbo:render", listener);
         document.addEventListener("turbo:frame-load", listener);
         document.addEventListener("collection:elementAdded", listener);
+        //Collection form resets replace rows with clones, whose checkboxes are not initialized yet
+        document.addEventListener("collection:reset", listener);
     }
 }
 
