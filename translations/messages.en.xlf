@@ -15710,5 +15710,41 @@ Buerklin-API Authentication server:
         <target>The minimum time in seconds between two page requests to pololu.com. Getting the details of a product needs up to three page requests.</target>
       </segment>
     </unit>
+    <unit id="aDf4r1T" name="settings.ips.adafruit">
+      <segment state="translated">
+        <source>settings.ips.adafruit</source>
+        <target>Adafruit</target>
+      </segment>
+    </unit>
+    <unit id="aDf4r2H" name="settings.ips.adafruit.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.help</source>
+        <target>Uses the public product API of adafruit.com (no API key required). The product catalog is downloaded once per day and searched locally. Prices are in USD.</target>
+      </segment>
+    </unit>
+    <unit id="aDf4r3P" name="settings.ips.adafruit.fetchProductPage">
+      <segment state="translated">
+        <source>settings.ips.adafruit.fetchProductPage</source>
+        <target>Retrieve product page</target>
+      </segment>
+    </unit>
+    <unit id="aDf4r4Q" name="settings.ips.adafruit.fetchProductPage.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.fetchProductPage.help</source>
+        <target>Also read the product page on adafruit.com to get all product images, the technical details, the category and the learn guides. This causes one additional request per part. If disabled, only the product API is used.</target>
+      </segment>
+    </unit>
+    <unit id="JtHXJcF" name="settings.ips.adafruit.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.adafruit.requestDelay</source>
+        <target>Delay between requests</target>
+      </segment>
+    </unit>
+    <unit id="HaGEpJu" name="settings.ips.adafruit.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.requestDelay.help</source>
+        <target>The minimum time in seconds between two requests to adafruit.com (catalog download, product API and product pages). Requests which come too early are delayed, so a lookup can take a while. If the website refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour. 0 disables the delay.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

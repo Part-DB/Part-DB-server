@@ -88,5 +88,8 @@ class InfoProviderSettings
     public ?TrustedPartsSettings $trustedparts = null;
 
     #[EmbeddedSettings]
+    public ?AdafruitSettings $adafruit = null;
+    
+    #[EmbeddedSettings]
     public ?PololuSettings $pololu = null;
 }
