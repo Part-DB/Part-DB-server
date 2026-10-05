@@ -15511,5 +15511,173 @@ Serwer autoryzacji Buerklin API:
         <target>Nieznane</target>
       </segment>
     </unit>
+    <unit id="cEeEQ3Q" name="info_providers.from_file.title">
+      <segment state="translated">
+        <source>info_providers.from_file.title</source>
+        <target>Utwórz część z pliku</target>
+      </segment>
+    </unit>
+    <unit id="r2wTioF" name="info_providers.from_file.help">
+      <segment state="translated">
+        <source>info_providers.from_file.help</source>
+        <target>Tworzy część z pliku, np. z dokumentacji technicznej. Plik jest przekazywany do modelu SI skonfigurowanego w ustawieniach ekstraktora SI do plików, który próbuje wydobyć z niego informacje o części.</target>
+      </segment>
+    </unit>
+    <unit id="4.gsKDJ" name="info_providers.from_file.file.label">
+      <segment state="translated">
+        <source>info_providers.from_file.file.label</source>
+        <target>Plik</target>
+      </segment>
+    </unit>
+    <unit id="kTrv0Uj" name="info_providers.from_file.file.help">
+      <segment state="translated">
+        <source>info_providers.from_file.file.help</source>
+        <target>Obsługiwane formaty plików: PDF, tekst oraz Markdown. Jest wykorzystywany tylko tekst z pliku, zeskanowane dokumenty bez warstwy tekstowej nie są obsługiwane. Aby móc używać obrazów i zeskanowanych dokumentów, przesyłanie plików do modelu musi być włączone w ustawieniach ekstraktora SI do plików.</target>
+      </segment>
+    </unit>
+    <unit id="qTuMUgu" name="info_providers.from_file.submit">
+      <segment state="translated">
+        <source>info_providers.from_file.submit</source>
+        <target>Wydobądź informacje o części</target>
+      </segment>
+    </unit>
+    <unit id="c5hpNDv" name="info_providers.from_file.not_active">
+      <segment state="translated">
+        <source>info_providers.from_file.not_active</source>
+        <target>Tworzenie części z plików wymaga platformy i modelu SI skonfigurowanego w ustawieniach ekstraktora SI do plików.</target>
+      </segment>
+    </unit>
+    <unit id="hcTxnKp" name="info_providers.from_file.error.parse">
+      <segment state="translated">
+        <source>info_providers.from_file.error.parse</source>
+        <target>Plik nie mógł zostać odczytany: %error%</target>
+      </segment>
+    </unit>
+    <unit id="f7u8XIC" name="info_providers.from_file.error.no_text">
+      <segment state="translated">
+        <source>info_providers.from_file.error.no_text</source>
+        <target>Nie można było wydobyć tekstu z pliku. Zeskanowane dokumenty bez warstwy tekstowej mogą być używane tylko, jeśli plik zostanie przesłany do modelu SI: wybierz tryb "Auto" lub "Prześlij plik do modelu" (przesyłanie plików musi być dozwolone w ustawieniach ekstraktora SI do plików).</target>
+      </segment>
+    </unit>
+    <unit id="ciiN9Tw" name="info_providers.from_file.context.label">
+      <segment state="translated">
+        <source>info_providers.from_file.context.label</source>
+        <target>Dodatkowy kontekst</target>
+      </segment>
+    </unit>
+    <unit id="E.2coVK" name="info_providers.from_file.context.help">
+      <segment state="translated">
+        <source>info_providers.from_file.context.help</source>
+        <target>Dodatkowe informacje dla SI, np. dokładny numer części, jeśli plik zawiera informacje o różnych wariantach.</target>
+      </segment>
+    </unit>
+    <unit id="9IaRRF7" name="info_providers.from_file.context.placeholder">
+      <segment state="translated">
+        <source>info_providers.from_file.context.placeholder</source>
+        <target>Np. Użyj wariantu BC547B w obudowie TO-92</target>
+      </segment>
+    </unit>
+    <unit id="s4q5LjE" name="settings.ips.ai_file_extractor">
+      <segment state="translated">
+        <source>settings.ips.ai_file_extractor</source>
+        <target>Ekstraktor SI do plików</target>
+      </segment>
+    </unit>
+    <unit id="F7kmvAw" name="settings.ips.ai_file_extractor.description">
+      <segment state="translated">
+        <source>settings.ips.ai_file_extractor.description</source>
+        <target>Ten dostawca informacji używa dużego modelu językowego (LLM) aby wydobywać szczegółowe informacje o części z przesłanych plików, takich jak dokumentacje PDF. Jest używany przez stronę "Utwórz część z pliku".</target>
+      </segment>
+    </unit>
+    <unit id="tFv6kbn" name="settings.ips.ai_file_extractor.max_content_length">
+      <segment state="translated">
+        <source>settings.ips.ai_file_extractor.max_content_length</source>
+        <target>Maks. długość zawartości pliku</target>
+      </segment>
+    </unit>
+    <unit id="UyAVUxo" name="settings.ips.ai_file_extractor.max_content_length.description">
+      <segment state="translated">
+        <source>settings.ips.ai_file_extractor.max_content_length.description</source>
+        <target>Maksymalna ilość znaków zawartości pliku, które są przesyłane do usługi SI. Dłuższy tekst jest przycinany.</target>
+      </segment>
+    </unit>
+    <unit id="KP.Tx.7" name="settings.ips.ai_file_extractor.output_language.description">
+      <segment state="translated">
+        <source>settings.ips.ai_file_extractor.output_language.description</source>
+        <target>Domyślnie, dostawca zwraca informacje w tym samym języku co plik. Za pomocą tej opcji możesz poprosić SI, aby je przetłumaczyła. Może działać tylko z niektórymi modelami.</target>
+      </segment>
+    </unit>
+    <unit id="ZYkBycB" name="attachment.uploaded_document.pending">
+      <segment state="translated">
+        <source>attachment.uploaded_document.pending</source>
+        <target>Ten plik zostanie załączony przy zapisywaniu części.</target>
+      </segment>
+    </unit>
+    <unit id="P4DIw6c" name="info_providers.from_file.not_attached">
+      <segment state="translated">
+        <source>info_providers.from_file.not_attached</source>
+        <target>Przesłany plik nie mógł zostać dodany jako załącznik, ponieważ nie jest już dostępny, lub jest większy niż maksymalny rozmiar załącznika.</target>
+      </segment>
+    </unit>
+    <unit id="GfgpJXr" name="info_providers.from_file.file.help.with_images">
+      <segment state="translated">
+        <source>info_providers.from_file.file.help.with_images</source>
+        <target>Obsługiwane formaty: PDF, obrazy (PNG, JPEG, WebP, GIF), tekst oraz pliki Markdown. Obrazy oraz dokumenty bez tekstu (np. skany) są przesyłane do modelu SI bezpośrednio, przy czym musi on obsługiwać te typy plików.</target>
+      </segment>
+    </unit>
+    <unit id="PsBqA_v" name="settings.ips.ai_file_extractor.allow_file_input">
+      <segment state="translated">
+        <source>settings.ips.ai_file_extractor.allow_file_input</source>
+        <target>Zezwól na przesyłanie plików do modelu</target>
+      </segment>
+    </unit>
+    <unit id="uFcvgN8" name="settings.ips.ai_file_extractor.allow_file_input.description">
+      <segment state="translated">
+        <source>settings.ips.ai_file_extractor.allow_file_input.description</source>
+        <target>Gdy włączone, użytkownicy mogą wybrać dla każdego przesłanego pliku, czy przesłać do modelu SI cały plik (obrazy i pliki PDF) zamiast tylko zawartego w nim tekstu. To umożliwia używanie obrazów i zeskanowanych dokumentów, i pozwala modelowi widzieć układ, tabele i rysunki, ale wymaga modelu, który obsługuje obrazy i pliki PDF (i obsługującej go platformy, Ollama może przetwarzać tylko obrazy, nie pliki PDF). Używa też więcej tokenów, co zwiększa koszt na każde żądanie. Gdy wyłączone, wykorzystywany jest tylko wydobyty tekst.</target>
+      </segment>
+    </unit>
+    <unit id="XS0813H" name="info_providers.from_file.input_mode.auto">
+      <segment state="translated">
+        <source>info_providers.from_file.input_mode.auto</source>
+        <target>Auto (wydobądź tekst, prześlij obrazy i zeskanowane dokumenty do modelu)</target>
+      </segment>
+    </unit>
+    <unit id="3iTQsXk" name="info_providers.from_file.input_mode.text">
+      <segment state="translated">
+        <source>info_providers.from_file.input_mode.text</source>
+        <target>Tylko wydobądź tekst</target>
+      </segment>
+    </unit>
+    <unit id="ledeTyC" name="info_providers.from_file.input_mode.file">
+      <segment state="translated">
+        <source>info_providers.from_file.input_mode.file</source>
+        <target>Prześlij pliki do modelu (pliki PDF i obrazy)</target>
+      </segment>
+    </unit>
+    <unit id="i97R6_4" name="info_providers.from_file.input_mode.label">
+      <segment state="translated">
+        <source>info_providers.from_file.input_mode.label</source>
+        <target>Tryb wejścia</target>
+      </segment>
+    </unit>
+    <unit id="SONaFZG" name="info_providers.from_file.input_mode.help">
+      <segment state="translated">
+        <source>info_providers.from_file.input_mode.help</source>
+        <target>W jaki sposób plik jest przekazywany do modelu SI. "Tylko wydobądź tekst" działa z każdym modelem. Przesyłanie całego pliku wymaga modelu obsługującego obrazy i pliki PDF, ale umożliwia odczytywanie zeskanowanych dokumentów i rozpoznawanie układu, zawartości tabel i rysunków. Przesyłanie całych plików jest droższe niż przesyłanie samego tekstu!</target>
+      </segment>
+    </unit>
+    <unit id="2pXOLo4" name="info_providers.from_file.error.image_in_text_mode">
+      <segment state="translated">
+        <source>info_providers.from_file.error.image_in_text_mode</source>
+        <target>Obrazy nie zawierają tekstu do wydobycia. Wybierz tryb "Auto" lub "Prześlij plik do modelu" aby przesłać obraz do modelu SI.</target>
+      </segment>
+    </unit>
+    <unit id="S6JX3.E" name="info_providers.capabilities.stock_level">
+      <segment state="translated">
+        <source>info_providers.capabilities.stock_level</source>
+        <target>Dostępny zapas</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
