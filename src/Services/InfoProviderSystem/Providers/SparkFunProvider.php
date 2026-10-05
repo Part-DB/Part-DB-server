@@ -20,7 +20,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Entity\Parts\ManufacturingStatus;
@@ -36,7 +35,6 @@ use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\Exception\ExceptionInterface as HttpExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * Retrieves product information from sparkfun.com.
@@ -48,6 +46,8 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 class SparkFunProvider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {
+    use ThrottledRequestTrait;
+
     public const PROVIDER_KEY = 'sparkfun';
 
     public const BASE_URL = 'https://www.sparkfun.com';
@@ -60,14 +60,6 @@ class SparkFunProvider implements InfoProviderInterface, URLHandlerInfoProviderI
 
     /** @var float The shop gives the weight of the products in pounds */
     private const GRAMS_PER_POUND = 453.59237;
-
-    /** @var int[] The HTTP status codes with which sparkfun.com tells us that it does not want our requests (anymore) */
-    private const REFUSED_STATUS_CODES = [403, 429, 503];
-    /** @var int The time (in seconds) no requests are sent to sparkfun.com, after it has refused one */
-    private const PAUSE_DURATION = 3600;
-
-    private const CACHE_KEY_PAUSED = 'sparkfun_paused';
-    private const CACHE_KEY_NEXT_REQUEST = 'sparkfun_next_request';
 
     private const SEARCH_FIELDS = <<<'GRAPHQL'
         sku name url_key url_suffix stock_status
@@ -117,65 +109,9 @@ class SparkFunProvider implements InfoProviderInterface, URLHandlerInfoProviderI
         return $this->settings->enabled;
     }
 
-    /**
-     * Sends a request to sparkfun.com. Every request of this provider (to the API and to the product pages) has to use
-     * this method: It spaces the requests, and once the shop has refused a request, it does not send any further
-     * requests for some time.
-     */
-    private function request(string $method, string $url, array $options = []): ResponseInterface
+    private function getRequestDelay(): int
     {
-        $paused = $this->partInfoCache->getItem(self::CACHE_KEY_PAUSED);
-        if ($paused->isHit() && is_array($paused->get()) && ($paused->get()['until'] ?? 0) > time()) {
-            throw new \RuntimeException(sprintf(
-                'The SparkFun provider is paused until %s, because sparkfun.com refused a request (%s). No requests are sent to it until then.',
-                date('Y-m-d H:i:s T', (int) $paused->get()['until']), $paused->get()['reason'] ?? 'unknown reason'
-            ));
-        }
-
-        $this->waitForNextRequest();
-
-        $response = $this->client->request($method, $url, $options);
-
-        $status = $response->getStatusCode();
-        if (in_array($status, self::REFUSED_STATUS_CODES, true)) {
-            $until = time() + self::PAUSE_DURATION;
-
-            $paused->set(['until' => $until, 'reason' => 'HTTP status ' . $status]);
-            $paused->expiresAfter(self::PAUSE_DURATION);
-            $this->partInfoCache->save($paused);
-
-            throw new \RuntimeException(sprintf(
-                'sparkfun.com refused the request (HTTP status %d). The SparkFun provider is paused until %s, no requests are sent to it until then.',
-                $status, date('Y-m-d H:i:s T', $until)
-            ));
-        }
-
-        return $response;
-    }
-
-    /**
-     * Sleeps until the configured delay has passed since the last request to sparkfun.com. The time of the next
-     * allowed request is stored in the cache, so the delay is kept between different lookups and PHP processes too.
-     */
-    private function waitForNextRequest(): void
-    {
-        $delay = $this->settings->requestDelay;
-        if ($delay <= 0) {
-            return;
-        }
-
-        $item = $this->partInfoCache->getItem(self::CACHE_KEY_NEXT_REQUEST);
-        $now = microtime(true);
-        $slot = $item->isHit() ? max($now, (float) $item->get()) : $now;
-
-        //Reserve the time after our slot before sleeping, so that parallel requests queue up behind us
-        $item->set($slot + $delay);
-        $item->expiresAfter((int) ceil($slot - $now) + $delay);
-        $this->partInfoCache->save($item);
-
-        if ($slot > $now) {
-            usleep((int) (($slot - $now) * 1_000_000));
-        }
+        return $this->settings->requestDelay;
     }
 
     /**
@@ -186,7 +122,7 @@ class SparkFunProvider implements InfoProviderInterface, URLHandlerInfoProviderI
      */
     private function queryGraphQL(string $query, array $variables): array
     {
-        $response = $this->request('POST', self::GRAPHQL_URL, [
+        $response = $this->throttledRequest('POST', self::GRAPHQL_URL, [
             'headers' => [
                 'Accept' => 'application/json',
             ],
@@ -421,7 +357,7 @@ class SparkFunProvider implements InfoProviderInterface, URLHandlerInfoProviderI
     private function getProductPage(string $url): ?Crawler
     {
         try {
-            return new Crawler($this->request('GET', $url)->getContent());
+            return new Crawler($this->throttledRequest('GET', $url)->getContent());
         } catch (HttpExceptionInterface|\RuntimeException) {
             //The page gives us only additional infos, so we can live without it (also if the shop refused the request)
             return null;
