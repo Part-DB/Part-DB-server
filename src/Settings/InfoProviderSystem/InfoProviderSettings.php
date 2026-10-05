@@ -89,4 +89,7 @@ class InfoProviderSettings
 
     #[EmbeddedSettings]
     public ?AdafruitSettings $adafruit = null;
+    
+    #[EmbeddedSettings]
+    public ?PololuSettings $pololu = null;
 }
