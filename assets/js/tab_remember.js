@@ -110,12 +110,8 @@ class TabRememberHelper {
         // Validation errors take precedence over the remembered tab after a full-page invalid form response.
         if (!this.revealFirstValidationError()) {
             //Determine which tab should be shown (use hash if specified, otherwise use localstorage)
-            let activeTab = null;
-            if (location.hash) {
-                activeTab = document.querySelector('[href=\'' + location.hash + '\']');
-            } else if (localStorage.getItem('activeTab')) {
-                activeTab = document.querySelector('[href="' + localStorage.getItem('activeTab') + '"]');
-            }
+            const target = location.hash || localStorage.getItem('activeTab');
+            const activeTab = target ? this.findTabInvoker(target) : null;
 
             if (activeTab) {
                 //Reveal our tab selector (needed for nested tabs)
@@ -130,10 +126,25 @@ class TabRememberHelper {
         document.addEventListener('shown.bs.tab', this.onTabChange.bind(this));
     }
 
+    /**
+     * Find the element which toggles the tab with the given target (e.g. "#pane-id")
+     * @param {string} target
+     * @returns {Element|null}
+     */
+    findTabInvoker(target) {
+        const escaped = CSS.escape(target);
+        return document.querySelector('[data-bs-toggle][href="' + escaped + '"], [data-bs-toggle][data-bs-target="' + escaped + '"]');
+    }
+
     onTabChange(event) {
         const tab = event.target;
 
-        let tab_name = tab.getAttribute('href')
+        //Tabs can either be links (href) or buttons (data-bs-target)
+        const tab_name = tab.getAttribute('href') ?? tab.getAttribute('data-bs-target');
+        if (!tab_name || !tab_name.startsWith('#')) {
+            return;
+        }
+
         if (history.replaceState) {
             history.replaceState(null, null, tab_name)
         } else {
