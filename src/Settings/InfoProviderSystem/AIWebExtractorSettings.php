@@ -39,11 +39,12 @@ use Symfony\Component\Validator\Constraints\Language;
 
 #[Settings(name: "ai_extractor", label: new TM("settings.ips.ai_extractor"), description: new TM("settings.ips.ai_extractor.description"))]
 #[SettingsIcon("fa-plug")]
-class AIExtractorSettings
+class AIWebExtractorSettings implements AIPartExtractorSettingsInterface
 {
     private const MODEL_SELECTOR_LABEL = 'ai_extractor';
 
     use SettingsTrait;
+    use AIPartExtractorSettingsTrait;
 
     #[SettingsParameter(label: new TM("settings.ips.ai_extractor.ai_platform"),
         formType: AiPlatformChoiceType::class, formOptions: ['platform_selector_label' => self::MODEL_SELECTOR_LABEL],

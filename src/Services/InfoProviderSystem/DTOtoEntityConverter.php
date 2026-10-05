@@ -330,7 +330,7 @@ final class DTOtoEntityConverter
      * Returns the attachment type used for datasheets or creates it if it does not exist
      * @return AttachmentType
      */
-    private function getDatasheetType(): AttachmentType
+    public function getDatasheetType(): AttachmentType
     {
         /** @var AttachmentType $tmp */
         $tmp = $this->em->getRepository(AttachmentType::class)->findOrCreateForInfoProvider(self::TYPE_DATASHEETS_NAME);

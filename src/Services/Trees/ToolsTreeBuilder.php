@@ -39,6 +39,7 @@ use App\Entity\UserSystem\User;
 use App\Helpers\Trees\TreeViewNode;
 use App\Services\Cache\UserCacheKeyGenerator;
 use App\Services\ElementTypeNameGenerator;
+use App\Settings\InfoProviderSystem\AIFileExtractorSettings;
 use App\Settings\InfoProviderSystem\GenericWebProviderSettings;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -61,6 +62,7 @@ class ToolsTreeBuilder
         protected Security $security,
         private readonly ElementTypeNameGenerator $elementTypeNameGenerator,
         private readonly GenericWebProviderSettings $genericWebProviderSettings,
+        private readonly AIFileExtractorSettings $fileExtractorSettings,
         #[Autowire('%partdb.oauth_server.enabled%')]
         private readonly bool $oauthServerEnabled,
     ) {
@@ -163,6 +165,13 @@ class ToolsTreeBuilder
                     $this->translator->trans('info_providers.from_url.title'),
                     $this->urlGenerator->generate('info_providers_from_url')
                 ))->setIcon('fa-treeview fa-fw fa-solid fa-book-atlas');
+            }
+
+            if ($this->fileExtractorSettings->isConfigured()) {
+                $nodes[] = (new TreeViewNode(
+                    $this->translator->trans('info_providers.from_file.title'),
+                    $this->urlGenerator->generate('info_providers_from_file')
+                ))->setIcon('fa-treeview fa-fw fa-solid fa-file-lines');
             }
 
             $nodes[] = (new TreeViewNode(

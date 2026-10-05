@@ -61,6 +61,14 @@
                                             </a>
                                         </li>
                                     {% endif %}
+                                    {% if create_from_file_active() %}
+                                        <li>
+                                            <a class="dropdown-item" href="{{ path('info_providers_from_file') }}">
+                                                <i class="fa-fw fa-solid fa-file-lines"></i>
+                                                {% trans %}info_providers.from_file.title{% endtrans %}
+                                            </a>
+                                        </li>
+                                    {% endif %}
 
                                     {% if is_granted("@tools.label_scanner") %}
                                         <li>
