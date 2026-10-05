@@ -404,7 +404,7 @@ the provider sends no requests at all for one hour, and lookups fail with a mess
 The following env configuration options are available:
 * `PROVIDER_SPARKFUN_ENABLED`: Set this to `1` to enable the SparkFun provider
 * `PROVIDER_SPARKFUN_REQUEST_DELAY`: The minimum time in seconds between two requests to sparkfun.com (optional,
-  default: `10`)
+  default: `5`)
 
 ### TrustedParts
 
@@ -470,7 +470,7 @@ The following env configuration options are available:
 * `PROVIDER_ADAFRUIT_FETCH_PRODUCT_PAGE`: Set this to `0` to only use the product API and not read the product page
   (optional, default: `1`)
 * `PROVIDER_ADAFRUIT_REQUEST_DELAY`: The minimum time in seconds between two requests to adafruit.com (optional,
-  default: `10`)
+  default: `5`)
 
 ### Custom providers
 

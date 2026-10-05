@@ -51,5 +51,5 @@ class SparkFunSettings
         formOptions: ["scale" => 0, "attr" => ["min" => 0, "max" => 60]],
         envVar: "int:PROVIDER_SPARKFUN_REQUEST_DELAY", envVarMode: EnvVarMode::OVERWRITE)]
     #[Assert\Range(min: 0, max: 60)]
-    public int $requestDelay = 10;
+    public int $requestDelay = 5;
 }
