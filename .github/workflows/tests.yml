@@ -134,6 +134,7 @@ jobs:
         run: ./bin/phpunit --coverage-clover=coverage.xml
 
       - name: Upload coverage
+        if: github.event_name != 'pull_request'
         uses: codecov/codecov-action@v7
         with:
           env_vars: PHP_VERSION,DB_TYPE

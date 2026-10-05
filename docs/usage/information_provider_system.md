@@ -333,6 +333,23 @@ This is not an official API and could break at any time. So use it at your own r
 The following env configuration options are available:
 * `PROVIDER_POLLIN_ENABLED`: Set this to `1` to enable the Pollin provider
 
+### Pololu
+
+The Pololu provider uses webscraping from [pololu.com](https://www.pololu.com/) to get part information.
+This is not an official API and could break at any time. So use it at your own risk.
+
+You can search by keyword or by the Pololu item number (e.g. `2130`). Besides the basic infos, the provider returns
+all product pictures, the price breaks (in USD), the available stock, the files from the "Resources" tab (datasheets,
+dimension diagrams, 3D models, drill guides, ...) and the specifications from the "Specs" tab as parameters.
+
+Getting the details of a product needs up to three page requests (product page, specs and resources). To be polite to
+the shop, the provider waits a configurable time between two page requests, and stops sending requests for some time
+when the website answers with an error indicating that requests are blocked or rate limited (HTTP 403, 429 or 503).
+
+The following env configuration options are available:
+* `PROVIDER_POLOLU_ENABLED`: Set this to `1` to enable the Pololu provider
+* `PROVIDER_POLOLU_REQUEST_DELAY`: The minimum time in seconds between two page requests to pololu.com (optional, default: `1`)
+
 ### Buerklin
 
 The Buerklin provider uses the [Buerklin API](https://www.buerklin.com/en/services/eprocurement/) to search for parts and get information.
@@ -375,6 +392,26 @@ somebody opens its info page for the first time (see [Fetching data when a part 
 This applies to parts which have an orderdetail linking to a product page of the configured Amazon marketplace, and the
 number of requests caused this way is capped by *Max. requests per day when viewing parts* of the provider settings.
 
+### SparkFun
+
+The SparkFun provider retrieves product information from [sparkfun.com](https://www.sparkfun.com/). You can search by
+keyword or by SparkFun SKU (e.g. `DEV-13975` or just `13975`). The provider returns the name, description, category,
+product images, prices (including quantity discounts), weight and the documents linked on the product page
+(schematics, datasheets, hookup guides, Eagle files, etc.). The SKU is used as manufacturer part number.
+
+The data is read from the GraphQL endpoint of the SparkFun shop and from the product page, as SparkFun offers no
+official API for this. It could break at any time, so use it at your own risk.
+
+To be polite to the shop, the provider waits a configurable time between any two requests it sends (to the GraphQL
+endpoint and to the product pages), requests which come too early are delayed. A search needs one request and the
+details of a product need two, so a lookup can take some time. If the shop refuses a request (HTTP 403, 429 or 503),
+the provider sends no requests at all for one hour, and lookups fail with a message telling until when it is paused.
+
+The following env configuration options are available:
+* `PROVIDER_SPARKFUN_ENABLED`: Set this to `1` to enable the SparkFun provider
+* `PROVIDER_SPARKFUN_REQUEST_DELAY`: The minimum time in seconds between two requests to sparkfun.com (optional,
+  default: `5`)
+
 ### TrustedParts
 
 The TrustedParts provider uses the [TrustedParts.com Inventory API](https://www.trustedparts.com/en/docs/api/trustedparts-api)
@@ -412,6 +449,62 @@ The following env configuration options are available:
 * `PROVIDER_TRUSTEDPARTS_USE_CACHED_DATA`: If set to `1`, TrustedParts.com answers with cached stock and price data
   instead of querying the distributors in real time. This is faster and does not count against the rate limits, but the
   data can be outdated (optional, default: `0`)
+
+### Adafruit
+
+The Adafruit provider uses the public product API of [adafruit.com](https://www.adafruit.com/) to search for products
+and get information. No API key or account is required.
+
+The API has no search endpoint, it only offers the whole product catalog as one large list. Part-DB therefore
+downloads the catalog once, caches it for one day and searches it locally. You can search by keyword (all words must
+occur in the product name, model or manufacturer) or by the Adafruit product ID (e.g. `4062` or `ADA4062`), which is also used as provider ID.
+Product URLs like `https://www.adafruit.com/product/4062` are recognized too.
+
+When retrieving the details of a product, the product API supplies name, description, manufacturer, prices with quantity
+breaks (in USD) and the stock level. By default the product page is read too, as only it contains all product images, the
+technical details (which are offered as parameters), the category and the links to the learn guides. If you want
+to avoid this second request per part, you can disable it.
+
+To be polite to the website, the provider waits a configurable time between any two requests it sends (catalog
+download, product API and product pages), requests which come too early are delayed, so a lookup can take some time.
+If the website refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour, and
+lookups fail with a message telling until when it is paused. The cached catalog can still be searched in that time.
+
+The following env configuration options are available:
+
+* `PROVIDER_ADAFRUIT_ENABLED`: Set this to `1` to enable the Adafruit provider
+* `PROVIDER_ADAFRUIT_FETCH_PRODUCT_PAGE`: Set this to `0` to only use the product API and not read the product page
+  (optional, default: `1`)
+* `PROVIDER_ADAFRUIT_REQUEST_DELAY`: The minimum time in seconds between two requests to adafruit.com (optional,
+  default: `5`)
+
+
+### Bambu Lab
+
+The Bambu Lab provider uses the API of the [Bambu Lab store](https://store.bambulab.com/) website to search for
+filaments, printer parts and accessories and to retrieve their images, prices, options and documents (like the technical
+and safety data sheets of the filaments). No account or API key is required.
+This is not an official API and could break at any time. So use it at your own risk.
+
+Most products of the store are available in multiple variants (e.g. the colors of a filament, with or without spool),
+which differ in their images, prices and codes. If you search for a product name (like `PETG HF`), you get the
+products as a whole. To get a certain variant, search for its code (like the filament code `32101`, which is printed
+on the spool and the box), or use the URL of the selected variant (`.../products/petg-translucent?id=...`) in the
+"Create part from URL" feature. For variants the code is used as manufacturer part number.
+
+To be polite to the store, the provider waits a configurable time between any two requests it sends (to the API and
+to the product pages), requests which come too early are delayed. A search needs one request (plus one per listed
+product if you search for a code), the details of a product need two, so a lookup can take some time. If the store
+refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour, and lookups fail with a
+message telling until when it is paused. Product data which is already cached is still served.
+
+The following env configuration options are available:
+* `PROVIDER_BAMBULAB_ENABLED`: Set this to `1` to enable the Bambu Lab provider
+* `PROVIDER_BAMBULAB_REGION`: The regional store which should be used. This determines the available products, the
+  prices and their currency. Possible values: `US`, `CA`, `MX`, `EU`, `UK`, `AU`, `JP`, `KR`, `GLOBAL` (optional,
+  default: `US`)
+* `PROVIDER_BAMBULAB_REQUEST_DELAY`: The minimum time in seconds between two requests to the store (optional,
+  default: `5`)
 
 ### Custom providers
 
@@ -495,3 +588,7 @@ not Part-DB: if an external script uses the same API credentials (for example a 
 through the API), its requests and Part-DB's add up, and neither side can see the other's count. The remaining
 headroom is what keeps the two from pushing each other over the limit. If you know that nothing else uses the
 account, you can raise the values.
+
+Certain providers (like Adafruit, Pololu) have their own rate limits, configurable in the provider settings. 
+These are enforced in addition to the global limits, and are usually lower than the global limits, as no offical API
+exists and the provider is scraping the website and have to be polite to the shop.
