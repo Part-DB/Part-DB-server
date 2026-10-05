@@ -15746,5 +15746,29 @@ Buerklin-API Authentication server:
         <target>The minimum time in seconds between two requests to adafruit.com (catalog download, product API and product pages). Requests which come too early are delayed, so a lookup can take a while. If the website refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour. 0 disables the delay.</target>
       </segment>
     </unit>
+    <unit id="FQ16OqS" name="settings.ips.sparkfun">
+      <segment state="translated">
+        <source>settings.ips.sparkfun</source>
+        <target>SparkFun</target>
+      </segment>
+    </unit>
+    <unit id="iLozj.r" name="settings.ips.sparkfun.help">
+      <segment state="translated">
+        <source>settings.ips.sparkfun.help</source>
+        <target>SparkFun offers no official API, so this info provider reads the GraphQL endpoint and the product pages of the sparkfun.com shop to extract info. It could break at any time, use it at your own risk.</target>
+      </segment>
+    </unit>
+    <unit id="f17B5cC" name="settings.ips.sparkfun.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.sparkfun.requestDelay</source>
+        <target>Delay between requests</target>
+      </segment>
+    </unit>
+    <unit id="S9R8oDO" name="settings.ips.sparkfun.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.sparkfun.requestDelay.help</source>
+        <target>The minimum time in seconds between two requests to sparkfun.com (GraphQL endpoint and product pages). Requests which come too early are delayed, so a lookup can take a while. If the shop refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour. 0 disables the delay.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

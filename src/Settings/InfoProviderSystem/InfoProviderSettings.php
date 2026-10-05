@@ -92,4 +92,7 @@ class InfoProviderSettings
     
     #[EmbeddedSettings]
     public ?PololuSettings $pololu = null;
+    
+    #[EmbeddedSettings]
+    public ?SparkFunSettings $sparkfun = null;
 }

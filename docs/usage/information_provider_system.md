@@ -386,6 +386,26 @@ Once you have the API key, you can configure the Canopy provider in Part-DB usin
 
 * `PROVIDER_CANOPY_API_KEY`: The API key you got from Canopy (mandatory)
 
+### SparkFun
+
+The SparkFun provider retrieves product information from [sparkfun.com](https://www.sparkfun.com/). You can search by
+keyword or by SparkFun SKU (e.g. `DEV-13975` or just `13975`). The provider returns the name, description, category,
+product images, prices (including quantity discounts), weight and the documents linked on the product page
+(schematics, datasheets, hookup guides, Eagle files, etc.). The SKU is used as manufacturer part number.
+
+The data is read from the GraphQL endpoint of the SparkFun shop and from the product page, as SparkFun offers no
+official API for this. It could break at any time, so use it at your own risk.
+
+To be polite to the shop, the provider waits a configurable time between any two requests it sends (to the GraphQL
+endpoint and to the product pages), requests which come too early are delayed. A search needs one request and the
+details of a product need two, so a lookup can take some time. If the shop refuses a request (HTTP 403, 429 or 503),
+the provider sends no requests at all for one hour, and lookups fail with a message telling until when it is paused.
+
+The following env configuration options are available:
+* `PROVIDER_SPARKFUN_ENABLED`: Set this to `1` to enable the SparkFun provider
+* `PROVIDER_SPARKFUN_REQUEST_DELAY`: The minimum time in seconds between two requests to sparkfun.com (optional,
+  default: `5`)
+
 ### TrustedParts
 
 The TrustedParts provider uses the [TrustedParts.com Inventory API](https://www.trustedparts.com/en/docs/api/trustedparts-api)
@@ -450,7 +470,7 @@ The following env configuration options are available:
 * `PROVIDER_ADAFRUIT_FETCH_PRODUCT_PAGE`: Set this to `0` to only use the product API and not read the product page
   (optional, default: `1`)
 * `PROVIDER_ADAFRUIT_REQUEST_DELAY`: The minimum time in seconds between two requests to adafruit.com (optional,
-  default: `10`)
+  default: `5`)
 
 ### Custom providers
 
