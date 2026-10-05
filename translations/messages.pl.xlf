@@ -7091,7 +7091,7 @@ Element 3</target>
     <unit id="aX1_yDD" name="part.edit.ipn">
       <segment state="translated">
         <source>part.edit.ipn</source>
-        <target>Internal Part Number (IPN)</target>
+        <target>Wewnętrzny numer części (IPN)</target>
       </segment>
     </unit>
     <unit id="o3h1Z7K" name="part.ipn.not_defined">
