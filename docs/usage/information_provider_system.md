@@ -498,7 +498,7 @@ The following env configuration options are available:
   prices and their currency. Possible values: `US`, `CA`, `MX`, `EU`, `UK`, `AU`, `JP`, `KR`, `GLOBAL` (optional,
   default: `US`)
 * `PROVIDER_BAMBULAB_REQUEST_DELAY`: The minimum time in seconds between two requests to the store (optional,
-  default: `10`)
+  default: `5`)
 
 ### Custom providers
 
@@ -547,3 +547,7 @@ not Part-DB: if an external script uses the same API credentials (for example a 
 through the API), its requests and Part-DB's add up, and neither side can see the other's count. The remaining
 headroom is what keeps the two from pushing each other over the limit. If you know that nothing else uses the
 account, you can raise the values.
+
+Certain providers (like Adafruit, Pololu) have their own rate limits, configurable in the provider settings. 
+These are enforced in addition to the global limits, and are usually lower than the global limits, as no offical API
+exists and the provider is scraping the website and have to be polite to the shop.
