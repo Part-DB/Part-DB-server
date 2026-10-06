@@ -32,6 +32,7 @@ add( "de", {
     'Footprint': 'Footprint',
     'Footprint (Full path)': 'Footprint (Vollständiger Pfad)',
     'Mass': 'Gewicht',
+    'Minimum stock': 'Mindestbestand',
     'Manufacturer Product Number (MPN)': 'Hersteller Produktnummer (MPN)',
     'Internal Part Number (IPN)': 'Internal Part Number (IPN)',
     'Tags': 'Tags',
