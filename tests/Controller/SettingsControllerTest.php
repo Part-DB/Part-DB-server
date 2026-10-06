@@ -121,7 +121,7 @@ final class SettingsControllerTest extends WebTestCase
         $this->assertSelectorNotExists('a[href*="/oauth/client/"]');
     }
 
-    public function testProviderSettingsPageShowsCapabilitiesAndExpensiveState(): void
+    public function testProviderSettingsPageShowsCapabilitiesExpensiveAndSlowState(): void
     {
         $client = static::createClient();
         $this->loginAsAdmin($client);
@@ -131,11 +131,17 @@ final class SettingsControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertSelectorExists('.badge.text-bg-secondary .fa-image');
         $this->assertSelectorNotExists('.badge.bg-warning .fa-euro-sign');
+        $this->assertSelectorNotExists('.badge.bg-warning .fa-hourglass-half');
 
         //Octopart is marked as expensive
         $client->request('GET', '/en/tools/info_providers/provider/octopart/settings');
         $this->assertResponseIsSuccessful();
         $this->assertSelectorExists('.badge.bg-warning .fa-euro-sign');
+
+        //Adafruit throttles its requests, so it is marked as slow
+        $client->request('GET', '/en/tools/info_providers/provider/adafruit/settings');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorExists('.badge.bg-warning .fa-hourglass-half');
     }
 
     private function loginAsAdmin($client): void

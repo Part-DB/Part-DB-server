@@ -74,6 +74,7 @@ final class AIDocumentProvider implements InfoProviderInterface
                 ProviderCapabilities::PARAMETERS,
             ],
             expensive: true,
+            slow: true,
         );
     }
 

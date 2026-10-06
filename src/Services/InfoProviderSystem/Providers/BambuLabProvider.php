@@ -87,6 +87,7 @@ class BambuLabProvider implements InfoProviderInterface, URLHandlerInfoProviderI
                 ProviderCapabilities::DATASHEET,
                 ProviderCapabilities::PARAMETERS,
             ],
+            slow: true,
         );
     }
 

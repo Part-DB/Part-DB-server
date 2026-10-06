@@ -101,6 +101,7 @@ class AdafruitProvider implements InfoProviderInterface, URLHandlerInfoProviderI
                 ProviderCapabilities::PARAMETERS,
                 ProviderCapabilities::STOCK_LEVEL,
             ],
+            slow: true,
         );
     }
 

@@ -15914,5 +15914,17 @@ Buerklin-API Authentication server:
         <target>Reconnect OAuth</target>
       </segment>
     </unit>
+    <unit id="I_yYwh0" name="info_providers.slow">
+      <segment state="translated">
+        <source>info_providers.slow</source>
+        <target>Slow</target>
+      </segment>
+    </unit>
+    <unit id="zUoWx.G" name="info_providers.slow.tooltip">
+      <segment state="translated">
+        <source>info_providers.slow.tooltip</source>
+        <target>This info provider has to throttle its requests heavily or needs a lot of processing time, so requests can take a while.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

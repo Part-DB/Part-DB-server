@@ -1,10 +1,16 @@
-{# Renders the expensive and capability badges of the given provider info #}
+{# Renders the expensive, slow and capability badges of the given provider info #}
 {% macro provider_badges(provider_info) %}
     {# @var provider_info \App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO #}
     {% if provider_info.expensive %}
         <span class="badge bg-warning" title="{% trans %}info_providers.expensive.tooltip{% endtrans %}">
             <i class="fa-fw fa-solid fa-euro-sign"></i>
             {% trans %}info_providers.expensive{% endtrans %}
+        </span>
+    {% endif %}
+    {% if provider_info.slow %}
+        <span class="badge bg-warning" title="{% trans %}info_providers.slow.tooltip{% endtrans %}">
+            <i class="fa-fw fa-solid fa-hourglass-half"></i>
+            {% trans %}info_providers.slow{% endtrans %}
         </span>
     {% endif %}
     {% for capability in provider_info.capabilities|sort((a, b) => a.orderIndex <=> b.orderIndex) %}

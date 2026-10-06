@@ -83,6 +83,7 @@ class PololuProvider implements InfoProviderInterface, URLHandlerInfoProviderInt
                 ProviderCapabilities::PARAMETERS,
                 ProviderCapabilities::STOCK_LEVEL,
             ],
+            slow: true,
         );
     }
 
