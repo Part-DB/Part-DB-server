@@ -10706,7 +10706,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="of5wN9M" name="tree.tools.system.update_manager">
       <segment state="translated">
         <source>tree.tools.system.update_manager</source>
-        <target>Menedżer Aktualizacji</target>
+        <target>Menedżer aktualizacji</target>
       </segment>
     </unit>
     <unit id="3YsJ4i6" name="settings.tooltip.overrideable_by_env">
@@ -12340,7 +12340,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="PExOL_J" name="update_manager.title">
       <segment state="translated">
         <source>update_manager.title</source>
-        <target>Menedżer Aktualizacji</target>
+        <target>Menedżer aktualizacji</target>
       </segment>
     </unit>
     <unit id="DkbDuK5" name="update_manager.new">
@@ -12634,7 +12634,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="0amNk.A" name="update_manager.back_to_update_manager">
       <segment state="translated">
         <source>update_manager.back_to_update_manager</source>
-        <target>Powrót do Menedżera Aktualizacji</target>
+        <target>Powrót do menedżera aktualizacji</target>
       </segment>
     </unit>
     <unit id="3RaBRRh" name="update_manager.download_assets">
@@ -12766,7 +12766,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="uydk07m" name="update_manager.progress.back">
       <segment state="translated">
         <source>update_manager.progress.back</source>
-        <target>Powrót do Menedżera Aktualizacji</target>
+        <target>Powrót do menedżera aktualizacji</target>
       </segment>
     </unit>
     <unit id="egnoPy_" name="update_manager.progress.refresh_page">
@@ -12838,7 +12838,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="FqMFu60" name="update_manager.downgrade_removes_update_manager">
       <segment state="translated">
         <source>update_manager.downgrade_removes_update_manager</source>
-        <target>UWAGA: Ta wersja nie zawiera Menedżera Aktualizacji. Po cofnięciu do tej wersji, aktualizacje będzie trzeba przeprowadzać ręcznie poprzez terminal serwera (git checkout, composer install, itd.).</target>
+        <target>UWAGA: Ta wersja nie zawiera menedżera aktualizacji. Po cofnięciu do tej wersji, aktualizacje będzie trzeba przeprowadzać ręcznie poprzez terminal serwera (git checkout, composer install, itd.).</target>
       </segment>
     </unit>
     <unit id="gJ1zayM" name="update_manager.restore_backup">
@@ -14248,7 +14248,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="EyK.Bvs" name="update_manager.docker.back_to_update_manager">
       <segment state="translated">
         <source>update_manager.docker.back_to_update_manager</source>
-        <target>Powrót do Menedżera Aktualizacji</target>
+        <target>Powrót do menedżera aktualizacji</target>
       </segment>
     </unit>
     <unit id="qXEyzbC" name="update_manager.docker.go_to_homepage">
