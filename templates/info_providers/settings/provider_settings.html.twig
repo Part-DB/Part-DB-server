@@ -28,4 +28,9 @@
         </div>
     </div>
     {{ form_end(form) }}
+
+    {# The fragment selects the info providers tab on the system settings page (see tab_remember.js) #}
+    <a href="{{ path('system_settings') }}#settings-form[infoProviders]-pane" class="btn btn-secondary mt-2 {{ offset_label }}">
+        <i class="fa-solid fa-arrow-left fa-fw" aria-hidden="true"></i> {% trans %}info_providers.settings.back_to_system_settings{% endtrans %}
+    </a>
 {% endblock %}
