@@ -45,6 +45,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
+use App\Services\Formatters\AmountFormatter;
 use App\Services\Formatters\SIFormatter;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\InlinesOnly\InlinesOnlyExtension;
@@ -58,7 +59,7 @@ final readonly class PartProvider implements PlaceholderProviderInterface
 {
     private MarkdownConverter $inlineConverter;
 
-    public function __construct(private SIFormatter $siFormatter, private TranslatorInterface $translator)
+    public function __construct(private SIFormatter $siFormatter, private TranslatorInterface $translator, private AmountFormatter $amountFormatter)
     {
         $environment = new Environment();
         $environment->addExtension(new InlinesOnlyExtension());
@@ -97,6 +98,10 @@ final readonly class PartProvider implements PlaceholderProviderInterface
 
         if ('[[MASS]]' === $placeholder) {
             return $part->getMass() ? $this->siFormatter->format($part->getMass(), 'g', 1) : '';
+        }
+
+        if ('[[MIN_STOCK]]' === $placeholder) {
+            return $this->amountFormatter->format($part->getMinAmount(), $part->getPartUnit());
         }
 
         if ('[[MPN]]' === $placeholder) {

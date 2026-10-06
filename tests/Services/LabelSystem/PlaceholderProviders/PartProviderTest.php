@@ -74,6 +74,7 @@ final class PartProviderTest extends WebTestCase
         $this->target->setManufacturer(null);
 
         $this->target->setMass(1234.2);
+        $this->target->setMinAmount(10);
         $this->target->setTags('SMD, Tag1, Tag2');
         $this->target->setManufacturerProductNumber('MPN123');
         $this->target->setManufacturingStatus(ManufacturingStatus::ACTIVE);
@@ -91,6 +92,7 @@ final class PartProviderTest extends WebTestCase
         yield ['', '[[MANUFACTURER]]'];
         yield ['', '[[MANUFACTURER_FULL]]'];
         yield ['1.2 kg', '[[MASS]]'];
+        yield ['10', '[[MIN_STOCK]]'];
         yield ['MPN123', '[[MPN]]'];
         yield ['SMD, Tag1, Tag2', '[[TAGS]]'];
         yield ['Active', '[[M_STATUS]]'];
