@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use App\Entity\OAuthToken;
 use App\Entity\UserSystem\User;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -63,6 +64,61 @@ final class SettingsControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
 
         $this->assertSelectorExists('a[href="/en/settings#settings-form[infoProviders]-pane"]');
+    }
+
+    public function testProviderSettingsPageShowsOAuthConnectButtonWithoutToken(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+
+        $em = $client->getContainer()->get('doctrine')->getManager();
+        $this->assertNull($em->getRepository(OAuthToken::class)->findOneBy(['name' => 'ip_digikey_oauth']),
+            'Test expects no stored Digikey token');
+
+        $client->request('GET', '/en/tools/info_providers/provider/digikey/settings');
+        $this->assertResponseIsSuccessful();
+
+        $this->assertSelectorExists('a[href="/en/oauth/client/ip_digikey_oauth/connect"]');
+        $this->assertSelectorTextContains('fieldset .badge.text-bg-warning', 'Not connected');
+    }
+
+    public function testProviderSettingsPageShowsStoredOAuthTokenInfo(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+
+        $em = $client->getContainer()->get('doctrine')->getManager();
+        $token = new OAuthToken('ip_digikey_oauth', 'secret-refresh-token', 'secret-access-token',
+            new \DateTimeImmutable('-1 hour'));
+        $em->persist($token);
+        $em->flush();
+
+        try {
+            $client->request('GET', '/en/tools/info_providers/provider/digikey/settings');
+            $this->assertResponseIsSuccessful();
+
+            $this->assertSelectorTextContains('fieldset .badge.text-bg-success', 'Connected');
+            $this->assertSelectorTextContains('fieldset', 'Authorization code');
+            $this->assertSelectorTextContains('fieldset', 'Expired');
+            $this->assertSelectorTextContains('a[href="/en/oauth/client/ip_digikey_oauth/connect"]', 'Reconnect');
+            //The token values must never be shown
+            $this->assertStringNotContainsString('secret-', (string) $client->getResponse()->getContent());
+        } finally {
+            $em = $client->getContainer()->get('doctrine')->getManager();
+            $em->remove($em->getRepository(OAuthToken::class)->findOneBy(['name' => 'ip_digikey_oauth']));
+            $em->flush();
+        }
+    }
+
+    public function testProviderSettingsPageWithoutOAuthHasNoOAuthSection(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+
+        $client->request('GET', '/en/tools/info_providers/provider/lcsc/settings');
+        $this->assertResponseIsSuccessful();
+
+        $this->assertSelectorNotExists('a[href*="/oauth/client/"]');
     }
 
     private function loginAsAdmin($client): void

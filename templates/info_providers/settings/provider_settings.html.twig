@@ -29,6 +29,79 @@
     </div>
     {{ form_end(form) }}
 
+    {% if info_provider_info.oauthAppName is not empty %}
+        {# @var oauth_token \App\Entity\OAuthToken|null #}
+        <hr class="mx-0 mb-2 mt-2">
+        <fieldset>
+            <legend class="{{ offset_label }}">
+                <i class="fa-solid fa-key fa-fw"></i> {% trans %}info_providers.settings.oauth.title{% endtrans %}
+            </legend>
+            <div class="row">
+                <div class="{{ offset_label }} col mb-3 ps-2">
+                    <b>{% trans %}info_providers.settings.oauth.help{% endtrans %}</b>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="{{ col_label }} text-sm-end fw-bold">{% trans %}info_providers.settings.oauth.status{% endtrans %}</div>
+                <div class="{{ col_input }}">
+                    {% if oauth_token is not null %}
+                        <span class="badge text-bg-success"><i class="fa-solid fa-link fa-fw"></i> {% trans %}info_providers.settings.oauth.connected{% endtrans %}</span>
+                    {% else %}
+                        <span class="badge text-bg-warning"><i class="fa-solid fa-link-slash fa-fw"></i> {% trans %}info_providers.settings.oauth.not_connected{% endtrans %}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if oauth_token is not null %}
+                <div class="row mb-2">
+                    <div class="{{ col_label }} text-sm-end fw-bold">{% trans %}info_providers.settings.oauth.grant_type{% endtrans %}</div>
+                    <div class="{{ col_input }}">
+                        {% if oauth_token.clientCredentialsGrant %}
+                            {% trans %}info_providers.settings.oauth.grant_type.client_credentials{% endtrans %}
+                        {% else %}
+                            {% trans %}info_providers.settings.oauth.grant_type.authorization_code{% endtrans %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="{{ col_label }} text-sm-end fw-bold">{% trans %}info_providers.settings.oauth.connected_at{% endtrans %}</div>
+                    <div class="{{ col_input }}">{{ oauth_token.addedDate ? oauth_token.addedDate|format_datetime('short') : '-' }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="{{ col_label }} text-sm-end fw-bold">{% trans %}info_providers.settings.oauth.last_updated{% endtrans %}</div>
+                    <div class="{{ col_input }}">{{ oauth_token.lastModified ? oauth_token.lastModified|format_datetime('short') : '-' }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="{{ col_label }} text-sm-end fw-bold">{% trans %}info_providers.settings.oauth.expires_at{% endtrans %}</div>
+                    <div class="{{ col_input }}">
+                        {{ oauth_token.expirationDate ? oauth_token.expirationDate|format_datetime('short') : '-' }}
+                        {% if oauth_token.expired %}
+                            <span class="badge text-bg-secondary">{% trans %}info_providers.settings.oauth.expired{% endtrans %}</span>
+                            <div class="form-text">{% trans %}info_providers.settings.oauth.expired.help{% endtrans %}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="row">
+                <div class="{{ offset_label }} col ps-2">
+                    <a href="{{ path('oauth_client_connect', {'name': info_provider_info.oauthAppName}) }}"
+                       class="btn btn-primary {% if not is_granted('@system.manage_oauth_tokens') %}disabled{% endif %}">
+                        <i class="fa-solid fa-plug fa-fw"></i>
+                        {% if oauth_token is not null %}
+                            {% trans %}info_providers.settings.oauth.reconnect{% endtrans %}
+                        {% else %}
+                            {% trans %}oauth_client.connect.btn{% endtrans %}
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        </fieldset>
+    {% endif %}
+
+    <hr class="mx-0 mb-2 mt-2">
+
     {# The fragment selects the info providers tab on the system settings page (see tab_remember.js) #}
     <a href="{{ path('system_settings') }}#settings-form[infoProviders]-pane" class="btn btn-secondary mt-2 {{ offset_label }}">
         <i class="fa-solid fa-arrow-left fa-fw" aria-hidden="true"></i> {% trans %}info_providers.settings.back_to_system_settings{% endtrans %}
