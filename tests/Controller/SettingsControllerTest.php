@@ -121,6 +121,23 @@ final class SettingsControllerTest extends WebTestCase
         $this->assertSelectorNotExists('a[href*="/oauth/client/"]');
     }
 
+    public function testProviderSettingsPageShowsCapabilitiesAndExpensiveState(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+
+        //LCSC is not expensive, but has capabilities
+        $client->request('GET', '/en/tools/info_providers/provider/lcsc/settings');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorExists('.badge.text-bg-secondary .fa-image');
+        $this->assertSelectorNotExists('.badge.bg-warning .fa-euro-sign');
+
+        //Octopart is marked as expensive
+        $client->request('GET', '/en/tools/info_providers/provider/octopart/settings');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorExists('.badge.bg-warning .fa-euro-sign');
+    }
+
     private function loginAsAdmin($client): void
     {
         $user = $client->getContainer()->get('doctrine')->getManager()

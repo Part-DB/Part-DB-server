@@ -221,11 +221,18 @@ final class InfoProviderFromFileTest extends WebTestCase
         self::assertResponseIsSuccessful();
         self::assertSame(1, $crawler->filter('[data-platform-selector-label="ai_file_extractor"]')->count());
 
-        //Both AI extractors are part of the system settings, each with its own platform selector for its model field
-        $crawler = $this->client->request('GET', '/en/settings');
+        //The web extractor has its own settings page with its own platform selector
+        $crawler = $this->client->request('GET', '/en/tools/info_providers/provider/ai_web/settings');
         self::assertResponseIsSuccessful();
         self::assertSame(1, $crawler->filter('[data-platform-selector-label="ai_extractor"]')->count());
-        self::assertSame(1, $crawler->filter('[data-platform-selector-label="ai_file_extractor"]')->count());
+
+        //The system settings only link the provider settings pages, instead of embedding them
+        $crawler = $this->client->request('GET', '/en/settings');
+        self::assertResponseIsSuccessful();
+        self::assertSame(0, $crawler->filter('[data-platform-selector-label="ai_extractor"]')->count());
+        self::assertSame(0, $crawler->filter('[data-platform-selector-label="ai_file_extractor"]')->count());
+        self::assertSame(1, $crawler->filter('a[href$="/provider/ai_web/settings"]')->count());
+        self::assertSame(1, $crawler->filter('a[href$="/provider/ai_document/settings"]')->count());
     }
 
     public function testCreatePartFromFile(): void
