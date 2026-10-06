@@ -939,7 +939,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
       </notes>
       <segment state="translated">
         <source>log.undo.confirm_message</source>
-        <target>Czy na pewno chcesz cofnąć daną zmianę/zresetować element do podanego znacznika czasu?</target>
+        <target>Czy na pewno chcesz cofnąć daną zmianę/zresetować element do danego znacznika czasu?</target>
       </segment>
     </unit>
     <unit id="lM5TX19" name="mail.footer.email_sent_by">
@@ -2157,7 +2157,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
     <unit id="9MKHv7k" name="tfa_google.step.input_code">
       <segment state="translated">
         <source>tfa_google.step.input_code</source>
-        <target>Zeskanuj sąsiadujący kod QR za pomocą aplikacji lub wprowadź dane ręcznie.</target>
+        <target>Wprowadź wygenerowany kod w polu poniżej i potwierdź.</target>
       </segment>
     </unit>
     <unit id="3fS0adj" name="tfa_google.step.download_backup">
@@ -2746,7 +2746,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="B6DwPtI" name="log.timestamp">
       <segment state="translated">
         <source>log.timestamp</source>
-        <target>Znacznik czasu</target>
+        <target>Czas</target>
       </segment>
     </unit>
     <unit id="i_eRuZ4" name="log.type">
@@ -5921,7 +5921,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>log.type.element_created</source>
-        <target>Utworzony element</target>
+        <target>Utworzono element</target>
       </segment>
     </unit>
     <unit id="zrdG.Jf" name="log.type.element_edited">
@@ -5931,7 +5931,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>log.type.element_edited</source>
-        <target>Edytowano komponent</target>
+        <target>Edytowano element</target>
       </segment>
     </unit>
     <unit id="7U9wURa" name="log.type.element_deleted">
@@ -5941,7 +5941,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>log.type.element_deleted</source>
-        <target>Element usunięty</target>
+        <target>Usunięto element</target>
       </segment>
     </unit>
     <unit id="_2FIROZ" name="log.type.database_updated">
@@ -5951,7 +5951,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>log.type.database_updated</source>
-        <target>Baza danych zaktualizowana</target>
+        <target>Zaktualizowano bazę danych</target>
       </segment>
     </unit>
     <unit id="TgP5PEM" name="perm.revert_elements">
@@ -5996,7 +5996,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>log.type.security.google_disabled</source>
-        <target>Aplikacja Authenticator wyłączona</target>
+        <target>Wyłączono aplikację Authenticator</target>
       </segment>
     </unit>
     <unit id="XFvvUtc" name="log.type.security.u2f_removed">
@@ -6005,7 +6005,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>log.type.security.u2f_removed</source>
-        <target>Usunięty klucz bezpieczeństwa</target>
+        <target>Usunięto klucz bezpieczeństwa</target>
       </segment>
     </unit>
     <unit id="eZgT4MC" name="log.type.security.u2f_added">
@@ -6023,7 +6023,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>log.type.security.backup_keys_reset</source>
-        <target>Regeneracja kluczy zapasowych</target>
+        <target>Ponownie wygenerowano klucze zapasowe</target>
       </segment>
     </unit>
     <unit id="RF1.KEr" name="log.type.security.google_enabled">
@@ -6032,7 +6032,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>log.type.security.google_enabled</source>
-        <target>Włączona aplikacja Authenticator</target>
+        <target>Włączono aplikację Authenticator</target>
       </segment>
     </unit>
     <unit id="LnGIxBi" name="log.type.security.password_changed">
@@ -6041,7 +6041,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>log.type.security.password_changed</source>
-        <target>Hasło zostało zmienione</target>
+        <target>Zmieniono hasło</target>
       </segment>
     </unit>
     <unit id="WTGQZj_" name="log.type.security.trusted_device_reset">
@@ -6050,7 +6050,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>log.type.security.trusted_device_reset</source>
-        <target>Zaufane urządzenia zresetowane</target>
+        <target>Zresetowano zaufane urządzenia</target>
       </segment>
     </unit>
     <unit id="a.Le1i0" name="log.type.collection_element_deleted">
@@ -6059,7 +6059,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>log.type.collection_element_deleted</source>
-        <target>Usunięty element kolekcji</target>
+        <target>Usunięto element kolekcji</target>
       </segment>
     </unit>
     <unit id="WbkRTGh" name="log.type.security.password_reset">
@@ -6068,7 +6068,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>log.type.security.password_reset</source>
-        <target>Resetowanie hasła</target>
+        <target>Zresetowano hasło</target>
       </segment>
     </unit>
     <unit id="6FyyN30" name="log.type.security.2fa_admin_reset">
@@ -6893,7 +6893,7 @@ Element 3</target>
     <unit id="AVh_JFf" name="log.level.info">
       <segment state="translated">
         <source>log.level.info</source>
-        <target>Info</target>
+        <target>Informacja</target>
       </segment>
     </unit>
     <unit id="T6aQ4X7" name="log.level.notice">
@@ -7433,7 +7433,7 @@ Element 3</target>
     <unit id="ifASis5" name="log.type.part_stock_changed">
       <segment state="translated">
         <source>log.type.part_stock_changed</source>
-        <target>Zmiana zapasów komponentów</target>
+        <target>Zmieniono zapas komponentów</target>
       </segment>
     </unit>
     <unit id="qjWMv5E" name="log.part_stock_changed.withdraw">
@@ -8693,7 +8693,7 @@ Element 3</target>
     <unit id="by6cvU5" name="log.undo.revert.short">
       <segment state="translated">
         <source>log.undo.revert.short</source>
-        <target>Przywróć ten znacznik czasu</target>
+        <target>Przywróć do tego momentu</target>
       </segment>
     </unit>
     <unit id="UoFikKP" name="log.view_version">
@@ -9445,7 +9445,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="zWj5h2X" name="log.part_stock_changed.timestamp">
       <segment state="translated">
         <source>log.part_stock_changed.timestamp</source>
-        <target>Znacznik czasu</target>
+        <target>Czas</target>
       </segment>
     </unit>
     <unit id="tZotqiY" name="part.info.withdraw_modal.timestamp">
