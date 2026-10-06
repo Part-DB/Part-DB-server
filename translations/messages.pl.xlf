@@ -15679,5 +15679,125 @@ Serwer autoryzacji Buerklin API:
         <target>Dostępny zapas</target>
       </segment>
     </unit>
+    <unit id="y2IeHi_" name="settings.ips.pololu">
+      <segment state="translated">
+        <source>settings.ips.pololu</source>
+        <target>Pololu</target>
+      </segment>
+    </unit>
+    <unit id="1HPRmGN" name="settings.ips.pololu.help">
+      <segment state="translated">
+        <source>settings.ips.pololu.help</source>
+        <target>Pololu.com nie oferuje oficjalnego API. Ten dostawca informacji przeszukuje witrynę internetową w celu uzyskania informacji. Może to przestać działać poprawnie w każdej chwili, używaj na własne ryzyko.</target>
+      </segment>
+    </unit>
+    <unit id="oJkAIro" name="settings.ips.pololu.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.pololu.requestDelay</source>
+        <target>Opóźnienie pomiędzy żądaniami stron</target>
+      </segment>
+    </unit>
+    <unit id="co9h0aO" name="settings.ips.pololu.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.pololu.requestDelay.help</source>
+        <target>Minimalny czas w sekundach pomiędzy dwoma żądaniami z witryny pololu.com. Uzyskanie szczegółów produktu wymaga do trzech żądań.</target>
+      </segment>
+    </unit>
+    <unit id="aDf4r1T" name="settings.ips.adafruit">
+      <segment state="translated">
+        <source>settings.ips.adafruit</source>
+        <target>Adafruit</target>
+      </segment>
+    </unit>
+    <unit id="aDf4r2H" name="settings.ips.adafruit.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.help</source>
+        <target>Używa publicznego API produktów adafruit.com (nie wymaga klucza API). Katalog produktów jest pobierany raz dziennie i przeszukiwany lokalnie. Ceny są w USD.</target>
+      </segment>
+    </unit>
+    <unit id="aDf4r3P" name="settings.ips.adafruit.fetchProductPage">
+      <segment state="translated">
+        <source>settings.ips.adafruit.fetchProductPage</source>
+        <target>Pozyskuj stronę produktu</target>
+      </segment>
+    </unit>
+    <unit id="aDf4r4Q" name="settings.ips.adafruit.fetchProductPage.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.fetchProductPage.help</source>
+        <target>Wczytaj również stronę produktu na adafruit.com, aby uzyskać wszystkie obrazy produktu, szczegóły techniczne, kategorię i poradniki. To powoduje jedno dodatkowe żądanie na część. Gdy wyłączone, używane jest tylko API produktów.</target>
+      </segment>
+    </unit>
+    <unit id="JtHXJcF" name="settings.ips.adafruit.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.adafruit.requestDelay</source>
+        <target>Opóźnienie pomiędzy żądaniami</target>
+      </segment>
+    </unit>
+    <unit id="HaGEpJu" name="settings.ips.adafruit.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.requestDelay.help</source>
+        <target>Minimalny czas w sekundach pomiędzy dwoma żądaniami z adafruit.com (pobranie katalogu, API produktów i stron produktów). Żądania występujące zbyt wcześnie są opóźniane, więc pozyskanie informacji może zająć dużo czasu. Jeśli strona odrzuci żądanie (HTTP 403, 429 lub 503), dostawca nie wyśle żadnych żądań przez następną godzinę. 0 wyłącza opóźnienie.</target>
+      </segment>
+    </unit>
+    <unit id="FQ16OqS" name="settings.ips.sparkfun">
+      <segment state="translated">
+        <source>settings.ips.sparkfun</source>
+        <target>SparkFun</target>
+      </segment>
+    </unit>
+    <unit id="iLozj.r" name="settings.ips.sparkfun.help">
+      <segment state="translated">
+        <source>settings.ips.sparkfun.help</source>
+        <target>SparkFun nie oferuje oficjalnego API, więc ten dostawca informacji odczytuje punkt końcowy GraphQL i strony produktów sklepu sparkfun.com, aby wydobyć informacje. Może to przestać działać poprawnie w każdej chwili, używaj na własne ryzyko.</target>
+      </segment>
+    </unit>
+    <unit id="f17B5cC" name="settings.ips.sparkfun.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.sparkfun.requestDelay</source>
+        <target>Opóźnienie pomiędzy żądaniami</target>
+      </segment>
+    </unit>
+    <unit id="S9R8oDO" name="settings.ips.sparkfun.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.sparkfun.requestDelay.help</source>
+        <target>Minimalny czas w sekundach pomiędzy dwoma żądaniami z sparkfun.com (punkt końcowy GraphQL i strony produktów). Żądania występujące zbyt wcześnie są opóźniane, więc pozyskanie informacji może zająć dużo czasu. Jeśli sklep odrzuci żądanie (HTTP 403, 429 lub 503), dostawca nie wyśle żadnych żądań przez następną godzinę. 0 wyłącza opóźnienie.</target>
+      </segment>
+    </unit>
+    <unit id="zxX4Woh" name="settings.ips.bambulab">
+      <segment state="translated">
+        <source>settings.ips.bambulab</source>
+        <target>Bambu Lab</target>
+      </segment>
+    </unit>
+    <unit id="zfk.eK." name="settings.ips.bambulab.help">
+      <segment state="translated">
+        <source>settings.ips.bambulab.help</source>
+        <target>Sklep Bambu Lab nie oferuje oficjalnego API, więc ten dostawca informacji używa nieoficjalnego API witryny sklepu. Może to przestać działać poprawnie w każdej chwili, używaj na własne ryzyko.</target>
+      </segment>
+    </unit>
+    <unit id="zfH0VbE" name="settings.ips.bambulab.region">
+      <segment state="translated">
+        <source>settings.ips.bambulab.region</source>
+        <target>Region sklepu</target>
+      </segment>
+    </unit>
+    <unit id="4sh8FkX" name="settings.ips.bambulab.region.help">
+      <segment state="translated">
+        <source>settings.ips.bambulab.region.help</source>
+        <target>Regionalny sklep Bambu Lab, którego należy używać. Od tego zależą dostępne produkty, ich ceny i waluta.</target>
+      </segment>
+    </unit>
+    <unit id="LOfAJqj" name="settings.ips.bambulab.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.bambulab.requestDelay</source>
+        <target>Opóźnienie pomiędzy żądaniami</target>
+      </segment>
+    </unit>
+    <unit id="i7lnSM9" name="settings.ips.bambulab.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.bambulab.requestDelay.help</source>
+        <target>Minimalny czas w sekundach pomiędzy dwoma żądaniami ze sklepu Bambu Lab (API i strony produktów). Żądania występujące zbyt wcześnie są opóźniane, więc pozyskanie informacji może zająć dużo czasu. Jeśli sklep odrzuci żądanie (HTTP 403, 429 lub 503), dostawca nie wyśle żadnych żądań przez następną godzinę. 0 wyłącza opóźnienie.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
