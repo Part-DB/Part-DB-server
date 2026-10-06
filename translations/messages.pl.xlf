@@ -2145,13 +2145,13 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
     <unit id="h3376Kl" name="tfa_google.step.download">
       <segment state="translated">
         <source>tfa_google.step.download</source>
-        <target>Pobierz aplikację uwierzytelniającą (np. &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"&gt;Google Authenticator&lt;/a&gt; oder &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp"&gt;FreeOTP Authenticator&lt;/a&gt;)</target>
+        <target>Pobierz aplikację uwierzytelniającą (np. &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"&gt;Google Authenticator&lt;/a&gt; lub &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp"&gt;FreeOTP Authenticator&lt;/a&gt;)</target>
       </segment>
     </unit>
     <unit id="eriwJoR" name="tfa_google.step.scan">
       <segment state="translated">
         <source>tfa_google.step.scan</source>
-        <target>Zeskanuj sąsiedni kod QR za pomocą aplikacji lub wprowadź dane ręcznie.</target>
+        <target>Zeskanuj kod QR obok za pomocą aplikacji lub wprowadź dane ręcznie.</target>
       </segment>
     </unit>
     <unit id="9MKHv7k" name="tfa_google.step.input_code">
