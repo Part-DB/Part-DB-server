@@ -16,7 +16,7 @@
     <unit id="dW7b2B_" name="parameters.validator.min_lesser_typical">
       <segment state="translated">
         <source>parameters.validator.min_lesser_typical</source>
-        <target>Wartość musi być mniejsza lub równa wartości nominalnej ({{compare_value }}).</target>
+        <target>Wartość musi być mniejsza lub równa wartości nominalnej ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="Yfp2uC5" name="parameters.validator.min_lesser_max">
@@ -28,7 +28,7 @@
     <unit id="P6b.8Ou" name="parameters.validator.max_greater_typical">
       <segment state="translated">
         <source>parameters.validator.max_greater_typical</source>
-        <target>Wartość musi być większa lub równa wartości nominalnej ({{ compare_value }}).</target>
+        <target>Wartość musi być większa lub równa wartości nominalnej ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="P41193Y" name="validator.user.username_already_used">
@@ -88,7 +88,7 @@
     <unit id="2yWi8eP" name="validator.part_lot.single_part">
       <segment state="translated">
         <source>validator.part_lot.single_part</source>
-        <target>Miejsce przechowywania zostało oznaczone jako „Tylko jeden komponent”, więc nie można dodać nowego komponentu.</target>
+        <target>Miejsce przechowywania zostało oznaczone jako „Tylko jedna część”, więc nie można dodać nowej części.</target>
       </segment>
     </unit>
     <unit id="A.TFhbb" name="validator.attachment.must_not_be_null">
@@ -112,7 +112,7 @@
     <unit id="gZ5FFL1" name="part.ipn.must_be_unique">
       <segment state="translated">
         <source>part.ipn.must_be_unique</source>
-        <target>Wewnętrzny numer części musi być unikalny. {{value }} jest już w użyciu!</target>
+        <target>Wewnętrzny numer części musi być unikalny. {{ value }} jest już w użyciu!</target>
       </segment>
     </unit>
     <unit id="P31Yg.d" name="validator.project.bom_entry.name_or_part_needed">
@@ -142,13 +142,13 @@
     <unit id="8teRCgR" name="project.bom_entry.can_not_add_own_builds_part">
       <segment state="translated">
         <source>project.bom_entry.can_not_add_own_builds_part</source>
-        <target>Do zestawienia komponentów nie można dodać własnej części konstrukcyjnej projektu.</target>
+        <target>Do zestawienia części nie można dodać własnej części konstrukcyjnej projektu.</target>
       </segment>
     </unit>
     <unit id="asBxPxe" name="project.bom_has_to_include_all_subelement_parts">
       <segment state="translated">
         <source>project.bom_has_to_include_all_subelement_parts</source>
-        <target>BOM projektu musi zawierać wszystkie komponenty produkcyjne pod projektów</target>
+        <target>BOM projektu musi zawierać wszystkie części produkcyjne podprojektów. Brakuje części %part_name% z projektu %project_name%!</target>
       </segment>
     </unit>
     <unit id="uxaE9Ct" name="project.bom_entry.price_not_allowed_on_parts">
@@ -184,7 +184,7 @@
     <unit id="DH0IkNR" name="validator.part_lot.owner_must_match_storage_location_owner">
       <segment state="translated">
         <source>validator.part_lot.owner_must_match_storage_location_owner</source>
-        <target>Właściciel tego zestawu komponentów i wybrana lokalizacja przechowywania muszą być zgodne (%owner_name%)!</target>
+        <target>Właściciel tego zestawu części musi być zgodny z właścicielem wybranego miejsca przechowywania (%owner_name%)!</target>
       </segment>
     </unit>
     <unit id="TzySicw" name="validator.part_lot.owner_must_not_be_anonymous">
@@ -244,7 +244,7 @@
     <unit id="I330cr5" name="settings.synonyms.type_synonyms.collection_type.duplicate">
       <segment state="translated">
         <source>settings.synonyms.type_synonyms.collection_type.duplicate</source>
-        <target>Duplikuj</target>
+        <target>Istnieje już zdefiniowane tłumaczenie dla tego typu i języka!</target>
       </segment>
     </unit>
     <unit id="zT_j_oQ" name="validator.invalid_gtin">
