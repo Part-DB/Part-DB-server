@@ -16,7 +16,7 @@
     <unit id="R4hoCqe" name="part.labelp">
       <segment state="translated">
         <source>part.labelp</source>
-        <target>Komponenty</target>
+        <target>Części</target>
       </segment>
     </unit>
     <unit id="S4CxO.T" name="entity.select.group.new_not_added_to_DB">
