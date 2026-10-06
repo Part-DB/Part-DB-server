@@ -15830,5 +15830,101 @@ Buerklin-API Authentication server:
         <target>This provider is needed for this feature to work</target>
       </segment>
     </unit>
+    <unit id="V3M_l4t" name="info_providers.settings.oauth.title">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.title</source>
+        <target>OAuth connection</target>
+      </segment>
+    </unit>
+    <unit id="pmUI3j6" name="info_providers.settings.oauth.help">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.help</source>
+        <target>This provider needs an OAuth connection. Save the client ID and secret above first, then connect. The obtained token is stored in the database and refreshed automatically.</target>
+      </segment>
+    </unit>
+    <unit id="wD_yg2T" name="info_providers.settings.oauth.status">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="EW7N1SE" name="info_providers.settings.oauth.connected">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.connected</source>
+        <target>Connected</target>
+      </segment>
+    </unit>
+    <unit id="GfAzmmO" name="info_providers.settings.oauth.not_connected">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.not_connected</source>
+        <target>Not connected</target>
+      </segment>
+    </unit>
+    <unit id="q9b3AlW" name="info_providers.settings.oauth.grant_type">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.grant_type</source>
+        <target>Grant type</target>
+      </segment>
+    </unit>
+    <unit id="1vZ6TUi" name="info_providers.settings.oauth.grant_type.client_credentials">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.grant_type.client_credentials</source>
+        <target>Client credentials</target>
+      </segment>
+    </unit>
+    <unit id="QBsbgfh" name="info_providers.settings.oauth.grant_type.authorization_code">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.grant_type.authorization_code</source>
+        <target>Authorization code (with refresh token)</target>
+      </segment>
+    </unit>
+    <unit id="0WCAqTB" name="info_providers.settings.oauth.connected_at">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.connected_at</source>
+        <target>First connected</target>
+      </segment>
+    </unit>
+    <unit id="WX4cfz5" name="info_providers.settings.oauth.last_updated">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.last_updated</source>
+        <target>Token last updated</target>
+      </segment>
+    </unit>
+    <unit id="OEVSGFB" name="info_providers.settings.oauth.expires_at">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.expires_at</source>
+        <target>Access token expires</target>
+      </segment>
+    </unit>
+    <unit id="Tjg1dzq" name="info_providers.settings.oauth.expired">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.expired</source>
+        <target>Expired</target>
+      </segment>
+    </unit>
+    <unit id="IWCTL6X" name="info_providers.settings.oauth.expired.help">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.expired.help</source>
+        <target>A new access token is requested automatically the next time the provider is used.</target>
+      </segment>
+    </unit>
+    <unit id="XQIvNX4" name="info_providers.settings.oauth.reconnect">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.reconnect</source>
+        <target>Reconnect OAuth</target>
+      </segment>
+    </unit>
+    <unit id="I_yYwh0" name="info_providers.slow">
+      <segment state="translated">
+        <source>info_providers.slow</source>
+        <target>Slow</target>
+      </segment>
+    </unit>
+    <unit id="zUoWx.G" name="info_providers.slow.tooltip">
+      <segment state="translated">
+        <source>info_providers.slow.tooltip</source>
+        <target>This info provider has to throttle its requests heavily or needs a lot of processing time, so requests can take a while.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
