@@ -15679,61 +15679,61 @@ Serwer autoryzacji Buerklin API:
         <target>Dostępny zapas</target>
       </segment>
     </unit>
-    <unit id="y2IeHi_" name="settings.ips.pololu">
+    <unit id="vhLQ2wI" name="settings.ips.pololu">
       <segment state="translated">
         <source>settings.ips.pololu</source>
         <target>Pololu</target>
       </segment>
     </unit>
-    <unit id="1HPRmGN" name="settings.ips.pololu.help">
+    <unit id="rAwB5gk" name="settings.ips.pololu.help">
       <segment state="translated">
         <source>settings.ips.pololu.help</source>
         <target>Pololu.com nie oferuje oficjalnego API. Ten dostawca informacji przeszukuje witrynę internetową w celu uzyskania informacji. Może to przestać działać poprawnie w każdej chwili, używaj na własne ryzyko.</target>
       </segment>
     </unit>
-    <unit id="oJkAIro" name="settings.ips.pololu.requestDelay">
+    <unit id="PY6rbC1" name="settings.ips.pololu.requestDelay">
       <segment state="translated">
         <source>settings.ips.pololu.requestDelay</source>
         <target>Opóźnienie pomiędzy żądaniami stron</target>
       </segment>
     </unit>
-    <unit id="co9h0aO" name="settings.ips.pololu.requestDelay.help">
+    <unit id="m8oSb9G" name="settings.ips.pololu.requestDelay.help">
       <segment state="translated">
         <source>settings.ips.pololu.requestDelay.help</source>
         <target>Minimalny czas w sekundach pomiędzy dwoma żądaniami z witryny pololu.com. Uzyskanie szczegółów produktu wymaga do trzech żądań.</target>
       </segment>
     </unit>
-    <unit id="aDf4r1T" name="settings.ips.adafruit">
+    <unit id="2cmlYHC" name="settings.ips.adafruit">
       <segment state="translated">
         <source>settings.ips.adafruit</source>
         <target>Adafruit</target>
       </segment>
     </unit>
-    <unit id="aDf4r2H" name="settings.ips.adafruit.help">
+    <unit id="gYw6DhB" name="settings.ips.adafruit.help">
       <segment state="translated">
         <source>settings.ips.adafruit.help</source>
         <target>Używa publicznego API produktów adafruit.com (nie wymaga klucza API). Katalog produktów jest pobierany raz dziennie i przeszukiwany lokalnie. Ceny są w USD.</target>
       </segment>
     </unit>
-    <unit id="aDf4r3P" name="settings.ips.adafruit.fetchProductPage">
+    <unit id="OzJ7H.4" name="settings.ips.adafruit.fetchProductPage">
       <segment state="translated">
         <source>settings.ips.adafruit.fetchProductPage</source>
         <target>Pozyskuj stronę produktu</target>
       </segment>
     </unit>
-    <unit id="aDf4r4Q" name="settings.ips.adafruit.fetchProductPage.help">
+    <unit id="6Er.rGb" name="settings.ips.adafruit.fetchProductPage.help">
       <segment state="translated">
         <source>settings.ips.adafruit.fetchProductPage.help</source>
         <target>Wczytaj również stronę produktu na adafruit.com, aby uzyskać wszystkie obrazy produktu, szczegóły techniczne, kategorię i poradniki. To powoduje jedno dodatkowe żądanie na część. Gdy wyłączone, używane jest tylko API produktów.</target>
       </segment>
     </unit>
-    <unit id="JtHXJcF" name="settings.ips.adafruit.requestDelay">
+    <unit id="mv_ytAP" name="settings.ips.adafruit.requestDelay">
       <segment state="translated">
         <source>settings.ips.adafruit.requestDelay</source>
         <target>Opóźnienie pomiędzy żądaniami</target>
       </segment>
     </unit>
-    <unit id="HaGEpJu" name="settings.ips.adafruit.requestDelay.help">
+    <unit id="kaX7_of" name="settings.ips.adafruit.requestDelay.help">
       <segment state="translated">
         <source>settings.ips.adafruit.requestDelay.help</source>
         <target>Minimalny czas w sekundach pomiędzy dwoma żądaniami z adafruit.com (pobranie katalogu, API produktów i stron produktów). Żądania występujące zbyt wcześnie są opóźniane, więc pozyskanie informacji może zająć dużo czasu. Jeśli strona odrzuci żądanie (HTTP 403, 429 lub 503), dostawca nie wyśle żadnych żądań przez następną godzinę. 0 wyłącza opóźnienie.</target>
@@ -15751,13 +15751,13 @@ Serwer autoryzacji Buerklin API:
         <target>SparkFun nie oferuje oficjalnego API, więc ten dostawca informacji odczytuje punkt końcowy GraphQL i strony produktów sklepu sparkfun.com, aby wydobyć informacje. Może to przestać działać poprawnie w każdej chwili, używaj na własne ryzyko.</target>
       </segment>
     </unit>
-    <unit id="f17B5cC" name="settings.ips.sparkfun.requestDelay">
+    <unit id="LD0s75M" name="settings.ips.sparkfun.requestDelay">
       <segment state="translated">
         <source>settings.ips.sparkfun.requestDelay</source>
         <target>Opóźnienie pomiędzy żądaniami</target>
       </segment>
     </unit>
-    <unit id="S9R8oDO" name="settings.ips.sparkfun.requestDelay.help">
+    <unit id="0c5J7Oo" name="settings.ips.sparkfun.requestDelay.help">
       <segment state="translated">
         <source>settings.ips.sparkfun.requestDelay.help</source>
         <target>Minimalny czas w sekundach pomiędzy dwoma żądaniami z sparkfun.com (punkt końcowy GraphQL i strony produktów). Żądania występujące zbyt wcześnie są opóźniane, więc pozyskanie informacji może zająć dużo czasu. Jeśli sklep odrzuci żądanie (HTTP 403, 429 lub 503), dostawca nie wyśle żadnych żądań przez następną godzinę. 0 wyłącza opóźnienie.</target>
@@ -15787,16 +15787,136 @@ Serwer autoryzacji Buerklin API:
         <target>Regionalny sklep Bambu Lab, którego należy używać. Od tego zależą dostępne produkty, ich ceny i waluta.</target>
       </segment>
     </unit>
-    <unit id="LOfAJqj" name="settings.ips.bambulab.requestDelay">
+    <unit id="SRvJrCG" name="settings.ips.bambulab.requestDelay">
       <segment state="translated">
         <source>settings.ips.bambulab.requestDelay</source>
         <target>Opóźnienie pomiędzy żądaniami</target>
       </segment>
     </unit>
-    <unit id="i7lnSM9" name="settings.ips.bambulab.requestDelay.help">
+    <unit id="bU8CPoa" name="settings.ips.bambulab.requestDelay.help">
       <segment state="translated">
         <source>settings.ips.bambulab.requestDelay.help</source>
         <target>Minimalny czas w sekundach pomiędzy dwoma żądaniami ze sklepu Bambu Lab (API i strony produktów). Żądania występujące zbyt wcześnie są opóźniane, więc pozyskanie informacji może zająć dużo czasu. Jeśli sklep odrzuci żądanie (HTTP 403, 429 lub 503), dostawca nie wyśle żadnych żądań przez następną godzinę. 0 wyłącza opóźnienie.</target>
+      </segment>
+    </unit>
+    <unit id="TVotuBl" name="settings.ips.provider_settings">
+      <segment state="translated">
+        <source>settings.ips.provider_settings</source>
+        <target>Ustawienia dostawców informacji</target>
+      </segment>
+    </unit>
+    <unit id="2mEHwqY" name="settings.ips.provider_settings.help">
+      <segment state="translated">
+        <source>settings.ips.provider_settings.help</source>
+        <target>Ustawienia poszczególnych dostawców informacji są na osobnych stronach. Kliknij dostawcę, aby edytować jego ustawienia.</target>
+      </segment>
+    </unit>
+    <unit id="66ijoIg" name="info_providers.settings.back_to_system_settings">
+      <segment state="translated">
+        <source>info_providers.settings.back_to_system_settings</source>
+        <target>Powrót do ustawień systemowych</target>
+      </segment>
+    </unit>
+    <unit id="6xaiwRW" name="settings.ips.provider_settings.feature.tooltip">
+      <segment state="translated">
+        <source>settings.ips.provider_settings.feature.tooltip</source>
+        <target>Ten dostawca informacji jest wymagany do działania tej funkcji</target>
+      </segment>
+    </unit>
+    <unit id="V3M_l4t" name="info_providers.settings.oauth.title">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.title</source>
+        <target>Połączenie OAuth</target>
+      </segment>
+    </unit>
+    <unit id="pmUI3j6" name="info_providers.settings.oauth.help">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.help</source>
+        <target>Ten dostawca informacji wymaga połączenia OAuth. Najpierw zapisz ID klienta i sekret powyżej, następnie połącz. Otrzymany token jest przechowywany w bazie danych i odnawiany automatycznie.</target>
+      </segment>
+    </unit>
+    <unit id="wD_yg2T" name="info_providers.settings.oauth.status">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="EW7N1SE" name="info_providers.settings.oauth.connected">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.connected</source>
+        <target>Połączono</target>
+      </segment>
+    </unit>
+    <unit id="GfAzmmO" name="info_providers.settings.oauth.not_connected">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.not_connected</source>
+        <target>Nie połączono</target>
+      </segment>
+    </unit>
+    <unit id="q9b3AlW" name="info_providers.settings.oauth.grant_type">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.grant_type</source>
+        <target>Typ przydziału</target>
+      </segment>
+    </unit>
+    <unit id="1vZ6TUi" name="info_providers.settings.oauth.grant_type.client_credentials">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.grant_type.client_credentials</source>
+        <target>Dane uwierzytelniające klienta</target>
+      </segment>
+    </unit>
+    <unit id="QBsbgfh" name="info_providers.settings.oauth.grant_type.authorization_code">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.grant_type.authorization_code</source>
+        <target>Kod autoryzacyjny (z tokenem odnawiającym)</target>
+      </segment>
+    </unit>
+    <unit id="0WCAqTB" name="info_providers.settings.oauth.connected_at">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.connected_at</source>
+        <target>Data pierwszego połączenia</target>
+      </segment>
+    </unit>
+    <unit id="WX4cfz5" name="info_providers.settings.oauth.last_updated">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.last_updated</source>
+        <target>Data ostatniej aktualizacji tokenu</target>
+      </segment>
+    </unit>
+    <unit id="OEVSGFB" name="info_providers.settings.oauth.expires_at">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.expires_at</source>
+        <target>Data wygaśnięcia tokenu dostępu</target>
+      </segment>
+    </unit>
+    <unit id="Tjg1dzq" name="info_providers.settings.oauth.expired">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.expired</source>
+        <target>Wygasły</target>
+      </segment>
+    </unit>
+    <unit id="IWCTL6X" name="info_providers.settings.oauth.expired.help">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.expired.help</source>
+        <target>Żądanie nowego tokenu dostępu zostaje wysłane automatycznie przy następnym użyciu dostawcy.</target>
+      </segment>
+    </unit>
+    <unit id="XQIvNX4" name="info_providers.settings.oauth.reconnect">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.reconnect</source>
+        <target>Połącz ponownie OAuth</target>
+      </segment>
+    </unit>
+    <unit id="I_yYwh0" name="info_providers.slow">
+      <segment state="translated">
+        <source>info_providers.slow</source>
+        <target>Powolny</target>
+      </segment>
+    </unit>
+    <unit id="zUoWx.G" name="info_providers.slow.tooltip">
+      <segment state="translated">
+        <source>info_providers.slow.tooltip</source>
+        <target>Ten dostawca informacji musi znacznie ograniczać ilość wysyłanych żądań lub wymaga długiego czasu przetwarzania, więc żądania mogą zająć dużo czasu.</target>
       </segment>
     </unit>
   </file>
