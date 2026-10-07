@@ -24,8 +24,206 @@
 /** Should be the same settings, as in label_style.css */
 .ck-html-label .ck-content {
     font-family: "DejaVu Sans Mono", monospace;
-    font-size: 12pt;
-    line-height: 1.0;
+    font-size: 12px;
+    /* label_style.css uses a line-height of 1.0, but dompdf uses the height of the font instead, if it is larger. So we use
+       the line heights dompdf actually uses (relative to the font size, measured for the fonts of the font dropdown) */
+    line-height: 1.2804;
+}
+
+.ck-html-label .ck-content [style*="font-family:Helvetica"] {
+    line-height: 1.0175;
+}
+
+.ck-html-label .ck-content [style*="font-family:Times New Roman"] {
+    line-height: 0.99;
+}
+
+.ck-html-label .ck-content [style*="font-family:Courier New"] {
+    line-height: 0.8646;
+}
+
+.ck-html-label .ck-content [style*="font-family:Unifont"] {
+    line-height: 1.177;
+}
+
+/* Label size preview (see PartDBLabelPreview.js): The editable area is shown in the real label size, with the page margins
+   and the area used by the default barcode layout, while the editor itself keeps its width */
+.ck-html-label.partdb-label-preview .ck-editor__main {
+    background-color: var(--bs-secondary-bg);
+    padding: 12px;
+    overflow-x: auto;
+}
+
+.ck-html-label.partdb-label-preview .ck-editor__main > .ck-editor__editable {
+    /* The gap between wrapped images and the text (same as in label_style.css.twig) */
+    --partdb-float-gap: 4mm;
+
+    box-sizing: border-box;
+    /* The content area is wider than the label by the gap, so that the gap after a wrapped image, which is at the end of
+       the line, can extend into the page margin: Otherwise wrapped images could not reach the right edge of the label
+       (the gap is only needed between the image and the text). All other content gets a right margin of the gap
+       (see below), so that it ends at the edge of the label. */
+    width: calc(var(--partdb-label-width) + var(--partdb-float-gap));
+    min-height: var(--partdb-label-height);
+    padding: var(--partdb-label-padding-top) var(--partdb-label-padding-right) var(--partdb-label-padding-bottom) var(--partdb-label-padding-left) !important;
+    /* Labels are printed black on white, also in dark mode */
+    background-color: transparent;
+    color: #000;
+
+    /* The label and its markers are drawn as backgrounds (and not as positioned pseudo elements), so that they are always
+       behind the content and never cause the editable to overflow (which would show a scrollbar). Positions are relative
+       to the border box, like the label geometry.
+       Layer 1: The bottom edge of the label (content below it is cut off), as dashed line.
+       (Layer 2: The area used by the default barcode layout, only if .partdb-label-has-reserved, see below)
+       Last layer: The label itself, in its real width (without the extra space for the gap). */
+    background-origin: border-box;
+    background-repeat: no-repeat;
+    background-image: repeating-linear-gradient(to right, #d00 0 4px, transparent 4px 8px), linear-gradient(#fff, #fff);
+    background-size: var(--partdb-label-width) 1px, var(--partdb-label-width) 100%;
+    background-position: 0 calc(var(--partdb-label-height) - 1px), 0 0;
+}
+
+/* Area used by the default barcode layout (if the barcode is not placed inside the content) */
+.ck-html-label.partdb-label-preview.partdb-label-has-reserved .ck-editor__main > .ck-editor__editable {
+    background-image: repeating-linear-gradient(to right, #d00 0 4px, transparent 4px 8px),
+        repeating-linear-gradient(45deg, #d0d0d0 0 4px, #ececec 4px 8px), linear-gradient(#fff, #fff);
+    background-size: var(--partdb-label-width) 1px, var(--partdb-reserved-width) var(--partdb-reserved-height), var(--partdb-label-width) 100%;
+    background-position: 0 calc(var(--partdb-label-height) - 1px), var(--partdb-reserved-left) var(--partdb-reserved-top), 0 0;
+}
+
+/* Compensate the extra space for the gap (see above), so that all content ends at the edge of the label.
+   Images wrapped on the left already have the gap as right margin. */
+.ck-html-label.partdb-label-preview .ck-editor__main > .ck-editor__editable > * {
+    margin-right: var(--partdb-float-gap);
+}
+
+.ck-html-label.partdb-label-preview .ck-editor__main > .ck-editor__editable > hr {
+    margin-right: calc(2px + var(--partdb-float-gap));
+}
+
+.ck-html-label.partdb-label-preview .ck-editor__main > .ck-editor__editable > .image-style-align-right {
+    margin-left: var(--partdb-float-gap);
+    margin-right: var(--partdb-float-gap);
+}
+
+/* Centered content: Center it in the label (and not in the wider content area) */
+.ck-html-label.partdb-label-preview .ck-editor__main > .ck-editor__editable > .image-style-align-center,
+.ck-html-label.partdb-label-preview .ck-editor__main > .ck-editor__editable > figure.table {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    left: calc(var(--partdb-float-gap) / -2);
+}
+
+/* CKEditor adds a margin above the first and below the last element of the editable, which the label does not have
+   (the page margins are already applied as padding) */
+.ck-html-label.partdb-label-preview .ck-editor__main > .ck-editor__editable > :first-child {
+    margin-top: 0;
+}
+
+.ck-html-label.partdb-label-preview .ck-editor__main > .ck-editor__editable > :last-child {
+    margin-bottom: 0;
+}
+
+/* ... but images without a style keep their default margins, like on the label (see below) */
+.ck-html-label.partdb-label-preview .ck-editor__main > .ck-editor__editable > figure.image:not([class*="image-style-"]) {
+    margin: 1em calc(40px + var(--partdb-float-gap)) 1em 40px;
+}
+
+/* Images without a style are positioned by dompdf with the default figure margins (see label_style.css.twig) */
+.ck-html-label .ck-content figure.image:not([class*="image-style-"]) {
+    margin: 1em 40px;
+}
+
+/* Without a barcode type, placeholders are not rendered on the label (see PartDBLabelPreview.js) */
+.ck-html-label.partdb-label-no-barcode .ck-content img[src^="data:image/svg+xml;partdb=barcode"] {
+    opacity: 0.3;
+}
+
+/* Edge handles to resize images (see PartDBLabelImageHandles.js), shown in an overlay over the editor content */
+.ck-html-label .ck-editor__main {
+    position: relative;
+}
+
+.partdb-image-handles {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    z-index: 2;
+}
+
+.partdb-image-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    transform: translate(-50%, -50%);
+    background: var(--ck-color-focus-border);
+    border: 1px solid #fff;
+    border-radius: 2px;
+    touch-action: none;
+}
+
+.partdb-image-handle-n, .partdb-image-handle-s {
+    cursor: ns-resize;
+}
+
+.partdb-image-handle-e, .partdb-image-handle-w {
+    cursor: ew-resize;
+}
+
+/* Size form of images (see PartDBLabelImageSize.js) */
+.ck.partdb-image-size-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ck-spacing-standard);
+    padding: var(--ck-spacing-large);
+    min-width: 12em;
+}
+
+/* Part images are only rendered for parts and part lots (see PartDBLabelPreview.js) */
+.ck-html-label.partdb-label-no-part-image .ck-content img[src^="data:image/svg+xml;partdb=part-image"] {
+    opacity: 0.3;
+}
+
+/* Same as in label_style.css.twig */
+.ck-html-label .ck-content .image-inline:has(img[src^="data:image/svg+xml;partdb=part-image"]) {
+    vertical-align: top;
+}
+
+/* Barcode placeholder images (see PartDBLabelBarcode.js): Their size is defined by the label options, not by resizing */
+.ck-html-label .ck-content img[src^="data:image/svg+xml;partdb=barcode"] {
+    width: var(--partdb-barcode-width, 64px) !important;
+    height: var(--partdb-barcode-height, 64px) !important;
+    min-width: 0 !important;
+    aspect-ratio: auto !important;
+}
+
+.ck-html-label .ck-content .ck-widget:has(img[src^="data:image/svg+xml;partdb=barcode"]) {
+    width: auto !important;
+}
+
+/* Same as in label_style.css.twig */
+.ck-html-label .ck-content .image-inline:has(img[src^="data:image/svg+xml;partdb=barcode"]) {
+    vertical-align: top;
+}
+
+.ck-html-label .ck-content .ck-widget:has(img[src^="data:image/svg+xml;partdb=barcode"]) .ck-widget__resizer {
+    display: none !important;
+}
+
+.ck-html-label .ck-content .image-style-align-left,
+.ck-html-label .ck-content .image-style-align-right,
+.ck-html-label .ck-content .image-style-side,
+.ck-html-label .ck-content .image-style-align-center,
+.ck-html-label .ck-content .image-style-block-align-left,
+.ck-html-label .ck-content .image-style-block-align-right {
+    /* Same gap to wrapped text as on the label (see label_style.css.twig) */
+    --ck-content-image-style-spacing: 4mm;
+    --ck-content-inline-image-style-spacing: 4mm;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .ck-html-label .ck-content p {
