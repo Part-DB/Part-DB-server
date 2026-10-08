@@ -262,6 +262,11 @@ final class KiCadApiControllerTest extends WebTestCase
                             'value' => 'Node 1',
                             'visible' => 'False',
                         ),
+                    'Part-DB Needs Review' =>
+                        array (
+                            'value' => 'Yes',
+                            'visible' => 'False',
+                        ),
                     'Mass' =>
                         array (
                             'value' => '100.2 g',
