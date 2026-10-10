@@ -15926,13 +15926,13 @@ Buerklin-API Authentication server:
         <target>This info provider has to throttle its requests heavily or needs a lot of processing time, so requests can take a while.</target>
       </segment>
     </unit>
-    <unit id="sUpTb1C" name="part.table.supplier">
+    <unit id="xxOseQB" name="part.table.supplier">
       <segment state="translated">
         <source>part.table.supplier</source>
         <target>Supplier</target>
       </segment>
     </unit>
-    <unit id="sUpTb2N" name="part.table.supplier_part_number">
+    <unit id="1AS7MVG" name="part.table.supplier_part_number">
       <segment state="translated">
         <source>part.table.supplier_part_number</source>
         <target>Supplier part number</target>
