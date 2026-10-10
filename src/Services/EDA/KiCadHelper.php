@@ -270,6 +270,9 @@ final readonly class KiCadHelper
             $customState = $part->getPartCustomState()->getName();
             $result["fields"]["Part-DB Custom state"] = $this->createField($customState);
         }
+        if ($this->kiCadEDASettings->exportPartInfoFields && $part->isNeedsReview()) {
+            $result["fields"]["Part-DB Needs Review"] = $this->createField('Yes');
+        }
         if ($this->kiCadEDASettings->exportPartInfoFields && $part->getMass()) {
             $result["fields"]["Mass"] = $this->createField($part->getMass() . ' g');
         }
