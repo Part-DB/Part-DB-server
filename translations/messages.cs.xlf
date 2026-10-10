@@ -340,7 +340,7 @@
         <target>Měrné jednotky</target>
       </segment>
     </unit>
-    <unit id="3bcKBzY" name="part_custom_state.caption">
+    <unit id="IqR.a4n" name="part_custom_state.caption">
       <segment state="translated">
         <source>part_custom_state.caption</source>
         <target>Vlastní stav komponenty</target>
@@ -1089,61 +1089,61 @@ Související prvky budou přesunuty nahoru.</target>
         <target>Pokročilé</target>
       </segment>
     </unit>
-    <unit id="a1k7Blf" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+    <unit id="_iVXTDt" name="part.edit.tab.advanced.ipn.commonSectionHeader">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
         <target>Návrhy bez přírůstku části</target>
       </segment>
     </unit>
-    <unit id="2achA.b" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+    <unit id="7.yHB9w" name="part.edit.tab.advanced.ipn.partIncrementHeader">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
         <target>Návrhy s číselnými přírůstky částí</target>
       </segment>
     </unit>
-    <unit id="a7jKe3c" name="part.edit.tab.advanced.ipn.prefix.description.current-increment">
+    <unit id="H1o.JFb" name="part.edit.tab.advanced.ipn.prefix.description.current-increment">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.description.current-increment</source>
         <target>Aktuální specifikace IPN pro součást</target>
       </segment>
     </unit>
-    <unit id="kEco9iX" name="part.edit.tab.advanced.ipn.prefix.description.increment">
+    <unit id="wt.Rn7C" name="part.edit.tab.advanced.ipn.prefix.description.increment">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.description.increment</source>
         <target>Další možná specifikace IPN na základě identického popisu součásti</target>
       </segment>
     </unit>
-    <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+    <unit id="RXA8jNa" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
         <target>IPN předpona přímé kategorie je prázdná, zadejte ji v kategorii „%name%“</target>
       </segment>
     </unit>
-    <unit id="ec2DiJd" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+    <unit id="fdSIyqC" name="part.edit.tab.advanced.ipn.prefix.direct_category">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
         <target>IPN prefix přímé kategorie</target>
       </segment>
     </unit>
-    <unit id="2e.kJb4" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+    <unit id="0l7ST7C" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
         <target>IPN prefix přímé kategorie a specifického přírůstku pro část</target>
       </segment>
     </unit>
-    <unit id="ba1GCoq" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+    <unit id="1Y9qoug" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
         <target>IPN prefixy s hierarchickým pořadím kategorií rodičovských prefixů</target>
       </segment>
     </unit>
-    <unit id="d1uVFa3" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+    <unit id="a6_204L" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
         <target>IPN prefixy s hierarchickým pořadím kategorií rodičovských prefixů a specifickým přírůstkem pro část</target>
       </segment>
     </unit>
-    <unit id="a4rPagW" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+    <unit id="VS8w2qp" name="part.edit.tab.advanced.ipn.prefix.not_saved">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
         <target>Nejprve vytvořte součást a přiřaďte ji do kategorie: s dostupnými kategoriemi a jejich vlastními IPN prefixy lze automaticky navrhnout IPN označení pro danou součást</target>
@@ -2870,12 +2870,12 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
         <target>Měrné jednotky</target>
       </segment>
     </unit>
-    <unit id="G1hmQdb" name="part.table.partCustomState">
-          <segment state="translated">
-            <source>part.table.partCustomState</source>
-            <target>Vlastní stav součásti</target>
-          </segment>
-        </unit>
+    <unit id="JjTO6Nq" name="part.table.partCustomState">
+      <segment state="translated">
+        <source>part.table.partCustomState</source>
+        <target>Vlastní stav součásti</target>
+      </segment>
+    </unit>
     <unit id="R5pc2FR" name="part.table.addedDate">
       <segment state="translated">
         <source>part.table.addedDate</source>
@@ -3398,7 +3398,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
         <target>Měrná jednotka</target>
       </segment>
     </unit>
-    <unit id="G1hmQdb" name="part.edit.partCustomState">
+    <unit id="ro8Iwr_" name="part.edit.partCustomState">
       <segment state="translated">
         <source>part.edit.partCustomState</source>
         <target>Vlastní stav součásti</target>
@@ -3572,7 +3572,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
         <target>Měrná jednotka</target>
       </segment>
     </unit>
-    <unit id="a1mPcMw" name="part_custom_state.label">
+    <unit id="NpDx4rr" name="part_custom_state.label">
       <segment state="translated">
         <source>part_custom_state.label</source>
         <target>Vlastní stav součásti</target>
@@ -3725,7 +3725,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
         <target>Měrné jednotky</target>
       </segment>
     </unit>
-    <unit id="5adacKb" name="tree.tools.edit.part_custom_state">
+    <unit id="oYLWbbv" name="tree.tools.edit.part_custom_state">
       <segment state="translated">
         <source>tree.tools.edit.part_custom_state</source>
         <target>Vlastní stav součásti</target>
@@ -4387,7 +4387,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
         <target>Filtr názvů</target>
       </segment>
     </unit>
-    <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
+    <unit id="a37rx0r" name="category.edit.part_ipn_prefix">
       <segment state="translated">
         <source>category.edit.part_ipn_prefix</source>
         <target>Předpona součásti IPN</target>
@@ -5809,7 +5809,7 @@ Element 3</target>
         <target>Měrná jednotka</target>
       </segment>
     </unit>
-    <unit id="1b5ja1c" name="perm.part_custom_states">
+    <unit id="zckNn8G" name="perm.part_custom_states">
       <segment state="translated">
         <source>perm.part_custom_states</source>
         <target>Vlastní stav součásti</target>
@@ -7241,7 +7241,7 @@ Element 3</target>
         <target>Cena</target>
       </segment>
     </unit>
-    <unit id="bomExPrc" name="project.bom.ext_price">
+    <unit id="gLWQ4cF" name="project.bom.ext_price">
       <segment state="initial">
         <source>project.bom.ext_price</source>
         <target>Extended Price</target>
@@ -7559,7 +7559,7 @@ Element 3</target>
         <target>např. "/Kondenzátor \d+ nF/i"</target>
       </segment>
     </unit>
-    <unit id="OXeGz1A" name="category.edit.part_ipn_prefix.placeholder">
+    <unit id="5zV57Ks" name="category.edit.part_ipn_prefix.placeholder">
       <segment state="translated">
         <source>category.edit.part_ipn_prefix.placeholder</source>
         <target>např. "B12A"</target>
@@ -7571,7 +7571,7 @@ Element 3</target>
         <target>Regulární výraz kompatibilní s PCRE, kterému musí název dílu odpovídat.</target>
       </segment>
     </unit>
-    <unit id="a1bUsfJ" name="category.edit.part_ipn_prefix.help">
+    <unit id="f3gkGc9" name="category.edit.part_ipn_prefix.help">
       <segment state="translated">
         <source>category.edit.part_ipn_prefix.help</source>
         <target>Předpona navrhovaná při zadávání IPN části.</target>
@@ -8123,7 +8123,7 @@ Element 3</target>
         <target>Měrná jednotka</target>
       </segment>
     </unit>
-    <unit id="2COnw1k" name="log.element_edited.changed_fields.partCustomState">
+    <unit id="8QD.2.r" name="log.element_edited.changed_fields.partCustomState">
       <segment state="translated">
         <source>log.element_edited.changed_fields.partCustomState</source>
         <target>Vlastní stav součásti</target>
@@ -8387,13 +8387,13 @@ Element 3</target>
         <target>Upravit měrnou jednotku</target>
       </segment>
     </unit>
-    <unit id="ba52d.g" name="part_custom_state.new">
+    <unit id="Ae0GMtY" name="part_custom_state.new">
       <segment state="translated">
         <source>part_custom_state.new</source>
         <target>Nový vlastní stav komponenty</target>
       </segment>
     </unit>
-    <unit id="c1.gb2d" name="part_custom_state.edit">
+    <unit id="5uZ23wR" name="part_custom_state.edit">
       <segment state="translated">
         <source>part_custom_state.edit</source>
         <target>Upravit vlastní stav komponenty</target>
@@ -10274,49 +10274,49 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
         <target>Pokud potřebujete směnné kurzy mezi měnami mimo eurozónu, můžete zde zadat API klíč z fixer.io.</target>
       </segment>
     </unit>
-    <unit id="jd7tEu3" name="settings.misc.ipn_suggest">
+    <unit id="yBc_psK" name="settings.misc.ipn_suggest">
       <segment state="translated">
         <source>settings.misc.ipn_suggest</source>
         <target>Seznam návrhů IPN součástek</target>
       </segment>
     </unit>
-    <unit id="adi7Zv4" name="settings.misc.ipn_suggest.regex">
+    <unit id="rMHQxvM" name="settings.misc.ipn_suggest.regex">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.regex</source>
         <target>Regex</target>
       </segment>
     </unit>
-    <unit id="kidR4vm" name="settings.misc.ipn_suggest.regex_help">
+    <unit id="jGPeETQ" name="settings.misc.ipn_suggest.regex_help">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.regex_help</source>
         <target>Nápověda text</target>
       </segment>
     </unit>
-    <unit id="jch7Bn5" name="settings.misc.ipn_suggest.regex_help_description">
+    <unit id="gsSNHJd" name="settings.misc.ipn_suggest.regex_help_description">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.regex_help_description</source>
         <target>Definujte svůj vlastní text nápovědy pro specifikaci formátu Regex.</target>
       </segment>
     </unit>
-    <unit id="kdi8mT4" name="settings.misc.ipn_suggest.autoAppendSuffix">
+    <unit id="irHQep1" name="settings.misc.ipn_suggest.autoAppendSuffix">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.autoAppendSuffix</source>
         <target>Pokud je tato možnost povolena, bude při opětovném zadání existujícího IPN při ukládání k vstupu přidána přírůstková přípona.</target>
       </segment>
     </unit>
-    <unit id="rociEg6" name="settings.misc.ipn_suggest.suggestPartDigits">
+    <unit id="MHvNzxt" name="settings.misc.ipn_suggest.suggestPartDigits">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.suggestPartDigits</source>
         <target>Počet čísel pro inkrement</target>
       </segment>
     </unit>
-    <unit id="jdz6B4c" name="settings.misc.ipn_suggest.useDuplicateDescription">
+    <unit id="kH.lU0y" name="settings.misc.ipn_suggest.useDuplicateDescription">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.useDuplicateDescription</source>
         <target>Je-li povoleno, použije se popis součástky k nalezení existujících součástek se stejným popisem a k určení další volné IPN navýšením její číselné přípony pro seznam návrhů.</target>
       </segment>
     </unit>
-    <unit id="judfiK3" name="settings.misc.ipn_suggest.suggestPartDigits.help">
+    <unit id="1RN3Xwz" name="settings.misc.ipn_suggest.suggestPartDigits.help">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.suggestPartDigits.help</source>
         <target>Počet číslic použitých pro inkrementální číslování součástí v návrhovém systému IPN (Interní číslo součástky).</target>
@@ -10910,14 +10910,14 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
         <target>Uživatelé</target>
       </segment>
     </unit>
-        <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
-            <notes>
-                <note priority="1">Do not remove! Used for datatables rendering.</note>
-            </notes>
-            <segment state="translated">
-                <source>datatable.datatable.lengthMenu</source>
-                <target>_MENU_</target>
-              </segment>
-        </unit>
+    <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
+      <notes>
+        <note priority="1">Do not remove! Used for datatables rendering.</note>
+      </notes>
+      <segment state="translated">
+        <source>datatable.datatable.lengthMenu</source>
+        <target>_MENU_</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

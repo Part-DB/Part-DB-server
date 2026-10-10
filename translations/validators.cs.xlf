@@ -223,13 +223,13 @@
         <target>Kvůli technickým omezením není možné na 32bitových systémech vybrat datumpo 19.1.2038!</target>
       </segment>
     </unit>
-    <unit id="89nojXY" name="validator.fileSize.invalidFormat">
+    <unit id="iM9yb_p" name="validator.fileSize.invalidFormat">
       <segment state="translated">
         <source>validator.fileSize.invalidFormat</source>
         <target>Neplatný formát velikosti souboru. Použijte celé číslo a jako příponu K, M, G pro kilobajty, megabajty nebo gigabajty.</target>
       </segment>
     </unit>
-    <unit id="iXcU7ce" name="validator.invalid_range">
+    <unit id="ZFxQ0BZ" name="validator.invalid_range">
       <segment state="translated">
         <source>validator.invalid_range</source>
         <target>Zadaný rozsah není platný!</target>

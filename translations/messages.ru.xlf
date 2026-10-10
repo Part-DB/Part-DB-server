@@ -340,7 +340,7 @@
         <target>Единица измерения</target>
       </segment>
     </unit>
-    <unit id="3bcKBzY" name="part_custom_state.caption">
+    <unit id="IqR.a4n" name="part_custom_state.caption">
       <segment state="translated">
         <source>part_custom_state.caption</source>
         <target>Пользовательское состояние компонента</target>
@@ -1089,61 +1089,61 @@
         <target>Расширенные</target>
       </segment>
     </unit>
-    <unit id="a1k7Blf" name="part.edit.tab.advanced.ipn.commonSectionHeader">
+    <unit id="_iVXTDt" name="part.edit.tab.advanced.ipn.commonSectionHeader">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.commonSectionHeader</source>
         <target>Предложения без увеличения частей.</target>
       </segment>
     </unit>
-    <unit id="2achA.b" name="part.edit.tab.advanced.ipn.partIncrementHeader">
+    <unit id="7.yHB9w" name="part.edit.tab.advanced.ipn.partIncrementHeader">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.partIncrementHeader</source>
         <target>Предложения с числовыми приращениями частей</target>
       </segment>
     </unit>
-    <unit id="a7jKe3c" name="part.edit.tab.advanced.ipn.prefix.description.current-increment">
+    <unit id="H1o.JFb" name="part.edit.tab.advanced.ipn.prefix.description.current-increment">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.description.current-increment</source>
         <target>Текущая спецификация IPN для детали</target>
       </segment>
     </unit>
-    <unit id="kEco9iX" name="part.edit.tab.advanced.ipn.prefix.description.increment">
+    <unit id="wt.Rn7C" name="part.edit.tab.advanced.ipn.prefix.description.increment">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.description.increment</source>
         <target>Следующая возможная спецификация IPN на основе идентичного описания детали</target>
       </segment>
     </unit>
-    <unit id="dB1ChKc" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
+    <unit id="RXA8jNa" name="part.edit.tab.advanced.ipn.prefix_empty.direct_category">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix_empty.direct_category</source>
         <target>Префикс IPN для прямой категории пуст, укажите его в категории «%name%».</target>
       </segment>
     </unit>
-    <unit id="ec2DiJd" name="part.edit.tab.advanced.ipn.prefix.direct_category">
+    <unit id="fdSIyqC" name="part.edit.tab.advanced.ipn.prefix.direct_category">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.direct_category</source>
         <target>Префикс IPN для прямой категории</target>
       </segment>
     </unit>
-    <unit id="2e.kJb4" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
+    <unit id="0l7ST7C" name="part.edit.tab.advanced.ipn.prefix.direct_category.increment">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.direct_category.increment</source>
         <target>Префикс IPN прямой категории и специфическое для части приращение</target>
       </segment>
     </unit>
-    <unit id="ba1GCoq" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
+    <unit id="1Y9qoug" name="part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.hierarchical.no_increment</source>
         <target>IPN-префиксы с иерархическим порядком категорий родительских префиксов</target>
       </segment>
     </unit>
-    <unit id="d1uVFa3" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
+    <unit id="a6_204L" name="part.edit.tab.advanced.ipn.prefix.hierarchical.increment">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.hierarchical.increment</source>
         <target>IPN-префиксы с иерархическим порядком категорий родительских префиксов и специфическим увеличением для компонента</target>
       </segment>
     </unit>
-    <unit id="a4rPagW" name="part.edit.tab.advanced.ipn.prefix.not_saved">
+    <unit id="VS8w2qp" name="part.edit.tab.advanced.ipn.prefix.not_saved">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
         <target>Сначала создайте компонент и назначьте ему категорию: на основе существующих категорий и их собственных IPN-префиксов идентификатор IPN для компонента может быть предложен автоматически</target>
@@ -2872,7 +2872,7 @@
         <target>Единица измерения</target>
       </segment>
     </unit>
-    <unit id="G1hmQdb" name="part.table.partCustomState">
+    <unit id="JjTO6Nq" name="part.table.partCustomState">
       <segment state="translated">
         <source>part.table.partCustomState</source>
         <target>Пользовательское состояние детали</target>
@@ -3400,7 +3400,7 @@
         <target>Единица измерения</target>
       </segment>
     </unit>
-    <unit id="G1hmQdb" name="part.edit.partCustomState">
+    <unit id="ro8Iwr_" name="part.edit.partCustomState">
       <segment state="translated">
         <source>part.edit.partCustomState</source>
         <target>Пользовательское состояние части</target>
@@ -3574,7 +3574,7 @@
         <target>Единица измерения</target>
       </segment>
     </unit>
-    <unit id="a1mPcMw" name="part_custom_state.label">
+    <unit id="NpDx4rr" name="part_custom_state.label">
       <segment state="translated">
         <source>part_custom_state.label</source>
         <target>Пользовательское состояние детали</target>
@@ -3727,7 +3727,7 @@
         <target>Единица измерения</target>
       </segment>
     </unit>
-    <unit id="5adacKb" name="tree.tools.edit.part_custom_state">
+    <unit id="oYLWbbv" name="tree.tools.edit.part_custom_state">
       <segment state="translated">
         <source>tree.tools.edit.part_custom_state</source>
         <target>Пользовательское состояние компонента</target>
@@ -4390,7 +4390,7 @@
         <target>Фильтр по имени</target>
       </segment>
     </unit>
-    <unit id="dsG4xTQ" name="category.edit.part_ipn_prefix">
+    <unit id="a37rx0r" name="category.edit.part_ipn_prefix">
       <segment state="translated">
         <source>category.edit.part_ipn_prefix</source>
         <target>Префикс IPN детали</target>
@@ -5809,7 +5809,7 @@
         <target>Единица измерения</target>
       </segment>
     </unit>
-    <unit id="1b5ja1c" name="perm.part_custom_states">
+    <unit id="zckNn8G" name="perm.part_custom_states">
       <segment state="translated">
         <source>perm.part_custom_states</source>
         <target>Пользовательское состояние компонента</target>
@@ -7260,7 +7260,7 @@
         <target>Цена</target>
       </segment>
     </unit>
-    <unit id="bomExPrc" name="project.bom.ext_price">
+    <unit id="gLWQ4cF" name="project.bom.ext_price">
       <segment state="initial">
         <source>project.bom.ext_price</source>
         <target>Extended Price</target>
@@ -7578,7 +7578,7 @@
         <target>e.g "/Конденсатор \d+ nF/i"</target>
       </segment>
     </unit>
-    <unit id="OXeGz1A" name="category.edit.part_ipn_prefix.placeholder">
+    <unit id="5zV57Ks" name="category.edit.part_ipn_prefix.placeholder">
       <segment state="translated">
         <source>category.edit.part_ipn_prefix.placeholder</source>
         <target>e.g "B12A"</target>
@@ -7590,7 +7590,7 @@
         <target>PCRE-совместимое регулярное выражение которому должно соответствовать имя компонента.</target>
       </segment>
     </unit>
-    <unit id="a1bUsfJ" name="category.edit.part_ipn_prefix.help">
+    <unit id="f3gkGc9" name="category.edit.part_ipn_prefix.help">
       <segment state="translated">
         <source>category.edit.part_ipn_prefix.help</source>
         <target>Предлагаемый префикс при вводе IPN детали.</target>
@@ -8142,7 +8142,7 @@
         <target>Единица измерения</target>
       </segment>
     </unit>
-    <unit id="2COnw1k" name="log.element_edited.changed_fields.partCustomState">
+    <unit id="8QD.2.r" name="log.element_edited.changed_fields.partCustomState">
       <segment state="translated">
         <source>log.element_edited.changed_fields.partCustomState</source>
         <target>Пользовательское состояние детали</target>
@@ -8406,13 +8406,13 @@
         <target>Изменить единицу измерения</target>
       </segment>
     </unit>
-    <unit id="ba52d.g" name="part_custom_state.new">
+    <unit id="Ae0GMtY" name="part_custom_state.new">
       <segment state="translated">
         <source>part_custom_state.new</source>
         <target>Новое пользовательское состояние компонента</target>
       </segment>
     </unit>
-    <unit id="c1.gb2d" name="part_custom_state.edit">
+    <unit id="5uZ23wR" name="part_custom_state.edit">
       <segment state="translated">
         <source>part_custom_state.edit</source>
         <target>Редактировать пользовательское состояние компонента</target>
@@ -9699,13 +9699,13 @@
       </segment>
     </unit>
     <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
-        <notes>
-            <note priority="1">Do not remove! Used for datatables rendering.</note>
-        </notes>
-        <segment state="translated">
-            <source>datatable.datatable.lengthMenu</source>
-            <target>_MENU_</target>
-          </segment>
+      <notes>
+        <note priority="1">Do not remove! Used for datatables rendering.</note>
+      </notes>
+      <segment state="translated">
+        <source>datatable.datatable.lengthMenu</source>
+        <target>_MENU_</target>
+      </segment>
     </unit>
   </file>
 </xliff>
