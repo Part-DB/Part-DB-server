@@ -28,6 +28,10 @@ use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 
+/**
+ * The settings of the individual info providers are intentionally not embedded here, as they are edited on their own
+ * settings pages (linked from the system settings page).
+ */
 #[Settings(label: new TM("settings.ips"))]
 class InfoProviderSettings
 {
@@ -38,64 +42,4 @@ class InfoProviderSettings
 
     #[EmbeddedSettings]
     public ?BrowserPluginSettings $browserPlugin = null;
-
-    #[EmbeddedSettings]
-    public ?GenericWebProviderSettings $genericWebProvider = null;
-
-    #[EmbeddedSettings]
-    public ?AIWebExtractorSettings $aiExtractor = null;
-
-    #[EmbeddedSettings]
-    public ?AIFileExtractorSettings $aiFileExtractor = null;
-
-    #[EmbeddedSettings]
-    public ?DigikeySettings $digikey = null;
-
-    #[EmbeddedSettings]
-    public ?MouserSettings $mouser = null;
-
-    #[EmbeddedSettings]
-    public ?TMESettings $tme = null;
-
-    #[EmbeddedSettings]
-    public ?Element14Settings $element14 = null;
-
-    #[EmbeddedSettings]
-    public ?OctopartSettings $octopartSettings = null;
-
-    #[EmbeddedSettings]
-    public ?LCSCSettings $lcsc = null;
-
-    #[EmbeddedSettings]
-    public ?OEMSecretsSettings $oemsecrets = null;
-
-    #[EmbeddedSettings]
-    public ?ReicheltSettings $reichelt = null;
-
-    #[EmbeddedSettings]
-    public ?PollinSettings $pollin = null;
-
-    #[EmbeddedSettings]
-    public ?BuerklinSettings $buerklin = null;
-
-    #[EmbeddedSettings]
-    public ?ConradSettings $conrad = null;
-
-    #[EmbeddedSettings]
-    public ?CanopySettings $canopy = null;
-
-    #[EmbeddedSettings]
-    public ?TrustedPartsSettings $trustedparts = null;
-
-    #[EmbeddedSettings]
-    public ?AdafruitSettings $adafruit = null;
-    
-    #[EmbeddedSettings]
-    public ?PololuSettings $pololu = null;
-    
-    #[EmbeddedSettings]
-    public ?SparkFunSettings $sparkfun = null;
-    
-    #[EmbeddedSettings]
-    public ?BambuLabSettings $bambulab = null;
 }

@@ -71,15 +71,25 @@ export default class TristateCheckbox {
         //Set the state of our element to the value of the passed input value
         this._parseInitialState();
 
-        //Create a hidden input field to store the value of the checkbox, because this will be always be submitted in the form
-        this._hiddenInput = document.createElement('input');
-        this._hiddenInput.type = 'hidden';
-        this._hiddenInput.name = this._element.name;
-        this._hiddenInput.value = this._element.value;
+        const existingHidden = this._element.nextElementSibling;
+        if (!this._element.hasAttribute('name') && existingHidden instanceof HTMLInputElement
+            && existingHidden.hasAttribute('data-tristate-value')) {
+            //The checkbox was already initialized before and then cloned (e.g. restored by a collection form reset),
+            //so the hidden input already exists. Reuse it instead of creating a second one.
+            this._hiddenInput = existingHidden;
+            this._state = this._stringToState(this._hiddenInput.value, false);
+        } else {
+            //Create a hidden input field to store the value of the checkbox, because this will be always be submitted in the form
+            this._hiddenInput = document.createElement('input');
+            this._hiddenInput.type = 'hidden';
+            this._hiddenInput.name = this._element.name;
+            this._hiddenInput.value = this._element.value;
+            this._hiddenInput.setAttribute('data-tristate-value', '');
 
-        //Insert the hidden input field after the checkbox and remove the checkbox from form submission (by removing the name property)
-        element.after(this._hiddenInput);
-        this._element.removeAttribute('name');
+            //Insert the hidden input field after the checkbox and remove the checkbox from form submission (by removing the name property)
+            element.after(this._hiddenInput);
+            this._element.removeAttribute('name');
+        }
 
         //Do a refresh to set the correct styling of the checkbox
         this._refresh();

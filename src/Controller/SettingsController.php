@@ -24,6 +24,10 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use App\Services\InfoProviderSystem\ProviderRegistry;
+use App\Services\InfoProviderSystem\Providers\AIDocumentProvider;
+use App\Services\InfoProviderSystem\Providers\AIWebProvider;
+use App\Services\InfoProviderSystem\Providers\GenericWebProvider;
 use App\Settings\AppSettings;
 use Jbtronics\SettingsBundle\Form\SettingsFormFactoryInterface;
 use Jbtronics\SettingsBundle\Manager\SettingsManagerInterface;
@@ -37,11 +41,21 @@ use function Symfony\Component\Translation\t;
 
 class SettingsController extends AbstractController
 {
+    /**
+     * The features, which depend on certain info providers. These are highlighted in the provider settings list.
+     * Maps provider keys to a list of features (with translation key of the label and the icon).
+     */
+    private const PROVIDER_FEATURES = [
+        GenericWebProvider::PROVIDER_KEY => [['label' => 'info_providers.from_url.title', 'icon' => 'fa-book-atlas']],
+        AIWebProvider::PROVIDER_KEY => [['label' => 'info_providers.from_url.title', 'icon' => 'fa-book-atlas']],
+        AIDocumentProvider::PROVIDER_KEY => [['label' => 'info_providers.from_file.title', 'icon' => 'fa-file-lines']],
+    ];
+
     public function __construct(private readonly SettingsManagerInterface $settingsManager, private readonly SettingsFormFactoryInterface $settingsFormFactory)
     {}
 
     #[Route("/settings", name: "system_settings")]
-    public function systemSettings(Request $request, TagAwareCacheInterface $cache): Response
+    public function systemSettings(Request $request, TagAwareCacheInterface $cache, ProviderRegistry $providerRegistry): Response
     {
         $this->denyAccessUnlessGranted('@config.change_system_settings');
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
@@ -78,7 +92,11 @@ class SettingsController extends AbstractController
 
         //Render the form
         return $this->render('settings/settings.html.twig', [
-            'form' => $form
+            'form' => $form,
+            //The info provider specific settings are edited on their own pages, so we only link them
+            'providers_with_settings' => array_filter($providerRegistry->getProviders(),
+                static fn($provider) => $provider->getProviderInfo()->settingsClass !== null),
+            'provider_features' => self::PROVIDER_FEATURES,
         ]);
     }
 }

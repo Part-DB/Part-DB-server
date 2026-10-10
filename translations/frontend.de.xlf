@@ -523,5 +523,11 @@
         <target>Komponente %number%</target>
       </segment>
     </unit>
+    <unit id="hK7sLpQ" name="search.placeholder.hotkey">
+      <segment state="translated">
+        <source>search.placeholder.hotkey</source>
+        <target>Drücken Sie / zum Suchen</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
