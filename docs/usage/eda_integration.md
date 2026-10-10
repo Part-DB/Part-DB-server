@@ -115,7 +115,7 @@ To avoid this, you can disable groups of fields that you do not need in your sch
 | `EDA_KICAD_EXPORT_STOCK_FIELDS`       | `Stock`, `Storage Location`                                                                      |
 | `EDA_KICAD_EXPORT_SUPPLIER_FIELDS`    | `<Supplier> SPN` fields                                                                          |
 | `EDA_KICAD_EXPORT_KICOST_FIELDS`      | `manf`, `manf#`, `<supplier>#`                                                                   |
-| `EDA_KICAD_EXPORT_PART_INFO_FIELDS`   | `Category`, `Manufacturing Status`, `Mass`, `Part-DB IPN`, `Part-DB Footprint`, `Part-DB Unit`, `Part-DB Custom state` |
+| `EDA_KICAD_EXPORT_PART_INFO_FIELDS`   | `Category`, `Manufacturing Status`, `Mass`, `Part-DB IPN`, `Part-DB Footprint`, `Part-DB Unit`, `Part-DB Custom state`, `Part-DB Needs Review` (only if set) |
 | `EDA_KICAD_EXPORT_TAGS_AS_KEYWORDS`   | symbol keywords (from the part tags)                                                             |
 
 All groups are enabled by default, so existing installations keep exporting the same fields as before.

@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 namespace App\Twig;
 
+use App\Settings\InfoProviderSystem\AIFileExtractorSettings;
 use App\Services\InfoProviderSystem\CreateFromUrlHelper;
 use Twig\Attribute\AsTwigFunction;
 use App\Settings\SettingsIcon;
@@ -33,7 +34,8 @@ use App\Services\LogSystem\EventCommentNeededHelper;
 
 final readonly class MiscExtension
 {
-    public function __construct(private EventCommentNeededHelper $eventCommentNeededHelper, private CreateFromUrlHelper $fromUrlHelper)
+    public function __construct(private EventCommentNeededHelper $eventCommentNeededHelper, private CreateFromUrlHelper $fromUrlHelper,
+        private AIFileExtractorSettings $fileExtractorSettings)
     {
     }
 
@@ -92,5 +94,15 @@ final readonly class MiscExtension
     public function create_from_url_active(): bool
     {
         return $this->fromUrlHelper->canCreateFromUrl();
+    }
+
+    /**
+     * Returns true if parts can be created from files (meaning that the AI file extractor is configured), false otherwise.
+     * @return bool
+     */
+    #[AsTwigFunction(name: 'create_from_file_active')]
+    public function create_from_file_active(): bool
+    {
+        return $this->fileExtractorSettings->isConfigured();
     }
 }

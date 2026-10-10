@@ -118,7 +118,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
     /**
      * @var string The mathematical symbol for this specification. Can be rendered pretty later. Should be short
      */
-    #[Assert\Length(max: 20)]
+    #[Assert\Length(max: 50)]
     #[Groups(['full', 'parameter:read', 'parameter:write', 'import'])]
     #[ORM\Column(type: Types::STRING)]
     protected string $symbol = '';

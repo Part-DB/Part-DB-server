@@ -25,9 +25,12 @@ namespace App\Settings\BehaviorSettings;
 
 use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
+use Jbtronics\SettingsBundle\ParameterTypes\ArrayType;
+use Jbtronics\SettingsBundle\ParameterTypes\EnumType;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Symfony\Component\Translation\TranslatableMessage as TM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Settings(name: "part_info", label: new TM("settings.behavior.part_info"))]
 #[SettingsIcon('fa-circle-info')]
@@ -46,4 +49,18 @@ class PartInfoSettings
 
     #[SettingsParameter(label: new TM("settings.behavior.part_info.extract_params_from_notes"))]
     public bool $extractParamsFromNotes = true;
+
+    /**
+     * @var PartInfoTabs[] The tabs which are shown together as a single combined tab (in this order).
+     * The tabs are shown separately if this is empty.
+     */
+    #[SettingsParameter(ArrayType::class,
+        label: new TM("settings.behavior.part_info.combined_tabs"),
+        description: new TM("settings.behavior.part_info.combined_tabs.help"),
+        options: ['type' => EnumType::class, 'options' => ['class' => PartInfoTabs::class]],
+        formType: \Symfony\Component\Form\Extension\Core\Type\EnumType::class,
+        formOptions: ['class' => PartInfoTabs::class, 'multiple' => true, 'ordered' => true, 'required' => false]
+    )]
+    #[Assert\Unique()]
+    public array $combinedTabs = [];
 }

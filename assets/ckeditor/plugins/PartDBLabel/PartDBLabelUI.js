@@ -76,6 +76,7 @@ const PLACEHOLDERS = [
             ['[[FOOTPRINT]]', 'Footprint'],
             ['[[FOOTPRINT_FULL]]', 'Footprint (Full path)'],
             ['[[MASS]]', 'Mass'],
+            ['[[MIN_STOCK]]', 'Minimum stock'],
             ['[[MPN]]', 'Manufacturer Product Number (MPN)'],
             ['[[IPN]]', 'Internal Part Number (IPN)'],
             ['[[TAGS]]', 'Tags'],

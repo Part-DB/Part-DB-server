@@ -21,14 +21,14 @@ import {Controller} from "@hotwired/stimulus";
 
 const STORAGE_KEY = 'hide_sidebar';
 
-export default class extends Controller {
-    /**
-     * The element representing the sidebar which can be hidden.
-     * @type {HTMLElement}
-     * @private
-     */
-    _sidebar;
+/**
+ * The class which is set on the root (html) element, when the sidebar is hidden. The actual sliding is done in CSS
+ * (see layout.css). The class is put on the root element, so that it can be applied by an inline script in the
+ * base template before the page is rendered, and is not lost on Turbo navigations.
+ */
+const HIDDEN_CLASS = 'sidebar-hidden';
 
+export default class extends Controller {
     /**
      * The element of the container which is expanded to the full width.
      * @type {HTMLElement}
@@ -36,60 +36,110 @@ export default class extends Controller {
      */
     _container;
 
-    /**
-     * The button which toggles the sidebar.
-     * @private
-     */
-    _toggle_button;
-
-    _hidden = false;
-
     connect() {
-        this._sidebar = document.getElementById('fixed-sidebar');
         this._container = document.getElementById('main');
-        this._toggle_button = this.element;
+
+        this._onTransitionEnd = this._onTransitionEnd.bind(this);
+        this._container?.addEventListener('transitionend', this._onTransitionEnd);
+
+        this._onKeydown = this._onKeydown.bind(this);
+        document.addEventListener('keydown', this._onKeydown);
 
         //Make the state persistent over reloads
-        if(localStorage.getItem(STORAGE_KEY) === 'true') {
-            this.hideSidebar();
+        this._apply(this._readState());
+    }
+
+    disconnect() {
+        this._container?.removeEventListener('transitionend', this._onTransitionEnd);
+        document.removeEventListener('keydown', this._onKeydown);
+    }
+
+    /**
+     * Pressing "[" anywhere on the page (outside of text fields) toggles the sidebar, like the button does.
+     */
+    _onKeydown(event) {
+        if (event.key !== '[' || event.ctrlKey || event.metaKey || event.altKey || event.defaultPrevented) {
+            return;
         }
+
+        const active = document.activeElement;
+        if (active && (active.isContentEditable || active.closest('input, textarea, select, [contenteditable]'))) {
+            return;
+        }
+
+        //The button is not shown on small screens, where the sidebar is collapsed into the navbar instead
+        //(offsetParent can not be used for this check: it is always null inside the fixed positioned navbar)
+        if (this.element.getClientRects().length === 0) {
+            return;
+        }
+
+        event.preventDefault();
+        this.toggleSidebar();
+    }
+
+    get hidden() {
+        return document.documentElement.classList.contains(HIDDEN_CLASS);
     }
 
     hideSidebar() {
-        this._sidebar.classList.add('d-none');
-
-        this._container.classList.remove(...['col-md-9', 'col-lg-10', 'offset-md-3', 'offset-lg-2']);
-        this._container.classList.add('col-12');
-
-        //Change button icon
-        this._toggle_button.innerHTML = '<i class="fas fa-angle-right"></i>';
-
-        localStorage.setItem(STORAGE_KEY, 'true');
-        this._hidden = true;
+        this._apply(true);
+        this._saveState(true);
     }
 
     showSidebar() {
-        this._sidebar.classList.remove('d-none');
-
-        this._container.classList.remove('col-12');
-        this._container.classList.add(...['col-md-9', 'col-lg-10', 'offset-md-3', 'offset-lg-2']);
-
-
-        //Change button icon
-        this._toggle_button.innerHTML = '<i class="fas fa-angle-left"></i>';
-
-        localStorage.setItem(STORAGE_KEY, 'false');
-        this._hidden = false;
+        this._apply(false);
+        this._saveState(false);
     }
 
     toggleSidebar() {
-        if(this._hidden) {
+        if (this.hidden) {
             this.showSidebar();
         } else {
             this.hideSidebar();
         }
 
         //Hide the tootip on the button
-        this._toggle_button.blur();
+        this.element.blur();
+
+        //If nothing is animated (e.g. reduced motion), no transitionend event is fired, so notify directly
+        if (!this._container || parseFloat(getComputedStyle(this._container).transitionDuration) === 0) {
+            this._notifyResize();
+        }
+    }
+
+    _apply(hidden) {
+        document.documentElement.classList.toggle(HIDDEN_CLASS, hidden);
+        this.element.setAttribute('aria-expanded', hidden ? 'false' : 'true');
+    }
+
+    _readState() {
+        try {
+            return localStorage.getItem(STORAGE_KEY) === 'true';
+        } catch (e) {
+            return this.hidden;
+        }
+    }
+
+    _saveState(hidden) {
+        try {
+            localStorage.setItem(STORAGE_KEY, hidden ? 'true' : 'false');
+        } catch (e) {
+            //Storage is not available, the state is just not persisted then
+        }
+    }
+
+    _onTransitionEnd(event) {
+        if (event.target === this._container && event.propertyName === 'width') {
+            this._notifyResize();
+        }
+    }
+
+    /**
+     * The width of the content area has changed, without the window being resized. Tell everybody who sizes itself
+     * according to the available width (like datatables with its columns and fixed header) to recalculate.
+     * @private
+     */
+    _notifyResize() {
+        window.dispatchEvent(new Event('resize'));
     }
 }

@@ -164,7 +164,16 @@
             {# @var \App\Entity\Attachments\Attachment attach #}
 
             {% if attach is not null %}
-                {% if not attach.hasInternal() and attach.external %}
+                {% if not attach.hasInternal() and attach.upload is not null and attach.upload.uploadedDocumentToken is not null %}
+                    {# A file prepared by the server (the file the part is created from), which is stored on saving #}
+                    <div class="mt-2">
+                        <div class="badge bg-info" title="{{ attach.upload.filename }}">
+                            <i class="fas fa-fw {{ ext_to_fa_icon(attach.upload.filename|split('.')|last) }}"></i> {{ attach.upload.filename|u.truncate(25, ' ...') }}
+                        </div>
+                        <br>
+                        <small class="text-muted">{% trans %}attachment.uploaded_document.pending{% endtrans %}</small>
+                    </div>
+                {% elseif not attach.hasInternal() and attach.external %}
                     <div class="mt-2">
                         <span class="badge bg-primary">
                             <i class="fas fa-fw fa-globe"></i> {% trans %}attachment.external_only{% endtrans %}

@@ -7,6 +7,12 @@
         <target>Search</target>
       </segment>
     </unit>
+    <unit id="hK7sLpQ" name="search.placeholder.hotkey">
+      <segment state="translated">
+        <source>search.placeholder.hotkey</source>
+        <target>Type / to Search</target>
+      </segment>
+    </unit>
     <unit id="R4hoCqe" name="part.labelp">
       <segment state="translated">
         <source>part.labelp</source>

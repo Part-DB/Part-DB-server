@@ -15438,142 +15438,490 @@ Buerklin-API-Authentication-Server:
         <target>Keine</target>
       </segment>
     </unit>
-    <unit id="ohF6xCL" name="attachment.3d_viewer.title">
-      <segment state="translated">
-        <source>attachment.3d_viewer.title</source>
-        <target>3D-Modell-Betrachter</target>
+    <unit id="cEeEQ3Q" name="info_providers.from_file.title">
+      <segment>
+        <source>info_providers.from_file.title</source>
+        <target>Erstelle [Part] aus Datei</target>
       </segment>
     </unit>
-    <unit id="39GVMHV" name="attachment.3d_viewer.loading">
-      <segment state="translated">
-        <source>attachment.3d_viewer.loading</source>
-        <target>3D-Modell wird geladen...</target>
+    <unit id="r2wTioF" name="info_providers.from_file.help">
+      <segment>
+        <source>info_providers.from_file.help</source>
+        <target>Erstellt ein [Part] aus einer Datei, z. B. einem Datenblatt. Die Datei wird an das in den Einstellungen des KI Datei Extraktors konfigurierte KI-Modell übergeben, welches versucht, die [Part]informationen daraus zu extrahieren.</target>
       </segment>
     </unit>
-    <unit id="oa1D_l9" name="attachment.3d_viewer.reset_view">
-      <segment state="translated">
-        <source>attachment.3d_viewer.reset_view</source>
-        <target>Ansicht zurücksetzen</target>
+    <unit id="4.gsKDJ" name="info_providers.from_file.file.label">
+      <segment>
+        <source>info_providers.from_file.file.label</source>
+        <target>Datei</target>
       </segment>
     </unit>
-    <unit id="VeqIwvE" name="attachment.3d_viewer.toggle_wireframe">
-      <segment state="translated">
-        <source>attachment.3d_viewer.toggle_wireframe</source>
-        <target>Drahtgitter umschalten</target>
+    <unit id="kTrv0Uj" name="info_providers.from_file.file.help">
+      <segment>
+        <source>info_providers.from_file.file.help</source>
+        <target>Unterstützte Formate: PDF-, Text- und Markdown-Dateien. Es wird nur der Text der Datei verwendet, gescannte Dokumente ohne Textebene werden nicht unterstützt. Um Bilder und gescannte Dokumente zu verwenden, muss das Senden von Dateien an das Modell in den Einstellungen des KI Datei Extraktors erlaubt werden.</target>
       </segment>
     </unit>
-    <unit id="4sP7kBp" name="attachment.3d_viewer.toggle_grid">
-      <segment state="translated">
-        <source>attachment.3d_viewer.toggle_grid</source>
-        <target>Raster umschalten</target>
+    <unit id="qTuMUgu" name="info_providers.from_file.submit">
+      <segment>
+        <source>info_providers.from_file.submit</source>
+        <target>[Part]informationen extrahieren</target>
       </segment>
     </unit>
-    <unit id="3NnqFah" name="attachment.3d_viewer.fullscreen">
-      <segment state="translated">
-        <source>attachment.3d_viewer.fullscreen</source>
-        <target>Vollbild umschalten</target>
+    <unit id="c5hpNDv" name="info_providers.from_file.not_active">
+      <segment>
+        <source>info_providers.from_file.not_active</source>
+        <target>Um [[Part]] aus Dateien zu erstellen, müssen in den Einstellungen des KI Datei Extraktors eine KI-Plattform und ein Modell konfiguriert sein.</target>
       </segment>
     </unit>
-    <unit id="BRg4S0K" name="attachment.3d_viewer.controls_hint">
-      <segment state="translated">
-        <source>attachment.3d_viewer.controls_hint</source>
-        <target>Ziehen zum Drehen, Scrollen zum Zoomen, mit rechter Maustaste ziehen zum Verschieben.</target>
+    <unit id="hcTxnKp" name="info_providers.from_file.error.parse">
+      <segment>
+        <source>info_providers.from_file.error.parse</source>
+        <target>Die Datei konnte nicht gelesen werden: %error%</target>
       </segment>
     </unit>
-    <unit id="icPlspg" name="attachment.3d_viewer.view.label">
-      <segment state="translated">
-        <source>attachment.3d_viewer.view.label</source>
-        <target>Standardansichten</target>
+    <unit id="f7u8XIC" name="info_providers.from_file.error.no_text">
+      <segment>
+        <source>info_providers.from_file.error.no_text</source>
+        <target>Aus der Datei konnte kein Text extrahiert werden. Gescannte Dokumente ohne Textebene können nur verwendet werden, wenn die Datei an das KI-Modell gesendet wird: Wählen Sie den Eingabemodus "Automatisch" oder "Datei an Modell senden" (das Senden von Dateien muss in den Einstellungen des KI Datei Extraktors erlaubt sein).</target>
       </segment>
     </unit>
-    <unit id=".A5xiTp" name="attachment.3d_viewer.view.isometric">
-      <segment state="translated">
-        <source>attachment.3d_viewer.view.isometric</source>
-        <target>Isometrisch</target>
+    <unit id="ciiN9Tw" name="info_providers.from_file.context.label">
+      <segment>
+        <source>info_providers.from_file.context.label</source>
+        <target>Zusätzlicher Kontext</target>
       </segment>
     </unit>
-    <unit id="7XggqIr" name="attachment.3d_viewer.view.front">
-      <segment state="translated">
-        <source>attachment.3d_viewer.view.front</source>
-        <target>Vorne</target>
+    <unit id="E.2coVK" name="info_providers.from_file.context.help">
+      <segment>
+        <source>info_providers.from_file.context.help</source>
+        <target>Optionale Hinweise für die KI, z. B. die genaue Teilenummer, die verwendet werden soll, wenn die Datei mehrere Varianten beschreibt.</target>
       </segment>
     </unit>
-    <unit id="yEeVpLS" name="attachment.3d_viewer.view.back">
-      <segment state="translated">
-        <source>attachment.3d_viewer.view.back</source>
-        <target>Hinten</target>
+    <unit id="9IaRRF7" name="info_providers.from_file.context.placeholder">
+      <segment>
+        <source>info_providers.from_file.context.placeholder</source>
+        <target>z. B. Verwende die Variante BC547B im TO-92-Gehäuse</target>
       </segment>
     </unit>
-    <unit id="ke8HbV0" name="attachment.3d_viewer.view.left">
-      <segment state="translated">
-        <source>attachment.3d_viewer.view.left</source>
-        <target>Links</target>
+    <unit id="s4q5LjE" name="settings.ips.ai_file_extractor">
+      <segment>
+        <source>settings.ips.ai_file_extractor</source>
+        <target>KI Datei Extraktor</target>
       </segment>
     </unit>
-    <unit id="aZZZ5T8" name="attachment.3d_viewer.view.right">
-      <segment state="translated">
-        <source>attachment.3d_viewer.view.right</source>
-        <target>Rechts</target>
+    <unit id="F7kmvAw" name="settings.ips.ai_file_extractor.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.description</source>
+        <target>Dieser Infoanbieter verwendet ein großes Sprachmodell (LLM), um detaillierte [Part]informationen aus hochgeladenen Dateien, wie z. B. PDF-Datenblättern, zu extrahieren. Er wird von der Seite "Erstelle [Part] aus Datei" verwendet.</target>
       </segment>
     </unit>
-    <unit id="TBZU8bd" name="attachment.3d_viewer.view.top">
-      <segment state="translated">
-        <source>attachment.3d_viewer.view.top</source>
-        <target>Oben</target>
+    <unit id="tFv6kbn" name="settings.ips.ai_file_extractor.max_content_length">
+      <segment>
+        <source>settings.ips.ai_file_extractor.max_content_length</source>
+        <target>Max. Länge des Dateiinhalts</target>
       </segment>
     </unit>
-    <unit id="BeWse0P" name="attachment.3d_viewer.view.bottom">
-      <segment state="translated">
-        <source>attachment.3d_viewer.view.bottom</source>
-        <target>Unten</target>
+    <unit id="UyAVUxo" name="settings.ips.ai_file_extractor.max_content_length.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.max_content_length.description</source>
+        <target>Die maximale Anzahl an Zeichen des Dateiinhalts, die an den KI-Dienst gesendet werden. Längere Dateien werden gekürzt.</target>
       </segment>
     </unit>
-    <unit id="5C4xD34" name="attachment.3d_viewer.measure">
-      <segment state="translated">
-        <source>attachment.3d_viewer.measure</source>
-        <target>Messen</target>
+    <unit id="KP.Tx.7" name="settings.ips.ai_file_extractor.output_language.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.output_language.description</source>
+        <target>Standardmäßig liefert der Anbieter Informationen in der gleichen Sprache wie die Datei. Mit dieser Option können Sie die KI bitten, für Sie zu übersetzen. Funktioniert möglicherweise nur mit bestimmten Modellen.</target>
       </segment>
     </unit>
-    <unit id="HZEvQYa" name="attachment.3d_viewer.measure.clear">
-      <segment state="translated">
-        <source>attachment.3d_viewer.measure.clear</source>
-        <target>Messung löschen</target>
+    <unit id="ZYkBycB" name="attachment.uploaded_document.pending">
+      <segment>
+        <source>attachment.uploaded_document.pending</source>
+        <target>Diese Datei wird angehängt, wenn das [Part] gespeichert wird.</target>
       </segment>
     </unit>
-    <unit id="_9Hel6U" name="attachment.3d_viewer.measure.hint">
-      <segment state="translated">
-        <source>attachment.3d_viewer.measure.hint</source>
-        <target>Klicken Sie auf zwei Punkte des Modells, um den Abstand zwischen ihnen zu messen. Punkte rasten an einer nahen Ecke ein.</target>
+    <unit id="P4DIw6c" name="info_providers.from_file.not_attached">
+      <segment>
+        <source>info_providers.from_file.not_attached</source>
+        <target>Die hochgeladene Datei konnte nicht als Anhang hinzugefügt werden, da sie nicht mehr verfügbar oder größer als die maximale Anhangsgröße ist.</target>
       </segment>
     </unit>
-    <unit id="PS75Gl4" name="attachment.3d_viewer.metadata">
-      <segment state="translated">
-        <source>attachment.3d_viewer.metadata</source>
-        <target>Modellinformationen</target>
+    <unit id="GfgpJXr" name="info_providers.from_file.file.help.with_images">
+      <segment>
+        <source>info_providers.from_file.file.help.with_images</source>
+        <target>Unterstützte Formate: PDF, Bilder (PNG, JPEG, WebP, GIF), Text- und Markdown-Dateien. Bilder und Dokumente ohne Text (wie Scans) werden direkt an das KI-Modell gesendet, welches diese Dateitypen unterstützen muss.</target>
       </segment>
     </unit>
-    <unit id="kMmJzTW" name="attachment.3d_viewer.screenshot">
-      <segment state="translated">
-        <source>attachment.3d_viewer.screenshot</source>
-        <target>Screenshot herunterladen</target>
+    <unit id="PsBqA_v" name="settings.ips.ai_file_extractor.allow_file_input">
+      <segment>
+        <source>settings.ips.ai_file_extractor.allow_file_input</source>
+        <target>Senden von Dateien an das Modell erlauben</target>
       </segment>
     </unit>
-    <unit id="DaNck4u" name="attachment.3d_viewer.parts">
-      <segment state="translated">
-        <source>attachment.3d_viewer.parts</source>
-        <target>Komponenten</target>
+    <unit id="uFcvgN8" name="settings.ips.ai_file_extractor.allow_file_input.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.allow_file_input.description</source>
+        <target>Wenn aktiviert, können Benutzer bei jedem Upload wählen, ob die Datei selbst (Bilder und PDF-Dateien) statt nur ihres extrahierten Textes an das KI-Modell gesendet wird. Dies ermöglicht die Verwendung von Bildern und gescannten Dokumenten und lässt das Modell Layout, Tabellen und Diagramme sehen, erfordert aber ein Modell, das Bilder und PDF-Dateien unterstützt (und eine Plattform, die dies unterstützt: Ollama kann nur Bilder, aber keine PDF-Dateien verarbeiten). Außerdem werden mehr Tokens verbraucht, was zu höheren Kosten pro Anfrage führt. Wenn deaktiviert, wird nur der extrahierte Text verwendet.</target>
       </segment>
     </unit>
-    <unit id="xX9nKBn" name="attachment.3d_viewer.parts.show_all">
-      <segment state="translated">
-        <source>attachment.3d_viewer.parts.show_all</source>
-        <target>Alle</target>
+    <unit id="XS0813H" name="info_providers.from_file.input_mode.auto">
+      <segment>
+        <source>info_providers.from_file.input_mode.auto</source>
+        <target>Automatisch (Text extrahieren, Bilder und gescannte Dokumente an das Modell senden)</target>
       </segment>
     </unit>
-    <unit id="pK0bzyy" name="attachment.3d_viewer.parts.hide_all">
+    <unit id="3iTQsXk" name="info_providers.from_file.input_mode.text">
+      <segment>
+        <source>info_providers.from_file.input_mode.text</source>
+        <target>Nur Text extrahieren</target>
+      </segment>
+    </unit>
+    <unit id="ledeTyC" name="info_providers.from_file.input_mode.file">
+      <segment>
+        <source>info_providers.from_file.input_mode.file</source>
+        <target>Datei an Modell senden (PDF-Dateien und Bilder)</target>
+      </segment>
+    </unit>
+    <unit id="i97R6_4" name="info_providers.from_file.input_mode.label">
+      <segment>
+        <source>info_providers.from_file.input_mode.label</source>
+        <target>Eingabemodus</target>
+      </segment>
+    </unit>
+    <unit id="SONaFZG" name="info_providers.from_file.input_mode.help">
+      <segment>
+        <source>info_providers.from_file.input_mode.help</source>
+        <target>Wie die Datei an das KI-Modell übergeben wird. "Nur Text extrahieren" funktioniert mit jedem Modell. Das Senden der Datei selbst erfordert ein Modell, das Bilder und PDF-Dateien unterstützt, ermöglicht aber das Lesen gescannter Dokumente sowie das Erfassen von Layout, Tabellen und Diagrammen. Das Senden ganzer Dateien ist teurer als das Senden von reinem Text!</target>
+      </segment>
+    </unit>
+    <unit id="2pXOLo4" name="info_providers.from_file.error.image_in_text_mode">
+      <segment>
+        <source>info_providers.from_file.error.image_in_text_mode</source>
+        <target>Bilder enthalten keinen Text, der extrahiert werden kann. Wählen Sie den Eingabemodus "Automatisch" oder "Datei an Modell senden", um das Bild an das KI-Modell zu senden.</target>
+      </segment>
+    </unit>
+    <unit id="KyC_YsX" name="settings.ips.trustedparts">
       <segment state="translated">
-        <source>attachment.3d_viewer.parts.hide_all</source>
-        <target>Keine</target>
+        <source>settings.ips.trustedparts</source>
+        <target>TrustedParts</target>
+      </segment>
+    </unit>
+    <unit id="iB2.9sg" name="settings.ips.trustedparts.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.help</source>
+        <target>TrustedParts.com ist eine von der ECIA betriebene Bauteil-Suchmaschine, welche die Angebote autorisierter Distributoren zusammenfasst. Sie müssen Zugang zu deren API beantragen, um diese Informationsquelle nutzen zu können.</target>
+      </segment>
+    </unit>
+    <unit id="Mhe.lWu" name="settings.ips.trustedparts.companyId">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.companyId</source>
+        <target>Firmen-ID</target>
+      </segment>
+    </unit>
+    <unit id="DvzhYe1" name="settings.ips.trustedparts.companyId.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.companyId.help</source>
+        <target>Die Firmenkennung, die Ihrem TrustedParts.com-Konto zugewiesen wurde. Sie finden diese auf der API-Schlüssel-Seite Ihres Kontos.</target>
+      </segment>
+    </unit>
+    <unit id="AqF7ns9" name="settings.ips.trustedparts.apiKey.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.apiKey.help</source>
+        <target>Der API-Schlüssel, der Ihrem TrustedParts.com-Konto zugewiesen wurde. Sie finden diesen auf der API-Schlüssel-Seite Ihres Kontos.</target>
+      </segment>
+    </unit>
+    <unit id="Gh676P6" name="settings.ips.trustedparts.searchLimit">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.searchLimit</source>
+        <target>Suchlimit</target>
+      </segment>
+    </unit>
+    <unit id="R7oiMLD" name="settings.ips.trustedparts.searchLimit.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.searchLimit.help</source>
+        <target>Die maximale Anzahl an Ergebnissen, die bei einer Stichwortsuche angezeigt werden.</target>
+      </segment>
+    </unit>
+    <unit id="DFkCu4n" name="settings.ips.trustedparts.inStockOnly">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.inStockOnly</source>
+        <target>Nur lagernde Angebote</target>
+      </segment>
+    </unit>
+    <unit id="EF2mFRR" name="settings.ips.trustedparts.inStockOnly.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.inStockOnly.help</source>
+        <target>Wenn aktiviert, werden nur die Angebote von Distributoren zurückgegeben, die das Bauteil aktuell auf Lager haben.</target>
+      </segment>
+    </unit>
+    <unit id="r4gkOcR" name="settings.ips.trustedparts.useCachedData">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.useCachedData</source>
+        <target>Zwischengespeicherte Daten verwenden</target>
+      </segment>
+    </unit>
+    <unit id="JNIu4bu" name="settings.ips.trustedparts.useCachedData.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.useCachedData.help</source>
+        <target>Wenn aktiviert, antwortet TrustedParts.com mit zwischengespeicherten Lagerbestands- und Preisdaten, anstatt die Distributoren in Echtzeit abzufragen. Dies ist schneller und wird nicht auf die Ratenbegrenzung angerechnet, die Daten können jedoch veraltet sein.</target>
+      </segment>
+    </unit>
+    <unit id="NUw3e9D" name="part.table.supplier_available_amount">
+      <segment state="translated">
+        <source>part.table.supplier_available_amount</source>
+        <target>Verfügbar beim Lieferanten</target>
+      </segment>
+    </unit>
+    <unit id="cVfVQWf" name="perm.group.unknown">
+      <segment state="translated">
+        <source>perm.group.unknown</source>
+        <target>Unbekannt</target>
+      </segment>
+    </unit>
+    <unit id="S6JX3.E" name="info_providers.capabilities.stock_level">
+      <segment state="translated">
+        <source>info_providers.capabilities.stock_level</source>
+        <target>Verfügbarer Lagerbestand</target>
+      </segment>
+    </unit>
+    <unit id="vhLQ2wI" name="settings.ips.pololu">
+      <segment state="translated">
+        <source>settings.ips.pololu</source>
+        <target>Pololu</target>
+      </segment>
+    </unit>
+    <unit id="rAwB5gk" name="settings.ips.pololu.help">
+      <segment state="translated">
+        <source>settings.ips.pololu.help</source>
+        <target>Pololu.com bietet keine offizielle API an, daher liest diese Informationsquelle die Webseite aus, um Informationen zu extrahieren. Dies kann jederzeit nicht mehr funktionieren, die Nutzung erfolgt auf eigene Gefahr.</target>
+      </segment>
+    </unit>
+    <unit id="PY6rbC1" name="settings.ips.pololu.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.pololu.requestDelay</source>
+        <target>Verzögerung zwischen Seitenabrufen</target>
+      </segment>
+    </unit>
+    <unit id="m8oSb9G" name="settings.ips.pololu.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.pololu.requestDelay.help</source>
+        <target>Die minimale Zeit in Sekunden zwischen zwei Seitenabrufen bei pololu.com. Für die Details eines Produkts werden bis zu drei Seitenabrufe benötigt.</target>
+      </segment>
+    </unit>
+    <unit id="2cmlYHC" name="settings.ips.adafruit">
+      <segment state="translated">
+        <source>settings.ips.adafruit</source>
+        <target>Adafruit</target>
+      </segment>
+    </unit>
+    <unit id="gYw6DhB" name="settings.ips.adafruit.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.help</source>
+        <target>Verwendet die öffentliche Produkt-API von adafruit.com (kein API-Schlüssel erforderlich). Der Produktkatalog wird einmal täglich heruntergeladen und lokal durchsucht. Die Preise sind in USD.</target>
+      </segment>
+    </unit>
+    <unit id="OzJ7H.4" name="settings.ips.adafruit.fetchProductPage">
+      <segment state="translated">
+        <source>settings.ips.adafruit.fetchProductPage</source>
+        <target>Produktseite abrufen</target>
+      </segment>
+    </unit>
+    <unit id="6Er.rGb" name="settings.ips.adafruit.fetchProductPage.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.fetchProductPage.help</source>
+        <target>Zusätzlich die Produktseite auf adafruit.com auslesen, um alle Produktbilder, die technischen Details, die Kategorie und die Learn-Guides zu erhalten. Dies verursacht eine zusätzliche Anfrage pro Bauteil. Wenn deaktiviert, wird nur die Produkt-API verwendet.</target>
+      </segment>
+    </unit>
+    <unit id="mv_ytAP" name="settings.ips.adafruit.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.adafruit.requestDelay</source>
+        <target>Verzögerung zwischen Anfragen</target>
+      </segment>
+    </unit>
+    <unit id="kaX7_of" name="settings.ips.adafruit.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.requestDelay.help</source>
+        <target>Die minimale Zeit in Sekunden zwischen zwei Anfragen an adafruit.com (Katalog-Download, Produkt-API und Produktseiten). Zu frühe Anfragen werden verzögert, daher kann eine Abfrage eine Weile dauern. Wenn die Webseite eine Anfrage ablehnt (HTTP 403, 429 oder 503), sendet die Informationsquelle für eine Stunde überhaupt keine Anfragen mehr. 0 deaktiviert die Verzögerung.</target>
+      </segment>
+    </unit>
+    <unit id="FQ16OqS" name="settings.ips.sparkfun">
+      <segment state="translated">
+        <source>settings.ips.sparkfun</source>
+        <target>SparkFun</target>
+      </segment>
+    </unit>
+    <unit id="iLozj.r" name="settings.ips.sparkfun.help">
+      <segment state="translated">
+        <source>settings.ips.sparkfun.help</source>
+        <target>SparkFun bietet keine offizielle API an, daher liest diese Informationsquelle den GraphQL-Endpunkt und die Produktseiten des sparkfun.com-Shops aus, um Informationen zu extrahieren. Dies kann jederzeit nicht mehr funktionieren, die Nutzung erfolgt auf eigene Gefahr.</target>
+      </segment>
+    </unit>
+    <unit id="LD0s75M" name="settings.ips.sparkfun.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.sparkfun.requestDelay</source>
+        <target>Verzögerung zwischen Anfragen</target>
+      </segment>
+    </unit>
+    <unit id="0c5J7Oo" name="settings.ips.sparkfun.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.sparkfun.requestDelay.help</source>
+        <target>Die minimale Zeit in Sekunden zwischen zwei Anfragen an sparkfun.com (GraphQL-Endpunkt und Produktseiten). Zu frühe Anfragen werden verzögert, daher kann eine Abfrage eine Weile dauern. Wenn der Shop eine Anfrage ablehnt (HTTP 403, 429 oder 503), sendet die Informationsquelle für eine Stunde überhaupt keine Anfragen mehr. 0 deaktiviert die Verzögerung.</target>
+      </segment>
+    </unit>
+    <unit id="zxX4Woh" name="settings.ips.bambulab">
+      <segment state="translated">
+        <source>settings.ips.bambulab</source>
+        <target>Bambu Lab</target>
+      </segment>
+    </unit>
+    <unit id="zfk.eK." name="settings.ips.bambulab.help">
+      <segment state="translated">
+        <source>settings.ips.bambulab.help</source>
+        <target>Der Bambu Lab Store bietet keine offizielle API an, daher verwendet diese Informationsquelle die inoffizielle API der Store-Webseite. Dies kann jederzeit nicht mehr funktionieren, die Nutzung erfolgt auf eigene Gefahr.</target>
+      </segment>
+    </unit>
+    <unit id="zfH0VbE" name="settings.ips.bambulab.region">
+      <segment state="translated">
+        <source>settings.ips.bambulab.region</source>
+        <target>Store-Region</target>
+      </segment>
+    </unit>
+    <unit id="4sh8FkX" name="settings.ips.bambulab.region.help">
+      <segment state="translated">
+        <source>settings.ips.bambulab.region.help</source>
+        <target>Der regionale Bambu Lab Store, der verwendet werden soll. Dieser bestimmt die verfügbaren Produkte, die Preise und deren Währung.</target>
+      </segment>
+    </unit>
+    <unit id="SRvJrCG" name="settings.ips.bambulab.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.bambulab.requestDelay</source>
+        <target>Verzögerung zwischen Anfragen</target>
+      </segment>
+    </unit>
+    <unit id="bU8CPoa" name="settings.ips.bambulab.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.bambulab.requestDelay.help</source>
+        <target>Die minimale Zeit in Sekunden zwischen zwei Anfragen an den Bambu Lab Store (API und Produktseiten). Zu frühe Anfragen werden verzögert, daher kann eine Abfrage eine Weile dauern. Wenn der Store eine Anfrage ablehnt (HTTP 403, 429 oder 503), sendet die Informationsquelle für eine Stunde überhaupt keine Anfragen mehr. 0 deaktiviert die Verzögerung.</target>
+      </segment>
+    </unit>
+    <unit id="TVotuBl" name="settings.ips.provider_settings">
+      <segment state="translated">
+        <source>settings.ips.provider_settings</source>
+        <target>Einstellungen der Informationsquellen</target>
+      </segment>
+    </unit>
+    <unit id="2mEHwqY" name="settings.ips.provider_settings.help">
+      <segment state="translated">
+        <source>settings.ips.provider_settings.help</source>
+        <target>Die Einstellungen der einzelnen Informationsquellen werden auf eigenen Seiten konfiguriert. Klicken Sie auf eine Informationsquelle, um deren Einstellungen zu bearbeiten.</target>
+      </segment>
+    </unit>
+    <unit id="66ijoIg" name="info_providers.settings.back_to_system_settings">
+      <segment state="translated">
+        <source>info_providers.settings.back_to_system_settings</source>
+        <target>Zurück zu den Systemeinstellungen</target>
+      </segment>
+    </unit>
+    <unit id="6xaiwRW" name="settings.ips.provider_settings.feature.tooltip">
+      <segment state="translated">
+        <source>settings.ips.provider_settings.feature.tooltip</source>
+        <target>Diese Informationsquelle wird benötigt, damit diese Funktion funktioniert</target>
+      </segment>
+    </unit>
+    <unit id="V3M_l4t" name="info_providers.settings.oauth.title">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.title</source>
+        <target>OAuth-Verbindung</target>
+      </segment>
+    </unit>
+    <unit id="pmUI3j6" name="info_providers.settings.oauth.help">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.help</source>
+        <target>Diese Informationsquelle benötigt eine OAuth-Verbindung. Speichern Sie zuerst oben die Client-ID und das Client-Secret und verbinden Sie sich anschließend. Das erhaltene Token wird in der Datenbank gespeichert und automatisch erneuert.</target>
+      </segment>
+    </unit>
+    <unit id="wD_yg2T" name="info_providers.settings.oauth.status">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="EW7N1SE" name="info_providers.settings.oauth.connected">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.connected</source>
+        <target>Verbunden</target>
+      </segment>
+    </unit>
+    <unit id="GfAzmmO" name="info_providers.settings.oauth.not_connected">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.not_connected</source>
+        <target>Nicht verbunden</target>
+      </segment>
+    </unit>
+    <unit id="q9b3AlW" name="info_providers.settings.oauth.grant_type">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.grant_type</source>
+        <target>Grant-Typ</target>
+      </segment>
+    </unit>
+    <unit id="1vZ6TUi" name="info_providers.settings.oauth.grant_type.client_credentials">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.grant_type.client_credentials</source>
+        <target>Client Credentials</target>
+      </segment>
+    </unit>
+    <unit id="QBsbgfh" name="info_providers.settings.oauth.grant_type.authorization_code">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.grant_type.authorization_code</source>
+        <target>Authorization Code (mit Refresh-Token)</target>
+      </segment>
+    </unit>
+    <unit id="0WCAqTB" name="info_providers.settings.oauth.connected_at">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.connected_at</source>
+        <target>Erstmals verbunden</target>
+      </segment>
+    </unit>
+    <unit id="WX4cfz5" name="info_providers.settings.oauth.last_updated">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.last_updated</source>
+        <target>Token zuletzt aktualisiert</target>
+      </segment>
+    </unit>
+    <unit id="OEVSGFB" name="info_providers.settings.oauth.expires_at">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.expires_at</source>
+        <target>Access-Token läuft ab</target>
+      </segment>
+    </unit>
+    <unit id="Tjg1dzq" name="info_providers.settings.oauth.expired">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.expired</source>
+        <target>Abgelaufen</target>
+      </segment>
+    </unit>
+    <unit id="IWCTL6X" name="info_providers.settings.oauth.expired.help">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.expired.help</source>
+        <target>Ein neues Access-Token wird automatisch angefordert, wenn die Informationsquelle das nächste Mal verwendet wird.</target>
+      </segment>
+    </unit>
+    <unit id="XQIvNX4" name="info_providers.settings.oauth.reconnect">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.reconnect</source>
+        <target>OAuth neu verbinden</target>
+      </segment>
+    </unit>
+    <unit id="I_yYwh0" name="info_providers.slow">
+      <segment state="translated">
+        <source>info_providers.slow</source>
+        <target>Langsam</target>
+      </segment>
+    </unit>
+    <unit id="zUoWx.G" name="info_providers.slow.tooltip">
+      <segment state="translated">
+        <source>info_providers.slow.tooltip</source>
+        <target>Diese Informationsquelle muss ihre Anfragen stark drosseln oder benötigt viel Verarbeitungszeit, daher können Anfragen eine Weile dauern.</target>
       </segment>
     </unit>
   </file>

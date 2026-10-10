@@ -81,8 +81,8 @@ export default class extends Controller {
     }
 
     /**
-     * Returns the checked search options (fields, regex, extensive, wildcard) of the search form, if regex or
-     * extensive matching is enabled. Otherwise null is returned and the default autocomplete search is used.
+     * Returns the checked search options (fields, regex, extensive, wildcard) of the search form.
+     * If the element is not inside a search form, null is returned and the default autocomplete search is used.
      * @returns {URLSearchParams|null}
      */
     _getSearchOptions() {
@@ -96,10 +96,6 @@ export default class extends Controller {
         form.querySelectorAll('input[type="checkbox"]:checked:not(:disabled)').forEach((checkbox) => {
             options.set(checkbox.name, checkbox.value || '1');
         });
-
-        if (!options.has('regex') && !options.has('extensive')) {
-            return null;
-        }
 
         return options;
     }
@@ -197,6 +193,72 @@ export default class extends Controller {
                 </button>`;
             })}
         </span>`;
+    }
+
+    connect() {
+        document.addEventListener('keydown', this._onGlobalKeydown);
+        this._updatePlaceholders();
+    }
+
+    disconnect() {
+        document.removeEventListener('keydown', this._onGlobalKeydown);
+        // The element is still in the page here (e.g. while Turbo swaps the page), so update once it is gone
+        setTimeout(() => this._updatePlaceholders(), 0);
+    }
+
+    /**
+     * Returns the search field that "/" focuses: the one in the page content (e.g. on the homepage) if there is one,
+     * otherwise the one in the navbar. Only visible fields are considered.
+     * @returns {HTMLInputElement|undefined}
+     */
+    _getMainSearchInput() {
+        const candidates = [
+            ...document.querySelectorAll('[data-navbar-mode="false"] .aa-Input'),
+            ...document.querySelectorAll('[data-navbar-mode="true"] .aa-Input'),
+        ];
+        return candidates.find((input) => input.offsetParent !== null);
+    }
+
+    /**
+     * The main search field hints at the "/" shortcut while it is not focused, all other search fields (and the main
+     * one while typing) just show the normal placeholder.
+     */
+    _updatePlaceholders = () => {
+        const main = this._getMainSearchInput();
+        for (const input of document.querySelectorAll('[data-navbar-mode] .aa-Input')) {
+            const placeholder = (input === main && document.activeElement !== input)
+                ? trans("search.placeholder.hotkey")
+                : trans("search.placeholder");
+            // Remembered for the observer registered in initialize(), which keeps it when the autocomplete re-renders
+            input.dataset.placeholder = placeholder;
+            if (input.placeholder !== placeholder) {
+                input.placeholder = placeholder;
+            }
+        }
+    }
+
+    /**
+     * Pressing "/" anywhere on the page (outside of text fields) focuses the main search field.
+     */
+    _onGlobalKeydown = (event) => {
+        if (event.key !== '/' || event.ctrlKey || event.metaKey || event.altKey || event.defaultPrevented) {
+            return;
+        }
+
+        const active = document.activeElement;
+        if (active && (active.isContentEditable || active.closest('input, textarea, select, [contenteditable]'))) {
+            return;
+        }
+
+        // Every search field has this controller, so only the one owning the main search field handles the key
+        const target = this._getMainSearchInput();
+        if (!target || !this.element.contains(target)) {
+            return;
+        }
+
+        event.preventDefault();
+        target.focus();
+        target.select();
     }
 
     initialize() {
@@ -297,15 +359,18 @@ export default class extends Controller {
                             //Iterate over all fields besides the id and highlight them
                             const fields = ["name", "description", "category", "footprint"];
 
-                            data.then((items) => {
+                            //Store the highlighted values in _highlightResult (where the Highlight component reads
+                            //them from), so the raw values (e.g. used in the image alt attribute) stay untouched
+                            return data.then((items) => {
                                 items.forEach((item) => {
+                                    item._highlightResult = {};
                                     for (const field of fields) {
-                                        item[field] = that._highlight(item[field], query, options);
+                                        item._highlightResult[field] = {value: that._highlight(item[field], query, options) ?? ''};
                                     }
                                 });
-                            });
 
-                            return data;
+                                return items;
+                            });
                         },
                         getItemUrl({ item }) {
                             return part_detail_uri_template.replace('__ID__', item.id);
@@ -323,7 +388,7 @@ export default class extends Controller {
                                     <a class="aa-ItemLink" href="${details_url}">
                                         <div class="aa-ItemContent">
                                             <div class="aa-ItemIcon aa-ItemIcon--picture aa-ItemIcon--alignTop">
-                                                <img src="${item.image !== "" ? item.image : placeholder_image}" alt="${item.name}" width="30" height="30"/>
+                                                <img src="${item.image || placeholder_image}" alt="${item.name}" width="30" height="30"/>
                                             </div>
                                             <div class="aa-ItemContentBody">
                                                 <div class="aa-ItemContentTitle">
@@ -354,7 +419,16 @@ export default class extends Controller {
         for (const input of inputs) {
             input.addEventListener('blur', () => {
                 this._autocomplete.setIsOpen(false);
+                this._updatePlaceholders();
             });
+            input.addEventListener('focus', this._updatePlaceholders);
+
+            // The autocomplete resets the placeholder to its configured one whenever it re-renders
+            new MutationObserver(() => {
+                if (input.dataset.placeholder && input.placeholder !== input.dataset.placeholder) {
+                    input.placeholder = input.dataset.placeholder;
+                }
+            }).observe(input, {attributes: true, attributeFilter: ['placeholder']});
         }
 
         // Changing a search option should update the results for the already typed query
