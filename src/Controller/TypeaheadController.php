@@ -140,10 +140,11 @@ class TypeaheadController extends AbstractController
 
         $repo = $entityManager->getRepository(Part::class);
 
-        //If regex or extensive matching is enabled in the search options, search like the search page does
-        //(using the selected fields), otherwise use the simple and fast autocomplete search
-        $filter = PartSearchFilter::fromRequest($request, $query);
-        if ($filter->isRegex() || $filter->isExtensive()) {
+        //If search options (fields, regex, extensive, wildcard) are passed, search like the search page does,
+        //otherwise (e.g. part select fields) use the simple and fast autocomplete search
+        if ($request->query->count() > 0) {
+            $filter = PartSearchFilter::fromRequest($request, $query);
+
             //A regex is often incomplete while it is typed (e.g. "lm("), so return no results instead of an error
             if ($filter->isRegex() && @preg_match('~' . str_replace('~', '\\~', $query) . '~u', '') === false) {
                 return new JsonResponse([]);
@@ -154,7 +155,7 @@ class TypeaheadController extends AbstractController
             } catch (InvalidRegexException|DBALException) {
                 return new JsonResponse([]);
             }
-        } else {
+        } else { // Use the fast and simple autocomplete search for the part select fields
             $parts = $repo->autocompleteSearch($query, 100);
         }
 

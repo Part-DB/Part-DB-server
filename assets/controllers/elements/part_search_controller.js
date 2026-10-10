@@ -67,8 +67,8 @@ export default class extends Controller {
     }
 
     /**
-     * Returns the checked search options (fields, regex, extensive, wildcard) of the search form, if regex or
-     * extensive matching is enabled. Otherwise null is returned and the default autocomplete search is used.
+     * Returns the checked search options (fields, regex, extensive, wildcard) of the search form.
+     * If the element is not inside a search form, null is returned and the default autocomplete search is used.
      * @returns {URLSearchParams|null}
      */
     _getSearchOptions() {
@@ -82,10 +82,6 @@ export default class extends Controller {
         form.querySelectorAll('input[type="checkbox"]:checked:not(:disabled)').forEach((checkbox) => {
             options.set(checkbox.name, checkbox.value || '1');
         });
-
-        if (!options.has('regex') && !options.has('extensive')) {
-            return null;
-        }
 
         return options;
     }
@@ -165,7 +161,7 @@ export default class extends Controller {
                         getItems() {
                             let url = base_url.replace('__QUERY__', encodeURIComponent(query));
 
-                            // Pass the search options, so regex and extensive matching also work in the dropdown
+                            // Pass the search options, so the selected fields and matching modes also apply to the dropdown
                             const options = that._getSearchOptions();
                             if (options) {
                                 url += (url.includes('?') ? '&' : '?') + options.toString();
