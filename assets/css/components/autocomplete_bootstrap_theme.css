@@ -461,6 +461,9 @@ body {
 }
 
 .aa-SourceHeader {
+    /* A flex row, so the header grows with its content (e.g. the sort toggles) instead of letting it overlap the results */
+    align-items: center;
+    display: flex;
     margin: calc((16 * 1 * 1px) / 2) 0.5em calc((16 * 1 * 1px) / 2) 0;
     margin: calc(calc(16 * 1 * 1px) / 2) 0.5em calc(calc(16 * 1 * 1px) / 2) 0;
     margin: var(--aa-spacing-half) 0.5em var(--aa-spacing-half) 0;
@@ -499,9 +502,9 @@ body {
     padding: 0;
     position: absolute;
     right: 0;
-    top: calc((16 * 1 * 1px) / 2);
-    top: calc(calc(16 * 1 * 1px) / 2);
-    top: var(--aa-spacing-half);
+    /* Vertically centered, so it stays behind the title when the header is higher than it */
+    top: 50%;
+    transform: translateY(-50%);
     z-index: calc(9999 - 1);
     z-index: calc(var(--aa-base-z-index) - 1);
 }
@@ -510,8 +513,8 @@ body {
 .aa-SourceHeaderSort {
     background: var(--bs-body-bg);
     display: inline-flex;
-    float: right;
     gap: 4px;
+    margin-left: auto;
     padding: 0 0 0 var(--aa-spacing-half);
     position: relative;
     z-index: 9999;
