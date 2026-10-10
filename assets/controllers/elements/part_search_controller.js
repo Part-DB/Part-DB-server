@@ -86,6 +86,72 @@ export default class extends Controller {
         return options;
     }
 
+    connect() {
+        document.addEventListener('keydown', this._onGlobalKeydown);
+        this._updatePlaceholders();
+    }
+
+    disconnect() {
+        document.removeEventListener('keydown', this._onGlobalKeydown);
+        // The element is still in the page here (e.g. while Turbo swaps the page), so update once it is gone
+        setTimeout(() => this._updatePlaceholders(), 0);
+    }
+
+    /**
+     * Returns the search field that "/" focuses: the one in the page content (e.g. on the homepage) if there is one,
+     * otherwise the one in the navbar. Only visible fields are considered.
+     * @returns {HTMLInputElement|undefined}
+     */
+    _getMainSearchInput() {
+        const candidates = [
+            ...document.querySelectorAll('[data-navbar-mode="false"] .aa-Input'),
+            ...document.querySelectorAll('[data-navbar-mode="true"] .aa-Input'),
+        ];
+        return candidates.find((input) => input.offsetParent !== null);
+    }
+
+    /**
+     * The main search field hints at the "/" shortcut while it is not focused, all other search fields (and the main
+     * one while typing) just show the normal placeholder.
+     */
+    _updatePlaceholders = () => {
+        const main = this._getMainSearchInput();
+        for (const input of document.querySelectorAll('[data-navbar-mode] .aa-Input')) {
+            const placeholder = (input === main && document.activeElement !== input)
+                ? trans("search.placeholder.hotkey")
+                : trans("search.placeholder");
+            // Remembered for the observer registered in initialize(), which keeps it when the autocomplete re-renders
+            input.dataset.placeholder = placeholder;
+            if (input.placeholder !== placeholder) {
+                input.placeholder = placeholder;
+            }
+        }
+    }
+
+    /**
+     * Pressing "/" anywhere on the page (outside of text fields) focuses the main search field.
+     */
+    _onGlobalKeydown = (event) => {
+        if (event.key !== '/' || event.ctrlKey || event.metaKey || event.altKey || event.defaultPrevented) {
+            return;
+        }
+
+        const active = document.activeElement;
+        if (active && (active.isContentEditable || active.closest('input, textarea, select, [contenteditable]'))) {
+            return;
+        }
+
+        // Every search field has this controller, so only the one owning the main search field handles the key
+        const target = this._getMainSearchInput();
+        if (!target || !this.element.contains(target)) {
+            return;
+        }
+
+        event.preventDefault();
+        target.focus();
+        target.select();
+    }
+
     initialize() {
         // The endpoint for searching parts
         const base_url = this.element.dataset.autocomplete;
@@ -232,7 +298,16 @@ export default class extends Controller {
         for (const input of inputs) {
             input.addEventListener('blur', () => {
                 this._autocomplete.setIsOpen(false);
+                this._updatePlaceholders();
             });
+            input.addEventListener('focus', this._updatePlaceholders);
+
+            // The autocomplete resets the placeholder to its configured one whenever it re-renders
+            new MutationObserver(() => {
+                if (input.dataset.placeholder && input.placeholder !== input.dataset.placeholder) {
+                    input.placeholder = input.dataset.placeholder;
+                }
+            }).observe(input, {attributes: true, attributeFilter: ['placeholder']});
         }
 
         // Changing a search option should update the results for the already typed query

@@ -66,6 +66,46 @@
                             {{ form_row(section_widget) }}
                         {% endif %}
                     {% endfor %}
+
+                    {% if tab_widget.vars.name == 'infoProviders' and providers_with_settings is not empty %}
+                        <hr class="mx-0 mb-2 mt-2">
+                        <fieldset class="mb-3">
+                            <legend class="{{ offset_label }}">
+                                <i class="fa-solid fa-plug fa-fw"></i>
+                                {% trans %}settings.ips.provider_settings{% endtrans %}
+                            </legend>
+                            <div class="row">
+                                <div class="{{ offset_label }} col mb-3 ps-2">
+                                    <b>{% trans %}settings.ips.provider_settings.help{% endtrans %}</b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="{{ offset_label }} col ps-2">
+                                    <div class="list-group">
+                                        {% for provider in providers_with_settings|sort((a, b) => a.providerInfo.name|lower <=> b.providerInfo.name|lower) %}
+                                            {# @var provider \App\Services\InfoProviderSystem\Providers\InfoProviderInterface #}
+                                            <a href="{{ path('info_providers_provider_settings', {'provider': provider.providerInfo.key}) }}"
+                                               class="list-group-item d-flex justify-content-between align-items-center">
+                                                <span><i class="fa-solid fa-cog fa-fw"></i> {{ provider.providerInfo.name }}</span>
+                                                <span>
+                                                    {% for feature in provider_features[provider.providerInfo.key] ?? [] %}
+                                                        <span class="badge text-bg-info" title="{% trans %}settings.ips.provider_settings.feature.tooltip{% endtrans %}">
+                                                            <i class="fa-solid {{ feature.icon }} fa-fw"></i> {{ feature.label|trans }}
+                                                        </span>
+                                                    {% endfor %}
+                                                    {% if provider.active %}
+                                                        <span class="badge text-bg-success">{% trans %}info_providers.providers_list.active{% endtrans %}</span>
+                                                    {% else %}
+                                                        <span class="badge text-bg-secondary">{% trans %}info_providers.providers_list.disabled{% endtrans %}</span>
+                                                    {% endif %}
+                                                </span>
+                                            </a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    {% endif %}
                 </div>
             {% endif %}
         {% endfor %}

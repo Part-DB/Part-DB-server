@@ -32,6 +32,7 @@ add( "en", {
     'Footprint': 'Footprint',
     'Footprint (Full path)': 'Footprint (full path)',
     'Mass': 'Mass',
+    'Minimum stock': 'Minimum stock',
     'Manufacturer Product Number (MPN)': 'Manufacturer Product Number (MPN)',
     'Internal Part Number (IPN)': 'Internal Part Number (IPN)',
     'Tags': 'Tags',

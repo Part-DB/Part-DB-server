@@ -63,6 +63,7 @@ for the first time.
   prices for parts
 * Retrieve part information from arbitrary shop websites, using either conventional data extraction from structured metadata, or AI based data extraction. 
 A browser plugin allows to quickly submit parts from any website to your Part-DB instance, and even allows to circumvent anti-bot measures on shop websites.
+* Allow to create parts from datasheets using AI based data extraction, by uploading a PDF datasheet to Part-DB and let the AI extract the relevant information.
 * API to access Part-DB from other applications/scripts
 * [Integration with KiCad](https://docs.part-db.de/usage/eda_integration.html): Use Part-DB as the central datasource for your
   KiCad and see available parts from Part-DB directly inside KiCad.

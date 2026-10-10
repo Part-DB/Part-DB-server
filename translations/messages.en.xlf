@@ -15518,5 +15518,425 @@ Buerklin-API Authentication server:
         <target>Unknown</target>
       </segment>
     </unit>
+    <unit id="cEeEQ3Q" name="info_providers.from_file.title">
+      <segment>
+        <source>info_providers.from_file.title</source>
+        <target>Create [part] from file</target>
+      </segment>
+    </unit>
+    <unit id="r2wTioF" name="info_providers.from_file.help">
+      <segment>
+        <source>info_providers.from_file.help</source>
+        <target>Creates a [part] from a file, like a datasheet. The file is passed to the AI model configured in the AI File Extractor settings, which tries to extract the [part] information from it.</target>
+      </segment>
+    </unit>
+    <unit id="4.gsKDJ" name="info_providers.from_file.file.label">
+      <segment>
+        <source>info_providers.from_file.file.label</source>
+        <target>File</target>
+      </segment>
+    </unit>
+    <unit id="kTrv0Uj" name="info_providers.from_file.file.help">
+      <segment>
+        <source>info_providers.from_file.file.help</source>
+        <target>Supported formats: PDF, text and Markdown files. Only the text of the file is used, scanned documents without a text layer are not supported. To use images and scanned documents, sending files to the model has to be allowed in the AI File Extractor settings.</target>
+      </segment>
+    </unit>
+    <unit id="qTuMUgu" name="info_providers.from_file.submit">
+      <segment>
+        <source>info_providers.from_file.submit</source>
+        <target>Extract [part] information</target>
+      </segment>
+    </unit>
+    <unit id="c5hpNDv" name="info_providers.from_file.not_active">
+      <segment>
+        <source>info_providers.from_file.not_active</source>
+        <target>Creating [parts] from files requires an AI platform and model to be configured in the AI File Extractor settings.</target>
+      </segment>
+    </unit>
+    <unit id="hcTxnKp" name="info_providers.from_file.error.parse">
+      <segment>
+        <source>info_providers.from_file.error.parse</source>
+        <target>The file could not be read: %error%</target>
+      </segment>
+    </unit>
+    <unit id="f7u8XIC" name="info_providers.from_file.error.no_text">
+      <segment>
+        <source>info_providers.from_file.error.no_text</source>
+        <target>No text could be extracted from the file. Scanned documents without a text layer can only be used, if the file is sent to the AI model: choose the input mode "Auto" or "Send file to model" (sending files must be allowed in the AI File Extractor settings).</target>
+      </segment>
+    </unit>
+    <unit id="ciiN9Tw" name="info_providers.from_file.context.label">
+      <segment>
+        <source>info_providers.from_file.context.label</source>
+        <target>Additional context</target>
+      </segment>
+    </unit>
+    <unit id="E.2coVK" name="info_providers.from_file.context.help">
+      <segment>
+        <source>info_providers.from_file.context.help</source>
+        <target>Optional hints for the AI, for example the exact part number to use if the file covers multiple variants.</target>
+      </segment>
+    </unit>
+    <unit id="9IaRRF7" name="info_providers.from_file.context.placeholder">
+      <segment>
+        <source>info_providers.from_file.context.placeholder</source>
+        <target>e.g. Use the variant BC547B in the TO-92 package</target>
+      </segment>
+    </unit>
+    <unit id="s4q5LjE" name="settings.ips.ai_file_extractor">
+      <segment>
+        <source>settings.ips.ai_file_extractor</source>
+        <target>AI File Extractor</target>
+      </segment>
+    </unit>
+    <unit id="F7kmvAw" name="settings.ips.ai_file_extractor.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.description</source>
+        <target>This info provider uses a large language model (LLM) to extract detailed [part] information from uploaded files, like PDF datasheets. It is used by the "Create [part] from file" page.</target>
+      </segment>
+    </unit>
+    <unit id="tFv6kbn" name="settings.ips.ai_file_extractor.max_content_length">
+      <segment>
+        <source>settings.ips.ai_file_extractor.max_content_length</source>
+        <target>Max. file content length</target>
+      </segment>
+    </unit>
+    <unit id="UyAVUxo" name="settings.ips.ai_file_extractor.max_content_length.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.max_content_length.description</source>
+        <target>The maximum number of characters of the file content that are sent to the AI service. Longer files are truncated.</target>
+      </segment>
+    </unit>
+    <unit id="KP.Tx.7" name="settings.ips.ai_file_extractor.output_language.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.output_language.description</source>
+        <target>By default, the provider returns information in the same language as the file. With that option you can ask the AI to translate it for you. Might only work with certain models.</target>
+      </segment>
+    </unit>
+    <unit id="ZYkBycB" name="attachment.uploaded_document.pending">
+      <segment>
+        <source>attachment.uploaded_document.pending</source>
+        <target>This file will be attached when the [part] is saved.</target>
+      </segment>
+    </unit>
+    <unit id="P4DIw6c" name="info_providers.from_file.not_attached">
+      <segment>
+        <source>info_providers.from_file.not_attached</source>
+        <target>The uploaded file could not be added as attachment, because it is not available anymore or bigger than the maximum attachment size.</target>
+      </segment>
+    </unit>
+    <unit id="GfgpJXr" name="info_providers.from_file.file.help.with_images">
+      <segment>
+        <source>info_providers.from_file.file.help.with_images</source>
+        <target>Supported formats: PDF, images (PNG, JPEG, WebP, GIF), text and Markdown files. Images and documents without text (like scans) are sent to the AI model directly, which must support these file types.</target>
+      </segment>
+    </unit>
+    <unit id="PsBqA_v" name="settings.ips.ai_file_extractor.allow_file_input">
+      <segment>
+        <source>settings.ips.ai_file_extractor.allow_file_input</source>
+        <target>Allow sending files to the model</target>
+      </segment>
+    </unit>
+    <unit id="uFcvgN8" name="settings.ips.ai_file_extractor.allow_file_input.description">
+      <segment>
+        <source>settings.ips.ai_file_extractor.allow_file_input.description</source>
+        <target>If enabled, users can choose for every upload to send the file itself (images and PDF files) to the AI model, instead of only its extracted text. This allows using images and scanned documents, and lets the model see the layout, tables and diagrams, but requires a model supporting images and PDF files (and a platform supporting it: Ollama can only process images, not PDF files). It also uses more tokens, resulting in a higher cost per request. If disabled, only the extracted text is used.</target>
+      </segment>
+    </unit>
+    <unit id="XS0813H" name="info_providers.from_file.input_mode.auto">
+      <segment>
+        <source>info_providers.from_file.input_mode.auto</source>
+        <target>Auto (extract text, send images and scanned documents to the model)</target>
+      </segment>
+    </unit>
+    <unit id="3iTQsXk" name="info_providers.from_file.input_mode.text">
+      <segment>
+        <source>info_providers.from_file.input_mode.text</source>
+        <target>Extract text only</target>
+      </segment>
+    </unit>
+    <unit id="ledeTyC" name="info_providers.from_file.input_mode.file">
+      <segment>
+        <source>info_providers.from_file.input_mode.file</source>
+        <target>Send file to model (PDF files and images)</target>
+      </segment>
+    </unit>
+    <unit id="i97R6_4" name="info_providers.from_file.input_mode.label">
+      <segment>
+        <source>info_providers.from_file.input_mode.label</source>
+        <target>Input mode</target>
+      </segment>
+    </unit>
+    <unit id="SONaFZG" name="info_providers.from_file.input_mode.help">
+      <segment>
+        <source>info_providers.from_file.input_mode.help</source>
+        <target>How the file is passed to the AI model. "Extract text only" works with every model. Sending the file itself requires a model supporting images and PDF files, but lets it read scanned documents and see the layout, tables and diagrams. Sending full files is more expensive than just sending text!</target>
+      </segment>
+    </unit>
+    <unit id="2pXOLo4" name="info_providers.from_file.error.image_in_text_mode">
+      <segment>
+        <source>info_providers.from_file.error.image_in_text_mode</source>
+        <target>Images contain no text to extract. Choose the input mode "Auto" or "Send file to model" to send the image to the AI model.</target>
+      </segment>
+    </unit>
+    <unit id="S6JX3.E" name="info_providers.capabilities.stock_level">
+      <segment>
+        <source>info_providers.capabilities.stock_level</source>
+        <target>Available stock</target>
+      </segment>
+    </unit>
+    <unit id="vhLQ2wI" name="settings.ips.pololu">
+      <segment state="translated">
+        <source>settings.ips.pololu</source>
+        <target>Pololu</target>
+      </segment>
+    </unit>
+    <unit id="rAwB5gk" name="settings.ips.pololu.help">
+      <segment state="translated">
+        <source>settings.ips.pololu.help</source>
+        <target>Pololu.com offers no official API, so this info provider webscrapes the website to extract info. It could break at any time, use it at your own risk.</target>
+      </segment>
+    </unit>
+    <unit id="PY6rbC1" name="settings.ips.pololu.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.pololu.requestDelay</source>
+        <target>Delay between page requests</target>
+      </segment>
+    </unit>
+    <unit id="m8oSb9G" name="settings.ips.pololu.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.pololu.requestDelay.help</source>
+        <target>The minimum time in seconds between two page requests to pololu.com. Getting the details of a product needs up to three page requests.</target>
+      </segment>
+    </unit>
+    <unit id="2cmlYHC" name="settings.ips.adafruit">
+      <segment state="translated">
+        <source>settings.ips.adafruit</source>
+        <target>Adafruit</target>
+      </segment>
+    </unit>
+    <unit id="gYw6DhB" name="settings.ips.adafruit.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.help</source>
+        <target>Uses the public product API of adafruit.com (no API key required). The product catalog is downloaded once per day and searched locally. Prices are in USD.</target>
+      </segment>
+    </unit>
+    <unit id="OzJ7H.4" name="settings.ips.adafruit.fetchProductPage">
+      <segment state="translated">
+        <source>settings.ips.adafruit.fetchProductPage</source>
+        <target>Retrieve product page</target>
+      </segment>
+    </unit>
+    <unit id="6Er.rGb" name="settings.ips.adafruit.fetchProductPage.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.fetchProductPage.help</source>
+        <target>Also read the product page on adafruit.com to get all product images, the technical details, the category and the learn guides. This causes one additional request per part. If disabled, only the product API is used.</target>
+      </segment>
+    </unit>
+    <unit id="mv_ytAP" name="settings.ips.adafruit.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.adafruit.requestDelay</source>
+        <target>Delay between requests</target>
+      </segment>
+    </unit>
+    <unit id="kaX7_of" name="settings.ips.adafruit.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.adafruit.requestDelay.help</source>
+        <target>The minimum time in seconds between two requests to adafruit.com (catalog download, product API and product pages). Requests which come too early are delayed, so a lookup can take a while. If the website refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour. 0 disables the delay.</target>
+      </segment>
+    </unit>
+    <unit id="FQ16OqS" name="settings.ips.sparkfun">
+      <segment state="translated">
+        <source>settings.ips.sparkfun</source>
+        <target>SparkFun</target>
+      </segment>
+    </unit>
+    <unit id="iLozj.r" name="settings.ips.sparkfun.help">
+      <segment state="translated">
+        <source>settings.ips.sparkfun.help</source>
+        <target>SparkFun offers no official API, so this info provider reads the GraphQL endpoint and the product pages of the sparkfun.com shop to extract info. It could break at any time, use it at your own risk.</target>
+      </segment>
+    </unit>
+    <unit id="LD0s75M" name="settings.ips.sparkfun.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.sparkfun.requestDelay</source>
+        <target>Delay between requests</target>
+      </segment>
+    </unit>
+    <unit id="0c5J7Oo" name="settings.ips.sparkfun.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.sparkfun.requestDelay.help</source>
+        <target>The minimum time in seconds between two requests to sparkfun.com (GraphQL endpoint and product pages). Requests which come too early are delayed, so a lookup can take a while. If the shop refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour. 0 disables the delay.</target>
+      </segment>
+    </unit>
+    <unit id="zxX4Woh" name="settings.ips.bambulab">
+      <segment state="translated">
+        <source>settings.ips.bambulab</source>
+        <target>Bambu Lab</target>
+      </segment>
+    </unit>
+    <unit id="zfk.eK." name="settings.ips.bambulab.help">
+      <segment state="translated">
+        <source>settings.ips.bambulab.help</source>
+        <target>The Bambu Lab store offers no official API, so this info provider uses the unofficial API of the store website. It could break at any time, use it at your own risk.</target>
+      </segment>
+    </unit>
+    <unit id="zfH0VbE" name="settings.ips.bambulab.region">
+      <segment state="translated">
+        <source>settings.ips.bambulab.region</source>
+        <target>Store region</target>
+      </segment>
+    </unit>
+    <unit id="4sh8FkX" name="settings.ips.bambulab.region.help">
+      <segment state="translated">
+        <source>settings.ips.bambulab.region.help</source>
+        <target>The regional Bambu Lab store which should be used. This determines the available products, the prices and their currency.</target>
+      </segment>
+    </unit>
+    <unit id="SRvJrCG" name="settings.ips.bambulab.requestDelay">
+      <segment state="translated">
+        <source>settings.ips.bambulab.requestDelay</source>
+        <target>Delay between requests</target>
+      </segment>
+    </unit>
+    <unit id="bU8CPoa" name="settings.ips.bambulab.requestDelay.help">
+      <segment state="translated">
+        <source>settings.ips.bambulab.requestDelay.help</source>
+        <target>The minimum time in seconds between two requests to the Bambu Lab store (API and product pages). Requests which come too early are delayed, so a lookup can take a while. If the store refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour. 0 disables the delay.</target>
+      </segment>
+    </unit>
+    <unit id="TVotuBl" name="settings.ips.provider_settings">
+      <segment state="translated">
+        <source>settings.ips.provider_settings</source>
+        <target>Provider settings</target>
+      </segment>
+    </unit>
+    <unit id="2mEHwqY" name="settings.ips.provider_settings.help">
+      <segment state="translated">
+        <source>settings.ips.provider_settings.help</source>
+        <target>The settings of the individual info providers are configured on their own pages. Click on a provider to edit its settings.</target>
+      </segment>
+    </unit>
+    <unit id="66ijoIg" name="info_providers.settings.back_to_system_settings">
+      <segment state="translated">
+        <source>info_providers.settings.back_to_system_settings</source>
+        <target>Back to system settings</target>
+      </segment>
+    </unit>
+    <unit id="6xaiwRW" name="settings.ips.provider_settings.feature.tooltip">
+      <segment state="translated">
+        <source>settings.ips.provider_settings.feature.tooltip</source>
+        <target>This provider is needed for this feature to work</target>
+      </segment>
+    </unit>
+    <unit id="V3M_l4t" name="info_providers.settings.oauth.title">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.title</source>
+        <target>OAuth connection</target>
+      </segment>
+    </unit>
+    <unit id="pmUI3j6" name="info_providers.settings.oauth.help">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.help</source>
+        <target>This provider needs an OAuth connection. Save the client ID and secret above first, then connect. The obtained token is stored in the database and refreshed automatically.</target>
+      </segment>
+    </unit>
+    <unit id="wD_yg2T" name="info_providers.settings.oauth.status">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="EW7N1SE" name="info_providers.settings.oauth.connected">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.connected</source>
+        <target>Connected</target>
+      </segment>
+    </unit>
+    <unit id="GfAzmmO" name="info_providers.settings.oauth.not_connected">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.not_connected</source>
+        <target>Not connected</target>
+      </segment>
+    </unit>
+    <unit id="q9b3AlW" name="info_providers.settings.oauth.grant_type">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.grant_type</source>
+        <target>Grant type</target>
+      </segment>
+    </unit>
+    <unit id="1vZ6TUi" name="info_providers.settings.oauth.grant_type.client_credentials">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.grant_type.client_credentials</source>
+        <target>Client credentials</target>
+      </segment>
+    </unit>
+    <unit id="QBsbgfh" name="info_providers.settings.oauth.grant_type.authorization_code">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.grant_type.authorization_code</source>
+        <target>Authorization code (with refresh token)</target>
+      </segment>
+    </unit>
+    <unit id="0WCAqTB" name="info_providers.settings.oauth.connected_at">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.connected_at</source>
+        <target>First connected</target>
+      </segment>
+    </unit>
+    <unit id="WX4cfz5" name="info_providers.settings.oauth.last_updated">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.last_updated</source>
+        <target>Token last updated</target>
+      </segment>
+    </unit>
+    <unit id="OEVSGFB" name="info_providers.settings.oauth.expires_at">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.expires_at</source>
+        <target>Access token expires</target>
+      </segment>
+    </unit>
+    <unit id="Tjg1dzq" name="info_providers.settings.oauth.expired">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.expired</source>
+        <target>Expired</target>
+      </segment>
+    </unit>
+    <unit id="IWCTL6X" name="info_providers.settings.oauth.expired.help">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.expired.help</source>
+        <target>A new access token is requested automatically the next time the provider is used.</target>
+      </segment>
+    </unit>
+    <unit id="XQIvNX4" name="info_providers.settings.oauth.reconnect">
+      <segment state="translated">
+        <source>info_providers.settings.oauth.reconnect</source>
+        <target>Reconnect OAuth</target>
+      </segment>
+    </unit>
+    <unit id="I_yYwh0" name="info_providers.slow">
+      <segment state="translated">
+        <source>info_providers.slow</source>
+        <target>Slow</target>
+      </segment>
+    </unit>
+    <unit id="zUoWx.G" name="info_providers.slow.tooltip">
+      <segment state="translated">
+        <source>info_providers.slow.tooltip</source>
+        <target>This info provider has to throttle its requests heavily or needs a lot of processing time, so requests can take a while.</target>
+      </segment>
+    </unit>
+    <unit id="xxOseQB" name="part.table.supplier">
+      <segment state="translated">
+        <source>part.table.supplier</source>
+        <target>Supplier</target>
+      </segment>
+    </unit>
+    <unit id="1AS7MVG" name="part.table.supplier_part_number">
+      <segment state="translated">
+        <source>part.table.supplier_part_number</source>
+        <target>Supplier part number</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

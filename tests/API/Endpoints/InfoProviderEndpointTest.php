@@ -43,6 +43,8 @@ class InfoProviderEndpointTest extends AuthenticatedApiTestCase
         //The 'test' provider has a disabledHelp set internally, but it must not leak into the API response
         $testProvider = $json['hydra:member'][array_search('test', $keys, true)];
         self::assertArrayHasKey('capabilities', $testProvider);
+        self::assertFalse($testProvider['expensive']);
+        self::assertFalse($testProvider['slow']);
         self::assertArrayNotHasKey('disabledHelp', $testProvider);
         self::assertArrayNotHasKey('oauthAppName', $testProvider);
         self::assertArrayNotHasKey('settingsClass', $testProvider);

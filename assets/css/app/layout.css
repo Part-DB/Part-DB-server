@@ -128,18 +128,61 @@ body {
 }
 
 /*
-The sidebar toggle button floats on the left side and is hidden when the viewport is to small for
-showing the sidebar (on devices with md or higher)
+The sidebar can be slid out of view on devices which show it permanently (md or higher). The state is a class on the
+<html> element, so it can be applied before the first paint and survives Turbo navigations.
+The toggle button is part of the navbar, so it does not cover any content and stays reachable in both states.
  */
 #sidebar-toggle-button {
-    position: fixed;
-    left: 2px;
-    bottom: 50%;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    margin-right: 0.5rem;
+    border: 0;
+    color: var(--bs-navbar-color);
 }
 
-@media (max-width: 576px) {
-    #sidebar-toggle-button {
-        display: none;
+#sidebar-toggle-button:hover, #sidebar-toggle-button:focus-visible {
+    color: var(--bs-navbar-hover-color);
+    background-color: var(--bs-secondary-bg);
+}
+
+/* The sidebar pane of the icon is filled while the sidebar is shown, and empty while it is hidden */
+.sidebar-toggle-pane {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-hidden .sidebar-toggle-pane {
+    opacity: 0;
+}
+
+@media (min-width: 768px) {
+    .fixed-sidebar {
+        transition: transform 0.3s ease, visibility 0s linear 0s;
+    }
+
+    #main {
+        transition: margin-left 0.3s ease, width 0.3s ease;
+    }
+
+    .sidebar-hidden .fixed-sidebar {
+        transform: translateX(-100%);
+        /* Remove the hidden sidebar from the tab order and the accessibility tree, once it has slid out */
+        visibility: hidden;
+        transition: transform 0.3s ease, visibility 0s linear 0.3s;
+    }
+
+    .sidebar-hidden #main {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fixed-sidebar, #main, .sidebar-toggle-pane {
+        transition: none !important;
     }
 }
 

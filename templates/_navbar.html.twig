@@ -5,6 +5,18 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary border-bottom shadow-sm fixed-top py-0" id="navbar">
     <div class="container-fluid">
         <div class="d-flex justify-content-start align-items-center">
+            {# On screens which show the sidebar permanently, it can be slid away with this button #}
+            <button class="btn btn-sm d-none d-md-inline-flex" type="button" id="sidebar-toggle-button"
+                    title="{% trans %}sidebar.big.toggle{% endtrans %} ([)" aria-label="{% trans %}sidebar.big.toggle{% endtrans %}"
+                    aria-controls="fixed-sidebar" aria-expanded="true"
+                {{ stimulus_controller('common/hide_sidebar') }} {{ stimulus_action('common/hide_sidebar', 'toggleSidebar') }}>
+                {# A window with a sidebar pane, which is filled while the sidebar is shown (Font Awesome Free has no such icon) #}
+                <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
+                    <path class="sidebar-toggle-pane" stroke="none" fill="currentColor" d="M3.5 2.5H6v11H3.5a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2z"/>
+                    <rect x="1.5" y="2.5" width="13" height="11" rx="2"/>
+                    <path d="M6 2.5v11"/>
+                </svg>
+            </button>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#sidebar-container">
                 <span class="visually-hidden">{% trans %}sidebar.toggle{% endtrans %}</span>
                 <!-- <span class="navbar-toggler-icon"></span> -->
@@ -57,6 +69,14 @@
                                             <a class="dropdown-item" href="{{ path('info_providers_from_url') }}">
                                                 <i class="fa-fw fa-solid fa-book-atlas"></i>
                                                 {% trans %}info_providers.from_url.title{% endtrans %}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    {% if create_from_file_active() %}
+                                        <li>
+                                            <a class="dropdown-item" href="{{ path('info_providers_from_file') }}">
+                                                <i class="fa-fw fa-solid fa-file-lines"></i>
+                                                {% trans %}info_providers.from_file.title{% endtrans %}
                                             </a>
                                         </li>
                                     {% endif %}

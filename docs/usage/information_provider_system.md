@@ -133,6 +133,44 @@ You can add some additional instructions for the model, which gets added to the 
 
 The provider will download the HTML of the given URL, convert it to markdown and send it to the LLM toghether with structured data extracted from the webpage via conventional methods.
 
+### AI Document Extractor (Create part from file)
+The AI document extractor creates a part from an uploaded file, like a datasheet. You can find it under
+"Create part from file (AI)" in the dropdown of the "New part" button, or in the tools tree.
+PDF files, images (PNG, JPEG, WebP, GIF), text and Markdown files are supported.
+
+It has its own settings ("AI File Extractor" in the info provider settings), independent of the AI Web Extractor.
+To use it, select an AI platform (set up in the AI settings tab) and a model which supports structured output. You can
+also configure the maximum content length, the output language and additional instructions for the model there.
+
+How the file is passed to the LLM is chosen for every upload with the "Input mode" field:
+
+* **Auto** (default): The text of PDF, text and Markdown files is extracted on the server and sent to the LLM. Images
+  and scanned PDF documents (without a text layer) are sent to the LLM as they are.
+* **Extract text only**: Only the extracted text is sent, so it works with every model which supports structured output.
+  Images and scanned documents are not supported.
+* **Send file to model**: PDF files and images are always sent to the LLM as they are, which lets the model see the
+  layout of tables, diagrams and pictures. Text files are still sent as text. Note that this usually uses much more
+  tokens than the extracted text, and that the maximum content length does not apply.
+
+Sending files has to be enabled with the "Allow sending files to the model" option in the AI File Extractor settings
+(disabled by default). As long as it is disabled, the input mode can not be chosen, only the extracted text is used and
+images can not be uploaded.
+
+Sending files requires a model which supports image and/or PDF input. With OpenRouter, PDF files are also processed
+for models without native PDF support, but then OpenRouter only passes their text on, which does not work for scanned documents. Ollama can only process images, not PDF
+files, and LM Studio and other OpenAI compatible servers depend on the model and server.
+
+Extracted text longer than the maximum content length configured in the AI File Extractor settings is truncated,
+which usually is not a problem, as the most relevant information of a datasheet is at its beginning.
+The uploaded file is added as attachment to the created part (as datasheet, if the datasheet attachment type allows the
+file). It is only stored when the part is saved, and you can remove it in the form like any other attachment. Until then
+it is kept temporarily (2 hours) in `var/share/<env>/uploaded_documents`. Files of uploads, for which no part was
+created, are deleted automatically on the next upload after that time. Files bigger than the maximum attachment size are
+not attached.
+
+You can give additional context together with the file, like the exact part number to use, if the datasheet
+covers multiple variants of a part. The model then describes exactly this variant.
+
 ### Octopart
 
 The Octopart provider uses the [Octopart / Nexar API](https://nexar.com/api) to search for parts and get information.
@@ -295,6 +333,23 @@ This is not an official API and could break at any time. So use it at your own r
 The following env configuration options are available:
 * `PROVIDER_POLLIN_ENABLED`: Set this to `1` to enable the Pollin provider
 
+### Pololu
+
+The Pololu provider uses webscraping from [pololu.com](https://www.pololu.com/) to get part information.
+This is not an official API and could break at any time. So use it at your own risk.
+
+You can search by keyword or by the Pololu item number (e.g. `2130`). Besides the basic infos, the provider returns
+all product pictures, the price breaks (in USD), the available stock, the files from the "Resources" tab (datasheets,
+dimension diagrams, 3D models, drill guides, ...) and the specifications from the "Specs" tab as parameters.
+
+Getting the details of a product needs up to three page requests (product page, specs and resources). To be polite to
+the shop, the provider waits a configurable time between two page requests, and stops sending requests for some time
+when the website answers with an error indicating that requests are blocked or rate limited (HTTP 403, 429 or 503).
+
+The following env configuration options are available:
+* `PROVIDER_POLOLU_ENABLED`: Set this to `1` to enable the Pololu provider
+* `PROVIDER_POLOLU_REQUEST_DELAY`: The minimum time in seconds between two page requests to pololu.com (optional, default: `1`)
+
 ### Buerklin
 
 The Buerklin provider uses the [Buerklin API](https://www.buerklin.com/en/services/eprocurement/) to search for parts and get information.
@@ -330,6 +385,26 @@ and they also offer paid plans with higher limits. To use the Canopy provider, y
 Once you have the API key, you can configure the Canopy provider in Part-DB using the web UI or environment variables:
 
 * `PROVIDER_CANOPY_API_KEY`: The API key you got from Canopy (mandatory)
+
+### SparkFun
+
+The SparkFun provider retrieves product information from [sparkfun.com](https://www.sparkfun.com/). You can search by
+keyword or by SparkFun SKU (e.g. `DEV-13975` or just `13975`). The provider returns the name, description, category,
+product images, prices (including quantity discounts), weight and the documents linked on the product page
+(schematics, datasheets, hookup guides, Eagle files, etc.). The SKU is used as manufacturer part number.
+
+The data is read from the GraphQL endpoint of the SparkFun shop and from the product page, as SparkFun offers no
+official API for this. It could break at any time, so use it at your own risk.
+
+To be polite to the shop, the provider waits a configurable time between any two requests it sends (to the GraphQL
+endpoint and to the product pages), requests which come too early are delayed. A search needs one request and the
+details of a product need two, so a lookup can take some time. If the shop refuses a request (HTTP 403, 429 or 503),
+the provider sends no requests at all for one hour, and lookups fail with a message telling until when it is paused.
+
+The following env configuration options are available:
+* `PROVIDER_SPARKFUN_ENABLED`: Set this to `1` to enable the SparkFun provider
+* `PROVIDER_SPARKFUN_REQUEST_DELAY`: The minimum time in seconds between two requests to sparkfun.com (optional,
+  default: `5`)
 
 ### TrustedParts
 
@@ -368,6 +443,62 @@ The following env configuration options are available:
 * `PROVIDER_TRUSTEDPARTS_USE_CACHED_DATA`: If set to `1`, TrustedParts.com answers with cached stock and price data
   instead of querying the distributors in real time. This is faster and does not count against the rate limits, but the
   data can be outdated (optional, default: `0`)
+
+### Adafruit
+
+The Adafruit provider uses the public product API of [adafruit.com](https://www.adafruit.com/) to search for products
+and get information. No API key or account is required.
+
+The API has no search endpoint, it only offers the whole product catalog as one large list. Part-DB therefore
+downloads the catalog once, caches it for one day and searches it locally. You can search by keyword (all words must
+occur in the product name, model or manufacturer) or by the Adafruit product ID (e.g. `4062` or `ADA4062`), which is also used as provider ID.
+Product URLs like `https://www.adafruit.com/product/4062` are recognized too.
+
+When retrieving the details of a product, the product API supplies name, description, manufacturer, prices with quantity
+breaks (in USD) and the stock level. By default the product page is read too, as only it contains all product images, the
+technical details (which are offered as parameters), the category and the links to the learn guides. If you want
+to avoid this second request per part, you can disable it.
+
+To be polite to the website, the provider waits a configurable time between any two requests it sends (catalog
+download, product API and product pages), requests which come too early are delayed, so a lookup can take some time.
+If the website refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour, and
+lookups fail with a message telling until when it is paused. The cached catalog can still be searched in that time.
+
+The following env configuration options are available:
+
+* `PROVIDER_ADAFRUIT_ENABLED`: Set this to `1` to enable the Adafruit provider
+* `PROVIDER_ADAFRUIT_FETCH_PRODUCT_PAGE`: Set this to `0` to only use the product API and not read the product page
+  (optional, default: `1`)
+* `PROVIDER_ADAFRUIT_REQUEST_DELAY`: The minimum time in seconds between two requests to adafruit.com (optional,
+  default: `5`)
+
+
+### Bambu Lab
+
+The Bambu Lab provider uses the API of the [Bambu Lab store](https://store.bambulab.com/) website to search for
+filaments, printer parts and accessories and to retrieve their images, prices, options and documents (like the technical
+and safety data sheets of the filaments). No account or API key is required.
+This is not an official API and could break at any time. So use it at your own risk.
+
+Most products of the store are available in multiple variants (e.g. the colors of a filament, with or without spool),
+which differ in their images, prices and codes. If you search for a product name (like `PETG HF`), you get the
+products as a whole. To get a certain variant, search for its code (like the filament code `32101`, which is printed
+on the spool and the box), or use the URL of the selected variant (`.../products/petg-translucent?id=...`) in the
+"Create part from URL" feature. For variants the code is used as manufacturer part number.
+
+To be polite to the store, the provider waits a configurable time between any two requests it sends (to the API and
+to the product pages), requests which come too early are delayed. A search needs one request (plus one per listed
+product if you search for a code), the details of a product need two, so a lookup can take some time. If the store
+refuses a request (HTTP 403, 429 or 503), the provider sends no requests at all for one hour, and lookups fail with a
+message telling until when it is paused. Product data which is already cached is still served.
+
+The following env configuration options are available:
+* `PROVIDER_BAMBULAB_ENABLED`: Set this to `1` to enable the Bambu Lab provider
+* `PROVIDER_BAMBULAB_REGION`: The regional store which should be used. This determines the available products, the
+  prices and their currency. Possible values: `US`, `CA`, `MX`, `EU`, `UK`, `AU`, `JP`, `KR`, `GLOBAL` (optional,
+  default: `US`)
+* `PROVIDER_BAMBULAB_REQUEST_DELAY`: The minimum time in seconds between two requests to the store (optional,
+  default: `5`)
 
 ### Custom providers
 
@@ -416,3 +547,7 @@ not Part-DB: if an external script uses the same API credentials (for example a 
 through the API), its requests and Part-DB's add up, and neither side can see the other's count. The remaining
 headroom is what keeps the two from pushing each other over the limit. If you know that nothing else uses the
 account, you can raise the values.
+
+Certain providers (like Adafruit, Pololu) have their own rate limits, configurable in the provider settings. 
+These are enforced in addition to the global limits, and are usually lower than the global limits, as no offical API
+exists and the provider is scraping the website and have to be polite to the shop.
