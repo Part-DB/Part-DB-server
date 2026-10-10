@@ -24,6 +24,7 @@ namespace App\Repository;
 
 use App\DataTables\Filters\PartSearchFilter;
 use App\DataTables\Filters\PartSearchSort;
+use App\Doctrine\Helpers\FieldHelper;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
@@ -96,43 +97,25 @@ class PartRepository extends NamedDBElementRepository
     }
 
     /**
+     * Simple and fast search for the part select fields: matches the name, description, category and footprint.
      * @param  PartSearchSort|null  $sort  The ordering of the results, or null to order them by their name
      * @param  bool  $descending  Reverse the ordering given by $sort
      * @return Part[]
      */
     public function autocompleteSearch(string $query, int $max_limits = 50, ?PartSearchSort $sort = null, bool $descending = false): array
     {
-        if ($sort !== null) {
-            $qb = $this->createQueryBuilder('part');
-            $qb->select('part.id')
-                ->leftJoin('part.category', '_category')
-                ->leftJoin('part.footprint', '_footprint')
-                ->where('ILIKE(part.name, :query) = TRUE')
-                ->orWhere('ILIKE(part.description, :query) = TRUE')
-                ->orWhere('ILIKE(_category.name, :query) = TRUE')
-                ->orWhere('ILIKE(_footprint.name, :query) = TRUE')
-                ->groupBy('part.id')
-                ->setParameter('query', '%'.$query.'%');
-
-            return $this->getSortedAutocompleteResults($qb, $sort, $descending, $max_limits);
-        }
-
         $qb = $this->createQueryBuilder('part');
-        $qb->select('part')
-            ->leftJoin('part.category', 'category')
-            ->leftJoin('part.footprint', 'footprint')
-
+        $qb->select('part.id')
+            ->leftJoin('part.category', '_category')
+            ->leftJoin('part.footprint', '_footprint')
             ->where('ILIKE(part.name, :query) = TRUE')
             ->orWhere('ILIKE(part.description, :query) = TRUE')
-            ->orWhere('ILIKE(category.name, :query) = TRUE')
-            ->orWhere('ILIKE(footprint.name, :query) = TRUE');
+            ->orWhere('ILIKE(_category.name, :query) = TRUE')
+            ->orWhere('ILIKE(_footprint.name, :query) = TRUE')
+            ->groupBy('part.id')
+            ->setParameter('query', '%'.$query.'%');
 
-        $qb->setParameter('query', '%'.$query.'%');
-
-        $qb->setMaxResults($max_limits);
-        $qb->orderBy('NATSORT(part.name)', 'ASC');
-
-        return $qb->getQuery()->getResult();
+        return $this->getSortedAutocompleteResults($qb, $sort, $descending, $max_limits);
     }
 
     /**
@@ -158,24 +141,7 @@ class PartRepository extends NamedDBElementRepository
 
         $filter->apply($qb);
 
-        if ($sort !== null) {
-            return $this->getSortedAutocompleteResults($qb, $sort, $descending, $max_limits);
-        }
-
-        $qb->orderBy('part.name', 'ASC')
-            ->setMaxResults($max_limits);
-        $ids = array_column($qb->getQuery()->getArrayResult(), 'id');
-        if ($ids === []) {
-            return [];
-        }
-
-        return $this->createQueryBuilder('part')
-            ->select('part')
-            ->where('part.id IN (:ids)')
-            ->setParameter('ids', $ids)
-            ->orderBy('NATSORT(part.name)', 'ASC')
-            ->getQuery()
-            ->getResult();
+        return $this->getSortedAutocompleteResults($qb, $sort, $descending, $max_limits);
     }
 
     /**
@@ -183,10 +149,13 @@ class PartRepository extends NamedDBElementRepository
      * (e.g. no manufacturer) are always put at the end, parts with the same value are ordered by their name.
      * @param  QueryBuilder  $qb  A query selecting the IDs of the found parts (alias "part") grouped by part.id. Joined
      * entities must use the alias of the parts table (underscore prefix).
+     * @param  PartSearchSort|null  $sort  The ordering of the results, or null to order them by their name
      * @return Part[]
      */
-    private function getSortedAutocompleteResults(QueryBuilder $qb, PartSearchSort $sort, bool $descending, int $max_limits): array
+    private function getSortedAutocompleteResults(QueryBuilder $qb, ?PartSearchSort $sort, bool $descending, int $max_limits): array
     {
+        $sort ??= PartSearchSort::NAME;
+
         if ($sort === PartSearchSort::TOP_CATEGORY) {
             $ids = $this->getIdsSortedByTopCategory($qb, $descending, $max_limits);
         } else {
@@ -228,15 +197,15 @@ class PartRepository extends NamedDBElementRepository
             return [];
         }
 
-        $parts = $this->createQueryBuilder('part', 'part.id')
+        $qb = $this->createQueryBuilder('part')
             ->select('part')
             ->where('part.id IN (:ids)')
-            ->setParameter('ids', $ids)
-            ->getQuery()
-            ->getResult();
+            ->setParameter('ids', $ids);
 
-        //Return the parts in the order of the sorted IDs
-        return array_values(array_filter(array_map(static fn(int $id) => $parts[$id] ?? null, $ids), static fn(?Part $part) => $part !== null));
+        //Get the parts in the same order as the sorted IDs
+        FieldHelper::addOrderByFieldParam($qb, 'part.id', 'ids');
+
+        return $qb->getQuery()->getResult();
     }
 
     /**
