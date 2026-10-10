@@ -24,6 +24,7 @@ namespace App\Tests\Repository;
 
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
+use App\Services\Trees\StructuralElementPathCache;
 use App\Settings\MiscSettings\IpnSuggestSettings;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -64,7 +65,7 @@ final class PartRepositoryTest extends TestCase
         $ipnSuggestSettings = $this->createStub(IpnSuggestSettings::class);
 
         $repo = $this->getMockBuilder(PartRepository::class)
-            ->setConstructorArgs([$emMock, $translatorMock, $ipnSuggestSettings])
+            ->setConstructorArgs([$emMock, $translatorMock, $ipnSuggestSettings, $this->createStub(StructuralElementPathCache::class)])
             ->onlyMethods(['createQueryBuilder'])
             ->getMock();
 
@@ -126,7 +127,7 @@ final class PartRepositoryTest extends TestCase
         $ipnSuggestSettings->useDuplicateDescription = false;
 
         $repo = $this->getMockBuilder(PartRepository::class)
-            ->setConstructorArgs([$emMock, $translatorMock, $ipnSuggestSettings])
+            ->setConstructorArgs([$emMock, $translatorMock, $ipnSuggestSettings, $this->createStub(StructuralElementPathCache::class)])
             ->onlyMethods(['createQueryBuilder'])
             ->getMock();
 
@@ -210,7 +211,7 @@ final class PartRepositoryTest extends TestCase
         $ipnSuggestSettings->useDuplicateDescription = false;
 
         $repo = $this->getMockBuilder(PartRepository::class)
-            ->setConstructorArgs([$emMock, $translatorMock, $ipnSuggestSettings])
+            ->setConstructorArgs([$emMock, $translatorMock, $ipnSuggestSettings, $this->createStub(StructuralElementPathCache::class)])
             ->onlyMethods(['createQueryBuilder'])
             ->getMock();
 

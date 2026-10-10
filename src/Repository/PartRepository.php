@@ -27,6 +27,7 @@ use App\DataTables\Filters\PartSearchSort;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
+use App\Services\Trees\StructuralElementPathCache;
 use App\Settings\MiscSettings\IpnSuggestSettings;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -48,6 +49,7 @@ class PartRepository extends NamedDBElementRepository
         EntityManagerInterface $em,
         TranslatorInterface    $translator,
         IpnSuggestSettings     $ipnSuggestSettings,
+        private readonly StructuralElementPathCache $pathCache,
     ) {
         parent::__construct($em, $em->getClassMetadata(Part::class));
 
@@ -240,8 +242,8 @@ class PartRepository extends NamedDBElementRepository
     /**
      * Returns the IDs of the first parts found by the given query, ordered by the name of the root category their
      * category is contained in.
-     * The root category is not stored in the database, so it is determined (and sorted by) in PHP, which only
-     * requires the ID and category ID of each found part.
+     * The root category is not stored in the database, so it is determined (and sorted by) in PHP using the cached
+     * category paths, which only requires the ID and category ID of each found part.
      * @return int[]
      */
     private function getIdsSortedByTopCategory(QueryBuilder $qb, bool $descending, int $max_limits): array
@@ -252,44 +254,25 @@ class PartRepository extends NamedDBElementRepository
             ->getQuery()
             ->getArrayResult();
 
-        $categories = [];
-        $category_rows = $this->getEntityManager()->createQueryBuilder()
-            ->select('category.id', 'category.name', 'IDENTITY(category.parent) AS parent_id')
-            ->from(Category::class, 'category')
-            ->getQuery()
-            ->getArrayResult();
-        foreach ($category_rows as $category) {
-            $categories[(int) $category['id']] = $category;
+        $root_names = [];
+        foreach ($rows as $row) {
+            $category_id = $row['category_id'] !== null ? (int) $row['category_id'] : null;
+            $root_names[(int) $row['id']] = $category_id !== null
+                ? ($this->pathCache->getPathNames(Category::class, $category_id)[0] ?? null)
+                : null;
         }
 
-        $root_names = [];
-        $getRootName = static function (?int $id) use (&$root_names, $categories): ?string {
-            if ($id === null || !isset($categories[$id])) {
-                return null;
-            }
-            if (!isset($root_names[$id])) {
-                $root = $categories[$id];
-                //Limit the depth, so a (invalid) loop in the hierarchy can not hang the search
-                for ($level = 0; $level < 100 && $root['parent_id'] !== null && isset($categories[(int) $root['parent_id']]); $level++) {
-                    $root = $categories[(int) $root['parent_id']];
-                }
-                $root_names[$id] = $root['name'];
-            }
-
-            return $root_names[$id];
-        };
-
         //usort is stable, so parts of the same root category stay ordered by their name
-        usort($rows, static function (array $a, array $b) use ($getRootName, $descending): int {
-            $root_a = $getRootName($a['category_id'] !== null ? (int) $a['category_id'] : null);
-            $root_b = $getRootName($b['category_id'] !== null ? (int) $b['category_id'] : null);
+        usort($rows, static function (array $a, array $b) use ($root_names, $descending): int {
+            $name_a = $root_names[(int) $a['id']];
+            $name_b = $root_names[(int) $b['id']];
 
             //Parts without a category are always put at the end
-            if ($root_a === null || $root_b === null) {
-                return ($root_a === null) <=> ($root_b === null);
+            if ($name_a === null || $name_b === null) {
+                return ($name_a === null) <=> ($name_b === null);
             }
 
-            return $descending ? strnatcasecmp($root_b, $root_a) : strnatcasecmp($root_a, $root_b);
+            return $descending ? strnatcasecmp($name_b, $name_a) : strnatcasecmp($name_a, $name_b);
         });
 
         return array_map(intval(...), array_column(array_slice($rows, 0, $max_limits), 'id'));

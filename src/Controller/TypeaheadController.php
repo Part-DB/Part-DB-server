@@ -48,6 +48,7 @@ use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\Tools\TagFinder;
+use App\Services\Trees\StructuralElementPathCache;
 use App\Settings\MiscSettings\IpnSuggestSettings;
 use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\ORM\EntityManagerInterface;
@@ -74,6 +75,7 @@ class TypeaheadController extends AbstractController
         protected AttachmentURLGenerator $urlGenerator,
         protected Packages $assets,
         protected IpnSuggestSettings $ipnSuggestSettings,
+        protected StructuralElementPathCache $pathCache,
     ) {
     }
 
@@ -214,12 +216,11 @@ class TypeaheadController extends AbstractController
             case PartSearchSort::LAST_MODIFIED:
                 return $part->getLastModified()?->format('Y-m-d') ?? '';
             case PartSearchSort::TOP_CATEGORY:
-                $category = $part->getCategory();
-                //Limit the depth, so a (invalid) loop in the hierarchy can not hang the search
-                for ($level = 0; $level < 100 && $category?->getParent() !== null; $level++) {
-                    $category = $category->getParent();
+                $category_id = $part->getCategory()?->getID();
+                if ($category_id === null) {
+                    return '';
                 }
-                return $category?->getName() ?? '';
+                return $this->pathCache->getPathNames(Category::class, $category_id)[0] ?? '';
             default:
                 return '';
         }

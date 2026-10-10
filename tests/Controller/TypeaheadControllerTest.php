@@ -124,6 +124,19 @@ final class TypeaheadControllerTest extends WebTestCase
         }
     }
 
+    public function testPartsSearchSortedByTopCategoryReturnsRootCategory(): void
+    {
+        $client = $this->loginClient('admin');
+        $client->request('GET', '/en/typeahead/parts/search/Part?name=1&sort=top_category');
+
+        $parts = json_decode($client->getResponse()->getContent(), true);
+        $this->assertNotEmpty($parts);
+        // All fixture parts are in the root category "Node 1"
+        foreach ($parts as $part) {
+            $this->assertSame('Node 1', $part['sort_value']);
+        }
+    }
+
     // -----------------------------------------------------------------------
     // Access control
     // -----------------------------------------------------------------------
