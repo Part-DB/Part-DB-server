@@ -15919,5 +15919,53 @@ Serwer autoryzacji Buerklin API:
         <target>Ten dostawca informacji musi znacznie ograniczać ilość wysyłanych żądań lub wymaga długiego czasu przetwarzania, więc żądania mogą zająć dużo czasu.</target>
       </segment>
     </unit>
+    <unit id="xxOseQB" name="part.table.supplier">
+      <segment state="translated">
+        <source>part.table.supplier</source>
+        <target>Dostawca</target>
+      </segment>
+    </unit>
+    <unit id="1AS7MVG" name="part.table.supplier_part_number">
+      <segment state="translated">
+        <source>part.table.supplier_part_number</source>
+        <target>Numer części dostawcy</target>
+      </segment>
+    </unit>
+    <unit id="8i5dlT4" name="settings.behavior.part_info.combined_tabs">
+      <segment state="translated">
+        <source>settings.behavior.part_info.combined_tabs</source>
+        <target>Karty wyświetlane razem</target>
+      </segment>
+    </unit>
+    <unit id="sBDViuA" name="settings.behavior.part_info.combined_tabs.help">
+      <segment state="translated">
+        <source>settings.behavior.part_info.combined_tabs.help</source>
+        <target>Wybrane karty są wyświetlane razem jako jedna karta na stronie informacji o części, jedna nad drugą w ustawionej kolejności. Pozostaw puste, aby wyświetlić wszystkie karty oddzielnie. Każdą kombinację można również otworzyć poprzez URL, np. #part_lots,specifications</target>
+      </segment>
+    </unit>
+    <unit id="C_G6Ebd" name="part.supplier.available_amount">
+      <segment state="translated">
+        <source>part.supplier.available_amount</source>
+        <target>Dostępna ilość</target>
+      </segment>
+    </unit>
+    <unit id="t1bd9yr" name="part.supplier.available_amount.unknown">
+      <segment state="translated">
+        <source>part.supplier.available_amount.unknown</source>
+        <target>Nieznana</target>
+      </segment>
+    </unit>
+    <unit id="O33qIEd" name="part.supplier.available_amount.out_of_stock">
+      <segment state="translated">
+        <source>part.supplier.available_amount.out_of_stock</source>
+        <target>Brak w magazynie</target>
+      </segment>
+    </unit>
+    <unit id="m0QJNRv" name="part.supplier.available_amount.updated_at">
+      <segment state="translated">
+        <source>part.supplier.available_amount.updated_at</source>
+        <target>Stan magazynowy uzyskano od dostawcy informacji dnia %datetime%</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
