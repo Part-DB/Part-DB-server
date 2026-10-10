@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\DataTables\Filters\PartSearchFilter;
+use App\DataTables\Filters\PartSearchSort;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\AttachmentTypeParameter;
@@ -47,6 +48,7 @@ use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\Tools\TagFinder;
+use App\Services\Trees\StructuralElementPathCache;
 use App\Settings\MiscSettings\IpnSuggestSettings;
 use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\ORM\EntityManagerInterface;
@@ -73,6 +75,7 @@ class TypeaheadController extends AbstractController
         protected AttachmentURLGenerator $urlGenerator,
         protected Packages $assets,
         protected IpnSuggestSettings $ipnSuggestSettings,
+        protected StructuralElementPathCache $pathCache,
     ) {
     }
 
@@ -140,6 +143,10 @@ class TypeaheadController extends AbstractController
 
         $repo = $entityManager->getRepository(Part::class);
 
+        //The ordering of the results chosen in the search dropdown (null orders by name)
+        $sort = PartSearchSort::fromRequest($request);
+        $direction = PartSearchSort::directionFromRequest($request);
+
         //If search options (fields, regex, extensive, wildcard) are passed, search like the search page does,
         //otherwise (e.g. part select fields) use the simple and fast autocomplete search
         if ($request->query->count() > 0) {
@@ -151,12 +158,12 @@ class TypeaheadController extends AbstractController
             }
 
             try {
-                $parts = $repo->autocompleteSearchWithFilter($filter, 100);
+                $parts = $repo->autocompleteSearchWithFilter($filter, 100, $sort, $direction);
             } catch (InvalidRegexException|DBALException) {
                 return new JsonResponse([]);
             }
         } else { // Use the fast and simple autocomplete search for the part select fields
-            $parts = $repo->autocompleteSearch($query, 100);
+            $parts = $repo->autocompleteSearch($query, 100, $sort, $direction);
         }
 
         $data = [];
@@ -177,10 +184,46 @@ class TypeaheadController extends AbstractController
                 'footprint' => $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getName() : '',
                 'description' => mb_strimwidth($part->getDescription(), 0, 127, '...'),
                 'image' => $preview_url,
+                //The value the results are ordered by, if it is not shown anyway (like the name and the category)
+                'sort_value' => $this->getSortValue($part, $sort),
             ];
         }
 
         return new JsonResponse($data);
+    }
+
+    /**
+     * Returns the value of the given part, which the search results are ordered by, so it can be shown next to it.
+     * Empty for the orderings whose value is part of every result anyway and for parts without that value.
+     */
+    private function getSortValue(Part $part, ?PartSearchSort $sort): string
+    {
+        switch ($sort) {
+            case PartSearchSort::MANUFACTURER:
+                return $part->getManufacturer()?->getName() ?? '';
+            case PartSearchSort::SUPPLIER:
+                $names = [];
+                foreach ($part->getOrderdetails() as $orderdetail) {
+                    $name = $orderdetail->getSupplier()?->getName();
+                    if ($name !== null && $name !== '') {
+                        $names[$name] = $name;
+                    }
+                }
+                natcasesort($names);
+                return implode(', ', $names);
+            case PartSearchSort::ADDED_DATE:
+                return $part->getAddedDate()?->format('Y-m-d') ?? '';
+            case PartSearchSort::LAST_MODIFIED:
+                return $part->getLastModified()?->format('Y-m-d') ?? '';
+            case PartSearchSort::TOP_CATEGORY:
+                $category_id = $part->getCategory()?->getID();
+                if ($category_id === null) {
+                    return '';
+                }
+                return $this->pathCache->getPathNames(Category::class, $category_id)[0] ?? '';
+            default:
+                return '';
+        }
     }
 
     #[Route(path: '/parameters/{type}/search/{query}', name: 'typeahead_parameters', requirements: ['type' => '.+'])]
