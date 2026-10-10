@@ -45,6 +45,8 @@ use App\Entity\PriceInformations\Currency;
 use App\Validator\Constraints\BigDecimal\BigDecimalPositive;
 use App\Validator\Constraints\Selectable;
 use Brick\Math\BigDecimal;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -141,8 +143,16 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
     #[Selectable(groups: ['Default', 'project_bom'])]
     protected ?Currency $price_currency = null;
 
+    /**
+     * @var Collection<int, PartLotReservation> The reservations made for planned projects against this BOM entry.
+     *                      Used only to guard against deleting a BOM entry that still has active reservations.
+     */
+    #[ORM\OneToMany(targetEntity: PartLotReservation::class, mappedBy: 'bomEntry')]
+    protected Collection $reservations;
+
     public function __construct()
     {
+        $this->reservations = new ArrayCollection();
     }
 
     public function getQuantity(): float
@@ -248,6 +258,26 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
     }
 
     /**
+     * @return Collection<int, PartLotReservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(PartLotReservation $reservation): self
+    {
+        $this->reservations->add($reservation);
+        return $this;
+    }
+
+    public function removeReservation(PartLotReservation $reservation): self
+    {
+        $this->reservations->removeElement($reservation);
+        return $this;
+    }
+
+    /**
      * Checks whether this BOM entry is a part associated BOM entry or not.
      * @return bool True if this BOM entry is a part associated BOM entry, false otherwise.
      */
@@ -311,6 +341,20 @@ class ProjectBOMEntry extends AbstractDBElement implements UniqueValidatableInte
         }
     }
 
+
+    /**
+     * Safety net: a BOM entry must never be removed while it still has reservations for planned projects, as
+     * that would silently break the "Total = Available + Reserved" invariant. The normal deletion path
+     * (ProjectController::deleteBOMEntry()) already guards against this with a friendly error message; this
+     * only catches paths we didn't anticipate.
+     */
+    #[ORM\PreRemove]
+    public function checkNoReservationsBeforeRemove(): void
+    {
+        if (!$this->reservations->isEmpty()) {
+            throw new \RuntimeException('Cannot remove a BOM entry that still has active reservations for planned projects!');
+        }
+    }
 
     public function getComparableFields(): array
     {

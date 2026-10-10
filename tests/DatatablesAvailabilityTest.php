@@ -95,6 +95,8 @@ final class DatatablesAvailabilityTest extends WebTestCase
 
         yield ['/attachment/list'];
 
+        yield ['/planned_project'];
+
         //Test using filters
         yield ['/category/1/parts?part_filter%5Bname%5D%5Boperator%5D=%3D&part_filter%5Bname%5D%5Bvalue%5D=BC547&part_filter%5Bcategory%5D%5Boperator%5D=INCLUDING_CHILDREN&part_filter%5Btags%5D%5Boperator%5D=ANY&part_filter%5Btags%5D%5Bvalue%5D=Test&part_filter%5Bsubmit%5D='];
         yield ['/category/1/parts?part_filter%5Bcategory%5D%5Boperator%5D=INCLUDING_CHILDREN&part_filter%5Bstorelocation%5D%5Boperator%5D=%3D&part_filter%5Bstorelocation%5D%5Bvalue%5D=1&part_filter%5BattachmentsCount%5D%5Boperator%5D=%3D&part_filter%5BattachmentsCount%5D%5Bvalue1%5D=3&part_filter%5Bsubmit%5D='];

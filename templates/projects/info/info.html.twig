@@ -54,6 +54,15 @@
                 {% trans %}project.info.builds.label{% endtrans %}
             </button>
         </li>
+        {% if is_granted('@planned_projects.create') %}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="plan-build-tab" data-bs-toggle="tab" data-bs-target="#plan-build-tab-pane"
+                        type="button" role="tab" aria-controls="plan-build-tab-pane" aria-selected="false">
+                    <i class="fa-solid fa-clipboard-list fa-fw"></i>
+                    {% trans %}planned_build.tab.label{% endtrans %}
+                </button>
+            </li>
+        {% endif %}
         {% if project.attachments is not empty %}
             <li class="nav-item">
                 <a class="nav-link" id="attachments-tab" data-bs-toggle="tab"
@@ -91,6 +100,11 @@
         <div class="tab-pane fade" id="builds-tab-pane" role="tabpanel" aria-labelledby="builds-tab" tabindex="0">
             {% include "projects/info/_builds.html.twig" %}
         </div>
+        {% if is_granted('@planned_projects.create') %}
+            <div class="tab-pane fade" id="plan-build-tab-pane" role="tabpanel" aria-labelledby="plan-build-tab" tabindex="0">
+                {% include "projects/info/_plan_build.html.twig" %}
+            </div>
+        {% endif %}
         <div class="tab-pane fade" id="attachments-tab-pane" role="tabpanel" aria-labelledby="attachments-tab" tabindex="0">
             {% include "parts/info/_attachments_info.html.twig" with {"part": project} %}
         </div>
