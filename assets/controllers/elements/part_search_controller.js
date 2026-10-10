@@ -225,7 +225,7 @@ export default class extends Controller {
                                     <a class="aa-ItemLink" href="${details_url}">
                                         <div class="aa-ItemContent">
                                             <div class="aa-ItemIcon aa-ItemIcon--picture aa-ItemIcon--alignTop">
-                                                <img src="${item.image !== "" ? item.image : placeholder_image}" alt="${item.name}" width="30" height="30"/>
+                                                <img src="${item.image || placeholder_image}" alt="${item.name}" width="30" height="30"/>
                                             </div>
                                             <div class="aa-ItemContentBody">
                                                 <div class="aa-ItemContentTitle">

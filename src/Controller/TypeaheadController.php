@@ -143,7 +143,7 @@ class TypeaheadController extends AbstractController
             //Determine the picture to show:
             $preview_attachment = $previewGenerator->getTablePreviewAttachment($part);
             if ($preview_attachment instanceof Attachment) {
-                $preview_url = $attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_sm');
+                $preview_url = $attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_sm') ?? '';
             } else {
                 $preview_url = '';
             }
