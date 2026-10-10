@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\DataTables\Filters\PartSearchFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\AttachmentTypeParameter;
@@ -38,6 +39,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Currency;
+use App\Exceptions\InvalidRegexException;
 use App\Repository\ParameterRepository;
 use App\Services\AI\AIPlatformRegistry;
 use App\Services\AI\AIPlatforms;
@@ -46,6 +48,7 @@ use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\Tools\TagFinder;
 use App\Settings\MiscSettings\IpnSuggestSettings;
+use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\AI\Platform\Capability;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -127,6 +130,7 @@ class TypeaheadController extends AbstractController
 
     #[Route(path: '/parts/search/{query}', name: 'typeahead_parts')]
     public function parts(
+        Request $request,
         EntityManagerInterface $entityManager,
         PartPreviewGenerator $previewGenerator,
         AttachmentURLGenerator $attachmentURLGenerator,
@@ -136,7 +140,24 @@ class TypeaheadController extends AbstractController
 
         $repo = $entityManager->getRepository(Part::class);
 
-        $parts = $repo->autocompleteSearch($query, 100);
+        //If search options (fields, regex, extensive, wildcard) are passed, search like the search page does,
+        //otherwise (e.g. part select fields) use the simple and fast autocomplete search
+        if ($request->query->count() > 0) {
+            $filter = PartSearchFilter::fromRequest($request, $query);
+
+            //A regex is often incomplete while it is typed (e.g. "lm("), so return no results instead of an error
+            if ($filter->isRegex() && @preg_match('~' . str_replace('~', '\\~', $query) . '~u', '') === false) {
+                return new JsonResponse([]);
+            }
+
+            try {
+                $parts = $repo->autocompleteSearchWithFilter($filter, 100);
+            } catch (InvalidRegexException|DBALException) {
+                return new JsonResponse([]);
+            }
+        } else { // Use the fast and simple autocomplete search for the part select fields
+            $parts = $repo->autocompleteSearch($query, 100);
+        }
 
         $data = [];
         foreach ($parts as $part) {

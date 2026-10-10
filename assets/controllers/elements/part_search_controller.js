@@ -39,17 +39,51 @@ export default class extends Controller {
     _autocomplete;
 
     // Highlight the search query in the results
-    _highlight = (text, query) => {
+    _highlight = (text, query, options = null) => {
         if (!text) return text;
         if (!query) return text;
 
         const HIGHLIGHT_PRE_TAG = '__aa-highlight__'
         const HIGHLIGHT_POST_TAG = '__/aa-highlight__'
 
-        const escaped = query.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-        const regex = new RegExp(escaped, 'gi');
+        const escape = (str) => str.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+        let regex;
+        try {
+            if (options && options.has('regex')) {
+                regex = new RegExp(query, 'gi');
+            } else if (options && options.has('extensive')) {
+                // Extensive search matches each word on its own
+                const tokens = query.split(/[\s+]+/).filter((token) => token !== '');
+                regex = new RegExp(tokens.map(escape).join('|'), 'gi');
+            } else {
+                regex = new RegExp(escape(query), 'gi');
+            }
+        } catch (e) {
+            // The server-side regex dialect can differ from the JS one, just don't highlight then
+            return text;
+        }
 
-        return text.replace(regex, (match) => `${HIGHLIGHT_PRE_TAG}${match}${HIGHLIGHT_POST_TAG}`);
+        return text.replace(regex, (match) => match === '' ? match : `${HIGHLIGHT_PRE_TAG}${match}${HIGHLIGHT_POST_TAG}`);
+    }
+
+    /**
+     * Returns the checked search options (fields, regex, extensive, wildcard) of the search form.
+     * If the element is not inside a search form, null is returned and the default autocomplete search is used.
+     * @returns {URLSearchParams|null}
+     */
+    _getSearchOptions() {
+        const form = this.element.closest('form');
+        if (!form) {
+            return null;
+        }
+
+        const options = new URLSearchParams();
+        // Disabled checkboxes (e.g. extensive while regex is active) would not be submitted by the form either
+        form.querySelectorAll('input[type="checkbox"]:checked:not(:disabled)').forEach((checkbox) => {
+            options.set(checkbox.name, checkbox.value || '1');
+        });
+
+        return options;
     }
 
     connect() {
@@ -191,7 +225,13 @@ export default class extends Controller {
                     {
                         sourceId: 'parts',
                         getItems() {
-                            const url = base_url.replace('__QUERY__', encodeURIComponent(query));
+                            let url = base_url.replace('__QUERY__', encodeURIComponent(query));
+
+                            // Pass the search options, so the selected fields and matching modes also apply to the dropdown
+                            const options = that._getSearchOptions();
+                            if (options) {
+                                url += (url.includes('?') ? '&' : '?') + options.toString();
+                            }
 
                             const data = fetch(url)
                                 .then((response) => response.json())
@@ -200,15 +240,18 @@ export default class extends Controller {
                             //Iterate over all fields besides the id and highlight them
                             const fields = ["name", "description", "category", "footprint"];
 
-                            data.then((items) => {
+                            //Store the highlighted values in _highlightResult (where the Highlight component reads
+                            //them from), so the raw values (e.g. used in the image alt attribute) stay untouched
+                            return data.then((items) => {
                                 items.forEach((item) => {
+                                    item._highlightResult = {};
                                     for (const field of fields) {
-                                        item[field] = that._highlight(item[field], query);
+                                        item._highlightResult[field] = {value: that._highlight(item[field], query, options) ?? ''};
                                     }
                                 });
-                            });
 
-                            return data;
+                                return items;
+                            });
                         },
                         getItemUrl({ item }) {
                             return part_detail_uri_template.replace('__ID__', item.id);
@@ -265,6 +308,16 @@ export default class extends Controller {
                     input.placeholder = input.dataset.placeholder;
                 }
             }).observe(input, {attributes: true, attributeFilter: ['placeholder']});
+        }
+
+        // Changing a search option should update the results for the already typed query
+        const form = this.element.closest('form');
+        if (form) {
+            form.addEventListener('change', (event) => {
+                if (event.target.matches('input[type="checkbox"]') && inputs.length > 0 && inputs[0].value !== '') {
+                    this._autocomplete.refresh();
+                }
+            });
         }
 
     }
