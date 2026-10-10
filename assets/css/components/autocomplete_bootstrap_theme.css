@@ -517,7 +517,8 @@ body {
     z-index: 9999;
     z-index: var(--aa-base-z-index);
 }
-.aa-SourceHeaderSortToggle {
+/* The toggle rules are scoped to .aa-Panel, as the ".aa-Panel button" reset above would override them otherwise */
+.aa-Panel .aa-SourceHeaderSortToggle {
     background: none;
     border: 1px solid transparent;
     border-radius: 1em;
@@ -529,12 +530,12 @@ body {
     padding: 0.1em 0.55em;
     white-space: nowrap;
 }
-.aa-SourceHeaderSortToggle:hover {
+.aa-Panel .aa-SourceHeaderSortToggle:hover {
     border-color: rgba(var(--bs-primary-rgb), 0.5);
     color: rgba(var(--bs-primary-rgb), 1.0);
 }
-.aa-SourceHeaderSortToggle--active,
-.aa-SourceHeaderSortToggle--active:hover {
+.aa-Panel .aa-SourceHeaderSortToggle--active,
+.aa-Panel .aa-SourceHeaderSortToggle--active:hover {
     background: rgba(var(--bs-primary-rgb), 1.0);
     border-color: rgba(var(--bs-primary-rgb), 1.0);
     /* Not the body background: it is dark in dark mode and unreadable on the primary color */
