@@ -25,6 +25,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\Parameter;
 use Doctrine\DBAL\ParameterType;
+use Symfony\Component\HttpFoundation\Request;
 
 class PartSearchFilter implements FilterInterface
 {
@@ -85,6 +86,37 @@ class PartSearchFilter implements FilterInterface
         protected string $keyword
     ) {
 
+    }
+
+    /**
+     * Creates a filter from the query parameters sent by the search options form (keyword, field checkboxes and
+     * the regex/extensive/wildcard modes).
+     */
+    public static function fromRequest(Request $request, ?string $keyword = null): self
+    {
+        $filter = new self($keyword ?? $request->query->getString('keyword'));
+
+        //As an unchecked checkbox is not set in the query, the default value for all bools have to be false (which is the default argument value)!
+        $filter->setName($request->query->getBoolean('name'));
+        $filter->setDbId($request->query->getBoolean('dbid'));
+        $filter->setCategory($request->query->getBoolean('category'));
+        $filter->setDescription($request->query->getBoolean('description'));
+        $filter->setMpn($request->query->getBoolean('mpn'));
+        $filter->setTags($request->query->getBoolean('tags'));
+        $filter->setStorelocation($request->query->getBoolean('storelocation'));
+        $filter->setComment($request->query->getBoolean('comment'));
+        $filter->setIPN($request->query->getBoolean('ipn'));
+        $filter->setOrdernr($request->query->getBoolean('ordernr'));
+        $filter->setSupplier($request->query->getBoolean('supplier'));
+        $filter->setManufacturer($request->query->getBoolean('manufacturer'));
+        $filter->setFootprint($request->query->getBoolean('footprint'));
+
+
+        $filter->setRegex($request->query->getBoolean('regex'));
+        $filter->setExtensive($request->query->getBoolean('extensive'));
+        $filter->setWildcard($request->query->getBoolean('wildcard'));
+
+        return $filter;
     }
 
     protected function getFieldsToSearch(): array

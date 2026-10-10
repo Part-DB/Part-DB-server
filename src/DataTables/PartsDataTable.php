@@ -78,11 +78,14 @@ final readonly class PartsDataTable implements DataTableTypeInterface
     {
         $optionsResolver->setDefaults([
             'filter' => null,
-            'search' => null
+            'search' => null,
+            //The initial ordering of the table as [column name, direction], null orders by the name
+            'order' => null,
         ]);
 
         $optionsResolver->setAllowedTypes('filter', [PartFilter::class, 'null']);
         $optionsResolver->setAllowedTypes('search', [PartSearchFilter::class, 'null']);
+        $optionsResolver->setAllowedTypes('order', ['array', 'null']);
     }
 
     public function configure(DataTable $dataTable, array $options): void
@@ -308,7 +311,9 @@ final readonly class PartsDataTable implements DataTableTypeInterface
         $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->tableSettings->partsDefaultColumns,
             "TABLE_PARTS_DEFAULT_COLUMNS");
 
-        $dataTable->addOrderBy('name')
+        [$order_column, $order_direction] = $options['order'] ?? ['name', DataTable::SORT_ASCENDING];
+
+        $dataTable->addOrderBy($order_column, $order_direction)
             ->createAdapter(TwoStepORMAdapter::class, [
                 'filter_query' => $this->getFilterQuery(...),
                 'detail_query' => $this->getDetailQuery(...),

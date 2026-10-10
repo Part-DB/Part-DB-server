@@ -506,6 +506,55 @@ body {
     z-index: calc(var(--aa-base-z-index) - 1);
 }
 
+/* The toggles to choose the ordering of the results, shown at the right of the header */
+.aa-SourceHeaderSort {
+    background: var(--bs-body-bg);
+    display: inline-flex;
+    float: right;
+    gap: 4px;
+    padding: 0 0 0 var(--aa-spacing-half);
+    position: relative;
+    z-index: 9999;
+    z-index: var(--aa-base-z-index);
+}
+.aa-SourceHeaderSortToggle {
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 1em;
+    color: var(--bs-secondary-color);
+    cursor: pointer;
+    font-size: 1em;
+    line-height: 1.6;
+    min-width: 2.2em;
+    padding: 0.1em 0.55em;
+    white-space: nowrap;
+}
+.aa-SourceHeaderSortToggle:hover {
+    border-color: rgba(var(--bs-primary-rgb), 0.5);
+    color: rgba(var(--bs-primary-rgb), 1.0);
+}
+.aa-SourceHeaderSortToggle--active,
+.aa-SourceHeaderSortToggle--active:hover {
+    background: rgba(var(--bs-primary-rgb), 1.0);
+    border-color: rgba(var(--bs-primary-rgb), 1.0);
+    /* Not the body background: it is dark in dark mode and unreadable on the primary color */
+    color: #fff;
+}
+/* The direction arrow always takes its place, so the toggles do not move when one of them is chosen */
+.aa-SourceHeaderSortArrow {
+    font-size: 0.75em;
+    margin-left: 0.15em;
+    visibility: hidden;
+}
+.aa-SourceHeaderSortToggle--active .aa-SourceHeaderSortArrow {
+    visibility: visible;
+}
+
+/* The value a result is ordered by (supplier, manufacturer, date, ...) */
+.aa-ItemSortValue {
+    color: rgba(var(--bs-primary-rgb), 1.0);
+}
+
 .aa-SourceFooterSeeAll {
     background: linear-gradient(180deg, var(--bs-body-bg), rgba(128, 126, 163, 0.14));
     border: 1px solid var(--bs-secondary-color);

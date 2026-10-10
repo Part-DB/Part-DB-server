@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\DataTables\Filters\PartSearchFilter;
+use App\DataTables\Filters\PartSearchSort;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
@@ -92,10 +94,27 @@ class PartRepository extends NamedDBElementRepository
     }
 
     /**
+     * @param  PartSearchSort|null  $sort  The ordering of the results, or null to order them by their name
+     * @param  bool  $descending  Reverse the ordering given by $sort
      * @return Part[]
      */
-    public function autocompleteSearch(string $query, int $max_limits = 50): array
+    public function autocompleteSearch(string $query, int $max_limits = 50, ?PartSearchSort $sort = null, bool $descending = false): array
     {
+        if ($sort !== null) {
+            $qb = $this->createQueryBuilder('part');
+            $qb->select('part.id')
+                ->leftJoin('part.category', '_category')
+                ->leftJoin('part.footprint', '_footprint')
+                ->where('ILIKE(part.name, :query) = TRUE')
+                ->orWhere('ILIKE(part.description, :query) = TRUE')
+                ->orWhere('ILIKE(_category.name, :query) = TRUE')
+                ->orWhere('ILIKE(_footprint.name, :query) = TRUE')
+                ->groupBy('part.id')
+                ->setParameter('query', '%'.$query.'%');
+
+            return $this->getSortedAutocompleteResults($qb, $sort, $descending, $max_limits);
+        }
+
         $qb = $this->createQueryBuilder('part');
         $qb->select('part')
             ->leftJoin('part.category', 'category')
@@ -112,6 +131,168 @@ class PartRepository extends NamedDBElementRepository
         $qb->orderBy('NATSORT(part.name)', 'ASC');
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Search parts the same way as the search page does (selected fields, regex, extensive and wildcard matching),
+     * but limited to a small number of results, so it can be used for autocompletion.
+     * @param  PartSearchSort|null  $sort  The ordering of the results, or null to order them by their name
+     * @param  bool  $descending  Reverse the ordering given by $sort
+     * @return Part[]
+     */
+    public function autocompleteSearchWithFilter(PartSearchFilter $filter, int $max_limits = 50, ?PartSearchSort $sort = null, bool $descending = false): array
+    {
+        //Select only the IDs first, as the joins needed by the filter would otherwise multiply the rows
+        $qb = $this->createQueryBuilder('part');
+        $qb->select('part.id')
+            ->leftJoin('part.category', '_category')
+            ->leftJoin('part.footprint', '_footprint')
+            ->leftJoin('part.manufacturer', '_manufacturer')
+            ->leftJoin('part.partLots', '_partLots')
+            ->leftJoin('_partLots.storage_location', '_storelocations')
+            ->leftJoin('part.orderdetails', '_orderdetails')
+            ->leftJoin('_orderdetails.supplier', '_suppliers')
+            ->groupBy('part.id');
+
+        $filter->apply($qb);
+
+        if ($sort !== null) {
+            return $this->getSortedAutocompleteResults($qb, $sort, $descending, $max_limits);
+        }
+
+        $qb->orderBy('part.name', 'ASC')
+            ->setMaxResults($max_limits);
+        $ids = array_column($qb->getQuery()->getArrayResult(), 'id');
+        if ($ids === []) {
+            return [];
+        }
+
+        return $this->createQueryBuilder('part')
+            ->select('part')
+            ->where('part.id IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->orderBy('NATSORT(part.name)', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Returns the first parts found by the given query in the given ordering. Parts which have no value to sort by
+     * (e.g. no manufacturer) are always put at the end, parts with the same value are ordered by their name.
+     * @param  QueryBuilder  $qb  A query selecting the IDs of the found parts (alias "part") grouped by part.id. Joined
+     * entities must use the alias of the parts table (underscore prefix).
+     * @return Part[]
+     */
+    private function getSortedAutocompleteResults(QueryBuilder $qb, PartSearchSort $sort, bool $descending, int $max_limits): array
+    {
+        if ($sort === PartSearchSort::TOP_CATEGORY) {
+            $ids = $this->getIdsSortedByTopCategory($qb, $descending, $max_limits);
+        } else {
+            $aliases = $qb->getAllAliases();
+            if ($sort === PartSearchSort::MANUFACTURER && !in_array('_manufacturer', $aliases, true)) {
+                $qb->leftJoin('part.manufacturer', '_manufacturer');
+            }
+            if ($sort === PartSearchSort::SUPPLIER && !in_array('_suppliers', $aliases, true)) {
+                $qb->leftJoin('part.orderdetails', '_orderdetails')
+                    ->leftJoin('_orderdetails.supplier', '_suppliers');
+            }
+
+            //The joined values must be aggregated, as the query is grouped by the part. A part can have multiple
+            //suppliers, the alphabetically first one is used then.
+            [$value, $order] = match ($sort) {
+                PartSearchSort::NAME => [null, 'NATSORT(part.name)'],
+                PartSearchSort::MANUFACTURER => ['MIN(_manufacturer.name)', 'NATSORT(MIN(_manufacturer.name))'],
+                PartSearchSort::SUPPLIER => ['MIN(_suppliers.name)', 'NATSORT(MIN(_suppliers.name))'],
+                PartSearchSort::ADDED_DATE => ['part.addedDate', 'part.addedDate'],
+                PartSearchSort::LAST_MODIFIED => ['part.lastModified', 'part.lastModified'],
+                PartSearchSort::CATEGORY => ['MIN(_category.name)', 'NATSORT(MIN(_category.name))'],
+            };
+
+            //The databases disagree on where NULL values are sorted, so explicitly put them last in both directions
+            if ($value !== null) {
+                $qb->addSelect('CASE WHEN ' . $value . ' IS NULL THEN 1 ELSE 0 END AS HIDDEN sort_is_null')
+                    ->addOrderBy('sort_is_null', 'ASC');
+            }
+
+            $qb->addOrderBy($order, $descending ? 'DESC' : 'ASC')
+                ->addOrderBy('NATSORT(part.name)', 'ASC')
+                ->addOrderBy('part.id', 'ASC')
+                ->setMaxResults($max_limits);
+
+            $ids = array_column($qb->getQuery()->getArrayResult(), 'id');
+        }
+
+        if ($ids === []) {
+            return [];
+        }
+
+        $parts = $this->createQueryBuilder('part', 'part.id')
+            ->select('part')
+            ->where('part.id IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->getQuery()
+            ->getResult();
+
+        //Return the parts in the order of the sorted IDs
+        return array_values(array_filter(array_map(static fn(int $id) => $parts[$id] ?? null, $ids), static fn(?Part $part) => $part !== null));
+    }
+
+    /**
+     * Returns the IDs of the first parts found by the given query, ordered by the name of the root category their
+     * category is contained in.
+     * The root category is not stored in the database, so it is determined (and sorted by) in PHP, which only
+     * requires the ID and category ID of each found part.
+     * @return int[]
+     */
+    private function getIdsSortedByTopCategory(QueryBuilder $qb, bool $descending, int $max_limits): array
+    {
+        $rows = $qb->addSelect('IDENTITY(part.category) AS category_id')
+            ->addOrderBy('NATSORT(part.name)', 'ASC')
+            ->addOrderBy('part.id', 'ASC')
+            ->getQuery()
+            ->getArrayResult();
+
+        $categories = [];
+        $category_rows = $this->getEntityManager()->createQueryBuilder()
+            ->select('category.id', 'category.name', 'IDENTITY(category.parent) AS parent_id')
+            ->from(Category::class, 'category')
+            ->getQuery()
+            ->getArrayResult();
+        foreach ($category_rows as $category) {
+            $categories[(int) $category['id']] = $category;
+        }
+
+        $root_names = [];
+        $getRootName = static function (?int $id) use (&$root_names, $categories): ?string {
+            if ($id === null || !isset($categories[$id])) {
+                return null;
+            }
+            if (!isset($root_names[$id])) {
+                $root = $categories[$id];
+                //Limit the depth, so a (invalid) loop in the hierarchy can not hang the search
+                for ($level = 0; $level < 100 && $root['parent_id'] !== null && isset($categories[(int) $root['parent_id']]); $level++) {
+                    $root = $categories[(int) $root['parent_id']];
+                }
+                $root_names[$id] = $root['name'];
+            }
+
+            return $root_names[$id];
+        };
+
+        //usort is stable, so parts of the same root category stay ordered by their name
+        usort($rows, static function (array $a, array $b) use ($getRootName, $descending): int {
+            $root_a = $getRootName($a['category_id'] !== null ? (int) $a['category_id'] : null);
+            $root_b = $getRootName($b['category_id'] !== null ? (int) $b['category_id'] : null);
+
+            //Parts without a category are always put at the end
+            if ($root_a === null || $root_b === null) {
+                return ($root_a === null) <=> ($root_b === null);
+            }
+
+            return $descending ? strnatcasecmp($root_b, $root_a) : strnatcasecmp($root_a, $root_b);
+        });
+
+        return array_map(intval(...), array_column(array_slice($rows, 0, $max_limits), 'id'));
     }
 
     /**

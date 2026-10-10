@@ -25,6 +25,7 @@ namespace App\Controller;
 use App\DataTables\ErrorDataTable;
 use App\DataTables\Filters\PartFilter;
 use App\DataTables\Filters\PartSearchFilter;
+use App\DataTables\Filters\PartSearchSort;
 use App\DataTables\PartsDataTable;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -40,6 +41,7 @@ use App\Settings\BehaviorSettings\SidebarSettings;
 use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\ORM\EntityManagerInterface;
+use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -308,37 +310,17 @@ class PartListsController extends AbstractController
         );
     }
 
-    private function searchRequestToFilter(Request $request): PartSearchFilter
-    {
-        $filter = new PartSearchFilter($request->query->get('keyword', ''));
-
-        //As an unchecked checkbox is not set in the query, the default value for all bools have to be false (which is the default argument value)!
-        $filter->setName($request->query->getBoolean('name'));
-        $filter->setDbId($request->query->getBoolean('dbid'));
-        $filter->setCategory($request->query->getBoolean('category'));
-        $filter->setDescription($request->query->getBoolean('description'));
-        $filter->setMpn($request->query->getBoolean('mpn'));
-        $filter->setTags($request->query->getBoolean('tags'));
-        $filter->setStorelocation($request->query->getBoolean('storelocation'));
-        $filter->setComment($request->query->getBoolean('comment'));
-        $filter->setIPN($request->query->getBoolean('ipn'));
-        $filter->setOrdernr($request->query->getBoolean('ordernr'));
-        $filter->setSupplier($request->query->getBoolean('supplier'));
-        $filter->setManufacturer($request->query->getBoolean('manufacturer'));
-        $filter->setFootprint($request->query->getBoolean('footprint'));
-
-
-        $filter->setRegex($request->query->getBoolean('regex'));
-        $filter->setExtensive($request->query->getBoolean('extensive'));
-        $filter->setWildcard($request->query->getBoolean('wildcard'));
-
-        return $filter;
-    }
-
     #[Route(path: '/parts/search', name: 'parts_search')]
     public function showSearch(Request $request, DataTableFactory $dataTable): Response
     {
-        $searchFilter = $this->searchRequestToFilter($request);
+        $searchFilter = PartSearchFilter::fromRequest($request);
+
+        //If an ordering was chosen in the quick search, show the table sorted by the matching column (if there is one)
+        $order = null;
+        $order_column = PartSearchSort::fromRequest($request)?->getTableColumn();
+        if ($order_column !== null) {
+            $order = [$order_column, PartSearchSort::isDescending($request) ? DataTable::SORT_DESCENDING : DataTable::SORT_ASCENDING];
+        }
 
         return $this->showListWithFilter($request,
             'parts/lists/search_list.html.twig',
@@ -350,6 +332,7 @@ class PartListsController extends AbstractController
             ],
             [
                 'search' => $searchFilter,
+                'order' => $order,
             ]
         );
     }

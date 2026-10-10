@@ -409,5 +409,65 @@
         <target>Part %number%</target>
       </segment>
     </unit>
+    <unit id="ngVWFrn" name="search.sort.label">
+      <segment state="translated">
+        <source>search.sort.label</source>
+        <target>Sort by</target>
+      </segment>
+    </unit>
+    <unit id="dTD1kWN" name="search.sort.name">
+      <segment state="translated">
+        <source>search.sort.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="8ul4F4G" name="search.sort.manufacturer">
+      <segment state="translated">
+        <source>search.sort.manufacturer</source>
+        <target>Manufacturer</target>
+      </segment>
+    </unit>
+    <unit id="PHZo3qu" name="search.sort.supplier">
+      <segment state="translated">
+        <source>search.sort.supplier</source>
+        <target>Supplier</target>
+      </segment>
+    </unit>
+    <unit id="d.96baU" name="search.sort.added">
+      <segment state="translated">
+        <source>search.sort.added</source>
+        <target>Creation date</target>
+      </segment>
+    </unit>
+    <unit id="lFB2B.G" name="search.sort.modified">
+      <segment state="translated">
+        <source>search.sort.modified</source>
+        <target>Last modified</target>
+      </segment>
+    </unit>
+    <unit id="yz117r." name="search.sort.top_category">
+      <segment state="translated">
+        <source>search.sort.top_category</source>
+        <target>Top-level category</target>
+      </segment>
+    </unit>
+    <unit id="00rI5sZ" name="search.sort.category">
+      <segment state="translated">
+        <source>search.sort.category</source>
+        <target>Category</target>
+      </segment>
+    </unit>
+    <unit id="F7CCGza" name="search.sort.ascending">
+      <segment state="translated">
+        <source>search.sort.ascending</source>
+        <target>ascending</target>
+      </segment>
+    </unit>
+    <unit id="NShKe.S" name="search.sort.descending">
+      <segment state="translated">
+        <source>search.sort.descending</source>
+        <target>descending</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
