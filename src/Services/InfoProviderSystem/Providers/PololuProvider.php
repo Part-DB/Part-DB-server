@@ -20,7 +20,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Entity\Parts\ManufacturingStatus;
@@ -46,6 +45,8 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 class PololuProvider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {
+    use ThrottledRequestTrait;
+
     public const PROVIDER_KEY = 'pololu';
 
     public const DISTRIBUTOR_NAME = 'Pololu';
@@ -54,15 +55,6 @@ class PololuProvider implements InfoProviderInterface, URLHandlerInfoProviderInt
 
     /** @var string All prices on pololu.com are in US dollars */
     private const CURRENCY = 'USD';
-
-    /** @var int[] The HTTP status codes which indicate that the website does not want our requests (anymore) */
-    private const BLOCKED_STATUS_CODES = [403, 429, 503];
-
-    /** @var int How long (in seconds) no requests are sent anymore, after the website has blocked a request */
-    private const BLOCKED_PAUSE = 3600;
-
-    private const CACHE_KEY_BLOCKED = 'pololu_blocked';
-    private const CACHE_KEY_LAST_REQUEST = 'pololu_last_request';
 
     /** @var string Links outside the file downloads list are only used, if they point to a file with one of these extensions */
     private const FILE_EXTENSIONS_REGEX = '/\.(pdf|zip|step|stp|igs|iges|stl|dxf|dwg|sldprt|easm|eprt|brd|sch|hex|bin)$/i';
@@ -91,6 +83,7 @@ class PololuProvider implements InfoProviderInterface, URLHandlerInfoProviderInt
                 ProviderCapabilities::PARAMETERS,
                 ProviderCapabilities::STOCK_LEVEL,
             ],
+            slow: true,
         );
     }
 
@@ -100,54 +93,20 @@ class PololuProvider implements InfoProviderInterface, URLHandlerInfoProviderInt
     }
 
     /**
-     * Requests the given page of pololu.com. The requests are paced, and if the website blocks a request, no
-     * further requests are sent for some time.
+     * Requests the given page of pololu.com (throttled, see ThrottledRequestTrait).
      * @param  string  $path The path of the page, starting with a slash
      * @param  array<string, string>  $query
      */
     private function request(string $path, array $query = []): ResponseInterface
     {
-        if ($this->partInfoCache->getItem(self::CACHE_KEY_BLOCKED)->isHit()) {
-            throw new \RuntimeException('pololu.com has blocked a previous request. No requests are sent to it for some time, try again later.');
-        }
-
-        $this->waitForNextRequest();
-
-        $response = $this->client->request('GET', self::BASE_URL . $path, [
+        return $this->throttledRequest('GET', self::BASE_URL . $path, [
             'query' => $query,
         ]);
-
-        if (in_array($response->getStatusCode(), self::BLOCKED_STATUS_CODES, true)) {
-            $item = $this->partInfoCache->getItem(self::CACHE_KEY_BLOCKED);
-            $item->set(time());
-            $item->expiresAfter(self::BLOCKED_PAUSE);
-            $this->partInfoCache->save($item);
-
-            throw new \RuntimeException(sprintf('pololu.com has blocked the request (HTTP status %d). No requests are sent to it for some time, try again later.', $response->getStatusCode()));
-        }
-
-        return $response;
     }
 
-    /**
-     * Sleeps until the configured delay since the last request has passed. The time of the last request is stored
-     * in the cache, so the delay is also respected between different lookups.
-     */
-    private function waitForNextRequest(): void
+    private function getRequestDelay(): int
     {
-        $delay = $this->settings->requestDelay;
-        $item = $this->partInfoCache->getItem(self::CACHE_KEY_LAST_REQUEST);
-
-        if ($delay > 0 && $item->isHit()) {
-            $wait = (float) $item->get() + $delay - microtime(true);
-            if ($wait > 0) {
-                usleep((int) (min($wait, $delay) * 1_000_000));
-            }
-        }
-
-        $item->set(microtime(true));
-        $item->expiresAfter(60);
-        $this->partInfoCache->save($item);
+        return $this->settings->requestDelay;
     }
 
     public function searchByKeyword(string $keyword, array $options = []): array

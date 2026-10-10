@@ -20,7 +20,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Services\InfoProviderSystem\Providers;
 
 use App\Entity\Parts\ManufacturingStatus;
@@ -36,7 +35,6 @@ use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\Exception\ExceptionInterface as HttpExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * Retrieves part infos from adafruit.com, using their public product API.
@@ -51,6 +49,8 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 class AdafruitProvider implements InfoProviderInterface, URLHandlerInfoProviderInterface
 {
+    use ThrottledRequestTrait;
+
     public const PROVIDER_KEY = 'adafruit';
 
     public const BASE_URL = 'https://www.adafruit.com';
@@ -67,14 +67,6 @@ class AdafruitProvider implements InfoProviderInterface, URLHandlerInfoProviderI
 
     private const CATALOG_CACHE_KEY = 'adafruit_catalog_v1';
     private const CATALOG_CACHE_TTL = 3600 * 24; //1 day
-
-    /** @var int[] The HTTP status codes with which adafruit.com tells us that it does not want our requests (anymore) */
-    private const REFUSED_STATUS_CODES = [403, 429, 503];
-    /** @var int The time (in seconds) no requests are sent to adafruit.com, after it has refused one */
-    private const PAUSE_DURATION = 3600;
-
-    private const CACHE_KEY_PAUSED = 'adafruit_paused';
-    private const CACHE_KEY_NEXT_REQUEST = 'adafruit_next_request';
 
     /** @var string[] The fields of a catalog entry, which are kept in the cache */
     private const CATALOG_FIELDS = ['product_id', 'product_name', 'product_model', 'product_mpn', 'product_manufacturer',
@@ -109,6 +101,7 @@ class AdafruitProvider implements InfoProviderInterface, URLHandlerInfoProviderI
                 ProviderCapabilities::PARAMETERS,
                 ProviderCapabilities::STOCK_LEVEL,
             ],
+            slow: true,
         );
     }
 
@@ -117,65 +110,9 @@ class AdafruitProvider implements InfoProviderInterface, URLHandlerInfoProviderI
         return $this->settings->enabled;
     }
 
-    /**
-     * Sends a request to adafruit.com. Every request of this provider (to the API and to the product pages) has to use
-     * this method: It spaces the requests, and once the shop has refused a request, it does not send any further
-     * requests for some time.
-     */
-    private function request(string $method, string $url, array $options = []): ResponseInterface
+    private function getRequestDelay(): int
     {
-        $paused = $this->partInfoCache->getItem(self::CACHE_KEY_PAUSED);
-        if ($paused->isHit() && is_array($paused->get()) && ($paused->get()['until'] ?? 0) > time()) {
-            throw new \RuntimeException(sprintf(
-                'The Adafruit provider is paused until %s, because adafruit.com refused a request (%s). No requests are sent to it until then.',
-                date('Y-m-d H:i:s T', (int) $paused->get()['until']), $paused->get()['reason'] ?? 'unknown reason'
-            ));
-        }
-
-        $this->waitForNextRequest();
-
-        $response = $this->client->request($method, $url, $options);
-
-        $status = $response->getStatusCode();
-        if (in_array($status, self::REFUSED_STATUS_CODES, true)) {
-            $until = time() + self::PAUSE_DURATION;
-
-            $paused->set(['until' => $until, 'reason' => 'HTTP status ' . $status]);
-            $paused->expiresAfter(self::PAUSE_DURATION);
-            $this->partInfoCache->save($paused);
-
-            throw new \RuntimeException(sprintf(
-                'adafruit.com refused the request (HTTP status %d). The Adafruit provider is paused until %s, no requests are sent to it until then.',
-                $status, date('Y-m-d H:i:s T', $until)
-            ));
-        }
-
-        return $response;
-    }
-
-    /**
-     * Sleeps until the configured delay has passed since the last request to adafruit.com. The time of the next
-     * allowed request is stored in the cache, so the delay is kept between different lookups and PHP processes too.
-     */
-    private function waitForNextRequest(): void
-    {
-        $delay = $this->settings->requestDelay;
-        if ($delay <= 0) {
-            return;
-        }
-
-        $item = $this->partInfoCache->getItem(self::CACHE_KEY_NEXT_REQUEST);
-        $now = microtime(true);
-        $slot = $item->isHit() ? max($now, (float) $item->get()) : $now;
-
-        //Reserve the time after our slot before sleeping, so that parallel requests queue up behind us
-        $item->set($slot + $delay);
-        $item->expiresAfter((int) ceil($slot - $now) + $delay);
-        $this->partInfoCache->save($item);
-
-        if ($slot > $now) {
-            usleep((int) (($slot - $now) * 1_000_000));
-        }
+        return $this->settings->requestDelay;
     }
 
     /**
@@ -191,7 +128,7 @@ class AdafruitProvider implements InfoProviderInterface, URLHandlerInfoProviderI
             return $item->get();
         }
 
-        $response = $this->request('GET', self::CATALOG_API_URL, [
+        $response = $this->throttledRequest('GET', self::CATALOG_API_URL, [
             'timeout' => 60,
         ]);
 
@@ -311,7 +248,7 @@ class AdafruitProvider implements InfoProviderInterface, URLHandlerInfoProviderI
             throw new \InvalidArgumentException("The id must be a numeric Adafruit product ID!");
         }
 
-        $product = $this->request('GET', self::PRODUCT_API_URL . $id)->toArray();
+        $product = $this->throttledRequest('GET', self::PRODUCT_API_URL . $id)->toArray();
         if (!isset($product['product_id'], $product['product_name'])) {
             throw new \RuntimeException("Product with ID $id not found");
         }
@@ -327,7 +264,7 @@ class AdafruitProvider implements InfoProviderInterface, URLHandlerInfoProviderI
 
         if ($this->settings->fetchProductPage) {
             try {
-                $page = new Crawler($this->request('GET', $productUrl)->getContent());
+                $page = new Crawler($this->throttledRequest('GET', $productUrl)->getContent());
 
                 $category = $this->parseCategory($page);
                 $images = $this->parseImages($page);

@@ -25,6 +25,7 @@ namespace App\Form\Type;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Contracts\HasMasterAttachmentInterface;
+use App\Services\Attachments\AttachmentURLGenerator;
 use RuntimeException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
@@ -34,6 +35,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MasterPictureAttachmentType extends AbstractType
 {
+    public function __construct(private readonly AttachmentURLGenerator $attachmentURLGenerator)
+    {
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired('entity');
@@ -42,9 +47,17 @@ class MasterPictureAttachmentType extends AbstractType
         $resolver->setDefaults([
             'filter' => 'picture',
             'choice_translation_domain' => false,
-            'choice_attr' => static fn(Options $options) => static function ($choice, $key, $value) use ($options) {
+            'choice_attr' => fn(Options $options) => function ($choice, $key, $value) use ($options) {
                 /** @var Attachment $choice */
                 $tmp = ['data-subtext' => $choice->getFilename() ?? 'URL'];
+
+                //Show a small preview of the picture in the selector, if possible
+                if ($choice->isPicture()) {
+                    $thumbnail = $this->attachmentURLGenerator->getThumbnailURL($choice, 'thumbnail_xs');
+                    if ($thumbnail !== null) {
+                        $tmp['data-image'] = $thumbnail;
+                    }
+                }
 
                 if ('picture' === $options['filter'] && !$choice->isPicture()) {
                     $tmp += ['disabled' => 'disabled'];

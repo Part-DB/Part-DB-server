@@ -100,11 +100,7 @@ export default class extends Controller {
 
         }
 
-        if (data.class) {
-            return '<div><span class="' + escape(data.class) + '">' + escape(data.text) + '</span></div>';
-        } else {
-            return '<div>' + escape(data.text) + '</div>';
-        }
+        return '<div>' + this._renderImage(data, escape) + this._renderText(data, escape) + '</div>';
     }
 
     renderOption(data, escape) {
@@ -113,11 +109,29 @@ export default class extends Controller {
             return '<div>&nbsp;</div>';
         }
 
-        if (data.class) {
-            return '<div><span class="' + escape(data.class) + '">' + escape(data.text) + '</span></div>';
-        } else {
-            return '<div>' + escape(data.text) + '</div>';
+        let subtext = '';
+        if (data.subtext) {
+            subtext = ' <small class="text-muted">' + escape(data.subtext) + '</small>';
         }
+
+        return '<div>' + this._renderImage(data, escape) + this._renderText(data, escape) + subtext + '</div>';
+    }
+
+    _renderText(data, escape) {
+        if (data.class) {
+            return '<span class="' + escape(data.class) + '">' + escape(data.text) + '</span>';
+        }
+        return escape(data.text);
+    }
+
+    /**
+     * Renders a small preview image, if the option has a data-image attribute
+     */
+    _renderImage(data, escape) {
+        if (!data.image) {
+            return '';
+        }
+        return '<img class="structural-entity-select-image" style="margin-right: 5px;" src="' + escape(data.image) + '" alt="">';
     }
 
     disconnect() {

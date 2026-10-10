@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\DataTables\Filters\PartSearchFilter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
@@ -112,6 +113,42 @@ class PartRepository extends NamedDBElementRepository
         $qb->orderBy('NATSORT(part.name)', 'ASC');
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Search parts the same way as the search page does (selected fields, regex, extensive and wildcard matching),
+     * but limited to a small number of results, so it can be used for autocompletion.
+     * @return Part[]
+     */
+    public function autocompleteSearchWithFilter(PartSearchFilter $filter, int $max_limits = 50): array
+    {
+        //Select only the IDs first, as the joins needed by the filter would otherwise multiply the rows
+        $qb = $this->createQueryBuilder('part');
+        $qb->select('part.id')
+            ->leftJoin('part.category', '_category')
+            ->leftJoin('part.footprint', '_footprint')
+            ->leftJoin('part.manufacturer', '_manufacturer')
+            ->leftJoin('part.partLots', '_partLots')
+            ->leftJoin('_partLots.storage_location', '_storelocations')
+            ->leftJoin('part.orderdetails', '_orderdetails')
+            ->leftJoin('_orderdetails.supplier', '_suppliers')
+            ->groupBy('part.id')
+            ->orderBy('part.name', 'ASC')
+            ->setMaxResults($max_limits);
+
+        $filter->apply($qb);
+        $ids = array_column($qb->getQuery()->getArrayResult(), 'id');
+        if ($ids === []) {
+            return [];
+        }
+
+        return $this->createQueryBuilder('part')
+            ->select('part')
+            ->where('part.id IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->orderBy('NATSORT(part.name)', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
     /**
