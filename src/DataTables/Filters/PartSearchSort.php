@@ -50,11 +50,13 @@ enum PartSearchSort: string
     }
 
     /**
-     * Returns true, if the given request asks for a descending order (the "sort_dir" query parameter).
+     * Returns the sort direction chosen in the given request (the "sort_dir" query parameter), ascending by default.
      */
-    public static function isDescending(Request $request): bool
+    public static function directionFromRequest(Request $request): \SortDirection
     {
-        return strtolower($request->query->getString('sort_dir')) === 'desc';
+        return strtolower($request->query->getString('sort_dir')) === 'desc'
+            ? \SortDirection::Descending
+            : \SortDirection::Ascending;
     }
 
     /**

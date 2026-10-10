@@ -145,7 +145,7 @@ class TypeaheadController extends AbstractController
 
         //The ordering of the results chosen in the search dropdown (null orders by name)
         $sort = PartSearchSort::fromRequest($request);
-        $descending = PartSearchSort::isDescending($request);
+        $direction = PartSearchSort::directionFromRequest($request);
 
         //If search options (fields, regex, extensive, wildcard) are passed, search like the search page does,
         //otherwise (e.g. part select fields) use the simple and fast autocomplete search
@@ -158,12 +158,12 @@ class TypeaheadController extends AbstractController
             }
 
             try {
-                $parts = $repo->autocompleteSearchWithFilter($filter, 100, $sort, $descending);
+                $parts = $repo->autocompleteSearchWithFilter($filter, 100, $sort, $direction);
             } catch (InvalidRegexException|DBALException) {
                 return new JsonResponse([]);
             }
         } else { // Use the fast and simple autocomplete search for the part select fields
-            $parts = $repo->autocompleteSearch($query, 100, $sort, $descending);
+            $parts = $repo->autocompleteSearch($query, 100, $sort, $direction);
         }
 
         $data = [];

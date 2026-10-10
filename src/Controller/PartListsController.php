@@ -319,7 +319,7 @@ class PartListsController extends AbstractController
         $order = null;
         $order_column = PartSearchSort::fromRequest($request)?->getTableColumn();
         if ($order_column !== null) {
-            $order = [$order_column, PartSearchSort::isDescending($request) ? DataTable::SORT_DESCENDING : DataTable::SORT_ASCENDING];
+            $order = [$order_column, PartSearchSort::directionFromRequest($request) === \SortDirection::Descending ? DataTable::SORT_DESCENDING : DataTable::SORT_ASCENDING];
         }
 
         return $this->showListWithFilter($request,

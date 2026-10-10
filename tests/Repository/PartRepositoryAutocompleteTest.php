@@ -58,7 +58,7 @@ final class PartRepositoryAutocompleteTest extends KernelTestCase
     public function testAutocompleteSearchSorted(): void
     {
         $this->assertSame(['Part 3', 'Part 2', 'Part 1'],
-            $this->getNames($this->repo->autocompleteSearch('Part', 10, PartSearchSort::NAME, true)));
+            $this->getNames($this->repo->autocompleteSearch('Part', 10, PartSearchSort::NAME, \SortDirection::Descending)));
 
         //Only Part 2 has a manufacturer, the parts without one are put at the end (ordered by their name)
         $this->assertSame(['Part 2', 'Part 1', 'Part 3'],

@@ -99,10 +99,10 @@ class PartRepository extends NamedDBElementRepository
     /**
      * Simple and fast search for the part select fields: matches the name, description, category and footprint.
      * @param  PartSearchSort|null  $sort  The ordering of the results, or null to order them by their name
-     * @param  bool  $descending  Reverse the ordering given by $sort
+     * @param  \SortDirection  $direction  The direction of the ordering given by $sort
      * @return Part[]
      */
-    public function autocompleteSearch(string $query, int $max_limits = 50, ?PartSearchSort $sort = null, bool $descending = false): array
+    public function autocompleteSearch(string $query, int $max_limits = 50, ?PartSearchSort $sort = null, \SortDirection $direction = \SortDirection::Ascending): array
     {
         $qb = $this->createQueryBuilder('part');
         $qb->select('part.id')
@@ -115,17 +115,17 @@ class PartRepository extends NamedDBElementRepository
             ->groupBy('part.id')
             ->setParameter('query', '%'.$query.'%');
 
-        return $this->getSortedAutocompleteResults($qb, $sort, $descending, $max_limits);
+        return $this->getSortedAutocompleteResults($qb, $sort, $direction, $max_limits);
     }
 
     /**
      * Search parts the same way as the search page does (selected fields, regex, extensive and wildcard matching),
      * but limited to a small number of results, so it can be used for autocompletion.
      * @param  PartSearchSort|null  $sort  The ordering of the results, or null to order them by their name
-     * @param  bool  $descending  Reverse the ordering given by $sort
+     * @param  \SortDirection  $direction  The direction of the ordering given by $sort
      * @return Part[]
      */
-    public function autocompleteSearchWithFilter(PartSearchFilter $filter, int $max_limits = 50, ?PartSearchSort $sort = null, bool $descending = false): array
+    public function autocompleteSearchWithFilter(PartSearchFilter $filter, int $max_limits = 50, ?PartSearchSort $sort = null, \SortDirection $direction = \SortDirection::Ascending): array
     {
         //Select only the IDs first, as the joins needed by the filter would otherwise multiply the rows
         $qb = $this->createQueryBuilder('part');
@@ -141,7 +141,7 @@ class PartRepository extends NamedDBElementRepository
 
         $filter->apply($qb);
 
-        return $this->getSortedAutocompleteResults($qb, $sort, $descending, $max_limits);
+        return $this->getSortedAutocompleteResults($qb, $sort, $direction, $max_limits);
     }
 
     /**
@@ -152,12 +152,12 @@ class PartRepository extends NamedDBElementRepository
      * @param  PartSearchSort|null  $sort  The ordering of the results, or null to order them by their name
      * @return Part[]
      */
-    private function getSortedAutocompleteResults(QueryBuilder $qb, ?PartSearchSort $sort, bool $descending, int $max_limits): array
+    private function getSortedAutocompleteResults(QueryBuilder $qb, ?PartSearchSort $sort, \SortDirection $direction, int $max_limits): array
     {
         $sort ??= PartSearchSort::NAME;
 
         if ($sort === PartSearchSort::TOP_CATEGORY) {
-            $ids = $this->getIdsSortedByTopCategory($qb, $descending, $max_limits);
+            $ids = $this->getIdsSortedByTopCategory($qb, $direction, $max_limits);
         } else {
             $aliases = $qb->getAllAliases();
             if ($sort === PartSearchSort::MANUFACTURER && !in_array('_manufacturer', $aliases, true)) {
@@ -185,7 +185,7 @@ class PartRepository extends NamedDBElementRepository
                     ->addOrderBy('sort_is_null', 'ASC');
             }
 
-            $qb->addOrderBy($order, $descending ? 'DESC' : 'ASC')
+            $qb->addOrderBy($order, $direction === \SortDirection::Descending ? 'DESC' : 'ASC')
                 ->addOrderBy('NATSORT(part.name)', 'ASC')
                 ->addOrderBy('part.id', 'ASC')
                 ->setMaxResults($max_limits);
@@ -215,7 +215,7 @@ class PartRepository extends NamedDBElementRepository
      * category paths, which only requires the ID and category ID of each found part.
      * @return int[]
      */
-    private function getIdsSortedByTopCategory(QueryBuilder $qb, bool $descending, int $max_limits): array
+    private function getIdsSortedByTopCategory(QueryBuilder $qb, \SortDirection $direction, int $max_limits): array
     {
         $rows = $qb->addSelect('IDENTITY(part.category) AS category_id')
             ->addOrderBy('NATSORT(part.name)', 'ASC')
@@ -232,7 +232,7 @@ class PartRepository extends NamedDBElementRepository
         }
 
         //usort is stable, so parts of the same root category stay ordered by their name
-        usort($rows, static function (array $a, array $b) use ($root_names, $descending): int {
+        usort($rows, static function (array $a, array $b) use ($root_names, $direction): int {
             $name_a = $root_names[(int) $a['id']];
             $name_b = $root_names[(int) $b['id']];
 
@@ -241,7 +241,7 @@ class PartRepository extends NamedDBElementRepository
                 return ($name_a === null) <=> ($name_b === null);
             }
 
-            return $descending ? strnatcasecmp($name_b, $name_a) : strnatcasecmp($name_a, $name_b);
+            return $direction === \SortDirection::Descending ? strnatcasecmp($name_b, $name_a) : strnatcasecmp($name_a, $name_b);
         });
 
         return array_map(intval(...), array_column(array_slice($rows, 0, $max_limits), 'id'));
