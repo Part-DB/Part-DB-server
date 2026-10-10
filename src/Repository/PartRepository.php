@@ -25,9 +25,11 @@ namespace App\Repository;
 use App\DataTables\Filters\PartSearchFilter;
 use App\DataTables\Filters\PartSearchSort;
 use App\Doctrine\Helpers\FieldHelper;
+use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
+use App\Entity\PriceInformations\Orderdetail;
 use App\Services\Trees\StructuralElementPathCache;
 use App\Settings\MiscSettings\IpnSuggestSettings;
 use Doctrine\ORM\NonUniqueResultException;
@@ -39,6 +41,13 @@ use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @extends NamedDBElementRepository<Part>
+ *
+ * The data of a part needed to show it in the autocomplete search results, without loading the part entity.
+ * The preview attachments are the candidates for the preview picture (master picture of the part, its footprint and
+ * the project it is a build part of) in the order of their priority, see PartPreviewGenerator::getFirstValidPicture().
+ * @phpstan-type AutocompletePartData array{id: int, name: string, description: string, category_id: int|null,
+ *     category: string|null, footprint: string|null, manufacturer: string|null, addedDate: \DateTimeImmutable|null,
+ *     lastModified: \DateTimeImmutable|null, suppliers: list<string>, preview_attachments: list<Attachment|null>}
  */
 #[Autoconfigure(tags: ['doctrine.repository_service'])]
 class PartRepository extends NamedDBElementRepository
@@ -100,7 +109,7 @@ class PartRepository extends NamedDBElementRepository
      * Simple and fast search for the part select fields: matches the name, description, category and footprint.
      * @param  PartSearchSort|null  $sort  The ordering of the results, or null to order them by their name
      * @param  \SortDirection  $direction  The direction of the ordering given by $sort
-     * @return Part[]
+     * @return list<AutocompletePartData>
      */
     public function autocompleteSearch(string $query, int $max_limits = 50, ?PartSearchSort $sort = null, \SortDirection $direction = \SortDirection::Ascending): array
     {
@@ -123,7 +132,7 @@ class PartRepository extends NamedDBElementRepository
      * but limited to a small number of results, so it can be used for autocompletion.
      * @param  PartSearchSort|null  $sort  The ordering of the results, or null to order them by their name
      * @param  \SortDirection  $direction  The direction of the ordering given by $sort
-     * @return Part[]
+     * @return list<AutocompletePartData>
      */
     public function autocompleteSearchWithFilter(PartSearchFilter $filter, int $max_limits = 50, ?PartSearchSort $sort = null, \SortDirection $direction = \SortDirection::Ascending): array
     {
@@ -150,7 +159,7 @@ class PartRepository extends NamedDBElementRepository
      * @param  QueryBuilder  $qb  A query selecting the IDs of the found parts (alias "part") grouped by part.id. Joined
      * entities must use the alias of the parts table (underscore prefix).
      * @param  PartSearchSort|null  $sort  The ordering of the results, or null to order them by their name
-     * @return Part[]
+     * @return list<AutocompletePartData>
      */
     private function getSortedAutocompleteResults(QueryBuilder $qb, ?PartSearchSort $sort, \SortDirection $direction, int $max_limits): array
     {
@@ -193,19 +202,93 @@ class PartRepository extends NamedDBElementRepository
             $ids = array_column($qb->getQuery()->getArrayResult(), 'id');
         }
 
+        return $this->getAutocompleteData($ids);
+    }
+
+    /**
+     * Loads the data needed to show the given parts in the autocomplete search results. Only the needed fields are
+     * selected instead of loading the part entities and their associations one by one.
+     * @param  int[]  $ids
+     * @return list<AutocompletePartData> The data of the parts in the same order as the given IDs
+     */
+    private function getAutocompleteData(array $ids): array
+    {
         if ($ids === []) {
             return [];
         }
 
         $qb = $this->createQueryBuilder('part')
-            ->select('part')
+            ->select('part.id', 'part.name', 'part.description', 'IDENTITY(part.category) AS category_id',
+                '_category.name AS category', '_footprint.name AS footprint', '_manufacturer.name AS manufacturer',
+                'part.addedDate', 'part.lastModified',
+                'IDENTITY(part.master_picture_attachment) AS part_picture_id',
+                'IDENTITY(_footprint.master_picture_attachment) AS footprint_picture_id',
+                'IDENTITY(_built_project.master_picture_attachment) AS project_picture_id')
+            ->leftJoin('part.category', '_category')
+            ->leftJoin('part.footprint', '_footprint')
+            ->leftJoin('part.manufacturer', '_manufacturer')
+            ->leftJoin('part.built_project', '_built_project')
             ->where('part.id IN (:ids)')
             ->setParameter('ids', $ids);
 
-        //Get the parts in the same order as the sorted IDs
+        //Get the rows in the same order as the sorted IDs
         FieldHelper::addOrderByFieldParam($qb, 'part.id', 'ids');
+        $rows = $qb->getQuery()->getArrayResult();
 
-        return $qb->getQuery()->getResult();
+        //Load all the preview picture candidates at once
+        $picture_columns = ['part_picture_id', 'footprint_picture_id', 'project_picture_id'];
+        $picture_ids = [];
+        foreach ($rows as $row) {
+            foreach ($picture_columns as $column) {
+                if ($row[$column] !== null) {
+                    $picture_ids[(int) $row[$column]] = (int) $row[$column];
+                }
+            }
+        }
+        $picture_ids = array_values($picture_ids);
+        $attachments = [];
+        if ($picture_ids !== []) {
+            foreach ($this->getEntityManager()->getRepository(Attachment::class)->findBy(['id' => $picture_ids]) as $attachment) {
+                $attachments[$attachment->getID()] = $attachment;
+            }
+        }
+
+        //Load the names of the suppliers of all parts at once
+        $suppliers = [];
+        $supplier_rows = $this->getEntityManager()->createQueryBuilder()
+            ->select('IDENTITY(orderdetail.part) AS part_id', 'supplier.name')
+            ->from(Orderdetail::class, 'orderdetail')
+            ->innerJoin('orderdetail.supplier', 'supplier')
+            ->where('orderdetail.part IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->getQuery()
+            ->getArrayResult();
+        foreach ($supplier_rows as $supplier_row) {
+            $suppliers[(int) $supplier_row['part_id']][$supplier_row['name']] = $supplier_row['name'];
+        }
+
+        return array_map(static function (array $row) use ($attachments, $suppliers, $picture_columns): array {
+            $id = (int) $row['id'];
+            $part_suppliers = $suppliers[$id] ?? [];
+            natcasesort($part_suppliers);
+
+            return [
+                'id' => $id,
+                'name' => $row['name'],
+                'description' => $row['description'],
+                'category_id' => $row['category_id'] !== null ? (int) $row['category_id'] : null,
+                'category' => $row['category'],
+                'footprint' => $row['footprint'],
+                'manufacturer' => $row['manufacturer'],
+                'addedDate' => $row['addedDate'],
+                'lastModified' => $row['lastModified'],
+                'suppliers' => array_values($part_suppliers),
+                'preview_attachments' => array_map(
+                    static fn(string $column) => $row[$column] !== null ? ($attachments[(int) $row[$column]] ?? null) : null,
+                    $picture_columns
+                ),
+            ];
+        }, $rows);
     }
 
     /**

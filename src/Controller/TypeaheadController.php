@@ -37,11 +37,11 @@ use App\Entity\Parameters\ProjectParameter;
 use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\Parameters\SupplierParameter;
 use App\Entity\Parts\Category;
-use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Currency;
 use App\Exceptions\InvalidRegexException;
 use App\Repository\ParameterRepository;
+use App\Repository\PartRepository;
 use App\Services\AI\AIPlatformRegistry;
 use App\Services\AI\AIPlatforms;
 use App\Services\Attachments\AttachmentURLGenerator;
@@ -67,6 +67,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 
 /**
  * In this controller the endpoints for the typeaheads are collected.
+ * @phpstan-import-type AutocompletePartData from PartRepository
  */
 #[Route(path: '/typeahead')]
 class TypeaheadController extends AbstractController
@@ -169,20 +170,19 @@ class TypeaheadController extends AbstractController
         $data = [];
         foreach ($parts as $part) {
             //Determine the picture to show:
-            $preview_attachment = $previewGenerator->getTablePreviewAttachment($part);
+            $preview_attachment = $previewGenerator->getFirstValidPicture(...$part['preview_attachments']);
             if ($preview_attachment instanceof Attachment) {
                 $preview_url = $attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_sm') ?? '';
             } else {
                 $preview_url = '';
             }
 
-            /** @var Part $part */
             $data[] = [
-                'id' => $part->getID(),
-                'name' => $part->getName(),
-                'category' => $part->getCategory() instanceof Category ? $part->getCategory()->getName() : 'Unknown',
-                'footprint' => $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getName() : '',
-                'description' => mb_strimwidth($part->getDescription(), 0, 127, '...'),
+                'id' => $part['id'],
+                'name' => $part['name'],
+                'category' => $part['category'] ?? 'Unknown',
+                'footprint' => $part['footprint'] ?? '',
+                'description' => mb_strimwidth($part['description'], 0, 127, '...'),
                 'image' => $preview_url,
                 //The value the results are ordered by, if it is not shown anyway (like the name and the category)
                 'sort_value' => $this->getSortValue($part, $sort),
@@ -195,35 +195,20 @@ class TypeaheadController extends AbstractController
     /**
      * Returns the value of the given part, which the search results are ordered by, so it can be shown next to it.
      * Empty for the orderings whose value is part of every result anyway and for parts without that value.
+     * @param  AutocompletePartData  $part
      */
-    private function getSortValue(Part $part, ?PartSearchSort $sort): string
+    private function getSortValue(array $part, ?PartSearchSort $sort): string
     {
-        switch ($sort) {
-            case PartSearchSort::MANUFACTURER:
-                return $part->getManufacturer()?->getName() ?? '';
-            case PartSearchSort::SUPPLIER:
-                $names = [];
-                foreach ($part->getOrderdetails() as $orderdetail) {
-                    $name = $orderdetail->getSupplier()?->getName();
-                    if ($name !== null && $name !== '') {
-                        $names[$name] = $name;
-                    }
-                }
-                natcasesort($names);
-                return implode(', ', $names);
-            case PartSearchSort::ADDED_DATE:
-                return $part->getAddedDate()?->format('Y-m-d') ?? '';
-            case PartSearchSort::LAST_MODIFIED:
-                return $part->getLastModified()?->format('Y-m-d') ?? '';
-            case PartSearchSort::TOP_CATEGORY:
-                $category_id = $part->getCategory()?->getID();
-                if ($category_id === null) {
-                    return '';
-                }
-                return $this->pathCache->getPathNames(Category::class, $category_id)[0] ?? '';
-            default:
-                return '';
-        }
+        return match ($sort) {
+            PartSearchSort::MANUFACTURER => $part['manufacturer'] ?? '',
+            PartSearchSort::SUPPLIER => implode(', ', $part['suppliers']),
+            PartSearchSort::ADDED_DATE => $part['addedDate']?->format('Y-m-d') ?? '',
+            PartSearchSort::LAST_MODIFIED => $part['lastModified']?->format('Y-m-d') ?? '',
+            PartSearchSort::TOP_CATEGORY => $part['category_id'] !== null
+                ? ($this->pathCache->getPathNames(Category::class, $part['category_id'])[0] ?? '')
+                : '',
+            default => '',
+        };
     }
 
     #[Route(path: '/parameters/{type}/search/{query}', name: 'typeahead_parameters', requirements: ['type' => '.+'])]

@@ -40,12 +40,12 @@ final class PartRepositoryAutocompleteTest extends KernelTestCase
     }
 
     /**
-     * @param  Part[]  $parts
+     * @param  array<array{name: string}>  $parts
      * @return string[]
      */
     private function getNames(array $parts): array
     {
-        return array_map(static fn(Part $part) => $part->getName(), $parts);
+        return array_column($parts, 'name');
     }
 
     public function testAutocompleteSearchOrdersByNameByDefault(): void
@@ -63,6 +63,27 @@ final class PartRepositoryAutocompleteTest extends KernelTestCase
         //Only Part 2 has a manufacturer, the parts without one are put at the end (ordered by their name)
         $this->assertSame(['Part 2', 'Part 1', 'Part 3'],
             $this->getNames($this->repo->autocompleteSearch('Part', 10, PartSearchSort::MANUFACTURER)));
+    }
+
+    public function testAutocompleteSearchReturnsPartData(): void
+    {
+        $parts = $this->repo->autocompleteSearch('Part', 10);
+        [$part1, $part2, $part3] = $parts;
+
+        $this->assertSame('Part 2', $part2['name']);
+        $this->assertSame('Node 1', $part2['category']);
+        $this->assertSame(1, $part2['category_id']);
+        $this->assertSame('Node 1', $part2['footprint']);
+        $this->assertSame('Node 1', $part2['manufacturer']);
+        $this->assertInstanceOf(\DateTimeImmutable::class, $part2['addedDate']);
+        $this->assertCount(3, $part2['preview_attachments']);
+
+        $this->assertNull($part1['footprint']);
+        $this->assertNull($part1['manufacturer']);
+        $this->assertSame([], $part1['suppliers']);
+
+        //Both orderdetails of Part 3 have the same supplier, it is only listed once
+        $this->assertSame(['Node 1'], $part3['suppliers']);
     }
 
     public function testAutocompleteSearchWithFilterOrdersByNameByDefault(): void
