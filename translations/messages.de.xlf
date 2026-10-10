@@ -13980,6 +13980,72 @@ Buerklin-API-Authentication-Server:
         <target>Wenn aktiviert, werden beim Erstellen eines Bauteils mehr Details von canopy abgerufen. Das verursacht eine zusätzliche API-Anfrage, liefert aber Produkt-Bulletpoints und Kategoriedaten.</target>
       </segment>
     </unit>
+    <unit id="KyC_YsX" name="settings.ips.trustedparts">
+      <segment state="translated">
+        <source>settings.ips.trustedparts</source>
+        <target>TrustedParts</target>
+      </segment>
+    </unit>
+    <unit id="iB2.9sg" name="settings.ips.trustedparts.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.help</source>
+        <target>TrustedParts.com ist eine von der ECIA betriebene Bauteil-Suchmaschine, welche die Angebote autorisierter Distributoren zusammenfasst. Sie müssen Zugang zu deren API beantragen, um diese Informationsquelle nutzen zu können.</target>
+      </segment>
+    </unit>
+    <unit id="Mhe.lWu" name="settings.ips.trustedparts.companyId">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.companyId</source>
+        <target>Firmen-ID</target>
+      </segment>
+    </unit>
+    <unit id="DvzhYe1" name="settings.ips.trustedparts.companyId.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.companyId.help</source>
+        <target>Die Firmenkennung, die Ihrem TrustedParts.com-Konto zugewiesen wurde. Sie finden diese auf der API-Schlüssel-Seite Ihres Kontos.</target>
+      </segment>
+    </unit>
+    <unit id="AqF7ns9" name="settings.ips.trustedparts.apiKey.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.apiKey.help</source>
+        <target>Der API-Schlüssel, der Ihrem TrustedParts.com-Konto zugewiesen wurde. Sie finden diesen auf der API-Schlüssel-Seite Ihres Kontos.</target>
+      </segment>
+    </unit>
+    <unit id="Gh676P6" name="settings.ips.trustedparts.searchLimit">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.searchLimit</source>
+        <target>Suchlimit</target>
+      </segment>
+    </unit>
+    <unit id="R7oiMLD" name="settings.ips.trustedparts.searchLimit.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.searchLimit.help</source>
+        <target>Die maximale Anzahl an Ergebnissen, die bei einer Stichwortsuche angezeigt werden.</target>
+      </segment>
+    </unit>
+    <unit id="DFkCu4n" name="settings.ips.trustedparts.inStockOnly">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.inStockOnly</source>
+        <target>Nur lagernde Angebote</target>
+      </segment>
+    </unit>
+    <unit id="EF2mFRR" name="settings.ips.trustedparts.inStockOnly.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.inStockOnly.help</source>
+        <target>Wenn aktiviert, werden nur die Angebote von Distributoren zurückgegeben, die das Bauteil aktuell auf Lager haben.</target>
+      </segment>
+    </unit>
+    <unit id="r4gkOcR" name="settings.ips.trustedparts.useCachedData">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.useCachedData</source>
+        <target>Zwischengespeicherte Daten verwenden</target>
+      </segment>
+    </unit>
+    <unit id="JNIu4bu" name="settings.ips.trustedparts.useCachedData.help">
+      <segment state="translated">
+        <source>settings.ips.trustedparts.useCachedData.help</source>
+        <target>Wenn aktiviert, antwortet TrustedParts.com mit zwischengespeicherten Lagerbestands- und Preisdaten, anstatt die Distributoren in Echtzeit abzufragen. Dies ist schneller und wird nicht auf die Ratenbegrenzung angerechnet, die Daten können jedoch veraltet sein.</target>
+      </segment>
+    </unit>
     <unit id="D055xh8" name="attachment.sandbox.warning">
       <segment state="translated">
         <source>attachment.sandbox.warning</source>
@@ -15438,234 +15504,6 @@ Buerklin-API-Authentication-Server:
         <target>Keine</target>
       </segment>
     </unit>
-    <unit id="cEeEQ3Q" name="info_providers.from_file.title">
-      <segment>
-        <source>info_providers.from_file.title</source>
-        <target>Erstelle [Part] aus Datei</target>
-      </segment>
-    </unit>
-    <unit id="r2wTioF" name="info_providers.from_file.help">
-      <segment>
-        <source>info_providers.from_file.help</source>
-        <target>Erstellt ein [Part] aus einer Datei, z. B. einem Datenblatt. Die Datei wird an das in den Einstellungen des KI Datei Extraktors konfigurierte KI-Modell übergeben, welches versucht, die [Part]informationen daraus zu extrahieren.</target>
-      </segment>
-    </unit>
-    <unit id="4.gsKDJ" name="info_providers.from_file.file.label">
-      <segment>
-        <source>info_providers.from_file.file.label</source>
-        <target>Datei</target>
-      </segment>
-    </unit>
-    <unit id="kTrv0Uj" name="info_providers.from_file.file.help">
-      <segment>
-        <source>info_providers.from_file.file.help</source>
-        <target>Unterstützte Formate: PDF-, Text- und Markdown-Dateien. Es wird nur der Text der Datei verwendet, gescannte Dokumente ohne Textebene werden nicht unterstützt. Um Bilder und gescannte Dokumente zu verwenden, muss das Senden von Dateien an das Modell in den Einstellungen des KI Datei Extraktors erlaubt werden.</target>
-      </segment>
-    </unit>
-    <unit id="qTuMUgu" name="info_providers.from_file.submit">
-      <segment>
-        <source>info_providers.from_file.submit</source>
-        <target>[Part]informationen extrahieren</target>
-      </segment>
-    </unit>
-    <unit id="c5hpNDv" name="info_providers.from_file.not_active">
-      <segment>
-        <source>info_providers.from_file.not_active</source>
-        <target>Um [[Part]] aus Dateien zu erstellen, müssen in den Einstellungen des KI Datei Extraktors eine KI-Plattform und ein Modell konfiguriert sein.</target>
-      </segment>
-    </unit>
-    <unit id="hcTxnKp" name="info_providers.from_file.error.parse">
-      <segment>
-        <source>info_providers.from_file.error.parse</source>
-        <target>Die Datei konnte nicht gelesen werden: %error%</target>
-      </segment>
-    </unit>
-    <unit id="f7u8XIC" name="info_providers.from_file.error.no_text">
-      <segment>
-        <source>info_providers.from_file.error.no_text</source>
-        <target>Aus der Datei konnte kein Text extrahiert werden. Gescannte Dokumente ohne Textebene können nur verwendet werden, wenn die Datei an das KI-Modell gesendet wird: Wählen Sie den Eingabemodus "Automatisch" oder "Datei an Modell senden" (das Senden von Dateien muss in den Einstellungen des KI Datei Extraktors erlaubt sein).</target>
-      </segment>
-    </unit>
-    <unit id="ciiN9Tw" name="info_providers.from_file.context.label">
-      <segment>
-        <source>info_providers.from_file.context.label</source>
-        <target>Zusätzlicher Kontext</target>
-      </segment>
-    </unit>
-    <unit id="E.2coVK" name="info_providers.from_file.context.help">
-      <segment>
-        <source>info_providers.from_file.context.help</source>
-        <target>Optionale Hinweise für die KI, z. B. die genaue Teilenummer, die verwendet werden soll, wenn die Datei mehrere Varianten beschreibt.</target>
-      </segment>
-    </unit>
-    <unit id="9IaRRF7" name="info_providers.from_file.context.placeholder">
-      <segment>
-        <source>info_providers.from_file.context.placeholder</source>
-        <target>z. B. Verwende die Variante BC547B im TO-92-Gehäuse</target>
-      </segment>
-    </unit>
-    <unit id="s4q5LjE" name="settings.ips.ai_file_extractor">
-      <segment>
-        <source>settings.ips.ai_file_extractor</source>
-        <target>KI Datei Extraktor</target>
-      </segment>
-    </unit>
-    <unit id="F7kmvAw" name="settings.ips.ai_file_extractor.description">
-      <segment>
-        <source>settings.ips.ai_file_extractor.description</source>
-        <target>Dieser Infoanbieter verwendet ein großes Sprachmodell (LLM), um detaillierte [Part]informationen aus hochgeladenen Dateien, wie z. B. PDF-Datenblättern, zu extrahieren. Er wird von der Seite "Erstelle [Part] aus Datei" verwendet.</target>
-      </segment>
-    </unit>
-    <unit id="tFv6kbn" name="settings.ips.ai_file_extractor.max_content_length">
-      <segment>
-        <source>settings.ips.ai_file_extractor.max_content_length</source>
-        <target>Max. Länge des Dateiinhalts</target>
-      </segment>
-    </unit>
-    <unit id="UyAVUxo" name="settings.ips.ai_file_extractor.max_content_length.description">
-      <segment>
-        <source>settings.ips.ai_file_extractor.max_content_length.description</source>
-        <target>Die maximale Anzahl an Zeichen des Dateiinhalts, die an den KI-Dienst gesendet werden. Längere Dateien werden gekürzt.</target>
-      </segment>
-    </unit>
-    <unit id="KP.Tx.7" name="settings.ips.ai_file_extractor.output_language.description">
-      <segment>
-        <source>settings.ips.ai_file_extractor.output_language.description</source>
-        <target>Standardmäßig liefert der Anbieter Informationen in der gleichen Sprache wie die Datei. Mit dieser Option können Sie die KI bitten, für Sie zu übersetzen. Funktioniert möglicherweise nur mit bestimmten Modellen.</target>
-      </segment>
-    </unit>
-    <unit id="ZYkBycB" name="attachment.uploaded_document.pending">
-      <segment>
-        <source>attachment.uploaded_document.pending</source>
-        <target>Diese Datei wird angehängt, wenn das [Part] gespeichert wird.</target>
-      </segment>
-    </unit>
-    <unit id="P4DIw6c" name="info_providers.from_file.not_attached">
-      <segment>
-        <source>info_providers.from_file.not_attached</source>
-        <target>Die hochgeladene Datei konnte nicht als Anhang hinzugefügt werden, da sie nicht mehr verfügbar oder größer als die maximale Anhangsgröße ist.</target>
-      </segment>
-    </unit>
-    <unit id="GfgpJXr" name="info_providers.from_file.file.help.with_images">
-      <segment>
-        <source>info_providers.from_file.file.help.with_images</source>
-        <target>Unterstützte Formate: PDF, Bilder (PNG, JPEG, WebP, GIF), Text- und Markdown-Dateien. Bilder und Dokumente ohne Text (wie Scans) werden direkt an das KI-Modell gesendet, welches diese Dateitypen unterstützen muss.</target>
-      </segment>
-    </unit>
-    <unit id="PsBqA_v" name="settings.ips.ai_file_extractor.allow_file_input">
-      <segment>
-        <source>settings.ips.ai_file_extractor.allow_file_input</source>
-        <target>Senden von Dateien an das Modell erlauben</target>
-      </segment>
-    </unit>
-    <unit id="uFcvgN8" name="settings.ips.ai_file_extractor.allow_file_input.description">
-      <segment>
-        <source>settings.ips.ai_file_extractor.allow_file_input.description</source>
-        <target>Wenn aktiviert, können Benutzer bei jedem Upload wählen, ob die Datei selbst (Bilder und PDF-Dateien) statt nur ihres extrahierten Textes an das KI-Modell gesendet wird. Dies ermöglicht die Verwendung von Bildern und gescannten Dokumenten und lässt das Modell Layout, Tabellen und Diagramme sehen, erfordert aber ein Modell, das Bilder und PDF-Dateien unterstützt (und eine Plattform, die dies unterstützt: Ollama kann nur Bilder, aber keine PDF-Dateien verarbeiten). Außerdem werden mehr Tokens verbraucht, was zu höheren Kosten pro Anfrage führt. Wenn deaktiviert, wird nur der extrahierte Text verwendet.</target>
-      </segment>
-    </unit>
-    <unit id="XS0813H" name="info_providers.from_file.input_mode.auto">
-      <segment>
-        <source>info_providers.from_file.input_mode.auto</source>
-        <target>Automatisch (Text extrahieren, Bilder und gescannte Dokumente an das Modell senden)</target>
-      </segment>
-    </unit>
-    <unit id="3iTQsXk" name="info_providers.from_file.input_mode.text">
-      <segment>
-        <source>info_providers.from_file.input_mode.text</source>
-        <target>Nur Text extrahieren</target>
-      </segment>
-    </unit>
-    <unit id="ledeTyC" name="info_providers.from_file.input_mode.file">
-      <segment>
-        <source>info_providers.from_file.input_mode.file</source>
-        <target>Datei an Modell senden (PDF-Dateien und Bilder)</target>
-      </segment>
-    </unit>
-    <unit id="i97R6_4" name="info_providers.from_file.input_mode.label">
-      <segment>
-        <source>info_providers.from_file.input_mode.label</source>
-        <target>Eingabemodus</target>
-      </segment>
-    </unit>
-    <unit id="SONaFZG" name="info_providers.from_file.input_mode.help">
-      <segment>
-        <source>info_providers.from_file.input_mode.help</source>
-        <target>Wie die Datei an das KI-Modell übergeben wird. "Nur Text extrahieren" funktioniert mit jedem Modell. Das Senden der Datei selbst erfordert ein Modell, das Bilder und PDF-Dateien unterstützt, ermöglicht aber das Lesen gescannter Dokumente sowie das Erfassen von Layout, Tabellen und Diagrammen. Das Senden ganzer Dateien ist teurer als das Senden von reinem Text!</target>
-      </segment>
-    </unit>
-    <unit id="2pXOLo4" name="info_providers.from_file.error.image_in_text_mode">
-      <segment>
-        <source>info_providers.from_file.error.image_in_text_mode</source>
-        <target>Bilder enthalten keinen Text, der extrahiert werden kann. Wählen Sie den Eingabemodus "Automatisch" oder "Datei an Modell senden", um das Bild an das KI-Modell zu senden.</target>
-      </segment>
-    </unit>
-    <unit id="KyC_YsX" name="settings.ips.trustedparts">
-      <segment state="translated">
-        <source>settings.ips.trustedparts</source>
-        <target>TrustedParts</target>
-      </segment>
-    </unit>
-    <unit id="iB2.9sg" name="settings.ips.trustedparts.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.help</source>
-        <target>TrustedParts.com ist eine von der ECIA betriebene Bauteil-Suchmaschine, welche die Angebote autorisierter Distributoren zusammenfasst. Sie müssen Zugang zu deren API beantragen, um diese Informationsquelle nutzen zu können.</target>
-      </segment>
-    </unit>
-    <unit id="Mhe.lWu" name="settings.ips.trustedparts.companyId">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.companyId</source>
-        <target>Firmen-ID</target>
-      </segment>
-    </unit>
-    <unit id="DvzhYe1" name="settings.ips.trustedparts.companyId.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.companyId.help</source>
-        <target>Die Firmenkennung, die Ihrem TrustedParts.com-Konto zugewiesen wurde. Sie finden diese auf der API-Schlüssel-Seite Ihres Kontos.</target>
-      </segment>
-    </unit>
-    <unit id="AqF7ns9" name="settings.ips.trustedparts.apiKey.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.apiKey.help</source>
-        <target>Der API-Schlüssel, der Ihrem TrustedParts.com-Konto zugewiesen wurde. Sie finden diesen auf der API-Schlüssel-Seite Ihres Kontos.</target>
-      </segment>
-    </unit>
-    <unit id="Gh676P6" name="settings.ips.trustedparts.searchLimit">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.searchLimit</source>
-        <target>Suchlimit</target>
-      </segment>
-    </unit>
-    <unit id="R7oiMLD" name="settings.ips.trustedparts.searchLimit.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.searchLimit.help</source>
-        <target>Die maximale Anzahl an Ergebnissen, die bei einer Stichwortsuche angezeigt werden.</target>
-      </segment>
-    </unit>
-    <unit id="DFkCu4n" name="settings.ips.trustedparts.inStockOnly">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.inStockOnly</source>
-        <target>Nur lagernde Angebote</target>
-      </segment>
-    </unit>
-    <unit id="EF2mFRR" name="settings.ips.trustedparts.inStockOnly.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.inStockOnly.help</source>
-        <target>Wenn aktiviert, werden nur die Angebote von Distributoren zurückgegeben, die das Bauteil aktuell auf Lager haben.</target>
-      </segment>
-    </unit>
-    <unit id="r4gkOcR" name="settings.ips.trustedparts.useCachedData">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.useCachedData</source>
-        <target>Zwischengespeicherte Daten verwenden</target>
-      </segment>
-    </unit>
-    <unit id="JNIu4bu" name="settings.ips.trustedparts.useCachedData.help">
-      <segment state="translated">
-        <source>settings.ips.trustedparts.useCachedData.help</source>
-        <target>Wenn aktiviert, antwortet TrustedParts.com mit zwischengespeicherten Lagerbestands- und Preisdaten, anstatt die Distributoren in Echtzeit abzufragen. Dies ist schneller und wird nicht auf die Ratenbegrenzung angerechnet, die Daten können jedoch veraltet sein.</target>
-      </segment>
-    </unit>
     <unit id="NUw3e9D" name="part.table.supplier_available_amount">
       <segment state="translated">
         <source>part.table.supplier_available_amount</source>
@@ -15676,6 +15514,168 @@ Buerklin-API-Authentication-Server:
       <segment state="translated">
         <source>perm.group.unknown</source>
         <target>Unbekannt</target>
+      </segment>
+    </unit>
+    <unit id="cEeEQ3Q" name="info_providers.from_file.title">
+      <segment state="translated">
+        <source>info_providers.from_file.title</source>
+        <target>Erstelle [Part] aus Datei</target>
+      </segment>
+    </unit>
+    <unit id="r2wTioF" name="info_providers.from_file.help">
+      <segment state="translated">
+        <source>info_providers.from_file.help</source>
+        <target>Erstellt ein [Part] aus einer Datei, z. B. einem Datenblatt. Die Datei wird an das in den Einstellungen des KI Datei Extraktors konfigurierte KI-Modell übergeben, welches versucht, die [Part]informationen daraus zu extrahieren.</target>
+      </segment>
+    </unit>
+    <unit id="4.gsKDJ" name="info_providers.from_file.file.label">
+      <segment state="translated">
+        <source>info_providers.from_file.file.label</source>
+        <target>Datei</target>
+      </segment>
+    </unit>
+    <unit id="kTrv0Uj" name="info_providers.from_file.file.help">
+      <segment state="translated">
+        <source>info_providers.from_file.file.help</source>
+        <target>Unterstützte Formate: PDF-, Text- und Markdown-Dateien. Es wird nur der Text der Datei verwendet, gescannte Dokumente ohne Textebene werden nicht unterstützt. Um Bilder und gescannte Dokumente zu verwenden, muss das Senden von Dateien an das Modell in den Einstellungen des KI Datei Extraktors erlaubt werden.</target>
+      </segment>
+    </unit>
+    <unit id="qTuMUgu" name="info_providers.from_file.submit">
+      <segment state="translated">
+        <source>info_providers.from_file.submit</source>
+        <target>[Part]informationen extrahieren</target>
+      </segment>
+    </unit>
+    <unit id="c5hpNDv" name="info_providers.from_file.not_active">
+      <segment state="translated">
+        <source>info_providers.from_file.not_active</source>
+        <target>Um [[Part]] aus Dateien zu erstellen, müssen in den Einstellungen des KI Datei Extraktors eine KI-Plattform und ein Modell konfiguriert sein.</target>
+      </segment>
+    </unit>
+    <unit id="hcTxnKp" name="info_providers.from_file.error.parse">
+      <segment state="translated">
+        <source>info_providers.from_file.error.parse</source>
+        <target>Die Datei konnte nicht gelesen werden: %error%</target>
+      </segment>
+    </unit>
+    <unit id="f7u8XIC" name="info_providers.from_file.error.no_text">
+      <segment state="translated">
+        <source>info_providers.from_file.error.no_text</source>
+        <target>Aus der Datei konnte kein Text extrahiert werden. Gescannte Dokumente ohne Textebene können nur verwendet werden, wenn die Datei an das KI-Modell gesendet wird: Wählen Sie den Eingabemodus "Automatisch" oder "Datei an Modell senden" (das Senden von Dateien muss in den Einstellungen des KI Datei Extraktors erlaubt sein).</target>
+      </segment>
+    </unit>
+    <unit id="ciiN9Tw" name="info_providers.from_file.context.label">
+      <segment state="translated">
+        <source>info_providers.from_file.context.label</source>
+        <target>Zusätzlicher Kontext</target>
+      </segment>
+    </unit>
+    <unit id="E.2coVK" name="info_providers.from_file.context.help">
+      <segment state="translated">
+        <source>info_providers.from_file.context.help</source>
+        <target>Optionale Hinweise für die KI, z. B. die genaue Teilenummer, die verwendet werden soll, wenn die Datei mehrere Varianten beschreibt.</target>
+      </segment>
+    </unit>
+    <unit id="9IaRRF7" name="info_providers.from_file.context.placeholder">
+      <segment state="translated">
+        <source>info_providers.from_file.context.placeholder</source>
+        <target>z. B. Verwende die Variante BC547B im TO-92-Gehäuse</target>
+      </segment>
+    </unit>
+    <unit id="s4q5LjE" name="settings.ips.ai_file_extractor">
+      <segment state="translated">
+        <source>settings.ips.ai_file_extractor</source>
+        <target>KI Datei Extraktor</target>
+      </segment>
+    </unit>
+    <unit id="F7kmvAw" name="settings.ips.ai_file_extractor.description">
+      <segment state="translated">
+        <source>settings.ips.ai_file_extractor.description</source>
+        <target>Dieser Infoanbieter verwendet ein großes Sprachmodell (LLM), um detaillierte [Part]informationen aus hochgeladenen Dateien, wie z. B. PDF-Datenblättern, zu extrahieren. Er wird von der Seite "Erstelle [Part] aus Datei" verwendet.</target>
+      </segment>
+    </unit>
+    <unit id="tFv6kbn" name="settings.ips.ai_file_extractor.max_content_length">
+      <segment state="translated">
+        <source>settings.ips.ai_file_extractor.max_content_length</source>
+        <target>Max. Länge des Dateiinhalts</target>
+      </segment>
+    </unit>
+    <unit id="UyAVUxo" name="settings.ips.ai_file_extractor.max_content_length.description">
+      <segment state="translated">
+        <source>settings.ips.ai_file_extractor.max_content_length.description</source>
+        <target>Die maximale Anzahl an Zeichen des Dateiinhalts, die an den KI-Dienst gesendet werden. Längere Dateien werden gekürzt.</target>
+      </segment>
+    </unit>
+    <unit id="KP.Tx.7" name="settings.ips.ai_file_extractor.output_language.description">
+      <segment state="translated">
+        <source>settings.ips.ai_file_extractor.output_language.description</source>
+        <target>Standardmäßig liefert der Anbieter Informationen in der gleichen Sprache wie die Datei. Mit dieser Option können Sie die KI bitten, für Sie zu übersetzen. Funktioniert möglicherweise nur mit bestimmten Modellen.</target>
+      </segment>
+    </unit>
+    <unit id="ZYkBycB" name="attachment.uploaded_document.pending">
+      <segment state="translated">
+        <source>attachment.uploaded_document.pending</source>
+        <target>Diese Datei wird angehängt, wenn das [Part] gespeichert wird.</target>
+      </segment>
+    </unit>
+    <unit id="P4DIw6c" name="info_providers.from_file.not_attached">
+      <segment state="translated">
+        <source>info_providers.from_file.not_attached</source>
+        <target>Die hochgeladene Datei konnte nicht als Anhang hinzugefügt werden, da sie nicht mehr verfügbar oder größer als die maximale Anhangsgröße ist.</target>
+      </segment>
+    </unit>
+    <unit id="GfgpJXr" name="info_providers.from_file.file.help.with_images">
+      <segment state="translated">
+        <source>info_providers.from_file.file.help.with_images</source>
+        <target>Unterstützte Formate: PDF, Bilder (PNG, JPEG, WebP, GIF), Text- und Markdown-Dateien. Bilder und Dokumente ohne Text (wie Scans) werden direkt an das KI-Modell gesendet, welches diese Dateitypen unterstützen muss.</target>
+      </segment>
+    </unit>
+    <unit id="PsBqA_v" name="settings.ips.ai_file_extractor.allow_file_input">
+      <segment state="translated">
+        <source>settings.ips.ai_file_extractor.allow_file_input</source>
+        <target>Senden von Dateien an das Modell erlauben</target>
+      </segment>
+    </unit>
+    <unit id="uFcvgN8" name="settings.ips.ai_file_extractor.allow_file_input.description">
+      <segment state="translated">
+        <source>settings.ips.ai_file_extractor.allow_file_input.description</source>
+        <target>Wenn aktiviert, können Benutzer bei jedem Upload wählen, ob die Datei selbst (Bilder und PDF-Dateien) statt nur ihres extrahierten Textes an das KI-Modell gesendet wird. Dies ermöglicht die Verwendung von Bildern und gescannten Dokumenten und lässt das Modell Layout, Tabellen und Diagramme sehen, erfordert aber ein Modell, das Bilder und PDF-Dateien unterstützt (und eine Plattform, die dies unterstützt: Ollama kann nur Bilder, aber keine PDF-Dateien verarbeiten). Außerdem werden mehr Tokens verbraucht, was zu höheren Kosten pro Anfrage führt. Wenn deaktiviert, wird nur der extrahierte Text verwendet.</target>
+      </segment>
+    </unit>
+    <unit id="XS0813H" name="info_providers.from_file.input_mode.auto">
+      <segment state="translated">
+        <source>info_providers.from_file.input_mode.auto</source>
+        <target>Automatisch (Text extrahieren, Bilder und gescannte Dokumente an das Modell senden)</target>
+      </segment>
+    </unit>
+    <unit id="3iTQsXk" name="info_providers.from_file.input_mode.text">
+      <segment state="translated">
+        <source>info_providers.from_file.input_mode.text</source>
+        <target>Nur Text extrahieren</target>
+      </segment>
+    </unit>
+    <unit id="ledeTyC" name="info_providers.from_file.input_mode.file">
+      <segment state="translated">
+        <source>info_providers.from_file.input_mode.file</source>
+        <target>Datei an Modell senden (PDF-Dateien und Bilder)</target>
+      </segment>
+    </unit>
+    <unit id="i97R6_4" name="info_providers.from_file.input_mode.label">
+      <segment state="translated">
+        <source>info_providers.from_file.input_mode.label</source>
+        <target>Eingabemodus</target>
+      </segment>
+    </unit>
+    <unit id="SONaFZG" name="info_providers.from_file.input_mode.help">
+      <segment state="translated">
+        <source>info_providers.from_file.input_mode.help</source>
+        <target>Wie die Datei an das KI-Modell übergeben wird. "Nur Text extrahieren" funktioniert mit jedem Modell. Das Senden der Datei selbst erfordert ein Modell, das Bilder und PDF-Dateien unterstützt, ermöglicht aber das Lesen gescannter Dokumente sowie das Erfassen von Layout, Tabellen und Diagrammen. Das Senden ganzer Dateien ist teurer als das Senden von reinem Text!</target>
+      </segment>
+    </unit>
+    <unit id="2pXOLo4" name="info_providers.from_file.error.image_in_text_mode">
+      <segment state="translated">
+        <source>info_providers.from_file.error.image_in_text_mode</source>
+        <target>Bilder enthalten keinen Text, der extrahiert werden kann. Wählen Sie den Eingabemodus "Automatisch" oder "Datei an Modell senden", um das Bild an das KI-Modell zu senden.</target>
       </segment>
     </unit>
     <unit id="S6JX3.E" name="info_providers.capabilities.stock_level">
