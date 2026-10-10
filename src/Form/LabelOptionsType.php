@@ -47,6 +47,7 @@ use App\Entity\LabelSystem\LabelSupportedElement;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Form\Type\RichTextEditorType;
+use App\Services\LabelSystem\LabelHTMLGenerator;
 use App\Form\Type\TwigCodeEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -118,6 +119,18 @@ class LabelOptionsType extends AbstractType
             },
         ]);
 
+        $builder->add('barcode_size', NumberType::class, [
+            'label' => 'label_options.barcode_size.label',
+            'help' => 'label_options.barcode_size.help',
+            'html5' => true,
+            'required' => false,
+            'attr' => [
+                'placeholder' => 'label_options.barcode_size.placeholder',
+                'min' => 0,
+                'step' => 'any',
+            ],
+        ]);
+
         //The "lines" field is added via an event listener instead of directly, because which form type (and
         //therefore which editor) it should use depends on the entity's current process_mode: The CKEditor
         //WYSIWYG editor treats its content as HTML and therefore escapes characters like <, > and & (e.g. in
@@ -138,6 +151,10 @@ class LabelOptionsType extends AbstractType
                     'data-action' => 'label-lines-mode:change@document->pages--label-lines-mode#toggle',
                 ],
             ];
+
+            //Used by the label editor, to show the content and the barcode in the same size and position as on the label.
+            //Set in both modes, as the editor can be switched to HTML mode without reloading the page.
+            $fieldOptions['attr']['data-label-editor-parameters'] = json_encode(LabelHTMLGenerator::getLabelEditorParameters(), JSON_THROW_ON_ERROR);
 
             if ($processMode === LabelProcessMode::TWIG) {
                 $formType = TwigCodeEditorType::class;
