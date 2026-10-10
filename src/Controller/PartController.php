@@ -49,6 +49,7 @@ use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
 use App\Services\Parameters\ParameterExtractor;
+use App\Services\Parameters\PendingParameterChoiceApplier;
 use App\Services\Parts\PartLotWithdrawAddHelper;
 use App\Services\Parts\PricedetailHelper;
 use App\Services\ProjectSystem\ProjectBuildPartHelper;
@@ -84,6 +85,7 @@ final class PartController extends AbstractController
         private readonly EventCommentHelper $commentHelper,
         private readonly PartInfoSettings $partInfoSettings,
         private readonly IpnSuggestSettings $ipnSuggestSettings,
+        private readonly PendingParameterChoiceApplier $pendingParameterChoiceApplier,
     ) {
     }
 
@@ -587,6 +589,10 @@ final class PartController extends AbstractController
             }
 
             $this->commentHelper->setMessage($form['log_comment']->getData());
+
+            // Apply definition changes only after the complete Part form is valid. The following flush persists the
+            // Part and its definition changes atomically.
+            $this->pendingParameterChoiceApplier->apply($new_part);
 
             $this->em->persist($new_part);
 
