@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="ja">
-  <file id="validators.en">
-    <unit id="xevSdCK" name="part.master_attachment.must_be_picture">
+  <file id="validators.ja">
+    <unit id="cRbk.cm" name="part.master_attachment.must_be_picture">
       <segment state="translated">
         <source>part.master_attachment.must_be_picture</source>
         <target>プレビュー用の添付ファイルは有効な画像ファイルである必要があります。</target>
       </segment>
     </unit>
-    <unit id="VJHTkxx" name="structural.entity.unique_name">
+    <unit id="v8HkcJB" name="structural.entity.unique_name">
       <segment state="translated">
         <source>structural.entity.unique_name</source>
         <target>同じレベルにすでにこの名前を持つ要素があります。</target>
       </segment>
     </unit>
-    <unit id="3ODUtpU" name="parameters.validator.min_lesser_typical">
+    <unit id="dW7b2B_" name="parameters.validator.min_lesser_typical">
       <segment state="translated">
         <source>parameters.validator.min_lesser_typical</source>
         <target>値は標準値 ({{ compared_value }}) 以下である必要があります。</target>
       </segment>
     </unit>
-    <unit id="jDBA_WW" name="parameters.validator.min_lesser_max">
+    <unit id="Yfp2uC5" name="parameters.validator.min_lesser_max">
       <segment state="translated">
         <source>parameters.validator.min_lesser_max</source>
         <target>値は最大値 ({{ compared_value }}) 未満である必要があります。</target>
       </segment>
     </unit>
-    <unit id="ygK_e_X" name="parameters.validator.max_greater_typical">
+    <unit id="P6b.8Ou" name="parameters.validator.max_greater_typical">
       <segment state="translated">
         <source>parameters.validator.max_greater_typical</source>
         <target>値は標準値 ({{ compared_value }}) 以上である必要があります。</target>
       </segment>
     </unit>
-    <unit id="isXL.ie" name="validator.user.username_already_used">
+    <unit id="P41193Y" name="validator.user.username_already_used">
       <segment state="translated">
         <source>validator.user.username_already_used</source>
         <target>同じ名前のユーザーがすでに存在します。</target>
       </segment>
     </unit>
-    <unit id="NcM463r" name="user.invalid_username">
+    <unit id="EKPQiyf" name="user.invalid_username">
       <segment state="translated">
         <source>user.invalid_username</source>
         <target>ユーザー名にはアルファベット・数字・アンダースコア・ドット・プラス・マイナスのみを使用できます。</target>
       </segment>
     </unit>
-    <unit id="lZvhKYu" name="validator.noneofitschild.self">
+    <unit id="_v.DMg." name="validator.noneofitschild.self">
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
@@ -52,7 +52,7 @@
         <target>要素は自身の親とすることはできません。</target>
       </segment>
     </unit>
-    <unit id="pr07aV4" name="validator.noneofitschild.children">
+    <unit id="W90LyFQ" name="validator.noneofitschild.children">
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
@@ -61,19 +61,19 @@
         <target>要素は自身の子とすることはできません。</target>
       </segment>
     </unit>
-    <unit id="6vIlN5q" name="validator.part_lot.only_existing">
+    <unit id="h6qELde" name="validator.part_lot.only_existing">
       <segment state="translated">
         <source>validator.part_lot.only_existing</source>
         <target>新しい部品を追加できません。保管場所は「既存の部品のみ」とマークされています。</target>
       </segment>
     </unit>
-    <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
+    <unit id="eeEjB4s" name="validator.part_lot.location_full">
       <segment state="translated">
         <source>validator.part_lot.location_full</source>
         <target>新しい部品を追加できません。保管場所が満杯とマークされています。</target>
       </segment>
     </unit>
-    <unit id="BNQk2e7" name="validator.part_lot.single_part">
+    <unit id="2yWi8eP" name="validator.part_lot.single_part">
       <segment state="translated">
         <source>validator.part_lot.single_part</source>
         <target>新しい部品を追加できません。保管場所は「1つの部品のみ」とマークされています。</target>

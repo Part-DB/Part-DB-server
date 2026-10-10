@@ -25,6 +25,7 @@ namespace App\Controller;
 
 use App\Entity\Parts\Part;
 use App\Exceptions\OAuthReconnectRequiredException;
+use App\Services\OAuth\OAuthTokenManager;
 use App\Form\InfoProviderSystem\FromFileFormType;
 use App\Form\InfoProviderSystem\FromURLFormType;
 use App\Form\InfoProviderSystem\PartSearchType;
@@ -85,7 +86,7 @@ class InfoProviderController extends  AbstractController
     }
 
     #[Route('/provider/{provider}/settings', name: 'info_providers_provider_settings')]
-    public function providerSettings(string $provider, Request $request): Response
+    public function providerSettings(string $provider, Request $request, OAuthTokenManager $oauthTokenManager): Response
     {
         $this->denyAccessUnlessGranted('@config.change_system_settings');
         $this->denyAccessUnlessGranted('@info_providers.create_parts');
@@ -123,6 +124,8 @@ class InfoProviderController extends  AbstractController
             'form' => $form,
             'info_provider_key' => $provider,
             'info_provider_info' => $providerInstance->getProviderInfo(),
+            'oauth_token' => $providerInstance->getProviderInfo()->oauthAppName !== null
+                ? $oauthTokenManager->getToken($providerInstance->getProviderInfo()->oauthAppName) : null,
         ]);
     }
 

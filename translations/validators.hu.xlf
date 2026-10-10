@@ -223,13 +223,13 @@
         <target>Technikai korlátok miatt nem lehet dátumokat kiválasztani 2038-01-19 után 32 bites rendszereken!</target>
       </segment>
     </unit>
-    <unit id="89nojXY" name="validator.fileSize.invalidFormat">
+    <unit id="iM9yb_p" name="validator.fileSize.invalidFormat">
       <segment state="translated">
         <source>validator.fileSize.invalidFormat</source>
         <target>Érvénytelen fájlméret formátum. Használj egész számot plusz K, M, G utótagot Kilo, Mega vagy Gigabyte-okhoz.</target>
       </segment>
     </unit>
-    <unit id="iXcU7ce" name="validator.invalid_range">
+    <unit id="ZFxQ0BZ" name="validator.invalid_range">
       <segment state="translated">
         <source>validator.invalid_range</source>
         <target>A megadott tartomány nem érvényes!</target>

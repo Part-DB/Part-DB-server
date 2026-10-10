@@ -46,147 +46,147 @@
         </div>
     </div>
 
-    <div class="">
+    {# All tabs of this page, in the order they are shown in the tab bar. The keys are the IDs of the tab panes. #}
+    {% set has_parameters = part.parameters is not empty or description_params is not empty or comment_params is not empty %}
+    {% set tabs = {
+        part_lots: {tab_id: 'part_lots-tab', icon: 'fas fa-box fa-fw', label: 'part.part_lots.label', count: part.partLots | length},
+        comment: {tab_id: 'comment-tab', icon: 'fas fa-sticky-note fa-fw', label: 'comment.label', shown: part.comment is not empty},
+        specifications: {tab_id: 'specifications-tab', icon: 'fas fa-atlas fa-fw', label: 'part.info.specifications', count: part.parameters | length, shown: has_parameters},
+        attachments: {tab_id: 'attachment-tab', icon: 'fas fa-paperclip fa-fw', label: 'attachment.labelp', count: part.attachments | length, shown: part.attachments is not empty},
+        suppliers: {tab_id: 'supplier-tab', icon: 'fas fa-shopping-cart fa-fw', label: 'vendor.partinfo.shopping_infos', count: part.orderdetails | length, shown: part.orderdetails is not empty},
+        associations: {tab_id: 'associations-tab', icon: 'fas fa-circle-nodes fa-fw', label: 'part.edit.tab.associations', count: part.associatedPartsAll | length, shown: part.associatedPartsAll is not empty},
+        history: {tab_id: 'history-tab', icon: 'fas fa-history', label: 'vendor.partinfo.history', disabled: datatable is null},
+        projects: {tab_id: 'projects-tab', icon: 'fas fa-archive fa-fw', label: 'project.labelp', count: part.projectBomEntries | length, shown: part.projectBomEntries is not empty},
+        tools: {tab_id: 'tools-tab', icon: 'fas fa-tools', label: 'tools.label'},
+        extended_info: {tab_id: 'extended_info-tab', icon: 'fas fa-clipboard-list', label: 'extended_info.label'},
+    } %}
+
+    {# The tabs which are shown together as one combined tab (mapping the pane ID to its position). Only tabs which
+       exist for this part can be combined, and it needs at least two of them. #}
+    {% set combined = {} %}
+    {% for tab in settings_instance('part_info').combinedTabs %}
+        {% set tab_info = tabs[tab.value] ?? null %}
+        {% if tab_info is not null and (tab_info.shown ?? true) and not (tab_info.disabled ?? false) %}
+            {% set combined = combined | merge({(tab.value): combined | length}) %}
+        {% endif %}
+    {% endfor %}
+    {% if combined | length < 2 %}
+        {% set combined = {} %}
+    {% endif %}
+
+    <div class="" {{ stimulus_controller('pages/part_info_tabs') }}>
         <ul class="nav nav-tabs" id="partTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link {% if part.partLots %}active{% endif %}" id="part_lots-tab" data-bs-toggle="tab"
-                    href="#part_lots" role="tab">
-                    <i class="fas fa-box fa-fw"></i>
-                    {% trans %}part.part_lots.label{% endtrans %}
-                    <span class="badge bg-secondary">{{ part.partLots | length }}</span>
-                </a>
-            </li>
-            {% if part.comment is not empty %}
+            {% if combined is not empty %}
+                {# The href contains the IDs of all combined panes, bootstrap just toggles the first one,
+                   the others are handled by the part_info_tabs controller #}
                 <li class="nav-item">
-                    <a class="nav-link" id="comment-tab" data-bs-toggle="tab"
-                        href="#comment" role="tab">
-                        <i class="fas fa-sticky-note fa-fw"></i>
-                        {% trans %}comment.label{% endtrans %}
+                    <a class="nav-link active" id="combined-tab" data-bs-toggle="tab"
+                       href="#{{ combined | keys | join(',') }}" data-bs-target="#{{ combined | keys | first }}" role="tab">
+                        {% for id in combined | keys %}
+                            {{ _self.tab_label(tabs[id]) }}
+                            {% if not loop.last %}<span class="text-muted mx-1">+</span>{% endif %}
+                        {% endfor %}
                     </a>
                 </li>
             {% endif %}
-            {% if part.parameters is not empty or description_params is not empty or comment_params is not empty %}
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" role="tab" href="#specifications">
-                        <i class="fas fa-atlas fa-fw"></i>
-                        {% trans %}part.info.specifications{% endtrans %}
-                        <span class="badge bg-secondary">{{ part.parameters | length }}</span>
-                    </a>
-                </li>
-            {% endif %}
-            {% if part.attachments is not empty %}
-                <li class="nav-item">
-                    <a class="nav-link" id="attachment-tab" data-bs-toggle="tab"
-                        href="#attachments" role="tab">
-                        <i class="fas fa-paperclip fa-fw"></i>
-                        {% trans %}attachment.labelp{% endtrans %}
-                        <span class="badge bg-secondary">{{ part.attachments | length }}</span>
-                    </a>
-                </li>
-            {% endif %}
-            {% if part.orderdetails is not empty %}
-                <li class="nav-item">
-                    <a class="nav-link" id="supplier-tab" data-bs-toggle="tab" href="#suppliers" role="tab">
-                        <i class="fas fa-shopping-cart fa-fw"></i>
-                        {% trans %}vendor.partinfo.shopping_infos{% endtrans %}
-                        <span class="badge bg-secondary">{{ part.orderdetails | length }}</span>
-                    </a>
-                </li>
-            {% endif %}
-
-            {% if part.associatedPartsAll is not empty %}
-                <li class="nav-item">
-                    <a class="nav-link" id="associations-tab" data-bs-toggle="tab" href="#associations" role="tab">
-                        <i class="fas fas fa-circle-nodes fa-fw fa-fw"></i>
-                        {% trans %}part.edit.tab.associations{% endtrans %}
-                        <span class="badge bg-secondary">{{ part.associatedPartsAll | length }}</span>
-                    </a>
-                </li>
-            {% endif %}
-
-            <li class="nav-item {% if datatable is null %}not-allowed{% endif %}">
-                <a class="nav-link {% if datatable is null %}disabled{% endif %}" id="history-tab" data-bs-toggle="tab" href="#history" role="tab">
-                    <i class="fas fa-history"></i>
-                    {% trans %}vendor.partinfo.history{% endtrans %}
-                </a>
-            </li>
-            {% if part.projectBomEntries is not empty %}
-                <li class="nav-item">
-                    <a class="nav-link" id="projects-tab" data-bs-toggle="tab" href="#projects" role="tab">
-                        <i class="fas fa-archive fa-fw"></i>
-                        {% trans %}project.labelp{% endtrans %}
-                        <span class="badge bg-secondary">{{ part.projectBomEntries | length }}</span>
-                    </a>
-                </li>
-            {% endif %}
-            <li class="nav-item">
-                <a class="nav-link" id="tools-tab" data-bs-toggle="tab" href="#tools" role="tab">
-                    <i class="fas fa-tools"></i>
-                    {% trans %}tools.label{% endtrans %}
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="extended_info-tab" data-bs-toggle="tab" href="#extended_info" role="tab">
-                    <i class="fas fa-clipboard-list"></i>
-                    {% trans %}extended_info.label{% endtrans %}
-                </a>
-            </li>
-
+            {% for id, tab in tabs %}
+                {% if (tab.shown ?? true) and combined[id] is not defined %}
+                    {% set disabled = tab.disabled ?? false %}
+                    <li class="nav-item {% if disabled %}not-allowed{% endif %}">
+                        <a class="nav-link {% if disabled %}disabled{% endif %} {% if combined is empty and id == 'part_lots' %}active{% endif %}"
+                           id="{{ tab.tab_id }}" data-bs-toggle="tab" href="#{{ id }}" role="tab">
+                            {{ _self.tab_label(tab) }}
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
         </ul>
-        <div class="tab-content" id="myTabContent">
+        <div class="tab-content {% if combined is not empty %}d-flex flex-column{% endif %}" id="myTabContent" {{ stimulus_target('pages/part_info_tabs', 'content') }}>
             {% if part.comment is not empty %}
-                <div class="tab-pane fade show" id="comment" role="tabpanel" aria-labelledby="home-tab">
+                <div {{ _self.pane_attributes('comment', tabs, combined) }}>
+                    {{ _self.pane_heading('comment', tabs, combined) }}
                     <div class="container-fluid mt-2 latex" data-controller="common--latex">
                         {{ part.comment|format_markdown }}
                     </div>
                 </div>
             {% endif %}
 
-            <div class="tab-pane fade show active" id="part_lots" role="tabpanel" aria-labelledby="part_lots-tab">
+            <div {{ _self.pane_attributes('part_lots', tabs, combined) }}>
+                {{ _self.pane_heading('part_lots', tabs, combined) }}
                 {% include "parts/info/_part_lots.html.twig" %}
             </div>
 
             {% if part.attachments is not empty %}
-                <div class="tab-pane fade" id="attachments" role="tabpanel" aria-labelledby="attachment-tab">
+                <div {{ _self.pane_attributes('attachments', tabs, combined) }}>
+                    {{ _self.pane_heading('attachments', tabs, combined) }}
                     {% include "parts/info/_attachments_info.html.twig" %}
                 </div>
             {% endif %}
 
             {% if part.orderdetails is not empty %}
-            <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="supplier-tab">
+            <div {{ _self.pane_attributes('suppliers', tabs, combined) }}>
+                {{ _self.pane_heading('suppliers', tabs, combined) }}
                 {%  include "parts/info/_order_infos.html.twig" %}
             </div>
             {% endif %}
 
             {% if part.associatedPartsAll is not empty %}
-                <div class="tab-pane fade" id="associations" role="tabpanel" aria-labelledby="associations-tab">
+                <div {{ _self.pane_attributes('associations', tabs, combined) }}>
+                    {{ _self.pane_heading('associations', tabs, combined) }}
                     {%  include "parts/info/_associations.html.twig" %}
                 </div>
             {% endif %}
 
-            <div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
+            <div {{ _self.pane_attributes('projects', tabs, combined) }}>
+                {{ _self.pane_heading('projects', tabs, combined) }}
                 {% include "parts/info/_projects.html.twig" %}
             </div>
 
-            <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+            <div {{ _self.pane_attributes('history', tabs, combined) }}>
+                {{ _self.pane_heading('history', tabs, combined) }}
                 {% include "parts/info/_history.html.twig" %}
             </div>
 
-            <div class="tab-pane fade" id="tools" role="tabpanel" aria-labelledby="tools-tab">
+            <div {{ _self.pane_attributes('tools', tabs, combined) }}>
+                {{ _self.pane_heading('tools', tabs, combined) }}
                 {% include "parts/info/_tools.html.twig" %}
             </div>
 
-            {% if part.parameters is not empty or description_params is not empty or comment_params is not empty %}
-                <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="tools-tab">
+            {% if has_parameters %}
+                <div {{ _self.pane_attributes('specifications', tabs, combined) }}>
+                    {{ _self.pane_heading('specifications', tabs, combined) }}
                     {% include "parts/info/_specifications.html.twig" %}
                 </div>
             {% endif %}
 
-            <div class="tab-pane fade" id="extended_info" role="tabpanel" aria-labelledby="extended_info-tab">
-
+            <div {{ _self.pane_attributes('extended_info', tabs, combined) }}>
+                {{ _self.pane_heading('extended_info', tabs, combined) }}
                 {% include "parts/info/_extended_infos.html.twig" %}
 
             </div>
         </div>
     </div>
 {% endblock %}
+
+{# The icon, name and counter badge of a tab, like shown in the tab bar #}
+{% macro tab_label(tab) %}
+    <i class="{{ tab.icon }}"></i>
+    {{ tab.label | trans }}
+    {% if tab.count is defined %}
+        <span class="badge bg-secondary">{{ tab.count }}</span>
+    {% endif %}
+{% endmacro %}
+
+{# The attributes of a tab pane. Several panes can be active at once, if they are shown combined. #}
+{% macro pane_attributes(id, tabs, combined) -%}
+    {%- set active = combined[id] is defined or (combined is empty and id == 'part_lots') -%}
+    class="tab-pane fade{% if active %} show active{% endif %}" id="{{ id }}" role="tabpanel" aria-labelledby="{{ combined[id] is defined ? 'combined-tab' : tabs[id].tab_id }}"
+    {%- if combined[id] is defined %} style="order: {{ combined[id] }};"{% endif -%}
+{%- endmacro %}
+
+{# The heading of a tab pane, which is only visible if several panes are shown together #}
+{% macro pane_heading(id, tabs, combined) %}
+    <h5 class="border-bottom pb-1 mt-3 {% if combined[id] is not defined %}d-none{% endif %}" {{ stimulus_target('pages/part_info_tabs', 'heading') }}>
+        {{ _self.tab_label(tabs[id]) }}
+    </h5>
+{% endmacro %}

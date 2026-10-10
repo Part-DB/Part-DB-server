@@ -78,11 +78,14 @@ final readonly class PartsDataTable implements DataTableTypeInterface
     {
         $optionsResolver->setDefaults([
             'filter' => null,
-            'search' => null
+            'search' => null,
+            //The initial ordering of the table as [column name, direction], null orders by the name
+            'order' => null,
         ]);
 
         $optionsResolver->setAllowedTypes('filter', [PartFilter::class, 'null']);
         $optionsResolver->setAllowedTypes('search', [PartSearchFilter::class, 'null']);
+        $optionsResolver->setAllowedTypes('order', ['array', 'null']);
     }
 
     public function configure(DataTable $dataTable, array $options): void
@@ -180,6 +183,21 @@ final readonly class PartsDataTable implements DataTableTypeInterface
                 //column is purely informational
                 'orderable' => false,
                 'data' => fn(Part $context) => $this->partDataTableHelper->renderSupplierAvailableAmount($context),
+            ])
+            ->add('supplier', HTMLColumn::class, [
+                'label' => $this->translator->trans('part.table.supplier'),
+                //A part can have many suppliers, so we sort by the first one (see storelocation above). The leading
+                //expression keeps the parts without any supplier at the end, regardless of the sort direction and
+                //of how the DBMS orders NULLs (the direction is only appended to the last expression).
+                'orderField' => 'CASE WHEN MIN(_suppliers.name) IS NULL THEN 1 ELSE 0 END, NATSORT(MIN(_suppliers.name))',
+                'data' => fn(Part $context) => $this->partDataTableHelper->renderSuppliers($context),
+            ])
+            ->add('supplier_part_number', HTMLColumn::class, [
+                'label' => $this->translator->trans('part.table.supplier_part_number'),
+                //Same as for the supplier column. Empty supplier part numbers are treated like missing ones.
+                'orderField' => 'CASE WHEN MIN(NULLIF(_orderdetails.supplierpartnr, \'\')) IS NULL THEN 1 ELSE 0 END, '
+                    . 'NATSORT(MIN(NULLIF(_orderdetails.supplierpartnr, \'\')))',
+                'data' => fn(Part $context) => $this->partDataTableHelper->renderSupplierPartNumbers($context),
             ])
             ->add('minamount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
@@ -308,7 +326,9 @@ final readonly class PartsDataTable implements DataTableTypeInterface
         $this->csh->applyVisibilityAndConfigureColumns($dataTable, $this->tableSettings->partsDefaultColumns,
             "TABLE_PARTS_DEFAULT_COLUMNS");
 
-        $dataTable->addOrderBy('name')
+        [$order_column, $order_direction] = $options['order'] ?? ['name', DataTable::SORT_ASCENDING];
+
+        $dataTable->addOrderBy($order_column, $order_direction)
             ->createAdapter(TwoStepORMAdapter::class, [
                 'filter_query' => $this->getFilterQuery(...),
                 'detail_query' => $this->getDetailQuery(...),
@@ -370,6 +390,7 @@ final readonly class PartsDataTable implements DataTableTypeInterface
             ->addSelect('footprint_attachment')
             ->addSelect('partLots')
             ->addSelect('orderdetails')
+            ->addSelect('suppliers')
             ->addSelect('attachments')
             ->addSelect('storelocations')
             ->addSelect('projectBomEntries')
@@ -388,6 +409,7 @@ final readonly class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('footprint.master_picture_attachment', 'footprint_attachment')
             ->leftJoin('part.manufacturer', 'manufacturer')
             ->leftJoin('part.orderdetails', 'orderdetails')
+            ->leftJoin('orderdetails.supplier', 'suppliers')
             ->leftJoin('part.attachments', 'attachments')
             ->leftJoin('part.partUnit', 'partUnit')
             ->leftJoin('part.partCustomState', 'partCustomState')

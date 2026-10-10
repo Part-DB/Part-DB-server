@@ -76,6 +76,18 @@ class StructuralElementPathCache implements ResetInterface
     }
 
     /**
+     * Get the names of the elements on the path to the element with the given ID, starting with the root element and
+     * ending with the element itself. This allows to determine the ancestors of elements without loading them.
+     *
+     * @param  class-string<AbstractStructuralDBElement>  $class_name
+     * @return list<string>|null the names of the path elements, or null if no element with this ID exists
+     */
+    public function getPathNames(string $class_name, int $id): ?array
+    {
+        return $this->getPathsForClass($class_name)[$id] ?? null;
+    }
+
+    /**
      * @param  class-string<AbstractStructuralDBElement>  $class_name
      * @return array<int, list<string>>
      */

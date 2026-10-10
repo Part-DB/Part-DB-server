@@ -47,6 +47,7 @@ You can use the "Placeholders" dropdown in the content editor, to automatically 
 | `[[FOOTPRINT]]`         | The name of the footprint (without path)        | DIP-32                      |
 | `[[FOOTPRINT_FULL]]`    | The full path of the footprint                  | Bedrahtet->DIP->DIP-32      |
 | `[[MASS]]`              | The mass of the part                            | 123.4 g                     |
+| `[[MIN_STOCK]]`         | The minimum stock of the part                   | 10                          |
 | `[[MPN]]`               | The manufacturer product number                 | BC547ACT                    |
 | `[[TAGS]]`              | The tags of the part                            | SMD, Tag1                   |
 | `[[M_STATUS]]`          | The manufacturing status of the part            | Active                      |

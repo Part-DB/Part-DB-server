@@ -1,4 +1,4 @@
-# Generated on Mon Sep 28 08:31:26 UTC 2026
+# Generated on Mon Oct  5 08:45:45 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -2219,6 +2219,7 @@ Auxiliary_Items:Generic_Outline
 Auxiliary_Items:Hex_Spacer
 Auxiliary_Items:Jumper_Shunt
 Auxiliary_Items:Label
+Auxiliary_Items:LightPipe
 Auxiliary_Items:MCU_Module
 Auxiliary_Items:Memory_Module
 Auxiliary_Items:Mounting_Screw
@@ -11193,6 +11194,7 @@ MCU_Microchip_PIC32:PIC32MX575F512H
 MCU_Microchip_PIC32:PIC32MX795F512L-80x-PF
 MCU_Microchip_PIC32:PIC32MX795F512L-80x-PT
 MCU_Microchip_SAMA:ATSAMA5D21
+MCU_Microchip_SAMA:SAMA7D65-4HB
 MCU_Microchip_SAMD:ATSAMD09C13A-SS
 MCU_Microchip_SAMD:ATSAMD09D14A-M
 MCU_Microchip_SAMD:ATSAMD10C13A-SS
@@ -15680,6 +15682,7 @@ Potentiometer_Digital:AD5280
 Potentiometer_Digital:AD5282
 Potentiometer_Digital:AD5290
 Potentiometer_Digital:AD5293
+Potentiometer_Digital:CAT5171
 Potentiometer_Digital:DS1267_DIP
 Potentiometer_Digital:DS1267_SOIC
 Potentiometer_Digital:DS1267_TSSOP
@@ -16353,6 +16356,7 @@ RF_Amplifier:BGA2867
 RF_Amplifier:BGA2869
 RF_Amplifier:BGA2870
 RF_Amplifier:BGA2874
+RF_Amplifier:CC1190
 RF_Amplifier:CMX901
 RF_Amplifier:GALI-1
 RF_Amplifier:GALI-19
@@ -22893,6 +22897,7 @@ power:VDD
 power:VDDA
 power:VDDF
 power:VEE
+power:VINT
 power:VMEM
 power:VPP
 power:VS

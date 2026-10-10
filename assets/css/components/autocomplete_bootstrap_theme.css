@@ -461,6 +461,9 @@ body {
 }
 
 .aa-SourceHeader {
+    /* A flex row, so the header grows with its content (e.g. the sort toggles) instead of letting it overlap the results */
+    align-items: center;
+    display: flex;
     margin: calc((16 * 1 * 1px) / 2) 0.5em calc((16 * 1 * 1px) / 2) 0;
     margin: calc(calc(16 * 1 * 1px) / 2) 0.5em calc(calc(16 * 1 * 1px) / 2) 0;
     margin: var(--aa-spacing-half) 0.5em var(--aa-spacing-half) 0;
@@ -499,11 +502,61 @@ body {
     padding: 0;
     position: absolute;
     right: 0;
-    top: calc((16 * 1 * 1px) / 2);
-    top: calc(calc(16 * 1 * 1px) / 2);
-    top: var(--aa-spacing-half);
+    /* Vertically centered, so it stays behind the title when the header is higher than it */
+    top: 50%;
+    transform: translateY(-50%);
     z-index: calc(9999 - 1);
     z-index: calc(var(--aa-base-z-index) - 1);
+}
+
+/* The toggles to choose the ordering of the results, shown at the right of the header */
+.aa-SourceHeaderSort {
+    background: var(--bs-body-bg);
+    display: inline-flex;
+    gap: 4px;
+    margin-left: auto;
+    padding: 0 0 0 var(--aa-spacing-half);
+    position: relative;
+    z-index: 9999;
+    z-index: var(--aa-base-z-index);
+}
+/* The toggle rules are scoped to .aa-Panel, as the ".aa-Panel button" reset above would override them otherwise */
+.aa-Panel .aa-SourceHeaderSortToggle {
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 1em;
+    color: var(--bs-secondary-color);
+    cursor: pointer;
+    font-size: 1em;
+    line-height: 1.6;
+    min-width: 2.2em;
+    padding: 0.1em 0.55em;
+    white-space: nowrap;
+}
+.aa-Panel .aa-SourceHeaderSortToggle:hover {
+    border-color: rgba(var(--bs-primary-rgb), 0.5);
+    color: rgba(var(--bs-primary-rgb), 1.0);
+}
+.aa-Panel .aa-SourceHeaderSortToggle--active,
+.aa-Panel .aa-SourceHeaderSortToggle--active:hover {
+    background: rgba(var(--bs-primary-rgb), 1.0);
+    border-color: rgba(var(--bs-primary-rgb), 1.0);
+    /* Not the body background: it is dark in dark mode and unreadable on the primary color */
+    color: #fff;
+}
+/* The direction arrow always takes its place, so the toggles do not move when one of them is chosen */
+.aa-SourceHeaderSortArrow {
+    font-size: 0.75em;
+    margin-left: 0.15em;
+    visibility: hidden;
+}
+.aa-SourceHeaderSortToggle--active .aa-SourceHeaderSortArrow {
+    visibility: visible;
+}
+
+/* The value a result is ordered by (supplier, manufacturer, date, ...) */
+.aa-ItemSortValue {
+    color: rgba(var(--bs-primary-rgb), 1.0);
 }
 
 .aa-SourceFooterSeeAll {

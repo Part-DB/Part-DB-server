@@ -22,9 +22,15 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\DataTables\Filters\PartSearchFilter;
+use App\DataTables\Filters\PartSearchSort;
+use App\Doctrine\Helpers\FieldHelper;
+use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
+use App\Entity\PriceInformations\Orderdetail;
+use App\Services\Trees\StructuralElementPathCache;
 use App\Settings\MiscSettings\IpnSuggestSettings;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -35,6 +41,13 @@ use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @extends NamedDBElementRepository<Part>
+ *
+ * The data of a part needed to show it in the autocomplete search results, without loading the part entity.
+ * The preview attachments are the candidates for the preview picture (master picture of the part, its footprint and
+ * the project it is a build part of) in the order of their priority, see PartPreviewGenerator::getFirstValidPicture().
+ * @phpstan-type AutocompletePartData array{id: int, name: string, description: string, category_id: int|null,
+ *     category: string|null, footprint: string|null, manufacturer: string|null, addedDate: \DateTimeImmutable|null,
+ *     lastModified: \DateTimeImmutable|null, suppliers: list<string>, preview_attachments: list<Attachment|null>}
  */
 #[Autoconfigure(tags: ['doctrine.repository_service'])]
 class PartRepository extends NamedDBElementRepository
@@ -46,6 +59,7 @@ class PartRepository extends NamedDBElementRepository
         EntityManagerInterface $em,
         TranslatorInterface    $translator,
         IpnSuggestSettings     $ipnSuggestSettings,
+        private readonly StructuralElementPathCache $pathCache,
     ) {
         parent::__construct($em, $em->getClassMetadata(Part::class));
 
@@ -92,26 +106,228 @@ class PartRepository extends NamedDBElementRepository
     }
 
     /**
-     * @return Part[]
+     * Simple and fast search for the part select fields: matches the name, description, category and footprint.
+     * @param  PartSearchSort|null  $sort  The ordering of the results, or null to order them by their name
+     * @param  \SortDirection  $direction  The direction of the ordering given by $sort
+     * @return list<AutocompletePartData>
      */
-    public function autocompleteSearch(string $query, int $max_limits = 50): array
+    public function autocompleteSearch(string $query, int $max_limits = 50, ?PartSearchSort $sort = null, \SortDirection $direction = \SortDirection::Ascending): array
     {
         $qb = $this->createQueryBuilder('part');
-        $qb->select('part')
-            ->leftJoin('part.category', 'category')
-            ->leftJoin('part.footprint', 'footprint')
-
+        $qb->select('part.id')
+            ->leftJoin('part.category', '_category')
+            ->leftJoin('part.footprint', '_footprint')
             ->where('ILIKE(part.name, :query) = TRUE')
             ->orWhere('ILIKE(part.description, :query) = TRUE')
-            ->orWhere('ILIKE(category.name, :query) = TRUE')
-            ->orWhere('ILIKE(footprint.name, :query) = TRUE');
+            ->orWhere('ILIKE(_category.name, :query) = TRUE')
+            ->orWhere('ILIKE(_footprint.name, :query) = TRUE')
+            ->groupBy('part.id')
+            ->setParameter('query', '%'.$query.'%');
 
-        $qb->setParameter('query', '%'.$query.'%');
+        return $this->getSortedAutocompleteResults($qb, $sort, $direction, $max_limits);
+    }
 
-        $qb->setMaxResults($max_limits);
-        $qb->orderBy('NATSORT(part.name)', 'ASC');
+    /**
+     * Search parts the same way as the search page does (selected fields, regex, extensive and wildcard matching),
+     * but limited to a small number of results, so it can be used for autocompletion.
+     * @param  PartSearchSort|null  $sort  The ordering of the results, or null to order them by their name
+     * @param  \SortDirection  $direction  The direction of the ordering given by $sort
+     * @return list<AutocompletePartData>
+     */
+    public function autocompleteSearchWithFilter(PartSearchFilter $filter, int $max_limits = 50, ?PartSearchSort $sort = null, \SortDirection $direction = \SortDirection::Ascending): array
+    {
+        //Select only the IDs first, as the joins needed by the filter would otherwise multiply the rows
+        $qb = $this->createQueryBuilder('part');
+        $qb->select('part.id')
+            ->leftJoin('part.category', '_category')
+            ->leftJoin('part.footprint', '_footprint')
+            ->leftJoin('part.manufacturer', '_manufacturer')
+            ->leftJoin('part.partLots', '_partLots')
+            ->leftJoin('_partLots.storage_location', '_storelocations')
+            ->leftJoin('part.orderdetails', '_orderdetails')
+            ->leftJoin('_orderdetails.supplier', '_suppliers')
+            ->groupBy('part.id');
 
-        return $qb->getQuery()->getResult();
+        $filter->apply($qb);
+
+        return $this->getSortedAutocompleteResults($qb, $sort, $direction, $max_limits);
+    }
+
+    /**
+     * Returns the first parts found by the given query in the given ordering. Parts which have no value to sort by
+     * (e.g. no manufacturer) are always put at the end, parts with the same value are ordered by their name.
+     * @param  QueryBuilder  $qb  A query selecting the IDs of the found parts (alias "part") grouped by part.id. Joined
+     * entities must use the alias of the parts table (underscore prefix).
+     * @param  PartSearchSort|null  $sort  The ordering of the results, or null to order them by their name
+     * @return list<AutocompletePartData>
+     */
+    private function getSortedAutocompleteResults(QueryBuilder $qb, ?PartSearchSort $sort, \SortDirection $direction, int $max_limits): array
+    {
+        $sort ??= PartSearchSort::NAME;
+
+        if ($sort === PartSearchSort::TOP_CATEGORY) {
+            $ids = $this->getIdsSortedByTopCategory($qb, $direction, $max_limits);
+        } else {
+            $aliases = $qb->getAllAliases();
+            if ($sort === PartSearchSort::MANUFACTURER && !in_array('_manufacturer', $aliases, true)) {
+                $qb->leftJoin('part.manufacturer', '_manufacturer');
+            }
+            if ($sort === PartSearchSort::SUPPLIER && !in_array('_suppliers', $aliases, true)) {
+                $qb->leftJoin('part.orderdetails', '_orderdetails')
+                    ->leftJoin('_orderdetails.supplier', '_suppliers');
+            }
+
+            //The joined values must be aggregated, as the query is grouped by the part. A part can have multiple
+            //suppliers, the alphabetically first one is used then.
+            [$value, $order] = match ($sort) {
+                PartSearchSort::NAME => [null, 'NATSORT(part.name)'],
+                PartSearchSort::MANUFACTURER => ['MIN(_manufacturer.name)', 'NATSORT(MIN(_manufacturer.name))'],
+                PartSearchSort::SUPPLIER => ['MIN(_suppliers.name)', 'NATSORT(MIN(_suppliers.name))'],
+                PartSearchSort::ADDED_DATE => ['part.addedDate', 'part.addedDate'],
+                PartSearchSort::LAST_MODIFIED => ['part.lastModified', 'part.lastModified'],
+                PartSearchSort::CATEGORY => ['MIN(_category.name)', 'NATSORT(MIN(_category.name))'],
+            };
+
+            //The databases disagree on where NULL values are sorted, so explicitly put them last in both directions
+            if ($value !== null) {
+                $qb->addSelect('CASE WHEN ' . $value . ' IS NULL THEN 1 ELSE 0 END AS HIDDEN sort_is_null')
+                    ->addOrderBy('sort_is_null', 'ASC');
+            }
+
+            $qb->addOrderBy($order, $direction === \SortDirection::Descending ? 'DESC' : 'ASC')
+                ->addOrderBy('NATSORT(part.name)', 'ASC')
+                ->addOrderBy('part.id', 'ASC')
+                ->setMaxResults($max_limits);
+
+            $ids = array_column($qb->getQuery()->getArrayResult(), 'id');
+        }
+
+        return $this->getAutocompleteData($ids);
+    }
+
+    /**
+     * Loads the data needed to show the given parts in the autocomplete search results. Only the needed fields are
+     * selected instead of loading the part entities and their associations one by one.
+     * @param  int[]  $ids
+     * @return list<AutocompletePartData> The data of the parts in the same order as the given IDs
+     */
+    private function getAutocompleteData(array $ids): array
+    {
+        if ($ids === []) {
+            return [];
+        }
+
+        $qb = $this->createQueryBuilder('part')
+            ->select('part.id', 'part.name', 'part.description', 'IDENTITY(part.category) AS category_id',
+                '_category.name AS category', '_footprint.name AS footprint', '_manufacturer.name AS manufacturer',
+                'part.addedDate', 'part.lastModified',
+                'IDENTITY(part.master_picture_attachment) AS part_picture_id',
+                'IDENTITY(_footprint.master_picture_attachment) AS footprint_picture_id',
+                'IDENTITY(_built_project.master_picture_attachment) AS project_picture_id')
+            ->leftJoin('part.category', '_category')
+            ->leftJoin('part.footprint', '_footprint')
+            ->leftJoin('part.manufacturer', '_manufacturer')
+            ->leftJoin('part.built_project', '_built_project')
+            ->where('part.id IN (:ids)')
+            ->setParameter('ids', $ids);
+
+        //Get the rows in the same order as the sorted IDs
+        FieldHelper::addOrderByFieldParam($qb, 'part.id', 'ids');
+        $rows = $qb->getQuery()->getArrayResult();
+
+        //Load all the preview picture candidates at once
+        $picture_columns = ['part_picture_id', 'footprint_picture_id', 'project_picture_id'];
+        $picture_ids = [];
+        foreach ($rows as $row) {
+            foreach ($picture_columns as $column) {
+                if ($row[$column] !== null) {
+                    $picture_ids[(int) $row[$column]] = (int) $row[$column];
+                }
+            }
+        }
+        $picture_ids = array_values($picture_ids);
+        $attachments = [];
+        if ($picture_ids !== []) {
+            foreach ($this->getEntityManager()->getRepository(Attachment::class)->findBy(['id' => $picture_ids]) as $attachment) {
+                $attachments[$attachment->getID()] = $attachment;
+            }
+        }
+
+        //Load the names of the suppliers of all parts at once
+        $suppliers = [];
+        $supplier_rows = $this->getEntityManager()->createQueryBuilder()
+            ->select('IDENTITY(orderdetail.part) AS part_id', 'supplier.name')
+            ->from(Orderdetail::class, 'orderdetail')
+            ->innerJoin('orderdetail.supplier', 'supplier')
+            ->where('orderdetail.part IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->getQuery()
+            ->getArrayResult();
+        foreach ($supplier_rows as $supplier_row) {
+            $suppliers[(int) $supplier_row['part_id']][$supplier_row['name']] = $supplier_row['name'];
+        }
+
+        return array_map(static function (array $row) use ($attachments, $suppliers, $picture_columns): array {
+            $id = (int) $row['id'];
+            $part_suppliers = $suppliers[$id] ?? [];
+            natcasesort($part_suppliers);
+
+            return [
+                'id' => $id,
+                'name' => $row['name'],
+                'description' => $row['description'],
+                'category_id' => $row['category_id'] !== null ? (int) $row['category_id'] : null,
+                'category' => $row['category'],
+                'footprint' => $row['footprint'],
+                'manufacturer' => $row['manufacturer'],
+                'addedDate' => $row['addedDate'],
+                'lastModified' => $row['lastModified'],
+                'suppliers' => array_values($part_suppliers),
+                'preview_attachments' => array_map(
+                    static fn(string $column) => $row[$column] !== null ? ($attachments[(int) $row[$column]] ?? null) : null,
+                    $picture_columns
+                ),
+            ];
+        }, $rows);
+    }
+
+    /**
+     * Returns the IDs of the first parts found by the given query, ordered by the name of the root category their
+     * category is contained in.
+     * The root category is not stored in the database, so it is determined (and sorted by) in PHP using the cached
+     * category paths, which only requires the ID and category ID of each found part.
+     * @return int[]
+     */
+    private function getIdsSortedByTopCategory(QueryBuilder $qb, \SortDirection $direction, int $max_limits): array
+    {
+        $rows = $qb->addSelect('IDENTITY(part.category) AS category_id')
+            ->addOrderBy('NATSORT(part.name)', 'ASC')
+            ->addOrderBy('part.id', 'ASC')
+            ->getQuery()
+            ->getArrayResult();
+
+        $root_names = [];
+        foreach ($rows as $row) {
+            $category_id = $row['category_id'] !== null ? (int) $row['category_id'] : null;
+            $root_names[(int) $row['id']] = $category_id !== null
+                ? ($this->pathCache->getPathNames(Category::class, $category_id)[0] ?? null)
+                : null;
+        }
+
+        //usort is stable, so parts of the same root category stay ordered by their name
+        usort($rows, static function (array $a, array $b) use ($root_names, $direction): int {
+            $name_a = $root_names[(int) $a['id']];
+            $name_b = $root_names[(int) $b['id']];
+
+            //Parts without a category are always put at the end
+            if ($name_a === null || $name_b === null) {
+                return ($name_a === null) <=> ($name_b === null);
+            }
+
+            return $direction === \SortDirection::Descending ? strnatcasecmp($name_b, $name_a) : strnatcasecmp($name_a, $name_b);
+        });
+
+        return array_map(intval(...), array_column(array_slice($rows, 0, $max_limits), 'id'));
     }
 
     /**
