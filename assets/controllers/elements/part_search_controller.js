@@ -178,15 +178,18 @@ export default class extends Controller {
                             //Iterate over all fields besides the id and highlight them
                             const fields = ["name", "description", "category", "footprint"];
 
-                            data.then((items) => {
+                            //Store the highlighted values in _highlightResult (where the Highlight component reads
+                            //them from), so the raw values (e.g. used in the image alt attribute) stay untouched
+                            return data.then((items) => {
                                 items.forEach((item) => {
+                                    item._highlightResult = {};
                                     for (const field of fields) {
-                                        item[field] = that._highlight(item[field], query, options);
+                                        item._highlightResult[field] = {value: that._highlight(item[field], query, options) ?? ''};
                                     }
                                 });
-                            });
 
-                            return data;
+                                return items;
+                            });
                         },
                         getItemUrl({ item }) {
                             return part_detail_uri_template.replace('__ID__', item.id);
