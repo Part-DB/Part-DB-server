@@ -33,6 +33,7 @@ use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Settings\InfoProviderSystem\GenericWebProviderSettings;
+use Brick\Schema\Interfaces\AggregateOffer;
 use Brick\Schema\Interfaces\BreadcrumbList;
 use Brick\Schema\Interfaces\ImageObject;
 use Brick\Schema\Interfaces\Product;
@@ -169,7 +170,7 @@ class GenericWebProvider implements InfoProviderInterface
                     price: $offer->price->toString(),
                     currency_iso_code: $offer->priceCurrency?->toString()
                 )];
-            } else { //Check for nested offers (like IKEA does it)
+            } elseif ($offer instanceof AggregateOffer) { //Check for nested offers (like IKEA does it)
                 $offer2 = $offer->offers->getFirstValue();
                 if ($offer2 !== null && $offer2->price->toString() !== null) {
                     $prices = [
