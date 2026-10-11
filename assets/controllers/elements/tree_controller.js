@@ -21,6 +21,7 @@ import {Controller} from "@hotwired/stimulus";
 
 import {BSTreeView, BS5Theme, FAIconTheme, EVENT_INITIALIZED} from "@jbtronics/bs-treeview";
 import "@jbtronics/bs-treeview/styles/bs-treeview.css";
+import {prefetchLater, cancelPrefetch} from "../../helpers/turbo_prefetch";
 
 export default class extends Controller {
     static targets = [ "tree" ];
@@ -40,6 +41,11 @@ export default class extends Controller {
     _tree = null;
 
     _frame = "frame";
+
+    /** @type {BSTreeViewNode|null} */
+    _hoveredNode = null;
+
+    _prefetchListenersRegistered = false;
 
     connect() {
         const treeElement = this.treeTarget;
@@ -118,6 +124,8 @@ export default class extends Controller {
             },
         }, [BS5Theme, BS53Theme, FAIconTheme]);
 
+        this._registerPrefetchListeners();
+
         this.treeTarget.addEventListener(EVENT_INITIALIZED, (event) => {
             /** @type {BSTreeView} */
             const treeView = event.detail.treeView;
@@ -129,6 +137,41 @@ export default class extends Controller {
 
     }
 
+
+    /**
+     * Prefetch the target page of a node when hovering it, similar to what Turbo does for normal links.
+     * The tree nodes are no <a> elements, so Turbo's link prefetching does not work for them.
+     * @private
+     */
+    _registerPrefetchListeners()
+    {
+        //The listeners are delegated on the tree target element, which persists when the tree is reinitialized
+        if (this._prefetchListenersRegistered) {
+            return;
+        }
+        this._prefetchListenersRegistered = true;
+
+        this.treeTarget.addEventListener("mouseover", (event) => {
+            //_domToNode throws if the target is not inside a node (e.g. empty space of the tree)
+            const node = (this._tree && event.target.closest("li.list-group-item"))
+                ? this._tree._domToNode(event.target) : null;
+            if (node === this._hoveredNode) {
+                return;
+            }
+            this._hoveredNode = node;
+
+            if (node && node.href) {
+                prefetchLater(node.href, this._frame);
+            } else {
+                cancelPrefetch();
+            }
+        });
+
+        this.treeTarget.addEventListener("mouseleave", () => {
+            this._hoveredNode = null;
+            cancelPrefetch();
+        });
+    }
 
     _onContextMenu(event)
     {
