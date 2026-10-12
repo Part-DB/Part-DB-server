@@ -1,4 +1,4 @@
-# Generated on Mon Oct  5 08:45:15 UTC 2026
+# Generated on Mon Oct 12 08:57:19 UTC 2026
 # This file contains all footprints available in the offical KiCAD library
 Audio_Module:Reverb_BTDR-1H
 Audio_Module:Reverb_BTDR-1V
@@ -9167,6 +9167,7 @@ Inductor_SMD:L_APV_APH1265
 Inductor_SMD:L_APV_APH1770
 Inductor_SMD:L_APV_APH2213
 Inductor_SMD:L_AVX_LMLP07A7
+Inductor_SMD:L_Abracon_AOTA-B201610S
 Inductor_SMD:L_Abracon_ASPI-0425
 Inductor_SMD:L_Abracon_ASPI-0628
 Inductor_SMD:L_Abracon_ASPI-0630LR
@@ -9532,6 +9533,7 @@ Inductor_SMD:L_Pulse_PA4341
 Inductor_SMD:L_Pulse_PA4344
 Inductor_SMD:L_Pulse_PA4349
 Inductor_SMD:L_Pulse_PA5402
+Inductor_SMD:L_Pulse_PA5449
 Inductor_SMD:L_SOREDE_SNR.1050_10x10x5mm
 Inductor_SMD:L_SXN_SMDRI124
 Inductor_SMD:L_SXN_SMDRI125
@@ -11188,6 +11190,8 @@ Package_CSP:Macronix_WLCSP-12_2.02x2.09mm_Layout4x4_P0.5mm
 Package_CSP:Maxim_WLCSP-35_2.998x2.168mm_Layout7x5_P0.4mm
 Package_CSP:NXP_SOT1444-5_WLCSP-49_3.44x3.44mm_Layout7x7_P0.4mm
 Package_CSP:NXP_SOT1450-2_WLCSP-100_5.07x5.07mm_Layout10x10_P0.5mm
+Package_CSP:NXP_WLCSP-12_1.055x1.405mm_Layout3x4_P0.35mm
+Package_CSP:NXP_WLCSP-15_1.54x2.56mm_Layout3x5_P0.5mm
 Package_CSP:Nexperia_WLCSP-15_2.37x1.17mm_Layout6x3_P0.4mmP0.8mm
 Package_CSP:OnSemi_ODCSP36_BGA-36_6.13x6.13mm_Layout6x6_P1.0mm
 Package_CSP:OnSemi_ODCSP36_BGA-36_6.13x6.13mm_Layout6x6_P1.0mm_ManualAssembly
