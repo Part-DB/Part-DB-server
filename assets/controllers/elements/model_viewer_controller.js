@@ -307,6 +307,63 @@ const defaultMaterial = (useVertexColors = false) => new THREE.MeshStandardMater
     side: THREE.DoubleSide,
 });
 
+/**
+ * Creates the material(s) for a mesh returned by occt-import-js. STEP files often color individual faces
+ * (e.g. the pins, body and marking of a component) instead of the whole solid. occt-import-js reports these
+ * as brep_faces (triangle ranges with an optional color), which are mapped to geometry groups here, with
+ * one material per distinct color.
+ */
+const buildMaterials = (geometry, mesh) => {
+    const materialsByColor = new Map();
+    const materialFor = (color) => {
+        const key = color ? color.join(",") : "";
+        if (!materialsByColor.has(key)) {
+            const material = defaultMaterial();
+            if (color) {
+                material.color = new THREE.Color(color[0], color[1], color[2]);
+            }
+            materialsByColor.set(key, material);
+        }
+
+        return materialsByColor.get(key);
+    };
+
+    const faces = mesh.brep_faces ?? [];
+    if (!faces.some((face) => face.color)) {
+        return materialFor(mesh.color);
+    }
+
+    const materials = [];
+    const indexOf = (material) => {
+        let index = materials.indexOf(material);
+        if (index === -1) {
+            index = materials.push(material) - 1;
+        }
+
+        return index;
+    };
+
+    //Faces without an own color inherit the color of the mesh. Consecutive faces with the same color are
+    //merged into one group, to keep the number of draw calls down.
+    const groups = [];
+    for (const face of faces) {
+        const materialIndex = indexOf(materialFor(face.color ?? mesh.color));
+        //first and last are triangle indices, groups are measured in index buffer entries
+        const start = face.first * 3;
+        const count = (face.last - face.first + 1) * 3;
+
+        const previous = groups.at(-1);
+        if (previous && previous.materialIndex === materialIndex && previous.start + previous.count === start) {
+            previous.count += count;
+        } else {
+            groups.push({start, count, materialIndex});
+        }
+    }
+    groups.forEach(({start, count, materialIndex}) => geometry.addGroup(start, count, materialIndex));
+
+    return materials;
+};
+
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
     static targets = ["container", "status", "info", "viewButton", "measureButton", "measurement", "measureHint", "metadata", "parts", "partList", "partsButton"];
@@ -963,12 +1020,7 @@ export default class extends Controller {
             }
             geometry.setIndex(new THREE.BufferAttribute(Uint32Array.from(mesh.index.array), 1));
 
-            const material = defaultMaterial();
-            if (mesh.color) {
-                material.color = new THREE.Color(mesh.color[0], mesh.color[1], mesh.color[2]);
-            }
-
-            const threeMesh = new THREE.Mesh(geometry, material);
+            const threeMesh = new THREE.Mesh(geometry, buildMaterials(geometry, mesh));
             threeMesh.name = mesh.name ?? "";
             built.set(index, threeMesh);
 

@@ -1,4 +1,4 @@
-# Generated on Mon Sep 21 07:51:55 UTC 2026
+# Generated on Mon Oct  5 08:45:45 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -1181,6 +1181,8 @@ Amplifier_Operational:CA3080A
 Amplifier_Operational:CA3130
 Amplifier_Operational:CA3140
 Amplifier_Operational:HMC799LP3E
+Amplifier_Operational:ISL28291FRUZ
+Amplifier_Operational:ISL28291FUZ
 Amplifier_Operational:L272
 Amplifier_Operational:L272D
 Amplifier_Operational:L272M
@@ -2217,6 +2219,7 @@ Auxiliary_Items:Generic_Outline
 Auxiliary_Items:Hex_Spacer
 Auxiliary_Items:Jumper_Shunt
 Auxiliary_Items:Label
+Auxiliary_Items:LightPipe
 Auxiliary_Items:MCU_Module
 Auxiliary_Items:Memory_Module
 Auxiliary_Items:Mounting_Screw
@@ -6139,6 +6142,7 @@ Device:L_Iron_Coupled_Small_1342
 Device:L_Iron_Coupled_Small_1423
 Device:L_Iron_Small
 Device:L_Pack04
+Device:L_Polarized
 Device:L_Small
 Device:L_Trim
 Device:Lamp
@@ -11190,6 +11194,7 @@ MCU_Microchip_PIC32:PIC32MX575F512H
 MCU_Microchip_PIC32:PIC32MX795F512L-80x-PF
 MCU_Microchip_PIC32:PIC32MX795F512L-80x-PT
 MCU_Microchip_SAMA:ATSAMA5D21
+MCU_Microchip_SAMA:SAMA7D65-4HB
 MCU_Microchip_SAMD:ATSAMD09C13A-SS
 MCU_Microchip_SAMD:ATSAMD09D14A-M
 MCU_Microchip_SAMD:ATSAMD10C13A-SS
@@ -15677,6 +15682,7 @@ Potentiometer_Digital:AD5280
 Potentiometer_Digital:AD5282
 Potentiometer_Digital:AD5290
 Potentiometer_Digital:AD5293
+Potentiometer_Digital:CAT5171
 Potentiometer_Digital:DS1267_DIP
 Potentiometer_Digital:DS1267_SOIC
 Potentiometer_Digital:DS1267_TSSOP
@@ -16350,6 +16356,7 @@ RF_Amplifier:BGA2867
 RF_Amplifier:BGA2869
 RF_Amplifier:BGA2870
 RF_Amplifier:BGA2874
+RF_Amplifier:CC1190
 RF_Amplifier:CMX901
 RF_Amplifier:GALI-1
 RF_Amplifier:GALI-19
@@ -19932,6 +19939,7 @@ Regulator_Switching:TPS54360DDA
 Regulator_Switching:TPS54560BDDA
 Regulator_Switching:TPS54561
 Regulator_Switching:TPS560200
+Regulator_Switching:TPS561300
 Regulator_Switching:TPS562200
 Regulator_Switching:TPS562202
 Regulator_Switching:TPS562202S
@@ -20904,6 +20912,8 @@ Sensor_Magnetic:TMAG5111B4xxDBV
 Sensor_Magnetic:TMAG5111C2xxDBV
 Sensor_Magnetic:TMAG5111C4xxDBV
 Sensor_Magnetic:TMAG5170-Q1
+Sensor_Magnetic:TMAG5273x1QDBV
+Sensor_Magnetic:TMAG5273x2QDBV
 Sensor_Motion:ADXL343
 Sensor_Motion:ADXL363
 Sensor_Motion:BMF055
@@ -22887,6 +22897,7 @@ power:VDD
 power:VDDA
 power:VDDF
 power:VEE
+power:VINT
 power:VMEM
 power:VPP
 power:VS

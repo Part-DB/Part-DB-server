@@ -41,6 +41,9 @@ final class DTOJsonSchemaConverter
      */
     public function getJSONSchema(): array
     {
+        //Anthropic rejects schemas with more than 16 union typed (e.g. nullable) properties, as they are expensive to
+        //compile. So only numbers and booleans are nullable, where null means something else than any value. Texts
+        //which are not known are empty strings instead, which jsonToDTO() treats like null.
         $schema = [
             'name' => 'part_detail',
             'strict' => true,
@@ -49,27 +52,29 @@ final class DTOJsonSchemaConverter
                 'properties' => [
                     'name' => ['type' => 'string', 'description' => 'Product name'],
                     'description' => ['type' => 'string', 'description' => 'A short description of the product, maybe containing the most important things. Onnly One line.'],
-                    'manufacturer' => ['type' => ['string', 'null'], 'description' => 'Manufacturer name'],
-                    'mpn' => ['type' => ['string', 'null'], 'description' => 'Manufacturer Part Number'],
-                    'category' => ['type' => ['string', 'null'], 'description' => 'Product category, e.g. "Passive components -> Resistors"'],
-                    'manufacturing_status' => ['type' => ['string', 'null'], 'enum' => ['active', 'obsolete', 'nrfnd', 'discontinued', null], 'description' => 'Manufacturing status'],
-                    'footprint' => ['type' => ['string', 'null'], 'description' => 'Package/footprint type, like "SOT-23", "DIP-8", "QFN-32" etc.'],
+                    'manufacturer' => ['type' => 'string', 'description' => 'Manufacturer name'],
+                    'mpn' => ['type' => 'string', 'description' => 'Manufacturer Part Number'],
+                    'category' => ['type' => 'string', 'description' => 'Product category, e.g. "Passive components -> Resistors"'],
+                    //An enum must not be combined with a nullable type (["string", "null"]): Anthropic rejects such a schema
+                    //("Enum value 'active' does not match declared type"), so "unknown" takes the place of null here
+                    'manufacturing_status' => ['type' => 'string', 'enum' => ['active', 'obsolete', 'nrfnd', 'discontinued', 'unknown'], 'description' => 'Manufacturing status, "unknown" if it is not stated'],
+                    'footprint' => ['type' => 'string', 'description' => 'Package/footprint type, like "SOT-23", "DIP-8", "QFN-32" etc.'],
                     'mass' => ['type' => ['number', 'null'], 'description' => 'Mass of the product in grams'],
-                    'gtin' => ['type' => ['string', 'null'], 'description' => 'Global Trade Item Number (GTIN) / EAN / UPC code for barcodes'],
-                    'notes' => ['type' => ['string', 'null'], 'description' => 'Optional long description of the part with more details than description. Can be markdown formatted.'],
+                    'gtin' => ['type' => 'string', 'description' => 'Global Trade Item Number (GTIN) / EAN / UPC code for barcodes'],
+                    'notes' => ['type' => 'string', 'description' => 'Optional long description of the part with more details than description. Can be markdown formatted.'],
                     'parameters' => [
                         'type' => 'array',
                         'items' => [
                             'type' => 'object',
                             'properties' => [
                                 'name' => ['type' => 'string'],
-                                'symbol' => ['type' => ['string', 'null'], 'description' => 'An optional quantity symbol for the parameter in latex code, like R_1'],
+                                'symbol' => ['type' => 'string', 'description' => 'An optional quantity symbol for the parameter in latex code, like R_1'],
                                 'value_typical' => ['type' => ['number', 'null'], 'description' => 'The typical value of the parameter. For example, for a resistor this could be 100 for a 100 Ohm resistor. Also used if only one numeric value is given. If used an unit should be given'],
                                 'value_min' => ['type' => ['number', 'null'], 'description' => 'If a range is given for the parameter, this is the minimum value. Null if no range is given.'],
                                 'value_max' => ['type' => ['number', 'null'], 'description' => 'If a range is given for the parameter, this is the maximum value. Null if not a range.'],
-                                'value_text' => ['type' => ['string', 'null'], 'description' => 'When a value is not numeric it can be put here as text. Only use if it does not fit in value_min, value_typical or value_max. E.g. "Yes", "Red", etc.'],
-                                'group' => ['type' => ['string', 'null'], 'description' => 'An optional group name for the parameter, e.g. "Electrical parameters", "Mechanical parameters" etc.'],
-                                'unit' => ['type' => ['string', 'null'], 'description' => 'The unit of the parameter values, e.g. kg, Ohm, V, etc.'],
+                                'value_text' => ['type' => 'string', 'description' => 'When a value is not numeric it can be put here as text. Only use if it does not fit in value_min, value_typical or value_max. E.g. "Yes", "Red", etc.'],
+                                'group' => ['type' => 'string', 'description' => 'An optional group name for the parameter, e.g. "Electrical parameters", "Mechanical parameters" etc.'],
+                                'unit' => ['type' => 'string', 'description' => 'The unit of the parameter values, e.g. kg, Ohm, V, etc.'],
                             ],
                             'required' => ['name', 'value_typical', 'value_min', 'value_max', 'value_text']
                         ],
@@ -103,7 +108,7 @@ final class DTOJsonSchemaConverter
                             'type' => 'object',
                             'properties' => [
                                 'distributor_name' => ['type' => 'string', 'description' => 'Name of the distributor or vendor. Typically the shop name'],
-                                'order_number' => ['type' => ['string', 'null'], 'description' => 'The order number or SKU used by the distributor. Optional, but can help to find the product on the distributor website.'],
+                                'order_number' => ['type' => 'string', 'description' => 'The order number or SKU used by the distributor. Optional, but can help to find the product on the distributor website.'],
                                 'product_url' => ['type' => 'string'],
                                 'prices_include_vat' => ['type' => ['boolean', 'null'], 'description' => 'Whether the prices include VAT or not. Null if unknown.'],
                                 'prices' => [
@@ -122,7 +127,7 @@ final class DTOJsonSchemaConverter
                             'required' => ['distributor_name', 'product_url'],
                         ],
                     ],
-                    'manufacturer_product_url' => ['type' => ['string', 'null'], 'description' => 'Manufacturer product page URL'],
+                    'manufacturer_product_url' => ['type' => 'string', 'description' => 'Manufacturer product page URL'],
                 ],
                 'required' => ['name', 'description'],
             ]
@@ -174,6 +179,7 @@ final class DTOJsonSchemaConverter
                 'nrfnd', 'not recommended for new designs' => ManufacturingStatus::NRFND,
                 'eol' => ManufacturingStatus::EOL,
                 'announced' => ManufacturingStatus::ANNOUNCED,
+                //Includes "unknown", which the schema uses instead of null
                 default => null,
             };
         }
@@ -186,13 +192,13 @@ final class DTOJsonSchemaConverter
                 if (!empty($p['name'])) {
                     $parameters[] = new ParameterDTO(
                         name: $p['name'],
-                        value_text: $p['value_text'] ?? null,
+                        value_text: self::textOrNull($p['value_text'] ?? null),
                         value_typ: isset($p['value_typical']) && is_numeric($p['value_typical']) ? (float) $p['value_typical'] : null,
                         value_min: isset($p['value_min']) && is_numeric($p['value_min']) ? (float) $p['value_min'] : null,
                         value_max: isset($p['value_max']) && is_numeric($p['value_max']) ? (float) $p['value_max'] : null,
-                        unit: $p['unit'] ?? null,
-                        symbol: $p['symbol'] ?? null,
-                        group: $p['group'] ?? null,
+                        unit: self::textOrNull($p['unit'] ?? null),
+                        symbol: self::textOrNull($p['symbol'] ?? null),
+                        group: self::textOrNull($p['group'] ?? null),
                     );
                 }
             }
@@ -245,9 +251,9 @@ final class DTOJsonSchemaConverter
 
                 $vendorInfos[] = new PurchaseInfoDTO(
                     distributor_name: $v['distributor_name'] ?? $distributorNameFallback,
-                    order_number: $v['order_number'] ?? 'Unknown',
+                    order_number: self::textOrNull($v['order_number'] ?? null) ?? 'Unknown',
                     prices: $prices,
-                    product_url: $v['product_url'] ?? $productUrl,
+                    product_url: self::textOrNull($v['product_url'] ?? null) ?? $productUrl,
                     prices_include_vat: $v['prices_include_vat'] ?? null,
                 );
             }
@@ -264,22 +270,33 @@ final class DTOJsonSchemaConverter
             provider_id: $providerId,
             name: $data['name'] ?? 'Unknown',
             description: $data['description'] ?? '',
-            category: $data['category'] ?? null,
-            manufacturer: $data['manufacturer'] ?? null,
-            mpn: $data['mpn'] ?? null,
+            category: self::textOrNull($data['category'] ?? null),
+            manufacturer: self::textOrNull($data['manufacturer'] ?? null),
+            mpn: self::textOrNull($data['mpn'] ?? null),
             preview_image_url: $previewImageUrl,
             manufacturing_status: $manufacturingStatus,
             provider_url: $productUrl,
-            footprint: $data['footprint'] ?? null,
-            gtin: $data['gtin'] ?? null,
-            notes: $data['notes'] ?? null,
+            footprint: self::textOrNull($data['footprint'] ?? null),
+            gtin: self::textOrNull($data['gtin'] ?? null),
+            notes: self::textOrNull($data['notes'] ?? null),
             datasheets: $datasheets,
             images: $images,
             parameters: $parameters,
             vendor_infos: $vendorInfos,
             mass: isset($data['mass']) && is_numeric($data['mass']) ? (float) $data['mass'] : null,
-            manufacturer_product_url: $data['manufacturer_product_url'] ?? null,
+            manufacturer_product_url: self::textOrNull($data['manufacturer_product_url'] ?? null),
         );
     }
 
+    /**
+     * Returns the given text, or null if it is empty. The schema uses empty strings for unknown texts (see getJSONSchema()).
+     */
+    private static function textOrNull(mixed $value): ?string
+    {
+        if (!is_string($value) || trim($value) === '') {
+            return null;
+        }
+
+        return $value;
+    }
 }

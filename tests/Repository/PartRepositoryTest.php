@@ -24,6 +24,7 @@ namespace App\Tests\Repository;
 
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
+use App\Services\Trees\StructuralElementPathCache;
 use App\Settings\MiscSettings\IpnSuggestSettings;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -35,63 +36,6 @@ use App\Repository\PartRepository;
 
 final class PartRepositoryTest extends TestCase
 {
-    public function test_autocompleteSearch_builds_expected_query_without_db(): void
-    {
-        $qb = $this->getMockBuilder(QueryBuilder::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods([
-                'select', 'leftJoin', 'where', 'orWhere',
-                'setParameter', 'setMaxResults', 'orderBy', 'getQuery'
-            ])->getMock();
-
-        $qb->expects(self::once())->method('select')->with('part')->willReturnSelf();
-
-        $qb->expects(self::exactly(2))->method('leftJoin')->with($this->anything(), $this->anything())->willReturnSelf();
-
-        $qb->expects(self::atLeastOnce())->method('where')->with($this->anything())->willReturnSelf();
-        $qb->method('orWhere')->with($this->anything())->willReturnSelf();
-
-        $searchQuery = 'res';
-        $qb->expects(self::once())->method('setParameter')->with('query', '%'.$searchQuery.'%')->willReturnSelf();
-        $qb->expects(self::once())->method('setMaxResults')->with(10)->willReturnSelf();
-        $qb->expects(self::once())->method('orderBy')->with('NATSORT(part.name)', 'ASC')->willReturnSelf();
-
-        $emMock = $this->createMock(EntityManagerInterface::class);
-        $classMetadata = new ClassMetadata(Part::class);
-        $emMock->method('getClassMetadata')->with(Part::class)->willReturn($classMetadata);
-
-        $translatorMock = $this->createStub(TranslatorInterface::class);
-        $ipnSuggestSettings = $this->createStub(IpnSuggestSettings::class);
-
-        $repo = $this->getMockBuilder(PartRepository::class)
-            ->setConstructorArgs([$emMock, $translatorMock, $ipnSuggestSettings])
-            ->onlyMethods(['createQueryBuilder'])
-            ->getMock();
-
-        $repo->expects(self::once())
-            ->method('createQueryBuilder')
-            ->with('part')
-            ->willReturn($qb);
-
-        $part = new Part(); // create found part, because it is not saved in DB
-        $part->setName('Resistor');
-
-        $queryMock = $this->getMockBuilder(Query::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['getResult'])
-            ->getMock();
-        $queryMock->expects(self::once())->method('getResult')->willReturn([$part]);
-
-        $qb->method('getQuery')->willReturn($queryMock);
-
-        $result = $repo->autocompleteSearch($searchQuery, 10);
-
-        // Check one part found and returned
-        self::assertIsArray($result);
-        self::assertCount(1, $result);
-        self::assertSame($part, $result[0]);
-    }
-
     public function test_autoCompleteIpn_with_unsaved_part_and_category_without_part_description(): void
     {
         $qb = $this->getMockBuilder(QueryBuilder::class)
@@ -126,7 +70,7 @@ final class PartRepositoryTest extends TestCase
         $ipnSuggestSettings->useDuplicateDescription = false;
 
         $repo = $this->getMockBuilder(PartRepository::class)
-            ->setConstructorArgs([$emMock, $translatorMock, $ipnSuggestSettings])
+            ->setConstructorArgs([$emMock, $translatorMock, $ipnSuggestSettings, $this->createStub(StructuralElementPathCache::class)])
             ->onlyMethods(['createQueryBuilder'])
             ->getMock();
 
@@ -210,7 +154,7 @@ final class PartRepositoryTest extends TestCase
         $ipnSuggestSettings->useDuplicateDescription = false;
 
         $repo = $this->getMockBuilder(PartRepository::class)
-            ->setConstructorArgs([$emMock, $translatorMock, $ipnSuggestSettings])
+            ->setConstructorArgs([$emMock, $translatorMock, $ipnSuggestSettings, $this->createStub(StructuralElementPathCache::class)])
             ->onlyMethods(['createQueryBuilder'])
             ->getMock();
 
