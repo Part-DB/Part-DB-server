@@ -285,6 +285,23 @@ class GenericWebProvider implements InfoProviderInterface
     }
 
 
+    /**
+     * Removes JSON-LD script tags without content, which some pages contain.
+     * The schema reader tries to JSON-decode them and fails on the empty string otherwise.
+     * infineon.com seems to do this
+     * See issue #1595
+     * @param  string  $html
+     * @return string
+     */
+    private static function removeEmptyJsonLdScripts(string $html): string
+    {
+        return preg_replace(
+            '#<script\b[^>]*\btype\s*=\s*(["\']?)application/ld\+json\1[^>]*>\s*</script>#i',
+            '',
+            $html
+        ) ?? $html;
+    }
+
     public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         $url = $this->fixAndValidateURL($id);
@@ -329,7 +346,7 @@ class GenericWebProvider implements InfoProviderInterface
 
 
         $schemaReader = SchemaReader::forAllFormats();
-        $things = $schemaReader->readHtml($content, $canonicalURL);
+        $things = $schemaReader->readHtml(self::removeEmptyJsonLdScripts($content), $canonicalURL);
 
         //Try to find a breadcrumb schema to extract the category
         $categoryBreadCrumbs = null;

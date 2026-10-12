@@ -73,4 +73,27 @@ class GenericWebProviderTest extends TestCase
             self::assertSame('EUR', $vendor->prices[0]->currency_iso_code);
         }
     }
+
+    public function testEmptyJsonLdScriptsAreIgnored(): void
+    {
+        $product = [
+            '@context' => 'https://schema.org',
+            '@type' => 'Product',
+            'name' => 'Example part',
+        ];
+        $html = '<html><head><script type="application/ld+json"></script>'
+            ."<script type='application/ld+json' id=\"empty\">\n  </script>"
+            .'<script type="application/ld+json">'.json_encode($product, JSON_THROW_ON_ERROR).'</script></head></html>';
+        $helper = (new \ReflectionClass(CreateFromUrlHelper::class))->newInstanceWithoutConstructor();
+        $provider = new GenericWebProvider(
+            new MockHttpClient(new MockResponse($html)),
+            SettingsTestHelper::createSettingsDummy(GenericWebProviderSettings::class),
+            $helper,
+            $this->createMock(SubmittedPageStorage::class),
+        );
+
+        $part = $provider->getDetails('https://8.8.8.8/product', [GenericWebProvider::OPTION_SKIP_DELEGATION => true]);
+
+        self::assertSame('Example part', $part->name);
+    }
 }
