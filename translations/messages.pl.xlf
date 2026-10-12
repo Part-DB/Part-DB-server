@@ -58,7 +58,7 @@
       </notes>
       <segment state="translated">
         <source>category.new</source>
-        <target>Nowa kategoria</target>
+        <target>Nowa [category]</target>
       </segment>
     </unit>
     <unit id="KSFhj_3" name="currency.iso_code.caption">
@@ -181,7 +181,7 @@
     <unit id="fn26FXc" name="admin.attachments">
       <segment state="translated">
         <source>admin.attachments</source>
-        <target>Załączniki</target>
+        <target>[[Attachment]]</target>
       </segment>
     </unit>
     <unit id="J2N5fY5" name="admin.parameters">
@@ -307,7 +307,7 @@
       </notes>
       <segment state="translated">
         <source>manufacturer.new</source>
-        <target>Nowy producent</target>
+        <target>Nowy [manufacturer]</target>
       </segment>
     </unit>
     <unit id="crdkzlg" name="storelocation.labelp">
@@ -349,7 +349,7 @@
       </notes>
       <segment state="translated">
         <source>supplier.new</source>
-        <target>Nowy dostawca</target>
+        <target>Nowy [supplier]</target>
       </segment>
     </unit>
     <unit id="Ux8wVuF" name="user.edit.configuration">
@@ -469,7 +469,7 @@
     <unit id="O80f2bP" name="attachment.secure">
       <segment state="translated">
         <source>attachment.secure</source>
-        <target>Załącznik prywatny</target>
+        <target>[Attachment] prywatny</target>
       </segment>
     </unit>
     <unit id="rLpI_8W" name="attachment.create">
@@ -576,13 +576,13 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
     <unit id="RNO8eAz" name="createdAt">
       <segment state="translated">
         <source>createdAt</source>
-        <target>Utworzony o</target>
+        <target>Utworzono dnia</target>
       </segment>
     </unit>
     <unit id="MhzDKm3" name="lastModified">
       <segment state="translated">
         <source>lastModified</source>
-        <target>Ostatnio zmodyfikowany</target>
+        <target>Ostatnio zmodyfikowano dnia</target>
       </segment>
     </unit>
     <unit id="fgjH2jx" name="entity.info.parts_count">
@@ -1059,7 +1059,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
     <unit id="cnW4mF_" name="part.edit.tab.manufacturer">
       <segment state="translated">
         <source>part.edit.tab.manufacturer</source>
-        <target>Producent</target>
+        <target>[Manufacturer]</target>
       </segment>
     </unit>
     <unit id="7V.2Kxe" name="part.edit.tab.advanced">
@@ -1125,7 +1125,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
     <unit id="VS8w2qp" name="part.edit.tab.advanced.ipn.prefix.not_saved">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.not_saved</source>
-        <target>Najpierw utwórz część i przypisz ją do kategorii. W kategoriach posiadających własny prefiks IPN, wartość IPN części może być proponowana automatycznie.</target>
+        <target>Najpierw utwórz [part] i przypisz ją do kategorii. W kategoriach posiadających własny prefiks IPN, wartość IPN części może być proponowana automatycznie.</target>
       </segment>
     </unit>
     <unit id="c3S4jwK" name="part.edit.tab.part_lots">
@@ -1137,7 +1137,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
     <unit id="PplLa9s" name="part.edit.tab.attachments">
       <segment state="translated">
         <source>part.edit.tab.attachments</source>
-        <target>Załączniki</target>
+        <target>[[Attachment]]</target>
       </segment>
     </unit>
     <unit id="e9y5hhN" name="part.edit.tab.orderdetails">
@@ -1257,7 +1257,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
     <unit id="SndB5.f" name="attachment.attachment_type">
       <segment state="translated">
         <source>attachment.attachment_type</source>
-        <target>Typ załącznika</target>
+        <target>[Attachment_type]</target>
       </segment>
     </unit>
     <unit id="KToeVpN" name="attachment.file_name">
@@ -1326,7 +1326,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
     <unit id="Z5Er_7v" name="part.minOrderAmount">
       <segment state="translated">
         <source>part.minOrderAmount</source>
-        <target>Minimalna ilość zamawiana</target>
+        <target>Minimalna ilość w zamówieniu</target>
       </segment>
     </unit>
     <unit id="q4EoyRW" name="manufacturer.label">
@@ -1539,7 +1539,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
     <unit id="owQRbkU" name="part.delete.message">
       <segment state="translated">
         <source>part.delete.message</source>
-        <target>Ta część i wszelkie powiązane z nią informacje (takie jak załączniki, informacje o cenie itp.) zostaną usunięte. Nie można tego cofnąć!</target>
+        <target>Ta [part] i wszelkie powiązane z nią informacje (takie jak [[attachment]], informacje o cenie itp.) zostaną usunięte. Nie można tego cofnąć!</target>
       </segment>
     </unit>
     <unit id="oH8.Zx6" name="part.delete">
@@ -1611,7 +1611,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
     <unit id="MN1ncLc" name="entity.info.attachments.tab">
       <segment state="translated">
         <source>entity.info.attachments.tab</source>
-        <target>Załączniki</target>
+        <target>[[Attachment]]</target>
       </segment>
     </unit>
     <unit id="ESzssgE" name="entity.info.parameters.tab">
@@ -1815,7 +1815,7 @@ Po usunięciu pod elementy zostaną przeniesione na górę.</target>
       </notes>
       <segment state="translated">
         <source>statistics.attachments</source>
-        <target>Załączniki</target>
+        <target>[[Attachment]]</target>
       </segment>
     </unit>
     <unit id="Co8wcVz" name="statistics.property">
@@ -2434,7 +2434,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="vJr16w7" name="entity.created_flash">
       <segment state="translated">
         <source>entity.created_flash</source>
-        <target>Utworzony element.</target>
+        <target>Utworzono element.</target>
       </segment>
     </unit>
     <unit id="_H9ego6" name="entity.created_flash.invalid">
@@ -2878,7 +2878,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="hfpP97U" name="part.table.category">
       <segment state="translated">
         <source>part.table.category</source>
-        <target>Kategoria</target>
+        <target>[Category]</target>
       </segment>
     </unit>
     <unit id="WB7c.IS" name="part.table.footprint">
@@ -2890,7 +2890,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="ze47qo5" name="part.table.manufacturer">
       <segment state="translated">
         <source>part.table.manufacturer</source>
-        <target>Producent</target>
+        <target>[Manufacturer]</target>
       </segment>
     </unit>
     <unit id="3gx.94x" name="part.table.storeLocations">
@@ -2920,7 +2920,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="JjTO6Nq" name="part.table.partCustomState">
       <segment state="translated">
         <source>part.table.partCustomState</source>
-        <target>Własny stan części</target>
+        <target>[Part_custom_state]</target>
       </segment>
     </unit>
     <unit id="R5pc2FR" name="part.table.addedDate">
@@ -2932,7 +2932,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="SmmWZvy" name="part.table.lastModified">
       <segment state="translated">
         <source>part.table.lastModified</source>
-        <target>Ostatnio zmodyfikowany</target>
+        <target>Ostatnio zmodyfikowano dnia</target>
       </segment>
     </unit>
     <unit id="t8UncRf" name="part.table.needsReview">
@@ -3010,7 +3010,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="WwgRZ73" name="part.table.attachments">
       <segment state="translated">
         <source>part.table.attachments</source>
-        <target>Załączniki</target>
+        <target>[[Attachment]]</target>
       </segment>
     </unit>
     <unit id="f3Dggp6" name="part.table.eda_status">
@@ -3124,7 +3124,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="kuVdzho" name="attachment.edit.secure_file.help">
       <segment state="translated">
         <source>attachment.edit.secure_file.help</source>
-        <target>Załącznik oznaczony jako prywatny może być dostępny tylko dla uwierzytelnionych użytkowników z odpowiednimi uprawnieniami. Jeśli ta opcja jest włączona, nie są generowane miniatury, a dostęp do pliku jest mniej wydajny.</target>
+        <target>[Attachment] oznaczony jako prywatny może być dostępny tylko dla uwierzytelnionych użytkowników z odpowiednimi uprawnieniami. Jeśli ta opcja jest włączona, nie są generowane miniatury, a dostęp do pliku jest mniej wydajny.</target>
       </segment>
     </unit>
     <unit id="AdYtBQG" name="attachment.edit.url.help">
@@ -3142,7 +3142,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="zFA1C7s" name="attachment.edit.attachment_type">
       <segment state="translated">
         <source>attachment.edit.attachment_type</source>
-        <target>Typ załącznika</target>
+        <target>[Attachment_type]</target>
       </segment>
     </unit>
     <unit id="1UPxL8H" name="attachment.edit.show_in_table">
@@ -3154,7 +3154,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="NPpYsvx" name="attachment.edit.secure_file">
       <segment state="translated">
         <source>attachment.edit.secure_file</source>
-        <target>Załącznik prywatny</target>
+        <target>[Attachment] prywatny</target>
       </segment>
     </unit>
     <unit id="4RaPGTn" name="attachment.edit.url">
@@ -3184,7 +3184,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="YqtcK4J" name="part_lot.label">
       <segment state="translated">
         <source>part_lot.label</source>
-        <target>Spis [[part]]</target>
+        <target>Partia</target>
       </segment>
     </unit>
     <unit id="tQ5e_wy" name="label_options.barcode_type.none">
@@ -3376,7 +3376,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="XPPtB7m" name="orderdetails.edit.supplier">
       <segment state="translated">
         <source>orderdetails.edit.supplier</source>
-        <target>Dostawca</target>
+        <target>[Supplier]</target>
       </segment>
     </unit>
     <unit id="UkCyJvL" name="orderdetails.edit.url">
@@ -3424,7 +3424,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="EpsnDlo" name="part.edit.category">
       <segment state="translated">
         <source>part.edit.category</source>
-        <target>Kategoria</target>
+        <target>[Category]</target>
       </segment>
     </unit>
     <unit id="v_1JEps" name="part.edit.footprint">
@@ -3442,7 +3442,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="zt1GGL." name="part.edit.manufacturer.label">
       <segment state="translated">
         <source>part.edit.manufacturer.label</source>
-        <target>Producent</target>
+        <target>[Manufacturer]</target>
       </segment>
     </unit>
     <unit id="q6K84it" name="part.edit.manufacturer_url.label">
@@ -3490,7 +3490,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="ro8Iwr_" name="part.edit.partCustomState">
       <segment state="translated">
         <source>part.edit.partCustomState</source>
-        <target>Własny stan części</target>
+        <target>[Part_custom_state]</target>
       </segment>
     </unit>
     <unit id="oY_9HE9" name="part.edit.comment">
@@ -3640,7 +3640,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="As__ocD" name="attachment.label">
       <segment state="translated">
         <source>attachment.label</source>
-        <target>Załącznik</target>
+        <target>[Attachment]</target>
       </segment>
     </unit>
     <unit id="QbEpsys" name="attachment_type.label">
@@ -3763,13 +3763,13 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="DX6nN9y" name="tree.tools.edit.attachment_types">
       <segment state="translated">
         <source>tree.tools.edit.attachment_types</source>
-        <target>Typy załączników</target>
+        <target>[[Attachment_type]]</target>
       </segment>
     </unit>
     <unit id="u8jQbAc" name="tree.tools.edit.categories">
       <segment state="translated">
         <source>tree.tools.edit.categories</source>
-        <target>Kategorie</target>
+        <target>[[Category]]</target>
       </segment>
     </unit>
     <unit id="3n2K_az" name="tree.tools.edit.projects">
@@ -3787,7 +3787,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="1IJ48Y0" name="tree.tools.edit.manufacturer">
       <segment state="translated">
         <source>tree.tools.edit.manufacturer</source>
-        <target>Producenci</target>
+        <target>[[Manufacturer]]</target>
       </segment>
     </unit>
     <unit id="GNbWH_O" name="tree.tools.edit.storelocation">
@@ -3817,7 +3817,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="oYLWbbv" name="tree.tools.edit.part_custom_state">
       <segment state="translated">
         <source>tree.tools.edit.part_custom_state</source>
-        <target>Własny stan części</target>
+        <target>[Part_custom_state]</target>
       </segment>
     </unit>
     <unit id=".Ux4R3T" name="tree.tools.edit.label_profile">
@@ -3835,13 +3835,13 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="nIHj_yk" name="tree.tools.show.all_parts">
       <segment state="translated">
         <source>tree.tools.show.all_parts</source>
-        <target>Pokaż wszystkie części</target>
+        <target>Pokaż wszystkie [[part]]</target>
       </segment>
     </unit>
     <unit id="JxVmFbM" name="tree.tools.show.all_attachments">
       <segment state="translated">
         <source>tree.tools.show.all_attachments</source>
-        <target>Załączniki</target>
+        <target>[[Attachment]]</target>
       </segment>
     </unit>
     <unit id="C2KPC_G" name="tree.tools.show.statistics">
@@ -4043,7 +4043,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
       </notes>
       <segment state="translated">
         <source>attachment.table.type</source>
-        <target>Typ załącznika</target>
+        <target>[Attachment_type]</target>
       </segment>
     </unit>
     <unit id="QVW5uYI" name="attachment.table.element">
@@ -4133,7 +4133,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
       </notes>
       <segment state="translated">
         <source>validator.part_lot.location_full</source>
-        <target>Lokalizacja jest pełna. Nie można do niego dodawać nowych części.</target>
+        <target>[Storage_location] jest pełne. Nie można do niego dodawać nowych [[part]].</target>
       </segment>
     </unit>
     <unit id="h6qELde" name="validator.part_lot.only_existing">
@@ -4143,7 +4143,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
       </notes>
       <segment state="translated">
         <source>validator.part_lot.only_existing</source>
-        <target>Nie można dodać nowych części do tej lokalizacji, ponieważ jest ona oznaczona jako „Tylko istniejące”</target>
+        <target>Nie można dodać nowych [[part]] do tej lokalizacji, ponieważ jest ona oznaczona jako „Tylko istniejące”</target>
       </segment>
     </unit>
     <unit id="2yWi8eP" name="validator.part_lot.single_part">
@@ -4383,7 +4383,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
       </notes>
       <segment state="translated">
         <source>category.edit.disable_footprints.help</source>
-        <target>Jeśli ta opcja jest aktywna, właściwość "footprint" jest wyłączona dla wszystkich części z tą kategorią.</target>
+        <target>Jeśli ta opcja jest aktywna, właściwość "[footprint]" jest wyłączona dla wszystkich [[part]] z tą kategorią.</target>
       </segment>
     </unit>
     <unit id="JWHe4Hi" name="category.edit.disable_manufacturers">
@@ -4403,7 +4403,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
       </notes>
       <segment state="translated">
         <source>category.edit.disable_manufacturers.help</source>
-        <target>Jeśli ta opcja jest aktywna, właściwość "producent" jest wyłączona dla wszystkich części z tą kategorią.</target>
+        <target>Jeśli ta opcja jest aktywna, właściwość "[manufacturer]" jest wyłączona dla wszystkich [[part]] z tą kategorią.</target>
       </segment>
     </unit>
     <unit id="g_gRbhu" name="category.edit.disable_autodatasheets">
@@ -4423,7 +4423,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
       </notes>
       <segment state="translated">
         <source>category.edit.disable_autodatasheets.help</source>
-        <target>Jeśli ta opcja jest aktywna, dla części z tą kategorią nie są tworzone automatyczne linki do kart katalogowych.</target>
+        <target>Jeśli ta opcja jest aktywna, dla [[part]] z tą kategorią nie są tworzone automatyczne linki do kart katalogowych.</target>
       </segment>
     </unit>
     <unit id="QzSkLse" name="category.edit.disable_properties">
@@ -4775,7 +4775,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>storelocation.edit.is_full.help</source>
-        <target>Jeśli ta opcja jest wybrana, nie jest możliwe dodawanie nowych [[part]] do tej lokalizacji ani zwiększanie ilości istniejących części.</target>
+        <target>Jeśli ta opcja jest wybrana, nie jest możliwe dodawanie nowych [[part]] do tej lokalizacji ani zwiększanie ilości istniejących [[part]].</target>
       </segment>
     </unit>
     <unit id="V1su4ac" name="storelocation.limit_to_existing.label">
@@ -4795,7 +4795,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>storelocation.limit_to_existing.help</source>
-        <target>Jeśli ta opcja jest aktywna, nie można dodawać nowych części do tej lokalizacji magazynu, ale można zwiększyć ilość istniejących części.</target>
+        <target>Jeśli ta opcja jest aktywna, nie można dodawać nowych [[part]] do tej lokalizacji magazynu, ale można zwiększyć ilość istniejących [[part]].</target>
       </segment>
     </unit>
     <unit id="tGVVeof" name="storelocation.only_single_part.label">
@@ -4805,7 +4805,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>storelocation.only_single_part.label</source>
-        <target>Tylko pojedyncza część</target>
+        <target>Tylko pojedyncza [part]</target>
       </segment>
     </unit>
     <unit id="Hyh5pvY" name="storelocation.only_single_part.help">
@@ -4815,7 +4815,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>storelocation.only_single_part.help</source>
-        <target>Jeśli ta opcja jest aktywna, tylko pojedyncza część (z każdą ilością) może być przypisana do tego miejsca przechowywania. Przydatne w przypadku małych skrzynek SMD lub podajników.</target>
+        <target>Jeśli ta opcja jest aktywna, tylko pojedyncza [part] (z każdą ilością) może być przypisana do tego miejsca przechowywania. Przydatne w przypadku małych skrzynek SMD lub podajników.</target>
       </segment>
     </unit>
     <unit id="sty2ele" name="storelocation.storage_type.label">
@@ -4835,7 +4835,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>storelocation.storage_type.help</source>
-        <target>W tym miejscu można wybrać jednostkę miary, którą musi mieć część, aby mogła zostać przypisana do tego miejsca przechowywania</target>
+        <target>W tym miejscu można wybrać jednostkę miary, którą musi mieć [part], aby mogła zostać przypisana do tego miejsca przechowywania</target>
       </segment>
     </unit>
     <unit id="ilC3c6u" name="supplier.edit.default_currency">
@@ -5005,7 +5005,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.group.parts</source>
-        <target>Części</target>
+        <target>[[Part]]</target>
       </segment>
     </unit>
     <unit id="MWuraHU" name="perm.group.structures">
@@ -5095,7 +5095,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.part.all_parts</source>
-        <target>Wszystkie części</target>
+        <target>Wszystkie [[part]]</target>
       </segment>
     </unit>
     <unit id="xGpxdp3" name="perm.part.no_price_parts">
@@ -5115,7 +5115,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.part.obsolete_parts</source>
-        <target>Części przestarzałe</target>
+        <target>[[Part]] przestarzałe</target>
       </segment>
     </unit>
     <unit id="rh5syrd" name="perm.part.unknown_instock_parts">
@@ -5245,7 +5245,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.part.manufacturer</source>
-        <target>Producent</target>
+        <target>[Manufacturer]</target>
       </segment>
     </unit>
     <unit id="JMu_.7." name="perm.part.orderdetails">
@@ -5275,7 +5275,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.part.attachments</source>
-        <target>Załączniki do plików</target>
+        <target>[[Attachment]] do plików</target>
       </segment>
     </unit>
     <unit id="M2Gqflj" name="perm.part.order">
@@ -5305,7 +5305,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.list_parts</source>
-        <target>Lista części</target>
+        <target>Lista [[part]]</target>
       </segment>
     </unit>
     <unit id="lIHo4Hd" name="perm.tools.import">
@@ -5705,7 +5705,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.part.category</source>
-        <target>Kategoria</target>
+        <target>[Category]</target>
       </segment>
     </unit>
     <unit id="QP8XpIR" name="perm.part.minamount">
@@ -6197,13 +6197,13 @@ Element 3</target>
     <unit id="0VKsxz3" name="entity.delete.must_not_contain_parts">
       <segment state="translated">
         <source>entity.delete.must_not_contain_parts</source>
-        <target>Element "%PATH%" nadal zawiera [[part]]! Musisz przenieść części, aby móc usunąć ten element.</target>
+        <target>Element "%PATH%" nadal zawiera [[part]]! Musisz przenieść [[part]], aby móc usunąć ten element.</target>
       </segment>
     </unit>
     <unit id="1hxhr3b" name="entity.delete.must_not_contain_attachments">
       <segment state="translated">
         <source>entity.delete.must_not_contain_attachments</source>
-        <target>Typ załącznika nadal zawiera załączniki. Zmień ich typ, aby móc usunąć ten typ załącznika.</target>
+        <target>[Attachment_type] nadal zawiera [[attachment]]. Zmień ich typ, aby móc usunąć ten typ załącznika.</target>
       </segment>
     </unit>
     <unit id="95i8XQ4" name="entity.delete.must_not_contain_prices">
@@ -6227,7 +6227,7 @@ Element 3</target>
     <unit id="DachcxN" name="part.table.edit.title">
       <segment state="translated">
         <source>part.table.edit.title</source>
-        <target>Edytuj część</target>
+        <target>Edytuj [part]</target>
       </segment>
     </unit>
     <unit id="keLmdcq" name="part_list.action.scrollable_hint">
@@ -6305,7 +6305,7 @@ Element 3</target>
     <unit id="gaoMsrY" name="part_list.action.part_count">
       <segment state="translated">
         <source>part_list.action.part_count</source>
-        <target>Wybrano %count% części</target>
+        <target>Wybrano %count% [[part]]</target>
       </segment>
     </unit>
     <unit id="FhdheZY" name="company.edit.quick.website">
@@ -6425,7 +6425,7 @@ Element 3</target>
     <unit id="CdphPiM" name="tools.reel_calc.explanation">
       <segment state="translated">
         <source>tools.reel_calc.explanation</source>
-        <target>Ten kalkulator daje Ci oszacowanie, ile części pozostało na szpuli SMD. Zmierz zanotowane wymiary na szpuli (lub użyj któregoś z ustawień wstępnych) i kliknij "Aktualizuj", aby uzyskać wynik.</target>
+        <target>Ten kalkulator daje Ci oszacowanie, ile [[part]] pozostało na szpuli SMD. Zmierz zanotowane wymiary na szpuli (lub użyj któregoś z ustawień wstępnych) i kliknij "Aktualizuj", aby uzyskać wynik.</target>
       </segment>
     </unit>
     <unit id="21dEh63" name="perm.tools.reel_calculator">
@@ -6455,13 +6455,13 @@ Element 3</target>
     <unit id=".X2zJdC" name="part_list.action.delete-title">
       <segment state="translated">
         <source>part_list.action.delete-title</source>
-        <target>Czy na pewno chcesz usunąć te części?</target>
+        <target>Czy na pewno chcesz usunąć te [[part]]?</target>
       </segment>
     </unit>
     <unit id="njR3m9K" name="part_list.action.delete-message">
       <segment state="translated">
         <source>part_list.action.delete-message</source>
-        <target>Te [[part]] i wszystkie powiązane informacje (załączniki, informacje o cenach itp.) zostaną usunięte. Tego nie da się cofnąć!</target>
+        <target>Te [[part]] i wszystkie powiązane informacje ([[attachment]], informacje o cenach itp.) zostaną usunięte. Nie można tego cofnąć!</target>
       </segment>
     </unit>
     <unit id="iprEHvW" name="part.table.actions.success">
@@ -6473,7 +6473,7 @@ Element 3</target>
     <unit id="WUDnXcT" name="attachment.edit.delete.confirm">
       <segment state="translated">
         <source>attachment.edit.delete.confirm</source>
-        <target>Czy na pewno chcesz usunąć ten załącznik?</target>
+        <target>Czy na pewno chcesz usunąć ten [attachment]?</target>
       </segment>
     </unit>
     <unit id="B8Ch_oU" name="filter.text_constraint.value.operator.EQ">
@@ -6605,7 +6605,7 @@ Element 3</target>
     <unit id="jcZuCCn" name="part.filter.lotNeedsRefill">
       <segment state="translated">
         <source>part.filter.lotNeedsRefill</source>
-        <target>Każda partia potrzebuje uzupełnienia</target>
+        <target>Każda [part_lot] potrzebuje uzupełnienia</target>
       </segment>
     </unit>
     <unit id="qvGwmDf" name="part.filter.lotUnknwonAmount">
@@ -6869,7 +6869,7 @@ Element 3</target>
     <unit id="4tHhDtU" name="parts_list.search.searching_for">
       <segment state="translated">
         <source>parts_list.search.searching_for</source>
-        <target>Wyszukiwanie części ze słowem kluczowym &lt;b&gt;%keyword%&lt;/b&gt;</target>
+        <target>Wyszukiwanie [[part]] ze słowem kluczowym &lt;b&gt;%keyword%&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="4vomKLa" name="parts_list.search_options.caption">
@@ -6953,7 +6953,7 @@ Element 3</target>
     <unit id="e97FPsh" name="entity.info.parts_count_recursive">
       <segment state="translated">
         <source>entity.info.parts_count_recursive</source>
-        <target>Liczba części z tym elementem lub jego pod elementami</target>
+        <target>Liczba [[part]] z tym elementem lub jego pod elementami</target>
       </segment>
     </unit>
     <unit id="st92iWF" name="tools.server_infos.title">
@@ -7049,13 +7049,13 @@ Element 3</target>
     <unit id="ALbUX_X" name="perm.attachments.show_private">
       <segment state="translated">
         <source>perm.attachments.show_private</source>
-        <target>Pokaż prywatne załączniki</target>
+        <target>Pokaż prywatne [[attachment]]</target>
       </segment>
     </unit>
     <unit id="og6x3bF" name="perm.attachments.list_attachments">
       <segment state="translated">
         <source>perm.attachments.list_attachments</source>
-        <target>Pokaż wszystkie załączniki</target>
+        <target>Pokaż wszystkie [[attachment]]</target>
       </segment>
     </unit>
     <unit id="jnDXhpi" name="user.edit.permission_success">
@@ -7175,7 +7175,7 @@ Element 3</target>
     <unit id="BdrD6tU" name="part_list.action.projects.add_to_project">
       <segment state="translated">
         <source>part_list.action.projects.add_to_project</source>
-        <target>Dodaj części do projektu</target>
+        <target>Dodaj [[part]] do projektu</target>
       </segment>
     </unit>
     <unit id="uok31Te" name="project.bom.delete.confirm">
@@ -7343,7 +7343,7 @@ Element 3</target>
     <unit id="8tP3lQI" name="part.info.withdraw_modal.title.withdraw">
       <segment state="translated">
         <source>part.info.withdraw_modal.title.withdraw</source>
-        <target>Usuwanie części z partii</target>
+        <target>Usuwanie [[part]] z partii</target>
       </segment>
     </unit>
     <unit id="tJ6JCIJ" name="part.info.withdraw_modal.title.add">
@@ -7379,7 +7379,7 @@ Element 3</target>
     <unit id="ep3MezY" name="part.info.withdraw_modal.comment.hint">
       <segment state="translated">
         <source>part.info.withdraw_modal.comment.hint</source>
-        <target>Możesz ustawić tutaj komentarz opisujący, dlaczego wykonujesz tę operację (np. do czego potrzebujesz części). Informacje te zostaną zapisane w dzienniku.</target>
+        <target>Możesz ustawić tutaj komentarz opisujący, dlaczego wykonujesz tę operację (np. do czego potrzebujesz [[part]]). Informacje te zostaną zapisane w dzienniku.</target>
       </segment>
     </unit>
     <unit id="g7CtdZo" name="modal.close">
@@ -7421,7 +7421,7 @@ Element 3</target>
     <unit id="khu57GR" name="perm.parts_stock.move">
       <segment state="translated">
         <source>perm.parts_stock.move</source>
-        <target>Przenoszenie części między partiami</target>
+        <target>Przenoszenie [[part]] między partiami</target>
       </segment>
     </unit>
     <unit id="Mx1qtMm" name="user.permissions_schema_updated">
@@ -7529,7 +7529,7 @@ Element 3</target>
     <unit id="CEr_90G" name="part_list.action.projects.generate_label_lot">
       <segment state="translated">
         <source>part_list.action.projects.generate_label_lot</source>
-        <target>Generowanie etykiet (dla partii [[part]])</target>
+        <target>Generowanie etykiet (dla partii)</target>
       </segment>
     </unit>
     <unit id="QjZuQlv" name="part_list.action.generate_label.empty">
@@ -7547,13 +7547,13 @@ Element 3</target>
     <unit id="Hqb3M_R" name="project.builds.build_not_possible">
       <segment state="translated">
         <source>project.builds.build_not_possible</source>
-        <target>Budowa nie jest możliwa: Brak części w magazynie</target>
+        <target>Budowa nie jest możliwa: Brak [[part]] w magazynie</target>
       </segment>
     </unit>
     <unit id=".I7zcoK" name="project.builds.following_bom_entries_miss_instock">
       <segment state="translated">
         <source>project.builds.following_bom_entries_miss_instock</source>
-        <target>Poniższe części nie są dostępne w wystarczającej ilości, aby zbudować ten projekt przynajmniej raz:</target>
+        <target>Poniższe [[part]] nie są dostępne w wystarczającej ilości, aby zbudować ten projekt przynajmniej raz:</target>
       </segment>
     </unit>
     <unit id="fGT0qfb" name="project.builds.stocked">
@@ -7589,7 +7589,7 @@ Element 3</target>
     <unit id="Y7vSSxi" name="project.builds.following_bom_entries_miss_instock_n">
       <segment state="translated">
         <source>project.builds.following_bom_entries_miss_instock_n</source>
-        <target>Nie masz wystarczającej liczby części, aby zbudować ten projekt %number_of_builds% razy. W magazynie brakuje następujących części:</target>
+        <target>Nie masz wystarczającej liczby [[part]], aby zbudować ten projekt %number_of_builds% razy. W magazynie brakuje następujących [[part]]:</target>
       </segment>
     </unit>
     <unit id="1BGl3Dv" name="project.build.flash.invalid_input">
@@ -7613,7 +7613,7 @@ Element 3</target>
     <unit id="zgLSR.X" name="project.build.help">
       <segment state="translated">
         <source>project.build.help</source>
-        <target>Wybierz, z których partii [[part]] należy pobrać zapasy do budowy tego projektu (i w jakiej ilości). Zaznacz pole wyboru dla każdego wpisu BOM po zakończeniu pobierania części lub użyj górnego pola wyboru, aby zaznaczyć wszystkie pola jednocześnie.</target>
+        <target>Wybierz, z których partii należy pobrać zapasy do budowy tego projektu (i w jakiej ilości). Zaznacz pole wyboru dla każdego wpisu BOM po zakończeniu pobierania [[part]] lub użyj górnego pola wyboru, aby zaznaczyć wszystkie pola jednocześnie.</target>
       </segment>
     </unit>
     <unit id="srYaI3Z" name="project.build.buildsPartLot.new_lot">
@@ -7631,7 +7631,7 @@ Element 3</target>
     <unit id="NrlU0Hu" name="project.build.builds_part_lot">
       <segment state="translated">
         <source>project.build.builds_part_lot</source>
-        <target>Partia docelowa</target>
+        <target>[Part_lot] docelowa</target>
       </segment>
     </unit>
     <unit id="5DTAvWG" name="project.builds.number_of_builds">
@@ -7727,7 +7727,7 @@ Element 3</target>
     <unit id="Q79MOIk" name="homepage.first_steps.create_part">
       <segment state="translated">
         <source>homepage.first_steps.create_part</source>
-        <target>Możesz też bezpośrednio &lt;a href="%url%"&gt;utworzyć nową część&lt;/a&gt;.</target>
+        <target>Możesz też bezpośrednio &lt;a href="%url%"&gt;utworzyć nową [part]&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="vplYq4f" name="homepage.first_steps.hide_hint">
@@ -7745,7 +7745,7 @@ Element 3</target>
     <unit id="YsukbnK" name="log.element_edited.changed_fields.category">
       <segment state="translated">
         <source>log.element_edited.changed_fields.category</source>
-        <target>Kategoria</target>
+        <target>[Category]</target>
       </segment>
     </unit>
     <unit id="zCziDS4" name="log.element_edited.changed_fields.footprint">
@@ -7757,7 +7757,7 @@ Element 3</target>
     <unit id="xT2Ayws" name="log.element_edited.changed_fields.manufacturer">
       <segment state="translated">
         <source>log.element_edited.changed_fields.manufacturer</source>
-        <target>Producent</target>
+        <target>[Manufacturer]</target>
       </segment>
     </unit>
     <unit id="BvfZLPa" name="log.element_edited.changed_fields.value_typical">
@@ -7991,13 +7991,13 @@ Element 3</target>
     <unit id="K754HtO" name="log.element_edited.changed_fields.limit_to_existing_parts">
       <segment state="translated">
         <source>log.element_edited.changed_fields.limit_to_existing_parts</source>
-        <target>Ograniczenie do istniejących części</target>
+        <target>Ograniczenie do istniejących [[part]]</target>
       </segment>
     </unit>
     <unit id="Eegxslm" name="log.element_edited.changed_fields.only_single_part">
       <segment state="translated">
         <source>log.element_edited.changed_fields.only_single_part</source>
-        <target>Tylko pojedyncza część</target>
+        <target>Tylko pojedyncza [part]</target>
       </segment>
     </unit>
     <unit id="eCJ831K" name="log.element_edited.changed_fields.storage_type">
@@ -8243,7 +8243,7 @@ Element 3</target>
     <unit id="8QD.2.r" name="log.element_edited.changed_fields.partCustomState">
       <segment state="translated">
         <source>log.element_edited.changed_fields.partCustomState</source>
-        <target>Własny stan części</target>
+        <target>[Part_custom_state]</target>
       </segment>
     </unit>
     <unit id="c9XMmAp" name="log.element_edited.changed_fields.expiration_date">
@@ -8297,7 +8297,7 @@ Element 3</target>
     <unit id="HG8kB1l" name="part_list.action.action.export">
       <segment state="translated">
         <source>part_list.action.action.export</source>
-        <target>Eksportuj części</target>
+        <target>Eksportuj [[part]]</target>
       </segment>
     </unit>
     <unit id="F6tbyi8" name="part_list.action.export_json">
@@ -8333,7 +8333,7 @@ Element 3</target>
     <unit id="w0AgPEI" name="parts.import.title">
       <segment state="translated">
         <source>parts.import.title</source>
-        <target>Importuj części</target>
+        <target>Importuj [[part]]</target>
       </segment>
     </unit>
     <unit id="M1ktr91" name="parts.import.errors.title">
@@ -8375,7 +8375,7 @@ Element 3</target>
     <unit id="aLYzCR2" name="parts.import.part_category.help">
       <segment state="translated">
         <source>parts.import.part_category.help</source>
-        <target>Jeśli tutaj wybierzesz wartość, wszystkie importowane części zostaną przypisane do tej kategorii, niezależnie od tego, co zostało ustawione w danych.</target>
+        <target>Jeśli tutaj wybierzesz wartość, wszystkie importowane [[part]] zostaną przypisane do tej kategorii, niezależnie od tego, co zostało ustawione w danych.</target>
       </segment>
     </unit>
     <unit id="gt2SlQN" name="import.create_unknown_datastructures">
@@ -8387,7 +8387,7 @@ Element 3</target>
     <unit id=".TjGPnB" name="import.create_unknown_datastructures.help">
       <segment state="translated">
         <source>import.create_unknown_datastructures.help</source>
-        <target>Jeśli ta opcja jest wybrana, struktury danych (takie jak kategorie, [[footprint]] itp.), które jeszcze nie istnieją w bazie danych, zostaną automatycznie utworzone. Jeśli ta opcja nie jest wybrana, będą używane tylko istniejące struktury danych, a jeśli nie zostanie znaleziona odpowiadająca struktura danych, część nie otrzyma przypisania.</target>
+        <target>Jeśli ta opcja jest wybrana, struktury danych (takie jak [[category]], [[footprint]] itp.), które jeszcze nie istnieją w bazie danych, zostaną automatycznie utworzone. Jeśli ta opcja nie jest wybrana, będą używane tylko istniejące struktury danych, a jeśli nie zostanie znaleziona odpowiadająca struktura danych, [part] nie otrzyma przypisania.</target>
       </segment>
     </unit>
     <unit id="y_rsaV8" name="import.path_delimiter">
@@ -8399,7 +8399,7 @@ Element 3</target>
     <unit id="AOG.hXc" name="import.path_delimiter.help">
       <segment state="translated">
         <source>import.path_delimiter.help</source>
-        <target>Separator używany do oznaczania różnych poziomów w ścieżkach struktury danych, takich jak kategoria, [footprint] itp.</target>
+        <target>Separator używany do oznaczania różnych poziomów w ścieżkach struktury danych, takich jak [category], [footprint] itp.</target>
       </segment>
     </unit>
     <unit id="p_IxB9K" name="parts.import.help_documentation">
@@ -8411,7 +8411,7 @@ Element 3</target>
     <unit id="awbvhVq" name="parts.import.help">
       <segment state="translated">
         <source>parts.import.help</source>
-        <target>Możesz importować części z istniejących plików za pomocą tego narzędzia. Części będą bezpośrednio zapisywane w bazie danych, dlatego przed przesłaniem pliku tutaj upewnij się, że jego zawartość jest poprawna.</target>
+        <target>Możesz importować [[part]] z istniejących plików za pomocą tego narzędzia. [[Part]] będą bezpośrednio zapisywane w bazie danych, dlatego przed przesłaniem pliku tutaj upewnij się, że jego zawartość jest poprawna.</target>
       </segment>
     </unit>
     <unit id="5.sq5ns" name="parts.import.flash.success">
@@ -8435,13 +8435,13 @@ Element 3</target>
     <unit id="ZL.3qqU" name="parts.import.part_needs_review.label">
       <segment state="translated">
         <source>parts.import.part_needs_review.label</source>
-        <target>Oznacz wszystkie importowane części jako "Wymaga sprawdzenia".</target>
+        <target>Oznacz wszystkie importowane [[part]] jako "Wymaga sprawdzenia".</target>
       </segment>
     </unit>
     <unit id="7dsEiOg" name="parts.import.part_needs_review.help">
       <segment state="translated">
         <source>parts.import.part_needs_review.help</source>
-        <target>Jeśli ta opcja zostanie wybrana, wszystkie części zostaną oznaczone jako "Wymaga sprawdzenia", niezależnie od tego, co zostało ustawione w danych.</target>
+        <target>Jeśli ta opcja zostanie wybrana, wszystkie [[part]] zostaną oznaczone jako "Wymaga sprawdzenia", niezależnie od tego, co zostało ustawione w danych.</target>
       </segment>
     </unit>
     <unit id="Ie9LLKJ" name="project.bom_import.flash.success">
@@ -8537,7 +8537,7 @@ Element 3</target>
     <unit id="lYlHhtl" name="storelocation.part_owner_must_match.label">
       <segment state="translated">
         <source>storelocation.part_owner_must_match.label</source>
-        <target>Właściciel części partii musi być zgodny z właścicielem miejsca przechowywania</target>
+        <target>Właściciel części w partii musi być zgodny z właścicielem miejsca przechowywania</target>
       </segment>
     </unit>
     <unit id="eMHXpbV" name="part_lot.owner">
@@ -8573,7 +8573,7 @@ Element 3</target>
     <unit id="9zWwSvC" name="part.withdraw.access_denied">
       <segment state="translated">
         <source>part.withdraw.access_denied</source>
-        <target>Nie można wykonać żądanej akcji. Sprawdź swoje uprawnienia i właściciela partii [[part]].</target>
+        <target>Nie można wykonać żądanej akcji. Sprawdź swoje uprawnienia i właściciela partii.</target>
       </segment>
     </unit>
     <unit id="4ynARET" name="part.info.amount.less_than_desired">
@@ -8753,7 +8753,7 @@ Element 3</target>
     <unit id="aKTwq37" name="log.element_edited.changed_fields.attachments">
       <segment state="translated">
         <source>log.element_edited.changed_fields.attachments</source>
-        <target>Załączniki</target>
+        <target>[[Attachment]]</target>
       </segment>
     </unit>
     <unit id="FcLV2wQ" name="tfa_u2f.add_key.registration_error">
@@ -8845,13 +8845,13 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="z3aJr8X" name="info_providers.providers_list.active">
       <segment state="translated">
         <source>info_providers.providers_list.active</source>
-        <target>Aktywni</target>
+        <target>Aktywny</target>
       </segment>
     </unit>
     <unit id="BZcuoFw" name="info_providers.providers_list.disabled">
       <segment state="translated">
         <source>info_providers.providers_list.disabled</source>
-        <target>Wyłączeni</target>
+        <target>Wyłączony</target>
       </segment>
     </unit>
     <unit id="zm5ZHa7" name="info_providers.capabilities.basic">
@@ -8905,7 +8905,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="eaFNqp." name="info_providers.table.provider.label">
       <segment state="translated">
         <source>info_providers.table.provider.label</source>
-        <target>Dostawca</target>
+        <target>Dostawca informacji</target>
       </segment>
     </unit>
     <unit id="5wIJhn7" name="info_providers.search.keyword">
@@ -8941,7 +8941,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="JSFXwwP" name="info_providers.search.title">
       <segment state="translated">
         <source>info_providers.search.title</source>
-        <target>Importuj [part] od dostawcy</target>
+        <target>Utwórz [[part]] używając dostawcy informacji</target>
       </segment>
     </unit>
     <unit id="R7y5NfE" name="oauth_client.flash.connection_successful">
@@ -8977,7 +8977,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="QqddSD8" name="info_providers.form.help_prefix">
       <segment state="translated">
         <source>info_providers.form.help_prefix</source>
-        <target>Dostawca</target>
+        <target>Dostawca informacji</target>
       </segment>
     </unit>
     <unit id="qSbBZW6" name="update_manager.new_version_available.title">
@@ -9235,13 +9235,13 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="ZUTnGrb" name="part.edit.tab.associations">
       <segment state="translated">
         <source>part.edit.tab.associations</source>
-        <target>Części powiązane</target>
+        <target>[[Part]] powiązane</target>
       </segment>
     </unit>
     <unit id="RbW42yL" name="part_association.edit.other_part">
       <segment state="translated">
         <source>part_association.edit.other_part</source>
-        <target>Część powiązana</target>
+        <target>[Part] powiązana</target>
       </segment>
     </unit>
     <unit id="W_ic7va" name="part_association.edit.type">
@@ -9259,7 +9259,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="nHFZU6q" name="part_association.edit.type.help">
       <segment state="translated">
         <source>part_association.edit.type.help</source>
-        <target>Możesz tutaj wybrać, w jaki sposób wybrana część jest związana z tą częścią</target>
+        <target>Możesz tutaj wybrać, w jaki sposób wybrana [part] jest związana z tą częścią.</target>
       </segment>
     </unit>
     <unit id="A8La_LS" name="part_association.table.from_this_part">
@@ -9337,13 +9337,13 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="22Y3GfL" name="part_lot.edit.vendor_barcode.help">
       <segment state="translated">
         <source>part_lot.edit.vendor_barcode.help</source>
-        <target>Jeśli ta partia ma już kod kreskowy (np. umieszczony przez dostawcę), możesz wprowadzić jego treść tutaj, aby łatwiej go zeskanować.</target>
+        <target>Jeśli ta [part_lot] ma już kod kreskowy (np. umieszczony przez dostawcę), możesz wprowadzić jego treść tutaj, aby łatwiej go zeskanować.</target>
       </segment>
     </unit>
     <unit id="tFAtJBM" name="scan_dialog.mode.vendor">
       <segment state="translated">
         <source>scan_dialog.mode.vendor</source>
-        <target>Kod kreskowy dostawcy (skonfigurowany w partii części)</target>
+        <target>Kod paskowy dostawcy (ustawiony w partii)</target>
       </segment>
     </unit>
     <unit id="J8fTjKW" name="project.bom.instockAmount">
@@ -9361,7 +9361,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="HOAqbdD" name="part.merge.title">
       <segment state="translated">
         <source>part.merge.title</source>
-        <target>Połącz część</target>
+        <target>Połącz [part]</target>
       </segment>
     </unit>
     <unit id="VRUw_MQ" name="part.merge.title.into">
@@ -9379,49 +9379,49 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="k0anzYV" name="part.merge.confirm.message">
       <segment state="translated">
         <source>part.merge.confirm.message</source>
-        <target>&lt;b&gt;%other%&lt;/b&gt; Zostanie usunięta, a część będzie zapisana z widocznymi informacjami.</target>
+        <target>&lt;b&gt;%other%&lt;/b&gt; Zostanie usunięta, a [part] będzie zapisana z widocznymi informacjami.</target>
       </segment>
     </unit>
     <unit id="mmW5Yl1" name="part.info.merge_modal.title">
       <segment state="translated">
         <source>part.info.merge_modal.title</source>
-        <target>Scal części</target>
+        <target>Scal [[part]]</target>
       </segment>
     </unit>
     <unit id="F2uzrOj" name="part.info.merge_modal.other_part">
       <segment state="translated">
         <source>part.info.merge_modal.other_part</source>
-        <target>Inna część</target>
+        <target>Inna [part]</target>
       </segment>
     </unit>
     <unit id="1Ot.sRs" name="part.info.merge_modal.other_into_this">
       <segment state="translated">
         <source>part.info.merge_modal.other_into_this</source>
-        <target>Scal inną część z tą (usuń tamtą część, zachowaj tę).</target>
+        <target>Scal inną [part] z tą (usuń tamtą [part], zachowaj tę).</target>
       </segment>
     </unit>
     <unit id="QwaQrcy" name="part.info.merge_modal.this_into_other">
       <segment state="translated">
         <source>part.info.merge_modal.this_into_other</source>
-        <target>Scal tę część z inną (usuń tę część, zachowaj drugą).</target>
+        <target>Scal tę [part] z inną (usuń tę [part], zachowaj drugą).</target>
       </segment>
     </unit>
     <unit id="BvzFQza" name="part.info.merge_btn">
       <segment state="translated">
         <source>part.info.merge_btn</source>
-        <target>Połącz część</target>
+        <target>Połącz [part]</target>
       </segment>
     </unit>
     <unit id="Bxk6TEw" name="part.update_part_from_info_provider.btn">
       <segment state="translated">
         <source>part.update_part_from_info_provider.btn</source>
-        <target>Zaktualizuj [part] na podstawie danych od dostawcy</target>
+        <target>Zaktualizuj [part] używając dostawców informacji</target>
       </segment>
     </unit>
     <unit id="7pDRUQB" name="info_providers.update_part.title">
       <segment state="translated">
         <source>info_providers.update_part.title</source>
-        <target>Zaktualizuj istniejącą [part] na podstawie danych od dostawcy.</target>
+        <target>Zaktualizuj istniejącą [part] na podstawie danych od dostawców informacji</target>
       </segment>
     </unit>
     <unit id="ae9PVMs" name="part.merge.flash.please_review">
@@ -9469,7 +9469,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="SMclulD" name="info_providers.search.error.client_exception">
       <segment state="translated">
         <source>info_providers.search.error.client_exception</source>
-        <target>Wystąpił błąd podczas komunikacji z dostawcą informacji. Sprawdź konfigurację tego dostawcy i jeśli to możliwe, odśwież tokeny OAuth.</target>
+        <target>Wystąpił błąd podczas komunikacji z dostawcą informacji. Sprawdź konfigurację tego dostawcy informacji i jeśli to możliwe, odśwież tokeny OAuth.</target>
       </segment>
     </unit>
     <unit id="LOw2TOY" name="eda_info.reference_prefix.placeholder">
@@ -9505,13 +9505,13 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="LK52LEX" name="eda_info.exclude_from_bom">
       <segment state="translated">
         <source>eda_info.exclude_from_bom</source>
-        <target>Wyklucz część z BOM</target>
+        <target>Wyklucz [part] z BOM</target>
       </segment>
     </unit>
     <unit id="upD8zh_" name="eda_info.exclude_from_board">
       <segment state="translated">
         <source>eda_info.exclude_from_board</source>
-        <target>Wyklucz część z PCB/Płyty</target>
+        <target>Wyklucz [part] z PCB/Płyty</target>
       </segment>
     </unit>
     <unit id="aWEXBed" name="eda_info.exclude_from_sim">
@@ -9577,7 +9577,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="V3_Ff8P" name="eda_info.visibility.help">
       <segment state="translated">
         <source>eda_info.visibility.help</source>
-        <target>Domyślnie widoczność dla oprogramowania EDA jest określana automatycznie. Za pomocą tego pola wyboru można wymusić, aby część była widoczna lub niewidoczna.</target>
+        <target>Domyślnie widoczność dla oprogramowania EDA jest określana automatycznie. Za pomocą tego pola wyboru można wymusić, aby [part] była widoczna lub niewidoczna.</target>
       </segment>
     </unit>
     <unit id="mF8BVBu" name="part.withdraw.zero_amount">
@@ -9625,37 +9625,37 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="5fgkpRc" name="info_providers.search.show_existing_part">
       <segment state="translated">
         <source>info_providers.search.show_existing_part</source>
-        <target>Wyświetl istniejącą część</target>
+        <target>Wyświetl istniejącą [part]</target>
       </segment>
     </unit>
     <unit id="iPO8lit" name="info_providers.search.edit_existing_part">
       <segment state="translated">
         <source>info_providers.search.edit_existing_part</source>
-        <target>Edytuj istniejącą część</target>
+        <target>Edytuj istniejącą [part]</target>
       </segment>
     </unit>
     <unit id="gUMm8CJ" name="info_providers.search.existing_part_found.short">
       <segment state="translated">
         <source>info_providers.search.existing_part_found.short</source>
-        <target>Część już istnieje</target>
+        <target>[Part] już istnieje</target>
       </segment>
     </unit>
     <unit id="bT1nkI9" name="info_providers.search.existing_part_found">
       <segment state="translated">
         <source>info_providers.search.existing_part_found</source>
-        <target>Ta (lub bardzo podobna) część jest już obecna w bazie danych. Sprawdź, czy jest to ta sama część i czy na pewno chcesz utworzyć ją jeszcze raz!</target>
+        <target>Ta (lub bardzo podobna) [part] jest już obecna w bazie danych. Sprawdź, czy jest to ta sama [part] i czy na pewno chcesz utworzyć ją jeszcze raz!</target>
       </segment>
     </unit>
     <unit id="TDxYuTP" name="info_providers.search.update_existing_part">
       <segment state="translated">
         <source>info_providers.search.update_existing_part</source>
-        <target>Aktualizuj istniejącą część używając dostawcy informacji</target>
+        <target>Aktualizuj istniejącą [part] używając dostawcy informacji</target>
       </segment>
     </unit>
     <unit id="X5tEZJs" name="part.create_from_info_provider.no_category_yet">
       <segment state="translated">
         <source>part.create_from_info_provider.no_category_yet</source>
-        <target>Kategoria nie mogła być ustalona automatycznie przez dostawcę informacji. Przejrzyj dane i wybierz kategorię ręcznie.</target>
+        <target>[Category] nie mogła być ustalona automatycznie przez dostawcę informacji. Przejrzyj dane i wybierz kategorię ręcznie.</target>
       </segment>
     </unit>
     <unit id="v6oyTac" name="part_lot.edit.user_barcode">
@@ -9667,7 +9667,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="dXhegcm" name="scan_dialog.mode.user">
       <segment state="translated">
         <source>scan_dialog.mode.user</source>
-        <target>Kod paskowy zdefiniowany przez użytkownika (ustawiony w partii części)</target>
+        <target>Kod paskowy zdefiniowany przez użytkownika (ustawiony w partii)</target>
       </segment>
     </unit>
     <unit id="sSAJDdr" name="scan_dialog.mode.eigp">
@@ -9709,7 +9709,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="PTh4EK_" name="label_scanner.no_locations">
       <segment state="translated">
         <source>label_scanner.no_locations</source>
-        <target>Część nie jest przechowywana w żadnej lokalizacji.</target>
+        <target>[Part] nie jest przechowywana w żadnej lokalizacji.</target>
       </segment>
     </unit>
     <unit id="nmXQWcS" name="label_generator.edit_profiles">
@@ -9859,7 +9859,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="7ERXoOf" name="settings.ips.mouser.searchOptions.help">
       <segment state="translated">
         <source>settings.ips.mouser.searchOptions.help</source>
-        <target>Tutaj możesz ustawić, aby były widoczne tylko części z konkretną dostępnością i/lub zgodnością.</target>
+        <target>Tutaj możesz ustawić, aby były widoczne tylko [[part]] z konkretną dostępnością i/lub zgodnością.</target>
       </segment>
     </unit>
     <unit id="2_fx.rT" name="settings.ips.mouser.searchOptions.none">
@@ -9871,19 +9871,19 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id=".PbDhl9" name="settings.ips.mouser.searchOptions.rohs">
       <segment state="translated">
         <source>settings.ips.mouser.searchOptions.rohs</source>
-        <target>Tylko części zgodne z RoHS</target>
+        <target>Tylko [[part]] zgodne z RoHS</target>
       </segment>
     </unit>
     <unit id="4SPypVz" name="settings.ips.mouser.searchOptions.inStock">
       <segment state="translated">
         <source>settings.ips.mouser.searchOptions.inStock</source>
-        <target>Tylko dostępne części</target>
+        <target>Tylko dostępne [[part]]</target>
       </segment>
     </unit>
     <unit id="xU8_Qw." name="settings.ips.mouser.searchOptions.rohsAndInStock">
       <segment state="translated">
         <source>settings.ips.mouser.searchOptions.rohsAndInStock</source>
-        <target>Tylko dostępne części zgodne z RoHS</target>
+        <target>Tylko dostępne [[part]] zgodne z RoHS</target>
       </segment>
     </unit>
     <unit id="fQYt0Om" name="settings.ips.lcsc">
@@ -9895,7 +9895,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="iD6HBym" name="settings.ips.lcsc.help">
       <segment state="translated">
         <source>settings.ips.lcsc.help</source>
-        <target>Uwaga: LCSC nie udostępnia oficjalnego API. Ten dostawca części używa API sklepu internetowego. LCSC nie przewidywało użycia tego API, i może ono przestać poprawnie działać w każdej chwili. Używaj na własne ryzyko.</target>
+        <target>Uwaga: LCSC nie udostępnia oficjalnego API. Ten dostawca informacji używa API sklepu internetowego. LCSC nie przewidywało użycia tego API, i może ono przestać poprawnie działać w każdej chwili. Używaj na własne ryzyko.</target>
       </segment>
     </unit>
     <unit id="v7inGbo" name="settings.ips.lcsc.enabled">
@@ -9913,7 +9913,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="kKv0J3." name="settings.system.attachments">
       <segment state="translated">
         <source>settings.system.attachments</source>
-        <target>Załączniki i pliki</target>
+        <target>[[Attachment]] i pliki</target>
       </segment>
     </unit>
     <unit id="dsRff8T" name="settings.system.attachments.maxFileSize">
@@ -10057,7 +10057,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="nt8eToz" name="settings.system.history.enforceComments.type.datastructure_delete">
       <segment state="translated">
         <source>settings.system.history.enforceComments.type.datastructure_delete</source>
-        <target>Usuń</target>
+        <target>Usuwanie struktur danych</target>
       </segment>
     </unit>
     <unit id="zQ8vq5N" name="settings.system.privacy.useGravatar">
@@ -10148,13 +10148,13 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="Q7J0OKP" name="settings.misc.mcp.editing_enabled">
       <segment state="translated">
         <source>settings.misc.mcp.editing_enabled</source>
-        <target>Włącz edycję części przez narzędzia MCP</target>
+        <target>Włącz edycję [[part]] przez narzędzia MCP</target>
       </segment>
     </unit>
     <unit id="wolnNE7" name="settings.misc.mcp.editing_enabled.help">
       <segment state="translated">
         <source>settings.misc.mcp.editing_enabled.help</source>
-        <target>Umożliwia asystentom SI tworzenie, edycję, usuwanie oraz zmianę zapasów części poprzez narzędzia MCP. Gdy jest to wyłączone, wszystkie narzędzia MCP są tylko do odczytu, niezależnie od zakresu uprawnień połączonego tokenu lub własnych uprawnień użytkownika.</target>
+        <target>Umożliwia asystentom SI tworzenie, edycję, usuwanie oraz zmianę zapasów [[part]] poprzez narzędzia MCP. Gdy jest to wyłączone, wszystkie narzędzia MCP są tylko do odczytu, niezależnie od zakresu uprawnień połączonego tokenu lub własnych uprawnień użytkownika.</target>
       </segment>
     </unit>
     <unit id="xtw_ol7" name="settings.misc.kicad_eda">
@@ -10172,7 +10172,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="w07P3Dt" name="settings.misc.kicad_eda.category_depth.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.category_depth.help</source>
-        <target>Ta wartość ustawia głębokość drzewa kategorii widoczną w KiCad. 0 oznacza, że tylko kategorie najwyższego poziomu są widoczne. Ustaw wartość &gt; 0 aby wyświetlić więcej poziomów. Ustaw -1, aby wyświetlić wszystkie części z Part-DB w pojedynczej kategorii w KiCad.</target>
+        <target>Ta wartość ustawia głębokość drzewa kategorii widoczną w KiCad. 0 oznacza, że tylko [[category]] najwyższego poziomu są widoczne. Ustaw wartość &gt; 0 aby wyświetlić więcej poziomów. Ustaw -1, aby wyświetlić wszystkie [[part]] z Part-DB w pojedynczej kategorii w KiCad.</target>
       </segment>
     </unit>
     <unit id="X5.rQdO" name="settings.misc.kicad_eda.datasheet_link">
@@ -10256,19 +10256,19 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="ZBpX8wi" name="settings.misc.kicad_eda.export_supplier_fields">
       <segment state="translated">
         <source>settings.misc.kicad_eda.export_supplier_fields</source>
-        <target>Eksportuj pola numerów części dostawców</target>
+        <target>Eksportuj pola numerów [[part]] dostawców</target>
       </segment>
     </unit>
     <unit id="AK0phKm" name="settings.misc.kicad_eda.export_supplier_fields.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.export_supplier_fields.help</source>
-        <target>Gdy włączone, eksportowane jest jedno pole "&lt;Dostawca&gt; SPN" na każde informacje o zakupach.</target>
+        <target>Gdy włączone, eksportowane jest jedno pole "&lt;[Supplier]&gt; SPN" na każde informacje o zakupach.</target>
       </segment>
     </unit>
     <unit id="q4m0AwA" name="settings.misc.kicad_eda.export_kicost_fields">
       <segment state="translated">
         <source>settings.misc.kicad_eda.export_kicost_fields</source>
-        <target>Eksportuj pola KiCost (manf, manf#, &lt;dostawca&gt;#)</target>
+        <target>Eksportuj pola KiCost (manf, manf#, &lt;[supplier]&gt;#)</target>
       </segment>
     </unit>
     <unit id="_i0zoJk" name="settings.misc.kicad_eda.export_kicost_fields.help">
@@ -10280,13 +10280,13 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="AOHkfzZ" name="settings.misc.kicad_eda.export_part_info_fields">
       <segment state="translated">
         <source>settings.misc.kicad_eda.export_part_info_fields</source>
-        <target>Eksportuj pola informacji o części (Kategoria, Status produkcji, Masa, IPN, ...)</target>
+        <target>Eksportuj pola informacji o części ([Category], Status produkcji, Masa, IPN, ...)</target>
       </segment>
     </unit>
     <unit id="SVVQZQJ" name="settings.misc.kicad_eda.export_part_info_fields.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.export_part_info_fields.help</source>
-        <target>Gdy włączone, eksportowane są pola Kategoria, Status produkcji, Masa, IPN Part-DB, [Footprint] Part-DB, Jednostka Part-DB oraz Własny stan Part-DB.</target>
+        <target>Gdy włączone, eksportowane są pola [Category], Status produkcji, Masa, IPN Part-DB, [Footprint] Part-DB, Jednostka Part-DB oraz Własny stan Part-DB.</target>
       </segment>
     </unit>
     <unit id="Gzbk.xN" name="settings.misc.kicad_eda.export_tags_as_keywords">
@@ -10298,7 +10298,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="wuq6li_" name="settings.misc.kicad_eda.export_tags_as_keywords.help">
       <segment state="translated">
         <source>settings.misc.kicad_eda.export_tags_as_keywords.help</source>
-        <target>Gdy włączone, tagi części eksportowane są jako słowa kluczowe symbolu KiCad. Wyłącz, jeśli zmiany tagów nie powinny modyfikować symboli KiCad.</target>
+        <target>Gdy włączone, tagi [[part]] eksportowane są jako słowa kluczowe symbolu KiCad. Wyłącz, jeśli zmiany tagów nie powinny modyfikować symboli KiCad.</target>
       </segment>
     </unit>
     <unit id="TfJvNLm" name="settings.misc.kicad_eda.editor.custom_footprints">
@@ -10358,7 +10358,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="uk0yKdg" name="settings.behavior.sidebar.rootNodeEnabled.help">
       <segment state="translated">
         <source>settings.behavior.sidebar.rootNodeEnabled.help</source>
-        <target>Gdy włączone, wszystkie kategorie najwyższego poziomu, [[footprint]] itd. zostaną umieszczone w pojedynczym węźle głównym. Gdy wyłączone, kategorie najwyższego poziomu zostaną umieszczone bezpośrednio w menu.</target>
+        <target>Gdy włączone, wszystkie [[category]] najwyższego poziomu, [[footprint]] itd. zostaną umieszczone w pojedynczym węźle głównym. Gdy wyłączone, [[category]] najwyższego poziomu zostaną umieszczone bezpośrednio w menu.</target>
       </segment>
     </unit>
     <unit id="brCNh0M" name="settings.behavior.sidebar.rootNodeExpanded">
@@ -10388,13 +10388,13 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="G1N8QW3" name="settings.behavior.table.parts_default_columns">
       <segment state="translated">
         <source>settings.behavior.table.parts_default_columns</source>
-        <target>Domyślne kolumny tabel części</target>
+        <target>Domyślne kolumny tabel [[part]]</target>
       </segment>
     </unit>
     <unit id="SUD8H3b" name="settings.behavior.table.parts_default_columns.help">
       <segment state="translated">
         <source>settings.behavior.table.parts_default_columns.help</source>
-        <target>Kolumny wyświetlane domyślnie w tabelach części. Kolejność elementów można zmienić, przeciągając je.</target>
+        <target>Kolumny wyświetlane domyślnie w tabelach [[part]]. Kolejność elementów można zmienić, przeciągając je.</target>
       </segment>
     </unit>
     <unit id="hazr_g5" name="settings.ips.oemsecrets">
@@ -10424,7 +10424,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="U4aFfJ3" name="settings.ips.oemsecrets.parseParams.help">
       <segment state="translated">
         <source>settings.ips.oemsecrets.parseParams.help</source>
-        <target>Gdy włączone, dostawca próbuje przekonwertować nieustrukturyzowane opisy OEMSecrets na ustrukturyzowane parametry. Każdy parametr w opisie powinien mieć formę "...;nazwa1:wartość1;nazwa2:wartość2"</target>
+        <target>Gdy włączone, dostawca informacji próbuje przekonwertować nieustrukturyzowane opisy OEMSecrets na ustrukturyzowane parametry. Każdy parametr w opisie powinien mieć formę "...;nazwa1:wartość1;nazwa2:wartość2"</target>
       </segment>
     </unit>
     <unit id="YMpgQPU" name="settings.ips.oemsecrets.sortMode">
@@ -10496,13 +10496,13 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="4wpp6h." name="part_list.action.action.change_location">
       <segment state="translated">
         <source>part_list.action.action.change_location</source>
-        <target>Zmień [storage_location] (tylko części z pojedynczym miejscem)</target>
+        <target>Zmień [storage_location] (tylko [[part]] z pojedynczym miejscem przechowywania)</target>
       </segment>
     </unit>
     <unit id="9_9I.m4" name="parts.table.action_handler.error.part_lots_multiple">
       <segment state="translated">
         <source>parts.table.action_handler.error.part_lots_multiple</source>
-        <target>Ta część ma więcej niż jedno [storage_location]. Aby można było wybrać właściwe [storage_location] do zmiany, należy je zmienić ręcznie.</target>
+        <target>Ta [part] ma więcej niż jedno [storage_location]. Aby można było wybrać właściwe [storage_location] do zmiany, należy je zmienić ręcznie.</target>
       </segment>
     </unit>
     <unit id="qn25jL." name="settings.ips.reichelt">
@@ -10634,7 +10634,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="irHQep1" name="settings.misc.ipn_suggest.autoAppendSuffix">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.autoAppendSuffix</source>
-        <target>Dodaj inkrementalny sufiks do IPN, jeśli wartość jest już używana przez inną część</target>
+        <target>Dodaj inkrementalny sufiks do IPN, jeśli wartość jest już używana przez inną [part]</target>
       </segment>
     </unit>
     <unit id="MHvNzxt" name="settings.misc.ipn_suggest.suggestPartDigits">
@@ -10652,7 +10652,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="1RN3Xwz" name="settings.misc.ipn_suggest.suggestPartDigits.help">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.suggestPartDigits.help</source>
-        <target>Liczba cyfr używana do przyrostowego numerowania części w systemie sugestii IPN (wewnętrznych numerów części).</target>
+        <target>Liczba cyfr używana do przyrostowego numerowania [[part]] w systemie sugestii IPN (wewnętrznych numerów [[part]]).</target>
       </segment>
     </unit>
     <unit id="Ffr5xYM" name="settings.behavior.part_info">
@@ -10892,7 +10892,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="M54Ud5d" name="project.bom_import.validation.errors.duplicate_designators">
       <segment state="translated">
         <source>project.bom_import.validation.errors.duplicate_designators</source>
-        <target>Linia %line%: Wykryto powtarzające się oznaczenia części: %designators%. Każda część powinna występować tylko raz w linii.</target>
+        <target>Linia %line%: Wykryto powtarzające się oznaczenia części: %designators%. Każda [part] powinna występować tylko raz w linii.</target>
       </segment>
     </unit>
     <unit id="ZULFZh2" name="project.bom_import.validation.errors.invalid_quantity">
@@ -10940,7 +10940,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="gRH6IeR" name="project.bom_import.validation.warnings.partdb_id_not_found">
       <segment state="translated">
         <source>project.bom_import.validation.warnings.partdb_id_not_found</source>
-        <target>Linia %line%: Nie znaleziono ID Part-DB "%id%" w bazie danych. Część zostanie zaimportowana bez powiązania z istniejącą częścią.</target>
+        <target>Linia %line%: Nie znaleziono ID Part-DB "%id%" w bazie danych. [Part] zostanie zaimportowana bez powiązania z istniejącą częścią.</target>
       </segment>
     </unit>
     <unit id="eMfaBYo" name="project.bom_import.validation.info.partdb_link_success">
@@ -11168,7 +11168,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="IDs2sXK" name="settings.ips.default_providers.help">
       <segment state="translated">
         <source>settings.ips.default_providers.help</source>
-        <target>Dostawcy, którzy będą domyślnie wybierani do wyszukiwań w dostawcach informacji.</target>
+        <target>Dostawcy informacji, którzy będą domyślnie wybierani do wyszukiwań.</target>
       </segment>
     </unit>
     <unit id="dv6eslZ" name="settings.behavior.table.preview_image_max_width">
@@ -11192,19 +11192,19 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="dqV7NUB" name="info_providers.bulk_import.parts_selected">
       <segment state="translated">
         <source>info_providers.bulk_import.parts_selected</source>
-        <target>wybranych części</target>
+        <target>wybranych [[part]]</target>
       </segment>
     </unit>
     <unit id="o474JoG" name="info_providers.bulk_import.step1.global_mapping_description">
       <segment state="translated">
         <source>info_providers.bulk_import.step1.global_mapping_description</source>
-        <target>Ustaw mapowanie pól, które zostanie użyte dla wszystkich wybranych części. Na przykład: "MPN → LCSC + Mouser" oznacza, że należy przeszukać dostawców LCSC oraz Mouser używając pola MPN każdej części.</target>
+        <target>Ustaw mapowanie pól, które zostanie użyte dla wszystkich wybranych [[part]]. Na przykład: "MPN → LCSC + Mouser" oznacza, że należy przeszukać dostawców LCSC oraz Mouser używając pola MPN każdej części.</target>
       </segment>
     </unit>
     <unit id="d9OFVmQ" name="info_providers.bulk_import.selected_parts">
       <segment state="translated">
         <source>info_providers.bulk_import.selected_parts</source>
-        <target>Wybrane części</target>
+        <target>Wybrane [[part]]</target>
       </segment>
     </unit>
     <unit id="0IM.WJg" name="info_providers.bulk_import.field_mappings">
@@ -11276,13 +11276,13 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="rA4WDLA" name="info_providers.bulk_search.providers.help">
       <segment state="translated">
         <source>info_providers.bulk_search.providers.help</source>
-        <target>Wybierz, których dostawców informacji przeszukać, gdy części zawierają to pole.</target>
+        <target>Wybierz, których dostawców informacji przeszukać, gdy [[part]] zawierają to pole.</target>
       </segment>
     </unit>
     <unit id="OS0qJRC" name="info_providers.bulk_search.submit">
       <segment state="translated">
         <source>info_providers.bulk_search.submit</source>
-        <target>Wyszukaj wszystkie części</target>
+        <target>Wyszukaj wszystkie [[part]]</target>
       </segment>
     </unit>
     <unit id="ItmvNLj" name="info_providers.bulk_search.field.select">
@@ -11342,7 +11342,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="WVHbic3" name="batch_eda.show_parts">
       <segment state="translated">
         <source>batch_eda.show_parts</source>
-        <target>Pokaż wybrane części</target>
+        <target>Pokaż wybrane [[part]]</target>
       </segment>
     </unit>
     <unit id="ubQd6G4" name="batch_eda.apply_hint">
@@ -11372,7 +11372,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="PLqIBvC" name="batch_eda.submit">
       <segment state="translated">
         <source>batch_eda.submit</source>
-        <target>Zastosuj do wybranych części</target>
+        <target>Zastosuj do wybranych [[part]]</target>
       </segment>
     </unit>
     <unit id="5nO7Fpq" name="batch_eda.cancel">
@@ -11390,7 +11390,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="2fMo760" name="batch_eda.no_parts_selected">
       <segment state="translated">
         <source>batch_eda.no_parts_selected</source>
-        <target>Nie wybrano żadnych części do grupowej edycji.</target>
+        <target>Nie wybrano żadnych [[part]] do grupowej edycji.</target>
       </segment>
     </unit>
     <unit id="yzpXFkB" name="info_providers.bulk_import.step1.spn_recommendation">
@@ -11402,7 +11402,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="QDr.VVc" name="info_providers.bulk_import.update_part">
       <segment state="translated">
         <source>info_providers.bulk_import.update_part</source>
-        <target>Aktualizuj część</target>
+        <target>Aktualizuj [part]</target>
       </segment>
     </unit>
     <unit id="_sWGLGs" name="info_providers.bulk_import.back_to_jobs">
@@ -11414,7 +11414,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="2DCRx_T" name="info_providers.bulk_import.back_to_parts">
       <segment state="translated">
         <source>info_providers.bulk_import.back_to_parts</source>
-        <target>Powrót do Części</target>
+        <target>Powrót do [[Part]]</target>
       </segment>
     </unit>
     <unit id="9OAohXg" name="info_providers.bulk_import.job_completed">
@@ -11426,7 +11426,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="hwkbU38" name="info_providers.bulk_import.job_completed.description">
       <segment state="translated">
         <source>info_providers.bulk_import.job_completed.description</source>
-        <target>Przetworzono wszystkie części. Możesz przejrzeć wyniki poniżej, lub powrócić do listy części.</target>
+        <target>Przetworzono wszystkie [[part]]. Możesz przejrzeć wyniki poniżej, lub powrócić do listy [[part]].</target>
       </segment>
     </unit>
     <unit id="ahbWfwA" name="info_providers.bulk_import.recommended">
@@ -11492,7 +11492,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id=".iZc63I" name="info_providers.bulk_import.quick_apply_all.tooltip">
       <segment state="translated">
         <source>info_providers.bulk_import.quick_apply_all.tooltip</source>
-        <target>Zastosuj wszystkie najlepiej dopasowane wyniki do wszystkich oczekujących części bez indywidualnej weryfikacji</target>
+        <target>Zastosuj wszystkie najlepiej dopasowane wyniki do wszystkich oczekujących [[part]] bez indywidualnej weryfikacji</target>
       </segment>
     </unit>
     <unit id="e_DDQ2u" name="info_providers.bulk_import.prefetch_details">
@@ -11504,7 +11504,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="v4T9Uwz" name="info_providers.bulk_import.prefetch_details_help">
       <segment state="translated">
         <source>info_providers.bulk_import.prefetch_details_help</source>
-        <target>Wstępnie pobieraj szczegóły dla wszystkich wyników. To zajmie dłużej, ale przyspieszy pracę podczas aktualizacji części.</target>
+        <target>Wstępnie pobieraj szczegóły dla wszystkich wyników. To zajmie dłużej, ale przyspieszy pracę podczas aktualizacji [[part]].</target>
       </segment>
     </unit>
     <unit id="mRdK1ts" name="info_providers.bulk_import.step2.title">
@@ -11516,13 +11516,13 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="Y.b5mGJ" name="info_providers.bulk_import.step2.card_title">
       <segment state="translated">
         <source>info_providers.bulk_import.step2.card_title</source>
-        <target>Masowy import informacji dla %count% części - %date%</target>
+        <target>Masowy import informacji dla %count% [[part]] - %date%</target>
       </segment>
     </unit>
     <unit id="fyatGYL" name="info_providers.bulk_import.parts">
       <segment state="translated">
         <source>info_providers.bulk_import.parts</source>
-        <target>części</target>
+        <target>[[part]]</target>
       </segment>
     </unit>
     <unit id="hlBJ6Qh" name="info_providers.bulk_import.results">
@@ -11570,13 +11570,13 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="Y_yl259" name="info_providers.bulk_import.table.manufacturer">
       <segment state="translated">
         <source>info_providers.bulk_import.table.manufacturer</source>
-        <target>Producent</target>
+        <target>[Manufacturer]</target>
       </segment>
     </unit>
     <unit id="FgXYE1H" name="info_providers.bulk_import.table.provider">
       <segment state="translated">
         <source>info_providers.bulk_import.table.provider</source>
-        <target>Dostawca</target>
+        <target>Dostawca informacji</target>
       </segment>
     </unit>
     <unit id="_gf1tWi" name="info_providers.bulk_import.table.source_field">
@@ -11642,7 +11642,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="6bTLFzZ" name="info_providers.bulk_import.editing_part">
       <segment state="translated">
         <source>info_providers.bulk_import.editing_part</source>
-        <target>Edycja części jako część masowego importu</target>
+        <target>Edycja części jako [part] masowego importu</target>
       </segment>
     </unit>
     <unit id="ItOX1kK" name="info_providers.bulk_import.complete">
@@ -11666,7 +11666,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="jUc1.Um" name="info_providers.bulk_import.parts_count">
       <segment state="translated">
         <source>info_providers.bulk_import.parts_count</source>
-        <target>Ilość części</target>
+        <target>Ilość [[part]]</target>
       </segment>
     </unit>
     <unit id="aY1IgEO" name="info_providers.bulk_import.results_count">
@@ -11702,7 +11702,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="Z.AgcWf" name="info_providers.bulk_import.manage_jobs_description">
       <segment state="translated">
         <source>info_providers.bulk_import.manage_jobs_description</source>
-        <target>Wyświetl i zarządzaj wszystkimi zadaniami masowego importu. Aby utworzyć nowe zadanie, zaznacz części i wybierz "Masowy import informacji od dostawców".</target>
+        <target>Wyświetl i zarządzaj wszystkimi zadaniami masowego importu. Aby utworzyć nowe zadanie, zaznacz [[part]] i wybierz "Masowy import informacji od dostawców".</target>
       </segment>
     </unit>
     <unit id="0lCZLRC" name="info_providers.bulk_import.no_jobs_found">
@@ -11714,7 +11714,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="LheSXys" name="info_providers.bulk_import.create_first_job">
       <segment state="translated">
         <source>info_providers.bulk_import.create_first_job</source>
-        <target>Utwórz pierwsze zadanie masowego importu, zaznaczając wiele części i wybierając opcję "Masowy import informacji od dostawców".</target>
+        <target>Utwórz pierwsze zadanie masowego importu, zaznaczając wiele [[part]] i wybierając opcję "Masowy import informacji od dostawców".</target>
       </segment>
     </unit>
     <unit id="Lm_DPbH" name="info_providers.bulk_import.confirm_delete_job">
@@ -11726,7 +11726,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="kZd.W42" name="info_providers.bulk_import.job_name_template">
       <segment state="translated">
         <source>info_providers.bulk_import.job_name_template</source>
-        <target>Masowy import informacji dla %count% części</target>
+        <target>Masowy import informacji dla %count% [[part]]</target>
       </segment>
     </unit>
     <unit id="W6GycWK" name="info_providers.bulk_import.step2.instructions.title">
@@ -11738,13 +11738,13 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="QTkki_T" name="info_providers.bulk_import.step2.instructions.description">
       <segment state="translated">
         <source>info_providers.bulk_import.step2.instructions.description</source>
-        <target>Postępuj według tych kroków, aby efektywnie aktualizować swoje części:</target>
+        <target>Postępuj według tych kroków, aby efektywnie aktualizować swoje [[part]]:</target>
       </segment>
     </unit>
     <unit id="OI1oD42" name="info_providers.bulk_import.step2.instructions.step1">
       <segment state="translated">
         <source>info_providers.bulk_import.step2.instructions.step1</source>
-        <target>Kliknij "Aktualizuj część" aby edytować część z danymi od dostawcy</target>
+        <target>Kliknij "Aktualizuj [part]" aby edytować [part] z danymi od dostawcy</target>
       </segment>
     </unit>
     <unit id="U.QKhv." name="info_providers.bulk_import.step2.instructions.step2">
@@ -11756,7 +11756,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="WlnTz0N" name="info_providers.bulk_import.step2.instructions.step3">
       <segment state="translated">
         <source>info_providers.bulk_import.step2.instructions.step3</source>
-        <target>Kliknij "Zakończ" aby oznaczyć część jako ukończoną i powrócić do tego widoku.</target>
+        <target>Kliknij "Zakończ" aby oznaczyć [part] jako ukończoną i powrócić do tego widoku.</target>
       </segment>
     </unit>
     <unit id="IyXU.4X" name="info_providers.bulk_import.created_by">
@@ -11936,7 +11936,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="v.rTI5s" name="info_providers.bulk_import.priority_system.example">
       <segment state="translated">
         <source>info_providers.bulk_import.priority_system.example</source>
-        <target>Przykład: Priorytet 1: "LCSC SPN → LCSC", Priorytet 2: "MPN → LCSC + Mouser", Priorytet 3: "Nazwa → Wszyscy dostawcy"</target>
+        <target>Przykład: Priorytet 1: "LCSC SPN → LCSC", Priorytet 2: "MPN → LCSC + Mouser", Priorytet 3: "Nazwa → Wszyscy dostawcy informacji"</target>
       </segment>
     </unit>
     <unit id="yMhBL_K" name="info_providers.bulk_import.search.submit">
@@ -11948,19 +11948,19 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="NSXIcCk" name="info_providers.bulk_import.research.title">
       <segment state="translated">
         <source>info_providers.bulk_import.research.title</source>
-        <target>Wyszukaj ponownie części</target>
+        <target>Wyszukaj ponownie [[part]]</target>
       </segment>
     </unit>
     <unit id="i53VvpV" name="info_providers.bulk_import.research.description">
       <segment state="translated">
         <source>info_providers.bulk_import.research.description</source>
-        <target>Wyszukaj ponownie części używając zaktualizowanych informacji (np. nowe numery MPN). Używa takiego samego mapowania pól jak początkowe wyszukiwanie.</target>
+        <target>Wyszukaj ponownie [[part]] używając zaktualizowanych informacji (np. nowe numery MPN). Używa takiego samego mapowania pól jak początkowe wyszukiwanie.</target>
       </segment>
     </unit>
     <unit id="S2HVT9P" name="info_providers.bulk_import.research.all_pending">
       <segment state="translated">
         <source>info_providers.bulk_import.research.all_pending</source>
-        <target>Wyszukaj ponownie wszystkie oczekujące części</target>
+        <target>Wyszukaj ponownie wszystkie oczekujące [[part]]</target>
       </segment>
     </unit>
     <unit id="ri9TEXX" name="info_providers.bulk_import.research.part">
@@ -11972,7 +11972,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="izeEDar" name="info_providers.bulk_import.research.part_tooltip">
       <segment state="translated">
         <source>info_providers.bulk_import.research.part_tooltip</source>
-        <target>Wyszukaj ponownie tę część używając zaktualizowanych informacji</target>
+        <target>Wyszukaj ponownie tę [part] używając zaktualizowanych informacji</target>
       </segment>
     </unit>
     <unit id="jPCU0MO" name="info_providers.bulk_import.max_mappings_reached">
@@ -12032,7 +12032,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="KJQHfwV" name="settings.behavior.sidebar.data_structure_nodes_table_include_children.help">
       <segment state="translated">
         <source>settings.behavior.sidebar.data_structure_nodes_table_include_children.help</source>
-        <target>Gdy włączone, tabele części dla kategorii, footprintów itd. będą zawierały wszystkie części zawarte w ich podrzędnych kategoriach. Gdy wyłączone, tylko części umieszczone bezpośrednio w wybranym węźle będą widoczne.</target>
+        <target>Gdy włączone, tabele [[part]] dla kategorii, footprintów itd. będą zawierały wszystkie [[part]] zawarte w ich podrzędnych kategoriach. Gdy wyłączone, tylko [[part]] umieszczone bezpośrednio w wybranym węźle będą widoczne.</target>
       </segment>
     </unit>
     <unit id="Gdlnmav" name="info_providers.search.error.oauth_reconnect">
@@ -12045,7 +12045,7 @@ Możesz to zrobić na liście informacji dostawców.</target>
     <unit id="L4nq52R" name="settings.misc.ipn_suggest.useDuplicateDescription.help">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.useDuplicateDescription.help</source>
-        <target>Gdy włączone, opis części jest używany w celu znalezienia istniejących części z takim samym opisem i ustalenia następnej dostępnej wartości IPN poprzez zwiększenie wartości liczbowych na liście sugestii.</target>
+        <target>Gdy włączone, opis [[part]] jest używany w celu znalezienia istniejących [[part]] z takim samym opisem i ustalenia następnej dostępnej wartości IPN poprzez zwiększenie wartości liczbowych na liście sugestii.</target>
       </segment>
     </unit>
     <unit id="NIw6dtz" name="settings.misc.ipn_suggest.regex.help">
@@ -12178,7 +12178,7 @@ Zwróć uwagę, że ten system jest obecnie w fazie eksperymentalnej, i zdefinio
     <unit id="ftBf11d" name="part_lot.labelp">
       <segment state="translated">
         <source>part_lot.labelp</source>
-        <target>Partie części</target>
+        <target>Partie</target>
       </segment>
     </unit>
     <unit id="UVDJmYp" name="orderdetail.labelp">
@@ -12238,7 +12238,7 @@ Zwróć uwagę, że ten system jest obecnie w fazie eksperymentalnej, i zdefinio
     <unit id="M5Q_eZW" name="part.edit.tab.advanced.ipn.prefix.global_prefix">
       <segment state="translated">
         <source>part.edit.tab.advanced.ipn.prefix.global_prefix</source>
-        <target>Globalny prefiks IPN, wspólny dla wszystkich części</target>
+        <target>Globalny prefiks IPN, wspólny dla wszystkich [[part]]</target>
       </segment>
     </unit>
     <unit id="WlKvQeB" name="settings.misc.ipn_suggest.fallbackPrefix">
@@ -12250,7 +12250,7 @@ Zwróć uwagę, że ten system jest obecnie w fazie eksperymentalnej, i zdefinio
     <unit id="Fr8hXdE" name="settings.misc.ipn_suggest.fallbackPrefix.help">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.fallbackPrefix.help</source>
-        <target>Prefiks IPN, który powinien zostać użyty, jeśli kategoria nie ma zdefiniowanego prefiksu.</target>
+        <target>Prefiks IPN, który powinien zostać użyty, jeśli [category] nie ma zdefiniowanego prefiksu.</target>
       </segment>
     </unit>
     <unit id="_p9cMpI" name="settings.misc.ipn_suggest.numberSeparator">
@@ -12286,7 +12286,7 @@ Zwróć uwagę, że ten system jest obecnie w fazie eksperymentalnej, i zdefinio
     <unit id="Akh9iFg" name="settings.misc.ipn_suggest.globalPrefix.help">
       <segment state="translated">
         <source>settings.misc.ipn_suggest.globalPrefix.help</source>
-        <target>Gdy włączone, dostępna jest opcja wygenerowania IPN z tym globalnym prefiksem, wspólna dla części we wszystkich kategoriach.</target>
+        <target>Gdy włączone, dostępna jest opcja wygenerowania IPN z tym globalnym prefiksem, wspólna dla [[part]] we wszystkich kategoriach.</target>
       </segment>
     </unit>
     <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
@@ -12328,7 +12328,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="WdszgJG" name="info_providers.search.error.general_exception">
       <segment state="translated">
         <source>info_providers.search.error.general_exception</source>
-        <target>Nieznany błąd podczas próby uzyskania części od dostawcy: %type%. Sprawdź, czy konfiguracja dostawców oraz ich klucze dostępu są prawidłowe. Sprawdź dziennik serwera, aby uzyskać więcej informacji.</target>
+        <target>Nieznany błąd podczas próby uzyskania [[part]] od dostawcy informacji: %type%. Sprawdź, czy konfiguracja dostawców oraz ich klucze dostępu są prawidłowe. Sprawdź dziennik serwera, aby uzyskać więcej informacji.</target>
       </segment>
     </unit>
     <unit id="RFhwYWd" name="info_providers.search.error.transport_exception">
@@ -13006,13 +13006,13 @@ Serwer autoryzacji Buerklin API:
     <unit id="MWPmQf2" name="settings.ips.conrad.attachment_language_filter.description">
       <segment state="translated">
         <source>settings.ips.conrad.attachment_language_filter.description</source>
-        <target>Uwzględnia w wynikach tylko załączniki w ustawionych językach.</target>
+        <target>Uwzględnia w wynikach tylko [[attachment]] w ustawionych językach.</target>
       </segment>
     </unit>
     <unit id="PNmvQ.U" name="settings.ips.generic_web_provider">
       <segment state="translated">
         <source>settings.ips.generic_web_provider</source>
-        <target>Zwykły dostawca Web URL</target>
+        <target>Zwykły dostawca informacji Web URL</target>
       </segment>
     </unit>
     <unit id="Vk3BoE_" name="settings.ips.generic_web_provider.description">
@@ -13024,7 +13024,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="Pu8juaH" name="settings.ips.generic_web_provider.enabled.help">
       <segment state="translated">
         <source>settings.ips.generic_web_provider.enabled.help</source>
-        <target>Jeśli ten dostawca jest włączony, użytkownicy mogą wysyłać żądania do dowolnych stron internetowych poprzez serwer Part-DB. Włącz tylko, jeśli jesteś świadomy potencjalnych konsekwencji.</target>
+        <target>Gdy ten dostawca informacji jest włączony, użytkownicy mogą wysyłać żądania do dowolnych stron internetowych poprzez serwer Part-DB. Włącz tylko, jeśli masz świadomość potencjalnych konsekwencji.</target>
       </segment>
     </unit>
     <unit id="IvIOYcn" name="info_providers.from_url.title">
@@ -13048,7 +13048,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="xoSvJk0" name="info_providers.from_url.help">
       <segment state="translated">
         <source>info_providers.from_url.help</source>
-        <target>Tworzy część na podstawie podanego URL. Jeśli to możliwe, próbuje przekazać zadanie do istniejącego dostawcy informacji, w innym przypadku nastąpi próba wczytania  podstawowych informacji z metadanych strony.</target>
+        <target>Tworzy [part] na podstawie podanego URL. Jeśli to możliwe, próbuje przekazać zadanie do istniejącego dostawcy informacji, w innym przypadku nastąpi próba wczytania  podstawowych informacji z metadanych strony.</target>
       </segment>
     </unit>
     <unit id="SWd8mI9" name="update_manager.cant_auto_update">
@@ -13150,7 +13150,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="Vnhrb5R" name="part.info.stocktake_modal.title">
       <segment state="translated">
         <source>part.info.stocktake_modal.title</source>
-        <target>Partia z inwentaryzacji</target>
+        <target>[Part_lot] z inwentaryzacji</target>
       </segment>
     </unit>
     <unit id="WqOG7RK" name="part.info.stocktake_modal.expected_amount">
@@ -13180,25 +13180,25 @@ Serwer autoryzacji Buerklin API:
     <unit id="_cV3WJ." name="perm.tools.component_image_generator">
       <segment state="translated">
         <source>perm.tools.component_image_generator</source>
-        <target>Generator obrazów części</target>
+        <target>Generator obrazów [[part]]</target>
       </segment>
     </unit>
     <unit id="w4Qd7_v" name="tools.value_calc.title">
       <segment state="translated">
         <source>tools.value_calc.title</source>
-        <target>Generator obrazów części</target>
+        <target>Generator obrazów [[part]]</target>
       </segment>
     </unit>
     <unit id="UVNkQz9" name="tools.bulk_gen.title">
       <segment state="translated">
         <source>tools.bulk_gen.title</source>
-        <target>Masowo wygeneruj obrazy części</target>
+        <target>Masowo wygeneruj obrazy [[part]]</target>
       </segment>
     </unit>
     <unit id="2kWHU2t" name="tools.bulk_gen.intro">
       <segment state="translated">
         <source>tools.bulk_gen.intro</source>
-        <target>Zaznaczone części, które nie posiadają jeszcze obrazu i wyglądają na rezystor, rezystor SMD lub kondensator są wymienione poniżej. Przejrzyj automatycznie wykryty typ i wartość, a następnie wygeneruj i załącz obrazy w jednej operacji.</target>
+        <target>Zaznaczone [[part]], które nie posiadają jeszcze obrazu i wyglądają na rezystor, rezystor SMD lub kondensator są wymienione poniżej. Przejrzyj automatycznie wykryty typ i wartość, a następnie wygeneruj i załącz obrazy w jednej operacji.</target>
       </segment>
     </unit>
     <unit id="o7Hhf0y" name="tools.bulk_gen.pick_location">
@@ -13210,25 +13210,25 @@ Serwer autoryzacji Buerklin API:
     <unit id="4.7quoQ" name="tools.bulk_gen.load">
       <segment state="translated">
         <source>tools.bulk_gen.load</source>
-        <target>Wczytaj części</target>
+        <target>Wczytaj [[part]]</target>
       </segment>
     </unit>
     <unit id="O.MYXkR" name="tools.bulk_gen.none">
       <segment state="translated">
         <source>tools.bulk_gen.none</source>
-        <target>Żadna z %count% zaznaczonych części nie mogła zostać zidentyfikowana jako rezystor, rezystor SMD lub kondensator bez istniejącego obrazu.</target>
+        <target>Żadna z %count% zaznaczonych [[part]] nie mogła zostać zidentyfikowana jako rezystor, rezystor SMD lub kondensator bez istniejącego obrazu.</target>
       </segment>
     </unit>
     <unit id="x7s9G8d" name="tools.bulk_gen.found">
       <segment state="translated">
         <source>tools.bulk_gen.found</source>
-        <target>części gotowych do wygenerowania obrazu.</target>
+        <target>[[part]] gotowych do wygenerowania obrazu.</target>
       </segment>
     </unit>
     <unit id="zZ5O3AO" name="tools.bulk_gen.part">
       <segment state="translated">
         <source>tools.bulk_gen.part</source>
-        <target>Część</target>
+        <target>[Part]</target>
       </segment>
     </unit>
     <unit id="lIH6iys" name="tools.bulk_gen.type">
@@ -13252,7 +13252,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="drnXOiF" name="tools.bulk_gen.no_selection">
       <segment state="translated">
         <source>tools.bulk_gen.no_selection</source>
-        <target>Nie wybrano żadnych części. Zaznacz części na liście i wybierz akcję "Wygeneruj obrazy części".</target>
+        <target>Nie wybrano żadnych [[part]]. Zaznacz [[part]] na liście i wybierz akcję "Wygeneruj obrazy części".</target>
       </segment>
     </unit>
     <unit id="1PrfW.0" name="tools.bulk_gen.skipped">
@@ -13282,37 +13282,37 @@ Serwer autoryzacji Buerklin API:
     <unit id="pldOZDv" name="tools.bulk_gen.back">
       <segment state="translated">
         <source>tools.bulk_gen.back</source>
-        <target>Powrót do listy części</target>
+        <target>Powrót do listy [[part]]</target>
       </segment>
     </unit>
     <unit id="85.3bGE" name="tools.bulk_gen.with_picture">
       <segment state="translated">
         <source>tools.bulk_gen.with_picture</source>
-        <target>%count% wybranych części posiada już obraz i nie zostało wymienionych w liście.</target>
+        <target>%count% wybranych [[part]] posiada już obraz i nie zostało wymienionych w liście.</target>
       </segment>
     </unit>
     <unit id="8Hv3Fih" name="tools.bulk_gen.regenerate">
       <segment state="translated">
         <source>tools.bulk_gen.regenerate</source>
-        <target>Wygeneruj ponownie / nadpisz te %count% części</target>
+        <target>Wygeneruj ponownie / nadpisz te %count% [[part]]</target>
       </segment>
     </unit>
     <unit id="O6LlTDp" name="tools.bulk_gen.overwrite_mode">
       <segment state="translated">
         <source>tools.bulk_gen.overwrite_mode</source>
-        <target>Tryb nadpisywania: Części, które posiadają już obraz są załączone (oznaczone "posiada obraz"). Nowo wygenerowany obraz zastępuje poprzedni i zostaje ustawiony jako miniatura. Ręcznie dodane obrazy są zachowywane.</target>
+        <target>Tryb nadpisywania: [[Part]], które posiadają już obraz są załączone (oznaczone "posiada obraz"). Nowo wygenerowany obraz zastępuje poprzedni i zostaje ustawiony jako miniatura. Ręcznie dodane obrazy są zachowywane.</target>
       </segment>
     </unit>
     <unit id="CRmDeDn" name="tools.bulk_gen.has_picture_hint">
       <segment state="translated">
         <source>tools.bulk_gen.has_picture_hint</source>
-        <target>Ta część posiada już obraz. Wygenerowanie nowego obrazu zastąpi poprzedni i ustawi nowy jako miniaturę; ręcznie przesłane obrazy zostaną zachowane.</target>
+        <target>Ta [part] posiada już obraz. Wygenerowanie nowego obrazu zastąpi poprzedni i ustawi nowy jako miniaturę; ręcznie przesłane obrazy zostaną zachowane.</target>
       </segment>
     </unit>
     <unit id="V.Z95Ya" name="tools.bulk_gen.overwrite_exit">
       <segment state="translated">
         <source>tools.bulk_gen.overwrite_exit</source>
-        <target>Tylko części nieposiadające obrazu</target>
+        <target>Tylko [[part]] nieposiadające obrazu</target>
       </segment>
     </unit>
     <unit id="hpMtwLE" name="tools.bulk_gen.has_picture">
@@ -13324,13 +13324,13 @@ Serwer autoryzacji Buerklin API:
     <unit id="0QW7sAE" name="tools.bulk_gen.help.title">
       <segment state="translated">
         <source>tools.bulk_gen.help.title</source>
-        <target>Jak przygotować części do automatycznego wypełnienia — co należy umieścić w danych części</target>
+        <target>Jak przygotować [[part]] do automatycznego wypełnienia — co należy umieścić w danych części</target>
       </segment>
     </unit>
     <unit id="TnVBe2o" name="tools.bulk_gen.help.intro">
       <segment state="translated">
         <source>tools.bulk_gen.help.intro</source>
-        <target>Każde pole jest odczytywane najpierw z parametrów części, następnie z jej nazwy i opisu. Dodaj cokolwiek podanego poniżej, aby poprawić wykrywanie. Część jest wymieniona na liście tylko, jeśli nie ma jeszcze obrazu i jej wartość mogła zostać odczytana.</target>
+        <target>Każde pole jest odczytywane najpierw z parametrów części, następnie z jej nazwy i opisu. Dodaj cokolwiek podanego poniżej, aby poprawić wykrywanie. [Part] jest wymieniona na liście tylko, jeśli nie ma jeszcze obrazu i jej wartość mogła zostać odczytana.</target>
       </segment>
     </unit>
     <unit id="QQZe5y0" name="tools.bulk_gen.help.col_field">
@@ -13354,7 +13354,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="TzOhtVs" name="tools.bulk_gen.help.value">
       <segment state="translated">
         <source>tools.bulk_gen.help.value</source>
-        <target>Wartość (wymagana, aby sklasyfikować część)</target>
+        <target>Wartość (wymagana, aby sklasyfikować [part])</target>
       </segment>
     </unit>
     <unit id="q1oFve4" name="tools.bulk_gen.help.voltage">
@@ -13402,7 +13402,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="6p_Fewa" name="tools.bulk_gen.write_eda">
       <segment state="translated">
         <source>tools.bulk_gen.write_eda</source>
-        <target>Zapisz ustawienia KiCad do zaznaczonych części</target>
+        <target>Zapisz ustawienia KiCad do zaznaczonych [[part]]</target>
       </segment>
     </unit>
     <unit id="2fjEIWv" name="tools.bulk_gen.eda_written">
@@ -13432,7 +13432,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="Br89uCs" name="tools.bulk_gen.generate_attach">
       <segment state="translated">
         <source>tools.bulk_gen.generate_attach</source>
-        <target>Załącz obrazy do zaznaczonych części</target>
+        <target>Załącz obrazy do zaznaczonych [[part]]</target>
       </segment>
     </unit>
     <unit id="kSqlKsg" name="tools.bulk_gen.attached">
@@ -13456,13 +13456,13 @@ Serwer autoryzacji Buerklin API:
     <unit id="DWEWX5m" name="part_list.action.generate_images">
       <segment state="translated">
         <source>part_list.action.generate_images</source>
-        <target>Wygeneruj obrazy części</target>
+        <target>Wygeneruj obrazy [[part]]</target>
       </segment>
     </unit>
     <unit id="9rk9901" name="tools.value_calc.explanation">
       <segment state="translated">
         <source>tools.value_calc.explanation</source>
-        <target>Zdekoduj i zwizualizuj wartość typowych części — paski kolorów (rezystory, cewki), kody kondensatorów i oznaczenia elementów SMD. Odczytaj wartość części poprzez wprowadzenie jej kodu paskowego, lub wprowadź wartość, aby wygenerować odpowiadający jej kod paskowy oraz obraz, który można załączyć do części.</target>
+        <target>Zdekoduj i zwizualizuj wartość typowych [[part]] — paski kolorów (rezystory, cewki), kody kondensatorów i oznaczenia elementów SMD. Odczytaj wartość części poprzez wprowadzenie jej kodu paskowego, lub wprowadź wartość, aby wygenerować odpowiadający jej kod paskowy oraz obraz, który można załączyć do części.</target>
       </segment>
     </unit>
     <unit id="Wutg3Q." name="tools.value_calc.body_color">
@@ -13918,31 +13918,31 @@ Serwer autoryzacji Buerklin API:
     <unit id="vw_0Qws" name="label_scanner.db_part_found">
       <segment state="translated">
         <source>label_scanner.db_part_found</source>
-        <target>Znaleziono w bazie danych część dla kodu paskowego</target>
+        <target>Znaleziono w bazie danych [part] dla kodu paskowego</target>
       </segment>
     </unit>
     <unit id="zntajcd" name="label_scanner.part_can_be_created">
       <segment state="translated">
         <source>label_scanner.part_can_be_created</source>
-        <target>Część może zostać utworzona</target>
+        <target>[Part] może zostać utworzona</target>
       </segment>
     </unit>
     <unit id="cLTbd9w" name="label_scanner.part_can_be_created.help">
       <segment state="translated">
         <source>label_scanner.part_can_be_created.help</source>
-        <target>Nie znaleziono pasującej części w bazie danych, jednak możesz utworzyć nową część na podstawie tego kodu paskowego.</target>
+        <target>Nie znaleziono pasującej części w bazie danych, jednak możesz utworzyć nową [part] na podstawie tego kodu paskowego.</target>
       </segment>
     </unit>
     <unit id="FfHA3Yf" name="label_scanner.part_create_btn">
       <segment state="translated">
         <source>label_scanner.part_create_btn</source>
-        <target>Utwórz część na podstawie kodu paskowego</target>
+        <target>Utwórz [part] na podstawie kodu paskowego</target>
       </segment>
     </unit>
     <unit id="xH258F." name="parts.create_from_scan.title">
       <segment state="translated">
         <source>parts.create_from_scan.title</source>
-        <target>Utwórz część na podstawie skanu etykiety</target>
+        <target>Utwórz [part] na podstawie skanu etykiety</target>
       </segment>
     </unit>
     <unit id="8WZYwRJ" name="scan_dialog.mode.amazon">
@@ -14026,7 +14026,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="EF2mFRR" name="settings.ips.trustedparts.inStockOnly.help">
       <segment state="translated">
         <source>settings.ips.trustedparts.inStockOnly.help</source>
-        <target>Gdy włączone, zwracane są tylko oferty dystrybutorów, którzy mają daną część dostępną w magazynie.</target>
+        <target>Gdy włączone, zwracane są tylko oferty dystrybutorów, którzy mają daną [part] dostępną w magazynie.</target>
       </segment>
     </unit>
     <unit id="r4gkOcR" name="settings.ips.trustedparts.useCachedData">
@@ -14044,7 +14044,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="D055xh8" name="attachment.sandbox.warning">
       <segment state="translated">
         <source>attachment.sandbox.warning</source>
-        <target>UWAGA: Wyświetlasz załącznik przesłany przez użytkownika. Jest to niezaufana zawartość. Zachowaj ostrożność.</target>
+        <target>UWAGA: Wyświetlasz [attachment] przesłany przez użytkownika. Jest to niezaufana zawartość. Zachowaj ostrożność.</target>
       </segment>
     </unit>
     <unit id="bRcdnJK" name="attachment.sandbox.back_to_partdb">
@@ -14056,19 +14056,19 @@ Serwer autoryzacji Buerklin API:
     <unit id="MzyA7N8" name="settings.system.attachments.showHTMLAttachments">
       <segment state="translated">
         <source>settings.system.attachments.showHTMLAttachments</source>
-        <target>Wyświetlaj przesłane załączniki HTML (w środowisku izolowanym)</target>
+        <target>Wyświetlaj przesłane [[attachment]] HTML (w środowisku izolowanym)</target>
       </segment>
     </unit>
     <unit id="V_LJkRy" name="settings.system.attachments.showHTMLAttachments.help">
       <segment state="translated">
         <source>settings.system.attachments.showHTMLAttachments.help</source>
-        <target>⚠️ Gdy włączone, załączniki HTML przesłane przez użytkowników mogą być wyświetlane bezpośrednio w przeglądarce. Wiele potencjalnie szkodliwych funkcji jest ograniczonych, jednak w dalszym ciągu jest to potencjalne zagrożenie bezpieczeństwa i powinno być włączone tylko, jeśli ufasz użytkownikom mogącym przesyłać pliki.</target>
+        <target>⚠️ Gdy włączone, [[attachment]] HTML przesłane przez użytkowników mogą być wyświetlane bezpośrednio w przeglądarce. Wiele potencjalnie szkodliwych funkcji jest ograniczonych, jednak w dalszym ciągu jest to potencjalne zagrożenie bezpieczeństwa i powinno być włączone tylko, jeśli ufasz użytkownikom mogącym przesyłać pliki.</target>
       </segment>
     </unit>
     <unit id="BQo2xWi" name="attachment.sandbox.title">
       <segment state="translated">
         <source>attachment.sandbox.title</source>
-        <target>Załącznik HTML</target>
+        <target>[Attachment] HTML</target>
       </segment>
     </unit>
     <unit id="sJ6v9uJ" name="attachment.sandbox.as_plain_text">
@@ -14512,7 +14512,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="b_oc3T1" name="info_providers.no_cache_details">
       <segment state="translated">
         <source>info_providers.no_cache_details</source>
-        <target>Nie przechowuj cache szczegółów wyników / Wymuś pobieranie świeżych szczegółów części</target>
+        <target>Nie przechowuj cache szczegółów wyników / Wymuś pobieranie świeżych szczegółów [[part]]</target>
       </segment>
     </unit>
     <unit id="Ja8CCDb" name="info_providers.from_url.method.generic_web">
@@ -14650,7 +14650,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="AjNj8wk" name="browser_plugin.recent_pages.help">
       <segment state="translated">
         <source>browser_plugin.recent_pages.help</source>
-        <target>Strony niedawno przesłane za pomocą wtyczki przeglądarki. Kliknij, aby wygenerować część, używając przechwyconego HTML.</target>
+        <target>Strony niedawno przesłane za pomocą wtyczki przeglądarki. Kliknij, aby wygenerować [part], używając przechwyconego HTML.</target>
       </segment>
     </unit>
     <unit id="lVUU9s7" name="settings.ips.browser_plugin">
@@ -14662,7 +14662,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="IrJs3fI" name="settings.ips.browser_plugin.description">
       <segment state="translated">
         <source>settings.ips.browser_plugin.description</source>
-        <target>Ta wtyczka przeglądarki umożliwia przesyłanie do Part-DB stron internetowych bezpośrednio z przeglądarki w celu tworzenia nowych części. Przesyłana jest zawartość HTML, więc ekstrakcja działa również na stronach zabezpieczonych przed atakami DDoS, oraz na stronach wymagających JavaScript do prawidłowego renderowania. Zwykły lub oparty na SI ekstraktor internetowy musi być włączony, aby było to użyteczne.</target>
+        <target>Ta wtyczka przeglądarki umożliwia przesyłanie do Part-DB stron internetowych bezpośrednio z przeglądarki w celu tworzenia nowych [[part]]. Przesyłana jest zawartość HTML, więc ekstrakcja działa również na stronach zabezpieczonych przed atakami DDoS, oraz na stronach wymagających JavaScript do prawidłowego renderowania. Zwykły lub oparty na SI ekstraktor internetowy musi być włączony, aby było to użyteczne.</target>
       </segment>
     </unit>
     <unit id="_8UrMCB" name="settings.ips.browser_plugin.enabled.help">
@@ -14704,13 +14704,13 @@ Serwer autoryzacji Buerklin API:
     <unit id="_nxvnMn" name="search.regexmatching.help">
       <segment state="translated">
         <source>search.regexmatching.help</source>
-        <target>Używaj wyrażeń regularnych (bez separatorów wzorca) np. %regex% w ceku wyszukiwania części.</target>
+        <target>Używaj wyrażeń regularnych (bez separatorów wzorca) np. %regex% w celu wyszukiwania [[part]].</target>
       </segment>
     </unit>
     <unit id="mry8ytG" name="search.extensive_matching.help">
       <segment state="translated">
         <source>search.extensive_matching.help</source>
-        <target>Wyszukiwany tekst jest podzielony na części, a dopasowanie zostaje znalezione, jeśli każda część jest zawarta w dowolnym polu. Jeśli wyłączone, cały wyszukiwany tekst musi być zawarty w pojedynczym polu.</target>
+        <target>Wyszukiwany tekst jest podzielony na części, a dopasowanie zostaje znalezione, jeśli każda [part] jest zawarta w dowolnym polu. Jeśli wyłączone, cały wyszukiwany tekst musi być zawarty w pojedynczym polu.</target>
       </segment>
     </unit>
     <unit id="zLnKtwP" name="search.permit_wildcards.help">
@@ -14758,13 +14758,13 @@ Serwer autoryzacji Buerklin API:
     <unit id="0sjPRNV" name="info_providers.provider_id">
       <segment state="translated">
         <source>info_providers.provider_id</source>
-        <target>ID dostawcy</target>
+        <target>ID dostawcy informacji</target>
       </segment>
     </unit>
     <unit id="2DzzAxZ" name="info_providers.provider_url">
       <segment state="translated">
         <source>info_providers.provider_url</source>
-        <target>URL dostawcy</target>
+        <target>URL dostawcy informacji</target>
       </segment>
     </unit>
     <unit id="4v3QmF6" name="part.edit.provider_reference">
@@ -14782,7 +14782,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="MWXgWDb" name="log.element_edited.changed_fields.providerReference.provider_id">
       <segment state="translated">
         <source>log.element_edited.changed_fields.providerReference.provider_id</source>
-        <target>ID dostawcy</target>
+        <target>ID dostawcy informacji</target>
       </segment>
     </unit>
     <unit id="83fSFvo" name="part.info_provider_reference.updated_never">
@@ -14794,7 +14794,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="yIK_Wtj" name="part.edit.provider_reference.warning">
       <segment state="translated">
         <source>part.edit.provider_reference.warning</source>
-        <target>Uwaga: Zmiana tych wartości może spowodować nieprawidłowe działanie mechanizmu pozyskującego informacje! Należy używać opcji "Zaktualizuj [part] na podstawie danych od dostawcy" o ile jest to możliwe.</target>
+        <target>Uwaga: Zmiana tych wartości może spowodować nieprawidłowe działanie mechanizmu pozyskującego informacje! Należy używać opcji "Zaktualizuj [part] używając dostawców informacji" o ile jest to możliwe.</target>
       </segment>
     </unit>
     <unit id="bNrxe9i" name="perm.api.use_mcp">
@@ -15244,7 +15244,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="BQZ7r4Z" name="part_custom_state.color.help">
       <segment state="translated">
         <source>part_custom_state.color.help</source>
-        <target>Opcjonalny kolor, którego używa ten własny stan, gdy jest wyświetlany jako etykieta (np. na stronie szczegółów części i w tabelach części). Bez koloru używany jest poprzedni domyślny wygląd.</target>
+        <target>Opcjonalny kolor, którego używa ten własny stan, gdy jest wyświetlany jako etykieta (np. na stronie szczegółów części i w tabelach [[part]]). Bez koloru używany jest poprzedni domyślny wygląd.</target>
       </segment>
     </unit>
     <unit id="YIvmxWY" name="part_custom_state.color.primary">
@@ -15298,19 +15298,19 @@ Serwer autoryzacji Buerklin API:
     <unit id="OOY08s2" name="settings.ips.rate_limit_per_10s">
       <segment state="translated">
         <source>settings.ips.rate_limit_per_10s</source>
-        <target>Maks. zapytań dostawcy na 10s</target>
+        <target>Maks. zapytań dostawcy informacji na 10s</target>
       </segment>
     </unit>
     <unit id="RvmisL4" name="settings.ips.rate_limit_per_10s.help">
       <segment state="translated">
         <source>settings.ips.rate_limit_per_10s.help</source>
-        <target>Part-DB nigdy nie wysyła więcej niż tyle zapytań do tego samego dostawcy informacji w ciągu 10 sekund, i opóźnia kolejne zapytania. Ustaw tę wartość na niższą niż limit twojego konta dostawcy, w szczególności, jeśli zewnętrzny skrypt używa tych samych danych uwierzytelniania API - dostawca nalicza oba. Ustaw na 0, aby wyłączyć.</target>
+        <target>Part-DB nigdy nie wysyła więcej niż tyle zapytań do tego samego dostawcy informacji w ciągu 10 sekund, i opóźnia kolejne zapytania. Ustaw tę wartość na niższą niż limit twojego konta dostawcy informacji, w szczególności, jeśli zewnętrzny skrypt używa tych samych danych uwierzytelniania API - dostawca nalicza oba. Ustaw na 0, aby wyłączyć.</target>
       </segment>
     </unit>
     <unit id="7yMJvsZ" name="settings.ips.rate_limit_per_minute">
       <segment state="translated">
         <source>settings.ips.rate_limit_per_minute</source>
-        <target>Maks. zapytań dostawcy na minutę</target>
+        <target>Maks. zapytań dostawcy informacji na minutę</target>
       </segment>
     </unit>
     <unit id="mdIG1__" name="settings.ips.rate_limit_per_minute.help">
@@ -15352,13 +15352,13 @@ Serwer autoryzacji Buerklin API:
     <unit id="6Q8bhaD" name="info_providers.bulk_refresh.error.no_provider_reference">
       <segment state="translated">
         <source>info_providers.bulk_refresh.error.no_provider_reference</source>
-        <target>Ta część nie została utworzona przy użyciu informacji od dostawcy, więc nie może zostać automatycznie odświeżona.</target>
+        <target>Ta [part] nie została utworzona przy użyciu dostawcy informacji, więc nie może zostać automatycznie odświeżona.</target>
       </segment>
     </unit>
     <unit id="oJcitnK" name="info_providers.bulk_refresh.error.provider_unavailable">
       <segment state="translated">
         <source>info_providers.bulk_refresh.error.provider_unavailable</source>
-        <target>Dostawca informacji, przy pomocy którego została utworzona ta część, nie jest już dostępny.</target>
+        <target>Dostawca informacji, przy pomocy którego została utworzona ta [part], nie jest już dostępny.</target>
       </segment>
     </unit>
     <unit id="ohF6xCL" name="attachment.3d_viewer.title">
@@ -15484,7 +15484,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="DaNck4u" name="attachment.3d_viewer.parts">
       <segment state="translated">
         <source>attachment.3d_viewer.parts</source>
-        <target>Części</target>
+        <target>[[Part]]</target>
       </segment>
     </unit>
     <unit id="xX9nKBn" name="attachment.3d_viewer.parts.show_all">
@@ -15514,13 +15514,13 @@ Serwer autoryzacji Buerklin API:
     <unit id="cEeEQ3Q" name="info_providers.from_file.title">
       <segment state="translated">
         <source>info_providers.from_file.title</source>
-        <target>Utwórz część z pliku</target>
+        <target>Utwórz [part] z pliku</target>
       </segment>
     </unit>
     <unit id="r2wTioF" name="info_providers.from_file.help">
       <segment state="translated">
         <source>info_providers.from_file.help</source>
-        <target>Tworzy część z pliku, np. z dokumentacji technicznej. Plik jest przekazywany do modelu SI skonfigurowanego w ustawieniach ekstraktora SI do plików, który próbuje wydobyć z niego informacje o części.</target>
+        <target>Tworzy [part] z pliku, np. z dokumentacji technicznej. Plik jest przekazywany do modelu SI skonfigurowanego w ustawieniach ekstraktora SI do plików, który próbuje wydobyć z niego informacje o części.</target>
       </segment>
     </unit>
     <unit id="4.gsKDJ" name="info_providers.from_file.file.label">
@@ -15544,7 +15544,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="c5hpNDv" name="info_providers.from_file.not_active">
       <segment state="translated">
         <source>info_providers.from_file.not_active</source>
-        <target>Tworzenie części z plików wymaga platformy i modelu SI skonfigurowanego w ustawieniach ekstraktora SI do plików.</target>
+        <target>Tworzenie [[part]] z plików wymaga platformy i modelu SI skonfigurowanego w ustawieniach ekstraktora SI do plików.</target>
       </segment>
     </unit>
     <unit id="hcTxnKp" name="info_providers.from_file.error.parse">
@@ -15586,7 +15586,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="F7kmvAw" name="settings.ips.ai_file_extractor.description">
       <segment state="translated">
         <source>settings.ips.ai_file_extractor.description</source>
-        <target>Ten dostawca informacji używa dużego modelu językowego (LLM) aby wydobywać szczegółowe informacje o części z przesłanych plików, takich jak dokumentacje PDF. Jest używany przez stronę "Utwórz część z pliku".</target>
+        <target>Ten dostawca informacji używa dużego modelu językowego (LLM) aby wydobywać szczegółowe informacje o części z przesłanych plików, takich jak dokumentacje PDF. Jest używany przez stronę "Utwórz [part] z pliku".</target>
       </segment>
     </unit>
     <unit id="tFv6kbn" name="settings.ips.ai_file_extractor.max_content_length">
@@ -15616,7 +15616,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="P4DIw6c" name="info_providers.from_file.not_attached">
       <segment state="translated">
         <source>info_providers.from_file.not_attached</source>
-        <target>Przesłany plik nie mógł zostać dodany jako załącznik, ponieważ nie jest już dostępny, lub jest większy niż maksymalny rozmiar załącznika.</target>
+        <target>Przesłany plik nie mógł zostać dodany jako [attachment], ponieważ nie jest już dostępny, lub jest większy niż maksymalny rozmiar załącznika.</target>
       </segment>
     </unit>
     <unit id="GfgpJXr" name="info_providers.from_file.file.help.with_images">
@@ -15724,7 +15724,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="6Er.rGb" name="settings.ips.adafruit.fetchProductPage.help">
       <segment state="translated">
         <source>settings.ips.adafruit.fetchProductPage.help</source>
-        <target>Wczytaj również stronę produktu na adafruit.com, aby uzyskać wszystkie obrazy produktu, szczegóły techniczne, kategorię i poradniki. To powoduje jedno dodatkowe żądanie na część. Gdy wyłączone, używane jest tylko API produktów.</target>
+        <target>Wczytaj również stronę produktu na adafruit.com, aby uzyskać wszystkie obrazy produktu, szczegóły techniczne, kategorię i poradniki. To powoduje jedno dodatkowe żądanie na [part]. Gdy wyłączone, używane jest tylko API produktów.</target>
       </segment>
     </unit>
     <unit id="mv_ytAP" name="settings.ips.adafruit.requestDelay">
@@ -15736,7 +15736,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="kaX7_of" name="settings.ips.adafruit.requestDelay.help">
       <segment state="translated">
         <source>settings.ips.adafruit.requestDelay.help</source>
-        <target>Minimalny czas w sekundach pomiędzy dwoma żądaniami z adafruit.com (pobranie katalogu, API produktów i stron produktów). Żądania występujące zbyt wcześnie są opóźniane, więc pozyskanie informacji może zająć dużo czasu. Jeśli strona odrzuci żądanie (HTTP 403, 429 lub 503), dostawca nie wyśle żadnych żądań przez następną godzinę. 0 wyłącza opóźnienie.</target>
+        <target>Minimalny czas w sekundach pomiędzy dwoma żądaniami z adafruit.com (pobranie katalogu, API produktów i stron produktów). Żądania występujące zbyt wcześnie są opóźniane, więc pozyskanie informacji może zająć dużo czasu. Jeśli strona odrzuci żądanie (HTTP 403, 429 lub 503), dostawca informacji nie wyśle żadnych żądań przez następną godzinę. 0 wyłącza opóźnienie.</target>
       </segment>
     </unit>
     <unit id="FQ16OqS" name="settings.ips.sparkfun">
@@ -15760,7 +15760,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="0c5J7Oo" name="settings.ips.sparkfun.requestDelay.help">
       <segment state="translated">
         <source>settings.ips.sparkfun.requestDelay.help</source>
-        <target>Minimalny czas w sekundach pomiędzy dwoma żądaniami z sparkfun.com (punkt końcowy GraphQL i strony produktów). Żądania występujące zbyt wcześnie są opóźniane, więc pozyskanie informacji może zająć dużo czasu. Jeśli sklep odrzuci żądanie (HTTP 403, 429 lub 503), dostawca nie wyśle żadnych żądań przez następną godzinę. 0 wyłącza opóźnienie.</target>
+        <target>Minimalny czas w sekundach pomiędzy dwoma żądaniami z sparkfun.com (punkt końcowy GraphQL i strony produktów). Żądania występujące zbyt wcześnie są opóźniane, więc pozyskanie informacji może zająć dużo czasu. Jeśli sklep odrzuci żądanie (HTTP 403, 429 lub 503), dostawca informacji nie wyśle żadnych żądań przez następną godzinę. 0 wyłącza opóźnienie.</target>
       </segment>
     </unit>
     <unit id="zxX4Woh" name="settings.ips.bambulab">
@@ -15796,7 +15796,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="bU8CPoa" name="settings.ips.bambulab.requestDelay.help">
       <segment state="translated">
         <source>settings.ips.bambulab.requestDelay.help</source>
-        <target>Minimalny czas w sekundach pomiędzy dwoma żądaniami ze sklepu Bambu Lab (API i strony produktów). Żądania występujące zbyt wcześnie są opóźniane, więc pozyskanie informacji może zająć dużo czasu. Jeśli sklep odrzuci żądanie (HTTP 403, 429 lub 503), dostawca nie wyśle żadnych żądań przez następną godzinę. 0 wyłącza opóźnienie.</target>
+        <target>Minimalny czas w sekundach pomiędzy dwoma żądaniami ze sklepu Bambu Lab (API i strony produktów). Żądania występujące zbyt wcześnie są opóźniane, więc pozyskanie informacji może zająć dużo czasu. Jeśli sklep odrzuci żądanie (HTTP 403, 429 lub 503), dostawca informacji nie wyśle żadnych żądań przez następną godzinę. 0 wyłącza opóźnienie.</target>
       </segment>
     </unit>
     <unit id="TVotuBl" name="settings.ips.provider_settings">
@@ -15898,7 +15898,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="IWCTL6X" name="info_providers.settings.oauth.expired.help">
       <segment state="translated">
         <source>info_providers.settings.oauth.expired.help</source>
-        <target>Żądanie nowego tokenu dostępu zostaje wysłane automatycznie przy następnym użyciu dostawcy.</target>
+        <target>Żądanie nowego tokenu dostępu zostaje wysłane automatycznie przy następnym użyciu dostawcy informacji.</target>
       </segment>
     </unit>
     <unit id="XQIvNX4" name="info_providers.settings.oauth.reconnect">

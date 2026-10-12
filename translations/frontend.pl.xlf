@@ -7,7 +7,7 @@
         <target>Szukaj</target>
       </segment>
     </unit>
-    <unit id="hK7sLpQ" name="search.placeholder.hotkey">
+    <unit id="zwRjt4e" name="search.placeholder.hotkey">
       <segment state="translated">
         <source>search.placeholder.hotkey</source>
         <target>Naciśnij / aby wyszukać</target>
@@ -407,6 +407,66 @@
       <segment state="translated">
         <source>attachment.3d_viewer.parts.unnamed</source>
         <target>Część %number%</target>
+      </segment>
+    </unit>
+    <unit id="ngVWFrn" name="search.sort.label">
+      <segment state="translated">
+        <source>search.sort.label</source>
+        <target>Sortuj według</target>
+      </segment>
+    </unit>
+    <unit id="dTD1kWN" name="search.sort.name">
+      <segment state="translated">
+        <source>search.sort.name</source>
+        <target>Nazwa</target>
+      </segment>
+    </unit>
+    <unit id="8ul4F4G" name="search.sort.manufacturer">
+      <segment state="translated">
+        <source>search.sort.manufacturer</source>
+        <target>Producent</target>
+      </segment>
+    </unit>
+    <unit id="PHZo3qu" name="search.sort.supplier">
+      <segment state="translated">
+        <source>search.sort.supplier</source>
+        <target>Dostawca</target>
+      </segment>
+    </unit>
+    <unit id="d.96baU" name="search.sort.added">
+      <segment state="translated">
+        <source>search.sort.added</source>
+        <target>Data utworzenia</target>
+      </segment>
+    </unit>
+    <unit id="lFB2B.G" name="search.sort.modified">
+      <segment state="translated">
+        <source>search.sort.modified</source>
+        <target>Data ostatniej modyfikacji</target>
+      </segment>
+    </unit>
+    <unit id="yz117r." name="search.sort.top_category">
+      <segment state="translated">
+        <source>search.sort.top_category</source>
+        <target>Kategoria najwyższego poziomu</target>
+      </segment>
+    </unit>
+    <unit id="00rI5sZ" name="search.sort.category">
+      <segment state="translated">
+        <source>search.sort.category</source>
+        <target>Kategoria</target>
+      </segment>
+    </unit>
+    <unit id="F7CCGza" name="search.sort.ascending">
+      <segment state="translated">
+        <source>search.sort.ascending</source>
+        <target>rosnąco</target>
+      </segment>
+    </unit>
+    <unit id="NShKe.S" name="search.sort.descending">
+      <segment state="translated">
+        <source>search.sort.descending</source>
+        <target>malejąco</target>
       </segment>
     </unit>
   </file>
