@@ -96,4 +96,23 @@ class GenericWebProviderTest extends TestCase
 
         self::assertSame('Example part', $part->name);
     }
+
+    public function testRawLineBreaksInJsonLdStringsAreFixed(): void
+    {
+        // Line breaks inside string literals are invalid JSON, but some shops output them anyway
+        $json = "{\"@context\": \"https://schema.org\",\n\"@type\": \"Product\",\"name\": \"Example part\","
+            ."\"review\": [{\"@type\": \"Review\",\"reviewBody\": \"First line<br />\nSecond \\\"line\\\"\r\n\tend\"}]}";
+        $html = '<html><head><script type="application/ld+json">'.$json.'</script></head></html>';
+        $helper = (new \ReflectionClass(CreateFromUrlHelper::class))->newInstanceWithoutConstructor();
+        $provider = new GenericWebProvider(
+            new MockHttpClient(new MockResponse($html)),
+            SettingsTestHelper::createSettingsDummy(GenericWebProviderSettings::class),
+            $helper,
+            $this->createMock(SubmittedPageStorage::class),
+        );
+
+        $part = $provider->getDetails('https://8.8.8.8/product', [GenericWebProvider::OPTION_SKIP_DELEGATION => true]);
+
+        self::assertSame('Example part', $part->name);
+    }
 }
