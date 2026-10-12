@@ -1,4 +1,4 @@
-# Generated on Mon Oct  5 08:45:45 UTC 2026
+# Generated on Mon Oct 12 08:58:05 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -18802,6 +18802,7 @@ Regulator_Linear:TLV76750QWDRBxQ1
 Regulator_Linear:TLV76760QWDRBxQ1
 Regulator_Linear:TLV76780QWDRBxQ1
 Regulator_Linear:TLV76790QWDRBxQ1
+Regulator_Linear:TLV77601PDBV
 Regulator_Linear:TPS51200DRC
 Regulator_Linear:TPS70202_HTSSOP20
 Regulator_Linear:TPS70245_HTSSOP20
@@ -19956,6 +19957,7 @@ Regulator_Switching:TPS563300
 Regulator_Switching:TPS56339DDC
 Regulator_Switching:TPS565208
 Regulator_Switching:TPS56528DDA
+Regulator_Switching:TPS566231PRQF
 Regulator_Switching:TPS568215RNN
 Regulator_Switching:TPS568230
 Regulator_Switching:TPS61040DBV
