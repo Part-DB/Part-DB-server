@@ -28,6 +28,24 @@
     line-height: 1.0;
 }
 
+/* Images without a style are positioned by dompdf with the default figure margins (see label_style.css.twig) */
+.ck-html-label .ck-content figure.image:not([class*="image-style-"]) {
+    margin: 1em 40px;
+}
+
+.ck-html-label .ck-content .image-style-align-left,
+.ck-html-label .ck-content .image-style-align-right,
+.ck-html-label .ck-content .image-style-side,
+.ck-html-label .ck-content .image-style-align-center,
+.ck-html-label .ck-content .image-style-block-align-left,
+.ck-html-label .ck-content .image-style-block-align-right {
+    /* Same gap to wrapped text as on the label (see label_style.css.twig) */
+    --ck-content-image-style-spacing: 4mm;
+    --ck-content-inline-image-style-spacing: 4mm;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 .ck-html-label .ck-content p {
     margin: 0;
 }
