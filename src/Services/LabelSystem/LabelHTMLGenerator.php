@@ -268,8 +268,10 @@ final readonly class LabelHTMLGenerator
         $row_height = 0.0;
         $row_height_known = true;
         $offset = 0.0;
-        //Whether the previous image of the current row is wrapped right
-        $after_right = false;
+        //The width by which the gaps of the images wrapped left and the images wrapped right overlap in the current row,
+        //and the innermost image wrapped right of the current row (with its index in the group)
+        $overlap = 0.0;
+        $inner_right = null;
         //The images of the current group of consecutive floating images (with their position), or null if unknown
         $group = [];
 
@@ -284,9 +286,9 @@ final readonly class LabelHTMLGenerator
                 if ($group !== null && $group !== [] && $node instanceof \DOMElement && $node->nodeName === 'p') {
                     $changed = $this->moveBelowFloatingImages($node, $group, $available) || $changed;
                 }
-                $used = $used_left = $used_right = $row_height = $offset = 0.0;
+                $used = $used_left = $used_right = $row_height = $offset = $overlap = 0.0;
                 $row_height_known = true;
-                $after_right = false;
+                $inner_right = null;
                 $group = [];
                 continue;
             }
@@ -294,13 +296,18 @@ final readonly class LabelHTMLGenerator
             $width = min($this->getElementWidth($node, $available) ?? 0.0, $available);
             $height = $this->getElementHeight($node, $width);
 
-            //The space taken by the image including its gaps to the text, like in the label editor (see ckeditor.css):
-            //Images wrapped left have the gap on their right side, images wrapped right on both sides (but the gap between
-            //two images wrapped right, which follow each other, is only needed once). The gap after the last image of a row
+            //The space taken by the image including its gaps to the text, like in the label editor (see
+            //PartDBLabelPreview.js): Images wrapped left have the gap on their right side, images wrapped right on their
+            //left side, and the outermost image wrapped right also on its right side. The gap after the last image of a row
             //may extend into the page margin, so the available width is extended by the gap.
-            $needed = $width + ($style === 'align-left' || $after_right ? $gap : 2 * $gap);
+            $is_left = $style === 'align-left';
+            $needed = $width + ($is_left || $used_right > 0 ? $gap : 2 * $gap);
+            //The width which is missing to place the image in the current row. The gap between the images wrapped left
+            //and the images wrapped right is only needed once, so their gaps may overlap.
+            $missing = $used + $needed - ($available + $gap);
+            $max_overlap = ($is_left ? $used_right > 0 : $used_left > 0) ? $gap - $overlap : 0.0;
 
-            if ($used > 0 && $used + $needed > $available + $gap + 0.5) {
+            if ($used > 0 && $missing > $max_overlap + 0.5) {
                 //Start a new row below the current one
                 if ($row_height_known && $row_height > 0) {
                     $offset += $row_height;
@@ -314,14 +321,35 @@ final readonly class LabelHTMLGenerator
                     $group = null;
                 }
                 $changed = true;
-                $used = $used_left = $used_right = $row_height = 0.0;
+                $used = $used_left = $used_right = $row_height = $overlap = $missing = 0.0;
                 $row_height_known = true;
+                $inner_right = null;
                 //The image is the first one of its row now
-                $needed = $width + ($style === 'align-left' ? $gap : 2 * $gap);
+                $needed = $width + ($is_left ? $gap : 2 * $gap);
             }
 
             if ($offset > 0) {
                 $node->setAttribute('style', trim($node->getAttribute('style').' margin-top: '.round($offset, 2).'px;'));
+            }
+
+            if ($used > 0 && $missing > 0) {
+                //The image only fits if the gaps overlap, so the left margin of the innermost image wrapped right is reduced
+                $shrink = min($missing, $gap - $overlap);
+                $overlap += $shrink;
+                if ($is_left && $inner_right !== null) {
+                    [$inner_node, $inner_index] = $inner_right;
+                    $used_right -= $shrink;
+                    $used -= $shrink;
+                    if ($group !== null && $inner_index !== null) {
+                        $group[$inner_index]['left'] += $shrink;
+                    }
+                } else {
+                    $inner_node = $node;
+                    $needed -= $shrink;
+                }
+                $inner_style = preg_replace('/\s*margin-left:[^;]*;/', '', $inner_node->getAttribute('style')) ?? '';
+                $inner_node->setAttribute('style', trim($inner_style.' margin-left: '.round($gap - $overlap, 2).'px;'));
+                $changed = true;
             }
 
             if ($group !== null) {
@@ -329,16 +357,17 @@ final readonly class LabelHTMLGenerator
                     $group = null;
                 } else {
                     //The horizontal space taken by the image (including its gaps) and its vertical position
-                    $group[] = $style === 'align-left'
+                    $group[] = $is_left
                         ? ['left' => $used_left, 'right' => $used_left + $needed, 'top' => $offset, 'bottom' => $offset + $height]
                         : ['left' => $available + $gap - $used_right - $needed, 'right' => $available + $gap - $used_right, 'top' => $offset, 'bottom' => $offset + $height, 'is_right' => true];
                 }
             }
 
-            if ($style === 'align-left') {
+            if ($is_left) {
                 $used_left += $needed;
             } else {
                 $used_right += $needed;
+                $inner_right = [$node, $group !== null ? array_key_last($group) : null];
             }
             $used += $needed;
             if ($height === null) {
@@ -346,7 +375,6 @@ final readonly class LabelHTMLGenerator
             } else {
                 $row_height = max($row_height, $height);
             }
-            $after_right = $style !== 'align-left';
         }
 
         return $changed;

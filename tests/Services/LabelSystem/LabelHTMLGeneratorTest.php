@@ -103,6 +103,35 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
         $this->assertStringContainsString('margin-top: 50px;', $this->service->getLabelHTML($options, [$this->getExamplePart()]));
     }
 
+    public function testFloatingImagesWrappedLeftAndRight(): void
+    {
+        //Between an image wrapped left and an image wrapped right, the gap is only needed once (365.95px usable width
+        //= 200px + 15.12px gap + 150.83px), so their gaps may overlap
+        $left = '<figure class="image image-style-align-left"><img src="data:image/png;base64,AAAA" width="200" height="50"></figure>';
+        $right = fn(int $width) => '<figure class="image image-style-align-right"><img src="data:image/png;base64,AAAA" width="'.$width.'" height="50"></figure>';
+        $options = (new LabelOptions())->setWidth(100)->setHeight(50);
+
+        //With both gaps there are 135.71px left for the right image: Nothing is changed
+        $options->setLines($left.$right(135).'<p>Test</p>');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertDoesNotMatchRegularExpression('/<figure[^>]*margin-(top|left)/', $html);
+
+        //A wider image fits, if the gaps overlap: The left margin of the right image is reduced by the missing 14.29px
+        $options->setLines($left.$right(150).'<p>Test</p>');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertStringContainsString('image-style-align-right" style="margin-left: 0.83px;"', $html);
+        $this->assertDoesNotMatchRegularExpression('/<figure[^>]*margin-top/', $html);
+        //The same, if the right image comes first
+        $options->setLines($right(150).$left.'<p>Test</p>');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertStringContainsString('image-style-align-right" style="margin-left: 0.83px;"', $html);
+        $this->assertDoesNotMatchRegularExpression('/<figure[^>]*margin-top/', $html);
+
+        //With less than one gap between the images, the right image starts a new row
+        $options->setLines($left.$right(155).'<p>Test</p>');
+        $this->assertStringContainsString('margin-top: 50px;', $this->service->getLabelHTML($options, [$this->getExamplePart()]));
+    }
+
     public function testFloatingImagesNextToQRCode(): void
     {
         //Next to a QR code, only the text column is available for the images (54.33% of the usable width of 96.825mm
