@@ -197,6 +197,13 @@ img.image_resized {
     min-height: 0.125rem ;
 }
 
+/* Used instead of floats, if the columns contain floating elements, as dompdf can not handle nested floats */
+.row.row-inline [class^="col"] {
+    float: none;
+    display: inline-block;
+    vertical-align: top;
+}
+
 .row::after {
     content: "";
     display: table;
