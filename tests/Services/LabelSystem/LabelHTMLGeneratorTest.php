@@ -72,6 +72,11 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
         $this->assertEqualsWithDelta(7.9375, $layout['height'], 0.001);
         //The text cell gets the space above the barcode
         $this->assertEqualsWithDelta(30 - 2 * 3.175 - 7.9375 - 1.0 - 2.5, $layout['cell_height'], 0.001);
+        //Without a size, the barcode (with its 2.709mm high caption) ends 32px above the bottom of the content: The text
+        //gets the space above it
+        $this->assertEqualsWithDelta(30 - 2 * 3.175 - 8.4667 - 7.9375 - 2.709, $layout['legacy_text_height'], 0.001);
+        //On small labels there is no space above that position
+        $this->assertSame(0.0, $this->service->getBarcodeLayout($options->setHeight(20))['legacy_text_height']);
     }
 
     public function testLegacyLayoutWithoutSize(): void
@@ -86,6 +91,22 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
         $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
         $this->assertStringContainsString('<div class="C39-container" style="">', $html);
         $this->assertStringNotContainsString('<table class="label-layout', $html);
+    }
+
+    public function testLegacy1DLayoutDoesNotOverlapText(): void
+    {
+        //The barcode follows the text, which is at least as high as the space above the previous fixed position of the
+        //barcode: So the barcode keeps that position if the text fits above it, and is pushed down otherwise
+        $options = (new LabelOptions())->setWidth(50)->setHeight(30)->setBarcodeType(BarcodeType::CODE128)->setLines('<p>Test</p>');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertStringContainsString('<div class="barcode-below-text">', $html);
+        $this->assertStringContainsString('<div class="lines-container" style="min-height: 4.537mm;">', $html);
+
+        //Labels with custom CSS for the barcode may have placed it somewhere else, so they keep the fixed position
+        $options->setAdditionalCss('.C39-container { bottom: 5px; }');
+        $html = $this->service->getLabelHTML($options, [$this->getExamplePart()]);
+        $this->assertStringNotContainsString('<div class="barcode-below-text">', $html);
+        $this->assertStringContainsString('<div class="lines-container">', $html);
     }
 
     public function testDefaultLayoutWithoutPlaceholder(): void

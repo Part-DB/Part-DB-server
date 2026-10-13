@@ -69,6 +69,17 @@ final readonly class LabelHTMLGenerator
     /** The height of the caption below 1D barcodes in mm (6pt font size, plus some safety margin) */
     private const CAPTION_HEIGHT = 2.5;
 
+    /**
+     * Geometry of the legacy 1D layout (label_page_1d.html.twig) in mm: The barcode image (max-width 150px, height 30px)
+     * with its caption, positioned 32px above the bottom of the page content (see .C39-container in label_style.css.twig)
+     */
+    private const LEGACY_1D_LAYOUT = [
+        'maxWidth' => 39.6875,
+        'height' => 7.9375,
+        'captionHeight' => 2.709,
+        'bottom' => 8.4667,
+    ];
+
     public function __construct(
         private ElementTypeNameGenerator $elementTypeNameGenerator,
         private LabelTextReplacer $replacer,
@@ -140,7 +151,7 @@ final readonly class LabelHTMLGenerator
     /**
      * Determines the size (in mm) of the barcode and the layout used.
      * By default, 2D barcodes are placed left of the text and 1D barcodes below it.
-     * @return array{side: bool, width: float, height: float, cell_height: float}|null
+     * @return array{side: bool, width: float, height: float, cell_height: float, legacy_text_height: float}|null
      */
     public function getBarcodeLayout(LabelOptions $options): ?array
     {
@@ -165,11 +176,18 @@ final readonly class LabelHTMLGenerator
         //For 1D barcodes below the text, the text cell gets all the space not used by the barcode (and its caption).
         $barcode_block_height = $height + self::STACKED_GAP + self::CAPTION_HEIGHT;
 
+        //The legacy 1D layout places the barcode at a fixed position above the bottom of the label. This is the space
+        //above that position: The text gets it as minimum height, so that the barcode keeps its position if the text fits
+        //there, and is moved down otherwise (instead of overlapping the text).
+        $legacy_text_height = $content_height - self::LEGACY_1D_LAYOUT['bottom']
+            - self::LEGACY_1D_LAYOUT['height'] - self::LEGACY_1D_LAYOUT['captionHeight'];
+
         return [
             'side' => $type->is2D(),
             'width' => round($width, 3),
             'height' => round($height, 3),
             'cell_height' => round($type->is2D() ? $content_height : max($content_height - $barcode_block_height, 0.0), 3),
+            'legacy_text_height' => round(max($legacy_text_height, 0.0), 3),
         ];
     }
 
