@@ -101,7 +101,7 @@ export default class PartDBLabelImageHandles extends Plugin {
             return null;
         }
 
-        return {image, wrapper: domElement, img};
+        return {image, viewElement, wrapper: domElement, img};
     }
 
     _update() {
@@ -195,7 +195,19 @@ export default class PartDBLabelImageHandles extends Plugin {
         drag.width = width;
         drag.height = height;
         this._setPreviewSize(drag.target, width, height);
+        this._redrawResizer(drag.target);
         this._positionHandles(drag.target.img.getBoundingClientRect());
+    }
+
+    /**
+     * Fits the frame with the corner handles of CKEditor to the current size of the image. CKEditor only does that when
+     * the editor is rendered, which does not happen while dragging (as the model is not changed).
+     */
+    _redrawResizer(target) {
+        const plugins = this.editor.plugins;
+        if (plugins.has('WidgetResize')) {
+            plugins.get('WidgetResize').getResizerByViewElement(target.viewElement)?.redraw();
+        }
     }
 
     /**
@@ -229,6 +241,7 @@ export default class PartDBLabelImageHandles extends Plugin {
 
         //Remove the preview styles, so that the styles rendered by CKEditor for the new size are used
         this._clearPreviewSize(drag.target);
+        this._redrawResizer(drag.target);
 
         if (drag.width !== drag.startWidth || drag.height !== drag.startHeight) {
             this.editor.model.change(writer => {

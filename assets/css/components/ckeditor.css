@@ -70,25 +70,39 @@
     background-color: transparent;
     color: #000;
 
+    /* The border of the editable (and its focus ring) would be around the wider content area, so it is hidden, and a
+       frame is drawn around the label instead (see below) */
+    --partdb-label-frame: var(--ck-color-base-border);
+    border-color: transparent !important;
+    box-shadow: none !important;
+
     /* The label and its markers are drawn as backgrounds (and not as positioned pseudo elements), so that they are always
        behind the content and never cause the editable to overflow (which would show a scrollbar). Positions are relative
        to the border box, like the label geometry.
        Layer 1: The bottom edge of the label (content below it is cut off), as dashed line.
        (Layer 2: The area used by the default barcode layout, only if .partdb-label-has-reserved, see below)
-       Last layer: The label itself, in its real width (without the extra space for the gap). */
+       Last layers: The label itself, in its real width (without the extra space for the gap), on top of its frame,
+       which is 1px larger on each side. */
     background-origin: border-box;
     background-repeat: no-repeat;
-    background-image: repeating-linear-gradient(to right, #d00 0 4px, transparent 4px 8px), linear-gradient(#fff, #fff);
-    background-size: var(--partdb-label-width) 1px, var(--partdb-label-width) 100%;
-    background-position: 0 calc(var(--partdb-label-height) - 1px), 0 0;
+    background-image: repeating-linear-gradient(to right, #d00 0 4px, transparent 4px 8px), linear-gradient(#fff, #fff),
+        linear-gradient(var(--partdb-label-frame), var(--partdb-label-frame));
+    background-size: var(--partdb-label-width) 1px, calc(var(--partdb-label-width) - 2px) calc(100% - 2px), var(--partdb-label-width) 100%;
+    background-position: 0 calc(var(--partdb-label-height) - 1px), 1px 1px, 0 0;
+}
+
+.ck-html-label.partdb-label-preview .ck-editor__main > .ck-editor__editable.ck-focused {
+    --partdb-label-frame: var(--ck-color-focus-border);
 }
 
 /* Area used by the default barcode layout */
 .ck-html-label.partdb-label-preview.partdb-label-has-reserved .ck-editor__main > .ck-editor__editable {
     background-image: repeating-linear-gradient(to right, #d00 0 4px, transparent 4px 8px),
-        repeating-linear-gradient(45deg, #d0d0d0 0 4px, #ececec 4px 8px), linear-gradient(#fff, #fff);
-    background-size: var(--partdb-label-width) 1px, var(--partdb-reserved-width) var(--partdb-reserved-height), var(--partdb-label-width) 100%;
-    background-position: 0 calc(var(--partdb-label-height) - 1px), var(--partdb-reserved-left) var(--partdb-reserved-top), 0 0;
+        repeating-linear-gradient(45deg, #d0d0d0 0 4px, #ececec 4px 8px), linear-gradient(#fff, #fff),
+        linear-gradient(var(--partdb-label-frame), var(--partdb-label-frame));
+    background-size: var(--partdb-label-width) 1px, var(--partdb-reserved-width) var(--partdb-reserved-height),
+        calc(var(--partdb-label-width) - 2px) calc(100% - 2px), var(--partdb-label-width) 100%;
+    background-position: 0 calc(var(--partdb-label-height) - 1px), var(--partdb-reserved-left) var(--partdb-reserved-top), 1px 1px, 0 0;
 }
 
 /* Compensate the extra space for the gap (see above), so that all content ends at the edge of the label.

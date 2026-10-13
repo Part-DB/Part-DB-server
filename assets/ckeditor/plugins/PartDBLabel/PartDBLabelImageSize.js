@@ -115,6 +115,15 @@ export default class PartDBLabelImageSize extends Plugin {
     }
 
     /**
+     * Returns the img element of the given image in the editor, or null.
+     */
+    _getDomImage(image) {
+        const viewElement = this.editor.editing.mapper.toViewElement(image);
+        const domElement = viewElement ? this.editor.editing.view.domConverter.mapViewToDom(viewElement) : null;
+        return (domElement?.tagName === 'IMG' ? domElement : domElement?.querySelector('img')) ?? null;
+    }
+
+    /**
      * Returns the natural size (in px) of the given image: From its width/height attributes, or from the loaded image
      * in the editor.
      */
@@ -125,9 +134,7 @@ export default class PartDBLabelImageSize extends Plugin {
             return {width, height};
         }
 
-        const viewElement = this.editor.editing.mapper.toViewElement(image);
-        const domElement = viewElement ? this.editor.editing.view.domConverter.mapViewToDom(viewElement) : null;
-        const img = domElement?.tagName === 'IMG' ? domElement : domElement?.querySelector('img');
+        const img = this._getDomImage(image);
         if (img?.naturalWidth > 0 && img?.naturalHeight > 0) {
             return {width: img.naturalWidth, height: img.naturalHeight};
         }
@@ -136,13 +143,20 @@ export default class PartDBLabelImageSize extends Plugin {
     }
 
     /**
-     * Returns the size (in px) of the given image, like it is shown on the label: The resized width (set via the resize
-     * handles), with the aspect ratio of the image.
+     * Returns the size (in px) of the given image: The size it is shown in (images which were not resized are scaled down
+     * by the editor, if they are wider than the label), or otherwise the resized width (set via the resize handles) with
+     * the aspect ratio of the image.
      */
     _getDisplayedSize(image) {
         if (!image) {
             return null;
         }
+
+        const rect = this._getDomImage(image)?.getBoundingClientRect();
+        if (rect?.width > 0 && rect?.height > 0) {
+            return {width: rect.width, height: rect.height};
+        }
+
         const natural = this._getNaturalSize(image);
         const resizedWidth = String(image.getAttribute('resizedWidth') ?? '');
         const width = resizedWidth.endsWith('px') ? parseFloat(resizedWidth) : natural.width;
