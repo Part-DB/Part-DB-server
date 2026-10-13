@@ -268,6 +268,8 @@ final readonly class LabelHTMLGenerator
         $row_height = 0.0;
         $row_height_known = true;
         $offset = 0.0;
+        //Whether the previous image of the current row is wrapped right
+        $after_right = false;
         //The images of the current group of consecutive floating images (with their position), or null if unknown
         $group = [];
 
@@ -284,6 +286,7 @@ final readonly class LabelHTMLGenerator
                 }
                 $used = $used_left = $used_right = $row_height = $offset = 0.0;
                 $row_height_known = true;
+                $after_right = false;
                 $group = [];
                 continue;
             }
@@ -292,9 +295,10 @@ final readonly class LabelHTMLGenerator
             $height = $this->getElementHeight($node, $width);
 
             //The space taken by the image including its gaps to the text, like in the label editor (see ckeditor.css):
-            //Images wrapped left have the gap on their right side, images wrapped right on both sides. The gap after the
-            //last image of a row may extend into the page margin, so the available width is extended by the gap.
-            $needed = $width + ($style === 'align-left' ? $gap : 2 * $gap);
+            //Images wrapped left have the gap on their right side, images wrapped right on both sides (but the gap between
+            //two images wrapped right, which follow each other, is only needed once). The gap after the last image of a row
+            //may extend into the page margin, so the available width is extended by the gap.
+            $needed = $width + ($style === 'align-left' || $after_right ? $gap : 2 * $gap);
 
             if ($used > 0 && $used + $needed > $available + $gap + 0.5) {
                 //Start a new row below the current one
@@ -312,6 +316,8 @@ final readonly class LabelHTMLGenerator
                 $changed = true;
                 $used = $used_left = $used_right = $row_height = 0.0;
                 $row_height_known = true;
+                //The image is the first one of its row now
+                $needed = $width + ($style === 'align-left' ? $gap : 2 * $gap);
             }
 
             if ($offset > 0) {
@@ -340,6 +346,7 @@ final readonly class LabelHTMLGenerator
             } else {
                 $row_height = max($row_height, $height);
             }
+            $after_right = $style !== 'align-left';
         }
 
         return $changed;

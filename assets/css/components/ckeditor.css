@@ -120,6 +120,13 @@
     margin-right: var(--partdb-float-gap);
 }
 
+/* Two images wrapped on the right, which follow each other, are placed next to each other (the second one left of the
+   first one): The gap between them is the right margin of the second one, so the first one must not add its left margin
+   to it (on the label, images wrapped on the right only have the left margin) */
+.ck-html-label.partdb-label-preview .ck-editor__main > .ck-editor__editable > .image-style-align-right:has(+ .image-style-align-right) {
+    margin-left: 0;
+}
+
 /* Centered content: Center it in the label (and not in the wider content area) */
 .ck-html-label.partdb-label-preview .ck-editor__main > .ck-editor__editable > .image-style-align-center,
 .ck-html-label.partdb-label-preview .ck-editor__main > .ck-editor__editable > figure.table {

@@ -88,6 +88,21 @@ final class LabelHTMLGeneratorTest extends KernelTestCase
         $this->assertMatchesRegularExpression('/<figure[^>]*margin-top/', $this->service->getLabelHTML($options, [$this->getExamplePart()]));
     }
 
+    public function testFloatingImagesWrappedRight(): void
+    {
+        //Two images wrapped right need the gap to the text on the left, the gap between them and the gap which may extend
+        //into the page margin (365.95px usable width + 15.12px gap = 2 * 165px + 3 * 15.12px + 5.71px)
+        $image = fn(int $width) => '<figure class="image image-style-align-right"><img src="data:image/png;base64,AAAA" width="'.$width.'" height="50"></figure>';
+        $options = (new LabelOptions())->setWidth(100)->setHeight(50);
+
+        $options->setLines($image(165).$image(165).'<p>Test</p>');
+        $this->assertDoesNotMatchRegularExpression('/<figure[^>]*margin-top/', $this->service->getLabelHTML($options, [$this->getExamplePart()]));
+
+        //Wider images do not fit next to each other anymore
+        $options->setLines($image(170).$image(170).'<p>Test</p>');
+        $this->assertStringContainsString('margin-top: 50px;', $this->service->getLabelHTML($options, [$this->getExamplePart()]));
+    }
+
     public function testFloatingImagesNextToQRCode(): void
     {
         //Next to a QR code, only the text column is available for the images (54.33% of the usable width of 96.825mm
