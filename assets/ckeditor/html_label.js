@@ -241,6 +241,7 @@ Editor.defaultConfig = {
                 defaultItem: 'imageStyle:alignCenter',
             },
             'linkImage',
+            'partdb_image_size',
         ],
         styles: {
             options: ['inline', 'alignLeft', 'alignRight', 'alignCenter', 'alignBlockLeft', 'alignBlockRight', 'block', 'side'],
