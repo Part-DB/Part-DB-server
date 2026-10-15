@@ -8887,7 +8887,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="KycdCcd" name="part.info_provider_reference.badge">
       <segment state="translated">
         <source>part.info_provider_reference.badge</source>
-        <target>Źródło informacji użytych do utworzenia tej [part].</target>
+        <target>Źródło informacji użytych do utworzenia tej części.</target>
       </segment>
     </unit>
     <unit id="DGTTRZd" name="part.info_provider_reference">
