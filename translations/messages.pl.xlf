@@ -9787,7 +9787,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="_pYLrPT" name="settings.ips.tme.token.help">
       <segment state="translated">
         <source>settings.ips.tme.token.help</source>
-        <target>API TOKEN oraz API Secret możesz uzyskać na stronie:</target>
+        <target>Możesz uzyskać token i sekret API na stronie &lt;a href="https://developers.tme.eu/pl/"&gt;https://developers.tme.eu/pl/&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="yswx4bq" name="settings.ips.tme.secret">
