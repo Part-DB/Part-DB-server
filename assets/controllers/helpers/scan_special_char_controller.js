@@ -31,13 +31,35 @@ export default class extends Controller {
         this.isCapturing = false
         this.buffer = ""
 
-        window.addEventListener("keypress", this.handleKeydown.bind(this))
+        window.addEventListener("keypress", this.handleKeydown)
+        //Registered in the capture phase on the window, so it runs before any other keydown listener on the page
+        window.addEventListener("keydown", this.suppressKeydownWhileCapturing, true)
+    }
+
+    disconnect() {
+        window.removeEventListener("keypress", this.handleKeydown)
+        window.removeEventListener("keydown", this.suppressKeydownWhileCapturing, true)
+        this.stopCapturing()
     }
 
     initialize() {
         this.isCapturing = false
         this.buffer = ""
         this.timeoutId = null
+
+        this.handleKeydown = this.handleKeydown.bind(this)
+        this.suppressKeydownWhileCapturing = this.suppressKeydownWhileCapturing.bind(this)
+    }
+
+    /**
+     * While a scan is captured, the scanned characters must not trigger any keyboard shortcuts on the page (e.g. "["
+     * toggling the sidebar, as ECIA/Digikey barcodes start with "[)>"). So the keydown events are not propagated to other
+     * listeners. The default is not prevented, as this would suppress the keypress event, which we use for capturing.
+     */
+    suppressKeydownWhileCapturing(event) {
+        if (this.isCapturing) {
+            event.stopImmediatePropagation()
+        }
     }
 
     handleKeydown(event) {
