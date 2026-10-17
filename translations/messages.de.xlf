@@ -15972,5 +15972,53 @@ Buerklin-API-Authentication-Server:
         <target>Bestand von der Informationsquelle abgerufen am: %datetime%</target>
       </segment>
     </unit>
+    <unit id="pDADvak" name="info_providers.search.direct_access_link">
+      <segment state="translated">
+        <source>info_providers.search.direct_access_link</source>
+        <target>Bauteil direkt über Anbieter-ID abrufen</target>
+      </segment>
+    </unit>
+    <unit id="zmFPwNo" name="info_providers.direct_access.title">
+      <segment state="translated">
+        <source>info_providers.direct_access.title</source>
+        <target>[Part] direkt von Informationsquelle abrufen</target>
+      </segment>
+    </unit>
+    <unit id="CKTsS3T" name="info_providers.direct_access.help">
+      <segment state="translated">
+        <source>info_providers.direct_access.help</source>
+        <target>Ruft die Details eines Bauteils direkt über seine ID bei der Informationsquelle ab, ohne vorher zu suchen. Dies ist nützlich für Bauteile, die von der Suche nicht gefunden werden, z.B. archivierte oder abgekündigte Bauteile.</target>
+      </segment>
+    </unit>
+    <unit id="22BOA4C" name="info_providers.direct_access.provider">
+      <segment state="translated">
+        <source>info_providers.direct_access.provider</source>
+        <target>Informationsquelle</target>
+      </segment>
+    </unit>
+    <unit id="InnnOHb" name="info_providers.direct_access.provider_id">
+      <segment state="translated">
+        <source>info_providers.direct_access.provider_id</source>
+        <target>Bauteil-ID bei der Quelle</target>
+      </segment>
+    </unit>
+    <unit id="crjx864" name="info_providers.direct_access.provider_id.help">
+      <segment state="translated">
+        <source>info_providers.direct_access.provider_id.help</source>
+        <target>Die ID, die das Bauteil bei der Informationsquelle identifiziert. Meist ist dies die Bestellnummer (SPN) des Lieferanten oder die Herstellerteilenummer (MPN).</target>
+      </segment>
+    </unit>
+    <unit id="ooBFurT" name="info_providers.direct_access.submit">
+      <segment state="translated">
+        <source>info_providers.direct_access.submit</source>
+        <target>Bauteil abrufen</target>
+      </segment>
+    </unit>
+    <unit id="SM0l4SG" name="info_providers.search.no_results.direct_access_hint">
+      <segment state="translated">
+        <source>info_providers.search.no_results.direct_access_hint</source>
+        <target>Bauteile, die von der Suche nicht gefunden werden (z.B. archivierte Bauteile), können eventuell trotzdem über ihre ID beim Anbieter abgerufen werden:</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
