@@ -43,10 +43,7 @@ export default class extends Controller {
                     return;
                 }
 
-                const index = this.index();
-                const settings = dataTable.settings()[0];
-                const columnSettings = settings.aoColumns[index];
-                const name = columnSettings.data;
+                const name = this.dataSrc();
 
                 /*
                  * The picture column is not useful in CSV.
