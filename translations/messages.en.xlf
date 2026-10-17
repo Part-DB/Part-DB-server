@@ -3263,6 +3263,24 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Barcode</target>
       </segment>
     </unit>
+    <unit id="k8tCp3p" name="label_options.barcode_size.label">
+      <segment state="translated">
+        <source>label_options.barcode_size.label</source>
+        <target>Barcode size</target>
+      </segment>
+    </unit>
+    <unit id="d4JiLZm" name="label_options.barcode_size.placeholder">
+      <segment state="translated">
+        <source>label_options.barcode_size.placeholder</source>
+        <target>Automatic</target>
+      </segment>
+    </unit>
+    <unit id="udG3rSL" name="label_options.barcode_size.help">
+      <segment state="translated">
+        <source>label_options.barcode_size.help</source>
+        <target>Edge length of 2D barcodes (e.g. QR codes), or width of 1D barcodes. Leave empty to keep the default size and layout. Use the "Barcode" button of the editor to place the barcode freely inside the label content.</target>
+      </segment>
+    </unit>
     <unit id="OnaZspp" name="label_profile.lines.label">
       <segment state="translated">
         <source>label_profile.lines.label</source>

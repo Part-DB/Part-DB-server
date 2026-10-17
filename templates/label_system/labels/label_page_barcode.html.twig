@@ -1,0 +1,37 @@
+{# Default layout for labels with a barcode, which is not placed inside the lines: 2D barcodes left of the text, 1D barcodes below it.
+   We use a table here, as dompdf handles it much better than floats (e.g. text wrapped images inside the lines).
+   The sizes are calculated in LabelHTMLGenerator::getBarcodeLayout(), as dompdf does not support percentage heights for tables. #}
+{% set layout = barcode_layout %}
+
+{% set lines_cell %}
+    <td class="lines-cell" style="height: {{ layout.cell_height }}mm;">
+        <div class="lines-container">
+            {{ element.lines | raw }}
+        </div>
+    </td>
+{% endset %}
+
+<table class="label-layout label-layout-{{ layout.side ? 'side' : 'stacked' }}">
+    {% if layout.side %}
+        <tr>
+            <td class="barcode-cell barcode-cell-left" style="width: {{ layout.width }}mm; height: {{ layout.cell_height }}mm;">
+                <div class="qr-container">
+                    <a href="{{ element.barcode_content }}">
+                        <img class="qr" src="{{ element.barcode | data_uri(mime='image/svg+xml') }}" style="width: {{ layout.width }}mm; height: {{ layout.height }}mm;">
+                    </a>
+                </div>
+            </td>
+            {{ lines_cell }}
+        </tr>
+    {% else %}
+        <tr>{{ lines_cell }}</tr>
+        <tr>
+            <td class="barcode-cell barcode-cell-bottom">
+                <div class="C39-container">
+                    <img class="C39" src="{{ element.barcode | data_uri(mime='image/svg+xml') }}" style="width: {{ layout.width }}mm; height: {{ layout.height }}mm;">
+                    <span class="C39-text">{{ element.barcode_content }}</span>
+                </div>
+            </td>
+        </tr>
+    {% endif %}
+</table>
