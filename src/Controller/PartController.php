@@ -294,6 +294,40 @@ final class PartController extends AbstractController
     }
 
     /**
+     * Makes one of the part's own picture attachments its preview (master picture) attachment. Used by the
+     * picture fan on the part info page, where a click on a picture selects it.
+     */
+    #[Route(path: '/{id}/set_master_picture', name: 'part_set_master_picture', methods: ['POST'])]
+    public function setMasterPicture(Part $part, Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $part);
+
+        if (!$this->isCsrfTokenValid('set_master_picture' . $part->getID(), $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Invalid CSRF token');
+        }
+
+        $attachment_id = $request->request->getInt('attachment');
+        $attachment = null;
+        //Like in the edit form, only a picture attachment of the part itself can become its preview
+        foreach ($part->getAttachments() as $candidate) {
+            if ($candidate->getID() === $attachment_id && $candidate->isPicture()) {
+                $attachment = $candidate;
+                break;
+            }
+        }
+
+        if ($attachment === null) {
+            return $this->json(['success' => false], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $part->setMasterPictureAttachment($attachment);
+        $this->commentHelper->setMessage('Preview picture selected on info page');
+        $this->em->flush();
+
+        return $this->json(['success' => true, 'attachment' => $attachment->getID()]);
+    }
+
+    /**
      * Returns the outcome of a generate-image request as JSON (for the modal/AJAX flow) or as a
      * flash + redirect (for a normal form submit).
      */

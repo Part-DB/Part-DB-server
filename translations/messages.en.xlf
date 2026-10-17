@@ -1473,6 +1473,12 @@ Sub elements will be moved upwards.</target>
         <target>Previous picture</target>
       </segment>
     </unit>
+    <unit id="kEMmPaA" name="part.info.picture_fan.label">
+      <segment state="translated">
+        <source>part.info.picture_fan.label</source>
+        <target>All pictures of this part</target>
+      </segment>
+    </unit>
     <unit id="pfbjbna" name="part.info.next_picture">
       <segment state="translated">
         <source>part.info.next_picture</source>
