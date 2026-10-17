@@ -3065,7 +3065,7 @@
     <unit id="AdYtBQG" name="attachment.edit.url.help">
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>외부 파일 URL을 지정하거나, 내장 리소스(예: 풋프린트) 검색에 사용할 키워드를 입력할 수 있습니다</target>
+        <target>외부 파일 URL을 지정하거나, 내장 리소스(예: 풋프린트) 검색에 사용할 키워드를 입력할 수 있습니다. 클립보드의 파일(예: 이미지)을 여기에 붙여넣어 업로드할 수도 있습니다.</target>
       </segment>
     </unit>
     <unit id="jXplbqd" name="attachment.edit.name">

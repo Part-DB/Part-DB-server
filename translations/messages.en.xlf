@@ -3134,7 +3134,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     <unit id="AdYtBQG" name="attachment.edit.url.help">
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>You can specify a URL to an external file here, or input a keyword which is used to search in built-in resources (e.g. footprints)</target>
+        <target>You can specify a URL to an external file here, or input a keyword which is used to search in built-in resources (e.g. footprints). You can also paste a file (e.g. an image) from the clipboard here, to upload it.</target>
       </segment>
     </unit>
     <unit id="jXplbqd" name="attachment.edit.name">

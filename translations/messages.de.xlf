@@ -3133,7 +3133,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="AdYtBQG" name="attachment.edit.url.help">
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>Hier kann entweder eine URL zu einer externen Datei eingetragen werden, oder es wird durch Eingabe eines Stichwortes in den eingebauten Ressourcen gesucht (z.B. Footprints).</target>
+        <target>Hier kann entweder eine URL zu einer externen Datei eingetragen werden, oder es wird durch Eingabe eines Stichwortes in den eingebauten Ressourcen gesucht (z.B. Footprints). Außerdem kann hier eine Datei (z.B. ein Bild) aus der Zwischenablage eingefügt werden, um sie hochzuladen.</target>
       </segment>
     </unit>
     <unit id="jXplbqd" name="attachment.edit.name">

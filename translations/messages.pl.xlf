@@ -3130,7 +3130,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="AdYtBQG" name="attachment.edit.url.help">
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>W tym miejscu można wprowadzić adres URL do pliku zewnętrznego lub słowo kluczowe w celu wyszukiwania we wbudowanych zasobach (np. footprints).</target>
+        <target>W tym miejscu można wprowadzić adres URL do pliku zewnętrznego lub słowo kluczowe w celu wyszukiwania we wbudowanych zasobach (np. footprints). Można tu również wkleić plik (np. obraz) ze schowka, aby go przesłać.</target>
       </segment>
     </unit>
     <unit id="jXplbqd" name="attachment.edit.name">

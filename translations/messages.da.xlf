@@ -3046,7 +3046,7 @@ Bemærk også, at uden to-faktor-godkendelse er din konto ikke længere så godt
     <unit id="AdYtBQG" name="attachment.edit.url.help">
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>Her kan du enten indtaste en URL til en ekstern fil, eller du kan søge efter de indbyggede ressourcer ved at indtaste et nøgleord (f.eks. footprint).</target>
+        <target>Her kan du enten indtaste en URL til en ekstern fil, eller du kan søge efter de indbyggede ressourcer ved at indtaste et nøgleord (f.eks. footprint). Du kan også indsætte en fil (f.eks. et billede) fra udklipsholderen her for at uploade den.</target>
       </segment>
     </unit>
     <unit id="jXplbqd" name="attachment.edit.name">
