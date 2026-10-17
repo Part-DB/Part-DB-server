@@ -2368,7 +2368,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="ke6GUhD" name="ordernumber.label.short">
       <segment state="translated">
         <source>ordernumber.label.short</source>
-        <target>Nr zamówienia.</target>
+        <target>Nr zamówienia</target>
       </segment>
     </unit>
     <unit id="1jEDrSa" name="supplier.label">
@@ -3640,7 +3640,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="As__ocD" name="attachment.label">
       <segment state="translated">
         <source>attachment.label</source>
-        <target>[Attachment]</target>
+        <target>Załącznik</target>
       </segment>
     </unit>
     <unit id="QbEpsys" name="attachment_type.label">
