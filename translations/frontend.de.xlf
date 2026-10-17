@@ -469,5 +469,11 @@
         <target>absteigend</target>
       </segment>
     </unit>
+    <unit id="O_I8BVJ" name="attachment.create_from_clipboard.error">
+      <segment state="translated">
+        <source>attachment.create_from_clipboard.error</source>
+        <target>Aus der Zwischenablage konnte kein Bild gelesen werden. Es muss ein Bild kopiert und der Zugriff auf die Zwischenablage erlaubt sein. Um andere Dateien hinzuzufügen, Strg+V im URL-Feld eines Anhangs drücken.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
