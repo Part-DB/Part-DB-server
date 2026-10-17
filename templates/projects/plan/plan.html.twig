@@ -1,0 +1,34 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}planned_build.plan.label{% endtrans %}: {{ number_of_builds }}x {{ project.name }}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-clipboard-list fa-fw"></i>
+    {% trans %}planned_build.plan.label{% endtrans %}: <b>{{ number_of_builds }}x</b> <i>{{ project.name }}</i>
+{% endblock %}
+
+{% block card_content %}
+    {% set bom_empty = project.bomEntries | length == 0 %}
+    {% set can_plan = not bom_empty and planningHelper.isProjectPlannable(project, number_of_builds) %}
+    {% import "components/projects.macro.html.twig" as project_macros %}
+
+    <div class="alert {% if can_plan %}alert-success{% elseif bom_empty %}alert-warning{% else %}alert-warning{% endif %}" role="alert">
+        {% if bom_empty %}
+            <h5><i class="fa-solid fa-circle-exclamation fa-fw"></i> {% trans %}project.builds.no_bom_entries{% endtrans %}</h5>
+        {% elseif not can_plan %}
+            <h5><i class="fa-solid fa-triangle-exclamation fa-fw"></i> {% trans %}planned_build.plan.not_possible{% endtrans %}</h5>
+            <b>{% trans with {"%number_of_builds%": number_of_builds} %}planned_build.plan.following_bom_entries_miss_available_stock{% endtrans %}</b>
+            <ul>
+                {% for bom_entry in planningHelper.nonPlannableProjectBomEntries(project, number_of_builds) %}
+                    <li>{{ project_macros.project_bom_entry_with_missing_instock(bom_entry, number_of_builds) }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h5><i class="fa-solid fa-circle-check fa-fw"></i> {% trans %}planned_build.plan.possible{% endtrans %}</h5>
+        {% endif %}
+    </div>
+
+    <p class="text-muted">{% trans %}planned_build.plan.help{% endtrans %}</p>
+
+    {% include 'projects/plan/_form.html.twig' %}
+{% endblock %}

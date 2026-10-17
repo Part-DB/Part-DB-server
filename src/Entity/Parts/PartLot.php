@@ -44,11 +44,15 @@ use App\Entity\Base\TimestampTrait;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\UserSystem\User;
+use App\Entity\ProjectSystem\PartLotReservation;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPartLot;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -174,6 +178,18 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     #[ORM\Column( type: Types::DATETIME_IMMUTABLE, nullable: true)]
     #[Year2038BugWorkaround]
     protected ?\DateTimeImmutable $last_stocktake_at = null;
+
+    /**
+     * @var Collection<int, PartLotReservation> The reservations made against this lot by planned projects.
+     *                      This is the sole source of truth for the reserved amount - see getReservedAmount().
+     */
+    #[ORM\OneToMany(targetEntity: PartLotReservation::class, mappedBy: 'partLot')]
+    protected Collection $reservations;
+
+    public function __construct()
+    {
+        $this->reservations = new ArrayCollection();
+    }
 
     public function __clone()
     {
@@ -338,6 +354,71 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
         $this->amount = $new_amount;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, PartLotReservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(PartLotReservation $reservation): self
+    {
+        $this->reservations->add($reservation);
+        return $this;
+    }
+
+    public function removeReservation(PartLotReservation $reservation): self
+    {
+        $this->reservations->removeElement($reservation);
+        return $this;
+    }
+
+    /**
+     * Returns the amount of this lot that is currently reserved for planned projects (sum of all reservations).
+     * For integer-quantities parts this value is rounded to the next integer, just like getAmount().
+     */
+    #[Groups(['simple', 'extended', 'full', 'part_lot:read'])]
+    #[SerializedName('reserved_amount')]
+    public function getReservedAmount(): float
+    {
+        $sum = 0.0;
+        foreach ($this->reservations as $reservation) {
+            $sum += $reservation->getAmount();
+        }
+
+        if ($this->part instanceof Part && !$this->part->useFloatAmount()) {
+            return round($sum);
+        }
+
+        return $sum;
+    }
+
+    /**
+     * Returns the amount of this lot that is not reserved for any planned project, i.e. the amount that can
+     * actually be withdrawn or moved. This can become negative if a stocktake reduced the amount below what is
+     * currently reserved - callers that need a purely non-negative "available" figure should clamp this.
+     */
+    #[Groups(['simple', 'extended', 'full', 'part_lot:read'])]
+    #[SerializedName('available_amount')]
+    public function getAvailableAmount(): float
+    {
+        return $this->getAmount() - $this->getReservedAmount();
+    }
+
+    /**
+     * Safety net: a part lot must never be removed while it still has reservations for planned projects, as that
+     * would silently break the "Total = Available + Reserved" invariant. The normal deletion paths already guard
+     * against this with friendly error messages; this only catches paths we didn't anticipate.
+     */
+    #[ORM\PreRemove]
+    public function checkNoReservationsBeforeRemove(): void
+    {
+        if (!$this->reservations->isEmpty()) {
+            throw new \RuntimeException('Cannot remove a part lot that still has active reservations for planned projects!');
+        }
     }
 
     public function isNeedsRefill(): bool

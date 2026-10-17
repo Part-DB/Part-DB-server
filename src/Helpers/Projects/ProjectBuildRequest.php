@@ -86,7 +86,7 @@ final class ProjectBuildRequest
                 //If the lot has instock use it for the build
                 $id = $lot->getID() ?? throw new \RuntimeException("Part lot needs to have an ID!");
 
-                $this->withdraw_amounts[$id] = min($remaining_amount, $lot->getAmount());
+                $this->withdraw_amounts[$id] = min($remaining_amount, $lot->getAvailableAmount());
                 $remaining_amount -= max(0, $this->withdraw_amounts[$id]);
             }
         }

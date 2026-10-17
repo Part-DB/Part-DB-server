@@ -23,6 +23,8 @@ declare(strict_types=1);
 namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\ProjectAttachment;
+use App\Entity\ProjectSystem\PlannedProject;
+use App\Entity\ProjectSystem\PlannedProjectStatus;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parameters\ProjectParameter;
 use App\Entity\Base\AbstractDBElement;
@@ -90,5 +92,27 @@ class ProjectAdminController extends BaseAdminController
     public function exportEntity(Project $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);
+    }
+
+    /**
+     * A project that still has an active (not yet built/cancelled) planned project referencing it must not be
+     * deleted, as that plan's reservations would otherwise be orphaned, breaking the reservation invariant.
+     */
+    protected function deleteCheck(AbstractNamedDBElement $entity): bool
+    {
+        if ($entity instanceof Project) {
+            $active_plans = $this->entityManager->getRepository(PlannedProject::class)->count([
+                'project' => $entity,
+                'status' => PlannedProjectStatus::PLANNED,
+            ]);
+
+            if ($active_plans > 0) {
+                $this->addFlash('error', 'project.delete.blocked_by_planned_projects');
+
+                return false;
+            }
+        }
+
+        return parent::deleteCheck($entity);
     }
 }

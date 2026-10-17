@@ -206,6 +206,53 @@ trait InstockTrait
     }
 
     /**
+     * Returns the summed amount that is currently reserved for planned projects (over all part lots).
+     * Part Lots that have unknown value or are expired, are not used for this value (counted as 0), mirroring
+     * getAmountSum().
+     */
+    public function getReservedAmountSum(): float
+    {
+        $sum = 0.0;
+        foreach ($this->getPartLots() as $lot) {
+            if ($lot->isInstockUnknown() || ($lot->isExpired() ?? false)) {
+                continue;
+            }
+
+            $sum += $lot->getReservedAmount();
+        }
+
+        if ($this->useFloatAmount()) {
+            return $sum;
+        }
+
+        return round($sum);
+    }
+
+    /**
+     * Whether any lot of this part still has reservations for planned projects. Such a part (and its lots) must
+     * not be deleted, as that would silently break the reservations.
+     */
+    public function hasReservations(): bool
+    {
+        foreach ($this->getPartLots() as $lot) {
+            if (!$lot->getReservations()->isEmpty()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns the summed amount of this part that is not reserved for any planned project, i.e. the amount
+     * that could actually be withdrawn or used to build a project right now.
+     */
+    public function getAvailableAmountSum(): float
+    {
+        return $this->getAmountSum() - $this->getReservedAmountSum();
+    }
+
+    /**
      * Returns the summed amount of all part lots that are expired. If no part lots are expired 0 is returned.
      */
     public function getExpiredAmountSum(): float

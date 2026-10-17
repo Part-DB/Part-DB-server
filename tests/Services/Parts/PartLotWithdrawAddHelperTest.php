@@ -8,6 +8,10 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
+use App\Entity\ProjectSystem\PartLotReservation;
+use App\Entity\ProjectSystem\PlannedProject;
+use App\Entity\ProjectSystem\Project;
+use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Services\Parts\PartLotWithdrawAddHelper;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -373,6 +377,47 @@ final class PartLotWithdrawAddHelperTest extends WebTestCase
         $em = self::getContainer()->get('doctrine.orm.entity_manager');
         $scheduled = $em->getUnitOfWork()->getScheduledEntityDeletions();
         $this->assertNotContains($lot, $scheduled);
+    }
+
+    // --- reservation-aware availability (Project Planning & Part Reservation feature) ---
+
+    private function makeReservation(PartLot $lot, float $amount): PartLotReservation
+    {
+        $plannedProject = new PlannedProject();
+        $project = new Project();
+        $bomEntry = new ProjectBOMEntry();
+        $bomEntry->setProject($project);
+
+        return new PartLotReservation($plannedProject, $bomEntry, $lot, $amount);
+    }
+
+    public function testCanWithdrawIsFalseWhenFullyReserved(): void
+    {
+        //partLot1 has amount=10; fully reserved, so nothing should be available to withdraw anymore
+        $this->partLot1->addReservation($this->makeReservation($this->partLot1, 10.0));
+
+        $this->assertEqualsWithDelta(0.0, $this->partLot1->getAvailableAmount(), PHP_FLOAT_EPSILON);
+        $this->assertFalse($this->service->canWithdraw($this->partLot1));
+    }
+
+    public function testWithdrawRejectsAmountThatExceedsAvailableEvenIfAllowedByRawAmount(): void
+    {
+        //partLot1 has amount=10; reserve 6, leaving only 4 truly available
+        $this->partLot1->addReservation($this->makeReservation($this->partLot1, 6.0));
+        $this->assertEqualsWithDelta(4.0, $this->partLot1->getAvailableAmount(), PHP_FLOAT_EPSILON);
+
+        //Withdrawing 5 would be allowed if only getAmount() (10) were checked, but must be rejected because
+        //only 4 are actually available (not already reserved for a planned project)
+        $this->expectException(\RuntimeException::class);
+        $this->service->withdraw($this->partLot1, 5, "Test");
+    }
+
+    public function testWithdrawSucceedsForExactlyTheAvailableAmountWhenPartiallyReserved(): void
+    {
+        $this->partLot1->addReservation($this->makeReservation($this->partLot1, 6.0));
+
+        $this->service->withdraw($this->partLot1, 4, "Test");
+        $this->assertEqualsWithDelta(6.0, $this->partLot1->getAmount(), PHP_FLOAT_EPSILON);
     }
 
     public function testMoveDeletesOriginLotWhenEmptyAndFlagSet(): void

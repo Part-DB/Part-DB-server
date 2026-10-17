@@ -28,6 +28,7 @@ use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\PartCustomState;
+use App\Entity\ProjectSystem\PlannedProject;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
@@ -206,6 +207,7 @@ class EntityURLGenerator
             AttachmentType::class => 'attachment_type_edit',
             Category::class => 'category_edit',
             Project::class => 'project_info',
+            PlannedProject::class => 'planned_project_info',
             Supplier::class => 'supplier_edit',
             Manufacturer::class => 'manufacturer_edit',
             StorageLocation::class => 'store_location_edit',
@@ -347,6 +349,7 @@ class EntityURLGenerator
             AttachmentType::class => 'attachment_type_delete',
             Category::class => 'category_delete',
             Project::class => 'project_delete',
+            PlannedProject::class => 'planned_project_delete',
             Supplier::class => 'supplier_delete',
             Manufacturer::class => 'manufacturer_delete',
             StorageLocation::class => 'store_location_delete',

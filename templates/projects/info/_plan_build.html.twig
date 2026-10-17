@@ -1,0 +1,31 @@
+{% set bom_empty = project.bomEntries | length == 0 %}
+{% set can_plan = not bom_empty and planningHelper.isProjectPlannable(project) %}
+
+{% import "components/projects.macro.html.twig" as project_macros %}
+
+<div class="alert mt-2 {% if can_plan %}alert-success{% elseif bom_empty %}alert-warning{% else %}alert-warning{% endif %}" role="alert">
+    {% if bom_empty %}
+        <h5><i class="fa-solid fa-circle-exclamation fa-fw"></i> {% trans %}project.builds.no_bom_entries{% endtrans %}</h5>
+    {% elseif not can_plan %}
+        <h5><i class="fa-solid fa-triangle-exclamation fa-fw"></i> {% trans %}planned_build.plan.not_possible{% endtrans %}</h5>
+        <b>{% trans %}planned_build.plan.following_bom_entries_miss_available_stock{% endtrans %}</b>
+        <ul>
+            {% for bom_entry in planningHelper.nonPlannableProjectBomEntries(project) %}
+                <li>{{ project_macros.project_bom_entry_with_missing_instock(bom_entry) }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h5><i class="fa-solid fa-circle-check fa-fw"></i> {% trans %}planned_build.plan.possible{% endtrans %}</h5>
+    {% endif %}
+</div>
+
+<form method="get" action="{{ path('project_plan', {"id": project.iD }) }}">
+    <div class="row mt-2">
+        <div class="col-4">
+            <div class="input-group mb-3">
+                <input type="number" min="1" class="form-control" placeholder="{% trans %}project.builds.number_of_builds{% endtrans %}" name="n" required value="1">
+                <button class="btn btn-outline-secondary" type="submit" {% if not is_granted('@parts_stock.reserve') %}disabled{% endif %}>{% trans %}planned_build.tab.label{% endtrans %}</button>
+            </div>
+        </div>
+    </div>
+</form>

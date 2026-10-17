@@ -340,6 +340,12 @@ final class PartController extends AbstractController
         $this->denyAccessUnlessGranted('delete', $part);
 
         if ($this->isCsrfTokenValid('delete' . $part->getID(), $request->request->get('_token'))) {
+            //A part with lots that still have active reservations for planned builds must not be deleted
+            if ($part->hasReservations()) {
+                $this->addFlash('error', 'part.delete.blocked_by_reservations');
+
+                return $this->redirectToRoute('part_info', ['id' => $part->getID()]);
+            }
 
             $this->commentHelper->setMessage($request->request->get('log_comment', null));
 
@@ -554,11 +560,34 @@ final class PartController extends AbstractController
 
         $new_part = $data;
 
+        //Snapshot the part lots before the form (whose partLots CollectionType allows deleting rows) mutates
+        //the collection, so we can detect afterward whether a lot with active reservations was removed.
+        $partLotsBeforeSubmit = $new_part->getPartLots()->toArray();
+
         $form = $this->createForm(PartBaseType::class, $new_part, $form_options);
 
         $form->handleRequest($request);
 
+        //A part lot that still has active reservations for planned projects must not be removed via the
+        //part edit form's collection widget, as that would silently break the reservation invariant.
+        $blocked_by_reservations = false;
         if ($form->isSubmitted() && $form->isValid()) {
+            //When merging, the other part gets deleted, so it must not have any active reservations either
+            if ('merge' === $mode && ($merge_infos['other_part'] ?? null) instanceof Part && $merge_infos['other_part']->hasReservations()) {
+                $blocked_by_reservations = true;
+            }
+
+            foreach ($partLotsBeforeSubmit as $lot) {
+                if (!$new_part->getPartLots()->contains($lot) && !$lot->getReservations()->isEmpty()) {
+                    $blocked_by_reservations = true;
+                    break;
+                }
+            }
+        }
+
+        if ($blocked_by_reservations) {
+            $this->addFlash('error', 'part_lot.delete.blocked_by_reservations');
+        } elseif ($form->isSubmitted() && $form->isValid()) {
             //Upload passed files
             $attachments = $form['attachments'];
             foreach ($attachments as $attachment) {
@@ -747,6 +776,13 @@ final class PartController extends AbstractController
             //Ensure that the amount is not null or negative
             if ($amount <= 0) {
                 $this->addFlash('warning', 'part.withdraw.zero_amount');
+                goto err;
+            }
+
+            //Stock that is reserved for planned builds can not be withdrawn or moved away
+            $amount_to_take = $part->useFloatAmount() ? $amount : round($amount);
+            if (in_array($action, ['withdraw', 'remove', 'move'], true) && $amount_to_take > $partLot->getAvailableAmount()) {
+                $this->addFlash('error', 'part.withdraw.not_enough_available');
                 goto err;
             }
 
