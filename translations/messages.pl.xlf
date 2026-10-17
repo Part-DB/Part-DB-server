@@ -2368,7 +2368,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="ke6GUhD" name="ordernumber.label.short">
       <segment state="translated">
         <source>ordernumber.label.short</source>
-        <target>Nr zamówienia.</target>
+        <target>Nr zamówienia</target>
       </segment>
     </unit>
     <unit id="1jEDrSa" name="supplier.label">
@@ -3640,7 +3640,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="As__ocD" name="attachment.label">
       <segment state="translated">
         <source>attachment.label</source>
-        <target>[Attachment]</target>
+        <target>Załącznik</target>
       </segment>
     </unit>
     <unit id="QbEpsys" name="attachment_type.label">
@@ -8887,7 +8887,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="KycdCcd" name="part.info_provider_reference.badge">
       <segment state="translated">
         <source>part.info_provider_reference.badge</source>
-        <target>Źródło informacji użytych do utworzenia tej [part].</target>
+        <target>Źródło informacji użytych do utworzenia tej części.</target>
       </segment>
     </unit>
     <unit id="DGTTRZd" name="part.info_provider_reference">
@@ -9787,7 +9787,7 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="_pYLrPT" name="settings.ips.tme.token.help">
       <segment state="translated">
         <source>settings.ips.tme.token.help</source>
-        <target>API TOKEN oraz API Secret możesz uzyskać na stronie:</target>
+        <target>Możesz uzyskać token i sekret API na stronie &lt;a href="https://developers.tme.eu/pl/"&gt;https://developers.tme.eu/pl/&lt;/a&gt;.</target>
       </segment>
     </unit>
     <unit id="yswx4bq" name="settings.ips.tme.secret">
