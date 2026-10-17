@@ -16028,5 +16028,11 @@ Buerklin-API Authentication server:
         <target>From clipboard</target>
       </segment>
     </unit>
+    <unit id="v7ovlvw" name="info_providers.error.server_exception">
+      <segment state="translated">
+        <source>info_providers.error.server_exception</source>
+        <target>The information provider (%host%) is temporarily unavailable (HTTP %status%). Please try again later.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

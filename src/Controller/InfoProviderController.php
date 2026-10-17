@@ -50,6 +50,7 @@ use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpClient\Exception\ClientException;
+use Symfony\Component\HttpClient\Exception\ServerException;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -198,6 +199,12 @@ class InfoProviderController extends  AbstractController
                 $this->addFlash('error',$e->getMessage());
                 //Log the exception
                 $exceptionLogger->error('Error during info provider search: ' . $e->getMessage(), ['exception' => $e]);
+            } catch (ServerException $e) {
+                $this->addFlash('error', t('info_providers.error.server_exception', [
+                    '%status%' => $e->getResponse()->getStatusCode(),
+                    '%host%' => parse_url((string) $e->getResponse()->getInfo('url'), PHP_URL_HOST) ?? '',
+                ]));
+                $exceptionLogger->error('Server error during info provider search: ' . $e->getMessage(), ['exception' => $e]);
             } catch (OAuthReconnectRequiredException $e) {
                 $this->addFlash('error', t('info_providers.search.error.oauth_reconnect', ['%provider%' => $e->getProviderName()]));
             } catch (TransportException $e) {
