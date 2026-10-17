@@ -14482,7 +14482,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="NVHHgpD" name="settings.ips.ai_extractor.output_language.description">
       <segment state="translated">
         <source>settings.ips.ai_extractor.output_language.description</source>
-        <target>Domyślnie, dostawcy podają informacje w tym samym języku co strona internetowa. Używając tej opcji, możesz zlecić SI ich przetłumaczenie. Może działać tylko z niektórymi modelami.</target>
+        <target>Domyślnie dostawca informacji podaje informacje w tym samym języku, co strona internetowa. Używając tej opcji, możesz zlecić SI ich przetłumaczenie. Może działać tylko z niektórymi modelami.</target>
       </segment>
     </unit>
     <unit id="CAeeZlL" name="settings.ips.ai_extractor.additional_instructions">
