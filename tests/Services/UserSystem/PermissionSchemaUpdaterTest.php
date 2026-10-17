@@ -123,4 +123,20 @@ final class PermissionSchemaUpdaterTest extends WebTestCase
         self::assertTrue($this->service->upgradeSchema($user, 3));
         self::assertSame(PermissionData::ALLOW, $user->getPermissions()->getPermissionValue('system', 'show_updates'));
     }
+
+    public function testUpgradeSchemaToVersion5KeepsDefinitionManagementAdministrative(): void
+    {
+        $perm_data = new PermissionData();
+        $perm_data->setSchemaVersion(4);
+        $perm_data->setPermissionValue('parts', 'read', PermissionData::ALLOW);
+        $perm_data->setPermissionValue('parts', 'edit', PermissionData::ALLOW);
+        $perm_data->setPermissionValue('config', 'change_system_settings', PermissionData::DISALLOW);
+        $user = new TestPermissionHolder($perm_data);
+
+        self::assertTrue($this->service->upgradeSchema($user, 5));
+        self::assertSame(PermissionData::ALLOW, $perm_data->getPermissionValue('parameter_definitions', 'read'));
+        self::assertSame(PermissionData::DISALLOW, $perm_data->getPermissionValue('parameter_definitions', 'edit'));
+        self::assertSame(PermissionData::DISALLOW, $perm_data->getPermissionValue('parameter_definitions', 'create'));
+        self::assertSame(PermissionData::DISALLOW, $perm_data->getPermissionValue('parameter_definitions', 'delete'));
+    }
 }
