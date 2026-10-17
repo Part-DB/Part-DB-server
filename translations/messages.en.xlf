@@ -798,6 +798,18 @@ Sub elements will be moved upwards.</target>
         <target>License information</target>
       </segment>
     </unit>
+    <unit id="8KSA7ut" name="homepage.dismiss_box">
+      <segment state="translated">
+        <source>homepage.dismiss_box</source>
+        <target>Hide this box</target>
+      </segment>
+    </unit>
+    <unit id="woln3KH" name="homepage.restore_boxes">
+      <segment state="translated">
+        <source>homepage.restore_boxes</source>
+        <target>Restore hidden homepage boxes</target>
+      </segment>
+    </unit>
     <unit id="jWqN_Ya" name="homepage.github.caption">
       <segment state="translated">
         <source>homepage.github.caption</source>
