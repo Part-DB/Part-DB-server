@@ -102,13 +102,13 @@ final class LogEntryRepositoryTest extends KernelTestCase
 
         //Adding an attachment to the part, counts as an edit of the part
         $log = new ElementCreatedLogEntry($part->getAttachments()->first());
-        $log->setTimestamp($part->getLastModified()->modify('+2 seconds'));
+        $log->setTimestamp($part->getLastModified()->modify('+1 second'));
         $log->setUser($user);
         $this->entityManager->persist($log);
 
         //Edit of the part itself, but older than the attachment creation
         $log = new ElementEditedLogEntry($part);
-        $log->setTimestamp($part->getLastModified()->modify('+1 second'));
+        $log->setTimestamp($part->getLastModified());
         $log->setUser($admin);
         $this->entityManager->persist($log);
         $this->entityManager->flush();
@@ -120,7 +120,7 @@ final class LogEntryRepositoryTest extends KernelTestCase
         //Changing a pricedetail is an edit of the part too
         $pricedetail = $part->getOrderdetails()->first()->getPricedetails()->first();
         $log = new ElementEditedLogEntry($pricedetail);
-        $log->setTimestamp($part->getLastModified()->modify('+3 seconds'));
+        $log->setTimestamp($part->getLastModified()->modify('+2 seconds'));
         $log->setUser($admin);
         $this->entityManager->persist($log);
         $this->entityManager->flush();
