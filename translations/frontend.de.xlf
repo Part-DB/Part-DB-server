@@ -7,6 +7,12 @@
         <target>Suche</target>
       </segment>
     </unit>
+    <unit id="zwRjt4e" name="search.placeholder.hotkey">
+      <segment state="translated">
+        <source>search.placeholder.hotkey</source>
+        <target>Drücken Sie / zum Suchen</target>
+      </segment>
+    </unit>
     <unit id="R4hoCqe" name="part.labelp">
       <segment state="translated">
         <source>part.labelp</source>
@@ -403,12 +409,6 @@
         <target>Komponente %number%</target>
       </segment>
     </unit>
-    <unit id="zwRjt4e" name="search.placeholder.hotkey">
-      <segment state="translated">
-        <source>search.placeholder.hotkey</source>
-        <target>Drücken Sie / zum Suchen</target>
-      </segment>
-    </unit>
     <unit id="ngVWFrn" name="search.sort.label">
       <segment state="translated">
         <source>search.sort.label</source>
@@ -467,6 +467,12 @@
       <segment state="translated">
         <source>search.sort.descending</source>
         <target>absteigend</target>
+      </segment>
+    </unit>
+    <unit id="O_I8BVJ" name="attachment.create_from_clipboard.error">
+      <segment state="translated">
+        <source>attachment.create_from_clipboard.error</source>
+        <target>Aus der Zwischenablage konnte kein Bild gelesen werden. Es muss ein Bild kopiert und der Zugriff auf die Zwischenablage erlaubt sein. Um andere Dateien hinzuzufügen, Strg+V im URL-Feld eines Anhangs drücken.</target>
       </segment>
     </unit>
   </file>
