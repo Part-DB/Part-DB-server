@@ -220,9 +220,11 @@ class LogEntryRepository extends DBElementRepository
             ->addOrderBy('log.id', 'DESC')
             ->setMaxResults(1);
 
-        //Edits of the element itself, or removal of elements from one of its collections
+        //Creation (which also sets the last modified timestamp) and edits of the element itself, or removal of elements
+        //from one of its collections
         $conditions = $qb->expr()->orX(
-            'log INSTANCE OF ('.ElementEditedLogEntry::class.', '.CollectionElementDeleted::class.') AND log.target_type = :target_type AND log.target_id = :target_id'
+            'log INSTANCE OF ('.ElementCreatedLogEntry::class.', '.ElementEditedLogEntry::class.', '.CollectionElementDeleted::class.')'
+            .' AND log.target_type = :target_type AND log.target_id = :target_id'
         );
         $qb->setParameter('target_type', LogTargetType::fromElementClass($element));
         $qb->setParameter('target_id', $element->getID());

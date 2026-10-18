@@ -132,6 +132,22 @@ final class LogEntryRepositoryTest extends KernelTestCase
         $this->assertSame($admin, $this->repo->getLastEditingUser($part));
     }
 
+    public function testGetLastEditingUserConsidersCreation(): void
+    {
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['name' => 'user']);
+        $part = $this->entityManager->find(Part::class, 3);
+        $this->assertInstanceOf(Part::class, $part);
+
+        //The creation of the part also sets the last modified timestamp, so it counts as the last change
+        $log = new ElementCreatedLogEntry($part);
+        $log->setTimestamp($part->getLastModified()->modify('+1 second'));
+        $log->setUser($user);
+        $this->entityManager->persist($log);
+        $this->entityManager->flush();
+
+        $this->assertSame($user, $this->repo->getLastEditingUser($part, includeRelatedElements: false));
+    }
+
     public function testGetLastEditingUserIgnoresEntriesFarAwayFromLastModified(): void
     {
         $admin = $this->entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
