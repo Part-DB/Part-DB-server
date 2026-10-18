@@ -2968,7 +2968,7 @@
     <unit id="AdYtBQG" name="attachment.edit.url.help">
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>Itt megadhatsz egy külső fájl URL-jét, vagy egy kulcsszót, amelyet a beépített erőforrásokban való kereséshez használnak (például lábnyomok).</target>
+        <target>Itt megadhatsz egy külső fájl URL-jét, vagy egy kulcsszót, amelyet a beépített erőforrásokban való kereséshez használnak (például lábnyomok). Ide beillesztheted a vágólapon lévő fájlt (például képet) is, hogy feltöltsd.</target>
       </segment>
     </unit>
     <unit id="jXplbqd" name="attachment.edit.name">

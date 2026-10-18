@@ -3046,7 +3046,7 @@ Subelementos serán desplazados hacia arriba.</target>
     <unit id="AdYtBQG" name="attachment.edit.url.help">
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>Puedes especificar una URL a un archivo externo aquí, o introducir una palabra clave para buscar recursos incorporados (p.ej. footprints)</target>
+        <target>Puedes especificar una URL a un archivo externo aquí, o introducir una palabra clave para buscar recursos incorporados (p.ej. footprints). También puedes pegar aquí un archivo (p.ej. una imagen) del portapapeles para subirlo.</target>
       </segment>
     </unit>
     <unit id="jXplbqd" name="attachment.edit.name">

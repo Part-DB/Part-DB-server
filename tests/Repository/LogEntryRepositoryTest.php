@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Tests\Repository;
 
 use App\Entity\LogSystem\AbstractLogEntry;
+use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
@@ -87,6 +88,85 @@ final class LogEntryRepositoryTest extends KernelTestCase
         $this->assertInstanceOf(Category::class, $category);
         $user = $this->repo->getLastEditingUser($category);
         $this->assertNull($user);
+    }
+
+    public function testGetLastEditingUserConsidersRelatedElements(): void
+    {
+        $admin = $this->entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['name' => 'user']);
+
+        $part = $this->entityManager->find(Part::class, 3);
+        $this->assertInstanceOf(Part::class, $part);
+        //The part only has a creation log entry, so there is no editing user yet
+        $this->assertNull($this->repo->getLastEditingUser($part));
+
+        //Adding an attachment to the part, counts as an edit of the part
+        $log = new ElementCreatedLogEntry($part->getAttachments()->first());
+        $log->setTimestamp($part->getLastModified()->modify('+2 seconds'));
+        $log->setUser($user);
+        $this->entityManager->persist($log);
+
+        //Edit of the part itself, but older than the attachment creation
+        $log = new ElementEditedLogEntry($part);
+        $log->setTimestamp($part->getLastModified()->modify('+1 second'));
+        $log->setUser($admin);
+        $this->entityManager->persist($log);
+        $this->entityManager->flush();
+
+        $this->assertSame($user, $this->repo->getLastEditingUser($part));
+        //If related elements should not be considered, only the edit of the part itself counts
+        $this->assertSame($admin, $this->repo->getLastEditingUser($part, includeRelatedElements: false));
+
+        //Changing a pricedetail is an edit of the part too
+        $pricedetail = $part->getOrderdetails()->first()->getPricedetails()->first();
+        $log = new ElementEditedLogEntry($pricedetail);
+        $log->setTimestamp($part->getLastModified()->modify('+3 seconds'));
+        $log->setUser($admin);
+        $this->entityManager->persist($log);
+        $this->entityManager->flush();
+
+        //Ensure that it also works, if the related collections are not loaded yet
+        $this->entityManager->clear();
+        $part = $this->entityManager->find(Part::class, 3);
+        $admin = $this->entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $this->assertSame($admin, $this->repo->getLastEditingUser($part));
+    }
+
+    public function testGetLastEditingUserConsidersCreation(): void
+    {
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['name' => 'user']);
+        $part = $this->entityManager->find(Part::class, 3);
+        $this->assertInstanceOf(Part::class, $part);
+
+        //The creation of the part also sets the last modified timestamp, so it counts as the last change
+        $log = new ElementCreatedLogEntry($part);
+        $log->setTimestamp($part->getLastModified()->modify('+1 second'));
+        $log->setUser($user);
+        $this->entityManager->persist($log);
+        $this->entityManager->flush();
+
+        $this->assertSame($user, $this->repo->getLastEditingUser($part, includeRelatedElements: false));
+    }
+
+    public function testGetLastEditingUserIgnoresEntriesFarAwayFromLastModified(): void
+    {
+        $admin = $this->entityManager->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        $part = $this->entityManager->find(Part::class, 3);
+        $this->assertInstanceOf(Part::class, $part);
+
+        //An edit log entry, which is much newer than the last modification of the part (so it can not describe it)
+        $log = new ElementEditedLogEntry($part);
+        $log->setTimestamp($part->getLastModified()->modify('+1 day'));
+        $log->setUser($admin);
+        $this->entityManager->persist($log);
+        $this->entityManager->flush();
+
+        //The log entry does not describe the last modification, so no user should be returned
+        $this->assertNull($this->repo->getLastEditingUser($part));
+        //Unless the check is disabled
+        $this->assertSame($admin, $this->repo->getLastEditingUser($part, null));
+        //Or the allowed difference is big enough
+        $this->assertSame($admin, $this->repo->getLastEditingUser($part, 2 * 24 * 3600));
     }
 
     public function testGetCreatingUser(): void

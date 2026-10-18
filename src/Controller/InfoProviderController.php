@@ -26,6 +26,7 @@ namespace App\Controller;
 use App\Entity\Parts\Part;
 use App\Exceptions\OAuthReconnectRequiredException;
 use App\Services\OAuth\OAuthTokenManager;
+use App\Form\InfoProviderSystem\DirectAccessFormType;
 use App\Form\InfoProviderSystem\FromFileFormType;
 use App\Form\InfoProviderSystem\FromURLFormType;
 use App\Form\InfoProviderSystem\PartSearchType;
@@ -49,6 +50,7 @@ use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpClient\Exception\ClientException;
+use Symfony\Component\HttpClient\Exception\ServerException;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -197,6 +199,12 @@ class InfoProviderController extends  AbstractController
                 $this->addFlash('error',$e->getMessage());
                 //Log the exception
                 $exceptionLogger->error('Error during info provider search: ' . $e->getMessage(), ['exception' => $e]);
+            } catch (ServerException $e) {
+                $this->addFlash('error', t('info_providers.error.server_exception', [
+                    '%status%' => $e->getResponse()->getStatusCode(),
+                    '%host%' => parse_url((string) $e->getResponse()->getInfo('url'), PHP_URL_HOST) ?? '',
+                ]));
+                $exceptionLogger->error('Server error during info provider search: ' . $e->getMessage(), ['exception' => $e]);
             } catch (OAuthReconnectRequiredException $e) {
                 $this->addFlash('error', t('info_providers.search.error.oauth_reconnect', ['%provider%' => $e->getProviderName()]));
             } catch (TransportException $e) {
@@ -225,6 +233,53 @@ class InfoProviderController extends  AbstractController
             'results' => $results,
             'update_target' => $update_target,
             'no_cache_details' => $no_cache_details ?? false,
+        ]);
+    }
+
+    #[Route('/direct', name: 'info_providers_direct_access')]
+    public function directAccess(Request $request, LoggerInterface $exceptionLogger): Response
+    {
+        $this->denyAccessUnlessGranted('@info_providers.create_parts');
+
+        //Allow to prefill the form via query parameters (used by the search page, if no results were found)
+        $form = $this->createForm(DirectAccessFormType::class, [
+            'provider' => $request->query->getString('provider') ?: null,
+            'provider_id' => $request->query->getString('provider_id') ?: null,
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $providerKey = $form->get('provider')->getData();
+            $providerId = trim($form->get('provider_id')->getData());
+
+            try {
+                //Retrieve the details here, so that errors (like an unknown part number) can be shown on this page.
+                //The result is cached, so the part creation page does not have to query the provider again.
+                $this->infoRetriever->getDetails($providerKey, $providerId, [
+                    InfoProviderInterface::OPTION_NO_CACHE => $form->get('no_cache')->getData(),
+                ]);
+
+                return $this->redirectToRoute('info_providers_create_part', [
+                    'providerKey' => $providerKey,
+                    'providerId' => $providerId,
+                ]);
+            } catch (ClientException $e) {
+                $this->addFlash('error', t('info_providers.search.error.client_exception'));
+                $this->addFlash('error', $e->getMessage());
+                $exceptionLogger->error('Error during direct info provider access: ' . $e->getMessage(), ['exception' => $e]);
+            } catch (OAuthReconnectRequiredException $e) {
+                $this->addFlash('error', t('info_providers.search.error.oauth_reconnect', ['%provider%' => $e->getProviderName()]));
+            } catch (TransportException $e) {
+                $this->addFlash('error', t('info_providers.search.error.transport_exception'));
+                $exceptionLogger->error('Transport error during direct info provider access: ' . $e->getMessage(), ['exception' => $e]);
+            } catch (\RuntimeException $e) {
+                $this->addFlash('error', t('info_providers.search.error.general_exception', ['%type%' => (new \ReflectionClass($e))->getShortName()]));
+                $exceptionLogger->error('Error during direct info provider access: ' . $e->getMessage(), ['exception' => $e]);
+            }
+        }
+
+        return $this->render('info_providers/direct_access/direct_access.html.twig', [
+            'form' => $form,
         ]);
     }
 

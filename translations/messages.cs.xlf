@@ -3047,7 +3047,7 @@ Pokud jste to provedli nesprávně nebo pokud počítač již není důvěryhodn
     <unit id="AdYtBQG" name="attachment.edit.url.help">
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>Zde můžete zadat adresu URL externího souboru nebo zadat klíčové slovo, které se používá k hledání ve vestavěných zdrojích (např. otisky).</target>
+        <target>Zde můžete zadat adresu URL externího souboru nebo zadat klíčové slovo, které se používá k hledání ve vestavěných zdrojích (např. otisky). Můžete sem také vložit soubor (např. obrázek) ze schránky a nahrát jej.</target>
       </segment>
     </unit>
     <unit id="jXplbqd" name="attachment.edit.name">
