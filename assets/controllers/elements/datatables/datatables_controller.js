@@ -159,6 +159,12 @@ export default class extends Controller {
             settings.initial_order = settings.initial_order.filter(order => order !== null);
         }
 
+        //Add initial_length info to the settings, so that the page length of the initial load matches the one saved in the state.
+        //Otherwise the server returns the default page length, while datatables shows the saved length in the UI.
+        if (saved_state !== null && Number.isInteger(saved_state.length)) {
+            settings.initial_length = saved_state.length;
+        }
+
         let options = {
             colReorder: true,
             responsive: true,
