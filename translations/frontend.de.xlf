@@ -7,6 +7,12 @@
         <target>Suche</target>
       </segment>
     </unit>
+    <unit id="zwRjt4e" name="search.placeholder.hotkey">
+      <segment state="translated">
+        <source>search.placeholder.hotkey</source>
+        <target>Drücken Sie / zum Suchen</target>
+      </segment>
+    </unit>
     <unit id="R4hoCqe" name="part.labelp">
       <segment state="translated">
         <source>part.labelp</source>
@@ -401,12 +407,6 @@
       <segment state="translated">
         <source>attachment.3d_viewer.parts.unnamed</source>
         <target>Komponente %number%</target>
-      </segment>
-    </unit>
-    <unit id="zwRjt4e" name="search.placeholder.hotkey">
-      <segment state="translated">
-        <source>search.placeholder.hotkey</source>
-        <target>Drücken Sie / zum Suchen</target>
       </segment>
     </unit>
     <unit id="ngVWFrn" name="search.sort.label">
