@@ -3130,7 +3130,7 @@ Jeśli zrobiłeś to niepoprawnie lub komputer nie jest już godny zaufania, mo�
     <unit id="AdYtBQG" name="attachment.edit.url.help">
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>W tym miejscu można wprowadzić adres URL do pliku zewnętrznego lub słowo kluczowe w celu wyszukiwania we wbudowanych zasobach (np. footprints).</target>
+        <target>W tym miejscu można wprowadzić adres URL do pliku zewnętrznego lub słowo kluczowe w celu wyszukiwania we wbudowanych zasobach (np. footprints). Można tu również wkleić plik (np. obraz) ze schowka, aby go przesłać.</target>
       </segment>
     </unit>
     <unit id="jXplbqd" name="attachment.edit.name">
@@ -14482,7 +14482,7 @@ Serwer autoryzacji Buerklin API:
     <unit id="NVHHgpD" name="settings.ips.ai_extractor.output_language.description">
       <segment state="translated">
         <source>settings.ips.ai_extractor.output_language.description</source>
-        <target>Domyślnie dostawca informacji podaje informacje w tym samym języku, co strona internetowa. Używając tej opcji, możesz zlecić SI ich przetłumaczenie. Może działać tylko z niektórymi modelami.</target>
+        <target>Domyślnie, dostawcy podają informacje w tym samym języku co strona internetowa. Używając tej opcji, możesz zlecić SI ich przetłumaczenie. Może działać tylko z niektórymi modelami.</target>
       </segment>
     </unit>
     <unit id="CAeeZlL" name="settings.ips.ai_extractor.additional_instructions">
@@ -15965,6 +15965,66 @@ Serwer autoryzacji Buerklin API:
       <segment state="translated">
         <source>part.supplier.available_amount.updated_at</source>
         <target>Stan magazynowy uzyskano od dostawcy informacji dnia %datetime%</target>
+      </segment>
+    </unit>
+    <unit id="jOVOl7G" name="info_providers.search.direct_access_link">
+      <segment state="translated">
+        <source>info_providers.search.direct_access_link</source>
+        <target>Uzyskaj [part] bezpośrednio używając ID dostawcy informacji</target>
+      </segment>
+    </unit>
+    <unit id="dn43zJz" name="info_providers.direct_access.title">
+      <segment state="translated">
+        <source>info_providers.direct_access.title</source>
+        <target>Uzyskaj [part] bezpośrednio od dostawcy informacji</target>
+      </segment>
+    </unit>
+    <unit id="1EjKXME" name="info_providers.direct_access.help">
+      <segment state="translated">
+        <source>info_providers.direct_access.help</source>
+        <target>Pozyskaj informacje o części bezpośrednio za pomocą jej ID dostawcy informacji, bez wstępnego wyszukiwania. Jest to przydatne w przypadku [[part]], które nie są znajdowane przez wyszukiwanie, np. [[part]] archiwalne lub wycofane ze sprzedaży.</target>
+      </segment>
+    </unit>
+    <unit id="LbPbRhx" name="info_providers.direct_access.provider">
+      <segment state="translated">
+        <source>info_providers.direct_access.provider</source>
+        <target>Dostawca informacji</target>
+      </segment>
+    </unit>
+    <unit id="ACQB0nJ" name="info_providers.direct_access.provider_id">
+      <segment state="translated">
+        <source>info_providers.direct_access.provider_id</source>
+        <target>ID części dostawcy informacji</target>
+      </segment>
+    </unit>
+    <unit id="1qA4aJW" name="info_providers.direct_access.provider_id.help">
+      <segment state="translated">
+        <source>info_providers.direct_access.provider_id.help</source>
+        <target>ID, który identyfikuje [part] u dostawcy informacji. Przeważnie jest to numer katalogowy dystrybutora (SPN) lub numer części producenta (MPN).</target>
+      </segment>
+    </unit>
+    <unit id="12zUHHf" name="info_providers.direct_access.submit">
+      <segment state="translated">
+        <source>info_providers.direct_access.submit</source>
+        <target>Uzyskaj [part]</target>
+      </segment>
+    </unit>
+    <unit id="2pKimuv" name="info_providers.search.no_results.direct_access_hint">
+      <segment state="translated">
+        <source>info_providers.search.no_results.direct_access_hint</source>
+        <target>[[Part]], których nie znajduje wyszukiwanie (np. [[part]] archiwalne) mogą być możliwe do uzyskania poprzez ich ID dostawcy informacji:</target>
+      </segment>
+    </unit>
+    <unit id="eGpqplC" name="attachment.create_from_clipboard">
+      <segment state="translated">
+        <source>attachment.create_from_clipboard</source>
+        <target>Ze schowka</target>
+      </segment>
+    </unit>
+    <unit id="v7ovlvw" name="info_providers.error.server_exception">
+      <segment state="translated">
+        <source>info_providers.error.server_exception</source>
+        <target>Dostawca informacji (%host%) jest tymczasowo niedostępny (HTTP %status%). Spróbuj ponownie później.</target>
       </segment>
     </unit>
   </file>
