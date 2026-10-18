@@ -195,7 +195,7 @@ class LogEntryRepository extends DBElementRepository
      * The maximum difference (in seconds) between the last modification timestamp of an element and the timestamp of
      * the log entry, so that the user of the log entry is considered to be the last editing user.
      */
-    public const LAST_EDITING_USER_MAX_TIME_DIFFERENCE = 5;
+    public const LAST_EDITING_USER_MAX_TIME_DIFFERENCE = 2;
 
     /**
      * Returns the last user that has edited the given element.
