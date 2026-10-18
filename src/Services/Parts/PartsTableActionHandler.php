@@ -98,7 +98,7 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
 
         //When action starts with "export_" we have to redirect to the export controller
         $matches = [];
-        if (preg_match('/^export_(json|yaml|xml|csv|xlsx)$/', $action, $matches)) {
+        if (preg_match('/^export_(json|yaml|xml|csv|csv_escaped|xlsx)$/', $action, $matches)) {
             $ids = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
             $level = match ($target_id) {
                 2 => 'extended',

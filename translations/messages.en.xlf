@@ -564,6 +564,12 @@ Sub elements will be moved upwards.</target>
         <target>Include children elements in export</target>
       </segment>
     </unit>
+    <unit id="6wLa6Z0" name="export.format.csv_escaped">
+      <segment>
+        <source>export.format.csv_escaped</source>
+        <target>CSV (formulas escaped)</target>
+      </segment>
+    </unit>
     <unit id="Pdmfku8" name="export.btn">
       <segment state="translated">
         <source>export.btn</source>
@@ -8317,6 +8323,12 @@ Element 1 -&gt; Element 1.2</target>
       <segment state="translated">
         <source>part_list.action.export_csv</source>
         <target>Export to CSV</target>
+      </segment>
+    </unit>
+    <unit id="DPazsak" name="part_list.action.export_csv_escaped">
+      <segment state="translated">
+        <source>part_list.action.export_csv_escaped</source>
+        <target>Export to CSV (formulas escaped)</target>
       </segment>
     </unit>
     <unit id="gvVAAJZ" name="part_list.action.export_yaml">
