@@ -469,5 +469,11 @@
         <target>descending</target>
       </segment>
     </unit>
+    <unit id="O_I8BVJ" name="attachment.create_from_clipboard.error">
+      <segment state="translated">
+        <source>attachment.create_from_clipboard.error</source>
+        <target>No image could be read from the clipboard. Make sure an image was copied and clipboard access is allowed. To add other files, press Ctrl+V in the URL field of an attachment.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
