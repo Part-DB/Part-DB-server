@@ -44,6 +44,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * to get the entities and related stuff in an efficient way.
  * This way we save the overhead of the fetch join query for the count and counting, which can be very slow, cause
  * no indexes can be used.
+ *
+ * Optionally a post_detail_query callback can be given, which is called with the entities fetched by the detail query.
+ * This can be used to load additional data for the entities (like collections) in separate queries, which avoids
+ * the row multiplication of fetch joining multiple to-many associations in a single query.
  */
 class TwoStepORMAdapter extends ORMAdapter
 {
@@ -52,6 +56,8 @@ class TwoStepORMAdapter extends ORMAdapter
     private bool $use_simple_total = false;
 
     private \Closure|null $query_modifier = null;
+
+    private \Closure|null $post_detail_query = null;
 
     public function __construct(?ManagerRegistry $registry = null)
     {
@@ -81,6 +87,10 @@ class TwoStepORMAdapter extends ORMAdapter
         $resolver->setDefault('query_modifier', null);
         $resolver->setAllowedTypes('query_modifier', ['null', \Closure::class]);
 
+        //Add the possibility of a closure, which is called with the entities fetched by the detail query
+        $resolver->setDefault('post_detail_query', null);
+        $resolver->setAllowedTypes('post_detail_query', ['null', \Closure::class]);
+
     }
 
     protected function afterConfiguration(array $options): void
@@ -89,6 +99,7 @@ class TwoStepORMAdapter extends ORMAdapter
         $this->detailQueryCallable = $options['detail_query'];
         $this->use_simple_total = $options['simple_total_query'];
         $this->query_modifier = $options['query_modifier'];
+        $this->post_detail_query = $options['post_detail_query'];
     }
 
     protected function prepareQuery(AdapterQuery $query): void
@@ -186,10 +197,15 @@ class TwoStepORMAdapter extends ORMAdapter
         $detail_qb = $this->manager->createQueryBuilder();
         $this->detailQueryCallable->__invoke($detail_qb, $ids);
 
-        $detail_query = $detail_qb->getQuery();
+        $results = $detail_qb->getQuery()->getResult();
+
+        //Allow to load additional data for the fetched entities
+        if ($this->post_detail_query !== null && $results !== []) {
+            $this->post_detail_query->__invoke($this->manager, $results);
+        }
 
         //We pass the results of the detail query to the datatable for view rendering
-        foreach ($detail_query->getResult() as $item) {
+        foreach ($results as $item) {
             yield $item;
         }
     }
