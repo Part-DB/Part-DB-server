@@ -2603,16 +2603,16 @@
         },
         {
             "name": "composer/ca-bundle",
-            "version": "1.5.14",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "0c8abba0634f637bd78c4e451981da368d403463"
+                "reference": "2c99cf2e92516985dea4914812b93d9daf01cdd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/0c8abba0634f637bd78c4e451981da368d403463",
-                "reference": "0c8abba0634f637bd78c4e451981da368d403463",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/2c99cf2e92516985dea4914812b93d9daf01cdd6",
+                "reference": "2c99cf2e92516985dea4914812b93d9daf01cdd6",
                 "shasum": ""
             },
             "require": {
@@ -2659,7 +2659,7 @@
             "support": {
                 "irc": "irc://irc.freenode.org/composer",
                 "issues": "https://github.com/composer/ca-bundle/issues",
-                "source": "https://github.com/composer/ca-bundle/tree/1.5.14"
+                "source": "https://github.com/composer/ca-bundle/tree/1.6.0"
             },
             "funding": [
                 {
@@ -2671,7 +2671,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-21T14:57:29+00:00"
+            "time": "2026-10-20T20:14:05+00:00"
         },
         {
             "name": "composer/pcre",
@@ -5315,16 +5315,16 @@
         },
         {
             "name": "jbtronics/settings-bundle",
-            "version": "v5.0.0",
+            "version": "v5.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/settings-bundle.git",
-                "reference": "a12d912ecbf034be3c58581abb3ca6719c3d5f00"
+                "reference": "beefcf48bac864604110334a3430789c578413bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/settings-bundle/zipball/a12d912ecbf034be3c58581abb3ca6719c3d5f00",
-                "reference": "a12d912ecbf034be3c58581abb3ca6719c3d5f00",
+                "url": "https://api.github.com/repos/jbtronics/settings-bundle/zipball/beefcf48bac864604110334a3430789c578413bc",
+                "reference": "beefcf48bac864604110334a3430789c578413bc",
                 "shasum": ""
             },
             "require": {
@@ -5341,8 +5341,8 @@
                 "symfony/var-exporter": "^7.4|^8.0"
             },
             "require-dev": {
-                "doctrine/doctrine-bundle": "^2.11",
-                "doctrine/doctrine-fixtures-bundle": "^3.5",
+                "doctrine/doctrine-bundle": "^2.11|^3.0",
+                "doctrine/doctrine-fixtures-bundle": "^3.5|^4.0",
                 "doctrine/orm": "^3.0",
                 "ekino/phpstan-banned-code": "^3.0",
                 "phpstan/extension-installer": "^1.3",
@@ -5351,10 +5351,15 @@
                 "phpstan/phpstan-symfony": "^2.0",
                 "phpunit/phpunit": "^9.5",
                 "roave/security-advisories": "dev-latest",
+                "symfony/browser-kit": "^7.4|^8.0",
                 "symfony/console": "^7.4|^8.0",
+                "symfony/css-selector": "^7.4|^8.0",
+                "symfony/debug-bundle": "^7.4|^8.0",
                 "symfony/phpunit-bridge": "^7.4|^8.0",
                 "symfony/security-csrf": "^7.4|^8.0",
                 "symfony/twig-bridge": "^7.4|^8.0",
+                "symfony/twig-bundle": "^7.4|^8.0",
+                "symfony/web-profiler-bundle": "^7.4|^8.0",
                 "symfony/yaml": "^7.4|^8.0"
             },
             "suggest": {
@@ -5398,7 +5403,7 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/settings-bundle/issues",
-                "source": "https://github.com/jbtronics/settings-bundle/tree/v5.0.0"
+                "source": "https://github.com/jbtronics/settings-bundle/tree/v5.0.1"
             },
             "funding": [
                 {
@@ -5410,7 +5415,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-03T22:53:41+00:00"
+            "time": "2026-10-20T21:16:08+00:00"
         },
         {
             "name": "jfcherng/php-color-output",
@@ -18568,16 +18573,16 @@
         },
         {
             "name": "symplify/easy-coding-standard",
-            "version": "13.3.7",
+            "version": "13.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ecsphp/ecs.git",
-                "reference": "3716728056141c461b9f16e1facf55eb2d776449"
+                "reference": "0564c0b9b807f1740bf0f2cc965ab51551f4dc3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ecsphp/ecs/zipball/3716728056141c461b9f16e1facf55eb2d776449",
-                "reference": "3716728056141c461b9f16e1facf55eb2d776449",
+                "url": "https://api.github.com/repos/ecsphp/ecs/zipball/0564c0b9b807f1740bf0f2cc965ab51551f4dc3b",
+                "reference": "0564c0b9b807f1740bf0f2cc965ab51551f4dc3b",
                 "shasum": ""
             },
             "require": {
@@ -18610,9 +18615,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ecsphp/ecs/issues",
-                "source": "https://github.com/ecsphp/ecs/tree/13.3.7"
+                "source": "https://github.com/ecsphp/ecs/tree/13.3.8"
             },
-            "time": "2026-10-14T21:46:31+00:00"
+            "time": "2026-10-20T21:02:34+00:00"
         },
         {
             "name": "tecnickcom/tc-lib-barcode",
