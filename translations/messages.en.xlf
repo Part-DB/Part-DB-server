@@ -565,7 +565,7 @@ Sub elements will be moved upwards.</target>
       </segment>
     </unit>
     <unit id="6wLa6Z0" name="export.format.csv_escaped">
-      <segment>
+      <segment state="translated">
         <source>export.format.csv_escaped</source>
         <target>CSV (formulas escaped)</target>
       </segment>
