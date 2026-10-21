@@ -12,6 +12,8 @@
             <th>{% trans %}part_lots.description{% endtrans %}</th>
             <th>{% trans %}part_lots.storage_location{% endtrans %}</th>
             <th>{% trans %}part_lots.amount{% endtrans %}</th>
+            <th>{% trans %}part_lots.reserved_amount{% endtrans %}</th>
+            <th>{% trans %}part_lots.available_amount{% endtrans %}</th>
             <th></th> {# Tags row #}
             <th></th>
             <th></th> {# Button row #}
@@ -40,6 +42,18 @@
                     </span>
                     {% else %}
                         {{ lot.amount | format_amount(part.partUnit, {'decimals': 5}) }}
+                    {% endif %}
+                </td>
+                <td>
+                    {{ lot.reservedAmount | format_amount(part.partUnit, {'decimals': 5}) }}
+                </td>
+                <td>
+                    {% if lot.availableAmount < 0 %}
+                        <span class="text-danger" title="{% trans %}part_lots.available_amount.negative_hint{% endtrans %}">
+                    {% endif %}
+                    {{ lot.availableAmount | format_amount(part.partUnit, {'decimals': 5}) }}
+                    {% if lot.availableAmount < 0 %}
+                        </span>
                     {% endif %}
                 </td>
                 <td >

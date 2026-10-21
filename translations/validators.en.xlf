@@ -169,6 +169,24 @@
         <target>You have selected less quantity to withdraw than needed for the build! Add additional quantity.</target>
       </segment>
     </unit>
+    <unit id="pp00051" name="validator.project_plan.lot_must_not_smaller_0">
+      <segment state="translated">
+        <source>validator.project_plan.lot_must_not_smaller_0</source>
+        <target>The reserved quantity must not be negative!</target>
+      </segment>
+    </unit>
+    <unit id="pp00052" name="validator.project_plan.lot_must_not_bigger_than_available">
+      <segment state="translated">
+        <source>validator.project_plan.lot_must_not_bigger_than_available</source>
+        <target>You have selected more quantity to reserve than is currently available (not already reserved) in this lot!</target>
+      </segment>
+    </unit>
+    <unit id="pp00053" name="validator.project_plan.lot_bigger_than_needed">
+      <segment state="translated">
+        <source>validator.project_plan.lot_bigger_than_needed</source>
+        <target>You have selected more quantity to reserve than needed! Remove unnecessary quantity.</target>
+      </segment>
+    </unit>
     <unit id="yZGS8uZ" name="part.name.must_match_category_regex">
       <segment state="translated">
         <source>part.name.must_match_category_regex</source>

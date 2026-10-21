@@ -24,6 +24,7 @@ namespace App\Security\Voter;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\PartCustomState;
+use App\Entity\ProjectSystem\PlannedProject;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -48,6 +49,7 @@ final class StructureVoter extends Voter
         AttachmentType::class => 'attachment_types',
         Category::class => 'categories',
         Project::class => 'projects',
+        PlannedProject::class => 'planned_projects',
         Footprint::class => 'footprints',
         Manufacturer::class => 'manufacturers',
         StorageLocation::class => 'storelocations',
