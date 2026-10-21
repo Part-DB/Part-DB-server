@@ -1,5 +1,11 @@
-<div>
-    <div class="lines-container">
+{# The barcode used to be placed at a fixed position above the bottom of the label (see .C39-container in label_style.css.twig),
+   so it overlapped the text if the text needed more space than there is above that position.
+   Now the barcode follows the text, and the text gets the space above that position as minimum height: If the text fits
+   there, the barcode is exactly where it was before, otherwise the text pushes it down.
+   Labels with custom CSS for the barcode keep the fixed position, as they may have placed the barcode somewhere else. #}
+{% set barcode_follows_text = 'C39' not in options.additionalCss %}
+<div{% if barcode_follows_text %} class="barcode-below-text"{% endif %}>
+    <div class="lines-container"{% if barcode_follows_text %} style="min-height: {{ barcode_layout.legacy_text_height }}mm;"{% endif %}>
         {{ element.lines | raw }}
     </div>
     <div class="C39-container" style="">
