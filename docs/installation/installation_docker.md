@@ -314,6 +314,12 @@ the `/var/www/html/var/db/` folder to the docker container (see docker-compose.y
 
 You also have to create the database as described above in step 4.
 
+## Compression
+
+The Part-DB docker image compresses responses with Brotli or gzip out of the box (depending on what the browser
+supports), so you do not have to configure anything for it. If you use a reverse proxy in front of the container, it
+does not need to compress the responses again.
+
 ## Running console commands
 
 You can run the console commands described in README by
