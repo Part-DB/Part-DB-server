@@ -1,4 +1,4 @@
-# Generated on Mon Oct 12 08:58:05 UTC 2026
+# Generated on Mon Oct 19 07:34:31 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
@@ -16063,6 +16063,7 @@ Power_Protection:NUF4401MN
 Power_Protection:NUP2105L
 Power_Protection:NUP2202
 Power_Protection:NUP4202
+Power_Protection:NX5P3090UK
 Power_Protection:PCMF3USB3S
 Power_Protection:PESD3V3L4UF
 Power_Protection:PESD3V3L4UG
