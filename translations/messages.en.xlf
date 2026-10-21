@@ -16046,5 +16046,11 @@ Buerklin-API Authentication server:
         <target>The information provider (%host%) is temporarily unavailable (HTTP %status%). Please try again later.</target>
       </segment>
     </unit>
+    <unit id="rTsC4nW" name="scan_dialog.return_to_scanner">
+      <segment>
+        <source>scan_dialog.return_to_scanner</source>
+        <target>Return to scanner after creating a new part</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
