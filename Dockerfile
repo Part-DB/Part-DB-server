@@ -194,7 +194,7 @@ RUN a2dissite 000-default.conf && \
     a2enmod proxy_fcgi setenvif && \
     a2enconf php${PHP_VERSION}-fpm && \
     a2enconf docker-php && \
-    a2enmod rewrite headers
+    a2enmod rewrite headers filter deflate brotli
 
 # Install composer and yarn dependencies for Part-DB
 USER www-data
