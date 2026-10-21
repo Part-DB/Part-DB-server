@@ -711,7 +711,7 @@ final class PartController extends AbstractController
     {
         foreach ($part->getParameters() as $parameter) {
             foreach ($this->validator->validate($parameter, groups: ['range']) as $violation) {
-                $this->addFlash('warning', $violation->getMessage());
+                $this->addFlash('warning', $parameter->getName() . ': ' . $violation->getMessage());
             }
         }
     }
