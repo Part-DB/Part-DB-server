@@ -534,18 +534,21 @@ abstract class AbstractParameter extends AbstractNamedDBElement implements Uniqu
         if (null !== $this->value_min && null !== $this->value_typical && $this->value_min > $this->value_typical) {
             $context->buildViolation('parameters.validator.min_lesser_typical')
                 ->atPath('value_min')
+                ->setParameter('{{ compared_value }}', (string) $this->value_typical)
                 ->addViolation();
         }
 
         if (null !== $this->value_min && null !== $this->value_max && $this->value_min >= $this->value_max) {
             $context->buildViolation('parameters.validator.min_lesser_max')
                 ->atPath('value_min')
+                ->setParameter('{{ compared_value }}', (string) $this->value_max)
                 ->addViolation();
         }
 
         if (null !== $this->value_typical && null !== $this->value_max && $this->value_max < $this->value_typical) {
             $context->buildViolation('parameters.validator.max_greater_typical')
                 ->atPath('value_max')
+                ->setParameter('{{ compared_value }}', (string) $this->value_typical)
                 ->addViolation();
         }
     }
