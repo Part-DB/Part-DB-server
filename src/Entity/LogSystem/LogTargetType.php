@@ -41,6 +41,8 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
+use App\Entity\ProjectSystem\PartLotReservation;
+use App\Entity\ProjectSystem\PlannedProject;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Entity\UserSystem\Group;
@@ -73,6 +75,8 @@ enum LogTargetType: int
     case BULK_INFO_PROVIDER_IMPORT_JOB = 21;
     case BULK_INFO_PROVIDER_IMPORT_JOB_PART = 22;
     case PART_CUSTOM_STATE = 23;
+    case PLANNED_PROJECT = 24;
+    case PART_LOT_RESERVATION = 25;
 
     /**
      * Returns the class name of the target type or null if the target type is NONE.
@@ -104,7 +108,9 @@ enum LogTargetType: int
             self::PART_ASSOCIATION => PartAssociation::class,
             self::BULK_INFO_PROVIDER_IMPORT_JOB => BulkInfoProviderImportJob::class,
             self::BULK_INFO_PROVIDER_IMPORT_JOB_PART => BulkInfoProviderImportJobPart::class,
-            self::PART_CUSTOM_STATE => PartCustomState::class
+            self::PART_CUSTOM_STATE => PartCustomState::class,
+            self::PLANNED_PROJECT => PlannedProject::class,
+            self::PART_LOT_RESERVATION => PartLotReservation::class,
         };
     }
 

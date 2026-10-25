@@ -27,11 +27,14 @@ use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Form\ProjectSystem\BOMEntryEditType;
+use App\Form\ProjectSystem\PlanProjectType;
 use App\Form\ProjectSystem\ProjectAddPartsType;
 use App\Form\ProjectSystem\ProjectBuildType;
+use App\Helpers\Projects\PlanProjectRequest;
 use App\Helpers\Projects\ProjectBuildRequest;
 use App\Services\ImportExportSystem\BOMImporter;
 use App\Services\ProjectSystem\ProjectBuildHelper;
+use App\Services\ProjectSystem\ProjectPlanningHelper;
 use App\Settings\BehaviorSettings\TableSettings;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -64,7 +67,7 @@ class ProjectController extends AbstractController
     }
 
     #[Route(path: '/{id}/info', name: 'project_info', requirements: ['id' => '\d+'])]
-    public function info(Project $project, Request $request, ProjectBuildHelper $buildHelper, TableSettings $tableSettings): Response
+    public function info(Project $project, Request $request, ProjectBuildHelper $buildHelper, ProjectPlanningHelper $planningHelper, TableSettings $tableSettings): Response
     {
         $this->denyAccessUnlessGranted('read', $project);
 
@@ -80,6 +83,7 @@ class ProjectController extends AbstractController
 
         return $this->render('projects/info/info.html.twig', [
             'buildHelper' => $buildHelper,
+            'planningHelper' => $planningHelper,
             'datatable' => $table,
             'project' => $project,
             'number_of_builds' => $number_of_builds,
@@ -141,6 +145,14 @@ class ProjectController extends AbstractController
         $this->denyAccessUnlessGranted('delete', $bomEntry);
 
         if ($this->isCsrfTokenValid('delete' . $bomEntry->getId(), $request->request->get('_token'))) {
+            //A BOM entry that still has reservations for planned projects must not be deleted, as that would
+            //silently break the "Total = Available + Reserved" invariant.
+            if (!$bomEntry->getReservations()->isEmpty()) {
+                $this->addFlash('error', 'project.bom_entry.delete.blocked_by_reservations');
+
+                return $this->redirectToRoute('project_info', ['id' => $project->getId()]);
+            }
+
             $commentHelper->setMessage($request->request->get('log_comment'));
             $entityManager->remove($bomEntry);
             $entityManager->flush();
@@ -194,6 +206,46 @@ class ProjectController extends AbstractController
             'buildHelper' => $buildHelper,
             'project' => $project,
             'build_request' => $projectBuildRequest,
+            'number_of_builds' => $number_of_builds,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route(path: '/{id}/plan', name: 'project_plan', requirements: ['id' => '\d+'])]
+    public function plan(Project $project, Request $request, ProjectPlanningHelper $planningHelper, EntityManagerInterface $entityManager): Response
+    {
+        $this->denyAccessUnlessGranted('read', $project);
+        $this->denyAccessUnlessGranted('@planned_projects.create');
+
+        //If no number of builds is given (or it is invalid), just assume 1
+        $number_of_builds = $request->query->getInt('n', 1);
+        if ($number_of_builds < 1) {
+            $number_of_builds = 1;
+        }
+
+        $planProjectRequest = new PlanProjectRequest($project, $number_of_builds);
+        $form = $this->createForm(PlanProjectType::class, $planProjectRequest);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                //Ensure that the user can reserve stock for all parts
+                $this->denyAccessUnlessGranted('@parts_stock.reserve');
+
+                $plannedProject = $planningHelper->createPlan($planProjectRequest);
+                $entityManager->flush();
+                $this->addFlash('success', 'planned_build.plan.flash.success');
+
+                return $this->redirectToRoute('planned_project_info', ['id' => $plannedProject->getID()]);
+            }
+
+            $this->addFlash('error', 'planned_build.plan.flash.invalid_input');
+        }
+
+        return $this->render('projects/plan/plan.html.twig', [
+            'planningHelper' => $planningHelper,
+            'project' => $project,
+            'plan_request' => $planProjectRequest,
             'number_of_builds' => $number_of_builds,
             'form' => $form,
         ]);

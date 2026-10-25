@@ -185,6 +185,14 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
                     break;
                 case 'delete':
                     $this->denyAccessUnlessGranted('delete', $part);
+                    //A part with lots that still have active reservations for planned builds must not be deleted
+                    if ($part->hasReservations()) {
+                        $errors[] = [
+                            'part' => $part,
+                            'message' => t('part.delete.blocked_by_reservations'),
+                        ];
+                        break;
+                    }
                     $this->entityManager->remove($part);
                     break;
                 case 'change_category':

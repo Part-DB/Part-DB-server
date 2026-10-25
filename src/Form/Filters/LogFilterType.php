@@ -133,6 +133,8 @@ class LogFilterType extends AbstractType
                 LogTargetType::BULK_INFO_PROVIDER_IMPORT_JOB => 'bulk_info_provider_import_job.label',
                 LogTargetType::BULK_INFO_PROVIDER_IMPORT_JOB_PART => 'bulk_info_provider_import_job_part.label',
                 LogTargetType::PART_CUSTOM_STATE => 'part_custom_state.label',
+                LogTargetType::PLANNED_PROJECT => 'planned_build.label',
+                LogTargetType::PART_LOT_RESERVATION => 'log.target_type.part_lot_reservation',
             },
         ]);
 

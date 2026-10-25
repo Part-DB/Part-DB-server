@@ -30,6 +30,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\StorageLocation;
 use App\Entity\Parts\Supplier;
+use App\Services\Trees\PlannedProjectTreeBuilder;
 use App\Services\Trees\ToolsTreeBuilder;
 use App\Services\Trees\TreeViewGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -120,12 +121,18 @@ class TreeController extends AbstractController
 
     #[Route(path: '/device/{id}', name: 'tree_device')]
     #[Route(path: '/devices', name: 'tree_device_root')]
-    public function deviceTree(#[MapEntity(id: 'id')] ?Project $device = null): JsonResponse
+    public function deviceTree(#[MapEntity(id: 'id')] ?Project $device = null, ?PlannedProjectTreeBuilder $plannedProjectTreeBuilder = null): JsonResponse
     {
         if ($this->isGranted('@projects.read')) {
             $tree = $this->treeGenerator->getTreeView(Project::class, $device, 'devices');
         } else {
             return new JsonResponse("Access denied", Response::HTTP_FORBIDDEN);
+        }
+
+        //Only append the "Planned Projects" branch on the root fetch of the tree, not on a lazy-loaded
+        //sub-branch fetch for a specific project's children.
+        if (null === $device && $plannedProjectTreeBuilder instanceof PlannedProjectTreeBuilder) {
+            $tree = array_merge($tree, $plannedProjectTreeBuilder->getTree());
         }
 
         return new JsonResponse($tree);
