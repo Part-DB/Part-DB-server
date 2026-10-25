@@ -62,8 +62,12 @@ menu itself scrollable, so that all entries stay reachable. */
     }
 }
 
+/* Show the sidebar as an overlay on small screens. The upper bound must be 767.98px and not 768px, as Bootstrap's md
+breakpoint (where the navbar expands, d-md-block keeps the sidebar visible and the toggle button is hidden) starts at
+768px. Otherwise, at exactly 768px (e.g. older iPads in portrait mode) the sidebar covers the whole page and can not be
+closed (see issue #1609). */
 /*noinspection W3CssValidation*/
-@media  (max-width: 768px) {
+@media  (max-width: 767.98px) {
     .fixed-sidebar {
         position: fixed;
         top: 56px;
