@@ -170,5 +170,56 @@ final class ProjectBuildRequestTest extends TestCase
         $this->assertEqualsWithDelta(1.5, $build_request->getWithdrawAmountSum($this->bom_entry1b), PHP_FLOAT_EPSILON);
     }
 
+    /**
+     * Regression test for issue #1613: Floating point inaccuracies (0.26 * 11 = 2.8600000000000003) must not cause
+     * the needed amount to differ from the withdrawn amount entered by the user.
+     */
+    public function testFloatingPointInaccuracies(): void
+    {
+        $float_unit = new MeasurementUnit();
+        $float_unit->setName('Liter');
+        $float_unit->setUnit('l');
+        $float_unit->setIsInteger(false);
+
+        $part = new Part();
+        $part->setPartUnit($float_unit);
+        $lot_a = new class extends PartLot {
+            public function getID(): ?int
+            {
+                return 10;
+            }
+        };
+        $lot_a->setAmount(1.2);
+        $part->addPartLot($lot_a);
+        $lot_b = new class extends PartLot {
+            public function getID(): ?int
+            {
+                return 11;
+            }
+        };
+        $lot_b->setAmount(17.76);
+        $part->addPartLot($lot_b);
+
+        $bom_entry = new ProjectBOMEntry();
+        $bom_entry->setPart($part);
+        $bom_entry->setQuantity(0.26);
+
+        $project = new Project();
+        $project->addBomEntry($bom_entry);
+
+        $request = new ProjectBuildRequest($project, 11);
+        $this->assertSame(2.86, $request->getNeededAmountForBOMEntry($bom_entry));
+
+        //The prefilled values must exactly match the needed amount
+        $this->assertSame(1.2, $request->getLotWithdrawAmount($lot_a));
+        $this->assertSame(1.66, $request->getLotWithdrawAmount($lot_b));
+        $this->assertSame(2.86, $request->getWithdrawAmountSum($bom_entry));
+
+        //Values entered by the user (as they come from the form) must also match exactly
+        $request->setLotWithdrawAmount($lot_a, 0.0);
+        $request->setLotWithdrawAmount($lot_b, 2.86);
+        $this->assertSame(2.86, $request->getWithdrawAmountSum($bom_entry));
+    }
+
 
 }
