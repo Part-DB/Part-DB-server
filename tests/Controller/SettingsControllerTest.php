@@ -24,6 +24,7 @@ namespace App\Tests\Controller;
 
 use App\Entity\OAuthToken;
 use App\Entity\UserSystem\User;
+use App\Settings\InfoProviderSystem\DigikeySettings;
 use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -64,6 +65,19 @@ final class SettingsControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
 
         $this->assertSelectorExists('a[href="/en/settings#settings-form[infoProviders]-pane"]');
+    }
+
+    public function testDigikeySettingsOnlyOfferSupportedLanguages(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+
+        $crawler = $client->request('GET', '/en/tools/info_providers/provider/digikey/settings');
+        $this->assertResponseIsSuccessful();
+
+        $options = $crawler->filter('select[name$="[language]"] option')->each(fn($node) => $node->attr('value'));
+        $this->assertSame(DigikeySettings::SUPPORTED_LANGUAGES, $options);
+        $this->assertSelectorTextContains('select[name$="[language]"] option[value="zhs"]', 'Chinese (Simplified)');
     }
 
     public function testProviderSettingsPageShowsOAuthConnectButtonWithoutToken(): void

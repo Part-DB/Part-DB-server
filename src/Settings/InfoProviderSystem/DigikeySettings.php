@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Settings\InfoProviderSystem;
 
+use App\Form\InfoProviderSystem\DigikeyLanguageType;
 use App\Form\Type\APIKeyType;
 use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
@@ -30,7 +31,6 @@ use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
-use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Translation\TranslatableMessage as TM;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -40,6 +40,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 class DigikeySettings
 {
     use SettingsTrait;
+
+    /**
+     * The language codes accepted by the Digikey API in the X-DIGIKEY-Locale-Language header.
+     * Note that zhs (simplified chinese) and zht (traditional chinese) are no ISO codes.
+     */
+    public const SUPPORTED_LANGUAGES = ["en", "ja", "de", "fr", "ko", "zhs", "zht", "it", "es", "he", "nl", "sv", "pl", "fi", "da", "no"];
 
     #[SettingsParameter(
         label: new TM("settings.ips.digikey.client_id"),
@@ -66,8 +72,8 @@ class DigikeySettings
     #[Assert\Country]
     public string $country = "DE";
 
-    #[SettingsParameter(label: new TM("settings.ips.tme.language"), formType: LanguageType::class,
+    #[SettingsParameter(label: new TM("settings.ips.tme.language"), formType: DigikeyLanguageType::class,
         envVar: "PROVIDER_DIGIKEY_LANGUAGE", envVarMode: EnvVarMode::OVERWRITE)]
-    #[Assert\Language]
+    #[Assert\Choice(choices: self::SUPPORTED_LANGUAGES)]
     public string $language = "en";
 }
