@@ -78,7 +78,7 @@ class PartFilter implements FilterInterface
     public readonly BooleanConstraint $obsolete;
     public readonly EntityConstraint $storelocation;
     public readonly IntConstraint $lotCount;
-    public readonly IntConstraint $amountSum;
+    public readonly NumberConstraint $amountSum;
     public readonly LessThanDesiredConstraint $lessThanDesired;
 
     public readonly BooleanConstraint $lotNeedsRefill;
@@ -140,11 +140,7 @@ class PartFilter implements FilterInterface
         $this->lastModified = new DateTimeConstraint('part.lastModified');
 
         $this->minAmount = new NumberConstraint('part.minamount');
-        /* We have to use an IntConstraint here because otherwise we get just an empty result list when applying the filter
-           This seems to be related to the fact, that PDO does not have an float parameter type and using string type does not work in this situation (at least in SQLite)
-           TODO: Find a better solution here
-         */
-        $this->amountSum = (new IntConstraint('(
+        $this->amountSum = (new NumberConstraint('(
                     SELECT COALESCE(SUM(__partLot.amount), 0.0)
                     FROM ' . PartLot::class . ' __partLot
                     WHERE __partLot.part = part.id
