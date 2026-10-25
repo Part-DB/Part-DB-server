@@ -177,6 +177,8 @@ final readonly class KiCadHelper
                     $parts = $this->em->getRepository(Part::class)->findAll();
                 }
 
+                $this->preloadPartCollections($parts);
+
                 $result = [];
                 //Shared across all parts of this request, so the reference prefix of a category
                 //(and its ancestors) only has to be resolved once, no matter how many parts use it.
@@ -201,6 +203,50 @@ final readonly class KiCadHelper
 
                 return $result;
             });
+    }
+
+    /**
+     * getKiCADPart() reads several collections of every part. Initialize them for all given parts at once
+     * (one query per collection and chunk), instead of lazy loading four collections per part.
+     * The collections are loaded in separate queries, as joining all of them at once would multiply the rows.
+     * The to-one associations read by getKiCADPart() are fetch-joined too (they do not multiply the rows),
+     * so that every distinct footprint, manufacturer, supplier, etc. does not need its own query.
+     * @param  Part[]  $parts
+     */
+    private function preloadPartCollections(array $parts): void
+    {
+        //Collection => to-one association of the collection elements that is also read
+        $collections = [
+            'attachments' => 'attachment_type',
+            'orderdetails' => 'supplier',
+            'partLots' => 'storage_location',
+            'parameters' => null,
+        ];
+
+        foreach (array_chunk($parts, 1000) as $chunk) {
+            $first = true;
+            foreach ($collections as $collection => $nested) {
+                $qb = $this->em->createQueryBuilder()
+                    ->select('p', 'c')
+                    ->from(Part::class, 'p')
+                    ->leftJoin('p.'.$collection, 'c')
+                    ->where('p IN (:parts)')
+                    ->setParameter('parts', $chunk);
+                if ($nested !== null) {
+                    $qb->addSelect('n')->leftJoin('c.'.$nested, 'n');
+                }
+                //The to-one associations of the part itself only have to be loaded once
+                if ($first) {
+                    $qb->addSelect('f', 'm', 'u', 's')
+                        ->leftJoin('p.footprint', 'f')
+                        ->leftJoin('p.manufacturer', 'm')
+                        ->leftJoin('p.partUnit', 'u')
+                        ->leftJoin('p.partCustomState', 's');
+                    $first = false;
+                }
+                $qb->getQuery()->getResult();
+            }
+        }
     }
 
     public function getKiCADPart(Part $part, array &$categoryPrefixCache = []): array
