@@ -5203,16 +5203,16 @@
         },
         {
             "name": "jbtronics/2fa-webauthn",
-            "version": "v3.03",
+            "version": "v3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbtronics/2fa-webauthn.git",
-                "reference": "1d7677e6708d93ccc24cd87a08a7d462aefec492"
+                "reference": "476871ed332511ce364ddd6a6b7abfab9f3cb8d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/2fa-webauthn/zipball/1d7677e6708d93ccc24cd87a08a7d462aefec492",
-                "reference": "1d7677e6708d93ccc24cd87a08a7d462aefec492",
+                "url": "https://api.github.com/repos/jbtronics/2fa-webauthn/zipball/476871ed332511ce364ddd6a6b7abfab9f3cb8d9",
+                "reference": "476871ed332511ce364ddd6a6b7abfab9f3cb8d9",
                 "shasum": ""
             },
             "require": {
@@ -5220,15 +5220,22 @@
                 "nyholm/psr7": "^1.5",
                 "php": "^8.2",
                 "psr/log": "^3.0.0|^2.0.0",
-                "scheb/2fa-bundle": "^6.0.0|^7.0.0",
-                "symfony/framework-bundle": "^6.0|^7.0",
-                "symfony/psr-http-message-bridge": "^2.1|^6.1|^7.0",
-                "symfony/uid": "^6.0|^7.0",
+                "scheb/2fa-bundle": "^6.0.0|^7.0.0|^8.0.0",
+                "symfony/framework-bundle": "^6.4|^7.0|^8.0",
+                "symfony/psr-http-message-bridge": "^2.1|^6.1|^7.0|^8.0",
+                "symfony/security-bundle": "^6.4|^7.0|^8.0",
+                "symfony/twig-bundle": "^6.4|^7.0|^8.0",
+                "symfony/uid": "^6.0|^7.0|^8.0",
                 "web-auth/webauthn-lib": "^5.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.5",
-                "roave/security-advisories": "dev-latest"
+                "friendsofphp/php-cs-fixer": "^3.89",
+                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpstan/phpstan-symfony": "^2.0",
+                "phpunit/phpunit": "^11.5.2 || ^12.4",
+                "symfony/translation": "^6.4 || ^7.0 || ^8.0",
+                "symfony/yaml": "^6.4 || ^7.0 || ^8.0"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -5257,9 +5264,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jbtronics/2fa-webauthn/issues",
-                "source": "https://github.com/jbtronics/2fa-webauthn/tree/v3.03"
+                "source": "https://github.com/jbtronics/2fa-webauthn/tree/v3.4.0"
             },
-            "time": "2026-09-15T22:49:27+00:00"
+            "time": "2026-10-25T19:38:23+00:00"
         },
         {
             "name": "jbtronics/dompdf-font-loader-bundle",
