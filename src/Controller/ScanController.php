@@ -74,6 +74,8 @@ class ScanController extends AbstractController
         $this->denyAccessUnlessGranted('@tools.label_scanner');
 
         $form = $this->createForm(ScanDialogType::class);
+        // Keep checkbox ticked when returned after saving
+        $form->get('return_to_scanner')->setData($request->query->getBoolean('return_to_scanner'));
         $form->handleRequest($request);
 
         // If JS is working, scanning uses /scan/lookup and this action just renders the page.
@@ -86,6 +88,7 @@ class ScanController extends AbstractController
         if ($input !== null && $input !== '') {
             $mode = $form->isSubmitted() ? $form['mode']->getData() : null;
             $infoMode = $form->isSubmitted() && $form['info_mode']->getData();
+            $returnToScanner = $form->isSubmitted() && $form['return_to_scanner']->getData();
 
             try {
                 $scan = $this->barcodeNormalizer->scanBarcodeContent($input, $mode ?? null);
@@ -100,7 +103,9 @@ class ScanController extends AbstractController
                     }
 
                     //Try to get an creation URL if possible (only for vendor codes)
-                    $createUrl = $this->buildCreateUrlForScanResult($scan);
+                    $createUrl = $this->buildCreateUrlForScanResult($scan, $returnToScanner ? [
+                        '_redirect' => $this->generateUrl('scan_dialog', ['return_to_scanner' => 1]),
+                    ] : []);
                     if ($createUrl !== null) {
                         return $this->redirect($createUrl);
                     }
@@ -141,7 +146,8 @@ class ScanController extends AbstractController
         }
 
         //When we reach here, only the flash messages are relevant, so if it's a Turbo request, only send the flash message fragment, so the client can show it without a full page reload
-        if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+        //A Turbo request without a submitted scan form (e.g. Turbo following a redirect back to the scanner) needs the full page
+        if ($form->isSubmitted() && TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
             $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
             //Only send our flash message, so the client can show it without a full page reload
             return $this->renderBlock('_turbo_control.html.twig', 'flashes');
@@ -191,12 +197,13 @@ class ScanController extends AbstractController
     /**
      * Builds a URL for creating a new part based on the barcode data, handles exceptions and shows user-friendly error messages if the provider is not active or if there is an error during URL generation.
      * @param BarcodeScanResultInterface $scanResult
+     * @param array $additionalParameters Additional URL parameters for the creation page (e.g. _redirect)
      * @return string|null
      */
-    private function buildCreateUrlForScanResult(BarcodeScanResultInterface $scanResult): ?string
+    private function buildCreateUrlForScanResult(BarcodeScanResultInterface $scanResult, array $additionalParameters = []): ?string
     {
         try {
-            return $this->resultHandler->getCreationURL($scanResult);
+            return $this->resultHandler->getCreationURL($scanResult, $additionalParameters);
         } catch (InfoProviderNotActiveException $e) {
             $this->addFlash('error', $e->getMessage());
         } catch (\Throwable) {
