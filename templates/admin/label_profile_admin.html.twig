@@ -40,6 +40,17 @@
         </div>
     </div>
     {{ form_row(form.options.barcode_type) }}
+    <div class="mb-2 row">
+        {{ form_label(form.options.barcode_size) }}
+        <div class="{{ col_input }}">
+            <div class="input-group">
+                {{ form_widget(form.options.barcode_size) }}
+                <span class="input-group-text">mm</span>
+            </div>
+            {{ form_errors(form.options.barcode_size) }}
+            {{ form_help(form.options.barcode_size) }}
+        </div>
+    </div>
     {{ form_row(form.options.lines) }}
 {% endblock %}
 
