@@ -68,9 +68,11 @@ class AttachmentSubmitHandler
 
     private ?int $max_upload_size_bytes = null;
 
-    protected const BLACKLISTED_EXTENSIONS = ['php', 'phtml', 'php3', 'ph3', 'php4', 'ph4', 'php5', 'ph5', 'phtm', 'sh',
-        'asp', 'cgi', 'py', 'pl', 'exe', 'aspx', 'js', 'mjs', 'jsp', 'css', 'jar', 'html', 'htm', 'shtm', 'shtml', 'htaccess',
-        'htpasswd', 'phar', 'phps', ''];
+    protected const BLACKLISTED_EXTENSIONS = ['php', 'phtml', 'php3', 'ph3', 'php4', 'ph4', 'php5', 'ph5', 'php6', 'php7', 'php8', 'phtm', 'pgif', 'sh',
+        'asp', 'cgi', 'py', 'pl', 'rb', 'lua', 'cfm', 'cfml', 'cfc', 'exe', 'aspx', 'js', 'mjs', 'jsp', 'css', 'jar', 'war', 'ear', 'class',
+        'html', 'htm', 'xhtml', 'xhtm', 'shtm', 'shtml', 'htaccess', 'htpasswd', 'phar', 'phps',
+        'bat', 'cmd', 'ps1', 'vbs', 'vbe', 'hta', 'wsf', 'com', 'scr', 'msi', 'dll',
+        'svgz', 'xsl', 'xslt', 'xml', 'mht', 'mhtml', 'wasm', ''];
 
     public function __construct(
         protected AttachmentPathResolver $pathResolver,
