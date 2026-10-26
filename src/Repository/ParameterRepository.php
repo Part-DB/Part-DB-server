@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Parameters\AbstractParameter;
+use App\Entity\Parameters\ParameterDefinition;
 
 /**
  * @template TEntityClass of AbstractParameter
@@ -30,6 +31,16 @@ use App\Entity\Parameters\AbstractParameter;
  */
 class ParameterRepository extends DBElementRepository
 {
+    public function countByDefinition(ParameterDefinition $definition): int
+    {
+        return (int) $this->createQueryBuilder('parameter')
+            ->select('COUNT(parameter.id)')
+            ->where('parameter.definition = :definition')
+            ->setParameter('definition', $definition)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     /**
      * Find parameters using a parameter name
      * @param  string  $name The name to search for
