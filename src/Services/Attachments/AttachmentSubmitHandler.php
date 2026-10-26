@@ -68,11 +68,11 @@ class AttachmentSubmitHandler
 
     private ?int $max_upload_size_bytes = null;
 
-    protected const BLACKLISTED_EXTENSIONS = ['php', 'phtml', 'php3', 'ph3', 'php4', 'ph4', 'php5', 'ph5', 'php6', 'php7', 'php8', 'phtm', 'pgif', 'sh',
+    protected const BLACKLISTED_EXTENSIONS = ['php', 'phtml', 'php2', 'php3', 'ph3', 'php4', 'ph4', 'php5', 'ph5', 'php6', 'php7', 'php8', 'phtm', 'pht', 'phpt', 'pgif', 'inc', 'sh',
         'asp', 'cgi', 'py', 'pl', 'rb', 'lua', 'cfm', 'cfml', 'cfc', 'exe', 'aspx', 'js', 'mjs', 'jsp', 'css', 'jar', 'war', 'ear', 'class',
-        'html', 'htm', 'xhtml', 'xhtm', 'shtm', 'shtml', 'htaccess', 'htpasswd', 'phar', 'phps',
+        'html', 'htm', 'xhtml', 'xhtm', 'xht', 'shtm', 'shtml', 'htaccess', 'htpasswd', 'phar', 'phps',
         'bat', 'cmd', 'ps1', 'vbs', 'vbe', 'hta', 'wsf', 'com', 'scr', 'msi', 'dll',
-        'svgz', 'xsl', 'xslt', 'xml', 'mht', 'mhtml', 'wasm', ''];
+        'svgz', 'xsl', 'xslt', 'xml', 'xsd', 'rdf', 'mht', 'mhtml', 'wasm', 'webmanifest', 'appcache', ''];
 
     public function __construct(
         protected AttachmentPathResolver $pathResolver,
