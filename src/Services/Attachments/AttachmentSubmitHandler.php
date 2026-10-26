@@ -127,6 +127,29 @@ class AttachmentSubmitHandler
     }
 
     /**
+     * Normalizes the given extension to the form it will have on disk (lowercase ASCII, only [a-z0-9_] chars).
+     */
+    protected function normalizeExtension(string $extension): string
+    {
+        return (string) transliterator_transliterate(
+            'Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()',
+            $extension
+        );
+    }
+
+    /**
+     * Returns the extension under which a file with the given extension can be safely stored.
+     * The blacklist is checked against the normalized extension, as this is what ends up on disk. Otherwise, extensions
+     * like "p-hp" or "php " would pass the check and become "php" during filename generation.
+     */
+    protected function getSafeExtension(string $extension): string
+    {
+        $extension = $this->normalizeExtension($extension);
+
+        return in_array($extension, self::BLACKLISTED_EXTENSIONS, true) ? 'txt' : $extension;
+    }
+
+    /**
      * Generates a filename for the given attachment and extension.
      * The filename contains a random id, so every time this function is called you get a unique name.
      *
@@ -137,11 +160,7 @@ class AttachmentSubmitHandler
      */
     public function generateAttachmentFilename(Attachment $attachment, string $extension): string
     {
-        //Normalize extension
-        $extension = transliterator_transliterate(
-            'Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()',
-            $extension
-        );
+        $extension = $this->normalizeExtension($extension);
 
         //Use the (sanatized) attachment name as a filename part
         $safeName = transliterator_transliterate(
@@ -303,11 +322,10 @@ class AttachmentSubmitHandler
             return $attachment;
         }
         $filename = basename($old_path);
-        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
         //Check if the extension is blacklisted and replace the file extension with txt if needed
-        if(in_array($ext, self::BLACKLISTED_EXTENSIONS, true)) {
+        if (in_array($this->normalizeExtension($ext), self::BLACKLISTED_EXTENSIONS, true)) {
             $new_path = $this->generateAttachmentPath($attachment, $attachment->isSecure())
                 .DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, 'txt');
 
@@ -483,7 +501,7 @@ class AttachmentSubmitHandler
             }
 
             // Use a safe extension immediately so the file never lands on disk with a dangerous extension (TOCTOU prevention)
-            $safeExt = in_array(strtolower($new_ext), self::BLACKLISTED_EXTENSIONS, true) ? 'txt' : $new_ext;
+            $safeExt = $this->getSafeExtension($new_ext);
 
             //Rename the file to its new name and save path to attachment entity
             $new_path = $attachment_folder.DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, $safeExt);
@@ -512,8 +530,7 @@ class AttachmentSubmitHandler
     protected function upload(Attachment $attachment, UploadedFile $file, bool $secureAttachment): Attachment
     {
         // Use a safe extension immediately so the file never lands on disk with a dangerous extension (TOCTOU prevention)
-        $ext = $file->getClientOriginalExtension();
-        $safeExt = in_array(strtolower($ext), self::BLACKLISTED_EXTENSIONS, true) ? 'txt' : $ext;
+        $safeExt = $this->getSafeExtension($file->getClientOriginalExtension());
 
         //Move our temporary attachment to its final location
         $file_path = $file->move(
