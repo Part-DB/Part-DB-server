@@ -482,8 +482,11 @@ class AttachmentSubmitHandler
                 $new_ext = $this->mimeTypes->getExtensions($this->mimeTypes->guessMimeType($tmp_path))[0] ?? 'tmp';
             }
 
+            // Use a safe extension immediately so the file never lands on disk with a dangerous extension (TOCTOU prevention)
+            $safeExt = in_array(strtolower($new_ext), self::BLACKLISTED_EXTENSIONS, true) ? 'txt' : $new_ext;
+
             //Rename the file to its new name and save path to attachment entity
-            $new_path = $attachment_folder.DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, $new_ext);
+            $new_path = $attachment_folder.DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, $safeExt);
             $fs->rename($tmp_path, $new_path);
 
             //Make our file path relative to %BASE%
@@ -508,10 +511,14 @@ class AttachmentSubmitHandler
      */
     protected function upload(Attachment $attachment, UploadedFile $file, bool $secureAttachment): Attachment
     {
+        // Use a safe extension immediately so the file never lands on disk with a dangerous extension (TOCTOU prevention)
+        $ext = $file->getClientOriginalExtension();
+        $safeExt = in_array(strtolower($ext), self::BLACKLISTED_EXTENSIONS, true) ? 'txt' : $ext;
+
         //Move our temporary attachment to its final location
         $file_path = $file->move(
             $this->generateAttachmentPath($attachment, $secureAttachment),
-            $this->generateAttachmentFilename($attachment, $file->getClientOriginalExtension())
+            $this->generateAttachmentFilename($attachment, $safeExt)
         )->getRealPath();
 
         //Make our file path relative to %BASE%
