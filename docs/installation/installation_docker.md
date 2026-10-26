@@ -19,13 +19,13 @@ where docker is available (especially recommended for Windows and macOS).
 It is recommended to install Part-DB on a 64-bit system, as the 32-bit version of PHP is affected by the
 [Year 2038 problem](https://en.wikipedia.org/wiki/Year_2038_problem) and can not handle dates after 2038 correctly.
 
-## Docker-compose
+## `docker compose`
 
-Docker-compose configures the needed images and automatically creates the needed containers and volumes.
+`docker compose` configures the needed images and automatically creates the needed containers and volumes.
 
-1. Install docker and docker-compose as described under https://docs.docker.com/compose/install/
+1. Install docker as described under https://docs.docker.com/compose/install/
 2. Create a folder where the Part-DB data should live
-3. Create a file named docker-compose.yaml with the following content:
+3. Create a file named `docker-compose.yaml` with the following content:
 
 ```yaml
 version: '3.3'
@@ -113,7 +113,7 @@ openssl rand -hex 32
 7. Inside the folder, run
 
 ```bash
-   docker-compose up -d
+   docker compose up -d
 ```    
 
 {: .warning }
@@ -133,11 +133,11 @@ and watch for the password output
    before
 
 The docker image uses a SQLite database and all data (database, uploads, and other media) is put into folders relative to
-the docker-compose.yml.
+the `docker-compose.yml`.
 
 ### MySQL
 
-If you want to use MySQL as a database, you can use the following docker-compose.yaml, and follow the steps from above:
+If you want to use MySQL as a database, you can use the following `docker-compose.yaml`, and follow the steps from above:
 
 {: .warning }
 > You have to replace the values for MYSQL_ROOT_PASSWORD and MYSQL_PASSWORD with your own passwords!!
@@ -219,7 +219,7 @@ If you need to use specific mailer transports or other functionality that requir
 install them automatically at container startup using the `COMPOSER_EXTRA_PACKAGES` environment variable.
 
 For example, if you want to use Mailgun as your email provider, you need to install the `symfony/mailgun-mailer` package.
-Add the following to your docker-compose.yaml environment section:
+Add the following to your `docker-compose.yaml` environment section:
 
 ```yaml
 environment:
@@ -251,8 +251,8 @@ You can update Part-DB by pulling the latest image and restarting the container.
 Then you have to run the database migrations again
 
 ```bash
-docker-compose pull
-docker-compose up -d
+docker compose pull
+docker compose up -d
 docker exec --user=www-data partdb php bin/console doctrine:migrations:migrate
 ```
 
@@ -310,7 +310,7 @@ volumes for `/var/www/html/uploads` and `/var/www/html/public/media`.
 If you want to use SQLite database (which is default), you have to configure Part-DB to put the database file in a
 mapped volume via the `DATABASE_URL` environment variable.
 For example, if you set `DATABASE_URL=sqlite:///%kernel.project_dir%/var/db/app.db` then you will have to map
-the `/var/www/html/var/db/` folder to the docker container (see docker-compose.yaml for example).
+the `/var/www/html/var/db/` folder to the docker container (see `docker-compose.yaml` for example).
 
 You also have to create the database as described above in step 4.
 
