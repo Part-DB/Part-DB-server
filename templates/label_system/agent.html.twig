@@ -1,0 +1,43 @@
+{% extends 'main_card.html.twig' %}
+
+{% block title %}{% trans %}label_generator.agent.title{% endtrans %}{% endblock %}
+
+{%- block card_title -%}
+    <i class="fas fa-print fa-fw"></i> {% trans %}label_generator.agent.title{% endtrans %}
+{%- endblock -%}
+
+{% block card_content %}
+    <div {{ stimulus_controller('pages/print_agent_connect') }}>
+        <p>{% trans %}label_generator.agent.explanation{% endtrans %}
+            <a href="https://docs.part-db.de/usage/labels.html#printing-with-a-print-agent" target="_blank" rel="noopener">{% trans %}label_generator.agent.docs{% endtrans %}</a>
+        </p>
+
+        <div class="d-none" {{ stimulus_target('pages/print_agent_connect', 'confirm') }}>
+            <div class="alert alert-info">
+                {% trans %}label_generator.agent.confirm{% endtrans %}
+                <code {{ stimulus_target('pages/print_agent_connect', 'url') }}></code>
+            </div>
+            <button type="button" class="btn btn-primary" {{ stimulus_action('pages/print_agent_connect', 'connect') }}>
+                <i class="fas fa-link fa-fw"></i> {% trans %}label_generator.agent.connect{% endtrans %}
+            </button>
+        </div>
+
+        <div class="d-none" {{ stimulus_target('pages/print_agent_connect', 'connected') }}>
+            <div class="alert alert-success">
+                {% trans %}label_generator.agent.connected{% endtrans %}
+                <code {{ stimulus_target('pages/print_agent_connect', 'url') }}></code>
+            </div>
+            <button type="button" class="btn btn-outline-danger" {{ stimulus_action('pages/print_agent_connect', 'disconnect') }}>
+                <i class="fas fa-unlink fa-fw"></i> {% trans %}label_generator.agent.disconnect{% endtrans %}
+            </button>
+        </div>
+
+        <div class="d-none alert alert-danger" {{ stimulus_target('pages/print_agent_connect', 'invalid') }}>
+            {% trans %}label_generator.agent.invalid{% endtrans %}
+        </div>
+
+        <div class="d-none alert alert-secondary" {{ stimulus_target('pages/print_agent_connect', 'none') }}>
+            {% trans %}label_generator.agent.none{% endtrans %}
+        </div>
+    </div>
+{% endblock %}

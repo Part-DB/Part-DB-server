@@ -211,6 +211,17 @@ class LabelController extends AbstractController
         ]);
     }
 
+    /**
+     * Connects this browser to a local print agent (stored in the browser only, see docs/usage/labels.md).
+     */
+    #[Route(path: '/agent', name: 'label_agent')]
+    public function agent(): Response
+    {
+        $this->denyAccessUnlessGranted('@labels.create_labels');
+
+        return $this->render('label_system/agent.html.twig');
+    }
+
     protected function getLabelName(AbstractDBElement $element, ?LabelProfile $profile = null): string
     {
         $ret = 'label_'.$this->elementTypeNameGenerator->getLocalizedTypeLabel($element);

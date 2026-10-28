@@ -16046,5 +16046,77 @@ Buerklin-API Authentication server:
         <target>The information provider (%host%) is temporarily unavailable (HTTP %status%). Please try again later.</target>
       </segment>
     </unit>
+    <unit id="pdbprnt00" name="label_generator.agent.title">
+      <segment state="translated">
+        <source>label_generator.agent.title</source>
+        <target>Print agent</target>
+      </segment>
+    </unit>
+    <unit id="pdbprnt01" name="label_generator.agent.explanation">
+      <segment state="translated">
+        <source>label_generator.agent.explanation</source>
+        <target>A print agent is a small program on this computer that prints labels directly on a label printer, without the browser's print dialog. Once this browser is connected, a print button appears next to the label download and in the label menus.</target>
+      </segment>
+    </unit>
+    <unit id="pdbprnt02" name="label_generator.agent.docs">
+      <segment state="translated">
+        <source>label_generator.agent.docs</source>
+        <target>How it works</target>
+      </segment>
+    </unit>
+    <unit id="pdbprnt03" name="label_generator.agent.confirm">
+      <segment state="translated">
+        <source>label_generator.agent.confirm</source>
+        <target>Connect this browser to the print agent at</target>
+      </segment>
+    </unit>
+    <unit id="pdbprnt04" name="label_generator.agent.connect">
+      <segment state="translated">
+        <source>label_generator.agent.connect</source>
+        <target>Connect</target>
+      </segment>
+    </unit>
+    <unit id="pdbprnt05" name="label_generator.agent.connected">
+      <segment state="translated">
+        <source>label_generator.agent.connected</source>
+        <target>This browser prints labels with the print agent at</target>
+      </segment>
+    </unit>
+    <unit id="pdbprnt06" name="label_generator.agent.disconnect">
+      <segment state="translated">
+        <source>label_generator.agent.disconnect</source>
+        <target>Disconnect</target>
+      </segment>
+    </unit>
+    <unit id="pdbprnt07" name="label_generator.agent.invalid">
+      <segment state="translated">
+        <source>label_generator.agent.invalid</source>
+        <target>This connection link is invalid. Open it again from your print agent.</target>
+      </segment>
+    </unit>
+    <unit id="pdbprnt08" name="label_generator.agent.none">
+      <segment state="translated">
+        <source>label_generator.agent.none</source>
+        <target>This browser is not connected to a print agent. Open the connection link from your print agent's settings.</target>
+      </segment>
+    </unit>
+    <unit id="pdbprnt09" name="tree.tools.tools.print_agent">
+      <segment state="translated">
+        <source>tree.tools.tools.print_agent</source>
+        <target>Print agent</target>
+      </segment>
+    </unit>
+    <unit id="pdbprnt10" name="label_generator.print">
+      <segment state="translated">
+        <source>label_generator.print</source>
+        <target>Print</target>
+      </segment>
+    </unit>
+    <unit id="pdbprnt11" name="label_generator.print.title">
+      <segment state="translated">
+        <source>label_generator.print.title</source>
+        <target>Print with your print agent (uses the saved label profile)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
