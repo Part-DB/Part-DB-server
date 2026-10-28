@@ -17,7 +17,7 @@
                 {% trans %}label_generator.agent.confirm{% endtrans %}
                 <code {{ stimulus_target('pages/print_agent_connect', 'url') }}></code>
             </div>
-            <button type="button" class="btn btn-primary" {{ stimulus_action('pages/print_agent_connect', 'connect') }}>
+            <button type="button" class="btn btn-primary" {{ stimulus_action('pages/print_agent_connect', 'connectAgent') }}>
                 <i class="fas fa-link fa-fw"></i> {% trans %}label_generator.agent.connect{% endtrans %}
             </button>
         </div>
@@ -27,7 +27,7 @@
                 {% trans %}label_generator.agent.connected{% endtrans %}
                 <code {{ stimulus_target('pages/print_agent_connect', 'url') }}></code>
             </div>
-            <button type="button" class="btn btn-outline-danger" {{ stimulus_action('pages/print_agent_connect', 'disconnect') }}>
+            <button type="button" class="btn btn-outline-danger" {{ stimulus_action('pages/print_agent_connect', 'disconnectAgent') }}>
                 <i class="fas fa-unlink fa-fw"></i> {% trans %}label_generator.agent.disconnect{% endtrans %}
             </button>
         </div>
