@@ -44,7 +44,16 @@ export default class extends Controller
         // Open the window now, while the click still counts as a user action: after the
         // async signing below, popup blockers would stop it.
         const win = window.open('', 'pdb-print', 'width=420,height=320');
-        const url = await handoffUrl(agent, {type: this.typeValue, ids: this.idsValue, profile: this.profileValue});
+        if (win) {
+            win.opener = null;
+        }
+        let url;
+        try {
+            url = await handoffUrl(agent, {type: this.typeValue, ids: this.idsValue, profile: this.profileValue});
+        } catch (e) {
+            win?.close();
+            throw e;
+        }
         if (win) {
             win.location.href = url;
         } else {

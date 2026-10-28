@@ -58,7 +58,16 @@ export function parseConnectHash(hash) {
     if ((url.protocol !== 'http:' && url.protocol !== 'https:') || !/^[0-9a-fA-F]+$/.test(key)) {
         return null;
     }
-    return {url: url.href.replace(/\/$/, ''), key};
+    // The key is used as a string, not hex-decoded: keep it in the agent's lowercase form
+    return {url: url.href.replace(/\/$/, ''), key: key.toLowerCase()};
+}
+
+/**
+ * The label generator accepts "1, 2;5 - 10" and empty segments (e.g. "3,,5" from the bulk lot action);
+ * agents get the plain form "1,2,5-10".
+ */
+export function normalizeIds(ids) {
+    return ids.replace(/\s+/g, '').split(/[,;]/).filter(Boolean).join(',');
 }
 
 /**
@@ -67,7 +76,7 @@ export function parseConnectHash(hash) {
  * unsigned and the agent asks for a confirmation click.
  */
 export async function handoffUrl(agent, {type, ids, profile}) {
-    const p = {src: location.origin, type, ids, profile: String(profile), ts: String(Math.floor(Date.now() / 1000))};
+    const p = {src: location.origin, type, ids: normalizeIds(ids), profile: String(profile), ts: String(Math.floor(Date.now() / 1000))};
     if (globalThis.crypto?.subtle) {
         const enc = new TextEncoder();
         const key = await crypto.subtle.importKey('raw', enc.encode(agent.key), {name: 'HMAC', hash: 'SHA-256'}, false, ['sign']);

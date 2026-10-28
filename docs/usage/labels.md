@@ -41,10 +41,12 @@ When printing, Part-DB opens the following URL in a new window:
 <agent URL>/v1/handoff?src=<Part-DB origin>&type=<part|part_lot|storelocation>&ids=<ids>&profile=<label profile id>&ts=<unix time>&sig=<signature>
 ```
 
-`ids` uses the same range syntax as the label generator (e.g. `1,2,5-10`). `sig` is the lowercase hex HMAC-SHA256 of
-`src`, `type`, `ids`, `profile` and `ts` joined by newlines (`\n`), keyed with the pairing key. If the browser has no
-WebCrypto support (Part-DB served over plain HTTP from another host), `sig` is omitted and the agent should ask the user
-to confirm. The agent then fetches the label PDF itself with an API token via `POST /api/labels/generate` and prints it.
+`ids` uses the label generator's range syntax without spaces or empty entries (e.g. `1,2,5-10`). `sig` is the lowercase
+hex HMAC-SHA256 of `src`, `type`, `ids`, `profile` and `ts` joined by newlines (`\n`). The HMAC key is the UTF-8 bytes of
+the pairing key string as given in the connection link (lowercase, not hex-decoded). An agent should only accept a recent
+`ts` (pdb-print: ±2 minutes), refuse a `sig` it has already seen, and compare `src` with the Part-DB URL it is configured
+for by scheme, host and port. If the browser has no WebCrypto support (Part-DB served over plain HTTP from another host),
+`sig` is omitted and the agent should ask the user to confirm. The agent then fetches the label PDF itself with an API token via `POST /api/labels/generate` and prints it.
 
 Anyone who can run JavaScript on your Part-DB pages could read the pairing key from local storage and ask your agent to
 print labels; it gives no access to Part-DB data.
