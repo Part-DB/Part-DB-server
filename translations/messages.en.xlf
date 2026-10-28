@@ -16124,5 +16124,53 @@ Buerklin-API Authentication server:
         <target>Print with label profile %name% (print agent)</target>
       </segment>
     </unit>
+    <unit id="MKQalHA" name="label_generator.print.to">
+      <segment state="translated">
+        <source>label_generator.print.to</source>
+        <target>Print on %printer%</target>
+      </segment>
+    </unit>
+    <unit id="vqoYfUZ" name="label_generator.print.choose_printer">
+      <segment state="translated">
+        <source>label_generator.print.choose_printer</source>
+        <target>Choose a printer</target>
+      </segment>
+    </unit>
+    <unit id="i214_TB" name="label_generator.print.this_computer">
+      <segment state="translated">
+        <source>label_generator.print.this_computer</source>
+        <target>This computer (print agent connected to this browser)</target>
+      </segment>
+    </unit>
+    <unit id="A_cdch0" name="label_generator.print.profile_to">
+      <segment state="translated">
+        <source>label_generator.print.profile_to</source>
+        <target>Print %name% on %printer%</target>
+      </segment>
+    </unit>
+    <unit id="JrdXknH" name="label_generator.print.sent">
+      <segment state="translated">
+        <source>label_generator.print.sent</source>
+        <target>Sent %count% label(s) to %printer%.</target>
+      </segment>
+    </unit>
+    <unit id="_Pht2vi" name="label_generator.print.sent_offline">
+      <segment state="translated">
+        <source>label_generator.print.sent_offline</source>
+        <target>Sent %count% label(s) to %printer%, but its print agent is offline. The labels are printed when it is back.</target>
+      </segment>
+    </unit>
+    <unit id="SUDc6an" name="part_list.action.print_label">
+      <segment state="translated">
+        <source>part_list.action.print_label</source>
+        <target>Print labels on the profile's default printer</target>
+      </segment>
+    </unit>
+    <unit id="DTbdKJp" name="part_list.action.print_label_lot">
+      <segment state="translated">
+        <source>part_list.action.print_label_lot</source>
+        <target>Print labels for [[part_lot]] on the profile's default printer</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

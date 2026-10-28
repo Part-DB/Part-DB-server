@@ -13,7 +13,20 @@
             {% for profile in profiles %}
                 <div class="d-flex">
                     <a class="dropdown-item" href="{{ path('label_dialog_profile', {'profile': profile.id, 'target_type': type, 'target_id': id, 'generate': true}) }}">{{ profile.name }}</a>
-                    {% if id is not null %}
+                    {% set agent_printer = id is not null ? agent_default_printer(profile) : null %}
+                    {% if agent_printer %}
+                        <form method="post" action="{{ path('label_print') }}" class="d-inline">
+                            <input type="hidden" name="_token" value="{{ csrf_token('label_print') }}">
+                            <input type="hidden" name="profile" value="{{ profile.id }}">
+                            <input type="hidden" name="target_type" value="{{ type }}">
+                            <input type="hidden" name="target_id" value="{{ id }}">
+                            <input type="hidden" name="_redirect" value="{{ app.request.requestUri }}">
+                            <button type="submit" class="btn btn-link btn-sm" name="printer" value="{{ agent_printer.agent.id }}|{{ agent_printer.id }}"
+                                    title="{% trans with {'%name%': profile.name, '%printer%': agent_printer.name} %}label_generator.print.profile_to{% endtrans %}">
+                                <i class="fas fa-print fa-fw"></i><span class="visually-hidden">{% trans with {'%name%': profile.name, '%printer%': agent_printer.name} %}label_generator.print.profile_to{% endtrans %}</span>
+                            </button>
+                        </form>
+                    {% elseif id is not null %}
                         <button type="button" class="btn btn-link btn-sm d-none" title="{% trans with {'%name%': profile.name} %}label_generator.print.profile{% endtrans %}"
                                 {{ stimulus_controller('pages/print_agent_print', {'profile': profile.id, 'ids': id, 'type': type}) }}
                                 {{ stimulus_action('pages/print_agent_print', 'print') }}>

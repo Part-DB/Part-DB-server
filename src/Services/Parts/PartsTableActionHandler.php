@@ -30,9 +30,14 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
+use App\Entity\LabelSystem\LabelProfile;
+use App\Entity\LabelSystem\LabelSupportedElement;
+use App\Entity\UserSystem\User;
+use App\Services\LabelSystem\AgentJobCreator;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -40,7 +45,8 @@ use function Symfony\Component\Translation\t;
 
 final readonly class PartsTableActionHandler
 {
-    public function __construct(private EntityManagerInterface $entityManager, private Security $security, private UrlGeneratorInterface $urlGenerator)
+    public function __construct(private EntityManagerInterface $entityManager, private Security $security, private UrlGeneratorInterface $urlGenerator,
+        private AgentJobCreator $agentJobCreator, private RequestStack $requestStack)
     {
     }
 
@@ -77,13 +83,32 @@ final readonly class PartsTableActionHandler
             );
         }
 
-        if ($action === 'generate_label' || $action === 'generate_label_lot') {
+        if (in_array($action, ['generate_label', 'generate_label_lot', 'print_label', 'print_label_lot'], true)) {
+            $lots = $action === 'generate_label_lot' || $action === 'print_label_lot';
             //For parts we can just use the comma separated part IDs
-            if ($action === 'generate_label') {
+            if (!$lots) {
                 $targets = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
             } else { //For lots we have to extract the part lots
                 $targets = implode(',', array_map(static fn(Part $part): string => //We concat the lot IDs of every part with a comma (which are later concated with a comma too per part)
 implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPartLots()->toArray())), $selected_parts));
+            }
+
+            $type = $lots ? LabelSupportedElement::PART_LOT : LabelSupportedElement::PART;
+
+            //Print directly on the profile's default printer, if one of the user's print agents has it
+            $profile = $target_id !== null ? $this->entityManager->find(LabelProfile::class, $target_id) : null;
+            $user = $this->security->getUser();
+            if (str_starts_with($action, 'print_') && $profile instanceof LabelProfile && $user instanceof User
+                && $this->security->isGranted('read', $profile) && $targets !== '') {
+                $printer = $this->agentJobCreator->defaultPrinterFor($user, $profile);
+                if ($printer !== null) {
+                    $job = $this->agentJobCreator->create($user, $printer['agent'], $printer['id'], $profile, $type, $targets);
+                    $this->requestStack->getSession()->getFlashBag()->add('success', t('label_generator.print.sent', [
+                        '%count%' => $this->agentJobCreator->countLabels($job->getPayload()['element_ids']),
+                        '%printer%' => $printer['name'],
+                    ]));
+                    return new RedirectResponse($redirect_url ?? $this->urlGenerator->generate('homepage'));
+                }
             }
 
             return new RedirectResponse(
@@ -91,7 +116,7 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
                     'profile' => $target_id,
                     'target_id' => $targets,
                     'generate' => '1',
-                    'target_type' => $action === 'generate_label_lot' ? 'part_lot' : 'part',
+                    'target_type' => $type->value,
                 ])
             );
         }
