@@ -100,10 +100,15 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
             $profile = $target_id !== null ? $this->entityManager->find(LabelProfile::class, $target_id) : null;
             $user = $this->security->getUser();
             if (str_starts_with($action, 'print_') && $profile instanceof LabelProfile && $user instanceof User
-                && $this->security->isGranted('read', $profile) && $targets !== '') {
+                && $this->security->isGranted('@labels.create_labels') && $this->security->isGranted('read', $profile)) {
                 $printer = $this->agentJobCreator->defaultPrinterFor($user, $profile);
+                try {
+                    $ids = $this->agentJobCreator->normalizeIds($targets);
+                } catch (\InvalidArgumentException) {
+                    $printer = null; //e.g. parts without lots: the dialog shows what is wrong
+                }
                 if ($printer !== null) {
-                    $job = $this->agentJobCreator->create($user, $printer['agent'], $printer['id'], $profile, $type, $targets);
+                    $job = $this->agentJobCreator->create($user, $printer['agent'], $printer['id'], $profile, $type, $ids);
                     $session = $this->requestStack->getSession();
                     if ($session instanceof FlashBagAwareSessionInterface) {
                         $session->getFlashBag()->add('success', t('label_generator.print.sent', [

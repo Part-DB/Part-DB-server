@@ -272,4 +272,33 @@ final class LabelControllerTest extends WebTestCase
         $this->assertSelectorExists('input[name$="[default_printer]"][list="agent_printers"][value="fake"]');
         $this->assertSelectorExists('datalist#agent_printers option[value="fake"]');
     }
+
+    public function testPrintOnlyRedirectsWithinPartDB(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+        $this->agentWithDefaultPrinter($client);
+        $crawler = $client->request('GET', '/en/label/1/dialog?target_id=1&target_type=part&generate=1');
+        $form = $crawler->filter(self::AGENT_FORM.' button[name="printer"]')->first()->form();
+
+        foreach (['//evil.example', '/\\evil.example', "/\t/evil.example", 'https://evil.example'] as $redirect) {
+            $client->request('POST', $form->getUri(), ['_redirect' => $redirect] + $form->getValues() + ['printer' => $form->getValues()['printer'] ?? $form->get('printer')->getValue()]);
+            $this->assertResponseRedirects();
+            $this->assertStringStartsWith('/en/label/1/dialog', $client->getResponse()->headers->get('Location'), $redirect);
+        }
+    }
+
+    public function testResendToARemovedPrinterIsRefused(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+        $agent = $this->agentWithDefaultPrinter($client);
+        $job = $this->jobFor($client, $agent);
+        $agent->setPrinters([['id' => 'other']]);
+        $client->getContainer()->get(EntityManagerInterface::class)->flush();
+        $crawler = $client->request('GET', '/en/label/agent');
+
+        $client->submit($crawler->filter('form[action$="/jobs/'.$job->getId().'/resend"]')->form());
+        $this->assertCount(1, $this->jobs($client), 'no new job for a printer the agent no longer has');
+    }
 }

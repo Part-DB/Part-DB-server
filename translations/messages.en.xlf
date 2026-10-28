@@ -16322,5 +16322,11 @@ Buerklin-API Authentication server:
         <target>The printer id as reported by your print agents (see Tools → Print agent). Print buttons use this printer for this profile.</target>
       </segment>
     </unit>
+    <unit id="BnN2Yvu" name="label_generator.agent.job_printer_gone">
+      <segment state="translated">
+        <source>label_generator.agent.job_printer_gone</source>
+        <target>The print agent no longer reports this printer, so the job was not sent again.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

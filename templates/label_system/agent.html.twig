@@ -59,7 +59,11 @@
                     <td>{{ agent.name }} <span class="text-muted">{{ agent.version }}</span></td>
                     <td>
                         {% for printer in agent.printers %}
-                            {{ agent.printerName(printer.id) }} <code>{{ printer.id }}</code>{% if not loop.last %}<br>{% endif %}
+                            {{ agent.printerName(printer.id) }} <code>{{ printer.id }}</code>
+                            {% for key in ['model', 'media', 'status'] %}
+                                {% if printer[key] is defined and printer[key] is not iterable and printer[key] is not empty %}<span class="text-muted">· {{ printer[key] }}</span>{% endif %}
+                            {% endfor %}
+                            {% if not loop.last %}<br>{% endif %}
                         {% endfor %}
                     </td>
                     <td>
