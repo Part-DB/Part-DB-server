@@ -40,4 +40,88 @@
             {% trans %}label_generator.agent.none{% endtrans %}
         </div>
     </div>
+
+    {% set agent_token = csrf_token('label_agent') %}
+    <h5 class="mt-4">{% trans %}label_generator.agent.agents{% endtrans %}</h5>
+    {% if agents is empty %}
+        <p class="text-muted">{% trans %}label_generator.agent.no_agents{% endtrans %}</p>
+    {% else %}
+        <table class="table table-sm">
+            <thead><tr>
+                <th>{% trans %}label_generator.agent.agent{% endtrans %}</th>
+                <th>{% trans %}label_generator.agent.printers{% endtrans %}</th>
+                <th>{% trans %}label_generator.agent.last_seen{% endtrans %}</th>
+                <th></th>
+            </tr></thead>
+            <tbody>
+            {% for agent in agents %}
+                <tr>
+                    <td>{{ agent.name }} <span class="text-muted">{{ agent.version }}</span></td>
+                    <td>
+                        {% for printer in agent.printers %}
+                            {{ agent.printerName(printer.id) }} <code>{{ printer.id }}</code>{% if not loop.last %}<br>{% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% if agent.online %}
+                            <span class="badge bg-success">{% trans %}label_generator.agent.online{% endtrans %}</span>
+                        {% else %}
+                            <span class="badge bg-secondary">{% trans %}label_generator.agent.offline{% endtrans %}</span>
+                        {% endif %}
+                        {% if agent.lastSeenAt %}{{ agent.lastSeenAt|format_datetime('short', 'short') }}{% endif %}
+                    </td>
+                    <td>
+                        <form method="post" action="{{ path('label_agent_remove', {'id': agent.id}) }}" data-turbo-confirm="{% trans %}label_generator.agent.remove.confirm{% endtrans %}">
+                            <input type="hidden" name="_token" value="{{ agent_token }}" data-agent-token>
+                            <button type="submit" class="btn btn-sm btn-outline-danger">{% trans %}label_generator.agent.remove{% endtrans %}</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    {% if jobs is not empty %}
+        <h5 class="mt-4">{% trans %}label_generator.agent.jobs{% endtrans %}</h5>
+        <table class="table table-sm">
+            <thead><tr>
+                <th>{% trans %}label_generator.agent.job.created{% endtrans %}</th>
+                <th>{% trans %}label_generator.agent.job.printer{% endtrans %}</th>
+                <th>{% trans %}label_generator.agent.job.labels{% endtrans %}</th>
+                <th>{% trans %}label_generator.agent.job.status{% endtrans %}</th>
+                <th></th>
+            </tr></thead>
+            <tbody>
+            {% for job in jobs %}
+                <tr>
+                    <td>{{ job.createdAt|format_datetime('short', 'short') }}</td>
+                    <td>{{ job.agent.printerName(job.printer) }} <span class="text-muted">({{ job.agent.name }})</span></td>
+                    <td>{{ job.payload.element_type ?? job.type }} {{ job.payload.element_ids ?? '' }}
+                        {% if job.payload.profile_id is defined %}<span class="text-muted">· #{{ job.payload.profile_id }}</span>{% endif %}</td>
+                    <td>
+                        {% if job.stale %}
+                            {% trans %}label_generator.agent.job.status.unknown{% endtrans %}
+                        {% else %}
+                            {{ ('label_generator.agent.job.status.' ~ job.status.value)|trans }}
+                        {% endif %}
+                        {% if job.message %}<br><small class="text-muted">{{ job.message }}</small>{% endif %}
+                    </td>
+                    <td class="text-nowrap">
+                        {% if job.status.value == 'pending' %}
+                            <form method="post" action="{{ path('label_agent_job_cancel', {'id': job.id}) }}" class="d-inline">
+                                <input type="hidden" name="_token" value="{{ agent_token }}" data-agent-token>
+                                <button type="submit" class="btn btn-sm btn-outline-secondary">{% trans %}label_generator.agent.job.cancel{% endtrans %}</button>
+                            </form>
+                        {% endif %}
+                        <form method="post" action="{{ path('label_agent_job_resend', {'id': job.id}) }}" class="d-inline">
+                            <input type="hidden" name="_token" value="{{ agent_token }}" data-agent-token>
+                            <button type="submit" class="btn btn-sm btn-outline-primary">{% trans %}label_generator.agent.job.resend{% endtrans %}</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 {% endblock %}
