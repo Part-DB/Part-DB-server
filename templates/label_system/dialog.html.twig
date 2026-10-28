@@ -129,14 +129,44 @@
                     {% trans %}label_generator.download{% endtrans %}
                 </a>
                 {% if profile %}
-                    <button type="button" class="btn btn-primary d-none" title="{% trans %}label_generator.print.title{% endtrans %}"
-                            {{ stimulus_controller('pages/print_agent_print', {
-                                'profile': profile.id,
-                                'ids': form.target_id.vars.value,
-                                'type': profile.options.supportedElement.value
-                            }) }} {{ stimulus_action('pages/print_agent_print', 'print') }}>
-                        <i class="fas fa-print fa-fw"></i> {% trans %}label_generator.print{% endtrans %}
-                    </button>
+                    {% set local_agent = stimulus_controller('pages/print_agent_print', {
+                        'profile': profile.id,
+                        'ids': form.target_id.vars.value,
+                        'type': profile.options.supportedElement.value
+                    }) ~ ' ' ~ stimulus_action('pages/print_agent_print', 'print') %}
+                    {% set printers = agent_printers() %}
+                    {% if printers is not empty %}
+                        {% set default_printer = agent_default_printer(profile) ?? printers|first %}
+                        <form method="post" action="{{ path('label_print') }}" class="d-inline-block">
+                            <input type="hidden" name="_token" value="{{ csrf_token('label_print') }}">
+                            <input type="hidden" name="profile" value="{{ profile.id }}">
+                            <input type="hidden" name="target_type" value="{{ profile.options.supportedElement.value }}">
+                            <input type="hidden" name="target_id" value="{{ form.target_id.vars.value }}">
+                            <input type="hidden" name="_redirect" value="{{ app.request.requestUri }}">
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-primary" name="printer" value="{{ default_printer.agent.id }}|{{ default_printer.id }}">
+                                    <i class="fas fa-print fa-fw"></i> {% trans with {'%printer%': default_printer.name} %}label_generator.print.to{% endtrans %}
+                                </button>
+                                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="visually-hidden">{% trans %}label_generator.print.choose_printer{% endtrans %}</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    {% for printer in printers %}
+                                        <li><button type="submit" class="dropdown-item" name="printer" value="{{ printer.agent.id }}|{{ printer.id }}">
+                                            {{ printer.name }} <span class="text-muted">({{ printer.agent.name }})</span>
+                                        </button></li>
+                                    {% endfor %}
+                                    <li><button type="button" class="dropdown-item d-none" {{ local_agent|raw }}>
+                                        {% trans %}label_generator.print.this_computer{% endtrans %}
+                                    </button></li>
+                                </ul>
+                            </div>
+                        </form>
+                    {% else %}
+                        <button type="button" class="btn btn-primary d-none" title="{% trans %}label_generator.print.title{% endtrans %}" {{ local_agent|raw }}>
+                            <i class="fas fa-print fa-fw"></i> {% trans %}label_generator.print{% endtrans %}
+                        </button>
+                    {% endif %}
                 {% endif %}
             </div>
         </div>
