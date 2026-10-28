@@ -109,7 +109,7 @@ class AgentApiController extends AbstractController
     public function claim(int $id): JsonResponse
     {
         $job = $this->ownJob($id);
-        /** @var AgentJobRepository $repo */
+        /** @var AgentJobRepository<AgentJob> $repo */
         $repo = $this->em->getRepository(AgentJob::class);
         if (!$repo->claim($job)) {
             throw new ConflictHttpException('The job is not pending anymore');

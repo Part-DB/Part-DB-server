@@ -27,7 +27,8 @@ use App\Entity\AgentSystem\AgentJobStatus;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * @extends EntityRepository<AgentJob>
+ * @template TEntityClass of AgentJob
+ * @extends EntityRepository<TEntityClass>
  */
 class AgentJobRepository extends EntityRepository
 {

@@ -128,7 +128,7 @@ final readonly class AgentJobCreator
 
     private function save(AgentJob $job): AgentJob
     {
-        /** @var AgentJobRepository $repo */
+        /** @var AgentJobRepository<AgentJob> $repo */
         $repo = $this->em->getRepository(AgentJob::class);
         $repo->pruneFinished(new \DateTimeImmutable('-'.AgentJob::KEEP_DAYS.' days'));
         $this->em->persist($job);
