@@ -38,6 +38,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\FlashBagAwareSessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -103,10 +104,13 @@ implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPart
                 $printer = $this->agentJobCreator->defaultPrinterFor($user, $profile);
                 if ($printer !== null) {
                     $job = $this->agentJobCreator->create($user, $printer['agent'], $printer['id'], $profile, $type, $targets);
-                    $this->requestStack->getSession()->getFlashBag()->add('success', t('label_generator.print.sent', [
-                        '%count%' => $this->agentJobCreator->countLabels($job->getPayload()['element_ids']),
-                        '%printer%' => $printer['name'],
-                    ]));
+                    $session = $this->requestStack->getSession();
+                    if ($session instanceof FlashBagAwareSessionInterface) {
+                        $session->getFlashBag()->add('success', t('label_generator.print.sent', [
+                            '%count%' => $this->agentJobCreator->countLabels($job->getPayload()['element_ids']),
+                            '%printer%' => $printer['name'],
+                        ]));
+                    }
                     return new RedirectResponse($redirect_url ?? $this->urlGenerator->generate('homepage'));
                 }
             }
