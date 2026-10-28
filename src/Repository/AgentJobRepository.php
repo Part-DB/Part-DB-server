@@ -58,6 +58,25 @@ class AgentJobRepository extends EntityRepository
     }
 
     /**
+     * Atomically cancels a pending job. Returns false if an agent claimed it first.
+     */
+    public function cancel(AgentJob $job): bool
+    {
+        return $this->createQueryBuilder('j')
+            ->update()
+            ->set('j.status', ':cancelled')
+            ->set('j.updatedAt', ':now')
+            ->where('j.id = :id')
+            ->andWhere('j.status = :pending')
+            ->setParameter('cancelled', AgentJobStatus::CANCELLED)
+            ->setParameter('pending', AgentJobStatus::PENDING)
+            ->setParameter('now', new \DateTimeImmutable(), 'datetime_immutable')
+            ->setParameter('id', $job->getId())
+            ->getQuery()
+            ->execute() === 1;
+    }
+
+    /**
      * Deletes finished jobs last updated before the given time.
      */
     public function pruneFinished(\DateTimeImmutable $before): int

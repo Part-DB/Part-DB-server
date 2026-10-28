@@ -49,6 +49,8 @@ class AgentApiController extends AbstractController
     public const POLL_SECONDS = 30;
     private const MAX_PRINTERS = 50;
     private const MAX_STRING = 255;
+    /** Heartbeats carry a few printers; anything bigger is a mistake (or abuse) and must not reach the JSON column */
+    private const MAX_BODY = 65536;
 
     public function __construct(private readonly EntityManagerInterface $em, private readonly Security $security)
     {
@@ -148,6 +150,8 @@ class AgentApiController extends AbstractController
             throw $this->createAccessDeniedException('Agents must authenticate with an API token');
         }
         $this->denyAccessUnlessGranted('@labels.create_labels');
+        //Agents fetch the labels via the API, which needs API access too
+        $this->denyAccessUnlessGranted('@api.access_api');
         $user = $this->getUser();
         if (!$user instanceof User) {
             throw $this->createAccessDeniedException();
@@ -172,6 +176,9 @@ class AgentApiController extends AbstractController
     {
         if ($request->getContent() === '') {
             return [];
+        }
+        if (strlen($request->getContent()) > self::MAX_BODY) {
+            throw new BadRequestHttpException('Request body too large');
         }
         try {
             $body = json_decode($request->getContent(), true, 16, JSON_THROW_ON_ERROR);

@@ -153,4 +153,21 @@ final class PartsTableActionHandlerTest extends WebTestCase
         $this->assertStringContainsString('generate=1', $result->getTargetUrl());
         $this->assertCount(0, self::getContainer()->get(EntityManagerInterface::class)->getRepository(AgentJob::class)->findAll());
     }
+
+    public function testPrintLotLabelsForPartsWithoutLotsOpensTheDialog(): void
+    {
+        $this->loginAndGetParts();
+        $em = self::getContainer()->get(EntityManagerInterface::class);
+        $agent = (new Agent())->setOwner($em->getRepository(User::class)->findOneBy(['name' => 'admin']))
+            ->setUuid('table-test-agent')->setPrinters([['id' => 'fake']])->setLastSeenAt(new \DateTimeImmutable());
+        $em->persist($agent);
+        $em->find(LabelProfile::class, 3)->setDefaultPrinter('fake'); //fixture profile 3 is for part lots
+        $em->flush();
+        $withoutLots = [new Part(), new Part()];
+
+        $result = $this->service->handleAction('print_label_lot', $withoutLots, 3, '/en/parts');
+
+        $this->assertStringContainsString('/label/3/dialog', $result?->getTargetUrl() ?? '');
+        $this->assertCount(0, $em->getRepository(AgentJob::class)->findAll());
+    }
 }

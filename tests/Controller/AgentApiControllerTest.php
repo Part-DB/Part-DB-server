@@ -152,6 +152,7 @@ final class AgentApiControllerTest extends WebTestCase
             'printer id too long' => ['name' => 'x', 'printers' => [['id' => str_repeat('a', 256)]]],
             'too many printers' => ['name' => 'x', 'printers' => array_fill(0, 51, ['id' => 'p'])],
             'name too long' => ['name' => str_repeat('a', 256), 'printers' => []],
+            'huge printer details' => ['name' => 'x', 'printers' => [['id' => 'p', 'junk' => str_repeat('a', 70000)]]],
         ] as $case => $body) {
             $this->json('POST', '/agents/'.self::UUID.'/heartbeat', $body);
             $this->assertResponseStatusCodeSame(400, $case);

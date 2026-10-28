@@ -52,6 +52,7 @@ use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\UserSystem\User;
 use App\Exceptions\TwigModeException;
 use App\Form\LabelSystem\LabelDialogType;
+use App\Repository\AgentJobRepository;
 use App\Repository\DBElementRepository;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\LabelSystem\AgentJobCreator;
@@ -240,6 +241,10 @@ class LabelController extends AbstractController
     public function agentJobResend(int $id, Request $request, AgentJobCreator $agentJobCreator): Response
     {
         $job = $this->ownAgentJob($id, $request);
+        if (!$job->getAgent()?->hasPrinter($job->getPrinter())) {
+            $this->addFlash('error', t('label_generator.agent.job_printer_gone'));
+            return $this->redirectToRoute('label_agent');
+        }
         $agentJobCreator->resend($job);
         $this->addFlash('success', t('label_generator.agent.job_resent'));
 
@@ -250,10 +255,9 @@ class LabelController extends AbstractController
     public function agentJobCancel(int $id, Request $request): Response
     {
         $job = $this->ownAgentJob($id, $request);
-        if ($job->getStatus() === AgentJobStatus::PENDING) {
-            $job->setStatus(AgentJobStatus::CANCELLED);
-            $this->em->flush();
-        }
+        /** @var AgentJobRepository<AgentJob> $repo */
+        $repo = $this->em->getRepository(AgentJob::class);
+        $repo->cancel($job); //only while pending: an agent may claim it at the same moment
 
         return $this->redirectToRoute('label_agent');
     }
@@ -340,9 +344,9 @@ class LabelController extends AbstractController
             $this->addFlash('warning', t('label_generator.print.sent_offline', $params));
         }
 
-        //Only redirect to local paths ("//host" and "/\host" would leave Part-DB)
+        //Only redirect to local paths ("//host", "/\host" and control characters, which browsers strip, could leave Part-DB)
         $redirect = $request->request->getString('_redirect');
-        if (preg_match('#^/(?![/\\\\])#', $redirect) === 1) {
+        if (preg_match('#^/(?![/\\\\])[^\x00-\x1f\x7f]*$#', $redirect) === 1) {
             return $this->redirect($redirect);
         }
         return $this->redirectToRoute('label_dialog_profile', ['profile' => $profile->getID(), 'target_id' => $job->getPayload()['element_ids']]);

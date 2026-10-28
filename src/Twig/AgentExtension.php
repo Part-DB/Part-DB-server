@@ -28,9 +28,12 @@ use App\Services\LabelSystem\AgentJobCreator;
 use Symfony\Bundle\SecurityBundle\Security;
 use Twig\Attribute\AsTwigFunction;
 
-final readonly class AgentExtension
+final class AgentExtension
 {
-    public function __construct(private AgentJobCreator $agentJobCreator, private Security $security)
+    /** @var array<int, list<array{agent: \App\Entity\AgentSystem\Agent, id: string, name: string}>> Per request: label menus ask for every profile */
+    private array $printers = [];
+
+    public function __construct(private readonly AgentJobCreator $agentJobCreator, private readonly Security $security)
     {
     }
 
@@ -45,7 +48,7 @@ final readonly class AgentExtension
         if (!$user instanceof User || !$this->security->isGranted('@labels.create_labels')) {
             return [];
         }
-        return $this->agentJobCreator->printersFor($user);
+        return $this->printers[$user->getID()] ??= $this->agentJobCreator->printersFor($user);
     }
 
     /**
@@ -55,10 +58,14 @@ final readonly class AgentExtension
     #[AsTwigFunction("agent_default_printer")]
     public function agentDefaultPrinter(LabelProfile $profile): ?array
     {
-        $user = $this->security->getUser();
-        if (!$user instanceof User || !$this->security->isGranted('@labels.create_labels')) {
+        if ($profile->getDefaultPrinter() === '') {
             return null;
         }
-        return $this->agentJobCreator->defaultPrinterFor($user, $profile);
+        foreach ($this->agentPrinters() as $printer) {
+            if ($printer['id'] === $profile->getDefaultPrinter()) {
+                return $printer;
+            }
+        }
+        return null;
     }
 }
