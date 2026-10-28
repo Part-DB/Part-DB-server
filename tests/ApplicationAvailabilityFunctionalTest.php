@@ -123,6 +123,7 @@ final class ApplicationAvailabilityFunctionalTest extends WebTestCase
         yield ['/label/dialog?target_id=1&target_type=part'];
         yield ['/label/1/dialog'];
         yield ['/label/1/dialog?target_id=1&target_type=part&generate=1'];
+        yield ['/label/agent'];
 
         //Scan test
         yield ['/scan'];  //Interactive scan dialog
