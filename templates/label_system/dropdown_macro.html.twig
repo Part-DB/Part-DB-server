@@ -14,10 +14,10 @@
                 <div class="d-flex">
                     <a class="dropdown-item" href="{{ path('label_dialog_profile', {'profile': profile.id, 'target_type': type, 'target_id': id, 'generate': true}) }}">{{ profile.name }}</a>
                     {% if id is not null %}
-                        <button type="button" class="btn btn-link btn-sm d-none" title="{% trans %}label_generator.print.title{% endtrans %}"
+                        <button type="button" class="btn btn-link btn-sm d-none" title="{% trans with {'%name%': profile.name} %}label_generator.print.profile{% endtrans %}"
                                 {{ stimulus_controller('pages/print_agent_print', {'profile': profile.id, 'ids': id, 'type': type}) }}
                                 {{ stimulus_action('pages/print_agent_print', 'print') }}>
-                            <i class="fas fa-print fa-fw"></i><span class="visually-hidden">{% trans %}label_generator.print{% endtrans %}</span>
+                            <i class="fas fa-print fa-fw"></i><span class="visually-hidden">{% trans with {'%name%': profile.name} %}label_generator.print.profile{% endtrans %}</span>
                         </button>
                     {% endif %}
                 </div>

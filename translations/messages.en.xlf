@@ -16118,5 +16118,11 @@ Buerklin-API Authentication server:
         <target>Print with your print agent (uses the saved label profile)</target>
       </segment>
     </unit>
+    <unit id="AX8JTBJ" name="label_generator.print.profile">
+      <segment state="translated">
+        <source>label_generator.print.profile</source>
+        <target>Print with label profile %name% (print agent)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
