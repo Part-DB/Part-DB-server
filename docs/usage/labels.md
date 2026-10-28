@@ -51,6 +51,33 @@ for by scheme, host and port. If the browser has no WebCrypto support (Part-DB s
 Anyone who can run JavaScript on your Part-DB pages could read the pairing key from local storage and ask your agent to
 print labels; it gives no access to Part-DB data.
 
+### Print jobs
+
+A print agent can also fetch print jobs from Part-DB. This works from any device (also a phone) and through NAT,
+because the agent connects to Part-DB, not the other way round. The agent registers itself with an API token of its
+user; a read-only token is enough, but the user needs the "create labels" permission. Agents and their jobs are only
+visible to their owner, under "Tools -> Print agent".
+
+Once an agent has reported its printers, the label generator's "Print" button sends the label to one of them, and a label
+profile can name a default printer (the printer id reported by the agent): the printer icons in the label menus and
+the "Print labels" actions of the parts tables then print on it in one click.
+
+The agent API uses JSON and the usual `Authorization: Bearer <token>` header (`en` can be any language prefix):
+
+* `POST /en/agent-api/v1/agents/<uuid>/heartbeat` with `{"name": "...", "version": "...", "printers": [{"id": "ql810", "name": "Brother QL-810W"}]}`
+  registers or updates the agent. The agent generates the UUID once and keeps it, so a new API token keeps its jobs.
+  Each printer needs a string `id`; other fields are stored as they are. Returns `{"agent_id": 1, "poll_seconds": 30}`.
+  Agents should send it about every `poll_seconds`; an agent that has not reported for two minutes is shown offline.
+* `GET /en/agent-api/v1/agents/<uuid>/jobs` returns the pending jobs, oldest first:
+  `[{"id": 7, "type": "print", "printer": "ql810", "payload": {"profile_id": 2, "element_type": "part", "element_ids": "1,2,5-10"}, "created_at": "..."}]`.
+  For print jobs, the agent fetches the PDF with `POST /api/labels/generate`.
+* `POST /en/agent-api/v1/jobs/<id>/claim` claims a pending job (`409` if it is not pending anymore). Only claim a job
+  right before handling it.
+* `POST /en/agent-api/v1/jobs/<id>/result` with `{"status": "done"|"failed", "message": "..."}` reports the result.
+
+Part-DB never re-queues a job by itself: a claimed job without a result is shown as "unknown" after ten minutes, and the
+user can send it again. Finished jobs are deleted after 30 days.
+
 ## Label placeholders
 
 A placeholder has the format `[[PLACEHOLDER]]` and will be filled with the concrete data by Part-DB.
