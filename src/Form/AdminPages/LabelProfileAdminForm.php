@@ -45,6 +45,7 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Form\LabelOptionsType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -62,6 +63,13 @@ class LabelProfileAdminForm extends BaseEntityAdminForm
         $builder->add('show_in_dropdown', CheckboxType::class, [
             'required' => false,
             'label' => 'label_profile.showInDropdown',
+        ]);
+        $builder->add('default_printer', TextType::class, [
+            'required' => false,
+            'empty_data' => '',
+            'label' => 'label_profile.default_printer',
+            'help' => 'label_profile.default_printer.help',
+            'attr' => ['list' => 'agent_printers', 'autocomplete' => 'off'],
         ]);
         $builder->add('options', LabelOptionsType::class, [
             'label' => false,

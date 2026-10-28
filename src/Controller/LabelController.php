@@ -42,6 +42,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\AgentSystem\Agent;
+use App\Entity\AgentSystem\AgentJob;
+use App\Entity\AgentSystem\AgentJobStatus;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\LabelSystem\LabelProcessMode;
@@ -224,8 +226,73 @@ class LabelController extends AbstractController
     public function agent(): Response
     {
         $this->denyAccessUnlessGranted('@labels.create_labels');
+        $user = $this->getUser();
 
-        return $this->render('label_system/agent.html.twig');
+        return $this->render('label_system/agent.html.twig', [
+            'agents' => $user instanceof User ? $this->em->getRepository(Agent::class)->findBy(['owner' => $user], ['lastSeenAt' => 'DESC']) : [],
+            'jobs' => $user instanceof User ? $this->em->getRepository(AgentJob::class)->createQueryBuilder('j')
+                ->join('j.agent', 'a')->where('a.owner = :user')->setParameter('user', $user)
+                ->orderBy('j.id', 'DESC')->setMaxResults(50)->getQuery()->getResult() : [],
+        ]);
+    }
+
+    #[Route(path: '/agent/jobs/{id}/resend', name: 'label_agent_job_resend', methods: ['POST'])]
+    public function agentJobResend(int $id, Request $request, AgentJobCreator $agentJobCreator): Response
+    {
+        $job = $this->ownAgentJob($id, $request);
+        $agentJobCreator->resend($job);
+        $this->addFlash('success', t('label_generator.agent.job_resent'));
+
+        return $this->redirectToRoute('label_agent');
+    }
+
+    #[Route(path: '/agent/jobs/{id}/cancel', name: 'label_agent_job_cancel', methods: ['POST'])]
+    public function agentJobCancel(int $id, Request $request): Response
+    {
+        $job = $this->ownAgentJob($id, $request);
+        if ($job->getStatus() === AgentJobStatus::PENDING) {
+            $job->setStatus(AgentJobStatus::CANCELLED);
+            $this->em->flush();
+        }
+
+        return $this->redirectToRoute('label_agent');
+    }
+
+    #[Route(path: '/agent/agents/{id}/remove', name: 'label_agent_remove', methods: ['POST'])]
+    public function agentRemove(int $id, Request $request): Response
+    {
+        $this->checkAgentPageRequest($request);
+        $agent = $this->em->find(Agent::class, $id);
+        if (!$agent instanceof Agent || $agent->getOwner() !== $this->getUser()) {
+            throw $this->createNotFoundException();
+        }
+        //Not relying on ON DELETE CASCADE: SQLite only enforces foreign keys if configured to
+        $this->em->createQuery('DELETE FROM '.AgentJob::class.' j WHERE j.agent = :agent')->setParameter('agent', $agent)->execute();
+        $this->em->remove($agent);
+        $this->em->flush();
+
+        return $this->redirectToRoute('label_agent');
+    }
+
+    private function checkAgentPageRequest(Request $request): void
+    {
+        $this->denyAccessUnlessGranted('@labels.create_labels');
+        if (!$this->isCsrfTokenValid('label_agent', $request->request->getString('_token'))) {
+            throw new BadRequestHttpException('Invalid CSRF token');
+        }
+    }
+
+    /**
+     * A job of one of the current user's agents; other users' jobs are reported as missing.
+     */
+    private function ownAgentJob(int $id, Request $request): AgentJob
+    {
+        $this->checkAgentPageRequest($request);
+        $job = $this->em->find(AgentJob::class, $id);
+        if (!$job instanceof AgentJob || $job->getAgent()?->getOwner() !== $this->getUser()) {
+            throw $this->createNotFoundException();
+        }
+        return $job;
     }
 
     /**

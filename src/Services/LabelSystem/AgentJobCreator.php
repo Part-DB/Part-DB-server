@@ -110,6 +110,24 @@ final readonly class AgentJobCreator
                 'element_ids' => $this->normalizeIds($ids),
             ]);
 
+        return $this->save($job);
+    }
+
+    /**
+     * Sends the same job again (as a new job, so the history stays intact).
+     */
+    public function resend(AgentJob $job): AgentJob
+    {
+        return $this->save((new AgentJob())
+            ->setAgent($job->getAgent())
+            ->setPrinter($job->getPrinter())
+            ->setType($job->getType())
+            ->setCreatedBy($job->getCreatedBy())
+            ->setPayload($job->getPayload()));
+    }
+
+    private function save(AgentJob $job): AgentJob
+    {
         /** @var AgentJobRepository $repo */
         $repo = $this->em->getRepository(AgentJob::class);
         $repo->pruneFinished(new \DateTimeImmutable('-'.AgentJob::KEEP_DAYS.' days'));

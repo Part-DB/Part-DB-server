@@ -190,4 +190,86 @@ final class LabelControllerTest extends WebTestCase
         $this->assertResponseRedirects('/en/part/1');
         $this->assertSame('1', $this->jobs($client)[0]->getPayload()['element_ids']);
     }
+
+    private function jobFor(KernelBrowser $client, Agent $agent): AgentJob
+    {
+        $em = $client->getContainer()->get(EntityManagerInterface::class);
+        $job = (new AgentJob())->setAgent($agent)->setPrinter('fake')
+            ->setPayload(['profile_id' => 1, 'element_type' => 'part', 'element_ids' => '7-9']);
+        $em->persist($job);
+        $em->flush();
+        return $job;
+    }
+
+    public function testAgentPageListsOwnAgentsAndJobs(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+        $own = $this->agentWithDefaultPrinter($client);
+        $this->jobFor($client, $own);
+        $foreign = $this->agentWithDefaultPrinter($client, 'user')->setName('someone else');
+        $client->getContainer()->get(EntityManagerInterface::class)->flush();
+        $client->request('GET', '/en/label/agent');
+
+        $this->assertResponseIsSuccessful();
+        $content = $client->getResponse()->getContent();
+        $this->assertStringContainsString('bench pc', $content);
+        $this->assertStringContainsString('Fake QL', $content);
+        $this->assertStringContainsString('7-9', $content);
+        $this->assertStringNotContainsString('someone else', $content);
+    }
+
+    public function testAgentPageActions(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+        $agent = $this->agentWithDefaultPrinter($client);
+        $job = $this->jobFor($client, $agent);
+        $jobId = $job->getId();
+        $crawler = $client->request('GET', '/en/label/agent');
+
+        $client->submit($crawler->filter('form[action$="/jobs/'.$jobId.'/resend"]')->form());
+        $this->assertResponseRedirects('/en/label/agent');
+        $this->assertCount(2, $this->jobs($client));
+
+        $crawler = $client->request('GET', '/en/label/agent');
+        $client->submit($crawler->filter('form[action$="/jobs/'.$jobId.'/cancel"]')->form());
+        $em = $client->getContainer()->get(EntityManagerInterface::class);
+        $em->clear();
+        $this->assertSame(AgentJobStatus::CANCELLED, $em->find(AgentJob::class, $jobId)->getStatus());
+
+        $crawler = $client->request('GET', '/en/label/agent');
+        $client->submit($crawler->filter('form[action$="/agents/'.$agent->getId().'/remove"]')->form());
+        $this->assertCount(0, $this->jobs($client), 'removing an agent removes its jobs');
+        $this->assertNull($em->find(Agent::class, $agent->getId()));
+    }
+
+    public function testAgentPageActionsOnForeignAgentsAre404(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+        $this->agentWithDefaultPrinter($client); //an own agent, so the page has a form token
+        $foreign = $this->agentWithDefaultPrinter($client, 'user');
+        $job = $this->jobFor($client, $foreign);
+        $crawler = $client->request('GET', '/en/label/agent');
+        $token = $crawler->filter('input[name="_token"][data-agent-token]')->attr('value');
+
+        foreach (['/en/label/agent/jobs/'.$job->getId().'/resend', '/en/label/agent/jobs/'.$job->getId().'/cancel',
+                     '/en/label/agent/agents/'.$foreign->getId().'/remove'] as $url) {
+            $client->request('POST', $url, ['_token' => $token]);
+            $this->assertResponseStatusCodeSame(404, $url);
+        }
+    }
+
+    public function testProfileFormSuggestsAgentPrinters(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+        $this->agentWithDefaultPrinter($client);
+        $client->request('GET', '/en/label_profile/1');
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorExists('input[name$="[default_printer]"][list="agent_printers"][value="fake"]');
+        $this->assertSelectorExists('datalist#agent_printers option[value="fake"]');
+    }
 }
