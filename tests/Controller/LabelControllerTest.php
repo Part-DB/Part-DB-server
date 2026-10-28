@@ -61,4 +61,18 @@ final class LabelControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $this->assertSelectorNotExists(self::PRINT_BUTTON);
     }
+
+    public function testPartPageLabelMenuHasPrintIcons(): void
+    {
+        $client = static::createClient();
+        $this->loginAsAdmin($client);
+        $client->request('GET', '/en/part/1');
+
+        $this->assertResponseIsSuccessful();
+        //Fixture "Profile 1" (id 1) is a part profile shown in the dropdown
+        $this->assertSelectorExists('.dropdown-menu '.self::PRINT_BUTTON
+            .'[data-pages--print-agent-print-profile-value="1"]'
+            .'[data-pages--print-agent-print-ids-value="1"]'
+            .'[data-pages--print-agent-print-type-value="part"]');
+    }
 }
