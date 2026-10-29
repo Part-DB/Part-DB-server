@@ -27,8 +27,10 @@ use App\Entity\AgentSystem\Agent;
 use App\Entity\AgentSystem\AgentJob;
 use App\Entity\AgentSystem\AgentJobStatus;
 use App\Entity\UserSystem\User;
+use App\Services\LabelSystem\AgentJobPusher;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\Group;
+use Psr\Log\NullLogger;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -93,6 +95,33 @@ final class AgentApiControllerTest extends WebTestCase
         $this->assertSame('0.2.0', $agent->getVersion());
         $this->assertTrue($agent->hasPrinter('zebra'));
         $this->assertTrue($agent->isOnline());
+    }
+
+    public function testHeartbeatOmitsMercureWhenDisabled(): void
+    {
+        $this->assertArrayNotHasKey('mercure', $this->heartbeat());
+    }
+
+    public function testHeartbeatOffersMercureWhenEnabled(): void
+    {
+        $hub = 'http://127.0.0.1:3000/.well-known/mercure';
+        static::getContainer()->set(AgentJobPusher::class, new AgentJobPusher(new NullLogger(), $hub, 'http://mercure:3000/.well-known/mercure',
+            'test-secret-at-least-256-bits-long!!', 'https://localhost'));
+
+        $reply = $this->heartbeat();
+        $topic = 'urn:part-db:agent:'.$reply['agent_id'].':jobs';
+        $this->assertSame($hub, $reply['mercure']['hub']);
+        $this->assertSame($topic, $reply['mercure']['topic']);
+
+        [$header, $payload] = array_map(static fn(string $part): array => json_decode(base64_decode(strtr($part, '-_', '+/')), true),
+            array_slice(explode('.', $reply['mercure']['token']), 0, 2));
+        $this->assertSame('at+jwt', $header['typ']);
+        $this->assertSame(self::UUID, $payload['sub']);
+        $this->assertSame('https://localhost', $payload['iss']);
+        $this->assertContains($hub, (array) $payload['aud']);
+        $this->assertEqualsWithDelta(time() + 3600, $payload['exp'], 60);
+        $this->assertSame([['type' => 'https://mercure.rocks/authorization-detail', 'actions' => ['subscribe'], 'topics' => [['match' => $topic]]]],
+            $payload['authorization_details']);
     }
 
     public function testJobLifecycle(): void

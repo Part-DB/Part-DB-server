@@ -28,6 +28,7 @@ use App\Entity\AgentSystem\AgentJobStatus;
 use App\Entity\UserSystem\User;
 use App\Repository\AgentJobRepository;
 use App\Security\ApiTokenAuthenticatedToken;
+use App\Services\LabelSystem\AgentJobPusher;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,7 +53,8 @@ class AgentApiController extends AbstractController
     /** Heartbeats carry a few printers; anything bigger is a mistake (or abuse) and must not reach the JSON column */
     private const MAX_BODY = 65536;
 
-    public function __construct(private readonly EntityManagerInterface $em, private readonly Security $security)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly Security $security,
+        private readonly AgentJobPusher $pusher)
     {
     }
 
@@ -88,7 +90,13 @@ class AgentApiController extends AbstractController
             ->setLastSeenAt(new \DateTimeImmutable());
         $this->em->flush();
 
-        return new JsonResponse(['agent_id' => $agent->getId(), 'poll_seconds' => self::POLL_SECONDS]);
+        $reply = ['agent_id' => $agent->getId(), 'poll_seconds' => self::POLL_SECONDS];
+        $mercure = $this->pusher->subscription($agent);
+        if ($mercure !== null) {
+            $reply['mercure'] = $mercure;
+        }
+
+        return new JsonResponse($reply);
     }
 
     #[Route('/agents/{uuid}/jobs', name: 'agent_api_jobs', requirements: ['uuid' => '[0-9a-fA-F-]{8,36}'], methods: ['GET'])]
