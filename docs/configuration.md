@@ -256,9 +256,13 @@ Print agents normally poll Part-DB for [print jobs]({% link usage/labels.md %}#p
 In the FrankenPHP image (`partdborg/part-db`) the hub is built in: set `MERCURE_PUBLISHER_JWT_KEY` and
 `MERCURE_SUBSCRIBER_JWT_KEY` to the value of `MERCURE_JWT_SECRET`, `MERCURE_TRUSTED_ISSUERS` to the value of
 `MERCURE_JWT_ISSUER`, and `MERCURE_PUBLIC_URL` to `https://<your domain>/.well-known/mercure`.
-With the Apache image, run the `dunglas/mercure` image next to Part-DB with the same key and issuer (see its
-documentation), set `MERCURE_URL` to the URL under which Part-DB reaches it and `MERCURE_PUBLIC_URL` to the URL under
-which the agents reach it.
+With the Apache image, run the `dunglas/mercure` image next to Part-DB with the same `MERCURE_PUBLISHER_JWT_KEY`,
+`MERCURE_SUBSCRIBER_JWT_KEY` and `MERCURE_TRUSTED_ISSUERS`, set `MERCURE_URL` to the URL under which Part-DB reaches it
+and `MERCURE_PUBLIC_URL` to the URL under which the agents reach it.
+
+If a reverse proxy in front of the hub terminates TLS (e.g. Traefik or nginx), the hub sees plain `http://` requests
+and rejects the agents' tokens. Tell it its public URL with
+`MERCURE_EXTRA_DIRECTIVES="resource_identifier <value of MERCURE_PUBLIC_URL>"`.
 
 ### MCP settings
 

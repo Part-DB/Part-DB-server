@@ -108,6 +108,27 @@ final class AgentJobPusherTest extends KernelTestCase
         $this->assertCount(2, $this->published);
     }
 
+    public function testUnreachableHubDoesNotHoldUpTheRequest(): void
+    {
+        // accepts connections (kernel backlog) but never answers
+        $server = stream_socket_server('tcp://127.0.0.1:0');
+        $this->assertNotFalse($server);
+        $address = stream_socket_get_name($server, false);
+        $pusher = new AgentJobPusher(new NullLogger(), self::PUBLIC_URL, 'http://'.$address.'/.well-known/mercure',
+            'test-secret-at-least-256-bits-long!!', 'https://localhost');
+
+        $start = microtime(true);
+        $pusher->notify($this->job());
+        $this->assertLessThan(10, microtime(true) - $start);
+        fclose($server);
+    }
+
+    public function testShortSecretDisablesTheSubscription(): void
+    {
+        $pusher = new AgentJobPusher(new NullLogger(), self::PUBLIC_URL, '', 'too-short', 'https://localhost');
+        $this->assertNull($pusher->subscription($this->agent()));
+    }
+
     private function createJob(): AgentJob
     {
         self::bootKernel();
