@@ -137,6 +137,15 @@ final class AgentApiControllerTest extends WebTestCase
         $this->assertArrayNotHasKey('mercure', $reply);
     }
 
+    public function testHeartbeatReportsPendingJobs(): void
+    {
+        $first = $this->heartbeat();
+        $this->assertSame(0, $first['pending']);
+
+        $this->job($this->em->find(Agent::class, $first['agent_id']));
+        $this->assertSame(1, $this->heartbeat()['pending']);
+    }
+
     public function testJobLifecycle(): void
     {
         $agent = $this->em->find(Agent::class, $this->heartbeat()['agent_id']);

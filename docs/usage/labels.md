@@ -66,7 +66,8 @@ The agent API uses JSON and the usual `Authorization: Bearer <token>` header (`e
 
 * `POST /en/agent-api/v1/agents/<uuid>/heartbeat` with `{"name": "...", "version": "...", "printers": [{"id": "ql810", "name": "Brother QL-810W"}]}`
   registers or updates the agent. The agent generates the UUID once and keeps it, so a new API token keeps its jobs.
-  Each printer needs a string `id`; other fields are stored as they are. Returns `{"agent_id": 1, "poll_seconds": 30}`.
+  Each printer needs a string `id`; other fields are stored as they are. Returns `{"agent_id": 1, "poll_seconds": 30, "pending": 0}`,
+  where `pending` is the number of pending jobs, so the agent only needs to list them when it isn't 0.
   Agents should send it about every `poll_seconds`; an agent that has not reported for two minutes is shown offline.
 * `GET /en/agent-api/v1/agents/<uuid>/jobs` returns the pending jobs, oldest first:
   `[{"id": 7, "type": "print", "printer": "ql810", "payload": {"profile_id": 2, "element_type": "part", "element_ids": "1,2,5-10"}, "created_at": "..."}]`.
@@ -79,7 +80,8 @@ If [push is configured]({% link configuration.md %}#print-agent-push-settings-al
 contains `"mercure": {"hub": "...", "topic": "...", "token": "..."}`. The agent can then subscribe to the hub
 (`GET <hub>?match=<topic>` with `Authorization: Bearer <token>`, a server-sent event stream) and look for jobs as soon as
 an event arrives, instead of waiting for its next poll. The token is valid for one hour; the agent gets a new one with
-every heartbeat. Polling stays the fallback, and the agent should list its pending jobs after every reconnect.
+every heartbeat. While subscribed, the agent can send heartbeats less often (but at least every two minutes, or it is
+shown offline); the `pending` count in each answer still catches a job whose event got lost.
 
 Part-DB never re-queues a job by itself: a claimed job without a result is shown as "unknown" after ten minutes, and the
 user can send it again. Finished jobs are deleted after 30 days.
