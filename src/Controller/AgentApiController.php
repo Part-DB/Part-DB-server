@@ -53,9 +53,11 @@ class AgentApiController extends AbstractController
     /** Heartbeats carry a few printers; anything bigger is a mistake (or abuse) and must not reach the JSON column */
     private const MAX_BODY = 65536;
 
-    public function __construct(private readonly EntityManagerInterface $em, private readonly Security $security,
-        private readonly AgentJobPusher $pusher)
-    {
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly Security $security,
+        private readonly AgentJobPusher $pusher,
+    ) {
     }
 
     #[Route('/agents/{uuid}/heartbeat', name: 'agent_api_heartbeat', requirements: ['uuid' => '[0-9a-fA-F-]{8,36}'], methods: ['POST'])]

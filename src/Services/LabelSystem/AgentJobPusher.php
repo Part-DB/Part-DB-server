@@ -25,6 +25,7 @@ use App\Entity\AgentSystem\Agent;
 use App\Entity\AgentSystem\AgentJob;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Mercure\FrankenPhpHub;
 use Symfony\Component\Mercure\Hub;
 use Symfony\Component\Mercure\HubInterface;
@@ -74,7 +75,11 @@ final class AgentJobPusher
             return;
         }
         try {
-            $this->hub()->publish(new Update($this->topic($agent), json_encode(['job_id' => $job->getId()], JSON_THROW_ON_ERROR), private: true));
+            $this->hub()->publish(new Update(
+                $this->topic($agent),
+                json_encode(['job_id' => $job->getId()], JSON_THROW_ON_ERROR),
+                private: true,
+            ));
         } catch (\Throwable $e) {
             $this->logger->warning('Could not publish print job to the Mercure hub: '.$e->getMessage(), ['exception' => $e]);
         }
@@ -90,7 +95,13 @@ final class AgentJobPusher
             return null;
         }
         $topic = $this->topic($agent);
-        $token = $this->hub()->getFactory()?->create([new Grant([Grant::ACTION_SUBSCRIBE], [$topic])], ['sub' => $agent->getUuid()]);
+        try {
+            $token = $this->hub()->getFactory()?->create([new Grant([Grant::ACTION_SUBSCRIBE], [$topic])], ['sub' => $agent->getUuid()]);
+        } catch (\Throwable $e) {
+            // e.g. a missing or too short MERCURE_JWT_SECRET: the agent keeps polling instead
+            $this->logger->warning('Could not create a Mercure subscriber token: '.$e->getMessage(), ['exception' => $e]);
+            return null;
+        }
 
         return ['hub' => (string) $this->publicUrl, 'topic' => $topic, 'token' => (string) $token];
     }
@@ -110,7 +121,9 @@ final class AgentJobPusher
             } else {
                 // The publisher token goes to MERCURE_URL, which the hub may know under another name than the public one.
                 $publisher = new FactoryTokenProvider($factory, [new Grant([Grant::ACTION_PUBLISH], ['*'])], ['aud' => [$publicUrl, $this->url]]);
-                $this->hub = new Hub($this->url, $publisher, $factory, $publicUrl);
+                // Short timeouts: publishing happens while the user waits for the Print button's answer.
+                $httpClient = HttpClient::create(['timeout' => 2, 'max_duration' => 5]);
+                $this->hub = new Hub($this->url, $publisher, $factory, $publicUrl, $httpClient);
             }
         }
 

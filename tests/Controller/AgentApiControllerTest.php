@@ -30,6 +30,7 @@ use App\Entity\UserSystem\User;
 use App\Services\LabelSystem\AgentJobPusher;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\TestWith;
 use Psr\Log\NullLogger;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -122,6 +123,18 @@ final class AgentApiControllerTest extends WebTestCase
         $this->assertEqualsWithDelta(time() + 3600, $payload['exp'], 60);
         $this->assertSame([['type' => 'https://mercure.rocks/authorization-detail', 'actions' => ['subscribe'], 'topics' => [['match' => $topic]]]],
             $payload['authorization_details']);
+    }
+
+    #[TestWith([''])]
+    #[TestWith(['too-short'])]
+    public function testHeartbeatWorksWithMisconfiguredMercure(string $secret): void
+    {
+        static::getContainer()->set(AgentJobPusher::class, new AgentJobPusher(new NullLogger(), 'http://127.0.0.1:3000/.well-known/mercure',
+            '', $secret, 'https://localhost'));
+
+        $reply = $this->heartbeat();
+        $this->assertResponseIsSuccessful();
+        $this->assertArrayNotHasKey('mercure', $reply);
     }
 
     public function testJobLifecycle(): void

@@ -36,8 +36,11 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 final readonly class AgentJobCreator
 {
-    public function __construct(private EntityManagerInterface $em, private RangeParser $rangeParser, private AgentJobPusher $pusher)
-    {
+    public function __construct(
+        private EntityManagerInterface $em,
+        private RangeParser $rangeParser,
+        private AgentJobPusher $pusher,
+    ) {
     }
 
     /**
