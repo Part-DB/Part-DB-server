@@ -41,15 +41,21 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\AgentSystem\Agent;
+use App\Entity\AgentSystem\AgentJob;
+use App\Entity\AgentSystem\AgentJobStatus;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\LabelSystem\LabelProcessMode;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\LabelSystem\LabelSupportedElement;
+use App\Entity\UserSystem\User;
 use App\Exceptions\TwigModeException;
 use App\Form\LabelSystem\LabelDialogType;
+use App\Repository\AgentJobRepository;
 use App\Repository\DBElementRepository;
 use App\Services\ElementTypeNameGenerator;
+use App\Services\LabelSystem\AgentJobCreator;
 use App\Services\LabelSystem\LabelGenerator;
 use App\Services\Misc\RangeParser;
 use Doctrine\ORM\EntityManagerInterface;
@@ -57,9 +63,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+
+use function Symfony\Component\Translation\t;
 
 #[Route(path: '/label')]
 class LabelController extends AbstractController
@@ -209,6 +218,138 @@ class LabelController extends AbstractController
             'filename' => $filename,
             'profile' => $profile,
         ]);
+    }
+
+    /**
+     * Connects this browser to a local print agent (stored in the browser only, see docs/usage/labels.md).
+     */
+    #[Route(path: '/agent', name: 'label_agent')]
+    public function agent(): Response
+    {
+        $this->denyAccessUnlessGranted('@labels.create_labels');
+        $user = $this->getUser();
+
+        return $this->render('label_system/agent.html.twig', [
+            'agents' => $user instanceof User ? $this->em->getRepository(Agent::class)->findBy(['owner' => $user], ['lastSeenAt' => 'DESC']) : [],
+            'jobs' => $user instanceof User ? $this->em->getRepository(AgentJob::class)->createQueryBuilder('j')
+                ->join('j.agent', 'a')->where('a.owner = :user')->setParameter('user', $user)
+                ->orderBy('j.id', 'DESC')->setMaxResults(50)->getQuery()->getResult() : [],
+        ]);
+    }
+
+    #[Route(path: '/agent/jobs/{id}/resend', name: 'label_agent_job_resend', methods: ['POST'])]
+    public function agentJobResend(int $id, Request $request, AgentJobCreator $agentJobCreator): Response
+    {
+        $job = $this->ownAgentJob($id, $request);
+        if (!$job->getAgent()?->hasPrinter($job->getPrinter())) {
+            $this->addFlash('error', t('label_generator.agent.job_printer_gone'));
+            return $this->redirectToRoute('label_agent');
+        }
+        $agentJobCreator->resend($job);
+        $this->addFlash('success', t('label_generator.agent.job_resent'));
+
+        return $this->redirectToRoute('label_agent');
+    }
+
+    #[Route(path: '/agent/jobs/{id}/cancel', name: 'label_agent_job_cancel', methods: ['POST'])]
+    public function agentJobCancel(int $id, Request $request): Response
+    {
+        $job = $this->ownAgentJob($id, $request);
+        /** @var AgentJobRepository<AgentJob> $repo */
+        $repo = $this->em->getRepository(AgentJob::class);
+        $repo->cancel($job); //only while pending: an agent may claim it at the same moment
+
+        return $this->redirectToRoute('label_agent');
+    }
+
+    #[Route(path: '/agent/agents/{id}/remove', name: 'label_agent_remove', methods: ['POST'])]
+    public function agentRemove(int $id, Request $request): Response
+    {
+        $this->checkAgentPageRequest($request);
+        $agent = $this->em->find(Agent::class, $id);
+        if (!$agent instanceof Agent || $agent->getOwner() !== $this->getUser()) {
+            throw $this->createNotFoundException();
+        }
+        //Not relying on ON DELETE CASCADE: SQLite only enforces foreign keys if configured to
+        $this->em->createQuery('DELETE FROM '.AgentJob::class.' j WHERE j.agent = :agent')->setParameter('agent', $agent)->execute();
+        $this->em->remove($agent);
+        $this->em->flush();
+
+        return $this->redirectToRoute('label_agent');
+    }
+
+    private function checkAgentPageRequest(Request $request): void
+    {
+        $this->denyAccessUnlessGranted('@labels.create_labels');
+        if (!$this->isCsrfTokenValid('label_agent', $request->request->getString('_token'))) {
+            throw new BadRequestHttpException('Invalid CSRF token');
+        }
+    }
+
+    /**
+     * A job of one of the current user's agents; other users' jobs are reported as missing.
+     */
+    private function ownAgentJob(int $id, Request $request): AgentJob
+    {
+        $this->checkAgentPageRequest($request);
+        $job = $this->em->find(AgentJob::class, $id);
+        if (!$job instanceof AgentJob || $job->getAgent()?->getOwner() !== $this->getUser()) {
+            throw $this->createNotFoundException();
+        }
+        return $job;
+    }
+
+    /**
+     * Sends a print job to one of the current user's print agents.
+     */
+    #[Route(path: '/print', name: 'label_print', methods: ['POST'])]
+    public function print(Request $request, AgentJobCreator $agentJobCreator): Response
+    {
+        $this->denyAccessUnlessGranted('@labels.create_labels');
+        if (!$this->isCsrfTokenValid('label_print', $request->request->getString('_token'))) {
+            throw new BadRequestHttpException('Invalid CSRF token');
+        }
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $profile = $this->em->find(LabelProfile::class, $request->request->getInt('profile'));
+        if (!$profile instanceof LabelProfile) {
+            throw $this->createNotFoundException();
+        }
+        $this->denyAccessUnlessGranted('read', $profile);
+
+        [$agentId, $printer] = explode('|', $request->request->getString('printer'), 2) + [1 => ''];
+        $agent = $this->em->find(Agent::class, (int) $agentId);
+        //Other users' agents are reported as missing, so their ids don't leak
+        if (!$agent instanceof Agent || $agent->getOwner() !== $user || !$agent->hasPrinter($printer)) {
+            throw $this->createNotFoundException();
+        }
+
+        $type = LabelSupportedElement::tryFrom($request->request->getString('target_type')) ?? $profile->getOptions()->getSupportedElement();
+        try {
+            $job = $agentJobCreator->create($user, $agent, $printer, $profile, $type, $request->request->getString('target_id'));
+        } catch (\InvalidArgumentException $e) {
+            throw new BadRequestHttpException($e->getMessage(), $e);
+        }
+
+        $params = [
+            '%count%' => $agentJobCreator->countLabels($job->getPayload()['element_ids']),
+            '%printer%' => $agent->getPrinterName($printer),
+        ];
+        if ($agent->isOnline()) {
+            $this->addFlash('success', t('label_generator.print.sent', $params));
+        } else {
+            $this->addFlash('warning', t('label_generator.print.sent_offline', $params));
+        }
+
+        //Only redirect to local paths ("//host", "/\host" and control characters, which browsers strip, could leave Part-DB)
+        $redirect = $request->request->getString('_redirect');
+        if (preg_match('#^/(?![/\\\\])[^\x00-\x1f\x7f]*$#', $redirect) === 1) {
+            return $this->redirect($redirect);
+        }
+        return $this->redirectToRoute('label_dialog_profile', ['profile' => $profile->getID(), 'target_id' => $job->getPayload()['element_ids']]);
     }
 
     protected function getLabelName(AbstractDBElement $element, ?LabelProfile $profile = null): string

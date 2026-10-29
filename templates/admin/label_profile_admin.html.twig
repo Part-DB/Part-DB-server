@@ -24,6 +24,12 @@
 
 {% block additional_controls %}
     {{ form_row(form.show_in_dropdown) }}
+    {{ form_row(form.default_printer) }}
+    <datalist id="agent_printers">
+        {% for printer in agent_printers() %}
+            <option value="{{ printer.id }}">{{ printer.name }} ({{ printer.agent.name }})</option>
+        {% endfor %}
+    </datalist>
     {{ form_row(form.options.supported_element) }}
     <div class="mb-2 row">
         {{ form_label(form.options.width) }}
