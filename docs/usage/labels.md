@@ -75,6 +75,12 @@ The agent API uses JSON and the usual `Authorization: Bearer <token>` header (`e
   right before handling it.
 * `POST /en/agent-api/v1/jobs/<id>/result` with `{"status": "done"|"failed", "message": "..."}` reports the result.
 
+If [push is configured]({% link configuration.md %}#print-agent-push-settings-all-env-only), the heartbeat answer also
+contains `"mercure": {"hub": "...", "topic": "...", "token": "..."}`. The agent can then subscribe to the hub
+(`GET <hub>?match=<topic>` with `Authorization: Bearer <token>`, a server-sent event stream) and look for jobs as soon as
+an event arrives, instead of waiting for its next poll. The token is valid for one hour; the agent gets a new one with
+every heartbeat. Polling stays the fallback, and the agent should list its pending jobs after every reconnect.
+
 Part-DB never re-queues a job by itself: a claimed job without a result is shown as "unknown" after ten minutes, and the
 user can send it again. Finished jobs are deleted after 30 days.
 
