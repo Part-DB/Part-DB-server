@@ -92,7 +92,12 @@ class AgentApiController extends AbstractController
             ->setLastSeenAt(new \DateTimeImmutable());
         $this->em->flush();
 
-        $reply = ['agent_id' => $agent->getId(), 'poll_seconds' => self::POLL_SECONDS];
+        $reply = [
+            'agent_id' => $agent->getId(),
+            'poll_seconds' => self::POLL_SECONDS,
+            // lets the agent skip listing jobs when there are none
+            'pending' => $this->em->getRepository(AgentJob::class)->count(['agent' => $agent, 'status' => AgentJobStatus::PENDING]),
+        ];
         $mercure = $this->pusher->subscription($agent);
         if ($mercure !== null) {
             $reply['mercure'] = $mercure;
