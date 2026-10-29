@@ -17,6 +17,40 @@ the content (or write HTML code).
 Using the "Label placeholder" menu in the editor, you can insert placeholders for the data of the parts.
 It will be replaced by the concrete data when the label is generated.
 
+## Printing with a print agent
+
+Label PDFs printed through the browser's print dialog are often scaled by the printer driver, which blurs barcodes on
+small labels. A *print agent* is a small program running on your computer that prints the label directly on a label
+printer at the printer's native resolution. Part-DB does not ship an agent; one example is
+[pdb-print](https://github.com/francisrath/partdb-print-agent) for Brother QL printers.
+
+To connect a browser, open the connection link from your agent's settings and click "Connect" (or open
+"Tools -> Print agent"). The connection is stored in this browser only (local storage), not on the server.
+Afterwards a "Print" button appears next to "Download" in the label generator for saved label profiles, and a printer
+icon next to each profile in the label menus of parts, part lots and storage locations. Printing always uses the saved
+label profile; unsaved changes in the label generator are not printed.
+
+### Agent contract
+
+The connection link has the form `<Part-DB URL>/label/agent#url=<agent URL>&key=<pairing key>`, where the pairing key
+is a hex string. The fragment is never sent to the Part-DB server.
+
+When printing, Part-DB opens the following URL in a new window:
+
+```
+<agent URL>/v1/handoff?src=<Part-DB origin>&type=<part|part_lot|storelocation>&ids=<ids>&profile=<label profile id>&ts=<unix time>&sig=<signature>
+```
+
+`ids` uses the label generator's range syntax without spaces or empty entries (e.g. `1,2,5-10`). `sig` is the lowercase
+hex HMAC-SHA256 of `src`, `type`, `ids`, `profile` and `ts` joined by newlines (`\n`). The HMAC key is the UTF-8 bytes of
+the pairing key string as given in the connection link (lowercase, not hex-decoded). An agent should only accept a recent
+`ts` (pdb-print: ±2 minutes), refuse a `sig` it has already seen, and compare `src` with the Part-DB URL it is configured
+for by scheme, host and port. If the browser has no WebCrypto support (Part-DB served over plain HTTP from another host),
+`sig` is omitted and the agent should ask the user to confirm. The agent then fetches the label PDF itself with an API token via `POST /api/labels/generate` and prints it.
+
+Anyone who can run JavaScript on your Part-DB pages could read the pairing key from local storage and ask your agent to
+print labels; it gives no access to Part-DB data.
+
 ## Label placeholders
 
 A placeholder has the format `[[PLACEHOLDER]]` and will be filled with the concrete data by Part-DB.
