@@ -36,7 +36,7 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 final readonly class AgentJobCreator
 {
-    public function __construct(private EntityManagerInterface $em, private RangeParser $rangeParser)
+    public function __construct(private EntityManagerInterface $em, private RangeParser $rangeParser, private AgentJobPusher $pusher)
     {
     }
 
@@ -133,6 +133,7 @@ final readonly class AgentJobCreator
         $repo->pruneFinished(new \DateTimeImmutable('-'.AgentJob::KEEP_DAYS.' days'));
         $this->em->persist($job);
         $this->em->flush();
+        $this->pusher->notify($job);
 
         return $job;
     }
