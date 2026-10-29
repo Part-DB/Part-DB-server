@@ -1,6 +1,13 @@
 #!/bin/sh
 set -e
 
+# The Mercure hub (Caddyfile) refuses to start without a key for its trusted issuer. Without a configured key, use a
+# random one: the hub starts but accepts no tokens from outside, and pushing jobs to print agents stays off.
+if [ -z "$MERCURE_PUBLISHER_JWT_KEY" ]; then
+	MERCURE_PUBLISHER_JWT_KEY=$(head -c 32 /dev/urandom | base64)
+	export MERCURE_PUBLISHER_JWT_KEY
+fi
+
 if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	# Install the project the first time PHP is started
 	# After the installation, the following block can be deleted

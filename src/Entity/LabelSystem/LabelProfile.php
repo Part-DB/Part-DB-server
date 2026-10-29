@@ -119,6 +119,15 @@ class LabelProfile extends AttachmentContainingDBElement
     #[Groups(["extended", "full", "import", "label_profile:read"])]
     protected bool $show_in_dropdown = true;
 
+    /**
+     * @var string The id of the printer (as reported by print agents) that print buttons use for this profile.
+     * Each user's own agent reporting this id is used. Empty for none.
+     */
+    #[ORM\Column(type: Types::STRING, length: 255, options: ['default' => ''])]
+    #[Assert\Length(max: 255)]
+    #[Groups(["extended", "full", "import", "label_profile:read"])]
+    protected string $default_printer = '';
+
     public function __construct()
     {
         $this->attachments = new ArrayCollection();
@@ -151,6 +160,18 @@ class LabelProfile extends AttachmentContainingDBElement
     public function setComment(string $new_comment): self
     {
         $this->comment = $new_comment;
+
+        return $this;
+    }
+
+    public function getDefaultPrinter(): string
+    {
+        return $this->default_printer;
+    }
+
+    public function setDefaultPrinter(?string $default_printer): self
+    {
+        $this->default_printer = $default_printer ?? '';
 
         return $this;
     }
