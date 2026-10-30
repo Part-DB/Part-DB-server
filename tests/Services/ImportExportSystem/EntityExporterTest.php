@@ -123,6 +123,50 @@ final class EntityExporterTest extends WebTestCase
         unlink($tempFile);
     }
 
+    public function testExportCsvFormulaEscaping(): void
+    {
+        $entity = (new Category())->setName('=1+1')->setComment('-12V');
+
+        //By default the values are exported as they are
+        $csv = $this->service->exportEntities([$entity], ['format' => 'csv', 'level' => 'extended']);
+        $this->assertStringContainsString('=1+1;', $csv);
+        $this->assertStringNotContainsString("'=1+1", $csv);
+
+        //With the option enabled, formula characters get prefixed with a '
+        $csv = $this->service->exportEntities([$entity], ['format' => 'csv', 'level' => 'full', 'csv_escape_formulas' => true]);
+        $this->assertStringContainsString("'=1+1", $csv);
+        $this->assertStringContainsString("'-12V", $csv);
+    }
+
+    public function testExportCsvFormulaEscapingFromRequest(): void
+    {
+        $entity = (new Category())->setName('=1+1');
+
+        $request = new Request();
+        $request->request->set('format', 'csv_escaped');
+        $request->request->set('level', 'simple');
+        $response = $this->service->exportEntityFromRequest([$entity], $request);
+
+        $this->assertStringContainsString("'=1+1", $response->getContent());
+        $this->assertStringContainsString('.csv', $response->headers->get('Content-Disposition'));
+    }
+
+    public function testExportExcelNotAffectedByCsvFormulaEscaping(): void
+    {
+        $entity = (new Category())->setName('=1+1');
+
+        $xlsxData = $this->service->exportEntities([$entity], ['format' => 'xlsx', 'level' => 'simple', 'csv_escape_formulas' => true]);
+
+        $tempFile = tempnam(sys_get_temp_dir(), 'test_formula') . '.xlsx';
+        file_put_contents($tempFile, $xlsxData);
+        $worksheet = IOFactory::load($tempFile)->getActiveSheet();
+
+        //Excel cells are typed, so no escaping is needed there
+        $this->assertSame('=1+1', $worksheet->getCell('A2')->getValue());
+
+        unlink($tempFile);
+    }
+
     public function testExportExcelFromRequest(): void
     {
         $entities = $this->getEntities();

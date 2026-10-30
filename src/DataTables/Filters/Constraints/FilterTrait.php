@@ -78,6 +78,11 @@ trait FilterTrait
     {
         if ($comparison_operator === 'IN' || $comparison_operator === 'NOT IN') {
             $expression = sprintf("%s %s (:%s)", $property, $comparison_operator, $parameterIdentifier);
+        } elseif (is_float($value)) {
+            //PDO has no float parameter type, so floats are bound as strings. SQLite compares a string parameter
+            //against expressions without type affinity (like subqueries) as text, which gives wrong results.
+            //Adding 0.0 forces a numeric comparison on all database platforms.
+            $expression = sprintf("%s %s (:%s + 0.0)", $property, $comparison_operator, $parameterIdentifier);
         } else {
             $expression = sprintf("%s %s :%s", $property, $comparison_operator, $parameterIdentifier);
         }

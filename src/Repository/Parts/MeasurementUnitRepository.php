@@ -28,13 +28,18 @@ use InvalidArgumentException;
 
 class MeasurementUnitRepository extends AbstractPartsContainingRepository
 {
+    protected function getPartsFieldName(): string
+    {
+        return 'partUnit';
+    }
+
     public function getParts(object $element, string $nameOrderDirection = "ASC"): array
     {
         if (!$element instanceof MeasurementUnit) {
             throw new InvalidArgumentException('$element must be an MeasurementUnit!');
         }
 
-        return $this->getPartsByField($element, $nameOrderDirection, 'partUnit');
+        return $this->getPartsByField($element, $nameOrderDirection, $this->getPartsFieldName());
     }
 
     public function getPartsCount(object $element): int
@@ -43,6 +48,6 @@ class MeasurementUnitRepository extends AbstractPartsContainingRepository
             throw new InvalidArgumentException('$element must be an MeasurementUnit!');
         }
 
-        return $this->getPartsCountByField($element, 'partUnit');
+        return $this->getPartsCountByField($element, $this->getPartsFieldName());
     }
 }

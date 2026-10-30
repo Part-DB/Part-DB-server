@@ -54,7 +54,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
     mcp: [
         'list_info_providers' => new McpToolCollection(
             title: 'List available info providers',
-            description: 'List the info providers (e.g. distributors like Digikey, Mouser, LCSC) which are currently active and can be used with search_info_providers and get_info_provider_part_details. Ask for the user\'s confirmation before using expensive providers (e.g. distributors with strict rate limits or which cost money to use).',
+            description: 'List the info providers (e.g. distributors like Digikey, Mouser, LCSC) which are currently active and can be used with search_info_providers and get_info_provider_part_details. Ask for the user\'s confirmation before using expensive providers (e.g. distributors with strict rate limits or which cost money to use). Slow providers (e.g. heavily throttled websites or AI-based extraction) can take a while to respond.',
             annotations: ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false],
             normalizationContext: ['groups' => ['info_provider:read']],
             security: 'is_granted("@info_providers.create_parts")',
@@ -99,6 +99,13 @@ readonly class ProviderInfoDTO
          */
         #[Groups(['info_provider:read'])]
         public bool $expensive = false,
+        /**
+         * @var bool True if this provider is considered "slow" (e.g. it has to throttle its requests heavily, or it needs
+         * a lot of processing like AI-based providers), false otherwise. Requests to slow providers can take a while,
+         * so they should only be used deliberately, especially when making multiple requests.
+         */
+        #[Groups(['info_provider:read'])]
+        public bool $slow = false,
     ) {
     }
 }

@@ -3059,7 +3059,7 @@
     <unit id="AdYtBQG" name="attachment.edit.url.help">
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>在此指定外部文件URL地址，或输入用于在内置资源中搜索的关键词(例如封装)</target>
+        <target>在此指定外部文件URL地址，或输入用于在内置资源中搜索的关键词(例如封装)。也可以在此粘贴剪贴板中的文件（例如图片）以将其上传。</target>
       </segment>
     </unit>
     <unit id="jXplbqd" name="attachment.edit.name">

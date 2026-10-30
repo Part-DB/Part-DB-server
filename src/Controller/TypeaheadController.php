@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\DataTables\Filters\PartSearchFilter;
+use App\DataTables\Filters\PartSearchSort;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\AttachmentTypeParameter;
@@ -35,17 +37,20 @@ use App\Entity\Parameters\ProjectParameter;
 use App\Entity\Parameters\StorageLocationParameter;
 use App\Entity\Parameters\SupplierParameter;
 use App\Entity\Parts\Category;
-use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Currency;
+use App\Exceptions\InvalidRegexException;
 use App\Repository\ParameterRepository;
+use App\Repository\PartRepository;
 use App\Services\AI\AIPlatformRegistry;
 use App\Services\AI\AIPlatforms;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\Tools\TagFinder;
+use App\Services\Trees\StructuralElementPathCache;
 use App\Settings\MiscSettings\IpnSuggestSettings;
+use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\AI\Platform\Capability;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -62,6 +67,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 
 /**
  * In this controller the endpoints for the typeaheads are collected.
+ * @phpstan-import-type AutocompletePartData from PartRepository
  */
 #[Route(path: '/typeahead')]
 class TypeaheadController extends AbstractController
@@ -70,6 +76,7 @@ class TypeaheadController extends AbstractController
         protected AttachmentURLGenerator $urlGenerator,
         protected Packages $assets,
         protected IpnSuggestSettings $ipnSuggestSettings,
+        protected StructuralElementPathCache $pathCache,
     ) {
     }
 
@@ -127,6 +134,7 @@ class TypeaheadController extends AbstractController
 
     #[Route(path: '/parts/search/{query}', name: 'typeahead_parts')]
     public function parts(
+        Request $request,
         EntityManagerInterface $entityManager,
         PartPreviewGenerator $previewGenerator,
         AttachmentURLGenerator $attachmentURLGenerator,
@@ -136,30 +144,71 @@ class TypeaheadController extends AbstractController
 
         $repo = $entityManager->getRepository(Part::class);
 
-        $parts = $repo->autocompleteSearch($query, 100);
+        //The ordering of the results chosen in the search dropdown (null orders by name)
+        $sort = PartSearchSort::fromRequest($request);
+        $direction = PartSearchSort::directionFromRequest($request);
+
+        //If search options (fields, regex, extensive, wildcard) are passed, search like the search page does,
+        //otherwise (e.g. part select fields) use the simple and fast autocomplete search
+        if ($request->query->count() > 0) {
+            $filter = PartSearchFilter::fromRequest($request, $query);
+
+            //A regex is often incomplete while it is typed (e.g. "lm("), so return no results instead of an error
+            if ($filter->isRegex() && @preg_match('~' . str_replace('~', '\\~', $query) . '~u', '') === false) {
+                return new JsonResponse([]);
+            }
+
+            try {
+                $parts = $repo->autocompleteSearchWithFilter($filter, 100, $sort, $direction);
+            } catch (InvalidRegexException|DBALException) {
+                return new JsonResponse([]);
+            }
+        } else { // Use the fast and simple autocomplete search for the part select fields
+            $parts = $repo->autocompleteSearch($query, 100, $sort, $direction);
+        }
 
         $data = [];
         foreach ($parts as $part) {
             //Determine the picture to show:
-            $preview_attachment = $previewGenerator->getTablePreviewAttachment($part);
+            $preview_attachment = $previewGenerator->getFirstValidPicture(...$part['preview_attachments']);
             if ($preview_attachment instanceof Attachment) {
-                $preview_url = $attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_sm');
+                $preview_url = $attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_sm') ?? '';
             } else {
                 $preview_url = '';
             }
 
-            /** @var Part $part */
             $data[] = [
-                'id' => $part->getID(),
-                'name' => $part->getName(),
-                'category' => $part->getCategory() instanceof Category ? $part->getCategory()->getName() : 'Unknown',
-                'footprint' => $part->getFootprint() instanceof Footprint ? $part->getFootprint()->getName() : '',
-                'description' => mb_strimwidth($part->getDescription(), 0, 127, '...'),
+                'id' => $part['id'],
+                'name' => $part['name'],
+                'category' => $part['category'] ?? 'Unknown',
+                'footprint' => $part['footprint'] ?? '',
+                'description' => mb_strimwidth($part['description'], 0, 127, '...'),
                 'image' => $preview_url,
+                //The value the results are ordered by, if it is not shown anyway (like the name and the category)
+                'sort_value' => $this->getSortValue($part, $sort),
             ];
         }
 
         return new JsonResponse($data);
+    }
+
+    /**
+     * Returns the value of the given part, which the search results are ordered by, so it can be shown next to it.
+     * Empty for the orderings whose value is part of every result anyway and for parts without that value.
+     * @param  AutocompletePartData  $part
+     */
+    private function getSortValue(array $part, ?PartSearchSort $sort): string
+    {
+        return match ($sort) {
+            PartSearchSort::MANUFACTURER => $part['manufacturer'] ?? '',
+            PartSearchSort::SUPPLIER => implode(', ', $part['suppliers']),
+            PartSearchSort::ADDED_DATE => $part['addedDate']?->format('Y-m-d') ?? '',
+            PartSearchSort::LAST_MODIFIED => $part['lastModified']?->format('Y-m-d') ?? '',
+            PartSearchSort::TOP_CATEGORY => $part['category_id'] !== null
+                ? ($this->pathCache->getPathNames(Category::class, $part['category_id'])[0] ?? '')
+                : '',
+            default => '',
+        };
     }
 
     #[Route(path: '/parameters/{type}/search/{query}', name: 'typeahead_parameters', requirements: ['type' => '.+'])]

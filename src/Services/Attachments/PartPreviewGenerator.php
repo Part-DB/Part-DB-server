@@ -121,29 +121,28 @@ class PartPreviewGenerator
      */
     public function getTablePreviewAttachment(Part $part): ?Attachment
     {
-        //First of all we check if the master attachment of the part is set (and a picture)
-        $attachment = $part->getMasterPictureAttachment();
-        if ($this->isAttachmentValidPicture($attachment)) {
-            return $attachment;
-        }
+        //The master attachment of the part has the highest priority, then the one of its footprint and with the lowest
+        //priority the master attachment of the project this part represents (when existing)
+        return $this->getFirstValidPicture(
+            $part->getMasterPictureAttachment(),
+            $part->getFootprint()?->getMasterPictureAttachment(),
+            $part->getBuiltProject()?->getMasterPictureAttachment(),
+        );
+    }
 
-        //Otherwise check if the part has a footprint with a valid master attachment
-        if ($part->getFootprint() instanceof Footprint) {
-            $attachment = $part->getFootprint()->getMasterPictureAttachment();
+    /**
+     * Returns the first of the given attachments, which is existing and a valid picture, or null if there is none.
+     * This allows to determine the preview picture of a part from already loaded attachments, without loading the
+     * part entity (see getTablePreviewAttachment() for the candidates and their priority).
+     */
+    public function getFirstValidPicture(?Attachment ...$attachments): ?Attachment
+    {
+        foreach ($attachments as $attachment) {
             if ($this->isAttachmentValidPicture($attachment)) {
                 return $attachment;
             }
         }
 
-        //With lowest priority use the master attachment of the project this part represents (when existing)
-        if ($part->getBuiltProject() instanceof Project) {
-            $attachment = $part->getBuiltProject()->getMasterPictureAttachment();
-            if ($this->isAttachmentValidPicture($attachment)) {
-                return $attachment;
-            }
-        }
-
-        //If nothing is available return null
         return null;
     }
 

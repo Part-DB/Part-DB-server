@@ -27,6 +27,8 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\StorageLocation;
 use App\Validator\Constraints\ValidPartLot;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -120,4 +122,66 @@ final class ValidPartLotValidatorTest extends WebTestCase
     // is increased while its storage location is marked full) requires the entity to
     // carry a real Doctrine originalEntityData snapshot, which is only set after an
     // actual persist+flush. Testing that path belongs in a database integration test.
+
+    /**
+     * Creates a new (unsaved) lot for the given fixture part in storage location 1, which already contains "Part 3"
+     * (see PartFixtures).
+     * The lot must be validated with the validator from the current container (see validateWithCurrentContainer()),
+     * as the static validator uses the entity manager of an older kernel.
+     */
+    private function createNewLotInLocation1(string $partName, callable $configureLocation): PartLot
+    {
+        $em = self::getContainer()->get(EntityManagerInterface::class);
+        $location = $em->find(StorageLocation::class, 1);
+        $configureLocation($location);
+
+        $part = $em->getRepository(Part::class)->findOneBy(['name' => $partName]);
+        $this->assertInstanceOf(Part::class, $part);
+
+        $lot = new PartLot();
+        $lot->setStorageLocation($location);
+        $part->addPartLot($lot);
+
+        return $lot;
+    }
+
+    private function validateWithCurrentContainer(PartLot $lot): ConstraintViolationListInterface
+    {
+        return self::getContainer()->get('validator')->validate($lot, new ValidPartLot());
+    }
+
+    public function testOnlySinglePartRejectsNewLotOfOtherPart(): void
+    {
+        $lot = $this->createNewLotInLocation1('Part 1', fn (StorageLocation $l) => $l->setOnlySinglePart(true));
+
+        $violations = $this->validateWithCurrentContainer($lot);
+        $this->assertCount(1, $violations);
+        $this->assertSame('storage_location', $violations[0]->getPropertyPath());
+        $this->assertSame('validator.part_lot.single_part', $violations[0]->getMessageTemplate());
+    }
+
+    public function testOnlySinglePartAllowsNewLotOfSamePart(): void
+    {
+        $lot = $this->createNewLotInLocation1('Part 3', fn (StorageLocation $l) => $l->setOnlySinglePart(true));
+
+        $violations = $this->validateWithCurrentContainer($lot);
+        $this->assertCount(0, $violations);
+    }
+
+    public function testLimitToExistingPartsRejectsNewLotOfOtherPart(): void
+    {
+        $lot = $this->createNewLotInLocation1('Part 1', fn (StorageLocation $l) => $l->setLimitToExistingParts(true));
+
+        $violations = $this->validateWithCurrentContainer($lot);
+        $this->assertCount(1, $violations);
+        $this->assertSame('validator.part_lot.only_existing', $violations[0]->getMessageTemplate());
+    }
+
+    public function testLimitToExistingPartsAllowsNewLotOfExistingPart(): void
+    {
+        $lot = $this->createNewLotInLocation1('Part 3', fn (StorageLocation $l) => $l->setLimitToExistingParts(true));
+
+        $violations = $this->validateWithCurrentContainer($lot);
+        $this->assertCount(0, $violations);
+    }
 }

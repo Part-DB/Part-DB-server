@@ -65,6 +65,14 @@ final class StructuralElementPathCacheTest extends KernelTestCase
         $this->assertSame('Node 2/Node 2.1', $this->service->getFullPath($this->getNode('Node 2.1'), '/'));
     }
 
+    public function testGetPathNames(): void
+    {
+        $this->assertSame(['Node 1'], $this->service->getPathNames(AttachmentType::class, $this->getNode('Node 1')->getID()));
+        $this->assertSame(['Node 1', 'Node 1.1', 'Node 1.1.1'],
+            $this->service->getPathNames(AttachmentType::class, $this->getNode('Node 1.1.1')->getID()));
+        $this->assertNull($this->service->getPathNames(AttachmentType::class, 999999));
+    }
+
     public function testGetFullPathMatchesEntity(): void
     {
         foreach ($this->em->getRepository(AttachmentType::class)->findAll() as $element) {

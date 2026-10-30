@@ -55,25 +55,25 @@
         <target>이동!</target>
       </segment>
     </unit>
-    <unit id="8d38e7538" name="user.password_strength.crack_time">
+    <unit id="C8t__3k" name="user.password_strength.crack_time">
       <segment state="translated">
         <source>user.password_strength.crack_time</source>
         <target>예상 해독 시간: %time%</target>
       </segment>
     </unit>
-    <unit id="dBtnOk01" name="dialog.btn.ok">
+    <unit id="Z28duH9" name="dialog.btn.ok">
       <segment state="translated">
         <source>dialog.btn.ok</source>
         <target>확인</target>
       </segment>
     </unit>
-    <unit id="dBtnCcl1" name="dialog.btn.cancel">
+    <unit id="KZkbUfJ" name="dialog.btn.cancel">
       <segment state="translated">
         <source>dialog.btn.cancel</source>
         <target>취소</target>
       </segment>
     </unit>
-    <unit id="dBtnDny1" name="dialog.btn.deny">
+    <unit id="WCJ5ZOn" name="dialog.btn.deny">
       <segment state="translated">
         <source>dialog.btn.deny</source>
         <target>아니요</target>

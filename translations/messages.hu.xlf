@@ -2968,7 +2968,7 @@
     <unit id="AdYtBQG" name="attachment.edit.url.help">
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>Itt megadhatsz egy külső fájl URL-jét, vagy egy kulcsszót, amelyet a beépített erőforrásokban való kereséshez használnak (például lábnyomok).</target>
+        <target>Itt megadhatsz egy külső fájl URL-jét, vagy egy kulcsszót, amelyet a beépített erőforrásokban való kereséshez használnak (például lábnyomok). Ide beillesztheted a vágólapon lévő fájlt (például képet) is, hogy feltöltsd.</target>
       </segment>
     </unit>
     <unit id="jXplbqd" name="attachment.edit.name">
@@ -7198,7 +7198,7 @@
         <target>Ár</target>
       </segment>
     </unit>
-    <unit id="bomExPrc" name="project.bom.ext_price">
+    <unit id="gLWQ4cF" name="project.bom.ext_price">
       <segment state="initial">
         <source>project.bom.ext_price</source>
         <target>Extended Price</target>
@@ -11465,13 +11465,13 @@
       </segment>
     </unit>
     <unit id="MxKRRx_" name="datatable.datatable.lengthMenu">
-        <notes>
-            <note priority="1">Do not remove! Used for datatables rendering.</note>
-        </notes>
-        <segment state="translated">
-            <source>datatable.datatable.lengthMenu</source>
-            <target>_MENU_</target>
-          </segment>
+      <notes>
+        <note priority="1">Do not remove! Used for datatables rendering.</note>
+      </notes>
+      <segment state="translated">
+        <source>datatable.datatable.lengthMenu</source>
+        <target>_MENU_</target>
+      </segment>
     </unit>
   </file>
 </xliff>

@@ -28,13 +28,18 @@ use InvalidArgumentException;
 
 class ManufacturerRepository extends AbstractPartsContainingRepository
 {
+    protected function getPartsFieldName(): string
+    {
+        return 'manufacturer';
+    }
+
     public function getParts(object $element, string $nameOrderDirection = "ASC"): array
     {
         if (!$element instanceof Manufacturer) {
             throw new InvalidArgumentException('$element must be an Manufacturer!');
         }
 
-        return $this->getPartsByField($element, $nameOrderDirection, 'manufacturer');
+        return $this->getPartsByField($element, $nameOrderDirection, $this->getPartsFieldName());
     }
 
     public function getPartsCount(object $element): int
@@ -43,6 +48,6 @@ class ManufacturerRepository extends AbstractPartsContainingRepository
             throw new InvalidArgumentException('$element must be an Manufacturer!');
         }
 
-        return $this->getPartsCountByField($element, 'manufacturer');
+        return $this->getPartsCountByField($element, $this->getPartsFieldName());
     }
 }

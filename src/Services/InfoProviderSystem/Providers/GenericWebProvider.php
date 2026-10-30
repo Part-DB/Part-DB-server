@@ -33,6 +33,7 @@ use App\Services\InfoProviderSystem\DTOs\PriceDTO;
 use App\Services\InfoProviderSystem\DTOs\ProviderInfoDTO;
 use App\Services\InfoProviderSystem\DTOs\PurchaseInfoDTO;
 use App\Settings\InfoProviderSystem\GenericWebProviderSettings;
+use Brick\Schema\Interfaces\AggregateOffer;
 use Brick\Schema\Interfaces\BreadcrumbList;
 use Brick\Schema\Interfaces\ImageObject;
 use Brick\Schema\Interfaces\Product;
@@ -169,7 +170,7 @@ class GenericWebProvider implements InfoProviderInterface
                     price: $offer->price->toString(),
                     currency_iso_code: $offer->priceCurrency?->toString()
                 )];
-            } else { //Check for nested offers (like IKEA does it)
+            } elseif ($offer instanceof AggregateOffer) { //Check for nested offers (like IKEA does it)
                 $offer2 = $offer->offers->getFirstValue();
                 if ($offer2 !== null && $offer2->price->toString() !== null) {
                     $prices = [
@@ -284,6 +285,70 @@ class GenericWebProvider implements InfoProviderInterface
     }
 
 
+    /**
+     * Fixes up JSON-LD script tags, which the schema reader would otherwise fail to JSON-decode:
+     * - Script tags without content are removed. infineon.com seems to do this
+     * - Raw control characters (like line breaks) inside string literals are escaped. eckstein-shop.de does this
+     * (see issue #1595)
+     * @param  string  $html
+     * @return string
+     */
+    private static function sanitizeJsonLdScripts(string $html): string
+    {
+        return preg_replace_callback(
+            '#(<script\b[^>]*\btype\s*=\s*(["\']?)application/ld\+json\2[^>]*>)(.*?)(</script>)#is',
+            static function (array $matches): string {
+                $json = $matches[3];
+                if (trim($json) === '') {
+                    return '';
+                }
+
+                if (!self::isValidJson($json)) {
+                    $fixed = self::escapeControlCharsInJsonStrings($json);
+                    if (self::isValidJson($fixed)) {
+                        $json = $fixed;
+                    }
+                }
+
+                return $matches[1].$json.$matches[4];
+            },
+            $html
+        ) ?? $html;
+    }
+
+    private static function isValidJson(string $json): bool
+    {
+        try {
+            json_decode($json, flags: JSON_THROW_ON_ERROR);
+            return true;
+        } catch (\JsonException) {
+            return false;
+        }
+    }
+
+    /**
+     * Escapes raw control characters (which are not allowed in JSON) inside JSON string literals.
+     * @param  string  $json
+     * @return string
+     */
+    private static function escapeControlCharsInJsonStrings(string $json): string
+    {
+        return preg_replace_callback(
+            '#"(?:[^"\\\\]|\\\\.)*"#s',
+            static fn(array $matches): string => preg_replace_callback(
+                '#[\x00-\x1F]#',
+                static fn(array $char): string => match ($char[0]) {
+                    "\n" => '\n',
+                    "\r" => '\r',
+                    "\t" => '\t',
+                    default => sprintf('\u%04x', ord($char[0])),
+                },
+                $matches[0]
+            ) ?? $matches[0],
+            $json
+        ) ?? $json;
+    }
+
     public function getDetails(string $id, array $options = []): PartDetailDTO
     {
         $url = $this->fixAndValidateURL($id);
@@ -328,7 +393,7 @@ class GenericWebProvider implements InfoProviderInterface
 
 
         $schemaReader = SchemaReader::forAllFormats();
-        $things = $schemaReader->readHtml($content, $canonicalURL);
+        $things = $schemaReader->readHtml(self::sanitizeJsonLdScripts($content), $canonicalURL);
 
         //Try to find a breadcrumb schema to extract the category
         $categoryBreadCrumbs = null;

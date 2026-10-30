@@ -3006,7 +3006,7 @@ Se è stato fatto in modo errato o se un computer non è più attendibile, puoi 
     <unit id="AdYtBQG" name="attachment.edit.url.help">
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>Qui è possibile inserire un URL per un file esterno o cercare inserendo una parola chiave nelle risorse incorporate (ad es. footprints).</target>
+        <target>Qui è possibile inserire un URL per un file esterno o cercare inserendo una parola chiave nelle risorse incorporate (ad es. footprints). È anche possibile incollare qui un file (ad es. un'immagine) dagli appunti per caricarlo.</target>
       </segment>
     </unit>
     <unit id="jXplbqd" name="attachment.edit.name">
@@ -7186,7 +7186,7 @@ Element 3</target>
         <target>Prezzo</target>
       </segment>
     </unit>
-    <unit id="bomExPrc" name="project.bom.ext_price">
+    <unit id="gLWQ4cF" name="project.bom.ext_price">
       <segment state="initial">
         <source>project.bom.ext_price</source>
         <target>Extended Price</target>

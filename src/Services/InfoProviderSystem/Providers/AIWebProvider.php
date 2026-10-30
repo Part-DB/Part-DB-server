@@ -89,6 +89,7 @@ final class AIWebProvider implements InfoProviderInterface
                 ProviderCapabilities::PARAMETERS,
             ],
             expensive: true,
+            slow: true,
         );
     }
 
