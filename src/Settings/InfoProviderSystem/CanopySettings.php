@@ -30,7 +30,9 @@ use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Jbtronics\SettingsBundle\Settings\SettingsTrait;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Translation\TranslatableMessage as TM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Settings(label: new TM("settings.ips.canopy"))]
 #[SettingsIcon("fa-plug")]
@@ -78,6 +80,20 @@ class CanopySettings
      */
     #[SettingsParameter(label: new TM("settings.ips.canopy.alwaysGetDetails"), description: new TM("settings.ips.canopy.alwaysGetDetails.help"))]
     public bool $alwaysGetDetails = false;
+
+    /**
+     * @var bool If true, an Amazon part without provider data is filled with data from Canopy when its info page is opened for the first time
+     */
+    #[SettingsParameter(label: new TM("settings.ips.canopy.fetchOnView"), description: new TM("settings.ips.canopy.fetchOnView.help"))]
+    public bool $fetchOnView = false;
+
+    /**
+     * @var int The maximum number of Canopy requests triggered by page views within 24 hours. 0 means no limit.
+     */
+    #[SettingsParameter(label: new TM("settings.ips.canopy.fetchOnViewDailyLimit"), description: new TM("settings.ips.canopy.fetchOnViewDailyLimit.help"),
+        formType: NumberType::class, formOptions: ["scale" => 0, "attr" => ["min" => 0]])]
+    #[Assert\PositiveOrZero]
+    public int $fetchOnViewDailyLimit = 100;
 
     /**
      * Returns the real domain (e.g. amazon.de) based on the selected domain (e.g. DE)

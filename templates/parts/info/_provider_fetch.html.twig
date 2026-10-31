@@ -1,0 +1,16 @@
+{# Shown on the first view of a part, while its data is retrieved from an info provider (see ProviderOnViewFetcher) #}
+<div class="alert alert-info d-flex align-items-center py-2" role="status"
+    {{ stimulus_controller('pages/provider_fetch', {
+        url: path('part_fetch_on_view', {id: part.id}),
+        token: csrf_token('fetch_on_view' ~ part.id),
+        messages: {
+            updated: 'part.info.provider_fetch.updated'|trans,
+            limit: 'part.info.provider_fetch.limit'|trans({'%provider%': provider_name}),
+            error: 'part.info.provider_fetch.error'|trans({'%provider%': provider_name}),
+        },
+    }) }}>
+    <span class="spinner-border spinner-border-sm me-2 flex-shrink-0" aria-hidden="true" {{ stimulus_target('pages/provider_fetch', 'spinner') }}></span>
+    <i class="fa-solid fa-check fa-fw me-2 d-none" aria-hidden="true" {{ stimulus_target('pages/provider_fetch', 'done') }}></i>
+    <i class="fa-solid fa-triangle-exclamation fa-fw me-2 d-none" aria-hidden="true" {{ stimulus_target('pages/provider_fetch', 'failed') }}></i>
+    <span {{ stimulus_target('pages/provider_fetch', 'message') }}>{{ 'part.info.provider_fetch.loading'|trans({'%provider%': provider_name}) }}</span>
+</div>
