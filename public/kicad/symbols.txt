@@ -1,10 +1,11 @@
-# Generated on Mon Oct 19 07:34:31 UTC 2026
+# Generated on Mon Nov  2 09:12:01 UTC 2026
 # This file contains all symbols available in the offical KiCAD library
 4xxx:14528
 4xxx:14529
 4xxx:14538
 4xxx:4001
 4xxx:4002
+4xxx:4007UB
 4xxx:4009
 4xxx:4010
 4xxx:40106
@@ -20216,8 +20217,6 @@ Relay:G6E
 Relay:G6EU
 Relay:G6H-2
 Relay:G6HU-2
-Relay:G6K-2
-Relay:G6KU-2
 Relay:G6S-2
 Relay:G6SK-2
 Relay:G6SU-2
@@ -20283,6 +20282,8 @@ Relay:JW2
 Relay:MSxx-1Axx-75
 Relay:MSxx-1Bxx-75
 Relay:MiRelay_SIP-HV1Axx
+Relay:Omron_G6K-2
+Relay:Omron_G6KU-2
 Relay:Panasonic_ALFG1PF09
 Relay:Panasonic_ALFG1PF091
 Relay:Panasonic_ALFG1PF12
@@ -20324,6 +20325,7 @@ Relay:RTE4xxxx
 Relay:Relay_DPDT
 Relay:Relay_DPDT_Latching_1coil
 Relay:Relay_DPDT_Latching_2coil
+Relay:Relay_DPDT_Polarized
 Relay:Relay_DPST-NC
 Relay:Relay_DPST-NO
 Relay:Relay_DPST_Latching_1coil
@@ -20331,6 +20333,7 @@ Relay:Relay_DPST_Latching_2coil
 Relay:Relay_SPDT
 Relay:Relay_SPDT_Latching_1coil
 Relay:Relay_SPDT_Latching_2coil
+Relay:Relay_SPDT_Polarized
 Relay:Relay_SPST-NC
 Relay:Relay_SPST-NO
 Relay:Relay_SPST_Latching_1coil
