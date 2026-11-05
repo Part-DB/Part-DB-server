@@ -380,12 +380,12 @@
         "version": "4.0.3"
     },
     "symfony/ai-bundle": {
-        "version": "0.8",
+        "version": "0.14",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "0.1",
-            "ref": "2be6ccd77335c2631fdf12d1680649b072efb8ad"
+            "ref": "abb8f2c86de009cbc24a3408a3ca7aedc6aaa7c8"
         },
         "files": [
             "config/packages/ai.yaml"
