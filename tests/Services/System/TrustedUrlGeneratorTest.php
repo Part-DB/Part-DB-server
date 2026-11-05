@@ -24,9 +24,14 @@ namespace App\Tests\Services\System;
 
 use App\Services\System\TrustedHostsChecker;
 use App\Services\System\TrustedUrlGenerator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollection;
 
 final class TrustedUrlGeneratorTest extends TestCase
 {
@@ -168,5 +173,25 @@ final class TrustedUrlGeneratorTest extends TestCase
         $generator->generate('some_route');
 
         $this->assertSame('/partdb', $capturedBaseUrl);
+    }
+
+    public static function forgedPortProvider(): iterable
+    {
+        yield 'http' => ['http://evil.example:1234/', 'http://trusted.example.com/', 'http://trusted.example.com/foo'];
+        yield 'https' => ['https://evil.example:1234/', 'https://trusted.example.com/', 'https://trusted.example.com/foo'];
+        yield 'explicit port' => ['http://evil.example:1234/', 'http://trusted.example.com:8080/', 'http://trusted.example.com:8080/foo'];
+    }
+
+    #[DataProvider('forgedPortProvider')]
+    public function testPortFromForgedHostHeaderIsIgnored(string $requestUri, string $defaultUri, string $expected): void
+    {
+        //Uses a real URL generator and context, as the context's port is derived from the Host header of the request
+        $routes = new RouteCollection();
+        $routes->add('some_route', new Route('/foo'));
+        $context = (new RequestContext())->fromRequest(Request::create($requestUri));
+
+        $generator = $this->createGenerator(new UrlGenerator($routes, $context), '', $defaultUri);
+
+        $this->assertSame($expected, $generator->generate('some_route'));
     }
 }

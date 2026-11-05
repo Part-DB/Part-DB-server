@@ -31,7 +31,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  *
  * If no TRUSTED_HOSTS is configured, Symfony does not validate the Host header of the incoming request in
  * any way, so it must not be trusted to generate such links (otherwise an attacker could poison them via a
- * forged Host header). In that case, the host/scheme/base path are forced to the ones configured via
+ * forged Host header). In that case, the host/scheme/port/base path are forced to the ones configured via
  * DEFAULT_URI instead of the ones from the current HTTP request.
  * If TRUSTED_HOSTS is configured, Symfony already rejects requests with a non-matching Host header, so the
  * request's host can be trusted and is used as usual (which allows the app to be reachable under multiple
@@ -73,13 +73,9 @@ final readonly class TrustedUrlGenerator
         $scheme = $parts['scheme'] ?? 'https';
         $context->setScheme($scheme);
         $context->setHost($parts['host'] ?? '');
-        if (isset($parts['port'])) {
-            if ($scheme === 'https') {
-                $context->setHttpsPort($parts['port']);
-            } else {
-                $context->setHttpPort($parts['port']);
-            }
-        }
+        //The ports must always be overridden, as the context's ports are derived from the Host header too
+        $context->setHttpPort($parts['port'] ?? 80);
+        $context->setHttpsPort($parts['port'] ?? 443);
         $context->setBaseUrl($parts['path'] ?? '');
 
         try {

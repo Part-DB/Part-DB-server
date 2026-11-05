@@ -7,7 +7,7 @@
         <row class="header">
             <columns>
                 <spacer size="16"></spacer>
-                <h4 class="text-center"><a href="{{ url('homepage') }}">{{ vars.partdb_title() }}</a></h4>
+                <h4 class="text-center"><a href="{{ trusted_url('homepage') }}">{{ vars.partdb_title() }}</a></h4>
             </columns>
         </row>
 
@@ -23,7 +23,7 @@
 
         <row>
             <columns>
-                <p><small>{% trans %}mail.footer.email_sent_by{% endtrans %} <a href="{{ url('homepage') }}">Part-DB</a>. {% trans %}mail.footer.dont_reply{% endtrans %}</small></p>
+                <p><small>{% trans %}mail.footer.email_sent_by{% endtrans %} <a href="{{ trusted_url('homepage') }}">Part-DB</a>. {% trans %}mail.footer.dont_reply{% endtrans %}</small></p>
             </columns>
         </row>
 

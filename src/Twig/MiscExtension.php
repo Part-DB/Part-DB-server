@@ -24,6 +24,7 @@ namespace App\Twig;
 
 use App\Settings\InfoProviderSystem\AIFileExtractorSettings;
 use App\Services\InfoProviderSystem\CreateFromUrlHelper;
+use App\Services\System\TrustedUrlGenerator;
 use Twig\Attribute\AsTwigFunction;
 use App\Settings\SettingsIcon;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,8 +36,19 @@ use App\Services\LogSystem\EventCommentNeededHelper;
 final readonly class MiscExtension
 {
     public function __construct(private EventCommentNeededHelper $eventCommentNeededHelper, private CreateFromUrlHelper $fromUrlHelper,
-        private AIFileExtractorSettings $fileExtractorSettings)
+        private AIFileExtractorSettings $fileExtractorSettings, private TrustedUrlGenerator $trustedUrlGenerator)
     {
+    }
+
+    /**
+     * Like the url() function, but the host can not be manipulated via a forged Host header.
+     * Must be used instead of url() for all links in emails.
+     * @param  array<string, mixed>  $parameters
+     */
+    #[AsTwigFunction(name: 'trusted_url')]
+    public function trustedUrl(string $route, array $parameters = []): string
+    {
+        return $this->trustedUrlGenerator->generate($route, $parameters);
     }
 
     #[AsTwigFunction(name: 'event_comment_needed')]
