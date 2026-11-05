@@ -392,12 +392,12 @@
         ]
     },
     "symfony/ai-generic-platform": {
-        "version": "0.8",
+        "version": "0.14",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "0.1",
-            "ref": "f38913b87380322d4c40c302b41626e811516bc4"
+            "ref": "a3919116f59f52377b59cfffe889711f8351d472"
         },
         "files": [
             "config/packages/ai_generic_platform.yaml"
