@@ -72,6 +72,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 use function Symfony\Component\Translation\t;
@@ -88,6 +89,7 @@ final class PartController extends AbstractController
         private readonly EventCommentHelper $commentHelper,
         private readonly PartInfoSettings $partInfoSettings,
         private readonly IpnSuggestSettings $ipnSuggestSettings,
+        private readonly ValidatorInterface $validator,
     ) {
     }
 
@@ -629,6 +631,8 @@ final class PartController extends AbstractController
                 $new_part->setMasterPictureAttachment(null);
             }
 
+            $this->addParameterRangeWarnings($new_part);
+
             $this->commentHelper->setMessage($form['log_comment']->getData());
 
             $this->em->persist($new_part);
@@ -698,6 +702,18 @@ final class PartController extends AbstractController
                 'jobId' => $request->query->get('jobId')
             ]
         );
+    }
+
+    /**
+     * Adds a warning for every parameter whose min/typical/max values are inconsistent.
+     */
+    private function addParameterRangeWarnings(Part $part): void
+    {
+        foreach ($part->getParameters() as $parameter) {
+            foreach ($this->validator->validate($parameter, groups: ['range']) as $violation) {
+                $this->addFlash('warning', $parameter->getName() . ': ' . $violation->getMessage());
+            }
+        }
     }
 
     #[Route(path: '/{id}/stocktake', name: 'part_stocktake', methods: ['POST'])]
