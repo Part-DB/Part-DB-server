@@ -66,6 +66,22 @@ class LabelOptions
     protected float $height = 30.0;
 
     /**
+     * @var int the number of columns in a grid arrangement
+     */
+    #[Assert\Positive]
+    #[ORM\Column(type: Types::SMALLINT)]
+    #[Groups(["extended", "full", "import"])]
+    protected int $grid_columns = 1;
+    
+    /**
+     * @var int the number of columns in a grid arrangement
+     */
+    #[Assert\Positive]
+    #[ORM\Column(type: Types::SMALLINT)]
+    #[Groups(["extended", "full", "import"])]
+    protected int $grid_rows = 1;
+
+    /**
      * @var BarcodeType The type of the barcode that should be used in the label (e.g. 'qr')
      */
     #[ORM\Column(type: Types::STRING, enumType: BarcodeType::class)]
@@ -103,6 +119,12 @@ class LabelOptions
     #[Groups(["extended", "full", "import"])]
     protected string $lines = '';
 
+    /**
+     * @var int The number of leading empty labels in a grid arrangement
+     * This does not need to be persisted, but can be passed to the label generator as an option
+     */
+    public int $skip_count = 0;
+    
     public function getWidth(): float
     {
         return $this->width;
@@ -123,6 +145,42 @@ class LabelOptions
     public function setHeight(float $height): self
     {
         $this->height = $height;
+
+        return $this;
+    }
+
+    public function getGridColumns(): int
+    {
+        return $this->grid_columns;
+    }
+
+    public function setGridColumns(int $col): self
+    {
+        $this->grid_columns = $col;
+
+        return $this;
+    }
+
+    public function getGridRows(): int
+    {
+        return $this->grid_rows;
+    }
+
+    public function setGridRows(int $row): self
+    {
+        $this->grid_rows = $row;
+
+        return $this;
+    }
+    
+    public function getSkipCount(): int
+    {
+        return $this->skip_count;
+    }
+
+    public function setSkipCount(int $cnt): self
+    {
+        $this->skip_count = $cnt;
 
         return $this;
     }
