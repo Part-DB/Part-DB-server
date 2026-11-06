@@ -976,7 +976,7 @@
         },
         {
             "name": "api-platform/doctrine-common",
-            "version": "v4.4.6",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/doctrine-common.git",
@@ -1060,22 +1060,22 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/doctrine-common/tree/v4.4.6"
+                "source": "https://github.com/api-platform/doctrine-common/tree/v4.4.7"
             },
             "time": "2026-10-13T13:41:08+00:00"
         },
         {
             "name": "api-platform/doctrine-orm",
-            "version": "v4.4.6",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/doctrine-orm.git",
-                "reference": "b0ac449f42959de87484301508cee666c888cb17"
+                "reference": "7a2c0c262c1be9729cbffadc6ef243be2160c9a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/doctrine-orm/zipball/b0ac449f42959de87484301508cee666c888cb17",
-                "reference": "b0ac449f42959de87484301508cee666c888cb17",
+                "url": "https://api.github.com/repos/api-platform/doctrine-orm/zipball/7a2c0c262c1be9729cbffadc6ef243be2160c9a7",
+                "reference": "7a2c0c262c1be9729cbffadc6ef243be2160c9a7",
                 "shasum": ""
             },
             "require": {
@@ -1088,6 +1088,8 @@
                 "php": ">=8.2"
             },
             "require-dev": {
+                "api-platform/json-schema": "^4.4",
+                "api-platform/openapi": "^4.4",
                 "doctrine/doctrine-bundle": "^2.11.1 || ^3.1",
                 "phpspec/prophecy-phpunit": "^2.2",
                 "phpunit/phpunit": "^11.5 || ^12.2",
@@ -1149,13 +1151,13 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/doctrine-orm/tree/v4.4.6"
+                "source": "https://github.com/api-platform/doctrine-orm/tree/v4.4.7"
             },
-            "time": "2026-10-13T13:41:08+00:00"
+            "time": "2026-11-03T15:33:22+00:00"
         },
         {
             "name": "api-platform/documentation",
-            "version": "v4.4.6",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/documentation.git",
@@ -1212,13 +1214,13 @@
             ],
             "description": "API Platform documentation controller.",
             "support": {
-                "source": "https://github.com/api-platform/documentation/tree/v4.4.6"
+                "source": "https://github.com/api-platform/documentation/tree/v4.4.7"
             },
             "time": "2026-09-16T09:03:39+00:00"
         },
         {
             "name": "api-platform/http-cache",
-            "version": "v4.4.6",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/http-cache.git",
@@ -1292,13 +1294,13 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/http-cache/tree/v4.4.6"
+                "source": "https://github.com/api-platform/http-cache/tree/v4.4.7"
             },
             "time": "2026-09-16T09:03:39+00:00"
         },
         {
             "name": "api-platform/hydra",
-            "version": "v4.4.6",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/hydra.git",
@@ -1379,29 +1381,29 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/hydra/tree/v4.4.6"
+                "source": "https://github.com/api-platform/hydra/tree/v4.4.7"
             },
             "time": "2026-10-16T08:27:05+00:00"
         },
         {
             "name": "api-platform/json-api",
-            "version": "v4.4.6",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/json-api.git",
-                "reference": "03cb17ab8fd0853e87352b702431a0070302cc9e"
+                "reference": "f0e6512b8080e0e92a6bef6f936c4e4bef9f8d17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/json-api/zipball/03cb17ab8fd0853e87352b702431a0070302cc9e",
-                "reference": "03cb17ab8fd0853e87352b702431a0070302cc9e",
+                "url": "https://api.github.com/repos/api-platform/json-api/zipball/f0e6512b8080e0e92a6bef6f936c4e4bef9f8d17",
+                "reference": "f0e6512b8080e0e92a6bef6f936c4e4bef9f8d17",
                 "shasum": ""
             },
             "require": {
                 "api-platform/documentation": "^4.4",
                 "api-platform/json-schema": "^4.4",
                 "api-platform/metadata": "^4.4",
-                "api-platform/serializer": "^4.4",
+                "api-platform/serializer": "^4.4.7",
                 "api-platform/state": "^4.4",
                 "php": ">=8.2",
                 "symfony/error-handler": "^7.4 || ^8.0",
@@ -1461,13 +1463,13 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/json-api/tree/v4.4.6"
+                "source": "https://github.com/api-platform/json-api/tree/v4.4.7"
             },
-            "time": "2026-09-28T08:37:45+00:00"
+            "time": "2026-11-04T16:19:49+00:00"
         },
         {
             "name": "api-platform/json-schema",
-            "version": "v4.4.6",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/json-schema.git",
@@ -1542,13 +1544,13 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/json-schema/tree/v4.4.6"
+                "source": "https://github.com/api-platform/json-schema/tree/v4.4.7"
             },
             "time": "2026-10-12T14:38:14+00:00"
         },
         {
             "name": "api-platform/jsonld",
-            "version": "v4.4.6",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/jsonld.git",
@@ -1622,13 +1624,13 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/api-platform/jsonld/tree/v4.4.6"
+                "source": "https://github.com/api-platform/jsonld/tree/v4.4.7"
             },
             "time": "2026-09-16T09:03:39+00:00"
         },
         {
             "name": "api-platform/mcp",
-            "version": "v4.4.6",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/mcp.git",
@@ -1707,13 +1709,13 @@
             ],
             "support": {
                 "issues": "https://github.com/api-platform/mcp/issues",
-                "source": "https://github.com/api-platform/mcp/tree/v4.4.6"
+                "source": "https://github.com/api-platform/mcp/tree/v4.4.7"
             },
             "time": "2026-10-12T14:38:14+00:00"
         },
         {
             "name": "api-platform/metadata",
-            "version": "v4.4.6",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/metadata.git",
@@ -1805,13 +1807,13 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/metadata/tree/v4.4.6"
+                "source": "https://github.com/api-platform/metadata/tree/v4.4.7"
             },
             "time": "2026-09-29T20:09:09+00:00"
         },
         {
             "name": "api-platform/openapi",
-            "version": "v4.4.6",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/openapi.git",
@@ -1896,22 +1898,22 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/openapi/tree/v4.4.6"
+                "source": "https://github.com/api-platform/openapi/tree/v4.4.7"
             },
             "time": "2026-10-19T07:40:02+00:00"
         },
         {
             "name": "api-platform/serializer",
-            "version": "v4.4.6",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/serializer.git",
-                "reference": "22d9be4dc3a89b737838d1287e49a924eeb1e5eb"
+                "reference": "2f3ad741ae357d0a54480369cb43456c754dd955"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/serializer/zipball/22d9be4dc3a89b737838d1287e49a924eeb1e5eb",
-                "reference": "22d9be4dc3a89b737838d1287e49a924eeb1e5eb",
+                "url": "https://api.github.com/repos/api-platform/serializer/zipball/2f3ad741ae357d0a54480369cb43456c754dd955",
+                "reference": "2f3ad741ae357d0a54480369cb43456c754dd955",
                 "shasum": ""
             },
             "require": {
@@ -1990,13 +1992,13 @@
                 "serializer"
             ],
             "support": {
-                "source": "https://github.com/api-platform/serializer/tree/v4.4.6"
+                "source": "https://github.com/api-platform/serializer/tree/v4.4.7"
             },
-            "time": "2026-10-13T13:25:55+00:00"
+            "time": "2026-11-06T10:28:23+00:00"
         },
         {
             "name": "api-platform/state",
-            "version": "v4.4.6",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/state.git",
@@ -2090,22 +2092,22 @@
                 "swagger"
             ],
             "support": {
-                "source": "https://github.com/api-platform/state/tree/v4.4.6"
+                "source": "https://github.com/api-platform/state/tree/v4.4.7"
             },
             "time": "2026-10-13T13:41:08+00:00"
         },
         {
             "name": "api-platform/symfony",
-            "version": "v4.4.6",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/symfony.git",
-                "reference": "ac1de0de0861b2346b3706f4fcbe6cf5ae58af57"
+                "reference": "c9cd916403d444b3339603a666cbd99409020ce3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/symfony/zipball/ac1de0de0861b2346b3706f4fcbe6cf5ae58af57",
-                "reference": "ac1de0de0861b2346b3706f4fcbe6cf5ae58af57",
+                "url": "https://api.github.com/repos/api-platform/symfony/zipball/c9cd916403d444b3339603a666cbd99409020ce3",
+                "reference": "c9cd916403d444b3339603a666cbd99409020ce3",
                 "shasum": ""
             },
             "require": {
@@ -2223,13 +2225,13 @@
                 "symfony"
             ],
             "support": {
-                "source": "https://github.com/api-platform/symfony/tree/v4.4.6"
+                "source": "https://github.com/api-platform/symfony/tree/v4.4.7"
             },
-            "time": "2026-10-19T09:54:03+00:00"
+            "time": "2026-11-06T10:28:23+00:00"
         },
         {
             "name": "api-platform/validator",
-            "version": "v4.4.6",
+            "version": "v4.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/validator.git",
@@ -2300,7 +2302,7 @@
                 "validator"
             ],
             "support": {
-                "source": "https://github.com/api-platform/validator/tree/v4.4.6"
+                "source": "https://github.com/api-platform/validator/tree/v4.4.7"
             },
             "time": "2026-09-21T12:55:20+00:00"
         },
@@ -7878,23 +7880,23 @@
         },
         {
             "name": "nelexa/zip",
-            "version": "4.0.2",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ne-Lexa/php-zip.git",
-                "reference": "88a1b6549be813278ff2dd3b6b2ac188827634a7"
+                "reference": "e2fb47c8e740d4709c8229973f05070bffa8008e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ne-Lexa/php-zip/zipball/88a1b6549be813278ff2dd3b6b2ac188827634a7",
-                "reference": "88a1b6549be813278ff2dd3b6b2ac188827634a7",
+                "url": "https://api.github.com/repos/Ne-Lexa/php-zip/zipball/e2fb47c8e740d4709c8229973f05070bffa8008e",
+                "reference": "e2fb47c8e740d4709c8229973f05070bffa8008e",
                 "shasum": ""
             },
             "require": {
                 "ext-zlib": "*",
                 "php": "^7.4 || ^8.0",
-                "psr/http-message": "*",
-                "symfony/finder": "*"
+                "psr/http-message": "^1.0 || ^2.0",
+                "symfony/finder": "^5.4 || ^6.0 || ^7.0 || ^8.0"
             },
             "require-dev": {
                 "ext-bz2": "*",
@@ -7904,9 +7906,9 @@
                 "ext-openssl": "*",
                 "ext-xml": "*",
                 "friendsofphp/php-cs-fixer": "^3.4.0",
-                "guzzlehttp/psr7": "^1.6",
+                "guzzlehttp/psr7": "^2.0",
                 "phpunit/phpunit": "^9",
-                "symfony/http-foundation": "*",
+                "symfony/http-foundation": "^5.4 || ^6.0 || ^7.0 || ^8.0",
                 "symfony/var-dumper": "*",
                 "vimeo/psalm": "^4.6"
             },
@@ -7945,9 +7947,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Ne-Lexa/php-zip/issues",
-                "source": "https://github.com/Ne-Lexa/php-zip/tree/4.0.2"
+                "source": "https://github.com/Ne-Lexa/php-zip/tree/4.1.0"
             },
-            "time": "2022-06-17T11:17:46+00:00"
+            "time": "2026-11-05T21:28:38+00:00"
         },
         {
             "name": "nelmio/cors-bundle",
@@ -8572,16 +8574,16 @@
         },
         {
             "name": "opis/json-schema",
-            "version": "2.6.0",
+            "version": "2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opis/json-schema.git",
-                "reference": "8458763e0dd0b6baa310e04f1829fc73da4e8c8a"
+                "reference": "7d8685a78db131eb6a1571cc7b4db8f4b59e8628"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opis/json-schema/zipball/8458763e0dd0b6baa310e04f1829fc73da4e8c8a",
-                "reference": "8458763e0dd0b6baa310e04f1829fc73da4e8c8a",
+                "url": "https://api.github.com/repos/opis/json-schema/zipball/7d8685a78db131eb6a1571cc7b4db8f4b59e8628",
+                "reference": "7d8685a78db131eb6a1571cc7b4db8f4b59e8628",
                 "shasum": ""
             },
             "require": {
@@ -8631,9 +8633,9 @@
             ],
             "support": {
                 "issues": "https://github.com/opis/json-schema/issues",
-                "source": "https://github.com/opis/json-schema/tree/2.6.0"
+                "source": "https://github.com/opis/json-schema/tree/2.6.1"
             },
-            "time": "2025-10-17T12:46:48+00:00"
+            "time": "2026-11-06T04:25:16+00:00"
         },
         {
             "name": "opis/string",
@@ -8814,16 +8816,16 @@
         },
         {
             "name": "paragonie/constant_time_encoding",
-            "version": "v3.1.3",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/constant_time_encoding.git",
-                "reference": "d5b01a39b3415c2cd581d3bd3a3575c1ebbd8e77"
+                "reference": "5efef6e6cb43e088ccab7d0c1e2f2ab25b9e8b54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/d5b01a39b3415c2cd581d3bd3a3575c1ebbd8e77",
-                "reference": "d5b01a39b3415c2cd581d3bd3a3575c1ebbd8e77",
+                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/5efef6e6cb43e088ccab7d0c1e2f2ab25b9e8b54",
+                "reference": "5efef6e6cb43e088ccab7d0c1e2f2ab25b9e8b54",
                 "shasum": ""
             },
             "require": {
@@ -8879,7 +8881,7 @@
                 "issues": "https://github.com/paragonie/constant_time_encoding/issues",
                 "source": "https://github.com/paragonie/constant_time_encoding"
             },
-            "time": "2025-09-24T15:06:41+00:00"
+            "time": "2026-11-06T20:31:19+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -18702,16 +18704,16 @@
         },
         {
             "name": "symplify/easy-coding-standard",
-            "version": "13.3.13",
+            "version": "13.3.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ecsphp/ecs.git",
-                "reference": "ceb2ac9fd79dc30841dbecb4e259f88ceb9d5600"
+                "reference": "c6a379b5d5cce68c60d2dbd1211989bdf58eacaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ecsphp/ecs/zipball/ceb2ac9fd79dc30841dbecb4e259f88ceb9d5600",
-                "reference": "ceb2ac9fd79dc30841dbecb4e259f88ceb9d5600",
+                "url": "https://api.github.com/repos/ecsphp/ecs/zipball/c6a379b5d5cce68c60d2dbd1211989bdf58eacaf",
+                "reference": "c6a379b5d5cce68c60d2dbd1211989bdf58eacaf",
                 "shasum": ""
             },
             "require": {
@@ -18744,9 +18746,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ecsphp/ecs/issues",
-                "source": "https://github.com/ecsphp/ecs/tree/13.3.13"
+                "source": "https://github.com/ecsphp/ecs/tree/13.3.14"
             },
-            "time": "2026-11-02T22:11:38+00:00"
+            "time": "2026-11-05T16:53:58+00:00"
         },
         {
             "name": "tecnickcom/tc-lib-barcode",
@@ -20704,16 +20706,16 @@
         },
         {
             "name": "phpstan/phpstan-doctrine",
-            "version": "2.1.0",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "1c3be34c9f80f79931eb76f21dc98b2e8015f77c"
+                "reference": "54d759477ffdd095facf2d193fc91ad7a6733c6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/1c3be34c9f80f79931eb76f21dc98b2e8015f77c",
-                "reference": "1c3be34c9f80f79931eb76f21dc98b2e8015f77c",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/54d759477ffdd095facf2d193fc91ad7a6733c6a",
+                "reference": "54d759477ffdd095facf2d193fc91ad7a6733c6a",
                 "shasum": ""
             },
             "require": {
@@ -20775,9 +20777,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-doctrine/issues",
-                "source": "https://github.com/phpstan/phpstan-doctrine/tree/2.1.0"
+                "source": "https://github.com/phpstan/phpstan-doctrine/tree/2.1.2"
             },
-            "time": "2026-10-30T17:56:27+00:00"
+            "time": "2026-11-06T19:55:47+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
