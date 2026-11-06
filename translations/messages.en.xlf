@@ -16046,5 +16046,287 @@ Buerklin-API Authentication server:
         <target>The information provider (%host%) is temporarily unavailable (HTTP %status%). Please try again later.</target>
       </segment>
     </unit>
+    <unit id="CiwPLVh" name="label_generator.agent.title">
+      <segment state="translated">
+        <source>label_generator.agent.title</source>
+        <target>Print agent</target>
+      </segment>
+    </unit>
+    <unit id="sAlvfDN" name="label_generator.agent.explanation">
+      <segment state="translated">
+        <source>label_generator.agent.explanation</source>
+        <target>A print agent is a small program on this computer that prints labels directly on a label printer, without the browser's print dialog. Once this browser is connected, a print button appears next to the label download and in the label menus.</target>
+      </segment>
+    </unit>
+    <unit id="VBpGK6i" name="label_generator.agent.docs">
+      <segment state="translated">
+        <source>label_generator.agent.docs</source>
+        <target>How it works</target>
+      </segment>
+    </unit>
+    <unit id="Gr1w470" name="label_generator.agent.confirm">
+      <segment state="translated">
+        <source>label_generator.agent.confirm</source>
+        <target>Connect this browser to the print agent at</target>
+      </segment>
+    </unit>
+    <unit id="6ymGXyi" name="label_generator.agent.connect">
+      <segment state="translated">
+        <source>label_generator.agent.connect</source>
+        <target>Connect</target>
+      </segment>
+    </unit>
+    <unit id="JasPg12" name="label_generator.agent.connected">
+      <segment state="translated">
+        <source>label_generator.agent.connected</source>
+        <target>This browser prints labels with the print agent at</target>
+      </segment>
+    </unit>
+    <unit id="XlALtmA" name="label_generator.agent.disconnect">
+      <segment state="translated">
+        <source>label_generator.agent.disconnect</source>
+        <target>Disconnect</target>
+      </segment>
+    </unit>
+    <unit id="QgxW8il" name="label_generator.agent.invalid">
+      <segment state="translated">
+        <source>label_generator.agent.invalid</source>
+        <target>This connection link is invalid. Open it again from your print agent.</target>
+      </segment>
+    </unit>
+    <unit id="09OhcR6" name="label_generator.agent.none">
+      <segment state="translated">
+        <source>label_generator.agent.none</source>
+        <target>This browser is not connected to a print agent. Open the connection link from your print agent's settings.</target>
+      </segment>
+    </unit>
+    <unit id="sJP4YX8" name="tree.tools.tools.print_agent">
+      <segment state="translated">
+        <source>tree.tools.tools.print_agent</source>
+        <target>Print agent</target>
+      </segment>
+    </unit>
+    <unit id="hYkmneM" name="label_generator.print">
+      <segment state="translated">
+        <source>label_generator.print</source>
+        <target>Print</target>
+      </segment>
+    </unit>
+    <unit id="hNczJhj" name="label_generator.print.title">
+      <segment state="translated">
+        <source>label_generator.print.title</source>
+        <target>Print with your print agent (uses the saved label profile)</target>
+      </segment>
+    </unit>
+    <unit id="AX8JTBJ" name="label_generator.print.profile">
+      <segment state="translated">
+        <source>label_generator.print.profile</source>
+        <target>Print with label profile %name% (print agent)</target>
+      </segment>
+    </unit>
+    <unit id="MKQalHA" name="label_generator.print.to">
+      <segment state="translated">
+        <source>label_generator.print.to</source>
+        <target>Print on %printer%</target>
+      </segment>
+    </unit>
+    <unit id="vqoYfUZ" name="label_generator.print.choose_printer">
+      <segment state="translated">
+        <source>label_generator.print.choose_printer</source>
+        <target>Choose a printer</target>
+      </segment>
+    </unit>
+    <unit id="i214_TB" name="label_generator.print.this_computer">
+      <segment state="translated">
+        <source>label_generator.print.this_computer</source>
+        <target>This computer (print agent connected to this browser)</target>
+      </segment>
+    </unit>
+    <unit id="A_cdch0" name="label_generator.print.profile_to">
+      <segment state="translated">
+        <source>label_generator.print.profile_to</source>
+        <target>Print %name% on %printer%</target>
+      </segment>
+    </unit>
+    <unit id="JrdXknH" name="label_generator.print.sent">
+      <segment state="translated">
+        <source>label_generator.print.sent</source>
+        <target>Sent %count% label(s) to %printer%.</target>
+      </segment>
+    </unit>
+    <unit id="_Pht2vi" name="label_generator.print.sent_offline">
+      <segment state="translated">
+        <source>label_generator.print.sent_offline</source>
+        <target>Sent %count% label(s) to %printer%, but its print agent is offline. The labels are printed when it is back.</target>
+      </segment>
+    </unit>
+    <unit id="SUDc6an" name="part_list.action.print_label">
+      <segment state="translated">
+        <source>part_list.action.print_label</source>
+        <target>Print labels on the profile's default printer</target>
+      </segment>
+    </unit>
+    <unit id="DTbdKJp" name="part_list.action.print_label_lot">
+      <segment state="translated">
+        <source>part_list.action.print_label_lot</source>
+        <target>Print labels for [[part_lot]] on the profile's default printer</target>
+      </segment>
+    </unit>
+    <unit id="Hab8nnV" name="label_generator.agent.agents">
+      <segment state="translated">
+        <source>label_generator.agent.agents</source>
+        <target>Your print agents</target>
+      </segment>
+    </unit>
+    <unit id="YPjvVxV" name="label_generator.agent.no_agents">
+      <segment state="translated">
+        <source>label_generator.agent.no_agents</source>
+        <target>No print agent has connected to Part-DB yet. Print agents register themselves with one of your API tokens (read-only is enough).</target>
+      </segment>
+    </unit>
+    <unit id="kJ.eukp" name="label_generator.agent.agent">
+      <segment state="translated">
+        <source>label_generator.agent.agent</source>
+        <target>Agent</target>
+      </segment>
+    </unit>
+    <unit id="0XdeQrB" name="label_generator.agent.printers">
+      <segment state="translated">
+        <source>label_generator.agent.printers</source>
+        <target>Printers</target>
+      </segment>
+    </unit>
+    <unit id="NzdGICH" name="label_generator.agent.last_seen">
+      <segment state="translated">
+        <source>label_generator.agent.last_seen</source>
+        <target>Last seen</target>
+      </segment>
+    </unit>
+    <unit id="rMosSR4" name="label_generator.agent.online">
+      <segment state="translated">
+        <source>label_generator.agent.online</source>
+        <target>Online</target>
+      </segment>
+    </unit>
+    <unit id="qhcQxBn" name="label_generator.agent.offline">
+      <segment state="translated">
+        <source>label_generator.agent.offline</source>
+        <target>Offline</target>
+      </segment>
+    </unit>
+    <unit id="wEffqu2" name="label_generator.agent.remove">
+      <segment state="translated">
+        <source>label_generator.agent.remove</source>
+        <target>Remove</target>
+      </segment>
+    </unit>
+    <unit id="SWK5SKw" name="label_generator.agent.remove.confirm">
+      <segment state="translated">
+        <source>label_generator.agent.remove.confirm</source>
+        <target>Remove this print agent and its jobs? It registers again the next time it connects.</target>
+      </segment>
+    </unit>
+    <unit id="O84_5xJ" name="label_generator.agent.jobs">
+      <segment state="translated">
+        <source>label_generator.agent.jobs</source>
+        <target>Recent print jobs</target>
+      </segment>
+    </unit>
+    <unit id="NT6szZs" name="label_generator.agent.job.created">
+      <segment state="translated">
+        <source>label_generator.agent.job.created</source>
+        <target>Sent</target>
+      </segment>
+    </unit>
+    <unit id="0CrqjK_" name="label_generator.agent.job.printer">
+      <segment state="translated">
+        <source>label_generator.agent.job.printer</source>
+        <target>Printer</target>
+      </segment>
+    </unit>
+    <unit id="7VrBzRU" name="label_generator.agent.job.labels">
+      <segment state="translated">
+        <source>label_generator.agent.job.labels</source>
+        <target>Labels</target>
+      </segment>
+    </unit>
+    <unit id="aTFNh_E" name="label_generator.agent.job.status">
+      <segment state="translated">
+        <source>label_generator.agent.job.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="8SKTJ2H" name="label_generator.agent.job.status.pending">
+      <segment state="translated">
+        <source>label_generator.agent.job.status.pending</source>
+        <target>Waiting</target>
+      </segment>
+    </unit>
+    <unit id="RWyj_WB" name="label_generator.agent.job.status.claimed">
+      <segment state="translated">
+        <source>label_generator.agent.job.status.claimed</source>
+        <target>Printing</target>
+      </segment>
+    </unit>
+    <unit id="sG4P9lr" name="label_generator.agent.job.status.done">
+      <segment state="translated">
+        <source>label_generator.agent.job.status.done</source>
+        <target>Printed</target>
+      </segment>
+    </unit>
+    <unit id="gPv_lFs" name="label_generator.agent.job.status.failed">
+      <segment state="translated">
+        <source>label_generator.agent.job.status.failed</source>
+        <target>Failed</target>
+      </segment>
+    </unit>
+    <unit id="dQpx908" name="label_generator.agent.job.status.cancelled">
+      <segment state="translated">
+        <source>label_generator.agent.job.status.cancelled</source>
+        <target>Cancelled</target>
+      </segment>
+    </unit>
+    <unit id="27TyUJ8" name="label_generator.agent.job.status.unknown">
+      <segment state="translated">
+        <source>label_generator.agent.job.status.unknown</source>
+        <target>Unknown (the agent never reported a result)</target>
+      </segment>
+    </unit>
+    <unit id="9E41UVc" name="label_generator.agent.job.cancel">
+      <segment state="translated">
+        <source>label_generator.agent.job.cancel</source>
+        <target>Cancel</target>
+      </segment>
+    </unit>
+    <unit id="0cMr3UY" name="label_generator.agent.job.resend">
+      <segment state="translated">
+        <source>label_generator.agent.job.resend</source>
+        <target>Send again</target>
+      </segment>
+    </unit>
+    <unit id="RJHogrE" name="label_generator.agent.job_resent">
+      <segment state="translated">
+        <source>label_generator.agent.job_resent</source>
+        <target>The print job was sent again.</target>
+      </segment>
+    </unit>
+    <unit id="zh0xgkY" name="label_profile.default_printer">
+      <segment state="translated">
+        <source>label_profile.default_printer</source>
+        <target>Default printer</target>
+      </segment>
+    </unit>
+    <unit id="yUHZAQb" name="label_profile.default_printer.help">
+      <segment state="translated">
+        <source>label_profile.default_printer.help</source>
+        <target>The printer id as reported by your print agents (see Tools → Print agent). Print buttons use this printer for this profile.</target>
+      </segment>
+    </unit>
+    <unit id="BnN2Yvu" name="label_generator.agent.job_printer_gone">
+      <segment state="translated">
+        <source>label_generator.agent.job_printer_gone</source>
+        <target>The print agent no longer reports this printer, so the job was not sent again.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
