@@ -75,6 +75,68 @@ hr {
     font-size: 6pt;
 }
 
+/* Images resized in CKEditor only get a width style, while keeping the width/height attributes of the original image
+   (and an aspect-ratio style, which dompdf does not support). So we must reset the height, to keep the aspect ratio. */
+img.image_resized {
+    height: auto;
+}
+
+.image.image_resized {
+    display: block;
+    max-width: 100%;
+}
+
+.image.image_resized img {
+    width: 100%;
+    height: auto;
+}
+
+/* Only for images with a style applied, so that the default images of existing labels do not change */
+.image-style-align-left img, .image-style-align-right img, .image-style-side img,
+.image-style-align-center img, .image-style-block-align-left img, .image-style-block-align-right img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Image styles of CKEditor, which are applied via the image toolbar (should be the same as in ckeditor.css).
+   Images without a style keep the default positioning of dompdf, so that existing labels do not change. */
+/* Wrapped images keep a 4mm gap to the text (see also ckeditor.css) */
+.image-style-align-left {
+    float: left;
+    margin: 0 4mm 0 0;
+}
+
+/* The "side" style of older versions of the label editor was replaced by "align-right" (see PartDBLabelImageStyles.js) */
+.image-style-align-right,
+.image-style-side {
+    float: right;
+    margin: 0 0 0 4mm;
+}
+
+/* Block images with a style have no vertical margins (like in the label editor), images without a style keep the default ones */
+.image-style-align-center, .image-style-block-align-left, .image-style-block-align-right {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.image-style-align-center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.image-style-block-align-left {
+    margin-left: 0;
+    margin-right: auto;
+    text-align: left;
+}
+
+.image-style-block-align-right {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: right;
+}
+
 /**************************************
  Grid system token from simplegrid.io
 
@@ -133,6 +195,13 @@ hr {
     float: left;
     margin: 0 0.5%;
     min-height: 0.125rem ;
+}
+
+/* Used instead of floats, if the columns contain floating elements, as dompdf can not handle nested floats */
+.row.row-inline [class^="col"] {
+    float: none;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .row::after {
