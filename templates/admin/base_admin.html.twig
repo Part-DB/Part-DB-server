@@ -83,9 +83,11 @@
                                             <a data-bs-toggle="tab" class="nav-link link-anchor active" href="#common">{% trans %}admin.common{% endtrans %}</a>
                                         </li>
                                         {% block additional_pills %}{% endblock %}
-                                        <li class="nav-item">
-                                            <a data-bs-toggle="tab" class="nav-link link-anchor" href="#attachments">{% trans %}admin.attachments{% endtrans %}</a>
-                                        </li>
+                                        {% if form.attachments is defined %}
+                                            <li class="nav-item">
+                                                <a data-bs-toggle="tab" class="nav-link link-anchor" href="#attachments">{% trans %}admin.attachments{% endtrans %}</a>
+                                            </li>
+                                        {% endif %}
                                         {% if entity.parameters is defined and showParameters == true %}
                                             <li class="nav-item">
                                                 <a data-bs-toggle="tab" class="nav-link link-anchor" href="#parameters">{% trans %}admin.parameters{% endtrans %}</a>
@@ -114,12 +116,14 @@
                                     </div>
                                     {% block additional_panes %}{% endblock %}
 
-                                    <div class="tab-pane" id="attachments">
-                                        {% include "admin/_attachments.html.twig" %}
-                                        {% block master_picture_block %}
-                                            {{ form_row(form.master_picture_attachment) }}
-                                        {% endblock %}
-                                    </div>
+                                    {% if form.attachments is defined %}
+                                        <div class="tab-pane" id="attachments">
+                                            {% include "admin/_attachments.html.twig" %}
+                                            {% block master_picture_block %}
+                                                {{ form_row(form.master_picture_attachment) }}
+                                            {% endblock %}
+                                        </div>
+                                    {% endif %}
 
                                     {% if entity.parameters is defined %}
                                         <div id="parameters" class="tab-pane fade">
