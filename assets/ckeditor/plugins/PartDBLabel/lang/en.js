@@ -20,6 +20,16 @@
 import {add} from "ckeditor5";
 
 add( "en", {
+    'Barcode': 'Barcode',
+    'Insert the barcode of the label. Its size is set by the barcode size option.': 'Insert the barcode of the label. Its size is set by the barcode size option.',
+    'Select a barcode type in the label options to insert the barcode.': 'Select a barcode type in the label options to insert the barcode.',
+    'Part image': 'Part image',
+    'Insert the image of the part. It is fitted into the placeholder, which can be resized.': 'Insert the image of the part. It is fitted into the placeholder, which can be resized.',
+    'Only labels for parts and part lots can contain the part image.': 'Only labels for parts and part lots can contain the part image.',
+    'Size': 'Size',
+    'Width (mm)': 'Width (mm)',
+    'Height (mm)': 'Height (mm)',
+    'Set the size of the image': 'Set the size of the image',
     'Label Placeholder': 'Label placeholder',
     'Part': 'Part',
 
