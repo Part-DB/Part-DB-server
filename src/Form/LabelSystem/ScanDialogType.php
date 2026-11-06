@@ -83,6 +83,11 @@ class ScanDialogType extends AbstractType
             'required' => false,
         ]);
 
+        $builder->add('return_to_scanner', CheckboxType::class, [
+            'label' => 'scan_dialog.return_to_scanner',
+            'required' => false,
+        ]);
+
         $builder->add('submit', SubmitType::class, [
             'label' => 'scan_dialog.submit',
         ]);
