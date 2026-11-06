@@ -138,6 +138,10 @@ If the reverse proxy is on a different server (or it cannot access Part-DB via l
 the `TRUSTED_PROXIES` env variable to match your reverse proxy's IP address (or IP block). You can do this in
 your `.env.local` or (when using docker) in your `docker-compose.yml` file.
 
+## One-click deploy
+
+[![Deploy on RepoCloud](https://d16t0pc4846x52.cloudfront.net/deploylobe.svg)](https://repocloud.io/details/Part-DB/)
+
 ## Donate for development
 
 If you want to donate to the Part-DB developer, see the sponsor button in the top bar (next to the repo name).
