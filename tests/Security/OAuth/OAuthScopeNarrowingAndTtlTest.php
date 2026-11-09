@@ -183,6 +183,39 @@ final class OAuthScopeNarrowingAndTtlTest extends ApiTestCase
         self::assertSame(['edit', 'read_only'], $scopeNames);
     }
 
+    /**
+     * Regression test for clients (e.g. Gemini) that self-register without a "scope" field, but then request
+     * every advertised scope at /oauth/authorize: the token exchange must not fail with invalid_scope after the
+     * user already approved the consent screen.
+     */
+    public function testDynamicallyRegisteredClientWithoutScopeCanRequestAdvertisedScopes(): void
+    {
+        $httpClient = static::createClient();
+        $redirectUri = 'https://client.example.invalid/callback';
+
+        $response = $httpClient->request('POST', '/oauth/register', ['json' => ['redirect_uris' => [$redirectUri]]]);
+        self::assertSame(201, $response->getStatusCode());
+        $clientId = $response->toArray()['client_id'];
+
+        $oauthClient = $httpClient->getContainer()->get(ClientManagerInterface::class)->find($clientId);
+        self::assertNotNull($oauthClient);
+
+        $httpClient->getContainer()->get(OAuthClientGrantPreferenceManager::class)->save(
+            'admin',
+            $clientId,
+            ApiTokenLevel::READ_ONLY,
+            null,
+            null,
+        );
+
+        $data = $this->issueTokenForScopes($httpClient, $oauthClient, $redirectUri, ApiTokenLevel::advertisedScopes());
+        self::assertArrayHasKey('access_token', $data);
+
+        // The consent-screen choice still narrows the token, even though the client may request more.
+        $accessToken = $this->findAccessTokenForClient($httpClient, $oauthClient);
+        self::assertSame(['read_only'], array_map(static fn (Scope $s) => (string) $s, $accessToken->getScopes()));
+    }
+
     public function testNoPreferenceIsRejectedRatherThanGrantingFullScope(): void
     {
         $httpClient = static::createClient();

@@ -75,9 +75,6 @@ class ClientRegistrationController extends AbstractController
     private const MAX_CLIENT_NAME_LENGTH = 128;
     private const MAX_BODY_LENGTH = 65536;
 
-    /**
-     * @param list<string> $defaultScopes
-     */
     public function __construct(
         private readonly ClientManagerInterface $clientManager,
         private readonly ScopeManagerInterface $scopeManager,
@@ -85,8 +82,6 @@ class ClientRegistrationController extends AbstractController
         private readonly EntityManagerInterface $entityManager,
         #[Autowire(service: 'limiter.oauth_client_registration')]
         private readonly RateLimiterFactory $registrationLimiter,
-        #[Autowire('%league.oauth2_server.scopes.default%')]
-        private readonly array $defaultScopes,
     ) {
     }
 
@@ -196,12 +191,30 @@ class ClientRegistrationController extends AbstractController
     }
 
     /**
+     * Scopes a client gets if it doesn't request any at registration: everything Part-DB advertises to
+     * MCP clients (WWW-Authenticate header and scopes_supported in the discovery metadata).
+     *
+     * Not league_oauth2_server.yaml's scopes.default (just read_only): the scopes stored on the client
+     * are only checked by the bundle's ScopeRepository::setupScopes() at the *token* exchange, after
+     * the user already approved the consent screen. Clients like Gemini register without a scope but
+     * then request every advertised scope at /oauth/authorize, which would fail with invalid_scope
+     * right after consent. This grants no extra access: the consent screen and
+     * App\EventListener\OAuth\OAuthScopeResolveListener still narrow the token to the level the user picks.
+     *
+     * @return list<string>
+     */
+    private function defaultScopes(): array
+    {
+        return ApiTokenLevel::advertisedScopes();
+    }
+
+    /**
      * @return list<string>|JsonResponse
      */
     private function validateScopes(mixed $scopeString): array|JsonResponse
     {
         if (null === $scopeString) {
-            return $this->defaultScopes;
+            return $this->defaultScopes();
         }
 
         if (!\is_string($scopeString)) {
@@ -210,7 +223,7 @@ class ClientRegistrationController extends AbstractController
 
         $scopes = array_values(array_filter(explode(' ', $scopeString), static fn (string $s): bool => '' !== $s));
         if ([] === $scopes) {
-            return $this->defaultScopes;
+            return $this->defaultScopes();
         }
 
         foreach ($scopes as $scope) {

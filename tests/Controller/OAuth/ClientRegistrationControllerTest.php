@@ -50,7 +50,7 @@ final class ClientRegistrationControllerTest extends WebTestCase
         self::assertSame(['authorization_code', 'refresh_token'], $data['grant_types']);
         self::assertSame(['code'], $data['response_types']);
         self::assertSame('none', $data['token_endpoint_auth_method']);
-        self::assertSame('read_only', $data['scope']);
+        self::assertSame('read_only edit', $data['scope']);
 
         $client = $httpClient->getContainer()->get(ClientManagerInterface::class)->find($data['client_id']);
         self::assertNotNull($client);
