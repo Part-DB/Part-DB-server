@@ -210,6 +210,22 @@ Attachment types define logical groups of attachments. For example, you could de
 where all datasheets of Parts, Footprints, etc. belong in, "Pictures" for preview images and more.
 You can define file type restrictions, and which file types and extensions are allowed for files with that attachment type.
 
+## Project System
+
+A project is a concept that defines combinations of multiple parts via a bill of materials (BOM).
+In the typical (electronic) context of Part-DB, it would mostly be used for printed circuit board assemblies (PCBAs).
+It can also contain basic metadata, attachments, and parameters, to describe the project in more detail.
+
+Additionally, projects themselves can be *instantiated*, i.e. made into a "builds part", which can then be referenced in another project's BOM.
+Like other entities, projects are hierarchical, so not only PCBAs, but complete products can be built from the ground up.
+It is a powerful tool to structure your builds and organize the production process.
+
+### Building
+
+A project can be *built*, which means that the quantities of the parts that are listed in the BOM are withdrawn from the stocks you have.
+A project which has an associated builds part will have its stocks automatically increased accordingly.
+It represents the process of physically assembling the parts into a whole.
+
 ## User System
 
 ### User
