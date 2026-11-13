@@ -14946,6 +14946,24 @@ Buerklin-API-Authentication-Server:
         <target>Erweiterter Zugriff</target>
       </segment>
     </unit>
+    <unit id="rdPg7aQ" name="oauth.authorize.redirect.title">
+      <segment state="translated">
+        <source>oauth.authorize.redirect.title</source>
+        <target>Zurück zur Anwendung</target>
+      </segment>
+    </unit>
+    <unit id="rdPg7aR" name="oauth.authorize.redirect.description">
+      <segment state="translated">
+        <source>oauth.authorize.redirect.description</source>
+        <target>Sie werden zur Anwendung zurückgeleitet. Falls nichts passiert, klicken Sie auf die Schaltfläche unten.</target>
+      </segment>
+    </unit>
+    <unit id="rdPg7aS" name="oauth.authorize.redirect.continue">
+      <segment state="translated">
+        <source>oauth.authorize.redirect.continue</source>
+        <target>Weiter zur Anwendung</target>
+      </segment>
+    </unit>
     <unit id="0SCwv63" name="user.settings.oauth_connected_apps">
       <segment state="translated">
         <source>user.settings.oauth_connected_apps</source>

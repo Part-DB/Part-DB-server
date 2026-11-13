@@ -31,6 +31,7 @@ use League\Bundle\OAuth2ServerBundle\Model\Client;
 use League\Bundle\OAuth2ServerBundle\ValueObject\Grant;
 use League\Bundle\OAuth2ServerBundle\ValueObject\RedirectUri;
 use League\Bundle\OAuth2ServerBundle\ValueObject\Scope;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
@@ -91,6 +92,33 @@ final class AuthorizationConsentListenerTest extends WebTestCase
         self::assertResponseStatusCodeSame(401);
     }
 
+    /**
+     * After the consent form was submitted, the user is sent back to the client via an intermediate page with a
+     * meta refresh instead of an HTTP redirect (see App\EventListener\OAuth\OAuthAuthorizeRedirectPageListener),
+     * so the consent page's CSP form-action does not apply to the client's redirect chain.
+     *
+     * @return string the redirect target of the page
+     */
+    private function assertRedirectPage(KernelBrowser $httpClient): string
+    {
+        self::assertResponseIsSuccessful();
+        $response = $httpClient->getResponse();
+        self::assertFalse($response->isRedirect());
+        self::assertStringContainsString('no-store', (string) $response->headers->get('Cache-Control'));
+
+        $crawler = $httpClient->getCrawler();
+        $refresh = $crawler->filter('meta[http-equiv="refresh"]');
+        self::assertCount(1, $refresh);
+        $content = (string) $refresh->attr('content');
+        self::assertMatchesRegularExpression('/^0;url=/', $content);
+        $target = substr($content, \strlen('0;url='));
+
+        // The manual fallback link must point to the same target.
+        self::assertSame($target, $crawler->filter('a.btn-primary')->attr('href'));
+
+        return $target;
+    }
+
     public function testApproveRedirectsWithAuthorizationCode(): void
     {
         $httpClient = static::createClient();
@@ -108,9 +136,7 @@ final class AuthorizationConsentListenerTest extends WebTestCase
         $form = $crawler->selectButton('Approve')->form();
         $httpClient->submit($form);
 
-        self::assertResponseRedirects();
-        $location = $httpClient->getResponse()->headers->get('Location');
-        self::assertNotNull($location);
+        $location = $this->assertRedirectPage($httpClient);
         self::assertStringStartsWith($redirectUri, $location);
         parse_str((string) parse_url($location, PHP_URL_QUERY), $query);
         self::assertArrayHasKey('code', $query);
@@ -133,9 +159,7 @@ final class AuthorizationConsentListenerTest extends WebTestCase
         $form = $crawler->selectButton('Deny')->form();
         $httpClient->submit($form);
 
-        self::assertResponseRedirects();
-        $location = $httpClient->getResponse()->headers->get('Location');
-        self::assertNotNull($location);
+        $location = $this->assertRedirectPage($httpClient);
         parse_str((string) parse_url($location, PHP_URL_QUERY), $query);
         self::assertSame('access_denied', $query['error'] ?? null);
     }
@@ -185,7 +209,7 @@ final class AuthorizationConsentListenerTest extends WebTestCase
         ]);
         $httpClient->submit($form);
 
-        self::assertResponseRedirects();
+        $this->assertRedirectPage($httpClient);
 
         $preferences = static::getContainer()->get(OAuthClientGrantPreferenceManager::class);
         $preference = $preferences->find($admin->getUserIdentifier(), $client->getIdentifier());

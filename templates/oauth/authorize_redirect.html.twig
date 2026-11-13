@@ -1,0 +1,23 @@
+{% extends "main_card.html.twig" %}
+
+{# Shown after the OAuth consent form was submitted, see App\EventListener\OAuth\OAuthAuthorizeRedirectPageListener
+   for why this is not a plain HTTP redirect. #}
+
+{% block title %}{% trans %}oauth.authorize.redirect.title{% endtrans %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <meta http-equiv="refresh" content="0;url={{ redirect_target }}">
+{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-key fa-fw" aria-hidden="true"></i>
+    {% trans %}oauth.authorize.redirect.title{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+    <p>{% trans %}oauth.authorize.redirect.description{% endtrans %}</p>
+    <a class="btn btn-primary" href="{{ redirect_target }}" data-turbo="false">
+        {% trans %}oauth.authorize.redirect.continue{% endtrans %}
+    </a>
+{% endblock %}
