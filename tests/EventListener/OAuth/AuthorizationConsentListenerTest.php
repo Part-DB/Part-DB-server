@@ -144,7 +144,7 @@ final class AuthorizationConsentListenerTest extends WebTestCase
 
     /**
      * form-action does not fall back to default-src, so the consent page (and the return page) must set it
-     * explicitly - see App\EventListener\OAuth\OAuthAuthorizeFormActionCspListener.
+     * explicitly (config/packages/nelmio_security.yaml).
      */
     public function testConsentAndReturnPagesRestrictFormActionToSelf(): void
     {

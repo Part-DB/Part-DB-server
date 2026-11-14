@@ -37,7 +37,7 @@ use Twig\Environment;
  * We could allow the client's redirect_uri host there, but some clients' redirect URIs redirect further to
  * hosts we can't know in advance (e.g. Gemini's https://oauth-redirect.googleusercontent.com/r/... forwards
  * to other Google hosts), which then gets blocked by form-action. A meta refresh starts a new navigation that
- * form-action does not apply to, so the consent page can keep its strict "form-action 'self'".
+ * form-action does not apply to, so the global "form-action 'self'" (nelmio_security.yaml) can stay strict.
  *
  * Safe for the same reason as App\EventListener\OAuth\OAuthExternalRedirectListener: league/oauth2-server has
  * already strictly validated the redirect target against the client's pre-registered redirect_uris.
