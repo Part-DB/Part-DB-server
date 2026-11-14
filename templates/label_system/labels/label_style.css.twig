@@ -70,6 +70,44 @@ hr {
     bottom: 32px;
 }
 
+/* The barcode follows the text, instead of being placed at the fixed position (see label_page_1d.html.twig) */
+.barcode-below-text .C39-container {
+    display: block;
+    position: static;
+}
+
+/* Layout used for labels with a barcode size set (see label_page_barcode.html.twig). Barcode sizes are set inline.
+   All rules are scoped to .label-layout, so that the legacy layouts (label_page_qr/1d.html.twig) are not affected. */
+.label-layout {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.label-layout td {
+    padding: 0;
+    vertical-align: top;
+}
+
+.label-layout .barcode-cell-left {
+    padding-right: 4mm;
+}
+
+.label-layout .barcode-cell-bottom {
+    padding-top: 1mm;
+}
+
+/* Block elements, so that there is no additional line spacing around the barcodes */
+.label-layout .qr, .label-layout .C39 {
+    display: block;
+    max-width: none;
+    max-height: none;
+}
+
+.label-layout .C39-container {
+    display: block;
+    position: static;
+}
+
 .C39-text {
     display: block;
     font-size: 6pt;
