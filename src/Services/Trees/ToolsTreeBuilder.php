@@ -114,6 +114,10 @@ class ToolsTreeBuilder
                 $this->translator->trans('tree.tools.tools.label_dialog'),
                 $this->urlGenerator->generate('label_dialog')
             ))->setIcon("fa-treeview fa-fw fa-solid fa-qrcode");
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('tree.tools.tools.print_agent'),
+                $this->urlGenerator->generate('label_agent')
+            ))->setIcon("fa-treeview fa-fw fa-solid fa-print");
         }
 
         if ($this->security->isGranted('@tools.label_scanner')) {

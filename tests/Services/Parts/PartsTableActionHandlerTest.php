@@ -22,7 +22,17 @@ declare(strict_types=1);
  */
 namespace App\Tests\Services\Parts;
 
+use App\Entity\AgentSystem\Agent;
+use App\Entity\AgentSystem\AgentJob;
+use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Part;
+use App\Entity\UserSystem\User;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use App\Services\Parts\PartsTableActionHandler;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -97,5 +107,67 @@ final class PartsTableActionHandlerTest extends WebTestCase
         // empty parts list means the loop body never executes and no exception is thrown.
         $result = $this->service->handleAction('unknown_action_xyz', [], null, '/test');
         $this->assertNull($result);
+    }
+
+    /**
+     * Logs in admin, gives the request a session (for the flash) and returns the parts with ids 1 and 2.
+     * @return list<Part>
+     */
+    private function loginAndGetParts(): array
+    {
+        $em = self::getContainer()->get(EntityManagerInterface::class);
+        $admin = $em->getRepository(User::class)->findOneBy(['name' => 'admin']);
+        self::getContainer()->get('security.token_storage')->setToken(new UsernamePasswordToken($admin, 'main', $admin->getRoles()));
+        $request = new Request();
+        $request->setSession(new Session(new MockArraySessionStorage()));
+        self::getContainer()->get(RequestStack::class)->push($request);
+        return [$em->find(Part::class, 1), $em->find(Part::class, 2)];
+    }
+
+    public function testPrintLabelSendsAJobToTheDefaultPrinter(): void
+    {
+        $parts = $this->loginAndGetParts();
+        $em = self::getContainer()->get(EntityManagerInterface::class);
+        $agent = (new Agent())->setOwner($em->getRepository(User::class)->findOneBy(['name' => 'admin']))
+            ->setUuid('table-test-agent')->setPrinters([['id' => 'fake']])->setLastSeenAt(new \DateTimeImmutable());
+        $em->persist($agent);
+        $em->find(LabelProfile::class, 1)->setDefaultPrinter('fake');
+        $em->flush();
+
+        $result = $this->service->handleAction('print_label', $parts, 1, '/en/parts');
+
+        $this->assertSame('/en/parts', $result?->getTargetUrl());
+        $jobs = $em->getRepository(AgentJob::class)->findAll();
+        $this->assertCount(1, $jobs);
+        $this->assertSame(['profile_id' => 1, 'element_type' => 'part', 'element_ids' => '1,2'], $jobs[0]->getPayload());
+        $this->assertNotEmpty(self::getContainer()->get(RequestStack::class)->getSession()->getFlashBag()->peek('success'));
+    }
+
+    public function testPrintLabelWithoutAgentPrinterOpensTheDialog(): void
+    {
+        $parts = $this->loginAndGetParts();
+
+        $result = $this->service->handleAction('print_label', $parts, 1, '/en/parts');
+
+        $this->assertStringContainsString('/label/1/dialog', $result?->getTargetUrl() ?? '');
+        $this->assertStringContainsString('generate=1', $result->getTargetUrl());
+        $this->assertCount(0, self::getContainer()->get(EntityManagerInterface::class)->getRepository(AgentJob::class)->findAll());
+    }
+
+    public function testPrintLotLabelsForPartsWithoutLotsOpensTheDialog(): void
+    {
+        $this->loginAndGetParts();
+        $em = self::getContainer()->get(EntityManagerInterface::class);
+        $agent = (new Agent())->setOwner($em->getRepository(User::class)->findOneBy(['name' => 'admin']))
+            ->setUuid('table-test-agent')->setPrinters([['id' => 'fake']])->setLastSeenAt(new \DateTimeImmutable());
+        $em->persist($agent);
+        $em->find(LabelProfile::class, 3)->setDefaultPrinter('fake'); //fixture profile 3 is for part lots
+        $em->flush();
+        $withoutLots = [new Part(), new Part()];
+
+        $result = $this->service->handleAction('print_label_lot', $withoutLots, 3, '/en/parts');
+
+        $this->assertStringContainsString('/label/3/dialog', $result?->getTargetUrl() ?? '');
+        $this->assertCount(0, $em->getRepository(AgentJob::class)->findAll());
     }
 }
