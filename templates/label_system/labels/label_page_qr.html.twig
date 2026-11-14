@@ -1,5 +1,6 @@
 <div>
-    <div class="row">
+    {# If the lines contain floating images, the columns must not be floats themselves, as dompdf can not handle nested floats #}
+    <div class="row{% if element.has_floating_images %} row-inline{% endif %}">
         <div class="col-5">
             <div class="qr-container">
                 <a href="{{ element.barcode_content }}">
@@ -8,6 +9,7 @@
             </div>
             {#{{ element.barcode | raw }} #}
         </div>
+        {#- No whitespace between the columns, as it would be rendered as a gap for inline-block columns (see .row-inline) -#}
         <div class="col-7">
             <div class="lines-container">
                 {{ element.lines | raw }}

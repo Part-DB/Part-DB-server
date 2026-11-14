@@ -73,6 +73,16 @@ class LabelOptions
     protected BarcodeType $barcode_type = BarcodeType::NONE;
 
     /**
+     * @var float|null The size of the barcode in mm (the edge length for 2D barcodes, the width for 1D barcodes).
+     * Null means that the size is determined automatically based on the label size.
+     * This applies to both the default barcode layout and to barcode images placed in the lines.
+     */
+    #[Assert\Positive]
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
+    #[Groups(["extended", "full", "import"])]
+    protected ?float $barcode_size = null;
+
+    /**
      * @var LabelPictureType What image should be shown along the label
      */
     #[ORM\Column(type: Types::STRING, enumType: LabelPictureType::class)]
@@ -135,6 +145,18 @@ class LabelOptions
     public function setBarcodeType(BarcodeType $barcode_type): self
     {
         $this->barcode_type = $barcode_type;
+
+        return $this;
+    }
+
+    public function getBarcodeSize(): ?float
+    {
+        return $this->barcode_size;
+    }
+
+    public function setBarcodeSize(?float $barcode_size): self
+    {
+        $this->barcode_size = $barcode_size;
 
         return $this;
     }
