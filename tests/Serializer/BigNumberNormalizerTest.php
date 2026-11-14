@@ -83,5 +83,7 @@ final class BigNumberNormalizerTest extends WebTestCase
         $bigInteger = $this->service->denormalize(1234, BigInteger::class);
         $this->assertInstanceOf(BigInteger::class, $bigInteger);
         $this->assertSame('1234', (string) $bigInteger);
+
+        $this->assertNull($this->service->denormalize('', BigDecimal::class));
     }
 }
