@@ -128,6 +128,16 @@
                 <a data-turbo="false" class="btn btn-secondary" href="#" {{ stimulus_controller('pages/label_download_btn')}} {{ stimulus_action('pages/label_download_btn', 'download')}} download="{{ filename ?? '' }}">
                     {% trans %}label_generator.download{% endtrans %}
                 </a>
+                {% if profile %}
+                    <button type="button" class="btn btn-primary d-none" title="{% trans %}label_generator.print.title{% endtrans %}"
+                            {{ stimulus_controller('pages/print_agent_print', {
+                                'profile': profile.id,
+                                'ids': form.target_id.vars.value,
+                                'type': profile.options.supportedElement.value
+                            }) }} {{ stimulus_action('pages/print_agent_print', 'print') }}>
+                        <i class="fas fa-print fa-fw"></i> {% trans %}label_generator.print{% endtrans %}
+                    </button>
+                {% endif %}
             </div>
         </div>
     {% endif %}
