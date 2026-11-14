@@ -27,6 +27,7 @@ use App\Form\InfoProviderSystem\ProviderSelectType;
 use App\Settings\SettingsIcon;
 use Jbtronics\SettingsBundle\ParameterTypes\ArrayType;
 use Jbtronics\SettingsBundle\ParameterTypes\StringType;
+use Jbtronics\SettingsBundle\Metadata\EnvVarMode;
 use Jbtronics\SettingsBundle\Settings\Settings;
 use Jbtronics\SettingsBundle\Settings\SettingsParameter;
 use Symfony\Component\Translation\TranslatableMessage as TM;
@@ -70,4 +71,35 @@ class InfoProviderGeneralSettings
         description: new TM("settings.ips.rate_limit_max_wait.help"))]
     #[Assert\Range(min: 0, max: 600)]
     public int $rateLimitMaxWait = 30;
+
+    /**
+     * @var string[] The keys of the providers, which fill a part without info provider data when its info page is
+     * opened for the first time (see ProviderOnViewFetcher). Empty means that viewing a part never contacts a provider.
+     */
+    #[SettingsParameter(type: ArrayType::class, label: new TM("settings.ips.fetch_on_view_providers"),
+        description: new TM("settings.ips.fetch_on_view_providers.help"), options: ['type' => StringType::class],
+        formType: ProviderSelectType::class, formOptions: ['input' => 'string', 'required' => false, 'empty_data' => []],
+        envVar: "PROVIDER_FETCH_ON_VIEW", envVarMode: EnvVarMode::OVERWRITE, envVarMapper: [self::class, 'mapFetchOnViewProvidersEnv'])]
+    public array $fetchOnViewProviders = [];
+
+    /**
+     * @var int The maximum number of parts which are looked up at a single provider within 24 hours because their
+     * page was viewed. 0 means no limit.
+     */
+    #[SettingsParameter(label: new TM("settings.ips.fetch_on_view_daily_limit"),
+        description: new TM("settings.ips.fetch_on_view_daily_limit.help"),
+        envVar: "int:PROVIDER_FETCH_ON_VIEW_DAILY_LIMIT", envVarMode: EnvVarMode::OVERWRITE)]
+    #[Assert\Range(min: 0, max: 100000)]
+    public int $fetchOnViewDailyLimit = 100;
+
+    /**
+     * Turns the comma separated list of provider keys of the PROVIDER_FETCH_ON_VIEW environment variable into an array
+     * @return string[]
+     */
+    public static function mapFetchOnViewProvidersEnv(string $providers): array
+    {
+        $keys = array_map(static fn(string $key): string => strtolower(trim($key)), explode(',', $providers));
+
+        return array_values(array_unique(array_filter($keys, static fn(string $key): bool => $key !== '')));
+    }
 }

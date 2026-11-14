@@ -31,6 +31,10 @@
 {% endblock %}
 
 {% block card_content %}
+    {% if fetch_on_view_provider is not null %}
+        {% include "parts/info/_provider_fetch.html.twig" with {provider_name: fetch_on_view_provider} %}
+    {% endif %}
+
     <div class="row">
         <div class="col col-md-3 mt-auto mb-auto">
             {% include "parts/info/_picture.html.twig" %}
